@@ -506,21 +506,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-if|if
-condition|(
-name|ht
-operator|instanceof
-name|HTableInterface
-condition|)
-block|{
-name|HTableInterface
-name|hti
-init|=
-operator|(
-name|HTableInterface
-operator|)
-name|ht
-decl_stmt|;
 comment|// Check getRowOrBefore
 name|byte
 index|[]
@@ -573,7 +558,6 @@ name|f
 argument_list|)
 argument_list|)
 expr_stmt|;
-block|}
 comment|// Check scan.
 name|ResultScanner
 name|scanner

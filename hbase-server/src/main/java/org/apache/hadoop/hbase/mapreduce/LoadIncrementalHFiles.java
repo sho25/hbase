@@ -2687,9 +2687,7 @@ name|familyNames
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|(
 name|families
 operator|.
@@ -2977,15 +2975,7 @@ name|loadingFutures
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|Future
-argument_list|<
-name|List
-argument_list|<
-name|LoadQueueItem
-argument_list|>
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for

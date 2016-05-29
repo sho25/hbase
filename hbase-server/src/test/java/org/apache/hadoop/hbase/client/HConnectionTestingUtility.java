@@ -680,14 +680,14 @@ name|class
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|HTableInterface
+name|Table
 name|t
 init|=
 name|Mockito
 operator|.
 name|mock
 argument_list|(
-name|HTableInterface
+name|Table
 operator|.
 name|class
 argument_list|)

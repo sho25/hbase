@@ -1834,19 +1834,11 @@ index|[]
 index|[]
 block|{
 block|{
-operator|new
-name|Boolean
-argument_list|(
 literal|false
-argument_list|)
 block|}
 block|,
 block|{
-operator|new
-name|Boolean
-argument_list|(
 literal|true
-argument_list|)
 block|}
 block|}
 argument_list|)
@@ -2017,10 +2009,7 @@ name|configurations
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Object
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -2091,10 +2080,7 @@ name|configurations
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Object
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|configurations
@@ -2181,10 +2167,7 @@ name|configurations
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Object
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|configurations
@@ -3030,8 +3013,6 @@ argument_list|()
 decl_stmt|;
 name|Path
 name|newDataTestDir
-init|=
-literal|null
 decl_stmt|;
 if|if
 condition|(
@@ -5050,7 +5031,7 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 expr_stmt|;
 comment|// create immediately the hbaseAdmin
@@ -5787,10 +5768,7 @@ name|fams
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|(
 name|families
 operator|.
@@ -5839,7 +5817,7 @@ return|;
 block|}
 comment|/**    * Create a table.    * @param tableName    * @param family    * @return An HTable instance for the created table.    * @throws IOException    */
 specifier|public
-name|HTable
+name|Table
 name|createTable
 parameter_list|(
 name|TableName
@@ -5869,7 +5847,7 @@ return|;
 block|}
 comment|/**    * Create a table with multiple regions.    * @param tableName    * @param family    * @param numRegions    * @return An HTable instance for the created table.    * @throws IOException    */
 specifier|public
-name|HTable
+name|Table
 name|createMultiRegionTable
 parameter_list|(
 name|TableName
@@ -5957,7 +5935,7 @@ return|;
 block|}
 comment|/**    * Create a table.    * @param tableName    * @param families    * @return An HTable instance for the created table.    * @throws IOException    */
 specifier|public
-name|HTable
+name|Table
 name|createTable
 parameter_list|(
 name|TableName
@@ -5989,7 +5967,7 @@ return|;
 block|}
 comment|/**    * Create a table with multiple regions.    * @param tableName    * @param families    * @return An HTable instance for the created table.    * @throws IOException    */
 specifier|public
-name|HTable
+name|Table
 name|createMultiRegionTable
 parameter_list|(
 name|TableName
@@ -6016,7 +5994,7 @@ return|;
 block|}
 comment|/**    * Create a table.    * @param tableName    * @param families    * @param splitKeys    * @return An HTable instance for the created table.    * @throws IOException    */
 specifier|public
-name|HTable
+name|Table
 name|createTable
 parameter_list|(
 name|TableName
@@ -6054,7 +6032,7 @@ argument_list|)
 return|;
 block|}
 specifier|public
-name|HTable
+name|Table
 name|createTable
 parameter_list|(
 name|TableName
@@ -6122,7 +6100,7 @@ name|hcd
 argument_list|)
 expr_stmt|;
 block|}
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|createTable
@@ -6144,9 +6122,6 @@ name|tableName
 argument_list|)
 expr_stmt|;
 return|return
-operator|(
-name|HTable
-operator|)
 name|getConnection
 argument_list|()
 operator|.
@@ -6158,7 +6133,7 @@ return|;
 block|}
 comment|/**    * Create a table.    * @param htd    * @param families    * @param c Configuration to use    * @return An HTable instance for the created table.    * @throws IOException    */
 specifier|public
-name|HTable
+name|Table
 name|createTable
 parameter_list|(
 name|HTableDescriptor
@@ -6182,11 +6157,6 @@ name|htd
 argument_list|,
 name|families
 argument_list|,
-operator|(
-name|byte
-index|[]
-index|[]
-operator|)
 literal|null
 argument_list|,
 name|c
@@ -6195,7 +6165,7 @@ return|;
 block|}
 comment|/**    * Create a table.    * @param htd    * @param families    * @param splitKeys    * @param c Configuration to use    * @return An HTable instance for the created table.    * @throws IOException    */
 specifier|public
-name|HTable
+name|Table
 name|createTable
 parameter_list|(
 name|HTableDescriptor
@@ -6255,7 +6225,7 @@ name|hcd
 argument_list|)
 expr_stmt|;
 block|}
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|createTable
@@ -6276,9 +6246,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 return|return
-operator|(
-name|HTable
-operator|)
 name|getConnection
 argument_list|()
 operator|.
@@ -6293,7 +6260,7 @@ return|;
 block|}
 comment|/**    * Create a table.    * @param htd    * @param splitRows    * @return An HTable instance for the created table.    * @throws IOException    */
 specifier|public
-name|HTable
+name|Table
 name|createTable
 parameter_list|(
 name|HTableDescriptor
@@ -6307,7 +6274,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|createTable
@@ -6328,9 +6295,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 return|return
-operator|(
-name|HTable
-operator|)
 name|getConnection
 argument_list|()
 operator|.
@@ -6345,7 +6309,7 @@ return|;
 block|}
 comment|/**    * Create a table.    * @param tableName    * @param families    * @param splitKeys    * @param c Configuration to use    * @return An HTable instance for the created table.    * @throws IOException    */
 specifier|public
-name|HTable
+name|Table
 name|createTable
 parameter_list|(
 name|TableName
@@ -6387,7 +6351,7 @@ return|;
 block|}
 comment|/**    * Create a table.    * @param tableName    * @param family    * @param numVersions    * @return An HTable instance for the created table.    * @throws IOException    */
 specifier|public
-name|HTable
+name|Table
 name|createTable
 parameter_list|(
 name|TableName
@@ -6422,7 +6386,7 @@ return|;
 block|}
 comment|/**    * Create a table.    * @param tableName    * @param families    * @param numVersions    * @return An HTable instance for the created table.    * @throws IOException    */
 specifier|public
-name|HTable
+name|Table
 name|createTable
 parameter_list|(
 name|TableName
@@ -6459,7 +6423,7 @@ return|;
 block|}
 comment|/**    * Create a table.    * @param tableName    * @param families    * @param numVersions    * @param splitKeys    * @return An HTable instance for the created table.    * @throws IOException    */
 specifier|public
-name|HTable
+name|Table
 name|createTable
 parameter_list|(
 name|TableName
@@ -6521,7 +6485,7 @@ name|hcd
 argument_list|)
 expr_stmt|;
 block|}
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|createTable
@@ -6539,9 +6503,6 @@ name|tableName
 argument_list|)
 expr_stmt|;
 return|return
-operator|(
-name|HTable
-operator|)
 name|getConnection
 argument_list|()
 operator|.
@@ -6553,7 +6514,7 @@ return|;
 block|}
 comment|/**    * Create a table with multiple regions.    * @param tableName    * @param families    * @param numVersions    * @return An HTable instance for the created table.    * @throws IOException    */
 specifier|public
-name|HTable
+name|Table
 name|createMultiRegionTable
 parameter_list|(
 name|TableName
@@ -6585,7 +6546,7 @@ return|;
 block|}
 comment|/**    * Create a table.    * @param tableName    * @param families    * @param numVersions    * @param blockSize    * @return An HTable instance for the created table.    * @throws IOException    */
 specifier|public
-name|HTable
+name|Table
 name|createTable
 parameter_list|(
 name|TableName
@@ -6650,7 +6611,7 @@ name|hcd
 argument_list|)
 expr_stmt|;
 block|}
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|createTable
@@ -6666,9 +6627,6 @@ name|tableName
 argument_list|)
 expr_stmt|;
 return|return
-operator|(
-name|HTable
-operator|)
 name|getConnection
 argument_list|()
 operator|.
@@ -6679,7 +6637,7 @@ argument_list|)
 return|;
 block|}
 specifier|public
-name|HTable
+name|Table
 name|createTable
 parameter_list|(
 name|TableName
@@ -6762,7 +6720,7 @@ name|cpName
 argument_list|)
 expr_stmt|;
 block|}
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|createTable
@@ -6778,9 +6736,6 @@ name|tableName
 argument_list|)
 expr_stmt|;
 return|return
-operator|(
-name|HTable
-operator|)
 name|getConnection
 argument_list|()
 operator|.
@@ -6792,7 +6747,7 @@ return|;
 block|}
 comment|/**    * Create a table.    * @param tableName    * @param families    * @param numVersions    * @return An HTable instance for the created table.    * @throws IOException    */
 specifier|public
-name|HTable
+name|Table
 name|createTable
 parameter_list|(
 name|TableName
@@ -6861,7 +6816,7 @@ name|i
 operator|++
 expr_stmt|;
 block|}
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|createTable
@@ -6877,9 +6832,6 @@ name|tableName
 argument_list|)
 expr_stmt|;
 return|return
-operator|(
-name|HTable
-operator|)
 name|getConnection
 argument_list|()
 operator|.
@@ -6891,7 +6843,7 @@ return|;
 block|}
 comment|/**    * Create a table.    * @param tableName    * @param family    * @param splitRows    * @return An HTable instance for the created table.    * @throws IOException    */
 specifier|public
-name|HTable
+name|Table
 name|createTable
 parameter_list|(
 name|TableName
@@ -6934,7 +6886,7 @@ argument_list|(
 name|hcd
 argument_list|)
 expr_stmt|;
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|createTable
@@ -6952,9 +6904,6 @@ name|tableName
 argument_list|)
 expr_stmt|;
 return|return
-operator|(
-name|HTable
-operator|)
 name|getConnection
 argument_list|()
 operator|.
@@ -6966,7 +6915,7 @@ return|;
 block|}
 comment|/**    * Create a table with multiple regions.    * @param tableName    * @param family    * @return An HTable instance for the created table.    * @throws IOException    */
 specifier|public
-name|HTable
+name|Table
 name|createMultiRegionTable
 parameter_list|(
 name|TableName
@@ -7241,7 +7190,7 @@ name|IOException
 block|{
 try|try
 block|{
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|disableTable
@@ -7268,7 +7217,7 @@ literal|" already disabled, so just deleting it."
 argument_list|)
 expr_stmt|;
 block|}
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|deleteTable
@@ -8029,7 +7978,7 @@ comment|//
 comment|// ==========================================================================
 comment|/**    * Provide an existing table name to truncate.    * Scans the table and issues a delete for each row read.    * @param tableName existing table    * @return HTable to that new table    * @throws IOException    */
 specifier|public
-name|HTable
+name|Table
 name|deleteTableData
 parameter_list|(
 name|TableName
@@ -8038,12 +7987,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HTable
+name|Table
 name|table
 init|=
-operator|(
-name|HTable
-operator|)
 name|getConnection
 argument_list|()
 operator|.
@@ -8117,7 +8063,7 @@ return|;
 block|}
 comment|/**    * Truncate a table using the admin command.    * Effectively disables, deletes, and recreates the table.    * @param tableName table which must exist.    * @param preserveRegions keep the existing split points    * @return HTable for the new table    */
 specifier|public
-name|HTable
+name|Table
 name|truncateTable
 parameter_list|(
 specifier|final
@@ -8134,7 +8080,7 @@ block|{
 name|Admin
 name|admin
 init|=
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 decl_stmt|;
 if|if
@@ -8166,9 +8112,6 @@ name|preserveRegions
 argument_list|)
 expr_stmt|;
 return|return
-operator|(
-name|HTable
-operator|)
 name|getConnection
 argument_list|()
 operator|.
@@ -8180,7 +8123,7 @@ return|;
 block|}
 comment|/**    * Truncate a table using the admin command.    * Effectively disables, deletes, and recreates the table.    * For previous behavior of issuing row deletes, see    * deleteTableData.    * Expressly does not preserve regions of existing table.    * @param tableName table which must exist.    * @return HTable for the new table    */
 specifier|public
-name|HTable
+name|Table
 name|truncateTable
 parameter_list|(
 specifier|final
@@ -12866,7 +12809,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|closeRegion
@@ -13001,9 +12944,7 @@ name|attempted
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|Integer
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|int
@@ -17337,7 +17278,7 @@ name|HRegionInfo
 argument_list|>
 name|regions
 init|=
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|getOnlineRegions
@@ -17442,7 +17383,7 @@ name|HRegionInfo
 argument_list|>
 name|regions
 init|=
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|getOnlineRegions
@@ -18004,7 +17945,7 @@ throws|throws
 name|IOException
 block|{
 return|return
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|tableExists
@@ -18012,7 +17953,7 @@ argument_list|(
 name|tableName
 argument_list|)
 operator|&&
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|isTableEnabled
@@ -18085,7 +18026,7 @@ throws|throws
 name|IOException
 block|{
 return|return
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|isTableDisabled
@@ -18154,7 +18095,7 @@ block|{
 name|boolean
 name|tableAvailable
 init|=
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|isTableAvailable
@@ -18173,7 +18114,7 @@ name|Canary
 operator|.
 name|sniff
 argument_list|(
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 argument_list|,
 name|tableName
@@ -18426,9 +18367,7 @@ name|htds
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|HColumnDescriptor
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|long
@@ -18565,11 +18504,7 @@ name|supportedAlgos
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Compression
-operator|.
-name|Algorithm
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -18711,9 +18646,7 @@ name|cells
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|1
 argument_list|)

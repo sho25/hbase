@@ -173,7 +173,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTable
+name|Put
 import|;
 end_import
 
@@ -189,7 +189,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Put
+name|Table
 import|;
 end_import
 
@@ -751,7 +751,7 @@ argument_list|()
 decl_stmt|;
 try|try
 init|(
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL
@@ -1194,7 +1194,7 @@ decl_stmt|;
 comment|// create 5 regions with sizes to trigger merge of small regions
 try|try
 init|(
-name|HTable
+name|Table
 name|ht
 init|=
 name|TEST_UTIL

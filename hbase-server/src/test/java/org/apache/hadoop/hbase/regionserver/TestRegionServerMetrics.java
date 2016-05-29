@@ -3803,7 +3803,7 @@ operator|.
 name|getAdmin
 argument_list|()
 decl_stmt|;
-name|HTable
+name|Table
 name|t
 init|=
 name|TEST_UTIL
@@ -3839,15 +3839,6 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
-name|t
-operator|.
-name|setAutoFlush
-argument_list|(
-literal|true
-argument_list|,
-literal|true
-argument_list|)
-expr_stmt|;
 for|for
 control|(
 name|int

@@ -1102,7 +1102,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * This is used for legacy purposes in {@link HTable#setWriteBufferSize(long)} only. This ought    * not be called for production uses.    * @deprecated Going away when we drop public support for {@link HTableInterface}.    */
+comment|/**    * This is used for legacy purposes in {@link HTable#setWriteBufferSize(long)} only. This ought    * not be called for production uses.    * @deprecated Going away when we drop public support for {@link HTable}.    */
 annotation|@
 name|Deprecated
 specifier|public

@@ -849,7 +849,7 @@ name|NUM_REGIONS
 init|=
 literal|10
 decl_stmt|;
-name|HTable
+name|Table
 name|htable
 init|=
 name|TEST_UTIL

@@ -399,7 +399,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTableInterface
+name|Table
 import|;
 end_import
 
@@ -1658,7 +1658,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|HTableInterface
+name|Table
 name|getTable
 parameter_list|(
 name|TableName
@@ -1674,7 +1674,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|HTableInterface
+name|Table
 name|getTable
 parameter_list|(
 name|TableName

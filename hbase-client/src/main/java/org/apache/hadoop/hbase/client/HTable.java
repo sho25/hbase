@@ -806,7 +806,7 @@ specifier|public
 class|class
 name|HTable
 implements|implements
-name|HTableInterface
+name|Table
 block|{
 specifier|private
 specifier|static
@@ -844,12 +844,6 @@ decl_stmt|;
 specifier|protected
 name|BufferedMutatorImpl
 name|mutator
-decl_stmt|;
-specifier|private
-name|boolean
-name|autoFlush
-init|=
-literal|true
 decl_stmt|;
 specifier|private
 name|boolean
@@ -1414,24 +1408,6 @@ return|return
 name|configuration
 return|;
 block|}
-comment|/**    * {@inheritDoc}    */
-annotation|@
-name|Override
-specifier|public
-name|byte
-index|[]
-name|getTableName
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|tableName
-operator|.
-name|getName
-argument_list|()
-return|;
-block|}
 annotation|@
 name|Override
 specifier|public
@@ -1790,7 +1766,7 @@ name|regionsInRange
 argument_list|)
 return|;
 block|}
-comment|/**    * The underlying {@link HTable} must not be closed.    * {@link HTableInterface#getScanner(Scan)} has other usage details.    */
+comment|/**    * The underlying {@link HTable} must not be closed.    * {@link Table#getScanner(Scan)} has other usage details.    */
 annotation|@
 name|Override
 specifier|public
@@ -2089,7 +2065,7 @@ return|;
 block|}
 block|}
 block|}
-comment|/**    * The underlying {@link HTable} must not be closed.    * {@link HTableInterface#getScanner(byte[])} has other usage details.    */
+comment|/**    * The underlying {@link HTable} must not be closed.    * {@link Table#getScanner(byte[])} has other usage details.    */
 annotation|@
 name|Override
 specifier|public
@@ -2124,7 +2100,7 @@ name|scan
 argument_list|)
 return|;
 block|}
-comment|/**    * The underlying {@link HTable} must not be closed.    * {@link HTableInterface#getScanner(byte[], byte[])} has other usage details.    */
+comment|/**    * The underlying {@link HTable} must not be closed.    * {@link Table#getScanner(byte[], byte[])} has other usage details.    */
 annotation|@
 name|Override
 specifier|public
@@ -3099,15 +3075,9 @@ argument_list|(
 name|put
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|autoFlush
-condition|)
-block|{
 name|flushCommits
 argument_list|()
 expr_stmt|;
-block|}
 block|}
 comment|/**    * {@inheritDoc}    * @throws IOException    */
 annotation|@
@@ -3134,15 +3104,9 @@ argument_list|(
 name|puts
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|autoFlush
-condition|)
-block|{
 name|flushCommits
 argument_list|()
 expr_stmt|;
-block|}
 block|}
 comment|/**    * {@inheritDoc}    */
 annotation|@
@@ -5644,9 +5608,6 @@ name|results
 return|;
 block|}
 comment|/**    * {@inheritDoc}    * @throws IOException    */
-annotation|@
-name|Override
-specifier|public
 name|void
 name|flushCommits
 parameter_list|()
@@ -5979,57 +5940,6 @@ block|}
 block|}
 block|}
 block|}
-block|}
-comment|/**    * {@inheritDoc}    */
-annotation|@
-name|Override
-specifier|public
-name|boolean
-name|isAutoFlush
-parameter_list|()
-block|{
-return|return
-name|autoFlush
-return|;
-block|}
-comment|/**    * {@inheritDoc}    */
-annotation|@
-name|Override
-specifier|public
-name|void
-name|setAutoFlushTo
-parameter_list|(
-name|boolean
-name|autoFlush
-parameter_list|)
-block|{
-name|this
-operator|.
-name|autoFlush
-operator|=
-name|autoFlush
-expr_stmt|;
-block|}
-comment|/**    * {@inheritDoc}    */
-annotation|@
-name|Override
-specifier|public
-name|void
-name|setAutoFlush
-parameter_list|(
-name|boolean
-name|autoFlush
-parameter_list|,
-name|boolean
-name|clearBufferOnFail
-parameter_list|)
-block|{
-name|this
-operator|.
-name|autoFlush
-operator|=
-name|autoFlush
-expr_stmt|;
 block|}
 comment|/**    * Returns the maximum size in bytes of the write buffer for this HTable.    *<p>    * The default value comes from the configuration parameter    * {@code hbase.client.write.buffer}.    * @return The size of the write buffer in bytes.    */
 annotation|@

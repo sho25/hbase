@@ -1854,7 +1854,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|HTableInterface
+name|Table
 name|getTable
 parameter_list|(
 name|TableName
@@ -1876,7 +1876,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|HTableInterface
+name|Table
 name|getTable
 parameter_list|(
 name|TableName

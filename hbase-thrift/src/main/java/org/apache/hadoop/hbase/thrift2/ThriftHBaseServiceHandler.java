@@ -820,7 +820,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This class is a glue object that connects Thrift RPC calls to the HBase client API primarily  * defined in the HTableInterface.  */
+comment|/**  * This class is a glue object that connects Thrift RPC calls to the HBase client API primarily  * defined in the Table interface.  */
 end_comment
 
 begin_class
