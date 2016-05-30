@@ -107,6 +107,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CategoryBasedTimeout
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseTestingUtility
 import|;
 end_import
@@ -241,9 +255,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|snapshot
+name|testclassification
 operator|.
-name|TestRestoreFlushSnapshotFromClient
+name|ClientTests
 import|;
 end_import
 
@@ -259,7 +273,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|ClientTests
+name|LargeTests
 import|;
 end_import
 
@@ -367,6 +381,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|ClassRule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Rule
 import|;
 end_import
@@ -415,7 +439,7 @@ name|junit
 operator|.
 name|rules
 operator|.
-name|Timeout
+name|TestRule
 import|;
 end_import
 
@@ -428,7 +452,7 @@ annotation|@
 name|Category
 argument_list|(
 block|{
-name|MediumTests
+name|LargeTests
 operator|.
 name|class
 block|,
@@ -457,16 +481,20 @@ name|class
 argument_list|)
 decl_stmt|;
 annotation|@
-name|Rule
+name|ClassRule
 specifier|public
-name|Timeout
-name|globalTimeout
+specifier|static
+specifier|final
+name|TestRule
+name|timeout
 init|=
-name|Timeout
+name|CategoryBasedTimeout
 operator|.
-name|seconds
+name|forClass
 argument_list|(
-literal|60
+name|TestSnapshotCloneIndependence
+operator|.
+name|class
 argument_list|)
 decl_stmt|;
 annotation|@
