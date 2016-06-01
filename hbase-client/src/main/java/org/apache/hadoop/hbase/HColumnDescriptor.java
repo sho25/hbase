@@ -358,7 +358,7 @@ name|byte
 operator|)
 literal|11
 decl_stmt|;
-specifier|private
+specifier|public
 specifier|static
 specifier|final
 name|String
