@@ -928,6 +928,14 @@ decl_stmt|;
 if|if
 condition|(
 name|regionSize
+operator|>
+literal|0
+operator|&&
+name|regionSize2
+operator|>
+literal|0
+operator|&&
+name|regionSize
 operator|+
 name|regionSize2
 operator|<
