@@ -2950,6 +2950,46 @@ throw|;
 block|}
 block|}
 block|}
+comment|// Check for hfile-refs queue
+if|if
+condition|(
+operator|-
+literal|1
+operator|!=
+name|ZKUtil
+operator|.
+name|checkExists
+argument_list|(
+name|zookeeper
+argument_list|,
+name|hfileRefsZNode
+argument_list|)
+operator|&&
+name|queuesClient
+operator|.
+name|getAllPeersFromHFileRefsQueue
+argument_list|()
+operator|.
+name|contains
+argument_list|(
+name|peerId
+argument_list|)
+condition|)
+block|{
+throw|throw
+operator|new
+name|ReplicationException
+argument_list|(
+literal|"Undeleted queue for peerId: "
+operator|+
+name|peerId
+operator|+
+literal|", found in hfile-refs node path "
+operator|+
+name|hfileRefsZNode
+argument_list|)
+throw|;
+block|}
 block|}
 catch|catch
 parameter_list|(
