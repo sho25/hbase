@@ -429,6 +429,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|Threads
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|Triple
 import|;
 end_import
@@ -616,7 +632,9 @@ name|boolean
 name|enabled
 parameter_list|)
 block|{
-return|return
+name|boolean
+name|alreadyEnabled
+init|=
 name|this
 operator|.
 name|enabled
@@ -625,6 +643,38 @@ name|getAndSet
 argument_list|(
 name|enabled
 argument_list|)
+decl_stmt|;
+comment|// If disabling is requested on an already enabled chore, we could have an active
+comment|// scan still going on, callers might not be aware of that and do further action thinkng
+comment|// that no action would be from this chore.  In this case, the right action is to wait for
+comment|// the active scan to complete before exiting this function.
+if|if
+condition|(
+operator|!
+name|enabled
+operator|&&
+name|alreadyEnabled
+condition|)
+block|{
+while|while
+condition|(
+name|alreadyRunning
+operator|.
+name|get
+argument_list|()
+condition|)
+block|{
+name|Threads
+operator|.
+name|sleepWithoutInterrupt
+argument_list|(
+literal|100
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+return|return
+name|alreadyEnabled
 return|;
 block|}
 name|boolean
