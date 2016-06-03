@@ -14602,6 +14602,55 @@ block|}
 end_function
 
 begin_comment
+comment|/**    * Uses directly the assignment manager to assign the region.    * and waits until the specified region has completed assignment.    * @param tableName the table name    * @throws IOException    * @throw InterruptedException    * @return true if the region is assigned false otherwise.    */
+end_comment
+
+begin_function
+specifier|public
+name|boolean
+name|assignRegion
+parameter_list|(
+specifier|final
+name|HRegionInfo
+name|regionInfo
+parameter_list|)
+throws|throws
+name|IOException
+throws|,
+name|InterruptedException
+block|{
+specifier|final
+name|AssignmentManager
+name|am
+init|=
+name|getHBaseCluster
+argument_list|()
+operator|.
+name|getMaster
+argument_list|()
+operator|.
+name|getAssignmentManager
+argument_list|()
+decl_stmt|;
+name|am
+operator|.
+name|assign
+argument_list|(
+name|regionInfo
+argument_list|)
+expr_stmt|;
+return|return
+name|am
+operator|.
+name|waitForAssignment
+argument_list|(
+name|regionInfo
+argument_list|)
+return|;
+block|}
+end_function
+
+begin_comment
 comment|/**    * Wait until all regions for a table in hbase:meta have a non-empty    * info:server, up to a configuable timeout value (default is 60 seconds)    * This means all regions have been deployed,    * master has been informed and updated hbase:meta with the regions deployed    * server.    * @param tableName the table name    * @throws IOException    */
 end_comment
 

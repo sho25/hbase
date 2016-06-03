@@ -12337,22 +12337,6 @@ operator|.
 name|initializationBeforeMetaAssignment
 return|;
 block|}
-specifier|public
-name|void
-name|assignRegion
-parameter_list|(
-name|HRegionInfo
-name|hri
-parameter_list|)
-block|{
-name|assignmentManager
-operator|.
-name|assign
-argument_list|(
-name|hri
-argument_list|)
-expr_stmt|;
-block|}
 comment|/**    * Compute the average load across all region servers.    * Currently, this uses a very naive computation - just uses the number of    * regions being served, ignoring stats about number of requests.    * @return the average load    */
 specifier|public
 name|double

@@ -3199,12 +3199,6 @@ argument_list|)
 expr_stmt|;
 name|TEST_UTIL
 operator|.
-name|getMiniHBaseCluster
-argument_list|()
-operator|.
-name|getMaster
-argument_list|()
-operator|.
 name|assignRegion
 argument_list|(
 name|h
