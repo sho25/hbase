@@ -3432,7 +3432,10 @@ name|Integer
 name|width
 parameter_list|,
 name|Integer
-name|wrapMuplitplier
+name|wrapMultiplier
+parameter_list|,
+name|Integer
+name|numWalkers
 parameter_list|)
 throws|throws
 name|Exception
@@ -3499,7 +3502,9 @@ name|generatorOutput
 argument_list|,
 name|width
 argument_list|,
-name|wrapMuplitplier
+name|wrapMultiplier
+argument_list|,
+name|numWalkers
 argument_list|)
 decl_stmt|;
 if|if
@@ -3537,7 +3542,7 @@ name|Integer
 name|width
 parameter_list|,
 name|Integer
-name|wrapMuplitplier
+name|wrapMultiplier
 parameter_list|,
 name|int
 name|tableIndex
@@ -4242,7 +4247,7 @@ index|]
 argument_list|)
 decl_stmt|;
 name|Integer
-name|wrapMuplitplier
+name|wrapMultiplier
 init|=
 operator|(
 name|args
@@ -4315,6 +4320,7 @@ argument_list|(
 literal|"Generating data"
 argument_list|)
 expr_stmt|;
+comment|// By default run no concurrent walkers for test with visibility
 name|runGenerator
 argument_list|(
 name|numMappers
@@ -4325,7 +4331,9 @@ name|outputDir
 argument_list|,
 name|width
 argument_list|,
-name|wrapMuplitplier
+name|wrapMultiplier
+argument_list|,
+literal|0
 argument_list|)
 expr_stmt|;
 name|expectedNumNodes
@@ -4415,7 +4423,7 @@ name|outputDir
 argument_list|,
 name|width
 argument_list|,
-name|wrapMuplitplier
+name|wrapMultiplier
 argument_list|,
 name|j
 argument_list|)

@@ -1195,6 +1195,7 @@ name|getConfiguration
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// Disable concurrent walkers for IntegrationTestReplication
 name|int
 name|retCode
 init|=
@@ -1211,6 +1212,8 @@ argument_list|,
 name|width
 argument_list|,
 name|wrapMultiplier
+argument_list|,
+literal|0
 argument_list|)
 decl_stmt|;
 if|if
