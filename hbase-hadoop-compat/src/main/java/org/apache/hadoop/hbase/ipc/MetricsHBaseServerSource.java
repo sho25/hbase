@@ -305,6 +305,24 @@ literal|"A response to a multi request was too large and the "
 operator|+
 literal|"rest of the requests will have to be retried."
 decl_stmt|;
+name|String
+name|RUNNING_READERS
+init|=
+literal|"runningReaders"
+decl_stmt|;
+name|String
+name|RUNNING_READERS_DESCRIPTION
+init|=
+literal|"Count of Reader threads currently busy parsing requests to hand off to the scheduler"
+decl_stmt|;
+name|void
+name|incrRunningReaders
+parameter_list|()
+function_decl|;
+name|void
+name|decrRunningReaders
+parameter_list|()
+function_decl|;
 name|void
 name|authorizationSuccess
 parameter_list|()

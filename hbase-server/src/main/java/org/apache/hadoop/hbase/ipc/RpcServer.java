@@ -3698,7 +3698,8 @@ argument_list|(
 name|name
 argument_list|)
 expr_stmt|;
-comment|// The backlog of requests that we will have the serversocket carry.
+comment|// The backlog of requests that we will have the serversocket carry. It is not enough
+comment|// just setting this config. You need to set the backlog in the kernel too.
 name|int
 name|backlogLength
 init|=
@@ -4046,11 +4047,33 @@ name|isReadable
 argument_list|()
 condition|)
 block|{
+name|metrics
+operator|.
+name|getMetricsSource
+argument_list|()
+operator|.
+name|incrRunningReaders
+argument_list|()
+expr_stmt|;
+try|try
+block|{
 name|doRead
 argument_list|(
 name|key
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
+name|metrics
+operator|.
+name|getMetricsSource
+argument_list|()
+operator|.
+name|decrRunningReaders
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 block|}
 name|key
@@ -4259,11 +4282,13 @@ operator|.
 name|isAcceptable
 argument_list|()
 condition|)
+block|{
 name|doAccept
 argument_list|(
 name|key
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 catch|catch
@@ -6149,6 +6174,7 @@ operator|new
 name|ReentrantLock
 argument_list|()
 decl_stmt|;
+comment|// EXPENSIVE: Counters cost lots of CPU. Remove. Used just to see if idle or not. Use boolean.
 specifier|private
 name|Counter
 name|rpcCount
@@ -10345,6 +10371,19 @@ argument_list|,
 name|DEFAULT_MAX_CALLQUEUE_SIZE
 argument_list|)
 expr_stmt|;
+comment|// Have the Reader thread count default to 1/4 of the processors. This seems to do pretty
+comment|// well. See the metric hbase.regionserver.ipc.runningReaders to see if you need to change it.
+name|int
+name|processors
+init|=
+name|Runtime
+operator|.
+name|getRuntime
+argument_list|()
+operator|.
+name|availableProcessors
+argument_list|()
+decl_stmt|;
 name|this
 operator|.
 name|readThreads
@@ -10355,7 +10394,16 @@ name|getInt
 argument_list|(
 literal|"hbase.ipc.server.read.threadpool.size"
 argument_list|,
-literal|10
+name|Math
+operator|.
+name|max
+argument_list|(
+literal|8
+argument_list|,
+name|processors
+operator|/
+literal|4
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|this
