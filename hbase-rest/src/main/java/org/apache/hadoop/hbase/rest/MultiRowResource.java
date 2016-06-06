@@ -519,6 +519,14 @@ expr_stmt|;
 block|}
 else|else
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|trace
@@ -530,6 +538,7 @@ operator|+
 literal|" not found in the table."
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 if|if

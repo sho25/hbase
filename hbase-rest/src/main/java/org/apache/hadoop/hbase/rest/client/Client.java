@@ -554,7 +554,7 @@ name|sslEnabled
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Shut down the client. Close any open persistent connections.     */
+comment|/**    * Shut down the client. Close any open persistent connections.    */
 specifier|public
 name|void
 name|shutdown
@@ -668,7 +668,7 @@ name|name
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Execute a transaction method given only the path. Will select at random    * one of the members of the supplied cluster definition and iterate through    * the list until a transaction can be successfully completed. The    * definition of success here is a complete HTTP transaction, irrespective    * of result code.      * @param cluster the cluster definition    * @param method the transaction method    * @param headers HTTP header values to send    * @param path the properly urlencoded path    * @return the HTTP response code    * @throws IOException    */
+comment|/**    * Execute a transaction method given only the path. Will select at random    * one of the members of the supplied cluster definition and iterate through    * the list until a transaction can be successfully completed. The    * definition of success here is a complete HTTP transaction, irrespective    * of result code.    * @param cluster the cluster definition    * @param method the transaction method    * @param headers HTTP header values to send    * @param path the properly urlencoded path    * @return the HTTP response code    * @throws IOException    */
 specifier|public
 name|int
 name|executePathOnly
@@ -987,13 +987,13 @@ if|if
 condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
+name|isTraceEnabled
 argument_list|()
 condition|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
 name|method
 operator|.
@@ -1112,7 +1112,7 @@ operator|=
 name|cluster
 expr_stmt|;
 block|}
-comment|/**    * Send a HEAD request     * @param path the path or URI    * @return a Response object with response detail    * @throws IOException    */
+comment|/**    * Send a HEAD request    * @param path the path or URI    * @return a Response object with response detail    * @throws IOException    */
 specifier|public
 name|Response
 name|head
@@ -1134,7 +1134,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * Send a HEAD request     * @param cluster the cluster definition    * @param path the path or URI    * @param headers the HTTP headers to include in the request    * @return a Response object with response detail    * @throws IOException    */
+comment|/**    * Send a HEAD request    * @param cluster the cluster definition    * @param path the path or URI    * @param headers the HTTP headers to include in the request    * @return a Response object with response detail    * @throws IOException    */
 specifier|public
 name|Response
 name|head
@@ -1203,7 +1203,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Send a GET request     * @param path the path or URI    * @return a Response object with response detail    * @throws IOException    */
+comment|/**    * Send a GET request    * @param path the path or URI    * @return a Response object with response detail    * @throws IOException    */
 specifier|public
 name|Response
 name|get
@@ -1223,7 +1223,7 @@ name|path
 argument_list|)
 return|;
 block|}
-comment|/**    * Send a GET request     * @param cluster the cluster definition    * @param path the path or URI    * @return a Response object with response detail    * @throws IOException    */
+comment|/**    * Send a GET request    * @param cluster the cluster definition    * @param path the path or URI    * @return a Response object with response detail    * @throws IOException    */
 specifier|public
 name|Response
 name|get
@@ -1248,7 +1248,7 @@ name|EMPTY_HEADER_ARRAY
 argument_list|)
 return|;
 block|}
-comment|/**    * Send a GET request     * @param path the path or URI    * @param accept Accept header value    * @return a Response object with response detail    * @throws IOException    */
+comment|/**    * Send a GET request    * @param path the path or URI    * @param accept Accept header value    * @return a Response object with response detail    * @throws IOException    */
 specifier|public
 name|Response
 name|get
@@ -1273,7 +1273,7 @@ name|accept
 argument_list|)
 return|;
 block|}
-comment|/**    * Send a GET request     * @param cluster the cluster definition    * @param path the path or URI    * @param accept Accept header value    * @return a Response object with response detail    * @throws IOException    */
+comment|/**    * Send a GET request    * @param cluster the cluster definition    * @param path the path or URI    * @param accept Accept header value    * @return a Response object with response detail    * @throws IOException    */
 specifier|public
 name|Response
 name|get
@@ -1324,7 +1324,7 @@ name|headers
 argument_list|)
 return|;
 block|}
-comment|/**    * Send a GET request    * @param path the path or URI    * @param headers the HTTP headers to include in the request,     *<tt>Accept</tt> must be supplied    * @return a Response object with response detail    * @throws IOException    */
+comment|/**    * Send a GET request    * @param path the path or URI    * @param headers the HTTP headers to include in the request,    *<tt>Accept</tt> must be supplied    * @return a Response object with response detail    * @throws IOException    */
 specifier|public
 name|Response
 name|get

@@ -445,9 +445,17 @@ argument_list|)
 throw|;
 block|}
 block|}
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"Setting property "
 operator|+
@@ -458,6 +466,7 @@ operator|+
 name|value
 argument_list|)
 expr_stmt|;
+block|}
 name|name
 operator|=
 name|name

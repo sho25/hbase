@@ -275,7 +275,7 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Build a response for a version request.    * @param context servlet context    * @param uriInfo (JAX-RS context variable) request URL    * @return a response for a version request     */
+comment|/**    * Build a response for a version request.    * @param context servlet context    * @param uriInfo (JAX-RS context variable) request URL    * @return a response for a version request    */
 annotation|@
 name|GET
 annotation|@
@@ -314,13 +314,13 @@ if|if
 condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
+name|isTraceEnabled
 argument_list|()
 condition|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
 literal|"GET "
 operator|+

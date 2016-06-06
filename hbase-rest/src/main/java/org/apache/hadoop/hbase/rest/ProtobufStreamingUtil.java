@@ -309,9 +309,17 @@ name|fetchSize
 operator|=
 name|fetchSize
 expr_stmt|;
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"Created ScanStreamingUtil with content type = "
 operator|+
@@ -332,6 +340,7 @@ operator|.
 name|fetchSize
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Override
@@ -523,6 +532,14 @@ operator|.
 name|flush
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|trace
@@ -540,6 +557,7 @@ operator|+
 literal|" rows to stream successfully."
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 specifier|private
 name|CellSetModel

@@ -1245,6 +1245,14 @@ name|val
 argument_list|)
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -1254,6 +1262,7 @@ operator|+
 name|val
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|// check if server should only process GET requests, if so override the conf
 if|if
@@ -1282,6 +1291,14 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -1289,6 +1306,7 @@ argument_list|(
 literal|"readonly set to true"
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|// check for user-defined info server port setting, if so override the conf
 if|if
@@ -1332,6 +1350,14 @@ name|val
 argument_list|)
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -1341,6 +1367,7 @@ operator|+
 name|val
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 annotation|@
 name|SuppressWarnings

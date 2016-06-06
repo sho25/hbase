@@ -907,9 +907,17 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"Query parameters  : Table Name => "
 operator|+
@@ -950,6 +958,7 @@ operator|+
 name|batchSize
 argument_list|)
 expr_stmt|;
+block|}
 name|Table
 name|hTable
 init|=
@@ -1066,9 +1075,17 @@ operator|>
 literal|0
 condition|)
 block|{
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"Scan family and column : "
 operator|+
@@ -1085,6 +1102,7 @@ literal|1
 index|]
 argument_list|)
 expr_stmt|;
+block|}
 name|tableScan
 operator|.
 name|addColumn
@@ -1128,9 +1146,17 @@ index|]
 argument_list|)
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"Scan family : "
 operator|+
@@ -1142,6 +1168,7 @@ operator|+
 literal|" and empty qualifier."
 argument_list|)
 expr_stmt|;
+block|}
 name|tableScan
 operator|.
 name|addColumn
@@ -1175,9 +1202,17 @@ index|]
 argument_list|)
 condition|)
 block|{
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"Scan family : "
 operator|+
@@ -1187,6 +1222,7 @@ literal|0
 index|]
 argument_list|)
 expr_stmt|;
+block|}
 name|tableScan
 operator|.
 name|addFamily
