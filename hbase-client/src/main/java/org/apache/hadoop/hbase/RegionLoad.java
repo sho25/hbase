@@ -150,6 +150,10 @@ operator|.
 name|RegionLoad
 name|regionLoadPB
 decl_stmt|;
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 name|RegionLoad
 parameter_list|(

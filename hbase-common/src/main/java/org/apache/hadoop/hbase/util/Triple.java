@@ -65,6 +65,11 @@ specifier|private
 name|C
 name|third
 decl_stmt|;
+comment|// default constructor
+specifier|public
+name|Triple
+parameter_list|()
+block|{    }
 specifier|public
 name|Triple
 parameter_list|(

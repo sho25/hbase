@@ -49,6 +49,10 @@ name|InterfaceStability
 import|;
 end_import
 
+begin_comment
+comment|/**  * POJO representing region server load  */
+end_comment
+
 begin_class
 annotation|@
 name|InterfaceAudience
@@ -58,7 +62,6 @@ annotation|@
 name|InterfaceStability
 operator|.
 name|Evolving
-comment|/**  * POJO representing region server load  */
 specifier|public
 class|class
 name|RegionLoadStats

@@ -316,6 +316,10 @@ name|currentCompactedKVs
 init|=
 literal|0
 decl_stmt|;
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 name|ServerLoad
 parameter_list|(
@@ -447,6 +451,10 @@ block|}
 comment|// NOTE: Function name cannot start with "get" because then an OpenDataException is thrown because
 comment|// HBaseProtos.ServerLoad cannot be converted to an open data type(see HBASE-5967).
 comment|/* @return the underlying ServerLoad protobuf object */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 name|ClusterStatusProtos
 operator|.
