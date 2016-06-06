@@ -6074,8 +6074,6 @@ range|:
 name|connsToClose
 control|)
 block|{
-if|if
-condition|(
 name|conn
 operator|.
 name|markClosed
@@ -6086,14 +6084,12 @@ argument_list|(
 literal|"RpcClient is closing"
 argument_list|)
 argument_list|)
-condition|)
-block|{
+expr_stmt|;
 name|conn
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
-block|}
 block|}
 block|}
 comment|// wait until all connections are closed
