@@ -433,6 +433,15 @@ name|append
 argument_list|(
 literal|","
 argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|tableCFsMap
+operator|!=
+literal|null
+condition|)
+block|{
+name|builder
 operator|.
 name|append
 argument_list|(
@@ -447,6 +456,7 @@ name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 return|return
 name|builder
 operator|.

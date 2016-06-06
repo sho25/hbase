@@ -126,11 +126,6 @@ extends|extends
 name|AbstractTestShell
 block|{
 annotation|@
-name|Ignore
-argument_list|(
-literal|"Disabled because hangs on occasion.. about 10% of the time"
-argument_list|)
-annotation|@
 name|Test
 specifier|public
 name|void
