@@ -577,6 +577,79 @@ name|codecClsName
 init|=
 literal|null
 decl_stmt|;
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
+specifier|public
+name|long
+name|trailerSize
+parameter_list|()
+block|{
+if|if
+condition|(
+name|trailerPresent
+condition|)
+block|{
+comment|// sizeof PB_WAL_COMPLETE_MAGIC + sizof trailerSize + trailer
+specifier|final
+name|long
+name|calculatedSize
+init|=
+name|PB_WAL_COMPLETE_MAGIC
+operator|.
+name|length
+operator|+
+name|Bytes
+operator|.
+name|SIZEOF_INT
+operator|+
+name|trailer
+operator|.
+name|getSerializedSize
+argument_list|()
+decl_stmt|;
+specifier|final
+name|long
+name|expectedSize
+init|=
+name|fileLength
+operator|-
+name|walEditsStopOffset
+decl_stmt|;
+if|if
+condition|(
+name|expectedSize
+operator|!=
+name|calculatedSize
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"After parsing the trailer, we expect the total footer to be "
+operator|+
+name|expectedSize
+operator|+
+literal|" bytes, but we calculate it as being "
+operator|+
+name|calculatedSize
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+name|expectedSize
+return|;
+block|}
+else|else
+block|{
+return|return
+operator|-
+literal|1L
+return|;
+block|}
+block|}
 enum|enum
 name|WALHdrResult
 block|{
@@ -1165,7 +1238,22 @@ literal|", "
 operator|+
 literal|"trailerPresent: "
 operator|+
+operator|(
 name|trailerPresent
+condition|?
+literal|"true, size: "
+operator|+
+name|trailer
+operator|.
+name|getSerializedSize
+argument_list|()
+else|:
+literal|"false"
+operator|)
+operator|+
+literal|", currentPosition: "
+operator|+
+name|currentPosition
 argument_list|)
 expr_stmt|;
 block|}
@@ -1610,6 +1698,24 @@ operator|.
 name|walEditsStopOffset
 condition|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Reached end of expected edits area at offset "
+operator|+
+name|originalPosition
+argument_list|)
+expr_stmt|;
+block|}
 return|return
 literal|false
 return|;
@@ -1661,7 +1767,9 @@ throw|throw
 operator|new
 name|EOFException
 argument_list|(
-literal|"First byte is negative"
+literal|"First byte is negative at offset "
+operator|+
+name|originalPosition
 argument_list|)
 throw|;
 block|}
@@ -1719,6 +1827,15 @@ operator|+
 literal|"entry size= "
 operator|+
 name|size
+operator|+
+literal|" at offset = "
+operator|+
+name|this
+operator|.
+name|inputStream
+operator|.
+name|getPos
+argument_list|()
 argument_list|)
 throw|;
 block|}
@@ -1803,7 +1920,14 @@ name|EOFException
 argument_list|(
 literal|"Partial PB while reading WAL, "
 operator|+
-literal|"probably an unexpected EOF, ignoring"
+literal|"probably an unexpected EOF, ignoring. current offset="
+operator|+
+name|this
+operator|.
+name|inputStream
+operator|.
+name|getPos
+argument_list|()
 argument_list|)
 throw|;
 block|}
@@ -1845,13 +1969,29 @@ name|getFollowingKvCount
 argument_list|()
 condition|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"WALKey has no KVs that follow it; trying the next one"
+literal|"WALKey has no KVs that follow it; trying the next one. current offset="
+operator|+
+name|this
+operator|.
+name|inputStream
+operator|.
+name|getPos
+argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 continue|continue;
 block|}
 name|int
@@ -1939,6 +2079,14 @@ name|Throwable
 name|t
 parameter_list|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|trace
@@ -1948,6 +2096,7 @@ argument_list|,
 name|t
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 name|String
 name|message
@@ -2053,15 +2202,6 @@ name|EOFException
 name|eof
 parameter_list|)
 block|{
-name|LOG
-operator|.
-name|trace
-argument_list|(
-literal|"Encountered a malformed edit, seeking back to last good position in file"
-argument_list|,
-name|eof
-argument_list|)
-expr_stmt|;
 comment|// If originalPosition is< 0, it is rubbish and we cannot use it (probably local fs)
 if|if
 condition|(
@@ -2069,11 +2209,65 @@ name|originalPosition
 operator|<
 literal|0
 condition|)
+block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Encountered a malformed edit, but can't seek back to last good position because originalPosition is negative. last offset="
+operator|+
+name|this
+operator|.
+name|inputStream
+operator|.
+name|getPos
+argument_list|()
+argument_list|,
+name|eof
+argument_list|)
+expr_stmt|;
+block|}
 throw|throw
 name|eof
 throw|;
+block|}
 comment|// Else restore our position to original location in hope that next time through we will
 comment|// read successfully.
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Encountered a malformed edit, seeking back to last good position in file, from "
+operator|+
+name|inputStream
+operator|.
+name|getPos
+argument_list|()
+operator|+
+literal|" to "
+operator|+
+name|originalPosition
+argument_list|,
+name|eof
+argument_list|)
+expr_stmt|;
+block|}
 name|seekOnFs
 argument_list|(
 name|originalPosition
