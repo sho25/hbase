@@ -168,9 +168,7 @@ decl_stmt|;
 name|String
 name|QUEUE_SIZE_DESC
 init|=
-literal|"Number of bytes in the call queues; request has been read and "
-operator|+
-literal|"parsed and is waiting to run or is currently being executed."
+literal|"Number of bytes in the call queues."
 decl_stmt|;
 name|String
 name|GENERAL_QUEUE_NAME
@@ -180,9 +178,7 @@ decl_stmt|;
 name|String
 name|GENERAL_QUEUE_DESC
 init|=
-literal|"Number of calls in the general call queue; "
-operator|+
-literal|"parsed requests waiting in scheduler to be executed"
+literal|"Number of calls in the general call queue."
 decl_stmt|;
 name|String
 name|PRIORITY_QUEUE_NAME
@@ -197,12 +193,12 @@ decl_stmt|;
 name|String
 name|REPLICATION_QUEUE_DESC
 init|=
-literal|"Number of calls in the replication call queue waiting to be run"
+literal|"Number of calls in the replication call queue."
 decl_stmt|;
 name|String
 name|PRIORITY_QUEUE_DESC
 init|=
-literal|"Number of calls in the priority call queue waiting to be run"
+literal|"Number of calls in the priority call queue."
 decl_stmt|;
 name|String
 name|NUM_OPEN_CONNECTIONS_NAME

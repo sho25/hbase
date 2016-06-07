@@ -82,7 +82,7 @@ block|}
 return|return
 name|server
 operator|.
-name|callQueueSizeInBytes
+name|callQueueSize
 operator|.
 name|get
 argument_list|()
@@ -211,6 +211,14 @@ condition|(
 operator|!
 name|isServerStarted
 argument_list|()
+operator|||
+name|this
+operator|.
+name|server
+operator|.
+name|connectionList
+operator|==
+literal|null
 condition|)
 block|{
 return|return
@@ -220,7 +228,9 @@ block|}
 return|return
 name|server
 operator|.
-name|getNumOpenConnections
+name|connectionList
+operator|.
+name|size
 argument_list|()
 return|;
 block|}
