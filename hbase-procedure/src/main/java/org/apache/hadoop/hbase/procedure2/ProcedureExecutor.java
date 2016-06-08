@@ -2526,20 +2526,111 @@ expr_stmt|;
 block|}
 block|}
 expr_stmt|;
+name|long
+name|st
+decl_stmt|,
+name|et
+decl_stmt|;
 comment|// Acquire the store lease.
+name|st
+operator|=
+name|EnvironmentEdgeManager
+operator|.
+name|currentTime
+argument_list|()
+expr_stmt|;
 name|store
 operator|.
 name|recoverLease
 argument_list|()
+expr_stmt|;
+name|et
+operator|=
+name|EnvironmentEdgeManager
+operator|.
+name|currentTime
+argument_list|()
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|String
+operator|.
+name|format
+argument_list|(
+literal|"recover procedure store (%s) lease: %s"
+argument_list|,
+name|store
+operator|.
+name|getClass
+argument_list|()
+operator|.
+name|getSimpleName
+argument_list|()
+argument_list|,
+name|StringUtils
+operator|.
+name|humanTimeDiff
+argument_list|(
+name|et
+operator|-
+name|st
+argument_list|)
+argument_list|)
+argument_list|)
 expr_stmt|;
 comment|// TODO: Split in two steps.
 comment|// TODO: Handle corrupted procedures (currently just a warn)
 comment|// The first one will make sure that we have the latest id,
 comment|// so we can start the threads and accept new procedures.
 comment|// The second step will do the actual load of old procedures.
+name|st
+operator|=
+name|EnvironmentEdgeManager
+operator|.
+name|currentTime
+argument_list|()
+expr_stmt|;
 name|load
 argument_list|(
 name|abortOnCorruption
+argument_list|)
+expr_stmt|;
+name|et
+operator|=
+name|EnvironmentEdgeManager
+operator|.
+name|currentTime
+argument_list|()
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|String
+operator|.
+name|format
+argument_list|(
+literal|"load procedure store (%s): %s"
+argument_list|,
+name|store
+operator|.
+name|getClass
+argument_list|()
+operator|.
+name|getSimpleName
+argument_list|()
+argument_list|,
+name|StringUtils
+operator|.
+name|humanTimeDiff
+argument_list|(
+name|et
+operator|-
+name|st
+argument_list|)
+argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Start the executors. Here we must have the lastProcId set.
@@ -3774,6 +3865,8 @@ operator|==
 name|ProcedureState
 operator|.
 name|RUNNABLE
+operator|:
+name|proc
 assert|;
 if|if
 condition|(
@@ -4560,6 +4653,11 @@ argument_list|)
 expr_stmt|;
 comment|// Execute the procedure
 name|boolean
+name|isSuspended
+init|=
+literal|false
+decl_stmt|;
+name|boolean
 name|reExecute
 init|=
 literal|false
@@ -4606,6 +4704,17 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
+block|}
+catch|catch
+parameter_list|(
+name|ProcedureSuspendedException
+name|e
+parameter_list|)
+block|{
+name|isSuspended
+operator|=
+literal|true
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -4824,6 +4933,8 @@ operator|==
 name|ProcedureState
 operator|.
 name|INITIALIZING
+operator|:
+name|subproc
 assert|;
 name|subproc
 operator|.
@@ -4921,7 +5032,12 @@ name|procedure
 argument_list|)
 expr_stmt|;
 block|}
-else|else
+elseif|else
+if|if
+condition|(
+operator|!
+name|isSuspended
+condition|)
 block|{
 comment|// No subtask, so we are done
 name|procedure

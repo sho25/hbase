@@ -145,6 +145,8 @@ parameter_list|)
 throws|throws
 name|ProcedureYieldException
 throws|,
+name|ProcedureSuspendedException
+throws|,
 name|InterruptedException
 block|{
 name|updateTimestamp

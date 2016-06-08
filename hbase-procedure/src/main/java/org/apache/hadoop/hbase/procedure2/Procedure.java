@@ -416,6 +416,13 @@ specifier|private
 name|long
 name|lastUpdate
 decl_stmt|;
+comment|// TODO: it will be nice having pointers to allow the scheduler doing suspend/resume tricks
+specifier|private
+name|boolean
+name|suspended
+init|=
+literal|false
+decl_stmt|;
 specifier|private
 name|RemoteProcedureException
 name|exception
@@ -447,6 +454,8 @@ name|env
 parameter_list|)
 throws|throws
 name|ProcedureYieldException
+throws|,
+name|ProcedureSuspendedException
 throws|,
 name|InterruptedException
 function_decl|;
@@ -826,6 +835,20 @@ name|getState
 argument_list|()
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|isSuspended
+argument_list|()
+condition|)
+block|{
+name|builder
+operator|.
+name|append
+argument_list|(
+literal|"|SUSPENDED"
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|/**    * Extend the toString() information with the procedure details    * e.g. className and parameters    * @param builder the string builder to use to append the proc specific information    */
 specifier|protected
@@ -926,6 +949,9 @@ parameter_list|()
 block|{
 return|return
 name|parentProcId
+operator|.
+name|longValue
+argument_list|()
 return|;
 block|}
 specifier|public
@@ -1036,6 +1062,49 @@ return|return
 literal|false
 return|;
 block|}
+comment|/**    * @return true if the procedure is in a suspended state,    *         waiting for the resources required to execute the procedure will become available.    */
+specifier|public
+specifier|synchronized
+name|boolean
+name|isSuspended
+parameter_list|()
+block|{
+return|return
+name|suspended
+return|;
+block|}
+specifier|public
+specifier|synchronized
+name|void
+name|suspend
+parameter_list|()
+block|{
+name|suspended
+operator|=
+literal|true
+expr_stmt|;
+block|}
+specifier|public
+specifier|synchronized
+name|void
+name|resume
+parameter_list|()
+block|{
+assert|assert
+name|isSuspended
+argument_list|()
+operator|:
+name|this
+operator|+
+literal|" expected suspended state, got "
+operator|+
+name|state
+assert|;
+name|suspended
+operator|=
+literal|false
+expr_stmt|;
+block|}
 specifier|public
 specifier|synchronized
 name|RemoteProcedureException
@@ -1102,6 +1171,9 @@ parameter_list|()
 block|{
 return|return
 name|timeout
+operator|.
+name|intValue
+argument_list|()
 return|;
 block|}
 comment|/**    * @return the remaining time before the timeout    */
@@ -1457,6 +1529,8 @@ name|env
 parameter_list|)
 throws|throws
 name|ProcedureYieldException
+throws|,
+name|ProcedureSuspendedException
 throws|,
 name|InterruptedException
 block|{

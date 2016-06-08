@@ -13,9 +13,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|master
-operator|.
-name|procedure
+name|procedure2
 package|;
 end_package
 
@@ -29,20 +27,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -65,11 +49,7 @@ name|InterfaceStability
 import|;
 end_import
 
-begin_comment
-comment|/**  * Procedures that operates on a specific Table (e.g. create, delete, snapshot, ...)  * must implement this interface to allow the system handle the lock/concurrency problems.  */
-end_comment
-
-begin_interface
+begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
@@ -77,50 +57,38 @@ name|Private
 annotation|@
 name|InterfaceStability
 operator|.
-name|Evolving
+name|Stable
 specifier|public
-interface|interface
-name|TableProcedureInterface
+class|class
+name|ProcedureSuspendedException
+extends|extends
+name|ProcedureException
 block|{
+comment|/** default constructor */
 specifier|public
-enum|enum
-name|TableOperationType
+name|ProcedureSuspendedException
+parameter_list|()
 block|{
-name|CREATE
-block|,
-name|DELETE
-block|,
-name|DISABLE
-block|,
-name|EDIT
-block|,
-name|ENABLE
-block|,
-name|READ
-block|,
-name|SPLIT
-block|,
-name|MERGE
-block|,
-name|ASSIGN
-block|,
-name|UNASSIGN
-block|,
-comment|/* region operations */
+name|super
+argument_list|()
+expr_stmt|;
 block|}
-empty_stmt|;
-comment|/**    * @return the name of the table the procedure is operating on    */
-name|TableName
-name|getTableName
-parameter_list|()
-function_decl|;
-comment|/**    * Given an operation type we can take decisions about what to do with pending operations.    * e.g. if we get a delete and we have some table operation pending (e.g. add column)    * we can abort those operations.    * @return the operation type that the procedure is executing.    */
-name|TableOperationType
-name|getTableOperationType
-parameter_list|()
-function_decl|;
+comment|/**    * Constructor    * @param s message    */
+specifier|public
+name|ProcedureSuspendedException
+parameter_list|(
+name|String
+name|s
+parameter_list|)
+block|{
+name|super
+argument_list|(
+name|s
+argument_list|)
+expr_stmt|;
 block|}
-end_interface
+block|}
+end_class
 
 end_unit
 
