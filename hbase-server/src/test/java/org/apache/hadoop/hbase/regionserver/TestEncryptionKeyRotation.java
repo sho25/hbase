@@ -676,16 +676,6 @@ argument_list|,
 literal|"hbase"
 argument_list|)
 expr_stmt|;
-comment|// Enable online schema updates
-name|conf
-operator|.
-name|setBoolean
-argument_list|(
-literal|"hbase.online.schema.update.enable"
-argument_list|,
-literal|true
-argument_list|)
-expr_stmt|;
 comment|// Start the minicluster
 name|TEST_UTIL
 operator|.

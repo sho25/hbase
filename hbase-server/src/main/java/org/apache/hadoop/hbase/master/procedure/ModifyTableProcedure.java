@@ -1575,27 +1575,6 @@ name|ENABLED
 argument_list|)
 condition|)
 block|{
-comment|// We only execute this procedure with table online if online schema change config is set.
-if|if
-condition|(
-operator|!
-name|MasterDDLOperationHelper
-operator|.
-name|isOnlineSchemaChangeAllowed
-argument_list|(
-name|env
-argument_list|)
-condition|)
-block|{
-throw|throw
-operator|new
-name|TableNotDisabledException
-argument_list|(
-name|getTableName
-argument_list|()
-argument_list|)
-throw|;
-block|}
 if|if
 condition|(
 name|modifiedHTableDescriptor

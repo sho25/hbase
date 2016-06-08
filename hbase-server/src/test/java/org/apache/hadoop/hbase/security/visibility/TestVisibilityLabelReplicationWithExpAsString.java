@@ -727,15 +727,6 @@ argument_list|)
 expr_stmt|;
 name|conf
 operator|.
-name|setBoolean
-argument_list|(
-literal|"hbase.online.schema.update.enable"
-argument_list|,
-literal|true
-argument_list|)
-expr_stmt|;
-name|conf
-operator|.
 name|setInt
 argument_list|(
 literal|"hfile.format.version"

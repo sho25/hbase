@@ -759,15 +759,6 @@ argument_list|)
 expr_stmt|;
 comment|// ((Log4JLogger)RpcServerImplementation.LOG).getLogger().setLevel(Level.TRACE);
 comment|// ((Log4JLogger)RpcClient.LOG).getLogger().setLevel(Level.TRACE);
-name|conf
-operator|.
-name|setBoolean
-argument_list|(
-literal|"hbase.online.schema.update.enable"
-argument_list|,
-literal|true
-argument_list|)
-expr_stmt|;
 name|TEST_UTIL
 operator|.
 name|startMiniCluster

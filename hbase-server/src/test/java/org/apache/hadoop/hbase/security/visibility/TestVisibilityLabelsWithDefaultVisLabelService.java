@@ -617,15 +617,6 @@ argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
-name|conf
-operator|.
-name|setBoolean
-argument_list|(
-literal|"hbase.online.schema.update.enable"
-argument_list|,
-literal|true
-argument_list|)
-expr_stmt|;
 name|VisibilityTestUtil
 operator|.
 name|enableVisiblityLabels
