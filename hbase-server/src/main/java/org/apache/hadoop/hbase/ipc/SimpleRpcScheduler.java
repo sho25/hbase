@@ -202,7 +202,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A scheduler that maintains isolated handler pools for general,  * high-priority, and replication requests.  */
+comment|/**  * The default scheduler. Configurable. Maintains isolated handler pools for general ('default'),  * high-priority ('priority'), and replication ('replication') requests. Default behavior is to  * balance the requests across handlers. Add configs to enable balancing by read vs writes, etc.  * See below article for explanation of options.  * @see<a href="http://blog.cloudera.com/blog/2014/12/new-in-cdh-5-2-improvements-for-running-multiple-workloads-on-a-single-hbase-cluster/">Overview on Request Queuing</a>  */
 end_comment
 
 begin_class
@@ -272,7 +272,7 @@ name|CALL_QUEUE_HANDLER_FACTOR_CONF_KEY
 init|=
 literal|"hbase.ipc.server.callqueue.handler.factor"
 decl_stmt|;
-comment|/** If set to 'deadline', uses a priority queue and deprioritize long-running scans */
+comment|/** If set to 'deadline', the default, uses a priority queue and deprioritizes long-running scans    */
 specifier|public
 specifier|static
 specifier|final
@@ -923,9 +923,17 @@ literal|"Using "
 operator|+
 name|callQueueType
 operator|+
-literal|" as user call queue, count="
+literal|" as user call queue; numCallQueues="
 operator|+
 name|numCallQueues
+operator|+
+literal|"; callQReadShare="
+operator|+
+name|callqReadShare
+operator|+
+literal|", callQScanShare="
+operator|+
+name|callqScanShare
 argument_list|)
 expr_stmt|;
 if|if
@@ -942,11 +950,9 @@ block|{
 comment|// multiple read/write queues
 if|if
 condition|(
-name|callQueueType
-operator|.
-name|equals
+name|isDeadlineQueueType
 argument_list|(
-name|CALL_QUEUE_TYPE_DEADLINE_CONF_VALUE
+name|callQueueType
 argument_list|)
 condition|)
 block|{
@@ -968,7 +974,7 @@ operator|=
 operator|new
 name|RWQueueRpcExecutor
 argument_list|(
-literal|"RW.default"
+literal|"RWQ.default"
 argument_list|,
 name|handlerCount
 argument_list|,
@@ -1026,7 +1032,7 @@ operator|=
 operator|new
 name|RWQueueRpcExecutor
 argument_list|(
-literal|"RW.default"
+literal|"RWQ.default"
 argument_list|,
 name|handlerCount
 argument_list|,
@@ -1057,7 +1063,7 @@ operator|=
 operator|new
 name|RWQueueRpcExecutor
 argument_list|(
-literal|"RW.default"
+literal|"RWQ.default"
 argument_list|,
 name|handlerCount
 argument_list|,
@@ -1081,11 +1087,9 @@ block|{
 comment|// multiple queues
 if|if
 condition|(
-name|callQueueType
-operator|.
-name|equals
+name|isDeadlineQueueType
 argument_list|(
-name|CALL_QUEUE_TYPE_DEADLINE_CONF_VALUE
+name|callQueueType
 argument_list|)
 condition|)
 block|{
@@ -1107,7 +1111,7 @@ operator|=
 operator|new
 name|BalancedQueueRpcExecutor
 argument_list|(
-literal|"B.default"
+literal|"BalancedQ.default"
 argument_list|,
 name|handlerCount
 argument_list|,
@@ -1143,7 +1147,7 @@ operator|=
 operator|new
 name|BalancedQueueRpcExecutor
 argument_list|(
-literal|"B.default"
+literal|"BalancedQ.default"
 argument_list|,
 name|handlerCount
 argument_list|,
@@ -1178,7 +1182,7 @@ operator|=
 operator|new
 name|BalancedQueueRpcExecutor
 argument_list|(
-literal|"B.default"
+literal|"BalancedQ.default"
 argument_list|,
 name|handlerCount
 argument_list|,
@@ -1205,7 +1209,7 @@ condition|?
 operator|new
 name|BalancedQueueRpcExecutor
 argument_list|(
-literal|"Priority"
+literal|"BalancedQ.priority"
 argument_list|,
 name|priorityHandlerCount
 argument_list|,
@@ -1227,7 +1231,7 @@ condition|?
 operator|new
 name|BalancedQueueRpcExecutor
 argument_list|(
-literal|"Replication"
+literal|"BalancedQ.replication"
 argument_list|,
 name|replicationHandlerCount
 argument_list|,
@@ -1242,6 +1246,25 @@ argument_list|)
 else|:
 literal|null
 expr_stmt|;
+block|}
+specifier|private
+specifier|static
+name|boolean
+name|isDeadlineQueueType
+parameter_list|(
+specifier|final
+name|String
+name|callQueueType
+parameter_list|)
+block|{
+return|return
+name|callQueueType
+operator|.
+name|equals
+argument_list|(
+name|CALL_QUEUE_TYPE_DEADLINE_CONF_VALUE
+argument_list|)
+return|;
 block|}
 specifier|public
 name|SimpleRpcScheduler
