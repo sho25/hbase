@@ -2877,6 +2877,17 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
+comment|// closing the region forces the compaction.discharger to archive the compacted hfiles
+operator|(
+operator|(
+name|HRegion
+operator|)
+name|region
+operator|)
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 comment|// metrics are reset by the region initialization
 operator|(
 operator|(
