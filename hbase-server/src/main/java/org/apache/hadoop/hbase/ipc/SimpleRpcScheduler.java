@@ -202,7 +202,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The default scheduler. Configurable. Maintains isolated handler pools for general ('default'),  * high-priority ('priority'), and replication ('replication') requests. Default behavior is to  * balance the requests across handlers. Add configs to enable balancing by read vs writes, etc.  * See below article for explanation of options.  * @see<a href="http://blog.cloudera.com/blog/2014/12/new-in-cdh-5-2-improvements-for-running-multiple-workloads-on-a-single-hbase-cluster/">Overview on Request Queuing</a>  */
+comment|/**  * A scheduler that maintains isolated handler pools for general,  * high-priority, and replication requests.  */
 end_comment
 
 begin_class
@@ -272,7 +272,7 @@ name|CALL_QUEUE_HANDLER_FACTOR_CONF_KEY
 init|=
 literal|"hbase.ipc.server.callqueue.handler.factor"
 decl_stmt|;
-comment|/** If set to 'deadline', the default, uses a priority queue and deprioritizes long-running scans    */
+comment|/** If set to 'deadline', uses a priority queue and deprioritize long-running scans */
 specifier|public
 specifier|static
 specifier|final
@@ -923,17 +923,9 @@ literal|"Using "
 operator|+
 name|callQueueType
 operator|+
-literal|" as user call queue; numCallQueues="
+literal|" as user call queue, count="
 operator|+
 name|numCallQueues
-operator|+
-literal|"; callQReadShare="
-operator|+
-name|callqReadShare
-operator|+
-literal|", callQScanShare="
-operator|+
-name|callqScanShare
 argument_list|)
 expr_stmt|;
 if|if
@@ -950,9 +942,11 @@ block|{
 comment|// multiple read/write queues
 if|if
 condition|(
-name|isDeadlineQueueType
-argument_list|(
 name|callQueueType
+operator|.
+name|equals
+argument_list|(
+name|CALL_QUEUE_TYPE_DEADLINE_CONF_VALUE
 argument_list|)
 condition|)
 block|{
@@ -974,7 +968,7 @@ operator|=
 operator|new
 name|RWQueueRpcExecutor
 argument_list|(
-literal|"RWQ.default"
+literal|"RW.default"
 argument_list|,
 name|handlerCount
 argument_list|,
@@ -1032,7 +1026,7 @@ operator|=
 operator|new
 name|RWQueueRpcExecutor
 argument_list|(
-literal|"RWQ.default"
+literal|"RW.default"
 argument_list|,
 name|handlerCount
 argument_list|,
@@ -1063,7 +1057,7 @@ operator|=
 operator|new
 name|RWQueueRpcExecutor
 argument_list|(
-literal|"RWQ.default"
+literal|"RW.default"
 argument_list|,
 name|handlerCount
 argument_list|,
@@ -1087,9 +1081,11 @@ block|{
 comment|// multiple queues
 if|if
 condition|(
-name|isDeadlineQueueType
-argument_list|(
 name|callQueueType
+operator|.
+name|equals
+argument_list|(
+name|CALL_QUEUE_TYPE_DEADLINE_CONF_VALUE
 argument_list|)
 condition|)
 block|{
@@ -1111,7 +1107,7 @@ operator|=
 operator|new
 name|BalancedQueueRpcExecutor
 argument_list|(
-literal|"BalancedQ.default"
+literal|"B.default"
 argument_list|,
 name|handlerCount
 argument_list|,
@@ -1147,7 +1143,7 @@ operator|=
 operator|new
 name|BalancedQueueRpcExecutor
 argument_list|(
-literal|"BalancedQ.default"
+literal|"B.default"
 argument_list|,
 name|handlerCount
 argument_list|,
@@ -1182,7 +1178,7 @@ operator|=
 operator|new
 name|BalancedQueueRpcExecutor
 argument_list|(
-literal|"BalancedQ.default"
+literal|"B.default"
 argument_list|,
 name|handlerCount
 argument_list|,
@@ -1209,7 +1205,7 @@ condition|?
 operator|new
 name|BalancedQueueRpcExecutor
 argument_list|(
-literal|"BalancedQ.priority"
+literal|"Priority"
 argument_list|,
 name|priorityHandlerCount
 argument_list|,
@@ -1231,7 +1227,7 @@ condition|?
 operator|new
 name|BalancedQueueRpcExecutor
 argument_list|(
-literal|"BalancedQ.replication"
+literal|"Replication"
 argument_list|,
 name|replicationHandlerCount
 argument_list|,
@@ -1246,25 +1242,6 @@ argument_list|)
 else|:
 literal|null
 expr_stmt|;
-block|}
-specifier|private
-specifier|static
-name|boolean
-name|isDeadlineQueueType
-parameter_list|(
-specifier|final
-name|String
-name|callQueueType
-parameter_list|)
-block|{
-return|return
-name|callQueueType
-operator|.
-name|equals
-argument_list|(
-name|CALL_QUEUE_TYPE_DEADLINE_CONF_VALUE
-argument_list|)
-return|;
 block|}
 specifier|public
 name|SimpleRpcScheduler

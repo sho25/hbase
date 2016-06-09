@@ -154,7 +154,7 @@ import|;
 end_import
 
 begin_comment
-comment|/** Constructs a {@link SimpleRpcScheduler}.  */
+comment|/** Constructs a {@link SimpleRpcScheduler}. */
 end_comment
 
 begin_class
