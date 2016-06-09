@@ -1898,6 +1898,23 @@ annotation|@
 name|Override
 specifier|public
 name|void
+name|removePeerFromHFileRefs
+parameter_list|(
+name|String
+name|peerId
+parameter_list|)
+block|{
+comment|// TODO
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|()
+throw|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
 name|addHFileRefs
 parameter_list|(
 name|String

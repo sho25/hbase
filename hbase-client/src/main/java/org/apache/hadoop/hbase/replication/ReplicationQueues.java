@@ -211,6 +211,14 @@ parameter_list|)
 throws|throws
 name|ReplicationException
 function_decl|;
+comment|/**    * Remove a peer from hfile reference queue.    * @param peerId peer cluster id to be removed    */
+name|void
+name|removePeerFromHFileRefs
+parameter_list|(
+name|String
+name|peerId
+parameter_list|)
+function_decl|;
 comment|/**    * Add new hfile references to the queue.    * @param peerId peer cluster id to which the hfiles need to be replicated    * @param files list of hfile references to be added    * @throws ReplicationException if fails to add a hfile reference    */
 name|void
 name|addHFileRefs

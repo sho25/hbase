@@ -975,6 +975,13 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|rq
+operator|.
+name|addPeerToHFileRefs
+argument_list|(
+name|peerId
+argument_list|)
+expr_stmt|;
 block|}
 annotation|@
 name|After

@@ -688,67 +688,6 @@ operator|.
 name|peersZNode
 argument_list|)
 expr_stmt|;
-comment|// Irrespective of bulk load hfile replication is enabled or not we add peerId node to
-comment|// hfile-refs node -- HBASE-15397
-try|try
-block|{
-name|String
-name|peerId
-init|=
-name|ZKUtil
-operator|.
-name|joinZNode
-argument_list|(
-name|this
-operator|.
-name|hfileRefsZNode
-argument_list|,
-name|id
-argument_list|)
-decl_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Adding peer "
-operator|+
-name|peerId
-operator|+
-literal|" to hfile reference queue."
-argument_list|)
-expr_stmt|;
-name|ZKUtil
-operator|.
-name|createWithParents
-argument_list|(
-name|this
-operator|.
-name|zookeeper
-argument_list|,
-name|peerId
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|KeeperException
-name|e
-parameter_list|)
-block|{
-throw|throw
-operator|new
-name|ReplicationException
-argument_list|(
-literal|"Failed to add peer with id="
-operator|+
-name|id
-operator|+
-literal|", node under hfile references node."
-argument_list|,
-name|e
-argument_list|)
-throw|;
-block|}
 name|List
 argument_list|<
 name|ZKUtilOp
@@ -910,67 +849,6 @@ name|id
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// Delete peerId node from hfile-refs node irrespective of whether bulk loaded hfile
-comment|// replication is enabled or not
-name|String
-name|peerId
-init|=
-name|ZKUtil
-operator|.
-name|joinZNode
-argument_list|(
-name|this
-operator|.
-name|hfileRefsZNode
-argument_list|,
-name|id
-argument_list|)
-decl_stmt|;
-try|try
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Removing peer "
-operator|+
-name|peerId
-operator|+
-literal|" from hfile reference queue."
-argument_list|)
-expr_stmt|;
-name|ZKUtil
-operator|.
-name|deleteNodeRecursively
-argument_list|(
-name|this
-operator|.
-name|zookeeper
-argument_list|,
-name|peerId
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|NoNodeException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Did not find node "
-operator|+
-name|peerId
-operator|+
-literal|" to delete."
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 catch|catch
 parameter_list|(
