@@ -738,6 +738,23 @@ name|zkw
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|rqc
+operator|=
+name|ReplicationFactory
+operator|.
+name|getReplicationQueuesClient
+argument_list|(
+operator|new
+name|ReplicationQueuesClientArguments
+argument_list|(
+name|conf
+argument_list|,
+name|ds1
+argument_list|,
+name|zkw
+argument_list|)
+argument_list|)
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -745,26 +762,14 @@ name|Exception
 name|e
 parameter_list|)
 block|{
-comment|// This should not occur, because getReplicationQueues() only throws for ReplicationQueuesHBaseImpl
+comment|// This should not occur, because getReplicationQueues() only throws for
+comment|// TableBasedReplicationQueuesImpl
 name|fail
 argument_list|(
 literal|"ReplicationFactory.getReplicationQueues() threw an IO Exception"
 argument_list|)
 expr_stmt|;
 block|}
-name|rqc
-operator|=
-name|ReplicationFactory
-operator|.
-name|getReplicationQueuesClient
-argument_list|(
-name|zkw
-argument_list|,
-name|conf
-argument_list|,
-name|ds1
-argument_list|)
-expr_stmt|;
 name|rp
 operator|=
 name|ReplicationFactory

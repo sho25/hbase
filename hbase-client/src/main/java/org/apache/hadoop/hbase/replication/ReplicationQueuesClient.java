@@ -29,6 +29,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Set
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -115,9 +125,12 @@ parameter_list|)
 throws|throws
 name|KeeperException
 function_decl|;
-comment|/**    * Get the cversion of replication rs node. This can be used as optimistic locking to get a    * consistent snapshot of the replication queues.    * @return cversion of replication rs node    */
-name|int
-name|getQueuesZNodeCversion
+comment|/**    * Load all wals in all replication queues from ZK. This method guarantees to return a    * snapshot which contains all WALs in the zookeeper at the start of this call even there    * is concurrent queue failover. However, some newly created WALs during the call may    * not be included.    */
+name|Set
+argument_list|<
+name|String
+argument_list|>
+name|getAllWALs
 parameter_list|()
 throws|throws
 name|KeeperException
