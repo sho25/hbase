@@ -342,11 +342,6 @@ name|cpName
 init|=
 literal|"a.b.c.d"
 decl_stmt|;
-name|boolean
-name|expected
-init|=
-literal|false
-decl_stmt|;
 try|try
 block|{
 name|htd
@@ -356,6 +351,9 @@ argument_list|(
 name|cpName
 argument_list|)
 expr_stmt|;
+name|fail
+argument_list|()
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -363,19 +361,8 @@ name|IllegalArgumentException
 name|iae
 parameter_list|)
 block|{
-name|expected
-operator|=
-literal|true
-expr_stmt|;
+comment|// Expected as cpName is invalid
 block|}
-if|if
-condition|(
-operator|!
-name|expected
-condition|)
-name|fail
-argument_list|()
-expr_stmt|;
 comment|// Try minimal spec.
 try|try
 block|{
@@ -390,6 +377,9 @@ operator|+
 name|cpName
 argument_list|)
 expr_stmt|;
+name|fail
+argument_list|()
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -397,18 +387,8 @@ name|IllegalArgumentException
 name|iae
 parameter_list|)
 block|{
-name|expected
-operator|=
-literal|false
-expr_stmt|;
+comment|// Expected to be invalid
 block|}
-if|if
-condition|(
-name|expected
-condition|)
-name|fail
-argument_list|()
-expr_stmt|;
 comment|// Try more spec.
 name|String
 name|spec
@@ -431,18 +411,10 @@ name|IllegalArgumentException
 name|iae
 parameter_list|)
 block|{
-name|expected
-operator|=
-literal|false
-expr_stmt|;
-block|}
-if|if
-condition|(
-name|expected
-condition|)
 name|fail
 argument_list|()
 expr_stmt|;
+block|}
 comment|// Try double add of same coprocessor
 try|try
 block|{
@@ -453,6 +425,9 @@ argument_list|(
 name|spec
 argument_list|)
 expr_stmt|;
+name|fail
+argument_list|()
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -460,19 +435,8 @@ name|IOException
 name|ioe
 parameter_list|)
 block|{
-name|expected
-operator|=
-literal|true
-expr_stmt|;
+comment|// Expect that the coprocessor already exists
 block|}
-if|if
-condition|(
-operator|!
-name|expected
-condition|)
-name|fail
-argument_list|()
-expr_stmt|;
 block|}
 annotation|@
 name|Test
