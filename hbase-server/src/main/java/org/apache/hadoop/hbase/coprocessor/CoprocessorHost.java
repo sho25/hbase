@@ -874,9 +874,7 @@ name|loadInstance
 argument_list|(
 name|implClass
 argument_list|,
-name|Coprocessor
-operator|.
-name|PRIORITY_SYSTEM
+name|priority
 argument_list|,
 name|conf
 argument_list|)
@@ -895,10 +893,12 @@ operator|+
 literal|"successfully with priority ("
 operator|+
 name|priority
-operator|++
 operator|+
 literal|")."
 argument_list|)
+expr_stmt|;
+operator|++
+name|priority
 expr_stmt|;
 block|}
 catch|catch

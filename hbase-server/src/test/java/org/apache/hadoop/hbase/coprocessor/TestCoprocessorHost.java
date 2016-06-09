@@ -166,6 +166,30 @@ import|;
 end_import
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertNotNull
+import|;
+end_import
+
+begin_import
 import|import
 name|org
 operator|.
@@ -259,7 +283,7 @@ annotation|@
 name|Test
 specifier|public
 name|void
-name|testDoubleLoading
+name|testDoubleLoadingAndPriorityValue
 parameter_list|()
 block|{
 specifier|final
@@ -310,6 +334,7 @@ specifier|final
 name|Coprocessor
 name|instance
 parameter_list|,
+specifier|final
 name|int
 name|priority
 parameter_list|,
@@ -372,7 +397,7 @@ name|getPriority
 parameter_list|()
 block|{
 return|return
-literal|0
+name|priority
 return|;
 block|}
 annotation|@
@@ -460,7 +485,7 @@ name|coprocessor
 init|=
 literal|"org.apache.hadoop.hbase.coprocessor.SimpleRegionObserver"
 decl_stmt|;
-comment|// Try and load coprocessor three times.
+comment|// Try and load a coprocessor three times
 name|conf
 operator|.
 name|setStrings
@@ -472,6 +497,13 @@ argument_list|,
 name|coprocessor
 argument_list|,
 name|coprocessor
+argument_list|,
+name|SimpleRegionObserverV2
+operator|.
+name|class
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|host
@@ -483,12 +515,12 @@ argument_list|,
 name|key
 argument_list|)
 expr_stmt|;
-comment|// Only one coprocessor loaded
+comment|// Two coprocessors(SimpleRegionObserver and SimpleRegionObserverV2) loaded
 name|Assert
 operator|.
 name|assertEquals
 argument_list|(
-literal|1
+literal|2
 argument_list|,
 name|host
 operator|.
@@ -498,7 +530,81 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// Check the priority value
+name|CoprocessorEnvironment
+name|simpleEnv
+init|=
+name|host
+operator|.
+name|findCoprocessorEnvironment
+argument_list|(
+name|SimpleRegionObserver
+operator|.
+name|class
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+decl_stmt|;
+name|CoprocessorEnvironment
+name|simpleEnv_v2
+init|=
+name|host
+operator|.
+name|findCoprocessorEnvironment
+argument_list|(
+name|SimpleRegionObserverV2
+operator|.
+name|class
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+decl_stmt|;
+name|assertNotNull
+argument_list|(
+name|simpleEnv
+argument_list|)
+expr_stmt|;
+name|assertNotNull
+argument_list|(
+name|simpleEnv_v2
+argument_list|)
+expr_stmt|;
+name|assertEquals
+argument_list|(
+name|Coprocessor
+operator|.
+name|PRIORITY_SYSTEM
+argument_list|,
+name|simpleEnv
+operator|.
+name|getPriority
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|assertEquals
+argument_list|(
+name|Coprocessor
+operator|.
+name|PRIORITY_SYSTEM
+operator|+
+literal|1
+argument_list|,
+name|simpleEnv_v2
+operator|.
+name|getPriority
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
+specifier|public
+specifier|static
+class|class
+name|SimpleRegionObserverV2
+extends|extends
+name|SimpleRegionObserver
+block|{   }
 block|}
 end_class
 
