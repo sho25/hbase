@@ -2025,6 +2025,9 @@ condition|)
 block|{
 name|bootstrap
 operator|.
+name|config
+argument_list|()
+operator|.
 name|group
 argument_list|()
 operator|.
@@ -2044,6 +2047,9 @@ return|return
 name|this
 operator|.
 name|bootstrap
+operator|.
+name|config
+argument_list|()
 operator|.
 name|group
 argument_list|()
