@@ -4248,11 +4248,6 @@ operator|.
 name|class
 return|;
 block|}
-specifier|protected
-name|void
-name|doMetrics
-parameter_list|()
-block|{   }
 annotation|@
 name|Override
 specifier|public
@@ -5388,9 +5383,6 @@ operator|=
 name|System
 operator|.
 name|currentTimeMillis
-argument_list|()
-expr_stmt|;
-name|doMetrics
 argument_list|()
 expr_stmt|;
 block|}

@@ -1656,6 +1656,16 @@ operator|=
 name|tableLockManager
 expr_stmt|;
 block|}
+name|MetricsAssignmentManager
+name|getAssignmentManagerMetrics
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|metricsAssignmentManager
+return|;
+block|}
 comment|/**    * Add the listener to the notification list.    * @param listener The AssignmentListener to register    */
 specifier|public
 name|void

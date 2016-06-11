@@ -58,6 +58,15 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|public
+name|MetricsAssignmentManagerSource
+name|getMetricsProcSource
+parameter_list|()
+block|{
+return|return
+name|assignmentManagerSource
+return|;
+block|}
+specifier|public
 name|void
 name|updateAssignmentTime
 parameter_list|(
