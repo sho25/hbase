@@ -1865,7 +1865,10 @@ name|TableMapReduceUtil
 operator|.
 name|addDependencyJars
 argument_list|(
-name|conf
+name|job
+operator|.
+name|getConfiguration
+argument_list|()
 argument_list|,
 name|Class
 operator|.
