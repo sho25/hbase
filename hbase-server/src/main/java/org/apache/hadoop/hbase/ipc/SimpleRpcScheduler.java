@@ -272,15 +272,7 @@ name|CALL_QUEUE_HANDLER_FACTOR_CONF_KEY
 init|=
 literal|"hbase.ipc.server.callqueue.handler.factor"
 decl_stmt|;
-comment|/** If set to 'deadline', the default, uses a priority queue and deprioritizes long-running scans    */
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|CALL_QUEUE_TYPE_CONF_KEY
-init|=
-literal|"hbase.ipc.server.callqueue.type"
-decl_stmt|;
+comment|/**    * The default, 'fifo', has the least friction but is dumb.    * If set to 'deadline', uses a priority queue and deprioritizes long-running scans. Sorting by    * priority comes at a cost, reduced throughput.    */
 specifier|public
 specifier|static
 specifier|final
@@ -304,6 +296,22 @@ name|String
 name|CALL_QUEUE_TYPE_FIFO_CONF_VALUE
 init|=
 literal|"fifo"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|CALL_QUEUE_TYPE_CONF_KEY
+init|=
+literal|"hbase.ipc.server.callqueue.type"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|CALL_QUEUE_TYPE_CONF_DEFAULT
+init|=
+name|CALL_QUEUE_TYPE_FIFO_CONF_VALUE
 decl_stmt|;
 comment|/** max delay in msec used to bound the deprioritized requests */
 specifier|public
@@ -818,7 +826,7 @@ name|get
 argument_list|(
 name|CALL_QUEUE_TYPE_CONF_KEY
 argument_list|,
-name|CALL_QUEUE_TYPE_DEADLINE_CONF_VALUE
+name|CALL_QUEUE_TYPE_FIFO_CONF_VALUE
 argument_list|)
 decl_stmt|;
 name|float
@@ -974,7 +982,7 @@ operator|=
 operator|new
 name|RWQueueRpcExecutor
 argument_list|(
-literal|"RWQ.default"
+literal|"RW.deadline.Q"
 argument_list|,
 name|handlerCount
 argument_list|,
@@ -1032,7 +1040,7 @@ operator|=
 operator|new
 name|RWQueueRpcExecutor
 argument_list|(
-literal|"RWQ.default"
+literal|"RW.codel.Q"
 argument_list|,
 name|handlerCount
 argument_list|,
@@ -1063,7 +1071,7 @@ operator|=
 operator|new
 name|RWQueueRpcExecutor
 argument_list|(
-literal|"RWQ.default"
+literal|"RW.fifo.Q"
 argument_list|,
 name|handlerCount
 argument_list|,
@@ -1111,7 +1119,7 @@ operator|=
 operator|new
 name|BalancedQueueRpcExecutor
 argument_list|(
-literal|"BalancedQ.default"
+literal|"B.deadline.Q"
 argument_list|,
 name|handlerCount
 argument_list|,
@@ -1147,7 +1155,7 @@ operator|=
 operator|new
 name|BalancedQueueRpcExecutor
 argument_list|(
-literal|"BalancedQ.default"
+literal|"B.codel.Q"
 argument_list|,
 name|handlerCount
 argument_list|,
@@ -1182,7 +1190,7 @@ operator|=
 operator|new
 name|BalancedQueueRpcExecutor
 argument_list|(
-literal|"BalancedQ.default"
+literal|"B.fifo.Q"
 argument_list|,
 name|handlerCount
 argument_list|,
@@ -1209,7 +1217,7 @@ condition|?
 operator|new
 name|BalancedQueueRpcExecutor
 argument_list|(
-literal|"BalancedQ.priority"
+literal|"B.priority.fifo.Q"
 argument_list|,
 name|priorityHandlerCount
 argument_list|,
@@ -1231,7 +1239,7 @@ condition|?
 operator|new
 name|BalancedQueueRpcExecutor
 argument_list|(
-literal|"BalancedQ.replication"
+literal|"B.replication.fifo.Q"
 argument_list|,
 name|replicationHandlerCount
 argument_list|,
