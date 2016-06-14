@@ -1089,7 +1089,7 @@ try|try
 block|{
 name|rp
 operator|.
-name|addPeer
+name|registerPeer
 argument_list|(
 name|ID_ONE
 argument_list|,
@@ -1123,7 +1123,7 @@ try|try
 block|{
 name|rp
 operator|.
-name|addPeer
+name|registerPeer
 argument_list|(
 name|ID_ONE
 argument_list|,
@@ -1155,7 +1155,7 @@ try|try
 block|{
 name|rp
 operator|.
-name|addPeer
+name|registerPeer
 argument_list|(
 name|ID_ONE
 argument_list|,
@@ -1275,7 +1275,7 @@ argument_list|)
 expr_stmt|;
 name|rp
 operator|.
-name|addPeer
+name|registerPeer
 argument_list|(
 name|ID_ONE
 argument_list|,
@@ -1422,7 +1422,7 @@ argument_list|)
 expr_stmt|;
 name|rp
 operator|.
-name|removePeer
+name|unregisterPeer
 argument_list|(
 name|ID_ONE
 argument_list|)
@@ -1458,7 +1458,7 @@ argument_list|()
 expr_stmt|;
 name|rp
 operator|.
-name|addPeer
+name|registerPeer
 argument_list|(
 name|ID_ONE
 argument_list|,
@@ -1481,7 +1481,7 @@ argument_list|)
 expr_stmt|;
 name|rp
 operator|.
-name|addPeer
+name|registerPeer
 argument_list|(
 name|ID_TWO
 argument_list|,
@@ -1601,7 +1601,7 @@ argument_list|)
 expr_stmt|;
 name|rp
 operator|.
-name|removePeer
+name|unregisterPeer
 argument_list|(
 name|ID_ONE
 argument_list|)
@@ -1653,7 +1653,7 @@ argument_list|)
 expr_stmt|;
 name|rp
 operator|.
-name|removePeer
+name|unregisterPeer
 argument_list|(
 name|ID_TWO
 argument_list|)
@@ -1708,7 +1708,7 @@ try|try
 block|{
 name|rp
 operator|.
-name|removePeer
+name|unregisterPeer
 argument_list|(
 literal|"bogus"
 argument_list|)
@@ -1792,7 +1792,7 @@ name|assertFalse
 argument_list|(
 name|rp
 operator|.
-name|peerAdded
+name|peerConnected
 argument_list|(
 literal|"bogus"
 argument_list|)
@@ -1800,7 +1800,7 @@ argument_list|)
 expr_stmt|;
 name|rp
 operator|.
-name|peerRemoved
+name|peerDisconnected
 argument_list|(
 literal|"bogus"
 argument_list|)
@@ -1823,7 +1823,7 @@ expr_stmt|;
 comment|// Add some peers
 name|rp
 operator|.
-name|addPeer
+name|registerPeer
 argument_list|(
 name|ID_ONE
 argument_list|,
@@ -1844,7 +1844,7 @@ argument_list|)
 expr_stmt|;
 name|rp
 operator|.
-name|addPeer
+name|registerPeer
 argument_list|(
 name|ID_TWO
 argument_list|,
@@ -1907,14 +1907,14 @@ argument_list|)
 expr_stmt|;
 name|rp
 operator|.
-name|removePeer
+name|unregisterPeer
 argument_list|(
 name|ID_ONE
 argument_list|)
 expr_stmt|;
 name|rp
 operator|.
-name|peerRemoved
+name|peerDisconnected
 argument_list|(
 name|ID_ONE
 argument_list|)
@@ -1927,7 +1927,7 @@ expr_stmt|;
 comment|// Add one peer
 name|rp
 operator|.
-name|addPeer
+name|registerPeer
 argument_list|(
 name|ID_ONE
 argument_list|,
@@ -1943,7 +1943,7 @@ argument_list|)
 expr_stmt|;
 name|rp
 operator|.
-name|peerAdded
+name|peerConnected
 argument_list|(
 name|ID_ONE
 argument_list|)
@@ -1994,7 +1994,7 @@ expr_stmt|;
 comment|// Disconnect peer
 name|rp
 operator|.
-name|peerRemoved
+name|peerDisconnected
 argument_list|(
 name|ID_ONE
 argument_list|)
@@ -2266,7 +2266,7 @@ block|}
 comment|//Add peers for the corresponding queues so they are not orphans
 name|rp
 operator|.
-name|addPeer
+name|registerPeer
 argument_list|(
 literal|"qId"
 operator|+

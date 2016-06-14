@@ -1327,7 +1327,7 @@ name|this
 operator|.
 name|replicationPeers
 operator|.
-name|getPeerIds
+name|getConnectedPeerIds
 argument_list|()
 control|)
 block|{
@@ -1463,7 +1463,7 @@ name|peer
 init|=
 name|replicationPeers
 operator|.
-name|getPeer
+name|getConnectedPeer
 argument_list|(
 name|id
 argument_list|)
@@ -1719,7 +1719,7 @@ name|this
 operator|.
 name|replicationPeers
 operator|.
-name|peerRemoved
+name|peerDisconnected
 argument_list|(
 name|peerId
 argument_list|)
@@ -1984,7 +1984,7 @@ name|id
 range|:
 name|replicationPeers
 operator|.
-name|getPeerIds
+name|getConnectedPeerIds
 argument_list|()
 control|)
 block|{
@@ -3013,7 +3013,7 @@ name|this
 operator|.
 name|replicationPeers
 operator|.
-name|peerAdded
+name|peerConnected
 argument_list|(
 name|id
 argument_list|)
@@ -3327,7 +3327,7 @@ name|peer
 init|=
 name|replicationPeers
 operator|.
-name|getPeer
+name|getConnectedPeer
 argument_list|(
 name|actualPeerId
 argument_list|)
@@ -3531,7 +3531,7 @@ name|this
 operator|.
 name|rp
 operator|.
-name|getPeerIds
+name|getConnectedPeerIds
 argument_list|()
 operator|.
 name|contains

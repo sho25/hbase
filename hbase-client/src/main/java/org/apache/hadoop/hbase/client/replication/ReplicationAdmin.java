@@ -940,7 +940,7 @@ name|this
 operator|.
 name|replicationPeers
 operator|.
-name|addPeer
+name|registerPeer
 argument_list|(
 name|id
 argument_list|,
@@ -966,7 +966,7 @@ name|this
 operator|.
 name|replicationPeers
 operator|.
-name|addPeer
+name|registerPeer
 argument_list|(
 name|id
 argument_list|,
@@ -1043,7 +1043,7 @@ name|this
 operator|.
 name|replicationPeers
 operator|.
-name|removePeer
+name|unregisterPeer
 argument_list|(
 name|id
 argument_list|)
@@ -2627,7 +2627,7 @@ name|this
 operator|.
 name|replicationPeers
 operator|.
-name|peerAdded
+name|peerConnected
 argument_list|(
 name|id
 argument_list|)

@@ -1404,7 +1404,7 @@ try|try
 block|{
 name|rp
 operator|.
-name|addPeer
+name|registerPeer
 argument_list|(
 literal|"Queue1"
 argument_list|,
@@ -1420,7 +1420,7 @@ argument_list|)
 expr_stmt|;
 name|rp
 operator|.
-name|addPeer
+name|registerPeer
 argument_list|(
 literal|"Queue2"
 argument_list|,
@@ -1436,7 +1436,7 @@ argument_list|)
 expr_stmt|;
 name|rp
 operator|.
-name|addPeer
+name|registerPeer
 argument_list|(
 literal|"Queue3"
 argument_list|,

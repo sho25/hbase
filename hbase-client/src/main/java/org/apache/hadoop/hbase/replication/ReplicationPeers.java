@@ -139,7 +139,7 @@ name|ReplicationException
 function_decl|;
 comment|/**    * Add a new remote slave cluster for replication.    * @param peerId a short that identifies the cluster    * @param peerConfig configuration for the replication slave cluster    */
 name|void
-name|addPeer
+name|registerPeer
 parameter_list|(
 name|String
 name|peerId
@@ -152,7 +152,7 @@ name|ReplicationException
 function_decl|;
 comment|/**    * Removes a remote slave cluster and stops the replication to it.    * @param peerId a short that identifies the cluster    */
 name|void
-name|removePeer
+name|unregisterPeer
 parameter_list|(
 name|String
 name|peerId
@@ -160,8 +160,9 @@ parameter_list|)
 throws|throws
 name|ReplicationException
 function_decl|;
+comment|/**    * Method called after a peer has been connected. It will create a ReplicationPeer to track the    * newly connected cluster.    * @param peerId a short that identifies the cluster    * @return whether a ReplicationPeer was successfully created    * @throws ReplicationException    */
 name|boolean
-name|peerAdded
+name|peerConnected
 parameter_list|(
 name|String
 name|peerId
@@ -169,8 +170,9 @@ parameter_list|)
 throws|throws
 name|ReplicationException
 function_decl|;
+comment|/**    * Method called after a peer has been disconnected. It will remove the ReplicationPeer that    * tracked the disconnected cluster.    * @param peerId a short that identifies the cluster    */
 name|void
-name|peerRemoved
+name|peerDisconnected
 parameter_list|(
 name|String
 name|peerId
@@ -196,7 +198,7 @@ parameter_list|)
 throws|throws
 name|ReplicationException
 function_decl|;
-comment|/**    * Get the table and column-family list string of the peer from ZK.    * @param peerId a short that identifies the cluster    */
+comment|/**    * Get the table and column-family list string of the peer from the underlying storage.    * @param peerId a short that identifies the cluster    */
 specifier|public
 name|Map
 argument_list|<
@@ -215,7 +217,7 @@ parameter_list|)
 throws|throws
 name|ReplicationException
 function_decl|;
-comment|/**    * Set the table and column-family list string of the peer to ZK.    * @param peerId a short that identifies the cluster    * @param tableCFs the table and column-family list which will be replicated for this peer    */
+comment|/**    * Set the table and column-family list string of the peer to the underlying storage.    * @param peerId a short that identifies the cluster    * @param tableCFs the table and column-family list which will be replicated for this peer    */
 specifier|public
 name|void
 name|setPeerTableCFsConfig
@@ -239,21 +241,21 @@ parameter_list|)
 throws|throws
 name|ReplicationException
 function_decl|;
-comment|/**    * Returns the ReplicationPeer    * @param peerId id for the peer    * @return ReplicationPeer object    */
+comment|/**    * Returns the ReplicationPeer for the specified connected peer. This ReplicationPeer will    * continue to track changes to the Peer's state and config. This method returns null if no    * peer has been connected with the given peerId.    * @param peerId id for the peer    * @return ReplicationPeer object    */
 name|ReplicationPeer
-name|getPeer
+name|getConnectedPeer
 parameter_list|(
 name|String
 name|peerId
 parameter_list|)
 function_decl|;
-comment|/**    * Returns the set of peerIds defined    * @return a Set of Strings for peerIds    */
+comment|/**    * Returns the set of peerIds of the clusters that have been connected and have an underlying    * ReplicationPeer.    * @return a Set of Strings for peerIds    */
 specifier|public
 name|Set
 argument_list|<
 name|String
 argument_list|>
-name|getPeerIds
+name|getConnectedPeerIds
 parameter_list|()
 function_decl|;
 comment|/**    * Get the replication status for the specified connected remote slave cluster.    * The value might be read from cache, so it is recommended to    * use {@link #getStatusOfPeerFromBackingStore(String)}    * if reading the state after enabling or disabling it.    * @param peerId a short that identifies the cluster    * @return true if replication is enabled, false otherwise.    */
@@ -317,6 +319,7 @@ parameter_list|)
 throws|throws
 name|ReplicationException
 function_decl|;
+comment|/**    * Update the peerConfig for the a given peer cluster    * @param id a short that identifies the cluster    * @param peerConfig new config for the peer cluster    * @throws ReplicationException    */
 name|void
 name|updatePeerConfig
 parameter_list|(

@@ -946,7 +946,7 @@ name|Exception
 block|{
 name|rp
 operator|.
-name|addPeer
+name|registerPeer
 argument_list|(
 literal|"5"
 argument_list|,
@@ -974,7 +974,7 @@ argument_list|)
 expr_stmt|;
 name|rp
 operator|.
-name|removePeer
+name|unregisterPeer
 argument_list|(
 literal|"5"
 argument_list|)
@@ -1023,7 +1023,7 @@ block|{
 comment|// add a peer
 name|rp
 operator|.
-name|addPeer
+name|registerPeer
 argument_list|(
 literal|"5"
 argument_list|,
@@ -1149,7 +1149,7 @@ comment|// clean up
 comment|//ZKUtil.deleteNode(zkw, "/hbase/replication/peers/5");
 name|rp
 operator|.
-name|removePeer
+name|unregisterPeer
 argument_list|(
 literal|"5"
 argument_list|)
@@ -1181,7 +1181,7 @@ literal|0
 decl_stmt|;
 name|rp
 operator|.
-name|addPeer
+name|registerPeer
 argument_list|(
 literal|"6"
 argument_list|,
@@ -1202,7 +1202,7 @@ try|try
 block|{
 name|rp
 operator|.
-name|addPeer
+name|registerPeer
 argument_list|(
 literal|"6"
 argument_list|,
@@ -1234,7 +1234,7 @@ try|try
 block|{
 name|rp
 operator|.
-name|addPeer
+name|registerPeer
 argument_list|(
 literal|"6-ec2"
 argument_list|,
@@ -1279,7 +1279,7 @@ expr_stmt|;
 comment|// clean up
 name|rp
 operator|.
-name|removePeer
+name|unregisterPeer
 argument_list|(
 literal|"6"
 argument_list|)
@@ -1343,7 +1343,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Received peerRemoved event: "
+literal|"Received peerDisconnected event: "
 operator|+
 name|peerId
 argument_list|)

@@ -389,20 +389,6 @@ name|KeeperException
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|zookeeper
-operator|.
-name|KeeperException
-operator|.
-name|NoNodeException
-import|;
-end_import
-
 begin_comment
 comment|/**  * This class provides an implementation of the ReplicationPeers interface using ZooKeeper. The  * peers znode contains a list of all peer replication clusters and the current replication state of  * those clusters. It has one child peer znode for each peer cluster. The peer znode is named with  * the cluster id provided by the user in the HBase shell. The value of the peer znode contains the  * peers cluster key provided by the user in the HBase Shell. The cluster key contains a list of  * zookeeper quorum peers, the client port for the zookeeper quorum, and the base znode for HBase.  * For example:  *  *  /hbase/replication/peers/1 [Value: zk1.host.com,zk2.host.com,zk3.host.com:2181:/hbase]  *  /hbase/replication/peers/2 [Value: zk5.host.com,zk6.host.com,zk7.host.com:2181:/hbase]  *  * Each of these peer znodes has a child znode that indicates whether or not replication is enabled  * on that peer cluster. These peer-state znodes do not have child znodes and simply contain a  * boolean value (i.e. ENABLED or DISABLED). This value is read/maintained by the  * ReplicationPeer.PeerStateTracker class. For example:  *  * /hbase/replication/peers/1/peer-state [Value: ENABLED]  *  * Each of these peer znodes has a child znode that indicates which data will be replicated  * to the peer cluster. These peer-tableCFs znodes do not have child znodes and only have a  * table/cf list config. This value is read/maintained by the ReplicationPeer.TableCFsTracker  * class. For example:  *  * /hbase/replication/peers/1/tableCFs [Value: "table1; table2:cf1,cf3; table3:cfx,cfy"]  */
 end_comment
@@ -576,7 +562,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|addPeer
+name|registerPeer
 parameter_list|(
 name|String
 name|id
@@ -798,7 +784,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|removePeer
+name|unregisterPeer
 parameter_list|(
 name|String
 name|id
@@ -1230,7 +1216,7 @@ literal|"Peer with id= "
 operator|+
 name|id
 operator|+
-literal|" is not connected"
+literal|" is not cached"
 argument_list|)
 throw|;
 block|}
@@ -1517,7 +1503,7 @@ annotation|@
 name|Override
 specifier|public
 name|ReplicationPeer
-name|getPeer
+name|getConnectedPeer
 parameter_list|(
 name|String
 name|peerId
@@ -1539,7 +1525,7 @@ name|Set
 argument_list|<
 name|String
 argument_list|>
-name|getPeerIds
+name|getConnectedPeerIds
 parameter_list|()
 block|{
 return|return
@@ -1860,7 +1846,7 @@ block|{
 name|ReplicationPeer
 name|peer
 init|=
-name|getPeer
+name|getConnectedPeer
 argument_list|(
 name|id
 argument_list|)
@@ -2218,7 +2204,7 @@ annotation|@
 name|Override
 specifier|public
 name|boolean
-name|peerAdded
+name|peerConnected
 parameter_list|(
 name|String
 name|peerId
@@ -2237,7 +2223,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|peerRemoved
+name|peerDisconnected
 parameter_list|(
 name|String
 name|peerId

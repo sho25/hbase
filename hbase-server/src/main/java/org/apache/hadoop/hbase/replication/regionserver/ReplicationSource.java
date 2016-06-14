@@ -1515,7 +1515,7 @@ name|tableCFMap
 init|=
 name|replicationPeers
 operator|.
-name|getPeer
+name|getConnectedPeer
 argument_list|(
 name|peerId
 argument_list|)

@@ -958,7 +958,7 @@ argument_list|()
 expr_stmt|;
 name|rp
 operator|.
-name|addPeer
+name|registerPeer
 argument_list|(
 name|peerId
 argument_list|,
@@ -1022,7 +1022,7 @@ expr_stmt|;
 block|}
 name|rp
 operator|.
-name|removePeer
+name|unregisterPeer
 argument_list|(
 name|peerId
 argument_list|)
