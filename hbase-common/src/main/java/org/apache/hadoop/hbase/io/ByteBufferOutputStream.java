@@ -192,8 +192,13 @@ literal|8
 decl_stmt|;
 specifier|protected
 name|ByteBuffer
-name|buf
+name|curBuf
+init|=
+literal|null
 decl_stmt|;
+name|ByteBufferOutputStream
+parameter_list|()
+block|{    }
 specifier|public
 name|ByteBufferOutputStream
 parameter_list|(
@@ -251,13 +256,13 @@ name|BIG_ENDIAN
 assert|;
 name|this
 operator|.
-name|buf
+name|curBuf
 operator|=
 name|bb
 expr_stmt|;
 name|this
 operator|.
-name|buf
+name|curBuf
 operator|.
 name|clear
 argument_list|()
@@ -269,7 +274,7 @@ name|size
 parameter_list|()
 block|{
 return|return
-name|buf
+name|curBuf
 operator|.
 name|position
 argument_list|()
@@ -327,16 +332,16 @@ name|ByteBuffer
 name|getByteBuffer
 parameter_list|()
 block|{
-name|buf
+name|curBuf
 operator|.
 name|flip
 argument_list|()
 expr_stmt|;
 return|return
-name|buf
+name|curBuf
 return|;
 block|}
-specifier|private
+specifier|protected
 name|void
 name|checkSizeAndGrow
 parameter_list|(
@@ -347,7 +352,7 @@ block|{
 name|long
 name|capacityNeeded
 init|=
-name|buf
+name|curBuf
 operator|.
 name|position
 argument_list|()
@@ -361,7 +366,7 @@ if|if
 condition|(
 name|capacityNeeded
 operator|>
-name|buf
+name|curBuf
 operator|.
 name|limit
 argument_list|()
@@ -389,7 +394,7 @@ name|Math
 operator|.
 name|min
 argument_list|(
-name|buf
+name|curBuf
 operator|.
 name|capacity
 argument_list|()
@@ -421,13 +426,13 @@ name|int
 operator|)
 name|nextCapacity
 argument_list|,
-name|buf
+name|curBuf
 operator|.
 name|isDirect
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|buf
+name|curBuf
 operator|.
 name|flip
 argument_list|()
@@ -436,12 +441,12 @@ name|ByteBufferUtils
 operator|.
 name|copyFromBufferToBuffer
 argument_list|(
-name|buf
+name|curBuf
 argument_list|,
 name|newBuf
 argument_list|)
 expr_stmt|;
-name|buf
+name|curBuf
 operator|=
 name|newBuf
 expr_stmt|;
@@ -467,7 +472,7 @@ operator|.
 name|SIZEOF_BYTE
 argument_list|)
 expr_stmt|;
-name|buf
+name|curBuf
 operator|.
 name|put
 argument_list|(
@@ -480,7 +485,6 @@ expr_stmt|;
 block|}
 comment|/**   * Writes the complete contents of this byte buffer output stream to   * the specified output stream argument.   *   * @param      out   the output stream to which to write the data.   * @exception  IOException  if an I/O error occurs.   */
 specifier|public
-specifier|synchronized
 name|void
 name|writeTo
 parameter_list|(
@@ -503,7 +507,7 @@ decl_stmt|;
 name|ByteBuffer
 name|bb
 init|=
-name|buf
+name|curBuf
 operator|.
 name|duplicate
 argument_list|()
@@ -574,7 +578,7 @@ name|ByteBufferUtils
 operator|.
 name|copyFromArrayToBuffer
 argument_list|(
-name|buf
+name|curBuf
 argument_list|,
 name|b
 argument_list|,
@@ -611,7 +615,7 @@ name|copyFromBufferToBuffer
 argument_list|(
 name|b
 argument_list|,
-name|buf
+name|curBuf
 argument_list|,
 name|off
 argument_list|,
@@ -643,7 +647,7 @@ name|putInt
 argument_list|(
 name|this
 operator|.
-name|buf
+name|curBuf
 argument_list|,
 name|i
 argument_list|)
@@ -686,7 +690,7 @@ block|{
 name|ByteBuffer
 name|bb
 init|=
-name|buf
+name|curBuf
 operator|.
 name|duplicate
 argument_list|()
