@@ -14193,6 +14193,7 @@ argument_list|(
 name|encodedName
 argument_list|)
 decl_stmt|;
+comment|// Can be null if we're calling close on a region that's not online
 if|if
 condition|(
 operator|(
