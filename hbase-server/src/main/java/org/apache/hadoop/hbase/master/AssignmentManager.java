@@ -6883,6 +6883,22 @@ operator|+
 literal|1
 operator|)
 decl_stmt|;
+if|if
+condition|(
+name|deadline
+operator|<
+literal|0
+condition|)
+block|{
+comment|// Overflow
+name|deadline
+operator|=
+name|Long
+operator|.
+name|MAX_VALUE
+expr_stmt|;
+comment|// wait forever
+block|}
 return|return
 name|waitForAssignment
 argument_list|(
