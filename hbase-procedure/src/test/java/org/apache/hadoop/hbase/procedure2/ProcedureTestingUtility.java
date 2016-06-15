@@ -1753,6 +1753,8 @@ name|long
 name|maxProcId
 parameter_list|)
 block|{
+name|this
+operator|.
 name|maxProcId
 operator|=
 name|maxProcId
