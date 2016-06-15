@@ -978,7 +978,7 @@ specifier|final
 name|String
 name|HTTP_AUTHENTICATION_PREFIX
 init|=
-literal|"hbase.security.authentication.spnego."
+literal|"hbase.security.authentication."
 decl_stmt|;
 specifier|static
 specifier|final
