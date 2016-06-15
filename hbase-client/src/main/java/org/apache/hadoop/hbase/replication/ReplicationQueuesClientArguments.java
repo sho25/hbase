@@ -77,6 +77,10 @@ name|ZooKeeperWatcher
 import|;
 end_import
 
+begin_comment
+comment|/**  * Wrapper around common arguments used to construct ReplicationQueuesClient. Used to construct  * various ReplicationQueuesClient Implementations with different constructor arguments by  * reflection.  */
+end_comment
+
 begin_class
 annotation|@
 name|InterfaceAudience

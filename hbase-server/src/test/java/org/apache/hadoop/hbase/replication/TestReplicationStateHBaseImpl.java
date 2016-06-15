@@ -541,11 +541,6 @@ operator|new
 name|HBaseTestingUtility
 argument_list|()
 expr_stmt|;
-name|utility
-operator|.
-name|startMiniCluster
-argument_list|()
-expr_stmt|;
 name|conf
 operator|=
 name|utility
@@ -582,6 +577,11 @@ name|ReplicationQueuesClient
 operator|.
 name|class
 argument_list|)
+expr_stmt|;
+name|utility
+operator|.
+name|startMiniCluster
+argument_list|()
 expr_stmt|;
 name|zkw
 operator|=
