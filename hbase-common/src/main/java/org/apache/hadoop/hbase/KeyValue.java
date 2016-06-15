@@ -11366,28 +11366,6 @@ expr_stmt|;
 comment|// pointer to "bytes"
 name|sum
 operator|+=
-name|ClassSize
-operator|.
-name|align
-argument_list|(
-name|ClassSize
-operator|.
-name|ARRAY
-argument_list|)
-expr_stmt|;
-comment|// "bytes"
-name|sum
-operator|+=
-name|ClassSize
-operator|.
-name|align
-argument_list|(
-name|length
-argument_list|)
-expr_stmt|;
-comment|// number of bytes of data in the "bytes" array
-name|sum
-operator|+=
 literal|2
 operator|*
 name|Bytes
@@ -11402,6 +11380,7 @@ operator|.
 name|SIZEOF_LONG
 expr_stmt|;
 comment|// memstoreTS
+comment|/*      * Deep object overhead for this KV consists of two parts. The first part is the KV object      * itself, while the second part is the backing byte[]. We will only count the array overhead      * from the byte[] only if this is the first KV in there.      */
 return|return
 name|ClassSize
 operator|.
@@ -11409,7 +11388,26 @@ name|align
 argument_list|(
 name|sum
 argument_list|)
+operator|+
+operator|(
+name|offset
+operator|==
+literal|0
+condition|?
+name|ClassSize
+operator|.
+name|sizeOf
+argument_list|(
+name|bytes
+argument_list|,
+name|length
+argument_list|)
+comment|// count both length and object overhead
+else|:
+name|length
+operator|)
 return|;
+comment|// only count the number of bytes
 block|}
 comment|/**    * A simple form of KeyValue that creates a keyvalue with only the key part of the byte[]    * Mainly used in places where we need to compare two cells.  Avoids copying of bytes    * In places like block index keys, we need to compare the key byte[] with a cell.    * Hence create a Keyvalue(aka Cell) that would help in comparing as two cells    */
 specifier|public

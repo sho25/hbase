@@ -1182,7 +1182,7 @@ name|FlushLargeStoresPolicy
 operator|.
 name|HREGION_COLUMNFAMILY_FLUSH_SIZE_LOWER_BOUND_MIN
 argument_list|,
-literal|300
+literal|200
 operator|*
 literal|1024
 argument_list|)
@@ -2423,7 +2423,7 @@ name|FlushLargeStoresPolicy
 operator|.
 name|HREGION_COLUMNFAMILY_FLUSH_SIZE_LOWER_BOUND_MIN
 argument_list|,
-literal|300
+literal|200
 operator|*
 literal|1024
 argument_list|)

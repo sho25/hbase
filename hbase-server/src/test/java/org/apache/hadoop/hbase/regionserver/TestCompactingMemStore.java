@@ -532,6 +532,8 @@ argument_list|()
 expr_stmt|;
 block|}
 annotation|@
+name|Override
+annotation|@
 name|Before
 specifier|public
 name|void
@@ -679,6 +681,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * A simple test which verifies the 3 possible states when scanning across snapshot.    *    * @throws IOException    * @throws CloneNotSupportedException    */
+annotation|@
+name|Override
 annotation|@
 name|Test
 specifier|public
@@ -901,6 +905,8 @@ expr_stmt|;
 block|}
 comment|/**    * Test memstore snapshots    * @throws IOException    */
 annotation|@
+name|Override
+annotation|@
 name|Test
 specifier|public
 name|void
@@ -970,6 +976,8 @@ comment|////////////////////////////////////////////////////////////////////////
 comment|// Get tests
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|/** Test getNextRow from memstore    * @throws InterruptedException    */
+annotation|@
+name|Override
 annotation|@
 name|Test
 specifier|public
@@ -1384,6 +1392,8 @@ block|}
 block|}
 block|}
 annotation|@
+name|Override
+annotation|@
 name|Test
 specifier|public
 name|void
@@ -1642,6 +1652,8 @@ comment|//Test for upsert with MSLAB
 comment|////////////////////////////////////
 comment|/**    * Test a pathological pattern that shows why we can't currently    * use the MSLAB for upsert workloads. This test inserts data    * in the following pattern:    *    * - row0001 through row1000 (fills up one 2M Chunk)    * - row0002 through row1001 (fills up another 2M chunk, leaves one reference    *   to the first chunk    * - row0003 through row1002 (another chunk, another dangling reference)    *    * This causes OOME pretty quickly if we use MSLAB for upsert    * since each 2M chunk is held onto by a single reference.    */
 annotation|@
+name|Override
+annotation|@
 name|Test
 specifier|public
 name|void
@@ -1859,6 +1871,8 @@ comment|// Test for periodic memstore flushes
 comment|// based on time of oldest edit
 comment|////////////////////////////////////
 comment|/**    * Add keyvalues with a fixed memstoreTs, and checks that memstore size is decreased    * as older keyvalues are deleted from the memstore.    *    * @throws Exception    */
+annotation|@
+name|Override
 annotation|@
 name|Test
 specifier|public
@@ -2105,6 +2119,8 @@ assert|;
 comment|//this.memstore = null;
 block|}
 comment|/**    * Tests that the timeOfOldestEdit is updated correctly for the    * various edit operations in memstore.    * @throws Exception    */
+annotation|@
+name|Override
 annotation|@
 name|Test
 specifier|public
@@ -3742,7 +3758,7 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|704
+literal|496
 argument_list|,
 name|regionServicesForStores
 operator|.
@@ -3805,7 +3821,7 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|528
+literal|376
 argument_list|,
 name|regionServicesForStores
 operator|.
@@ -3921,7 +3937,7 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|704
+literal|496
 argument_list|,
 name|regionServicesForStores
 operator|.
@@ -3984,7 +4000,7 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|528
+literal|376
 argument_list|,
 name|regionServicesForStores
 operator|.
@@ -4001,7 +4017,7 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|1056
+literal|752
 argument_list|,
 name|regionServicesForStores
 operator|.
@@ -4063,7 +4079,7 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|704
+literal|496
 argument_list|,
 name|regionServicesForStores
 operator|.
@@ -4191,7 +4207,7 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|704
+literal|496
 argument_list|,
 name|region
 operator|.
@@ -4273,7 +4289,7 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|528
+literal|376
 argument_list|,
 name|regionServicesForStores
 operator|.
@@ -4308,7 +4324,7 @@ literal|"\n\n"
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|1056
+literal|752
 argument_list|,
 name|regionServicesForStores
 operator|.
@@ -4359,7 +4375,7 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|1056
+literal|752
 argument_list|,
 name|regionServicesForStores
 operator|.
@@ -4376,7 +4392,7 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|1584
+literal|1128
 argument_list|,
 name|regionServicesForStores
 operator|.
@@ -4448,7 +4464,7 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|704
+literal|496
 argument_list|,
 name|regionServicesForStores
 operator|.
@@ -4556,6 +4572,17 @@ argument_list|(
 literal|"testqualifier"
 argument_list|)
 decl_stmt|;
+name|long
+name|size
+init|=
+name|hmc
+operator|.
+name|getActive
+argument_list|()
+operator|.
+name|getSize
+argument_list|()
+decl_stmt|;
 for|for
 control|(
 name|int
@@ -4654,7 +4681,7 @@ operator|.
 name|getKeyString
 argument_list|()
 operator|+
-literal|", timestamp"
+literal|", timestamp:"
 operator|+
 name|kv
 operator|.
@@ -4662,26 +4689,22 @@ name|getTimestamp
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|long
-name|size
-init|=
-name|AbstractMemStore
-operator|.
-name|heapSizeChange
-argument_list|(
-name|kv
-argument_list|,
-literal|true
-argument_list|)
-decl_stmt|;
+block|}
 name|regionServicesForStores
 operator|.
 name|addAndGetGlobalMemstoreSize
 argument_list|(
+name|hmc
+operator|.
+name|getActive
+argument_list|()
+operator|.
+name|getSize
+argument_list|()
+operator|-
 name|size
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 specifier|private
 class|class

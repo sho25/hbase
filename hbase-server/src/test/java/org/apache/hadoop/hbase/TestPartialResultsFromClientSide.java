@@ -405,6 +405,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|ClassSize
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|Pair
 import|;
 end_import
@@ -1957,7 +1973,7 @@ name|scan
 operator|.
 name|setMaxResultSize
 argument_list|(
-literal|1
+literal|2
 argument_list|)
 expr_stmt|;
 name|scan
@@ -2014,6 +2030,9 @@ operator|==
 literal|1
 argument_list|)
 expr_stmt|;
+comment|// Estimate the cell heap size. One difference is that on server side, the KV Heap size is
+comment|// estimated differently in case the cell is backed up by MSLAB byte[] (no overhead for
+comment|// backing array). Thus below calculation is a bit brittle.
 name|CELL_HEAP_SIZE
 operator|=
 name|CellUtil
@@ -2028,6 +2047,14 @@ index|[
 literal|0
 index|]
 argument_list|)
+operator|-
+operator|(
+name|ClassSize
+operator|.
+name|ARRAY
+operator|+
+literal|3
+operator|)
 expr_stmt|;
 if|if
 condition|(
