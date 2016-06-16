@@ -586,6 +586,21 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+comment|// Just to prevent fastpath FIFO from picking calls up bypassing the queue.
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|set
+argument_list|(
+name|SimpleRpcScheduler
+operator|.
+name|CALL_QUEUE_TYPE_CONF_KEY
+argument_list|,
+literal|"deadline"
+argument_list|)
+expr_stmt|;
 name|TEST_UTIL
 operator|.
 name|startMiniCluster
