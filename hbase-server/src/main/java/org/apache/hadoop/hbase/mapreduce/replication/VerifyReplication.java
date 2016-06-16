@@ -2506,6 +2506,26 @@ continue|continue;
 block|}
 if|if
 condition|(
+name|cmd
+operator|.
+name|startsWith
+argument_list|(
+literal|"--"
+argument_list|)
+condition|)
+block|{
+name|printUsage
+argument_list|(
+literal|"Invalid argument '"
+operator|+
+name|cmd
+operator|+
+literal|"'"
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
 name|i
 operator|==
 name|args
@@ -2656,7 +2676,7 @@ name|println
 argument_list|(
 literal|"Usage: verifyrep [--starttime=X]"
 operator|+
-literal|" [--stoptime=Y] [--families=A] [--row-prefixes=B]<peerid><tablename>"
+literal|" [--endtime=Y] [--families=A] [--row-prefixes=B]<peerid><tablename>"
 argument_list|)
 expr_stmt|;
 name|System
