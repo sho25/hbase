@@ -1113,9 +1113,17 @@ operator|new
 name|InMemoryFlushRunnable
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
 name|LOG
 operator|.
-name|info
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"Dispatching the MemStore in-memory flush for store "
 operator|+
@@ -1125,20 +1133,13 @@ name|getColumnFamilyName
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 name|getPool
 argument_list|()
 operator|.
 name|execute
 argument_list|(
 name|runnable
-argument_list|)
-expr_stmt|;
-comment|// guard against queuing same old compactions over and over again
-name|inMemoryFlushInProgress
-operator|.
-name|set
-argument_list|(
-literal|true
 argument_list|)
 expr_stmt|;
 block|}
@@ -1202,17 +1203,19 @@ name|allowCompaction
 operator|.
 name|get
 argument_list|()
+operator|&&
+name|inMemoryFlushInProgress
+operator|.
+name|compareAndSet
+argument_list|(
+literal|false
+argument_list|,
+literal|true
+argument_list|)
 condition|)
 block|{
 comment|// setting the inMemoryFlushInProgress flag again for the case this method is invoked
 comment|// directly (only in tests) in the common path setting from true to true is idempotent
-name|inMemoryFlushInProgress
-operator|.
-name|set
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
 comment|// Speculative compaction execution, may be interrupted if flush is forced while
 comment|// compaction is in progress
 name|compactor
