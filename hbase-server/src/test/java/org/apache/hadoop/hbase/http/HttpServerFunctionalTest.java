@@ -891,7 +891,7 @@ else|else
 block|{
 name|deleteRecursively
 argument_list|(
-name|d
+name|child
 argument_list|)
 expr_stmt|;
 block|}
