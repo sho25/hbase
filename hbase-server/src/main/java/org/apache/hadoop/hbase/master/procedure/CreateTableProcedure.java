@@ -2576,6 +2576,26 @@ argument_list|(
 name|env
 argument_list|)
 expr_stmt|;
+comment|// Mark the table as Enabling
+name|env
+operator|.
+name|getMasterServices
+argument_list|()
+operator|.
+name|getTableStateManager
+argument_list|()
+operator|.
+name|setTableState
+argument_list|(
+name|tableName
+argument_list|,
+name|TableState
+operator|.
+name|State
+operator|.
+name|ENABLING
+argument_list|)
+expr_stmt|;
 comment|// Trigger immediate assignment of the regions in round-robin fashion
 specifier|final
 name|AssignmentManager
