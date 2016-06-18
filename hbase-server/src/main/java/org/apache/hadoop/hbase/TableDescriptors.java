@@ -64,20 +64,9 @@ specifier|public
 interface|interface
 name|TableDescriptors
 block|{
-comment|/**    * @param tableName    * @return HTableDescriptor for tablename    * @throws IOException    */
+comment|/**    * @param tableName    * @return TableDescriptor for tablename    * @throws IOException    */
 name|HTableDescriptor
 name|get
-parameter_list|(
-specifier|final
-name|TableName
-name|tableName
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-comment|/**    * @param tableName    * @return TableDescriptor for tablename    * @throws IOException    */
-name|TableDescriptor
-name|getDescriptor
 parameter_list|(
 specifier|final
 name|TableName
@@ -118,7 +107,7 @@ name|Map
 argument_list|<
 name|String
 argument_list|,
-name|TableDescriptor
+name|HTableDescriptor
 argument_list|>
 name|getAllDescriptors
 parameter_list|()
@@ -131,17 +120,6 @@ name|add
 parameter_list|(
 specifier|final
 name|HTableDescriptor
-name|htd
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-comment|/**    * Add or update descriptor    * @param htd Descriptor to set into TableDescriptors    * @throws IOException    */
-name|void
-name|add
-parameter_list|(
-specifier|final
-name|TableDescriptor
 name|htd
 parameter_list|)
 throws|throws

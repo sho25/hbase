@@ -780,9 +780,6 @@ name|fs
 argument_list|,
 name|tabledir
 argument_list|)
-operator|.
-name|getHTableDescriptor
-argument_list|()
 expr_stmt|;
 name|String
 name|logname

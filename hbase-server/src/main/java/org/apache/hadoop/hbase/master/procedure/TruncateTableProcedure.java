@@ -611,13 +611,10 @@ operator|.
 name|getTableDescriptors
 argument_list|()
 operator|.
-name|getDescriptor
+name|get
 argument_list|(
 name|tableName
 argument_list|)
-operator|.
-name|getHTableDescriptor
-argument_list|()
 expr_stmt|;
 name|DeleteTableProcedure
 operator|.

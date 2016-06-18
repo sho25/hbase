@@ -213,20 +213,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
-operator|.
-name|TableDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|io
 operator|.
 name|LongWritable
@@ -868,7 +854,7 @@ operator|.
 name|getParent
 argument_list|()
 decl_stmt|;
-name|TableDescriptor
+name|HTableDescriptor
 name|htd
 init|=
 name|FSTableDescriptors
@@ -897,9 +883,6 @@ argument_list|(
 name|tableDir
 argument_list|,
 name|htd
-operator|.
-name|getHTableDescriptor
-argument_list|()
 argument_list|,
 name|hri
 argument_list|,
@@ -933,7 +916,7 @@ operator|.
 name|getParent
 argument_list|()
 decl_stmt|;
-name|TableDescriptor
+name|HTableDescriptor
 name|htd
 init|=
 name|FSTableDescriptors
@@ -950,9 +933,6 @@ argument_list|(
 name|tableDir
 argument_list|,
 name|htd
-operator|.
-name|getHTableDescriptor
-argument_list|()
 argument_list|,
 name|path
 argument_list|,
@@ -1015,7 +995,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|TableDescriptor
+name|HTableDescriptor
 name|htd
 init|=
 name|FSTableDescriptors
@@ -1047,9 +1027,6 @@ argument_list|(
 name|tableDir
 argument_list|,
 name|htd
-operator|.
-name|getHTableDescriptor
-argument_list|()
 argument_list|,
 name|regionDir
 argument_list|,

@@ -157,7 +157,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|MetaTableAccessor
+name|HTableDescriptor
 import|;
 end_import
 
@@ -171,7 +171,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableDescriptor
+name|MetaTableAccessor
 import|;
 end_import
 
@@ -952,7 +952,7 @@ name|Map
 argument_list|<
 name|String
 argument_list|,
-name|TableDescriptor
+name|HTableDescriptor
 argument_list|>
 name|allDescriptors
 init|=
@@ -1045,7 +1045,7 @@ name|Entry
 argument_list|<
 name|String
 argument_list|,
-name|TableDescriptor
+name|HTableDescriptor
 argument_list|>
 name|entry
 range|:

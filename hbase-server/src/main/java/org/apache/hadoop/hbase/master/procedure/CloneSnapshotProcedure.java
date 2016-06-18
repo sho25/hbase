@@ -261,20 +261,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|TableExistsException
 import|;
 end_import
@@ -2662,11 +2648,11 @@ argument_list|()
 decl_stmt|;
 comment|// 1. Create Table Descriptor
 comment|// using a copy of descriptor, table will be created enabling first
-name|TableDescriptor
+name|HTableDescriptor
 name|underConstruction
 init|=
 operator|new
-name|TableDescriptor
+name|HTableDescriptor
 argument_list|(
 name|hTableDescriptor
 argument_list|)

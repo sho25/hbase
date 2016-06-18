@@ -241,20 +241,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|client
 operator|.
 name|BufferedMutator
@@ -1049,35 +1035,18 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// check htd
-name|TableDescriptor
-name|tableDesc
+name|HTableDescriptor
+name|htd
 init|=
 name|master
 operator|.
 name|getTableDescriptors
 argument_list|()
 operator|.
-name|getDescriptor
+name|get
 argument_list|(
 name|tableName
 argument_list|)
-decl_stmt|;
-name|assertTrue
-argument_list|(
-literal|"table descriptor not found"
-argument_list|,
-name|tableDesc
-operator|!=
-literal|null
-argument_list|)
-expr_stmt|;
-name|HTableDescriptor
-name|htd
-init|=
-name|tableDesc
-operator|.
-name|getHTableDescriptor
-argument_list|()
 decl_stmt|;
 name|assertTrue
 argument_list|(
@@ -1245,7 +1214,7 @@ operator|.
 name|getTableDescriptors
 argument_list|()
 operator|.
-name|getDescriptor
+name|get
 argument_list|(
 name|tableName
 argument_list|)
@@ -2476,7 +2445,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|TableDescriptor
+name|HTableDescriptor
 name|htd
 init|=
 name|master
@@ -2484,7 +2453,7 @@ operator|.
 name|getTableDescriptors
 argument_list|()
 operator|.
-name|getDescriptor
+name|get
 argument_list|(
 name|tableName
 argument_list|)
@@ -2499,9 +2468,6 @@ expr_stmt|;
 name|assertTrue
 argument_list|(
 name|htd
-operator|.
-name|getHTableDescriptor
-argument_list|()
 operator|.
 name|hasFamily
 argument_list|(
@@ -2534,7 +2500,7 @@ throws|throws
 name|IOException
 block|{
 comment|// verify htd
-name|TableDescriptor
+name|HTableDescriptor
 name|htd
 init|=
 name|master
@@ -2542,7 +2508,7 @@ operator|.
 name|getTableDescriptors
 argument_list|()
 operator|.
-name|getDescriptor
+name|get
 argument_list|(
 name|tableName
 argument_list|)
@@ -2557,9 +2523,6 @@ expr_stmt|;
 name|assertFalse
 argument_list|(
 name|htd
-operator|.
-name|getHTableDescriptor
-argument_list|()
 operator|.
 name|hasFamily
 argument_list|(
@@ -2668,7 +2631,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|TableDescriptor
+name|HTableDescriptor
 name|htd
 init|=
 name|master
@@ -2676,7 +2639,7 @@ operator|.
 name|getTableDescriptors
 argument_list|()
 operator|.
-name|getDescriptor
+name|get
 argument_list|(
 name|tableName
 argument_list|)
@@ -2692,9 +2655,6 @@ name|HColumnDescriptor
 name|hcfd
 init|=
 name|htd
-operator|.
-name|getHTableDescriptor
-argument_list|()
 operator|.
 name|getFamily
 argument_list|(

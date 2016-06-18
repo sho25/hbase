@@ -713,20 +713,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|TableDescriptors
 import|;
 end_import
@@ -7737,6 +7723,8 @@ literal|true
 return|;
 block|}
 annotation|@
+name|Override
+annotation|@
 name|VisibleForTesting
 specifier|public
 name|RegionNormalizer
@@ -7844,13 +7832,13 @@ range|:
 name|allEnabledTables
 control|)
 block|{
-name|TableDescriptor
+name|HTableDescriptor
 name|tblDesc
 init|=
 name|getTableDescriptors
 argument_list|()
 operator|.
-name|getDescriptor
+name|get
 argument_list|(
 name|table
 argument_list|)
@@ -7868,17 +7856,11 @@ operator|!=
 literal|null
 operator|&&
 name|tblDesc
-operator|.
-name|getHTableDescriptor
-argument_list|()
 operator|!=
 literal|null
 operator|&&
 operator|!
 name|tblDesc
-operator|.
-name|getHTableDescriptor
-argument_list|()
 operator|.
 name|isNormalizationEnabled
 argument_list|()
@@ -12331,6 +12313,8 @@ argument_list|)
 throw|;
 block|}
 comment|/**    * Report whether this master is currently the active master or not.    * If not active master, we are parked on ZK waiting to become active.    *    * This method is used for testing.    *    * @return true if active master, false if not.    */
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isActiveMaster
@@ -12763,6 +12747,8 @@ name|hfileCleaner
 return|;
 block|}
 comment|/**    * @return the underlying snapshot manager    */
+annotation|@
+name|Override
 specifier|public
 name|SnapshotManager
 name|getSnapshotManager
@@ -12775,6 +12761,8 @@ name|snapshotManager
 return|;
 block|}
 comment|/**    * @return the underlying MasterProcedureManagerHost    */
+annotation|@
+name|Override
 specifier|public
 name|MasterProcedureManagerHost
 name|getMasterProcedureManagerHost
