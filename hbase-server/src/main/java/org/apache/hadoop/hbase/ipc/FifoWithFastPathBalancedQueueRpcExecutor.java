@@ -305,7 +305,7 @@ init|=
 operator|new
 name|Semaphore
 argument_list|(
-literal|1
+literal|0
 argument_list|)
 decl_stmt|;
 comment|// The task we get when fast-pathing.
@@ -349,13 +349,6 @@ operator|.
 name|fastPathHandlerStack
 operator|=
 name|fastPathHandlerStack
-expr_stmt|;
-name|this
-operator|.
-name|semaphore
-operator|.
-name|drainPermits
-argument_list|()
 expr_stmt|;
 block|}
 specifier|protected
@@ -415,6 +408,12 @@ operator|=
 name|this
 operator|.
 name|loadedCallRunner
+expr_stmt|;
+name|this
+operator|.
+name|loadedCallRunner
+operator|=
+literal|null
 expr_stmt|;
 block|}
 else|else
