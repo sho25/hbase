@@ -1683,6 +1683,12 @@ argument_list|(
 name|unwrapped
 argument_list|)
 expr_stmt|;
+comment|// release the memory
+name|in
+operator|.
+name|release
+argument_list|()
+expr_stmt|;
 try|try
 block|{
 name|saslToken
