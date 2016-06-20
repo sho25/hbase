@@ -486,7 +486,7 @@ block|}
 annotation|@
 name|Path
 argument_list|(
-literal|"multiget"
+literal|"{multiget: multiget.*}"
 argument_list|)
 specifier|public
 name|MultiRowResource
@@ -500,6 +500,14 @@ literal|"v"
 argument_list|)
 name|String
 name|versions
+parameter_list|,
+annotation|@
+name|PathParam
+argument_list|(
+literal|"multiget"
+argument_list|)
+name|String
+name|path
 parameter_list|)
 throws|throws
 name|IOException
@@ -511,6 +519,22 @@ argument_list|(
 name|this
 argument_list|,
 name|versions
+argument_list|,
+name|path
+operator|.
+name|replace
+argument_list|(
+literal|"multiget"
+argument_list|,
+literal|""
+argument_list|)
+operator|.
+name|replace
+argument_list|(
+literal|"/"
+argument_list|,
+literal|""
+argument_list|)
 argument_list|)
 return|;
 block|}
