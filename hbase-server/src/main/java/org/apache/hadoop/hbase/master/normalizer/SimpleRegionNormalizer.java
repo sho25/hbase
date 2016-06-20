@@ -928,11 +928,11 @@ decl_stmt|;
 if|if
 condition|(
 name|regionSize
-operator|>
+operator|>=
 literal|0
 operator|&&
 name|regionSize2
-operator|>
+operator|>=
 literal|0
 operator|&&
 name|regionSize
