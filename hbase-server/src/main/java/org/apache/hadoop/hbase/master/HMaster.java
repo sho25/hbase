@@ -3299,25 +3299,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|// Do Metrics periodically
-name|periodicDoMetricsChore
-operator|=
-operator|new
-name|PeriodicDoMetrics
-argument_list|(
-name|msgInterval
-argument_list|,
-name|this
-argument_list|)
-expr_stmt|;
-name|getChoreService
-argument_list|()
-operator|.
-name|scheduleChore
-argument_list|(
-name|periodicDoMetricsChore
-argument_list|)
-expr_stmt|;
 comment|// Some unit tests don't need a cluster, so no zookeeper at all
 if|if
 condition|(
@@ -4908,6 +4889,25 @@ operator|.
 name|scheduleChore
 argument_list|(
 name|catalogJanitorChore
+argument_list|)
+expr_stmt|;
+comment|// Do Metrics periodically
+name|periodicDoMetricsChore
+operator|=
+operator|new
+name|PeriodicDoMetrics
+argument_list|(
+name|msgInterval
+argument_list|,
+name|this
+argument_list|)
+expr_stmt|;
+name|getChoreService
+argument_list|()
+operator|.
+name|scheduleChore
+argument_list|(
+name|periodicDoMetricsChore
 argument_list|)
 expr_stmt|;
 name|status
