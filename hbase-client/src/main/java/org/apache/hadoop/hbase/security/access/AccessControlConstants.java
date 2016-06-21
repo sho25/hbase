@@ -110,45 +110,6 @@ name|OP_ATTRIBUTE_ACL
 init|=
 literal|"acl"
 decl_stmt|;
-comment|/** Cell level ACL evaluation strategy */
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|OP_ATTRIBUTE_ACL_STRATEGY
-init|=
-literal|"acl.strategy"
-decl_stmt|;
-comment|/** Default cell ACL evaluation strategy: Table and CF first, then ACL */
-specifier|public
-specifier|static
-specifier|final
-name|byte
-index|[]
-name|OP_ATTRIBUTE_ACL_STRATEGY_DEFAULT
-init|=
-operator|new
-name|byte
-index|[]
-block|{
-literal|0
-block|}
-decl_stmt|;
-comment|/** Alternate cell ACL evaluation strategy: Cell ACL first, then table and CF */
-specifier|public
-specifier|static
-specifier|final
-name|byte
-index|[]
-name|OP_ATTRIBUTE_ACL_STRATEGY_CELL_FIRST
-init|=
-operator|new
-name|byte
-index|[]
-block|{
-literal|1
-block|}
-decl_stmt|;
 block|}
 end_interface
 
