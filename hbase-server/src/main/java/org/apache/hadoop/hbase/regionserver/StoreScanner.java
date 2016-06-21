@@ -1067,6 +1067,8 @@ argument_list|(
 name|this
 argument_list|)
 expr_stmt|;
+try|try
+block|{
 comment|// Pass columns to try to filter out unnecessary StoreFiles.
 name|List
 argument_list|<
@@ -1133,6 +1135,28 @@ name|getComparator
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+comment|// remove us from the HStore#changedReaderObservers here or we'll have no chance to
+comment|// and might cause memory leak
+name|this
+operator|.
+name|store
+operator|.
+name|deleteChangedReaderObserver
+argument_list|(
+name|this
+argument_list|)
+expr_stmt|;
+throw|throw
+name|e
+throw|;
+block|}
 block|}
 comment|/**    * Used for compactions.<p>    *    * Opens a scanner across specified StoreFiles.    * @param store who we scan    * @param scan the spec    * @param scanners ancillary scanners    * @param smallestReadPoint the readPoint that we should use for tracking    *          versions    */
 specifier|public
