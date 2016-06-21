@@ -756,7 +756,7 @@ specifier|static
 name|int
 name|NUM_FAMILIES
 init|=
-literal|3
+literal|4
 decl_stmt|;
 specifier|private
 specifier|static
@@ -843,45 +843,43 @@ argument_list|(
 name|VALUE_SIZE
 argument_list|)
 decl_stmt|;
+comment|// The time limit should be based on the rpc timeout at client, or the client will regards
+comment|// the request as timeout before server return a heartbeat.
 specifier|private
 specifier|static
 name|int
 name|SERVER_TIMEOUT
 init|=
-literal|6000
+literal|60000
 decl_stmt|;
 comment|// Time, in milliseconds, that the client will wait for a response from the server before timing
 comment|// out. This value is used server side to determine when it is necessary to send a heartbeat
-comment|// message to the client
+comment|// message to the client. Time limit will be 500 ms.
 specifier|private
 specifier|static
 name|int
 name|CLIENT_TIMEOUT
 init|=
-name|SERVER_TIMEOUT
-operator|/
-literal|3
+literal|1000
 decl_stmt|;
-comment|// By default, at most one row's worth of cells will be retrieved before the time limit is reached
+comment|// In this test, we sleep after reading each row. So we should make sure after we get some number
+comment|// of rows and sleep same times we must reach time limit, and do not timeout after next sleeping.
+comment|// So set this to 200, we will get 3 rows and reach time limit at the start of 4th row, then sleep
+comment|// for the 4th time. Total time is 800 ms so we will not timeout.
 specifier|private
 specifier|static
 name|int
 name|DEFAULT_ROW_SLEEP_TIME
 init|=
-name|CLIENT_TIMEOUT
-operator|/
-literal|5
+literal|200
 decl_stmt|;
-comment|// By default, at most cells for two column families are retrieved before the time limit is
-comment|// reached
+comment|// Similar with row sleep time.
 specifier|private
 specifier|static
 name|int
 name|DEFAULT_CF_SLEEP_TIME
 init|=
-name|DEFAULT_ROW_SLEEP_TIME
-operator|/
-name|NUM_FAMILIES
+literal|200
 decl_stmt|;
 annotation|@
 name|BeforeClass
