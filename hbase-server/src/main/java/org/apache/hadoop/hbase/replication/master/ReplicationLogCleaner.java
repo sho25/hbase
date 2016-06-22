@@ -573,33 +573,6 @@ name|Configuration
 name|config
 parameter_list|)
 block|{
-comment|// If replication is disabled, keep all members null
-if|if
-condition|(
-operator|!
-name|config
-operator|.
-name|getBoolean
-argument_list|(
-name|HConstants
-operator|.
-name|REPLICATION_ENABLE_KEY
-argument_list|,
-name|HConstants
-operator|.
-name|REPLICATION_ENABLE_DEFAULT
-argument_list|)
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Not configured - allowing all wals to be deleted"
-argument_list|)
-expr_stmt|;
-return|return;
-block|}
 comment|// Make my own Configuration.  Then I'll have my own connection to zk that
 comment|// I can close myself when comes time.
 name|Configuration

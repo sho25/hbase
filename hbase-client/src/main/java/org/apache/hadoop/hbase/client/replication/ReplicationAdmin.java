@@ -639,33 +639,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-if|if
-condition|(
-operator|!
-name|conf
-operator|.
-name|getBoolean
-argument_list|(
-name|HConstants
-operator|.
-name|REPLICATION_ENABLE_KEY
-argument_list|,
-name|HConstants
-operator|.
-name|REPLICATION_ENABLE_DEFAULT
-argument_list|)
-condition|)
-block|{
-throw|throw
-operator|new
-name|RuntimeException
-argument_list|(
-literal|"hbase.replication isn't true, please "
-operator|+
-literal|"enable it in order to use replication"
-argument_list|)
-throw|;
-block|}
 name|this
 operator|.
 name|connection

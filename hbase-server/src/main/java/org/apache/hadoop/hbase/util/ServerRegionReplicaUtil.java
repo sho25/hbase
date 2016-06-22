@@ -258,7 +258,7 @@ name|ServerRegionReplicaUtil
 extends|extends
 name|RegionReplicaUtil
 block|{
-comment|/**    * Whether asynchronous WAL replication to the secondary region replicas is enabled or not.    * If this is enabled, a replication peer named "region_replica_replication" will be created    * which will tail the logs and replicate the mutatations to region replicas for tables that    * have region replication&gt; 1. If this is enabled once, disabling this replication also    * requires disabling the replication peer using shell or ReplicationAdmin java class.    * Replication to secondary region replicas works over standard inter-cluster replication.·    * So replication, if disabled explicitly, also has to be enabled by setting "hbase.replication"·    * to true for this feature to work.    */
+comment|/**    * Whether asynchronous WAL replication to the secondary region replicas is enabled or not.    * If this is enabled, a replication peer named "region_replica_replication" will be created    * which will tail the logs and replicate the mutatations to region replicas for tables that    * have region replication&gt; 1. If this is enabled once, disabling this replication also    * requires disabling the replication peer using shell or ReplicationAdmin java class.    * Replication to secondary region replicas works over standard inter-cluster replication.·    */
 specifier|public
 specifier|static
 specifier|final

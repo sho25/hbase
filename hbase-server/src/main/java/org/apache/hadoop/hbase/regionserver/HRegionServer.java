@@ -13343,26 +13343,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// If replication is not enabled, then return immediately.
-if|if
-condition|(
-operator|!
-name|conf
-operator|.
-name|getBoolean
-argument_list|(
-name|HConstants
-operator|.
-name|REPLICATION_ENABLE_KEY
-argument_list|,
-name|HConstants
-operator|.
-name|REPLICATION_ENABLE_DEFAULT
-argument_list|)
-condition|)
-block|{
-return|return;
-block|}
 comment|// read in the name of the source replication class from the config file.
 name|String
 name|sourceClassname

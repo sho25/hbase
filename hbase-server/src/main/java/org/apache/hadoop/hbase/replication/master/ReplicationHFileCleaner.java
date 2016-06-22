@@ -757,19 +757,6 @@ name|getBoolean
 argument_list|(
 name|HConstants
 operator|.
-name|REPLICATION_ENABLE_KEY
-argument_list|,
-name|HConstants
-operator|.
-name|REPLICATION_ENABLE_DEFAULT
-argument_list|)
-operator|&&
-name|config
-operator|.
-name|getBoolean
-argument_list|(
-name|HConstants
-operator|.
 name|REPLICATION_BULKLOAD_ENABLE_KEY
 argument_list|,
 name|HConstants
@@ -785,9 +772,9 @@ name|warn
 argument_list|(
 name|HConstants
 operator|.
-name|REPLICATION_ENABLE_KEY
+name|REPLICATION_BULKLOAD_ENABLE_KEY
 operator|+
-literal|" is not enabled so allowing all hfile references to be deleted. Better to remove "
+literal|" is not enabled. Better to remove "
 operator|+
 name|ReplicationHFileCleaner
 operator|.
