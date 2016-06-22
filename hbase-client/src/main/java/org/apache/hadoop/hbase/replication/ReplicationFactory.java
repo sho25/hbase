@@ -146,7 +146,7 @@ name|getClass
 argument_list|(
 literal|"hbase.region.replica."
 operator|+
-literal|"replication.ReplicationQueuesType"
+literal|"replication.replicationQueues.class"
 argument_list|,
 name|ReplicationQueuesZKImpl
 operator|.
@@ -193,7 +193,7 @@ name|getClass
 argument_list|(
 literal|"hbase.region.replica."
 operator|+
-literal|"replication.ReplicationQueuesClientType"
+literal|"replication.replicationQueuesClient.class"
 argument_list|,
 name|ReplicationQueuesClientZKImpl
 operator|.
