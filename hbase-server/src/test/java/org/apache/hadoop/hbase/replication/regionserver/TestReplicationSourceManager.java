@@ -2510,15 +2510,8 @@ argument_list|)
 decl_stmt|;
 name|w1
 operator|.
-name|start
+name|run
 argument_list|()
-expr_stmt|;
-name|w1
-operator|.
-name|join
-argument_list|(
-literal|10000
-argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
