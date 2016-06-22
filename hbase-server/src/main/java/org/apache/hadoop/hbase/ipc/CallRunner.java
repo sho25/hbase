@@ -351,6 +351,17 @@ operator|=
 name|rpcServer
 expr_stmt|;
 comment|// Add size of the call to queue size.
+if|if
+condition|(
+name|call
+operator|!=
+literal|null
+operator|&&
+name|rpcServer
+operator|!=
+literal|null
+condition|)
+block|{
 name|this
 operator|.
 name|rpcServer
@@ -363,6 +374,7 @@ name|getSize
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 specifier|public
 name|Call

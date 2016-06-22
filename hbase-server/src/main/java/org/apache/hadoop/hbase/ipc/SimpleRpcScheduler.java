@@ -353,7 +353,7 @@ specifier|final
 name|int
 name|CALL_QUEUE_CODEL_DEFAULT_TARGET_DELAY
 init|=
-literal|5
+literal|100
 decl_stmt|;
 specifier|public
 specifier|static
@@ -1062,7 +1062,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-comment|// FifoWFPBQ = FifoWithFastPathBalancedQueueRpcExecutor
+comment|// FifoWFPBQ = FastPathBalancedQueueRpcExecutor
 name|callExecutor
 operator|=
 operator|new
@@ -1148,9 +1148,9 @@ block|{
 name|callExecutor
 operator|=
 operator|new
-name|BalancedQueueRpcExecutor
+name|FastPathBalancedQueueRpcExecutor
 argument_list|(
-literal|"CodelBQ.default"
+literal|"CodelFPBQ.default"
 argument_list|,
 name|handlerCount
 argument_list|,
@@ -1180,11 +1180,11 @@ expr_stmt|;
 block|}
 else|else
 block|{
-comment|// FifoWFPBQ = FifoWithFastPathBalancedQueueRpcExecutor
+comment|// FifoWFPBQ = FastPathBalancedQueueRpcExecutor
 name|callExecutor
 operator|=
 operator|new
-name|FifoWithFastPathBalancedQueueRpcExecutor
+name|FastPathBalancedQueueRpcExecutor
 argument_list|(
 literal|"FifoWFPBQ.default"
 argument_list|,
@@ -1211,7 +1211,7 @@ operator|>
 literal|0
 condition|?
 operator|new
-name|FifoWithFastPathBalancedQueueRpcExecutor
+name|FastPathBalancedQueueRpcExecutor
 argument_list|(
 literal|"FifoWFPBQ.priority"
 argument_list|,
@@ -1237,7 +1237,7 @@ operator|>
 literal|0
 condition|?
 operator|new
-name|FifoWithFastPathBalancedQueueRpcExecutor
+name|FastPathBalancedQueueRpcExecutor
 argument_list|(
 literal|"FifoWFPBQ.replication"
 argument_list|,

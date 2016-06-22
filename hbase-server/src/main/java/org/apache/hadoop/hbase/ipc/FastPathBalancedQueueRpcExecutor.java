@@ -77,6 +77,20 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|atomic
+operator|.
+name|AtomicLong
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -120,7 +134,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * FIFO balanced queue executor with a fastpath. Because this is FIFO, it has no respect for  * ordering so a fast path skipping the queuing of Calls if an Handler is available, is possible.  * Just pass the Call direct to waiting Handler thread. Try to keep the hot Handlers bubbling  * rather than let them go cold and lose context. Idea taken from Apace Kudu (incubating). See  * https://gerrit.cloudera.org/#/c/2938/7/src/kudu/rpc/service_queue.h  */
+comment|/**  * Balanced queue executor with a fastpath. Because this is FIFO, it has no respect for  * ordering so a fast path skipping the queuing of Calls if an Handler is available, is possible.  * Just pass the Call direct to waiting Handler thread. Try to keep the hot Handlers bubbling  * rather than let them go cold and lose context. Idea taken from Apace Kudu (incubating). See  * https://gerrit.cloudera.org/#/c/2938/7/src/kudu/rpc/service_queue.h  */
 end_comment
 
 begin_class
@@ -130,7 +144,7 @@ operator|.
 name|Private
 specifier|public
 class|class
-name|FifoWithFastPathBalancedQueueRpcExecutor
+name|FastPathBalancedQueueRpcExecutor
 extends|extends
 name|BalancedQueueRpcExecutor
 block|{
@@ -150,7 +164,7 @@ argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|public
-name|FifoWithFastPathBalancedQueueRpcExecutor
+name|FastPathBalancedQueueRpcExecutor
 parameter_list|(
 specifier|final
 name|String
@@ -194,6 +208,55 @@ operator|.
 name|class
 argument_list|,
 name|maxQueueLength
+argument_list|)
+expr_stmt|;
+block|}
+specifier|public
+name|FastPathBalancedQueueRpcExecutor
+parameter_list|(
+name|String
+name|name
+parameter_list|,
+name|int
+name|handlerCount
+parameter_list|,
+name|int
+name|numCallQueues
+parameter_list|,
+name|Configuration
+name|conf
+parameter_list|,
+name|Abortable
+name|abortable
+parameter_list|,
+name|Class
+argument_list|<
+name|?
+extends|extends
+name|BlockingQueue
+argument_list|>
+name|queueClass
+parameter_list|,
+name|Object
+modifier|...
+name|args
+parameter_list|)
+block|{
+name|super
+argument_list|(
+name|name
+argument_list|,
+name|handlerCount
+argument_list|,
+name|numCallQueues
+argument_list|,
+name|conf
+argument_list|,
+name|abortable
+argument_list|,
+name|queueClass
+argument_list|,
+name|args
 argument_list|)
 expr_stmt|;
 block|}
