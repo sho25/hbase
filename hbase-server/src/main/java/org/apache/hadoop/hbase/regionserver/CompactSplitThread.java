@@ -3305,6 +3305,11 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+name|region
+operator|.
+name|reportCompactionRequestFailure
+argument_list|()
+expr_stmt|;
 name|server
 operator|.
 name|checkFileSystem
@@ -3327,6 +3332,11 @@ name|this
 argument_list|,
 name|ex
 argument_list|)
+expr_stmt|;
+name|region
+operator|.
+name|reportCompactionRequestFailure
+argument_list|()
 expr_stmt|;
 name|server
 operator|.

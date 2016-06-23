@@ -2870,6 +2870,16 @@ argument_list|)
 decl_stmt|;
 specifier|final
 name|AtomicLong
+name|compactionsFailed
+init|=
+operator|new
+name|AtomicLong
+argument_list|(
+literal|0L
+argument_list|)
+decl_stmt|;
+specifier|final
+name|AtomicLong
 name|compactionNumFilesCompacted
 init|=
 operator|new
@@ -36312,7 +36322,7 @@ name|ClassSize
 operator|.
 name|ARRAY
 operator|+
-literal|47
+literal|48
 operator|*
 name|ClassSize
 operator|.
@@ -36372,14 +36382,15 @@ operator|)
 operator|+
 comment|// closed, closing
 operator|(
-literal|3
+literal|4
 operator|*
 name|ClassSize
 operator|.
 name|ATOMIC_LONG
 operator|)
 operator|+
-comment|// memStoreSize, numPutsWithoutWAL, dataInMemoryWithoutWAL
+comment|// memStoreSize, numPutsWithoutWAL, dataInMemoryWithoutWAL,
+comment|// compactionsFailed
 operator|(
 literal|2
 operator|*
@@ -38325,6 +38336,17 @@ name|newValue
 operator|>=
 literal|0
 assert|;
+block|}
+specifier|public
+name|void
+name|reportCompactionRequestFailure
+parameter_list|()
+block|{
+name|compactionsFailed
+operator|.
+name|incrementAndGet
+argument_list|()
+expr_stmt|;
 block|}
 annotation|@
 name|VisibleForTesting

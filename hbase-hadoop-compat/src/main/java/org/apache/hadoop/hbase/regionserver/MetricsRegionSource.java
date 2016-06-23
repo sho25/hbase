@@ -47,6 +47,11 @@ init|=
 literal|"compactionsCompletedCount"
 decl_stmt|;
 name|String
+name|COMPACTIONS_FAILED_COUNT
+init|=
+literal|"compactionsFailedCount"
+decl_stmt|;
+name|String
 name|NUM_BYTES_COMPACTED_COUNT
 init|=
 literal|"numBytesCompactedCount"
@@ -60,6 +65,11 @@ name|String
 name|COMPACTIONS_COMPLETED_DESC
 init|=
 literal|"Number of compactions that have completed."
+decl_stmt|;
+name|String
+name|COMPACTIONS_FAILED_DESC
+init|=
+literal|"Number of compactions that have failed."
 decl_stmt|;
 name|String
 name|NUM_BYTES_COMPACTED_DESC
