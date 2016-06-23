@@ -552,7 +552,7 @@ name|conf
 operator|.
 name|setClass
 argument_list|(
-literal|"hbase.region.replica.replication.replicationQueues.class"
+literal|"hbase.region.replica.replication.ReplicationQueuesType"
 argument_list|,
 name|TableBasedReplicationQueuesImpl
 operator|.
@@ -567,7 +567,7 @@ name|conf
 operator|.
 name|setClass
 argument_list|(
-literal|"hbase.region.replica.replication.replicationQueuesClient.class"
+literal|"hbase.region.replica.replication.ReplicationQueuesClientType"
 argument_list|,
 name|TableBasedReplicationQueuesClientImpl
 operator|.
