@@ -693,7 +693,9 @@ name|conf
 operator|.
 name|setInt
 argument_list|(
-literal|"hbase.procedure.store.wal.max.retries.before.roll"
+name|WALProcedureStore
+operator|.
+name|MAX_RETRIES_BEFORE_ROLL_CONF_KEY
 argument_list|,
 literal|1
 argument_list|)
@@ -702,7 +704,9 @@ name|conf
 operator|.
 name|setInt
 argument_list|(
-literal|"hbase.procedure.store.wal.wait.before.roll"
+name|WALProcedureStore
+operator|.
+name|WAIT_BEFORE_ROLL_CONF_KEY
 argument_list|,
 literal|0
 argument_list|)
@@ -711,7 +715,9 @@ name|conf
 operator|.
 name|setInt
 argument_list|(
-literal|"hbase.procedure.store.wal.max.roll.retries"
+name|WALProcedureStore
+operator|.
+name|ROLL_RETRIES_CONF_KEY
 argument_list|,
 literal|1
 argument_list|)
@@ -720,7 +726,9 @@ name|conf
 operator|.
 name|setInt
 argument_list|(
-literal|"hbase.procedure.store.wal.sync.failure.roll.max"
+name|WALProcedureStore
+operator|.
+name|MAX_SYNC_FAILURE_ROLL_CONF_KEY
 argument_list|,
 literal|1
 argument_list|)
@@ -1323,7 +1331,9 @@ argument_list|()
 operator|.
 name|setLong
 argument_list|(
-literal|"hbase.procedure.store.wal.roll.threshold"
+name|WALProcedureStore
+operator|.
+name|ROLL_THRESHOLD_CONF_KEY
 argument_list|,
 literal|1
 argument_list|)

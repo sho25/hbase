@@ -448,7 +448,9 @@ name|conf
 operator|.
 name|setBoolean
 argument_list|(
-literal|"hbase.procedure.store.wal.use.hsync"
+name|WALProcedureStore
+operator|.
+name|USE_HSYNC_CONF_KEY
 argument_list|,
 literal|false
 argument_list|)
@@ -457,7 +459,9 @@ name|conf
 operator|.
 name|setInt
 argument_list|(
-literal|"hbase.procedure.store.wal.periodic.roll.msec"
+name|WALProcedureStore
+operator|.
+name|PERIODIC_ROLL_CONF_KEY
 argument_list|,
 literal|5000
 argument_list|)
@@ -466,7 +470,9 @@ name|conf
 operator|.
 name|setInt
 argument_list|(
-literal|"hbase.procedure.store.wal.roll.threshold"
+name|WALProcedureStore
+operator|.
+name|ROLL_THRESHOLD_CONF_KEY
 argument_list|,
 literal|128
 operator|*

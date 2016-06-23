@@ -592,7 +592,7 @@ throws|throws
 name|IOException
 function_decl|;
 block|}
-specifier|private
+specifier|public
 specifier|static
 specifier|final
 name|String
@@ -608,7 +608,7 @@ name|DEFAULT_MAX_RETRIES_BEFORE_ROLL
 init|=
 literal|3
 decl_stmt|;
-specifier|private
+specifier|public
 specifier|static
 specifier|final
 name|String
@@ -624,7 +624,7 @@ name|DEFAULT_WAIT_BEFORE_ROLL
 init|=
 literal|500
 decl_stmt|;
-specifier|private
+specifier|public
 specifier|static
 specifier|final
 name|String
@@ -640,7 +640,7 @@ name|DEFAULT_ROLL_RETRIES
 init|=
 literal|3
 decl_stmt|;
-specifier|private
+specifier|public
 specifier|static
 specifier|final
 name|String
@@ -656,7 +656,7 @@ name|DEFAULT_MAX_SYNC_FAILURE_ROLL
 init|=
 literal|3
 decl_stmt|;
-specifier|private
+specifier|public
 specifier|static
 specifier|final
 name|String
@@ -677,7 +677,7 @@ operator|*
 literal|1000
 decl_stmt|;
 comment|// 1h
-specifier|private
+specifier|public
 specifier|static
 specifier|final
 name|String
@@ -693,7 +693,7 @@ name|DEFAULT_SYNC_WAIT_MSEC
 init|=
 literal|100
 decl_stmt|;
-specifier|private
+specifier|public
 specifier|static
 specifier|final
 name|String
@@ -709,7 +709,7 @@ name|DEFAULT_USE_HSYNC
 init|=
 literal|true
 decl_stmt|;
-specifier|private
+specifier|public
 specifier|static
 specifier|final
 name|String
@@ -730,7 +730,7 @@ operator|*
 literal|1024
 decl_stmt|;
 comment|// 32M
-specifier|private
+specifier|public
 specifier|static
 specifier|final
 name|String
