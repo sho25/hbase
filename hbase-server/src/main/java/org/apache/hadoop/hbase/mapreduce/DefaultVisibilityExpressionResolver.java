@@ -514,16 +514,6 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|TableNotFoundException
-name|e
-parameter_list|)
-block|{
-comment|// Just return with out doing any thing. When the VC is not used we wont be having 'labels'
-comment|// table in the cluster.
-return|return;
-block|}
-catch|catch
-parameter_list|(
 name|IOException
 name|e
 parameter_list|)
@@ -645,6 +635,15 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+catch|catch
+parameter_list|(
+name|TableNotFoundException
+name|e
+parameter_list|)
+block|{
+comment|// Table not found. So just return
+return|return;
 block|}
 catch|catch
 parameter_list|(

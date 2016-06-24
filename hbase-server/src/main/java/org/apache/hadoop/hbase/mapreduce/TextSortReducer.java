@@ -466,11 +466,6 @@ name|Context
 name|context
 parameter_list|)
 block|{
-name|doSetup
-argument_list|(
-name|context
-argument_list|)
-expr_stmt|;
 name|Configuration
 name|conf
 init|=
@@ -479,6 +474,13 @@ operator|.
 name|getConfiguration
 argument_list|()
 decl_stmt|;
+name|doSetup
+argument_list|(
+name|context
+argument_list|,
+name|conf
+argument_list|)
+expr_stmt|;
 name|parser
 operator|=
 operator|new
@@ -528,23 +530,18 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Handles common parameter initialization that a subclass might want to leverage.    * @param context    */
+comment|/**    * Handles common parameter initialization that a subclass might want to leverage.    * @param context    * @param conf    */
 specifier|protected
 name|void
 name|doSetup
 parameter_list|(
 name|Context
 name|context
-parameter_list|)
-block|{
+parameter_list|,
 name|Configuration
 name|conf
-init|=
-name|context
-operator|.
-name|getConfiguration
-argument_list|()
-decl_stmt|;
+parameter_list|)
+block|{
 comment|// If a custom separator has been used,
 comment|// decode it back from Base64 encoding.
 name|separator
