@@ -939,6 +939,15 @@ argument_list|,
 name|CF
 argument_list|)
 decl_stmt|;
+comment|// take the snapshot
+name|HBaseProtos
+operator|.
+name|SnapshotDescription
+name|snapshotDesc
+init|=
+name|getSnapshot
+argument_list|()
+decl_stmt|;
 name|long
 name|procId
 init|=
@@ -958,8 +967,7 @@ argument_list|()
 argument_list|,
 name|htd
 argument_list|,
-name|getSnapshot
-argument_list|()
+name|snapshotDesc
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -1037,6 +1045,15 @@ argument_list|,
 name|CF
 argument_list|)
 decl_stmt|;
+comment|// take the snapshot
+name|HBaseProtos
+operator|.
+name|SnapshotDescription
+name|snapshotDesc
+init|=
+name|getSnapshot
+argument_list|()
+decl_stmt|;
 name|long
 name|procId1
 init|=
@@ -1054,8 +1071,7 @@ argument_list|()
 argument_list|,
 name|htd
 argument_list|,
-name|getSnapshot
-argument_list|()
+name|snapshotDesc
 argument_list|)
 argument_list|,
 name|nonceGroup
@@ -1080,8 +1096,7 @@ argument_list|()
 argument_list|,
 name|htd
 argument_list|,
-name|getSnapshot
-argument_list|()
+name|snapshotDesc
 argument_list|)
 argument_list|,
 name|nonceGroup
@@ -1149,6 +1164,15 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+comment|// take the snapshot
+name|HBaseProtos
+operator|.
+name|SnapshotDescription
+name|snapshotDesc
+init|=
+name|getSnapshot
+argument_list|()
+decl_stmt|;
 specifier|final
 name|ProcedureExecutor
 argument_list|<
@@ -1167,8 +1191,7 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-name|getSnapshot
-argument_list|()
+name|snapshotDesc
 operator|.
 name|getTable
 argument_list|()
@@ -1204,8 +1227,7 @@ argument_list|()
 argument_list|,
 name|htd
 argument_list|,
-name|getSnapshot
-argument_list|()
+name|snapshotDesc
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -1298,6 +1320,15 @@ argument_list|,
 name|CF
 argument_list|)
 decl_stmt|;
+comment|// take the snapshot
+name|HBaseProtos
+operator|.
+name|SnapshotDescription
+name|snapshotDesc
+init|=
+name|getSnapshot
+argument_list|()
+decl_stmt|;
 name|ProcedureTestingUtility
 operator|.
 name|setKillAndToggleBeforeStoreUpdate
@@ -1325,8 +1356,7 @@ argument_list|()
 argument_list|,
 name|htd
 argument_list|,
-name|getSnapshot
-argument_list|()
+name|snapshotDesc
 argument_list|)
 argument_list|,
 name|nonceGroup
@@ -1423,6 +1453,15 @@ argument_list|,
 name|CF
 argument_list|)
 decl_stmt|;
+comment|// take the snapshot
+name|HBaseProtos
+operator|.
+name|SnapshotDescription
+name|snapshotDesc
+init|=
+name|getSnapshot
+argument_list|()
+decl_stmt|;
 name|ProcedureTestingUtility
 operator|.
 name|waitNoProcedureRunning
@@ -1457,8 +1496,7 @@ argument_list|()
 argument_list|,
 name|htd
 argument_list|,
-name|getSnapshot
-argument_list|()
+name|snapshotDesc
 argument_list|)
 argument_list|,
 name|nonceGroup
