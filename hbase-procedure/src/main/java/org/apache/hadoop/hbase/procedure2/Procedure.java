@@ -1707,22 +1707,6 @@ operator|==
 literal|0
 return|;
 block|}
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Private
-specifier|protected
-specifier|synchronized
-name|boolean
-name|hasChildren
-parameter_list|()
-block|{
-return|return
-name|childrenLatch
-operator|>
-literal|0
-return|;
-block|}
 comment|/**    * Called by the RootProcedureState on procedure execution.    * Each procedure store its stack-index positions.    */
 annotation|@
 name|InterfaceAudience
@@ -1798,10 +1782,6 @@ parameter_list|()
 block|{
 if|if
 condition|(
-name|stackIndexes
-operator|!=
-literal|null
-operator|&&
 name|stackIndexes
 operator|.
 name|length
