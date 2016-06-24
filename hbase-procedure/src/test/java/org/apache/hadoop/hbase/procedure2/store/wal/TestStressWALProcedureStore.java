@@ -735,17 +735,30 @@ name|proc
 decl_stmt|;
 do|do
 block|{
-name|proc
-operator|=
-operator|new
-name|TestProcedure
-argument_list|(
+comment|// After HBASE- there may be gap in the procId sequence, trying to simulate that.
+name|long
+name|procId
+init|=
 name|procCounter
 operator|.
 name|addAndGet
 argument_list|(
 literal|1
+operator|+
+name|rand
+operator|.
+name|nextInt
+argument_list|(
+literal|3
 argument_list|)
+argument_list|)
+decl_stmt|;
+name|proc
+operator|=
+operator|new
+name|TestProcedure
+argument_list|(
+name|procId
 argument_list|)
 expr_stmt|;
 comment|// Insert
