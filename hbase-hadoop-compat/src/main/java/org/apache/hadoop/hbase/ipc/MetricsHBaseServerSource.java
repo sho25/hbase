@@ -305,6 +305,16 @@ literal|"A response to a multi request was too large and the "
 operator|+
 literal|"rest of the requests will have to be retried."
 decl_stmt|;
+name|String
+name|EXCEPTIONS_CALL_QUEUE_TOO_BIG
+init|=
+literal|"exceptions.callQueueTooBig"
+decl_stmt|;
+name|String
+name|EXCEPTIONS_CALL_QUEUE_TOO_BIG_DESC
+init|=
+literal|"Call queue is full"
+decl_stmt|;
 name|void
 name|authorizationSuccess
 parameter_list|()
@@ -356,6 +366,10 @@ parameter_list|()
 function_decl|;
 name|void
 name|multiActionTooLargeException
+parameter_list|()
+function_decl|;
+name|void
+name|callQueueTooBigException
 parameter_list|()
 function_decl|;
 name|void
