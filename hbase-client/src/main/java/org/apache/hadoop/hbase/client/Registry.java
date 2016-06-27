@@ -76,6 +76,8 @@ parameter_list|(
 name|Connection
 name|connection
 parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
 comment|/**    * @return Meta region location    * @throws IOException    */
 name|RegionLocations
@@ -88,6 +90,8 @@ comment|/**    * @return Cluster id.    */
 name|String
 name|getClusterId
 parameter_list|()
+throws|throws
+name|IOException
 function_decl|;
 comment|/**    * @return Count of 'running' regionservers    * @throws IOException    */
 name|int

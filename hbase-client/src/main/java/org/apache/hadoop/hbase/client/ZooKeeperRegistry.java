@@ -519,6 +519,8 @@ specifier|public
 name|String
 name|getClusterId
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 if|if
 condition|(
@@ -593,6 +595,15 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"ZooKeeperException "
+argument_list|,
+name|e
+argument_list|)
+throw|;
 block|}
 catch|catch
 parameter_list|(
@@ -609,6 +620,9 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
+throw|throw
+name|e
+throw|;
 block|}
 finally|finally
 block|{

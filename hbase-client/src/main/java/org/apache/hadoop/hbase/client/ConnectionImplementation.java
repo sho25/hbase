@@ -2573,6 +2573,8 @@ specifier|protected
 name|void
 name|retrieveClusterId
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 if|if
 condition|(

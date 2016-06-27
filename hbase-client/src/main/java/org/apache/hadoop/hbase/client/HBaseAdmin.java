@@ -12785,6 +12785,8 @@ argument_list|,
 literal|0
 argument_list|)
 expr_stmt|;
+comment|// Check ZK first.
+comment|// If the connection exists, we may have a connection to ZK that does not work anymore
 try|try
 init|(
 name|ClusterConnection
@@ -12799,18 +12801,8 @@ name|createConnection
 argument_list|(
 name|copyOfConf
 argument_list|)
-init|)
-block|{
-comment|// Check ZK first.
-comment|// If the connection exists, we may have a connection to ZK that does not work anymore
+init|;
 name|ZooKeeperKeepAliveConnection
-name|zkw
-init|=
-literal|null
-decl_stmt|;
-try|try
-block|{
-comment|// This is NASTY. FIX!!!! Dependent on internal implementation! TODO
 name|zkw
 operator|=
 operator|(
@@ -12822,7 +12814,10 @@ operator|)
 operator|.
 name|getKeepAliveZooKeeperWatcher
 argument_list|()
-expr_stmt|;
+init|;
+init|)
+block|{
+comment|// This is NASTY. FIX!!!! Dependent on internal implementation! TODO
 name|zkw
 operator|.
 name|getRecoverableZooKeeper
@@ -12839,6 +12834,11 @@ name|baseZNode
 argument_list|,
 literal|false
 argument_list|)
+expr_stmt|;
+name|connection
+operator|.
+name|isMasterRunning
+argument_list|()
 expr_stmt|;
 block|}
 catch|catch
@@ -12894,28 +12894,6 @@ argument_list|,
 name|e
 argument_list|)
 throw|;
-block|}
-finally|finally
-block|{
-if|if
-condition|(
-name|zkw
-operator|!=
-literal|null
-condition|)
-block|{
-name|zkw
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-block|}
-block|}
-name|connection
-operator|.
-name|isMasterRunning
-argument_list|()
-expr_stmt|;
 block|}
 block|}
 annotation|@
