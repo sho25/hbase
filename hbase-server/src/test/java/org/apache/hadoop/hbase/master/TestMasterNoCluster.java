@@ -1378,11 +1378,8 @@ name|Override
 name|ServerManager
 name|createServerManager
 parameter_list|(
-name|Server
-name|master
-parameter_list|,
 name|MasterServices
-name|services
+name|master
 parameter_list|)
 throws|throws
 name|IOException
@@ -1395,8 +1392,6 @@ operator|.
 name|createServerManager
 argument_list|(
 name|master
-argument_list|,
-name|services
 argument_list|)
 decl_stmt|;
 comment|// Spy on the created servermanager

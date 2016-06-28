@@ -1089,13 +1089,8 @@ argument_list|()
 decl_stmt|;
 specifier|private
 specifier|final
-name|Server
-name|master
-decl_stmt|;
-specifier|private
-specifier|final
 name|MasterServices
-name|services
+name|master
 decl_stmt|;
 specifier|private
 specifier|final
@@ -1180,17 +1175,13 @@ name|ServerListener
 argument_list|>
 argument_list|()
 decl_stmt|;
-comment|/**    * Constructor.    * @param master    * @param services    * @throws ZooKeeperConnectionException    */
+comment|/**    * Constructor.    * @param master    * @throws ZooKeeperConnectionException    */
 specifier|public
 name|ServerManager
 parameter_list|(
 specifier|final
-name|Server
-name|master
-parameter_list|,
-specifier|final
 name|MasterServices
-name|services
+name|master
 parameter_list|)
 throws|throws
 name|IOException
@@ -1199,8 +1190,6 @@ name|this
 argument_list|(
 name|master
 argument_list|,
-name|services
-argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
@@ -1208,12 +1197,8 @@ block|}
 name|ServerManager
 parameter_list|(
 specifier|final
-name|Server
-name|master
-parameter_list|,
-specifier|final
 name|MasterServices
-name|services
+name|master
 parameter_list|,
 specifier|final
 name|boolean
@@ -1227,12 +1212,6 @@ operator|.
 name|master
 operator|=
 name|master
-expr_stmt|;
-name|this
-operator|.
-name|services
-operator|=
-name|services
 expr_stmt|;
 name|Configuration
 name|c
@@ -2311,13 +2290,13 @@ condition|(
 operator|(
 name|this
 operator|.
-name|services
+name|master
 operator|==
 literal|null
 operator|||
 name|this
 operator|.
-name|services
+name|master
 operator|.
 name|isInitialized
 argument_list|()
@@ -3052,7 +3031,7 @@ block|}
 if|if
 condition|(
 operator|!
-name|services
+name|master
 operator|.
 name|isServerCrashProcessingEnabled
 argument_list|()
@@ -3161,7 +3140,7 @@ block|}
 name|boolean
 name|carryingMeta
 init|=
-name|services
+name|master
 operator|.
 name|getAssignmentManager
 argument_list|()
@@ -3173,7 +3152,7 @@ argument_list|)
 decl_stmt|;
 name|this
 operator|.
-name|services
+name|master
 operator|.
 name|getMasterProcedureExecutor
 argument_list|()
@@ -3338,7 +3317,7 @@ comment|// the corresponding server is down. So we queue them up here instead.
 if|if
 condition|(
 operator|!
-name|services
+name|master
 operator|.
 name|getAssignmentManager
 argument_list|()
@@ -3369,7 +3348,7 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|services
+name|master
 operator|.
 name|getMasterProcedureExecutor
 argument_list|()
@@ -3397,7 +3376,7 @@ block|{
 if|if
 condition|(
 operator|!
-name|services
+name|master
 operator|.
 name|isServerCrashProcessingEnabled
 argument_list|()
@@ -3459,7 +3438,7 @@ block|}
 if|if
 condition|(
 operator|!
-name|services
+name|master
 operator|.
 name|getAssignmentManager
 argument_list|()
@@ -3719,7 +3698,7 @@ name|LOG_REPLAY
 operator|==
 name|this
 operator|.
-name|services
+name|master
 operator|.
 name|getMasterWalManager
 argument_list|()
@@ -3846,7 +3825,7 @@ name|LOG_REPLAY
 operator|==
 name|this
 operator|.
-name|services
+name|master
 operator|.
 name|getMasterWalManager
 argument_list|()

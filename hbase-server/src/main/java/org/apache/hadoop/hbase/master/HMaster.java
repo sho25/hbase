@@ -4367,8 +4367,6 @@ operator|=
 name|createServerManager
 argument_list|(
 name|this
-argument_list|,
-name|this
 argument_list|)
 expr_stmt|;
 comment|// Invalidate all write locks held previously
@@ -5221,12 +5219,8 @@ name|ServerManager
 name|createServerManager
 parameter_list|(
 specifier|final
-name|Server
-name|master
-parameter_list|,
-specifier|final
 name|MasterServices
-name|services
+name|master
 parameter_list|)
 throws|throws
 name|IOException
@@ -5241,8 +5235,6 @@ operator|new
 name|ServerManager
 argument_list|(
 name|master
-argument_list|,
-name|services
 argument_list|)
 return|;
 block|}
