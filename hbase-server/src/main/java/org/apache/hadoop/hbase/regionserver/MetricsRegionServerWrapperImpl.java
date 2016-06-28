@@ -2429,13 +2429,6 @@ expr_stmt|;
 name|initMobFileCache
 argument_list|()
 expr_stmt|;
-name|cacheStats
-operator|=
-name|blockCache
-operator|.
-name|getStats
-argument_list|()
-expr_stmt|;
 name|HDFSBlocksDistribution
 name|hdfsBlocksDistribution
 init|=
