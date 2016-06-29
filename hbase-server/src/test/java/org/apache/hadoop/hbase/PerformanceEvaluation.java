@@ -201,6 +201,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|NoSuchElementException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|concurrent
 operator|.
 name|Callable
@@ -12231,6 +12241,8 @@ name|cmdName
 operator|=
 name|cmd
 expr_stmt|;
+try|try
+block|{
 name|opts
 operator|.
 name|numClientThreads
@@ -12245,6 +12257,29 @@ name|remove
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|NoSuchElementException
+decl||
+name|NumberFormatException
+name|e
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Command "
+operator|+
+name|cmd
+operator|+
+literal|" does not have threads number"
+argument_list|,
+name|e
+argument_list|)
+throw|;
+block|}
 if|if
 condition|(
 name|opts
