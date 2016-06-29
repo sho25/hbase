@@ -451,9 +451,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
+name|security
 operator|.
-name|ServerRegionReplicaUtil
+name|User
 import|;
 end_import
 
@@ -465,9 +465,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|security
+name|hbase
 operator|.
-name|UserGroupInformation
+name|util
+operator|.
+name|ServerRegionReplicaUtil
 import|;
 end_import
 
@@ -526,7 +528,7 @@ name|HTableDescriptor
 name|modifiedHTableDescriptor
 decl_stmt|;
 specifier|private
-name|UserGroupInformation
+name|User
 name|user
 decl_stmt|;
 specifier|private
@@ -585,9 +587,6 @@ name|env
 operator|.
 name|getRequestUser
 argument_list|()
-operator|.
-name|getUGI
-argument_list|()
 expr_stmt|;
 name|this
 operator|.
@@ -597,7 +596,7 @@ name|this
 operator|.
 name|user
 operator|.
-name|getShortUserName
+name|getShortName
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2194,26 +2193,6 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|user
-operator|.
-name|doAs
-argument_list|(
-operator|new
-name|PrivilegedExceptionAction
-argument_list|<
-name|Void
-argument_list|>
-argument_list|()
-block|{
-annotation|@
-name|Override
-specifier|public
-name|Void
-name|run
-parameter_list|()
-throws|throws
-name|Exception
-block|{
 switch|switch
 condition|(
 name|state
@@ -2230,6 +2209,8 @@ name|getTableName
 argument_list|()
 argument_list|,
 name|modifiedHTableDescriptor
+argument_list|,
+name|user
 argument_list|)
 expr_stmt|;
 break|break;
@@ -2244,6 +2225,8 @@ name|getTableName
 argument_list|()
 argument_list|,
 name|modifiedHTableDescriptor
+argument_list|,
+name|user
 argument_list|)
 expr_stmt|;
 break|break;
@@ -2260,13 +2243,6 @@ name|state
 argument_list|)
 throw|;
 block|}
-return|return
-literal|null
-return|;
-block|}
-block|}
-argument_list|)
-expr_stmt|;
 block|}
 block|}
 comment|/*    * Check whether we are in the state that can be rollback    */

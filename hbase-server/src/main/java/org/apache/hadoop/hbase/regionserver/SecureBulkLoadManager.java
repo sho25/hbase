@@ -931,7 +931,10 @@ name|ObserverContext
 argument_list|<
 name|RegionCoprocessorEnvironment
 argument_list|>
+argument_list|(
+name|getActiveUser
 argument_list|()
+argument_list|)
 decl_stmt|;
 name|ctx
 operator|.
@@ -1054,7 +1057,10 @@ name|ObserverContext
 argument_list|<
 name|RegionCoprocessorEnvironment
 argument_list|>
+argument_list|(
+name|getActiveUser
 argument_list|()
+argument_list|)
 decl_stmt|;
 name|ctx
 operator|.

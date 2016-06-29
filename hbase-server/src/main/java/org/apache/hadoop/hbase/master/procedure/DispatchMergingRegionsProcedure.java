@@ -419,9 +419,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
+name|security
 operator|.
-name|EnvironmentEdgeManager
+name|User
 import|;
 end_import
 
@@ -433,9 +433,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|security
+name|hbase
 operator|.
-name|UserGroupInformation
+name|util
+operator|.
+name|EnvironmentEdgeManager
 import|;
 end_import
 
@@ -512,7 +514,7 @@ name|String
 name|regionsToMergeListEncodedName
 decl_stmt|;
 specifier|private
-name|UserGroupInformation
+name|User
 name|user
 decl_stmt|;
 specifier|private
@@ -647,9 +649,6 @@ name|env
 operator|.
 name|getRequestUser
 argument_list|()
-operator|.
-name|getUGI
-argument_list|()
 expr_stmt|;
 name|this
 operator|.
@@ -659,7 +658,7 @@ name|this
 operator|.
 name|user
 operator|.
-name|getShortUserName
+name|getShortName
 argument_list|()
 argument_list|)
 expr_stmt|;
