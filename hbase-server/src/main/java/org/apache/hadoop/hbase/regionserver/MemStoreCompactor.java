@@ -257,14 +257,14 @@ return|;
 comment|// no compaction on empty
 name|List
 argument_list|<
-name|SegmentScanner
+name|KeyValueScanner
 argument_list|>
 name|scanners
 init|=
 operator|new
 name|ArrayList
 argument_list|<
-name|SegmentScanner
+name|KeyValueScanner
 argument_list|>
 argument_list|()
 decl_stmt|;

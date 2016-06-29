@@ -743,7 +743,15 @@ name|oldestUnexpiredTS
 parameter_list|)
 block|{
 return|return
-literal|true
+name|getSegment
+argument_list|()
+operator|.
+name|shouldSeek
+argument_list|(
+name|scan
+argument_list|,
+name|oldestUnexpiredTS
+argument_list|)
 return|;
 block|}
 comment|/**    * This scanner is working solely on the in-memory MemStore therefore this    * interface is not relevant.    */
@@ -838,30 +846,6 @@ throws|throws
 name|IOException
 block|{
 comment|// do nothing
-block|}
-comment|/**    * Returns whether the given scan should seek in this segment    * @return whether the given scan should seek in this segment    */
-specifier|public
-name|boolean
-name|shouldSeek
-parameter_list|(
-name|Scan
-name|scan
-parameter_list|,
-name|long
-name|oldestUnexpiredTS
-parameter_list|)
-block|{
-return|return
-name|getSegment
-argument_list|()
-operator|.
-name|shouldSeek
-argument_list|(
-name|scan
-argument_list|,
-name|oldestUnexpiredTS
-argument_list|)
-return|;
 block|}
 specifier|protected
 name|Segment

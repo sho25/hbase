@@ -165,7 +165,7 @@ decl_stmt|;
 comment|// remember the initial version of the scanners list
 name|List
 argument_list|<
-name|SegmentScanner
+name|KeyValueScanner
 argument_list|>
 name|scanners
 decl_stmt|;
@@ -175,45 +175,18 @@ specifier|private
 name|AbstractMemStore
 name|backwardReferenceToMemStore
 decl_stmt|;
-comment|/**    * Constructor.    * If UNDEFINED type for MemStoreScanner is provided, the forward heap is used as default!    * After constructor only one heap is going to be initialized for entire lifespan    * of the MemStoreScanner. A specific scanner can only be one directional!    *    * @param ms        Pointer back to the MemStore    * @param readPoint Read point below which we can safely remove duplicate KVs    * @param type      The scan type COMPACT_FORWARD should be used for compaction    */
+comment|/**    * If UNDEFINED type for MemStoreScanner is provided, the forward heap is used as default!    * After constructor only one heap is going to be initialized for entire lifespan    * of the MemStoreScanner. A specific scanner can only be one directional!    *    * @param ms        Pointer back to the MemStore    * @param scanners  List of scanners over the segments    * @param readPt    Read point below which we can safely remove duplicate KVs    */
 specifier|public
 name|MemStoreScanner
 parameter_list|(
 name|AbstractMemStore
 name|ms
 parameter_list|,
-name|long
-name|readPoint
-parameter_list|,
-name|Type
-name|type
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|this
-argument_list|(
-name|ms
-argument_list|,
-name|ms
-operator|.
-name|getListOfScanners
-argument_list|(
-name|readPoint
-argument_list|)
-argument_list|,
-name|readPoint
-argument_list|,
-name|type
-argument_list|)
-expr_stmt|;
-block|}
-comment|/* Constructor used only when the scan usage is unknown   and need to be defined according to the first move */
-specifier|public
-name|MemStoreScanner
-parameter_list|(
-name|AbstractMemStore
-name|ms
+name|List
+argument_list|<
+name|KeyValueScanner
+argument_list|>
+name|scanners
 parameter_list|,
 name|long
 name|readPt
@@ -224,6 +197,8 @@ block|{
 name|this
 argument_list|(
 name|ms
+argument_list|,
+name|scanners
 argument_list|,
 name|readPt
 argument_list|,
@@ -233,6 +208,7 @@ name|UNDEFINED
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * If UNDEFINED type for MemStoreScanner is provided, the forward heap is used as default!    * After constructor only one heap is going to be initialized for entire lifespan    * of the MemStoreScanner. A specific scanner can only be one directional!    *    * @param ms        Pointer back to the MemStore    * @param scanners  List of scanners over the segments    * @param readPt Read point below which we can safely remove duplicate KVs    * @param type      The scan type COMPACT_FORWARD should be used for compaction    */
 specifier|public
 name|MemStoreScanner
 parameter_list|(
@@ -241,12 +217,12 @@ name|ms
 parameter_list|,
 name|List
 argument_list|<
-name|SegmentScanner
+name|KeyValueScanner
 argument_list|>
 name|scanners
 parameter_list|,
 name|long
-name|readPoint
+name|readPt
 parameter_list|,
 name|Type
 name|type
@@ -261,7 +237,7 @@ name|this
 operator|.
 name|readPoint
 operator|=
-name|readPoint
+name|readPt
 expr_stmt|;
 name|this
 operator|.
@@ -771,7 +747,7 @@ return|;
 block|}
 for|for
 control|(
-name|SegmentScanner
+name|KeyValueScanner
 name|sc
 range|:
 name|scanners
@@ -781,9 +757,11 @@ if|if
 condition|(
 name|sc
 operator|.
-name|shouldSeek
+name|shouldUseScanner
 argument_list|(
 name|scan
+argument_list|,
+name|store
 argument_list|,
 name|oldestUnexpiredTS
 argument_list|)
@@ -820,7 +798,7 @@ literal|1
 decl_stmt|;
 for|for
 control|(
-name|SegmentScanner
+name|KeyValueScanner
 name|scanner
 range|:
 name|scanners
@@ -874,7 +852,7 @@ literal|false
 decl_stmt|;
 for|for
 control|(
-name|SegmentScanner
+name|KeyValueScanner
 name|scan
 range|:
 name|scanners
@@ -994,7 +972,7 @@ comment|// before building the heap seek for the relevant key on the scanners,
 comment|// for the heap to be built from the scanners correctly
 for|for
 control|(
-name|SegmentScanner
+name|KeyValueScanner
 name|scan
 range|:
 name|scanners
