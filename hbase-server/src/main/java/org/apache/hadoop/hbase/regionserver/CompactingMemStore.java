@@ -306,7 +306,7 @@ specifier|final
 name|String
 name|IN_MEMORY_FLUSH_THRESHOLD_FACTOR_KEY
 init|=
-literal|"hbase.memestore.inmemoryflush.threshold.factor"
+literal|"hbase.memstore.inmemoryflush.threshold.factor"
 decl_stmt|;
 specifier|private
 specifier|static
