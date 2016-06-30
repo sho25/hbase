@@ -556,6 +556,23 @@ argument_list|(
 name|t
 argument_list|)
 expr_stmt|;
+comment|// translateException throws exception when should not retry: i.e. when request is bad.
+name|interceptor
+operator|.
+name|handleFailure
+argument_list|(
+name|context
+argument_list|,
+name|t
+argument_list|)
+expr_stmt|;
+name|t
+operator|=
+name|translateException
+argument_list|(
+name|t
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|tries
@@ -600,6 +617,13 @@ argument_list|()
 operator|+
 literal|", msg="
 operator|+
+name|t
+operator|.
+name|getMessage
+argument_list|()
+operator|+
+literal|" "
+operator|+
 name|callable
 operator|.
 name|getExceptionMessageAdditionalDetail
@@ -607,23 +631,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|// translateException throws exception when should not retry: i.e. when request is bad.
-name|interceptor
-operator|.
-name|handleFailure
-argument_list|(
-name|context
-argument_list|,
-name|t
-argument_list|)
-expr_stmt|;
-name|t
-operator|=
-name|translateException
-argument_list|(
-name|t
-argument_list|)
-expr_stmt|;
 name|callable
 operator|.
 name|throwable
@@ -724,6 +731,13 @@ operator|+
 name|duration
 operator|+
 literal|": "
+operator|+
+name|t
+operator|.
+name|getMessage
+argument_list|()
+operator|+
+literal|" "
 operator|+
 name|callable
 operator|.
