@@ -2885,22 +2885,23 @@ if|if
 condition|(
 name|srcToRemove
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 condition|)
 block|{
 name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"The queue we wanted to close is missing "
+literal|"The peer we wanted to remove is missing a ReplicationSourceInterface. "
+operator|+
+literal|"This could mean that ReplicationSourceInterface initialization failed for this peer "
+operator|+
+literal|"and that replication on this peer may not be caught up. peerId="
 operator|+
 name|id
 argument_list|)
 expr_stmt|;
-return|return;
 block|}
 for|for
 control|(
@@ -3774,6 +3775,18 @@ return|return
 name|this
 operator|.
 name|fs
+return|;
+block|}
+comment|/**    * Get the ReplicationPeers used by this ReplicationSourceManager    * @return the ReplicationPeers used by this ReplicationSourceManager    */
+specifier|public
+name|ReplicationPeers
+name|getReplicationPeers
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|replicationPeers
 return|;
 block|}
 comment|/**    * Get a string representation of all the sources' metrics    */
