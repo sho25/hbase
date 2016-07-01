@@ -1127,6 +1127,12 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|// release the memory
+name|in
+operator|.
+name|release
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|saslClient
@@ -1295,6 +1301,12 @@ name|readBytes
 argument_list|(
 name|saslToken
 argument_list|)
+expr_stmt|;
+comment|// release the memory
+name|in
+operator|.
+name|release
+argument_list|()
 expr_stmt|;
 block|}
 catch|catch
