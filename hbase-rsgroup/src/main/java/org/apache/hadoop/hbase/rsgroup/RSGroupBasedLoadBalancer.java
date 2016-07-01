@@ -1341,7 +1341,10 @@ condition|(
 name|server
 operator|!=
 literal|null
-operator|&&
+condition|)
+block|{
+if|if
+condition|(
 operator|!
 name|assignments
 operator|.
@@ -1366,14 +1369,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-elseif|else
-if|if
-condition|(
-name|server
-operator|!=
-literal|null
-condition|)
-block|{
 name|assignments
 operator|.
 name|get
