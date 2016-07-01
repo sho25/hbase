@@ -1705,6 +1705,9 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
+comment|// the orphaned queues must be moved, otherwise the delete op of dead rs will fail,
+comment|// this will cause the whole multi op fail.
+comment|// NodeFailoverWorker will skip the orphaned queues.
 name|LOG
 operator|.
 name|warn
@@ -1713,11 +1716,9 @@ literal|"Peer "
 operator|+
 name|peerId
 operator|+
-literal|" didn't exist, skipping the replay"
+literal|" didn't exist, will move its queue to avoid the failure of multi op"
 argument_list|)
 expr_stmt|;
-comment|// Protection against moving orphaned queues
-continue|continue;
 block|}
 name|String
 name|newPeerId

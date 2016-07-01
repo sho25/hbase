@@ -27,6 +27,20 @@ name|google
 operator|.
 name|common
 operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
 name|util
 operator|.
 name|concurrent
@@ -1802,6 +1816,22 @@ operator|.
 name|oldsources
 return|;
 block|}
+annotation|@
+name|VisibleForTesting
+name|List
+argument_list|<
+name|String
+argument_list|>
+name|getAllQueues
+parameter_list|()
+block|{
+return|return
+name|replicationQueues
+operator|.
+name|getAllQueues
+argument_list|()
+return|;
+block|}
 name|void
 name|preLogRoll
 parameter_list|(
@@ -1928,13 +1958,12 @@ name|logName
 argument_list|)
 decl_stmt|;
 comment|// update replication queues on ZK
+comment|// synchronize on replicationPeers to avoid adding source for the to-be-removed peer
 synchronized|synchronized
 init|(
 name|replicationPeers
 init|)
 block|{
-comment|// synchronize on replicationPeers to avoid adding source for
-comment|// the to-be-removed peer
 for|for
 control|(
 name|String
@@ -2711,19 +2740,6 @@ name|List
 argument_list|<
 name|ReplicationSourceInterface
 argument_list|>
-name|srcToRemove
-init|=
-operator|new
-name|ArrayList
-argument_list|<
-name|ReplicationSourceInterface
-argument_list|>
-argument_list|()
-decl_stmt|;
-name|List
-argument_list|<
-name|ReplicationSourceInterface
-argument_list|>
 name|oldSourcesToDelete
 init|=
 operator|new
@@ -2733,6 +2749,13 @@ name|ReplicationSourceInterface
 argument_list|>
 argument_list|()
 decl_stmt|;
+comment|// synchronized on oldsources to avoid adding recovered source for the to-be-removed peer
+comment|// see NodeFailoverWorker.run
+synchronized|synchronized
+init|(
+name|oldsources
+init|)
+block|{
 comment|// First close all the recovered sources for this peer
 for|for
 control|(
@@ -2781,11 +2804,10 @@ argument_list|)
 expr_stmt|;
 name|closeRecoveredQueue
 argument_list|(
-operator|(
 name|src
-operator|)
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 name|LOG
 operator|.
@@ -2804,6 +2826,20 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Now look for the one on this cluster
+name|List
+argument_list|<
+name|ReplicationSourceInterface
+argument_list|>
+name|srcToRemove
+init|=
+operator|new
+name|ArrayList
+argument_list|<
+name|ReplicationSourceInterface
+argument_list|>
+argument_list|()
+decl_stmt|;
+comment|// synchronize on replicationPeers to avoid adding source for the to-be-removed peer
 synchronized|synchronized
 init|(
 name|this
@@ -2811,8 +2847,6 @@ operator|.
 name|replicationPeers
 init|)
 block|{
-comment|// synchronize on replicationPeers to avoid adding source
-comment|// for the to-be-removed peer
 for|for
 control|(
 name|ReplicationSourceInterface
@@ -3046,7 +3080,30 @@ specifier|final
 name|UUID
 name|clusterId
 decl_stmt|;
-comment|/**      *      * @param rsZnode      */
+comment|/**      * @param rsZnode      */
+specifier|public
+name|NodeFailoverWorker
+parameter_list|(
+name|String
+name|rsZnode
+parameter_list|)
+block|{
+name|this
+argument_list|(
+name|rsZnode
+argument_list|,
+name|replicationQueues
+argument_list|,
+name|replicationPeers
+argument_list|,
+name|ReplicationSourceManager
+operator|.
+name|this
+operator|.
+name|clusterId
+argument_list|)
+expr_stmt|;
+block|}
 specifier|public
 name|NodeFailoverWorker
 parameter_list|(
@@ -3347,6 +3404,13 @@ operator|+
 name|rsZnode
 argument_list|)
 expr_stmt|;
+name|replicationQueues
+operator|.
+name|removeQueue
+argument_list|(
+name|peerId
+argument_list|)
+expr_stmt|;
 continue|continue;
 block|}
 comment|// track sources in walsByIdRecoveredQueues
@@ -3482,6 +3546,13 @@ argument_list|,
 name|peer
 argument_list|)
 decl_stmt|;
+comment|// synchronized on oldsources to avoid adding recovered source for the to-be-removed peer
+comment|// see removePeer
+synchronized|synchronized
+init|(
+name|oldsources
+init|)
+block|{
 if|if
 condition|(
 operator|!
@@ -3494,12 +3565,10 @@ argument_list|()
 operator|.
 name|contains
 argument_list|(
-operator|(
 name|src
 operator|.
 name|getPeerClusterId
 argument_list|()
-operator|)
 argument_list|)
 condition|)
 block|{
@@ -3510,7 +3579,12 @@ argument_list|(
 literal|"Recovered queue doesn't belong to any current peer"
 argument_list|)
 expr_stmt|;
-break|break;
+name|closeRecoveredQueue
+argument_list|(
+name|src
+argument_list|)
+expr_stmt|;
+continue|continue;
 block|}
 name|oldsources
 operator|.
@@ -3546,6 +3620,7 @@ operator|.
 name|startup
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(

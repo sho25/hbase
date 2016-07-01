@@ -407,13 +407,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"testNodeFailoverDeadServerParsing"
-argument_list|)
-expr_stmt|;
 name|conf
 operator|.
 name|setBoolean
@@ -791,13 +784,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"testFailoverDeadServerCversionChange"
-argument_list|)
-expr_stmt|;
 name|conf
 operator|.
 name|setBoolean
