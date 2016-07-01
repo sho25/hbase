@@ -342,9 +342,17 @@ name|getStore
 argument_list|()
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
 name|LOG
 operator|.
-name|info
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
 argument_list|(
 literal|"Starting the MemStore in-memory compaction for store "
 operator|+
@@ -357,6 +365,7 @@ name|getColumnFamilyName
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 name|doCompaction
 argument_list|()
 expr_stmt|;

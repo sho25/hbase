@@ -347,9 +347,17 @@ operator|.
 name|getStoreSegments
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
 name|LOG
 operator|.
-name|info
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
 argument_list|(
 literal|"Swapping pipeline suffix with compacted item. "
 operator|+
@@ -371,6 +379,7 @@ name|getCellsCount
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 name|swapSuffix
 argument_list|(
 name|suffix
@@ -425,9 +434,17 @@ operator|-
 name|delta
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
 name|LOG
 operator|.
-name|info
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
 argument_list|(
 literal|"Suffix size: "
 operator|+
@@ -442,6 +459,7 @@ operator|+
 name|globalMemstoreSize
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 return|return
 literal|true

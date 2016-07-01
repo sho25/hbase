@@ -504,7 +504,7 @@ name|factor
 expr_stmt|;
 name|LOG
 operator|.
-name|debug
+name|info
 argument_list|(
 literal|"Setting in-memory flush size threshold to "
 operator|+
@@ -666,9 +666,17 @@ expr_stmt|;
 block|}
 else|else
 block|{
+if|if
+condition|(
 name|LOG
 operator|.
-name|info
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
 argument_list|(
 literal|"FLUSHING TO DISK: region "
 operator|+
@@ -687,6 +695,7 @@ name|getFamilyName
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 name|stopCompaction
 argument_list|()
 expr_stmt|;
@@ -1218,15 +1227,24 @@ init|=
 name|getActive
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
 name|LOG
 operator|.
-name|info
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
 argument_list|(
 literal|"IN-MEMORY FLUSH: Pushing active segment into compaction pipeline, "
 operator|+
 literal|"and initiating compaction."
 argument_list|)
 expr_stmt|;
+block|}
 name|pushActiveToPipeline
 argument_list|(
 name|active
@@ -1661,69 +1679,6 @@ block|}
 return|return
 name|lowest
 return|;
-block|}
-comment|// debug method
-specifier|private
-name|void
-name|debug
-parameter_list|()
-block|{
-name|String
-name|msg
-init|=
-literal|"active size="
-operator|+
-name|getActive
-argument_list|()
-operator|.
-name|getSize
-argument_list|()
-decl_stmt|;
-name|msg
-operator|+=
-literal|" threshold="
-operator|+
-name|IN_MEMORY_FLUSH_THRESHOLD_FACTOR_DEFAULT
-operator|*
-name|inmemoryFlushSize
-expr_stmt|;
-name|msg
-operator|+=
-literal|" allow compaction is "
-operator|+
-operator|(
-name|allowCompaction
-operator|.
-name|get
-argument_list|()
-condition|?
-literal|"true"
-else|:
-literal|"false"
-operator|)
-expr_stmt|;
-name|msg
-operator|+=
-literal|" inMemoryFlushInProgress is "
-operator|+
-operator|(
-name|inMemoryFlushInProgress
-operator|.
-name|get
-argument_list|()
-condition|?
-literal|"true"
-else|:
-literal|"false"
-operator|)
-expr_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-name|msg
-argument_list|)
-expr_stmt|;
 block|}
 block|}
 end_class
