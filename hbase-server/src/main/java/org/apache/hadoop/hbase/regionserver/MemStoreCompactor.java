@@ -476,6 +476,8 @@ name|get
 argument_list|()
 condition|)
 block|{
+if|if
+condition|(
 name|compactingMemStore
 operator|.
 name|swapCompactedSegments
@@ -484,7 +486,8 @@ name|versionedList
 argument_list|,
 name|result
 argument_list|)
-expr_stmt|;
+condition|)
+block|{
 comment|// update the wal so it can be truncated and not get too long
 name|compactingMemStore
 operator|.
@@ -494,6 +497,25 @@ literal|true
 argument_list|)
 expr_stmt|;
 comment|// only if greater
+block|}
+else|else
+block|{
+comment|// We just ignored the Segment 'result' and swap did not happen.
+name|result
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
+block|}
+else|else
+block|{
+comment|// We just ignore the Segment 'result'.
+name|result
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 block|}
 catch|catch

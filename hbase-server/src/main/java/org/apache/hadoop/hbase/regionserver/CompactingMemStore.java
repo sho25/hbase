@@ -929,7 +929,7 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|public
-name|void
+name|boolean
 name|swapCompactedSegments
 parameter_list|(
 name|VersionedSegmentsList
@@ -939,6 +939,7 @@ name|ImmutableSegment
 name|result
 parameter_list|)
 block|{
+return|return
 name|pipeline
 operator|.
 name|swap
@@ -947,7 +948,7 @@ name|versionedList
 argument_list|,
 name|result
 argument_list|)
-expr_stmt|;
+return|;
 block|}
 specifier|public
 name|boolean
