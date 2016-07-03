@@ -652,10 +652,8 @@ parameter_list|)
 block|{
 name|pipeline
 operator|.
-name|add
+name|addFirst
 argument_list|(
-literal|0
-argument_list|,
 name|segment
 argument_list|)
 expr_stmt|;
