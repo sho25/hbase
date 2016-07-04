@@ -1130,6 +1130,20 @@ argument_list|()
 return|;
 comment|// great we got an answer
 block|}
+else|else
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Failed to get result within timeout, timeout="
+operator|+
+name|timeout
+operator|+
+literal|"ms"
+argument_list|)
+throw|;
+block|}
 block|}
 catch|catch
 parameter_list|(
@@ -1208,10 +1222,21 @@ name|cancelAll
 argument_list|()
 expr_stmt|;
 block|}
-return|return
-literal|null
-return|;
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Imposible? Arrive at an unreachable line..."
+argument_list|)
+expr_stmt|;
 comment|// unreachable
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Imposible? Arrive at an unreachable line..."
+argument_list|)
+throw|;
 block|}
 specifier|private
 name|void
