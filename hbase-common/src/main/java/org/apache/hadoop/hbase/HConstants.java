@@ -3290,6 +3290,14 @@ name|HBASE_CANARY_WRITE_TABLE_CHECK_PERIOD_KEY
 init|=
 literal|"hbase.canary.write.table.check.period"
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_CANARY_READ_RAW_SCAN_KEY
+init|=
+literal|"hbase.canary.read.raw.enabled"
+decl_stmt|;
 comment|/**    * Configuration keys for programmatic JAAS configuration for secured ZK interaction    */
 specifier|public
 specifier|static
