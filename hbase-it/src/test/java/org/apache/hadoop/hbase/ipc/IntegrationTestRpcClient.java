@@ -1672,6 +1672,13 @@ name|id
 operator|=
 name|id
 expr_stmt|;
+name|this
+operator|.
+name|setName
+argument_list|(
+name|id
+argument_list|)
+expr_stmt|;
 block|}
 annotation|@
 name|Override
@@ -2052,7 +2059,7 @@ name|Test
 argument_list|(
 name|timeout
 operator|=
-literal|900000
+literal|1800000
 argument_list|)
 specifier|public
 name|void
@@ -2141,7 +2148,7 @@ return|;
 block|}
 block|}
 argument_list|,
-literal|90000
+literal|180000
 argument_list|)
 expr_stmt|;
 block|}
