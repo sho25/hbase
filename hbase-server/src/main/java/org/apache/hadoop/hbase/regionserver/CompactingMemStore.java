@@ -363,8 +363,6 @@ argument_list|(
 literal|false
 argument_list|)
 decl_stmt|;
-annotation|@
-name|VisibleForTesting
 specifier|private
 specifier|final
 name|AtomicBoolean
@@ -911,24 +909,6 @@ name|list
 return|;
 block|}
 specifier|public
-name|void
-name|setInMemoryFlushInProgress
-parameter_list|(
-name|boolean
-name|inMemoryFlushInProgress
-parameter_list|)
-block|{
-name|this
-operator|.
-name|inMemoryFlushInProgress
-operator|.
-name|set
-argument_list|(
-name|inMemoryFlushInProgress
-argument_list|)
-expr_stmt|;
-block|}
-specifier|public
 name|boolean
 name|swapCompactedSegments
 parameter_list|(
@@ -1213,6 +1193,19 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+comment|// setting the inMemoryFlushInProgress flag again for the case this method is invoked
+comment|// directly (only in tests) in the common path setting from true to true is idempotent
+comment|// Speculative compaction execution, may be interrupted if flush is forced while
+comment|// compaction is in progress
+name|inMemoryFlushInProgress
+operator|.
+name|set
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+try|try
+block|{
 comment|// Phase I: Update the pipeline
 name|getRegionServices
 argument_list|()
@@ -1261,36 +1254,26 @@ name|unblockUpdates
 argument_list|()
 expr_stmt|;
 block|}
-comment|// Phase II: Compact the pipeline
-try|try
-block|{
+comment|// Used by tests
 if|if
 condition|(
+operator|!
 name|allowCompaction
 operator|.
 name|get
 argument_list|()
-operator|&&
-name|inMemoryFlushInProgress
-operator|.
-name|compareAndSet
-argument_list|(
-literal|false
-argument_list|,
-literal|true
-argument_list|)
 condition|)
 block|{
-comment|// setting the inMemoryFlushInProgress flag again for the case this method is invoked
-comment|// directly (only in tests) in the common path setting from true to true is idempotent
-comment|// Speculative compaction execution, may be interrupted if flush is forced while
-comment|// compaction is in progress
+return|return;
+block|}
+comment|// Phase II: Compact the pipeline
+try|try
+block|{
 name|compactor
 operator|.
 name|startCompaction
 argument_list|()
 expr_stmt|;
-block|}
 block|}
 catch|catch
 parameter_list|(
@@ -1319,6 +1302,17 @@ name|getFamilyName
 argument_list|()
 argument_list|,
 name|e
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+finally|finally
+block|{
+name|inMemoryFlushInProgress
+operator|.
+name|set
+argument_list|(
+literal|false
 argument_list|)
 expr_stmt|;
 block|}
@@ -1370,18 +1364,14 @@ condition|)
 block|{
 comment|// size above flush threshold
 return|return
-operator|(
-name|allowCompaction
-operator|.
-name|get
-argument_list|()
-operator|&&
-operator|!
 name|inMemoryFlushInProgress
 operator|.
-name|get
-argument_list|()
-operator|)
+name|compareAndSet
+argument_list|(
+literal|false
+argument_list|,
+literal|true
+argument_list|)
 return|;
 block|}
 return|return
@@ -1570,6 +1560,8 @@ block|}
 comment|//----------------------------------------------------------------------
 comment|//methods for tests
 comment|//----------------------------------------------------------------------
+annotation|@
+name|VisibleForTesting
 name|boolean
 name|isMemStoreFlushingInMemory
 parameter_list|()
@@ -1581,6 +1573,8 @@ name|get
 argument_list|()
 return|;
 block|}
+annotation|@
+name|VisibleForTesting
 name|void
 name|disableCompaction
 parameter_list|()
@@ -1593,6 +1587,8 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|VisibleForTesting
 name|void
 name|enableCompaction
 parameter_list|()

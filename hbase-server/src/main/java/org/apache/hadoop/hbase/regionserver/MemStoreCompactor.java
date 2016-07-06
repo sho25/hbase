@@ -551,13 +551,6 @@ block|{
 name|releaseResources
 argument_list|()
 expr_stmt|;
-name|compactingMemStore
-operator|.
-name|setInMemoryFlushInProgress
-argument_list|(
-literal|false
-argument_list|)
-expr_stmt|;
 block|}
 block|}
 comment|/**    * Creates the scanner for compacting the pipeline.    *    * @return the scanner    */
