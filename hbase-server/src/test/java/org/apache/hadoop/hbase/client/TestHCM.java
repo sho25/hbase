@@ -3158,6 +3158,40 @@ argument_list|,
 name|allowsInterrupt
 argument_list|)
 expr_stmt|;
+comment|// to avoid the client to be stuck when do the Get
+name|c2
+operator|.
+name|setInt
+argument_list|(
+name|HConstants
+operator|.
+name|HBASE_CLIENT_META_OPERATION_TIMEOUT
+argument_list|,
+literal|10000
+argument_list|)
+expr_stmt|;
+name|c2
+operator|.
+name|setInt
+argument_list|(
+name|HConstants
+operator|.
+name|HBASE_CLIENT_OPERATION_TIMEOUT
+argument_list|,
+literal|10000
+argument_list|)
+expr_stmt|;
+name|c2
+operator|.
+name|setInt
+argument_list|(
+name|HConstants
+operator|.
+name|HBASE_RPC_TIMEOUT_KEY
+argument_list|,
+literal|5000
+argument_list|)
+expr_stmt|;
 name|Connection
 name|connection
 init|=
@@ -3307,6 +3341,15 @@ argument_list|(
 literal|"done="
 operator|+
 name|done
+argument_list|)
+expr_stmt|;
+comment|// without the sleep, will cause the exception for too many files in
+comment|// org.apache.hadoop.hdfs.server.datanode.DataXceiver
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|100
 argument_list|)
 expr_stmt|;
 block|}
