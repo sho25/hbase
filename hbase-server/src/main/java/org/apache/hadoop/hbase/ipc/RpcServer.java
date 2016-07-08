@@ -11766,29 +11766,6 @@ name|e
 operator|instanceof
 name|ServiceException
 condition|)
-block|{
-if|if
-condition|(
-name|e
-operator|.
-name|getCause
-argument_list|()
-operator|==
-literal|null
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Caught a ServiceException with null cause"
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-block|}
-else|else
-block|{
 name|e
 operator|=
 name|e
@@ -11796,8 +11773,6 @@ operator|.
 name|getCause
 argument_list|()
 expr_stmt|;
-block|}
-block|}
 comment|// increment the number of requests that were exceptions.
 name|metrics
 operator|.
