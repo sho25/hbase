@@ -569,7 +569,7 @@ name|Path
 argument_list|>
 argument_list|()
 decl_stmt|;
-name|int
+name|long
 name|cellsCount
 init|=
 name|snapshot
@@ -666,12 +666,10 @@ argument_list|,
 literal|true
 argument_list|,
 literal|true
-argument_list|)
-expr_stmt|;
-name|writer
-operator|.
-name|setTimeRangeTracker
-argument_list|(
+argument_list|,
+literal|false
+comment|/*default for dropbehind*/
+argument_list|,
 name|snapshot
 operator|.
 name|getTimeRangeTracker

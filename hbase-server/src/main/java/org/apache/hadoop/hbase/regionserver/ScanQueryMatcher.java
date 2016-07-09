@@ -1531,9 +1531,27 @@ argument_list|)
 throw|;
 block|}
 block|}
+comment|// NOTE: Cryptic stuff!
+comment|// if the timestamp is HConstants.OLDEST_TIMESTAMP, then this is a fake cell made to prime a
+comment|// Scanner; See KeyValueUTil#createLastOnRow. This Cell should never end up returning out of
+comment|// here a matchcode of INCLUDE else we will return to the client a fake Cell. If we call
+comment|// TimeRange, it will return 0 because it doesn't deal in OLDEST_TIMESTAMP and we will fall
+comment|// into the later code where we could return a matchcode of INCLUDE. See HBASE-16074 "ITBLL
+comment|// fails, reports lost big or tiny families" for a horror story. Check here for
+comment|// OLDEST_TIMESTAMP. TimeRange#compare is about more generic timestamps, between 0L and
+comment|// Long.MAX_LONG. It doesn't do OLDEST_TIMESTAMP weird handling.
 name|int
 name|timestampComparison
 init|=
+name|timestamp
+operator|==
+name|HConstants
+operator|.
+name|OLDEST_TIMESTAMP
+condition|?
+operator|-
+literal|1
+else|:
 name|tr
 operator|.
 name|compare

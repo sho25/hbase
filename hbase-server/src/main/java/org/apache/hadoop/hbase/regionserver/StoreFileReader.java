@@ -2694,9 +2694,9 @@ name|timeRange
 operator|==
 literal|null
 condition|?
-name|Long
+name|TimeRange
 operator|.
-name|MAX_VALUE
+name|INITIAL_MAX_TIMESTAMP
 else|:
 name|timeRange
 operator|.

@@ -138,7 +138,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Stores minimum and maximum timestamp values. Both timestamps are inclusive.  * Use this class at write-time ONLY. Too much synchronization to use at read time  * (TODO: there are two scenarios writing, once when lots of concurrency as part of memstore  * updates but then later we can make one as part of a compaction when there is only one thread  * involved -- consider making different version, the synchronized and the unsynchronized).  * Use {@link TimeRange} at read time instead of this. See toTimeRange() to make TimeRange to use.  * MemStores use this class to track minimum and maximum timestamps. The TimeRangeTracker made by  * the MemStore is passed to the StoreFile for it to write out as part a flush in the the file  * metadata. If no memstore involved -- i.e. a compaction -- then the StoreFile will calculate its  * own TimeRangeTracker as it appends. The StoreFile serialized TimeRangeTracker is used  * at read time via an instance of {@link TimeRange} to test if Cells fit the StoreFile TimeRange.  */
+comment|/**  * Stores minimum and maximum timestamp values.  * Use this class at write-time ONLY. Too much synchronization to use at read time  * (TODO: there are two scenarios writing, once when lots of concurrency as part of memstore  * updates but then later we can make one as part of a compaction when there is only one thread  * involved -- consider making different version, the synchronized and the unsynchronized).  * Use {@link TimeRange} at read time instead of this. See toTimeRange() to make TimeRange to use.  * MemStores use this class to track minimum and maximum timestamps. The TimeRangeTracker made by  * the MemStore is passed to the StoreFile for it to write out as part a flush in the the file  * metadata. If no memstore involved -- i.e. a compaction -- then the StoreFile will calculate its  * own TimeRangeTracker as it appends. The StoreFile serialized TimeRangeTracker is used  * at read time via an instance of {@link TimeRange} to test if Cells fit the StoreFile TimeRange.  */
 end_comment
 
 begin_class
@@ -161,18 +161,18 @@ name|Long
 operator|.
 name|MAX_VALUE
 decl_stmt|;
-name|long
-name|minimumTimestamp
-init|=
-name|INITIAL_MIN_TIMESTAMP
-decl_stmt|;
 specifier|static
 specifier|final
 name|long
 name|INITIAL_MAX_TIMESTAMP
 init|=
 operator|-
-literal|1
+literal|1L
+decl_stmt|;
+name|long
+name|minimumTimestamp
+init|=
+name|INITIAL_MIN_TIMESTAMP
 decl_stmt|;
 name|long
 name|maximumTimestamp
@@ -437,7 +437,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * Check if the range has any overlap with TimeRange    * @param tr TimeRange    * @return True if there is overlap, false otherwise    */
+comment|/**    * Check if the range has ANY overlap with TimeRange    * @param tr TimeRange    * @return True if there is overlap, false otherwise    */
 specifier|public
 specifier|synchronized
 name|boolean
@@ -647,23 +647,6 @@ name|toTimeRange
 argument_list|()
 return|;
 block|}
-specifier|private
-name|boolean
-name|isFreshInstance
-parameter_list|()
-block|{
-return|return
-name|getMin
-argument_list|()
-operator|==
-name|INITIAL_MIN_TIMESTAMP
-operator|&&
-name|getMax
-argument_list|()
-operator|==
-name|INITIAL_MAX_TIMESTAMP
-return|;
-block|}
 comment|/**    * @return Make a TimeRange from current state of<code>this</code>.    */
 name|TimeRange
 name|toTimeRange
@@ -681,20 +664,34 @@ init|=
 name|getMax
 argument_list|()
 decl_stmt|;
-comment|// Check for the case where the TimeRangeTracker is fresh. In that case it has
-comment|// initial values that are antithetical to a TimeRange... Return an uninitialized TimeRange
-comment|// if passed an uninitialized TimeRangeTracker.
+comment|// Initial TimeRangeTracker timestamps are the opposite of what you want for a TimeRange. Fix!
 if|if
 condition|(
-name|isFreshInstance
-argument_list|()
+name|min
+operator|==
+name|INITIAL_MIN_TIMESTAMP
 condition|)
 block|{
-return|return
-operator|new
+name|min
+operator|=
 name|TimeRange
-argument_list|()
-return|;
+operator|.
+name|INITIAL_MIN_TIMESTAMP
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|max
+operator|==
+name|INITIAL_MAX_TIMESTAMP
+condition|)
+block|{
+name|max
+operator|=
+name|TimeRange
+operator|.
+name|INITIAL_MAX_TIMESTAMP
+expr_stmt|;
 block|}
 return|return
 operator|new

@@ -367,12 +367,7 @@ argument_list|()
 argument_list|,
 comment|/* shouldDropBehind = */
 literal|false
-argument_list|)
-expr_stmt|;
-name|writer
-operator|.
-name|setTimeRangeTracker
-argument_list|(
+argument_list|,
 name|snapshot
 operator|.
 name|getTimeRangeTracker

@@ -653,15 +653,10 @@ literal|true
 argument_list|,
 comment|/* shouldDropBehind = */
 literal|false
-argument_list|)
-decl_stmt|;
-name|writer
-operator|.
-name|setTimeRangeTracker
-argument_list|(
+argument_list|,
 name|tracker
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 return|return
 name|writer
 return|;

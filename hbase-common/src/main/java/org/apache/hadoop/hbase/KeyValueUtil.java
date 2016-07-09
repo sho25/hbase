@@ -1327,7 +1327,7 @@ literal|1
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a KeyValue for the specified row, family and qualifier that would be    * larger than or equal to all other possible KeyValues that have the same    * row, family, qualifier. Used for reseeking.    *    * @param row    *          row key    * @param roffset    *         row offset    * @param rlength    *         row length    * @param family    *         family name    * @param foffset    *         family offset    * @param flength    *         family length    * @param qualifier    *        column qualifier    * @param qoffset    *        qualifier offset    * @param qlength    *        qualifier length    * @return Last possible key on passed row, family, qualifier.    */
+comment|/**    * Create a KeyValue for the specified row, family and qualifier that would be    * larger than or equal to all other possible KeyValues that have the same    * row, family, qualifier. Used for reseeking. Should NEVER be returned to a client.    *    * @param row    *          row key    * @param roffset    *         row offset    * @param rlength    *         row length    * @param family    *         family name    * @param foffset    *         family offset    * @param flength    *         family length    * @param qualifier    *        column qualifier    * @param qoffset    *        qualifier offset    * @param qlength    *        qualifier length    * @return Last possible key on passed row, family, qualifier.    */
 specifier|public
 specifier|static
 name|KeyValue

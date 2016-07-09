@@ -664,6 +664,37 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * @param maxKeyCount    * @param compression Compression algorithm to use    * @param isCompaction whether we are creating a new file in a compaction    * @param includeMVCCReadpoint whether we should out the MVCC readpoint    * @param shouldDropBehind should the writer drop caches behind writes    * @param trt Ready-made timetracker to use.    * @return Writer for a new StoreFile in the tmp dir.    */
+name|StoreFileWriter
+name|createWriterInTmp
+parameter_list|(
+name|long
+name|maxKeyCount
+parameter_list|,
+name|Compression
+operator|.
+name|Algorithm
+name|compression
+parameter_list|,
+name|boolean
+name|isCompaction
+parameter_list|,
+name|boolean
+name|includeMVCCReadpoint
+parameter_list|,
+name|boolean
+name|includesTags
+parameter_list|,
+name|boolean
+name|shouldDropBehind
+parameter_list|,
+specifier|final
+name|TimeRangeTracker
+name|trt
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|// Compaction oriented methods
 name|boolean
 name|throttleCompaction

@@ -1540,7 +1540,9 @@ name|Long
 operator|.
 name|MAX_VALUE
 decl_stmt|;
-comment|/**    * Timestamp to use when we want to refer to the oldest cell.    */
+comment|/**    * Timestamp to use when we want to refer to the oldest cell.    * Special! Used in fake Cells only. Should never be the timestamp on an actual Cell returned to    * a client.    * @deprecated Should not be public since hbase-1.3.0. For internal use only. Move internal to    * Scanners flagged as special timestamp value never to be returned as timestamp on a Cell.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 specifier|final
