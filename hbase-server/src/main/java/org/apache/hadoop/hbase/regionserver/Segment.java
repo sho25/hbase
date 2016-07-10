@@ -169,6 +169,20 @@ name|ByteRange
 import|;
 end_import
 
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
 begin_comment
 comment|/**  * This is an abstraction of a segment maintained in a memstore, e.g., the active  * cell set or its snapshot.  *  * This abstraction facilitates the management of the compaction pipeline and the shifts of these  * segments from active set to snapshot set in the default implementation.  */
 end_comment
@@ -522,9 +536,7 @@ block|}
 name|int
 name|len
 init|=
-name|KeyValueUtil
-operator|.
-name|length
+name|getCellLength
 argument_list|(
 name|cell
 argument_list|)
@@ -609,6 +621,25 @@ argument_list|)
 expr_stmt|;
 return|return
 name|newKv
+return|;
+block|}
+comment|/**    * Get cell length after serialized in {@link KeyValue}    */
+annotation|@
+name|VisibleForTesting
+name|int
+name|getCellLength
+parameter_list|(
+name|Cell
+name|cell
+parameter_list|)
+block|{
+return|return
+name|KeyValueUtil
+operator|.
+name|length
+argument_list|(
+name|cell
+argument_list|)
 return|;
 block|}
 specifier|public
@@ -875,6 +906,9 @@ name|internalAdd
 parameter_list|(
 name|Cell
 name|cell
+parameter_list|,
+name|boolean
+name|useMSLAB
 parameter_list|)
 block|{
 name|boolean
@@ -900,6 +934,25 @@ argument_list|,
 name|succ
 argument_list|)
 decl_stmt|;
+comment|// If there's already a same cell in the CellSet and we are using MSLAB, we must count in the
+comment|// MSLAB allocation size as well, or else there will be memory leak (occupied heap size larger
+comment|// than the counted number)
+if|if
+condition|(
+operator|!
+name|succ
+operator|&&
+name|useMSLAB
+condition|)
+block|{
+name|s
+operator|+=
+name|getCellLength
+argument_list|(
+name|cell
+argument_list|)
+expr_stmt|;
+block|}
 name|updateMetaInfo
 argument_list|(
 name|cell
@@ -993,7 +1046,9 @@ name|firstCell
 argument_list|)
 return|;
 block|}
-specifier|private
+annotation|@
+name|VisibleForTesting
+specifier|public
 name|MemStoreLAB
 name|getMemStoreLAB
 parameter_list|()

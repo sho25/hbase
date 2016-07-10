@@ -120,19 +120,24 @@ name|size
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Adds the given cell into the segment    * @return the change in the heap size    */
+comment|/**    * Adds the given cell into the segment    * @param cell the cell to add    * @param useMSLAB whether using MSLAB    * @return the change in the heap size    */
 specifier|public
 name|long
 name|add
 parameter_list|(
 name|Cell
 name|cell
+parameter_list|,
+name|boolean
+name|useMSLAB
 parameter_list|)
 block|{
 return|return
 name|internalAdd
 argument_list|(
 name|cell
+argument_list|,
+name|useMSLAB
 argument_list|)
 return|;
 block|}
