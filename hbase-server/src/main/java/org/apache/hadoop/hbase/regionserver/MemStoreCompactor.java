@@ -720,7 +720,7 @@ name|c
 argument_list|)
 decl_stmt|;
 name|boolean
-name|useMSLAB
+name|mslabUsed
 init|=
 operator|(
 name|newKV
@@ -734,7 +734,7 @@ name|internalAdd
 argument_list|(
 name|newKV
 argument_list|,
-name|useMSLAB
+name|mslabUsed
 argument_list|)
 expr_stmt|;
 block|}

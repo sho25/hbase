@@ -908,7 +908,7 @@ name|Cell
 name|cell
 parameter_list|,
 name|boolean
-name|useMSLAB
+name|mslabUsed
 parameter_list|)
 block|{
 name|boolean
@@ -942,7 +942,7 @@ condition|(
 operator|!
 name|succ
 operator|&&
-name|useMSLAB
+name|mslabUsed
 condition|)
 block|{
 name|s

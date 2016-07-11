@@ -524,7 +524,7 @@ name|cell
 argument_list|)
 decl_stmt|;
 name|boolean
-name|useMSLAB
+name|mslabUsed
 init|=
 operator|(
 name|toAdd
@@ -537,7 +537,7 @@ name|internalAdd
 argument_list|(
 name|toAdd
 argument_list|,
-name|useMSLAB
+name|mslabUsed
 argument_list|)
 return|;
 block|}
@@ -617,7 +617,7 @@ name|deleteCell
 argument_list|)
 decl_stmt|;
 name|boolean
-name|useMSLAB
+name|mslabUsed
 init|=
 operator|(
 name|toAdd
@@ -632,7 +632,7 @@ name|internalAdd
 argument_list|(
 name|toAdd
 argument_list|,
-name|useMSLAB
+name|mslabUsed
 argument_list|)
 decl_stmt|;
 return|return
@@ -1503,7 +1503,7 @@ name|cell
 argument_list|)
 return|;
 block|}
-comment|/**    * Internal version of add() that doesn't clone Cells with the    * allocator, and doesn't take the lock.    *    * Callers should ensure they already have the read lock taken    * @param toAdd the cell to add    * @param useMSLAB whether using MSLAB    * @return the heap size change in bytes    */
+comment|/**    * Internal version of add() that doesn't clone Cells with the    * allocator, and doesn't take the lock.    *    * Callers should ensure they already have the read lock taken    * @param toAdd the cell to add    * @param mslabUsed whether using MSLAB    * @return the heap size change in bytes    */
 specifier|private
 name|long
 name|internalAdd
@@ -1514,7 +1514,7 @@ name|toAdd
 parameter_list|,
 specifier|final
 name|boolean
-name|useMSLAB
+name|mslabUsed
 parameter_list|)
 block|{
 name|long
@@ -1526,7 +1526,7 @@ name|add
 argument_list|(
 name|toAdd
 argument_list|,
-name|useMSLAB
+name|mslabUsed
 argument_list|)
 decl_stmt|;
 name|setOldestEditTimeToNow
