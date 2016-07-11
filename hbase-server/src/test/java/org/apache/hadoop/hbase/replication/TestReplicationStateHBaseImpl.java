@@ -1374,6 +1374,26 @@ name|getAbortCount
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// Test removing a non-existent queue does not cause an abort. This is because we can
+comment|// attempt to remove a queue that has no corresponding Replication Table row (if we never
+comment|// registered a WAL for it)
+name|rq1
+operator|.
+name|removeQueue
+argument_list|(
+literal|"NotHereQueue"
+argument_list|)
+expr_stmt|;
+name|assertEquals
+argument_list|(
+literal|6
+argument_list|,
+name|ds1
+operator|.
+name|getAbortCount
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(

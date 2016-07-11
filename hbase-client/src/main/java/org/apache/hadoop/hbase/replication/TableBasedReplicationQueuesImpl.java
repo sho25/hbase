@@ -599,6 +599,14 @@ argument_list|(
 name|queueId
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|checkQueueExists
+argument_list|(
+name|queueId
+argument_list|)
+condition|)
+block|{
 name|Delete
 name|deleteQueue
 init|=
@@ -613,6 +621,23 @@ argument_list|(
 name|deleteQueue
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"No logs were registered for queue id="
+operator|+
+name|queueId
+operator|+
+literal|" so no rows were removed "
+operator|+
+literal|"from the replication table while removing the queue"
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
