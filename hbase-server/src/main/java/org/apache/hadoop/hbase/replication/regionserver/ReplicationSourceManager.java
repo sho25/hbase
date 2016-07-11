@@ -2571,6 +2571,8 @@ argument_list|,
 name|metrics
 argument_list|,
 name|tableDescriptors
+argument_list|,
+name|server
 argument_list|)
 argument_list|)
 expr_stmt|;

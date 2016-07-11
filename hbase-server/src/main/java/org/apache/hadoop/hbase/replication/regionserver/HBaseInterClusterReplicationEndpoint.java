@@ -269,6 +269,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|Abortable
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseConfiguration
 import|;
 end_import
@@ -536,6 +550,14 @@ name|class
 argument_list|)
 decl_stmt|;
 specifier|private
+specifier|static
+specifier|final
+name|long
+name|DEFAULT_MAX_TERMINATION_WAIT_MULTIPLIER
+init|=
+literal|2
+decl_stmt|;
+specifier|private
 name|ClusterConnection
 name|conn
 decl_stmt|;
@@ -557,6 +579,11 @@ comment|// Socket timeouts require even bolder actions since we don't want to DD
 specifier|private
 name|int
 name|socketTimeoutMultiplier
+decl_stmt|;
+comment|// Amount of time for shutdown to wait for all tasks to complete
+specifier|private
+name|long
+name|maxTerminationWait
 decl_stmt|;
 comment|//Metrics for this source
 specifier|private
@@ -599,6 +626,10 @@ decl_stmt|;
 specifier|private
 name|boolean
 name|replicationBulkLoadDataEnabled
+decl_stmt|;
+specifier|private
+name|Abortable
+name|abortable
 decl_stmt|;
 annotation|@
 name|Override
@@ -664,6 +695,43 @@ argument_list|(
 literal|"replication.source.socketTimeoutMultiplier"
 argument_list|,
 name|maxRetriesMultiplier
+argument_list|)
+expr_stmt|;
+comment|// A Replicator job is bound by the RPC timeout. We will wait this long for all Replicator
+comment|// tasks to terminate when doStop() is called.
+name|long
+name|maxTerminationWaitMultiplier
+init|=
+name|this
+operator|.
+name|conf
+operator|.
+name|getLong
+argument_list|(
+literal|"replication.source.maxterminationmultiplier"
+argument_list|,
+name|DEFAULT_MAX_TERMINATION_WAIT_MULTIPLIER
+argument_list|)
+decl_stmt|;
+name|this
+operator|.
+name|maxTerminationWait
+operator|=
+name|maxTerminationWaitMultiplier
+operator|*
+name|this
+operator|.
+name|conf
+operator|.
+name|getLong
+argument_list|(
+name|HConstants
+operator|.
+name|HBASE_RPC_TIMEOUT_KEY
+argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_HBASE_RPC_TIMEOUT
 argument_list|)
 expr_stmt|;
 comment|// TODO: This connection is replication specific or we should make it particular to
@@ -784,6 +852,15 @@ name|allowCoreThreadTimeOut
 argument_list|(
 literal|true
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|abortable
+operator|=
+name|ctx
+operator|.
+name|getAbortable
+argument_list|()
 expr_stmt|;
 name|this
 operator|.
@@ -1309,6 +1386,12 @@ condition|(
 name|this
 operator|.
 name|isRunning
+argument_list|()
+operator|&&
+operator|!
+name|exec
+operator|.
+name|isShutdown
 argument_list|()
 condition|)
 block|{
@@ -1862,11 +1945,69 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|// Allow currently running replication tasks to finish
 name|exec
 operator|.
-name|shutdownNow
+name|shutdown
 argument_list|()
 expr_stmt|;
+try|try
+block|{
+name|exec
+operator|.
+name|awaitTermination
+argument_list|(
+name|maxTerminationWait
+argument_list|,
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{     }
+comment|// Abort if the tasks did not terminate in time
+if|if
+condition|(
+operator|!
+name|exec
+operator|.
+name|isTerminated
+argument_list|()
+condition|)
+block|{
+name|String
+name|errMsg
+init|=
+literal|"HBaseInterClusterReplicationEndpoint termination failed. The "
+operator|+
+literal|"ThreadPoolExecutor failed to finish all tasks within "
+operator|+
+name|maxTerminationWait
+operator|+
+literal|"ms. "
+operator|+
+literal|"Aborting to prevent Replication from deadlocking. See HBASE-16081."
+decl_stmt|;
+name|abortable
+operator|.
+name|abort
+argument_list|(
+name|errMsg
+argument_list|,
+operator|new
+name|IOException
+argument_list|(
+name|errMsg
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 name|notifyStopped
 argument_list|()
 expr_stmt|;
