@@ -189,6 +189,22 @@ parameter_list|)
 block|{
 comment|// no-op
 block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|delete
+parameter_list|(
+name|Procedure
+name|proc
+parameter_list|,
+name|long
+index|[]
+name|subprocs
+parameter_list|)
+block|{
+comment|// no-op
+block|}
 block|}
 end_class
 
