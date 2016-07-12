@@ -941,15 +941,24 @@ operator|==
 literal|null
 condition|)
 block|{
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"No StoreFiles for: "
 operator|+
 name|familyDir
 argument_list|)
 expr_stmt|;
+block|}
 return|return
 literal|null
 return|;
@@ -1619,6 +1628,14 @@ argument_list|()
 argument_list|)
 throw|;
 block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -1632,6 +1649,7 @@ operator|+
 name|dstPath
 argument_list|)
 expr_stmt|;
+block|}
 comment|// buildPath exists, therefore not doing an exists() check.
 if|if
 condition|(
@@ -4447,6 +4465,14 @@ operator|>
 name|hdfsClientRetriesNumber
 condition|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -4456,8 +4482,17 @@ operator|+
 literal|", retries exhausted"
 argument_list|)
 expr_stmt|;
+block|}
 return|return;
 block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -4473,6 +4508,7 @@ operator|+
 name|sleepMultiplier
 argument_list|)
 expr_stmt|;
+block|}
 name|Thread
 operator|.
 name|sleep
