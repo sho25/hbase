@@ -7054,6 +7054,9 @@ argument_list|)
 decl_stmt|;
 name|master
 operator|.
+name|getClusterSchema
+argument_list|()
+operator|.
 name|getNamespace
 argument_list|(
 name|dstTable
