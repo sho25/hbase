@@ -199,6 +199,16 @@ operator|.
 name|RS_CLOSE_META
 argument_list|)
 block|,
+comment|/**    * Messages originating from Master to RS.<br>    * M_RS_OPEN_PRIORITY_REGION<br>    * Master asking RS to open a  priority region.    */
+name|M_RS_OPEN_PRIORITY_REGION
+argument_list|(
+literal|26
+argument_list|,
+name|ExecutorType
+operator|.
+name|RS_OPEN_PRIORITY_REGION
+argument_list|)
+block|,
 comment|/**    * Messages originating from Client to Master.<br>    * C_M_MERGE_REGION<br>    * Client asking Master to merge regions.    */
 name|C_M_MERGE_REGION
 argument_list|(

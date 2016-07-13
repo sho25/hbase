@@ -132,6 +132,11 @@ name|RS_COMPACTED_FILES_DISCHARGER
 argument_list|(
 literal|29
 argument_list|)
+block|,
+name|RS_OPEN_PRIORITY_REGION
+argument_list|(
+literal|30
+argument_list|)
 block|;
 name|ExecutorType
 parameter_list|(
