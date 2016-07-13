@@ -89,6 +89,34 @@ name|org
 operator|.
 name|apache
 operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|Log
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|LogFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -222,6 +250,20 @@ literal|1024
 decl_stmt|;
 comment|// allocs bigger than this don't go through
 comment|// allocator
+specifier|static
+specifier|final
+name|Log
+name|LOG
+init|=
+name|LogFactory
+operator|.
+name|getLog
+argument_list|(
+name|HeapMemStoreLAB
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 specifier|private
 name|AtomicReference
 argument_list|<
@@ -236,7 +278,7 @@ name|Chunk
 argument_list|>
 argument_list|()
 decl_stmt|;
-comment|// A queue of chunks contained by this memstore
+comment|// A queue of chunks contained by this memstore, used with chunk pool
 specifier|private
 name|BlockingQueue
 argument_list|<
@@ -244,12 +286,7 @@ name|Chunk
 argument_list|>
 name|chunkQueue
 init|=
-operator|new
-name|LinkedBlockingQueue
-argument_list|<
-name|Chunk
-argument_list|>
-argument_list|()
+literal|null
 decl_stmt|;
 specifier|final
 name|int
@@ -348,6 +385,33 @@ argument_list|(
 name|conf
 argument_list|)
 expr_stmt|;
+comment|// currently chunkQueue is only used for chunkPool
+if|if
+condition|(
+name|this
+operator|.
+name|chunkPool
+operator|!=
+literal|null
+condition|)
+block|{
+comment|// set queue length to chunk pool max count to avoid keeping reference of
+comment|// too many non-reclaimable chunks
+name|chunkQueue
+operator|=
+operator|new
+name|LinkedBlockingQueue
+argument_list|<
+name|Chunk
+argument_list|>
+argument_list|(
+name|chunkPool
+operator|.
+name|getMaxCount
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 comment|// if we don't exclude allocations>CHUNK_SIZE, we'd infiniteloop on one!
 name|Preconditions
 operator|.
@@ -574,7 +638,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Try to retire the current chunk if it is still    *<code>c</code>. Postcondition is that curChunk.get()    * != c    */
+comment|/**    * Try to retire the current chunk if it is still    *<code>c</code>. Postcondition is that curChunk.get()    * != c    * @param c the chunk to retire    * @return true if we won the race to retire the chunk    */
 specifier|private
 name|void
 name|tryRetireChunk
@@ -671,15 +735,50 @@ operator|.
 name|init
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|chunkQueue
+operator|!=
+literal|null
+operator|&&
+operator|!
+name|this
+operator|.
+name|closed
+operator|&&
+operator|!
 name|this
 operator|.
 name|chunkQueue
 operator|.
-name|add
+name|offer
 argument_list|(
 name|c
 argument_list|)
+condition|)
+block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Chunk queue is full, won't reuse this new chunk. Current queue size: "
+operator|+
+name|chunkQueue
+operator|.
+name|size
+argument_list|()
+argument_list|)
 expr_stmt|;
+block|}
+block|}
 return|return
 name|c
 return|;
@@ -717,6 +816,21 @@ name|curChunk
 operator|.
 name|get
 argument_list|()
+return|;
+block|}
+annotation|@
+name|VisibleForTesting
+name|BlockingQueue
+argument_list|<
+name|Chunk
+argument_list|>
+name|getChunkQueue
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|chunkQueue
 return|;
 block|}
 comment|/**    * A chunk of memory out of which allocations are sliced.    */
