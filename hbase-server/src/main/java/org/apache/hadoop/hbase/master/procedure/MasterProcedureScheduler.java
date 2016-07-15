@@ -3779,6 +3779,15 @@ name|String
 name|purpose
 parameter_list|)
 block|{
+comment|// Since we only have one lock resource.  We should only acquire zk lock if the znode
+comment|// does not exist.
+comment|//
+if|if
+condition|(
+name|isSingleSharedLock
+argument_list|()
+condition|)
+block|{
 comment|// Take zk-read-lock
 name|TableName
 name|tableName
@@ -3830,6 +3839,7 @@ return|return
 literal|false
 return|;
 block|}
+block|}
 return|return
 literal|true
 return|;
@@ -3844,14 +3854,20 @@ name|TableLockManager
 name|lockManager
 parameter_list|)
 block|{
+if|if
+condition|(
+name|isSingleSharedLock
+argument_list|()
+condition|)
+block|{
 name|releaseTableLock
 argument_list|(
 name|lockManager
 argument_list|,
-name|isSingleSharedLock
-argument_list|()
+literal|true
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 specifier|private
 specifier|synchronized
@@ -4429,12 +4445,8 @@ return|return
 literal|null
 return|;
 block|}
-name|schedLock
-operator|.
-name|unlock
-argument_list|()
-expr_stmt|;
-comment|// Zk lock is expensive...
+comment|// TODO: Zk lock is expensive and it would be perf bottleneck.  Long term solution is
+comment|// to remove it.
 if|if
 condition|(
 operator|!
@@ -4451,11 +4463,6 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
-name|schedLock
-operator|.
-name|lock
-argument_list|()
-expr_stmt|;
 name|queue
 operator|.
 name|releaseSharedLock
@@ -4478,6 +4485,11 @@ return|return
 literal|null
 return|;
 block|}
+name|schedLock
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
 return|return
 name|queue
 return|;
@@ -4505,6 +4517,11 @@ argument_list|(
 name|table
 argument_list|)
 decl_stmt|;
+name|schedLock
+operator|.
+name|lock
+argument_list|()
+expr_stmt|;
 comment|// Zk lock is expensive...
 name|queue
 operator|.
@@ -4512,11 +4529,6 @@ name|releaseZkSharedLock
 argument_list|(
 name|lockManager
 argument_list|)
-expr_stmt|;
-name|schedLock
-operator|.
-name|lock
-argument_list|()
 expr_stmt|;
 name|queue
 operator|.
