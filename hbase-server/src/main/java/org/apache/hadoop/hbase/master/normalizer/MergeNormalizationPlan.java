@@ -263,7 +263,7 @@ try|try
 block|{
 name|admin
 operator|.
-name|mergeRegions
+name|mergeRegionsAsync
 argument_list|(
 name|firstRegion
 operator|.

@@ -5234,7 +5234,7 @@ return|return
 name|regionsByServer
 return|;
 block|}
-specifier|protected
+specifier|public
 specifier|synchronized
 name|RegionState
 name|getRegionState

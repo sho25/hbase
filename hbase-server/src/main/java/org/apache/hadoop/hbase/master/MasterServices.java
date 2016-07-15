@@ -299,22 +299,6 @@ end_import
 
 begin_import
 import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|security
-operator|.
-name|User
-import|;
-end_import
-
-begin_import
-import|import
 name|com
 operator|.
 name|google
@@ -403,6 +387,11 @@ function_decl|;
 comment|/**    * @return Master's instance of {@link RegionNormalizer}    */
 name|RegionNormalizer
 name|getRegionNormalizer
+parameter_list|()
+function_decl|;
+comment|/**    * @return Master's instance of {@link CatalogJanitor}    */
+name|CatalogJanitor
+name|getCatalogJanitor
 parameter_list|()
 function_decl|;
 comment|/**    * @return Master's instance of {@link ProcedureExecutor}    */
@@ -646,8 +635,8 @@ name|Service
 name|instance
 parameter_list|)
 function_decl|;
-comment|/**    * Merge two regions. The real implementation is on the regionserver, master    * just move the regions together and send MERGE RPC to regionserver    * @param region_a region to merge    * @param region_b region to merge    * @param forcible true if do a compulsory merge, otherwise we will only merge    *          two adjacent regions    * @param user effective user    * @throws IOException    */
-name|void
+comment|/**    * Merge two regions. The real implementation is on the regionserver, master    * just move the regions together and send MERGE RPC to regionserver    * @param region_a region to merge    * @param region_b region to merge    * @param forcible true if do a compulsory merge, otherwise we will only merge    *          two adjacent regions    * @return procedure Id    * @throws IOException    */
+name|long
 name|dispatchMergingRegions
 parameter_list|(
 specifier|final
@@ -663,8 +652,12 @@ name|boolean
 name|forcible
 parameter_list|,
 specifier|final
-name|User
-name|user
+name|long
+name|nonceGroup
+parameter_list|,
+specifier|final
+name|long
+name|nonce
 parameter_list|)
 throws|throws
 name|IOException

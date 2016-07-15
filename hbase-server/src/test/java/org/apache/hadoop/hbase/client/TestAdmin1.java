@@ -8869,7 +8869,7 @@ operator|.
 name|getAdmin
 argument_list|()
 operator|.
-name|mergeRegions
+name|mergeRegionsAsync
 argument_list|(
 name|regions
 operator|.
@@ -10218,7 +10218,7 @@ argument_list|)
 expr_stmt|;
 name|admin
 operator|.
-name|mergeRegions
+name|mergeRegionsAsync
 argument_list|(
 name|regionA
 operator|.
@@ -10285,7 +10285,7 @@ argument_list|)
 expr_stmt|;
 name|admin
 operator|.
-name|mergeRegions
+name|mergeRegionsAsync
 argument_list|(
 name|regionA
 operator|.

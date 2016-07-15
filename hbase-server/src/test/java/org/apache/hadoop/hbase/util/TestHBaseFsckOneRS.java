@@ -3900,7 +3900,7 @@ expr_stmt|;
 comment|// do a region merge
 name|admin
 operator|.
-name|mergeRegions
+name|mergeRegionsAsync
 argument_list|(
 name|region1
 operator|.

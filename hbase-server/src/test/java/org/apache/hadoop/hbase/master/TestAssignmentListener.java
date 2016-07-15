@@ -1380,7 +1380,7 @@ argument_list|)
 expr_stmt|;
 name|admin
 operator|.
-name|mergeRegions
+name|mergeRegionsAsync
 argument_list|(
 name|regions
 operator|.

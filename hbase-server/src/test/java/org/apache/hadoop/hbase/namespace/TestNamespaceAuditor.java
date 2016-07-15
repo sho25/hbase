@@ -2758,7 +2758,7 @@ argument_list|)
 decl_stmt|;
 name|ADMIN
 operator|.
-name|mergeRegions
+name|mergeRegionsAsync
 argument_list|(
 name|hris
 operator|.
@@ -3309,7 +3309,7 @@ literal|false
 expr_stmt|;
 name|ADMIN
 operator|.
-name|mergeRegions
+name|mergeRegionsAsync
 argument_list|(
 name|hris
 operator|.

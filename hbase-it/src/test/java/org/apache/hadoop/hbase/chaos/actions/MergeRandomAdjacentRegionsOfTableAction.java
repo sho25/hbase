@@ -307,7 +307,7 @@ try|try
 block|{
 name|admin
 operator|.
-name|mergeRegions
+name|mergeRegionsAsync
 argument_list|(
 name|a
 operator|.
