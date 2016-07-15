@@ -13,9 +13,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|master
-operator|.
-name|handler
+name|client
 package|;
 end_package
 
@@ -563,7 +561,7 @@ block|}
 argument_list|)
 specifier|public
 class|class
-name|TestEnableTableHandler
+name|TestEnableTable
 block|{
 specifier|private
 specifier|static
@@ -585,7 +583,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|TestEnableTableHandler
+name|TestEnableTable
 operator|.
 name|class
 argument_list|)
