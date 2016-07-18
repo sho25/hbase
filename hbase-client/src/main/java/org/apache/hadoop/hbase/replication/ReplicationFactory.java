@@ -122,6 +122,16 @@ name|ReplicationFactory
 block|{
 specifier|public
 specifier|static
+specifier|final
+name|Class
+name|defaultReplicationQueueClass
+init|=
+name|ReplicationQueuesZKImpl
+operator|.
+name|class
+decl_stmt|;
+specifier|public
+specifier|static
 name|ReplicationQueues
 name|getReplicationQueues
 parameter_list|(
@@ -148,9 +158,7 @@ literal|"hbase.region.replica."
 operator|+
 literal|"replication.replicationQueues.class"
 argument_list|,
-name|ReplicationQueuesZKImpl
-operator|.
-name|class
+name|defaultReplicationQueueClass
 argument_list|)
 decl_stmt|;
 return|return
