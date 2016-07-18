@@ -923,9 +923,6 @@ case|case
 name|CONNECTIONLOSS
 case|:
 case|case
-name|SESSIONEXPIRED
-case|:
-case|case
 name|OPERATIONTIMEOUT
 case|:
 name|retryOrThrow
@@ -1047,9 +1044,6 @@ case|case
 name|CONNECTIONLOSS
 case|:
 case|case
-name|SESSIONEXPIRED
-case|:
-case|case
 name|OPERATIONTIMEOUT
 case|:
 name|retryOrThrow
@@ -1165,9 +1159,6 @@ condition|)
 block|{
 case|case
 name|CONNECTIONLOSS
-case|:
-case|case
-name|SESSIONEXPIRED
 case|:
 case|case
 name|OPERATIONTIMEOUT
@@ -1351,9 +1342,6 @@ case|case
 name|CONNECTIONLOSS
 case|:
 case|case
-name|SESSIONEXPIRED
-case|:
-case|case
 name|OPERATIONTIMEOUT
 case|:
 name|retryOrThrow
@@ -1472,9 +1460,6 @@ condition|)
 block|{
 case|case
 name|CONNECTIONLOSS
-case|:
-case|case
-name|SESSIONEXPIRED
 case|:
 case|case
 name|OPERATIONTIMEOUT
@@ -1611,9 +1596,6 @@ case|case
 name|CONNECTIONLOSS
 case|:
 case|case
-name|SESSIONEXPIRED
-case|:
-case|case
 name|OPERATIONTIMEOUT
 case|:
 name|retryOrThrow
@@ -1746,9 +1728,6 @@ condition|)
 block|{
 case|case
 name|CONNECTIONLOSS
-case|:
-case|case
-name|SESSIONEXPIRED
 case|:
 case|case
 name|OPERATIONTIMEOUT
@@ -1886,9 +1865,6 @@ condition|)
 block|{
 case|case
 name|CONNECTIONLOSS
-case|:
-case|case
-name|SESSIONEXPIRED
 case|:
 case|case
 name|OPERATIONTIMEOUT
@@ -2082,9 +2058,6 @@ case|case
 name|CONNECTIONLOSS
 case|:
 case|case
-name|SESSIONEXPIRED
-case|:
-case|case
 name|OPERATIONTIMEOUT
 case|:
 name|retryOrThrow
@@ -2208,9 +2181,6 @@ condition|)
 block|{
 case|case
 name|CONNECTIONLOSS
-case|:
-case|case
-name|SESSIONEXPIRED
 case|:
 case|case
 name|OPERATIONTIMEOUT
@@ -2547,9 +2517,6 @@ case|case
 name|CONNECTIONLOSS
 case|:
 case|case
-name|SESSIONEXPIRED
-case|:
-case|case
 name|OPERATIONTIMEOUT
 case|:
 name|retryOrThrow
@@ -2696,9 +2663,6 @@ condition|)
 block|{
 case|case
 name|CONNECTIONLOSS
-case|:
-case|case
-name|SESSIONEXPIRED
 case|:
 case|case
 name|OPERATIONTIMEOUT
@@ -3021,9 +2985,6 @@ condition|)
 block|{
 case|case
 name|CONNECTIONLOSS
-case|:
-case|case
-name|SESSIONEXPIRED
 case|:
 case|case
 name|OPERATIONTIMEOUT
