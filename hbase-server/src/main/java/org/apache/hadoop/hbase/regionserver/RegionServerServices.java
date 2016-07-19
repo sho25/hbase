@@ -357,6 +357,11 @@ name|RegionServerQuotaManager
 name|getRegionServerQuotaManager
 parameter_list|()
 function_decl|;
+comment|/**    * @return RegionServer's instance of {@link SecureBulkLoadManager}    */
+name|SecureBulkLoadManager
+name|getSecureBulkLoadManager
+parameter_list|()
+function_decl|;
 comment|/**    * Context for postOpenDeployTasks().    */
 class|class
 name|PostOpenDeployContext

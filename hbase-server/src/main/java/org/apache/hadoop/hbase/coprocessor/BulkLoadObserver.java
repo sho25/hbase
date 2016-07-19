@@ -101,9 +101,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|SecureBulkLoadProtos
+name|ClientProtos
 operator|.
-name|CleanupBulkLoadRequest
+name|PrepareBulkLoadRequest
 import|;
 end_import
 
@@ -121,9 +121,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|SecureBulkLoadProtos
+name|ClientProtos
 operator|.
-name|PrepareBulkLoadRequest
+name|CleanupBulkLoadRequest
 import|;
 end_import
 

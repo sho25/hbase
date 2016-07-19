@@ -4993,6 +4993,11 @@ argument_list|(
 name|create
 argument_list|)
 expr_stmt|;
+comment|// Set the hbase.fs.tmp.dir config to make sure that we have some default value. This is
+comment|// for tests that do not read hbase-defaults.xml
+name|setHBaseFsTmpDir
+argument_list|()
+expr_stmt|;
 comment|// These settings will make the server waits until this exact number of
 comment|// regions servers are connected.
 if|if
@@ -5142,11 +5147,6 @@ name|info
 argument_list|(
 literal|"Minicluster is up"
 argument_list|)
-expr_stmt|;
-comment|// Set the hbase.fs.tmp.dir config to make sure that we have some default value. This is
-comment|// for tests that do not read hbase-defaults.xml
-name|setHBaseFsTmpDir
-argument_list|()
 expr_stmt|;
 return|return
 operator|(
@@ -5736,6 +5736,24 @@ name|hbaseFsTmpDirInString
 argument_list|)
 expr_stmt|;
 block|}
+name|this
+operator|.
+name|conf
+operator|.
+name|set
+argument_list|(
+literal|"hbase.bulkload.staging.dir"
+argument_list|,
+name|this
+operator|.
+name|conf
+operator|.
+name|get
+argument_list|(
+literal|"hbase.fs.tmp.dir"
+argument_list|)
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * Flushes all caches in the mini hbase cluster    * @throws IOException    */
 specifier|public

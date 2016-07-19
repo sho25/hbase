@@ -2571,7 +2571,7 @@ case|case
 literal|4
 case|:
 assert|assert
-literal|"ExecService"
+literal|"PrepareBulkLoad"
 operator|.
 name|equals
 argument_list|(
@@ -2587,7 +2587,7 @@ case|case
 literal|5
 case|:
 assert|assert
-literal|"ExecRegionServerService"
+literal|"CleanupBulkLoad"
 operator|.
 name|equals
 argument_list|(
@@ -2601,6 +2601,38 @@ comment|// use generic implementation
 break|break;
 case|case
 literal|6
+case|:
+assert|assert
+literal|"ExecService"
+operator|.
+name|equals
+argument_list|(
+name|method
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+assert|;
+comment|// use generic implementation
+break|break;
+case|case
+literal|7
+case|:
+assert|assert
+literal|"ExecRegionServerService"
+operator|.
+name|equals
+argument_list|(
+name|method
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+assert|;
+comment|// use generic implementation
+break|break;
+case|case
+literal|8
 case|:
 assert|assert
 literal|"Multi"
