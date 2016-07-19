@@ -10136,6 +10136,16 @@ argument_list|,
 name|encodedNameOfRegionB
 argument_list|,
 name|forcible
+argument_list|,
+name|ng
+operator|.
+name|getNonceGroup
+argument_list|()
+argument_list|,
+name|ng
+operator|.
+name|newNonce
+argument_list|()
 argument_list|)
 decl_stmt|;
 return|return

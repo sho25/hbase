@@ -8954,6 +8954,14 @@ name|getEncodedNameAsBytes
 argument_list|()
 argument_list|,
 literal|true
+argument_list|,
+name|HConstants
+operator|.
+name|NO_NONCE
+argument_list|,
+name|HConstants
+operator|.
+name|NO_NONCE
 argument_list|)
 decl_stmt|;
 operator|(
