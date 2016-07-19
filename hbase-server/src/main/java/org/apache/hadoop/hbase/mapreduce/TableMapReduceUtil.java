@@ -1511,7 +1511,7 @@ argument_list|(
 name|job
 argument_list|)
 expr_stmt|;
-name|addDependencyJars
+name|addDependencyJarsForClasses
 argument_list|(
 name|job
 operator|.
@@ -2967,7 +2967,7 @@ literal|"  Continuing without it."
 argument_list|)
 expr_stmt|;
 block|}
-name|addDependencyJars
+name|addDependencyJarsForClasses
 argument_list|(
 name|conf
 argument_list|,
@@ -3275,7 +3275,7 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
-name|addDependencyJars
+name|addDependencyJarsForClasses
 argument_list|(
 name|job
 operator|.
@@ -3341,11 +3341,55 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Add the jars containing the given classes to the job's configuration    * such that JobClient will ship them to the cluster and add them to    * the DistributedCache.    */
+comment|/**    * Add the jars containing the given classes to the job's configuration    * such that JobClient will ship them to the cluster and add them to    * the DistributedCache.    * @deprecated rely on {@link #addDependencyJars(Job)} instead.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 name|void
 name|addDependencyJars
+parameter_list|(
+name|Configuration
+name|conf
+parameter_list|,
+name|Class
+argument_list|<
+name|?
+argument_list|>
+modifier|...
+name|classes
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"The addDependencyJars(Configuration, Class<?>...) method has been deprecated since it"
+operator|+
+literal|" is easy to use incorrectly. Most users should rely on addDependencyJars(Job) "
+operator|+
+literal|"instead. See HBASE-8386 for more details."
+argument_list|)
+expr_stmt|;
+name|addDependencyJarsForClasses
+argument_list|(
+name|conf
+argument_list|,
+name|classes
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Add the jars containing the given classes to the job's configuration    * such that JobClient will ship them to the cluster and add them to    * the DistributedCache.    *    * N.B. that this method at most adds one jar per class given. If there is more than one    * jar available containing a class with the same name as a given class, we don't define    * which of those jars might be chosen.    *    * @param conf The Hadoop Configuration to modify    * @param classes will add just those dependencies needed to find the given classes    * @throws IOException if an underlying library call fails.    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
+specifier|public
+specifier|static
+name|void
+name|addDependencyJarsForClasses
 parameter_list|(
 name|Configuration
 name|conf

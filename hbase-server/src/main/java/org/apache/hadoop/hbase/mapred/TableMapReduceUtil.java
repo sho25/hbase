@@ -1577,7 +1577,7 @@ name|mapreduce
 operator|.
 name|TableMapReduceUtil
 operator|.
-name|addDependencyJars
+name|addDependencyJarsForClasses
 argument_list|(
 name|job
 argument_list|,

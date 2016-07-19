@@ -3152,7 +3152,7 @@ argument_list|)
 expr_stmt|;
 name|TableMapReduceUtil
 operator|.
-name|addDependencyJars
+name|addDependencyJarsForClasses
 argument_list|(
 name|job
 operator|.
