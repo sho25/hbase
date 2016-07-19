@@ -1333,6 +1333,16 @@ argument_list|,
 literal|1
 argument_list|)
 decl_stmt|;
+comment|// Set start timeout to 5 minutes for cmd line start operations
+name|conf
+operator|.
+name|setIfUnset
+argument_list|(
+literal|"hbase.master.start.timeout.localHBaseCluster"
+argument_list|,
+literal|"300000"
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
 name|info
