@@ -89,7 +89,7 @@ name|instance
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Returns the instance given by the method {@link #prepare}.    * This is an interruptible blocking method    * and the interruption flag will be set just before returning if any.    */
+comment|/**    * Returns the instance given by the method {@link #prepare}.    * This is an uninterruptible blocking method    * and the interruption flag will be set just before returning if any.    */
 name|T
 name|get
 parameter_list|()
