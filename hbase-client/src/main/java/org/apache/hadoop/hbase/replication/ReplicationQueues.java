@@ -33,17 +33,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|Map
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Set
+name|SortedSet
 import|;
 end_import
 
@@ -60,6 +50,22 @@ operator|.
 name|classification
 operator|.
 name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Pair
 import|;
 end_import
 
@@ -169,17 +175,39 @@ argument_list|>
 name|getAllQueues
 parameter_list|()
 function_decl|;
-comment|/**    * Take ownership for the set of queues belonging to a dead region server.    * @param regionserver the id of the dead region server    * @return A Map of the queues that have been claimed, including a Set of WALs in    *         each queue. Returns an empty map if no queues were failed-over.    */
-name|Map
+comment|/**    * Get queueIds from a dead region server, whose queues has not been claimed by other region    * servers.    * @return empty if the queue exists but no children, null if the queue does not exist.   */
+name|List
+argument_list|<
+name|String
+argument_list|>
+name|getUnClaimedQueueIds
+parameter_list|(
+name|String
+name|regionserver
+parameter_list|)
+function_decl|;
+comment|/**    * Take ownership for the queue identified by queueId and belongs to a dead region server.    * @param regionserver the id of the dead region server    * @param queueId the id of the queue    * @return the new PeerId and A SortedSet of WALs in its queue, and null if no unclaimed queue.    */
+name|Pair
 argument_list|<
 name|String
 argument_list|,
-name|Set
+name|SortedSet
 argument_list|<
 name|String
 argument_list|>
 argument_list|>
-name|claimQueues
+name|claimQueue
+parameter_list|(
+name|String
+name|regionserver
+parameter_list|,
+name|String
+name|queueId
+parameter_list|)
+function_decl|;
+comment|/**    * Remove the znode of region server if the queue is empty.    * @param regionserver    */
+name|void
+name|removeReplicatorIfQueueIsEmpty
 parameter_list|(
 name|String
 name|regionserver
