@@ -2440,6 +2440,11 @@ throw|;
 block|}
 try|try
 block|{
+name|connectionCache
+operator|.
+name|updateConnectionAccessTime
+argument_list|()
+expr_stmt|;
 return|return
 name|resultsFromHBase
 argument_list|(
