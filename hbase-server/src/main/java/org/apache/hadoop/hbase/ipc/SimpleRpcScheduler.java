@@ -692,12 +692,12 @@ name|maxDelay
 argument_list|)
 expr_stmt|;
 return|return
-call|(
-name|int
-call|)
+name|Long
+operator|.
+name|compare
 argument_list|(
 name|deadlineA
-operator|-
+argument_list|,
 name|deadlineB
 argument_list|)
 return|;
