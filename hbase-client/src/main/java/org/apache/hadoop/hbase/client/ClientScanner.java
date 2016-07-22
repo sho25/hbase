@@ -1809,81 +1809,6 @@ argument_list|()
 expr_stmt|;
 comment|// DNRIOEs are thrown to make us break out of retries. Some types of DNRIOEs want us
 comment|// to reset the scanner and come back in again.
-if|if
-condition|(
-name|e
-operator|instanceof
-name|UnknownScannerException
-condition|)
-block|{
-name|long
-name|timeout
-init|=
-name|lastNext
-operator|+
-name|scannerTimeout
-decl_stmt|;
-comment|// If we are over the timeout, throw this exception to the client wrapped in
-comment|// a ScannerTimeoutException. Else, it's because the region moved and we used the old
-comment|// id against the new region server; reset the scanner.
-if|if
-condition|(
-name|timeout
-operator|<
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"For hints related to the following exception, please try taking a look at: "
-operator|+
-literal|"https://hbase.apache.org/book.html#trouble.client.scantimeout"
-argument_list|)
-expr_stmt|;
-name|long
-name|elapsed
-init|=
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
-operator|-
-name|lastNext
-decl_stmt|;
-name|ScannerTimeoutException
-name|ex
-init|=
-operator|new
-name|ScannerTimeoutException
-argument_list|(
-name|elapsed
-operator|+
-literal|"ms passed since the last invocation, "
-operator|+
-literal|"timeout is currently set to "
-operator|+
-name|scannerTimeout
-argument_list|)
-decl_stmt|;
-name|ex
-operator|.
-name|initCause
-argument_list|(
-name|e
-argument_list|)
-expr_stmt|;
-throw|throw
-name|ex
-throw|;
-block|}
-block|}
-else|else
-block|{
 comment|// If exception is any but the list below throw it back to the client; else setup
 comment|// the scanner and retry.
 name|Throwable
@@ -1919,6 +1844,10 @@ operator|||
 name|e
 operator|instanceof
 name|OutOfOrderScannerNextException
+operator|||
+name|e
+operator|instanceof
+name|UnknownScannerException
 condition|)
 block|{
 comment|// Pass. It is easier writing the if loop test as list of what is allowed rather than
@@ -1929,7 +1858,6 @@ block|{
 throw|throw
 name|e
 throw|;
-block|}
 block|}
 comment|// Else, its signal from depths of ScannerCallable that we need to reset the scanner.
 if|if
