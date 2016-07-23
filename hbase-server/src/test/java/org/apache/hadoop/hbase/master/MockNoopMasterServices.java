@@ -1161,6 +1161,17 @@ block|}
 annotation|@
 name|Override
 specifier|public
+name|boolean
+name|isInMaintenanceMode
+parameter_list|()
+block|{
+return|return
+literal|false
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
 name|long
 name|getLastMajorCompactionTimestamp
 parameter_list|(

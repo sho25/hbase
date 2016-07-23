@@ -718,6 +718,14 @@ operator|.
 name|get
 argument_list|()
 operator|&&
+operator|!
+name|this
+operator|.
+name|services
+operator|.
+name|isInMaintenanceMode
+argument_list|()
+operator|&&
 name|am
 operator|!=
 literal|null
@@ -1387,6 +1395,19 @@ name|entrySet
 argument_list|()
 control|)
 block|{
+if|if
+condition|(
+name|this
+operator|.
+name|services
+operator|.
+name|isInMaintenanceMode
+argument_list|()
+condition|)
+block|{
+comment|// Stop cleaning if the master is in maintenance mode
+break|break;
+block|}
 name|PairOfSameType
 argument_list|<
 name|HRegionInfo
@@ -1551,6 +1572,19 @@ name|entrySet
 argument_list|()
 control|)
 block|{
+if|if
+condition|(
+name|this
+operator|.
+name|services
+operator|.
+name|isInMaintenanceMode
+argument_list|()
+condition|)
+block|{
+comment|// Stop cleaning if the master is in maintenance mode
+break|break;
+block|}
 if|if
 condition|(
 operator|!

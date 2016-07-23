@@ -1587,6 +1587,13 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Check whether Master is in maintenance mode    *    * @throws IOException if a remote or network exception occurs    */
+name|boolean
+name|isMasterInMaintenanceMode
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Stop the designated regionserver    *    * @param hostnamePort Hostname and port delimited by a<code>:</code> as in    *<code>example.org:1234</code>    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|stopRegionServer
