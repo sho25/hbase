@@ -199,6 +199,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ShareableMemory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -532,6 +546,29 @@ operator|!=
 name|cell
 operator|)
 decl_stmt|;
+comment|// This cell data is backed by the same byte[] where we read request in RPC(See HBASE-15180). By
+comment|// default MSLAB is ON and we might have copied cell to MSLAB area. If not we must do below deep
+comment|// copy. Or else we will keep referring to the bigger chunk of memory and prevent it from
+comment|// getting GCed.
+comment|// Copy to MSLAB would not have happened if
+comment|// 1. MSLAB is turned OFF. See "hbase.hregion.memstore.mslab.enabled"
+comment|// 2. When the size of the cell is bigger than the max size supported by MSLAB. See
+comment|// "hbase.hregion.memstore.mslab.max.allocation". This defaults to 256 KB
+comment|// 3. When cells are from Append/Increment operation.
+if|if
+condition|(
+operator|!
+name|mslabUsed
+condition|)
+block|{
+name|toAdd
+operator|=
+name|deepCopyIfNeeded
+argument_list|(
+name|toAdd
+argument_list|)
+expr_stmt|;
+block|}
 return|return
 name|internalAdd
 argument_list|(
@@ -539,6 +576,41 @@ name|toAdd
 argument_list|,
 name|mslabUsed
 argument_list|)
+return|;
+block|}
+specifier|private
+specifier|static
+name|Cell
+name|deepCopyIfNeeded
+parameter_list|(
+name|Cell
+name|cell
+parameter_list|)
+block|{
+comment|// When Cell is backed by a shared memory chunk (this can be a chunk of memory where we read the
+comment|// req into) the Cell instance will be of type ShareableMemory. Later we will add feature to
+comment|// read the RPC request into pooled direct ByteBuffers.
+if|if
+condition|(
+name|cell
+operator|instanceof
+name|ShareableMemory
+condition|)
+block|{
+return|return
+operator|(
+operator|(
+name|ShareableMemory
+operator|)
+name|cell
+operator|)
+operator|.
+name|cloneToCell
+argument_list|()
+return|;
+block|}
+return|return
+name|cell
 return|;
 block|}
 comment|/**    * Update or insert the specified Cells.    *<p>    * For each Cell, insert into MemStore.  This will atomically upsert the    * value for that row/family/qualifier.  If a Cell did already exist,    * it will then be removed.    *<p>    * Currently the memstoreTS is kept at 0 so as each insert happens, it will    * be immediately visible.  May want to change this so it is atomic across    * all Cells.    *<p>    * This is called under row lock, so Get operations will still see updates    * atomically.  Scans will only see each Cell update as atomic.    *    * @param cells the cells to be updated    * @param readpoint readpoint below which we can safely remove duplicate KVs    * @return change in memstore size    */
@@ -608,35 +680,12 @@ name|Cell
 name|deleteCell
 parameter_list|)
 block|{
-name|Cell
-name|toAdd
-init|=
-name|maybeCloneWithAllocator
-argument_list|(
-name|deleteCell
-argument_list|)
-decl_stmt|;
-name|boolean
-name|mslabUsed
-init|=
-operator|(
-name|toAdd
-operator|!=
-name|deleteCell
-operator|)
-decl_stmt|;
-name|long
-name|s
-init|=
-name|internalAdd
-argument_list|(
-name|toAdd
-argument_list|,
-name|mslabUsed
-argument_list|)
-decl_stmt|;
+comment|// Delete operation just adds the delete marker cell coming here.
 return|return
-name|s
+name|add
+argument_list|(
+name|deleteCell
+argument_list|)
 return|;
 block|}
 comment|/**    * The passed snapshot was successfully persisted; it can be let go.    * @param id Id of the snapshot to clean out.    * @see MemStore#snapshot()    */
@@ -881,6 +930,16 @@ comment|// and (b) cannot safely use the MSLAB here without potentially
 comment|// hitting OOME - see TestMemStore.testUpsertMSLAB for a
 comment|// test that triggers the pathological case if we don't avoid MSLAB
 comment|// here.
+comment|// This cell data is backed by the same byte[] where we read request in RPC(See HBASE-15180). We
+comment|// must do below deep copy. Or else we will keep referring to the bigger chunk of memory and
+comment|// prevent it from getting GCed.
+name|cell
+operator|=
+name|deepCopyIfNeeded
+argument_list|(
+name|cell
+argument_list|)
+expr_stmt|;
 name|long
 name|addedSize
 init|=
