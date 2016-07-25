@@ -58,6 +58,11 @@ name|MetricsTableAggregateSource
 name|getTableAggregate
 parameter_list|()
 function_decl|;
+comment|/**    * Get a MetricsHeapMemoryManagerSource    * @return A metrics heap memory manager source    */
+name|MetricsHeapMemoryManagerSource
+name|getHeapMemoryManager
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 
