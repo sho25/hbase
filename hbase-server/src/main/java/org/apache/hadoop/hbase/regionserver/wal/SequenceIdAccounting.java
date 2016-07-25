@@ -27,9 +27,9 @@ name|google
 operator|.
 name|common
 operator|.
-name|collect
+name|annotations
 operator|.
-name|Maps
+name|VisibleForTesting
 import|;
 end_import
 
@@ -99,7 +99,9 @@ name|java
 operator|.
 name|util
 operator|.
-name|TreeMap
+name|concurrent
+operator|.
+name|ConcurrentHashMap
 import|;
 end_import
 
@@ -112,18 +114,6 @@ operator|.
 name|concurrent
 operator|.
 name|ConcurrentMap
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|ConcurrentSkipListMap
 import|;
 end_import
 
@@ -179,17 +169,67 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HRegionInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|ImmutableByteArray
+import|;
+end_import
+
 begin_comment
-comment|/**  * Accounting of sequence ids per region and then by column family. So we can our accounting  * current, call startCacheFlush and then finishedCacheFlush or abortCacheFlush so this instance  * can keep abreast of the state of sequence id persistence. Also call update per append.  */
+comment|/**  * Accounting of sequence ids per region and then by column family. So we can our accounting  * current, call startCacheFlush and then finishedCacheFlush or abortCacheFlush so this instance can  * keep abreast of the state of sequence id persistence. Also call update per append.  *<p>  * For the implementation, we assume that all the {@code encodedRegionName} passed in is gotten by  * {@link HRegionInfo#getEncodedNameAsBytes()}. So it is safe to use it as a hash key. And for  * family name, we use {@link ImmutableByteArray} as key. This is because hash based map is much  * faster than RBTree or CSLM and here we are on the critical write path. See HBASE-16278 for more  * details.  */
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 class|class
 name|SequenceIdAccounting
 block|{
@@ -228,8 +268,7 @@ index|[]
 argument_list|,
 name|ConcurrentMap
 argument_list|<
-name|byte
-index|[]
+name|ImmutableByteArray
 argument_list|,
 name|Long
 argument_list|>
@@ -237,24 +276,9 @@ argument_list|>
 name|lowestUnflushedSequenceIds
 init|=
 operator|new
-name|ConcurrentSkipListMap
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|ConcurrentMap
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|Long
-argument_list|>
-argument_list|>
-argument_list|(
-name|Bytes
-operator|.
-name|BYTES_COMPARATOR
-argument_list|)
+name|ConcurrentHashMap
+argument_list|<>
+argument_list|()
 decl_stmt|;
 comment|/**    * Map of encoded region names and family names to their lowest or OLDEST sequence/edit id    * currently being flushed out to hfiles. Entries are moved here from    * {@link #lowestUnflushedSequenceIds} while the lock {@link #tieLock} is held    * (so movement between the Maps is atomic).    */
 specifier|private
@@ -266,8 +290,7 @@ index|[]
 argument_list|,
 name|Map
 argument_list|<
-name|byte
-index|[]
+name|ImmutableByteArray
 argument_list|,
 name|Long
 argument_list|>
@@ -275,24 +298,9 @@ argument_list|>
 name|flushingSequenceIds
 init|=
 operator|new
-name|TreeMap
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|Map
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|Long
-argument_list|>
-argument_list|>
-argument_list|(
-name|Bytes
-operator|.
-name|BYTES_COMPARATOR
-argument_list|)
+name|HashMap
+argument_list|<>
+argument_list|()
 decl_stmt|;
 comment|/**   * Map of region encoded names to the latest/highest region sequence id.  Updated on each   * call to append.   *<p>   * This map uses byte[] as the key, and uses reference equality. It works in our use case as we   * use {@link HRegionInfo#getEncodedNameAsBytes()} as keys. For a given region, it always returns   * the same array.   */
 specifier|private
@@ -307,12 +315,7 @@ name|highestSequenceIds
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * Returns the lowest unflushed sequence id for the region.    * @param encodedRegionName    * @return Lowest outstanding unflushed sequenceid for<code>encodedRegionName</code>. Will    * return {@link HConstants#NO_SEQNUM} when none.    */
@@ -334,8 +337,7 @@ init|)
 block|{
 name|Map
 argument_list|<
-name|byte
-index|[]
+name|?
 argument_list|,
 name|Long
 argument_list|>
@@ -405,7 +407,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * @param encodedRegionName    * @param familyName     * @return Lowest outstanding unflushed sequenceid for<code>encodedRegionname</code> and    *<code>familyName</code>. Returned sequenceid may be for an edit currently being flushed.    */
+comment|/**    * @param encodedRegionName    * @param familyName    * @return Lowest outstanding unflushed sequenceid for<code>encodedRegionname</code> and    *<code>familyName</code>. Returned sequenceid may be for an edit currently being    *         flushed.    */
 name|long
 name|getLowestSequenceId
 parameter_list|(
@@ -420,6 +422,16 @@ index|[]
 name|familyName
 parameter_list|)
 block|{
+name|ImmutableByteArray
+name|familyNameWrapper
+init|=
+name|ImmutableByteArray
+operator|.
+name|wrap
+argument_list|(
+name|familyName
+argument_list|)
+decl_stmt|;
 synchronized|synchronized
 init|(
 name|this
@@ -429,8 +441,7 @@ init|)
 block|{
 name|Map
 argument_list|<
-name|byte
-index|[]
+name|ImmutableByteArray
 argument_list|,
 name|Long
 argument_list|>
@@ -459,7 +470,7 @@ name|m
 operator|.
 name|get
 argument_list|(
-name|familyName
+name|familyNameWrapper
 argument_list|)
 decl_stmt|;
 if|if
@@ -468,9 +479,11 @@ name|lowest
 operator|!=
 literal|null
 condition|)
+block|{
 return|return
 name|lowest
 return|;
+block|}
 block|}
 name|m
 operator|=
@@ -497,7 +510,7 @@ name|m
 operator|.
 name|get
 argument_list|(
-name|familyName
+name|familyNameWrapper
 argument_list|)
 decl_stmt|;
 if|if
@@ -506,9 +519,11 @@ name|lowest
 operator|!=
 literal|null
 condition|)
+block|{
 return|return
 name|lowest
 return|;
+block|}
 block|}
 block|}
 return|return
@@ -610,8 +625,7 @@ condition|)
 block|{
 name|ConcurrentMap
 argument_list|<
-name|byte
-index|[]
+name|ImmutableByteArray
 argument_list|,
 name|Long
 argument_list|>
@@ -635,7 +649,12 @@ name|m
 operator|.
 name|putIfAbsent
 argument_list|(
+name|ImmutableByteArray
+operator|.
+name|wrap
+argument_list|(
 name|familyName
+argument_list|)
 argument_list|,
 name|l
 argument_list|)
@@ -668,7 +687,9 @@ name|sequenceId
 operator|==
 literal|null
 condition|)
+block|{
 return|return;
+block|}
 name|Long
 name|highest
 init|=
@@ -704,6 +725,16 @@ name|sequenceId
 argument_list|)
 expr_stmt|;
 block|}
+name|ImmutableByteArray
+name|familyNameWrapper
+init|=
+name|ImmutableByteArray
+operator|.
+name|wrap
+argument_list|(
+name|familyName
+argument_list|)
+decl_stmt|;
 synchronized|synchronized
 init|(
 name|this
@@ -713,8 +744,7 @@ init|)
 block|{
 name|ConcurrentMap
 argument_list|<
-name|byte
-index|[]
+name|ImmutableByteArray
 argument_list|,
 name|Long
 argument_list|>
@@ -743,7 +773,7 @@ name|m
 operator|.
 name|get
 argument_list|(
-name|familyName
+name|familyNameWrapper
 argument_list|)
 decl_stmt|;
 if|if
@@ -757,7 +787,7 @@ name|m
 operator|.
 name|put
 argument_list|(
-name|familyName
+name|familyNameWrapper
 argument_list|,
 name|sequenceId
 argument_list|)
@@ -786,7 +816,7 @@ name|m
 operator|.
 name|replace
 argument_list|(
-name|familyName
+name|familyNameWrapper
 argument_list|,
 name|oldSeqId
 argument_list|,
@@ -806,7 +836,7 @@ name|m
 operator|.
 name|put
 argument_list|(
-name|familyName
+name|familyNameWrapper
 argument_list|,
 name|sequenceId
 argument_list|)
@@ -816,10 +846,11 @@ block|}
 block|}
 block|}
 block|}
+annotation|@
+name|VisibleForTesting
 name|ConcurrentMap
 argument_list|<
-name|byte
-index|[]
+name|ImmutableByteArray
 argument_list|,
 name|Long
 argument_list|>
@@ -833,8 +864,7 @@ block|{
 comment|// Intentionally, this access is done outside of this.regionSequenceIdLock. Done per append.
 name|ConcurrentMap
 argument_list|<
-name|byte
-index|[]
+name|ImmutableByteArray
 argument_list|,
 name|Long
 argument_list|>
@@ -855,30 +885,22 @@ name|m
 operator|!=
 literal|null
 condition|)
+block|{
 return|return
 name|m
 return|;
+block|}
 name|m
 operator|=
 operator|new
-name|ConcurrentSkipListMap
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|Long
-argument_list|>
-argument_list|(
-name|Bytes
-operator|.
-name|BYTES_COMPARATOR
-argument_list|)
+name|ConcurrentHashMap
+argument_list|<>
+argument_list|()
 expr_stmt|;
 comment|// Another thread may have added it ahead of us.
 name|ConcurrentMap
 argument_list|<
-name|byte
-index|[]
+name|ImmutableByteArray
 argument_list|,
 name|Long
 argument_list|>
@@ -906,14 +928,14 @@ name|alreadyPut
 return|;
 block|}
 comment|/**    * @param sequenceids Map to search for lowest value.    * @return Lowest value found in<code>sequenceids</code>.    */
+specifier|private
 specifier|static
 name|long
 name|getLowestSequenceId
 parameter_list|(
 name|Map
 argument_list|<
-name|byte
-index|[]
+name|?
 argument_list|,
 name|Long
 argument_list|>
@@ -967,15 +989,14 @@ return|return
 name|lowest
 return|;
 block|}
-comment|/**    * @param src    * @return New Map that has same keys as<code>src</code> but instead of a Map for a value, it    * instead has found the smallest sequence id and it returns that as the value instead.    */
+comment|/**    * @param src    * @return New Map that has same keys as<code>src</code> but instead of a Map for a value, it    *         instead has found the smallest sequence id and it returns that as the value instead.    */
 specifier|private
 parameter_list|<
 name|T
 extends|extends
 name|Map
 argument_list|<
-name|byte
-index|[]
+name|?
 argument_list|,
 name|Long
 argument_list|>
@@ -1010,9 +1031,11 @@ operator|.
 name|isEmpty
 argument_list|()
 condition|)
+block|{
 return|return
 literal|null
 return|;
+block|}
 name|Map
 argument_list|<
 name|byte
@@ -1022,9 +1045,9 @@ name|Long
 argument_list|>
 name|tgt
 init|=
-name|Maps
-operator|.
-name|newHashMap
+operator|new
+name|HashMap
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -1104,8 +1127,7 @@ parameter_list|)
 block|{
 name|Map
 argument_list|<
-name|byte
-index|[]
+name|ImmutableByteArray
 argument_list|,
 name|Long
 argument_list|>
@@ -1127,8 +1149,7 @@ init|)
 block|{
 name|Map
 argument_list|<
-name|byte
-index|[]
+name|ImmutableByteArray
 argument_list|,
 name|Long
 argument_list|>
@@ -1163,6 +1184,16 @@ range|:
 name|families
 control|)
 block|{
+name|ImmutableByteArray
+name|familyNameWrapper
+init|=
+name|ImmutableByteArray
+operator|.
+name|wrap
+argument_list|(
+name|familyName
+argument_list|)
+decl_stmt|;
 name|Long
 name|seqId
 init|=
@@ -1170,7 +1201,7 @@ name|m
 operator|.
 name|remove
 argument_list|(
-name|familyName
+name|familyNameWrapper
 argument_list|)
 decl_stmt|;
 if|if
@@ -1186,22 +1217,20 @@ name|oldSequenceIds
 operator|==
 literal|null
 condition|)
+block|{
 name|oldSequenceIds
 operator|=
-name|Maps
-operator|.
-name|newTreeMap
-argument_list|(
-name|Bytes
-operator|.
-name|BYTES_COMPARATOR
-argument_list|)
+operator|new
+name|HashMap
+argument_list|<>
+argument_list|()
 expr_stmt|;
+block|}
 name|oldSequenceIds
 operator|.
 name|put
 argument_list|(
-name|familyName
+name|familyNameWrapper
 argument_list|,
 name|seqId
 argument_list|)
@@ -1372,8 +1401,7 @@ comment|// Method is called when we are crashing down because failed write flush
 comment|// if we fail prepare. The below is for the fail prepare case; we restore the old sequence ids.
 name|Map
 argument_list|<
-name|byte
-index|[]
+name|ImmutableByteArray
 argument_list|,
 name|Long
 argument_list|>
@@ -1383,26 +1411,16 @@ literal|null
 decl_stmt|;
 name|Map
 argument_list|<
-name|byte
-index|[]
+name|ImmutableByteArray
 argument_list|,
 name|Long
 argument_list|>
 name|tmpMap
 init|=
 operator|new
-name|TreeMap
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|Long
-argument_list|>
-argument_list|(
-name|Bytes
-operator|.
-name|BYTES_COMPARATOR
-argument_list|)
+name|HashMap
+argument_list|<>
+argument_list|()
 decl_stmt|;
 comment|// Here we are moving sequenceids from flushing back to unflushed; doing opposite of what
 comment|// happened in startCacheFlush. During prepare phase, we have update lock on the region so
@@ -1432,8 +1450,7 @@ condition|)
 block|{
 name|Map
 argument_list|<
-name|byte
-index|[]
+name|ImmutableByteArray
 argument_list|,
 name|Long
 argument_list|>
@@ -1450,8 +1467,7 @@ name|Map
 operator|.
 name|Entry
 argument_list|<
-name|byte
-index|[]
+name|ImmutableByteArray
 argument_list|,
 name|Long
 argument_list|>
@@ -1508,8 +1524,7 @@ name|Map
 operator|.
 name|Entry
 argument_list|<
-name|byte
-index|[]
+name|ImmutableByteArray
 argument_list|,
 name|Long
 argument_list|>
@@ -1566,15 +1581,13 @@ argument_list|)
 operator|+
 literal|" family "
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|e
 operator|.
 name|getKey
 argument_list|()
-argument_list|)
+operator|.
+name|toStringUtf8
+argument_list|()
 operator|+
 literal|" acquired edits out of order current memstore seq="
 operator|+
@@ -1608,7 +1621,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * See if passed<code>sequenceids</code> are lower -- i.e. earlier -- than any outstanding    * sequenceids, sequenceids we are holding on to in this accounting instance.    * @param sequenceids Keyed by encoded region name. Cannot be null (doesn't make    * sense for it to be null).    * @return true if all sequenceids are lower, older than, the old sequenceids in this instance.    */
+comment|/**    * See if passed<code>sequenceids</code> are lower -- i.e. earlier -- than any outstanding    * sequenceids, sequenceids we are holding on to in this accounting instance.    * @param sequenceids Keyed by encoded region name. Cannot be null (doesn't make sense for it to    *          be null).    * @return true if all sequenceids are lower, older than, the old sequenceids in this instance.    */
 name|boolean
 name|areAllLower
 parameter_list|(
@@ -1710,10 +1723,7 @@ condition|(
 name|flushing
 operator|!=
 literal|null
-condition|)
-block|{
-if|if
-condition|(
+operator|&&
 name|flushing
 operator|.
 name|containsKey
@@ -1724,6 +1734,7 @@ name|getKey
 argument_list|()
 argument_list|)
 condition|)
+block|{
 name|oldestFlushing
 operator|=
 name|flushing
@@ -1742,10 +1753,7 @@ condition|(
 name|unflushed
 operator|!=
 literal|null
-condition|)
-block|{
-if|if
-condition|(
+operator|&&
 name|unflushed
 operator|.
 name|containsKey
@@ -1756,6 +1764,7 @@ name|getKey
 argument_list|()
 argument_list|)
 condition|)
+block|{
 name|oldestUnflushed
 operator|=
 name|unflushed
@@ -1790,15 +1799,17 @@ operator|.
 name|getValue
 argument_list|()
 condition|)
+block|{
 return|return
 literal|false
 return|;
+block|}
 block|}
 return|return
 literal|true
 return|;
 block|}
-comment|/**     * Iterates over the given Map and compares sequence ids with corresponding     * entries in {@link #oldestUnflushedRegionSequenceIds}. If a region in     * {@link #oldestUnflushedRegionSequenceIds} has a sequence id less than that passed     * in<code>sequenceids</code> then return it.     * @param sequenceids Sequenceids keyed by encoded region name.     * @return regions found in this instance with sequence ids less than those passed in.     */
+comment|/**    * Iterates over the given Map and compares sequence ids with corresponding entries in    * {@link #oldestUnflushedRegionSequenceIds}. If a region in    * {@link #oldestUnflushedRegionSequenceIds} has a sequence id less than that passed in    *<code>sequenceids</code> then return it.    * @param sequenceids Sequenceids keyed by encoded region name.    * @return regions found in this instance with sequence ids less than those passed in.    */
 name|byte
 index|[]
 index|[]
@@ -1850,8 +1861,7 @@ control|)
 block|{
 name|Map
 argument_list|<
-name|byte
-index|[]
+name|ImmutableByteArray
 argument_list|,
 name|Long
 argument_list|>
@@ -1875,7 +1885,9 @@ name|m
 operator|==
 literal|null
 condition|)
+block|{
 continue|continue;
+block|}
 comment|// The lowest sequence id outstanding for this region.
 name|long
 name|lowest
@@ -1907,6 +1919,7 @@ name|toFlush
 operator|==
 literal|null
 condition|)
+block|{
 name|toFlush
 operator|=
 operator|new
@@ -1917,6 +1930,7 @@ index|[]
 argument_list|>
 argument_list|()
 expr_stmt|;
+block|}
 name|toFlush
 operator|.
 name|add
@@ -1943,13 +1957,10 @@ name|toArray
 argument_list|(
 operator|new
 name|byte
+index|[
+literal|0
+index|]
 index|[]
-index|[]
-block|{
-name|HConstants
-operator|.
-name|EMPTY_BYTE_ARRAY
-block|}
 argument_list|)
 return|;
 block|}
