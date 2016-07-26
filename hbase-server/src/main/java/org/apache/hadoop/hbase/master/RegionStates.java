@@ -497,6 +497,9 @@ operator|new
 name|RegionStateStampComparator
 argument_list|()
 decl_stmt|;
+comment|// This comparator sorts the RegionStates by time stamp then Region name.
+comment|// Comparing by timestamp alone can lead us to discard different RegionStates that happen
+comment|// to share a timestamp.
 specifier|private
 specifier|static
 class|class
@@ -521,6 +524,44 @@ name|r
 parameter_list|)
 block|{
 return|return
+name|Long
+operator|.
+name|compare
+argument_list|(
+name|l
+operator|.
+name|getStamp
+argument_list|()
+argument_list|,
+name|r
+operator|.
+name|getStamp
+argument_list|()
+argument_list|)
+operator|==
+literal|0
+condition|?
+name|Bytes
+operator|.
+name|compareTo
+argument_list|(
+name|l
+operator|.
+name|getRegion
+argument_list|()
+operator|.
+name|getRegionName
+argument_list|()
+argument_list|,
+name|r
+operator|.
+name|getRegion
+argument_list|()
+operator|.
+name|getRegionName
+argument_list|()
+argument_list|)
+else|:
 name|Long
 operator|.
 name|compare
