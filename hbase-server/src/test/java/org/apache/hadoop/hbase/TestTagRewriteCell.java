@@ -37,6 +37,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|io
+operator|.
+name|HeapSize
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|testclassification
 operator|.
 name|SmallTests
@@ -130,11 +146,12 @@ name|fakeTagArrayLength
 init|=
 literal|10
 decl_stmt|;
-name|TagRewriteCell
+name|Cell
 name|trCell
 init|=
-operator|new
-name|TagRewriteCell
+name|CellUtil
+operator|.
+name|createCell
 argument_list|(
 name|originalCell
 argument_list|,
@@ -149,7 +166,12 @@ comment|// Get the heapSize before the internal tags array in trCell are nuked
 name|long
 name|trCellHeapSize
 init|=
+operator|(
+operator|(
+name|HeapSize
+operator|)
 name|trCell
+operator|)
 operator|.
 name|heapSize
 argument_list|()
@@ -157,11 +179,12 @@ decl_stmt|;
 comment|// Make another TagRewriteCell with the original TagRewriteCell
 comment|// This happens on systems with more than one RegionObserver/Coproc loaded (such as
 comment|// VisibilityController and AccessController)
-name|TagRewriteCell
+name|Cell
 name|trCell2
 init|=
-operator|new
-name|TagRewriteCell
+name|CellUtil
+operator|.
+name|createCell
 argument_list|(
 name|trCell
 argument_list|,
@@ -180,7 +203,12 @@ literal|"single TagRewriteCell's heapsize"
 argument_list|,
 name|trCellHeapSize
 operator|<
+operator|(
+operator|(
+name|HeapSize
+operator|)
 name|trCell2
+operator|)
 operator|.
 name|heapSize
 argument_list|()
@@ -190,7 +218,12 @@ name|assertTrue
 argument_list|(
 literal|"TagRewriteCell should have had nulled out tags array"
 argument_list|,
+operator|(
+operator|(
+name|HeapSize
+operator|)
 name|trCell
+operator|)
 operator|.
 name|heapSize
 argument_list|()
