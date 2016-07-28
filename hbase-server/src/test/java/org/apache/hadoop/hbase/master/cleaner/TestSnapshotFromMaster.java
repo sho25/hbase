@@ -865,6 +865,14 @@ name|cacheRefreshPeriod
 init|=
 literal|500
 decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|int
+name|blockingStoreFiles
+init|=
+literal|12
+decl_stmt|;
 comment|/**    * Setup the config for the cluster    */
 annotation|@
 name|BeforeClass
@@ -991,7 +999,7 @@ name|setInt
 argument_list|(
 literal|"hbase.hstore.blockingStoreFiles"
 argument_list|,
-literal|12
+name|blockingStoreFiles
 argument_list|)
 expr_stmt|;
 comment|// Ensure no extra cleaners on by default (e.g. TimeToLiveHFileCleaner)
@@ -1914,11 +1922,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|int
-name|hfileCount
-init|=
-literal|20
-decl_stmt|;
 name|Admin
 name|admin
 init|=
@@ -1978,10 +1981,22 @@ literal|null
 argument_list|)
 expr_stmt|;
 comment|// load the table
-while|while
-condition|(
-literal|true
-condition|)
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|0
+init|;
+name|i
+operator|<
+name|blockingStoreFiles
+operator|/
+literal|2
+condition|;
+name|i
+operator|++
+control|)
 block|{
 name|UTIL
 operator|.
@@ -2007,33 +2022,6 @@ argument_list|(
 name|TABLE_NAME
 argument_list|)
 expr_stmt|;
-name|Collection
-argument_list|<
-name|String
-argument_list|>
-name|hfiles
-init|=
-name|getHFiles
-argument_list|(
-name|rootDir
-argument_list|,
-name|fs
-argument_list|,
-name|TABLE_NAME
-argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|hfiles
-operator|.
-name|size
-argument_list|()
-operator|>=
-name|hfileCount
-condition|)
-block|{
-break|break;
-block|}
 block|}
 comment|// disable the table so we can take a snapshot
 name|admin
