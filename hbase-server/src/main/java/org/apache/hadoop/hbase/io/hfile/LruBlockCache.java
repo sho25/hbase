@@ -3951,7 +3951,7 @@ operator|.
 name|align
 argument_list|(
 operator|(
-literal|3
+literal|4
 operator|*
 name|Bytes
 operator|.
@@ -3959,7 +3959,7 @@ name|SIZEOF_LONG
 operator|)
 operator|+
 operator|(
-literal|10
+literal|9
 operator|*
 name|ClassSize
 operator|.
