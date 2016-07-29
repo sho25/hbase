@@ -8878,9 +8878,24 @@ literal|", waiting for "
 operator|+
 name|currentInProgress
 operator|+
-literal|"  actions to finish"
+literal|"  actions to finish on table: "
+operator|+
+name|tableName
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|currentInProgress
+operator|<=
+name|thresholdToLogUndoneTaskDetails
+condition|)
+block|{
+name|logDetailsOfUndoneTasks
+argument_list|(
+name|currentInProgress
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 synchronized|synchronized
