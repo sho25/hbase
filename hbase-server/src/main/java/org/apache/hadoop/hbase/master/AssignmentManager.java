@@ -13901,23 +13901,6 @@ return|return
 name|failedOpenTracker
 return|;
 block|}
-specifier|public
-name|RegionState
-name|getState
-parameter_list|(
-name|String
-name|encodedName
-parameter_list|)
-block|{
-return|return
-name|regionStates
-operator|.
-name|getRegionState
-argument_list|(
-name|encodedName
-argument_list|)
-return|;
-block|}
 comment|/**    * A region is offline.  The new state should be the specified one,    * if not null.  If the specified state is null, the new state is Offline.    * The specified state can be Split/Merged/Offline/null only.    */
 specifier|private
 name|void
