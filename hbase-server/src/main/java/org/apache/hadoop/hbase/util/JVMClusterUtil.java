@@ -1137,6 +1137,8 @@ name|isActiveMaster
 argument_list|()
 condition|)
 block|{
+try|try
+block|{
 name|t
 operator|.
 name|master
@@ -1144,6 +1146,23 @@ operator|.
 name|stopMaster
 argument_list|()
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Exception occurred while stopping master"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 else|else
 block|{
@@ -1160,6 +1179,9 @@ name|activeMaster
 operator|!=
 literal|null
 condition|)
+block|{
+try|try
+block|{
 name|activeMaster
 operator|.
 name|master
@@ -1167,6 +1189,24 @@ operator|.
 name|shutdown
 argument_list|()
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Exception occurred in HMaster.shutdown()"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 block|}
 name|boolean
 name|wasInterrupted
