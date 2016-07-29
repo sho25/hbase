@@ -594,7 +594,10 @@ expr_stmt|;
 comment|// Write Tracker
 name|tracker
 operator|.
-name|writeTo
+name|toProto
+argument_list|()
+operator|.
+name|writeDelimitedTo
 argument_list|(
 name|stream
 argument_list|)
