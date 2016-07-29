@@ -44,7 +44,7 @@ comment|/**    * The name of the metrics    */
 name|String
 name|METRICS_NAME
 init|=
-literal|"AssignmentManger"
+literal|"AssignmentManager"
 decl_stmt|;
 comment|/**    * The context metrics will be under.    */
 name|String
