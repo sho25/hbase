@@ -58674,103 +58674,103 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\tWAL.proto\022\010hbase.pb\032\013HBase.proto\032\014Clie"
+literal|"\n\tWAL.proto\022\010hbase.pb\032\013HBase.proto\"\217\001\n\tW"
 operator|+
-literal|"nt.proto\"\217\001\n\tWALHeader\022\027\n\017has_compressio"
+literal|"ALHeader\022\027\n\017has_compression\030\001 \001(\010\022\026\n\016enc"
 operator|+
-literal|"n\030\001 \001(\010\022\026\n\016encryption_key\030\002 \001(\014\022\033\n\023has_t"
+literal|"ryption_key\030\002 \001(\014\022\033\n\023has_tag_compression"
 operator|+
-literal|"ag_compression\030\003 \001(\010\022\027\n\017writer_cls_name\030"
+literal|"\030\003 \001(\010\022\027\n\017writer_cls_name\030\004 \001(\t\022\033\n\023cell_"
 operator|+
-literal|"\004 \001(\t\022\033\n\023cell_codec_cls_name\030\005 \001(\t\"\273\002\n\006W"
+literal|"codec_cls_name\030\005 \001(\t\"\273\002\n\006WALKey\022\033\n\023encod"
 operator|+
-literal|"ALKey\022\033\n\023encoded_region_name\030\001 \002(\014\022\022\n\nta"
+literal|"ed_region_name\030\001 \002(\014\022\022\n\ntable_name\030\002 \002(\014"
 operator|+
-literal|"ble_name\030\002 \002(\014\022\033\n\023log_sequence_number\030\003 "
+literal|"\022\033\n\023log_sequence_number\030\003 \002(\004\022\022\n\nwrite_t"
 operator|+
-literal|"\002(\004\022\022\n\nwrite_time\030\004 \002(\004\022&\n\ncluster_id\030\005 "
+literal|"ime\030\004 \002(\004\022&\n\ncluster_id\030\005 \001(\0132\016.hbase.pb"
 operator|+
-literal|"\001(\0132\016.hbase.pb.UUIDB\002\030\001\022%\n\006scopes\030\006 \003(\0132"
+literal|".UUIDB\002\030\001\022%\n\006scopes\030\006 \003(\0132\025.hbase.pb.Fam"
 operator|+
-literal|"\025.hbase.pb.FamilyScope\022\032\n\022following_kv_c"
+literal|"ilyScope\022\032\n\022following_kv_count\030\007 \001(\r\022#\n\013"
 block|,
-literal|"ount\030\007 \001(\r\022#\n\013cluster_ids\030\010 \003(\0132\016.hbase."
+literal|"cluster_ids\030\010 \003(\0132\016.hbase.pb.UUID\022\022\n\nnon"
 operator|+
-literal|"pb.UUID\022\022\n\nnonceGroup\030\t \001(\004\022\r\n\005nonce\030\n \001"
+literal|"ceGroup\030\t \001(\004\022\r\n\005nonce\030\n \001(\004\022\034\n\024orig_seq"
 operator|+
-literal|"(\004\022\034\n\024orig_sequence_number\030\013 \001(\004\"F\n\013Fami"
+literal|"uence_number\030\013 \001(\004\"F\n\013FamilyScope\022\016\n\006fam"
 operator|+
-literal|"lyScope\022\016\n\006family\030\001 \002(\014\022\'\n\nscope_type\030\002 "
+literal|"ily\030\001 \002(\014\022\'\n\nscope_type\030\002 \002(\0162\023.hbase.pb"
 operator|+
-literal|"\002(\0162\023.hbase.pb.ScopeType\"\276\001\n\024CompactionD"
+literal|".ScopeType\"\276\001\n\024CompactionDescriptor\022\022\n\nt"
 operator|+
-literal|"escriptor\022\022\n\ntable_name\030\001 \002(\014\022\033\n\023encoded"
+literal|"able_name\030\001 \002(\014\022\033\n\023encoded_region_name\030\002"
 operator|+
-literal|"_region_name\030\002 \002(\014\022\023\n\013family_name\030\003 \002(\014\022"
+literal|" \002(\014\022\023\n\013family_name\030\003 \002(\014\022\030\n\020compaction_"
 operator|+
-literal|"\030\n\020compaction_input\030\004 \003(\t\022\031\n\021compaction_"
+literal|"input\030\004 \003(\t\022\031\n\021compaction_output\030\005 \003(\t\022\026"
 operator|+
-literal|"output\030\005 \003(\t\022\026\n\016store_home_dir\030\006 \002(\t\022\023\n\013"
+literal|"\n\016store_home_dir\030\006 \002(\t\022\023\n\013region_name\030\007 "
 operator|+
-literal|"region_name\030\007 \001(\014\"\244\003\n\017FlushDescriptor\0225\n"
+literal|"\001(\014\"\244\003\n\017FlushDescriptor\0225\n\006action\030\001 \002(\0162"
 block|,
-literal|"\006action\030\001 \002(\0162%.hbase.pb.FlushDescriptor"
+literal|"%.hbase.pb.FlushDescriptor.FlushAction\022\022"
 operator|+
-literal|".FlushAction\022\022\n\ntable_name\030\002 \002(\014\022\033\n\023enco"
+literal|"\n\ntable_name\030\002 \002(\014\022\033\n\023encoded_region_nam"
 operator|+
-literal|"ded_region_name\030\003 \002(\014\022\035\n\025flush_sequence_"
+literal|"e\030\003 \002(\014\022\035\n\025flush_sequence_number\030\004 \001(\004\022E"
 operator|+
-literal|"number\030\004 \001(\004\022E\n\rstore_flushes\030\005 \003(\0132..hb"
+literal|"\n\rstore_flushes\030\005 \003(\0132..hbase.pb.FlushDe"
 operator|+
-literal|"ase.pb.FlushDescriptor.StoreFlushDescrip"
+literal|"scriptor.StoreFlushDescriptor\022\023\n\013region_"
 operator|+
-literal|"tor\022\023\n\013region_name\030\006 \001(\014\032Y\n\024StoreFlushDe"
+literal|"name\030\006 \001(\014\032Y\n\024StoreFlushDescriptor\022\023\n\013fa"
 operator|+
-literal|"scriptor\022\023\n\013family_name\030\001 \002(\014\022\026\n\016store_h"
+literal|"mily_name\030\001 \002(\014\022\026\n\016store_home_dir\030\002 \002(\t\022"
 operator|+
-literal|"ome_dir\030\002 \002(\t\022\024\n\014flush_output\030\003 \003(\t\"S\n\013F"
+literal|"\024\n\014flush_output\030\003 \003(\t\"S\n\013FlushAction\022\017\n\013"
 operator|+
-literal|"lushAction\022\017\n\013START_FLUSH\020\000\022\020\n\014COMMIT_FL"
+literal|"START_FLUSH\020\000\022\020\n\014COMMIT_FLUSH\020\001\022\017\n\013ABORT"
 operator|+
-literal|"USH\020\001\022\017\n\013ABORT_FLUSH\020\002\022\020\n\014CANNOT_FLUSH\020\003"
+literal|"_FLUSH\020\002\022\020\n\014CANNOT_FLUSH\020\003\"q\n\017StoreDescr"
 block|,
-literal|"\"q\n\017StoreDescriptor\022\023\n\013family_name\030\001 \002(\014"
+literal|"iptor\022\023\n\013family_name\030\001 \002(\014\022\026\n\016store_home"
 operator|+
-literal|"\022\026\n\016store_home_dir\030\002 \002(\t\022\022\n\nstore_file\030\003"
+literal|"_dir\030\002 \002(\t\022\022\n\nstore_file\030\003 \003(\t\022\035\n\025store_"
 operator|+
-literal|" \003(\t\022\035\n\025store_file_size_bytes\030\004 \001(\004\"\237\001\n\022"
+literal|"file_size_bytes\030\004 \001(\004\"\237\001\n\022BulkLoadDescri"
 operator|+
-literal|"BulkLoadDescriptor\022\'\n\ntable_name\030\001 \002(\0132\023"
+literal|"ptor\022\'\n\ntable_name\030\001 \002(\0132\023.hbase.pb.Tabl"
 operator|+
-literal|".hbase.pb.TableName\022\033\n\023encoded_region_na"
+literal|"eName\022\033\n\023encoded_region_name\030\002 \002(\014\022)\n\006st"
 operator|+
-literal|"me\030\002 \002(\014\022)\n\006stores\030\003 \003(\0132\031.hbase.pb.Stor"
+literal|"ores\030\003 \003(\0132\031.hbase.pb.StoreDescriptor\022\030\n"
 operator|+
-literal|"eDescriptor\022\030\n\020bulkload_seq_num\030\004 \002(\003\"\272\002"
+literal|"\020bulkload_seq_num\030\004 \002(\003\"\272\002\n\025RegionEventD"
 operator|+
-literal|"\n\025RegionEventDescriptor\022=\n\nevent_type\030\001 "
+literal|"escriptor\022=\n\nevent_type\030\001 \002(\0162).hbase.pb"
 operator|+
-literal|"\002(\0162).hbase.pb.RegionEventDescriptor.Eve"
+literal|".RegionEventDescriptor.EventType\022\022\n\ntabl"
 operator|+
-literal|"ntType\022\022\n\ntable_name\030\002 \002(\014\022\033\n\023encoded_re"
+literal|"e_name\030\002 \002(\014\022\033\n\023encoded_region_name\030\003 \002("
 block|,
-literal|"gion_name\030\003 \002(\014\022\033\n\023log_sequence_number\030\004"
+literal|"\014\022\033\n\023log_sequence_number\030\004 \001(\004\022)\n\006stores"
 operator|+
-literal|" \001(\004\022)\n\006stores\030\005 \003(\0132\031.hbase.pb.StoreDes"
+literal|"\030\005 \003(\0132\031.hbase.pb.StoreDescriptor\022$\n\006ser"
 operator|+
-literal|"criptor\022$\n\006server\030\006 \001(\0132\024.hbase.pb.Serve"
+literal|"ver\030\006 \001(\0132\024.hbase.pb.ServerName\022\023\n\013regio"
 operator|+
-literal|"rName\022\023\n\013region_name\030\007 \001(\014\".\n\tEventType\022"
+literal|"n_name\030\007 \001(\014\".\n\tEventType\022\017\n\013REGION_OPEN"
 operator|+
-literal|"\017\n\013REGION_OPEN\020\000\022\020\n\014REGION_CLOSE\020\001\"\014\n\nWA"
+literal|"\020\000\022\020\n\014REGION_CLOSE\020\001\"\014\n\nWALTrailer*F\n\tSc"
 operator|+
-literal|"LTrailer*F\n\tScopeType\022\033\n\027REPLICATION_SCO"
+literal|"opeType\022\033\n\027REPLICATION_SCOPE_LOCAL\020\000\022\034\n\030"
 operator|+
-literal|"PE_LOCAL\020\000\022\034\n\030REPLICATION_SCOPE_GLOBAL\020\001"
+literal|"REPLICATION_SCOPE_GLOBAL\020\001B?\n*org.apache"
 operator|+
-literal|"B?\n*org.apache.hadoop.hbase.protobuf.gen"
+literal|".hadoop.hbase.protobuf.generatedB\tWALPro"
 operator|+
-literal|"eratedB\tWALProtosH\001\210\001\000\240\001\001"
+literal|"tosH\001\210\001\000\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -59348,23 +59348,6 @@ operator|.
 name|generated
 operator|.
 name|HBaseProtos
-operator|.
-name|getDescriptor
-argument_list|()
-block|,
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|ClientProtos
 operator|.
 name|getDescriptor
 argument_list|()

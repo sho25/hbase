@@ -142564,229 +142564,229 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\013Admin.proto\022\010hbase.pb\032\014Client.proto\032\013H"
+literal|"\n\013Admin.proto\022\010hbase.pb\032\013HBase.proto\032\tWA"
 operator|+
-literal|"Base.proto\032\tWAL.proto\"[\n\024GetRegionInfoRe"
+literal|"L.proto\"[\n\024GetRegionInfoRequest\022)\n\006regio"
 operator|+
-literal|"quest\022)\n\006region\030\001 \002(\0132\031.hbase.pb.RegionS"
+literal|"n\030\001 \002(\0132\031.hbase.pb.RegionSpecifier\022\030\n\020co"
 operator|+
-literal|"pecifier\022\030\n\020compaction_state\030\002 \001(\010\"\353\001\n\025G"
+literal|"mpaction_state\030\002 \001(\010\"\353\001\n\025GetRegionInfoRe"
 operator|+
-literal|"etRegionInfoResponse\022)\n\013region_info\030\001 \002("
+literal|"sponse\022)\n\013region_info\030\001 \002(\0132\024.hbase.pb.R"
 operator|+
-literal|"\0132\024.hbase.pb.RegionInfo\022I\n\020compaction_st"
+literal|"egionInfo\022I\n\020compaction_state\030\002 \001(\0162/.hb"
 operator|+
-literal|"ate\030\002 \001(\0162/.hbase.pb.GetRegionInfoRespon"
+literal|"ase.pb.GetRegionInfoResponse.CompactionS"
 operator|+
-literal|"se.CompactionState\022\024\n\014isRecovering\030\003 \001(\010"
+literal|"tate\022\024\n\014isRecovering\030\003 \001(\010\"F\n\017Compaction"
 operator|+
-literal|"\"F\n\017CompactionState\022\010\n\004NONE\020\000\022\t\n\005MINOR\020\001"
+literal|"State\022\010\n\004NONE\020\000\022\t\n\005MINOR\020\001\022\t\n\005MAJOR\020\002\022\023\n"
 operator|+
-literal|"\022\t\n\005MAJOR\020\002\022\023\n\017MAJOR_AND_MINOR\020\003\"P\n\023GetS"
+literal|"\017MAJOR_AND_MINOR\020\003\"P\n\023GetStoreFileReques"
 block|,
-literal|"toreFileRequest\022)\n\006region\030\001 \002(\0132\031.hbase."
+literal|"t\022)\n\006region\030\001 \002(\0132\031.hbase.pb.RegionSpeci"
 operator|+
-literal|"pb.RegionSpecifier\022\016\n\006family\030\002 \003(\014\"*\n\024Ge"
+literal|"fier\022\016\n\006family\030\002 \003(\014\"*\n\024GetStoreFileResp"
 operator|+
-literal|"tStoreFileResponse\022\022\n\nstore_file\030\001 \003(\t\"\030"
+literal|"onse\022\022\n\nstore_file\030\001 \003(\t\"\030\n\026GetOnlineReg"
 operator|+
-literal|"\n\026GetOnlineRegionRequest\"D\n\027GetOnlineReg"
+literal|"ionRequest\"D\n\027GetOnlineRegionResponse\022)\n"
 operator|+
-literal|"ionResponse\022)\n\013region_info\030\001 \003(\0132\024.hbase"
+literal|"\013region_info\030\001 \003(\0132\024.hbase.pb.RegionInfo"
 operator|+
-literal|".pb.RegionInfo\"\263\002\n\021OpenRegionRequest\022=\n\t"
+literal|"\"\263\002\n\021OpenRegionRequest\022=\n\topen_info\030\001 \003("
 operator|+
-literal|"open_info\030\001 \003(\0132*.hbase.pb.OpenRegionReq"
+literal|"\0132*.hbase.pb.OpenRegionRequest.RegionOpe"
 operator|+
-literal|"uest.RegionOpenInfo\022\027\n\017serverStartCode\030\002"
+literal|"nInfo\022\027\n\017serverStartCode\030\002 \001(\004\022\032\n\022master"
 operator|+
-literal|" \001(\004\022\032\n\022master_system_time\030\005 \001(\004\032\251\001\n\016Reg"
+literal|"_system_time\030\005 \001(\004\032\251\001\n\016RegionOpenInfo\022$\n"
 operator|+
-literal|"ionOpenInfo\022$\n\006region\030\001 \002(\0132\024.hbase.pb.R"
+literal|"\006region\030\001 \002(\0132\024.hbase.pb.RegionInfo\022\037\n\027v"
 block|,
-literal|"egionInfo\022\037\n\027version_of_offline_node\030\002 \001"
+literal|"ersion_of_offline_node\030\002 \001(\r\022+\n\rfavored_"
 operator|+
-literal|"(\r\022+\n\rfavored_nodes\030\003 \003(\0132\024.hbase.pb.Ser"
+literal|"nodes\030\003 \003(\0132\024.hbase.pb.ServerName\022#\n\033ope"
 operator|+
-literal|"verName\022#\n\033openForDistributedLogReplay\030\004"
+literal|"nForDistributedLogReplay\030\004 \001(\010\"\246\001\n\022OpenR"
 operator|+
-literal|" \001(\010\"\246\001\n\022OpenRegionResponse\022F\n\ropening_s"
+literal|"egionResponse\022F\n\ropening_state\030\001 \003(\0162/.h"
 operator|+
-literal|"tate\030\001 \003(\0162/.hbase.pb.OpenRegionResponse"
+literal|"base.pb.OpenRegionResponse.RegionOpening"
 operator|+
-literal|".RegionOpeningState\"H\n\022RegionOpeningStat"
+literal|"State\"H\n\022RegionOpeningState\022\n\n\006OPENED\020\000\022"
 operator|+
-literal|"e\022\n\n\006OPENED\020\000\022\022\n\016ALREADY_OPENED\020\001\022\022\n\016FAI"
+literal|"\022\n\016ALREADY_OPENED\020\001\022\022\n\016FAILED_OPENING\020\002\""
 operator|+
-literal|"LED_OPENING\020\002\"?\n\023WarmupRegionRequest\022(\n\n"
+literal|"?\n\023WarmupRegionRequest\022(\n\nregionInfo\030\001 \002"
 operator|+
-literal|"regionInfo\030\001 \002(\0132\024.hbase.pb.RegionInfo\"\026"
+literal|"(\0132\024.hbase.pb.RegionInfo\"\026\n\024WarmupRegion"
 operator|+
-literal|"\n\024WarmupRegionResponse\"\313\001\n\022CloseRegionRe"
+literal|"Response\"\313\001\n\022CloseRegionRequest\022)\n\006regio"
 block|,
-literal|"quest\022)\n\006region\030\001 \002(\0132\031.hbase.pb.RegionS"
+literal|"n\030\001 \002(\0132\031.hbase.pb.RegionSpecifier\022\037\n\027ve"
 operator|+
-literal|"pecifier\022\037\n\027version_of_closing_node\030\002 \001("
+literal|"rsion_of_closing_node\030\002 \001(\r\022\036\n\020transitio"
 operator|+
-literal|"\r\022\036\n\020transition_in_ZK\030\003 \001(\010:\004true\0220\n\022des"
+literal|"n_in_ZK\030\003 \001(\010:\004true\0220\n\022destination_serve"
 operator|+
-literal|"tination_server\030\004 \001(\0132\024.hbase.pb.ServerN"
+literal|"r\030\004 \001(\0132\024.hbase.pb.ServerName\022\027\n\017serverS"
 operator|+
-literal|"ame\022\027\n\017serverStartCode\030\005 \001(\004\"%\n\023CloseReg"
+literal|"tartCode\030\005 \001(\004\"%\n\023CloseRegionResponse\022\016\n"
 operator|+
-literal|"ionResponse\022\016\n\006closed\030\001 \002(\010\"y\n\022FlushRegi"
+literal|"\006closed\030\001 \002(\010\"y\n\022FlushRegionRequest\022)\n\006r"
 operator|+
-literal|"onRequest\022)\n\006region\030\001 \002(\0132\031.hbase.pb.Reg"
+literal|"egion\030\001 \002(\0132\031.hbase.pb.RegionSpecifier\022\030"
 operator|+
-literal|"ionSpecifier\022\030\n\020if_older_than_ts\030\002 \001(\004\022\036"
+literal|"\n\020if_older_than_ts\030\002 \001(\004\022\036\n\026write_flush_"
 operator|+
-literal|"\n\026write_flush_wal_marker\030\003 \001(\010\"_\n\023FlushR"
+literal|"wal_marker\030\003 \001(\010\"_\n\023FlushRegionResponse\022"
 operator|+
-literal|"egionResponse\022\027\n\017last_flush_time\030\001 \002(\004\022\017"
+literal|"\027\n\017last_flush_time\030\001 \002(\004\022\017\n\007flushed\030\002 \001("
 block|,
-literal|"\n\007flushed\030\002 \001(\010\022\036\n\026wrote_flush_wal_marke"
+literal|"\010\022\036\n\026wrote_flush_wal_marker\030\003 \001(\010\"T\n\022Spl"
 operator|+
-literal|"r\030\003 \001(\010\"T\n\022SplitRegionRequest\022)\n\006region\030"
+literal|"itRegionRequest\022)\n\006region\030\001 \002(\0132\031.hbase."
 operator|+
-literal|"\001 \002(\0132\031.hbase.pb.RegionSpecifier\022\023\n\013spli"
+literal|"pb.RegionSpecifier\022\023\n\013split_point\030\002 \001(\014\""
 operator|+
-literal|"t_point\030\002 \001(\014\"\025\n\023SplitRegionResponse\"`\n\024"
+literal|"\025\n\023SplitRegionResponse\"`\n\024CompactRegionR"
 operator|+
-literal|"CompactRegionRequest\022)\n\006region\030\001 \002(\0132\031.h"
+literal|"equest\022)\n\006region\030\001 \002(\0132\031.hbase.pb.Region"
 operator|+
-literal|"base.pb.RegionSpecifier\022\r\n\005major\030\002 \001(\010\022\016"
+literal|"Specifier\022\r\n\005major\030\002 \001(\010\022\016\n\006family\030\003 \001(\014"
 operator|+
-literal|"\n\006family\030\003 \001(\014\"\027\n\025CompactRegionResponse\""
+literal|"\"\027\n\025CompactRegionResponse\"\315\001\n\031UpdateFavo"
 operator|+
-literal|"\315\001\n\031UpdateFavoredNodesRequest\022I\n\013update_"
+literal|"redNodesRequest\022I\n\013update_info\030\001 \003(\01324.h"
 operator|+
-literal|"info\030\001 \003(\01324.hbase.pb.UpdateFavoredNodes"
+literal|"base.pb.UpdateFavoredNodesRequest.Region"
 operator|+
-literal|"Request.RegionUpdateInfo\032e\n\020RegionUpdate"
+literal|"UpdateInfo\032e\n\020RegionUpdateInfo\022$\n\006region"
 block|,
-literal|"Info\022$\n\006region\030\001 \002(\0132\024.hbase.pb.RegionIn"
+literal|"\030\001 \002(\0132\024.hbase.pb.RegionInfo\022+\n\rfavored_"
 operator|+
-literal|"fo\022+\n\rfavored_nodes\030\002 \003(\0132\024.hbase.pb.Ser"
+literal|"nodes\030\002 \003(\0132\024.hbase.pb.ServerName\".\n\032Upd"
 operator|+
-literal|"verName\".\n\032UpdateFavoredNodesResponse\022\020\n"
+literal|"ateFavoredNodesResponse\022\020\n\010response\030\001 \001("
 operator|+
-literal|"\010response\030\001 \001(\r\"\244\001\n\023MergeRegionsRequest\022"
+literal|"\r\"\244\001\n\023MergeRegionsRequest\022+\n\010region_a\030\001 "
 operator|+
-literal|"+\n\010region_a\030\001 \002(\0132\031.hbase.pb.RegionSpeci"
+literal|"\002(\0132\031.hbase.pb.RegionSpecifier\022+\n\010region"
 operator|+
-literal|"fier\022+\n\010region_b\030\002 \002(\0132\031.hbase.pb.Region"
+literal|"_b\030\002 \002(\0132\031.hbase.pb.RegionSpecifier\022\027\n\010f"
 operator|+
-literal|"Specifier\022\027\n\010forcible\030\003 \001(\010:\005false\022\032\n\022ma"
+literal|"orcible\030\003 \001(\010:\005false\022\032\n\022master_system_ti"
 operator|+
-literal|"ster_system_time\030\004 \001(\004\"\026\n\024MergeRegionsRe"
+literal|"me\030\004 \001(\004\"\026\n\024MergeRegionsResponse\"a\n\010WALE"
 operator|+
-literal|"sponse\"a\n\010WALEntry\022\035\n\003key\030\001 \002(\0132\020.hbase."
+literal|"ntry\022\035\n\003key\030\001 \002(\0132\020.hbase.pb.WALKey\022\027\n\017k"
 operator|+
-literal|"pb.WALKey\022\027\n\017key_value_bytes\030\002 \003(\014\022\035\n\025as"
+literal|"ey_value_bytes\030\002 \003(\014\022\035\n\025associated_cell_"
 block|,
-literal|"sociated_cell_count\030\003 \001(\005\"\242\001\n\030ReplicateW"
+literal|"count\030\003 \001(\005\"\242\001\n\030ReplicateWALEntryRequest"
 operator|+
-literal|"ALEntryRequest\022!\n\005entry\030\001 \003(\0132\022.hbase.pb"
+literal|"\022!\n\005entry\030\001 \003(\0132\022.hbase.pb.WALEntry\022\034\n\024r"
 operator|+
-literal|".WALEntry\022\034\n\024replicationClusterId\030\002 \001(\t\022"
+literal|"eplicationClusterId\030\002 \001(\t\022\"\n\032sourceBaseN"
 operator|+
-literal|"\"\n\032sourceBaseNamespaceDirPath\030\003 \001(\t\022!\n\031s"
+literal|"amespaceDirPath\030\003 \001(\t\022!\n\031sourceHFileArch"
 operator|+
-literal|"ourceHFileArchiveDirPath\030\004 \001(\t\"\033\n\031Replic"
+literal|"iveDirPath\030\004 \001(\t\"\033\n\031ReplicateWALEntryRes"
 operator|+
-literal|"ateWALEntryResponse\"\026\n\024RollWALWriterRequ"
+literal|"ponse\"\026\n\024RollWALWriterRequest\"0\n\025RollWAL"
 operator|+
-literal|"est\"0\n\025RollWALWriterResponse\022\027\n\017region_t"
+literal|"WriterResponse\022\027\n\017region_to_flush\030\001 \003(\014\""
 operator|+
-literal|"o_flush\030\001 \003(\014\"#\n\021StopServerRequest\022\016\n\006re"
+literal|"#\n\021StopServerRequest\022\016\n\006reason\030\001 \002(\t\"\024\n\022"
 operator|+
-literal|"ason\030\001 \002(\t\"\024\n\022StopServerResponse\"\026\n\024GetS"
+literal|"StopServerResponse\"\026\n\024GetServerInfoReque"
 operator|+
-literal|"erverInfoRequest\"K\n\nServerInfo\022)\n\013server"
+literal|"st\"K\n\nServerInfo\022)\n\013server_name\030\001 \002(\0132\024."
 block|,
-literal|"_name\030\001 \002(\0132\024.hbase.pb.ServerName\022\022\n\nweb"
+literal|"hbase.pb.ServerName\022\022\n\nwebui_port\030\002 \001(\r\""
 operator|+
-literal|"ui_port\030\002 \001(\r\"B\n\025GetServerInfoResponse\022)"
+literal|"B\n\025GetServerInfoResponse\022)\n\013server_info\030"
 operator|+
-literal|"\n\013server_info\030\001 \002(\0132\024.hbase.pb.ServerInf"
+literal|"\001 \002(\0132\024.hbase.pb.ServerInfo\"\034\n\032UpdateCon"
 operator|+
-literal|"o\"\034\n\032UpdateConfigurationRequest\"\035\n\033Updat"
+literal|"figurationRequest\"\035\n\033UpdateConfiguration"
 operator|+
-literal|"eConfigurationResponse2\207\013\n\014AdminService\022"
+literal|"Response2\207\013\n\014AdminService\022P\n\rGetRegionIn"
 operator|+
-literal|"P\n\rGetRegionInfo\022\036.hbase.pb.GetRegionInf"
+literal|"fo\022\036.hbase.pb.GetRegionInfoRequest\032\037.hba"
 operator|+
-literal|"oRequest\032\037.hbase.pb.GetRegionInfoRespons"
+literal|"se.pb.GetRegionInfoResponse\022M\n\014GetStoreF"
 operator|+
-literal|"e\022M\n\014GetStoreFile\022\035.hbase.pb.GetStoreFil"
+literal|"ile\022\035.hbase.pb.GetStoreFileRequest\032\036.hba"
 operator|+
-literal|"eRequest\032\036.hbase.pb.GetStoreFileResponse"
+literal|"se.pb.GetStoreFileResponse\022V\n\017GetOnlineR"
 operator|+
-literal|"\022V\n\017GetOnlineRegion\022 .hbase.pb.GetOnline"
+literal|"egion\022 .hbase.pb.GetOnlineRegionRequest\032"
 block|,
-literal|"RegionRequest\032!.hbase.pb.GetOnlineRegion"
+literal|"!.hbase.pb.GetOnlineRegionResponse\022G\n\nOp"
 operator|+
-literal|"Response\022G\n\nOpenRegion\022\033.hbase.pb.OpenRe"
+literal|"enRegion\022\033.hbase.pb.OpenRegionRequest\032\034."
 operator|+
-literal|"gionRequest\032\034.hbase.pb.OpenRegionRespons"
+literal|"hbase.pb.OpenRegionResponse\022M\n\014WarmupReg"
 operator|+
-literal|"e\022M\n\014WarmupRegion\022\035.hbase.pb.WarmupRegio"
+literal|"ion\022\035.hbase.pb.WarmupRegionRequest\032\036.hba"
 operator|+
-literal|"nRequest\032\036.hbase.pb.WarmupRegionResponse"
+literal|"se.pb.WarmupRegionResponse\022J\n\013CloseRegio"
 operator|+
-literal|"\022J\n\013CloseRegion\022\034.hbase.pb.CloseRegionRe"
+literal|"n\022\034.hbase.pb.CloseRegionRequest\032\035.hbase."
 operator|+
-literal|"quest\032\035.hbase.pb.CloseRegionResponse\022J\n\013"
+literal|"pb.CloseRegionResponse\022J\n\013FlushRegion\022\034."
 operator|+
-literal|"FlushRegion\022\034.hbase.pb.FlushRegionReques"
+literal|"hbase.pb.FlushRegionRequest\032\035.hbase.pb.F"
 operator|+
-literal|"t\032\035.hbase.pb.FlushRegionResponse\022J\n\013Spli"
+literal|"lushRegionResponse\022J\n\013SplitRegion\022\034.hbas"
 operator|+
-literal|"tRegion\022\034.hbase.pb.SplitRegionRequest\032\035."
+literal|"e.pb.SplitRegionRequest\032\035.hbase.pb.Split"
 block|,
-literal|"hbase.pb.SplitRegionResponse\022P\n\rCompactR"
+literal|"RegionResponse\022P\n\rCompactRegion\022\036.hbase."
 operator|+
-literal|"egion\022\036.hbase.pb.CompactRegionRequest\032\037."
+literal|"pb.CompactRegionRequest\032\037.hbase.pb.Compa"
 operator|+
-literal|"hbase.pb.CompactRegionResponse\022M\n\014MergeR"
+literal|"ctRegionResponse\022M\n\014MergeRegions\022\035.hbase"
 operator|+
-literal|"egions\022\035.hbase.pb.MergeRegionsRequest\032\036."
+literal|".pb.MergeRegionsRequest\032\036.hbase.pb.Merge"
 operator|+
-literal|"hbase.pb.MergeRegionsResponse\022\\\n\021Replica"
+literal|"RegionsResponse\022\\\n\021ReplicateWALEntry\022\".h"
 operator|+
-literal|"teWALEntry\022\".hbase.pb.ReplicateWALEntryR"
+literal|"base.pb.ReplicateWALEntryRequest\032#.hbase"
 operator|+
-literal|"equest\032#.hbase.pb.ReplicateWALEntryRespo"
+literal|".pb.ReplicateWALEntryResponse\022Q\n\006Replay\022"
 operator|+
-literal|"nse\022Q\n\006Replay\022\".hbase.pb.ReplicateWALEnt"
+literal|"\".hbase.pb.ReplicateWALEntryRequest\032#.hb"
 operator|+
-literal|"ryRequest\032#.hbase.pb.ReplicateWALEntryRe"
+literal|"ase.pb.ReplicateWALEntryResponse\022P\n\rRoll"
 operator|+
-literal|"sponse\022P\n\rRollWALWriter\022\036.hbase.pb.RollW"
+literal|"WALWriter\022\036.hbase.pb.RollWALWriterReques"
 block|,
-literal|"ALWriterRequest\032\037.hbase.pb.RollWALWriter"
+literal|"t\032\037.hbase.pb.RollWALWriterResponse\022P\n\rGe"
 operator|+
-literal|"Response\022P\n\rGetServerInfo\022\036.hbase.pb.Get"
+literal|"tServerInfo\022\036.hbase.pb.GetServerInfoRequ"
 operator|+
-literal|"ServerInfoRequest\032\037.hbase.pb.GetServerIn"
+literal|"est\032\037.hbase.pb.GetServerInfoResponse\022G\n\n"
 operator|+
-literal|"foResponse\022G\n\nStopServer\022\033.hbase.pb.Stop"
+literal|"StopServer\022\033.hbase.pb.StopServerRequest\032"
 operator|+
-literal|"ServerRequest\032\034.hbase.pb.StopServerRespo"
+literal|"\034.hbase.pb.StopServerResponse\022_\n\022UpdateF"
 operator|+
-literal|"nse\022_\n\022UpdateFavoredNodes\022#.hbase.pb.Upd"
+literal|"avoredNodes\022#.hbase.pb.UpdateFavoredNode"
 operator|+
-literal|"ateFavoredNodesRequest\032$.hbase.pb.Update"
+literal|"sRequest\032$.hbase.pb.UpdateFavoredNodesRe"
 operator|+
-literal|"FavoredNodesResponse\022b\n\023UpdateConfigurat"
+literal|"sponse\022b\n\023UpdateConfiguration\022$.hbase.pb"
 operator|+
-literal|"ion\022$.hbase.pb.UpdateConfigurationReques"
+literal|".UpdateConfigurationRequest\032%.hbase.pb.U"
 operator|+
-literal|"t\032%.hbase.pb.UpdateConfigurationResponse"
+literal|"pdateConfigurationResponseBA\n*org.apache"
 block|,
-literal|"BA\n*org.apache.hadoop.hbase.protobuf.gen"
+literal|".hadoop.hbase.protobuf.generatedB\013AdminP"
 operator|+
-literal|"eratedB\013AdminProtosH\001\210\001\001\240\001\001"
+literal|"rotosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -144350,23 +144350,6 @@ operator|.
 name|FileDescriptor
 index|[]
 block|{
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|ClientProtos
-operator|.
-name|getDescriptor
-argument_list|()
-block|,
 name|org
 operator|.
 name|apache

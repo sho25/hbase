@@ -12344,39 +12344,39 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\024SecureBulkLoad.proto\022\010hbase.pb\032\013HBase."
+literal|"\n\024SecureBulkLoad.proto\022\010hbase.pb\032\014Client"
 operator|+
-literal|"proto\032\014Client.proto\"\266\001\n\033SecureBulkLoadHF"
+literal|".proto\"\266\001\n\033SecureBulkLoadHFilesRequest\022>"
 operator|+
-literal|"ilesRequest\022>\n\013family_path\030\001 \003(\0132).hbase"
+literal|"\n\013family_path\030\001 \003(\0132).hbase.pb.BulkLoadH"
 operator|+
-literal|".pb.BulkLoadHFileRequest.FamilyPath\022\026\n\016a"
+literal|"FileRequest.FamilyPath\022\026\n\016assign_seq_num"
 operator|+
-literal|"ssign_seq_num\030\002 \001(\010\022+\n\010fs_token\030\003 \002(\0132\031."
+literal|"\030\002 \001(\010\022+\n\010fs_token\030\003 \002(\0132\031.hbase.pb.Dele"
 operator|+
-literal|"hbase.pb.DelegationToken\022\022\n\nbulk_token\030\004"
+literal|"gationToken\022\022\n\nbulk_token\030\004 \002(\t\".\n\034Secur"
 operator|+
-literal|" \002(\t\".\n\034SecureBulkLoadHFilesResponse\022\016\n\006"
+literal|"eBulkLoadHFilesResponse\022\016\n\006loaded\030\001 \002(\0102"
 operator|+
-literal|"loaded\030\001 \002(\0102\256\002\n\025SecureBulkLoadService\022V"
+literal|"\256\002\n\025SecureBulkLoadService\022V\n\017PrepareBulk"
 operator|+
-literal|"\n\017PrepareBulkLoad\022 .hbase.pb.PrepareBulk"
+literal|"Load\022 .hbase.pb.PrepareBulkLoadRequest\032!"
 operator|+
-literal|"LoadRequest\032!.hbase.pb.PrepareBulkLoadRe"
+literal|".hbase.pb.PrepareBulkLoadResponse\022e\n\024Sec"
 block|,
-literal|"sponse\022e\n\024SecureBulkLoadHFiles\022%.hbase.p"
+literal|"ureBulkLoadHFiles\022%.hbase.pb.SecureBulkL"
 operator|+
-literal|"b.SecureBulkLoadHFilesRequest\032&.hbase.pb"
+literal|"oadHFilesRequest\032&.hbase.pb.SecureBulkLo"
 operator|+
-literal|".SecureBulkLoadHFilesResponse\022V\n\017Cleanup"
+literal|"adHFilesResponse\022V\n\017CleanupBulkLoad\022 .hb"
 operator|+
-literal|"BulkLoad\022 .hbase.pb.CleanupBulkLoadReque"
+literal|"ase.pb.CleanupBulkLoadRequest\032!.hbase.pb"
 operator|+
-literal|"st\032!.hbase.pb.CleanupBulkLoadResponseBJ\n"
+literal|".CleanupBulkLoadResponseBJ\n*org.apache.h"
 operator|+
-literal|"*org.apache.hadoop.hbase.protobuf.genera"
+literal|"adoop.hbase.protobuf.generatedB\024SecureBu"
 operator|+
-literal|"tedB\024SecureBulkLoadProtosH\001\210\001\001\240\001\001"
+literal|"lkLoadProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -12550,23 +12550,6 @@ operator|.
 name|FileDescriptor
 index|[]
 block|{
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|HBaseProtos
-operator|.
-name|getDescriptor
-argument_list|()
-block|,
 name|org
 operator|.
 name|apache

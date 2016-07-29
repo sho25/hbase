@@ -106679,131 +106679,129 @@ index|[]
 name|descriptorData
 init|=
 block|{
-literal|"\n\013HBase.proto\022\010hbase.pb\032\nCell.proto\"1\n\tT"
+literal|"\n\013HBase.proto\022\010hbase.pb\"1\n\tTableName\022\021\n\t"
 operator|+
-literal|"ableName\022\021\n\tnamespace\030\001 \002(\014\022\021\n\tqualifier"
+literal|"namespace\030\001 \002(\014\022\021\n\tqualifier\030\002 \002(\014\"\314\001\n\013T"
 operator|+
-literal|"\030\002 \002(\014\"\314\001\n\013TableSchema\022\'\n\ntable_name\030\001 \001"
+literal|"ableSchema\022\'\n\ntable_name\030\001 \001(\0132\023.hbase.p"
 operator|+
-literal|"(\0132\023.hbase.pb.TableName\022,\n\nattributes\030\002 "
+literal|"b.TableName\022,\n\nattributes\030\002 \003(\0132\030.hbase."
 operator|+
-literal|"\003(\0132\030.hbase.pb.BytesBytesPair\0225\n\017column_"
+literal|"pb.BytesBytesPair\0225\n\017column_families\030\003 \003"
 operator|+
-literal|"families\030\003 \003(\0132\034.hbase.pb.ColumnFamilySc"
+literal|"(\0132\034.hbase.pb.ColumnFamilySchema\022/\n\rconf"
 operator|+
-literal|"hema\022/\n\rconfiguration\030\004 \003(\0132\030.hbase.pb.N"
+literal|"iguration\030\004 \003(\0132\030.hbase.pb.NameStringPai"
 operator|+
-literal|"ameStringPair\"x\n\nTableState\022)\n\005state\030\001 \002"
+literal|"r\"x\n\nTableState\022)\n\005state\030\001 \002(\0162\032.hbase.p"
 operator|+
-literal|"(\0162\032.hbase.pb.TableState.State\"?\n\005State\022"
+literal|"b.TableState.State\"?\n\005State\022\013\n\007ENABLED\020\000"
 operator|+
-literal|"\013\n\007ENABLED\020\000\022\014\n\010DISABLED\020\001\022\r\n\tDISABLING\020"
+literal|"\022\014\n\010DISABLED\020\001\022\r\n\tDISABLING\020\002\022\014\n\010ENABLIN"
 block|,
-literal|"\002\022\014\n\010ENABLING\020\003\"\201\001\n\022ColumnFamilySchema\022\014"
+literal|"G\020\003\"\201\001\n\022ColumnFamilySchema\022\014\n\004name\030\001 \002(\014"
 operator|+
-literal|"\n\004name\030\001 \002(\014\022,\n\nattributes\030\002 \003(\0132\030.hbase"
+literal|"\022,\n\nattributes\030\002 \003(\0132\030.hbase.pb.BytesByt"
 operator|+
-literal|".pb.BytesBytesPair\022/\n\rconfiguration\030\003 \003("
+literal|"esPair\022/\n\rconfiguration\030\003 \003(\0132\030.hbase.pb"
 operator|+
-literal|"\0132\030.hbase.pb.NameStringPair\"\243\001\n\nRegionIn"
+literal|".NameStringPair\"\243\001\n\nRegionInfo\022\021\n\tregion"
 operator|+
-literal|"fo\022\021\n\tregion_id\030\001 \002(\004\022\'\n\ntable_name\030\002 \002("
+literal|"_id\030\001 \002(\004\022\'\n\ntable_name\030\002 \002(\0132\023.hbase.pb"
 operator|+
-literal|"\0132\023.hbase.pb.TableName\022\021\n\tstart_key\030\003 \001("
+literal|".TableName\022\021\n\tstart_key\030\003 \001(\014\022\017\n\007end_key"
 operator|+
-literal|"\014\022\017\n\007end_key\030\004 \001(\014\022\017\n\007offline\030\005 \001(\010\022\r\n\005s"
+literal|"\030\004 \001(\014\022\017\n\007offline\030\005 \001(\010\022\r\n\005split\030\006 \001(\010\022\025"
 operator|+
-literal|"plit\030\006 \001(\010\022\025\n\nreplica_id\030\007 \001(\005:\0010\":\n\014Fav"
+literal|"\n\nreplica_id\030\007 \001(\005:\0010\":\n\014FavoredNodes\022*\n"
 operator|+
-literal|"oredNodes\022*\n\014favored_node\030\001 \003(\0132\024.hbase."
+literal|"\014favored_node\030\001 \003(\0132\024.hbase.pb.ServerNam"
 operator|+
-literal|"pb.ServerName\"\236\001\n\017RegionSpecifier\022;\n\004typ"
+literal|"e\"\236\001\n\017RegionSpecifier\022;\n\004type\030\001 \002(\0162-.hb"
 block|,
-literal|"e\030\001 \002(\0162-.hbase.pb.RegionSpecifier.Regio"
+literal|"ase.pb.RegionSpecifier.RegionSpecifierTy"
 operator|+
-literal|"nSpecifierType\022\r\n\005value\030\002 \002(\014\"?\n\023RegionS"
+literal|"pe\022\r\n\005value\030\002 \002(\014\"?\n\023RegionSpecifierType"
 operator|+
-literal|"pecifierType\022\017\n\013REGION_NAME\020\001\022\027\n\023ENCODED"
+literal|"\022\017\n\013REGION_NAME\020\001\022\027\n\023ENCODED_REGION_NAME"
 operator|+
-literal|"_REGION_NAME\020\002\"%\n\tTimeRange\022\014\n\004from\030\001 \001("
+literal|"\020\002\"%\n\tTimeRange\022\014\n\004from\030\001 \001(\004\022\n\n\002to\030\002 \001("
 operator|+
-literal|"\004\022\n\n\002to\030\002 \001(\004\"W\n\025ColumnFamilyTimeRange\022\025"
+literal|"\004\"W\n\025ColumnFamilyTimeRange\022\025\n\rcolumn_fam"
 operator|+
-literal|"\n\rcolumn_family\030\001 \002(\014\022\'\n\ntime_range\030\002 \002("
+literal|"ily\030\001 \002(\014\022\'\n\ntime_range\030\002 \002(\0132\023.hbase.pb"
 operator|+
-literal|"\0132\023.hbase.pb.TimeRange\"A\n\nServerName\022\021\n\t"
+literal|".TimeRange\"A\n\nServerName\022\021\n\thost_name\030\001 "
 operator|+
-literal|"host_name\030\001 \002(\t\022\014\n\004port\030\002 \001(\r\022\022\n\nstart_c"
+literal|"\002(\t\022\014\n\004port\030\002 \001(\r\022\022\n\nstart_code\030\003 \001(\004\"\033\n"
 operator|+
-literal|"ode\030\003 \001(\004\"\033\n\013Coprocessor\022\014\n\004name\030\001 \002(\t\"-"
+literal|"\013Coprocessor\022\014\n\004name\030\001 \002(\t\"-\n\016NameString"
 operator|+
-literal|"\n\016NameStringPair\022\014\n\004name\030\001 \002(\t\022\r\n\005value\030"
+literal|"Pair\022\014\n\004name\030\001 \002(\t\022\r\n\005value\030\002 \002(\t\",\n\rNam"
 block|,
-literal|"\002 \002(\t\",\n\rNameBytesPair\022\014\n\004name\030\001 \002(\t\022\r\n\005"
+literal|"eBytesPair\022\014\n\004name\030\001 \002(\t\022\r\n\005value\030\002 \001(\014\""
 operator|+
-literal|"value\030\002 \001(\014\"/\n\016BytesBytesPair\022\r\n\005first\030\001"
+literal|"/\n\016BytesBytesPair\022\r\n\005first\030\001 \002(\014\022\016\n\006seco"
 operator|+
-literal|" \002(\014\022\016\n\006second\030\002 \002(\014\",\n\rNameInt64Pair\022\014\n"
+literal|"nd\030\002 \002(\014\",\n\rNameInt64Pair\022\014\n\004name\030\001 \001(\t\022"
 operator|+
-literal|"\004name\030\001 \001(\t\022\r\n\005value\030\002 \001(\003\"\325\001\n\023SnapshotD"
+literal|"\r\n\005value\030\002 \001(\003\"\325\001\n\023SnapshotDescription\022\014"
 operator|+
-literal|"escription\022\014\n\004name\030\001 \002(\t\022\r\n\005table\030\002 \001(\t\022"
+literal|"\n\004name\030\001 \002(\t\022\r\n\005table\030\002 \001(\t\022\030\n\rcreation_"
 operator|+
-literal|"\030\n\rcreation_time\030\003 \001(\003:\0010\0227\n\004type\030\004 \001(\0162"
+literal|"time\030\003 \001(\003:\0010\0227\n\004type\030\004 \001(\0162\".hbase.pb.S"
 operator|+
-literal|"\".hbase.pb.SnapshotDescription.Type:\005FLU"
+literal|"napshotDescription.Type:\005FLUSH\022\017\n\007versio"
 operator|+
-literal|"SH\022\017\n\007version\030\005 \001(\005\022\r\n\005owner\030\006 \001(\t\".\n\004Ty"
+literal|"n\030\005 \001(\005\022\r\n\005owner\030\006 \001(\t\".\n\004Type\022\014\n\010DISABL"
 operator|+
-literal|"pe\022\014\n\010DISABLED\020\000\022\t\n\005FLUSH\020\001\022\r\n\tSKIPFLUSH"
+literal|"ED\020\000\022\t\n\005FLUSH\020\001\022\r\n\tSKIPFLUSH\020\002\"\206\001\n\024Proce"
 operator|+
-literal|"\020\002\"\206\001\n\024ProcedureDescription\022\021\n\tsignature"
+literal|"dureDescription\022\021\n\tsignature\030\001 \002(\t\022\020\n\010in"
 block|,
-literal|"\030\001 \002(\t\022\020\n\010instance\030\002 \001(\t\022\030\n\rcreation_tim"
+literal|"stance\030\002 \001(\t\022\030\n\rcreation_time\030\003 \001(\003:\0010\022/"
 operator|+
-literal|"e\030\003 \001(\003:\0010\022/\n\rconfiguration\030\004 \003(\0132\030.hbas"
+literal|"\n\rconfiguration\030\004 \003(\0132\030.hbase.pb.NameStr"
 operator|+
-literal|"e.pb.NameStringPair\"\n\n\010EmptyMsg\"\033\n\007LongM"
+literal|"ingPair\"\n\n\010EmptyMsg\"\033\n\007LongMsg\022\020\n\010long_m"
 operator|+
-literal|"sg\022\020\n\010long_msg\030\001 \002(\003\"\037\n\tDoubleMsg\022\022\n\ndou"
+literal|"sg\030\001 \002(\003\"\037\n\tDoubleMsg\022\022\n\ndouble_msg\030\001 \002("
 operator|+
-literal|"ble_msg\030\001 \002(\001\"\'\n\rBigDecimalMsg\022\026\n\016bigdec"
+literal|"\001\"\'\n\rBigDecimalMsg\022\026\n\016bigdecimal_msg\030\001 \002"
 operator|+
-literal|"imal_msg\030\001 \002(\014\"5\n\004UUID\022\026\n\016least_sig_bits"
+literal|"(\014\"5\n\004UUID\022\026\n\016least_sig_bits\030\001 \002(\004\022\025\n\rmo"
 operator|+
-literal|"\030\001 \002(\004\022\025\n\rmost_sig_bits\030\002 \002(\004\"T\n\023Namespa"
+literal|"st_sig_bits\030\002 \002(\004\"T\n\023NamespaceDescriptor"
 operator|+
-literal|"ceDescriptor\022\014\n\004name\030\001 \002(\014\022/\n\rconfigurat"
+literal|"\022\014\n\004name\030\001 \002(\014\022/\n\rconfiguration\030\002 \003(\0132\030."
 operator|+
-literal|"ion\030\002 \003(\0132\030.hbase.pb.NameStringPair\"\235\001\n\013"
+literal|"hbase.pb.NameStringPair\"\235\001\n\013VersionInfo\022"
 operator|+
-literal|"VersionInfo\022\017\n\007version\030\001 \002(\t\022\013\n\003url\030\002 \002("
+literal|"\017\n\007version\030\001 \002(\t\022\013\n\003url\030\002 \002(\t\022\020\n\010revisio"
 block|,
-literal|"\t\022\020\n\010revision\030\003 \002(\t\022\014\n\004user\030\004 \002(\t\022\014\n\004dat"
+literal|"n\030\003 \002(\t\022\014\n\004user\030\004 \002(\t\022\014\n\004date\030\005 \002(\t\022\024\n\014s"
 operator|+
-literal|"e\030\005 \002(\t\022\024\n\014src_checksum\030\006 \002(\t\022\025\n\rversion"
+literal|"rc_checksum\030\006 \002(\t\022\025\n\rversion_major\030\007 \001(\r"
 operator|+
-literal|"_major\030\007 \001(\r\022\025\n\rversion_minor\030\010 \001(\r\"Q\n\020R"
+literal|"\022\025\n\rversion_minor\030\010 \001(\r\"Q\n\020RegionServerI"
 operator|+
-literal|"egionServerInfo\022\020\n\010infoPort\030\001 \001(\005\022+\n\014ver"
+literal|"nfo\022\020\n\010infoPort\030\001 \001(\005\022+\n\014version_info\030\002 "
 operator|+
-literal|"sion_info\030\002 \001(\0132\025.hbase.pb.VersionInfo*r"
+literal|"\001(\0132\025.hbase.pb.VersionInfo*r\n\013CompareTyp"
 operator|+
-literal|"\n\013CompareType\022\010\n\004LESS\020\000\022\021\n\rLESS_OR_EQUAL"
+literal|"e\022\010\n\004LESS\020\000\022\021\n\rLESS_OR_EQUAL\020\001\022\t\n\005EQUAL\020"
 operator|+
-literal|"\020\001\022\t\n\005EQUAL\020\002\022\r\n\tNOT_EQUAL\020\003\022\024\n\020GREATER_"
+literal|"\002\022\r\n\tNOT_EQUAL\020\003\022\024\n\020GREATER_OR_EQUAL\020\004\022\013"
 operator|+
-literal|"OR_EQUAL\020\004\022\013\n\007GREATER\020\005\022\t\n\005NO_OP\020\006*n\n\010Ti"
+literal|"\n\007GREATER\020\005\022\t\n\005NO_OP\020\006*n\n\010TimeUnit\022\017\n\013NA"
 operator|+
-literal|"meUnit\022\017\n\013NANOSECONDS\020\001\022\020\n\014MICROSECONDS\020"
+literal|"NOSECONDS\020\001\022\020\n\014MICROSECONDS\020\002\022\020\n\014MILLISE"
 operator|+
-literal|"\002\022\020\n\014MILLISECONDS\020\003\022\013\n\007SECONDS\020\004\022\013\n\007MINU"
+literal|"CONDS\020\003\022\013\n\007SECONDS\020\004\022\013\n\007MINUTES\020\005\022\t\n\005HOU"
 block|,
-literal|"TES\020\005\022\t\n\005HOURS\020\006\022\010\n\004DAYS\020\007B>\n*org.apache"
+literal|"RS\020\006\022\010\n\004DAYS\020\007B>\n*org.apache.hadoop.hbas"
 operator|+
-literal|".hadoop.hbase.protobuf.generatedB\013HBaseP"
-operator|+
-literal|"rotosH\001\240\001\001"
+literal|"e.protobuf.generatedB\013HBaseProtosH\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -107966,24 +107964,7 @@ name|Descriptors
 operator|.
 name|FileDescriptor
 index|[]
-block|{
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|CellProtos
-operator|.
-name|getDescriptor
-argument_list|()
-block|,         }
+block|{         }
 argument_list|,
 name|assigner
 argument_list|)
