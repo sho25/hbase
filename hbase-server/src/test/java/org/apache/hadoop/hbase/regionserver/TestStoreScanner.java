@@ -331,6 +331,24 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|regionserver
+operator|.
+name|querymatcher
+operator|.
+name|ScanQueryMatcher
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|testclassification
 operator|.
 name|MediumTests
@@ -615,7 +633,7 @@ name|ScanType
 operator|.
 name|USER_SCAN
 decl_stmt|;
-comment|/**    * From here on down, we have a bunch of defines and specific CELL_GRID of Cells. The    * CELL_GRID then has a Scanner that can fake out 'block' transitions. All this elaborate    * setup is for tests that ensure we don't overread, and that the    * {@link StoreScanner#optimize(org.apache.hadoop.hbase.regionserver.ScanQueryMatcher.MatchCode,    * Cell)} is not overly enthusiastic.    */
+comment|/**    * From here on down, we have a bunch of defines and specific CELL_GRID of Cells. The    * CELL_GRID then has a Scanner that can fake out 'block' transitions. All this elaborate    * setup is for tests that ensure we don't overread, and that the    * {@link StoreScanner#optimize(org.apache.hadoop.hbase.regionserver.querymatcher.ScanQueryMatcher.MatchCode,    * Cell)} is not overly enthusiastic.    */
 specifier|private
 specifier|static
 specifier|final

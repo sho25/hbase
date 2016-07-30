@@ -14,8 +14,34 @@ operator|.
 name|hbase
 operator|.
 name|regionserver
+operator|.
+name|querymatcher
 package|;
 end_package
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|fail
+import|;
+end_import
 
 begin_import
 import|import
@@ -57,7 +83,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|*
+name|KeyValue
 import|;
 end_import
 
@@ -72,6 +98,8 @@ operator|.
 name|hbase
 operator|.
 name|regionserver
+operator|.
+name|querymatcher
 operator|.
 name|ScanQueryMatcher
 operator|.
@@ -133,6 +161,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Test
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|experimental
 operator|.
 name|categories
@@ -158,8 +196,6 @@ argument_list|)
 specifier|public
 class|class
 name|TestScanWildcardColumnTracker
-extends|extends
-name|HBaseTestCase
 block|{
 specifier|final
 specifier|static
@@ -168,9 +204,11 @@ name|VERSIONS
 init|=
 literal|2
 decl_stmt|;
+annotation|@
+name|Test
 specifier|public
 name|void
-name|testCheckColumn_Ok
+name|testCheckColumnOk
 parameter_list|()
 throws|throws
 name|IOException
@@ -190,7 +228,7 @@ operator|.
 name|MIN_VALUE
 argument_list|)
 decl_stmt|;
-comment|//Create list of qualifiers
+comment|// Create list of qualifiers
 name|List
 argument_list|<
 name|byte
@@ -254,7 +292,7 @@ literal|"qualifier4"
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|//Setting up expected result
+comment|// Setting up expected result
 name|List
 argument_list|<
 name|MatchCode
@@ -377,7 +415,7 @@ name|mc
 argument_list|)
 expr_stmt|;
 block|}
-comment|//Compare actual with expected
+comment|// Compare actual with expected
 for|for
 control|(
 name|int
@@ -415,9 +453,11 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
-name|testCheckColumn_EnforceVersions
+name|testCheckColumnEnforceVersions
 parameter_list|()
 throws|throws
 name|IOException
@@ -437,7 +477,7 @@ operator|.
 name|MIN_VALUE
 argument_list|)
 decl_stmt|;
-comment|//Create list of qualifiers
+comment|// Create list of qualifiers
 name|List
 argument_list|<
 name|byte
@@ -501,7 +541,7 @@ literal|"qualifier2"
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|//Setting up expected result
+comment|// Setting up expected result
 name|List
 argument_list|<
 name|ScanQueryMatcher
@@ -630,7 +670,7 @@ name|mc
 argument_list|)
 expr_stmt|;
 block|}
-comment|//Compare actual with expected
+comment|// Compare actual with expected
 for|for
 control|(
 name|int
@@ -668,9 +708,11 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
-name|DisabledTestCheckColumn_WrongOrder
+name|DisabledTestCheckColumnWrongOrder
 parameter_list|()
 block|{
 name|ScanWildcardColumnTracker
@@ -688,7 +730,7 @@ operator|.
 name|MIN_VALUE
 argument_list|)
 decl_stmt|;
-comment|//Create list of qualifiers
+comment|// Create list of qualifiers
 name|List
 argument_list|<
 name|byte
@@ -728,11 +770,6 @@ literal|"qualifier1"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|boolean
-name|ok
-init|=
-literal|false
-decl_stmt|;
 try|try
 block|{
 for|for
@@ -773,25 +810,18 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
+name|fail
+argument_list|()
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|Exception
+name|IOException
 name|e
 parameter_list|)
 block|{
-name|ok
-operator|=
-literal|true
-expr_stmt|;
+comment|// expected
 block|}
-name|assertEquals
-argument_list|(
-literal|true
-argument_list|,
-name|ok
-argument_list|)
-expr_stmt|;
 block|}
 block|}
 end_class

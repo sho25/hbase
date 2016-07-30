@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/*  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -14,6 +14,8 @@ operator|.
 name|hbase
 operator|.
 name|regionserver
+operator|.
+name|querymatcher
 package|;
 end_package
 
@@ -34,22 +36,6 @@ operator|.
 name|util
 operator|.
 name|NavigableSet
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceAudience
 import|;
 end_import
 
@@ -119,7 +105,25 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|regionserver
+operator|.
+name|querymatcher
 operator|.
 name|ScanQueryMatcher
 operator|.
@@ -128,7 +132,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This class is used for the tracking and enforcement of columns and numbers  * of versions during the course of a Get or Scan operation, when explicit  * column qualifiers have been asked for in the query.  *  * With a little magic (see {@link ScanQueryMatcher}), we can use this matcher  * for both scans and gets.  The main difference is 'next' and 'done' collapse  * for the scan case (since we see all columns in order), and we only reset  * between rows.  *  *<p>  * This class is utilized by {@link ScanQueryMatcher} mainly through two methods:  *<ul><li>{@link #checkColumn} is called when a Put satisfies all other  * conditions of the query.</li>  *<li>{@link #getNextRowOrNextColumn} is called whenever ScanQueryMatcher  * believes that the current column should be skipped (by timestamp, filter etc.)</li>  *</ul>  *<p>  * These two methods returns a  * {@link org.apache.hadoop.hbase.regionserver.ScanQueryMatcher.MatchCode}  * to define what action should be taken.  *<p>  * This class is NOT thread-safe as queries are never multi-threaded  */
+comment|/**  * This class is used for the tracking and enforcement of columns and numbers of versions during the  * course of a Get or Scan operation, when explicit column qualifiers have been asked for in the  * query. With a little magic (see {@link ScanQueryMatcher}), we can use this matcher for both scans  * and gets. The main difference is 'next' and 'done' collapse for the scan case (since we see all  * columns in order), and we only reset between rows.  *<p>  * This class is utilized by {@link ScanQueryMatcher} mainly through two methods:  *<ul>  *<li>{@link #checkColumn} is called when a Put satisfies all other conditions of the query.</li>  *<li>{@link #getNextRowOrNextColumn} is called whenever ScanQueryMatcher believes that the current  * column should be skipped (by timestamp, filter etc.)</li>  *</ul>  *<p>  * These two methods returns a  * {@link org.apache.hadoop.hbase.regionserver.querymatcher.ScanQueryMatcher.MatchCode} to define  * what action should be taken.  *<p>  * This class is NOT thread-safe as queries are never multi-threaded  */
 end_comment
 
 begin_class
@@ -152,7 +156,7 @@ specifier|final
 name|int
 name|minVersions
 decl_stmt|;
-comment|/**   * Contains the list of columns that the ExplicitColumnTracker is tracking.   * Each ColumnCount instance also tracks how many versions of the requested   * column have been returned.   */
+comment|/**    * Contains the list of columns that the ExplicitColumnTracker is tracking. Each ColumnCount    * instance also tracks how many versions of the requested column have been returned.    */
 specifier|private
 specifier|final
 name|ColumnCount
@@ -167,7 +171,7 @@ specifier|private
 name|ColumnCount
 name|column
 decl_stmt|;
-comment|/** Keeps track of the latest timestamp included for current column.    * Used to eliminate duplicates. */
+comment|/**    * Keeps track of the latest timestamp included for current column. Used to eliminate duplicates.    */
 specifier|private
 name|long
 name|latestTSOfCurrentColumn
@@ -176,7 +180,7 @@ specifier|private
 name|long
 name|oldestStamp
 decl_stmt|;
-comment|/**    * Default constructor.    * @param columns columns specified user in query    * @param minVersions minimum number of versions to keep    * @param maxVersions maximum versions to return per column    * @param oldestUnexpiredTS the oldest timestamp we are interested in,    *  based on TTL    */
+comment|/**    * Default constructor.    * @param columns columns specified user in query    * @param minVersions minimum number of versions to keep    * @param maxVersions maximum versions to return per column    * @param oldestUnexpiredTS the oldest timestamp we are interested in, based on TTL    */
 specifier|public
 name|ExplicitColumnTracker
 parameter_list|(
@@ -505,6 +509,7 @@ if|if
 condition|(
 name|ignoreCount
 condition|)
+block|{
 return|return
 name|ScanQueryMatcher
 operator|.
@@ -512,6 +517,7 @@ name|MatchCode
 operator|.
 name|INCLUDE
 return|;
+block|}
 comment|// Check if it is a duplicate timestamp
 if|if
 condition|(
@@ -724,7 +730,7 @@ operator|<
 name|oldestStamp
 return|;
 block|}
-comment|/**    * This method is used to inform the column tracker that we are done with    * this column. We may get this information from external filters or    * timestamp range and we then need to indicate this information to    * tracker. It is required only in case of ExplicitColumnTracker.    * @param cell    */
+comment|/**    * This method is used to inform the column tracker that we are done with this column. We may get    * this information from external filters or timestamp range and we then need to indicate this    * information to tracker. It is required only in case of ExplicitColumnTracker.    * @param cell    */
 specifier|public
 name|void
 name|doneWithColumn
@@ -818,7 +824,9 @@ name|compare
 operator|>
 literal|0
 condition|)
+block|{
 continue|continue;
+block|}
 block|}
 return|return;
 block|}

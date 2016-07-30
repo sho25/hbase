@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -14,6 +14,8 @@ operator|.
 name|hbase
 operator|.
 name|regionserver
+operator|.
+name|querymatcher
 package|;
 end_package
 
@@ -24,22 +26,6 @@ operator|.
 name|io
 operator|.
 name|IOException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceAudience
 import|;
 end_import
 
@@ -109,7 +95,25 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|regionserver
+operator|.
+name|querymatcher
 operator|.
 name|ScanQueryMatcher
 operator|.
@@ -168,7 +172,7 @@ specifier|private
 name|int
 name|minVersions
 decl_stmt|;
-comment|/* Keeps track of the latest timestamp and type included for current column.    * Used to eliminate duplicates. */
+comment|/*    * Keeps track of the latest timestamp and type included for current column. Used to eliminate    * duplicates.    */
 specifier|private
 name|long
 name|latestTSOfCurrentColumn
@@ -181,7 +185,7 @@ specifier|private
 name|long
 name|oldestStamp
 decl_stmt|;
-comment|/**    * Return maxVersions of every row.    * @param minVersion Minimum number of versions to keep    * @param maxVersion Maximum number of versions to return    * @param oldestUnexpiredTS oldest timestamp that has not expired according    *          to the TTL.    */
+comment|/**    * Return maxVersions of every row.    * @param minVersion Minimum number of versions to keep    * @param maxVersion Maximum number of versions to return    * @param oldestUnexpiredTS oldest timestamp that has not expired according to the TTL.    */
 specifier|public
 name|ScanWildcardColumnTracker
 parameter_list|(
@@ -214,7 +218,7 @@ operator|=
 name|oldestUnexpiredTS
 expr_stmt|;
 block|}
-comment|/**    * {@inheritDoc}    * This receives puts *and* deletes.    */
+comment|/**    * {@inheritDoc} This receives puts *and* deletes.    */
 annotation|@
 name|Override
 specifier|public
@@ -236,7 +240,7 @@ operator|.
 name|INCLUDE
 return|;
 block|}
-comment|/**    * {@inheritDoc}    * This receives puts *and* deletes. Deletes do not count as a version, but rather    * take the version of the previous put (so eventually all but the last can be reclaimed).    */
+comment|/**    * {@inheritDoc} This receives puts *and* deletes. Deletes do not count as a version, but rather    * take the version of the previous put (so eventually all but the last can be reclaimed).    */
 annotation|@
 name|Override
 specifier|public
@@ -277,6 +281,7 @@ if|if
 condition|(
 name|ignoreCount
 condition|)
+block|{
 return|return
 name|ScanQueryMatcher
 operator|.
@@ -284,6 +289,7 @@ name|MatchCode
 operator|.
 name|INCLUDE
 return|;
+block|}
 comment|// do not count a delete marker as another version
 return|return
 name|checkVersion
@@ -319,6 +325,7 @@ if|if
 condition|(
 name|ignoreCount
 condition|)
+block|{
 return|return
 name|ScanQueryMatcher
 operator|.
@@ -326,7 +333,8 @@ name|MatchCode
 operator|.
 name|INCLUDE
 return|;
-comment|//If column matches, check if it is a duplicate timestamp
+block|}
+comment|// If column matches, check if it is a duplicate timestamp
 if|if
 condition|(
 name|sameAsPreviousTSAndType
@@ -375,6 +383,7 @@ if|if
 condition|(
 name|ignoreCount
 condition|)
+block|{
 return|return
 name|ScanQueryMatcher
 operator|.
@@ -382,6 +391,7 @@ name|MatchCode
 operator|.
 name|INCLUDE
 return|;
+block|}
 return|return
 name|checkVersion
 argument_list|(
@@ -436,7 +446,7 @@ operator|=
 literal|0
 expr_stmt|;
 block|}
-comment|/**    * Check whether this version should be retained.    * There are 4 variables considered:    * If this version is past max versions -> skip it    * If this kv has expired or was deleted, check min versions    * to decide whther to skip it or not.    *    * Increase the version counter unless this is a delete    */
+comment|/**    * Check whether this version should be retained. There are 4 variables considered: If this    * version is past max versions -> skip it If this kv has expired or was deleted, check min    * versions to decide whther to skip it or not. Increase the version counter unless this is a    * delete    */
 specifier|private
 name|MatchCode
 name|checkVersion
@@ -603,7 +613,7 @@ operator|<
 name|oldestStamp
 return|;
 block|}
-comment|/**    * Used by matcher and scan/get to get a hint of the next column    * to seek to after checkColumn() returns SKIP.  Returns the next interesting    * column we want, or NULL there is none (wildcard scanner).    *    * @return The column count.    */
+comment|/**    * Used by matcher and scan/get to get a hint of the next column to seek to after checkColumn()    * returns SKIP. Returns the next interesting column we want, or NULL there is none (wildcard    * scanner).    * @return The column count.    */
 specifier|public
 name|ColumnCount
 name|getColumnHint

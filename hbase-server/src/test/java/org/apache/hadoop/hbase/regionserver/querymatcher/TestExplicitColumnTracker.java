@@ -14,6 +14,8 @@ operator|.
 name|hbase
 operator|.
 name|regionserver
+operator|.
+name|querymatcher
 package|;
 end_package
 
@@ -55,6 +57,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Arrays
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|List
 import|;
 end_import
@@ -71,16 +83,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Arrays
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -89,7 +91,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|*
+name|KeyValue
 import|;
 end_import
 
@@ -104,6 +106,8 @@ operator|.
 name|hbase
 operator|.
 name|regionserver
+operator|.
+name|querymatcher
 operator|.
 name|ScanQueryMatcher
 operator|.
@@ -313,7 +317,7 @@ operator|.
 name|MIN_VALUE
 argument_list|)
 decl_stmt|;
-comment|//Initialize result
+comment|// Initialize result
 name|List
 argument_list|<
 name|ScanQueryMatcher
@@ -336,7 +340,7 @@ name|timestamp
 init|=
 literal|0
 decl_stmt|;
-comment|//"Match"
+comment|// "Match"
 for|for
 control|(
 name|byte
@@ -435,12 +439,12 @@ annotation|@
 name|Test
 specifier|public
 name|void
-name|testGet_SingleVersion
+name|testGetSingleVersion
 parameter_list|()
 throws|throws
 name|IOException
 block|{
-comment|//Create tracker
+comment|// Create tracker
 name|TreeSet
 argument_list|<
 name|byte
@@ -460,7 +464,7 @@ operator|.
 name|BYTES_COMPARATOR
 argument_list|)
 decl_stmt|;
-comment|//Looking for every other
+comment|// Looking for every other
 name|columns
 operator|.
 name|add
@@ -555,7 +559,7 @@ name|maxVersions
 init|=
 literal|1
 decl_stmt|;
-comment|//Create "Scanner"
+comment|// Create "Scanner"
 name|List
 argument_list|<
 name|byte
@@ -622,12 +626,12 @@ annotation|@
 name|Test
 specifier|public
 name|void
-name|testGet_MultiVersion
+name|testGetMultiVersion
 parameter_list|()
 throws|throws
 name|IOException
 block|{
-comment|//Create tracker
+comment|// Create tracker
 name|TreeSet
 argument_list|<
 name|byte
@@ -647,7 +651,7 @@ operator|.
 name|BYTES_COMPARATOR
 argument_list|)
 decl_stmt|;
-comment|//Looking for every other
+comment|// Looking for every other
 name|columns
 operator|.
 name|add
@@ -853,7 +857,7 @@ name|maxVersions
 init|=
 literal|2
 decl_stmt|;
-comment|//Create "Scanner"
+comment|// Create "Scanner"
 name|List
 argument_list|<
 name|byte
@@ -974,7 +978,7 @@ argument_list|(
 name|col5
 argument_list|)
 expr_stmt|;
-comment|//Initialize result
+comment|// Initialize result
 name|runTest
 argument_list|(
 name|maxVersions

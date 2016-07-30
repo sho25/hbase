@@ -14,20 +14,20 @@ operator|.
 name|hbase
 operator|.
 name|regionserver
+operator|.
+name|querymatcher
 package|;
 end_package
 
 begin_import
-import|import
+import|import static
 name|org
 operator|.
-name|apache
+name|junit
 operator|.
-name|hadoop
+name|Assert
 operator|.
-name|hbase
-operator|.
-name|HBaseTestCase
+name|*
 import|;
 end_import
 
@@ -42,6 +42,26 @@ operator|.
 name|hbase
 operator|.
 name|KeyValue
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|querymatcher
+operator|.
+name|DeleteTracker
+operator|.
+name|DeleteResult
 import|;
 end_import
 
@@ -74,24 +94,6 @@ operator|.
 name|testclassification
 operator|.
 name|SmallTests
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|DeleteTracker
-operator|.
-name|DeleteResult
 import|;
 end_import
 
@@ -162,8 +164,6 @@ argument_list|)
 specifier|public
 class|class
 name|TestScanDeleteTracker
-extends|extends
-name|HBaseTestCase
 block|{
 specifier|private
 name|ScanDeleteTracker
@@ -175,12 +175,6 @@ name|timestamp
 init|=
 literal|10L
 decl_stmt|;
-specifier|private
-name|byte
-name|deleteType
-init|=
-literal|0
-decl_stmt|;
 annotation|@
 name|Before
 specifier|public
@@ -190,11 +184,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|super
-operator|.
-name|setUp
-argument_list|()
-expr_stmt|;
 name|sdt
 operator|=
 operator|new
@@ -206,7 +195,7 @@ annotation|@
 name|Test
 specifier|public
 name|void
-name|testDeletedBy_Delete
+name|testDeletedByDelete
 parameter_list|()
 block|{
 name|KeyValue
@@ -276,7 +265,7 @@ annotation|@
 name|Test
 specifier|public
 name|void
-name|testDeletedBy_DeleteColumn
+name|testDeletedByDeleteColumn
 parameter_list|()
 block|{
 name|KeyValue
@@ -385,7 +374,7 @@ annotation|@
 name|Test
 specifier|public
 name|void
-name|testDeletedBy_DeleteFamily
+name|testDeletedByDeleteFamily
 parameter_list|()
 block|{
 name|KeyValue
@@ -494,7 +483,7 @@ annotation|@
 name|Test
 specifier|public
 name|void
-name|testDeletedBy_DeleteFamilyVersion
+name|testDeletedByDeleteFamilyVersion
 parameter_list|()
 block|{
 name|byte
@@ -541,17 +530,6 @@ argument_list|(
 literal|"qualifier4"
 argument_list|)
 decl_stmt|;
-name|deleteType
-operator|=
-name|KeyValue
-operator|.
-name|Type
-operator|.
-name|DeleteFamilyVersion
-operator|.
-name|getCode
-argument_list|()
-expr_stmt|;
 name|KeyValue
 name|kv
 init|=
@@ -988,7 +966,7 @@ annotation|@
 name|Test
 specifier|public
 name|void
-name|testDelete_DeleteColumn
+name|testDeleteDeleteColumn
 parameter_list|()
 block|{
 name|byte
@@ -1002,17 +980,6 @@ argument_list|(
 literal|"qualifier"
 argument_list|)
 decl_stmt|;
-name|deleteType
-operator|=
-name|KeyValue
-operator|.
-name|Type
-operator|.
-name|Delete
-operator|.
-name|getCode
-argument_list|()
-expr_stmt|;
 name|KeyValue
 name|kv
 init|=
@@ -1084,17 +1051,6 @@ name|Type
 operator|.
 name|DeleteColumn
 argument_list|)
-expr_stmt|;
-name|deleteType
-operator|=
-name|KeyValue
-operator|.
-name|Type
-operator|.
-name|DeleteColumn
-operator|.
-name|getCode
-argument_list|()
 expr_stmt|;
 name|sdt
 operator|.
@@ -1161,7 +1117,7 @@ annotation|@
 name|Test
 specifier|public
 name|void
-name|testDeleteColumn_Delete
+name|testDeleteColumnDelete
 parameter_list|()
 block|{
 name|byte
@@ -1175,17 +1131,6 @@ argument_list|(
 literal|"qualifier"
 argument_list|)
 decl_stmt|;
-name|deleteType
-operator|=
-name|KeyValue
-operator|.
-name|Type
-operator|.
-name|DeleteColumn
-operator|.
-name|getCode
-argument_list|()
-expr_stmt|;
 name|KeyValue
 name|kv
 init|=
@@ -1232,17 +1177,6 @@ name|toBytes
 argument_list|(
 literal|"qualifier1"
 argument_list|)
-expr_stmt|;
-name|deleteType
-operator|=
-name|KeyValue
-operator|.
-name|Type
-operator|.
-name|Delete
-operator|.
-name|getCode
-argument_list|()
 expr_stmt|;
 name|kv
 operator|=
@@ -1301,14 +1235,14 @@ name|ret
 argument_list|)
 expr_stmt|;
 block|}
-comment|//Testing new way where we save the Delete in case of a Delete for specific
-comment|//ts, could have just added the last line to the first test, but rather keep
-comment|//them separated
+comment|// Testing new way where we save the Delete in case of a Delete for specific
+comment|// ts, could have just added the last line to the first test, but rather keep
+comment|// them separated
 annotation|@
 name|Test
 specifier|public
 name|void
-name|testDelete_KeepDelete
+name|testDeleteKeepDelete
 parameter_list|()
 block|{
 name|byte
@@ -1322,17 +1256,6 @@ argument_list|(
 literal|"qualifier"
 argument_list|)
 decl_stmt|;
-name|deleteType
-operator|=
-name|KeyValue
-operator|.
-name|Type
-operator|.
-name|Delete
-operator|.
-name|getCode
-argument_list|()
-expr_stmt|;
 name|KeyValue
 name|kv
 init|=
@@ -1393,7 +1316,7 @@ annotation|@
 name|Test
 specifier|public
 name|void
-name|testDelete_KeepVersionZero
+name|testDeleteKeepVersionZero
 parameter_list|()
 block|{
 name|byte
@@ -1407,17 +1330,6 @@ argument_list|(
 literal|"qualifier"
 argument_list|)
 decl_stmt|;
-name|deleteType
-operator|=
-name|KeyValue
-operator|.
-name|Type
-operator|.
-name|Delete
-operator|.
-name|getCode
-argument_list|()
-expr_stmt|;
 name|long
 name|deleteTimestamp
 init|=

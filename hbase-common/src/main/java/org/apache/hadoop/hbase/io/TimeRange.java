@@ -485,7 +485,7 @@ name|getMin
 argument_list|()
 return|;
 block|}
-comment|/**    * Check if the specified timestamp is within this TimeRange.    *<p>    * Returns true if within interval [minStamp, maxStamp), false    * if not.    * @param timestamp timestamp to check    * @return true if within TimeRange, false if not    */
+comment|/**    * Check if the specified timestamp is within or after this TimeRange.    *<p>    * Returns true if greater than minStamp, false if not.    * @param timestamp timestamp to check    * @return true if within or after TimeRange, false if not    */
 specifier|public
 name|boolean
 name|withinOrAfterTimeRange

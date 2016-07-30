@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -14,6 +14,8 @@ operator|.
 name|hbase
 operator|.
 name|regionserver
+operator|.
+name|querymatcher
 package|;
 end_package
 
@@ -126,7 +128,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This class is responsible for the tracking and enforcement of Deletes  * during the course of a Scan operation.  *  * It only has to enforce Delete and DeleteColumn, since the  * DeleteFamily is handled at a higher level.  *  *<p>  * This class is utilized through three methods:  *<ul><li>{@link #add} when encountering a Delete or DeleteColumn</li>  *<li>{@link #isDeleted} when checking if a Put KeyValue has been deleted</li>  *<li>{@link #update} when reaching the end of a StoreFile or row for scans</li>  *</ul>  *<p>  * This class is NOT thread-safe as queries are never multi-threaded  */
+comment|/**  * This class is responsible for the tracking and enforcement of Deletes during the course of a Scan  * operation. It only has to enforce Delete and DeleteColumn, since the DeleteFamily is handled at a  * higher level.  *<p>  * This class is utilized through three methods:  *<ul>  *<li>{@link #add} when encountering a Delete or DeleteColumn</li>  *<li>{@link #isDeleted} when checking if a Put KeyValue has been deleted</li>  *<li>{@link #update} when reaching the end of a StoreFile or row for scans</li>  *</ul>  *<p>  * This class is NOT thread-safe as queries are never multi-threaded  */
 end_comment
 
 begin_class
@@ -197,16 +199,7 @@ name|deleteTimestamp
 init|=
 literal|0L
 decl_stmt|;
-comment|/**    * Constructor for ScanDeleteTracker    */
-specifier|public
-name|ScanDeleteTracker
-parameter_list|()
-block|{
-name|super
-argument_list|()
-expr_stmt|;
-block|}
-comment|/**    * Add the specified KeyValue to the list of deletes to check against for    * this row operation.    *<p>    * This is called when a Delete is encountered.    * @param cell - the delete cell    */
+comment|/**    * Add the specified KeyValue to the list of deletes to check against for this row operation.    *<p>    * This is called when a Delete is encountered.    * @param cell - the delete cell    */
 annotation|@
 name|Override
 specifier|public
@@ -355,7 +348,7 @@ expr_stmt|;
 block|}
 comment|// missing else is never called.
 block|}
-comment|/**    * Check if the specified KeyValue buffer has been deleted by a previously    * seen delete.    *    * @param cell - current cell to check if deleted by a previously seen delete    * @return deleteResult    */
+comment|/**    * Check if the specified KeyValue buffer has been deleted by a previously seen delete.    * @param cell - current cell to check if deleted by a previously seen delete    * @return deleteResult    */
 annotation|@
 name|Override
 specifier|public

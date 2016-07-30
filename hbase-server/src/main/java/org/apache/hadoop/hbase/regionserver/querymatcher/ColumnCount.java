@@ -14,6 +14,8 @@ operator|.
 name|hbase
 operator|.
 name|regionserver
+operator|.
+name|querymatcher
 package|;
 end_package
 
@@ -34,7 +36,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Simple wrapper for a byte buffer and a counter.  Does not copy.  *<p>  * NOT thread-safe because it is not used in a multi-threaded context, yet.  */
+comment|/**  * Simple wrapper for a byte buffer and a counter. Does not copy.  *<p>  * NOT thread-safe because it is not used in a multi-threaded context, yet.  */
 end_comment
 
 begin_class
@@ -42,7 +44,6 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
-specifier|public
 class|class
 name|ColumnCount
 block|{

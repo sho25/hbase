@@ -539,6 +539,7 @@ operator|.
 name|parallelSeekEnabled
 return|;
 block|}
+specifier|public
 name|byte
 index|[]
 name|getFamily
@@ -548,6 +549,7 @@ return|return
 name|family
 return|;
 block|}
+specifier|public
 name|int
 name|getMinVersions
 parameter_list|()
@@ -574,6 +576,7 @@ return|return
 name|ttl
 return|;
 block|}
+specifier|public
 name|KeepDeletedCells
 name|getKeepDeletedCells
 parameter_list|()
