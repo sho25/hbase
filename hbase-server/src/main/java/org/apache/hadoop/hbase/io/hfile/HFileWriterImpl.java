@@ -1322,6 +1322,18 @@ name|conf
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|dataBlockIndexWriter
+operator|.
+name|setMinIndexNumEntries
+argument_list|(
+name|HFileBlockIndex
+operator|.
+name|getMinIndexNumEntries
+argument_list|(
+name|conf
+argument_list|)
+argument_list|)
+expr_stmt|;
 name|inlineBlockWriters
 operator|.
 name|add
@@ -1503,7 +1515,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Try to return a Cell that falls between<code>left</code> and    *<code>right</code> but that is shorter; i.e. takes up less space. This    * trick is used building HFile block index. Its an optimization. It does not    * always work. In this case we'll just return the<code>right</code> cell.    *     * @param comparator    *          Comparator to use.    * @param left    * @param right    * @return A cell that sorts between<code>left</code> and<code>right</code>.    */
+comment|/**    * Try to return a Cell that falls between<code>left</code> and    *<code>right</code> but that is shorter; i.e. takes up less space. This    * trick is used building HFile block index. Its an optimization. It does not    * always work. In this case we'll just return the<code>right</code> cell.    *    * @param comparator    *          Comparator to use.    * @param left    * @param right    * @return A cell that sorts between<code>left</code> and<code>right</code>.    */
 specifier|public
 specifier|static
 name|Cell

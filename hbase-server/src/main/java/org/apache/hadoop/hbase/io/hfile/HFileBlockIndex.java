@@ -499,6 +499,22 @@ name|MAX_CHUNK_SIZE_KEY
 init|=
 literal|"hfile.index.block.max.size"
 decl_stmt|;
+comment|/**    * Minimum number of entries in a single index block. Even if we are above the    * hfile.index.block.max.size we will keep writing to the same block unless we have that many    * entries. We should have at least a few entries so that we don't have too many levels in the    * multi-level index. This should be at least 2 to make sure there is no infinite recursion.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|MIN_INDEX_NUM_ENTRIES_KEY
+init|=
+literal|"hfile.index.block.min.entries"
+decl_stmt|;
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_MIN_INDEX_NUM_ENTRIES
+init|=
+literal|16
+decl_stmt|;
 comment|/**    * The number of bytes stored in each "secondary index" entry in addition to    * key bytes in the non-root index block format. The first long is the file    * offset of the deeper-level block the entry points to, and the int that    * follows is that block's on-disk size without including header.    */
 specifier|static
 specifier|final
@@ -590,6 +606,8 @@ operator|=
 name|treeLevel
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|long
 name|calculateHeapSizeForBlockKeys
@@ -741,6 +759,8 @@ return|return
 literal|null
 return|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|initialize
@@ -759,6 +779,8 @@ index|]
 index|[]
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|add
@@ -1093,6 +1115,8 @@ operator|=
 name|treeLevel
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|long
 name|calculateHeapSizeForBlockKeys
@@ -1931,6 +1955,8 @@ return|return
 name|targetMidKey
 return|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|initialize
@@ -1949,6 +1975,8 @@ index|]
 expr_stmt|;
 block|}
 comment|/**      * Adds a new entry in the root block index. Only used when reading.      *      * @param key Last key in the block      * @param offset file offset where the block is stored      * @param dataSize the uncompressed data size      */
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|add
@@ -2359,7 +2387,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**      * Return the BlockWithScanInfo which contains the DataBlock with other scan      * info such as nextIndexedKey. This function will only be called when the      * HFile version is larger than 1.      *       * @param key      *          the key we are looking for      * @param currentBlock      *          the current block, to avoid re-reading the same block      * @param cacheBlocks      * @param pread      * @param isCompaction      * @param expectedDataBlockEncoding the data block encoding the caller is      *          expecting the data block to be in, or null to not perform this      *          check and return the block irrespective of the encoding.      * @return the BlockWithScanInfo which contains the DataBlock with other      *         scan info such as nextIndexedKey.      * @throws IOException      */
+comment|/**      * Return the BlockWithScanInfo which contains the DataBlock with other scan      * info such as nextIndexedKey. This function will only be called when the      * HFile version is larger than 1.      *      * @param key      *          the key we are looking for      * @param currentBlock      *          the current block, to avoid re-reading the same block      * @param cacheBlocks      * @param pread      * @param isCompaction      * @param expectedDataBlockEncoding the data block encoding the caller is      *          expecting the data block to be in, or null to not perform this      *          check and return the block irrespective of the encoding.      * @return the BlockWithScanInfo which contains the DataBlock with other      *         scan info such as nextIndexedKey.      * @throws IOException      */
 specifier|public
 specifier|abstract
 name|BlockWithScanInfo
@@ -2437,7 +2465,7 @@ return|return
 name|rootCount
 return|;
 block|}
-comment|/**      * Finds the root-level index block containing the given key.      *       * @param key      *          Key to find      * @param comp      *          the comparator to be used      * @return Offset of block containing<code>key</code> (between 0 and the      *         number of blocks - 1) or -1 if this file does not contain the      *         request.      */
+comment|/**      * Finds the root-level index block containing the given key.      *      * @param key      *          Key to find      * @param comp      *          the comparator to be used      * @return Offset of block containing<code>key</code> (between 0 and the      *         number of blocks - 1) or -1 if this file does not contain the      *         request.      */
 comment|// When we want to find the meta index block or bloom block for ROW bloom
 comment|// type Bytes.BYTES_RAWCOMPARATOR would be enough. For the ROW_COL bloom case we need the
 comment|// CellComparator.
@@ -2628,7 +2656,7 @@ name|targetKeyLength
 argument_list|)
 return|;
 block|}
-comment|/**      * Performs a binary search over a non-root level index block. Utilizes the      * secondary index, which records the offsets of (offset, onDiskSize,      * firstKey) tuples of all entries.      *       * @param key      *          the key we are searching for offsets to individual entries in      *          the blockIndex buffer      * @param nonRootIndex      *          the non-root index block buffer, starting with the secondary      *          index. The position is ignored.      * @return the index i in [0, numEntries - 1] such that keys[i]<= key<      *         keys[i + 1], if keys is the array of all keys being searched, or      *         -1 otherwise      * @throws IOException      */
+comment|/**      * Performs a binary search over a non-root level index block. Utilizes the      * secondary index, which records the offsets of (offset, onDiskSize,      * firstKey) tuples of all entries.      *      * @param key      *          the key we are searching for offsets to individual entries in      *          the blockIndex buffer      * @param nonRootIndex      *          the non-root index block buffer, starting with the secondary      *          index. The position is ignored.      * @return the index i in [0, numEntries - 1] such that keys[i]<= key<      *         keys[i + 1], if keys is the array of all keys being searched, or      *         -1 otherwise      * @throws IOException      */
 specifier|static
 name|int
 name|binarySearchNonRootIndex
@@ -3448,6 +3476,11 @@ specifier|private
 name|int
 name|maxChunkSize
 decl_stmt|;
+comment|/** The maximum level of multi-level index blocks */
+specifier|private
+name|int
+name|minIndexNumEntries
+decl_stmt|;
 comment|/** Whether we require this block index to always be single-level. */
 specifier|private
 name|boolean
@@ -3549,6 +3582,14 @@ name|HFileBlockIndex
 operator|.
 name|DEFAULT_MAX_CHUNK_SIZE
 expr_stmt|;
+name|this
+operator|.
+name|minIndexNumEntries
+operator|=
+name|HFileBlockIndex
+operator|.
+name|DEFAULT_MIN_INDEX_NUM_ENTRIES
+expr_stmt|;
 block|}
 specifier|public
 name|void
@@ -3569,7 +3610,7 @@ throw|throw
 operator|new
 name|IllegalArgumentException
 argument_list|(
-literal|"Invald maximum index block size"
+literal|"Invalid maximum index block size"
 argument_list|)
 throw|;
 block|}
@@ -3578,6 +3619,36 @@ operator|.
 name|maxChunkSize
 operator|=
 name|maxChunkSize
+expr_stmt|;
+block|}
+specifier|public
+name|void
+name|setMinIndexNumEntries
+parameter_list|(
+name|int
+name|minIndexNumEntries
+parameter_list|)
+block|{
+if|if
+condition|(
+name|minIndexNumEntries
+operator|<=
+literal|1
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Invalid maximum index level, should be>= 2"
+argument_list|)
+throw|;
+block|}
+name|this
+operator|.
+name|minIndexNumEntries
+operator|=
+name|minIndexNumEntries
 expr_stmt|;
 block|}
 comment|/**      * Writes the root level and intermediate levels of the block index into      * the output stream, generating the tree from bottom up. Assumes that the      * leaf level has been inline-written to the disk if there is enough data      * for more than one leaf block. We iterate by breaking the current level      * of the block index, starting with the index of all leaf-level blocks,      * into chunks small enough to be written to disk, and generate its parent      * level, until we end up with a level small enough to become the root      * level.      *      * If the leaf level is not large enough, there is no inline block index      * anymore, so we only write that level of block index to disk as the root      * level.      *      * @param out FSDataOutputStream      * @return position at which we entered the root-level index.      * @throws IOException      */
@@ -3656,6 +3727,19 @@ name|getRootSize
 argument_list|()
 operator|>
 name|maxChunkSize
+comment|// HBASE-16288: if firstKey is larger than maxChunkSize we will loop indefinitely
+operator|&&
+name|rootChunk
+operator|.
+name|getNumEntries
+argument_list|()
+operator|>
+name|minIndexNumEntries
+comment|// Sanity check. We will not hit this (minIndexNumEntries ^ 16) blocks can be addressed
+operator|&&
+name|numLevels
+operator|<
+literal|16
 condition|)
 block|{
 name|rootChunk
@@ -4015,8 +4099,15 @@ name|i
 argument_list|)
 argument_list|)
 expr_stmt|;
+comment|// HBASE-16288: We have to have at least minIndexNumEntries(16) items in the index so that
+comment|// we won't end up with too-many levels for a index with very large rowKeys. Also, if the
+comment|// first key is larger than maxChunkSize this will cause infinite recursion.
 if|if
 condition|(
+name|i
+operator|>=
+name|minIndexNumEntries
+operator|&&
 name|curChunk
 operator|.
 name|getRootSize
@@ -4024,6 +4115,7 @@ argument_list|()
 operator|>=
 name|maxChunkSize
 condition|)
+block|{
 name|writeIntermediateBlock
 argument_list|(
 name|out
@@ -4033,6 +4125,7 @@ argument_list|,
 name|curChunk
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 if|if
 condition|(
@@ -5543,6 +5636,26 @@ argument_list|(
 name|MAX_CHUNK_SIZE_KEY
 argument_list|,
 name|DEFAULT_MAX_CHUNK_SIZE
+argument_list|)
+return|;
+block|}
+specifier|public
+specifier|static
+name|int
+name|getMinIndexNumEntries
+parameter_list|(
+name|Configuration
+name|conf
+parameter_list|)
+block|{
+return|return
+name|conf
+operator|.
+name|getInt
+argument_list|(
+name|MIN_INDEX_NUM_ENTRIES_KEY
+argument_list|,
+name|DEFAULT_MIN_INDEX_NUM_ENTRIES
 argument_list|)
 return|;
 block|}
