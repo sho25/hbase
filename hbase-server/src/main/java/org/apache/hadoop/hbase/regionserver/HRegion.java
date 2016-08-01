@@ -28735,6 +28735,27 @@ argument_list|(
 name|scannerContext
 argument_list|)
 expr_stmt|;
+comment|// early check, see HBASE-16296
+if|if
+condition|(
+name|isFilterDoneInternal
+argument_list|()
+condition|)
+block|{
+return|return
+name|scannerContext
+operator|.
+name|setScannerState
+argument_list|(
+name|NextState
+operator|.
+name|NO_MORE_VALUES
+argument_list|)
+operator|.
+name|hasMoreValues
+argument_list|()
+return|;
+block|}
 comment|// Typically the count of rows scanned is incremented inside #populateResult. However,
 comment|// here we are filtering a row based purely on its row key, preventing us from calling
 comment|// #populateResult. Thus, perform the necessary increment here to rows scanned metric
