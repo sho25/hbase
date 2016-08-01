@@ -513,6 +513,112 @@ argument_list|)
 throw|;
 block|}
 block|}
+comment|/**    * Create a Put operation for an immutable row key.    *    * @param row row key    * @param rowIsImmutable whether the input row is immutable.    *                       Set to true if the caller can guarantee that    *                       the row will not be changed for the Put duration.    */
+specifier|public
+name|Put
+parameter_list|(
+name|byte
+index|[]
+name|row
+parameter_list|,
+name|boolean
+name|rowIsImmutable
+parameter_list|)
+block|{
+name|this
+argument_list|(
+name|row
+argument_list|,
+name|HConstants
+operator|.
+name|LATEST_TIMESTAMP
+argument_list|,
+name|rowIsImmutable
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Create a Put operation for an immutable row key, using a given timestamp.    *    * @param row row key    * @param ts timestamp    * @param rowIsImmutable whether the input row is immutable.    *                       Set to true if the caller can guarantee that    *                       the row will not be changed for the Put duration.    */
+specifier|public
+name|Put
+parameter_list|(
+name|byte
+index|[]
+name|row
+parameter_list|,
+name|long
+name|ts
+parameter_list|,
+name|boolean
+name|rowIsImmutable
+parameter_list|)
+block|{
+comment|// Check and set timestamp
+if|if
+condition|(
+name|ts
+operator|<
+literal|0
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Timestamp cannot be negative. ts="
+operator|+
+name|ts
+argument_list|)
+throw|;
+block|}
+name|this
+operator|.
+name|ts
+operator|=
+name|ts
+expr_stmt|;
+comment|// Deal with row according to rowIsImmutable
+name|checkRow
+argument_list|(
+name|row
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|rowIsImmutable
+condition|)
+block|{
+comment|// Row is immutable
+name|this
+operator|.
+name|row
+operator|=
+name|row
+expr_stmt|;
+comment|// Do not make a local copy, but point to the provided byte array directly
+block|}
+else|else
+block|{
+comment|// Row is not immutable
+name|this
+operator|.
+name|row
+operator|=
+name|Bytes
+operator|.
+name|copy
+argument_list|(
+name|row
+argument_list|,
+literal|0
+argument_list|,
+name|row
+operator|.
+name|length
+argument_list|)
+expr_stmt|;
+comment|// Make a local copy
+block|}
+block|}
 comment|/**    * Copy constructor.  Creates a Put operation cloned from the specified Put.    * @param putToCopy put to copy    */
 specifier|public
 name|Put

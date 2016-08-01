@@ -67,6 +67,18 @@ name|assertNotEquals
 import|;
 end_import
 
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
 begin_class
 specifier|public
 class|class
@@ -191,6 +203,74 @@ name|family
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
+comment|// HBASE-14881
+annotation|@
+name|Test
+specifier|public
+name|void
+name|testRowIsImmutableOrNot
+parameter_list|()
+block|{
+name|byte
+index|[]
+name|rowKey
+init|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+literal|"immutable"
+argument_list|)
+decl_stmt|;
+comment|// Test when row key is immutable
+name|Put
+name|putRowIsImmutable
+init|=
+operator|new
+name|Put
+argument_list|(
+name|rowKey
+argument_list|,
+literal|true
+argument_list|)
+decl_stmt|;
+name|assertTrue
+argument_list|(
+name|rowKey
+operator|==
+name|putRowIsImmutable
+operator|.
+name|getRow
+argument_list|()
+argument_list|)
+expr_stmt|;
+comment|// No local copy is made
+comment|// Test when row key is not immutable
+name|Put
+name|putRowIsNotImmutable
+init|=
+operator|new
+name|Put
+argument_list|(
+name|rowKey
+argument_list|,
+literal|1000L
+argument_list|,
+literal|false
+argument_list|)
+decl_stmt|;
+name|assertTrue
+argument_list|(
+name|rowKey
+operator|!=
+name|putRowIsNotImmutable
+operator|.
+name|getRow
+argument_list|()
+argument_list|)
+expr_stmt|;
+comment|// A local copy is made
 block|}
 block|}
 end_class
