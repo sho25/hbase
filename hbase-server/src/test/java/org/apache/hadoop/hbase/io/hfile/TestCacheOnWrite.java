@@ -2285,7 +2285,7 @@ name|BlockType
 operator|.
 name|DATA
 operator|+
-literal|"=2663, LEAF_INDEX=297, BLOOM_CHUNK=9, INTERMEDIATE_INDEX=34}"
+literal|"=2663, LEAF_INDEX=297, BLOOM_CHUNK=9, INTERMEDIATE_INDEX=32}"
 argument_list|,
 name|countByType
 argument_list|)
