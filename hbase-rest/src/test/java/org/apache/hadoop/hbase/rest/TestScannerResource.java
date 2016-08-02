@@ -189,9 +189,7 @@ name|org
 operator|.
 name|apache
 operator|.
-name|commons
-operator|.
-name|httpclient
+name|http
 operator|.
 name|Header
 import|;

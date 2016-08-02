@@ -87,16 +87,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|Dictionary
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|HashMap
 import|;
 end_import
@@ -108,16 +98,6 @@ operator|.
 name|util
 operator|.
 name|List
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Map
 import|;
 end_import
 
@@ -139,9 +119,7 @@ name|org
 operator|.
 name|apache
 operator|.
-name|commons
-operator|.
-name|httpclient
+name|http
 operator|.
 name|Header
 import|;
