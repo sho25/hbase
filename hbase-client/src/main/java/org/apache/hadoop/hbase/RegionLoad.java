@@ -199,7 +199,7 @@ block|{
 return|return
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|getName
 argument_list|()
