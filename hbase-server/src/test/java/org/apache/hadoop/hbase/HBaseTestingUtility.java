@@ -313,9 +313,15 @@ end_import
 
 begin_import
 import|import
-name|javax
+name|edu
 operator|.
-name|annotation
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
 operator|.
 name|Nullable
 import|;
