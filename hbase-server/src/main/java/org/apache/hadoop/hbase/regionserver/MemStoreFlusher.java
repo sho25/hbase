@@ -2766,6 +2766,23 @@ name|Region
 name|region
 parameter_list|)
 block|{
+comment|// When compaction is disabled, the region is flushable
+if|if
+condition|(
+operator|!
+name|region
+operator|.
+name|getTableDesc
+argument_list|()
+operator|.
+name|isCompactionEnabled
+argument_list|()
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
 for|for
 control|(
 name|Store
