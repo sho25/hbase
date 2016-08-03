@@ -279,18 +279,6 @@ name|KeeperException
 import|;
 end_import
 
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|ServiceException
-import|;
-end_import
-
 begin_comment
 comment|/**  * The sweep tool. It deletes the mob files that are not used and merges the small mob files to  * bigger ones. Each run of this sweep tool only handles one column family. The runs on  * the same column family are mutually exclusive. And the major compaction and sweep tool on the  * same column family are mutually exclusive too.  */
 end_comment
@@ -330,8 +318,6 @@ throws|,
 name|ClassNotFoundException
 throws|,
 name|KeeperException
-throws|,
-name|ServiceException
 block|{
 name|Configuration
 name|conf
@@ -342,7 +328,7 @@ decl_stmt|;
 comment|// make sure the target HBase exists.
 name|HBaseAdmin
 operator|.
-name|checkHBaseAvailable
+name|available
 argument_list|(
 name|conf
 argument_list|)

@@ -179,9 +179,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ipc
+name|classification
 operator|.
-name|RpcControllerFactory
+name|InterfaceAudience
 import|;
 end_import
 
@@ -195,9 +195,25 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|protobuf
+name|ipc
 operator|.
-name|ProtobufUtil
+name|PayloadCarryingRpcController
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ipc
+operator|.
+name|RpcControllerFactory
 import|;
 end_import
 
@@ -343,23 +359,15 @@ name|VisibleForTesting
 import|;
 end_import
 
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|ServiceException
-import|;
-end_import
-
 begin_comment
-comment|/**  * Callable that handles the<code>multi</code> method call going against a single  * regionserver; i.e. A {@link RegionServerCallable} for the multi call (It is not a  * {@link RegionServerCallable} that goes against multiple regions.  * @param<R>  */
+comment|/**  * Callable that handles the<code>multi</code> method call going against a single  * regionserver; i.e. A RegionServerCallable for the multi call (It is NOT a  * RegionServerCallable that goes against multiple regions).  * @param<R>  */
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 class|class
 name|MultiServerCallable
 parameter_list|<
@@ -494,15 +502,15 @@ return|;
 block|}
 annotation|@
 name|Override
-specifier|public
+specifier|protected
 name|MultiResponse
 name|call
 parameter_list|(
-name|int
-name|callTimeout
+name|PayloadCarryingRpcController
+name|controller
 parameter_list|)
 throws|throws
-name|IOException
+name|Exception
 block|{
 name|int
 name|countOfActions
@@ -691,7 +699,7 @@ operator|.
 name|cellBlock
 condition|)
 block|{
-comment|// Presize.  Presume at least a KV per Action.  There are likely more.
+comment|// Pre-size. Presume at least a KV per Action.  There are likely more.
 if|if
 condition|(
 name|cells
@@ -764,13 +772,27 @@ expr_stmt|;
 block|}
 comment|// Controller optionally carries cell data over the proxy/service boundary and also
 comment|// optionally ferries cell response data back out again.
+name|PayloadCarryingRpcController
+name|payloadCarryingRpcController
+init|=
+literal|null
+decl_stmt|;
 if|if
 condition|(
 name|cells
 operator|!=
 literal|null
 condition|)
+block|{
+comment|// Cast. Will fail if we have been passed wrong RpcController type.
+name|payloadCarryingRpcController
+operator|=
+operator|(
+name|PayloadCarryingRpcController
+operator|)
 name|controller
+expr_stmt|;
+name|payloadCarryingRpcController
 operator|.
 name|setCellScanner
 argument_list|(
@@ -782,21 +804,7 @@ name|cells
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|controller
-operator|.
-name|setPriority
-argument_list|(
-name|getTableName
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|controller
-operator|.
-name|setCallTimeout
-argument_list|(
-name|callTimeout
-argument_list|)
-expr_stmt|;
+block|}
 name|ClientProtos
 operator|.
 name|MultiResponse
@@ -812,8 +820,6 @@ operator|.
 name|build
 argument_list|()
 decl_stmt|;
-try|try
-block|{
 name|responseProto
 operator|=
 name|getStub
@@ -826,22 +832,6 @@ argument_list|,
 name|requestProto
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|ServiceException
-name|e
-parameter_list|)
-block|{
-throw|throw
-name|ProtobufUtil
-operator|.
-name|getRemoteException
-argument_list|(
-name|e
-argument_list|)
-throw|;
-block|}
 if|if
 condition|(
 name|responseProto
@@ -861,7 +851,13 @@ name|requestProto
 argument_list|,
 name|responseProto
 argument_list|,
-name|controller
+name|payloadCarryingRpcController
+operator|==
+literal|null
+condition|?
+literal|null
+else|:
+name|payloadCarryingRpcController
 operator|.
 name|cellScanner
 argument_list|()

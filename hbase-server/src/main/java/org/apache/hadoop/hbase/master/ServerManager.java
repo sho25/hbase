@@ -619,26 +619,6 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|RegionServerStatusProtos
-operator|.
-name|RegionServerStartupRequest
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
 name|ClusterStatusProtos
 operator|.
 name|RegionStoreSequenceIds
@@ -662,6 +642,26 @@ operator|.
 name|ClusterStatusProtos
 operator|.
 name|StoreSequenceId
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|RegionServerStatusProtos
+operator|.
+name|RegionServerStartupRequest
 import|;
 end_import
 
@@ -2389,7 +2389,7 @@ return|return
 literal|null
 return|;
 block|}
-comment|/**    * Adds the onlineServers list. onlineServers should be locked.    * @param serverName The remote servers name.    * @param sl    * @return Server load from the removed server, if any.    */
+comment|/**    * Adds the onlineServers list. onlineServers should be locked.    * @param serverName The remote servers name.    * @param s    */
 annotation|@
 name|VisibleForTesting
 name|void

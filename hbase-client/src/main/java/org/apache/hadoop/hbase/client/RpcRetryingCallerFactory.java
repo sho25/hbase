@@ -129,6 +129,7 @@ specifier|final
 name|int
 name|startLogErrorsCnt
 decl_stmt|;
+comment|/* These below data members are UNUSED!!!*/
 specifier|private
 specifier|final
 name|boolean
