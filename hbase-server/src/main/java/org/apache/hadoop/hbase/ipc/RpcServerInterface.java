@@ -262,6 +262,9 @@ name|InetSocketAddress
 name|getListenerAddress
 parameter_list|()
 function_decl|;
+comment|/**    * @deprecated As of release 1.3, this will be removed in HBase 3.0    */
+annotation|@
+name|Deprecated
 name|Pair
 argument_list|<
 name|Message
@@ -318,6 +321,9 @@ name|receiveTime
 parameter_list|,
 name|MonitoredRPCHandler
 name|status
+parameter_list|,
+name|long
+name|startTime
 parameter_list|,
 name|int
 name|timeout
