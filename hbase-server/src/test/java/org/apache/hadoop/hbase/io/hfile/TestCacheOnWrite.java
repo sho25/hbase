@@ -1148,6 +1148,21 @@ name|getBlockCache
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|//set LruBlockCache.LRU_HARD_CAPACITY_LIMIT_FACTOR_CONFIG_NAME to 2.0f due to HBASE-16287
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|setFloat
+argument_list|(
+name|LruBlockCache
+operator|.
+name|LRU_HARD_CAPACITY_LIMIT_FACTOR_CONFIG_NAME
+argument_list|,
+literal|2.0f
+argument_list|)
+expr_stmt|;
 comment|// memory
 name|BlockCache
 name|lru

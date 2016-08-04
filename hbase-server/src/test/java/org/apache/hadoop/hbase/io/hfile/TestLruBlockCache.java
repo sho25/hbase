@@ -1738,6 +1738,9 @@ comment|// multi
 literal|0.34f
 argument_list|,
 comment|// memory
+literal|1.2f
+argument_list|,
+comment|// limit
 literal|false
 argument_list|,
 literal|16
@@ -2629,6 +2632,9 @@ comment|// multi
 literal|0.5f
 argument_list|,
 comment|// memory
+literal|1.2f
+argument_list|,
+comment|// limit
 literal|true
 argument_list|,
 literal|16
@@ -3562,6 +3568,9 @@ comment|// multi
 literal|0.34f
 argument_list|,
 comment|// memory
+literal|1.2f
+argument_list|,
+comment|// limit
 literal|false
 argument_list|,
 literal|16
@@ -3938,6 +3947,9 @@ comment|// multi
 literal|0.34f
 argument_list|,
 comment|// memory
+literal|1.2f
+argument_list|,
+comment|// limit
 literal|false
 argument_list|,
 literal|1024
@@ -4163,6 +4175,9 @@ comment|// multi
 literal|0.34f
 argument_list|,
 comment|// memory
+literal|1.2f
+argument_list|,
+comment|// limit
 literal|false
 argument_list|,
 literal|16
