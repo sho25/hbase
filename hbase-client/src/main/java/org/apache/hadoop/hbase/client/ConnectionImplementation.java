@@ -4021,6 +4021,15 @@ argument_list|)
 expr_stmt|;
 name|s
 operator|.
+name|addFamily
+argument_list|(
+name|HConstants
+operator|.
+name|CATALOG_FAMILY
+argument_list|)
+expr_stmt|;
+name|s
+operator|.
 name|setSmall
 argument_list|(
 literal|true

@@ -7508,7 +7508,7 @@ operator|new
 name|RegionStateStore
 argument_list|(
 operator|new
-name|MyRegionServer
+name|MyMaster
 argument_list|(
 name|conf
 argument_list|,

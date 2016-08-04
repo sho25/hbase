@@ -3183,6 +3183,8 @@ argument_list|,
 name|serverName0
 argument_list|,
 literal|3
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|assertEmptyMetaLocation
@@ -3426,6 +3428,8 @@ argument_list|,
 name|HConstants
 operator|.
 name|LATEST_TIMESTAMP
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|assertEmptyMetaLocation
@@ -4373,6 +4377,8 @@ argument_list|,
 literal|1
 argument_list|,
 name|masterSystemTime
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|result
@@ -4837,6 +4843,8 @@ name|getServerName
 argument_list|()
 argument_list|,
 literal|1
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|assertTrue

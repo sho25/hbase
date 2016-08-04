@@ -76,6 +76,14 @@ literal|1
 argument_list|,
 literal|1
 argument_list|)
+block|,
+comment|/**      *<code>REPLICATION_SCOPE_SERIAL = 2;</code>      */
+name|REPLICATION_SCOPE_SERIAL
+argument_list|(
+literal|2
+argument_list|,
+literal|2
+argument_list|)
 block|,     ;
 comment|/**      *<code>REPLICATION_SCOPE_LOCAL = 0;</code>      */
 specifier|public
@@ -94,6 +102,15 @@ name|int
 name|REPLICATION_SCOPE_GLOBAL_VALUE
 init|=
 literal|1
+decl_stmt|;
+comment|/**      *<code>REPLICATION_SCOPE_SERIAL = 2;</code>      */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|REPLICATION_SCOPE_SERIAL_VALUE
+init|=
+literal|2
 decl_stmt|;
 specifier|public
 specifier|final
@@ -130,6 +147,12 @@ literal|1
 case|:
 return|return
 name|REPLICATION_SCOPE_GLOBAL
+return|;
+case|case
+literal|2
+case|:
+return|return
+name|REPLICATION_SCOPE_SERIAL
 return|;
 default|default:
 return|return
@@ -58762,15 +58785,17 @@ literal|"ver\030\006 \001(\0132\024.hbase.pb.ServerName\022\023\n\013regio"
 operator|+
 literal|"n_name\030\007 \001(\014\".\n\tEventType\022\017\n\013REGION_OPEN"
 operator|+
-literal|"\020\000\022\020\n\014REGION_CLOSE\020\001\"\014\n\nWALTrailer*F\n\tSc"
+literal|"\020\000\022\020\n\014REGION_CLOSE\020\001\"\014\n\nWALTrailer*d\n\tSc"
 operator|+
 literal|"opeType\022\033\n\027REPLICATION_SCOPE_LOCAL\020\000\022\034\n\030"
 operator|+
-literal|"REPLICATION_SCOPE_GLOBAL\020\001B?\n*org.apache"
+literal|"REPLICATION_SCOPE_GLOBAL\020\001\022\034\n\030REPLICATIO"
 operator|+
-literal|".hadoop.hbase.protobuf.generatedB\tWALPro"
+literal|"N_SCOPE_SERIAL\020\002B?\n*org.apache.hadoop.hb"
 operator|+
-literal|"tosH\001\210\001\000\240\001\001"
+literal|"ase.protobuf.generatedB\tWALProtosH\001\210\001\000\240\001"
+operator|+
+literal|"\001"
 block|}
 decl_stmt|;
 name|com
