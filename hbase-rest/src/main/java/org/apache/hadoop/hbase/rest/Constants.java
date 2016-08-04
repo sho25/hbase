@@ -233,6 +233,11 @@ init|=
 literal|"filter"
 decl_stmt|;
 name|String
+name|SCAN_REVERSED
+init|=
+literal|"reversed"
+decl_stmt|;
+name|String
 name|CUSTOM_FILTERS
 init|=
 literal|"hbase.rest.custom.filters"
