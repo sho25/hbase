@@ -1018,6 +1018,28 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Do a get for duplicate non-idempotent operation.    * @param get query parameters.    * @param withCoprocessor    * @param nonceGroup Nonce group.    * @param nonce Nonce.    * @return list of cells resulting from the operation    * @throws IOException    */
+name|List
+argument_list|<
+name|Cell
+argument_list|>
+name|get
+parameter_list|(
+name|Get
+name|get
+parameter_list|,
+name|boolean
+name|withCoprocessor
+parameter_list|,
+name|long
+name|nonceGroup
+parameter_list|,
+name|long
+name|nonce
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Return an iterator that scans over the HRegion, returning the indicated    * columns and rows specified by the {@link Scan}.    *<p>    * This Iterator must be closed by the caller.    *    * @param scan configured {@link Scan}    * @return RegionScanner    * @throws IOException read exceptions    */
 name|RegionScanner
 name|getScanner

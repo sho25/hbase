@@ -2467,6 +2467,12 @@ argument_list|<
 name|KeyValueScanner
 argument_list|>
 name|additionalScanners
+parameter_list|,
+name|long
+name|nonceGroup
+parameter_list|,
+name|long
+name|nonce
 parameter_list|)
 throws|throws
 name|IOException
