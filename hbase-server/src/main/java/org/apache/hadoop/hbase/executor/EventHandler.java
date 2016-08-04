@@ -517,6 +517,16 @@ condition|(
 name|server
 operator|!=
 literal|null
+operator|&&
+operator|(
+name|t
+operator|instanceof
+name|Error
+operator|||
+name|t
+operator|instanceof
+name|RuntimeException
+operator|)
 condition|)
 block|{
 name|server
