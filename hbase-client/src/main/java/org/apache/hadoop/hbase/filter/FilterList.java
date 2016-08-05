@@ -1173,6 +1173,10 @@ name|filterAllRemaining
 argument_list|()
 condition|)
 block|{
+name|seenNonHintReturnCode
+operator|=
+literal|true
+expr_stmt|;
 continue|continue;
 block|}
 name|ReturnCode
