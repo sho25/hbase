@@ -10741,6 +10741,26 @@ expr_stmt|;
 if|if
 condition|(
 name|htd
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Missing table descriptor for "
+operator|+
+name|region
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|)
+throw|;
+block|}
+if|if
+condition|(
+name|htd
 operator|.
 name|getPriority
 argument_list|()
