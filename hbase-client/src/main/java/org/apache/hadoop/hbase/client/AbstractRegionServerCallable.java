@@ -33,6 +33,34 @@ name|org
 operator|.
 name|apache
 operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|Log
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|LogFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -130,7 +158,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Added by HBASE-15745 Refactor of RPC classes to better accept async changes.  * Temporary.  */
+comment|/**  * Implementations call a RegionServer.  * Passed to a {@link RpcRetryingCaller} so we retry on fail.  * TODO: this class is actually tied to one region, because most of the paths make use of  *       the regioninfo part of location when building requests. The only reason it works for  *       multi-region requests (e.g. batch) is that they happen to not use the region parts.  *       This could be done cleaner (e.g. having a generic parameter and 2 derived classes,  *       RegionCallable and actual RegionServerCallable with ServerName.  * @param<T> the class that the ServerCallable handles  */
 end_comment
 
 begin_class
@@ -150,6 +178,22 @@ argument_list|<
 name|T
 argument_list|>
 block|{
+comment|// Public because used outside of this package over in ipc.
+specifier|private
+specifier|static
+specifier|final
+name|Log
+name|LOG
+init|=
+name|LogFactory
+operator|.
+name|getLog
+argument_list|(
+name|AbstractRegionServerCallable
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 specifier|protected
 specifier|final
 name|Connection

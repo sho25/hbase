@@ -929,38 +929,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ipc
-operator|.
-name|PayloadCarryingRpcController
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|ipc
-operator|.
-name|RpcControllerFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|regionserver
 operator|.
 name|BloomType
@@ -1144,7 +1112,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Tool to load the output of HFileOutputFormat into an existing table.  */
+comment|/**  * Tool to load the output of HFileOutputFormat into an existing table.  * @see #usage()  */
 end_comment
 
 begin_class
@@ -1257,10 +1225,6 @@ name|int
 name|nrThreads
 decl_stmt|;
 specifier|private
-name|RpcControllerFactory
-name|rpcControllerFactory
-decl_stmt|;
-specifier|private
 name|LoadIncrementalHFiles
 parameter_list|()
 block|{}
@@ -1274,16 +1238,6 @@ throws|throws
 name|Exception
 block|{
 name|super
-argument_list|(
-name|conf
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|rpcControllerFactory
-operator|=
-operator|new
-name|RpcControllerFactory
 argument_list|(
 name|conf
 argument_list|)
@@ -2154,11 +2108,6 @@ operator|new
 name|SecureBulkLoadClient
 argument_list|(
 name|table
-operator|.
-name|getConfiguration
-argument_list|()
-argument_list|,
-name|table
 argument_list|)
 decl_stmt|;
 try|try
@@ -2883,7 +2832,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Used by the replication sink to load the hfiles from the source cluster. It does the following,    *<ol>    *<li>LoadIncrementalHFiles#groupOrSplitPhase(Table, ExecutorService, Deque, Pair)}</li>    *<li>LoadIncrementalHFiles#bulkLoadPhase(Table, Connection, ExecutorService, Deque, Multimap)    *</li>    *</ol>    * @param table Table to which these hfiles should be loaded to    * @param conn Connection to use    * @param queue {@link LoadQueueItem} has hfiles yet to be loaded    * @param startEndKeys starting and ending row keys of the region    */
+comment|/**    * Used by the replication sink to load the hfiles from the source cluster. It does the following,    * 1. {@link LoadIncrementalHFiles#groupOrSplitPhase(Table, ExecutorService, Deque, Pair)} 2.    * {@link    * LoadIncrementalHFiles#bulkLoadPhase(Table, Connection, ExecutorService, Deque, Multimap)}    * @param table Table to which these hfiles should be loaded to    * @param conn Connection to use    * @param queue {@link LoadQueueItem} has hfiles yet to be loaded    * @param startEndKeys starting and ending row keys of the region    */
 specifier|public
 name|void
 name|loadHFileQueue
@@ -4694,8 +4643,6 @@ argument_list|>
 argument_list|(
 name|conn
 argument_list|,
-name|rpcControllerFactory
-argument_list|,
 name|tableName
 argument_list|,
 name|first
@@ -4703,12 +4650,12 @@ argument_list|)
 block|{
 annotation|@
 name|Override
-specifier|protected
+specifier|public
 name|Boolean
 name|call
 parameter_list|(
-name|PayloadCarryingRpcController
-name|controller
+name|int
+name|callTimeout
 parameter_list|)
 throws|throws
 name|Exception
@@ -4781,9 +4728,6 @@ operator|=
 operator|new
 name|SecureBulkLoadClient
 argument_list|(
-name|getConf
-argument_list|()
-argument_list|,
 name|table
 argument_list|)
 expr_stmt|;
@@ -6351,7 +6295,7 @@ name|ret
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Called from replication sink, where it manages bulkToken(staging directory) by itself. This is    * used only when SecureBulkLoadEndpoint is configured in hbase.coprocessor.region.classes    * property. This directory is used as a temporary directory where all files are initially    * copied/moved from user given directory, set all the required file permissions and then from    * their it is finally loaded into a table. This should be set only when, one would like to manage    * the staging directory by itself. Otherwise this tool will handle this by itself.    * @param stagingDir staging directory path    */
+comment|/**    * Called from replication sink, where it manages bulkToken(staging directory) by itself. This is    * used only when {@link SecureBulkLoadEndpoint} is configured in hbase.coprocessor.region.classes    * property. This directory is used as a temporary directory where all files are initially    * copied/moved from user given directory, set all the required file permissions and then from    * their it is finally loaded into a table. This should be set only when, one would like to manage    * the staging directory by itself. Otherwise this tool will handle this by itself.    * @param stagingDir staging directory path    */
 specifier|public
 name|void
 name|setBulkToken

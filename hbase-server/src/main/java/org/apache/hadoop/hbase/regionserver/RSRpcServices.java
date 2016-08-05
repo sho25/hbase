@@ -981,6 +981,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ipc
+operator|.
+name|TimeLimitedRpcController
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|master
 operator|.
 name|MasterRpcServices
@@ -16342,20 +16358,20 @@ if|if
 condition|(
 name|controller
 operator|instanceof
-name|PayloadCarryingRpcController
+name|TimeLimitedRpcController
 condition|)
 block|{
-name|PayloadCarryingRpcController
-name|pRpcController
+name|TimeLimitedRpcController
+name|timeLimitedRpcController
 init|=
 operator|(
-name|PayloadCarryingRpcController
+name|TimeLimitedRpcController
 operator|)
 name|controller
 decl_stmt|;
 if|if
 condition|(
-name|pRpcController
+name|timeLimitedRpcController
 operator|.
 name|getCallTimeout
 argument_list|()
@@ -16371,25 +16387,13 @@ name|min
 argument_list|(
 name|timeLimitDelta
 argument_list|,
-name|pRpcController
+name|timeLimitedRpcController
 operator|.
 name|getCallTimeout
 argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-block|}
-else|else
-block|{
-throw|throw
-operator|new
-name|UnsupportedOperationException
-argument_list|(
-literal|"We only do "
-operator|+
-literal|"PayloadCarryingRpcControllers! FIX IF A PROBLEM"
-argument_list|)
-throw|;
 block|}
 comment|// Use half of whichever timeout value was more restrictive... But don't allow
 comment|// the time limit to be less than the allowable minimum (could cause an

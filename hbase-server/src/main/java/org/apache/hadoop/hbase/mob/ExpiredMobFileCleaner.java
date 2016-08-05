@@ -325,6 +325,18 @@ name|ToolRunner
 import|;
 end_import
 
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ServiceException
+import|;
+end_import
+
 begin_comment
 comment|/**  * The cleaner to delete the expired MOB files.  */
 end_comment
@@ -357,7 +369,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/**    * Cleans the MOB files when they're expired and their min versions are 0.    * If the latest timestamp of Cells in a MOB file is older than the TTL in the column family,    * it's regarded as expired. This cleaner deletes them.    * At a time T0, the cells in a mob file M0 are expired. If a user starts a scan before T0, those    * mob cells are visible, this scan still runs after T0. At that time T1, this mob file M0    * is expired, meanwhile a cleaner starts, the M0 is archived and can be read in the archive    * directory.    * @param tableName The current table name.    * @param family The current family.    */
+comment|/**    * Cleans the MOB files when they're expired and their min versions are 0.    * If the latest timestamp of Cells in a MOB file is older than the TTL in the column family,    * it's regarded as expired. This cleaner deletes them.    * At a time T0, the cells in a mob file M0 are expired. If a user starts a scan before T0, those    * mob cells are visible, this scan still runs after T0. At that time T1, this mob file M0    * is expired, meanwhile a cleaner starts, the M0 is archived and can be read in the archive    * directory.    * @param tableName The current table name.    * @param family The current family.    * @throws ServiceException    * @throws IOException    */
 specifier|public
 name|void
 name|cleanExpiredMobFiles
@@ -369,6 +381,8 @@ name|HColumnDescriptor
 name|family
 parameter_list|)
 throws|throws
+name|ServiceException
+throws|,
 name|IOException
 block|{
 name|Configuration
@@ -618,7 +632,7 @@ argument_list|)
 decl_stmt|;
 name|HBaseAdmin
 operator|.
-name|available
+name|checkHBaseAvailable
 argument_list|(
 name|getConf
 argument_list|()

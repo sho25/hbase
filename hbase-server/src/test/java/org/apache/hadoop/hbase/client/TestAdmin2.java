@@ -245,6 +245,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|MasterNotRunningException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|MiniHBaseCluster
 import|;
 end_import
@@ -555,6 +569,22 @@ begin_import
 import|import
 name|org
 operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|wal
+operator|.
+name|FSHLogProvider
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
 name|junit
 operator|.
 name|After
@@ -612,6 +642,18 @@ operator|.
 name|categories
 operator|.
 name|Category
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ServiceException
 import|;
 end_import
 
@@ -3896,7 +3938,7 @@ try|try
 block|{
 name|HBaseAdmin
 operator|.
-name|available
+name|checkHBaseAvailable
 argument_list|(
 name|conf
 argument_list|)
@@ -3909,7 +3951,19 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
+name|MasterNotRunningException
+name|ignored
+parameter_list|)
+block|{     }
+catch|catch
+parameter_list|(
 name|ZooKeeperConnectionException
+name|ignored
+parameter_list|)
+block|{     }
+catch|catch
+parameter_list|(
+name|ServiceException
 name|ignored
 parameter_list|)
 block|{     }

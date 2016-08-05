@@ -63,6 +63,36 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
+name|MetaTableAccessor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|conf
 operator|.
 name|Configured
@@ -107,7 +137,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HBaseConfiguration
+name|HBaseInterfaceAudience
 import|;
 end_import
 
@@ -121,7 +151,21 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HBaseInterfaceAudience
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseConfiguration
 import|;
 end_import
 
@@ -177,21 +221,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|MetaTableAccessor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|TableName
+name|MasterNotRunningException
 import|;
 end_import
 
@@ -206,22 +236,6 @@ operator|.
 name|hbase
 operator|.
 name|ZooKeeperConnectionException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceAudience
 import|;
 end_import
 
@@ -523,7 +537,7 @@ try|try
 block|{
 name|HBaseAdmin
 operator|.
-name|available
+name|checkHBaseAvailable
 argument_list|(
 name|getConf
 argument_list|()
@@ -548,6 +562,14 @@ name|zkce
 parameter_list|)
 block|{
 comment|// If no zk, presume no master.
+block|}
+catch|catch
+parameter_list|(
+name|MasterNotRunningException
+name|e
+parameter_list|)
+block|{
+comment|// Expected. Ignore.
 block|}
 comment|// Initialize MetaUtils and and get the root of the HBase installation
 name|this
