@@ -1538,6 +1538,8 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * When we do a "MUST_PASS_ONE" (a logical 'OR') of the above two filters    * we expect to get the same result as the 'prefix' only result.    * @throws Exception    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testFilterListTwoFiltersMustPassOne
@@ -1826,6 +1828,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * When we do a "MUST_PASS_ONE" (a logical 'OR') of the two filters    * we expect to get the same result as the inclusive stop result.    * @throws Exception    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testFilterListWithInclusiveStopFilteMustPassOne
@@ -2187,6 +2191,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Test filterKeyValue logic.    * @throws Exception    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testFilterKeyValue

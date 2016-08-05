@@ -2254,6 +2254,8 @@ name|expectedKeys
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testPrefixFilterWithReverseScan
@@ -3449,6 +3451,8 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testPageFilterWithReverseScan
@@ -4513,6 +4517,8 @@ name|expectedKeys
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testWhileMatchFilterWithFilterRowWithReverseScan
@@ -4646,6 +4652,8 @@ name|scannerCounter
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testWhileMatchFilterWithFilterRowKeyWithReverseScan
@@ -15947,6 +15955,8 @@ name|idx
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testColumnPaginationFilterColumnOffset
