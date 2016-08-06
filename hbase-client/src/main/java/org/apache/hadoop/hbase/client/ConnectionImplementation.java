@@ -8740,6 +8740,22 @@ name|conf
 parameter_list|)
 block|{
 comment|// No default pool available.
+name|int
+name|rpcTimeout
+init|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+name|HConstants
+operator|.
+name|HBASE_RPC_TIMEOUT_KEY
+argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_HBASE_RPC_TIMEOUT
+argument_list|)
+decl_stmt|;
 return|return
 operator|new
 name|AsyncProcess
@@ -8755,6 +8771,8 @@ argument_list|,
 literal|false
 argument_list|,
 name|rpcControllerFactory
+argument_list|,
+name|rpcTimeout
 argument_list|)
 return|;
 block|}

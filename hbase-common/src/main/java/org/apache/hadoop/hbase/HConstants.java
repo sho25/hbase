@@ -2108,7 +2108,9 @@ name|DEFAULT_HBASE_CLIENT_SCANNER_TIMEOUT_PERIOD
 init|=
 literal|60000
 decl_stmt|;
-comment|/**    * timeout for each RPC    */
+comment|/**    * timeout for each RPC    * @deprecated Use {@link #HBASE_RPC_READ_TIMEOUT_KEY} or {@link #HBASE_RPC_WRITE_TIMEOUT_KEY}    * instead.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 specifier|final
@@ -2116,6 +2118,24 @@ name|String
 name|HBASE_RPC_TIMEOUT_KEY
 init|=
 literal|"hbase.rpc.timeout"
+decl_stmt|;
+comment|/**    * timeout for each read RPC    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_RPC_READ_TIMEOUT_KEY
+init|=
+literal|"hbase.rpc.read.timeout"
+decl_stmt|;
+comment|/**    * timeout for each write RPC    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_RPC_WRITE_TIMEOUT_KEY
+init|=
+literal|"hbase.rpc.write.timeout"
 decl_stmt|;
 comment|/**    * Default value of {@link #HBASE_RPC_TIMEOUT_KEY}    */
 specifier|public

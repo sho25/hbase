@@ -907,7 +907,16 @@ name|int
 name|getOperationTimeout
 parameter_list|()
 function_decl|;
-comment|/**    * Set timeout (millisecond) of each rpc request in operations of this Table instance, will    * override the value of hbase.rpc.timeout in configuration.    * If a rpc request waiting too long, it will stop waiting and send a new request to retry until    * retries exhausted or operation timeout reached.    * @param rpcTimeout the timeout of each rpc request in millisecond.    */
+comment|/**    * Get timeout (millisecond) of each rpc request in this Table instance.    *    * @returns Currently configured read timeout    * @deprecated Use getReadRpcTimeout or getWriteRpcTimeout instead    */
+annotation|@
+name|Deprecated
+name|int
+name|getRpcTimeout
+parameter_list|()
+function_decl|;
+comment|/**    * Set timeout (millisecond) of each rpc request in operations of this Table instance, will    * override the value of hbase.rpc.timeout in configuration.    * If a rpc request waiting too long, it will stop waiting and send a new request to retry until    * retries exhausted or operation timeout reached.    *<p>    * NOTE: This will set both the read and write timeout settings to the provided value.    *    * @param rpcTimeout the timeout of each rpc request in millisecond.    *    * @deprecated Use setReadRpcTimeout or setWriteRpcTimeout instead    */
+annotation|@
+name|Deprecated
 name|void
 name|setRpcTimeout
 parameter_list|(
@@ -915,10 +924,31 @@ name|int
 name|rpcTimeout
 parameter_list|)
 function_decl|;
-comment|/**    * Get timeout (millisecond) of each rpc request in this Table instance.    */
+comment|/**    * Get timeout (millisecond) of each rpc read request in this Table instance.    */
 name|int
-name|getRpcTimeout
+name|getReadRpcTimeout
 parameter_list|()
+function_decl|;
+comment|/**    * Set timeout (millisecond) of each rpc read request in operations of this Table instance, will    * override the value of hbase.rpc.read.timeout in configuration.    * If a rpc read request waiting too long, it will stop waiting and send a new request to retry    * until retries exhausted or operation timeout reached.    *    * @param readRpcTimeout    */
+name|void
+name|setReadRpcTimeout
+parameter_list|(
+name|int
+name|readRpcTimeout
+parameter_list|)
+function_decl|;
+comment|/**    * Get timeout (millisecond) of each rpc write request in this Table instance.    */
+name|int
+name|getWriteRpcTimeout
+parameter_list|()
+function_decl|;
+comment|/**    * Set timeout (millisecond) of each rpc write request in operations of this Table instance, will    * override the value of hbase.rpc.write.timeout in configuration.    * If a rpc write request waiting too long, it will stop waiting and send a new request to retry    * until retries exhausted or operation timeout reached.    *    * @param writeRpcTimeout    */
+name|void
+name|setWriteRpcTimeout
+parameter_list|(
+name|int
+name|writeRpcTimeout
+parameter_list|)
 function_decl|;
 block|}
 end_interface
