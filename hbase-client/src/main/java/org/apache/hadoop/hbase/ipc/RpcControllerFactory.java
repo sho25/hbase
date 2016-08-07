@@ -190,6 +190,7 @@ name|PayloadCarryingRpcController
 name|newController
 parameter_list|()
 block|{
+comment|// TODO: Set HConstants default rpc timeout here rather than nothing?
 return|return
 operator|new
 name|PayloadCarryingRpcController

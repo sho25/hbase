@@ -425,11 +425,6 @@ name|controllerFactory
 decl_stmt|;
 annotation|@
 name|Before
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"deprecation"
-argument_list|)
 specifier|public
 name|void
 name|setup

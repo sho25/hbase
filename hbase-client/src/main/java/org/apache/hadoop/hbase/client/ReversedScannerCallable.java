@@ -856,9 +856,8 @@ init|=
 operator|new
 name|ReversedScannerCallable
 argument_list|(
-name|this
-operator|.
-name|cConnection
+name|getConnection
+argument_list|()
 argument_list|,
 name|this
 operator|.
@@ -877,7 +876,7 @@ name|this
 operator|.
 name|locateStartRow
 argument_list|,
-name|controllerFactory
+name|rpcControllerFactory
 argument_list|,
 name|id
 argument_list|)

@@ -1615,7 +1615,7 @@ name|MultiResponse
 argument_list|>
 name|createCaller
 parameter_list|(
-name|PayloadCarryingServerCallable
+name|CancellableRegionServerCallable
 name|callable
 parameter_list|)
 block|{
@@ -1902,7 +1902,7 @@ name|MultiResponse
 argument_list|>
 name|createCaller
 parameter_list|(
-name|PayloadCarryingServerCallable
+name|CancellableRegionServerCallable
 name|callable
 parameter_list|)
 block|{
@@ -2099,7 +2099,7 @@ name|MultiResponse
 argument_list|>
 name|createCaller
 parameter_list|(
-name|PayloadCarryingServerCallable
+name|CancellableRegionServerCallable
 name|payloadCallable
 parameter_list|)
 block|{

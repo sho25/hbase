@@ -2911,7 +2911,7 @@ name|Object
 index|[]
 name|results
 parameter_list|,
-name|PayloadCarryingServerCallable
+name|CancellableRegionServerCallable
 name|callable
 parameter_list|,
 name|int
@@ -3782,7 +3782,7 @@ specifier|private
 specifier|final
 name|Set
 argument_list|<
-name|PayloadCarryingServerCallable
+name|CancellableRegionServerCallable
 argument_list|>
 name|callsInProgress
 decl_stmt|;
@@ -3803,7 +3803,7 @@ name|server
 parameter_list|,
 name|Set
 argument_list|<
-name|PayloadCarryingServerCallable
+name|CancellableRegionServerCallable
 argument_list|>
 name|callsInProgress
 parameter_list|)
@@ -3843,7 +3843,7 @@ block|{
 name|MultiResponse
 name|res
 decl_stmt|;
-name|PayloadCarryingServerCallable
+name|CancellableRegionServerCallable
 name|callable
 init|=
 name|currentCallable
@@ -4094,7 +4094,7 @@ specifier|private
 specifier|final
 name|Set
 argument_list|<
-name|PayloadCarryingServerCallable
+name|CancellableRegionServerCallable
 argument_list|>
 name|callsInProgress
 decl_stmt|;
@@ -4150,7 +4150,7 @@ name|long
 name|nonceGroup
 decl_stmt|;
 specifier|private
-name|PayloadCarryingServerCallable
+name|CancellableRegionServerCallable
 name|currentCallable
 decl_stmt|;
 specifier|private
@@ -4193,7 +4193,7 @@ name|CResult
 argument_list|>
 name|callback
 parameter_list|,
-name|PayloadCarryingServerCallable
+name|CancellableRegionServerCallable
 name|callable
 parameter_list|,
 name|int
@@ -4566,7 +4566,7 @@ argument_list|(
 operator|new
 name|ConcurrentHashMap
 argument_list|<
-name|PayloadCarryingServerCallable
+name|CancellableRegionServerCallable
 argument_list|,
 name|Boolean
 argument_list|>
@@ -4612,7 +4612,7 @@ block|}
 specifier|public
 name|Set
 argument_list|<
-name|PayloadCarryingServerCallable
+name|CancellableRegionServerCallable
 argument_list|>
 name|getCallsInProgress
 parameter_list|()
@@ -8754,7 +8754,7 @@ condition|)
 block|{
 for|for
 control|(
-name|PayloadCarryingServerCallable
+name|CancellableRegionServerCallable
 name|clb
 range|:
 name|callsInProgress
@@ -9219,7 +9219,7 @@ parameter_list|,
 name|boolean
 name|needResults
 parameter_list|,
-name|PayloadCarryingServerCallable
+name|CancellableRegionServerCallable
 name|callable
 parameter_list|,
 name|int
@@ -9382,7 +9382,7 @@ name|MultiResponse
 argument_list|>
 name|createCaller
 parameter_list|(
-name|PayloadCarryingServerCallable
+name|CancellableRegionServerCallable
 name|callable
 parameter_list|)
 block|{

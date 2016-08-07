@@ -3644,7 +3644,7 @@ expr_stmt|;
 block|}
 name|Set
 argument_list|<
-name|PayloadCarryingServerCallable
+name|CancellableRegionServerCallable
 argument_list|>
 name|set
 init|=
@@ -3675,7 +3675,7 @@ argument_list|)
 expr_stmt|;
 for|for
 control|(
-name|PayloadCarryingServerCallable
+name|CancellableRegionServerCallable
 name|m
 range|:
 name|set

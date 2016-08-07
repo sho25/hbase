@@ -2045,9 +2045,7 @@ name|ServerName
 argument_list|>
 argument_list|>
 name|result
-decl_stmt|;
-name|result
-operator|=
+init|=
 name|getTableRegionsAndLocations
 argument_list|(
 name|connection
@@ -2056,7 +2054,7 @@ name|tableName
 argument_list|,
 name|excludeOfflinedSplitParents
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 return|return
 name|getListOfHRegionInfos
 argument_list|(

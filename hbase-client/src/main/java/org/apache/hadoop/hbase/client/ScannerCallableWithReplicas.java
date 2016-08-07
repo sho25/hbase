@@ -1498,7 +1498,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * When a scanner switches in the middle of scanning (the 'next' call fails    * for example), the upper layer {@link ClientScanner} needs to know    * @return    */
+comment|/**    * When a scanner switches in the middle of scanning (the 'next' call fails    * for example), the upper layer {@link ClientScanner} needs to know    */
 specifier|public
 name|boolean
 name|switchedToADifferentReplica
@@ -2099,7 +2099,7 @@ if|if
 condition|(
 name|callable
 operator|.
-name|getController
+name|getRpcController
 argument_list|()
 operator|!=
 literal|null
@@ -2107,7 +2107,7 @@ condition|)
 block|{
 name|callable
 operator|.
-name|getController
+name|getRpcController
 argument_list|()
 operator|.
 name|startCancel
