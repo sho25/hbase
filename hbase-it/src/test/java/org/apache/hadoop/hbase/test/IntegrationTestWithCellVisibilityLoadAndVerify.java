@@ -2799,7 +2799,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|usage
+name|printUsage
 parameter_list|()
 block|{
 name|System
@@ -3053,7 +3053,7 @@ operator|>
 literal|0
 condition|)
 block|{
-name|usage
+name|printUsage
 argument_list|()
 expr_stmt|;
 throw|throw
