@@ -427,6 +427,30 @@ name|util
 operator|.
 name|concurrent
 operator|.
+name|CountDownLatch
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|TimeUnit
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
 name|atomic
 operator|.
 name|AtomicBoolean
@@ -2814,6 +2838,12 @@ specifier|protected
 name|HeapMemoryManager
 name|hMemManager
 decl_stmt|;
+specifier|protected
+name|CountDownLatch
+name|initLatch
+init|=
+literal|null
+decl_stmt|;
 comment|/**    * Cluster connection to be shared by services.    * Initialized at server startup and closed when server shuts down.    * Clients must never close it explicitly.    */
 specifier|protected
 name|ClusterConnection
@@ -4172,6 +4202,21 @@ literal|false
 argument_list|)
 return|;
 block|}
+specifier|protected
+name|void
+name|setInitLatch
+parameter_list|(
+name|CountDownLatch
+name|latch
+parameter_list|)
+block|{
+name|this
+operator|.
+name|initLatch
+operator|=
+name|latch
+expr_stmt|;
+block|}
 comment|/*    * Returns true if configured hostname should be used    */
 specifier|protected
 name|boolean
@@ -4635,6 +4680,27 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Bring up connection to zk ensemble and then wait until a master for this    * cluster and then after that, wait until cluster 'up' flag has been set.    * This is the order in which master does things.    * Finally open long-living server short-circuit connection.    * @throws IOException    * @throws InterruptedException    */
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"RV_RETURN_VALUE_IGNORED_BAD_PRACTICE"
+argument_list|,
+name|justification
+operator|=
+literal|"cluster Id znode read would give us correct response"
+argument_list|)
 specifier|private
 name|void
 name|initializeZooKeeper
@@ -4663,6 +4729,29 @@ operator|.
 name|clusterStatusTracker
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|initLatch
+operator|!=
+literal|null
+condition|)
+block|{
+name|this
+operator|.
+name|initLatch
+operator|.
+name|await
+argument_list|(
+literal|50
+argument_list|,
+name|TimeUnit
+operator|.
+name|SECONDS
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Retrieve clusterId
 comment|// Since cluster status is now up
 comment|// ID should have already been set by HMaster
