@@ -4744,7 +4744,7 @@ name|initLatch
 operator|.
 name|await
 argument_list|(
-literal|50
+literal|20
 argument_list|,
 name|TimeUnit
 operator|.
