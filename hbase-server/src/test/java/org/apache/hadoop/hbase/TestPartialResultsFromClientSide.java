@@ -693,7 +693,7 @@ specifier|static
 name|long
 name|timeout
 init|=
-literal|2000
+literal|10000
 decl_stmt|;
 annotation|@
 name|BeforeClass
@@ -6030,7 +6030,7 @@ name|sleep
 argument_list|(
 name|timeout
 operator|*
-literal|3
+literal|2
 argument_list|)
 expr_stmt|;
 name|int
