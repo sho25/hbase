@@ -224,6 +224,14 @@ throws|throws
 name|IOException
 block|{
 comment|// Impl in FilterBase might do unnecessary copy for Off heap backed Cells.
+if|if
+condition|(
+name|filterAllRemaining
+argument_list|()
+condition|)
+return|return
+literal|true
+return|;
 return|return
 literal|false
 return|;

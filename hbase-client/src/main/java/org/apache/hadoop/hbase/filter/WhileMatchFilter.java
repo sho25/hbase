@@ -293,6 +293,14 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|filterAllRemaining
+argument_list|()
+condition|)
+return|return
+literal|true
+return|;
 name|boolean
 name|value
 init|=

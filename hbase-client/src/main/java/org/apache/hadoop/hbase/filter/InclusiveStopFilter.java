@@ -271,6 +271,14 @@ name|firstRowCell
 parameter_list|)
 block|{
 comment|// if stopRowKey is<= buffer, then true, filter row.
+if|if
+condition|(
+name|filterAllRemaining
+argument_list|()
+condition|)
+return|return
+literal|true
+return|;
 name|int
 name|cmp
 init|=

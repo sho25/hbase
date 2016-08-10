@@ -282,6 +282,14 @@ condition|)
 return|return
 literal|true
 return|;
+if|if
+condition|(
+name|filterAllRemaining
+argument_list|()
+condition|)
+return|return
+literal|true
+return|;
 name|int
 name|length
 init|=

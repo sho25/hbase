@@ -403,6 +403,14 @@ throws|throws
 name|IOException
 block|{
 comment|// No call to this.
+if|if
+condition|(
+name|filterAllRemaining
+argument_list|()
+condition|)
+return|return
+literal|true
+return|;
 return|return
 name|this
 operator|.
@@ -430,6 +438,14 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|filterAllRemaining
+argument_list|()
+condition|)
+return|return
+literal|true
+return|;
 return|return
 name|this
 operator|.

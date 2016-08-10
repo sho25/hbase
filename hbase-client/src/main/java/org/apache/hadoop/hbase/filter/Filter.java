@@ -152,7 +152,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Filters a row based on the row key. If this returns true, the entire row will be excluded. If    * false, each KeyValue in the row will be passed to {@link #filterKeyValue(Cell)} below.    *    * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *    * @param firstRowCell The first cell coming in the new row    * @return true, remove entire row, false, include the row (maybe).    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    */
+comment|/**    * Filters a row based on the row key. If this returns true, the entire row will be excluded. If    * false, each KeyValue in the row will be passed to {@link #filterKeyValue(Cell)} below.    * If {@link #filterAllRemaining()} returns true, then {@link #filterRowKey(Cell)} should    * also return true.    *    * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *    * @param firstRowCell The first cell coming in the new row    * @return true, remove entire row, false, include the row (maybe).    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    */
 specifier|abstract
 specifier|public
 name|boolean

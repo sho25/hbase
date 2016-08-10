@@ -346,6 +346,14 @@ name|Cell
 name|firstRowCell
 parameter_list|)
 block|{
+if|if
+condition|(
+name|filterAllRemaining
+argument_list|()
+condition|)
+return|return
+literal|true
+return|;
 comment|// If it is the first time of running, calculate the current range index for
 comment|// the row key. If index is out of bound which happens when the start row
 comment|// user sets is after the largest stop row of the ranges, stop the scan.
