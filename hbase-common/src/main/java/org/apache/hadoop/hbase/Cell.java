@@ -99,7 +99,7 @@ name|getFamilyLength
 parameter_list|()
 function_decl|;
 comment|//3) Qualifier
-comment|/**    * Contiguous raw bytes that may start at any index in the containing array. Max length is    * Short.MAX_VALUE which is 32,767 bytes.    * @return The array containing the qualifier bytes.    */
+comment|/**    * Contiguous raw bytes that may start at any index in the containing array.    * @return The array containing the qualifier bytes.    */
 name|byte
 index|[]
 name|getQualifierArray
@@ -134,7 +134,7 @@ name|getSequenceId
 parameter_list|()
 function_decl|;
 comment|//7) Value
-comment|/**    * Contiguous raw bytes that may start at any index in the containing array. Max length is    * Integer.MAX_VALUE which is 2,147,483,648 bytes.    * @return The array containing the value bytes.    */
+comment|/**    * Contiguous raw bytes that may start at any index in the containing array. Max length is    * Integer.MAX_VALUE which is 2,147,483,647 bytes.    * @return The array containing the value bytes.    */
 name|byte
 index|[]
 name|getValueArray
