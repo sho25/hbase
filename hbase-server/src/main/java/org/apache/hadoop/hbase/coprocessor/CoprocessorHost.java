@@ -2511,13 +2511,7 @@ name|getTable
 argument_list|(
 name|tableName
 argument_list|,
-name|HTable
-operator|.
-name|getDefaultExecutor
-argument_list|(
-name|getConfiguration
-argument_list|()
-argument_list|)
+literal|null
 argument_list|)
 return|;
 block|}
