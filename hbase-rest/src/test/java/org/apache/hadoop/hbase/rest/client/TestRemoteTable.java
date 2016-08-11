@@ -135,11 +135,23 @@ name|org
 operator|.
 name|apache
 operator|.
-name|commons
-operator|.
-name|httpclient
+name|http
 operator|.
 name|Header
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|http
+operator|.
+name|message
+operator|.
+name|BasicHeader
 import|;
 end_import
 
@@ -3874,7 +3886,7 @@ literal|0
 index|]
 operator|=
 operator|new
-name|Header
+name|BasicHeader
 argument_list|(
 literal|"header1"
 argument_list|,
@@ -3887,7 +3899,7 @@ literal|1
 index|]
 operator|=
 operator|new
-name|Header
+name|BasicHeader
 argument_list|(
 literal|"header2"
 argument_list|,
@@ -3955,7 +3967,7 @@ literal|0
 index|]
 operator|=
 operator|new
-name|Header
+name|BasicHeader
 argument_list|(
 literal|"header1"
 argument_list|,
@@ -3968,7 +3980,7 @@ literal|1
 index|]
 operator|=
 operator|new
-name|Header
+name|BasicHeader
 argument_list|(
 literal|"header2"
 argument_list|,

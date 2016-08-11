@@ -103,11 +103,23 @@ name|org
 operator|.
 name|apache
 operator|.
-name|commons
-operator|.
-name|httpclient
+name|http
 operator|.
 name|Header
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|http
+operator|.
+name|message
+operator|.
+name|BasicHeader
 import|;
 end_import
 
@@ -675,7 +687,7 @@ literal|0
 index|]
 operator|=
 operator|new
-name|Header
+name|BasicHeader
 argument_list|(
 literal|"Content-Type"
 argument_list|,
@@ -690,7 +702,7 @@ literal|1
 index|]
 operator|=
 operator|new
-name|Header
+name|BasicHeader
 argument_list|(
 literal|"Content-Encoding"
 argument_list|,
@@ -824,7 +836,7 @@ literal|0
 index|]
 operator|=
 operator|new
-name|Header
+name|BasicHeader
 argument_list|(
 literal|"Accept"
 argument_list|,
@@ -839,7 +851,7 @@ literal|1
 index|]
 operator|=
 operator|new
-name|Header
+name|BasicHeader
 argument_list|(
 literal|"Accept-Encoding"
 argument_list|,
@@ -962,7 +974,7 @@ literal|0
 index|]
 operator|=
 operator|new
-name|Header
+name|BasicHeader
 argument_list|(
 literal|"Accept"
 argument_list|,
@@ -977,7 +989,7 @@ literal|1
 index|]
 operator|=
 operator|new
-name|Header
+name|BasicHeader
 argument_list|(
 literal|"Accept-Encoding"
 argument_list|,
@@ -1111,7 +1123,7 @@ literal|0
 index|]
 operator|=
 operator|new
-name|Header
+name|BasicHeader
 argument_list|(
 literal|"Content-Type"
 argument_list|,
@@ -1126,7 +1138,7 @@ literal|1
 index|]
 operator|=
 operator|new
-name|Header
+name|BasicHeader
 argument_list|(
 literal|"Accept"
 argument_list|,
@@ -1141,7 +1153,7 @@ literal|2
 index|]
 operator|=
 operator|new
-name|Header
+name|BasicHeader
 argument_list|(
 literal|"Accept-Encoding"
 argument_list|,
