@@ -27,6 +27,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|Cell
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -77,19 +91,12 @@ name|Writable
 name|getDataWriter
 parameter_list|()
 function_decl|;
-comment|/**    * Add the specified binary to the bloom filter.    *    * @param buf data to be added to the bloom    * @param offset offset into the data to be added    * @param len length of the data to be added    */
+comment|/**    * Add the specified binary to the bloom filter.    * @param cell the cell data to be added to the bloom    */
 name|void
 name|add
 parameter_list|(
-name|byte
-index|[]
-name|buf
-parameter_list|,
-name|int
-name|offset
-parameter_list|,
-name|int
-name|len
+name|Cell
+name|cell
 parameter_list|)
 function_decl|;
 block|}

@@ -671,6 +671,7 @@ operator|instanceof
 name|KeyValue
 condition|)
 block|{
+comment|// TODO : directly use Cell here
 return|return
 name|checkContains
 argument_list|(
@@ -708,6 +709,7 @@ name|block
 argument_list|)
 return|;
 block|}
+comment|// TODO : Avoid this copy in read path also
 name|byte
 index|[]
 name|key

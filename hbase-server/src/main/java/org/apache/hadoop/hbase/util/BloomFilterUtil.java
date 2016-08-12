@@ -69,6 +69,22 @@ name|ByteBuff
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|BloomType
+import|;
+end_import
+
 begin_comment
 comment|/**  * Utility methods related to BloomFilters  */
 end_comment
@@ -529,7 +545,7 @@ operator|)
 name|result
 return|;
 block|}
-comment|/**    * Creates a Bloom filter chunk of the given size.    *    * @param byteSizeHint the desired number of bytes for the Bloom filter bit    *          array. Will be increased so that folding is possible.    * @param errorRate target false positive rate of the Bloom filter    * @param hashType Bloom filter hash function type    * @param foldFactor    * @return the new Bloom filter of the desired size    */
+comment|/**    * Creates a Bloom filter chunk of the given size.    *    * @param byteSizeHint the desired number of bytes for the Bloom filter bit    *          array. Will be increased so that folding is possible.    * @param errorRate target false positive rate of the Bloom filter    * @param hashType Bloom filter hash function type    * @param foldFactor    * @param bloomType    * @return the new Bloom filter of the desired size    */
 specifier|public
 specifier|static
 name|BloomFilterChunk
@@ -546,6 +562,9 @@ name|hashType
 parameter_list|,
 name|int
 name|foldFactor
+parameter_list|,
+name|BloomType
+name|bloomType
 parameter_list|)
 block|{
 name|BloomFilterChunk
@@ -555,6 +574,8 @@ operator|new
 name|BloomFilterChunk
 argument_list|(
 name|hashType
+argument_list|,
+name|bloomType
 argument_list|)
 decl_stmt|;
 name|bbf
@@ -662,6 +683,16 @@ name|int
 name|hashCount
 parameter_list|)
 block|{
+comment|// TODO : this will get removed once read path also work with Cell for blooms.
+name|ByteArrayHashKey
+name|hashKey
+init|=
+operator|new
+name|ByteArrayHashKey
+argument_list|(
+name|buf
+argument_list|)
+decl_stmt|;
 name|int
 name|hash1
 init|=
@@ -669,7 +700,7 @@ name|hash
 operator|.
 name|hash
 argument_list|(
-name|buf
+name|hashKey
 argument_list|,
 name|offset
 argument_list|,
@@ -685,7 +716,7 @@ name|hash
 operator|.
 name|hash
 argument_list|(
-name|buf
+name|hashKey
 argument_list|,
 name|offset
 argument_list|,

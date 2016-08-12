@@ -680,6 +680,8 @@ operator|.
 name|COMPARATOR
 else|:
 literal|null
+argument_list|,
+name|bloomType
 argument_list|)
 decl_stmt|;
 name|writer
@@ -794,6 +796,10 @@ name|shouldCacheBloomsOnWrite
 argument_list|()
 argument_list|,
 literal|null
+argument_list|,
+name|BloomType
+operator|.
+name|ROW
 argument_list|)
 decl_stmt|;
 name|writer

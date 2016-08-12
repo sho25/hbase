@@ -363,8 +363,8 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Calculate a hash using bytes from<code>offset</code> to<code>offset +     * length</code>, and the provided seed value.    * @param bytes input bytes    * @param offset the offset into the array to start consideration    * @param length length of the valid bytes after offset to consider    * @param initval seed value    * @return hash value    */
+comment|// TODO : remove this once read path is updated to work with Cells
 specifier|public
-specifier|abstract
 name|int
 name|hash
 parameter_list|(
@@ -381,8 +381,44 @@ parameter_list|,
 name|int
 name|initval
 parameter_list|)
+block|{
+return|return
+name|hash
+argument_list|(
+operator|new
+name|ByteArrayHashKey
+argument_list|(
+name|bytes
+argument_list|)
+argument_list|,
+name|offset
+argument_list|,
+name|length
+argument_list|,
+name|initval
+argument_list|)
+return|;
+block|}
+comment|/**    * Calculate a hash using bytes from<code>offset</code> to<code>offset +    * length</code>, and the provided seed value.    * @param hashKey key to extract the hash    * @param offset offset to be used  by the hash algo    * @param length length to be used by the hash algo    * @param initval the seed value    * @return hash value    */
+comment|// TODO : Remove offset and length when the byte[] version of hash() is removed
+specifier|public
+specifier|abstract
+name|int
+name|hash
+parameter_list|(
+name|HashKey
+name|hashKey
+parameter_list|,
+name|int
+name|offset
+parameter_list|,
+name|int
+name|length
+parameter_list|,
+name|int
+name|initval
+parameter_list|)
 function_decl|;
-comment|// TODO : a buffer based hash function would be needed.. Not adding it for now
 block|}
 end_class
 
