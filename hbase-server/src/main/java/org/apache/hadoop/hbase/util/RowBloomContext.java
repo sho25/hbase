@@ -126,12 +126,12 @@ specifier|public
 name|RowBloomContext
 parameter_list|(
 name|BloomFilterWriter
-name|generalBloomFilterWriter
+name|bloomFilterWriter
 parameter_list|)
 block|{
 name|super
 argument_list|(
-name|generalBloomFilterWriter
+name|bloomFilterWriter
 argument_list|)
 expr_stmt|;
 block|}

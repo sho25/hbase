@@ -96,20 +96,20 @@ name|lastCell
 decl_stmt|;
 specifier|protected
 name|BloomFilterWriter
-name|generalBloomFilterWriter
+name|bloomFilterWriter
 decl_stmt|;
 specifier|public
 name|BloomContext
 parameter_list|(
 name|BloomFilterWriter
-name|generalBloomFilterWriter
+name|bloomFilterWriter
 parameter_list|)
 block|{
 name|this
 operator|.
-name|generalBloomFilterWriter
+name|bloomFilterWriter
 operator|=
-name|generalBloomFilterWriter
+name|bloomFilterWriter
 expr_stmt|;
 block|}
 specifier|public
@@ -134,6 +134,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// only add to the bloom filter on a new, unique key
 if|if
 condition|(
 name|isNewKey
@@ -142,7 +143,7 @@ name|cell
 argument_list|)
 condition|)
 block|{
-name|generalBloomFilterWriter
+name|bloomFilterWriter
 operator|.
 name|add
 argument_list|(
