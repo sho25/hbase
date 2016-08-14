@@ -444,7 +444,7 @@ name|get
 argument_list|(
 name|CALL_QUEUE_TYPE_CONF_KEY
 argument_list|,
-name|CALL_QUEUE_TYPE_DEADLINE_CONF_VALUE
+name|CALL_QUEUE_TYPE_CONF_DEFAULT
 argument_list|)
 decl_stmt|;
 if|if
@@ -824,7 +824,7 @@ name|get
 argument_list|(
 name|CALL_QUEUE_TYPE_CONF_KEY
 argument_list|,
-name|CALL_QUEUE_TYPE_FIFO_CONF_VALUE
+name|CALL_QUEUE_TYPE_CONF_DEFAULT
 argument_list|)
 decl_stmt|;
 name|float
