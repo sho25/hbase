@@ -200,6 +200,14 @@ specifier|public
 class|class
 name|BlockCacheUtil
 block|{
+specifier|public
+specifier|static
+specifier|final
+name|long
+name|NANOS_PER_SECOND
+init|=
+literal|1000000000
+decl_stmt|;
 comment|/**    * Needed generating JSON.    */
 specifier|private
 specifier|static
@@ -882,6 +890,7 @@ block|}
 name|long
 name|age
 init|=
+operator|(
 name|this
 operator|.
 name|now
@@ -890,6 +899,9 @@ name|cb
 operator|.
 name|getCachedTime
 argument_list|()
+operator|)
+operator|/
+name|NANOS_PER_SECOND
 decl_stmt|;
 name|this
 operator|.
