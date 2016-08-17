@@ -1333,38 +1333,6 @@ block|}
 block|}
 catch|catch
 parameter_list|(
-name|ProcedureYieldException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Failed serverName="
-operator|+
-name|this
-operator|.
-name|serverName
-operator|+
-literal|", state="
-operator|+
-name|state
-operator|+
-literal|"; retry "
-operator|+
-name|e
-operator|.
-name|getMessage
-argument_list|()
-argument_list|)
-expr_stmt|;
-throw|throw
-name|e
-throw|;
-block|}
-catch|catch
-parameter_list|(
 name|IOException
 name|e
 parameter_list|)

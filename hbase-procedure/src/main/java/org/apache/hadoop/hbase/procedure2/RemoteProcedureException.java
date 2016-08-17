@@ -390,7 +390,7 @@ argument_list|()
 argument_list|,
 name|ForeignExceptionUtil
 operator|.
-name|toIOException
+name|toException
 argument_list|(
 name|eem
 argument_list|)
