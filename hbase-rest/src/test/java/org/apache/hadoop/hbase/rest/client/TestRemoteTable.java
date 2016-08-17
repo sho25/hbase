@@ -513,6 +513,37 @@ specifier|public
 class|class
 name|TestRemoteTable
 block|{
+comment|// Verify that invalid URL characters and arbitrary bytes are escaped when
+comment|// constructing REST URLs per HBASE-7621. RemoteHTable should support row keys
+comment|// and qualifiers containing any byte for all table operations.
+specifier|private
+specifier|static
+specifier|final
+name|String
+name|INVALID_URL_CHARS_1
+init|=
+literal|"|\"\\^{}\u0001\u0002\u0003\u0004\u0005\u0006\u0007\u0008\u0009\u000B\u000C"
+decl_stmt|;
+comment|// HColumnDescriptor prevents certain characters in column names.  The following
+comment|// are examples of characters are allowed in column names but are not valid in
+comment|// URLs.
+specifier|private
+specifier|static
+specifier|final
+name|String
+name|INVALID_URL_CHARS_2
+init|=
+literal|"|^{}\u0242"
+decl_stmt|;
+comment|// Besides alphanumeric these characters can also be present in table names.
+specifier|private
+specifier|static
+specifier|final
+name|String
+name|VALID_TABLE_NAME_CHARS
+init|=
+literal|"_-."
+decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
@@ -524,6 +555,8 @@ operator|.
 name|valueOf
 argument_list|(
 literal|"TestRemoteTable"
+operator|+
+name|VALID_TABLE_NAME_CHARS
 argument_list|)
 decl_stmt|;
 specifier|private
@@ -538,6 +571,8 @@ operator|.
 name|toBytes
 argument_list|(
 literal|"testrow1"
+operator|+
+name|INVALID_URL_CHARS_1
 argument_list|)
 decl_stmt|;
 specifier|private
@@ -552,6 +587,8 @@ operator|.
 name|toBytes
 argument_list|(
 literal|"testrow2"
+operator|+
+name|INVALID_URL_CHARS_1
 argument_list|)
 decl_stmt|;
 specifier|private
@@ -566,6 +603,8 @@ operator|.
 name|toBytes
 argument_list|(
 literal|"testrow3"
+operator|+
+name|INVALID_URL_CHARS_1
 argument_list|)
 decl_stmt|;
 specifier|private
@@ -580,6 +619,8 @@ operator|.
 name|toBytes
 argument_list|(
 literal|"testrow4"
+operator|+
+name|INVALID_URL_CHARS_1
 argument_list|)
 decl_stmt|;
 specifier|private
@@ -594,6 +635,8 @@ operator|.
 name|toBytes
 argument_list|(
 literal|"a"
+operator|+
+name|INVALID_URL_CHARS_2
 argument_list|)
 decl_stmt|;
 specifier|private
@@ -608,6 +651,8 @@ operator|.
 name|toBytes
 argument_list|(
 literal|"b"
+operator|+
+name|INVALID_URL_CHARS_2
 argument_list|)
 decl_stmt|;
 specifier|private
@@ -622,6 +667,8 @@ operator|.
 name|toBytes
 argument_list|(
 literal|"c"
+operator|+
+name|INVALID_URL_CHARS_2
 argument_list|)
 decl_stmt|;
 specifier|private
@@ -636,6 +683,8 @@ operator|.
 name|toBytes
 argument_list|(
 literal|"1"
+operator|+
+name|INVALID_URL_CHARS_1
 argument_list|)
 decl_stmt|;
 specifier|private
@@ -650,6 +699,8 @@ operator|.
 name|toBytes
 argument_list|(
 literal|"2"
+operator|+
+name|INVALID_URL_CHARS_1
 argument_list|)
 decl_stmt|;
 specifier|private
@@ -2493,6 +2544,8 @@ operator|.
 name|toBytes
 argument_list|(
 literal|"TestRemoteTable"
+operator|+
+name|VALID_TABLE_NAME_CHARS
 argument_list|)
 argument_list|,
 name|remoteTable
