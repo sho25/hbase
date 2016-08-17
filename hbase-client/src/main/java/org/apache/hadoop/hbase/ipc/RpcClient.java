@@ -43,20 +43,6 @@ end_import
 
 begin_import
 import|import
-name|io
-operator|.
-name|netty
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|EventExecutor
-import|;
-end_import
-
-begin_import
-import|import
 name|java
 operator|.
 name|io
@@ -229,24 +215,6 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Create or fetch AsyncRpcChannel    * @param serviceName to connect to    * @param sn ServerName of the channel to create    * @param user for the service    * @return An async RPC channel fitting given parameters    * @throws FailedServerException if server failed    * @throws StoppedRpcClientException if the RPC client has stopped    */
-name|AsyncRpcChannel
-name|createRpcChannel
-parameter_list|(
-name|String
-name|serviceName
-parameter_list|,
-name|ServerName
-name|sn
-parameter_list|,
-name|User
-name|user
-parameter_list|)
-throws|throws
-name|StoppedRpcClientException
-throws|,
-name|FailedServerException
-function_decl|;
 comment|/**    * Creates a "channel" that can be used by a protobuf service.  Useful setting up    * protobuf stubs.    *    * @param sn server name describing location of server    * @param user which is to use the connection    * @param rpcTimeout default rpc operation timeout    *    * @return A rpc channel that goes via this rpc client instance.    */
 name|RpcChannel
 name|createProtobufRpcChannel
@@ -281,11 +249,6 @@ function_decl|;
 comment|/**    * @return true when this client uses a {@link org.apache.hadoop.hbase.codec.Codec} and so    *         supports cell blocks.    */
 name|boolean
 name|hasCellBlockSupport
-parameter_list|()
-function_decl|;
-comment|/**    * Get an event loop to operate on    * @return EventLoop    */
-name|EventExecutor
-name|getEventExecutor
 parameter_list|()
 function_decl|;
 block|}

@@ -43,6 +43,20 @@ end_import
 
 begin_import
 import|import
+name|io
+operator|.
+name|netty
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|DefaultPromise
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -207,7 +221,7 @@ parameter_list|,
 name|T
 parameter_list|>
 extends|extends
-name|Promise
+name|DefaultPromise
 argument_list|<
 name|T
 argument_list|>
@@ -236,7 +250,7 @@ name|id
 decl_stmt|;
 specifier|private
 specifier|final
-name|AsyncRpcChannelImpl
+name|AsyncRpcChannel
 name|channel
 decl_stmt|;
 specifier|final
@@ -297,7 +311,7 @@ comment|/**    * Constructor    *    * @param channel             which initiate
 specifier|public
 name|AsyncCall
 parameter_list|(
-name|AsyncRpcChannelImpl
+name|AsyncRpcChannel
 name|channel
 parameter_list|,
 name|int
