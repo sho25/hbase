@@ -938,7 +938,7 @@ literal|" and wal="
 operator|+
 name|filename
 operator|+
-literal|"znode content, continuing."
+literal|" znode content, continuing."
 argument_list|)
 expr_stmt|;
 block|}
