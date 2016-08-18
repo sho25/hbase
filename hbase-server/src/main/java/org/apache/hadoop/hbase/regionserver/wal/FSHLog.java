@@ -1446,23 +1446,46 @@ decl_stmt|;
 name|SafePointZigZagLatch
 name|zigzagLatch
 init|=
-operator|(
+literal|null
+decl_stmt|;
+name|long
+name|sequence
+init|=
+operator|-
+literal|1L
+decl_stmt|;
+if|if
+condition|(
 name|this
 operator|.
 name|ringBufferEventHandler
-operator|==
+operator|!=
 literal|null
-operator|)
-condition|?
-literal|null
-else|:
+condition|)
+block|{
+comment|// Get sequence first to avoid dead lock when ring buffer is full
+comment|// Considering below sequence
+comment|// 1. replaceWriter is called and zigzagLatch is initialized
+comment|// 2. ringBufferEventHandler#onEvent is called and arrives at #attainSafePoint(long) then wait
+comment|// on safePointReleasedLatch
+comment|// 3. Since ring buffer is full, if we get sequence when publish sync, the replaceWriter
+comment|// thread will wait for the ring buffer to be consumed, but the only consumer is waiting
+comment|// replaceWriter thread to release safePointReleasedLatch, which causes a deadlock
+name|sequence
+operator|=
+name|getSequenceOnRingBuffer
+argument_list|()
+expr_stmt|;
+name|zigzagLatch
+operator|=
 name|this
 operator|.
 name|ringBufferEventHandler
 operator|.
 name|attainSafePoint
 argument_list|()
-decl_stmt|;
+expr_stmt|;
+block|}
 name|afterCreatingZigZagLatch
 argument_list|()
 expr_stmt|;
@@ -1487,6 +1510,15 @@ operator|!=
 literal|null
 condition|)
 block|{
+comment|// use assert to make sure no change breaks the logic that
+comment|// sequence and zigzagLatch will be set together
+assert|assert
+name|sequence
+operator|>
+literal|0L
+operator|:
+literal|"Failed to get sequence from ring buffer"
+assert|;
 name|Trace
 operator|.
 name|addTimelineAnnotation
@@ -1501,7 +1533,9 @@ operator|.
 name|waitSafePoint
 argument_list|(
 name|publishSyncOnRingBuffer
-argument_list|()
+argument_list|(
+name|sequence
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -3027,13 +3061,35 @@ block|}
 specifier|private
 name|SyncFuture
 name|publishSyncOnRingBuffer
-parameter_list|()
+parameter_list|(
+name|long
+name|sequence
+parameter_list|)
 block|{
 return|return
 name|publishSyncOnRingBuffer
 argument_list|(
+name|sequence
+argument_list|,
 literal|null
 argument_list|)
+return|;
+block|}
+specifier|private
+name|long
+name|getSequenceOnRingBuffer
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|disruptor
+operator|.
+name|getRingBuffer
+argument_list|()
+operator|.
+name|next
+argument_list|()
 return|;
 block|}
 specifier|private
@@ -3057,6 +3113,26 @@ operator|.
 name|next
 argument_list|()
 decl_stmt|;
+return|return
+name|publishSyncOnRingBuffer
+argument_list|(
+name|sequence
+argument_list|,
+name|span
+argument_list|)
+return|;
+block|}
+specifier|private
+name|SyncFuture
+name|publishSyncOnRingBuffer
+parameter_list|(
+name|long
+name|sequence
+parameter_list|,
+name|Span
+name|span
+parameter_list|)
+block|{
 comment|// here we use ring buffer sequence as transaction id
 name|SyncFuture
 name|syncFuture
