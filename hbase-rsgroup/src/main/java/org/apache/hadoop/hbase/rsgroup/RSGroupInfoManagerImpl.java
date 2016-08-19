@@ -1631,7 +1631,7 @@ init|=
 operator|new
 name|RSGroupInfo
 argument_list|(
-name|newGroupMap
+name|rsGroupMap
 operator|.
 name|get
 argument_list|(
