@@ -69,6 +69,7 @@ operator|=
 name|t
 expr_stmt|;
 block|}
+comment|/**    * @param pos    * @return The byte at the given position in this HashKey    */
 specifier|public
 specifier|abstract
 name|byte
@@ -77,6 +78,13 @@ parameter_list|(
 name|int
 name|pos
 parameter_list|)
+function_decl|;
+comment|/**    * @return The number of bytes in this HashKey    */
+specifier|public
+specifier|abstract
+name|int
+name|length
+parameter_list|()
 function_decl|;
 block|}
 end_class

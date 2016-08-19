@@ -139,8 +139,8 @@ name|int
 name|offset
 parameter_list|)
 block|{
-comment|// Always assume that this cell has keyvalue serialized key structure.
-comment|// rk len + row key + 0 byte for family length + qual + ts + type
+comment|// For ROW_COL blooms we use bytes
+comment|//<RK length> (2 bytes) ,<RK>, 0 (one byte CF length),<CQ>,<TS> (8 btes),<TYPE> ( 1 byte)
 if|if
 condition|(
 name|offset
@@ -307,6 +307,43 @@ return|;
 block|}
 return|return
 name|MAX_TYPE
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|int
+name|length
+parameter_list|()
+block|{
+comment|// For ROW_COL blooms we use bytes
+comment|//<RK length> (2 bytes) ,<RK>, 0 (one byte CF length),<CQ>,<TS> (8 btes),<TYPE> ( 1 byte)
+return|return
+name|KeyValue
+operator|.
+name|ROW_LENGTH_SIZE
+operator|+
+name|this
+operator|.
+name|t
+operator|.
+name|getRowLength
+argument_list|()
+operator|+
+name|KeyValue
+operator|.
+name|FAMILY_LENGTH_SIZE
+operator|+
+name|this
+operator|.
+name|t
+operator|.
+name|getQualifierLength
+argument_list|()
+operator|+
+name|KeyValue
+operator|.
+name|TIMESTAMP_TYPE_SIZE
 return|;
 block|}
 block|}

@@ -235,9 +235,15 @@ name|hash
 operator|.
 name|hash
 argument_list|(
+operator|new
+name|ByteArrayHashKey
+argument_list|(
 name|bytes
 argument_list|,
+literal|0
+argument_list|,
 name|length
+argument_list|)
 argument_list|,
 name|value
 argument_list|)
@@ -267,7 +273,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * taken from  hashlittle() -- hash a variable-length key into a 32-bit value    *    * @param hashKey the key to extract the  bytes for hash algo    * @param nbytes number of bytes to include in hash    * @param initval can be any integer value    * @return a 32-bit value.  Every bit of the key affects every bit of the    * return value.  Two keys differing by one or two bits will have totally    * different hash values.    *    *<p>The best hash table sizes are powers of 2.  There is no need to do mod    * a prime (mod is sooo slow!).  If you need less than 32 bits, use a bitmask.    * For example, if you need only 10 bits, do    *<code>h = (h&amp; hashmask(10));</code>    * In which case, the hash table should have hashsize(10) elements.    *    *<p>If you are hashing n strings byte[][] k, do it like this:    * for (int i = 0, h = 0; i&lt; n; ++i) h = hash( k[i], h);    *    *<p>By Bob Jenkins, 2006.  bob_jenkins@burtleburtle.net.  You may use this    * code any way you wish, private, educational, or commercial.  It's free.    *    *<p>Use for hash table lookup, or anything where one collision in 2^^32 is    * acceptable.  Do NOT use for cryptographic purposes.   */
+comment|/**    * taken from  hashlittle() -- hash a variable-length key into a 32-bit value    *    * @param hashKey the key to extract the  bytes for hash algo    * @param initval can be any integer value    * @return a 32-bit value.  Every bit of the key affects every bit of the    * return value.  Two keys differing by one or two bits will have totally    * different hash values.    *    *<p>The best hash table sizes are powers of 2.  There is no need to do mod    * a prime (mod is sooo slow!).  If you need less than 32 bits, use a bitmask.    * For example, if you need only 10 bits, do    *<code>h = (h&amp; hashmask(10));</code>    * In which case, the hash table should have hashsize(10) elements.    *    *<p>If you are hashing n strings byte[][] k, do it like this:    * for (int i = 0, h = 0; i&lt; n; ++i) h = hash( k[i], h);    *    *<p>By Bob Jenkins, 2006.  bob_jenkins@burtleburtle.net.  You may use this    * code any way you wish, private, educational, or commercial.  It's free.    *    *<p>Use for hash table lookup, or anything where one collision in 2^^32 is    * acceptable.  Do NOT use for cryptographic purposes.   */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -276,17 +282,17 @@ argument_list|)
 annotation|@
 name|Override
 specifier|public
+parameter_list|<
+name|T
+parameter_list|>
 name|int
 name|hash
 parameter_list|(
 name|HashKey
+argument_list|<
+name|T
+argument_list|>
 name|hashKey
-parameter_list|,
-name|int
-name|off
-parameter_list|,
-name|int
-name|nbytes
 parameter_list|,
 name|int
 name|initval
@@ -295,7 +301,10 @@ block|{
 name|int
 name|length
 init|=
-name|nbytes
+name|hashKey
+operator|.
+name|length
+argument_list|()
 decl_stmt|;
 name|int
 name|a
@@ -319,7 +328,7 @@ expr_stmt|;
 name|int
 name|offset
 init|=
-name|off
+literal|0
 decl_stmt|;
 for|for
 control|(

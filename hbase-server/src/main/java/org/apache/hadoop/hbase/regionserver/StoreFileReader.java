@@ -1577,6 +1577,10 @@ argument_list|(
 name|kvKey
 argument_list|,
 name|bloom
+argument_list|,
+name|BloomType
+operator|.
+name|ROWCOL
 argument_list|)
 operator|||
 name|bloomFilter
@@ -1586,6 +1590,10 @@ argument_list|(
 name|rowBloomKey
 argument_list|,
 name|bloom
+argument_list|,
+name|BloomType
+operator|.
+name|ROWCOL
 argument_list|)
 expr_stmt|;
 block|}

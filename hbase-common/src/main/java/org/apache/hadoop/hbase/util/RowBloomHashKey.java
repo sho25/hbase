@@ -106,6 +106,22 @@ name|offset
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|int
+name|length
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|t
+operator|.
+name|getRowLength
+argument_list|()
+return|;
+block|}
 block|}
 end_class
 
