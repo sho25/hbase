@@ -668,6 +668,12 @@ literal|null
 decl_stmt|;
 specifier|static
 name|String
+name|delimiter
+init|=
+literal|null
+decl_stmt|;
+specifier|static
+name|String
 name|peerId
 init|=
 literal|null
@@ -1279,6 +1285,8 @@ argument_list|()
 operator|+
 literal|", rowkey="
 operator|+
+name|delimiter
+operator|+
 name|Bytes
 operator|.
 name|toString
@@ -1288,6 +1296,8 @@ operator|.
 name|getRow
 argument_list|()
 argument_list|)
+operator|+
+name|delimiter
 argument_list|)
 expr_stmt|;
 block|}
@@ -2499,6 +2509,36 @@ literal|"'"
 argument_list|)
 expr_stmt|;
 block|}
+specifier|final
+name|String
+name|delimiterArgKey
+init|=
+literal|"--delimiter="
+decl_stmt|;
+if|if
+condition|(
+name|cmd
+operator|.
+name|startsWith
+argument_list|(
+name|delimiterArgKey
+argument_list|)
+condition|)
+block|{
+name|delimiter
+operator|=
+name|cmd
+operator|.
+name|substring
+argument_list|(
+name|delimiterArgKey
+operator|.
+name|length
+argument_list|()
+argument_list|)
+expr_stmt|;
+continue|continue;
+block|}
 if|if
 condition|(
 name|i
@@ -2651,7 +2691,7 @@ name|println
 argument_list|(
 literal|"Usage: verifyrep [--starttime=X]"
 operator|+
-literal|" [--endtime=Y] [--families=A] [--row-prefixes=B]<peerid><tablename>"
+literal|" [--endtime=Y] [--families=A] [--row-prefixes=B] [--delimiter=]<peerid><tablename>"
 argument_list|)
 expr_stmt|;
 name|System
@@ -2722,6 +2762,15 @@ operator|.
 name|println
 argument_list|(
 literal|" row-prefixes comma-separated list of row key prefixes to filter on "
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|" delimiter    the delimiter used in display around rowkey"
 argument_list|)
 expr_stmt|;
 name|System
