@@ -166,6 +166,16 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/** @return the List of WALs that are used by this server    */
+name|List
+argument_list|<
+name|WAL
+argument_list|>
+name|getWALs
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * persist outstanding WALs to storage and stop accepting new appends.    * This method serves as shorthand for sending a sync to every WAL provided by a given    * implementation. Those WALs will also stop accepting new writes.    */
 name|void
 name|shutdown

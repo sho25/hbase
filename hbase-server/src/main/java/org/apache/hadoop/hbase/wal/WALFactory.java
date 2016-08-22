@@ -1158,6 +1158,26 @@ block|}
 block|}
 end_function
 
+begin_function
+specifier|public
+name|List
+argument_list|<
+name|WAL
+argument_list|>
+name|getWALs
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+return|return
+name|provider
+operator|.
+name|getWALs
+argument_list|()
+return|;
+block|}
+end_function
+
 begin_comment
 comment|/**    * @param identifier may not be null, contents will not be altered    * @param namespace could be null, and will use default namespace if null    */
 end_comment

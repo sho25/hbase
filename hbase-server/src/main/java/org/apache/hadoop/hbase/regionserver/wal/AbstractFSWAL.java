@@ -1004,6 +1004,20 @@ name|SyncFuture
 argument_list|>
 name|syncFuturesByHandler
 decl_stmt|;
+specifier|public
+name|long
+name|getFilenum
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|filenum
+operator|.
+name|get
+argument_list|()
+return|;
+block|}
 comment|/**    * A log file has a creation timestamp (in ms) in its file name ({@link #filenum}. This helper    * method returns the creation timestamp from a given log file. It extracts the timestamp assuming    * the filename is created with the {@link #computeFilename(long filenum)} method.    * @return timestamp, as in the log file name.    */
 specifier|protected
 name|long

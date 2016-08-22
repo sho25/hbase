@@ -33,6 +33,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|List
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Map
 import|;
 end_import
@@ -329,6 +339,16 @@ parameter_list|(
 name|HRegionInfo
 name|regionInfo
 parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/** @return the List of WALs that are used by this server    *  Doesn't include the meta WAL    */
+name|List
+argument_list|<
+name|WAL
+argument_list|>
+name|getWALs
+parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
