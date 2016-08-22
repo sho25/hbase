@@ -529,6 +529,18 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// we should ensure the snapshot dir exist, maybe it has been deleted by master
+comment|// see HBASE-16464
+if|if
+condition|(
+name|fs
+operator|.
+name|exists
+argument_list|(
+name|snapshotDir
+argument_list|)
+condition|)
+block|{
 name|SnapshotRegionManifest
 name|manifest
 init|=
@@ -568,6 +580,17 @@ name|stream
 operator|.
 name|close
 argument_list|()
+expr_stmt|;
+block|}
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"can't write manifest without parent dir, maybe it has been deleted by master?"
+argument_list|)
 expr_stmt|;
 block|}
 block|}

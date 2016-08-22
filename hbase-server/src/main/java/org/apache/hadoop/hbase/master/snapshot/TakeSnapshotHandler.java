@@ -1101,6 +1101,15 @@ try|try
 block|{
 comment|// If regions move after this meta scan, the region specific snapshot should fail, triggering
 comment|// an external exception that gets captured here.
+name|SnapshotDescriptionUtils
+operator|.
+name|createInProgressTag
+argument_list|(
+name|workingDir
+argument_list|,
+name|fs
+argument_list|)
+expr_stmt|;
 comment|// write down the snapshot info in the working directory
 name|SnapshotDescriptionUtils
 operator|.
