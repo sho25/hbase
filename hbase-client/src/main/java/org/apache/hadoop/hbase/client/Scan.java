@@ -1689,7 +1689,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Set the maximum number of values to return for each call to next()    * @param batch the maximum number of values    */
+comment|/**    * Set the maximum number of values to return for each call to next().    * Callers should be aware that invoking this method with any value    * is equivalent to calling {@link #setAllowPartialResults(boolean)}    * with a value of {@code true}; partial results may be returned if    * this method is called. Use {@link #setMaxResultSize(long)}} to    * limit the size of a Scan's Results instead.    *    * @param batch the maximum number of values    */
 specifier|public
 name|Scan
 name|setBatch
