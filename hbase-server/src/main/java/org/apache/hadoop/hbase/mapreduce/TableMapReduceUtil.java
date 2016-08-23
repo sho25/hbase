@@ -2946,7 +2946,7 @@ name|Class
 operator|.
 name|forName
 argument_list|(
-literal|"org.apache.hadoop.hbase.code.prefixtree.PrefixTreeCodec"
+literal|"org.apache.hadoop.hbase.codec.prefixtree.PrefixTreeCodec"
 argument_list|)
 expr_stmt|;
 block|}
