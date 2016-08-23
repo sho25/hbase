@@ -4790,7 +4790,7 @@ name|getCode
 argument_list|()
 return|;
 block|}
-comment|/**    * @param cell    * @return Estimate of the<code>cell</code> size in bytes.    */
+comment|/**    * Estimate based on keyvalue's serialization format.     * @param cell    * @return Estimate of the<code>cell</code> size in bytes.    */
 specifier|public
 specifier|static
 name|int
@@ -4837,7 +4837,11 @@ comment|// Use the KeyValue's infrastructure size presuming that another impleme
 comment|// same basic cost.
 name|KeyValue
 operator|.
-name|KEY_INFRASTRUCTURE_SIZE
+name|ROW_LENGTH_SIZE
+operator|+
+name|KeyValue
+operator|.
+name|FAMILY_LENGTH_SIZE
 operator|+
 comment|// Serialization is probably preceded by a length (it is in the KeyValueCodec at least).
 name|Bytes
@@ -4905,6 +4909,7 @@ operator|.
 name|TIMESTAMP_TYPE_SIZE
 return|;
 block|}
+comment|/**    * Calculates the serialized key size. We always serialize in the KeyValue's serialization    * format.    * @param cell the cell for which the key size has to be calculated.    * @return the key size    */
 specifier|public
 specifier|static
 name|int
@@ -4932,12 +4937,25 @@ operator|.
 name|getKeyLength
 argument_list|()
 return|;
-comment|// This will be a low estimate.  Will do for now.
 return|return
-name|getSumOfCellKeyElementLengths
-argument_list|(
 name|cell
-argument_list|)
+operator|.
+name|getRowLength
+argument_list|()
+operator|+
+name|cell
+operator|.
+name|getFamilyLength
+argument_list|()
+operator|+
+name|cell
+operator|.
+name|getQualifierLength
+argument_list|()
+operator|+
+name|KeyValue
+operator|.
+name|KEY_INFRASTRUCTURE_SIZE
 return|;
 block|}
 comment|/**    * This is an estimate of the heap space occupied by a cell. When the cell is of type    * {@link HeapSize} we call {@link HeapSize#heapSize()} so cell can give a correct value. In other    * cases we just consider the bytes occupied by the cell components ie. row, CF, qualifier,    * timestamp, type, value and tags.    * @param cell    * @return estimate of the heap space    */
