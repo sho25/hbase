@@ -4790,7 +4790,7 @@ name|getCode
 argument_list|()
 return|;
 block|}
-comment|/**    * Estimate based on keyvalue's serialization format.     * @param cell    * @return Estimate of the<code>cell</code> size in bytes.    */
+comment|/**    * Estimate based on keyvalue's serialization format.    * @param cell    * @return Estimate of the<code>cell</code> size in bytes.    */
 specifier|public
 specifier|static
 name|int
