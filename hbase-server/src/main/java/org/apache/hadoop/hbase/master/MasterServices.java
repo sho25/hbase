@@ -443,6 +443,17 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Create a system table using the given table definition.    * @param hTableDescriptor The system table definition    *     a single region is created.    */
+name|long
+name|createSystemTable
+parameter_list|(
+specifier|final
+name|HTableDescriptor
+name|hTableDescriptor
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Delete a table    * @param tableName The table name    * @param nonceGroup    * @param nonce    * @throws IOException    */
 name|long
 name|deleteTable

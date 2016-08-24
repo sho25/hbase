@@ -883,10 +883,11 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|master
-operator|.
-name|createTable
-argument_list|(
+comment|/** Table descriptor for ACL table */
+specifier|final
+name|HTableDescriptor
+name|ACL_TABLEDESC
+init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
@@ -944,16 +945,12 @@ argument_list|(
 literal|true
 argument_list|)
 argument_list|)
-argument_list|,
-literal|null
-argument_list|,
-name|HConstants
+decl_stmt|;
+name|master
 operator|.
-name|NO_NONCE
-argument_list|,
-name|HConstants
-operator|.
-name|NO_NONCE
+name|createSystemTable
+argument_list|(
+name|ACL_TABLEDESC
 argument_list|)
 expr_stmt|;
 block|}
