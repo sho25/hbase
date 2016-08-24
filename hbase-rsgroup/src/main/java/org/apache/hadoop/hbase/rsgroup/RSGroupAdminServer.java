@@ -1325,9 +1325,9 @@ block|}
 block|}
 try|try
 block|{
-name|Thread
+name|manager
 operator|.
-name|sleep
+name|wait
 argument_list|(
 literal|1000
 argument_list|)
