@@ -704,6 +704,17 @@ condition|(
 name|this
 operator|.
 name|snapshotId
+operator|==
+operator|-
+literal|1
+condition|)
+return|return;
+comment|// already cleared
+if|if
+condition|(
+name|this
+operator|.
+name|snapshotId
 operator|!=
 name|id
 condition|)
