@@ -20,18 +20,6 @@ package|;
 end_package
 
 begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertTrue
-import|;
-end_import
-
-begin_import
 import|import
 name|java
 operator|.
@@ -425,22 +413,6 @@ name|hbase
 operator|.
 name|wal
 operator|.
-name|FSHLogProvider
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|wal
-operator|.
 name|WAL
 import|;
 end_import
@@ -716,19 +688,6 @@ operator|*
 literal|1000
 argument_list|)
 expr_stmt|;
-comment|// make sure log.hflush() calls syncFs() to open a pipeline
-name|TEST_UTIL
-operator|.
-name|getConfiguration
-argument_list|()
-operator|.
-name|setBoolean
-argument_list|(
-literal|"dfs.support.append"
-argument_list|,
-literal|true
-argument_list|)
-expr_stmt|;
 comment|// lower the namenode& datanode heartbeat so the namenode
 comment|// quickly detects datanode failures
 name|TEST_UTIL
@@ -999,22 +958,6 @@ argument_list|(
 literal|null
 argument_list|)
 decl_stmt|;
-comment|// don't run this test without append support (HDFS-200& HDFS-142)
-name|assertTrue
-argument_list|(
-literal|"Need append support for this test"
-argument_list|,
-name|FSUtils
-operator|.
-name|isAppendSupported
-argument_list|(
-name|TEST_UTIL
-operator|.
-name|getConfiguration
-argument_list|()
-argument_list|)
-argument_list|)
-expr_stmt|;
 name|Put
 name|p
 init|=

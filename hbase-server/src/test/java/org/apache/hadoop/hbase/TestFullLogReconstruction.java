@@ -223,15 +223,6 @@ operator|.
 name|getConfiguration
 argument_list|()
 decl_stmt|;
-name|c
-operator|.
-name|setBoolean
-argument_list|(
-literal|"dfs.support.append"
-argument_list|,
-literal|true
-argument_list|)
-expr_stmt|;
 comment|// quicker heartbeat interval for faster DN death notification
 name|c
 operator|.

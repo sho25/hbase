@@ -789,15 +789,6 @@ argument_list|)
 expr_stmt|;
 name|conf1
 operator|.
-name|setBoolean
-argument_list|(
-literal|"dfs.support.append"
-argument_list|,
-literal|true
-argument_list|)
-expr_stmt|;
-name|conf1
-operator|.
 name|setLong
 argument_list|(
 name|HConstants

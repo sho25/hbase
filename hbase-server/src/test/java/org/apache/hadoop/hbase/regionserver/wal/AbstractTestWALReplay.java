@@ -1398,15 +1398,6 @@ operator|.
 name|getConfiguration
 argument_list|()
 decl_stmt|;
-name|conf
-operator|.
-name|setBoolean
-argument_list|(
-literal|"dfs.support.append"
-argument_list|,
-literal|true
-argument_list|)
-expr_stmt|;
 comment|// The below config supported by 0.20-append and CDH3b2
 name|conf
 operator|.

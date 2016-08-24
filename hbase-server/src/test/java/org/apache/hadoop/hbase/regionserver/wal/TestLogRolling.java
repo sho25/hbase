@@ -632,19 +632,6 @@ literal|"false"
 argument_list|)
 expr_stmt|;
 comment|/**** configuration for testLogRollOnDatanodeDeath ****/
-comment|// make sure log.hflush() calls syncFs() to open a pipeline
-name|TEST_UTIL
-operator|.
-name|getConfiguration
-argument_list|()
-operator|.
-name|setBoolean
-argument_list|(
-literal|"dfs.support.append"
-argument_list|,
-literal|true
-argument_list|)
-expr_stmt|;
 comment|// lower the namenode& datanode heartbeat so the namenode
 comment|// quickly detects datanode failures
 name|TEST_UTIL
@@ -1123,22 +1110,6 @@ expr_stmt|;
 block|}
 block|}
 block|}
-argument_list|)
-expr_stmt|;
-comment|// don't run this test without append support (HDFS-200& HDFS-142)
-name|assertTrue
-argument_list|(
-literal|"Need append support for this test"
-argument_list|,
-name|FSUtils
-operator|.
-name|isAppendSupported
-argument_list|(
-name|TEST_UTIL
-operator|.
-name|getConfiguration
-argument_list|()
-argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// add up the datanode count, to ensure proper replication when we kill 1
@@ -1871,22 +1842,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-argument_list|)
-expr_stmt|;
-comment|// don't run this test without append support (HDFS-200& HDFS-142)
-name|assertTrue
-argument_list|(
-literal|"Need append support for this test"
-argument_list|,
-name|FSUtils
-operator|.
-name|isAppendSupported
-argument_list|(
-name|TEST_UTIL
-operator|.
-name|getConfiguration
-argument_list|()
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|writeData

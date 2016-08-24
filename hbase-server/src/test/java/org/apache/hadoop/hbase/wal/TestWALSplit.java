@@ -1294,24 +1294,6 @@ operator|.
 name|class
 argument_list|)
 expr_stmt|;
-name|conf
-operator|.
-name|setBoolean
-argument_list|(
-literal|"dfs.support.broken.append"
-argument_list|,
-literal|true
-argument_list|)
-expr_stmt|;
-name|conf
-operator|.
-name|setBoolean
-argument_list|(
-literal|"dfs.support.append"
-argument_list|,
-literal|true
-argument_list|)
-expr_stmt|;
 comment|// This is how you turn off shortcircuit read currently.  TODO: Fix.  Should read config.
 name|System
 operator|.

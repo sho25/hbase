@@ -1298,15 +1298,6 @@ operator|.
 name|class
 argument_list|)
 expr_stmt|;
-name|c
-operator|.
-name|setBoolean
-argument_list|(
-literal|"dfs.support.append"
-argument_list|,
-literal|true
-argument_list|)
-expr_stmt|;
 comment|// Encourage plenty of flushes
 name|c
 operator|.
