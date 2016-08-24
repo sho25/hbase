@@ -633,6 +633,15 @@ operator|.
 name|toString
 argument_list|()
 expr_stmt|;
+name|col
+operator|.
+name|timeToLive
+operator|=
+name|in
+operator|.
+name|getTimeToLive
+argument_list|()
+expr_stmt|;
 return|return
 name|col
 return|;
