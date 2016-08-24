@@ -379,7 +379,7 @@ name|TIMERANGE_TRACKER
 operator|+
 name|ClassSize
 operator|.
-name|CELL_SKIPLIST_SET
+name|CELL_SET
 operator|+
 name|ClassSize
 operator|.
@@ -411,7 +411,7 @@ name|comparator
 operator|=
 name|c
 expr_stmt|;
-name|resetCellSet
+name|resetActive
 argument_list|()
 expr_stmt|;
 name|this
@@ -425,8 +425,6 @@ argument_list|()
 operator|.
 name|createImmutableSegment
 argument_list|(
-name|conf
-argument_list|,
 name|c
 argument_list|,
 literal|0
@@ -441,7 +439,7 @@ expr_stmt|;
 block|}
 specifier|protected
 name|void
-name|resetCellSet
+name|resetActive
 parameter_list|()
 block|{
 comment|// Reset heap to not include any keys

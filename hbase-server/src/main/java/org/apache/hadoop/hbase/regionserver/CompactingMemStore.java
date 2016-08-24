@@ -276,7 +276,30 @@ specifier|public
 specifier|final
 specifier|static
 name|long
-name|DEEP_OVERHEAD_PER_PIPELINE_ITEM
+name|DEEP_OVERHEAD_PER_PIPELINE_SKIPLIST_ITEM
+init|=
+name|ClassSize
+operator|.
+name|align
+argument_list|(
+name|ClassSize
+operator|.
+name|TIMERANGE_TRACKER
+operator|+
+name|ClassSize
+operator|.
+name|CELL_SET
+operator|+
+name|ClassSize
+operator|.
+name|CONCURRENT_SKIPLISTMAP
+argument_list|)
+decl_stmt|;
+specifier|public
+specifier|final
+specifier|static
+name|long
+name|DEEP_OVERHEAD_PER_PIPELINE_CELL_ARRAY_ITEM
 init|=
 name|ClassSize
 operator|.
@@ -292,11 +315,11 @@ name|TIMERANGE
 operator|+
 name|ClassSize
 operator|.
-name|CELL_SKIPLIST_SET
+name|CELL_SET
 operator|+
 name|ClassSize
 operator|.
-name|CONCURRENT_SKIPLISTMAP
+name|CELL_ARRAY_MAP
 argument_list|)
 decl_stmt|;
 comment|// Default fraction of in-memory-flush size w.r.t. flush-to-disk size
@@ -347,11 +370,11 @@ specifier|private
 name|MemStoreCompactor
 name|compactor
 decl_stmt|;
-comment|// the threshold on active size for in-memory flush
 specifier|private
 name|long
 name|inmemoryFlushSize
 decl_stmt|;
+comment|// the threshold on active size for in-memory flush
 specifier|private
 specifier|final
 name|AtomicBoolean
@@ -363,6 +386,8 @@ argument_list|(
 literal|false
 argument_list|)
 decl_stmt|;
+annotation|@
+name|VisibleForTesting
 specifier|private
 specifier|final
 name|AtomicBoolean
@@ -522,10 +547,8 @@ block|{
 return|return
 name|segment
 operator|.
-name|getSize
+name|keySize
 argument_list|()
-operator|-
-name|DEEP_OVERHEAD_PER_PIPELINE_ITEM
 return|;
 block|}
 specifier|public
@@ -930,9 +953,26 @@ name|result
 argument_list|)
 return|;
 block|}
+comment|/**    * @param requesterVersion The caller must hold the VersionedList of the pipeline    *           with version taken earlier. This version must be passed as a parameter here.    *           The flattening happens only if versions match.    */
+specifier|public
+name|void
+name|flattenOneSegment
+parameter_list|(
+name|long
+name|requesterVersion
+parameter_list|)
+block|{
+name|pipeline
+operator|.
+name|flattenYoungestSegment
+argument_list|(
+name|requesterVersion
+argument_list|)
+expr_stmt|;
+block|}
 specifier|public
 name|boolean
-name|hasCompactibleSegments
+name|hasImmutableSegments
 parameter_list|()
 block|{
 return|return
@@ -945,7 +985,7 @@ return|;
 block|}
 specifier|public
 name|VersionedSegmentsList
-name|getCompactibleSegments
+name|getImmutableSegments
 parameter_list|()
 block|{
 return|return
@@ -1055,7 +1095,7 @@ argument_list|(
 name|getActive
 argument_list|()
 operator|.
-name|getSegmentScanner
+name|getScanner
 argument_list|(
 name|readPt
 argument_list|,
@@ -1079,7 +1119,7 @@ name|add
 argument_list|(
 name|item
 operator|.
-name|getSegmentScanner
+name|getScanner
 argument_list|(
 name|readPt
 argument_list|,
@@ -1098,7 +1138,7 @@ argument_list|(
 name|getSnapshot
 argument_list|()
 operator|.
-name|getSegmentScanner
+name|getScanner
 argument_list|(
 name|readPt
 argument_list|,
@@ -1117,14 +1157,10 @@ argument_list|(
 operator|new
 name|MemStoreScanner
 argument_list|(
-operator|(
-name|AbstractMemStore
-operator|)
-name|this
+name|getComparator
+argument_list|()
 argument_list|,
 name|list
-argument_list|,
-name|readPt
 argument_list|)
 argument_list|)
 return|;
@@ -1195,8 +1231,6 @@ name|IOException
 block|{
 comment|// setting the inMemoryFlushInProgress flag again for the case this method is invoked
 comment|// directly (only in tests) in the common path setting from true to true is idempotent
-comment|// Speculative compaction execution, may be interrupted if flush is forced while
-comment|// compaction is in progress
 name|inMemoryFlushInProgress
 operator|.
 name|set
@@ -1233,9 +1267,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"IN-MEMORY FLUSH: Pushing active segment into compaction pipeline, "
-operator|+
-literal|"and initiating compaction."
+literal|"IN-MEMORY FLUSH: Pushing active segment into compaction pipeline"
 argument_list|)
 expr_stmt|;
 block|}
@@ -1269,9 +1301,11 @@ block|}
 comment|// Phase II: Compact the pipeline
 try|try
 block|{
+comment|// Speculative compaction execution, may be interrupted if flush is forced while
+comment|// compaction is in progress
 name|compactor
 operator|.
-name|startCompaction
+name|start
 argument_list|()
 expr_stmt|;
 block|}
@@ -1363,7 +1397,10 @@ name|inmemoryFlushSize
 condition|)
 block|{
 comment|// size above flush threshold
+comment|// the inMemoryFlushInProgress is CASed to be true here in order to mutual exclude
+comment|// the insert of the active into the compaction pipeline
 return|return
+operator|(
 name|inMemoryFlushInProgress
 operator|.
 name|compareAndSet
@@ -1372,6 +1409,7 @@ literal|false
 argument_list|,
 literal|true
 argument_list|)
+operator|)
 return|;
 block|}
 return|return
@@ -1394,7 +1432,7 @@ condition|)
 block|{
 name|compactor
 operator|.
-name|stopCompact
+name|stop
 argument_list|()
 expr_stmt|;
 name|inMemoryFlushInProgress
@@ -1426,19 +1464,14 @@ block|{
 name|long
 name|delta
 init|=
-name|DEEP_OVERHEAD_PER_PIPELINE_ITEM
+name|DEEP_OVERHEAD_PER_PIPELINE_SKIPLIST_ITEM
 operator|-
 name|DEEP_OVERHEAD
 decl_stmt|;
 name|active
 operator|.
-name|setSize
+name|incSize
 argument_list|(
-name|active
-operator|.
-name|getSize
-argument_list|()
-operator|+
 name|delta
 argument_list|)
 expr_stmt|;
@@ -1449,7 +1482,7 @@ argument_list|(
 name|active
 argument_list|)
 expr_stmt|;
-name|resetCellSet
+name|resetActive
 argument_list|()
 expr_stmt|;
 block|}
@@ -1676,6 +1709,69 @@ block|}
 return|return
 name|lowest
 return|;
+block|}
+comment|// debug method
+specifier|public
+name|void
+name|debug
+parameter_list|()
+block|{
+name|String
+name|msg
+init|=
+literal|"active size="
+operator|+
+name|getActive
+argument_list|()
+operator|.
+name|getSize
+argument_list|()
+decl_stmt|;
+name|msg
+operator|+=
+literal|" threshold="
+operator|+
+name|IN_MEMORY_FLUSH_THRESHOLD_FACTOR_DEFAULT
+operator|*
+name|inmemoryFlushSize
+expr_stmt|;
+name|msg
+operator|+=
+literal|" allow compaction is "
+operator|+
+operator|(
+name|allowCompaction
+operator|.
+name|get
+argument_list|()
+condition|?
+literal|"true"
+else|:
+literal|"false"
+operator|)
+expr_stmt|;
+name|msg
+operator|+=
+literal|" inMemoryFlushInProgress is "
+operator|+
+operator|(
+name|inMemoryFlushInProgress
+operator|.
+name|get
+argument_list|()
+condition|?
+literal|"true"
+else|:
+literal|"false"
+operator|)
+expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+name|msg
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 end_class

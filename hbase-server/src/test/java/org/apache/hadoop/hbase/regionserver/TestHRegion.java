@@ -35351,7 +35351,7 @@ expr_stmt|;
 block|}
 block|}
 comment|/*    * Assert first value in the passed region is<code>firstValue</code>.    *    * @param r    *    * @param fs    *    * @param firstValue    *    * @throws IOException    */
-specifier|private
+specifier|protected
 name|void
 name|assertScan
 parameter_list|(
@@ -35752,7 +35752,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-specifier|private
+specifier|protected
 name|Configuration
 name|initSplit
 parameter_list|()

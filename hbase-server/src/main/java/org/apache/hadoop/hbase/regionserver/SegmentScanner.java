@@ -847,15 +847,6 @@ name|IOException
 block|{
 comment|// do nothing
 block|}
-specifier|protected
-name|Segment
-name|getSegment
-parameter_list|()
-block|{
-return|return
-name|segment
-return|;
-block|}
 comment|//debug method
 annotation|@
 name|Override
@@ -901,6 +892,15 @@ name|res
 return|;
 block|}
 comment|/********************* Private Methods **********************/
+specifier|private
+name|Segment
+name|getSegment
+parameter_list|()
+block|{
+return|return
+name|segment
+return|;
+block|}
 comment|/**    * Private internal method for iterating over the segment,    * skipping the cells with irrelevant MVCC    */
 specifier|private
 name|Cell

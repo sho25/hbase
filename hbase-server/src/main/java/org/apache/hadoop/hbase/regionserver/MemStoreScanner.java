@@ -61,6 +61,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CellComparator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|KeyValue
 import|;
 end_import
@@ -110,7 +124,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This is the scanner for any MemStore implementation, derived from MemStore.  * The MemStoreScanner combines SegmentScanner from different Segments and  * uses the key-value heap and the reversed key-value heap for the aggregated key-values set.  * It is assumed that only traversing forward or backward is used (without zigzagging in between)  */
+comment|/**  * This is the scanner for any MemStore implementation, derived from MemStore.  * The MemStoreScanner combines KeyValueScanner from different Segments and  * uses the key-value heap and the reversed key-value heap for the aggregated key-values set.  * It is assumed that only traversing forward or backward is used (without zigzagging in between)  */
 end_comment
 
 begin_class
@@ -158,10 +172,6 @@ name|Type
 operator|.
 name|UNDEFINED
 decl_stmt|;
-specifier|private
-name|long
-name|readPoint
-decl_stmt|;
 comment|// remember the initial version of the scanners list
 name|List
 argument_list|<
@@ -169,60 +179,23 @@ name|KeyValueScanner
 argument_list|>
 name|scanners
 decl_stmt|;
-comment|// pointer back to the relevant MemStore
-comment|// is needed for shouldSeek() method
 specifier|private
-name|AbstractMemStore
-name|backwardReferenceToMemStore
+specifier|final
+name|CellComparator
+name|comparator
 decl_stmt|;
-comment|/**    * If UNDEFINED type for MemStoreScanner is provided, the forward heap is used as default!    * After constructor only one heap is going to be initialized for entire lifespan    * of the MemStoreScanner. A specific scanner can only be one directional!    *    * @param ms        Pointer back to the MemStore    * @param scanners  List of scanners over the segments    * @param readPt    Read point below which we can safely remove duplicate KVs    */
+comment|/**    * If UNDEFINED type for MemStoreScanner is provided, the forward heap is used as default!    * After constructor only one heap is going to be initialized for entire lifespan    * of the MemStoreScanner. A specific scanner can only be one directional!    *    * @param comparator Cell Comparator    * @param scanners   List of scanners, from which the heap will be built    * @param type       The scan type COMPACT_FORWARD should be used for compaction    */
 specifier|public
 name|MemStoreScanner
 parameter_list|(
-name|AbstractMemStore
-name|ms
+name|CellComparator
+name|comparator
 parameter_list|,
 name|List
 argument_list|<
 name|KeyValueScanner
 argument_list|>
 name|scanners
-parameter_list|,
-name|long
-name|readPt
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|this
-argument_list|(
-name|ms
-argument_list|,
-name|scanners
-argument_list|,
-name|readPt
-argument_list|,
-name|Type
-operator|.
-name|UNDEFINED
-argument_list|)
-expr_stmt|;
-block|}
-comment|/**    * If UNDEFINED type for MemStoreScanner is provided, the forward heap is used as default!    * After constructor only one heap is going to be initialized for entire lifespan    * of the MemStoreScanner. A specific scanner can only be one directional!    *    * @param ms        Pointer back to the MemStore    * @param scanners  List of scanners over the segments    * @param readPt Read point below which we can safely remove duplicate KVs    * @param type      The scan type COMPACT_FORWARD should be used for compaction    */
-specifier|public
-name|MemStoreScanner
-parameter_list|(
-name|AbstractMemStore
-name|ms
-parameter_list|,
-name|List
-argument_list|<
-name|KeyValueScanner
-argument_list|>
-name|scanners
-parameter_list|,
-name|long
-name|readPt
 parameter_list|,
 name|Type
 name|type
@@ -232,12 +205,6 @@ name|IOException
 block|{
 name|super
 argument_list|()
-expr_stmt|;
-name|this
-operator|.
-name|readPoint
-operator|=
-name|readPt
 expr_stmt|;
 name|this
 operator|.
@@ -268,10 +235,7 @@ name|KeyValueHeap
 argument_list|(
 name|scanners
 argument_list|,
-name|ms
-operator|.
-name|getComparator
-argument_list|()
+name|comparator
 argument_list|)
 expr_stmt|;
 break|break;
@@ -287,10 +251,7 @@ name|ReversedKeyValueHeap
 argument_list|(
 name|scanners
 argument_list|,
-name|ms
-operator|.
-name|getComparator
-argument_list|()
+name|comparator
 argument_list|)
 expr_stmt|;
 break|break;
@@ -305,9 +266,9 @@ throw|;
 block|}
 name|this
 operator|.
-name|backwardReferenceToMemStore
+name|comparator
 operator|=
-name|ms
+name|comparator
 expr_stmt|;
 name|this
 operator|.
@@ -341,6 +302,34 @@ literal|"Creating MemStoreScanner"
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+comment|/* Constructor used only when the scan usage is unknown   and need to be defined according to the first move */
+specifier|public
+name|MemStoreScanner
+parameter_list|(
+name|CellComparator
+name|comparator
+parameter_list|,
+name|List
+argument_list|<
+name|KeyValueScanner
+argument_list|>
+name|scanners
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|this
+argument_list|(
+name|comparator
+argument_list|,
+name|scanners
+argument_list|,
+name|Type
+operator|.
+name|UNDEFINED
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * Returns the cell from the top-most scanner without advancing the iterator.    * The backward traversal is assumed, only if specified explicitly    */
 annotation|@
@@ -424,7 +413,7 @@ name|next
 argument_list|()
 control|)
 block|{
-comment|// all the logic of presenting cells is inside the internal SegmentScanners
+comment|// all the logic of presenting cells is inside the internal KeyValueScanners
 comment|// located inside the heap
 return|return
 name|currentCell
@@ -877,10 +866,7 @@ name|ReversedKeyValueHeap
 argument_list|(
 name|scanners
 argument_list|,
-name|backwardReferenceToMemStore
-operator|.
-name|getComparator
-argument_list|()
+name|comparator
 argument_list|)
 expr_stmt|;
 return|return
@@ -1013,10 +999,7 @@ name|ReversedKeyValueHeap
 argument_list|(
 name|scanners
 argument_list|,
-name|backwardReferenceToMemStore
-operator|.
-name|getComparator
-argument_list|()
+name|comparator
 argument_list|)
 expr_stmt|;
 name|type

@@ -235,6 +235,20 @@ specifier|final
 name|int
 name|CONCURRENT_SKIPLISTMAP_ENTRY
 decl_stmt|;
+comment|/** Overhead for CellArrayMap */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|CELL_ARRAY_MAP
+decl_stmt|;
+comment|/** Overhead for Cell Array Entry */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|CELL_ARRAY_MAP_ENTRY
+decl_stmt|;
 comment|/** Overhead for ReentrantReadWriteLock */
 specifier|public
 specifier|static
@@ -296,7 +310,7 @@ specifier|public
 specifier|static
 specifier|final
 name|int
-name|CELL_SKIPLIST_SET
+name|CELL_SET
 decl_stmt|;
 specifier|public
 specifier|static
@@ -941,8 +955,38 @@ argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
+comment|// CELL_ARRAY_MAP is the size of an instance of CellArrayMap class, which extends
+comment|// CellFlatMap class. CellArrayMap object containing a ref to an Array, so
+comment|// OBJECT + REFERENCE + ARRAY
+comment|// CellFlatMap object contains two integers, one boolean and one reference to object, so
+comment|// 2*INT + BOOLEAN + REFERENCE
+name|CELL_ARRAY_MAP
+operator|=
+name|align
+argument_list|(
+name|OBJECT
+operator|+
+literal|2
+operator|*
+name|Bytes
+operator|.
+name|SIZEOF_INT
+operator|+
+name|Bytes
+operator|.
+name|SIZEOF_BOOLEAN
+operator|+
+name|ARRAY
+operator|+
+literal|2
+operator|*
+name|REFERENCE
+argument_list|)
+expr_stmt|;
 name|CONCURRENT_SKIPLISTMAP_ENTRY
 operator|=
+name|align
+argument_list|(
 name|align
 argument_list|(
 name|OBJECT
@@ -969,8 +1013,17 @@ operator|)
 operator|/
 literal|2
 argument_list|)
+argument_list|)
 expr_stmt|;
 comment|/* one index per two entries */
+comment|// REFERENCE in the CellArrayMap all the rest is counted in KeyValue.heapSize()
+name|CELL_ARRAY_MAP_ENTRY
+operator|=
+name|align
+argument_list|(
+name|REFERENCE
+argument_list|)
+expr_stmt|;
 name|REENTRANT_LOCK
 operator|=
 name|align
@@ -1075,7 +1128,7 @@ operator|*
 literal|2
 argument_list|)
 expr_stmt|;
-name|CELL_SKIPLIST_SET
+name|CELL_SET
 operator|=
 name|align
 argument_list|(

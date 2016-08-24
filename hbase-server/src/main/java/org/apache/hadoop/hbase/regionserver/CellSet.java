@@ -63,7 +63,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|SortedSet
+name|NavigableMap
 import|;
 end_import
 
@@ -73,9 +73,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|concurrent
-operator|.
-name|ConcurrentNavigableMap
+name|SortedSet
 import|;
 end_import
 
@@ -160,7 +158,7 @@ comment|// if it is already present overwriting what was there previous".
 comment|// Otherwise, has same attributes as ConcurrentSkipListSet
 specifier|private
 specifier|final
-name|ConcurrentNavigableMap
+name|NavigableMap
 argument_list|<
 name|Cell
 argument_list|,
@@ -168,6 +166,7 @@ name|Cell
 argument_list|>
 name|delegatee
 decl_stmt|;
+comment|///
 name|CellSet
 parameter_list|(
 specifier|final
@@ -194,7 +193,7 @@ block|}
 name|CellSet
 parameter_list|(
 specifier|final
-name|ConcurrentNavigableMap
+name|NavigableMap
 argument_list|<
 name|Cell
 argument_list|,

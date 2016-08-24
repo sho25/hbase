@@ -384,7 +384,7 @@ name|keySize
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|resetCellSet
+name|resetActive
 argument_list|()
 expr_stmt|;
 block|}
@@ -468,7 +468,7 @@ argument_list|(
 name|getActive
 argument_list|()
 operator|.
-name|getSegmentScanner
+name|getScanner
 argument_list|(
 name|readPt
 argument_list|,
@@ -483,7 +483,7 @@ argument_list|(
 name|getSnapshot
 argument_list|()
 operator|.
-name|getSegmentScanner
+name|getScanner
 argument_list|(
 name|readPt
 argument_list|,
@@ -502,14 +502,10 @@ argument_list|(
 operator|new
 name|MemStoreScanner
 argument_list|(
-operator|(
-name|AbstractMemStore
-operator|)
-name|this
+name|getComparator
+argument_list|()
 argument_list|,
 name|list
-argument_list|,
-name|readPt
 argument_list|)
 argument_list|)
 return|;
