@@ -670,7 +670,7 @@ specifier|static
 name|String
 name|delimiter
 init|=
-literal|null
+literal|""
 decl_stmt|;
 specifier|static
 name|String
