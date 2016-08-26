@@ -64,6 +64,20 @@ operator|.
 name|hbase
 operator|.
 name|KeyValue
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|KeyValue
 operator|.
 name|Type
 import|;
@@ -81,7 +95,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|MediumTests
+name|IOTests
 import|;
 end_import
 
@@ -97,7 +111,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|IOTests
+name|MediumTests
 import|;
 end_import
 
@@ -154,20 +168,6 @@ operator|.
 name|categories
 operator|.
 name|Category
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|KeyValue
 import|;
 end_import
 
@@ -311,6 +311,8 @@ argument_list|<
 name|ByteBuffer
 argument_list|>
 argument_list|()
+argument_list|,
+literal|false
 argument_list|,
 literal|false
 argument_list|)

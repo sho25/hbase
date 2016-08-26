@@ -2017,6 +2017,9 @@ name|tmpPair
 parameter_list|,
 name|boolean
 name|includeTags
+parameter_list|,
+name|boolean
+name|tagsCompressed
 parameter_list|)
 block|{
 name|super
@@ -2024,6 +2027,8 @@ argument_list|(
 name|tmpPair
 argument_list|,
 name|includeTags
+argument_list|,
+name|tagsCompressed
 argument_list|)
 expr_stmt|;
 block|}
@@ -2814,6 +2819,11 @@ argument_list|,
 name|this
 operator|.
 name|includesTags
+argument_list|()
+argument_list|,
+name|this
+operator|.
+name|tagsCompressed
 argument_list|()
 argument_list|)
 return|;
