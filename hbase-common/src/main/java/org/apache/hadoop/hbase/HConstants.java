@@ -1577,17 +1577,6 @@ name|Short
 operator|.
 name|MAX_VALUE
 decl_stmt|;
-comment|/**    * Max length of column family    */
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|MAX_FAMILY_LENGTH
-init|=
-name|Byte
-operator|.
-name|MAX_VALUE
-decl_stmt|;
 comment|/**    * Timestamp to use when we want to refer to the latest cell.    * This is the timestamp sent by clients when no timestamp is specified on    * commit.    */
 specifier|public
 specifier|static
