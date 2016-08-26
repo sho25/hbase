@@ -13,7 +13,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
+name|exceptions
 package|;
 end_package
 
