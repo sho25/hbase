@@ -868,7 +868,11 @@ argument_list|<
 name|String
 argument_list|>
 name|getSnapshotsInProgress
-parameter_list|()
+parameter_list|(
+specifier|final
+name|SnapshotManager
+name|snapshotManager
+parameter_list|)
 throws|throws
 name|IOException
 block|{
@@ -881,7 +885,9 @@ init|=
 name|super
 operator|.
 name|getSnapshotsInProgress
-argument_list|()
+argument_list|(
+name|snapshotManager
+argument_list|)
 decl_stmt|;
 name|count
 operator|.
@@ -980,6 +986,8 @@ operator|.
 name|getUnreferencedFiles
 argument_list|(
 name|allStoreFiles
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 name|assertTrue
@@ -1034,6 +1042,8 @@ operator|.
 name|getUnreferencedFiles
 argument_list|(
 name|allStoreFiles
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1781,6 +1791,8 @@ name|getParent
 argument_list|()
 argument_list|)
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 return|;
 block|}

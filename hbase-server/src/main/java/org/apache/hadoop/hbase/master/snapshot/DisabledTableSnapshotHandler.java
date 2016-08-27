@@ -409,6 +409,10 @@ parameter_list|,
 specifier|final
 name|MasterServices
 name|masterServices
+parameter_list|,
+specifier|final
+name|SnapshotManager
+name|snapshotManager
 parameter_list|)
 block|{
 name|super
@@ -416,6 +420,8 @@ argument_list|(
 name|snapshot
 argument_list|,
 name|masterServices
+argument_list|,
+name|snapshotManager
 argument_list|)
 expr_stmt|;
 block|}

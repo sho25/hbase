@@ -75,6 +75,16 @@ name|Iterables
 import|;
 end_import
 
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Map
+import|;
+end_import
+
 begin_comment
 comment|/**  * Base class for file cleaners which allows subclasses to implement a simple  * isFileDeletable method (which used to be the FileCleanerDelegate contract).  */
 end_comment
@@ -139,6 +149,23 @@ block|}
 block|}
 argument_list|)
 return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|init
+parameter_list|(
+name|Map
+argument_list|<
+name|String
+argument_list|,
+name|Object
+argument_list|>
+name|params
+parameter_list|)
+block|{
+comment|// subclass could override it if needed.
 block|}
 comment|/**    * Should the master delete the file or keep it?    * @param fStat file status of the file to check    * @return<tt>true</tt> if the file is deletable,<tt>false</tt> if not    */
 specifier|protected

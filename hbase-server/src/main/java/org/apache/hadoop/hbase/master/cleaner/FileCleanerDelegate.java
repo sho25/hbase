@@ -77,6 +77,16 @@ name|Stoppable
 import|;
 end_import
 
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Map
+import|;
+end_import
+
 begin_comment
 comment|/**  * General interface for cleaning files from a folder (generally an archive or  * backup folder). These are chained via the {@link CleanerChore} to determine  * if a given file should be deleted.  */
 end_comment
@@ -106,6 +116,19 @@ argument_list|<
 name|FileStatus
 argument_list|>
 name|files
+parameter_list|)
+function_decl|;
+comment|/**    * this method is used to pass some instance into subclass    * */
+name|void
+name|init
+parameter_list|(
+name|Map
+argument_list|<
+name|String
+argument_list|,
+name|Object
+argument_list|>
+name|params
 parameter_list|)
 function_decl|;
 block|}

@@ -315,6 +315,8 @@ argument_list|(
 name|snapshot
 argument_list|,
 name|master
+argument_list|,
+name|manager
 argument_list|)
 expr_stmt|;
 name|this

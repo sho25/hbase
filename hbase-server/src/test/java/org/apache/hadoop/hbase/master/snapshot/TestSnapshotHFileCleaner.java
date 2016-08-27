@@ -853,7 +853,9 @@ block|{
 name|cache
 operator|.
 name|getSnapshotsInProgress
-argument_list|()
+argument_list|(
+literal|null
+argument_list|)
 expr_stmt|;
 block|}
 catch|catch
@@ -985,7 +987,9 @@ block|{
 name|cache
 operator|.
 name|getSnapshotsInProgress
-argument_list|()
+argument_list|(
+literal|null
+argument_list|)
 expr_stmt|;
 block|}
 catch|catch
@@ -1022,7 +1026,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * HBASE-16464    */
+comment|/**   * HBASE-16464   */
 annotation|@
 name|Test
 specifier|public
@@ -1109,7 +1113,9 @@ decl_stmt|;
 name|cache
 operator|.
 name|getSnapshotsInProgress
-argument_list|()
+argument_list|(
+literal|null
+argument_list|)
 expr_stmt|;
 name|assertFalse
 argument_list|(

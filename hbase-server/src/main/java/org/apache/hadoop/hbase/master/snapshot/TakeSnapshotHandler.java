@@ -83,6 +83,20 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|locks
+operator|.
+name|ReentrantLock
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -696,6 +710,11 @@ name|SnapshotManifest
 name|snapshotManifest
 decl_stmt|;
 specifier|protected
+specifier|final
+name|SnapshotManager
+name|snapshotManager
+decl_stmt|;
+specifier|protected
 name|HTableDescriptor
 name|htd
 decl_stmt|;
@@ -709,6 +728,10 @@ parameter_list|,
 specifier|final
 name|MasterServices
 name|masterServices
+parameter_list|,
+specifier|final
+name|SnapshotManager
+name|snapshotManager
 parameter_list|)
 block|{
 name|super
@@ -745,6 +768,12 @@ operator|.
 name|snapshot
 operator|=
 name|snapshot
+expr_stmt|;
+name|this
+operator|.
+name|snapshotManager
+operator|=
+name|snapshotManager
 expr_stmt|;
 name|this
 operator|.
@@ -1090,6 +1119,22 @@ argument_list|(
 name|msg
 argument_list|)
 expr_stmt|;
+name|ReentrantLock
+name|lock
+init|=
+name|snapshotManager
+operator|.
+name|getLocks
+argument_list|()
+operator|.
+name|acquireLock
+argument_list|(
+name|snapshot
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+decl_stmt|;
 name|status
 operator|.
 name|setStatus
@@ -1101,15 +1146,6 @@ try|try
 block|{
 comment|// If regions move after this meta scan, the region specific snapshot should fail, triggering
 comment|// an external exception that gets captured here.
-name|SnapshotDescriptionUtils
-operator|.
-name|createInProgressTag
-argument_list|(
-name|workingDir
-argument_list|,
-name|fs
-argument_list|)
-expr_stmt|;
 comment|// write down the snapshot info in the working directory
 name|SnapshotDescriptionUtils
 operator|.
@@ -1545,6 +1581,11 @@ name|workingDir
 argument_list|)
 expr_stmt|;
 block|}
+name|lock
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
 name|releaseTableLock
 argument_list|()
 expr_stmt|;
