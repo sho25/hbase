@@ -329,6 +329,13 @@ name|this
 operator|.
 name|rpcController
 operator|.
+name|reset
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|rpcController
+operator|.
 name|setCallTimeout
 argument_list|(
 name|callTimeout

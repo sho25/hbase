@@ -264,39 +264,6 @@ name|rpcController
 operator|=
 name|rpcController
 expr_stmt|;
-comment|// If it is an instance of PayloadCarryingRpcController, we can set priority on the
-comment|// controller based off the tableName. RpcController may be null in tests when mocking so allow
-comment|// for null controller.
-if|if
-condition|(
-name|this
-operator|.
-name|rpcController
-operator|!=
-literal|null
-operator|&&
-name|this
-operator|.
-name|rpcController
-operator|instanceof
-name|PayloadCarryingRpcController
-condition|)
-block|{
-operator|(
-operator|(
-name|PayloadCarryingRpcController
-operator|)
-name|this
-operator|.
-name|rpcController
-operator|)
-operator|.
-name|setPriority
-argument_list|(
-name|tableName
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 name|void
 name|setClientByServiceName
@@ -375,7 +342,18 @@ operator|.
 name|rpcController
 operator|!=
 literal|null
-operator|&&
+condition|)
+block|{
+comment|// Do a reset to clear previous states, such as CellScanner.
+name|this
+operator|.
+name|rpcController
+operator|.
+name|reset
+argument_list|()
+expr_stmt|;
+if|if
+condition|(
 name|this
 operator|.
 name|rpcController
@@ -383,26 +361,34 @@ operator|instanceof
 name|PayloadCarryingRpcController
 condition|)
 block|{
-operator|(
+name|PayloadCarryingRpcController
+name|pcrc
+init|=
 operator|(
 name|PayloadCarryingRpcController
 operator|)
 name|this
 operator|.
 name|rpcController
-operator|)
+decl_stmt|;
+comment|// If it is an instance of PayloadCarryingRpcController, we can set priority on the
+comment|// controller based off the tableName. RpcController may be null in tests when mocking so allow
+comment|// for null controller.
+name|pcrc
+operator|.
+name|setPriority
+argument_list|(
+name|tableName
+argument_list|)
+expr_stmt|;
+name|pcrc
 operator|.
 name|setCallTimeout
 argument_list|(
 name|callTimeout
 argument_list|)
 expr_stmt|;
-comment|// Do a reset of the CellScanner in case we are carrying any Cells since last time through.
-name|setRpcControllerCellScanner
-argument_list|(
-literal|null
-argument_list|)
-expr_stmt|;
+block|}
 block|}
 return|return
 name|rpcCall
