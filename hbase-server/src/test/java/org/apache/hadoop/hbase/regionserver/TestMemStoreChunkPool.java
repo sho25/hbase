@@ -1276,6 +1276,8 @@ argument_list|,
 name|maxCount
 argument_list|,
 name|initialCount
+argument_list|,
+literal|1
 argument_list|)
 decl_stmt|;
 name|assertEquals
