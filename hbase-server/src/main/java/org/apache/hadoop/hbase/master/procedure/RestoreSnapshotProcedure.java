@@ -746,8 +746,6 @@ specifier|final
 name|SnapshotDescription
 name|snapshot
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 comment|// This is the new schema we are going to write out as this modification.
 name|this

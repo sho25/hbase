@@ -464,8 +464,6 @@ specifier|final
 name|ProcedurePrepareLatch
 name|latch
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|this
 operator|.

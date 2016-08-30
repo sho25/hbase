@@ -579,8 +579,6 @@ specifier|final
 name|HTableDescriptor
 name|htd
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|this
 argument_list|(
@@ -607,8 +605,6 @@ specifier|final
 name|ProcedurePrepareLatch
 name|latch
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|initilize
 argument_list|()

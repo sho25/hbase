@@ -788,7 +788,7 @@ specifier|public
 name|CloneSnapshotProcedure
 parameter_list|()
 block|{   }
-comment|/**    * Constructor    * @param env MasterProcedureEnv    * @param hTableDescriptor the table to operate on    * @param snapshot snapshot to clone from    * @throws IOException    */
+comment|/**    * Constructor    * @param env MasterProcedureEnv    * @param hTableDescriptor the table to operate on    * @param snapshot snapshot to clone from    */
 specifier|public
 name|CloneSnapshotProcedure
 parameter_list|(
@@ -804,8 +804,6 @@ specifier|final
 name|SnapshotDescription
 name|snapshot
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|this
 operator|.

@@ -345,8 +345,6 @@ specifier|final
 name|NamespaceDescriptor
 name|nsDescriptor
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|this
 operator|.

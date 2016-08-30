@@ -323,8 +323,6 @@ specifier|final
 name|NamespaceDescriptor
 name|newNsDescriptor
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|this
 operator|.

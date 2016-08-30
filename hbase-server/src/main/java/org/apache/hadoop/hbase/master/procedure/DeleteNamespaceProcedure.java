@@ -437,8 +437,6 @@ specifier|final
 name|String
 name|namespaceName
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|this
 operator|.

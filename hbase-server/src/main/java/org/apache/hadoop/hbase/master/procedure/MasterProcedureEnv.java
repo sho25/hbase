@@ -297,7 +297,7 @@ name|hbase
 operator|.
 name|security
 operator|.
-name|UserProvider
+name|Superusers
 import|;
 end_import
 
@@ -582,8 +582,6 @@ specifier|public
 name|User
 name|getRequestUser
 parameter_list|()
-throws|throws
-name|IOException
 block|{
 name|User
 name|user
@@ -602,15 +600,9 @@ condition|)
 block|{
 name|user
 operator|=
-name|UserProvider
+name|Superusers
 operator|.
-name|instantiate
-argument_list|(
-name|getMasterConfiguration
-argument_list|()
-argument_list|)
-operator|.
-name|getCurrent
+name|getSystemUser
 argument_list|()
 expr_stmt|;
 block|}

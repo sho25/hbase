@@ -602,8 +602,6 @@ name|HRegionInfo
 index|[]
 name|newRegions
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|this
 argument_list|(
@@ -637,8 +635,6 @@ specifier|final
 name|ProcedurePrepareLatch
 name|syncLatch
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|this
 operator|.

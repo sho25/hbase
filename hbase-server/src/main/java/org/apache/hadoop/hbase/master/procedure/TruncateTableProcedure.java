@@ -441,8 +441,6 @@ parameter_list|,
 name|boolean
 name|preserveSplits
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|this
 argument_list|(
@@ -473,8 +471,6 @@ parameter_list|,
 name|ProcedurePrepareLatch
 name|latch
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|this
 operator|.

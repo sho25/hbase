@@ -580,7 +580,7 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
-comment|/**    * Constructor    * @param env MasterProcedureEnv    * @param tableName the table to operate on    * @param skipTableStateCheck whether to check table state    * @throws IOException    */
+comment|/**    * Constructor    * @param env MasterProcedureEnv    * @param tableName the table to operate on    * @param skipTableStateCheck whether to check table state    */
 specifier|public
 name|EnableTableProcedure
 parameter_list|(
@@ -596,8 +596,6 @@ specifier|final
 name|boolean
 name|skipTableStateCheck
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|this
 argument_list|(
@@ -611,7 +609,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor    * @param env MasterProcedureEnv    * @param tableName the table to operate on    * @param skipTableStateCheck whether to check table state    * @throws IOException    */
+comment|/**    * Constructor    * @param env MasterProcedureEnv    * @param tableName the table to operate on    * @param skipTableStateCheck whether to check table state    */
 specifier|public
 name|EnableTableProcedure
 parameter_list|(
@@ -631,8 +629,6 @@ specifier|final
 name|ProcedurePrepareLatch
 name|syncLatch
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|this
 operator|.

@@ -593,8 +593,6 @@ specifier|final
 name|boolean
 name|forcible
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|this
 operator|.
