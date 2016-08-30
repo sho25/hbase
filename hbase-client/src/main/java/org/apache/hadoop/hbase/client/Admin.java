@@ -991,12 +991,27 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Add a column family to an existing table.    *    * @param tableName name of the table to add column family to    * @param columnFamily column family descriptor of column family to be added    * @throws IOException if a remote or network exception occurs    */
+name|void
+name|addColumnFamily
+parameter_list|(
+specifier|final
+name|TableName
+name|tableName
+parameter_list|,
+specifier|final
+name|HColumnDescriptor
+name|columnFamily
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Add a column family to an existing table. Asynchronous operation.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param tableName name of the table to add column family to    * @param columnFamily column family descriptor of column family to be added    * @throws IOException if a remote or network exception occurs    * @return the result of the async add column family. You can use Future.get(long, TimeUnit) to    *         wait on the operation to complete.    */
 name|Future
 argument_list|<
 name|Void
 argument_list|>
-name|addColumnFamily
+name|addColumnFamilyAsync
 parameter_list|(
 specifier|final
 name|TableName
@@ -1027,11 +1042,8 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Delete a column family from a table. Asynchronous operation.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param tableName name of table    * @param columnFamily name of column family to be deleted    * @throws IOException if a remote or network exception occurs    * @return the result of the async delete column family. You can use Future.get(long, TimeUnit) to    *         wait on the operation to complete.    */
-name|Future
-argument_list|<
-name|Void
-argument_list|>
+comment|/**    * Delete a column family from a table. Asynchronous operation.    *    * @param tableName name of table    * @param columnFamily name of column family to be deleted    * @throws IOException if a remote or network exception occurs    */
+name|void
 name|deleteColumnFamily
 parameter_list|(
 specifier|final
@@ -1046,7 +1058,26 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Modify an existing column family on a table. Asynchronous operation.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param tableName name of table    * @param columnFamily new column family descriptor to use    * @throws IOException if a remote or network exception occurs    * @deprecated As of release 2.0.0.    *             (<a href="https://issues.apache.org/jira/browse/HBASE-1989">HBASE-1989</a>).    *             This will be removed in HBase 3.0.0.    *             Use {@link #modifyColumnFamily(TableName, HColumnDescriptor)}.    */
+comment|/**    * Delete a column family from a table. Asynchronous operation.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param tableName name of table    * @param columnFamily name of column family to be deleted    * @throws IOException if a remote or network exception occurs    * @return the result of the async delete column family. You can use Future.get(long, TimeUnit) to    *         wait on the operation to complete.    */
+name|Future
+argument_list|<
+name|Void
+argument_list|>
+name|deleteColumnFamilyAsync
+parameter_list|(
+specifier|final
+name|TableName
+name|tableName
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|columnFamily
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Modify an existing column family on a table.    *    * @param tableName name of table    * @param columnFamily new column family descriptor to use    * @throws IOException if a remote or network exception occurs    * @deprecated As of release 2.0.0.    *             (<a href="https://issues.apache.org/jira/browse/HBASE-1989">HBASE-1989</a>).    *             This will be removed in HBase 3.0.0.    *             Use {@link #modifyColumnFamily(TableName, HColumnDescriptor)}.    */
 annotation|@
 name|Deprecated
 name|void
@@ -1063,11 +1094,8 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Modify an existing column family on a table. Asynchronous operation.    *    * @param tableName name of table    * @param columnFamily new column family descriptor to use    * @throws IOException if a remote or network exception occurs    * @return the result of the async modify column family. You can use Future.get(long, TimeUnit) to    *         wait on the operation to complete.    */
-name|Future
-argument_list|<
-name|Void
-argument_list|>
+comment|/**    * Modify an existing column family on a table.    *    * @param tableName name of table    * @param columnFamily new column family descriptor to use    * @throws IOException if a remote or network exception occurs    */
+name|void
 name|modifyColumnFamily
 parameter_list|(
 specifier|final
@@ -1075,6 +1103,22 @@ name|TableName
 name|tableName
 parameter_list|,
 specifier|final
+name|HColumnDescriptor
+name|columnFamily
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Modify an existing column family on a table. Asynchronous operation.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param tableName name of table    * @param columnFamily new column family descriptor to use    * @throws IOException if a remote or network exception occurs    * @return the result of the async modify column family. You can use Future.get(long, TimeUnit) to    *         wait on the operation to complete.    */
+name|Future
+argument_list|<
+name|Void
+argument_list|>
+name|modifyColumnFamilyAsync
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|,
 name|HColumnDescriptor
 name|columnFamily
 parameter_list|)
@@ -1555,12 +1599,27 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Modify an existing table, more IRB friendly version.    *    * @param tableName name of table.    * @param htd modified description of the table    * @throws IOException if a remote or network exception occurs    */
+name|void
+name|modifyTable
+parameter_list|(
+specifier|final
+name|TableName
+name|tableName
+parameter_list|,
+specifier|final
+name|HTableDescriptor
+name|htd
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Modify an existing table, more IRB friendly version. Asynchronous operation.  This means that    * it may be a while before your schema change is updated across all of the table.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param tableName name of table.    * @param htd modified description of the table    * @throws IOException if a remote or network exception occurs    * @return the result of the async modify. You can use Future.get(long, TimeUnit) to wait on the    *     operation to complete    */
 name|Future
 argument_list|<
 name|Void
 argument_list|>
-name|modifyTable
+name|modifyTableAsync
 parameter_list|(
 specifier|final
 name|TableName

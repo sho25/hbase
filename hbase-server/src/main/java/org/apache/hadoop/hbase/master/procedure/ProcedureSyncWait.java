@@ -508,7 +508,7 @@ name|procId
 argument_list|)
 return|;
 block|}
-specifier|public
+specifier|private
 specifier|static
 name|byte
 index|[]
