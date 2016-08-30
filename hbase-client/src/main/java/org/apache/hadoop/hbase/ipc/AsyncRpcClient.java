@@ -1579,6 +1579,8 @@ block|}
 else|else
 block|{
 throw|throw
+name|IPCUtil
+operator|.
 name|wrapException
 argument_list|(
 name|addr
@@ -1613,6 +1615,8 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 throw|throw
+name|IPCUtil
+operator|.
 name|wrapException
 argument_list|(
 name|addr
@@ -2047,7 +2051,7 @@ throws|throws
 name|IOException
 block|{
 return|return
-name|ipcUtil
+name|cellBlockBuilder
 operator|.
 name|createCellScanner
 argument_list|(
@@ -2075,7 +2079,7 @@ throws|throws
 name|IOException
 block|{
 return|return
-name|ipcUtil
+name|cellBlockBuilder
 operator|.
 name|buildCellBlock
 argument_list|(

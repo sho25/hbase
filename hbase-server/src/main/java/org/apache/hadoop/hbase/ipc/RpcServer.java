@@ -1721,8 +1721,8 @@ literal|10
 decl_stmt|;
 specifier|private
 specifier|final
-name|IPCUtil
-name|ipcUtil
+name|CellBlockBuilder
+name|cellBlockBuilder
 decl_stmt|;
 specifier|private
 specifier|static
@@ -2823,7 +2823,7 @@ name|this
 operator|.
 name|cellBlockStream
 operator|=
-name|ipcUtil
+name|cellBlockBuilder
 operator|.
 name|buildCellBlockStream
 argument_list|(
@@ -2878,7 +2878,7 @@ block|{
 name|ByteBuffer
 name|b
 init|=
-name|ipcUtil
+name|cellBlockBuilder
 operator|.
 name|buildCellBlock
 argument_list|(
@@ -9664,7 +9664,7 @@ argument_list|)
 expr_stmt|;
 name|cellScanner
 operator|=
-name|ipcUtil
+name|cellBlockBuilder
 operator|.
 name|createCellScannerReusingBuffers
 argument_list|(
@@ -10740,10 +10740,10 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|ipcUtil
+name|cellBlockBuilder
 operator|=
 operator|new
-name|IPCUtil
+name|CellBlockBuilder
 argument_list|(
 name|conf
 argument_list|)
