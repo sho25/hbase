@@ -19,6 +19,16 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -281,6 +291,18 @@ name|Category
 import|;
 end_import
 
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|fail
+import|;
+end_import
+
 begin_class
 annotation|@
 name|Category
@@ -421,6 +443,38 @@ argument_list|(
 literal|"hbase.balancer.tablesOnMaster"
 argument_list|,
 literal|"none"
+argument_list|)
+expr_stmt|;
+comment|// set client sync wait timeout to 5sec
+name|conf
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.client.sync.wait.timeout.msec"
+argument_list|,
+literal|2500
+argument_list|)
+expr_stmt|;
+name|conf
+operator|.
+name|setInt
+argument_list|(
+name|HConstants
+operator|.
+name|HBASE_CLIENT_RETRIES_NUMBER
+argument_list|,
+literal|1
+argument_list|)
+expr_stmt|;
+name|conf
+operator|.
+name|setInt
+argument_list|(
+name|HConstants
+operator|.
+name|HBASE_CLIENT_OPERATION_TIMEOUT
+argument_list|,
+literal|2500
 argument_list|)
 expr_stmt|;
 name|TEST_UTIL
@@ -671,6 +725,8 @@ argument_list|(
 name|spec
 argument_list|)
 expr_stmt|;
+try|try
+block|{
 name|TEST_UTIL
 operator|.
 name|getHBaseAdmin
@@ -683,6 +739,22 @@ argument_list|,
 name|htd
 argument_list|)
 expr_stmt|;
+name|fail
+argument_list|(
+literal|"Expected region failed to open"
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+comment|// expected, the RS will crash and the assignment will spin forever waiting for a RS
+comment|// to assign the region. the region will not go to FAILED_OPEN because in this case
+comment|// we have just one RS and it will do one retry.
+block|}
 comment|// Sleep 3 seconds, wait for doMetrics chore catching up
 name|Thread
 operator|.
