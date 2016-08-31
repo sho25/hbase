@@ -680,6 +680,10 @@ specifier|public
 name|ServerCrashProcedure
 parameter_list|(
 specifier|final
+name|MasterProcedureEnv
+name|env
+parameter_list|,
+specifier|final
 name|ServerName
 name|serverName
 parameter_list|,
@@ -710,7 +714,19 @@ name|carryingMeta
 operator|=
 name|carryingMeta
 expr_stmt|;
-comment|// Currently not used.
+name|this
+operator|.
+name|setOwner
+argument_list|(
+name|env
+operator|.
+name|getRequestUser
+argument_list|()
+operator|.
+name|getShortName
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * Used when deserializing from a procedure store; we'll construct one of these then call    * {@link #deserializeStateData(InputStream)}. Do not use directly.    */
 specifier|public
