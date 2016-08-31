@@ -1063,6 +1063,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Make a blocking call. Throws exceptions if there are network problems or if the remote code    * threw an exception.    *    * @param ticket Be careful which ticket you pass. A new user will mean a new Connection.    *               {@link UserProvider#getCurrent()} makes a new instance of User each time so    *               will be a    *               new Connection each time.    * @return A pair with the Message response and the Cell data (if any).    */
+specifier|private
 name|Message
 name|callBlockingMethod
 parameter_list|(
