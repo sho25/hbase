@@ -524,7 +524,7 @@ name|doBuildCellBlockUndoCellBlock
 parameter_list|(
 specifier|final
 name|CellBlockBuilder
-name|util
+name|builder
 parameter_list|,
 specifier|final
 name|Codec
@@ -539,7 +539,7 @@ name|IOException
 block|{
 name|doBuildCellBlockUndoCellBlock
 argument_list|(
-name|util
+name|builder
 argument_list|,
 name|codec
 argument_list|,
@@ -559,7 +559,7 @@ name|doBuildCellBlockUndoCellBlock
 parameter_list|(
 specifier|final
 name|CellBlockBuilder
-name|util
+name|builder
 parameter_list|,
 specifier|final
 name|Codec
@@ -623,7 +623,7 @@ decl_stmt|;
 name|ByteBuffer
 name|bb
 init|=
-name|util
+name|builder
 operator|.
 name|buildCellBlock
 argument_list|(
@@ -636,7 +636,7 @@ argument_list|)
 decl_stmt|;
 name|cellScanner
 operator|=
-name|util
+name|builder
 operator|.
 name|createCellScannerReusingBuffers
 argument_list|(
@@ -975,7 +975,7 @@ name|timerTests
 parameter_list|(
 specifier|final
 name|CellBlockBuilder
-name|util
+name|builder
 parameter_list|,
 specifier|final
 name|int
@@ -1031,7 +1031,7 @@ control|)
 block|{
 name|timerTest
 argument_list|(
-name|util
+name|builder
 argument_list|,
 name|timer
 argument_list|,
@@ -1113,7 +1113,7 @@ control|)
 block|{
 name|timerTest
 argument_list|(
-name|util
+name|builder
 argument_list|,
 name|timer
 argument_list|,
@@ -1176,7 +1176,7 @@ name|timerTest
 parameter_list|(
 specifier|final
 name|CellBlockBuilder
-name|util
+name|builder
 parameter_list|,
 specifier|final
 name|StopWatch
@@ -1207,7 +1207,7 @@ name|IOException
 block|{
 name|doBuildCellBlockUndoCellBlock
 argument_list|(
-name|util
+name|builder
 argument_list|,
 name|codec
 argument_list|,
@@ -1317,7 +1317,7 @@ expr_stmt|;
 block|}
 block|}
 name|CellBlockBuilder
-name|util
+name|buildr
 init|=
 operator|new
 name|CellBlockBuilder
@@ -1349,7 +1349,7 @@ argument_list|)
 expr_stmt|;
 name|timerTests
 argument_list|(
-name|util
+name|buildr
 argument_list|,
 name|count
 argument_list|,
@@ -1364,7 +1364,7 @@ argument_list|)
 expr_stmt|;
 name|timerTests
 argument_list|(
-name|util
+name|buildr
 argument_list|,
 name|count
 argument_list|,
@@ -1381,7 +1381,7 @@ argument_list|)
 expr_stmt|;
 name|timerTests
 argument_list|(
-name|util
+name|buildr
 argument_list|,
 name|count
 argument_list|,
