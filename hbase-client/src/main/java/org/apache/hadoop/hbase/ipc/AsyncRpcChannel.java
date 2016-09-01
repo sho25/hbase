@@ -2494,7 +2494,7 @@ operator|.
 name|getPriority
 argument_list|()
 operator|!=
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 operator|.
 name|PRIORITY_UNSET
 condition|)

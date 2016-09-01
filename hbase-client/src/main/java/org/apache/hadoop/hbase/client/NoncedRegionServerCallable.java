@@ -83,7 +83,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 import|;
 end_import
 
@@ -169,7 +169,7 @@ name|stub
 decl_stmt|;
 specifier|private
 specifier|final
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|rpcController
 decl_stmt|;
 specifier|private
@@ -216,7 +216,7 @@ parameter_list|(
 name|Connection
 name|connection
 parameter_list|,
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|rpcController
 parameter_list|,
 name|TableName
@@ -392,14 +392,14 @@ specifier|abstract
 name|T
 name|call
 parameter_list|(
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|rpcController
 parameter_list|)
 throws|throws
 name|Exception
 function_decl|;
 specifier|public
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|getRpcController
 parameter_list|()
 block|{

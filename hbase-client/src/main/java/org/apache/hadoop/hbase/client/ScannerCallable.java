@@ -311,7 +311,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 import|;
 end_import
 

@@ -97,7 +97,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 import|;
 end_import
 
@@ -358,14 +358,14 @@ name|this
 operator|.
 name|rpcController
 operator|instanceof
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 condition|)
 block|{
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|pcrc
 init|=
 operator|(
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 operator|)
 name|this
 operator|.
@@ -440,7 +440,7 @@ block|{
 return|return
 operator|(
 operator|(
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 operator|)
 name|this
 operator|.
@@ -461,7 +461,7 @@ parameter_list|)
 block|{
 operator|(
 operator|(
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 operator|)
 name|this
 operator|.

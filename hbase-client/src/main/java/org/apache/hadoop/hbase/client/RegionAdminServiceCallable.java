@@ -135,7 +135,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 import|;
 end_import
 
@@ -262,7 +262,7 @@ name|RpcControllerFactory
 name|rpcControllerFactory
 decl_stmt|;
 specifier|private
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|controller
 init|=
 literal|null
@@ -942,7 +942,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|getCurrentPayloadCarryingRpcController
 parameter_list|()
 block|{
@@ -958,7 +958,7 @@ specifier|abstract
 name|T
 name|call
 parameter_list|(
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|rpcController
 parameter_list|)
 throws|throws

@@ -191,7 +191,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 import|;
 end_import
 
@@ -1129,7 +1129,7 @@ name|Throwable
 block|{
 operator|(
 operator|(
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 operator|)
 name|invocation
 operator|.

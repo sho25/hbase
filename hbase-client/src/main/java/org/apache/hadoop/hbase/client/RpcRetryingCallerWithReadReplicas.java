@@ -255,7 +255,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 import|;
 end_import
 
@@ -518,7 +518,7 @@ name|id
 decl_stmt|;
 specifier|private
 specifier|final
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|controller
 decl_stmt|;
 specifier|public
@@ -783,11 +783,11 @@ name|get
 argument_list|)
 decl_stmt|;
 comment|// Presumption that we are passed a PayloadCarryingRpcController here!
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|pcrc
 init|=
 operator|(
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 operator|)
 name|controller
 decl_stmt|;

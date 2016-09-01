@@ -515,7 +515,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 import|;
 end_import
 
@@ -3298,7 +3298,7 @@ specifier|public
 name|ReplicateWALEntryResponse
 name|call
 parameter_list|(
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|controller
 parameter_list|)
 throws|throws

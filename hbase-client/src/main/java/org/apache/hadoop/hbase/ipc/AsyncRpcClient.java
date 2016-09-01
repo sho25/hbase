@@ -1360,7 +1360,7 @@ name|CellScanner
 argument_list|>
 name|call
 parameter_list|(
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|pcrc
 parameter_list|,
 name|Descriptors
@@ -1400,7 +1400,7 @@ block|{
 name|pcrc
 operator|=
 operator|new
-name|PayloadCarryingRpcController
+name|HBaseRpcControllerImpl
 argument_list|()
 expr_stmt|;
 block|}
@@ -1636,7 +1636,7 @@ argument_list|>
 name|getMessageConverterWithRpcController
 parameter_list|(
 specifier|final
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|pcrc
 parameter_list|)
 block|{
@@ -1689,7 +1689,7 @@ name|MethodDescriptor
 name|md
 parameter_list|,
 specifier|final
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|pcrc
 parameter_list|,
 specifier|final
@@ -2618,7 +2618,7 @@ argument_list|>
 name|done
 parameter_list|)
 block|{
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|pcrc
 init|=
 name|configurePayloadCarryingRpcController

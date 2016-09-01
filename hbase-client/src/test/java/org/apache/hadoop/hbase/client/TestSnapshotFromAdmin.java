@@ -147,7 +147,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 import|;
 end_import
 
@@ -605,7 +605,7 @@ name|Mockito
 operator|.
 name|mock
 argument_list|(
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 operator|.
 name|class
 argument_list|)
@@ -938,7 +938,7 @@ name|Mockito
 operator|.
 name|mock
 argument_list|(
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 operator|.
 name|class
 argument_list|)

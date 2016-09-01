@@ -111,7 +111,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 import|;
 end_import
 
@@ -388,7 +388,7 @@ specifier|protected
 name|FlushRegionResponse
 name|call
 parameter_list|(
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|controller
 parameter_list|)
 throws|throws

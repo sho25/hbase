@@ -245,7 +245,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|DelegatingPayloadCarryingRpcController
+name|DelegatingHBaseRpcController
 import|;
 end_import
 
@@ -261,7 +261,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 import|;
 end_import
 
@@ -414,7 +414,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|newController
 parameter_list|()
 block|{
@@ -432,7 +432,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|newController
 parameter_list|(
 specifier|final
@@ -456,7 +456,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|newController
 parameter_list|(
 specifier|final
@@ -486,7 +486,7 @@ specifier|static
 class|class
 name|CountingRpcController
 extends|extends
-name|DelegatingPayloadCarryingRpcController
+name|DelegatingHBaseRpcController
 block|{
 specifier|private
 specifier|static
@@ -509,7 +509,7 @@ decl_stmt|;
 specifier|public
 name|CountingRpcController
 parameter_list|(
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|delegate
 parameter_list|)
 block|{

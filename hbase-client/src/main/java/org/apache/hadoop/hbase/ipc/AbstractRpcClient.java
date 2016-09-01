@@ -1072,7 +1072,7 @@ operator|.
 name|MethodDescriptor
 name|md
 parameter_list|,
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|pcrc
 parameter_list|,
 name|Message
@@ -1102,7 +1102,7 @@ block|{
 name|pcrc
 operator|=
 operator|new
-name|PayloadCarryingRpcController
+name|HBaseRpcControllerImpl
 argument_list|()
 expr_stmt|;
 block|}
@@ -1264,7 +1264,7 @@ name|CellScanner
 argument_list|>
 name|call
 parameter_list|(
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|pcrc
 parameter_list|,
 name|Descriptors
@@ -1330,7 +1330,7 @@ return|;
 block|}
 comment|/**    * Configure a payload carrying controller    * @param controller to configure    * @param channelOperationTimeout timeout for operation    * @return configured payload controller    */
 specifier|static
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|configurePayloadCarryingRpcController
 parameter_list|(
 name|RpcController
@@ -1340,7 +1340,7 @@ name|int
 name|channelOperationTimeout
 parameter_list|)
 block|{
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|pcrc
 decl_stmt|;
 if|if
@@ -1351,13 +1351,13 @@ literal|null
 operator|&&
 name|controller
 operator|instanceof
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 condition|)
 block|{
 name|pcrc
 operator|=
 operator|(
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 operator|)
 name|controller
 expr_stmt|;
@@ -1384,7 +1384,7 @@ block|{
 name|pcrc
 operator|=
 operator|new
-name|PayloadCarryingRpcController
+name|HBaseRpcControllerImpl
 argument_list|()
 expr_stmt|;
 name|pcrc
@@ -1532,7 +1532,7 @@ parameter_list|)
 throws|throws
 name|ServiceException
 block|{
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|pcrc
 init|=
 name|configurePayloadCarryingRpcController

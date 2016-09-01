@@ -335,7 +335,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 import|;
 end_import
 
@@ -1412,7 +1412,7 @@ block|}
 name|Throwable
 name|t
 decl_stmt|;
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|controller
 init|=
 name|connection

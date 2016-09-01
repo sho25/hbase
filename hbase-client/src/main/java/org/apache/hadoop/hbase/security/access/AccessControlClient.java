@@ -287,7 +287,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 import|;
 end_import
 
@@ -531,7 +531,7 @@ parameter_list|)
 throws|throws
 name|Throwable
 block|{
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|controller
 init|=
 operator|(
@@ -618,7 +618,7 @@ parameter_list|)
 throws|throws
 name|Throwable
 block|{
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|controller
 init|=
 operator|(
@@ -690,7 +690,7 @@ parameter_list|)
 throws|throws
 name|Throwable
 block|{
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|controller
 init|=
 operator|(
@@ -810,7 +810,7 @@ parameter_list|)
 throws|throws
 name|Throwable
 block|{
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|controller
 init|=
 operator|(
@@ -897,7 +897,7 @@ parameter_list|)
 throws|throws
 name|Throwable
 block|{
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|controller
 init|=
 operator|(
@@ -969,7 +969,7 @@ parameter_list|)
 throws|throws
 name|Throwable
 block|{
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|controller
 init|=
 operator|(
@@ -1034,7 +1034,7 @@ parameter_list|)
 throws|throws
 name|Throwable
 block|{
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|controller
 init|=
 operator|(

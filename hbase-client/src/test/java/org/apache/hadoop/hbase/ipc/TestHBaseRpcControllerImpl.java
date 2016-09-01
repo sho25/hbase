@@ -201,7 +201,7 @@ block|}
 argument_list|)
 specifier|public
 class|class
-name|TestPayloadCarryingRpcController
+name|TestHBaseRpcControllerImpl
 block|{
 annotation|@
 name|Test
@@ -257,11 +257,11 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|controller
 init|=
 operator|new
-name|PayloadCarryingRpcController
+name|HBaseRpcControllerImpl
 argument_list|(
 name|cells
 argument_list|)
@@ -388,7 +388,7 @@ name|Cell
 name|current
 parameter_list|()
 block|{
-comment|// Fake out a Cell.  All this Cell has is a value that is an int in size and equal
+comment|// Fake out a Cell. All this Cell has is a value that is an int in size and equal
 comment|// to the above 'index' param serialized as an int.
 return|return
 operator|new

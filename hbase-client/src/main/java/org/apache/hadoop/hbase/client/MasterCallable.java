@@ -77,7 +77,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 import|;
 end_import
 
@@ -159,7 +159,7 @@ name|master
 decl_stmt|;
 specifier|private
 specifier|final
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|rpcController
 decl_stmt|;
 name|MasterCallable
@@ -372,7 +372,7 @@ parameter_list|()
 throws|throws
 name|Exception
 function_decl|;
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|getRpcController
 parameter_list|()
 block|{

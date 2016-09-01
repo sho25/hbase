@@ -4763,7 +4763,7 @@ if|if
 condition|(
 name|priority
 operator|!=
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 operator|.
 name|PRIORITY_UNSET
 condition|)
@@ -6021,7 +6021,7 @@ name|CellScanner
 argument_list|>
 name|call
 parameter_list|(
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|pcrc
 parameter_list|,
 name|MethodDescriptor
@@ -6059,7 +6059,7 @@ block|{
 name|pcrc
 operator|=
 operator|new
-name|PayloadCarryingRpcController
+name|HBaseRpcControllerImpl
 argument_list|()
 expr_stmt|;
 block|}
@@ -6119,7 +6119,7 @@ parameter_list|,
 name|R
 name|responsePrototype
 parameter_list|,
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|pcrc
 parameter_list|,
 name|User

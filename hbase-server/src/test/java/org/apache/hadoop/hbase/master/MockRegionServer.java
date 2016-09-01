@@ -361,7 +361,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 import|;
 end_import
 
@@ -2847,7 +2847,7 @@ argument_list|)
 expr_stmt|;
 operator|(
 operator|(
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 operator|)
 name|controller
 operator|)

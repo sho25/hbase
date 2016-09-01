@@ -447,7 +447,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 import|;
 end_import
 
@@ -3547,7 +3547,7 @@ specifier|protected
 name|Result
 name|call
 parameter_list|(
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|controller
 parameter_list|)
 throws|throws
@@ -3698,7 +3698,7 @@ specifier|protected
 name|Result
 name|call
 parameter_list|(
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|controller
 parameter_list|)
 throws|throws
@@ -3966,7 +3966,7 @@ specifier|protected
 name|Long
 name|call
 parameter_list|(
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|controller
 parameter_list|)
 throws|throws

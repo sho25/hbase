@@ -405,7 +405,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 import|;
 end_import
 
@@ -3949,7 +3949,7 @@ throw|;
 block|}
 block|}
 specifier|private
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|newRpcController
 parameter_list|()
 block|{
@@ -4035,7 +4035,7 @@ literal|" failed because no RPC connection found to this server"
 argument_list|)
 throw|;
 block|}
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|controller
 init|=
 name|newRpcController
@@ -4116,7 +4116,7 @@ argument_list|(
 name|server
 argument_list|)
 decl_stmt|;
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|controller
 init|=
 name|newRpcController
@@ -4194,7 +4194,7 @@ argument_list|(
 name|server
 argument_list|)
 decl_stmt|;
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|controller
 init|=
 name|connection
@@ -4445,7 +4445,7 @@ literal|" failed because no RPC connection found to this server"
 argument_list|)
 throw|;
 block|}
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|controller
 init|=
 name|newRpcController
@@ -4509,7 +4509,7 @@ condition|)
 block|{
 try|try
 block|{
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|controller
 init|=
 name|newRpcController

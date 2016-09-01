@@ -11453,11 +11453,11 @@ literal|"Servicing call"
 argument_list|)
 expr_stmt|;
 comment|//get an instance of the method arg type
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|controller
 init|=
 operator|new
-name|PayloadCarryingRpcController
+name|HBaseRpcControllerImpl
 argument_list|(
 name|cellScanner
 argument_list|)

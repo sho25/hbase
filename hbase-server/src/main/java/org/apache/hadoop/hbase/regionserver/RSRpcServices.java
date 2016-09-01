@@ -821,7 +821,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 import|;
 end_import
 
@@ -4005,7 +4005,7 @@ name|Result
 name|result
 parameter_list|,
 specifier|final
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|rpcc
 parameter_list|)
 block|{
@@ -4152,7 +4152,7 @@ expr_stmt|;
 block|}
 operator|(
 operator|(
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 operator|)
 name|controller
 operator|)
@@ -11179,7 +11179,7 @@ name|cells
 init|=
 operator|(
 operator|(
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 operator|)
 name|controller
 operator|)
@@ -11845,7 +11845,7 @@ name|cellScanner
 init|=
 operator|(
 operator|(
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 operator|)
 name|controller
 operator|)
@@ -13287,7 +13287,7 @@ argument_list|)
 operator|&&
 name|controller
 operator|instanceof
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 operator|&&
 name|VersionInfoUtil
 operator|.
@@ -13315,7 +13315,7 @@ argument_list|)
 expr_stmt|;
 operator|(
 operator|(
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 operator|)
 name|controller
 operator|)
@@ -13734,11 +13734,11 @@ throw|;
 block|}
 comment|// rpc controller is how we bring in data via the back door;  it is unprotobuf'ed data.
 comment|// It is also the conduit via which we pass back data.
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|controller
 init|=
 operator|(
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 operator|)
 name|rpcc
 decl_stmt|;
@@ -14518,11 +14518,11 @@ name|ServiceException
 block|{
 comment|// rpc controller is how we bring in data via the back door;  it is unprotobuf'ed data.
 comment|// It is also the conduit via which we pass back data.
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|controller
 init|=
 operator|(
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 operator|)
 name|rpcc
 decl_stmt|;
@@ -16371,14 +16371,14 @@ if|if
 condition|(
 name|controller
 operator|instanceof
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 condition|)
 block|{
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|pRpcController
 init|=
 operator|(
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 operator|)
 name|controller
 decl_stmt|;

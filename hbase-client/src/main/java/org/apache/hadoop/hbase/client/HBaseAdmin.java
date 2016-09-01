@@ -693,7 +693,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 import|;
 end_import
 
@@ -7242,7 +7242,7 @@ name|encodedRegionName
 argument_list|)
 decl_stmt|;
 comment|// TODO: There is no timeout on this controller. Set one!
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|controller
 init|=
 name|this
@@ -7345,7 +7345,7 @@ name|sn
 argument_list|)
 decl_stmt|;
 comment|// TODO: There is no timeout on this controller. Set one!
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|controller
 init|=
 name|rpcControllerFactory
@@ -7402,7 +7402,7 @@ name|sn
 argument_list|)
 decl_stmt|;
 comment|// TODO: There is no timeout on this controller. Set one!
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|controller
 init|=
 name|rpcControllerFactory
@@ -7608,7 +7608,7 @@ throws|throws
 name|Exception
 block|{
 comment|// TODO: There is no timeout on this controller. Set one!
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|controller
 init|=
 name|rpcControllerFactory
@@ -8342,7 +8342,7 @@ throws|throws
 name|Exception
 block|{
 comment|// TODO: There is no timeout on this controller. Set one!
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|controller
 init|=
 name|rpcControllerFactory
@@ -10273,7 +10273,7 @@ argument_list|)
 throw|;
 block|}
 comment|// TODO: There is no timeout on this controller. Set one!
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|controller
 init|=
 name|rpcControllerFactory
@@ -11240,7 +11240,7 @@ argument_list|)
 argument_list|)
 decl_stmt|;
 comment|// TODO: There is no timeout on this controller. Set one!
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|controller
 init|=
 name|rpcControllerFactory
@@ -13070,7 +13070,7 @@ name|buildRollWALWriterRequest
 argument_list|()
 decl_stmt|;
 comment|// TODO: There is no timeout on this controller. Set one!
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|controller
 init|=
 name|rpcControllerFactory
@@ -13392,7 +13392,7 @@ name|sn
 argument_list|)
 decl_stmt|;
 comment|// TODO: There is no timeout on this controller. Set one!
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|controller
 init|=
 name|rpcControllerFactory
@@ -17493,7 +17493,7 @@ argument_list|)
 expr_stmt|;
 comment|// TODO: There is no timeout on this controller. Set one!
 specifier|final
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|rpcController
 init|=
 name|rpcControllerFactory

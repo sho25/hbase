@@ -130,7 +130,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Factory to create a {@link PayloadCarryingRpcController}  */
+comment|/**  * Factory to create a {@link HBaseRpcController}  */
 end_comment
 
 begin_class
@@ -186,19 +186,19 @@ name|conf
 expr_stmt|;
 block|}
 specifier|public
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|newController
 parameter_list|()
 block|{
 comment|// TODO: Set HConstants default rpc timeout here rather than nothing?
 return|return
 operator|new
-name|PayloadCarryingRpcController
+name|HBaseRpcControllerImpl
 argument_list|()
 return|;
 block|}
 specifier|public
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|newController
 parameter_list|(
 specifier|final
@@ -208,14 +208,14 @@ parameter_list|)
 block|{
 return|return
 operator|new
-name|PayloadCarryingRpcController
+name|HBaseRpcControllerImpl
 argument_list|(
 name|cellScanner
 argument_list|)
 return|;
 block|}
 specifier|public
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|newController
 parameter_list|(
 specifier|final
@@ -228,7 +228,7 @@ parameter_list|)
 block|{
 return|return
 operator|new
-name|PayloadCarryingRpcController
+name|HBaseRpcControllerImpl
 argument_list|(
 name|cellIterables
 argument_list|)

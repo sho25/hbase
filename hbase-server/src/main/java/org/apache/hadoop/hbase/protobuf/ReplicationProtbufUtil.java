@@ -19,6 +19,18 @@ end_package
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ServiceException
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -201,7 +213,23 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|PayloadCarryingRpcController
+name|HBaseRpcController
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ipc
+operator|.
+name|HBaseRpcControllerImpl
 import|;
 end_import
 
@@ -363,18 +391,6 @@ name|WALKey
 import|;
 end_import
 
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|ServiceException
-import|;
-end_import
-
 begin_class
 annotation|@
 name|InterfaceAudience
@@ -436,11 +452,11 @@ argument_list|,
 name|sourceHFileArchiveDir
 argument_list|)
 decl_stmt|;
-name|PayloadCarryingRpcController
+name|HBaseRpcController
 name|controller
 init|=
 operator|new
-name|PayloadCarryingRpcController
+name|HBaseRpcControllerImpl
 argument_list|(
 name|p
 operator|.
