@@ -13265,8 +13265,7 @@ block|{
 name|Connection
 name|connection
 init|=
-operator|new
-name|Connection
+name|getConnection
 argument_list|(
 name|channel
 argument_list|,
