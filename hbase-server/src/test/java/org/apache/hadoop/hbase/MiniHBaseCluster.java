@@ -2851,6 +2851,15 @@ operator|.
 name|getRegionServer
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+operator|!
+name|hrs
+operator|.
+name|isStopped
+argument_list|()
+condition|)
+block|{
 name|Region
 name|region
 init|=
@@ -2873,6 +2882,7 @@ operator|=
 name|count
 expr_stmt|;
 break|break;
+block|}
 block|}
 name|count
 operator|++
