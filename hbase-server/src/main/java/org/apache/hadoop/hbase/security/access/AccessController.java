@@ -7849,7 +7849,12 @@ argument_list|(
 name|ctx
 argument_list|)
 argument_list|,
-literal|"snapshot"
+literal|"snapshot "
+operator|+
+name|snapshot
+operator|.
+name|getName
+argument_list|()
 argument_list|,
 name|hTableDescriptor
 operator|.
@@ -7908,7 +7913,36 @@ argument_list|)
 condition|)
 block|{
 comment|// list it, if user is the owner of snapshot
-comment|// TODO: We are not logging this for audit
+name|AuthResult
+name|result
+init|=
+name|AuthResult
+operator|.
+name|allow
+argument_list|(
+literal|"listSnapshot "
+operator|+
+name|snapshot
+operator|.
+name|getName
+argument_list|()
+argument_list|,
+literal|"Snapshot owner check allowed"
+argument_list|,
+name|user
+argument_list|,
+literal|null
+argument_list|,
+literal|null
+argument_list|,
+literal|null
+argument_list|)
+decl_stmt|;
+name|logResult
+argument_list|(
+name|result
+argument_list|)
+expr_stmt|;
 block|}
 else|else
 block|{
@@ -7916,7 +7950,12 @@ name|requirePermission
 argument_list|(
 name|user
 argument_list|,
-literal|"listSnapshot"
+literal|"listSnapshot "
+operator|+
+name|snapshot
+operator|.
+name|getName
+argument_list|()
 argument_list|,
 name|Action
 operator|.
@@ -7956,7 +7995,12 @@ argument_list|(
 name|ctx
 argument_list|)
 argument_list|,
-literal|"clone"
+literal|"cloneSnapshot "
+operator|+
+name|snapshot
+operator|.
+name|getName
+argument_list|()
 argument_list|,
 name|Action
 operator|.
@@ -8012,7 +8056,12 @@ name|requirePermission
 argument_list|(
 name|user
 argument_list|,
-literal|"restoreSnapshot"
+literal|"restoreSnapshot "
+operator|+
+name|snapshot
+operator|.
+name|getName
+argument_list|()
 argument_list|,
 name|hTableDescriptor
 operator|.
@@ -8037,7 +8086,12 @@ name|requirePermission
 argument_list|(
 name|user
 argument_list|,
-literal|"restoreSnapshot"
+literal|"restoreSnapshot "
+operator|+
+name|snapshot
+operator|.
+name|getName
+argument_list|()
 argument_list|,
 name|Action
 operator|.
@@ -8087,7 +8141,36 @@ argument_list|)
 condition|)
 block|{
 comment|// Snapshot owner is allowed to delete the snapshot
-comment|// TODO: We are not logging this for audit
+name|AuthResult
+name|result
+init|=
+name|AuthResult
+operator|.
+name|allow
+argument_list|(
+literal|"deleteSnapshot "
+operator|+
+name|snapshot
+operator|.
+name|getName
+argument_list|()
+argument_list|,
+literal|"Snapshot owner check allowed"
+argument_list|,
+name|user
+argument_list|,
+literal|null
+argument_list|,
+literal|null
+argument_list|,
+literal|null
+argument_list|)
+decl_stmt|;
+name|logResult
+argument_list|(
+name|result
+argument_list|)
+expr_stmt|;
 block|}
 else|else
 block|{
@@ -8095,7 +8178,12 @@ name|requirePermission
 argument_list|(
 name|user
 argument_list|,
-literal|"deleteSnapshot"
+literal|"deleteSnapshot "
+operator|+
+name|snapshot
+operator|.
+name|getName
+argument_list|()
 argument_list|,
 name|Action
 operator|.
