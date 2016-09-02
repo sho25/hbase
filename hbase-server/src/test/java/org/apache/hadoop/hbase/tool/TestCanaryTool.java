@@ -425,6 +425,18 @@ name|never
 import|;
 end_import
 
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
 begin_class
 annotation|@
 name|RunWith
@@ -821,6 +833,8 @@ index|[]
 name|args
 init|=
 block|{
+literal|"-writeSniffing"
+block|,
 literal|"-t"
 block|,
 literal|"10000"
@@ -840,6 +854,36 @@ argument_list|,
 name|canary
 argument_list|,
 name|args
+argument_list|)
+expr_stmt|;
+name|assertEquals
+argument_list|(
+literal|"verify no read error count"
+argument_list|,
+literal|0
+argument_list|,
+name|canary
+operator|.
+name|getReadFailures
+argument_list|()
+operator|.
+name|size
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|assertEquals
+argument_list|(
+literal|"verify no write error count"
+argument_list|,
+literal|0
+argument_list|,
+name|canary
+operator|.
+name|getWriteFailures
+argument_list|()
+operator|.
+name|size
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|verify
@@ -1237,6 +1281,21 @@ name|anyLong
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|assertEquals
+argument_list|(
+literal|"verify no read error count"
+argument_list|,
+literal|0
+argument_list|,
+name|canary
+operator|.
+name|getReadFailures
+argument_list|()
+operator|.
+name|size
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 specifier|private
 name|void
@@ -1293,6 +1352,21 @@ argument_list|,
 name|canary
 argument_list|,
 name|args
+argument_list|)
+expr_stmt|;
+name|assertEquals
+argument_list|(
+literal|"verify no read error count"
+argument_list|,
+literal|0
+argument_list|,
+name|canary
+operator|.
+name|getReadFailures
+argument_list|()
+operator|.
+name|size
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
