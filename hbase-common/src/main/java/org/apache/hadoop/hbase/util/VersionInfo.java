@@ -75,7 +75,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|VersionAnnotation
+name|Version
 import|;
 end_import
 
@@ -112,7 +112,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This class finds the package info for hbase and the VersionAnnotation  * information.  Taken from hadoop.  Only name of annotation is different.  */
+comment|/**  * This class finds the Version information for HBase.  */
 end_comment
 
 begin_class
@@ -146,49 +146,6 @@ name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
-specifier|private
-specifier|static
-name|Package
-name|myPackage
-decl_stmt|;
-specifier|private
-specifier|static
-name|VersionAnnotation
-name|version
-decl_stmt|;
-static|static
-block|{
-name|myPackage
-operator|=
-name|VersionAnnotation
-operator|.
-name|class
-operator|.
-name|getPackage
-argument_list|()
-expr_stmt|;
-name|version
-operator|=
-name|myPackage
-operator|.
-name|getAnnotation
-argument_list|(
-name|VersionAnnotation
-operator|.
-name|class
-argument_list|)
-expr_stmt|;
-block|}
-comment|/**    * Get the meta-data for the hbase package.    * @return package    */
-specifier|static
-name|Package
-name|getPackage
-parameter_list|()
-block|{
-return|return
-name|myPackage
-return|;
-block|}
 comment|/**    * Get the hbase version.    * @return the hbase version string, eg. "0.6.3-dev"    */
 specifier|public
 specifier|static
@@ -197,16 +154,9 @@ name|getVersion
 parameter_list|()
 block|{
 return|return
-name|version
-operator|!=
-literal|null
-condition|?
-name|version
+name|Version
 operator|.
 name|version
-argument_list|()
-else|:
-literal|"Unknown"
 return|;
 block|}
 comment|/**    * Get the subversion revision number for the root directory    * @return the revision number, eg. "451451"    */
@@ -217,16 +167,9 @@ name|getRevision
 parameter_list|()
 block|{
 return|return
-name|version
-operator|!=
-literal|null
-condition|?
-name|version
+name|Version
 operator|.
 name|revision
-argument_list|()
-else|:
-literal|"Unknown"
 return|;
 block|}
 comment|/**    * The date that hbase was compiled.    * @return the compilation date in unix date format    */
@@ -237,16 +180,9 @@ name|getDate
 parameter_list|()
 block|{
 return|return
-name|version
-operator|!=
-literal|null
-condition|?
-name|version
+name|Version
 operator|.
 name|date
-argument_list|()
-else|:
-literal|"Unknown"
 return|;
 block|}
 comment|/**    * The user that compiled hbase.    * @return the username of the user    */
@@ -257,16 +193,9 @@ name|getUser
 parameter_list|()
 block|{
 return|return
-name|version
-operator|!=
-literal|null
-condition|?
-name|version
+name|Version
 operator|.
 name|user
-argument_list|()
-else|:
-literal|"Unknown"
 return|;
 block|}
 comment|/**    * Get the subversion URL for the root hbase directory.    * @return the url    */
@@ -277,16 +206,9 @@ name|getUrl
 parameter_list|()
 block|{
 return|return
-name|version
-operator|!=
-literal|null
-condition|?
-name|version
+name|Version
 operator|.
 name|url
-argument_list|()
-else|:
-literal|"Unknown"
 return|;
 block|}
 specifier|static
@@ -340,16 +262,9 @@ name|getSrcChecksum
 parameter_list|()
 block|{
 return|return
-name|version
-operator|!=
-literal|null
-condition|?
-name|version
+name|Version
 operator|.
 name|srcChecksum
-argument_list|()
-else|:
-literal|"Unknown"
 return|;
 block|}
 specifier|public
