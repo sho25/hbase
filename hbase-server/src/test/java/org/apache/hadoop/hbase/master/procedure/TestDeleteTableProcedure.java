@@ -1496,11 +1496,6 @@ argument_list|,
 name|procId
 argument_list|,
 literal|6
-argument_list|,
-name|DeleteTableState
-operator|.
-name|values
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|MasterProcedureTestingUtility

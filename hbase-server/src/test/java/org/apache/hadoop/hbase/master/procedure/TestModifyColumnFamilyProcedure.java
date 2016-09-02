@@ -1137,11 +1137,6 @@ argument_list|,
 name|procId
 argument_list|,
 name|numberOfSteps
-argument_list|,
-name|ModifyColumnFamilyState
-operator|.
-name|values
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|MasterProcedureTestingUtility
@@ -1317,11 +1312,6 @@ argument_list|,
 name|procId
 argument_list|,
 name|numberOfSteps
-argument_list|,
-name|ModifyColumnFamilyState
-operator|.
-name|values
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|MasterProcedureTestingUtility
@@ -1477,19 +1467,12 @@ argument_list|,
 name|nonce
 argument_list|)
 decl_stmt|;
-comment|// Failing in the middle of proc
 name|int
 name|numberOfSteps
 init|=
-name|ModifyColumnFamilyState
-operator|.
-name|values
-argument_list|()
-operator|.
-name|length
-operator|-
-literal|2
+literal|1
 decl_stmt|;
+comment|// failing at pre operation
 name|MasterProcedureTestingUtility
 operator|.
 name|testRollbackAndDoubleExecution
@@ -1499,11 +1482,6 @@ argument_list|,
 name|procId
 argument_list|,
 name|numberOfSteps
-argument_list|,
-name|ModifyColumnFamilyState
-operator|.
-name|values
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

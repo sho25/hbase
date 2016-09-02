@@ -872,6 +872,24 @@ name|IOException
 name|e
 parameter_list|)
 block|{
+if|if
+condition|(
+name|isRollbackSupported
+argument_list|(
+name|state
+argument_list|)
+condition|)
+block|{
+name|setFailure
+argument_list|(
+literal|"master-truncate-table"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
 name|LOG
 operator|.
 name|warn
@@ -888,6 +906,7 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 return|return
 name|Flow
@@ -921,6 +940,7 @@ condition|)
 block|{
 comment|// nothing to rollback, pre-truncate is just table-state checks.
 comment|// We can fail if the table does not exist or is not disabled.
+comment|// TODO: coprocessor rollback semantic is still undefined.
 return|return;
 block|}
 comment|// The truncate doesn't have a rollback. The execution will succeed, at some point.
@@ -954,6 +974,34 @@ argument_list|,
 name|this
 argument_list|)
 expr_stmt|;
+block|}
+annotation|@
+name|Override
+specifier|protected
+name|boolean
+name|isRollbackSupported
+parameter_list|(
+specifier|final
+name|TruncateTableState
+name|state
+parameter_list|)
+block|{
+switch|switch
+condition|(
+name|state
+condition|)
+block|{
+case|case
+name|TRUNCATE_TABLE_PRE_OPERATION
+case|:
+return|return
+literal|true
+return|;
+default|default:
+return|return
+literal|false
+return|;
+block|}
 block|}
 annotation|@
 name|Override

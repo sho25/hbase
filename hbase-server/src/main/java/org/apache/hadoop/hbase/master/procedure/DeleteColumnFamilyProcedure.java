@@ -71,20 +71,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|atomic
-operator|.
-name|AtomicBoolean
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -368,17 +354,6 @@ argument_list|(
 name|DeleteColumnFamilyProcedure
 operator|.
 name|class
-argument_list|)
-decl_stmt|;
-specifier|private
-specifier|final
-name|AtomicBoolean
-name|aborted
-init|=
-operator|new
-name|AtomicBoolean
-argument_list|(
-literal|false
 argument_list|)
 decl_stmt|;
 specifier|private
@@ -716,32 +691,15 @@ parameter_list|)
 block|{
 if|if
 condition|(
-operator|!
 name|isRollbackSupported
 argument_list|(
 name|state
 argument_list|)
 condition|)
 block|{
-comment|// We reach a state that cannot be rolled back. We just need to keep retry.
-name|LOG
-operator|.
-name|warn
+name|setFailure
 argument_list|(
-literal|"Error trying to delete the column family "
-operator|+
-name|getColumnFamilyName
-argument_list|()
-operator|+
-literal|" from table "
-operator|+
-name|tableName
-operator|+
-literal|"(in state="
-operator|+
-name|state
-operator|+
-literal|")"
+literal|"master-delete-columnfamily"
 argument_list|,
 name|e
 argument_list|)
@@ -751,9 +709,9 @@ else|else
 block|{
 name|LOG
 operator|.
-name|error
+name|warn
 argument_list|(
-literal|"Error trying to delete the column family "
+literal|"Retriable error trying to delete the column family "
 operator|+
 name|getColumnFamilyName
 argument_list|()
@@ -762,18 +720,11 @@ literal|" from table "
 operator|+
 name|tableName
 operator|+
-literal|"(in state="
+literal|" (in state="
 operator|+
 name|state
 operator|+
 literal|")"
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-name|setFailure
-argument_list|(
-literal|"master-delete-column-family"
 argument_list|,
 name|e
 argument_list|)
@@ -805,23 +756,45 @@ name|IOException
 block|{
 if|if
 condition|(
-name|isTraceEnabled
-argument_list|()
+name|state
+operator|==
+name|DeleteColumnFamilyState
+operator|.
+name|DELETE_COLUMN_FAMILY_PREPARE
+operator|||
+name|state
+operator|==
+name|DeleteColumnFamilyState
+operator|.
+name|DELETE_COLUMN_FAMILY_PRE_OPERATION
 condition|)
 block|{
-name|LOG
-operator|.
-name|trace
+comment|// nothing to rollback, pre is just table-state checks.
+comment|// We can fail if the table does not exist or is not disabled.
+comment|// TODO: coprocessor rollback semantic is still undefined.
+return|return;
+block|}
+comment|// The procedure doesn't have a rollback. The execution will succeed, at some point.
+throw|throw
+operator|new
+name|UnsupportedOperationException
 argument_list|(
-name|this
-operator|+
-literal|" rollback state="
+literal|"unhandled state="
 operator|+
 name|state
 argument_list|)
-expr_stmt|;
+throw|;
 block|}
-try|try
+annotation|@
+name|Override
+specifier|protected
+name|boolean
+name|isRollbackSupported
+parameter_list|(
+specifier|final
+name|DeleteColumnFamilyState
+name|state
+parameter_list|)
 block|{
 switch|switch
 condition|(
@@ -829,98 +802,18 @@ name|state
 condition|)
 block|{
 case|case
-name|DELETE_COLUMN_FAMILY_REOPEN_ALL_REGIONS
-case|:
-break|break;
-comment|// Nothing to undo.
-case|case
-name|DELETE_COLUMN_FAMILY_POST_OPERATION
-case|:
-comment|// TODO-MAYBE: call the coprocessor event to undo?
-break|break;
-case|case
-name|DELETE_COLUMN_FAMILY_DELETE_FS_LAYOUT
-case|:
-comment|// Once we reach to this state - we could NOT rollback - as it is tricky to undelete
-comment|// the deleted files. We are not suppose to reach here, throw exception so that we know
-comment|// there is a code bug to investigate.
-throw|throw
-operator|new
-name|UnsupportedOperationException
-argument_list|(
-name|this
-operator|+
-literal|" rollback of state="
-operator|+
-name|state
-operator|+
-literal|" is unsupported."
-argument_list|)
-throw|;
-case|case
-name|DELETE_COLUMN_FAMILY_UPDATE_TABLE_DESCRIPTOR
-case|:
-name|restoreTableDescriptor
-argument_list|(
-name|env
-argument_list|)
-expr_stmt|;
-break|break;
-case|case
 name|DELETE_COLUMN_FAMILY_PRE_OPERATION
 case|:
-comment|// TODO-MAYBE: call the coprocessor event to undo?
-break|break;
 case|case
 name|DELETE_COLUMN_FAMILY_PREPARE
 case|:
-break|break;
-comment|// nothing to do
+return|return
+literal|true
+return|;
 default|default:
-throw|throw
-operator|new
-name|UnsupportedOperationException
-argument_list|(
-name|this
-operator|+
-literal|" unhandled state="
-operator|+
-name|state
-argument_list|)
-throw|;
-block|}
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-comment|// This will be retried. Unless there is a bug in the code,
-comment|// this should be just a "temporary error" (e.g. network down)
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Failed rollback attempt step "
-operator|+
-name|state
-operator|+
-literal|" for deleting the column family"
-operator|+
-name|getColumnFamilyName
-argument_list|()
-operator|+
-literal|" to the table "
-operator|+
-name|tableName
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-throw|throw
-name|e
-throw|;
+return|return
+literal|false
+return|;
 block|}
 block|}
 annotation|@
@@ -993,70 +886,6 @@ return|return
 name|DeleteColumnFamilyState
 operator|.
 name|DELETE_COLUMN_FAMILY_PREPARE
-return|;
-block|}
-annotation|@
-name|Override
-specifier|protected
-name|void
-name|setNextState
-parameter_list|(
-name|DeleteColumnFamilyState
-name|state
-parameter_list|)
-block|{
-if|if
-condition|(
-name|aborted
-operator|.
-name|get
-argument_list|()
-operator|&&
-name|isRollbackSupported
-argument_list|(
-name|state
-argument_list|)
-condition|)
-block|{
-name|setAbortFailure
-argument_list|(
-literal|"delete-columnfamily"
-argument_list|,
-literal|"abort requested"
-argument_list|)
-expr_stmt|;
-block|}
-else|else
-block|{
-name|super
-operator|.
-name|setNextState
-argument_list|(
-name|state
-argument_list|)
-expr_stmt|;
-block|}
-block|}
-annotation|@
-name|Override
-specifier|public
-name|boolean
-name|abort
-parameter_list|(
-specifier|final
-name|MasterProcedureEnv
-name|env
-parameter_list|)
-block|{
-name|aborted
-operator|.
-name|set
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
-return|return
-literal|true
 return|;
 block|}
 annotation|@
@@ -1922,41 +1751,6 @@ argument_list|)
 throw|;
 block|}
 block|}
-block|}
-comment|/*    * Check whether we are in the state that can be rollback    */
-specifier|private
-name|boolean
-name|isRollbackSupported
-parameter_list|(
-specifier|final
-name|DeleteColumnFamilyState
-name|state
-parameter_list|)
-block|{
-switch|switch
-condition|(
-name|state
-condition|)
-block|{
-case|case
-name|DELETE_COLUMN_FAMILY_REOPEN_ALL_REGIONS
-case|:
-case|case
-name|DELETE_COLUMN_FAMILY_POST_OPERATION
-case|:
-case|case
-name|DELETE_COLUMN_FAMILY_DELETE_FS_LAYOUT
-case|:
-comment|// It is not safe to rollback if we reach to these states.
-return|return
-literal|false
-return|;
-default|default:
-break|break;
-block|}
-return|return
-literal|true
-return|;
 block|}
 specifier|private
 name|List

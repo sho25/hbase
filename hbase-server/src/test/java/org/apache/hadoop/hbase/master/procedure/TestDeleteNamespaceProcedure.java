@@ -1289,11 +1289,6 @@ argument_list|,
 name|procId
 argument_list|,
 name|numberOfSteps
-argument_list|,
-name|DeleteNamespaceState
-operator|.
-name|values
-argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Validate the deletion of namespace
@@ -1364,6 +1359,13 @@ literal|true
 argument_list|)
 expr_stmt|;
 comment|// Start the DeleteNamespace procedure&& kill the executor
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"SUBMIT DELTET"
+argument_list|)
+expr_stmt|;
 name|long
 name|procId
 init|=
@@ -1390,16 +1392,9 @@ decl_stmt|;
 name|int
 name|numberOfSteps
 init|=
-name|DeleteNamespaceState
-operator|.
-name|values
-argument_list|()
-operator|.
-name|length
-operator|-
-literal|2
+literal|0
 decl_stmt|;
-comment|// failing in the middle of proc
+comment|// failing at pre operation
 name|MasterProcedureTestingUtility
 operator|.
 name|testRollbackAndDoubleExecution
@@ -1409,11 +1404,6 @@ argument_list|,
 name|procId
 argument_list|,
 name|numberOfSteps
-argument_list|,
-name|DeleteNamespaceState
-operator|.
-name|values
-argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Validate the namespace still exists

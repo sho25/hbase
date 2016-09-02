@@ -1438,11 +1438,6 @@ argument_list|,
 name|procId
 argument_list|,
 name|numberOfSteps
-argument_list|,
-name|CreateNamespaceState
-operator|.
-name|values
-argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Validate the creation of namespace
@@ -1542,16 +1537,9 @@ decl_stmt|;
 name|int
 name|numberOfSteps
 init|=
-name|CreateNamespaceState
-operator|.
-name|values
-argument_list|()
-operator|.
-name|length
-operator|-
-literal|2
+literal|0
 decl_stmt|;
-comment|// failing in the middle of proc
+comment|// failing at pre operation
 name|MasterProcedureTestingUtility
 operator|.
 name|testRollbackAndDoubleExecution
@@ -1561,11 +1549,6 @@ argument_list|,
 name|procId
 argument_list|,
 name|numberOfSteps
-argument_list|,
-name|CreateNamespaceState
-operator|.
-name|values
-argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Validate the non-existence of namespace

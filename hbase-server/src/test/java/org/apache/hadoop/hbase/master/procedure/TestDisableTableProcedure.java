@@ -1312,11 +1312,6 @@ argument_list|,
 name|procId
 argument_list|,
 name|numberOfSteps
-argument_list|,
-name|DisableTableState
-operator|.
-name|values
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|MasterProcedureTestingUtility
