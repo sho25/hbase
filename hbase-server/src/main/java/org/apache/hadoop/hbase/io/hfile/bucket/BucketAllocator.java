@@ -27,7 +27,37 @@ name|java
 operator|.
 name|util
 operator|.
+name|ArrayList
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Arrays
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Iterator
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
 import|;
 end_import
 
@@ -1829,8 +1859,45 @@ operator|.
 name|length
 index|]
 decl_stmt|;
-for|for
-control|(
+name|int
+name|sizeNotMatchedCount
+init|=
+literal|0
+decl_stmt|;
+name|int
+name|insufficientCapacityCount
+init|=
+literal|0
+decl_stmt|;
+name|Iterator
+argument_list|<
+name|Map
+operator|.
+name|Entry
+argument_list|<
+name|BlockCacheKey
+argument_list|,
+name|BucketEntry
+argument_list|>
+argument_list|>
+name|iterator
+init|=
+name|map
+operator|.
+name|entrySet
+argument_list|()
+operator|.
+name|iterator
+argument_list|()
+decl_stmt|;
+while|while
+condition|(
+name|iterator
+operator|.
+name|hasNext
+argument_list|()
+condition|)
+block|{
 name|Map
 operator|.
 name|Entry
@@ -1840,13 +1907,12 @@ argument_list|,
 name|BucketEntry
 argument_list|>
 name|entry
-range|:
-name|map
+init|=
+name|iterator
 operator|.
-name|entrySet
+name|next
 argument_list|()
-control|)
-block|{
+decl_stmt|;
 name|long
 name|foundOffset
 init|=
@@ -1884,6 +1950,8 @@ literal|0
 init|;
 name|i
 operator|<
+name|this
+operator|.
 name|bucketSizes
 operator|.
 name|length
@@ -1896,6 +1964,8 @@ if|if
 condition|(
 name|foundLen
 operator|<=
+name|this
+operator|.
 name|bucketSizes
 index|[
 name|i
@@ -1917,15 +1987,15 @@ operator|-
 literal|1
 condition|)
 block|{
-throw|throw
-operator|new
-name|BucketAllocatorException
-argument_list|(
-literal|"Can't match bucket size for the block with size "
-operator|+
-name|foundLen
-argument_list|)
-throw|;
+name|sizeNotMatchedCount
+operator|++
+expr_stmt|;
+name|iterator
+operator|.
+name|remove
+argument_list|()
+expr_stmt|;
+continue|continue;
 block|}
 name|int
 name|bucketNo
@@ -1951,23 +2021,17 @@ name|buckets
 operator|.
 name|length
 condition|)
-throw|throw
-operator|new
-name|BucketAllocatorException
-argument_list|(
-literal|"Can't find bucket "
-operator|+
-name|bucketNo
-operator|+
-literal|", total buckets="
-operator|+
-name|buckets
+block|{
+name|insufficientCapacityCount
+operator|++
+expr_stmt|;
+name|iterator
 operator|.
-name|length
-operator|+
-literal|"; did you shrink the cache?"
-argument_list|)
-throw|;
+name|remove
+argument_list|()
+expr_stmt|;
+continue|continue;
+block|}
 name|Bucket
 name|b
 init|=
@@ -1993,6 +2057,7 @@ argument_list|()
 operator|!=
 name|bucketSizeIndex
 condition|)
+block|{
 throw|throw
 operator|new
 name|BucketAllocatorException
@@ -2000,6 +2065,7 @@ argument_list|(
 literal|"Inconsistent allocation in bucket map;"
 argument_list|)
 throw|;
+block|}
 block|}
 else|else
 block|{
@@ -2011,6 +2077,7 @@ operator|.
 name|isCompletelyFree
 argument_list|()
 condition|)
+block|{
 throw|throw
 operator|new
 name|BucketAllocatorException
@@ -2022,6 +2089,7 @@ operator|+
 literal|" but it's already allocated; corrupt data"
 argument_list|)
 throw|;
+block|}
 comment|// Need to remove the bucket from whichever list it's currently in at
 comment|// the moment...
 name|BucketSizeInfo
@@ -2100,6 +2168,48 @@ operator|.
 name|blockAllocated
 argument_list|(
 name|b
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|sizeNotMatchedCount
+operator|>
+literal|0
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"There are "
+operator|+
+name|sizeNotMatchedCount
+operator|+
+literal|" blocks which can't be rebuilt because "
+operator|+
+literal|"there is no matching bucket size for these blocks"
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|insufficientCapacityCount
+operator|>
+literal|0
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"There are "
+operator|+
+name|insufficientCapacityCount
+operator|+
+literal|" blocks which can't be rebuilt - "
+operator|+
+literal|"did you shrink the cache?"
 argument_list|)
 expr_stmt|;
 block|}
