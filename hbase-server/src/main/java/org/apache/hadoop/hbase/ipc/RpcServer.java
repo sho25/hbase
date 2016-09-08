@@ -2626,6 +2626,10 @@ name|connection
 operator|.
 name|toString
 argument_list|()
+operator|+
+literal|" timeout: "
+operator|+
+name|timeout
 return|;
 block|}
 name|String
@@ -11467,6 +11471,23 @@ operator|.
 name|setCallTimeout
 argument_list|(
 name|timeout
+argument_list|)
+expr_stmt|;
+name|controller
+operator|.
+name|setDeadline
+argument_list|(
+name|timeout
+operator|>
+literal|0
+condition|?
+name|receiveTime
+operator|+
+name|timeout
+else|:
+name|Long
+operator|.
+name|MAX_VALUE
 argument_list|)
 expr_stmt|;
 name|Message
