@@ -593,7 +593,7 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|fatal
+name|error
 argument_list|(
 literal|"The HBaseReplicationEndpoint corresponding to peer "
 operator|+
@@ -913,7 +913,7 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|fatal
+name|error
 argument_list|(
 literal|"Error reading slave addresses"
 argument_list|,
