@@ -197,14 +197,6 @@ specifier|private
 name|IOException
 name|exception
 decl_stmt|;
-specifier|private
-name|long
-name|deadline
-init|=
-name|Long
-operator|.
-name|MAX_VALUE
-decl_stmt|;
 comment|/**    * Priority to set on this request. Set it here in controller so available composing the request.    * This is the ordained way of setting priorities going forward. We will be undoing the old    * annotation-based mechanism.    */
 specifier|private
 name|int
@@ -429,12 +421,6 @@ name|callTimeout
 operator|=
 literal|null
 expr_stmt|;
-name|deadline
-operator|=
-name|Long
-operator|.
-name|MAX_VALUE
-expr_stmt|;
 comment|// In the implementations of some callable with replicas, rpc calls are executed in a executor
 comment|// and we could cancel the operation from outside which means there could be a race between
 comment|// reset and startCancel. Although I think the race should be handled by the callable since the
@@ -515,36 +501,6 @@ return|return
 name|callTimeout
 operator|!=
 literal|null
-return|;
-block|}
-annotation|@
-name|Override
-specifier|public
-name|void
-name|setDeadline
-parameter_list|(
-name|long
-name|deadline
-parameter_list|)
-block|{
-name|this
-operator|.
-name|deadline
-operator|=
-name|deadline
-expr_stmt|;
-block|}
-annotation|@
-name|Override
-specifier|public
-name|long
-name|getDeadline
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|deadline
 return|;
 block|}
 annotation|@

@@ -193,17 +193,6 @@ name|boolean
 name|hasCallTimeout
 parameter_list|()
 function_decl|;
-name|void
-name|setDeadline
-parameter_list|(
-name|long
-name|deadline
-parameter_list|)
-function_decl|;
-name|long
-name|getDeadline
-parameter_list|()
-function_decl|;
 comment|/**    * Set failed with an exception to pass on. For use in async rpc clients    * @param e exception to set with    */
 name|void
 name|setFailed
