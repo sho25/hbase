@@ -64,15 +64,10 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Client-side call timeout  */
+comment|/**  * Indicate that the rpc server tells client to fallback to simple auth but client is disabled to do  * so.  */
 end_comment
 
 begin_class
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"serial"
-argument_list|)
 annotation|@
 name|InterfaceAudience
 operator|.
@@ -83,21 +78,28 @@ operator|.
 name|Evolving
 specifier|public
 class|class
-name|CallTimeoutException
+name|FallbackDisallowedException
 extends|extends
 name|HBaseIOException
 block|{
-specifier|public
-name|CallTimeoutException
-parameter_list|(
+specifier|private
+specifier|static
 specifier|final
-name|String
-name|msg
-parameter_list|)
+name|long
+name|serialVersionUID
+init|=
+operator|-
+literal|6942845066279358253L
+decl_stmt|;
+specifier|public
+name|FallbackDisallowedException
+parameter_list|()
 block|{
 name|super
 argument_list|(
-name|msg
+literal|"Server asks us to fall back to SIMPLE auth, "
+operator|+
+literal|"but this client is configured to only allow secure connections."
 argument_list|)
 expr_stmt|;
 block|}

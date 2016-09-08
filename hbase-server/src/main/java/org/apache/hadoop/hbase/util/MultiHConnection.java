@@ -281,22 +281,6 @@ name|Batch
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|ipc
-operator|.
-name|AsyncRpcClient
-import|;
-end_import
-
 begin_comment
 comment|/**  * Provides ability to create multiple Connection instances and allows to process a batch of  * actions using CHTable.doBatchWithCallback()  */
 end_comment

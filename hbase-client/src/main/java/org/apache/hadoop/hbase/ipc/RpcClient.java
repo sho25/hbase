@@ -217,7 +217,7 @@ name|IOException
 function_decl|;
 comment|/**    * Creates a "channel" that can be used by a protobuf service.  Useful setting up    * protobuf stubs.    *    * @param sn server name describing location of server    * @param user which is to use the connection    * @param rpcTimeout default rpc operation timeout    *    * @return A rpc channel that goes via this rpc client instance.    */
 name|RpcChannel
-name|createProtobufRpcChannel
+name|createRpcChannel
 parameter_list|(
 specifier|final
 name|ServerName
@@ -230,6 +230,8 @@ parameter_list|,
 name|int
 name|rpcTimeout
 parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
 comment|/**    * Interrupt the connections to the given server. This should be called if the server    * is known as actually dead. This will not prevent current operation to be retried, and,    * depending on their own behavior, they may retry on the same server. This can be a feature,    * for example at startup. In any case, they're likely to get connection refused (if the    * process died) or no route to host: i.e. their next retries should be faster and with a    * safe exception.    * @param sn server location to cancel connections of    */
 name|void

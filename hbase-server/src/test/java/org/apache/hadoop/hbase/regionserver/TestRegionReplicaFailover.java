@@ -1290,6 +1290,7 @@ name|aborted
 operator|=
 literal|true
 expr_stmt|;
+break|break;
 block|}
 block|}
 block|}
@@ -1635,6 +1636,7 @@ name|aborted
 operator|=
 literal|true
 expr_stmt|;
+break|break;
 block|}
 block|}
 block|}

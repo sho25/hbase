@@ -4265,6 +4265,11 @@ operator|<
 name|expiration
 condition|)
 block|{
+name|controller
+operator|.
+name|reset
+argument_list|()
+expr_stmt|;
 try|try
 block|{
 name|HRegionInfo

@@ -972,6 +972,8 @@ operator|=
 name|verifyCount
 argument_list|(
 name|counter
+operator|+
+literal|2
 argument_list|)
 expr_stmt|;
 name|Get
@@ -1070,6 +1072,8 @@ argument_list|,
 name|scanInfo
 argument_list|,
 name|counter
+operator|+
+literal|2
 argument_list|)
 expr_stmt|;
 name|table

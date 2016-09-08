@@ -19,16 +19,6 @@ end_package
 
 begin_import
 import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -44,28 +34,57 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Converts exceptions to other exceptions  */
+comment|/**  * Used to tell netty handler the call is cancelled, timeout...  */
 end_comment
 
-begin_interface
+begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
-specifier|public
-interface|interface
-name|IOExceptionConverter
+class|class
+name|CallEvent
 block|{
-comment|/**    * Converts given IOException    * @param e exception to convert    * @return converted IOException    */
-name|IOException
-name|convert
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-function_decl|;
+specifier|public
+enum|enum
+name|Type
+block|{
+name|TIMEOUT
+block|,
+name|CANCELLED
 block|}
-end_interface
+specifier|final
+name|Type
+name|type
+decl_stmt|;
+specifier|final
+name|Call
+name|call
+decl_stmt|;
+name|CallEvent
+parameter_list|(
+name|Type
+name|type
+parameter_list|,
+name|Call
+name|call
+parameter_list|)
+block|{
+name|this
+operator|.
+name|type
+operator|=
+name|type
+expr_stmt|;
+name|this
+operator|.
+name|call
+operator|=
+name|call
+expr_stmt|;
+block|}
+block|}
+end_class
 
 end_unit
 

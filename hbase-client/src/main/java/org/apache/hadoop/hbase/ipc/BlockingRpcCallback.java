@@ -122,7 +122,7 @@ literal|true
 expr_stmt|;
 name|this
 operator|.
-name|notify
+name|notifyAll
 argument_list|()
 expr_stmt|;
 block|}

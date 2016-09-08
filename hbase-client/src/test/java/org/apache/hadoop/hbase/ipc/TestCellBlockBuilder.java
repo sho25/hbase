@@ -127,20 +127,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|conf
-operator|.
-name|Configuration
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
 name|Cell
@@ -442,6 +428,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+specifier|private
 name|CellBlockBuilder
 name|builder
 decl_stmt|;
@@ -459,8 +446,9 @@ operator|=
 operator|new
 name|CellBlockBuilder
 argument_list|(
-operator|new
-name|Configuration
+name|HBaseConfiguration
+operator|.
+name|create
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1317,7 +1305,7 @@ expr_stmt|;
 block|}
 block|}
 name|CellBlockBuilder
-name|buildr
+name|builder
 init|=
 operator|new
 name|CellBlockBuilder
@@ -1349,7 +1337,7 @@ argument_list|)
 expr_stmt|;
 name|timerTests
 argument_list|(
-name|buildr
+name|builder
 argument_list|,
 name|count
 argument_list|,
@@ -1364,7 +1352,7 @@ argument_list|)
 expr_stmt|;
 name|timerTests
 argument_list|(
-name|buildr
+name|builder
 argument_list|,
 name|count
 argument_list|,
@@ -1381,7 +1369,7 @@ argument_list|)
 expr_stmt|;
 name|timerTests
 argument_list|(
-name|buildr
+name|builder
 argument_list|,
 name|count
 argument_list|,

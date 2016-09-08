@@ -141,7 +141,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|AsyncRpcClient
+name|NettyRpcClient
 import|;
 end_import
 
@@ -205,7 +205,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|RpcClientImpl
+name|BlockingRpcClient
 import|;
 end_import
 
@@ -701,14 +701,14 @@ argument_list|)
 expr_stmt|;
 name|testTokenAuth
 argument_list|(
-name|RpcClientImpl
+name|BlockingRpcClient
 operator|.
 name|class
 argument_list|)
 expr_stmt|;
 name|testTokenAuth
 argument_list|(
-name|AsyncRpcClient
+name|NettyRpcClient
 operator|.
 name|class
 argument_list|)

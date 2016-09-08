@@ -541,7 +541,7 @@ name|newStub
 argument_list|(
 name|client
 operator|.
-name|createProtobufRpcChannel
+name|createRpcChannel
 argument_list|(
 name|ServerName
 operator|.
