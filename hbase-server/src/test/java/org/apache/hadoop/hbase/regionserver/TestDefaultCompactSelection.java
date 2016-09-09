@@ -117,6 +117,38 @@ begin_import
 import|import
 name|org
 operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|EnvironmentEdgeManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|TimeOffsetEnvironmentEdge
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
 name|junit
 operator|.
 name|Assert
@@ -170,6 +202,20 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+name|TimeOffsetEnvironmentEdge
+name|edge
+init|=
+operator|new
+name|TimeOffsetEnvironmentEdge
+argument_list|()
+decl_stmt|;
+name|EnvironmentEdgeManager
+operator|.
+name|injectEdge
+argument_list|(
+name|edge
+argument_list|)
+expr_stmt|;
 comment|/**      * NOTE: these tests are specific to describe the implementation of the      * current compaction algorithm.  Developed to ensure that refactoring      * doesn't implicitly alter this.      */
 name|long
 name|tooBig
@@ -645,9 +691,16 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
+comment|// The modTime of the mocked store file is currentTimeMillis, so we need to increase the
+comment|// timestamp a bit to make sure that now - lowestModTime is greater than major compaction
+comment|// period(1ms).
 comment|// trigger an aged major compaction
-name|compactEquals
-argument_list|(
+name|List
+argument_list|<
+name|StoreFile
+argument_list|>
+name|candidates
+init|=
 name|sfCreate
 argument_list|(
 literal|50
@@ -658,6 +711,17 @@ literal|12
 argument_list|,
 literal|12
 argument_list|)
+decl_stmt|;
+name|edge
+operator|.
+name|increment
+argument_list|(
+literal|2
+argument_list|)
+expr_stmt|;
+name|compactEquals
+argument_list|(
+name|candidates
 argument_list|,
 literal|50
 argument_list|,
@@ -669,8 +733,8 @@ literal|12
 argument_list|)
 expr_stmt|;
 comment|// major sure exceeding maxCompactSize also downgrades aged minors
-name|compactEquals
-argument_list|(
+name|candidates
+operator|=
 name|sfCreate
 argument_list|(
 literal|100
@@ -683,6 +747,17 @@ literal|12
 argument_list|,
 literal|12
 argument_list|)
+expr_stmt|;
+name|edge
+operator|.
+name|increment
+argument_list|(
+literal|2
+argument_list|)
+expr_stmt|;
+name|compactEquals
+argument_list|(
+name|candidates
 argument_list|,
 literal|23
 argument_list|,

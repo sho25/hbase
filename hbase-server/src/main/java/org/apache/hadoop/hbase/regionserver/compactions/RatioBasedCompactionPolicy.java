@@ -195,6 +195,22 @@ name|StoreUtils
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|EnvironmentEdgeManager
+import|;
+end_import
+
 begin_comment
 comment|/**  * The default algorithm for selecting files for compaction.  * Combines the compaction configuration and the provisional file selection that  * it's given to produce the list of suitable candidates for compaction.  */
 end_comment
@@ -307,9 +323,9 @@ decl_stmt|;
 name|long
 name|now
 init|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
-name|currentTimeMillis
+name|currentTime
 argument_list|()
 decl_stmt|;
 if|if
