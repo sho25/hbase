@@ -837,10 +837,15 @@ name|finder
 operator|.
 name|getTopBlockLocations
 argument_list|(
+name|finder
+operator|.
+name|getBlockDistribution
+argument_list|(
 name|region
 operator|.
 name|getRegionInfo
 argument_list|()
+argument_list|)
 argument_list|)
 decl_stmt|;
 comment|// test table may have empty region
