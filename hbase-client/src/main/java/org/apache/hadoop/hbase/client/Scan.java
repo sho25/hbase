@@ -1461,7 +1461,7 @@ name|maxStamp
 argument_list|)
 return|;
 block|}
-comment|/**    * Set the start row of the scan.    *<p>    * If the specified row does not exist, the Scanner will start from the    * next closest row after the specified row.    * @param startRow row to start scanner at or after    * @return this    */
+comment|/**    * Set the start row of the scan.    *<p>    * If the specified row does not exist, the Scanner will start from the    * next closest row after the specified row.    * @param startRow row to start scanner at or after    * @return this    * @throws IllegalArgumentException if startRow does not meet criteria    * for a row key (when length exceeds {@link HConstants#MAX_ROW_LENGTH})    */
 specifier|public
 name|Scan
 name|setStartRow
@@ -1471,6 +1471,36 @@ index|[]
 name|startRow
 parameter_list|)
 block|{
+if|if
+condition|(
+name|Bytes
+operator|.
+name|len
+argument_list|(
+name|startRow
+argument_list|)
+operator|>
+name|HConstants
+operator|.
+name|MAX_ROW_LENGTH
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"startRow's length must be less than or equal to "
+operator|+
+name|HConstants
+operator|.
+name|MAX_ROW_LENGTH
+operator|+
+literal|" to meet the criteria"
+operator|+
+literal|" for a row key."
+argument_list|)
+throw|;
+block|}
 name|this
 operator|.
 name|startRow
@@ -1481,7 +1511,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Set the stop row of the scan.    * @param stopRow row to end at (exclusive)    *<p>    * The scan will include rows that are lexicographically less than    * the provided stopRow.    *<p><b>Note:</b> When doing a filter for a rowKey<u>Prefix</u>    * use {@link #setRowPrefixFilter(byte[])}.    * The 'trailing 0' will not yield the desired result.</p>    * @return this    */
+comment|/**    * Set the stop row of the scan.    * @param stopRow row to end at (exclusive)    *<p>    * The scan will include rows that are lexicographically less than    * the provided stopRow.    *<p><b>Note:</b> When doing a filter for a rowKey<u>Prefix</u>    * use {@link #setRowPrefixFilter(byte[])}.    * The 'trailing 0' will not yield the desired result.</p>    * @return this    * @throws IllegalArgumentException if stopRow does not meet criteria    * for a row key (when length exceeds {@link HConstants#MAX_ROW_LENGTH})    */
 specifier|public
 name|Scan
 name|setStopRow
@@ -1491,6 +1521,36 @@ index|[]
 name|stopRow
 parameter_list|)
 block|{
+if|if
+condition|(
+name|Bytes
+operator|.
+name|len
+argument_list|(
+name|stopRow
+argument_list|)
+operator|>
+name|HConstants
+operator|.
+name|MAX_ROW_LENGTH
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"stopRow's length must be less than or equal to "
+operator|+
+name|HConstants
+operator|.
+name|MAX_ROW_LENGTH
+operator|+
+literal|" to meet the criteria"
+operator|+
+literal|" for a row key."
+argument_list|)
+throw|;
+block|}
 name|this
 operator|.
 name|stopRow
