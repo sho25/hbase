@@ -9903,7 +9903,21 @@ class|class
 name|EmptyByteBufferedCell
 extends|extends
 name|ByteBufferedCell
+implements|implements
+name|SettableSequenceId
 block|{
+annotation|@
+name|Override
+specifier|public
+name|void
+name|setSequenceId
+parameter_list|(
+name|long
+name|seqId
+parameter_list|)
+block|{
+comment|// Fake cells don't need seqId, so leaving it as a noop.
+block|}
 annotation|@
 name|Override
 specifier|public
