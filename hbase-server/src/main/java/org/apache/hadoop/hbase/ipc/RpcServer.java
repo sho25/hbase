@@ -10246,6 +10246,11 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+name|rpcCount
+operator|.
+name|destroy
+argument_list|()
+expr_stmt|;
 block|}
 specifier|private
 name|UserGroupInformation

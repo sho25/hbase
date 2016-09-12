@@ -757,6 +757,17 @@ return|return
 name|sum
 return|;
 block|}
+specifier|public
+name|void
+name|destroy
+parameter_list|()
+block|{
+name|indexHolderThreadLocal
+operator|.
+name|remove
+argument_list|()
+expr_stmt|;
+block|}
 annotation|@
 name|Override
 specifier|public
