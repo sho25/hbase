@@ -3061,14 +3061,19 @@ operator|.
 name|SIZEOF_INT
 condition|)
 block|{
+comment|// The int read has to be converted to unsigned long so the& op
 name|i
 operator|=
+operator|(
 name|blockBuffer
 operator|.
 name|getIntAfterPosition
 argument_list|(
 name|offsetFromPos
 argument_list|)
+operator|&
+literal|0x00000000ffffffffL
+operator|)
 expr_stmt|;
 name|remaining
 operator|-=
