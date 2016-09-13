@@ -3919,6 +3919,8 @@ parameter_list|()
 block|{
 name|AbstractResponse
 name|res
+init|=
+literal|null
 decl_stmt|;
 name|CancellableRegionServerCallable
 name|callable
@@ -4177,6 +4179,10 @@ operator|!=
 literal|null
 operator|&&
 name|callable
+operator|!=
+literal|null
+operator|&&
+name|res
 operator|!=
 literal|null
 condition|)
