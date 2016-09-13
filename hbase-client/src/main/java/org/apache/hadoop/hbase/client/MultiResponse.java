@@ -109,6 +109,8 @@ name|Private
 specifier|public
 class|class
 name|MultiResponse
+extends|extends
+name|AbstractResponse
 block|{
 comment|// map of regionName to map of Results by the original index for that Result
 specifier|private
@@ -368,6 +370,19 @@ return|return
 name|this
 operator|.
 name|results
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|ResponseType
+name|type
+parameter_list|()
+block|{
+return|return
+name|ResponseType
+operator|.
+name|MULTI
 return|;
 block|}
 specifier|static
