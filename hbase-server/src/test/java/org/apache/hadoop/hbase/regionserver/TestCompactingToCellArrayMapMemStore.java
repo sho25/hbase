@@ -2079,7 +2079,7 @@ operator|.
 name|getActive
 argument_list|()
 operator|.
-name|getSize
+name|size
 argument_list|()
 decl_stmt|;
 comment|//
@@ -2199,7 +2199,7 @@ operator|.
 name|getActive
 argument_list|()
 operator|.
-name|getSize
+name|size
 argument_list|()
 operator|-
 name|size

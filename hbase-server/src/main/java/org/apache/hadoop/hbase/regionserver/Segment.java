@@ -85,20 +85,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|LogFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -223,6 +209,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|Bytes
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|ClassSize
 import|;
 end_import
@@ -255,20 +257,60 @@ specifier|abstract
 class|class
 name|Segment
 block|{
-specifier|private
-specifier|static
 specifier|final
-name|Log
-name|LOG
+specifier|static
+name|long
+name|FIXED_OVERHEAD
 init|=
-name|LogFactory
+name|ClassSize
 operator|.
-name|getLog
+name|align
 argument_list|(
-name|Segment
+name|ClassSize
 operator|.
-name|class
+name|OBJECT
+operator|+
+literal|5
+operator|*
+name|ClassSize
+operator|.
+name|REFERENCE
+comment|// cellSet, comparator, memStoreLAB, size, timeRangeTracker
+operator|+
+name|Bytes
+operator|.
+name|SIZEOF_LONG
+comment|// minSequenceId
+operator|+
+name|Bytes
+operator|.
+name|SIZEOF_BOOLEAN
 argument_list|)
+decl_stmt|;
+comment|// tagsPresent
+specifier|public
+specifier|final
+specifier|static
+name|long
+name|DEEP_OVERHEAD
+init|=
+name|FIXED_OVERHEAD
+operator|+
+name|ClassSize
+operator|.
+name|ATOMIC_REFERENCE
+operator|+
+name|ClassSize
+operator|.
+name|CELL_SET
+operator|+
+name|ClassSize
+operator|.
+name|ATOMIC_LONG
+operator|+
+name|ClassSize
+operator|.
+name|TIMERANGE_TRACKER
 decl_stmt|;
 specifier|private
 name|AtomicReference
@@ -294,30 +336,27 @@ name|long
 name|minSequenceId
 decl_stmt|;
 specifier|private
-specifier|volatile
 name|MemStoreLAB
 name|memStoreLAB
 decl_stmt|;
-comment|/* The size includes everything allocated for this segment,   *  use keySize() to get only size of the cells */
+comment|// Sum of sizes of all Cells added to this Segment. Cell's heapSize is considered. This is not
+comment|// including the heap overhead of this class.
 specifier|protected
 specifier|final
 name|AtomicLong
 name|size
 decl_stmt|;
 specifier|protected
-specifier|volatile
-name|boolean
-name|tagsPresent
-decl_stmt|;
-specifier|private
 specifier|final
 name|TimeRangeTracker
 name|timeRangeTracker
 decl_stmt|;
 specifier|protected
-name|long
-name|constantCellMetaDataSize
+specifier|volatile
+name|boolean
+name|tagsPresent
 decl_stmt|;
+comment|// This constructor is used to create empty Segments.
 specifier|protected
 name|Segment
 parameter_list|(
@@ -329,12 +368,6 @@ name|comparator
 parameter_list|,
 name|MemStoreLAB
 name|memStoreLAB
-parameter_list|,
-name|long
-name|size
-parameter_list|,
-name|long
-name|constantCellSize
 parameter_list|)
 block|{
 name|this
@@ -373,7 +406,7 @@ operator|=
 operator|new
 name|AtomicLong
 argument_list|(
-name|size
+literal|0
 argument_list|)
 expr_stmt|;
 name|this
@@ -381,12 +414,6 @@ operator|.
 name|tagsPresent
 operator|=
 literal|false
-expr_stmt|;
-name|this
-operator|.
-name|constantCellMetaDataSize
-operator|=
-name|constantCellSize
 expr_stmt|;
 name|this
 operator|.
@@ -452,7 +479,7 @@ name|AtomicLong
 argument_list|(
 name|segment
 operator|.
-name|getSize
+name|keySize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -463,15 +490,6 @@ operator|=
 name|segment
 operator|.
 name|isTagsPresent
-argument_list|()
-expr_stmt|;
-name|this
-operator|.
-name|constantCellMetaDataSize
-operator|=
-name|segment
-operator|.
-name|getConstantCellMetaDataSize
 argument_list|()
 expr_stmt|;
 name|this
@@ -527,7 +545,7 @@ name|order
 argument_list|)
 return|;
 block|}
-comment|/**    * Returns whether the segment has any cells    * @return whether the segment has any cells    */
+comment|/**    * @return whether the segment has any cells    */
 specifier|public
 name|boolean
 name|isEmpty
@@ -541,7 +559,7 @@ name|isEmpty
 argument_list|()
 return|;
 block|}
-comment|/**    * Returns number of cells in segment    * @return number of cells in segment    */
+comment|/**    * @return number of cells in segment    */
 specifier|public
 name|int
 name|getCellsCount
@@ -555,7 +573,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**    * Returns the first cell in the segment that has equal or greater key than the given cell    * @return the first cell in the segment that has equal or greater key than the given cell    */
+comment|/**    * @return the first cell in the segment that has equal or greater key than the given cell    */
 specifier|public
 name|Cell
 name|getFirstAfter
@@ -601,20 +619,18 @@ name|void
 name|close
 parameter_list|()
 block|{
-name|MemStoreLAB
-name|mslab
-init|=
-name|getMemStoreLAB
-argument_list|()
-decl_stmt|;
 if|if
 condition|(
-name|mslab
+name|this
+operator|.
+name|memStoreLAB
 operator|!=
 literal|null
 condition|)
 block|{
-name|mslab
+name|this
+operator|.
+name|memStoreLAB
 operator|.
 name|close
 argument_list|()
@@ -634,8 +650,9 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|getMemStoreLAB
-argument_list|()
+name|this
+operator|.
+name|memStoreLAB
 operator|==
 literal|null
 condition|)
@@ -655,8 +672,9 @@ decl_stmt|;
 name|ByteRange
 name|alloc
 init|=
-name|getMemStoreLAB
-argument_list|()
+name|this
+operator|.
+name|memStoreLAB
 operator|.
 name|allocateBytes
 argument_list|(
@@ -787,14 +805,16 @@ parameter_list|()
 block|{
 if|if
 condition|(
-name|getMemStoreLAB
-argument_list|()
+name|this
+operator|.
+name|memStoreLAB
 operator|!=
 literal|null
 condition|)
 block|{
-name|getMemStoreLAB
-argument_list|()
+name|this
+operator|.
+name|memStoreLAB
 operator|.
 name|incScannerCount
 argument_list|()
@@ -808,41 +828,21 @@ parameter_list|()
 block|{
 if|if
 condition|(
-name|getMemStoreLAB
-argument_list|()
+name|this
+operator|.
+name|memStoreLAB
 operator|!=
 literal|null
 condition|)
 block|{
-name|getMemStoreLAB
-argument_list|()
+name|this
+operator|.
+name|memStoreLAB
 operator|.
 name|decScannerCount
 argument_list|()
 expr_stmt|;
 block|}
-block|}
-comment|/**    * Setting the heap size of the segment - used to account for different class overheads    * @return this object    */
-specifier|public
-name|Segment
-name|setSize
-parameter_list|(
-name|long
-name|size
-parameter_list|)
-block|{
-name|this
-operator|.
-name|size
-operator|.
-name|set
-argument_list|(
-name|size
-argument_list|)
-expr_stmt|;
-return|return
-name|this
-return|;
 block|}
 comment|/**    * Setting the CellSet of the segment - used only for flat immutable segment for setting    * immutable CellSet after its creation in immutable segment constructor    * @return this object    */
 specifier|protected
@@ -871,26 +871,28 @@ return|return
 name|this
 return|;
 block|}
-comment|/* return only cell's heap size */
+comment|/**    * @return Sum of all cell's size.    */
 specifier|public
-specifier|abstract
 name|long
 name|keySize
 parameter_list|()
-function_decl|;
-comment|/**    * Returns the heap size of the segment    * @return the heap size of the segment    */
-specifier|public
-name|long
-name|getSize
-parameter_list|()
 block|{
 return|return
+name|this
+operator|.
 name|size
 operator|.
 name|get
 argument_list|()
 return|;
 block|}
+comment|/**    * @return the heap size of the segment    */
+specifier|public
+specifier|abstract
+name|long
+name|size
+parameter_list|()
+function_decl|;
 comment|/**    * Updates the heap size counter of the segment by the given delta    */
 specifier|public
 name|void
@@ -900,6 +902,8 @@ name|long
 name|delta
 parameter_list|)
 block|{
+name|this
+operator|.
 name|size
 operator|.
 name|addAndGet
@@ -1025,7 +1029,7 @@ name|right
 argument_list|)
 return|;
 block|}
-comment|/**    * Returns a set of all cells in the segment    * @return a set of all cells in the segment    */
+comment|/**    * @return a set of all cells in the segment    */
 specifier|protected
 name|CellSet
 name|getCellSet
@@ -1179,6 +1183,39 @@ return|return
 name|s
 return|;
 block|}
+specifier|protected
+name|long
+name|heapSizeChange
+parameter_list|(
+name|Cell
+name|cell
+parameter_list|,
+name|boolean
+name|succ
+parameter_list|)
+block|{
+return|return
+name|succ
+condition|?
+name|ClassSize
+operator|.
+name|align
+argument_list|(
+name|ClassSize
+operator|.
+name|CONCURRENT_SKIPLISTMAP_ENTRY
+operator|+
+name|CellUtil
+operator|.
+name|estimatedHeapSizeOf
+argument_list|(
+name|cell
+argument_list|)
+argument_list|)
+else|:
+literal|0
+return|;
+block|}
 comment|/**    * Returns a subset of the segment cell set, which starts with the given cell    * @param firstCell a cell in the segment    * @return a subset of the segment cell set, which starts with the given cell    */
 specifier|protected
 name|SortedSet
@@ -1203,7 +1240,6 @@ return|;
 block|}
 annotation|@
 name|VisibleForTesting
-specifier|public
 name|MemStoreLAB
 name|getMemStoreLAB
 parameter_list|()
@@ -1238,51 +1274,6 @@ name|cell
 argument_list|)
 expr_stmt|;
 block|}
-block|}
-comment|/*   * Calculate how the MemStore size has changed.  Includes overhead of the   * backing Map.   * @param cell   * @param notPresent True if the cell was NOT present in the set.   * @return change in size   */
-specifier|protected
-name|long
-name|heapSizeChange
-parameter_list|(
-specifier|final
-name|Cell
-name|cell
-parameter_list|,
-specifier|final
-name|boolean
-name|notPresent
-parameter_list|)
-block|{
-return|return
-name|notPresent
-condition|?
-name|ClassSize
-operator|.
-name|align
-argument_list|(
-name|constantCellMetaDataSize
-operator|+
-name|CellUtil
-operator|.
-name|estimatedHeapSizeOf
-argument_list|(
-name|cell
-argument_list|)
-argument_list|)
-else|:
-literal|0
-return|;
-block|}
-specifier|public
-name|long
-name|getConstantCellMetaDataSize
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|constantCellMetaDataSize
-return|;
 block|}
 annotation|@
 name|Override
@@ -1332,9 +1323,18 @@ literal|"; "
 expr_stmt|;
 name|res
 operator|+=
-literal|"size "
+literal|"cellsSize "
 operator|+
-name|getSize
+name|keySize
+argument_list|()
+operator|+
+literal|"; "
+expr_stmt|;
+name|res
+operator|+=
+literal|"heapSize "
+operator|+
+name|size
 argument_list|()
 operator|+
 literal|"; "
