@@ -55,6 +55,30 @@ end_import
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|RpcController
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ServiceException
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -551,6 +575,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|util
+operator|.
+name|Threads
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|wal
 operator|.
 name|WAL
@@ -630,30 +670,6 @@ operator|.
 name|categories
 operator|.
 name|Category
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|RpcController
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|ServiceException
 import|;
 end_import
 
@@ -852,14 +868,12 @@ literal|1000
 decl_stmt|;
 comment|// In this test, we sleep after reading each row. So we should make sure after we get some number
 comment|// of rows and sleep same times we must reach time limit, and do not timeout after next sleeping.
-comment|// So set this to 200, we will get 3 rows and reach time limit at the start of 4th row, then sleep
-comment|// for the 4th time. Total time is 800 ms so we will not timeout.
 specifier|private
 specifier|static
 name|int
 name|DEFAULT_ROW_SLEEP_TIME
 init|=
-literal|200
+literal|300
 decl_stmt|;
 comment|// Similar with row sleep time.
 specifier|private
@@ -867,7 +881,7 @@ specifier|static
 name|int
 name|DEFAULT_CF_SLEEP_TIME
 init|=
-literal|200
+literal|300
 decl_stmt|;
 annotation|@
 name|BeforeClass
@@ -1273,13 +1287,6 @@ name|Exception
 block|{
 name|TEST_UTIL
 operator|.
-name|deleteTable
-argument_list|(
-name|TABLE_NAME
-argument_list|)
-expr_stmt|;
-name|TEST_UTIL
-operator|.
 name|shutdownMiniCluster
 argument_list|()
 expr_stmt|;
@@ -1310,37 +1317,8 @@ name|disableSleeping
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Test a variety of scan configurations to ensure that they return the expected Results when    * heartbeat messages are necessary. These tests are accumulated under one test case to ensure    * that they don't run in parallel. If the tests ran in parallel, they may conflict with each    * other due to changing static variables    */
-annotation|@
-name|Test
-specifier|public
-name|void
-name|testScannerHeartbeatMessages
-parameter_list|()
-throws|throws
-name|Exception
-block|{
-name|testImportanceOfHeartbeats
-argument_list|(
-name|testHeartbeatBetweenRows
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|testImportanceOfHeartbeats
-argument_list|(
-name|testHeartbeatBetweenColumnFamilies
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|testImportanceOfHeartbeats
-argument_list|(
-name|testHeartbeatWithSparseFilter
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
 comment|/**    * Run the test callable when heartbeats are enabled/disabled. We expect all tests to only pass    * when heartbeat messages are enabled (otherwise the test is pointless). When heartbeats are    * disabled, the test should throw an exception.    * @param testCallable    * @throws InterruptedException    */
-specifier|public
+specifier|private
 name|void
 name|testImportanceOfHeartbeats
 parameter_list|(
@@ -1426,17 +1404,17 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Test the case that the time limit for the scan is reached after each full row of cells is    * fetched.    * @throws Exception    */
+annotation|@
+name|Test
 specifier|public
-name|Callable
-argument_list|<
-name|Void
-argument_list|>
+name|void
 name|testHeartbeatBetweenRows
 parameter_list|()
 throws|throws
 name|Exception
 block|{
-return|return
+name|testImportanceOfHeartbeats
+argument_list|(
 operator|new
 name|Callable
 argument_list|<
@@ -1497,20 +1475,21 @@ literal|null
 return|;
 block|}
 block|}
-return|;
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * Test the case that the time limit for scans is reached in between column families    * @throws Exception    */
+annotation|@
+name|Test
 specifier|public
-name|Callable
-argument_list|<
-name|Void
-argument_list|>
+name|void
 name|testHeartbeatBetweenColumnFamilies
 parameter_list|()
 throws|throws
 name|Exception
 block|{
-return|return
+name|testImportanceOfHeartbeats
+argument_list|(
 operator|new
 name|Callable
 argument_list|<
@@ -1602,7 +1581,8 @@ literal|null
 return|;
 block|}
 block|}
-return|;
+argument_list|)
+expr_stmt|;
 block|}
 specifier|public
 specifier|static
@@ -1633,7 +1613,7 @@ name|CLIENT_TIMEOUT
 operator|/
 literal|2
 operator|+
-literal|10
+literal|100
 argument_list|)
 expr_stmt|;
 block|}
@@ -1700,17 +1680,17 @@ return|;
 block|}
 block|}
 comment|/**    * Test the case that there is a filter which filters most of cells    * @throws Exception    */
+annotation|@
+name|Test
 specifier|public
-name|Callable
-argument_list|<
-name|Void
-argument_list|>
+name|void
 name|testHeartbeatWithSparseFilter
 parameter_list|()
 throws|throws
 name|Exception
 block|{
-return|return
+name|testImportanceOfHeartbeats
+argument_list|(
 operator|new
 name|Callable
 argument_list|<
@@ -1888,10 +1868,11 @@ literal|null
 return|;
 block|}
 block|}
-return|;
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * Test the equivalence of a scan versus the same scan executed when heartbeat messages are    * necessary    * @param scan The scan configuration being tested    * @param rowSleepTime The time to sleep between fetches of row cells    * @param cfSleepTime The time to sleep between fetches of column family cells    * @param sleepBeforeCf set to true when column family sleeps should occur before the cells for    *          that column family are fetched    * @throws Exception    */
-specifier|public
+specifier|private
 name|void
 name|testEquivalenceOfScanWithHeartbeats
 parameter_list|(
@@ -2180,6 +2161,7 @@ name|RSRpcServices
 block|{
 specifier|private
 specifier|static
+specifier|volatile
 name|boolean
 name|heartbeatsEnabled
 init|=
@@ -2260,6 +2242,7 @@ block|{
 comment|// Row sleeps occur AFTER each row worth of cells is retrieved.
 specifier|private
 specifier|static
+specifier|volatile
 name|int
 name|rowSleepTime
 init|=
@@ -2267,6 +2250,7 @@ name|DEFAULT_ROW_SLEEP_TIME
 decl_stmt|;
 specifier|private
 specifier|static
+specifier|volatile
 name|boolean
 name|sleepBetweenRows
 init|=
@@ -2279,6 +2263,7 @@ comment|// limit will be reached inside RegionScanner after all the cells for a 
 comment|// retrieved.
 specifier|private
 specifier|static
+specifier|volatile
 name|boolean
 name|sleepBeforeColumnFamily
 init|=
@@ -2286,6 +2271,7 @@ literal|false
 decl_stmt|;
 specifier|private
 specifier|static
+specifier|volatile
 name|int
 name|columnFamilySleepTime
 init|=
@@ -2293,6 +2279,7 @@ name|DEFAULT_CF_SLEEP_TIME
 decl_stmt|;
 specifier|private
 specifier|static
+specifier|volatile
 name|boolean
 name|sleepBetweenColumnFamilies
 init|=
@@ -2382,29 +2369,16 @@ parameter_list|()
 block|{
 if|if
 condition|(
-name|HeartbeatHRegion
-operator|.
 name|sleepBetweenColumnFamilies
 condition|)
 block|{
-try|try
-block|{
-name|Thread
+name|Threads
 operator|.
-name|sleep
+name|sleepWithoutInterrupt
 argument_list|(
-name|HeartbeatHRegion
-operator|.
 name|columnFamilySleepTime
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|InterruptedException
-name|e
-parameter_list|)
-block|{         }
 block|}
 block|}
 specifier|private
@@ -2413,32 +2387,19 @@ name|void
 name|rowSleep
 parameter_list|()
 block|{
-try|try
-block|{
 if|if
 condition|(
-name|HeartbeatHRegion
-operator|.
 name|sleepBetweenRows
 condition|)
 block|{
-name|Thread
+name|Threads
 operator|.
-name|sleep
+name|sleepWithoutInterrupt
 argument_list|(
-name|HeartbeatHRegion
-operator|.
 name|rowSleepTime
 argument_list|)
 expr_stmt|;
 block|}
-block|}
-catch|catch
-parameter_list|(
-name|InterruptedException
-name|e
-parameter_list|)
-block|{       }
 block|}
 comment|// Instantiate the custom heartbeat region scanners
 annotation|@
