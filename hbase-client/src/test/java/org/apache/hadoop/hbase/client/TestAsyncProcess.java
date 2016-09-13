@@ -1966,7 +1966,7 @@ name|Override
 specifier|protected
 name|RpcRetryingCaller
 argument_list|<
-name|MultiResponse
+name|AbstractResponse
 argument_list|>
 name|createCaller
 parameter_list|(
@@ -2084,7 +2084,7 @@ return|return
 operator|new
 name|RpcRetryingCallerImpl
 argument_list|<
-name|MultiResponse
+name|AbstractResponse
 argument_list|>
 argument_list|(
 literal|100
@@ -2097,12 +2097,12 @@ block|{
 annotation|@
 name|Override
 specifier|public
-name|MultiResponse
+name|AbstractResponse
 name|callWithoutRetries
 parameter_list|(
 name|RetryingCallable
 argument_list|<
-name|MultiResponse
+name|AbstractResponse
 argument_list|>
 name|callable
 parameter_list|,
@@ -2148,7 +2148,7 @@ name|CallerWithFailure
 extends|extends
 name|RpcRetryingCallerImpl
 argument_list|<
-name|MultiResponse
+name|AbstractResponse
 argument_list|>
 block|{
 specifier|private
@@ -2182,12 +2182,12 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|MultiResponse
+name|AbstractResponse
 name|callWithoutRetries
 parameter_list|(
 name|RetryingCallable
 argument_list|<
-name|MultiResponse
+name|AbstractResponse
 argument_list|>
 name|callable
 parameter_list|,
@@ -2253,7 +2253,7 @@ name|Override
 specifier|protected
 name|RpcRetryingCaller
 argument_list|<
-name|MultiResponse
+name|AbstractResponse
 argument_list|>
 name|createCaller
 parameter_list|(
@@ -2532,7 +2532,7 @@ name|Override
 specifier|protected
 name|RpcRetryingCaller
 argument_list|<
-name|MultiResponse
+name|AbstractResponse
 argument_list|>
 name|createCaller
 parameter_list|(
@@ -2794,7 +2794,7 @@ return|return
 operator|new
 name|RpcRetryingCallerImpl
 argument_list|<
-name|MultiResponse
+name|AbstractResponse
 argument_list|>
 argument_list|(
 literal|100
@@ -2812,7 +2812,7 @@ name|callWithoutRetries
 parameter_list|(
 name|RetryingCallable
 argument_list|<
-name|MultiResponse
+name|AbstractResponse
 argument_list|>
 name|callable
 parameter_list|,
