@@ -212,7 +212,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * @return Total memory occupied by this MemStore.    */
+comment|/**    * @return Total memory occupied by this MemStore. This includes active segment size and heap size    *         overhead of this memstore but won't include any size occupied by the snapshot. We    *         assume the snapshot will get cleared soon. This is not thread safe and the memstore may    *         be changed while computing its size. It is the responsibility of the caller to make    *         sure this doesn't happen.    */
 name|long
 name|size
 parameter_list|()

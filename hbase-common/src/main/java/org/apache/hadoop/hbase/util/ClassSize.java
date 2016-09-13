@@ -151,6 +151,20 @@ specifier|final
 name|int
 name|ARRAYLIST
 decl_stmt|;
+comment|/** Overhead for LinkedList(0) */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|LINKEDLIST
+decl_stmt|;
+comment|/** Overhead for a single entry in LinkedList */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|LINKEDLIST_ENTRY
+decl_stmt|;
 comment|/** Overhead for ByteBuffer */
 specifier|public
 specifier|static
@@ -276,6 +290,13 @@ specifier|static
 specifier|final
 name|int
 name|ATOMIC_BOOLEAN
+decl_stmt|;
+comment|/** Overhead for AtomicReference */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|ATOMIC_REFERENCE
 decl_stmt|;
 comment|/** Overhead for CopyOnWriteArraySet */
 specifier|public
@@ -781,6 +802,40 @@ argument_list|(
 name|ARRAY
 argument_list|)
 expr_stmt|;
+name|LINKEDLIST
+operator|=
+name|align
+argument_list|(
+name|OBJECT
+operator|+
+operator|(
+literal|2
+operator|*
+name|Bytes
+operator|.
+name|SIZEOF_INT
+operator|)
+operator|+
+operator|(
+literal|2
+operator|*
+name|REFERENCE
+operator|)
+argument_list|)
+expr_stmt|;
+name|LINKEDLIST_ENTRY
+operator|=
+name|align
+argument_list|(
+name|OBJECT
+operator|+
+operator|(
+literal|2
+operator|*
+name|REFERENCE
+operator|)
+argument_list|)
+expr_stmt|;
 comment|//noinspection PointlessArithmeticExpression
 name|BYTE_BUFFER
 operator|=
@@ -1068,6 +1123,15 @@ operator|+
 name|Bytes
 operator|.
 name|SIZEOF_BOOLEAN
+argument_list|)
+expr_stmt|;
+name|ATOMIC_REFERENCE
+operator|=
+name|align
+argument_list|(
+name|OBJECT
+operator|+
+name|REFERENCE
 argument_list|)
 expr_stmt|;
 name|COPYONWRITE_ARRAYSET

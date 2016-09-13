@@ -107,7 +107,7 @@ name|size
 operator|=
 name|snapshot
 operator|.
-name|getSize
+name|keySize
 argument_list|()
 expr_stmt|;
 name|this
