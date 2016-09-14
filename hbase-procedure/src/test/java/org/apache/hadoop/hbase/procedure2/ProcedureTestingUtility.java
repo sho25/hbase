@@ -1909,6 +1909,33 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+comment|// Mark acquire/release lock functions public for test uses.
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|acquireLock
+parameter_list|(
+name|Void
+name|env
+parameter_list|)
+block|{
+return|return
+literal|true
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|releaseLock
+parameter_list|(
+name|Void
+name|env
+parameter_list|)
+block|{
+comment|// no-op
+block|}
 block|}
 specifier|public
 specifier|static
