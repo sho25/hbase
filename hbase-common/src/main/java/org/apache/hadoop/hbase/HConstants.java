@@ -2015,6 +2015,26 @@ name|DEFAULT_HBASE_CLIENT_MAX_PERREGION_TASKS
 init|=
 literal|1
 decl_stmt|;
+comment|/**    * The maximum number of concurrent pending RPC requests for one server in process level.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_CLIENT_PERSERVER_REQUESTS_THRESHOLD
+init|=
+literal|"hbase.client.perserver.requests.threshold"
+decl_stmt|;
+comment|/**    * Default value of {@link #HBASE_CLIENT_PERSERVER_REQUESTS_THRESHOLD}.    */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_HBASE_CLIENT_PERSERVER_REQUESTS_THRESHOLD
+init|=
+name|Integer
+operator|.
+name|MAX_VALUE
+decl_stmt|;
 comment|/**    * Parameter name for server pause value, used mostly as value to wait before    * running a retry of a failed operation.    */
 specifier|public
 specifier|static
