@@ -189,6 +189,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|NamespaceNotFoundException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|ProcedureInfo
 import|;
 end_import
@@ -1751,7 +1765,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get a namespace descriptor by name    *    * @param name name of namespace descriptor    * @return A descriptor    */
+comment|/**    * Get a namespace descriptor by name    *    * @param name name of namespace descriptor    * @return A descriptor    * @throws org.apache.hadoop.hbase.NamespaceNotFoundException    * @throws IOException if a remote or network exception occurs    */
 name|NamespaceDescriptor
 name|getNamespaceDescriptor
 parameter_list|(
@@ -1760,6 +1774,8 @@ name|String
 name|name
 parameter_list|)
 throws|throws
+name|NamespaceNotFoundException
+throws|,
 name|IOException
 function_decl|;
 comment|/**    * List available namespace descriptors    *    * @return List of descriptors    */
