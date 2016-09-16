@@ -39,6 +39,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Set
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -164,6 +174,15 @@ name|String
 argument_list|>
 argument_list|>
 name|getTableCFs
+parameter_list|()
+function_decl|;
+comment|/**    * Get replicable namespace set of this peer    * @return the replicable namespaces set    */
+specifier|public
+name|Set
+argument_list|<
+name|String
+argument_list|>
+name|getNamespaces
 parameter_list|()
 function_decl|;
 name|void

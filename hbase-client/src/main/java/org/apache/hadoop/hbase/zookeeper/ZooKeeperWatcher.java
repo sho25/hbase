@@ -578,7 +578,6 @@ name|recoveringRegionsZNode
 decl_stmt|;
 comment|// znode containing namespace descriptors
 specifier|public
-specifier|static
 name|String
 name|namespaceZNode
 init|=

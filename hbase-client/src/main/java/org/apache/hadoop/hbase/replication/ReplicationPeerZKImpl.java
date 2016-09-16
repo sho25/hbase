@@ -69,6 +69,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Set
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -696,6 +706,26 @@ return|return
 name|this
 operator|.
 name|tableCFs
+return|;
+block|}
+comment|/**    * Get replicable namespace set of this peer    * @return the replicable namespaces set    */
+annotation|@
+name|Override
+specifier|public
+name|Set
+argument_list|<
+name|String
+argument_list|>
+name|getNamespaces
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|peerConfig
+operator|.
+name|getNamespaces
+argument_list|()
 return|;
 block|}
 annotation|@

@@ -1865,6 +1865,8 @@ argument_list|(
 literal|"Could not find peer Id "
 operator|+
 name|id
+operator|+
+literal|" in connected peers"
 argument_list|)
 throw|;
 block|}
@@ -2020,6 +2022,26 @@ argument_list|(
 name|newConfig
 operator|.
 name|getPeerData
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|existingConfig
+operator|.
+name|setTableCFsMap
+argument_list|(
+name|newConfig
+operator|.
+name|getTableCFsMap
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|existingConfig
+operator|.
+name|setNamespaces
+argument_list|(
+name|newConfig
+operator|.
+name|getNamespaces
 argument_list|()
 argument_list|)
 expr_stmt|;

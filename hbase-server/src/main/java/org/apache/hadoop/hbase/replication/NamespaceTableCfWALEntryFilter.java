@@ -39,6 +39,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Set
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -117,6 +127,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|regionserver
 operator|.
 name|wal
@@ -173,10 +199,18 @@ name|Predicate
 import|;
 end_import
 
+begin_comment
+comment|/**  * Filter a WAL Entry by namespaces and table-cfs config in the peer. It first filter entry  * by namespaces config, then filter entry by table-cfs config.  *  * 1. Set a namespace in peer config means that all tables in this namespace will be replicated.  * 2. If the namespaces config is null, then the table-cfs config decide which table's edit  *    can be replicated. If the table-cfs config is null, then the namespaces config decide  *    which table's edit can be replicated.  */
+end_comment
+
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 class|class
-name|TableCfWALEntryFilter
+name|NamespaceTableCfWALEntryFilter
 implements|implements
 name|WALEntryFilter
 implements|,
@@ -192,12 +226,13 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|TableCfWALEntryFilter
+name|NamespaceTableCfWALEntryFilter
 operator|.
 name|class
 argument_list|)
 decl_stmt|;
 specifier|private
+specifier|final
 name|ReplicationPeer
 name|peer
 decl_stmt|;
@@ -210,7 +245,7 @@ name|BulkLoadCellFilter
 argument_list|()
 decl_stmt|;
 specifier|public
-name|TableCfWALEntryFilter
+name|NamespaceTableCfWALEntryFilter
 parameter_list|(
 name|ReplicationPeer
 name|peer
@@ -244,6 +279,27 @@ operator|.
 name|getTablename
 argument_list|()
 decl_stmt|;
+name|String
+name|namespace
+init|=
+name|tabName
+operator|.
+name|getNamespaceAsString
+argument_list|()
+decl_stmt|;
+name|Set
+argument_list|<
+name|String
+argument_list|>
+name|namespaces
+init|=
+name|this
+operator|.
+name|peer
+operator|.
+name|getNamespaces
+argument_list|()
+decl_stmt|;
 name|Map
 argument_list|<
 name|TableName
@@ -258,19 +314,52 @@ init|=
 name|getTableCfs
 argument_list|()
 decl_stmt|;
-comment|// If null means user has explicitly not configured any table CFs so all the tables data are
-comment|// applicable for replication
+comment|// If null means user has explicitly not configured any namespaces and table CFs
+comment|// so all the tables data are applicable for replication
+if|if
+condition|(
+name|namespaces
+operator|==
+literal|null
+operator|&&
+name|tableCFs
+operator|==
+literal|null
+condition|)
+block|{
+return|return
+name|entry
+return|;
+block|}
+comment|// First filter by namespaces config
+comment|// If table's namespace in peer config, all the tables data are applicable for replication
+if|if
+condition|(
+name|namespaces
+operator|!=
+literal|null
+operator|&&
+name|namespaces
+operator|.
+name|contains
+argument_list|(
+name|namespace
+argument_list|)
+condition|)
+block|{
+return|return
+name|entry
+return|;
+block|}
+comment|// Then filter by table-cfs config
+comment|// return null(prevent replicating) if logKey's table isn't in this peer's
+comment|// replicaable namespace list and table list
 if|if
 condition|(
 name|tableCFs
 operator|==
 literal|null
-condition|)
-return|return
-name|entry
-return|;
-if|if
-condition|(
+operator|||
 operator|!
 name|tableCFs
 operator|.

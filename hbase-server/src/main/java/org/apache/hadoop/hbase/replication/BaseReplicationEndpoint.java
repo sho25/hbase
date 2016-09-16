@@ -310,7 +310,7 @@ block|}
 name|WALEntryFilter
 name|tableCfFilter
 init|=
-name|getTableCfWALEntryFilter
+name|getNamespaceTableCfWALEntryFilter
 argument_list|()
 decl_stmt|;
 if|if
@@ -358,12 +358,12 @@ block|}
 comment|/** Returns a WALEntryFilter for checking replication per table and CF. Subclasses can    * return null if they don't want this filter */
 specifier|protected
 name|WALEntryFilter
-name|getTableCfWALEntryFilter
+name|getNamespaceTableCfWALEntryFilter
 parameter_list|()
 block|{
 return|return
 operator|new
-name|TableCfWALEntryFilter
+name|NamespaceTableCfWALEntryFilter
 argument_list|(
 name|ctx
 operator|.

@@ -296,7 +296,7 @@ argument_list|)
 expr_stmt|;
 name|nsZNode
 operator|=
-name|ZooKeeperWatcher
+name|zkw
 operator|.
 name|namespaceZNode
 expr_stmt|;
