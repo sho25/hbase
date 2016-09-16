@@ -3009,9 +3009,9 @@ name|chore
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Remove a chore procedure from the executor    * @param chore the chore to remove    */
+comment|/**    * Remove a chore procedure from the executor    * @param chore the chore to remove    * @return whether the chore is removed    */
 specifier|public
-name|void
+name|boolean
 name|removeChore
 parameter_list|(
 specifier|final
@@ -3019,13 +3019,14 @@ name|ProcedureInMemoryChore
 name|chore
 parameter_list|)
 block|{
+return|return
 name|waitingTimeout
 operator|.
 name|remove
 argument_list|(
 name|chore
 argument_list|)
-expr_stmt|;
+return|;
 block|}
 comment|/**    * Add a new root-procedure to the executor.    * @param proc the new procedure to execute.    * @return the procedure id, that can be used to monitor the operation    */
 specifier|public
