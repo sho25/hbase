@@ -3001,6 +3001,15 @@ name|ProcedureInMemoryChore
 name|chore
 parameter_list|)
 block|{
+name|chore
+operator|.
+name|setState
+argument_list|(
+name|ProcedureState
+operator|.
+name|RUNNABLE
+argument_list|)
+expr_stmt|;
 name|waitingTimeout
 operator|.
 name|add
@@ -3009,7 +3018,7 @@ name|chore
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Remove a chore procedure from the executor    * @param chore the chore to remove    * @return whether the chore is removed    */
+comment|/**    * Remove a chore procedure from the executor    * @param chore the chore to remove    * @return whether the chore is removed, or it will be removed later    */
 specifier|public
 name|boolean
 name|removeChore
@@ -3019,6 +3028,15 @@ name|ProcedureInMemoryChore
 name|chore
 parameter_list|)
 block|{
+name|chore
+operator|.
+name|setState
+argument_list|(
+name|ProcedureState
+operator|.
+name|FINISHED
+argument_list|)
+expr_stmt|;
 return|return
 name|waitingTimeout
 operator|.
@@ -4068,6 +4086,14 @@ operator|instanceof
 name|ProcedureInMemoryChore
 condition|)
 block|{
+if|if
+condition|(
+name|proc
+operator|.
+name|isRunnable
+argument_list|()
+condition|)
+block|{
 try|try
 block|{
 operator|(
@@ -4115,6 +4141,13 @@ name|currentTime
 argument_list|()
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|proc
+operator|.
+name|isRunnable
+argument_list|()
+condition|)
 name|waitingTimeout
 operator|.
 name|add
@@ -4122,6 +4155,7 @@ argument_list|(
 name|proc
 argument_list|)
 expr_stmt|;
+block|}
 continue|continue;
 block|}
 comment|// The procedure received an "abort-timeout", call abort() and

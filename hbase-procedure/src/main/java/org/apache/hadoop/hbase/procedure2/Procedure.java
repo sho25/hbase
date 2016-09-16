@@ -963,6 +963,21 @@ return|return
 name|nonceKey
 return|;
 block|}
+comment|/**    * @return true if the procedure is in a RUNNABLE state.    */
+specifier|protected
+specifier|synchronized
+name|boolean
+name|isRunnable
+parameter_list|()
+block|{
+return|return
+name|state
+operator|==
+name|ProcedureState
+operator|.
+name|RUNNABLE
+return|;
+block|}
 comment|/**    * @return true if the procedure has failed.    *         true may mean failed but not yet rolledback or failed and rolledback.    */
 specifier|public
 specifier|synchronized
