@@ -348,7 +348,22 @@ name|setUp
 parameter_list|()
 throws|throws
 name|Exception
-block|{   }
+block|{
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|setBoolean
+argument_list|(
+name|ShutdownHook
+operator|.
+name|RUN_SHUTDOWN_HOOK
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
+block|}
 annotation|@
 name|After
 specifier|public
