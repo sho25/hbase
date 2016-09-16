@@ -1929,7 +1929,7 @@ name|regions
 operator|.
 name|get
 argument_list|(
-literal|5
+literal|4
 argument_list|)
 operator|.
 name|getEncodedNameAsBytes
@@ -1939,7 +1939,7 @@ name|regions
 operator|.
 name|get
 argument_list|(
-literal|6
+literal|5
 argument_list|)
 operator|.
 name|getEncodedNameAsBytes
@@ -2190,7 +2190,7 @@ name|regions
 operator|.
 name|get
 argument_list|(
-literal|5
+literal|4
 argument_list|)
 operator|.
 name|getEncodedNameAsBytes
@@ -2200,7 +2200,7 @@ name|regions
 operator|.
 name|get
 argument_list|(
-literal|6
+literal|5
 argument_list|)
 operator|.
 name|getEncodedNameAsBytes

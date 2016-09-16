@@ -379,7 +379,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|MediumTests
+name|LargeTests
 import|;
 end_import
 
@@ -546,7 +546,7 @@ name|VerySlowRegionServerTests
 operator|.
 name|class
 block|,
-name|MediumTests
+name|LargeTests
 operator|.
 name|class
 block|}
@@ -737,11 +737,6 @@ argument_list|(
 literal|3
 argument_list|)
 expr_stmt|;
-name|TEST_UTIL
-operator|.
-name|startMiniMapReduceCluster
-argument_list|()
-expr_stmt|;
 block|}
 annotation|@
 name|AfterClass
@@ -753,11 +748,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|TEST_UTIL
-operator|.
-name|shutdownMiniMapReduceCluster
-argument_list|()
-expr_stmt|;
 name|TEST_UTIL
 operator|.
 name|shutdownMiniCluster
@@ -884,11 +874,13 @@ name|Exception
 block|{
 name|SnapshotTestingUtils
 operator|.
-name|createTable
+name|createPreSplitTable
 argument_list|(
 name|TEST_UTIL
 argument_list|,
 name|tableName
+argument_list|,
+literal|2
 argument_list|,
 name|FAMILY
 argument_list|)
