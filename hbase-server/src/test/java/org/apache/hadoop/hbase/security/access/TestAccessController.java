@@ -4196,7 +4196,9 @@ name|getTableOperationType
 parameter_list|()
 block|{
 return|return
-literal|null
+name|TableOperationType
+operator|.
+name|EDIT
 return|;
 block|}
 annotation|@

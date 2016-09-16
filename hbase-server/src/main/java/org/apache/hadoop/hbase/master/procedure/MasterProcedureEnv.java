@@ -743,7 +743,7 @@ parameter_list|)
 block|{
 name|procSched
 operator|.
-name|wake
+name|wakeEvent
 argument_list|(
 name|event
 argument_list|)
@@ -759,7 +759,7 @@ parameter_list|)
 block|{
 name|procSched
 operator|.
-name|suspend
+name|suspendEvent
 argument_list|(
 name|event
 argument_list|)
@@ -783,7 +783,7 @@ condition|)
 block|{
 name|procSched
 operator|.
-name|wake
+name|wakeEvent
 argument_list|(
 name|event
 argument_list|)
@@ -793,7 +793,7 @@ else|else
 block|{
 name|procSched
 operator|.
-name|suspend
+name|suspendEvent
 argument_list|(
 name|event
 argument_list|)
