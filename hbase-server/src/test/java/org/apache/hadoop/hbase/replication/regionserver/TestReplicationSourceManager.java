@@ -2130,17 +2130,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|conf
-operator|.
-name|setBoolean
-argument_list|(
-name|HConstants
-operator|.
-name|ZOOKEEPER_USEMULTI
-argument_list|,
-literal|true
-argument_list|)
-expr_stmt|;
 specifier|final
 name|Server
 name|server

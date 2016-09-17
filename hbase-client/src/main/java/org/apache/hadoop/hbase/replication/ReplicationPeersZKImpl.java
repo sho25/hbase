@@ -709,7 +709,6 @@ name|peerConfig
 argument_list|)
 argument_list|)
 decl_stmt|;
-comment|// There is a race (if hbase.zookeeper.useMulti is false)
 comment|// b/w PeerWatcher and ReplicationZookeeper#add method to create the
 comment|// peer-state znode. This happens while adding a peer
 comment|// The peer state data is set as "ENABLED" by default.

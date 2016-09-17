@@ -5081,7 +5081,7 @@ name|node
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Delete all the children of the specified node but not the node itself.    *    * Sets no watches.  Throws all exceptions besides dealing with deletion of    * children.    *    * If hbase.zookeeper.useMulti is true, use ZooKeeper's multi-update functionality.    * Otherwise, run the list of operations sequentially.    *    * @throws KeeperException    */
+comment|/**    * Delete all the children of the specified node but not the node itself.    *    * Sets no watches.  Throws all exceptions besides dealing with deletion of    * children.    *    * @throws KeeperException    */
 specifier|public
 specifier|static
 name|void
@@ -5106,7 +5106,7 @@ name|node
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Delete all the children of the specified node but not the node itself. This    * will first traverse the znode tree for listing the children and then delete    * these znodes using multi-update api or sequential based on the specified    * configurations.    *<p>    * Sets no watches. Throws all exceptions besides dealing with deletion of    * children.    *<p>    * If hbase.zookeeper.useMulti is true, use ZooKeeper's multi-update    * functionality. Otherwise, run the list of operations sequentially.    *<p>    * If all of the following are true:    *<ul>    *<li>runSequentialOnMultiFailure is true    *<li>hbase.zookeeper.useMulti is true    *</ul>    * on calling multi, we get a ZooKeeper exception that can be handled by a    * sequential call(*), we retry the operations one-by-one (sequentially).    *    * @param zkw    *          - zk reference    * @param runSequentialOnMultiFailure    *          - if true when we get a ZooKeeper exception that could retry the    *          operations one-by-one (sequentially)    * @param pathRoots    *          - path of the parent node(s)    * @throws KeeperException.NotEmptyException    *           if node has children while deleting    * @throws KeeperException    *           if unexpected ZooKeeper exception    * @throws IllegalArgumentException    *           if an invalid path is specified    */
+comment|/**    * Delete all the children of the specified node but not the node itself. This    * will first traverse the znode tree for listing the children and then delete    * these znodes using multi-update api or sequential based on the specified    * configurations.    *<p>    * Sets no watches. Throws all exceptions besides dealing with deletion of    * children.    *<p>    * If the following is true:    *<ul>    *<li>runSequentialOnMultiFailure is true    *</ul>    * on calling multi, we get a ZooKeeper exception that can be handled by a    * sequential call(*), we retry the operations one-by-one (sequentially).    *    * @param zkw    *          - zk reference    * @param runSequentialOnMultiFailure    *          - if true when we get a ZooKeeper exception that could retry the    *          operations one-by-one (sequentially)    * @param pathRoots    *          - path of the parent node(s)    * @throws KeeperException.NotEmptyException    *           if node has children while deleting    * @throws KeeperException    *           if unexpected ZooKeeper exception    * @throws IllegalArgumentException    *           if an invalid path is specified    */
 specifier|public
 specifier|static
 name|void
@@ -5245,7 +5245,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Delete the specified node and its children. This traverse the    * znode tree for listing the children and then delete    * these znodes including the parent using multi-update api or    * sequential based on the specified configurations.    *<p>    * Sets no watches. Throws all exceptions besides dealing with deletion of    * children.    *<p>    * If hbase.zookeeper.useMulti is true, use ZooKeeper's multi-update    * functionality. Otherwise, run the list of operations sequentially.    *<p>    * If all of the following are true:    *<ul>    *<li>runSequentialOnMultiFailure is true    *<li>hbase.zookeeper.useMulti is true    *</ul>    * on calling multi, we get a ZooKeeper exception that can be handled by a    * sequential call(*), we retry the operations one-by-one (sequentially).    *    * @param zkw    *          - zk reference    * @param runSequentialOnMultiFailure    *          - if true when we get a ZooKeeper exception that could retry the    *          operations one-by-one (sequentially)    * @param pathRoots    *          - path of the parent node(s)    * @throws KeeperException.NotEmptyException    *           if node has children while deleting    * @throws KeeperException    *           if unexpected ZooKeeper exception    * @throws IllegalArgumentException    *           if an invalid path is specified    */
+comment|/**    * Delete the specified node and its children. This traverse the    * znode tree for listing the children and then delete    * these znodes including the parent using multi-update api or    * sequential based on the specified configurations.    *<p>    * Sets no watches. Throws all exceptions besides dealing with deletion of    * children.    *<p>    * If the following is true:    *<ul>    *<li>runSequentialOnMultiFailure is true    *</ul>    * on calling multi, we get a ZooKeeper exception that can be handled by a    * sequential call(*), we retry the operations one-by-one (sequentially).    *    * @param zkw    *          - zk reference    * @param runSequentialOnMultiFailure    *          - if true when we get a ZooKeeper exception that could retry the    *          operations one-by-one (sequentially)    * @param pathRoots    *          - path of the parent node(s)    * @throws KeeperException.NotEmptyException    *           if node has children while deleting    * @throws KeeperException    *           if unexpected ZooKeeper exception    * @throws IllegalArgumentException    *           if an invalid path is specified    */
 specifier|public
 specifier|static
 name|void
@@ -6320,7 +6320,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * If hbase.zookeeper.useMulti is true, use ZooKeeper's multi-update functionality.    * Otherwise, run the list of operations sequentially.    *    * If all of the following are true:    * - runSequentialOnMultiFailure is true    * - hbase.zookeeper.useMulti is true    * - on calling multi, we get a ZooKeeper exception that can be handled by a sequential call(*)    * Then:    * - we retry the operations one-by-one (sequentially)    *    * Note *: an example is receiving a NodeExistsException from a "create" call.  Without multi,    * a user could call "createAndFailSilent" to ensure that a node exists if they don't care who    * actually created the node (i.e. the NodeExistsException from ZooKeeper is caught).    * This will cause all operations in the multi to fail, however, because    * the NodeExistsException that zk.create throws will fail the multi transaction.    * In this case, if the previous conditions hold, the commands are run sequentially, which should    * result in the correct final state, but means that the operations will not run atomically.    *    * @throws KeeperException    */
+comment|/**    * Use ZooKeeper's multi-update functionality.    *    * If all of the following are true:    * - runSequentialOnMultiFailure is true    * - on calling multi, we get a ZooKeeper exception that can be handled by a sequential call(*)    * Then:    * - we retry the operations one-by-one (sequentially)    *    * Note *: an example is receiving a NodeExistsException from a "create" call.  Without multi,    * a user could call "createAndFailSilent" to ensure that a node exists if they don't care who    * actually created the node (i.e. the NodeExistsException from ZooKeeper is caught).    * This will cause all operations in the multi to fail, however, because    * the NodeExistsException that zk.create throws will fail the multi transaction.    * In this case, if the previous conditions hold, the commands are run sequentially, which should    * result in the correct final state, but means that the operations will not run atomically.    *    * @throws KeeperException    */
 specifier|public
 specifier|static
 name|void
@@ -6343,33 +6343,34 @@ name|KeeperException
 block|{
 if|if
 condition|(
-name|ops
-operator|==
-literal|null
-condition|)
-return|return;
-name|boolean
-name|useMulti
-init|=
 name|zkw
 operator|.
 name|getConfiguration
 argument_list|()
 operator|.
-name|getBoolean
+name|get
 argument_list|(
-name|HConstants
-operator|.
-name|ZOOKEEPER_USEMULTI
-argument_list|,
-literal|false
+literal|"hbase.zookeeper.useMulti"
 argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|useMulti
+operator|!=
+literal|null
 condition|)
 block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"hbase.zookeeper.useMulti is deprecated. Default to true always."
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|ops
+operator|==
+literal|null
+condition|)
+return|return;
 name|List
 argument_list|<
 name|Op
@@ -6498,18 +6499,6 @@ operator|.
 name|interruptedException
 argument_list|(
 name|ie
-argument_list|)
-expr_stmt|;
-block|}
-block|}
-else|else
-block|{
-comment|// run sequentially
-name|processSequentially
-argument_list|(
-name|zkw
-argument_list|,
-name|ops
 argument_list|)
 expr_stmt|;
 block|}
