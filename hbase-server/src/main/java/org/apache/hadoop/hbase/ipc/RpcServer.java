@@ -3686,6 +3686,13 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+comment|// set param null to reduce memory pressure
+name|this
+operator|.
+name|param
+operator|=
+literal|null
+expr_stmt|;
 name|this
 operator|.
 name|responder
