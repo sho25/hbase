@@ -499,7 +499,7 @@ name|HFile
 operator|.
 name|DATABLOCK_READ_COUNT
 operator|.
-name|get
+name|sum
 argument_list|()
 return|;
 block|}

@@ -201,6 +201,7 @@ name|SingletonHolder
 block|{
 name|INSTANCE
 block|;
+specifier|transient
 name|Object
 name|lock
 init|=
@@ -208,6 +209,7 @@ operator|new
 name|Object
 argument_list|()
 decl_stmt|;
+specifier|transient
 name|SpanReceiverHost
 name|host
 init|=

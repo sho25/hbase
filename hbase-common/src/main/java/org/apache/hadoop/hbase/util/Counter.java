@@ -92,7 +92,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * High scalable counter. Thread safe.  */
+comment|/**  * High scalable counter. Thread safe.  * @deprecated use {@link java.util.concurrent.atomic.LongAdder} instead.  */
 end_comment
 
 begin_class
@@ -104,6 +104,8 @@ annotation|@
 name|InterfaceStability
 operator|.
 name|Evolving
+annotation|@
+name|Deprecated
 specifier|public
 class|class
 name|Counter

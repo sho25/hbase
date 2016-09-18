@@ -19,17 +19,15 @@ end_package
 
 begin_import
 import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
+name|java
 operator|.
 name|util
 operator|.
-name|Counter
+name|concurrent
+operator|.
+name|atomic
+operator|.
+name|LongAdder
 import|;
 end_import
 
@@ -70,7 +68,7 @@ name|MutableCounter
 block|{
 specifier|private
 specifier|final
-name|Counter
+name|LongAdder
 name|counter
 decl_stmt|;
 specifier|protected
@@ -91,7 +89,12 @@ expr_stmt|;
 name|counter
 operator|=
 operator|new
-name|Counter
+name|LongAdder
+argument_list|()
+expr_stmt|;
+name|counter
+operator|.
+name|add
 argument_list|(
 name|iVal
 argument_list|)
@@ -178,7 +181,7 @@ block|{
 return|return
 name|counter
 operator|.
-name|get
+name|sum
 argument_list|()
 return|;
 block|}

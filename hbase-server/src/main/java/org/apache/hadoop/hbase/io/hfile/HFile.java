@@ -21,6 +21,34 @@ end_package
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|base
+operator|.
+name|Preconditions
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -181,17 +209,15 @@ end_import
 
 begin_import
 import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
+name|java
 operator|.
 name|util
 operator|.
-name|ByteStringer
+name|concurrent
+operator|.
+name|atomic
+operator|.
+name|LongAdder
 import|;
 end_import
 
@@ -220,22 +246,6 @@ operator|.
 name|logging
 operator|.
 name|LogFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceAudience
 import|;
 end_import
 
@@ -376,6 +386,22 @@ operator|.
 name|hbase
 operator|.
 name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -563,7 +589,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|Bytes
+name|ByteStringer
 import|;
 end_import
 
@@ -579,7 +605,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|Counter
+name|Bytes
 import|;
 end_import
 
@@ -610,34 +636,6 @@ operator|.
 name|io
 operator|.
 name|Writable
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|annotations
-operator|.
-name|VisibleForTesting
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|base
-operator|.
-name|Preconditions
 import|;
 end_import
 
@@ -766,22 +764,22 @@ decl_stmt|;
 comment|// For measuring number of checksum failures
 specifier|static
 specifier|final
-name|Counter
+name|LongAdder
 name|CHECKSUM_FAILURES
 init|=
 operator|new
-name|Counter
+name|LongAdder
 argument_list|()
 decl_stmt|;
 comment|// For tests. Gets incremented when we read a block whether from HDFS or from Cache.
 specifier|public
 specifier|static
 specifier|final
-name|Counter
+name|LongAdder
 name|DATABLOCK_READ_COUNT
 init|=
 operator|new
-name|Counter
+name|LongAdder
 argument_list|()
 decl_stmt|;
 comment|/**    * Number of checksum verification failures. It also    * clears the counter.    */
@@ -792,23 +790,11 @@ name|long
 name|getChecksumFailuresCount
 parameter_list|()
 block|{
-name|long
-name|count
-init|=
-name|CHECKSUM_FAILURES
-operator|.
-name|get
-argument_list|()
-decl_stmt|;
-name|CHECKSUM_FAILURES
-operator|.
-name|set
-argument_list|(
-literal|0
-argument_list|)
-expr_stmt|;
 return|return
-name|count
+name|CHECKSUM_FAILURES
+operator|.
+name|sumThenReset
+argument_list|()
 return|;
 block|}
 comment|/** API required to write an {@link HFile} */

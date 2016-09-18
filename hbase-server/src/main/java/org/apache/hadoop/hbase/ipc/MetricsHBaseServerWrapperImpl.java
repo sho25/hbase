@@ -84,7 +84,7 @@ name|server
 operator|.
 name|callQueueSizeInBytes
 operator|.
-name|get
+name|sum
 argument_list|()
 return|;
 block|}

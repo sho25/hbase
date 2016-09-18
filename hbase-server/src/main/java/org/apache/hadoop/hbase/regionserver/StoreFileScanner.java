@@ -79,17 +79,15 @@ end_import
 
 begin_import
 import|import
-name|org
+name|java
 operator|.
-name|apache
+name|util
 operator|.
-name|hadoop
+name|concurrent
 operator|.
-name|hbase
+name|atomic
 operator|.
-name|classification
-operator|.
-name|InterfaceAudience
+name|LongAdder
 import|;
 end_import
 
@@ -187,6 +185,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|client
 operator|.
 name|Scan
@@ -242,22 +256,6 @@ operator|.
 name|querymatcher
 operator|.
 name|ScanQueryMatcher
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Counter
 import|;
 end_import
 
@@ -334,7 +332,7 @@ literal|false
 decl_stmt|;
 specifier|private
 specifier|static
-name|Counter
+name|LongAdder
 name|seekCount
 decl_stmt|;
 specifier|private
@@ -1772,7 +1770,7 @@ block|{
 return|return
 name|seekCount
 operator|.
-name|get
+name|sum
 argument_list|()
 return|;
 block|}
@@ -1785,7 +1783,7 @@ block|{
 name|seekCount
 operator|=
 operator|new
-name|Counter
+name|LongAdder
 argument_list|()
 expr_stmt|;
 block|}

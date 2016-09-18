@@ -160,6 +160,7 @@ name|INSTANCE
 block|;
 specifier|private
 specifier|final
+specifier|transient
 name|ScheduledExecutorService
 name|scheduler
 init|=

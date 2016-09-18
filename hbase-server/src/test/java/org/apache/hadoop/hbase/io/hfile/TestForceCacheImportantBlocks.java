@@ -582,10 +582,8 @@ name|HFile
 operator|.
 name|DATABLOCK_READ_COUNT
 operator|.
-name|set
-argument_list|(
-literal|0
-argument_list|)
+name|reset
+argument_list|()
 expr_stmt|;
 block|}
 annotation|@
@@ -717,7 +715,7 @@ name|HFile
 operator|.
 name|DATABLOCK_READ_COUNT
 operator|.
-name|get
+name|sum
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -757,7 +755,7 @@ name|HFile
 operator|.
 name|DATABLOCK_READ_COUNT
 operator|.
-name|get
+name|sum
 argument_list|()
 operator|>
 literal|0

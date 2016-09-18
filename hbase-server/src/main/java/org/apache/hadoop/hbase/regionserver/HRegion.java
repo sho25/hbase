@@ -675,6 +675,20 @@ name|util
 operator|.
 name|concurrent
 operator|.
+name|atomic
+operator|.
+name|LongAdder
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
 name|locks
 operator|.
 name|Lock
@@ -2323,22 +2337,6 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|Counter
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
 name|EncryptionTest
 import|;
 end_import
@@ -2789,74 +2787,74 @@ argument_list|)
 decl_stmt|;
 comment|// Debug possible data loss due to WAL off
 specifier|final
-name|Counter
+name|LongAdder
 name|numMutationsWithoutWAL
 init|=
 operator|new
-name|Counter
+name|LongAdder
 argument_list|()
 decl_stmt|;
 specifier|final
-name|Counter
+name|LongAdder
 name|dataInMemoryWithoutWAL
 init|=
 operator|new
-name|Counter
+name|LongAdder
 argument_list|()
 decl_stmt|;
 comment|// Debug why CAS operations are taking a while.
 specifier|final
-name|Counter
+name|LongAdder
 name|checkAndMutateChecksPassed
 init|=
 operator|new
-name|Counter
+name|LongAdder
 argument_list|()
 decl_stmt|;
 specifier|final
-name|Counter
+name|LongAdder
 name|checkAndMutateChecksFailed
 init|=
 operator|new
-name|Counter
+name|LongAdder
 argument_list|()
 decl_stmt|;
 comment|// Number of requests
 specifier|final
-name|Counter
+name|LongAdder
 name|readRequestsCount
 init|=
 operator|new
-name|Counter
+name|LongAdder
 argument_list|()
 decl_stmt|;
 specifier|final
-name|Counter
+name|LongAdder
 name|filteredReadRequestsCount
 init|=
 operator|new
-name|Counter
+name|LongAdder
 argument_list|()
 decl_stmt|;
 specifier|final
-name|Counter
+name|LongAdder
 name|writeRequestsCount
 init|=
 operator|new
-name|Counter
+name|LongAdder
 argument_list|()
 decl_stmt|;
 comment|// Number of requests blocked by memstore size.
 specifier|private
 specifier|final
-name|Counter
+name|LongAdder
 name|blockedRequestsCount
 init|=
 operator|new
-name|Counter
+name|LongAdder
 argument_list|()
 decl_stmt|;
-comment|// Compaction counters
+comment|// Compaction LongAdders
 specifier|final
 name|AtomicLong
 name|compactionsFinished
@@ -2994,7 +2992,7 @@ name|Long
 argument_list|>
 name|scannerReadPoints
 decl_stmt|;
-comment|/**    * The sequence ID that was encountered when this region was opened.    */
+comment|/**    * The sequence ID that was enLongAddered when this region was opened.    */
 specifier|private
 name|long
 name|openSeqNum
@@ -6501,7 +6499,7 @@ block|{
 return|return
 name|readRequestsCount
 operator|.
-name|get
+name|sum
 argument_list|()
 return|;
 block|}
@@ -6533,7 +6531,7 @@ block|{
 return|return
 name|filteredReadRequestsCount
 operator|.
-name|get
+name|sum
 argument_list|()
 return|;
 block|}
@@ -6547,7 +6545,7 @@ block|{
 return|return
 name|writeRequestsCount
 operator|.
-name|get
+name|sum
 argument_list|()
 return|;
 block|}
@@ -6604,7 +6602,7 @@ block|{
 return|return
 name|numMutationsWithoutWAL
 operator|.
-name|get
+name|sum
 argument_list|()
 return|;
 block|}
@@ -6618,7 +6616,7 @@ block|{
 return|return
 name|dataInMemoryWithoutWAL
 operator|.
-name|get
+name|sum
 argument_list|()
 return|;
 block|}
@@ -6632,7 +6630,7 @@ block|{
 return|return
 name|blockedRequestsCount
 operator|.
-name|get
+name|sum
 argument_list|()
 return|;
 block|}
@@ -6646,7 +6644,7 @@ block|{
 return|return
 name|checkAndMutateChecksPassed
 operator|.
-name|get
+name|sum
 argument_list|()
 return|;
 block|}
@@ -6660,7 +6658,7 @@ block|{
 return|return
 name|checkAndMutateChecksFailed
 operator|.
-name|get
+name|sum
 argument_list|()
 return|;
 block|}
@@ -10004,7 +10002,7 @@ if|if
 condition|(
 name|numMutationsWithoutWAL
 operator|.
-name|get
+name|sum
 argument_list|()
 operator|>
 literal|0
@@ -10012,17 +10010,13 @@ condition|)
 block|{
 name|numMutationsWithoutWAL
 operator|.
-name|set
-argument_list|(
-literal|0
-argument_list|)
+name|reset
+argument_list|()
 expr_stmt|;
 name|dataInMemoryWithoutWAL
 operator|.
-name|set
-argument_list|(
-literal|0
-argument_list|)
+name|reset
+argument_list|()
 expr_stmt|;
 block|}
 synchronized|synchronized
@@ -20999,7 +20993,7 @@ argument_list|)
 decl_stmt|;
 name|msg
 operator|=
-literal|"Encountered EOF. Most likely due to Master failure during "
+literal|"EnLongAddered EOF. Most likely due to Master failure during "
 operator|+
 literal|"wal splitting, so we have this data in another edit.  "
 operator|+
@@ -21060,7 +21054,7 @@ argument_list|)
 decl_stmt|;
 name|msg
 operator|=
-literal|"File corruption encountered!  "
+literal|"File corruption enLongAddered!  "
 operator|+
 literal|"Continuing, but renaming "
 operator|+
@@ -21854,7 +21848,7 @@ if|if
 condition|(
 name|numMutationsWithoutWAL
 operator|.
-name|get
+name|sum
 argument_list|()
 operator|>
 literal|0
@@ -21862,17 +21856,13 @@ condition|)
 block|{
 name|numMutationsWithoutWAL
 operator|.
-name|set
-argument_list|(
-literal|0
-argument_list|)
+name|reset
+argument_list|()
 expr_stmt|;
 name|dataInMemoryWithoutWAL
 operator|.
-name|set
-argument_list|(
-literal|0
-argument_list|)
+name|reset
+argument_list|()
 expr_stmt|;
 block|}
 if|if
@@ -28903,7 +28893,7 @@ argument_list|)
 decl_stmt|;
 comment|// When has filter row is true it means that the all the cells for a particular row must be
 comment|// read before a filtering decision can be made. This means that filters where hasFilterRow
-comment|// run the risk of encountering out of memory errors in the case that they are applied to a
+comment|// run the risk of enLongAddering out of memory errors in the case that they are applied to a
 comment|// table that has very large rows.
 name|boolean
 name|hasFilterRow
@@ -31584,7 +31574,7 @@ name|r
 operator|.
 name|readRequestsCount
 operator|.
-name|set
+name|add
 argument_list|(
 name|this
 operator|.
@@ -31598,7 +31588,7 @@ name|r
 operator|.
 name|filteredReadRequestsCount
 operator|.
-name|set
+name|add
 argument_list|(
 name|this
 operator|.
@@ -31612,7 +31602,7 @@ name|r
 operator|.
 name|writeRequestsCount
 operator|.
-name|set
+name|add
 argument_list|(
 name|this
 operator|.
@@ -31686,7 +31676,7 @@ name|r
 operator|.
 name|readRequestsCount
 operator|.
-name|set
+name|add
 argument_list|(
 name|this
 operator|.
@@ -31703,7 +31693,7 @@ name|r
 operator|.
 name|filteredReadRequestsCount
 operator|.
-name|set
+name|add
 argument_list|(
 name|this
 operator|.
@@ -31720,7 +31710,7 @@ name|r
 operator|.
 name|writeRequestsCount
 operator|.
-name|set
+name|add
 argument_list|(
 name|this
 operator|.
@@ -34835,7 +34825,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-comment|// If walEdits is empty, it means we skipped the WAL; update counters and start an mvcc
+comment|// If walEdits is empty, it means we skipped the WAL; update LongAdders and start an mvcc
 comment|// transaction.
 name|recordMutationWithoutWal
 argument_list|(
@@ -36847,7 +36837,7 @@ argument_list|)
 decl_stmt|;
 comment|// woefully out of date - currently missing:
 comment|// 1 x HashMap - coprocessorServiceHandlers
-comment|// 6 x Counter - numMutationsWithoutWAL, dataInMemoryWithoutWAL,
+comment|// 6 x LongAdder - numMutationsWithoutWAL, dataInMemoryWithoutWAL,
 comment|//   checkAndMutateChecksPassed, checkAndMutateChecksFailed, readRequestsCount,
 comment|//   writeRequestsCount
 comment|// 1 x HRegion$WriteState - writestate
@@ -38145,7 +38135,7 @@ name|unlock
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Update counters for number of puts without wal and the size of possible data loss.    * These information are exposed by the region server metrics.    */
+comment|/**    * Update LongAdders for number of puts without wal and the size of possible data loss.    * These information are exposed by the region server metrics.    */
 specifier|private
 name|void
 name|recordMutationWithoutWal
@@ -38173,7 +38163,7 @@ if|if
 condition|(
 name|numMutationsWithoutWAL
 operator|.
-name|get
+name|sum
 argument_list|()
 operator|<=
 literal|1
