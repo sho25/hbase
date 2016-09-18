@@ -359,6 +359,13 @@ operator|.
 name|getModificationTime
 argument_list|()
 expr_stmt|;
+name|tracker
+operator|.
+name|setPartialFlag
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
 block|}
 specifier|public
 name|ProcedureWALFile
@@ -414,6 +421,13 @@ operator|.
 name|timestamp
 operator|=
 name|timestamp
+expr_stmt|;
+name|tracker
+operator|.
+name|setPartialFlag
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 block|}
 specifier|public
