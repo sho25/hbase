@@ -194,7 +194,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Implement SASL logic for async rpc client.  */
+comment|/**  * Implement SASL logic for netty rpc client.  */
 end_comment
 
 begin_class
@@ -204,7 +204,7 @@ operator|.
 name|Private
 specifier|public
 class|class
-name|AsyncHBaseSaslRpcClientHandler
+name|NettyHBaseSaslRpcClientHandler
 extends|extends
 name|SimpleChannelInboundHandler
 argument_list|<
@@ -221,7 +221,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|AsyncHBaseSaslRpcClientHandler
+name|NettyHBaseSaslRpcClientHandler
 operator|.
 name|class
 argument_list|)
@@ -241,12 +241,12 @@ name|ugi
 decl_stmt|;
 specifier|private
 specifier|final
-name|AsyncHBaseSaslRpcClient
+name|NettyHBaseSaslRpcClient
 name|saslRpcClient
 decl_stmt|;
 comment|/**    * @param saslPromise {@code true} if success, {@code false} if server tells us to fallback to    *          simple.    */
 specifier|public
-name|AsyncHBaseSaslRpcClientHandler
+name|NettyHBaseSaslRpcClientHandler
 parameter_list|(
 name|Promise
 argument_list|<
@@ -297,7 +297,7 @@ operator|.
 name|saslRpcClient
 operator|=
 operator|new
-name|AsyncHBaseSaslRpcClient
+name|NettyHBaseSaslRpcClient
 argument_list|(
 name|method
 argument_list|,
@@ -546,7 +546,7 @@ condition|)
 block|{
 name|saslPromise
 operator|.
-name|setSuccess
+name|trySuccess
 argument_list|(
 literal|false
 argument_list|)
@@ -556,7 +556,7 @@ else|else
 block|{
 name|saslPromise
 operator|.
-name|setFailure
+name|tryFailure
 argument_list|(
 operator|new
 name|FallbackDisallowedException
@@ -667,6 +667,40 @@ annotation|@
 name|Override
 specifier|public
 name|void
+name|channelInactive
+parameter_list|(
+name|ChannelHandlerContext
+name|ctx
+parameter_list|)
+throws|throws
+name|Exception
+block|{
+name|saslRpcClient
+operator|.
+name|dispose
+argument_list|()
+expr_stmt|;
+name|saslPromise
+operator|.
+name|tryFailure
+argument_list|(
+operator|new
+name|IOException
+argument_list|(
+literal|"Connection closed"
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|ctx
+operator|.
+name|fireChannelInactive
+argument_list|()
+expr_stmt|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
 name|exceptionCaught
 parameter_list|(
 name|ChannelHandlerContext
@@ -683,7 +717,7 @@ argument_list|()
 expr_stmt|;
 name|saslPromise
 operator|.
-name|setFailure
+name|tryFailure
 argument_list|(
 name|cause
 argument_list|)

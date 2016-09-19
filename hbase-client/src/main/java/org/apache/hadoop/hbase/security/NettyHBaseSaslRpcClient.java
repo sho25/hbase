@@ -142,7 +142,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Implement SASL logic for async rpc client.  */
+comment|/**  * Implement SASL logic for netty rpc client.  */
 end_comment
 
 begin_class
@@ -152,7 +152,7 @@ operator|.
 name|Private
 specifier|public
 class|class
-name|AsyncHBaseSaslRpcClient
+name|NettyHBaseSaslRpcClient
 extends|extends
 name|AbstractHBaseSaslRpcClient
 block|{
@@ -166,13 +166,13 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|AsyncHBaseSaslRpcClient
+name|NettyHBaseSaslRpcClient
 operator|.
 name|class
 argument_list|)
 decl_stmt|;
 specifier|public
-name|AsyncHBaseSaslRpcClient
+name|NettyHBaseSaslRpcClient
 parameter_list|(
 name|AuthMethod
 name|method

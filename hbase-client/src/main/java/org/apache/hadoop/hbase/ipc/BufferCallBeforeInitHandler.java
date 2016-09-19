@@ -226,11 +226,7 @@ name|id2Call
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|Integer
-argument_list|,
-name|Call
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 annotation|@
@@ -274,6 +270,13 @@ name|id
 argument_list|,
 name|call
 argument_list|)
+expr_stmt|;
+comment|// The call is already in track so here we set the write operation as success.
+comment|// We will fail the call directly if we can not write it out.
+name|promise
+operator|.
+name|trySuccess
+argument_list|()
 expr_stmt|;
 block|}
 else|else

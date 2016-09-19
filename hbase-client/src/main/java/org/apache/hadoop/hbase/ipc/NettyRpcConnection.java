@@ -477,7 +477,7 @@ name|hbase
 operator|.
 name|security
 operator|.
-name|AsyncHBaseSaslRpcClientHandler
+name|NettyHBaseSaslRpcClientHandler
 import|;
 end_import
 
@@ -1203,7 +1203,7 @@ block|{
 name|saslHandler
 operator|=
 operator|new
-name|AsyncHBaseSaslRpcClientHandler
+name|NettyHBaseSaslRpcClientHandler
 argument_list|(
 name|saslPromise
 argument_list|,
@@ -1326,7 +1326,7 @@ name|p
 operator|.
 name|remove
 argument_list|(
-name|AsyncHBaseSaslRpcClientHandler
+name|NettyHBaseSaslRpcClientHandler
 operator|.
 name|class
 argument_list|)

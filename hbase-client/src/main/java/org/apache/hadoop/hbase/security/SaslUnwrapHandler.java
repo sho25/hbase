@@ -149,6 +149,11 @@ argument_list|(
 name|saslClient
 argument_list|)
 expr_stmt|;
+name|ctx
+operator|.
+name|fireChannelInactive
+argument_list|()
+expr_stmt|;
 block|}
 annotation|@
 name|Override
