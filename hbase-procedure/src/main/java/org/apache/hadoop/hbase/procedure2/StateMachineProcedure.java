@@ -352,6 +352,8 @@ literal|"abort requested"
 argument_list|)
 expr_stmt|;
 block|}
+else|else
+block|{
 name|setNextState
 argument_list|(
 name|getStateId
@@ -360,6 +362,7 @@ name|state
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|/**    * By default, the executor will try ro run all the steps of the procedure start to finish.    * Return true to make the executor yield between execution steps to    * give other procedures time to run their steps.    * @param state the state we are going to execute next.    * @return Return true if the executor should yield before the execution of the specified step.    *         Defaults to return false.    */
 specifier|protected
