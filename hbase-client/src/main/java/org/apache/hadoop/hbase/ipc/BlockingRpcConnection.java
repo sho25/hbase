@@ -3564,6 +3564,15 @@ block|}
 annotation|@
 name|Override
 specifier|public
+name|void
+name|cleanupConnection
+parameter_list|()
+block|{
+comment|// do nothing
+block|}
+annotation|@
+name|Override
+specifier|public
 specifier|synchronized
 name|void
 name|sendRequest

@@ -1496,6 +1496,13 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Does the clean up work after the connection is removed from the connection pool    */
+specifier|public
+specifier|abstract
+name|void
+name|cleanupConnection
+parameter_list|()
+function_decl|;
 block|}
 end_class
 
