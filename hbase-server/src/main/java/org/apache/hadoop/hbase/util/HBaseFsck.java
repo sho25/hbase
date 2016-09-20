@@ -3780,9 +3780,6 @@ name|KeeperException
 throws|,
 name|InterruptedException
 block|{
-name|clearState
-argument_list|()
-expr_stmt|;
 comment|// get regions according to what is online on each RegionServer
 name|loadDeployedRegions
 argument_list|()
@@ -4214,7 +4211,15 @@ name|getHBaseVersion
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// Clean start
+name|clearState
+argument_list|()
+expr_stmt|;
+comment|// Do offline check and repair first
 name|offlineHdfsIntegrityRepair
+argument_list|()
+expr_stmt|;
+name|offlineReferenceFileRepair
 argument_list|()
 expr_stmt|;
 comment|// If Master runs maintenance tasks (such as balancer, catalog janitor, etc) during online
@@ -4250,9 +4255,6 @@ name|checkRegionBoundaries
 argument_list|()
 expr_stmt|;
 block|}
-name|offlineReferenceFileRepair
-argument_list|()
-expr_stmt|;
 name|checkAndFixTableLocks
 argument_list|()
 expr_stmt|;
@@ -5847,6 +5849,9 @@ name|IOException
 throws|,
 name|InterruptedException
 block|{
+name|clearState
+argument_list|()
+expr_stmt|;
 name|Configuration
 name|conf
 init|=
