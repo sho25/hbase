@@ -233,11 +233,6 @@ name|String
 argument_list|>
 name|failedDeletions
 decl_stmt|;
-specifier|final
-specifier|private
-name|ServerName
-name|serverName
-decl_stmt|;
 specifier|public
 name|SplitLogManagerDetails
 parameter_list|(
@@ -257,9 +252,6 @@ argument_list|<
 name|String
 argument_list|>
 name|failedDeletions
-parameter_list|,
-name|ServerName
-name|serverName
 parameter_list|)
 block|{
 name|this
@@ -279,12 +271,6 @@ operator|.
 name|failedDeletions
 operator|=
 name|failedDeletions
-expr_stmt|;
-name|this
-operator|.
-name|serverName
-operator|=
-name|serverName
 expr_stmt|;
 block|}
 comment|/**      * @return the master value      */
@@ -332,7 +318,10 @@ name|getServerName
 parameter_list|()
 block|{
 return|return
-name|serverName
+name|master
+operator|.
+name|getServerName
+argument_list|()
 return|;
 block|}
 block|}

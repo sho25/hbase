@@ -4825,8 +4825,6 @@ operator|new
 name|CatalogJanitor
 argument_list|(
 name|this
-argument_list|,
-name|this
 argument_list|)
 expr_stmt|;
 name|getChoreService
