@@ -99,6 +99,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|io
+operator|.
+name|UnsupportedEncodingException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|math
 operator|.
 name|BigDecimal
@@ -134,6 +144,18 @@ operator|.
 name|charset
 operator|.
 name|Charset
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|nio
+operator|.
+name|charset
+operator|.
+name|StandardCharsets
 import|;
 end_import
 
@@ -199,18 +221,6 @@ end_import
 
 begin_import
 import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|ByteString
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -234,38 +244,6 @@ operator|.
 name|logging
 operator|.
 name|LogFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
 import|;
 end_import
 
@@ -308,6 +286,38 @@ operator|.
 name|hbase
 operator|.
 name|KeyValue
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceStability
 import|;
 end_import
 
@@ -391,6 +401,18 @@ name|Lists
 import|;
 end_import
 
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ByteString
+import|;
+end_import
+
 begin_comment
 comment|/**  * Utility class that handles byte arrays, conversions to/from other types,  * comparisons, hash code generation, manufacturing keys for HashMaps or  * HashSets, and can be used as key in maps or trees.  */
 end_comment
@@ -463,6 +485,21 @@ name|forName
 argument_list|(
 name|UTF8_ENCODING
 argument_list|)
+decl_stmt|;
+comment|// Using the charset canonical name for String/byte[] conversions is much
+comment|// more efficient due to use of cached encoders/decoders.
+specifier|private
+specifier|static
+specifier|final
+name|String
+name|UTF8_CSN
+init|=
+name|StandardCharsets
+operator|.
+name|UTF_8
+operator|.
+name|name
+argument_list|()
 decl_stmt|;
 comment|//HConstants.EMPTY_BYTE_ARRAY should be updated if this changed
 specifier|private
@@ -2124,6 +2161,8 @@ return|return
 literal|""
 return|;
 block|}
+try|try
+block|{
 return|return
 operator|new
 name|String
@@ -2134,9 +2173,27 @@ name|off
 argument_list|,
 name|len
 argument_list|,
-name|UTF8_CHARSET
+name|UTF8_CSN
 argument_list|)
 return|;
+block|}
+catch|catch
+parameter_list|(
+name|UnsupportedEncodingException
+name|e
+parameter_list|)
+block|{
+comment|// should never happen!
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"UTF8 encoding is not supported"
+argument_list|,
+name|e
+argument_list|)
+throw|;
+block|}
 block|}
 comment|/**    * This method will convert utf8 encoded bytes into a string. If    * the given byte array is null, this method will return null.    *    * @param b Presumed UTF-8 encoded byte array.    * @param off offset into array    * @param len length of utf-8 sequence    * @return String made from<code>b</code> or null    */
 specifier|public
@@ -2178,6 +2235,8 @@ return|return
 literal|""
 return|;
 block|}
+try|try
+block|{
 return|return
 operator|new
 name|String
@@ -2188,9 +2247,27 @@ name|off
 argument_list|,
 name|len
 argument_list|,
-name|UTF8_CHARSET
+name|UTF8_CSN
 argument_list|)
 return|;
+block|}
+catch|catch
+parameter_list|(
+name|UnsupportedEncodingException
+name|e
+parameter_list|)
+block|{
+comment|// should never happen!
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"UTF8 encoding is not supported"
+argument_list|,
+name|e
+argument_list|)
+throw|;
+block|}
 block|}
 comment|/**    * Write a printable representation of a byte array.    *    * @param b byte array    * @return string    * @see #toStringBinary(byte[], int, int)    */
 specifier|public
@@ -2787,14 +2864,34 @@ name|String
 name|s
 parameter_list|)
 block|{
+try|try
+block|{
 return|return
 name|s
 operator|.
 name|getBytes
 argument_list|(
-name|UTF8_CHARSET
+name|UTF8_CSN
 argument_list|)
 return|;
+block|}
+catch|catch
+parameter_list|(
+name|UnsupportedEncodingException
+name|e
+parameter_list|)
+block|{
+comment|// should never happen!
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"UTF8 decoding is not supported"
+argument_list|,
+name|e
+argument_list|)
+throw|;
+block|}
 block|}
 comment|/**    * Convert a boolean to a byte array. True becomes -1    * and false becomes 0.    *    * @param b value    * @return<code>b</code> encoded in a byte array.    */
 specifier|public
