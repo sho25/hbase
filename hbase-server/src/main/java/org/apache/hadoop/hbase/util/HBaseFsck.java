@@ -6335,6 +6335,19 @@ operator|==
 literal|null
 condition|)
 block|{
+if|if
+condition|(
+name|hbi
+operator|.
+name|getReplicaId
+argument_list|()
+operator|==
+name|HRegionInfo
+operator|.
+name|DEFAULT_REPLICA_ID
+condition|)
+block|{
+comment|// Log warning only for default/ primary replica with no region dir
 name|LOG
 operator|.
 name|warn
@@ -6350,6 +6363,7 @@ operator|.
 name|metaEntry
 argument_list|)
 expr_stmt|;
+block|}
 return|return;
 block|}
 if|if
