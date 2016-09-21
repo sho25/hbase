@@ -105,7 +105,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValueUtil
+name|CellUtil
 import|;
 end_import
 
@@ -960,11 +960,20 @@ name|nextRow
 argument_list|()
 decl_stmt|;
 return|return
-name|KeyValueUtil
+name|CellUtil
 operator|.
 name|createFirstOnRow
 argument_list|(
 name|nextRowKey
+argument_list|,
+literal|0
+argument_list|,
+operator|(
+name|short
+operator|)
+name|nextRowKey
+operator|.
+name|length
 argument_list|)
 return|;
 block|}
