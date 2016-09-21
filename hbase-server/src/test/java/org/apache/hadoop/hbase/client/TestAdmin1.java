@@ -145,6 +145,30 @@ name|util
 operator|.
 name|concurrent
 operator|.
+name|Future
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|TimeUnit
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
 name|atomic
 operator|.
 name|AtomicInteger
@@ -8864,6 +8888,7 @@ expr_stmt|;
 comment|// Try merging a replica with another. Should fail.
 try|try
 block|{
+comment|// TODO convert this to version that is synchronous (See HBASE-16668)
 name|TEST_UTIL
 operator|.
 name|getAdmin
@@ -8898,6 +8923,15 @@ name|getEncodedNameAsBytes
 argument_list|()
 argument_list|,
 literal|true
+argument_list|)
+operator|.
+name|get
+argument_list|(
+literal|60
+argument_list|,
+name|TimeUnit
+operator|.
+name|SECONDS
 argument_list|)
 expr_stmt|;
 block|}
@@ -10067,6 +10101,11 @@ block|}
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testMergeRegions
@@ -10224,6 +10263,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
+comment|// TODO convert this to version that is synchronous (See HBASE-16668)
 name|admin
 operator|.
 name|mergeRegionsAsync
@@ -10240,12 +10280,14 @@ argument_list|()
 argument_list|,
 literal|false
 argument_list|)
-expr_stmt|;
-name|Thread
 operator|.
-name|sleep
+name|get
 argument_list|(
-literal|1000
+literal|60
+argument_list|,
+name|TimeUnit
+operator|.
+name|SECONDS
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -10291,6 +10333,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
+comment|// TODO convert this to version that is synchronous (See HBASE-16668)
 name|admin
 operator|.
 name|mergeRegionsAsync
@@ -10307,12 +10350,14 @@ argument_list|()
 argument_list|,
 literal|false
 argument_list|)
-expr_stmt|;
-name|Thread
 operator|.
-name|sleep
+name|get
 argument_list|(
-literal|1000
+literal|60
+argument_list|,
+name|TimeUnit
+operator|.
+name|SECONDS
 argument_list|)
 expr_stmt|;
 name|assertEquals
