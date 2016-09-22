@@ -321,9 +321,8 @@ name|Exception
 block|{
 name|CacheConfig
 operator|.
-name|GLOBAL_BLOCK_CACHE_INSTANCE
-operator|=
-literal|null
+name|clearGlobalInstances
+argument_list|()
 expr_stmt|;
 name|this
 operator|.
@@ -347,9 +346,8 @@ block|{
 comment|// Let go of current block cache.
 name|CacheConfig
 operator|.
-name|GLOBAL_BLOCK_CACHE_INSTANCE
-operator|=
-literal|null
+name|clearGlobalInstances
+argument_list|()
 expr_stmt|;
 block|}
 specifier|private

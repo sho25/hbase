@@ -648,6 +648,8 @@ name|String
 name|BLOCK_CACHE_EVICTION_COUNT_DESC
 init|=
 literal|"Count of the number of blocks evicted from the block cache."
+operator|+
+literal|"(Not including blocks evicted because of HFile removal)"
 decl_stmt|;
 name|String
 name|BLOCK_CACHE_PRIMARY_EVICTION_COUNT

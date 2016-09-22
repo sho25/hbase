@@ -7472,7 +7472,8 @@ name|shouldEvictOnClose
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// We should have 3 new evictions
+comment|// We should have 3 new evictions but the evict count stat should not change. Eviction because
+comment|// of HFile invalidation is not counted along with normal evictions
 name|assertEquals
 argument_list|(
 name|startHit
@@ -7496,18 +7497,12 @@ expr_stmt|;
 name|assertEquals
 argument_list|(
 name|startEvicted
-operator|+
-literal|3
 argument_list|,
 name|cs
 operator|.
 name|getEvictedCount
 argument_list|()
 argument_list|)
-expr_stmt|;
-name|startEvicted
-operator|+=
-literal|3
 expr_stmt|;
 comment|// Let's close the second file with evict on close turned off
 name|conf

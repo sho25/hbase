@@ -75,18 +75,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|lang
-operator|.
-name|management
-operator|.
-name|MemoryUsage
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -1622,6 +1610,11 @@ specifier|static
 name|BlockCache
 name|GLOBAL_BLOCK_CACHE_INSTANCE
 decl_stmt|;
+specifier|private
+specifier|static
+name|LruBlockCache
+name|GLOBAL_L1_CACHE_INSTANCE
+decl_stmt|;
 comment|/** Boolean whether we have disabled the block cache entirely. */
 annotation|@
 name|VisibleForTesting
@@ -1640,8 +1633,8 @@ name|Configuration
 name|conf
 parameter_list|,
 specifier|final
-name|MemoryUsage
-name|mu
+name|long
+name|xmx
 parameter_list|)
 block|{
 name|float
@@ -1701,17 +1694,44 @@ call|(
 name|long
 call|)
 argument_list|(
-name|mu
-operator|.
-name|getMax
-argument_list|()
+name|xmx
 operator|*
 name|cachePercentage
 argument_list|)
 return|;
 block|}
-comment|/**    * @param c Configuration to use.    * @param mu JMX Memory Bean    * @return An L1 instance.  Currently an instance of LruBlockCache.    */
+comment|/**    * @param c Configuration to use.    * @return An L1 instance.  Currently an instance of LruBlockCache.    */
+specifier|public
+specifier|static
+name|LruBlockCache
+name|getL1
+parameter_list|(
+specifier|final
+name|Configuration
+name|c
+parameter_list|)
+block|{
+return|return
+name|getL1
+argument_list|(
+name|c
+argument_list|,
+name|ManagementFactory
+operator|.
+name|getMemoryMXBean
+argument_list|()
+operator|.
+name|getHeapMemoryUsage
+argument_list|()
+operator|.
+name|getMax
+argument_list|()
+argument_list|)
+return|;
+block|}
+comment|/**    * @param c Configuration to use.    * @param xmx Max heap memory    * @return An L1 instance.  Currently an instance of LruBlockCache.    */
 specifier|private
+specifier|synchronized
 specifier|static
 name|LruBlockCache
 name|getL1
@@ -1721,10 +1741,26 @@ name|Configuration
 name|c
 parameter_list|,
 specifier|final
-name|MemoryUsage
-name|mu
+name|long
+name|xmx
 parameter_list|)
 block|{
+if|if
+condition|(
+name|GLOBAL_L1_CACHE_INSTANCE
+operator|!=
+literal|null
+condition|)
+return|return
+name|GLOBAL_L1_CACHE_INSTANCE
+return|;
+if|if
+condition|(
+name|blockCacheDisabled
+condition|)
+return|return
+literal|null
+return|;
 name|long
 name|lruCacheSize
 init|=
@@ -1732,7 +1768,7 @@ name|getLruCacheSize
 argument_list|(
 name|c
 argument_list|,
-name|mu
+name|xmx
 argument_list|)
 decl_stmt|;
 if|if
@@ -1781,7 +1817,8 @@ name|blockSize
 argument_list|)
 argument_list|)
 expr_stmt|;
-return|return
+name|GLOBAL_L1_CACHE_INSTANCE
+operator|=
 operator|new
 name|LruBlockCache
 argument_list|(
@@ -1793,9 +1830,12 @@ literal|true
 argument_list|,
 name|c
 argument_list|)
+expr_stmt|;
+return|return
+name|GLOBAL_L1_CACHE_INSTANCE
 return|;
 block|}
-comment|/**    * @param c Configuration to use.    * @param mu JMX Memory Bean    * @return Returns L2 block cache instance (for now it is BucketCache BlockCache all the time)    * or null if not supposed to be a L2.    */
+comment|/**    * @param c Configuration to use.    * @param xmx Max heap memory    * @return Returns L2 block cache instance (for now it is BucketCache BlockCache all the time)    * or null if not supposed to be a L2.    */
 specifier|private
 specifier|static
 name|BlockCache
@@ -1806,8 +1846,8 @@ name|Configuration
 name|c
 parameter_list|,
 specifier|final
-name|MemoryUsage
-name|mu
+name|long
+name|xmx
 parameter_list|)
 block|{
 specifier|final
@@ -1868,7 +1908,7 @@ name|getBucketCache
 argument_list|(
 name|c
 argument_list|,
-name|mu
+name|xmx
 argument_list|)
 return|;
 block|}
@@ -1998,8 +2038,8 @@ parameter_list|(
 name|Configuration
 name|c
 parameter_list|,
-name|MemoryUsage
-name|mu
+name|long
+name|xmx
 parameter_list|)
 block|{
 comment|// Check for L2.  ioengine name must be non-null.
@@ -2068,10 +2108,7 @@ name|bucketCachePercentage
 operator|<
 literal|1
 condition|?
-name|mu
-operator|.
-name|getMax
-argument_list|()
+name|xmx
 operator|*
 name|bucketCachePercentage
 else|:
@@ -2327,8 +2364,8 @@ condition|)
 return|return
 literal|null
 return|;
-name|MemoryUsage
-name|mu
+name|long
+name|xmx
 init|=
 name|ManagementFactory
 operator|.
@@ -2336,6 +2373,9 @@ name|getMemoryMXBean
 argument_list|()
 operator|.
 name|getHeapMemoryUsage
+argument_list|()
+operator|.
+name|getMax
 argument_list|()
 decl_stmt|;
 name|LruBlockCache
@@ -2345,7 +2385,7 @@ name|getL1
 argument_list|(
 name|conf
 argument_list|,
-name|mu
+name|xmx
 argument_list|)
 decl_stmt|;
 comment|// blockCacheDisabled is set as a side-effect of getL1(), so check it again after the call.
@@ -2363,7 +2403,7 @@ name|getL2
 argument_list|(
 name|conf
 argument_list|,
-name|mu
+name|xmx
 argument_list|)
 decl_stmt|;
 if|if
@@ -2461,6 +2501,24 @@ block|}
 return|return
 name|GLOBAL_BLOCK_CACHE_INSTANCE
 return|;
+block|}
+comment|// Supposed to use only from tests. Some tests want to reinit the Global block cache instance
+annotation|@
+name|VisibleForTesting
+specifier|static
+specifier|synchronized
+name|void
+name|clearGlobalInstances
+parameter_list|()
+block|{
+name|GLOBAL_L1_CACHE_INSTANCE
+operator|=
+literal|null
+expr_stmt|;
+name|GLOBAL_BLOCK_CACHE_INSTANCE
+operator|=
+literal|null
+expr_stmt|;
 block|}
 block|}
 end_class

@@ -2276,6 +2276,13 @@ name|val
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|evictedByEvictionProcess
+condition|)
+block|{
+comment|// When the eviction of the block happened because of invalidation of HFiles, no need to
+comment|// update the stats counter.
 name|stats
 operator|.
 name|evicted
@@ -2296,8 +2303,6 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|evictedByEvictionProcess
-operator|&&
 name|victimHandler
 operator|!=
 literal|null
@@ -2373,6 +2378,7 @@ name|getBuffer
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 return|return

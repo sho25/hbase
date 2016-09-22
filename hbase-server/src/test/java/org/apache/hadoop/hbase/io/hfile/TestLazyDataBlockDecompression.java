@@ -496,9 +496,8 @@ name|IOException
 block|{
 name|CacheConfig
 operator|.
-name|GLOBAL_BLOCK_CACHE_INSTANCE
-operator|=
-literal|null
+name|clearGlobalInstances
+argument_list|()
 expr_stmt|;
 name|fs
 operator|=
@@ -522,9 +521,8 @@ parameter_list|()
 block|{
 name|CacheConfig
 operator|.
-name|GLOBAL_BLOCK_CACHE_INSTANCE
-operator|=
-literal|null
+name|clearGlobalInstances
+argument_list|()
 expr_stmt|;
 name|fs
 operator|=

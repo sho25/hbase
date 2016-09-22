@@ -574,9 +574,8 @@ block|{
 comment|// Make sure we make a new one each time.
 name|CacheConfig
 operator|.
-name|GLOBAL_BLOCK_CACHE_INSTANCE
-operator|=
-literal|null
+name|clearGlobalInstances
+argument_list|()
 expr_stmt|;
 name|HFile
 operator|.

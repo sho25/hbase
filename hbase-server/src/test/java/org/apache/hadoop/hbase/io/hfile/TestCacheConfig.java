@@ -812,9 +812,8 @@ name|Exception
 block|{
 name|CacheConfig
 operator|.
-name|GLOBAL_BLOCK_CACHE_INSTANCE
-operator|=
-literal|null
+name|clearGlobalInstances
+argument_list|()
 expr_stmt|;
 name|this
 operator|.
@@ -838,9 +837,8 @@ block|{
 comment|// Let go of current block cache.
 name|CacheConfig
 operator|.
-name|GLOBAL_BLOCK_CACHE_INSTANCE
-operator|=
-literal|null
+name|clearGlobalInstances
+argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * @param cc    * @param doubling If true, addition of element ups counter by 2, not 1, because element added    * to onheap and offheap caches.    * @param sizing True if we should run sizing test (doesn't always apply).    */
@@ -1963,6 +1961,9 @@ argument_list|()
 operator|.
 name|getHeapMemoryUsage
 argument_list|()
+operator|.
+name|getMax
+argument_list|()
 argument_list|)
 argument_list|,
 name|lbc
@@ -2074,6 +2075,9 @@ operator|.
 name|conf
 argument_list|,
 name|mu
+operator|.
+name|getMax
+argument_list|()
 argument_list|)
 decl_stmt|;
 specifier|final
