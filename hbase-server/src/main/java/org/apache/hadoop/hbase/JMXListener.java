@@ -549,13 +549,13 @@ block|}
 name|csf
 operator|=
 operator|new
-name|SslRMIClientSocketFactory
+name|SslRMIClientSocketFactorySecure
 argument_list|()
 expr_stmt|;
 name|ssf
 operator|=
 operator|new
-name|SslRMIServerSocketFactory
+name|SslRMIServerSocketFactorySecure
 argument_list|()
 expr_stmt|;
 block|}
