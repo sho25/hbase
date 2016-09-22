@@ -279,6 +279,11 @@ init|=
 literal|"exceptions.UnknownScannerException"
 decl_stmt|;
 name|String
+name|EXCEPTIONS_SCANNER_RESET_NAME
+init|=
+literal|"exceptions.ScannerResetException"
+decl_stmt|;
+name|String
 name|EXCEPTIONS_SANITY_NAME
 init|=
 literal|"exceptions.FailedSanityCheckException"
@@ -358,6 +363,10 @@ parameter_list|()
 function_decl|;
 name|void
 name|unknownScannerException
+parameter_list|()
+function_decl|;
+name|void
+name|scannerResetException
 parameter_list|()
 function_decl|;
 name|void
