@@ -9652,6 +9652,38 @@ operator|+=
 name|paramSize
 expr_stmt|;
 block|}
+else|else
+block|{
+comment|// currently header must have request param, so we directly throw exception here
+name|String
+name|msg
+init|=
+literal|"Invalid request header: "
+operator|+
+name|TextFormat
+operator|.
+name|shortDebugString
+argument_list|(
+name|header
+argument_list|)
+operator|+
+literal|", should have param set in it"
+decl_stmt|;
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|msg
+argument_list|)
+expr_stmt|;
+throw|throw
+operator|new
+name|DoNotRetryIOException
+argument_list|(
+name|msg
+argument_list|)
+throw|;
+block|}
 if|if
 condition|(
 name|header
