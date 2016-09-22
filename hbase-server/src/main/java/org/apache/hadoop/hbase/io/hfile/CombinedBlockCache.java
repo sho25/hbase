@@ -1364,18 +1364,7 @@ name|Cacheable
 name|block
 parameter_list|)
 block|{
-comment|// A noop
-name|this
-operator|.
-name|lruCache
-operator|.
-name|returnBlock
-argument_list|(
-name|cacheKey
-argument_list|,
-name|block
-argument_list|)
-expr_stmt|;
+comment|// returnBlock is meaningful for L2 cache alone.
 name|this
 operator|.
 name|l2Cache

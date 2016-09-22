@@ -5156,7 +5156,32 @@ name|Cacheable
 name|block
 parameter_list|)
 block|{
-comment|// There is no SHARED type here. Just return
+comment|// There is no SHARED type here in L1. But the block might have been served from the Victim
+comment|// handler L2 cache. (when the Combined mode = false). So just try return this block to
+comment|// L2 victim handler cache.
+comment|// Note : In case of CombinedBlockCache, we will have this victimHandler configured for L1
+comment|// cache. But CombinedBlockCache will only call returnBlock on L2 cache.
+if|if
+condition|(
+name|this
+operator|.
+name|victimHandler
+operator|!=
+literal|null
+condition|)
+block|{
+name|this
+operator|.
+name|victimHandler
+operator|.
+name|returnBlock
+argument_list|(
+name|cacheKey
+argument_list|,
+name|block
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 end_class
