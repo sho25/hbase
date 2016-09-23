@@ -753,7 +753,7 @@ name|getValue
 argument_list|(
 name|INPUT_FAMILY
 argument_list|,
-name|INPUT_FAMILY
+literal|null
 argument_list|)
 argument_list|)
 decl_stmt|;

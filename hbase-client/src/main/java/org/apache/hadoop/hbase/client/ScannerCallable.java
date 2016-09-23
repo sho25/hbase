@@ -309,9 +309,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|exceptions
+name|ipc
 operator|.
-name|ScannerResetException
+name|HBaseRpcController
 import|;
 end_import
 
@@ -641,7 +641,7 @@ specifier|final
 name|RpcControllerFactory
 name|rpcControllerFactory
 decl_stmt|;
-comment|/**    * @param connection which connection    * @param tableName table callable is on    * @param scan the scan to execute    * @param scanMetrics the ScanMetrics to used, if it is null, ScannerCallable won't collect    *          metrics    * @param rpcControllerFactory factory to use when creating    *        {@link com.google.protobuf.RpcController}    */
+comment|/**    * @param connection which connection    * @param tableName table callable is on    * @param scan the scan to execute    * @param scanMetrics the ScanMetrics to used, if it is null, ScannerCallable won't collect    *          metrics    * @param rpcControllerFactory factory to use when creating     *        {@link com.google.protobuf.RpcController}    */
 specifier|public
 name|ScannerCallable
 parameter_list|(
@@ -970,8 +970,6 @@ literal|true
 expr_stmt|;
 block|}
 block|}
-annotation|@
-name|Override
 specifier|protected
 name|Result
 index|[]
@@ -1343,13 +1341,12 @@ block|}
 if|if
 condition|(
 name|logScannerActivity
-condition|)
-block|{
-if|if
-condition|(
+operator|&&
+operator|(
 name|ioe
 operator|instanceof
 name|UnknownScannerException
+operator|)
 condition|)
 block|{
 try|try
@@ -1401,31 +1398,6 @@ argument_list|(
 literal|"Failed to relocate region"
 argument_list|,
 name|t
-argument_list|)
-expr_stmt|;
-block|}
-block|}
-elseif|else
-if|if
-condition|(
-name|ioe
-operator|instanceof
-name|ScannerResetException
-condition|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Scanner="
-operator|+
-name|scannerId
-operator|+
-literal|" has received an exception, and the server "
-operator|+
-literal|"asked us to reset the scanner state."
-argument_list|,
-name|ioe
 argument_list|)
 expr_stmt|;
 block|}

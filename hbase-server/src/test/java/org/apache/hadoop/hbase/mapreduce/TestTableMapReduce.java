@@ -418,8 +418,6 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-annotation|@
-name|Override
 specifier|protected
 name|Log
 name|getLog
@@ -442,8 +440,6 @@ name|Put
 argument_list|>
 block|{
 comment|/**      * Pass the key, and reversed value to reduce      *      * @param key      * @param value      * @param context      * @throws IOException      */
-annotation|@
-name|Override
 specifier|public
 name|void
 name|map
@@ -548,7 +544,7 @@ name|getValue
 argument_list|(
 name|INPUT_FAMILY
 argument_list|,
-name|INPUT_FAMILY
+literal|null
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -609,8 +605,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-annotation|@
-name|Override
 specifier|protected
 name|void
 name|runTestOnTable

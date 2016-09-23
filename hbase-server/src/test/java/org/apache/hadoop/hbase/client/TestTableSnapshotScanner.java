@@ -1117,10 +1117,7 @@ index|[
 name|j
 index|]
 argument_list|,
-name|FAMILIES
-index|[
-name|j
-index|]
+literal|null
 argument_list|)
 decl_stmt|;
 name|Assert
