@@ -255,6 +255,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
+name|ScannerResetException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|ipc
 operator|.
 name|RpcControllerFactory
@@ -1848,6 +1864,10 @@ operator|||
 name|e
 operator|instanceof
 name|UnknownScannerException
+operator|||
+name|e
+operator|instanceof
+name|ScannerResetException
 condition|)
 block|{
 comment|// Pass. It is easier writing the if loop test as list of what is allowed rather than

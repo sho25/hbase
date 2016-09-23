@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -12,8 +12,24 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|exceptions
 package|;
 end_package
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|DoNotRetryIOException
+import|;
+end_import
 
 begin_import
 import|import
@@ -48,7 +64,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Thrown if a region server is passed an unknown scanner id.  * Usually means the client has take too long between checkins and so the  * scanner lease on the serverside has expired OR the serverside is closing  * down and has cancelled all leases.  */
+comment|/**  * Thrown when the server side has received an Exception, and asks the Client to reset the scanner  * state by closing the current region scanner, and reopening from the start of last seen row.  */
 end_comment
 
 begin_class
@@ -62,7 +78,7 @@ operator|.
 name|Stable
 specifier|public
 class|class
-name|UnknownScannerException
+name|ScannerResetException
 extends|extends
 name|DoNotRetryIOException
 block|{
@@ -72,11 +88,12 @@ specifier|final
 name|long
 name|serialVersionUID
 init|=
-literal|993179627856392526L
+operator|-
+literal|5649728171144849619L
 decl_stmt|;
 comment|/** constructor */
 specifier|public
-name|UnknownScannerException
+name|ScannerResetException
 parameter_list|()
 block|{
 name|super
@@ -85,7 +102,7 @@ expr_stmt|;
 block|}
 comment|/**    * Constructor    * @param s message    */
 specifier|public
-name|UnknownScannerException
+name|ScannerResetException
 parameter_list|(
 name|String
 name|s
@@ -98,7 +115,7 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|public
-name|UnknownScannerException
+name|ScannerResetException
 parameter_list|(
 name|String
 name|s
