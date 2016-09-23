@@ -910,6 +910,15 @@ name|HREGION_OLDLOGDIR_NAME
 init|=
 literal|"oldWALs"
 decl_stmt|;
+comment|/** Staging dir used by bulk load */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|BULKLOAD_STAGING_DIR_NAME
+init|=
+literal|"staging"
+decl_stmt|;
 specifier|public
 specifier|static
 specifier|final

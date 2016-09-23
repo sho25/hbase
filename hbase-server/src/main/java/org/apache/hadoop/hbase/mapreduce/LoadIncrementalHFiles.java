@@ -1248,10 +1248,6 @@ specifier|private
 name|RpcControllerFactory
 name|rpcControllerFactory
 decl_stmt|;
-specifier|private
-name|LoadIncrementalHFiles
-parameter_list|()
-block|{}
 specifier|public
 name|LoadIncrementalHFiles
 parameter_list|(
@@ -6958,7 +6954,9 @@ name|conf
 argument_list|,
 operator|new
 name|LoadIncrementalHFiles
-argument_list|()
+argument_list|(
+name|conf
+argument_list|)
 argument_list|,
 name|args
 argument_list|)

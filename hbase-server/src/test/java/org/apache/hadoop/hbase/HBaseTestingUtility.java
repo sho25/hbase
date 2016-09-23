@@ -5806,24 +5806,6 @@ name|hbaseFsTmpDirInString
 argument_list|)
 expr_stmt|;
 block|}
-name|this
-operator|.
-name|conf
-operator|.
-name|set
-argument_list|(
-literal|"hbase.bulkload.staging.dir"
-argument_list|,
-name|this
-operator|.
-name|conf
-operator|.
-name|get
-argument_list|(
-literal|"hbase.fs.tmp.dir"
-argument_list|)
-argument_list|)
-expr_stmt|;
 block|}
 comment|/**    * Flushes all caches in the mini hbase cluster    * @throws IOException    */
 specifier|public

@@ -406,15 +406,6 @@ argument_list|,
 literal|"hbase-local-dir"
 argument_list|)
 expr_stmt|;
-name|createSubDir
-argument_list|(
-literal|"hbase.bulkload.staging.dir"
-argument_list|,
-name|testPath
-argument_list|,
-literal|"staging"
-argument_list|)
-expr_stmt|;
 return|return
 name|testPath
 return|;

@@ -6662,16 +6662,9 @@ argument_list|(
 name|conf
 argument_list|)
 argument_list|,
-name|conf
-operator|.
-name|get
-argument_list|(
-literal|"hbase.regionserver.hlog.splitlog.corrupt.dir"
-argument_list|,
 name|HConstants
 operator|.
 name|CORRUPT_DIR_NAME
-argument_list|)
 argument_list|)
 decl_stmt|;
 name|assertEquals

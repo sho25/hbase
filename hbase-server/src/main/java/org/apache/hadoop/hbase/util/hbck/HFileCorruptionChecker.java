@@ -907,7 +907,7 @@ operator|.
 name|getParent
 argument_list|()
 decl_stmt|;
-comment|// build up the corrupted dirs strcture
+comment|// build up the corrupted dirs structure
 name|Path
 name|corruptBaseDir
 init|=
@@ -921,18 +921,33 @@ argument_list|(
 name|conf
 argument_list|)
 argument_list|,
+name|HConstants
+operator|.
+name|CORRUPT_DIR_NAME
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
 name|conf
 operator|.
 name|get
 argument_list|(
 literal|"hbase.hfile.quarantine.dir"
-argument_list|,
-name|HConstants
+argument_list|)
+operator|!=
+literal|null
+condition|)
+block|{
+name|LOG
 operator|.
-name|CORRUPT_DIR_NAME
+name|warn
+argument_list|(
+literal|"hbase.hfile.quarantine.dir is deprecated. Default to "
+operator|+
+name|corruptBaseDir
 argument_list|)
-argument_list|)
-decl_stmt|;
+expr_stmt|;
+block|}
 name|Path
 name|corruptTableDir
 init|=
