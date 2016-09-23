@@ -479,6 +479,8 @@ name|this
 operator|.
 name|zookeeper
 operator|.
+name|znodePaths
+operator|.
 name|baseZNode
 argument_list|,
 name|replicationZNodeName

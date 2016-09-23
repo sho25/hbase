@@ -409,6 +409,8 @@ name|joinZNode
 argument_list|(
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|tableZNode
 argument_list|,
 name|tableName

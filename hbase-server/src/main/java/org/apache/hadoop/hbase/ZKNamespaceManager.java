@@ -302,6 +302,8 @@ name|nsZNode
 operator|=
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|namespaceZNode
 expr_stmt|;
 name|cache

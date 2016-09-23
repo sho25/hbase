@@ -1123,6 +1123,8 @@ name|zkw
 argument_list|,
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|baseZNode
 argument_list|)
 expr_stmt|;
@@ -1133,6 +1135,8 @@ argument_list|(
 name|zkw
 argument_list|,
 name|zkw
+operator|.
+name|znodePaths
 operator|.
 name|baseZNode
 argument_list|)
@@ -1146,6 +1150,8 @@ argument_list|(
 name|zkw
 argument_list|,
 name|zkw
+operator|.
+name|znodePaths
 operator|.
 name|baseZNode
 argument_list|)
@@ -1166,6 +1172,8 @@ name|debug
 argument_list|(
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|baseZNode
 operator|+
 literal|" created"
@@ -1179,6 +1187,8 @@ name|zkw
 argument_list|,
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|splitLogZNode
 argument_list|)
 expr_stmt|;
@@ -1191,6 +1201,8 @@ argument_list|(
 name|zkw
 argument_list|,
 name|zkw
+operator|.
+name|znodePaths
 operator|.
 name|splitLogZNode
 argument_list|)
@@ -1211,6 +1223,8 @@ name|debug
 argument_list|(
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|splitLogZNode
 operator|+
 literal|" created"
@@ -1223,6 +1237,8 @@ argument_list|(
 name|zkw
 argument_list|,
 name|zkw
+operator|.
+name|znodePaths
 operator|.
 name|rsZNode
 argument_list|)
@@ -1236,6 +1252,8 @@ argument_list|(
 name|zkw
 argument_list|,
 name|zkw
+operator|.
+name|znodePaths
 operator|.
 name|rsZNode
 argument_list|)
@@ -2750,6 +2768,8 @@ name|zkw
 argument_list|,
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|splitLogZNode
 argument_list|)
 decl_stmt|;
@@ -2823,6 +2843,8 @@ operator|.
 name|joinZNode
 argument_list|(
 name|zkw
+operator|.
+name|znodePaths
 operator|.
 name|splitLogZNode
 argument_list|,
@@ -3210,6 +3232,8 @@ name|joinZNode
 argument_list|(
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|rsZNode
 argument_list|,
 name|RS
@@ -3245,6 +3269,8 @@ operator|.
 name|joinZNode
 argument_list|(
 name|zkw
+operator|.
+name|znodePaths
 operator|.
 name|rsZNode
 argument_list|,

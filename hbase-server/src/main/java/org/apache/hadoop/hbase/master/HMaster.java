@@ -4670,6 +4670,8 @@ argument_list|,
 name|getZooKeeper
 argument_list|()
 operator|.
+name|znodePaths
+operator|.
 name|tableZNode
 argument_list|)
 expr_stmt|;
@@ -9233,6 +9235,8 @@ name|joinZNode
 argument_list|(
 name|zooKeeper
 operator|.
+name|znodePaths
+operator|.
 name|backupMasterAddressesZNode
 argument_list|,
 name|serverName
@@ -11062,6 +11066,8 @@ name|this
 operator|.
 name|zooKeeper
 operator|.
+name|znodePaths
+operator|.
 name|backupMasterAddressesZNode
 argument_list|)
 expr_stmt|;
@@ -11161,6 +11167,8 @@ argument_list|(
 name|this
 operator|.
 name|zooKeeper
+operator|.
+name|znodePaths
 operator|.
 name|backupMasterAddressesZNode
 argument_list|,

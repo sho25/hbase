@@ -2764,6 +2764,8 @@ name|zkw
 argument_list|,
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|baseZNode
 argument_list|)
 operator|==
@@ -2776,6 +2778,8 @@ operator|=
 literal|"The node "
 operator|+
 name|zkw
+operator|.
+name|znodePaths
 operator|.
 name|baseZNode
 operator|+

@@ -587,6 +587,8 @@ name|joinZNode
 argument_list|(
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|recoveringRegionsZNode
 argument_list|,
 name|staleRegion
@@ -609,6 +611,8 @@ operator|.
 name|joinZNode
 argument_list|(
 name|zkw
+operator|.
+name|znodePaths
 operator|.
 name|recoveringRegionsZNode
 argument_list|,
@@ -704,6 +708,8 @@ name|zkw
 argument_list|,
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|recoveringRegionsZNode
 argument_list|)
 expr_stmt|;
@@ -714,6 +720,8 @@ argument_list|(
 name|zkw
 argument_list|,
 name|zkw
+operator|.
+name|znodePaths
 operator|.
 name|splitLogZNode
 argument_list|)

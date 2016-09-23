@@ -2968,6 +2968,8 @@ name|zkw
 argument_list|,
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|rsZNode
 argument_list|)
 decl_stmt|;

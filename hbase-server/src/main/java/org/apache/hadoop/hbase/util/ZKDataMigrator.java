@@ -309,6 +309,8 @@ name|zkw
 argument_list|,
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|tableZNode
 argument_list|)
 decl_stmt|;
@@ -474,6 +476,8 @@ operator|.
 name|joinZNode
 argument_list|(
 name|zkw
+operator|.
+name|znodePaths
 operator|.
 name|tableZNode
 argument_list|,

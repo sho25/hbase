@@ -491,6 +491,8 @@ name|zk
 argument_list|,
 name|zk
 operator|.
+name|znodePaths
+operator|.
 name|baseZNode
 argument_list|)
 expr_stmt|;
@@ -537,8 +539,9 @@ name|zk
 argument_list|,
 name|zk
 operator|.
-name|getMasterAddressZNode
-argument_list|()
+name|znodePaths
+operator|.
+name|masterAddressZNode
 argument_list|)
 decl_stmt|;
 name|zk
@@ -570,8 +573,9 @@ name|zk
 argument_list|,
 name|zk
 operator|.
-name|getMasterAddressZNode
-argument_list|()
+name|znodePaths
+operator|.
+name|masterAddressZNode
 argument_list|,
 name|sn
 argument_list|,

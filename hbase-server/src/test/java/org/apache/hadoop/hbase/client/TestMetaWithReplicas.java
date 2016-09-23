@@ -1027,6 +1027,8 @@ name|str
 init|=
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|getZNodeForReplica
 argument_list|(
 name|i
@@ -2550,6 +2552,8 @@ argument_list|(
 name|zkw
 argument_list|,
 name|zkw
+operator|.
+name|znodePaths
 operator|.
 name|getZNodeForReplica
 argument_list|(

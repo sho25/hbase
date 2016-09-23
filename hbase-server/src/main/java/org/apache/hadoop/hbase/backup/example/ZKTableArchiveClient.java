@@ -408,6 +408,8 @@ name|joinZNode
 argument_list|(
 name|zooKeeper
 operator|.
+name|znodePaths
+operator|.
 name|baseZNode
 argument_list|,
 name|conf

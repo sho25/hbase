@@ -857,6 +857,8 @@ name|baseZNode
 init|=
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|baseZNode
 decl_stmt|;
 name|LOG

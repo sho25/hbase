@@ -1949,6 +1949,8 @@ name|joinZNode
 argument_list|(
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|baseZNode
 argument_list|,
 name|rsGroupZNode
@@ -2625,6 +2627,8 @@ name|joinZNode
 argument_list|(
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|baseZNode
 argument_list|,
 name|rsGroupZNode
@@ -2942,6 +2946,8 @@ argument_list|(
 name|watcher
 argument_list|,
 name|watcher
+operator|.
+name|znodePaths
 operator|.
 name|rsZNode
 argument_list|)

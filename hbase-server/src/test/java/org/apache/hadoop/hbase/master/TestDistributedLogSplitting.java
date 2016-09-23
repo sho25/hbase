@@ -3486,6 +3486,8 @@ name|getChildren
 argument_list|(
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|recoveringRegionsZNode
 argument_list|,
 literal|false
@@ -4148,6 +4150,8 @@ name|getChildren
 argument_list|(
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|recoveringRegionsZNode
 argument_list|,
 literal|false
@@ -4701,6 +4705,8 @@ name|getChildren
 argument_list|(
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|recoveringRegionsZNode
 argument_list|,
 literal|false
@@ -5025,6 +5031,8 @@ operator|.
 name|joinZNode
 argument_list|(
 name|zkw
+operator|.
+name|znodePaths
 operator|.
 name|recoveringRegionsZNode
 argument_list|,
@@ -5973,6 +5981,8 @@ operator|.
 name|getChildren
 argument_list|(
 name|zkw
+operator|.
+name|znodePaths
 operator|.
 name|recoveringRegionsZNode
 argument_list|,
@@ -7534,6 +7544,8 @@ name|getChildren
 argument_list|(
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|recoveringRegionsZNode
 argument_list|,
 literal|false
@@ -8135,6 +8147,8 @@ name|getChildren
 argument_list|(
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|recoveringRegionsZNode
 argument_list|,
 literal|false
@@ -8202,6 +8216,8 @@ operator|.
 name|getChildren
 argument_list|(
 name|zkw
+operator|.
+name|znodePaths
 operator|.
 name|recoveringRegionsZNode
 argument_list|,

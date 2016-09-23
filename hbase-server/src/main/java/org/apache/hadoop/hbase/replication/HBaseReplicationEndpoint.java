@@ -651,6 +651,8 @@ name|zkw
 argument_list|,
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|rsZNode
 argument_list|)
 decl_stmt|;
@@ -857,6 +859,8 @@ name|replicationEndpoint
 operator|.
 name|getZkw
 argument_list|()
+operator|.
+name|znodePaths
 operator|.
 name|rsZNode
 expr_stmt|;

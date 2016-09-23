@@ -335,6 +335,8 @@ name|watcher
 argument_list|,
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|rsZNode
 argument_list|)
 decl_stmt|;
@@ -427,6 +429,8 @@ operator|.
 name|joinZNode
 argument_list|(
 name|watcher
+operator|.
+name|znodePaths
 operator|.
 name|rsZNode
 argument_list|,
@@ -618,6 +622,8 @@ name|startsWith
 argument_list|(
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|rsZNode
 argument_list|)
 condition|)
@@ -714,6 +720,8 @@ name|equals
 argument_list|(
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|rsZNode
 argument_list|)
 operator|&&
@@ -745,6 +753,8 @@ argument_list|(
 name|watcher
 argument_list|,
 name|watcher
+operator|.
+name|znodePaths
 operator|.
 name|rsZNode
 argument_list|)

@@ -33,16 +33,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|Arrays
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|Collections
 import|;
 end_import
@@ -53,7 +43,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|List
+name|HashSet
 import|;
 end_import
 
@@ -63,7 +53,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|HashSet
+name|List
 import|;
 end_import
 
@@ -702,6 +692,8 @@ name|replicaId
 init|=
 name|zooKeeper
 operator|.
+name|znodePaths
+operator|.
 name|getMetaReplicaIdFromZnode
 argument_list|(
 name|metaReplicaZnode
@@ -768,6 +760,8 @@ argument_list|(
 name|zooKeeper
 argument_list|,
 name|zooKeeper
+operator|.
+name|znodePaths
 operator|.
 name|getZNodeForReplica
 argument_list|(
@@ -1352,6 +1346,8 @@ operator|.
 name|joinZNode
 argument_list|(
 name|zooKeeper
+operator|.
+name|znodePaths
 operator|.
 name|recoveringRegionsZNode
 argument_list|,

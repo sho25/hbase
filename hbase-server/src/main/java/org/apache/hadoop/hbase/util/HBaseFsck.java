@@ -3969,7 +3969,9 @@ name|ZKUtil
 operator|.
 name|joinZNode
 argument_list|(
-name|ZooKeeperWatcher
+name|zkw
+operator|.
+name|znodePaths
 operator|.
 name|masterMaintZNode
 argument_list|,
@@ -18009,6 +18011,8 @@ argument_list|(
 name|zkw
 argument_list|,
 name|zkw
+operator|.
+name|znodePaths
 operator|.
 name|getZNodeForReplica
 argument_list|(

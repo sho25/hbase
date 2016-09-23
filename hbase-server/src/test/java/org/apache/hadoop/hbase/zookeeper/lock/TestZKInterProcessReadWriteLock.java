@@ -583,6 +583,8 @@ name|zkw
 argument_list|,
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|tableLockZNode
 argument_list|)
 expr_stmt|;
@@ -1374,6 +1376,8 @@ name|joinZNode
 argument_list|(
 name|zkWatcher
 operator|.
+name|znodePaths
+operator|.
 name|tableLockZNode
 argument_list|,
 name|testName
@@ -2017,6 +2021,8 @@ operator|.
 name|joinZNode
 argument_list|(
 name|zkWatcher1
+operator|.
+name|znodePaths
 operator|.
 name|tableLockZNode
 argument_list|,

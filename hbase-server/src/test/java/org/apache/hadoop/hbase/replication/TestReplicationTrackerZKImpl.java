@@ -526,6 +526,8 @@ name|zk
 argument_list|,
 name|zk
 operator|.
+name|znodePaths
+operator|.
 name|rsZNode
 argument_list|)
 expr_stmt|;
@@ -556,6 +558,8 @@ operator|.
 name|joinZNode
 argument_list|(
 name|zkw
+operator|.
+name|znodePaths
 operator|.
 name|rsZNode
 argument_list|,
@@ -723,6 +727,8 @@ name|joinZNode
 argument_list|(
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|rsZNode
 argument_list|,
 literal|"hostname1.example.org:1234"
@@ -754,6 +760,8 @@ operator|.
 name|joinZNode
 argument_list|(
 name|zkw
+operator|.
+name|znodePaths
 operator|.
 name|rsZNode
 argument_list|,
@@ -787,6 +795,8 @@ name|joinZNode
 argument_list|(
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|rsZNode
 argument_list|,
 literal|"hostname2.example.org:1234"
@@ -818,6 +828,8 @@ operator|.
 name|joinZNode
 argument_list|(
 name|zkw
+operator|.
+name|znodePaths
 operator|.
 name|rsZNode
 argument_list|,
@@ -865,6 +877,8 @@ name|joinZNode
 argument_list|(
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|rsZNode
 argument_list|,
 literal|"hostname2.example.org:1234"
@@ -896,6 +910,8 @@ operator|.
 name|joinZNode
 argument_list|(
 name|zkw
+operator|.
+name|znodePaths
 operator|.
 name|rsZNode
 argument_list|,

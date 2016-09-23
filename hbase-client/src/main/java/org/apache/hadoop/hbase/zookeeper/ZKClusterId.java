@@ -223,6 +223,8 @@ name|watcher
 argument_list|,
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|clusterIdZNode
 argument_list|)
 operator|!=
@@ -245,6 +247,8 @@ argument_list|(
 name|watcher
 argument_list|,
 name|watcher
+operator|.
+name|znodePaths
 operator|.
 name|clusterIdZNode
 argument_list|)
@@ -331,6 +335,8 @@ argument_list|(
 name|watcher
 argument_list|,
 name|watcher
+operator|.
+name|znodePaths
 operator|.
 name|clusterIdZNode
 argument_list|,

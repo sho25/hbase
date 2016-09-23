@@ -25,7 +25,19 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|*
+name|assertFalse
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
 import|;
 end_import
 
@@ -158,6 +170,8 @@ name|isClientReadable
 argument_list|(
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|baseZNode
 argument_list|)
 argument_list|)
@@ -169,6 +183,8 @@ operator|.
 name|isClientReadable
 argument_list|(
 name|watcher
+operator|.
+name|znodePaths
 operator|.
 name|getZNodeForReplica
 argument_list|(
@@ -185,8 +201,9 @@ name|isClientReadable
 argument_list|(
 name|watcher
 operator|.
-name|getMasterAddressZNode
-argument_list|()
+name|znodePaths
+operator|.
+name|masterAddressZNode
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -197,6 +214,8 @@ operator|.
 name|isClientReadable
 argument_list|(
 name|watcher
+operator|.
+name|znodePaths
 operator|.
 name|clusterIdZNode
 argument_list|)
@@ -209,6 +228,8 @@ operator|.
 name|isClientReadable
 argument_list|(
 name|watcher
+operator|.
+name|znodePaths
 operator|.
 name|tableZNode
 argument_list|)
@@ -226,6 +247,8 @@ name|joinZNode
 argument_list|(
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|tableZNode
 argument_list|,
 literal|"foo"
@@ -241,6 +264,8 @@ name|isClientReadable
 argument_list|(
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|rsZNode
 argument_list|)
 argument_list|)
@@ -252,6 +277,8 @@ operator|.
 name|isClientReadable
 argument_list|(
 name|watcher
+operator|.
+name|znodePaths
 operator|.
 name|tableLockZNode
 argument_list|)
@@ -265,6 +292,8 @@ name|isClientReadable
 argument_list|(
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|balancerZNode
 argument_list|)
 argument_list|)
@@ -277,8 +306,9 @@ name|isClientReadable
 argument_list|(
 name|watcher
 operator|.
-name|getRegionNormalizerZNode
-argument_list|()
+name|znodePaths
+operator|.
+name|regionNormalizerZNode
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -289,6 +319,8 @@ operator|.
 name|isClientReadable
 argument_list|(
 name|watcher
+operator|.
+name|znodePaths
 operator|.
 name|clusterStateZNode
 argument_list|)
@@ -302,6 +334,8 @@ name|isClientReadable
 argument_list|(
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|drainingZNode
 argument_list|)
 argument_list|)
@@ -313,6 +347,8 @@ operator|.
 name|isClientReadable
 argument_list|(
 name|watcher
+operator|.
+name|znodePaths
 operator|.
 name|recoveringRegionsZNode
 argument_list|)
@@ -326,6 +362,8 @@ name|isClientReadable
 argument_list|(
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|splitLogZNode
 argument_list|)
 argument_list|)
@@ -337,6 +375,8 @@ operator|.
 name|isClientReadable
 argument_list|(
 name|watcher
+operator|.
+name|znodePaths
 operator|.
 name|backupMasterAddressesZNode
 argument_list|)

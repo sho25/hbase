@@ -225,6 +225,8 @@ name|this
 operator|.
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|recoveringRegionsZNode
 operator|.
 name|equalsIgnoreCase
@@ -333,6 +335,8 @@ operator|!
 name|this
 operator|.
 name|watcher
+operator|.
+name|znodePaths
 operator|.
 name|recoveringRegionsZNode
 operator|.

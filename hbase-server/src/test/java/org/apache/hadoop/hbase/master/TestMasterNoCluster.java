@@ -867,6 +867,8 @@ name|zkw
 argument_list|,
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|baseZNode
 argument_list|)
 expr_stmt|;

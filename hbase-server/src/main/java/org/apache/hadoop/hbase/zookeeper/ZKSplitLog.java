@@ -261,6 +261,8 @@ name|joinZNode
 argument_list|(
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|splitLogZNode
 argument_list|,
 name|encode
@@ -390,6 +392,8 @@ operator|.
 name|joinZNode
 argument_list|(
 name|zkw
+operator|.
+name|znodePaths
 operator|.
 name|splitLogZNode
 argument_list|,
@@ -533,6 +537,8 @@ operator|.
 name|equals
 argument_list|(
 name|zkw
+operator|.
+name|znodePaths
 operator|.
 name|splitLogZNode
 argument_list|)
@@ -733,6 +739,8 @@ name|joinZNode
 argument_list|(
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|recoveringRegionsZNode
 argument_list|,
 name|regionEncodedName
@@ -862,6 +870,8 @@ name|watcher
 argument_list|,
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|recoveringRegionsZNode
 argument_list|)
 expr_stmt|;
@@ -884,6 +894,8 @@ operator|.
 name|joinZNode
 argument_list|(
 name|watcher
+operator|.
+name|znodePaths
 operator|.
 name|recoveringRegionsZNode
 argument_list|,
@@ -957,6 +969,8 @@ operator|.
 name|joinZNode
 argument_list|(
 name|zkw
+operator|.
+name|znodePaths
 operator|.
 name|recoveringRegionsZNode
 argument_list|,

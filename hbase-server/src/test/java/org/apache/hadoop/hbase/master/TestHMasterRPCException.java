@@ -560,8 +560,9 @@ name|watcher
 argument_list|,
 name|watcher
 operator|.
-name|getMasterAddressZNode
-argument_list|()
+name|znodePaths
+operator|.
+name|masterAddressZNode
 argument_list|,
 name|Bytes
 operator|.
@@ -793,8 +794,9 @@ operator|.
 name|getZooKeeperWatcher
 argument_list|()
 operator|.
-name|getMasterAddressZNode
-argument_list|()
+name|znodePaths
+operator|.
+name|masterAddressZNode
 argument_list|,
 operator|-
 literal|1

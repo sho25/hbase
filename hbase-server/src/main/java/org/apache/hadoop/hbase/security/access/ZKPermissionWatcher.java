@@ -414,6 +414,8 @@ name|joinZNode
 argument_list|(
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|baseZNode
 argument_list|,
 name|aclZnodeParent
@@ -1362,6 +1364,8 @@ name|joinZNode
 argument_list|(
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|baseZNode
 argument_list|,
 name|ACL_NODE
@@ -1456,6 +1460,8 @@ operator|.
 name|joinZNode
 argument_list|(
 name|watcher
+operator|.
+name|znodePaths
 operator|.
 name|baseZNode
 argument_list|,
@@ -1558,6 +1564,8 @@ operator|.
 name|joinZNode
 argument_list|(
 name|watcher
+operator|.
+name|znodePaths
 operator|.
 name|baseZNode
 argument_list|,

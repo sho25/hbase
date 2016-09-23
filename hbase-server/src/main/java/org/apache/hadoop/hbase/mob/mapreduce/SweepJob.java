@@ -1538,6 +1538,8 @@ name|joinZNode
 argument_list|(
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|tableLockZNode
 argument_list|,
 name|lockName

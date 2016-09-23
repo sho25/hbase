@@ -835,6 +835,8 @@ name|watcher
 argument_list|,
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|baseZNode
 argument_list|)
 operator|==
@@ -860,6 +862,8 @@ argument_list|(
 literal|"Exception while checking if basenode ("
 operator|+
 name|watcher
+operator|.
+name|znodePaths
 operator|.
 name|baseZNode
 operator|+

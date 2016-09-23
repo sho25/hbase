@@ -563,6 +563,8 @@ operator|.
 name|getZooKeeper
 argument_list|()
 operator|.
+name|znodePaths
+operator|.
 name|rsZNode
 argument_list|,
 name|metaServerName

@@ -1065,6 +1065,8 @@ name|zkw
 argument_list|,
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|baseZNode
 argument_list|)
 expr_stmt|;
@@ -1075,6 +1077,8 @@ argument_list|(
 name|zkw
 argument_list|,
 name|zkw
+operator|.
+name|znodePaths
 operator|.
 name|baseZNode
 argument_list|)
@@ -1089,6 +1093,8 @@ name|zkw
 argument_list|,
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|baseZNode
 argument_list|)
 operator|!=
@@ -1101,6 +1107,8 @@ operator|.
 name|debug
 argument_list|(
 name|zkw
+operator|.
+name|znodePaths
 operator|.
 name|baseZNode
 operator|+
@@ -1115,6 +1123,8 @@ name|zkw
 argument_list|,
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|splitLogZNode
 argument_list|)
 expr_stmt|;
@@ -1128,6 +1138,8 @@ name|zkw
 argument_list|,
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|splitLogZNode
 argument_list|)
 operator|!=
@@ -1140,6 +1152,8 @@ operator|.
 name|debug
 argument_list|(
 name|zkw
+operator|.
+name|znodePaths
 operator|.
 name|splitLogZNode
 operator|+
@@ -4210,6 +4224,8 @@ name|joinZNode
 argument_list|(
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|recoveringRegionsZNode
 argument_list|,
 name|HRegionInfo
@@ -4267,6 +4283,8 @@ operator|.
 name|getChildren
 argument_list|(
 name|zkw
+operator|.
+name|znodePaths
 operator|.
 name|recoveringRegionsZNode
 argument_list|,

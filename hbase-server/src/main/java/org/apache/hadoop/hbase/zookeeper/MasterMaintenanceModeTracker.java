@@ -114,7 +114,9 @@ name|path
 operator|.
 name|startsWith
 argument_list|(
-name|ZooKeeperWatcher
+name|watcher
+operator|.
+name|znodePaths
 operator|.
 name|masterMaintZNode
 argument_list|)
@@ -144,7 +146,9 @@ name|listChildrenAndWatchForNewChildren
 argument_list|(
 name|watcher
 argument_list|,
-name|ZooKeeperWatcher
+name|watcher
+operator|.
+name|znodePaths
 operator|.
 name|masterMaintZNode
 argument_list|)

@@ -3814,6 +3814,8 @@ name|startsWith
 argument_list|(
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|baseZNode
 argument_list|)
 condition|)
@@ -6649,6 +6651,8 @@ name|append
 argument_list|(
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|baseZNode
 argument_list|)
 expr_stmt|;
@@ -6712,6 +6716,8 @@ argument_list|(
 name|zkw
 argument_list|,
 name|zkw
+operator|.
+name|znodePaths
 operator|.
 name|backupMasterAddressesZNode
 argument_list|)
@@ -6825,6 +6831,8 @@ argument_list|(
 name|zkw
 argument_list|,
 name|zkw
+operator|.
+name|znodePaths
 operator|.
 name|rsZNode
 argument_list|)
@@ -7058,6 +7066,8 @@ init|=
 name|joinZNode
 argument_list|(
 name|zkw
+operator|.
+name|znodePaths
 operator|.
 name|baseZNode
 argument_list|,
@@ -8318,9 +8328,11 @@ name|znode
 operator|.
 name|startsWith
 argument_list|(
-name|ZooKeeperWatcher
+name|zkw
 operator|.
-name|META_ZNODE_PREFIX
+name|znodePaths
+operator|.
+name|metaZNodePrefix
 argument_list|)
 condition|?
 name|getServerNameOrEmptyString
@@ -8333,6 +8345,8 @@ operator|.
 name|startsWith
 argument_list|(
 name|zkw
+operator|.
+name|znodePaths
 operator|.
 name|backupMasterAddressesZNode
 argument_list|)

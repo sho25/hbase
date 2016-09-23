@@ -272,6 +272,8 @@ name|watcher
 argument_list|,
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|drainingZNode
 argument_list|)
 decl_stmt|;
@@ -420,6 +422,8 @@ name|startsWith
 argument_list|(
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|drainingZNode
 argument_list|)
 condition|)
@@ -477,6 +481,8 @@ name|equals
 argument_list|(
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|drainingZNode
 argument_list|)
 condition|)
@@ -497,6 +503,8 @@ argument_list|(
 name|watcher
 argument_list|,
 name|watcher
+operator|.
+name|znodePaths
 operator|.
 name|drainingZNode
 argument_list|)

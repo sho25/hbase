@@ -768,6 +768,8 @@ name|equals
 argument_list|(
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|splitLogZNode
 argument_list|)
 condition|)
@@ -1791,6 +1793,8 @@ name|watcher
 argument_list|,
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|rsZNode
 argument_list|)
 decl_stmt|;
@@ -2181,6 +2185,8 @@ literal|"Could not get tasks, did someone remove "
 operator|+
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|splitLogZNode
 operator|+
 literal|" ... worker thread exiting."
@@ -2305,6 +2311,8 @@ operator|.
 name|joinZNode
 argument_list|(
 name|watcher
+operator|.
+name|znodePaths
 operator|.
 name|splitLogZNode
 argument_list|,
@@ -2474,6 +2482,8 @@ name|joinZNode
 argument_list|(
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|recoveringRegionsZNode
 argument_list|,
 name|region
@@ -2593,6 +2603,8 @@ name|watcher
 argument_list|,
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|splitLogZNode
 argument_list|)
 expr_stmt|;
@@ -2622,6 +2634,8 @@ literal|"Could not get children of znode "
 operator|+
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|splitLogZNode
 argument_list|,
 name|e
@@ -2635,6 +2649,8 @@ argument_list|(
 literal|"Retry listChildren of znode "
 operator|+
 name|watcher
+operator|.
+name|znodePaths
 operator|.
 name|splitLogZNode
 operator|+
@@ -2712,6 +2728,8 @@ name|watcher
 argument_list|,
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|splitLogZNode
 argument_list|)
 expr_stmt|;
@@ -2730,6 +2748,8 @@ argument_list|(
 literal|"Exception when checking for "
 operator|+
 name|watcher
+operator|.
+name|znodePaths
 operator|.
 name|splitLogZNode
 operator|+
@@ -2752,6 +2772,8 @@ operator|.
 name|info
 argument_list|(
 name|watcher
+operator|.
+name|znodePaths
 operator|.
 name|splitLogZNode
 operator|+

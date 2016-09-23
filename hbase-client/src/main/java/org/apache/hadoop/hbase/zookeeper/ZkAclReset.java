@@ -394,8 +394,9 @@ literal|" "
 operator|+
 name|zkw
 operator|.
-name|getBaseZNode
-argument_list|()
+name|znodePaths
+operator|.
+name|baseZNode
 argument_list|)
 expr_stmt|;
 name|resetAcls
@@ -404,8 +405,9 @@ name|zkw
 argument_list|,
 name|zkw
 operator|.
-name|getBaseZNode
-argument_list|()
+name|znodePaths
+operator|.
+name|baseZNode
 argument_list|,
 name|eraseAcls
 argument_list|)

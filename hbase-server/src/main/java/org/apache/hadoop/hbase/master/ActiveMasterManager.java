@@ -412,6 +412,8 @@ name|equals
 argument_list|(
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|clusterStateZNode
 argument_list|)
 operator|&&
@@ -452,8 +454,9 @@ name|equals
 argument_list|(
 name|watcher
 operator|.
-name|getMasterAddressZNode
-argument_list|()
+name|znodePaths
+operator|.
+name|masterAddressZNode
 argument_list|)
 operator|&&
 operator|!
@@ -492,8 +495,9 @@ name|watcher
 argument_list|,
 name|watcher
 operator|.
-name|getMasterAddressZNode
-argument_list|()
+name|znodePaths
+operator|.
+name|masterAddressZNode
 argument_list|)
 condition|)
 block|{
@@ -578,6 +582,8 @@ name|this
 operator|.
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|backupMasterAddressesZNode
 argument_list|,
 name|this
@@ -629,8 +635,9 @@ name|this
 operator|.
 name|watcher
 operator|.
-name|getMasterAddressZNode
-argument_list|()
+name|znodePaths
+operator|.
+name|masterAddressZNode
 argument_list|,
 name|this
 operator|.
@@ -757,8 +764,9 @@ name|this
 operator|.
 name|watcher
 operator|.
-name|getMasterAddressZNode
-argument_list|()
+name|znodePaths
+operator|.
+name|masterAddressZNode
 argument_list|)
 decl_stmt|;
 if|if
@@ -849,8 +857,9 @@ name|this
 operator|.
 name|watcher
 operator|.
-name|getMasterAddressZNode
-argument_list|()
+name|znodePaths
+operator|.
+name|masterAddressZNode
 argument_list|)
 expr_stmt|;
 comment|// We may have failed to delete the znode at the previous step, but
@@ -998,8 +1007,9 @@ name|watcher
 argument_list|,
 name|watcher
 operator|.
-name|getMasterAddressZNode
-argument_list|()
+name|znodePaths
+operator|.
+name|masterAddressZNode
 argument_list|)
 operator|>=
 literal|0
@@ -1115,8 +1125,9 @@ name|watcher
 argument_list|,
 name|watcher
 operator|.
-name|getMasterAddressZNode
-argument_list|()
+name|znodePaths
+operator|.
+name|masterAddressZNode
 argument_list|)
 expr_stmt|;
 comment|// We may have failed to delete the znode at the previous step, but

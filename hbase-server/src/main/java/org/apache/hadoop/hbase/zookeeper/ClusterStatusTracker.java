@@ -172,6 +172,8 @@ name|watcher
 argument_list|,
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|clusterStateZNode
 argument_list|,
 name|abortable
@@ -220,6 +222,8 @@ name|watcher
 argument_list|,
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|clusterStateZNode
 argument_list|,
 name|upData
@@ -241,6 +245,8 @@ argument_list|(
 name|watcher
 argument_list|,
 name|watcher
+operator|.
+name|znodePaths
 operator|.
 name|clusterStateZNode
 argument_list|,
@@ -267,6 +273,8 @@ name|watcher
 argument_list|,
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|clusterStateZNode
 argument_list|)
 expr_stmt|;
@@ -288,6 +296,8 @@ operator|+
 literal|"state node ("
 operator|+
 name|watcher
+operator|.
+name|znodePaths
 operator|.
 name|clusterStateZNode
 operator|+

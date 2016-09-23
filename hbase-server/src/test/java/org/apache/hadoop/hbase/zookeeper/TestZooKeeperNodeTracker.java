@@ -601,6 +601,8 @@ name|zk
 argument_list|,
 name|zk
 operator|.
+name|znodePaths
+operator|.
 name|baseZNode
 argument_list|)
 expr_stmt|;
@@ -613,6 +615,8 @@ operator|.
 name|joinZNode
 argument_list|(
 name|zk
+operator|.
+name|znodePaths
 operator|.
 name|baseZNode
 argument_list|,
@@ -1787,8 +1791,9 @@ name|nodeName
 init|=
 name|zkw
 operator|.
-name|getMasterAddressZNode
-argument_list|()
+name|znodePaths
+operator|.
+name|masterAddressZNode
 decl_stmt|;
 comment|// Check that we manage the case when there is no data
 name|ZKUtil

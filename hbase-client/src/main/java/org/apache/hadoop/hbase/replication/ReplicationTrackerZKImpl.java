@@ -565,6 +565,8 @@ name|this
 operator|.
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|rsZNode
 argument_list|)
 condition|)
@@ -898,6 +900,8 @@ argument_list|,
 name|this
 operator|.
 name|zookeeper
+operator|.
+name|znodePaths
 operator|.
 name|rsZNode
 argument_list|)

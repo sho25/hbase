@@ -531,8 +531,9 @@ name|zk
 argument_list|,
 name|zk
 operator|.
-name|getMasterAddressZNode
-argument_list|()
+name|znodePaths
+operator|.
+name|masterAddressZNode
 argument_list|)
 expr_stmt|;
 name|ZKUtil
@@ -542,6 +543,8 @@ argument_list|(
 name|zk
 argument_list|,
 name|zk
+operator|.
+name|znodePaths
 operator|.
 name|clusterStateZNode
 argument_list|)
@@ -750,8 +753,9 @@ name|zk
 argument_list|,
 name|zk
 operator|.
-name|getMasterAddressZNode
-argument_list|()
+name|znodePaths
+operator|.
+name|masterAddressZNode
 argument_list|)
 expr_stmt|;
 name|ZKUtil
@@ -761,6 +765,8 @@ argument_list|(
 name|zk
 argument_list|,
 name|zk
+operator|.
+name|znodePaths
 operator|.
 name|clusterStateZNode
 argument_list|)
@@ -988,8 +994,9 @@ name|zk
 argument_list|,
 name|zk
 operator|.
-name|getMasterAddressZNode
-argument_list|()
+name|znodePaths
+operator|.
+name|masterAddressZNode
 argument_list|)
 decl_stmt|;
 name|zk
@@ -1014,8 +1021,9 @@ name|zk
 argument_list|,
 name|zk
 operator|.
-name|getMasterAddressZNode
-argument_list|()
+name|znodePaths
+operator|.
+name|masterAddressZNode
 argument_list|)
 expr_stmt|;
 comment|// Wait for the node to be deleted
@@ -1112,8 +1120,9 @@ name|zk
 argument_list|,
 name|zk
 operator|.
-name|getMasterAddressZNode
-argument_list|()
+name|znodePaths
+operator|.
+name|masterAddressZNode
 argument_list|)
 expr_stmt|;
 block|}

@@ -16045,6 +16045,8 @@ name|this
 operator|.
 name|zooKeeper
 operator|.
+name|znodePaths
+operator|.
 name|rsZNode
 argument_list|,
 name|getServerName
@@ -16222,6 +16224,8 @@ argument_list|(
 name|this
 operator|.
 name|zooKeeper
+operator|.
+name|znodePaths
 operator|.
 name|recoveringRegionsZNode
 argument_list|,
@@ -16438,6 +16442,8 @@ operator|.
 name|joinZNode
 argument_list|(
 name|zkw
+operator|.
+name|znodePaths
 operator|.
 name|recoveringRegionsZNode
 argument_list|,

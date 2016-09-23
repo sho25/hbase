@@ -213,6 +213,8 @@ name|watcher
 argument_list|,
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|balancerZNode
 argument_list|,
 name|abortable
@@ -309,6 +311,8 @@ name|watcher
 argument_list|,
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|balancerZNode
 argument_list|,
 name|upData
@@ -331,6 +335,8 @@ name|watcher
 argument_list|,
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|balancerZNode
 argument_list|,
 name|upData
@@ -342,6 +348,8 @@ operator|.
 name|nodeDataChanged
 argument_list|(
 name|watcher
+operator|.
+name|znodePaths
 operator|.
 name|balancerZNode
 argument_list|)

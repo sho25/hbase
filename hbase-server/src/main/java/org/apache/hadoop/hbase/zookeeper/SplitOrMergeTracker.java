@@ -225,8 +225,9 @@ name|watcher
 argument_list|,
 name|watcher
 operator|.
-name|getSwitchZNode
-argument_list|()
+name|znodePaths
+operator|.
+name|switchZNode
 argument_list|)
 operator|<
 literal|0
@@ -240,8 +241,9 @@ name|watcher
 argument_list|,
 name|watcher
 operator|.
-name|getSwitchZNode
-argument_list|()
+name|znodePaths
+operator|.
+name|switchZNode
 argument_list|)
 expr_stmt|;
 block|}
@@ -268,8 +270,9 @@ name|joinZNode
 argument_list|(
 name|watcher
 operator|.
-name|getSwitchZNode
-argument_list|()
+name|znodePaths
+operator|.
+name|switchZNode
 argument_list|,
 name|conf
 operator|.
@@ -289,8 +292,9 @@ name|joinZNode
 argument_list|(
 name|watcher
 operator|.
-name|getSwitchZNode
-argument_list|()
+name|znodePaths
+operator|.
+name|switchZNode
 argument_list|,
 name|conf
 operator|.

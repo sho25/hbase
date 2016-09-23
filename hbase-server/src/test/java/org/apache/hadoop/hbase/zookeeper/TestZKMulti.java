@@ -505,6 +505,8 @@ name|joinZNode
 argument_list|(
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|baseZNode
 argument_list|,
 literal|"testSimpleMulti"
@@ -712,6 +714,8 @@ name|joinZNode
 argument_list|(
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|baseZNode
 argument_list|,
 literal|"testComplexMulti1"
@@ -725,6 +729,8 @@ operator|.
 name|joinZNode
 argument_list|(
 name|zkw
+operator|.
+name|znodePaths
 operator|.
 name|baseZNode
 argument_list|,
@@ -740,6 +746,8 @@ name|joinZNode
 argument_list|(
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|baseZNode
 argument_list|,
 literal|"testComplexMulti3"
@@ -753,6 +761,8 @@ operator|.
 name|joinZNode
 argument_list|(
 name|zkw
+operator|.
+name|znodePaths
 operator|.
 name|baseZNode
 argument_list|,
@@ -768,6 +778,8 @@ name|joinZNode
 argument_list|(
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|baseZNode
 argument_list|,
 literal|"testComplexMulti5"
@@ -781,6 +793,8 @@ operator|.
 name|joinZNode
 argument_list|(
 name|zkw
+operator|.
+name|znodePaths
 operator|.
 name|baseZNode
 argument_list|,
@@ -1316,6 +1330,8 @@ name|joinZNode
 argument_list|(
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|baseZNode
 argument_list|,
 literal|"testSingleFailureZ"
@@ -1545,6 +1561,8 @@ name|joinZNode
 argument_list|(
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|baseZNode
 argument_list|,
 literal|"testSingleFailureInMultiA"
@@ -1559,6 +1577,8 @@ name|joinZNode
 argument_list|(
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|baseZNode
 argument_list|,
 literal|"testSingleFailureInMultiB"
@@ -1572,6 +1592,8 @@ operator|.
 name|joinZNode
 argument_list|(
 name|zkw
+operator|.
+name|znodePaths
 operator|.
 name|baseZNode
 argument_list|,
@@ -1748,6 +1770,8 @@ name|joinZNode
 argument_list|(
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|baseZNode
 argument_list|,
 literal|"testMultiFailureX"
@@ -1762,6 +1786,8 @@ name|joinZNode
 argument_list|(
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|baseZNode
 argument_list|,
 literal|"testMultiFailureY"
@@ -1775,6 +1801,8 @@ operator|.
 name|joinZNode
 argument_list|(
 name|zkw
+operator|.
+name|znodePaths
 operator|.
 name|baseZNode
 argument_list|,
@@ -1835,6 +1863,8 @@ name|joinZNode
 argument_list|(
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|baseZNode
 argument_list|,
 literal|"testMultiFailureV"
@@ -1848,6 +1878,8 @@ operator|.
 name|joinZNode
 argument_list|(
 name|zkw
+operator|.
+name|znodePaths
 operator|.
 name|baseZNode
 argument_list|,
@@ -2258,6 +2290,8 @@ name|joinZNode
 argument_list|(
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|baseZNode
 argument_list|,
 literal|"runSequential1"
@@ -2271,6 +2305,8 @@ operator|.
 name|joinZNode
 argument_list|(
 name|zkw
+operator|.
+name|znodePaths
 operator|.
 name|baseZNode
 argument_list|,
@@ -2286,6 +2322,8 @@ name|joinZNode
 argument_list|(
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|baseZNode
 argument_list|,
 literal|"runSequential3"
@@ -2299,6 +2337,8 @@ operator|.
 name|joinZNode
 argument_list|(
 name|zkw
+operator|.
+name|znodePaths
 operator|.
 name|baseZNode
 argument_list|,

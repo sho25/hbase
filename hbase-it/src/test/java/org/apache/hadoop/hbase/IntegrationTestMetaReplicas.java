@@ -428,6 +428,8 @@ operator|.
 name|getZooKeeperWatcher
 argument_list|()
 operator|.
+name|znodePaths
+operator|.
 name|getZNodeForReplica
 argument_list|(
 name|replicaId

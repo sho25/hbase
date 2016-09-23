@@ -1043,6 +1043,8 @@ name|zkw
 argument_list|,
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|baseZNode
 argument_list|)
 operator|==
@@ -1644,11 +1646,6 @@ argument_list|)
 return|;
 block|}
 comment|/**    * @param sn ServerName to get a connection against.    * @return The AdminProtocol we got when we connected to<code>sn</code>    * May have come from cache, may not be good, may have been setup by this    * invocation, or may be null.    * @throws IOException    */
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"deprecation"
-argument_list|)
 specifier|private
 specifier|static
 name|AdminService
@@ -2030,6 +2027,8 @@ name|zookeeper
 argument_list|,
 name|zookeeper
 operator|.
+name|znodePaths
+operator|.
 name|getZNodeForReplica
 argument_list|(
 name|replicaId
@@ -2085,6 +2084,8 @@ argument_list|(
 name|zookeeper
 argument_list|,
 name|zookeeper
+operator|.
+name|znodePaths
 operator|.
 name|getZNodeForReplica
 argument_list|(
@@ -2163,6 +2164,8 @@ argument_list|(
 name|zkw
 argument_list|,
 name|zkw
+operator|.
+name|znodePaths
 operator|.
 name|getZNodeForReplica
 argument_list|(
@@ -2451,6 +2454,8 @@ argument_list|(
 name|zookeeper
 argument_list|,
 name|zookeeper
+operator|.
+name|znodePaths
 operator|.
 name|getZNodeForReplica
 argument_list|(

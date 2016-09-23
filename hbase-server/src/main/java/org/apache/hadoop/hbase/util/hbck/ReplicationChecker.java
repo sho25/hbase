@@ -607,6 +607,8 @@ name|this
 operator|.
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|baseZNode
 argument_list|,
 name|replicationZNodeName

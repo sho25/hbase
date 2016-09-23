@@ -193,8 +193,9 @@ name|watcher
 argument_list|,
 name|watcher
 operator|.
-name|getRegionNormalizerZNode
-argument_list|()
+name|znodePaths
+operator|.
+name|regionNormalizerZNode
 argument_list|,
 name|abortable
 argument_list|)
@@ -290,8 +291,9 @@ name|watcher
 argument_list|,
 name|watcher
 operator|.
-name|getRegionNormalizerZNode
-argument_list|()
+name|znodePaths
+operator|.
+name|regionNormalizerZNode
 argument_list|,
 name|upData
 argument_list|)
@@ -313,8 +315,9 @@ name|watcher
 argument_list|,
 name|watcher
 operator|.
-name|getRegionNormalizerZNode
-argument_list|()
+name|znodePaths
+operator|.
+name|regionNormalizerZNode
 argument_list|,
 name|upData
 argument_list|)
@@ -326,8 +329,9 @@ name|nodeDataChanged
 argument_list|(
 name|watcher
 operator|.
-name|getRegionNormalizerZNode
-argument_list|()
+name|znodePaths
+operator|.
+name|regionNormalizerZNode
 argument_list|)
 expr_stmt|;
 block|}

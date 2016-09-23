@@ -1321,6 +1321,8 @@ name|joinZNode
 argument_list|(
 name|zkWatcher
 operator|.
+name|znodePaths
+operator|.
 name|tableLockZNode
 argument_list|,
 name|tableName
@@ -1622,6 +1624,8 @@ name|joinZNode
 argument_list|(
 name|zkWatcher
 operator|.
+name|znodePaths
+operator|.
 name|tableLockZNode
 argument_list|,
 name|tableName
@@ -1694,6 +1698,8 @@ name|zkWatcher
 argument_list|,
 name|zkWatcher
 operator|.
+name|znodePaths
+operator|.
 name|tableLockZNode
 argument_list|)
 expr_stmt|;
@@ -1756,6 +1762,8 @@ operator|.
 name|joinZNode
 argument_list|(
 name|zkWatcher
+operator|.
+name|znodePaths
 operator|.
 name|tableLockZNode
 argument_list|,
@@ -1843,6 +1851,8 @@ operator|.
 name|joinZNode
 argument_list|(
 name|zkWatcher
+operator|.
+name|znodePaths
 operator|.
 name|tableLockZNode
 argument_list|,
@@ -1942,6 +1952,8 @@ operator|.
 name|joinZNode
 argument_list|(
 name|zkWatcher
+operator|.
+name|znodePaths
 operator|.
 name|tableLockZNode
 argument_list|,

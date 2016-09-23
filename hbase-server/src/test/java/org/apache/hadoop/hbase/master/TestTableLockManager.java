@@ -1374,6 +1374,8 @@ name|joinZNode
 argument_list|(
 name|zkWatcher
 operator|.
+name|znodePaths
+operator|.
 name|tableLockZNode
 argument_list|,
 name|TABLE_NAME
@@ -1441,6 +1443,8 @@ operator|.
 name|joinZNode
 argument_list|(
 name|zkWatcher
+operator|.
+name|znodePaths
 operator|.
 name|tableLockZNode
 argument_list|,

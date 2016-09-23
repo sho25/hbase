@@ -1001,6 +1001,8 @@ name|watcher
 argument_list|,
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|splitLogZNode
 argument_list|)
 decl_stmt|;
@@ -1685,6 +1687,8 @@ name|watcher
 argument_list|,
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|splitLogZNode
 argument_list|)
 decl_stmt|;
@@ -1815,6 +1819,8 @@ name|watcher
 argument_list|,
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|recoveringRegionsZNode
 argument_list|)
 decl_stmt|;
@@ -1931,6 +1937,8 @@ operator|.
 name|joinZNode
 argument_list|(
 name|watcher
+operator|.
+name|znodePaths
 operator|.
 name|recoveringRegionsZNode
 argument_list|,
@@ -3254,6 +3262,8 @@ name|this
 operator|.
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|splitLogZNode
 argument_list|)
 expr_stmt|;
@@ -3273,6 +3283,8 @@ operator|+
 name|this
 operator|.
 name|watcher
+operator|.
+name|znodePaths
 operator|.
 name|splitLogZNode
 argument_list|)
@@ -3295,6 +3307,8 @@ operator|+
 name|this
 operator|.
 name|watcher
+operator|.
+name|znodePaths
 operator|.
 name|splitLogZNode
 operator|+
@@ -3356,6 +3370,8 @@ operator|.
 name|joinZNode
 argument_list|(
 name|watcher
+operator|.
+name|znodePaths
 operator|.
 name|splitLogZNode
 argument_list|,
@@ -3494,6 +3510,8 @@ operator|.
 name|joinZNode
 argument_list|(
 name|watcher
+operator|.
+name|znodePaths
 operator|.
 name|recoveringRegionsZNode
 argument_list|,
@@ -3864,6 +3882,8 @@ name|watcher
 argument_list|,
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|splitLogZNode
 argument_list|)
 decl_stmt|;
@@ -3928,6 +3948,8 @@ operator|.
 name|joinZNode
 argument_list|(
 name|watcher
+operator|.
+name|znodePaths
 operator|.
 name|splitLogZNode
 argument_list|,
@@ -4076,6 +4098,8 @@ name|watcher
 argument_list|,
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|recoveringRegionsZNode
 argument_list|)
 decl_stmt|;
@@ -4117,6 +4141,8 @@ operator|.
 name|joinZNode
 argument_list|(
 name|watcher
+operator|.
+name|znodePaths
 operator|.
 name|recoveringRegionsZNode
 argument_list|,
@@ -4310,6 +4336,8 @@ name|watcher
 argument_list|,
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|splitLogZNode
 argument_list|)
 decl_stmt|;
@@ -4495,6 +4523,8 @@ name|watcher
 argument_list|,
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|recoveringRegionsZNode
 argument_list|)
 decl_stmt|;
@@ -4612,6 +4642,8 @@ operator|.
 name|joinZNode
 argument_list|(
 name|watcher
+operator|.
+name|znodePaths
 operator|.
 name|splitLogZNode
 argument_list|,

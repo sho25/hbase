@@ -13114,6 +13114,8 @@ name|exists
 argument_list|(
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|baseZNode
 argument_list|,
 literal|false
