@@ -52,6 +52,11 @@ init|=
 literal|"compactionsFailedCount"
 decl_stmt|;
 name|String
+name|LAST_MAJOR_COMPACTION_AGE
+init|=
+literal|"lastMajorCompactionAge"
+decl_stmt|;
+name|String
 name|NUM_BYTES_COMPACTED_COUNT
 init|=
 literal|"numBytesCompactedCount"
@@ -70,6 +75,11 @@ name|String
 name|COMPACTIONS_FAILED_DESC
 init|=
 literal|"Number of compactions that have failed."
+decl_stmt|;
+name|String
+name|LAST_MAJOR_COMPACTION_DESC
+init|=
+literal|"Age of the last major compaction in milliseconds."
 decl_stmt|;
 name|String
 name|NUM_BYTES_COMPACTED_DESC

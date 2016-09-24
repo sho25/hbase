@@ -108,6 +108,11 @@ name|long
 name|getNumCompactionsCompleted
 parameter_list|()
 function_decl|;
+comment|/**    *  @return Age of the last major compaction    */
+name|long
+name|getLastMajorCompactionAge
+parameter_list|()
+function_decl|;
 comment|/**    * Returns the total number of compactions that have been reported as failed on this region.    * Note that a given compaction can be reported as both completed and failed if an exception    * is thrown in the processing after {@code HRegion.compact()}.    */
 name|long
 name|getNumCompactionsFailed

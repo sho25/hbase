@@ -8760,7 +8760,7 @@ name|long
 name|getOldestHfileTs
 parameter_list|(
 name|boolean
-name|majorCompactioOnly
+name|majorCompactionOnly
 parameter_list|)
 throws|throws
 name|IOException
@@ -8841,7 +8841,7 @@ condition|)
 continue|continue;
 if|if
 condition|(
-name|majorCompactioOnly
+name|majorCompactionOnly
 condition|)
 block|{
 name|byte
@@ -8865,13 +8865,6 @@ condition|(
 name|val
 operator|==
 literal|null
-condition|)
-continue|continue;
-if|if
-condition|(
-name|val
-operator|==
-literal|null
 operator|||
 operator|!
 name|Bytes
@@ -8881,9 +8874,7 @@ argument_list|(
 name|val
 argument_list|)
 condition|)
-block|{
 continue|continue;
-block|}
 block|}
 name|result
 operator|=

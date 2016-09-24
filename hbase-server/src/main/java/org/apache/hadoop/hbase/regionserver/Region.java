@@ -637,12 +637,12 @@ index|[]
 name|familyName
 parameter_list|)
 function_decl|;
-comment|/**    * This can be used to determine the last time all files of this region were major compacted.    * @param majorCompactioOnly Only consider HFile that are the result of major compaction    * @return the timestamp of the oldest HFile for all stores of this region    */
+comment|/**    * This can be used to determine the last time all files of this region were major compacted.    * @param majorCompactionOnly Only consider HFile that are the result of major compaction    * @return the timestamp of the oldest HFile for all stores of this region    */
 name|long
 name|getOldestHfileTs
 parameter_list|(
 name|boolean
-name|majorCompactioOnly
+name|majorCompactionOnly
 parameter_list|)
 throws|throws
 name|IOException
