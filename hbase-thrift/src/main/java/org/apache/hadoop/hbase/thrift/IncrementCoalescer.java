@@ -303,11 +303,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|metrics
+name|metrics2
 operator|.
 name|util
 operator|.
-name|MBeanUtil
+name|MBeans
 import|;
 end_import
 
@@ -1001,9 +1001,9 @@ literal|"IncrementCoalescer"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|MBeanUtil
+name|MBeans
 operator|.
-name|registerMBean
+name|register
 argument_list|(
 literal|"thrift"
 argument_list|,

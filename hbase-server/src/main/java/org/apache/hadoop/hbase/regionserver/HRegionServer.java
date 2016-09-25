@@ -2601,11 +2601,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|metrics
+name|metrics2
 operator|.
 name|util
 operator|.
-name|MBeanUtil
+name|MBeans
 import|;
 end_import
 
@@ -5634,9 +5634,9 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|MBeanUtil
+name|MBeans
 operator|.
-name|unregisterMBean
+name|unregister
 argument_list|(
 name|mxBean
 argument_list|)

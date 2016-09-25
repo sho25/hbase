@@ -503,20 +503,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|metrics
-operator|.
-name|MetricsServlet
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|security
 operator|.
 name|SecurityUtil
@@ -3615,17 +3601,39 @@ operator|.
 name|class
 argument_list|)
 expr_stmt|;
+comment|// Hadoop3 has moved completely to metrics2, and  dropped support for Metrics v1's
+comment|// MetricsServlet (see HADOOP-12504).  We'll using reflection to load if against hadoop2.
+comment|// Remove when we drop support for hbase on hadoop2.x.
+try|try
+block|{
+name|Class
+name|clz
+init|=
+name|Class
+operator|.
+name|forName
+argument_list|(
+literal|"org.apache.hadoop.metrics.MetricsServlet"
+argument_list|)
+decl_stmt|;
 name|addServlet
 argument_list|(
 literal|"metrics"
 argument_list|,
 literal|"/metrics"
 argument_list|,
-name|MetricsServlet
-operator|.
-name|class
+name|clz
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+comment|// do nothing
+block|}
 name|addServlet
 argument_list|(
 literal|"jmx"
