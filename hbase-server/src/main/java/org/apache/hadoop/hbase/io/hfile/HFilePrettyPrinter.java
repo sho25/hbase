@@ -2231,7 +2231,7 @@ name|scanner
 operator|.
 name|seekTo
 argument_list|(
-name|KeyValueUtil
+name|CellUtil
 operator|.
 name|createFirstOnRow
 argument_list|(

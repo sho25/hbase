@@ -950,7 +950,7 @@ comment|// For this case we want to clean up any other puts
 name|Cell
 name|firstCell
 init|=
-name|KeyValueUtil
+name|CellUtil
 operator|.
 name|createFirstOnRow
 argument_list|(

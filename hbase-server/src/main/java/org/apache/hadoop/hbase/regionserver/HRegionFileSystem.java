@@ -135,6 +135,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CellUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -2498,10 +2512,10 @@ name|top
 condition|)
 block|{
 comment|//check if larger than last key.
-name|KeyValue
+name|Cell
 name|splitKey
 init|=
-name|KeyValueUtil
+name|CellUtil
 operator|.
 name|createFirstOnRow
 argument_list|(
@@ -2553,10 +2567,10 @@ block|}
 else|else
 block|{
 comment|//check if smaller than first key
-name|KeyValue
+name|Cell
 name|splitKey
 init|=
-name|KeyValueUtil
+name|CellUtil
 operator|.
 name|createLastOnRow
 argument_list|(
