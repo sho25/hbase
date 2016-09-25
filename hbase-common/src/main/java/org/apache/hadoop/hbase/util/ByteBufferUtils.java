@@ -33,6 +33,16 @@ name|java
 operator|.
 name|io
 operator|.
+name|DataInput
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
 name|DataInputStream
 import|;
 end_import
@@ -2523,6 +2533,28 @@ name|int
 name|l2
 parameter_list|)
 block|{
+if|if
+condition|(
+operator|(
+name|l1
+operator|==
+literal|0
+operator|)
+operator|||
+operator|(
+name|l2
+operator|==
+literal|0
+operator|)
+condition|)
+block|{
+comment|// both 0 length, return true, or else false
+return|return
+name|l1
+operator|==
+name|l2
+return|;
+block|}
 comment|// Since we're often comparing adjacent sorted data,
 comment|// it's usual to have equal arrays except for the very last byte
 comment|// so check that first
@@ -2894,6 +2926,28 @@ name|int
 name|l2
 parameter_list|)
 block|{
+if|if
+condition|(
+operator|(
+name|l1
+operator|==
+literal|0
+operator|)
+operator|||
+operator|(
+name|l2
+operator|==
+literal|0
+operator|)
+condition|)
+block|{
+comment|// both 0 length, return true, or else false
+return|return
+name|l1
+operator|==
+name|l2
+return|;
+block|}
 comment|// Since we're often comparing adjacent sorted data,
 comment|// it's usual to have equal arrays except for the very last byte
 comment|// so check that first
