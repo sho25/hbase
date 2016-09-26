@@ -2224,6 +2224,20 @@ argument_list|,
 name|tableName
 argument_list|)
 expr_stmt|;
+comment|// clean region references from the server manager
+name|env
+operator|.
+name|getMasterServices
+argument_list|()
+operator|.
+name|getServerManager
+argument_list|()
+operator|.
+name|removeRegions
+argument_list|(
+name|regions
+argument_list|)
+expr_stmt|;
 block|}
 specifier|protected
 specifier|static
