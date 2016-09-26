@@ -2414,6 +2414,12 @@ expr_stmt|;
 if|if
 condition|(
 name|withTags
+operator|&&
+name|this
+operator|.
+name|tagsLength
+operator|>
+literal|0
 condition|)
 block|{
 comment|// 2 bytes tags length followed by tags bytes
@@ -3305,6 +3311,12 @@ expr_stmt|;
 if|if
 condition|(
 name|withTags
+operator|&&
+name|this
+operator|.
+name|tagsLength
+operator|>
+literal|0
 condition|)
 block|{
 comment|// 2 bytes tags length followed by tags bytes

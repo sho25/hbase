@@ -2672,9 +2672,12 @@ return|return
 name|reader
 return|;
 block|}
-specifier|protected
+comment|// From non encoded HFiles, we always read back KeyValue or its descendant.(Note: When HFile
+comment|// block is in DBB, it will be OffheapKV). So all parts of the Cell is in a contiguous
+comment|// array/buffer. How many bytes we should wrap to make the KV is what this method returns.
+specifier|private
 name|int
-name|getCellBufSize
+name|getKVBufSize
 parameter_list|()
 block|{
 name|int
@@ -2688,15 +2691,9 @@ name|currValueLen
 decl_stmt|;
 if|if
 condition|(
-name|this
-operator|.
-name|reader
-operator|.
-name|getFileContext
-argument_list|()
-operator|.
-name|isIncludesTags
-argument_list|()
+name|currTagsLen
+operator|>
+literal|0
 condition|)
 block|{
 name|kvBufSize
@@ -2727,9 +2724,11 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-specifier|protected
+comment|// Returns the #bytes in HFile for the current cell. Used to skip these many bytes in current
+comment|// HFile block's buffer so as to position to the next cell.
+specifier|private
 name|int
-name|getCurCellSize
+name|getCurCellSerializedSize
 parameter_list|()
 block|{
 name|int
@@ -4313,7 +4312,7 @@ decl_stmt|;
 name|int
 name|cellBufSize
 init|=
-name|getCellBufSize
+name|getKVBufSize
 argument_list|()
 decl_stmt|;
 name|long
@@ -4778,7 +4777,7 @@ name|blockBuffer
 operator|.
 name|skip
 argument_list|(
-name|getCurCellSize
+name|getCurCellSerializedSize
 argument_list|()
 argument_list|)
 expr_stmt|;
