@@ -19,6 +19,20 @@ end_package
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -109,6 +123,8 @@ name|signalAll
 parameter_list|()
 function_decl|;
 comment|/**    * Returns the number of elements in this collection.    * @return the number of elements in this collection.    */
+annotation|@
+name|VisibleForTesting
 name|int
 name|size
 parameter_list|()
