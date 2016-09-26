@@ -593,7 +593,7 @@ name|getForeignExchangeMessage
 argument_list|()
 argument_list|)
 operator|.
-name|unwrapRemoteException
+name|unwrapRemoteIOException
 argument_list|()
 throw|;
 block|}

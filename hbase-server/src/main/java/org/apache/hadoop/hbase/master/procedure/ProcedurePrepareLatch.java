@@ -332,7 +332,7 @@ operator|.
 name|getException
 argument_list|()
 operator|.
-name|unwrapRemoteException
+name|unwrapRemoteIOException
 argument_list|()
 expr_stmt|;
 block|}

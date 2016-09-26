@@ -535,10 +535,50 @@ parameter_list|)
 block|{
 comment|// no-op
 block|}
+comment|/**    * Used to keep the procedure lock even when the procedure is yielding or suspended.    * @return true if the procedure should hold on the lock until completionCleanup()    */
+specifier|protected
+name|boolean
+name|holdLock
+parameter_list|(
+specifier|final
+name|TEnvironment
+name|env
+parameter_list|)
+block|{
+return|return
+literal|false
+return|;
+block|}
+comment|/**    * This is used in conjuction with holdLock(). If holdLock() is true    * the procedure executor will not call acquireLock() if hasLock() is true.    * @return true if the procedure has the lock, false otherwise.    */
+specifier|protected
+name|boolean
+name|hasLock
+parameter_list|(
+specifier|final
+name|TEnvironment
+name|env
+parameter_list|)
+block|{
+return|return
+literal|false
+return|;
+block|}
 comment|/**    * Called when the procedure is loaded for replay.    * The procedure implementor may use this method to perform some quick    * operation before replay.    * e.g. failing the procedure if the state on replay may be unknown.    */
 specifier|protected
 name|void
 name|beforeReplay
+parameter_list|(
+specifier|final
+name|TEnvironment
+name|env
+parameter_list|)
+block|{
+comment|// no-op
+block|}
+comment|/**    * Called when the procedure is ready to be added to the queue after    * the loading/replay operation.    */
+specifier|protected
+name|void
+name|afterReplay
 parameter_list|(
 specifier|final
 name|TEnvironment
@@ -978,6 +1018,20 @@ operator|.
 name|RUNNABLE
 return|;
 block|}
+specifier|public
+specifier|synchronized
+name|boolean
+name|isInitializing
+parameter_list|()
+block|{
+return|return
+name|state
+operator|==
+name|ProcedureState
+operator|.
+name|INITIALIZING
+return|;
+block|}
 comment|/**    * @return true if the procedure has failed.    *         true may mean failed but not yet rolledback or failed and rolledback.    */
 specifier|public
 specifier|synchronized
@@ -1390,15 +1444,16 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Private
+comment|/**    * Called by the ProcedureExecutor when the timeout set by setTimeout() is expired.    * @return true to let the framework handle the timeout as abort,    *         false in case the procedure handled the timeout itself.    */
 specifier|protected
 specifier|synchronized
 name|boolean
 name|setTimeoutFailure
-parameter_list|()
+parameter_list|(
+specifier|final
+name|TEnvironment
+name|env
+parameter_list|)
 block|{
 if|if
 condition|(
@@ -1604,6 +1659,47 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+comment|/**    * Internal method called by the ProcedureExecutor that starts the    * user-level code acquireLock().    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
+specifier|protected
+name|boolean
+name|doAcquireLock
+parameter_list|(
+specifier|final
+name|TEnvironment
+name|env
+parameter_list|)
+block|{
+return|return
+name|acquireLock
+argument_list|(
+name|env
+argument_list|)
+return|;
+block|}
+comment|/**    * Internal method called by the ProcedureExecutor that starts the    * user-level code releaseLock().    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
+specifier|protected
+name|void
+name|doReleaseLock
+parameter_list|(
+specifier|final
+name|TEnvironment
+name|env
+parameter_list|)
+block|{
+name|releaseLock
+argument_list|(
+name|env
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Called on store load to initialize the Procedure internals after    * the creation/deserialization.    */
 annotation|@
 name|InterfaceAudience
@@ -1736,6 +1832,16 @@ return|return
 name|childrenLatch
 operator|>
 literal|0
+return|;
+block|}
+specifier|protected
+specifier|synchronized
+name|int
+name|getChildrenLatch
+parameter_list|()
+block|{
+return|return
+name|childrenLatch
 return|;
 block|}
 comment|/**    * Called by the RootProcedureState on procedure execution.    * Each procedure store its stack-index positions.    */

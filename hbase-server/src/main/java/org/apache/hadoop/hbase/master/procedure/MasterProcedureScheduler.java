@@ -1586,7 +1586,7 @@ name|hasException
 argument_list|()
 condition|)
 block|{
-name|IOException
+name|Exception
 name|procEx
 init|=
 name|proc
