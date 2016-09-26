@@ -29,18 +29,6 @@ end_import
 
 begin_import
 import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|InvalidProtocolBufferException
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -137,6 +125,18 @@ name|Bytes
 import|;
 end_import
 
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|InvalidProtocolBufferException
+import|;
+end_import
+
 begin_comment
 comment|/**  * A long comparator which numerical compares against the specified byte array  */
 end_comment
@@ -157,7 +157,7 @@ extends|extends
 name|ByteArrayComparable
 block|{
 specifier|private
-name|Long
+name|long
 name|longValue
 decl_stmt|;
 specifier|public
@@ -201,7 +201,7 @@ name|int
 name|length
 parameter_list|)
 block|{
-name|Long
+name|long
 name|that
 init|=
 name|Bytes
@@ -216,12 +216,12 @@ name|length
 argument_list|)
 decl_stmt|;
 return|return
-name|this
+name|Long
 operator|.
-name|longValue
-operator|.
-name|compareTo
+name|compare
 argument_list|(
+name|longValue
+argument_list|,
 name|that
 argument_list|)
 return|;
@@ -242,7 +242,7 @@ name|int
 name|length
 parameter_list|)
 block|{
-name|Long
+name|long
 name|that
 init|=
 name|ByteBufferUtils
@@ -255,12 +255,12 @@ name|offset
 argument_list|)
 decl_stmt|;
 return|return
-name|this
+name|Long
 operator|.
-name|longValue
-operator|.
-name|compareTo
+name|compare
 argument_list|(
+name|longValue
+argument_list|,
 name|that
 argument_list|)
 return|;
