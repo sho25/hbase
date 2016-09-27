@@ -14967,7 +14967,7 @@ operator|.
 name|toArray
 argument_list|(
 operator|new
-name|KeyValue
+name|Cell
 index|[
 name|results
 operator|.
@@ -15145,7 +15145,7 @@ operator|.
 name|toArray
 argument_list|(
 operator|new
-name|KeyValue
+name|Cell
 index|[
 name|results
 operator|.
@@ -15326,7 +15326,7 @@ operator|.
 name|toArray
 argument_list|(
 operator|new
-name|KeyValue
+name|Cell
 index|[
 name|results
 operator|.
@@ -15632,7 +15632,7 @@ operator|.
 name|toArray
 argument_list|(
 operator|new
-name|KeyValue
+name|Cell
 index|[
 name|results
 operator|.
