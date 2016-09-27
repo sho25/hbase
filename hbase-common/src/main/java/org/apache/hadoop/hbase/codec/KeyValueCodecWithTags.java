@@ -115,6 +115,22 @@ name|InterfaceAudience
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|ByteBufferUtils
+import|;
+end_import
+
 begin_comment
 comment|/**  * Codec that does KeyValue version 1 serialization with serializing tags also.  *  *<p>  * Encodes Cell as serialized in KeyValue with total length prefix. This  * is how KVs were serialized in Puts, Deletes and Results pre-0.96. Its what would happen if you  * called the Writable#write KeyValue implementation. This encoder will fail if the passed Cell is  * not an old-school pre-0.96 KeyValue. Does not copy bytes writing. It just writes them direct to  * the passed stream.  *  *<p>  * If you wrote two KeyValues to this encoder, it would look like this in the stream:  *  *<pre>  * length-of-KeyValue1 // A java int with the length of KeyValue1 backing array  * KeyValue1 backing array filled with a KeyValue serialized in its particular format  * length-of-KeyValue2  * KeyValue2 backing array  *</pre>  *  * Note: The only difference of this with KeyValueCodec is the latter ignores tags in Cells.  *<b>Use this Codec only at server side.</b>  */
 end_comment
@@ -172,6 +188,24 @@ name|checkFlushed
 argument_list|()
 expr_stmt|;
 comment|// Write tags
+name|ByteBufferUtils
+operator|.
+name|putInt
+argument_list|(
+name|this
+operator|.
+name|out
+argument_list|,
+name|KeyValueUtil
+operator|.
+name|getSerializedSize
+argument_list|(
+name|cell
+argument_list|,
+literal|true
+argument_list|)
+argument_list|)
+expr_stmt|;
 name|KeyValueUtil
 operator|.
 name|oswrite

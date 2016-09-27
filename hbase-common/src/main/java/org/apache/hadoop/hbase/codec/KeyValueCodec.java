@@ -246,6 +246,24 @@ name|checkFlushed
 argument_list|()
 expr_stmt|;
 comment|// Do not write tags over RPC
+name|ByteBufferUtils
+operator|.
+name|putInt
+argument_list|(
+name|this
+operator|.
+name|out
+argument_list|,
+name|KeyValueUtil
+operator|.
+name|getSerializedSize
+argument_list|(
+name|cell
+argument_list|,
+literal|false
+argument_list|)
+argument_list|)
+expr_stmt|;
 name|KeyValueUtil
 operator|.
 name|oswrite

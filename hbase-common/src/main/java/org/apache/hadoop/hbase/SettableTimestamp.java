@@ -42,7 +42,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Using this Interface one can mark a Cell as timestamp changeable.<br>  * Note : Server side Cell implementations in write path must implement this.  */
+comment|/**  * Using this Interface one can mark a Cell as timestamp changeable.<br>  * Note : Server side Cell implementations in write path must implement this.  * @deprecated as of 2.0 and will be removed in 3.0. Use {@link ExtendedCell} instead  */
 end_comment
 
 begin_interface
@@ -55,6 +55,8 @@ name|HBaseInterfaceAudience
 operator|.
 name|COPROC
 argument_list|)
+annotation|@
+name|Deprecated
 specifier|public
 interface|interface
 name|SettableTimestamp
