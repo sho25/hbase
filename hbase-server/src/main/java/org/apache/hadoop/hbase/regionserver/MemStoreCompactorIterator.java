@@ -258,11 +258,7 @@ name|comparator
 argument_list|,
 name|scanners
 argument_list|,
-name|MemStoreScanner
-operator|.
-name|Type
-operator|.
-name|COMPACT_FORWARD
+literal|true
 argument_list|)
 expr_stmt|;
 comment|// reinitialize the compacting scanner for each instance of iterator
@@ -398,11 +394,6 @@ expr_stmt|;
 name|compactingScanner
 operator|=
 literal|null
-expr_stmt|;
-name|scanner
-operator|.
-name|close
-argument_list|()
 expr_stmt|;
 name|scanner
 operator|=

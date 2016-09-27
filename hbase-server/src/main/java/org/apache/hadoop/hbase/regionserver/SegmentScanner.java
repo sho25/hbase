@@ -226,6 +226,14 @@ name|readPoint
 operator|=
 name|readPoint
 expr_stmt|;
+comment|//increase the reference count so the underlying structure will not be de-allocated
+name|this
+operator|.
+name|segment
+operator|.
+name|incScannerCount
+argument_list|()
+expr_stmt|;
 name|iter
 operator|=
 name|segment
@@ -237,14 +245,6 @@ comment|// the initialization of the current is required for working with heap o
 name|current
 operator|=
 name|getNext
-argument_list|()
-expr_stmt|;
-comment|//increase the reference count so the underlying structure will not be de-allocated
-name|this
-operator|.
-name|segment
-operator|.
-name|incScannerCount
 argument_list|()
 expr_stmt|;
 name|this
