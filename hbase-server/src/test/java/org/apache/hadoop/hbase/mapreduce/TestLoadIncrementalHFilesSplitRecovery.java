@@ -1952,6 +1952,9 @@ argument_list|<
 name|LoadQueueItem
 argument_list|>
 name|lqis
+parameter_list|,
+name|boolean
+name|copyFile
 parameter_list|)
 throws|throws
 name|IOException
@@ -2027,6 +2030,8 @@ argument_list|,
 name|first
 argument_list|,
 name|lqis
+argument_list|,
+name|copyFile
 argument_list|)
 return|;
 block|}
@@ -2042,6 +2047,8 @@ argument_list|,
 name|first
 argument_list|,
 name|lqis
+argument_list|,
+name|copyFile
 argument_list|)
 return|;
 block|}
@@ -2492,6 +2499,9 @@ argument_list|,
 name|LoadQueueItem
 argument_list|>
 name|regionGroups
+parameter_list|,
+name|boolean
+name|copyFile
 parameter_list|)
 throws|throws
 name|IOException
@@ -2531,6 +2541,8 @@ argument_list|,
 name|queue
 argument_list|,
 name|regionGroups
+argument_list|,
+name|copyFile
 argument_list|)
 expr_stmt|;
 block|}

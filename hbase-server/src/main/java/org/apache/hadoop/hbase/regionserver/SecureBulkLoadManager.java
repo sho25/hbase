@@ -1510,6 +1510,11 @@ name|bulkToken
 argument_list|,
 name|conf
 argument_list|)
+argument_list|,
+name|request
+operator|.
+name|getCopyFile
+argument_list|()
 argument_list|)
 return|;
 block|}
@@ -1896,6 +1901,9 @@ parameter_list|,
 specifier|final
 name|String
 name|srcPath
+parameter_list|,
+name|boolean
+name|copyFile
 parameter_list|)
 throws|throws
 name|IOException
@@ -2032,6 +2040,41 @@ operator|+
 literal|" is on different filesystem than "
 operator|+
 literal|"the destination filesystem. Copying file over to destination staging dir."
+argument_list|)
+expr_stmt|;
+name|FileUtil
+operator|.
+name|copy
+argument_list|(
+name|srcFs
+argument_list|,
+name|p
+argument_list|,
+name|fs
+argument_list|,
+name|stageP
+argument_list|,
+literal|false
+argument_list|,
+name|conf
+argument_list|)
+expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
+name|copyFile
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Bulk-load file "
+operator|+
+name|srcPath
+operator|+
+literal|" is copied to destination staging dir."
 argument_list|)
 expr_stmt|;
 name|FileUtil

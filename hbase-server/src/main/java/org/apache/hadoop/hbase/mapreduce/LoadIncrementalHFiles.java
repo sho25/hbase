@@ -1191,6 +1191,14 @@ name|SILENCE_CONF_KEY
 init|=
 literal|"ignore.unmatched.families"
 decl_stmt|;
+specifier|public
+specifier|final
+specifier|static
+name|String
+name|ALWAYS_COPY_FILES
+init|=
+literal|"always.copy.files"
+decl_stmt|;
 comment|// We use a '.' prefix which is ignored when walking directory trees
 comment|// above. It is invalid family name.
 specifier|final
@@ -2177,6 +2185,8 @@ argument_list|,
 name|regionLocator
 argument_list|,
 literal|false
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 block|}
@@ -2317,7 +2327,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Perform a bulk load of the given directory into the given    * pre-existing table.  This method is not threadsafe.    *    * @param map map of family to List of hfiles    * @param admin the Admin    * @param table the table to load into    * @param regionLocator region locator    * @param silence true to ignore unmatched column families    * @throws TableNotFoundException if table does not yet exist    */
+comment|/**    * Perform a bulk load of the given directory into the given    * pre-existing table.  This method is not threadsafe.    *    * @param map map of family to List of hfiles    * @param admin the Admin    * @param table the table to load into    * @param regionLocator region locator    * @param silence true to ignore unmatched column families    * @param copyFile always copy hfiles if true    * @throws TableNotFoundException if table does not yet exist    */
 specifier|public
 name|void
 name|doBulkLoad
@@ -2346,6 +2356,9 @@ name|regionLocator
 parameter_list|,
 name|boolean
 name|silence
+parameter_list|,
+name|boolean
+name|copyFile
 parameter_list|)
 throws|throws
 name|TableNotFoundException
@@ -2513,6 +2526,8 @@ argument_list|,
 name|pool
 argument_list|,
 name|secureClient
+argument_list|,
+name|copyFile
 argument_list|)
 expr_stmt|;
 block|}
@@ -2531,7 +2546,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Perform a bulk load of the given directory into the given    * pre-existing table.  This method is not threadsafe.    *    * @param hfofDir the directory that was provided as the output path    *   of a job using HFileOutputFormat    * @param admin the Admin    * @param table the table to load into    * @param regionLocator region locator    * @param silence true to ignore unmatched column families    * @throws TableNotFoundException if table does not yet exist    */
+comment|/**    * Perform a bulk load of the given directory into the given    * pre-existing table.  This method is not threadsafe.    *    * @param hfofDir the directory that was provided as the output path    *   of a job using HFileOutputFormat    * @param admin the Admin    * @param table the table to load into    * @param regionLocator region locator    * @param silence true to ignore unmatched column families    * @param copyFile always copy hfiles if true    * @throws TableNotFoundException if table does not yet exist    */
 specifier|public
 name|void
 name|doBulkLoad
@@ -2551,6 +2566,9 @@ name|regionLocator
 parameter_list|,
 name|boolean
 name|silence
+parameter_list|,
+name|boolean
+name|copyFile
 parameter_list|)
 throws|throws
 name|TableNotFoundException
@@ -2723,6 +2741,8 @@ argument_list|,
 name|pool
 argument_list|,
 name|secureClient
+argument_list|,
+name|copyFile
 argument_list|)
 expr_stmt|;
 block|}
@@ -2765,6 +2785,9 @@ name|pool
 parameter_list|,
 name|SecureBulkLoadClient
 name|secureClient
+parameter_list|,
+name|boolean
+name|copyFile
 parameter_list|)
 throws|throws
 name|IOException
@@ -2988,6 +3011,8 @@ argument_list|,
 name|queue
 argument_list|,
 name|regionGroups
+argument_list|,
+name|copyFile
 argument_list|)
 expr_stmt|;
 comment|// NOTE: The next iteration's split / group could happen in parallel to
@@ -3421,6 +3446,57 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|loadHFileQueue
+argument_list|(
+name|table
+argument_list|,
+name|conn
+argument_list|,
+name|queue
+argument_list|,
+name|startEndKeys
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Used by the replication sink to load the hfiles from the source cluster. It does the following,    *<ol>    *<li>LoadIncrementalHFiles#groupOrSplitPhase(Table, ExecutorService, Deque, Pair)}</li>    *<li>LoadIncrementalHFiles#bulkLoadPhase(Table, Connection, ExecutorService, Deque, Multimap)    *</li>    *</ol>    * @param table Table to which these hfiles should be loaded to    * @param conn Connection to use    * @param queue {@link LoadQueueItem} has hfiles yet to be loaded    * @param startEndKeys starting and ending row keys of the region    */
+specifier|public
+name|void
+name|loadHFileQueue
+parameter_list|(
+specifier|final
+name|Table
+name|table
+parameter_list|,
+specifier|final
+name|Connection
+name|conn
+parameter_list|,
+name|Deque
+argument_list|<
+name|LoadQueueItem
+argument_list|>
+name|queue
+parameter_list|,
+name|Pair
+argument_list|<
+name|byte
+index|[]
+index|[]
+argument_list|,
+name|byte
+index|[]
+index|[]
+argument_list|>
+name|startEndKeys
+parameter_list|,
+name|boolean
+name|copyFile
+parameter_list|)
+throws|throws
+name|IOException
+block|{
 name|ExecutorService
 name|pool
 init|=
@@ -3463,6 +3539,8 @@ argument_list|,
 name|queue
 argument_list|,
 name|regionGroups
+argument_list|,
+name|copyFile
 argument_list|)
 expr_stmt|;
 block|}
@@ -3513,6 +3591,9 @@ argument_list|,
 name|LoadQueueItem
 argument_list|>
 name|regionGroups
+parameter_list|,
+name|boolean
+name|copyFile
 parameter_list|)
 throws|throws
 name|IOException
@@ -3634,6 +3715,8 @@ argument_list|,
 name|first
 argument_list|,
 name|lqis
+argument_list|,
+name|copyFile
 argument_list|)
 decl_stmt|;
 return|return
@@ -5126,6 +5209,9 @@ argument_list|<
 name|LoadQueueItem
 argument_list|>
 name|lqis
+parameter_list|,
+name|boolean
+name|copyFile
 parameter_list|)
 throws|throws
 name|IOException
@@ -5328,6 +5414,8 @@ name|getUserToken
 argument_list|()
 argument_list|,
 name|bulkToken
+argument_list|,
+name|copyFile
 argument_list|)
 expr_stmt|;
 block|}
@@ -6818,6 +6906,24 @@ literal|""
 argument_list|)
 argument_list|)
 decl_stmt|;
+name|boolean
+name|copyFiles
+init|=
+literal|"yes"
+operator|.
+name|equalsIgnoreCase
+argument_list|(
+name|getConf
+argument_list|()
+operator|.
+name|get
+argument_list|(
+name|ALWAYS_COPY_FILES
+argument_list|,
+literal|""
+argument_list|)
+argument_list|)
+decl_stmt|;
 if|if
 condition|(
 name|dirPath
@@ -6836,6 +6942,8 @@ argument_list|,
 name|locator
 argument_list|,
 name|silence
+argument_list|,
+name|copyFiles
 argument_list|)
 expr_stmt|;
 block|}
@@ -6852,6 +6960,8 @@ argument_list|,
 name|locator
 argument_list|,
 name|silence
+argument_list|,
+name|copyFiles
 argument_list|)
 expr_stmt|;
 block|}

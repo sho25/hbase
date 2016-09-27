@@ -12572,6 +12572,11 @@ name|getAssignSeqNum
 argument_list|()
 argument_list|,
 literal|null
+argument_list|,
+name|request
+operator|.
+name|getCopyFile
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

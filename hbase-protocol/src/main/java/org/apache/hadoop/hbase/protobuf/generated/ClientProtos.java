@@ -106599,6 +106599,17 @@ name|ByteString
 name|getBulkTokenBytes
 parameter_list|()
 function_decl|;
+comment|// optional bool copy_file = 6 [default = false];
+comment|/**      *<code>optional bool copy_file = 6 [default = false];</code>      */
+name|boolean
+name|hasCopyFile
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional bool copy_file = 6 [default = false];</code>      */
+name|boolean
+name|getCopyFile
+parameter_list|()
+function_decl|;
 block|}
 comment|/**    * Protobuf type {@code hbase.pb.BulkLoadHFileRequest}    *    *<pre>    **    * Atomically bulk load multiple HFiles (say from different column families)    * into an open region.    *</pre>    */
 specifier|public
@@ -107170,6 +107181,23 @@ operator|=
 name|input
 operator|.
 name|readBytes
+argument_list|()
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|48
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00000010
+expr_stmt|;
+name|copyFile_
+operator|=
+name|input
+operator|.
+name|readBool
 argument_list|()
 expr_stmt|;
 break|break;
@@ -111585,6 +111613,47 @@ name|ref
 return|;
 block|}
 block|}
+comment|// optional bool copy_file = 6 [default = false];
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|COPY_FILE_FIELD_NUMBER
+init|=
+literal|6
+decl_stmt|;
+specifier|private
+name|boolean
+name|copyFile_
+decl_stmt|;
+comment|/**      *<code>optional bool copy_file = 6 [default = false];</code>      */
+specifier|public
+name|boolean
+name|hasCopyFile
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000010
+operator|)
+operator|==
+literal|0x00000010
+operator|)
+return|;
+block|}
+comment|/**      *<code>optional bool copy_file = 6 [default = false];</code>      */
+specifier|public
+name|boolean
+name|getCopyFile
+parameter_list|()
+block|{
+return|return
+name|copyFile_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -111650,6 +111719,10 @@ expr_stmt|;
 name|bulkToken_
 operator|=
 literal|""
+expr_stmt|;
+name|copyFile_
+operator|=
+literal|false
 expr_stmt|;
 block|}
 specifier|private
@@ -111909,6 +111982,29 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000010
+operator|)
+operator|==
+literal|0x00000010
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeBool
+argument_list|(
+literal|6
+argument_list|,
+name|copyFile_
+argument_list|)
+expr_stmt|;
+block|}
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -112112,6 +112208,37 @@ literal|5
 argument_list|,
 name|getBulkTokenBytes
 argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000010
+operator|)
+operator|==
+literal|0x00000010
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeBoolSize
+argument_list|(
+literal|6
+argument_list|,
+name|copyFile_
 argument_list|)
 expr_stmt|;
 block|}
@@ -112433,6 +112560,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasCopyFile
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasCopyFile
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasCopyFile
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getCopyFile
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getCopyFile
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -112650,6 +112812,37 @@ argument_list|()
 operator|.
 name|hashCode
 argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasCopyFile
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|COPY_FILE_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|hashBoolean
+argument_list|(
+name|getCopyFile
+argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 name|hash
@@ -113641,6 +113834,19 @@ operator|~
 literal|0x00000010
 operator|)
 expr_stmt|;
+name|copyFile_
+operator|=
+literal|false
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000020
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -114055,6 +114261,30 @@ name|bulkToken_
 operator|=
 name|bulkToken_
 expr_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00000020
+operator|)
+operator|==
+literal|0x00000020
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000010
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|copyFile_
+operator|=
+name|copyFile_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -114399,6 +114629,23 @@ name|bulkToken_
 expr_stmt|;
 name|onChanged
 argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasCopyFile
+argument_list|()
+condition|)
+block|{
+name|setCopyFile
+argument_list|(
+name|other
+operator|.
+name|getCopyFile
+argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 name|this
@@ -117781,6 +118028,89 @@ expr_stmt|;
 name|bulkToken_
 operator|=
 name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|// optional bool copy_file = 6 [default = false];
+specifier|private
+name|boolean
+name|copyFile_
+decl_stmt|;
+comment|/**        *<code>optional bool copy_file = 6 [default = false];</code>        */
+specifier|public
+name|boolean
+name|hasCopyFile
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000020
+operator|)
+operator|==
+literal|0x00000020
+operator|)
+return|;
+block|}
+comment|/**        *<code>optional bool copy_file = 6 [default = false];</code>        */
+specifier|public
+name|boolean
+name|getCopyFile
+parameter_list|()
+block|{
+return|return
+name|copyFile_
+return|;
+block|}
+comment|/**        *<code>optional bool copy_file = 6 [default = false];</code>        */
+specifier|public
+name|Builder
+name|setCopyFile
+parameter_list|(
+name|boolean
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00000020
+expr_stmt|;
+name|copyFile_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional bool copy_file = 6 [default = false];</code>        */
+specifier|public
+name|Builder
+name|clearCopyFile
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000020
+operator|)
+expr_stmt|;
+name|copyFile_
+operator|=
+literal|false
 expr_stmt|;
 name|onChanged
 argument_list|()
@@ -211503,7 +211833,7 @@ literal|"ion\030\010 \001(\010\022\031\n\021heartbeat_message\030\t \001(\010\02
 operator|+
 literal|"scan_metrics\030\n \001(\0132\025.hbase.pb.ScanMetric"
 operator|+
-literal|"s\"\206\002\n\024BulkLoadHFileRequest\022)\n\006region\030\001 \002"
+literal|"s\"\240\002\n\024BulkLoadHFileRequest\022)\n\006region\030\001 \002"
 operator|+
 literal|"(\0132\031.hbase.pb.RegionSpecifier\022>\n\013family_"
 operator|+
@@ -211513,145 +211843,145 @@ literal|"st.FamilyPath\022\026\n\016assign_seq_num\030\003 \001(\010\022+\n"
 operator|+
 literal|"\010fs_token\030\004 \001(\0132\031.hbase.pb.DelegationTok"
 operator|+
-literal|"en\022\022\n\nbulk_token\030\005 \001(\t\032*\n\nFamilyPath\022\016\n\006"
+literal|"en\022\022\n\nbulk_token\030\005 \001(\t\022\030\n\tcopy_file\030\006 \001("
 operator|+
-literal|"family\030\001 \002(\014\022\014\n\004path\030\002 \002(\t\"\'\n\025BulkLoadHF"
+literal|"\010:\005false\032*\n\nFamilyPath\022\016\n\006family\030\001 \002(\014\022\014"
 block|,
-literal|"ileResponse\022\016\n\006loaded\030\001 \002(\010\"V\n\017Delegatio"
+literal|"\n\004path\030\002 \002(\t\"\'\n\025BulkLoadHFileResponse\022\016\n"
 operator|+
-literal|"nToken\022\022\n\nidentifier\030\001 \001(\014\022\020\n\010password\030\002"
+literal|"\006loaded\030\001 \002(\010\"V\n\017DelegationToken\022\022\n\niden"
 operator|+
-literal|" \001(\014\022\014\n\004kind\030\003 \001(\t\022\017\n\007service\030\004 \001(\t\"l\n\026P"
+literal|"tifier\030\001 \001(\014\022\020\n\010password\030\002 \001(\014\022\014\n\004kind\030\003"
 operator|+
-literal|"repareBulkLoadRequest\022\'\n\ntable_name\030\001 \002("
+literal|" \001(\t\022\017\n\007service\030\004 \001(\t\"l\n\026PrepareBulkLoad"
 operator|+
-literal|"\0132\023.hbase.pb.TableName\022)\n\006region\030\002 \001(\0132\031"
+literal|"Request\022\'\n\ntable_name\030\001 \002(\0132\023.hbase.pb.T"
 operator|+
-literal|".hbase.pb.RegionSpecifier\"-\n\027PrepareBulk"
+literal|"ableName\022)\n\006region\030\002 \001(\0132\031.hbase.pb.Regi"
 operator|+
-literal|"LoadResponse\022\022\n\nbulk_token\030\001 \002(\t\"W\n\026Clea"
+literal|"onSpecifier\"-\n\027PrepareBulkLoadResponse\022\022"
 operator|+
-literal|"nupBulkLoadRequest\022\022\n\nbulk_token\030\001 \002(\t\022)"
+literal|"\n\nbulk_token\030\001 \002(\t\"W\n\026CleanupBulkLoadReq"
 operator|+
-literal|"\n\006region\030\002 \001(\0132\031.hbase.pb.RegionSpecifie"
+literal|"uest\022\022\n\nbulk_token\030\001 \002(\t\022)\n\006region\030\002 \001(\013"
 operator|+
-literal|"r\"\031\n\027CleanupBulkLoadResponse\"a\n\026Coproces"
+literal|"2\031.hbase.pb.RegionSpecifier\"\031\n\027CleanupBu"
 block|,
-literal|"sorServiceCall\022\013\n\003row\030\001 \002(\014\022\024\n\014service_n"
+literal|"lkLoadResponse\"a\n\026CoprocessorServiceCall"
 operator|+
-literal|"ame\030\002 \002(\t\022\023\n\013method_name\030\003 \002(\t\022\017\n\007reques"
+literal|"\022\013\n\003row\030\001 \002(\014\022\024\n\014service_name\030\002 \002(\t\022\023\n\013m"
 operator|+
-literal|"t\030\004 \002(\014\"B\n\030CoprocessorServiceResult\022&\n\005v"
+literal|"ethod_name\030\003 \002(\t\022\017\n\007request\030\004 \002(\014\"B\n\030Cop"
 operator|+
-literal|"alue\030\001 \001(\0132\027.hbase.pb.NameBytesPair\"v\n\031C"
+literal|"rocessorServiceResult\022&\n\005value\030\001 \001(\0132\027.h"
 operator|+
-literal|"oprocessorServiceRequest\022)\n\006region\030\001 \002(\013"
+literal|"base.pb.NameBytesPair\"v\n\031CoprocessorServ"
 operator|+
-literal|"2\031.hbase.pb.RegionSpecifier\022.\n\004call\030\002 \002("
+literal|"iceRequest\022)\n\006region\030\001 \002(\0132\031.hbase.pb.Re"
 operator|+
-literal|"\0132 .hbase.pb.CoprocessorServiceCall\"o\n\032C"
+literal|"gionSpecifier\022.\n\004call\030\002 \002(\0132 .hbase.pb.C"
 operator|+
-literal|"oprocessorServiceResponse\022)\n\006region\030\001 \002("
+literal|"oprocessorServiceCall\"o\n\032CoprocessorServ"
 operator|+
-literal|"\0132\031.hbase.pb.RegionSpecifier\022&\n\005value\030\002 "
+literal|"iceResponse\022)\n\006region\030\001 \002(\0132\031.hbase.pb.R"
 operator|+
-literal|"\002(\0132\027.hbase.pb.NameBytesPair\"\226\001\n\006Action\022"
+literal|"egionSpecifier\022&\n\005value\030\002 \002(\0132\027.hbase.pb"
 block|,
-literal|"\r\n\005index\030\001 \001(\r\022)\n\010mutation\030\002 \001(\0132\027.hbase"
+literal|".NameBytesPair\"\226\001\n\006Action\022\r\n\005index\030\001 \001(\r"
 operator|+
-literal|".pb.MutationProto\022\032\n\003get\030\003 \001(\0132\r.hbase.p"
+literal|"\022)\n\010mutation\030\002 \001(\0132\027.hbase.pb.MutationPr"
 operator|+
-literal|"b.Get\0226\n\014service_call\030\004 \001(\0132 .hbase.pb.C"
+literal|"oto\022\032\n\003get\030\003 \001(\0132\r.hbase.pb.Get\0226\n\014servi"
 operator|+
-literal|"oprocessorServiceCall\"k\n\014RegionAction\022)\n"
+literal|"ce_call\030\004 \001(\0132 .hbase.pb.CoprocessorServ"
 operator|+
-literal|"\006region\030\001 \002(\0132\031.hbase.pb.RegionSpecifier"
+literal|"iceCall\"k\n\014RegionAction\022)\n\006region\030\001 \002(\0132"
 operator|+
-literal|"\022\016\n\006atomic\030\002 \001(\010\022 \n\006action\030\003 \003(\0132\020.hbase"
+literal|"\031.hbase.pb.RegionSpecifier\022\016\n\006atomic\030\002 \001"
 operator|+
-literal|".pb.Action\"c\n\017RegionLoadStats\022\027\n\014memstor"
+literal|"(\010\022 \n\006action\030\003 \003(\0132\020.hbase.pb.Action\"c\n\017"
 operator|+
-literal|"eLoad\030\001 \001(\005:\0010\022\030\n\rheapOccupancy\030\002 \001(\005:\0010"
+literal|"RegionLoadStats\022\027\n\014memstoreLoad\030\001 \001(\005:\0010"
 operator|+
-literal|"\022\035\n\022compactionPressure\030\003 \001(\005:\0010\"j\n\024Multi"
+literal|"\022\030\n\rheapOccupancy\030\002 \001(\005:\0010\022\035\n\022compaction"
 operator|+
-literal|"RegionLoadStats\022)\n\006region\030\001 \003(\0132\031.hbase."
+literal|"Pressure\030\003 \001(\005:\0010\"j\n\024MultiRegionLoadStat"
 block|,
-literal|"pb.RegionSpecifier\022\'\n\004stat\030\002 \003(\0132\031.hbase"
+literal|"s\022)\n\006region\030\001 \003(\0132\031.hbase.pb.RegionSpeci"
 operator|+
-literal|".pb.RegionLoadStats\"\336\001\n\021ResultOrExceptio"
+literal|"fier\022\'\n\004stat\030\002 \003(\0132\031.hbase.pb.RegionLoad"
 operator|+
-literal|"n\022\r\n\005index\030\001 \001(\r\022 \n\006result\030\002 \001(\0132\020.hbase"
+literal|"Stats\"\336\001\n\021ResultOrException\022\r\n\005index\030\001 \001"
 operator|+
-literal|".pb.Result\022*\n\texception\030\003 \001(\0132\027.hbase.pb"
+literal|"(\r\022 \n\006result\030\002 \001(\0132\020.hbase.pb.Result\022*\n\t"
 operator|+
-literal|".NameBytesPair\022:\n\016service_result\030\004 \001(\0132\""
+literal|"exception\030\003 \001(\0132\027.hbase.pb.NameBytesPair"
 operator|+
-literal|".hbase.pb.CoprocessorServiceResult\0220\n\tlo"
+literal|"\022:\n\016service_result\030\004 \001(\0132\".hbase.pb.Copr"
 operator|+
-literal|"adStats\030\005 \001(\0132\031.hbase.pb.RegionLoadStats"
+literal|"ocessorServiceResult\0220\n\tloadStats\030\005 \001(\0132"
 operator|+
-literal|"B\002\030\001\"x\n\022RegionActionResult\0226\n\021resultOrEx"
+literal|"\031.hbase.pb.RegionLoadStatsB\002\030\001\"x\n\022Region"
 operator|+
-literal|"ception\030\001 \003(\0132\033.hbase.pb.ResultOrExcepti"
+literal|"ActionResult\0226\n\021resultOrException\030\001 \003(\0132"
 operator|+
-literal|"on\022*\n\texception\030\002 \001(\0132\027.hbase.pb.NameByt"
+literal|"\033.hbase.pb.ResultOrException\022*\n\texceptio"
 block|,
-literal|"esPair\"x\n\014MultiRequest\022,\n\014regionAction\030\001"
+literal|"n\030\002 \001(\0132\027.hbase.pb.NameBytesPair\"x\n\014Mult"
 operator|+
-literal|" \003(\0132\026.hbase.pb.RegionAction\022\022\n\nnonceGro"
+literal|"iRequest\022,\n\014regionAction\030\001 \003(\0132\026.hbase.p"
 operator|+
-literal|"up\030\002 \001(\004\022&\n\tcondition\030\003 \001(\0132\023.hbase.pb.C"
+literal|"b.RegionAction\022\022\n\nnonceGroup\030\002 \001(\004\022&\n\tco"
 operator|+
-literal|"ondition\"\226\001\n\rMultiResponse\0228\n\022regionActi"
+literal|"ndition\030\003 \001(\0132\023.hbase.pb.Condition\"\226\001\n\rM"
 operator|+
-literal|"onResult\030\001 \003(\0132\034.hbase.pb.RegionActionRe"
+literal|"ultiResponse\0228\n\022regionActionResult\030\001 \003(\013"
 operator|+
-literal|"sult\022\021\n\tprocessed\030\002 \001(\010\0228\n\020regionStatist"
+literal|"2\034.hbase.pb.RegionActionResult\022\021\n\tproces"
 operator|+
-literal|"ics\030\003 \001(\0132\036.hbase.pb.MultiRegionLoadStat"
+literal|"sed\030\002 \001(\010\0228\n\020regionStatistics\030\003 \001(\0132\036.hb"
 operator|+
-literal|"s*\'\n\013Consistency\022\n\n\006STRONG\020\000\022\014\n\010TIMELINE"
+literal|"ase.pb.MultiRegionLoadStats*\'\n\013Consisten"
 operator|+
-literal|"\020\0012\263\005\n\rClientService\0222\n\003Get\022\024.hbase.pb.G"
+literal|"cy\022\n\n\006STRONG\020\000\022\014\n\010TIMELINE\020\0012\263\005\n\rClientS"
 operator|+
-literal|"etRequest\032\025.hbase.pb.GetResponse\022;\n\006Muta"
+literal|"ervice\0222\n\003Get\022\024.hbase.pb.GetRequest\032\025.hb"
 block|,
-literal|"te\022\027.hbase.pb.MutateRequest\032\030.hbase.pb.M"
+literal|"ase.pb.GetResponse\022;\n\006Mutate\022\027.hbase.pb."
 operator|+
-literal|"utateResponse\0225\n\004Scan\022\025.hbase.pb.ScanReq"
+literal|"MutateRequest\032\030.hbase.pb.MutateResponse\022"
 operator|+
-literal|"uest\032\026.hbase.pb.ScanResponse\022P\n\rBulkLoad"
+literal|"5\n\004Scan\022\025.hbase.pb.ScanRequest\032\026.hbase.p"
 operator|+
-literal|"HFile\022\036.hbase.pb.BulkLoadHFileRequest\032\037."
+literal|"b.ScanResponse\022P\n\rBulkLoadHFile\022\036.hbase."
 operator|+
-literal|"hbase.pb.BulkLoadHFileResponse\022V\n\017Prepar"
+literal|"pb.BulkLoadHFileRequest\032\037.hbase.pb.BulkL"
 operator|+
-literal|"eBulkLoad\022 .hbase.pb.PrepareBulkLoadRequ"
+literal|"oadHFileResponse\022V\n\017PrepareBulkLoad\022 .hb"
 operator|+
-literal|"est\032!.hbase.pb.PrepareBulkLoadResponse\022V"
+literal|"ase.pb.PrepareBulkLoadRequest\032!.hbase.pb"
 operator|+
-literal|"\n\017CleanupBulkLoad\022 .hbase.pb.CleanupBulk"
+literal|".PrepareBulkLoadResponse\022V\n\017CleanupBulkL"
 operator|+
-literal|"LoadRequest\032!.hbase.pb.CleanupBulkLoadRe"
+literal|"oad\022 .hbase.pb.CleanupBulkLoadRequest\032!."
 operator|+
-literal|"sponse\022X\n\013ExecService\022#.hbase.pb.Coproce"
+literal|"hbase.pb.CleanupBulkLoadResponse\022X\n\013Exec"
 block|,
-literal|"ssorServiceRequest\032$.hbase.pb.Coprocesso"
+literal|"Service\022#.hbase.pb.CoprocessorServiceReq"
 operator|+
-literal|"rServiceResponse\022d\n\027ExecRegionServerServ"
+literal|"uest\032$.hbase.pb.CoprocessorServiceRespon"
 operator|+
-literal|"ice\022#.hbase.pb.CoprocessorServiceRequest"
+literal|"se\022d\n\027ExecRegionServerService\022#.hbase.pb"
 operator|+
-literal|"\032$.hbase.pb.CoprocessorServiceResponse\0228"
+literal|".CoprocessorServiceRequest\032$.hbase.pb.Co"
 operator|+
-literal|"\n\005Multi\022\026.hbase.pb.MultiRequest\032\027.hbase."
+literal|"processorServiceResponse\0228\n\005Multi\022\026.hbas"
 operator|+
-literal|"pb.MultiResponseBB\n*org.apache.hadoop.hb"
+literal|"e.pb.MultiRequest\032\027.hbase.pb.MultiRespon"
 operator|+
-literal|"ase.protobuf.generatedB\014ClientProtosH\001\210\001"
+literal|"seBB\n*org.apache.hadoop.hbase.protobuf.g"
 operator|+
-literal|"\001\240\001\001"
+literal|"eneratedB\014ClientProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -212538,6 +212868,8 @@ block|,
 literal|"FsToken"
 block|,
 literal|"BulkToken"
+block|,
+literal|"CopyFile"
 block|, }
 argument_list|)
 expr_stmt|;
