@@ -16038,6 +16038,11 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+name|boolean
+name|scannerClosed
+init|=
+literal|false
+decl_stmt|;
 try|try
 block|{
 comment|// Remove lease while its being processed in server; protects against case
@@ -17089,6 +17094,11 @@ argument_list|,
 name|context
 argument_list|)
 expr_stmt|;
+comment|// scanner is closed here
+name|scannerClosed
+operator|=
+literal|true
+expr_stmt|;
 comment|// We closed the scanner already. Instead of throwing the IOException, and client
 comment|// retrying with the same scannerId only to get USE on the next RPC, we directly throw
 comment|// a special exception to save an RPC.
@@ -17137,6 +17147,13 @@ throw|;
 block|}
 block|}
 finally|finally
+block|{
+comment|// If the scanner is not closed, set the shipped callback
+if|if
+condition|(
+operator|!
+name|scannerClosed
+condition|)
 block|{
 if|if
 condition|(
@@ -17195,6 +17212,7 @@ argument_list|(
 name|lease
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}
