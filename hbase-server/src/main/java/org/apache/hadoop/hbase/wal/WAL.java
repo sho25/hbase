@@ -303,6 +303,8 @@ name|Evolving
 specifier|public
 interface|interface
 name|WAL
+extends|extends
+name|AutoCloseable
 block|{
 comment|/**    * Registers WALActionsListener    */
 name|void

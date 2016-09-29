@@ -693,7 +693,7 @@ specifier|abstract
 class|class
 name|AbstractTestFSWAL
 block|{
-specifier|private
+specifier|protected
 specifier|static
 specifier|final
 name|Log
