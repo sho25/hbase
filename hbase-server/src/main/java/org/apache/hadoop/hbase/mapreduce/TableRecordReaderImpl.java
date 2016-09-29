@@ -323,6 +323,20 @@ name|StringUtils
 import|;
 end_import
 
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
 begin_comment
 comment|/**  * Iterate over an HBase table data, return (ImmutableBytesWritable, Result)  * pairs.  */
 end_comment
@@ -364,7 +378,8 @@ name|class
 argument_list|)
 decl_stmt|;
 comment|// HBASE_COUNTER_GROUP_NAME is the name of mapreduce counter group for HBase
-specifier|private
+annotation|@
+name|VisibleForTesting
 specifier|static
 specifier|final
 name|String
@@ -1170,9 +1185,7 @@ block|{
 name|ScanMetrics
 name|scanMetrics
 init|=
-name|this
-operator|.
-name|scan
+name|currentScan
 operator|.
 name|getScanMetrics
 argument_list|()
