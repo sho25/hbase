@@ -2314,6 +2314,13 @@ argument_list|(
 literal|2
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|childrenOfBaseNode
+operator|!=
+literal|null
+condition|)
+block|{
 name|String
 name|pattern
 init|=
@@ -2350,6 +2357,7 @@ argument_list|(
 name|child
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 return|return
 name|metaReplicaNodes
