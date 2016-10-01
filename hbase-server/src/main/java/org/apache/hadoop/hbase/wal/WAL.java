@@ -304,7 +304,7 @@ specifier|public
 interface|interface
 name|WAL
 extends|extends
-name|AutoCloseable
+name|Closeable
 block|{
 comment|/**    * Registers WALActionsListener    */
 name|void
