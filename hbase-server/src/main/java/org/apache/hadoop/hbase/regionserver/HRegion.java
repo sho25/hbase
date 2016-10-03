@@ -25650,14 +25650,6 @@ argument_list|(
 literal|"Timed out waiting for lock for row: "
 operator|+
 name|rowKey
-operator|+
-literal|" in region "
-operator|+
-name|getRegionInfo
-argument_list|()
-operator|.
-name|getEncodedName
-argument_list|()
 argument_list|)
 throw|;
 block|}
