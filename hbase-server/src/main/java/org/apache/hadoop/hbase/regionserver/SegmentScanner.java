@@ -180,6 +180,13 @@ name|last
 init|=
 literal|null
 decl_stmt|;
+comment|// flag to indicate if this scanner is closed
+specifier|private
+name|boolean
+name|closed
+init|=
+literal|false
+decl_stmt|;
 specifier|protected
 name|SegmentScanner
 parameter_list|(
@@ -253,6 +260,18 @@ name|scannerOrder
 operator|=
 name|scannerOrder
 expr_stmt|;
+if|if
+condition|(
+name|current
+operator|==
+literal|null
+condition|)
+block|{
+comment|// nothing to fetch from this scanner
+name|close
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 comment|/**    * Look at the next Cell in this scanner, but do not iterate the scanner    * @return the currently observed Cell    */
 annotation|@
@@ -263,6 +282,15 @@ name|peek
 parameter_list|()
 block|{
 comment|// sanity check, the current should be always valid
+if|if
+condition|(
+name|closed
+condition|)
+block|{
+return|return
+literal|null
+return|;
+block|}
 if|if
 condition|(
 name|current
@@ -310,6 +338,15 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|closed
+condition|)
+block|{
+return|return
+literal|null
+return|;
+block|}
 name|Cell
 name|oldCurrent
 init|=
@@ -338,6 +375,15 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|closed
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
 if|if
 condition|(
 name|cell
@@ -396,6 +442,15 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|closed
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
 comment|/*     See HBASE-4195& HBASE-3855& HBASE-6591 for the background on this implementation.     This code is executed concurrently with flush and puts, without locks.     The ideal implementation for performance would use the sub skip list implicitly     pointed by the iterator. Unfortunately the Java API does not offer a method to     get it. So we remember the last keys we iterated to and restore     the reseeked set to at least that point.     */
 name|iter
 operator|=
@@ -440,6 +495,15 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|closed
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
 name|seek
 argument_list|(
 name|key
@@ -490,6 +554,15 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|closed
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
 name|boolean
 name|keepSeeking
 decl_stmt|;
@@ -640,6 +713,15 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|closed
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
 name|Cell
 name|higherCell
 init|=
@@ -718,11 +800,22 @@ name|void
 name|close
 parameter_list|()
 block|{
+if|if
+condition|(
+name|closed
+condition|)
+block|{
+return|return;
+block|}
 name|getSegment
 argument_list|()
 operator|.
 name|decScannerCount
 argument_list|()
+expr_stmt|;
+name|closed
+operator|=
+literal|true
 expr_stmt|;
 block|}
 comment|/**    * This functionality should be resolved in the higher level which is    * MemStoreScanner, currently returns true as default. Doesn't throw    * IllegalStateException in order not to change the signature of the    * overridden method    */
