@@ -1845,20 +1845,6 @@ name|KeeperException
 import|;
 end_import
 
-begin_import
-import|import
-name|net
-operator|.
-name|sf
-operator|.
-name|ehcache
-operator|.
-name|search
-operator|.
-name|Results
-import|;
-end_import
-
 begin_comment
 comment|/**  * A mock RegionServer implementation.  * Use this when you can't bend Mockito to your liking (e.g. return null result  * when 'scanning' until master timesout and then return a coherent meta row  * result thereafter.  Have some facility for faking gets and scans.  See  * setGetResult(byte[], byte[], Result) for how to fill the backing data  * store that the get pulls from.  */
 end_comment
@@ -1905,7 +1891,7 @@ operator|new
 name|Random
 argument_list|()
 decl_stmt|;
-comment|/**    * Map of regions to map of rows and {@link Results}.  Used as data source when    * {@link MockRegionServer#get(byte[], Get)} is called. Because we have a byte    * key, need to use TreeMap and provide a Comparator.  Use    * {@link #setGetResult(byte[], byte[], Result)} filling this map.    */
+comment|/**    * Map of regions to map of rows and {@link Result}.  Used as data source when    * {@link MockRegionServer#get(byte[], Get)} is called. Because we have a byte    * key, need to use TreeMap and provide a Comparator.  Use    * {@link #setGetResult(byte[], byte[], Result)} filling this map.    */
 specifier|private
 specifier|final
 name|Map
