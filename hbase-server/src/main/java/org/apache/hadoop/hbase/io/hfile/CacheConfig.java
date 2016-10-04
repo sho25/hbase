@@ -75,18 +75,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|ForkJoinPool
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -110,6 +98,22 @@ operator|.
 name|logging
 operator|.
 name|LogFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -152,22 +156,6 @@ operator|.
 name|hbase
 operator|.
 name|HConstants
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceAudience
 import|;
 end_import
 
@@ -285,23 +273,6 @@ operator|.
 name|getName
 argument_list|()
 argument_list|)
-decl_stmt|;
-comment|/**    * Configuration key to cache block policy (Lru, TinyLfu).    */
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|HFILE_BLOCK_CACHE_POLICY_KEY
-init|=
-literal|"hfile.block.cache.policy"
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|HFILE_BLOCK_CACHE_POLICY_DEFAULT
-init|=
-literal|"LRU"
 decl_stmt|;
 comment|/**    * Configuration key to cache data blocks on read. Bloom blocks and index blocks are always be    * cached if the block cache is enabled.    */
 specifier|public
@@ -504,11 +475,6 @@ name|BlockCache
 argument_list|>
 name|clazz
 decl_stmt|;
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unchecked"
-argument_list|)
 name|ExternalBlockCaches
 parameter_list|(
 name|String
@@ -1417,11 +1383,9 @@ operator|!
 name|isBlockCacheEnabled
 argument_list|()
 condition|)
-block|{
 return|return
 literal|false
 return|;
-block|}
 switch|switch
 condition|(
 name|category
@@ -1648,7 +1612,7 @@ name|GLOBAL_BLOCK_CACHE_INSTANCE
 decl_stmt|;
 specifier|private
 specifier|static
-name|FirstLevelBlockCache
+name|LruBlockCache
 name|GLOBAL_L1_CACHE_INSTANCE
 decl_stmt|;
 comment|/** Boolean whether we have disabled the block cache entirely. */
@@ -1662,7 +1626,7 @@ literal|false
 decl_stmt|;
 specifier|static
 name|long
-name|getFirstLevelCacheSize
+name|getLruCacheSize
 parameter_list|(
 specifier|final
 name|Configuration
@@ -1736,10 +1700,10 @@ name|cachePercentage
 argument_list|)
 return|;
 block|}
-comment|/**    * @param c Configuration to use.    * @return An L1 instance    */
+comment|/**    * @param c Configuration to use.    * @return An L1 instance.  Currently an instance of LruBlockCache.    */
 specifier|public
 specifier|static
-name|FirstLevelBlockCache
+name|LruBlockCache
 name|getL1
 parameter_list|(
 specifier|final
@@ -1747,9 +1711,11 @@ name|Configuration
 name|c
 parameter_list|)
 block|{
-name|long
-name|xmx
-init|=
+return|return
+name|getL1
+argument_list|(
+name|c
+argument_list|,
 name|ManagementFactory
 operator|.
 name|getMemoryMXBean
@@ -1760,38 +1726,23 @@ argument_list|()
 operator|.
 name|getMax
 argument_list|()
-decl_stmt|;
-name|long
-name|l1CacheSize
-init|=
-name|getFirstLevelCacheSize
-argument_list|(
-name|c
-argument_list|,
-name|xmx
-argument_list|)
-decl_stmt|;
-return|return
-name|getL1
-argument_list|(
-name|l1CacheSize
-argument_list|,
-name|c
 argument_list|)
 return|;
 block|}
-comment|/**    * @param c Configuration to use.    * @param xmx Max heap memory    * @return An L1 instance.    */
+comment|/**    * @param c Configuration to use.    * @param xmx Max heap memory    * @return An L1 instance.  Currently an instance of LruBlockCache.    */
 specifier|private
 specifier|synchronized
 specifier|static
-name|FirstLevelBlockCache
+name|LruBlockCache
 name|getL1
 parameter_list|(
-name|long
-name|cacheSize
-parameter_list|,
+specifier|final
 name|Configuration
 name|c
+parameter_list|,
+specifier|final
+name|long
+name|xmx
 parameter_list|)
 block|{
 if|if
@@ -1810,27 +1761,25 @@ condition|)
 return|return
 literal|null
 return|;
+name|long
+name|lruCacheSize
+init|=
+name|getLruCacheSize
+argument_list|(
+name|c
+argument_list|,
+name|xmx
+argument_list|)
+decl_stmt|;
 if|if
 condition|(
-name|cacheSize
+name|lruCacheSize
 operator|<
 literal|0
 condition|)
 return|return
 literal|null
 return|;
-name|String
-name|policy
-init|=
-name|c
-operator|.
-name|get
-argument_list|(
-name|HFILE_BLOCK_CACHE_POLICY_KEY
-argument_list|,
-name|HFILE_BLOCK_CACHE_POLICY_DEFAULT
-argument_list|)
-decl_stmt|;
 name|int
 name|blockSize
 init|=
@@ -1849,13 +1798,13 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Allocating BlockCache size="
+literal|"Allocating LruBlockCache size="
 operator|+
 name|StringUtils
 operator|.
 name|byteDesc
 argument_list|(
-name|cacheSize
+name|lruCacheSize
 argument_list|)
 operator|+
 literal|", blockSize="
@@ -1868,22 +1817,12 @@ name|blockSize
 argument_list|)
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|policy
-operator|.
-name|equalsIgnoreCase
-argument_list|(
-literal|"LRU"
-argument_list|)
-condition|)
-block|{
 name|GLOBAL_L1_CACHE_INSTANCE
 operator|=
 operator|new
 name|LruBlockCache
 argument_list|(
-name|cacheSize
+name|lruCacheSize
 argument_list|,
 name|blockSize
 argument_list|,
@@ -1892,48 +1831,6 @@ argument_list|,
 name|c
 argument_list|)
 expr_stmt|;
-block|}
-elseif|else
-if|if
-condition|(
-name|policy
-operator|.
-name|equalsIgnoreCase
-argument_list|(
-literal|"TinyLFU"
-argument_list|)
-condition|)
-block|{
-name|GLOBAL_L1_CACHE_INSTANCE
-operator|=
-operator|new
-name|TinyLfuBlockCache
-argument_list|(
-name|cacheSize
-argument_list|,
-name|blockSize
-argument_list|,
-name|ForkJoinPool
-operator|.
-name|commonPool
-argument_list|()
-argument_list|,
-name|c
-argument_list|)
-expr_stmt|;
-block|}
-else|else
-block|{
-throw|throw
-operator|new
-name|IllegalArgumentException
-argument_list|(
-literal|"Unknown policy: "
-operator|+
-name|policy
-argument_list|)
-throw|;
-block|}
 return|return
 name|GLOBAL_L1_CACHE_INSTANCE
 return|;
@@ -2025,9 +1922,6 @@ name|c
 parameter_list|)
 block|{
 name|Class
-argument_list|<
-name|?
-argument_list|>
 name|klass
 init|=
 literal|null
@@ -2174,11 +2068,9 @@ argument_list|()
 operator|<=
 literal|0
 condition|)
-block|{
 return|return
 literal|null
 return|;
-block|}
 name|int
 name|blockSize
 init|=
@@ -2462,22 +2354,16 @@ name|GLOBAL_BLOCK_CACHE_INSTANCE
 operator|!=
 literal|null
 condition|)
-block|{
 return|return
 name|GLOBAL_BLOCK_CACHE_INSTANCE
 return|;
-block|}
 if|if
 condition|(
 name|blockCacheDisabled
 condition|)
-block|{
 return|return
 literal|null
 return|;
-block|}
-comment|// blockCacheDisabled is set as a side-effect of getFirstLevelCacheSize()
-comment|// so check it again after the call
 name|long
 name|xmx
 init|=
@@ -2492,25 +2378,24 @@ operator|.
 name|getMax
 argument_list|()
 decl_stmt|;
-name|long
-name|l1CacheSize
+name|LruBlockCache
+name|l1
 init|=
-name|getFirstLevelCacheSize
+name|getL1
 argument_list|(
 name|conf
 argument_list|,
 name|xmx
 argument_list|)
 decl_stmt|;
+comment|// blockCacheDisabled is set as a side-effect of getL1(), so check it again after the call.
 if|if
 condition|(
 name|blockCacheDisabled
 condition|)
-block|{
 return|return
 literal|null
 return|;
-block|}
 name|BlockCache
 name|l2
 init|=
@@ -2519,16 +2404,6 @@ argument_list|(
 name|conf
 argument_list|,
 name|xmx
-argument_list|)
-decl_stmt|;
-name|FirstLevelBlockCache
-name|l1
-init|=
-name|getL1
-argument_list|(
-name|l1CacheSize
-argument_list|,
-name|conf
 argument_list|)
 decl_stmt|;
 if|if
@@ -2558,7 +2433,7 @@ name|EXTERNAL_BLOCKCACHE_DEFAULT
 argument_list|)
 decl_stmt|;
 name|boolean
-name|combinedWithL1
+name|combinedWithLru
 init|=
 name|conf
 operator|.
@@ -2589,7 +2464,7 @@ else|else
 block|{
 if|if
 condition|(
-name|combinedWithL1
+name|combinedWithLru
 condition|)
 block|{
 name|GLOBAL_BLOCK_CACHE_INSTANCE
@@ -2605,10 +2480,10 @@ expr_stmt|;
 block|}
 else|else
 block|{
-comment|// L1 and L2 are not 'combined'. They are connected via the FirstLevelBlockCache
-comment|// victimhandler mechanism. It is a little ugly but works according to the following:
-comment|// when the background eviction thread runs, blocks evicted from L1 will go to L2 AND when
-comment|// we get a block from the L1 cache, if not in L1, we will search L2.
+comment|// L1 and L2 are not 'combined'.  They are connected via the LruBlockCache victimhandler
+comment|// mechanism.  It is a little ugly but works according to the following: when the
+comment|// background eviction thread runs, blocks evicted from L1 will go to L2 AND when we get
+comment|// a block from the L1 cache, if not in L1, we will search L2.
 name|GLOBAL_BLOCK_CACHE_INSTANCE
 operator|=
 name|l1
