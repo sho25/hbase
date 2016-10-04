@@ -412,9 +412,11 @@ argument_list|,
 name|getConnection
 argument_list|()
 argument_list|,
-name|tableName
+name|getTableName
+argument_list|()
 argument_list|,
-name|row
+name|getRow
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|this
@@ -452,7 +454,8 @@ name|IOException
 argument_list|(
 literal|"Failed to find location, tableName="
 operator|+
-name|tableName
+name|getTableName
+argument_list|()
 operator|+
 literal|", row="
 operator|+
@@ -460,7 +463,8 @@ name|Bytes
 operator|.
 name|toStringBinary
 argument_list|(
-name|row
+name|getRow
+argument_list|()
 argument_list|)
 operator|+
 literal|", reload="
@@ -484,7 +488,8 @@ name|locateRegionsInRange
 argument_list|(
 name|locateStartRow
 argument_list|,
-name|row
+name|getRow
+argument_list|()
 argument_list|,
 name|reload
 argument_list|)
@@ -516,7 +521,8 @@ name|Bytes
 operator|.
 name|toStringBinary
 argument_list|(
-name|row
+name|getRow
+argument_list|()
 argument_list|)
 argument_list|)
 throw|;
@@ -714,7 +720,8 @@ argument_list|,
 name|getConnection
 argument_list|()
 argument_list|,
-name|tableName
+name|getTableName
+argument_list|()
 argument_list|,
 name|currentKey
 argument_list|)
@@ -859,9 +866,8 @@ argument_list|(
 name|getConnection
 argument_list|()
 argument_list|,
-name|this
-operator|.
-name|tableName
+name|getTableName
+argument_list|()
 argument_list|,
 name|this
 operator|.

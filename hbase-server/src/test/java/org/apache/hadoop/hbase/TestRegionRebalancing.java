@@ -157,9 +157,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|protobuf
+name|regionserver
 operator|.
-name|ProtobufUtil
+name|HRegionServer
 import|;
 end_import
 
@@ -173,9 +173,11 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
+name|shaded
 operator|.
-name|HRegionServer
+name|protobuf
+operator|.
+name|ProtobufUtil
 import|;
 end_import
 

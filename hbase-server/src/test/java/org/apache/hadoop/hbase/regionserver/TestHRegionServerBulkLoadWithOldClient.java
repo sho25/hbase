@@ -175,7 +175,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|ClusterConnection
+name|ClientServiceCallable
 import|;
 end_import
 
@@ -191,7 +191,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|RegionServerCallable
+name|ClusterConnection
 import|;
 end_import
 
@@ -253,6 +253,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|RequestConverter
@@ -268,6 +270,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|shaded
 operator|.
 name|protobuf
 operator|.
@@ -286,6 +290,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|shaded
 operator|.
 name|protobuf
 operator|.
@@ -306,6 +312,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|shaded
 operator|.
 name|protobuf
 operator|.
@@ -739,21 +747,19 @@ name|getConfiguration
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|RegionServerCallable
+name|ClientServiceCallable
 argument_list|<
 name|Void
 argument_list|>
 name|callable
 init|=
 operator|new
-name|RegionServerCallable
+name|ClientServiceCallable
 argument_list|<
 name|Void
 argument_list|>
 argument_list|(
 name|conn
-argument_list|,
-name|rpcControllerFactory
 argument_list|,
 name|tableName
 argument_list|,
@@ -763,6 +769,11 @@ name|toBytes
 argument_list|(
 literal|"aaa"
 argument_list|)
+argument_list|,
+name|rpcControllerFactory
+operator|.
+name|newController
+argument_list|()
 argument_list|)
 block|{
 annotation|@
@@ -879,14 +890,12 @@ comment|// 5 * 50 = 250 open file handles!
 name|callable
 operator|=
 operator|new
-name|RegionServerCallable
+name|ClientServiceCallable
 argument_list|<
 name|Void
 argument_list|>
 argument_list|(
 name|conn
-argument_list|,
-name|rpcControllerFactory
 argument_list|,
 name|tableName
 argument_list|,
@@ -896,6 +905,11 @@ name|toBytes
 argument_list|(
 literal|"aaa"
 argument_list|)
+argument_list|,
+name|rpcControllerFactory
+operator|.
+name|newController
+argument_list|()
 argument_list|)
 block|{
 annotation|@

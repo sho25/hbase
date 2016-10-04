@@ -1221,7 +1221,7 @@ name|request
 operator|.
 name|addPermission
 argument_list|(
-name|ProtobufUtil
+name|AccessControlUtil
 operator|.
 name|toPermission
 argument_list|(
@@ -2576,7 +2576,7 @@ argument_list|(
 name|service
 argument_list|)
 decl_stmt|;
-name|ProtobufUtil
+name|AccessControlUtil
 operator|.
 name|grant
 argument_list|(
@@ -2706,7 +2706,7 @@ argument_list|(
 name|service
 argument_list|)
 decl_stmt|;
-name|ProtobufUtil
+name|AccessControlUtil
 operator|.
 name|revoke
 argument_list|(
@@ -2840,7 +2840,7 @@ argument_list|(
 name|service
 argument_list|)
 decl_stmt|;
-name|ProtobufUtil
+name|AccessControlUtil
 operator|.
 name|grant
 argument_list|(
@@ -3168,7 +3168,7 @@ argument_list|(
 name|service
 argument_list|)
 decl_stmt|;
-name|ProtobufUtil
+name|AccessControlUtil
 operator|.
 name|revoke
 argument_list|(
@@ -3314,7 +3314,7 @@ argument_list|(
 name|service
 argument_list|)
 decl_stmt|;
-name|ProtobufUtil
+name|AccessControlUtil
 operator|.
 name|grant
 argument_list|(
@@ -3664,7 +3664,7 @@ argument_list|(
 name|service
 argument_list|)
 decl_stmt|;
-name|ProtobufUtil
+name|AccessControlUtil
 operator|.
 name|revoke
 argument_list|(
@@ -4618,7 +4618,7 @@ argument_list|()
 operator|.
 name|addAction
 argument_list|(
-name|ProtobufUtil
+name|AccessControlUtil
 operator|.
 name|toPermissionAction
 argument_list|(
@@ -4851,7 +4851,7 @@ name|request
 operator|.
 name|addPermission
 argument_list|(
-name|ProtobufUtil
+name|AccessControlUtil
 operator|.
 name|toPermission
 argument_list|(

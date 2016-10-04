@@ -755,6 +755,27 @@ name|length
 return|;
 block|}
 comment|/**    * Find the size of compressed data assuming that buffer will be compressed    * using given algorithm.    * @param algo compression algorithm    * @param compressor compressor already requested from codec    * @param inputBuffer Array to be compressed.    * @param offset Offset to beginning of the data.    * @param length Length to be compressed.    * @return Size of compressed data in bytes.    * @throws IOException    */
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"NP_NULL_ON_SOME_PATH_EXCEPTION"
+argument_list|,
+name|justification
+operator|=
+literal|"No sure what findbugs wants but looks to me like no NPE"
+argument_list|)
 specifier|public
 specifier|static
 name|int
@@ -871,12 +892,6 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
-if|if
-condition|(
-name|compressingStream
-operator|!=
-literal|null
-condition|)
 name|compressingStream
 operator|.
 name|close

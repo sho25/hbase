@@ -83,6 +83,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -106,18 +108,6 @@ operator|.
 name|util
 operator|.
 name|ForeignExceptionUtil
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|InvalidProtocolBufferException
 import|;
 end_import
 
@@ -350,7 +340,7 @@ index|[]
 name|bytes
 parameter_list|)
 throws|throws
-name|InvalidProtocolBufferException
+name|IOException
 block|{
 return|return
 name|fromProto

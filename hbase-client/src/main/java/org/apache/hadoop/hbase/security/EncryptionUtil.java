@@ -237,11 +237,15 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
+name|com
+operator|.
+name|google
+operator|.
 name|protobuf
 operator|.
-name|generated
-operator|.
-name|EncryptionProtos
+name|UnsafeByteOperations
 import|;
 end_import
 
@@ -255,9 +259,13 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
+name|shaded
 operator|.
-name|ByteStringer
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|EncryptionProtos
 import|;
 end_import
 
@@ -506,9 +514,9 @@ name|builder
 operator|.
 name|setIv
 argument_list|(
-name|ByteStringer
+name|UnsafeByteOperations
 operator|.
-name|wrap
+name|unsafeWrap
 argument_list|(
 name|iv
 argument_list|)
@@ -537,9 +545,9 @@ name|builder
 operator|.
 name|setHash
 argument_list|(
-name|ByteStringer
+name|UnsafeByteOperations
 operator|.
-name|wrap
+name|unsafeWrap
 argument_list|(
 name|Encryption
 operator|.
@@ -582,9 +590,9 @@ name|builder
 operator|.
 name|setData
 argument_list|(
-name|ByteStringer
+name|UnsafeByteOperations
 operator|.
-name|wrap
+name|unsafeWrap
 argument_list|(
 name|out
 operator|.

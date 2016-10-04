@@ -65,7 +65,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|List
+name|Arrays
 import|;
 end_import
 
@@ -75,7 +75,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|Arrays
+name|List
 import|;
 end_import
 
@@ -340,22 +340,6 @@ operator|.
 name|coprocessor
 operator|.
 name|ObserverContext
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|protobuf
-operator|.
-name|ProtobufUtil
 import|;
 end_import
 
@@ -2719,7 +2703,7 @@ argument_list|(
 name|service
 argument_list|)
 decl_stmt|;
-name|ProtobufUtil
+name|AccessControlUtil
 operator|.
 name|grant
 argument_list|(
@@ -2821,7 +2805,7 @@ argument_list|(
 name|service
 argument_list|)
 decl_stmt|;
-name|ProtobufUtil
+name|AccessControlUtil
 operator|.
 name|grant
 argument_list|(
@@ -2912,7 +2896,7 @@ argument_list|(
 name|service
 argument_list|)
 decl_stmt|;
-name|ProtobufUtil
+name|AccessControlUtil
 operator|.
 name|revoke
 argument_list|(
@@ -3013,7 +2997,7 @@ argument_list|(
 name|service
 argument_list|)
 decl_stmt|;
-name|ProtobufUtil
+name|AccessControlUtil
 operator|.
 name|revoke
 argument_list|(
@@ -3117,7 +3101,7 @@ argument_list|(
 name|service
 argument_list|)
 decl_stmt|;
-name|ProtobufUtil
+name|AccessControlUtil
 operator|.
 name|getUserPermissions
 argument_list|(

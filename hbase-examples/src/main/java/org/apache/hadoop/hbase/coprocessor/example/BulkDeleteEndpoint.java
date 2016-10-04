@@ -429,9 +429,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|protobuf
+name|ipc
 operator|.
-name|ProtobufUtil
+name|CoprocessorRpcUtils
 import|;
 end_import
 
@@ -447,7 +447,7 @@ name|hbase
 operator|.
 name|protobuf
 operator|.
-name|ResponseConverter
+name|ProtobufUtil
 import|;
 end_import
 
@@ -1003,7 +1003,7 @@ name|ioe
 argument_list|)
 expr_stmt|;
 comment|// Call ServerRpcController#getFailedOn() to retrieve this IOException at client side.
-name|ResponseConverter
+name|CoprocessorRpcUtils
 operator|.
 name|setControllerException
 argument_list|(

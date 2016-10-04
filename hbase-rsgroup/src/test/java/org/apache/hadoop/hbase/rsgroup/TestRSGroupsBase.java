@@ -299,6 +299,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|ProtobufUtil
@@ -314,6 +316,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|shaded
 operator|.
 name|protobuf
 operator|.

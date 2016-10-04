@@ -67,6 +67,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -121,18 +131,6 @@ name|Category
 import|;
 end_import
 
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|InvalidProtocolBufferException
-import|;
-end_import
-
 begin_comment
 comment|/**  * Test that we correctly serialize exceptions from a remote source  */
 end_comment
@@ -163,7 +161,7 @@ name|srcName
 init|=
 literal|"someNode"
 decl_stmt|;
-comment|/**    * Verify that we get back similar stack trace information before an after serialization.    * @throws InvalidProtocolBufferException    */
+comment|/**    * Verify that we get back similar stack trace information before an after serialization.    * @throws IOException     */
 annotation|@
 name|Test
 specifier|public
@@ -171,7 +169,7 @@ name|void
 name|testSimpleException
 parameter_list|()
 throws|throws
-name|InvalidProtocolBufferException
+name|IOException
 block|{
 name|String
 name|data
@@ -307,7 +305,7 @@ name|length
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Compare that a generic exception's stack trace has the same stack trace elements after    * serialization and deserialization    * @throws InvalidProtocolBufferException    */
+comment|/**    * Compare that a generic exception's stack trace has the same stack trace elements after    * serialization and deserialization    * @throws IOException     */
 annotation|@
 name|Test
 specifier|public
@@ -315,7 +313,7 @@ name|void
 name|testRemoteFromLocal
 parameter_list|()
 throws|throws
-name|InvalidProtocolBufferException
+name|IOException
 block|{
 name|String
 name|errorMsg

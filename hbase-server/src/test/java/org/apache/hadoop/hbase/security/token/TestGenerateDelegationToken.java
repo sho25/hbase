@@ -141,7 +141,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|NettyRpcClient
+name|BlockingRpcClient
 import|;
 end_import
 
@@ -158,6 +158,22 @@ operator|.
 name|ipc
 operator|.
 name|CoprocessorRpcChannel
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ipc
+operator|.
+name|NettyRpcClient
 import|;
 end_import
 
@@ -190,22 +206,6 @@ operator|.
 name|ipc
 operator|.
 name|RpcClientFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|ipc
-operator|.
-name|BlockingRpcClient
 import|;
 end_import
 
@@ -628,7 +628,7 @@ name|AccessDeniedException
 operator|)
 name|ProtobufUtil
 operator|.
-name|getRemoteException
+name|handleRemoteException
 argument_list|(
 name|e
 argument_list|)

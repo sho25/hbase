@@ -227,7 +227,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|BlockingRpcCallback
+name|CoprocessorRpcUtils
 import|;
 end_import
 
@@ -439,23 +439,19 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|ByteStringer
+name|Bytes
 import|;
 end_import
 
 begin_import
 import|import
-name|org
+name|com
 operator|.
-name|apache
+name|google
 operator|.
-name|hadoop
+name|protobuf
 operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Bytes
+name|ByteString
 import|;
 end_import
 
@@ -693,6 +689,8 @@ operator|new
 name|ServerRpcController
 argument_list|()
 decl_stmt|;
+name|CoprocessorRpcUtils
+operator|.
 name|BlockingRpcCallback
 argument_list|<
 name|VisibilityLabelsResponse
@@ -700,6 +698,8 @@ argument_list|>
 name|rpcCallback
 init|=
 operator|new
+name|CoprocessorRpcUtils
+operator|.
 name|BlockingRpcCallback
 argument_list|<
 name|VisibilityLabelsResponse
@@ -758,9 +758,9 @@ name|newBuilder
 operator|.
 name|setLabel
 argument_list|(
-name|ByteStringer
+name|ByteString
 operator|.
-name|wrap
+name|copyFrom
 argument_list|(
 name|Bytes
 operator|.
@@ -1052,6 +1052,8 @@ operator|new
 name|ServerRpcController
 argument_list|()
 decl_stmt|;
+name|CoprocessorRpcUtils
+operator|.
 name|BlockingRpcCallback
 argument_list|<
 name|GetAuthsResponse
@@ -1059,6 +1061,8 @@ argument_list|>
 name|rpcCallback
 init|=
 operator|new
+name|CoprocessorRpcUtils
+operator|.
 name|BlockingRpcCallback
 argument_list|<
 name|GetAuthsResponse
@@ -1089,9 +1093,9 @@ name|getAuthReqBuilder
 operator|.
 name|setUser
 argument_list|(
-name|ByteStringer
+name|ByteString
 operator|.
-name|wrap
+name|copyFrom
 argument_list|(
 name|Bytes
 operator|.
@@ -1290,6 +1294,8 @@ operator|new
 name|ServerRpcController
 argument_list|()
 decl_stmt|;
+name|CoprocessorRpcUtils
+operator|.
 name|BlockingRpcCallback
 argument_list|<
 name|ListLabelsResponse
@@ -1297,6 +1303,8 @@ argument_list|>
 name|rpcCallback
 init|=
 operator|new
+name|CoprocessorRpcUtils
+operator|.
 name|BlockingRpcCallback
 argument_list|<
 name|ListLabelsResponse
@@ -1621,6 +1629,8 @@ operator|new
 name|ServerRpcController
 argument_list|()
 decl_stmt|;
+name|CoprocessorRpcUtils
+operator|.
 name|BlockingRpcCallback
 argument_list|<
 name|VisibilityLabelsResponse
@@ -1628,6 +1638,8 @@ argument_list|>
 name|rpcCallback
 init|=
 operator|new
+name|CoprocessorRpcUtils
+operator|.
 name|BlockingRpcCallback
 argument_list|<
 name|VisibilityLabelsResponse
@@ -1658,9 +1670,9 @@ name|setAuthReqBuilder
 operator|.
 name|setUser
 argument_list|(
-name|ByteStringer
+name|ByteString
 operator|.
-name|wrap
+name|copyFrom
 argument_list|(
 name|Bytes
 operator|.
@@ -1693,17 +1705,14 @@ name|setAuthReqBuilder
 operator|.
 name|addAuth
 argument_list|(
-name|ByteStringer
+operator|(
+name|ByteString
 operator|.
-name|wrap
-argument_list|(
-name|Bytes
-operator|.
-name|toBytes
+name|copyFromUtf8
 argument_list|(
 name|auth
 argument_list|)
-argument_list|)
+operator|)
 argument_list|)
 expr_stmt|;
 block|}

@@ -131,9 +131,11 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|protobuf
+name|security
 operator|.
-name|ProtobufUtil
+name|access
+operator|.
+name|AccessControlConstants
 import|;
 end_import
 
@@ -151,7 +153,7 @@ name|security
 operator|.
 name|access
 operator|.
-name|AccessControlConstants
+name|AccessControlUtil
 import|;
 end_import
 
@@ -206,6 +208,24 @@ operator|.
 name|visibility
 operator|.
 name|VisibilityConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|protobuf
+operator|.
+name|ProtobufUtil
 import|;
 end_import
 
@@ -451,7 +471,7 @@ name|AccessControlConstants
 operator|.
 name|OP_ATTRIBUTE_ACL
 argument_list|,
-name|ProtobufUtil
+name|AccessControlUtil
 operator|.
 name|toUsersAndPermissions
 argument_list|(
@@ -535,7 +555,7 @@ name|AccessControlConstants
 operator|.
 name|OP_ATTRIBUTE_ACL
 argument_list|,
-name|ProtobufUtil
+name|AccessControlUtil
 operator|.
 name|toUsersAndPermissions
 argument_list|(

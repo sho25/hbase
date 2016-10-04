@@ -59,7 +59,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|RpcControllerFactory
+name|HBaseRpcController
 import|;
 end_import
 
@@ -97,15 +97,15 @@ parameter_list|(
 name|Connection
 name|connection
 parameter_list|,
-name|RpcControllerFactory
-name|rpcControllerFactory
-parameter_list|,
 name|TableName
 name|tableName
 parameter_list|,
 name|byte
 index|[]
 name|row
+parameter_list|,
+name|HBaseRpcController
+name|rpcController
 parameter_list|)
 block|{
 name|super
@@ -116,7 +116,7 @@ name|tableName
 argument_list|,
 name|row
 argument_list|,
-name|rpcControllerFactory
+name|rpcController
 argument_list|)
 expr_stmt|;
 name|this

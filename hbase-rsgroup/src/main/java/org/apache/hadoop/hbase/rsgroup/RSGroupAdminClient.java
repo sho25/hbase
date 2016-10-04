@@ -415,7 +415,7 @@ argument_list|()
 condition|)
 block|{
 return|return
-name|ProtobufUtil
+name|RSGroupSerDe
 operator|.
 name|toGroupInfo
 argument_list|(
@@ -439,7 +439,7 @@ block|{
 throw|throw
 name|ProtobufUtil
 operator|.
-name|getRemoteException
+name|handleRemoteException
 argument_list|(
 name|e
 argument_list|)
@@ -506,7 +506,7 @@ argument_list|()
 condition|)
 block|{
 return|return
-name|ProtobufUtil
+name|RSGroupSerDe
 operator|.
 name|toGroupInfo
 argument_list|(
@@ -530,7 +530,7 @@ block|{
 throw|throw
 name|ProtobufUtil
 operator|.
-name|getRemoteException
+name|handleRemoteException
 argument_list|(
 name|e
 argument_list|)
@@ -654,7 +654,7 @@ block|{
 throw|throw
 name|ProtobufUtil
 operator|.
-name|getRemoteException
+name|handleRemoteException
 argument_list|(
 name|e
 argument_list|)
@@ -743,7 +743,7 @@ block|{
 throw|throw
 name|ProtobufUtil
 operator|.
-name|getRemoteException
+name|handleRemoteException
 argument_list|(
 name|e
 argument_list|)
@@ -803,7 +803,7 @@ block|{
 throw|throw
 name|ProtobufUtil
 operator|.
-name|getRemoteException
+name|handleRemoteException
 argument_list|(
 name|e
 argument_list|)
@@ -863,7 +863,7 @@ block|{
 throw|throw
 name|ProtobufUtil
 operator|.
-name|getRemoteException
+name|handleRemoteException
 argument_list|(
 name|e
 argument_list|)
@@ -927,7 +927,7 @@ block|{
 throw|throw
 name|ProtobufUtil
 operator|.
-name|getRemoteException
+name|handleRemoteException
 argument_list|(
 name|e
 argument_list|)
@@ -1008,7 +1008,7 @@ name|result
 operator|.
 name|add
 argument_list|(
-name|ProtobufUtil
+name|RSGroupSerDe
 operator|.
 name|toGroupInfo
 argument_list|(
@@ -1030,7 +1030,7 @@ block|{
 throw|throw
 name|ProtobufUtil
 operator|.
-name|getRemoteException
+name|handleRemoteException
 argument_list|(
 name|e
 argument_list|)
@@ -1116,7 +1116,7 @@ argument_list|()
 condition|)
 block|{
 return|return
-name|ProtobufUtil
+name|RSGroupSerDe
 operator|.
 name|toGroupInfo
 argument_list|(
@@ -1140,7 +1140,7 @@ block|{
 throw|throw
 name|ProtobufUtil
 operator|.
-name|getRemoteException
+name|handleRemoteException
 argument_list|(
 name|e
 argument_list|)

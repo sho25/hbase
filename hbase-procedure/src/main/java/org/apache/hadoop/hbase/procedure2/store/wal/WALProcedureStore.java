@@ -23,20 +23,6 @@ end_package
 
 begin_import
 import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|annotations
-operator|.
-name|VisibleForTesting
-import|;
-end_import
-
-begin_import
-import|import
 name|java
 operator|.
 name|io
@@ -511,6 +497,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -548,6 +536,20 @@ operator|.
 name|ipc
 operator|.
 name|RemoteException
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
 import|;
 end_import
 

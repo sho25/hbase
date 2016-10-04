@@ -238,7 +238,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Representation of a grouping of cells. May contain cells from more than  * one row. Encapsulates RowModel and CellModel models.  *   *<pre>  *&lt;complexType name="CellSet"&gt;  *&lt;sequence&gt;  *&lt;element name="row" type="tns:Row" maxOccurs="unbounded"   *       minOccurs="1"&gt;&lt;/element&gt;  *&lt;/sequence&gt;  *&lt;/complexType&gt;  *   *&lt;complexType name="Row"&gt;  *&lt;sequence&gt;  *&lt;element name="key" type="base64Binary"&gt;&lt;/element&gt;  *&lt;element name="cell" type="tns:Cell"   *       maxOccurs="unbounded" minOccurs="1"&gt;&lt;/element&gt;  *&lt;/sequence&gt;  *&lt;/complexType&gt;  *  *&lt;complexType name="Cell"&gt;  *&lt;sequence&gt;  *&lt;element name="value" maxOccurs="1" minOccurs="1"&gt;  *&lt;simpleType&gt;  *&lt;restriction base="base64Binary"/&gt;  *&lt;/simpleType&gt;  *&lt;/element&gt;  *&lt;/sequence&gt;  *&lt;attribute name="column" type="base64Binary" /&gt;  *&lt;attribute name="timestamp" type="int" /&gt;  *&lt;/complexType&gt;  *</pre>  */
+comment|/**  * Representation of a grouping of cells. May contain cells from more than  * one row. Encapsulates RowModel and CellModel models.  *  *<pre>  *&lt;complexType name="CellSet"&gt;  *&lt;sequence&gt;  *&lt;element name="row" type="tns:Row" maxOccurs="unbounded"  *       minOccurs="1"&gt;&lt;/element&gt;  *&lt;/sequence&gt;  *&lt;/complexType&gt;  *  *&lt;complexType name="Row"&gt;  *&lt;sequence&gt;  *&lt;element name="key" type="base64Binary"&gt;&lt;/element&gt;  *&lt;element name="cell" type="tns:Cell"  *       maxOccurs="unbounded" minOccurs="1"&gt;&lt;/element&gt;  *&lt;/sequence&gt;  *&lt;/complexType&gt;  *  *&lt;complexType name="Cell"&gt;  *&lt;sequence&gt;  *&lt;element name="value" maxOccurs="1" minOccurs="1"&gt;  *&lt;simpleType&gt;  *&lt;restriction base="base64Binary"/&gt;  *&lt;/simpleType&gt;  *&lt;/element&gt;  *&lt;/sequence&gt;  *&lt;attribute name="column" type="base64Binary" /&gt;  *&lt;attribute name="timestamp" type="int" /&gt;  *&lt;/complexType&gt;  *</pre>  */
 end_comment
 
 begin_class
@@ -290,7 +290,7 @@ name|RowModel
 argument_list|>
 name|rows
 decl_stmt|;
-comment|/**      * Constructor    */
+comment|/**    * Constructor    */
 specifier|public
 name|CellSetModel
 parameter_list|()

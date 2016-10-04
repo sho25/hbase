@@ -207,6 +207,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|RequestConverter
@@ -223,6 +225,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|ResponseConverter
@@ -238,6 +242,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|shaded
 operator|.
 name|protobuf
 operator|.
@@ -258,6 +264,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|shaded
 operator|.
 name|protobuf
 operator|.
@@ -943,9 +951,11 @@ argument_list|(
 operator|(
 name|ClusterConnection
 operator|)
-name|connection
+name|getConnection
+argument_list|()
 argument_list|,
-name|tableName
+name|getTableName
+argument_list|()
 argument_list|,
 name|getScan
 argument_list|()

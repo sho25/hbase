@@ -932,7 +932,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A representation of Scanner parameters.  *   *<pre>  *&lt;complexType name="Scanner"&gt;  *&lt;sequence&gt;  *&lt;element name="column" type="base64Binary" minOccurs="0" maxOccurs="unbounded"/&gt;  *&lt;element name="filter" type="string" minOccurs="0" maxOccurs="1"&gt;&lt;/element&gt;  *&lt;/sequence&gt;  *&lt;attribute name="startRow" type="base64Binary"&gt;&lt;/attribute&gt;  *&lt;attribute name="endRow" type="base64Binary"&gt;&lt;/attribute&gt;  *&lt;attribute name="batch" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="caching" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="startTime" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="endTime" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="maxVersions" type="int"&gt;&lt;/attribute&gt;  *&lt;/complexType&gt;  *</pre>  */
+comment|/**  * A representation of Scanner parameters.  *  *<pre>  *&lt;complexType name="Scanner"&gt;  *&lt;sequence&gt;  *&lt;element name="column" type="base64Binary" minOccurs="0" maxOccurs="unbounded"/&gt;  *&lt;element name="filter" type="string" minOccurs="0" maxOccurs="1"&gt;&lt;/element&gt;  *&lt;/sequence&gt;  *&lt;attribute name="startRow" type="base64Binary"&gt;&lt;/attribute&gt;  *&lt;attribute name="endRow" type="base64Binary"&gt;&lt;/attribute&gt;  *&lt;attribute name="batch" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="caching" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="startTime" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="endTime" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="maxVersions" type="int"&gt;&lt;/attribute&gt;  *&lt;/complexType&gt;  *</pre>  */
 end_comment
 
 begin_class
@@ -3111,7 +3111,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * @param filter the filter    * @return the JSON representation of the filter    * @throws Exception     */
+comment|/**    * @param filter the filter    * @return the JSON representation of the filter    * @throws Exception    */
 specifier|public
 specifier|static
 name|String
@@ -3192,7 +3192,7 @@ argument_list|(
 literal|":"
 argument_list|)
 decl_stmt|;
-comment|/**    * @param scan the scan specification    * @throws Exception     */
+comment|/**    * @param scan the scan specification    * @throws Exception    */
 specifier|public
 specifier|static
 name|ScannerModel
@@ -3598,7 +3598,7 @@ operator|=
 name|filter
 expr_stmt|;
 block|}
-comment|/**    * Constructor     * @param startRow the start key of the row-range    * @param endRow the end key of the row-range    * @param columns the columns to scan    * @param batch the number of values to return in batch    * @param caching the number of rows that the scanner will fetch at once    * @param startTime the lower bound on timestamps of values of interest    * (values with timestamps earlier than this are excluded)    * @param endTime the upper bound on timestamps of values of interest    * (values with timestamps later than this are excluded)    * @param filter a filter specification    */
+comment|/**    * Constructor    * @param startRow the start key of the row-range    * @param endRow the end key of the row-range    * @param columns the columns to scan    * @param batch the number of values to return in batch    * @param caching the number of rows that the scanner will fetch at once    * @param startTime the lower bound on timestamps of values of interest    * (values with timestamps earlier than this are excluded)    * @param endTime the upper bound on timestamps of values of interest    * (values with timestamps later than this are excluded)    * @param filter a filter specification    */
 specifier|public
 name|ScannerModel
 parameter_list|(

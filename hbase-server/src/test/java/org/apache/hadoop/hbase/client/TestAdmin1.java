@@ -455,6 +455,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|ProtobufUtil
@@ -471,6 +473,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|RequestConverter
@@ -486,6 +490,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|shaded
 operator|.
 name|protobuf
 operator|.
@@ -506,6 +512,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|shaded
 operator|.
 name|protobuf
 operator|.
@@ -706,18 +714,6 @@ operator|.
 name|categories
 operator|.
 name|Category
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|ServiceException
 import|;
 end_import
 
@@ -9024,6 +9020,22 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
 name|ServiceException
 name|m
 parameter_list|)

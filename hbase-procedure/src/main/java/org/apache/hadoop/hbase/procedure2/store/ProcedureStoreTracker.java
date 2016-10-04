@@ -111,6 +111,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -1335,7 +1337,7 @@ return|return
 name|nonZeroIntersect
 return|;
 block|}
-comment|/**      * Convert to      * {@link org.apache.hadoop.hbase.protobuf.generated.ProcedureProtos.ProcedureStoreTracker.TrackerNode}      * protobuf.      */
+comment|/**      * Convert to      * org.apache.hadoop.hbase.protobuf.generated.ProcedureProtos.ProcedureStoreTracker.TrackerNode      * protobuf.      */
 specifier|public
 name|ProcedureProtos
 operator|.
@@ -3930,7 +3932,7 @@ block|}
 comment|// ========================================================================
 comment|//  Convert to/from Protocol Buffer.
 comment|// ========================================================================
-comment|/**    * Builds    * {@link org.apache.hadoop.hbase.protobuf.generated.ProcedureProtos.ProcedureStoreTracker}    * protocol buffer from current state.    */
+comment|/**    * Builds    * org.apache.hadoop.hbase.protobuf.generated.ProcedureProtos.ProcedureStoreTracker    * protocol buffer from current state.    */
 specifier|public
 name|ProcedureProtos
 operator|.

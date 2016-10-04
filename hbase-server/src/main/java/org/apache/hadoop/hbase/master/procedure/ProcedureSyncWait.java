@@ -265,7 +265,9 @@ name|hbase
 operator|.
 name|master
 operator|.
-name|RegionStates
+name|RegionState
+operator|.
+name|State
 import|;
 end_import
 
@@ -281,9 +283,7 @@ name|hbase
 operator|.
 name|master
 operator|.
-name|RegionState
-operator|.
-name|State
+name|RegionStates
 import|;
 end_import
 
@@ -332,22 +332,6 @@ operator|.
 name|procedure2
 operator|.
 name|ProcedureExecutor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|procedure2
-operator|.
-name|RemoteProcedureException
 import|;
 end_import
 
@@ -580,20 +564,9 @@ condition|)
 block|{
 comment|// If the procedure fails, we should always have an exception captured. Throw it.
 throw|throw
-name|RemoteProcedureException
-operator|.
-name|fromProto
-argument_list|(
 name|result
 operator|.
-name|getForeignExceptionMessage
-argument_list|()
-operator|.
-name|getForeignExchangeMessage
-argument_list|()
-argument_list|)
-operator|.
-name|unwrapRemoteIOException
+name|getException
 argument_list|()
 throw|;
 block|}

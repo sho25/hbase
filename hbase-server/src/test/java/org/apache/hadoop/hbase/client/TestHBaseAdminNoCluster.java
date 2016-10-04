@@ -269,6 +269,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -288,6 +290,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|shaded
 operator|.
 name|protobuf
 operator|.
@@ -309,6 +313,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -328,6 +334,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|shaded
 operator|.
 name|protobuf
 operator|.
@@ -349,6 +357,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -368,6 +378,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|shaded
 operator|.
 name|protobuf
 operator|.
@@ -389,6 +401,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -408,6 +422,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|shaded
 operator|.
 name|protobuf
 operator|.
@@ -429,6 +445,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -449,6 +467,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -456,6 +476,28 @@ operator|.
 name|MasterProtos
 operator|.
 name|SetBalancerRunningRequest
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|RpcController
 import|;
 end_import
 
@@ -577,18 +619,6 @@ name|google
 operator|.
 name|protobuf
 operator|.
-name|RpcController
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
 name|ServiceException
 import|;
 end_import
@@ -626,7 +656,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/**    * Verify that PleaseHoldException gets retried.    * HBASE-8764    * @throws IOException    * @throws ZooKeeperConnectionException    * @throws MasterNotRunningException    * @throws ServiceException    */
+comment|/**    * Verify that PleaseHoldException gets retried.    * HBASE-8764    * @throws IOException    * @throws ZooKeeperConnectionException    * @throws MasterNotRunningException    * @throws ServiceException    * @throws org.apache.hadoop.hbase.shaded.com.google.protobuf.ServiceException     */
 comment|//TODO: Clean up, with Procedure V2 and nonce to prevent the same procedure to call mulitple
 comment|// time, this test is invalid anymore. Just keep the test around for some time before
 comment|// fully removing it.
@@ -645,6 +675,22 @@ name|ZooKeeperConnectionException
 throws|,
 name|IOException
 throws|,
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
 name|ServiceException
 block|{
 name|Configuration

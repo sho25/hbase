@@ -317,6 +317,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -336,6 +338,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|shaded
 operator|.
 name|protobuf
 operator|.
@@ -357,6 +361,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -376,6 +382,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|shaded
 operator|.
 name|protobuf
 operator|.
@@ -397,6 +405,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -416,6 +426,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|shaded
 operator|.
 name|protobuf
 operator|.
@@ -738,18 +750,6 @@ operator|.
 name|collect
 operator|.
 name|Lists
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|ServiceException
 import|;
 end_import
 
@@ -1852,22 +1852,27 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
 name|ServiceException
 name|e
 parameter_list|)
 block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Correctly failed delete of non-existant snapshot:"
-operator|+
-name|e
-operator|.
-name|getMessage
-argument_list|()
-argument_list|)
-expr_stmt|;
+comment|// Expected
 block|}
 comment|// write one snapshot to the fs
 name|Path

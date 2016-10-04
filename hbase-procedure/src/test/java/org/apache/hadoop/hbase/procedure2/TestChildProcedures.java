@@ -833,7 +833,10 @@ name|info
 argument_list|(
 name|result
 operator|.
-name|getExceptionFullMessage
+name|getException
+argument_list|()
+operator|.
+name|getMessage
 argument_list|()
 argument_list|)
 expr_stmt|;

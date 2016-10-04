@@ -58,7 +58,10 @@ specifier|public
 name|RetryingCallerInterceptorContext
 name|prepare
 parameter_list|(
-name|RetryingCallableBase
+name|RetryingCallable
+argument_list|<
+name|?
+argument_list|>
 name|callable
 parameter_list|)
 block|{
@@ -73,7 +76,10 @@ specifier|public
 name|RetryingCallerInterceptorContext
 name|prepare
 parameter_list|(
-name|RetryingCallableBase
+name|RetryingCallable
+argument_list|<
+name|?
+argument_list|>
 name|callable
 parameter_list|,
 name|int

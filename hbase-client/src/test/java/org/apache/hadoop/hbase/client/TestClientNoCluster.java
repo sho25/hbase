@@ -409,6 +409,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -427,6 +429,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -444,6 +448,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|shaded
 operator|.
 name|protobuf
 operator|.
@@ -465,6 +471,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -484,6 +492,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|shaded
 operator|.
 name|protobuf
 operator|.
@@ -505,6 +515,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -525,6 +537,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -544,6 +558,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|shaded
 operator|.
 name|protobuf
 operator|.
@@ -567,6 +583,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -586,6 +604,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|shaded
 operator|.
 name|protobuf
 operator|.
@@ -607,6 +627,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -626,6 +648,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|shaded
 operator|.
 name|protobuf
 operator|.
@@ -647,6 +671,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -666,6 +692,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|shaded
 operator|.
 name|protobuf
 operator|.
@@ -687,6 +715,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -706,6 +736,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|shaded
 operator|.
 name|protobuf
 operator|.
@@ -727,6 +759,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -746,6 +780,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|shaded
 operator|.
 name|protobuf
 operator|.
@@ -767,6 +803,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -786,6 +824,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|shaded
 operator|.
 name|protobuf
 operator|.
@@ -807,6 +847,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -826,6 +868,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|shaded
 operator|.
 name|protobuf
 operator|.
@@ -847,6 +891,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -866,6 +912,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|shaded
 operator|.
 name|protobuf
 operator|.
@@ -940,22 +988,6 @@ operator|.
 name|testclassification
 operator|.
 name|SmallTests
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|ByteStringer
 import|;
 end_import
 
@@ -1105,6 +1137,16 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
 name|com
 operator|.
 name|google
@@ -1117,6 +1159,16 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
 name|com
 operator|.
 name|google
@@ -1129,6 +1181,16 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
 name|com
 operator|.
 name|google
@@ -1136,6 +1198,28 @@ operator|.
 name|protobuf
 operator|.
 name|ServiceException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|UnsafeByteOperations
 import|;
 end_import
 
@@ -3246,9 +3330,9 @@ decl_stmt|;
 name|ByteString
 name|row
 init|=
-name|ByteStringer
+name|UnsafeByteOperations
 operator|.
-name|wrap
+name|unsafeWrap
 argument_list|(
 name|hri
 operator|.
@@ -3579,9 +3663,9 @@ specifier|static
 name|ByteString
 name|CATALOG_FAMILY_BYTESTRING
 init|=
-name|ByteStringer
+name|UnsafeByteOperations
 operator|.
-name|wrap
+name|unsafeWrap
 argument_list|(
 name|HConstants
 operator|.
@@ -3594,9 +3678,9 @@ specifier|static
 name|ByteString
 name|REGIONINFO_QUALIFIER_BYTESTRING
 init|=
-name|ByteStringer
+name|UnsafeByteOperations
 operator|.
-name|wrap
+name|unsafeWrap
 argument_list|(
 name|HConstants
 operator|.
@@ -3609,9 +3693,9 @@ specifier|static
 name|ByteString
 name|SERVER_QUALIFIER_BYTESTRING
 init|=
-name|ByteStringer
+name|UnsafeByteOperations
 operator|.
-name|wrap
+name|unsafeWrap
 argument_list|(
 name|HConstants
 operator|.
@@ -3711,9 +3795,9 @@ name|cellBuilder
 operator|.
 name|setValue
 argument_list|(
-name|ByteStringer
+name|UnsafeByteOperations
 operator|.
-name|wrap
+name|unsafeWrap
 argument_list|(
 name|hri
 operator|.
@@ -3812,9 +3896,9 @@ name|cellBuilder
 operator|.
 name|setQualifier
 argument_list|(
-name|ByteStringer
+name|UnsafeByteOperations
 operator|.
-name|wrap
+name|unsafeWrap
 argument_list|(
 name|HConstants
 operator|.
@@ -3827,9 +3911,9 @@ name|cellBuilder
 operator|.
 name|setValue
 argument_list|(
-name|ByteStringer
+name|UnsafeByteOperations
 operator|.
-name|wrap
+name|unsafeWrap
 argument_list|(
 name|Bytes
 operator|.

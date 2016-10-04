@@ -696,7 +696,7 @@ operator|.
 name|getName
 argument_list|()
 argument_list|,
-name|ProtobufUtil
+name|RSGroupSerDe
 operator|.
 name|toGroupInfo
 argument_list|(
@@ -819,7 +819,7 @@ name|zList
 operator|.
 name|add
 argument_list|(
-name|ProtobufUtil
+name|RSGroupSerDe
 operator|.
 name|toGroupInfo
 argument_list|(

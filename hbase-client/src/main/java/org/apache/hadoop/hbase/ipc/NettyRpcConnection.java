@@ -95,6 +95,16 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
 name|com
 operator|.
 name|google
@@ -454,6 +464,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|shaded
 operator|.
 name|protobuf
 operator|.
@@ -1584,7 +1596,7 @@ name|Call
 name|call
 parameter_list|,
 name|HBaseRpcController
-name|pcrc
+name|hrc
 parameter_list|)
 throws|throws
 name|IOException
@@ -1602,7 +1614,7 @@ literal|"Can not send request because relogin is in progress."
 argument_list|)
 throw|;
 block|}
-name|pcrc
+name|hrc
 operator|.
 name|notifyOnCancel
 argument_list|(

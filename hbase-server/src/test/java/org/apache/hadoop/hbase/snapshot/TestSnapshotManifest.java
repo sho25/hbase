@@ -18,14 +18,24 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|fail
+import|;
+end_import
+
+begin_import
 import|import
-name|com
+name|java
 operator|.
-name|google
+name|io
 operator|.
-name|protobuf
-operator|.
-name|InvalidProtocolBufferException
+name|IOException
 import|;
 end_import
 
@@ -123,6 +133,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HBaseTestingUtility
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HColumnDescriptor
 import|;
 end_import
@@ -165,7 +189,15 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HBaseTestingUtility
+name|shaded
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|UnsafeByteOperations
 import|;
 end_import
 
@@ -178,6 +210,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|shaded
 operator|.
 name|protobuf
 operator|.
@@ -194,6 +228,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|shaded
 operator|.
 name|protobuf
 operator|.
@@ -215,6 +251,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -234,6 +272,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|shaded
 operator|.
 name|protobuf
 operator|.
@@ -274,22 +314,6 @@ operator|.
 name|testclassification
 operator|.
 name|SmallTests
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|ByteStringer
 import|;
 end_import
 
@@ -350,28 +374,6 @@ operator|.
 name|categories
 operator|.
 name|Category
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|fail
 import|;
 end_import
 
@@ -658,9 +660,9 @@ name|family
 operator|.
 name|setFamilyName
 argument_list|(
-name|ByteStringer
+name|UnsafeByteOperations
 operator|.
-name|wrap
+name|unsafeWrap
 argument_list|(
 name|hcd
 operator|.

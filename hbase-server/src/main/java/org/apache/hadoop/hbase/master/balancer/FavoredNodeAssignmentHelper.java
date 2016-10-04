@@ -329,6 +329,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|ProtobufUtil
@@ -344,6 +346,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|shaded
 operator|.
 name|protobuf
 operator|.
@@ -362,6 +366,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|shaded
 operator|.
 name|protobuf
 operator|.
@@ -962,7 +968,7 @@ return|return
 name|put
 return|;
 block|}
-comment|/**    * @param favoredNodes The PB'ed bytes of favored nodes    * @return the array of {@link ServerName} for the byte array of favored nodes.    * @throws InvalidProtocolBufferException    */
+comment|/**    * @param favoredNodes The PB'ed bytes of favored nodes    * @return the array of {@link ServerName} for the byte array of favored nodes.    * @throws IOException    */
 specifier|public
 specifier|static
 name|ServerName
@@ -974,7 +980,7 @@ index|[]
 name|favoredNodes
 parameter_list|)
 throws|throws
-name|InvalidProtocolBufferException
+name|IOException
 block|{
 name|FavoredNodes
 name|f

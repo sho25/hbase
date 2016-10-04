@@ -93,8 +93,16 @@ extends|extends
 name|RpcChannel
 extends|,
 name|BlockingRpcChannel
-block|{ }
+block|{}
 end_interface
+
+begin_comment
+comment|// This Interface is part of our public, client-facing API!!!
+end_comment
+
+begin_comment
+comment|// This belongs in client package but it is exposed in our public API so we cannot relocate.
+end_comment
 
 end_unit
 

@@ -127,6 +127,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|ProtobufUtil
@@ -174,18 +176,6 @@ operator|.
 name|zookeeper
 operator|.
 name|KeeperException
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|InvalidProtocolBufferException
 import|;
 end_import
 
@@ -1588,7 +1578,7 @@ block|}
 block|}
 catch|catch
 parameter_list|(
-name|InvalidProtocolBufferException
+name|IOException
 name|e
 parameter_list|)
 block|{

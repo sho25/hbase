@@ -239,9 +239,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|protobuf
+name|rest
 operator|.
-name|ProtobufUtil
+name|ProtobufMessageHandler
 import|;
 end_import
 
@@ -255,9 +255,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|rest
+name|protobuf
 operator|.
-name|ProtobufMessageHandler
+name|ProtobufUtil
 import|;
 end_import
 
@@ -364,7 +364,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A representation of HBase table descriptors.  *   *<pre>  *&lt;complexType name="TableSchema"&gt;  *&lt;sequence&gt;  *&lt;element name="column" type="tns:ColumnSchema"   *       maxOccurs="unbounded" minOccurs="1"&gt;&lt;/element&gt;  *&lt;/sequence&gt;  *&lt;attribute name="name" type="string"&gt;&lt;/attribute&gt;  *&lt;anyAttribute&gt;&lt;/anyAttribute&gt;  *&lt;/complexType&gt;  *</pre>  */
+comment|/**  * A representation of HBase table descriptors.  *  *<pre>  *&lt;complexType name="TableSchema"&gt;  *&lt;sequence&gt;  *&lt;element name="column" type="tns:ColumnSchema"  *       maxOccurs="unbounded" minOccurs="1"&gt;&lt;/element&gt;  *&lt;/sequence&gt;  *&lt;attribute name="name" type="string"&gt;&lt;/attribute&gt;  *&lt;anyAttribute&gt;&lt;/anyAttribute&gt;  *&lt;/complexType&gt;  *</pre>  */
 end_comment
 
 begin_class

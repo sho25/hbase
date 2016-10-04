@@ -57,7 +57,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HBaseConfiguration
+name|CoordinatedStateManager
 import|;
 end_import
 
@@ -71,9 +71,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
-operator|.
-name|Put
+name|HBaseConfiguration
 import|;
 end_import
 
@@ -103,7 +101,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CoordinatedStateManager
+name|client
+operator|.
+name|Put
 import|;
 end_import
 
@@ -116,6 +116,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|shaded
 operator|.
 name|protobuf
 operator|.
@@ -133,6 +135,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|RequestConverter
@@ -149,6 +153,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -156,18 +162,6 @@ operator|.
 name|ClientProtos
 operator|.
 name|MutateRequest
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|ServiceException
 import|;
 end_import
 
@@ -284,16 +278,32 @@ block|}
 block|}
 catch|catch
 parameter_list|(
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
 name|ServiceException
-name|se
+name|e
 parameter_list|)
 block|{
 throw|throw
 name|ProtobufUtil
 operator|.
-name|getRemoteException
+name|handleRemoteException
 argument_list|(
-name|se
+name|e
 argument_list|)
 throw|;
 block|}

@@ -1167,6 +1167,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|ipc
 operator|.
 name|protobuf
@@ -1393,6 +1395,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -1412,6 +1416,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|shaded
 operator|.
 name|protobuf
 operator|.
@@ -7879,7 +7885,7 @@ argument_list|(
 name|service
 argument_list|)
 decl_stmt|;
-name|ProtobufUtil
+name|AccessControlUtil
 operator|.
 name|grant
 argument_list|(
@@ -7976,7 +7982,7 @@ argument_list|(
 name|service
 argument_list|)
 decl_stmt|;
-name|ProtobufUtil
+name|AccessControlUtil
 operator|.
 name|revoke
 argument_list|(
@@ -8073,7 +8079,7 @@ argument_list|(
 name|service
 argument_list|)
 decl_stmt|;
-name|ProtobufUtil
+name|AccessControlUtil
 operator|.
 name|getUserPermissions
 argument_list|(
@@ -8157,7 +8163,7 @@ argument_list|(
 name|service
 argument_list|)
 decl_stmt|;
-name|ProtobufUtil
+name|AccessControlUtil
 operator|.
 name|getUserPermissions
 argument_list|(
@@ -10738,7 +10744,7 @@ argument_list|)
 decl_stmt|;
 name|perms
 operator|=
-name|ProtobufUtil
+name|AccessControlUtil
 operator|.
 name|getUserPermissions
 argument_list|(
@@ -10932,7 +10938,7 @@ argument_list|)
 decl_stmt|;
 name|perms
 operator|=
-name|ProtobufUtil
+name|AccessControlUtil
 operator|.
 name|getUserPermissions
 argument_list|(
@@ -11096,7 +11102,7 @@ argument_list|)
 decl_stmt|;
 name|perms
 operator|=
-name|ProtobufUtil
+name|AccessControlUtil
 operator|.
 name|getUserPermissions
 argument_list|(
@@ -11228,7 +11234,7 @@ argument_list|)
 decl_stmt|;
 name|perms
 operator|=
-name|ProtobufUtil
+name|AccessControlUtil
 operator|.
 name|getUserPermissions
 argument_list|(
@@ -11346,7 +11352,7 @@ argument_list|)
 decl_stmt|;
 name|perms
 operator|=
-name|ProtobufUtil
+name|AccessControlUtil
 operator|.
 name|getUserPermissions
 argument_list|(
@@ -11477,7 +11483,7 @@ argument_list|)
 decl_stmt|;
 name|perms
 operator|=
-name|ProtobufUtil
+name|AccessControlUtil
 operator|.
 name|getUserPermissions
 argument_list|(

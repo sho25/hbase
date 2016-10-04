@@ -74,7 +74,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Class that acts as a NoOpInterceptor. This class is used in case the  * {@link RetryingCallerInterceptor} was not configured correctly or an  * {@link RetryingCallerInterceptor} was never configured in the first place.  *   */
+comment|/**  * Class that acts as a NoOpInterceptor. This class is used in case the  * RetryingCallerInterceptor was not configured correctly or an  * RetryingCallerInterceptor was never configured in the first place.  *  */
 end_comment
 
 begin_class

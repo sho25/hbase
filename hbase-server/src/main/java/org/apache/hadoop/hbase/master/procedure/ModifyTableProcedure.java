@@ -53,16 +53,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|security
-operator|.
-name|PrivilegedExceptionAction
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|HashSet
@@ -198,20 +188,6 @@ operator|.
 name|hbase
 operator|.
 name|TableName
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|TableNotDisabledException
 import|;
 end_import
 
@@ -367,6 +343,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|ProtobufUtil
@@ -382,6 +360,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|shaded
 operator|.
 name|protobuf
 operator|.
@@ -400,6 +380,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|shaded
 operator|.
 name|protobuf
 operator|.

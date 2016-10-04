@@ -279,20 +279,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Server
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|ServerLoad
 import|;
 end_import
@@ -413,6 +399,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|ProtobufUtil
@@ -428,6 +416,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|shaded
 operator|.
 name|protobuf
 operator|.
@@ -662,18 +652,6 @@ operator|.
 name|mockito
 operator|.
 name|Mockito
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|ServiceException
 import|;
 end_import
 
@@ -956,7 +934,7 @@ name|join
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Test master failover.    * Start up three fake regionservers and a master.    * @throws IOException    * @throws KeeperException    * @throws InterruptedException    */
+comment|/**    * Test master failover.    * Start up three fake regionservers and a master.    * @throws IOException    * @throws KeeperException    * @throws InterruptedException    * @throws org.apache.hadoop.hbase.shaded.com.google.protobuf.ServiceException     */
 annotation|@
 name|Test
 specifier|public
@@ -964,13 +942,7 @@ name|void
 name|testFailover
 parameter_list|()
 throws|throws
-name|IOException
-throws|,
-name|KeeperException
-throws|,
-name|InterruptedException
-throws|,
-name|ServiceException
+name|Exception
 block|{
 specifier|final
 name|long

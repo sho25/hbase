@@ -235,6 +235,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|ProtobufUtil
@@ -250,6 +252,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|shaded
 operator|.
 name|protobuf
 operator|.
@@ -7049,11 +7053,14 @@ name|tableName
 argument_list|,
 name|server
 argument_list|,
+name|multi
+argument_list|,
 name|asyncProcess
 operator|.
 name|rpcFactory
-argument_list|,
-name|multi
+operator|.
+name|newController
+argument_list|()
 argument_list|)
 return|;
 block|}

@@ -89,6 +89,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -108,6 +110,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|shaded
 operator|.
 name|protobuf
 operator|.
@@ -129,6 +133,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -136,18 +142,6 @@ operator|.
 name|ErrorHandlingProtos
 operator|.
 name|StackTraceElementMessage
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|InvalidProtocolBufferException
 import|;
 end_import
 
@@ -578,7 +572,7 @@ name|toByteArray
 argument_list|()
 return|;
 block|}
-comment|/**    * Takes a series of bytes and tries to generate an ForeignException instance for it.    * @param bytes    * @return the ForeignExcpetion instance    * @throws InvalidProtocolBufferException if there was deserialization problem this is thrown.    */
+comment|/**    * Takes a series of bytes and tries to generate an ForeignException instance for it.    * @param bytes    * @return the ForeignExcpetion instance    * @throws InvalidProtocolBufferException if there was deserialization problem this is thrown.    * @throws org.apache.hadoop.hbase.shaded.com.google.protobuf.InvalidProtocolBufferException     */
 specifier|public
 specifier|static
 name|ForeignException
@@ -589,7 +583,7 @@ index|[]
 name|bytes
 parameter_list|)
 throws|throws
-name|InvalidProtocolBufferException
+name|IOException
 block|{
 comment|// figure out the data we need to pass
 name|ForeignExceptionMessage

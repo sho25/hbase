@@ -191,23 +191,19 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|ByteStringer
+name|Bytes
 import|;
 end_import
 
 begin_import
 import|import
-name|org
+name|com
 operator|.
-name|apache
+name|google
 operator|.
-name|hadoop
+name|protobuf
 operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Bytes
+name|ByteString
 import|;
 end_import
 
@@ -647,9 +643,9 @@ name|builder
 operator|.
 name|setBigdecimalMsg
 argument_list|(
-name|ByteStringer
+name|ByteString
 operator|.
-name|wrap
+name|copyFrom
 argument_list|(
 name|Bytes
 operator|.

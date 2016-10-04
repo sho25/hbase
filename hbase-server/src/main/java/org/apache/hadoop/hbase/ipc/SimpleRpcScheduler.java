@@ -272,6 +272,13 @@ name|CALL_QUEUE_HANDLER_FACTOR_CONF_KEY
 init|=
 literal|"hbase.ipc.server.callqueue.handler.factor"
 decl_stmt|;
+specifier|static
+specifier|final
+name|String
+name|CODEL_FASTPATH_BALANCED_Q
+init|=
+literal|"CodelFPBQ.default"
+decl_stmt|;
 comment|/**    * The default, 'fifo', has the least friction but is dumb.    * If set to 'deadline', uses a priority queue and deprioritizes long-running scans. Sorting by    * priority comes at a cost, reduced throughput.    */
 specifier|public
 specifier|static
@@ -1148,9 +1155,9 @@ block|{
 name|callExecutor
 operator|=
 operator|new
-name|FastPathBalancedQueueRpcExecutor
+name|BalancedQueueRpcExecutor
 argument_list|(
-literal|"CodelFPBQ.default"
+name|CODEL_FASTPATH_BALANCED_Q
 argument_list|,
 name|handlerCount
 argument_list|,

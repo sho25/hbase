@@ -188,7 +188,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Representation of a list of table regions.   *   *<pre>  *&lt;complexType name="TableInfo"&gt;  *&lt;sequence&gt;  *&lt;element name="region" type="tns:TableRegion"   *       maxOccurs="unbounded" minOccurs="1"&gt;&lt;/element&gt;  *&lt;/sequence&gt;  *&lt;attribute name="name" type="string"&gt;&lt;/attribute&gt;  *&lt;/complexType&gt;  *</pre>  */
+comment|/**  * Representation of a list of table regions.  *  *<pre>  *&lt;complexType name="TableInfo"&gt;  *&lt;sequence&gt;  *&lt;element name="region" type="tns:TableRegion"  *       maxOccurs="unbounded" minOccurs="1"&gt;&lt;/element&gt;  *&lt;/sequence&gt;  *&lt;attribute name="name" type="string"&gt;&lt;/attribute&gt;  *&lt;/complexType&gt;  *</pre>  */
 end_comment
 
 begin_class

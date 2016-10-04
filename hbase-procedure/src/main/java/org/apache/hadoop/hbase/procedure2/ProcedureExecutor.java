@@ -439,6 +439,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -2944,7 +2946,7 @@ name|procedureLists
 operator|.
 name|add
 argument_list|(
-name|Procedure
+name|ProcedureUtil
 operator|.
 name|createProcedureInfo
 argument_list|(
@@ -2952,8 +2954,6 @@ name|p
 operator|.
 name|getValue
 argument_list|()
-argument_list|,
-literal|null
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -6200,7 +6200,7 @@ comment|// update the executor internal state maps
 name|ProcedureInfo
 name|procInfo
 init|=
-name|Procedure
+name|ProcedureUtil
 operator|.
 name|createProcedureInfo
 argument_list|(

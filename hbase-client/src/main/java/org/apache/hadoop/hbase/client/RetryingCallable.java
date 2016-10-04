@@ -19,6 +19,16 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -34,7 +44,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A Callable&lt;T&gt; that will be retried.  If {@link #call(int)} invocation throws exceptions,  * we will call {@link #throwable(Throwable, boolean)} with whatever the exception was.  * @param<T> result class from executing<tt>this</tt>  */
+comment|/**  * A Callable&lt;T&gt; that will be retried. If {@link #call(int)} invocation throws exceptions,  * we will call {@link #throwable(Throwable, boolean)} with whatever the exception was.  * @param<T> result class from executing<tt>this</tt>  */
 end_comment
 
 begin_interface
@@ -48,9 +58,48 @@ name|RetryingCallable
 parameter_list|<
 name|T
 parameter_list|>
-extends|extends
-name|RetryingCallableBase
 block|{
+comment|/**    * Prepare by setting up any connections to servers, etc., ahead of call invocation.    * TODO: We call prepare before EVERY call. Seems wrong. FIX!!!!    * @param reload Set this to true if need to requery locations    * @throws IOException e    */
+name|void
+name|prepare
+parameter_list|(
+specifier|final
+name|boolean
+name|reload
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called when call throws an exception and we are going to retry; take action to    * make it so we succeed on next call (clear caches, do relookup of locations, etc.).    * @param t        throwable which was thrown    * @param retrying True if we are in retrying mode (we are not in retrying mode when max    *                 retries == 1; we ARE in retrying mode if retries&gt; 1 even when we are the    *                 last attempt)    */
+name|void
+name|throwable
+parameter_list|(
+specifier|final
+name|Throwable
+name|t
+parameter_list|,
+name|boolean
+name|retrying
+parameter_list|)
+function_decl|;
+comment|/**    * @return Some details from the implementation that we would like to add to a terminating    *         exception; i.e. a fatal exception is being thrown ending retries and we might like to    *         add more implementation-specific detail on to the exception being thrown.    */
+name|String
+name|getExceptionMessageAdditionalDetail
+parameter_list|()
+function_decl|;
+comment|/**    * @param pause time to pause    * @param tries amount of tries until till sleep    * @return Suggestion on how much to sleep between retries    */
+name|long
+name|sleep
+parameter_list|(
+specifier|final
+name|long
+name|pause
+parameter_list|,
+specifier|final
+name|int
+name|tries
+parameter_list|)
+function_decl|;
 comment|/**    * Computes a result, or throws an exception if unable to do so.    *    * @param callTimeout - the time available for this call. 0 for infinite.    * @return computed result    * @throws Exception if unable to compute a result    */
 name|T
 name|call

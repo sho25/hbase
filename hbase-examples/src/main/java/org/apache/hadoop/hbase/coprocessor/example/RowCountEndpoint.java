@@ -215,9 +215,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|protobuf
+name|ipc
 operator|.
-name|ResponseConverter
+name|CoprocessorRpcUtils
 import|;
 end_import
 
@@ -512,7 +512,7 @@ name|IOException
 name|ioe
 parameter_list|)
 block|{
-name|ResponseConverter
+name|CoprocessorRpcUtils
 operator|.
 name|setControllerException
 argument_list|(
@@ -688,7 +688,7 @@ name|IOException
 name|ioe
 parameter_list|)
 block|{
-name|ResponseConverter
+name|CoprocessorRpcUtils
 operator|.
 name|setControllerException
 argument_list|(

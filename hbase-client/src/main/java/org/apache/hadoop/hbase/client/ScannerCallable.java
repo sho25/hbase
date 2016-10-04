@@ -341,6 +341,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|ProtobufUtil
@@ -356,6 +358,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|shaded
 operator|.
 name|protobuf
 operator|.
@@ -373,6 +377,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
 name|protobuf
 operator|.
 name|ResponseConverter
@@ -388,6 +394,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|shaded
 operator|.
 name|protobuf
 operator|.
@@ -408,6 +416,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|shaded
 operator|.
 name|protobuf
 operator|.
@@ -476,7 +486,7 @@ specifier|public
 class|class
 name|ScannerCallable
 extends|extends
-name|RegionServerCallable
+name|ClientServiceCallable
 argument_list|<
 name|Result
 index|[]
@@ -704,13 +714,16 @@ name|super
 argument_list|(
 name|connection
 argument_list|,
-name|rpcControllerFactory
-argument_list|,
 name|tableName
 argument_list|,
 name|scan
 operator|.
 name|getStartRow
+argument_list|()
+argument_list|,
+name|rpcControllerFactory
+operator|.
+name|newController
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2066,9 +2079,8 @@ operator|.
 name|getConnection
 argument_list|()
 argument_list|,
-name|this
-operator|.
-name|tableName
+name|getTableName
+argument_list|()
 argument_list|,
 name|this
 operator|.

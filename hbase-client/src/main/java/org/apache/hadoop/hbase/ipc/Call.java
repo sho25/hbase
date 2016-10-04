@@ -19,6 +19,28 @@ end_package
 
 begin_import
 import|import
+name|io
+operator|.
+name|netty
+operator|.
+name|util
+operator|.
+name|Timeout
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
 name|com
 operator|.
 name|google
@@ -31,6 +53,16 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
 name|com
 operator|.
 name|google
@@ -43,6 +75,16 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
 name|com
 operator|.
 name|google
@@ -55,13 +97,19 @@ end_import
 
 begin_import
 import|import
-name|io
+name|org
 operator|.
-name|netty
+name|apache
 operator|.
-name|util
+name|hadoop
 operator|.
-name|Timeout
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|protobuf
+operator|.
+name|ProtobufUtil
 import|;
 end_import
 
@@ -118,22 +166,6 @@ operator|.
 name|client
 operator|.
 name|MetricsConnection
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|protobuf
-operator|.
-name|ProtobufUtil
 import|;
 end_import
 
