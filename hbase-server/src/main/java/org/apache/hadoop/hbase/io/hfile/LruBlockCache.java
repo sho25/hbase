@@ -20,6 +20,18 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|java
+operator|.
+name|util
+operator|.
+name|Objects
+operator|.
+name|requireNonNull
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -420,7 +432,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A block cache implementation that is memory-aware using {@link HeapSize},  * memory-bound using an LRU eviction algorithm, and concurrent: backed by a  * {@link ConcurrentHashMap} and with a non-blocking eviction thread giving  * constant-time {@link #cacheBlock} and {@link #getBlock} operations.<p>  *  * Contains three levels of block priority to allow for scan-resistance and in-memory families   * {@link org.apache.hadoop.hbase.HColumnDescriptor#setInMemory(boolean)} (An in-memory column   * family is a column family that should be served from memory if possible):  * single-access, multiple-accesses, and in-memory priority.  * A block is added with an in-memory priority flag if  * {@link org.apache.hadoop.hbase.HColumnDescriptor#isInMemory()}, otherwise a block becomes a  *  single access priority the first time it is read into this block cache.  If a block is  *  accessed again while in cache, it is marked as a multiple access priority block.  This  *  delineation of blocks is used to prevent scans from thrashing the cache adding a   *  least-frequently-used element to the eviction algorithm.<p>  *  * Each priority is given its own chunk of the total cache to ensure  * fairness during eviction.  Each priority will retain close to its maximum  * size, however, if any priority is not using its entire chunk the others  * are able to grow beyond their chunk size.<p>  *  * Instantiated at a minimum with the total size and average block size.  * All sizes are in bytes.  The block size is not especially important as this  * cache is fully dynamic in its sizing of blocks.  It is only used for  * pre-allocating data structures and in initial heap estimation of the map.<p>  *  * The detailed constructor defines the sizes for the three priorities (they  * should total to the<code>maximum size</code> defined).  It also sets the levels that  * trigger and control the eviction thread.<p>  *  * The<code>acceptable size</code> is the cache size level which triggers the eviction  * process to start.  It evicts enough blocks to get the size below the  * minimum size specified.<p>  *  * Eviction happens in a separate thread and involves a single full-scan  * of the map.  It determines how many bytes must be freed to reach the minimum  * size, and then while scanning determines the fewest least-recently-used  * blocks necessary from each of the three priorities (would be 3 times bytes  * to free).  It then uses the priority chunk sizes to evict fairly according  * to the relative sizes and usage.  */
+comment|/**  * A block cache implementation that is memory-aware using {@link HeapSize},  * memory-bound using an LRU eviction algorithm, and concurrent: backed by a  * {@link ConcurrentHashMap} and with a non-blocking eviction thread giving  * constant-time {@link #cacheBlock} and {@link #getBlock} operations.<p>  *  * Contains three levels of block priority to allow for scan-resistance and in-memory families  * {@link org.apache.hadoop.hbase.HColumnDescriptor#setInMemory(boolean)} (An in-memory column  * family is a column family that should be served from memory if possible):  * single-access, multiple-accesses, and in-memory priority.  * A block is added with an in-memory priority flag if  * {@link org.apache.hadoop.hbase.HColumnDescriptor#isInMemory()}, otherwise a block becomes a  *  single access priority the first time it is read into this block cache.  If a block is  *  accessed again while in cache, it is marked as a multiple access priority block.  This  *  delineation of blocks is used to prevent scans from thrashing the cache adding a  *  least-frequently-used element to the eviction algorithm.<p>  *  * Each priority is given its own chunk of the total cache to ensure  * fairness during eviction.  Each priority will retain close to its maximum  * size, however, if any priority is not using its entire chunk the others  * are able to grow beyond their chunk size.<p>  *  * Instantiated at a minimum with the total size and average block size.  * All sizes are in bytes.  The block size is not especially important as this  * cache is fully dynamic in its sizing of blocks.  It is only used for  * pre-allocating data structures and in initial heap estimation of the map.<p>  *  * The detailed constructor defines the sizes for the three priorities (they  * should total to the<code>maximum size</code> defined).  It also sets the levels that  * trigger and control the eviction thread.<p>  *  * The<code>acceptable size</code> is the cache size level which triggers the eviction  * process to start.  It evicts enough blocks to get the size below the  * minimum size specified.<p>  *  * Eviction happens in a separate thread and involves a single full-scan  * of the map.  It determines how many bytes must be freed to reach the minimum  * size, and then while scanning determines the fewest least-recently-used  * blocks necessary from each of the three priorities (would be 3 times bytes  * to free).  It then uses the priority chunk sizes to evict fairly according  * to the relative sizes and usage.  */
 end_comment
 
 begin_class
@@ -439,9 +451,7 @@ specifier|public
 class|class
 name|LruBlockCache
 implements|implements
-name|ResizableBlockCache
-implements|,
-name|HeapSize
+name|FirstLevelBlockCache
 block|{
 specifier|private
 specifier|static
@@ -1295,6 +1305,39 @@ annotation|@
 name|Override
 specifier|public
 name|void
+name|setVictimCache
+parameter_list|(
+name|BlockCache
+name|victimCache
+parameter_list|)
+block|{
+if|if
+condition|(
+name|victimHandler
+operator|!=
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"The victim cache has already been set"
+argument_list|)
+throw|;
+block|}
+name|victimHandler
+operator|=
+name|requireNonNull
+argument_list|(
+name|victimCache
+argument_list|)
+expr_stmt|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
 name|setMaxSize
 parameter_list|(
 name|long
@@ -1844,6 +1887,8 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Cache the block with the specified name and buffer.    *<p>    * @param cacheKey block's cache key    * @param buf block buffer    */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|cacheBlock
@@ -2100,6 +2145,8 @@ argument_list|()
 return|;
 block|}
 comment|/**    * Whether the cache contains block with specified cacheKey    * @param cacheKey    * @return true if contains the block    */
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|containsBlock
@@ -3425,6 +3472,8 @@ return|return
 name|totalSize
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|int
 name|compareTo
@@ -4104,6 +4153,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Get counter statistics for this cache.    *    *<p>Includes: total accesses, hits, misses, evicted blocks, and runs    * of the eviction processes.    */
+annotation|@
+name|Override
 specifier|public
 name|CacheStats
 name|getStats
@@ -4737,6 +4788,8 @@ name|minFactor
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|shutdown
@@ -4983,15 +5036,10 @@ block|{
 name|BlockType
 name|blockType
 init|=
-operator|(
-operator|(
-name|Cacheable
-operator|)
 name|cb
 operator|.
 name|getBuffer
 argument_list|()
-operator|)
 operator|.
 name|getBlockType
 argument_list|()
@@ -5123,24 +5171,6 @@ block|}
 return|return
 name|counts
 return|;
-block|}
-specifier|public
-name|void
-name|setVictimCache
-parameter_list|(
-name|BlockCache
-name|handler
-parameter_list|)
-block|{
-assert|assert
-name|victimHandler
-operator|==
-literal|null
-assert|;
-name|victimHandler
-operator|=
-name|handler
-expr_stmt|;
 block|}
 annotation|@
 name|VisibleForTesting

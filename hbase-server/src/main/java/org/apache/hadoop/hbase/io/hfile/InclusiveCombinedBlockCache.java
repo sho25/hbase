@@ -70,7 +70,7 @@ block|{
 specifier|public
 name|InclusiveCombinedBlockCache
 parameter_list|(
-name|LruBlockCache
+name|FirstLevelBlockCache
 name|l1
 parameter_list|,
 name|BlockCache
@@ -108,7 +108,7 @@ comment|// On all external cache set ups the lru should have the l2 cache set as
 comment|// Because of that all requests that miss inside of the lru block cache will be
 comment|// tried in the l2 block cache.
 return|return
-name|lruCache
+name|l1Cache
 operator|.
 name|getBlock
 argument_list|(
@@ -145,7 +145,7 @@ parameter_list|)
 block|{
 comment|// This is the inclusive part of the combined block cache.
 comment|// Every block is placed into both block caches.
-name|lruCache
+name|l1Cache
 operator|.
 name|cacheBlock
 argument_list|(

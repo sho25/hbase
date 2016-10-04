@@ -116,7 +116,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * CombinedBlockCache is an abstraction layer that combines  * {@link LruBlockCache} and {@link BucketCache}. The smaller lruCache is used  * to cache bloom blocks and index blocks.  The larger l2Cache is used to  * cache data blocks. {@link #getBlock(BlockCacheKey, boolean, boolean, boolean)} reads  * first from the smaller lruCache before looking for the block in the l2Cache.  Blocks evicted  * from lruCache are put into the bucket cache.   * Metrics are the combined size and hits and misses of both caches.  *   */
+comment|/**  * CombinedBlockCache is an abstraction layer that combines  * {@link FirstLevelBlockCache} and {@link BucketCache}. The smaller lruCache is used  * to cache bloom blocks and index blocks.  The larger l2Cache is used to  * cache data blocks. {@link #getBlock(BlockCacheKey, boolean, boolean, boolean)} reads  * first from the smaller l1Cache before looking for the block in the l2Cache.  Blocks evicted  * from l1Cache are put into the bucket cache.  * Metrics are the combined size and hits and misses of both caches.  *  */
 end_comment
 
 begin_class
@@ -134,8 +134,8 @@ name|HeapSize
 block|{
 specifier|protected
 specifier|final
-name|LruBlockCache
-name|lruCache
+name|FirstLevelBlockCache
+name|l1Cache
 decl_stmt|;
 specifier|protected
 specifier|final
@@ -150,8 +150,8 @@ decl_stmt|;
 specifier|public
 name|CombinedBlockCache
 parameter_list|(
-name|LruBlockCache
-name|lruCache
+name|FirstLevelBlockCache
+name|l1Cache
 parameter_list|,
 name|BlockCache
 name|l2Cache
@@ -159,9 +159,9 @@ parameter_list|)
 block|{
 name|this
 operator|.
-name|lruCache
+name|l1Cache
 operator|=
-name|lruCache
+name|l1Cache
 expr_stmt|;
 name|this
 operator|.
@@ -176,7 +176,7 @@ operator|=
 operator|new
 name|CombinedCacheStats
 argument_list|(
-name|lruCache
+name|l1Cache
 operator|.
 name|getStats
 argument_list|()
@@ -221,7 +221,7 @@ argument_list|()
 expr_stmt|;
 block|}
 return|return
-name|lruCache
+name|l1Cache
 operator|.
 name|heapSize
 argument_list|()
@@ -271,7 +271,7 @@ operator|||
 name|cacheDataInL1
 condition|)
 block|{
-name|lruCache
+name|l1Cache
 operator|.
 name|cacheBlock
 argument_list|(
@@ -349,14 +349,14 @@ block|{
 comment|// TODO: is there a hole here, or just awkwardness since in the lruCache getBlock
 comment|// we end up calling l2Cache.getBlock.
 return|return
-name|lruCache
+name|l1Cache
 operator|.
 name|containsBlock
 argument_list|(
 name|cacheKey
 argument_list|)
 condition|?
-name|lruCache
+name|l1Cache
 operator|.
 name|getBlock
 argument_list|(
@@ -394,7 +394,7 @@ name|cacheKey
 parameter_list|)
 block|{
 return|return
-name|lruCache
+name|l1Cache
 operator|.
 name|evictBlock
 argument_list|(
@@ -420,7 +420,7 @@ name|hfileName
 parameter_list|)
 block|{
 return|return
-name|lruCache
+name|l1Cache
 operator|.
 name|evictBlocksByHfileName
 argument_list|(
@@ -455,7 +455,7 @@ name|void
 name|shutdown
 parameter_list|()
 block|{
-name|lruCache
+name|l1Cache
 operator|.
 name|shutdown
 argument_list|()
@@ -474,7 +474,7 @@ name|size
 parameter_list|()
 block|{
 return|return
-name|lruCache
+name|l1Cache
 operator|.
 name|size
 argument_list|()
@@ -493,7 +493,7 @@ name|getFreeSize
 parameter_list|()
 block|{
 return|return
-name|lruCache
+name|l1Cache
 operator|.
 name|getFreeSize
 argument_list|()
@@ -512,7 +512,7 @@ name|getCurrentSize
 parameter_list|()
 block|{
 return|return
-name|lruCache
+name|l1Cache
 operator|.
 name|getCurrentSize
 argument_list|()
@@ -531,7 +531,7 @@ name|getBlockCount
 parameter_list|()
 block|{
 return|return
-name|lruCache
+name|l1Cache
 operator|.
 name|getBlockCount
 argument_list|()
@@ -1323,7 +1323,7 @@ index|[]
 block|{
 name|this
 operator|.
-name|lruCache
+name|l1Cache
 block|,
 name|this
 operator|.
@@ -1343,7 +1343,7 @@ parameter_list|)
 block|{
 name|this
 operator|.
-name|lruCache
+name|l1Cache
 operator|.
 name|setMaxSize
 argument_list|(
