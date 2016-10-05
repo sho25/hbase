@@ -685,18 +685,6 @@ name|ReflectionUtils
 import|;
 end_import
 
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|ByteString
-import|;
-end_import
-
 begin_comment
 comment|/**  * Utility method to support visibility  */
 end_comment
@@ -843,9 +831,9 @@ name|visLabBuilder
 operator|.
 name|setLabel
 argument_list|(
-name|ByteString
+name|ByteStringer
 operator|.
-name|copyFrom
+name|wrap
 argument_list|(
 name|Bytes
 operator|.
@@ -957,9 +945,9 @@ name|userAuthsBuilder
 operator|.
 name|setUser
 argument_list|(
-name|ByteString
+name|ByteStringer
 operator|.
-name|copyFrom
+name|wrap
 argument_list|(
 name|Bytes
 operator|.

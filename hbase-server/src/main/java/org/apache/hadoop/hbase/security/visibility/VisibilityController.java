@@ -5945,9 +5945,9 @@ name|response
 operator|.
 name|addAuth
 argument_list|(
-name|ByteString
+name|ByteStringer
 operator|.
-name|copyFrom
+name|wrap
 argument_list|(
 name|Bytes
 operator|.
@@ -6555,9 +6555,9 @@ name|response
 operator|.
 name|addLabel
 argument_list|(
-name|ByteString
+name|ByteStringer
 operator|.
-name|copyFrom
+name|wrap
 argument_list|(
 name|Bytes
 operator|.
