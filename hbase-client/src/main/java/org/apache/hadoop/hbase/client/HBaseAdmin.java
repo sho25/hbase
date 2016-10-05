@@ -13023,7 +13023,7 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Is HBase available? Throw an exception if not.    * @param conf system configuration    * @throws ZooKeeperConnectionException if unable to connect to zookeeper]    */
+comment|/**    * Is HBase available? Throw an exception if not.    * @param conf system configuration    * @throws MasterNotRunningException if the master is not running.    * @throws ZooKeeperConnectionException if unable to connect to zookeeper.    * // TODO do not expose ZKConnectionException.    */
 specifier|public
 specifier|static
 name|void
@@ -13034,9 +13034,11 @@ name|Configuration
 name|conf
 parameter_list|)
 throws|throws
+name|MasterNotRunningException
+throws|,
 name|ZooKeeperConnectionException
 throws|,
-name|InterruptedIOException
+name|IOException
 block|{
 name|Configuration
 name|copyOfConf
@@ -13085,8 +13087,18 @@ name|createConnection
 argument_list|(
 name|copyOfConf
 argument_list|)
-init|;
+init|)
+block|{
+comment|// Check ZK first.
+comment|// If the connection exists, we may have a connection to ZK that does not work anymore
 name|ZooKeeperKeepAliveConnection
+name|zkw
+init|=
+literal|null
+decl_stmt|;
+try|try
+block|{
+comment|// This is NASTY. FIX!!!! Dependent on internal implementation! TODO
 name|zkw
 operator|=
 operator|(
@@ -13098,10 +13110,7 @@ operator|)
 operator|.
 name|getKeepAliveZooKeeperWatcher
 argument_list|()
-init|;
-init|)
-block|{
-comment|// This is NASTY. FIX!!!! Dependent on internal implementation! TODO
+expr_stmt|;
 name|zkw
 operator|.
 name|getRecoverableZooKeeper
@@ -13120,11 +13129,6 @@ name|baseZNode
 argument_list|,
 literal|false
 argument_list|)
-expr_stmt|;
-name|connection
-operator|.
-name|isMasterRunning
-argument_list|()
 expr_stmt|;
 block|}
 catch|catch
@@ -13180,6 +13184,29 @@ argument_list|,
 name|e
 argument_list|)
 throw|;
+block|}
+finally|finally
+block|{
+if|if
+condition|(
+name|zkw
+operator|!=
+literal|null
+condition|)
+block|{
+name|zkw
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
+block|}
+comment|// can throw MasterNotRunningException
+name|connection
+operator|.
+name|isMasterRunning
+argument_list|()
+expr_stmt|;
 block|}
 block|}
 annotation|@

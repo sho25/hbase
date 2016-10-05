@@ -131,6 +131,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|zookeeper
 operator|.
 name|MetaTableLocator
@@ -186,6 +202,10 @@ comment|/**  * A cluster registry that stores to zookeeper.  */
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 class|class
 name|ZooKeeperRegistry
 implements|implements
@@ -519,8 +539,6 @@ specifier|public
 name|String
 name|getClusterId
 parameter_list|()
-throws|throws
-name|IOException
 block|{
 if|if
 condition|(
@@ -595,15 +613,6 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-literal|"ZooKeeperException "
-argument_list|,
-name|e
-argument_list|)
-throw|;
 block|}
 catch|catch
 parameter_list|(
@@ -620,9 +629,6 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
-throw|throw
-name|e
-throw|;
 block|}
 finally|finally
 block|{

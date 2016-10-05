@@ -171,7 +171,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ServerName
+name|MasterNotRunningException
 import|;
 end_import
 
@@ -185,7 +185,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ZooKeeperConnectionException
+name|ServerName
 import|;
 end_import
 
@@ -686,12 +686,12 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|ZooKeeperConnectionException
+name|MasterNotRunningException
 name|ex
 parameter_list|)
 block|{
 comment|// Since we are randomly throwing SocketTimeoutExceptions, it is possible to get
-comment|// a ZooKeeperConnectionException.  It's a bug if we get other exceptions.
+comment|// a MasterNotRunningException.  It's a bug if we get other exceptions.
 name|lastFailed
 operator|=
 literal|true
