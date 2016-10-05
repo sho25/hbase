@@ -48556,11 +48556,6 @@ block|}
 comment|/**    * HBASE-16429 Make sure no stuck if roll writer when ring buffer is filled with appends    * @throws IOException if IO error occurred during test    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testWritesWhileRollWriter
