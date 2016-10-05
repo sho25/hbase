@@ -662,6 +662,8 @@ name|ByteString
 name|toByteString
 parameter_list|()
 block|{
+comment|// We need this copy to create the ByteString as the byte[] 'buf' is not immutable. We reuse
+comment|// them.
 return|return
 name|ByteString
 operator|.
@@ -702,6 +704,8 @@ argument_list|,
 name|dict
 argument_list|)
 expr_stmt|;
+comment|// We need this copy to create the ByteString as the byte[] 'buf' is not immutable. We reuse
+comment|// them.
 name|ByteString
 name|result
 init|=

@@ -4320,9 +4320,9 @@ name|google
 operator|.
 name|protobuf
 operator|.
-name|ByteString
+name|UnsafeByteOperations
 operator|.
-name|copyFrom
+name|unsafeWrap
 argument_list|(
 name|exec
 operator|.
@@ -4873,9 +4873,9 @@ name|google
 operator|.
 name|protobuf
 operator|.
-name|ByteString
+name|UnsafeByteOperations
 operator|.
-name|copyFrom
+name|unsafeWrap
 argument_list|(
 name|exec
 operator|.

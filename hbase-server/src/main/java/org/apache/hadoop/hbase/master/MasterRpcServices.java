@@ -4387,9 +4387,9 @@ name|builder
 operator|.
 name|setReturnData
 argument_list|(
-name|ByteString
+name|UnsafeByteOperations
 operator|.
-name|copyFrom
+name|unsafeWrap
 argument_list|(
 name|data
 argument_list|)
