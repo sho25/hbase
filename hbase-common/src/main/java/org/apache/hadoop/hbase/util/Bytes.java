@@ -143,18 +143,6 @@ name|nio
 operator|.
 name|charset
 operator|.
-name|Charset
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|nio
-operator|.
-name|charset
-operator|.
 name|StandardCharsets
 import|;
 end_import
@@ -461,31 +449,6 @@ argument_list|<
 name|Bytes
 argument_list|>
 block|{
-comment|//HConstants.UTF8_ENCODING should be updated if this changed
-comment|/** When we encode strings, we always specify UTF8 encoding */
-specifier|private
-specifier|static
-specifier|final
-name|String
-name|UTF8_ENCODING
-init|=
-literal|"UTF-8"
-decl_stmt|;
-comment|//HConstants.UTF8_CHARSET should be updated if this changed
-comment|/** When we encode strings, we always specify UTF8 encoding */
-specifier|private
-specifier|static
-specifier|final
-name|Charset
-name|UTF8_CHARSET
-init|=
-name|Charset
-operator|.
-name|forName
-argument_list|(
-name|UTF8_ENCODING
-argument_list|)
-decl_stmt|;
 comment|// Using the charset canonical name for String/byte[] conversions is much
 comment|// more efficient due to use of cached encoders/decoders.
 specifier|private
@@ -807,7 +770,9 @@ operator|=
 name|length
 expr_stmt|;
 block|}
-comment|/**    * Copy bytes from ByteString instance.    * @param byteString copy from    */
+comment|/**    * Copy bytes from ByteString instance.    * @param byteString copy from    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|Bytes
 parameter_list|(
@@ -994,6 +959,9 @@ operator|.
 name|offset
 return|;
 block|}
+comment|/**    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|ByteString
 name|toByteString
