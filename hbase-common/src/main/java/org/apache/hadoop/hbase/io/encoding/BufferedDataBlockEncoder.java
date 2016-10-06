@@ -2438,6 +2438,27 @@ annotation|@
 name|Override
 specifier|public
 name|void
+name|write
+parameter_list|(
+name|byte
+index|[]
+name|buf
+parameter_list|,
+name|int
+name|offset
+parameter_list|)
+block|{
+comment|// This is not used in actual flow. Throwing UnsupportedOperationException
+throw|throw
+operator|new
+name|UnsupportedOperationException
+argument_list|()
+throw|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
 name|setTimestamp
 parameter_list|(
 name|long
@@ -3388,6 +3409,27 @@ name|tsOffset
 parameter_list|)
 throws|throws
 name|IOException
+block|{
+comment|// This is not used in actual flow. Throwing UnsupportedOperationException
+throw|throw
+operator|new
+name|UnsupportedOperationException
+argument_list|()
+throw|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|write
+parameter_list|(
+name|byte
+index|[]
+name|buf
+parameter_list|,
+name|int
+name|offset
+parameter_list|)
 block|{
 comment|// This is not used in actual flow. Throwing UnsupportedOperationException
 throw|throw

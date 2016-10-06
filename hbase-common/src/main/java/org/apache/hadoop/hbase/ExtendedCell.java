@@ -118,6 +118,18 @@ name|boolean
 name|withTags
 parameter_list|)
 function_decl|;
+comment|/**    * Write the given Cell into the given buf's offset.    * @param buf The buffer where to write the Cell.    * @param offset The offset within buffer, to write the Cell.    */
+name|void
+name|write
+parameter_list|(
+name|byte
+index|[]
+name|buf
+parameter_list|,
+name|int
+name|offset
+parameter_list|)
+function_decl|;
 block|}
 end_interface
 
