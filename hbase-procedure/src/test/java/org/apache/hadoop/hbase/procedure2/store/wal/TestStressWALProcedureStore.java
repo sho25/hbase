@@ -277,6 +277,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|experimental
 operator|.
 name|categories
@@ -889,7 +899,11 @@ argument_list|)
 expr_stmt|;
 block|}
 annotation|@
+name|Ignore
+annotation|@
 name|Test
+comment|// REENABLE after merge of
+comment|// https://github.com/google/protobuf/issues/2228#issuecomment-252058282
 specifier|public
 name|void
 name|testEntrySizeLimit
