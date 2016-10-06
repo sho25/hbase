@@ -244,10 +244,29 @@ name|getConfiguration
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// Setup separate test-data directory for MR cluster and set corresponding configurations.
+comment|// Otherwise, different test classes running MR cluster can step on each other.
 name|TEST_UTIL
 operator|.
-name|startMiniCluster
+name|getDataTestDir
+argument_list|()
+expr_stmt|;
+name|TEST_UTIL
+operator|.
+name|startMiniZKCluster
+argument_list|()
+expr_stmt|;
+name|TEST_UTIL
+operator|.
+name|startMiniMapReduceCluster
+argument_list|()
+expr_stmt|;
+name|TEST_UTIL
+operator|.
+name|startMiniHBaseCluster
 argument_list|(
+literal|1
+argument_list|,
 literal|3
 argument_list|)
 expr_stmt|;
