@@ -43,16 +43,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|security
-operator|.
-name|PrivilegedExceptionAction
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|ArrayList
@@ -311,6 +301,22 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|CellSink
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|HStore
 import|;
 end_import
@@ -376,6 +382,22 @@ operator|.
 name|regionserver
 operator|.
 name|ScannerContext
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|ShipperListener
 import|;
 end_import
 
@@ -488,26 +510,6 @@ operator|.
 name|regionserver
 operator|.
 name|TimeRangeTracker
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|compactions
-operator|.
-name|Compactor
-operator|.
-name|CellSink
 import|;
 end_import
 
@@ -804,20 +806,6 @@ operator|.
 name|MIN_KEEP_SEQID_PERIOD
 argument_list|)
 expr_stmt|;
-block|}
-specifier|public
-interface|interface
-name|CellSink
-block|{
-name|void
-name|append
-parameter_list|(
-name|Cell
-name|cell
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
 block|}
 specifier|protected
 interface|interface
@@ -2321,6 +2309,11 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+assert|assert
+name|writer
+operator|instanceof
+name|ShipperListener
+assert|;
 name|long
 name|bytesWrittenProgressForCloseCheck
 init|=
@@ -2627,6 +2620,18 @@ operator|>
 name|shippedCallSizeLimit
 condition|)
 block|{
+comment|// Clone the cells that are in the writer so that they are freed of references,
+comment|// if they are holding any.
+operator|(
+operator|(
+name|ShipperListener
+operator|)
+name|writer
+operator|)
+operator|.
+name|beforeShipped
+argument_list|()
+expr_stmt|;
 comment|// The SHARED block references, being read for compaction, will be kept in prevBlocks
 comment|// list(See HFileScannerImpl#prevBlocks). In case of scan flow, after each set of cells
 comment|// being returned to client, we will call shipped() which can clear this list. Here by

@@ -51,6 +51,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CellComparator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|CellUtil
 import|;
 end_import
@@ -127,11 +141,16 @@ name|RowColBloomContext
 parameter_list|(
 name|BloomFilterWriter
 name|generalBloomFilterWriter
+parameter_list|,
+name|CellComparator
+name|comparator
 parameter_list|)
 block|{
 name|super
 argument_list|(
 name|generalBloomFilterWriter
+argument_list|,
+name|comparator
 argument_list|)
 expr_stmt|;
 block|}
@@ -151,7 +170,8 @@ if|if
 condition|(
 name|this
 operator|.
-name|lastCell
+name|getLastCell
+argument_list|()
 operator|!=
 literal|null
 condition|)
@@ -165,7 +185,8 @@ name|createFirstOnRowCol
 argument_list|(
 name|this
 operator|.
-name|lastCell
+name|getLastCell
+argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// This copy happens only once when the writer is closed
@@ -207,7 +228,8 @@ if|if
 condition|(
 name|this
 operator|.
-name|lastCell
+name|getLastCell
+argument_list|()
 operator|!=
 literal|null
 condition|)
@@ -222,7 +244,8 @@ name|cell
 argument_list|,
 name|this
 operator|.
-name|lastCell
+name|getLastCell
+argument_list|()
 argument_list|)
 return|;
 block|}

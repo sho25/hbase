@@ -888,6 +888,17 @@ name|timestamp
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|beforeShipped
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+comment|// do nothing
+block|}
 block|}
 end_class
 

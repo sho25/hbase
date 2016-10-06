@@ -55,6 +55,38 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|CellSink
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|ShipperListener
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|io
 operator|.
 name|Writable
@@ -75,6 +107,10 @@ interface|interface
 name|BloomFilterWriter
 extends|extends
 name|BloomFilterBase
+extends|,
+name|CellSink
+extends|,
+name|ShipperListener
 block|{
 comment|/** Compact the Bloom filter before writing metadata&amp; data to disk. */
 name|void
@@ -91,13 +127,10 @@ name|Writable
 name|getDataWriter
 parameter_list|()
 function_decl|;
-comment|/**    * Add the specified binary to the bloom filter.    * @param cell the cell data to be added to the bloom    */
-name|void
-name|add
-parameter_list|(
+comment|/**    * Returns the previous cell written by this writer    * @return the previous cell    */
 name|Cell
-name|cell
-parameter_list|)
+name|getPrevCell
+parameter_list|()
 function_decl|;
 block|}
 end_interface

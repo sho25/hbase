@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/*  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -136,6 +136,20 @@ operator|.
 name|hbase
 operator|.
 name|CellUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|KeyValueUtil
 import|;
 end_import
 
@@ -302,6 +316,11 @@ comment|/** The size of individual Bloom filter chunks to create */
 specifier|private
 name|int
 name|chunkByteSize
+decl_stmt|;
+comment|/** The prev Cell that was processed  */
+specifier|private
+name|Cell
+name|prevCell
 decl_stmt|;
 comment|/** A Bloom filter chunk enqueued for writing */
 specifier|private
@@ -665,11 +684,13 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|add
+name|append
 parameter_list|(
 name|Cell
 name|cell
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 if|if
 condition|(
@@ -764,9 +785,61 @@ argument_list|(
 name|cell
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|prevCell
+operator|=
+name|cell
+expr_stmt|;
 operator|++
 name|totalKeyCount
 expr_stmt|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|beforeShipped
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+if|if
+condition|(
+name|this
+operator|.
+name|prevCell
+operator|!=
+literal|null
+condition|)
+block|{
+name|this
+operator|.
+name|prevCell
+operator|=
+name|KeyValueUtil
+operator|.
+name|toNewKeyCell
+argument_list|(
+name|this
+operator|.
+name|prevCell
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+annotation|@
+name|Override
+specifier|public
+name|Cell
+name|getPrevCell
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|prevCell
+return|;
 block|}
 specifier|private
 name|void

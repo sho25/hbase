@@ -71,6 +71,22 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|ShipperListener
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|querymatcher
 operator|.
 name|ScanQueryMatcher
@@ -91,6 +107,8 @@ name|Private
 specifier|public
 interface|interface
 name|ColumnTracker
+extends|extends
+name|ShipperListener
 block|{
 comment|/**    * Checks if the column is present in the list of requested columns by returning the match code    * instance. It does not check against the number of versions for the columns asked for. To do the    * version check, one has to call {@link #checkVersions(Cell, long, byte, boolean)}    * method based on the return type (INCLUDE) of this method. The values that can be returned by    * this method are {@link MatchCode#INCLUDE}, {@link MatchCode#SEEK_NEXT_COL} and    * {@link MatchCode#SEEK_NEXT_ROW}.    * @param cell    * @param type The type of the KeyValue    * @return The match code instance.    * @throws IOException in case there is an internal consistency problem caused by a data    *           corruption.    */
 name|ScanQueryMatcher

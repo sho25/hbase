@@ -249,6 +249,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|KeyValueUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -4505,6 +4519,35 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|prevCell
+operator|!=
+literal|null
+condition|)
+block|{
+comment|// Do the copy here so that in case the prevCell ref is pointing to the previous
+comment|// blocks we can safely release those blocks.
+comment|// This applies to blocks that are got from Bucket cache, L1 cache and the blocks
+comment|// fetched from HDFS. Copying this would ensure that we let go the references to these
+comment|// blocks so that they can be GCed safely(in case of bucket cache)
+name|prevCell
+operator|=
+name|KeyValueUtil
+operator|.
+name|toNewKeyCell
+argument_list|(
+name|this
+operator|.
+name|prevCell
+argument_list|)
+expr_stmt|;
+block|}
+name|matcher
+operator|.
+name|beforeShipped
+argument_list|()
+expr_stmt|;
 for|for
 control|(
 name|KeyValueHeap

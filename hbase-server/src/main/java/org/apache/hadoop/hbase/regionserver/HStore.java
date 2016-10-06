@@ -5119,6 +5119,8 @@ argument_list|)
 return|;
 block|}
 comment|/*    * @param maxKeyCount    * @param compression Compression algorithm to use    * @param isCompaction whether we are creating a new file in a compaction    * @param includesMVCCReadPoint - whether to include MVCC or not    * @param includesTag - includesTag or not    * @return Writer for a new StoreFile in the tmp dir.    */
+comment|// TODO : allow the Writer factory to create Writers of ShipperListener type only in case of
+comment|// compaction
 annotation|@
 name|Override
 specifier|public
