@@ -2522,16 +2522,33 @@ name|filePath
 init|=
 literal|null
 decl_stmt|;
-name|Path
-name|refFilePath
-init|=
-literal|null
-decl_stmt|;
 name|long
 name|mobCells
 init|=
 literal|0
 decl_stmt|;
+name|boolean
+name|cleanupTmpMobFile
+init|=
+literal|false
+decl_stmt|;
+name|boolean
+name|cleanupBulkloadDirOfPartition
+init|=
+literal|false
+decl_stmt|;
+name|boolean
+name|cleanupCommittedMobFile
+init|=
+literal|false
+decl_stmt|;
+name|boolean
+name|closeReaders
+init|=
+literal|true
+decl_stmt|;
+try|try
+block|{
 try|try
 block|{
 name|writer
@@ -2577,6 +2594,10 @@ name|compactionCacheConfig
 argument_list|,
 name|cryptoContext
 argument_list|)
+expr_stmt|;
+name|cleanupTmpMobFile
+operator|=
+literal|true
 expr_stmt|;
 name|filePath
 operator|=
@@ -2627,12 +2648,9 @@ argument_list|,
 name|cryptoContext
 argument_list|)
 expr_stmt|;
-name|refFilePath
+name|cleanupBulkloadDirOfPartition
 operator|=
-name|refFileWriter
-operator|.
-name|getPath
-argument_list|()
+literal|true
 expr_stmt|;
 name|List
 argument_list|<
@@ -2739,6 +2757,11 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|cleanupTmpMobFile
+condition|)
+block|{
 comment|// append metadata to the mob file, and close the mob file writer.
 name|closeMobFileWriter
 argument_list|(
@@ -2752,6 +2775,12 @@ argument_list|,
 name|mobCells
 argument_list|)
 expr_stmt|;
+block|}
+if|if
+condition|(
+name|cleanupBulkloadDirOfPartition
+condition|)
+block|{
 comment|// append metadata and bulkload info to the ref mob file, and close the writer.
 name|closeRefFileWriter
 argument_list|(
@@ -2767,6 +2796,7 @@ operator|.
 name|selectionTime
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 if|if
 condition|(
@@ -2791,6 +2821,14 @@ argument_list|,
 name|compactionCacheConfig
 argument_list|)
 expr_stmt|;
+name|cleanupTmpMobFile
+operator|=
+literal|false
+expr_stmt|;
+name|cleanupCommittedMobFile
+operator|=
+literal|true
+expr_stmt|;
 comment|// bulkload the ref file
 name|bulkloadRefFile
 argument_list|(
@@ -2805,6 +2843,10 @@ operator|.
 name|getName
 argument_list|()
 argument_list|)
+expr_stmt|;
+name|cleanupCommittedMobFile
+operator|=
+literal|false
 expr_stmt|;
 name|newFiles
 operator|.
@@ -2823,22 +2865,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-else|else
-block|{
-comment|// remove the new files
-comment|// the mob file is empty, delete it instead of committing.
-name|deletePath
-argument_list|(
-name|filePath
-argument_list|)
-expr_stmt|;
-comment|// the ref file is empty, delete it instead of committing.
-name|deletePath
-argument_list|(
-name|refFilePath
-argument_list|)
-expr_stmt|;
-block|}
 comment|// archive the old mob files, do not archive the del files.
 try|try
 block|{
@@ -2846,6 +2872,10 @@ name|closeStoreFileReaders
 argument_list|(
 name|mobFilesToCompact
 argument_list|)
+expr_stmt|;
+name|closeReaders
+operator|=
+literal|false
 expr_stmt|;
 name|MobUtils
 operator|.
@@ -2885,6 +2915,64 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
+block|}
+block|}
+finally|finally
+block|{
+if|if
+condition|(
+name|closeReaders
+condition|)
+block|{
+name|closeStoreFileReaders
+argument_list|(
+name|mobFilesToCompact
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|cleanupTmpMobFile
+condition|)
+block|{
+name|deletePath
+argument_list|(
+name|filePath
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|cleanupBulkloadDirOfPartition
+condition|)
+block|{
+comment|// delete the bulkload files in bulkloadPath
+name|deletePath
+argument_list|(
+name|bulkloadPathOfPartition
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|cleanupCommittedMobFile
+condition|)
+block|{
+name|deletePath
+argument_list|(
+operator|new
+name|Path
+argument_list|(
+name|mobFamilyDir
+argument_list|,
+name|filePath
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 comment|/**    * Compacts the del files in batches which avoids opening too many files.    * @param request The compaction request.    * @param delFilePaths Del file paths to compact    * @return The paths of new del files after merging or the original files if no merging    *         is necessary.    * @throws IOException if IO failure is encountered    */
@@ -3526,18 +3614,6 @@ name|Exception
 name|e
 parameter_list|)
 block|{
-comment|// delete the committed mob file
-name|deletePath
-argument_list|(
-operator|new
-name|Path
-argument_list|(
-name|mobFamilyDir
-argument_list|,
-name|fileName
-argument_list|)
-argument_list|)
-expr_stmt|;
 throw|throw
 operator|new
 name|IOException
@@ -3545,15 +3621,6 @@ argument_list|(
 name|e
 argument_list|)
 throw|;
-block|}
-finally|finally
-block|{
-comment|// delete the bulkload files in bulkloadPath
-name|deletePath
-argument_list|(
-name|bulkloadDirectory
-argument_list|)
-expr_stmt|;
 block|}
 block|}
 comment|/**    * Closes the mob file writer.    * @param writer The mob file writer.    * @param maxSeqId Maximum sequence id.    * @param mobCellsCount The number of mob cells.    * @throws IOException if IO failure is encountered    */
