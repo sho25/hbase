@@ -1567,7 +1567,7 @@ name|RpcServer
 operator|.
 name|MAX_REQUEST_SIZE
 argument_list|,
-literal|100
+literal|1000
 argument_list|)
 expr_stmt|;
 name|RpcServer
@@ -1617,7 +1617,7 @@ init|=
 operator|new
 name|StringBuilder
 argument_list|(
-literal|120
+literal|1200
 argument_list|)
 decl_stmt|;
 for|for
@@ -1629,7 +1629,7 @@ literal|0
 init|;
 name|i
 operator|<
-literal|20
+literal|200
 condition|;
 name|i
 operator|++
@@ -1708,12 +1708,28 @@ argument_list|(
 literal|"Caught expected exception: "
 operator|+
 name|e
+argument_list|)
+expr_stmt|;
+name|assertTrue
+argument_list|(
+name|e
 operator|.
 name|toString
 argument_list|()
+argument_list|,
+name|StringUtils
+operator|.
+name|stringifyException
+argument_list|(
+name|e
+argument_list|)
+operator|.
+name|contains
+argument_list|(
+literal|"RequestTooBigException"
+argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// the rpc server just close the connection so we can not get the detail message.
 block|}
 finally|finally
 block|{

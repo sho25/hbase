@@ -404,6 +404,10 @@ operator|||
 name|cur
 operator|instanceof
 name|NotServingRegionException
+operator|||
+name|cur
+operator|instanceof
+name|RequestTooBigException
 operator|)
 return|;
 block|}
