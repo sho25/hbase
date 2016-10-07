@@ -624,6 +624,17 @@ name|Cell
 name|cell
 parameter_list|)
 function_decl|;
+comment|/**    * Adds the specified value to the memstore    * @param cells    * @return memstore size delta    */
+name|long
+name|add
+parameter_list|(
+name|Iterable
+argument_list|<
+name|Cell
+argument_list|>
+name|cells
+parameter_list|)
+function_decl|;
 comment|/**    * When was the last edit done in the memstore    */
 name|long
 name|timeOfOldestEdit

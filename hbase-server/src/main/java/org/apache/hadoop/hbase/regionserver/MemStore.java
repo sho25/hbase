@@ -148,6 +148,17 @@ name|Cell
 name|cell
 parameter_list|)
 function_decl|;
+comment|/**    * Write the updates    * @param cells    * @return approximate size of the passed cell.    */
+name|long
+name|add
+parameter_list|(
+name|Iterable
+argument_list|<
+name|Cell
+argument_list|>
+name|cells
+parameter_list|)
+function_decl|;
 comment|/**    * @return Oldest timestamp of all the Cells in the MemStore    */
 name|long
 name|timeOfOldestEdit
