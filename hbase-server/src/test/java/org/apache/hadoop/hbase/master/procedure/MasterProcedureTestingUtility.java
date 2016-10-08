@@ -2679,6 +2679,13 @@ argument_list|(
 name|procExec
 argument_list|)
 decl_stmt|;
+name|abortListener
+operator|.
+name|addProcId
+argument_list|(
+name|procId
+argument_list|)
+expr_stmt|;
 name|procExec
 operator|.
 name|registerListener

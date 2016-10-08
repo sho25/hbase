@@ -749,6 +749,17 @@ annotation|@
 name|Override
 specifier|public
 name|boolean
+name|isStopping
+parameter_list|()
+block|{
+return|return
+name|stopped
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|boolean
 name|isStopped
 parameter_list|()
 block|{

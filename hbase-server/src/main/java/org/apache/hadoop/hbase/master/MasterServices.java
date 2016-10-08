@@ -772,6 +772,11 @@ name|LoadBalancer
 name|getLoadBalancer
 parameter_list|()
 function_decl|;
+comment|/**    * @return True if this master is stopping.    */
+name|boolean
+name|isStopping
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

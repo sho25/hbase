@@ -899,6 +899,17 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|private
+specifier|final
+name|AtomicLong
+name|syncId
+init|=
+operator|new
+name|AtomicLong
+argument_list|(
+literal|0
+argument_list|)
+decl_stmt|;
+specifier|private
 name|LinkedTransferQueue
 argument_list|<
 name|ByteSlot
@@ -1330,6 +1341,7 @@ specifier|public
 name|void
 name|stop
 parameter_list|(
+specifier|final
 name|boolean
 name|abort
 parameter_list|)
@@ -1349,7 +1361,18 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Stopping the WAL Procedure Store"
+literal|"Stopping the WAL Procedure Store, isAbort="
+operator|+
+name|abort
+operator|+
+operator|(
+name|isSyncAborted
+argument_list|()
+condition|?
+literal|" (self aborting)"
+else|:
+literal|""
+operator|)
 argument_list|)
 expr_stmt|;
 name|sendStopSignal
@@ -1358,7 +1381,8 @@ expr_stmt|;
 if|if
 condition|(
 operator|!
-name|abort
+name|isSyncAborted
+argument_list|()
 condition|)
 block|{
 try|try
@@ -2644,6 +2668,15 @@ block|{
 break|break;
 block|}
 block|}
+specifier|final
+name|long
+name|pushSyncId
+init|=
+name|syncId
+operator|.
+name|get
+argument_list|()
+decl_stmt|;
 name|updateStoreTracker
 argument_list|(
 name|type
@@ -2700,11 +2733,25 @@ name|signal
 argument_list|()
 expr_stmt|;
 block|}
+while|while
+condition|(
+name|pushSyncId
+operator|==
+name|syncId
+operator|.
+name|get
+argument_list|()
+operator|&&
+name|isRunning
+argument_list|()
+condition|)
+block|{
 name|syncCond
 operator|.
 name|await
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
@@ -3228,6 +3275,11 @@ argument_list|(
 literal|false
 argument_list|)
 expr_stmt|;
+name|syncId
+operator|.
+name|incrementAndGet
+argument_list|()
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -3243,9 +3295,6 @@ operator|.
 name|interrupt
 argument_list|()
 expr_stmt|;
-name|sendAbortProcessSignal
-argument_list|()
-expr_stmt|;
 name|syncException
 operator|.
 name|compareAndSet
@@ -3254,6 +3303,9 @@ literal|null
 argument_list|,
 name|e
 argument_list|)
+expr_stmt|;
+name|sendAbortProcessSignal
+argument_list|()
 expr_stmt|;
 throw|throw
 name|e
@@ -3273,6 +3325,9 @@ literal|null
 argument_list|,
 name|t
 argument_list|)
+expr_stmt|;
+name|sendAbortProcessSignal
+argument_list|()
 expr_stmt|;
 throw|throw
 name|t
@@ -3401,6 +3456,9 @@ condition|(
 name|logRolled
 operator|>=
 name|maxSyncFailureRoll
+operator|&&
+name|isRunning
+argument_list|()
 condition|)
 block|{
 name|LOG
@@ -3412,9 +3470,6 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
-name|sendAbortProcessSignal
-argument_list|()
-expr_stmt|;
 throw|throw
 name|e
 throw|;
@@ -3422,7 +3477,7 @@ block|}
 if|if
 condition|(
 operator|!
-name|rollWriterOrDie
+name|rollWriterWithRetries
 argument_list|()
 condition|)
 block|{
@@ -3576,7 +3631,7 @@ return|;
 block|}
 specifier|private
 name|boolean
-name|rollWriterOrDie
+name|rollWriterWithRetries
 parameter_list|()
 block|{
 for|for
@@ -3589,6 +3644,9 @@ init|;
 name|i
 operator|<
 name|rollRetries
+operator|&&
+name|isRunning
+argument_list|()
 condition|;
 operator|++
 name|i
@@ -3652,16 +3710,9 @@ argument_list|(
 literal|"Unable to roll the log"
 argument_list|)
 expr_stmt|;
-name|sendAbortProcessSignal
-argument_list|()
-expr_stmt|;
-throw|throw
-operator|new
-name|RuntimeException
-argument_list|(
-literal|"unable to roll the log"
-argument_list|)
-throw|;
+return|return
+literal|false
+return|;
 block|}
 specifier|private
 name|boolean
@@ -3807,6 +3858,7 @@ block|}
 block|}
 annotation|@
 name|VisibleForTesting
+specifier|protected
 name|void
 name|removeInactiveLogsForTesting
 parameter_list|()
@@ -3942,6 +3994,15 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+operator|!
+name|isRunning
+argument_list|()
+condition|)
+return|return
+literal|false
+return|;
 comment|// Create new state-log
 if|if
 condition|(
@@ -5140,6 +5201,21 @@ argument_list|,
 name|logPath
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+operator|!
+name|isRunning
+argument_list|()
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"wal aborting"
+argument_list|)
+throw|;
+block|}
 name|maxLogId
 operator|=
 name|Math
@@ -5214,6 +5290,10 @@ condition|(
 name|logs
 operator|.
 name|isEmpty
+argument_list|()
+operator|||
+operator|!
+name|isRunning
 argument_list|()
 condition|)
 return|return;
