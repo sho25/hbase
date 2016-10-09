@@ -4167,6 +4167,20 @@ return|;
 block|}
 annotation|@
 name|VisibleForTesting
+specifier|public
+name|long
+name|getCompletedMergeTaskCount
+parameter_list|()
+block|{
+return|return
+name|mergePool
+operator|.
+name|getCompletedTaskCount
+argument_list|()
+return|;
+block|}
+annotation|@
+name|VisibleForTesting
 comment|/**    * Shutdown the long compaction thread pool.    * Should only be used in unit test to prevent long compaction thread pool from stealing job    * from short compaction queue    */
 name|void
 name|shutdownLongCompactions
