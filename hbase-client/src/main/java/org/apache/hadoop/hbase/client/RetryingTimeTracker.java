@@ -49,7 +49,7 @@ operator|-
 literal|1
 decl_stmt|;
 specifier|public
-name|void
+name|RetryingTimeTracker
 name|start
 parameter_list|()
 block|{
@@ -72,6 +72,9 @@ name|currentTime
 argument_list|()
 expr_stmt|;
 block|}
+return|return
+name|this
+return|;
 block|}
 specifier|public
 name|int

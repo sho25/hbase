@@ -138,7 +138,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This class is used to unify HTable calls with AsyncProcess Framework. HTable can use  * AsyncProcess directly though this class. Also adds global timeout tracking on top of  * RegionServerCallable and implements Cancellable.  */
+comment|/**  * This class is used to unify HTable calls with AsyncProcess Framework. HTable can use  * AsyncProcess directly though this class. Also adds global timeout tracking on top of  * RegionServerCallable and implements Cancellable.  * Global timeout tracking conflicts with logic in RpcRetryingCallerImpl's callWithRetries. So you  * can only use this callable in AsyncProcess which only uses callWithoutRetries and retries in its  * own implementation.  */
 end_comment
 
 begin_class
@@ -164,10 +164,11 @@ specifier|private
 specifier|final
 name|RetryingTimeTracker
 name|tracker
-init|=
-operator|new
-name|RetryingTimeTracker
-argument_list|()
+decl_stmt|;
+specifier|private
+specifier|final
+name|int
+name|rpcTimeout
 decl_stmt|;
 name|CancellableRegionServerCallable
 parameter_list|(
@@ -183,6 +184,12 @@ name|row
 parameter_list|,
 name|RpcController
 name|rpcController
+parameter_list|,
+name|int
+name|rpcTimeout
+parameter_list|,
+name|RetryingTimeTracker
+name|tracker
 parameter_list|)
 block|{
 name|super
@@ -196,6 +203,18 @@ argument_list|,
 name|rpcController
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|rpcTimeout
+operator|=
+name|rpcTimeout
+expr_stmt|;
+name|this
+operator|.
+name|tracker
+operator|=
+name|tracker
+expr_stmt|;
 block|}
 comment|/* Override so can mess with the callTimeout.    * (non-Javadoc)    * @see org.apache.hadoop.hbase.client.RegionServerCallable#rpcCall(int)    */
 annotation|@
@@ -205,7 +224,7 @@ name|T
 name|call
 parameter_list|(
 name|int
-name|callTimeout
+name|operationTimeout
 parameter_list|)
 throws|throws
 name|IOException
@@ -248,21 +267,22 @@ name|tracker
 operator|.
 name|getRemainingTime
 argument_list|(
-name|callTimeout
+name|operationTimeout
 argument_list|)
 decl_stmt|;
 if|if
 condition|(
 name|remainingTime
-operator|==
-literal|0
+operator|<=
+literal|1
 condition|)
 block|{
+comment|// "1" is a special return value in RetryingTimeTracker, see its implementation.
 throw|throw
 operator|new
 name|DoNotRetryIOException
 argument_list|(
-literal|"Timeout for mutate row"
+literal|"Operation rpcTimeout"
 argument_list|)
 throw|;
 block|}
@@ -271,7 +291,14 @@ name|super
 operator|.
 name|call
 argument_list|(
+name|Math
+operator|.
+name|min
+argument_list|(
+name|rpcTimeout
+argument_list|,
 name|remainingTime
+argument_list|)
 argument_list|)
 return|;
 block|}

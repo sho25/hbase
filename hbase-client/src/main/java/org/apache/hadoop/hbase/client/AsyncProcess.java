@@ -19,6 +19,20 @@ end_package
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -457,20 +471,6 @@ name|EnvironmentEdgeManager
 import|;
 end_import
 
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|annotations
-operator|.
-name|VisibleForTesting
-import|;
-end_import
-
 begin_comment
 comment|/**  * This class  allows a continuous flow of requests. It's written to be compatible with a  * synchronous caller such as HTable.  *<p>  * The caller sends a buffer of operation, by calling submit. This class extract from this list  * the operations it can send, i.e. the operations that are on region that are not considered  * as busy. The process is asynchronous, i.e. it returns immediately when if has finished to  * iterate on the list. If, and only if, the maximum number of current task is reached, the call  * to submit will block. Alternatively, the caller can call submitAll, in which case all the  * operations will be sent. Each call to submit returns a future-like object that can be used  * to track operation progress.  *</p>  *<p>  * The class manages internally the retries.  *</p>  *<p>  * The class can be constructed in regular mode, or "global error" mode. In global error mode,  * AP tracks errors across all calls (each "future" also has global view of all errors). That  * mode is necessary for backward compat with HTable behavior, where multiple submissions are  * made and the errors can propagate using any put/flush call, from previous calls.  * In "regular" mode, the errors are tracked inside the Future object that is returned.  * The results are always tracked inside the Future object and can be retrieved when the call  * has finished. Partial results can also be retrieved if some part of multi-request failed.  *</p>  *<p>  * This class is thread safe in regular mode; in global error code, submitting operations and  * retrieving errors from different threads may be not thread safe.  * Internally, the class is thread safe enough to manage simultaneously new submission and results  * arising from older operations.  *</p>  *<p>  * Internally, this class works with {@link Row}, this mean it could be theoretically used for  * gets as well.  *</p>  */
 end_comment
@@ -825,7 +825,11 @@ name|serverTrackerTimeout
 decl_stmt|;
 specifier|protected
 name|int
-name|timeout
+name|rpcTimeout
+decl_stmt|;
+specifier|protected
+name|int
+name|operationTimeout
 decl_stmt|;
 specifier|protected
 name|long
@@ -861,6 +865,9 @@ name|rpcFactory
 parameter_list|,
 name|int
 name|rpcTimeout
+parameter_list|,
+name|int
+name|operationTimeout
 parameter_list|)
 block|{
 if|if
@@ -950,9 +957,15 @@ literal|1
 expr_stmt|;
 name|this
 operator|.
-name|timeout
+name|rpcTimeout
 operator|=
 name|rpcTimeout
+expr_stmt|;
+name|this
+operator|.
+name|operationTimeout
+operator|=
+name|operationTimeout
 expr_stmt|;
 name|this
 operator|.
@@ -2086,7 +2099,8 @@ name|needResults
 argument_list|,
 literal|null
 argument_list|,
-name|timeout
+operator|-
+literal|1
 argument_list|)
 decl_stmt|;
 comment|// Add location errors if any
@@ -2180,6 +2194,36 @@ expr_stmt|;
 return|return
 name|ars
 return|;
+block|}
+specifier|public
+name|void
+name|setRpcTimeout
+parameter_list|(
+name|int
+name|rpcTimeout
+parameter_list|)
+block|{
+name|this
+operator|.
+name|rpcTimeout
+operator|=
+name|rpcTimeout
+expr_stmt|;
+block|}
+specifier|public
+name|void
+name|setOperationTimeout
+parameter_list|(
+name|int
+name|operationTimeout
+parameter_list|)
+block|{
+name|this
+operator|.
+name|operationTimeout
+operator|=
+name|operationTimeout
+expr_stmt|;
 block|}
 comment|/**    * Helper that is used when grouping the actions per region server.    *    * @param server - server    * @param regionName - regionName    * @param action - the action to add to the multiaction    * @param actionsByServer the multiaction per server    * @param nonceGroup Nonce group.    */
 specifier|static
@@ -2334,11 +2378,12 @@ name|results
 argument_list|,
 literal|null
 argument_list|,
-name|timeout
+operator|-
+literal|1
 argument_list|)
 return|;
 block|}
-comment|/**    * Submit immediately the list of rows, whatever the server status. Kept for backward    * compatibility: it allows to be used with the batch interface that return an array of objects.    *    * @param pool ExecutorService to use.    * @param tableName name of the table for which the submission is made.    * @param rows the list of rows.    * @param callback the callback.    * @param results Optional array to return the results thru; backward compat.    */
+comment|/**    * Submit immediately the list of rows, whatever the server status. Kept for backward    * compatibility: it allows to be used with the batch interface that return an array of objects.    *    * @param pool ExecutorService to use.    * @param tableName name of the table for which the submission is made.    * @param rows the list of rows.    * @param callback the callback.    * @param results Optional array to return the results thru; backward compat.    * @param rpcTimeout rpc timeout for this batch, set -1 if want to use current setting.    */
 specifier|public
 parameter_list|<
 name|CResult
@@ -2376,7 +2421,7 @@ name|CancellableRegionServerCallable
 name|callable
 parameter_list|,
 name|int
-name|curTimeout
+name|rpcTimeout
 parameter_list|)
 block|{
 name|List
@@ -2537,7 +2582,7 @@ literal|null
 argument_list|,
 name|callable
 argument_list|,
-name|curTimeout
+name|rpcTimeout
 argument_list|)
 decl_stmt|;
 name|ars
@@ -2646,7 +2691,7 @@ name|CancellableRegionServerCallable
 name|callable
 parameter_list|,
 name|int
-name|curTimeout
+name|rpcTimeout
 parameter_list|)
 block|{
 return|return
@@ -2675,7 +2720,17 @@ name|callback
 argument_list|,
 name|callable
 argument_list|,
-name|curTimeout
+name|operationTimeout
+argument_list|,
+name|rpcTimeout
+operator|>
+literal|0
+condition|?
+name|rpcTimeout
+else|:
+name|this
+operator|.
+name|rpcTimeout
 argument_list|,
 name|this
 argument_list|)
@@ -3342,6 +3397,9 @@ name|createCaller
 parameter_list|(
 name|CancellableRegionServerCallable
 name|callable
+parameter_list|,
+name|int
+name|rpcTimeout
 parameter_list|)
 block|{
 return|return
@@ -3351,7 +3409,9 @@ expr|<
 name|AbstractResponse
 operator|>
 name|newCaller
-argument_list|()
+argument_list|(
+name|rpcTimeout
+argument_list|)
 return|;
 block|}
 comment|/**    * Creates the server error tracker to use inside process.    * Currently, to preserve the main assumption about current retries, and to work well with    * the retry-limit-based calculation, the calculation is local per Process object.    * We may benefit from connection-wide tracking of server errors.    * @return ServerErrorTracker to use, null if there is no ServerErrorTracker on this connection    */

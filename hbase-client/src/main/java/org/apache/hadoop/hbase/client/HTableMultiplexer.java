@@ -2054,6 +2054,11 @@ name|int
 name|writeRpcTimeout
 decl_stmt|;
 comment|// needed to pass in through AsyncProcess constructor
+specifier|private
+specifier|final
+name|int
+name|operationTimeout
+decl_stmt|;
 specifier|public
 name|FlushWorker
 parameter_list|(
@@ -2150,6 +2155,23 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
+name|operationTimeout
+operator|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+name|HConstants
+operator|.
+name|HBASE_CLIENT_OPERATION_TIMEOUT
+argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_HBASE_CLIENT_OPERATION_TIMEOUT
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
 name|ap
 operator|=
 operator|new
@@ -2168,6 +2190,8 @@ argument_list|,
 name|rpcControllerFactory
 argument_list|,
 name|writeRpcTimeout
+argument_list|,
+name|operationTimeout
 argument_list|)
 expr_stmt|;
 name|this

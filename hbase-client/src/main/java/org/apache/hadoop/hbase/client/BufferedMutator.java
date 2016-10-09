@@ -182,6 +182,22 @@ name|long
 name|getWriteBufferSize
 parameter_list|()
 function_decl|;
+comment|/**    * Set rpc timeout for this mutator instance    */
+name|void
+name|setRpcTimeout
+parameter_list|(
+name|int
+name|timeout
+parameter_list|)
+function_decl|;
+comment|/**    * Set operation timeout for this mutator instance    */
+name|void
+name|setOperationTimeout
+parameter_list|(
+name|int
+name|timeout
+parameter_list|)
+function_decl|;
 comment|/**    * Listens for asynchronous exceptions on a {@link BufferedMutator}.    */
 annotation|@
 name|InterfaceAudience

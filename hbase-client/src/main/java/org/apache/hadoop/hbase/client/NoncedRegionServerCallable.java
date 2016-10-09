@@ -80,7 +80,7 @@ parameter_list|<
 name|T
 parameter_list|>
 extends|extends
-name|CancellableRegionServerCallable
+name|ClientServiceCallable
 argument_list|<
 name|T
 argument_list|>
