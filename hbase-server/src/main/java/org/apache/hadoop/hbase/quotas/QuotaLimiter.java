@@ -139,25 +139,6 @@ name|long
 name|getWriteAvailable
 parameter_list|()
 function_decl|;
-comment|/**    * Add the average size of the specified operation type.    * The average will be used as estimate for the next operations.    */
-name|void
-name|addOperationSize
-parameter_list|(
-name|OperationType
-name|type
-parameter_list|,
-name|long
-name|size
-parameter_list|)
-function_decl|;
-comment|/** @return the average data size of the specified operation */
-name|long
-name|getAvgOperationSize
-parameter_list|(
-name|OperationType
-name|type
-parameter_list|)
-function_decl|;
 block|}
 end_interface
 

@@ -231,21 +231,6 @@ operator|.
 name|MAX_VALUE
 return|;
 block|}
-annotation|@
-name|Override
-specifier|public
-name|long
-name|getAvgOperationSize
-parameter_list|(
-name|OperationType
-name|type
-parameter_list|)
-block|{
-return|return
-operator|-
-literal|1
-return|;
-block|}
 block|}
 end_class
 
