@@ -151,6 +151,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
+name|TimeoutIOException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|ipc
 operator|.
 name|RpcServer
@@ -505,7 +521,7 @@ name|RpcServer
 operator|.
 name|LOG
 operator|.
-name|info
+name|warn
 argument_list|(
 literal|"Dropping timed out call: "
 operator|+
@@ -736,6 +752,25 @@ operator|.
 name|timeout
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|TimeoutIOException
+name|e
+parameter_list|)
+block|{
+name|RpcServer
+operator|.
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Can not complete this request in time, drop it: "
+operator|+
+name|call
+argument_list|)
+expr_stmt|;
+return|return;
 block|}
 catch|catch
 parameter_list|(

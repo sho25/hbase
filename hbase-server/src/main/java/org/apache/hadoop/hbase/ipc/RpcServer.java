@@ -2710,6 +2710,10 @@ name|connection
 operator|.
 name|toString
 argument_list|()
+operator|+
+literal|" deadline: "
+operator|+
+name|deadline
 return|;
 block|}
 name|String
@@ -3834,6 +3838,17 @@ name|responseBlockSize
 operator|+=
 name|blockSize
 expr_stmt|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|long
+name|getDeadline
+parameter_list|()
+block|{
+return|return
+name|deadline
+return|;
 block|}
 specifier|public
 specifier|synchronized
