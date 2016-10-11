@@ -297,6 +297,21 @@ index|[]
 name|subProcIds
 parameter_list|)
 function_decl|;
+comment|/**    * The specified procIds were removed from the executor,    * due to completion, abort or failure.    * The store implementor should remove all the information about the specified procIds.    * @param procIds the IDs of the procedures to remove.    * @param offset the array offset from where to start to delete    * @param count the number of IDs to delete    */
+name|void
+name|delete
+parameter_list|(
+name|long
+index|[]
+name|procIds
+parameter_list|,
+name|int
+name|offset
+parameter_list|,
+name|int
+name|count
+parameter_list|)
+function_decl|;
 block|}
 end_interface
 
