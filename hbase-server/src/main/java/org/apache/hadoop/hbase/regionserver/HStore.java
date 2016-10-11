@@ -11298,7 +11298,7 @@ operator|.
 name|OBJECT
 operator|+
 operator|(
-literal|16
+literal|17
 operator|*
 name|ClassSize
 operator|.
