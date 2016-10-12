@@ -2762,7 +2762,7 @@ return|;
 block|}
 specifier|public
 specifier|static
-name|void
+name|int
 name|oswrite
 parameter_list|(
 specifier|final
@@ -2787,6 +2787,7 @@ operator|instanceof
 name|ExtendedCell
 condition|)
 block|{
+return|return
 operator|(
 operator|(
 name|ExtendedCell
@@ -2800,7 +2801,7 @@ name|out
 argument_list|,
 name|withTags
 argument_list|)
-expr_stmt|;
+return|;
 block|}
 else|else
 block|{
@@ -2844,13 +2845,15 @@ operator|.
 name|getTagsLength
 argument_list|()
 decl_stmt|;
+name|int
+name|size
+init|=
+literal|0
+decl_stmt|;
 comment|// write key length
-name|ByteBufferUtils
-operator|.
-name|putInt
-argument_list|(
-name|out
-argument_list|,
+name|int
+name|klen
+init|=
 name|keyLength
 argument_list|(
 name|rlen
@@ -2859,6 +2862,14 @@ name|flen
 argument_list|,
 name|qlen
 argument_list|)
+decl_stmt|;
+name|ByteBufferUtils
+operator|.
+name|putInt
+argument_list|(
+name|out
+argument_list|,
+name|klen
 argument_list|)
 expr_stmt|;
 comment|// write value length
@@ -2983,6 +2994,16 @@ argument_list|,
 name|vlen
 argument_list|)
 expr_stmt|;
+name|size
+operator|=
+name|klen
+operator|+
+name|vlen
+operator|+
+name|KeyValue
+operator|.
+name|KEYVALUE_INFRASTRUCTURE_SIZE
+expr_stmt|;
 comment|// write tags if we have to
 if|if
 condition|(
@@ -3046,7 +3067,18 @@ argument_list|,
 name|tlen
 argument_list|)
 expr_stmt|;
+name|size
+operator|+=
+name|tlen
+operator|+
+name|KeyValue
+operator|.
+name|TAGS_LENGTH_SIZE
+expr_stmt|;
 block|}
+return|return
+name|size
+return|;
 block|}
 block|}
 comment|/**    * Write the given cell in KeyValue serialization format into the given buf and return a new    * KeyValue object around that.    */
