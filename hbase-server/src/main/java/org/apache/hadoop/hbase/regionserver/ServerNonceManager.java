@@ -321,6 +321,7 @@ operator||
 name|STATE_BITS
 decl_stmt|;
 specifier|private
+specifier|volatile
 name|long
 name|mvcc
 decl_stmt|;
