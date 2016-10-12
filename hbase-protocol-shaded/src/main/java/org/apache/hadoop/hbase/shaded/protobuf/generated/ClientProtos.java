@@ -13917,6 +13917,16 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
+comment|/**      *<pre>      * DO NOT add defaults to load_column_families_on_demand.       *</pre>      *      *<code>optional bool load_column_families_on_demand = 14;</code>      */
+name|boolean
+name|hasLoadColumnFamiliesOnDemand
+parameter_list|()
+function_decl|;
+comment|/**      *<pre>      * DO NOT add defaults to load_column_families_on_demand.       *</pre>      *      *<code>optional bool load_column_families_on_demand = 14;</code>      */
+name|boolean
+name|getLoadColumnFamiliesOnDemand
+parameter_list|()
+function_decl|;
 block|}
 comment|/**    *<pre>    **    * The protocol buffer version of Get.    * Unless existence_only is specified, return all the requested data    * for the row that matches exactly.    *</pre>    *    * Protobuf type {@code hbase.pb.Get}    */
 specifier|public
@@ -14063,6 +14073,10 @@ name|Collections
 operator|.
 name|emptyList
 argument_list|()
+expr_stmt|;
+name|loadColumnFamiliesOnDemand_
+operator|=
+literal|false
 expr_stmt|;
 block|}
 annotation|@
@@ -14918,6 +14932,23 @@ argument_list|,
 name|extensionRegistry
 argument_list|)
 argument_list|)
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|112
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00000200
+expr_stmt|;
+name|loadColumnFamiliesOnDemand_
+operator|=
+name|input
+operator|.
+name|readBool
+argument_list|()
 expr_stmt|;
 break|break;
 block|}
@@ -16470,6 +16501,46 @@ name|index
 argument_list|)
 return|;
 block|}
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|LOAD_COLUMN_FAMILIES_ON_DEMAND_FIELD_NUMBER
+init|=
+literal|14
+decl_stmt|;
+specifier|private
+name|boolean
+name|loadColumnFamiliesOnDemand_
+decl_stmt|;
+comment|/**      *<pre>      * DO NOT add defaults to load_column_families_on_demand.       *</pre>      *      *<code>optional bool load_column_families_on_demand = 14;</code>      */
+specifier|public
+name|boolean
+name|hasLoadColumnFamiliesOnDemand
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000200
+operator|)
+operator|==
+literal|0x00000200
+operator|)
+return|;
+block|}
+comment|/**      *<pre>      * DO NOT add defaults to load_column_families_on_demand.       *</pre>      *      *<code>optional bool load_column_families_on_demand = 14;</code>      */
+specifier|public
+name|boolean
+name|getLoadColumnFamiliesOnDemand
+parameter_list|()
+block|{
+return|return
+name|loadColumnFamiliesOnDemand_
+return|;
+block|}
 specifier|private
 name|byte
 name|memoizedIsInitialized
@@ -17000,6 +17071,29 @@ name|get
 argument_list|(
 name|i
 argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000200
+operator|)
+operator|==
+literal|0x00000200
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeBool
+argument_list|(
+literal|14
+argument_list|,
+name|loadColumnFamiliesOnDemand_
 argument_list|)
 expr_stmt|;
 block|}
@@ -17559,6 +17653,47 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000200
+operator|)
+operator|==
+literal|0x00000200
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeBoolSize
+argument_list|(
+literal|14
+argument_list|,
+name|loadColumnFamiliesOnDemand_
+argument_list|)
+expr_stmt|;
+block|}
 name|size
 operator|+=
 name|unknownFields
@@ -18055,6 +18190,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasLoadColumnFamiliesOnDemand
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasLoadColumnFamiliesOnDemand
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasLoadColumnFamiliesOnDemand
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getLoadColumnFamiliesOnDemand
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getLoadColumnFamiliesOnDemand
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|unknownFields
 operator|.
 name|equals
@@ -18508,6 +18678,55 @@ argument_list|()
 operator|.
 name|hashCode
 argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasLoadColumnFamiliesOnDemand
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|LOAD_COLUMN_FAMILIES_ON_DEMAND_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|Internal
+operator|.
+name|hashBoolean
+argument_list|(
+name|getLoadColumnFamiliesOnDemand
+argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 name|hash
@@ -19958,6 +20177,19 @@ name|clear
 argument_list|()
 expr_stmt|;
 block|}
+name|loadColumnFamiliesOnDemand_
+operator|=
+literal|false
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00001000
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -20626,6 +20858,30 @@ name|build
 argument_list|()
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00001000
+operator|)
+operator|==
+literal|0x00001000
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000200
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|loadColumnFamiliesOnDemand_
+operator|=
+name|loadColumnFamiliesOnDemand_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -21602,6 +21858,23 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasLoadColumnFamiliesOnDemand
+argument_list|()
+condition|)
+block|{
+name|setLoadColumnFamiliesOnDemand
+argument_list|(
+name|other
+operator|.
+name|getLoadColumnFamiliesOnDemand
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 name|this
 operator|.
@@ -28586,6 +28859,88 @@ expr_stmt|;
 block|}
 return|return
 name|cfTimeRangeBuilder_
+return|;
+block|}
+specifier|private
+name|boolean
+name|loadColumnFamiliesOnDemand_
+decl_stmt|;
+comment|/**        *<pre>        * DO NOT add defaults to load_column_families_on_demand.         *</pre>        *        *<code>optional bool load_column_families_on_demand = 14;</code>        */
+specifier|public
+name|boolean
+name|hasLoadColumnFamiliesOnDemand
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00001000
+operator|)
+operator|==
+literal|0x00001000
+operator|)
+return|;
+block|}
+comment|/**        *<pre>        * DO NOT add defaults to load_column_families_on_demand.         *</pre>        *        *<code>optional bool load_column_families_on_demand = 14;</code>        */
+specifier|public
+name|boolean
+name|getLoadColumnFamiliesOnDemand
+parameter_list|()
+block|{
+return|return
+name|loadColumnFamiliesOnDemand_
+return|;
+block|}
+comment|/**        *<pre>        * DO NOT add defaults to load_column_families_on_demand.         *</pre>        *        *<code>optional bool load_column_families_on_demand = 14;</code>        */
+specifier|public
+name|Builder
+name|setLoadColumnFamiliesOnDemand
+parameter_list|(
+name|boolean
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00001000
+expr_stmt|;
+name|loadColumnFamiliesOnDemand_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<pre>        * DO NOT add defaults to load_column_families_on_demand.         *</pre>        *        *<code>optional bool load_column_families_on_demand = 14;</code>        */
+specifier|public
+name|Builder
+name|clearLoadColumnFamiliesOnDemand
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00001000
+operator|)
+expr_stmt|;
+name|loadColumnFamiliesOnDemand_
+operator|=
+literal|false
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
 return|;
 block|}
 specifier|public
@@ -260011,7 +260366,7 @@ literal|"label\030\001 \003(\t\"$\n\016CellVisibility\022\022\n\nexpress"
 operator|+
 literal|"ion\030\001 \002(\t\"+\n\006Column\022\016\n\006family\030\001 \002(\014\022\021\n\tq"
 operator|+
-literal|"ualifier\030\002 \003(\014\"\226\003\n\003Get\022\013\n\003row\030\001 \002(\014\022 \n\006c"
+literal|"ualifier\030\002 \003(\014\"\276\003\n\003Get\022\013\n\003row\030\001 \002(\014\022 \n\006c"
 operator|+
 literal|"olumn\030\002 \003(\0132\020.hbase.pb.Column\022*\n\tattribu"
 operator|+
@@ -260031,16 +260386,18 @@ literal|"onsistency\030\014 \001(\0162\025.hbase.pb.Consistency:"
 operator|+
 literal|"\006STRONG\0226\n\rcf_time_range\030\r \003(\0132\037.hbase.p"
 operator|+
-literal|"b.ColumnFamilyTimeRange\"\203\001\n\006Result\022\034\n\004ce"
+literal|"b.ColumnFamilyTimeRange\022&\n\036load_column_f"
+operator|+
+literal|"amilies_on_demand\030\016 \001(\010\"\203\001\n\006Result\022\034\n\004ce"
 operator|+
 literal|"ll\030\001 \003(\0132\016.hbase.pb.Cell\022\035\n\025associated_c"
 operator|+
 literal|"ell_count\030\002 \001(\005\022\016\n\006exists\030\003 \001(\010\022\024\n\005stale"
 operator|+
 literal|"\030\004 \001(\010:\005false\022\026\n\007partial\030\005 \001(\010:\005false\"S\n"
-operator|+
-literal|"\nGetRequest\022)\n\006region\030\001 \002(\0132\031.hbase.pb.R"
 block|,
+literal|"\nGetRequest\022)\n\006region\030\001 \002(\0132\031.hbase.pb.R"
+operator|+
 literal|"egionSpecifier\022\032\n\003get\030\002 \002(\0132\r.hbase.pb.G"
 operator|+
 literal|"et\"/\n\013GetResponse\022 \n\006result\030\001 \001(\0132\020.hbas"
@@ -260058,9 +260415,9 @@ operator|+
 literal|"e_type\030\002 \001(\0162$.hbase.pb.MutationProto.Mu"
 operator|+
 literal|"tationType\0229\n\014column_value\030\003 \003(\0132#.hbase"
-operator|+
-literal|".pb.MutationProto.ColumnValue\022\021\n\ttimesta"
 block|,
+literal|".pb.MutationProto.ColumnValue\022\021\n\ttimesta"
+operator|+
 literal|"mp\030\004 \001(\004\022*\n\tattribute\030\005 \003(\0132\027.hbase.pb.N"
 operator|+
 literal|"ameBytesPair\022C\n\ndurability\030\006 \001(\0162\".hbase"
@@ -260078,9 +260435,9 @@ operator|+
 literal|"ationProto.ColumnValue.QualifierValue\032\214\001"
 operator|+
 literal|"\n\016QualifierValue\022\021\n\tqualifier\030\001 \001(\014\022\r\n\005v"
-operator|+
-literal|"alue\030\002 \001(\014\022\021\n\ttimestamp\030\003 \001(\004\0227\n\013delete_"
 block|,
+literal|"alue\030\002 \001(\014\022\021\n\ttimestamp\030\003 \001(\004\0227\n\013delete_"
+operator|+
 literal|"type\030\004 \001(\0162\".hbase.pb.MutationProto.Dele"
 operator|+
 literal|"teType\022\014\n\004tags\030\005 \001(\014\"W\n\nDurability\022\017\n\013US"
@@ -260098,9 +260455,9 @@ operator|+
 literal|"\001\022\021\n\rDELETE_FAMILY\020\002\022\031\n\025DELETE_FAMILY_VE"
 operator|+
 literal|"RSION\020\003\"\242\001\n\rMutateRequest\022)\n\006region\030\001 \002("
-operator|+
-literal|"\0132\031.hbase.pb.RegionSpecifier\022)\n\010mutation"
 block|,
+literal|"\0132\031.hbase.pb.RegionSpecifier\022)\n\010mutation"
+operator|+
 literal|"\030\002 \002(\0132\027.hbase.pb.MutationProto\022&\n\tcondi"
 operator|+
 literal|"tion\030\003 \001(\0132\023.hbase.pb.Condition\022\023\n\013nonce"
@@ -260118,9 +260475,9 @@ operator|+
 literal|"w\030\004 \001(\014\022 \n\006filter\030\005 \001(\0132\020.hbase.pb.Filte"
 operator|+
 literal|"r\022\'\n\ntime_range\030\006 \001(\0132\023.hbase.pb.TimeRan"
-operator|+
-literal|"ge\022\027\n\014max_versions\030\007 \001(\r:\0011\022\032\n\014cache_blo"
 block|,
+literal|"ge\022\027\n\014max_versions\030\007 \001(\r:\0011\022\032\n\014cache_blo"
+operator|+
 literal|"cks\030\010 \001(\010:\004true\022\022\n\nbatch_size\030\t \001(\r\022\027\n\017m"
 operator|+
 literal|"ax_result_size\030\n \001(\004\022\023\n\013store_limit\030\013 \001("
@@ -260138,9 +260495,9 @@ operator|+
 literal|"\001(\010\0226\n\rcf_time_range\030\023 \003(\0132\037.hbase.pb.Co"
 operator|+
 literal|"lumnFamilyTimeRange\"\246\002\n\013ScanRequest\022)\n\006r"
-operator|+
-literal|"egion\030\001 \001(\0132\031.hbase.pb.RegionSpecifier\022\034"
 block|,
+literal|"egion\030\001 \001(\0132\031.hbase.pb.RegionSpecifier\022\034"
+operator|+
 literal|"\n\004scan\030\002 \001(\0132\016.hbase.pb.Scan\022\022\n\nscanner_"
 operator|+
 literal|"id\030\003 \001(\004\022\026\n\016number_of_rows\030\004 \001(\r\022\025\n\rclos"
@@ -260158,9 +260515,9 @@ operator|+
 literal|"\022\n\nscanner_id\030\002 \001(\004\022\024\n\014more_results\030\003 \001("
 operator|+
 literal|"\010\022\013\n\003ttl\030\004 \001(\r\022!\n\007results\030\005 \003(\0132\020.hbase."
-operator|+
-literal|"pb.Result\022\r\n\005stale\030\006 \001(\010\022\037\n\027partial_flag"
 block|,
+literal|"pb.Result\022\r\n\005stale\030\006 \001(\010\022\037\n\027partial_flag"
+operator|+
 literal|"_per_result\030\007 \003(\010\022\036\n\026more_results_in_reg"
 operator|+
 literal|"ion\030\010 \001(\010\022\031\n\021heartbeat_message\030\t \001(\010\022+\n\014"
@@ -260178,9 +260535,9 @@ operator|+
 literal|"\010fs_token\030\004 \001(\0132\031.hbase.pb.DelegationTok"
 operator|+
 literal|"en\022\022\n\nbulk_token\030\005 \001(\t\022\030\n\tcopy_file\030\006 \001("
-operator|+
-literal|"\010:\005false\032*\n\nFamilyPath\022\016\n\006family\030\001 \002(\014\022\014"
 block|,
+literal|"\010:\005false\032*\n\nFamilyPath\022\016\n\006family\030\001 \002(\014\022\014"
+operator|+
 literal|"\n\004path\030\002 \002(\t\"\'\n\025BulkLoadHFileResponse\022\016\n"
 operator|+
 literal|"\006loaded\030\001 \002(\010\"V\n\017DelegationToken\022\022\n\niden"
@@ -260198,9 +260555,9 @@ operator|+
 literal|"\n\nbulk_token\030\001 \002(\t\"W\n\026CleanupBulkLoadReq"
 operator|+
 literal|"uest\022\022\n\nbulk_token\030\001 \002(\t\022)\n\006region\030\002 \001(\013"
-operator|+
-literal|"2\031.hbase.pb.RegionSpecifier\"\031\n\027CleanupBu"
 block|,
+literal|"2\031.hbase.pb.RegionSpecifier\"\031\n\027CleanupBu"
+operator|+
 literal|"lkLoadResponse\"a\n\026CoprocessorServiceCall"
 operator|+
 literal|"\022\013\n\003row\030\001 \002(\014\022\024\n\014service_name\030\002 \002(\t\022\023\n\013m"
@@ -260218,9 +260575,9 @@ operator|+
 literal|"oprocessorServiceCall\"o\n\032CoprocessorServ"
 operator|+
 literal|"iceResponse\022)\n\006region\030\001 \002(\0132\031.hbase.pb.R"
-operator|+
-literal|"egionSpecifier\022&\n\005value\030\002 \002(\0132\027.hbase.pb"
 block|,
+literal|"egionSpecifier\022&\n\005value\030\002 \002(\0132\027.hbase.pb"
+operator|+
 literal|".NameBytesPair\"\226\001\n\006Action\022\r\n\005index\030\001 \001(\r"
 operator|+
 literal|"\022)\n\010mutation\030\002 \001(\0132\027.hbase.pb.MutationPr"
@@ -260238,9 +260595,9 @@ operator|+
 literal|"RegionLoadStats\022\027\n\014memstoreLoad\030\001 \001(\005:\0010"
 operator|+
 literal|"\022\030\n\rheapOccupancy\030\002 \001(\005:\0010\022\035\n\022compaction"
-operator|+
-literal|"Pressure\030\003 \001(\005:\0010\"j\n\024MultiRegionLoadStat"
 block|,
+literal|"Pressure\030\003 \001(\005:\0010\"j\n\024MultiRegionLoadStat"
+operator|+
 literal|"s\022)\n\006region\030\001 \003(\0132\031.hbase.pb.RegionSpeci"
 operator|+
 literal|"fier\022\'\n\004stat\030\002 \003(\0132\031.hbase.pb.RegionLoad"
@@ -260258,9 +260615,9 @@ operator|+
 literal|"\031.hbase.pb.RegionLoadStatsB\002\030\001\"x\n\022Region"
 operator|+
 literal|"ActionResult\0226\n\021resultOrException\030\001 \003(\0132"
-operator|+
-literal|"\033.hbase.pb.ResultOrException\022*\n\texceptio"
 block|,
+literal|"\033.hbase.pb.ResultOrException\022*\n\texceptio"
+operator|+
 literal|"n\030\002 \001(\0132\027.hbase.pb.NameBytesPair\"x\n\014Mult"
 operator|+
 literal|"iRequest\022,\n\014regionAction\030\001 \003(\0132\026.hbase.p"
@@ -260278,9 +260635,9 @@ operator|+
 literal|"ase.pb.MultiRegionLoadStats*\'\n\013Consisten"
 operator|+
 literal|"cy\022\n\n\006STRONG\020\000\022\014\n\010TIMELINE\020\0012\263\005\n\rClientS"
-operator|+
-literal|"ervice\0222\n\003Get\022\024.hbase.pb.GetRequest\032\025.hb"
 block|,
+literal|"ervice\0222\n\003Get\022\024.hbase.pb.GetRequest\032\025.hb"
+operator|+
 literal|"ase.pb.GetResponse\022;\n\006Mutate\022\027.hbase.pb."
 operator|+
 literal|"MutateRequest\032\030.hbase.pb.MutateResponse\022"
@@ -260298,9 +260655,9 @@ operator|+
 literal|".PrepareBulkLoadResponse\022V\n\017CleanupBulkL"
 operator|+
 literal|"oad\022 .hbase.pb.CleanupBulkLoadRequest\032!."
-operator|+
-literal|"hbase.pb.CleanupBulkLoadResponse\022X\n\013Exec"
 block|,
+literal|"hbase.pb.CleanupBulkLoadResponse\022X\n\013Exec"
+operator|+
 literal|"Service\022#.hbase.pb.CoprocessorServiceReq"
 operator|+
 literal|"uest\032$.hbase.pb.CoprocessorServiceRespon"
@@ -260783,6 +261140,8 @@ block|,
 literal|"Consistency"
 block|,
 literal|"CfTimeRange"
+block|,
+literal|"LoadColumnFamiliesOnDemand"
 block|, }
 argument_list|)
 expr_stmt|;

@@ -337,6 +337,12 @@ operator|.
 name|BYTES_COMPARATOR
 argument_list|)
 decl_stmt|;
+specifier|protected
+name|Boolean
+name|loadColumnFamiliesOnDemand
+init|=
+literal|null
+decl_stmt|;
 comment|/**    * @return Filter    */
 specifier|public
 name|Filter
@@ -683,6 +689,57 @@ name|fromBytes
 argument_list|(
 name|attr
 argument_list|)
+return|;
+block|}
+comment|/**    * Set the value indicating whether loading CFs on demand should be allowed (cluster    * default is false). On-demand CF loading doesn't load column families until necessary, e.g.    * if you filter on one column, the other column family data will be loaded only for the rows    * that are included in result, not all rows like in normal case.    * With column-specific filters, like SingleColumnValueFilter w/filterIfMissing == true,    * this can deliver huge perf gains when there's a cf with lots of data; however, it can    * also lead to some inconsistent results, as follows:    * - if someone does a concurrent update to both column families in question you may get a row    *   that never existed, e.g. for { rowKey = 5, { cat_videos =&gt; 1 }, { video =&gt; "my cat" } }    *   someone puts rowKey 5 with { cat_videos =&gt; 0 }, { video =&gt; "my dog" }, concurrent scan    *   filtering on "cat_videos == 1" can get { rowKey = 5, { cat_videos =&gt; 1 },    *   { video =&gt; "my dog" } }.    * - if there's a concurrent split and you have more than 2 column families, some rows may be    *   missing some column families.    */
+specifier|public
+name|Query
+name|setLoadColumnFamiliesOnDemand
+parameter_list|(
+name|boolean
+name|value
+parameter_list|)
+block|{
+name|this
+operator|.
+name|loadColumnFamiliesOnDemand
+operator|=
+name|value
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**    * Get the raw loadColumnFamiliesOnDemand setting; if it's not set, can be null.    */
+specifier|public
+name|Boolean
+name|getLoadColumnFamiliesOnDemandValue
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|loadColumnFamiliesOnDemand
+return|;
+block|}
+comment|/**    * Get the logical value indicating whether on-demand CF loading should be allowed.    */
+specifier|public
+name|boolean
+name|doLoadColumnFamiliesOnDemand
+parameter_list|()
+block|{
+return|return
+operator|(
+name|this
+operator|.
+name|loadColumnFamiliesOnDemand
+operator|!=
+literal|null
+operator|)
+operator|&&
+name|this
+operator|.
+name|loadColumnFamiliesOnDemand
 return|;
 block|}
 comment|/**    * Get versions of columns only within the specified timestamp range,    * [minStamp, maxStamp) on a per CF bases.  Note, default maximum versions to return is 1.  If    * your time range spans more than one version and you want all versions    * returned, up the number of versions beyond the default.    * Column Family time ranges take precedence over the global time range.    *    * @param cf       the column family for which you want to restrict    * @param minStamp minimum timestamp value, inclusive    * @param maxStamp maximum timestamp value, exclusive    * @return this    */

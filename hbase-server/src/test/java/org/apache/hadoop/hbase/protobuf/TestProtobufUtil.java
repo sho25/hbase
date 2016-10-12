@@ -650,6 +650,13 @@ name|build
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|getBuilder
+operator|.
+name|setLoadColumnFamiliesOnDemand
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
 name|ClientProtos
 operator|.
 name|Get
