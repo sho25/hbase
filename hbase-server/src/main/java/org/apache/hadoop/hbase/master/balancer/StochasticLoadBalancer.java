@@ -5682,7 +5682,7 @@ name|getLocalityOfRegion
 argument_list|(
 name|i
 argument_list|,
-name|index
+name|serverIndex
 argument_list|)
 operator|)
 expr_stmt|;
