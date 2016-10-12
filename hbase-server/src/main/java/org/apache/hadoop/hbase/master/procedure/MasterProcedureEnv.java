@@ -205,13 +205,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|master
+name|procedure2
 operator|.
-name|procedure
-operator|.
-name|MasterProcedureScheduler
-operator|.
-name|ProcedureEvent
+name|Procedure
 import|;
 end_import
 
@@ -227,7 +223,7 @@ name|hbase
 operator|.
 name|procedure2
 operator|.
-name|Procedure
+name|ProcedureEvent
 import|;
 end_import
 
@@ -671,9 +667,20 @@ name|getMasterCoprocessorHost
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Deprecated
 specifier|public
 name|MasterProcedureScheduler
 name|getProcedureQueue
+parameter_list|()
+block|{
+return|return
+name|procSched
+return|;
+block|}
+specifier|public
+name|MasterProcedureScheduler
+name|getProcedureScheduler
 parameter_list|()
 block|{
 return|return

@@ -1292,11 +1292,11 @@ name|ProcedureTimeoutRetriever
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|/**    * Queue that contains runnable procedures.    */
+comment|/**    * Scheduler/Queue that contains runnable procedures.    */
 specifier|private
 specifier|final
-name|ProcedureRunnableSet
-name|runnables
+name|ProcedureScheduler
+name|scheduler
 decl_stmt|;
 comment|// TODO
 specifier|private
@@ -1415,7 +1415,7 @@ argument_list|,
 name|store
 argument_list|,
 operator|new
-name|ProcedureSimpleRunQueue
+name|SimpleProcedureScheduler
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1436,8 +1436,8 @@ name|ProcedureStore
 name|store
 parameter_list|,
 specifier|final
-name|ProcedureRunnableSet
-name|runqueue
+name|ProcedureScheduler
+name|scheduler
 parameter_list|)
 block|{
 name|this
@@ -1448,9 +1448,9 @@ name|environment
 expr_stmt|;
 name|this
 operator|.
-name|runnables
+name|scheduler
 operator|=
-name|runqueue
+name|scheduler
 expr_stmt|;
 name|this
 operator|.
@@ -1533,7 +1533,7 @@ name|Preconditions
 operator|.
 name|checkArgument
 argument_list|(
-name|runnables
+name|scheduler
 operator|.
 name|size
 argument_list|()
@@ -2020,7 +2020,7 @@ literal|null
 condition|)
 block|{
 comment|// The 'proc' was ready to run but the root procedure was rolledback?
-name|runnables
+name|scheduler
 operator|.
 name|addBack
 argument_list|(
@@ -2167,8 +2167,8 @@ name|hasException
 argument_list|()
 condition|)
 block|{
-comment|// add the proc to the runnables to perform the rollback
-name|runnables
+comment|// add the proc to the scheduler to perform the rollback
+name|scheduler
 operator|.
 name|addBack
 argument_list|(
@@ -2362,7 +2362,7 @@ literal|" procedures on replay"
 argument_list|)
 throw|;
 block|}
-comment|// 4. Push the runnables
+comment|// 4. Push the scheduler
 if|if
 condition|(
 operator|!
@@ -2438,7 +2438,7 @@ name|wasExecuted
 argument_list|()
 condition|)
 block|{
-name|runnables
+name|scheduler
 operator|.
 name|addFront
 argument_list|(
@@ -2449,7 +2449,7 @@ block|}
 else|else
 block|{
 comment|// if it was not in execution, it can wait.
-name|runnables
+name|scheduler
 operator|.
 name|addBack
 argument_list|(
@@ -2638,6 +2638,12 @@ argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
+comment|// start the procedure scheduler
+name|scheduler
+operator|.
+name|start
+argument_list|()
+expr_stmt|;
 comment|// TODO: Split in two steps.
 comment|// TODO: Handle corrupted procedures (currently just a warn)
 comment|// The first one will make sure that we have the latest id,
@@ -2760,9 +2766,9 @@ argument_list|(
 literal|"Stopping the procedure executor"
 argument_list|)
 expr_stmt|;
-name|runnables
+name|scheduler
 operator|.
-name|signalAll
+name|stop
 argument_list|()
 expr_stmt|;
 name|waitingTimeout
@@ -2860,7 +2866,7 @@ operator|.
 name|clear
 argument_list|()
 expr_stmt|;
-name|runnables
+name|scheduler
 operator|.
 name|clear
 argument_list|()
@@ -3394,7 +3400,7 @@ argument_list|(
 name|currentProcId
 argument_list|)
 expr_stmt|;
-name|runnables
+name|scheduler
 operator|.
 name|addBack
 argument_list|(
@@ -3775,15 +3781,15 @@ argument_list|)
 return|;
 block|}
 specifier|protected
-name|ProcedureRunnableSet
-name|getRunnableSet
+name|ProcedureScheduler
+name|getScheduler
 parameter_list|()
 block|{
 return|return
-name|runnables
+name|scheduler
 return|;
 block|}
-comment|/**    * Execution loop (N threads)    * while the executor is in a running state,    * fetch a procedure from the runnables queue and start the execution.    */
+comment|/**    * Execution loop (N threads)    * while the executor is in a running state,    * fetch a procedure from the scheduler queue and start the execution.    */
 specifier|private
 name|void
 name|execLoop
@@ -3798,7 +3804,7 @@ block|{
 name|Procedure
 name|proc
 init|=
-name|runnables
+name|scheduler
 operator|.
 name|poll
 argument_list|()
@@ -3938,7 +3944,7 @@ operator|.
 name|unsetRollback
 argument_list|()
 expr_stmt|;
-name|runnables
+name|scheduler
 operator|.
 name|yield
 argument_list|(
@@ -3970,7 +3976,7 @@ name|proc
 argument_list|)
 condition|)
 block|{
-name|runnables
+name|scheduler
 operator|.
 name|yield
 argument_list|(
@@ -4020,7 +4026,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|runnables
+name|scheduler
 operator|.
 name|yield
 argument_list|(
@@ -4401,7 +4407,7 @@ argument_list|(
 name|proc
 argument_list|)
 expr_stmt|;
-name|runnables
+name|scheduler
 operator|.
 name|addFront
 argument_list|(
@@ -5060,7 +5066,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-name|runnables
+name|scheduler
 operator|.
 name|yield
 argument_list|(
@@ -5082,7 +5088,7 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
-name|runnables
+name|scheduler
 operator|.
 name|yield
 argument_list|(
@@ -5448,7 +5454,7 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
-name|runnables
+name|scheduler
 operator|.
 name|yield
 argument_list|(
@@ -5538,7 +5544,7 @@ argument_list|,
 name|subproc
 argument_list|)
 expr_stmt|;
-name|runnables
+name|scheduler
 operator|.
 name|addFront
 argument_list|(
@@ -5642,7 +5648,7 @@ argument_list|(
 name|parent
 argument_list|)
 expr_stmt|;
-name|runnables
+name|scheduler
 operator|.
 name|addFront
 argument_list|(
@@ -6358,7 +6364,7 @@ expr_stmt|;
 comment|// call the runnableSet completion cleanup handler
 try|try
 block|{
-name|runnables
+name|scheduler
 operator|.
 name|completionCleanup
 argument_list|(
@@ -6377,9 +6383,9 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"CODE-BUG: uncatched runtime exception for runnableSet: "
+literal|"CODE-BUG: uncatched runtime exception for completion cleanup: "
 operator|+
-name|runnables
+name|proc
 argument_list|,
 name|e
 argument_list|)

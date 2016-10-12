@@ -580,7 +580,7 @@ argument_list|)
 expr_stmt|;
 name|procExecutor
 operator|.
-name|getRunnableSet
+name|getScheduler
 argument_list|()
 operator|.
 name|addFront
@@ -656,7 +656,7 @@ argument_list|)
 expr_stmt|;
 name|procExecutor
 operator|.
-name|getRunnableSet
+name|getScheduler
 argument_list|()
 operator|.
 name|addFront
@@ -721,7 +721,7 @@ argument_list|)
 expr_stmt|;
 name|procExecutor
 operator|.
-name|getRunnableSet
+name|getScheduler
 argument_list|()
 operator|.
 name|addFront
