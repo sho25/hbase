@@ -8800,6 +8800,27 @@ operator|.
 name|increment
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|sn
+operator|==
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Close "
+operator|+
+name|encodedRegionName
+operator|+
+literal|" without moving"
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
 name|LOG
 operator|.
 name|info
@@ -8813,6 +8834,7 @@ operator|+
 name|sn
 argument_list|)
 expr_stmt|;
+block|}
 name|boolean
 name|closed
 init|=
