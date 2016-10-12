@@ -98,6 +98,8 @@ name|ENABLE
 block|,
 name|READ
 block|,
+name|REGION_EDIT
+block|,
 name|SPLIT
 block|,
 name|MERGE
