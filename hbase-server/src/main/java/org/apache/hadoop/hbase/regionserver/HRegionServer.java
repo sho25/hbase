@@ -6613,7 +6613,9 @@ block|}
 comment|// Couldn't connect to the master, get location from zk and reconnect
 comment|// Method blocks until new master is found or we are stopped
 name|createRegionServerStatusStub
-argument_list|()
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 block|}
 block|}
@@ -12064,6 +12066,26 @@ name|ServerName
 name|createRegionServerStatusStub
 parameter_list|()
 block|{
+comment|// Create RS stub without refreshing the master node from ZK, use cached data
+return|return
+name|createRegionServerStatusStub
+argument_list|(
+literal|false
+argument_list|)
+return|;
+block|}
+comment|/**    * Get the current master from ZooKeeper and open the RPC connection to it. To get a fresh    * connection, the current rssStub must be null. Method will block until a master is available.    * You can break from this block by requesting the server stop.    * @param refresh If true then master address will be read from ZK, otherwise use cached data    * @return master + port, or null if server has been stopped    */
+annotation|@
+name|VisibleForTesting
+specifier|protected
+specifier|synchronized
+name|ServerName
+name|createRegionServerStatusStub
+parameter_list|(
+name|boolean
+name|refresh
+parameter_list|)
+block|{
 if|if
 condition|(
 name|rssStub
@@ -12088,12 +12110,6 @@ name|previousLogTime
 init|=
 literal|0
 decl_stmt|;
-name|boolean
-name|refresh
-init|=
-literal|false
-decl_stmt|;
-comment|// for the first time, use cached data
 name|RegionServerStatusService
 operator|.
 name|BlockingInterface
@@ -12404,7 +12420,9 @@ name|ServerName
 name|masterServerName
 init|=
 name|createRegionServerStatusStub
-argument_list|()
+argument_list|(
+literal|true
+argument_list|)
 decl_stmt|;
 if|if
 condition|(
