@@ -887,8 +887,11 @@ operator|=
 literal|0
 expr_stmt|;
 name|currentKey
+operator|=
+operator|new
+name|KeyValue
 operator|.
-name|clear
+name|KeyOnlyKeyValue
 argument_list|()
 expr_stmt|;
 name|uncompressTags
