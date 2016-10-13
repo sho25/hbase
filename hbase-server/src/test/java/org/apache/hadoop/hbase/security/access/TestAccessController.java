@@ -13589,7 +13589,7 @@ argument_list|)
 argument_list|,
 name|snapshot
 argument_list|,
-literal|null
+name|htd
 argument_list|)
 expr_stmt|;
 return|return
@@ -13598,8 +13598,6 @@ return|;
 block|}
 block|}
 decl_stmt|;
-comment|// Clone by snapshot owner is not allowed , because clone operation creates a new table,
-comment|// which needs global admin permission.
 name|verifyAllowed
 argument_list|(
 name|cloneAction
@@ -13609,6 +13607,8 @@ argument_list|,
 name|USER_ADMIN
 argument_list|,
 name|USER_GROUP_ADMIN
+argument_list|,
+name|USER_OWNER
 argument_list|)
 expr_stmt|;
 name|verifyDenied
@@ -13622,8 +13622,6 @@ argument_list|,
 name|USER_RO
 argument_list|,
 name|USER_NONE
-argument_list|,
-name|USER_OWNER
 argument_list|,
 name|USER_GROUP_READ
 argument_list|,
