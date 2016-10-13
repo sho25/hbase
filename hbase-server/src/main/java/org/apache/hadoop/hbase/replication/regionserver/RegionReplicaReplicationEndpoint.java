@@ -2019,8 +2019,11 @@ annotation|@
 name|Override
 specifier|public
 name|boolean
-name|keepRegionEvents
-parameter_list|()
+name|keepRegionEvent
+parameter_list|(
+name|Entry
+name|entry
+parameter_list|)
 block|{
 return|return
 literal|true

@@ -1746,15 +1746,9 @@ name|IOException
 block|{
 if|if
 condition|(
-name|CellUtil
-operator|.
-name|matchingColumn
+name|isCompactionMarker
 argument_list|(
 name|kv
-argument_list|,
-name|METAFAMILY
-argument_list|,
-name|COMPACTION
 argument_list|)
 condition|)
 block|{
@@ -1774,6 +1768,29 @@ return|;
 block|}
 return|return
 literal|null
+return|;
+block|}
+comment|/**    * Returns true if the given cell is a serialized {@link CompactionDescriptor}    *    * @see #getCompaction(Cell)    */
+specifier|public
+specifier|static
+name|boolean
+name|isCompactionMarker
+parameter_list|(
+name|Cell
+name|cell
+parameter_list|)
+block|{
+return|return
+name|CellUtil
+operator|.
+name|matchingColumn
+argument_list|(
+name|cell
+argument_list|,
+name|METAFAMILY
+argument_list|,
+name|COMPACTION
+argument_list|)
 return|;
 block|}
 comment|/**    * Create a bulk loader WALEdit    *    * @param hri                The HRegionInfo for the region in which we are bulk loading    * @param bulkLoadDescriptor The descriptor for the Bulk Loader    * @return The WALEdit for the BulkLoad    */
