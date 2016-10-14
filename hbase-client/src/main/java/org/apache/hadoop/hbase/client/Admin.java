@@ -1533,7 +1533,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Merge two regions. Asynchronous operation.    *    * @param nameOfRegionA encoded or full name of region a    * @param nameOfRegionB encoded or full name of region b    * @param forcible true if do a compulsory merge, otherwise we will only merge    *          two adjacent regions    * @throws IOException    */
-specifier|public
 name|Future
 argument_list|<
 name|Void
