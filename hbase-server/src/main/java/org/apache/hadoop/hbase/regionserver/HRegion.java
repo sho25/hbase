@@ -16309,11 +16309,6 @@ block|}
 else|else
 block|{
 comment|// writeEntry won't be empty if not in replay mode
-assert|assert
-name|writeEntry
-operator|!=
-literal|null
-assert|;
 name|mvcc
 operator|.
 name|completeAndWait
