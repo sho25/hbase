@@ -3168,6 +3168,7 @@ argument_list|>
 name|listProcedures
 parameter_list|()
 block|{
+specifier|final
 name|List
 argument_list|<
 name|ProcedureInfo
@@ -3193,10 +3194,6 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|java
-operator|.
-name|util
-operator|.
 name|Map
 operator|.
 name|Entry
@@ -3219,7 +3216,7 @@ name|add
 argument_list|(
 name|ProcedureUtil
 operator|.
-name|createProcedureInfo
+name|convertToProcedureInfo
 argument_list|(
 name|p
 operator|.
@@ -3231,10 +3228,6 @@ expr_stmt|;
 block|}
 for|for
 control|(
-name|java
-operator|.
-name|util
-operator|.
 name|Map
 operator|.
 name|Entry
@@ -6460,12 +6453,13 @@ name|proc
 argument_list|)
 expr_stmt|;
 comment|// update the executor internal state maps
+specifier|final
 name|ProcedureInfo
 name|procInfo
 init|=
 name|ProcedureUtil
 operator|.
-name|createProcedureInfo
+name|convertToProcedureInfo
 argument_list|(
 name|proc
 argument_list|,

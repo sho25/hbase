@@ -1402,9 +1402,9 @@ condition|)
 block|{
 name|procedure
 operator|=
-name|Procedure
+name|ProcedureUtil
 operator|.
-name|convert
+name|convertToProcedure
 argument_list|(
 name|proto
 argument_list|)
@@ -1422,7 +1422,7 @@ block|{
 return|return
 name|ProcedureUtil
 operator|.
-name|convert
+name|convertToProcedureInfo
 argument_list|(
 name|proto
 argument_list|)

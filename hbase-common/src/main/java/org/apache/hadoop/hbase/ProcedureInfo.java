@@ -579,7 +579,7 @@ return|return
 name|procName
 return|;
 block|}
-specifier|private
+specifier|public
 name|boolean
 name|hasOwner
 parameter_list|()

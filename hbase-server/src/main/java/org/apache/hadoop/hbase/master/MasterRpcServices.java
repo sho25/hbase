@@ -5964,6 +5964,7 @@ name|ServiceException
 block|{
 try|try
 block|{
+specifier|final
 name|ListProceduresResponse
 operator|.
 name|Builder
@@ -5991,7 +5992,7 @@ name|addProcedure
 argument_list|(
 name|ProcedureUtil
 operator|.
-name|convertToProcedureProto
+name|convertToProtoProcedure
 argument_list|(
 name|p
 argument_list|)
