@@ -1238,7 +1238,7 @@ argument_list|)
 expr_stmt|;
 name|LOG
 operator|.
-name|debug
+name|info
 argument_list|(
 name|name
 operator|+
@@ -1258,15 +1258,6 @@ literal|" readHandlers="
 operator|+
 name|readHandlersCount
 operator|+
-operator|(
-operator|(
-name|numScanQueues
-operator|==
-literal|0
-operator|)
-condition|?
-literal|""
-else|:
 literal|" scanQueues="
 operator|+
 name|numScanQueues
@@ -1274,7 +1265,6 @@ operator|+
 literal|" scanHandlers="
 operator|+
 name|scanHandlersCount
-operator|)
 argument_list|)
 expr_stmt|;
 if|if
@@ -1475,6 +1465,13 @@ argument_list|,
 name|port
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|numScanQueues
+operator|>
+literal|0
+condition|)
+block|{
 name|startHandlers
 argument_list|(
 literal|".scan"
@@ -1492,6 +1489,7 @@ argument_list|,
 name|port
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Override
