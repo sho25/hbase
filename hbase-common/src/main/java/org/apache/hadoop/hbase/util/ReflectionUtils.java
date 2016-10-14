@@ -299,6 +299,13 @@ parameter_list|)
 block|{
 try|try
 block|{
+name|ctor
+operator|.
+name|setAccessible
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
 return|return
 name|ctor
 operator|.
@@ -363,11 +370,6 @@ argument_list|)
 throw|;
 block|}
 block|}
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unchecked"
-argument_list|)
 specifier|public
 specifier|static
 parameter_list|<
@@ -449,7 +451,7 @@ index|[]
 operator|)
 name|type
 operator|.
-name|getConstructors
+name|getDeclaredConstructors
 argument_list|()
 decl_stmt|;
 for|for
