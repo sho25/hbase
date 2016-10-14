@@ -135,16 +135,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|security
-operator|.
-name|PrivilegedExceptionAction
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|ArrayList
@@ -188,16 +178,6 @@ operator|.
 name|util
 operator|.
 name|HashSet
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Iterator
 import|;
 end_import
 
@@ -550,48 +530,6 @@ operator|.
 name|hbase
 operator|.
 name|TableName
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|Tag
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|TagType
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|TagUtil
 import|;
 end_import
 
@@ -3443,8 +3381,7 @@ return|return
 name|storeFile
 return|;
 block|}
-annotation|@
-name|Override
+comment|/**    * Adds a value to the memstore    * @param cell    * @return memstore size delta    */
 specifier|public
 name|long
 name|add
@@ -3487,8 +3424,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-annotation|@
-name|Override
+comment|/**    * Adds the specified value to the memstore    * @param cells    * @return memstore size delta    */
 specifier|public
 name|long
 name|add
@@ -3612,8 +3548,7 @@ name|getStorefiles
 argument_list|()
 return|;
 block|}
-annotation|@
-name|Override
+comment|/**    * This throws a WrongRegionException if the HFile does not fit in this region, or an    * InvalidHFileException if the HFile is not valid.    */
 specifier|public
 name|void
 name|assertBulkLoadHFileOk
@@ -4105,8 +4040,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-annotation|@
-name|Override
+comment|/**    * This method should only be called from Region. It is assumed that the ranges of values in the    * HFile fit within the stores assigned region. (assertBulkLoadHFileOk checks this)    *    * @param srcPathStr    * @param seqNum sequence Id associated with the HFile    */
 specifier|public
 name|Path
 name|bulkLoadHFile
@@ -4200,8 +4134,6 @@ return|return
 name|dstPath
 return|;
 block|}
-annotation|@
-name|Override
 specifier|public
 name|void
 name|bulkLoadHFile
@@ -7310,8 +7242,6 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Call to complete a compaction. Its for the case where we find in the WAL a compaction    * that was not finished.  We could find one recovering a WAL after a regionserver crash.    * See HBASE-2231.    * @param compaction    */
-annotation|@
-name|Override
 specifier|public
 name|void
 name|replayCompactionMarker
@@ -10481,8 +10411,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-annotation|@
-name|Override
+comment|/**    * Adds or replaces the specified KeyValues.    *<p>    * For each KeyValue specified, if a cell with the same row, family, and qualifier exists in    * MemStore, it will be replaced. Otherwise, it will just be inserted to MemStore.    *<p>    * This operation is atomic on each KeyValue (row/family/qualifier) but not necessarily atomic    * across all of them.    * @param cells    * @param readpoint readpoint below which we can safely remove duplicate KVs    * @return memstore size delta    * @throws IOException    */
 specifier|public
 name|long
 name|upsert
@@ -12058,8 +11987,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-annotation|@
-name|Override
 specifier|public
 name|void
 name|finalizeFlush
@@ -12074,12 +12001,17 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|MemStore
-name|getMemStore
+name|boolean
+name|isSloppyMemstore
 parameter_list|()
 block|{
 return|return
+name|this
+operator|.
 name|memstore
+operator|.
+name|isSloppy
+argument_list|()
 return|;
 block|}
 specifier|private

@@ -79,34 +79,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|fs
-operator|.
-name|Path
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|Cell
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
 name|CellComparator
@@ -300,28 +272,6 @@ operator|.
 name|hfile
 operator|.
 name|HFileDataBlockEncoder
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|WALProtos
-operator|.
-name|CompactionDescriptor
 import|;
 end_import
 
@@ -600,41 +550,6 @@ name|ScanInfo
 name|getScanInfo
 parameter_list|()
 function_decl|;
-comment|/**    * Adds or replaces the specified KeyValues.    *<p>    * For each KeyValue specified, if a cell with the same row, family, and qualifier exists in    * MemStore, it will be replaced. Otherwise, it will just be inserted to MemStore.    *<p>    * This operation is atomic on each KeyValue (row/family/qualifier) but not necessarily atomic    * across all of them.    * @param cells    * @param readpoint readpoint below which we can safely remove duplicate KVs    * @return memstore size delta    * @throws IOException    */
-name|long
-name|upsert
-parameter_list|(
-name|Iterable
-argument_list|<
-name|Cell
-argument_list|>
-name|cells
-parameter_list|,
-name|long
-name|readpoint
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-comment|/**    * Adds a value to the memstore    * @param cell    * @return memstore size delta    */
-name|long
-name|add
-parameter_list|(
-name|Cell
-name|cell
-parameter_list|)
-function_decl|;
-comment|/**    * Adds the specified value to the memstore    * @param cells    * @return memstore size delta    */
-name|long
-name|add
-parameter_list|(
-name|Iterable
-argument_list|<
-name|Cell
-argument_list|>
-name|cells
-parameter_list|)
-function_decl|;
 comment|/**    * When was the last edit done in the memstore    */
 name|long
 name|timeOfOldestEdit
@@ -845,22 +760,6 @@ name|long
 name|cacheFlushId
 parameter_list|)
 function_decl|;
-comment|/**    * Call to complete a compaction. Its for the case where we find in the WAL a compaction    * that was not finished.  We could find one recovering a WAL after a regionserver crash.    * See HBASE-2331.    * @param compaction the descriptor for compaction    * @param pickCompactionFiles whether or not pick up the new compaction output files and    * add it to the store    * @param removeFiles whether to remove/archive files from filesystem    */
-name|void
-name|replayCompactionMarker
-parameter_list|(
-name|CompactionDescriptor
-name|compaction
-parameter_list|,
-name|boolean
-name|pickCompactionFiles
-parameter_list|,
-name|boolean
-name|removeFiles
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
 comment|// Split oriented methods
 name|boolean
 name|canSplit
@@ -871,30 +770,6 @@ name|byte
 index|[]
 name|getSplitPoint
 parameter_list|()
-function_decl|;
-comment|// Bulk Load methods
-comment|/**    * This throws a WrongRegionException if the HFile does not fit in this region, or an    * InvalidHFileException if the HFile is not valid.    */
-name|void
-name|assertBulkLoadHFileOk
-parameter_list|(
-name|Path
-name|srcPath
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-comment|/**    * This method should only be called from Region. It is assumed that the ranges of values in the    * HFile fit within the stores assigned region. (assertBulkLoadHFileOk checks this)    *    * @param srcPathStr    * @param sequenceId sequence Id associated with the HFile    */
-name|Path
-name|bulkLoadHFile
-parameter_list|(
-name|String
-name|srcPathStr
-parameter_list|,
-name|long
-name|sequenceId
-parameter_list|)
-throws|throws
-name|IOException
 function_decl|;
 comment|// General accessors into the state of the store
 comment|// TODO abstract some of this out into a metrics class
@@ -1115,15 +990,6 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-name|void
-name|bulkLoadHFile
-parameter_list|(
-name|StoreFileInfo
-name|fileInfo
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
 name|boolean
 name|isPrimaryReplicaStore
 parameter_list|()
@@ -1135,13 +1001,9 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * This method is called when it is clear that the flush to disk is completed.    * The store may do any post-flush actions at this point.    * One example is to update the wal with sequence number that is known only at the store level.    */
-name|void
-name|finalizeFlush
-parameter_list|()
-function_decl|;
-name|MemStore
-name|getMemStore
+comment|/**    * @return true if the memstore may need some extra memory space    */
+name|boolean
+name|isSloppyMemstore
 parameter_list|()
 function_decl|;
 block|}
