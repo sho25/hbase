@@ -2537,7 +2537,7 @@ name|IllegalStateException
 argument_list|(
 literal|"currentSequence="
 operator|+
-name|syncFutureSequence
+name|currentSequence
 operator|+
 literal|", syncFutureSequence="
 operator|+
