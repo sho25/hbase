@@ -540,7 +540,7 @@ name|storeThreads
 init|=
 name|procExecutor
 operator|.
-name|getNumThreads
+name|getCorePoolSize
 argument_list|()
 decl_stmt|;
 name|int
@@ -548,7 +548,7 @@ name|execThreads
 init|=
 name|procExecutor
 operator|.
-name|getNumThreads
+name|getCorePoolSize
 argument_list|()
 decl_stmt|;
 comment|// stop

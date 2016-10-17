@@ -427,7 +427,7 @@ name|assertTrue
 argument_list|(
 name|chore
 operator|.
-name|isRunnable
+name|isWaiting
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -441,7 +441,7 @@ name|assertTrue
 argument_list|(
 name|chore
 operator|.
-name|isRunnable
+name|isWaiting
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -496,7 +496,7 @@ name|assertFalse
 argument_list|(
 name|chore
 operator|.
-name|isRunnable
+name|isWaiting
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -582,6 +582,15 @@ name|TestProcEnv
 name|env
 parameter_list|)
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"periodic execute "
+operator|+
+name|this
+argument_list|)
+expr_stmt|;
 name|latch
 operator|.
 name|countDown

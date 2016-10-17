@@ -458,6 +458,11 @@ name|NullTableLockManager
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|queue
+operator|.
+name|start
+argument_list|()
+expr_stmt|;
 block|}
 annotation|@
 name|After
@@ -479,6 +484,11 @@ operator|.
 name|size
 argument_list|()
 argument_list|)
+expr_stmt|;
+name|queue
+operator|.
+name|stop
+argument_list|()
 expr_stmt|;
 name|queue
 operator|.

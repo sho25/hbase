@@ -1108,6 +1108,20 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
+comment|// Remove Namespaces
+name|clear
+argument_list|(
+name|namespaceMap
+argument_list|,
+literal|null
+argument_list|,
+name|NAMESPACE_QUEUE_KEY_COMPARATOR
+argument_list|)
+expr_stmt|;
+name|namespaceMap
+operator|=
+literal|null
+expr_stmt|;
 comment|// Remove Tables
 name|clear
 argument_list|(
@@ -1221,6 +1235,12 @@ argument_list|,
 name|comparator
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|fairq
+operator|!=
+literal|null
+condition|)
 name|removeFromRunQueue
 argument_list|(
 name|fairq
@@ -1232,7 +1252,7 @@ block|}
 block|}
 annotation|@
 name|Override
-specifier|public
+specifier|protected
 name|int
 name|queueSize
 parameter_list|()
