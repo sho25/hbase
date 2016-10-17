@@ -35045,7 +35045,9 @@ argument_list|(
 name|results
 argument_list|)
 else|:
-literal|null
+name|Result
+operator|.
+name|EMPTY_RESULT
 return|;
 block|}
 finally|finally

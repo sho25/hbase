@@ -1140,7 +1140,7 @@ name|v2
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|assertNull
+name|assertTrue
 argument_list|(
 name|region
 operator|.
@@ -1156,6 +1156,9 @@ name|HConstants
 operator|.
 name|NO_NONCE
 argument_list|)
+operator|.
+name|isEmpty
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|a
