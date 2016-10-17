@@ -1241,8 +1241,6 @@ operator|>
 literal|1
 condition|)
 block|{
-try|try
-block|{
 name|scan
 operator|.
 name|setFilter
@@ -1254,22 +1252,6 @@ name|rowRangeList
 argument_list|)
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-comment|//the IOException should never be thrown. see HBASE-16145
-throw|throw
-operator|new
-name|RuntimeException
-argument_list|(
-literal|"Cannot instantiate MultiRowRangeFilter"
-argument_list|)
-throw|;
-block|}
 block|}
 block|}
 comment|/*    * @param errorMessage Can attach a message when error occurs.    */

@@ -21,16 +21,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|ArrayList
@@ -292,7 +282,7 @@ specifier|private
 name|ReturnCode
 name|currentReturnCode
 decl_stmt|;
-comment|/**    * @param list A list of<code>RowRange</code>    * @throws java.io.IOException    *           throw an exception if the range list is not in an natural order or any    *<code>RowRange</code> is invalid    */
+comment|/**    * @param list A list of<code>RowRange</code>    */
 specifier|public
 name|MultiRowRangeFilter
 parameter_list|(
@@ -302,8 +292,6 @@ name|RowRange
 argument_list|>
 name|list
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|this
 operator|.
@@ -924,8 +912,6 @@ name|range
 argument_list|)
 expr_stmt|;
 block|}
-try|try
-block|{
 return|return
 operator|new
 name|MultiRowRangeFilter
@@ -933,23 +919,6 @@ argument_list|(
 name|rangeList
 argument_list|)
 return|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-throw|throw
-operator|new
-name|DeserializationException
-argument_list|(
-literal|"Fail to instantiate the MultiRowRangeFilter"
-argument_list|,
-name|e
-argument_list|)
-throw|;
-block|}
 block|}
 comment|/**    * @param o the filter to compare    * @return true if and only if the fields of the filter that are serialized are equal to the    *         corresponding fields in other. Used for testing.    */
 name|boolean
