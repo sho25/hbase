@@ -887,11 +887,8 @@ operator|=
 literal|0
 expr_stmt|;
 name|currentKey
-operator|=
-operator|new
-name|KeyValue
 operator|.
-name|KeyOnlyKeyValue
+name|clear
 argument_list|()
 expr_stmt|;
 name|uncompressTags
@@ -1161,10 +1158,13 @@ argument_list|)
 expr_stmt|;
 block|}
 name|currentKey
-operator|=
+operator|.
+name|set
+argument_list|(
 name|nextState
 operator|.
 name|currentKey
+argument_list|)
 expr_stmt|;
 name|valueOffset
 operator|=
