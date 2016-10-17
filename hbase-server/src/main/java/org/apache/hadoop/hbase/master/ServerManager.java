@@ -3753,6 +3753,17 @@ return|return
 literal|false
 return|;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Server "
+operator|+
+name|sn
+operator|+
+literal|" added to draining server list."
+argument_list|)
+expr_stmt|;
 return|return
 name|this
 operator|.
