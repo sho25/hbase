@@ -109,9 +109,6 @@ name|Private
 specifier|public
 class|class
 name|DelayingRunner
-parameter_list|<
-name|T
-parameter_list|>
 implements|implements
 name|Runnable
 block|{
@@ -151,16 +148,10 @@ name|sleepTime
 decl_stmt|;
 specifier|private
 name|MultiAction
-argument_list|<
-name|T
-argument_list|>
 name|actions
 init|=
 operator|new
 name|MultiAction
-argument_list|<
-name|T
-argument_list|>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -183,9 +174,6 @@ argument_list|,
 name|List
 argument_list|<
 name|Action
-argument_list|<
-name|T
-argument_list|>
 argument_list|>
 argument_list|>
 name|e
@@ -377,9 +365,6 @@ argument_list|,
 name|List
 argument_list|<
 name|Action
-argument_list|<
-name|T
-argument_list|>
 argument_list|>
 argument_list|>
 name|e
@@ -403,9 +388,6 @@ expr_stmt|;
 block|}
 specifier|public
 name|MultiAction
-argument_list|<
-name|T
-argument_list|>
 name|getActions
 parameter_list|()
 block|{

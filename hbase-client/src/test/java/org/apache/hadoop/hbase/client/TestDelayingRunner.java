@@ -214,16 +214,10 @@ throws|throws
 name|Exception
 block|{
 name|MultiAction
-argument_list|<
-name|Row
-argument_list|>
 name|ma
 init|=
 operator|new
 name|MultiAction
-argument_list|<
-name|Row
-argument_list|>
 argument_list|()
 decl_stmt|;
 name|ma
@@ -237,9 +231,6 @@ argument_list|()
 argument_list|,
 operator|new
 name|Action
-argument_list|<
-name|Row
-argument_list|>
 argument_list|(
 operator|new
 name|Put

@@ -4004,9 +4004,6 @@ block|}
 comment|/**    * Create a protocol buffer multi request for a list of actions.    * Propagates Actions original index.    *    * @param regionName    * @param actions    * @return a multi request    * @throws IOException    */
 specifier|public
 specifier|static
-parameter_list|<
-name|R
-parameter_list|>
 name|RegionAction
 operator|.
 name|Builder
@@ -4021,9 +4018,6 @@ specifier|final
 name|List
 argument_list|<
 name|Action
-argument_list|<
-name|R
-argument_list|>
 argument_list|>
 name|actions
 parameter_list|,
@@ -4053,9 +4047,6 @@ block|{
 for|for
 control|(
 name|Action
-argument_list|<
-name|R
-argument_list|>
 name|action
 range|:
 name|actions
@@ -4436,9 +4427,6 @@ block|}
 comment|/**    * Create a protocol buffer multirequest with NO data for a list of actions (data is carried    * otherwise than via protobuf).  This means it just notes attributes, whether to write the    * WAL, etc., and the presence in protobuf serves as place holder for the data which is    * coming along otherwise.  Note that Get is different.  It does not contain 'data' and is always    * carried by protobuf.  We return references to the data by adding them to the passed in    *<code>data</code> param.    *    *<p>Propagates Actions original index.    *    * @param regionName    * @param actions    * @param cells Place to stuff references to actual data.    * @return a multi request that does not carry any data.    * @throws IOException    */
 specifier|public
 specifier|static
-parameter_list|<
-name|R
-parameter_list|>
 name|RegionAction
 operator|.
 name|Builder
@@ -4453,9 +4441,6 @@ specifier|final
 name|List
 argument_list|<
 name|Action
-argument_list|<
-name|R
-argument_list|>
 argument_list|>
 name|actions
 parameter_list|,
@@ -4507,9 +4492,6 @@ decl_stmt|;
 for|for
 control|(
 name|Action
-argument_list|<
-name|R
-argument_list|>
 name|action
 range|:
 name|actions

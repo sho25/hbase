@@ -374,9 +374,6 @@ operator|.
 name|Private
 class|class
 name|MultiServerCallable
-parameter_list|<
-name|R
-parameter_list|>
 extends|extends
 name|CancellableRegionServerCallable
 argument_list|<
@@ -385,9 +382,6 @@ argument_list|>
 block|{
 specifier|private
 name|MultiAction
-argument_list|<
-name|R
-argument_list|>
 name|multiAction
 decl_stmt|;
 specifier|private
@@ -410,9 +404,6 @@ name|location
 parameter_list|,
 specifier|final
 name|MultiAction
-argument_list|<
-name|R
-argument_list|>
 name|multi
 parameter_list|,
 name|RpcController
@@ -477,9 +468,6 @@ name|ServerName
 name|location
 parameter_list|,
 name|MultiAction
-argument_list|<
-name|R
-argument_list|>
 name|multiAction
 parameter_list|)
 block|{
@@ -540,9 +528,6 @@ argument_list|)
 throw|;
 block|}
 name|MultiAction
-argument_list|<
-name|R
-argument_list|>
 name|getMulti
 parameter_list|()
 block|{
@@ -674,9 +659,6 @@ argument_list|,
 name|List
 argument_list|<
 name|Action
-argument_list|<
-name|R
-argument_list|>
 argument_list|>
 argument_list|>
 name|e
@@ -705,9 +687,6 @@ specifier|final
 name|List
 argument_list|<
 name|Action
-argument_list|<
-name|R
-argument_list|>
 argument_list|>
 name|actions
 init|=

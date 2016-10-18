@@ -136,9 +136,6 @@ specifier|public
 specifier|final
 class|class
 name|MultiAction
-parameter_list|<
-name|R
-parameter_list|>
 block|{
 comment|// TODO: This class should not be visible outside of the client package.
 comment|// map of regions to lists of puts/gets/deletes for that region.
@@ -151,9 +148,6 @@ argument_list|,
 name|List
 argument_list|<
 name|Action
-argument_list|<
-name|R
-argument_list|>
 argument_list|>
 argument_list|>
 name|actions
@@ -230,9 +224,6 @@ index|[]
 name|regionName
 parameter_list|,
 name|Action
-argument_list|<
-name|R
-argument_list|>
 name|a
 parameter_list|)
 block|{
@@ -261,9 +252,6 @@ parameter_list|,
 name|List
 argument_list|<
 name|Action
-argument_list|<
-name|R
-argument_list|>
 argument_list|>
 name|actionList
 parameter_list|)
@@ -271,9 +259,6 @@ block|{
 name|List
 argument_list|<
 name|Action
-argument_list|<
-name|R
-argument_list|>
 argument_list|>
 name|rsActions
 init|=
@@ -297,9 +282,6 @@ operator|new
 name|ArrayList
 argument_list|<
 name|Action
-argument_list|<
-name|R
-argument_list|>
 argument_list|>
 argument_list|(
 name|actionList

@@ -32,7 +32,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Implementations of this interface will keep and return to clients   * implementations of classes providing API to execute  * coordinated operations. This interface is client-side, so it does NOT  * include methods to retrieve the particular interface implementations.  *  * For each coarse-grained area of operations there will be a separate  * interface with implementation, providing API for relevant operations  * requiring coordination.  *  * Property hbase.coordinated.state.manager.class in hbase-site.xml controls  * which provider to use.  */
+comment|/**  * Implementations of this interface will keep and return to clients  * implementations of classes providing API to execute  * coordinated operations. This interface is client-side, so it does NOT  * include methods to retrieve the particular interface implementations.  *  * For each coarse-grained area of operations there will be a separate  * interface with implementation, providing API for relevant operations  * requiring coordination.  *  * Property hbase.coordinated.state.manager.class in hbase-site.xml controls  * which provider to use.  */
 end_comment
 
 begin_interface
