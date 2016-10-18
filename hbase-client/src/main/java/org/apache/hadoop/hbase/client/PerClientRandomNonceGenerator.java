@@ -68,7 +68,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * NonceGenerator implementation that uses client ID hash + random int as nonce group,  * and random numbers as nonces.  */
+comment|/**  * NonceGenerator implementation that uses client ID hash + random int as nonce group, and random  * numbers as nonces.  */
 end_comment
 
 begin_class
@@ -77,11 +77,22 @@ name|InterfaceAudience
 operator|.
 name|Private
 specifier|public
+specifier|final
 class|class
 name|PerClientRandomNonceGenerator
 implements|implements
 name|NonceGenerator
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|PerClientRandomNonceGenerator
+name|INST
+init|=
+operator|new
+name|PerClientRandomNonceGenerator
+argument_list|()
+decl_stmt|;
 specifier|private
 specifier|final
 name|Random
@@ -96,7 +107,7 @@ specifier|final
 name|long
 name|clientId
 decl_stmt|;
-specifier|public
+specifier|private
 name|PerClientRandomNonceGenerator
 parameter_list|()
 block|{
@@ -179,6 +190,17 @@ condition|)
 do|;
 return|return
 name|result
+return|;
+block|}
+comment|/**    * Get the singleton nonce generator.    */
+specifier|public
+specifier|static
+name|PerClientRandomNonceGenerator
+name|get
+parameter_list|()
+block|{
+return|return
+name|INST
 return|;
 block|}
 block|}

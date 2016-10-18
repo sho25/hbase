@@ -46,14 +46,19 @@ specifier|public
 interface|interface
 name|NonceGenerator
 block|{
+specifier|static
+specifier|final
+name|String
+name|CLIENT_NONCES_ENABLED_KEY
+init|=
+literal|"hbase.client.nonces.enabled"
+decl_stmt|;
 comment|/** @return the nonce group (client ID) of this client manager. */
-specifier|public
 name|long
 name|getNonceGroup
 parameter_list|()
 function_decl|;
 comment|/** @return New nonce. */
-specifier|public
 name|long
 name|newNonce
 parameter_list|()
