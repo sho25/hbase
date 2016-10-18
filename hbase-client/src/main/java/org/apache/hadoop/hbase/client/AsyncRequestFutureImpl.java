@@ -5334,6 +5334,33 @@ operator|.
 name|getStat
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|stat
+operator|==
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"No ClientProtos.RegionLoadStats found for server="
+operator|+
+name|server
+operator|+
+literal|", region="
+operator|+
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
+name|regionName
+argument_list|)
+argument_list|)
+expr_stmt|;
+continue|continue;
+block|}
 name|RegionLoadStats
 name|regionLoadstats
 init|=
