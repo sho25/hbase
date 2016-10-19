@@ -603,6 +603,17 @@ argument_list|,
 literal|1
 argument_list|)
 expr_stmt|;
+name|conf
+operator|.
+name|setInt
+argument_list|(
+name|MasterProcedureConstants
+operator|.
+name|MASTER_PROCEDURE_THREADS
+argument_list|,
+literal|1
+argument_list|)
+expr_stmt|;
 block|}
 annotation|@
 name|Before
