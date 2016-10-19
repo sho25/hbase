@@ -64,7 +64,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Thrown when the size of the rpc request received by the server is too large.  *  * On receiving such an exception, the client does not retry the offending rpc.  */
+comment|/**  * Thrown when the size of the rpc request received by the server is too large.  *  * On receiving such an exception, the client does not retry the offending rpc.  * @since 1.3.0  */
 end_comment
 
 begin_class
@@ -90,6 +90,23 @@ name|serialVersionUID
 init|=
 operator|-
 literal|1593339239809586516L
+decl_stmt|;
+comment|// Recognized only in HBase version 1.3 and higher.
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|MAJOR_VERSION
+init|=
+literal|1
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|MINOR_VERSION
+init|=
+literal|3
 decl_stmt|;
 specifier|public
 name|RequestTooBigException

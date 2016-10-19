@@ -8689,6 +8689,29 @@ argument_list|(
 name|REQUEST_TOO_BIG_EXCEPTION
 argument_list|)
 expr_stmt|;
+comment|// Make sure the client recognizes the underlying exception
+comment|// Otherwise, throw a DoNotRetryIOException.
+if|if
+condition|(
+name|VersionInfoUtil
+operator|.
+name|hasMinimumVersion
+argument_list|(
+name|connectionHeader
+operator|.
+name|getVersionInfo
+argument_list|()
+argument_list|,
+name|RequestTooBigException
+operator|.
+name|MAJOR_VERSION
+argument_list|,
+name|RequestTooBigException
+operator|.
+name|MINOR_VERSION
+argument_list|)
+condition|)
+block|{
 name|setupResponse
 argument_list|(
 literal|null
@@ -8700,6 +8723,23 @@ argument_list|,
 name|msg
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|setupResponse
+argument_list|(
+literal|null
+argument_list|,
+name|reqTooBig
+argument_list|,
+operator|new
+name|DoNotRetryIOException
+argument_list|()
+argument_list|,
+name|msg
+argument_list|)
+expr_stmt|;
+block|}
 comment|// We are going to close the connection, make sure we process the response
 comment|// before that. In rare case when this fails, we still close the connection.
 name|responseWriteLock
