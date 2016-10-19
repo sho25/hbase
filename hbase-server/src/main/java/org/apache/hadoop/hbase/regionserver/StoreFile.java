@@ -1584,12 +1584,9 @@ comment|// In mob compaction, the hfile where the cells contain the path of a ne
 comment|// loaded to hbase, these cells have the same seqIds with the old ones. We do not want
 comment|// to reset new seqIds for them since this might make a mess of the visibility of cells that
 comment|// have the same row key but different seqIds.
-name|this
-operator|.
-name|reader
-operator|.
-name|setSkipResetSeqId
-argument_list|(
+name|boolean
+name|skipResetSeqId
+init|=
 name|isSkipResetSeqId
 argument_list|(
 name|metadataMap
@@ -1599,6 +1596,27 @@ argument_list|(
 name|SKIP_RESET_SEQ_ID
 argument_list|)
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|skipResetSeqId
+condition|)
+block|{
+comment|// increase the seqId when it is a bulk loaded file from mob compaction.
+name|this
+operator|.
+name|sequenceid
+operator|+=
+literal|1
+expr_stmt|;
+block|}
+name|this
+operator|.
+name|reader
+operator|.
+name|setSkipResetSeqId
+argument_list|(
+name|skipResetSeqId
 argument_list|)
 expr_stmt|;
 name|this

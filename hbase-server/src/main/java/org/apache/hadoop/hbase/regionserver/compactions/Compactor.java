@@ -1731,14 +1731,26 @@ name|getFiles
 argument_list|()
 control|)
 block|{
-name|readersToClose
-operator|.
-name|add
-argument_list|(
+name|StoreFile
+name|clonedStoreFile
+init|=
 name|f
 operator|.
 name|cloneForReader
 argument_list|()
+decl_stmt|;
+comment|// create the reader after the store file is cloned in case
+comment|// the sequence id is used for sorting in scanners
+name|clonedStoreFile
+operator|.
+name|createReader
+argument_list|()
+expr_stmt|;
+name|readersToClose
+operator|.
+name|add
+argument_list|(
+name|clonedStoreFile
 argument_list|)
 expr_stmt|;
 block|}
