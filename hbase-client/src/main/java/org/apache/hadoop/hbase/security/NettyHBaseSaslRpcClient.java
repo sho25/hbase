@@ -303,6 +303,25 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+specifier|public
+name|String
+name|getSaslQOP
+parameter_list|()
+block|{
+return|return
+operator|(
+name|String
+operator|)
+name|saslClient
+operator|.
+name|getNegotiatedProperty
+argument_list|(
+name|Sasl
+operator|.
+name|QOP
+argument_list|)
+return|;
+block|}
 block|}
 end_class
 
