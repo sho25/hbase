@@ -1144,12 +1144,9 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"failed to get the size of all tables, exception = "
-operator|+
+literal|"failed to get the size of all tables"
+argument_list|,
 name|e
-operator|.
-name|getMessage
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
