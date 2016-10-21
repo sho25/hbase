@@ -1326,15 +1326,6 @@ operator|!=
 literal|null
 argument_list|)
 expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Created namespace:"
-operator|+
-name|freshNamespaceDesc
-argument_list|)
-expr_stmt|;
 name|namespaceMap
 operator|.
 name|put
@@ -1344,6 +1335,15 @@ operator|.
 name|getName
 argument_list|()
 argument_list|,
+name|freshNamespaceDesc
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Created namespace:"
+operator|+
 name|freshNamespaceDesc
 argument_list|)
 expr_stmt|;
@@ -1378,9 +1378,6 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-name|verifyNamespaces
-argument_list|()
-expr_stmt|;
 block|}
 specifier|private
 name|NamespaceDescriptor
@@ -1608,13 +1605,24 @@ name|nsValueNew
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|LOG
+name|Assert
 operator|.
-name|info
+name|assertTrue
 argument_list|(
-literal|"Modified namespace :"
+literal|"Namespace: "
 operator|+
-name|freshNamespaceDesc
+name|namespaceName
+operator|+
+literal|" does not exist"
+argument_list|,
+name|admin
+operator|.
+name|getNamespaceDescriptor
+argument_list|(
+name|namespaceName
+argument_list|)
+operator|!=
+literal|null
 argument_list|)
 expr_stmt|;
 name|namespaceMap
@@ -1623,6 +1631,15 @@ name|put
 argument_list|(
 name|namespaceName
 argument_list|,
+name|freshNamespaceDesc
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Modified namespace :"
+operator|+
 name|freshNamespaceDesc
 argument_list|)
 expr_stmt|;
@@ -1657,9 +1674,6 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-name|verifyNamespaces
-argument_list|()
-expr_stmt|;
 block|}
 block|}
 specifier|private
@@ -1817,9 +1831,6 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-name|verifyNamespaces
-argument_list|()
-expr_stmt|;
 block|}
 block|}
 specifier|private
@@ -2078,6 +2089,24 @@ argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
+name|Assert
+operator|.
+name|assertTrue
+argument_list|(
+literal|"After create, Table: "
+operator|+
+name|tableName
+operator|+
+literal|" in not enabled"
+argument_list|,
+name|admin
+operator|.
+name|isTableEnabled
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|)
+expr_stmt|;
 name|enabledTables
 operator|.
 name|put
@@ -2127,9 +2156,6 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-name|verifyTables
-argument_list|()
-expr_stmt|;
 block|}
 specifier|private
 name|HTableDescriptor
@@ -2296,6 +2322,24 @@ argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
+name|Assert
+operator|.
+name|assertTrue
+argument_list|(
+literal|"After disable, Table: "
+operator|+
+name|tableName
+operator|+
+literal|" is not disabled"
+argument_list|,
+name|admin
+operator|.
+name|isTableDisabled
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|)
+expr_stmt|;
 name|disabledTables
 operator|.
 name|put
@@ -2385,9 +2429,6 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-name|verifyTables
-argument_list|()
-expr_stmt|;
 block|}
 block|}
 specifier|private
@@ -2483,6 +2524,24 @@ argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
+name|Assert
+operator|.
+name|assertTrue
+argument_list|(
+literal|"After enable, Table: "
+operator|+
+name|tableName
+operator|+
+literal|" in not enabled"
+argument_list|,
+name|admin
+operator|.
+name|isTableEnabled
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|)
+expr_stmt|;
 name|enabledTables
 operator|.
 name|put
@@ -2572,9 +2631,6 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-name|verifyTables
-argument_list|()
-expr_stmt|;
 block|}
 block|}
 specifier|private
@@ -2709,9 +2765,6 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-name|verifyTables
-argument_list|()
-expr_stmt|;
 block|}
 block|}
 specifier|private
@@ -2937,6 +2990,33 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
+name|assertTrue
+argument_list|(
+literal|"After add column family, Table: "
+operator|+
+name|tableName
+operator|+
+literal|" is not disabled"
+argument_list|,
+name|admin
+operator|.
+name|isTableDisabled
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|disabledTables
+operator|.
+name|put
+argument_list|(
+name|tableName
+argument_list|,
+name|freshTableDesc
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
 name|info
@@ -2948,15 +3028,6 @@ operator|+
 literal|" to table: "
 operator|+
 name|tableName
-argument_list|)
-expr_stmt|;
-name|disabledTables
-operator|.
-name|put
-argument_list|(
-name|tableName
-argument_list|,
-name|freshTableDesc
 argument_list|)
 expr_stmt|;
 block|}
@@ -2990,9 +3061,6 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-name|verifyTables
-argument_list|()
-expr_stmt|;
 block|}
 specifier|private
 name|HColumnDescriptor
@@ -3212,6 +3280,33 @@ argument_list|,
 name|versions
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
+name|assertTrue
+argument_list|(
+literal|"After alter versions of column family, Table: "
+operator|+
+name|tableName
+operator|+
+literal|" is not disabled"
+argument_list|,
+name|admin
+operator|.
+name|isTableDisabled
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|disabledTables
+operator|.
+name|put
+argument_list|(
+name|tableName
+argument_list|,
+name|freshTableDesc
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
 name|info
@@ -3227,15 +3322,6 @@ operator|+
 literal|" in table: "
 operator|+
 name|tableName
-argument_list|)
-expr_stmt|;
-name|disabledTables
-operator|.
-name|put
-argument_list|(
-name|tableName
-argument_list|,
-name|freshTableDesc
 argument_list|)
 expr_stmt|;
 block|}
@@ -3269,9 +3355,6 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-name|verifyTables
-argument_list|()
-expr_stmt|;
 block|}
 block|}
 specifier|private
@@ -3458,6 +3541,33 @@ argument_list|,
 name|id
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
+name|assertTrue
+argument_list|(
+literal|"After alter encoding of column family, Table: "
+operator|+
+name|tableName
+operator|+
+literal|" is not disabled"
+argument_list|,
+name|admin
+operator|.
+name|isTableDisabled
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|disabledTables
+operator|.
+name|put
+argument_list|(
+name|tableName
+argument_list|,
+name|freshTableDesc
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
 name|info
@@ -3473,15 +3583,6 @@ operator|+
 literal|" in table: "
 operator|+
 name|tableName
-argument_list|)
-expr_stmt|;
-name|disabledTables
-operator|.
-name|put
-argument_list|(
-name|tableName
-argument_list|,
-name|freshTableDesc
 argument_list|)
 expr_stmt|;
 block|}
@@ -3515,9 +3616,6 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-name|verifyTables
-argument_list|()
-expr_stmt|;
 block|}
 block|}
 specifier|private
@@ -3664,6 +3762,33 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
+name|assertTrue
+argument_list|(
+literal|"After delete column family, Table: "
+operator|+
+name|tableName
+operator|+
+literal|" is not disabled"
+argument_list|,
+name|admin
+operator|.
+name|isTableDisabled
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|disabledTables
+operator|.
+name|put
+argument_list|(
+name|tableName
+argument_list|,
+name|freshTableDesc
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
 name|info
@@ -3675,15 +3800,6 @@ operator|+
 literal|" from table: "
 operator|+
 name|tableName
-argument_list|)
-expr_stmt|;
-name|disabledTables
-operator|.
-name|put
-argument_list|(
-name|tableName
-argument_list|,
-name|freshTableDesc
 argument_list|)
 expr_stmt|;
 block|}
@@ -3717,9 +3833,6 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-name|verifyTables
-argument_list|()
-expr_stmt|;
 block|}
 block|}
 specifier|private
@@ -3987,6 +4100,24 @@ argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
+name|Assert
+operator|.
+name|assertTrue
+argument_list|(
+literal|"After insert, Table: "
+operator|+
+name|tableName
+operator|+
+literal|" in not enabled"
+argument_list|,
+name|admin
+operator|.
+name|isTableEnabled
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|)
+expr_stmt|;
 name|enabledTables
 operator|.
 name|put
@@ -4040,9 +4171,6 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-name|verifyTables
-argument_list|()
-expr_stmt|;
 block|}
 block|}
 specifier|private
