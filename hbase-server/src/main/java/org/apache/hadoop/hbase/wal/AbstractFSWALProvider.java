@@ -767,7 +767,7 @@ name|getNumLogFiles
 argument_list|()
 return|;
 block|}
-comment|/**    * iff the given WALFactory is using the DefaultWALProvider for meta and/or non-meta, count the    * size of files (rolled and active). if either of them aren't, count 0 for that provider.    */
+comment|/**    * iff the given WALFactory is using the DefaultWALProvider for meta and/or non-meta, count the    * size of files (only rolled). if either of them aren't, count 0 for that provider.    */
 annotation|@
 name|Override
 specifier|public
@@ -819,6 +819,33 @@ name|wal
 operator|)
 operator|.
 name|getNumRolledLogFiles
+argument_list|()
+return|;
+block|}
+comment|/**    * returns the size of rolled WAL files.    */
+annotation|@
+name|VisibleForTesting
+specifier|public
+specifier|static
+name|long
+name|getLogFileSize
+parameter_list|(
+name|WAL
+name|wal
+parameter_list|)
+block|{
+return|return
+operator|(
+operator|(
+name|AbstractFSWAL
+argument_list|<
+name|?
+argument_list|>
+operator|)
+name|wal
+operator|)
+operator|.
+name|getLogFileSize
 argument_list|()
 return|;
 block|}
