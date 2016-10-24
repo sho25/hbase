@@ -3033,7 +3033,13 @@ name|checkWals
 argument_list|(
 name|fs
 argument_list|,
-name|dir
+name|files
+index|[
+name|i
+index|]
+operator|.
+name|getPath
+argument_list|()
 argument_list|)
 condition|)
 block|{
