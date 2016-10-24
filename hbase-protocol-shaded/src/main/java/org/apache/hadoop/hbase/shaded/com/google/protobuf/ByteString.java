@@ -945,6 +945,33 @@ argument_list|)
 return|;
 block|}
 block|}
+comment|/**    * Wraps the given bytes into a {@code ByteString}. Intended for internal only usage.    */
+specifier|static
+name|ByteString
+name|wrap
+parameter_list|(
+name|ByteInput
+name|buffer
+parameter_list|,
+name|int
+name|offset
+parameter_list|,
+name|int
+name|length
+parameter_list|)
+block|{
+return|return
+operator|new
+name|ByteInputByteString
+argument_list|(
+name|buffer
+argument_list|,
+name|offset
+argument_list|,
+name|length
+argument_list|)
+return|;
+block|}
 comment|/**    * Wraps the given bytes into a {@code ByteString}. Intended for internal only    * usage to force a classload of ByteString before LiteralByteString.    */
 specifier|static
 name|ByteString
