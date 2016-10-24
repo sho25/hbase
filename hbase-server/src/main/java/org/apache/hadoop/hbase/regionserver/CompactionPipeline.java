@@ -383,7 +383,7 @@ name|res
 return|;
 block|}
 block|}
-comment|/**    * Swaps the versioned list at the tail of the pipeline with the new compacted segment.    * Swapping only if there were no changes to the suffix of the list while it was compacted.    * @param versionedList tail of the pipeline that was compacted    * @param segment new compacted segment    * @return true iff swapped tail with new compacted segment    */
+comment|/**    * Swaps the versioned list at the tail of the pipeline with the new compacted segment.    * Swapping only if there were no changes to the suffix of the list while it was compacted.    * @param versionedList tail of the pipeline that was compacted    * @param segment new compacted segment    * @param closeSuffix whether to close the suffix (to release memory), as part of swapping it out    *        During index merge op this will be false and for compaction it will be true.    * @return true iff swapped tail with new compacted segment    */
 specifier|public
 name|boolean
 name|swap
@@ -393,6 +393,9 @@ name|versionedList
 parameter_list|,
 name|ImmutableSegment
 name|segment
+parameter_list|,
+name|boolean
+name|closeSuffix
 parameter_list|)
 block|{
 if|if
@@ -409,7 +412,7 @@ return|return
 literal|false
 return|;
 block|}
-name|LinkedList
+name|List
 argument_list|<
 name|ImmutableSegment
 argument_list|>
@@ -479,6 +482,8 @@ argument_list|(
 name|suffix
 argument_list|,
 name|segment
+argument_list|,
+name|closeSuffix
 argument_list|)
 expr_stmt|;
 block|}
@@ -513,6 +518,16 @@ name|suffixSize
 operator|-
 name|newSize
 decl_stmt|;
+assert|assert
+operator|(
+name|closeSuffix
+operator|||
+name|delta
+operator|>
+literal|0
+operator|)
+assert|;
+comment|// sanity check
 name|long
 name|globalMemstoreSize
 init|=
@@ -856,7 +871,7 @@ specifier|private
 name|void
 name|swapSuffix
 parameter_list|(
-name|LinkedList
+name|List
 argument_list|<
 name|ImmutableSegment
 argument_list|>
@@ -864,11 +879,25 @@ name|suffix
 parameter_list|,
 name|ImmutableSegment
 name|segment
+parameter_list|,
+name|boolean
+name|closeSegmentsInSuffix
 parameter_list|)
 block|{
 name|version
 operator|++
 expr_stmt|;
+comment|// During index merge we won't be closing the segments undergoing the merge. Segment#close()
+comment|// will release the MSLAB chunks to pool. But in case of index merge there wont be any data copy
+comment|// from old MSLABs. So the new cells in new segment also refers to same chunks. In case of data
+comment|// compaction, we would have copied the cells data from old MSLAB chunks into a new chunk
+comment|// created for the result segment. So we can release the chunks associated with the compacted
+comment|// segments.
+if|if
+condition|(
+name|closeSegmentsInSuffix
+condition|)
+block|{
 for|for
 control|(
 name|Segment
@@ -882,6 +911,7 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 name|pipeline
 operator|.

@@ -1065,7 +1065,7 @@ name|assertNull
 argument_list|(
 name|mslab
 operator|.
-name|getChunkQueue
+name|getPooledChunks
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1288,7 +1288,7 @@ name|queueLength
 init|=
 name|mslab
 operator|.
-name|getChunkQueue
+name|getPooledChunks
 argument_list|()
 operator|.
 name|size

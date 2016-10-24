@@ -293,6 +293,8 @@ argument_list|>
 argument_list|()
 decl_stmt|;
 comment|// A queue of chunks from pool contained by this memstore LAB
+comment|// TODO: in the future, it would be better to have List implementation instead of Queue,
+comment|// as FIFO order is not so important here
 annotation|@
 name|VisibleForTesting
 name|BlockingQueue
@@ -888,13 +890,11 @@ name|get
 argument_list|()
 return|;
 block|}
-annotation|@
-name|VisibleForTesting
 name|BlockingQueue
 argument_list|<
 name|PooledChunk
 argument_list|>
-name|getChunkQueue
+name|getPooledChunks
 parameter_list|()
 block|{
 return|return

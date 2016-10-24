@@ -880,6 +880,9 @@ name|versionedList
 parameter_list|,
 name|ImmutableSegment
 name|result
+parameter_list|,
+name|boolean
+name|merge
 parameter_list|)
 block|{
 return|return
@@ -890,6 +893,9 @@ argument_list|(
 name|versionedList
 argument_list|,
 name|result
+argument_list|,
+operator|!
+name|merge
 argument_list|)
 return|;
 block|}
@@ -1545,6 +1551,18 @@ name|set
 argument_list|(
 literal|true
 argument_list|)
+expr_stmt|;
+block|}
+annotation|@
+name|VisibleForTesting
+name|void
+name|initiateType
+parameter_list|()
+block|{
+name|compactor
+operator|.
+name|initiateAction
+argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * @param cell Find the row that comes after this one.  If null, we return the    *             first.    * @return Next row or null if none found.    */

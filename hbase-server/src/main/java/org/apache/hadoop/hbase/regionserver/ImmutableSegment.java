@@ -299,7 +299,7 @@ parameter_list|(
 name|CellComparator
 name|comparator
 parameter_list|,
-name|MemStoreCompactorIterator
+name|MemStoreSegmentsIterator
 name|iterator
 parameter_list|,
 name|MemStoreLAB
@@ -310,6 +310,9 @@ name|numOfCells
 parameter_list|,
 name|Type
 name|type
+parameter_list|,
+name|boolean
+name|merge
 parameter_list|)
 block|{
 name|super
@@ -337,6 +340,8 @@ argument_list|(
 name|numOfCells
 argument_list|,
 name|iterator
+argument_list|,
+name|merge
 argument_list|)
 decl_stmt|;
 name|this
@@ -376,7 +381,7 @@ parameter_list|(
 name|CellComparator
 name|comparator
 parameter_list|,
-name|MemStoreCompactorIterator
+name|MemStoreSegmentsIterator
 name|iterator
 parameter_list|,
 name|MemStoreLAB
@@ -582,7 +587,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**------------------------------------------------------------------------    * Change the CellSet of this ImmutableSegment from one based on ConcurrentSkipListMap to one    * based on CellArrayMap.    * If this ImmutableSegment is not based on ConcurrentSkipListMap , this is NOP    *    * Synchronization of the CellSet replacement:    * The reference to the CellSet is AtomicReference and is updated only when ImmutableSegment    * is constructed (single thread) or flattened. The flattening happens as part of a single    * thread of compaction, but to be on the safe side the initial CellSet is locally saved    * before the flattening and then replaced using CAS instruction.    */
+comment|/**------------------------------------------------------------------------    * Change the CellSet of this ImmutableSegment from one based on ConcurrentSkipListMap to one    * based on CellArrayMap.    * If this ImmutableSegment is not based on ConcurrentSkipListMap , this is NOOP    *    * Synchronization of the CellSet replacement:    * The reference to the CellSet is AtomicReference and is updated only when ImmutableSegment    * is constructed (single thread) or flattened. The flattening happens as part of a single    * thread of compaction, but to be on the safe side the initial CellSet is locally saved    * before the flattening and then replaced using CAS instruction.    */
 specifier|public
 name|boolean
 name|flatten
@@ -682,8 +687,11 @@ parameter_list|(
 name|int
 name|numOfCells
 parameter_list|,
-name|MemStoreCompactorIterator
+name|MemStoreSegmentsIterator
 name|iterator
+parameter_list|,
+name|boolean
+name|merge
 parameter_list|)
 block|{
 name|Cell
@@ -719,6 +727,23 @@ name|next
 argument_list|()
 decl_stmt|;
 comment|// The scanner behind the iterator is doing all the elimination logic
+if|if
+condition|(
+name|merge
+condition|)
+block|{
+comment|// if this is merge we just move the Cell object without copying MSLAB
+comment|// the sizes still need to be updated in the new segment
+name|cells
+index|[
+name|i
+index|]
+operator|=
+name|c
+expr_stmt|;
+block|}
+else|else
+block|{
 comment|// now we just copy it to the new segment (also MSLAB copy)
 name|cells
 index|[
@@ -730,16 +755,15 @@ argument_list|(
 name|c
 argument_list|)
 expr_stmt|;
+block|}
 name|boolean
-name|usedMSLAB
+name|useMSLAB
 init|=
 operator|(
-name|cells
-index|[
-name|i
-index|]
+name|getMemStoreLAB
+argument_list|()
 operator|!=
-name|c
+literal|null
 operator|)
 decl_stmt|;
 comment|// second parameter true, because in compaction addition of the cell to new segment
@@ -750,7 +774,7 @@ name|c
 argument_list|,
 literal|true
 argument_list|,
-name|usedMSLAB
+name|useMSLAB
 argument_list|)
 expr_stmt|;
 comment|// updates the size per cell

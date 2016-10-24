@@ -1159,7 +1159,7 @@ name|region
 init|=
 name|initHRegion
 argument_list|(
-literal|"testSelectiveFlushWhenEnabled"
+literal|"testSelectiveFlushWithDataCompaction"
 argument_list|,
 name|conf
 argument_list|)

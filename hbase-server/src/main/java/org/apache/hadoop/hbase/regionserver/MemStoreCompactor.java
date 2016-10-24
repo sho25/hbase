@@ -19,6 +19,20 @@ end_package
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -163,38 +177,38 @@ operator|*
 name|ClassSize
 operator|.
 name|REFERENCE
+comment|// compactingMemStore, versionedList, action, isInterrupted (the reference)
+comment|// "action" is an enum and thus it is a class with static final constants,
+comment|// so counting only the size of the reference to it and not the size of the internals
 operator|+
-literal|2
-operator|*
 name|Bytes
 operator|.
 name|SIZEOF_INT
-operator|+
-name|Bytes
-operator|.
-name|SIZEOF_DOUBLE
+comment|// compactionKVMax
 operator|+
 name|ClassSize
 operator|.
 name|ATOMIC_BOOLEAN
+comment|// isInterrupted (the internals)
 argument_list|)
 decl_stmt|;
-comment|// Option for external guidance whether flattening is allowed
+comment|// Configuration options for MemStore compaction
 specifier|static
 specifier|final
 name|String
-name|MEMSTORE_COMPACTOR_FLATTENING
+name|INDEX_COMPACTION_CONFIG
 init|=
-literal|"hbase.hregion.compacting.memstore.flatten"
+literal|"index-compaction"
 decl_stmt|;
 specifier|static
 specifier|final
-name|boolean
-name|MEMSTORE_COMPACTOR_FLATTENING_DEFAULT
+name|String
+name|DATA_COMPACTION_CONFIG
 init|=
-literal|true
+literal|"data-compaction"
 decl_stmt|;
-comment|// Option for external setting of the compacted structure (SkipList, CellArray, etc.)
+comment|// The external setting of the compacting MemStore behaviour
+comment|// Compaction of the index without the data is the default
 specifier|static
 specifier|final
 name|String
@@ -204,41 +218,20 @@ literal|"hbase.hregion.compacting.memstore.type"
 decl_stmt|;
 specifier|static
 specifier|final
-name|int
+name|String
 name|COMPACTING_MEMSTORE_TYPE_DEFAULT
 init|=
-literal|2
+name|INDEX_COMPACTION_CONFIG
 decl_stmt|;
-comment|// COMPACT_TO_ARRAY_MAP as default
-comment|// What percentage of the duplications is causing compaction?
+comment|// The upper bound for the number of segments we store in the pipeline prior to merging.
+comment|// This constant is subject to further experimentation.
+specifier|private
 specifier|static
 specifier|final
-name|String
-name|COMPACTION_THRESHOLD_REMAIN_FRACTION
+name|int
+name|THRESHOLD_PIPELINE_SEGMENTS
 init|=
-literal|"hbase.hregion.compacting.memstore.comactPercent"
-decl_stmt|;
-specifier|static
-specifier|final
-name|double
-name|COMPACTION_THRESHOLD_REMAIN_FRACTION_DEFAULT
-init|=
-literal|0.2
-decl_stmt|;
-comment|// Option for external guidance whether the flattening is allowed
-specifier|static
-specifier|final
-name|String
-name|MEMSTORE_COMPACTOR_AVOID_SPECULATIVE_SCAN
-init|=
-literal|"hbase.hregion.compacting.memstore.avoidSpeculativeScan"
-decl_stmt|;
-specifier|static
-specifier|final
-name|boolean
-name|MEMSTORE_COMPACTOR_AVOID_SPECULATIVE_SCAN_DEFAULT
-init|=
-literal|false
+literal|1
 decl_stmt|;
 specifier|private
 specifier|static
@@ -255,15 +248,6 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/**    * Types of Compaction    */
-specifier|private
-enum|enum
-name|Type
-block|{
-name|COMPACT_TO_SKIPLIST_MAP
-block|,
-name|COMPACT_TO_ARRAY_MAP
-block|}
 specifier|private
 name|CompactingMemStore
 name|compactingMemStore
@@ -285,30 +269,35 @@ argument_list|(
 literal|false
 argument_list|)
 decl_stmt|;
-comment|// the limit to the size of the groups to be later provided to MemStoreCompactorIterator
+comment|// the limit to the size of the groups to be later provided to MemStoreSegmentsIterator
 specifier|private
 specifier|final
 name|int
 name|compactionKVMax
 decl_stmt|;
-name|double
-name|fraction
-init|=
-literal|0.8
-decl_stmt|;
-name|int
-name|immutCellsNum
-init|=
-literal|0
-decl_stmt|;
-comment|// number of immutable for compaction cells
+comment|/**    * Types of actions to be done on the pipeline upon MemStoreCompaction invocation.    * Note that every value covers the previous ones, i.e. if MERGE is the action it implies    * that the youngest segment is going to be flatten anyway.    */
 specifier|private
-name|Type
-name|type
+enum|enum
+name|Action
+block|{
+name|NOOP
+block|,
+name|FLATTEN
+block|,
+comment|// flatten the youngest segment in the pipeline
+name|MERGE
+block|,
+comment|// merge all the segments in the pipeline into one
+name|COMPACT
+comment|// copy-compact the data of all the segments in the pipeline
+block|}
+specifier|private
+name|Action
+name|action
 init|=
-name|Type
+name|Action
 operator|.
-name|COMPACT_TO_ARRAY_MAP
+name|FLATTEN
 decl_stmt|;
 specifier|public
 name|MemStoreCompactor
@@ -343,23 +332,8 @@ operator|.
 name|COMPACTION_KV_MAX_DEFAULT
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|fraction
-operator|=
-literal|1
-operator|-
-name|compactingMemStore
-operator|.
-name|getConfiguration
+name|initiateAction
 argument_list|()
-operator|.
-name|getDouble
-argument_list|(
-name|COMPACTION_THRESHOLD_REMAIN_FRACTION
-argument_list|,
-name|COMPACTION_THRESHOLD_REMAIN_FRACTION_DEFAULT
-argument_list|)
 expr_stmt|;
 block|}
 comment|/**----------------------------------------------------------------------    * The request to dispatch the compaction asynchronous task.    * The method returns true if compaction was successfully dispatched, or false if there    * is already an ongoing compaction or no segments to compact.    */
@@ -378,61 +352,11 @@ operator|.
 name|hasImmutableSegments
 argument_list|()
 condition|)
+block|{
+comment|// no compaction on empty pipeline
 return|return
 literal|false
 return|;
-comment|// no compaction on empty
-name|int
-name|t
-init|=
-name|compactingMemStore
-operator|.
-name|getConfiguration
-argument_list|()
-operator|.
-name|getInt
-argument_list|(
-name|COMPACTING_MEMSTORE_TYPE_KEY
-argument_list|,
-name|COMPACTING_MEMSTORE_TYPE_DEFAULT
-argument_list|)
-decl_stmt|;
-switch|switch
-condition|(
-name|t
-condition|)
-block|{
-case|case
-literal|1
-case|:
-name|type
-operator|=
-name|Type
-operator|.
-name|COMPACT_TO_SKIPLIST_MAP
-expr_stmt|;
-break|break;
-case|case
-literal|2
-case|:
-name|type
-operator|=
-name|Type
-operator|.
-name|COMPACT_TO_ARRAY_MAP
-expr_stmt|;
-break|break;
-default|default:
-throw|throw
-operator|new
-name|RuntimeException
-argument_list|(
-literal|"Unknown type "
-operator|+
-name|type
-argument_list|)
-throw|;
-comment|// sanity check
 block|}
 comment|// get a snapshot of the list of the segments from the pipeline,
 comment|// this local copy of the list is marked with specific version
@@ -441,13 +365,6 @@ operator|=
 name|compactingMemStore
 operator|.
 name|getImmutableSegments
-argument_list|()
-expr_stmt|;
-name|immutCellsNum
-operator|=
-name|versionedList
-operator|.
-name|getNumOfCells
 argument_list|()
 expr_stmt|;
 if|if
@@ -462,11 +379,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Starting the MemStore In-Memory Shrink of type "
-operator|+
-name|type
-operator|+
-literal|" for store "
+literal|"Starting the In-Memory Compaction for store "
 operator|+
 name|compactingMemStore
 operator|.
@@ -501,7 +414,23 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**----------------------------------------------------------------------   * Close the scanners and clear the pointers in order to allow good   * garbage collection   */
+comment|/**----------------------------------------------------------------------    * The interface to check whether user requested the index-compaction    */
+specifier|public
+name|boolean
+name|isIndexCompaction
+parameter_list|()
+block|{
+return|return
+operator|(
+name|action
+operator|==
+name|Action
+operator|.
+name|MERGE
+operator|)
+return|;
+block|}
+comment|/**----------------------------------------------------------------------   * Reset the interruption indicator and clear the pointers in order to allow good   * garbage collection   */
 specifier|private
 name|void
 name|releaseResources
@@ -519,47 +448,66 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
-comment|/**----------------------------------------------------------------------    * Check whether there are some signs to definitely not to flatten,    * returns false if we must compact. If this method returns true we    * still need to evaluate the compaction.    */
+comment|/**----------------------------------------------------------------------    * Decide what to do with the new and old segments in the compaction pipeline.    * Implements basic in-memory compaction policy.    */
 specifier|private
-name|boolean
-name|shouldFlatten
+name|Action
+name|policy
 parameter_list|()
 block|{
-name|boolean
-name|userToFlatten
-init|=
-comment|// the user configurable option to flatten or not to flatten
-name|compactingMemStore
-operator|.
-name|getConfiguration
-argument_list|()
-operator|.
-name|getBoolean
-argument_list|(
-name|MEMSTORE_COMPACTOR_FLATTENING
-argument_list|,
-name|MEMSTORE_COMPACTOR_FLATTENING_DEFAULT
-argument_list|)
-decl_stmt|;
 if|if
 condition|(
-name|userToFlatten
-operator|==
-literal|false
+name|isInterrupted
+operator|.
+name|get
+argument_list|()
 condition|)
 block|{
+comment|// if the entire process is interrupted cancel flattening
+return|return
+name|Action
+operator|.
+name|NOOP
+return|;
+comment|// the compaction also doesn't start when interrupted
+block|}
+if|if
+condition|(
+name|action
+operator|==
+name|Action
+operator|.
+name|COMPACT
+condition|)
+block|{
+comment|// compact according to the user request
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"In-Memory shrink is doing compaction, as user asked to avoid flattening"
+literal|"In-Memory Compaction Pipeline for store "
+operator|+
+name|compactingMemStore
+operator|.
+name|getFamilyName
+argument_list|()
+operator|+
+literal|" is going to be compacted, number of"
+operator|+
+literal|" cells before compaction is "
+operator|+
+name|versionedList
+operator|.
+name|getNumOfCells
+argument_list|()
 argument_list|)
 expr_stmt|;
 return|return
-literal|false
+name|Action
+operator|.
+name|COMPACT
 return|;
-comment|// the user doesn't want to flatten
 block|}
+comment|// compaction shouldn't happen or doesn't worth it
 comment|// limit the number of the segments in the pipeline
 name|int
 name|numOfSegments
@@ -573,101 +521,53 @@ if|if
 condition|(
 name|numOfSegments
 operator|>
-literal|3
+name|THRESHOLD_PIPELINE_SEGMENTS
 condition|)
 block|{
-comment|// hard-coded for now as it is going to move to policy
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"In-Memory shrink is doing compaction, as there already are "
+literal|"In-Memory Compaction Pipeline for store "
+operator|+
+name|compactingMemStore
+operator|.
+name|getFamilyName
+argument_list|()
+operator|+
+literal|" is going to be merged, as there are "
 operator|+
 name|numOfSegments
 operator|+
-literal|" segments in the compaction pipeline"
+literal|" segments"
 argument_list|)
 expr_stmt|;
 return|return
-literal|false
+name|Action
+operator|.
+name|MERGE
 return|;
-comment|// to avoid "too many open files later", compact now
+comment|// to avoid too many segments, merge now
 block|}
-comment|// till here we hvae all the signs that it is possible to flatten, run the speculative scan
-comment|// (if allowed by the user) to check the efficiency of compaction
-name|boolean
-name|avoidSpeculativeScan
-init|=
-comment|// the user configurable option to avoid the speculative scan
-name|compactingMemStore
-operator|.
-name|getConfiguration
-argument_list|()
-operator|.
-name|getBoolean
-argument_list|(
-name|MEMSTORE_COMPACTOR_AVOID_SPECULATIVE_SCAN
-argument_list|,
-name|MEMSTORE_COMPACTOR_AVOID_SPECULATIVE_SCAN_DEFAULT
-argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|avoidSpeculativeScan
-operator|==
-literal|true
-condition|)
-block|{
+comment|// if nothing of the above, then just flatten the newly joined segment
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"In-Memory shrink is doing flattening, as user asked to avoid compaction "
+literal|"The youngest segment in the in-Memory Compaction Pipeline for store "
 operator|+
-literal|"evaluation"
+name|compactingMemStore
+operator|.
+name|getFamilyName
+argument_list|()
+operator|+
+literal|" is going to be flattened"
 argument_list|)
 expr_stmt|;
 return|return
-literal|true
-return|;
-comment|// flatten without checking the compaction expedience
-block|}
-try|try
-block|{
-name|immutCellsNum
-operator|=
-name|countCellsForCompaction
-argument_list|()
-expr_stmt|;
-if|if
-condition|(
-name|immutCellsNum
-operator|>
-name|fraction
-operator|*
-name|versionedList
+name|Action
 operator|.
-name|getNumOfCells
-argument_list|()
-condition|)
-block|{
-return|return
-literal|true
-return|;
-block|}
-block|}
-catch|catch
-parameter_list|(
-name|Exception
-name|e
-parameter_list|)
-block|{
-return|return
-literal|true
-return|;
-block|}
-return|return
-literal|false
+name|FLATTEN
 return|;
 block|}
 comment|/**----------------------------------------------------------------------   * The worker thread performs the compaction asynchronously.   * The solo (per compactor) thread only reads the compaction pipeline.   * There is at most one thread per memstore instance.   */
@@ -686,31 +586,39 @@ name|resultSwapped
 init|=
 literal|false
 decl_stmt|;
+name|Action
+name|nextStep
+init|=
+literal|null
+decl_stmt|;
 try|try
 block|{
-comment|// PHASE I: estimate the compaction expedience - EVALUATE COMPACTION
+name|nextStep
+operator|=
+name|policy
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
-name|shouldFlatten
-argument_list|()
+name|nextStep
+operator|==
+name|Action
+operator|.
+name|NOOP
 condition|)
 block|{
-comment|// too much cells "survive" the possible compaction, we do not want to compact!
-name|LOG
+return|return;
+block|}
+if|if
+condition|(
+name|nextStep
+operator|==
+name|Action
 operator|.
-name|debug
-argument_list|(
-literal|"In-Memory compaction does not pay off - storing the flattened segment"
-operator|+
-literal|" for store: "
-operator|+
-name|compactingMemStore
-operator|.
-name|getFamilyName
-argument_list|()
-argument_list|)
-expr_stmt|;
-comment|// Looking for Segment in the pipeline with SkipList index, to make it flat
+name|FLATTEN
+condition|)
+block|{
+comment|// Youngest Segment in the pipeline is with SkipList index, make it flat
 name|compactingMemStore
 operator|.
 name|flattenOneSegment
@@ -723,7 +631,8 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
-comment|// PHASE II: create the new compacted ImmutableSegment - START COPY-COMPACTION
+comment|// Create one segment representing all segments in the compaction pipeline,
+comment|// either by compaction or by merge
 if|if
 condition|(
 operator|!
@@ -735,13 +644,11 @@ condition|)
 block|{
 name|result
 operator|=
-name|compact
-argument_list|(
-name|immutCellsNum
-argument_list|)
+name|createSubstitution
+argument_list|()
 expr_stmt|;
 block|}
-comment|// Phase III: swap the old compaction pipeline - END COPY-COMPACTION
+comment|// Substitute the pipeline with one segment
 if|if
 condition|(
 operator|!
@@ -762,6 +669,14 @@ argument_list|(
 name|versionedList
 argument_list|,
 name|result
+argument_list|,
+operator|(
+name|action
+operator|==
+name|Action
+operator|.
+name|MERGE
+operator|)
 argument_list|)
 condition|)
 block|{
@@ -779,7 +694,7 @@ block|}
 block|}
 catch|catch
 parameter_list|(
-name|Exception
+name|IOException
 name|e
 parameter_list|)
 block|{
@@ -806,6 +721,19 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
+comment|// For the MERGE case, if the result was created, but swap didn't happen,
+comment|// we DON'T need to close the result segment (meaning its MSLAB)!
+comment|// Because closing the result segment means closing the chunks of all segments
+comment|// in the compaction pipeline, which still have ongoing scans.
+if|if
+condition|(
+name|nextStep
+operator|!=
+name|Action
+operator|.
+name|MERGE
+condition|)
+block|{
 if|if
 condition|(
 operator|(
@@ -819,59 +747,49 @@ operator|!
 name|resultSwapped
 operator|)
 condition|)
+block|{
 name|result
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
+block|}
 name|releaseResources
 argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**----------------------------------------------------------------------    * The copy-compaction is the creation of the ImmutableSegment (from the relevant type)    * based on the Compactor Iterator. The new ImmutableSegment is returned.    */
+comment|/**----------------------------------------------------------------------    * Creation of the ImmutableSegment either by merge or copy-compact of the segments of the    * pipeline, based on the Compactor Iterator. The new ImmutableSegment is returned.    */
 specifier|private
 name|ImmutableSegment
-name|compact
-parameter_list|(
-name|int
-name|numOfCells
-parameter_list|)
+name|createSubstitution
+parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"In-Memory compaction does pay off - The estimated number of cells "
-operator|+
-literal|"after compaction is "
-operator|+
-name|numOfCells
-operator|+
-literal|", while number of cells before is "
-operator|+
-name|versionedList
-operator|.
-name|getNumOfCells
-argument_list|()
-operator|+
-literal|". The fraction of remaining cells should be: "
-operator|+
-name|fraction
-argument_list|)
-expr_stmt|;
 name|ImmutableSegment
 name|result
 init|=
 literal|null
 decl_stmt|;
-name|MemStoreCompactorIterator
+name|MemStoreSegmentsIterator
 name|iterator
 init|=
+literal|null
+decl_stmt|;
+switch|switch
+condition|(
+name|action
+condition|)
+block|{
+case|case
+name|COMPACT
+case|:
+name|iterator
+operator|=
 operator|new
-name|MemStoreCompactorIterator
+name|MemStoreCompactorSegmentsIterator
 argument_list|(
 name|versionedList
 operator|.
@@ -890,43 +808,7 @@ operator|.
 name|getStore
 argument_list|()
 argument_list|)
-decl_stmt|;
-try|try
-block|{
-switch|switch
-condition|(
-name|type
-condition|)
-block|{
-case|case
-name|COMPACT_TO_SKIPLIST_MAP
-case|:
-name|result
-operator|=
-name|SegmentFactory
-operator|.
-name|instance
-argument_list|()
-operator|.
-name|createImmutableSegment
-argument_list|(
-name|compactingMemStore
-operator|.
-name|getConfiguration
-argument_list|()
-argument_list|,
-name|compactingMemStore
-operator|.
-name|getComparator
-argument_list|()
-argument_list|,
-name|iterator
-argument_list|)
 expr_stmt|;
-break|break;
-case|case
-name|COMPACT_TO_ARRAY_MAP
-case|:
 name|result
 operator|=
 name|SegmentFactory
@@ -934,7 +816,7 @@ operator|.
 name|instance
 argument_list|()
 operator|.
-name|createImmutableSegment
+name|createImmutableSegmentByCompaction
 argument_list|(
 name|compactingMemStore
 operator|.
@@ -948,7 +830,10 @@ argument_list|()
 argument_list|,
 name|iterator
 argument_list|,
-name|numOfCells
+name|versionedList
+operator|.
+name|getNumOfCells
+argument_list|()
 argument_list|,
 name|ImmutableSegment
 operator|.
@@ -957,50 +842,19 @@ operator|.
 name|ARRAY_MAP_BASED
 argument_list|)
 expr_stmt|;
-break|break;
-default|default:
-throw|throw
-operator|new
-name|RuntimeException
-argument_list|(
-literal|"Unknown type "
-operator|+
-name|type
-argument_list|)
-throw|;
-comment|// sanity check
-block|}
-block|}
-finally|finally
-block|{
 name|iterator
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
-block|}
-return|return
-name|result
-return|;
-block|}
-comment|/**----------------------------------------------------------------------    * Count cells to estimate the efficiency of the future compaction    */
-specifier|private
-name|int
-name|countCellsForCompaction
-parameter_list|()
-throws|throws
-name|IOException
-block|{
-name|int
-name|cnt
-init|=
-literal|0
-decl_stmt|;
-name|MemStoreCompactorIterator
+break|break;
+case|case
+name|MERGE
+case|:
 name|iterator
-init|=
+operator|=
 operator|new
-name|MemStoreCompactorIterator
+name|MemStoreMergerSegmentsIterator
 argument_list|(
 name|versionedList
 operator|.
@@ -1019,35 +873,126 @@ operator|.
 name|getStore
 argument_list|()
 argument_list|)
-decl_stmt|;
-try|try
-block|{
-while|while
-condition|(
-name|iterator
-operator|.
-name|next
-argument_list|()
-operator|!=
-literal|null
-condition|)
-block|{
-name|cnt
-operator|++
 expr_stmt|;
-block|}
-block|}
-finally|finally
-block|{
+name|result
+operator|=
+name|SegmentFactory
+operator|.
+name|instance
+argument_list|()
+operator|.
+name|createImmutableSegmentByMerge
+argument_list|(
+name|compactingMemStore
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|,
+name|compactingMemStore
+operator|.
+name|getComparator
+argument_list|()
+argument_list|,
+name|iterator
+argument_list|,
+name|versionedList
+operator|.
+name|getNumOfCells
+argument_list|()
+argument_list|,
+name|ImmutableSegment
+operator|.
+name|Type
+operator|.
+name|ARRAY_MAP_BASED
+argument_list|,
+name|versionedList
+operator|.
+name|getStoreSegments
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|iterator
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
+break|break;
+default|default:
+throw|throw
+operator|new
+name|RuntimeException
+argument_list|(
+literal|"Unknown action "
+operator|+
+name|action
+argument_list|)
+throw|;
+comment|// sanity check
 block|}
 return|return
-name|cnt
+name|result
 return|;
+block|}
+comment|/**----------------------------------------------------------------------    * Initiate the action according to user config, after its default is Action.MERGE    */
+annotation|@
+name|VisibleForTesting
+name|void
+name|initiateAction
+parameter_list|()
+block|{
+name|String
+name|memStoreType
+init|=
+name|compactingMemStore
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|get
+argument_list|(
+name|COMPACTING_MEMSTORE_TYPE_KEY
+argument_list|,
+name|COMPACTING_MEMSTORE_TYPE_DEFAULT
+argument_list|)
+decl_stmt|;
+switch|switch
+condition|(
+name|memStoreType
+condition|)
+block|{
+case|case
+name|INDEX_COMPACTION_CONFIG
+case|:
+name|action
+operator|=
+name|Action
+operator|.
+name|MERGE
+expr_stmt|;
+break|break;
+case|case
+name|DATA_COMPACTION_CONFIG
+case|:
+name|action
+operator|=
+name|Action
+operator|.
+name|COMPACT
+expr_stmt|;
+break|break;
+default|default:
+throw|throw
+operator|new
+name|RuntimeException
+argument_list|(
+literal|"Unknown memstore type "
+operator|+
+name|memStoreType
+argument_list|)
+throw|;
+comment|// sanity check
+block|}
 block|}
 block|}
 end_class

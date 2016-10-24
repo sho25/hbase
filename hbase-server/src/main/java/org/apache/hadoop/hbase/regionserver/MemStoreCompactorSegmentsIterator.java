@@ -107,12 +107,42 @@ name|java
 operator|.
 name|util
 operator|.
-name|*
+name|ArrayList
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Collections
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Iterator
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
 import|;
 end_import
 
 begin_comment
-comment|/**  * The MemStoreCompactorIterator is designed to perform one iteration over given list of segments  * For another iteration new instance of MemStoreCompactorIterator needs to be created  * The iterator is not thread-safe and must have only one instance in each period of time  */
+comment|/**  * The MemStoreCompactorSegmentsIterator extends MemStoreSegmentsIterator  * and performs the scan for compaction operation meaning it is based on SQM  */
 end_comment
 
 begin_class
@@ -122,12 +152,9 @@ operator|.
 name|Private
 specifier|public
 class|class
-name|MemStoreCompactorIterator
-implements|implements
-name|Iterator
-argument_list|<
-name|Cell
-argument_list|>
+name|MemStoreCompactorSegmentsIterator
+extends|extends
+name|MemStoreSegmentsIterator
 block|{
 specifier|private
 name|List
@@ -143,22 +170,6 @@ name|Cell
 argument_list|>
 argument_list|()
 decl_stmt|;
-comment|// scanner for full or partial pipeline (heap of segment scanners)
-comment|// we need to keep those scanners in order to close them at the end
-specifier|private
-name|KeyValueScanner
-name|scanner
-decl_stmt|;
-comment|// scanner on top of pipeline scanner that uses ScanQueryMatcher
-specifier|private
-name|StoreScanner
-name|compactingScanner
-decl_stmt|;
-specifier|private
-specifier|final
-name|ScannerContext
-name|scannerContext
-decl_stmt|;
 specifier|private
 name|boolean
 name|hasMore
@@ -170,9 +181,14 @@ name|Cell
 argument_list|>
 name|kvsIterator
 decl_stmt|;
+comment|// scanner on top of pipeline scanner that uses ScanQueryMatcher
+specifier|private
+name|StoreScanner
+name|compactingScanner
+decl_stmt|;
 comment|// C-tor
 specifier|public
-name|MemStoreCompactorIterator
+name|MemStoreCompactorSegmentsIterator
 parameter_list|(
 name|List
 argument_list|<
@@ -192,75 +208,18 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|this
-operator|.
-name|scannerContext
-operator|=
-name|ScannerContext
-operator|.
-name|newBuilder
-argument_list|()
-operator|.
-name|setBatchLimit
+name|super
 argument_list|(
-name|compactionKVMax
-argument_list|)
-operator|.
-name|build
-argument_list|()
-expr_stmt|;
-comment|// list of Scanners of segments in the pipeline, when compaction starts
-name|List
-argument_list|<
-name|KeyValueScanner
-argument_list|>
-name|scanners
-init|=
-operator|new
-name|ArrayList
-argument_list|<
-name|KeyValueScanner
-argument_list|>
-argument_list|()
-decl_stmt|;
-comment|// create the list of scanners with maximally possible read point, meaning that
-comment|// all KVs are going to be returned by the pipeline traversing
-for|for
-control|(
-name|Segment
-name|segment
-range|:
 name|segments
-control|)
-block|{
-name|scanners
-operator|.
-name|add
-argument_list|(
-name|segment
-operator|.
-name|getScanner
-argument_list|(
-name|store
-operator|.
-name|getSmallestReadPoint
-argument_list|()
-argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
-name|scanner
-operator|=
-operator|new
-name|MemStoreScanner
-argument_list|(
+argument_list|,
 name|comparator
 argument_list|,
-name|scanners
+name|compactionKVMax
 argument_list|,
-literal|true
+name|store
 argument_list|)
 expr_stmt|;
+comment|// build the scanner based on Query Matcher
 comment|// reinitialize the compacting scanner for each instance of iterator
 name|compactingScanner
 operator|=
@@ -309,6 +268,18 @@ parameter_list|()
 block|{
 if|if
 condition|(
+name|kvsIterator
+operator|==
+literal|null
+condition|)
+block|{
+comment|// for the case when the result is empty
+return|return
+literal|false
+return|;
+block|}
+if|if
+condition|(
 operator|!
 name|kvsIterator
 operator|.
@@ -330,14 +301,10 @@ return|;
 block|}
 block|}
 return|return
-operator|(
 name|kvsIterator
 operator|.
 name|hasNext
 argument_list|()
-operator|||
-name|hasMore
-operator|)
 return|;
 block|}
 annotation|@
@@ -347,6 +314,18 @@ name|Cell
 name|next
 parameter_list|()
 block|{
+if|if
+condition|(
+name|kvsIterator
+operator|==
+literal|null
+condition|)
+block|{
+comment|// for the case when the result is empty
+return|return
+literal|null
+return|;
+block|}
 if|if
 condition|(
 operator|!
@@ -480,6 +459,7 @@ return|return
 name|internalScanner
 return|;
 block|}
+comment|/* Refill kev-value set (should be invoked only when KVS is empty)    * Returns true if KVS is non-empty */
 specifier|private
 name|boolean
 name|refillKVS
