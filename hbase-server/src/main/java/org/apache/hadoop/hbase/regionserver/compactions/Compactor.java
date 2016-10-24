@@ -700,7 +700,6 @@ name|compactionCompression
 decl_stmt|;
 comment|/** specify how many days to keep MVCC values during major compaction **/
 specifier|protected
-specifier|final
 name|int
 name|keepSeqIdPeriod
 decl_stmt|;
@@ -2494,6 +2493,16 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|// output to writer:
+name|Cell
+name|lastCleanCell
+init|=
+literal|null
+decl_stmt|;
+name|long
+name|lastCleanCellSeqId
+init|=
+literal|0
+decl_stmt|;
 for|for
 control|(
 name|Cell
@@ -2514,6 +2523,17 @@ operator|<=
 name|smallestReadPoint
 condition|)
 block|{
+name|lastCleanCell
+operator|=
+name|c
+expr_stmt|;
+name|lastCleanCellSeqId
+operator|=
+name|c
+operator|.
+name|getSequenceId
+argument_list|()
+expr_stmt|;
 name|CellUtil
 operator|.
 name|setSequenceId
@@ -2522,6 +2542,17 @@ name|c
 argument_list|,
 literal|0
 argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|lastCleanCell
+operator|=
+literal|null
+expr_stmt|;
+name|lastCleanCellSeqId
+operator|=
+literal|0
 expr_stmt|;
 block|}
 name|writer
@@ -2632,6 +2663,26 @@ operator|>
 name|shippedCallSizeLimit
 condition|)
 block|{
+if|if
+condition|(
+name|lastCleanCell
+operator|!=
+literal|null
+condition|)
+block|{
+comment|// HBASE-16931, set back sequence id to avoid affecting scan order unexpectedly.
+comment|// ShipperListener will do a clone of the last cells it refer, so need to set back
+comment|// sequence id before ShipperListener.beforeShipped
+name|CellUtil
+operator|.
+name|setSequenceId
+argument_list|(
+name|lastCleanCell
+argument_list|,
+name|lastCleanCellSeqId
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Clone the cells that are in the writer so that they are freed of references,
 comment|// if they are holding any.
 operator|(
@@ -2660,6 +2711,24 @@ operator|=
 literal|0
 expr_stmt|;
 block|}
+block|}
+if|if
+condition|(
+name|lastCleanCell
+operator|!=
+literal|null
+condition|)
+block|{
+comment|// HBASE-16931, set back sequence id to avoid affecting scan order unexpectedly
+name|CellUtil
+operator|.
+name|setSequenceId
+argument_list|(
+name|lastCleanCell
+argument_list|,
+name|lastCleanCellSeqId
+argument_list|)
+expr_stmt|;
 block|}
 comment|// Log the progress of long running compactions every minute if
 comment|// logging at DEBUG level
