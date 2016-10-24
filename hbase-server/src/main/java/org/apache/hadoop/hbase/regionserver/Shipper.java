@@ -57,13 +57,12 @@ interface|interface
 name|Shipper
 block|{
 comment|/**    * Called after a batch of rows scanned and set to be returned to client. Any in between cleanup    * can be done here.    */
-specifier|default
 name|void
 name|shipped
 parameter_list|()
 throws|throws
 name|IOException
-block|{ }
+function_decl|;
 block|}
 end_interface
 

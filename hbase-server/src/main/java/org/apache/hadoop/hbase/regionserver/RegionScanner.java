@@ -204,6 +204,18 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Empty implementation to provide compatibility for user migrating from 1.X    * @see<a href="https://issues.apache.org/jira/browse/HBASE-16626">HBASE-16626</a>    */
+annotation|@
+name|Override
+specifier|default
+name|void
+name|shipped
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+comment|// do nothing
+block|}
 block|}
 end_interface
 
