@@ -14778,6 +14778,27 @@ block|}
 block|}
 comment|/**    * Called to do a piece of the batch that came in to {@link #batchMutate(Mutation[], long, long)}    * In here we also handle replay of edits on region recover.    * @return Change in size brought about by applying<code>batchOp</code>    */
 annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"UL_UNRELEASED_LOCK"
+argument_list|,
+name|justification
+operator|=
+literal|"Findbugs seems to be confused on this."
+argument_list|)
+annotation|@
 name|SuppressWarnings
 argument_list|(
 literal|"unchecked"
