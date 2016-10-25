@@ -456,7 +456,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Atomically checks if a row/family/qualifier value matches the expected    * value. If it does, it adds the put.  If the passed value is null, the check    * is for the lack of column (ie: non-existence)    *    * The expected value argument of this call is on the left and the current    * value of the cell is on the right side of the comparison operator.    *    * Ie. eg. GREATER operator means expected value> existing<=> add the put.    *    * @param row to check    * @param family column family to check    * @param qualifier column qualifier to check    * @param compareOp comparison operator to use    * @param value the expected value    * @param put data to put if check succeeds    * @throws IOException e    * @return true if the new put was executed, false otherwise    */
+comment|/**    * Atomically checks if a row/family/qualifier value matches the expected    * value. If it does, it adds the put.  If the passed value is null, the check    * is for the lack of column (ie: non-existance)    *    * @param row to check    * @param family column family to check    * @param qualifier column qualifier to check    * @param compareOp comparison operator to use    * @param value the expected value    * @param put data to put if check succeeds    * @throws IOException e    * @return true if the new put was executed, false otherwise    */
 name|boolean
 name|checkAndPut
 parameter_list|(
@@ -536,7 +536,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Atomically checks if a row/family/qualifier value matches the expected    * value. If it does, it adds the delete.  If the passed value is null, the    * check is for the lack of column (ie: non-existence)    *    * The expected value argument of this call is on the left and the current    * value of the cell is on the right side of the comparison operator.    *    * Ie. eg. GREATER operator means expected value> existing<=> add the delete.    *    * @param row to check    * @param family column family to check    * @param qualifier column qualifier to check    * @param compareOp comparison operator to use    * @param value the expected value    * @param delete data to delete if check succeeds    * @throws IOException e    * @return true if the new delete was executed, false otherwise    */
+comment|/**    * Atomically checks if a row/family/qualifier value matches the expected    * value. If it does, it adds the delete.  If the passed value is null, the    * check is for the lack of column (ie: non-existance)    *    * @param row to check    * @param family column family to check    * @param qualifier column qualifier to check    * @param compareOp comparison operator to use    * @param value the expected value    * @param delete data to delete if check succeeds    * @throws IOException e    * @return true if the new delete was executed, false otherwise    */
 name|boolean
 name|checkAndDelete
 parameter_list|(
@@ -863,7 +863,7 @@ name|ServiceException
 throws|,
 name|Throwable
 function_decl|;
-comment|/**    * Atomically checks if a row/family/qualifier value matches the expected value.    * If it does, it performs the row mutations.  If the passed value is null, the check    * is for the lack of column (ie: non-existence)    *    * The expected value argument of this call is on the left and the current    * value of the cell is on the right side of the comparison operator.    *    * Ie. eg. GREATER operator means expected value> existing<=> perform row mutations.    *    * @param row to check    * @param family column family to check    * @param qualifier column qualifier to check    * @param compareOp the comparison operator    * @param value the expected value    * @param mutation  mutations to perform if check succeeds    * @throws IOException e    * @return true if the new put was executed, false otherwise    */
+comment|/**    * Atomically checks if a row/family/qualifier value matches the expected value.    * If it does, it performs the row mutations.  If the passed value is null, the check    * is for the lack of column (ie: non-existence)    *    * @param row to check    * @param family column family to check    * @param qualifier column qualifier to check    * @param compareOp the comparison operator    * @param value the expected value    * @param mutation  mutations to perform if check succeeds    * @throws IOException e    * @return true if the new put was executed, false otherwise    */
 name|boolean
 name|checkAndMutate
 parameter_list|(
