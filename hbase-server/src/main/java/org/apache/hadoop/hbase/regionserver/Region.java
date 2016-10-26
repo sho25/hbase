@@ -834,7 +834,7 @@ name|release
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Tries to acquire a lock on the given row.    * @param waitForLock if true, will block until the lock is available.    *        Otherwise, just tries to obtain the lock and returns    *        false if unavailable.    * @return the row lock if acquired,    *   null if waitForLock was false and the lock was not acquired    * @throws IOException if waitForLock was true and the lock could not be acquired after waiting    */
+comment|/**    *    * Get a row lock for the specified row. All locks are reentrant.    *    * Before calling this function make sure that a region operation has already been    * started (the calling thread has already acquired the region-close-guard lock).    *     * NOTE: the boolean passed here has changed. It used to be a boolean that    * stated whether or not to wait on the lock. Now it is whether it an exclusive    * lock is requested.    *     * @param row The row actions will be performed against    * @param readLock is the lock reader or writer. True indicates that a non-exclusive    * lock is requested    * @see #startRegionOperation()    * @see #startRegionOperation(Operation)    */
 name|RowLock
 name|getRowLock
 parameter_list|(
@@ -843,7 +843,7 @@ index|[]
 name|row
 parameter_list|,
 name|boolean
-name|waitForLock
+name|readLock
 parameter_list|)
 throws|throws
 name|IOException

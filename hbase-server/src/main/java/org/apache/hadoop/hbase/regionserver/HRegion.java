@@ -25618,7 +25618,6 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    *    * Get a row lock for the specified row. All locks are reentrant.    *    * Before calling this function make sure that a region operation has already been    * started (the calling thread has already acquired the region-close-guard lock).    * @param row The row actions will be performed against    * @param readLock is the lock reader or writer. True indicates that a non-exlcusive    *                 lock is requested    */
 annotation|@
 name|Override
 specifier|public
