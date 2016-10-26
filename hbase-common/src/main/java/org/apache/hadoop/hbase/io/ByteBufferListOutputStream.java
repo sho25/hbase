@@ -577,6 +577,7 @@ name|UnsupportedOperationException
 argument_list|()
 throw|;
 block|}
+comment|/**    * We can be assured that the buffers returned by this method are all flipped    * @return list of bytebuffers    */
 specifier|public
 name|List
 argument_list|<
