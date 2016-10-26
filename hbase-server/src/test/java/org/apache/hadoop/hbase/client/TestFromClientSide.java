@@ -48361,7 +48361,7 @@ name|byte
 index|[]
 name|maxByteArray
 init|=
-name|ReversedClientScanner
+name|ConnectionUtils
 operator|.
 name|MAX_BYTE_ARRAY
 decl_stmt|;
