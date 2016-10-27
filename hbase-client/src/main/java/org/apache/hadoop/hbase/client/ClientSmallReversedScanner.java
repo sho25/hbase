@@ -1448,7 +1448,7 @@ comment|// HBASE-16886: if not setting startRow, then we will use a range [MAX_B
 comment|// locate a region list, and the last one in region list is the region where our scan start.
 name|locateStartRow
 operator|=
-name|ClientScanner
+name|ConnectionUtils
 operator|.
 name|MAX_BYTE_ARRAY
 expr_stmt|;
