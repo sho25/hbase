@@ -73,9 +73,9 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|ClientSmallScanner
+name|ClientSmallReversedScanner
 operator|.
-name|SmallScannerCallableFactory
+name|SmallReversedScannerCallableFactory
 import|;
 end_import
 
@@ -530,7 +530,7 @@ block|}
 return|;
 block|}
 specifier|private
-name|SmallScannerCallableFactory
+name|SmallReversedScannerCallableFactory
 name|getFactory
 parameter_list|(
 specifier|final
@@ -540,7 +540,7 @@ parameter_list|)
 block|{
 return|return
 operator|new
-name|SmallScannerCallableFactory
+name|SmallReversedScannerCallableFactory
 argument_list|()
 block|{
 annotation|@
@@ -592,6 +592,9 @@ name|Result
 index|[]
 argument_list|>
 name|caller
+parameter_list|,
+name|boolean
+name|isFirstRegionToLocate
 parameter_list|)
 block|{
 return|return
@@ -749,7 +752,7 @@ argument_list|)
 expr_stmt|;
 comment|// Intentionally leave a "default" caching size in the Scan. No matter the value, we
 comment|// should continue based on the server context
-name|SmallScannerCallableFactory
+name|SmallReversedScannerCallableFactory
 name|factory
 init|=
 name|getFactory
@@ -1237,7 +1240,7 @@ argument_list|(
 literal|2
 argument_list|)
 expr_stmt|;
-name|SmallScannerCallableFactory
+name|SmallReversedScannerCallableFactory
 name|factory
 init|=
 name|getFactory
@@ -1705,7 +1708,7 @@ argument_list|(
 literal|2
 argument_list|)
 expr_stmt|;
-name|SmallScannerCallableFactory
+name|SmallReversedScannerCallableFactory
 name|factory
 init|=
 name|getFactory
@@ -1909,7 +1912,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-name|SmallScannerCallableFactory
+name|SmallReversedScannerCallableFactory
 name|factory
 init|=
 name|getFactory
