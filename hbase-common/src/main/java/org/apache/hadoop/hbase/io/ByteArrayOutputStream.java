@@ -23,16 +23,6 @@ name|java
 operator|.
 name|io
 operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
 name|OutputStream
 import|;
 end_import
@@ -200,8 +190,6 @@ parameter_list|,
 name|int
 name|len
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|checkSizeAndGrow
 argument_list|(
@@ -243,8 +231,6 @@ parameter_list|(
 name|int
 name|i
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|checkSizeAndGrow
 argument_list|(
@@ -286,8 +272,6 @@ parameter_list|(
 name|int
 name|b
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|checkSizeAndGrow
 argument_list|(
@@ -330,8 +314,6 @@ parameter_list|,
 name|int
 name|len
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|checkSizeAndGrow
 argument_list|(
@@ -505,9 +487,9 @@ block|}
 comment|/**    * Copies the content of this Stream into a new byte array.    * @return  the contents of this output stream, as new byte array.    */
 specifier|public
 name|byte
-name|toByteArray
-argument_list|()
 index|[]
+name|toByteArray
+parameter_list|()
 block|{
 return|return
 name|Arrays

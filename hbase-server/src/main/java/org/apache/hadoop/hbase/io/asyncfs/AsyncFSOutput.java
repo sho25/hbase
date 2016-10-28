@@ -45,6 +45,16 @@ name|java
 operator|.
 name|nio
 operator|.
+name|ByteBuffer
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|nio
+operator|.
 name|channels
 operator|.
 name|CompletionHandler
@@ -136,6 +146,22 @@ name|off
 parameter_list|,
 name|int
 name|len
+parameter_list|)
+function_decl|;
+comment|/**    * Write an int to the buffer.    */
+name|void
+name|writeInt
+parameter_list|(
+name|int
+name|i
+parameter_list|)
+function_decl|;
+comment|/**    * Copy the data in the given {@code bb} into the buffer.    */
+name|void
+name|write
+parameter_list|(
+name|ByteBuffer
+name|bb
 parameter_list|)
 function_decl|;
 comment|/**    * Return the current size of buffered data.    */
