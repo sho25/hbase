@@ -481,7 +481,7 @@ name|user
 decl_stmt|;
 specifier|private
 specifier|final
-name|ClusterRegistry
+name|AsyncRegistry
 name|registry
 decl_stmt|;
 specifier|private

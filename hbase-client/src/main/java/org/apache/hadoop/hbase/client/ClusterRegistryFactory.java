@@ -89,7 +89,7 @@ parameter_list|()
 block|{   }
 comment|/**    * @return The cluster registry implementation to use.    */
 specifier|static
-name|ClusterRegistry
+name|AsyncRegistry
 name|getRegistry
 parameter_list|(
 name|Configuration
@@ -100,7 +100,7 @@ name|Class
 argument_list|<
 name|?
 extends|extends
-name|ClusterRegistry
+name|AsyncRegistry
 argument_list|>
 name|clazz
 init|=
@@ -110,11 +110,11 @@ name|getClass
 argument_list|(
 name|REGISTRY_IMPL_CONF_KEY
 argument_list|,
-name|ZKClusterRegistry
+name|ZKAsyncRegistry
 operator|.
 name|class
 argument_list|,
-name|ClusterRegistry
+name|AsyncRegistry
 operator|.
 name|class
 argument_list|)

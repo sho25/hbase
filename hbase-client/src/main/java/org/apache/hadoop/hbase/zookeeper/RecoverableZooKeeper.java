@@ -1570,8 +1570,6 @@ name|stat
 argument_list|)
 decl_stmt|;
 return|return
-name|this
-operator|.
 name|removeMetaData
 argument_list|(
 name|revData
@@ -1704,8 +1702,6 @@ name|stat
 argument_list|)
 decl_stmt|;
 return|return
-name|this
-operator|.
 name|removeMetaData
 argument_list|(
 name|revData
@@ -3157,6 +3153,7 @@ literal|null
 return|;
 block|}
 specifier|public
+specifier|static
 name|byte
 index|[]
 name|removeMetaData
