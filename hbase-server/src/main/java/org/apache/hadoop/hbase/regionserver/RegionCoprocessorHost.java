@@ -3743,7 +3743,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Invoked just before a split    * @throws IOException    */
-comment|// TODO: Deprecate this
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|preSplit
@@ -3800,7 +3801,9 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Invoked just before a split    * @throws IOException    */
+comment|/**    * Invoked just before a split    * @throws IOException    *    * Note: the logic moves to Master; it is unused in RS    */
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|preSplit
@@ -3864,7 +3867,9 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Invoked just after a split    * @param l the new left-hand daughter region    * @param r the new right-hand daughter region    * @throws IOException    */
+comment|/**    * Invoked just after a split    * @param l the new left-hand daughter region    * @param r the new right-hand daughter region    * @throws IOException    *    * Note: the logic moves to Master; it is unused in RS    */
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|postSplit
@@ -3933,6 +3938,9 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**   * Note: the logic moves to Master; it is unused in RS   */
+annotation|@
+name|Deprecated
 specifier|public
 name|boolean
 name|preSplitBeforePONR
@@ -4006,6 +4014,9 @@ block|}
 argument_list|)
 return|;
 block|}
+comment|/**   * Note: the logic moves to Master; it is unused in RS   */
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|preSplitAfterPONR
@@ -4062,7 +4073,9 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Invoked just before the rollback of a failed split is started    * @throws IOException    */
+comment|/**    * Invoked just before the rollback of a failed split is started    * @throws IOException    *   * Note: the logic moves to Master; it is unused in RS   */
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|preRollBackSplit
@@ -4119,7 +4132,9 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Invoked just after the rollback of a failed split is done    * @throws IOException    */
+comment|/**    * Invoked just after the rollback of a failed split is done    * @throws IOException    *   * Note: the logic moves to Master; it is unused in RS   */
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|postRollBackSplit

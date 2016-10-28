@@ -1155,7 +1155,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before the region is split.    * @param c the environment provided by the region server    * (e.getRegion() returns the parent region)    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called before the region is split.    * @param c the environment provided by the region server    * (e.getRegion() returns the parent region)    * @throws IOException if an error occurred on the coprocessor    *    * Note: the logic moves to Master; it is unused in RS    */
+annotation|@
+name|Deprecated
 name|void
 name|preSplit
 parameter_list|(
@@ -1197,7 +1199,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * This will be called before PONR step as part of split transaction. Calling    * {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} rollback the split    * @param ctx    * @param splitKey    * @param metaEntries    * @throws IOException    */
+comment|/**    * This will be called before PONR step as part of split transaction. Calling    * {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} rollback the split    * @param ctx    * @param splitKey    * @param metaEntries    * @throws IOException    *    * Note: the logic moves to Master; it is unused in RS   */
+annotation|@
+name|Deprecated
 name|void
 name|preSplitBeforePONR
 parameter_list|(
@@ -1221,7 +1225,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * This will be called after PONR step as part of split transaction    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param ctx    * @throws IOException    */
+comment|/**    * This will be called after PONR step as part of split transaction    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param ctx    * @throws IOException    *    * Note: the logic moves to Master; it is unused in RS   */
+annotation|@
+name|Deprecated
 name|void
 name|preSplitAfterPONR
 parameter_list|(
@@ -1235,7 +1241,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * This will be called before the roll back of the split region is completed    * @param ctx    * @throws IOException    */
+comment|/**    * This will be called before the roll back of the split region is completed    * @param ctx    * @throws IOException    *    * Note: the logic moves to Master; it is unused in RS   */
+annotation|@
+name|Deprecated
 name|void
 name|preRollBackSplit
 parameter_list|(
@@ -1249,7 +1257,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * This will be called after the roll back of the split region is completed    * @param ctx    * @throws IOException    */
+comment|/**    * This will be called after the roll back of the split region is completed    * @param ctx    * @throws IOException    *    * Note: the logic moves to Master; it is unused in RS   */
+annotation|@
+name|Deprecated
 name|void
 name|postRollBackSplit
 parameter_list|(

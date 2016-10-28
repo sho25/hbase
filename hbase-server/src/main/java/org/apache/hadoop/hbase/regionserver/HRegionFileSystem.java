@@ -2049,6 +2049,7 @@ name|REGION_SPLITS_DIR
 argument_list|)
 return|;
 block|}
+specifier|public
 name|Path
 name|getSplitsDir
 parameter_list|(
@@ -2270,6 +2271,7 @@ throw|;
 block|}
 block|}
 comment|/**    * Commit a daughter region, moving it from the split temporary directory    * to the proper location in the filesystem.    *    * @param regionInfo                 daughter {@link org.apache.hadoop.hbase.HRegionInfo}    * @throws IOException    */
+specifier|public
 name|Path
 name|commitDaughterRegion
 parameter_list|(
@@ -2380,6 +2382,7 @@ name|regionDir
 return|;
 block|}
 comment|/**    * Create the region splits directory.    */
+specifier|public
 name|void
 name|createSplitsDir
 parameter_list|()
@@ -2457,6 +2460,7 @@ throw|;
 block|}
 block|}
 comment|/**    * Write out a split reference. Package local so it doesnt leak out of    * regionserver.    * @param hri {@link HRegionInfo} of the destination    * @param familyName Column Family Name    * @param f File to split.    * @param splitRow Split Row    * @param top True if we are referring to the top half of the hfile.    * @param splitPolicy    * @return Path to created reference.    * @throws IOException    */
+specifier|public
 name|Path
 name|splitStoreFile
 parameter_list|(
@@ -2504,6 +2508,22 @@ condition|)
 block|{
 comment|// Check whether the split row lies in the range of the store file
 comment|// If it is outside the range, return directly.
+if|if
+condition|(
+name|f
+operator|.
+name|getReader
+argument_list|()
+operator|==
+literal|null
+condition|)
+block|{
+name|f
+operator|.
+name|createReader
+argument_list|()
+expr_stmt|;
+block|}
 try|try
 block|{
 if|if

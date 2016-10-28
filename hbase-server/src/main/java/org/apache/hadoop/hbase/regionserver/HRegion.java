@@ -31778,6 +31778,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Create a daughter region from given a temp directory with the region data.    * @param hri Spec. for daughter region to open.    * @throws IOException    */
+specifier|public
 name|HRegion
 name|createDaughterRegionFromSplits
 parameter_list|(

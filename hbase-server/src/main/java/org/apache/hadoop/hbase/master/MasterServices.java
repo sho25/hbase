@@ -628,6 +628,31 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Split a region.    * @param regionInfo region to split    * @param splitRow split point    * @param nonceGroup used to detect duplicate    * @param nonce used to detect duplicate    * @return  procedure Id    * @throws IOException    */
+specifier|public
+name|long
+name|splitRegion
+parameter_list|(
+specifier|final
+name|HRegionInfo
+name|regionInfo
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|splitRow
+parameter_list|,
+specifier|final
+name|long
+name|nonceGroup
+parameter_list|,
+specifier|final
+name|long
+name|nonce
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * @return Return table descriptors implementation.    */
 name|TableDescriptors
 name|getTableDescriptors
