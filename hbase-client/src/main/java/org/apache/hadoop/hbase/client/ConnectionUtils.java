@@ -1038,8 +1038,8 @@ block|}
 decl_stmt|;
 comment|// A byte array in which all elements are the max byte, and it is used to
 comment|// construct closest front row
-specifier|public
 specifier|static
+specifier|final
 name|byte
 index|[]
 name|MAX_BYTE_ARRAY
