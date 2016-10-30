@@ -41,11 +41,9 @@ begin_import
 import|import
 name|java
 operator|.
-name|nio
+name|util
 operator|.
-name|channels
-operator|.
-name|CompletionHandler
+name|List
 import|;
 end_import
 
@@ -55,7 +53,9 @@ name|java
 operator|.
 name|util
 operator|.
-name|List
+name|concurrent
+operator|.
+name|CompletableFuture
 import|;
 end_import
 
@@ -226,23 +226,12 @@ name|AsyncWriter
 extends|extends
 name|Closeable
 block|{
-parameter_list|<
-name|A
-parameter_list|>
-name|void
-name|sync
-parameter_list|(
-name|CompletionHandler
+name|CompletableFuture
 argument_list|<
 name|Long
-argument_list|,
-name|A
 argument_list|>
-name|handler
-parameter_list|,
-name|A
-name|attachment
-parameter_list|)
+name|sync
+parameter_list|()
 function_decl|;
 name|void
 name|append

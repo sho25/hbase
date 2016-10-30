@@ -63,6 +63,18 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|CompletableFuture
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -133,7 +145,7 @@ index|[]
 name|b
 parameter_list|)
 function_decl|;
-comment|/**    * Copy the data into the buffer. Note that you need to call    * {@link #flush(Object, CompletionHandler, boolean)} to flush the buffer manually.    */
+comment|/**    * Copy the data into the buffer. Note that you need to call {@link #flush(boolean)} to flush the    * buffer manually.    */
 name|void
 name|write
 parameter_list|(
@@ -175,27 +187,13 @@ index|[]
 name|getPipeline
 parameter_list|()
 function_decl|;
-comment|/**    * Flush the buffer out.    * @param attachment will be passed to handler when completed.    * @param handler will set the acked length as result when completed.    * @param sync persistent the data to device    */
-parameter_list|<
-name|A
-parameter_list|>
-name|void
-name|flush
-parameter_list|(
-name|A
-name|attachment
-parameter_list|,
-specifier|final
-name|CompletionHandler
+comment|/**    * Flush the buffer out.    * @param sync persistent the data to device    * @return A CompletableFuture that hold the acked length after flushing.    */
+name|CompletableFuture
 argument_list|<
 name|Long
-argument_list|,
-name|?
-super|super
-name|A
 argument_list|>
-name|handler
-parameter_list|,
+name|flush
+parameter_list|(
 name|boolean
 name|sync
 parameter_list|)
