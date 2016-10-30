@@ -343,6 +343,34 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|long
+name|FIXED_OVERHEAD
+init|=
+name|ClassSize
+operator|.
+name|OBJECT
+operator|+
+comment|// the KeyValue object itself
+name|ClassSize
+operator|.
+name|REFERENCE
+operator|+
+comment|// pointer to "bytes"
+literal|2
+operator|*
+name|Bytes
+operator|.
+name|SIZEOF_INT
+operator|+
+comment|// offset, length
+name|Bytes
+operator|.
+name|SIZEOF_LONG
+decl_stmt|;
+comment|// memstoreTS
 comment|/**    * Colon character in UTF-8    */
 specifier|public
 specifier|static
@@ -11385,41 +11413,11 @@ name|long
 name|heapSize
 parameter_list|()
 block|{
-name|int
+name|long
 name|sum
 init|=
-literal|0
+name|FIXED_OVERHEAD
 decl_stmt|;
-name|sum
-operator|+=
-name|ClassSize
-operator|.
-name|OBJECT
-expr_stmt|;
-comment|// the KeyValue object itself
-name|sum
-operator|+=
-name|ClassSize
-operator|.
-name|REFERENCE
-expr_stmt|;
-comment|// pointer to "bytes"
-name|sum
-operator|+=
-literal|2
-operator|*
-name|Bytes
-operator|.
-name|SIZEOF_INT
-expr_stmt|;
-comment|// offset, length
-name|sum
-operator|+=
-name|Bytes
-operator|.
-name|SIZEOF_LONG
-expr_stmt|;
-comment|// memstoreTS
 comment|/*      * Deep object overhead for this KV consists of two parts. The first part is the KV object      * itself, while the second part is the backing byte[]. We will only count the array overhead      * from the byte[] only if this is the first KV in there.      */
 return|return
 name|ClassSize
@@ -12161,6 +12159,35 @@ literal|"A reader should never return this type of a Cell"
 argument_list|)
 throw|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|long
+name|heapOverhead
+parameter_list|()
+block|{
+return|return
+name|super
+operator|.
+name|heapOverhead
+argument_list|()
+operator|+
+name|Bytes
+operator|.
+name|SIZEOF_SHORT
+return|;
+block|}
+block|}
+annotation|@
+name|Override
+specifier|public
+name|long
+name|heapOverhead
+parameter_list|()
+block|{
+return|return
+name|FIXED_OVERHEAD
+return|;
 block|}
 block|}
 end_class

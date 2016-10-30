@@ -333,7 +333,10 @@ if|if
 condition|(
 name|store
 operator|.
-name|getMemStoreSize
+name|getSizeOfMemStore
+argument_list|()
+operator|.
+name|getDataSize
 argument_list|()
 operator|>
 name|this
@@ -374,7 +377,10 @@ literal|" because memstoreSize="
 operator|+
 name|store
 operator|.
-name|getMemStoreSize
+name|getSizeOfMemStore
+argument_list|()
+operator|.
+name|getDataSize
 argument_list|()
 operator|+
 literal|"> lower bound="

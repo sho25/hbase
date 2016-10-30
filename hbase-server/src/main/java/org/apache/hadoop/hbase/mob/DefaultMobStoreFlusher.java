@@ -734,7 +734,7 @@ name|long2String
 argument_list|(
 name|snapshot
 operator|.
-name|getSize
+name|getDataSize
 argument_list|()
 argument_list|,
 literal|""

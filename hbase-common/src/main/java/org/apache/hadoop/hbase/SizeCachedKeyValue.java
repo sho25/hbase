@@ -79,11 +79,13 @@ name|SizeCachedKeyValue
 extends|extends
 name|KeyValue
 block|{
+comment|// Overhead in this class alone. Parent's overhead will be considered in usage places by calls to
+comment|// super. methods
 specifier|private
 specifier|static
 specifier|final
 name|int
-name|HEAP_SIZE_OVERHEAD
+name|FIXED_OVERHEAD
 init|=
 name|Bytes
 operator|.
@@ -186,7 +188,23 @@ operator|.
 name|heapSize
 argument_list|()
 operator|+
-name|HEAP_SIZE_OVERHEAD
+name|FIXED_OVERHEAD
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|long
+name|heapOverhead
+parameter_list|()
+block|{
+return|return
+name|super
+operator|.
+name|heapOverhead
+argument_list|()
+operator|+
+name|FIXED_OVERHEAD
 return|;
 block|}
 block|}

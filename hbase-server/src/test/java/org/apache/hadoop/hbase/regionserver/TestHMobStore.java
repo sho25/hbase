@@ -111,6 +111,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CellComparator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|CellUtil
 import|;
 end_import
@@ -1592,7 +1606,7 @@ name|maxKeyCount
 argument_list|,
 name|hcd
 operator|.
-name|getCompactionCompression
+name|getCompactionCompressionType
 argument_list|()
 argument_list|,
 name|region
@@ -1834,6 +1848,8 @@ literal|1
 argument_list|,
 name|value
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|this
@@ -1855,6 +1871,8 @@ literal|1
 argument_list|,
 name|value
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|this
@@ -1876,6 +1894,8 @@ literal|1
 argument_list|,
 name|value
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|this
@@ -1897,6 +1917,8 @@ literal|1
 argument_list|,
 name|value
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|this
@@ -1918,6 +1940,8 @@ literal|1
 argument_list|,
 name|value
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|this
@@ -1939,6 +1963,8 @@ literal|1
 argument_list|,
 name|value
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|Scan
@@ -2007,7 +2033,7 @@ name|sort
 argument_list|(
 name|results
 argument_list|,
-name|KeyValue
+name|CellComparator
 operator|.
 name|COMPARATOR
 argument_list|)
@@ -2124,6 +2150,8 @@ literal|1
 argument_list|,
 name|value
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|this
@@ -2145,6 +2173,8 @@ literal|1
 argument_list|,
 name|value
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|//flush
@@ -2173,6 +2203,8 @@ literal|1
 argument_list|,
 name|value
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|this
@@ -2194,6 +2226,8 @@ literal|1
 argument_list|,
 name|value
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|//flush
@@ -2222,6 +2256,8 @@ literal|1
 argument_list|,
 name|value
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|this
@@ -2243,6 +2279,8 @@ literal|1
 argument_list|,
 name|value
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|//flush
@@ -2317,7 +2355,7 @@ name|sort
 argument_list|(
 name|results
 argument_list|,
-name|KeyValue
+name|CellComparator
 operator|.
 name|COMPARATOR
 argument_list|)
@@ -2433,6 +2471,8 @@ literal|1
 argument_list|,
 name|value
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|this
@@ -2454,6 +2494,8 @@ literal|1
 argument_list|,
 name|value
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|//flush
@@ -2482,6 +2524,8 @@ literal|1
 argument_list|,
 name|value
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|this
@@ -2503,6 +2547,8 @@ literal|1
 argument_list|,
 name|value
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|//flush
@@ -2531,6 +2577,8 @@ literal|1
 argument_list|,
 name|value
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|this
@@ -2552,6 +2600,8 @@ literal|1
 argument_list|,
 name|value
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|//flush
@@ -2644,7 +2694,7 @@ name|sort
 argument_list|(
 name|results
 argument_list|,
-name|KeyValue
+name|CellComparator
 operator|.
 name|COMPARATOR
 argument_list|)
@@ -2763,6 +2813,8 @@ literal|1
 argument_list|,
 name|value
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|this
@@ -2784,6 +2836,8 @@ literal|1
 argument_list|,
 name|value
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|//flush
@@ -2812,6 +2866,8 @@ literal|1
 argument_list|,
 name|value
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|this
@@ -2833,6 +2889,8 @@ literal|1
 argument_list|,
 name|value
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|//flush
@@ -2861,6 +2919,8 @@ literal|1
 argument_list|,
 name|value
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|this
@@ -2882,6 +2942,8 @@ literal|1
 argument_list|,
 name|value
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|Scan
@@ -2950,7 +3012,7 @@ name|sort
 argument_list|(
 name|results
 argument_list|,
-name|KeyValue
+name|CellComparator
 operator|.
 name|COMPARATOR
 argument_list|)
@@ -3100,6 +3162,8 @@ literal|1
 argument_list|,
 name|value
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|this
@@ -3121,6 +3185,8 @@ literal|1
 argument_list|,
 name|value
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|//flush
@@ -3149,6 +3215,8 @@ literal|1
 argument_list|,
 name|value
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|this
@@ -3170,6 +3238,8 @@ literal|1
 argument_list|,
 name|value
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|//flush
@@ -3198,6 +3268,8 @@ literal|1
 argument_list|,
 name|value
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|this
@@ -3219,6 +3291,8 @@ literal|1
 argument_list|,
 name|value
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|//flush
@@ -3311,7 +3385,7 @@ name|sort
 argument_list|(
 name|results
 argument_list|,
-name|KeyValue
+name|CellComparator
 operator|.
 name|COMPARATOR
 argument_list|)
@@ -4025,6 +4099,8 @@ literal|1
 argument_list|,
 name|value
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|this
@@ -4046,6 +4122,8 @@ literal|1
 argument_list|,
 name|value
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|this
@@ -4067,6 +4145,8 @@ literal|1
 argument_list|,
 name|value
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|flush
@@ -4093,6 +4173,8 @@ literal|1
 argument_list|,
 name|value
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|this
@@ -4114,6 +4196,8 @@ literal|1
 argument_list|,
 name|value
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|this
@@ -4135,6 +4219,8 @@ literal|1
 argument_list|,
 name|value
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|flush
@@ -4227,7 +4313,7 @@ name|sort
 argument_list|(
 name|results
 argument_list|,
-name|KeyValue
+name|CellComparator
 operator|.
 name|COMPARATOR
 argument_list|)

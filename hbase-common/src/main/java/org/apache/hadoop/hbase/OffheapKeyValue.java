@@ -167,7 +167,7 @@ specifier|private
 specifier|static
 specifier|final
 name|int
-name|FIXED_HEAP_SIZE_OVERHEAD
+name|FIXED_OVERHEAD
 init|=
 name|ClassSize
 operator|.
@@ -928,7 +928,7 @@ name|ClassSize
 operator|.
 name|align
 argument_list|(
-name|FIXED_HEAP_SIZE_OVERHEAD
+name|FIXED_OVERHEAD
 operator|+
 name|ClassSize
 operator|.
@@ -1116,6 +1116,17 @@ operator|new
 name|UnsupportedOperationException
 argument_list|()
 throw|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|long
+name|heapOverhead
+parameter_list|()
+block|{
+return|return
+name|FIXED_OVERHEAD
+return|;
 block|}
 block|}
 end_class

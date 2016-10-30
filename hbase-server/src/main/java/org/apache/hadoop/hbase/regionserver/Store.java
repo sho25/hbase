@@ -778,19 +778,40 @@ name|boolean
 name|hasReferences
 parameter_list|()
 function_decl|;
-comment|/**    * @return The size of this store's memstore, in bytes    */
+comment|/**    * @return The size of this store's memstore, in bytes    * @deprecated Since 2.0 and will be removed in 3.0. Use {@link #getSizeOfMemStore()} instead.    */
+annotation|@
+name|Deprecated
 name|long
 name|getMemStoreSize
 parameter_list|()
 function_decl|;
-comment|/**    * @return The amount of memory we could flush from this memstore; usually this is equal to    * {@link #getMemStoreSize()} unless we are carrying snapshots and then it will be the size of    * outstanding snapshots.    */
+comment|/**    * @return The size of this store's memstore.    */
+name|MemstoreSize
+name|getSizeOfMemStore
+parameter_list|()
+function_decl|;
+comment|/**    * @return The amount of memory we could flush from this memstore; usually this is equal to    * {@link #getMemStoreSize()} unless we are carrying snapshots and then it will be the size of    * outstanding snapshots.    * @deprecated Since 2.0 and will be removed in 3.0. Use {@link #getSizeToFlush()} instead.    */
+annotation|@
+name|Deprecated
 name|long
 name|getFlushableSize
 parameter_list|()
 function_decl|;
-comment|/**    * Returns the memstore snapshot size    * @return size of the memstore snapshot    */
+comment|/**    * @return The amount of memory we could flush from this memstore; usually this is equal to    * {@link #getSizeOfMemStore()} unless we are carrying snapshots and then it will be the size of    * outstanding snapshots.    */
+name|MemstoreSize
+name|getSizeToFlush
+parameter_list|()
+function_decl|;
+comment|/**    * Returns the memstore snapshot size    * @return size of the memstore snapshot    * @deprecated Since 2.0 and will be removed in 3.0. Use {@link #getSizeOfSnapshot()} instead.    */
+annotation|@
+name|Deprecated
 name|long
 name|getSnapshotSize
+parameter_list|()
+function_decl|;
+comment|/**    * @return size of the memstore snapshot    */
+name|MemstoreSize
+name|getSizeOfSnapshot
 parameter_list|()
 function_decl|;
 name|HColumnDescriptor

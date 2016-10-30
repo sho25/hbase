@@ -750,6 +750,8 @@ name|qf1
 argument_list|,
 name|val
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|memstore
@@ -767,6 +769,8 @@ name|qf2
 argument_list|,
 name|val
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|memstore
@@ -784,6 +788,8 @@ name|qf3
 argument_list|,
 name|val
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|// Creating a snapshot
@@ -837,6 +843,8 @@ name|qf4
 argument_list|,
 name|val
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|memstore
@@ -854,6 +862,8 @@ name|qf5
 argument_list|,
 name|val
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1037,6 +1047,8 @@ name|qf1
 argument_list|,
 name|val
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|memstore
@@ -1054,6 +1066,8 @@ name|qf2
 argument_list|,
 name|val
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|memstore
@@ -1071,6 +1085,8 @@ name|qf3
 argument_list|,
 name|val
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|// Creating a snapshot
@@ -1124,6 +1140,8 @@ name|qf4
 argument_list|,
 name|val
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|memstore
@@ -1141,6 +1159,8 @@ name|qf5
 argument_list|,
 name|val
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1247,6 +1267,8 @@ name|qf6
 argument_list|,
 name|val
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|memstore
@@ -1264,6 +1286,8 @@ name|qf7
 argument_list|,
 name|val
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|// opening scanners

@@ -130,6 +130,11 @@ name|int
 name|offset
 parameter_list|)
 function_decl|;
+comment|/**    * @return The heap size overhead associated with this Cell.    */
+name|long
+name|heapOverhead
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

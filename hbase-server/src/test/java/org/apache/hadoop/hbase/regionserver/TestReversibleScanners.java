@@ -4561,6 +4561,8 @@ name|i
 argument_list|,
 name|j
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 block|}
@@ -4756,6 +4758,8 @@ name|i
 argument_list|,
 name|j
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 block|}
@@ -4820,6 +4824,8 @@ name|i
 argument_list|,
 name|j
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 block|}

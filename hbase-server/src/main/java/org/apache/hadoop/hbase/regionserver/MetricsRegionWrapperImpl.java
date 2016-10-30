@@ -860,7 +860,10 @@ name|tempMemstoreSize
 operator|+=
 name|store
 operator|.
-name|getMemStoreSize
+name|getSizeOfMemStore
+argument_list|()
+operator|.
+name|getDataSize
 argument_list|()
 expr_stmt|;
 name|tempStoreFileSize

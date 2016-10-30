@@ -83,22 +83,6 @@ name|UnexpectedStateException
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|HeapSize
-import|;
-end_import
-
 begin_comment
 comment|/**  * The MemStore holds in-memory modifications to the Store. Modifications are {@link Cell}s.  *<p>  * The MemStore functions should not be called in parallel. Callers should hold write and read  * locks. This is done in {@link HStore}.  *</p>  */
 end_comment
@@ -111,8 +95,6 @@ name|Private
 specifier|public
 interface|interface
 name|MemStore
-extends|extends
-name|HeapSize
 block|{
 comment|/**    * Creates a snapshot of the current memstore. Snapshot must be cleared by call to    * {@link #clearSnapshot(long)}.    * @return {@link MemStoreSnapshot}    */
 name|MemStoreSnapshot
@@ -130,26 +112,29 @@ throws|throws
 name|UnexpectedStateException
 function_decl|;
 comment|/**    * On flush, how much memory we will clear.    * Flush will first clear out the data in snapshot if any (It will take a second flush    * invocation to clear the current Cell set). If snapshot is empty, current    * Cell set will be flushed.    *    * @return size of data that is going to be flushed    */
-name|long
+name|MemstoreSize
 name|getFlushableSize
 parameter_list|()
 function_decl|;
 comment|/**    * Return the size of the snapshot(s) if any    * @return size of the memstore snapshot    */
-name|long
+name|MemstoreSize
 name|getSnapshotSize
 parameter_list|()
 function_decl|;
-comment|/**    * Write an update    * @param cell    * @return approximate size of the passed cell.    */
-name|long
+comment|/**    * Write an update    * @param cell    * @param memstoreSize The delta in memstore size will be passed back via this.    *        This will include both data size and heap overhead delta.    */
+name|void
 name|add
 parameter_list|(
 specifier|final
 name|Cell
 name|cell
+parameter_list|,
+name|MemstoreSize
+name|memstoreSize
 parameter_list|)
 function_decl|;
-comment|/**    * Write the updates    * @param cells    * @return approximate size of the passed cell.    */
-name|long
+comment|/**    * Write the updates    * @param cells    * @param memstoreSize The delta in memstore size will be passed back via this.    *        This will include both data size and heap overhead delta.    */
+name|void
 name|add
 parameter_list|(
 name|Iterable
@@ -157,6 +142,9 @@ argument_list|<
 name|Cell
 argument_list|>
 name|cells
+parameter_list|,
+name|MemstoreSize
+name|memstoreSize
 parameter_list|)
 function_decl|;
 comment|/**    * @return Oldest timestamp of all the Cells in the MemStore    */
@@ -164,40 +152,8 @@ name|long
 name|timeOfOldestEdit
 parameter_list|()
 function_decl|;
-comment|/**    * Write a delete    * @param deleteCell    * @return approximate size of the passed key and value.    */
-name|long
-name|delete
-parameter_list|(
-specifier|final
-name|Cell
-name|deleteCell
-parameter_list|)
-function_decl|;
-comment|/**    * Given the specs of a column, update it, first by inserting a new record,    * then removing the old one.  Since there is only 1 KeyValue involved, the memstoreTS    * will be set to 0, thus ensuring that they instantly appear to anyone. The underlying    * store will ensure that the insert/delete each are atomic. A scanner/reader will either    * get the new value, or the old value and all readers will eventually only see the new    * value after the old was removed.    *    * @param row    * @param family    * @param qualifier    * @param newValue    * @param now    * @return Timestamp    */
-name|long
-name|updateColumnValue
-parameter_list|(
-name|byte
-index|[]
-name|row
-parameter_list|,
-name|byte
-index|[]
-name|family
-parameter_list|,
-name|byte
-index|[]
-name|qualifier
-parameter_list|,
-name|long
-name|newValue
-parameter_list|,
-name|long
-name|now
-parameter_list|)
-function_decl|;
-comment|/**    * Update or insert the specified cells.    *<p>    * For each Cell, insert into MemStore. This will atomically upsert the value for that    * row/family/qualifier. If a Cell did already exist, it will then be removed.    *<p>    * Currently the memstoreTS is kept at 0 so as each insert happens, it will be immediately    * visible. May want to change this so it is atomic across all KeyValues.    *<p>    * This is called under row lock, so Get operations will still see updates atomically. Scans will    * only see each KeyValue update as atomic.    * @param cells    * @param readpoint readpoint below which we can safely remove duplicate Cells.    * @return change in memstore size    */
-name|long
+comment|/**    * Update or insert the specified cells.    *<p>    * For each Cell, insert into MemStore. This will atomically upsert the value for that    * row/family/qualifier. If a Cell did already exist, it will then be removed.    *<p>    * Currently the memstoreTS is kept at 0 so as each insert happens, it will be immediately    * visible. May want to change this so it is atomic across all KeyValues.    *<p>    * This is called under row lock, so Get operations will still see updates atomically. Scans will    * only see each KeyValue update as atomic.    * @param cells    * @param readpoint readpoint below which we can safely remove duplicate Cells.    * @param memstoreSize The delta in memstore size will be passed back via this.    *        This will include both data size and heap overhead delta.    */
+name|void
 name|upsert
 parameter_list|(
 name|Iterable
@@ -208,6 +164,9 @@ name|cells
 parameter_list|,
 name|long
 name|readpoint
+parameter_list|,
+name|MemstoreSize
+name|memstoreSize
 parameter_list|)
 function_decl|;
 comment|/**    * @return scanner over the memstore. This might include scanner over the snapshot when one is    * present.    */
@@ -223,8 +182,8 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * @return Total memory occupied by this MemStore. This includes active segment size and heap size    *         overhead of this memstore but won't include any size occupied by the snapshot. We    *         assume the snapshot will get cleared soon. This is not thread safe and the memstore may    *         be changed while computing its size. It is the responsibility of the caller to make    *         sure this doesn't happen.    */
-name|long
+comment|/**    * @return Total memory occupied by this MemStore. This won't include any size occupied by the    *         snapshot. We assume the snapshot will get cleared soon. This is not thread safe and    *         the memstore may be changed while computing its size. It is the responsibility of the    *         caller to make sure this doesn't happen.    */
+name|MemstoreSize
 name|size
 parameter_list|()
 function_decl|;

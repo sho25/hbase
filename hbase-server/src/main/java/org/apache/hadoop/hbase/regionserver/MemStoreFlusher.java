@@ -1211,7 +1211,7 @@ literal|"Refreshing storefiles of region "
 operator|+
 name|bestRegionReplica
 operator|+
-literal|" due to global heap pressure. memstore size="
+literal|" due to global heap pressure. Total memstore size="
 operator|+
 name|StringUtils
 operator|.
@@ -1223,6 +1223,21 @@ name|getRegionServerAccounting
 argument_list|()
 operator|.
 name|getGlobalMemstoreSize
+argument_list|()
+argument_list|)
+operator|+
+literal|" memstore heap overhead="
+operator|+
+name|StringUtils
+operator|.
+name|humanReadableInt
+argument_list|(
+name|server
+operator|.
+name|getRegionServerAccounting
+argument_list|()
+operator|.
+name|getGlobalMemstoreHeapOverhead
 argument_list|()
 argument_list|)
 argument_list|)
@@ -1813,6 +1828,14 @@ argument_list|()
 operator|.
 name|getGlobalMemstoreSize
 argument_list|()
+operator|+
+name|server
+operator|.
+name|getRegionServerAccounting
+argument_list|()
+operator|.
+name|getGlobalMemstoreHeapOverhead
+argument_list|()
 operator|>=
 name|globalMemStoreLimit
 return|;
@@ -1830,6 +1853,14 @@ name|getRegionServerAccounting
 argument_list|()
 operator|.
 name|getGlobalMemstoreSize
+argument_list|()
+operator|+
+name|server
+operator|.
+name|getRegionServerAccounting
+argument_list|()
+operator|.
+name|getGlobalMemstoreHeapOverhead
 argument_list|()
 operator|>=
 name|globalMemStoreLimitLowMark
@@ -2930,6 +2961,25 @@ name|getRegionServerAccounting
 argument_list|()
 operator|.
 name|getGlobalMemstoreSize
+argument_list|()
+argument_list|,
+literal|""
+argument_list|,
+literal|1
+argument_list|)
+operator|+
+literal|" + global memstore heap overhead "
+operator|+
+name|TraditionalBinaryPrefix
+operator|.
+name|long2String
+argument_list|(
+name|server
+operator|.
+name|getRegionServerAccounting
+argument_list|()
+operator|.
+name|getGlobalMemstoreHeapOverhead
 argument_list|()
 argument_list|,
 literal|""

@@ -1048,7 +1048,7 @@ name|HConstants
 operator|.
 name|HREGION_MEMSTORE_FLUSH_SIZE
 argument_list|,
-literal|600
+literal|300
 operator|*
 literal|1024
 argument_list|)
@@ -1077,7 +1077,7 @@ name|FlushLargeStoresPolicy
 operator|.
 name|HREGION_COLUMNFAMILY_FLUSH_SIZE_LOWER_BOUND_MIN
 argument_list|,
-literal|200
+literal|75
 operator|*
 literal|1024
 argument_list|)
@@ -1254,7 +1254,7 @@ name|FAMILY3
 argument_list|)
 decl_stmt|;
 comment|// Find the sizes of the memstores of each CF.
-name|long
+name|MemstoreSize
 name|cf1MemstoreSizePhaseI
 init|=
 name|region
@@ -1264,10 +1264,10 @@ argument_list|(
 name|FAMILY1
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getSizeOfMemStore
 argument_list|()
 decl_stmt|;
-name|long
+name|MemstoreSize
 name|cf2MemstoreSizePhaseI
 init|=
 name|region
@@ -1277,10 +1277,10 @@ argument_list|(
 name|FAMILY2
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getSizeOfMemStore
 argument_list|()
 decl_stmt|;
-name|long
+name|MemstoreSize
 name|cf3MemstoreSizePhaseI
 init|=
 name|region
@@ -1290,7 +1290,7 @@ argument_list|(
 name|FAMILY3
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getSizeOfMemStore
 argument_list|()
 decl_stmt|;
 comment|// Get the overall smallest LSN in the region's memstores.
@@ -1395,6 +1395,9 @@ expr_stmt|;
 name|assertTrue
 argument_list|(
 name|cf1MemstoreSizePhaseI
+operator|.
+name|getDataSize
+argument_list|()
 operator|>
 literal|0
 argument_list|)
@@ -1402,6 +1405,9 @@ expr_stmt|;
 name|assertTrue
 argument_list|(
 name|cf2MemstoreSizePhaseI
+operator|.
+name|getDataSize
+argument_list|()
 operator|>
 literal|0
 argument_list|)
@@ -1409,6 +1415,9 @@ expr_stmt|;
 name|assertTrue
 argument_list|(
 name|cf3MemstoreSizePhaseI
+operator|.
+name|getDataSize
+argument_list|()
 operator|>
 literal|0
 argument_list|)
@@ -1421,18 +1430,6 @@ init|=
 literal|"totalMemstoreSize="
 operator|+
 name|totalMemstoreSize
-operator|+
-literal|" DefaultMemStore.DEEP_OVERHEAD="
-operator|+
-name|DefaultMemStore
-operator|.
-name|DEEP_OVERHEAD
-operator|+
-literal|" CompactingMemStore.DEEP_OVERHEAD="
-operator|+
-name|CompactingMemStore
-operator|.
-name|DEEP_OVERHEAD
 operator|+
 literal|" cf1MemstoreSizePhaseI="
 operator|+
@@ -1451,34 +1448,21 @@ argument_list|(
 name|msg
 argument_list|,
 name|totalMemstoreSize
-operator|+
-literal|2
-operator|*
-operator|(
-name|CompactingMemStore
-operator|.
-name|DEEP_OVERHEAD
-operator|+
-name|MutableSegment
-operator|.
-name|DEEP_OVERHEAD
-operator|)
-operator|+
-operator|(
-name|DefaultMemStore
-operator|.
-name|DEEP_OVERHEAD
-operator|+
-name|MutableSegment
-operator|.
-name|DEEP_OVERHEAD
-operator|)
 argument_list|,
 name|cf1MemstoreSizePhaseI
+operator|.
+name|getDataSize
+argument_list|()
 operator|+
 name|cf2MemstoreSizePhaseI
+operator|.
+name|getDataSize
+argument_list|()
 operator|+
 name|cf3MemstoreSizePhaseI
+operator|.
+name|getDataSize
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Flush!!!!!!!!!!!!!!!!!!!!!!
@@ -1546,7 +1530,7 @@ literal|false
 argument_list|)
 expr_stmt|;
 comment|// Recalculate everything
-name|long
+name|MemstoreSize
 name|cf1MemstoreSizePhaseII
 init|=
 name|region
@@ -1556,10 +1540,10 @@ argument_list|(
 name|FAMILY1
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getSizeOfMemStore
 argument_list|()
 decl_stmt|;
-name|long
+name|MemstoreSize
 name|cf2MemstoreSizePhaseII
 init|=
 name|region
@@ -1569,10 +1553,10 @@ argument_list|(
 name|FAMILY2
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getSizeOfMemStore
 argument_list|()
 decl_stmt|;
-name|long
+name|MemstoreSize
 name|cf3MemstoreSizePhaseII
 init|=
 name|region
@@ -1582,7 +1566,7 @@ argument_list|(
 name|FAMILY3
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getSizeOfMemStore
 argument_list|()
 decl_stmt|;
 name|long
@@ -1639,18 +1623,6 @@ name|s
 operator|=
 name|s
 operator|+
-literal|"DefaultMemStore DEEP_OVERHEAD is:"
-operator|+
-name|DefaultMemStore
-operator|.
-name|DEEP_OVERHEAD
-operator|+
-literal|", CompactingMemStore DEEP_OVERHEAD is:"
-operator|+
-name|CompactingMemStore
-operator|.
-name|DEEP_OVERHEAD
-operator|+
 literal|"\n----After first flush! CF1 should be flushed to memory, but not compacted.---\n"
 operator|+
 literal|"Size of CF1 is:"
@@ -1667,24 +1639,39 @@ name|cf3MemstoreSizePhaseII
 operator|+
 literal|"\n"
 expr_stmt|;
-comment|// CF1 was flushed to memory, but there is nothing to compact, and CF! was flattened
+comment|// CF1 was flushed to memory, but there is nothing to compact, and CF1 was flattened
 name|assertTrue
 argument_list|(
 name|cf1MemstoreSizePhaseII
+operator|.
+name|getDataSize
+argument_list|()
+operator|==
+name|cf1MemstoreSizePhaseI
+operator|.
+name|getDataSize
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|assertTrue
+argument_list|(
+name|cf1MemstoreSizePhaseII
+operator|.
+name|getHeapOverhead
+argument_list|()
 operator|<
 name|cf1MemstoreSizePhaseI
+operator|.
+name|getHeapOverhead
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// CF2 should become empty
 name|assertEquals
 argument_list|(
-name|DefaultMemStore
+name|MemstoreSize
 operator|.
-name|DEEP_OVERHEAD
-operator|+
-name|MutableSegment
-operator|.
-name|DEEP_OVERHEAD
+name|EMPTY_SIZE
 argument_list|,
 name|cf2MemstoreSizePhaseII
 argument_list|)
@@ -1693,42 +1680,29 @@ comment|// verify that CF3 was flushed to memory and was compacted (this is appr
 name|assertTrue
 argument_list|(
 name|cf3MemstoreSizePhaseI
-operator|/
-literal|2
-operator|+
-name|CompactingMemStore
 operator|.
-name|DEEP_OVERHEAD
-operator|+
-name|ImmutableSegment
-operator|.
-name|DEEP_OVERHEAD_CAM
-operator|+
-name|CompactionPipeline
-operator|.
-name|ENTRY_OVERHEAD
+name|getDataSize
+argument_list|()
 operator|>
 name|cf3MemstoreSizePhaseII
+operator|.
+name|getDataSize
+argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// CF3 was compacted and flattened!
 name|assertTrue
 argument_list|(
-literal|"\n<<< Size of CF3 in phase I - "
-operator|+
 name|cf3MemstoreSizePhaseI
-operator|+
-literal|", size of CF3 in phase II - "
-operator|+
-name|cf3MemstoreSizePhaseII
-operator|+
-literal|"\n"
-argument_list|,
-name|cf3MemstoreSizePhaseI
+operator|.
+name|getHeapOverhead
+argument_list|()
 operator|/
 literal|2
 operator|>
 name|cf3MemstoreSizePhaseII
+operator|.
+name|getHeapOverhead
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Now the smallest LSN in the region should be the same as the smallest
@@ -1795,7 +1769,7 @@ operator|+
 literal|"\n"
 expr_stmt|;
 comment|// How much does the CF1 memstore occupy? Will be used later.
-name|long
+name|MemstoreSize
 name|cf1MemstoreSizePhaseIII
 init|=
 name|region
@@ -1805,7 +1779,7 @@ argument_list|(
 name|FAMILY1
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getSizeOfMemStore
 argument_list|()
 decl_stmt|;
 name|long
@@ -1844,7 +1818,7 @@ literal|false
 argument_list|)
 expr_stmt|;
 comment|// Recalculate everything
-name|long
+name|MemstoreSize
 name|cf1MemstoreSizePhaseIV
 init|=
 name|region
@@ -1854,10 +1828,10 @@ argument_list|(
 name|FAMILY1
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getSizeOfMemStore
 argument_list|()
 decl_stmt|;
-name|long
+name|MemstoreSize
 name|cf2MemstoreSizePhaseIV
 init|=
 name|region
@@ -1867,10 +1841,10 @@ argument_list|(
 name|FAMILY2
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getSizeOfMemStore
 argument_list|()
 decl_stmt|;
-name|long
+name|MemstoreSize
 name|cf3MemstoreSizePhaseIV
 init|=
 name|region
@@ -1880,7 +1854,7 @@ argument_list|(
 name|FAMILY3
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getSizeOfMemStore
 argument_list|()
 decl_stmt|;
 name|long
@@ -1979,19 +1953,21 @@ comment|// CF2 should be flushed to disk
 name|assertTrue
 argument_list|(
 name|cf1MemstoreSizePhaseIII
+operator|.
+name|getDataSize
+argument_list|()
 operator|>
 name|cf1MemstoreSizePhaseIV
+operator|.
+name|getDataSize
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-name|DefaultMemStore
+name|MemstoreSize
 operator|.
-name|DEEP_OVERHEAD
-operator|+
-name|MutableSegment
-operator|.
-name|DEEP_OVERHEAD
+name|EMPTY_SIZE
 argument_list|,
 name|cf2MemstoreSizePhaseIV
 argument_list|)
@@ -2025,8 +2001,6 @@ expr_stmt|;
 comment|// Flush!!!!!!!!!!!!!!!!!!!!!!
 comment|// Trying to clean the existing memstores, CF2 all flushed to disk. The single
 comment|// memstore segment in the compaction pipeline of CF1 and CF3 should be flushed to disk.
-comment|// Note that active set of CF3 is empty
-comment|// But active set of CF1 is not yet empty
 name|region
 operator|.
 name|flush
@@ -2035,7 +2009,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 comment|// Recalculate everything
-name|long
+name|MemstoreSize
 name|cf1MemstoreSizePhaseV
 init|=
 name|region
@@ -2045,10 +2019,10 @@ argument_list|(
 name|FAMILY1
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getSizeOfMemStore
 argument_list|()
 decl_stmt|;
-name|long
+name|MemstoreSize
 name|cf2MemstoreSizePhaseV
 init|=
 name|region
@@ -2058,10 +2032,10 @@ argument_list|(
 name|FAMILY2
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getSizeOfMemStore
 argument_list|()
 decl_stmt|;
-name|long
+name|MemstoreSize
 name|cf3MemstoreSizePhaseV
 init|=
 name|region
@@ -2071,7 +2045,7 @@ argument_list|(
 name|FAMILY3
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getSizeOfMemStore
 argument_list|()
 decl_stmt|;
 name|long
@@ -2093,79 +2067,38 @@ name|getEncodedNameAsBytes
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
-name|CompactingMemStore
+name|MemstoreSize
 operator|.
-name|DEEP_OVERHEAD
-operator|+
-name|MutableSegment
-operator|.
-name|DEEP_OVERHEAD
-operator|<=
+name|EMPTY_SIZE
+argument_list|,
 name|cf1MemstoreSizePhaseV
 argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-name|DefaultMemStore
+name|MemstoreSize
 operator|.
-name|DEEP_OVERHEAD
-operator|+
-name|MutableSegment
-operator|.
-name|DEEP_OVERHEAD
+name|EMPTY_SIZE
 argument_list|,
 name|cf2MemstoreSizePhaseV
 argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-name|CompactingMemStore
+name|MemstoreSize
 operator|.
-name|DEEP_OVERHEAD
-operator|+
-name|MutableSegment
-operator|.
-name|DEEP_OVERHEAD
+name|EMPTY_SIZE
 argument_list|,
 name|cf3MemstoreSizePhaseV
-argument_list|)
-expr_stmt|;
-name|region
-operator|.
-name|flush
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
-comment|// flush once again in order to be sure that everything is empty
-name|assertEquals
-argument_list|(
-name|CompactingMemStore
-operator|.
-name|DEEP_OVERHEAD
-operator|+
-name|MutableSegment
-operator|.
-name|DEEP_OVERHEAD
-argument_list|,
-name|region
-operator|.
-name|getStore
-argument_list|(
-name|FAMILY1
-argument_list|)
-operator|.
-name|getMemStoreSize
-argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// What happens when we hit the memstore limit, but we are not able to find
 comment|// any Column Family above the threshold?
 comment|// In that case, we should flush all the CFs.
-comment|// The memstore limit is 200*1024 and the column family flush threshold is
-comment|// around 50*1024. We try to just hit the memstore limit with each CF's
+comment|// The memstore limit is 100*1024 and the column family flush threshold is
+comment|// around 25*1024. We try to just hit the memstore limit with each CF's
 comment|// memstore being below the CF flush threshold.
 for|for
 control|(
@@ -2332,7 +2265,7 @@ name|HConstants
 operator|.
 name|HREGION_MEMSTORE_FLUSH_SIZE
 argument_list|,
-literal|600
+literal|300
 operator|*
 literal|1024
 argument_list|)
@@ -2361,7 +2294,7 @@ name|FlushLargeStoresPolicy
 operator|.
 name|HREGION_COLUMNFAMILY_FLUSH_SIZE_LOWER_BOUND_MIN
 argument_list|,
-literal|200
+literal|75
 operator|*
 literal|1024
 argument_list|)
@@ -2543,7 +2476,7 @@ name|FAMILY3
 argument_list|)
 decl_stmt|;
 comment|// Find the sizes of the memstores of each CF.
-name|long
+name|MemstoreSize
 name|cf1MemstoreSizePhaseI
 init|=
 name|region
@@ -2553,10 +2486,10 @@ argument_list|(
 name|FAMILY1
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getSizeOfMemStore
 argument_list|()
 decl_stmt|;
-name|long
+name|MemstoreSize
 name|cf2MemstoreSizePhaseI
 init|=
 name|region
@@ -2566,10 +2499,10 @@ argument_list|(
 name|FAMILY2
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getSizeOfMemStore
 argument_list|()
 decl_stmt|;
-name|long
+name|MemstoreSize
 name|cf3MemstoreSizePhaseI
 init|=
 name|region
@@ -2579,7 +2512,7 @@ argument_list|(
 name|FAMILY3
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getSizeOfMemStore
 argument_list|()
 decl_stmt|;
 comment|// Get the overall smallest LSN in the region's memstores.
@@ -2631,6 +2564,9 @@ expr_stmt|;
 name|assertTrue
 argument_list|(
 name|cf1MemstoreSizePhaseI
+operator|.
+name|getDataSize
+argument_list|()
 operator|>
 literal|0
 argument_list|)
@@ -2638,6 +2574,9 @@ expr_stmt|;
 name|assertTrue
 argument_list|(
 name|cf2MemstoreSizePhaseI
+operator|.
+name|getDataSize
+argument_list|()
 operator|>
 literal|0
 argument_list|)
@@ -2645,6 +2584,9 @@ expr_stmt|;
 name|assertTrue
 argument_list|(
 name|cf3MemstoreSizePhaseI
+operator|.
+name|getDataSize
+argument_list|()
 operator|>
 literal|0
 argument_list|)
@@ -2654,30 +2596,21 @@ comment|// memstores of CF1, CF2 and CF3.
 name|assertEquals
 argument_list|(
 name|totalMemstoreSizePhaseI
-operator|+
-literal|1
-operator|*
-name|DefaultMemStore
-operator|.
-name|DEEP_OVERHEAD
-operator|+
-literal|2
-operator|*
-name|CompactingMemStore
-operator|.
-name|DEEP_OVERHEAD
-operator|+
-literal|3
-operator|*
-name|MutableSegment
-operator|.
-name|DEEP_OVERHEAD
 argument_list|,
 name|cf1MemstoreSizePhaseI
+operator|.
+name|getDataSize
+argument_list|()
 operator|+
 name|cf2MemstoreSizePhaseI
+operator|.
+name|getDataSize
+argument_list|()
 operator|+
 name|cf3MemstoreSizePhaseI
+operator|.
+name|getDataSize
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|/*------------------------------------------------------------------------------*/
@@ -2814,7 +2747,7 @@ comment|/*----------------------------------------------------------------------
 comment|/*------------------------------------------------------------------------------*/
 comment|/* PHASE II - collect sizes */
 comment|// Recalculate everything
-name|long
+name|MemstoreSize
 name|cf1MemstoreSizePhaseII
 init|=
 name|region
@@ -2824,10 +2757,10 @@ argument_list|(
 name|FAMILY1
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getSizeOfMemStore
 argument_list|()
 decl_stmt|;
-name|long
+name|MemstoreSize
 name|cf2MemstoreSizePhaseII
 init|=
 name|region
@@ -2837,10 +2770,10 @@ argument_list|(
 name|FAMILY2
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getSizeOfMemStore
 argument_list|()
 decl_stmt|;
-name|long
+name|MemstoreSize
 name|cf3MemstoreSizePhaseII
 init|=
 name|region
@@ -2850,7 +2783,7 @@ argument_list|(
 name|FAMILY3
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getSizeOfMemStore
 argument_list|()
 decl_stmt|;
 name|long
@@ -2894,36 +2827,70 @@ decl_stmt|;
 comment|/*------------------------------------------------------------------------------*/
 comment|/* PHASE II - validation */
 comment|// CF1 was flushed to memory, should be flattened and take less space
+name|assertEquals
+argument_list|(
+name|cf1MemstoreSizePhaseII
+operator|.
+name|getDataSize
+argument_list|()
+argument_list|,
+name|cf1MemstoreSizePhaseI
+operator|.
+name|getDataSize
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|assertTrue
 argument_list|(
 name|cf1MemstoreSizePhaseII
+operator|.
+name|getHeapOverhead
+argument_list|()
 operator|<
 name|cf1MemstoreSizePhaseI
+operator|.
+name|getHeapOverhead
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// CF2 should become empty
 name|assertEquals
 argument_list|(
-name|DefaultMemStore
+name|MemstoreSize
 operator|.
-name|DEEP_OVERHEAD
-operator|+
-name|MutableSegment
-operator|.
-name|DEEP_OVERHEAD
+name|EMPTY_SIZE
 argument_list|,
 name|cf2MemstoreSizePhaseII
 argument_list|)
 expr_stmt|;
 comment|// verify that CF3 was flushed to memory and was not compacted (this is an approximation check)
 comment|// if compacted CF# should be at least twice less because its every key was duplicated
+name|assertEquals
+argument_list|(
+name|cf3MemstoreSizePhaseII
+operator|.
+name|getDataSize
+argument_list|()
+argument_list|,
+name|cf3MemstoreSizePhaseI
+operator|.
+name|getDataSize
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|assertTrue
 argument_list|(
 name|cf3MemstoreSizePhaseI
+operator|.
+name|getHeapOverhead
+argument_list|()
 operator|/
 literal|2
 operator|<
 name|cf3MemstoreSizePhaseII
+operator|.
+name|getHeapOverhead
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Now the smallest LSN in the region should be the same as the smallest
@@ -2941,42 +2908,21 @@ comment|// items in CF1/2
 name|assertEquals
 argument_list|(
 name|totalMemstoreSizePhaseII
-operator|+
-literal|1
-operator|*
-name|DefaultMemStore
-operator|.
-name|DEEP_OVERHEAD
-operator|+
-literal|2
-operator|*
-name|CompactingMemStore
-operator|.
-name|DEEP_OVERHEAD
-operator|+
-literal|3
-operator|*
-name|MutableSegment
-operator|.
-name|DEEP_OVERHEAD
-operator|+
-literal|2
-operator|*
-name|CompactionPipeline
-operator|.
-name|ENTRY_OVERHEAD
-operator|+
-literal|2
-operator|*
-name|ImmutableSegment
-operator|.
-name|DEEP_OVERHEAD_CAM
 argument_list|,
 name|cf1MemstoreSizePhaseII
+operator|.
+name|getDataSize
+argument_list|()
 operator|+
 name|cf2MemstoreSizePhaseII
+operator|.
+name|getDataSize
+argument_list|()
 operator|+
 name|cf3MemstoreSizePhaseII
+operator|.
+name|getDataSize
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|/*------------------------------------------------------------------------------*/
@@ -3049,7 +2995,7 @@ block|}
 comment|/*------------------------------------------------------------------------------*/
 comment|/* PHASE III - collect sizes */
 comment|// How much does the CF1 memstore occupy now? Will be used later.
-name|long
+name|MemstoreSize
 name|cf1MemstoreSizePhaseIII
 init|=
 name|region
@@ -3059,7 +3005,7 @@ argument_list|(
 name|FAMILY1
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getSizeOfMemStore
 argument_list|()
 decl_stmt|;
 name|long
@@ -3078,42 +3024,21 @@ comment|// items in CF1/2
 name|assertEquals
 argument_list|(
 name|totalMemstoreSizePhaseIII
-operator|+
-literal|1
-operator|*
-name|DefaultMemStore
-operator|.
-name|DEEP_OVERHEAD
-operator|+
-literal|2
-operator|*
-name|CompactingMemStore
-operator|.
-name|DEEP_OVERHEAD
-operator|+
-literal|3
-operator|*
-name|MutableSegment
-operator|.
-name|DEEP_OVERHEAD
-operator|+
-literal|2
-operator|*
-name|CompactionPipeline
-operator|.
-name|ENTRY_OVERHEAD
-operator|+
-literal|2
-operator|*
-name|ImmutableSegment
-operator|.
-name|DEEP_OVERHEAD_CAM
 argument_list|,
 name|cf1MemstoreSizePhaseIII
+operator|.
+name|getDataSize
+argument_list|()
 operator|+
 name|cf2MemstoreSizePhaseII
+operator|.
+name|getDataSize
+argument_list|()
 operator|+
 name|cf3MemstoreSizePhaseII
+operator|.
+name|getDataSize
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|/*------------------------------------------------------------------------------*/
@@ -3132,7 +3057,7 @@ comment|/*----------------------------------------------------------------------
 comment|/*------------------------------------------------------------------------------*/
 comment|/* PHASE IV - collect sizes */
 comment|// Recalculate everything
-name|long
+name|MemstoreSize
 name|cf1MemstoreSizePhaseIV
 init|=
 name|region
@@ -3142,10 +3067,10 @@ argument_list|(
 name|FAMILY1
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getSizeOfMemStore
 argument_list|()
 decl_stmt|;
-name|long
+name|MemstoreSize
 name|cf2MemstoreSizePhaseIV
 init|=
 name|region
@@ -3155,10 +3080,10 @@ argument_list|(
 name|FAMILY2
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getSizeOfMemStore
 argument_list|()
 decl_stmt|;
-name|long
+name|MemstoreSize
 name|cf3MemstoreSizePhaseIV
 init|=
 name|region
@@ -3168,7 +3093,7 @@ argument_list|(
 name|FAMILY3
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getSizeOfMemStore
 argument_list|()
 decl_stmt|;
 name|long
@@ -3207,19 +3132,21 @@ comment|// CF2 should remain empty
 name|assertTrue
 argument_list|(
 name|cf1MemstoreSizePhaseIII
+operator|.
+name|getDataSize
+argument_list|()
 operator|>
 name|cf1MemstoreSizePhaseIV
+operator|.
+name|getDataSize
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-name|DefaultMemStore
+name|MemstoreSize
 operator|.
-name|DEEP_OVERHEAD
-operator|+
-name|MutableSegment
-operator|.
-name|DEEP_OVERHEAD
+name|EMPTY_SIZE
 argument_list|,
 name|cf2MemstoreSizePhaseIV
 argument_list|)
@@ -3264,7 +3191,7 @@ comment|/*----------------------------------------------------------------------
 comment|/*------------------------------------------------------------------------------*/
 comment|/* PHASE V - collect sizes */
 comment|// Recalculate everything
-name|long
+name|MemstoreSize
 name|cf1MemstoreSizePhaseV
 init|=
 name|region
@@ -3274,10 +3201,10 @@ argument_list|(
 name|FAMILY1
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getSizeOfMemStore
 argument_list|()
 decl_stmt|;
-name|long
+name|MemstoreSize
 name|cf2MemstoreSizePhaseV
 init|=
 name|region
@@ -3287,10 +3214,10 @@ argument_list|(
 name|FAMILY2
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getSizeOfMemStore
 argument_list|()
 decl_stmt|;
-name|long
+name|MemstoreSize
 name|cf3MemstoreSizePhaseV
 init|=
 name|region
@@ -3300,7 +3227,7 @@ argument_list|(
 name|FAMILY3
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getSizeOfMemStore
 argument_list|()
 decl_stmt|;
 name|long
@@ -3334,39 +3261,27 @@ comment|/*----------------------------------------------------------------------
 comment|/* PHASE V - validation */
 name|assertEquals
 argument_list|(
-name|CompactingMemStore
+name|MemstoreSize
 operator|.
-name|DEEP_OVERHEAD
-operator|+
-name|MutableSegment
-operator|.
-name|DEEP_OVERHEAD
+name|EMPTY_SIZE
 argument_list|,
 name|cf1MemstoreSizePhaseV
 argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-name|DefaultMemStore
+name|MemstoreSize
 operator|.
-name|DEEP_OVERHEAD
-operator|+
-name|MutableSegment
-operator|.
-name|DEEP_OVERHEAD
+name|EMPTY_SIZE
 argument_list|,
 name|cf2MemstoreSizePhaseV
 argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-name|CompactingMemStore
+name|MemstoreSize
 operator|.
-name|DEEP_OVERHEAD
-operator|+
-name|MutableSegment
-operator|.
-name|DEEP_OVERHEAD
+name|EMPTY_SIZE
 argument_list|,
 name|cf3MemstoreSizePhaseV
 argument_list|)
@@ -3374,9 +3289,9 @@ expr_stmt|;
 comment|// The total memstores size should be empty
 name|assertEquals
 argument_list|(
-name|totalMemstoreSizePhaseV
-argument_list|,
 literal|0
+argument_list|,
+name|totalMemstoreSizePhaseV
 argument_list|)
 expr_stmt|;
 comment|// Because there is nothing in any memstore the WAL's LSN should be -1
@@ -3474,7 +3389,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-name|long
+name|MemstoreSize
 name|cf1ActiveSizePhaseVI
 init|=
 name|region
@@ -3484,10 +3399,10 @@ argument_list|(
 name|FAMILY1
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getSizeOfMemStore
 argument_list|()
 decl_stmt|;
-name|long
+name|MemstoreSize
 name|cf3ActiveSizePhaseVI
 init|=
 name|region
@@ -3497,10 +3412,10 @@ argument_list|(
 name|FAMILY3
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getSizeOfMemStore
 argument_list|()
 decl_stmt|;
-name|long
+name|MemstoreSize
 name|cf5ActiveSizePhaseVI
 init|=
 name|region
@@ -3513,7 +3428,7 @@ literal|4
 index|]
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getSizeOfMemStore
 argument_list|()
 decl_stmt|;
 comment|/*------------------------------------------------------------------------------*/
@@ -3531,7 +3446,7 @@ expr_stmt|;
 comment|// Since we won't find any CF above the threshold, and hence no specific
 comment|// store to flush, we should flush all the memstores
 comment|// Also compacted memstores are flushed to disk, but not entirely emptied
-name|long
+name|MemstoreSize
 name|cf1ActiveSizePhaseVII
 init|=
 name|region
@@ -3541,10 +3456,10 @@ argument_list|(
 name|FAMILY1
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getSizeOfMemStore
 argument_list|()
 decl_stmt|;
-name|long
+name|MemstoreSize
 name|cf3ActiveSizePhaseVII
 init|=
 name|region
@@ -3554,10 +3469,10 @@ argument_list|(
 name|FAMILY3
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getSizeOfMemStore
 argument_list|()
 decl_stmt|;
-name|long
+name|MemstoreSize
 name|cf5ActiveSizePhaseVII
 init|=
 name|region
@@ -3570,28 +3485,46 @@ literal|4
 index|]
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getSizeOfMemStore
 argument_list|()
 decl_stmt|;
 name|assertTrue
 argument_list|(
 name|cf1ActiveSizePhaseVII
+operator|.
+name|getDataSize
+argument_list|()
 operator|<
 name|cf1ActiveSizePhaseVI
+operator|.
+name|getDataSize
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
 name|cf3ActiveSizePhaseVII
+operator|.
+name|getDataSize
+argument_list|()
 operator|<
 name|cf3ActiveSizePhaseVI
+operator|.
+name|getDataSize
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
 name|cf5ActiveSizePhaseVII
+operator|.
+name|getDataSize
+argument_list|()
 operator|<
 name|cf5ActiveSizePhaseVI
+operator|.
+name|getDataSize
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|HBaseTestingUtility
@@ -3633,7 +3566,7 @@ name|HConstants
 operator|.
 name|HREGION_MEMSTORE_FLUSH_SIZE
 argument_list|,
-literal|600
+literal|300
 operator|*
 literal|1024
 argument_list|)
@@ -3662,7 +3595,7 @@ name|FlushLargeStoresPolicy
 operator|.
 name|HREGION_COLUMNFAMILY_FLUSH_SIZE_LOWER_BOUND_MIN
 argument_list|,
-literal|200
+literal|75
 operator|*
 literal|1024
 argument_list|)
@@ -3806,7 +3739,7 @@ name|getMemstoreSize
 argument_list|()
 decl_stmt|;
 comment|// Find the sizes of the memstores of each CF.
-name|long
+name|MemstoreSize
 name|cf1MemstoreSizePhaseI
 init|=
 name|region
@@ -3816,10 +3749,10 @@ argument_list|(
 name|FAMILY1
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getSizeOfMemStore
 argument_list|()
 decl_stmt|;
-name|long
+name|MemstoreSize
 name|cf2MemstoreSizePhaseI
 init|=
 name|region
@@ -3829,10 +3762,10 @@ argument_list|(
 name|FAMILY2
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getSizeOfMemStore
 argument_list|()
 decl_stmt|;
-name|long
+name|MemstoreSize
 name|cf3MemstoreSizePhaseI
 init|=
 name|region
@@ -3842,13 +3775,16 @@ argument_list|(
 name|FAMILY3
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getSizeOfMemStore
 argument_list|()
 decl_stmt|;
 comment|// Some other sanity checks.
 name|assertTrue
 argument_list|(
 name|cf1MemstoreSizePhaseI
+operator|.
+name|getDataSize
+argument_list|()
 operator|>
 literal|0
 argument_list|)
@@ -3856,6 +3792,9 @@ expr_stmt|;
 name|assertTrue
 argument_list|(
 name|cf2MemstoreSizePhaseI
+operator|.
+name|getDataSize
+argument_list|()
 operator|>
 literal|0
 argument_list|)
@@ -3863,6 +3802,9 @@ expr_stmt|;
 name|assertTrue
 argument_list|(
 name|cf3MemstoreSizePhaseI
+operator|.
+name|getDataSize
+argument_list|()
 operator|>
 literal|0
 argument_list|)
@@ -3899,34 +3841,21 @@ argument_list|(
 name|msg
 argument_list|,
 name|totalMemstoreSize
-operator|+
-literal|2
-operator|*
-operator|(
-name|CompactingMemStore
-operator|.
-name|DEEP_OVERHEAD
-operator|+
-name|MutableSegment
-operator|.
-name|DEEP_OVERHEAD
-operator|)
-operator|+
-operator|(
-name|DefaultMemStore
-operator|.
-name|DEEP_OVERHEAD
-operator|+
-name|MutableSegment
-operator|.
-name|DEEP_OVERHEAD
-operator|)
 argument_list|,
 name|cf1MemstoreSizePhaseI
+operator|.
+name|getDataSize
+argument_list|()
 operator|+
 name|cf2MemstoreSizePhaseI
+operator|.
+name|getDataSize
+argument_list|()
 operator|+
 name|cf3MemstoreSizePhaseI
+operator|.
+name|getDataSize
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Flush!
@@ -3987,7 +3916,7 @@ argument_list|(
 literal|false
 argument_list|)
 expr_stmt|;
-name|long
+name|MemstoreSize
 name|cf2MemstoreSizePhaseII
 init|=
 name|region
@@ -3997,7 +3926,7 @@ argument_list|(
 name|FAMILY2
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getSizeOfMemStore
 argument_list|()
 decl_stmt|;
 name|long
@@ -4052,13 +3981,9 @@ decl_stmt|;
 comment|// CF2 should have been cleared
 name|assertEquals
 argument_list|(
-name|DefaultMemStore
+name|MemstoreSize
 operator|.
-name|DEEP_OVERHEAD
-operator|+
-name|MutableSegment
-operator|.
-name|DEEP_OVERHEAD
+name|EMPTY_SIZE
 argument_list|,
 name|cf2MemstoreSizePhaseII
 argument_list|)
@@ -4622,7 +4547,7 @@ name|getMemstoreSize
 argument_list|()
 decl_stmt|;
 comment|// Find the sizes of the memstores of each CF.
-name|long
+name|MemstoreSize
 name|cf1MemstoreSizePhaseI
 init|=
 name|region
@@ -4632,10 +4557,10 @@ argument_list|(
 name|FAMILY1
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getSizeOfMemStore
 argument_list|()
 decl_stmt|;
-name|long
+name|MemstoreSize
 name|cf2MemstoreSizePhaseI
 init|=
 name|region
@@ -4645,10 +4570,10 @@ argument_list|(
 name|FAMILY2
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getSizeOfMemStore
 argument_list|()
 decl_stmt|;
-name|long
+name|MemstoreSize
 name|cf3MemstoreSizePhaseI
 init|=
 name|region
@@ -4658,13 +4583,16 @@ argument_list|(
 name|FAMILY3
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getSizeOfMemStore
 argument_list|()
 decl_stmt|;
 comment|// Some other sanity checks.
 name|assertTrue
 argument_list|(
 name|cf1MemstoreSizePhaseI
+operator|.
+name|getDataSize
+argument_list|()
 operator|>
 literal|0
 argument_list|)
@@ -4672,6 +4600,9 @@ expr_stmt|;
 name|assertTrue
 argument_list|(
 name|cf2MemstoreSizePhaseI
+operator|.
+name|getDataSize
+argument_list|()
 operator|>
 literal|0
 argument_list|)
@@ -4679,6 +4610,9 @@ expr_stmt|;
 name|assertTrue
 argument_list|(
 name|cf3MemstoreSizePhaseI
+operator|.
+name|getDataSize
+argument_list|()
 operator|>
 literal|0
 argument_list|)
@@ -4688,30 +4622,21 @@ comment|// memstores of CF1, CF2 and CF3.
 name|assertEquals
 argument_list|(
 name|totalMemstoreSize
-operator|+
-literal|1
-operator|*
-name|DefaultMemStore
-operator|.
-name|DEEP_OVERHEAD
-operator|+
-literal|2
-operator|*
-name|CompactingMemStore
-operator|.
-name|DEEP_OVERHEAD
-operator|+
-literal|3
-operator|*
-name|MutableSegment
-operator|.
-name|DEEP_OVERHEAD
 argument_list|,
 name|cf1MemstoreSizePhaseI
+operator|.
+name|getDataSize
+argument_list|()
 operator|+
 name|cf2MemstoreSizePhaseI
+operator|.
+name|getDataSize
+argument_list|()
 operator|+
 name|cf3MemstoreSizePhaseI
+operator|.
+name|getDataSize
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Flush!
@@ -4833,7 +4758,7 @@ argument_list|(
 literal|false
 argument_list|)
 expr_stmt|;
-name|long
+name|MemstoreSize
 name|cf2MemstoreSizePhaseII
 init|=
 name|region
@@ -4843,7 +4768,7 @@ argument_list|(
 name|FAMILY2
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getSizeOfMemStore
 argument_list|()
 decl_stmt|;
 name|long
@@ -4898,13 +4823,9 @@ decl_stmt|;
 comment|// CF2 should have been cleared
 name|assertEquals
 argument_list|(
-name|DefaultMemStore
+name|MemstoreSize
 operator|.
-name|DEEP_OVERHEAD
-operator|+
-name|MutableSegment
-operator|.
-name|DEEP_OVERHEAD
+name|EMPTY_SIZE
 argument_list|,
 name|cf2MemstoreSizePhaseII
 argument_list|)
