@@ -35286,7 +35286,7 @@ name|doWALAppend
 argument_list|(
 name|walEdit
 argument_list|,
-name|durability
+name|effectiveDurability
 argument_list|,
 name|nonceGroup
 argument_list|,
