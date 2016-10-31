@@ -823,7 +823,7 @@ name|hashCode
 argument_list|()
 return|;
 block|}
-comment|/**    * @param data Serialized date to parse.    * @return An SplitLogTaskState instance made of the passed<code>data</code>    * @throws DeserializationException     * @see #toByteArray()    */
+comment|/**    * @param data Serialized date to parse.    * @return An SplitLogTaskState instance made of the passed<code>data</code>    * @throws DeserializationException    * @see #toByteArray()    */
 specifier|public
 specifier|static
 name|SplitLogTask
