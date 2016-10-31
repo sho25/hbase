@@ -1304,7 +1304,7 @@ name|delimiter
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|value
 operator|.
