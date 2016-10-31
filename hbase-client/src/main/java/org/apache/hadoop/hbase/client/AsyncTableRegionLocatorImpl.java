@@ -156,8 +156,6 @@ argument_list|(
 name|tableName
 argument_list|,
 name|row
-argument_list|,
-name|reload
 argument_list|)
 return|;
 block|}

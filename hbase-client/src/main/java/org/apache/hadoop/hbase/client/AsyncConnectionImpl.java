@@ -479,7 +479,6 @@ specifier|final
 name|User
 name|user
 decl_stmt|;
-specifier|private
 specifier|final
 name|AsyncRegistry
 name|registry
@@ -553,8 +552,6 @@ parameter_list|,
 name|User
 name|user
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|this
 operator|.
@@ -585,10 +582,9 @@ operator|=
 operator|new
 name|AsyncRegionLocator
 argument_list|(
-name|conf
+name|this
 argument_list|)
 expr_stmt|;
-comment|// action below will not throw exception so no need to catch and close.
 name|this
 operator|.
 name|registry
@@ -751,13 +747,6 @@ name|void
 name|close
 parameter_list|()
 block|{
-name|IOUtils
-operator|.
-name|closeQuietly
-argument_list|(
-name|locator
-argument_list|)
-expr_stmt|;
 name|IOUtils
 operator|.
 name|closeQuietly
