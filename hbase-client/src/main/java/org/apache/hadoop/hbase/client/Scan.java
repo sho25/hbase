@@ -449,7 +449,7 @@ name|SCAN_ATTRIBUTES_TABLE_NAME
 init|=
 literal|"scan.attributes.table.name"
 decl_stmt|;
-comment|/*    * -1 means no caching    */
+comment|/**    * -1 means no caching specified and the value of {@link HConstants#HBASE_CLIENT_SCANNER_CACHING}    * (default to {@link HConstants#DEFAULT_HBASE_CLIENT_SCANNER_CACHING}) will be used    */
 specifier|private
 name|int
 name|caching
