@@ -429,11 +429,10 @@ name|this
 operator|.
 name|restoreDir
 operator|=
-operator|new
-name|Path
-argument_list|(
-literal|"/tmp"
-argument_list|)
+name|TEST_UTIL
+operator|.
+name|getDataTestDir
+argument_list|()
 expr_stmt|;
 block|}
 annotation|@

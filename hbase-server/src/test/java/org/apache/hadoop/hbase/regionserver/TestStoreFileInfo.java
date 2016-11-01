@@ -342,11 +342,10 @@ decl_stmt|;
 name|Path
 name|tmp
 init|=
-operator|new
-name|Path
-argument_list|(
-literal|"/tmp"
-argument_list|)
+name|TEST_UTIL
+operator|.
+name|getDataTestDir
+argument_list|()
 decl_stmt|;
 name|Path
 name|mob
