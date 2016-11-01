@@ -167,7 +167,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-specifier|protected
+specifier|private
 name|long
 name|initialSize
 decl_stmt|;
@@ -478,7 +478,7 @@ return|return
 name|tableRegionsCount
 return|;
 block|}
-comment|/**    * @return Region max size or {@code count of regions cubed * 2 * flushsize},    * which ever is smaller; guard against there being zero regions on this server.    */
+comment|/**    * @return Region max size or {@code count of regions cubed * flushsize},    * which ever is smaller; guard against there being zero regions on this server.    */
 specifier|protected
 name|long
 name|getSizeToCheck
