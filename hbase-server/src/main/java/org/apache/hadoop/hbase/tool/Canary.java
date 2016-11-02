@@ -4317,6 +4317,13 @@ operator|new
 name|Thread
 argument_list|(
 name|monitor
+argument_list|,
+literal|"CanaryMonitor-"
+operator|+
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|startTime

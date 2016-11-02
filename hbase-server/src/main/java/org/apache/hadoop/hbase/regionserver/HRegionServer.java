@@ -3464,7 +3464,7 @@ specifier|final
 name|SecureBulkLoadManager
 name|secureBulkLoadManager
 decl_stmt|;
-comment|/**    * Starts a HRegionServer at the default location.    * @param conf    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * Starts a HRegionServer at the default location.    */
 specifier|public
 name|HRegionServer
 parameter_list|(
@@ -3489,7 +3489,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Starts a HRegionServer at the default location    * @param conf    * @param csm implementation of CoordinatedStateManager to be used    * @throws IOException    */
+comment|/**    * Starts a HRegionServer at the default location    * @param csm implementation of CoordinatedStateManager to be used    */
 specifier|public
 name|HRegionServer
 parameter_list|(
@@ -3502,6 +3502,12 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|super
+argument_list|(
+literal|"RegionServer"
+argument_list|)
+expr_stmt|;
+comment|// thread name
 name|this
 operator|.
 name|fsOk

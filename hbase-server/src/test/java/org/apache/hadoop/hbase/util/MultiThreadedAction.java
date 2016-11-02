@@ -960,6 +960,13 @@ name|ProgressReporter
 argument_list|(
 name|actionLetter
 argument_list|)
+argument_list|,
+literal|"MultiThreadedAction-ProgressReporter-"
+operator|+
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
 argument_list|)
 operator|)
 operator|.

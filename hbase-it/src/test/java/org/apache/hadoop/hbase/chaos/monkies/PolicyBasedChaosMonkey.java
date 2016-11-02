@@ -618,6 +618,8 @@ name|policies
 index|[
 name|i
 index|]
+argument_list|,
+literal|"ChaosMonkeyThread"
 argument_list|)
 decl_stmt|;
 name|monkeyThread

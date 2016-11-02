@@ -250,6 +250,12 @@ name|int
 name|leaseCheckFrequency
 parameter_list|)
 block|{
+name|super
+argument_list|(
+literal|"RegionServerLeases"
+argument_list|)
+expr_stmt|;
+comment|// thread name
 name|this
 operator|.
 name|leaseCheckFrequency

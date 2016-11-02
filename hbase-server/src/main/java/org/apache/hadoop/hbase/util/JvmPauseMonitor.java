@@ -407,6 +407,8 @@ argument_list|(
 operator|new
 name|Monitor
 argument_list|()
+argument_list|,
+literal|"JvmPauseMonitor"
 argument_list|)
 expr_stmt|;
 name|monitorThread
@@ -414,13 +416,6 @@ operator|.
 name|setDaemon
 argument_list|(
 literal|true
-argument_list|)
-expr_stmt|;
-name|monitorThread
-operator|.
-name|setName
-argument_list|(
-literal|"JvmPauseMonitor"
 argument_list|)
 expr_stmt|;
 name|monitorThread

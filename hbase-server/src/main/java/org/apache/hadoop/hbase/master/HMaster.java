@@ -4277,6 +4277,13 @@ name|InitializationMonitor
 argument_list|(
 name|this
 argument_list|)
+argument_list|,
+literal|"ActiveMasterInitializationMonitor-"
+operator|+
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|zombieDetector

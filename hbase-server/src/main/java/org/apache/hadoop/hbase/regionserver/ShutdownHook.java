@@ -535,6 +535,16 @@ operator|new
 name|Thread
 argument_list|(
 name|fsShutdownHook
+argument_list|,
+name|fsShutdownHook
+operator|.
+name|getClass
+argument_list|()
+operator|.
+name|getSimpleName
+argument_list|()
+operator|+
+literal|"-shutdown-hook"
 argument_list|)
 decl_stmt|;
 name|fsShutdownHookThread

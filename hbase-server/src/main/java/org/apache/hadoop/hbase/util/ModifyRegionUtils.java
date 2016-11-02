@@ -1154,9 +1154,7 @@ name|Runnable
 name|r
 parameter_list|)
 block|{
-name|Thread
-name|t
-init|=
+return|return
 operator|new
 name|Thread
 argument_list|(
@@ -1169,9 +1167,6 @@ operator|+
 name|count
 operator|++
 argument_list|)
-decl_stmt|;
-return|return
-name|t
 return|;
 block|}
 block|}

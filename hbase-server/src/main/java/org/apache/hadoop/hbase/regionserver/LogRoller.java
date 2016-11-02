@@ -507,7 +507,9 @@ name|services
 parameter_list|)
 block|{
 name|super
-argument_list|()
+argument_list|(
+literal|"LogRoller"
+argument_list|)
 expr_stmt|;
 name|this
 operator|.

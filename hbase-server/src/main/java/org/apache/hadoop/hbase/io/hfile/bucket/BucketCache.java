@@ -4321,6 +4321,11 @@ argument_list|>
 name|queue
 parameter_list|)
 block|{
+name|super
+argument_list|(
+literal|"BucketCacheWriterThread"
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|inputQueue

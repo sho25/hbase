@@ -422,6 +422,13 @@ argument_list|(
 operator|new
 name|WroteKeysTracker
 argument_list|()
+argument_list|,
+literal|"MultiThreadedWriterBase-WroteKeysTracker-"
+operator|+
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
 argument_list|)
 operator|.
 name|start
