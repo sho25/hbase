@@ -39,20 +39,6 @@ end_import
 
 begin_import
 import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|annotations
-operator|.
-name|VisibleForTesting
-import|;
-end_import
-
-begin_import
-import|import
 name|java
 operator|.
 name|io
@@ -473,6 +459,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
+name|TimeoutIOException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|io
 operator|.
 name|util
@@ -687,6 +689,20 @@ name|TraceScope
 import|;
 end_import
 
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
 begin_comment
 comment|/**  * Implementation of {@link WAL} to go against {@link FileSystem}; i.e. keep WALs in HDFS. Only one  * WAL is ever being written at a time. When a WAL hits a configured maximum size, it is rolled.  * This is done internal to the implementation.  *<p>  * As data is flushed from the MemStore to other on-disk structures (files sorted by key, hfiles), a  * WAL becomes obsolete. We can let go of all the log edits/entries for a given HRegion-sequence id.  * A bunch of work in the below is done keeping account of these region sequence ids -- what is  * flushed out to hfiles, and what is yet in WAL and in memory only.  *<p>  * It is only practical to delete entire files. Thus, we delete an entire on-disk file  *<code>F</code> when all of the edits in<code>F</code> have a log-sequence-id that's older  * (smaller) than the most-recent flush.  *<p>  * To read an WAL, call  * {@link WALFactory#createReader(org.apache.hadoop.fs.FileSystem, org.apache.hadoop.fs.Path)}. *  *<h2>Failure Semantic</h2> If an exception on append or sync, roll the WAL because the current WAL  * is now a lame duck; any more appends or syncs will fail also with the same original exception. If  * we have made successful appends to the WAL and we then are unable to sync them, our current  * semantic is to return error to the client that the appends failed but also to abort the current  * context, usually the hosting server. We need to replay the WALs.<br>  * TODO: Change this semantic. A roll of WAL may be sufficient as long as we have flagged client  * that the append failed.<br>  * TODO: replication may pick up these last edits though they have been marked as failed append  * (Need to keep our own file lengths, not rely on HDFS).  */
 end_comment
@@ -730,6 +746,19 @@ init|=
 literal|100
 decl_stmt|;
 comment|// in ms
+specifier|private
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_WAL_SYNC_TIMEOUT_MS
+init|=
+literal|5
+operator|*
+literal|60
+operator|*
+literal|1000
+decl_stmt|;
+comment|// in ms, 5min
 comment|/**    * file system instance    */
 specifier|protected
 specifier|final
@@ -823,6 +852,11 @@ specifier|protected
 specifier|final
 name|int
 name|slowSyncNs
+decl_stmt|;
+specifier|private
+specifier|final
+name|long
+name|walSyncTimeout
 decl_stmt|;
 comment|// If> than this size, roll the log.
 specifier|protected
@@ -1849,6 +1883,19 @@ argument_list|(
 literal|"hbase.regionserver.hlog.slowsync.ms"
 argument_list|,
 name|DEFAULT_SLOW_SYNC_TIME_MS
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|walSyncTimeout
+operator|=
+name|conf
+operator|.
+name|getLong
+argument_list|(
+literal|"hbase.regionserver.hlog.sync.timeout"
+argument_list|,
+name|DEFAULT_WAL_SYNC_TIMEOUT_MS
 argument_list|)
 expr_stmt|;
 name|int
@@ -3123,7 +3170,9 @@ block|{
 name|syncFuture
 operator|.
 name|get
-argument_list|()
+argument_list|(
+name|walSyncTimeout
+argument_list|)
 expr_stmt|;
 return|return
 name|syncFuture
@@ -3131,6 +3180,31 @@ operator|.
 name|getSpan
 argument_list|()
 return|;
+block|}
+catch|catch
+parameter_list|(
+name|TimeoutIOException
+name|tioe
+parameter_list|)
+block|{
+comment|// SyncFuture reuse by thread, if TimeoutIOException happens, ringbuffer
+comment|// still refer to it, so if this thread use it next time may get a wrong
+comment|// result.
+name|this
+operator|.
+name|syncFuturesByHandler
+operator|.
+name|remove
+argument_list|(
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+argument_list|)
+expr_stmt|;
+throw|throw
+name|tioe
+throw|;
 block|}
 catch|catch
 parameter_list|(

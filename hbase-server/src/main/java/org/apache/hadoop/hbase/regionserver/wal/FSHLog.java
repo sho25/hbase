@@ -4166,6 +4166,34 @@ name|exception
 operator|=
 name|e
 expr_stmt|;
+comment|// invoking cleanupOutstandingSyncsOnException when append failed with exception,
+comment|// it will cleanup existing sync requests recorded in syncFutures but not offered to SyncRunner yet,
+comment|// so there won't be any sync future left over if no further truck published to disruptor.
+name|cleanupOutstandingSyncsOnException
+argument_list|(
+name|sequence
+argument_list|,
+name|this
+operator|.
+name|exception
+operator|instanceof
+name|DamagedWALException
+condition|?
+name|this
+operator|.
+name|exception
+else|:
+operator|new
+name|DamagedWALException
+argument_list|(
+literal|"On sync"
+argument_list|,
+name|this
+operator|.
+name|exception
+argument_list|)
+argument_list|)
+expr_stmt|;
 comment|// Return to keep processing events coming off the ringbuffer
 return|return;
 block|}
