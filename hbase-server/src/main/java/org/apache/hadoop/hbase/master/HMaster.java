@@ -3075,14 +3075,8 @@ name|info
 argument_list|(
 literal|"hbase.rootdir="
 operator|+
-name|FSUtils
-operator|.
 name|getRootDir
-argument_list|(
-name|this
-operator|.
-name|conf
-argument_list|)
+argument_list|()
 operator|+
 literal|", hbase.cluster.distributed="
 operator|+
