@@ -1485,6 +1485,22 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"***** STARTING service '"
+operator|+
+name|RESTServer
+operator|.
+name|class
+operator|.
+name|getSimpleName
+argument_list|()
+operator|+
+literal|"' *****"
+argument_list|)
+expr_stmt|;
 name|VersionInfo
 operator|.
 name|logVersion
@@ -2107,6 +2123,22 @@ name|server
 operator|.
 name|join
 argument_list|()
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"***** STOPPING service '"
+operator|+
+name|RESTServer
+operator|.
+name|class
+operator|.
+name|getSimpleName
+argument_list|()
+operator|+
+literal|"' *****"
+argument_list|)
 expr_stmt|;
 block|}
 block|}

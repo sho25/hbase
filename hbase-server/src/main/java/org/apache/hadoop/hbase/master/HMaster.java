@@ -12528,6 +12528,22 @@ index|[]
 name|args
 parameter_list|)
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"***** STARTING service '"
+operator|+
+name|HMaster
+operator|.
+name|class
+operator|.
+name|getSimpleName
+argument_list|()
+operator|+
+literal|"' *****"
+argument_list|)
+expr_stmt|;
 name|VersionInfo
 operator|.
 name|logVersion

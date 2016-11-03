@@ -10675,6 +10675,17 @@ operator|.
 name|stopped
 condition|)
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"***** STOPPING region server '"
+operator|+
+name|this
+operator|+
+literal|"' *****"
+argument_list|)
+expr_stmt|;
 try|try
 block|{
 if|if
@@ -11970,13 +11981,15 @@ block|{
 name|String
 name|msg
 init|=
-literal|"ABORTING region server "
+literal|"***** ABORTING region server "
 operator|+
 name|this
 operator|+
 literal|": "
 operator|+
 name|reason
+operator|+
+literal|" *****"
 decl_stmt|;
 if|if
 condition|(
@@ -14439,6 +14452,22 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"***** STARTING service '"
+operator|+
+name|HRegionServer
+operator|.
+name|class
+operator|.
+name|getSimpleName
+argument_list|()
+operator|+
+literal|"' *****"
+argument_list|)
+expr_stmt|;
 name|VersionInfo
 operator|.
 name|logVersion
