@@ -498,6 +498,8 @@ operator|new
 name|RowMutations
 argument_list|(
 name|rowKey
+argument_list|,
+literal|2
 argument_list|)
 decl_stmt|;
 name|put

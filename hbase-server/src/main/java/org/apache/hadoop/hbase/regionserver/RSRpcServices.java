@@ -4609,6 +4609,11 @@ argument_list|()
 operator|.
 name|toByteArray
 argument_list|()
+argument_list|,
+name|actions
+operator|.
+name|size
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -4862,6 +4867,11 @@ name|getRow
 argument_list|()
 operator|.
 name|toByteArray
+argument_list|()
+argument_list|,
+name|actions
+operator|.
+name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
