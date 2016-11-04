@@ -4837,6 +4837,7 @@ operator|.
 name|hasParent
 argument_list|()
 operator|&&
+operator|(
 name|isLockOwner
 argument_list|(
 name|proc
@@ -4844,6 +4845,15 @@ operator|.
 name|getParentProcId
 argument_list|()
 argument_list|)
+operator|||
+name|isLockOwner
+argument_list|(
+name|proc
+operator|.
+name|getRootProcId
+argument_list|()
+argument_list|)
+operator|)
 return|;
 block|}
 specifier|public
@@ -5003,6 +5013,14 @@ argument_list|()
 argument_list|,
 name|hasExclusiveLock
 argument_list|()
+condition|?
+literal|"true ("
+operator|+
+name|exclusiveLockProcIdOwner
+operator|+
+literal|")"
+else|:
+literal|"false"
 argument_list|,
 name|sharedLock
 argument_list|,
