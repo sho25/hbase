@@ -17290,7 +17290,7 @@ if|if
 condition|(
 name|snapshotDesc
 operator|.
-name|getTable
+name|getTableName
 argument_list|()
 operator|!=
 literal|null
@@ -17302,7 +17302,7 @@ name|setTable
 argument_list|(
 name|snapshotDesc
 operator|.
-name|getTable
+name|getTableNameAsString
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -17445,8 +17445,20 @@ argument_list|()
 argument_list|,
 name|snapshotDesc
 operator|.
+name|hasTable
+argument_list|()
+condition|?
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|snapshotDesc
+operator|.
 name|getTable
 argument_list|()
+argument_list|)
+else|:
+literal|null
 argument_list|,
 name|createSnapshotType
 argument_list|(
@@ -18826,7 +18838,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * Get a ServerName from the passed in data bytes.    * @param data Data with a serialize server name in it; can handle the old style    * servername where servername was host and port.  Works too with data that    * begins w/ the pb 'PBUF' magic and that is then followed by a protobuf that    * has a serialized {@link ServerName} in it.    * @return Returns null if<code>data</code> is null else converts passed data    * to a ServerName instance.    * @throws DeserializationException     */
+comment|/**    * Get a ServerName from the passed in data bytes.    * @param data Data with a serialize server name in it; can handle the old style    * servername where servername was host and port.  Works too with data that    * begins w/ the pb 'PBUF' magic and that is then followed by a protobuf that    * has a serialized {@link ServerName} in it.    * @return Returns null if<code>data</code> is null else converts passed data    * to a ServerName instance.    * @throws DeserializationException    */
 specifier|public
 specifier|static
 name|ServerName

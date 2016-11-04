@@ -1232,7 +1232,7 @@ name|SnapshotDescription
 argument_list|(
 name|SNAPSHOT_NAME
 argument_list|,
-name|STRING_TABLE_NAME
+name|TABLE_NAME
 argument_list|,
 name|SnapshotType
 operator|.

@@ -982,15 +982,10 @@ name|tableName
 operator|.
 name|equals
 argument_list|(
-name|TableName
-operator|.
-name|valueOf
-argument_list|(
 name|sd
 operator|.
-name|getTable
+name|getTableName
 argument_list|()
-argument_list|)
 argument_list|)
 condition|)
 block|{
@@ -1123,10 +1118,6 @@ name|assertEquals
 argument_list|(
 name|tableName
 argument_list|,
-name|TableName
-operator|.
-name|valueOf
-argument_list|(
 name|snapshots
 operator|.
 name|get
@@ -1134,9 +1125,8 @@ argument_list|(
 literal|0
 argument_list|)
 operator|.
-name|getTable
+name|getTableName
 argument_list|()
-argument_list|)
 argument_list|)
 expr_stmt|;
 return|return
@@ -1736,7 +1726,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Helper method for testing async snapshot operations. Just waits for the    * given snapshot to complete on the server by repeatedly checking the master.    *    * @param master: the master running the snapshot    * @param snapshot: the snapshot to check    * @param sleep: amount to sleep between checks to see if the snapshot is done    * @throws ServiceException if the snapshot fails    * @throws org.apache.hadoop.hbase.shaded.com.google.protobuf.ServiceException     */
+comment|/**    * Helper method for testing async snapshot operations. Just waits for the    * given snapshot to complete on the server by repeatedly checking the master.    *    * @param master: the master running the snapshot    * @param snapshot: the snapshot to check    * @param sleep: amount to sleep between checks to see if the snapshot is done    * @throws ServiceException if the snapshot fails    * @throws org.apache.hadoop.hbase.shaded.com.google.protobuf.ServiceException    */
 specifier|public
 specifier|static
 name|void
@@ -1924,7 +1914,12 @@ name|SnapshotDescription
 argument_list|(
 name|snapshotName
 argument_list|,
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|tableName
+argument_list|)
 argument_list|,
 name|SnapshotType
 operator|.

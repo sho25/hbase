@@ -185,7 +185,7 @@ extends|extends
 name|AbstractHBaseTool
 block|{
 specifier|private
-name|String
+name|TableName
 name|tableName
 init|=
 literal|null
@@ -291,11 +291,16 @@ name|this
 operator|.
 name|tableName
 operator|=
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|cmd
 operator|.
 name|getOptionValue
 argument_list|(
 literal|'t'
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|this
