@@ -1683,7 +1683,7 @@ annotation|@
 name|Test
 specifier|public
 name|void
-name|testCallQueueTooBigException
+name|testCallQueueTooBigExceptionDoesntTriggerPffe
 parameter_list|()
 throws|throws
 name|Exception
@@ -1945,9 +1945,11 @@ parameter_list|)
 block|{     }
 name|assertEquals
 argument_list|(
-literal|"There should have been 1 hit"
+literal|"We should have not entered PFFE mode on CQTBE, but we did;"
+operator|+
+literal|" number of times this mode should have been entered:"
 argument_list|,
-literal|1
+literal|0
 argument_list|,
 name|CallQueueTooBigPffeInterceptor
 operator|.
