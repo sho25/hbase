@@ -1060,12 +1060,15 @@ operator|new
 name|HeapMemStoreLAB
 argument_list|()
 decl_stmt|;
-comment|// by default setting, there should be no chunk queue initialized
-name|assertNull
+comment|// by default setting, there should be no chunks initialized in the pool
+name|assertTrue
 argument_list|(
 name|mslab
 operator|.
 name|getPooledChunks
+argument_list|()
+operator|.
+name|isEmpty
 argument_list|()
 argument_list|)
 expr_stmt|;
