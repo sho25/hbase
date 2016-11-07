@@ -733,7 +733,7 @@ name|CellUtil
 operator|.
 name|isDelete
 argument_list|(
-name|cell
+name|typeByte
 argument_list|)
 condition|)
 block|{
