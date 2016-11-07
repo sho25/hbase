@@ -1328,6 +1328,8 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * This method allows subclasses to inject different writers without having to extend other    * methods like rollWriter().    * @return Writer instance    */
+annotation|@
+name|Override
 specifier|protected
 name|Writer
 name|createWriterInstance
@@ -2496,6 +2498,8 @@ operator|==
 literal|null
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|run
@@ -3238,6 +3242,8 @@ return|;
 block|}
 comment|/**    * {@inheritDoc}    *<p>    * If the pipeline isn't started yet or is empty, you will get the default replication factor.    * Therefore, if this function returns 0, it means you are not properly running with the HDFS-826    * patch.    */
 annotation|@
+name|Override
+annotation|@
 name|VisibleForTesting
 name|int
 name|getLogReplication
@@ -3661,7 +3667,7 @@ literal|1
 argument_list|,
 name|TimeUnit
 operator|.
-name|NANOSECONDS
+name|MILLISECONDS
 argument_list|)
 condition|)
 block|{
