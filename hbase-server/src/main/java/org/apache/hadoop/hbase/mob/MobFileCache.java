@@ -629,16 +629,34 @@ operator|.
 name|SECONDS
 argument_list|)
 expr_stmt|;
-block|}
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"MobFileCache is initialized, and the cache size is "
+literal|"MobFileCache enabled with cacheSize="
 operator|+
 name|mobFileMaxCacheSize
+operator|+
+literal|", evictPeriods="
+operator|+
+name|period
+operator|+
+literal|"sec, evictRemainRatio="
+operator|+
+name|evictRemainRatio
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"MobFileCache disabled"
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|/**    * Evicts the lru cached mob files when the count of the cached files is larger    * than the threshold.    */
 specifier|public
