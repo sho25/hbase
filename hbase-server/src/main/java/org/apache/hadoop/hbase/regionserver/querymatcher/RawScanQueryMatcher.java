@@ -193,12 +193,32 @@ return|return
 name|returnCode
 return|;
 block|}
+name|long
+name|timestamp
+init|=
+name|cell
+operator|.
+name|getTimestamp
+argument_list|()
+decl_stmt|;
+name|byte
+name|typeByte
+init|=
+name|cell
+operator|.
+name|getTypeByte
+argument_list|()
+decl_stmt|;
 comment|// For a raw scan, we do not filter out any cells by delete marker, and delete marker is also
 comment|// returned, so we do not need to track delete.
 return|return
 name|matchColumn
 argument_list|(
 name|cell
+argument_list|,
+name|timestamp
+argument_list|,
+name|typeByte
 argument_list|)
 return|;
 block|}

@@ -189,6 +189,14 @@ operator|.
 name|getSequenceId
 argument_list|()
 decl_stmt|;
+name|byte
+name|typeByte
+init|=
+name|cell
+operator|.
+name|getTypeByte
+argument_list|()
+decl_stmt|;
 comment|// The delete logic is pretty complicated now.
 comment|// This is corroborated by the following:
 comment|// 1. The store might be instructed to keep deleted rows around.
@@ -207,7 +215,7 @@ name|CellUtil
 operator|.
 name|isDelete
 argument_list|(
-name|cell
+name|typeByte
 argument_list|)
 condition|)
 block|{
@@ -283,10 +291,7 @@ name|cell
 argument_list|,
 name|timestamp
 argument_list|,
-name|cell
-operator|.
-name|getTypeByte
-argument_list|()
+name|typeByte
 argument_list|,
 name|mvccVersion
 operator|>
