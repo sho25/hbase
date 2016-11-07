@@ -1495,13 +1495,13 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Good row key: "
+literal|"Good row key (with recompare): "
 operator|+
 name|delimiter
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|row
 operator|.
@@ -1532,7 +1532,7 @@ name|delimiter
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|row
 operator|.
@@ -1586,7 +1586,7 @@ name|delimiter
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|row
 operator|.
