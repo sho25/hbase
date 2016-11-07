@@ -295,7 +295,7 @@ specifier|static
 name|float
 name|POOL_MAX_SIZE_DEFAULT
 init|=
-literal|0.0f
+literal|1.0f
 decl_stmt|;
 specifier|final
 specifier|static
