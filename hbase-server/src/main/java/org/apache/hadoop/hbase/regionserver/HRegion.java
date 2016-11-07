@@ -15791,24 +15791,6 @@ literal|true
 argument_list|)
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|cpMutation
-operator|.
-name|getDurability
-argument_list|()
-operator|==
-name|Durability
-operator|.
-name|SKIP_WAL
-condition|)
-block|{
-name|recordMutationWithoutWal
-argument_list|(
-name|cpFamilyMap
-argument_list|)
-expr_stmt|;
-block|}
 comment|// Returned mutations from coprocessor correspond to the Mutation at index i. We can
 comment|// directly add the cells from those mutations to the familyMaps of this mutation.
 name|mergeFamilyMaps
@@ -15908,6 +15890,7 @@ operator|=
 name|tmpDur
 expr_stmt|;
 block|}
+comment|// we use durability of the original mutation for the mutation passed by CP.
 if|if
 condition|(
 name|tmpDur
@@ -16416,6 +16399,7 @@ block|}
 comment|// We need to update the sequence id for following reasons.
 comment|// 1) If the op is in replay mode, FSWALEntry#stampRegionSequenceId won't stamp sequence id.
 comment|// 2) If no WAL, FSWALEntry won't be used
+comment|// we use durability of the original mutation for the mutation passed by CP.
 name|boolean
 name|updateSeqId
 init|=
@@ -38800,20 +38784,14 @@ argument_list|(
 name|i
 argument_list|)
 decl_stmt|;
-comment|// TODO we need include tags length also here.
 name|mutationSize
 operator|+=
 name|KeyValueUtil
 operator|.
-name|keyLength
+name|length
 argument_list|(
 name|cell
 argument_list|)
-operator|+
-name|cell
-operator|.
-name|getValueLength
-argument_list|()
 expr_stmt|;
 block|}
 block|}
