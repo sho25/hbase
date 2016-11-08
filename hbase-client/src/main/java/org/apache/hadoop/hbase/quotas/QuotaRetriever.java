@@ -63,6 +63,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Objects
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Queue
 import|;
 end_import
@@ -332,7 +342,13 @@ specifier|private
 name|Table
 name|table
 decl_stmt|;
+comment|/**    * Should QutoaRetriever manage the state of the connection, or leave it be.    */
 specifier|private
+name|boolean
+name|isManagedConnection
+init|=
+literal|false
+decl_stmt|;
 name|QuotaRetriever
 parameter_list|()
 block|{   }
@@ -350,15 +366,50 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// Set this before creating the connection and passing it down to make sure
+comment|// it's cleaned up if we fail to construct the Scanner.
 name|this
 operator|.
-name|connection
+name|isManagedConnection
 operator|=
+literal|true
+expr_stmt|;
+name|init
+argument_list|(
 name|ConnectionFactory
 operator|.
 name|createConnection
 argument_list|(
 name|conf
+argument_list|)
+argument_list|,
+name|scan
+argument_list|)
+expr_stmt|;
+block|}
+name|void
+name|init
+parameter_list|(
+specifier|final
+name|Connection
+name|conn
+parameter_list|,
+specifier|final
+name|Scan
+name|scan
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|this
+operator|.
+name|connection
+operator|=
+name|Objects
+operator|.
+name|requireNonNull
+argument_list|(
+name|conn
 argument_list|)
 expr_stmt|;
 name|this
@@ -451,6 +502,13 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
+comment|// Null out the connection on close() even if we didn't explicitly close it
+comment|// to maintain typical semantics.
+if|if
+condition|(
+name|isManagedConnection
+condition|)
+block|{
 if|if
 condition|(
 name|this
@@ -467,13 +525,14 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
+block|}
 name|this
 operator|.
 name|connection
 operator|=
 literal|null
 expr_stmt|;
-block|}
 block|}
 specifier|public
 name|QuotaSettings

@@ -2794,6 +2794,7 @@ name|size
 parameter_list|)
 block|{
 comment|// TODO Make proper API
+comment|// TODO Prevent from growing indefinitely
 name|regionSizes
 operator|.
 name|put
