@@ -44,6 +44,18 @@ import|;
 end_import
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|fail
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -130,6 +142,20 @@ operator|.
 name|hbase
 operator|.
 name|CellUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|DoNotRetryIOException
 import|;
 end_import
 
@@ -944,8 +970,6 @@ operator|.
 name|getEnvironment
 argument_list|()
 argument_list|,
-name|tableName
-argument_list|,
 name|regions
 index|[
 literal|0
@@ -1097,8 +1121,6 @@ name|procExec
 operator|.
 name|getEnvironment
 argument_list|()
-argument_list|,
-name|tableName
 argument_list|,
 name|regions
 index|[
@@ -1281,8 +1303,6 @@ operator|.
 name|getEnvironment
 argument_list|()
 argument_list|,
-name|tableName
-argument_list|,
 name|regions
 index|[
 literal|0
@@ -1438,8 +1458,6 @@ name|procExec
 operator|.
 name|getEnvironment
 argument_list|()
-argument_list|,
-name|tableName
 argument_list|,
 name|regions
 index|[
@@ -1664,8 +1682,6 @@ name|procExec
 operator|.
 name|getEnvironment
 argument_list|()
-argument_list|,
-name|tableName
 argument_list|,
 name|regions
 index|[
@@ -1949,8 +1965,6 @@ operator|.
 name|getEnvironment
 argument_list|()
 argument_list|,
-name|tableName
-argument_list|,
 name|regions
 index|[
 literal|0
@@ -1979,8 +1993,6 @@ name|procExec
 operator|.
 name|getEnvironment
 argument_list|()
-argument_list|,
-name|tableName
 argument_list|,
 name|regions
 index|[
@@ -2150,6 +2162,8 @@ literal|1
 argument_list|)
 expr_stmt|;
 comment|// Split region of the table with null split key
+try|try
+block|{
 name|long
 name|procId1
 init|=
@@ -2164,8 +2178,6 @@ name|procExec
 operator|.
 name|getEnvironment
 argument_list|()
-argument_list|,
-name|tableName
 argument_list|,
 name|regions
 index|[
@@ -2189,54 +2201,31 @@ argument_list|,
 name|procId1
 argument_list|)
 expr_stmt|;
-name|ProcedureInfo
-name|result
-init|=
-name|procExec
-operator|.
-name|getResult
+name|fail
 argument_list|(
-name|procId1
-argument_list|)
-decl_stmt|;
-name|assertTrue
-argument_list|(
-name|result
-operator|.
-name|isFailed
-argument_list|()
+literal|"unexpected procedure start with invalid split-key"
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|DoNotRetryIOException
+name|e
+parameter_list|)
+block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Split failed with exception: "
+literal|"Expected Split procedure construction failure: "
 operator|+
-name|result
+name|e
 operator|.
-name|getExceptionFullMessage
+name|getMessage
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|assertTrue
-argument_list|(
-name|UTIL
-operator|.
-name|getMiniHBaseCluster
-argument_list|()
-operator|.
-name|getRegions
-argument_list|(
-name|tableName
-argument_list|)
-operator|.
-name|size
-argument_list|()
-operator|==
-literal|1
-argument_list|)
-expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Test
@@ -2370,8 +2359,6 @@ name|procExec
 operator|.
 name|getEnvironment
 argument_list|()
-argument_list|,
-name|tableName
 argument_list|,
 name|regions
 index|[
@@ -2539,8 +2526,6 @@ name|procExec
 operator|.
 name|getEnvironment
 argument_list|()
-argument_list|,
-name|tableName
 argument_list|,
 name|regions
 index|[

@@ -7635,11 +7635,6 @@ name|getEnvironment
 argument_list|()
 argument_list|,
 name|regionInfo
-operator|.
-name|getTable
-argument_list|()
-argument_list|,
-name|regionInfo
 argument_list|,
 name|splitRow
 argument_list|)
