@@ -17517,16 +17517,6 @@ operator|.
 name|getMetrics
 argument_list|()
 operator|.
-name|updateScanSize
-argument_list|(
-name|responseCellSize
-argument_list|)
-expr_stmt|;
-name|region
-operator|.
-name|getMetrics
-argument_list|()
-operator|.
 name|updateScanTime
 argument_list|(
 name|end

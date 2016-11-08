@@ -1450,7 +1450,7 @@ argument_list|)
 expr_stmt|;
 name|assertRegionMetrics
 argument_list|(
-literal|"getNumOps"
+literal|"getCount"
 argument_list|,
 literal|10
 argument_list|)
@@ -1574,14 +1574,7 @@ argument_list|)
 expr_stmt|;
 name|assertRegionMetrics
 argument_list|(
-literal|"getNumOps"
-argument_list|,
-literal|10
-argument_list|)
-expr_stmt|;
-name|assertRegionMetrics
-argument_list|(
-literal|"getSizeNumOps"
+literal|"getCount"
 argument_list|,
 literal|10
 argument_list|)
@@ -2246,7 +2239,7 @@ name|NUM_SCAN_NEXT
 expr_stmt|;
 name|assertRegionMetrics
 argument_list|(
-literal|"scanSizeNumOps"
+literal|"scanCount"
 argument_list|,
 name|NUM_SCAN_NEXT
 argument_list|)
@@ -2351,7 +2344,7 @@ name|NUM_SCAN_NEXT
 expr_stmt|;
 name|assertRegionMetrics
 argument_list|(
-literal|"scanTimeNumOps"
+literal|"scanCount"
 argument_list|,
 name|NUM_SCAN_NEXT
 argument_list|)
@@ -2456,7 +2449,7 @@ name|NUM_SCAN_NEXT
 expr_stmt|;
 name|assertRegionMetrics
 argument_list|(
-literal|"scanSizeNumOps"
+literal|"scanCount"
 argument_list|,
 name|NUM_SCAN_NEXT
 argument_list|)

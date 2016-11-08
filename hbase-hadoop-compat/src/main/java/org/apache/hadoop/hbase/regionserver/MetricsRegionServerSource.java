@@ -889,6 +889,11 @@ init|=
 literal|"replay"
 decl_stmt|;
 name|String
+name|SCAN_KEY
+init|=
+literal|"scan"
+decl_stmt|;
+name|String
 name|SCAN_SIZE_KEY
 init|=
 literal|"scanSize"
