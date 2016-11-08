@@ -1219,7 +1219,7 @@ argument_list|(
 name|REPLICATION_BARRIER_FAMILY_STR
 argument_list|)
 decl_stmt|;
-comment|/** The replication barrier family as a string*/
+comment|/** The replication position family as a string*/
 specifier|public
 specifier|static
 specifier|final
@@ -1228,7 +1228,7 @@ name|REPLICATION_POSITION_FAMILY_STR
 init|=
 literal|"rep_position"
 decl_stmt|;
-comment|/** The replication barrier family */
+comment|/** The replication position family */
 specifier|public
 specifier|static
 specifier|final
@@ -1241,6 +1241,30 @@ operator|.
 name|toBytes
 argument_list|(
 name|REPLICATION_POSITION_FAMILY_STR
+argument_list|)
+decl_stmt|;
+comment|/** The replication meta family as a string*/
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|REPLICATION_META_FAMILY_STR
+init|=
+literal|"rep_meta"
+decl_stmt|;
+comment|/** The replication meta family */
+specifier|public
+specifier|static
+specifier|final
+name|byte
+index|[]
+name|REPLICATION_META_FAMILY
+init|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|REPLICATION_META_FAMILY_STR
 argument_list|)
 decl_stmt|;
 comment|/** The RegionInfo qualifier as a string */

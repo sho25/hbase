@@ -943,6 +943,15 @@ operator|.
 name|REPLICATION_BARRIER_FAMILY
 argument_list|)
 expr_stmt|;
+name|delete
+operator|.
+name|addFamily
+argument_list|(
+name|HConstants
+operator|.
+name|REPLICATION_META_FAMILY
+argument_list|)
+expr_stmt|;
 try|try
 init|(
 name|Table
