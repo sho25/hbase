@@ -1612,7 +1612,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Called before a abortProcedure request has been processed.    * @param ctx the environment to interact with the framework and master    * @param procEnv procedure executor    * @param procId the Id of the procedure    * @throws IOException if something went wrong    */
-specifier|public
 name|void
 name|preAbortProcedure
 parameter_list|(
@@ -1637,7 +1636,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Called after a abortProcedure request has been processed.    * @param ctx the environment to interact with the framework and master    * @throws IOException if something went wrong    */
-specifier|public
 name|void
 name|postAbortProcedure
 parameter_list|(
@@ -2895,7 +2893,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Called before dispatching region merge request.     * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx coprocessor environment    * @param regionA first region to be merged    * @param regionB second region to be merged    * @throws IOException if an error occurred on the coprocessor    */
-specifier|public
 name|void
 name|preDispatchMerge
 parameter_list|(
