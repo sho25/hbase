@@ -431,7 +431,7 @@ name|restoreDir
 operator|=
 name|TEST_UTIL
 operator|.
-name|getDataTestDir
+name|getRandomDir
 argument_list|()
 expr_stmt|;
 block|}
