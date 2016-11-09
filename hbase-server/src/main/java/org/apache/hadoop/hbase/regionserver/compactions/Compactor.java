@@ -1843,6 +1843,8 @@ argument_list|,
 name|scanners
 argument_list|,
 name|user
+argument_list|,
+name|smallestReadPoint
 argument_list|)
 expr_stmt|;
 if|if
@@ -2129,7 +2131,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Calls coprocessor, if any, to create compaction scanner - before normal scanner creation.    * @param request Compaction request.    * @param scanType Scan type.    * @param earliestPutTs Earliest put ts.    * @param scanners File scanners for compaction files.    * @param user the User    * @return Scanner override by coprocessor; null if not overriding.    */
+comment|/**    * Calls coprocessor, if any, to create compaction scanner - before normal scanner creation.    * @param request Compaction request.    * @param scanType Scan type.    * @param earliestPutTs Earliest put ts.    * @param scanners File scanners for compaction files.    * @param user the User    * @param readPoint the read point to help create scanner by Coprocessor if required.    * @return Scanner override by coprocessor; null if not overriding.    */
 specifier|protected
 name|InternalScanner
 name|preCreateCoprocScanner
@@ -2155,6 +2157,10 @@ name|scanners
 parameter_list|,
 name|User
 name|user
+parameter_list|,
+specifier|final
+name|long
+name|readPoint
 parameter_list|)
 throws|throws
 name|IOException
@@ -2192,6 +2198,8 @@ argument_list|,
 name|request
 argument_list|,
 name|user
+argument_list|,
+name|readPoint
 argument_list|)
 return|;
 block|}

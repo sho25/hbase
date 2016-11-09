@@ -2985,7 +2985,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * See    * {@link RegionObserver#preCompactScannerOpen(ObserverContext, Store, List, ScanType, long, InternalScanner, CompactionRequest)}    */
+comment|/**    * See    * {@link RegionObserver#preCompactScannerOpen(ObserverContext, Store, List, ScanType, long,    *   InternalScanner, CompactionRequest, long)}    */
 specifier|public
 name|InternalScanner
 name|preCompactScannerOpen
@@ -3016,6 +3016,10 @@ parameter_list|,
 specifier|final
 name|User
 name|user
+parameter_list|,
+specifier|final
+name|long
+name|readPoint
 parameter_list|)
 throws|throws
 name|IOException
@@ -3079,6 +3083,8 @@ name|getResult
 argument_list|()
 argument_list|,
 name|request
+argument_list|,
+name|readPoint
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -3553,7 +3559,7 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * See    * {@link RegionObserver#preFlushScannerOpen(ObserverContext,    *    Store, KeyValueScanner, InternalScanner)}    */
+comment|/**    * See    * {@link RegionObserver#preFlushScannerOpen(ObserverContext,    *    Store, KeyValueScanner, InternalScanner, long)}    */
 specifier|public
 name|InternalScanner
 name|preFlushScannerOpen
@@ -3565,6 +3571,10 @@ parameter_list|,
 specifier|final
 name|KeyValueScanner
 name|memstoreScanner
+parameter_list|,
+specifier|final
+name|long
+name|readPoint
 parameter_list|)
 throws|throws
 name|IOException
@@ -3620,6 +3630,8 @@ name|memstoreScanner
 argument_list|,
 name|getResult
 argument_list|()
+argument_list|,
+name|readPoint
 argument_list|)
 argument_list|)
 expr_stmt|;

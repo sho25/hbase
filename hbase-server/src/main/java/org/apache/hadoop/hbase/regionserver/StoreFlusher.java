@@ -386,6 +386,8 @@ argument_list|(
 name|store
 argument_list|,
 name|snapshotScanner
+argument_list|,
+name|smallestReadPoint
 argument_list|)
 expr_stmt|;
 block|}

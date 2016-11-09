@@ -745,7 +745,9 @@ argument_list|>
 name|c
 parameter_list|)
 function_decl|;
-comment|/**    * Called before a memstore is flushed to disk and prior to creating the scanner to read from    * the memstore.  To override or modify how a memstore is flushed,    * implementing classes can return a new scanner to provide the KeyValues to be    * stored into the new {@code StoreFile} or null to perform the default processing.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param c the environment provided by the region server    * @param store the store being flushed    * @param memstoreScanner the scanner for the memstore that is flushed    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @return the scanner to use during the flush.  {@code null} if the default implementation    * is to be used.    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called before a memstore is flushed to disk and prior to creating the scanner to read from    * the memstore.  To override or modify how a memstore is flushed,    * implementing classes can return a new scanner to provide the KeyValues to be    * stored into the new {@code StoreFile} or null to perform the default processing.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param c the environment provided by the region server    * @param store the store being flushed    * @param memstoreScanner the scanner for the memstore that is flushed    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @return the scanner to use during the flush.  {@code null} if the default implementation    * is to be used.    * @throws IOException if an error occurred on the coprocessor    * @deprecated Use {@link #preFlushScannerOpen(ObserverContext, Store, KeyValueScanner,    *             InternalScanner, long)}    */
+annotation|@
+name|Deprecated
 name|InternalScanner
 name|preFlushScannerOpen
 parameter_list|(
@@ -767,6 +769,36 @@ parameter_list|,
 specifier|final
 name|InternalScanner
 name|s
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called before a memstore is flushed to disk and prior to creating the scanner to read from    * the memstore.  To override or modify how a memstore is flushed,    * implementing classes can return a new scanner to provide the KeyValues to be    * stored into the new {@code StoreFile} or null to perform the default processing.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param c the environment provided by the region server    * @param store the store being flushed    * @param memstoreScanner the scanner for the memstore that is flushed    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @param readPoint the readpoint to create scanner    * @return the scanner to use during the flush.  {@code null} if the default implementation    * is to be used.    * @throws IOException if an error occurred on the coprocessor    */
+name|InternalScanner
+name|preFlushScannerOpen
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|RegionCoprocessorEnvironment
+argument_list|>
+name|c
+parameter_list|,
+specifier|final
+name|Store
+name|store
+parameter_list|,
+specifier|final
+name|KeyValueScanner
+name|memstoreScanner
+parameter_list|,
+specifier|final
+name|InternalScanner
+name|s
+parameter_list|,
+specifier|final
+name|long
+name|readPoint
 parameter_list|)
 throws|throws
 name|IOException
@@ -1011,7 +1043,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called prior to writing the {@link StoreFile}s selected for compaction into a new    * {@code StoreFile} and prior to creating the scanner used to read the input files. To override    * or modify the compaction process, implementing classes can return a new scanner to provide the    * KeyValues to be stored into the new {@code StoreFile} or null to perform the default    * processing. Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param c the environment provided by the region server    * @param store the store being compacted    * @param scanners the list {@link org.apache.hadoop.hbase.regionserver.StoreFileScanner}s    *  to be read from    * @param scanType the {@link ScanType} indicating whether this is a major or minor compaction    * @param earliestPutTs timestamp of the earliest put that was found in any of the involved store    *          files    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @param request the requested compaction    * @return the scanner to use during compaction. {@code null} if the default implementation is to    *         be used.    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called prior to writing the {@link StoreFile}s selected for compaction into a new    * {@code StoreFile} and prior to creating the scanner used to read the input files. To override    * or modify the compaction process, implementing classes can return a new scanner to provide the    * KeyValues to be stored into the new {@code StoreFile} or null to perform the default    * processing. Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param c the environment provided by the region server    * @param store the store being compacted    * @param scanners the list {@link org.apache.hadoop.hbase.regionserver.StoreFileScanner}s    *  to be read from    * @param scanType the {@link ScanType} indicating whether this is a major or minor compaction    * @param earliestPutTs timestamp of the earliest put that was found in any of the involved store    *          files    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @param request the requested compaction    * @return the scanner to use during compaction. {@code null} if the default implementation is to    *         be used.    * @throws IOException if an error occurred on the coprocessor    * @deprecated Use {@link #preCompactScannerOpen(ObserverContext, Store, List, ScanType, long,    *             InternalScanner, CompactionRequest, long)} instead.    */
+annotation|@
+name|Deprecated
 name|InternalScanner
 name|preCompactScannerOpen
 parameter_list|(
@@ -1052,7 +1086,53 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called prior to writing the {@link StoreFile}s selected for compaction into a new    * {@code StoreFile} and prior to creating the scanner used to read the input files. To override    * or modify the compaction process, implementing classes can return a new scanner to provide the    * KeyValues to be stored into the new {@code StoreFile} or null to perform the default    * processing. Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param c the environment provided by the region server    * @param store the store being compacted    * @param scanners the list {@link org.apache.hadoop.hbase.regionserver.StoreFileScanner}s    *  to be read from    * @param scanType the {@link ScanType} indicating whether this is a major or minor compaction    * @param earliestPutTs timestamp of the earliest put that was found in any of the involved store    *          files    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @return the scanner to use during compaction. {@code null} if the default implementation is to    *         be used.    * @throws IOException if an error occurred on the coprocessor    * @deprecated Use    *             {@link #preCompactScannerOpen(ObserverContext, Store, List, ScanType, long,    *             InternalScanner, CompactionRequest)} instead.    */
+comment|/**    * Called prior to writing the {@link StoreFile}s selected for compaction into a new    * {@code StoreFile} and prior to creating the scanner used to read the input files. To override    * or modify the compaction process, implementing classes can return a new scanner to provide the    * KeyValues to be stored into the new {@code StoreFile} or null to perform the default    * processing. Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param c the environment provided by the region server    * @param store the store being compacted    * @param scanners the list {@link org.apache.hadoop.hbase.regionserver.StoreFileScanner}s    *  to be read from    * @param scanType the {@link ScanType} indicating whether this is a major or minor compaction    * @param earliestPutTs timestamp of the earliest put that was found in any of the involved store    *          files    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @param request compaction request    * @param readPoint the readpoint to create scanner    * @return the scanner to use during compaction. {@code null} if the default implementation is to    *          be used.    * @throws IOException if an error occurred on the coprocessor    */
+name|InternalScanner
+name|preCompactScannerOpen
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|RegionCoprocessorEnvironment
+argument_list|>
+name|c
+parameter_list|,
+specifier|final
+name|Store
+name|store
+parameter_list|,
+name|List
+argument_list|<
+name|?
+extends|extends
+name|KeyValueScanner
+argument_list|>
+name|scanners
+parameter_list|,
+specifier|final
+name|ScanType
+name|scanType
+parameter_list|,
+specifier|final
+name|long
+name|earliestPutTs
+parameter_list|,
+specifier|final
+name|InternalScanner
+name|s
+parameter_list|,
+specifier|final
+name|CompactionRequest
+name|request
+parameter_list|,
+specifier|final
+name|long
+name|readPoint
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Called prior to writing the {@link StoreFile}s selected for compaction into a new    * {@code StoreFile} and prior to creating the scanner used to read the input files. To override    * or modify the compaction process, implementing classes can return a new scanner to provide the    * KeyValues to be stored into the new {@code StoreFile} or null to perform the default    * processing. Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param c the environment provided by the region server    * @param store the store being compacted    * @param scanners the list {@link org.apache.hadoop.hbase.regionserver.StoreFileScanner}s    *  to be read from    * @param scanType the {@link ScanType} indicating whether this is a major or minor compaction    * @param earliestPutTs timestamp of the earliest put that was found in any of the involved store    *          files    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @return the scanner to use during compaction. {@code null} if the default implementation is to    *         be used.    * @throws IOException if an error occurred on the coprocessor    * @deprecated Use    *             {@link #preCompactScannerOpen(ObserverContext, Store, List, ScanType, long,    *             InternalScanner, CompactionRequest, long)} instead.    */
 annotation|@
 name|Deprecated
 name|InternalScanner
@@ -2138,7 +2218,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before a store opens a new scanner.    * This hook is called when a "user" scanner is opened.    *<p>    * See {@link #preFlushScannerOpen(ObserverContext, Store, KeyValueScanner, InternalScanner)}    * and {@link #preCompactScannerOpen(ObserverContext,    *  Store, List, ScanType, long, InternalScanner)}    * to override scanners created for flushes or compactions, resp.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    *<p>    * Note: Do not retain references to any Cells returned by scanner, beyond the life of this    * invocation. If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param store the store being scanned    * @param scan the Scan specification    * @param targetCols columns to be used in the scanner    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @return a KeyValueScanner instance to use or {@code null} to use the default implementation    * @throws IOException if an error occurred on the coprocessor    * @deprecated use {@link #preStoreScannerOpen(ObserverContext, Store, Scan, NavigableSet,    *   KeyValueScanner, long)} instead    */
+comment|/**    * Called before a store opens a new scanner.    * This hook is called when a "user" scanner is opened.    *<p>    * See {@link #preFlushScannerOpen(ObserverContext, Store, KeyValueScanner, InternalScanner,    * long)} and {@link #preCompactScannerOpen(ObserverContext,    *  Store, List, ScanType, long, InternalScanner, CompactionRequest, long)}    * to override scanners created for flushes or compactions, resp.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    *<p>    * Note: Do not retain references to any Cells returned by scanner, beyond the life of this    * invocation. If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param store the store being scanned    * @param scan the Scan specification    * @param targetCols columns to be used in the scanner    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @return a KeyValueScanner instance to use or {@code null} to use the default implementation    * @throws IOException if an error occurred on the coprocessor    * @deprecated use {@link #preStoreScannerOpen(ObserverContext, Store, Scan, NavigableSet,    *   KeyValueScanner, long)} instead    */
 annotation|@
 name|Deprecated
 name|KeyValueScanner
@@ -2174,7 +2254,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before a store opens a new scanner.    * This hook is called when a "user" scanner is opened.    *<p>    * See {@link #preFlushScannerOpen(ObserverContext, Store, KeyValueScanner, InternalScanner)}    * and {@link #preCompactScannerOpen(ObserverContext,    *  Store, List, ScanType, long, InternalScanner)}    * to override scanners created for flushes or compactions, resp.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    *<p>    * Note: Do not retain references to any Cells returned by scanner, beyond the life of this    * invocation. If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param store the store being scanned    * @param scan the Scan specification    * @param targetCols columns to be used in the scanner    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @param readPt the read point    * @return a KeyValueScanner instance to use or {@code null} to use the default implementation    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called before a store opens a new scanner.    * This hook is called when a "user" scanner is opened.    *<p>    * See {@link #preFlushScannerOpen(ObserverContext, Store, KeyValueScanner, InternalScanner,    * long)} and {@link #preCompactScannerOpen(ObserverContext,    *  Store, List, ScanType, long, InternalScanner, CompactionRequest, long)}    * to override scanners created for flushes or compactions, resp.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    *<p>    * Note: Do not retain references to any Cells returned by scanner, beyond the life of this    * invocation. If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param store the store being scanned    * @param scan the Scan specification    * @param targetCols columns to be used in the scanner    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @param readPt the read point    * @return a KeyValueScanner instance to use or {@code null} to use the default implementation    * @throws IOException if an error occurred on the coprocessor    */
 name|KeyValueScanner
 name|preStoreScannerOpen
 parameter_list|(
