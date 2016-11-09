@@ -29,19 +29,7 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|assertEquals
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertTrue
+name|*
 import|;
 end_import
 
@@ -434,12 +422,12 @@ index|[]
 index|[]
 block|{
 block|{
-literal|8192
+literal|44600
 block|,
 literal|null
 block|}
 block|,
-comment|// TODO: why is 8k the default blocksize for these tests?
+comment|// Random size here and below to demo no need for multiple of 256 (HBASE-16993)
 block|{
 literal|16
 operator|*
@@ -460,6 +448,14 @@ operator|*
 literal|1024
 operator|+
 literal|1024
+block|,
+literal|15000
+block|,
+literal|46000
+block|,
+literal|49152
+block|,
+literal|51200
 block|,
 literal|8
 operator|*
@@ -1423,17 +1419,42 @@ argument_list|(
 name|testDir
 argument_list|)
 expr_stmt|;
+name|Path
+name|persistFile
+init|=
+operator|new
+name|Path
+argument_list|(
+name|testDir
+argument_list|,
+literal|"bucketcache.persist.file"
+argument_list|)
+decl_stmt|;
+name|String
+name|persistFileStr
+init|=
+name|persistFile
+operator|.
+name|toString
+argument_list|()
+decl_stmt|;
+name|String
+name|engine
+init|=
+literal|"file:/"
+operator|+
+name|persistFile
+operator|.
+name|toString
+argument_list|()
+decl_stmt|;
 name|BucketCache
 name|bucketCache
 init|=
 operator|new
 name|BucketCache
 argument_list|(
-literal|"file:"
-operator|+
-name|testDir
-operator|+
-literal|"/bucket.cache"
+name|engine
 argument_list|,
 name|capacitySize
 argument_list|,
@@ -1445,9 +1466,7 @@ name|writeThreads
 argument_list|,
 name|writerQLen
 argument_list|,
-name|testDir
-operator|+
-literal|"/bucket.persistence"
+name|persistFileStr
 argument_list|)
 decl_stmt|;
 name|long
@@ -1547,23 +1566,19 @@ operator|!=
 literal|0
 argument_list|)
 expr_stmt|;
-comment|// persist cache to file
+comment|// Persist cache to file
 name|bucketCache
 operator|.
 name|shutdown
 argument_list|()
 expr_stmt|;
-comment|// restore cache from file
+comment|// Restore cache from file
 name|bucketCache
 operator|=
 operator|new
 name|BucketCache
 argument_list|(
-literal|"file:"
-operator|+
-name|testDir
-operator|+
-literal|"/bucket.cache"
+name|engine
 argument_list|,
 name|capacitySize
 argument_list|,
@@ -1575,9 +1590,7 @@ name|writeThreads
 argument_list|,
 name|writerQLen
 argument_list|,
-name|testDir
-operator|+
-literal|"/bucket.persistence"
+name|persistFileStr
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1593,6 +1606,20 @@ name|getUsedSize
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// Assert file is no longer present.
+name|assertFalse
+argument_list|(
+name|TEST_UTIL
+operator|.
+name|getTestFileSystem
+argument_list|()
+operator|.
+name|exists
+argument_list|(
+name|persistFile
+argument_list|)
+argument_list|)
+expr_stmt|;
 comment|// persist cache to file
 name|bucketCache
 operator|.
@@ -1601,6 +1628,7 @@ argument_list|()
 expr_stmt|;
 comment|// reconfig buckets sizes, the biggest bucket is small than constructedBlockSize (8k or 16k)
 comment|// so it can't restore cache from file
+comment|// Throw in a few random sizes to demo don't have to be multiple of 256 (HBASE-16993)
 name|int
 index|[]
 name|smallBucketSizes
@@ -1615,11 +1643,15 @@ literal|1024
 operator|+
 literal|1024
 block|,
+literal|3600
+block|,
 literal|4
 operator|*
 literal|1024
 operator|+
 literal|1024
+block|,
+literal|47000
 block|}
 decl_stmt|;
 name|bucketCache
@@ -1627,11 +1659,7 @@ operator|=
 operator|new
 name|BucketCache
 argument_list|(
-literal|"file:"
-operator|+
-name|testDir
-operator|+
-literal|"/bucket.cache"
+name|engine
 argument_list|,
 name|capacitySize
 argument_list|,
@@ -1643,9 +1671,7 @@ name|writeThreads
 argument_list|,
 name|writerQLen
 argument_list|,
-name|testDir
-operator|+
-literal|"/bucket.persistence"
+name|persistFileStr
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1671,6 +1697,20 @@ name|backingMap
 operator|.
 name|size
 argument_list|()
+argument_list|)
+expr_stmt|;
+comment|// The above should have failed reading he cache file and then cleaned it up.
+name|assertFalse
+argument_list|(
+name|TEST_UTIL
+operator|.
+name|getTestFileSystem
+argument_list|()
+operator|.
+name|exists
+argument_list|(
+name|persistFile
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|TEST_UTIL
