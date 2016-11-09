@@ -21,6 +21,22 @@ end_package
 
 begin_import
 import|import static
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|base
+operator|.
+name|Preconditions
+operator|.
+name|*
+import|;
+end_import
+
+begin_import
+import|import static
 name|org
 operator|.
 name|apache
@@ -1016,7 +1032,7 @@ specifier|final
 class|class
 name|WalProps
 block|{
-comment|/**      *  Map the encoded region name to the highest sequence id. Contain all the regions it has entries of      */
+comment|/**      * Map the encoded region name to the highest sequence id. Contain all the regions it has      * entries of      */
 specifier|public
 specifier|final
 name|Map
@@ -1115,21 +1131,13 @@ name|Path
 name|fileName
 parameter_list|)
 block|{
-if|if
-condition|(
-name|fileName
-operator|==
-literal|null
-condition|)
-block|{
-throw|throw
-operator|new
-name|IllegalArgumentException
+name|checkNotNull
 argument_list|(
+name|fileName
+argument_list|,
 literal|"file name can't be null"
 argument_list|)
-throw|;
-block|}
+expr_stmt|;
 if|if
 condition|(
 operator|!
@@ -1239,6 +1247,85 @@ literal|2
 operator|/
 name|logRollSize
 argument_list|)
+return|;
+block|}
+comment|// must be power of 2
+specifier|protected
+specifier|final
+name|int
+name|getPreallocatedEventCount
+parameter_list|()
+block|{
+comment|// Preallocate objects to use on the ring buffer. The way that appends and syncs work, we will
+comment|// be stuck and make no progress if the buffer is filled with appends only and there is no
+comment|// sync. If no sync, then the handlers will be outstanding just waiting on sync completion
+comment|// before they return.
+name|int
+name|preallocatedEventCount
+init|=
+name|this
+operator|.
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.regionserver.wal.disruptor.event.count"
+argument_list|,
+literal|1024
+operator|*
+literal|16
+argument_list|)
+decl_stmt|;
+name|checkArgument
+argument_list|(
+name|preallocatedEventCount
+operator|>=
+literal|0
+argument_list|,
+literal|"hbase.regionserver.wal.disruptor.event.count must> 0"
+argument_list|)
+expr_stmt|;
+name|int
+name|floor
+init|=
+name|Integer
+operator|.
+name|highestOneBit
+argument_list|(
+name|preallocatedEventCount
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|floor
+operator|==
+name|preallocatedEventCount
+condition|)
+block|{
+return|return
+name|floor
+return|;
+block|}
+comment|// max capacity is 1<< 30
+if|if
+condition|(
+name|floor
+operator|>=
+literal|1
+operator|<<
+literal|29
+condition|)
+block|{
+return|return
+literal|1
+operator|<<
+literal|30
+return|;
+block|}
+return|return
+name|floor
+operator|<<
+literal|1
 return|;
 block|}
 specifier|protected
@@ -3036,8 +3123,10 @@ name|this
 operator|.
 name|numEntries
 operator|.
-name|get
-argument_list|()
+name|getAndSet
+argument_list|(
+literal|0
+argument_list|)
 decl_stmt|;
 specifier|final
 name|String
@@ -3896,7 +3985,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * updates the sequence number of a specific store.    * depending on the flag: replaces current seq number if the given seq id is bigger,    * or even if it is lower than existing one    *  @param encodedRegionName    * @param familyName    * @param sequenceid    * @param onlyIfGreater    */
+comment|/**    * updates the sequence number of a specific store. depending on the flag: replaces current seq    * number if the given seq id is bigger, or even if it is lower than existing one    * @param encodedRegionName    * @param familyName    * @param sequenceid    * @param onlyIfGreater    */
 annotation|@
 name|Override
 specifier|public
