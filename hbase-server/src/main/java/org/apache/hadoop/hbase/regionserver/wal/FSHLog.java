@@ -3355,13 +3355,6 @@ expr_stmt|;
 block|}
 block|}
 annotation|@
-name|Override
-specifier|public
-name|void
-name|logRollerExited
-parameter_list|()
-block|{   }
-annotation|@
 name|VisibleForTesting
 name|boolean
 name|isLowReplicationRollEnabled

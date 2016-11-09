@@ -2924,15 +2924,10 @@ argument_list|(
 literal|"shutting down log roller."
 argument_list|)
 expr_stmt|;
-name|Threads
-operator|.
-name|shutdown
-argument_list|(
 name|roller
 operator|.
-name|getThread
+name|close
 argument_list|()
-argument_list|)
 expr_stmt|;
 block|}
 name|wals

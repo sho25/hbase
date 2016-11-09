@@ -1465,7 +1465,7 @@ literal|null
 condition|)
 name|logRoller
 operator|.
-name|interrupt
+name|close
 argument_list|()
 expr_stmt|;
 if|if

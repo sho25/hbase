@@ -1709,7 +1709,7 @@ literal|null
 condition|)
 name|logRoller
 operator|.
-name|interrupt
+name|close
 argument_list|()
 expr_stmt|;
 try|try
@@ -2613,7 +2613,7 @@ condition|)
 block|{
 name|logRoller
 operator|.
-name|interrupt
+name|close
 argument_list|()
 expr_stmt|;
 block|}

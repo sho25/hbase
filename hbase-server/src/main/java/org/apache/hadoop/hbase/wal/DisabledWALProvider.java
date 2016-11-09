@@ -1122,13 +1122,6 @@ return|return
 literal|"WAL disabled."
 return|;
 block|}
-annotation|@
-name|Override
-specifier|public
-name|void
-name|logRollerExited
-parameter_list|()
-block|{     }
 block|}
 annotation|@
 name|Override
