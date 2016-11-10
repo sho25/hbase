@@ -1870,6 +1870,8 @@ operator|)
 argument_list|)
 operator|-
 name|keyRelOffset
+operator|-
+name|SECONDARY_INDEX_ENTRY_OVERHEAD
 decl_stmt|;
 name|int
 name|keyOffset
