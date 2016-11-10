@@ -8321,7 +8321,6 @@ name|tableLockManager
 return|;
 block|}
 comment|/*    * @param r Region to get RegionLoad for.    * @param regionLoadBldr the RegionLoad.Builder, can be null    * @param regionSpecifier the RegionSpecifier.Builder, can be null    * @return RegionLoad instance.    *    * @throws IOException    */
-specifier|private
 name|RegionLoad
 name|createRegionLoad
 parameter_list|(
