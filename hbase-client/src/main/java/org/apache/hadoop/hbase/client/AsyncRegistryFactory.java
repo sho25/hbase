@@ -74,7 +74,7 @@ operator|.
 name|Private
 specifier|final
 class|class
-name|ClusterRegistryFactory
+name|AsyncRegistryFactory
 block|{
 specifier|static
 specifier|final
@@ -84,7 +84,7 @@ init|=
 literal|"hbase.client.registry.impl"
 decl_stmt|;
 specifier|private
-name|ClusterRegistryFactory
+name|AsyncRegistryFactory
 parameter_list|()
 block|{   }
 comment|/**    * @return The cluster registry implementation to use.    */

@@ -589,7 +589,7 @@ name|this
 operator|.
 name|registry
 operator|=
-name|ClusterRegistryFactory
+name|AsyncRegistryFactory
 operator|.
 name|getRegistry
 argument_list|(

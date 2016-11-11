@@ -414,6 +414,8 @@ specifier|final
 name|long
 name|metaOperationTimeoutNs
 decl_stmt|;
+comment|// timeout for a whole operation such as get, put or delete. Notice that scan will not be effected
+comment|// by this value, see scanTimeoutNs.
 specifier|private
 specifier|final
 name|long
@@ -447,6 +449,10 @@ specifier|final
 name|int
 name|startLogErrorsCnt
 decl_stmt|;
+comment|// As now we have heartbeat support for scan, ideally a scan will never timeout unless the RS is
+comment|// crash. The RS will always return something before the rpc timeout or scan timeout to tell the
+comment|// client that it is still alive. The scan timeout is used as operation timeout for every
+comment|// operations in a scan, such as openScanner or next.
 specifier|private
 specifier|final
 name|long
@@ -720,7 +726,6 @@ return|return
 name|startLogErrorsCnt
 return|;
 block|}
-specifier|public
 name|long
 name|getScanTimeoutNs
 parameter_list|()
@@ -729,7 +734,6 @@ return|return
 name|scanTimeoutNs
 return|;
 block|}
-specifier|public
 name|int
 name|getScannerCaching
 parameter_list|()
@@ -738,7 +742,6 @@ return|return
 name|scannerCaching
 return|;
 block|}
-specifier|public
 name|long
 name|getScannerMaxResultSize
 parameter_list|()
