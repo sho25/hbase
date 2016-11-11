@@ -60,6 +60,16 @@ specifier|public
 interface|interface
 name|MemStoreLAB
 block|{
+name|String
+name|USEMSLAB_KEY
+init|=
+literal|"hbase.hregion.memstore.mslab.enabled"
+decl_stmt|;
+name|boolean
+name|USEMSLAB_DEFAULT
+init|=
+literal|true
+decl_stmt|;
 comment|/**    * Allocates slice in this LAB and copy the passed Cell into this area. Returns new Cell instance    * over the copied the data. When this MemStoreLAB can not copy this Cell, it returns null.    */
 name|Cell
 name|copyCellInto

@@ -560,7 +560,7 @@ name|CONF
 operator|.
 name|setBoolean
 argument_list|(
-name|SegmentFactory
+name|MemStoreLAB
 operator|.
 name|USEMSLAB_KEY
 argument_list|,
