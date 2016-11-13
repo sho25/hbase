@@ -1422,7 +1422,7 @@ else|:
 name|listOfQueues
 return|;
 block|}
-comment|/**    * It "atomically" copies all the wals queues from another region server and returns them all    * sorted per peer cluster (appended with the dead server's znode).    * @param znode pertaining to the region server to copy the queues from    */
+comment|/**    * It "atomically" copies one peer's wals queue from another dead region server and returns them    * all sorted. The new peer id is equal to the old peer id appended with the dead server's znode.    * @param znode pertaining to the region server to copy the queues from    * @peerId peerId pertaining to the queue need to be copied    */
 specifier|private
 name|Pair
 argument_list|<
@@ -1479,33 +1479,6 @@ argument_list|(
 name|peerId
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
-operator|!
-name|peerExists
-argument_list|(
-name|replicationQueueInfo
-operator|.
-name|getPeerId
-argument_list|()
-argument_list|)
-condition|)
-block|{
-comment|// the orphaned queues must be moved, otherwise the delete op of dead rs will fail,
-comment|// this will cause the whole multi op fail.
-comment|// NodeFailoverWorker will skip the orphaned queues.
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Peer "
-operator|+
-name|peerId
-operator|+
-literal|" didn't exist, will move its queue to avoid the failure of multi op"
-argument_list|)
-expr_stmt|;
-block|}
 name|String
 name|newPeerId
 init|=
@@ -1559,6 +1532,94 @@ argument_list|,
 name|oldClusterZnode
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+operator|!
+name|peerExists
+argument_list|(
+name|replicationQueueInfo
+operator|.
+name|getPeerId
+argument_list|()
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Peer "
+operator|+
+name|replicationQueueInfo
+operator|.
+name|getPeerId
+argument_list|()
+operator|+
+literal|" didn't exist, will move its queue to avoid the failure of multi op"
+argument_list|)
+expr_stmt|;
+for|for
+control|(
+name|String
+name|wal
+range|:
+name|wals
+control|)
+block|{
+name|String
+name|oldWalZnode
+init|=
+name|ZKUtil
+operator|.
+name|joinZNode
+argument_list|(
+name|oldClusterZnode
+argument_list|,
+name|wal
+argument_list|)
+decl_stmt|;
+name|listOfOps
+operator|.
+name|add
+argument_list|(
+name|ZKUtilOp
+operator|.
+name|deleteNodeFailSilent
+argument_list|(
+name|oldWalZnode
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+name|listOfOps
+operator|.
+name|add
+argument_list|(
+name|ZKUtilOp
+operator|.
+name|deleteNodeFailSilent
+argument_list|(
+name|oldClusterZnode
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|ZKUtil
+operator|.
+name|multiOrSequential
+argument_list|(
+name|this
+operator|.
+name|zookeeper
+argument_list|,
+name|listOfOps
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
+return|return
+literal|null
+return|;
+block|}
 name|SortedSet
 argument_list|<
 name|String
@@ -1767,18 +1828,19 @@ argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
 name|LOG
 operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-name|LOG
-operator|.
-name|trace
+name|info
 argument_list|(
-literal|"Atomically moved the dead regionserver logs. "
+literal|"Atomically moved "
+operator|+
+name|znode
+operator|+
+literal|"/"
+operator|+
+name|peerId
+operator|+
+literal|"'s WALs to my queue"
 argument_list|)
 expr_stmt|;
 return|return

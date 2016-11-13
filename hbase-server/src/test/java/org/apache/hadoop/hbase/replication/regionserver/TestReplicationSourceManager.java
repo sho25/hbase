@@ -3829,6 +3829,13 @@ argument_list|,
 name|queue
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|pair
+operator|!=
+literal|null
+condition|)
+block|{
 name|logZnodesMap
 operator|.
 name|put
@@ -3844,6 +3851,7 @@ name|getSecond
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 name|server
 operator|.
