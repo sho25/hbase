@@ -219,7 +219,7 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|ByteBufferSupportOutputStream
+name|ByteBufferWriter
 import|;
 end_import
 
@@ -388,7 +388,7 @@ name|OutputStreamWrapper
 extends|extends
 name|OutputStream
 implements|implements
-name|ByteBufferSupportOutputStream
+name|ByteBufferWriter
 block|{
 specifier|private
 specifier|final

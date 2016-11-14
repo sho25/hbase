@@ -49,16 +49,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|nio
-operator|.
-name|ByteBuffer
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -141,7 +131,23 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|ByteBufferInputStream
+name|ByteBuffInputStream
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|nio
+operator|.
+name|ByteBuff
 import|;
 end_import
 
@@ -679,7 +685,7 @@ specifier|public
 name|Decoder
 name|getDecoder
 parameter_list|(
-name|ByteBuffer
+name|ByteBuff
 name|buf
 parameter_list|)
 block|{
@@ -687,7 +693,7 @@ return|return
 name|getDecoder
 argument_list|(
 operator|new
-name|ByteBufferInputStream
+name|ByteBuffInputStream
 argument_list|(
 name|buf
 argument_list|)

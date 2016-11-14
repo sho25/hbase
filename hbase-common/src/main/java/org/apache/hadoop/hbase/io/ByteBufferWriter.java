@@ -54,7 +54,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Interface adds support for writing {@link ByteBuffer} into OutputStream.  */
+comment|/**  * This interface marks a class to support writing ByteBuffers into it.  * @see ByteArrayOutputStream  * @see ByteBufferOutputStream  */
 end_comment
 
 begin_interface
@@ -64,9 +64,9 @@ operator|.
 name|Private
 specifier|public
 interface|interface
-name|ByteBufferSupportOutputStream
+name|ByteBufferWriter
 block|{
-comment|/**    * Writes<code>len</code> bytes from the specified ByteBuffer starting at offset<code>off</code>    * to this output stream.    *    * @param b the data.    * @param off the start offset in the data.    * @param len the number of bytes to write.    * @exception IOException    *              if an I/O error occurs. In particular, an<code>IOException</code> is thrown if    *              the output stream is closed.    */
+comment|/**    * Writes<code>len</code> bytes from the specified ByteBuffer starting at offset<code>off</code>    *    * @param b the data.    * @param off the start offset in the data.    * @param len the number of bytes to write.    * @exception IOException if an I/O error occurs.    */
 name|void
 name|write
 parameter_list|(
@@ -82,7 +82,11 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Writes an<code>int</code> to the underlying output stream as four    * bytes, high byte first.    * @param i the<code>int</code> to write    * @throws IOException if an I/O error occurs.    */
+comment|/**    * Writes an<code>int</code> to the underlying output stream as four bytes, high byte first.    * @param i the<code>int</code> to write    * @throws IOException if an I/O error occurs.    */
+comment|// This is pure performance oriented API been added here. It has nothing to do with
+comment|// ByteBuffer and so not fully belong to here. This allows an int to be written at one go instead
+comment|// of 4 (4 bytes one by one).
+comment|// TODO remove it from here?
 name|void
 name|writeInt
 parameter_list|(

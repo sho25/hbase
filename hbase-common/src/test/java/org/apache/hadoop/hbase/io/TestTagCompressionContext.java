@@ -622,7 +622,7 @@ name|DataOutputStream
 name|daos
 init|=
 operator|new
-name|ByteBufferSupportDataOutputStream
+name|ByteBufferWriterDataOutputStream
 argument_list|(
 name|baos
 argument_list|)
@@ -1076,7 +1076,7 @@ name|DataOutputStream
 name|daos
 init|=
 operator|new
-name|ByteBufferSupportDataOutputStream
+name|ByteBufferWriterDataOutputStream
 argument_list|(
 name|baos
 argument_list|)

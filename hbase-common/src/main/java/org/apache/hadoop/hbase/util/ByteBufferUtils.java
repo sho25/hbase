@@ -161,7 +161,7 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|ByteBufferSupportOutputStream
+name|ByteBufferWriter
 import|;
 end_import
 
@@ -679,12 +679,12 @@ if|if
 condition|(
 name|out
 operator|instanceof
-name|ByteBufferSupportOutputStream
+name|ByteBufferWriter
 condition|)
 block|{
 operator|(
 operator|(
-name|ByteBufferSupportOutputStream
+name|ByteBufferWriter
 operator|)
 name|out
 operator|)
@@ -813,12 +813,12 @@ if|if
 condition|(
 name|out
 operator|instanceof
-name|ByteBufferSupportOutputStream
+name|ByteBufferWriter
 condition|)
 block|{
 operator|(
 operator|(
-name|ByteBufferSupportOutputStream
+name|ByteBufferWriter
 operator|)
 name|out
 operator|)

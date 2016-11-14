@@ -90,7 +90,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Our extension of DataOutputStream which implements ByteBufferSupportOutputStream  */
+comment|/**  * Our extension of DataOutputStream which implements ByteBufferWriter  */
 end_comment
 
 begin_class
@@ -100,14 +100,14 @@ operator|.
 name|Private
 specifier|public
 class|class
-name|ByteBufferSupportDataOutputStream
+name|ByteBufferWriterDataOutputStream
 extends|extends
 name|DataOutputStream
 implements|implements
-name|ByteBufferSupportOutputStream
+name|ByteBufferWriter
 block|{
 specifier|public
-name|ByteBufferSupportDataOutputStream
+name|ByteBufferWriterDataOutputStream
 parameter_list|(
 name|OutputStream
 name|out

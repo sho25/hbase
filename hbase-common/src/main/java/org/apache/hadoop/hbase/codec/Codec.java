@@ -39,16 +39,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|nio
-operator|.
-name|ByteBuffer
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -107,6 +97,22 @@ name|CellOutputStream
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|nio
+operator|.
+name|ByteBuff
+import|;
+end_import
+
 begin_comment
 comment|/**  * Encoder/Decoder for Cell.  *  *<p>Like {@link org.apache.hadoop.hbase.io.encoding.DataBlockEncoder}   * only Cell-based rather than KeyValue version 1 based  * and without presuming an hfile context.  Intent is an Interface that will work for hfile and  * rpc.  */
 end_comment
@@ -155,7 +161,7 @@ function_decl|;
 name|Decoder
 name|getDecoder
 parameter_list|(
-name|ByteBuffer
+name|ByteBuff
 name|buf
 parameter_list|)
 function_decl|;

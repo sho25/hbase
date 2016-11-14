@@ -529,6 +529,7 @@ name|buf
 argument_list|)
 expr_stmt|;
 block|}
+specifier|public
 name|int
 name|getBufferSize
 parameter_list|()
@@ -542,6 +543,7 @@ block|}
 comment|/**    * @return Number of free buffers    */
 annotation|@
 name|VisibleForTesting
+specifier|public
 name|int
 name|getQueueSize
 parameter_list|()

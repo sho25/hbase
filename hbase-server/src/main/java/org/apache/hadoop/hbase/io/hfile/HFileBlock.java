@@ -281,7 +281,7 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|ByteBufferSupportDataOutputStream
+name|ByteBufferWriterDataOutputStream
 import|;
 end_import
 
@@ -3532,7 +3532,7 @@ comment|// We will compress it later in finishBlock()
 name|userDataStream
 operator|=
 operator|new
-name|ByteBufferSupportDataOutputStream
+name|ByteBufferWriterDataOutputStream
 argument_list|(
 name|baosInMemory
 argument_list|)
