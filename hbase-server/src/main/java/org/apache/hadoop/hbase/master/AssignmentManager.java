@@ -13347,6 +13347,8 @@ operator|+
 name|rs_b
 return|;
 block|}
+comment|// Always bring the children back online. Even if they are not offline
+comment|// there's no harm in making them online again.
 name|regionOnline
 argument_list|(
 name|a
@@ -13361,11 +13363,30 @@ argument_list|,
 name|serverName
 argument_list|)
 expr_stmt|;
+comment|// Only offline the merging region if it is known to exist.
+name|RegionState
+name|rs_p
+init|=
+name|regionStates
+operator|.
+name|getRegionState
+argument_list|(
+name|hri
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|rs_p
+operator|!=
+literal|null
+condition|)
+block|{
 name|regionOffline
 argument_list|(
 name|hri
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|getTableStateManager
