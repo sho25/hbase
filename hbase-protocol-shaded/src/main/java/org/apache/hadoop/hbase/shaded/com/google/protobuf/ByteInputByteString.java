@@ -1201,7 +1201,9 @@ parameter_list|()
 block|{
 comment|// We trust CodedInputStream not to modify the bytes, or to give anyone
 comment|// else access to them.
-return|return
+name|CodedInputStream
+name|cis
+init|=
 name|CodedInputStream
 operator|.
 name|newInstance
@@ -1214,6 +1216,16 @@ name|length
 argument_list|,
 literal|true
 argument_list|)
+decl_stmt|;
+name|cis
+operator|.
+name|enableAliasing
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+return|return
+name|cis
 return|;
 block|}
 block|}
