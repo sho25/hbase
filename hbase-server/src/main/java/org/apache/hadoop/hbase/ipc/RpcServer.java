@@ -907,22 +907,6 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|ByteBufferInputStream
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
 name|ByteBufferListOutputStream
 import|;
 end_import
@@ -12649,13 +12633,9 @@ literal|true
 argument_list|)
 condition|)
 block|{
-name|this
-operator|.
-name|reservoir
-operator|=
-operator|new
-name|ByteBufferPool
-argument_list|(
+name|int
+name|poolBufSize
+init|=
 name|conf
 operator|.
 name|getInt
@@ -12668,7 +12648,36 @@ name|ByteBufferPool
 operator|.
 name|DEFAULT_BUFFER_SIZE
 argument_list|)
-argument_list|,
+decl_stmt|;
+comment|// The max number of buffers to be pooled in the ByteBufferPool. The default value been
+comment|// selected based on the #handlers configured. When it is read request, 2 MB is the max size
+comment|// at which we will send back one RPC request. Means max we need 2 MB for creating the
+comment|// response cell block. (Well it might be much lesser than this because in 2 MB size calc, we
+comment|// include the heap size overhead of each cells also.) Considering 2 MB, we will need
+comment|// (2 * 1024 * 1024) / poolBufSize buffers to make the response cell block. Pool buffer size
+comment|// is by default 64 KB.
+comment|// In case of read request, at the end of the handler process, we will make the response
+comment|// cellblock and add the Call to connection's response Q and a single Responder thread takes
+comment|// connections and responses from that one by one and do the socket write. So there is chances
+comment|// that by the time a handler originated response is actually done writing to socket and so
+comment|// released the BBs it used, the handler might have processed one more read req. On an avg 2x
+comment|// we consider and consider that also for the max buffers to pool
+name|int
+name|bufsForTwoMB
+init|=
+operator|(
+literal|2
+operator|*
+literal|1024
+operator|*
+literal|1024
+operator|)
+operator|/
+name|poolBufSize
+decl_stmt|;
+name|int
+name|maxPoolSize
+init|=
 name|conf
 operator|.
 name|getInt
@@ -12690,8 +12699,21 @@ operator|.
 name|DEFAULT_REGION_SERVER_HANDLER_COUNT
 argument_list|)
 operator|*
+name|bufsForTwoMB
+operator|*
 literal|2
 argument_list|)
+decl_stmt|;
+name|this
+operator|.
+name|reservoir
+operator|=
+operator|new
+name|ByteBufferPool
+argument_list|(
+name|poolBufSize
+argument_list|,
+name|maxPoolSize
 argument_list|)
 expr_stmt|;
 name|this
