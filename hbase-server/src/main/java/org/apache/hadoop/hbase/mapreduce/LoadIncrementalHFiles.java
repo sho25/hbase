@@ -1256,6 +1256,17 @@ specifier|private
 name|RpcControllerFactory
 name|rpcControllerFactory
 decl_stmt|;
+specifier|private
+name|Map
+argument_list|<
+name|LoadQueueItem
+argument_list|,
+name|ByteBuffer
+argument_list|>
+name|retValue
+init|=
+literal|null
+decl_stmt|;
 specifier|public
 name|LoadIncrementalHFiles
 parameter_list|(
@@ -2327,14 +2338,9 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Perform a bulk load of the given directory into the given    * pre-existing table.  This method is not threadsafe.    *    * @param map map of family to List of hfiles    * @param admin the Admin    * @param table the table to load into    * @param regionLocator region locator    * @param silence true to ignore unmatched column families    * @param copyFile always copy hfiles if true    * @return Map of LoadQueueItem to region    * @throws TableNotFoundException if table does not yet exist    */
+comment|/**    * Perform a bulk load of the given directory into the given    * pre-existing table.  This method is not threadsafe.    *    * @param map map of family to List of hfiles    * @param admin the Admin    * @param table the table to load into    * @param regionLocator region locator    * @param silence true to ignore unmatched column families    * @param copyFile always copy hfiles if true    * @throws TableNotFoundException if table does not yet exist    */
 specifier|public
-name|Map
-argument_list|<
-name|LoadQueueItem
-argument_list|,
-name|ByteBuffer
-argument_list|>
+name|void
 name|doBulkLoad
 parameter_list|(
 name|Map
@@ -2450,9 +2456,7 @@ argument_list|(
 literal|"Bulk load operation did not get any files to load"
 argument_list|)
 expr_stmt|;
-return|return
-literal|null
-return|;
+return|return;
 block|}
 name|pool
 operator|=
@@ -2520,7 +2524,8 @@ expr_stmt|;
 break|break;
 block|}
 block|}
-return|return
+name|retValue
+operator|=
 name|performBulkLoad
 argument_list|(
 name|admin
@@ -2537,7 +2542,7 @@ name|secureClient
 argument_list|,
 name|copyFile
 argument_list|)
-return|;
+expr_stmt|;
 block|}
 finally|finally
 block|{
@@ -2736,6 +2741,8 @@ argument_list|,
 name|table
 argument_list|)
 expr_stmt|;
+name|retValue
+operator|=
 name|performBulkLoad
 argument_list|(
 name|admin
@@ -7240,13 +7247,9 @@ argument_list|,
 name|copyFiles
 argument_list|)
 expr_stmt|;
-return|return
-literal|null
-return|;
 block|}
 else|else
 block|{
-return|return
 name|doBulkLoad
 argument_list|(
 name|map
@@ -7261,8 +7264,11 @@ name|silence
 argument_list|,
 name|copyFiles
 argument_list|)
-return|;
+expr_stmt|;
 block|}
+return|return
+name|retValue
+return|;
 block|}
 block|}
 block|}
