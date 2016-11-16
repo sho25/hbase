@@ -7040,13 +7040,6 @@ operator|+
 literal|"    --copy-to hdfs://srv1:50070/hbase"
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|exit
-argument_list|(
-literal|1
-argument_list|)
-expr_stmt|;
 block|}
 annotation|@
 name|Override
