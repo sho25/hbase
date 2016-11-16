@@ -1329,14 +1329,14 @@ name|Exception
 block|{
 name|testRpcScheduler
 argument_list|(
-name|SimpleRpcScheduler
+name|RpcExecutor
 operator|.
 name|CALL_QUEUE_TYPE_DEADLINE_CONF_VALUE
 argument_list|)
 expr_stmt|;
 name|testRpcScheduler
 argument_list|(
-name|SimpleRpcScheduler
+name|RpcExecutor
 operator|.
 name|CALL_QUEUE_TYPE_FIFO_CONF_VALUE
 argument_list|)
@@ -1365,7 +1365,7 @@ name|schedConf
 operator|.
 name|set
 argument_list|(
-name|SimpleRpcScheduler
+name|RpcExecutor
 operator|.
 name|CALL_QUEUE_TYPE_CONF_KEY
 argument_list|,
@@ -1918,7 +1918,7 @@ name|queueType
 operator|.
 name|equals
 argument_list|(
-name|SimpleRpcScheduler
+name|RpcExecutor
 operator|.
 name|CALL_QUEUE_TYPE_DEADLINE_CONF_VALUE
 argument_list|)
@@ -1939,7 +1939,7 @@ name|queueType
 operator|.
 name|equals
 argument_list|(
-name|SimpleRpcScheduler
+name|RpcExecutor
 operator|.
 name|CALL_QUEUE_TYPE_FIFO_CONF_VALUE
 argument_list|)
@@ -1984,7 +1984,7 @@ name|schedConf
 operator|.
 name|setFloat
 argument_list|(
-name|SimpleRpcScheduler
+name|RpcExecutor
 operator|.
 name|CALL_QUEUE_HANDLER_FACTOR_CONF_KEY
 argument_list|,
@@ -1995,7 +1995,7 @@ name|schedConf
 operator|.
 name|setFloat
 argument_list|(
-name|SimpleRpcScheduler
+name|RWQueueRpcExecutor
 operator|.
 name|CALL_QUEUE_READ_SHARE_CONF_KEY
 argument_list|,
@@ -2006,7 +2006,7 @@ name|schedConf
 operator|.
 name|setFloat
 argument_list|(
-name|SimpleRpcScheduler
+name|RWQueueRpcExecutor
 operator|.
 name|CALL_QUEUE_SCAN_SHARE_CONF_KEY
 argument_list|,
@@ -2109,7 +2109,7 @@ name|schedConf
 operator|.
 name|setFloat
 argument_list|(
-name|SimpleRpcScheduler
+name|RpcExecutor
 operator|.
 name|CALL_QUEUE_HANDLER_FACTOR_CONF_KEY
 argument_list|,
@@ -2120,7 +2120,7 @@ name|schedConf
 operator|.
 name|setFloat
 argument_list|(
-name|SimpleRpcScheduler
+name|RWQueueRpcExecutor
 operator|.
 name|CALL_QUEUE_READ_SHARE_CONF_KEY
 argument_list|,
@@ -2131,7 +2131,7 @@ name|schedConf
 operator|.
 name|setFloat
 argument_list|(
-name|SimpleRpcScheduler
+name|RWQueueRpcExecutor
 operator|.
 name|CALL_QUEUE_SCAN_SHARE_CONF_KEY
 argument_list|,
@@ -3239,11 +3239,11 @@ name|schedConf
 operator|.
 name|set
 argument_list|(
-name|SimpleRpcScheduler
+name|RpcExecutor
 operator|.
 name|CALL_QUEUE_TYPE_CONF_KEY
 argument_list|,
-name|SimpleRpcScheduler
+name|RpcExecutor
 operator|.
 name|CALL_QUEUE_TYPE_CODEL_CONF_VALUE
 argument_list|)
