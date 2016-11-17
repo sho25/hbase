@@ -144,16 +144,6 @@ name|Random
 argument_list|()
 decl_stmt|;
 specifier|private
-specifier|static
-specifier|final
-name|double
-name|EPSILON
-init|=
-literal|1E
-operator|-
-literal|6
-decl_stmt|;
-specifier|private
 name|long
 name|desiredMaxFileSize
 decl_stmt|;
@@ -286,7 +276,7 @@ name|this
 operator|.
 name|jitterRate
 operator|>
-name|EPSILON
+literal|0
 operator|&&
 name|jitterValue
 operator|>
@@ -411,7 +401,7 @@ name|this
 operator|.
 name|jitterRate
 operator|>
-name|EPSILON
+literal|0
 return|;
 block|}
 block|}
