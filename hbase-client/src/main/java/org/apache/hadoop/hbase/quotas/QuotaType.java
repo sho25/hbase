@@ -49,6 +49,8 @@ block|{
 name|THROTTLE
 block|,
 name|GLOBAL_BYPASS
+block|,
+name|SPACE
 block|, }
 end_enum
 
