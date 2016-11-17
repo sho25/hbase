@@ -83,6 +83,34 @@ name|org
 operator|.
 name|apache
 operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|Log
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|LogFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -158,6 +186,21 @@ name|KeyValueScanner
 implements|,
 name|InternalScanner
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|Log
+name|LOG
+init|=
+name|LogFactory
+operator|.
+name|getLog
+argument_list|(
+name|KeyValueHeap
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 specifier|protected
 name|PriorityQueue
 argument_list|<
@@ -1025,6 +1068,8 @@ name|scanner
 init|=
 name|current
 decl_stmt|;
+try|try
+block|{
 while|while
 condition|(
 name|scanner
@@ -1062,13 +1107,18 @@ comment|// scanners are at or after seekKey (because fake keys of
 comment|// scanners where a lazy-seek operation has been done are not greater
 comment|// than their real next keys) but we still need to enforce our
 comment|// invariant that the top scanner has done a real seek. This way
-comment|// StoreScanner and RegionScanner do not have to worry about fake keys.
+comment|// StoreScanner and RegionScanner do not have to worry about fake
+comment|// keys.
 name|heap
 operator|.
 name|add
 argument_list|(
 name|scanner
 argument_list|)
+expr_stmt|;
+name|scanner
+operator|=
+literal|null
 expr_stmt|;
 name|current
 operator|=
@@ -1172,6 +1222,49 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+if|if
+condition|(
+name|scanner
+operator|!=
+literal|null
+condition|)
+block|{
+try|try
+block|{
+name|scanner
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|ce
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"close KeyValueScanner error"
+argument_list|,
+name|ce
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+throw|throw
+name|e
+throw|;
 block|}
 comment|// Heap is returning empty, scanner is done
 return|return
