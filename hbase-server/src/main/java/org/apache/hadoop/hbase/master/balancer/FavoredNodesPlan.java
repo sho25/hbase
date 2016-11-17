@@ -57,34 +57,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|Log
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|LogFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -124,7 +96,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This class contains the mapping information between each region and  * its favored region server list. Used by {@link FavoredNodeLoadBalancer} set  * of classes and from unit tests (hence the class is public)  *  * All the access to this class is thread-safe.  */
+comment|/**  * This class contains the mapping information between each region name and  * its favored region server list. Used by {@link FavoredNodeLoadBalancer} set  * of classes and from unit tests (hence the class is public)  *  * All the access to this class is thread-safe.  */
 end_comment
 
 begin_class
@@ -136,29 +108,11 @@ specifier|public
 class|class
 name|FavoredNodesPlan
 block|{
-specifier|private
-specifier|static
-specifier|final
-name|Log
-name|LOG
-init|=
-name|LogFactory
-operator|.
-name|getLog
-argument_list|(
-name|FavoredNodesPlan
-operator|.
-name|class
-operator|.
-name|getName
-argument_list|()
-argument_list|)
-decl_stmt|;
-comment|/** the map between each region and its favored region server list */
+comment|/** the map between each region name and its favored region server list */
 specifier|private
 name|Map
 argument_list|<
-name|HRegionInfo
+name|String
 argument_list|,
 name|List
 argument_list|<
@@ -177,8 +131,7 @@ block|,
 name|SECONDARY
 block|,
 name|TERTIARY
-block|;   }
-empty_stmt|;
+block|}
 specifier|public
 name|FavoredNodesPlan
 parameter_list|()
@@ -188,7 +141,7 @@ operator|=
 operator|new
 name|ConcurrentHashMap
 argument_list|<
-name|HRegionInfo
+name|String
 argument_list|,
 name|List
 argument_list|<
@@ -198,9 +151,8 @@ argument_list|>
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Add an assignment to the plan    * @param region    * @param servers    */
+comment|/**    * Update an assignment to the plan    * @param region    * @param servers    */
 specifier|public
-specifier|synchronized
 name|void
 name|updateFavoredNodesMap
 parameter_list|(
@@ -231,7 +183,9 @@ argument_list|()
 operator|==
 literal|0
 condition|)
+block|{
 return|return;
+block|}
 name|this
 operator|.
 name|favoredNodesMap
@@ -239,6 +193,9 @@ operator|.
 name|put
 argument_list|(
 name|region
+operator|.
+name|getRegionNameAsString
+argument_list|()
 argument_list|,
 name|servers
 argument_list|)
@@ -246,7 +203,6 @@ expr_stmt|;
 block|}
 comment|/**    * @param region    * @return the list of favored region server for this region based on the plan    */
 specifier|public
-specifier|synchronized
 name|List
 argument_list|<
 name|ServerName
@@ -263,6 +219,9 @@ operator|.
 name|get
 argument_list|(
 name|region
+operator|.
+name|getRegionNameAsString
+argument_list|()
 argument_list|)
 return|;
 block|}
@@ -348,10 +307,9 @@ return|;
 block|}
 comment|/**    * @return the mapping between each region to its favored region server list    */
 specifier|public
-specifier|synchronized
 name|Map
 argument_list|<
-name|HRegionInfo
+name|String
 argument_list|,
 name|List
 argument_list|<
@@ -362,77 +320,8 @@ name|getAssignmentMap
 parameter_list|()
 block|{
 return|return
-name|this
-operator|.
 name|favoredNodesMap
 return|;
-block|}
-comment|/**    * Add an assignment to the plan    * @param region    * @param servers    */
-specifier|public
-specifier|synchronized
-name|void
-name|updateAssignmentPlan
-parameter_list|(
-name|HRegionInfo
-name|region
-parameter_list|,
-name|List
-argument_list|<
-name|ServerName
-argument_list|>
-name|servers
-parameter_list|)
-block|{
-if|if
-condition|(
-name|region
-operator|==
-literal|null
-operator|||
-name|servers
-operator|==
-literal|null
-operator|||
-name|servers
-operator|.
-name|size
-argument_list|()
-operator|==
-literal|0
-condition|)
-return|return;
-name|this
-operator|.
-name|favoredNodesMap
-operator|.
-name|put
-argument_list|(
-name|region
-argument_list|,
-name|servers
-argument_list|)
-expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Update the assignment plan for region "
-operator|+
-name|region
-operator|.
-name|getRegionNameAsString
-argument_list|()
-operator|+
-literal|" ; favored nodes "
-operator|+
-name|FavoredNodeAssignmentHelper
-operator|.
-name|getFavoredNodesAsString
-argument_list|(
-name|servers
-argument_list|)
-argument_list|)
-expr_stmt|;
 block|}
 annotation|@
 name|Override
@@ -484,7 +373,7 @@ block|}
 comment|// To compare the map from objec o is identical to current assignment map.
 name|Map
 argument_list|<
-name|HRegionInfo
+name|String
 argument_list|,
 name|List
 argument_list|<
@@ -528,7 +417,7 @@ name|Map
 operator|.
 name|Entry
 argument_list|<
-name|HRegionInfo
+name|String
 argument_list|,
 name|List
 argument_list|<
