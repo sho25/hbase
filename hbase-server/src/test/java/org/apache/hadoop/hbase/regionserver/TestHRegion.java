@@ -47010,7 +47010,7 @@ operator|.
 name|getTimestamp
 argument_list|()
 argument_list|,
-literal|10L
+literal|11L
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -47206,7 +47206,7 @@ operator|.
 name|getTimestamp
 argument_list|()
 argument_list|,
-literal|10L
+literal|11L
 argument_list|)
 expr_stmt|;
 name|byte

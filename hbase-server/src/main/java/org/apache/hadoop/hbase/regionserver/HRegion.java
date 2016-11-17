@@ -36444,6 +36444,8 @@ name|currentValue
 operator|.
 name|getTimestamp
 argument_list|()
+operator|+
+literal|1
 argument_list|)
 expr_stmt|;
 name|newValue
@@ -36630,6 +36632,8 @@ name|currentValue
 operator|.
 name|getTimestamp
 argument_list|()
+operator|+
+literal|1
 argument_list|)
 expr_stmt|;
 name|tags
