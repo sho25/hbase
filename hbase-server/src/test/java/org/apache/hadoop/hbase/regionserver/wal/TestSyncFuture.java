@@ -32,18 +32,6 @@ import|;
 end_import
 
 begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|fail
-import|;
-end_import
-
-begin_import
 import|import
 name|org
 operator|.
@@ -136,9 +124,11 @@ block|{
 annotation|@
 name|Test
 argument_list|(
-name|timeout
+name|expected
 operator|=
-literal|60000
+name|TimeoutIOException
+operator|.
+name|class
 argument_list|)
 specifier|public
 name|void
@@ -162,6 +152,9 @@ name|syncFulture
 init|=
 operator|new
 name|SyncFuture
+argument_list|()
+operator|.
+name|reset
 argument_list|(
 name|txid
 argument_list|,
@@ -197,30 +190,12 @@ name|txid
 argument_list|,
 literal|null
 argument_list|)
-expr_stmt|;
-try|try
-block|{
-name|syncFulture
 operator|.
 name|get
 argument_list|(
 name|timeout
 argument_list|)
 expr_stmt|;
-name|fail
-argument_list|(
-literal|"Should have timed out but not"
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|TimeoutIOException
-name|e
-parameter_list|)
-block|{
-comment|// test passed
-block|}
 block|}
 block|}
 end_class
