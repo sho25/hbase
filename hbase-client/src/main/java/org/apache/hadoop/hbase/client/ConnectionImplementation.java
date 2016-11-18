@@ -1895,7 +1895,7 @@ operator|new
 name|Object
 argument_list|()
 decl_stmt|;
-comment|// thread executor shared by all HTableInterface instances created
+comment|// thread executor shared by all Table instances created
 comment|// by this connection
 specifier|private
 specifier|volatile
@@ -1904,7 +1904,7 @@ name|batchPool
 init|=
 literal|null
 decl_stmt|;
-comment|// meta thread executor shared by all HTableInterface instances created
+comment|// meta thread executor shared by all Table instances created
 comment|// by this connection
 specifier|private
 specifier|volatile
