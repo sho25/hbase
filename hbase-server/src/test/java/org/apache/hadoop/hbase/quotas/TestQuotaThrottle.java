@@ -782,7 +782,7 @@ name|getRegionServerThreads
 argument_list|()
 control|)
 block|{
-name|RegionServerQuotaManager
+name|RegionServerRpcQuotaManager
 name|quotaManager
 init|=
 name|rst
@@ -790,7 +790,7 @@ operator|.
 name|getRegionServer
 argument_list|()
 operator|.
-name|getRegionServerQuotaManager
+name|getRegionServerRpcQuotaManager
 argument_list|()
 decl_stmt|;
 name|QuotaCache
@@ -3875,7 +3875,7 @@ name|getRegionServerThreads
 argument_list|()
 control|)
 block|{
-name|RegionServerQuotaManager
+name|RegionServerRpcQuotaManager
 name|quotaManager
 init|=
 name|rst
@@ -3883,7 +3883,7 @@ operator|.
 name|getRegionServer
 argument_list|()
 operator|.
-name|getRegionServerQuotaManager
+name|getRegionServerRpcQuotaManager
 argument_list|()
 decl_stmt|;
 name|QuotaCache

@@ -1045,7 +1045,7 @@ name|hbase
 operator|.
 name|quotas
 operator|.
-name|RegionServerQuotaManager
+name|RegionServerRpcQuotaManager
 import|;
 end_import
 
@@ -3176,6 +3176,22 @@ operator|.
 name|WALProtos
 operator|.
 name|RegionEventDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|quotas
+operator|.
+name|RegionServerRpcQuotaManager
 import|;
 end_import
 
@@ -8855,14 +8871,14 @@ argument_list|()
 return|;
 block|}
 specifier|private
-name|RegionServerQuotaManager
+name|RegionServerRpcQuotaManager
 name|getQuotaManager
 parameter_list|()
 block|{
 return|return
 name|regionServer
 operator|.
-name|getRegionServerQuotaManager
+name|getRegionServerRpcQuotaManager
 argument_list|()
 return|;
 block|}

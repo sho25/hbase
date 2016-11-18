@@ -254,7 +254,7 @@ operator|.
 name|Evolving
 specifier|public
 class|class
-name|RegionServerQuotaManager
+name|RegionServerRpcQuotaManager
 block|{
 specifier|private
 specifier|static
@@ -266,7 +266,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|RegionServerQuotaManager
+name|RegionServerRpcQuotaManager
 operator|.
 name|class
 argument_list|)
@@ -283,7 +283,7 @@ init|=
 literal|null
 decl_stmt|;
 specifier|public
-name|RegionServerQuotaManager
+name|RegionServerRpcQuotaManager
 parameter_list|(
 specifier|final
 name|RegionServerServices
@@ -335,7 +335,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Initializing quota support"
+literal|"Initializing RPC quota support"
 argument_list|)
 expr_stmt|;
 comment|// Initialize quota cache

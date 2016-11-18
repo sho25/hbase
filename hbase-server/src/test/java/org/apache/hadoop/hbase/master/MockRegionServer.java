@@ -1629,7 +1629,23 @@ name|hbase
 operator|.
 name|quotas
 operator|.
-name|RegionServerQuotaManager
+name|RegionServerRpcQuotaManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|quotas
+operator|.
+name|RegionServerSpaceQuotaManager
 import|;
 end_import
 
@@ -2684,8 +2700,8 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|RegionServerQuotaManager
-name|getRegionServerQuotaManager
+name|RegionServerRpcQuotaManager
+name|getRegionServerRpcQuotaManager
 parameter_list|()
 block|{
 return|return
@@ -4031,6 +4047,17 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{   }
+annotation|@
+name|Override
+specifier|public
+name|RegionServerSpaceQuotaManager
+name|getRegionServerSpaceQuotaManager
+parameter_list|()
+block|{
+return|return
+literal|null
+return|;
+block|}
 block|}
 end_class
 

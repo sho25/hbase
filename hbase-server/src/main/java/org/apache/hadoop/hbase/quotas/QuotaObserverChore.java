@@ -1808,6 +1808,8 @@ parameter_list|,
 name|SpaceViolationPolicy
 name|violationPolicy
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|this
 operator|.
@@ -1829,6 +1831,8 @@ parameter_list|(
 name|TableName
 name|table
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|this
 operator|.

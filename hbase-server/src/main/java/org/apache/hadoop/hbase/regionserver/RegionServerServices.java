@@ -257,7 +257,23 @@ name|hbase
 operator|.
 name|quotas
 operator|.
-name|RegionServerQuotaManager
+name|RegionServerRpcQuotaManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|quotas
+operator|.
+name|RegionServerSpaceQuotaManager
 import|;
 end_import
 
@@ -385,14 +401,19 @@ name|RegionServerAccounting
 name|getRegionServerAccounting
 parameter_list|()
 function_decl|;
-comment|/**    * @return RegionServer's instance of {@link RegionServerQuotaManager}    */
-name|RegionServerQuotaManager
-name|getRegionServerQuotaManager
+comment|/**    * @return RegionServer's instance of {@link RegionServerRpcQuotaManager}    */
+name|RegionServerRpcQuotaManager
+name|getRegionServerRpcQuotaManager
 parameter_list|()
 function_decl|;
 comment|/**    * @return RegionServer's instance of {@link SecureBulkLoadManager}    */
 name|SecureBulkLoadManager
 name|getSecureBulkLoadManager
+parameter_list|()
+function_decl|;
+comment|/**    * @return RegionServer's instance of {@link RegionServerSpaceQuotaManager}    */
+name|RegionServerSpaceQuotaManager
+name|getRegionServerSpaceQuotaManager
 parameter_list|()
 function_decl|;
 comment|/**    * Context for postOpenDeployTasks().    */

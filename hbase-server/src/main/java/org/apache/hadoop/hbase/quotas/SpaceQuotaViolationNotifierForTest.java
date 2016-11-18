@@ -67,6 +67,22 @@ name|InterfaceAudience
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|Connection
+import|;
+end_import
+
 begin_comment
 comment|/**  * A SpaceQuotaViolationNotifier implementation for verifying testing.  */
 end_comment
@@ -97,6 +113,16 @@ name|HashMap
 argument_list|<>
 argument_list|()
 decl_stmt|;
+annotation|@
+name|Override
+specifier|public
+name|void
+name|initialize
+parameter_list|(
+name|Connection
+name|conn
+parameter_list|)
+block|{}
 annotation|@
 name|Override
 specifier|public
