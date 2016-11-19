@@ -570,22 +570,6 @@ name|ROW_OFFSET
 operator|+
 name|TAGS_LENGTH_SIZE
 decl_stmt|;
-specifier|private
-specifier|static
-specifier|final
-name|int
-name|MAX_TAGS_LENGTH
-init|=
-operator|(
-literal|2
-operator|*
-name|Short
-operator|.
-name|MAX_VALUE
-operator|)
-operator|+
-literal|1
-decl_stmt|;
 comment|/**    * Computes the number of bytes that a<code>KeyValue</code> instance with the provided    * characteristics would take up for its underlying data structure.    *    * @param rlength row length    * @param flength family length    * @param qlength qualifier length    * @param vlength value length    *    * @return the<code>KeyValue</code> data structure length    */
 specifier|public
 specifier|static
@@ -2963,6 +2947,8 @@ name|MAX_VALUE
 argument_list|)
 throw|;
 block|}
+name|TagUtil
+operator|.
 name|checkForTagsLength
 argument_list|(
 name|tagsLength
@@ -3203,7 +3189,6 @@ name|bytes
 return|;
 block|}
 comment|/**    * Checks the parameters passed to a constructor.    *    * @param row row key    * @param rlength row length    * @param family family name    * @param flength family length    * @param qlength qualifier length    * @param vlength value length    *    * @throws IllegalArgumentException an illegal value was passed    */
-specifier|private
 specifier|static
 name|void
 name|checkParameters
@@ -3525,6 +3510,8 @@ name|INFRASTRUCTURE_SIZE
 expr_stmt|;
 block|}
 block|}
+name|TagUtil
+operator|.
 name|checkForTagsLength
 argument_list|(
 name|tagsLength
@@ -3885,37 +3872,6 @@ return|return
 name|keyValueLength
 return|;
 block|}
-specifier|private
-specifier|static
-name|void
-name|checkForTagsLength
-parameter_list|(
-name|int
-name|tagsLength
-parameter_list|)
-block|{
-if|if
-condition|(
-name|tagsLength
-operator|>
-name|MAX_TAGS_LENGTH
-condition|)
-block|{
-throw|throw
-operator|new
-name|IllegalArgumentException
-argument_list|(
-literal|"tagslength "
-operator|+
-name|tagsLength
-operator|+
-literal|"> "
-operator|+
-name|MAX_TAGS_LENGTH
-argument_list|)
-throw|;
-block|}
-block|}
 comment|/**    * Write KeyValue format into a byte array.    * @param row row key    * @param roffset row offset    * @param rlength row length    * @param family family name    * @param foffset family offset    * @param flength family length    * @param qualifier column qualifier    * @param qoffset qualifier offset    * @param qlength qualifier length    * @param timestamp version timestamp    * @param type key type    * @param value column value    * @param voffset value offset    * @param vlength value length    * @return The newly created byte array.    */
 specifier|private
 specifier|static
@@ -4006,6 +3962,8 @@ argument_list|,
 name|vlength
 argument_list|)
 expr_stmt|;
+name|TagUtil
+operator|.
 name|checkForTagsLength
 argument_list|(
 name|tagsLength
@@ -4417,6 +4375,8 @@ name|INFRASTRUCTURE_SIZE
 expr_stmt|;
 block|}
 block|}
+name|TagUtil
+operator|.
 name|checkForTagsLength
 argument_list|(
 name|tagsLength

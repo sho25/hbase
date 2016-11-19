@@ -173,6 +173,23 @@ specifier|final
 class|class
 name|TagUtil
 block|{
+comment|// If you would like to check the length of tags, please call {@link TagUtil#checkForTagsLength()}.
+specifier|private
+specifier|static
+specifier|final
+name|int
+name|MAX_TAGS_LENGTH
+init|=
+operator|(
+literal|2
+operator|*
+name|Short
+operator|.
+name|MAX_VALUE
+operator|)
+operator|+
+literal|1
+decl_stmt|;
 comment|/**    * Private constructor to keep this class from being instantiated.    */
 specifier|private
 name|TagUtil
@@ -1390,6 +1407,38 @@ throw|;
 block|}
 block|}
 decl_stmt|;
+comment|/**    * Check the length of tags. If it is invalid, throw IllegalArgumentException    *    * @param tagsLength    * @throws IllegalArgumentException if tagslength is invalid    */
+specifier|public
+specifier|static
+name|void
+name|checkForTagsLength
+parameter_list|(
+name|int
+name|tagsLength
+parameter_list|)
+block|{
+if|if
+condition|(
+name|tagsLength
+operator|>
+name|MAX_TAGS_LENGTH
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"tagslength "
+operator|+
+name|tagsLength
+operator|+
+literal|"> "
+operator|+
+name|MAX_TAGS_LENGTH
+argument_list|)
+throw|;
+block|}
+block|}
 block|}
 end_class
 
