@@ -3827,7 +3827,7 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|IOException
+name|DoNotRetryIOException
 argument_list|(
 name|toString
 argument_list|()
