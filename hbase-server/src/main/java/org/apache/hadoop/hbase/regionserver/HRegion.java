@@ -16461,6 +16461,55 @@ name|memstoreSize
 argument_list|)
 expr_stmt|;
 block|}
+comment|// calling the post CP hook for batch mutation
+if|if
+condition|(
+operator|!
+name|replay
+operator|&&
+name|coprocessorHost
+operator|!=
+literal|null
+condition|)
+block|{
+name|MiniBatchOperationInProgress
+argument_list|<
+name|Mutation
+argument_list|>
+name|miniBatchOp
+init|=
+operator|new
+name|MiniBatchOperationInProgress
+argument_list|<
+name|Mutation
+argument_list|>
+argument_list|(
+name|batchOp
+operator|.
+name|getMutationsForCoprocs
+argument_list|()
+argument_list|,
+name|batchOp
+operator|.
+name|retCodeDetails
+argument_list|,
+name|batchOp
+operator|.
+name|walEditsFromCoprocessors
+argument_list|,
+name|firstIndex
+argument_list|,
+name|lastIndexExclusive
+argument_list|)
+decl_stmt|;
+name|coprocessorHost
+operator|.
+name|postBatchMutate
+argument_list|(
+name|miniBatchOp
+argument_list|)
+expr_stmt|;
+block|}
 comment|// STEP 6. Complete mvcc.
 if|if
 condition|(
@@ -16521,55 +16570,6 @@ argument_list|(
 name|acquiredRowLocks
 argument_list|)
 expr_stmt|;
-comment|// calling the post CP hook for batch mutation
-if|if
-condition|(
-operator|!
-name|replay
-operator|&&
-name|coprocessorHost
-operator|!=
-literal|null
-condition|)
-block|{
-name|MiniBatchOperationInProgress
-argument_list|<
-name|Mutation
-argument_list|>
-name|miniBatchOp
-init|=
-operator|new
-name|MiniBatchOperationInProgress
-argument_list|<
-name|Mutation
-argument_list|>
-argument_list|(
-name|batchOp
-operator|.
-name|getMutationsForCoprocs
-argument_list|()
-argument_list|,
-name|batchOp
-operator|.
-name|retCodeDetails
-argument_list|,
-name|batchOp
-operator|.
-name|walEditsFromCoprocessors
-argument_list|,
-name|firstIndex
-argument_list|,
-name|lastIndexExclusive
-argument_list|)
-decl_stmt|;
-name|coprocessorHost
-operator|.
-name|postBatchMutate
-argument_list|(
-name|miniBatchOp
-argument_list|)
-expr_stmt|;
-block|}
 for|for
 control|(
 name|int
@@ -34278,7 +34278,15 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|// STEP 8. Complete mvcc.
+comment|// STEP 8. call postBatchMutate hook
+name|processor
+operator|.
+name|postBatchMutate
+argument_list|(
+name|this
+argument_list|)
+expr_stmt|;
+comment|// STEP 9. Complete mvcc.
 name|mvcc
 operator|.
 name|completeAndWait
@@ -34290,7 +34298,7 @@ name|writeEntry
 operator|=
 literal|null
 expr_stmt|;
-comment|// STEP 9. Release region lock
+comment|// STEP 10. Release region lock
 if|if
 condition|(
 name|locked
@@ -34311,18 +34319,10 @@ operator|=
 literal|false
 expr_stmt|;
 block|}
-comment|// STEP 10. Release row lock(s)
+comment|// STEP 11. Release row lock(s)
 name|releaseRowLocks
 argument_list|(
 name|acquiredRowLocks
-argument_list|)
-expr_stmt|;
-comment|// STEP 11. call postBatchMutate hook
-name|processor
-operator|.
-name|postBatchMutate
-argument_list|(
-name|this
 argument_list|)
 expr_stmt|;
 block|}

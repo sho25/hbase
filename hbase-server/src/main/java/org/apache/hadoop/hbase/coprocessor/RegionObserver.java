@@ -1649,7 +1649,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * This will be called after applying a batch of Mutations on a region. The Mutations are added to    * memstore and WAL.    *<p>    * Note: Do not retain references to any Cells in Mutations beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param miniBatchOp batch of Mutations applied to region.    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * This will be called after applying a batch of Mutations on a region. The Mutations are added to    * memstore and WAL. The difference of this one with {@link #postPut(ObserverContext, Put, WALEdit, Durability) }    * and {@link #postDelete(ObserverContext, Delete, WALEdit, Durability) } is    * this hook will be executed before the mvcc transaction completion.    *<p>    * Note: Do not retain references to any Cells in Mutations beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param miniBatchOp batch of Mutations applied to region.    * @throws IOException if an error occurred on the coprocessor    */
 name|void
 name|postBatchMutate
 parameter_list|(
