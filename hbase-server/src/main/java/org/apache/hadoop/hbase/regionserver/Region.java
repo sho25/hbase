@@ -65,6 +65,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|fs
+operator|.
+name|Path
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|hbase
 operator|.
 name|Cell
@@ -1233,8 +1247,17 @@ throws|throws
 name|IOException
 function_decl|;
 block|}
-comment|/**    * Attempts to atomically load a group of hfiles.  This is critical for loading    * rows with multiple column families atomically.    *    * @param familyPaths List of Pair&lt;byte[] column family, String hfilePath&gt;    * @param bulkLoadListener Internal hooks enabling massaging/preparation of a    * file about to be bulk loaded    * @param assignSeqId    * @return true if successful, false if failed recoverably    * @throws IOException if failed unrecoverably.    */
-name|boolean
+comment|/**    * Attempts to atomically load a group of hfiles.  This is critical for loading    * rows with multiple column families atomically.    *    * @param familyPaths List of Pair&lt;byte[] column family, String hfilePath&gt;    * @param bulkLoadListener Internal hooks enabling massaging/preparation of a    * file about to be bulk loaded    * @param assignSeqId    * @return Map from family to List of store file paths if successful, null if failed recoverably    * @throws IOException if failed unrecoverably.    */
+name|Map
+argument_list|<
+name|byte
+index|[]
+argument_list|,
+name|List
+argument_list|<
+name|Path
+argument_list|>
+argument_list|>
 name|bulkLoadHFiles
 parameter_list|(
 name|Collection
@@ -1258,8 +1281,17 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Attempts to atomically load a group of hfiles.  This is critical for loading    * rows with multiple column families atomically.    *    * @param familyPaths List of Pair&lt;byte[] column family, String hfilePath&gt;    * @param assignSeqId    * @param bulkLoadListener Internal hooks enabling massaging/preparation of a    * file about to be bulk loaded    * @param copyFile always copy hfiles if true    * @return true if successful, false if failed recoverably    * @throws IOException if failed unrecoverably.    */
-name|boolean
+comment|/**    * Attempts to atomically load a group of hfiles.  This is critical for loading    * rows with multiple column families atomically.    *    * @param familyPaths List of Pair&lt;byte[] column family, String hfilePath&gt;    * @param assignSeqId    * @param bulkLoadListener Internal hooks enabling massaging/preparation of a    * file about to be bulk loaded    * @param copyFile always copy hfiles if true    * @return Map from family to List of store file paths if successful, null if failed recoverably    * @throws IOException if failed unrecoverably.    */
+name|Map
+argument_list|<
+name|byte
+index|[]
+argument_list|,
+name|List
+argument_list|<
+name|Path
+argument_list|>
+argument_list|>
 name|bulkLoadHFiles
 parameter_list|(
 name|Collection

@@ -73,6 +73,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Optional
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|UUID
 import|;
 end_import
@@ -7238,7 +7248,7 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * @param familyPaths pairs of { CF, file path } submitted for bulk load    * @param hasLoaded whether load was successful or not    * @return the possibly modified value of hasLoaded    * @throws IOException    */
+comment|/**    * @param familyPaths pairs of { CF, file path } submitted for bulk load    * @param map Map of CF to List of file paths for the final loaded files    * @param hasLoaded whether load was successful or not    * @return the possibly modified value of hasLoaded    * @throws IOException    */
 specifier|public
 name|boolean
 name|postBulkLoadHFile
@@ -7255,6 +7265,18 @@ name|String
 argument_list|>
 argument_list|>
 name|familyPaths
+parameter_list|,
+name|Map
+argument_list|<
+name|byte
+index|[]
+argument_list|,
+name|List
+argument_list|<
+name|Path
+argument_list|>
+argument_list|>
+name|map
 parameter_list|,
 name|boolean
 name|hasLoaded
@@ -7308,6 +7330,8 @@ argument_list|(
 name|ctx
 argument_list|,
 name|familyPaths
+argument_list|,
+name|map
 argument_list|,
 name|getResult
 argument_list|()

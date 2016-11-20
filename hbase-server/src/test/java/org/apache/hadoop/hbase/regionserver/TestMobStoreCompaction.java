@@ -1383,8 +1383,17 @@ expr_stmt|;
 block|}
 comment|// The following will bulk load the above generated store files and compact, with 600(fileSize)
 comment|//> 300(threshold)
-name|boolean
-name|result
+name|Map
+argument_list|<
+name|byte
+index|[]
+argument_list|,
+name|List
+argument_list|<
+name|Path
+argument_list|>
+argument_list|>
+name|map
 init|=
 name|region
 operator|.
@@ -1401,7 +1410,11 @@ name|assertTrue
 argument_list|(
 literal|"Bulkload result:"
 argument_list|,
-name|result
+operator|!
+name|map
+operator|.
+name|isEmpty
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|assertEquals

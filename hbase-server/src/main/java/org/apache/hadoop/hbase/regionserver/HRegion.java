@@ -26643,7 +26643,16 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|boolean
+name|Map
+argument_list|<
+name|byte
+index|[]
+argument_list|,
+name|List
+argument_list|<
+name|Path
+argument_list|>
+argument_list|>
 name|bulkLoadHFiles
 parameter_list|(
 name|Collection
@@ -26683,7 +26692,16 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|boolean
+name|Map
+argument_list|<
+name|byte
+index|[]
+argument_list|,
+name|List
+argument_list|<
+name|Path
+argument_list|>
+argument_list|>
 name|bulkLoadHFiles
 parameter_list|(
 name|Collection
@@ -27072,7 +27090,7 @@ name|list
 argument_list|)
 expr_stmt|;
 return|return
-name|isSuccessful
+literal|null
 return|;
 block|}
 comment|// We need to assign a sequential ID that's in between two memstores in order to preserve
@@ -27590,6 +27608,10 @@ expr_stmt|;
 block|}
 return|return
 name|isSuccessful
+condition|?
+name|storeFiles
+else|:
+literal|null
 return|;
 block|}
 annotation|@
