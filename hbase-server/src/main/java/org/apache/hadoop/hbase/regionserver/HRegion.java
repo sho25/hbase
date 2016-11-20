@@ -33973,12 +33973,16 @@ return|return;
 block|}
 name|boolean
 name|locked
+init|=
+literal|false
 decl_stmt|;
 name|List
 argument_list|<
 name|RowLock
 argument_list|>
 name|acquiredRowLocks
+init|=
+literal|null
 decl_stmt|;
 name|List
 argument_list|<
@@ -34021,14 +34025,19 @@ argument_list|()
 decl_stmt|;
 try|try
 block|{
+name|boolean
+name|success
+init|=
+literal|false
+decl_stmt|;
+try|try
+block|{
 comment|// STEP 2. Acquire the row lock(s)
 name|acquiredRowLocks
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|RowLock
-argument_list|>
+argument_list|<>
 argument_list|(
 name|rowsToLock
 operator|.
@@ -34072,10 +34081,8 @@ argument_list|()
 argument_list|,
 name|acquiredRowLocks
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 condition|?
 literal|1
 else|:
@@ -34089,11 +34096,6 @@ name|locked
 operator|=
 literal|true
 expr_stmt|;
-name|boolean
-name|success
-init|=
-literal|false
-decl_stmt|;
 name|long
 name|now
 init|=
@@ -34102,8 +34104,6 @@ operator|.
 name|currentTime
 argument_list|()
 decl_stmt|;
-try|try
-block|{
 comment|// STEP 4. Let the processor scan the rows, generate mutations and add waledits
 name|doProcessRowWithTimeout
 argument_list|(
