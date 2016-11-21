@@ -1381,7 +1381,7 @@ argument_list|)
 return|;
 block|}
 comment|/* ==========================================================================    *  FileSystem Space Settings    */
-comment|/**    * Creates a {@link QuotaSettings} object to limit the FileSystem space usage for the given table to the given size in bytes.    * When the space usage is exceeded by the table, the provided {@link SpaceViolationPolicy} is enacted on the table.    *    * @param tableName The name of the table on which the quota should be applied.    * @param sizeLimit The limit of a table's size in bytes.    * @param violationPolicy The action to take when the quota is exceeded.    * @return An {@link QuotaSettings} object.    */
+comment|/**    * Creates a {@link QuotaSettings} object to limit the FileSystem space usage for the given table    * to the given size in bytes. When the space usage is exceeded by the table, the provided    * {@link SpaceViolationPolicy} is enacted on the table.    *    * @param tableName The name of the table on which the quota should be applied.    * @param sizeLimit The limit of a table's size in bytes.    * @param violationPolicy The action to take when the quota is exceeded.    * @return An {@link QuotaSettings} object.    */
 specifier|public
 specifier|static
 name|QuotaSettings
@@ -1411,7 +1411,7 @@ name|violationPolicy
 argument_list|)
 return|;
 block|}
-comment|/**    * Creates a {@link QuotaSettings} object to limit the FileSystem space usage for the given namespace to the given size in bytes.    * When the space usage is exceeded by all tables in the namespace, the provided {@link SpaceViolationPolicy} is enacted on    * all tables in the namespace.    *    * @param namespace The namespace on which the quota should be applied.    * @param sizeLimit The limit of the namespace's size in bytes.    * @param violationPolicy The action to take when the the quota is exceeded.    * @return An {@link QuotaSettings} object.    */
+comment|/**    * Creates a {@link QuotaSettings} object to limit the FileSystem space usage for the given    * namespace to the given size in bytes. When the space usage is exceeded by all tables in the    * namespace, the provided {@link SpaceViolationPolicy} is enacted on all tables in the namespace.    *    * @param namespace The namespace on which the quota should be applied.    * @param sizeLimit The limit of the namespace's size in bytes.    * @param violationPolicy The action to take when the the quota is exceeded.    * @return An {@link QuotaSettings} object.    */
 specifier|public
 specifier|static
 name|QuotaSettings
