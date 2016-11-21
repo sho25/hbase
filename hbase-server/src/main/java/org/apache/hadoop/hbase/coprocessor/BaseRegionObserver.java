@@ -3013,7 +3013,14 @@ throws|throws
 name|IOException
 block|{
 return|return
+name|postBulkLoadHFile
+argument_list|(
+name|ctx
+argument_list|,
+name|stagingFamilyPaths
+argument_list|,
 name|hasLoaded
+argument_list|)
 return|;
 block|}
 annotation|@
