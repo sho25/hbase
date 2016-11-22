@@ -37,6 +37,16 @@ name|java
 operator|.
 name|io
 operator|.
+name|FileNotFoundException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
 name|IOException
 import|;
 end_import
@@ -848,6 +858,24 @@ operator|.
 name|CompareFilter
 operator|.
 name|CompareOp
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|hfile
+operator|.
+name|CorruptHFileException
 import|;
 end_import
 
@@ -17998,6 +18026,27 @@ name|scannerClosed
 operator|=
 literal|true
 expr_stmt|;
+comment|// If it is a CorruptHFileException or a FileNotFoundException, throw the
+comment|// DoNotRetryIOException. This can avoid the retry in ClientScanner.
+if|if
+condition|(
+name|e
+operator|instanceof
+name|CorruptHFileException
+operator|||
+name|e
+operator|instanceof
+name|FileNotFoundException
+condition|)
+block|{
+throw|throw
+operator|new
+name|DoNotRetryIOException
+argument_list|(
+name|e
+argument_list|)
+throw|;
+block|}
 comment|// We closed the scanner already. Instead of throwing the IOException, and client
 comment|// retrying with the same scannerId only to get USE on the next RPC, we directly throw
 comment|// a special exception to save an RPC.
