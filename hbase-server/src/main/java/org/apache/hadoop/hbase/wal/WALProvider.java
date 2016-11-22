@@ -217,8 +217,6 @@ function_decl|;
 name|long
 name|getLength
 parameter_list|()
-throws|throws
-name|IOException
 function_decl|;
 block|}
 interface|interface

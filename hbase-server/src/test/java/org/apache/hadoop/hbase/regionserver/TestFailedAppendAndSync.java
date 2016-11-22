@@ -898,8 +898,6 @@ specifier|public
 name|long
 name|getLength
 parameter_list|()
-throws|throws
-name|IOException
 block|{
 return|return
 name|w

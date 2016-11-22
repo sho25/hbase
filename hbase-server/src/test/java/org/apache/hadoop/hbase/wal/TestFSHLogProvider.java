@@ -127,20 +127,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|atomic
-operator|.
-name|AtomicLong
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -1469,16 +1455,6 @@ name|currentTest
 operator|.
 name|getMethodName
 argument_list|()
-argument_list|)
-decl_stmt|;
-specifier|final
-name|AtomicLong
-name|sequenceId
-init|=
-operator|new
-name|AtomicLong
-argument_list|(
-literal|1
 argument_list|)
 decl_stmt|;
 try|try

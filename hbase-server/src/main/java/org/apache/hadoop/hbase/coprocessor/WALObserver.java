@@ -19,6 +19,16 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -28,38 +38,6 @@ operator|.
 name|fs
 operator|.
 name|Path
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
 import|;
 end_import
 
@@ -115,11 +93,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
+name|classification
 operator|.
-name|wal
-operator|.
-name|HLogKey
+name|InterfaceAudience
 import|;
 end_import
 
@@ -133,9 +109,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|wal
+name|classification
 operator|.
-name|WALKey
+name|InterfaceStability
 import|;
 end_import
 
@@ -159,11 +135,17 @@ end_import
 
 begin_import
 import|import
-name|java
+name|org
 operator|.
-name|io
+name|apache
 operator|.
-name|IOException
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|wal
+operator|.
+name|WALKey
 import|;
 end_import
 
@@ -216,30 +198,6 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before a {@link org.apache.hadoop.hbase.regionserver.wal.WALEdit}    * is writen to WAL.    *    * This method is left in place to maintain binary compatibility with older    * {@link WALObserver}s. If an implementation directly overrides    * {@link #preWALWrite(ObserverContext, HRegionInfo, WALKey, WALEdit)} then this version    * won't be called at all, barring problems with the Security Manager. To work correctly    * in the presence of a strict Security Manager, or in the case of an implementation that    * relies on a parent class to implement preWALWrite, you should implement this method    * as a call to the non-deprecated version.    *    * Users of this method will see all edits that can be treated as HLogKey. If there are    * edits that can't be treated as HLogKey they won't be offered to coprocessors that rely    * on this method. If a coprocessor gets skipped because of this mechanism, a log message    * at ERROR will be generated per coprocessor on the logger for {@link CoprocessorHost} once per    * classloader.    *    * @return true if default behavior should be bypassed, false otherwise    * @deprecated use {@link #preWALWrite(ObserverContext, HRegionInfo, WALKey, WALEdit)}    */
-annotation|@
-name|Deprecated
-name|boolean
-name|preWALWrite
-parameter_list|(
-name|ObserverContext
-argument_list|<
-name|WALCoprocessorEnvironment
-argument_list|>
-name|ctx
-parameter_list|,
-name|HRegionInfo
-name|info
-parameter_list|,
-name|HLogKey
-name|logKey
-parameter_list|,
-name|WALEdit
-name|logEdit
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
 comment|/**    * Called after a {@link org.apache.hadoop.hbase.regionserver.wal.WALEdit}    * is writen to WAL.    */
 name|void
 name|postWALWrite
@@ -256,30 +214,6 @@ name|HRegionInfo
 name|info
 parameter_list|,
 name|WALKey
-name|logKey
-parameter_list|,
-name|WALEdit
-name|logEdit
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-comment|/**    * Called after a {@link org.apache.hadoop.hbase.regionserver.wal.WALEdit}    * is writen to WAL.    *    * This method is left in place to maintain binary compatibility with older    * {@link WALObserver}s. If an implementation directly overrides    * {@link #postWALWrite(ObserverContext, HRegionInfo, WALKey, WALEdit)} then this version    * won't be called at all, barring problems with the Security Manager. To work correctly    * in the presence of a strict Security Manager, or in the case of an implementation that    * relies on a parent class to implement preWALWrite, you should implement this method    * as a call to the non-deprecated version.    *    * Users of this method will see all edits that can be treated as HLogKey. If there are    * edits that can't be treated as HLogKey they won't be offered to coprocessors that rely    * on this method. If a coprocessor gets skipped because of this mechanism, a log message    * at ERROR will be generated per coprocessor on the logger for {@link CoprocessorHost} once per    * classloader.    *    * @deprecated use {@link #postWALWrite(ObserverContext, HRegionInfo, WALKey, WALEdit)}    */
-annotation|@
-name|Deprecated
-name|void
-name|postWALWrite
-parameter_list|(
-name|ObserverContext
-argument_list|<
-name|WALCoprocessorEnvironment
-argument_list|>
-name|ctx
-parameter_list|,
-name|HRegionInfo
-name|info
-parameter_list|,
-name|HLogKey
 name|logKey
 parameter_list|,
 name|WALEdit

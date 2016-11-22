@@ -2764,8 +2764,6 @@ name|unlock
 argument_list|()
 expr_stmt|;
 block|}
-try|try
-block|{
 if|if
 condition|(
 name|lowReplication
@@ -2785,23 +2783,6 @@ block|{
 name|requestLogRoll
 argument_list|(
 name|lowReplication
-argument_list|)
-expr_stmt|;
-block|}
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Writer.getLength() failed; continuing"
-argument_list|,
-name|e
 argument_list|)
 expr_stmt|;
 block|}

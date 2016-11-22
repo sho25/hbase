@@ -1129,8 +1129,6 @@ specifier|public
 name|long
 name|getLength
 parameter_list|()
-throws|throws
-name|IOException
 block|{
 return|return
 name|w
@@ -1403,6 +1401,11 @@ argument_list|,
 name|htd
 operator|.
 name|getTableName
+argument_list|()
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
 argument_list|()
 argument_list|,
 name|scopes
@@ -1923,8 +1926,6 @@ specifier|public
 name|long
 name|getLength
 parameter_list|()
-throws|throws
-name|IOException
 block|{
 return|return
 name|w
@@ -2273,6 +2274,11 @@ operator|.
 name|getTableName
 argument_list|()
 argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+argument_list|,
 name|scopes
 argument_list|)
 decl_stmt|;
@@ -2427,6 +2433,11 @@ argument_list|(
 literal|"sleep"
 argument_list|)
 argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+argument_list|,
 name|scopes
 argument_list|)
 expr_stmt|;
@@ -2555,6 +2566,11 @@ name|valueOf
 argument_list|(
 literal|"DamagedWALException"
 argument_list|)
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
 argument_list|,
 name|scopes
 argument_list|)
