@@ -29,6 +29,18 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|ExecutorService
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -119,12 +131,23 @@ name|TableName
 name|tableName
 parameter_list|)
 function_decl|;
-comment|/**    * Retrieve an AsyncTable implementation for accessing a table. The returned Table is not thread    * safe, a new instance should be created for each using thread. This is a lightweight operation,    * pooling or caching of the returned AsyncTable is neither required nor desired.    *<p>    * This method no longer checks table existence. An exception will be thrown if the table does not    * exist only when the first operation is attempted.    * @param tableName the name of the table    * @return an AsyncTable to use for interactions with this table    */
+comment|/**    * Retrieve an RawAsyncTable implementation for accessing a table. The returned Table is not    * thread safe, a new instance should be created for each using thread. This is a lightweight    * operation, pooling or caching of the returned AsyncTable is neither required nor desired.    *<p>    * This method no longer checks table existence. An exception will be thrown if the table does not    * exist only when the first operation is attempted.    * @param tableName the name of the table    * @return an RawAsyncTable to use for interactions with this table    */
+name|RawAsyncTable
+name|getRawTable
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|)
+function_decl|;
+comment|/**    * Retrieve an AsyncTable implementation for accessing a table. The returned Table is not thread    * safe, a new instance should be created for each using thread. This is a lightweight operation,    * pooling or caching of the returned AsyncTable is neither required nor desired.    *<p>    * This method no longer checks table existence. An exception will be thrown if the table does not    * exist only when the first operation is attempted.    * @param tableName the name of the table    * @param pool the thread pool to use for executing callback    * @return an AsyncTable to use for interactions with this table    */
 name|AsyncTable
 name|getTable
 parameter_list|(
 name|TableName
 name|tableName
+parameter_list|,
+name|ExecutorService
+name|pool
 parameter_list|)
 function_decl|;
 block|}

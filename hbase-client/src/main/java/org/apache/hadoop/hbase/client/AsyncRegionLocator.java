@@ -1742,7 +1742,7 @@ argument_list|)
 decl_stmt|;
 name|conn
 operator|.
-name|getTable
+name|getRawTable
 argument_list|(
 name|META_TABLE_NAME
 argument_list|)
@@ -2165,7 +2165,7 @@ argument_list|()
 decl_stmt|;
 name|conn
 operator|.
-name|getTable
+name|getRawTable
 argument_list|(
 name|META_TABLE_NAME
 argument_list|)

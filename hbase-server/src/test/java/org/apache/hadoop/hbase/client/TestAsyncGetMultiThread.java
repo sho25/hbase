@@ -696,12 +696,12 @@ name|getConfiguration
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|AsyncTable
+name|RawAsyncTable
 name|table
 init|=
 name|CONN
 operator|.
-name|getTable
+name|getRawTable
 argument_list|(
 name|TABLE_NAME
 argument_list|)
@@ -864,7 +864,7 @@ name|toInt
 argument_list|(
 name|CONN
 operator|.
-name|getTable
+name|getRawTable
 argument_list|(
 name|TABLE_NAME
 argument_list|)
