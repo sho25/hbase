@@ -326,7 +326,7 @@ name|EMPTY_STRING
 init|=
 literal|""
 decl_stmt|;
-comment|/**    * If the size of a mob file is less than this value, it's regarded as a small file and needs to    * be merged in mob compaction. The default value is 192MB.    */
+comment|/**    * If the size of a mob file is less than this value, it's regarded as a small file and needs to    * be merged in mob compaction. The default value is 1280MB.    */
 specifier|public
 specifier|static
 specifier|final
@@ -341,7 +341,9 @@ specifier|final
 name|long
 name|DEFAULT_MOB_COMPACTION_MERGEABLE_THRESHOLD
 init|=
-literal|192
+literal|10
+operator|*
+literal|128
 operator|*
 literal|1024
 operator|*
