@@ -520,7 +520,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * An IntegrationTest for doing reads with a timeout, to a read-only table with region  * replicas. ChaosMonkey is run which kills the region servers and master, but ensures  * that meta region server is not killed, and at most 2 region servers are dead at any point  * in time. The expected behavior is that all reads with stale mode true will return  * before the timeout (5 sec by default). The test fails if the read requests does not finish  * in time.  *  *<p> This test uses LoadTestTool to read and write the data from a single client but  * multiple threads. The data is written first, then we allow the region replicas to catch  * up. Then we start the reader threads doing get requests with stale mode true. Chaos Monkey is  * started after some delay (20 sec by default) after the reader threads are started so that  * there is enough time to fully cache meta.  *  * These parameters (and some other parameters from LoadTestTool) can be used to  * control behavior, given values are default:  *<pre>  * -Dhbase.DIntegrationTestTimeBoundedRequestsWithRegionReplicas.runtime=600000  * -DIntegrationTestTimeBoundedRequestsWithRegionReplicas.num_regions_per_server=5  * -DIntegrationTestTimeBoundedRequestsWithRegionReplicas.get_timeout_ms=5000  * -DIntegrationTestTimeBoundedRequestsWithRegionReplicas.num_keys_per_server=2500  * -DIntegrationTestTimeBoundedRequestsWithRegionReplicas.region_replication=3  * -DIntegrationTestTimeBoundedRequestsWithRegionReplicas.num_read_threads=20  * -DIntegrationTestTimeBoundedRequestsWithRegionReplicas.num_write_threads=20  * -DIntegrationTestTimeBoundedRequestsWithRegionReplicas.num_regions_per_server=5  * -DIntegrationTestTimeBoundedRequestsWithRegionReplicas.chaos_monkey_delay=20000  *</pre>  * Use this test with "serverKilling" ChaosMonkey. Sample usage:  *<pre>  * hbase org.apache.hadoop.hbase.test.IntegrationTestTimeBoundedRequestsWithRegionReplicas  * -Dhbase.IntegrationTestTimeBoundedRequestsWithRegionReplicas.runtime=600000  * -DIntegrationTestTimeBoundedRequestsWithRegionReplicas.num_write_threads=40  * -DIntegrationTestTimeBoundedRequestsWithRegionReplicas.num_read_threads=40  * -Dhbase.ipc.client.allowsInterrupt=true --monkey serverKilling  *</pre>  */
+comment|/**  * An IntegrationTest for doing reads with a timeout, to a read-only table with region  * replicas. ChaosMonkey is run which kills the region servers and master, but ensures  * that meta region server is not killed, and at most 2 region servers are dead at any point  * in time. The expected behavior is that all reads with stale mode true will return  * before the timeout (5 sec by default). The test fails if the read requests does not finish  * in time.  *  *<p> This test uses LoadTestTool to read and write the data from a single client but  * multiple threads. The data is written first, then we allow the region replicas to catch  * up. Then we start the reader threads doing get requests with stale mode true. Chaos Monkey is  * started after some delay (20 sec by default) after the reader threads are started so that  * there is enough time to fully cache meta.  *  * These parameters (and some other parameters from LoadTestTool) can be used to  * control behavior, given values are default:  *<pre>  * -Dhbase.IntegrationTestTimeBoundedRequestsWithRegionReplicas.runtime=600000  * -DIntegrationTestTimeBoundedRequestsWithRegionReplicas.num_regions_per_server=5  * -DIntegrationTestTimeBoundedRequestsWithRegionReplicas.get_timeout_ms=5000  * -DIntegrationTestTimeBoundedRequestsWithRegionReplicas.num_keys_per_server=2500  * -DIntegrationTestTimeBoundedRequestsWithRegionReplicas.region_replication=3  * -DIntegrationTestTimeBoundedRequestsWithRegionReplicas.num_read_threads=20  * -DIntegrationTestTimeBoundedRequestsWithRegionReplicas.num_write_threads=20  * -DIntegrationTestTimeBoundedRequestsWithRegionReplicas.num_regions_per_server=5  * -DIntegrationTestTimeBoundedRequestsWithRegionReplicas.chaos_monkey_delay=20000  *</pre>  * Use this test with "serverKilling" ChaosMonkey. Sample usage:  *<pre>  * hbase org.apache.hadoop.hbase.test.IntegrationTestTimeBoundedRequestsWithRegionReplicas  * -Dhbase.IntegrationTestTimeBoundedRequestsWithRegionReplicas.runtime=600000  * -DIntegrationTestTimeBoundedRequestsWithRegionReplicas.num_write_threads=40  * -DIntegrationTestTimeBoundedRequestsWithRegionReplicas.num_read_threads=40  * -Dhbase.ipc.client.allowsInterrupt=true --monkey serverKilling  *</pre>  */
 end_comment
 
 begin_class
@@ -1132,6 +1132,59 @@ operator|-
 name|start
 operator|)
 decl_stmt|;
+if|if
+condition|(
+name|remainingTime
+operator|<=
+literal|0
+condition|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"The amount of time left for the test to perform random reads is "
+operator|+
+literal|"non-positive. Increase the test execution time via "
+operator|+
+name|String
+operator|.
+name|format
+argument_list|(
+name|RUN_TIME_KEY
+argument_list|,
+name|IntegrationTestTimeBoundedRequestsWithRegionReplicas
+operator|.
+name|class
+operator|.
+name|getSimpleName
+argument_list|()
+argument_list|)
+operator|+
+literal|" or reduce the amount of data written per server via "
+operator|+
+name|IntegrationTestTimeBoundedRequestsWithRegionReplicas
+operator|.
+name|class
+operator|.
+name|getSimpleName
+argument_list|()
+operator|+
+literal|"."
+operator|+
+name|IntegrationTestIngest
+operator|.
+name|NUM_KEYS_PER_SERVER_KEY
+argument_list|)
+expr_stmt|;
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"No time remains to execute random reads"
+argument_list|)
+throw|;
+block|}
 name|LOG
 operator|.
 name|info
