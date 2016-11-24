@@ -57,7 +57,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ByteBufferedCell
+name|ByteBufferCell
 import|;
 end_import
 
@@ -301,15 +301,15 @@ if|if
 condition|(
 name|c
 operator|instanceof
-name|ByteBufferedCell
+name|ByteBufferCell
 condition|)
 block|{
 return|return
 operator|new
-name|KeyOnlyByteBufferedCell
+name|KeyOnlyByteBufferCell
 argument_list|(
 operator|(
-name|ByteBufferedCell
+name|ByteBufferCell
 operator|)
 name|c
 argument_list|,
@@ -886,12 +886,12 @@ block|}
 block|}
 specifier|static
 class|class
-name|KeyOnlyByteBufferedCell
+name|KeyOnlyByteBufferCell
 extends|extends
-name|ByteBufferedCell
+name|ByteBufferCell
 block|{
 specifier|private
-name|ByteBufferedCell
+name|ByteBufferCell
 name|cell
 decl_stmt|;
 specifier|private
@@ -899,9 +899,9 @@ name|boolean
 name|lenAsVal
 decl_stmt|;
 specifier|public
-name|KeyOnlyByteBufferedCell
+name|KeyOnlyByteBufferCell
 parameter_list|(
-name|ByteBufferedCell
+name|ByteBufferCell
 name|c
 parameter_list|,
 name|boolean

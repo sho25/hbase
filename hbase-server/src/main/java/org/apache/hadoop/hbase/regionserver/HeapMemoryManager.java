@@ -255,7 +255,7 @@ name|io
 operator|.
 name|util
 operator|.
-name|HeapMemorySizeUtil
+name|MemorySizeUtil
 import|;
 end_import
 
@@ -288,7 +288,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Manages tuning of Heap memory using<code>HeapMemoryTuner</code>.  */
+comment|/**  * Manages tuning of Heap memory using<code>HeapMemoryTuner</code>. Most part of the heap memory is  * split between Memstores and BlockCache. This manager helps in tuning sizes of both these  * dynamically, as per the R/W load on the servers.  */
 end_comment
 
 begin_class
@@ -667,9 +667,9 @@ literal|true
 decl_stmt|;
 name|globalMemStorePercent
 operator|=
-name|HeapMemorySizeUtil
+name|MemorySizeUtil
 operator|.
-name|getGlobalMemStorePercent
+name|getGlobalMemStoreHeapPercent
 argument_list|(
 name|conf
 argument_list|,
@@ -689,9 +689,9 @@ operator|.
 name|HFILE_BLOCK_CACHE_SIZE_DEFAULT
 argument_list|)
 expr_stmt|;
-name|HeapMemorySizeUtil
+name|MemorySizeUtil
 operator|.
-name|checkForClusterFreeMemoryLimit
+name|checkForClusterFreeHeapMemoryLimit
 argument_list|(
 name|conf
 argument_list|)
@@ -740,7 +740,7 @@ name|globalMemStorePercent
 operator|+
 literal|", same value as "
 operator|+
-name|HeapMemorySizeUtil
+name|MemorySizeUtil
 operator|.
 name|MEMSTORE_SIZE_KEY
 operator|+
@@ -782,7 +782,7 @@ name|globalMemStorePercent
 operator|+
 literal|", same value as "
 operator|+
-name|HeapMemorySizeUtil
+name|MemorySizeUtil
 operator|.
 name|MEMSTORE_SIZE_KEY
 operator|+
@@ -956,7 +956,7 @@ name|this
 operator|.
 name|l2BlockCachePercent
 operator|=
-name|HeapMemorySizeUtil
+name|MemorySizeUtil
 operator|.
 name|getL2BlockCacheHeapPercent
 argument_list|(
@@ -1895,7 +1895,7 @@ literal|"the threshold required for successful cluster operation. "
 operator|+
 literal|"The combined value cannot exceed 0.8. "
 operator|+
-name|HeapMemorySizeUtil
+name|MemorySizeUtil
 operator|.
 name|MEMSTORE_SIZE_KEY
 operator|+

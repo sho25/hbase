@@ -351,7 +351,7 @@ name|io
 operator|.
 name|util
 operator|.
-name|HeapMemorySizeUtil
+name|MemorySizeUtil
 import|;
 end_import
 
@@ -543,7 +543,7 @@ name|conf
 operator|.
 name|setFloat
 argument_list|(
-name|HeapMemorySizeUtil
+name|MemorySizeUtil
 operator|.
 name|MEMSTORE_SIZE_KEY
 argument_list|,
@@ -1793,7 +1793,7 @@ name|conf
 operator|.
 name|setFloat
 argument_list|(
-name|HeapMemorySizeUtil
+name|MemorySizeUtil
 operator|.
 name|MEMSTORE_SIZE_LOWER_LIMIT_KEY
 argument_list|,
@@ -3654,7 +3654,7 @@ name|conf
 operator|.
 name|setFloat
 argument_list|(
-name|HeapMemorySizeUtil
+name|MemorySizeUtil
 operator|.
 name|MEMSTORE_SIZE_KEY
 argument_list|,

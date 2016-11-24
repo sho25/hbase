@@ -47,7 +47,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ByteBufferedCell
+name|ByteBufferCell
 import|;
 end_import
 
@@ -479,7 +479,7 @@ if|if
 condition|(
 name|cell
 operator|instanceof
-name|ByteBufferedCell
+name|ByteBufferCell
 condition|)
 block|{
 return|return
@@ -489,7 +489,7 @@ name|compareTo
 argument_list|(
 operator|(
 operator|(
-name|ByteBufferedCell
+name|ByteBufferCell
 operator|)
 name|cell
 operator|)
@@ -499,7 +499,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferedCell
+name|ByteBufferCell
 operator|)
 name|cell
 operator|)

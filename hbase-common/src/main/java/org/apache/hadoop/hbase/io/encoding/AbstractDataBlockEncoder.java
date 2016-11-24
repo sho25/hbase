@@ -49,7 +49,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ByteBufferedKeyOnlyKeyValue
+name|ByteBufferKeyOnlyKeyValue
 import|;
 end_import
 
@@ -299,7 +299,7 @@ else|else
 block|{
 return|return
 operator|new
-name|ByteBufferedKeyOnlyKeyValue
+name|ByteBufferKeyOnlyKeyValue
 argument_list|(
 name|key
 argument_list|,

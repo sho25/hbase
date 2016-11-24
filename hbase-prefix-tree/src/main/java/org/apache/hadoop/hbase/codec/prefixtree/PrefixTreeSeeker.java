@@ -39,7 +39,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ByteBufferedCell
+name|ByteBufferCell
 import|;
 end_import
 
@@ -415,11 +415,11 @@ block|{
 comment|// The PrefixTreecell is of type BytebufferedCell and the value part of the cell
 comment|// determines whether we are offheap cell or onheap cell.  All other parts of the cell-
 comment|// row, fam and col are all represented as onheap byte[]
-name|ByteBufferedCell
+name|ByteBufferCell
 name|cell
 init|=
 operator|(
-name|ByteBufferedCell
+name|ByteBufferCell
 operator|)
 name|ptSearcher
 operator|.
@@ -1680,7 +1680,7 @@ specifier|static
 class|class
 name|OffheapPrefixTreeCell
 extends|extends
-name|ByteBufferedCell
+name|ByteBufferCell
 implements|implements
 name|Cell
 implements|,

@@ -444,7 +444,7 @@ operator|.
 name|length
 argument_list|)
 expr_stmt|;
-name|ByteBufferedCell
+name|ByteBufferCell
 name|offheapKV
 init|=
 operator|new
@@ -1117,7 +1117,7 @@ operator|.
 name|length
 argument_list|)
 expr_stmt|;
-name|ByteBufferedCell
+name|ByteBufferCell
 name|offheapKV
 init|=
 operator|new
@@ -1488,11 +1488,11 @@ name|getKeyLength
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|ByteBufferedCell
+name|ByteBufferCell
 name|offheapKeyOnlyKV
 init|=
 operator|new
-name|ByteBufferedKeyOnlyKeyValue
+name|ByteBufferKeyOnlyKeyValue
 argument_list|(
 name|buf
 argument_list|,

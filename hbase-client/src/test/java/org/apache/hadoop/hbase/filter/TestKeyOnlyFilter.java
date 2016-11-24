@@ -139,7 +139,7 @@ name|hbase
 operator|.
 name|TestCellUtil
 operator|.
-name|ByteBufferedCellImpl
+name|ByteBufferCellImpl
 import|;
 end_import
 
@@ -157,7 +157,7 @@ name|filter
 operator|.
 name|KeyOnlyFilter
 operator|.
-name|KeyOnlyByteBufferedCell
+name|KeyOnlyByteBufferCell
 import|;
 end_import
 
@@ -502,11 +502,11 @@ name|getBuffer
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|ByteBufferedCellImpl
+name|ByteBufferCellImpl
 name|bbCell
 init|=
 operator|new
-name|ByteBufferedCellImpl
+name|ByteBufferCellImpl
 argument_list|(
 name|buffer
 argument_list|,
@@ -645,11 +645,11 @@ argument_list|,
 name|lenAsVal
 argument_list|)
 decl_stmt|;
-name|KeyOnlyByteBufferedCell
+name|KeyOnlyByteBufferCell
 name|keyOnlyByteBufferedCell
 init|=
 operator|new
-name|KeyOnlyByteBufferedCell
+name|KeyOnlyByteBufferCell
 argument_list|(
 name|bbCell
 argument_list|,

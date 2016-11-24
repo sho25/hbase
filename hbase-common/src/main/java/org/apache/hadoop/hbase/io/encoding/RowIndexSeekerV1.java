@@ -39,7 +39,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ByteBufferedCell
+name|ByteBufferCell
 import|;
 end_import
 
@@ -53,7 +53,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ByteBufferedKeyOnlyKeyValue
+name|ByteBufferKeyOnlyKeyValue
 import|;
 end_import
 
@@ -874,7 +874,7 @@ if|if
 condition|(
 name|seekCell
 operator|instanceof
-name|ByteBufferedCell
+name|ByteBufferCell
 condition|)
 block|{
 return|return
@@ -896,7 +896,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferedCell
+name|ByteBufferCell
 operator|)
 name|seekCell
 operator|)
@@ -906,7 +906,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferedCell
+name|ByteBufferCell
 operator|)
 name|seekCell
 operator|)
@@ -1712,11 +1712,11 @@ name|nextKvOffset
 decl_stmt|;
 comment|// buffer backed keyonlyKV
 specifier|private
-name|ByteBufferedKeyOnlyKeyValue
+name|ByteBufferKeyOnlyKeyValue
 name|currentKey
 init|=
 operator|new
-name|ByteBufferedKeyOnlyKeyValue
+name|ByteBufferKeyOnlyKeyValue
 argument_list|()
 decl_stmt|;
 specifier|protected
@@ -1744,7 +1744,7 @@ expr_stmt|;
 name|currentKey
 operator|=
 operator|new
-name|ByteBufferedKeyOnlyKeyValue
+name|ByteBufferKeyOnlyKeyValue
 argument_list|()
 expr_stmt|;
 name|currentBuffer

@@ -2734,7 +2734,7 @@ name|Cell
 name|bbCell
 init|=
 operator|new
-name|ByteBufferedCellImpl
+name|ByteBufferCellImpl
 argument_list|(
 name|buffer
 argument_list|,
@@ -2999,7 +2999,7 @@ name|Cell
 name|bbCell1
 init|=
 operator|new
-name|ByteBufferedCellImpl
+name|ByteBufferCellImpl
 argument_list|(
 name|buffer
 argument_list|,
@@ -3061,7 +3061,7 @@ name|Cell
 name|bbCell2
 init|=
 operator|new
-name|ByteBufferedCellImpl
+name|ByteBufferCellImpl
 argument_list|(
 name|buffer
 argument_list|,
@@ -3375,7 +3375,7 @@ name|Cell
 name|bbCell
 init|=
 operator|new
-name|ByteBufferedCellImpl
+name|ByteBufferCellImpl
 argument_list|(
 name|buffer
 argument_list|,
@@ -3454,7 +3454,7 @@ expr_stmt|;
 name|bbCell
 operator|=
 operator|new
-name|ByteBufferedCellImpl
+name|ByteBufferCellImpl
 argument_list|(
 name|buffer
 argument_list|,
@@ -3527,7 +3527,7 @@ expr_stmt|;
 name|bbCell
 operator|=
 operator|new
-name|ByteBufferedCellImpl
+name|ByteBufferCellImpl
 argument_list|(
 name|buffer
 argument_list|,
@@ -3556,9 +3556,9 @@ comment|// TODO remove this test impl once we have a Cell implementation backed 
 specifier|public
 specifier|static
 class|class
-name|ByteBufferedCellImpl
+name|ByteBufferCellImpl
 extends|extends
-name|ByteBufferedCell
+name|ByteBufferCell
 block|{
 specifier|private
 specifier|final
@@ -3573,7 +3573,7 @@ decl_stmt|,
 name|length
 decl_stmt|;
 specifier|public
-name|ByteBufferedCellImpl
+name|ByteBufferCellImpl
 parameter_list|(
 name|ByteBuffer
 name|buffer

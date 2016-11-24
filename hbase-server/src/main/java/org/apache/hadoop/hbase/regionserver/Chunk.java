@@ -21,6 +21,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|nio
+operator|.
+name|ByteBuffer
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|concurrent
@@ -61,20 +71,6 @@ name|VisibleForTesting
 import|;
 end_import
 
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|base
-operator|.
-name|Preconditions
-import|;
-end_import
-
 begin_comment
 comment|/**  * A chunk of memory out of which allocations are sliced.  */
 end_comment
@@ -85,16 +81,16 @@ name|InterfaceAudience
 operator|.
 name|Private
 specifier|public
+specifier|abstract
 class|class
 name|Chunk
 block|{
 comment|/** Actual underlying data */
-specifier|private
-name|byte
-index|[]
+specifier|protected
+name|ByteBuffer
 name|data
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|static
 specifier|final
 name|int
@@ -103,7 +99,7 @@ init|=
 operator|-
 literal|1
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|static
 specifier|final
 name|int
@@ -113,7 +109,7 @@ operator|-
 literal|2
 decl_stmt|;
 comment|/**    * Offset for the next allocation, or the sentinel value -1 which implies that the chunk is still    * uninitialized.    */
-specifier|private
+specifier|protected
 name|AtomicInteger
 name|nextFreeOffset
 init|=
@@ -124,7 +120,7 @@ name|UNINITIALIZED
 argument_list|)
 decl_stmt|;
 comment|/** Total number of allocations satisfied from this buffer */
-specifier|private
+specifier|protected
 name|AtomicInteger
 name|allocCount
 init|=
@@ -133,7 +129,7 @@ name|AtomicInteger
 argument_list|()
 decl_stmt|;
 comment|/** Size of chunk in bytes */
-specifier|private
+specifier|protected
 specifier|final
 name|int
 name|size
@@ -154,88 +150,11 @@ expr_stmt|;
 block|}
 comment|/**    * Actually claim the memory for this chunk. This should only be called from the thread that    * constructed the chunk. It is thread-safe against other threads calling alloc(), who will block    * until the allocation is complete.    */
 specifier|public
+specifier|abstract
 name|void
 name|init
 parameter_list|()
-block|{
-assert|assert
-name|nextFreeOffset
-operator|.
-name|get
-argument_list|()
-operator|==
-name|UNINITIALIZED
-assert|;
-try|try
-block|{
-if|if
-condition|(
-name|data
-operator|==
-literal|null
-condition|)
-block|{
-name|data
-operator|=
-operator|new
-name|byte
-index|[
-name|size
-index|]
-expr_stmt|;
-block|}
-block|}
-catch|catch
-parameter_list|(
-name|OutOfMemoryError
-name|e
-parameter_list|)
-block|{
-name|boolean
-name|failInit
-init|=
-name|nextFreeOffset
-operator|.
-name|compareAndSet
-argument_list|(
-name|UNINITIALIZED
-argument_list|,
-name|OOM
-argument_list|)
-decl_stmt|;
-assert|assert
-name|failInit
-assert|;
-comment|// should be true.
-throw|throw
-name|e
-throw|;
-block|}
-comment|// Mark that it's ready for use
-name|boolean
-name|initted
-init|=
-name|nextFreeOffset
-operator|.
-name|compareAndSet
-argument_list|(
-name|UNINITIALIZED
-argument_list|,
-literal|0
-argument_list|)
-decl_stmt|;
-comment|// We should always succeed the above CAS since only one thread
-comment|// calls init()!
-name|Preconditions
-operator|.
-name|checkState
-argument_list|(
-name|initted
-argument_list|,
-literal|"Multiple threads tried to init same chunk"
-argument_list|)
-expr_stmt|;
-block|}
+function_decl|;
 comment|/**    * Reset the offset to UNINITIALIZED before before reusing an old chunk    */
 name|void
 name|reset
@@ -328,7 +247,8 @@ name|size
 operator|>
 name|data
 operator|.
-name|length
+name|capacity
+argument_list|()
 condition|)
 block|{
 return|return
@@ -366,8 +286,7 @@ comment|// we raced and lost alloc, try again
 block|}
 block|}
 comment|/**    * @return This chunk's backing data.    */
-name|byte
-index|[]
+name|ByteBuffer
 name|getData
 parameter_list|()
 block|{
@@ -406,7 +325,8 @@ operator|+
 operator|(
 name|data
 operator|.
-name|length
+name|capacity
+argument_list|()
 operator|-
 name|nextFreeOffset
 operator|.

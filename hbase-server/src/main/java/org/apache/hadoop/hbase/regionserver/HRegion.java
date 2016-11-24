@@ -33817,6 +33817,16 @@ argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|rsServices
+operator|.
+name|getHeapMemoryManager
+argument_list|()
+operator|!=
+literal|null
+condition|)
+block|{
 name|stats
 operator|.
 name|setHeapOccupancy
@@ -33835,6 +33845,7 @@ operator|*
 literal|100
 argument_list|)
 expr_stmt|;
+block|}
 name|stats
 operator|.
 name|setCompactionPressure

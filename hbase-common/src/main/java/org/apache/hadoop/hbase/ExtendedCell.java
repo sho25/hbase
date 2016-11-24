@@ -37,6 +37,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|nio
+operator|.
+name|ByteBuffer
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -122,8 +132,7 @@ comment|/**    * Write the given Cell into the given buf's offset.    * @param b
 name|void
 name|write
 parameter_list|(
-name|byte
-index|[]
+name|ByteBuffer
 name|buf
 parameter_list|,
 name|int

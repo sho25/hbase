@@ -1153,7 +1153,7 @@ if|if
 condition|(
 name|msLab
 operator|instanceof
-name|HeapMemStoreLAB
+name|MemStoreLABImpl
 condition|)
 block|{
 name|assertEquals
@@ -1169,7 +1169,7 @@ argument_list|)
 argument_list|,
 operator|(
 operator|(
-name|HeapMemStoreLAB
+name|MemStoreLABImpl
 operator|)
 name|msLab
 operator|)

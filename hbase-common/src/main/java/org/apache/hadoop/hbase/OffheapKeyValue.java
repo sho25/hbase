@@ -110,7 +110,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This Cell is an implementation of {@link ByteBufferedCell} where the data resides in off heap  * memory.  */
+comment|/**  * This Cell is an implementation of {@link ByteBufferCell} where the data resides in off heap  * memory.  */
 end_comment
 
 begin_class
@@ -122,7 +122,7 @@ specifier|public
 class|class
 name|OffheapKeyValue
 extends|extends
-name|ByteBufferedCell
+name|ByteBufferCell
 implements|implements
 name|ExtendedCell
 block|{
@@ -1125,8 +1125,7 @@ specifier|public
 name|void
 name|write
 parameter_list|(
-name|byte
-index|[]
+name|ByteBuffer
 name|buf
 parameter_list|,
 name|int
@@ -1135,12 +1134,12 @@ parameter_list|)
 block|{
 name|ByteBufferUtils
 operator|.
-name|copyFromBufferToArray
+name|copyFromBufferToBuffer
 argument_list|(
-name|buf
-argument_list|,
 name|this
 operator|.
+name|buf
+argument_list|,
 name|buf
 argument_list|,
 name|this

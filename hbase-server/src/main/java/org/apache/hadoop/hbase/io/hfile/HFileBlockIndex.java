@@ -199,7 +199,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ByteBufferedKeyOnlyKeyValue
+name|ByteBufferKeyOnlyKeyValue
 import|;
 end_import
 
@@ -2718,11 +2718,11 @@ decl_stmt|;
 comment|// If we imagine that keys[-1] = -Infinity and
 comment|// keys[numEntries] = Infinity, then we are maintaining an invariant that
 comment|// keys[low - 1]< key< keys[high + 1] while narrowing down the range.
-name|ByteBufferedKeyOnlyKeyValue
+name|ByteBufferKeyOnlyKeyValue
 name|nonRootIndexkeyOnlyKV
 init|=
 operator|new
-name|ByteBufferedKeyOnlyKeyValue
+name|ByteBufferKeyOnlyKeyValue
 argument_list|()
 decl_stmt|;
 name|ObjectIntPair

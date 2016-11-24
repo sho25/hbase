@@ -105,7 +105,7 @@ name|hbase
 operator|.
 name|TestCellUtil
 operator|.
-name|ByteBufferedCellImpl
+name|ByteBufferCellImpl
 import|;
 end_import
 
@@ -350,7 +350,7 @@ name|Cell
 name|bbCell
 init|=
 operator|new
-name|ByteBufferedCellImpl
+name|ByteBufferCellImpl
 argument_list|(
 name|buffer
 argument_list|,
@@ -428,7 +428,7 @@ expr_stmt|;
 name|bbCell
 operator|=
 operator|new
-name|ByteBufferedCellImpl
+name|ByteBufferCellImpl
 argument_list|(
 name|buffer
 argument_list|,
@@ -497,7 +497,7 @@ expr_stmt|;
 name|bbCell
 operator|=
 operator|new
-name|ByteBufferedCellImpl
+name|ByteBufferCellImpl
 argument_list|(
 name|buffer
 argument_list|,
@@ -608,7 +608,7 @@ expr_stmt|;
 name|bbCell
 operator|=
 operator|new
-name|ByteBufferedCellImpl
+name|ByteBufferCellImpl
 argument_list|(
 name|buffer
 argument_list|,
@@ -677,7 +677,7 @@ expr_stmt|;
 name|bbCell
 operator|=
 operator|new
-name|ByteBufferedCellImpl
+name|ByteBufferCellImpl
 argument_list|(
 name|buffer
 argument_list|,
@@ -783,7 +783,7 @@ expr_stmt|;
 name|bbCell
 operator|=
 operator|new
-name|ByteBufferedCellImpl
+name|ByteBufferCellImpl
 argument_list|(
 name|buffer
 argument_list|,

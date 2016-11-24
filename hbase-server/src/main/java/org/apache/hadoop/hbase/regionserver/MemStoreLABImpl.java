@@ -149,6 +149,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CellUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|KeyValueUtil
 import|;
 end_import
@@ -166,24 +180,6 @@ operator|.
 name|classification
 operator|.
 name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|MemStoreChunkPool
-operator|.
-name|PooledChunk
 import|;
 end_import
 
@@ -216,7 +212,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A memstore-local allocation buffer.  *<p>  * The MemStoreLAB is basically a bump-the-pointer allocator that allocates  * big (2MB) byte[] chunks from and then doles it out to threads that request  * slices into the array.  *<p>  * The purpose of this class is to combat heap fragmentation in the  * regionserver. By ensuring that all KeyValues in a given memstore refer  * only to large chunks of contiguous memory, we ensure that large blocks  * get freed up when the memstore is flushed.  *<p>  * Without the MSLAB, the byte array allocated during insertion end up  * interleaved throughout the heap, and the old generation gets progressively  * more fragmented until a stop-the-world compacting collection occurs.  *<p>  * TODO: we should probably benchmark whether word-aligning the allocations  * would provide a performance improvement - probably would speed up the  * Bytes.toLong/Bytes.toInt calls in KeyValue, but some of those are cached  * anyway  */
+comment|/**  * A memstore-local allocation buffer.  *<p>  * The MemStoreLAB is basically a bump-the-pointer allocator that allocates  * big (2MB) byte[] chunks from and then doles it out to threads that request  * slices into the array.  *<p>  * The purpose of this class is to combat heap fragmentation in the  * regionserver. By ensuring that all Cells in a given memstore refer  * only to large chunks of contiguous memory, we ensure that large blocks  * get freed up when the memstore is flushed.  *<p>  * Without the MSLAB, the byte array allocated during insertion end up  * interleaved throughout the heap, and the old generation gets progressively  * more fragmented until a stop-the-world compacting collection occurs.  *<p>  * TODO: we should probably benchmark whether word-aligning the allocations  * would provide a performance improvement - probably would speed up the  * Bytes.toLong/Bytes.toInt calls in KeyValue, but some of those are cached  * anyway.  * The chunks created by this MemStoreLAB can get pooled at {@link MemStoreChunkPool}.  * When the Chunk comes pool, it can be either an on heap or an off heap backed chunk. The chunks,  * which this MemStoreLAB creates on its own (when no chunk available from pool), those will be  * always on heap backed.  */
 end_comment
 
 begin_class
@@ -226,44 +222,10 @@ operator|.
 name|Private
 specifier|public
 class|class
-name|HeapMemStoreLAB
+name|MemStoreLABImpl
 implements|implements
 name|MemStoreLAB
 block|{
-specifier|static
-specifier|final
-name|String
-name|CHUNK_SIZE_KEY
-init|=
-literal|"hbase.hregion.memstore.mslab.chunksize"
-decl_stmt|;
-specifier|static
-specifier|final
-name|int
-name|CHUNK_SIZE_DEFAULT
-init|=
-literal|2048
-operator|*
-literal|1024
-decl_stmt|;
-specifier|static
-specifier|final
-name|String
-name|MAX_ALLOC_KEY
-init|=
-literal|"hbase.hregion.memstore.mslab.max.allocation"
-decl_stmt|;
-specifier|static
-specifier|final
-name|int
-name|MAX_ALLOC_DEFAULT
-init|=
-literal|256
-operator|*
-literal|1024
-decl_stmt|;
-comment|// allocs bigger than this don't go through
-comment|// allocator
 specifier|static
 specifier|final
 name|Log
@@ -273,7 +235,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|HeapMemStoreLAB
+name|MemStoreLABImpl
 operator|.
 name|class
 argument_list|)
@@ -299,7 +261,7 @@ annotation|@
 name|VisibleForTesting
 name|BlockingQueue
 argument_list|<
-name|PooledChunk
+name|Chunk
 argument_list|>
 name|pooledChunkQueue
 init|=
@@ -353,7 +315,7 @@ argument_list|()
 decl_stmt|;
 comment|// Used in testing
 specifier|public
-name|HeapMemStoreLAB
+name|MemStoreLABImpl
 parameter_list|()
 block|{
 name|this
@@ -365,7 +327,7 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|public
-name|HeapMemStoreLAB
+name|MemStoreLABImpl
 parameter_list|(
 name|Configuration
 name|conf
@@ -400,9 +362,7 @@ operator|=
 name|MemStoreChunkPool
 operator|.
 name|getPool
-argument_list|(
-name|conf
-argument_list|)
+argument_list|()
 expr_stmt|;
 comment|// currently chunkQueue is only used for chunkPool
 if|if
@@ -420,9 +380,7 @@ name|pooledChunkQueue
 operator|=
 operator|new
 name|LinkedBlockingQueue
-argument_list|<
-name|PooledChunk
-argument_list|>
+argument_list|<>
 argument_list|(
 name|chunkPool
 operator|.
@@ -543,7 +501,7 @@ argument_list|)
 expr_stmt|;
 block|}
 return|return
-name|KeyValueUtil
+name|CellUtil
 operator|.
 name|copyCellTo
 argument_list|(
@@ -776,11 +734,12 @@ block|{
 name|c
 operator|=
 operator|new
-name|Chunk
+name|OnheapChunk
 argument_list|(
 name|chunkSize
 argument_list|)
 expr_stmt|;
+comment|// When chunk is not from pool, always make it as on heap.
 block|}
 if|if
 condition|(
@@ -820,9 +779,6 @@ name|pooledChunkQueue
 operator|.
 name|offer
 argument_list|(
-operator|(
-name|PooledChunk
-operator|)
 name|c
 argument_list|)
 condition|)
@@ -864,9 +820,6 @@ name|chunkPool
 operator|.
 name|putbackChunk
 argument_list|(
-operator|(
-name|PooledChunk
-operator|)
 name|c
 argument_list|)
 expr_stmt|;
@@ -892,7 +845,7 @@ return|;
 block|}
 name|BlockingQueue
 argument_list|<
-name|PooledChunk
+name|Chunk
 argument_list|>
 name|getPooledChunks
 parameter_list|()

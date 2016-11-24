@@ -41,7 +41,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ByteBufferedCell
+name|ByteBufferCell
 import|;
 end_import
 
@@ -222,7 +222,7 @@ specifier|public
 class|class
 name|PrefixTreeCell
 extends|extends
-name|ByteBufferedCell
+name|ByteBufferCell
 implements|implements
 name|SettableSequenceId
 implements|,

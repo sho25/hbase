@@ -173,7 +173,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ByteBufferedKeyOnlyKeyValue
+name|ByteBufferKeyOnlyKeyValue
 import|;
 end_import
 
@@ -2297,11 +2297,11 @@ name|currTagsLen
 decl_stmt|;
 comment|// buffer backed keyonlyKV
 specifier|private
-name|ByteBufferedKeyOnlyKeyValue
+name|ByteBufferKeyOnlyKeyValue
 name|bufBackedKeyOnlyKv
 init|=
 operator|new
-name|ByteBufferedKeyOnlyKeyValue
+name|ByteBufferKeyOnlyKeyValue
 argument_list|()
 decl_stmt|;
 comment|// A pair for reusing in blockSeek() so that we don't garbage lot of objects
@@ -5518,7 +5518,7 @@ else|else
 block|{
 return|return
 operator|new
-name|ByteBufferedKeyOnlyKeyValue
+name|ByteBufferKeyOnlyKeyValue
 argument_list|(
 name|keyBuff
 argument_list|,

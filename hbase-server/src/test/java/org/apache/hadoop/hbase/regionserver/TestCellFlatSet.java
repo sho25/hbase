@@ -266,10 +266,6 @@ name|Configuration
 argument_list|()
 decl_stmt|;
 specifier|private
-name|HeapMemStoreLAB
-name|mslab
-decl_stmt|;
-specifier|private
 name|KeyValue
 name|lowerOuterCell
 decl_stmt|;
@@ -571,7 +567,7 @@ name|CONF
 operator|.
 name|setFloat
 argument_list|(
-name|MemStoreChunkPool
+name|MemStoreLAB
 operator|.
 name|CHUNK_POOL_MAXSIZE_KEY
 argument_list|,
@@ -583,14 +579,6 @@ operator|.
 name|chunkPoolDisabled
 operator|=
 literal|false
-expr_stmt|;
-name|mslab
-operator|=
-operator|new
-name|HeapMemStoreLAB
-argument_list|(
-name|CONF
-argument_list|)
 expr_stmt|;
 block|}
 comment|/* Create and test CellSet based on CellArrayMap */

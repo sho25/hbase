@@ -309,7 +309,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ByteBufferedCell
+name|ByteBufferCell
 import|;
 end_import
 
@@ -8259,14 +8259,14 @@ if|if
 condition|(
 name|c
 operator|instanceof
-name|ByteBufferedCell
+name|ByteBufferCell
 condition|)
 block|{
-name|ByteBufferedCell
+name|ByteBufferCell
 name|bbCell
 init|=
 operator|(
-name|ByteBufferedCell
+name|ByteBufferCell
 operator|)
 name|c
 decl_stmt|;

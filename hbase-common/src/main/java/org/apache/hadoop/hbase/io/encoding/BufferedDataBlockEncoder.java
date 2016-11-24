@@ -79,7 +79,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ByteBufferedCell
+name|ByteBufferCell
 import|;
 end_import
 
@@ -2440,8 +2440,7 @@ specifier|public
 name|void
 name|write
 parameter_list|(
-name|byte
-index|[]
+name|ByteBuffer
 name|buf
 parameter_list|,
 name|int
@@ -2514,7 +2513,7 @@ specifier|static
 class|class
 name|OffheapDecodedCell
 extends|extends
-name|ByteBufferedCell
+name|ByteBufferCell
 implements|implements
 name|ExtendedCell
 block|{
@@ -3434,8 +3433,7 @@ specifier|public
 name|void
 name|write
 parameter_list|(
-name|byte
-index|[]
+name|ByteBuffer
 name|buf
 parameter_list|,
 name|int

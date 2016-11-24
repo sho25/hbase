@@ -84,9 +84,9 @@ operator|.
 name|Private
 specifier|public
 class|class
-name|ByteBufferedKeyOnlyKeyValue
+name|ByteBufferKeyOnlyKeyValue
 extends|extends
-name|ByteBufferedCell
+name|ByteBufferCell
 block|{
 specifier|private
 name|ByteBuffer
@@ -112,11 +112,11 @@ name|rowLen
 decl_stmt|;
 comment|/**    * Used in cases where we want to avoid lot of garbage by allocating new objects with different    * keys. Use the emtpy construtor and set the keys using {@link #setKey(ByteBuffer, int, int)}    */
 specifier|public
-name|ByteBufferedKeyOnlyKeyValue
+name|ByteBufferKeyOnlyKeyValue
 parameter_list|()
 block|{   }
 specifier|public
-name|ByteBufferedKeyOnlyKeyValue
+name|ByteBufferKeyOnlyKeyValue
 parameter_list|(
 name|ByteBuffer
 name|buf

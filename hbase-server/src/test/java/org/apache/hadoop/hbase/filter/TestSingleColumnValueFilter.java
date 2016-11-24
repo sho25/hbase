@@ -113,7 +113,7 @@ name|hbase
 operator|.
 name|TestCellUtil
 operator|.
-name|ByteBufferedCellImpl
+name|ByteBufferCellImpl
 import|;
 end_import
 
@@ -670,7 +670,7 @@ name|Cell
 name|c
 init|=
 operator|new
-name|ByteBufferedCellImpl
+name|ByteBufferCellImpl
 argument_list|(
 name|ByteBuffer
 operator|.
@@ -761,7 +761,7 @@ expr_stmt|;
 name|c
 operator|=
 operator|new
-name|ByteBufferedCellImpl
+name|ByteBufferCellImpl
 argument_list|(
 name|ByteBuffer
 operator|.
@@ -852,7 +852,7 @@ expr_stmt|;
 name|c
 operator|=
 operator|new
-name|ByteBufferedCellImpl
+name|ByteBufferCellImpl
 argument_list|(
 name|ByteBuffer
 operator|.
@@ -943,7 +943,7 @@ name|Cell
 name|c
 init|=
 operator|new
-name|ByteBufferedCellImpl
+name|ByteBufferCellImpl
 argument_list|(
 name|ByteBuffer
 operator|.
@@ -1019,7 +1019,7 @@ expr_stmt|;
 name|c
 operator|=
 operator|new
-name|ByteBufferedCellImpl
+name|ByteBufferCellImpl
 argument_list|(
 name|ByteBuffer
 operator|.
@@ -1095,7 +1095,7 @@ expr_stmt|;
 name|c
 operator|=
 operator|new
-name|ByteBufferedCellImpl
+name|ByteBufferCellImpl
 argument_list|(
 name|ByteBuffer
 operator|.
@@ -1186,7 +1186,7 @@ expr_stmt|;
 name|c
 operator|=
 operator|new
-name|ByteBufferedCellImpl
+name|ByteBufferCellImpl
 argument_list|(
 name|ByteBuffer
 operator|.
@@ -1262,7 +1262,7 @@ expr_stmt|;
 name|c
 operator|=
 operator|new
-name|ByteBufferedCellImpl
+name|ByteBufferCellImpl
 argument_list|(
 name|ByteBuffer
 operator|.
@@ -1370,7 +1370,7 @@ expr_stmt|;
 name|c
 operator|=
 operator|new
-name|ByteBufferedCellImpl
+name|ByteBufferCellImpl
 argument_list|(
 name|ByteBuffer
 operator|.
@@ -1446,7 +1446,7 @@ expr_stmt|;
 name|c
 operator|=
 operator|new
-name|ByteBufferedCellImpl
+name|ByteBufferCellImpl
 argument_list|(
 name|ByteBuffer
 operator|.
@@ -1559,7 +1559,7 @@ name|Cell
 name|c
 init|=
 operator|new
-name|ByteBufferedCellImpl
+name|ByteBufferCellImpl
 argument_list|(
 name|ByteBuffer
 operator|.
@@ -1655,7 +1655,7 @@ expr_stmt|;
 name|c
 operator|=
 operator|new
-name|ByteBufferedCellImpl
+name|ByteBufferCellImpl
 argument_list|(
 name|ByteBuffer
 operator|.
@@ -1756,7 +1756,7 @@ name|Cell
 name|c
 init|=
 operator|new
-name|ByteBufferedCellImpl
+name|ByteBufferCellImpl
 argument_list|(
 name|ByteBuffer
 operator|.
@@ -1832,7 +1832,7 @@ expr_stmt|;
 name|c
 operator|=
 operator|new
-name|ByteBufferedCellImpl
+name|ByteBufferCellImpl
 argument_list|(
 name|ByteBuffer
 operator|.
@@ -1943,7 +1943,7 @@ name|Cell
 name|c
 init|=
 operator|new
-name|ByteBufferedCellImpl
+name|ByteBufferCellImpl
 argument_list|(
 name|ByteBuffer
 operator|.
@@ -2019,7 +2019,7 @@ expr_stmt|;
 name|c
 operator|=
 operator|new
-name|ByteBufferedCellImpl
+name|ByteBufferCellImpl
 argument_list|(
 name|ByteBuffer
 operator|.
@@ -2130,7 +2130,7 @@ name|Cell
 name|c
 init|=
 operator|new
-name|ByteBufferedCellImpl
+name|ByteBufferCellImpl
 argument_list|(
 name|ByteBuffer
 operator|.

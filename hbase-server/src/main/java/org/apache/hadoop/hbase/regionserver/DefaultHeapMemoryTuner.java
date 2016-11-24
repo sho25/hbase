@@ -191,7 +191,7 @@ name|io
 operator|.
 name|util
 operator|.
-name|HeapMemorySizeUtil
+name|MemorySizeUtil
 import|;
 end_import
 
@@ -453,6 +453,10 @@ specifier|private
 name|float
 name|blockCachePercentMaxRange
 decl_stmt|;
+specifier|private
+name|float
+name|globalMemStoreLimitLowMarkPercent
+decl_stmt|;
 comment|// Store statistics about the corresponding parameters for memory tuning
 specifier|private
 name|RollingStatCalculator
@@ -659,18 +663,6 @@ name|NEUTRAL
 expr_stmt|;
 block|}
 comment|// Increase / decrease the memstore / block cahce sizes depending on new tuner step.
-name|float
-name|globalMemstoreLowerMark
-init|=
-name|HeapMemorySizeUtil
-operator|.
-name|getGlobalMemStoreLowerMark
-argument_list|(
-name|conf
-argument_list|,
-name|curMemstoreSize
-argument_list|)
-decl_stmt|;
 comment|// We don't want to exert immediate pressure on memstore. So, we decrease its size gracefully;
 comment|// we set a minimum bar in the middle of the total memstore size and the lower limit.
 name|float
@@ -678,7 +670,7 @@ name|minMemstoreSize
 init|=
 operator|(
 operator|(
-name|globalMemstoreLowerMark
+name|globalMemStoreLimitLowMarkPercent
 operator|+
 literal|1
 operator|)
@@ -1669,9 +1661,9 @@ name|getFloat
 argument_list|(
 name|MEMSTORE_SIZE_MIN_RANGE_KEY
 argument_list|,
-name|HeapMemorySizeUtil
+name|MemorySizeUtil
 operator|.
-name|getGlobalMemStorePercent
+name|getGlobalMemStoreHeapPercent
 argument_list|(
 name|conf
 argument_list|,
@@ -1689,14 +1681,27 @@ name|getFloat
 argument_list|(
 name|MEMSTORE_SIZE_MAX_RANGE_KEY
 argument_list|,
-name|HeapMemorySizeUtil
+name|MemorySizeUtil
 operator|.
-name|getGlobalMemStorePercent
+name|getGlobalMemStoreHeapPercent
 argument_list|(
 name|conf
 argument_list|,
 literal|false
 argument_list|)
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|globalMemStoreLimitLowMarkPercent
+operator|=
+name|MemorySizeUtil
+operator|.
+name|getGlobalMemStoreHeapLowerMark
+argument_list|(
+name|conf
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 comment|// Default value of periods to ignore is number of lookup periods

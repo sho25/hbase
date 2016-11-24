@@ -77,7 +77,7 @@ name|lang
 operator|.
 name|management
 operator|.
-name|ManagementFactory
+name|MemoryType
 import|;
 end_import
 
@@ -379,7 +379,7 @@ name|io
 operator|.
 name|util
 operator|.
-name|HeapMemorySizeUtil
+name|MemorySizeUtil
 import|;
 end_import
 
@@ -446,6 +446,22 @@ operator|.
 name|util
 operator|.
 name|HasThread
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Pair
 import|;
 end_import
 
@@ -746,56 +762,62 @@ operator|*
 literal|1000
 argument_list|)
 expr_stmt|;
-name|long
-name|max
+name|Pair
+argument_list|<
+name|Long
+argument_list|,
+name|MemoryType
+argument_list|>
+name|pair
 init|=
-name|ManagementFactory
+name|MemorySizeUtil
 operator|.
-name|getMemoryMXBean
-argument_list|()
-operator|.
-name|getHeapMemoryUsage
-argument_list|()
-operator|.
-name|getMax
-argument_list|()
-decl_stmt|;
-name|float
-name|globalMemStorePercent
-init|=
-name|HeapMemorySizeUtil
-operator|.
-name|getGlobalMemStorePercent
+name|getGlobalMemstoreSize
 argument_list|(
 name|conf
-argument_list|,
-literal|true
 argument_list|)
 decl_stmt|;
 name|this
 operator|.
 name|globalMemStoreLimit
 operator|=
-call|(
-name|long
-call|)
-argument_list|(
-name|max
-operator|*
-name|globalMemStorePercent
-argument_list|)
+name|pair
+operator|.
+name|getFirst
+argument_list|()
 expr_stmt|;
+name|boolean
+name|onheap
+init|=
+name|pair
+operator|.
+name|getSecond
+argument_list|()
+operator|==
+name|MemoryType
+operator|.
+name|HEAP
+decl_stmt|;
+comment|// When off heap memstore in use we configure the global off heap space for memstore as bytes
+comment|// not as % of max memory size. In such case, the lower water mark should be specified using the
+comment|// key "hbase.regionserver.global.memstore.size.lower.limit" which says % of the global upper
+comment|// bound and defaults to 95%. In on heap case also specifying this way is ideal. But in the past
+comment|// we used to take lower bound also as the % of xmx (38% as default). For backward compatibility
+comment|// for this deprecated config,we will fall back to read that config when new one is missing.
+comment|// Only for on heap case, do this fallback mechanism. For off heap it makes no sense.
+comment|// TODO When to get rid of the deprecated config? ie
+comment|// "hbase.regionserver.global.memstore.lowerLimit". Can get rid of this boolean passing then.
 name|this
 operator|.
 name|globalMemStoreLimitLowMarkPercent
 operator|=
-name|HeapMemorySizeUtil
+name|MemorySizeUtil
 operator|.
-name|getGlobalMemStoreLowerMark
+name|getGlobalMemStoreHeapLowerMark
 argument_list|(
 name|conf
 argument_list|,
-name|globalMemStorePercent
+name|onheap
 argument_list|)
 expr_stmt|;
 name|this
@@ -884,18 +906,10 @@ argument_list|,
 literal|1
 argument_list|)
 operator|+
-literal|", maxHeap="
+literal|", Offheap="
 operator|+
-name|TraditionalBinaryPrefix
-operator|.
-name|long2String
-argument_list|(
-name|max
-argument_list|,
-literal|""
-argument_list|,
-literal|1
-argument_list|)
+operator|!
+name|onheap
 argument_list|)
 expr_stmt|;
 block|}
