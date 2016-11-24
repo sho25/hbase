@@ -87,6 +87,20 @@ name|util
 operator|.
 name|concurrent
 operator|.
+name|atomic
+operator|.
+name|AtomicReference
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
 name|locks
 operator|.
 name|Lock
@@ -4687,7 +4701,7 @@ name|encoder
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * We always prefetch the header of the next block, so that we know its    * on-disk size in advance and can read it in one operation.    */
+comment|/**    * Data-structure to use caching the header of the NEXT block. Only works if next read    * that comes in here is next in sequence in this block.    *    * When we read, we read current block and the next blocks' header. We do this so we have    * the length of the next block to read if the hfile index is not available (rare).    * TODO: Review!! This trick of reading next blocks header is a pain, complicates our    * read path and I don't think it needed given it rare we don't have the block index    * (it is 'normally' present, gotten from the hfile index). FIX!!!    */
 specifier|private
 specifier|static
 class|class
@@ -4775,37 +4789,25 @@ specifier|final
 name|HFileBlockDefaultDecodingContext
 name|defaultDecodingCtx
 decl_stmt|;
-comment|/**      * When we read a block, we overread and pull in the next blocks header too. We will save it      * here. If moving serially through the file, we will trip over this caching of the next blocks      * header so we won't have to do explicit seek to find next blocks lengths, etc.      */
+comment|/**      * Cache of the NEXT header after this. Check it is indeed next blocks header      * before using it. TODO: Review. This overread into next block to fetch      * next blocks header seems unnecessary given we usually get the block size      * from the hfile index. Review!      */
 specifier|private
-name|ThreadLocal
+name|AtomicReference
 argument_list|<
 name|PrefetchedHeader
 argument_list|>
-name|prefetchedHeaderForThread
+name|prefetchedHeader
 init|=
 operator|new
-name|ThreadLocal
+name|AtomicReference
 argument_list|<
 name|PrefetchedHeader
 argument_list|>
-argument_list|()
-block|{
-annotation|@
-name|Override
-specifier|public
-name|PrefetchedHeader
-name|initialValue
-parameter_list|()
-block|{
-return|return
+argument_list|(
 operator|new
 name|PrefetchedHeader
 argument_list|()
-return|;
-block|}
-block|}
+argument_list|)
 decl_stmt|;
-comment|/** Compression algorithm used by the {@link HFile} */
 comment|/** The size of the file we are reading from, or -1 if unknown. */
 specifier|protected
 name|long
@@ -5015,6 +5017,14 @@ name|offset
 init|=
 name|startOffset
 decl_stmt|;
+comment|// Cache length of next block. Current block has the length of next block in it.
+specifier|private
+name|long
+name|length
+init|=
+operator|-
+literal|1
+decl_stmt|;
 annotation|@
 name|Override
 specifier|public
@@ -5030,9 +5040,11 @@ name|offset
 operator|>=
 name|endOffset
 condition|)
+block|{
 return|return
 literal|null
 return|;
+block|}
 name|HFileBlock
 name|b
 init|=
@@ -5040,8 +5052,7 @@ name|readBlockData
 argument_list|(
 name|offset
 argument_list|,
-operator|-
-literal|1
+name|length
 argument_list|,
 literal|false
 argument_list|)
@@ -5051,6 +5062,13 @@ operator|+=
 name|b
 operator|.
 name|getOnDiskSizeWithHeader
+argument_list|()
+expr_stmt|;
+name|length
+operator|=
+name|b
+operator|.
+name|getNextBlockOnDiskSize
 argument_list|()
 expr_stmt|;
 return|return
@@ -5361,7 +5379,7 @@ operator|+
 name|hdrSize
 return|;
 block|}
-comment|/**      * Reads a version 2 block (version 1 blocks not supported and not expected). Tries to do as      * little memory allocation as possible, using the provided on-disk size.      *      * @param offset the offset in the stream to read at      * @param onDiskSizeWithHeaderL the on-disk size of the block, including      *          the header, or -1 if unknown      * @param pread whether to use a positional read      */
+comment|/**      * Reads a version 2 block (version 1 blocks not supported and not expected). Tries to do as      * little memory allocation as possible, using the provided on-disk size.      *      * @param offset the offset in the stream to read at      * @param onDiskSizeWithHeaderL the on-disk size of the block, including      *          the header, or -1 if unknown; i.e. when iterating over blocks reading      *          in the file metadata info.      * @param pread whether to use a positional read      */
 annotation|@
 name|Override
 specifier|public
@@ -5688,98 +5706,6 @@ operator|)
 name|onDiskSizeWithHeaderL
 return|;
 block|}
-comment|/**      * Check threadlocal cache for this block's header; we usually read it on the tail of reading      * the previous block to save a seek. Otherwise, we have to do a seek to read the header before      * we can pull in the block.      * @return The cached block header or null if not found.      * @see #cacheNextBlockHeader(long, byte[], int, int)      */
-specifier|private
-name|ByteBuffer
-name|getCachedHeader
-parameter_list|(
-specifier|final
-name|long
-name|offset
-parameter_list|)
-block|{
-name|PrefetchedHeader
-name|prefetchedHeader
-init|=
-name|prefetchedHeaderForThread
-operator|.
-name|get
-argument_list|()
-decl_stmt|;
-comment|// PrefetchedHeader prefetchedHeader = prefetchedHeaderForThread.get();
-return|return
-name|prefetchedHeader
-operator|!=
-literal|null
-operator|&&
-name|prefetchedHeader
-operator|.
-name|offset
-operator|==
-name|offset
-condition|?
-name|prefetchedHeader
-operator|.
-name|buf
-else|:
-literal|null
-return|;
-block|}
-comment|/**      * Save away the next blocks header in thread local.      * @see #getCachedHeader(long)      */
-specifier|private
-name|void
-name|cacheNextBlockHeader
-parameter_list|(
-specifier|final
-name|long
-name|nextBlockOffset
-parameter_list|,
-specifier|final
-name|byte
-index|[]
-name|header
-parameter_list|,
-specifier|final
-name|int
-name|headerOffset
-parameter_list|,
-specifier|final
-name|int
-name|headerLength
-parameter_list|)
-block|{
-name|PrefetchedHeader
-name|prefetchedHeader
-init|=
-name|prefetchedHeaderForThread
-operator|.
-name|get
-argument_list|()
-decl_stmt|;
-name|prefetchedHeader
-operator|.
-name|offset
-operator|=
-name|nextBlockOffset
-expr_stmt|;
-name|System
-operator|.
-name|arraycopy
-argument_list|(
-name|header
-argument_list|,
-name|headerOffset
-argument_list|,
-name|prefetchedHeader
-operator|.
-name|header
-argument_list|,
-literal|0
-argument_list|,
-name|headerLength
-argument_list|)
-expr_stmt|;
-block|}
 comment|/**      * Verify the passed in onDiskSizeWithHeader aligns with what is in the header else something      * is not right.      * @throws IOException      */
 specifier|private
 name|void
@@ -5846,7 +5772,108 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**      * Reads a version 2 block.      *      * @param offset the offset in the stream to read at      * @param onDiskSizeWithHeaderL the on-disk size of the block, including      *          the header and checksums if present or -1 if unknown      * @param pread whether to use a positional read      * @param verifyChecksum Whether to use HBase checksums.      *        If HBase checksum is switched off, then use HDFS checksum.      * @return the HFileBlock or null if there is a HBase checksum mismatch      */
+comment|/**      * Check atomic reference cache for this block's header. Cache only good if next      * read coming through is next in sequence in the block. We read next block's      * header on the tail of reading the previous block to save a seek. Otherwise,      * we have to do a seek to read the header before we can pull in the block OR      * we have to backup the stream because we over-read (the next block's header).      * @see PrefetchedHeader      * @return The cached block header or null if not found.      * @see #cacheNextBlockHeader(long, byte[], int, int)      */
+specifier|private
+name|ByteBuffer
+name|getCachedHeader
+parameter_list|(
+specifier|final
+name|long
+name|offset
+parameter_list|)
+block|{
+name|PrefetchedHeader
+name|ph
+init|=
+name|this
+operator|.
+name|prefetchedHeader
+operator|.
+name|get
+argument_list|()
+decl_stmt|;
+return|return
+name|ph
+operator|!=
+literal|null
+operator|&&
+name|ph
+operator|.
+name|offset
+operator|==
+name|offset
+condition|?
+name|ph
+operator|.
+name|buf
+else|:
+literal|null
+return|;
+block|}
+comment|/**      * Save away the next blocks header in atomic reference.      * @see #getCachedHeader(long)      * @see PrefetchedHeader      */
+specifier|private
+name|void
+name|cacheNextBlockHeader
+parameter_list|(
+specifier|final
+name|long
+name|offset
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|header
+parameter_list|,
+specifier|final
+name|int
+name|headerOffset
+parameter_list|,
+specifier|final
+name|int
+name|headerLength
+parameter_list|)
+block|{
+name|PrefetchedHeader
+name|ph
+init|=
+operator|new
+name|PrefetchedHeader
+argument_list|()
+decl_stmt|;
+name|ph
+operator|.
+name|offset
+operator|=
+name|offset
+expr_stmt|;
+name|System
+operator|.
+name|arraycopy
+argument_list|(
+name|header
+argument_list|,
+name|headerOffset
+argument_list|,
+name|ph
+operator|.
+name|header
+argument_list|,
+literal|0
+argument_list|,
+name|headerLength
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|prefetchedHeader
+operator|.
+name|set
+argument_list|(
+name|ph
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**      * Reads a version 2 block.      *      * @param offset the offset in the stream to read at. Usually the      * @param onDiskSizeWithHeaderL the on-disk size of the block, including      *          the header and checksums if present or -1 if unknown (as a long). Can be -1      *          if we are doing raw iteration of blocks as when loading up file metadata; i.e.      *          the first read of a new file (TODO: Fix! See HBASE-17072). Usually non-null gotten      *          from the file index.      * @param pread whether to use a positional read      * @param verifyChecksum Whether to use HBase checksums.      *        If HBase checksum is switched off, then use HDFS checksum.      * @return the HFileBlock or null if there is a HBase checksum mismatch      */
 specifier|protected
 name|HFileBlock
 name|readBlockDataInternal
@@ -5904,6 +5931,9 @@ argument_list|,
 name|hdrSize
 argument_list|)
 decl_stmt|;
+comment|// Try and get cached header. Will serve us in rare case where onDiskSizeWithHeaderL is -1
+comment|// and will save us having to seek the stream backwards to reread the header we
+comment|// read the last time through here.
 name|ByteBuffer
 name|headerBuf
 init|=
@@ -5963,9 +5993,11 @@ literal|0
 condition|)
 block|{
 comment|// We were not passed the block size. Need to get it from the header. If header was not in
-comment|// cache, need to seek to pull it in. This latter might happen when we are doing the first
-comment|// read in a series of reads or a random read, and we don't have access to the block index.
-comment|// This is costly and should happen very rarely.
+comment|// cache, need to seek to pull it in. This is costly and should happen very rarely.
+comment|// Currently happens on open of a hfile reader where we read the trailer blocks for
+comment|// indices. Otherwise, we are reading block sizes out of the hfile index. To check,
+comment|// enable TRACE in this file and you'll get an exception in a LOG every time we seek.
+comment|// See HBASE-17072 for more detail.
 if|if
 condition|(
 name|headerBuf
@@ -5973,6 +6005,26 @@ operator|==
 literal|null
 condition|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Extra see to get block size!"
+argument_list|,
+operator|new
+name|RuntimeException
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 name|headerBuf
 operator|=
 name|ByteBuffer
@@ -6034,7 +6086,11 @@ name|hdrSize
 decl_stmt|;
 comment|// Allocate enough space to fit the next block's header too; saves a seek next time through.
 comment|// onDiskBlock is whole block + header + checksums then extra hdrSize to read next header;
-comment|// onDiskSizeWithHeader is header, body, and any checksums if present.
+comment|// onDiskSizeWithHeader is header, body, and any checksums if present. preReadHeaderSize
+comment|// says where to start reading. If we have the header cached, then we don't need to read
+comment|// it again and we can likely read from last place we left off w/o need to backup and reread
+comment|// the header we read last time through here. TODO: Review this overread of the header. Is it necessary
+comment|// when we get the block size from the hfile index? See note on PrefetchedHeader class above.
 comment|// TODO: Make this ByteBuffer-based. Will make it easier to go to HDFS with BBPool (offheap).
 name|byte
 index|[]

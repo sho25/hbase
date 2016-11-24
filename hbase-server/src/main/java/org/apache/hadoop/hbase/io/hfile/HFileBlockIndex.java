@@ -2239,7 +2239,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**    * The reader will always hold the root level index in the memory. Index    * blocks at all other levels will be cached in the LRU cache in practice,    * although this API does not enforce that.    *    * All non-root (leaf and intermediate) index blocks contain what we call a    * "secondary index": an array of offsets to the entries within the block.    * This allows us to do binary search for the entry corresponding to the    * given key without having to deserialize the block.    */
+comment|/**    * The reader will always hold the root level index in the memory. Index    * blocks at all other levels will be cached in the LRU cache in practice,    * although this API does not enforce that.    *    *<p>All non-root (leaf and intermediate) index blocks contain what we call a    * "secondary index": an array of offsets to the entries within the block.    * This allows us to do binary search for the entry corresponding to the    * given key without having to deserialize the block.    */
 specifier|static
 specifier|abstract
 class|class
@@ -2389,7 +2389,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**      * Return the BlockWithScanInfo which contains the DataBlock with other scan      * info such as nextIndexedKey. This function will only be called when the      * HFile version is larger than 1.      *      * @param key      *          the key we are looking for      * @param currentBlock      *          the current block, to avoid re-reading the same block      * @param cacheBlocks      * @param pread      * @param isCompaction      * @param expectedDataBlockEncoding the data block encoding the caller is      *          expecting the data block to be in, or null to not perform this      *          check and return the block irrespective of the encoding.      * @return the BlockWithScanInfo which contains the DataBlock with other      *         scan info such as nextIndexedKey.      * @throws IOException      */
+comment|/**      * Return the BlockWithScanInfo, a data structure which contains the Data HFileBlock with      * other scan info such as the key that starts the next HFileBlock. This function will only      * be called when the HFile version is larger than 1.      *      * @param key the key we are looking for      * @param currentBlock the current block, to avoid re-reading the same block      * @param expectedDataBlockEncoding the data block encoding the caller is      *          expecting the data block to be in, or null to not perform this      *          check and return the block irrespective of the encoding.      * @return the BlockWithScanInfo which contains the DataBlock with other      *         scan info such as nextIndexedKey.      * @throws IOException      */
 specifier|public
 specifier|abstract
 name|BlockWithScanInfo
