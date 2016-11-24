@@ -11518,7 +11518,9 @@ literal|null
 argument_list|,
 literal|0
 argument_list|,
-literal|null
+name|this
+operator|.
+name|callCleanup
 argument_list|)
 decl_stmt|;
 name|ByteArrayOutputStream
@@ -11892,7 +11894,9 @@ literal|null
 argument_list|,
 literal|0
 argument_list|,
-literal|null
+name|this
+operator|.
+name|callCleanup
 argument_list|)
 decl_stmt|;
 name|ByteArrayOutputStream
