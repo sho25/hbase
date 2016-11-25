@@ -205,6 +205,42 @@ init|=
 literal|"Number of calls in the priority call queue waiting to be run"
 decl_stmt|;
 name|String
+name|WRITE_QUEUE_NAME
+init|=
+literal|"numCallsInWriteQueue"
+decl_stmt|;
+name|String
+name|WRITE_QUEUE_DESC
+init|=
+literal|"Number of calls in the write call queue; "
+operator|+
+literal|"parsed requests waiting in scheduler to be executed"
+decl_stmt|;
+name|String
+name|READ_QUEUE_NAME
+init|=
+literal|"numCallsInReadQueue"
+decl_stmt|;
+name|String
+name|READ_QUEUE_DESC
+init|=
+literal|"Number of calls in the read call queue; "
+operator|+
+literal|"parsed requests waiting in scheduler to be executed"
+decl_stmt|;
+name|String
+name|SCAN_QUEUE_NAME
+init|=
+literal|"numCallsInScanQueue"
+decl_stmt|;
+name|String
+name|SCAN_QUEUE_DESC
+init|=
+literal|"Number of calls in the scan call queue; "
+operator|+
+literal|"parsed requests waiting in scheduler to be executed"
+decl_stmt|;
+name|String
 name|NUM_OPEN_CONNECTIONS_NAME
 init|=
 literal|"numOpenConnections"
@@ -223,6 +259,36 @@ name|String
 name|NUM_ACTIVE_HANDLER_DESC
 init|=
 literal|"Number of active rpc handlers."
+decl_stmt|;
+name|String
+name|NUM_ACTIVE_WRITE_HANDLER_NAME
+init|=
+literal|"numActiveWriteHandler"
+decl_stmt|;
+name|String
+name|NUM_ACTIVE_WRITE_HANDLER_DESC
+init|=
+literal|"Number of active write rpc handlers."
+decl_stmt|;
+name|String
+name|NUM_ACTIVE_READ_HANDLER_NAME
+init|=
+literal|"numActiveReadHandler"
+decl_stmt|;
+name|String
+name|NUM_ACTIVE_READ_HANDLER_DESC
+init|=
+literal|"Number of active read rpc handlers."
+decl_stmt|;
+name|String
+name|NUM_ACTIVE_SCAN_HANDLER_NAME
+init|=
+literal|"numActiveScanHandler"
+decl_stmt|;
+name|String
+name|NUM_ACTIVE_SCAN_HANDLER_DESC
+init|=
+literal|"Number of active scan rpc handlers."
 decl_stmt|;
 name|String
 name|NUM_GENERAL_CALLS_DROPPED_NAME

@@ -222,6 +222,48 @@ name|long
 name|getNumLifoModeSwitches
 parameter_list|()
 function_decl|;
+comment|/** Retrieves length of the write queue for metrics when use RWQueueRpcExecutor. */
+specifier|public
+specifier|abstract
+name|int
+name|getWriteQueueLength
+parameter_list|()
+function_decl|;
+comment|/** Retrieves length of the read queue for metrics when use RWQueueRpcExecutor. */
+specifier|public
+specifier|abstract
+name|int
+name|getReadQueueLength
+parameter_list|()
+function_decl|;
+comment|/** Retrieves length of the scan queue for metrics when use RWQueueRpcExecutor. */
+specifier|public
+specifier|abstract
+name|int
+name|getScanQueueLength
+parameter_list|()
+function_decl|;
+comment|/** Retrieves the number of active write rpc handler when use RWQueueRpcExecutor. */
+specifier|public
+specifier|abstract
+name|int
+name|getActiveWriteRpcHandlerCount
+parameter_list|()
+function_decl|;
+comment|/** Retrieves the number of active write rpc handler when use RWQueueRpcExecutor. */
+specifier|public
+specifier|abstract
+name|int
+name|getActiveReadRpcHandlerCount
+parameter_list|()
+function_decl|;
+comment|/** Retrieves the number of active write rpc handler when use RWQueueRpcExecutor. */
+specifier|public
+specifier|abstract
+name|int
+name|getActiveScanRpcHandlerCount
+parameter_list|()
+function_decl|;
 block|}
 end_class
 

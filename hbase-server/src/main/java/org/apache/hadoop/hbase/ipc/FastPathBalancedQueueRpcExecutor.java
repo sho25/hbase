@@ -65,6 +65,20 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|atomic
+operator|.
+name|AtomicInteger
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -248,6 +262,9 @@ argument_list|<
 name|CallRunner
 argument_list|>
 name|q
+parameter_list|,
+name|AtomicInteger
+name|activeHandlerCount
 parameter_list|)
 block|{
 return|return
@@ -259,6 +276,8 @@ argument_list|,
 name|handlerFailureThreshhold
 argument_list|,
 name|q
+argument_list|,
+name|activeHandlerCount
 argument_list|,
 name|fastPathHandlerStack
 argument_list|)
@@ -362,6 +381,10 @@ argument_list|>
 name|q
 parameter_list|,
 specifier|final
+name|AtomicInteger
+name|activeHandlerCount
+parameter_list|,
+specifier|final
 name|Deque
 argument_list|<
 name|FastPathHandler
@@ -376,6 +399,8 @@ argument_list|,
 name|handlerFailureThreshhold
 argument_list|,
 name|q
+argument_list|,
+name|activeHandlerCount
 argument_list|)
 expr_stmt|;
 name|this
