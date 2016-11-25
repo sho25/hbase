@@ -49,8 +49,24 @@ name|InterfaceStability
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|Result
+import|;
+end_import
+
 begin_comment
-comment|/**  * Receives {@link Result} for an asynchronous scan.  */
+comment|/**  * Receives {@link Result} for an asynchronous scan.  *<p>  * Notice that, the {@link #onNext(Result[])} method will be called in the thread which we send  * request to HBase service. So if you want the asynchronous scanner fetch data from HBase in  * background while you process the returned data, you need to move the processing work to another  * thread to make the {@code onNext} call return immediately. And please do NOT do any time  * consuming tasks in all methods below unless you know what you are doing.  */
 end_comment
 
 begin_interface
@@ -64,15 +80,21 @@ operator|.
 name|Unstable
 specifier|public
 interface|interface
-name|ScanResultConsumer
+name|RawScanResultConsumer
 block|{
-comment|/**    * @param result the data fetched from HBase service.    * @return {@code false} if you want to terminate the scan process. Otherwise {@code true}    */
+comment|/**    * @param results the data fetched from HBase service.    * @return {@code false} if you want to terminate the scan process. Otherwise {@code true}    */
 name|boolean
 name|onNext
 parameter_list|(
 name|Result
-name|result
+index|[]
+name|results
 parameter_list|)
+function_decl|;
+comment|/**    * Indicate that there is an heartbeat message but we have not cumulated enough cells to call    * onNext.    *<p>    * This method give you a chance to terminate a slow scan operation.    * @return {@code false} if you want to terminate the scan process. Otherwise {@code true}    */
+name|boolean
+name|onHeartbeat
+parameter_list|()
 function_decl|;
 comment|/**    * Indicate that we hit an unrecoverable error and the scan operation is terminated.    *<p>    * We will not call {@link #onComplete()} after calling {@link #onError(Throwable)}.    */
 name|void

@@ -124,11 +124,6 @@ name|lastCell
 operator|=
 name|result
 operator|.
-name|isPartial
-argument_list|()
-condition|?
-name|result
-operator|.
 name|rawCells
 argument_list|()
 index|[
@@ -141,8 +136,6 @@ name|length
 operator|-
 literal|1
 index|]
-else|:
-literal|null
 expr_stmt|;
 block|}
 annotation|@

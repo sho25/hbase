@@ -2781,7 +2781,7 @@ parameter_list|(
 name|Scan
 name|scan
 parameter_list|,
-name|ScanResultConsumer
+name|RawScanResultConsumer
 name|consumer
 parameter_list|)
 block|{

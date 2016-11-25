@@ -748,7 +748,7 @@ name|ScanResultCache
 name|resultCache
 decl_stmt|;
 specifier|private
-name|ScanResultConsumer
+name|RawScanResultConsumer
 name|consumer
 decl_stmt|;
 specifier|private
@@ -827,7 +827,7 @@ specifier|public
 name|ScanSingleRegionCallerBuilder
 name|consumer
 parameter_list|(
-name|ScanResultConsumer
+name|RawScanResultConsumer
 name|consumer
 parameter_list|)
 block|{

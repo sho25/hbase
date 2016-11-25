@@ -620,7 +620,7 @@ name|resultCache
 decl_stmt|;
 specifier|private
 specifier|final
-name|ScanResultConsumer
+name|RawScanResultConsumer
 name|consumer
 decl_stmt|;
 specifier|private
@@ -741,7 +741,7 @@ parameter_list|,
 name|ScanResultCache
 name|resultCache
 parameter_list|,
-name|ScanResultConsumer
+name|RawScanResultConsumer
 name|consumer
 parameter_list|,
 name|Interface
@@ -1518,6 +1518,13 @@ argument_list|()
 expr_stmt|;
 name|includeNextStartRowWhenError
 operator|=
+name|scan
+operator|.
+name|getBatch
+argument_list|()
+operator|>
+literal|0
+operator|||
 name|result
 operator|.
 name|isPartial
