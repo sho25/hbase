@@ -144,6 +144,11 @@ name|long
 name|heapOverhead
 parameter_list|()
 function_decl|;
+comment|/**    * Does a deep copy of the contents to a new memory area and returns it as a new cell.    * @return The deep cloned cell    */
+name|Cell
+name|deepClone
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

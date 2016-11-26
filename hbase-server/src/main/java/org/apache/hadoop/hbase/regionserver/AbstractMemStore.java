@@ -137,7 +137,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ShareableMemory
+name|ExtendedCell
 import|;
 end_import
 
@@ -512,25 +512,22 @@ name|Cell
 name|cell
 parameter_list|)
 block|{
-comment|// When Cell is backed by a shared memory chunk (this can be a chunk of memory where we read the
-comment|// req into) the Cell instance will be of type ShareableMemory. Later we will add feature to
-comment|// read the RPC request into pooled direct ByteBuffers.
 if|if
 condition|(
 name|cell
 operator|instanceof
-name|ShareableMemory
+name|ExtendedCell
 condition|)
 block|{
 return|return
 operator|(
 operator|(
-name|ShareableMemory
+name|ExtendedCell
 operator|)
 name|cell
 operator|)
 operator|.
-name|cloneToCell
+name|deepClone
 argument_list|()
 return|;
 block|}

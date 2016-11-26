@@ -2507,6 +2507,20 @@ return|return
 name|FIXED_OVERHEAD
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|Cell
+name|deepClone
+parameter_list|()
+block|{
+comment|// This is not used in actual flow. Throwing UnsupportedOperationException
+throw|throw
+operator|new
+name|UnsupportedOperationException
+argument_list|()
+throw|;
+block|}
 block|}
 specifier|protected
 specifier|static
@@ -3457,6 +3471,20 @@ block|{
 return|return
 name|FIXED_OVERHEAD
 return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|Cell
+name|deepClone
+parameter_list|()
+block|{
+comment|// This is not used in actual flow. Throwing UnsupportedOperationException
+throw|throw
+operator|new
+name|UnsupportedOperationException
+argument_list|()
+throw|;
 block|}
 block|}
 specifier|protected
