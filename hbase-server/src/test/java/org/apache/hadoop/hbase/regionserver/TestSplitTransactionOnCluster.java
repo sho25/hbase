@@ -1289,7 +1289,9 @@ argument_list|()
 operator|.
 name|setInt
 argument_list|(
-literal|"hbase.balancer.period"
+name|HConstants
+operator|.
+name|HBASE_BALANCER_PERIOD
 argument_list|,
 literal|60000
 argument_list|)

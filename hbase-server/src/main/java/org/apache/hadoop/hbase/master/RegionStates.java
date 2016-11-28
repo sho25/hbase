@@ -53,16 +53,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|Collections
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|Comparator
 import|;
 end_import
@@ -94,26 +84,6 @@ operator|.
 name|util
 operator|.
 name|Iterator
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|LinkedHashMap
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|LinkedList
 import|;
 end_import
 
@@ -408,22 +378,6 @@ operator|.
 name|client
 operator|.
 name|TableState
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|constraint
-operator|.
-name|ConstraintException
 import|;
 end_import
 
@@ -1175,6 +1129,20 @@ expr_stmt|;
 block|}
 return|return
 name|rit
+return|;
+block|}
+comment|/**    * Get the number of regions in transition.    */
+specifier|public
+specifier|synchronized
+name|int
+name|getRegionsInTransitionCount
+parameter_list|()
+block|{
+return|return
+name|regionsInTransition
+operator|.
+name|size
+argument_list|()
 return|;
 block|}
 comment|/**    * @return True if specified region in transition.    */

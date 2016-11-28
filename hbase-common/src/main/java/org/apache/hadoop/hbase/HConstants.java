@@ -428,6 +428,51 @@ name|HBASE_MASTER_LOADBALANCE_BYTABLE
 init|=
 literal|"hbase.master.loadbalance.bytable"
 decl_stmt|;
+comment|/** Config for the max percent of regions in transition */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_MASTER_BALANCER_MAX_RIT_PERCENT
+init|=
+literal|"hbase.master.balancer.maxRitPercent"
+decl_stmt|;
+comment|/** Default value for the max percent of regions in transition */
+specifier|public
+specifier|static
+specifier|final
+name|double
+name|DEFAULT_HBASE_MASTER_BALANCER_MAX_RIT_PERCENT
+init|=
+literal|1.0
+decl_stmt|;
+comment|/** Config for the max balancing time */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_BALANCER_MAX_BALANCING
+init|=
+literal|"hbase.balancer.max.balancing"
+decl_stmt|;
+comment|/** Config for the balancer period */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_BALANCER_PERIOD
+init|=
+literal|"hbase.balancer.period"
+decl_stmt|;
+comment|/** Default value for the balancer period */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_HBASE_BALANCER_PERIOD
+init|=
+literal|300000
+decl_stmt|;
 comment|/** The name of the ensemble table */
 specifier|public
 specifier|static
