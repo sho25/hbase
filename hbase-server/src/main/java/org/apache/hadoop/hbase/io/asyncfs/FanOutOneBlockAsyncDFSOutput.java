@@ -743,6 +743,20 @@ name|DataChecksum
 import|;
 end_import
 
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
 begin_comment
 comment|/**  * An asynchronous HDFS output stream implementation which fans out data to datanode and only  * supports writing file with only one block.  *<p>  * Use the createOutput method in {@link FanOutOneBlockAsyncDFSOutputHelper} to create. The mainly  * usage of this class is implementing WAL, so we only expose a little HDFS configurations in the  * method. And we place it here under util package because we want to make it independent of WAL  * implementation thus easier to move it to HDFS project finally.  *<p>  * Note that, all connections to datanode will run in the same {@link EventLoop} which means we only  * need one thread here. But be careful, we do some blocking operations in {@link #close()} and  * {@link #recoverAndClose(CancelableProgressable)} methods, so do not call them inside  * {@link EventLoop}. And for {@link #write(byte[])} {@link #write(byte[], int, int)},  * {@link #buffered()} and {@link #flush(boolean)}, if you call them outside {@link EventLoop},  * there will be an extra context-switch.  *<p>  * Advantages compare to DFSOutputStream:  *<ol>  *<li>The fan out mechanism. This will reduce the latency.</li>  *<li>The asynchronous WAL could also run in the same EventLoop, we could just call write and flush  * inside the EventLoop thread, so generally we only have one thread to do all the things.</li>  *<li>Fail-fast when connection to datanode error. The WAL implementation could open new writer  * ASAP.</li>  *<li>We could benefit from netty's ByteBuf management mechanism.</li>  *</ol>  */
 end_comment
@@ -993,6 +1007,27 @@ decl_stmt|;
 specifier|private
 name|ByteBuf
 name|buf
+decl_stmt|;
+comment|// buf's initial capacity - 4KB
+specifier|private
+name|int
+name|capacity
+init|=
+literal|4
+operator|*
+literal|1024
+decl_stmt|;
+comment|// LIMIT is 128MB
+specifier|private
+specifier|final
+name|int
+name|LIMIT
+init|=
+literal|128
+operator|*
+literal|1024
+operator|*
+literal|1024
 decl_stmt|;
 specifier|private
 enum|enum
@@ -1870,7 +1905,9 @@ operator|=
 name|alloc
 operator|.
 name|directBuffer
-argument_list|()
+argument_list|(
+name|capacity
+argument_list|)
 expr_stmt|;
 name|this
 operator|.
@@ -2915,7 +2952,12 @@ init|=
 name|alloc
 operator|.
 name|directBuffer
-argument_list|()
+argument_list|(
+name|guess
+argument_list|(
+name|dataLen
+argument_list|)
+argument_list|)
 operator|.
 name|ensureWritable
 argument_list|(
@@ -3370,6 +3412,89 @@ argument_list|,
 name|fileId
 argument_list|)
 expr_stmt|;
+block|}
+annotation|@
+name|VisibleForTesting
+name|int
+name|guess
+parameter_list|(
+name|int
+name|bytesWritten
+parameter_list|)
+block|{
+comment|// if the bytesWritten is greater than the current capacity
+comment|// always increase the capacity in powers of 2.
+if|if
+condition|(
+name|bytesWritten
+operator|>
+name|this
+operator|.
+name|capacity
+condition|)
+block|{
+comment|// Ensure we don't cross the LIMIT
+if|if
+condition|(
+operator|(
+name|this
+operator|.
+name|capacity
+operator|<<
+literal|1
+operator|)
+operator|<=
+name|LIMIT
+condition|)
+block|{
+comment|// increase the capacity in the range of power of 2
+name|this
+operator|.
+name|capacity
+operator|=
+name|this
+operator|.
+name|capacity
+operator|<<
+literal|1
+expr_stmt|;
+block|}
+block|}
+else|else
+block|{
+comment|// if we see that the bytesWritten is lesser we could again decrease
+comment|// the capacity by dividing it by 2 if the bytesWritten is satisfied by
+comment|// that reduction
+if|if
+condition|(
+operator|(
+name|this
+operator|.
+name|capacity
+operator|>>
+literal|1
+operator|)
+operator|>=
+name|bytesWritten
+condition|)
+block|{
+name|this
+operator|.
+name|capacity
+operator|=
+name|this
+operator|.
+name|capacity
+operator|>>
+literal|1
+expr_stmt|;
+block|}
+block|}
+return|return
+name|this
+operator|.
+name|capacity
+return|;
 block|}
 block|}
 end_class
