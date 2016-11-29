@@ -2401,17 +2401,6 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
-specifier|final
-name|Procedure
-name|proc
-init|=
-name|procExec
-operator|.
-name|getProcedure
-argument_list|(
-name|procId
-argument_list|)
-decl_stmt|;
 name|ProcedureTestingUtility
 operator|.
 name|waitProcedure
@@ -2460,7 +2449,12 @@ name|i
 operator|+
 literal|" exec state: "
 operator|+
-name|proc
+name|procExec
+operator|.
+name|getProcedure
+argument_list|(
+name|procId
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|ProcedureTestingUtility
@@ -2520,17 +2514,6 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
-specifier|final
-name|Procedure
-name|proc
-init|=
-name|procExec
-operator|.
-name|getProcedure
-argument_list|(
-name|procId
-argument_list|)
-decl_stmt|;
 name|ProcedureTestingUtility
 operator|.
 name|waitProcedure
@@ -2579,7 +2562,12 @@ name|i
 operator|+
 literal|" exec state: "
 operator|+
-name|proc
+name|procExec
+operator|.
+name|getProcedure
+argument_list|(
+name|procId
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|ProcedureTestingUtility
@@ -2643,17 +2631,6 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
-specifier|final
-name|Procedure
-name|proc
-init|=
-name|procExec
-operator|.
-name|getProcedure
-argument_list|(
-name|procId
-argument_list|)
-decl_stmt|;
 comment|// Execute up to last step
 name|testRecoveryAndDoubleExecution
 argument_list|(
@@ -2724,7 +2701,12 @@ name|i
 operator|+
 literal|" rollback state: "
 operator|+
-name|proc
+name|procExec
+operator|.
+name|getProcedure
+argument_list|(
+name|procId
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|ProcedureTestingUtility
