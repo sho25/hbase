@@ -334,17 +334,7 @@ name|globalSourceSource
 operator|.
 name|setLastShippedAge
 argument_list|(
-name|Math
-operator|.
-name|max
-argument_list|(
 name|age
-argument_list|,
-name|globalSourceSource
-operator|.
-name|getLastShippedAge
-argument_list|()
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|this
