@@ -828,7 +828,7 @@ argument_list|(
 name|scan
 argument_list|)
 expr_stmt|;
-comment|// Use the caching from the Scan.  If not set, use the default cache setting for this table.
+comment|// Use the caching from the Scan. If not set, use the default cache setting for this table.
 if|if
 condition|(
 name|this
@@ -1116,7 +1116,7 @@ block|}
 return|return
 literal|false
 return|;
-comment|//unlikely.
+comment|// unlikely.
 block|}
 specifier|private
 name|boolean
@@ -1159,7 +1159,7 @@ name|done
 argument_list|)
 return|;
 block|}
-comment|/*      * Gets a scanner for the next region.  If this.currentRegion != null, then      * we will move to the endrow of this.currentRegion.  Else we will get      * scanner at the scan.getStartRow().  We will go no further, just tidy      * up outstanding scanners, if<code>currentRegion != null</code> and      *<code>done</code> is true.      * @param nbRows      * @param done Server-side says we're done scanning.      */
+comment|/*    * Gets a scanner for the next region. If this.currentRegion != null, then we will move to the    * endrow of this.currentRegion. Else we will get scanner at the scan.getStartRow(). We will go no    * further, just tidy up outstanding scanners, if<code>currentRegion != null</code> and    *<code>done</code> is true.    * @param nbRows    * @param done Server-side says we're done scanning.    */
 specifier|protected
 name|boolean
 name|nextScanner
@@ -1288,6 +1288,12 @@ block|}
 name|localStartKey
 operator|=
 name|endKey
+expr_stmt|;
+comment|// clear mvcc read point if we are going to switch regions
+name|scan
+operator|.
+name|resetMvccReadPoint
+argument_list|()
 expr_stmt|;
 if|if
 condition|(
@@ -1571,7 +1577,7 @@ return|return
 name|sr
 return|;
 block|}
-comment|/**      * Publish the scan metrics. For now, we use scan.setAttribute to pass the metrics back to the      * application or TableInputFormat.Later, we could push it to other systems. We don't use      * metrics framework because it doesn't support multi-instances of the same metrics on the same      * machine; for scan/map reduce scenarios, we will have multiple scans running at the same time.      *      * By default, scan metrics are disabled; if the application wants to collect them, this      * behavior can be turned on by calling calling {@link Scan#setScanMetricsEnabled(boolean)}      *      *<p>This invocation clears the scan metrics. Metrics are aggregated in the Scan instance.      */
+comment|/**    * Publish the scan metrics. For now, we use scan.setAttribute to pass the metrics back to the    * application or TableInputFormat.Later, we could push it to other systems. We don't use metrics    * framework because it doesn't support multi-instances of the same metrics on the same machine;    * for scan/map reduce scenarios, we will have multiple scans running at the same time. By    * default, scan metrics are disabled; if the application wants to collect them, this behavior can    * be turned on by calling calling {@link Scan#setScanMetricsEnabled(boolean)}    *<p>    * This invocation clears the scan metrics. Metrics are aggregated in the Scan instance.    */
 specifier|protected
 name|void
 name|writeScanMetrics

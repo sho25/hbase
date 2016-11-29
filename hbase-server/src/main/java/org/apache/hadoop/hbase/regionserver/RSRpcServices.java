@@ -16783,12 +16783,17 @@ name|this
 operator|.
 name|scannerLeaseTimeoutPeriod
 expr_stmt|;
-block|}
-assert|assert
+name|builder
+operator|.
+name|setMvccReadPoint
+argument_list|(
 name|scanner
-operator|!=
-literal|null
-assert|;
+operator|.
+name|getMvccReadPoint
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|request
@@ -17377,7 +17382,7 @@ name|UnsupportedOperationException
 argument_list|(
 literal|"We only do "
 operator|+
-literal|"PayloadCarryingRpcControllers! FIX IF A PROBLEM: "
+literal|"HBaseRpcControllers! FIX IF A PROBLEM: "
 operator|+
 name|controller
 argument_list|)

@@ -1861,7 +1861,6 @@ specifier|public
 name|ResultScanner
 name|getScanner
 parameter_list|(
-specifier|final
 name|Scan
 name|scan
 parameter_list|)
@@ -1925,6 +1924,23 @@ name|setMaxResultSize
 argument_list|(
 name|scannerMaxResultSize
 argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|scan
+operator|.
+name|getMvccReadPoint
+argument_list|()
+operator|>
+literal|0
+condition|)
+block|{
+comment|// it is not supposed to be set by user, clear
+name|scan
+operator|.
+name|resetMvccReadPoint
+argument_list|()
 expr_stmt|;
 block|}
 name|Boolean

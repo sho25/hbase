@@ -74734,6 +74734,17 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
+comment|// optional uint64 mvcc_read_point = 20 [default = 0];
+comment|/**      *<code>optional uint64 mvcc_read_point = 20 [default = 0];</code>      */
+name|boolean
+name|hasMvccReadPoint
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional uint64 mvcc_read_point = 20 [default = 0];</code>      */
+name|long
+name|getMvccReadPoint
+parameter_list|()
+function_decl|;
 block|}
 comment|/**    * Protobuf type {@code hbase.pb.Scan}    *    *<pre>    **    * Instead of get from a table, you can scan it with optional filters.    * You can specify the row key range, time range, the columns/families    * to scan and so on.    *    * This scan is used the first time in a scan request. The response of    * the initial scan will return a scanner id, which should be used to    * fetch result batches later on before it is closed.    *</pre>    */
 specifier|public
@@ -75733,6 +75744,23 @@ argument_list|,
 name|extensionRegistry
 argument_list|)
 argument_list|)
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|160
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00010000
+expr_stmt|;
+name|mvccReadPoint_
+operator|=
+name|input
+operator|.
+name|readUInt64
+argument_list|()
 expr_stmt|;
 break|break;
 block|}
@@ -77429,6 +77457,47 @@ name|index
 argument_list|)
 return|;
 block|}
+comment|// optional uint64 mvcc_read_point = 20 [default = 0];
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|MVCC_READ_POINT_FIELD_NUMBER
+init|=
+literal|20
+decl_stmt|;
+specifier|private
+name|long
+name|mvccReadPoint_
+decl_stmt|;
+comment|/**      *<code>optional uint64 mvcc_read_point = 20 [default = 0];</code>      */
+specifier|public
+name|boolean
+name|hasMvccReadPoint
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00010000
+operator|)
+operator|==
+literal|0x00010000
+operator|)
+return|;
+block|}
+comment|/**      *<code>optional uint64 mvcc_read_point = 20 [default = 0];</code>      */
+specifier|public
+name|long
+name|getMvccReadPoint
+parameter_list|()
+block|{
+return|return
+name|mvccReadPoint_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -77596,6 +77665,10 @@ name|Collections
 operator|.
 name|emptyList
 argument_list|()
+expr_stmt|;
+name|mvccReadPoint_
+operator|=
+literal|0L
 expr_stmt|;
 block|}
 specifier|private
@@ -78265,6 +78338,29 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00010000
+operator|)
+operator|==
+literal|0x00010000
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeUInt64
+argument_list|(
+literal|20
+argument_list|,
+name|mvccReadPoint_
+argument_list|)
+expr_stmt|;
+block|}
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -78924,6 +79020,37 @@ name|get
 argument_list|(
 name|i
 argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00010000
+operator|)
+operator|==
+literal|0x00010000
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeUInt64Size
+argument_list|(
+literal|20
+argument_list|,
+name|mvccReadPoint_
 argument_list|)
 expr_stmt|;
 block|}
@@ -79696,6 +79823,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasMvccReadPoint
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasMvccReadPoint
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasMvccReadPoint
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getMvccReadPoint
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getMvccReadPoint
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -80336,6 +80498,37 @@ argument_list|()
 operator|.
 name|hashCode
 argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasMvccReadPoint
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|MVCC_READ_POINT_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|hashLong
+argument_list|(
+name|getMvccReadPoint
+argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 name|hash
@@ -81593,6 +81786,19 @@ name|clear
 argument_list|()
 expr_stmt|;
 block|}
+name|mvccReadPoint_
+operator|=
+literal|0L
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00080000
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -82419,6 +82625,30 @@ name|build
 argument_list|()
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00080000
+operator|)
+operator|==
+literal|0x00080000
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00010000
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|mvccReadPoint_
+operator|=
+name|mvccReadPoint_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -83241,6 +83471,23 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasMvccReadPoint
+argument_list|()
+condition|)
+block|{
+name|setMvccReadPoint
+argument_list|(
+name|other
+operator|.
+name|getMvccReadPoint
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 name|this
 operator|.
@@ -90260,6 +90507,89 @@ expr_stmt|;
 block|}
 return|return
 name|cfTimeRangeBuilder_
+return|;
+block|}
+comment|// optional uint64 mvcc_read_point = 20 [default = 0];
+specifier|private
+name|long
+name|mvccReadPoint_
+decl_stmt|;
+comment|/**        *<code>optional uint64 mvcc_read_point = 20 [default = 0];</code>        */
+specifier|public
+name|boolean
+name|hasMvccReadPoint
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00080000
+operator|)
+operator|==
+literal|0x00080000
+operator|)
+return|;
+block|}
+comment|/**        *<code>optional uint64 mvcc_read_point = 20 [default = 0];</code>        */
+specifier|public
+name|long
+name|getMvccReadPoint
+parameter_list|()
+block|{
+return|return
+name|mvccReadPoint_
+return|;
+block|}
+comment|/**        *<code>optional uint64 mvcc_read_point = 20 [default = 0];</code>        */
+specifier|public
+name|Builder
+name|setMvccReadPoint
+parameter_list|(
+name|long
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00080000
+expr_stmt|;
+name|mvccReadPoint_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional uint64 mvcc_read_point = 20 [default = 0];</code>        */
+specifier|public
+name|Builder
+name|clearMvccReadPoint
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00080000
+operator|)
+expr_stmt|;
+name|mvccReadPoint_
+operator|=
+literal|0L
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
 return|;
 block|}
 comment|// @@protoc_insertion_point(builder_scope:hbase.pb.Scan)
@@ -97898,6 +98228,17 @@ name|ScanMetricsOrBuilder
 name|getScanMetricsOrBuilder
 parameter_list|()
 function_decl|;
+comment|// optional uint64 mvcc_read_point = 11 [default = 0];
+comment|/**      *<code>optional uint64 mvcc_read_point = 11 [default = 0];</code>      *      *<pre>      * The mvcc read point which is used to open the scanner at server side. Client can      * make use of this mvcc_read_point when restarting a scanner to get a consistent view      * of a row.      *</pre>      */
+name|boolean
+name|hasMvccReadPoint
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional uint64 mvcc_read_point = 11 [default = 0];</code>      *      *<pre>      * The mvcc read point which is used to open the scanner at server side. Client can      * make use of this mvcc_read_point when restarting a scanner to get a consistent view      * of a row.      *</pre>      */
+name|long
+name|getMvccReadPoint
+parameter_list|()
+function_decl|;
 block|}
 comment|/**    * Protobuf type {@code hbase.pb.ScanResponse}    *    *<pre>    **    * The scan response. If there are no more results, more_results will    * be false.  If it is not specified, it means there are more.    *</pre>    */
 specifier|public
@@ -98727,6 +99068,23 @@ block|}
 name|bitField0_
 operator||=
 literal|0x00000040
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|88
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00000080
+expr_stmt|;
+name|mvccReadPoint_
+operator|=
+name|input
+operator|.
+name|readUInt64
+argument_list|()
 expr_stmt|;
 break|break;
 block|}
@@ -99752,6 +100110,47 @@ return|return
 name|scanMetrics_
 return|;
 block|}
+comment|// optional uint64 mvcc_read_point = 11 [default = 0];
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|MVCC_READ_POINT_FIELD_NUMBER
+init|=
+literal|11
+decl_stmt|;
+specifier|private
+name|long
+name|mvccReadPoint_
+decl_stmt|;
+comment|/**      *<code>optional uint64 mvcc_read_point = 11 [default = 0];</code>      *      *<pre>      * The mvcc read point which is used to open the scanner at server side. Client can      * make use of this mvcc_read_point when restarting a scanner to get a consistent view      * of a row.      *</pre>      */
+specifier|public
+name|boolean
+name|hasMvccReadPoint
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000080
+operator|)
+operator|==
+literal|0x00000080
+operator|)
+return|;
+block|}
+comment|/**      *<code>optional uint64 mvcc_read_point = 11 [default = 0];</code>      *      *<pre>      * The mvcc read point which is used to open the scanner at server side. Client can      * make use of this mvcc_read_point when restarting a scanner to get a consistent view      * of a row.      *</pre>      */
+specifier|public
+name|long
+name|getMvccReadPoint
+parameter_list|()
+block|{
+return|return
+name|mvccReadPoint_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -99834,6 +100233,10 @@ name|ScanMetrics
 operator|.
 name|getDefaultInstance
 argument_list|()
+expr_stmt|;
+name|mvccReadPoint_
+operator|=
+literal|0L
 expr_stmt|;
 block|}
 specifier|private
@@ -100154,6 +100557,29 @@ argument_list|(
 literal|10
 argument_list|,
 name|scanMetrics_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000080
+operator|)
+operator|==
+literal|0x00000080
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeUInt64
+argument_list|(
+literal|11
+argument_list|,
+name|mvccReadPoint_
 argument_list|)
 expr_stmt|;
 block|}
@@ -100543,6 +100969,37 @@ argument_list|(
 literal|10
 argument_list|,
 name|scanMetrics_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000080
+operator|)
+operator|==
+literal|0x00000080
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeUInt64Size
+argument_list|(
+literal|11
+argument_list|,
+name|mvccReadPoint_
 argument_list|)
 expr_stmt|;
 block|}
@@ -100997,6 +101454,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasMvccReadPoint
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasMvccReadPoint
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasMvccReadPoint
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getMvccReadPoint
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getMvccReadPoint
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -101370,6 +101862,37 @@ argument_list|()
 operator|.
 name|hashCode
 argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasMvccReadPoint
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|MVCC_READ_POINT_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|hashLong
+argument_list|(
+name|getMvccReadPoint
+argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 name|hash
@@ -102404,6 +102927,19 @@ operator|~
 literal|0x00000200
 operator|)
 expr_stmt|;
+name|mvccReadPoint_
+operator|=
+literal|0L
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000400
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -102954,6 +103490,30 @@ name|build
 argument_list|()
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00000400
+operator|)
+operator|==
+literal|0x00000400
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000080
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|mvccReadPoint_
+operator|=
+name|mvccReadPoint_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -103450,6 +104010,23 @@ argument_list|(
 name|other
 operator|.
 name|getScanMetrics
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasMvccReadPoint
+argument_list|()
+condition|)
+block|{
+name|setMvccReadPoint
+argument_list|(
+name|other
+operator|.
+name|getMvccReadPoint
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -106658,6 +107235,89 @@ expr_stmt|;
 block|}
 return|return
 name|scanMetricsBuilder_
+return|;
+block|}
+comment|// optional uint64 mvcc_read_point = 11 [default = 0];
+specifier|private
+name|long
+name|mvccReadPoint_
+decl_stmt|;
+comment|/**        *<code>optional uint64 mvcc_read_point = 11 [default = 0];</code>        *        *<pre>        * The mvcc read point which is used to open the scanner at server side. Client can        * make use of this mvcc_read_point when restarting a scanner to get a consistent view        * of a row.        *</pre>        */
+specifier|public
+name|boolean
+name|hasMvccReadPoint
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000400
+operator|)
+operator|==
+literal|0x00000400
+operator|)
+return|;
+block|}
+comment|/**        *<code>optional uint64 mvcc_read_point = 11 [default = 0];</code>        *        *<pre>        * The mvcc read point which is used to open the scanner at server side. Client can        * make use of this mvcc_read_point when restarting a scanner to get a consistent view        * of a row.        *</pre>        */
+specifier|public
+name|long
+name|getMvccReadPoint
+parameter_list|()
+block|{
+return|return
+name|mvccReadPoint_
+return|;
+block|}
+comment|/**        *<code>optional uint64 mvcc_read_point = 11 [default = 0];</code>        *        *<pre>        * The mvcc read point which is used to open the scanner at server side. Client can        * make use of this mvcc_read_point when restarting a scanner to get a consistent view        * of a row.        *</pre>        */
+specifier|public
+name|Builder
+name|setMvccReadPoint
+parameter_list|(
+name|long
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00000400
+expr_stmt|;
+name|mvccReadPoint_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional uint64 mvcc_read_point = 11 [default = 0];</code>        *        *<pre>        * The mvcc read point which is used to open the scanner at server side. Client can        * make use of this mvcc_read_point when restarting a scanner to get a consistent view        * of a row.        *</pre>        */
+specifier|public
+name|Builder
+name|clearMvccReadPoint
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000400
+operator|)
+expr_stmt|;
+name|mvccReadPoint_
+operator|=
+literal|0L
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
 return|;
 block|}
 comment|// @@protoc_insertion_point(builder_scope:hbase.pb.ScanResponse)
@@ -212107,7 +212767,7 @@ literal|"_group\030\004 \001(\004\"E\n\016MutateResponse\022 \n\006result"
 operator|+
 literal|"\030\001 \001(\0132\020.hbase.pb.Result\022\021\n\tprocessed\030\002 "
 operator|+
-literal|"\001(\010\"\275\004\n\004Scan\022 \n\006column\030\001 \003(\0132\020.hbase.pb."
+literal|"\001(\010\"\331\004\n\004Scan\022 \n\006column\030\001 \003(\0132\020.hbase.pb."
 operator|+
 literal|"Column\022*\n\tattribute\030\002 \003(\0132\027.hbase.pb.Nam"
 operator|+
@@ -212135,185 +212795,189 @@ literal|"aching\030\021 \001(\r\022\035\n\025allow_partial_results\030\022 "
 operator|+
 literal|"\001(\010\0226\n\rcf_time_range\030\023 \003(\0132\037.hbase.pb.Co"
 operator|+
-literal|"lumnFamilyTimeRange\"\246\002\n\013ScanRequest\022)\n\006r"
+literal|"lumnFamilyTimeRange\022\032\n\017mvcc_read_point\030\024"
 block|,
-literal|"egion\030\001 \001(\0132\031.hbase.pb.RegionSpecifier\022\034"
+literal|" \001(\004:\0010\"\246\002\n\013ScanRequest\022)\n\006region\030\001 \001(\0132"
 operator|+
-literal|"\n\004scan\030\002 \001(\0132\016.hbase.pb.Scan\022\022\n\nscanner_"
+literal|"\031.hbase.pb.RegionSpecifier\022\034\n\004scan\030\002 \001(\013"
 operator|+
-literal|"id\030\003 \001(\004\022\026\n\016number_of_rows\030\004 \001(\r\022\025\n\rclos"
+literal|"2\016.hbase.pb.Scan\022\022\n\nscanner_id\030\003 \001(\004\022\026\n\016"
 operator|+
-literal|"e_scanner\030\005 \001(\010\022\025\n\rnext_call_seq\030\006 \001(\004\022\037"
+literal|"number_of_rows\030\004 \001(\r\022\025\n\rclose_scanner\030\005 "
 operator|+
-literal|"\n\027client_handles_partials\030\007 \001(\010\022!\n\031clien"
+literal|"\001(\010\022\025\n\rnext_call_seq\030\006 \001(\004\022\037\n\027client_han"
 operator|+
-literal|"t_handles_heartbeats\030\010 \001(\010\022\032\n\022track_scan"
+literal|"dles_partials\030\007 \001(\010\022!\n\031client_handles_he"
 operator|+
-literal|"_metrics\030\t \001(\010\022\024\n\005renew\030\n \001(\010:\005false\"\232\002\n"
+literal|"artbeats\030\010 \001(\010\022\032\n\022track_scan_metrics\030\t \001"
 operator|+
-literal|"\014ScanResponse\022\030\n\020cells_per_result\030\001 \003(\r\022"
+literal|"(\010\022\024\n\005renew\030\n \001(\010:\005false\"\266\002\n\014ScanRespons"
 operator|+
-literal|"\022\n\nscanner_id\030\002 \001(\004\022\024\n\014more_results\030\003 \001("
+literal|"e\022\030\n\020cells_per_result\030\001 \003(\r\022\022\n\nscanner_i"
 operator|+
-literal|"\010\022\013\n\003ttl\030\004 \001(\r\022!\n\007results\030\005 \003(\0132\020.hbase."
+literal|"d\030\002 \001(\004\022\024\n\014more_results\030\003 \001(\010\022\013\n\003ttl\030\004 \001"
 block|,
-literal|"pb.Result\022\r\n\005stale\030\006 \001(\010\022\037\n\027partial_flag"
+literal|"(\r\022!\n\007results\030\005 \003(\0132\020.hbase.pb.Result\022\r\n"
 operator|+
-literal|"_per_result\030\007 \003(\010\022\036\n\026more_results_in_reg"
+literal|"\005stale\030\006 \001(\010\022\037\n\027partial_flag_per_result\030"
 operator|+
-literal|"ion\030\010 \001(\010\022\031\n\021heartbeat_message\030\t \001(\010\022+\n\014"
+literal|"\007 \003(\010\022\036\n\026more_results_in_region\030\010 \001(\010\022\031\n"
 operator|+
-literal|"scan_metrics\030\n \001(\0132\025.hbase.pb.ScanMetric"
+literal|"\021heartbeat_message\030\t \001(\010\022+\n\014scan_metrics"
 operator|+
-literal|"s\"\240\002\n\024BulkLoadHFileRequest\022)\n\006region\030\001 \002"
+literal|"\030\n \001(\0132\025.hbase.pb.ScanMetrics\022\032\n\017mvcc_re"
 operator|+
-literal|"(\0132\031.hbase.pb.RegionSpecifier\022>\n\013family_"
+literal|"ad_point\030\013 \001(\004:\0010\"\240\002\n\024BulkLoadHFileReque"
 operator|+
-literal|"path\030\002 \003(\0132).hbase.pb.BulkLoadHFileReque"
+literal|"st\022)\n\006region\030\001 \002(\0132\031.hbase.pb.RegionSpec"
 operator|+
-literal|"st.FamilyPath\022\026\n\016assign_seq_num\030\003 \001(\010\022+\n"
+literal|"ifier\022>\n\013family_path\030\002 \003(\0132).hbase.pb.Bu"
 operator|+
-literal|"\010fs_token\030\004 \001(\0132\031.hbase.pb.DelegationTok"
+literal|"lkLoadHFileRequest.FamilyPath\022\026\n\016assign_"
 operator|+
-literal|"en\022\022\n\nbulk_token\030\005 \001(\t\022\030\n\tcopy_file\030\006 \001("
+literal|"seq_num\030\003 \001(\010\022+\n\010fs_token\030\004 \001(\0132\031.hbase."
 block|,
-literal|"\010:\005false\032*\n\nFamilyPath\022\016\n\006family\030\001 \002(\014\022\014"
+literal|"pb.DelegationToken\022\022\n\nbulk_token\030\005 \001(\t\022\030"
 operator|+
-literal|"\n\004path\030\002 \002(\t\"\'\n\025BulkLoadHFileResponse\022\016\n"
+literal|"\n\tcopy_file\030\006 \001(\010:\005false\032*\n\nFamilyPath\022\016"
 operator|+
-literal|"\006loaded\030\001 \002(\010\"V\n\017DelegationToken\022\022\n\niden"
+literal|"\n\006family\030\001 \002(\014\022\014\n\004path\030\002 \002(\t\"\'\n\025BulkLoad"
 operator|+
-literal|"tifier\030\001 \001(\014\022\020\n\010password\030\002 \001(\014\022\014\n\004kind\030\003"
+literal|"HFileResponse\022\016\n\006loaded\030\001 \002(\010\"V\n\017Delegat"
 operator|+
-literal|" \001(\t\022\017\n\007service\030\004 \001(\t\"l\n\026PrepareBulkLoad"
+literal|"ionToken\022\022\n\nidentifier\030\001 \001(\014\022\020\n\010password"
 operator|+
-literal|"Request\022\'\n\ntable_name\030\001 \002(\0132\023.hbase.pb.T"
+literal|"\030\002 \001(\014\022\014\n\004kind\030\003 \001(\t\022\017\n\007service\030\004 \001(\t\"l\n"
 operator|+
-literal|"ableName\022)\n\006region\030\002 \001(\0132\031.hbase.pb.Regi"
+literal|"\026PrepareBulkLoadRequest\022\'\n\ntable_name\030\001 "
 operator|+
-literal|"onSpecifier\"-\n\027PrepareBulkLoadResponse\022\022"
+literal|"\002(\0132\023.hbase.pb.TableName\022)\n\006region\030\002 \001(\013"
 operator|+
-literal|"\n\nbulk_token\030\001 \002(\t\"W\n\026CleanupBulkLoadReq"
+literal|"2\031.hbase.pb.RegionSpecifier\"-\n\027PrepareBu"
 operator|+
-literal|"uest\022\022\n\nbulk_token\030\001 \002(\t\022)\n\006region\030\002 \001(\013"
+literal|"lkLoadResponse\022\022\n\nbulk_token\030\001 \002(\t\"W\n\026Cl"
 block|,
-literal|"2\031.hbase.pb.RegionSpecifier\"\031\n\027CleanupBu"
+literal|"eanupBulkLoadRequest\022\022\n\nbulk_token\030\001 \002(\t"
 operator|+
-literal|"lkLoadResponse\"a\n\026CoprocessorServiceCall"
+literal|"\022)\n\006region\030\002 \001(\0132\031.hbase.pb.RegionSpecif"
 operator|+
-literal|"\022\013\n\003row\030\001 \002(\014\022\024\n\014service_name\030\002 \002(\t\022\023\n\013m"
+literal|"ier\"\031\n\027CleanupBulkLoadResponse\"a\n\026Coproc"
 operator|+
-literal|"ethod_name\030\003 \002(\t\022\017\n\007request\030\004 \002(\014\"B\n\030Cop"
+literal|"essorServiceCall\022\013\n\003row\030\001 \002(\014\022\024\n\014service"
 operator|+
-literal|"rocessorServiceResult\022&\n\005value\030\001 \001(\0132\027.h"
+literal|"_name\030\002 \002(\t\022\023\n\013method_name\030\003 \002(\t\022\017\n\007requ"
 operator|+
-literal|"base.pb.NameBytesPair\"v\n\031CoprocessorServ"
+literal|"est\030\004 \002(\014\"B\n\030CoprocessorServiceResult\022&\n"
 operator|+
-literal|"iceRequest\022)\n\006region\030\001 \002(\0132\031.hbase.pb.Re"
+literal|"\005value\030\001 \001(\0132\027.hbase.pb.NameBytesPair\"v\n"
 operator|+
-literal|"gionSpecifier\022.\n\004call\030\002 \002(\0132 .hbase.pb.C"
+literal|"\031CoprocessorServiceRequest\022)\n\006region\030\001 \002"
 operator|+
-literal|"oprocessorServiceCall\"o\n\032CoprocessorServ"
+literal|"(\0132\031.hbase.pb.RegionSpecifier\022.\n\004call\030\002 "
 operator|+
-literal|"iceResponse\022)\n\006region\030\001 \002(\0132\031.hbase.pb.R"
+literal|"\002(\0132 .hbase.pb.CoprocessorServiceCall\"o\n"
 block|,
-literal|"egionSpecifier\022&\n\005value\030\002 \002(\0132\027.hbase.pb"
+literal|"\032CoprocessorServiceResponse\022)\n\006region\030\001 "
 operator|+
-literal|".NameBytesPair\"\226\001\n\006Action\022\r\n\005index\030\001 \001(\r"
+literal|"\002(\0132\031.hbase.pb.RegionSpecifier\022&\n\005value\030"
 operator|+
-literal|"\022)\n\010mutation\030\002 \001(\0132\027.hbase.pb.MutationPr"
+literal|"\002 \002(\0132\027.hbase.pb.NameBytesPair\"\226\001\n\006Actio"
 operator|+
-literal|"oto\022\032\n\003get\030\003 \001(\0132\r.hbase.pb.Get\0226\n\014servi"
+literal|"n\022\r\n\005index\030\001 \001(\r\022)\n\010mutation\030\002 \001(\0132\027.hba"
 operator|+
-literal|"ce_call\030\004 \001(\0132 .hbase.pb.CoprocessorServ"
+literal|"se.pb.MutationProto\022\032\n\003get\030\003 \001(\0132\r.hbase"
 operator|+
-literal|"iceCall\"k\n\014RegionAction\022)\n\006region\030\001 \002(\0132"
+literal|".pb.Get\0226\n\014service_call\030\004 \001(\0132 .hbase.pb"
 operator|+
-literal|"\031.hbase.pb.RegionSpecifier\022\016\n\006atomic\030\002 \001"
+literal|".CoprocessorServiceCall\"k\n\014RegionAction\022"
 operator|+
-literal|"(\010\022 \n\006action\030\003 \003(\0132\020.hbase.pb.Action\"c\n\017"
+literal|")\n\006region\030\001 \002(\0132\031.hbase.pb.RegionSpecifi"
 operator|+
-literal|"RegionLoadStats\022\027\n\014memstoreLoad\030\001 \001(\005:\0010"
+literal|"er\022\016\n\006atomic\030\002 \001(\010\022 \n\006action\030\003 \003(\0132\020.hba"
 operator|+
-literal|"\022\030\n\rheapOccupancy\030\002 \001(\005:\0010\022\035\n\022compaction"
+literal|"se.pb.Action\"c\n\017RegionLoadStats\022\027\n\014memst"
 block|,
-literal|"Pressure\030\003 \001(\005:\0010\"j\n\024MultiRegionLoadStat"
+literal|"oreLoad\030\001 \001(\005:\0010\022\030\n\rheapOccupancy\030\002 \001(\005:"
 operator|+
-literal|"s\022)\n\006region\030\001 \003(\0132\031.hbase.pb.RegionSpeci"
+literal|"\0010\022\035\n\022compactionPressure\030\003 \001(\005:\0010\"j\n\024Mul"
 operator|+
-literal|"fier\022\'\n\004stat\030\002 \003(\0132\031.hbase.pb.RegionLoad"
+literal|"tiRegionLoadStats\022)\n\006region\030\001 \003(\0132\031.hbas"
 operator|+
-literal|"Stats\"\336\001\n\021ResultOrException\022\r\n\005index\030\001 \001"
+literal|"e.pb.RegionSpecifier\022\'\n\004stat\030\002 \003(\0132\031.hba"
 operator|+
-literal|"(\r\022 \n\006result\030\002 \001(\0132\020.hbase.pb.Result\022*\n\t"
+literal|"se.pb.RegionLoadStats\"\336\001\n\021ResultOrExcept"
 operator|+
-literal|"exception\030\003 \001(\0132\027.hbase.pb.NameBytesPair"
+literal|"ion\022\r\n\005index\030\001 \001(\r\022 \n\006result\030\002 \001(\0132\020.hba"
 operator|+
-literal|"\022:\n\016service_result\030\004 \001(\0132\".hbase.pb.Copr"
+literal|"se.pb.Result\022*\n\texception\030\003 \001(\0132\027.hbase."
 operator|+
-literal|"ocessorServiceResult\0220\n\tloadStats\030\005 \001(\0132"
+literal|"pb.NameBytesPair\022:\n\016service_result\030\004 \001(\013"
 operator|+
-literal|"\031.hbase.pb.RegionLoadStatsB\002\030\001\"x\n\022Region"
+literal|"2\".hbase.pb.CoprocessorServiceResult\0220\n\t"
 operator|+
-literal|"ActionResult\0226\n\021resultOrException\030\001 \003(\0132"
+literal|"loadStats\030\005 \001(\0132\031.hbase.pb.RegionLoadSta"
 block|,
-literal|"\033.hbase.pb.ResultOrException\022*\n\texceptio"
+literal|"tsB\002\030\001\"x\n\022RegionActionResult\0226\n\021resultOr"
 operator|+
-literal|"n\030\002 \001(\0132\027.hbase.pb.NameBytesPair\"x\n\014Mult"
+literal|"Exception\030\001 \003(\0132\033.hbase.pb.ResultOrExcep"
 operator|+
-literal|"iRequest\022,\n\014regionAction\030\001 \003(\0132\026.hbase.p"
+literal|"tion\022*\n\texception\030\002 \001(\0132\027.hbase.pb.NameB"
 operator|+
-literal|"b.RegionAction\022\022\n\nnonceGroup\030\002 \001(\004\022&\n\tco"
+literal|"ytesPair\"x\n\014MultiRequest\022,\n\014regionAction"
 operator|+
-literal|"ndition\030\003 \001(\0132\023.hbase.pb.Condition\"\226\001\n\rM"
+literal|"\030\001 \003(\0132\026.hbase.pb.RegionAction\022\022\n\nnonceG"
 operator|+
-literal|"ultiResponse\0228\n\022regionActionResult\030\001 \003(\013"
+literal|"roup\030\002 \001(\004\022&\n\tcondition\030\003 \001(\0132\023.hbase.pb"
 operator|+
-literal|"2\034.hbase.pb.RegionActionResult\022\021\n\tproces"
+literal|".Condition\"\226\001\n\rMultiResponse\0228\n\022regionAc"
 operator|+
-literal|"sed\030\002 \001(\010\0228\n\020regionStatistics\030\003 \001(\0132\036.hb"
+literal|"tionResult\030\001 \003(\0132\034.hbase.pb.RegionAction"
 operator|+
-literal|"ase.pb.MultiRegionLoadStats*\'\n\013Consisten"
+literal|"Result\022\021\n\tprocessed\030\002 \001(\010\0228\n\020regionStati"
 operator|+
-literal|"cy\022\n\n\006STRONG\020\000\022\014\n\010TIMELINE\020\0012\263\005\n\rClientS"
+literal|"stics\030\003 \001(\0132\036.hbase.pb.MultiRegionLoadSt"
 block|,
-literal|"ervice\0222\n\003Get\022\024.hbase.pb.GetRequest\032\025.hb"
+literal|"ats*\'\n\013Consistency\022\n\n\006STRONG\020\000\022\014\n\010TIMELI"
 operator|+
-literal|"ase.pb.GetResponse\022;\n\006Mutate\022\027.hbase.pb."
+literal|"NE\020\0012\263\005\n\rClientService\0222\n\003Get\022\024.hbase.pb"
 operator|+
-literal|"MutateRequest\032\030.hbase.pb.MutateResponse\022"
+literal|".GetRequest\032\025.hbase.pb.GetResponse\022;\n\006Mu"
 operator|+
-literal|"5\n\004Scan\022\025.hbase.pb.ScanRequest\032\026.hbase.p"
+literal|"tate\022\027.hbase.pb.MutateRequest\032\030.hbase.pb"
 operator|+
-literal|"b.ScanResponse\022P\n\rBulkLoadHFile\022\036.hbase."
+literal|".MutateResponse\0225\n\004Scan\022\025.hbase.pb.ScanR"
 operator|+
-literal|"pb.BulkLoadHFileRequest\032\037.hbase.pb.BulkL"
+literal|"equest\032\026.hbase.pb.ScanResponse\022P\n\rBulkLo"
 operator|+
-literal|"oadHFileResponse\022V\n\017PrepareBulkLoad\022 .hb"
+literal|"adHFile\022\036.hbase.pb.BulkLoadHFileRequest\032"
 operator|+
-literal|"ase.pb.PrepareBulkLoadRequest\032!.hbase.pb"
+literal|"\037.hbase.pb.BulkLoadHFileResponse\022V\n\017Prep"
 operator|+
-literal|".PrepareBulkLoadResponse\022V\n\017CleanupBulkL"
+literal|"areBulkLoad\022 .hbase.pb.PrepareBulkLoadRe"
 operator|+
-literal|"oad\022 .hbase.pb.CleanupBulkLoadRequest\032!."
+literal|"quest\032!.hbase.pb.PrepareBulkLoadResponse"
 block|,
-literal|"hbase.pb.CleanupBulkLoadResponse\022X\n\013Exec"
+literal|"\022V\n\017CleanupBulkLoad\022 .hbase.pb.CleanupBu"
 operator|+
-literal|"Service\022#.hbase.pb.CoprocessorServiceReq"
+literal|"lkLoadRequest\032!.hbase.pb.CleanupBulkLoad"
 operator|+
-literal|"uest\032$.hbase.pb.CoprocessorServiceRespon"
+literal|"Response\022X\n\013ExecService\022#.hbase.pb.Copro"
 operator|+
-literal|"se\022d\n\027ExecRegionServerService\022#.hbase.pb"
+literal|"cessorServiceRequest\032$.hbase.pb.Coproces"
 operator|+
-literal|".CoprocessorServiceRequest\032$.hbase.pb.Co"
+literal|"sorServiceResponse\022d\n\027ExecRegionServerSe"
 operator|+
-literal|"processorServiceResponse\0228\n\005Multi\022\026.hbas"
+literal|"rvice\022#.hbase.pb.CoprocessorServiceReque"
 operator|+
-literal|"e.pb.MultiRequest\032\027.hbase.pb.MultiRespon"
+literal|"st\032$.hbase.pb.CoprocessorServiceResponse"
 operator|+
-literal|"seBB\n*org.apache.hadoop.hbase.protobuf.g"
+literal|"\0228\n\005Multi\022\026.hbase.pb.MultiRequest\032\027.hbas"
 operator|+
-literal|"eneratedB\014ClientProtosH\001\210\001\001\240\001\001"
+literal|"e.pb.MultiResponseBB\n*org.apache.hadoop."
+operator|+
+literal|"hbase.protobuf.generatedB\014ClientProtosH\001"
+block|,
+literal|"\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -213038,6 +213702,8 @@ block|,
 literal|"AllowPartialResults"
 block|,
 literal|"CfTimeRange"
+block|,
+literal|"MvccReadPoint"
 block|, }
 argument_list|)
 expr_stmt|;
@@ -213154,6 +213820,8 @@ block|,
 literal|"HeartbeatMessage"
 block|,
 literal|"ScanMetrics"
+block|,
+literal|"MvccReadPoint"
 block|, }
 argument_list|)
 expr_stmt|;

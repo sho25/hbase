@@ -540,12 +540,20 @@ name|DEFAULT_HBASE_CLIENT_SCANNER_ASYNC_PREFETCH
 init|=
 literal|false
 decl_stmt|;
-comment|/**    * Set it true for small scan to get better performance    *    * Small scan should use pread and big scan can use seek + read    *    * seek + read is fast but can cause two problem (1) resource contention (2)    * cause too much network io    *    * [89-fb] Using pread for non-compaction read request    * https://issues.apache.org/jira/browse/HBASE-7266    *    * On the other hand, if setting it true, we would do    * openScanner,next,closeScanner in one RPC call. It means the better    * performance for small scan. [HBASE-9488].    *    * Generally, if the scan range is within one data block(64KB), it could be    * considered as a small scan.    */
+comment|/**    * Set it true for small scan to get better performance Small scan should use pread and big scan    * can use seek + read seek + read is fast but can cause two problem (1) resource contention (2)    * cause too much network io [89-fb] Using pread for non-compaction read request    * https://issues.apache.org/jira/browse/HBASE-7266 On the other hand, if setting it true, we    * would do openScanner,next,closeScanner in one RPC call. It means the better performance for    * small scan. [HBASE-9488]. Generally, if the scan range is within one data block(64KB), it could    * be considered as a small scan.    */
 specifier|private
 name|boolean
 name|small
 init|=
 literal|false
+decl_stmt|;
+comment|/**    * The mvcc read point to use when open a scanner. Remember to clear it after switching regions as    * the mvcc is only valid within region scope.    */
+specifier|private
+name|long
+name|mvccReadPoint
+init|=
+operator|-
+literal|1L
 decl_stmt|;
 comment|/**    * Create a Scan operation across all rows.    */
 specifier|public
@@ -977,6 +985,15 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+name|this
+operator|.
+name|mvccReadPoint
+operator|=
+name|scan
+operator|.
+name|getMvccReadPoint
+argument_list|()
+expr_stmt|;
 block|}
 comment|/**    * Builds a scan object with the same specs as get.    * @param get get to model scan after    */
 specifier|public
@@ -1192,6 +1209,13 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+name|this
+operator|.
+name|mvccReadPoint
+operator|=
+operator|-
+literal|1L
+expr_stmt|;
 block|}
 specifier|public
 name|boolean
@@ -3198,6 +3222,46 @@ name|asyncPrefetch
 expr_stmt|;
 return|return
 name|this
+return|;
+block|}
+comment|/**    * Get the mvcc read point used to open a scanner.    */
+name|long
+name|getMvccReadPoint
+parameter_list|()
+block|{
+return|return
+name|mvccReadPoint
+return|;
+block|}
+comment|/**    * Set the mvcc read point used to open a scanner.    */
+name|Scan
+name|setMvccReadPoint
+parameter_list|(
+name|long
+name|mvccReadPoint
+parameter_list|)
+block|{
+name|this
+operator|.
+name|mvccReadPoint
+operator|=
+name|mvccReadPoint
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**    * Set the mvcc read point to -1 which means do not use it.    */
+name|Scan
+name|resetMvccReadPoint
+parameter_list|()
+block|{
+return|return
+name|setMvccReadPoint
+argument_list|(
+operator|-
+literal|1L
+argument_list|)
 return|;
 block|}
 block|}
