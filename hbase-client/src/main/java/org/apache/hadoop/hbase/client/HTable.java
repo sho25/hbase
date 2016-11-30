@@ -1065,6 +1065,21 @@ literal|"Connection is null or closed."
 argument_list|)
 throw|;
 block|}
+if|if
+condition|(
+name|tableName
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Given table name is null"
+argument_list|)
+throw|;
+block|}
 name|this
 operator|.
 name|tableName
