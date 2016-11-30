@@ -82,6 +82,11 @@ init|=
 literal|"ritOldestAge"
 decl_stmt|;
 name|String
+name|RIT_DURATION_NAME
+init|=
+literal|"ritDuration"
+decl_stmt|;
+name|String
 name|ASSIGN_TIME_NAME
 init|=
 literal|"assign"
@@ -127,6 +132,13 @@ name|setRITOldestAge
 parameter_list|(
 name|long
 name|age
+parameter_list|)
+function_decl|;
+name|void
+name|updateRitDuration
+parameter_list|(
+name|long
+name|duration
 parameter_list|)
 function_decl|;
 block|}

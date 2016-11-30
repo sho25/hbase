@@ -149,6 +149,23 @@ name|timestamp
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * update the duration metrics of region is transition    * @param duration    */
+specifier|public
+name|void
+name|updateRitDuration
+parameter_list|(
+name|long
+name|duration
+parameter_list|)
+block|{
+name|assignmentManagerSource
+operator|.
+name|updateRitDuration
+argument_list|(
+name|duration
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 end_class
 
