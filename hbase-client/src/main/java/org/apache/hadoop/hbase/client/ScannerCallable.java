@@ -1843,11 +1843,45 @@ name|IOException
 name|e
 parameter_list|)
 block|{
+name|TableName
+name|table
+init|=
+name|getTableName
+argument_list|()
+decl_stmt|;
+name|String
+name|tableDetails
+init|=
+operator|(
+name|table
+operator|==
+literal|null
+operator|)
+condition|?
+literal|""
+else|:
+operator|(
+literal|" on table: "
+operator|+
+name|table
+operator|.
+name|getNameAsString
+argument_list|()
+operator|)
+decl_stmt|;
 name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Ignore, probably already closed"
+literal|"Ignore, probably already closed. Current scan: "
+operator|+
+name|getScan
+argument_list|()
+operator|.
+name|toString
+argument_list|()
+operator|+
+name|tableDetails
 argument_list|,
 name|e
 argument_list|)
