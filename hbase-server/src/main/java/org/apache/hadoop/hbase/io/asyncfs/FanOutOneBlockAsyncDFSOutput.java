@@ -1019,6 +1019,7 @@ literal|1024
 decl_stmt|;
 comment|// LIMIT is 128MB
 specifier|private
+specifier|static
 specifier|final
 name|int
 name|LIMIT

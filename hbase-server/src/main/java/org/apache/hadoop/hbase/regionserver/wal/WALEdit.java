@@ -540,6 +540,7 @@ literal|"HBASE::BULK_LOAD"
 argument_list|)
 decl_stmt|;
 specifier|private
+specifier|static
 specifier|final
 name|int
 name|VERSION_2

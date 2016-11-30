@@ -564,6 +564,7 @@ init|=
 literal|10
 decl_stmt|;
 specifier|private
+specifier|static
 specifier|final
 name|int
 name|THRESHOLD_TO_LOG_REGION_DETAILS

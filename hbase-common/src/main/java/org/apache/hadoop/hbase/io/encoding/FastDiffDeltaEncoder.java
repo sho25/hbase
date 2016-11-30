@@ -224,6 +224,7 @@ name|FastDiffDeltaEncoder
 extends|extends
 name|BufferedDataBlockEncoder
 block|{
+specifier|static
 specifier|final
 name|int
 name|MASK_TIMESTAMP_LENGTH
@@ -246,12 +247,14 @@ operator|<<
 literal|2
 operator|)
 decl_stmt|;
+specifier|static
 specifier|final
 name|int
 name|SHIFT_TIMESTAMP_LENGTH
 init|=
 literal|0
 decl_stmt|;
+specifier|static
 specifier|final
 name|int
 name|FLAG_SAME_KEY_LENGTH
@@ -260,6 +263,7 @@ literal|1
 operator|<<
 literal|3
 decl_stmt|;
+specifier|static
 specifier|final
 name|int
 name|FLAG_SAME_VALUE_LENGTH
@@ -268,6 +272,7 @@ literal|1
 operator|<<
 literal|4
 decl_stmt|;
+specifier|static
 specifier|final
 name|int
 name|FLAG_SAME_TYPE
@@ -276,6 +281,7 @@ literal|1
 operator|<<
 literal|5
 decl_stmt|;
+specifier|static
 specifier|final
 name|int
 name|FLAG_SAME_VALUE
