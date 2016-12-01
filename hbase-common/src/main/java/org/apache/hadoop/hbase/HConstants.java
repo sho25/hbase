@@ -2030,6 +2030,15 @@ name|DEFAULT_HBASE_CLIENT_PAUSE
 init|=
 literal|100
 decl_stmt|;
+comment|/**    * Parameter name for client pause value for special case such as call queue too big, etc.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_CLIENT_PAUSE_FOR_CQTBE
+init|=
+literal|"hbase.client.pause.cqtbe"
+decl_stmt|;
 comment|/**    * The maximum number of concurrent connections the client will maintain.    */
 specifier|public
 specifier|static

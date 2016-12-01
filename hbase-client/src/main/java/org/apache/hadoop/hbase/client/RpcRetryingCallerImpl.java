@@ -149,6 +149,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CallQueueTooBigException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|DoNotRetryIOException
 import|;
 end_import
@@ -303,6 +317,11 @@ name|pause
 decl_stmt|;
 specifier|private
 specifier|final
+name|long
+name|pauseForCQTBE
+decl_stmt|;
+specifier|private
+specifier|final
 name|int
 name|maxAttempts
 decl_stmt|;
@@ -345,6 +364,9 @@ parameter_list|(
 name|long
 name|pause
 parameter_list|,
+name|long
+name|pauseForCQTBE
+parameter_list|,
 name|int
 name|retries
 parameter_list|,
@@ -355,6 +377,8 @@ block|{
 name|this
 argument_list|(
 name|pause
+argument_list|,
+name|pauseForCQTBE
 argument_list|,
 name|retries
 argument_list|,
@@ -374,6 +398,9 @@ parameter_list|(
 name|long
 name|pause
 parameter_list|,
+name|long
+name|pauseForCQTBE
+parameter_list|,
 name|int
 name|retries
 parameter_list|,
@@ -392,6 +419,12 @@ operator|.
 name|pause
 operator|=
 name|pause
+expr_stmt|;
+name|this
+operator|.
+name|pauseForCQTBE
+operator|=
+name|pauseForCQTBE
 expr_stmt|;
 name|this
 operator|.
@@ -719,15 +752,29 @@ argument_list|)
 throw|;
 block|}
 comment|// If the server is dead, we need to wait a little before retrying, to give
-comment|//  a chance to the regions to be
-comment|// get right pause time, start by RETRY_BACKOFF[0] * pause
+comment|// a chance to the regions to be moved
+comment|// get right pause time, start by RETRY_BACKOFF[0] * pauseBase, where pauseBase might be
+comment|// special when encountering CallQueueTooBigException, see #HBASE-17114
+name|long
+name|pauseBase
+init|=
+operator|(
+name|t
+operator|instanceof
+name|CallQueueTooBigException
+operator|)
+condition|?
+name|pauseForCQTBE
+else|:
+name|pause
+decl_stmt|;
 name|expectedSleep
 operator|=
 name|callable
 operator|.
 name|sleep
 argument_list|(
-name|pause
+name|pauseBase
 argument_list|,
 name|tries
 argument_list|)

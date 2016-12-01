@@ -816,6 +816,12 @@ name|long
 name|pause
 decl_stmt|;
 specifier|protected
+specifier|final
+name|long
+name|pauseForCQTBE
+decl_stmt|;
+comment|// pause for CallQueueTooBigException, if specified
+specifier|protected
 name|int
 name|numTries
 decl_stmt|;
@@ -935,6 +941,70 @@ operator|.
 name|DEFAULT_HBASE_CLIENT_PAUSE
 argument_list|)
 expr_stmt|;
+name|long
+name|configuredPauseForCQTBE
+init|=
+name|conf
+operator|.
+name|getLong
+argument_list|(
+name|HConstants
+operator|.
+name|HBASE_CLIENT_PAUSE_FOR_CQTBE
+argument_list|,
+name|pause
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|configuredPauseForCQTBE
+operator|<
+name|pause
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"The "
+operator|+
+name|HConstants
+operator|.
+name|HBASE_CLIENT_PAUSE_FOR_CQTBE
+operator|+
+literal|" setting: "
+operator|+
+name|configuredPauseForCQTBE
+operator|+
+literal|" is smaller than "
+operator|+
+name|HConstants
+operator|.
+name|HBASE_CLIENT_PAUSE
+operator|+
+literal|", will use "
+operator|+
+name|pause
+operator|+
+literal|" instead."
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|pauseForCQTBE
+operator|=
+name|pause
+expr_stmt|;
+block|}
+else|else
+block|{
+name|this
+operator|.
+name|pauseForCQTBE
+operator|=
+name|configuredPauseForCQTBE
+expr_stmt|;
+block|}
 comment|// how many times we could try in total, one more than retry number
 name|this
 operator|.
