@@ -1972,6 +1972,39 @@ name|conf
 argument_list|)
 return|;
 block|}
+comment|/**   * Creates reader with cache configuration disabled   * @param fs filesystem   * @param path Path to file to read   * @return an active Reader instance   * @throws IOException Will throw a CorruptHFileException   * (DoNotRetryIOException subtype) if hfile is corrupt/invalid.   */
+specifier|public
+specifier|static
+name|Reader
+name|createReader
+parameter_list|(
+name|FileSystem
+name|fs
+parameter_list|,
+name|Path
+name|path
+parameter_list|,
+name|Configuration
+name|conf
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|createReader
+argument_list|(
+name|fs
+argument_list|,
+name|path
+argument_list|,
+name|CacheConfig
+operator|.
+name|DISABLED
+argument_list|,
+name|conf
+argument_list|)
+return|;
+block|}
 comment|/**    *    * @param fs filesystem    * @param path Path to file to read    * @param cacheConf This must not be null.  @see {@link org.apache.hadoop.hbase.io.hfile.CacheConfig#CacheConfig(Configuration)}    * @return an active Reader instance    * @throws IOException Will throw a CorruptHFileException (DoNotRetryIOException subtype) if hfile is corrupt/invalid.    */
 specifier|public
 specifier|static
@@ -2502,6 +2535,8 @@ return|return
 name|this
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|clear
@@ -2515,6 +2550,8 @@ name|clear
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|Comparator
 operator|<
@@ -2533,6 +2570,8 @@ name|comparator
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|containsKey
@@ -2550,6 +2589,8 @@ name|key
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|containsValue
@@ -2567,6 +2608,8 @@ name|value
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|Set
 argument_list|<
@@ -2595,6 +2638,8 @@ name|entrySet
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|equals
@@ -2612,6 +2657,8 @@ name|o
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|byte
 index|[]
@@ -2625,6 +2672,8 @@ name|firstKey
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|byte
 index|[]
@@ -2643,6 +2692,8 @@ name|key
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|int
 name|hashCode
@@ -2655,6 +2706,8 @@ name|hashCode
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|SortedMap
 argument_list|<
@@ -2682,6 +2735,8 @@ name|toKey
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isEmpty
@@ -2694,6 +2749,8 @@ name|isEmpty
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|Set
 argument_list|<
@@ -2710,6 +2767,8 @@ name|keySet
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|byte
 index|[]
@@ -2723,6 +2782,8 @@ name|lastKey
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|byte
 index|[]
@@ -2750,6 +2811,8 @@ name|value
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|putAll
@@ -2779,6 +2842,8 @@ name|m
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|byte
 index|[]
@@ -2799,6 +2864,8 @@ name|key
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|int
 name|size
@@ -2811,6 +2878,8 @@ name|size
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|SortedMap
 argument_list|<
@@ -2844,6 +2913,8 @@ name|toKey
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|SortedMap
 argument_list|<
@@ -2871,6 +2942,8 @@ name|fromKey
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|Collection
 argument_list|<
