@@ -712,7 +712,9 @@ name|shutdownThread
 init|=
 operator|new
 name|Thread
-argument_list|()
+argument_list|(
+literal|"Shutdown-Thread"
+argument_list|)
 block|{
 specifier|public
 name|void
