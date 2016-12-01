@@ -235,6 +235,27 @@ name|ClusterStatus
 name|st
 parameter_list|)
 function_decl|;
+comment|/**    * Pass RegionStates and allow balancer to set the current cluster load.    * @param ClusterLoad    */
+name|void
+name|setClusterLoad
+parameter_list|(
+name|Map
+argument_list|<
+name|TableName
+argument_list|,
+name|Map
+argument_list|<
+name|ServerName
+argument_list|,
+name|List
+argument_list|<
+name|HRegionInfo
+argument_list|>
+argument_list|>
+argument_list|>
+name|ClusterLoad
+parameter_list|)
+function_decl|;
 comment|/**    * Set the master service.    * @param masterServices    */
 name|void
 name|setMasterServices
