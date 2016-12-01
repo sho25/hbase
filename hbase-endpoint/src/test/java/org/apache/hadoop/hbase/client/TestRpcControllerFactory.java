@@ -563,6 +563,10 @@ comment|// ignore counts for system tables - it could change and we really only 
 comment|// the client should change
 if|if
 condition|(
+name|tn
+operator|!=
+literal|null
+operator|&&
 operator|!
 name|tn
 operator|.

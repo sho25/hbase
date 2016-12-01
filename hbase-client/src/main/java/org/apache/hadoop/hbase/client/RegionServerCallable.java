@@ -295,21 +295,6 @@ name|connection
 operator|=
 name|connection
 expr_stmt|;
-if|if
-condition|(
-name|tableName
-operator|==
-literal|null
-condition|)
-block|{
-throw|throw
-operator|new
-name|IllegalArgumentException
-argument_list|(
-literal|"Given tableName is null"
-argument_list|)
-throw|;
-block|}
 name|this
 operator|.
 name|tableName
@@ -778,6 +763,10 @@ comment|// check table state if this is a retry
 if|if
 condition|(
 name|reload
+operator|&&
+name|tableName
+operator|!=
+literal|null
 operator|&&
 operator|!
 name|tableName
