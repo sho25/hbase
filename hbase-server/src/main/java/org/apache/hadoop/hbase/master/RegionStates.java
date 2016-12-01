@@ -5447,7 +5447,7 @@ name|server
 operator|.
 name|abort
 argument_list|(
-literal|"Aborting because error occoured while reading "
+literal|"Aborting because error occurred while reading "
 operator|+
 name|Bytes
 operator|.

@@ -2212,7 +2212,7 @@ operator|+
 name|getRegionsToMergeListEncodedNameString
 argument_list|()
 operator|+
-literal|", focible="
+literal|", forcible="
 operator|+
 name|forcible
 argument_list|)
@@ -2265,7 +2265,7 @@ operator|+
 name|getRegionsToMergeListEncodedNameString
 argument_list|()
 operator|+
-literal|", focible="
+literal|", forcible="
 operator|+
 name|forcible
 argument_list|,

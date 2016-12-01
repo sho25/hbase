@@ -5535,7 +5535,7 @@ literal|"IO errors duration time has exceeded "
 operator|+
 name|ioErrorsTolerationDuration
 operator|+
-literal|"ms, disabing cache, please check your IOEngine"
+literal|"ms, disabling cache, please check your IOEngine"
 argument_list|)
 expr_stmt|;
 name|disableCache

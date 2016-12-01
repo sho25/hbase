@@ -1935,7 +1935,7 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"An error occured while trying to connect to the remove peer cluster"
+literal|"An error occurred while trying to connect to the remove peer cluster"
 argument_list|,
 name|e
 argument_list|)

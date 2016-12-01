@@ -4821,7 +4821,7 @@ throw|throw
 operator|new
 name|IllegalArgumentException
 argument_list|(
-literal|"DFS replication factor cannot be less than 1 if explictly set."
+literal|"DFS replication factor cannot be less than 1 if explicitly set."
 argument_list|)
 throw|;
 block|}

@@ -3715,7 +3715,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Row key of mutation from coprossor is not parsable as region name."
+literal|"Row key of mutation from coprocessor is not parsable as region name."
 operator|+
 literal|"Mutations from coprocessor should only for hbase:meta table."
 argument_list|)

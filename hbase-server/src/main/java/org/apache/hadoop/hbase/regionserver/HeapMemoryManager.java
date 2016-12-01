@@ -1158,7 +1158,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Stoping HeapMemoryTuner chore."
+literal|"Stopping HeapMemoryTuner chore."
 argument_list|)
 expr_stmt|;
 name|this

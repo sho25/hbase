@@ -858,7 +858,7 @@ block|{
 name|String
 name|msg
 init|=
-literal|"Data in for starting procuedure "
+literal|"Data in for starting procedure "
 operator|+
 name|opName
 operator|+

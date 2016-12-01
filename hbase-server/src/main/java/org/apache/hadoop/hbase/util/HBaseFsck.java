@@ -5069,7 +5069,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Region's boundaries not alligned between stores and META for:"
+literal|"Region's boundaries not aligned between stores and META for:"
 argument_list|)
 expr_stmt|;
 name|LOG
@@ -5195,7 +5195,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Attempt to adopt ophan hdfs region skipped becuase no files present in "
+literal|"Attempt to adopt orphan hdfs region skipped because no files present in "
 operator|+
 name|p
 operator|+
@@ -6097,7 +6097,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Trying to sildeline reference file "
+literal|"Trying to sideline reference file "
 operator|+
 name|path
 operator|+

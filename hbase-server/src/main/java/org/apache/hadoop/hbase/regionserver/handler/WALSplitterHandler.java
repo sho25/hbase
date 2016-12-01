@@ -512,7 +512,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"task execution prempted "
+literal|"task execution preempted "
 operator|+
 name|splitTaskDetails
 operator|.

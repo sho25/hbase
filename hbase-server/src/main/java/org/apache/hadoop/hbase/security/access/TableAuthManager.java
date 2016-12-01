@@ -1343,7 +1343,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Error occured while updating the global cache"
+literal|"Error occurred while updating the global cache"
 argument_list|,
 name|e
 argument_list|)

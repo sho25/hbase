@@ -504,7 +504,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Failed to mark end of mob compation"
+literal|"Failed to mark end of mob compaction"
 argument_list|,
 name|e1
 argument_list|)
@@ -714,7 +714,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Failed to mark end of mob compation"
+literal|"Failed to mark end of mob compaction"
 argument_list|,
 name|e
 argument_list|)

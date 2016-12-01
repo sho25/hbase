@@ -1266,7 +1266,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Error occured while replicating HFiles, retry attempt "
+literal|"Error occurred while replicating HFiles, retry attempt "
 operator|+
 name|count
 operator|+

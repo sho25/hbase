@@ -5565,7 +5565,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"HDFS checksum verification suceeded for file "
+literal|"HDFS checksum verification succeeded for file "
 operator|+
 name|pathName
 operator|+

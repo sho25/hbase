@@ -2434,7 +2434,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"[Error] Region assignment verfication report"
+literal|"[Error] Region assignment verification report"
 operator|+
 literal|"hasn't been filled up"
 argument_list|)

@@ -5706,7 +5706,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Got intrerrupted while waiting for EntryBuffers is drained"
+literal|"Got interrupted while waiting for EntryBuffers is drained"
 argument_list|)
 expr_stmt|;
 name|Thread

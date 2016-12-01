@@ -1973,7 +1973,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed to quaratine an HFile in regiondir "
+literal|"Failed to quarantine an HFile in regiondir "
 operator|+
 name|rdcs
 operator|.

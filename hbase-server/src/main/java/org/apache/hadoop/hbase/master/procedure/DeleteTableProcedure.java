@@ -2149,7 +2149,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Deleting some vestigal "
+literal|"Deleting some vestigial "
 operator|+
 name|deletes
 operator|.

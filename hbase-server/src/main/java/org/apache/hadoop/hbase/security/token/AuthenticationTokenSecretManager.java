@@ -770,7 +770,7 @@ operator|.
 name|getId
 argument_list|()
 operator|+
-literal|"] is stoped or not alive"
+literal|"] is stopped or not alive"
 argument_list|)
 expr_stmt|;
 name|leaderElector

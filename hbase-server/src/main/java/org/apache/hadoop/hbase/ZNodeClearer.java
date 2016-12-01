@@ -549,7 +549,7 @@ literal|"String "
 operator|+
 name|rsZnodePath
 operator|+
-literal|" has wrong fromat"
+literal|" has wrong format"
 argument_list|,
 name|e
 argument_list|)

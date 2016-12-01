@@ -2659,7 +2659,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Cannot place the secondary and terinary"
+literal|"Cannot place the secondary and ternary"
 operator|+
 literal|"region server for region "
 operator|+
@@ -2836,7 +2836,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Cannot place the secondary and terinary"
+literal|"Cannot place the secondary and ternary"
 operator|+
 literal|"region server for region "
 operator|+

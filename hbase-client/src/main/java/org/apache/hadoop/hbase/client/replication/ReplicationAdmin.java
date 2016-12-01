@@ -2678,7 +2678,7 @@ operator|.
 name|getId
 argument_list|()
 operator|+
-literal|", but the table descriptors are not same when comapred with source cluster."
+literal|", but the table descriptors are not same when compared with source cluster."
 operator|+
 literal|" Thus can not enable the table's replication switch."
 argument_list|)

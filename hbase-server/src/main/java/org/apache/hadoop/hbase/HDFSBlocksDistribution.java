@@ -305,7 +305,7 @@ name|toString
 parameter_list|()
 block|{
 return|return
-literal|"number of unique hosts in the disribution="
+literal|"number of unique hosts in the distribution="
 operator|+
 name|this
 operator|.

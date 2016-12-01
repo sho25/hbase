@@ -2931,7 +2931,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Split occured while grouping HFiles, retry attempt "
+literal|"Split occurred while grouping HFiles, retry attempt "
 operator|+
 operator|+
 name|count
@@ -5243,7 +5243,7 @@ operator|.
 name|getName
 argument_list|()
 operator|+
-literal|" cann't be found in hbase:meta.Please use hbck tool to fix it first."
+literal|" can't be found in hbase:meta.Please use hbck tool to fix it first."
 argument_list|)
 throw|;
 block|}
@@ -5293,7 +5293,7 @@ operator|.
 name|getName
 argument_list|()
 operator|+
-literal|" cann't be found in hbase:meta.Please use hbck tool to fix it first."
+literal|" can't be found in hbase:meta.Please use hbck tool to fix it first."
 argument_list|)
 throw|;
 block|}

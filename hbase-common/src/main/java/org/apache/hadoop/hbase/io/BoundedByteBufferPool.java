@@ -527,7 +527,7 @@ literal|"runningAverage="
 operator|+
 name|runningAverage
 operator|+
-literal|", alloctions="
+literal|", allocations="
 operator|+
 name|allocations
 argument_list|)

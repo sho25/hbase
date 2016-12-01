@@ -6060,7 +6060,7 @@ literal|"locality"
 argument_list|,
 literal|true
 argument_list|,
-literal|"enforce the maxium locality"
+literal|"enforce the maximum locality"
 argument_list|)
 expr_stmt|;
 name|opt
@@ -6073,7 +6073,7 @@ literal|"min-move"
 argument_list|,
 literal|true
 argument_list|,
-literal|"enforce minium assignment move"
+literal|"enforce minimum assignment move"
 argument_list|)
 expr_stmt|;
 name|opt

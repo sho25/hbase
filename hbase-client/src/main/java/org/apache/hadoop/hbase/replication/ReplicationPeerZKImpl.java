@@ -779,7 +779,7 @@ name|LOG
 operator|.
 name|fatal
 argument_list|(
-literal|"The ReplicationPeer coresponding to peer "
+literal|"The ReplicationPeer corresponding to peer "
 operator|+
 name|peerConfig
 operator|+

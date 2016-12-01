@@ -473,7 +473,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Exception while trying to close and archive the comapcted store "
+literal|"Exception while trying to close and archive the compacted store "
 operator|+
 literal|"files of the store  "
 operator|+
