@@ -67,16 +67,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|HashSet
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|List
 import|;
 end_import
@@ -88,16 +78,6 @@ operator|.
 name|util
 operator|.
 name|NavigableSet
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Set
 import|;
 end_import
 
@@ -644,14 +624,14 @@ decl_stmt|;
 comment|// Collects all the KVHeap that are eagerly getting closed during the
 comment|// course of a scan
 specifier|protected
-name|Set
+name|List
 argument_list|<
 name|KeyValueHeap
 argument_list|>
 name|heapsForDelayedClose
 init|=
 operator|new
-name|HashSet
+name|ArrayList
 argument_list|<
 name|KeyValueHeap
 argument_list|>
