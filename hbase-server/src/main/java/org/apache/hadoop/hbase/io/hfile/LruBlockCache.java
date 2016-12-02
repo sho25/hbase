@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/*  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -420,7 +420,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A block cache implementation that is memory-aware using {@link HeapSize},  * memory-bound using an LRU eviction algorithm, and concurrent: backed by a  * {@link ConcurrentHashMap} and with a non-blocking eviction thread giving  * constant-time {@link #cacheBlock} and {@link #getBlock} operations.<p>  *  * Contains three levels of block priority to allow for scan-resistance and in-memory families  * {@link org.apache.hadoop.hbase.HColumnDescriptor#setInMemory(boolean)} (An in-memory column  * family is a column family that should be served from memory if possible):  * single-access, multiple-accesses, and in-memory priority.  * A block is added with an in-memory priority flag if  * {@link org.apache.hadoop.hbase.HColumnDescriptor#isInMemory()}, otherwise a block becomes a  * single access priority the first time it is read into this block cache.  If a block is  * accessed again while in cache, it is marked as a multiple access priority block.  This  * delineation of blocks is used to prevent scans from thrashing the cache adding a  * least-frequently-used element to the eviction algorithm.<p>  *  * Each priority is given its own chunk of the total cache to ensure  * fairness during eviction.  Each priority will retain close to its maximum  * size, however, if any priority is not using its entire chunk the others  * are able to grow beyond their chunk size.<p>  *  * Instantiated at a minimum with the total size and average block size.  * All sizes are in bytes.  The block size is not especially important as this  * cache is fully dynamic in its sizing of blocks.  It is only used for  * pre-allocating data structures and in initial heap estimation of the map.<p>  *  * The detailed constructor defines the sizes for the three priorities (they  * should total to the<code>maximum size</code> defined).  It also sets the levels that  * trigger and control the eviction thread.<p>  *  * The<code>acceptable size</code> is the cache size level which triggers the eviction  * process to start.  It evicts enough blocks to get the size below the  * minimum size specified.<p>  *  * Eviction happens in a separate thread and involves a single full-scan  * of the map.  It determines how many bytes must be freed to reach the minimum  * size, and then while scanning determines the fewest least-recently-used  * blocks necessary from each of the three priorities (would be 3 times bytes  * to free).  It then uses the priority chunk sizes to evict fairly according  * to the relative sizes and usage.  */
+comment|/**  * A block cache implementation that is memory-aware using {@link HeapSize},  * memory-bound using an LRU eviction algorithm, and concurrent: backed by a  * {@link ConcurrentHashMap} and with a non-blocking eviction thread giving  * constant-time {@link #cacheBlock} and {@link #getBlock} operations.<p>  *  * Contains three levels of block priority to allow for scan-resistance and in-memory families   * {@link org.apache.hadoop.hbase.HColumnDescriptor#setInMemory(boolean)} (An in-memory column   * family is a column family that should be served from memory if possible):  * single-access, multiple-accesses, and in-memory priority.  * A block is added with an in-memory priority flag if  * {@link org.apache.hadoop.hbase.HColumnDescriptor#isInMemory()}, otherwise a block becomes a  *  single access priority the first time it is read into this block cache.  If a block is  *  accessed again while in cache, it is marked as a multiple access priority block.  This  *  delineation of blocks is used to prevent scans from thrashing the cache adding a   *  least-frequently-used element to the eviction algorithm.<p>  *  * Each priority is given its own chunk of the total cache to ensure  * fairness during eviction.  Each priority will retain close to its maximum  * size, however, if any priority is not using its entire chunk the others  * are able to grow beyond their chunk size.<p>  *  * Instantiated at a minimum with the total size and average block size.  * All sizes are in bytes.  The block size is not especially important as this  * cache is fully dynamic in its sizing of blocks.  It is only used for  * pre-allocating data structures and in initial heap estimation of the map.<p>  *  * The detailed constructor defines the sizes for the three priorities (they  * should total to the<code>maximum size</code> defined).  It also sets the levels that  * trigger and control the eviction thread.<p>  *  * The<code>acceptable size</code> is the cache size level which triggers the eviction  * process to start.  It evicts enough blocks to get the size below the  * minimum size specified.<p>  *  * Eviction happens in a separate thread and involves a single full-scan  * of the map.  It determines how many bytes must be freed to reach the minimum  * size, and then while scanning determines the fewest least-recently-used  * blocks necessary from each of the three priorities (would be 3 times bytes  * to free).  It then uses the priority chunk sizes to evict fairly according  * to the relative sizes and usage.  */
 end_comment
 
 begin_class
@@ -459,7 +459,6 @@ name|class
 argument_list|)
 decl_stmt|;
 comment|/**    * Percentage of total size that eviction will evict until; e.g. if set to .8, then we will keep    * evicting during an eviction run till the cache size is down to 80% of the total.    */
-specifier|private
 specifier|static
 specifier|final
 name|String
@@ -468,7 +467,6 @@ init|=
 literal|"hbase.lru.blockcache.min.factor"
 decl_stmt|;
 comment|/**    * Acceptable size of cache (no evictions if size< acceptable)    */
-specifier|private
 specifier|static
 specifier|final
 name|String
@@ -484,7 +482,6 @@ name|LRU_HARD_CAPACITY_LIMIT_FACTOR_CONFIG_NAME
 init|=
 literal|"hbase.lru.blockcache.hard.capacity.limit.factor"
 decl_stmt|;
-specifier|private
 specifier|static
 specifier|final
 name|String
@@ -492,7 +489,6 @@ name|LRU_SINGLE_PERCENTAGE_CONFIG_NAME
 init|=
 literal|"hbase.lru.blockcache.single.percentage"
 decl_stmt|;
-specifier|private
 specifier|static
 specifier|final
 name|String
@@ -500,7 +496,6 @@ name|LRU_MULTI_PERCENTAGE_CONFIG_NAME
 init|=
 literal|"hbase.lru.blockcache.multi.percentage"
 decl_stmt|;
-specifier|private
 specifier|static
 specifier|final
 name|String
@@ -509,7 +504,6 @@ init|=
 literal|"hbase.lru.blockcache.memory.percentage"
 decl_stmt|;
 comment|/**    * Configuration key to force data-block always (except in-memory are too much)    * cached in memory for in-memory hfile, unlike inMemory, which is a column-family    * configuration, inMemoryForceMode is a cluster-wide configuration    */
-specifier|private
 specifier|static
 specifier|final
 name|String
@@ -517,8 +511,8 @@ name|LRU_IN_MEMORY_FORCE_MODE_CONFIG_NAME
 init|=
 literal|"hbase.lru.rs.inmemoryforcemode"
 decl_stmt|;
-comment|/* Default Configuration Parameters*/
-comment|/* Backing Concurrent Map Configuration */
+comment|/** Default Configuration Parameters*/
+comment|/** Backing Concurrent Map Configuration */
 specifier|static
 specifier|final
 name|float
@@ -533,8 +527,7 @@ name|DEFAULT_CONCURRENCY_LEVEL
 init|=
 literal|16
 decl_stmt|;
-comment|/* Eviction thresholds */
-specifier|private
+comment|/** Eviction thresholds */
 specifier|static
 specifier|final
 name|float
@@ -549,8 +542,7 @@ name|DEFAULT_ACCEPTABLE_FACTOR
 init|=
 literal|0.99f
 decl_stmt|;
-comment|/* Priority buckets */
-specifier|private
+comment|/** Priority buckets */
 specifier|static
 specifier|final
 name|float
@@ -558,7 +550,6 @@ name|DEFAULT_SINGLE_FACTOR
 init|=
 literal|0.25f
 decl_stmt|;
-specifier|private
 specifier|static
 specifier|final
 name|float
@@ -566,7 +557,6 @@ name|DEFAULT_MULTI_FACTOR
 init|=
 literal|0.50f
 decl_stmt|;
-specifier|private
 specifier|static
 specifier|final
 name|float
@@ -574,7 +564,7 @@ name|DEFAULT_MEMORY_FACTOR
 init|=
 literal|0.25f
 decl_stmt|;
-specifier|private
+comment|/** default hard capacity limit */
 specifier|static
 specifier|final
 name|float
@@ -582,7 +572,6 @@ name|DEFAULT_HARD_CAPACITY_LIMIT_FACTOR
 init|=
 literal|1.2f
 decl_stmt|;
-specifier|private
 specifier|static
 specifier|final
 name|boolean
@@ -590,12 +579,11 @@ name|DEFAULT_IN_MEMORY_FORCE_MODE
 init|=
 literal|false
 decl_stmt|;
-comment|/* Statistics thread */
-specifier|private
+comment|/** Statistics thread */
 specifier|static
 specifier|final
 name|int
-name|STAT_THREAD_PERIOD
+name|statThreadPeriod
 init|=
 literal|60
 operator|*
@@ -774,7 +762,7 @@ name|victimHandler
 init|=
 literal|null
 decl_stmt|;
-comment|/**    * Default constructor.  Specify maximum size and expected average block    * size (approximation is fine).    *    *<p>All other factors will be calculated based on defaults specified in    * this class.    *    * @param maxSize   maximum size of cache, in bytes    * @param blockSize approximate size of each block, in bytes    */
+comment|/**    * Default constructor.  Specify maximum size and expected average block    * size (approximation is fine).    *    *<p>All other factors will be calculated based on defaults specified in    * this class.    * @param maxSize maximum size of cache, in bytes    * @param blockSize approximate size of each block, in bytes    */
 specifier|public
 name|LruBlockCache
 parameter_list|(
@@ -994,7 +982,7 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Configurable constructor.  Use this constructor if not using defaults.    *    * @param maxSize             maximum size of this cache, in bytes    * @param blockSize           expected average size of blocks, in bytes    * @param evictionThread      whether to run evictions in a bg thread or not    * @param mapInitialSize      initial size of backing ConcurrentHashMap    * @param mapLoadFactor       initial load factor of backing ConcurrentHashMap    * @param mapConcurrencyLevel initial concurrency factor for backing CHM    * @param minFactor           percentage of total size that eviction will evict until    * @param acceptableFactor    percentage of total size that triggers eviction    * @param singleFactor        percentage of total size for single-access blocks    * @param multiFactor         percentage of total size for multiple-access blocks    * @param memoryFactor        percentage of total size for in-memory blocks    */
+comment|/**    * Configurable constructor.  Use this constructor if not using defaults.    * @param maxSize maximum size of this cache, in bytes    * @param blockSize expected average size of blocks, in bytes    * @param evictionThread whether to run evictions in a bg thread or not    * @param mapInitialSize initial size of backing ConcurrentHashMap    * @param mapLoadFactor initial load factor of backing ConcurrentHashMap    * @param mapConcurrencyLevel initial concurrency factor for backing CHM    * @param minFactor percentage of total size that eviction will evict until    * @param acceptableFactor percentage of total size that triggers eviction    * @param singleFactor percentage of total size for single-access blocks    * @param multiFactor percentage of total size for multiple-access blocks    * @param memoryFactor percentage of total size for in-memory blocks    */
 specifier|public
 name|LruBlockCache
 parameter_list|(
@@ -1136,7 +1124,11 @@ name|map
 operator|=
 operator|new
 name|ConcurrentHashMap
-argument_list|<>
+argument_list|<
+name|BlockCacheKey
+argument_list|,
+name|LruCachedBlock
+argument_list|>
 argument_list|(
 name|mapInitialSize
 argument_list|,
@@ -1289,9 +1281,9 @@ argument_list|(
 name|this
 argument_list|)
 argument_list|,
-name|STAT_THREAD_PERIOD
+name|statThreadPeriod
 argument_list|,
-name|STAT_THREAD_PERIOD
+name|statThreadPeriod
 argument_list|,
 name|TimeUnit
 operator|.
@@ -1337,7 +1329,7 @@ expr_stmt|;
 block|}
 block|}
 comment|// BlockCache implementation
-comment|/**    * Cache the block with the specified name and buffer.    *<p>    * It is assumed this will NOT be called on an already cached block. In rare cases (HBASE-8547)    * this can happen, for which we compare the buffer contents.    *    * @param cacheKey block's cache key    * @param buf      block buffer    * @param inMemory if block is in-memory    */
+comment|/**    * Cache the block with the specified name and buffer.    *<p>    * It is assumed this will NOT be called on an already cached block. In rare cases (HBASE-8547)    * this can happen, for which we compare the buffer contents.    * @param cacheKey block's cache key    * @param buf block buffer    * @param inMemory if block is in-memory    * @param cacheDataInL1    */
 annotation|@
 name|Override
 specifier|public
@@ -1556,9 +1548,9 @@ argument_list|(
 name|currentAcceptableSize
 argument_list|)
 operator|+
-literal|"."
+literal|"  too many."
 operator|+
-literal|" The hard limit size is "
+literal|" the hard limit size is "
 operator|+
 name|StringUtils
 operator|.
@@ -1851,7 +1843,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Cache the block with the specified name and buffer.    *<p>    *    * @param cacheKey block's cache key    * @param buf      block buffer    */
+comment|/**    * Cache the block with the specified name and buffer.    *<p>    * @param cacheKey block's cache key    * @param buf block buffer    */
 specifier|public
 name|void
 name|cacheBlock
@@ -1875,8 +1867,8 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Helper function that updates the local size counter and also updates any    * per-cf or per-blocktype metrics it can discern from given    * {@link LruCachedBlock}    */
-specifier|private
+comment|/**    * Helper function that updates the local size counter and also updates any    * per-cf or per-blocktype metrics it can discern from given    * {@link LruCachedBlock}    *    * @param cb    * @param evict    */
+specifier|protected
 name|long
 name|updateSizeMetrics
 parameter_list|(
@@ -1915,7 +1907,7 @@ name|heapsize
 argument_list|)
 return|;
 block|}
-comment|/**    * Get the buffer of the block with the specified name.    *    * @param cacheKey           block's cache key    * @param caching            true if the caller caches blocks on cache misses    * @param repeat             Whether this is a repeat lookup for the same block    *                           (used to avoid double counting cache misses when doing double-check    *                           locking)    * @param updateCacheMetrics Whether to update cache metrics or not    *    * @return buffer of specified cache key, or null if not in cache    */
+comment|/**    * Get the buffer of the block with the specified name.    * @param cacheKey block's cache key    * @param caching true if the caller caches blocks on cache misses    * @param repeat Whether this is a repeat lookup for the same block    *        (used to avoid double counting cache misses when doing double-check locking)    * @param updateCacheMetrics Whether to update cache metrics or not    * @return buffer of specified cache key, or null if not in cache    */
 annotation|@
 name|Override
 specifier|public
@@ -2107,7 +2099,7 @@ name|getBuffer
 argument_list|()
 return|;
 block|}
-comment|/**    * Whether the cache contains block with specified cacheKey    *    * @return true if contains the block    */
+comment|/**    * Whether the cache contains block with specified cacheKey    * @param cacheKey    * @return true if contains the block    */
 specifier|public
 name|boolean
 name|containsBlock
@@ -2145,11 +2137,16 @@ argument_list|(
 name|cacheKey
 argument_list|)
 decl_stmt|;
-return|return
+if|if
+condition|(
 name|cb
-operator|!=
+operator|==
 literal|null
-operator|&&
+condition|)
+return|return
+literal|false
+return|;
+return|return
 name|evictBlock
 argument_list|(
 name|cb
@@ -2233,7 +2230,7 @@ return|return
 name|numEvicted
 return|;
 block|}
-comment|/**    * Evict the block, and it will be cached by the victim handler if exists&amp;&amp;    * block may be read again later    *    * @param evictedByEvictionProcess true if the given block is evicted by    *          EvictionThread    * @return the heap size of evicted block    */
+comment|/**    * Evict the block, and it will be cached by the victim handler if exists&amp;&amp;    * block may be read again later    * @param block    * @param evictedByEvictionProcess true if the given block is evicted by    *          EvictionThread    * @return the heap size of evicted block    */
 specifier|protected
 name|long
 name|evictBlock
@@ -2885,7 +2882,9 @@ name|bucketQueue
 init|=
 operator|new
 name|PriorityQueue
-argument_list|<>
+argument_list|<
+name|BlockBucket
+argument_list|>
 argument_list|(
 literal|3
 argument_list|)
@@ -3564,7 +3563,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**    * Get the maximum size of this cache.    *    * @return max size in bytes    */
+comment|/**    * Get the maximum size of this cache.    * @return max size in bytes    */
 specifier|public
 name|long
 name|getMaxSize
@@ -3704,7 +3703,9 @@ name|cache
 operator|=
 operator|new
 name|WeakReference
-argument_list|<>
+argument_list|<
+name|LruBlockCache
+argument_list|>
 argument_list|(
 name|cache
 argument_list|)
@@ -4173,7 +4174,7 @@ name|getCurrentSize
 argument_list|()
 return|;
 block|}
-specifier|private
+specifier|public
 specifier|static
 name|long
 name|calculateOverhead
@@ -4502,6 +4503,8 @@ throw|throw
 operator|new
 name|IllegalStateException
 argument_list|(
+literal|""
+operator|+
 name|this
 operator|.
 name|getCachedTime
@@ -4745,13 +4748,11 @@ name|victimHandler
 operator|!=
 literal|null
 condition|)
-block|{
 name|victimHandler
 operator|.
 name|shutdown
 argument_list|()
 expr_stmt|;
-block|}
 name|this
 operator|.
 name|scheduleThreadPool
@@ -4887,7 +4888,7 @@ literal|0
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Used in testing. May be very inefficient.    *    * @return the set of cached file names    */
+comment|/**    * Used in testing. May be very inefficient.    * @return the set of cached file names    */
 annotation|@
 name|VisibleForTesting
 name|SortedSet
@@ -4905,7 +4906,9 @@ name|fileNames
 init|=
 operator|new
 name|TreeSet
-argument_list|<>
+argument_list|<
+name|String
+argument_list|>
 argument_list|()
 decl_stmt|;
 for|for
@@ -4955,7 +4958,11 @@ name|counts
 init|=
 operator|new
 name|EnumMap
-argument_list|<>
+argument_list|<
+name|BlockType
+argument_list|,
+name|Integer
+argument_list|>
 argument_list|(
 name|BlockType
 operator|.
@@ -4976,10 +4983,15 @@ block|{
 name|BlockType
 name|blockType
 init|=
+operator|(
+operator|(
+name|Cacheable
+operator|)
 name|cb
 operator|.
 name|getBuffer
 argument_list|()
+operator|)
 operator|.
 name|getBlockType
 argument_list|()
@@ -5040,7 +5052,11 @@ name|counts
 init|=
 operator|new
 name|EnumMap
-argument_list|<>
+argument_list|<
+name|DataBlockEncoding
+argument_list|,
+name|Integer
+argument_list|>
 argument_list|(
 name|DataBlockEncoding
 operator|.
