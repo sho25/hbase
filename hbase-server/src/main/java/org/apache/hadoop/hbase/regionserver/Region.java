@@ -1072,7 +1072,7 @@ name|IOException
 function_decl|;
 comment|/** The comparator to be used with the region */
 name|CellComparator
-name|getCellCompartor
+name|getCellComparator
 parameter_list|()
 function_decl|;
 comment|/**    * Perform one or more increment operations on a row.    * @param increment    * @param nonceGroup    * @param nonce    * @return result of the operation    * @throws IOException    */

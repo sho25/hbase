@@ -27992,7 +27992,7 @@ name|comparator
 operator|=
 name|region
 operator|.
-name|getCellCompartor
+name|getCellComparator
 argument_list|()
 expr_stmt|;
 comment|/**        * By default, calls to next/nextRaw must enforce the batch limit. Thus, construct a default        * scanner context that can be used to enforce the batch limit in the event that a        * ScannerContext is not specified during an invocation of next/nextRaw        */
@@ -39600,7 +39600,7 @@ annotation|@
 name|Override
 specifier|public
 name|CellComparator
-name|getCellCompartor
+name|getCellComparator
 parameter_list|()
 block|{
 return|return

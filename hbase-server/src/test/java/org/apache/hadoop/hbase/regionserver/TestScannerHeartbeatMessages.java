@@ -2613,7 +2613,7 @@ name|scanners
 argument_list|,
 name|region
 operator|.
-name|getCellCompartor
+name|getCellComparator
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2637,7 +2637,7 @@ name|joinedScanners
 argument_list|,
 name|region
 operator|.
-name|getCellCompartor
+name|getCellComparator
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2755,7 +2755,7 @@ name|scanners
 argument_list|,
 name|region
 operator|.
-name|getCellCompartor
+name|getCellComparator
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2779,7 +2779,7 @@ name|joinedScanners
 argument_list|,
 name|region
 operator|.
-name|getCellCompartor
+name|getCellComparator
 argument_list|()
 argument_list|)
 expr_stmt|;
