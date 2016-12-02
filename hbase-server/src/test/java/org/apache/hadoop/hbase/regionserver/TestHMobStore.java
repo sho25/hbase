@@ -961,15 +961,15 @@ name|Date
 argument_list|()
 decl_stmt|;
 specifier|private
-name|KeyValue
+name|Cell
 name|seekKey1
 decl_stmt|;
 specifier|private
-name|KeyValue
+name|Cell
 name|seekKey2
 decl_stmt|;
 specifier|private
-name|KeyValue
+name|Cell
 name|seekKey3
 decl_stmt|;
 specifier|private
@@ -1761,7 +1761,7 @@ name|seekKey1
 operator|=
 name|MobUtils
 operator|.
-name|createMobRefKeyValue
+name|createMobRefCell
 argument_list|(
 name|kv1
 argument_list|,
@@ -1774,7 +1774,7 @@ name|seekKey2
 operator|=
 name|MobUtils
 operator|.
-name|createMobRefKeyValue
+name|createMobRefCell
 argument_list|(
 name|kv2
 argument_list|,
@@ -1787,7 +1787,7 @@ name|seekKey3
 operator|=
 name|MobUtils
 operator|.
-name|createMobRefKeyValue
+name|createMobRefCell
 argument_list|(
 name|kv3
 argument_list|,

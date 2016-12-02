@@ -703,7 +703,7 @@ literal|2
 argument_list|)
 control|)
 block|{
-name|KeyValue
+name|Cell
 name|kv
 init|=
 operator|new
@@ -743,7 +743,7 @@ name|kv
 operator|=
 name|MobUtils
 operator|.
-name|createMobRefKeyValue
+name|createMobRefCell
 argument_list|(
 name|kv
 argument_list|,
