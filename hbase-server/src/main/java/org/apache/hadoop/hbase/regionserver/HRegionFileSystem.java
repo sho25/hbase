@@ -2750,6 +2750,7 @@ comment|// =====================================================================
 comment|//  Merge Helpers
 comment|// ===========================================================================
 comment|/** @return {@link Path} to the temp directory used during merge operations */
+specifier|public
 name|Path
 name|getMergesDir
 parameter_list|()
@@ -2802,6 +2803,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Remove merged region    * @param mergedRegion {@link HRegionInfo}    * @throws IOException    */
+specifier|public
 name|void
 name|cleanupMergedRegion
 parameter_list|(
@@ -2864,6 +2866,7 @@ throw|;
 block|}
 block|}
 comment|/**    * Create the region merges directory.    * @throws IOException If merges dir already exists or we fail to create it.    * @see HRegionFileSystem#cleanupMergesDir()    */
+specifier|public
 name|void
 name|createMergesDir
 parameter_list|()
@@ -2944,6 +2947,7 @@ argument_list|)
 throw|;
 block|}
 comment|/**    * Write out a merge reference under the given merges directory. Package local    * so it doesnt leak out of regionserver.    * @param mergedRegion {@link HRegionInfo} of the merged region    * @param familyName Column Family Name    * @param f File to create reference.    * @param mergedDir    * @return Path to created reference.    * @throws IOException    */
+specifier|public
 name|Path
 name|mergeStoreFile
 parameter_list|(
@@ -3047,6 +3051,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Commit a merged region, moving it from the merges temporary directory to    * the proper location in the filesystem.    * @param mergedRegionInfo merged region {@link HRegionInfo}    * @throws IOException    */
+specifier|public
 name|void
 name|commitMergedRegion
 parameter_list|(

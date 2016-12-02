@@ -1118,12 +1118,12 @@ name|setNextState
 argument_list|(
 name|SplitTableRegionState
 operator|.
-name|SPLIT_TABLE_REGION_CLOSED_PARENT_REGION
+name|SPLIT_TABLE_REGION_CLOSE_PARENT_REGION
 argument_list|)
 expr_stmt|;
 break|break;
 case|case
-name|SPLIT_TABLE_REGION_CLOSED_PARENT_REGION
+name|SPLIT_TABLE_REGION_CLOSE_PARENT_REGION
 case|:
 name|closeParentRegionForSplit
 argument_list|(
@@ -1411,7 +1411,7 @@ case|:
 comment|// Doing nothing, as re-open parent region would clean up daughter region directories.
 break|break;
 case|case
-name|SPLIT_TABLE_REGION_CLOSED_PARENT_REGION
+name|SPLIT_TABLE_REGION_CLOSE_PARENT_REGION
 case|:
 name|openParentRegion
 argument_list|(
@@ -1431,7 +1431,7 @@ break|break;
 case|case
 name|SPLIT_TABLE_REGION_PRE_OPERATION
 case|:
-name|preSplitRegionRollback
+name|postRollBackSplitRegion
 argument_list|(
 name|env
 argument_list|)
@@ -2123,10 +2123,10 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Action during rollback a pre split table region.    * @param env MasterProcedureEnv    * @param state the procedure state    * @throws IOException    */
+comment|/**    * Action after rollback a split table region action.    * @param env MasterProcedureEnv    * @throws IOException    */
 specifier|private
 name|void
-name|preSplitRegionRollback
+name|postRollBackSplitRegion
 parameter_list|(
 specifier|final
 name|MasterProcedureEnv
@@ -2153,7 +2153,7 @@ condition|)
 block|{
 name|cpHost
 operator|.
-name|preRollBackSplitAction
+name|postRollBackSplitRegionAction
 argument_list|(
 name|getUser
 argument_list|()
@@ -2385,7 +2385,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * RPC to region server that host the parent region, ask for close the parent regions and    * creating daughter regions    * @param env MasterProcedureEnv    * @throws IOException    */
+comment|/**    * RPC to region server that host the parent region, ask for close the parent regions    * @param env MasterProcedureEnv    * @throws IOException    */
 annotation|@
 name|VisibleForTesting
 specifier|public
@@ -2410,7 +2410,7 @@ operator|.
 name|getServerManager
 argument_list|()
 operator|.
-name|sendRegionCloseForSplit
+name|sendRegionCloseForSplitOrMerge
 argument_list|(
 name|getParentRegionState
 argument_list|(

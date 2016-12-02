@@ -499,7 +499,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|CloseRegionForSplitRequest
+name|CloseRegionForSplitOrMergeRequest
 import|;
 end_import
 
@@ -521,7 +521,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|CloseRegionForSplitResponse
+name|CloseRegionForSplitOrMergeResponse
 import|;
 end_import
 
@@ -3366,13 +3366,13 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|CloseRegionForSplitResponse
-name|closeRegionForSplit
+name|CloseRegionForSplitOrMergeResponse
+name|closeRegionForSplitOrMerge
 parameter_list|(
 name|RpcController
 name|controller
 parameter_list|,
-name|CloseRegionForSplitRequest
+name|CloseRegionForSplitOrMergeRequest
 name|request
 parameter_list|)
 throws|throws

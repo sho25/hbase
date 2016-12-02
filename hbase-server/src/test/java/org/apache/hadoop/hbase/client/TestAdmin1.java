@@ -145,18 +145,6 @@ name|util
 operator|.
 name|concurrent
 operator|.
-name|Future
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
 name|TimeUnit
 import|;
 end_import
@@ -8884,13 +8872,12 @@ expr_stmt|;
 comment|// Try merging a replica with another. Should fail.
 try|try
 block|{
-comment|// TODO convert this to version that is synchronous (See HBASE-16668)
 name|TEST_UTIL
 operator|.
-name|getAdmin
+name|getHBaseAdmin
 argument_list|()
 operator|.
-name|mergeRegionsAsync
+name|mergeRegionsSync
 argument_list|(
 name|regions
 operator|.
@@ -8919,15 +8906,6 @@ name|getEncodedNameAsBytes
 argument_list|()
 argument_list|,
 literal|true
-argument_list|)
-operator|.
-name|get
-argument_list|(
-literal|60
-argument_list|,
-name|TimeUnit
-operator|.
-name|SECONDS
 argument_list|)
 expr_stmt|;
 block|}

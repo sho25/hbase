@@ -249,7 +249,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|CloseRegionForSplitResponse
+name|CloseRegionForSplitOrMergeResponse
 import|;
 end_import
 
@@ -1675,7 +1675,7 @@ name|boolean
 name|isClosed
 parameter_list|(
 specifier|final
-name|CloseRegionForSplitResponse
+name|CloseRegionForSplitOrMergeResponse
 name|proto
 parameter_list|)
 block|{

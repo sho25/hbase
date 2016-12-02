@@ -1113,7 +1113,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|CloseRegionForSplitRequest
+name|CloseRegionForSplitOrMergeRequest
 import|;
 end_import
 
@@ -1135,7 +1135,7 @@ name|generated
 operator|.
 name|AdminProtos
 operator|.
-name|CloseRegionForSplitResponse
+name|CloseRegionForSplitOrMergeResponse
 import|;
 end_import
 
@@ -9167,15 +9167,15 @@ operator|.
 name|ADMIN_QOS
 argument_list|)
 specifier|public
-name|CloseRegionForSplitResponse
-name|closeRegionForSplit
+name|CloseRegionForSplitOrMergeResponse
+name|closeRegionForSplitOrMerge
 parameter_list|(
 specifier|final
 name|RpcController
 name|controller
 parameter_list|,
 specifier|final
-name|CloseRegionForSplitRequest
+name|CloseRegionForSplitOrMergeRequest
 name|request
 parameter_list|)
 throws|throws
@@ -9186,6 +9186,35 @@ block|{
 name|checkOpen
 argument_list|()
 expr_stmt|;
+name|List
+argument_list|<
+name|String
+argument_list|>
+name|encodedRegionNameList
+init|=
+operator|new
+name|ArrayList
+argument_list|<>
+argument_list|()
+decl_stmt|;
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|0
+init|;
+name|i
+operator|<
+name|request
+operator|.
+name|getRegionCount
+argument_list|()
+condition|;
+name|i
+operator|++
+control|)
+block|{
 specifier|final
 name|String
 name|encodedRegionName
@@ -9197,13 +9226,15 @@ argument_list|(
 name|request
 operator|.
 name|getRegion
-argument_list|()
+argument_list|(
+name|i
+argument_list|)
 argument_list|)
 decl_stmt|;
 comment|// Can be null if we're calling close on a region that's not online
 specifier|final
 name|Region
-name|parentRegion
+name|targetRegion
 init|=
 name|regionServer
 operator|.
@@ -9215,13 +9246,13 @@ decl_stmt|;
 if|if
 condition|(
 operator|(
-name|parentRegion
+name|targetRegion
 operator|!=
 literal|null
 operator|)
 operator|&&
 operator|(
-name|parentRegion
+name|targetRegion
 operator|.
 name|getCoprocessorHost
 argument_list|()
@@ -9230,7 +9261,7 @@ literal|null
 operator|)
 condition|)
 block|{
-name|parentRegion
+name|targetRegion
 operator|.
 name|getCoprocessorHost
 argument_list|()
@@ -9240,6 +9271,14 @@ argument_list|(
 literal|false
 argument_list|)
 expr_stmt|;
+name|encodedRegionNameList
+operator|.
+name|add
+argument_list|(
+name|encodedRegionName
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 name|requestCount
 operator|.
@@ -9252,9 +9291,9 @@ name|info
 argument_list|(
 literal|"Close and offline "
 operator|+
-name|encodedRegionName
+name|encodedRegionNameList
 operator|+
-literal|" and prepare for split."
+literal|" regions."
 argument_list|)
 expr_stmt|;
 name|boolean
@@ -9262,17 +9301,17 @@ name|closed
 init|=
 name|regionServer
 operator|.
-name|closeAndOfflineRegionForSplit
+name|closeAndOfflineRegionForSplitOrMerge
 argument_list|(
-name|encodedRegionName
+name|encodedRegionNameList
 argument_list|)
 decl_stmt|;
-name|CloseRegionForSplitResponse
+name|CloseRegionForSplitOrMergeResponse
 operator|.
 name|Builder
 name|builder
 init|=
-name|CloseRegionForSplitResponse
+name|CloseRegionForSplitOrMergeResponse
 operator|.
 name|newBuilder
 argument_list|()

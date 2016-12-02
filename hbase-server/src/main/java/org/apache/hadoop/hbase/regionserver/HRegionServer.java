@@ -351,20 +351,6 @@ name|util
 operator|.
 name|concurrent
 operator|.
-name|atomic
-operator|.
-name|AtomicReference
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
 name|locks
 operator|.
 name|ReentrantReadWriteLock
@@ -15365,31 +15351,57 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * Close and offline the region for split    *    * @param parentRegionEncodedName the name of the region to close    * @return True if closed the region successfully.    * @throws IOException   */
+comment|/**    * Close and offline the region for split or merge    *    * @param regionEncodedName the name of the region(s) to close    * @return true if closed the region successfully.    * @throws IOException   */
 specifier|protected
 name|boolean
-name|closeAndOfflineRegionForSplit
+name|closeAndOfflineRegionForSplitOrMerge
 parameter_list|(
 specifier|final
+name|List
+argument_list|<
 name|String
-name|parentRegionEncodedName
+argument_list|>
+name|regionEncodedName
 parameter_list|)
 throws|throws
 name|IOException
 block|{
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|0
+init|;
+name|i
+operator|<
+name|regionEncodedName
+operator|.
+name|size
+argument_list|()
+condition|;
+operator|++
+name|i
+control|)
+block|{
 name|Region
-name|parentRegion
+name|regionToClose
 init|=
 name|this
 operator|.
 name|getFromOnlineRegions
 argument_list|(
-name|parentRegionEncodedName
+name|regionEncodedName
+operator|.
+name|get
+argument_list|(
+name|i
+argument_list|)
 argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|parentRegion
+name|regionToClose
 operator|!=
 literal|null
 condition|)
@@ -15404,7 +15416,7 @@ argument_list|<
 name|StoreFile
 argument_list|>
 argument_list|>
-name|hstoreFilesToSplit
+name|hstoreFiles
 init|=
 literal|null
 decl_stmt|;
@@ -15415,13 +15427,13 @@ literal|null
 decl_stmt|;
 try|try
 block|{
-name|hstoreFilesToSplit
+name|hstoreFiles
 operator|=
 operator|(
 operator|(
 name|HRegion
 operator|)
-name|parentRegion
+name|regionToClose
 operator|)
 operator|.
 name|close
@@ -15447,7 +15459,7 @@ name|exceptionToThrow
 operator|==
 literal|null
 operator|&&
-name|hstoreFilesToSplit
+name|hstoreFiles
 operator|==
 literal|null
 condition|)
@@ -15491,7 +15503,7 @@ throw|;
 block|}
 if|if
 condition|(
-name|parentRegion
+name|regionToClose
 operator|.
 name|getTableDesc
 argument_list|()
@@ -15500,13 +15512,13 @@ name|hasSerialReplicationScope
 argument_list|()
 condition|)
 block|{
-comment|// For serial replication, we need add a final barrier on this region. But the splitting may
-comment|// be reverted, so we should make sure if we reopen this region, the open barrier is same as
-comment|// this final barrier
+comment|// For serial replication, we need add a final barrier on this region. But the splitting
+comment|// or merging may be reverted, so we should make sure if we reopen this region, the open
+comment|// barrier is same as this final barrier
 name|long
 name|seq
 init|=
-name|parentRegion
+name|regionToClose
 operator|.
 name|getMaxFlushedSeqId
 argument_list|()
@@ -15523,7 +15535,7 @@ block|{
 comment|// No edits in WAL for this region; get the sequence number when the region was opened.
 name|seq
 operator|=
-name|parentRegion
+name|regionToClose
 operator|.
 name|getOpenSeqNum
 argument_list|()
@@ -15561,12 +15573,17 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-name|parentRegionEncodedName
+name|regionEncodedName
+operator|.
+name|get
+argument_list|(
+name|i
+argument_list|)
 argument_list|)
 argument_list|,
 name|seq
 argument_list|,
-name|parentRegion
+name|regionToClose
 operator|.
 name|getTableDesc
 argument_list|()
@@ -15594,11 +15611,12 @@ name|this
 operator|.
 name|removeFromOnlineRegions
 argument_list|(
-name|parentRegion
+name|regionToClose
 argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 return|return
 literal|true

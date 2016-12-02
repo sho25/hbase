@@ -4085,10 +4085,10 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * Sends an CLOSE RPC to the specified server to close the specified region for SPLIT.    *<p>    * A region server could reject the close request because it either does not    * have the specified region or the region is being split.    * @param server server to close a region    * @param regionToClose the info of the region to close    * @throws IOException    */
+comment|/**    * Sends an CLOSE RPC to the specified server to close the specified region for SPLIT.    *<p>    * A region server could reject the close request because it either does not    * have the specified region or the region is being split.    * @param server server to close a region    * @param regionToClose the info of the region(s) to close    * @throws IOException    */
 specifier|public
 name|boolean
-name|sendRegionCloseForSplit
+name|sendRegionCloseForSplitOrMerge
 parameter_list|(
 specifier|final
 name|ServerName
@@ -4096,6 +4096,7 @@ name|server
 parameter_list|,
 specifier|final
 name|HRegionInfo
+modifier|...
 name|regionToClose
 parameter_list|)
 throws|throws
@@ -4137,21 +4138,14 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Attempting to send CLOSE For Split RPC to server "
+literal|"Attempting to send CLOSE For Split or Merge RPC to server "
 operator|+
 name|server
 operator|.
 name|toString
 argument_list|()
 operator|+
-literal|" for region "
-operator|+
-name|regionToClose
-operator|.
-name|getRegionNameAsString
-argument_list|()
-operator|+
-literal|" failed because no RPC connection found to this server"
+literal|" failed because no RPC connection found to this server."
 argument_list|)
 throw|;
 block|}
@@ -4164,7 +4158,7 @@ decl_stmt|;
 return|return
 name|ProtobufUtil
 operator|.
-name|closeRegionForSplit
+name|closeRegionForSplitOrMerge
 argument_list|(
 name|controller
 argument_list|,

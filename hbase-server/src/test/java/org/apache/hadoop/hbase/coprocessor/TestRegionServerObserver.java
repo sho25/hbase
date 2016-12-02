@@ -409,6 +409,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -465,6 +475,8 @@ name|class
 argument_list|)
 decl_stmt|;
 comment|/**    * Test verifies the hooks in regions merge.    * @throws Exception    */
+annotation|@
+name|Ignore
 annotation|@
 name|Test
 specifier|public

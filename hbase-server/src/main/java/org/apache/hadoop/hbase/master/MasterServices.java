@@ -628,8 +628,31 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Merge regions in a table.    * @param regionsToMerge daughter regions to merge    * @param forcible whether to force to merge even two regions are not adjacent    * @param nonceGroup used to detect duplicate    * @param nonce used to detect duplicate    * @return  procedure Id    * @throws IOException    */
+name|long
+name|mergeRegions
+parameter_list|(
+specifier|final
+name|HRegionInfo
+index|[]
+name|regionsToMerge
+parameter_list|,
+specifier|final
+name|boolean
+name|forcible
+parameter_list|,
+specifier|final
+name|long
+name|nonceGroup
+parameter_list|,
+specifier|final
+name|long
+name|nonce
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Split a region.    * @param regionInfo region to split    * @param splitRow split point    * @param nonceGroup used to detect duplicate    * @param nonce used to detect duplicate    * @return  procedure Id    * @throws IOException    */
-specifier|public
 name|long
 name|splitRegion
 parameter_list|(
