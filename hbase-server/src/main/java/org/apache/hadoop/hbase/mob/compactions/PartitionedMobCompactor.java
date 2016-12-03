@@ -1451,11 +1451,9 @@ operator|==
 literal|null
 condition|)
 block|{
-name|compactionPartition
-operator|=
-operator|new
-name|CompactionPartition
-argument_list|(
+name|CompactionPartitionId
+name|newId
+init|=
 operator|new
 name|CompactionPartitionId
 argument_list|(
@@ -1469,6 +1467,13 @@ operator|.
 name|getDate
 argument_list|()
 argument_list|)
+decl_stmt|;
+name|compactionPartition
+operator|=
+operator|new
+name|CompactionPartition
+argument_list|(
+name|newId
 argument_list|)
 expr_stmt|;
 name|compactionPartition
@@ -1482,7 +1487,7 @@ name|filesToCompact
 operator|.
 name|put
 argument_list|(
-name|id
+name|newId
 argument_list|,
 name|compactionPartition
 argument_list|)
