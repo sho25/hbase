@@ -424,7 +424,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Helper class to interact with the quota table.  *<pre>  *     ROW-KEY      FAM/QUAL        DATA  *   n.&lt;namespace&gt; q:s&lt;global-quotas&gt;  *   t.&lt;table&gt;     q:s&lt;global-quotas&gt;  *   u.&lt;user&gt;      q:s&lt;global-quotas&gt;  *   u.&lt;user&gt;      q:s.&lt;table&gt;&lt;table-quotas&gt;  *   u.&lt;user&gt;      q:s.&lt;ns&gt;:&lt;namespace-quotas&gt;  *</pre>  */
+comment|/**  * Helper class to interact with the quota table.  *<pre>  *     ROW-KEY      FAM/QUAL        DATA  *   n.&lt;namespace&gt; q:s&lt;global-quotas&gt;  *   n.&lt;namespace&gt; u:du&lt;size in bytes&gt;  *   t.&lt;table&gt;     q:s&lt;global-quotas&gt;  *   t.&lt;table&gt;     u:du&lt;size in bytes&gt;  *   u.&lt;user&gt;      q:s&lt;global-quotas&gt;  *   u.&lt;user&gt;      q:s.&lt;table&gt;&lt;table-quotas&gt;  *   u.&lt;user&gt;      q:s.&lt;ns&gt;:&lt;namespace-quotas&gt;  *</pre>  */
 end_comment
 
 begin_class
@@ -527,6 +527,20 @@ operator|.
 name|toBytes
 argument_list|(
 literal|"s."
+argument_list|)
+decl_stmt|;
+specifier|protected
+specifier|static
+specifier|final
+name|byte
+index|[]
+name|QUOTA_QUALIFIER_DISKUSAGE
+init|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+literal|"du"
 argument_list|)
 decl_stmt|;
 specifier|protected
@@ -2273,6 +2287,38 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+return|return
+name|quotasFromData
+argument_list|(
+name|data
+argument_list|,
+literal|0
+argument_list|,
+name|data
+operator|.
+name|length
+argument_list|)
+return|;
+block|}
+specifier|protected
+specifier|static
+name|Quotas
+name|quotasFromData
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|data
+parameter_list|,
+name|int
+name|offset
+parameter_list|,
+name|int
+name|length
+parameter_list|)
+throws|throws
+name|IOException
+block|{
 name|int
 name|magicLen
 init|=
@@ -2290,7 +2336,7 @@ name|isPBMagicPrefix
 argument_list|(
 name|data
 argument_list|,
-literal|0
+name|offset
 argument_list|,
 name|magicLen
 argument_list|)
@@ -2314,10 +2360,10 @@ name|ByteArrayInputStream
 argument_list|(
 name|data
 argument_list|,
+name|offset
+operator|+
 name|magicLen
 argument_list|,
-name|data
-operator|.
 name|length
 operator|-
 name|magicLen
@@ -2395,6 +2441,13 @@ operator||=
 name|quotas
 operator|.
 name|hasBypassGlobals
+argument_list|()
+expr_stmt|;
+name|hasSettings
+operator||=
+name|quotas
+operator|.
+name|hasSpace
 argument_list|()
 expr_stmt|;
 return|return
