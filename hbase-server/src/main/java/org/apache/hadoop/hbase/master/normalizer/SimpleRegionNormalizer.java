@@ -252,7 +252,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Simple implementation of region normalizer.  *  * Logic in use:  *  *<ol>  *<li> get all regions of a given table  *<li> get avg size S of each region (by total size of store files reported in RegionLoad)  *<li> If biggest region is bigger than S * 2, it is kindly requested to split,  *    and normalization stops  *<li> Otherwise, two smallest region R1 and its smallest neighbor R2 are kindly requested  *    to merge, if R1 + R1&lt;  S, and normalization stops  *<li> Otherwise, no action is performed  *</ol>  *<p>  * Region sizes are coarse and approximate on the order of megabytes. Additionally,  * "empty" regions (less than 1MB, with the previous note) are not merged away. This  * is by design to prevent normalization from undoing the pre-splitting of a table.  */
+comment|/**  * Simple implementation of region normalizer.  *  * Logic in use:  *  *<ol>  *<li> Get all regions of a given table  *<li> Get avg size S of each region (by total size of store files reported in RegionLoad)  *<li> Seek every single region one by one. If a region R0 is bigger than S * 2, it is  *  kindly requested to split. Thereon evaluate the next region R1  *<li> Otherwise, if R0 + R1 is smaller than S, R0 and R1 are kindly requested to merge.  *  Thereon evaluate the next region R2  *<li> Otherwise, R1 is evaluated  *</ol>  *<p>  * Region sizes are coarse and approximate on the order of megabytes. Additionally,  * "empty" regions (less than 1MB, with the previous note) are not merged away. This  * is by design to prevent normalization from undoing the pre-splitting of a table.  */
 end_comment
 
 begin_class
