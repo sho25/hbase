@@ -2732,7 +2732,7 @@ argument_list|)
 expr_stmt|;
 name|HFileArchiver
 operator|.
-name|archiveFamily
+name|archiveFamilyByFamilyDir
 argument_list|(
 name|fs
 argument_list|,
@@ -2740,7 +2740,7 @@ name|conf
 argument_list|,
 name|regionInfo
 argument_list|,
-name|tableDir
+name|familyDir
 argument_list|,
 name|family
 argument_list|)
