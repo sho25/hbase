@@ -721,14 +721,12 @@ parameter_list|)
 throws|throws
 name|InterruptedException
 block|{
-name|RpcServer
-operator|.
-name|Call
+name|RpcCall
 name|call
 init|=
 name|callTask
 operator|.
-name|getCall
+name|getRpcCall
 argument_list|()
 decl_stmt|;
 name|int
@@ -745,7 +743,8 @@ argument_list|()
 argument_list|,
 name|call
 operator|.
-name|param
+name|getParam
+argument_list|()
 argument_list|,
 name|call
 operator|.

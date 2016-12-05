@@ -573,10 +573,11 @@ name|now
 operator|-
 name|callRunner
 operator|.
-name|getCall
+name|getRpcCall
 argument_list|()
 operator|.
-name|timestamp
+name|getReceiveTime
+argument_list|()
 decl_stmt|;
 name|long
 name|localMinDelay

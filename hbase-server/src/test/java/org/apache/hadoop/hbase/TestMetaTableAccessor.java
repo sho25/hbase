@@ -4562,7 +4562,7 @@ name|priority
 init|=
 name|task
 operator|.
-name|getCall
+name|getRpcCall
 argument_list|()
 operator|.
 name|getPriority

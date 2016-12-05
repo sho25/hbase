@@ -81,6 +81,10 @@ name|User
 import|;
 end_import
 
+begin_comment
+comment|/**  * Interface of all necessary to carry out a RPC service invocation on the server. This interface  * focus on the information needed or obtained during the actual execution of the service method.  */
+end_comment
+
 begin_interface
 annotation|@
 name|InterfaceAudience
@@ -110,7 +114,7 @@ name|String
 name|getRequestUserName
 parameter_list|()
 function_decl|;
-comment|/**    * @return Address of remote client if a request is ongoing, else null    */
+comment|/**    * @return Address of remote client in this call    */
 name|InetAddress
 name|getRemoteAddress
 parameter_list|()
@@ -155,11 +159,6 @@ parameter_list|(
 name|long
 name|blockSize
 parameter_list|)
-function_decl|;
-comment|/**    * Return the deadline of this call. If we can not complete this call in time, we can throw a    * TimeoutIOException and RPCServer will drop it.    * @return The system timestamp of deadline.    */
-name|long
-name|getDeadline
-parameter_list|()
 function_decl|;
 block|}
 end_interface
