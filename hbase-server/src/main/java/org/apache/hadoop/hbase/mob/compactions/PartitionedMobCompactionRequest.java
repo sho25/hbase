@@ -284,6 +284,18 @@ name|files
 argument_list|)
 return|;
 block|}
+specifier|public
+name|int
+name|getFileCount
+parameter_list|()
+block|{
+return|return
+name|files
+operator|.
+name|size
+argument_list|()
+return|;
+block|}
 block|}
 comment|/**    * The partition id that consists of start key and date of the mob file name.    */
 specifier|public

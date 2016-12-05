@@ -883,6 +883,8 @@ name|tableName
 init|=
 literal|"testCompactionSelectWithAllFiles"
 decl_stmt|;
+comment|// If there is only 1 file, it will not be compacted with _del files, so
+comment|// It wont be CompactionType.ALL_FILES in this case, do not create with _del files.
 name|testCompactionAtMergeSize
 argument_list|(
 name|tableName
@@ -894,6 +896,40 @@ argument_list|,
 name|CompactionType
 operator|.
 name|ALL_FILES
+argument_list|,
+literal|false
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
+block|}
+annotation|@
+name|Test
+specifier|public
+name|void
+name|testCompactionSelectToAvoidCompactOneFileWithDelete
+parameter_list|()
+throws|throws
+name|Exception
+block|{
+name|String
+name|tableName
+init|=
+literal|"testCompactionSelectToAvoidCompactOneFileWithDelete"
+decl_stmt|;
+comment|// If there is only 1 file, it will not be compacted with _del files, so
+comment|// It wont be CompactionType.ALL_FILES in this case, and expected compact file count will be 0.
+name|testCompactionAtMergeSize
+argument_list|(
+name|tableName
+argument_list|,
+name|MobConstants
+operator|.
+name|DEFAULT_MOB_COMPACTION_MERGEABLE_THRESHOLD
+argument_list|,
+name|CompactionType
+operator|.
+name|PART_FILES
 argument_list|,
 literal|false
 argument_list|)
@@ -980,6 +1016,47 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
+name|testCompactionAtMergeSize
+argument_list|(
+name|tableName
+argument_list|,
+name|mergeSize
+argument_list|,
+name|type
+argument_list|,
+name|isForceAllFiles
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
+block|}
+specifier|private
+name|void
+name|testCompactionAtMergeSize
+parameter_list|(
+specifier|final
+name|String
+name|tableName
+parameter_list|,
+specifier|final
+name|long
+name|mergeSize
+parameter_list|,
+specifier|final
+name|CompactionType
+name|type
+parameter_list|,
+specifier|final
+name|boolean
+name|isForceAllFiles
+parameter_list|,
+specifier|final
+name|boolean
+name|createDelFiles
+parameter_list|)
+throws|throws
+name|Exception
+block|{
 name|resetConf
 argument_list|()
 expr_stmt|;
@@ -1009,6 +1086,11 @@ operator|.
 name|Put
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|createDelFiles
+condition|)
+block|{
 comment|// create 10 del files
 name|createStoreFiles
 argument_list|(
@@ -1025,6 +1107,7 @@ operator|.
 name|Delete
 argument_list|)
 expr_stmt|;
+block|}
 name|listFiles
 argument_list|()
 expr_stmt|;
@@ -1080,6 +1163,16 @@ argument_list|,
 literal|32
 argument_list|)
 decl_stmt|;
+comment|// If it is not an major mob compaction and del files are there,
+comment|// these mob files wont be compacted.
+if|if
+condition|(
+name|isForceAllFiles
+operator|||
+operator|!
+name|createDelFiles
+condition|)
+block|{
 name|expectedStartKeys
 operator|.
 name|add
@@ -1087,6 +1180,7 @@ argument_list|(
 name|startKey
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 comment|// set the mob compaction mergeable threshold
