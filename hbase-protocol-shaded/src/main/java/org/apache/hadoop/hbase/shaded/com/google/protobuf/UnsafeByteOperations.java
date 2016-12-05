@@ -240,6 +240,35 @@ name|buffer
 argument_list|)
 return|;
 block|}
+comment|/**    * An unsafe operation that returns a {@link ByteString} that is backed by the provided buffer.    * @param buffer the ByteInput buffer to be wrapped    * @param offset the offset of the wrapped byteinput    * @param length the number of bytes of the byteinput    * @return a {@link ByteString} backed by the provided buffer    */
+specifier|public
+specifier|static
+name|ByteString
+name|unsafeWrap
+parameter_list|(
+name|ByteInput
+name|buffer
+parameter_list|,
+name|int
+name|offset
+parameter_list|,
+name|int
+name|len
+parameter_list|)
+block|{
+return|return
+name|ByteString
+operator|.
+name|wrap
+argument_list|(
+name|buffer
+argument_list|,
+name|offset
+argument_list|,
+name|len
+argument_list|)
+return|;
+block|}
 comment|/**    * Writes the given {@link ByteString} to the provided {@link ByteOutput}. Calling this method may    * result in multiple operations on the target {@link ByteOutput}    * (i.e. for roped {@link ByteString}s).    *    *<p>This method exposes the internal backing buffer(s) of the {@link ByteString} to the {@link    * ByteOutput} in order to avoid additional copying overhead. It would be possible for a malicious    * {@link ByteOutput} to corrupt the {@link ByteString}. Use with caution!    *    *<p> NOTE: The {@link ByteOutput}<strong>MUST NOT</strong> modify the provided buffers. Doing    * so may result in corrupted data, which would be difficult to debug.    *    * @param bytes the {@link ByteString} to be written    * @param  output  the output to receive the bytes    * @throws IOException  if an I/O error occurs    */
 specifier|public
 specifier|static
