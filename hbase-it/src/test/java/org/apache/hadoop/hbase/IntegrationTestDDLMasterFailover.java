@@ -3675,10 +3675,8 @@ if|if
 condition|(
 name|selected
 operator|.
-name|getColumnFamilies
+name|getColumnFamilyCount
 argument_list|()
-operator|.
-name|length
 operator|<
 literal|2
 condition|)

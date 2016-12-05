@@ -1199,10 +1199,8 @@ if|if
 condition|(
 name|modifiedHTableDescriptor
 operator|.
-name|getColumnFamilies
+name|getColumnFamilyCount
 argument_list|()
-operator|.
-name|length
 operator|==
 literal|0
 condition|)

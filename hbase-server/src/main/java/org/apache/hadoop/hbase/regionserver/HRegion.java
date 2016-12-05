@@ -4801,10 +4801,8 @@ if|if
 condition|(
 name|htableDescriptor
 operator|.
-name|getColumnFamilies
+name|getColumnFamilyCount
 argument_list|()
-operator|.
-name|length
 operator|==
 literal|0
 condition|)

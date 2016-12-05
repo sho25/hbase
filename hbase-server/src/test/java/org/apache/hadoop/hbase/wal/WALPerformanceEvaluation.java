@@ -1098,10 +1098,8 @@ name|numFamilies
 operator|=
 name|htd
 operator|.
-name|getColumnFamilies
+name|getColumnFamilyCount
 argument_list|()
-operator|.
-name|length
 expr_stmt|;
 name|this
 operator|.

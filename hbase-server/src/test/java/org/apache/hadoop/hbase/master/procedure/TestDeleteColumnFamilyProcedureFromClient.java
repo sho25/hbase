@@ -642,10 +642,8 @@ literal|3
 argument_list|,
 name|beforehtd
 operator|.
-name|getColumnFamilies
+name|getColumnFamilyCount
 argument_list|()
-operator|.
-name|length
 argument_list|)
 expr_stmt|;
 name|HColumnDescriptor
@@ -938,10 +936,8 @@ literal|2
 argument_list|,
 name|afterhtd
 operator|.
-name|getColumnFamilies
+name|getColumnFamilyCount
 argument_list|()
-operator|.
-name|length
 argument_list|)
 expr_stmt|;
 name|HColumnDescriptor

@@ -4371,6 +4371,19 @@ argument_list|()
 argument_list|)
 return|;
 block|}
+comment|/**    * Returns the count of the column families of the table.    *    * @return Count of column families of the table    */
+specifier|public
+name|int
+name|getColumnFamilyCount
+parameter_list|()
+block|{
+return|return
+name|families
+operator|.
+name|size
+argument_list|()
+return|;
+block|}
 comment|/**    * Returns an array all the {@link HColumnDescriptor} of the column families    * of the table.    *    * @return Array of all the HColumnDescriptors of the current table    *    * @see #getFamilies()    */
 specifier|public
 name|HColumnDescriptor
