@@ -427,9 +427,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|master
-operator|.
-name|balancer
+name|favored
 operator|.
 name|FavoredNodeAssignmentHelper
 import|;
@@ -445,9 +443,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|master
-operator|.
-name|balancer
+name|favored
 operator|.
 name|FavoredNodesPlan
 import|;

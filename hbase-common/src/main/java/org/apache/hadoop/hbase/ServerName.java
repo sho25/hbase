@@ -321,7 +321,7 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
-specifier|private
+specifier|protected
 name|ServerName
 parameter_list|(
 specifier|final

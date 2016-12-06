@@ -205,6 +205,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|favored
+operator|.
+name|FavoredNodesManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|master
 operator|.
 name|normalizer
@@ -823,6 +839,12 @@ function_decl|;
 comment|/**    * @return True if this master is stopping.    */
 name|boolean
 name|isStopping
+parameter_list|()
+function_decl|;
+comment|/**    * @return Favored Nodes Manager    */
+specifier|public
+name|FavoredNodesManager
+name|getFavoredNodesManager
 parameter_list|()
 function_decl|;
 block|}

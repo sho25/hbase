@@ -13,9 +13,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|master
-operator|.
-name|balancer
+name|favored
 package|;
 end_package
 
@@ -200,6 +198,30 @@ argument_list|,
 name|servers
 argument_list|)
 expr_stmt|;
+block|}
+comment|/**    * Remove a favored node assignment    * @param region region    * @return the list of favored region server for this region based on the plan    */
+specifier|public
+name|List
+argument_list|<
+name|ServerName
+argument_list|>
+name|removeFavoredNodes
+parameter_list|(
+name|HRegionInfo
+name|region
+parameter_list|)
+block|{
+return|return
+name|favoredNodesMap
+operator|.
+name|remove
+argument_list|(
+name|region
+operator|.
+name|getRegionNameAsString
+argument_list|()
+argument_list|)
+return|;
 block|}
 comment|/**    * @param region    * @return the list of favored region server for this region based on the plan    */
 specifier|public
