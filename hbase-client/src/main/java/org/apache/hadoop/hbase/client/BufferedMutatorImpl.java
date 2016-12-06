@@ -179,7 +179,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|Arrays
+name|Collections
 import|;
 end_import
 
@@ -652,9 +652,9 @@ name|RetriesExhaustedWithDetailsException
 block|{
 name|mutate
 argument_list|(
-name|Arrays
+name|Collections
 operator|.
-name|asList
+name|singletonList
 argument_list|(
 name|m
 argument_list|)
