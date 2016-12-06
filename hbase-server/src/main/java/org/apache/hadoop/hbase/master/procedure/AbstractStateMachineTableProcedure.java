@@ -207,9 +207,6 @@ operator|.
 name|setOwner
 argument_list|(
 name|user
-operator|.
-name|getShortName
-argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// used for compatibility with clients without procedures

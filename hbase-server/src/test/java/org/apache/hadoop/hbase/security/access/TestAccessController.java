@@ -4174,12 +4174,6 @@ name|env
 operator|.
 name|getRequestUser
 argument_list|()
-operator|.
-name|getUGI
-argument_list|()
-operator|.
-name|getShortUserName
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -4404,9 +4398,6 @@ operator|.
 name|setOwner
 argument_list|(
 name|USER_OWNER
-operator|.
-name|getShortName
-argument_list|()
 argument_list|)
 expr_stmt|;
 specifier|final
@@ -4551,9 +4542,6 @@ operator|.
 name|setOwner
 argument_list|(
 name|USER_OWNER
-operator|.
-name|getShortName
-argument_list|()
 argument_list|)
 expr_stmt|;
 specifier|final

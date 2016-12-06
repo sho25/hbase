@@ -113,9 +113,6 @@ name|env
 operator|.
 name|getRequestUser
 argument_list|()
-operator|.
-name|getShortName
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
