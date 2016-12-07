@@ -14003,12 +14003,13 @@ name|totalTime
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Use the raw request call size for now.
 name|long
 name|requestSize
 init|=
-name|param
+name|call
 operator|.
-name|getSerializedSize
+name|getSize
 argument_list|()
 decl_stmt|;
 name|long
@@ -14019,6 +14020,23 @@ operator|.
 name|getSerializedSize
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|call
+operator|.
+name|isClientCellBlockSupported
+argument_list|()
+condition|)
+block|{
+comment|// Include the payload size in HBaseRpcController
+name|responseSize
+operator|+=
+name|call
+operator|.
+name|getResponseCellSize
+argument_list|()
+expr_stmt|;
+block|}
 name|metrics
 operator|.
 name|dequeuedCall
