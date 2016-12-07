@@ -697,6 +697,8 @@ argument_list|(
 name|TABLE_NAME
 argument_list|,
 name|EMPTY_START_ROW
+argument_list|,
+literal|0L
 argument_list|)
 operator|.
 name|get
@@ -734,6 +736,8 @@ argument_list|(
 name|TABLE_NAME
 argument_list|,
 name|EMPTY_END_ROW
+argument_list|,
+literal|0L
 argument_list|)
 operator|.
 name|get
@@ -796,6 +800,8 @@ argument_list|(
 name|TABLE_NAME
 argument_list|,
 name|EMPTY_START_ROW
+argument_list|,
+literal|0L
 argument_list|)
 operator|.
 name|get
@@ -833,6 +839,8 @@ argument_list|(
 name|TABLE_NAME
 argument_list|,
 name|EMPTY_END_ROW
+argument_list|,
+literal|0L
 argument_list|)
 operator|.
 name|get
@@ -974,6 +982,8 @@ argument_list|(
 name|TABLE_NAME
 argument_list|,
 name|EMPTY_START_ROW
+argument_list|,
+literal|0L
 argument_list|)
 operator|.
 name|get
@@ -995,6 +1005,8 @@ argument_list|(
 name|TABLE_NAME
 argument_list|,
 name|EMPTY_START_ROW
+argument_list|,
+literal|0L
 argument_list|)
 operator|.
 name|get
@@ -1044,6 +1056,8 @@ argument_list|(
 name|TABLE_NAME
 argument_list|,
 name|randKey
+argument_list|,
+literal|0L
 argument_list|)
 operator|.
 name|get
@@ -1073,6 +1087,8 @@ index|[]
 block|{
 literal|1
 block|}
+argument_list|,
+literal|0L
 argument_list|)
 operator|.
 name|get
@@ -1420,6 +1436,8 @@ name|startKeys
 index|[
 name|i
 index|]
+argument_list|,
+literal|0L
 argument_list|)
 operator|.
 name|get
@@ -1551,6 +1569,8 @@ name|endKeys
 index|[
 name|i
 index|]
+argument_list|,
+literal|0L
 argument_list|)
 operator|.
 name|get
@@ -1621,6 +1641,8 @@ argument_list|(
 name|TABLE_NAME
 argument_list|,
 name|EMPTY_START_ROW
+argument_list|,
+literal|0L
 argument_list|)
 operator|.
 name|get
@@ -1753,6 +1775,8 @@ argument_list|(
 name|TABLE_NAME
 argument_list|,
 name|EMPTY_START_ROW
+argument_list|,
+literal|0L
 argument_list|)
 operator|.
 name|get
@@ -1780,6 +1804,8 @@ argument_list|(
 name|TABLE_NAME
 argument_list|,
 name|EMPTY_START_ROW
+argument_list|,
+literal|0L
 argument_list|)
 operator|.
 name|get
@@ -1812,6 +1838,8 @@ argument_list|(
 name|TABLE_NAME
 argument_list|,
 name|EMPTY_START_ROW
+argument_list|,
+literal|0L
 argument_list|)
 operator|.
 name|get

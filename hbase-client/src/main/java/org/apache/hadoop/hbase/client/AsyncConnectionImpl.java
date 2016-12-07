@@ -121,6 +121,20 @@ end_import
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
+begin_import
+import|import
 name|io
 operator|.
 name|netty
@@ -446,7 +460,8 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-specifier|private
+annotation|@
+name|VisibleForTesting
 specifier|static
 specifier|final
 name|HashedWheelTimer
@@ -595,6 +610,8 @@ operator|new
 name|AsyncRegionLocator
 argument_list|(
 name|this
+argument_list|,
+name|RETRY_TIMER
 argument_list|)
 expr_stmt|;
 name|this

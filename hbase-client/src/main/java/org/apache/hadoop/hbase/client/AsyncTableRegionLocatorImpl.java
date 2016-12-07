@@ -156,6 +156,8 @@ argument_list|(
 name|tableName
 argument_list|,
 name|row
+argument_list|,
+literal|0L
 argument_list|)
 return|;
 block|}

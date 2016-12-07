@@ -1138,6 +1138,10 @@ operator|new
 name|AsyncRegionLocator
 argument_list|(
 name|asyncConn
+argument_list|,
+name|AsyncConnectionImpl
+operator|.
+name|RETRY_TIMER
 argument_list|)
 block|{
 annotation|@
@@ -1154,6 +1158,9 @@ parameter_list|,
 name|byte
 index|[]
 name|row
+parameter_list|,
+name|long
+name|timeoutNs
 parameter_list|)
 block|{
 if|if
@@ -1230,6 +1237,8 @@ argument_list|(
 name|tableName
 argument_list|,
 name|row
+argument_list|,
+name|timeoutNs
 argument_list|)
 return|;
 block|}
@@ -1248,6 +1257,9 @@ parameter_list|,
 name|byte
 index|[]
 name|startRowOfCurrentRegion
+parameter_list|,
+name|long
+name|timeoutNs
 parameter_list|)
 block|{
 return|return
@@ -1258,6 +1270,8 @@ argument_list|(
 name|tableName
 argument_list|,
 name|startRowOfCurrentRegion
+argument_list|,
+name|timeoutNs
 argument_list|)
 return|;
 block|}
@@ -1272,7 +1286,7 @@ parameter_list|,
 name|Throwable
 name|exception
 parameter_list|)
-block|{       }
+block|{           }
 block|}
 decl_stmt|;
 try|try
