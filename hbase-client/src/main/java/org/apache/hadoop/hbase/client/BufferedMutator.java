@@ -126,6 +126,15 @@ name|BufferedMutator
 extends|extends
 name|Closeable
 block|{
+comment|/**    * Key to use setting non-default BufferedMutator implementation in Configuration.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|CLASSNAME_KEY
+init|=
+literal|"hbase.client.bufferedmutator.classname"
+decl_stmt|;
 comment|/**    * Gets the fully qualified table name instance of the table that this BufferedMutator writes to.    */
 name|TableName
 name|getName

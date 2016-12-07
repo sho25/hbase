@@ -278,7 +278,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  *<p>  * Used to communicate with a single HBase table similar to {@link Table}  * but meant for batched, potentially asynchronous puts. Obtain an instance from  * a {@link Connection} and call {@link #close()} afterwards.  *</p>  *  *<p>  * While this can be used accross threads, great care should be used when doing so.  * Errors are global to the buffered mutator and the Exceptions can be thrown on any  * thread that causes the flush for requests.  *</p>  *  * @see ConnectionFactory  * @see Connection  * @since 1.0.0  */
+comment|/**  *<p>  * Used to communicate with a single HBase table similar to {@link Table}  * but meant for batched, potentially asynchronous puts. Obtain an instance from  * a {@link Connection} and call {@link #close()} afterwards. Provide an alternate  * to this implementation by setting {@link BufferedMutatorParams#implementationClassName(String)}  * or by setting alternate classname via the key {} in Configuration.  *</p>  *  *<p>  * While this can be used across threads, great care should be used when doing so.  * Errors are global to the buffered mutator and the Exceptions can be thrown on any  * thread that causes the flush for requests.  *</p>  *  * @see ConnectionFactory  * @see Connection  * @since 1.0.0  */
 end_comment
 
 begin_class
@@ -296,6 +296,15 @@ name|BufferedMutatorImpl
 implements|implements
 name|BufferedMutator
 block|{
+comment|/**    * Key to use setting non-default BufferedMutator implementation    * classname via Configuration.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_BUFFEREDMUTATOR_CLASSNAME_KEY
+init|=
+literal|"hbase.client.bufferedmutator.classname"
+decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
