@@ -997,7 +997,7 @@ name|regionList
 argument_list|)
 expr_stmt|;
 block|}
-specifier|private
+specifier|public
 specifier|synchronized
 name|void
 name|deleteFavoredNodesForRegions
