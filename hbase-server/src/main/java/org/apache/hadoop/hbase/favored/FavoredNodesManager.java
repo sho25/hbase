@@ -464,6 +464,24 @@ name|regionInfo
 argument_list|)
 return|;
 block|}
+comment|/*    * Favored nodes are not applicable for system tables. We will use this to check before    * we apply any favored nodes logic on a region.    */
+specifier|public
+specifier|static
+name|boolean
+name|isFavoredNodeApplicable
+parameter_list|(
+name|HRegionInfo
+name|regionInfo
+parameter_list|)
+block|{
+return|return
+operator|!
+name|regionInfo
+operator|.
+name|isSystemTable
+argument_list|()
+return|;
+block|}
 specifier|public
 specifier|synchronized
 name|void
@@ -570,17 +588,18 @@ throw|;
 block|}
 if|if
 condition|(
+operator|!
+name|isFavoredNodeApplicable
+argument_list|(
 name|regionInfo
-operator|.
-name|isSystemTable
-argument_list|()
+argument_list|)
 condition|)
 block|{
 throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Can't update FN for system region: "
+literal|"Can't update FN for a un-applicable region: "
 operator|+
 name|regionInfo
 operator|.
