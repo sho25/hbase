@@ -2979,6 +2979,8 @@ argument_list|,
 name|NoLimitThroughputController
 operator|.
 name|INSTANCE
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|lowestTimeStampFromManager

@@ -665,6 +665,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|security
+operator|.
+name|User
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
@@ -2670,7 +2686,7 @@ return|return
 name|mobFamilyPath
 return|;
 block|}
-comment|/**    * The compaction in the store of mob.    * The cells in this store contains the path of the mob files. There might be race    * condition between the major compaction and the sweeping in mob files.    * In order to avoid this, we need mutually exclude the running of the major compaction and    * sweeping in mob files.    * The minor compaction is not affected.    * The major compaction is marked as retainDeleteMarkers when a sweeping is in progress.    */
+comment|/**    * The compaction in the mob store.    * The cells in this store contains the path of the mob files. There might be race    * condition between the major compaction and the mob major compaction.    * In order to avoid this, we need mutually exclude the running of the major compaction    * and the mob major compaction.    * The minor compaction is not affected.    * The major compaction is marked as retainDeleteMarkers when a mob major    * compaction is in progress.    */
 annotation|@
 name|Override
 specifier|public
@@ -2685,11 +2701,14 @@ name|compaction
 parameter_list|,
 name|ThroughputController
 name|throughputController
+parameter_list|,
+name|User
+name|user
 parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// If it's major compaction, try to find whether there's a sweeper is running
+comment|// If it's major compaction, try to find whether there's a mob major compaction is running
 comment|// If yes, mark the major compaction as retainDeleteMarkers
 if|if
 condition|(
@@ -2702,14 +2721,9 @@ name|isAllFiles
 argument_list|()
 condition|)
 block|{
-comment|// Use the ZooKeeper to coordinate.
-comment|// 1. Acquire a operation lock.
-comment|//   1.1. If no, mark the major compaction as retainDeleteMarkers and continue the compaction.
-comment|//   1.2. If the lock is obtained, search the node of sweeping.
-comment|//      1.2.1. If the node is there, the sweeping is in progress, mark the major
-comment|//             compaction as retainDeleteMarkers and continue the compaction.
-comment|//      1.2.2. If the node is not there, add a child to the major compaction node, and
-comment|//             run the compaction directly.
+comment|// Acquire a table lock to coordinate.
+comment|// 1. If no, mark the major compaction as retainDeleteMarkers and continue the compaction.
+comment|// 2. If the lock is obtained, run the compaction directly.
 name|TableLock
 name|lock
 init|=
@@ -2841,6 +2855,8 @@ argument_list|(
 name|compaction
 argument_list|,
 name|throughputController
+argument_list|,
+name|user
 argument_list|)
 return|;
 block|}
@@ -2895,6 +2911,8 @@ argument_list|(
 name|compaction
 argument_list|,
 name|throughputController
+argument_list|,
+name|user
 argument_list|)
 return|;
 block|}
