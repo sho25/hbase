@@ -2046,6 +2046,16 @@ name|getNamespaces
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|existingConfig
+operator|.
+name|setBandwidth
+argument_list|(
+name|newConfig
+operator|.
+name|getBandwidth
+argument_list|()
+argument_list|)
+expr_stmt|;
 try|try
 block|{
 name|ZKUtil

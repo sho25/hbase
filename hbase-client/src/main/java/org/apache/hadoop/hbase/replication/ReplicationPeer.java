@@ -185,6 +185,12 @@ argument_list|>
 name|getNamespaces
 parameter_list|()
 function_decl|;
+comment|/**    * Get the per node bandwidth upper limit for this peer    * @return the bandwidth upper limit    */
+specifier|public
+name|long
+name|getPeerBandwidth
+parameter_list|()
+function_decl|;
 name|void
 name|trackPeerConfigChanges
 parameter_list|(

@@ -24848,6 +24848,17 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
+comment|// optional int64 bandwidth = 7;
+comment|/**      *<code>optional int64 bandwidth = 7;</code>      */
+name|boolean
+name|hasBandwidth
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional int64 bandwidth = 7;</code>      */
+name|long
+name|getBandwidth
+parameter_list|()
+function_decl|;
 block|}
 comment|/**    * Protobuf type {@code hbase.pb.ReplicationPeer}    *    *<pre>    **    * Used by replication. Holds a replication peer key.    *</pre>    */
 specifier|public
@@ -25432,6 +25443,23 @@ operator|.
 name|readBytes
 argument_list|()
 argument_list|)
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|56
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00000004
+expr_stmt|;
+name|bandwidth_
+operator|=
+name|input
+operator|.
+name|readInt64
+argument_list|()
 expr_stmt|;
 break|break;
 block|}
@@ -26855,6 +26883,47 @@ name|index
 argument_list|)
 return|;
 block|}
+comment|// optional int64 bandwidth = 7;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|BANDWIDTH_FIELD_NUMBER
+init|=
+literal|7
+decl_stmt|;
+specifier|private
+name|long
+name|bandwidth_
+decl_stmt|;
+comment|/**      *<code>optional int64 bandwidth = 7;</code>      */
+specifier|public
+name|boolean
+name|hasBandwidth
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+return|;
+block|}
+comment|/**      *<code>optional int64 bandwidth = 7;</code>      */
+specifier|public
+name|long
+name|getBandwidth
+parameter_list|()
+block|{
+return|return
+name|bandwidth_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -26911,6 +26980,10 @@ name|Collections
 operator|.
 name|emptyList
 argument_list|()
+expr_stmt|;
+name|bandwidth_
+operator|=
+literal|0L
 expr_stmt|;
 block|}
 specifier|private
@@ -27280,6 +27353,29 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeInt64
+argument_list|(
+literal|7
+argument_list|,
+name|bandwidth_
+argument_list|)
+expr_stmt|;
+block|}
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -27565,6 +27661,37 @@ argument_list|()
 operator|.
 name|size
 argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000004
+operator|)
+operator|==
+literal|0x00000004
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeInt64Size
+argument_list|(
+literal|7
+argument_list|,
+name|bandwidth_
+argument_list|)
 expr_stmt|;
 block|}
 name|size
@@ -27859,6 +27986,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasBandwidth
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasBandwidth
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasBandwidth
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getBandwidth
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getBandwidth
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -28113,6 +28275,37 @@ argument_list|()
 operator|.
 name|hashCode
 argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasBandwidth
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|BANDWIDTH_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|hashLong
+argument_list|(
+name|getBandwidth
+argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 name|hash
@@ -29104,6 +29297,19 @@ operator|~
 literal|0x00000020
 operator|)
 expr_stmt|;
+name|bandwidth_
+operator|=
+literal|0L
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000040
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -29595,6 +29801,30 @@ operator|.
 name|namespaces_
 operator|=
 name|namespaces_
+expr_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00000040
+operator|)
+operator|==
+literal|0x00000040
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000004
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|bandwidth_
+operator|=
+name|bandwidth_
 expr_stmt|;
 name|result
 operator|.
@@ -30243,6 +30473,23 @@ expr_stmt|;
 block|}
 name|onChanged
 argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasBandwidth
+argument_list|()
+condition|)
+block|{
+name|setBandwidth
+argument_list|(
+name|other
+operator|.
+name|getBandwidth
+argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 name|this
@@ -35413,6 +35660,89 @@ operator|&
 operator|~
 literal|0x00000020
 operator|)
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|// optional int64 bandwidth = 7;
+specifier|private
+name|long
+name|bandwidth_
+decl_stmt|;
+comment|/**        *<code>optional int64 bandwidth = 7;</code>        */
+specifier|public
+name|boolean
+name|hasBandwidth
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000040
+operator|)
+operator|==
+literal|0x00000040
+operator|)
+return|;
+block|}
+comment|/**        *<code>optional int64 bandwidth = 7;</code>        */
+specifier|public
+name|long
+name|getBandwidth
+parameter_list|()
+block|{
+return|return
+name|bandwidth_
+return|;
+block|}
+comment|/**        *<code>optional int64 bandwidth = 7;</code>        */
+specifier|public
+name|Builder
+name|setBandwidth
+parameter_list|(
+name|long
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00000040
+expr_stmt|;
+name|bandwidth_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional int64 bandwidth = 7;</code>        */
+specifier|public
+name|Builder
+name|clearBandwidth
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000040
+operator|)
+expr_stmt|;
+name|bandwidth_
+operator|=
+literal|0L
 expr_stmt|;
 name|onChanged
 argument_list|()
@@ -50521,7 +50851,7 @@ literal|"BLED\020\001\022\r\n\tDISABLING\020\002\022\014\n\010ENABLING\020\003\"
 operator|+
 literal|"ableCF\022\'\n\ntable_name\030\001 \001(\0132\023.hbase.pb.Ta"
 block|,
-literal|"bleName\022\020\n\010families\030\002 \003(\014\"\331\001\n\017Replicatio"
+literal|"bleName\022\020\n\010families\030\002 \003(\014\"\354\001\n\017Replicatio"
 operator|+
 literal|"nPeer\022\022\n\nclusterkey\030\001 \002(\t\022\037\n\027replication"
 operator|+
@@ -50533,27 +50863,29 @@ literal|"\0132\030.hbase.pb.NameStringPair\022$\n\ttable_cfs"
 operator|+
 literal|"\030\005 \003(\0132\021.hbase.pb.TableCF\022\022\n\nnamespaces\030"
 operator|+
-literal|"\006 \003(\014\"g\n\020ReplicationState\022/\n\005state\030\001 \002(\016"
+literal|"\006 \003(\014\022\021\n\tbandwidth\030\007 \001(\003\"g\n\020ReplicationS"
 operator|+
-literal|"2 .hbase.pb.ReplicationState.State\"\"\n\005St"
+literal|"tate\022/\n\005state\030\001 \002(\0162 .hbase.pb.Replicati"
 operator|+
-literal|"ate\022\013\n\007ENABLED\020\000\022\014\n\010DISABLED\020\001\"+\n\027Replic"
+literal|"onState.State\"\"\n\005State\022\013\n\007ENABLED\020\000\022\014\n\010D"
 operator|+
-literal|"ationHLogPosition\022\020\n\010position\030\001 \002(\003\"\252\001\n\t"
+literal|"ISABLED\020\001\"+\n\027ReplicationHLogPosition\022\020\n\010"
 block|,
-literal|"TableLock\022\'\n\ntable_name\030\001 \001(\0132\023.hbase.pb"
+literal|"position\030\001 \002(\003\"\252\001\n\tTableLock\022\'\n\ntable_na"
 operator|+
-literal|".TableName\022(\n\nlock_owner\030\002 \001(\0132\024.hbase.p"
+literal|"me\030\001 \001(\0132\023.hbase.pb.TableName\022(\n\nlock_ow"
 operator|+
-literal|"b.ServerName\022\021\n\tthread_id\030\003 \001(\003\022\021\n\tis_sh"
+literal|"ner\030\002 \001(\0132\024.hbase.pb.ServerName\022\021\n\tthrea"
 operator|+
-literal|"ared\030\004 \001(\010\022\017\n\007purpose\030\005 \001(\t\022\023\n\013create_ti"
+literal|"d_id\030\003 \001(\003\022\021\n\tis_shared\030\004 \001(\010\022\017\n\007purpose"
 operator|+
-literal|"me\030\006 \001(\003\"\036\n\013SwitchState\022\017\n\007enabled\030\001 \001(\010"
+literal|"\030\005 \001(\t\022\023\n\013create_time\030\006 \001(\003\"\036\n\013SwitchSta"
 operator|+
-literal|"BE\n*org.apache.hadoop.hbase.protobuf.gen"
+literal|"te\022\017\n\007enabled\030\001 \001(\010BE\n*org.apache.hadoop"
 operator|+
-literal|"eratedB\017ZooKeeperProtosH\001\210\001\001\240\001\001"
+literal|".hbase.protobuf.generatedB\017ZooKeeperProt"
+operator|+
+literal|"osH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -50910,6 +51242,8 @@ block|,
 literal|"TableCfs"
 block|,
 literal|"Namespaces"
+block|,
+literal|"Bandwidth"
 block|, }
 argument_list|)
 expr_stmt|;

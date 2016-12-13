@@ -98185,12 +98185,12 @@ name|getHeartbeatMessage
 parameter_list|()
 function_decl|;
 comment|// optional .hbase.pb.ScanMetrics scan_metrics = 10;
-comment|/**      *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>      *      *<pre>      * This field is filled in if the client has requested that scan metrics be tracked.      * The metrics tracked here are sent back to the client to be tracked together with       * the existing client side metrics.      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>      *      *<pre>      * This field is filled in if the client has requested that scan metrics be tracked.      * The metrics tracked here are sent back to the client to be tracked together with      * the existing client side metrics.      *</pre>      */
 name|boolean
 name|hasScanMetrics
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>      *      *<pre>      * This field is filled in if the client has requested that scan metrics be tracked.      * The metrics tracked here are sent back to the client to be tracked together with       * the existing client side metrics.      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>      *      *<pre>      * This field is filled in if the client has requested that scan metrics be tracked.      * The metrics tracked here are sent back to the client to be tracked together with      * the existing client side metrics.      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -98209,7 +98209,7 @@ name|ScanMetrics
 name|getScanMetrics
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>      *      *<pre>      * This field is filled in if the client has requested that scan metrics be tracked.      * The metrics tracked here are sent back to the client to be tracked together with       * the existing client side metrics.      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>      *      *<pre>      * This field is filled in if the client has requested that scan metrics be tracked.      * The metrics tracked here are sent back to the client to be tracked together with      * the existing client side metrics.      *</pre>      */
 name|org
 operator|.
 name|apache
@@ -100044,7 +100044,7 @@ operator|.
 name|ScanMetrics
 name|scanMetrics_
 decl_stmt|;
-comment|/**      *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>      *      *<pre>      * This field is filled in if the client has requested that scan metrics be tracked.      * The metrics tracked here are sent back to the client to be tracked together with       * the existing client side metrics.      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>      *      *<pre>      * This field is filled in if the client has requested that scan metrics be tracked.      * The metrics tracked here are sent back to the client to be tracked together with      * the existing client side metrics.      *</pre>      */
 specifier|public
 name|boolean
 name|hasScanMetrics
@@ -100062,7 +100062,7 @@ literal|0x00000040
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>      *      *<pre>      * This field is filled in if the client has requested that scan metrics be tracked.      * The metrics tracked here are sent back to the client to be tracked together with       * the existing client side metrics.      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>      *      *<pre>      * This field is filled in if the client has requested that scan metrics be tracked.      * The metrics tracked here are sent back to the client to be tracked together with      * the existing client side metrics.      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -100086,7 +100086,7 @@ return|return
 name|scanMetrics_
 return|;
 block|}
-comment|/**      *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>      *      *<pre>      * This field is filled in if the client has requested that scan metrics be tracked.      * The metrics tracked here are sent back to the client to be tracked together with       * the existing client side metrics.      *</pre>      */
+comment|/**      *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>      *      *<pre>      * This field is filled in if the client has requested that scan metrics be tracked.      * The metrics tracked here are sent back to the client to be tracked together with      * the existing client side metrics.      *</pre>      */
 specifier|public
 name|org
 operator|.
@@ -106633,7 +106633,7 @@ name|ScanMetricsOrBuilder
 argument_list|>
 name|scanMetricsBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with         * the existing client side metrics.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with        * the existing client side metrics.        *</pre>        */
 specifier|public
 name|boolean
 name|hasScanMetrics
@@ -106651,7 +106651,7 @@ literal|0x00000200
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with         * the existing client side metrics.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with        * the existing client side metrics.        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -106692,7 +106692,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with         * the existing client side metrics.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with        * the existing client side metrics.        *</pre>        */
 specifier|public
 name|Builder
 name|setScanMetrics
@@ -106761,7 +106761,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with         * the existing client side metrics.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with        * the existing client side metrics.        *</pre>        */
 specifier|public
 name|Builder
 name|setScanMetrics
@@ -106825,7 +106825,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with         * the existing client side metrics.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with        * the existing client side metrics.        *</pre>        */
 specifier|public
 name|Builder
 name|mergeScanMetrics
@@ -106950,7 +106950,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with         * the existing client side metrics.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with        * the existing client side metrics.        *</pre>        */
 specifier|public
 name|Builder
 name|clearScanMetrics
@@ -107009,7 +107009,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with         * the existing client side metrics.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with        * the existing client side metrics.        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -107046,7 +107046,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with         * the existing client side metrics.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with        * the existing client side metrics.        *</pre>        */
 specifier|public
 name|org
 operator|.
@@ -107087,7 +107087,7 @@ name|scanMetrics_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with         * the existing client side metrics.        *</pre>        */
+comment|/**        *<code>optional .hbase.pb.ScanMetrics scan_metrics = 10;</code>        *        *<pre>        * This field is filled in if the client has requested that scan metrics be tracked.        * The metrics tracked here are sent back to the client to be tracked together with        * the existing client side metrics.        *</pre>        */
 specifier|private
 name|com
 operator|.
