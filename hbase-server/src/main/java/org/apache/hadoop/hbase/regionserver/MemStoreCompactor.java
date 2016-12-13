@@ -69,6 +69,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HColumnDescriptor
+operator|.
+name|MemoryCompaction
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HConstants
 import|;
 end_import
@@ -192,37 +208,6 @@ name|ATOMIC_BOOLEAN
 comment|// isInterrupted (the internals)
 argument_list|)
 decl_stmt|;
-comment|// Configuration options for MemStore compaction
-specifier|static
-specifier|final
-name|String
-name|INDEX_COMPACTION_CONFIG
-init|=
-literal|"index-compaction"
-decl_stmt|;
-specifier|static
-specifier|final
-name|String
-name|DATA_COMPACTION_CONFIG
-init|=
-literal|"data-compaction"
-decl_stmt|;
-comment|// The external setting of the compacting MemStore behaviour
-comment|// Compaction of the index without the data is the default
-specifier|static
-specifier|final
-name|String
-name|COMPACTING_MEMSTORE_TYPE_KEY
-init|=
-literal|"hbase.hregion.compacting.memstore.type"
-decl_stmt|;
-specifier|static
-specifier|final
-name|String
-name|COMPACTING_MEMSTORE_TYPE_DEFAULT
-init|=
-name|INDEX_COMPACTION_CONFIG
-decl_stmt|;
 comment|// The upper bound for the number of segments we store in the pipeline prior to merging.
 comment|// This constant is subject to further experimentation.
 specifier|private
@@ -304,6 +289,9 @@ name|MemStoreCompactor
 parameter_list|(
 name|CompactingMemStore
 name|compactingMemStore
+parameter_list|,
+name|MemoryCompaction
+name|compactionPolicy
 parameter_list|)
 block|{
 name|this
@@ -333,7 +321,9 @@ name|COMPACTION_KV_MAX_DEFAULT
 argument_list|)
 expr_stmt|;
 name|initiateAction
-argument_list|()
+argument_list|(
+name|compactionPolicy
+argument_list|)
 expr_stmt|;
 block|}
 comment|/**----------------------------------------------------------------------    * The request to dispatch the compaction asynchronous task.    * The method returns true if compaction was successfully dispatched, or false if there    * is already an ongoing compaction or no segments to compact.    */
@@ -939,30 +929,28 @@ annotation|@
 name|VisibleForTesting
 name|void
 name|initiateAction
-parameter_list|()
+parameter_list|(
+name|MemoryCompaction
+name|compType
+parameter_list|)
 block|{
-name|String
-name|memStoreType
-init|=
-name|compactingMemStore
-operator|.
-name|getConfiguration
-argument_list|()
-operator|.
-name|get
-argument_list|(
-name|COMPACTING_MEMSTORE_TYPE_KEY
-argument_list|,
-name|COMPACTING_MEMSTORE_TYPE_DEFAULT
-argument_list|)
-decl_stmt|;
 switch|switch
 condition|(
-name|memStoreType
+name|compType
 condition|)
 block|{
 case|case
-name|INDEX_COMPACTION_CONFIG
+name|NONE
+case|:
+name|action
+operator|=
+name|Action
+operator|.
+name|NOOP
+expr_stmt|;
+break|break;
+case|case
+name|BASIC
 case|:
 name|action
 operator|=
@@ -972,7 +960,7 @@ name|MERGE
 expr_stmt|;
 break|break;
 case|case
-name|DATA_COMPACTION_CONFIG
+name|EAGER
 case|:
 name|action
 operator|=
@@ -988,7 +976,7 @@ name|RuntimeException
 argument_list|(
 literal|"Unknown memstore type "
 operator|+
-name|memStoreType
+name|compType
 argument_list|)
 throw|;
 comment|// sanity check

@@ -313,6 +313,22 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|CompactingMemStore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|HRegionServer
 import|;
 end_import
@@ -673,10 +689,15 @@ name|Exception
 block|{
 comment|/**** configuration for testLogRolling ****/
 comment|// Force a region split after every 768KB
+name|Configuration
+name|conf
+init|=
 name|TEST_UTIL
 operator|.
 name|getConfiguration
 argument_list|()
+decl_stmt|;
+name|conf
 operator|.
 name|setLong
 argument_list|(
@@ -690,10 +711,7 @@ literal|1024L
 argument_list|)
 expr_stmt|;
 comment|// We roll the log after every 32 writes
-name|TEST_UTIL
-operator|.
-name|getConfiguration
-argument_list|()
+name|conf
 operator|.
 name|setInt
 argument_list|(
@@ -702,10 +720,7 @@ argument_list|,
 literal|32
 argument_list|)
 expr_stmt|;
-name|TEST_UTIL
-operator|.
-name|getConfiguration
-argument_list|()
+name|conf
 operator|.
 name|setInt
 argument_list|(
@@ -714,10 +729,7 @@ argument_list|,
 literal|2
 argument_list|)
 expr_stmt|;
-name|TEST_UTIL
-operator|.
-name|getConfiguration
-argument_list|()
+name|conf
 operator|.
 name|setInt
 argument_list|(
@@ -729,10 +741,7 @@ literal|1000
 argument_list|)
 expr_stmt|;
 comment|// For less frequently updated regions flush after every 2 flushes
-name|TEST_UTIL
-operator|.
-name|getConfiguration
-argument_list|()
+name|conf
 operator|.
 name|setInt
 argument_list|(
@@ -742,10 +751,7 @@ literal|2
 argument_list|)
 expr_stmt|;
 comment|// We flush the cache after every 8192 bytes
-name|TEST_UTIL
-operator|.
-name|getConfiguration
-argument_list|()
+name|conf
 operator|.
 name|setInt
 argument_list|(
@@ -757,10 +763,7 @@ literal|8192
 argument_list|)
 expr_stmt|;
 comment|// Increase the amount of time between client retries
-name|TEST_UTIL
-operator|.
-name|getConfiguration
-argument_list|()
+name|conf
 operator|.
 name|setLong
 argument_list|(
@@ -773,10 +776,7 @@ argument_list|)
 expr_stmt|;
 comment|// Reduce thread wake frequency so that other threads can get
 comment|// a chance to run.
-name|TEST_UTIL
-operator|.
-name|getConfiguration
-argument_list|()
+name|conf
 operator|.
 name|setInt
 argument_list|(
@@ -787,6 +787,26 @@ argument_list|,
 literal|2
 operator|*
 literal|1000
+argument_list|)
+expr_stmt|;
+name|conf
+operator|.
+name|set
+argument_list|(
+name|CompactingMemStore
+operator|.
+name|COMPACTING_MEMSTORE_TYPE_KEY
+argument_list|,
+name|String
+operator|.
+name|valueOf
+argument_list|(
+name|HColumnDescriptor
+operator|.
+name|MemoryCompaction
+operator|.
+name|NONE
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

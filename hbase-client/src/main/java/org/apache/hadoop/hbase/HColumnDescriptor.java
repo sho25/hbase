@@ -370,6 +370,28 @@ name|IN_MEMORY_COMPACTION
 init|=
 literal|"IN_MEMORY_COMPACTION"
 decl_stmt|;
+comment|/**    * Enum describing all possible memory compaction policies    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Public
+annotation|@
+name|InterfaceStability
+operator|.
+name|Evolving
+specifier|public
+enum|enum
+name|MemoryCompaction
+block|{
+comment|/**      * No memory compaction, when size threshold is exceeded data is flushed to disk      */
+name|NONE
+block|,
+comment|/**      * Basic policy applies optimizations which modify the index to a more compacted representation.      * This is beneficial in all access patterns. The smaller the cells are the greater the      * benefit of this policy.      * This is the default policy.      */
+name|BASIC
+block|,
+comment|/**      * In addition to compacting the index representation as the basic policy, eager policy      * eliminates duplication while the data is still in memory (much like the      * on-disk compaction does after the data is flushed to disk). This policy is most useful for      * applications with high data churn or small working sets.      */
+name|EAGER
+block|}
 comment|// These constants are used as FileInfo keys
 specifier|public
 specifier|static
@@ -722,15 +744,6 @@ name|DEFAULT_IN_MEMORY
 init|=
 literal|false
 decl_stmt|;
-comment|/**    * Default setting for whether to set the memstore of this column family as compacting or not.    */
-specifier|public
-specifier|static
-specifier|final
-name|boolean
-name|DEFAULT_IN_MEMORY_COMPACTION
-init|=
-literal|false
-decl_stmt|;
 comment|/**    * Default setting for preventing deleted from being collected immediately.    */
 specifier|public
 specifier|static
@@ -1002,20 +1015,6 @@ operator|.
 name|valueOf
 argument_list|(
 name|DEFAULT_IN_MEMORY
-argument_list|)
-argument_list|)
-expr_stmt|;
-name|DEFAULT_VALUES
-operator|.
-name|put
-argument_list|(
-name|IN_MEMORY_COMPACTION
-argument_list|,
-name|String
-operator|.
-name|valueOf
-argument_list|(
-name|DEFAULT_IN_MEMORY_COMPACTION
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1349,11 +1348,6 @@ expr_stmt|;
 name|setInMemory
 argument_list|(
 name|DEFAULT_IN_MEMORY
-argument_list|)
-expr_stmt|;
-name|setInMemoryCompaction
-argument_list|(
-name|DEFAULT_IN_MEMORY_COMPACTION
 argument_list|)
 expr_stmt|;
 name|setBlockCacheEnabled
@@ -2652,10 +2646,10 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * @return True if we prefer to keep the in-memory data compacted    *          for this column family    */
+comment|/**    * @return in-memory compaction policy if set for the cf. Returns null if no policy is set for    *          for this column family    */
 specifier|public
-name|boolean
-name|isInMemoryCompaction
+name|MemoryCompaction
+name|getInMemoryCompaction
 parameter_list|()
 block|{
 name|String
@@ -2674,24 +2668,24 @@ literal|null
 condition|)
 block|{
 return|return
-name|Boolean
+name|MemoryCompaction
 operator|.
-name|parseBoolean
+name|valueOf
 argument_list|(
 name|value
 argument_list|)
 return|;
 block|}
 return|return
-name|DEFAULT_IN_MEMORY_COMPACTION
+literal|null
 return|;
 block|}
-comment|/**    * @param inMemoryCompaction True if we prefer to keep the in-memory data compacted    *                  for this column family    * @return this (for chained invocation)    */
+comment|/**    * @param inMemoryCompaction the prefered in-memory compaction policy    *                  for this column family    * @return this (for chained invocation)    */
 specifier|public
 name|HColumnDescriptor
 name|setInMemoryCompaction
 parameter_list|(
-name|boolean
+name|MemoryCompaction
 name|inMemoryCompaction
 parameter_list|)
 block|{
@@ -2700,12 +2694,10 @@ name|setValue
 argument_list|(
 name|IN_MEMORY_COMPACTION
 argument_list|,
-name|Boolean
+name|inMemoryCompaction
 operator|.
 name|toString
-argument_list|(
-name|inMemoryCompaction
-argument_list|)
+argument_list|()
 argument_list|)
 return|;
 block|}

@@ -8139,7 +8139,11 @@ name|hcd
 operator|.
 name|setInMemoryCompaction
 argument_list|(
-literal|true
+name|HColumnDescriptor
+operator|.
+name|MemoryCompaction
+operator|.
+name|BASIC
 argument_list|)
 expr_stmt|;
 block|}
@@ -8149,7 +8153,11 @@ name|hcd
 operator|.
 name|setInMemoryCompaction
 argument_list|(
-literal|false
+name|HColumnDescriptor
+operator|.
+name|MemoryCompaction
+operator|.
+name|NONE
 argument_list|)
 expr_stmt|;
 block|}

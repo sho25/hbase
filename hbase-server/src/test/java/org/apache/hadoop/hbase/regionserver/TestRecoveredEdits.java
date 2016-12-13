@@ -573,6 +573,26 @@ operator|*
 literal|1024
 argument_list|)
 expr_stmt|;
+name|conf
+operator|.
+name|set
+argument_list|(
+name|CompactingMemStore
+operator|.
+name|COMPACTING_MEMSTORE_TYPE_KEY
+argument_list|,
+name|String
+operator|.
+name|valueOf
+argument_list|(
+name|HColumnDescriptor
+operator|.
+name|MemoryCompaction
+operator|.
+name|NONE
+argument_list|)
+argument_list|)
+expr_stmt|;
 comment|// The file of recovered edits has a column family of 'meta'. Also has an encoded regionname
 comment|// of 4823016d8fca70b25503ee07f4c6d79f which needs to match on replay.
 specifier|final

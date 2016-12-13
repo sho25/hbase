@@ -177,6 +177,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|conf
+operator|.
+name|Configuration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|fs
 operator|.
 name|Path
@@ -634,10 +648,15 @@ expr_stmt|;
 comment|/**** configuration for testLogRollOnDatanodeDeath ****/
 comment|// lower the namenode& datanode heartbeat so the namenode
 comment|// quickly detects datanode failures
+name|Configuration
+name|conf
+init|=
 name|TEST_UTIL
 operator|.
 name|getConfiguration
 argument_list|()
+decl_stmt|;
+name|conf
 operator|.
 name|setInt
 argument_list|(
@@ -646,10 +665,7 @@ argument_list|,
 literal|5000
 argument_list|)
 expr_stmt|;
-name|TEST_UTIL
-operator|.
-name|getConfiguration
-argument_list|()
+name|conf
 operator|.
 name|setInt
 argument_list|(
@@ -660,10 +676,7 @@ argument_list|)
 expr_stmt|;
 comment|// the namenode might still try to choose the recently-dead datanode
 comment|// for a pipeline, so try to a new pipeline multiple times
-name|TEST_UTIL
-operator|.
-name|getConfiguration
-argument_list|()
+name|conf
 operator|.
 name|setInt
 argument_list|(
@@ -672,10 +685,7 @@ argument_list|,
 literal|30
 argument_list|)
 expr_stmt|;
-name|TEST_UTIL
-operator|.
-name|getConfiguration
-argument_list|()
+name|conf
 operator|.
 name|setInt
 argument_list|(
@@ -684,10 +694,7 @@ argument_list|,
 literal|2
 argument_list|)
 expr_stmt|;
-name|TEST_UTIL
-operator|.
-name|getConfiguration
-argument_list|()
+name|conf
 operator|.
 name|setInt
 argument_list|(
@@ -696,10 +703,7 @@ argument_list|,
 literal|3
 argument_list|)
 expr_stmt|;
-name|TEST_UTIL
-operator|.
-name|getConfiguration
-argument_list|()
+name|conf
 operator|.
 name|set
 argument_list|(
