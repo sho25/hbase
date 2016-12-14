@@ -379,6 +379,14 @@ name|this
 operator|.
 name|listener
 expr_stmt|;
+name|clone
+operator|.
+name|implementationClassName
+operator|=
+name|this
+operator|.
+name|implementationClassName
+expr_stmt|;
 return|return
 name|clone
 return|;
