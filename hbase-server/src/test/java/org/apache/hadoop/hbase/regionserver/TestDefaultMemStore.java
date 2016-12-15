@@ -615,30 +615,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|lang
-operator|.
-name|management
-operator|.
-name|ManagementFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|lang
-operator|.
-name|management
-operator|.
-name|MemoryMXBean
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|ArrayList
@@ -1436,6 +1412,8 @@ name|count
 operator|=
 literal|0
 expr_stmt|;
+comment|//    assertTrue("\n<<< The memstore scanners without snapshot are: \n" + memstorescanners
+comment|//        + "\n",false);
 try|try
 block|{
 while|while
@@ -1726,6 +1704,14 @@ expr_stmt|;
 block|}
 name|assertEquals
 argument_list|(
+literal|"\n<<< The row count is "
+operator|+
+name|rowCount
+operator|+
+literal|" and the iteration count is "
+operator|+
+name|count
+argument_list|,
 name|rowCount
 argument_list|,
 name|count
