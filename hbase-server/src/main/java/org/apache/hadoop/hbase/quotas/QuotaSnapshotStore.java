@@ -89,6 +89,24 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|quotas
+operator|.
+name|SpaceQuotaSnapshot
+operator|.
+name|SpaceQuotaStatus
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|shaded
 operator|.
 name|protobuf
@@ -112,7 +130,7 @@ operator|.
 name|Private
 specifier|public
 interface|interface
-name|QuotaViolationStore
+name|QuotaSnapshotStore
 parameter_list|<
 name|T
 parameter_list|>
@@ -130,6 +148,28 @@ name|IN_VIOLATION
 block|,
 name|IN_OBSERVANCE
 block|,   }
+comment|/**    * Singleton to represent a table without a quota defined. It is never in violation.    */
+specifier|public
+specifier|static
+specifier|final
+name|SpaceQuotaSnapshot
+name|NO_QUOTA
+init|=
+operator|new
+name|SpaceQuotaSnapshot
+argument_list|(
+name|SpaceQuotaStatus
+operator|.
+name|notInViolation
+argument_list|()
+argument_list|,
+operator|-
+literal|1
+argument_list|,
+operator|-
+literal|1
+argument_list|)
+decl_stmt|;
 comment|/**    * Fetch the Quota for the given {@code subject}. May be null.    *    * @param subject The object for which the quota should be fetched    */
 name|SpaceQuota
 name|getSpaceQuota
@@ -140,16 +180,16 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Returns the current {@link ViolationState} for the given {@code subject}.    *    * @param subject The object which the quota violation state should be fetched    */
-name|ViolationState
+comment|/**    * Returns the current {@link SpaceQuotaSnapshot} for the given {@code subject}.    *    * @param subject The object which the quota snapshot should be fetched    */
+name|SpaceQuotaSnapshot
 name|getCurrentState
 parameter_list|(
 name|T
 name|subject
 parameter_list|)
 function_decl|;
-comment|/**    * Computes the target {@link ViolationState} for the given {@code subject} and    * {@code spaceQuota}.    *    * @param subject The object which to determine the target quota violation state of    * @param spaceQuota The quota "definition" for the {@code subject}    */
-name|ViolationState
+comment|/**    * Computes the target {@link SpaceQuotaSnapshot} for the given {@code subject} and    * {@code spaceQuota}.    *    * @param subject The object which to determine the target SpaceQuotaSnapshot of    * @param spaceQuota The quota "definition" for the {@code subject}    */
+name|SpaceQuotaSnapshot
 name|getTargetState
 parameter_list|(
 name|T
@@ -175,14 +215,14 @@ name|T
 name|subject
 parameter_list|)
 function_decl|;
-comment|/**    * Persists the current {@link ViolationState} for the {@code subject}.    *    * @param subject The object which the {@link ViolationState} is being persisted for    * @param state The current {@link ViolationState} of the {@code subject}    */
+comment|/**    * Persists the current {@link SpaceQuotaSnapshot} for the {@code subject}.    *    * @param subject The object which the {@link SpaceQuotaSnapshot} is being persisted for    * @param state The current state of the {@code subject}    */
 name|void
 name|setCurrentState
 parameter_list|(
 name|T
 name|subject
 parameter_list|,
-name|ViolationState
+name|SpaceQuotaSnapshot
 name|state
 parameter_list|)
 function_decl|;

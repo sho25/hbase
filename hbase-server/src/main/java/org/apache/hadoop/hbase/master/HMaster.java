@@ -1775,7 +1775,7 @@ name|hbase
 operator|.
 name|quotas
 operator|.
-name|SpaceQuotaViolationNotifier
+name|SpaceQuotaSnapshotNotifier
 import|;
 end_import
 
@@ -1791,7 +1791,7 @@ name|hbase
 operator|.
 name|quotas
 operator|.
-name|SpaceQuotaViolationNotifierFactory
+name|SpaceQuotaSnapshotNotifierFactory
 import|;
 end_import
 
@@ -3301,8 +3301,8 @@ name|MasterQuotaManager
 name|quotaManager
 decl_stmt|;
 specifier|private
-name|SpaceQuotaViolationNotifier
-name|spaceQuotaViolationNotifier
+name|SpaceQuotaSnapshotNotifier
+name|spaceQuotaSnapshotNotifier
 decl_stmt|;
 specifier|private
 name|QuotaObserverChore
@@ -5606,12 +5606,29 @@ expr_stmt|;
 name|initQuotaManager
 argument_list|()
 expr_stmt|;
-name|this
+if|if
+condition|(
+name|QuotaUtil
 operator|.
-name|spaceQuotaViolationNotifier
+name|isQuotaEnabled
+argument_list|(
+name|conf
+argument_list|)
+condition|)
+block|{
+comment|// Create the quota snapshot notifier
+name|spaceQuotaSnapshotNotifier
 operator|=
-name|createQuotaViolationNotifier
+name|createQuotaSnapshotNotifier
 argument_list|()
+expr_stmt|;
+name|spaceQuotaSnapshotNotifier
+operator|.
+name|initialize
+argument_list|(
+name|getClusterConnection
+argument_list|()
+argument_list|)
 expr_stmt|;
 name|this
 operator|.
@@ -5632,6 +5649,7 @@ argument_list|(
 name|quotaObserverChore
 argument_list|)
 expr_stmt|;
+block|}
 comment|// clear the dead servers with same host name and port of online server because we are not
 comment|// removing dead server with same hostname and port of rs which is trying to check in before
 comment|// master initialization. See HBASE-5916.
@@ -6008,14 +6026,14 @@ operator|=
 name|quotaManager
 expr_stmt|;
 block|}
-name|SpaceQuotaViolationNotifier
-name|createQuotaViolationNotifier
+name|SpaceQuotaSnapshotNotifier
+name|createQuotaSnapshotNotifier
 parameter_list|()
 block|{
-name|SpaceQuotaViolationNotifier
+name|SpaceQuotaSnapshotNotifier
 name|notifier
 init|=
-name|SpaceQuotaViolationNotifierFactory
+name|SpaceQuotaSnapshotNotifierFactory
 operator|.
 name|getInstance
 argument_list|()
@@ -6026,14 +6044,6 @@ name|getConfiguration
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|notifier
-operator|.
-name|initialize
-argument_list|(
-name|getClusterConnection
-argument_list|()
-argument_list|)
-expr_stmt|;
 return|return
 name|notifier
 return|;
@@ -16983,14 +16993,14 @@ name|quotaObserverChore
 return|;
 block|}
 specifier|public
-name|SpaceQuotaViolationNotifier
-name|getSpaceQuotaViolationNotifier
+name|SpaceQuotaSnapshotNotifier
+name|getSpaceQuotaSnapshotNotifier
 parameter_list|()
 block|{
 return|return
 name|this
 operator|.
-name|spaceQuotaViolationNotifier
+name|spaceQuotaSnapshotNotifier
 return|;
 block|}
 block|}

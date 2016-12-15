@@ -627,7 +627,7 @@ name|setDouble
 argument_list|(
 name|QuotaObserverChore
 operator|.
-name|VIOLATION_OBSERVER_CHORE_REPORT_PERCENT_KEY
+name|QUOTA_OBSERVER_CHORE_REPORT_PERCENT_KEY
 argument_list|,
 literal|0.95
 argument_list|)
@@ -724,7 +724,7 @@ parameter_list|(
 name|TableName
 name|table
 parameter_list|,
-name|QuotaViolationStore
+name|QuotaSnapshotStore
 argument_list|<
 name|TableName
 argument_list|>
@@ -1227,11 +1227,11 @@ name|HashMap
 argument_list|<>
 argument_list|()
 decl_stmt|;
-name|TableQuotaViolationStore
+name|TableQuotaSnapshotStore
 name|store
 init|=
 operator|new
-name|TableQuotaViolationStore
+name|TableQuotaSnapshotStore
 argument_list|(
 name|conn
 argument_list|,
@@ -1262,7 +1262,7 @@ parameter_list|(
 name|TableName
 name|table
 parameter_list|,
-name|QuotaViolationStore
+name|QuotaSnapshotStore
 argument_list|<
 name|TableName
 argument_list|>

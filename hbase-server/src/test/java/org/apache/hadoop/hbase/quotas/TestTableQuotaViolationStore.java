@@ -183,9 +183,9 @@ name|hbase
 operator|.
 name|quotas
 operator|.
-name|QuotaViolationStore
+name|SpaceQuotaSnapshot
 operator|.
-name|ViolationState
+name|SpaceQuotaStatus
 import|;
 end_import
 
@@ -362,7 +362,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Test class for {@link TableQuotaViolationStore}.  */
+comment|/**  * Test class for {@link TableQuotaSnapshotStore}.  */
 end_comment
 
 begin_class
@@ -405,7 +405,7 @@ argument_list|>
 name|regionReports
 decl_stmt|;
 specifier|private
-name|TableQuotaViolationStore
+name|TableQuotaSnapshotStore
 name|store
 decl_stmt|;
 annotation|@
@@ -443,7 +443,7 @@ expr_stmt|;
 name|store
 operator|=
 operator|new
-name|TableQuotaViolationStore
+name|TableQuotaSnapshotStore
 argument_list|(
 name|conn
 argument_list|,
@@ -905,12 +905,30 @@ operator|*
 literal|256L
 argument_list|)
 expr_stmt|;
+name|SpaceQuotaSnapshot
+name|tn1Snapshot
+init|=
+operator|new
+name|SpaceQuotaSnapshot
+argument_list|(
+name|SpaceQuotaStatus
+operator|.
+name|notInViolation
+argument_list|()
+argument_list|,
+literal|1024L
+operator|*
+literal|768L
+argument_list|,
+literal|1024L
+operator|*
+literal|1024L
+argument_list|)
+decl_stmt|;
 comment|// Below the quota
 name|assertEquals
 argument_list|(
-name|ViolationState
-operator|.
-name|IN_OBSERVANCE
+name|tn1Snapshot
 argument_list|,
 name|store
 operator|.
@@ -951,12 +969,29 @@ operator|*
 literal|256L
 argument_list|)
 expr_stmt|;
+name|tn1Snapshot
+operator|=
+operator|new
+name|SpaceQuotaSnapshot
+argument_list|(
+name|SpaceQuotaStatus
+operator|.
+name|notInViolation
+argument_list|()
+argument_list|,
+literal|1024L
+operator|*
+literal|1024L
+argument_list|,
+literal|1024L
+operator|*
+literal|1024L
+argument_list|)
+expr_stmt|;
 comment|// Equal to the quota is still in observance
 name|assertEquals
 argument_list|(
-name|ViolationState
-operator|.
-name|IN_OBSERVANCE
+name|tn1Snapshot
 argument_list|,
 name|store
 operator|.
@@ -995,12 +1030,34 @@ argument_list|,
 literal|1024L
 argument_list|)
 expr_stmt|;
+name|tn1Snapshot
+operator|=
+operator|new
+name|SpaceQuotaSnapshot
+argument_list|(
+operator|new
+name|SpaceQuotaStatus
+argument_list|(
+name|SpaceViolationPolicy
+operator|.
+name|DISABLE
+argument_list|)
+argument_list|,
+literal|1024L
+operator|*
+literal|1024L
+operator|+
+literal|1024L
+argument_list|,
+literal|1024L
+operator|*
+literal|1024L
+argument_list|)
+expr_stmt|;
 comment|// Exceeds the quota, should be in violation
 name|assertEquals
 argument_list|(
-name|ViolationState
-operator|.
-name|IN_VIOLATION
+name|tn1Snapshot
 argument_list|,
 name|store
 operator|.
@@ -1022,12 +1079,12 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|TableQuotaViolationStore
+name|TableQuotaSnapshotStore
 name|mockStore
 init|=
 name|mock
 argument_list|(
-name|TableQuotaViolationStore
+name|TableQuotaSnapshotStore
 operator|.
 name|class
 argument_list|)

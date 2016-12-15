@@ -195,24 +195,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|quotas
-operator|.
-name|QuotaViolationStore
-operator|.
-name|ViolationState
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|shaded
 operator|.
 name|protobuf
@@ -376,7 +358,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Test class for {@link NamespaceQuotaViolationStore}.  */
+comment|/**  * Test class for {@link NamespaceQuotaSnapshotStore}.  */
 end_comment
 
 begin_class
@@ -419,7 +401,7 @@ argument_list|>
 name|regionReports
 decl_stmt|;
 specifier|private
-name|NamespaceQuotaViolationStore
+name|NamespaceQuotaSnapshotStore
 name|store
 decl_stmt|;
 annotation|@
@@ -457,7 +439,7 @@ expr_stmt|;
 name|store
 operator|=
 operator|new
-name|NamespaceQuotaViolationStore
+name|NamespaceQuotaSnapshotStore
 argument_list|(
 name|conn
 argument_list|,
@@ -476,12 +458,12 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|NamespaceQuotaViolationStore
+name|NamespaceQuotaSnapshotStore
 name|mockStore
 init|=
 name|mock
 argument_list|(
-name|NamespaceQuotaViolationStore
+name|NamespaceQuotaSnapshotStore
 operator|.
 name|class
 argument_list|)
@@ -833,9 +815,7 @@ expr_stmt|;
 comment|// Below the quota
 name|assertEquals
 argument_list|(
-name|ViolationState
-operator|.
-name|IN_OBSERVANCE
+literal|false
 argument_list|,
 name|store
 operator|.
@@ -845,6 +825,12 @@ name|NS
 argument_list|,
 name|quota
 argument_list|)
+operator|.
+name|getQuotaStatus
+argument_list|()
+operator|.
+name|isInViolation
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|regionReports
@@ -879,9 +865,7 @@ expr_stmt|;
 comment|// Equal to the quota is still in observance
 name|assertEquals
 argument_list|(
-name|ViolationState
-operator|.
-name|IN_OBSERVANCE
+literal|false
 argument_list|,
 name|store
 operator|.
@@ -891,6 +875,12 @@ name|NS
 argument_list|,
 name|quota
 argument_list|)
+operator|.
+name|getQuotaStatus
+argument_list|()
+operator|.
+name|isInViolation
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|regionReports
@@ -923,9 +913,7 @@ expr_stmt|;
 comment|// Exceeds the quota, should be in violation
 name|assertEquals
 argument_list|(
-name|ViolationState
-operator|.
-name|IN_VIOLATION
+literal|true
 argument_list|,
 name|store
 operator|.
@@ -935,6 +923,34 @@ name|NS
 argument_list|,
 name|quota
 argument_list|)
+operator|.
+name|getQuotaStatus
+argument_list|()
+operator|.
+name|isInViolation
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|assertEquals
+argument_list|(
+name|SpaceViolationPolicy
+operator|.
+name|DISABLE
+argument_list|,
+name|store
+operator|.
+name|getTargetState
+argument_list|(
+name|NS
+argument_list|,
+name|quota
+argument_list|)
+operator|.
+name|getQuotaStatus
+argument_list|()
+operator|.
+name|getPolicy
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

@@ -58,7 +58,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Factory for creating {@link SpaceQuotaViolationNotifier} implementations. Implementations  * must have a no-args constructor.  */
+comment|/**  * Factory for creating {@link SpaceQuotaSnapshotNotifier} implementations. Implementations  * must have a no-args constructor.  */
 end_comment
 
 begin_class
@@ -68,25 +68,25 @@ operator|.
 name|Private
 specifier|public
 class|class
-name|SpaceQuotaViolationNotifierFactory
+name|SpaceQuotaSnapshotNotifierFactory
 block|{
 specifier|private
 specifier|static
 specifier|final
-name|SpaceQuotaViolationNotifierFactory
+name|SpaceQuotaSnapshotNotifierFactory
 name|INSTANCE
 init|=
 operator|new
-name|SpaceQuotaViolationNotifierFactory
+name|SpaceQuotaSnapshotNotifierFactory
 argument_list|()
 decl_stmt|;
 specifier|public
 specifier|static
 specifier|final
 name|String
-name|VIOLATION_NOTIFIER_KEY
+name|SNAPSHOT_NOTIFIER_KEY
 init|=
-literal|"hbase.master.quota.violation.notifier.impl"
+literal|"hbase.master.quota.snapshot.notifier.impl"
 decl_stmt|;
 specifier|public
 specifier|static
@@ -95,22 +95,22 @@ name|Class
 argument_list|<
 name|?
 extends|extends
-name|SpaceQuotaViolationNotifier
+name|SpaceQuotaSnapshotNotifier
 argument_list|>
-name|VIOLATION_NOTIFIER_DEFAULT
+name|SNAPSHOT_NOTIFIER_DEFAULT
 init|=
-name|SpaceQuotaViolationNotifierForTest
+name|TableSpaceQuotaSnapshotNotifier
 operator|.
 name|class
 decl_stmt|;
 comment|// Private
 specifier|private
-name|SpaceQuotaViolationNotifierFactory
+name|SpaceQuotaSnapshotNotifierFactory
 parameter_list|()
 block|{}
 specifier|public
 specifier|static
-name|SpaceQuotaViolationNotifierFactory
+name|SpaceQuotaSnapshotNotifierFactory
 name|getInstance
 parameter_list|()
 block|{
@@ -118,9 +118,9 @@ return|return
 name|INSTANCE
 return|;
 block|}
-comment|/**    * Instantiates the {@link SpaceQuotaViolationNotifier} implementation as defined in the    * configuration provided.    *    * @param conf Configuration object    * @return The SpaceQuotaViolationNotifier implementation    * @throws IllegalArgumentException if the class could not be instantiated    */
+comment|/**    * Instantiates the {@link SpaceQuotaSnapshotNotifier} implementation as defined in the    * configuration provided.    *    * @param conf Configuration object    * @return The SpaceQuotaSnapshotNotifier implementation    * @throws IllegalArgumentException if the class could not be instantiated    */
 specifier|public
-name|SpaceQuotaViolationNotifier
+name|SpaceQuotaSnapshotNotifier
 name|create
 parameter_list|(
 name|Configuration
@@ -131,7 +131,7 @@ name|Class
 argument_list|<
 name|?
 extends|extends
-name|SpaceQuotaViolationNotifier
+name|SpaceQuotaSnapshotNotifier
 argument_list|>
 name|clz
 init|=
@@ -144,11 +144,11 @@ argument_list|)
 operator|.
 name|getClass
 argument_list|(
-name|VIOLATION_NOTIFIER_KEY
+name|SNAPSHOT_NOTIFIER_KEY
 argument_list|,
-name|VIOLATION_NOTIFIER_DEFAULT
+name|SNAPSHOT_NOTIFIER_DEFAULT
 argument_list|,
-name|SpaceQuotaViolationNotifier
+name|SpaceQuotaSnapshotNotifier
 operator|.
 name|class
 argument_list|)

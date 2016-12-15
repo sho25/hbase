@@ -84,7 +84,7 @@ operator|.
 name|Private
 specifier|public
 interface|interface
-name|SpaceQuotaViolationNotifier
+name|SpaceQuotaSnapshotNotifier
 block|{
 comment|/**    * Initializes the notifier.    */
 name|void
@@ -94,25 +94,15 @@ name|Connection
 name|conn
 parameter_list|)
 function_decl|;
-comment|/**    * Instructs the cluster that the given table is in violation of a space quota. The    * provided violation policy is the action which should be taken on the table.    *    * @param tableName The name of the table in violation of the quota.    * @param violationPolicy The policy which should be enacted on the table.    */
+comment|/**    * Informs the cluster of the current state of a space quota for a table.    *    * @param tableName The name of the table.    * @param snapshot The details of the space quota utilization.    */
 name|void
-name|transitionTableToViolation
+name|transitionTable
 parameter_list|(
 name|TableName
 name|tableName
 parameter_list|,
-name|SpaceViolationPolicy
-name|violationPolicy
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-comment|/**    * Instructs the cluster that the given table is in observance of any applicable space quota.    *    * @param tableName The name of the table in observance.    */
-name|void
-name|transitionTableToObservance
-parameter_list|(
-name|TableName
-name|tableName
+name|SpaceQuotaSnapshot
+name|snapshot
 parameter_list|)
 throws|throws
 name|IOException

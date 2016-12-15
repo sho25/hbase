@@ -261,6 +261,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|quotas
+operator|.
+name|RegionServerSpaceQuotaManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|regionserver
 operator|.
 name|compactions
@@ -1972,6 +1988,63 @@ return|return
 literal|null
 return|;
 comment|// message logged inside
+block|}
+specifier|final
+name|RegionServerSpaceQuotaManager
+name|spaceQuotaManager
+init|=
+name|this
+operator|.
+name|server
+operator|.
+name|getRegionServerSpaceQuotaManager
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+literal|null
+operator|!=
+name|spaceQuotaManager
+operator|&&
+name|spaceQuotaManager
+operator|.
+name|areCompactionsDisabled
+argument_list|(
+name|r
+operator|.
+name|getTableDesc
+argument_list|()
+operator|.
+name|getTableName
+argument_list|()
+argument_list|)
+condition|)
+block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Ignoring compaction request for "
+operator|+
+name|r
+operator|+
+literal|" as an active space quota violation "
+operator|+
+literal|" policy disallows compactions."
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+literal|null
+return|;
 block|}
 comment|// We assume that most compactions are small. So, put system compactions into small
 comment|// pool; we will do selection there, and move to large pool if necessary.
