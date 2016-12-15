@@ -1244,7 +1244,7 @@ operator|.
 name|USE_DEFAULT
 argument_list|)
 decl_stmt|;
-comment|// col1: amount = 1, 1 write back to WAL
+comment|// col1: amount = 0, 1 write back to WAL
 name|Increment
 name|inc1
 init|=
@@ -1262,7 +1262,7 @@ name|FAMILY
 argument_list|,
 name|col1
 argument_list|,
-literal|1
+literal|0
 argument_list|)
 expr_stmt|;
 name|Result
@@ -1275,6 +1275,73 @@ argument_list|(
 name|inc1
 argument_list|)
 decl_stmt|;
+name|assertEquals
+argument_list|(
+literal|1
+argument_list|,
+name|res
+operator|.
+name|size
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|assertEquals
+argument_list|(
+literal|0
+argument_list|,
+name|Bytes
+operator|.
+name|toLong
+argument_list|(
+name|res
+operator|.
+name|getValue
+argument_list|(
+name|FAMILY
+argument_list|,
+name|col1
+argument_list|)
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|verifyWALCount
+argument_list|(
+name|wals
+argument_list|,
+name|wal
+argument_list|,
+literal|1
+argument_list|)
+expr_stmt|;
+comment|// col1: amount = 1, 1 write back to WAL
+name|inc1
+operator|=
+operator|new
+name|Increment
+argument_list|(
+name|row1
+argument_list|)
+expr_stmt|;
+name|inc1
+operator|.
+name|addColumn
+argument_list|(
+name|FAMILY
+argument_list|,
+name|col1
+argument_list|,
+literal|1
+argument_list|)
+expr_stmt|;
+name|res
+operator|=
+name|region
+operator|.
+name|increment
+argument_list|(
+name|inc1
+argument_list|)
+expr_stmt|;
 name|assertEquals
 argument_list|(
 literal|1
@@ -1310,7 +1377,7 @@ name|wals
 argument_list|,
 name|wal
 argument_list|,
-literal|1
+literal|2
 argument_list|)
 expr_stmt|;
 comment|// col1: amount = 0, 0 write back to WAL
@@ -1377,11 +1444,11 @@ name|wals
 argument_list|,
 name|wal
 argument_list|,
-literal|1
+literal|2
 argument_list|)
 expr_stmt|;
 comment|// col1: amount = 0, col2: amount = 0, col3: amount = 0
-comment|// 0 write back to WAL
+comment|// 1 write back to WAL
 name|inc1
 operator|=
 operator|new
@@ -1505,7 +1572,7 @@ name|wals
 argument_list|,
 name|wal
 argument_list|,
-literal|1
+literal|3
 argument_list|)
 expr_stmt|;
 comment|// col1: amount = 5, col2: amount = 4, col3: amount = 3
@@ -1633,7 +1700,7 @@ name|wals
 argument_list|,
 name|wal
 argument_list|,
-literal|2
+literal|4
 argument_list|)
 expr_stmt|;
 block|}

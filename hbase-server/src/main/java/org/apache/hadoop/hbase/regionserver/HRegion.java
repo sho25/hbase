@@ -36254,6 +36254,11 @@ name|currentValue
 init|=
 literal|null
 decl_stmt|;
+name|boolean
+name|firstWrite
+init|=
+literal|false
+decl_stmt|;
 if|if
 condition|(
 name|currentValuesIndex
@@ -36322,6 +36327,13 @@ name|currentValuesIndex
 operator|++
 expr_stmt|;
 block|}
+block|}
+else|else
+block|{
+name|firstWrite
+operator|=
+literal|true
+expr_stmt|;
 block|}
 comment|// Switch on whether this an increment or an append building the new Cell to apply.
 name|Cell
@@ -36456,6 +36468,8 @@ comment|// If apply, we need to update memstore/WAL with new value; add it toApp
 if|if
 condition|(
 name|apply
+operator|||
+name|firstWrite
 condition|)
 block|{
 name|toApply
