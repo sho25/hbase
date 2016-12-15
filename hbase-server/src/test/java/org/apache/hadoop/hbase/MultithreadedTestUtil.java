@@ -19,6 +19,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|HashSet
@@ -546,6 +556,8 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+try|try
+block|{
 while|while
 condition|(
 name|ctx
@@ -562,6 +574,13 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+finally|finally
+block|{
+name|workDone
+argument_list|()
+expr_stmt|;
+block|}
+block|}
 specifier|public
 specifier|abstract
 name|void
@@ -570,6 +589,13 @@ parameter_list|()
 throws|throws
 name|Exception
 function_decl|;
+specifier|public
+name|void
+name|workDone
+parameter_list|()
+throws|throws
+name|IOException
+block|{}
 block|}
 comment|/**    * Verify that no assertions have failed inside a future.    * Used for unit tests that spawn threads. E.g.,    *<p>    *<code>    *   List<Future<Void>> results = Lists.newArrayList();    *   Future<Void> f = executor.submit(new Callable<Void> {    *     public Void call() {    *       assertTrue(someMethod());    *     }    *   });    *   results.add(f);    *   assertOnFutures(results);    *</code>    * @param threadResults A list of futures    * @param<T>    * @throws InterruptedException If interrupted when waiting for a result    *                              from one of the futures    * @throws ExecutionException If an exception other than AssertionError    *                            occurs inside any of the futures    */
 specifier|public
