@@ -724,6 +724,8 @@ name|getFlushThroughputController
 parameter_list|()
 function_decl|;
 comment|/**    * @return the flush pressure of all stores on this regionserver. The value should be greater than    *         or equal to 0.0, and any value greater than 1.0 means we enter the emergency state that    *         global memstore size already exceeds lower limit.    */
+annotation|@
+name|Deprecated
 name|double
 name|getFlushPressure
 parameter_list|()

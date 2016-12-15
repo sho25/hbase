@@ -559,6 +559,37 @@ argument_list|(
 name|context
 argument_list|)
 decl_stmt|;
+name|long
+name|blockedFlushCount
+init|=
+name|context
+operator|.
+name|getBlockedFlushCount
+argument_list|()
+decl_stmt|;
+name|long
+name|unblockedFlushCount
+init|=
+name|context
+operator|.
+name|getUnblockedFlushCount
+argument_list|()
+decl_stmt|;
+name|long
+name|totalOnheapFlushCount
+init|=
+name|blockedFlushCount
+operator|+
+name|unblockedFlushCount
+decl_stmt|;
+name|boolean
+name|offheapMemstore
+init|=
+name|context
+operator|.
+name|isOffheapMemstore
+argument_list|()
+decl_stmt|;
 name|float
 name|newMemstoreSize
 decl_stmt|;
@@ -629,12 +660,24 @@ condition|)
 block|{
 comment|// Current step is opposite of past tuner actions so decrease the step size to reach steady
 comment|// state.
+if|if
+condition|(
+operator|!
+name|offheapMemstore
+operator|&&
+name|step
+operator|!=
+name|minimumStepSize
+condition|)
+block|{
+comment|// we leave the step to be at minimumStepSize for offheap memstore
 name|step
 operator|=
 name|step
 operator|/
 literal|2.00f
 expr_stmt|;
+block|}
 block|}
 if|if
 condition|(
@@ -662,7 +705,33 @@ operator|.
 name|NEUTRAL
 expr_stmt|;
 block|}
-comment|// Increase / decrease the memstore / block cahce sizes depending on new tuner step.
+comment|// There are no flushes due to onheap pressure and
+comment|// we have an offheap memstore and we are in need of more block_cache size.
+if|if
+condition|(
+name|totalOnheapFlushCount
+operator|==
+literal|0
+operator|&&
+name|offheapMemstore
+operator|&&
+name|newTuneDirection
+operator|==
+name|StepDirection
+operator|.
+name|INCREASE_BLOCK_CACHE_SIZE
+condition|)
+block|{
+comment|// we are sure that there are flushes only due to offheap pressure
+comment|// So don't do the memstore decrease equal to the step size. Instead do minimum stepSize
+comment|// decrease. But even if we have some flushes due to heap then it is better we tune
+comment|// the existing way.
+name|step
+operator|=
+name|minimumStepSize
+expr_stmt|;
+block|}
+comment|// Increase / decrease the memstore / block cache sizes depending on new tuner step.
 comment|// We don't want to exert immediate pressure on memstore. So, we decrease its size gracefully;
 comment|// we set a minimum bar in the middle of the total memstore size and the lower limit.
 name|float

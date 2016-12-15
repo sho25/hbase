@@ -1051,6 +1051,23 @@ name|long
 name|newBlockCacheSize
 parameter_list|)
 block|{
+comment|// don't do any tuning in case of offheap memstore
+if|if
+condition|(
+name|this
+operator|.
+name|offheap
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Not tuning the chunk pool as it is offheap"
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 name|int
 name|newMaxCount
 init|=

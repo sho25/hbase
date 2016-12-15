@@ -47,20 +47,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|annotations
-operator|.
-name|VisibleForTesting
-import|;
-end_import
-
 begin_comment
 comment|/**  * This class is for maintaining the various regionserver's heap memory manager statistics and  * publishing them through the metrics interfaces.  */
 end_comment

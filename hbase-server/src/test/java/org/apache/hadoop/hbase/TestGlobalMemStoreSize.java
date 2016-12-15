@@ -572,7 +572,7 @@ operator|.
 name|getRegionServerAccounting
 argument_list|()
 operator|.
-name|getGlobalMemstoreSize
+name|getGlobalMemstoreDataSize
 argument_list|()
 argument_list|,
 name|globalMemStoreSize
@@ -612,7 +612,7 @@ operator|.
 name|getRegionServerAccounting
 argument_list|()
 operator|.
-name|getGlobalMemstoreSize
+name|getGlobalMemstoreDataSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -689,7 +689,7 @@ operator|.
 name|getRegionServerAccounting
 argument_list|()
 operator|.
-name|getGlobalMemstoreSize
+name|getGlobalMemstoreDataSize
 argument_list|()
 operator|!=
 literal|0
@@ -718,7 +718,7 @@ operator|.
 name|getRegionServerAccounting
 argument_list|()
 operator|.
-name|getGlobalMemstoreSize
+name|getGlobalMemstoreDataSize
 argument_list|()
 decl_stmt|;
 if|if
@@ -819,7 +819,7 @@ operator|.
 name|getRegionServerAccounting
 argument_list|()
 operator|.
-name|getGlobalMemstoreSize
+name|getGlobalMemstoreDataSize
 argument_list|()
 expr_stmt|;
 name|assertEquals
@@ -903,7 +903,7 @@ operator|.
 name|getRegionServerAccounting
 argument_list|()
 operator|.
-name|getGlobalMemstoreSize
+name|getGlobalMemstoreDataSize
 argument_list|()
 argument_list|)
 expr_stmt|;

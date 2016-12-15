@@ -1664,7 +1664,9 @@ name|thenReturn
 argument_list|(
 operator|new
 name|RegionServerAccounting
-argument_list|()
+argument_list|(
+name|CONF
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|String
@@ -2241,7 +2243,7 @@ operator|.
 name|getRegionServerAccounting
 argument_list|()
 operator|.
-name|getGlobalMemstoreSize
+name|getGlobalMemstoreDataSize
 argument_list|()
 operator|>
 literal|0
@@ -2263,7 +2265,7 @@ operator|.
 name|getRegionServerAccounting
 argument_list|()
 operator|.
-name|getGlobalMemstoreSize
+name|getGlobalMemstoreDataSize
 argument_list|()
 argument_list|)
 expr_stmt|;

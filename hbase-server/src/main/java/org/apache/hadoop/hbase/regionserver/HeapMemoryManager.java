@@ -53,6 +53,18 @@ name|lang
 operator|.
 name|management
 operator|.
+name|MemoryType
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|lang
+operator|.
+name|management
+operator|.
 name|MemoryUsage
 import|;
 end_import
@@ -435,6 +447,7 @@ specifier|final
 name|ResizableBlockCache
 name|blockCache
 decl_stmt|;
+comment|// TODO : remove this and mark regionServerAccounting as the observer directly
 specifier|private
 specifier|final
 name|FlushRequester
@@ -1324,6 +1337,16 @@ name|getConfiguration
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|tunerContext
+operator|.
+name|setOffheapMemstore
+argument_list|(
+name|regionServerAccounting
+operator|.
+name|isOffheap
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 annotation|@
 name|Override
@@ -1587,6 +1610,7 @@ argument_list|(
 name|unblockedFlushCnt
 argument_list|)
 expr_stmt|;
+comment|// TODO : add support for offheap metrics
 name|tunerContext
 operator|.
 name|setCurBlockCacheUsed
@@ -1618,11 +1642,6 @@ init|=
 name|regionServerAccounting
 operator|.
 name|getGlobalMemstoreSize
-argument_list|()
-operator|+
-name|regionServerAccounting
-operator|.
-name|getGlobalMemstoreHeapOverhead
 argument_list|()
 decl_stmt|;
 name|tunerContext
@@ -1974,6 +1993,9 @@ operator|*
 name|blockCacheSize
 argument_list|)
 decl_stmt|;
+comment|// we could have got an increase or decrease in size for the offheap memstore
+comment|// also if the flush had happened due to heap overhead. In that case it is ok
+comment|// to adjust the onheap memstore limit configs
 name|long
 name|newMemstoreSize
 init|=
@@ -2014,6 +2036,8 @@ name|globalMemStorePercent
 operator|=
 name|memstoreSize
 expr_stmt|;
+comment|// Internally sets it to RegionServerAccounting
+comment|// TODO : Set directly on RSAccounting??
 name|memStoreFlusher
 operator|.
 name|setGlobalMemstoreLimit
@@ -2029,6 +2053,7 @@ range|:
 name|tuneObservers
 control|)
 block|{
+comment|// Risky.. If this newMemstoreSize decreases we reduce the count in offheap chunk pool
 name|observer
 operator|.
 name|onHeapMemoryTune
@@ -2085,7 +2110,7 @@ name|type
 condition|)
 block|{
 case|case
-name|ABOVE_HIGHER_MARK
+name|ABOVE_ONHEAP_HIGHER_MARK
 case|:
 name|blockedFlushCount
 operator|.
@@ -2094,7 +2119,7 @@ argument_list|()
 expr_stmt|;
 break|break;
 case|case
-name|ABOVE_LOWER_MARK
+name|ABOVE_ONHEAP_LOWER_MARK
 case|:
 name|unblockedFlushCount
 operator|.
@@ -2102,8 +2127,10 @@ name|incrementAndGet
 argument_list|()
 expr_stmt|;
 break|break;
+comment|// Removed the counting of the offheap related flushes (after reviews). Will add later if
+comment|// needed
 default|default:
-comment|// In case of normal flush don't do any action.
+comment|// In case of any other flush don't do any action.
 break|break;
 block|}
 block|}
@@ -2146,6 +2173,10 @@ decl_stmt|;
 specifier|private
 name|float
 name|curBlockCacheSize
+decl_stmt|;
+specifier|private
+name|boolean
+name|offheapMemstore
 decl_stmt|;
 specifier|public
 name|long
@@ -2338,6 +2369,32 @@ name|curMemStoreUsed
 operator|=
 name|d
 expr_stmt|;
+block|}
+specifier|public
+name|void
+name|setOffheapMemstore
+parameter_list|(
+name|boolean
+name|offheapMemstore
+parameter_list|)
+block|{
+name|this
+operator|.
+name|offheapMemstore
+operator|=
+name|offheapMemstore
+expr_stmt|;
+block|}
+specifier|public
+name|boolean
+name|isOffheapMemstore
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|offheapMemstore
+return|;
 block|}
 block|}
 comment|/**    * POJO which holds the result of memory tuning done by HeapMemoryTuner implementation.    * It includes the new heap percentage for memstore and block cache.    */
