@@ -1339,6 +1339,8 @@ name|map
 init|=
 literal|null
 decl_stmt|;
+try|try
+block|{
 if|if
 condition|(
 operator|!
@@ -1603,6 +1605,9 @@ literal|true
 expr_stmt|;
 block|}
 block|}
+block|}
+finally|finally
+block|{
 if|if
 condition|(
 name|region
@@ -1627,6 +1632,7 @@ argument_list|,
 name|loaded
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 return|return
 name|map

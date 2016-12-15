@@ -2606,6 +2606,64 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Called before moving bulk loaded hfile to region directory.    *    * @param ctx    * @param family column family    * @param pairs List of pairs of { HFile location in staging dir, HFile path in region dir }    * Each pair are for the same hfile.    * @throws IOException    */
+specifier|default
+name|void
+name|preCommitStoreFile
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|RegionCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|family
+parameter_list|,
+specifier|final
+name|List
+argument_list|<
+name|Pair
+argument_list|<
+name|Path
+argument_list|,
+name|Path
+argument_list|>
+argument_list|>
+name|pairs
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
+comment|/**    * Called after moving bulk loaded hfile to region directory.    *    * @param ctx    * @param family column family    * @param srcPath Path to file before the move    * @param dstPath Path to file after the move    */
+specifier|default
+name|void
+name|postCommitStoreFile
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|RegionCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|family
+parameter_list|,
+name|Path
+name|srcPath
+parameter_list|,
+name|Path
+name|dstPath
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
 comment|/**    * Called after bulkLoadHFile.    *    * @param ctx    * @param stagingFamilyPaths pairs of { CF, HFile path } submitted for bulk load    * @param finalPaths Map of CF to List of file paths for the final loaded files    * @param hasLoaded whether the bulkLoad was successful    * @return the new value of hasLoaded    * @throws IOException    */
 specifier|default
 name|boolean

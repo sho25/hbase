@@ -1533,8 +1533,10 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-return|return
-name|commitStoreFile
+name|Path
+name|dstPath
+init|=
+name|preCommitStoreFile
 argument_list|(
 name|familyName
 argument_list|,
@@ -1545,12 +1547,20 @@ literal|1
 argument_list|,
 literal|false
 argument_list|)
+decl_stmt|;
+return|return
+name|commitStoreFile
+argument_list|(
+name|buildPath
+argument_list|,
+name|dstPath
+argument_list|)
 return|;
 block|}
-comment|/**    * Move the file from a build/temp location to the main family store directory.    * @param familyName Family that will gain the file    * @param buildPath {@link Path} to the file to commit.    * @param seqNum Sequence Number to append to the file name (less then 0 if no sequence number)    * @param generateNewName False if you want to keep the buildPath name    * @return The new {@link Path} of the committed file    * @throws IOException    */
+comment|/**    * Generate the filename in the main family store directory for moving the file from a build/temp    *  location.    * @param familyName Family that will gain the file    * @param buildPath {@link Path} to the file to commit.    * @param seqNum Sequence Number to append to the file name (less then 0 if no sequence number)    * @param generateNewName False if you want to keep the buildPath name    * @return The new {@link Path} of the to be committed file    * @throws IOException    */
 specifier|private
 name|Path
-name|commitStoreFile
+name|preCommitStoreFile
 parameter_list|(
 specifier|final
 name|String
@@ -1692,6 +1702,24 @@ name|dstPath
 argument_list|)
 expr_stmt|;
 block|}
+return|return
+name|dstPath
+return|;
+block|}
+comment|/*    * Moves file from staging dir to region dir    * @param buildPath {@link Path} to the file to commit.    * @param dstPath {@link Path} to the file under region dir    * @return The {@link Path} of the committed file    * @throws IOException    */
+name|Path
+name|commitStoreFile
+parameter_list|(
+specifier|final
+name|Path
+name|buildPath
+parameter_list|,
+name|Path
+name|dstPath
+parameter_list|)
+throws|throws
+name|IOException
+block|{
 comment|// buildPath exists, therefore not doing an exists() check.
 if|if
 condition|(
@@ -2018,7 +2046,7 @@ name|tmpPath
 expr_stmt|;
 block|}
 return|return
-name|commitStoreFile
+name|preCommitStoreFile
 argument_list|(
 name|familyName
 argument_list|,
