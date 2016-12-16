@@ -253,7 +253,7 @@ argument_list|<
 name|Procedure
 argument_list|>
 block|{
-specifier|protected
+specifier|public
 specifier|static
 specifier|final
 name|long
@@ -262,7 +262,7 @@ init|=
 operator|-
 literal|1
 decl_stmt|;
-specifier|protected
+specifier|public
 specifier|static
 specifier|final
 name|int

@@ -169,6 +169,19 @@ annotation|@
 name|Override
 specifier|public
 name|void
+name|insert
+parameter_list|(
+name|Procedure
+index|[]
+name|proc
+parameter_list|)
+block|{
+comment|// no-op
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
 name|update
 parameter_list|(
 name|Procedure

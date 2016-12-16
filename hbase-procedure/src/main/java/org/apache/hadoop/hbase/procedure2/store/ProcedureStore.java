@@ -269,6 +269,15 @@ index|[]
 name|subprocs
 parameter_list|)
 function_decl|;
+comment|/**    * Serialize a set of new procedures.    * These procedures are freshly submitted to the executor and each procedure    * has a 'RUNNABLE' state and the initial information required to start up.    *    * @param procs the procedures to serialize and write to the store.    */
+name|void
+name|insert
+parameter_list|(
+name|Procedure
+index|[]
+name|procs
+parameter_list|)
+function_decl|;
 comment|/**    * The specified procedure was executed,    * and the new state should be written to the store.    * @param proc the procedure to serialize and write to the store.    */
 name|void
 name|update
