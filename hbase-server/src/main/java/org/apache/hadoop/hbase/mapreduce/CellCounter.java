@@ -625,6 +625,27 @@ block|}
 comment|/**      * Maps the data.      *      * @param row     The current table row key.      * @param values  The columns.      * @param context The current context.      * @throws IOException When something is broken with the data.      * @see org.apache.hadoop.mapreduce.Mapper#map(KEYIN, VALUEIN,      *      org.apache.hadoop.mapreduce.Mapper.Context)      */
 annotation|@
 name|Override
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"NP_NULL_ON_SOME_PATH"
+argument_list|,
+name|justification
+operator|=
+literal|"Findbugs is blind to the Precondition null check"
+argument_list|)
 specifier|public
 name|void
 name|map

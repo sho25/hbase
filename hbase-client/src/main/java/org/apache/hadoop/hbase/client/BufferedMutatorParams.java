@@ -91,6 +91,8 @@ name|Evolving
 specifier|public
 class|class
 name|BufferedMutatorParams
+implements|implements
+name|Cloneable
 block|{
 specifier|static
 specifier|final
