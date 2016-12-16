@@ -75,7 +75,91 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|*
+name|HBaseConfiguration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseTestingUtility
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HColumnDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HRegionInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HTableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|TableName
 import|;
 end_import
 
@@ -220,16 +304,6 @@ operator|.
 name|wal
 operator|.
 name|WAL
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
-name|Before
 import|;
 end_import
 
@@ -459,35 +533,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|MemstoreSize
-name|memstrsize1
-init|=
-name|MemstoreSize
-operator|.
-name|EMPTY_SIZE
-decl_stmt|;
-name|assertEquals
-argument_list|(
-name|memstrsize1
-operator|.
-name|getDataSize
-argument_list|()
-argument_list|,
-literal|0
-argument_list|)
-expr_stmt|;
-name|assertEquals
-argument_list|(
-name|MemstoreSize
-operator|.
-name|EMPTY_SIZE
-operator|.
-name|getDataSize
-argument_list|()
-argument_list|,
-literal|0
-argument_list|)
-expr_stmt|;
 name|int
 name|i
 init|=
@@ -577,18 +622,6 @@ name|i
 operator|++
 expr_stmt|;
 block|}
-name|assertEquals
-argument_list|(
-name|MemstoreSize
-operator|.
-name|EMPTY_SIZE
-operator|.
-name|getDataSize
-argument_list|()
-argument_list|,
-literal|0
-argument_list|)
-expr_stmt|;
 name|HRegionInfo
 name|info
 init|=
@@ -615,21 +648,7 @@ argument_list|,
 name|callingMethod
 argument_list|)
 decl_stmt|;
-name|assertEquals
-argument_list|(
-name|MemstoreSize
-operator|.
-name|EMPTY_SIZE
-operator|.
-name|getDataSize
-argument_list|()
-argument_list|,
-literal|0
-argument_list|)
-expr_stmt|;
-name|HRegion
-name|result
-init|=
+return|return
 name|HBaseTestingUtility
 operator|.
 name|createRegionAndWAL
@@ -642,21 +661,6 @@ name|conf
 argument_list|,
 name|htd
 argument_list|)
-decl_stmt|;
-name|assertEquals
-argument_list|(
-name|MemstoreSize
-operator|.
-name|EMPTY_SIZE
-operator|.
-name|getDataSize
-argument_list|()
-argument_list|,
-literal|0
-argument_list|)
-expr_stmt|;
-return|return
-name|result
 return|;
 block|}
 comment|// A helper function to create puts.
@@ -1043,29 +1047,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-annotation|@
-name|Before
-specifier|public
-name|void
-name|setUp
-parameter_list|()
-throws|throws
-name|Exception
-block|{
-name|assertEquals
-argument_list|(
-name|MemstoreSize
-operator|.
-name|EMPTY_SIZE
-operator|.
-name|getDataSize
-argument_list|()
-argument_list|,
-literal|0
-argument_list|)
-expr_stmt|;
-block|}
-comment|// test selective flush with data-compaction
 annotation|@
 name|Test
 argument_list|(
@@ -1865,68 +1846,7 @@ operator|+
 name|smallestSeqCF1PhaseIII
 operator|+
 literal|" ----\n"
-operator|+
-literal|"The sizes of snapshots are cf1: "
-operator|+
-name|region
-operator|.
-name|getStore
-argument_list|(
-name|FAMILY1
-argument_list|)
-operator|.
-name|getFlushedCellsSize
-argument_list|()
-operator|+
-literal|", cf2: "
-operator|+
-name|region
-operator|.
-name|getStore
-argument_list|(
-name|FAMILY2
-argument_list|)
-operator|.
-name|getFlushedCellsSize
-argument_list|()
-operator|+
-literal|", cf3: "
-operator|+
-name|region
-operator|.
-name|getStore
-argument_list|(
-name|FAMILY3
-argument_list|)
-operator|.
-name|getFlushedCellsSize
-argument_list|()
-operator|+
-literal|", cf4: "
-operator|+
-name|region
-operator|.
-name|getStore
-argument_list|(
-name|FAMILIES
-index|[
-literal|4
-index|]
-argument_list|)
-operator|.
-name|getFlushedCellsSize
-argument_list|()
-operator|+
-literal|"; the entire region size is: "
-operator|+
-name|region
-operator|.
-name|getMemstoreSize
-argument_list|()
-operator|+
-literal|"\n"
 expr_stmt|;
-empty_stmt|;
 comment|// Flush!!!!!!!!!!!!!!!!!!!!!!
 comment|// Flush again, CF1 is flushed to disk
 comment|// CF2 is flushed to disk, because it is not in-memory compacted memstore
@@ -2044,59 +1964,6 @@ operator|+
 name|cf3MemstoreSizePhaseIV
 operator|+
 literal|"\n"
-operator|+
-literal|"The sizes of snapshots are cf1: "
-operator|+
-name|region
-operator|.
-name|getStore
-argument_list|(
-name|FAMILY1
-argument_list|)
-operator|.
-name|getFlushedCellsSize
-argument_list|()
-operator|+
-literal|", cf2: "
-operator|+
-name|region
-operator|.
-name|getStore
-argument_list|(
-name|FAMILY2
-argument_list|)
-operator|.
-name|getFlushedCellsSize
-argument_list|()
-operator|+
-literal|", cf3: "
-operator|+
-name|region
-operator|.
-name|getStore
-argument_list|(
-name|FAMILY3
-argument_list|)
-operator|.
-name|getFlushedCellsSize
-argument_list|()
-operator|+
-literal|", cf4: "
-operator|+
-name|region
-operator|.
-name|getStore
-argument_list|(
-name|FAMILIES
-index|[
-literal|4
-index|]
-argument_list|)
-operator|.
-name|getFlushedCellsSize
-argument_list|()
-operator|+
-literal|"\n"
 expr_stmt|;
 name|s
 operator|=
@@ -2119,15 +1986,6 @@ operator|+
 literal|", the smallest sequence in CF3:"
 operator|+
 name|smallestSeqCF3PhaseIV
-operator|+
-literal|"\n"
-operator|+
-literal|"the entire region size is: "
-operator|+
-name|region
-operator|.
-name|getMemstoreSize
-argument_list|()
 operator|+
 literal|"\n"
 expr_stmt|;
@@ -2277,105 +2135,6 @@ argument_list|,
 name|cf3MemstoreSizePhaseV
 argument_list|)
 expr_stmt|;
-name|s
-operator|=
-name|s
-operator|+
-literal|"----AFTER THIRD FLUSH, the entire region size is:"
-operator|+
-name|region
-operator|.
-name|getMemstoreSize
-argument_list|()
-operator|+
-literal|" (empty memstore size is "
-operator|+
-name|MemstoreSize
-operator|.
-name|EMPTY_SIZE
-operator|+
-literal|"), while the sizes of each memstore are as following \ncf1: "
-operator|+
-name|cf1MemstoreSizePhaseV
-operator|+
-literal|", cf2: "
-operator|+
-name|cf2MemstoreSizePhaseV
-operator|+
-literal|", cf3: "
-operator|+
-name|cf3MemstoreSizePhaseV
-operator|+
-literal|", cf4: "
-operator|+
-name|region
-operator|.
-name|getStore
-argument_list|(
-name|FAMILIES
-index|[
-literal|4
-index|]
-argument_list|)
-operator|.
-name|getSizeOfMemStore
-argument_list|()
-operator|+
-literal|"\n"
-operator|+
-literal|"The sizes of snapshots are cf1: "
-operator|+
-name|region
-operator|.
-name|getStore
-argument_list|(
-name|FAMILY1
-argument_list|)
-operator|.
-name|getFlushedCellsSize
-argument_list|()
-operator|+
-literal|", cf2: "
-operator|+
-name|region
-operator|.
-name|getStore
-argument_list|(
-name|FAMILY2
-argument_list|)
-operator|.
-name|getFlushedCellsSize
-argument_list|()
-operator|+
-literal|", cf3: "
-operator|+
-name|region
-operator|.
-name|getStore
-argument_list|(
-name|FAMILY3
-argument_list|)
-operator|.
-name|getFlushedCellsSize
-argument_list|()
-operator|+
-literal|", cf4: "
-operator|+
-name|region
-operator|.
-name|getStore
-argument_list|(
-name|FAMILIES
-index|[
-literal|4
-index|]
-argument_list|)
-operator|.
-name|getFlushedCellsSize
-argument_list|()
-operator|+
-literal|"\n"
-expr_stmt|;
 comment|// What happens when we hit the memstore limit, but we are not able to find
 comment|// any Column Family above the threshold?
 comment|// In that case, we should flush all the CFs.
@@ -2469,7 +2228,7 @@ name|s
 operator|=
 name|s
 operator|+
-literal|"----AFTER FORTH FLUSH, The smallest sequence in region WAL is: "
+literal|"----AFTER THIRD AND FORTH FLUSH, The smallest sequence in region WAL is: "
 operator|+
 name|smallestSeqInRegionCurrentMemstorePhaseV
 operator|+
@@ -2487,8 +2246,6 @@ comment|// store to flush, we should flush all the memstores
 comment|// Also compacted memstores are flushed to disk.
 name|assertEquals
 argument_list|(
-name|s
-argument_list|,
 literal|0
 argument_list|,
 name|region
@@ -2626,18 +2383,6 @@ argument_list|,
 name|conf
 argument_list|)
 decl_stmt|;
-name|assertEquals
-argument_list|(
-name|MemstoreSize
-operator|.
-name|EMPTY_SIZE
-operator|.
-name|getDataSize
-argument_list|()
-argument_list|,
-literal|0
-argument_list|)
-expr_stmt|;
 comment|/*------------------------------------------------------------------------------*/
 comment|/* PHASE I - insertions */
 comment|// Add 1200 entries for CF1, 100 for CF2 and 50 for CF3
@@ -3842,7 +3587,6 @@ name|region
 argument_list|)
 expr_stmt|;
 block|}
-comment|// test WAL behavior together with selective flush while data-compaction
 annotation|@
 name|Test
 argument_list|(
@@ -3852,30 +3596,11 @@ literal|180000
 argument_list|)
 specifier|public
 name|void
-name|testDCwithWAL
+name|testSelectiveFlushAndWALinDataCompaction
 parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|MemstoreSize
-name|checkSize
-init|=
-name|MemstoreSize
-operator|.
-name|EMPTY_SIZE
-decl_stmt|;
-name|assertEquals
-argument_list|(
-name|MemstoreSize
-operator|.
-name|EMPTY_SIZE
-operator|.
-name|getDataSize
-argument_list|()
-argument_list|,
-literal|0
-argument_list|)
-expr_stmt|;
 comment|// Set up the configuration
 name|Configuration
 name|conf
@@ -3959,25 +3684,6 @@ name|EAGER
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|MemstoreSize
-name|memstrsize1
-init|=
-name|MemstoreSize
-operator|.
-name|EMPTY_SIZE
-decl_stmt|;
-name|assertEquals
-argument_list|(
-name|MemstoreSize
-operator|.
-name|EMPTY_SIZE
-operator|.
-name|getDataSize
-argument_list|()
-argument_list|,
-literal|0
-argument_list|)
-expr_stmt|;
 comment|// Intialize the HRegion
 name|HRegion
 name|region
@@ -3988,32 +3694,6 @@ literal|"testSelectiveFlushAndWALinDataCompaction"
 argument_list|,
 name|conf
 argument_list|)
-decl_stmt|;
-name|MemstoreSize
-name|cf2MemstoreSizePhase0
-init|=
-name|region
-operator|.
-name|getStore
-argument_list|(
-name|FAMILY2
-argument_list|)
-operator|.
-name|getSizeOfMemStore
-argument_list|()
-decl_stmt|;
-name|MemstoreSize
-name|cf1MemstoreSizePhase0
-init|=
-name|region
-operator|.
-name|getStore
-argument_list|(
-name|FAMILY1
-argument_list|)
-operator|.
-name|getSizeOfMemStore
-argument_list|()
 decl_stmt|;
 comment|// Add 1200 entries for CF1, 100 for CF2 and 50 for CF3
 for|for
@@ -4135,7 +3815,6 @@ operator|.
 name|getSizeOfMemStore
 argument_list|()
 decl_stmt|;
-comment|//boolean oldCF2 = region.getStore(FAMILY2).isSloppyMemstore();
 name|MemstoreSize
 name|cf2MemstoreSizePhaseI
 init|=
@@ -4198,7 +3877,7 @@ comment|// memstores of CF1, CF2 and CF3.
 name|String
 name|msg
 init|=
-literal|"\n<<< totalMemstoreSize="
+literal|"totalMemstoreSize="
 operator|+
 name|totalMemstoreSize
 operator|+
@@ -4262,39 +3941,6 @@ argument_list|)
 argument_list|)
 operator|.
 name|memstore
-decl_stmt|;
-name|MemStore
-name|cms2
-init|=
-operator|(
-operator|(
-name|HStore
-operator|)
-name|region
-operator|.
-name|getStore
-argument_list|(
-name|FAMILY2
-argument_list|)
-operator|)
-operator|.
-name|memstore
-decl_stmt|;
-name|MemstoreSize
-name|memstrsize2
-init|=
-name|cms2
-operator|.
-name|getSnapshotSize
-argument_list|()
-decl_stmt|;
-name|MemstoreSize
-name|flshsize2
-init|=
-name|cms2
-operator|.
-name|getFlushableSize
-argument_list|()
 decl_stmt|;
 name|CompactingMemStore
 name|cms3
@@ -4395,94 +4041,9 @@ argument_list|(
 name|FAMILY3
 argument_list|)
 decl_stmt|;
-name|MemstoreSize
-name|newSize
-init|=
-operator|new
-name|MemstoreSize
-argument_list|()
-decl_stmt|;
 comment|// CF2 should have been cleared
 name|assertEquals
 argument_list|(
-name|msg
-operator|+
-literal|"\n<<< CF2 is compacting "
-operator|+
-operator|(
-operator|(
-name|HStore
-operator|)
-name|region
-operator|.
-name|getStore
-argument_list|(
-name|FAMILY2
-argument_list|)
-operator|)
-operator|.
-name|memstore
-operator|.
-name|isSloppy
-argument_list|()
-operator|+
-literal|", snapshot and flushable size BEFORE flush "
-operator|+
-name|memstrsize2
-operator|+
-literal|"; "
-operator|+
-name|flshsize2
-operator|+
-literal|", snapshot and flushable size AFTER flush "
-operator|+
-name|cms2
-operator|.
-name|getSnapshotSize
-argument_list|()
-operator|+
-literal|"; "
-operator|+
-name|cms2
-operator|.
-name|getFlushableSize
-argument_list|()
-operator|+
-literal|"\n<<< cf2 size "
-operator|+
-name|cms2
-operator|.
-name|size
-argument_list|()
-operator|+
-literal|"; the checked size "
-operator|+
-name|cf2MemstoreSizePhaseII
-operator|+
-literal|"; memstore empty size "
-operator|+
-name|MemstoreSize
-operator|.
-name|EMPTY_SIZE
-operator|+
-literal|"; check size "
-operator|+
-name|checkSize
-operator|+
-literal|"\n<<< first first first CF2 size "
-operator|+
-name|cf2MemstoreSizePhase0
-operator|+
-literal|"; first first first CF1 size "
-operator|+
-name|cf1MemstoreSizePhase0
-operator|+
-literal|"; new new new size "
-operator|+
-name|newSize
-operator|+
-literal|"\n"
-argument_list|,
 name|MemstoreSize
 operator|.
 name|EMPTY_SIZE
@@ -4845,7 +4406,6 @@ name|region
 argument_list|)
 expr_stmt|;
 block|}
-comment|// test WAL behavior together with selective flush while index-compaction
 annotation|@
 name|Test
 argument_list|(
@@ -4855,7 +4415,7 @@ literal|180000
 argument_list|)
 specifier|public
 name|void
-name|tstICwithWAL
+name|testSelectiveFlushAndWALinIndexCompaction
 parameter_list|()
 throws|throws
 name|IOException
