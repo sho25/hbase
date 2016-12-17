@@ -335,6 +335,27 @@ name|this
 return|;
 block|}
 comment|/*    * (non-Javadoc)    *    * @see java.lang.Object#clone()    */
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"CN_IDIOM_NO_SUPER_CALL"
+argument_list|,
+name|justification
+operator|=
+literal|"The clone below is complete"
+argument_list|)
 specifier|public
 name|BufferedMutatorParams
 name|clone
