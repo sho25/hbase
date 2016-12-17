@@ -1863,7 +1863,7 @@ name|TableInputFormat
 operator|.
 name|SCAN_COLUMN_FAMILY
 operator|+
-literal|"=<familyName>"
+literal|"=<family1>,<family2>, ..."
 argument_list|)
 expr_stmt|;
 name|System
