@@ -77,6 +77,22 @@ name|InterfaceAudience
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|NonceKey
+import|;
+end_import
+
 begin_comment
 comment|/**  * View and edit the current cluster schema. Use this API making any modification to  * namespaces, tables, etc.  *  *<h2>Implementation Notes</h2>  * Nonces are for when operation is non-idempotent to ensure once-only semantic, even  * across process failures.  */
 end_comment
@@ -202,50 +218,41 @@ name|TableNamespaceManager
 name|getTableNamespaceManager
 parameter_list|()
 function_decl|;
-comment|/**    * Create a new Namespace.    * @param namespaceDescriptor descriptor for new Namespace    * @param nonceGroup Identifier for the source of the request, a client or process.    * @param nonce A unique identifier for this operation from the client or process identified by    *<code>nonceGroup</code> (the source must ensure each operation gets a unique id).    * @return procedure id    * @throws IOException Throws {@link ClusterSchemaException} and {@link InterruptedIOException}    *    as well as {@link IOException}    */
+comment|/**    * Create a new Namespace.    * @param namespaceDescriptor descriptor for new Namespace    * @param nonceKey A unique identifier for this operation from the client or process.    * @return procedure id    * @throws IOException Throws {@link ClusterSchemaException} and {@link InterruptedIOException}    *    as well as {@link IOException}    */
 name|long
 name|createNamespace
 parameter_list|(
 name|NamespaceDescriptor
 name|namespaceDescriptor
 parameter_list|,
-name|long
-name|nonceGroup
-parameter_list|,
-name|long
-name|nonce
+name|NonceKey
+name|nonceKey
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Modify an existing Namespace.    * @param nonceGroup Identifier for the source of the request, a client or process.    * @param nonce A unique identifier for this operation from the client or process identified by    *<code>nonceGroup</code> (the source must ensure each operation gets a unique id).    * @return procedure id    * @throws IOException Throws {@link ClusterSchemaException} and {@link InterruptedIOException}    *    as well as {@link IOException}    */
+comment|/**    * Modify an existing Namespace.    * @param nonceKey A unique identifier for this operation from the client or process.    * @return procedure id    * @throws IOException Throws {@link ClusterSchemaException} and {@link InterruptedIOException}    *    as well as {@link IOException}    */
 name|long
 name|modifyNamespace
 parameter_list|(
 name|NamespaceDescriptor
 name|descriptor
 parameter_list|,
-name|long
-name|nonceGroup
-parameter_list|,
-name|long
-name|nonce
+name|NonceKey
+name|nonceKey
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Delete an existing Namespace.    * Only empty Namespaces (no tables) can be removed.    * @param nonceGroup Identifier for the source of the request, a client or process.    * @param nonce A unique identifier for this operation from the client or process identified by    *<code>nonceGroup</code> (the source must ensure each operation gets a unique id).    * @return procedure id    * @throws IOException Throws {@link ClusterSchemaException} and {@link InterruptedIOException}    *    as well as {@link IOException}    */
+comment|/**    * Delete an existing Namespace.    * Only empty Namespaces (no tables) can be removed.    * @param nonceKey A unique identifier for this operation from the client or process.    * @return procedure id    * @throws IOException Throws {@link ClusterSchemaException} and {@link InterruptedIOException}    *    as well as {@link IOException}    */
 name|long
 name|deleteNamespace
 parameter_list|(
 name|String
 name|name
 parameter_list|,
-name|long
-name|nonceGroup
-parameter_list|,
-name|long
-name|nonce
+name|NonceKey
+name|nonceKey
 parameter_list|)
 throws|throws
 name|IOException

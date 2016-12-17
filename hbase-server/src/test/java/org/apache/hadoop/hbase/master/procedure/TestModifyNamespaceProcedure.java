@@ -368,24 +368,6 @@ argument_list|()
 decl_stmt|;
 specifier|private
 specifier|static
-name|long
-name|nonceGroup
-init|=
-name|HConstants
-operator|.
-name|NO_NONCE
-decl_stmt|;
-specifier|private
-specifier|static
-name|long
-name|nonce
-init|=
-name|HConstants
-operator|.
-name|NO_NONCE
-decl_stmt|;
-specifier|private
-specifier|static
 name|void
 name|setupConf
 parameter_list|(
@@ -483,36 +465,6 @@ name|getMasterProcedureExecutor
 argument_list|()
 argument_list|,
 literal|false
-argument_list|)
-expr_stmt|;
-name|nonceGroup
-operator|=
-name|MasterProcedureTestingUtility
-operator|.
-name|generateNonceGroup
-argument_list|(
-name|UTIL
-operator|.
-name|getHBaseCluster
-argument_list|()
-operator|.
-name|getMaster
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|nonce
-operator|=
-name|MasterProcedureTestingUtility
-operator|.
-name|generateNonce
-argument_list|(
-name|UTIL
-operator|.
-name|getHBaseCluster
-argument_list|()
-operator|.
-name|getMaster
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -730,10 +682,6 @@ argument_list|()
 argument_list|,
 name|nsd
 argument_list|)
-argument_list|,
-name|nonceGroup
-argument_list|,
-name|nonce
 argument_list|)
 decl_stmt|;
 comment|// Wait the completion
@@ -897,10 +845,6 @@ argument_list|()
 argument_list|,
 name|nsd
 argument_list|)
-argument_list|,
-name|nonceGroup
-argument_list|,
-name|nonce
 argument_list|)
 decl_stmt|;
 comment|// Wait the completion
@@ -1039,10 +983,6 @@ argument_list|()
 argument_list|,
 name|nsd
 argument_list|)
-argument_list|,
-name|nonceGroup
-argument_list|,
-name|nonce
 argument_list|)
 decl_stmt|;
 comment|// Wait the completion
@@ -1180,10 +1120,6 @@ argument_list|()
 argument_list|,
 name|nsd
 argument_list|)
-argument_list|,
-name|nonceGroup
-argument_list|,
-name|nonce
 argument_list|)
 decl_stmt|;
 comment|// Wait the completion
@@ -1338,10 +1274,6 @@ argument_list|()
 argument_list|,
 name|nsd
 argument_list|)
-argument_list|,
-name|nonceGroup
-argument_list|,
-name|nonce
 argument_list|)
 decl_stmt|;
 comment|// Restart the executor and execute the step twice
@@ -1504,10 +1436,6 @@ argument_list|()
 argument_list|,
 name|nsd
 argument_list|)
-argument_list|,
-name|nonceGroup
-argument_list|,
-name|nonce
 argument_list|)
 decl_stmt|;
 name|int
@@ -1613,14 +1541,6 @@ argument_list|()
 argument_list|,
 name|nsDescriptor
 argument_list|)
-argument_list|,
-name|nonceGroup
-operator|+
-literal|1
-argument_list|,
-name|nonce
-operator|+
-literal|1
 argument_list|)
 decl_stmt|;
 comment|// Wait the completion

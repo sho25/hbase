@@ -1045,6 +1045,22 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|NonceKey
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|zookeeper
 operator|.
 name|KeeperException
@@ -3287,7 +3303,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Clone the specified snapshot.    * The clone will fail if the destination table has a snapshot or restore in progress.    *    * @param reqSnapshot Snapshot Descriptor from request    * @param tableName table to clone    * @param snapshot Snapshot Descriptor    * @param snapshotTableDesc Table Descriptor    * @param nonceGroup unique value to prevent duplicated RPC    * @param nonce unique value to prevent duplicated RPC    * @return procId the ID of the clone snapshot procedure    * @throws IOException    */
+comment|/**    * Clone the specified snapshot.    * The clone will fail if the destination table has a snapshot or restore in progress.    *    * @param reqSnapshot Snapshot Descriptor from request    * @param tableName table to clone    * @param snapshot Snapshot Descriptor    * @param snapshotTableDesc Table Descriptor    * @param nonceKey unique identifier to prevent duplicated RPC    * @return procId the ID of the clone snapshot procedure    * @throws IOException    */
 specifier|private
 name|long
 name|cloneSnapshot
@@ -3309,12 +3325,8 @@ name|HTableDescriptor
 name|snapshotTableDesc
 parameter_list|,
 specifier|final
-name|long
-name|nonceGroup
-parameter_list|,
-specifier|final
-name|long
-name|nonce
+name|NonceKey
+name|nonceKey
 parameter_list|)
 throws|throws
 name|IOException
@@ -3368,9 +3380,7 @@ name|snapshot
 argument_list|,
 name|htd
 argument_list|,
-name|nonceGroup
-argument_list|,
-name|nonce
+name|nonceKey
 argument_list|)
 expr_stmt|;
 block|}
@@ -3442,7 +3452,7 @@ return|return
 name|procId
 return|;
 block|}
-comment|/**    * Clone the specified snapshot into a new table.    * The operation will fail if the destination table has a snapshot or restore in progress.    *    * @param snapshot Snapshot Descriptor    * @param hTableDescriptor Table Descriptor of the table to create    * @param nonceGroup unique value to prevent duplicated RPC    * @param nonce unique value to prevent duplicated RPC    * @return procId the ID of the clone snapshot procedure    */
+comment|/**    * Clone the specified snapshot into a new table.    * The operation will fail if the destination table has a snapshot or restore in progress.    *    * @param snapshot Snapshot Descriptor    * @param hTableDescriptor Table Descriptor of the table to create    * @param nonceKey unique identifier to prevent duplicated RPC    * @return procId the ID of the clone snapshot procedure    */
 specifier|synchronized
 name|long
 name|cloneSnapshot
@@ -3456,12 +3466,8 @@ name|HTableDescriptor
 name|hTableDescriptor
 parameter_list|,
 specifier|final
-name|long
-name|nonceGroup
-parameter_list|,
-specifier|final
-name|long
-name|nonce
+name|NonceKey
+name|nonceKey
 parameter_list|)
 throws|throws
 name|HBaseSnapshotException
@@ -3540,9 +3546,7 @@ argument_list|,
 name|snapshot
 argument_list|)
 argument_list|,
-name|nonceGroup
-argument_list|,
-name|nonce
+name|nonceKey
 argument_list|)
 decl_stmt|;
 name|this
@@ -3602,21 +3606,18 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Restore or Clone the specified snapshot    * @param reqSnapshot    * @param nonceGroup unique value to prevent duplicated RPC    * @param nonce unique value to prevent duplicated RPC    * @throws IOException    */
+comment|/**    * Restore or Clone the specified snapshot    * @param reqSnapshot    * @param nonceKey unique identifier to prevent duplicated RPC    * @throws IOException    */
 specifier|public
 name|long
 name|restoreOrCloneSnapshot
 parameter_list|(
+specifier|final
 name|SnapshotDescription
 name|reqSnapshot
 parameter_list|,
 specifier|final
-name|long
-name|nonceGroup
-parameter_list|,
-specifier|final
-name|long
-name|nonce
+name|NonceKey
+name|nonceKey
 parameter_list|)
 throws|throws
 name|IOException
@@ -3788,9 +3789,7 @@ name|snapshot
 argument_list|,
 name|snapshotTableDesc
 argument_list|,
-name|nonceGroup
-argument_list|,
-name|nonce
+name|nonceKey
 argument_list|)
 expr_stmt|;
 block|}
@@ -3808,9 +3807,7 @@ name|snapshot
 argument_list|,
 name|snapshotTableDesc
 argument_list|,
-name|nonceGroup
-argument_list|,
-name|nonce
+name|nonceKey
 argument_list|)
 expr_stmt|;
 block|}
@@ -3818,7 +3815,7 @@ return|return
 name|procId
 return|;
 block|}
-comment|/**    * Restore the specified snapshot.    * The restore will fail if the destination table has a snapshot or restore in progress.    *    * @param reqSnapshot Snapshot Descriptor from request    * @param tableName table to restore    * @param snapshot Snapshot Descriptor    * @param snapshotTableDesc Table Descriptor    * @param nonceGroup unique value to prevent duplicated RPC    * @param nonce unique value to prevent duplicated RPC    * @return procId the ID of the restore snapshot procedure    * @throws IOException    */
+comment|/**    * Restore the specified snapshot.    * The restore will fail if the destination table has a snapshot or restore in progress.    *    * @param reqSnapshot Snapshot Descriptor from request    * @param tableName table to restore    * @param snapshot Snapshot Descriptor    * @param snapshotTableDesc Table Descriptor    * @param nonceKey unique identifier to prevent duplicated RPC    * @return procId the ID of the restore snapshot procedure    * @throws IOException    */
 specifier|private
 name|long
 name|restoreSnapshot
@@ -3840,12 +3837,8 @@ name|HTableDescriptor
 name|snapshotTableDesc
 parameter_list|,
 specifier|final
-name|long
-name|nonceGroup
-parameter_list|,
-specifier|final
-name|long
-name|nonce
+name|NonceKey
+name|nonceKey
 parameter_list|)
 throws|throws
 name|IOException
@@ -3938,9 +3931,7 @@ name|snapshot
 argument_list|,
 name|snapshotTableDesc
 argument_list|,
-name|nonceGroup
-argument_list|,
-name|nonce
+name|nonceKey
 argument_list|)
 expr_stmt|;
 block|}
@@ -4012,7 +4003,7 @@ return|return
 name|procId
 return|;
 block|}
-comment|/**    * Restore the specified snapshot.    * The restore will fail if the destination table has a snapshot or restore in progress.    *    * @param snapshot Snapshot Descriptor    * @param hTableDescriptor Table Descriptor    * @param nonceGroup unique value to prevent duplicated RPC    * @param nonce unique value to prevent duplicated RPC    * @return procId the ID of the restore snapshot procedure    */
+comment|/**    * Restore the specified snapshot.    * The restore will fail if the destination table has a snapshot or restore in progress.    *    * @param snapshot Snapshot Descriptor    * @param hTableDescriptor Table Descriptor    * @param nonceKey unique identifier to prevent duplicated RPC    * @return procId the ID of the restore snapshot procedure    */
 specifier|private
 specifier|synchronized
 name|long
@@ -4027,16 +4018,13 @@ name|HTableDescriptor
 name|hTableDescriptor
 parameter_list|,
 specifier|final
-name|long
-name|nonceGroup
-parameter_list|,
-specifier|final
-name|long
-name|nonce
+name|NonceKey
+name|nonceKey
 parameter_list|)
 throws|throws
 name|HBaseSnapshotException
 block|{
+specifier|final
 name|TableName
 name|tableName
 init|=
@@ -4111,9 +4099,7 @@ argument_list|,
 name|snapshot
 argument_list|)
 argument_list|,
-name|nonceGroup
-argument_list|,
-name|nonce
+name|nonceKey
 argument_list|)
 decl_stmt|;
 name|this

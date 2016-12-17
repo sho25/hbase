@@ -363,22 +363,6 @@ name|HBaseTestingUtility
 argument_list|()
 decl_stmt|;
 specifier|private
-name|long
-name|nonceGroup
-init|=
-name|HConstants
-operator|.
-name|NO_NONCE
-decl_stmt|;
-specifier|private
-name|long
-name|nonce
-init|=
-name|HConstants
-operator|.
-name|NO_NONCE
-decl_stmt|;
-specifier|private
 specifier|static
 name|void
 name|setupConf
@@ -495,36 +479,6 @@ argument_list|,
 name|procExec
 operator|.
 name|isRunning
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|nonceGroup
-operator|=
-name|MasterProcedureTestingUtility
-operator|.
-name|generateNonceGroup
-argument_list|(
-name|UTIL
-operator|.
-name|getHBaseCluster
-argument_list|()
-operator|.
-name|getMaster
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|nonce
-operator|=
-name|MasterProcedureTestingUtility
-operator|.
-name|generateNonce
-argument_list|(
-name|UTIL
-operator|.
-name|getHBaseCluster
-argument_list|()
-operator|.
-name|getMaster
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -681,10 +635,6 @@ name|tableName
 argument_list|,
 literal|false
 argument_list|)
-argument_list|,
-name|nonceGroup
-argument_list|,
-name|nonce
 argument_list|)
 decl_stmt|;
 comment|// Wait for one step to complete
@@ -843,10 +793,6 @@ argument_list|()
 argument_list|,
 name|tableName
 argument_list|)
-argument_list|,
-name|nonceGroup
-argument_list|,
-name|nonce
 argument_list|)
 decl_stmt|;
 comment|// Wait for a couple of steps to complete (first step "prepare" is abortable)
@@ -1047,10 +993,6 @@ name|tableName
 argument_list|,
 literal|true
 argument_list|)
-argument_list|,
-name|nonceGroup
-argument_list|,
-name|nonce
 argument_list|)
 decl_stmt|;
 comment|// Wait for one step to complete
@@ -1288,10 +1230,6 @@ name|tableName
 argument_list|,
 literal|false
 argument_list|)
-argument_list|,
-name|nonceGroup
-argument_list|,
-name|nonce
 argument_list|)
 decl_stmt|;
 comment|// Wait for one step to complete

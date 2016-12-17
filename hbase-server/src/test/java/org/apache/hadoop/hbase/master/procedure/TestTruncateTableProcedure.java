@@ -1109,10 +1109,6 @@ name|tableName
 argument_list|,
 name|preserveSplits
 argument_list|)
-argument_list|,
-name|nonceGroup
-argument_list|,
-name|nonce
 argument_list|)
 decl_stmt|;
 comment|// Restart the executor and execute the step twice

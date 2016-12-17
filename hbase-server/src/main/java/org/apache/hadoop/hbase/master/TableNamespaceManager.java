@@ -1368,13 +1368,7 @@ name|createNamespace
 argument_list|(
 name|namespaceDescriptor
 argument_list|,
-name|HConstants
-operator|.
-name|NO_NONCE
-argument_list|,
-name|HConstants
-operator|.
-name|NO_NONCE
+literal|null
 argument_list|)
 decl_stmt|;
 name|block

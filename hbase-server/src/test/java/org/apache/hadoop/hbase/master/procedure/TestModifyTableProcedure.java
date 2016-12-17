@@ -1451,10 +1451,6 @@ argument_list|()
 argument_list|,
 name|htd
 argument_list|)
-argument_list|,
-name|nonceGroup
-argument_list|,
-name|nonce
 argument_list|)
 decl_stmt|;
 comment|// Restart the executor and execute the step twice
@@ -1693,10 +1689,6 @@ argument_list|()
 argument_list|,
 name|htd
 argument_list|)
-argument_list|,
-name|nonceGroup
-argument_list|,
-name|nonce
 argument_list|)
 decl_stmt|;
 comment|// Restart the executor and execute the step twice
@@ -1940,10 +1932,6 @@ argument_list|()
 argument_list|,
 name|htd
 argument_list|)
-argument_list|,
-name|nonceGroup
-argument_list|,
-name|nonce
 argument_list|)
 decl_stmt|;
 name|int
@@ -2141,10 +2129,6 @@ argument_list|()
 argument_list|,
 name|htd
 argument_list|)
-argument_list|,
-name|nonceGroup
-argument_list|,
-name|nonce
 argument_list|)
 decl_stmt|;
 comment|// Restart the executor and rollback the step twice
