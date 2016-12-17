@@ -183,6 +183,20 @@ name|org
 operator|.
 name|apache
 operator|.
+name|commons
+operator|.
+name|io
+operator|.
+name|IOUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -409,7 +423,7 @@ block|}
 argument_list|)
 specifier|public
 class|class
-name|TestAsyncRegionLocator
+name|TestAsyncNonMetaRegionLocator
 block|{
 specifier|private
 specifier|static
@@ -453,7 +467,7 @@ name|CONN
 decl_stmt|;
 specifier|private
 specifier|static
-name|AsyncRegionLocator
+name|AsyncNonMetaRegionLocator
 name|LOCATOR
 decl_stmt|;
 specifier|private
@@ -510,10 +524,11 @@ argument_list|)
 expr_stmt|;
 name|LOCATOR
 operator|=
+operator|new
+name|AsyncNonMetaRegionLocator
+argument_list|(
 name|CONN
-operator|.
-name|getLocator
-argument_list|()
+argument_list|)
 expr_stmt|;
 name|SPLIT_KEYS
 operator|=
@@ -575,10 +590,12 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|CONN
+name|IOUtils
 operator|.
-name|close
-argument_list|()
+name|closeQuietly
+argument_list|(
+name|CONN
+argument_list|)
 expr_stmt|;
 name|TEST_UTIL
 operator|.
@@ -697,8 +714,6 @@ argument_list|(
 name|TABLE_NAME
 argument_list|,
 name|EMPTY_START_ROW
-argument_list|,
-literal|0L
 argument_list|)
 operator|.
 name|get
@@ -736,8 +751,6 @@ argument_list|(
 name|TABLE_NAME
 argument_list|,
 name|EMPTY_END_ROW
-argument_list|,
-literal|0L
 argument_list|)
 operator|.
 name|get
@@ -800,8 +813,6 @@ argument_list|(
 name|TABLE_NAME
 argument_list|,
 name|EMPTY_START_ROW
-argument_list|,
-literal|0L
 argument_list|)
 operator|.
 name|get
@@ -839,8 +850,6 @@ argument_list|(
 name|TABLE_NAME
 argument_list|,
 name|EMPTY_END_ROW
-argument_list|,
-literal|0L
 argument_list|)
 operator|.
 name|get
@@ -982,8 +991,6 @@ argument_list|(
 name|TABLE_NAME
 argument_list|,
 name|EMPTY_START_ROW
-argument_list|,
-literal|0L
 argument_list|)
 operator|.
 name|get
@@ -1005,8 +1012,6 @@ argument_list|(
 name|TABLE_NAME
 argument_list|,
 name|EMPTY_START_ROW
-argument_list|,
-literal|0L
 argument_list|)
 operator|.
 name|get
@@ -1056,8 +1061,6 @@ argument_list|(
 name|TABLE_NAME
 argument_list|,
 name|randKey
-argument_list|,
-literal|0L
 argument_list|)
 operator|.
 name|get
@@ -1087,8 +1090,6 @@ index|[]
 block|{
 literal|1
 block|}
-argument_list|,
-literal|0L
 argument_list|)
 operator|.
 name|get
@@ -1436,8 +1437,6 @@ name|startKeys
 index|[
 name|i
 index|]
-argument_list|,
-literal|0L
 argument_list|)
 operator|.
 name|get
@@ -1569,8 +1568,6 @@ name|endKeys
 index|[
 name|i
 index|]
-argument_list|,
-literal|0L
 argument_list|)
 operator|.
 name|get
@@ -1641,8 +1638,6 @@ argument_list|(
 name|TABLE_NAME
 argument_list|,
 name|EMPTY_START_ROW
-argument_list|,
-literal|0L
 argument_list|)
 operator|.
 name|get
@@ -1775,8 +1770,6 @@ argument_list|(
 name|TABLE_NAME
 argument_list|,
 name|EMPTY_START_ROW
-argument_list|,
-literal|0L
 argument_list|)
 operator|.
 name|get
@@ -1804,8 +1797,6 @@ argument_list|(
 name|TABLE_NAME
 argument_list|,
 name|EMPTY_START_ROW
-argument_list|,
-literal|0L
 argument_list|)
 operator|.
 name|get
@@ -1838,8 +1829,6 @@ argument_list|(
 name|TABLE_NAME
 argument_list|,
 name|EMPTY_START_ROW
-argument_list|,
-literal|0L
 argument_list|)
 operator|.
 name|get
