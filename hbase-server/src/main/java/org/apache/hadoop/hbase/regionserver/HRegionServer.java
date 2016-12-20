@@ -14932,6 +14932,16 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+name|coprocessors
+operator|.
+name|addAll
+argument_list|(
+name|rsHost
+operator|.
+name|getCoprocessors
+argument_list|()
+argument_list|)
+expr_stmt|;
 return|return
 name|coprocessors
 operator|.
