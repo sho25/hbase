@@ -419,6 +419,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|replication
+operator|.
+name|ReplicationPeerConfig
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|snapshot
 operator|.
 name|HBaseSnapshotException
@@ -2667,6 +2683,34 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Add a new replication peer for replicating data to slave cluster    * @param peerId a short name that identifies the peer    * @param peerConfig configuration for the replication slave cluster    * @throws IOException    */
+specifier|default
+name|void
+name|addReplicationPeer
+parameter_list|(
+specifier|final
+name|String
+name|peerId
+parameter_list|,
+specifier|final
+name|ReplicationPeerConfig
+name|peerConfig
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
+comment|/**    * Remove a peer and stop the replication    * @param peerId a short name that identifies the peer    * @throws IOException    */
+specifier|default
+name|void
+name|removeReplicationPeer
+parameter_list|(
+specifier|final
+name|String
+name|peerId
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
 block|}
 end_interface
 

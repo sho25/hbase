@@ -341,6 +341,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|replication
+operator|.
+name|ReplicationPeerConfig
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|shaded
 operator|.
 name|protobuf
@@ -3310,6 +3326,84 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Called before add a replication peer    * @param ctx the environment to interact with the framework and master    * @param peerId a short name that identifies the peer    * @param peerConfig configuration for the replication peer    * @throws IOException on failure    */
+specifier|default
+name|void
+name|preAddReplicationPeer
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|String
+name|peerId
+parameter_list|,
+name|ReplicationPeerConfig
+name|peerConfig
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
+comment|/**    * Called after add a replication peer    * @param ctx the environment to interact with the framework and master    * @param peerId a short name that identifies the peer    * @param peerConfig configuration for the replication peer    * @throws IOException on failure    */
+specifier|default
+name|void
+name|postAddReplicationPeer
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|String
+name|peerId
+parameter_list|,
+name|ReplicationPeerConfig
+name|peerConfig
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
+comment|/**    * Called before remove a replication peer    * @param ctx    * @param peerId a short name that identifies the peer    * @throws IOException on failure    */
+specifier|default
+name|void
+name|preRemoveReplicationPeer
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|String
+name|peerId
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
+comment|/**    * Called after remove a replication peer    * @param ctx    * @param peerId a short name that identifies the peer    * @throws IOException on failure    */
+specifier|default
+name|void
+name|postRemoveReplicationPeer
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|String
+name|peerId
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
 block|}
 end_interface
 

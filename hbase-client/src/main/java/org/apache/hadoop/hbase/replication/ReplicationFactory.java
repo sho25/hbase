@@ -199,9 +199,7 @@ argument_list|()
 operator|.
 name|getClass
 argument_list|(
-literal|"hbase.region.replica."
-operator|+
-literal|"replication.replicationQueuesClient.class"
+literal|"hbase.region.replica.replication.replicationQueuesClient.class"
 argument_list|,
 name|ReplicationQueuesClientZKImpl
 operator|.

@@ -173,6 +173,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|RetriesExhaustedException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|replication
 operator|.
 name|ReplicationException
@@ -516,7 +532,7 @@ name|Exception
 block|{
 name|TEST_UTIL
 operator|.
-name|startMiniZKCluster
+name|startMiniCluster
 argument_list|()
 expr_stmt|;
 name|Configuration
@@ -527,6 +543,17 @@ operator|.
 name|getConfiguration
 argument_list|()
 decl_stmt|;
+name|conf
+operator|.
+name|setInt
+argument_list|(
+name|HConstants
+operator|.
+name|HBASE_CLIENT_RETRIES_NUMBER
+argument_list|,
+literal|1
+argument_list|)
+expr_stmt|;
 name|admin
 operator|=
 operator|new
@@ -561,7 +588,7 @@ expr_stmt|;
 block|}
 name|TEST_UTIL
 operator|.
-name|shutdownMiniZKCluster
+name|shutdownMiniCluster
 argument_list|()
 expr_stmt|;
 block|}
@@ -632,8 +659,8 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|IllegalArgumentException
-name|iae
+name|Exception
+name|e
 parameter_list|)
 block|{
 comment|// OK!
@@ -664,7 +691,7 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|IllegalArgumentException
+name|Exception
 name|iae
 parameter_list|)
 block|{
@@ -697,7 +724,7 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|IllegalStateException
+name|Exception
 name|iae
 parameter_list|)
 block|{
@@ -996,7 +1023,7 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|ReplicationException
+name|Exception
 name|e
 parameter_list|)
 block|{
@@ -1053,7 +1080,7 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|ReplicationException
+name|Exception
 name|e
 parameter_list|)
 block|{
@@ -2882,7 +2909,7 @@ name|void
 name|testNamespacesAndTableCfsConfigConflict
 parameter_list|()
 throws|throws
-name|ReplicationException
+name|Exception
 block|{
 name|String
 name|ns1
@@ -3184,7 +3211,7 @@ name|void
 name|testPeerBandwidth
 parameter_list|()
 throws|throws
-name|ReplicationException
+name|Exception
 block|{
 name|ReplicationPeerConfig
 name|rpc

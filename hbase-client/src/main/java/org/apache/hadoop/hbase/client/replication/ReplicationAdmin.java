@@ -367,6 +367,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|HBaseAdmin
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|RegionLocator
 import|;
 end_import
@@ -532,7 +548,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  *<p>  * This class provides the administrative interface to HBase cluster  * replication. In order to use it, the cluster and the client using  * ReplicationAdmin must be configured with<code>hbase.replication</code>  * set to true.  *</p>  *<p>  * Adding a new peer results in creating new outbound connections from every  * region server to a subset of region servers on the slave cluster. Each  * new stream of replication will start replicating from the beginning of the  * current WAL, meaning that edits from that past will be replicated.  *</p>  *<p>  * Removing a peer is a destructive and irreversible operation that stops  * all the replication streams for the given cluster and deletes the metadata  * used to keep track of the replication state.  *</p>  *<p>  * To see which commands are available in the shell, type  *<code>replication</code>.  *</p>  */
+comment|/**  *<p>  * This class provides the administrative interface to HBase cluster  * replication. In order to use it, the cluster and the client using  * ReplicationAdmin must be configured with<code>hbase.replication</code>  * set to true.  *</p>  *<p>  * Adding a new peer results in creating new outbound connections from every  * region server to a subset of region servers on the slave cluster. Each  * new stream of replication will start replicating from the beginning of the  * current WAL, meaning that edits from that past will be replicated.  *</p>  *<p>  * Removing a peer is a destructive and irreversible operation that stops  * all the replication streams for the given cluster and deletes the metadata  * used to keep track of the replication state.  *</p>  *<p>  * To see which commands are available in the shell, type  *<code>replication</code>.  *</p>  *  * @deprecated use {@link org.apache.hadoop.hbase.client.Admin} instead.  */
 end_comment
 
 begin_class
@@ -544,6 +560,8 @@ annotation|@
 name|InterfaceStability
 operator|.
 name|Evolving
+annotation|@
+name|Deprecated
 specifier|public
 class|class
 name|ReplicationAdmin
@@ -644,6 +662,10 @@ specifier|final
 name|ZooKeeperWatcher
 name|zkw
 decl_stmt|;
+specifier|private
+name|Admin
+name|admin
+decl_stmt|;
 comment|/**    * Constructor that creates a connection to the local ZooKeeper ensemble.    * @param conf Configuration to use    * @throws IOException if an internal replication error occurs    * @throws RuntimeException if replication isn't enabled.    */
 specifier|public
 name|ReplicationAdmin
@@ -664,6 +686,13 @@ name|createConnection
 argument_list|(
 name|conf
 argument_list|)
+expr_stmt|;
+name|admin
+operator|=
+name|connection
+operator|.
+name|getAdmin
+argument_list|()
 expr_stmt|;
 try|try
 block|{
@@ -761,19 +790,11 @@ name|Exception
 name|exception
 parameter_list|)
 block|{
-if|if
-condition|(
-name|connection
-operator|!=
-literal|null
-condition|)
-block|{
 name|connection
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
-block|}
 if|if
 condition|(
 name|exception
@@ -908,6 +929,8 @@ name|tableCfs
 parameter_list|)
 throws|throws
 name|ReplicationException
+throws|,
+name|IOException
 block|{
 if|if
 condition|(
@@ -926,9 +949,9 @@ expr_stmt|;
 block|}
 name|this
 operator|.
-name|replicationPeers
+name|admin
 operator|.
-name|registerPeer
+name|addReplicationPeer
 argument_list|(
 name|id
 argument_list|,
@@ -949,6 +972,8 @@ name|peerConfig
 parameter_list|)
 throws|throws
 name|ReplicationException
+throws|,
+name|IOException
 block|{
 name|checkNamespacesAndTableCfsConfigConflict
 argument_list|(
@@ -965,9 +990,9 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|replicationPeers
+name|admin
 operator|.
-name|registerPeer
+name|addReplicationPeer
 argument_list|(
 name|id
 argument_list|,
@@ -1051,13 +1076,13 @@ name|String
 name|id
 parameter_list|)
 throws|throws
-name|ReplicationException
+name|IOException
 block|{
 name|this
 operator|.
-name|replicationPeers
+name|admin
 operator|.
-name|unregisterPeer
+name|removeReplicationPeer
 argument_list|(
 name|id
 argument_list|)
@@ -1963,6 +1988,11 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+name|admin
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 comment|/**    * Find all column families that are replicated from this cluster    * @return the full list of the replicated column families of this cluster as:    *        tableName, family name, replicationType    *    * Currently replicationType is Global. In the future, more replication    * types may be extended here. For example    *  1) the replication may only apply to selected peers instead of all peers    *  2) the replicationType may indicate the host Cluster servers as Slave    *     for the table:columnFam.    */
 specifier|public
