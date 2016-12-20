@@ -1687,6 +1687,21 @@ literal|true
 argument_list|)
 return|;
 block|}
+comment|// Add a delta to avoid timeout immediately after a retry sleeping.
+specifier|static
+specifier|final
+name|long
+name|SLEEP_DELTA_NS
+init|=
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+operator|.
+name|toNanos
+argument_list|(
+literal|1
+argument_list|)
+decl_stmt|;
 block|}
 end_class
 
