@@ -263,6 +263,20 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|atomic
+operator|.
+name|AtomicInteger
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -846,6 +860,14 @@ decl_stmt|;
 specifier|private
 name|long
 name|replicationWaitTime
+decl_stmt|;
+specifier|private
+name|AtomicInteger
+name|totalBufferUsed
+init|=
+operator|new
+name|AtomicInteger
+argument_list|()
 decl_stmt|;
 comment|/**    * Creates a replication manager and sets the watch on all the other registered region servers    * @param replicationQueues the interface for manipulating replication queues    * @param replicationPeers    * @param replicationTracker    * @param conf the configuration to use    * @param server the server for this region server    * @param fs the file system to use    * @param logDir the directory that contains all wal directories of live RSs    * @param oldLogDir the directory where old logs are archived    * @param clusterId    */
 specifier|public
@@ -2359,6 +2381,16 @@ name|newLog
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+annotation|@
+name|VisibleForTesting
+name|AtomicInteger
+name|getTotalBufferUsed
+parameter_list|()
+block|{
+return|return
+name|totalBufferUsed
+return|;
 block|}
 comment|/**    * Factory method to create a replication source    * @param conf the configuration to use    * @param fs the file system to use    * @param manager the manager to use    * @param server the server object for this region server    * @param peerId the id of the peer cluster    * @return the created source    * @throws IOException    */
 specifier|protected

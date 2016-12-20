@@ -2395,6 +2395,26 @@ name|REPLICATION_SERIALLY_WAITING_DEFAULT
 init|=
 literal|10000
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|REPLICATION_SOURCE_TOTAL_BUFFER_KEY
+init|=
+literal|"replication.total.buffer.quota"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|REPLICATION_SOURCE_TOTAL_BUFFER_DFAULT
+init|=
+literal|256
+operator|*
+literal|1024
+operator|*
+literal|1024
+decl_stmt|;
 comment|/**    * Directory where the source cluster file system client configuration are placed which is used by    * sink cluster to copy HFiles from source cluster file system    */
 specifier|public
 specifier|static
