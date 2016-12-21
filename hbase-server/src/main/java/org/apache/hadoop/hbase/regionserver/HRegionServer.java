@@ -12604,9 +12604,6 @@ block|}
 block|}
 block|}
 comment|/**    * @return Return the object that implements the replication    * source service.    */
-annotation|@
-name|VisibleForTesting
-specifier|public
 name|ReplicationSourceService
 name|getReplicationSourceService
 parameter_list|()
