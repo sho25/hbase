@@ -2654,7 +2654,15 @@ block|{
 name|future
 operator|.
 name|get
-argument_list|()
+argument_list|(
+name|sleepForRetries
+operator|*
+name|maxRetriesMultiplier
+argument_list|,
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+argument_list|)
 expr_stmt|;
 block|}
 catch|catch
@@ -2667,8 +2675,12 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Got exception:"
+literal|"Got exception while waiting for endpoint to shutdown for replication source :"
 operator|+
+name|this
+operator|.
+name|peerClusterZnode
+argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
