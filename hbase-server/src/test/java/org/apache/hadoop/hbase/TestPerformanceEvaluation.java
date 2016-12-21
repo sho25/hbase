@@ -627,10 +627,6 @@ block|}
 name|assertEquals
 argument_list|(
 name|clients
-operator|*
-name|PerformanceEvaluation
-operator|.
-name|TASKS_PER_CLIENT
 argument_list|,
 name|count
 argument_list|)

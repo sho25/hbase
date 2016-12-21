@@ -3456,13 +3456,7 @@ return|return
 name|job
 return|;
 block|}
-comment|/**    * Per client, how many tasks will we run?  We divide number of rows by this number and have the    * client do the resulting count in a map task.    */
-specifier|static
-name|int
-name|TASKS_PER_CLIENT
-init|=
-literal|10
-decl_stmt|;
+comment|/**    * Each client has one mapper to do the work,  and client do the resulting count in a map task.    */
 specifier|static
 name|String
 name|JOB_INPUT_FILENAME
@@ -3649,21 +3643,6 @@ block|{
 for|for
 control|(
 name|int
-name|i
-init|=
-literal|0
-init|;
-name|i
-operator|<
-name|TASKS_PER_CLIENT
-condition|;
-name|i
-operator|++
-control|)
-block|{
-for|for
-control|(
-name|int
 name|j
 init|=
 literal|0
@@ -3691,29 +3670,15 @@ name|next
 operator|.
 name|startRow
 operator|=
-operator|(
 name|j
 operator|*
 name|perClientRows
-operator|)
-operator|+
-operator|(
-name|i
-operator|*
-operator|(
-name|perClientRows
-operator|/
-literal|10
-operator|)
-operator|)
 expr_stmt|;
 name|next
 operator|.
 name|perClientRunRows
 operator|=
 name|perClientRows
-operator|/
-literal|10
 expr_stmt|;
 name|String
 name|s
@@ -3732,10 +3697,6 @@ argument_list|(
 literal|"Client="
 operator|+
 name|j
-operator|+
-literal|", maptask="
-operator|+
-name|i
 operator|+
 literal|", input="
 operator|+
@@ -3785,7 +3746,6 @@ argument_list|,
 name|s
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 for|for
 control|(
