@@ -678,7 +678,7 @@ specifier|private
 specifier|final
 name|CompletableFuture
 argument_list|<
-name|Boolean
+name|RegionLocateType
 argument_list|>
 name|future
 decl_stmt|;
@@ -1119,6 +1119,14 @@ name|scan
 operator|.
 name|isReversed
 argument_list|()
+condition|?
+name|RegionLocateType
+operator|.
+name|BEFORE
+else|:
+name|RegionLocateType
+operator|.
+name|CURRENT
 argument_list|)
 expr_stmt|;
 block|}
@@ -1218,6 +1226,14 @@ operator|.
 name|getEndKey
 argument_list|()
 argument_list|)
+condition|?
+name|RegionLocateType
+operator|.
+name|BEFORE
+else|:
+name|RegionLocateType
+operator|.
+name|CURRENT
 argument_list|)
 expr_stmt|;
 block|}
@@ -1982,7 +1998,7 @@ comment|/**    * @return return locate direction for next open scanner call, or 
 specifier|public
 name|CompletableFuture
 argument_list|<
-name|Boolean
+name|RegionLocateType
 argument_list|>
 name|start
 parameter_list|()

@@ -2654,6 +2654,10 @@ operator|.
 name|getRow
 argument_list|()
 argument_list|,
+name|RegionLocateType
+operator|.
+name|CURRENT
+argument_list|,
 name|locateTimeoutNs
 argument_list|)
 operator|.

@@ -671,7 +671,7 @@ operator|.
 name|whenComplete
 argument_list|(
 parameter_list|(
-name|locateToPreviousRegion
+name|locateType
 parameter_list|,
 name|error
 parameter_list|)
@@ -695,7 +695,7 @@ return|return;
 block|}
 if|if
 condition|(
-name|locateToPreviousRegion
+name|locateType
 operator|==
 literal|null
 condition|)
@@ -710,10 +710,7 @@ else|else
 block|{
 name|openScanner
 argument_list|(
-name|locateToPreviousRegion
-operator|.
-name|booleanValue
-argument_list|()
+name|locateType
 argument_list|)
 expr_stmt|;
 block|}
@@ -725,8 +722,8 @@ specifier|private
 name|void
 name|openScanner
 parameter_list|(
-name|boolean
-name|locateToPreviousRegion
+name|RegionLocateType
+name|locateType
 parameter_list|)
 block|{
 name|conn
@@ -752,9 +749,9 @@ name|getStartRow
 argument_list|()
 argument_list|)
 operator|.
-name|locateToPreviousRegion
+name|locateType
 argument_list|(
-name|locateToPreviousRegion
+name|locateType
 argument_list|)
 operator|.
 name|rpcTimeout
@@ -838,6 +835,14 @@ operator|.
 name|getStartRow
 argument_list|()
 argument_list|)
+condition|?
+name|RegionLocateType
+operator|.
+name|BEFORE
+else|:
+name|RegionLocateType
+operator|.
+name|CURRENT
 argument_list|)
 expr_stmt|;
 block|}

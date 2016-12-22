@@ -246,8 +246,12 @@ operator|-
 literal|1L
 decl_stmt|;
 specifier|private
-name|boolean
-name|locateToPreviousRegion
+name|RegionLocateType
+name|locateType
+init|=
+name|RegionLocateType
+operator|.
+name|CURRENT
 decl_stmt|;
 specifier|public
 name|SingleRequestCallerBuilder
@@ -381,17 +385,17 @@ name|SingleRequestCallerBuilder
 argument_list|<
 name|T
 argument_list|>
-name|locateToPreviousRegion
+name|locateType
 parameter_list|(
-name|boolean
-name|locateToPreviousRegion
+name|RegionLocateType
+name|locateType
 parameter_list|)
 block|{
 name|this
 operator|.
-name|locateToPreviousRegion
+name|locateType
 operator|=
-name|locateToPreviousRegion
+name|locateType
 expr_stmt|;
 return|return
 name|this
@@ -428,7 +432,12 @@ argument_list|,
 literal|"row is null"
 argument_list|)
 argument_list|,
-name|locateToPreviousRegion
+name|checkNotNull
+argument_list|(
+name|locateType
+argument_list|,
+literal|"locateType is null"
+argument_list|)
 argument_list|,
 name|checkNotNull
 argument_list|(
@@ -1023,7 +1032,7 @@ comment|/**      * Short cut for {@code build().start()}.      */
 specifier|public
 name|CompletableFuture
 argument_list|<
-name|Boolean
+name|RegionLocateType
 argument_list|>
 name|start
 parameter_list|()

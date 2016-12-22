@@ -157,7 +157,12 @@ name|tableName
 argument_list|,
 name|row
 argument_list|,
-literal|0L
+name|RegionLocateType
+operator|.
+name|CURRENT
+argument_list|,
+operator|-
+literal|1L
 argument_list|)
 return|;
 block|}

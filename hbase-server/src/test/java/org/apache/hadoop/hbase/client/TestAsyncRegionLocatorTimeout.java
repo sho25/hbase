@@ -704,6 +704,10 @@ name|TABLE_NAME
 argument_list|,
 name|EMPTY_START_ROW
 argument_list|,
+name|RegionLocateType
+operator|.
+name|CURRENT
+argument_list|,
 name|TimeUnit
 operator|.
 name|MILLISECONDS
@@ -798,6 +802,10 @@ argument_list|(
 name|TABLE_NAME
 argument_list|,
 name|EMPTY_START_ROW
+argument_list|,
+name|RegionLocateType
+operator|.
+name|CURRENT
 argument_list|,
 name|TimeUnit
 operator|.
