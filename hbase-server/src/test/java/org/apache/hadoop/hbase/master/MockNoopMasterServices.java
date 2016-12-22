@@ -1435,6 +1435,34 @@ parameter_list|)
 throws|throws
 name|ReplicationException
 block|{   }
+annotation|@
+name|Override
+specifier|public
+name|void
+name|enableReplicationPeer
+parameter_list|(
+name|String
+name|peerId
+parameter_list|)
+throws|throws
+name|ReplicationException
+throws|,
+name|IOException
+block|{   }
+annotation|@
+name|Override
+specifier|public
+name|void
+name|disableReplicationPeer
+parameter_list|(
+name|String
+name|peerId
+parameter_list|)
+throws|throws
+name|ReplicationException
+throws|,
+name|IOException
+block|{   }
 block|}
 end_class
 

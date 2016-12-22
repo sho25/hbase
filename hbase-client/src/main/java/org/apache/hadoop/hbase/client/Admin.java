@@ -2711,6 +2711,30 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{   }
+comment|/**    * Restart the replication stream to the specified peer    * @param peerId a short name that identifies the peer    * @throws IOException    */
+specifier|default
+name|void
+name|enableReplicationPeer
+parameter_list|(
+specifier|final
+name|String
+name|peerId
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
+comment|/**    * Stop the replication stream to the specified peer    * @param peerId a short name that identifies the peer    * @throws IOException    */
+specifier|default
+name|void
+name|disableReplicationPeer
+parameter_list|(
+specifier|final
+name|String
+name|peerId
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
 block|}
 end_interface
 

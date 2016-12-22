@@ -3404,6 +3404,78 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{   }
+comment|/**    * Called before enable a replication peer    * @param ctx    * @param peerId a short name that identifies the peer    * @throws IOException on failure    */
+specifier|default
+name|void
+name|preEnableReplicationPeer
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|String
+name|peerId
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
+comment|/**    * Called after enable a replication peer    * @param ctx    * @param peerId a short name that identifies the peer    * @throws IOException on failure    */
+specifier|default
+name|void
+name|postEnableReplicationPeer
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|String
+name|peerId
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
+comment|/**    * Called before disable a replication peer    * @param ctx    * @param peerId a short name that identifies the peer    * @throws IOException on failure    */
+specifier|default
+name|void
+name|preDisableReplicationPeer
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|String
+name|peerId
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
+comment|/**    * Called after disable a replication peer    * @param ctx    * @param peerId a short name that identifies the peer    * @throws IOException on failure    */
+specifier|default
+name|void
+name|postDisableReplicationPeer
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|String
+name|peerId
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
 block|}
 end_interface
 
