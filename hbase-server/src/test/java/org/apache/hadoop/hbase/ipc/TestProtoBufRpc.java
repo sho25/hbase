@@ -460,8 +460,9 @@ name|this
 operator|.
 name|server
 operator|=
-operator|new
-name|RpcServer
+name|RpcServerFactory
+operator|.
+name|createRpcServer
 argument_list|(
 literal|null
 argument_list|,
