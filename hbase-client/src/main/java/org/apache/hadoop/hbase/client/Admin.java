@@ -2735,6 +2735,42 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{   }
+comment|/**    * Mark a region server as draining to prevent additional regions from getting assigned to it.    * @param servers List of region servers to drain.    */
+name|void
+name|drainRegionServers
+parameter_list|(
+name|List
+argument_list|<
+name|ServerName
+argument_list|>
+name|servers
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * List region servers marked as draining to not get additional regions assigned to them.    * @return List of draining region servers.    */
+name|List
+argument_list|<
+name|ServerName
+argument_list|>
+name|listDrainingRegionServers
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Remove drain from a region server to allow additional regions assignments.    * @param servers List of region servers to remove drain from.    */
+name|void
+name|removeDrainFromRegionServers
+parameter_list|(
+name|List
+argument_list|<
+name|ServerName
+argument_list|>
+name|servers
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 block|}
 end_interface
 

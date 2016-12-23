@@ -117,6 +117,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ServerName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|TableDescriptors
 import|;
 end_import
@@ -929,6 +943,32 @@ throws|throws
 name|ReplicationException
 throws|,
 name|IOException
+function_decl|;
+comment|/**    * Mark a region server as draining to prevent additional regions from getting assigned to it.    * @param server Region servers to drain.    */
+name|void
+name|drainRegionServer
+parameter_list|(
+specifier|final
+name|ServerName
+name|server
+parameter_list|)
+function_decl|;
+comment|/**    * List region servers marked as draining to not get additional regions assigned to them.    * @return List of draining servers.    */
+name|List
+argument_list|<
+name|ServerName
+argument_list|>
+name|listDrainingRegionServers
+parameter_list|()
+function_decl|;
+comment|/**    * Remove drain from a region server to allow additional regions assignments.    * @param server Region server to remove drain from.    */
+name|void
+name|removeDrainFromRegionServer
+parameter_list|(
+specifier|final
+name|ServerName
+name|server
+parameter_list|)
 function_decl|;
 block|}
 end_interface
