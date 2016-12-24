@@ -3240,11 +3240,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-name|table
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
 name|assertEquals
 argument_list|(
 name|maxLogs

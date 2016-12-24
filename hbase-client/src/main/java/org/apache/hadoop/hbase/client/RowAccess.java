@@ -76,8 +76,7 @@ annotation|@
 name|InterfaceStability
 operator|.
 name|Evolving
-annotation|@
-name|VisibleForTesting
+specifier|public
 interface|interface
 name|RowAccess
 parameter_list|<
