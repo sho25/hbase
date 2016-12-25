@@ -132330,7 +132330,7 @@ name|getSourceHFileArchiveDirPathBytes
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    *<pre>    **    * Replicates the given entries. The guarantee is that the given entries    * will be durable on the slave cluster if this method returns without    * any exception.  hbase.replication has to be set to true for this to work.    *</pre>    *    * Protobuf type {@code hbase.pb.ReplicateWALEntryRequest}    */
+comment|/**    *<pre>    **    * Replicates the given entries. The guarantee is that the given entries    * will be durable on the slave cluster if this method returns without    * any exception.    *</pre>    *    * Protobuf type {@code hbase.pb.ReplicateWALEntryRequest}    */
 specifier|public
 specifier|static
 specifier|final
@@ -135885,7 +135885,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      *<pre>      **      * Replicates the given entries. The guarantee is that the given entries      * will be durable on the slave cluster if this method returns without      * any exception.  hbase.replication has to be set to true for this to work.      *</pre>      *      * Protobuf type {@code hbase.pb.ReplicateWALEntryRequest}      */
+comment|/**      *<pre>      **      * Replicates the given entries. The guarantee is that the given entries      * will be durable on the slave cluster if this method returns without      * any exception.      *</pre>      *      * Protobuf type {@code hbase.pb.ReplicateWALEntryRequest}      */
 specifier|public
 specifier|static
 specifier|final
