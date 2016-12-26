@@ -339,9 +339,7 @@ name|LinkedBlockingQueue
 argument_list|<
 name|Result
 argument_list|>
-argument_list|(
-name|cacheCapacity
-argument_list|)
+argument_list|()
 expr_stmt|;
 name|cacheSizeInBytes
 operator|=
