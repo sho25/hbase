@@ -216,7 +216,7 @@ parameter_list|)
 function_decl|;
 comment|/**    * @return The number of running task.    */
 name|long
-name|getNumberOfTsksInProgress
+name|getNumberOfTasksInProgress
 parameter_list|()
 function_decl|;
 comment|/**    * Waits for the running tasks to complete.    * If there are specified threshold and trigger, the implementation should    * wake up once in a while for checking the threshold and calling trigger.    * @param max This method will return if the number of running tasks is    * less than or equal to max.    * @param id the caller's id    * @param periodToTrigger The period to invoke the trigger. This value is a    * hint. The real period depends on the implementation.    * @param trigger The object to call periodically.    * @throws java.io.InterruptedIOException If the waiting is interrupted    */

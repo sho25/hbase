@@ -1218,7 +1218,7 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|getNumberOfTsksInProgress
+name|getNumberOfTasksInProgress
 parameter_list|()
 block|{
 return|return
