@@ -362,18 +362,6 @@ argument_list|(
 literal|1024
 argument_list|)
 decl_stmt|;
-comment|// private long compactionLogId;
-specifier|private
-name|long
-name|maxProcId
-init|=
-literal|0
-decl_stmt|;
-comment|/**    * If tracker for a log file is partial (see {@link ProcedureStoreTracker#partial}), we    * re-build the list of procedures updated in that WAL because we need it for log cleaning    * purpose. If all procedures updated in a WAL are found to be obsolete, it can be safely deleted.    * (see {@link WALProcedureStore#removeInactiveLogs()}).    * However, we don't need deleted part of a WAL's tracker for this purpose, so we don't bother    * re-building it. (To understand why, take a look at    * {@link ProcedureStoreTracker.BitSetNode#subtract(ProcedureStoreTracker.BitSetNode)}).    */
-specifier|private
-name|ProcedureStoreTracker
-name|localTracker
-decl_stmt|;
 specifier|private
 specifier|final
 name|ProcedureWALFormat
@@ -381,13 +369,25 @@ operator|.
 name|Loader
 name|loader
 decl_stmt|;
-comment|/**    * Global tracker. If set to partial, it will be updated as procedures are loaded from wals,    * otherwise not.    */
+comment|/**    * Global tracker that will be used by the WALProcedureStore after load.    * If the last WAL was closed cleanly we already have a full tracker ready to be used.    * If the last WAL was truncated (e.g. master killed) the tracker will be empty    * and the 'partial' flag will be set. In this case on WAL replay we are going    * to rebuild the tracker.    */
 specifier|private
 specifier|final
 name|ProcedureStoreTracker
 name|tracker
 decl_stmt|;
 comment|// private final boolean hasFastStartSupport;
+comment|/**    * If tracker for a log file is partial (see {@link ProcedureStoreTracker#partial}), we    * re-build the list of procedures updated in that WAL because we need it for log cleaning    * purpose. If all procedures updated in a WAL are found to be obsolete, it can be safely deleted.    * (see {@link WALProcedureStore#removeInactiveLogs()}).    * However, we don't need deleted part of a WAL's tracker for this purpose, so we don't bother    * re-building it. (To understand why, take a look at    * {@link ProcedureStoreTracker.BitSetNode#subtract(ProcedureStoreTracker.BitSetNode)}).    */
+specifier|private
+name|ProcedureStoreTracker
+name|localTracker
+decl_stmt|;
+comment|// private long compactionLogId;
+specifier|private
+name|long
+name|maxProcId
+init|=
+literal|0
+decl_stmt|;
 specifier|public
 name|ProcedureWALFormatReader
 parameter_list|(
