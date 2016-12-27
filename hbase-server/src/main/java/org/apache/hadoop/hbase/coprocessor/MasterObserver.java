@@ -3476,6 +3476,84 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{   }
+comment|/**    * Called before get the configured ReplicationPeerConfig for the specified peer    * @param ctx    * @param peerId a short name that identifies the peer    * @throws IOException on failure    */
+specifier|default
+name|void
+name|preGetReplicationPeerConfig
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|String
+name|peerId
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
+comment|/**    * Called after get the configured ReplicationPeerConfig for the specified peer    * @param ctx    * @param peerId a short name that identifies the peer    * @throws IOException on failure    */
+specifier|default
+name|void
+name|postGetReplicationPeerConfig
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|String
+name|peerId
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
+comment|/**    * Called before update peerConfig for the specified peer    * @param ctx    * @param peerId a short name that identifies the peer    * @throws IOException on failure    */
+specifier|default
+name|void
+name|preUpdateReplicationPeerConfig
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|String
+name|peerId
+parameter_list|,
+name|ReplicationPeerConfig
+name|peerConfig
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
+comment|/**    * Called after update peerConfig for the specified peer    * @param ctx    * @param peerId a short name that identifies the peer    * @throws IOException on failure    */
+specifier|default
+name|void
+name|postUpdateReplicationPeerConfig
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|String
+name|peerId
+parameter_list|,
+name|ReplicationPeerConfig
+name|peerConfig
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
 block|}
 end_interface
 

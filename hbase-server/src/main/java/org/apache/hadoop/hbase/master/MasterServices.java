@@ -944,6 +944,33 @@ name|ReplicationException
 throws|,
 name|IOException
 function_decl|;
+comment|/**    * Returns the configured ReplicationPeerConfig for the specified peer    * @param peerId a short name that identifies the peer    * @return ReplicationPeerConfig for the peer    */
+name|ReplicationPeerConfig
+name|getReplicationPeerConfig
+parameter_list|(
+name|String
+name|peerId
+parameter_list|)
+throws|throws
+name|ReplicationException
+throws|,
+name|IOException
+function_decl|;
+comment|/**    * Update the peerConfig for the specified peer    * @param peerId a short name that identifies the peer    * @param peerConfig new config for the peer    */
+name|void
+name|updateReplicationPeerConfig
+parameter_list|(
+name|String
+name|peerId
+parameter_list|,
+name|ReplicationPeerConfig
+name|peerConfig
+parameter_list|)
+throws|throws
+name|ReplicationException
+throws|,
+name|IOException
+function_decl|;
 comment|/**    * Mark a region server as draining to prevent additional regions from getting assigned to it.    * @param server Region servers to drain.    */
 name|void
 name|drainRegionServer
