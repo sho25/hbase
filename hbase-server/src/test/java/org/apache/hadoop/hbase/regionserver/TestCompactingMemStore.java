@@ -1102,20 +1102,6 @@ operator|.
 name|memstore
 argument_list|)
 expr_stmt|;
-operator|(
-operator|(
-name|CompactingMemStore
-operator|)
-name|this
-operator|.
-name|memstore
-operator|)
-operator|.
-name|setCompositeSnapshot
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
 name|Cell
 name|closestToEmpty
 init|=
@@ -1921,24 +1907,8 @@ operator|.
 name|size
 argument_list|()
 decl_stmt|;
-name|assertTrue
-argument_list|(
-literal|"\n<<< The old size is "
-operator|+
-name|oldSize
-operator|.
-name|getDataSize
-argument_list|()
-operator|+
-literal|" and the new size is "
-operator|+
-name|newSize
-operator|.
-name|getDataSize
-argument_list|()
-operator|+
-literal|"\n"
-argument_list|,
+assert|assert
+operator|(
 name|newSize
 operator|.
 name|getDataSize
@@ -1948,8 +1918,8 @@ name|oldSize
 operator|.
 name|getDataSize
 argument_list|()
-argument_list|)
-expr_stmt|;
+operator|)
+assert|;
 comment|//The kv1 should be removed.
 assert|assert
 operator|(

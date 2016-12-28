@@ -216,9 +216,8 @@ specifier|final
 name|int
 name|THRESHOLD_PIPELINE_SEGMENTS
 init|=
-literal|30
+literal|1
 decl_stmt|;
-comment|// stands here for infinity
 specifier|private
 specifier|static
 specifier|final
@@ -958,14 +957,6 @@ operator|=
 name|Action
 operator|.
 name|MERGE
-expr_stmt|;
-comment|// if multiple segments appear in the pipeline flush them to the disk later together
-name|compactingMemStore
-operator|.
-name|setCompositeSnapshot
-argument_list|(
-literal|true
-argument_list|)
 expr_stmt|;
 break|break;
 case|case
