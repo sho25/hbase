@@ -132,6 +132,19 @@ annotation|@
 name|Override
 specifier|public
 name|void
+name|setRunningProcedureCount
+parameter_list|(
+specifier|final
+name|int
+name|count
+parameter_list|)
+block|{
+comment|// no-op
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
 name|load
 parameter_list|(
 specifier|final

@@ -240,6 +240,14 @@ name|int
 name|getNumThreads
 parameter_list|()
 function_decl|;
+comment|/**    * Set the number of procedure running.    * This can be used, for example, by the store to know how long to wait before a sync.    */
+name|void
+name|setRunningProcedureCount
+parameter_list|(
+name|int
+name|count
+parameter_list|)
+function_decl|;
 comment|/**    * Acquire the lease for the procedure store.    */
 name|void
 name|recoverLease
