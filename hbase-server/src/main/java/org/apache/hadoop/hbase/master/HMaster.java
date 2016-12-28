@@ -1873,54 +1873,6 @@ name|hbase
 operator|.
 name|replication
 operator|.
-name|ReplicationPeers
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|replication
-operator|.
-name|ReplicationQueuesClient
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|replication
-operator|.
-name|ReplicationQueuesClientArguments
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|replication
-operator|.
 name|ReplicationQueuesZKImpl
 import|;
 end_import
@@ -2208,22 +2160,6 @@ operator|.
 name|util
 operator|.
 name|ModifyRegionUtils
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|NonceKey
 import|;
 end_import
 
@@ -11383,7 +11319,8 @@ operator|+
 name|descriptor
 argument_list|)
 expr_stmt|;
-comment|// Execute the operation synchronously - wait for the operation to complete before continuing.
+comment|// Execute the operation synchronously - wait for the operation to complete before
+comment|// continuing.
 name|ProcedurePrepareLatch
 name|latch
 init|=
@@ -13958,7 +13895,8 @@ operator|+
 name|namespaceDescriptor
 argument_list|)
 expr_stmt|;
-comment|// Execute the operation synchronously - wait for the operation to complete before continuing.
+comment|// Execute the operation synchronously - wait for the operation to complete before
+comment|// continuing.
 name|setProcId
 argument_list|(
 name|getClusterSchema
@@ -13993,7 +13931,7 @@ name|getDescription
 parameter_list|()
 block|{
 return|return
-literal|"CreateTableProcedure"
+literal|"CreateNamespaceProcedure"
 return|;
 block|}
 block|}
@@ -14095,7 +14033,8 @@ operator|+
 name|namespaceDescriptor
 argument_list|)
 expr_stmt|;
-comment|// Execute the operation synchronously - wait for the operation to complete before continuing.
+comment|// Execute the operation synchronously - wait for the operation to complete before
+comment|// continuing.
 name|setProcId
 argument_list|(
 name|getClusterSchema
@@ -14130,7 +14069,7 @@ name|getDescription
 parameter_list|()
 block|{
 return|return
-literal|"CreateTableProcedure"
+literal|"ModifyNamespaceProcedure"
 return|;
 block|}
 block|}
@@ -14217,7 +14156,8 @@ operator|+
 name|name
 argument_list|)
 expr_stmt|;
-comment|// Execute the operation synchronously - wait for the operation to complete before continuing.
+comment|// Execute the operation synchronously - wait for the operation to complete before
+comment|// continuing.
 name|setProcId
 argument_list|(
 name|getClusterSchema
