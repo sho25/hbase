@@ -29,7 +29,7 @@ name|hbase
 operator|.
 name|metrics
 operator|.
-name|BaseSource
+name|ExceptionTrackingSource
 import|;
 end_import
 
@@ -58,7 +58,7 @@ specifier|public
 interface|interface
 name|MetricsThriftServerSource
 extends|extends
-name|BaseSource
+name|ExceptionTrackingSource
 extends|,
 name|JvmPauseMonitorSource
 block|{
