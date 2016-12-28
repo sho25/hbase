@@ -109,18 +109,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|function
-operator|.
-name|Function
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -279,17 +267,6 @@ specifier|private
 name|Cell
 name|lastCell
 decl_stmt|;
-specifier|private
-name|Function
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|byte
-index|[]
-argument_list|>
-name|createClosestRow
-decl_stmt|;
 specifier|public
 name|AsyncTableResultScanner
 parameter_list|(
@@ -320,23 +297,6 @@ operator|.
 name|maxCacheSize
 operator|=
 name|maxCacheSize
-expr_stmt|;
-name|this
-operator|.
-name|createClosestRow
-operator|=
-name|scan
-operator|.
-name|isReversed
-argument_list|()
-condition|?
-name|ConnectionUtils
-operator|::
-name|createClosestRowBefore
-else|:
-name|ConnectionUtils
-operator|::
-name|createClosestRowAfter
 expr_stmt|;
 name|table
 operator|.
@@ -400,7 +360,7 @@ condition|)
 block|{
 name|scan
 operator|.
-name|setStartRow
+name|withStartRow
 argument_list|(
 name|lastResult
 operator|.
@@ -430,17 +390,14 @@ else|else
 block|{
 name|scan
 operator|.
-name|setStartRow
-argument_list|(
-name|createClosestRow
-operator|.
-name|apply
+name|withStartRow
 argument_list|(
 name|lastResult
 operator|.
 name|getRow
 argument_list|()
-argument_list|)
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 block|}
@@ -456,11 +413,18 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
+name|String
+operator|.
+name|format
+argument_list|(
+literal|"0x%x"
+argument_list|,
 name|System
 operator|.
 name|identityHashCode
 argument_list|(
 name|this
+argument_list|)
 argument_list|)
 operator|+
 literal|" stop prefetching when scanning "
@@ -474,7 +438,7 @@ literal|" as the cache size "
 operator|+
 name|cacheSize
 operator|+
-literal|" is greater than the maxCacheSize + "
+literal|" is greater than the maxCacheSize "
 operator|+
 name|maxCacheSize
 operator|+
@@ -741,11 +705,18 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
+name|String
+operator|.
+name|format
+argument_list|(
+literal|"0x%x"
+argument_list|,
 name|System
 operator|.
 name|identityHashCode
 argument_list|(
 name|this
+argument_list|)
 argument_list|)
 operator|+
 literal|" resume prefetching"

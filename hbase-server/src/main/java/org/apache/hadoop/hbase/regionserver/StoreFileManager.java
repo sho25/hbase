@@ -231,23 +231,26 @@ name|int
 name|getStorefileCount
 parameter_list|()
 function_decl|;
-comment|/**    * Gets the store files to scan for a Scan or Get request.    * @param isGet Whether it's a get.    * @param startRow Start row of the request.    * @param stopRow Stop row of the request.    * @return The list of files that are to be read for this request.    */
+comment|/**    * Gets the store files to scan for a Scan or Get request.    * @param startRow Start row of the request.    * @param stopRow Stop row of the request.    * @return The list of files that are to be read for this request.    */
 name|Collection
 argument_list|<
 name|StoreFile
 argument_list|>
-name|getFilesForScanOrGet
+name|getFilesForScan
 parameter_list|(
-name|boolean
-name|isGet
-parameter_list|,
 name|byte
 index|[]
 name|startRow
 parameter_list|,
+name|boolean
+name|includeStartRow
+parameter_list|,
 name|byte
 index|[]
 name|stopRow
+parameter_list|,
+name|boolean
+name|includeStopRow
 parameter_list|)
 function_decl|;
 comment|/**    * Gets initial, full list of candidate store files to check for row-key-before.    * @param targetKey The key that is the basis of the search.    * @return The files that may have the key less than or equal to targetKey, in reverse    *         order of new-ness, and preference for target key.    */

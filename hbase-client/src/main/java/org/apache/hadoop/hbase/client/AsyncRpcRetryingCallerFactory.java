@@ -1032,7 +1032,7 @@ comment|/**      * Short cut for {@code build().start()}.      */
 specifier|public
 name|CompletableFuture
 argument_list|<
-name|RegionLocateType
+name|Boolean
 argument_list|>
 name|start
 parameter_list|()

@@ -91475,6 +91475,26 @@ name|long
 name|getMvccReadPoint
 parameter_list|()
 function_decl|;
+comment|/**      *<code>optional bool include_start_row = 21 [default = true];</code>      */
+name|boolean
+name|hasIncludeStartRow
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional bool include_start_row = 21 [default = true];</code>      */
+name|boolean
+name|getIncludeStartRow
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional bool include_stop_row = 22 [default = false];</code>      */
+name|boolean
+name|hasIncludeStopRow
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional bool include_stop_row = 22 [default = false];</code>      */
+name|boolean
+name|getIncludeStopRow
+parameter_list|()
+function_decl|;
 block|}
 comment|/**    *<pre>    **    * Instead of get from a table, you can scan it with optional filters.    * You can specify the row key range, time range, the columns/families    * to scan and so on.    * This scan is used the first time in a scan request. The response of    * the initial scan will return a scanner id, which should be used to    * fetch result batches later on before it is closed.    *</pre>    *    * Protobuf type {@code hbase.pb.Scan}    */
 specifier|public
@@ -91671,6 +91691,14 @@ expr_stmt|;
 name|mvccReadPoint_
 operator|=
 literal|0L
+expr_stmt|;
+name|includeStartRow_
+operator|=
+literal|true
+expr_stmt|;
+name|includeStopRow_
+operator|=
+literal|false
 expr_stmt|;
 block|}
 annotation|@
@@ -92661,6 +92689,40 @@ operator|=
 name|input
 operator|.
 name|readUInt64
+argument_list|()
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|168
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00020000
+expr_stmt|;
+name|includeStartRow_
+operator|=
+name|input
+operator|.
+name|readBool
+argument_list|()
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|176
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00040000
+expr_stmt|;
+name|includeStopRow_
+operator|=
+name|input
+operator|.
+name|readBool
 argument_list|()
 expr_stmt|;
 break|break;
@@ -94566,6 +94628,86 @@ return|return
 name|mvccReadPoint_
 return|;
 block|}
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|INCLUDE_START_ROW_FIELD_NUMBER
+init|=
+literal|21
+decl_stmt|;
+specifier|private
+name|boolean
+name|includeStartRow_
+decl_stmt|;
+comment|/**      *<code>optional bool include_start_row = 21 [default = true];</code>      */
+specifier|public
+name|boolean
+name|hasIncludeStartRow
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00020000
+operator|)
+operator|==
+literal|0x00020000
+operator|)
+return|;
+block|}
+comment|/**      *<code>optional bool include_start_row = 21 [default = true];</code>      */
+specifier|public
+name|boolean
+name|getIncludeStartRow
+parameter_list|()
+block|{
+return|return
+name|includeStartRow_
+return|;
+block|}
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|INCLUDE_STOP_ROW_FIELD_NUMBER
+init|=
+literal|22
+decl_stmt|;
+specifier|private
+name|boolean
+name|includeStopRow_
+decl_stmt|;
+comment|/**      *<code>optional bool include_stop_row = 22 [default = false];</code>      */
+specifier|public
+name|boolean
+name|hasIncludeStopRow
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00040000
+operator|)
+operator|==
+literal|0x00040000
+operator|)
+return|;
+block|}
+comment|/**      *<code>optional bool include_stop_row = 22 [default = false];</code>      */
+specifier|public
+name|boolean
+name|getIncludeStopRow
+parameter_list|()
+block|{
+return|return
+name|includeStopRow_
+return|;
+block|}
 specifier|private
 name|byte
 name|memoizedIsInitialized
@@ -95265,6 +95407,52 @@ argument_list|(
 literal|20
 argument_list|,
 name|mvccReadPoint_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00020000
+operator|)
+operator|==
+literal|0x00020000
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeBool
+argument_list|(
+literal|21
+argument_list|,
+name|includeStartRow_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00040000
+operator|)
+operator|==
+literal|0x00040000
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeBool
+argument_list|(
+literal|22
+argument_list|,
+name|includeStopRow_
 argument_list|)
 expr_stmt|;
 block|}
@@ -96152,6 +96340,88 @@ name|mvccReadPoint_
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00020000
+operator|)
+operator|==
+literal|0x00020000
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeBoolSize
+argument_list|(
+literal|21
+argument_list|,
+name|includeStartRow_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00040000
+operator|)
+operator|==
+literal|0x00040000
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeBoolSize
+argument_list|(
+literal|22
+argument_list|,
+name|includeStopRow_
+argument_list|)
+expr_stmt|;
+block|}
 name|size
 operator|+=
 name|unknownFields
@@ -96921,6 +97191,76 @@ operator|==
 name|other
 operator|.
 name|getMvccReadPoint
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|hasIncludeStartRow
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasIncludeStartRow
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasIncludeStartRow
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getIncludeStartRow
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getIncludeStartRow
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|hasIncludeStopRow
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasIncludeStopRow
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasIncludeStopRow
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getIncludeStopRow
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getIncludeStopRow
 argument_list|()
 operator|)
 expr_stmt|;
@@ -97712,6 +98052,104 @@ operator|.
 name|hashLong
 argument_list|(
 name|getMvccReadPoint
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasIncludeStartRow
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|INCLUDE_START_ROW_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|Internal
+operator|.
+name|hashBoolean
+argument_list|(
+name|getIncludeStartRow
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasIncludeStopRow
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|INCLUDE_STOP_ROW_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|Internal
+operator|.
+name|hashBoolean
+argument_list|(
+name|getIncludeStopRow
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -99286,6 +99724,32 @@ operator|~
 literal|0x00080000
 operator|)
 expr_stmt|;
+name|includeStartRow_
+operator|=
+literal|true
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00100000
+operator|)
+expr_stmt|;
+name|includeStopRow_
+operator|=
+literal|false
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00200000
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -100145,6 +100609,54 @@ operator|.
 name|mvccReadPoint_
 operator|=
 name|mvccReadPoint_
+expr_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00100000
+operator|)
+operator|==
+literal|0x00100000
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00020000
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|includeStartRow_
+operator|=
+name|includeStartRow_
+expr_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00200000
+operator|)
+operator|==
+literal|0x00200000
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00040000
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|includeStopRow_
+operator|=
+name|includeStopRow_
 expr_stmt|;
 name|result
 operator|.
@@ -101255,6 +101767,40 @@ argument_list|(
 name|other
 operator|.
 name|getMvccReadPoint
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasIncludeStartRow
+argument_list|()
+condition|)
+block|{
+name|setIncludeStartRow
+argument_list|(
+name|other
+operator|.
+name|getIncludeStartRow
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasIncludeStopRow
+argument_list|()
+condition|)
+block|{
+name|setIncludeStopRow
+argument_list|(
+name|other
+operator|.
+name|getIncludeStopRow
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -108966,6 +109512,172 @@ expr_stmt|;
 name|mvccReadPoint_
 operator|=
 literal|0L
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+specifier|private
+name|boolean
+name|includeStartRow_
+init|=
+literal|true
+decl_stmt|;
+comment|/**        *<code>optional bool include_start_row = 21 [default = true];</code>        */
+specifier|public
+name|boolean
+name|hasIncludeStartRow
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00100000
+operator|)
+operator|==
+literal|0x00100000
+operator|)
+return|;
+block|}
+comment|/**        *<code>optional bool include_start_row = 21 [default = true];</code>        */
+specifier|public
+name|boolean
+name|getIncludeStartRow
+parameter_list|()
+block|{
+return|return
+name|includeStartRow_
+return|;
+block|}
+comment|/**        *<code>optional bool include_start_row = 21 [default = true];</code>        */
+specifier|public
+name|Builder
+name|setIncludeStartRow
+parameter_list|(
+name|boolean
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00100000
+expr_stmt|;
+name|includeStartRow_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional bool include_start_row = 21 [default = true];</code>        */
+specifier|public
+name|Builder
+name|clearIncludeStartRow
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00100000
+operator|)
+expr_stmt|;
+name|includeStartRow_
+operator|=
+literal|true
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+specifier|private
+name|boolean
+name|includeStopRow_
+decl_stmt|;
+comment|/**        *<code>optional bool include_stop_row = 22 [default = false];</code>        */
+specifier|public
+name|boolean
+name|hasIncludeStopRow
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00200000
+operator|)
+operator|==
+literal|0x00200000
+operator|)
+return|;
+block|}
+comment|/**        *<code>optional bool include_stop_row = 22 [default = false];</code>        */
+specifier|public
+name|boolean
+name|getIncludeStopRow
+parameter_list|()
+block|{
+return|return
+name|includeStopRow_
+return|;
+block|}
+comment|/**        *<code>optional bool include_stop_row = 22 [default = false];</code>        */
+specifier|public
+name|Builder
+name|setIncludeStopRow
+parameter_list|(
+name|boolean
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00200000
+expr_stmt|;
+name|includeStopRow_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional bool include_stop_row = 22 [default = false];</code>        */
+specifier|public
+name|Builder
+name|clearIncludeStopRow
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00200000
+operator|)
+expr_stmt|;
+name|includeStopRow_
+operator|=
+literal|false
 expr_stmt|;
 name|onChanged
 argument_list|()
@@ -261176,7 +261888,7 @@ literal|"_group\030\004 \001(\004\"E\n\016MutateResponse\022 \n\006result"
 operator|+
 literal|"\030\001 \001(\0132\020.hbase.pb.Result\022\021\n\tprocessed\030\002 "
 operator|+
-literal|"\001(\010\"\331\004\n\004Scan\022 \n\006column\030\001 \003(\0132\020.hbase.pb."
+literal|"\001(\010\"\233\005\n\004Scan\022 \n\006column\030\001 \003(\0132\020.hbase.pb."
 operator|+
 literal|"Column\022*\n\tattribute\030\002 \003(\0132\027.hbase.pb.Nam"
 operator|+
@@ -261206,187 +261918,189 @@ literal|"\001(\010\0226\n\rcf_time_range\030\023 \003(\0132\037.hbase.pb.Co"
 operator|+
 literal|"lumnFamilyTimeRange\022\032\n\017mvcc_read_point\030\024"
 block|,
-literal|" \001(\004:\0010\"\246\002\n\013ScanRequest\022)\n\006region\030\001 \001(\0132"
+literal|" \001(\004:\0010\022\037\n\021include_start_row\030\025 \001(\010:\004true"
 operator|+
-literal|"\031.hbase.pb.RegionSpecifier\022\034\n\004scan\030\002 \001(\013"
+literal|"\022\037\n\020include_stop_row\030\026 \001(\010:\005false\"\246\002\n\013Sc"
 operator|+
-literal|"2\016.hbase.pb.Scan\022\022\n\nscanner_id\030\003 \001(\004\022\026\n\016"
+literal|"anRequest\022)\n\006region\030\001 \001(\0132\031.hbase.pb.Reg"
 operator|+
-literal|"number_of_rows\030\004 \001(\r\022\025\n\rclose_scanner\030\005 "
+literal|"ionSpecifier\022\034\n\004scan\030\002 \001(\0132\016.hbase.pb.Sc"
 operator|+
-literal|"\001(\010\022\025\n\rnext_call_seq\030\006 \001(\004\022\037\n\027client_han"
+literal|"an\022\022\n\nscanner_id\030\003 \001(\004\022\026\n\016number_of_rows"
 operator|+
-literal|"dles_partials\030\007 \001(\010\022!\n\031client_handles_he"
+literal|"\030\004 \001(\r\022\025\n\rclose_scanner\030\005 \001(\010\022\025\n\rnext_ca"
 operator|+
-literal|"artbeats\030\010 \001(\010\022\032\n\022track_scan_metrics\030\t \001"
+literal|"ll_seq\030\006 \001(\004\022\037\n\027client_handles_partials\030"
 operator|+
-literal|"(\010\022\024\n\005renew\030\n \001(\010:\005false\"\266\002\n\014ScanRespons"
+literal|"\007 \001(\010\022!\n\031client_handles_heartbeats\030\010 \001(\010"
 operator|+
-literal|"e\022\030\n\020cells_per_result\030\001 \003(\r\022\022\n\nscanner_i"
+literal|"\022\032\n\022track_scan_metrics\030\t \001(\010\022\024\n\005renew\030\n "
 operator|+
-literal|"d\030\002 \001(\004\022\024\n\014more_results\030\003 \001(\010\022\013\n\003ttl\030\004 \001"
+literal|"\001(\010:\005false\"\266\002\n\014ScanResponse\022\030\n\020cells_per"
 block|,
-literal|"(\r\022!\n\007results\030\005 \003(\0132\020.hbase.pb.Result\022\r\n"
+literal|"_result\030\001 \003(\r\022\022\n\nscanner_id\030\002 \001(\004\022\024\n\014mor"
 operator|+
-literal|"\005stale\030\006 \001(\010\022\037\n\027partial_flag_per_result\030"
+literal|"e_results\030\003 \001(\010\022\013\n\003ttl\030\004 \001(\r\022!\n\007results\030"
 operator|+
-literal|"\007 \003(\010\022\036\n\026more_results_in_region\030\010 \001(\010\022\031\n"
+literal|"\005 \003(\0132\020.hbase.pb.Result\022\r\n\005stale\030\006 \001(\010\022\037"
 operator|+
-literal|"\021heartbeat_message\030\t \001(\010\022+\n\014scan_metrics"
+literal|"\n\027partial_flag_per_result\030\007 \003(\010\022\036\n\026more_"
 operator|+
-literal|"\030\n \001(\0132\025.hbase.pb.ScanMetrics\022\032\n\017mvcc_re"
+literal|"results_in_region\030\010 \001(\010\022\031\n\021heartbeat_mes"
 operator|+
-literal|"ad_point\030\013 \001(\004:\0010\"\240\002\n\024BulkLoadHFileReque"
+literal|"sage\030\t \001(\010\022+\n\014scan_metrics\030\n \001(\0132\025.hbase"
 operator|+
-literal|"st\022)\n\006region\030\001 \002(\0132\031.hbase.pb.RegionSpec"
+literal|".pb.ScanMetrics\022\032\n\017mvcc_read_point\030\013 \001(\004"
 operator|+
-literal|"ifier\022>\n\013family_path\030\002 \003(\0132).hbase.pb.Bu"
+literal|":\0010\"\240\002\n\024BulkLoadHFileRequest\022)\n\006region\030\001"
 operator|+
-literal|"lkLoadHFileRequest.FamilyPath\022\026\n\016assign_"
+literal|" \002(\0132\031.hbase.pb.RegionSpecifier\022>\n\013famil"
 operator|+
-literal|"seq_num\030\003 \001(\010\022+\n\010fs_token\030\004 \001(\0132\031.hbase."
+literal|"y_path\030\002 \003(\0132).hbase.pb.BulkLoadHFileReq"
 block|,
-literal|"pb.DelegationToken\022\022\n\nbulk_token\030\005 \001(\t\022\030"
+literal|"uest.FamilyPath\022\026\n\016assign_seq_num\030\003 \001(\010\022"
 operator|+
-literal|"\n\tcopy_file\030\006 \001(\010:\005false\032*\n\nFamilyPath\022\016"
+literal|"+\n\010fs_token\030\004 \001(\0132\031.hbase.pb.DelegationT"
 operator|+
-literal|"\n\006family\030\001 \002(\014\022\014\n\004path\030\002 \002(\t\"\'\n\025BulkLoad"
+literal|"oken\022\022\n\nbulk_token\030\005 \001(\t\022\030\n\tcopy_file\030\006 "
 operator|+
-literal|"HFileResponse\022\016\n\006loaded\030\001 \002(\010\"V\n\017Delegat"
+literal|"\001(\010:\005false\032*\n\nFamilyPath\022\016\n\006family\030\001 \002(\014"
 operator|+
-literal|"ionToken\022\022\n\nidentifier\030\001 \001(\014\022\020\n\010password"
+literal|"\022\014\n\004path\030\002 \002(\t\"\'\n\025BulkLoadHFileResponse\022"
 operator|+
-literal|"\030\002 \001(\014\022\014\n\004kind\030\003 \001(\t\022\017\n\007service\030\004 \001(\t\"l\n"
+literal|"\016\n\006loaded\030\001 \002(\010\"V\n\017DelegationToken\022\022\n\nid"
 operator|+
-literal|"\026PrepareBulkLoadRequest\022\'\n\ntable_name\030\001 "
+literal|"entifier\030\001 \001(\014\022\020\n\010password\030\002 \001(\014\022\014\n\004kind"
 operator|+
-literal|"\002(\0132\023.hbase.pb.TableName\022)\n\006region\030\002 \001(\013"
+literal|"\030\003 \001(\t\022\017\n\007service\030\004 \001(\t\"l\n\026PrepareBulkLo"
 operator|+
-literal|"2\031.hbase.pb.RegionSpecifier\"-\n\027PrepareBu"
+literal|"adRequest\022\'\n\ntable_name\030\001 \002(\0132\023.hbase.pb"
 operator|+
-literal|"lkLoadResponse\022\022\n\nbulk_token\030\001 \002(\t\"W\n\026Cl"
+literal|".TableName\022)\n\006region\030\002 \001(\0132\031.hbase.pb.Re"
 block|,
-literal|"eanupBulkLoadRequest\022\022\n\nbulk_token\030\001 \002(\t"
+literal|"gionSpecifier\"-\n\027PrepareBulkLoadResponse"
 operator|+
-literal|"\022)\n\006region\030\002 \001(\0132\031.hbase.pb.RegionSpecif"
+literal|"\022\022\n\nbulk_token\030\001 \002(\t\"W\n\026CleanupBulkLoadR"
 operator|+
-literal|"ier\"\031\n\027CleanupBulkLoadResponse\"a\n\026Coproc"
+literal|"equest\022\022\n\nbulk_token\030\001 \002(\t\022)\n\006region\030\002 \001"
 operator|+
-literal|"essorServiceCall\022\013\n\003row\030\001 \002(\014\022\024\n\014service"
+literal|"(\0132\031.hbase.pb.RegionSpecifier\"\031\n\027Cleanup"
 operator|+
-literal|"_name\030\002 \002(\t\022\023\n\013method_name\030\003 \002(\t\022\017\n\007requ"
+literal|"BulkLoadResponse\"a\n\026CoprocessorServiceCa"
 operator|+
-literal|"est\030\004 \002(\014\"B\n\030CoprocessorServiceResult\022&\n"
+literal|"ll\022\013\n\003row\030\001 \002(\014\022\024\n\014service_name\030\002 \002(\t\022\023\n"
 operator|+
-literal|"\005value\030\001 \001(\0132\027.hbase.pb.NameBytesPair\"v\n"
+literal|"\013method_name\030\003 \002(\t\022\017\n\007request\030\004 \002(\014\"B\n\030C"
 operator|+
-literal|"\031CoprocessorServiceRequest\022)\n\006region\030\001 \002"
+literal|"oprocessorServiceResult\022&\n\005value\030\001 \001(\0132\027"
 operator|+
-literal|"(\0132\031.hbase.pb.RegionSpecifier\022.\n\004call\030\002 "
+literal|".hbase.pb.NameBytesPair\"v\n\031CoprocessorSe"
 operator|+
-literal|"\002(\0132 .hbase.pb.CoprocessorServiceCall\"o\n"
+literal|"rviceRequest\022)\n\006region\030\001 \002(\0132\031.hbase.pb."
 block|,
-literal|"\032CoprocessorServiceResponse\022)\n\006region\030\001 "
+literal|"RegionSpecifier\022.\n\004call\030\002 \002(\0132 .hbase.pb"
 operator|+
-literal|"\002(\0132\031.hbase.pb.RegionSpecifier\022&\n\005value\030"
+literal|".CoprocessorServiceCall\"o\n\032CoprocessorSe"
 operator|+
-literal|"\002 \002(\0132\027.hbase.pb.NameBytesPair\"\226\001\n\006Actio"
+literal|"rviceResponse\022)\n\006region\030\001 \002(\0132\031.hbase.pb"
 operator|+
-literal|"n\022\r\n\005index\030\001 \001(\r\022)\n\010mutation\030\002 \001(\0132\027.hba"
+literal|".RegionSpecifier\022&\n\005value\030\002 \002(\0132\027.hbase."
 operator|+
-literal|"se.pb.MutationProto\022\032\n\003get\030\003 \001(\0132\r.hbase"
+literal|"pb.NameBytesPair\"\226\001\n\006Action\022\r\n\005index\030\001 \001"
 operator|+
-literal|".pb.Get\0226\n\014service_call\030\004 \001(\0132 .hbase.pb"
+literal|"(\r\022)\n\010mutation\030\002 \001(\0132\027.hbase.pb.Mutation"
 operator|+
-literal|".CoprocessorServiceCall\"k\n\014RegionAction\022"
+literal|"Proto\022\032\n\003get\030\003 \001(\0132\r.hbase.pb.Get\0226\n\014ser"
 operator|+
-literal|")\n\006region\030\001 \002(\0132\031.hbase.pb.RegionSpecifi"
+literal|"vice_call\030\004 \001(\0132 .hbase.pb.CoprocessorSe"
 operator|+
-literal|"er\022\016\n\006atomic\030\002 \001(\010\022 \n\006action\030\003 \003(\0132\020.hba"
+literal|"rviceCall\"k\n\014RegionAction\022)\n\006region\030\001 \002("
 operator|+
-literal|"se.pb.Action\"c\n\017RegionLoadStats\022\027\n\014memst"
+literal|"\0132\031.hbase.pb.RegionSpecifier\022\016\n\006atomic\030\002"
 block|,
-literal|"oreLoad\030\001 \001(\005:\0010\022\030\n\rheapOccupancy\030\002 \001(\005:"
+literal|" \001(\010\022 \n\006action\030\003 \003(\0132\020.hbase.pb.Action\"c"
 operator|+
-literal|"\0010\022\035\n\022compactionPressure\030\003 \001(\005:\0010\"j\n\024Mul"
+literal|"\n\017RegionLoadStats\022\027\n\014memstoreLoad\030\001 \001(\005:"
 operator|+
-literal|"tiRegionLoadStats\022)\n\006region\030\001 \003(\0132\031.hbas"
+literal|"\0010\022\030\n\rheapOccupancy\030\002 \001(\005:\0010\022\035\n\022compacti"
 operator|+
-literal|"e.pb.RegionSpecifier\022\'\n\004stat\030\002 \003(\0132\031.hba"
+literal|"onPressure\030\003 \001(\005:\0010\"j\n\024MultiRegionLoadSt"
 operator|+
-literal|"se.pb.RegionLoadStats\"\336\001\n\021ResultOrExcept"
+literal|"ats\022)\n\006region\030\001 \003(\0132\031.hbase.pb.RegionSpe"
 operator|+
-literal|"ion\022\r\n\005index\030\001 \001(\r\022 \n\006result\030\002 \001(\0132\020.hba"
+literal|"cifier\022\'\n\004stat\030\002 \003(\0132\031.hbase.pb.RegionLo"
 operator|+
-literal|"se.pb.Result\022*\n\texception\030\003 \001(\0132\027.hbase."
+literal|"adStats\"\336\001\n\021ResultOrException\022\r\n\005index\030\001"
 operator|+
-literal|"pb.NameBytesPair\022:\n\016service_result\030\004 \001(\013"
+literal|" \001(\r\022 \n\006result\030\002 \001(\0132\020.hbase.pb.Result\022*"
 operator|+
-literal|"2\".hbase.pb.CoprocessorServiceResult\0220\n\t"
+literal|"\n\texception\030\003 \001(\0132\027.hbase.pb.NameBytesPa"
 operator|+
-literal|"loadStats\030\005 \001(\0132\031.hbase.pb.RegionLoadSta"
+literal|"ir\022:\n\016service_result\030\004 \001(\0132\".hbase.pb.Co"
 block|,
-literal|"tsB\002\030\001\"x\n\022RegionActionResult\0226\n\021resultOr"
+literal|"processorServiceResult\0220\n\tloadStats\030\005 \001("
 operator|+
-literal|"Exception\030\001 \003(\0132\033.hbase.pb.ResultOrExcep"
+literal|"\0132\031.hbase.pb.RegionLoadStatsB\002\030\001\"x\n\022Regi"
 operator|+
-literal|"tion\022*\n\texception\030\002 \001(\0132\027.hbase.pb.NameB"
+literal|"onActionResult\0226\n\021resultOrException\030\001 \003("
 operator|+
-literal|"ytesPair\"x\n\014MultiRequest\022,\n\014regionAction"
+literal|"\0132\033.hbase.pb.ResultOrException\022*\n\texcept"
 operator|+
-literal|"\030\001 \003(\0132\026.hbase.pb.RegionAction\022\022\n\nnonceG"
+literal|"ion\030\002 \001(\0132\027.hbase.pb.NameBytesPair\"x\n\014Mu"
 operator|+
-literal|"roup\030\002 \001(\004\022&\n\tcondition\030\003 \001(\0132\023.hbase.pb"
+literal|"ltiRequest\022,\n\014regionAction\030\001 \003(\0132\026.hbase"
 operator|+
-literal|".Condition\"\226\001\n\rMultiResponse\0228\n\022regionAc"
+literal|".pb.RegionAction\022\022\n\nnonceGroup\030\002 \001(\004\022&\n\t"
 operator|+
-literal|"tionResult\030\001 \003(\0132\034.hbase.pb.RegionAction"
+literal|"condition\030\003 \001(\0132\023.hbase.pb.Condition\"\226\001\n"
 operator|+
-literal|"Result\022\021\n\tprocessed\030\002 \001(\010\0228\n\020regionStati"
+literal|"\rMultiResponse\0228\n\022regionActionResult\030\001 \003"
 operator|+
-literal|"stics\030\003 \001(\0132\036.hbase.pb.MultiRegionLoadSt"
+literal|"(\0132\034.hbase.pb.RegionActionResult\022\021\n\tproc"
 block|,
-literal|"ats*\'\n\013Consistency\022\n\n\006STRONG\020\000\022\014\n\010TIMELI"
+literal|"essed\030\002 \001(\010\0228\n\020regionStatistics\030\003 \001(\0132\036."
 operator|+
-literal|"NE\020\0012\263\005\n\rClientService\0222\n\003Get\022\024.hbase.pb"
+literal|"hbase.pb.MultiRegionLoadStats*\'\n\013Consist"
 operator|+
-literal|".GetRequest\032\025.hbase.pb.GetResponse\022;\n\006Mu"
+literal|"ency\022\n\n\006STRONG\020\000\022\014\n\010TIMELINE\020\0012\263\005\n\rClien"
 operator|+
-literal|"tate\022\027.hbase.pb.MutateRequest\032\030.hbase.pb"
+literal|"tService\0222\n\003Get\022\024.hbase.pb.GetRequest\032\025."
 operator|+
-literal|".MutateResponse\0225\n\004Scan\022\025.hbase.pb.ScanR"
+literal|"hbase.pb.GetResponse\022;\n\006Mutate\022\027.hbase.p"
 operator|+
-literal|"equest\032\026.hbase.pb.ScanResponse\022P\n\rBulkLo"
+literal|"b.MutateRequest\032\030.hbase.pb.MutateRespons"
 operator|+
-literal|"adHFile\022\036.hbase.pb.BulkLoadHFileRequest\032"
+literal|"e\0225\n\004Scan\022\025.hbase.pb.ScanRequest\032\026.hbase"
 operator|+
-literal|"\037.hbase.pb.BulkLoadHFileResponse\022V\n\017Prep"
+literal|".pb.ScanResponse\022P\n\rBulkLoadHFile\022\036.hbas"
 operator|+
-literal|"areBulkLoad\022 .hbase.pb.PrepareBulkLoadRe"
+literal|"e.pb.BulkLoadHFileRequest\032\037.hbase.pb.Bul"
 operator|+
-literal|"quest\032!.hbase.pb.PrepareBulkLoadResponse"
+literal|"kLoadHFileResponse\022V\n\017PrepareBulkLoad\022 ."
 block|,
-literal|"\022V\n\017CleanupBulkLoad\022 .hbase.pb.CleanupBu"
+literal|"hbase.pb.PrepareBulkLoadRequest\032!.hbase."
 operator|+
-literal|"lkLoadRequest\032!.hbase.pb.CleanupBulkLoad"
+literal|"pb.PrepareBulkLoadResponse\022V\n\017CleanupBul"
 operator|+
-literal|"Response\022X\n\013ExecService\022#.hbase.pb.Copro"
+literal|"kLoad\022 .hbase.pb.CleanupBulkLoadRequest\032"
 operator|+
-literal|"cessorServiceRequest\032$.hbase.pb.Coproces"
+literal|"!.hbase.pb.CleanupBulkLoadResponse\022X\n\013Ex"
 operator|+
-literal|"sorServiceResponse\022d\n\027ExecRegionServerSe"
+literal|"ecService\022#.hbase.pb.CoprocessorServiceR"
 operator|+
-literal|"rvice\022#.hbase.pb.CoprocessorServiceReque"
+literal|"equest\032$.hbase.pb.CoprocessorServiceResp"
 operator|+
-literal|"st\032$.hbase.pb.CoprocessorServiceResponse"
+literal|"onse\022d\n\027ExecRegionServerService\022#.hbase."
 operator|+
-literal|"\0228\n\005Multi\022\026.hbase.pb.MultiRequest\032\027.hbas"
+literal|"pb.CoprocessorServiceRequest\032$.hbase.pb."
 operator|+
-literal|"e.pb.MultiResponseBI\n1org.apache.hadoop."
+literal|"CoprocessorServiceResponse\0228\n\005Multi\022\026.hb"
 operator|+
-literal|"hbase.shaded.protobuf.generatedB\014ClientP"
+literal|"ase.pb.MultiRequest\032\027.hbase.pb.MultiResp"
 block|,
-literal|"rotosH\001\210\001\001\240\001\001"
+literal|"onseBI\n1org.apache.hadoop.hbase.shaded.p"
+operator|+
+literal|"rotobuf.generatedB\014ClientProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|org
@@ -262444,6 +263158,10 @@ block|,
 literal|"CfTimeRange"
 block|,
 literal|"MvccReadPoint"
+block|,
+literal|"IncludeStartRow"
+block|,
+literal|"IncludeStopRow"
 block|, }
 argument_list|)
 expr_stmt|;

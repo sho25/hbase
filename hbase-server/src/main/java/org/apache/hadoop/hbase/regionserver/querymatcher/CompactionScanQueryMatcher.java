@@ -20,6 +20,22 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HConstants
+operator|.
+name|EMPTY_START_ROW
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -40,20 +56,6 @@ operator|.
 name|hbase
 operator|.
 name|Cell
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HConstants
 import|;
 end_import
 
@@ -206,9 +208,12 @@ parameter_list|)
 block|{
 name|super
 argument_list|(
-name|HConstants
-operator|.
+name|createStartKeyFromRow
+argument_list|(
 name|EMPTY_START_ROW
+argument_list|,
+name|scanInfo
+argument_list|)
 argument_list|,
 name|scanInfo
 argument_list|,
