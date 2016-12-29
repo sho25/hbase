@@ -3355,7 +3355,7 @@ name|err
 operator|.
 name|printf
 argument_list|(
-literal|"Usage: bin/hbase %s [options]\n"
+literal|"Usage: hbase %s [options]\n"
 argument_list|,
 name|getClass
 argument_list|()
@@ -3585,7 +3585,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|" $ ./bin/hbase org.apache.hadoop.hbase.wal."
+literal|" $ hbase org.apache.hadoop.hbase.wal."
 operator|+
 literal|"WALPerformanceEvaluation \\"
 argument_list|)

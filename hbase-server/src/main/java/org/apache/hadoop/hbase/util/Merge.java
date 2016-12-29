@@ -1405,7 +1405,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"For hadoop 0.21+, Usage: bin/hbase org.apache.hadoop.hbase.util.Merge "
+literal|"For hadoop 0.21+, Usage: hbase org.apache.hadoop.hbase.util.Merge "
 operator|+
 literal|"[-Dfs.defaultFS=hdfs://nn:port]<table-name><region-1><region-2>\n"
 argument_list|)

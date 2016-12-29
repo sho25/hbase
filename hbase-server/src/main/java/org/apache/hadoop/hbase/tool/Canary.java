@@ -4566,7 +4566,7 @@ name|err
 operator|.
 name|printf
 argument_list|(
-literal|"Usage: bin/hbase %s [opts] [table1 [table2]...] | [regionserver1 [regionserver2]..]%n"
+literal|"Usage: hbase %s [opts] [table1 [table2]...] | [regionserver1 [regionserver2]..]%n"
 argument_list|,
 name|getClass
 argument_list|()

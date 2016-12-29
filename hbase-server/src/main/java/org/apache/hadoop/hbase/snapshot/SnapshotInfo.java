@@ -2923,7 +2923,7 @@ parameter_list|()
 block|{
 name|printUsage
 argument_list|(
-literal|"bin/hbase snapshot info [options]"
+literal|"hbase snapshot info [options]"
 argument_list|,
 literal|"Options:"
 argument_list|,

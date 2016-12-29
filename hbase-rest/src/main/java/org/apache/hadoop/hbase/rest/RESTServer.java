@@ -679,7 +679,7 @@ name|formatter
 operator|.
 name|printHelp
 argument_list|(
-literal|"bin/hbase rest start"
+literal|"hbase rest start"
 argument_list|,
 literal|""
 argument_list|,
@@ -687,7 +687,7 @@ name|options
 argument_list|,
 literal|"\nTo run the REST server as a daemon, execute "
 operator|+
-literal|"bin/hbase-daemon.sh start|stop rest [--infoport<port>] [-p<port>] [-ro]\n"
+literal|"hbase-daemon.sh start|stop rest [--infoport<port>] [-p<port>] [-ro]\n"
 argument_list|,
 literal|true
 argument_list|)

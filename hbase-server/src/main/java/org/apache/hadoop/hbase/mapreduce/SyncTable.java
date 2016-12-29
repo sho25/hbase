@@ -3829,7 +3829,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|" $ bin/hbase "
+literal|" $ hbase "
 operator|+
 literal|"org.apache.hadoop.hbase.mapreduce.SyncTable --dryrun=true"
 operator|+

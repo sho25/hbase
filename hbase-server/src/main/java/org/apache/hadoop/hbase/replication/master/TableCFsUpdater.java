@@ -736,7 +736,7 @@ name|err
 operator|.
 name|printf
 argument_list|(
-literal|"Usage: bin/hbase org.apache.hadoop.hbase.replication.master.TableCFsUpdater [options]"
+literal|"Usage: hbase org.apache.hadoop.hbase.replication.master.TableCFsUpdater [options]"
 argument_list|)
 expr_stmt|;
 name|System

@@ -440,9 +440,9 @@ literal|null
 argument_list|,
 name|options
 argument_list|,
-literal|"To start the Thrift server run 'bin/hbase-daemon.sh start thrift'\n"
+literal|"To start the Thrift server run 'hbase-daemon.sh start thrift'\n"
 operator|+
-literal|"To shutdown the thrift server run 'bin/hbase-daemon.sh stop "
+literal|"To shutdown the thrift server run 'hbase-daemon.sh stop "
 operator|+
 literal|"thrift' or send a kill signal to the thrift server pid"
 argument_list|,

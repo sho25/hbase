@@ -1308,7 +1308,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|" $ bin/hbase "
+literal|" $ hbase "
 operator|+
 literal|"org.apache.hadoop.hbase.mapreduce.CopyTable --starttime=1265875194289 --endtime=1265878794289 "
 operator|+

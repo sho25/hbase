@@ -954,7 +954,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"Usage: bin/hbase "
+literal|"Usage: hbase "
 operator|+
 name|className
 operator|+

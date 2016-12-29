@@ -1075,9 +1075,9 @@ argument_list|,
 name|getOptions
 argument_list|()
 argument_list|,
-literal|"To start the Thrift server run 'bin/hbase-daemon.sh start thrift2'\n"
+literal|"To start the Thrift server run 'hbase-daemon.sh start thrift2'\n"
 operator|+
-literal|"To shutdown the thrift server run 'bin/hbase-daemon.sh stop thrift2' or"
+literal|"To shutdown the thrift server run 'hbase-daemon.sh stop thrift2' or"
 operator|+
 literal|" send a kill signal to the thrift server pid"
 argument_list|,

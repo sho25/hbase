@@ -10951,7 +10951,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|" $ bin/hbase "
+literal|" $ hbase "
 operator|+
 name|className
 operator|+
@@ -10973,7 +10973,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|" $ bin/hbase "
+literal|" $ hbase "
 operator|+
 name|className
 operator|+

@@ -8069,7 +8069,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|" $ bin/hbase "
+literal|" $ hbase "
 operator|+
 name|this
 operator|.

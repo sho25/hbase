@@ -775,7 +775,7 @@ parameter_list|()
 block|{
 name|printUsage
 argument_list|(
-literal|"bin/hbase "
+literal|"hbase "
 operator|+
 name|getClass
 argument_list|()
