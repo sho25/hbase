@@ -85,7 +85,6 @@ specifier|public
 annotation_defn|@interface
 name|Public
 block|{}
-empty_stmt|;
 comment|/**    * Intended only for the project(s) specified in the annotation.    * For example, "Common", "HDFS", "MapReduce", "ZooKeeper", "HBase".    */
 annotation|@
 name|Documented
@@ -106,7 +105,6 @@ name|value
 parameter_list|()
 function_decl|;
 block|}
-empty_stmt|;
 comment|/**    * Intended for use only within Hadoop itself.    */
 annotation|@
 name|Documented
@@ -121,7 +119,6 @@ specifier|public
 annotation_defn|@interface
 name|Private
 block|{}
-empty_stmt|;
 specifier|private
 name|InterfaceAudience
 parameter_list|()

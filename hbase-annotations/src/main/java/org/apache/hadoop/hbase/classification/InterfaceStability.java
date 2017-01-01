@@ -84,7 +84,6 @@ specifier|public
 annotation_defn|@interface
 name|Stable
 block|{}
-empty_stmt|;
 comment|/**    * Evolving, but can break compatibility at minor release (i.e. m.x)    */
 annotation|@
 name|Documented
@@ -99,7 +98,6 @@ specifier|public
 annotation_defn|@interface
 name|Evolving
 block|{}
-empty_stmt|;
 comment|/**    * No guarantee is provided as to reliability or stability across any    * level of release granularity.    */
 annotation|@
 name|Documented
@@ -114,7 +112,6 @@ specifier|public
 annotation_defn|@interface
 name|Unstable
 block|{}
-empty_stmt|;
 block|}
 end_class
 
