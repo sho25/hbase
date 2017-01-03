@@ -23,16 +23,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|LinkedList
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|List
 import|;
 end_import
@@ -68,7 +58,7 @@ name|VersionedSegmentsList
 block|{
 specifier|private
 specifier|final
-name|LinkedList
+name|List
 argument_list|<
 name|ImmutableSegment
 argument_list|>
@@ -82,7 +72,7 @@ decl_stmt|;
 specifier|public
 name|VersionedSegmentsList
 parameter_list|(
-name|LinkedList
+name|List
 argument_list|<
 name|ImmutableSegment
 argument_list|>
