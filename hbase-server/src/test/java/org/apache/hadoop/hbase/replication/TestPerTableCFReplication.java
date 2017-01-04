@@ -389,7 +389,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ZooKeeperProtos
+name|ReplicationProtos
 import|;
 end_import
 
@@ -2061,7 +2061,7 @@ name|void
 name|testTableCFsHelperConverter
 parameter_list|()
 block|{
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|TableCF
 index|[]

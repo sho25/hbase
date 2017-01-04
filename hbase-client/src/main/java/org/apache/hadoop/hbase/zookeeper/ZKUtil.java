@@ -459,7 +459,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ZooKeeperProtos
+name|ReplicationProtos
 import|;
 end_import
 
@@ -7737,14 +7737,14 @@ block|}
 comment|// parse the data of the above peer znode.
 try|try
 block|{
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|ReplicationPeer
 operator|.
 name|Builder
 name|builder
 init|=
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|ReplicationPeer
 operator|.
@@ -7943,14 +7943,14 @@ argument_list|,
 name|peerStateZnode
 argument_list|)
 expr_stmt|;
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|ReplicationState
 operator|.
 name|Builder
 name|builder
 init|=
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|ReplicationState
 operator|.
@@ -8819,7 +8819,7 @@ name|byte
 index|[]
 name|bytes
 init|=
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|ReplicationHLogPosition
 operator|.
@@ -8893,21 +8893,21 @@ operator|.
 name|lengthOfPBMagic
 argument_list|()
 decl_stmt|;
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|ReplicationHLogPosition
 operator|.
 name|Builder
 name|builder
 init|=
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|ReplicationHLogPosition
 operator|.
 name|newBuilder
 argument_list|()
 decl_stmt|;
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|ReplicationHLogPosition
 name|position

@@ -275,7 +275,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ZooKeeperProtos
+name|ReplicationProtos
 import|;
 end_import
 
@@ -872,7 +872,7 @@ name|changePeerState
 argument_list|(
 name|id
 argument_list|,
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|ReplicationState
 operator|.
@@ -909,7 +909,7 @@ name|changePeerState
 argument_list|(
 name|id
 argument_list|,
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|ReplicationState
 operator|.
@@ -2469,7 +2469,7 @@ parameter_list|(
 name|String
 name|id
 parameter_list|,
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|ReplicationState
 operator|.
@@ -2517,7 +2517,7 @@ init|=
 operator|(
 name|state
 operator|==
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|ReplicationState
 operator|.

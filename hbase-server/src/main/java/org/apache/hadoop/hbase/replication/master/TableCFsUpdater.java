@@ -171,7 +171,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ZooKeeperProtos
+name|ReplicationProtos
 import|;
 end_import
 
@@ -492,7 +492,7 @@ operator|+
 name|peerId
 argument_list|)
 expr_stmt|;
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|TableCF
 index|[]

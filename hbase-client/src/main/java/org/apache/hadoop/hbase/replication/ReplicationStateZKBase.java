@@ -161,7 +161,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ZooKeeperProtos
+name|ReplicationProtos
 import|;
 end_import
 
@@ -306,7 +306,7 @@ name|ENABLED_ZNODE_BYTES
 init|=
 name|toByteArray
 argument_list|(
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|ReplicationState
 operator|.
@@ -324,7 +324,7 @@ name|DISABLED_ZNODE_BYTES
 init|=
 name|toByteArray
 argument_list|(
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|ReplicationState
 operator|.
@@ -590,7 +590,7 @@ index|[]
 name|toByteArray
 parameter_list|(
 specifier|final
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|ReplicationState
 operator|.
@@ -598,12 +598,12 @@ name|State
 name|state
 parameter_list|)
 block|{
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|ReplicationState
 name|msg
 init|=
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|ReplicationState
 operator|.

@@ -231,7 +231,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ZooKeeperProtos
+name|ReplicationProtos
 import|;
 end_import
 
@@ -845,7 +845,7 @@ parameter_list|)
 throws|throws
 name|DeserializationException
 block|{
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|ReplicationState
 operator|.
@@ -858,7 +858,7 @@ name|bytes
 argument_list|)
 decl_stmt|;
 return|return
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|ReplicationState
 operator|.
@@ -872,7 +872,7 @@ block|}
 comment|/**    * @param bytes Content of a state znode.    * @return State parsed from the passed bytes.    * @throws DeserializationException    */
 specifier|private
 specifier|static
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|ReplicationState
 operator|.
@@ -902,21 +902,21 @@ operator|.
 name|lengthOfPBMagic
 argument_list|()
 decl_stmt|;
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|ReplicationState
 operator|.
 name|Builder
 name|builder
 init|=
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|ReplicationState
 operator|.
 name|newBuilder
 argument_list|()
 decl_stmt|;
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|ReplicationState
 name|state

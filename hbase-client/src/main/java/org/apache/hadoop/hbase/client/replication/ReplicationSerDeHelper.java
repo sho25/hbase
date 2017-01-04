@@ -221,7 +221,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ZooKeeperProtos
+name|ReplicationProtos
 import|;
 end_import
 
@@ -427,7 +427,7 @@ block|}
 comment|/** convert map to TableCFs Object */
 specifier|public
 specifier|static
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|TableCF
 index|[]
@@ -460,7 +460,7 @@ return|;
 block|}
 name|List
 argument_list|<
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|TableCF
 argument_list|>
@@ -471,14 +471,14 @@ name|ArrayList
 argument_list|<>
 argument_list|()
 decl_stmt|;
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|TableCF
 operator|.
 name|Builder
 name|tableCFBuilder
 init|=
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|TableCF
 operator|.
@@ -594,7 +594,7 @@ operator|.
 name|toArray
 argument_list|(
 operator|new
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|TableCF
 index|[
@@ -649,7 +649,7 @@ block|}
 comment|/**    *  Convert string to TableCFs Object.    *  This is only for read TableCFs information from TableCF node.    *  Input String Format: ns1.table1:cf1,cf2;ns2.table2:cfA,cfB;ns3.table3.    * */
 specifier|public
 specifier|static
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|TableCF
 index|[]
@@ -682,7 +682,7 @@ return|;
 block|}
 name|List
 argument_list|<
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|TableCF
 argument_list|>
@@ -693,14 +693,14 @@ name|ArrayList
 argument_list|<>
 argument_list|()
 decl_stmt|;
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|TableCF
 operator|.
 name|Builder
 name|tableCFBuilder
 init|=
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|TableCF
 operator|.
@@ -953,7 +953,7 @@ operator|.
 name|toArray
 argument_list|(
 operator|new
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|TableCF
 index|[
@@ -971,7 +971,7 @@ specifier|static
 name|String
 name|convert
 parameter_list|(
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|TableCF
 index|[]
@@ -1006,7 +1006,7 @@ name|i
 operator|++
 control|)
 block|{
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|TableCF
 name|tableCF
@@ -1184,12 +1184,12 @@ block|}
 comment|/**    *  Get TableCF in TableCFs, if not exist, return null.    * */
 specifier|public
 specifier|static
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|TableCF
 name|getTableCF
 parameter_list|(
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|TableCF
 index|[]
@@ -1220,7 +1220,7 @@ name|i
 operator|++
 control|)
 block|{
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|TableCF
 name|tableCF
@@ -1261,7 +1261,7 @@ block|}
 comment|/**    *  Parse bytes into TableCFs.    *  It is used for backward compatibility.    *  Old format bytes have no PB_MAGIC Header    * */
 specifier|public
 specifier|static
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|TableCF
 index|[]
@@ -1317,7 +1317,7 @@ name|String
 name|tableCFsConfig
 parameter_list|)
 block|{
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|TableCF
 index|[]
@@ -1349,7 +1349,7 @@ argument_list|>
 argument_list|>
 name|convert2Map
 parameter_list|(
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|TableCF
 index|[]
@@ -1417,7 +1417,7 @@ name|i
 operator|++
 control|)
 block|{
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|TableCF
 name|tableCF
@@ -1561,21 +1561,21 @@ operator|.
 name|lengthOfPBMagic
 argument_list|()
 decl_stmt|;
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|ReplicationPeer
 operator|.
 name|Builder
 name|builder
 init|=
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|ReplicationPeer
 operator|.
 name|newBuilder
 argument_list|()
 decl_stmt|;
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|ReplicationPeer
 name|peer
@@ -1672,7 +1672,7 @@ specifier|static
 name|ReplicationPeerConfig
 name|convert
 parameter_list|(
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|ReplicationPeer
 name|peer
@@ -1816,7 +1816,7 @@ operator|.
 name|toArray
 argument_list|(
 operator|new
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|TableCF
 index|[
@@ -1933,7 +1933,7 @@ return|;
 block|}
 specifier|public
 specifier|static
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|ReplicationPeer
 name|convert
@@ -1942,14 +1942,14 @@ name|ReplicationPeerConfig
 name|peerConfig
 parameter_list|)
 block|{
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|ReplicationPeer
 operator|.
 name|Builder
 name|builder
 init|=
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|ReplicationPeer
 operator|.
@@ -2116,7 +2116,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-name|ZooKeeperProtos
+name|ReplicationProtos
 operator|.
 name|TableCF
 index|[]
