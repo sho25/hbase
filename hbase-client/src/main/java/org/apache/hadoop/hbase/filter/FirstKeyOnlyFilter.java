@@ -259,10 +259,8 @@ name|checkArgument
 argument_list|(
 name|filterArguments
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 argument_list|,
 literal|"Expected 0 but got: %s"
 argument_list|,

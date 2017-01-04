@@ -987,10 +987,8 @@ if|if
 condition|(
 name|cache
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 operator|&&
 name|this
 operator|.
@@ -1005,10 +1003,8 @@ if|if
 condition|(
 name|cache
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 condition|)
 block|{
 name|loadCache

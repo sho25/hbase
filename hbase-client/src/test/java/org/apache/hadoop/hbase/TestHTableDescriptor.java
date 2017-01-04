@@ -673,10 +673,8 @@ operator|.
 name|getCoprocessors
 argument_list|()
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 argument_list|)
 expr_stmt|;
 comment|// Add the 1 coprocessor and check if present.
@@ -810,10 +808,8 @@ operator|.
 name|getCoprocessors
 argument_list|()
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 argument_list|)
 expr_stmt|;
 name|assertFalse

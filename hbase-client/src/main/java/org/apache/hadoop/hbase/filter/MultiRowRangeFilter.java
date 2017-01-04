@@ -1243,10 +1243,8 @@ if|if
 condition|(
 name|ranges
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 condition|)
 block|{
 throw|throw
@@ -2245,10 +2243,8 @@ if|if
 condition|(
 name|newRanges
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 condition|)
 block|{
 throw|throw

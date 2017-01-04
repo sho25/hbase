@@ -2619,10 +2619,8 @@ if|if
 condition|(
 name|processingList
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 condition|)
 block|{
 comment|// Nothing to flush
