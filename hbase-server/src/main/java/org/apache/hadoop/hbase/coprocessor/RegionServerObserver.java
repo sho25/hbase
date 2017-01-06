@@ -170,7 +170,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before the regions merge.     * Call {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} to skip the merge.    * @throws IOException if an error occurred on the coprocessor    * @param ctx    * @param regionA    * @param regionB    * @throws IOException    */
+comment|/**    * Called before the regions merge.    * Call {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} to skip the merge.    * @throws IOException if an error occurred on the coprocessor    * @param ctx    * @param regionA    * @param regionB    * @throws IOException    */
 name|void
 name|preMerge
 parameter_list|(
