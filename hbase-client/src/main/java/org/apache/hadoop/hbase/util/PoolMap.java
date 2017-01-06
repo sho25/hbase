@@ -1522,8 +1522,8 @@ name|super
 operator|.
 name|size
 argument_list|()
-operator|<=
-literal|0
+operator|<
+name|maxSize
 condition|)
 block|{
 return|return
