@@ -199,6 +199,22 @@ name|ReplicationQueues
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Pair
+import|;
+end_import
+
 begin_comment
 comment|/**  * Interface that defines a replication source  */
 end_comment
@@ -311,7 +327,7 @@ name|String
 name|getStats
 parameter_list|()
 function_decl|;
-comment|/**    * Add hfile names to the queue to be replicated.    * @param tableName Name of the table these files belongs to    * @param family Name of the family these files belong to    * @param files files whose names needs to be added to the queue to be replicated    * @throws ReplicationException If failed to add hfile references    */
+comment|/**    * Add hfile names to the queue to be replicated.    * @param tableName Name of the table these files belongs to    * @param family Name of the family these files belong to    * @param pairs list of pairs of { HFile location in staging dir, HFile path in region dir which    *          will be added in the queue for replication}    * @throws ReplicationException If failed to add hfile references    */
 name|void
 name|addHFileRefs
 parameter_list|(
@@ -324,9 +340,14 @@ name|family
 parameter_list|,
 name|List
 argument_list|<
-name|String
+name|Pair
+argument_list|<
+name|Path
+argument_list|,
+name|Path
 argument_list|>
-name|files
+argument_list|>
+name|pairs
 parameter_list|)
 throws|throws
 name|ReplicationException

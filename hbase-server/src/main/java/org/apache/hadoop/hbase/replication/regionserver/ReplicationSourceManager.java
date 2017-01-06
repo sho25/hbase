@@ -4320,9 +4320,14 @@ name|family
 parameter_list|,
 name|List
 argument_list|<
-name|String
+name|Pair
+argument_list|<
+name|Path
+argument_list|,
+name|Path
 argument_list|>
-name|files
+argument_list|>
+name|pairs
 parameter_list|)
 throws|throws
 name|ReplicationException
@@ -4345,7 +4350,7 @@ name|tableName
 argument_list|,
 name|family
 argument_list|,
-name|files
+name|pairs
 argument_list|)
 expr_stmt|;
 block|}

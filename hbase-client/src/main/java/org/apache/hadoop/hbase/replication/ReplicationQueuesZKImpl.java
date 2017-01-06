@@ -123,6 +123,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|fs
+operator|.
+name|Path
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|hbase
 operator|.
 name|Abortable
@@ -1906,9 +1920,14 @@ name|peerId
 parameter_list|,
 name|List
 argument_list|<
-name|String
+name|Pair
+argument_list|<
+name|Path
+argument_list|,
+name|Path
 argument_list|>
-name|files
+argument_list|>
+name|pairs
 parameter_list|)
 throws|throws
 name|ReplicationException
@@ -1946,7 +1965,7 @@ name|debug
 argument_list|(
 literal|"Adding hfile references "
 operator|+
-name|files
+name|pairs
 operator|+
 literal|" in queue "
 operator|+
@@ -1972,7 +1991,7 @@ decl_stmt|;
 name|int
 name|size
 init|=
-name|files
+name|pairs
 operator|.
 name|size
 argument_list|()
@@ -2006,12 +2025,18 @@ name|joinZNode
 argument_list|(
 name|peerZnode
 argument_list|,
-name|files
+name|pairs
 operator|.
 name|get
 argument_list|(
 name|i
 argument_list|)
+operator|.
+name|getSecond
+argument_list|()
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 argument_list|,
 name|HConstants

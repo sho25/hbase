@@ -2314,7 +2314,7 @@ comment|// This will mean that the hfile does not exists any where in source clu
 comment|// cannot do anything here just log and continue.
 name|LOG
 operator|.
-name|error
+name|debug
 argument_list|(
 literal|"Failed to copy hfile from "
 operator|+

@@ -45,6 +45,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|fs
+operator|.
+name|Path
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|hbase
 operator|.
 name|classification
@@ -247,7 +261,7 @@ name|String
 name|peerId
 parameter_list|)
 function_decl|;
-comment|/**    * Add new hfile references to the queue.    * @param peerId peer cluster id to which the hfiles need to be replicated    * @param files list of hfile references to be added    * @throws ReplicationException if fails to add a hfile reference    */
+comment|/**    * Add new hfile references to the queue.    * @param peerId peer cluster id to which the hfiles need to be replicated    * @param pairs list of pairs of { HFile location in staging dir, HFile path in region dir which    *          will be added in the queue }    * @throws ReplicationException if fails to add a hfile reference    */
 name|void
 name|addHFileRefs
 parameter_list|(
@@ -256,9 +270,14 @@ name|peerId
 parameter_list|,
 name|List
 argument_list|<
-name|String
+name|Pair
+argument_list|<
+name|Path
+argument_list|,
+name|Path
 argument_list|>
-name|files
+argument_list|>
+name|pairs
 parameter_list|)
 throws|throws
 name|ReplicationException
