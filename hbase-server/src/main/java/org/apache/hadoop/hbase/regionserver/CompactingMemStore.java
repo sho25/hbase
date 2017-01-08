@@ -988,6 +988,8 @@ parameter_list|()
 block|{
 name|List
 argument_list|<
+name|?
+extends|extends
 name|Segment
 argument_list|>
 name|pipelineList
@@ -1005,9 +1007,7 @@ name|list
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Segment
-argument_list|>
+argument_list|<>
 argument_list|(
 name|pipelineList
 operator|.
@@ -1170,6 +1170,8 @@ name|IOException
 block|{
 name|List
 argument_list|<
+name|?
+extends|extends
 name|Segment
 argument_list|>
 name|pipelineList
