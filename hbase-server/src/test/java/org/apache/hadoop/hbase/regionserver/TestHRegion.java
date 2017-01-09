@@ -7350,6 +7350,9 @@ comment|// now find the compacted file, and manually add it to the recovered edi
 name|Path
 name|tmpDir
 init|=
+operator|new
+name|Path
+argument_list|(
 name|region
 operator|.
 name|getRegionFileSystem
@@ -7357,6 +7360,14 @@ argument_list|()
 operator|.
 name|getTempDir
 argument_list|()
+argument_list|,
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|family
+argument_list|)
+argument_list|)
 decl_stmt|;
 name|FileStatus
 index|[]
