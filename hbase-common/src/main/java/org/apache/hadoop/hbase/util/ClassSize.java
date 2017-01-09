@@ -1185,11 +1185,9 @@ name|ClassSize
 operator|.
 name|OBJECT
 operator|+
-name|Bytes
-operator|.
-name|SIZEOF_LONG
-operator|*
 literal|2
+operator|*
+name|REFERENCE
 argument_list|)
 expr_stmt|;
 name|CELL_SET
