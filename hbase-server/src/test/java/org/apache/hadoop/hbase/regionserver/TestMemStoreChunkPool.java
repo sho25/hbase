@@ -949,6 +949,15 @@ name|getCellsCount
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// close the scanner - this is how the snapshot will be used
+name|snapshot
+operator|.
+name|getScanner
+argument_list|()
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 name|memstore
 operator|.
 name|clearSnapshot
@@ -1262,6 +1271,15 @@ argument_list|)
 decl_stmt|;
 comment|// Shouldn't putting back the chunks to pool,since some scanners are opening
 comment|// based on their data
+comment|// close the snapshot scanner
+name|snapshot
+operator|.
+name|getScanner
+argument_list|()
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 name|memstore
 operator|.
 name|clearSnapshot
@@ -1387,6 +1405,15 @@ expr_stmt|;
 block|}
 comment|// Since no opening scanner, the chunks of snapshot should be put back to
 comment|// pool
+comment|// close the snapshot scanner
+name|snapshot
+operator|.
+name|getScanner
+argument_list|()
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 name|memstore
 operator|.
 name|clearSnapshot

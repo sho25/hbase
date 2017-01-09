@@ -139,7 +139,7 @@ name|scanner
 operator|=
 name|snapshot
 operator|.
-name|getKeyValueScanner
+name|getSnapshotScanner
 argument_list|()
 expr_stmt|;
 name|this

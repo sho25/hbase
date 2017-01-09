@@ -139,22 +139,6 @@ end_import
 
 begin_import
 import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|CollectionBackedScanner
-import|;
-end_import
-
-begin_import
-import|import
 name|java
 operator|.
 name|io
@@ -164,7 +148,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * ImmutableSegment is an abstract class that extends the API supported by a {@link Segment},  * and is not needed for a {@link MutableSegment}. Specifically, the method  * {@link ImmutableSegment#getKeyValueScanner()} builds a special scanner for the  * {@link MemStoreSnapshot} object.  */
+comment|/**  * ImmutableSegment is an abstract class that extends the API supported by a {@link Segment},  * and is not needed for a {@link MutableSegment}. Specifically, the method  * {@link ImmutableSegment#getSnapshotScanner()} builds a special scanner for the  * {@link MemStoreSnapshot} object.  */
 end_comment
 
 begin_class
@@ -498,18 +482,14 @@ comment|/////////////////////  PUBLIC METHODS  /////////////////////
 comment|/**    * Builds a special scanner for the MemStoreSnapshot object that is different than the    * general segment scanner.    * @return a special scanner for the MemStoreSnapshot object    */
 specifier|public
 name|KeyValueScanner
-name|getKeyValueScanner
+name|getSnapshotScanner
 parameter_list|()
 block|{
 return|return
 operator|new
-name|CollectionBackedScanner
+name|SnapshotScanner
 argument_list|(
-name|getCellSet
-argument_list|()
-argument_list|,
-name|getComparator
-argument_list|()
+name|this
 argument_list|)
 return|;
 block|}

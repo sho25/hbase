@@ -138,7 +138,7 @@ operator|.
 name|MAX_VALUE
 decl_stmt|;
 comment|// the observed structure
-specifier|private
+specifier|protected
 specifier|final
 name|Segment
 name|segment
@@ -150,7 +150,7 @@ name|readPoint
 decl_stmt|;
 comment|// the current iterator that can be reinitialized by
 comment|// seek(), backwardSeek(), or reseek()
-specifier|private
+specifier|protected
 name|Iterator
 argument_list|<
 name|Cell
@@ -158,7 +158,7 @@ argument_list|>
 name|iter
 decl_stmt|;
 comment|// the pre-calculated cell to be returned by peek()
-specifier|private
+specifier|protected
 name|Cell
 name|current
 init|=
@@ -181,7 +181,7 @@ init|=
 literal|null
 decl_stmt|;
 comment|// flag to indicate if this scanner is closed
-specifier|private
+specifier|protected
 name|boolean
 name|closed
 init|=
@@ -249,9 +249,7 @@ name|iterator
 argument_list|()
 expr_stmt|;
 comment|// the initialization of the current is required for working with heap of SegmentScanners
-name|current
-operator|=
-name|getNext
+name|updateCurrent
 argument_list|()
 expr_stmt|;
 name|this
@@ -352,9 +350,7 @@ name|oldCurrent
 init|=
 name|current
 decl_stmt|;
-name|current
-operator|=
-name|getNext
+name|updateCurrent
 argument_list|()
 expr_stmt|;
 comment|// update the currently observed Cell
@@ -401,6 +397,39 @@ block|}
 comment|// restart the iterator from new key
 name|iter
 operator|=
+name|getIterator
+argument_list|(
+name|cell
+argument_list|)
+expr_stmt|;
+comment|// last is going to be reinitialized in the next getNext() call
+name|last
+operator|=
+literal|null
+expr_stmt|;
+name|updateCurrent
+argument_list|()
+expr_stmt|;
+return|return
+operator|(
+name|current
+operator|!=
+literal|null
+operator|)
+return|;
+block|}
+specifier|protected
+name|Iterator
+argument_list|<
+name|Cell
+argument_list|>
+name|getIterator
+parameter_list|(
+name|Cell
+name|cell
+parameter_list|)
+block|{
+return|return
 name|segment
 operator|.
 name|tailSet
@@ -410,23 +439,6 @@ argument_list|)
 operator|.
 name|iterator
 argument_list|()
-expr_stmt|;
-comment|// last is going to be reinitialized in the next getNext() call
-name|last
-operator|=
-literal|null
-expr_stmt|;
-name|current
-operator|=
-name|getNext
-argument_list|()
-expr_stmt|;
-return|return
-operator|(
-name|current
-operator|!=
-literal|null
-operator|)
 return|;
 block|}
 comment|/**    * Reseek the scanner at or after the specified KeyValue.    * This method is guaranteed to seek at or after the required key only if the    * key comes after the current position of the scanner. Should not be used    * to seek to a key which may come before the current position.    *    * @param cell seek value (should be non-null)    * @return true if scanner has values left, false if end of scanner    */
@@ -454,9 +466,7 @@ block|}
 comment|/*     See HBASE-4195& HBASE-3855& HBASE-6591 for the background on this implementation.     This code is executed concurrently with flush and puts, without locks.     The ideal implementation for performance would use the sub skip list implicitly     pointed by the iterator. Unfortunately the Java API does not offer a method to     get it. So we remember the last keys we iterated to and restore     the reseeked set to at least that point.     */
 name|iter
 operator|=
-name|segment
-operator|.
-name|tailSet
+name|getIterator
 argument_list|(
 name|getHighest
 argument_list|(
@@ -465,13 +475,8 @@ argument_list|,
 name|last
 argument_list|)
 argument_list|)
-operator|.
-name|iterator
-argument_list|()
 expr_stmt|;
-name|current
-operator|=
-name|getNext
+name|updateCurrent
 argument_list|()
 expr_stmt|;
 return|return
@@ -995,9 +1000,9 @@ name|segment
 return|;
 block|}
 comment|/**    * Private internal method for iterating over the segment,    * skipping the cells with irrelevant MVCC    */
-specifier|private
-name|Cell
-name|getNext
+specifier|protected
+name|void
+name|updateCurrent
 parameter_list|()
 block|{
 name|Cell
@@ -1039,9 +1044,11 @@ operator|.
 name|readPoint
 condition|)
 block|{
-return|return
+name|current
+operator|=
 name|next
-return|;
+expr_stmt|;
+return|return;
 comment|// skip irrelevant versions
 block|}
 if|if
@@ -1066,15 +1073,18 @@ operator|>
 literal|0
 condition|)
 block|{
-return|return
+name|current
+operator|=
 literal|null
-return|;
+expr_stmt|;
+return|return;
 block|}
 block|}
 comment|// end of while
-return|return
+name|current
+operator|=
 literal|null
-return|;
+expr_stmt|;
 comment|// nothing found
 block|}
 finally|finally
