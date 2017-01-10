@@ -361,6 +361,22 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|replication
+operator|.
+name|ReplicationPeerDescription
+import|;
+end_import
+
+begin_import
+import|import
 name|com
 operator|.
 name|google
@@ -965,6 +981,21 @@ name|peerId
 parameter_list|,
 name|ReplicationPeerConfig
 name|peerConfig
+parameter_list|)
+throws|throws
+name|ReplicationException
+throws|,
+name|IOException
+function_decl|;
+comment|/**    * Return a list of replication peers.    * @param regex The regular expression to match peer id    * @return a list of replication peers description    */
+name|List
+argument_list|<
+name|ReplicationPeerDescription
+argument_list|>
+name|listReplicationPeers
+parameter_list|(
+name|String
+name|regex
 parameter_list|)
 throws|throws
 name|ReplicationException

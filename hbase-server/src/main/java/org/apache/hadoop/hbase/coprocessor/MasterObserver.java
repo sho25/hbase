@@ -3554,6 +3554,42 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{   }
+comment|/**    * Called before list replication peers.    * @param ctx    * @param regex The regular expression to match peer id    * @throws IOException on failure    */
+specifier|default
+name|void
+name|preListReplicationPeers
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|String
+name|regex
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
+comment|/**    * Called after list replication peers.    * @param ctx    * @param regex The regular expression to match peer id    * @throws IOException on failure    */
+specifier|default
+name|void
+name|postListReplicationPeers
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|String
+name|regex
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
 block|}
 end_interface
 

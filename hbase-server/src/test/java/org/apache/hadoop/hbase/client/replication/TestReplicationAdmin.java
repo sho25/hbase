@@ -169,6 +169,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ReplicationPeerNotFoundException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|TableName
 import|;
 end_import
@@ -1191,8 +1205,8 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|IllegalArgumentException
-name|iae
+name|ReplicationPeerNotFoundException
+name|e
 parameter_list|)
 block|{
 comment|// OK!
