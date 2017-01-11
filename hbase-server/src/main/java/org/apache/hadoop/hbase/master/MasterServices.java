@@ -219,6 +219,24 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|master
+operator|.
+name|locking
+operator|.
+name|LockManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|favored
 operator|.
 name|FavoredNodesManager
@@ -1027,6 +1045,11 @@ specifier|final
 name|ServerName
 name|server
 parameter_list|)
+function_decl|;
+comment|/**    * @return {@link LockManager} to lock namespaces/tables/regions.    */
+name|LockManager
+name|getLockManager
+parameter_list|()
 function_decl|;
 block|}
 end_interface

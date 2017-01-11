@@ -121,6 +121,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Set
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|concurrent
 operator|.
 name|atomic
@@ -647,7 +657,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Toggle Kill before store update to: "
+literal|"Toggle KILL before store update to: "
 operator|+
 name|this
 operator|.
@@ -1033,7 +1043,7 @@ argument_list|()
 decl_stmt|;
 specifier|final
 name|boolean
-name|isDebugEnabled
+name|debugEnabled
 init|=
 name|LOG
 operator|.
@@ -1113,14 +1123,14 @@ condition|)
 block|{
 if|if
 condition|(
-name|isDebugEnabled
+name|debugEnabled
 condition|)
 block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Evict completed procedure: "
+literal|"Evict completed "
 operator|+
 name|procInfo
 argument_list|)
@@ -1595,7 +1605,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"load procedures maxProcId="
+literal|"Load maxProcId="
 operator|+
 name|maxProcId
 argument_list|)
@@ -1665,7 +1675,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"corrupted procedure: "
+literal|"Corrupt "
 operator|+
 name|proc
 argument_list|)
@@ -1717,7 +1727,7 @@ name|IOException
 block|{
 specifier|final
 name|boolean
-name|isDebugEnabled
+name|debugEnabled
 init|=
 name|LOG
 operator|.
@@ -1790,14 +1800,14 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|isDebugEnabled
+name|debugEnabled
 condition|)
 block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"The procedure is completed: "
+literal|"Completed "
 operator|+
 name|proc
 argument_list|)
@@ -1997,7 +2007,7 @@ name|proc
 assert|;
 if|if
 condition|(
-name|isDebugEnabled
+name|debugEnabled
 condition|)
 block|{
 name|LOG
@@ -2008,7 +2018,7 @@ name|String
 operator|.
 name|format
 argument_list|(
-literal|"Loading procedure state=%s isFailed=%s: %s"
+literal|"Loading state=%s isFailed=%s: %s"
 argument_list|,
 name|proc
 operator|.
@@ -2324,7 +2334,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"corrupted procedure: "
+literal|"Corrupted "
 operator|+
 name|proc
 argument_list|)
@@ -2572,7 +2582,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Starting procedure executor threads="
+literal|"Starting executor threads="
 operator|+
 name|corePoolSize
 argument_list|)
@@ -2672,7 +2682,7 @@ name|String
 operator|.
 name|format
 argument_list|(
-literal|"recover procedure store (%s) lease: %s"
+literal|"Recover store (%s) lease: %s"
 argument_list|,
 name|store
 operator|.
@@ -2731,7 +2741,7 @@ name|String
 operator|.
 name|format
 argument_list|(
-literal|"load procedure store (%s): %s"
+literal|"Load store (%s): %s"
 argument_list|,
 name|store
 operator|.
@@ -2757,7 +2767,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"start workers "
+literal|"Start workers "
 operator|+
 name|workerThreads
 operator|.
@@ -2833,7 +2843,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Stopping the procedure executor"
+literal|"Stopping"
 argument_list|)
 expr_stmt|;
 name|scheduler
@@ -2907,7 +2917,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"thread group "
+literal|"Thread group "
 operator|+
 name|threadGroup
 operator|+
@@ -3297,7 +3307,7 @@ comment|// we found a registered nonce, but the procedure may not have been subm
 comment|// since the client expect the procedure to be submitted, spin here until it is.
 specifier|final
 name|boolean
-name|isTraceEnabled
+name|traceEnabled
 init|=
 name|LOG
 operator|.
@@ -3336,14 +3346,14 @@ condition|)
 block|{
 if|if
 condition|(
-name|isTraceEnabled
+name|traceEnabled
 condition|)
 block|{
 name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"waiting for procId="
+literal|"Waiting for procId="
 operator|+
 name|oldProcId
 operator|.
@@ -3723,11 +3733,9 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Procedure "
+literal|"Stored "
 operator|+
 name|proc
-operator|+
-literal|" added to the store."
 argument_list|)
 expr_stmt|;
 block|}
@@ -3826,7 +3834,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Procedures added to the store: "
+literal|"Stored "
 operator|+
 name|Arrays
 operator|.
@@ -4112,6 +4120,57 @@ argument_list|)
 return|;
 block|}
 specifier|public
+parameter_list|<
+name|T
+extends|extends
+name|Procedure
+parameter_list|>
+name|T
+name|getProcedure
+parameter_list|(
+specifier|final
+name|Class
+argument_list|<
+name|T
+argument_list|>
+name|clazz
+parameter_list|,
+specifier|final
+name|long
+name|procId
+parameter_list|)
+block|{
+specifier|final
+name|Procedure
+name|proc
+init|=
+name|getProcedure
+argument_list|(
+name|procId
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|clazz
+operator|.
+name|isInstance
+argument_list|(
+name|proc
+argument_list|)
+condition|)
+block|{
+return|return
+operator|(
+name|T
+operator|)
+name|proc
+return|;
+block|}
+return|return
+literal|null
+return|;
+block|}
+specifier|public
 name|ProcedureInfo
 name|getResult
 parameter_list|(
@@ -4250,7 +4309,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Procedure procId="
+literal|"procId="
 operator|+
 name|procId
 operator|+
@@ -4630,7 +4689,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"The listener "
+literal|"Listener "
 operator|+
 name|listener
 operator|+
@@ -4698,7 +4757,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"The listener "
+literal|"Listener "
 operator|+
 name|listener
 operator|+
@@ -4766,7 +4825,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"The listener "
+literal|"Listener "
 operator|+
 name|listener
 operator|+
@@ -4878,6 +4937,23 @@ return|return
 name|lastProcId
 operator|.
 name|get
+argument_list|()
+return|;
+block|}
+annotation|@
+name|VisibleForTesting
+specifier|public
+name|Set
+argument_list|<
+name|Long
+argument_list|>
+name|getActiveProcIds
+parameter_list|()
+block|{
+return|return
+name|procedures
+operator|.
+name|keySet
 argument_list|()
 return|;
 block|}
@@ -5125,7 +5201,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Procedure completed in "
+literal|"Completed in "
 operator|+
 name|StringUtils
 operator|.
@@ -5519,7 +5595,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Rolledback procedure "
+literal|"Rolled back "
 operator|+
 name|rootProc
 operator|+
@@ -5591,7 +5667,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"rollback attempt failed for "
+literal|"Roll back attempt failed for "
 operator|+
 name|proc
 argument_list|,
@@ -5887,7 +5963,7 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Yield procedure: "
+literal|"Yield "
 operator|+
 name|procedure
 operator|+
@@ -6529,7 +6605,7 @@ block|}
 comment|// If this procedure is the last child awake the parent procedure
 specifier|final
 name|boolean
-name|isTraceEnabled
+name|traceEnabled
 init|=
 name|LOG
 operator|.
@@ -6538,7 +6614,7 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|isTraceEnabled
+name|traceEnabled
 condition|)
 block|{
 name|LOG
@@ -6595,7 +6671,7 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|isTraceEnabled
+name|traceEnabled
 condition|)
 block|{
 name|LOG
@@ -6654,11 +6730,11 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Store add "
+literal|"Stored "
 operator|+
 name|procedure
 operator|+
-literal|" children "
+literal|", children "
 operator|+
 name|Arrays
 operator|.
@@ -6817,7 +6893,7 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"got an interrupt during "
+literal|"Interrupt during "
 operator|+
 name|proc
 operator|+
@@ -7094,7 +7170,7 @@ parameter_list|()
 block|{
 specifier|final
 name|boolean
-name|isTraceEnabled
+name|traceEnabled
 init|=
 name|LOG
 operator|.
@@ -7166,7 +7242,7 @@ try|try
 block|{
 if|if
 condition|(
-name|isTraceEnabled
+name|traceEnabled
 condition|)
 block|{
 name|LOG
@@ -7219,7 +7295,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"worker thread terminated "
+literal|"Worker thread terminated "
 operator|+
 name|this
 argument_list|)
@@ -7877,7 +7953,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"waiting termination of thread "
+literal|"Waiting termination of thread "
 operator|+
 name|getName
 argument_list|()
@@ -8130,7 +8206,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"found worker stuck "
+literal|"Worker stuck "
 operator|+
 name|worker
 operator|+
@@ -8236,7 +8312,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"added a new worker thread "
+literal|"Added new worker thread "
 operator|+
 name|worker
 argument_list|)

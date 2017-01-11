@@ -121,7 +121,7 @@ name|numWaiters
 decl_stmt|;
 specifier|private
 name|boolean
-name|isLocked
+name|locked
 init|=
 literal|true
 decl_stmt|;
@@ -155,7 +155,7 @@ name|numWaiters
 operator|+
 literal|", isLocked="
 operator|+
-name|isLocked
+name|locked
 return|;
 block|}
 block|}
@@ -229,7 +229,7 @@ if|if
 condition|(
 name|existing
 operator|.
-name|isLocked
+name|locked
 condition|)
 block|{
 operator|++
@@ -242,7 +242,7 @@ while|while
 condition|(
 name|existing
 operator|.
-name|isLocked
+name|locked
 condition|)
 block|{
 try|try
@@ -282,7 +282,7 @@ expr_stmt|;
 comment|// Remove ourselves from waiters.
 name|existing
 operator|.
-name|isLocked
+name|locked
 operator|=
 literal|true
 expr_stmt|;
@@ -315,7 +315,7 @@ init|)
 block|{
 name|entry
 operator|.
-name|isLocked
+name|locked
 operator|=
 literal|false
 expr_stmt|;

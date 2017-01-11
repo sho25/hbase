@@ -1612,11 +1612,11 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"set running procedure count="
+literal|"Set running procedure count="
 operator|+
 name|count
 operator|+
-literal|" slots="
+literal|", slots="
 operator|+
 name|slots
 operator|.
@@ -1760,7 +1760,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"someone else is active and deleted logs. retrying."
+literal|"Someone else is active and deleted logs. retrying."
 argument_list|,
 name|e
 argument_list|)
@@ -1789,7 +1789,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"someone else has already created log "
+literal|"Someone else has already created log "
 operator|+
 name|flushLogId
 argument_list|)
@@ -2154,7 +2154,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"unable to cleanup logs on load: "
+literal|"Unable to cleanup logs on load: "
 operator|+
 name|e
 operator|.

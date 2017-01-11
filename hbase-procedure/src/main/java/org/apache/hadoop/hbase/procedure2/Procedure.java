@@ -585,7 +585,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|" id="
+literal|", procId="
 argument_list|)
 expr_stmt|;
 name|sb
@@ -606,7 +606,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|" parent="
+literal|", parent="
 argument_list|)
 expr_stmt|;
 name|sb
@@ -628,7 +628,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|" owner="
+literal|", owner="
 argument_list|)
 expr_stmt|;
 name|sb
@@ -644,7 +644,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|" state="
+literal|", state="
 argument_list|)
 expr_stmt|;
 name|toStringState
@@ -662,7 +662,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|" failed="
+literal|", failed="
 operator|+
 name|getException
 argument_list|()

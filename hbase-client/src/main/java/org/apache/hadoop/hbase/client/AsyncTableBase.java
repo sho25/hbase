@@ -921,6 +921,12 @@ operator|.
 name|stream
 argument_list|()
 operator|.
+operator|<
+name|CompletableFuture
+argument_list|<
+name|Boolean
+argument_list|>
+operator|>
 name|map
 argument_list|(
 name|f
