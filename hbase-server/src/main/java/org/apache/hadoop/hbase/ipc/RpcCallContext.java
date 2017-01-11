@@ -160,6 +160,17 @@ name|long
 name|blockSize
 parameter_list|)
 function_decl|;
+name|long
+name|getResponseExceptionSize
+parameter_list|()
+function_decl|;
+name|void
+name|incrementResponseExceptionSize
+parameter_list|(
+name|long
+name|exceptionSize
+parameter_list|)
+function_decl|;
 block|}
 end_interface
 
