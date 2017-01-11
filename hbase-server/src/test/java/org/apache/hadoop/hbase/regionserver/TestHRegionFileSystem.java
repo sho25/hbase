@@ -645,13 +645,13 @@ argument_list|,
 name|conf
 argument_list|)
 decl_stmt|;
-comment|// the original block storage policy would be NULL
+comment|// the original block storage policy would be HOT
 name|String
 name|spA
 init|=
 name|regionFs
 operator|.
-name|getStoragePolicy
+name|getStoragePolicyName
 argument_list|(
 name|Bytes
 operator|.
@@ -669,7 +669,7 @@ name|spB
 init|=
 name|regionFs
 operator|.
-name|getStoragePolicy
+name|getStoragePolicyName
 argument_list|(
 name|Bytes
 operator|.
@@ -704,13 +704,17 @@ operator|+
 literal|"]."
 argument_list|)
 expr_stmt|;
-name|assertNull
+name|assertEquals
 argument_list|(
+literal|"HOT"
+argument_list|,
 name|spA
 argument_list|)
 expr_stmt|;
-name|assertNull
+name|assertEquals
 argument_list|(
+literal|"HOT"
+argument_list|,
 name|spB
 argument_list|)
 expr_stmt|;
@@ -731,7 +735,7 @@ name|HStore
 operator|.
 name|BLOCK_STORAGE_POLICY_KEY
 argument_list|,
-literal|"HOT"
+literal|"WARM"
 argument_list|)
 expr_stmt|;
 name|TEST_UTIL
@@ -780,7 +784,7 @@ name|spA
 operator|=
 name|regionFs
 operator|.
-name|getStoragePolicy
+name|getStoragePolicyName
 argument_list|(
 name|Bytes
 operator|.
@@ -797,7 +801,7 @@ name|spB
 operator|=
 name|regionFs
 operator|.
-name|getStoragePolicy
+name|getStoragePolicyName
 argument_list|(
 name|Bytes
 operator|.
@@ -834,14 +838,14 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|"HOT"
+literal|"WARM"
 argument_list|,
 name|spA
 argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|"HOT"
+literal|"WARM"
 argument_list|,
 name|spB
 argument_list|)
@@ -994,7 +998,7 @@ name|spA
 operator|=
 name|regionFs
 operator|.
-name|getStoragePolicy
+name|getStoragePolicyName
 argument_list|(
 name|Bytes
 operator|.
@@ -1011,7 +1015,7 @@ name|spB
 operator|=
 name|regionFs
 operator|.
-name|getStoragePolicy
+name|getStoragePolicyName
 argument_list|(
 name|Bytes
 operator|.
@@ -1262,7 +1266,7 @@ name|getFileSystem
 argument_list|()
 operator|)
 operator|.
-name|getStoragePolicy
+name|getStoragePolicyName
 argument_list|(
 name|storeTempDir
 argument_list|)
@@ -1290,7 +1294,7 @@ name|getFileSystem
 argument_list|()
 operator|)
 operator|.
-name|getStoragePolicy
+name|getStoragePolicyName
 argument_list|(
 name|status
 operator|.
@@ -1339,7 +1343,7 @@ name|spA
 operator|=
 name|regionFs
 operator|.
-name|getStoragePolicy
+name|getStoragePolicyName
 argument_list|(
 name|Bytes
 operator|.
@@ -1356,7 +1360,7 @@ name|spB
 operator|=
 name|regionFs
 operator|.
-name|getStoragePolicy
+name|getStoragePolicyName
 argument_list|(
 name|Bytes
 operator|.

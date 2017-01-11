@@ -1178,6 +1178,15 @@ name|BLOCK_STORAGE_POLICY_KEY
 init|=
 literal|"hbase.hstore.block.storage.policy"
 decl_stmt|;
+comment|// keep in accordance with HDFS default storage policy
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|DEFAULT_BLOCK_STORAGE_POLICY
+init|=
+literal|"HOT"
+decl_stmt|;
 specifier|public
 specifier|static
 specifier|final
@@ -1599,6 +1608,8 @@ operator|.
 name|get
 argument_list|(
 name|BLOCK_STORAGE_POLICY_KEY
+argument_list|,
+name|DEFAULT_BLOCK_STORAGE_POLICY
 argument_list|)
 expr_stmt|;
 block|}
