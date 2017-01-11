@@ -2513,6 +2513,37 @@ name|hasQuota
 argument_list|()
 condition|)
 block|{
+name|SpaceQuota
+name|spaceQuota
+init|=
+name|req
+operator|.
+name|getQuota
+argument_list|()
+decl_stmt|;
+comment|// If we have the remove flag, unset the space quota.
+if|if
+condition|(
+name|spaceQuota
+operator|.
+name|getRemove
+argument_list|()
+condition|)
+block|{
+name|quotas
+operator|.
+name|setSpace
+argument_list|(
+name|SpaceQuota
+operator|.
+name|getDefaultInstance
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+comment|// Otherwise, update the new quota
 name|applySpaceQuota
 argument_list|(
 name|quotas
@@ -2523,6 +2554,7 @@ name|getQuota
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 comment|/**    * Merges the provided {@link SpaceQuota} into the given {@link Quotas} builder.    *    * @param quotas The Quotas builder instance to update    * @param quota The SpaceQuota instance to update from    */

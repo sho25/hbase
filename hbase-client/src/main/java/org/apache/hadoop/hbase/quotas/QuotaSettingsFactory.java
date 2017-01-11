@@ -1411,6 +1411,26 @@ name|violationPolicy
 argument_list|)
 return|;
 block|}
+comment|/**    * Creates a {@link QuotaSettings} object to remove the FileSystem space quota for the given    * table.    *    * @param tableName The name of the table to remove the quota for.    * @return A {@link QuotaSettings} object.    */
+specifier|public
+specifier|static
+name|QuotaSettings
+name|removeTableSpaceLimit
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|)
+block|{
+return|return
+operator|new
+name|SpaceLimitSettings
+argument_list|(
+name|tableName
+argument_list|,
+literal|true
+argument_list|)
+return|;
+block|}
 comment|/**    * Creates a {@link QuotaSettings} object to limit the FileSystem space usage for the given    * namespace to the given size in bytes. When the space usage is exceeded by all tables in the    * namespace, the provided {@link SpaceViolationPolicy} is enacted on all tables in the namespace.    *    * @param namespace The namespace on which the quota should be applied.    * @param sizeLimit The limit of the namespace's size in bytes.    * @param violationPolicy The action to take when the the quota is exceeded.    * @return An {@link QuotaSettings} object.    */
 specifier|public
 specifier|static
@@ -1438,6 +1458,26 @@ argument_list|,
 name|sizeLimit
 argument_list|,
 name|violationPolicy
+argument_list|)
+return|;
+block|}
+comment|/**    * Creates a {@link QuotaSettings} object to remove the FileSystem space quota for the given 	 * namespace.    *    * @param namespace The namespace to remove the quota on.    * @return A {@link QuotaSettings} object.    */
+specifier|public
+specifier|static
+name|QuotaSettings
+name|removeNamespaceSpaceLimit
+parameter_list|(
+name|String
+name|namespace
+parameter_list|)
+block|{
+return|return
+operator|new
+name|SpaceLimitSettings
+argument_list|(
+name|namespace
+argument_list|,
+literal|true
 argument_list|)
 return|;
 block|}
