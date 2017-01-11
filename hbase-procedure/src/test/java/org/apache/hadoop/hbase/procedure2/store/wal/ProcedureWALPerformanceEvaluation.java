@@ -678,7 +678,7 @@ name|delete
 argument_list|(
 name|store
 operator|.
-name|getLogDir
+name|getWALDir
 argument_list|()
 argument_list|,
 literal|true
@@ -703,7 +703,7 @@ literal|"disk space. Location: "
 operator|+
 name|store
 operator|.
-name|getLogDir
+name|getWALDir
 argument_list|()
 operator|.
 name|toString

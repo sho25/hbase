@@ -868,7 +868,7 @@ decl_stmt|;
 specifier|private
 specifier|final
 name|Path
-name|logDir
+name|walDir
 decl_stmt|;
 specifier|private
 specifier|final
@@ -1122,7 +1122,7 @@ name|fs
 parameter_list|,
 specifier|final
 name|Path
-name|logDir
+name|walDir
 parameter_list|,
 specifier|final
 name|LeaseRecovery
@@ -1143,9 +1143,9 @@ name|conf
 expr_stmt|;
 name|this
 operator|.
-name|logDir
+name|walDir
 operator|=
-name|logDir
+name|walDir
 expr_stmt|;
 name|this
 operator|.
@@ -5512,13 +5512,13 @@ comment|//  FileSystem Log Files helpers
 comment|// ==========================================================================
 specifier|public
 name|Path
-name|getLogDir
+name|getWALDir
 parameter_list|()
 block|{
 return|return
 name|this
 operator|.
-name|logDir
+name|walDir
 return|;
 block|}
 specifier|public
@@ -5547,7 +5547,7 @@ return|return
 operator|new
 name|Path
 argument_list|(
-name|logDir
+name|walDir
 argument_list|,
 name|String
 operator|.
@@ -5744,7 +5744,7 @@ name|fs
 operator|.
 name|listStatus
 argument_list|(
-name|logDir
+name|walDir
 argument_list|,
 name|WALS_PATH_FILTER
 argument_list|)

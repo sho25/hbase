@@ -766,6 +766,11 @@ name|Path
 name|hbaseDir
 decl_stmt|;
 specifier|protected
+specifier|static
+name|Path
+name|hbaseWALDir
+decl_stmt|;
+specifier|protected
 name|FileSystem
 name|fs
 decl_stmt|;
@@ -1086,6 +1091,13 @@ operator|.
 name|createRootDir
 argument_list|()
 expr_stmt|;
+name|hbaseWALDir
+operator|=
+name|TEST_UTIL
+operator|.
+name|createWALRootDir
+argument_list|()
+expr_stmt|;
 block|}
 annotation|@
 name|AfterClass
@@ -1174,7 +1186,7 @@ init|=
 operator|new
 name|Path
 argument_list|(
-name|hbaseDir
+name|hbaseWALDir
 argument_list|,
 name|AbstractFSWALProvider
 operator|.
@@ -1193,7 +1205,7 @@ init|=
 operator|new
 name|Path
 argument_list|(
-name|hbaseDir
+name|hbaseWALDir
 argument_list|,
 name|HConstants
 operator|.
@@ -1223,7 +1235,7 @@ name|FSUtils
 operator|.
 name|getTableDir
 argument_list|(
-name|hbaseDir
+name|hbaseWALDir
 argument_list|,
 name|tableName
 argument_list|)
@@ -1632,7 +1644,7 @@ name|WALSplitter
 operator|.
 name|split
 argument_list|(
-name|hbaseDir
+name|hbaseWALDir
 argument_list|,
 name|logdir
 argument_list|,

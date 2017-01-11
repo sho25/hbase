@@ -479,6 +479,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|fs
+operator|.
+name|HFileSystem
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|regionserver
 operator|.
 name|wal
@@ -5244,11 +5260,11 @@ argument_list|)
 expr_stmt|;
 specifier|final
 name|Path
-name|rootDir
+name|walDir
 init|=
 name|FSUtils
 operator|.
-name|getRootDir
+name|getWALRootDir
 argument_list|(
 name|conf
 argument_list|)
@@ -5268,7 +5284,7 @@ init|=
 operator|new
 name|Path
 argument_list|(
-name|rootDir
+name|walDir
 argument_list|,
 name|AbstractFSWALProvider
 operator|.
@@ -5387,7 +5403,7 @@ operator|.
 name|DummyServer
 condition|)
 block|{
-comment|// N.B. the ReplicationSyncUp tool sets the manager.getLogDir to the root of the wal
+comment|// N.B. the ReplicationSyncUp tool sets the manager.getWALDir to the root of the wal
 comment|//      area rather than to the wal area for a particular region server.
 name|FileStatus
 index|[]

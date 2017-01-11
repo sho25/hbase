@@ -133,6 +133,20 @@ end_import
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -491,8 +505,24 @@ name|Nullable
 import|;
 end_import
 
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HConstants
+operator|.
+name|HBASE_DIR
+import|;
+end_import
+
 begin_comment
-comment|/**  * An encapsulation for the FileSystem object that hbase uses to access  * data. This class allows the flexibility of using    * separate filesystem objects for reading and writing hfiles and wals.  * In future, if we want to make wals be in a different filesystem,  * this is the place to make it happen.  */
+comment|/**  * An encapsulation for the FileSystem object that hbase uses to access  * data. This class allows the flexibility of using  * separate filesystem objects for reading and writing hfiles and wals.  */
 end_comment
 
 begin_class
@@ -516,6 +546,15 @@ name|HFileSystem
 operator|.
 name|class
 argument_list|)
+decl_stmt|;
+comment|/** Parameter name for HBase WAL directory */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_WAL_DIR
+init|=
+literal|"hbase.wal.dir"
 decl_stmt|;
 specifier|private
 specifier|final

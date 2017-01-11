@@ -757,7 +757,7 @@ operator|)
 name|masterStore
 operator|)
 operator|.
-name|getLogDir
+name|getWALDir
 argument_list|()
 argument_list|,
 operator|new
@@ -1182,7 +1182,7 @@ operator|)
 name|procStore
 operator|)
 operator|.
-name|getLogDir
+name|getWALDir
 argument_list|()
 argument_list|,
 operator|new

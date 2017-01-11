@@ -539,7 +539,7 @@ operator|.
 name|getMasterFileSystem
 argument_list|()
 operator|.
-name|getFileSystem
+name|getWALFileSystem
 argument_list|()
 argument_list|,
 name|services
@@ -547,7 +547,7 @@ operator|.
 name|getMasterFileSystem
 argument_list|()
 operator|.
-name|getRootDir
+name|getWALRootDir
 argument_list|()
 argument_list|,
 name|services

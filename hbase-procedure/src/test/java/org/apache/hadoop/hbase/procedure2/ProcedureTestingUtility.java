@@ -463,7 +463,7 @@ name|fs
 parameter_list|,
 specifier|final
 name|Path
-name|logDir
+name|walDir
 parameter_list|)
 throws|throws
 name|IOException
@@ -476,7 +476,7 @@ name|conf
 argument_list|,
 name|fs
 argument_list|,
-name|logDir
+name|walDir
 argument_list|,
 operator|new
 name|WALProcedureStore

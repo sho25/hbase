@@ -1460,7 +1460,7 @@ name|pathToLog
 init|=
 name|FSUtils
 operator|.
-name|removeRootPath
+name|removeWALRootPath
 argument_list|(
 name|lf
 operator|.

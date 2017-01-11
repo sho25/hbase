@@ -582,7 +582,7 @@ name|delete
 argument_list|(
 name|store
 operator|.
-name|getLogDir
+name|getWALDir
 argument_list|()
 argument_list|,
 literal|true

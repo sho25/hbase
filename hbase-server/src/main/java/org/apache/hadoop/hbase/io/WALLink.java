@@ -139,7 +139,7 @@ name|this
 argument_list|(
 name|FSUtils
 operator|.
-name|getRootDir
+name|getWALRootDir
 argument_list|(
 name|conf
 argument_list|)
@@ -150,13 +150,13 @@ name|logName
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param rootDir Path to the root directory where hbase files are stored    * @param serverName Region Server owner of the log    * @param logName WAL file name    */
+comment|/**    * @param walRootDir Path to the root directory where hbase files are stored    * @param serverName Region Server owner of the log    * @param logName WAL file name    */
 specifier|public
 name|WALLink
 parameter_list|(
 specifier|final
 name|Path
-name|rootDir
+name|walRootDir
 parameter_list|,
 specifier|final
 name|String
@@ -174,7 +174,7 @@ init|=
 operator|new
 name|Path
 argument_list|(
-name|rootDir
+name|walRootDir
 argument_list|,
 name|HConstants
 operator|.
@@ -191,7 +191,7 @@ argument_list|(
 operator|new
 name|Path
 argument_list|(
-name|rootDir
+name|walRootDir
 argument_list|,
 name|HConstants
 operator|.

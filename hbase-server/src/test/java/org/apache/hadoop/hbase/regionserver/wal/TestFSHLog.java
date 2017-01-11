@@ -469,7 +469,7 @@ name|Path
 name|rootDir
 parameter_list|,
 name|String
-name|logDir
+name|walDir
 parameter_list|,
 name|String
 name|archiveDir
@@ -503,7 +503,7 @@ name|fs
 argument_list|,
 name|rootDir
 argument_list|,
-name|logDir
+name|walDir
 argument_list|,
 name|archiveDir
 argument_list|,
@@ -535,7 +535,7 @@ name|Path
 name|rootDir
 parameter_list|,
 name|String
-name|logDir
+name|walDir
 parameter_list|,
 name|String
 name|archiveDir
@@ -573,7 +573,7 @@ name|fs
 argument_list|,
 name|rootDir
 argument_list|,
-name|logDir
+name|walDir
 argument_list|,
 name|archiveDir
 argument_list|,

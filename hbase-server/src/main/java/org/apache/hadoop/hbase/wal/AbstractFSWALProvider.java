@@ -278,7 +278,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Base class of a WAL Provider that returns a single thread safe WAL that writes to HDFS. By  * default, this implementation picks a directory in HDFS based on a combination of  *<ul>  *<li>the HBase root directory  *<li>HConstants.HREGION_LOGDIR_NAME  *<li>the given factory's factoryId (usually identifying the regionserver by host:port)  *</ul>  * It also uses the providerId to differentiate among files.  */
+comment|/**  * Base class of a WAL Provider that returns a single thread safe WAL that writes to Hadoop FS. By  * default, this implementation picks a directory in Hadoop FS based on a combination of  *<ul>  *<li>the HBase root directory  *<li>HConstants.HREGION_LOGDIR_NAME  *<li>the given factory's factoryId (usually identifying the regionserver by host:port)  *</ul>  * It also uses the providerId to differentiate among files.  */
 end_comment
 
 begin_class
