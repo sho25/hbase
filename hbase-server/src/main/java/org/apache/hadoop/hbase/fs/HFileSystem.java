@@ -1137,6 +1137,14 @@ operator|=
 operator|(
 name|FileSystem
 operator|)
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|util
+operator|.
 name|ReflectionUtils
 operator|.
 name|newInstance
