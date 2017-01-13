@@ -2086,6 +2086,8 @@ argument_list|,
 name|workingDir
 argument_list|,
 name|desc
+argument_list|,
+name|manifestSizeLimit
 argument_list|)
 expr_stmt|;
 block|}
@@ -2469,6 +2471,8 @@ argument_list|,
 name|workingDir
 argument_list|,
 name|desc
+argument_list|,
+name|manifestSizeLimit
 argument_list|)
 expr_stmt|;
 block|}
