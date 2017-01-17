@@ -3051,7 +3051,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before dispatching region merge request.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx coprocessor environment    * @param regionA first region to be merged    * @param regionB second region to be merged    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called before dispatching region merge request.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx coprocessor environment    * @param regionA first region to be merged    * @param regionB second region to be merged    * @throws IOException if an error occurred on the coprocessor    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *   (<a href="https://issues.apache.org/jira/browse/HBASE-">HBASE-</a>).    *   Use {@link #preMergeRegions(ObserverContext, HRegionInfo[])}    */
+annotation|@
+name|Deprecated
 name|void
 name|preDispatchMerge
 parameter_list|(
@@ -3071,7 +3073,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * called after dispatching the region merge request.    * @param c coprocessor environment    * @param regionA first region to be merged    * @param regionB second region to be merged    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * called after dispatching the region merge request.    * @param c coprocessor environment    * @param regionA first region to be merged    * @param regionB second region to be merged    * @throws IOException if an error occurred on the coprocessor    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *   (<a href="https://issues.apache.org/jira/browse/HBASE-">HBASE-</a>).    *   Use {@link #postMergeRegions(ObserverContext, HRegionInfo[])}    */
+annotation|@
+name|Deprecated
 name|void
 name|postDispatchMerge
 parameter_list|(

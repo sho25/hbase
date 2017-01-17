@@ -790,33 +790,6 @@ name|Service
 name|instance
 parameter_list|)
 function_decl|;
-comment|/**    * Merge two regions. The real implementation is on the regionserver, master    * just move the regions together and send MERGE RPC to regionserver    * @param region_a region to merge    * @param region_b region to merge    * @param forcible true if do a compulsory merge, otherwise we will only merge    *          two adjacent regions    * @return procedure Id    * @throws IOException    */
-name|long
-name|dispatchMergingRegions
-parameter_list|(
-specifier|final
-name|HRegionInfo
-name|region_a
-parameter_list|,
-specifier|final
-name|HRegionInfo
-name|region_b
-parameter_list|,
-specifier|final
-name|boolean
-name|forcible
-parameter_list|,
-specifier|final
-name|long
-name|nonceGroup
-parameter_list|,
-specifier|final
-name|long
-name|nonce
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
 comment|/**    * @return true if master is the active one    */
 name|boolean
 name|isActiveMaster
