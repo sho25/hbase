@@ -9245,13 +9245,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Completing compaction..."
-argument_list|)
-expr_stmt|;
 name|this
 operator|.
 name|storeSize

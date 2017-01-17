@@ -390,13 +390,6 @@ argument_list|)
 expr_stmt|;
 name|fsck
 operator|.
-name|setFixTableLocks
-argument_list|(
-name|fixTableLocks
-argument_list|)
-expr_stmt|;
-name|fsck
-operator|.
 name|setFixReplication
 argument_list|(
 name|fixReplication

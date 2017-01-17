@@ -1476,7 +1476,6 @@ name|ServiceDescriptor
 name|getDescriptorForType
 parameter_list|()
 block|{
-comment|// TODO Auto-generated method stub
 return|return
 literal|null
 return|;

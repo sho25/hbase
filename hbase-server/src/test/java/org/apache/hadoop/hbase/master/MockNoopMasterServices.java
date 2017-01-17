@@ -1256,17 +1256,6 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|TableLockManager
-name|getTableLockManager
-parameter_list|()
-block|{
-return|return
-literal|null
-return|;
-block|}
-annotation|@
-name|Override
-specifier|public
 name|TableStateManager
 name|getTableStateManager
 parameter_list|()

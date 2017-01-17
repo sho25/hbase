@@ -1545,24 +1545,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
-operator|.
-name|hbck
-operator|.
-name|TableLockChecker
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|wal
 operator|.
 name|WAL
@@ -2085,13 +2067,6 @@ init|=
 literal|false
 decl_stmt|;
 comment|// fix (remove) empty REGIONINFO_QUALIFIER rows
-specifier|private
-name|boolean
-name|fixTableLocks
-init|=
-literal|false
-decl_stmt|;
-comment|// fix table locks which are expired
 specifier|private
 name|boolean
 name|fixReplication
@@ -4261,9 +4236,6 @@ name|checkRegionBoundaries
 argument_list|()
 expr_stmt|;
 block|}
-name|checkAndFixTableLocks
-argument_list|()
-expr_stmt|;
 name|checkAndFixReplication
 argument_list|()
 expr_stmt|;
@@ -8171,7 +8143,7 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * Removes the empty Meta recovery WAL directory.    * @param walFactoryID A unique identifier for WAL factory which was used by Filesystem to make a    *          Meta recovery WAL directory inside WAL directory path.    */
+comment|/**    * Removes the empty Meta recovery WAL directory.    * @param walFactoryId A unique identifier for WAL factory which was used by Filesystem to make a    *          Meta recovery WAL directory inside WAL directory path.    */
 specifier|private
 name|void
 name|removeHBCKMetaRecoveryWALDir
@@ -17703,43 +17675,6 @@ return|;
 block|}
 specifier|private
 name|void
-name|checkAndFixTableLocks
-parameter_list|()
-throws|throws
-name|IOException
-block|{
-name|TableLockChecker
-name|checker
-init|=
-operator|new
-name|TableLockChecker
-argument_list|(
-name|zkw
-argument_list|,
-name|errors
-argument_list|)
-decl_stmt|;
-name|checker
-operator|.
-name|checkTableLocks
-argument_list|()
-expr_stmt|;
-if|if
-condition|(
-name|this
-operator|.
-name|fixTableLocks
-condition|)
-block|{
-name|checker
-operator|.
-name|fixExpiredTableLocks
-argument_list|()
-expr_stmt|;
-block|}
-block|}
-specifier|private
-name|void
 name|checkAndFixReplication
 parameter_list|()
 throws|throws
@@ -22375,24 +22310,6 @@ operator|=
 literal|true
 expr_stmt|;
 block|}
-comment|/**    * Set table locks fix mode.    * Delete table locks held for a long time    */
-specifier|public
-name|void
-name|setFixTableLocks
-parameter_list|(
-name|boolean
-name|shouldFix
-parameter_list|)
-block|{
-name|fixTableLocks
-operator|=
-name|shouldFix
-expr_stmt|;
-name|fixAny
-operator||=
-name|shouldFix
-expr_stmt|;
-block|}
 comment|/**    * Set replication fix mode.    */
 specifier|public
 name|void
@@ -23262,7 +23179,7 @@ name|println
 argument_list|(
 literal|"   -repair           Shortcut for -fixAssignments -fixMeta -fixHdfsHoles "
 operator|+
-literal|"-fixHdfsOrphans -fixHdfsOverlaps -fixVersionFile -sidelineBigOverlaps -fixReferenceFiles -fixTableLocks"
+literal|"-fixHdfsOrphans -fixHdfsOverlaps -fixVersionFile -sidelineBigOverlaps -fixReferenceFiles"
 argument_list|)
 expr_stmt|;
 name|out
@@ -23270,27 +23187,6 @@ operator|.
 name|println
 argument_list|(
 literal|"   -repairHoles      Shortcut for -fixAssignments -fixMeta -fixHdfsHoles"
-argument_list|)
-expr_stmt|;
-name|out
-operator|.
-name|println
-argument_list|(
-literal|""
-argument_list|)
-expr_stmt|;
-name|out
-operator|.
-name|println
-argument_list|(
-literal|"  Table lock options"
-argument_list|)
-expr_stmt|;
-name|out
-operator|.
-name|println
-argument_list|(
-literal|"   -fixTableLocks    Deletes table locks held for a long time (hbase.table.lock.expire.ms, 10min by default)"
 argument_list|)
 expr_stmt|;
 name|out
@@ -24169,11 +24065,6 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
-name|setFixTableLocks
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
 block|}
 elseif|else
 if|if
@@ -24445,23 +24336,6 @@ condition|)
 block|{
 name|setRegionBoundariesCheck
 argument_list|()
-expr_stmt|;
-block|}
-elseif|else
-if|if
-condition|(
-name|cmd
-operator|.
-name|equals
-argument_list|(
-literal|"-fixTableLocks"
-argument_list|)
-condition|)
-block|{
-name|setFixTableLocks
-argument_list|(
-literal|true
-argument_list|)
 expr_stmt|;
 block|}
 elseif|else

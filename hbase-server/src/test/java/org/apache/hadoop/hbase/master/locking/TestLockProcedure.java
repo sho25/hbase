@@ -239,22 +239,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|master
-operator|.
-name|TableLockManager
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|procedure2
 operator|.
 name|Procedure
@@ -847,17 +831,6 @@ operator|.
 name|LOCAL_MASTER_LOCKS_TIMEOUT_MS_CONF
 argument_list|,
 name|LOCAL_LOCKS_TIMEOUT
-argument_list|)
-expr_stmt|;
-name|conf
-operator|.
-name|setInt
-argument_list|(
-name|TableLockManager
-operator|.
-name|TABLE_LOCK_EXPIRE_TIMEOUT
-argument_list|,
-name|ZK_EXPIRATION
 argument_list|)
 expr_stmt|;
 block|}
@@ -2789,33 +2762,6 @@ argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
-comment|// Remove zk lock node otherwise recovered lock will keep waiting on it. Remove
-comment|// both exclusive and non-exclusive (the table shared lock that the region takes).
-comment|// Have to pause to let the locks 'expire' up in zk. See above configs where we
-comment|// set explict zk timeout on locks.
-name|Thread
-operator|.
-name|sleep
-argument_list|(
-name|ZK_EXPIRATION
-operator|+
-name|HEARTBEAT_TIMEOUT
-argument_list|)
-expr_stmt|;
-name|UTIL
-operator|.
-name|getMiniHBaseCluster
-argument_list|()
-operator|.
-name|getMaster
-argument_list|()
-operator|.
-name|getTableLockManager
-argument_list|()
-operator|.
-name|reapAllExpiredLocks
-argument_list|()
-expr_stmt|;
 name|ProcedureTestingUtility
 operator|.
 name|restart
@@ -3135,20 +3081,6 @@ literal|false
 argument_list|)
 expr_stmt|;
 comment|// remove zk lock node otherwise recovered lock will keep waiting on it.
-name|UTIL
-operator|.
-name|getMiniHBaseCluster
-argument_list|()
-operator|.
-name|getMaster
-argument_list|()
-operator|.
-name|getTableLockManager
-argument_list|()
-operator|.
-name|reapWriteLocks
-argument_list|()
-expr_stmt|;
 name|ProcedureTestingUtility
 operator|.
 name|restart

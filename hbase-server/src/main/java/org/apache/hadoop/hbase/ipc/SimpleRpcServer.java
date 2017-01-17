@@ -6766,6 +6766,7 @@ name|service
 operator|==
 literal|null
 condition|)
+block|{
 throw|throw
 operator|new
 name|UnknownServiceException
@@ -6773,6 +6774,7 @@ argument_list|(
 name|serviceName
 argument_list|)
 throw|;
+block|}
 name|setupCellBlockCodecs
 argument_list|(
 name|this

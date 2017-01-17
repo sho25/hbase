@@ -1104,11 +1104,6 @@ name|MetricsAssignmentManager
 name|metricsAssignmentManager
 decl_stmt|;
 specifier|private
-specifier|final
-name|TableLockManager
-name|tableLockManager
-decl_stmt|;
-specifier|private
 name|AtomicInteger
 name|numRegionsOpened
 init|=
@@ -1347,7 +1342,7 @@ operator|.
 name|RetryConfig
 name|retryConfig
 decl_stmt|;
-comment|/**    * Constructs a new assignment manager.    *    * @param server instance of HMaster this AM running inside    * @param serverManager serverManager for associated HMaster    * @param balancer implementation of {@link LoadBalancer}    * @param service Executor service    * @param metricsMaster metrics manager    * @param tableLockManager TableLock manager    * @throws IOException    */
+comment|/**    * Constructs a new assignment manager.    *    * @param server instance of HMaster this AM running inside    * @param serverManager serverManager for associated HMaster    * @param balancer implementation of {@link LoadBalancer}    * @param service Executor service    * @param metricsMaster metrics manager    * @throws IOException    */
 specifier|public
 name|AssignmentManager
 parameter_list|(
@@ -1367,10 +1362,6 @@ name|service
 parameter_list|,
 name|MetricsMaster
 name|metricsMaster
-parameter_list|,
-specifier|final
-name|TableLockManager
-name|tableLockManager
 parameter_list|,
 specifier|final
 name|TableStateManager
@@ -1628,12 +1619,6 @@ operator|=
 operator|new
 name|MetricsAssignmentManager
 argument_list|()
-expr_stmt|;
-name|this
-operator|.
-name|tableLockManager
-operator|=
-name|tableLockManager
 expr_stmt|;
 comment|// Configurations for retrying opening a region on receiving a FAILED_OPEN
 name|this

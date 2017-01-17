@@ -3677,11 +3677,13 @@ name|currentProcId
 operator|!=
 literal|null
 argument_list|,
-literal|"expected nonceKey="
+literal|"Expected nonceKey="
 operator|+
 name|nonceKey
 operator|+
-literal|" to be reserved, use registerNonce()"
+literal|" to be reserved, use registerNonce(); proc="
+operator|+
+name|proc
 argument_list|)
 expr_stmt|;
 block|}

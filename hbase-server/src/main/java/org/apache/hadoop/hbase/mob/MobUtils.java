@@ -597,7 +597,7 @@ name|hbase
 operator|.
 name|master
 operator|.
-name|TableLockManager
+name|HMaster
 import|;
 end_import
 
@@ -613,9 +613,9 @@ name|hbase
 operator|.
 name|master
 operator|.
-name|TableLockManager
+name|locking
 operator|.
-name|TableLock
+name|LockManager
 import|;
 end_import
 
@@ -3203,7 +3203,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Performs the mob compaction.    * @param conf the Configuration    * @param fs the file system    * @param tableName the table the compact    * @param hcd the column descriptor    * @param pool the thread pool    * @param tableLockManager the tableLock manager    * @param allFiles Whether add all mob files into the compaction.    */
+comment|/**    * Performs the mob compaction.    * @param conf the Configuration    * @param fs the file system    * @param tableName the table the compact    * @param hcd the column descriptor    * @param pool the thread pool    * @param allFiles Whether add all mob files into the compaction.    */
 specifier|public
 specifier|static
 name|void
@@ -3224,11 +3224,13 @@ parameter_list|,
 name|ExecutorService
 name|pool
 parameter_list|,
-name|TableLockManager
-name|tableLockManager
-parameter_list|,
 name|boolean
 name|allFiles
+parameter_list|,
+name|LockManager
+operator|.
+name|MasterLock
+name|lock
 parameter_list|)
 throws|throws
 name|IOException
@@ -3333,51 +3335,12 @@ block|}
 comment|// compact only for mob-enabled column.
 comment|// obtain a write table lock before performing compaction to avoid race condition
 comment|// with major compaction in mob-enabled column.
-name|boolean
-name|tableLocked
-init|=
-literal|false
-decl_stmt|;
-name|TableLock
-name|lock
-init|=
-literal|null
-decl_stmt|;
 try|try
 block|{
-comment|// the tableLockManager might be null in testing. In that case, it is lock-free.
-if|if
-condition|(
-name|tableLockManager
-operator|!=
-literal|null
-condition|)
-block|{
-name|lock
-operator|=
-name|tableLockManager
-operator|.
-name|writeLock
-argument_list|(
-name|MobUtils
-operator|.
-name|getTableLockName
-argument_list|(
-name|tableName
-argument_list|)
-argument_list|,
-literal|"Run MobCompactor"
-argument_list|)
-expr_stmt|;
 name|lock
 operator|.
 name|acquire
 argument_list|()
-expr_stmt|;
-block|}
-name|tableLocked
-operator|=
-literal|true
 expr_stmt|;
 name|compactor
 operator|.
@@ -3417,45 +3380,11 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-if|if
-condition|(
-name|lock
-operator|!=
-literal|null
-operator|&&
-name|tableLocked
-condition|)
-block|{
-try|try
-block|{
 name|lock
 operator|.
 name|release
 argument_list|()
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Failed to release the write lock for the table "
-operator|+
-name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-block|}
-block|}
 block|}
 block|}
 comment|/**    * Creates a thread pool.    * @param conf the Configuration    * @return A thread pool.    */

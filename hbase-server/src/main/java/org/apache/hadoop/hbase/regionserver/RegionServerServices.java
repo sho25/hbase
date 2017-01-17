@@ -93,6 +93,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|Abortable
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseInterfaceAudience
 import|;
 end_import
@@ -167,6 +181,24 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|locking
+operator|.
+name|EntityLock
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|executor
 operator|.
 name|ExecutorService
@@ -186,22 +218,6 @@ operator|.
 name|ipc
 operator|.
 name|RpcServerInterface
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|master
-operator|.
-name|TableLockManager
 import|;
 end_import
 
@@ -367,11 +383,6 @@ function_decl|;
 comment|/**    * @return the RegionServerAccounting for this Region Server    */
 name|RegionServerAccounting
 name|getRegionServerAccounting
-parameter_list|()
-function_decl|;
-comment|/**    * @return RegionServer's instance of {@link TableLockManager}    */
-name|TableLockManager
-name|getTableLockManager
 parameter_list|()
 function_decl|;
 comment|/**    * @return RegionServer's instance of {@link RegionServerQuotaManager}    */
@@ -734,6 +745,25 @@ comment|/**    * @return the metrics tracker for the region server    */
 name|MetricsRegionServer
 name|getMetrics
 parameter_list|()
+function_decl|;
+comment|/**    * Master based locks on namespaces/tables/regions.    */
+name|EntityLock
+name|regionLock
+parameter_list|(
+name|List
+argument_list|<
+name|HRegionInfo
+argument_list|>
+name|regionInfos
+parameter_list|,
+name|String
+name|description
+parameter_list|,
+name|Abortable
+name|abort
+parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
 block|}
 end_interface

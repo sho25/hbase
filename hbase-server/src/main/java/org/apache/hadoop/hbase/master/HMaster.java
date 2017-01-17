@@ -4318,10 +4318,6 @@ name|this
 operator|.
 name|metricsMaster
 argument_list|,
-name|this
-operator|.
-name|tableLockManager
-argument_list|,
 name|tableStateManager
 argument_list|)
 expr_stmt|;
@@ -4700,14 +4696,6 @@ name|createServerManager
 argument_list|(
 name|this
 argument_list|)
-expr_stmt|;
-comment|// Invalidate all write locks held previously
-name|this
-operator|.
-name|tableLockManager
-operator|.
-name|reapWriteLocks
-argument_list|()
 expr_stmt|;
 name|this
 operator|.
@@ -15217,8 +15205,6 @@ argument_list|,
 name|tableName
 argument_list|,
 name|columns
-argument_list|,
-name|tableLockManager
 argument_list|,
 name|allFiles
 argument_list|)

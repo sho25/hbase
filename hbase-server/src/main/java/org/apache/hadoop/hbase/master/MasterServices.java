@@ -460,11 +460,6 @@ name|ExecutorService
 name|getExecutorService
 parameter_list|()
 function_decl|;
-comment|/**    * @return Master's instance of {@link TableLockManager}    */
-name|TableLockManager
-name|getTableLockManager
-parameter_list|()
-function_decl|;
 comment|/**    * @return Master's instance of {@link TableStateManager}    */
 name|TableStateManager
 name|getTableStateManager
