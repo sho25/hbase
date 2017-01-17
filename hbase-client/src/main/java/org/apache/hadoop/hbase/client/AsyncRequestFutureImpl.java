@@ -269,6 +269,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HRegionInfo
 import|;
 end_import
@@ -3102,6 +3116,8 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|// run all the runnables
+comment|// HBASE-17475: Do not reuse the thread after stack reach a certain depth to prevent stack overflow
+comment|// for now, we use HConstants.DEFAULT_HBASE_CLIENT_RETRIES_NUMBER to control the depth
 for|for
 control|(
 name|Runnable
@@ -3120,6 +3136,14 @@ literal|0
 operator|)
 operator|&&
 name|reuseThread
+operator|&&
+name|numAttempt
+operator|%
+name|HConstants
+operator|.
+name|DEFAULT_HBASE_CLIENT_RETRIES_NUMBER
+operator|!=
+literal|0
 condition|)
 block|{
 name|runnable
