@@ -33,6 +33,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Collections
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|HashMap
 import|;
 end_import
@@ -471,6 +481,27 @@ argument_list|(
 name|MasterQuotaManager
 operator|.
 name|class
+argument_list|)
+decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|Map
+argument_list|<
+name|HRegionInfo
+argument_list|,
+name|Long
+argument_list|>
+name|EMPTY_MAP
+init|=
+name|Collections
+operator|.
+name|unmodifiableMap
+argument_list|(
+operator|new
+name|HashMap
+argument_list|<>
+argument_list|()
 argument_list|)
 decl_stmt|;
 specifier|private
@@ -2825,7 +2856,16 @@ name|long
 name|size
 parameter_list|)
 block|{
-comment|// TODO Make proper API
+if|if
+condition|(
+literal|null
+operator|==
+name|regionSizes
+condition|)
+block|{
+return|return;
+block|}
+comment|// TODO Make proper API?
 comment|// TODO Prevent from growing indefinitely
 name|regionSizes
 operator|.
@@ -2847,7 +2887,18 @@ argument_list|>
 name|snapshotRegionSizes
 parameter_list|()
 block|{
-comment|// TODO Make proper API
+if|if
+condition|(
+literal|null
+operator|==
+name|regionSizes
+condition|)
+block|{
+return|return
+name|EMPTY_MAP
+return|;
+block|}
+comment|// TODO Make proper API?
 return|return
 operator|new
 name|HashMap

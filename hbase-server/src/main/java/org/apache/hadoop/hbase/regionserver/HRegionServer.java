@@ -1399,6 +1399,22 @@ name|hbase
 operator|.
 name|quotas
 operator|.
+name|QuotaUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|quotas
+operator|.
 name|RegionServerRpcQuotaManager
 import|;
 end_import
@@ -5571,6 +5587,16 @@ argument_list|(
 name|this
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|QuotaUtil
+operator|.
+name|isQuotaEnabled
+argument_list|(
+name|conf
+argument_list|)
+condition|)
+block|{
 name|this
 operator|.
 name|fsUtilizationChore
@@ -5581,6 +5607,7 @@ argument_list|(
 name|this
 argument_list|)
 expr_stmt|;
+block|}
 comment|// Setup RPC client for master communication
 name|rpcClient
 operator|=
