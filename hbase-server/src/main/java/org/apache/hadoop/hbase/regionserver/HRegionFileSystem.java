@@ -243,6 +243,20 @@ name|hadoop
 operator|.
 name|fs
 operator|.
+name|LocalFileSystem
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|fs
+operator|.
 name|LocatedFileStatus
 import|;
 end_import
@@ -971,6 +985,18 @@ name|Exception
 name|e
 parameter_list|)
 block|{
+if|if
+condition|(
+operator|!
+operator|(
+name|this
+operator|.
+name|fs
+operator|instanceof
+name|LocalFileSystem
+operator|)
+condition|)
+block|{
 name|LOG
 operator|.
 name|warn
@@ -988,6 +1014,7 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 comment|/**    * Get the storage policy of the directory of CF.    * @param familyName The name of column family.    * @return Storage policy name, or {@code null} if not using {@link HFileSystem} or exception    *         thrown when trying to get policy    */
