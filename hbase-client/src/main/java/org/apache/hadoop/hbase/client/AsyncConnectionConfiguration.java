@@ -421,6 +421,13 @@ specifier|final
 name|long
 name|operationTimeoutNs
 decl_stmt|;
+comment|// timeout for each rpc request. Can be overridden by a more specific config, such as
+comment|// readRpcTimeout or writeRpcTimeout.
+specifier|private
+specifier|final
+name|long
+name|rpcTimeoutNs
+decl_stmt|;
 comment|// timeout for each read rpc request
 specifier|private
 specifier|final
@@ -521,6 +528,26 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
+name|rpcTimeoutNs
+operator|=
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+operator|.
+name|toNanos
+argument_list|(
+name|conf
+operator|.
+name|getLong
+argument_list|(
+name|HBASE_RPC_TIMEOUT_KEY
+argument_list|,
+name|DEFAULT_HBASE_RPC_TIMEOUT
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
 name|readRpcTimeoutNs
 operator|=
 name|TimeUnit
@@ -535,14 +562,7 @@ name|getLong
 argument_list|(
 name|HBASE_RPC_READ_TIMEOUT_KEY
 argument_list|,
-name|conf
-operator|.
-name|getLong
-argument_list|(
-name|HBASE_RPC_TIMEOUT_KEY
-argument_list|,
-name|DEFAULT_HBASE_RPC_TIMEOUT
-argument_list|)
+name|rpcTimeoutNs
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -562,14 +582,7 @@ name|getLong
 argument_list|(
 name|HBASE_RPC_WRITE_TIMEOUT_KEY
 argument_list|,
-name|conf
-operator|.
-name|getLong
-argument_list|(
-name|HBASE_RPC_TIMEOUT_KEY
-argument_list|,
-name|DEFAULT_HBASE_RPC_TIMEOUT
-argument_list|)
+name|rpcTimeoutNs
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -684,6 +697,14 @@ parameter_list|()
 block|{
 return|return
 name|operationTimeoutNs
+return|;
+block|}
+name|long
+name|getRpcTimeoutNs
+parameter_list|()
+block|{
+return|return
+name|rpcTimeoutNs
 return|;
 block|}
 name|long

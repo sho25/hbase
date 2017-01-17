@@ -131,17 +131,66 @@ name|TableName
 name|tableName
 parameter_list|)
 function_decl|;
-comment|/**    * Retrieve an RawAsyncTable implementation for accessing a table. The returned Table is not    * thread safe, a new instance should be created for each using thread. This is a lightweight    * operation, pooling or caching of the returned AsyncTable is neither required nor desired.    *<p>    * This method no longer checks table existence. An exception will be thrown if the table does not    * exist only when the first operation is attempted.    * @param tableName the name of the table    * @return an RawAsyncTable to use for interactions with this table    */
+comment|/**    * Retrieve an {@link RawAsyncTable} implementation for accessing a table.    *<p>    * The returned instance will use default configs. Use {@link #getRawTableBuilder(TableName)} if you    * want to customize some configs.    *<p>    * This method no longer checks table existence. An exception will be thrown if the table does not    * exist only when the first operation is attempted.    * @param tableName the name of the table    * @return an RawAsyncTable to use for interactions with this table    * @see #getRawTableBuilder(TableName)    */
+specifier|default
 name|RawAsyncTable
 name|getRawTable
 parameter_list|(
 name|TableName
 name|tableName
 parameter_list|)
+block|{
+return|return
+name|getRawTableBuilder
+argument_list|(
+name|tableName
+argument_list|)
+operator|.
+name|build
+argument_list|()
+return|;
+block|}
+comment|/**    * Returns an {@link AsyncTableBuilder} for creating {@link RawAsyncTable}.    *<p>    * This method no longer checks table existence. An exception will be thrown if the table does not    * exist only when the first operation is attempted.    * @param tableName the name of the table    */
+name|AsyncTableBuilder
+argument_list|<
+name|RawAsyncTable
+argument_list|>
+name|getRawTableBuilder
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|)
 function_decl|;
-comment|/**    * Retrieve an AsyncTable implementation for accessing a table. The returned Table is not thread    * safe, a new instance should be created for each using thread. This is a lightweight operation,    * pooling or caching of the returned AsyncTable is neither required nor desired.    *<p>    * This method no longer checks table existence. An exception will be thrown if the table does not    * exist only when the first operation is attempted.    * @param tableName the name of the table    * @param pool the thread pool to use for executing callback    * @return an AsyncTable to use for interactions with this table    */
+comment|/**    * Retrieve an AsyncTable implementation for accessing a table.    *<p>    * This method no longer checks table existence. An exception will be thrown if the table does not    * exist only when the first operation is attempted.    * @param tableName the name of the table    * @param pool the thread pool to use for executing callback    * @return an AsyncTable to use for interactions with this table    */
+specifier|default
 name|AsyncTable
 name|getTable
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|,
+name|ExecutorService
+name|pool
+parameter_list|)
+block|{
+return|return
+name|getTableBuilder
+argument_list|(
+name|tableName
+argument_list|,
+name|pool
+argument_list|)
+operator|.
+name|build
+argument_list|()
+return|;
+block|}
+comment|/**    * Returns an {@link AsyncTableBuilder} for creating {@link AsyncTable}.    *<p>    * This method no longer checks table existence. An exception will be thrown if the table does not    * exist only when the first operation is attempted.    * @param tableName the name of the table    * @param pool the thread pool to use for executing callback    */
+name|AsyncTableBuilder
+argument_list|<
+name|AsyncTable
+argument_list|>
+name|getTableBuilder
 parameter_list|(
 name|TableName
 name|tableName

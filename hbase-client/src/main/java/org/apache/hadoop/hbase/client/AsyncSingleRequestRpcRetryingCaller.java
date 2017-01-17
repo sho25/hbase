@@ -85,24 +85,6 @@ name|client
 operator|.
 name|ConnectionUtils
 operator|.
-name|retries2Attempts
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|ConnectionUtils
-operator|.
 name|translateException
 import|;
 end_import
@@ -527,7 +509,7 @@ name|long
 name|pauseNs
 parameter_list|,
 name|int
-name|maxRetries
+name|maxAttempts
 parameter_list|,
 name|long
 name|operationTimeoutNs
@@ -585,10 +567,7 @@ name|this
 operator|.
 name|maxAttempts
 operator|=
-name|retries2Attempts
-argument_list|(
-name|maxRetries
-argument_list|)
+name|maxAttempts
 expr_stmt|;
 name|this
 operator|.

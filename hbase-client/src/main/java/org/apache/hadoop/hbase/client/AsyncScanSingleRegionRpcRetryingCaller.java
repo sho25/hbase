@@ -681,7 +681,7 @@ name|long
 name|pauseNs
 parameter_list|,
 name|int
-name|maxRetries
+name|maxAttempts
 parameter_list|,
 name|long
 name|scanTimeoutNs
@@ -745,10 +745,7 @@ name|this
 operator|.
 name|maxAttempts
 operator|=
-name|retries2Attempts
-argument_list|(
-name|maxRetries
-argument_list|)
+name|maxAttempts
 expr_stmt|;
 name|this
 operator|.

@@ -450,6 +450,10 @@ block|{
 if|if
 condition|(
 name|error
+operator|!=
+literal|null
+operator|&&
+name|error
 operator|.
 name|getClass
 argument_list|()
