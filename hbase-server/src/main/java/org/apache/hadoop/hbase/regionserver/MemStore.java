@@ -187,12 +187,12 @@ name|MemstoreSize
 name|size
 parameter_list|()
 function_decl|;
-comment|/**    * This method is called when it is clear that the flush to disk is completed.    * The store may do any post-flush actions at this point.    * One example is to update the wal with sequence number that is known only at the store level.    */
-name|void
-name|finalizeFlush
+comment|/**    * This method is called before the flush is executed.    * @return an estimation (lower bound) of the unflushed sequence id in memstore after the flush    * is executed. if memstore will be cleared returns {@code HConstants.NO_SEQNUM}.    */
+name|long
+name|preFlushSeqIDEstimation
 parameter_list|()
 function_decl|;
-comment|/* Return true if the memstore may need some extra memory space*/
+comment|/* Return true if the memstore may use some extra memory space*/
 name|boolean
 name|isSloppy
 parameter_list|()

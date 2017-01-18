@@ -373,6 +373,24 @@ argument_list|>
 name|families
 parameter_list|)
 function_decl|;
+name|Long
+name|startCacheFlush
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|encodedRegionName
+parameter_list|,
+name|Map
+argument_list|<
+name|byte
+index|[]
+argument_list|,
+name|Long
+argument_list|>
+name|familyToSeq
+parameter_list|)
+function_decl|;
 comment|/**    * Complete the cache flush.    * @param encodedRegionName Encoded region name.    * @see #startCacheFlush(byte[], Set)    * @see #abortCacheFlush(byte[])    */
 name|void
 name|completeCacheFlush
