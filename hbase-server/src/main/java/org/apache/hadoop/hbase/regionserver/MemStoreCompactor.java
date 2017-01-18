@@ -216,8 +216,9 @@ specifier|final
 name|int
 name|THRESHOLD_PIPELINE_SEGMENTS
 init|=
-literal|1
+literal|30
 decl_stmt|;
+comment|// stands here for infinity
 specifier|private
 specifier|static
 specifier|final
