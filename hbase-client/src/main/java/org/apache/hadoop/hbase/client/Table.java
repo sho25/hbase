@@ -289,7 +289,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Method that does a batch call on Deletes, Gets, Puts, Increments and Appends.    * The ordering of execution of the actions is not defined. Meaning if you do a Put and a    * Get in the same {@link #batch} call, you will not necessarily be    * guaranteed that the Get returns what the Put had put.    *    * @param actions list of Get, Put, Delete, Increment, Append objects    * @param results Empty Object[], same size as actions. Provides access to partial    *                results, in case an exception is thrown. A null in the result array means that    *                the call for that action failed, even after retries    * @throws IOException    * @since 0.90.0    */
+comment|/**    * Method that does a batch call on Deletes, Gets, Puts, Increments and Appends.    * The ordering of execution of the actions is not defined. Meaning if you do a Put and a    * Get in the same {@link #batch} call, you will not necessarily be    * guaranteed that the Get returns what the Put had put.    *    * @param actions list of Get, Put, Delete, Increment, Append objects    * @param results Empty Object[], same size as actions. Provides access to partial    *                results, in case an exception is thrown. A null in the result array means that    *                the call for that action failed, even after retries. The order of the objects    *                in the results array corresponds to the order of actions in the request list.    * @throws IOException    * @since 0.90.0    */
 name|void
 name|batch
 parameter_list|(
@@ -357,7 +357,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Extracts certain cells from the given rows, in batch.    *    * @param gets The objects that specify what data to fetch and from which rows.    * @return The data coming from the specified rows, if it exists.  If the row specified doesn't    * exist, the {@link Result} instance returned won't contain any {@link    * org.apache.hadoop.hbase.KeyValue}, as indicated by {@link Result#isEmpty()}. If there are any    * failures even after retries, there will be a null in the results array for those Gets, AND an    * exception will be thrown.    * @throws IOException if a remote or network exception occurs.    * @since 0.90.0    */
+comment|/**    * Extracts certain cells from the given rows, in batch.    *    * @param gets The objects that specify what data to fetch and from which rows.    * @return The data coming from the specified rows, if it exists.  If the row specified doesn't    * exist, the {@link Result} instance returned won't contain any {@link    * org.apache.hadoop.hbase.KeyValue}, as indicated by {@link Result#isEmpty()}. If there are any    * failures even after retries, there will be a null in the results array for those Gets, AND an    * exception will be thrown. The ordering of the Result array corresponds to the order of the    * list of Get requests.    * @throws IOException if a remote or network exception occurs.    * @since 0.90.0    */
 name|Result
 index|[]
 name|get
