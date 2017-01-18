@@ -16567,6 +16567,8 @@ operator|==
 name|Durability
 operator|.
 name|SKIP_WAL
+operator|||
+name|mvccPreAssign
 decl_stmt|;
 if|if
 condition|(
