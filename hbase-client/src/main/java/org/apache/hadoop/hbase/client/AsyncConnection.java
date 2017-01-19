@@ -199,6 +199,11 @@ name|ExecutorService
 name|pool
 parameter_list|)
 function_decl|;
+comment|/**    * Retrieve an AsyncAdmin implementation to administer an HBase cluster. The returned AsyncAdmin    * is not guaranteed to be thread-safe. A new instance should be created for each using thread.    * This is a lightweight operation. Pooling or caching of the returned AsyncAdmin is not    * recommended.    * @return an AsyncAdmin instance for cluster administration    */
+name|AsyncAdmin
+name|getAdmin
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 
