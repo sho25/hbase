@@ -49,6 +49,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -88,6 +102,18 @@ specifier|public
 interface|interface
 name|AsyncAdmin
 block|{
+comment|/**    * @param tableName Table to check.    * @return True if table exists already. The return value will be wrapped by a    *         {@link CompletableFuture}.    */
+name|CompletableFuture
+argument_list|<
+name|Boolean
+argument_list|>
+name|tableExists
+parameter_list|(
+specifier|final
+name|TableName
+name|tableName
+parameter_list|)
+function_decl|;
 comment|/**    * Turn the load balancer on or off.    * @param on    * @return Previous balancer value wrapped by a {@link CompletableFuture}.    */
 name|CompletableFuture
 argument_list|<
