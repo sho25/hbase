@@ -680,17 +680,6 @@ name|getMasterCoprocessorHost
 argument_list|()
 return|;
 block|}
-annotation|@
-name|Deprecated
-specifier|public
-name|MasterProcedureScheduler
-name|getProcedureQueue
-parameter_list|()
-block|{
-return|return
-name|procSched
-return|;
-block|}
 specifier|public
 name|MasterProcedureScheduler
 name|getProcedureScheduler

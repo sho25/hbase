@@ -1520,7 +1520,7 @@ block|}
 annotation|@
 name|Override
 specifier|protected
-name|boolean
+name|LockState
 name|acquireLock
 parameter_list|(
 specifier|final
@@ -1583,9 +1583,28 @@ name|currentTimeMillis
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 return|return
-name|ret
+name|LockState
+operator|.
+name|LOCK_ACQUIRED
+return|;
+block|}
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Failed acquire LOCK "
+operator|+
+name|toString
+argument_list|()
+operator|+
+literal|"; YIELDING"
+argument_list|)
+expr_stmt|;
+return|return
+name|LockState
+operator|.
+name|LOCK_EVENT_WAIT
 return|;
 block|}
 annotation|@
@@ -2109,13 +2128,16 @@ name|MasterProcedureEnv
 name|env
 parameter_list|)
 block|{
+comment|// We invert return from waitNamespaceExclusiveLock; it returns true if you HAVE TO WAIT
+comment|// to get the lock and false if you don't; i.e. you got the lock.
 return|return
+operator|!
 name|env
 operator|.
 name|getProcedureScheduler
 argument_list|()
 operator|.
-name|tryAcquireTableExclusiveLock
+name|waitTableExclusiveLock
 argument_list|(
 name|LockProcedure
 operator|.
@@ -2141,7 +2163,7 @@ operator|.
 name|getProcedureScheduler
 argument_list|()
 operator|.
-name|releaseTableExclusiveLock
+name|wakeTableExclusiveLock
 argument_list|(
 name|LockProcedure
 operator|.
@@ -2169,13 +2191,16 @@ name|MasterProcedureEnv
 name|env
 parameter_list|)
 block|{
+comment|// We invert return from waitNamespaceExclusiveLock; it returns true if you HAVE TO WAIT
+comment|// to get the lock and false if you don't; i.e. you got the lock.
 return|return
+operator|!
 name|env
 operator|.
 name|getProcedureScheduler
 argument_list|()
 operator|.
-name|tryAcquireTableSharedLock
+name|waitTableSharedLock
 argument_list|(
 name|LockProcedure
 operator|.
@@ -2201,7 +2226,7 @@ operator|.
 name|getProcedureScheduler
 argument_list|()
 operator|.
-name|releaseTableSharedLock
+name|wakeTableSharedLock
 argument_list|(
 name|LockProcedure
 operator|.
@@ -2229,13 +2254,16 @@ name|MasterProcedureEnv
 name|env
 parameter_list|)
 block|{
+comment|// We invert return from waitNamespaceExclusiveLock; it returns true if you HAVE TO WAIT
+comment|// to get the lock and false if you don't; i.e. you got the lock.
 return|return
+operator|!
 name|env
 operator|.
 name|getProcedureScheduler
 argument_list|()
 operator|.
-name|tryAcquireNamespaceExclusiveLock
+name|waitNamespaceExclusiveLock
 argument_list|(
 name|LockProcedure
 operator|.
@@ -2261,7 +2289,7 @@ operator|.
 name|getProcedureScheduler
 argument_list|()
 operator|.
-name|releaseNamespaceExclusiveLock
+name|wakeNamespaceExclusiveLock
 argument_list|(
 name|LockProcedure
 operator|.
@@ -2289,6 +2317,8 @@ name|MasterProcedureEnv
 name|env
 parameter_list|)
 block|{
+comment|// We invert return from waitNamespaceExclusiveLock; it returns true if you HAVE TO WAIT
+comment|// to get the lock and false if you don't; i.e. you got the lock.
 return|return
 operator|!
 name|env

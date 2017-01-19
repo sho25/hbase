@@ -485,17 +485,6 @@ argument_list|()
 decl_stmt|;
 specifier|private
 specifier|static
-specifier|final
-name|Configuration
-name|conf
-init|=
-name|UTIL
-operator|.
-name|getConfiguration
-argument_list|()
-decl_stmt|;
-specifier|private
-specifier|static
 name|MasterServices
 name|masterServices
 decl_stmt|;

@@ -20,6 +20,42 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertFalse
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -92,20 +128,6 @@ operator|.
 name|hbase
 operator|.
 name|HBaseConfiguration
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HBaseTestingUtility
 import|;
 end_import
 
@@ -276,42 +298,6 @@ operator|.
 name|categories
 operator|.
 name|Category
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertEquals
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertFalse
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertTrue
 import|;
 end_import
 
@@ -601,7 +587,7 @@ argument_list|()
 decl_stmt|;
 name|queue
 operator|.
-name|tryAcquireTableExclusiveLock
+name|waitTableExclusiveLock
 argument_list|(
 name|proc
 argument_list|,
@@ -610,7 +596,7 @@ argument_list|)
 expr_stmt|;
 name|queue
 operator|.
-name|releaseTableExclusiveLock
+name|wakeTableExclusiveLock
 argument_list|(
 name|proc
 argument_list|,
@@ -817,11 +803,13 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// take the xlock
-name|assertTrue
+name|assertEquals
 argument_list|(
+literal|false
+argument_list|,
 name|queue
 operator|.
-name|tryAcquireTableExclusiveLock
+name|waitTableExclusiveLock
 argument_list|(
 name|proc
 argument_list|,
@@ -855,7 +843,7 @@ expr_stmt|;
 comment|// release the xlock
 name|queue
 operator|.
-name|releaseTableExclusiveLock
+name|wakeTableExclusiveLock
 argument_list|(
 name|proc
 argument_list|,
@@ -1021,11 +1009,13 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// take the rlock
-name|assertTrue
+name|assertEquals
 argument_list|(
+literal|false
+argument_list|,
 name|queue
 operator|.
-name|tryAcquireTableSharedLock
+name|waitTableSharedLock
 argument_list|(
 name|proc
 argument_list|,
@@ -1078,7 +1068,7 @@ expr_stmt|;
 comment|// release the rlock
 name|queue
 operator|.
-name|releaseTableSharedLock
+name|wakeTableSharedLock
 argument_list|(
 name|procs
 index|[
@@ -1250,11 +1240,11 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|true
+literal|false
 argument_list|,
 name|queue
 operator|.
-name|tryAcquireTableExclusiveLock
+name|waitTableExclusiveLock
 argument_list|(
 name|proc
 argument_list|,
@@ -1278,7 +1268,7 @@ expr_stmt|;
 comment|// Release the write lock and acquire the read lock
 name|queue
 operator|.
-name|releaseTableExclusiveLock
+name|wakeTableExclusiveLock
 argument_list|(
 name|proc
 argument_list|,
@@ -1306,11 +1296,11 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|true
+literal|false
 argument_list|,
 name|queue
 operator|.
-name|tryAcquireTableSharedLock
+name|waitTableSharedLock
 argument_list|(
 name|rdProc
 argument_list|,
@@ -1334,7 +1324,7 @@ expr_stmt|;
 comment|// release the rdlock of item 2 and take the wrlock for the 3d item
 name|queue
 operator|.
-name|releaseTableSharedLock
+name|wakeTableSharedLock
 argument_list|(
 name|rdProc
 argument_list|,
@@ -1352,11 +1342,11 @@ argument_list|()
 decl_stmt|;
 name|assertEquals
 argument_list|(
-literal|true
+literal|false
 argument_list|,
 name|queue
 operator|.
-name|tryAcquireTableExclusiveLock
+name|waitTableExclusiveLock
 argument_list|(
 name|wrProc
 argument_list|,
@@ -1380,7 +1370,7 @@ expr_stmt|;
 comment|// Release the write lock and acquire the read lock
 name|queue
 operator|.
-name|releaseTableExclusiveLock
+name|wakeTableExclusiveLock
 argument_list|(
 name|wrProc
 argument_list|,
@@ -1407,11 +1397,11 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|true
+literal|false
 argument_list|,
 name|queue
 operator|.
-name|tryAcquireTableSharedLock
+name|waitTableSharedLock
 argument_list|(
 name|rdProc
 argument_list|,
@@ -1440,11 +1430,11 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|true
+literal|false
 argument_list|,
 name|queue
 operator|.
-name|tryAcquireTableSharedLock
+name|waitTableSharedLock
 argument_list|(
 name|rdProc2
 argument_list|,
@@ -1455,7 +1445,7 @@ expr_stmt|;
 comment|// Release 4th and 5th read-lock
 name|queue
 operator|.
-name|releaseTableSharedLock
+name|wakeTableSharedLock
 argument_list|(
 name|rdProc
 argument_list|,
@@ -1464,7 +1454,7 @@ argument_list|)
 expr_stmt|;
 name|queue
 operator|.
-name|releaseTableSharedLock
+name|wakeTableSharedLock
 argument_list|(
 name|rdProc2
 argument_list|,
@@ -1637,11 +1627,11 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|true
+literal|false
 argument_list|,
 name|queue
 operator|.
-name|tryAcquireNamespaceExclusiveLock
+name|waitNamespaceExclusiveLock
 argument_list|(
 name|procNs1
 argument_list|,
@@ -1670,11 +1660,11 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|true
+literal|false
 argument_list|,
 name|queue
 operator|.
-name|tryAcquireNamespaceExclusiveLock
+name|waitNamespaceExclusiveLock
 argument_list|(
 name|procNs2
 argument_list|,
@@ -1684,13 +1674,14 @@ argument_list|)
 expr_stmt|;
 name|queue
 operator|.
-name|releaseNamespaceExclusiveLock
+name|wakeNamespaceExclusiveLock
 argument_list|(
 name|procNs2
 argument_list|,
 name|nsName2
 argument_list|)
 expr_stmt|;
+comment|// add procNs2 back in the queue
 name|queue
 operator|.
 name|yield
@@ -1718,11 +1709,11 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|true
+literal|false
 argument_list|,
 name|queue
 operator|.
-name|tryAcquireTableExclusiveLock
+name|waitTableExclusiveLock
 argument_list|(
 name|procNs2
 argument_list|,
@@ -1751,11 +1742,11 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|false
+literal|true
 argument_list|,
 name|queue
 operator|.
-name|tryAcquireNamespaceExclusiveLock
+name|waitNamespaceExclusiveLock
 argument_list|(
 name|procNs2b
 argument_list|,
@@ -1763,17 +1754,10 @@ name|nsName2
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|queue
-operator|.
-name|yield
-argument_list|(
-name|procNs2b
-argument_list|)
-expr_stmt|;
 comment|// release the ns1 lock
 name|queue
 operator|.
-name|releaseNamespaceExclusiveLock
+name|wakeNamespaceExclusiveLock
 argument_list|(
 name|procNs1
 argument_list|,
@@ -1799,9 +1783,10 @@ argument_list|,
 name|procId
 argument_list|)
 expr_stmt|;
+comment|// release ns2
 name|queue
 operator|.
-name|releaseTableExclusiveLock
+name|wakeTableExclusiveLock
 argument_list|(
 name|procNs2
 argument_list|,
@@ -1912,11 +1897,11 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|true
+literal|false
 argument_list|,
 name|queue
 operator|.
-name|tryAcquireNamespaceExclusiveLock
+name|waitNamespaceExclusiveLock
 argument_list|(
 name|proc
 argument_list|,
@@ -1940,7 +1925,7 @@ expr_stmt|;
 comment|// release the ns lock
 name|queue
 operator|.
-name|releaseNamespaceExclusiveLock
+name|wakeNamespaceExclusiveLock
 argument_list|(
 name|proc
 argument_list|,
@@ -1966,11 +1951,11 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|true
+literal|false
 argument_list|,
 name|queue
 operator|.
-name|tryAcquireTableExclusiveLock
+name|waitTableExclusiveLock
 argument_list|(
 name|proc
 argument_list|,
@@ -1980,114 +1965,9 @@ argument_list|)
 expr_stmt|;
 name|queue
 operator|.
-name|releaseTableExclusiveLock
+name|wakeTableExclusiveLock
 argument_list|(
 name|proc
-argument_list|,
-name|tableName
-argument_list|)
-expr_stmt|;
-block|}
-annotation|@
-name|Test
-specifier|public
-name|void
-name|testSharedLock
-parameter_list|()
-throws|throws
-name|Exception
-block|{
-specifier|final
-name|HBaseTestingUtility
-name|TEST_UTIL
-init|=
-operator|new
-name|HBaseTestingUtility
-argument_list|()
-decl_stmt|;
-specifier|final
-name|TableName
-name|tableName
-init|=
-name|TableName
-operator|.
-name|valueOf
-argument_list|(
-literal|"testtb"
-argument_list|)
-decl_stmt|;
-name|TestTableProcedure
-name|procA
-init|=
-operator|new
-name|TestTableProcedure
-argument_list|(
-literal|1
-argument_list|,
-name|tableName
-argument_list|,
-name|TableProcedureInterface
-operator|.
-name|TableOperationType
-operator|.
-name|READ
-argument_list|)
-decl_stmt|;
-name|TestTableProcedure
-name|procB
-init|=
-operator|new
-name|TestTableProcedure
-argument_list|(
-literal|2
-argument_list|,
-name|tableName
-argument_list|,
-name|TableProcedureInterface
-operator|.
-name|TableOperationType
-operator|.
-name|READ
-argument_list|)
-decl_stmt|;
-name|assertTrue
-argument_list|(
-name|queue
-operator|.
-name|tryAcquireTableSharedLock
-argument_list|(
-name|procA
-argument_list|,
-name|tableName
-argument_list|)
-argument_list|)
-expr_stmt|;
-name|assertTrue
-argument_list|(
-name|queue
-operator|.
-name|tryAcquireTableSharedLock
-argument_list|(
-name|procB
-argument_list|,
-name|tableName
-argument_list|)
-argument_list|)
-expr_stmt|;
-name|queue
-operator|.
-name|releaseTableSharedLock
-argument_list|(
-name|procA
-argument_list|,
-name|tableName
-argument_list|)
-expr_stmt|;
-name|queue
-operator|.
-name|releaseTableSharedLock
-argument_list|(
-name|procB
 argument_list|,
 name|tableName
 argument_list|)
@@ -2272,11 +2152,11 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|true
+literal|false
 argument_list|,
 name|queue
 operator|.
-name|tryAcquireTableExclusiveLock
+name|waitTableExclusiveLock
 argument_list|(
 name|proc
 argument_list|,
@@ -2300,7 +2180,7 @@ expr_stmt|;
 comment|// release the table xlock
 name|queue
 operator|.
-name|releaseTableExclusiveLock
+name|wakeTableExclusiveLock
 argument_list|(
 name|proc
 argument_list|,
@@ -2580,11 +2460,11 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|true
+literal|false
 argument_list|,
 name|queue
 operator|.
-name|tryAcquireTableExclusiveLock
+name|waitTableExclusiveLock
 argument_list|(
 name|proc
 argument_list|,
@@ -2608,7 +2488,7 @@ expr_stmt|;
 comment|// release the table lock
 name|queue
 operator|.
-name|releaseTableExclusiveLock
+name|wakeTableExclusiveLock
 argument_list|(
 name|proc
 argument_list|,
@@ -3021,11 +2901,11 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|true
+literal|false
 argument_list|,
 name|queue
 operator|.
-name|tryAcquireTableExclusiveLock
+name|waitTableExclusiveLock
 argument_list|(
 name|rootProc
 argument_list|,
@@ -3297,7 +3177,7 @@ expr_stmt|;
 comment|// release the table lock (for the root procedure)
 name|queue
 operator|.
-name|releaseTableExclusiveLock
+name|wakeTableExclusiveLock
 argument_list|(
 name|rootProc
 argument_list|,
@@ -4098,11 +3978,13 @@ argument_list|,
 name|parentProc
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
+literal|false
+argument_list|,
 name|queue
 operator|.
-name|tryAcquireTableExclusiveLock
+name|waitTableExclusiveLock
 argument_list|(
 name|parentProc
 argument_list|,
@@ -4247,7 +4129,7 @@ expr_stmt|;
 comment|// release xlock
 name|queue
 operator|.
-name|releaseTableExclusiveLock
+name|wakeTableExclusiveLock
 argument_list|(
 name|parentProc
 argument_list|,
@@ -4273,11 +4155,13 @@ name|getProcId
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
+literal|false
+argument_list|,
 name|queue
 operator|.
-name|tryAcquireTableExclusiveLock
+name|waitTableExclusiveLock
 argument_list|(
 name|proc
 argument_list|,
@@ -4287,7 +4171,7 @@ argument_list|)
 expr_stmt|;
 name|queue
 operator|.
-name|releaseTableExclusiveLock
+name|wakeTableExclusiveLock
 argument_list|(
 name|proc
 argument_list|,
@@ -4452,11 +4336,13 @@ argument_list|,
 name|parentProc
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
+literal|false
+argument_list|,
 name|queue
 operator|.
-name|tryAcquireTableExclusiveLock
+name|waitTableExclusiveLock
 argument_list|(
 name|parentProc
 argument_list|,
@@ -4488,11 +4374,13 @@ argument_list|,
 name|proc
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
+literal|false
+argument_list|,
 name|queue
 operator|.
-name|tryAcquireTableExclusiveLock
+name|waitTableExclusiveLock
 argument_list|(
 name|proc
 argument_list|,
@@ -4502,7 +4390,7 @@ argument_list|)
 expr_stmt|;
 name|queue
 operator|.
-name|releaseTableExclusiveLock
+name|wakeTableExclusiveLock
 argument_list|(
 name|proc
 argument_list|,
@@ -4512,7 +4400,7 @@ expr_stmt|;
 comment|// release xlock
 name|queue
 operator|.
-name|releaseTableExclusiveLock
+name|wakeTableExclusiveLock
 argument_list|(
 name|parentProc
 argument_list|,
@@ -4599,11 +4487,11 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|true
+literal|false
 argument_list|,
 name|queue
 operator|.
-name|tryAcquireTableExclusiveLock
+name|waitTableExclusiveLock
 argument_list|(
 name|proc
 argument_list|,
@@ -4653,7 +4541,7 @@ expr_stmt|;
 comment|// release the xlock
 name|queue
 operator|.
-name|releaseTableExclusiveLock
+name|wakeTableExclusiveLock
 argument_list|(
 name|proc
 argument_list|,
@@ -4776,11 +4664,11 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|true
+literal|false
 argument_list|,
 name|queue
 operator|.
-name|tryAcquireTableSharedLock
+name|waitTableSharedLock
 argument_list|(
 name|proc1
 argument_list|,
@@ -4809,11 +4697,11 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|true
+literal|false
 argument_list|,
 name|queue
 operator|.
-name|tryAcquireTableSharedLock
+name|waitTableSharedLock
 argument_list|(
 name|proc2
 argument_list|,
@@ -4887,7 +4775,7 @@ expr_stmt|;
 comment|// release the xlock
 name|queue
 operator|.
-name|releaseTableSharedLock
+name|wakeTableSharedLock
 argument_list|(
 name|proc1
 argument_list|,
@@ -4896,7 +4784,7 @@ argument_list|)
 expr_stmt|;
 name|queue
 operator|.
-name|releaseTableSharedLock
+name|wakeTableSharedLock
 argument_list|(
 name|proc2
 argument_list|,

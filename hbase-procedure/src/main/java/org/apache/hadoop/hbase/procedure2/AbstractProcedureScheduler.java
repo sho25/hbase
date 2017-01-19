@@ -976,11 +976,6 @@ name|Procedure
 name|procedure
 parameter_list|)
 block|{
-name|procedure
-operator|.
-name|suspend
-argument_list|()
-expr_stmt|;
 name|event
 operator|.
 name|suspendProcedure
@@ -998,11 +993,6 @@ name|Procedure
 name|procedure
 parameter_list|)
 block|{
-name|procedure
-operator|.
-name|resume
-argument_list|()
-expr_stmt|;
 name|push
 argument_list|(
 name|procedure

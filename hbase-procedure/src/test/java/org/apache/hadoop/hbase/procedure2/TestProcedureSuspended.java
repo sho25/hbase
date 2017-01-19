@@ -1342,7 +1342,7 @@ block|}
 annotation|@
 name|Override
 specifier|protected
-name|boolean
+name|LockState
 name|acquireLock
 parameter_list|(
 specifier|final
@@ -1381,9 +1381,16 @@ name|hasLock
 operator|)
 argument_list|)
 expr_stmt|;
+return|return
+name|LockState
+operator|.
+name|LOCK_ACQUIRED
+return|;
 block|}
 return|return
-name|hasLock
+name|LockState
+operator|.
+name|LOCK_YIELD_WAIT
 return|;
 block|}
 annotation|@

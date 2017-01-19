@@ -20,6 +20,18 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
 import|import
 name|org
 operator|.
@@ -85,7 +97,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
+name|HColumnDescriptor
 import|;
 end_import
 
@@ -114,20 +126,6 @@ operator|.
 name|hbase
 operator|.
 name|HTableDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HColumnDescriptor
 import|;
 end_import
 
@@ -360,30 +358,6 @@ operator|.
 name|categories
 operator|.
 name|Category
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertEquals
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertTrue
 import|;
 end_import
 
@@ -988,7 +962,7 @@ operator|.
 name|getEnvironment
 argument_list|()
 operator|.
-name|getProcedureQueue
+name|getProcedureScheduler
 argument_list|()
 decl_stmt|;
 specifier|final

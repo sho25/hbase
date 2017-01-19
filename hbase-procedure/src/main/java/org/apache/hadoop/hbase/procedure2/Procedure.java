@@ -262,7 +262,7 @@ init|=
 operator|-
 literal|1
 decl_stmt|;
-specifier|public
+specifier|protected
 specifier|static
 specifier|final
 name|int
@@ -271,6 +271,20 @@ init|=
 operator|-
 literal|1
 decl_stmt|;
+specifier|public
+enum|enum
+name|LockState
+block|{
+name|LOCK_ACQUIRED
+block|,
+comment|// lock acquired and ready to execute
+name|LOCK_YIELD_WAIT
+block|,
+comment|// lock not acquired, framework needs to yield
+name|LOCK_EVENT_WAIT
+block|,
+comment|// lock not acquired, an event will yield the procedure
+block|}
 comment|// unchanged after initialization
 specifier|private
 name|NonceKey
@@ -354,13 +368,6 @@ name|result
 init|=
 literal|null
 decl_stmt|;
-comment|// TODO: it will be nice having pointers to allow the scheduler doing suspend/resume tricks
-specifier|private
-name|boolean
-name|suspended
-init|=
-literal|false
-decl_stmt|;
 comment|/**    * The main code of the procedure. It must be idempotent since execute()    * may be called multiple time in case of machine failure in the middle    * of the execution.    * @param env the environment passed to the ProcedureExecutor    * @return a set of sub-procedures or null if there is nothing else to execute.    * @throws ProcedureYieldException the procedure will be added back to the queue and retried later    * @throws InterruptedException the procedure will be added back to the queue and retried later    */
 specifier|protected
 specifier|abstract
@@ -428,9 +435,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * The user should override this method, and try to take a lock if necessary.    * A lock can be anything, and it is up to the implementor.    * Example: in our Master we can execute request in parallel for different tables    *          create t1 and create t2 can be executed at the same time.    *          anything else on t1/t2 is queued waiting that specific table create to happen.    *    * @return true if the lock was acquired and false otherwise    */
+comment|/**    * The user should override this method, and try to take a lock if necessary.    * A lock can be anything, and it is up to the implementor.    *    *<p>Example: in our Master we can execute request in parallel for different tables.    * We can create t1 and create t2 and this can be executed at the same time.    * Anything else on t1/t2 is queued waiting that specific table create to happen.    *    *<p>There are 3 LockState:    *<ul><li>LOCK_ACQUIRED should be returned when the proc has the lock and the proc is    * ready to execute.</li>    *<li>LOCK_YIELD_WAIT should be returned when the proc has not the lock and the framework    * should take care of readding the procedure back to the runnable set for retry</li>    *<li>LOCK_EVENT_WAIT should be returned when the proc has not the lock and someone will    * take care of readding the procedure back to the runnable set when the lock is available.    *</li></ul>    * @return the lock state as described above.    */
 specifier|protected
-name|boolean
+name|LockState
 name|acquireLock
 parameter_list|(
 specifier|final
@@ -439,7 +446,9 @@ name|env
 parameter_list|)
 block|{
 return|return
-literal|true
+name|LockState
+operator|.
+name|LOCK_ACQUIRED
 return|;
 block|}
 comment|/**    * The user should override this method, and release lock if necessary.    */
@@ -806,20 +815,6 @@ name|getState
 argument_list|()
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|isSuspended
-argument_list|()
-condition|)
-block|{
-name|builder
-operator|.
-name|append
-argument_list|(
-literal|"|SUSPENDED"
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 comment|/**    * Extend the toString() information with the procedure details    * e.g. className and parameters    * @param builder the string builder to use to append the proc specific information    */
 specifier|protected
@@ -1268,49 +1263,6 @@ comment|//  The ProcedureExecutor may check and set states, or some Procecedure 
 comment|//  update its own state. but no concurrent updates. we use synchronized here
 comment|//  just because the procedure can get scheduled on different executor threads on each step.
 comment|// ==============================================================================================
-comment|/**    * @return true if the procedure is in a suspended state,    *         waiting for the resources required to execute the procedure will become available.    */
-specifier|public
-specifier|synchronized
-name|boolean
-name|isSuspended
-parameter_list|()
-block|{
-return|return
-name|suspended
-return|;
-block|}
-specifier|public
-specifier|synchronized
-name|void
-name|suspend
-parameter_list|()
-block|{
-name|suspended
-operator|=
-literal|true
-expr_stmt|;
-block|}
-specifier|public
-specifier|synchronized
-name|void
-name|resume
-parameter_list|()
-block|{
-assert|assert
-name|isSuspended
-argument_list|()
-operator|:
-name|this
-operator|+
-literal|" expected suspended state, got "
-operator|+
-name|state
-assert|;
-name|suspended
-operator|=
-literal|false
-expr_stmt|;
-block|}
 comment|/**    * @return true if the procedure is in a RUNNABLE state.    */
 specifier|protected
 specifier|synchronized
@@ -2030,7 +1982,7 @@ name|InterfaceAudience
 operator|.
 name|Private
 specifier|protected
-name|boolean
+name|LockState
 name|doAcquireLock
 parameter_list|(
 specifier|final

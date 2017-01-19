@@ -6442,7 +6442,7 @@ name|procedureStore
 argument_list|,
 name|procEnv
 operator|.
-name|getProcedureQueue
+name|getProcedureScheduler
 argument_list|()
 argument_list|)
 expr_stmt|;
