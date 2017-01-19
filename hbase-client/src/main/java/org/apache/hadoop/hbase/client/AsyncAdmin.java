@@ -21,9 +21,11 @@ begin_import
 import|import
 name|java
 operator|.
-name|io
+name|util
 operator|.
-name|IOException
+name|concurrent
+operator|.
+name|CompletableFuture
 import|;
 end_import
 
@@ -33,9 +35,37 @@ name|java
 operator|.
 name|util
 operator|.
-name|concurrent
+name|regex
 operator|.
-name|CompletableFuture
+name|Pattern
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HTableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|TableName
 import|;
 end_import
 
@@ -102,6 +132,88 @@ specifier|public
 interface|interface
 name|AsyncAdmin
 block|{
+comment|/**    * List all the userspace tables.    * @return - returns an array of HTableDescriptors wrapped by a {@link CompletableFuture}.    * @see #listTables(Pattern, boolean)    */
+name|CompletableFuture
+argument_list|<
+name|HTableDescriptor
+index|[]
+argument_list|>
+name|listTables
+parameter_list|()
+function_decl|;
+comment|/**    * List all the tables matching the given pattern.    * @param regex The regular expression to match against    * @param includeSysTables False to match only against userspace tables    * @return - returns an array of HTableDescriptors wrapped by a {@link CompletableFuture}.    * @see #listTables(Pattern, boolean)    */
+name|CompletableFuture
+argument_list|<
+name|HTableDescriptor
+index|[]
+argument_list|>
+name|listTables
+parameter_list|(
+name|String
+name|regex
+parameter_list|,
+name|boolean
+name|includeSysTables
+parameter_list|)
+function_decl|;
+comment|/**    * List all the tables matching the given pattern.    * @param pattern The compiled regular expression to match against    * @param includeSysTables False to match only against userspace tables    * @return - returns an array of HTableDescriptors wrapped by a {@link CompletableFuture}.    */
+name|CompletableFuture
+argument_list|<
+name|HTableDescriptor
+index|[]
+argument_list|>
+name|listTables
+parameter_list|(
+name|Pattern
+name|pattern
+parameter_list|,
+name|boolean
+name|includeSysTables
+parameter_list|)
+function_decl|;
+comment|/**    * List all of the names of userspace tables.    * @return TableName[] an array of table names wrapped by a {@link CompletableFuture}.    * @see #listTableNames(Pattern, boolean)    */
+name|CompletableFuture
+argument_list|<
+name|TableName
+index|[]
+argument_list|>
+name|listTableNames
+parameter_list|()
+function_decl|;
+comment|/**    * List all of the names of userspace tables.    * @param regex The regular expression to match against    * @param includeSysTables False to match only against userspace tables    * @return TableName[] an array of table names wrapped by a {@link CompletableFuture}.    * @see #listTableNames(Pattern, boolean)    */
+name|CompletableFuture
+argument_list|<
+name|TableName
+index|[]
+argument_list|>
+name|listTableNames
+parameter_list|(
+specifier|final
+name|String
+name|regex
+parameter_list|,
+specifier|final
+name|boolean
+name|includeSysTables
+parameter_list|)
+function_decl|;
+comment|/**    * List all of the names of userspace tables.    * @param pattern The regular expression to match against    * @param includeSysTables False to match only against userspace tables    * @return TableName[] an array of table names wrapped by a {@link CompletableFuture}.    */
+name|CompletableFuture
+argument_list|<
+name|TableName
+index|[]
+argument_list|>
+name|listTableNames
+parameter_list|(
+specifier|final
+name|Pattern
+name|pattern
+parameter_list|,
+specifier|final
+name|boolean
+name|includeSysTables
+parameter_list|)
+function_decl|;
 comment|/**    * @param tableName Table to check.    * @return True if table exists already. The return value will be wrapped by a    *         {@link CompletableFuture}.    */
 name|CompletableFuture
 argument_list|<
@@ -125,8 +237,6 @@ specifier|final
 name|boolean
 name|on
 parameter_list|)
-throws|throws
-name|IOException
 function_decl|;
 comment|/**    * Invoke the balancer. Will run the balancer and if regions to move, it will go ahead and do the    * reassignments. Can NOT run for various reasons. Check logs.    * @return True if balancer ran, false otherwise. The return value will be wrapped by a    *         {@link CompletableFuture}.    */
 name|CompletableFuture
@@ -135,8 +245,6 @@ name|Boolean
 argument_list|>
 name|balancer
 parameter_list|()
-throws|throws
-name|IOException
 function_decl|;
 comment|/**    * Invoke the balancer. Will run the balancer and if regions to move, it will go ahead and do the    * reassignments. If there is region in transition, force parameter of true would still run    * balancer. Can *not* run for other reasons. Check logs.    * @param force whether we should force balance even if there is region in transition.    * @return True if balancer ran, false otherwise. The return value will be wrapped by a    *         {@link CompletableFuture}.    */
 name|CompletableFuture
@@ -148,8 +256,6 @@ parameter_list|(
 name|boolean
 name|force
 parameter_list|)
-throws|throws
-name|IOException
 function_decl|;
 comment|/**    * Query the current state of the balancer.    * @return true if the balancer is enabled, false otherwise.    *         The return value will be wrapped by a {@link CompletableFuture}.    */
 name|CompletableFuture
@@ -158,8 +264,6 @@ name|Boolean
 argument_list|>
 name|isBalancerEnabled
 parameter_list|()
-throws|throws
-name|IOException
 function_decl|;
 block|}
 end_interface
