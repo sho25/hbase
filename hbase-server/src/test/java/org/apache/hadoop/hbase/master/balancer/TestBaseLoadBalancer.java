@@ -2894,6 +2894,19 @@ literal|2
 argument_list|)
 argument_list|)
 expr_stmt|;
+comment|// check that the numMaxRegionsPerTable for "table" has increased to 2
+name|assertEquals
+argument_list|(
+literal|2
+argument_list|,
+name|cluster
+operator|.
+name|numMaxRegionsPerTable
+index|[
+literal|0
+index|]
+argument_list|)
+expr_stmt|;
 comment|// now repeat check whether moving region1 from servers[1] to servers[2]
 comment|// would lower availability
 name|assertTrue
