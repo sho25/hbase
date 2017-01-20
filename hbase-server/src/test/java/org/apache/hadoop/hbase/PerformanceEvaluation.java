@@ -12678,6 +12678,23 @@ literal|"Number of clients must be> 0"
 argument_list|)
 throw|;
 block|}
+comment|// cmdName should not be null, print help and exit
+if|if
+condition|(
+name|opts
+operator|.
+name|cmdName
+operator|==
+literal|null
+condition|)
+block|{
+name|printUsage
+argument_list|()
+expr_stmt|;
+return|return
+name|errCode
+return|;
+block|}
 name|Class
 argument_list|<
 name|?
