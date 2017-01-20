@@ -2530,7 +2530,12 @@ name|ArrayList
 argument_list|<
 name|Filter
 argument_list|>
+argument_list|(
+name|filters
+operator|.
+name|size
 argument_list|()
+argument_list|)
 decl_stmt|;
 for|for
 control|(

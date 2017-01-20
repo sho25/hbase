@@ -14593,10 +14593,8 @@ literal|null
 operator|||
 name|tableNameList
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 condition|)
 block|{
 comment|// request for all TableDescriptors

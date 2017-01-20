@@ -5080,7 +5080,17 @@ name|ArrayList
 argument_list|<
 name|String
 argument_list|>
+argument_list|(
+name|this
+operator|.
+name|values
+operator|.
+name|entrySet
 argument_list|()
+operator|.
+name|size
+argument_list|()
+argument_list|)
 decl_stmt|;
 name|Matcher
 name|keyMatcher

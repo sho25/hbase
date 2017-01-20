@@ -285,7 +285,11 @@ argument_list|<
 name|String
 index|[]
 argument_list|>
-argument_list|()
+argument_list|(
+name|options
+operator|.
+name|length
+argument_list|)
 decl_stmt|;
 for|for
 control|(

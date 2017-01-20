@@ -18336,10 +18336,8 @@ if|if
 condition|(
 name|result
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 operator|&&
 name|valueIsNull
 condition|)

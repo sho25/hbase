@@ -929,7 +929,9 @@ init|=
 operator|new
 name|ArrayList
 argument_list|<>
-argument_list|()
+argument_list|(
+literal|9
+argument_list|)
 decl_stmt|;
 for|for
 control|(

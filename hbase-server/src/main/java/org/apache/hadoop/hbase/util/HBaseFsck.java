@@ -7121,7 +7121,15 @@ name|ArrayList
 argument_list|<
 name|TableName
 argument_list|>
+argument_list|(
+name|orphanTableDirs
+operator|.
+name|keySet
 argument_list|()
+operator|.
+name|size
+argument_list|()
+argument_list|)
 decl_stmt|;
 name|tmpList
 operator|.
@@ -13632,10 +13640,8 @@ name|hbi
 operator|.
 name|deployedOn
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 condition|)
 continue|continue;
 comment|// We should be safe here
@@ -16305,10 +16311,8 @@ if|if
 condition|(
 name|splits
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 condition|)
 block|{
 comment|// no region for this table
@@ -16644,10 +16648,8 @@ if|if
 condition|(
 name|ranges
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 condition|)
 block|{
 if|if
@@ -17884,10 +17886,8 @@ if|if
 condition|(
 name|servers
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 condition|)
 block|{
 name|assignMetaReplica
@@ -22731,10 +22731,8 @@ return|return
 operator|(
 name|tablesIncluded
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 operator|)
 operator|||
 name|tablesIncluded

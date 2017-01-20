@@ -1216,10 +1216,8 @@ if|if
 condition|(
 name|compactedFiles
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 condition|)
 block|{
 name|LOG
@@ -1587,10 +1585,8 @@ if|if
 condition|(
 name|toArchive
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 condition|)
 return|return
 name|Collections

@@ -540,10 +540,8 @@ if|if
 condition|(
 name|bestSelection
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 operator|&&
 name|mightBeStuck
 condition|)

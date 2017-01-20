@@ -868,10 +868,8 @@ literal|null
 operator|||
 name|columns
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 condition|)
 block|{
 comment|// there is always a null column in the wildcard column query.

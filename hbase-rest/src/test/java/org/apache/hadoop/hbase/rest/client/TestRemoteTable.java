@@ -1929,7 +1929,9 @@ name|ArrayList
 argument_list|<
 name|Get
 argument_list|>
-argument_list|()
+argument_list|(
+literal|2
+argument_list|)
 decl_stmt|;
 name|gets
 operator|.
@@ -2012,7 +2014,9 @@ name|ArrayList
 argument_list|<
 name|Get
 argument_list|>
-argument_list|()
+argument_list|(
+literal|2
+argument_list|)
 expr_stmt|;
 name|Get
 name|g
@@ -2105,7 +2109,9 @@ name|ArrayList
 argument_list|<
 name|Get
 argument_list|>
-argument_list|()
+argument_list|(
+literal|1
+argument_list|)
 expr_stmt|;
 name|gets
 operator|.
@@ -2153,7 +2159,9 @@ name|ArrayList
 argument_list|<
 name|Get
 argument_list|>
-argument_list|()
+argument_list|(
+literal|3
+argument_list|)
 expr_stmt|;
 name|gets
 operator|.
@@ -2321,7 +2329,9 @@ name|ArrayList
 argument_list|<
 name|Put
 argument_list|>
-argument_list|()
+argument_list|(
+literal|3
+argument_list|)
 decl_stmt|;
 name|put
 operator|=
@@ -2993,7 +3003,9 @@ name|ArrayList
 argument_list|<
 name|Put
 argument_list|>
-argument_list|()
+argument_list|(
+literal|4
+argument_list|)
 decl_stmt|;
 name|Put
 name|put
@@ -3721,7 +3733,9 @@ name|ArrayList
 argument_list|<
 name|Put
 argument_list|>
-argument_list|()
+argument_list|(
+literal|4
+argument_list|)
 decl_stmt|;
 name|Put
 name|put

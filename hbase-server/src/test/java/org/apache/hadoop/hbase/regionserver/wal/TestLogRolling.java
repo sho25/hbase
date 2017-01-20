@@ -1748,7 +1748,9 @@ name|ArrayList
 argument_list|<
 name|Path
 argument_list|>
-argument_list|()
+argument_list|(
+literal|1
+argument_list|)
 decl_stmt|;
 specifier|final
 name|List

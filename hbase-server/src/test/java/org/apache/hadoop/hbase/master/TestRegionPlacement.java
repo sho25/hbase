@@ -1081,10 +1081,8 @@ operator|.
 name|getRegionsWithoutValidFavoredNodes
 argument_list|()
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 argument_list|)
 expr_stmt|;
 name|assertTrue
@@ -1094,10 +1092,8 @@ operator|.
 name|getNonFavoredAssignedRegions
 argument_list|()
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 argument_list|)
 expr_stmt|;
 name|assertTrue
@@ -1165,10 +1161,8 @@ operator|.
 name|getUnassignedRegions
 argument_list|()
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 argument_list|)
 expr_stmt|;
 comment|// Check when a RS stops, the regions get assigned to their secondary/tertiary
@@ -1201,10 +1195,8 @@ operator|.
 name|getRegionsWithoutValidFavoredNodes
 argument_list|()
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 argument_list|)
 expr_stmt|;
 name|assertTrue
@@ -1214,10 +1206,8 @@ operator|.
 name|getNonFavoredAssignedRegions
 argument_list|()
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 argument_list|)
 expr_stmt|;
 name|assertTrue

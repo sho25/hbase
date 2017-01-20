@@ -838,10 +838,8 @@ name|canDropDeletesNoL0
 init|=
 name|l0Files
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 decl_stmt|;
 if|if
 condition|(

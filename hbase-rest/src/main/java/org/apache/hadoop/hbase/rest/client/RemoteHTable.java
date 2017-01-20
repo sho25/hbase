@@ -1442,7 +1442,15 @@ name|ArrayList
 argument_list|<
 name|Cell
 argument_list|>
+argument_list|(
+name|row
+operator|.
+name|getCells
 argument_list|()
+operator|.
+name|size
+argument_list|()
+argument_list|)
 decl_stmt|;
 for|for
 control|(

@@ -1617,10 +1617,8 @@ decl_stmt|;
 return|return
 name|replicationLoadSourceList
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 return|;
 block|}
 block|}
@@ -4614,10 +4612,8 @@ literal|0
 else|:
 name|res
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 decl_stmt|;
 if|if
 condition|(

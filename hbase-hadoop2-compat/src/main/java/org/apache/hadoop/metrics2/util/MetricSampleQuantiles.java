@@ -378,10 +378,8 @@ if|if
 condition|(
 name|samples
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 condition|)
 block|{
 name|SampleItem
@@ -713,10 +711,8 @@ if|if
 condition|(
 name|samples
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 condition|)
 block|{
 throw|throw

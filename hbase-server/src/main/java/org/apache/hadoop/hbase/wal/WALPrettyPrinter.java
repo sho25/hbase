@@ -1227,10 +1227,8 @@ if|if
 condition|(
 name|actions
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 condition|)
 continue|continue;
 name|txn
@@ -1841,10 +1839,8 @@ if|if
 condition|(
 name|files
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 operator|||
 name|cmd
 operator|.

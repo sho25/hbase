@@ -3437,10 +3437,8 @@ if|if
 condition|(
 name|expKvList
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 condition|)
 return|return;
 name|int

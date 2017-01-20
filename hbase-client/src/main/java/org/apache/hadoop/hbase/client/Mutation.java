@@ -952,7 +952,17 @@ name|ArrayList
 argument_list|<
 name|String
 argument_list|>
+argument_list|(
+name|this
+operator|.
+name|familyMap
+operator|.
+name|entrySet
 argument_list|()
+operator|.
+name|size
+argument_list|()
+argument_list|)
 decl_stmt|;
 comment|// ideally, we would also include table information, but that information
 comment|// is not stored in each Operation instance.
@@ -1401,7 +1411,12 @@ name|ArrayList
 argument_list|<
 name|String
 argument_list|>
+argument_list|(
+name|tags
+operator|.
+name|size
 argument_list|()
+argument_list|)
 decl_stmt|;
 for|for
 control|(

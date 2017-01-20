@@ -979,7 +979,9 @@ name|ArrayList
 argument_list|<
 name|ColumnDescriptor
 argument_list|>
-argument_list|()
+argument_list|(
+literal|2
+argument_list|)
 decl_stmt|;
 name|ColumnDescriptor
 name|col

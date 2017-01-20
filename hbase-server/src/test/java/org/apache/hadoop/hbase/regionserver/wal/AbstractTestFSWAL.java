@@ -2885,7 +2885,9 @@ name|ArrayList
 argument_list|<
 name|UUID
 argument_list|>
-argument_list|()
+argument_list|(
+literal|1
+argument_list|)
 decl_stmt|;
 name|clusterIds
 operator|.

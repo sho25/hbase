@@ -309,7 +309,11 @@ name|ArrayList
 argument_list|<
 name|String
 argument_list|>
-argument_list|()
+argument_list|(
+name|nds
+operator|.
+name|length
+argument_list|)
 expr_stmt|;
 for|for
 control|(

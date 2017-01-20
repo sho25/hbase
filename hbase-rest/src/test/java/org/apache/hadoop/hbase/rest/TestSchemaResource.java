@@ -541,7 +541,9 @@ argument_list|<
 name|Object
 index|[]
 argument_list|>
-argument_list|()
+argument_list|(
+literal|2
+argument_list|)
 decl_stmt|;
 name|params
 operator|.

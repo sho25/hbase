@@ -495,7 +495,9 @@ name|ArrayList
 argument_list|<
 name|Cell
 argument_list|>
-argument_list|()
+argument_list|(
+literal|1
+argument_list|)
 expr_stmt|;
 block|}
 comment|// find where the new entry should be placed in the List

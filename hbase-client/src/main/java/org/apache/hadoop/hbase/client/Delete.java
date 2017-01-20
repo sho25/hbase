@@ -579,7 +579,9 @@ name|ArrayList
 argument_list|<
 name|Cell
 argument_list|>
-argument_list|()
+argument_list|(
+literal|1
+argument_list|)
 expr_stmt|;
 block|}
 name|list
@@ -687,7 +689,9 @@ name|ArrayList
 argument_list|<
 name|Cell
 argument_list|>
-argument_list|()
+argument_list|(
+literal|1
+argument_list|)
 expr_stmt|;
 block|}
 elseif|else
@@ -789,7 +793,9 @@ name|ArrayList
 argument_list|<
 name|Cell
 argument_list|>
-argument_list|()
+argument_list|(
+literal|1
+argument_list|)
 expr_stmt|;
 block|}
 name|list
@@ -923,7 +929,9 @@ name|ArrayList
 argument_list|<
 name|Cell
 argument_list|>
-argument_list|()
+argument_list|(
+literal|1
+argument_list|)
 expr_stmt|;
 block|}
 name|list
@@ -1058,7 +1066,9 @@ name|ArrayList
 argument_list|<
 name|Cell
 argument_list|>
-argument_list|()
+argument_list|(
+literal|1
+argument_list|)
 expr_stmt|;
 block|}
 name|KeyValue

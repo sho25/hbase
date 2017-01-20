@@ -259,7 +259,11 @@ argument_list|<
 name|byte
 index|[]
 argument_list|>
-argument_list|()
+argument_list|(
+name|ws
+operator|.
+name|length
+argument_list|)
 decl_stmt|;
 name|int
 name|size

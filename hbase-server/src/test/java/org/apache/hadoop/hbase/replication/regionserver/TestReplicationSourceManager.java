@@ -1770,7 +1770,9 @@ name|ArrayList
 argument_list|<
 name|WALActionsListener
 argument_list|>
-argument_list|()
+argument_list|(
+literal|1
+argument_list|)
 decl_stmt|;
 name|listeners
 operator|.

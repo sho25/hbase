@@ -333,7 +333,12 @@ name|ScanQueryMatcher
 operator|.
 name|MatchCode
 argument_list|>
+argument_list|(
+name|scannerColumns
+operator|.
+name|size
 argument_list|()
+argument_list|)
 decl_stmt|;
 name|long
 name|timestamp
@@ -492,7 +497,9 @@ name|ScanQueryMatcher
 operator|.
 name|MatchCode
 argument_list|>
-argument_list|()
+argument_list|(
+literal|5
+argument_list|)
 decl_stmt|;
 name|expected
 operator|.
@@ -573,7 +580,9 @@ argument_list|<
 name|byte
 index|[]
 argument_list|>
-argument_list|()
+argument_list|(
+literal|5
+argument_list|)
 decl_stmt|;
 name|scanner
 operator|.
@@ -681,7 +690,9 @@ name|ScanQueryMatcher
 operator|.
 name|MatchCode
 argument_list|>
-argument_list|()
+argument_list|(
+literal|15
+argument_list|)
 decl_stmt|;
 name|expected
 operator|.
@@ -871,7 +882,9 @@ argument_list|<
 name|byte
 index|[]
 argument_list|>
-argument_list|()
+argument_list|(
+literal|15
+argument_list|)
 decl_stmt|;
 name|scanner
 operator|.

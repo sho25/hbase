@@ -21899,7 +21899,12 @@ name|HBaseProtos
 operator|.
 name|ServerName
 argument_list|>
+argument_list|(
+name|servers
+operator|.
+name|size
 argument_list|()
+argument_list|)
 decl_stmt|;
 for|for
 control|(
@@ -22130,7 +22135,12 @@ name|HBaseProtos
 operator|.
 name|ServerName
 argument_list|>
+argument_list|(
+name|servers
+operator|.
+name|size
 argument_list|()
+argument_list|)
 decl_stmt|;
 for|for
 control|(

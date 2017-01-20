@@ -755,10 +755,8 @@ if|if
 condition|(
 name|ras
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 condition|)
 block|{
 name|LOG
@@ -790,10 +788,8 @@ if|if
 condition|(
 name|ras
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 condition|)
 block|{
 name|LOG

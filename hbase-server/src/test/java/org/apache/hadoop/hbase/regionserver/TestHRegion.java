@@ -32906,10 +32906,8 @@ literal|null
 operator|||
 name|storeFileInfos
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 argument_list|)
 expr_stmt|;
 name|verifyData

@@ -851,7 +851,11 @@ name|ArrayList
 argument_list|<
 name|TRowResult
 argument_list|>
-argument_list|()
+argument_list|(
+name|in
+operator|.
+name|length
+argument_list|)
 decl_stmt|;
 for|for
 control|(

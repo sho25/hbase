@@ -1282,7 +1282,9 @@ name|ArrayList
 argument_list|<
 name|Exception
 argument_list|>
-argument_list|()
+argument_list|(
+literal|1
+argument_list|)
 expr_stmt|;
 name|locationErrorRows
 operator|=
@@ -1291,7 +1293,9 @@ name|ArrayList
 argument_list|<
 name|Integer
 argument_list|>
-argument_list|()
+argument_list|(
+literal|1
+argument_list|)
 expr_stmt|;
 name|LOG
 operator|.

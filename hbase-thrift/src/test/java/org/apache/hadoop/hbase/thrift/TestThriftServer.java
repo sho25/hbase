@@ -1766,7 +1766,9 @@ name|ArrayList
 argument_list|<
 name|TIncrement
 argument_list|>
-argument_list|()
+argument_list|(
+literal|3
+argument_list|)
 decl_stmt|;
 name|increments
 operator|.
@@ -2409,7 +2411,9 @@ name|ArrayList
 argument_list|<
 name|Mutation
 argument_list|>
-argument_list|()
+argument_list|(
+literal|1
+argument_list|)
 decl_stmt|;
 name|mutations
 operator|.
@@ -2781,7 +2785,9 @@ name|ArrayList
 argument_list|<
 name|ByteBuffer
 argument_list|>
-argument_list|()
+argument_list|(
+literal|1
+argument_list|)
 decl_stmt|;
 name|columns
 operator|.
@@ -3654,7 +3660,9 @@ name|ArrayList
 argument_list|<
 name|Mutation
 argument_list|>
-argument_list|()
+argument_list|(
+literal|20
+argument_list|)
 decl_stmt|;
 for|for
 control|(
@@ -4440,7 +4448,9 @@ name|ArrayList
 argument_list|<
 name|ByteBuffer
 argument_list|>
-argument_list|()
+argument_list|(
+literal|1
+argument_list|)
 decl_stmt|;
 name|columnList
 operator|.
@@ -4460,7 +4470,9 @@ name|ArrayList
 argument_list|<
 name|ByteBuffer
 argument_list|>
-argument_list|()
+argument_list|(
+literal|1
+argument_list|)
 decl_stmt|;
 name|valueList
 operator|.
@@ -4803,7 +4815,9 @@ name|ArrayList
 argument_list|<
 name|ColumnDescriptor
 argument_list|>
-argument_list|()
+argument_list|(
+literal|2
+argument_list|)
 decl_stmt|;
 comment|// A default ColumnDescriptor
 name|ColumnDescriptor
@@ -4939,7 +4953,9 @@ name|ArrayList
 argument_list|<
 name|Mutation
 argument_list|>
-argument_list|()
+argument_list|(
+literal|2
+argument_list|)
 decl_stmt|;
 name|mutations
 operator|.
@@ -5000,7 +5016,9 @@ name|ArrayList
 argument_list|<
 name|BatchMutation
 argument_list|>
-argument_list|()
+argument_list|(
+literal|3
+argument_list|)
 decl_stmt|;
 comment|// Mutations to rowA.  You can't mix delete and put anymore.
 name|List
@@ -5014,7 +5032,9 @@ name|ArrayList
 argument_list|<
 name|Mutation
 argument_list|>
-argument_list|()
+argument_list|(
+literal|1
+argument_list|)
 decl_stmt|;
 name|rowAmutations
 operator|.
@@ -5053,7 +5073,9 @@ name|ArrayList
 argument_list|<
 name|Mutation
 argument_list|>
-argument_list|()
+argument_list|(
+literal|1
+argument_list|)
 expr_stmt|;
 name|rowAmutations
 operator|.
@@ -5097,7 +5119,9 @@ name|ArrayList
 argument_list|<
 name|Mutation
 argument_list|>
-argument_list|()
+argument_list|(
+literal|2
+argument_list|)
 decl_stmt|;
 name|rowBmutations
 operator|.

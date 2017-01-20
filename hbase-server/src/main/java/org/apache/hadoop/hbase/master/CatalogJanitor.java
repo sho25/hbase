@@ -746,10 +746,8 @@ operator|.
 name|getRegionsInTransition
 argument_list|()
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 condition|)
 block|{
 name|scan

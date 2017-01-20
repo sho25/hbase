@@ -953,10 +953,8 @@ if|if
 condition|(
 name|files
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 operator|||
 name|cmd
 operator|.

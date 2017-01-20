@@ -356,10 +356,8 @@ block|{
 assert|assert
 name|map
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 assert|;
 block|}
 annotation|@

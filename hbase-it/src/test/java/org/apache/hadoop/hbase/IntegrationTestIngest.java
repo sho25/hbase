@@ -1400,7 +1400,9 @@ name|ArrayList
 argument_list|<
 name|String
 argument_list|>
-argument_list|()
+argument_list|(
+literal|11
+argument_list|)
 decl_stmt|;
 name|args
 operator|.

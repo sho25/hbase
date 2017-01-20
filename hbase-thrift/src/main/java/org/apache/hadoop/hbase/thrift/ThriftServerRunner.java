@@ -5254,7 +5254,12 @@ name|ArrayList
 argument_list|<
 name|TRegionInfo
 argument_list|>
+argument_list|(
+name|regionLocations
+operator|.
+name|size
 argument_list|()
+argument_list|)
 decl_stmt|;
 for|for
 control|(
@@ -11660,10 +11665,8 @@ literal|null
 operator|||
 name|attributes
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 condition|)
 block|{
 return|return;

@@ -2281,10 +2281,8 @@ literal|null
 operator|||
 name|regionManifests
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 condition|)
 return|return
 literal|null

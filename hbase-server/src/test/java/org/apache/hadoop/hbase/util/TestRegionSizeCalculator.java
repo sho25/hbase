@@ -723,7 +723,11 @@ init|=
 operator|new
 name|ArrayList
 argument_list|<>
-argument_list|()
+argument_list|(
+name|regionNames
+operator|.
+name|length
+argument_list|)
 decl_stmt|;
 name|when
 argument_list|(

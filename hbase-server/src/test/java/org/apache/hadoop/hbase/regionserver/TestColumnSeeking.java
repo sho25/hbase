@@ -1092,10 +1092,8 @@ index|[
 name|i
 index|]
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 condition|)
 continue|continue;
 comment|// HBASE-7700
@@ -1845,10 +1843,8 @@ index|[
 name|i
 index|]
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 condition|)
 continue|continue;
 comment|// HBASE-7700

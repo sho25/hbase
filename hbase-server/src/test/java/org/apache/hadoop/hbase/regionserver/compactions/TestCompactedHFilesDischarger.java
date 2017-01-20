@@ -729,7 +729,9 @@ name|ArrayList
 argument_list|<
 name|Region
 argument_list|>
-argument_list|()
+argument_list|(
+literal|1
+argument_list|)
 decl_stmt|;
 name|regions
 operator|.
@@ -1208,10 +1210,8 @@ name|assertTrue
 argument_list|(
 name|compactedfiles
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 argument_list|)
 expr_stmt|;
 block|}
@@ -1667,10 +1667,8 @@ name|assertTrue
 argument_list|(
 name|compactedfiles
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 argument_list|)
 expr_stmt|;
 block|}
@@ -2333,10 +2331,8 @@ name|assertTrue
 argument_list|(
 name|compactedfiles
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 argument_list|)
 expr_stmt|;
 block|}

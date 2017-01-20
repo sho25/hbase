@@ -909,7 +909,9 @@ name|ArrayList
 argument_list|<
 name|ColumnDescriptor
 argument_list|>
-argument_list|()
+argument_list|(
+literal|2
+argument_list|)
 decl_stmt|;
 name|ColumnDescriptor
 name|col
@@ -1288,7 +1290,9 @@ name|ArrayList
 argument_list|<
 name|Mutation
 argument_list|>
-argument_list|()
+argument_list|(
+literal|1
+argument_list|)
 expr_stmt|;
 name|mutations
 operator|.
@@ -1354,7 +1358,9 @@ name|ArrayList
 argument_list|<
 name|Mutation
 argument_list|>
-argument_list|()
+argument_list|(
+literal|1
+argument_list|)
 expr_stmt|;
 name|mutations
 operator|.
@@ -1417,7 +1423,9 @@ name|ArrayList
 argument_list|<
 name|Mutation
 argument_list|>
-argument_list|()
+argument_list|(
+literal|1
+argument_list|)
 expr_stmt|;
 name|mutations
 operator|.
@@ -1635,7 +1643,9 @@ name|ArrayList
 argument_list|<
 name|Mutation
 argument_list|>
-argument_list|()
+argument_list|(
+literal|1
+argument_list|)
 expr_stmt|;
 name|mutations
 operator|.
@@ -1764,7 +1774,9 @@ name|ArrayList
 argument_list|<
 name|Mutation
 argument_list|>
-argument_list|()
+argument_list|(
+literal|2
+argument_list|)
 expr_stmt|;
 name|mutations
 operator|.
@@ -1889,7 +1901,9 @@ name|ArrayList
 argument_list|<
 name|Mutation
 argument_list|>
-argument_list|()
+argument_list|(
+literal|2
+argument_list|)
 expr_stmt|;
 name|m
 operator|=

@@ -97,7 +97,9 @@ name|ArrayList
 argument_list|<
 name|Long
 argument_list|>
-argument_list|()
+argument_list|(
+literal|5
+argument_list|)
 decl_stmt|;
 name|d
 operator|.
@@ -182,7 +184,9 @@ name|ArrayList
 argument_list|<
 name|Long
 argument_list|>
-argument_list|()
+argument_list|(
+literal|4
+argument_list|)
 decl_stmt|;
 name|d
 operator|.

@@ -1590,7 +1590,12 @@ name|ArrayList
 argument_list|<
 name|RegionOpeningState
 argument_list|>
+argument_list|(
+name|proto
+operator|.
+name|getOpeningStateCount
 argument_list|()
+argument_list|)
 decl_stmt|;
 for|for
 control|(

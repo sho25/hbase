@@ -1860,7 +1860,13 @@ argument_list|<
 name|byte
 index|[]
 argument_list|>
-argument_list|()
+argument_list|(
+name|output
+operator|.
+name|length
+operator|+
+literal|2
+argument_list|)
 decl_stmt|;
 name|boundaries
 operator|.

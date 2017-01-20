@@ -7041,10 +7041,8 @@ literal|0
 operator|&&
 name|refs
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 condition|)
 block|{
 comment|// node is defined but not referenced

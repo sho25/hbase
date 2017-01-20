@@ -2016,10 +2016,8 @@ literal|null
 operator|||
 name|regions
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 condition|)
 return|return;
 name|ModifyRegionUtils
@@ -2101,10 +2099,8 @@ literal|null
 operator|||
 name|regions
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 condition|)
 return|return;
 name|ModifyRegionUtils
@@ -2190,10 +2186,8 @@ literal|null
 operator|||
 name|regions
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 condition|)
 return|return;
 name|ModifyRegionUtils
@@ -2995,10 +2989,8 @@ literal|null
 operator|||
 name|regions
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 condition|)
 return|return
 literal|null

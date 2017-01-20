@@ -7613,10 +7613,8 @@ block|}
 return|return
 name|foundTableNames
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 return|;
 block|}
 specifier|private

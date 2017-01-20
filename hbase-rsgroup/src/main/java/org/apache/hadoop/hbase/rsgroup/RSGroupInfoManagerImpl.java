@@ -2037,7 +2037,9 @@ name|ArrayList
 argument_list|<
 name|TableName
 argument_list|>
-argument_list|()
+argument_list|(
+literal|4
+argument_list|)
 expr_stmt|;
 name|specialTables
 operator|.

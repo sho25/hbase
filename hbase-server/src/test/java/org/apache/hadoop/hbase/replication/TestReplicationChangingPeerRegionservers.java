@@ -752,10 +752,8 @@ if|if
 condition|(
 name|res
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 condition|)
 block|{
 name|LOG

@@ -911,7 +911,15 @@ name|ArrayList
 argument_list|<
 name|String
 argument_list|>
+argument_list|(
+name|authsResponse
+operator|.
+name|getAuthList
 argument_list|()
+operator|.
+name|size
+argument_list|()
+argument_list|)
 decl_stmt|;
 for|for
 control|(

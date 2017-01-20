@@ -1164,7 +1164,15 @@ name|ArrayList
 argument_list|<
 name|ScheduledChore
 argument_list|>
+argument_list|(
+name|scheduledChores
+operator|.
+name|keySet
 argument_list|()
+operator|.
+name|size
+argument_list|()
+argument_list|)
 decl_stmt|;
 comment|// Build list of chores to cancel so we can iterate through a set that won't change
 comment|// as chores are cancelled. If we tried to cancel each chore while iterating through

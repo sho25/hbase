@@ -1866,10 +1866,8 @@ if|if
 condition|(
 name|endpoints
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 operator|&&
 name|connector
 operator|==
@@ -1895,10 +1893,8 @@ name|hostName
 operator|=
 name|endpoints
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 condition|?
 name|connector
 operator|.
@@ -5624,10 +5620,8 @@ if|if
 condition|(
 name|listeners
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 condition|)
 block|{
 return|return

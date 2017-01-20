@@ -689,7 +689,9 @@ name|ZKUtil
 operator|.
 name|ZKUtilOp
 argument_list|>
-argument_list|()
+argument_list|(
+literal|2
+argument_list|)
 decl_stmt|;
 name|ZKUtilOp
 name|op1

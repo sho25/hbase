@@ -3873,10 +3873,8 @@ if|if
 condition|(
 name|putVisTags
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 condition|)
 block|{
 comment|// Early out if there are no tags in the cell

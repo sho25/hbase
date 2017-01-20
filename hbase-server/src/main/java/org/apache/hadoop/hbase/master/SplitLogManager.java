@@ -3731,10 +3731,8 @@ literal|0
 operator|&&
 name|tasks
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 operator|&&
 operator|(
 name|timeInterval

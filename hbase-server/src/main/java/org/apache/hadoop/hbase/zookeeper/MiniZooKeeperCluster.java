@@ -1456,10 +1456,8 @@ if|if
 condition|(
 name|standaloneServerFactoryList
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 condition|)
 block|{
 comment|// there is no backup servers;

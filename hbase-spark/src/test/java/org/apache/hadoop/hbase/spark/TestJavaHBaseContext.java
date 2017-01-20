@@ -790,7 +790,9 @@ init|=
 operator|new
 name|ArrayList
 argument_list|<>
-argument_list|()
+argument_list|(
+literal|5
+argument_list|)
 decl_stmt|;
 name|list
 operator|.
@@ -915,7 +917,9 @@ init|=
 operator|new
 name|ArrayList
 argument_list|<>
-argument_list|()
+argument_list|(
+literal|5
+argument_list|)
 decl_stmt|;
 for|for
 control|(
@@ -1291,7 +1295,9 @@ init|=
 operator|new
 name|ArrayList
 argument_list|<>
-argument_list|()
+argument_list|(
+literal|3
+argument_list|)
 decl_stmt|;
 name|list
 operator|.
@@ -1755,7 +1761,9 @@ init|=
 operator|new
 name|ArrayList
 argument_list|<>
-argument_list|()
+argument_list|(
+literal|5
+argument_list|)
 decl_stmt|;
 name|list
 operator|.
@@ -2191,7 +2199,9 @@ init|=
 operator|new
 name|ArrayList
 argument_list|<>
-argument_list|()
+argument_list|(
+literal|5
+argument_list|)
 decl_stmt|;
 for|for
 control|(

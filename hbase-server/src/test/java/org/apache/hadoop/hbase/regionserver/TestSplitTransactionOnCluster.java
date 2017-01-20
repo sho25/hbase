@@ -1916,10 +1916,8 @@ argument_list|(
 name|tableName
 argument_list|)
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 operator|&&
 name|i
 operator|<

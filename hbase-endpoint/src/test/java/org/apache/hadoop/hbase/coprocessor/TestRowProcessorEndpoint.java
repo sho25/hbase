@@ -2567,10 +2567,8 @@ name|counter
 operator|=
 name|kvs
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 condition|?
 literal|0
 else|:
@@ -3277,7 +3275,9 @@ argument_list|<
 name|byte
 index|[]
 argument_list|>
-argument_list|()
+argument_list|(
+literal|2
+argument_list|)
 decl_stmt|;
 name|rows
 operator|.
@@ -3485,7 +3485,9 @@ argument_list|<
 name|Cell
 argument_list|>
 argument_list|>
-argument_list|()
+argument_list|(
+literal|2
+argument_list|)
 decl_stmt|;
 name|kvs
 operator|.

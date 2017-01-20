@@ -3209,7 +3209,9 @@ name|ArrayList
 argument_list|<
 name|S
 argument_list|>
-argument_list|()
+argument_list|(
+literal|2
+argument_list|)
 decl_stmt|;
 name|l
 operator|.
@@ -4029,7 +4031,9 @@ name|ArrayList
 argument_list|<
 name|S
 argument_list|>
-argument_list|()
+argument_list|(
+literal|2
+argument_list|)
 decl_stmt|;
 name|l
 operator|.

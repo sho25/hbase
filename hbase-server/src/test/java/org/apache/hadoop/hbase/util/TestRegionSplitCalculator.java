@@ -2842,7 +2842,9 @@ name|ArrayList
 argument_list|<
 name|SimpleRange
 argument_list|>
-argument_list|()
+argument_list|(
+literal|8
+argument_list|)
 decl_stmt|;
 name|bigOverlap
 operator|.

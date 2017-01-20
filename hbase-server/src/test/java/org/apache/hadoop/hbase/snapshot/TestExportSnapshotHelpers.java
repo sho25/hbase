@@ -197,7 +197,9 @@ argument_list|,
 name|Long
 argument_list|>
 argument_list|>
-argument_list|()
+argument_list|(
+literal|21
+argument_list|)
 decl_stmt|;
 for|for
 control|(

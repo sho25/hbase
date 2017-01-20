@@ -2077,7 +2077,9 @@ init|=
 operator|new
 name|ArrayList
 argument_list|<>
-argument_list|()
+argument_list|(
+literal|30
+argument_list|)
 decl_stmt|;
 comment|// all threads should share the same rpc client
 name|AbstractRpcClient

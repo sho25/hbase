@@ -741,7 +741,9 @@ argument_list|<
 name|String
 argument_list|>
 argument_list|>
-argument_list|()
+argument_list|(
+literal|3
+argument_list|)
 decl_stmt|;
 comment|// copy over the original files
 name|List

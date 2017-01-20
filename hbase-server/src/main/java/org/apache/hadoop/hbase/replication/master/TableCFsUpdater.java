@@ -476,10 +476,8 @@ operator|.
 name|getTableCFsMap
 argument_list|()
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 condition|)
 block|{
 comment|// we copy TableCFs node into PeerNode

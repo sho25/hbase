@@ -5650,7 +5650,11 @@ argument_list|<
 name|Long
 argument_list|>
 argument_list|>
-argument_list|()
+argument_list|(
+name|sizes
+operator|.
+name|length
+argument_list|)
 decl_stmt|;
 for|for
 control|(
@@ -5929,7 +5933,12 @@ name|ArrayList
 argument_list|<
 name|StoreFile
 argument_list|>
+argument_list|(
+name|sizes
+operator|.
+name|size
 argument_list|()
+argument_list|)
 decl_stmt|;
 for|for
 control|(
