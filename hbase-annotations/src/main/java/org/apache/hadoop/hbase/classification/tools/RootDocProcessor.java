@@ -490,11 +490,7 @@ name|proxies
 init|=
 operator|new
 name|WeakHashMap
-argument_list|<
-name|Object
-argument_list|,
-name|Object
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -1547,9 +1543,7 @@ name|list
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Object
-argument_list|>
+argument_list|<>
 argument_list|(
 name|array
 operator|.
