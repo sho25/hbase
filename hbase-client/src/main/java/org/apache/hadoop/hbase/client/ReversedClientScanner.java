@@ -289,42 +289,9 @@ throws|throws
 name|IOException
 block|{
 comment|// Close the previous scanner if it's open
-if|if
-condition|(
-name|this
-operator|.
-name|callable
-operator|!=
-literal|null
-condition|)
-block|{
-name|this
-operator|.
-name|callable
-operator|.
-name|setClose
+name|closeScanner
 argument_list|()
 expr_stmt|;
-comment|// callWithoutRetries is at this layer. Within the ScannerCallableWithReplicas,
-comment|// we do a callWithRetries
-name|this
-operator|.
-name|caller
-operator|.
-name|callWithoutRetries
-argument_list|(
-name|callable
-argument_list|,
-name|scannerTimeout
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|callable
-operator|=
-literal|null
-expr_stmt|;
-block|}
 comment|// Where to start the next scanner
 name|byte
 index|[]

@@ -470,7 +470,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Implements the scanner interface for the HBase client.  * If there are multiple regions in a table, this scanner will iterate  * through them all.  */
+comment|/**  * Implements the scanner interface for the HBase client. If there are multiple regions in a table,  * this scanner will iterate through them all.  */
 end_comment
 
 begin_class
@@ -1118,63 +1118,14 @@ literal|false
 return|;
 comment|// unlikely.
 block|}
-specifier|private
-name|boolean
-name|possiblyNextScanner
-parameter_list|(
-name|int
-name|nbRows
-parameter_list|,
-specifier|final
-name|boolean
-name|done
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-comment|// If we have just switched replica, don't go to the next scanner yet. Rather, try
-comment|// the scanner operations on the new replica, from the right point in the scan
-comment|// Note that when we switched to a different replica we left it at a point
-comment|// where we just did the "openScanner" with the appropriate startrow
-if|if
-condition|(
-name|callable
-operator|!=
-literal|null
-operator|&&
-name|callable
-operator|.
-name|switchedToADifferentReplica
-argument_list|()
-condition|)
-return|return
-literal|true
-return|;
-return|return
-name|nextScanner
-argument_list|(
-name|nbRows
-argument_list|,
-name|done
-argument_list|)
-return|;
-block|}
-comment|/*    * Gets a scanner for the next region. If this.currentRegion != null, then we will move to the    * endrow of this.currentRegion. Else we will get scanner at the scan.getStartRow(). We will go no    * further, just tidy up outstanding scanners, if<code>currentRegion != null</code> and    *<code>done</code> is true.    * @param nbRows    * @param done Server-side says we're done scanning.    */
 specifier|protected
-name|boolean
-name|nextScanner
-parameter_list|(
-name|int
-name|nbRows
-parameter_list|,
 specifier|final
-name|boolean
-name|done
-parameter_list|)
+name|void
+name|closeScanner
+parameter_list|()
 throws|throws
 name|IOException
 block|{
-comment|// Close the previous scanner if it's open
 if|if
 condition|(
 name|this
@@ -1207,6 +1158,26 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
+block|}
+comment|/*    * Gets a scanner for the next region. If this.currentRegion != null, then we will move to the    * endrow of this.currentRegion. Else we will get scanner at the scan.getStartRow(). We will go no    * further, just tidy up outstanding scanners, if<code>currentRegion != null</code> and    *<code>done</code> is true.    * @param nbRows    * @param done Server-side says we're done scanning.    */
+specifier|protected
+name|boolean
+name|nextScanner
+parameter_list|(
+name|int
+name|nbRows
+parameter_list|,
+specifier|final
+name|boolean
+name|done
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+comment|// Close the previous scanner if it's open
+name|closeScanner
+argument_list|()
+expr_stmt|;
 comment|// Where to start the next scanner
 name|byte
 index|[]
@@ -1723,6 +1694,116 @@ else|:
 literal|0
 return|;
 block|}
+specifier|private
+name|boolean
+name|regionExhausted
+parameter_list|(
+name|Result
+index|[]
+name|values
+parameter_list|)
+block|{
+comment|// This means the server tells us the whole scan operation is done. Usually decided by filter.
+if|if
+condition|(
+name|values
+operator|==
+literal|null
+condition|)
+block|{
+return|return
+literal|true
+return|;
+block|}
+comment|// Not a heartbeat message and we get nothing, this means the region is exhausted
+if|if
+condition|(
+name|values
+operator|.
+name|length
+operator|==
+literal|0
+operator|&&
+operator|!
+name|callable
+operator|.
+name|isHeartbeatMessage
+argument_list|()
+condition|)
+block|{
+return|return
+literal|true
+return|;
+block|}
+comment|// Server tells us that it has no more results for this region. Notice that this flag is get
+comment|// from the ScanResponse.getMoreResultsInRegion, not ScanResponse.getMoreResults. If the latter
+comment|// one is false then we will get a null values and quit in the first condition of this method.
+if|if
+condition|(
+name|callable
+operator|.
+name|hasMoreResultsContext
+argument_list|()
+operator|&&
+operator|!
+name|callable
+operator|.
+name|getServerHasMoreResults
+argument_list|()
+condition|)
+block|{
+return|return
+literal|true
+return|;
+block|}
+return|return
+literal|false
+return|;
+block|}
+specifier|private
+name|void
+name|closeScannerIfExhausted
+parameter_list|(
+name|boolean
+name|exhausted
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+if|if
+condition|(
+name|exhausted
+condition|)
+block|{
+if|if
+condition|(
+operator|!
+name|partialResults
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
+comment|// XXX: continue if there are partial results. But in fact server should not set
+comment|// hasMoreResults to false if there are partial results.
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Server tells us there is no more results for this region but we still have"
+operator|+
+literal|" partialResults, this should not happen, retry on the current scanner anyway"
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|closeScanner
+argument_list|()
+expr_stmt|;
+block|}
+block|}
+block|}
 comment|/**    * Contact the servers to load more {@link Result}s in the cache.    */
 specifier|protected
 name|void
@@ -1755,6 +1836,28 @@ name|this
 operator|.
 name|caching
 decl_stmt|;
+comment|// This is possible if we just stopped at the boundary of a region in the previous call.
+if|if
+condition|(
+name|callable
+operator|==
+literal|null
+condition|)
+block|{
+if|if
+condition|(
+operator|!
+name|nextScanner
+argument_list|(
+name|countdown
+argument_list|,
+literal|false
+argument_list|)
+condition|)
+block|{
+return|return;
+block|}
+block|}
 comment|// We need to reset it if it's a new callable that was created with a countdown in nextScanner
 name|callable
 operator|.
@@ -1772,24 +1875,12 @@ name|retryAfterOutOfOrderException
 init|=
 literal|true
 decl_stmt|;
-comment|// We don't expect that the server will have more results for us if
-comment|// it doesn't tell us otherwise. We rely on the size or count of results
-name|boolean
-name|serverHasMoreResults
-init|=
-literal|false
-decl_stmt|;
-name|boolean
-name|allResultsSkipped
-init|=
-literal|false
-decl_stmt|;
-do|do
+for|for
+control|(
+init|;
+condition|;
+control|)
 block|{
-name|allResultsSkipped
-operator|=
-literal|false
-expr_stmt|;
 try|try
 block|{
 comment|// Server returns a null values if scanning is to stop. Else,
@@ -2043,7 +2134,20 @@ name|callable
 operator|=
 literal|null
 expr_stmt|;
-comment|// This continue will take us to while at end of loop where we will set up new scanner.
+comment|// reopen the scanner
+if|if
+condition|(
+operator|!
+name|nextScanner
+argument_list|(
+name|countdown
+argument_list|,
+literal|false
+argument_list|)
+condition|)
+block|{
+break|break;
+block|}
 continue|continue;
 block|}
 name|long
@@ -2201,22 +2305,15 @@ literal|null
 expr_stmt|;
 block|}
 block|}
-if|if
-condition|(
-name|cache
-operator|.
-name|isEmpty
-argument_list|()
-condition|)
-block|{
-comment|// all result has been seen before, we need scan more.
-name|allResultsSkipped
-operator|=
-literal|true
-expr_stmt|;
-continue|continue;
 block|}
-block|}
+name|boolean
+name|exhausted
+init|=
+name|regionExhausted
+argument_list|(
+name|values
+argument_list|)
+decl_stmt|;
 if|if
 condition|(
 name|callable
@@ -2227,12 +2324,11 @@ condition|)
 block|{
 if|if
 condition|(
+operator|!
 name|cache
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|>
-literal|0
 condition|)
 block|{
 comment|// Caller of this method just wants a Result. If we see a heartbeat message, it means
@@ -2257,85 +2353,91 @@ literal|" Breaking out of scan loop"
 argument_list|)
 expr_stmt|;
 block|}
+comment|// we know that the region has not been exhausted yet so just break without calling
+comment|// closeScannerIfExhausted
 break|break;
 block|}
-continue|continue;
 block|}
-comment|// We expect that the server won't have more results for us when we exhaust
-comment|// the size (bytes or count) of the results returned. If the server *does* inform us that
-comment|// there are more results, we want to avoid possiblyNextScanner(...). Only when we actually
-comment|// get results is the moreResults context valid.
 if|if
 condition|(
-literal|null
-operator|!=
-name|values
-operator|&&
-name|values
-operator|.
-name|length
-operator|>
+name|countdown
+operator|<=
 literal|0
-operator|&&
-name|callable
-operator|.
-name|hasMoreResultsContext
-argument_list|()
 condition|)
 block|{
-comment|// Only adhere to more server results when we don't have any partialResults
-comment|// as it keeps the outer loop logic the same.
-name|serverHasMoreResults
-operator|=
-name|callable
-operator|.
-name|getServerHasMoreResults
-argument_list|()
-operator|&&
-name|partialResults
+comment|// we have enough result.
+name|closeScannerIfExhausted
+argument_list|(
+name|exhausted
+argument_list|)
+expr_stmt|;
+break|break;
+block|}
+if|if
+condition|(
+name|remainingResultSize
+operator|<=
+literal|0
+condition|)
+block|{
+if|if
+condition|(
+operator|!
+name|cache
 operator|.
 name|isEmpty
 argument_list|()
+condition|)
+block|{
+name|closeScannerIfExhausted
+argument_list|(
+name|exhausted
+argument_list|)
+expr_stmt|;
+break|break;
+block|}
+else|else
+block|{
+comment|// we have reached the max result size but we still can not find anything to return to the
+comment|// user. Reset the maxResultSize and try again.
+name|remainingResultSize
+operator|=
+name|maxScannerResultSize
 expr_stmt|;
 block|}
-comment|// Values == null means server-side filter has determined we must STOP
-comment|// !partialResults.isEmpty() means that we are still accumulating partial Results for a
-comment|// row. We should not change scanners before we receive all the partial Results for that
-comment|// row.
 block|}
-do|while
+comment|// we are done with the current region
+if|if
 condition|(
-name|allResultsSkipped
-operator|||
-operator|(
-name|callable
-operator|!=
-literal|null
-operator|&&
-name|callable
-operator|.
-name|isHeartbeatMessage
-argument_list|()
-operator|)
-operator|||
-operator|(
-name|doneWithRegion
-argument_list|(
-name|remainingResultSize
-argument_list|,
-name|countdown
-argument_list|,
-name|serverHasMoreResults
-argument_list|)
-operator|&&
-operator|(
+name|exhausted
+condition|)
+block|{
+if|if
+condition|(
 operator|!
 name|partialResults
 operator|.
 name|isEmpty
 argument_list|()
-operator|||
-name|possiblyNextScanner
+condition|)
+block|{
+comment|// XXX: continue if there are partial results. But in fact server should not set
+comment|// hasMoreResults to false if there are partial results.
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Server tells us there is no more results for this region but we still have"
+operator|+
+literal|" partialResults, this should not happen, retry on the current scanner anyway"
+argument_list|)
+expr_stmt|;
+continue|continue;
+block|}
+if|if
+condition|(
+operator|!
+name|nextScanner
 argument_list|(
 name|countdown
 argument_list|,
@@ -2343,38 +2445,12 @@ name|values
 operator|==
 literal|null
 argument_list|)
-operator|)
-operator|)
 condition|)
-do|;
-block|}
-comment|/**    * @param remainingResultSize    * @param remainingRows    * @param regionHasMoreResults    * @return true when the current region has been exhausted. When the current region has been    *         exhausted, the region must be changed before scanning can continue    */
-specifier|private
-name|boolean
-name|doneWithRegion
-parameter_list|(
-name|long
-name|remainingResultSize
-parameter_list|,
-name|int
-name|remainingRows
-parameter_list|,
-name|boolean
-name|regionHasMoreResults
-parameter_list|)
 block|{
-return|return
-name|remainingResultSize
-operator|>
-literal|0
-operator|&&
-name|remainingRows
-operator|>
-literal|0
-operator|&&
-operator|!
-name|regionHasMoreResults
-return|;
+break|break;
+block|}
+block|}
+block|}
 block|}
 specifier|protected
 name|void
@@ -3255,7 +3331,7 @@ literal|1
 index|]
 expr_stmt|;
 block|}
-comment|/**    * Compare two Cells considering reversed scanner.    * ReversedScanner only reverses rows, not columns.    */
+comment|/**    * Compare two Cells considering reversed scanner. ReversedScanner only reverses rows, not    * columns.    */
 specifier|private
 name|int
 name|compare

@@ -962,6 +962,10 @@ comment|// initialize
 case|case
 literal|2
 case|:
+comment|// detect no more results
+case|case
+literal|3
+case|:
 comment|// close
 name|count
 operator|++
@@ -1070,7 +1074,9 @@ operator|.
 name|loadCache
 argument_list|()
 expr_stmt|;
-comment|// One more call due to initializeScannerInConstruction()
+comment|// One for initializeScannerInConstruction()
+comment|// One for fetching the results
+comment|// One for fetching null results and quit as we do not have moreResults hint.
 name|inOrder
 operator|.
 name|verify
@@ -1081,7 +1087,7 @@ name|Mockito
 operator|.
 name|times
 argument_list|(
-literal|2
+literal|3
 argument_list|)
 argument_list|)
 operator|.
@@ -1369,11 +1375,12 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
+comment|// if we set false here the implementation will trigger a close
 name|callable
 operator|.
 name|setServerHasMoreResults
 argument_list|(
-literal|false
+literal|true
 argument_list|)
 expr_stmt|;
 return|return
@@ -1870,11 +1877,12 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
+comment|// if we set false here the implementation will trigger a close
 name|callable
 operator|.
 name|setServerHasMoreResults
 argument_list|(
-literal|false
+literal|true
 argument_list|)
 expr_stmt|;
 return|return
@@ -3024,6 +3032,13 @@ argument_list|)
 decl_stmt|;
 name|scanner
 operator|.
+name|setRpcFinished
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+name|scanner
+operator|.
 name|loadCache
 argument_list|()
 expr_stmt|;
@@ -3037,7 +3052,7 @@ name|Mockito
 operator|.
 name|times
 argument_list|(
-literal|2
+literal|3
 argument_list|)
 argument_list|)
 operator|.
@@ -3060,7 +3075,7 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|1
+literal|2
 argument_list|,
 name|scanner
 operator|.
@@ -3116,58 +3131,6 @@ argument_list|(
 name|cs
 operator|.
 name|advance
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|scanner
-operator|.
-name|setRpcFinished
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
-name|inOrder
-operator|=
-name|Mockito
-operator|.
-name|inOrder
-argument_list|(
-name|caller
-argument_list|)
-expr_stmt|;
-name|scanner
-operator|.
-name|loadCache
-argument_list|()
-expr_stmt|;
-name|inOrder
-operator|.
-name|verify
-argument_list|(
-name|caller
-argument_list|,
-name|Mockito
-operator|.
-name|times
-argument_list|(
-literal|3
-argument_list|)
-argument_list|)
-operator|.
-name|callWithoutRetries
-argument_list|(
-name|Mockito
-operator|.
-name|any
-argument_list|(
-name|RetryingCallable
-operator|.
-name|class
-argument_list|)
-argument_list|,
-name|Mockito
-operator|.
-name|anyInt
 argument_list|()
 argument_list|)
 expr_stmt|;
