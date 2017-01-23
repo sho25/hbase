@@ -894,7 +894,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Set timeout (millisecond) of each operation in this Table instance, will override the value    * of hbase.client.operation.timeout in configuration.    * Operation timeout is a top-level restriction that makes sure a blocking method will not be    * blocked more than this. In each operation, if rpc request fails because of timeout or    * other reason, it will retry until success or throw a RetriesExhaustedException. But if the    * total time being blocking reach the operation timeout before retries exhausted, it will break    * early and throw SocketTimeoutException.    * @param operationTimeout the total timeout of each operation in millisecond.    */
+comment|/**    * Set timeout (millisecond) of each operation in this Table instance, will override the value    * of hbase.client.operation.timeout in configuration.    * Operation timeout is a top-level restriction that makes sure a blocking method will not be    * blocked more than this. In each operation, if rpc request fails because of timeout or    * other reason, it will retry until success or throw a RetriesExhaustedException. But if the    * total time being blocking reach the operation timeout before retries exhausted, it will break    * early and throw SocketTimeoutException.    * @param operationTimeout the total timeout of each operation in millisecond.    * @deprecated since 2.0.0, use {@link TableBuilder#setOperationTimeout} instead    */
+annotation|@
+name|Deprecated
 name|void
 name|setOperationTimeout
 parameter_list|(
@@ -929,7 +931,9 @@ name|int
 name|getReadRpcTimeout
 parameter_list|()
 function_decl|;
-comment|/**    * Set timeout (millisecond) of each rpc read request in operations of this Table instance, will    * override the value of hbase.rpc.read.timeout in configuration.    * If a rpc read request waiting too long, it will stop waiting and send a new request to retry    * until retries exhausted or operation timeout reached.    *    * @param readRpcTimeout    */
+comment|/**    * Set timeout (millisecond) of each rpc read request in operations of this Table instance, will    * override the value of hbase.rpc.read.timeout in configuration.    * If a rpc read request waiting too long, it will stop waiting and send a new request to retry    * until retries exhausted or operation timeout reached.    *    * @param readRpcTimeout    * @deprecated since 2.0.0, use {@link TableBuilder#setReadRpcTimeout} instead    */
+annotation|@
+name|Deprecated
 name|void
 name|setReadRpcTimeout
 parameter_list|(
@@ -942,7 +946,9 @@ name|int
 name|getWriteRpcTimeout
 parameter_list|()
 function_decl|;
-comment|/**    * Set timeout (millisecond) of each rpc write request in operations of this Table instance, will    * override the value of hbase.rpc.write.timeout in configuration.    * If a rpc write request waiting too long, it will stop waiting and send a new request to retry    * until retries exhausted or operation timeout reached.    *    * @param writeRpcTimeout    */
+comment|/**    * Set timeout (millisecond) of each rpc write request in operations of this Table instance, will    * override the value of hbase.rpc.write.timeout in configuration.    * If a rpc write request waiting too long, it will stop waiting and send a new request to retry    * until retries exhausted or operation timeout reached.    *    * @param writeRpcTimeout    * @deprecated since 2.0.0, use {@link TableBuilder#setWriteRpcTimeout} instead    */
+annotation|@
+name|Deprecated
 name|void
 name|setWriteRpcTimeout
 parameter_list|(

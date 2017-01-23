@@ -151,6 +151,7 @@ name|getConfiguration
 parameter_list|()
 function_decl|;
 comment|/**    * Retrieve a Table implementation for accessing a table.    * The returned Table is not thread safe, a new instance should be created for each using thread.    * This is a lightweight operation, pooling or caching of the returned Table    * is neither required nor desired.    *<p>    * The caller is responsible for calling {@link Table#close()} on the returned    * table instance.    *<p>    * Since 0.98.1 this method no longer checks table existence. An exception    * will be thrown if the table does not exist only when the first operation is    * attempted.    * @param tableName the name of the table    * @return a Table to use for interactions with this table    */
+specifier|default
 name|Table
 name|getTable
 parameter_list|(
@@ -159,8 +160,18 @@ name|tableName
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+return|return
+name|getTable
+argument_list|(
+name|tableName
+argument_list|,
+literal|null
+argument_list|)
+return|;
+block|}
 comment|/**    * Retrieve a Table implementation for accessing a table.    * The returned Table is not thread safe, a new instance should be created for each using thread.    * This is a lightweight operation, pooling or caching of the returned Table    * is neither required nor desired.    *<p>    * The caller is responsible for calling {@link Table#close()} on the returned    * table instance.    *<p>    * Since 0.98.1 this method no longer checks table existence. An exception    * will be thrown if the table does not exist only when the first operation is    * attempted.    *    * @param tableName the name of the table    * @param pool The thread pool to use for batch operations, null to use a default pool.    * @return a Table to use for interactions with this table    */
+specifier|default
 name|Table
 name|getTable
 parameter_list|(
@@ -172,7 +183,19 @@ name|pool
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+return|return
+name|getTableBuilder
+argument_list|(
+name|tableName
+argument_list|,
+name|pool
+argument_list|)
+operator|.
+name|build
+argument_list|()
+return|;
+block|}
 comment|/**    *<p>    * Retrieve a {@link BufferedMutator} for performing client-side buffering of writes. The    * {@link BufferedMutator} returned by this method is thread-safe. This BufferedMutator will    * use the Connection's ExecutorService. This object can be used for long lived operations.    *</p>    *<p>    * The caller is responsible for calling {@link BufferedMutator#close()} on    * the returned {@link BufferedMutator} instance.    *</p>    *<p>    * This accessor will use the connection's ExecutorService and will throw an    * exception in the main thread when an asynchronous exception occurs.    *    * @param tableName the name of the table    *    * @return a {@link BufferedMutator} for the supplied tableName.    */
 name|BufferedMutator
 name|getBufferedMutator
@@ -222,6 +245,17 @@ comment|/**    * Returns whether the connection is closed or not.    * @return t
 name|boolean
 name|isClosed
 parameter_list|()
+function_decl|;
+comment|/**    * Returns an {@link TableBuilder} for creating {@link Table}.    * @param tableName the name of the table    * @param pool the thread pool to use for requests like batch and scan    */
+name|TableBuilder
+name|getTableBuilder
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|,
+name|ExecutorService
+name|pool
+parameter_list|)
 function_decl|;
 block|}
 end_interface
