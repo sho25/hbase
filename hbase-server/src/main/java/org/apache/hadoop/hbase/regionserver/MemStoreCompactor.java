@@ -69,9 +69,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HColumnDescriptor
-operator|.
-name|MemoryCompaction
+name|HConstants
 import|;
 end_import
 
@@ -85,7 +83,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
+name|MemoryCompactionPolicy
 import|;
 end_import
 
@@ -291,7 +289,7 @@ parameter_list|(
 name|CompactingMemStore
 name|compactingMemStore
 parameter_list|,
-name|MemoryCompaction
+name|MemoryCompactionPolicy
 name|compactionPolicy
 parameter_list|)
 block|{
@@ -931,7 +929,7 @@ name|VisibleForTesting
 name|void
 name|initiateAction
 parameter_list|(
-name|MemoryCompaction
+name|MemoryCompactionPolicy
 name|compType
 parameter_list|)
 block|{

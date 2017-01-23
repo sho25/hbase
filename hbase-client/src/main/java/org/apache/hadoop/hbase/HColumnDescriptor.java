@@ -356,28 +356,6 @@ name|IN_MEMORY_COMPACTION
 init|=
 literal|"IN_MEMORY_COMPACTION"
 decl_stmt|;
-comment|/**    * Enum describing all possible memory compaction policies    */
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Evolving
-specifier|public
-enum|enum
-name|MemoryCompaction
-block|{
-comment|/**      * No memory compaction, when size threshold is exceeded data is flushed to disk      */
-name|NONE
-block|,
-comment|/**      * Basic policy applies optimizations which modify the index to a more compacted representation.      * This is beneficial in all access patterns. The smaller the cells are the greater the      * benefit of this policy.      * This is the default policy.      */
-name|BASIC
-block|,
-comment|/**      * In addition to compacting the index representation as the basic policy, eager policy      * eliminates duplication while the data is still in memory (much like the      * on-disk compaction does after the data is flushed to disk). This policy is most useful for      * applications with high data churn or small working sets.      */
-name|EAGER
-block|}
 comment|// These constants are used as FileInfo keys
 specifier|public
 specifier|static
@@ -2642,7 +2620,7 @@ return|;
 block|}
 comment|/**    * @return in-memory compaction policy if set for the cf. Returns null if no policy is set for    *          for this column family    */
 specifier|public
-name|MemoryCompaction
+name|MemoryCompactionPolicy
 name|getInMemoryCompaction
 parameter_list|()
 block|{
@@ -2662,7 +2640,7 @@ literal|null
 condition|)
 block|{
 return|return
-name|MemoryCompaction
+name|MemoryCompactionPolicy
 operator|.
 name|valueOf
 argument_list|(
@@ -2679,7 +2657,7 @@ specifier|public
 name|HColumnDescriptor
 name|setInMemoryCompaction
 parameter_list|(
-name|MemoryCompaction
+name|MemoryCompactionPolicy
 name|inMemoryCompaction
 parameter_list|)
 block|{

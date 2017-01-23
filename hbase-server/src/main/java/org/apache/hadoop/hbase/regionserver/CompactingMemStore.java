@@ -177,7 +177,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HColumnDescriptor
+name|HConstants
 import|;
 end_import
 
@@ -191,7 +191,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
+name|MemoryCompactionPolicy
 import|;
 end_import
 
@@ -309,9 +309,7 @@ name|String
 operator|.
 name|valueOf
 argument_list|(
-name|HColumnDescriptor
-operator|.
-name|MemoryCompaction
+name|MemoryCompactionPolicy
 operator|.
 name|NONE
 argument_list|)
@@ -452,9 +450,7 @@ parameter_list|,
 name|RegionServicesForStores
 name|regionServices
 parameter_list|,
-name|HColumnDescriptor
-operator|.
-name|MemoryCompaction
+name|MemoryCompactionPolicy
 name|compactionPolicy
 parameter_list|)
 throws|throws
@@ -2082,9 +2078,7 @@ name|VisibleForTesting
 name|void
 name|initiateType
 parameter_list|(
-name|HColumnDescriptor
-operator|.
-name|MemoryCompaction
+name|MemoryCompactionPolicy
 name|compactionType
 parameter_list|)
 block|{

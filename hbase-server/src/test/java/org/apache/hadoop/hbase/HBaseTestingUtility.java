@@ -8138,9 +8138,7 @@ name|hcd
 operator|.
 name|setInMemoryCompaction
 argument_list|(
-name|HColumnDescriptor
-operator|.
-name|MemoryCompaction
+name|MemoryCompactionPolicy
 operator|.
 name|BASIC
 argument_list|)
@@ -8152,9 +8150,7 @@ name|hcd
 operator|.
 name|setInMemoryCompaction
 argument_list|(
-name|HColumnDescriptor
-operator|.
-name|MemoryCompaction
+name|MemoryCompactionPolicy
 operator|.
 name|NONE
 argument_list|)

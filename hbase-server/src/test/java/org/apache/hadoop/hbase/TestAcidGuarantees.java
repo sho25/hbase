@@ -737,9 +737,7 @@ name|String
 operator|.
 name|valueOf
 argument_list|(
-name|HColumnDescriptor
-operator|.
-name|MemoryCompaction
+name|MemoryCompactionPolicy
 operator|.
 name|NONE
 argument_list|)
