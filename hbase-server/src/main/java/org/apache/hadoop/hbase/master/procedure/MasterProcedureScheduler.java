@@ -739,15 +739,6 @@ name|addFront
 operator|:
 literal|"expected to add a child in the front"
 assert|;
-assert|assert
-operator|!
-name|queue
-operator|.
-name|isSuspended
-argument_list|()
-operator|:
-literal|"unexpected suspended state for the queue"
-assert|;
 comment|// our (proc) parent has the xlock,
 comment|// so the queue is not in the fairq (run-queue)
 comment|// add it back to let the child run (inherit the lock)
@@ -865,19 +856,6 @@ return|return
 literal|null
 return|;
 block|}
-assert|assert
-operator|!
-name|rq
-operator|.
-name|isSuspended
-argument_list|()
-operator|:
-literal|"rq="
-operator|+
-name|rq
-operator|+
-literal|" is suspended"
-assert|;
 specifier|final
 name|Procedure
 name|pollResult
@@ -1145,20 +1123,6 @@ argument_list|(
 name|treeMap
 argument_list|)
 decl_stmt|;
-assert|assert
-operator|!
-name|node
-operator|.
-name|isSuspended
-argument_list|()
-operator|:
-literal|"can't clear suspended "
-operator|+
-name|node
-operator|.
-name|getKey
-argument_list|()
-assert|;
 name|treeMap
 operator|=
 name|AvlTree
@@ -1468,12 +1432,6 @@ operator|!
 name|queue
 operator|.
 name|isEmpty
-argument_list|()
-operator|&&
-operator|!
-name|queue
-operator|.
-name|isSuspended
 argument_list|()
 condition|)
 block|{
@@ -4362,10 +4320,6 @@ name|Procedure
 name|poll
 parameter_list|()
 function_decl|;
-name|boolean
-name|isSuspended
-parameter_list|()
-function_decl|;
 block|}
 comment|// TODO Why OK not having synchronized access and/or volatiles and
 comment|// sharedLock-- and sharedLock++? Is this accessed by one thread only?
@@ -4500,45 +4454,6 @@ parameter_list|()
 block|{
 return|return
 name|event
-return|;
-block|}
-comment|/**      * True if the queue is not in the run-queue and it is owned by an event.      */
-specifier|public
-name|boolean
-name|isSuspended
-parameter_list|()
-block|{
-return|return
-name|suspended
-return|;
-block|}
-specifier|protected
-name|boolean
-name|setSuspended
-parameter_list|(
-name|boolean
-name|isSuspended
-parameter_list|)
-block|{
-if|if
-condition|(
-name|this
-operator|.
-name|suspended
-operator|==
-name|isSuspended
-condition|)
-return|return
-literal|false
-return|;
-name|this
-operator|.
-name|suspended
-operator|=
-name|isSuspended
-expr_stmt|;
-return|return
-literal|true
 return|;
 block|}
 comment|// ======================================================================
@@ -4824,7 +4739,7 @@ name|String
 operator|.
 name|format
 argument_list|(
-literal|"%s(%s, suspended=%s xlock=%s sharedLock=%s size=%s)"
+literal|"%s(%s, xlock=%s sharedLock=%s size=%s)"
 argument_list|,
 name|getClass
 argument_list|()
@@ -4833,9 +4748,6 @@ name|getSimpleName
 argument_list|()
 argument_list|,
 name|key
-argument_list|,
-name|isSuspended
-argument_list|()
 argument_list|,
 name|hasExclusiveLock
 argument_list|()
