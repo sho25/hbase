@@ -74561,13 +74561,25 @@ name|boolean
 name|getLoadColumnFamiliesOnDemand
 parameter_list|()
 function_decl|;
-comment|// optional bool small = 14;
-comment|/**      *<code>optional bool small = 14;</code>      */
+comment|// optional bool small = 14 [deprecated = true];
+comment|/**      *<code>optional bool small = 14 [deprecated = true];</code>      */
+annotation|@
+name|java
+operator|.
+name|lang
+operator|.
+name|Deprecated
 name|boolean
 name|hasSmall
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional bool small = 14;</code>      */
+comment|/**      *<code>optional bool small = 14 [deprecated = true];</code>      */
+annotation|@
+name|java
+operator|.
+name|lang
+operator|.
+name|Deprecated
 name|boolean
 name|getSmall
 parameter_list|()
@@ -74765,6 +74777,33 @@ function_decl|;
 comment|/**      *<code>optional bool include_stop_row = 22 [default = false];</code>      */
 name|boolean
 name|getIncludeStopRow
+parameter_list|()
+function_decl|;
+comment|// optional .hbase.pb.Scan.ReadType readType = 23 [default = DEFAULT];
+comment|/**      *<code>optional .hbase.pb.Scan.ReadType readType = 23 [default = DEFAULT];</code>      */
+name|boolean
+name|hasReadType
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional .hbase.pb.Scan.ReadType readType = 23 [default = DEFAULT];</code>      */
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|Scan
+operator|.
+name|ReadType
+name|getReadType
 parameter_list|()
 function_decl|;
 block|}
@@ -75820,6 +75859,90 @@ argument_list|()
 expr_stmt|;
 break|break;
 block|}
+case|case
+literal|184
+case|:
+block|{
+name|int
+name|rawValue
+init|=
+name|input
+operator|.
+name|readEnum
+argument_list|()
+decl_stmt|;
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|Scan
+operator|.
+name|ReadType
+name|value
+init|=
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|Scan
+operator|.
+name|ReadType
+operator|.
+name|valueOf
+argument_list|(
+name|rawValue
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|value
+operator|==
+literal|null
+condition|)
+block|{
+name|unknownFields
+operator|.
+name|mergeVarintField
+argument_list|(
+literal|23
+argument_list|,
+name|rawValue
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|bitField0_
+operator||=
+literal|0x00080000
+expr_stmt|;
+name|readType_
+operator|=
+name|value
+expr_stmt|;
+block|}
+break|break;
+block|}
 block|}
 block|}
 block|}
@@ -76171,6 +76294,374 @@ block|{
 return|return
 name|PARSER
 return|;
+block|}
+comment|/**      * Protobuf enum {@code hbase.pb.Scan.ReadType}      */
+specifier|public
+enum|enum
+name|ReadType
+implements|implements
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ProtocolMessageEnum
+block|{
+comment|/**        *<code>DEFAULT = 0;</code>        */
+name|DEFAULT
+argument_list|(
+literal|0
+argument_list|,
+literal|0
+argument_list|)
+block|,
+comment|/**        *<code>STREAM = 1;</code>        */
+name|STREAM
+argument_list|(
+literal|1
+argument_list|,
+literal|1
+argument_list|)
+block|,
+comment|/**        *<code>PREAD = 2;</code>        */
+name|PREAD
+argument_list|(
+literal|2
+argument_list|,
+literal|2
+argument_list|)
+block|,       ;
+comment|/**        *<code>DEFAULT = 0;</code>        */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_VALUE
+init|=
+literal|0
+decl_stmt|;
+comment|/**        *<code>STREAM = 1;</code>        */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|STREAM_VALUE
+init|=
+literal|1
+decl_stmt|;
+comment|/**        *<code>PREAD = 2;</code>        */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|PREAD_VALUE
+init|=
+literal|2
+decl_stmt|;
+specifier|public
+specifier|final
+name|int
+name|getNumber
+parameter_list|()
+block|{
+return|return
+name|value
+return|;
+block|}
+specifier|public
+specifier|static
+name|ReadType
+name|valueOf
+parameter_list|(
+name|int
+name|value
+parameter_list|)
+block|{
+switch|switch
+condition|(
+name|value
+condition|)
+block|{
+case|case
+literal|0
+case|:
+return|return
+name|DEFAULT
+return|;
+case|case
+literal|1
+case|:
+return|return
+name|STREAM
+return|;
+case|case
+literal|2
+case|:
+return|return
+name|PREAD
+return|;
+default|default:
+return|return
+literal|null
+return|;
+block|}
+block|}
+specifier|public
+specifier|static
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|Internal
+operator|.
+name|EnumLiteMap
+argument_list|<
+name|ReadType
+argument_list|>
+name|internalGetValueMap
+parameter_list|()
+block|{
+return|return
+name|internalValueMap
+return|;
+block|}
+specifier|private
+specifier|static
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|Internal
+operator|.
+name|EnumLiteMap
+argument_list|<
+name|ReadType
+argument_list|>
+name|internalValueMap
+init|=
+operator|new
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|Internal
+operator|.
+name|EnumLiteMap
+argument_list|<
+name|ReadType
+argument_list|>
+argument_list|()
+block|{
+specifier|public
+name|ReadType
+name|findValueByNumber
+parameter_list|(
+name|int
+name|number
+parameter_list|)
+block|{
+return|return
+name|ReadType
+operator|.
+name|valueOf
+argument_list|(
+name|number
+argument_list|)
+return|;
+block|}
+block|}
+decl_stmt|;
+specifier|public
+specifier|final
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|Descriptors
+operator|.
+name|EnumValueDescriptor
+name|getValueDescriptor
+parameter_list|()
+block|{
+return|return
+name|getDescriptor
+argument_list|()
+operator|.
+name|getValues
+argument_list|()
+operator|.
+name|get
+argument_list|(
+name|index
+argument_list|)
+return|;
+block|}
+specifier|public
+specifier|final
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|Descriptors
+operator|.
+name|EnumDescriptor
+name|getDescriptorForType
+parameter_list|()
+block|{
+return|return
+name|getDescriptor
+argument_list|()
+return|;
+block|}
+specifier|public
+specifier|static
+specifier|final
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|Descriptors
+operator|.
+name|EnumDescriptor
+name|getDescriptor
+parameter_list|()
+block|{
+return|return
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|Scan
+operator|.
+name|getDescriptor
+argument_list|()
+operator|.
+name|getEnumTypes
+argument_list|()
+operator|.
+name|get
+argument_list|(
+literal|0
+argument_list|)
+return|;
+block|}
+specifier|private
+specifier|static
+specifier|final
+name|ReadType
+index|[]
+name|VALUES
+init|=
+name|values
+argument_list|()
+decl_stmt|;
+specifier|public
+specifier|static
+name|ReadType
+name|valueOf
+parameter_list|(
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|Descriptors
+operator|.
+name|EnumValueDescriptor
+name|desc
+parameter_list|)
+block|{
+if|if
+condition|(
+name|desc
+operator|.
+name|getType
+argument_list|()
+operator|!=
+name|getDescriptor
+argument_list|()
+condition|)
+block|{
+throw|throw
+operator|new
+name|java
+operator|.
+name|lang
+operator|.
+name|IllegalArgumentException
+argument_list|(
+literal|"EnumValueDescriptor is not for this type."
+argument_list|)
+throw|;
+block|}
+return|return
+name|VALUES
+index|[
+name|desc
+operator|.
+name|getIndex
+argument_list|()
+index|]
+return|;
+block|}
+specifier|private
+specifier|final
+name|int
+name|index
+decl_stmt|;
+specifier|private
+specifier|final
+name|int
+name|value
+decl_stmt|;
+specifier|private
+name|ReadType
+parameter_list|(
+name|int
+name|index
+parameter_list|,
+name|int
+name|value
+parameter_list|)
+block|{
+name|this
+operator|.
+name|index
+operator|=
+name|index
+expr_stmt|;
+name|this
+operator|.
+name|value
+operator|=
+name|value
+expr_stmt|;
+block|}
+comment|// @@protoc_insertion_point(enum_scope:hbase.pb.Scan.ReadType)
 block|}
 specifier|private
 name|int
@@ -77105,7 +77596,7 @@ return|return
 name|loadColumnFamiliesOnDemand_
 return|;
 block|}
-comment|// optional bool small = 14;
+comment|// optional bool small = 14 [deprecated = true];
 specifier|public
 specifier|static
 specifier|final
@@ -77118,7 +77609,13 @@ specifier|private
 name|boolean
 name|small_
 decl_stmt|;
-comment|/**      *<code>optional bool small = 14;</code>      */
+comment|/**      *<code>optional bool small = 14 [deprecated = true];</code>      */
+annotation|@
+name|java
+operator|.
+name|lang
+operator|.
+name|Deprecated
 specifier|public
 name|boolean
 name|hasSmall
@@ -77136,7 +77633,13 @@ literal|0x00000800
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional bool small = 14;</code>      */
+comment|/**      *<code>optional bool small = 14 [deprecated = true];</code>      */
+annotation|@
+name|java
+operator|.
+name|lang
+operator|.
+name|Deprecated
 specifier|public
 name|boolean
 name|getSmall
@@ -77636,6 +78139,79 @@ return|return
 name|includeStopRow_
 return|;
 block|}
+comment|// optional .hbase.pb.Scan.ReadType readType = 23 [default = DEFAULT];
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|READTYPE_FIELD_NUMBER
+init|=
+literal|23
+decl_stmt|;
+specifier|private
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|Scan
+operator|.
+name|ReadType
+name|readType_
+decl_stmt|;
+comment|/**      *<code>optional .hbase.pb.Scan.ReadType readType = 23 [default = DEFAULT];</code>      */
+specifier|public
+name|boolean
+name|hasReadType
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00080000
+operator|)
+operator|==
+literal|0x00080000
+operator|)
+return|;
+block|}
+comment|/**      *<code>optional .hbase.pb.Scan.ReadType readType = 23 [default = DEFAULT];</code>      */
+specifier|public
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|Scan
+operator|.
+name|ReadType
+name|getReadType
+parameter_list|()
+block|{
+return|return
+name|readType_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -77815,6 +78391,28 @@ expr_stmt|;
 name|includeStopRow_
 operator|=
 literal|false
+expr_stmt|;
+name|readType_
+operator|=
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|Scan
+operator|.
+name|ReadType
+operator|.
+name|DEFAULT
 expr_stmt|;
 block|}
 specifier|private
@@ -78550,6 +79148,32 @@ argument_list|(
 literal|22
 argument_list|,
 name|includeStopRow_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00080000
+operator|)
+operator|==
+literal|0x00080000
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeEnum
+argument_list|(
+literal|23
+argument_list|,
+name|readType_
+operator|.
+name|getNumber
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -79305,6 +79929,40 @@ argument_list|(
 literal|22
 argument_list|,
 name|includeStopRow_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00080000
+operator|)
+operator|==
+literal|0x00080000
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeEnumSize
+argument_list|(
+literal|23
+argument_list|,
+name|readType_
+operator|.
+name|getNumber
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -80182,6 +80840,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasReadType
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasReadType
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasReadType
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getReadType
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getReadType
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -80913,6 +81606,37 @@ operator|+
 name|hashBoolean
 argument_list|(
 name|getIncludeStopRow
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasReadType
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|READTYPE_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|hashEnum
+argument_list|(
+name|getReadType
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -82211,6 +82935,37 @@ operator|~
 literal|0x00200000
 operator|)
 expr_stmt|;
+name|readType_
+operator|=
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|Scan
+operator|.
+name|ReadType
+operator|.
+name|DEFAULT
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00400000
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -83109,6 +83864,30 @@ name|includeStopRow_
 operator|=
 name|includeStopRow_
 expr_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00400000
+operator|)
+operator|==
+literal|0x00400000
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00080000
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|readType_
+operator|=
+name|readType_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -83979,6 +84758,23 @@ argument_list|(
 name|other
 operator|.
 name|getIncludeStopRow
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasReadType
+argument_list|()
+condition|)
+block|{
+name|setReadType
+argument_list|(
+name|other
+operator|.
+name|getReadType
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -89166,12 +89962,18 @@ return|return
 name|this
 return|;
 block|}
-comment|// optional bool small = 14;
+comment|// optional bool small = 14 [deprecated = true];
 specifier|private
 name|boolean
 name|small_
 decl_stmt|;
-comment|/**        *<code>optional bool small = 14;</code>        */
+comment|/**        *<code>optional bool small = 14 [deprecated = true];</code>        */
+annotation|@
+name|java
+operator|.
+name|lang
+operator|.
+name|Deprecated
 specifier|public
 name|boolean
 name|hasSmall
@@ -89189,7 +89991,13 @@ literal|0x00002000
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional bool small = 14;</code>        */
+comment|/**        *<code>optional bool small = 14 [deprecated = true];</code>        */
+annotation|@
+name|java
+operator|.
+name|lang
+operator|.
+name|Deprecated
 specifier|public
 name|boolean
 name|getSmall
@@ -89199,7 +90007,13 @@ return|return
 name|small_
 return|;
 block|}
-comment|/**        *<code>optional bool small = 14;</code>        */
+comment|/**        *<code>optional bool small = 14 [deprecated = true];</code>        */
+annotation|@
+name|java
+operator|.
+name|lang
+operator|.
+name|Deprecated
 specifier|public
 name|Builder
 name|setSmall
@@ -89223,7 +90037,13 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional bool small = 14;</code>        */
+comment|/**        *<code>optional bool small = 14 [deprecated = true];</code>        */
+annotation|@
+name|java
+operator|.
+name|lang
+operator|.
+name|Deprecated
 specifier|public
 name|Builder
 name|clearSmall
@@ -91254,6 +92074,188 @@ return|return
 name|this
 return|;
 block|}
+comment|// optional .hbase.pb.Scan.ReadType readType = 23 [default = DEFAULT];
+specifier|private
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|Scan
+operator|.
+name|ReadType
+name|readType_
+init|=
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|Scan
+operator|.
+name|ReadType
+operator|.
+name|DEFAULT
+decl_stmt|;
+comment|/**        *<code>optional .hbase.pb.Scan.ReadType readType = 23 [default = DEFAULT];</code>        */
+specifier|public
+name|boolean
+name|hasReadType
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00400000
+operator|)
+operator|==
+literal|0x00400000
+operator|)
+return|;
+block|}
+comment|/**        *<code>optional .hbase.pb.Scan.ReadType readType = 23 [default = DEFAULT];</code>        */
+specifier|public
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|Scan
+operator|.
+name|ReadType
+name|getReadType
+parameter_list|()
+block|{
+return|return
+name|readType_
+return|;
+block|}
+comment|/**        *<code>optional .hbase.pb.Scan.ReadType readType = 23 [default = DEFAULT];</code>        */
+specifier|public
+name|Builder
+name|setReadType
+parameter_list|(
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|Scan
+operator|.
+name|ReadType
+name|value
+parameter_list|)
+block|{
+if|if
+condition|(
+name|value
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|NullPointerException
+argument_list|()
+throw|;
+block|}
+name|bitField0_
+operator||=
+literal|0x00400000
+expr_stmt|;
+name|readType_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional .hbase.pb.Scan.ReadType readType = 23 [default = DEFAULT];</code>        */
+specifier|public
+name|Builder
+name|clearReadType
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00400000
+operator|)
+expr_stmt|;
+name|readType_
+operator|=
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ClientProtos
+operator|.
+name|Scan
+operator|.
+name|ReadType
+operator|.
+name|DEFAULT
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
 comment|// @@protoc_insertion_point(builder_scope:hbase.pb.Scan)
 block|}
 static|static
@@ -91460,6 +92462,17 @@ function_decl|;
 comment|/**      *<code>optional bool renew = 10 [default = false];</code>      */
 name|boolean
 name|getRenew
+parameter_list|()
+function_decl|;
+comment|// optional uint32 limit_of_rows = 11 [default = 0];
+comment|/**      *<code>optional uint32 limit_of_rows = 11 [default = 0];</code>      *      *<pre>      * if we have returned limit_of_rows rows to client, then close the scanner.      *</pre>      */
+name|boolean
+name|hasLimitOfRows
+parameter_list|()
+function_decl|;
+comment|/**      *<code>optional uint32 limit_of_rows = 11 [default = 0];</code>      *      *<pre>      * if we have returned limit_of_rows rows to client, then close the scanner.      *</pre>      */
+name|int
+name|getLimitOfRows
 parameter_list|()
 function_decl|;
 block|}
@@ -92049,6 +93062,23 @@ operator|=
 name|input
 operator|.
 name|readBool
+argument_list|()
+expr_stmt|;
+break|break;
+block|}
+case|case
+literal|88
+case|:
+block|{
+name|bitField0_
+operator||=
+literal|0x00000400
+expr_stmt|;
+name|limitOfRows_
+operator|=
+name|input
+operator|.
+name|readUInt32
 argument_list|()
 expr_stmt|;
 break|break;
@@ -92842,6 +93872,47 @@ return|return
 name|renew_
 return|;
 block|}
+comment|// optional uint32 limit_of_rows = 11 [default = 0];
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|LIMIT_OF_ROWS_FIELD_NUMBER
+init|=
+literal|11
+decl_stmt|;
+specifier|private
+name|int
+name|limitOfRows_
+decl_stmt|;
+comment|/**      *<code>optional uint32 limit_of_rows = 11 [default = 0];</code>      *      *<pre>      * if we have returned limit_of_rows rows to client, then close the scanner.      *</pre>      */
+specifier|public
+name|boolean
+name|hasLimitOfRows
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000400
+operator|)
+operator|==
+literal|0x00000400
+operator|)
+return|;
+block|}
+comment|/**      *<code>optional uint32 limit_of_rows = 11 [default = 0];</code>      *      *<pre>      * if we have returned limit_of_rows rows to client, then close the scanner.      *</pre>      */
+specifier|public
+name|int
+name|getLimitOfRows
+parameter_list|()
+block|{
+return|return
+name|limitOfRows_
+return|;
+block|}
 specifier|private
 name|void
 name|initFields
@@ -92920,6 +93991,10 @@ expr_stmt|;
 name|renew_
 operator|=
 literal|false
+expr_stmt|;
+name|limitOfRows_
+operator|=
+literal|0
 expr_stmt|;
 block|}
 specifier|private
@@ -93260,6 +94335,29 @@ argument_list|(
 literal|10
 argument_list|,
 name|renew_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000400
+operator|)
+operator|==
+literal|0x00000400
+operator|)
+condition|)
+block|{
+name|output
+operator|.
+name|writeUInt32
+argument_list|(
+literal|11
+argument_list|,
+name|limitOfRows_
 argument_list|)
 expr_stmt|;
 block|}
@@ -93610,6 +94708,37 @@ argument_list|(
 literal|10
 argument_list|,
 name|renew_
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000400
+operator|)
+operator|==
+literal|0x00000400
+operator|)
+condition|)
+block|{
+name|size
+operator|+=
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|CodedOutputStream
+operator|.
+name|computeUInt32Size
+argument_list|(
+literal|11
+argument_list|,
+name|limitOfRows_
 argument_list|)
 expr_stmt|;
 block|}
@@ -94125,6 +95254,41 @@ name|result
 operator|=
 name|result
 operator|&&
+operator|(
+name|hasLimitOfRows
+argument_list|()
+operator|==
+name|other
+operator|.
+name|hasLimitOfRows
+argument_list|()
+operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasLimitOfRows
+argument_list|()
+condition|)
+block|{
+name|result
+operator|=
+name|result
+operator|&&
+operator|(
+name|getLimitOfRows
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getLimitOfRows
+argument_list|()
+operator|)
+expr_stmt|;
+block|}
+name|result
+operator|=
+name|result
+operator|&&
 name|getUnknownFields
 argument_list|()
 operator|.
@@ -94492,6 +95656,34 @@ argument_list|(
 name|getRenew
 argument_list|()
 argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hasLimitOfRows
+argument_list|()
+condition|)
+block|{
+name|hash
+operator|=
+operator|(
+literal|37
+operator|*
+name|hash
+operator|)
+operator|+
+name|LIMIT_OF_ROWS_FIELD_NUMBER
+expr_stmt|;
+name|hash
+operator|=
+operator|(
+literal|53
+operator|*
+name|hash
+operator|)
+operator|+
+name|getLimitOfRows
+argument_list|()
 expr_stmt|;
 block|}
 name|hash
@@ -95522,6 +96714,19 @@ operator|~
 literal|0x00000200
 operator|)
 expr_stmt|;
+name|limitOfRows_
+operator|=
+literal|0
+expr_stmt|;
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000400
+operator|)
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -96018,6 +97223,30 @@ name|renew_
 operator|=
 name|renew_
 expr_stmt|;
+if|if
+condition|(
+operator|(
+operator|(
+name|from_bitField0_
+operator|&
+literal|0x00000400
+operator|)
+operator|==
+literal|0x00000400
+operator|)
+condition|)
+block|{
+name|to_bitField0_
+operator||=
+literal|0x00000400
+expr_stmt|;
+block|}
+name|result
+operator|.
+name|limitOfRows_
+operator|=
+name|limitOfRows_
+expr_stmt|;
 name|result
 operator|.
 name|bitField0_
@@ -96318,6 +97547,23 @@ argument_list|(
 name|other
 operator|.
 name|getRenew
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|other
+operator|.
+name|hasLimitOfRows
+argument_list|()
+condition|)
+block|{
+name|setLimitOfRows
+argument_list|(
+name|other
+operator|.
+name|getLimitOfRows
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -98576,6 +99822,89 @@ expr_stmt|;
 name|renew_
 operator|=
 literal|false
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|// optional uint32 limit_of_rows = 11 [default = 0];
+specifier|private
+name|int
+name|limitOfRows_
+decl_stmt|;
+comment|/**        *<code>optional uint32 limit_of_rows = 11 [default = 0];</code>        *        *<pre>        * if we have returned limit_of_rows rows to client, then close the scanner.        *</pre>        */
+specifier|public
+name|boolean
+name|hasLimitOfRows
+parameter_list|()
+block|{
+return|return
+operator|(
+operator|(
+name|bitField0_
+operator|&
+literal|0x00000400
+operator|)
+operator|==
+literal|0x00000400
+operator|)
+return|;
+block|}
+comment|/**        *<code>optional uint32 limit_of_rows = 11 [default = 0];</code>        *        *<pre>        * if we have returned limit_of_rows rows to client, then close the scanner.        *</pre>        */
+specifier|public
+name|int
+name|getLimitOfRows
+parameter_list|()
+block|{
+return|return
+name|limitOfRows_
+return|;
+block|}
+comment|/**        *<code>optional uint32 limit_of_rows = 11 [default = 0];</code>        *        *<pre>        * if we have returned limit_of_rows rows to client, then close the scanner.        *</pre>        */
+specifier|public
+name|Builder
+name|setLimitOfRows
+parameter_list|(
+name|int
+name|value
+parameter_list|)
+block|{
+name|bitField0_
+operator||=
+literal|0x00000400
+expr_stmt|;
+name|limitOfRows_
+operator|=
+name|value
+expr_stmt|;
+name|onChanged
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**        *<code>optional uint32 limit_of_rows = 11 [default = 0];</code>        *        *<pre>        * if we have returned limit_of_rows rows to client, then close the scanner.        *</pre>        */
+specifier|public
+name|Builder
+name|clearLimitOfRows
+parameter_list|()
+block|{
+name|bitField0_
+operator|=
+operator|(
+name|bitField0_
+operator|&
+operator|~
+literal|0x00000400
+operator|)
+expr_stmt|;
+name|limitOfRows_
+operator|=
+literal|0
 expr_stmt|;
 name|onChanged
 argument_list|()
@@ -213429,7 +214758,7 @@ literal|"_group\030\004 \001(\004\"E\n\016MutateResponse\022 \n\006result"
 operator|+
 literal|"\030\001 \001(\0132\020.hbase.pb.Result\022\021\n\tprocessed\030\002 "
 operator|+
-literal|"\001(\010\"\233\005\n\004Scan\022 \n\006column\030\001 \003(\0132\020.hbase.pb."
+literal|"\001(\010\"\203\006\n\004Scan\022 \n\006column\030\001 \003(\0132\020.hbase.pb."
 operator|+
 literal|"Column\022*\n\tattribute\030\002 \003(\0132\027.hbase.pb.Nam"
 operator|+
@@ -213447,201 +214776,209 @@ literal|"ax_result_size\030\n \001(\004\022\023\n\013store_limit\030\013 \001("
 operator|+
 literal|"\r\022\024\n\014store_offset\030\014 \001(\r\022&\n\036load_column_f"
 operator|+
-literal|"amilies_on_demand\030\r \001(\010\022\r\n\005small\030\016 \001(\010\022\027"
+literal|"amilies_on_demand\030\r \001(\010\022\021\n\005small\030\016 \001(\010B\002"
 operator|+
-literal|"\n\010reversed\030\017 \001(\010:\005false\0222\n\013consistency\030\020"
+literal|"\030\001\022\027\n\010reversed\030\017 \001(\010:\005false\0222\n\013consisten"
 operator|+
-literal|" \001(\0162\025.hbase.pb.Consistency:\006STRONG\022\017\n\007c"
+literal|"cy\030\020 \001(\0162\025.hbase.pb.Consistency:\006STRONG\022"
 operator|+
-literal|"aching\030\021 \001(\r\022\035\n\025allow_partial_results\030\022 "
+literal|"\017\n\007caching\030\021 \001(\r\022\035\n\025allow_partial_result"
 operator|+
-literal|"\001(\010\0226\n\rcf_time_range\030\023 \003(\0132\037.hbase.pb.Co"
+literal|"s\030\022 \001(\010\0226\n\rcf_time_range\030\023 \003(\0132\037.hbase.p"
 operator|+
-literal|"lumnFamilyTimeRange\022\032\n\017mvcc_read_point\030\024"
+literal|"b.ColumnFamilyTimeRange\022\032\n\017mvcc_read_poi"
 block|,
-literal|" \001(\004:\0010\022\037\n\021include_start_row\030\025 \001(\010:\004true"
+literal|"nt\030\024 \001(\004:\0010\022\037\n\021include_start_row\030\025 \001(\010:\004"
 operator|+
-literal|"\022\037\n\020include_stop_row\030\026 \001(\010:\005false\"\246\002\n\013Sc"
+literal|"true\022\037\n\020include_stop_row\030\026 \001(\010:\005false\0222\n"
 operator|+
-literal|"anRequest\022)\n\006region\030\001 \001(\0132\031.hbase.pb.Reg"
+literal|"\010readType\030\027 \001(\0162\027.hbase.pb.Scan.ReadType"
 operator|+
-literal|"ionSpecifier\022\034\n\004scan\030\002 \001(\0132\016.hbase.pb.Sc"
+literal|":\007DEFAULT\".\n\010ReadType\022\013\n\007DEFAULT\020\000\022\n\n\006ST"
 operator|+
-literal|"an\022\022\n\nscanner_id\030\003 \001(\004\022\026\n\016number_of_rows"
+literal|"REAM\020\001\022\t\n\005PREAD\020\002\"\300\002\n\013ScanRequest\022)\n\006reg"
 operator|+
-literal|"\030\004 \001(\r\022\025\n\rclose_scanner\030\005 \001(\010\022\025\n\rnext_ca"
+literal|"ion\030\001 \001(\0132\031.hbase.pb.RegionSpecifier\022\034\n\004"
 operator|+
-literal|"ll_seq\030\006 \001(\004\022\037\n\027client_handles_partials\030"
+literal|"scan\030\002 \001(\0132\016.hbase.pb.Scan\022\022\n\nscanner_id"
 operator|+
-literal|"\007 \001(\010\022!\n\031client_handles_heartbeats\030\010 \001(\010"
+literal|"\030\003 \001(\004\022\026\n\016number_of_rows\030\004 \001(\r\022\025\n\rclose_"
 operator|+
-literal|"\022\032\n\022track_scan_metrics\030\t \001(\010\022\024\n\005renew\030\n "
+literal|"scanner\030\005 \001(\010\022\025\n\rnext_call_seq\030\006 \001(\004\022\037\n\027"
 operator|+
-literal|"\001(\010:\005false\"\266\002\n\014ScanResponse\022\030\n\020cells_per"
+literal|"client_handles_partials\030\007 \001(\010\022!\n\031client_"
 block|,
-literal|"_result\030\001 \003(\r\022\022\n\nscanner_id\030\002 \001(\004\022\024\n\014mor"
+literal|"handles_heartbeats\030\010 \001(\010\022\032\n\022track_scan_m"
 operator|+
-literal|"e_results\030\003 \001(\010\022\013\n\003ttl\030\004 \001(\r\022!\n\007results\030"
+literal|"etrics\030\t \001(\010\022\024\n\005renew\030\n \001(\010:\005false\022\030\n\rli"
 operator|+
-literal|"\005 \003(\0132\020.hbase.pb.Result\022\r\n\005stale\030\006 \001(\010\022\037"
+literal|"mit_of_rows\030\013 \001(\r:\0010\"\266\002\n\014ScanResponse\022\030\n"
 operator|+
-literal|"\n\027partial_flag_per_result\030\007 \003(\010\022\036\n\026more_"
+literal|"\020cells_per_result\030\001 \003(\r\022\022\n\nscanner_id\030\002 "
 operator|+
-literal|"results_in_region\030\010 \001(\010\022\031\n\021heartbeat_mes"
+literal|"\001(\004\022\024\n\014more_results\030\003 \001(\010\022\013\n\003ttl\030\004 \001(\r\022!"
 operator|+
-literal|"sage\030\t \001(\010\022+\n\014scan_metrics\030\n \001(\0132\025.hbase"
+literal|"\n\007results\030\005 \003(\0132\020.hbase.pb.Result\022\r\n\005sta"
 operator|+
-literal|".pb.ScanMetrics\022\032\n\017mvcc_read_point\030\013 \001(\004"
+literal|"le\030\006 \001(\010\022\037\n\027partial_flag_per_result\030\007 \003("
 operator|+
-literal|":\0010\"\240\002\n\024BulkLoadHFileRequest\022)\n\006region\030\001"
+literal|"\010\022\036\n\026more_results_in_region\030\010 \001(\010\022\031\n\021hea"
 operator|+
-literal|" \002(\0132\031.hbase.pb.RegionSpecifier\022>\n\013famil"
+literal|"rtbeat_message\030\t \001(\010\022+\n\014scan_metrics\030\n \001"
 operator|+
-literal|"y_path\030\002 \003(\0132).hbase.pb.BulkLoadHFileReq"
+literal|"(\0132\025.hbase.pb.ScanMetrics\022\032\n\017mvcc_read_p"
 block|,
-literal|"uest.FamilyPath\022\026\n\016assign_seq_num\030\003 \001(\010\022"
+literal|"oint\030\013 \001(\004:\0010\"\240\002\n\024BulkLoadHFileRequest\022)"
 operator|+
-literal|"+\n\010fs_token\030\004 \001(\0132\031.hbase.pb.DelegationT"
+literal|"\n\006region\030\001 \002(\0132\031.hbase.pb.RegionSpecifie"
 operator|+
-literal|"oken\022\022\n\nbulk_token\030\005 \001(\t\022\030\n\tcopy_file\030\006 "
+literal|"r\022>\n\013family_path\030\002 \003(\0132).hbase.pb.BulkLo"
 operator|+
-literal|"\001(\010:\005false\032*\n\nFamilyPath\022\016\n\006family\030\001 \002(\014"
+literal|"adHFileRequest.FamilyPath\022\026\n\016assign_seq_"
 operator|+
-literal|"\022\014\n\004path\030\002 \002(\t\"\'\n\025BulkLoadHFileResponse\022"
+literal|"num\030\003 \001(\010\022+\n\010fs_token\030\004 \001(\0132\031.hbase.pb.D"
 operator|+
-literal|"\016\n\006loaded\030\001 \002(\010\"V\n\017DelegationToken\022\022\n\nid"
+literal|"elegationToken\022\022\n\nbulk_token\030\005 \001(\t\022\030\n\tco"
 operator|+
-literal|"entifier\030\001 \001(\014\022\020\n\010password\030\002 \001(\014\022\014\n\004kind"
+literal|"py_file\030\006 \001(\010:\005false\032*\n\nFamilyPath\022\016\n\006fa"
 operator|+
-literal|"\030\003 \001(\t\022\017\n\007service\030\004 \001(\t\"l\n\026PrepareBulkLo"
+literal|"mily\030\001 \002(\014\022\014\n\004path\030\002 \002(\t\"\'\n\025BulkLoadHFil"
 operator|+
-literal|"adRequest\022\'\n\ntable_name\030\001 \002(\0132\023.hbase.pb"
+literal|"eResponse\022\016\n\006loaded\030\001 \002(\010\"V\n\017DelegationT"
 operator|+
-literal|".TableName\022)\n\006region\030\002 \001(\0132\031.hbase.pb.Re"
+literal|"oken\022\022\n\nidentifier\030\001 \001(\014\022\020\n\010password\030\002 \001"
 block|,
-literal|"gionSpecifier\"-\n\027PrepareBulkLoadResponse"
+literal|"(\014\022\014\n\004kind\030\003 \001(\t\022\017\n\007service\030\004 \001(\t\"l\n\026Pre"
 operator|+
-literal|"\022\022\n\nbulk_token\030\001 \002(\t\"W\n\026CleanupBulkLoadR"
+literal|"pareBulkLoadRequest\022\'\n\ntable_name\030\001 \002(\0132"
 operator|+
-literal|"equest\022\022\n\nbulk_token\030\001 \002(\t\022)\n\006region\030\002 \001"
+literal|"\023.hbase.pb.TableName\022)\n\006region\030\002 \001(\0132\031.h"
 operator|+
-literal|"(\0132\031.hbase.pb.RegionSpecifier\"\031\n\027Cleanup"
+literal|"base.pb.RegionSpecifier\"-\n\027PrepareBulkLo"
 operator|+
-literal|"BulkLoadResponse\"a\n\026CoprocessorServiceCa"
+literal|"adResponse\022\022\n\nbulk_token\030\001 \002(\t\"W\n\026Cleanu"
 operator|+
-literal|"ll\022\013\n\003row\030\001 \002(\014\022\024\n\014service_name\030\002 \002(\t\022\023\n"
+literal|"pBulkLoadRequest\022\022\n\nbulk_token\030\001 \002(\t\022)\n\006"
 operator|+
-literal|"\013method_name\030\003 \002(\t\022\017\n\007request\030\004 \002(\014\"B\n\030C"
+literal|"region\030\002 \001(\0132\031.hbase.pb.RegionSpecifier\""
 operator|+
-literal|"oprocessorServiceResult\022&\n\005value\030\001 \001(\0132\027"
+literal|"\031\n\027CleanupBulkLoadResponse\"a\n\026Coprocesso"
 operator|+
-literal|".hbase.pb.NameBytesPair\"v\n\031CoprocessorSe"
+literal|"rServiceCall\022\013\n\003row\030\001 \002(\014\022\024\n\014service_nam"
 operator|+
-literal|"rviceRequest\022)\n\006region\030\001 \002(\0132\031.hbase.pb."
+literal|"e\030\002 \002(\t\022\023\n\013method_name\030\003 \002(\t\022\017\n\007request\030"
 block|,
-literal|"RegionSpecifier\022.\n\004call\030\002 \002(\0132 .hbase.pb"
+literal|"\004 \002(\014\"B\n\030CoprocessorServiceResult\022&\n\005val"
 operator|+
-literal|".CoprocessorServiceCall\"o\n\032CoprocessorSe"
+literal|"ue\030\001 \001(\0132\027.hbase.pb.NameBytesPair\"v\n\031Cop"
 operator|+
-literal|"rviceResponse\022)\n\006region\030\001 \002(\0132\031.hbase.pb"
+literal|"rocessorServiceRequest\022)\n\006region\030\001 \002(\0132\031"
 operator|+
-literal|".RegionSpecifier\022&\n\005value\030\002 \002(\0132\027.hbase."
+literal|".hbase.pb.RegionSpecifier\022.\n\004call\030\002 \002(\0132"
 operator|+
-literal|"pb.NameBytesPair\"\226\001\n\006Action\022\r\n\005index\030\001 \001"
+literal|" .hbase.pb.CoprocessorServiceCall\"o\n\032Cop"
 operator|+
-literal|"(\r\022)\n\010mutation\030\002 \001(\0132\027.hbase.pb.Mutation"
+literal|"rocessorServiceResponse\022)\n\006region\030\001 \002(\0132"
 operator|+
-literal|"Proto\022\032\n\003get\030\003 \001(\0132\r.hbase.pb.Get\0226\n\014ser"
+literal|"\031.hbase.pb.RegionSpecifier\022&\n\005value\030\002 \002("
 operator|+
-literal|"vice_call\030\004 \001(\0132 .hbase.pb.CoprocessorSe"
+literal|"\0132\027.hbase.pb.NameBytesPair\"\226\001\n\006Action\022\r\n"
 operator|+
-literal|"rviceCall\"k\n\014RegionAction\022)\n\006region\030\001 \002("
+literal|"\005index\030\001 \001(\r\022)\n\010mutation\030\002 \001(\0132\027.hbase.p"
 operator|+
-literal|"\0132\031.hbase.pb.RegionSpecifier\022\016\n\006atomic\030\002"
+literal|"b.MutationProto\022\032\n\003get\030\003 \001(\0132\r.hbase.pb."
 block|,
-literal|" \001(\010\022 \n\006action\030\003 \003(\0132\020.hbase.pb.Action\"c"
+literal|"Get\0226\n\014service_call\030\004 \001(\0132 .hbase.pb.Cop"
 operator|+
-literal|"\n\017RegionLoadStats\022\027\n\014memstoreLoad\030\001 \001(\005:"
+literal|"rocessorServiceCall\"k\n\014RegionAction\022)\n\006r"
 operator|+
-literal|"\0010\022\030\n\rheapOccupancy\030\002 \001(\005:\0010\022\035\n\022compacti"
+literal|"egion\030\001 \002(\0132\031.hbase.pb.RegionSpecifier\022\016"
 operator|+
-literal|"onPressure\030\003 \001(\005:\0010\"j\n\024MultiRegionLoadSt"
+literal|"\n\006atomic\030\002 \001(\010\022 \n\006action\030\003 \003(\0132\020.hbase.p"
 operator|+
-literal|"ats\022)\n\006region\030\001 \003(\0132\031.hbase.pb.RegionSpe"
+literal|"b.Action\"c\n\017RegionLoadStats\022\027\n\014memstoreL"
 operator|+
-literal|"cifier\022\'\n\004stat\030\002 \003(\0132\031.hbase.pb.RegionLo"
+literal|"oad\030\001 \001(\005:\0010\022\030\n\rheapOccupancy\030\002 \001(\005:\0010\022\035"
 operator|+
-literal|"adStats\"\336\001\n\021ResultOrException\022\r\n\005index\030\001"
+literal|"\n\022compactionPressure\030\003 \001(\005:\0010\"j\n\024MultiRe"
 operator|+
-literal|" \001(\r\022 \n\006result\030\002 \001(\0132\020.hbase.pb.Result\022*"
+literal|"gionLoadStats\022)\n\006region\030\001 \003(\0132\031.hbase.pb"
 operator|+
-literal|"\n\texception\030\003 \001(\0132\027.hbase.pb.NameBytesPa"
+literal|".RegionSpecifier\022\'\n\004stat\030\002 \003(\0132\031.hbase.p"
 operator|+
-literal|"ir\022:\n\016service_result\030\004 \001(\0132\".hbase.pb.Co"
+literal|"b.RegionLoadStats\"\336\001\n\021ResultOrException\022"
 block|,
-literal|"processorServiceResult\0220\n\tloadStats\030\005 \001("
+literal|"\r\n\005index\030\001 \001(\r\022 \n\006result\030\002 \001(\0132\020.hbase.p"
 operator|+
-literal|"\0132\031.hbase.pb.RegionLoadStatsB\002\030\001\"x\n\022Regi"
+literal|"b.Result\022*\n\texception\030\003 \001(\0132\027.hbase.pb.N"
 operator|+
-literal|"onActionResult\0226\n\021resultOrException\030\001 \003("
+literal|"ameBytesPair\022:\n\016service_result\030\004 \001(\0132\".h"
 operator|+
-literal|"\0132\033.hbase.pb.ResultOrException\022*\n\texcept"
+literal|"base.pb.CoprocessorServiceResult\0220\n\tload"
 operator|+
-literal|"ion\030\002 \001(\0132\027.hbase.pb.NameBytesPair\"x\n\014Mu"
+literal|"Stats\030\005 \001(\0132\031.hbase.pb.RegionLoadStatsB\002"
 operator|+
-literal|"ltiRequest\022,\n\014regionAction\030\001 \003(\0132\026.hbase"
+literal|"\030\001\"x\n\022RegionActionResult\0226\n\021resultOrExce"
 operator|+
-literal|".pb.RegionAction\022\022\n\nnonceGroup\030\002 \001(\004\022&\n\t"
+literal|"ption\030\001 \003(\0132\033.hbase.pb.ResultOrException"
 operator|+
-literal|"condition\030\003 \001(\0132\023.hbase.pb.Condition\"\226\001\n"
+literal|"\022*\n\texception\030\002 \001(\0132\027.hbase.pb.NameBytes"
 operator|+
-literal|"\rMultiResponse\0228\n\022regionActionResult\030\001 \003"
+literal|"Pair\"x\n\014MultiRequest\022,\n\014regionAction\030\001 \003"
 operator|+
-literal|"(\0132\034.hbase.pb.RegionActionResult\022\021\n\tproc"
+literal|"(\0132\026.hbase.pb.RegionAction\022\022\n\nnonceGroup"
 block|,
-literal|"essed\030\002 \001(\010\0228\n\020regionStatistics\030\003 \001(\0132\036."
+literal|"\030\002 \001(\004\022&\n\tcondition\030\003 \001(\0132\023.hbase.pb.Con"
 operator|+
-literal|"hbase.pb.MultiRegionLoadStats*\'\n\013Consist"
+literal|"dition\"\226\001\n\rMultiResponse\0228\n\022regionAction"
 operator|+
-literal|"ency\022\n\n\006STRONG\020\000\022\014\n\010TIMELINE\020\0012\263\005\n\rClien"
+literal|"Result\030\001 \003(\0132\034.hbase.pb.RegionActionResu"
 operator|+
-literal|"tService\0222\n\003Get\022\024.hbase.pb.GetRequest\032\025."
+literal|"lt\022\021\n\tprocessed\030\002 \001(\010\0228\n\020regionStatistic"
 operator|+
-literal|"hbase.pb.GetResponse\022;\n\006Mutate\022\027.hbase.p"
+literal|"s\030\003 \001(\0132\036.hbase.pb.MultiRegionLoadStats*"
 operator|+
-literal|"b.MutateRequest\032\030.hbase.pb.MutateRespons"
+literal|"\'\n\013Consistency\022\n\n\006STRONG\020\000\022\014\n\010TIMELINE\020\001"
 operator|+
-literal|"e\0225\n\004Scan\022\025.hbase.pb.ScanRequest\032\026.hbase"
+literal|"2\263\005\n\rClientService\0222\n\003Get\022\024.hbase.pb.Get"
 operator|+
-literal|".pb.ScanResponse\022P\n\rBulkLoadHFile\022\036.hbas"
+literal|"Request\032\025.hbase.pb.GetResponse\022;\n\006Mutate"
 operator|+
-literal|"e.pb.BulkLoadHFileRequest\032\037.hbase.pb.Bul"
+literal|"\022\027.hbase.pb.MutateRequest\032\030.hbase.pb.Mut"
 operator|+
-literal|"kLoadHFileResponse\022V\n\017PrepareBulkLoad\022 ."
+literal|"ateResponse\0225\n\004Scan\022\025.hbase.pb.ScanReque"
 block|,
-literal|"hbase.pb.PrepareBulkLoadRequest\032!.hbase."
+literal|"st\032\026.hbase.pb.ScanResponse\022P\n\rBulkLoadHF"
 operator|+
-literal|"pb.PrepareBulkLoadResponse\022V\n\017CleanupBul"
+literal|"ile\022\036.hbase.pb.BulkLoadHFileRequest\032\037.hb"
 operator|+
-literal|"kLoad\022 .hbase.pb.CleanupBulkLoadRequest\032"
+literal|"ase.pb.BulkLoadHFileResponse\022V\n\017PrepareB"
 operator|+
-literal|"!.hbase.pb.CleanupBulkLoadResponse\022X\n\013Ex"
+literal|"ulkLoad\022 .hbase.pb.PrepareBulkLoadReques"
 operator|+
-literal|"ecService\022#.hbase.pb.CoprocessorServiceR"
+literal|"t\032!.hbase.pb.PrepareBulkLoadResponse\022V\n\017"
 operator|+
-literal|"equest\032$.hbase.pb.CoprocessorServiceResp"
+literal|"CleanupBulkLoad\022 .hbase.pb.CleanupBulkLo"
 operator|+
-literal|"onse\022d\n\027ExecRegionServerService\022#.hbase."
+literal|"adRequest\032!.hbase.pb.CleanupBulkLoadResp"
 operator|+
-literal|"pb.CoprocessorServiceRequest\032$.hbase.pb."
+literal|"onse\022X\n\013ExecService\022#.hbase.pb.Coprocess"
 operator|+
-literal|"CoprocessorServiceResponse\0228\n\005Multi\022\026.hb"
+literal|"orServiceRequest\032$.hbase.pb.CoprocessorS"
 operator|+
-literal|"ase.pb.MultiRequest\032\027.hbase.pb.MultiResp"
+literal|"erviceResponse\022d\n\027ExecRegionServerServic"
 block|,
-literal|"onseBB\n*org.apache.hadoop.hbase.protobuf"
+literal|"e\022#.hbase.pb.CoprocessorServiceRequest\032$"
 operator|+
-literal|".generatedB\014ClientProtosH\001\210\001\001\240\001\001"
+literal|".hbase.pb.CoprocessorServiceResponse\0228\n\005"
+operator|+
+literal|"Multi\022\026.hbase.pb.MultiRequest\032\027.hbase.pb"
+operator|+
+literal|".MultiResponseBB\n*org.apache.hadoop.hbas"
+operator|+
+literal|"e.protobuf.generatedB\014ClientProtosH\001\210\001\001\240"
+operator|+
+literal|"\001\001"
 block|}
 decl_stmt|;
 name|com
@@ -214372,6 +215709,8 @@ block|,
 literal|"IncludeStartRow"
 block|,
 literal|"IncludeStopRow"
+block|,
+literal|"ReadType"
 block|, }
 argument_list|)
 expr_stmt|;
@@ -214430,6 +215769,8 @@ block|,
 literal|"TrackScanMetrics"
 block|,
 literal|"Renew"
+block|,
+literal|"LimitOfRows"
 block|, }
 argument_list|)
 expr_stmt|;

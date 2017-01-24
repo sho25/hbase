@@ -748,13 +748,10 @@ argument_list|<
 name|Result
 argument_list|>
 argument_list|>
-name|smallScan
+name|scanAll
 parameter_list|(
 name|Scan
 name|scan
-parameter_list|,
-name|int
-name|limit
 parameter_list|)
 block|{
 return|return
@@ -762,11 +759,9 @@ name|wrap
 argument_list|(
 name|rawTable
 operator|.
-name|smallScan
+name|scanAll
 argument_list|(
 name|scan
-argument_list|,
-name|limit
 argument_list|)
 argument_list|)
 return|;

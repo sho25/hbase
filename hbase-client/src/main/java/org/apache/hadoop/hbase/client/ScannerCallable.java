@@ -1094,6 +1094,9 @@ operator|!=
 literal|null
 argument_list|,
 name|renew
+argument_list|,
+operator|-
+literal|1
 argument_list|)
 expr_stmt|;
 name|ScanResponse

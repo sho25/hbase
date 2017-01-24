@@ -318,7 +318,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Used to perform Scan operations.  *<p>  * All operations are identical to {@link Get} with the exception of  * instantiation.  Rather than specifying a single row, an optional startRow  * and stopRow may be defined.  If rows are not specified, the Scanner will  * iterate over all rows.  *<p>  * To get all columns from all rows of a Table, create an instance with no constraints; use the  * {@link #Scan()} constructor. To constrain the scan to specific column families,  * call {@link #addFamily(byte[]) addFamily} for each family to retrieve on your Scan instance.  *<p>  * To get specific columns, call {@link #addColumn(byte[], byte[]) addColumn}  * for each column to retrieve.  *<p>  * To only retrieve columns within a specific range of version timestamps,  * call {@link #setTimeRange(long, long) setTimeRange}.  *<p>  * To only retrieve columns with a specific timestamp, call  * {@link #setTimeStamp(long) setTimestamp}.  *<p>  * To limit the number of versions of each column to be returned, call  * {@link #setMaxVersions(int) setMaxVersions}.  *<p>  * To limit the maximum number of values returned for each call to next(),  * call {@link #setBatch(int) setBatch}.  *<p>  * To add a filter, call {@link #setFilter(org.apache.hadoop.hbase.filter.Filter) setFilter}.  *<p>  * Expert: To explicitly disable server-side block caching for this scan,  * execute {@link #setCacheBlocks(boolean)}.  *<p><em>Note:</em> Usage alters Scan instances. Internally, attributes are updated as the Scan  * runs and if enabled, metrics accumulate in the Scan instance. Be aware this is the case when  * you go to clone a Scan instance or if you go to reuse a created Scan instance; safer is create  * a Scan instance per usage.  */
+comment|/**  * Used to perform Scan operations.  *<p>  * All operations are identical to {@link Get} with the exception of instantiation. Rather than  * specifying a single row, an optional startRow and stopRow may be defined. If rows are not  * specified, the Scanner will iterate over all rows.  *<p>  * To get all columns from all rows of a Table, create an instance with no constraints; use the  * {@link #Scan()} constructor. To constrain the scan to specific column families, call  * {@link #addFamily(byte[]) addFamily} for each family to retrieve on your Scan instance.  *<p>  * To get specific columns, call {@link #addColumn(byte[], byte[]) addColumn} for each column to  * retrieve.  *<p>  * To only retrieve columns within a specific range of version timestamps, call  * {@link #setTimeRange(long, long) setTimeRange}.  *<p>  * To only retrieve columns with a specific timestamp, call {@link #setTimeStamp(long) setTimestamp}  * .  *<p>  * To limit the number of versions of each column to be returned, call {@link #setMaxVersions(int)  * setMaxVersions}.  *<p>  * To limit the maximum number of values returned for each call to next(), call  * {@link #setBatch(int) setBatch}.  *<p>  * To add a filter, call {@link #setFilter(org.apache.hadoop.hbase.filter.Filter) setFilter}.  *<p>  * For small scan, it is deprecated in 2.0.0. Now we have a {@link #setLimit(int)} method in Scan  * object which is used to tell RS how many rows we want. If the rows return reaches the limit, the  * RS will close the RegionScanner automatically. And we will also fetch data when openScanner in  * the new implementation, this means we can also finish a scan operation in one rpc call. And we  * have also introduced a {@link #setReadType(ReadType)} method. You can use this method to tell RS  * to use pread explicitly.  *<p>  * Expert: To explicitly disable server-side block caching for this scan, execute  * {@link #setCacheBlocks(boolean)}.  *<p>  *<em>Note:</em> Usage alters Scan instances. Internally, attributes are updated as the Scan runs  * and if enabled, metrics accumulate in the Scan instance. Be aware this is the case when you go to  * clone a Scan instance or if you go to reuse a created Scan instance; safer is create a Scan  * instance per usage.  */
 end_comment
 
 begin_class
@@ -554,6 +554,23 @@ name|mvccReadPoint
 init|=
 operator|-
 literal|1L
+decl_stmt|;
+comment|/**    * The number of rows we want for this scan. We will terminate the scan if the number of return    * rows reaches this value.    */
+specifier|private
+name|int
+name|limit
+init|=
+operator|-
+literal|1
+decl_stmt|;
+comment|/**    * Control whether to use pread at server side.    */
+specifier|private
+name|ReadType
+name|readType
+init|=
+name|ReadType
+operator|.
+name|DEFAULT
 decl_stmt|;
 comment|/**    * Create a Scan operation across all rows.    */
 specifier|public
@@ -979,6 +996,15 @@ operator|=
 name|scan
 operator|.
 name|getMvccReadPoint
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|limit
+operator|=
+name|scan
+operator|.
+name|getLimit
 argument_list|()
 expr_stmt|;
 block|}
@@ -3066,7 +3092,9 @@ name|attr
 argument_list|)
 return|;
 block|}
-comment|/**    * Set whether this scan is a small scan    *<p>    * Small scan should use pread and big scan can use seek + read    *    * seek + read is fast but can cause two problem (1) resource contention (2)    * cause too much network io    *    * [89-fb] Using pread for non-compaction read request    * https://issues.apache.org/jira/browse/HBASE-7266    *    * On the other hand, if setting it true, we would do    * openScanner,next,closeScanner in one RPC call. It means the better    * performance for small scan. [HBASE-9488].    *    * Generally, if the scan range is within one data block(64KB), it could be    * considered as a small scan.    *    * @param small    */
+comment|/**    * Set whether this scan is a small scan    *<p>    * Small scan should use pread and big scan can use seek + read seek + read is fast but can cause    * two problem (1) resource contention (2) cause too much network io [89-fb] Using pread for    * non-compaction read request https://issues.apache.org/jira/browse/HBASE-7266 On the other hand,    * if setting it true, we would do openScanner,next,closeScanner in one RPC call. It means the    * better performance for small scan. [HBASE-9488]. Generally, if the scan range is within one    * data block(64KB), it could be considered as a small scan.    * @param small    * @deprecated since 2.0.0. Use {@link #setLimit(int)} and {@link #setReadType(ReadType)} instead.    *             And for the one rpc optimization, now we will also fetch data when openScanner, and    *             if the number of rows reaches the limit then we will close the scanner    *             automatically which means we will fall back to one rpc.    * @see #setLimit(int)    * @see #setReadType(ReadType)    */
+annotation|@
+name|Deprecated
 specifier|public
 name|Scan
 name|setSmall
@@ -3081,11 +3109,21 @@ name|small
 operator|=
 name|small
 expr_stmt|;
+name|this
+operator|.
+name|readType
+operator|=
+name|ReadType
+operator|.
+name|PREAD
+expr_stmt|;
 return|return
 name|this
 return|;
 block|}
-comment|/**    * Get whether this scan is a small scan    * @return true if small scan    */
+comment|/**    * Get whether this scan is a small scan    * @return true if small scan    * @deprecated since 2.0.0. See the comment of {@link #setSmall(boolean)}    */
+annotation|@
+name|Deprecated
 specifier|public
 name|boolean
 name|isSmall
@@ -3409,6 +3447,82 @@ operator|.
 name|asyncPrefetch
 operator|=
 name|asyncPrefetch
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**    * @return the limit of rows for this scan    */
+specifier|public
+name|int
+name|getLimit
+parameter_list|()
+block|{
+return|return
+name|limit
+return|;
+block|}
+comment|/**    * Set the limit of rows for this scan. We will terminate the scan if the number of returned rows    * reaches this value.    *<p>    * This condition will be tested at last, after all other conditions such as stopRow, filter, etc.    *<p>    * Can not be used together with batch and allowPartial.    * @param limit the limit of rows for this scan    * @return this    */
+specifier|public
+name|Scan
+name|setLimit
+parameter_list|(
+name|int
+name|limit
+parameter_list|)
+block|{
+name|this
+operator|.
+name|limit
+operator|=
+name|limit
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Public
+annotation|@
+name|InterfaceStability
+operator|.
+name|Unstable
+specifier|public
+enum|enum
+name|ReadType
+block|{
+name|DEFAULT
+block|,
+name|STREAM
+block|,
+name|PREAD
+block|}
+comment|/**    * @return the read type for this scan    */
+specifier|public
+name|ReadType
+name|getReadType
+parameter_list|()
+block|{
+return|return
+name|readType
+return|;
+block|}
+comment|/**    * Set the read type for this scan.    *<p>    * Notice that we may choose to use pread even if you specific {@link ReadType#STREAM} here. For    * example, we will always use pread if this is a get scan.    * @return this    */
+specifier|public
+name|Scan
+name|setReadType
+parameter_list|(
+name|ReadType
+name|readType
+parameter_list|)
+block|{
+name|this
+operator|.
+name|readType
+operator|=
+name|readType
 expr_stmt|;
 return|return
 name|this

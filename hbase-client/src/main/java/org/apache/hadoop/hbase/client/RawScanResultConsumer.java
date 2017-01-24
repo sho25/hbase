@@ -92,10 +92,15 @@ name|results
 parameter_list|)
 function_decl|;
 comment|/**    * Indicate that there is an heartbeat message but we have not cumulated enough cells to call    * onNext.    *<p>    * This method give you a chance to terminate a slow scan operation.    * @return {@code false} if you want to terminate the scan process. Otherwise {@code true}    */
+specifier|default
 name|boolean
 name|onHeartbeat
 parameter_list|()
-function_decl|;
+block|{
+return|return
+literal|true
+return|;
+block|}
 comment|/**    * Indicate that we hit an unrecoverable error and the scan operation is terminated.    *<p>    * We will not call {@link #onComplete()} after calling {@link #onError(Throwable)}.    */
 name|void
 name|onError
