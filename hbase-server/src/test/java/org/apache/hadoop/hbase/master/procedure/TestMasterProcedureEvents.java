@@ -1009,6 +1009,9 @@ literal|0
 argument_list|,
 name|event
 operator|.
+name|getSuspendedProcedures
+argument_list|()
+operator|.
 name|size
 argument_list|()
 argument_list|)
@@ -1047,6 +1050,9 @@ while|while
 condition|(
 name|event
 operator|.
+name|getSuspendedProcedures
+argument_list|()
+operator|.
 name|size
 argument_list|()
 operator|<
@@ -1072,6 +1078,9 @@ literal|" size="
 operator|+
 name|event
 operator|.
+name|getSuspendedProcedures
+argument_list|()
+operator|.
 name|size
 argument_list|()
 argument_list|)
@@ -1091,6 +1100,9 @@ argument_list|(
 literal|1
 argument_list|,
 name|event
+operator|.
+name|getSuspendedProcedures
+argument_list|()
 operator|.
 name|size
 argument_list|()
@@ -1158,6 +1170,9 @@ argument_list|(
 literal|0
 argument_list|,
 name|event
+operator|.
+name|getSuspendedProcedures
+argument_list|()
 operator|.
 name|size
 argument_list|()

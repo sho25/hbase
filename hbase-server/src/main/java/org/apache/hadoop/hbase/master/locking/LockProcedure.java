@@ -339,6 +339,10 @@ name|AtomicLong
 import|;
 end_import
 
+begin_comment
+comment|/**  * Procedure to allow clients and external admin tools to take locks on table/namespace/regions.  * This procedure when scheduled, acquires specified locks, suspends itself and waits for :  * - call to unlock: if lock request came from the process itself, say master chore.  * - Timeout : if lock request came from RPC. On timeout, evaluates if it should continue holding  * the lock or not based on last heartbeat timestamp.  */
+end_comment
+
 begin_class
 annotation|@
 name|InterfaceAudience
@@ -464,9 +468,7 @@ name|event
 init|=
 operator|new
 name|ProcedureEvent
-argument_list|<
-name|LockProcedure
-argument_list|>
+argument_list|<>
 argument_list|(
 name|this
 argument_list|)

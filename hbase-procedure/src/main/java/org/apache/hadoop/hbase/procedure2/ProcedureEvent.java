@@ -50,7 +50,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Basic ProcedureEvent that contains an "object", which can be a  * description or a reference to the resource to wait on, and a  * queue for suspended procedures.  */
+comment|/**  * Basic ProcedureEvent that contains an "object", which can be a description or a reference to the  * resource to wait on, and a queue for suspended procedures.  * Access to suspended procedures queue is 'synchronized' on the event itself.  */
 end_comment
 
 begin_class
@@ -58,18 +58,12 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
-annotation|@
-name|InterfaceStability
-operator|.
-name|Evolving
 specifier|public
 class|class
 name|ProcedureEvent
 parameter_list|<
 name|T
 parameter_list|>
-extends|extends
-name|ProcedureEventQueue
 block|{
 specifier|private
 specifier|final
@@ -81,6 +75,14 @@ name|boolean
 name|ready
 init|=
 literal|false
+decl_stmt|;
+specifier|private
+name|ProcedureDeque
+name|suspendedProcedures
+init|=
+operator|new
+name|ProcedureDeque
+argument_list|()
 decl_stmt|;
 specifier|public
 name|ProcedureEvent
@@ -98,15 +100,6 @@ name|object
 expr_stmt|;
 block|}
 specifier|public
-name|T
-name|getObject
-parameter_list|()
-block|{
-return|return
-name|object
-return|;
-block|}
-specifier|public
 specifier|synchronized
 name|boolean
 name|isReady
@@ -116,11 +109,6 @@ return|return
 name|ready
 return|;
 block|}
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Private
-specifier|protected
 specifier|synchronized
 name|void
 name|setReady
@@ -136,6 +124,15 @@ name|ready
 operator|=
 name|isReady
 expr_stmt|;
+block|}
+specifier|public
+name|ProcedureDeque
+name|getSuspendedProcedures
+parameter_list|()
+block|{
+return|return
+name|suspendedProcedures
+return|;
 block|}
 annotation|@
 name|Override

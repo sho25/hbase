@@ -19,16 +19,6 @@ end_package
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|ArrayDeque
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -80,17 +70,11 @@ name|AbstractProcedureScheduler
 block|{
 specifier|private
 specifier|final
-name|ArrayDeque
-argument_list|<
-name|Procedure
-argument_list|>
+name|ProcedureDeque
 name|runnables
 init|=
 operator|new
-name|ArrayDeque
-argument_list|<
-name|Procedure
-argument_list|>
+name|ProcedureDeque
 argument_list|()
 decl_stmt|;
 annotation|@
