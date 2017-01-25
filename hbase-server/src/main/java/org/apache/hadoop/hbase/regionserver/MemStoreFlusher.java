@@ -3788,26 +3788,5 @@ block|}
 block|}
 end_class
 
-begin_enum
-enum|enum
-name|FlushType
-block|{
-name|NORMAL
-block|,
-name|ABOVE_ONHEAP_LOWER_MARK
-block|,
-comment|/* happens due to lower mark breach of onheap memstore settings                               An offheap memstore can even breach the onheap_lower_mark*/
-name|ABOVE_ONHEAP_HIGHER_MARK
-block|,
-comment|/* happens due to higher mark breach of onheap memstore settings                               An offheap memstore can even breach the onheap_higher_mark*/
-name|ABOVE_OFFHEAP_LOWER_MARK
-block|,
-comment|/* happens due to lower mark breach of offheap memstore settings*/
-name|ABOVE_OFFHEAP_HIGHER_MARK
-block|;
-comment|/*/* happens due to higer mark breach of offheap memstore settings*/
-block|}
-end_enum
-
 end_unit
 

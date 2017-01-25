@@ -33604,13 +33604,14 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|stats
-operator|.
-name|setHeapOccupancy
-argument_list|(
-operator|(
-name|int
-operator|)
+comment|// the HeapMemoryManager uses -0.0 to signal a problem asking the JVM,
+comment|// so we could just do the calculation below and we'll get a 0.
+comment|// treating it as a special case analogous to no HMM instead so that it can be
+comment|// programatically treated different from using<1% of heap.
+specifier|final
+name|float
+name|occupancy
+init|=
 name|rsServices
 operator|.
 name|getHeapMemoryManager
@@ -33618,10 +33619,31 @@ argument_list|()
 operator|.
 name|getHeapOccupancyPercent
 argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|occupancy
+operator|!=
+name|HeapMemoryManager
+operator|.
+name|HEAP_OCCUPANCY_ERROR_VALUE
+condition|)
+block|{
+name|stats
+operator|.
+name|setHeapOccupancy
+argument_list|(
+call|(
+name|int
+call|)
+argument_list|(
+name|occupancy
 operator|*
 literal|100
 argument_list|)
+argument_list|)
 expr_stmt|;
+block|}
 block|}
 name|stats
 operator|.
