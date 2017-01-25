@@ -3055,6 +3055,25 @@ argument_list|,
 name|all
 argument_list|)
 expr_stmt|;
+comment|// source is registered in supers constructor, sometimes called before the whole initialization.
+if|if
+condition|(
+name|metricsAdapter
+operator|!=
+literal|null
+condition|)
+block|{
+comment|// snapshot MetricRegistry as well
+name|metricsAdapter
+operator|.
+name|snapshotAllMetrics
+argument_list|(
+name|registry
+argument_list|,
+name|mrb
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Override

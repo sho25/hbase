@@ -93,6 +93,22 @@ name|MasterServices
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|metrics
+operator|.
+name|MetricRegistry
+import|;
+end_import
+
 begin_interface
 annotation|@
 name|InterfaceAudience
@@ -116,6 +132,11 @@ block|{
 comment|/** @return reference to the HMaster services */
 name|MasterServices
 name|getMasterServices
+parameter_list|()
+function_decl|;
+comment|/**    * Returns a MetricRegistry that can be used to track metrics at the master level.    *    *<p>See ExampleMasterObserverWithMetrics class in the hbase-examples modules for examples    * of how metrics can be instantiated and used.</p>    * @return A MetricRegistry for the coprocessor class to track and export metrics.    */
+name|MetricRegistry
+name|getMetricRegistryForMaster
 parameter_list|()
 function_decl|;
 block|}

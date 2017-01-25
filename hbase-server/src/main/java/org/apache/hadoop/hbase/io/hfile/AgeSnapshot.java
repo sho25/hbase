@@ -29,7 +29,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
+name|metrics
+operator|.
+name|impl
 operator|.
 name|FastLongHistogram
 import|;

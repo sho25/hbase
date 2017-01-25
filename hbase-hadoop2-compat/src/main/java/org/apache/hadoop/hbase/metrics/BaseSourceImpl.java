@@ -41,6 +41,58 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
+name|metrics
+operator|.
+name|impl
+operator|.
+name|GlobalMetricRegistriesAdapter
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|metrics
+operator|.
+name|impl
+operator|.
+name|HBaseMetrics2HadoopMetricsAdapter
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|MetricsRegionServerSourceImpl
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|metrics2
 operator|.
 name|MetricsCollector
@@ -236,8 +288,20 @@ argument_list|,
 literal|""
 argument_list|)
 expr_stmt|;
+comment|// initialize hbase-metrics module based metric system as well. GlobalMetricRegistriesSource
+comment|// initialization depends on the metric system being already initialized, that is why we are
+comment|// doing it here. Once BaseSourceSourceImpl is removed, we should do the initialization of
+comment|// these elsewhere.
+name|GlobalMetricRegistriesAdapter
+operator|.
+name|init
+argument_list|()
+expr_stmt|;
 block|}
 block|}
+comment|/**    * @deprecated Use hbase-metrics/hbase-metrics-api module interfaces for new metrics.    * Defining BaseSources for new metric groups (WAL, RPC, etc) is not needed anymore, however,    * for existing BaseSource implemetnations, please use the field named "registry" which is a    * MetricRegistry instance together with the HBaseMetrics2HadoopMetricsAdapter.    */
+annotation|@
+name|Deprecated
 specifier|protected
 specifier|final
 name|DynamicMetricsRegistry
@@ -262,6 +326,18 @@ specifier|protected
 specifier|final
 name|String
 name|metricsJmxContext
+decl_stmt|;
+comment|/**    * Note that there are at least 4 MetricRegistry definitions in the source code. The first one is    * Hadoop Metrics2 MetricRegistry, second one is DynamicMetricsRegistry which is HBase's fork    * of the Hadoop metrics2 class. The third one is the dropwizard metrics implementation of    * MetricRegistry, and finally a new API abstraction in HBase that is the    * o.a.h.h.metrics.MetricRegistry class. This last one is the new way to use metrics within the    * HBase code. However, the others are in play because of existing metrics2 based code still    * needs to coexists until we get rid of all of our BaseSource and convert them to the new    * framework. Until that happens, new metrics can use the new API, but will be collected    * through the HBaseMetrics2HadoopMetricsAdapter class.    *    * BaseSourceImpl has two MetricRegistries. metricRegistry is for hadoop Metrics2 based    * metrics, while the registry is for hbase-metrics based metrics.    */
+specifier|protected
+specifier|final
+name|MetricRegistry
+name|registry
+decl_stmt|;
+comment|/**    * The adapter from hbase-metrics module to metrics2. This adepter is the connection between the    * Metrics in the MetricRegistry and the Hadoop Metrics2 system. Using this adapter, existing    * BaseSource implementations can define new metrics using the hbase-metrics/hbase-metrics-api    * module interfaces and still be able to make use of metrics2 sinks (including JMX). Existing    * BaseSources should call metricsAdapter.snapshotAllMetrics() in getMetrics() method. See    * {@link MetricsRegionServerSourceImpl}.    */
+specifier|protected
+specifier|final
+name|HBaseMetrics2HadoopMetricsAdapter
+name|metricsAdapter
 decl_stmt|;
 specifier|public
 name|BaseSourceImpl
@@ -339,6 +415,28 @@ name|metricsDescription
 argument_list|,
 name|this
 argument_list|)
+expr_stmt|;
+comment|// hbase-metrics module based metrics are registered in the hbase MetricsRegistry.
+name|registry
+operator|=
+name|MetricRegistries
+operator|.
+name|global
+argument_list|()
+operator|.
+name|create
+argument_list|(
+name|this
+operator|.
+name|getMetricRegistryInfo
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|metricsAdapter
+operator|=
+operator|new
+name|HBaseMetrics2HadoopMetricsAdapter
+argument_list|()
 expr_stmt|;
 name|init
 argument_list|()
