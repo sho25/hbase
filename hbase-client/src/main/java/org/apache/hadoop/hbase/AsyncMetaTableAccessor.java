@@ -333,7 +333,7 @@ name|isPresent
 argument_list|)
 return|;
 block|}
-specifier|private
+specifier|public
 specifier|static
 name|CompletableFuture
 argument_list|<

@@ -79,20 +79,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -132,6 +118,23 @@ specifier|public
 interface|interface
 name|AsyncAdmin
 block|{
+comment|/**    * @return Async Connection used by this object.    */
+name|AsyncConnectionImpl
+name|getConnection
+parameter_list|()
+function_decl|;
+comment|/**    * @param tableName Table to check.    * @return True if table exists already. The return value will be wrapped by a    *         {@link CompletableFuture}.    */
+name|CompletableFuture
+argument_list|<
+name|Boolean
+argument_list|>
+name|tableExists
+parameter_list|(
+specifier|final
+name|TableName
+name|tableName
+parameter_list|)
+function_decl|;
 comment|/**    * List all the userspace tables.    * @return - returns an array of HTableDescriptors wrapped by a {@link CompletableFuture}.    * @see #listTables(Pattern, boolean)    */
 name|CompletableFuture
 argument_list|<
@@ -214,16 +217,118 @@ name|boolean
 name|includeSysTables
 parameter_list|)
 function_decl|;
-comment|/**    * @param tableName Table to check.    * @return True if table exists already. The return value will be wrapped by a    *         {@link CompletableFuture}.    */
+comment|/**    * Method for getting the tableDescriptor    * @param tableName as a {@link TableName}    * @return the tableDescriptor wrapped by a {@link CompletableFuture}.    */
 name|CompletableFuture
 argument_list|<
-name|Boolean
+name|HTableDescriptor
 argument_list|>
-name|tableExists
+name|getTableDescriptor
 parameter_list|(
 specifier|final
 name|TableName
 name|tableName
+parameter_list|)
+function_decl|;
+comment|/**    * Creates a new table.    * @param desc table descriptor for table    */
+name|CompletableFuture
+argument_list|<
+name|Void
+argument_list|>
+name|createTable
+parameter_list|(
+name|HTableDescriptor
+name|desc
+parameter_list|)
+function_decl|;
+comment|/**    * Creates a new table with the specified number of regions. The start key specified will become    * the end key of the first region of the table, and the end key specified will become the start    * key of the last region of the table (the first region has a null start key and the last region    * has a null end key). BigInteger math will be used to divide the key range specified into enough    * segments to make the required number of total regions.    * @param desc table descriptor for table    * @param startKey beginning of key range    * @param endKey end of key range    * @param numRegions the total number of regions to create    */
+name|CompletableFuture
+argument_list|<
+name|Void
+argument_list|>
+name|createTable
+parameter_list|(
+name|HTableDescriptor
+name|desc
+parameter_list|,
+name|byte
+index|[]
+name|startKey
+parameter_list|,
+name|byte
+index|[]
+name|endKey
+parameter_list|,
+name|int
+name|numRegions
+parameter_list|)
+function_decl|;
+comment|/**    * Creates a new table with an initial set of empty regions defined by the specified split keys.    * The total number of regions created will be the number of split keys plus one.    * Note : Avoid passing empty split key.    * @param desc table descriptor for table    * @param splitKeys array of split keys for the initial regions of the table    */
+name|CompletableFuture
+argument_list|<
+name|Void
+argument_list|>
+name|createTable
+parameter_list|(
+specifier|final
+name|HTableDescriptor
+name|desc
+parameter_list|,
+name|byte
+index|[]
+index|[]
+name|splitKeys
+parameter_list|)
+function_decl|;
+comment|/**    * Deletes a table.    * @param tableName name of table to delete    */
+name|CompletableFuture
+argument_list|<
+name|Void
+argument_list|>
+name|deleteTable
+parameter_list|(
+specifier|final
+name|TableName
+name|tableName
+parameter_list|)
+function_decl|;
+comment|/**    * Deletes tables matching the passed in pattern and wait on completion. Warning: Use this method    * carefully, there is no prompting and the effect is immediate. Consider using    * {@link #listTables(String, boolean)} and    * {@link #deleteTable(org.apache.hadoop.hbase.TableName)}    * @param regex The regular expression to match table names against    * @return Table descriptors for tables that couldn't be deleted. The return value will be wrapped    *         by a {@link CompletableFuture}.    */
+name|CompletableFuture
+argument_list|<
+name|HTableDescriptor
+index|[]
+argument_list|>
+name|deleteTables
+parameter_list|(
+name|String
+name|regex
+parameter_list|)
+function_decl|;
+comment|/**    * Delete tables matching the passed in pattern and wait on completion. Warning: Use this method    * carefully, there is no prompting and the effect is immediate. Consider using    * {@link #listTables(Pattern, boolean) } and    * {@link #deleteTable(org.apache.hadoop.hbase.TableName)}    * @param pattern The pattern to match table names against    * @return Table descriptors for tables that couldn't be deleted. The return value will be wrapped    *         by a {@link CompletableFuture}.    */
+name|CompletableFuture
+argument_list|<
+name|HTableDescriptor
+index|[]
+argument_list|>
+name|deleteTables
+parameter_list|(
+name|Pattern
+name|pattern
+parameter_list|)
+function_decl|;
+comment|/**    * Truncate a table.    * @param tableName name of table to truncate    * @param preserveSplits True if the splits should be preserved    */
+name|CompletableFuture
+argument_list|<
+name|Void
+argument_list|>
+name|truncateTable
+parameter_list|(
+specifier|final
+name|TableName
+name|tableName
+parameter_list|,
+specifier|final
+name|boolean
+name|preserveSplits
 parameter_list|)
 function_decl|;
 comment|/**    * Turn the load balancer on or off.    * @param on    * @return Previous balancer value wrapped by a {@link CompletableFuture}.    */
