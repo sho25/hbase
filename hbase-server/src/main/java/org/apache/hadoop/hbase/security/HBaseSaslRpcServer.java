@@ -731,13 +731,13 @@ if|if
 condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
+name|isTraceEnabled
 argument_list|()
 condition|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
 literal|"SASL server DIGEST-MD5 callback: setting password "
 operator|+
@@ -821,7 +821,7 @@ if|if
 condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
+name|isTraceEnabled
 argument_list|()
 condition|)
 block|{
@@ -843,7 +843,7 @@ argument_list|()
 decl_stmt|;
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
 literal|"SASL server DIGEST-MD5 callback: setting "
 operator|+
