@@ -1554,9 +1554,7 @@ block|{
 return|return
 operator|new
 name|Token
-argument_list|<
-name|AuthenticationTokenIdentifier
-argument_list|>
+argument_list|<>
 argument_list|(
 name|proto
 operator|.

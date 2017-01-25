@@ -263,9 +263,7 @@ name|files
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|FileStatus
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private

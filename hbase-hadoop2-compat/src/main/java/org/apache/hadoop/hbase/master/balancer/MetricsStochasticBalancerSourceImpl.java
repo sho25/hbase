@@ -240,11 +240,7 @@ name|costFunctionDescs
 init|=
 operator|new
 name|ConcurrentHashMap
-argument_list|<
-name|String
-argument_list|,
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * Calculates the mru cache capacity from the metrics size    */
@@ -386,11 +382,7 @@ name|costs
 operator|=
 operator|new
 name|ConcurrentHashMap
-argument_list|<
-name|String
-argument_list|,
-name|Double
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 block|}

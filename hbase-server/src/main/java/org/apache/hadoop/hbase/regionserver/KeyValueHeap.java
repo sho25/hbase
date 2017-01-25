@@ -282,9 +282,7 @@ name|scannersForDelayedClose
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|KeyValueScanner
-argument_list|>
+argument_list|<>
 argument_list|(
 name|scanners
 operator|.
@@ -307,9 +305,7 @@ name|heap
 operator|=
 operator|new
 name|PriorityQueue
-argument_list|<
-name|KeyValueScanner
-argument_list|>
+argument_list|<>
 argument_list|(
 name|scanners
 operator|.

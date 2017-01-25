@@ -938,9 +938,7 @@ name|cs
 init|=
 operator|new
 name|ResultBoundedCompletionService
-argument_list|<
-name|Result
-argument_list|>
+argument_list|<>
 argument_list|(
 name|this
 operator|.

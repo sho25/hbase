@@ -1145,11 +1145,7 @@ name|add
 argument_list|(
 operator|new
 name|Pair
-argument_list|<
-name|Path
-argument_list|,
-name|Path
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|null
 argument_list|,
@@ -1266,9 +1262,7 @@ name|files
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|FileStatus
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|2
 argument_list|)
@@ -1338,11 +1332,7 @@ name|add
 argument_list|(
 operator|new
 name|Pair
-argument_list|<
-name|Path
-argument_list|,
-name|Path
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|null
 argument_list|,

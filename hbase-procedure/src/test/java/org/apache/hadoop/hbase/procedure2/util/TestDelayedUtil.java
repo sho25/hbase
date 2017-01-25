@@ -189,9 +189,7 @@ name|l10a
 init|=
 operator|new
 name|ZeroDelayContainer
-argument_list|<
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|10L
 argument_list|)
@@ -228,9 +226,7 @@ name|onull
 init|=
 operator|new
 name|ZeroDelayContainer
-argument_list|<
-name|Object
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|null
 argument_list|)
@@ -243,9 +239,7 @@ name|o1ca
 init|=
 operator|new
 name|ZeroDelayContainer
-argument_list|<
-name|Object
-argument_list|>
+argument_list|<>
 argument_list|(
 name|o1
 argument_list|)
@@ -258,9 +252,7 @@ name|o1cb
 init|=
 operator|new
 name|ZeroDelayContainer
-argument_list|<
-name|Object
-argument_list|>
+argument_list|<>
 argument_list|(
 name|o1
 argument_list|)
@@ -273,9 +265,7 @@ name|o2c
 init|=
 operator|new
 name|ZeroDelayContainer
-argument_list|<
-name|Object
-argument_list|>
+argument_list|<>
 argument_list|(
 name|o2
 argument_list|)

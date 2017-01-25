@@ -1094,9 +1094,7 @@ name|storeFiles
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|StoreFileInfo
-argument_list|>
+argument_list|<>
 argument_list|(
 name|files
 operator|.
@@ -1569,9 +1567,7 @@ name|families
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|(
 name|fds
 operator|.

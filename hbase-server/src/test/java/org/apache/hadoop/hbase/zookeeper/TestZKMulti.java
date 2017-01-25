@@ -487,9 +487,7 @@ name|zkw
 argument_list|,
 operator|new
 name|LinkedList
-argument_list|<
-name|ZKUtilOp
-argument_list|>
+argument_list|<>
 argument_list|()
 argument_list|,
 literal|false
@@ -520,9 +518,7 @@ name|singleCreate
 init|=
 operator|new
 name|LinkedList
-argument_list|<
-name|ZKUtilOp
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|singleCreate
@@ -578,9 +574,7 @@ name|singleSetData
 init|=
 operator|new
 name|LinkedList
-argument_list|<
-name|ZKUtilOp
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|byte
@@ -647,9 +641,7 @@ name|singleDelete
 init|=
 operator|new
 name|LinkedList
-argument_list|<
-name|ZKUtilOp
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|singleDelete
@@ -810,9 +802,7 @@ name|create4Nodes
 init|=
 operator|new
 name|LinkedList
-argument_list|<
-name|ZKUtilOp
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|create4Nodes
@@ -1007,9 +997,7 @@ name|ops
 init|=
 operator|new
 name|LinkedList
-argument_list|<
-name|ZKUtilOp
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// setData
@@ -1345,9 +1333,7 @@ name|ops
 init|=
 operator|new
 name|LinkedList
-argument_list|<
-name|ZKUtilOp
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|ops
@@ -1403,9 +1389,7 @@ name|ops
 operator|=
 operator|new
 name|LinkedList
-argument_list|<
-name|ZKUtilOp
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 name|ops
@@ -1469,9 +1453,7 @@ name|ops
 operator|=
 operator|new
 name|LinkedList
-argument_list|<
-name|ZKUtilOp
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 name|ops
@@ -1608,9 +1590,7 @@ name|ops
 init|=
 operator|new
 name|LinkedList
-argument_list|<
-name|ZKUtilOp
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|ops
@@ -1818,9 +1798,7 @@ name|ops
 init|=
 operator|new
 name|LinkedList
-argument_list|<
-name|ZKUtilOp
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|ops
@@ -1890,9 +1868,7 @@ name|ops
 operator|=
 operator|new
 name|LinkedList
-argument_list|<
-name|ZKUtilOp
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 name|ops
@@ -2107,9 +2083,7 @@ name|ops
 operator|=
 operator|new
 name|LinkedList
-argument_list|<
-name|ZKUtilOp
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 name|ops
@@ -2354,9 +2328,7 @@ name|ops
 init|=
 operator|new
 name|LinkedList
-argument_list|<
-name|ZKUtilOp
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|ops
@@ -2414,9 +2386,7 @@ name|ops
 operator|=
 operator|new
 name|LinkedList
-argument_list|<
-name|ZKUtilOp
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 name|ops
@@ -3062,9 +3032,7 @@ name|opList
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Op
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|opList

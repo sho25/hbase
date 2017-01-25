@@ -652,11 +652,7 @@ name|reverseDNSCacheMap
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|InetAddress
-argument_list|,
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * Builds a {@link TableRecordReader}. If no {@link TableRecordReader} was provided, uses    * the default.    *    * @param split  The split to work with.    * @param context  The current context.    * @return The newly created record reader.    * @throws IOException When creating the reader fails.    * @see org.apache.hadoop.mapreduce.InputFormat#createRecordReader(    *   org.apache.hadoop.mapreduce.InputSplit,    *   org.apache.hadoop.mapreduce.TaskAttemptContext)    */
@@ -1152,9 +1148,7 @@ name|splits
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|InputSplit
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|1
 argument_list|)
@@ -1230,9 +1224,7 @@ name|splits
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|InputSplit
-argument_list|>
+argument_list|<>
 argument_list|(
 name|keys
 operator|.
@@ -1892,9 +1884,7 @@ name|resultList
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|InputSplit
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|Configuration

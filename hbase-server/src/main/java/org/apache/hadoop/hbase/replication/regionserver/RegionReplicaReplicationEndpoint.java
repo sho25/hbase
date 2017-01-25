@@ -1551,9 +1551,7 @@ name|workQueue
 init|=
 operator|new
 name|LinkedBlockingQueue
-argument_list|<
-name|Runnable
-argument_list|>
+argument_list|<>
 argument_list|(
 name|maxThreads
 operator|*
@@ -2784,12 +2782,7 @@ name|tasks
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Future
-argument_list|<
-name|ReplicateWALEntryResponse
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|(
 name|locations
 operator|.
@@ -2905,9 +2898,7 @@ name|submit
 argument_list|(
 operator|new
 name|RetryingRpcCallable
-argument_list|<
-name|ReplicateWALEntryResponse
-argument_list|>
+argument_list|<>
 argument_list|(
 name|rpcRetryingCallerFactory
 argument_list|,

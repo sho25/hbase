@@ -301,9 +301,7 @@ name|rows
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|RowModel
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 block|}

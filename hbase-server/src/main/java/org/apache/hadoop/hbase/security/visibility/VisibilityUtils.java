@@ -1215,9 +1215,7 @@ name|slgs
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|ScanLabelGenerator
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 if|if
@@ -1657,11 +1655,7 @@ name|cfVsMaxVersions
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|ByteRange
-argument_list|,
-name|Integer
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -1863,9 +1857,7 @@ name|tags
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Tag
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|ByteArrayOutputStream
@@ -1892,9 +1884,7 @@ name|labelOrdinals
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Integer
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// We will be adding this tag before the visibility tags and the presence of this

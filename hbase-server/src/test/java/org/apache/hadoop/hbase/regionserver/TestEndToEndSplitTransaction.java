@@ -1688,9 +1688,7 @@ name|regions
 init|=
 operator|new
 name|TreeSet
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -1851,15 +1849,7 @@ name|keys
 init|=
 operator|new
 name|Pair
-argument_list|<
-name|byte
-index|[]
-index|[]
-argument_list|,
-name|byte
-index|[]
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|(
 name|startKeys
 argument_list|,

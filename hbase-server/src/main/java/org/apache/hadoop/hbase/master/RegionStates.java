@@ -561,11 +561,7 @@ name|regionsInTransition
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|RegionState
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * Region encoded name to state map.    * All the regions should be in this map.    */
@@ -581,11 +577,7 @@ name|regionStates
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|RegionState
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * Holds mapping of table -> region state    */
@@ -606,16 +598,7 @@ name|regionStatesTableIndex
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|TableName
-argument_list|,
-name|Map
-argument_list|<
-name|String
-argument_list|,
-name|RegionState
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * Server to regions assignment map.    * Contains the set of regions currently assigned to a given server.    */
@@ -634,14 +617,7 @@ name|serverHoldings
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|ServerName
-argument_list|,
-name|Set
-argument_list|<
-name|HRegionInfo
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * Maintains the mapping from the default region to the replica regions.    */
@@ -660,14 +636,7 @@ name|defaultReplicaToOtherReplicas
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|HRegionInfo
-argument_list|,
-name|Set
-argument_list|<
-name|HRegionInfo
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * Region to server assignment map.    * Contains the server a given region is currently assigned to.    */
@@ -683,11 +652,7 @@ name|regionAssignments
 init|=
 operator|new
 name|TreeMap
-argument_list|<
-name|HRegionInfo
-argument_list|,
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * Encoded region name to server assignment map for re-assignment    * purpose. Contains the server a given region is last known assigned    * to, which has not completed log splitting, so not assignable.    * If a region is currently assigned, this server info in this    * map should be the same as that in regionAssignments.    * However the info in regionAssignments is cleared when the region    * is offline while the info in lastAssignments is cleared when    * the region is closed or the server is dead and processed.    */
@@ -703,11 +668,7 @@ name|lastAssignments
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * Encoded region name to server assignment map for the    * purpose to clean up serverHoldings when a region is online    * on a new server. When the region is offline from the previous    * server, we cleaned up regionAssignments so that it has the    * latest assignment map. But we didn't clean up serverHoldings    * to match the meta. We need this map to find out the old server    * whose serverHoldings needs cleanup, given a moved region.    */
@@ -723,11 +684,7 @@ name|oldAssignments
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * Map a host port pair string to the latest start code    * of a region server which is known to be dead. It is dead    * to us, but server manager may not know it yet.    */
@@ -743,11 +700,7 @@ name|deadServers
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * Map a dead servers to the time when log split is done.    * Since log splitting is not ordered, we have to remember    * all processed instances. The map is cleaned up based    * on a configured time. By default, we assume a dead    * server should be done with log splitting in two hours.    */
@@ -763,11 +716,7 @@ name|processedServers
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|ServerName
-argument_list|,
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -869,11 +818,7 @@ block|{
 return|return
 operator|new
 name|TreeMap
-argument_list|<
-name|HRegionInfo
-argument_list|,
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|(
 name|regionAssignments
 argument_list|)
@@ -912,14 +857,7 @@ name|map
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|ServerName
-argument_list|,
-name|List
-argument_list|<
-name|HRegionInfo
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -1009,9 +947,7 @@ name|regionsOnServer
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|1
 argument_list|)
@@ -1072,9 +1008,7 @@ block|{
 return|return
 operator|new
 name|HashSet
-argument_list|<
-name|RegionState
-argument_list|>
+argument_list|<>
 argument_list|(
 name|regionsInTransition
 operator|.
@@ -1101,9 +1035,7 @@ name|rit
 init|=
 operator|new
 name|TreeSet
-argument_list|<
-name|RegionState
-argument_list|>
+argument_list|<>
 argument_list|(
 name|REGION_STATE_COMPARATOR
 argument_list|)
@@ -1813,11 +1745,7 @@ name|map
 operator|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|RegionState
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 name|regionStatesTableIndex
@@ -2242,9 +2170,7 @@ name|regions
 operator|=
 operator|new
 name|HashSet
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 name|serverHoldings
@@ -2307,9 +2233,7 @@ name|replicas
 operator|=
 operator|new
 name|HashSet
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 name|defaultReplicaToOtherReplicas
@@ -2975,9 +2899,7 @@ name|rits
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|Set
@@ -2988,9 +2910,7 @@ name|regionsToCleanIfNoMetaEntry
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// Offline regions outside the loop and synchronized block to avoid
@@ -3004,9 +2924,7 @@ name|regionsToOffline
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 synchronized|synchronized
@@ -3038,9 +2956,7 @@ name|assignedRegions
 operator|=
 operator|new
 name|HashSet
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 block|}
@@ -3409,9 +3325,7 @@ name|tableRegions
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// boundary needs to have table's name but regionID 0 so that it is sorted
@@ -3510,14 +3424,7 @@ name|tableRegions
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|State
-argument_list|,
-name|List
-argument_list|<
-name|HRegionInfo
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -3539,9 +3446,7 @@ name|state
 argument_list|,
 operator|new
 name|ArrayList
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3702,9 +3607,7 @@ name|regionsToDelete
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 synchronized|synchronized
@@ -3807,9 +3710,7 @@ return|;
 return|return
 operator|new
 name|HashSet
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|(
 name|regions
 argument_list|)
@@ -4597,9 +4498,7 @@ name|toBeClosed
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|(
 name|regionStates
 operator|.
@@ -4693,11 +4592,7 @@ name|allUserRegions
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|HRegionInfo
-argument_list|,
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|(
 name|toBeClosed
 operator|.
@@ -5055,9 +4950,7 @@ name|svr
 argument_list|,
 operator|new
 name|ArrayList
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -5117,19 +5010,7 @@ name|result
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|TableName
-argument_list|,
-name|Map
-argument_list|<
-name|ServerName
-argument_list|,
-name|List
-argument_list|<
-name|HRegionInfo
-argument_list|>
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -5220,14 +5101,7 @@ name|svrToRegions
 operator|=
 operator|new
 name|HashMap
-argument_list|<
-name|ServerName
-argument_list|,
-name|List
-argument_list|<
-name|HRegionInfo
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|(
 name|serverHoldings
 operator|.
@@ -5272,9 +5146,7 @@ name|regions
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 name|svrToRegions
@@ -5350,14 +5222,7 @@ name|regionsByServer
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|ServerName
-argument_list|,
-name|List
-argument_list|<
-name|HRegionInfo
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|(
 name|serverHoldings
 operator|.
@@ -5397,9 +5262,7 @@ argument_list|()
 argument_list|,
 operator|new
 name|ArrayList
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|(
 name|e
 operator|.

@@ -326,11 +326,7 @@ name|executorMap
 init|=
 operator|new
 name|ConcurrentHashMap
-argument_list|<
-name|String
-argument_list|,
-name|Executor
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// Name of the server hosting this executor service.
@@ -832,9 +828,7 @@ name|q
 init|=
 operator|new
 name|LinkedBlockingQueue
-argument_list|<
-name|Runnable
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private

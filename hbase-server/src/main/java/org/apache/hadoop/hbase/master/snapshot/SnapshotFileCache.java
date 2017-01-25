@@ -423,9 +423,7 @@ name|cache
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * This is a helper map of information about the snapshot directories so we don't need to rescan    * them if they haven't changed since the last time we looked.    */
@@ -441,11 +439,7 @@ name|snapshots
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|SnapshotDirectoryInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -865,11 +859,7 @@ name|known
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|SnapshotDirectoryInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// 3. check each of the snapshot directories

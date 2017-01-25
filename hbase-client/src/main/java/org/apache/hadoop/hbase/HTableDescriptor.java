@@ -397,11 +397,7 @@ name|values
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|Bytes
-argument_list|,
-name|Bytes
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * A map which holds the configuration specific to the table.    * The keys of the map have the same names as config keys and override the defaults with    * table-specific settings. Example usage may be for compactions, etc.    */
@@ -417,11 +413,7 @@ name|configuration
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|public
@@ -924,11 +916,7 @@ name|DEFAULT_VALUES
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -942,9 +930,7 @@ name|RESERVED_KEYWORDS
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|Bytes
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 static|static
@@ -1142,12 +1128,7 @@ name|families
 init|=
 operator|new
 name|TreeMap
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|HColumnDescriptor
-argument_list|>
+argument_list|<>
 argument_list|(
 name|Bytes
 operator|.
@@ -3065,9 +3046,7 @@ name|reservedKeys
 init|=
 operator|new
 name|TreeSet
-argument_list|<
-name|Bytes
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|Set
@@ -3078,9 +3057,7 @@ name|userKeys
 init|=
 operator|new
 name|TreeSet
-argument_list|<
-name|Bytes
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -5148,9 +5125,7 @@ name|result
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|(
 name|this
 operator|.

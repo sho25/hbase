@@ -634,9 +634,7 @@ name|ips
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// Add what could be the best (configured) match

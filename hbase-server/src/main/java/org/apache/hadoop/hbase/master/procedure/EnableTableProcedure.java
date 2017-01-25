@@ -1595,9 +1595,7 @@ name|replicaRegionsNotRecordedInMeta
 argument_list|(
 operator|new
 name|HashSet
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|(
 name|regionsToAssign
 operator|.
@@ -2055,11 +2053,7 @@ name|regionsToAssign
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|HRegionInfo
-argument_list|,
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|(
 name|regionsInMeta
 operator|.

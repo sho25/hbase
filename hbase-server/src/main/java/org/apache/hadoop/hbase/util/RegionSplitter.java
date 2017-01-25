@@ -3876,11 +3876,7 @@ decl_stmt|;
 return|return
 operator|new
 name|Pair
-argument_list|<
-name|Path
-argument_list|,
-name|Path
-argument_list|>
+argument_list|<>
 argument_list|(
 name|tableDir
 argument_list|,

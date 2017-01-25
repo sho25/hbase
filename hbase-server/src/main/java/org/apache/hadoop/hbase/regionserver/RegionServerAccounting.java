@@ -199,12 +199,7 @@ name|replayEditsPerRegion
 init|=
 operator|new
 name|ConcurrentSkipListMap
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|MemstoreSize
-argument_list|>
+argument_list|<>
 argument_list|(
 name|Bytes
 operator|.

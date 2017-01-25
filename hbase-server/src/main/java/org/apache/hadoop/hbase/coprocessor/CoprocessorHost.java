@@ -556,9 +556,7 @@ name|coprocessors
 init|=
 operator|new
 name|SortedList
-argument_list|<
-name|E
-argument_list|>
+argument_list|<>
 argument_list|(
 operator|new
 name|EnvironmentPriorityComparator
@@ -669,9 +667,7 @@ name|returnValue
 init|=
 operator|new
 name|TreeSet
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -1581,9 +1577,7 @@ name|ret
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|T
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -1662,9 +1656,7 @@ name|ret
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|CoprocessorEnvironment
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -1794,9 +1786,7 @@ name|externalClassLoaders
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|ClassLoader
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|final
@@ -2909,14 +2899,7 @@ name|legacyWarning
 init|=
 operator|new
 name|ConcurrentSkipListSet
-argument_list|<
-name|Class
-argument_list|<
-name|?
-extends|extends
-name|Coprocessor
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|(
 operator|new
 name|Comparator
@@ -2935,7 +2918,7 @@ name|Override
 specifier|public
 name|int
 name|compare
-argument_list|(
+parameter_list|(
 name|Class
 argument_list|<
 name|?
@@ -2943,7 +2926,7 @@ extends|extends
 name|Coprocessor
 argument_list|>
 name|c1
-condition|,
+parameter_list|,
 name|Class
 argument_list|<
 name|?
@@ -2951,7 +2934,7 @@ extends|extends
 name|Coprocessor
 argument_list|>
 name|c2
-argument_list|)
+parameter_list|)
 block|{
 if|if
 condition|(
@@ -2983,12 +2966,9 @@ argument_list|)
 return|;
 block|}
 block|}
+block|)
+class|;
 end_class
-
-begin_empty_stmt
-unit|)
-empty_stmt|;
-end_empty_stmt
 
 begin_comment
 comment|/**    * limits the amount of logging to once per coprocessor class.    * Used in concert with {@link #useLegacyMethod(Class, String, Class[])} when a runtime issue    * prevents properly supporting the legacy version of a coprocessor API.    * Since coprocessors can be in tight loops this serves to limit the amount of log spam we create.    */

@@ -827,9 +827,7 @@ name|MILLISECONDS
 argument_list|,
 operator|new
 name|LinkedBlockingQueue
-argument_list|<
-name|Runnable
-argument_list|>
+argument_list|<>
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -1043,9 +1041,7 @@ name|peerServers
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|ResultScanner
@@ -1156,9 +1152,7 @@ block|}
 return|return
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|(
 name|peerServers
 argument_list|)
@@ -1183,9 +1177,7 @@ name|allQueues
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|ResultScanner

@@ -667,9 +667,7 @@ name|list
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|TCell
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|1
 argument_list|)
@@ -745,9 +743,7 @@ name|list
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|TCell
-argument_list|>
+argument_list|<>
 argument_list|(
 name|in
 operator|.
@@ -811,9 +807,7 @@ name|list
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|TCell
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|0
 argument_list|)
@@ -848,9 +842,7 @@ name|results
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|TRowResult
-argument_list|>
+argument_list|<>
 argument_list|(
 name|in
 operator|.
@@ -911,9 +903,7 @@ name|sortedColumns
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|TColumn
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 for|for
@@ -993,11 +983,7 @@ name|columns
 operator|=
 operator|new
 name|TreeMap
-argument_list|<
-name|ByteBuffer
-argument_list|,
-name|TCell
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 for|for

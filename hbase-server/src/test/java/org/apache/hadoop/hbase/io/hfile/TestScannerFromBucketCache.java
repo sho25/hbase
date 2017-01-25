@@ -1527,9 +1527,7 @@ name|actual
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 name|InternalScanner
@@ -2369,9 +2367,7 @@ name|expected
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|expected
@@ -2455,9 +2451,7 @@ name|actual
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|InternalScanner

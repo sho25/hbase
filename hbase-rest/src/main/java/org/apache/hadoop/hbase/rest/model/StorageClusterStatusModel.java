@@ -876,9 +876,7 @@ name|regions
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Region
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**      * Add a region name to the list      * @param name the region name      */
@@ -1199,9 +1197,7 @@ name|liveNodes
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Node
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -1213,9 +1209,7 @@ name|deadNodes
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private

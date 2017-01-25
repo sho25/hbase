@@ -325,9 +325,7 @@ name|cellSet
 init|=
 operator|new
 name|AtomicReference
-argument_list|<
-name|CellSet
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -645,9 +643,7 @@ name|scanners
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|KeyValueScanner
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|1
 argument_list|)

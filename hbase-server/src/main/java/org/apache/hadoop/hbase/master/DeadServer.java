@@ -248,11 +248,7 @@ name|deadServers
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|ServerName
-argument_list|,
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * Number of dead servers currently being processed    */
@@ -384,9 +380,7 @@ name|clone
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|(
 name|deadServers
 operator|.
@@ -735,14 +729,7 @@ name|res
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Pair
-argument_list|<
-name|ServerName
-argument_list|,
-name|Long
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|(
 name|size
 argument_list|()
@@ -782,11 +769,7 @@ name|add
 argument_list|(
 operator|new
 name|Pair
-argument_list|<
-name|ServerName
-argument_list|,
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|(
 name|entry
 operator|.

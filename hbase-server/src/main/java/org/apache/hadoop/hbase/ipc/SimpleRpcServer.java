@@ -1911,9 +1911,7 @@ name|pendingConnections
 operator|=
 operator|new
 name|LinkedBlockingQueue
-argument_list|<
-name|Connection
-argument_list|>
+argument_list|<>
 argument_list|(
 name|readerPendingConnectionQueueLength
 argument_list|)
@@ -3546,9 +3544,7 @@ name|conWithOldCalls
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Connection
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// get the list of channels from list of keys.
@@ -4181,9 +4177,7 @@ name|responseQueue
 init|=
 operator|new
 name|ConcurrentLinkedDeque
-argument_list|<
-name|Call
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private

@@ -1672,11 +1672,7 @@ name|roleServiceType
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|ServiceType
-argument_list|,
-name|Service
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 static|static

@@ -6137,11 +6137,7 @@ name|params
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|Object
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|params
@@ -7578,9 +7574,7 @@ name|plans
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|RegionPlan
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|//Give the balancer the current cluster state.
@@ -11867,14 +11861,7 @@ name|result
 init|=
 operator|new
 name|AtomicReference
-argument_list|<
-name|Pair
-argument_list|<
-name|HRegionInfo
-argument_list|,
-name|ServerName
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|null
 argument_list|)
@@ -12443,9 +12430,7 @@ name|backupMasters
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|(
 name|backupMasterStrings
 operator|.
@@ -14310,9 +14295,7 @@ name|nsds
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|NamespaceDescriptor
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|boolean
@@ -14601,9 +14584,7 @@ name|htds
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|HTableDescriptor
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|boolean
@@ -14702,9 +14683,7 @@ name|htds
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|HTableDescriptor
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|boolean
@@ -14770,9 +14749,7 @@ name|result
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|TableName
-argument_list|>
+argument_list|<>
 argument_list|(
 name|htds
 operator|.
@@ -16245,9 +16222,7 @@ name|serverNames
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|List

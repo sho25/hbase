@@ -1208,11 +1208,7 @@ name|snapshotHandlers
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|TableName
-argument_list|,
-name|SnapshotSentinel
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// Restore map, with table name as key, procedure ID as value.
@@ -1233,11 +1229,7 @@ name|restoreTableToProcIdMap
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|TableName
-argument_list|,
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -1258,9 +1250,7 @@ name|locks
 init|=
 operator|new
 name|KeyLocker
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|public
@@ -1382,9 +1372,7 @@ name|snapshotDescs
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|SnapshotDescription
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// first create the snapshot root path and check to see if it exists
@@ -4763,9 +4751,7 @@ name|hfileCleaners
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|String
@@ -4804,9 +4790,7 @@ name|logCleaners
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|cleaners

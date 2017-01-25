@@ -4696,9 +4696,7 @@ name|procInfoListClone
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|ProcedureInfo
-argument_list|>
+argument_list|<>
 argument_list|(
 name|procInfoList
 operator|.
@@ -11556,9 +11554,7 @@ name|adminPerms
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|UserPermission
-argument_list|>
+argument_list|<>
 argument_list|(
 name|superUsers
 operator|.

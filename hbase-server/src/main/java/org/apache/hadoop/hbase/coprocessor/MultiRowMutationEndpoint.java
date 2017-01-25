@@ -452,10 +452,7 @@ name|rowsToLock
 init|=
 operator|new
 name|TreeSet
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|(
 name|Bytes
 operator|.
@@ -481,9 +478,7 @@ name|mutations
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Mutation
-argument_list|>
+argument_list|<>
 argument_list|(
 name|mutateRequestList
 operator|.

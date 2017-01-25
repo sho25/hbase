@@ -1310,9 +1310,7 @@ block|{
 return|return
 operator|new
 name|AsyncBatchRpcRetryingCaller
-argument_list|<
-name|T
-argument_list|>
+argument_list|<>
 argument_list|(
 name|retryTimer
 argument_list|,

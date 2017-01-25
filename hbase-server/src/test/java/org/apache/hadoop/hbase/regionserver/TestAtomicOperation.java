@@ -3554,9 +3554,7 @@ name|mrm
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Mutation
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 if|if
@@ -3765,9 +3763,7 @@ name|r
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 while|while
@@ -4272,9 +4268,7 @@ name|results
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|ScannerContext

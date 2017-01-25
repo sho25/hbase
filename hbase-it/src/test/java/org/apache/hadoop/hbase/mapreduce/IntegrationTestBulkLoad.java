@@ -2237,9 +2237,7 @@ name|ret
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|InputSplit
-argument_list|>
+argument_list|<>
 argument_list|(
 name|numSplits
 argument_list|)
@@ -2414,11 +2412,7 @@ decl_stmt|;
 return|return
 operator|new
 name|FixedRecordReader
-argument_list|<
-name|LongWritable
-argument_list|,
-name|LongWritable
-argument_list|>
+argument_list|<>
 argument_list|(
 name|keys
 argument_list|,

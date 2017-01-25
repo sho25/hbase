@@ -461,9 +461,7 @@ name|candidateFiles
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|StoreFile
-argument_list|>
+argument_list|<>
 argument_list|(
 name|si
 operator|.
@@ -1290,9 +1288,7 @@ name|filesToCompact
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|StoreFile
-argument_list|>
+argument_list|<>
 argument_list|(
 name|bqSelection
 argument_list|)
@@ -1478,9 +1474,7 @@ name|sfs
 init|=
 operator|new
 name|ConcatenatedLists
-argument_list|<
-name|StoreFile
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|sfs
@@ -2087,9 +2081,7 @@ name|sfs
 init|=
 operator|new
 name|ConcatenatedLists
-argument_list|<
-name|StoreFile
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|sfs
@@ -2356,11 +2348,7 @@ decl_stmt|;
 return|return
 operator|new
 name|Pair
-argument_list|<
-name|Long
-argument_list|,
-name|Integer
-argument_list|>
+argument_list|<>
 argument_list|(
 name|kvCount
 argument_list|,

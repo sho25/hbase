@@ -156,9 +156,7 @@ name|tableCache
 init|=
 operator|new
 name|CopyOnWriteArraySet
-argument_list|<
-name|TableName
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/** Namespace delimiter */

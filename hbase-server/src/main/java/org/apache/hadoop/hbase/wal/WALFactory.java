@@ -486,9 +486,7 @@ name|metaProvider
 init|=
 operator|new
 name|AtomicReference
-argument_list|<
-name|WALProvider
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 end_decl_stmt
@@ -1819,9 +1817,7 @@ name|singleton
 init|=
 operator|new
 name|AtomicReference
-argument_list|<
-name|WALFactory
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 end_decl_stmt

@@ -907,11 +907,7 @@ name|DEFAULT_VALUES
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -925,9 +921,7 @@ name|RESERVED_KEYWORDS
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|Bytes
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 static|static
@@ -1286,11 +1280,7 @@ name|values
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|Bytes
-argument_list|,
-name|Bytes
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * A map which holds the configuration specific to the column family.    * The keys of the map have the same names as config keys and override the defaults with    * cf-specific settings. Example usage may be for compactions, etc.    */
@@ -1306,11 +1296,7 @@ name|configuration
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/*    * Cache the max versions rather than calculate it every time.    */

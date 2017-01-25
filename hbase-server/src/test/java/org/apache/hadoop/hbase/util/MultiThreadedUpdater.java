@@ -506,9 +506,7 @@ name|updaters
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|HBaseUpdaterThread
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private

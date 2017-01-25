@@ -911,9 +911,7 @@ name|syncFutures
 init|=
 operator|new
 name|TreeSet
-argument_list|<
-name|SyncFuture
-argument_list|>
+argument_list|<>
 argument_list|(
 name|SEQ_COMPARATOR
 argument_list|)

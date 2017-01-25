@@ -227,13 +227,7 @@ name|peerData
 operator|=
 operator|new
 name|TreeMap
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|(
 name|Bytes
 operator|.
@@ -246,11 +240,7 @@ name|configuration
 operator|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|String
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|0
 argument_list|)

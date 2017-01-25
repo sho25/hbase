@@ -1496,12 +1496,7 @@ name|inStreams
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|SoftReference
-argument_list|<
-name|FaultyInputStream
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|public
@@ -1559,9 +1554,7 @@ name|add
 argument_list|(
 operator|new
 name|SoftReference
-argument_list|<
-name|FaultyInputStream
-argument_list|>
+argument_list|<>
 argument_list|(
 name|faulty
 argument_list|)

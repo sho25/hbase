@@ -1845,9 +1845,7 @@ name|scanStrings
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -3148,9 +3146,7 @@ name|paths
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|(
 name|conf
 operator|.
@@ -3422,9 +3418,7 @@ name|jars
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// Add jars that are already in the tmpjars variable
@@ -3452,11 +3446,7 @@ name|packagedClasses
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// Add jars containing the specified classes

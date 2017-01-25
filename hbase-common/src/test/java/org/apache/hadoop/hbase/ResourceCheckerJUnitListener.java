@@ -145,11 +145,7 @@ name|rcs
 init|=
 operator|new
 name|ConcurrentHashMap
-argument_list|<
-name|String
-argument_list|,
-name|ResourceChecker
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|static
@@ -170,9 +166,7 @@ name|initialThreadNames
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -272,9 +266,7 @@ name|stringsToLog
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 for|for

@@ -3352,9 +3352,7 @@ name|tags
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Tag
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|tags
@@ -5262,13 +5260,7 @@ name|familyToCompression
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|Compression
-operator|.
-name|Algorithm
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// use column family names having special characters
@@ -5640,11 +5632,7 @@ name|familyToBloomType
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|BloomType
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// use column family names having special characters
@@ -5988,11 +5976,7 @@ name|familyToBlockSize
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|Integer
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// use column family names having special characters
@@ -6357,11 +6341,7 @@ name|familyToDataBlockEncoding
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|DataBlockEncoding
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// use column family names having special characters

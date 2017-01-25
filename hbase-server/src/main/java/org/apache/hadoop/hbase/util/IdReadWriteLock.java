@@ -97,11 +97,7 @@ name|lockPool
 init|=
 operator|new
 name|WeakObjectPool
-argument_list|<
-name|Long
-argument_list|,
-name|ReentrantReadWriteLock
-argument_list|>
+argument_list|<>
 argument_list|(
 operator|new
 name|WeakObjectPool

@@ -4005,10 +4005,7 @@ name|columns
 init|=
 operator|new
 name|TreeSet
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|(
 name|Bytes
 operator|.
@@ -5451,10 +5448,7 @@ name|columns
 init|=
 operator|new
 name|TreeSet
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|(
 name|Bytes
 operator|.
@@ -6099,9 +6093,7 @@ name|kvList
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|KeyValue
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -6476,10 +6468,7 @@ name|columns
 init|=
 operator|new
 name|TreeSet
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|(
 name|Bytes
 operator|.
@@ -7725,9 +7714,7 @@ name|kvs
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|KeyValue
-argument_list|>
+argument_list|<>
 argument_list|(
 name|numKVs
 argument_list|)

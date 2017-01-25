@@ -226,9 +226,7 @@ name|cells
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|CellScannable
-argument_list|>
+argument_list|<>
 argument_list|(
 name|count
 argument_list|)

@@ -91,9 +91,7 @@ name|unusedEncoders
 init|=
 operator|new
 name|LinkedBlockingQueue
-argument_list|<
-name|PrefixTreeEncoder
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 annotation|@

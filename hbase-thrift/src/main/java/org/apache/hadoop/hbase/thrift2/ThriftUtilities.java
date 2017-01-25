@@ -1056,9 +1056,7 @@ name|out
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Get
-argument_list|>
+argument_list|<>
 argument_list|(
 name|in
 operator|.
@@ -1150,9 +1148,7 @@ name|columnValues
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|TColumnValue
-argument_list|>
+argument_list|<>
 argument_list|(
 name|raw
 operator|.
@@ -1284,9 +1280,7 @@ name|out
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|TResult
-argument_list|>
+argument_list|<>
 argument_list|(
 name|in
 operator|.
@@ -1534,9 +1528,7 @@ name|out
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Put
-argument_list|>
+argument_list|<>
 argument_list|(
 name|in
 operator|.
@@ -1894,9 +1886,7 @@ name|out
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Delete
-argument_list|>
+argument_list|<>
 argument_list|(
 name|in
 operator|.
@@ -1961,9 +1951,7 @@ name|columns
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|TColumn
-argument_list|>
+argument_list|<>
 argument_list|(
 name|in
 operator|.
@@ -3026,9 +3014,7 @@ name|tlocations
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|THRegionLocation
-argument_list|>
+argument_list|<>
 argument_list|(
 name|locations
 operator|.

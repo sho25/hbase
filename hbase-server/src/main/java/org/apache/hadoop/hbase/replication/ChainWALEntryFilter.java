@@ -176,9 +176,7 @@ name|rawFilters
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|WALEntryFilter
-argument_list|>
+argument_list|<>
 argument_list|(
 name|filters
 operator|.

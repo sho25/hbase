@@ -1723,9 +1723,7 @@ name|filesToClean
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|StoreFile
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|int
@@ -2372,9 +2370,7 @@ name|tags
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Tag
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// Add the ref tag as the 1st one.
@@ -3775,9 +3771,7 @@ name|queue
 init|=
 operator|new
 name|SynchronousQueue
-argument_list|<
-name|Runnable
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|ThreadPoolExecutor

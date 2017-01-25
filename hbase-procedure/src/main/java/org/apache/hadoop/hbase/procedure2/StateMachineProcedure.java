@@ -413,9 +413,7 @@ name|subProcList
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Procedure
-argument_list|>
+argument_list|<>
 argument_list|(
 name|subProcedure
 operator|.

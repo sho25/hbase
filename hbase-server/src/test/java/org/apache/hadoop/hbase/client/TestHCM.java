@@ -1816,9 +1816,7 @@ name|SECONDS
 argument_list|,
 operator|new
 name|SynchronousQueue
-argument_list|<
-name|Runnable
-argument_list|>
+argument_list|<>
 argument_list|()
 argument_list|,
 name|Threads
@@ -5092,9 +5090,7 @@ name|failed
 init|=
 operator|new
 name|AtomicReference
-argument_list|<
-name|Throwable
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|null
 argument_list|)

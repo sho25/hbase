@@ -3079,9 +3079,7 @@ name|tagValues
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -4237,9 +4235,7 @@ name|updatedCells
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 if|if
@@ -4325,9 +4321,7 @@ name|tagList
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Tag
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|tagList

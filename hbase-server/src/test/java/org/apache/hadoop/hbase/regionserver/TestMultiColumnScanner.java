@@ -796,10 +796,7 @@ name|parameters
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Object
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -969,9 +966,7 @@ name|kvs
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|KeyValue
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|Set
@@ -982,9 +977,7 @@ name|keySet
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// A map from<row>_<qualifier> to the most recent delete timestamp for
@@ -999,11 +992,7 @@ name|lastDelTimeMap
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|Random
@@ -1023,9 +1012,7 @@ name|rowQualSkip
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// Skip some columns in some rows. We need to test scanning over a set
@@ -1473,9 +1460,7 @@ name|qualSet
 init|=
 operator|new
 name|TreeSet
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 block|{
@@ -1556,9 +1541,7 @@ name|results
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|int
@@ -2061,9 +2044,7 @@ name|lst
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for

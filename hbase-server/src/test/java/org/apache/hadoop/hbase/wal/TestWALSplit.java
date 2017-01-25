@@ -1262,9 +1262,7 @@ name|REGIONS
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -1370,12 +1368,7 @@ name|u2g_map
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|String
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|2
 argument_list|)
@@ -4020,9 +4013,7 @@ name|archivedLogs
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|final
@@ -4278,9 +4269,7 @@ name|walDirContents
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for

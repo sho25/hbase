@@ -307,9 +307,7 @@ name|stampSet
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * Build a dependent column filter with value checking    * dependent column varies will be compared using the supplied    * compareOp and comparator, for usage of which    * refer to {@link CompareFilter}    *     * @param family dependent column family    * @param qualifier dependent column qualifier    * @param dropDependentColumn whether the column should be discarded after    * @param valueCompareOp comparison op     * @param valueComparator comparator    */

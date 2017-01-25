@@ -721,9 +721,7 @@ name|keys
 init|=
 operator|new
 name|TreeSet
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|(
 name|params
 operator|.
@@ -879,9 +877,7 @@ name|sortedKeys
 init|=
 operator|new
 name|TreeSet
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|Enumeration
@@ -1996,14 +1992,7 @@ name|mapping
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|List
-argument_list|<
-name|String
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|static

@@ -1506,10 +1506,7 @@ name|startKeys
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -1671,9 +1668,7 @@ name|partitions
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|ImmutableBytesWritable
-argument_list|>
+argument_list|<>
 argument_list|(
 name|numHashFiles
 operator|-
@@ -1870,9 +1865,7 @@ name|partitions
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|ImmutableBytesWritable
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 while|while

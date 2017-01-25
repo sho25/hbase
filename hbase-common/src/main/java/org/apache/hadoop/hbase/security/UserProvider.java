@@ -528,9 +528,7 @@ name|result
 init|=
 operator|new
 name|LinkedHashSet
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|(
 name|groups
 operator|.

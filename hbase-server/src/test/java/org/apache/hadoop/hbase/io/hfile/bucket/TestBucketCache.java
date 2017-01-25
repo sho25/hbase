@@ -908,9 +908,7 @@ name|allocations
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// Fill the allocated extents by choosing a random blocksize. Continues selecting blocks until
@@ -923,9 +921,7 @@ name|tmp
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Integer
-argument_list|>
+argument_list|<>
 argument_list|(
 name|BLOCKSIZES
 argument_list|)

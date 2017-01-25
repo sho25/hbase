@@ -129,11 +129,7 @@ name|counters
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|AtomicLong
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * Create a new counter with the specified name    * @param counterName    * @return {@link AtomicLong} instance for the counter with counterName    */

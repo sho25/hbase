@@ -276,9 +276,7 @@ name|callables
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|TestCompatibilitySingletonFactoryCallable
-argument_list|>
+argument_list|<>
 argument_list|(
 name|ITERATIONS
 argument_list|)
@@ -291,9 +289,7 @@ name|resultStrings
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|(
 name|ITERATIONS
 argument_list|)

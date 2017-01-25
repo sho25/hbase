@@ -3110,10 +3110,7 @@ name|result
 init|=
 operator|new
 name|TreeSet
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|(
 name|Bytes
 operator|.

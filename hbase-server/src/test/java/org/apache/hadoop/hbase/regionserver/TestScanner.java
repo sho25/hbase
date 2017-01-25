@@ -993,9 +993,7 @@ name|results
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// Do simple test of getting one row only first.
@@ -1112,9 +1110,7 @@ name|results
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 for|for
@@ -1233,9 +1229,7 @@ name|results
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|scan
@@ -1354,9 +1348,7 @@ name|results
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|scan
@@ -1637,9 +1629,7 @@ name|results
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 try|try
@@ -2233,9 +2223,7 @@ name|results
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|byte
@@ -3180,9 +3168,7 @@ name|results
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|s
@@ -3245,9 +3231,7 @@ name|results
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 name|s

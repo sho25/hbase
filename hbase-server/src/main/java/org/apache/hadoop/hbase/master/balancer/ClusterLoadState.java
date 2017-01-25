@@ -180,14 +180,7 @@ name|serversByLoad
 operator|=
 operator|new
 name|TreeMap
-argument_list|<
-name|ServerAndLoad
-argument_list|,
-name|List
-argument_list|<
-name|HRegionInfo
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 comment|// Iterate so we can count regions as we build the map

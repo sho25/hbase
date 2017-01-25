@@ -361,9 +361,7 @@ name|values
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 if|if

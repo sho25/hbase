@@ -587,9 +587,7 @@ expr_stmt|;
 return|return
 operator|new
 name|ConstantDelayQueue
-argument_list|<
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|(
 name|TimeUnit
 operator|.
@@ -685,9 +683,7 @@ expr_stmt|;
 return|return
 operator|new
 name|ConstantDelayQueue
-argument_list|<
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|(
 name|TimeUnit
 operator|.

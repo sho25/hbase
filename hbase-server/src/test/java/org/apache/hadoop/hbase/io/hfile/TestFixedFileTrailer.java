@@ -495,10 +495,7 @@ name|versionsToTest
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Object
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for

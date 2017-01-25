@@ -111,11 +111,7 @@ name|mForwardMap
 init|=
 operator|new
 name|ConcurrentHashMap
-argument_list|<
-name|T
-argument_list|,
-name|Integer
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|ConcurrentHashMap
@@ -128,11 +124,7 @@ name|mReverseMap
 init|=
 operator|new
 name|ConcurrentHashMap
-argument_list|<
-name|Integer
-argument_list|,
-name|T
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|AtomicInteger

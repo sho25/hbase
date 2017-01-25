@@ -470,9 +470,7 @@ name|settings
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|QuotaSettings
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 if|if
@@ -570,9 +568,7 @@ name|settings
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|QuotaSettings
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 if|if

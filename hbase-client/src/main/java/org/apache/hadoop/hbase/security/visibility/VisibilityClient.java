@@ -717,9 +717,7 @@ operator|new
 name|CoprocessorRpcUtils
 operator|.
 name|BlockingRpcCallback
-argument_list|<
-name|VisibilityLabelsResponse
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|public
@@ -1080,9 +1078,7 @@ operator|new
 name|CoprocessorRpcUtils
 operator|.
 name|BlockingRpcCallback
-argument_list|<
-name|GetAuthsResponse
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|public
@@ -1322,9 +1318,7 @@ operator|new
 name|CoprocessorRpcUtils
 operator|.
 name|BlockingRpcCallback
-argument_list|<
-name|ListLabelsResponse
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|public
@@ -1657,9 +1651,7 @@ operator|new
 name|CoprocessorRpcUtils
 operator|.
 name|BlockingRpcCallback
-argument_list|<
-name|VisibilityLabelsResponse
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|public

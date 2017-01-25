@@ -1023,11 +1023,7 @@ name|actionsByServer
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|ServerName
-argument_list|,
-name|MultiAction
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|List
@@ -1038,9 +1034,7 @@ name|retainedActions
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Action
-argument_list|>
+argument_list|<>
 argument_list|(
 name|rows
 operator|.
@@ -1279,9 +1273,7 @@ name|locationErrors
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Exception
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|1
 argument_list|)
@@ -1290,9 +1282,7 @@ name|locationErrorRows
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Integer
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|1
 argument_list|)
@@ -1759,9 +1749,7 @@ name|actions
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Action
-argument_list|>
+argument_list|<>
 argument_list|(
 name|rows
 operator|.

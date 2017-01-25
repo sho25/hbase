@@ -614,9 +614,7 @@ name|list
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|WALActionsListener
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|1
 argument_list|)
@@ -789,12 +787,7 @@ name|scopes
 init|=
 operator|new
 name|TreeMap
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|Integer
-argument_list|>
+argument_list|<>
 argument_list|(
 name|Bytes
 operator|.

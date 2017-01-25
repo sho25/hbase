@@ -893,11 +893,7 @@ name|countersMap
 init|=
 operator|new
 name|ConcurrentHashMap
-argument_list|<
-name|FullyQualifiedRow
-argument_list|,
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|100000
 argument_list|,
@@ -971,9 +967,7 @@ name|queue
 init|=
 operator|new
 name|LinkedBlockingQueue
-argument_list|<
-name|Runnable
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|pool

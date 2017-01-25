@@ -322,11 +322,7 @@ name|jarModifiedTime
 operator|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 name|String

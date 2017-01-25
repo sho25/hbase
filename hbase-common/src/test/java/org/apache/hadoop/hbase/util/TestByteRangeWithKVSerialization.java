@@ -494,9 +494,7 @@ name|kvs
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|KeyValue
-argument_list|>
+argument_list|<>
 argument_list|(
 name|kvCount
 argument_list|)

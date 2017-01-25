@@ -781,9 +781,7 @@ name|logRollInProgressRsList
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -2811,9 +2809,7 @@ name|ex
 init|=
 operator|new
 name|AtomicReference
-argument_list|<
-name|Exception
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|null
 argument_list|)
@@ -2922,9 +2918,7 @@ name|ex
 init|=
 operator|new
 name|AtomicReference
-argument_list|<
-name|Exception
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|null
 argument_list|)

@@ -846,9 +846,7 @@ name|cells
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 return|return
@@ -890,9 +888,7 @@ name|results
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Result
-argument_list|>
+argument_list|<>
 argument_list|(
 name|nbRows
 argument_list|)

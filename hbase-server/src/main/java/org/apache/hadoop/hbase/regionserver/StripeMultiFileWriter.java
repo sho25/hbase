@@ -725,9 +725,7 @@ name|existingWriters
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|StoreFileWriter
-argument_list|>
+argument_list|<>
 argument_list|(
 name|this
 operator|.
@@ -1467,9 +1465,7 @@ name|existingWriters
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|StoreFileWriter
-argument_list|>
+argument_list|<>
 argument_list|(
 name|preallocate
 argument_list|)
@@ -1480,10 +1476,7 @@ name|boundaries
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|(
 name|preallocate
 operator|+

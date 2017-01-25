@@ -246,10 +246,7 @@ name|splits
 init|=
 operator|new
 name|TreeSet
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|(
 name|BYTES_COMPARATOR
 argument_list|)
@@ -696,9 +693,7 @@ name|bigRanges
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|R
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// The key is the count of overlaps,
@@ -716,14 +711,7 @@ name|overlapRangeMap
 init|=
 operator|new
 name|TreeMap
-argument_list|<
-name|Integer
-argument_list|,
-name|List
-argument_list|<
-name|R
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -859,9 +847,7 @@ name|ranges
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|R
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 name|overlapRangeMap

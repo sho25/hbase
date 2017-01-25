@@ -191,9 +191,7 @@ name|buffers
 init|=
 operator|new
 name|ConcurrentLinkedQueue
-argument_list|<
-name|ByteBuffer
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private

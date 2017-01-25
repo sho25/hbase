@@ -841,14 +841,7 @@ name|tableMaps
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|TableName
-argument_list|,
-name|List
-argument_list|<
-name|Scan
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -919,9 +912,7 @@ name|scanList
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Scan
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 name|tableMaps
@@ -950,9 +941,7 @@ name|splits
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|InputSplit
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|Iterator

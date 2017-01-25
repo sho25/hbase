@@ -781,9 +781,7 @@ name|serverNames
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|Path
@@ -1171,9 +1169,7 @@ name|serverNames
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|serverNames
@@ -1209,9 +1205,7 @@ name|serverNames
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|serverNames
@@ -1298,9 +1292,7 @@ name|logDirs
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Path
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|boolean

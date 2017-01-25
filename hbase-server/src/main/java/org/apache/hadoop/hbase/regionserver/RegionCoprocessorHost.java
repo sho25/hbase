@@ -2250,9 +2250,7 @@ name|configured
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|RegionEnvironment
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -2526,11 +2524,7 @@ name|classData
 operator|=
 operator|new
 name|ConcurrentHashMap
-argument_list|<
-name|String
-argument_list|,
-name|Object
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 name|sharedDataMap

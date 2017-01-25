@@ -494,9 +494,7 @@ name|regions
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|(
 name|restoredRegions
 operator|.

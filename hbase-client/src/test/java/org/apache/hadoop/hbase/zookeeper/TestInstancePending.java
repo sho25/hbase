@@ -116,9 +116,7 @@ name|pending
 init|=
 operator|new
 name|InstancePending
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|final
@@ -130,9 +128,7 @@ name|getResultRef
 init|=
 operator|new
 name|AtomicReference
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 operator|new

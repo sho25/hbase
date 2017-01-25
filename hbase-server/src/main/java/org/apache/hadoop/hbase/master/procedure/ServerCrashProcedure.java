@@ -612,9 +612,7 @@ name|META_REGION_SET
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 static|static
@@ -1971,9 +1969,7 @@ name|regionsToAssignAggregator
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|int
@@ -3176,9 +3172,7 @@ name|regionsOnCrashedServer
 operator|=
 operator|new
 name|HashSet
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|(
 name|size
 argument_list|)
@@ -3230,9 +3224,7 @@ name|regionsAssigned
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|(
 name|size
 argument_list|)

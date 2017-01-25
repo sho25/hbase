@@ -521,10 +521,7 @@ name|expectedBounds
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|17
 argument_list|)
@@ -740,10 +737,7 @@ name|expectedBounds
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|17
 argument_list|)
@@ -2385,10 +2379,7 @@ name|expectedBounds
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|1
 argument_list|)

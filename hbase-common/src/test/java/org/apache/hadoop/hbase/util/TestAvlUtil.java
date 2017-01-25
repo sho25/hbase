@@ -349,11 +349,7 @@ name|treeMap
 init|=
 operator|new
 name|TreeMap
-argument_list|<
-name|Integer
-argument_list|,
-name|Object
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|TestAvlNode
@@ -814,9 +810,7 @@ name|iter
 init|=
 operator|new
 name|AvlTreeIterator
-argument_list|<
-name|TestAvlNode
-argument_list|>
+argument_list|<>
 argument_list|(
 name|root
 argument_list|)
@@ -963,9 +957,7 @@ name|iter
 init|=
 operator|new
 name|AvlTreeIterator
-argument_list|<
-name|TestAvlNode
-argument_list|>
+argument_list|<>
 argument_list|(
 name|root
 argument_list|,

@@ -277,9 +277,7 @@ name|serversToBeKilled
 init|=
 operator|new
 name|LinkedList
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|(
 name|selectedServers
 argument_list|)
@@ -292,9 +290,7 @@ name|deadServers
 init|=
 operator|new
 name|LinkedList
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// loop while there are servers to be killed or dead servers to be restarted
@@ -611,9 +607,7 @@ name|serverNames
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|(
 name|count
 argument_list|)

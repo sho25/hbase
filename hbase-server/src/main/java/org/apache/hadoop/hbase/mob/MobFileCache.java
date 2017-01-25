@@ -515,11 +515,7 @@ name|map
 operator|=
 operator|new
 name|ConcurrentHashMap
-argument_list|<
-name|String
-argument_list|,
-name|CachedMobFile
-argument_list|>
+argument_list|<>
 argument_list|(
 name|mobFileMaxCacheSize
 argument_list|)
@@ -692,9 +688,7 @@ name|evictedFiles
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|CachedMobFile
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 try|try
@@ -719,9 +713,7 @@ name|files
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|CachedMobFile
-argument_list|>
+argument_list|<>
 argument_list|(
 name|map
 operator|.

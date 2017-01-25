@@ -1689,9 +1689,7 @@ name|dels
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Delete
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for

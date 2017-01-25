@@ -2058,12 +2058,7 @@ name|taskList
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Future
-argument_list|<
-name|Boolean
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|int
@@ -2480,9 +2475,7 @@ name|regionsToMove
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// FindBugs: DLS_DEAD_LOCAL_STORE
@@ -2634,12 +2627,7 @@ name|taskList
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Future
-argument_list|<
-name|Boolean
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|int
@@ -3548,9 +3536,7 @@ name|regions
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|File
@@ -4117,9 +4103,7 @@ name|excludeServers
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 if|if
@@ -4417,9 +4401,7 @@ name|serverInfo
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|(
 name|admin
 operator|.
@@ -4438,9 +4420,7 @@ name|regionServers
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|(
 name|serverInfo
 operator|.

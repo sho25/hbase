@@ -286,9 +286,7 @@ name|failedKeySet
 init|=
 operator|new
 name|ConcurrentSkipListSet
-argument_list|<
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * The total size of the temporary inserted/updated key set that have not yet lined    * up in a our contiguous sequence starting from startKey. Supposed to stay    * small.    */
@@ -358,9 +356,7 @@ block|{
 return|return
 operator|new
 name|ArrayBlockingQueue
-argument_list|<
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|10000
 argument_list|)
@@ -637,9 +633,7 @@ name|sortedKeys
 init|=
 operator|new
 name|PriorityQueue
-argument_list|<
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 while|while

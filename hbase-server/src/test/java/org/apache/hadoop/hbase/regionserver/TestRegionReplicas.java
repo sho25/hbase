@@ -2271,9 +2271,7 @@ index|]
 operator|=
 operator|new
 name|AtomicReference
-argument_list|<
-name|Exception
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 block|}

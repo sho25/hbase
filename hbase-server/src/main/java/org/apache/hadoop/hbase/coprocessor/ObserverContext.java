@@ -316,9 +316,7 @@ name|context
 operator|=
 operator|new
 name|ObserverContext
-argument_list|<
-name|T
-argument_list|>
+argument_list|<>
 argument_list|(
 name|RpcServer
 operator|.
@@ -376,9 +374,7 @@ name|context
 operator|=
 operator|new
 name|ObserverContext
-argument_list|<
-name|T
-argument_list|>
+argument_list|<>
 argument_list|(
 name|user
 argument_list|)

@@ -1189,9 +1189,7 @@ name|files
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Path
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -1644,9 +1642,7 @@ name|archivedFiles
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// We have to ensure that the DeleteTableHandler is finished. HBaseAdmin.deleteXXX() can return before all files
@@ -2536,9 +2532,7 @@ name|files
 argument_list|,
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 argument_list|)
 return|;

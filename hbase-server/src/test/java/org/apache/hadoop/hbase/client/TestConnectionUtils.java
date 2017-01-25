@@ -212,9 +212,7 @@ name|retyTimeSet
 init|=
 operator|new
 name|TreeSet
-argument_list|<
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -316,9 +314,7 @@ name|timeSet
 init|=
 operator|new
 name|TreeSet
-argument_list|<
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for

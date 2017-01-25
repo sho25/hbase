@@ -1705,9 +1705,7 @@ name|splits
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|InputSplit
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|List
@@ -1991,9 +1989,7 @@ name|storeDirs
 init|=
 operator|new
 name|LinkedList
-argument_list|<
-name|Path
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -2500,9 +2496,7 @@ name|toCompactDirs
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|Path
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|boolean

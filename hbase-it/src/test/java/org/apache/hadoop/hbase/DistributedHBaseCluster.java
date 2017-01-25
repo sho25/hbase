@@ -1829,9 +1829,7 @@ name|deferred
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|IOException
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|//check whether current master has changed
@@ -2112,9 +2110,7 @@ name|toStart
 init|=
 operator|new
 name|TreeSet
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|(
 operator|new
 name|ServerNameIgnoreStartCodeComparator
@@ -2129,9 +2125,7 @@ name|toKill
 init|=
 operator|new
 name|TreeSet
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|(
 operator|new
 name|ServerNameIgnoreStartCodeComparator
@@ -2497,9 +2491,7 @@ name|toStart
 init|=
 operator|new
 name|TreeSet
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|(
 operator|new
 name|ServerNameIgnoreStartCodeComparator
@@ -2514,9 +2506,7 @@ name|toKill
 init|=
 operator|new
 name|TreeSet
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|(
 operator|new
 name|ServerNameIgnoreStartCodeComparator
@@ -2597,9 +2587,7 @@ name|deferred
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|IOException
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for

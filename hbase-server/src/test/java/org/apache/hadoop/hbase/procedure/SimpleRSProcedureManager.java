@@ -671,12 +671,7 @@ name|futures
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Future
-argument_list|<
-name|Void
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -717,9 +712,7 @@ name|SECONDS
 argument_list|,
 operator|new
 name|LinkedBlockingQueue
-argument_list|<
-name|Runnable
-argument_list|>
+argument_list|<>
 argument_list|()
 argument_list|,
 operator|new
@@ -737,9 +730,7 @@ name|taskPool
 operator|=
 operator|new
 name|ExecutorCompletionService
-argument_list|<
-name|Void
-argument_list|>
+argument_list|<>
 argument_list|(
 name|executor
 argument_list|)

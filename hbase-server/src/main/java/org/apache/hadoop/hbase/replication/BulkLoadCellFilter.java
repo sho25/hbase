@@ -285,9 +285,7 @@ name|copiedStoresList
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|StoreDescriptor
-argument_list|>
+argument_list|<>
 argument_list|(
 name|storesList
 argument_list|)

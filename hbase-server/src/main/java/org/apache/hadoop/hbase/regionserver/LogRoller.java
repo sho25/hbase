@@ -339,11 +339,7 @@ name|walNeedsRoll
 init|=
 operator|new
 name|ConcurrentHashMap
-argument_list|<
-name|WAL
-argument_list|,
-name|Boolean
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private

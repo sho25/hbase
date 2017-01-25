@@ -613,11 +613,7 @@ name|regions
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|Region
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -633,12 +629,7 @@ name|rit
 init|=
 operator|new
 name|ConcurrentSkipListMap
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|Boolean
-argument_list|>
+argument_list|<>
 argument_list|(
 name|Bytes
 operator|.

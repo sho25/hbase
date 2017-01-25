@@ -494,11 +494,7 @@ name|attrs
 init|=
 operator|new
 name|LinkedHashMap
-argument_list|<
-name|QName
-argument_list|,
-name|Object
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -510,9 +506,7 @@ name|columns
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|ColumnSchemaModel
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * Default constructor.    */

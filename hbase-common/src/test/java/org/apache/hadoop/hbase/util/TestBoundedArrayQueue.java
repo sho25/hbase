@@ -154,9 +154,7 @@ name|queue
 init|=
 operator|new
 name|BoundedArrayQueue
-argument_list|<
-name|Integer
-argument_list|>
+argument_list|<>
 argument_list|(
 name|qMaxElements
 argument_list|)

@@ -134,11 +134,7 @@ name|lowerBoundary2Writer
 init|=
 operator|new
 name|TreeMap
-argument_list|<
-name|Long
-argument_list|,
-name|StoreFileWriter
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private

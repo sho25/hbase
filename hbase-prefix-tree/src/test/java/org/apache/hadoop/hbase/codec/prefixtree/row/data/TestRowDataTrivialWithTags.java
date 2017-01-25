@@ -306,9 +306,7 @@ name|tagList
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Tag
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|2
 argument_list|)

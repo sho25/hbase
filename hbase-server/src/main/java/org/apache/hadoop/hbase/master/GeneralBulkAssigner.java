@@ -259,14 +259,7 @@ name|failedPlans
 init|=
 operator|new
 name|ConcurrentHashMap
-argument_list|<
-name|ServerName
-argument_list|,
-name|List
-argument_list|<
-name|HRegionInfo
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -454,9 +447,7 @@ name|regionSet
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -925,9 +916,7 @@ name|reassigningRegions
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for

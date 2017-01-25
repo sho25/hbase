@@ -4357,9 +4357,7 @@ name|testStrings
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|8
 argument_list|)
@@ -4462,10 +4460,7 @@ name|testByteData
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|5
 argument_list|)

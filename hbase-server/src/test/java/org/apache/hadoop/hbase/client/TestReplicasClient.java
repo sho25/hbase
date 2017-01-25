@@ -868,9 +868,7 @@ name|cdl
 init|=
 operator|new
 name|AtomicReference
-argument_list|<
-name|CountDownLatch
-argument_list|>
+argument_list|<>
 argument_list|(
 operator|new
 name|CountDownLatch
@@ -3314,9 +3312,7 @@ name|puts
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Put
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|2
 argument_list|)
@@ -3476,9 +3472,7 @@ name|gets
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Get
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|Get
@@ -4926,11 +4920,7 @@ name|map
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|Boolean
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// Tracked metrics

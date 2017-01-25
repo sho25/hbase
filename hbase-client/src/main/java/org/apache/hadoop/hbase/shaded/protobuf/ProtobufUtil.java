@@ -2786,14 +2786,7 @@ name|PRIMITIVES
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|Class
-argument_list|<
-name|?
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * Many results are simple: no cell, exists true or false. To save on object creations,    *  we reuse them across calls.    */
@@ -10630,9 +10623,7 @@ name|cells
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|(
 name|values
 operator|.
@@ -10820,9 +10811,7 @@ name|cells
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|(
 name|count
 operator|+
@@ -10899,9 +10888,7 @@ name|cells
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|(
 name|values
 operator|.
@@ -12443,9 +12430,7 @@ name|regionInfos
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|(
 name|proto
 operator|.
@@ -16691,9 +16676,7 @@ name|rlsList
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|ReplicationLoadSource
-argument_list|>
+argument_list|<>
 argument_list|(
 name|clsList
 operator|.
@@ -18075,11 +18058,7 @@ name|servers
 operator|=
 operator|new
 name|HashMap
-argument_list|<
-name|ServerName
-argument_list|,
-name|ServerLoad
-argument_list|>
+argument_list|<>
 argument_list|(
 name|proto
 operator|.
@@ -18138,9 +18117,7 @@ name|deadServers
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|(
 name|proto
 operator|.
@@ -18189,9 +18166,7 @@ name|backupMasters
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|(
 name|proto
 operator|.
@@ -18240,9 +18215,7 @@ name|rit
 operator|=
 operator|new
 name|HashSet
-argument_list|<
-name|RegionState
-argument_list|>
+argument_list|<>
 argument_list|(
 name|proto
 operator|.

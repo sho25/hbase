@@ -1512,9 +1512,7 @@ name|resultPuts
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|TimingResult
-argument_list|>
+argument_list|<>
 argument_list|(
 name|maxIters
 argument_list|)
@@ -1527,9 +1525,7 @@ name|resultScan
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|TimingResult
-argument_list|>
+argument_list|<>
 argument_list|(
 name|maxIters
 argument_list|)
@@ -1542,9 +1538,7 @@ name|resultAdmin
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|TimingResult
-argument_list|>
+argument_list|<>
 argument_list|(
 name|maxIters
 argument_list|)
@@ -1872,9 +1866,7 @@ name|traces
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|10
 argument_list|)

@@ -5133,9 +5133,7 @@ name|workers
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|WorkerThread
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -5277,9 +5275,7 @@ name|thrown
 init|=
 operator|new
 name|AtomicReference
-argument_list|<
-name|Throwable
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private

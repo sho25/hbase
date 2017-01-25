@@ -2438,13 +2438,7 @@ name|map
 init|=
 operator|new
 name|TreeMap
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|(
 name|Bytes
 operator|.
@@ -3466,9 +3460,7 @@ name|regionHFiles
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Path
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|PathFilter

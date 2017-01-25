@@ -4206,13 +4206,7 @@ name|protoFamilyPaths
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|ClientProtos
-operator|.
-name|BulkLoadHFileRequest
-operator|.
-name|FamilyPath
-argument_list|>
+argument_list|<>
 argument_list|(
 name|familyPaths
 operator|.

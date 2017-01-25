@@ -947,9 +947,7 @@ name|kvListExp
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 name|kvListExp
@@ -1096,9 +1094,7 @@ name|kvListExp
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 name|kvListExp
@@ -1168,9 +1164,7 @@ name|kvListExp
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 name|kvListExp
@@ -1370,9 +1364,7 @@ name|puts
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Put
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -1609,9 +1601,7 @@ name|puts
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Put
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -2057,9 +2047,7 @@ name|kvListExp
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 comment|// Insert one CF for row[0]
@@ -2187,9 +2175,7 @@ name|kvListExp
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 name|kvListExp
@@ -2305,9 +2291,7 @@ name|kvListExp
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 name|kvListExp
@@ -2595,9 +2579,7 @@ name|kvListExp
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 comment|//Exp: CF1:q0, ..., q9, CF2: q0, q1, q10, q11, ..., q19
@@ -2784,9 +2766,7 @@ name|kvListExp
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 for|for
@@ -2965,9 +2945,7 @@ name|kvListExp
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 name|kvListExp
@@ -3202,9 +3180,7 @@ name|kvListExp
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 for|for
@@ -3354,9 +3330,7 @@ name|kvListScan
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 while|while
@@ -3503,9 +3477,7 @@ name|kvListExp
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 name|put
@@ -3649,9 +3621,7 @@ name|kvListExp
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 name|verifyResult
@@ -3701,9 +3671,7 @@ name|kvListExp
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 for|for
@@ -3810,9 +3778,7 @@ name|kvListExp
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 name|kvListExp
@@ -4035,9 +4001,7 @@ name|kvListExp
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 comment|//Exp: CF1:q4, q5, CF2: q4, q5
@@ -4564,9 +4528,7 @@ name|kvListExp
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 name|kvListExp

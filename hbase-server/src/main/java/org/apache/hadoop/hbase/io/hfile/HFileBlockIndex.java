@@ -1053,9 +1053,7 @@ name|midKey
 init|=
 operator|new
 name|AtomicReference
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/** Needed doing lookup on blocks. */
@@ -2733,9 +2731,7 @@ name|pair
 init|=
 operator|new
 name|ObjectIntPair
-argument_list|<
-name|ByteBuffer
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 while|while
@@ -4744,10 +4740,7 @@ name|blockKeys
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/** Block offset in backing stream. */
@@ -4761,9 +4754,7 @@ name|blockOffsets
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/** On-disk data sizes of lower-level data or index blocks. */
@@ -4777,9 +4768,7 @@ name|onDiskDataSizes
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Integer
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**      * The cumulative number of sub-entries, i.e. entries on deeper-level block      * index entries. numSubEntriesAt[i] is the number of sub-entries in the      * blocks corresponding to this chunk's entries #0 through #i inclusively.      */
@@ -4793,9 +4782,7 @@ name|numSubEntriesAt
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**      * The offset of the next entry to be added, relative to the end of the      * "secondary index" in the "non-root" format representation of this index      * chunk. This is the next value to be added to the secondary index.      */
@@ -4823,9 +4810,7 @@ name|secondaryIndexOffsetMarks
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Integer
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**      * Adds a new entry to this block index chunk.      *      * @param firstKey the first key in the block pointed to by this entry      * @param blockOffset the offset of the next-level block pointed to by this      *          entry      * @param onDiskDataSize the on-disk data of the block pointed to by this      *          entry, including header size      * @param curTotalNumSubEntries if this chunk is the root index chunk under      *          construction, this specifies the current total number of      *          sub-entries in all leaf-level chunks, including the one      *          corresponding to the second-level entry being added.      */

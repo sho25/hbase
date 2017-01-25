@@ -848,12 +848,7 @@ name|allFlushedSequenceIds
 init|=
 operator|new
 name|TreeMap
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|(
 name|Bytes
 operator|.

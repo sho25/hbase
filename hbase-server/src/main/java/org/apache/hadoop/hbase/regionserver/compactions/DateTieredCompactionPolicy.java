@@ -548,9 +548,7 @@ name|candidates
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|StoreFile
-argument_list|>
+argument_list|<>
 argument_list|(
 name|storeFiles
 argument_list|)
@@ -1312,11 +1310,7 @@ name|add
 argument_list|(
 operator|new
 name|Pair
-argument_list|<
-name|StoreFile
-argument_list|,
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|(
 name|storeFile
 argument_list|,
@@ -1755,9 +1749,7 @@ name|boundaries
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// Add startMillis of all windows between now and min timestamp
@@ -1843,9 +1835,7 @@ name|boundaries
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|boundaries

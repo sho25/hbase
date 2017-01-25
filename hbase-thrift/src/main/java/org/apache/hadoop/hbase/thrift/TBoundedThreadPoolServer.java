@@ -602,9 +602,7 @@ name|CallQueue
 argument_list|(
 operator|new
 name|LinkedBlockingQueue
-argument_list|<
-name|Call
-argument_list|>
+argument_list|<>
 argument_list|(
 name|options
 operator|.
@@ -630,9 +628,7 @@ name|CallQueue
 argument_list|(
 operator|new
 name|SynchronousQueue
-argument_list|<
-name|Call
-argument_list|>
+argument_list|<>
 argument_list|()
 argument_list|,
 name|metrics

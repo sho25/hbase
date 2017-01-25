@@ -445,9 +445,7 @@ name|stores
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Store
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 name|Mockito
@@ -722,9 +720,7 @@ name|regions
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Region
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|Mockito
@@ -1085,9 +1081,7 @@ name|regions
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Region
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|Mockito

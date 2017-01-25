@@ -556,11 +556,7 @@ name|nonces
 init|=
 operator|new
 name|ConcurrentHashMap
-argument_list|<
-name|NonceKey
-argument_list|,
-name|OperationContext
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private

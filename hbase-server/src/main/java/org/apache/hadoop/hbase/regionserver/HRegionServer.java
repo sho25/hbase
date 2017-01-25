@@ -3056,12 +3056,7 @@ name|regionsInTransitionInRS
 init|=
 operator|new
 name|ConcurrentSkipListMap
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|Boolean
-argument_list|>
+argument_list|<>
 argument_list|(
 name|Bytes
 operator|.
@@ -3135,11 +3130,7 @@ name|onlineRegions
 init|=
 operator|new
 name|ConcurrentHashMap
-argument_list|<
-name|String
-argument_list|,
-name|Region
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * Map of encoded region names to the DataNode locations they should be hosted on    * We store the value as InetSocketAddress since this is used only in HDFS    * API (create() that takes favored nodes as hints for placing file blocks).    * We could have used ServerName here as the value class, but we'd need to    * convert it to InetSocketAddress at some point before the HDFS API call, and    * it seems a bit weird to store ServerName since ServerName refers to RegionServers    * and here we really mean DataNode locations.    */
@@ -3156,12 +3147,7 @@ name|regionFavoredNodesMap
 init|=
 operator|new
 name|ConcurrentHashMap
-argument_list|<
-name|String
-argument_list|,
-name|InetSocketAddress
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * Set of regions currently being in recovering state which means it can accept writes(edits from    * previous failed region server) but not reads. A recovering region is also an online region.    */
@@ -3240,11 +3226,7 @@ name|rowlocks
 init|=
 operator|new
 name|ConcurrentHashMap
-argument_list|<
-name|String
-argument_list|,
-name|Integer
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// A state before we go into stopped state.  At this stage we're closing user
@@ -7514,9 +7496,7 @@ name|closedRegions
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|boolean
@@ -9781,9 +9761,7 @@ name|listeners
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|WALActionsListener
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|listeners
@@ -13992,11 +13970,7 @@ name|sortedRegions
 init|=
 operator|new
 name|TreeMap
-argument_list|<
-name|Long
-argument_list|,
-name|Region
-argument_list|>
+argument_list|<>
 argument_list|(
 operator|new
 name|Comparator
@@ -14105,9 +14079,7 @@ name|regions
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -14841,9 +14813,7 @@ name|tableRegions
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Region
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 synchronized|synchronized
@@ -14919,9 +14889,7 @@ name|allRegions
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Region
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 synchronized|synchronized
@@ -14966,9 +14934,7 @@ name|tables
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|TableName
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 synchronized|synchronized
@@ -15025,9 +14991,7 @@ name|coprocessors
 init|=
 operator|new
 name|TreeSet
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 try|try
@@ -16699,11 +16663,7 @@ name|movedRegions
 init|=
 operator|new
 name|ConcurrentHashMap
-argument_list|<
-name|String
-argument_list|,
-name|MovedRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|3000
 argument_list|)

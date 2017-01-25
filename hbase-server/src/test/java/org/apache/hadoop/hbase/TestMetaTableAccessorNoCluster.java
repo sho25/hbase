@@ -617,9 +617,7 @@ name|kvs
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|Result
@@ -901,9 +899,7 @@ name|kvs
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|final
@@ -1011,9 +1007,7 @@ name|cellScannables
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|CellScannable
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|1
 argument_list|)

@@ -884,9 +884,7 @@ name|kvList
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|KeyValue
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|byte
@@ -1097,9 +1095,7 @@ name|kvList
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|KeyValue
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|byte
@@ -1372,11 +1368,7 @@ name|encodedSeekers
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|DataBlockEncoder
-operator|.
-name|EncodedSeeker
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -2778,9 +2770,7 @@ name|kvList
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|KeyValue
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|byte

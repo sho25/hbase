@@ -334,11 +334,7 @@ name|idOwner
 init|=
 operator|new
 name|ConcurrentHashMap
-argument_list|<
-name|Long
-argument_list|,
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -630,9 +626,7 @@ name|ecs
 init|=
 operator|new
 name|ExecutorCompletionService
-argument_list|<
-name|Boolean
-argument_list|>
+argument_list|<>
 argument_list|(
 name|exec
 argument_list|)

@@ -3185,9 +3185,7 @@ name|puts
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Put
-argument_list|>
+argument_list|<>
 argument_list|(
 name|labelExps
 operator|.
@@ -3339,9 +3337,7 @@ name|updatedCells
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 if|if
@@ -3427,9 +3423,7 @@ name|tagList
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Tag
-argument_list|>
+argument_list|<>
 argument_list|(
 name|kv
 operator|.

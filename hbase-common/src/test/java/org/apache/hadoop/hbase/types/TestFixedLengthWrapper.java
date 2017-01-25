@@ -345,10 +345,7 @@ name|type
 init|=
 operator|new
 name|FixedLengthWrapper
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|(
 operator|new
 name|RawBytes
@@ -472,10 +469,7 @@ name|type
 init|=
 operator|new
 name|FixedLengthWrapper
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|(
 operator|new
 name|RawBytes
@@ -524,10 +518,7 @@ name|type
 init|=
 operator|new
 name|FixedLengthWrapper
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|(
 operator|new
 name|RawBytes
@@ -583,10 +574,7 @@ name|type
 init|=
 operator|new
 name|FixedLengthWrapper
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|(
 operator|new
 name|RawBytes

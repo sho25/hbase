@@ -1037,9 +1037,7 @@ name|permList
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|UserPermission
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 try|try

@@ -698,9 +698,7 @@ name|queue
 operator|=
 operator|new
 name|PriorityQueue
-argument_list|<
-name|E
-argument_list|>
+argument_list|<>
 argument_list|(
 name|capacity
 argument_list|,

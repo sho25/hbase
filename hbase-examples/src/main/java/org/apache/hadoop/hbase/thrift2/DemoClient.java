@@ -661,11 +661,7 @@ name|saslProperties
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|saslProperties
@@ -812,9 +808,7 @@ name|columnValues
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|TColumnValue
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|1
 argument_list|)
@@ -1032,11 +1026,7 @@ name|options
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|options

@@ -306,9 +306,7 @@ name|EMPTY_SERVER_LIST
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|0
 argument_list|)

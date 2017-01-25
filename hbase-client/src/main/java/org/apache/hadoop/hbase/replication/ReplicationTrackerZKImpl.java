@@ -244,9 +244,7 @@ name|listeners
 init|=
 operator|new
 name|CopyOnWriteArrayList
-argument_list|<
-name|ReplicationListener
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// List of all the other region servers in this cluster
@@ -260,9 +258,7 @@ name|otherRegionServers
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -409,9 +405,7 @@ name|list
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|(
 name|otherRegionServers
 argument_list|)

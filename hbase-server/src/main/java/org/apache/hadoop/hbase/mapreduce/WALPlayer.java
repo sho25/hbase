@@ -875,11 +875,7 @@ name|tables
 init|=
 operator|new
 name|TreeMap
-argument_list|<
-name|TableName
-argument_list|,
-name|TableName
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 annotation|@

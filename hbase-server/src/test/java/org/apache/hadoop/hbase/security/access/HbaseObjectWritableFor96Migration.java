@@ -1206,14 +1206,7 @@ name|CODE_TO_CLASS
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|Integer
-argument_list|,
-name|Class
-argument_list|<
-name|?
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|static
@@ -1231,14 +1224,7 @@ name|CLASS_TO_CODE
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|Class
-argument_list|<
-name|?
-argument_list|>
-argument_list|,
-name|Integer
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// Special code that means 'not-encoded'; in this case we do old school

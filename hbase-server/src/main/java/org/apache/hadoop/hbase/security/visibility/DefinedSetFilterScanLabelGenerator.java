@@ -265,9 +265,7 @@ name|auths
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|auths
@@ -308,9 +306,7 @@ name|labels
 argument_list|,
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|(
 name|auths
 argument_list|)
@@ -354,9 +350,7 @@ name|droppedLabels
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|List
@@ -367,9 +361,7 @@ name|passedLabels
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|(
 name|labels
 operator|.

@@ -756,11 +756,7 @@ name|actual
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|ScanQueryMatcher
-operator|.
-name|MatchCode
-argument_list|>
+argument_list|<>
 argument_list|(
 name|rows
 operator|.

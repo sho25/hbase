@@ -170,9 +170,7 @@ name|victimServers
 init|=
 operator|new
 name|LinkedList
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|(
 name|status
 operator|.
@@ -206,9 +204,7 @@ name|targetServers
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|(
 name|targetServerCount
 argument_list|)

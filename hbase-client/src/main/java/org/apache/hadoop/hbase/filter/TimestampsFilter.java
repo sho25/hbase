@@ -303,9 +303,7 @@ name|timestamps
 operator|=
 operator|new
 name|TreeSet
-argument_list|<
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|(
 name|timestamps
 argument_list|)
@@ -331,9 +329,7 @@ name|list
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|(
 name|timestamps
 operator|.
@@ -565,9 +561,7 @@ name|timestamps
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|(
 name|filterArguments
 operator|.

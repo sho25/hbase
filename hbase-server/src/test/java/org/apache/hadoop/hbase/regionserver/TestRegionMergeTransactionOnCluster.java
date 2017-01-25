@@ -2702,9 +2702,7 @@ name|initialRegions
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -2739,9 +2737,7 @@ name|currentRegions
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -3093,9 +3089,7 @@ expr_stmt|;
 return|return
 operator|new
 name|PairOfSameType
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|(
 name|regionA
 argument_list|,

@@ -1999,9 +1999,7 @@ name|drainingServers
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|drainingServers
@@ -2031,11 +2029,7 @@ name|onlineServers
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|ServerName
-argument_list|,
-name|ServerLoad
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|onlineServers
@@ -2188,9 +2182,7 @@ name|onlineDrainingServers
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for

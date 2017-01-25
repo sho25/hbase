@@ -350,9 +350,7 @@ block|}
 operator|,
 operator|new
 name|PassthroughInvocationHandler
-argument_list|<
-name|MonitoredTask
-argument_list|>
+argument_list|<>
 argument_list|(
 name|stat
 argument_list|)
@@ -450,9 +448,7 @@ block|}
 operator|,
 operator|new
 name|PassthroughInvocationHandler
-argument_list|<
-name|MonitoredRPCHandler
-argument_list|>
+argument_list|<>
 argument_list|(
 name|stat
 argument_list|)
@@ -972,9 +968,7 @@ name|weakProxy
 operator|=
 operator|new
 name|WeakReference
-argument_list|<
-name|MonitoredTask
-argument_list|>
+argument_list|<>
 argument_list|(
 name|proxy
 argument_list|)

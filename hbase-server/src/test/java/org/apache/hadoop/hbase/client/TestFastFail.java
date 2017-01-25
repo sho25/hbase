@@ -1093,12 +1093,7 @@ name|futures
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Future
-argument_list|<
-name|Boolean
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for

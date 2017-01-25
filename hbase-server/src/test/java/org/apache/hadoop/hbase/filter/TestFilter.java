@@ -2058,9 +2058,7 @@ name|results
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// the results should belong to ROWS_THREE[1]
@@ -2112,9 +2110,7 @@ name|results
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 comment|// This time no seek would have been done to ROWS_ONE[1]
@@ -4629,9 +4625,7 @@ name|next
 argument_list|(
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -4762,9 +4756,7 @@ name|values
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|boolean
@@ -4908,9 +4900,7 @@ name|next
 argument_list|(
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -5066,9 +5056,7 @@ name|values
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|scanner
@@ -5161,9 +5149,7 @@ name|values
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|boolean
@@ -5307,9 +5293,7 @@ name|values
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|boolean
@@ -11991,9 +11975,7 @@ name|filters
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Filter
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|filters
@@ -13792,9 +13774,7 @@ name|results
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|int
@@ -13988,9 +13968,7 @@ name|filters
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Filter
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|filters
@@ -14197,9 +14175,7 @@ name|filters
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Filter
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 name|filters
@@ -14961,9 +14937,7 @@ name|results
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|int
@@ -15139,9 +15113,7 @@ name|results
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|int
@@ -15315,9 +15287,7 @@ name|results
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|int
@@ -15621,9 +15591,7 @@ name|results
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|int
@@ -19015,9 +18983,7 @@ name|results
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|int
@@ -19202,9 +19168,7 @@ name|results
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 for|for
@@ -19348,9 +19312,7 @@ name|results
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 for|for
@@ -19567,9 +19529,7 @@ name|results
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 for|for

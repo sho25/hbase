@@ -246,12 +246,7 @@ name|tasks
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Future
-argument_list|<
-name|V
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|(
 name|maxTasks
 argument_list|)
@@ -262,12 +257,7 @@ name|completed
 operator|=
 operator|new
 name|ArrayBlockingQueue
-argument_list|<
-name|Future
-argument_list|<
-name|V
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|(
 name|maxTasks
 argument_list|)

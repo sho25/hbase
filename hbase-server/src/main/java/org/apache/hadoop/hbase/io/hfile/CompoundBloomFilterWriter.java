@@ -348,9 +348,7 @@ name|readyChunks
 init|=
 operator|new
 name|LinkedList
-argument_list|<
-name|ReadyChunk
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/** The first key in the current Bloom filter chunk. */

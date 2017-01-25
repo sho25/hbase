@@ -343,11 +343,7 @@ name|connections
 init|=
 operator|new
 name|ConcurrentHashMap
-argument_list|<
-name|String
-argument_list|,
-name|ConnectionInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -360,9 +356,7 @@ name|locker
 init|=
 operator|new
 name|KeyLocker
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private

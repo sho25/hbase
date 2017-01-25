@@ -1144,9 +1144,7 @@ name|SECONDS
 argument_list|,
 operator|new
 name|SynchronousQueue
-argument_list|<
-name|Runnable
-argument_list|>
+argument_list|<>
 argument_list|()
 argument_list|,
 name|Threads
@@ -8392,9 +8390,7 @@ name|deletes
 init|=
 operator|new
 name|LinkedList
-argument_list|<
-name|Delete
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|Table
@@ -9879,11 +9875,7 @@ name|regionsMap
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|HRegionInfo
-argument_list|,
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|regionsMap

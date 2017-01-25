@@ -472,9 +472,7 @@ name|listeners
 init|=
 operator|new
 name|CopyOnWriteArrayList
-argument_list|<
-name|ZooKeeperListener
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// Used by ZKUtil:waitForZKConnectionIfAuthenticating to wait for SASL
@@ -1795,9 +1793,7 @@ name|metaReplicaNodes
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|2
 argument_list|)
@@ -1927,9 +1923,7 @@ block|{
 return|return
 operator|new
 name|ArrayList
-argument_list|<
-name|ZooKeeperListener
-argument_list|>
+argument_list|<>
 argument_list|(
 name|listeners
 argument_list|)

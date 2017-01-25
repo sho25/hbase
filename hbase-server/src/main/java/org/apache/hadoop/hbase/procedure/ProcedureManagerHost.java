@@ -204,9 +204,7 @@ name|procedures
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|E
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * Load system procedures. Read the class names from configuration.    * Called by constructor.    */
@@ -262,9 +260,7 @@ name|configured
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|E
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -501,9 +497,7 @@ name|returnValue
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|E
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for

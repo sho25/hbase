@@ -589,11 +589,7 @@ name|limiters
 operator|=
 operator|new
 name|HashMap
-argument_list|<
-name|K
-argument_list|,
-name|QuotaLimiter
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 block|}
@@ -793,9 +789,7 @@ name|toRemove
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|K
-argument_list|>
+argument_list|<>
 argument_list|(
 name|map
 operator|.

@@ -1609,9 +1609,7 @@ name|regionOpeningStates
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|RegionOpeningState
-argument_list|>
+argument_list|<>
 argument_list|(
 name|proto
 operator|.
@@ -2212,9 +2210,7 @@ name|cells
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|(
 name|noOfCells
 argument_list|)
@@ -2391,11 +2387,7 @@ name|metricMap
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 if|if

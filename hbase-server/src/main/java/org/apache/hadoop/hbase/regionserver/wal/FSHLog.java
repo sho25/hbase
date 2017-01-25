@@ -1074,9 +1074,7 @@ name|disruptor
 operator|=
 operator|new
 name|Disruptor
-argument_list|<
-name|RingBufferTruck
-argument_list|>
+argument_list|<>
 argument_list|(
 name|RingBufferTruck
 operator|::
@@ -2051,9 +2049,7 @@ name|syncFutures
 operator|=
 operator|new
 name|LinkedBlockingQueue
-argument_list|<
-name|SyncFuture
-argument_list|>
+argument_list|<>
 argument_list|(
 name|maxHandlersCount
 operator|*

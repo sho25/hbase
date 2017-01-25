@@ -818,9 +818,7 @@ name|loadOnOpenBlocks
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|HFileBlock
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/** Minimum minor version supported by this HFile format */
@@ -2314,9 +2312,7 @@ name|pair
 init|=
 operator|new
 name|ObjectIntPair
-argument_list|<
-name|ByteBuffer
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**      * The next indexed key is to keep track of the indexed key of the next data block.      * If the nextIndexedKey is HConstants.NO_NEXT_INDEXED_KEY, it means that the      * current data block is the last data block.      *      * If the nextIndexedKey is null, it means the nextIndexedKey has not been loaded yet.      */
@@ -2340,9 +2336,7 @@ name|prevBlocks
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|HFileBlock
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|public
@@ -4533,9 +4527,7 @@ name|keyPair
 init|=
 operator|new
 name|ObjectIntPair
-argument_list|<
-name|ByteBuffer
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|blockBuffer
@@ -4663,9 +4655,7 @@ name|valuePair
 init|=
 operator|new
 name|ObjectIntPair
-argument_list|<
-name|ByteBuffer
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|this

@@ -749,14 +749,7 @@ name|cachedBlockByFile
 init|=
 operator|new
 name|ConcurrentSkipListMap
-argument_list|<
-name|String
-argument_list|,
-name|NavigableSet
-argument_list|<
-name|CachedBlock
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|FastLongHistogram
@@ -813,9 +806,7 @@ name|set
 operator|=
 operator|new
 name|ConcurrentSkipListSet
-argument_list|<
-name|CachedBlock
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 name|this

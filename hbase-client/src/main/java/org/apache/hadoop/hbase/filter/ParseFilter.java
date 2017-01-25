@@ -286,11 +286,7 @@ name|filterHashMap
 operator|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 name|filterHashMap
@@ -568,11 +564,7 @@ name|operatorPrecedenceHashMap
 operator|=
 operator|new
 name|HashMap
-argument_list|<
-name|ByteBuffer
-argument_list|,
-name|Integer
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 name|operatorPrecedenceHashMap
@@ -664,9 +656,7 @@ name|operatorStack
 init|=
 operator|new
 name|Stack
-argument_list|<
-name|ByteBuffer
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// stack for the filter objects
@@ -678,9 +668,7 @@ name|filterStack
 init|=
 operator|new
 name|Stack
-argument_list|<
-name|Filter
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|Filter
@@ -1652,10 +1640,7 @@ name|filterArguments
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -2081,9 +2066,7 @@ name|listOfFilters
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Filter
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 while|while
@@ -2205,9 +2188,7 @@ name|listOfFilters
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Filter
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 while|while

@@ -768,9 +768,7 @@ name|puts
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Put
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|Put

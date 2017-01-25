@@ -61,9 +61,7 @@ name|pending
 init|=
 operator|new
 name|InstancePending
-argument_list|<
-name|Watcher
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 annotation|@

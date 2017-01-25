@@ -111,9 +111,7 @@ name|nextQueue
 init|=
 operator|new
 name|LinkedList
-argument_list|<
-name|Entry
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|int

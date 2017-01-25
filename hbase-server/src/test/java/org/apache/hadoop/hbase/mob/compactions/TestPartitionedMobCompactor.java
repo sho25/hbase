@@ -4674,9 +4674,7 @@ name|delFilePaths
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Path
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -5463,9 +5461,7 @@ name|sfs
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|StoreFile
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|int
@@ -5697,9 +5693,7 @@ name|queue
 init|=
 operator|new
 name|SynchronousQueue
-argument_list|<
-name|Runnable
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|ThreadPoolExecutor

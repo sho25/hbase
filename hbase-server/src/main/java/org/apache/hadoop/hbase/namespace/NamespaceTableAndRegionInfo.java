@@ -161,11 +161,7 @@ name|tableAndRegionInfo
 operator|=
 operator|new
 name|HashMap
-argument_list|<
-name|TableName
-argument_list|,
-name|AtomicInteger
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 block|}

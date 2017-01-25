@@ -402,9 +402,7 @@ name|visTags
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Tag
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|List
@@ -415,9 +413,7 @@ name|nonVisTags
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Tag
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|List
@@ -428,9 +424,7 @@ name|newEntries
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Entry
-argument_list|>
+argument_list|<>
 argument_list|(
 name|entries
 operator|.

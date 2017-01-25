@@ -112,12 +112,7 @@ name|stats
 init|=
 operator|new
 name|TreeMap
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|RegionStatistics
-argument_list|>
+argument_list|<>
 argument_list|(
 name|Bytes
 operator|.

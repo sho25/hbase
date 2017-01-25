@@ -365,14 +365,7 @@ name|nodes
 init|=
 operator|new
 name|AtomicReference
-argument_list|<
-name|List
-argument_list|<
-name|ZKUtil
-operator|.
-name|NodeAndData
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|null
 argument_list|)

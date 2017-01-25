@@ -1229,9 +1229,7 @@ name|splits
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|InputSplit
-argument_list|>
+argument_list|<>
 argument_list|(
 name|files
 operator|.
@@ -1308,9 +1306,7 @@ name|result
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|FileStatus
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|LOG

@@ -549,11 +549,7 @@ name|cache
 init|=
 operator|new
 name|ConcurrentHashMap
-argument_list|<
-name|TableName
-argument_list|,
-name|HTableDescriptor
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * Table descriptor for<code>hbase:meta</code> catalog table    */
@@ -1326,11 +1322,7 @@ name|tds
 init|=
 operator|new
 name|TreeMap
-argument_list|<
-name|String
-argument_list|,
-name|HTableDescriptor
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 if|if
@@ -1527,11 +1519,7 @@ name|htds
 init|=
 operator|new
 name|TreeMap
-argument_list|<
-name|String
-argument_list|,
-name|HTableDescriptor
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|Map
@@ -1611,11 +1599,7 @@ name|htds
 init|=
 operator|new
 name|TreeMap
-argument_list|<
-name|String
-argument_list|,
-name|HTableDescriptor
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|List

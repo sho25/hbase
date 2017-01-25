@@ -3078,9 +3078,7 @@ name|workQueue
 operator|=
 operator|new
 name|LinkedBlockingQueue
-argument_list|<
-name|Runnable
-argument_list|>
+argument_list|<>
 argument_list|(
 name|maxThreads
 operator|*
@@ -3201,9 +3199,7 @@ literal|"-metaLookup-shared-"
 argument_list|,
 operator|new
 name|LinkedBlockingQueue
-argument_list|<
-name|Runnable
-argument_list|>
+argument_list|<>
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -4211,9 +4207,7 @@ name|locations
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|HRegionLocation
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -5658,11 +5652,7 @@ name|stubs
 init|=
 operator|new
 name|ConcurrentHashMap
-argument_list|<
-name|String
-argument_list|,
-name|Object
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * State of the MasterService connection/setup.    */
@@ -5811,11 +5801,7 @@ name|errorsByServer
 init|=
 operator|new
 name|ConcurrentHashMap
-argument_list|<
-name|ServerName
-argument_list|,
-name|ServerErrors
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private

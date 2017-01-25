@@ -94,9 +94,7 @@ name|d
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|5
 argument_list|)
@@ -181,9 +179,7 @@ name|d
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|4
 argument_list|)

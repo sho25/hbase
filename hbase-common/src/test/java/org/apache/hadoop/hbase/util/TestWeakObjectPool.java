@@ -170,11 +170,7 @@ name|pool
 operator|=
 operator|new
 name|WeakObjectPool
-argument_list|<
-name|String
-argument_list|,
-name|Object
-argument_list|>
+argument_list|<>
 argument_list|(
 operator|new
 name|WeakObjectPool
@@ -465,9 +461,7 @@ name|expectedObjRef
 init|=
 operator|new
 name|AtomicReference
-argument_list|<
-name|Object
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|final

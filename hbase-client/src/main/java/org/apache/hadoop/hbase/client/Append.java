@@ -492,9 +492,7 @@ name|list
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|1
 argument_list|)

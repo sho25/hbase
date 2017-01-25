@@ -1184,10 +1184,7 @@ name|familiesList
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|Collections
@@ -1507,10 +1504,7 @@ name|familiesWithDataList
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|List
@@ -1522,10 +1516,7 @@ name|emptyFamiliesList
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 if|if

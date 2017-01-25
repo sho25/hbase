@@ -352,11 +352,7 @@ name|partitioner
 init|=
 operator|new
 name|HRegionPartitioner
-argument_list|<
-name|Long
-argument_list|,
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|Configuration

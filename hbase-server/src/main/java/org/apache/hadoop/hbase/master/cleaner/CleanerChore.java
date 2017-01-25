@@ -494,9 +494,7 @@ name|cleanersChain
 operator|=
 operator|new
 name|LinkedList
-argument_list|<
-name|T
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 name|String

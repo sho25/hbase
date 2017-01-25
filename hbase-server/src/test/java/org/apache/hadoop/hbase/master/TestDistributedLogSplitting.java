@@ -2637,9 +2637,7 @@ name|nonces
 init|=
 operator|new
 name|LinkedList
-argument_list|<
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|public
@@ -2848,9 +2846,7 @@ name|reqs
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Increment
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -4906,9 +4902,7 @@ name|regionSet
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|HRegionInfo
@@ -6489,9 +6483,7 @@ name|regionSet
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|HRegionInfo
@@ -8118,9 +8110,7 @@ name|tmpRegions
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|tmpRegions
@@ -8155,9 +8145,7 @@ name|userRegionSet
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|userRegionSet
@@ -10860,9 +10848,7 @@ name|hris
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for

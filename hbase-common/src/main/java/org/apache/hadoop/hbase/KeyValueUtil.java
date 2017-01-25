@@ -2434,9 +2434,7 @@ decl_stmt|;
 return|return
 operator|new
 name|ArrayList
-argument_list|<
-name|KeyValue
-argument_list|>
+argument_list|<>
 argument_list|(
 name|lazyList
 argument_list|)

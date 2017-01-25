@@ -1830,9 +1830,7 @@ name|paths
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Path
-argument_list|>
+argument_list|<>
 argument_list|(
 name|alternativePaths
 operator|.

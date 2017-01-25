@@ -189,9 +189,7 @@ name|samples
 operator|=
 operator|new
 name|LinkedList
-argument_list|<
-name|SampleItem
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 block|}
@@ -862,11 +860,7 @@ name|values
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|MetricQuantile
-argument_list|,
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|(
 name|quantiles
 operator|.

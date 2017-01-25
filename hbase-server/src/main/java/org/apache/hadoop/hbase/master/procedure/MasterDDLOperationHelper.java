@@ -622,11 +622,7 @@ name|hri2Sn
 init|=
 operator|new
 name|TreeMap
-argument_list|<
-name|HRegionInfo
-argument_list|,
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -677,9 +673,7 @@ name|reRegions
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for

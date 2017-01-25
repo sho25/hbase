@@ -315,11 +315,7 @@ name|blockCountMap
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|AtomicInteger
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|//get table name
@@ -673,11 +669,7 @@ name|hostLocalityMap
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|Float
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for

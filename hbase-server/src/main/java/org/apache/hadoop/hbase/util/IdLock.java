@@ -170,11 +170,7 @@ name|map
 init|=
 operator|new
 name|ConcurrentHashMap
-argument_list|<
-name|Long
-argument_list|,
-name|Entry
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * Blocks until the lock corresponding to the given id is acquired.    *    * @param id an arbitrary number to lock on    * @return an "entry" to pass to {@link #releaseLockEntry(Entry)} to release    *         the lock    * @throws IOException if interrupted    */

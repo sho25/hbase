@@ -276,9 +276,7 @@ name|unAssignedRegionsList
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// For regions without valid favored nodes
@@ -291,9 +289,7 @@ name|regionsWithoutValidFavoredNodes
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// For regions not running on the favored nodes
@@ -306,9 +302,7 @@ name|nonFavoredAssignedRegionList
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// For regions running on the favored nodes
@@ -380,9 +374,7 @@ name|mostLoadedRSSet
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -394,9 +386,7 @@ name|leastLoadedRSSet
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -420,9 +410,7 @@ name|maxDispersionScoreServerSet
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -442,9 +430,7 @@ name|minDispersionScoreServerSet
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -468,9 +454,7 @@ name|maxDispersionNumServerSet
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -490,9 +474,7 @@ name|minDispersionNumServerSet
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|public
@@ -587,11 +569,7 @@ name|serverToHostingRegionCounterMap
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|ServerName
-argument_list|,
-name|Integer
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|Map
@@ -604,11 +582,7 @@ name|primaryRSToRegionCounterMap
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|ServerName
-argument_list|,
-name|Integer
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|Map
@@ -624,14 +598,7 @@ name|primaryToSecTerRSMap
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|ServerName
-argument_list|,
-name|Set
-argument_list|<
-name|ServerName
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// Check the favored nodes and its locality information
@@ -881,9 +848,7 @@ name|secAndTerSet
 operator|=
 operator|new
 name|HashSet
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 block|}
@@ -1773,11 +1738,7 @@ name|primaryRSToRegionCounterMap
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|ServerName
-argument_list|,
-name|Integer
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|Map
@@ -1793,14 +1754,7 @@ name|primaryToSecTerRSMap
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|ServerName
-argument_list|,
-name|Set
-argument_list|<
-name|ServerName
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// Check the favored nodes and its locality information
@@ -1977,9 +1931,7 @@ name|secAndTerSet
 operator|=
 operator|new
 name|HashSet
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 block|}
@@ -2380,9 +2332,7 @@ name|dispersion
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Float
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|dispersion

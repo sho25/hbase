@@ -259,11 +259,7 @@ name|fsShutdownHooks
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|Runnable
-argument_list|,
-name|Integer
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * Install a shutdown hook that calls stop on the passed Stoppable    * and then thread joins against the passed<code>threadToJoin</code>.    * When this thread completes, it then runs the hdfs thread (This install    * removes the hdfs shutdown hook keeping a handle on it to run it after    *<code>threadToJoin</code> has stopped).    *    *<p>To suppress all shutdown hook  handling -- both the running of the    * regionserver hook and of the hdfs hook code -- set    * {@link ShutdownHook#RUN_SHUTDOWN_HOOK} in {@link Configuration} to    *<code>false</code>.    * This configuration value is checked when the hook code runs.    * @param conf    * @param fs Instance of Filesystem used by the RegionServer    * @param stop Installed shutdown hook will call stop against this passed    *<code>Stoppable</code> instance.    * @param threadToJoin After calling stop on<code>stop</code> will then    * join this thread.    */

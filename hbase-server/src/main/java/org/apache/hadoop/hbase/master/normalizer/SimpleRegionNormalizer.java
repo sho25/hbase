@@ -512,9 +512,7 @@ name|plans
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|NormalizationPlan
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|List

@@ -122,11 +122,7 @@ name|instances
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|Class
-argument_list|,
-name|Object
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 block|}

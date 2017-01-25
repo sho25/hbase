@@ -922,9 +922,7 @@ name|result
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -968,9 +966,7 @@ name|ageInDisk
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -1066,9 +1062,7 @@ name|ageInDisk
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|(
 name|sizes
 operator|.
@@ -1377,9 +1371,7 @@ name|candidates
 argument_list|,
 operator|new
 name|ArrayList
-argument_list|<
-name|StoreFile
-argument_list|>
+argument_list|<>
 argument_list|()
 argument_list|,
 literal|false
@@ -1397,9 +1389,7 @@ name|actual
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|StoreFile
-argument_list|>
+argument_list|<>
 argument_list|(
 name|result
 operator|.

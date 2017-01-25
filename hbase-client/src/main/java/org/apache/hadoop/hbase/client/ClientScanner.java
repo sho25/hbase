@@ -550,6 +550,12 @@ name|cache
 decl_stmt|;
 comment|/**    * A list of partial results that have been returned from the server. This list should only    * contain results if this scanner does not have enough partial results to form the complete    * result.    */
 specifier|protected
+name|int
+name|partialResultsCellSizes
+init|=
+literal|0
+decl_stmt|;
+specifier|protected
 specifier|final
 name|LinkedList
 argument_list|<
@@ -559,16 +565,8 @@ name|partialResults
 init|=
 operator|new
 name|LinkedList
-argument_list|<
-name|Result
-argument_list|>
+argument_list|<>
 argument_list|()
-decl_stmt|;
-specifier|protected
-name|int
-name|partialResultsCellSizes
-init|=
-literal|0
 decl_stmt|;
 comment|/**    * The row for which we are accumulating partial Results (i.e. the row of the Results stored    * inside partialResults). Changes to partialResultsRow and partialResults are kept in sync via    * the methods {@link #regroupResults(Result)} and {@link #clearPartialResults()}    */
 specifier|protected
@@ -1449,9 +1447,7 @@ name|cache
 operator|=
 operator|new
 name|LinkedList
-argument_list|<
-name|Result
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 block|}
@@ -2394,9 +2390,7 @@ name|resultsToAddToCache
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Result
-argument_list|>
+argument_list|<>
 argument_list|(
 name|resultSize
 argument_list|)

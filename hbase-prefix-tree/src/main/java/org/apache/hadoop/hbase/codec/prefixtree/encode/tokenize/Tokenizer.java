@@ -712,9 +712,7 @@ name|nodes
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|TokenizerNode
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|root

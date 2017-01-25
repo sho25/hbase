@@ -408,9 +408,7 @@ name|caller
 init|=
 operator|new
 name|RpcRetryingCallerImpl
-argument_list|<
-name|T
-argument_list|>
+argument_list|<>
 argument_list|(
 name|pause
 argument_list|,
@@ -451,9 +449,7 @@ name|caller
 init|=
 operator|new
 name|RpcRetryingCallerImpl
-argument_list|<
-name|T
-argument_list|>
+argument_list|<>
 argument_list|(
 name|pause
 argument_list|,

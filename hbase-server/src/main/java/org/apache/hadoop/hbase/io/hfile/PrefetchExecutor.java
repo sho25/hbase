@@ -256,14 +256,7 @@ name|prefetchFutures
 init|=
 operator|new
 name|ConcurrentSkipListMap
-argument_list|<
-name|Path
-argument_list|,
-name|Future
-argument_list|<
-name|?
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/** Executor pool shared among all HFiles for block prefetch */

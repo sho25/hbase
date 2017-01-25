@@ -899,9 +899,7 @@ name|listeners
 init|=
 operator|new
 name|CopyOnWriteArrayList
-argument_list|<
-name|WALActionsListener
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * Class that does accounting of sequenceids in WAL subsystem. Holds oldest outstanding sequence    * id as yet not flushed as well as the most recent edit sequence id appended to the WAL. Has    * facility for answering questions such as "Is it safe to GC a WAL?".    */
@@ -2045,11 +2043,7 @@ name|syncFuturesByHandler
 operator|=
 operator|new
 name|ConcurrentHashMap
-argument_list|<
-name|Thread
-argument_list|,
-name|SyncFuture
-argument_list|>
+argument_list|<>
 argument_list|(
 name|maxHandlersCount
 argument_list|)

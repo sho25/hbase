@@ -1856,10 +1856,7 @@ name|boundaries
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|(
 name|output
 operator|.

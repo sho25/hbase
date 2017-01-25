@@ -1705,11 +1705,7 @@ name|defaultReplicas
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|HRegionInfo
-argument_list|,
-name|Integer
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -1778,9 +1774,7 @@ name|counts
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|Integer
-argument_list|>
+argument_list|<>
 argument_list|(
 name|defaultReplicas
 operator|.
@@ -1932,10 +1926,7 @@ name|tableRows
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|List
@@ -2446,10 +2437,7 @@ name|setOfStartKeys
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for

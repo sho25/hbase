@@ -691,9 +691,7 @@ name|results
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|Scan
@@ -917,9 +915,7 @@ name|updateReaders
 argument_list|(
 operator|new
 name|ArrayList
-argument_list|<
-name|StoreFile
-argument_list|>
+argument_list|<>
 argument_list|()
 argument_list|)
 expr_stmt|;

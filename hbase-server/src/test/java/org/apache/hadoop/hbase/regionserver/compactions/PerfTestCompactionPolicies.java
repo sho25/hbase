@@ -480,10 +480,7 @@ name|params
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Object
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|(
 name|maxFileValues
 operator|.
@@ -846,9 +843,7 @@ name|currentFiles
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|StoreFile
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|18
 argument_list|)
@@ -959,9 +954,7 @@ name|storeFiles
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|StoreFile
-argument_list|>
+argument_list|<>
 argument_list|(
 name|startingStoreFiles
 argument_list|)
@@ -977,9 +970,7 @@ name|storeFiles
 argument_list|,
 operator|new
 name|ArrayList
-argument_list|<
-name|StoreFile
-argument_list|>
+argument_list|<>
 argument_list|()
 argument_list|,
 literal|false
@@ -1018,9 +1009,7 @@ name|storeFiles
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|StoreFile
-argument_list|>
+argument_list|<>
 argument_list|(
 name|storeFiles
 argument_list|)

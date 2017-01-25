@@ -821,12 +821,7 @@ name|regionLoads
 init|=
 operator|new
 name|TreeMap
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|RegionLoad
-argument_list|>
+argument_list|<>
 argument_list|(
 name|Bytes
 operator|.
@@ -950,9 +945,7 @@ name|coprocessSet
 init|=
 operator|new
 name|TreeSet
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for

@@ -138,11 +138,7 @@ name|lockPool
 init|=
 operator|new
 name|WeakObjectPool
-argument_list|<
-name|K
-argument_list|,
-name|ReentrantLock
-argument_list|>
+argument_list|<>
 argument_list|(
 operator|new
 name|WeakObjectPool
@@ -272,11 +268,7 @@ name|locks
 init|=
 operator|new
 name|LinkedHashMap
-argument_list|<
-name|K
-argument_list|,
-name|Lock
-argument_list|>
+argument_list|<>
 argument_list|(
 name|keyArray
 operator|.

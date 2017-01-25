@@ -368,9 +368,7 @@ name|queue
 operator|=
 operator|new
 name|BoundedPriorityBlockingQueue
-argument_list|<
-name|TestObject
-argument_list|>
+argument_list|<>
 argument_list|(
 name|CAPACITY
 argument_list|,
@@ -1222,9 +1220,7 @@ name|testList
 init|=
 operator|new
 name|PriorityQueue
-argument_list|<
-name|TestObject
-argument_list|>
+argument_list|<>
 argument_list|(
 name|CAPACITY
 argument_list|,

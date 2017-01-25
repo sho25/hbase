@@ -228,11 +228,7 @@ block|{
 return|return
 operator|new
 name|ConcurrentHashMap
-argument_list|<
-name|String
-argument_list|,
-name|MetricsInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 return|;
 block|}
@@ -300,11 +296,7 @@ block|{
 return|return
 operator|new
 name|ConcurrentHashMap
-argument_list|<
-name|String
-argument_list|,
-name|MetricsTag
-argument_list|>
+argument_list|<>
 argument_list|()
 return|;
 block|}

@@ -531,9 +531,7 @@ name|concurrentTables
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|TableName
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|final
@@ -545,9 +543,7 @@ name|failures
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|final

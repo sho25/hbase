@@ -1426,9 +1426,7 @@ literal|null
 condition|?
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 else|:
 name|listOfQueues
@@ -1989,11 +1987,7 @@ name|listOfOps
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|ZKUtil
-operator|.
-name|ZKUtilOp
-argument_list|>
+argument_list|<>
 argument_list|(
 name|size
 argument_list|)
@@ -2181,11 +2175,7 @@ name|listOfOps
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|ZKUtil
-operator|.
-name|ZKUtilOp
-argument_list|>
+argument_list|<>
 argument_list|(
 name|size
 argument_list|)

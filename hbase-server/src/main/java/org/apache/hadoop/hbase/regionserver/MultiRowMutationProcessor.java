@@ -772,9 +772,7 @@ name|miniBatch
 operator|=
 operator|new
 name|MiniBatchOperationInProgress
-argument_list|<
-name|Mutation
-argument_list|>
+argument_list|<>
 argument_list|(
 name|mutations
 operator|.

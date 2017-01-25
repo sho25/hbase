@@ -194,11 +194,7 @@ name|delegatee
 operator|=
 operator|new
 name|ConcurrentSkipListMap
-argument_list|<
-name|Cell
-argument_list|,
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|(
 name|c
 argument_list|)

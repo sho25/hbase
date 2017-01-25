@@ -228,11 +228,7 @@ block|{
 return|return
 operator|new
 name|SingleRecordReader
-argument_list|<
-name|NullWritable
-argument_list|,
-name|NullWritable
-argument_list|>
+argument_list|<>
 argument_list|(
 name|NullWritable
 operator|.
@@ -282,9 +278,7 @@ name|splits
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|InputSplit
-argument_list|>
+argument_list|<>
 argument_list|(
 name|count
 argument_list|)

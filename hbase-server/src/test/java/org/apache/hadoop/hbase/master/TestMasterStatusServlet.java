@@ -690,9 +690,7 @@ name|regionsInTransition
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|RegionState
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|regionsInTransition
@@ -1096,9 +1094,7 @@ name|deadServers
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|(
 name|Lists
 operator|.
@@ -1196,9 +1192,7 @@ name|regionsInTransition
 init|=
 operator|new
 name|TreeSet
-argument_list|<
-name|RegionState
-argument_list|>
+argument_list|<>
 argument_list|(
 name|RegionStates
 operator|.

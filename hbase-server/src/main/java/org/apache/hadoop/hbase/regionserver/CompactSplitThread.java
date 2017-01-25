@@ -1783,9 +1783,7 @@ name|selectNow
 condition|?
 operator|new
 name|ArrayList
-argument_list|<
-name|CompactionRequest
-argument_list|>
+argument_list|<>
 argument_list|(
 name|r
 operator|.
@@ -1856,9 +1854,7 @@ name|ret
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|CompactionRequest
-argument_list|>
+argument_list|<>
 argument_list|(
 name|requests
 operator|.

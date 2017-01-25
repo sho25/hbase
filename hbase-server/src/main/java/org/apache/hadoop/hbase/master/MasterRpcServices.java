@@ -2461,9 +2461,7 @@ name|bssi
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|BlockingServiceAndInterface
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|5
 argument_list|)
@@ -8355,11 +8353,7 @@ name|pair
 operator|=
 operator|new
 name|Pair
-argument_list|<
-name|HRegionInfo
-argument_list|,
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|(
 name|HRegionInfo
 operator|.
@@ -9224,9 +9218,7 @@ name|compactedColumns
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|HColumnDescriptor
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|HColumnDescriptor

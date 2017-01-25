@@ -570,9 +570,7 @@ name|onlineServers
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|Address
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -715,9 +713,7 @@ name|regions
 init|=
 operator|new
 name|LinkedList
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -2246,9 +2242,7 @@ name|plans
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|RegionPlan
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for

@@ -135,13 +135,7 @@ block|{
 return|return
 operator|new
 name|Triple
-argument_list|<
-name|A
-argument_list|,
-name|B
-argument_list|,
-name|C
-argument_list|>
+argument_list|<>
 argument_list|(
 name|first
 argument_list|,

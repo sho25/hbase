@@ -257,10 +257,7 @@ block|{
 return|return
 operator|new
 name|ArrayList
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|0
 argument_list|)
@@ -332,9 +329,7 @@ block|{
 return|return
 operator|new
 name|ArrayList
-argument_list|<
-name|ByteRange
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|0
 argument_list|)

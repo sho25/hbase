@@ -1308,9 +1308,7 @@ name|storeFiles
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|StoreFile
-argument_list|>
+argument_list|<>
 argument_list|(
 name|store
 operator|.
@@ -1745,9 +1743,7 @@ name|storeFiles
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|StoreFileInfo
-argument_list|>
+argument_list|<>
 argument_list|(
 name|stats
 operator|.
@@ -2135,9 +2131,7 @@ name|regionManifests
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|SnapshotRegionManifest
-argument_list|>
+argument_list|<>
 argument_list|(
 name|v1Regions
 operator|.
@@ -2297,11 +2291,7 @@ name|regionsMap
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|SnapshotRegionManifest
-argument_list|>
+argument_list|<>
 argument_list|(
 name|regionManifests
 operator|.

@@ -1193,9 +1193,7 @@ name|procExecutor
 init|=
 operator|new
 name|ProcedureExecutor
-argument_list|<
-name|TEnv
-argument_list|>
+argument_list|<>
 argument_list|(
 name|conf
 argument_list|,
@@ -2651,9 +2649,7 @@ name|corrupted
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Procedure
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -2666,9 +2662,7 @@ name|completed
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|ProcedureInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -2681,9 +2675,7 @@ name|runnable
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Procedure
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private

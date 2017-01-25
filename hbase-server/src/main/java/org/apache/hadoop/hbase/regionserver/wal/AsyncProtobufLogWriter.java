@@ -888,9 +888,7 @@ name|future
 init|=
 operator|new
 name|CompletableFuture
-argument_list|<
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|eventLoop

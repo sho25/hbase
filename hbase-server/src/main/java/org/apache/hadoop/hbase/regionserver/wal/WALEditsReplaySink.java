@@ -757,9 +757,7 @@ name|regionEntries
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Entry
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 name|entriesByRegion
@@ -1025,9 +1023,7 @@ name|callable
 init|=
 operator|new
 name|ReplayServerCallable
-argument_list|<
-name|ReplicateWALEntryResponse
-argument_list|>
+argument_list|<>
 argument_list|(
 name|this
 operator|.

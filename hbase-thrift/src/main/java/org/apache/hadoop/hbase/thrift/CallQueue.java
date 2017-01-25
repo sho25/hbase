@@ -565,9 +565,7 @@ name|drained
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Call
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|underlyingQueue

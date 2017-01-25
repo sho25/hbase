@@ -880,9 +880,7 @@ name|syncException
 init|=
 operator|new
 name|AtomicReference
-argument_list|<
-name|Throwable
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -1664,9 +1662,7 @@ block|{
 return|return
 operator|new
 name|ArrayList
-argument_list|<
-name|ProcedureWALFile
-argument_list|>
+argument_list|<>
 argument_list|(
 name|logs
 argument_list|)
@@ -2038,9 +2034,7 @@ name|corruptedLogs
 operator|=
 operator|new
 name|HashSet
-argument_list|<
-name|ProcedureWALFile
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 block|}
@@ -4032,9 +4026,7 @@ block|{
 return|return
 operator|new
 name|ArrayList
-argument_list|<
-name|SyncMetrics
-argument_list|>
+argument_list|<>
 argument_list|(
 name|syncMetricsBuffer
 argument_list|)

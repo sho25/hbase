@@ -187,11 +187,7 @@ name|infos
 init|=
 operator|new
 name|ConcurrentHashMap
-argument_list|<
-name|String
-argument_list|,
-name|SecurityInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// populate info for known services

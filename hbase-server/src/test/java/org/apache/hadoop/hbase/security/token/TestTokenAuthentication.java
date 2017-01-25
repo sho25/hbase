@@ -1268,9 +1268,7 @@ name|sai
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|BlockingServiceAndInterface
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|1
 argument_list|)
@@ -2195,11 +2193,7 @@ name|callback
 init|=
 operator|new
 name|NonShadedBlockingRpcCallback
-argument_list|<
-name|AuthenticationProtos
-operator|.
-name|GetAuthenticationTokenResponse
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|getAuthenticationToken
@@ -2292,11 +2286,7 @@ name|callback
 init|=
 operator|new
 name|NonShadedBlockingRpcCallback
-argument_list|<
-name|AuthenticationProtos
-operator|.
-name|WhoAmIResponse
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|whoAmI

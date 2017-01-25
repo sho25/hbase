@@ -1085,12 +1085,7 @@ name|flushedSequenceIdByRegion
 init|=
 operator|new
 name|ConcurrentSkipListMap
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|(
 name|Bytes
 operator|.
@@ -1117,18 +1112,7 @@ name|storeFlushedSequenceIdsByRegion
 init|=
 operator|new
 name|ConcurrentSkipListMap
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|ConcurrentNavigableMap
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|Long
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|(
 name|Bytes
 operator|.
@@ -1148,11 +1132,7 @@ name|onlineServers
 init|=
 operator|new
 name|ConcurrentSkipListMap
-argument_list|<
-name|ServerName
-argument_list|,
-name|ServerLoad
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * Map of admin interfaces per registered regionserver; these interfaces we use to control    * regionservers out on the cluster    */
@@ -1170,13 +1150,7 @@ name|rsAdmins
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|ServerName
-argument_list|,
-name|AdminService
-operator|.
-name|BlockingInterface
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/** List of region servers that should not get any more new regions. */
@@ -1190,9 +1164,7 @@ name|drainingServers
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -1244,9 +1216,7 @@ name|queuedDeadServers
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * Set of region servers which are dead and submitted to ServerShutdownHandler to process but not    * fully processed immediately.    *<p>    * If one server died before assignment manager finished the failover cleanup, the server will be    * added to this set and will be processed through calling    * {@link ServerManager#processQueuedDeadServers()} by assignment manager.    *<p>    * The Boolean value indicates whether log split is needed inside ServerShutdownHandler    *<p>    * ServerShutdownHandler processes a dead server submitted to the handler after the handler is    * enabled. It may not be able to complete the processing because meta is not yet online or master    * is currently in startup mode. In this case, the dead server will be parked in this set    * temporarily.    */
@@ -1261,11 +1231,7 @@ name|requeuedDeadServers
 init|=
 operator|new
 name|ConcurrentHashMap
-argument_list|<
-name|ServerName
-argument_list|,
-name|Boolean
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/** Listeners that are called on server events. */
@@ -1278,9 +1244,7 @@ name|listeners
 init|=
 operator|new
 name|CopyOnWriteArrayList
-argument_list|<
-name|ServerListener
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * Constructor.    * @param master    * @throws ZooKeeperConnectionException    */
@@ -5422,9 +5386,7 @@ comment|// TODO: FIX. THIS IS POPULAR CALL.
 return|return
 operator|new
 name|ArrayList
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|(
 name|this
 operator|.
@@ -5541,9 +5503,7 @@ block|{
 return|return
 operator|new
 name|ArrayList
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|(
 name|this
 operator|.
@@ -5562,9 +5522,7 @@ block|{
 return|return
 operator|new
 name|HashSet
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|(
 name|this
 operator|.
@@ -6053,17 +6011,7 @@ name|regionUpdateInfos
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Pair
-argument_list|<
-name|HRegionInfo
-argument_list|,
-name|List
-argument_list|<
-name|ServerName
-argument_list|>
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -6091,14 +6039,7 @@ name|add
 argument_list|(
 operator|new
 name|Pair
-argument_list|<
-name|HRegionInfo
-argument_list|,
-name|List
-argument_list|<
-name|ServerName
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|(
 name|entry
 operator|.

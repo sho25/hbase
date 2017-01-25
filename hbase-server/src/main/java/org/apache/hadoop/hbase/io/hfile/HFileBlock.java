@@ -4799,9 +4799,7 @@ name|prefetchedHeader
 init|=
 operator|new
 name|AtomicReference
-argument_list|<
-name|PrefetchedHeader
-argument_list|>
+argument_list|<>
 argument_list|(
 operator|new
 name|PrefetchedHeader

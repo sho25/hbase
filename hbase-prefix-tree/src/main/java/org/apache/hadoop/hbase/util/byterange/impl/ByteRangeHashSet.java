@@ -159,11 +159,7 @@ name|uniqueIndexByUniqueRange
 operator|=
 operator|new
 name|HashMap
-argument_list|<
-name|ByteRange
-argument_list|,
-name|Integer
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 block|}

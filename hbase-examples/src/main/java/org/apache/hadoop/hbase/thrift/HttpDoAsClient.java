@@ -976,9 +976,7 @@ name|columns
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|ColumnDescriptor
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|2
 argument_list|)
@@ -1557,11 +1555,7 @@ name|sorted
 init|=
 operator|new
 name|TreeMap
-argument_list|<
-name|String
-argument_list|,
-name|TCell
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -1755,11 +1749,7 @@ name|options
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|options

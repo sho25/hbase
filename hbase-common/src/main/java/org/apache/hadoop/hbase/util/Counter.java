@@ -344,9 +344,7 @@ name|containerRef
 operator|=
 operator|new
 name|AtomicReference
-argument_list|<
-name|Container
-argument_list|>
+argument_list|<>
 argument_list|(
 operator|new
 name|Container

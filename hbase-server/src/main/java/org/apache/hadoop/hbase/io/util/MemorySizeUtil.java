@@ -757,11 +757,7 @@ comment|// Size in bytes
 return|return
 operator|new
 name|Pair
-argument_list|<
-name|Long
-argument_list|,
-name|MemoryType
-argument_list|>
+argument_list|<>
 argument_list|(
 name|globalMemStoreLimit
 argument_list|,
@@ -803,11 +799,7 @@ block|}
 return|return
 operator|new
 name|Pair
-argument_list|<
-name|Long
-argument_list|,
-name|MemoryType
-argument_list|>
+argument_list|<>
 argument_list|(
 name|getOnheapGlobalMemstoreSize
 argument_list|(

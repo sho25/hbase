@@ -345,10 +345,7 @@ name|parameters
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Object
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -477,9 +474,7 @@ name|CallQueue
 argument_list|(
 operator|new
 name|LinkedBlockingQueue
-argument_list|<
-name|Call
-argument_list|>
+argument_list|<>
 argument_list|()
 argument_list|,
 name|metrics
@@ -568,9 +563,7 @@ name|CallQueue
 argument_list|(
 operator|new
 name|LinkedBlockingQueue
-argument_list|<
-name|Call
-argument_list|>
+argument_list|<>
 argument_list|()
 argument_list|,
 name|metrics

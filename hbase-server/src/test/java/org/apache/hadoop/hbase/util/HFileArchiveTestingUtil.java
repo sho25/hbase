@@ -735,12 +735,7 @@ name|files
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|List
-argument_list|<
-name|String
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|3
 argument_list|)
@@ -772,9 +767,7 @@ name|currentFiles
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|(
 name|previous
 operator|.
@@ -789,9 +782,7 @@ name|backedupFiles
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|FileStatus
-argument_list|>
+argument_list|<>
 argument_list|(
 name|previous
 operator|.
@@ -986,9 +977,7 @@ name|originalFileNames
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|(
 name|files
 operator|.
@@ -1072,9 +1061,7 @@ name|notFound
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for

@@ -2131,9 +2131,7 @@ name|tablesIncluded
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|TableName
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -2220,11 +2218,7 @@ name|regionInfoMap
 init|=
 operator|new
 name|TreeMap
-argument_list|<
-name|String
-argument_list|,
-name|HbckInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// Empty regioninfo qualifiers in hbase:meta
@@ -2237,9 +2231,7 @@ name|emptyRegionInfoQualifiers
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|Result
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * This map from Tablename -> TableInfo contains the structures necessary to    * detect table consistency problems (holes, dupes, overlaps).  It is sorted    * to prevent dupes.    *    * If tablesIncluded is empty, this map contains all tables.    * Otherwise, it contains only meta tables and tables in tablesIncluded,    * unless checkMetaOnly is specified, in which case, it contains only    * the meta table    */
@@ -2254,11 +2246,7 @@ name|tablesInfo
 init|=
 operator|new
 name|ConcurrentSkipListMap
-argument_list|<
-name|TableName
-argument_list|,
-name|TableInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * When initially looking at HDFS, we attempt to find any orphaned data.    */
@@ -2295,14 +2283,7 @@ name|orphanTableDirs
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|TableName
-argument_list|,
-name|Set
-argument_list|<
-name|String
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -2316,11 +2297,7 @@ name|tableStates
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|TableName
-argument_list|,
-name|TableState
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -2347,14 +2324,7 @@ name|skippedRegions
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|TableName
-argument_list|,
-name|Set
-argument_list|<
-name|String
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -2916,9 +2886,7 @@ name|futureTask
 init|=
 operator|new
 name|FutureTask
-argument_list|<
-name|FSDataOutputStream
-argument_list|>
+argument_list|<>
 argument_list|(
 name|callable
 argument_list|)
@@ -5482,13 +5450,7 @@ name|orphanRegionRange
 operator|=
 operator|new
 name|Pair
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|(
 name|start
 argument_list|,
@@ -6924,9 +6886,7 @@ name|hbis
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|WorkItemHdfsRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|(
 name|hbckInfos
 operator|.
@@ -7245,9 +7205,7 @@ name|columns
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|orphanTableDirs
@@ -7555,9 +7513,7 @@ name|tmpList
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|TableName
-argument_list|>
+argument_list|<>
 argument_list|(
 name|orphanTableDirs
 operator|.
@@ -8035,9 +7991,7 @@ name|puts
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Put
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|boolean
@@ -10249,9 +10203,7 @@ name|workItems
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|WorkItemRegion
-argument_list|>
+argument_list|<>
 argument_list|(
 name|regionServerList
 operator|.
@@ -10403,9 +10355,7 @@ name|workItems
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|CheckRegionConsistencyWorkItem
-argument_list|>
+argument_list|<>
 argument_list|(
 name|regionInfoMap
 operator|.
@@ -10498,9 +10448,7 @@ name|replicaWorkItems
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|CheckRegionConsistencyWorkItem
-argument_list|>
+argument_list|<>
 argument_list|(
 name|regionInfoMap
 operator|.
@@ -10954,9 +10902,7 @@ name|skippedRegionNames
 operator|=
 operator|new
 name|HashSet
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 block|}
@@ -13933,11 +13879,7 @@ name|tablesInfo
 operator|=
 operator|new
 name|TreeMap
-argument_list|<
-name|TableName
-argument_list|,
-name|TableInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 name|LOG
@@ -14793,9 +14735,7 @@ name|backwards
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|HbckInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// sidelined big overlapped regions
@@ -14810,11 +14750,7 @@ name|sidelinedRegions
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|Path
-argument_list|,
-name|HbckInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// region split calculator
@@ -14827,9 +14763,7 @@ name|sc
 init|=
 operator|new
 name|RegionSplitCalculator
-argument_list|<
-name|HbckInfo
-argument_list|>
+argument_list|<>
 argument_list|(
 name|cmp
 argument_list|)
@@ -14844,9 +14778,7 @@ name|htds
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|HTableDescriptor
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// key = start split, values = set of splits in problem group
@@ -14897,9 +14829,7 @@ name|deployedOn
 operator|=
 operator|new
 name|TreeSet
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 block|}
@@ -15164,9 +15094,7 @@ name|regions
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -16036,13 +15964,7 @@ name|range
 operator|=
 operator|new
 name|Pair
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|(
 name|hi
 operator|.
@@ -16979,9 +16901,7 @@ name|subRange
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|HbckInfo
-argument_list|>
+argument_list|<>
 argument_list|(
 name|ranges
 argument_list|)
@@ -17374,9 +17294,7 @@ name|merges
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|WorkItemOverlapMerge
-argument_list|>
+argument_list|<>
 argument_list|(
 name|overlapGroups
 operator|.
@@ -17886,9 +17804,7 @@ name|tableNames
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|TableName
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|long
@@ -18183,11 +18099,7 @@ name|metaRegions
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|Integer
-argument_list|,
-name|HbckInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -18286,9 +18198,7 @@ name|servers
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 if|if
@@ -21038,9 +20948,7 @@ name|errorTables
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|TableInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// for use by unit tests to verify which errors were discovered
@@ -21053,9 +20961,7 @@ name|errorList
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|ERROR_CODE
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 annotation|@
@@ -21966,9 +21872,7 @@ name|exceptions
 init|=
 operator|new
 name|Vector
-argument_list|<
-name|Exception
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 try|try
@@ -22000,12 +21904,7 @@ name|futures
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Future
-argument_list|<
-name|?
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|(
 name|regionDirs
 operator|.
@@ -23233,9 +23132,7 @@ block|{
 return|return
 operator|new
 name|HashSet
-argument_list|<
-name|TableName
-argument_list|>
+argument_list|<>
 argument_list|(
 name|tablesIncluded
 argument_list|)
@@ -25011,9 +24908,7 @@ name|tableDirs
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Path
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|Path

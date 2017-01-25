@@ -885,9 +885,7 @@ name|cells
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// Limit to "hbase.hstore.compaction.kv.max" (default 10) to avoid OOME

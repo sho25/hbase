@@ -675,9 +675,7 @@ name|list
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|NamespaceDescriptor
-argument_list|>
+argument_list|<>
 argument_list|(
 name|set
 operator|.

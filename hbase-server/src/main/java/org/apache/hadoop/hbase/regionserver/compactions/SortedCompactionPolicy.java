@@ -307,9 +307,7 @@ name|getCurrentEligibleFiles
 argument_list|(
 operator|new
 name|ArrayList
-argument_list|<
-name|StoreFile
-argument_list|>
+argument_list|<>
 argument_list|(
 name|candidates
 argument_list|)
@@ -360,9 +358,7 @@ name|candidateSelection
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|StoreFile
-argument_list|>
+argument_list|<>
 argument_list|(
 name|candidateFiles
 argument_list|)

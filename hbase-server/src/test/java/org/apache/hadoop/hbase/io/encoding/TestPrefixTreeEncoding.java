@@ -640,9 +640,7 @@ name|kvset
 init|=
 operator|new
 name|ConcurrentSkipListSet
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|(
 name|CellComparator
 operator|.
@@ -677,10 +675,7 @@ name|paramList
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Object
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 block|{
@@ -1691,9 +1686,7 @@ name|kvList
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|KeyValue
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for

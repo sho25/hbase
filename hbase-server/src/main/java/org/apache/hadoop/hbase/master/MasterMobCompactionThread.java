@@ -378,9 +378,7 @@ name|SECONDS
 argument_list|,
 operator|new
 name|SynchronousQueue
-argument_list|<
-name|Runnable
-argument_list|>
+argument_list|<>
 argument_list|()
 argument_list|,
 operator|new

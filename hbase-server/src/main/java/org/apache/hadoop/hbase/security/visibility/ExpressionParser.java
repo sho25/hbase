@@ -251,9 +251,7 @@ name|expStack
 init|=
 operator|new
 name|Stack
-argument_list|<
-name|ExpressionNode
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|int
@@ -406,9 +404,7 @@ name|list
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Byte
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 while|while

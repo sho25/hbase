@@ -554,9 +554,7 @@ name|tuneObservers
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|HeapMemoryTuneObserver
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|public

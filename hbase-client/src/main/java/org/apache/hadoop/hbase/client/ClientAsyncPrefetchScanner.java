@@ -336,9 +336,7 @@ name|cache
 operator|=
 operator|new
 name|LinkedBlockingQueue
-argument_list|<
-name|Result
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 name|cacheSizeInBytes
@@ -353,9 +351,7 @@ name|exceptionsQueue
 operator|=
 operator|new
 name|ConcurrentLinkedQueue
-argument_list|<
-name|Exception
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 name|prefetchRunnable

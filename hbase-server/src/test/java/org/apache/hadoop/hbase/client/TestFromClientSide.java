@@ -1695,11 +1695,7 @@ name|kvs
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|kvs
@@ -19117,9 +19113,7 @@ name|deletes
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Delete
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -39199,9 +39193,7 @@ name|error
 init|=
 operator|new
 name|AtomicReference
-argument_list|<
-name|AssertionError
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|null
 argument_list|)
@@ -43577,9 +43569,7 @@ name|regionsInRange
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|HRegionLocation
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|byte
@@ -50793,9 +50783,7 @@ name|regionLocations
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|RegionLocations
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// mock region locations coming from meta with multiple replicas

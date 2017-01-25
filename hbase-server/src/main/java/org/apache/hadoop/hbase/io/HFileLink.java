@@ -2047,11 +2047,7 @@ decl_stmt|;
 return|return
 operator|new
 name|Pair
-argument_list|<
-name|TableName
-argument_list|,
-name|String
-argument_list|>
+argument_list|<>
 argument_list|(
 name|linkTableName
 argument_list|,

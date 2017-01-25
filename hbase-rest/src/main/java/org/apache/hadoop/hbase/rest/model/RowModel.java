@@ -295,9 +295,7 @@ name|cells
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|CellModel
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * Default constructor    */
@@ -343,9 +341,7 @@ name|cells
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|CellModel
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 block|}

@@ -1587,10 +1587,7 @@ name|tableRows
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|Connection

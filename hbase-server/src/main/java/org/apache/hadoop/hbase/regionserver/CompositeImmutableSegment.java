@@ -321,9 +321,7 @@ block|{
 return|return
 operator|new
 name|LinkedList
-argument_list|<
-name|Segment
-argument_list|>
+argument_list|<>
 argument_list|(
 name|segments
 argument_list|)
@@ -552,9 +550,7 @@ name|list
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|KeyValueScanner
-argument_list|>
+argument_list|<>
 argument_list|(
 name|segments
 operator|.

@@ -8822,9 +8822,7 @@ name|gets
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Get
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|public
@@ -10229,9 +10227,7 @@ name|cdl
 init|=
 operator|new
 name|AtomicReference
-argument_list|<
-name|CountDownLatch
-argument_list|>
+argument_list|<>
 argument_list|(
 operator|new
 name|CountDownLatch

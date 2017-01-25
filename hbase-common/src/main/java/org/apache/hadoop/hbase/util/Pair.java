@@ -159,11 +159,7 @@ block|{
 return|return
 operator|new
 name|Pair
-argument_list|<
-name|T1
-argument_list|,
-name|T2
-argument_list|>
+argument_list|<>
 argument_list|(
 name|a
 argument_list|,

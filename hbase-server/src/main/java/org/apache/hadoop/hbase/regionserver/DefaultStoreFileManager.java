@@ -448,9 +448,7 @@ name|newFiles
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|StoreFile
-argument_list|>
+argument_list|<>
 argument_list|(
 name|storefiles
 argument_list|)
@@ -519,9 +517,7 @@ name|compactedfiles
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|StoreFile
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 return|return
@@ -625,9 +621,7 @@ name|updatedCompactedfiles
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|StoreFile
-argument_list|>
+argument_list|<>
 argument_list|(
 name|this
 operator|.
@@ -648,9 +642,7 @@ name|updatedCompactedfiles
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|StoreFile
-argument_list|>
+argument_list|<>
 argument_list|(
 name|newCompactedfiles
 argument_list|)
@@ -737,9 +729,7 @@ name|updatedCompactedfiles
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|StoreFile
-argument_list|>
+argument_list|<>
 argument_list|(
 name|this
 operator|.
@@ -782,9 +772,7 @@ block|{
 return|return
 operator|new
 name|ArrayList
-argument_list|<
-name|StoreFile
-argument_list|>
+argument_list|<>
 argument_list|(
 name|Lists
 operator|.
@@ -1063,9 +1051,7 @@ name|expiredStoreFiles
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|StoreFile
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 block|}
@@ -1139,9 +1125,7 @@ expr_stmt|;
 return|return
 operator|new
 name|ArrayList
-argument_list|<
-name|StoreFile
-argument_list|>
+argument_list|<>
 argument_list|(
 name|storefiles
 argument_list|)

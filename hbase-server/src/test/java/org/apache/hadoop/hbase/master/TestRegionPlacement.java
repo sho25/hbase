@@ -770,12 +770,7 @@ name|favoredNodesAssignmentPlan
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|HRegionInfo
-argument_list|,
-name|ServerName
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 annotation|@
@@ -1539,16 +1534,7 @@ name|regionsToVerify
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|HRegionInfo
-argument_list|,
-name|Pair
-argument_list|<
-name|ServerName
-argument_list|,
-name|ServerName
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// mark the regions to track
@@ -1605,11 +1591,7 @@ argument_list|()
 argument_list|,
 operator|new
 name|Pair
-argument_list|<
-name|ServerName
-argument_list|,
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|(
 name|entry
 operator|.
@@ -2342,9 +2324,7 @@ name|shuffledServerList
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|shuffledServerList

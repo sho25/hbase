@@ -258,11 +258,7 @@ name|regionServers
 init|=
 operator|new
 name|TreeMap
-argument_list|<
-name|ServerName
-argument_list|,
-name|RegionServerInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -836,9 +832,7 @@ block|{
 return|return
 operator|new
 name|ArrayList
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|(
 name|this
 operator|.

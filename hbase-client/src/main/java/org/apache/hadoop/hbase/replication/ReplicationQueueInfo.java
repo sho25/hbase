@@ -157,9 +157,7 @@ name|deadRegionServers
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * The passed znode will be either the id of the peer cluster or    * the handling story of that queue in the form of id-servername-*    */

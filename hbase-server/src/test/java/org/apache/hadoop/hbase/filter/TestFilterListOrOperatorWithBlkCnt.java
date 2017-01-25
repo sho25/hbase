@@ -611,9 +611,7 @@ name|ranges1
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|RowRange
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|ranges1
@@ -687,9 +685,7 @@ name|ranges2
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|RowRange
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|ranges2
@@ -1100,9 +1096,7 @@ name|kvList
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|Result
@@ -1177,9 +1171,7 @@ name|results
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|Result

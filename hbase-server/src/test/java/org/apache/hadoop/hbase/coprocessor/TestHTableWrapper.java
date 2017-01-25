@@ -1585,9 +1585,7 @@ name|delete
 argument_list|(
 operator|new
 name|ArrayList
-argument_list|<
-name|Delete
-argument_list|>
+argument_list|<>
 argument_list|(
 name|Arrays
 operator|.

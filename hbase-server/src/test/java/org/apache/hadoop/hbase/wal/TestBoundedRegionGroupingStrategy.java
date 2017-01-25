@@ -1150,9 +1150,7 @@ name|seen
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|WAL
-argument_list|>
+argument_list|<>
 argument_list|(
 name|temp
 operator|*

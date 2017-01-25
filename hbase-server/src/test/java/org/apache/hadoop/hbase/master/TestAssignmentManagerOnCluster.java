@@ -4120,11 +4120,7 @@ name|regions
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|HRegionInfo
-argument_list|,
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|ServerName
@@ -5444,9 +5440,7 @@ name|regions
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|regions
@@ -7626,9 +7620,7 @@ name|nameList
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|List
@@ -7639,9 +7631,7 @@ name|tableNameList
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|TableName
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for

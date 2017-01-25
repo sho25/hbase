@@ -508,11 +508,7 @@ name|TYPE_COUNT
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|Object
-argument_list|,
-name|Integer
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|3
 argument_list|)
@@ -582,10 +578,7 @@ name|params
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Object
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -934,9 +927,7 @@ name|results
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 while|while

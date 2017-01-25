@@ -1240,10 +1240,7 @@ name|dataFromMembers
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// mock out coordinator so we can keep track of zk progress
@@ -1677,10 +1674,7 @@ name|dataFromMembers
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// mock out coordinator so we can keep track of zk progress
@@ -2508,9 +2502,7 @@ name|cohortControllers
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|ZKProcedureMemberRpcs
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -2552,14 +2544,7 @@ block|}
 return|return
 operator|new
 name|Pair
-argument_list|<
-name|ZKProcedureCoordinatorRpcs
-argument_list|,
-name|List
-argument_list|<
-name|ZKProcedureMemberRpcs
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|(
 name|controller
 argument_list|,
@@ -2626,9 +2611,7 @@ name|cohortControllers
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|ZKProcedureMemberRpcs
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -2691,14 +2674,7 @@ expr_stmt|;
 return|return
 operator|new
 name|Pair
-argument_list|<
-name|ZKProcedureCoordinatorRpcs
-argument_list|,
-name|List
-argument_list|<
-name|ZKProcedureMemberRpcs
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|(
 name|controller
 argument_list|,

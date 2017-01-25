@@ -566,9 +566,7 @@ name|scanners
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|KeyValueScanner
-argument_list|>
+argument_list|<>
 argument_list|(
 name|Arrays
 operator|.
@@ -916,9 +914,7 @@ name|TestScanner
 argument_list|(
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -1117,9 +1113,7 @@ name|SeekTestScanner
 argument_list|(
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -1131,9 +1125,7 @@ name|scanners
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|KeyValueScanner
-argument_list|>
+argument_list|<>
 argument_list|(
 name|Arrays
 operator|.
@@ -1366,9 +1358,7 @@ name|expected
 argument_list|,
 operator|new
 name|ArrayList
-argument_list|<
-name|KeyValueScanner
-argument_list|>
+argument_list|<>
 argument_list|(
 name|Arrays
 operator|.
@@ -1444,9 +1434,7 @@ name|expected
 argument_list|,
 operator|new
 name|ArrayList
-argument_list|<
-name|KeyValueScanner
-argument_list|>
+argument_list|<>
 argument_list|(
 name|Arrays
 operator|.

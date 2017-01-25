@@ -2987,9 +2987,7 @@ name|procsToAbort
 operator|=
 operator|new
 name|TreeSet
-argument_list|<
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 block|}

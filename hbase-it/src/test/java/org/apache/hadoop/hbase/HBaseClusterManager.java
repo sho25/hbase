@@ -1582,11 +1582,7 @@ expr_stmt|;
 return|return
 operator|new
 name|Pair
-argument_list|<
-name|Integer
-argument_list|,
-name|String
-argument_list|>
+argument_list|<>
 argument_list|(
 name|shell
 operator|.

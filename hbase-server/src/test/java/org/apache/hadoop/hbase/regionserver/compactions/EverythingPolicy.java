@@ -161,9 +161,7 @@ block|{
 return|return
 operator|new
 name|ArrayList
-argument_list|<
-name|StoreFile
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|0
 argument_list|)
@@ -172,9 +170,7 @@ block|}
 return|return
 operator|new
 name|ArrayList
-argument_list|<
-name|StoreFile
-argument_list|>
+argument_list|<>
 argument_list|(
 name|candidates
 argument_list|)

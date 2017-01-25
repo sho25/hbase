@@ -439,9 +439,7 @@ name|keys
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Bytes
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// loop through all the key, values looking for constraints
@@ -614,11 +612,7 @@ literal|null
 else|:
 operator|new
 name|Pair
-argument_list|<
-name|String
-argument_list|,
-name|String
-argument_list|>
+argument_list|<>
 argument_list|(
 name|key
 argument_list|,
@@ -1640,9 +1634,7 @@ name|constraints
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Constraint
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// loop through all the key, values looking for constraints

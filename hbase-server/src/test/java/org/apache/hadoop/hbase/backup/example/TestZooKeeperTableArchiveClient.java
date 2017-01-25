@@ -766,9 +766,7 @@ name|toCleanup
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Path
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -1252,9 +1250,7 @@ name|regions
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Region
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|regions
@@ -1587,9 +1583,7 @@ name|regions
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Region
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|regions
@@ -1665,9 +1659,7 @@ name|regions
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Region
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 name|regions
@@ -2462,9 +2454,7 @@ name|allFiles
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Path
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for

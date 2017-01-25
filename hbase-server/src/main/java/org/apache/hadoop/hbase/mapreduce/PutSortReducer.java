@@ -503,9 +503,7 @@ name|map
 init|=
 operator|new
 name|TreeSet
-argument_list|<
-name|KeyValue
-argument_list|>
+argument_list|<>
 argument_list|(
 name|CellComparator
 operator|.
@@ -526,9 +524,7 @@ name|tags
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Tag
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 while|while

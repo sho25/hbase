@@ -1520,9 +1520,7 @@ name|result
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|result
@@ -1543,9 +1541,7 @@ name|expected
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|(
 name|Arrays
 operator|.
@@ -2529,9 +2525,7 @@ name|kvs
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|Scan
@@ -2806,9 +2800,7 @@ name|result
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**        * Empty constructor for Writable        */
@@ -2933,9 +2925,7 @@ name|kvs
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 block|{
@@ -3271,10 +3261,7 @@ name|rows
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|2
 argument_list|)
@@ -3364,9 +3351,7 @@ name|kvs1
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|List
@@ -3377,9 +3362,7 @@ name|kvs2
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|doScan
@@ -3479,12 +3462,7 @@ name|kvs
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|List
-argument_list|<
-name|Cell
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|2
 argument_list|)

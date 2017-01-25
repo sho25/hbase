@@ -1349,9 +1349,7 @@ name|regions
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|(
 name|state
 operator|.
@@ -2110,9 +2108,7 @@ name|deletes
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Delete
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 try|try

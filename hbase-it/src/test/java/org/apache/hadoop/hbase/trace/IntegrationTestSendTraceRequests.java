@@ -1418,9 +1418,7 @@ name|rowKeys
 init|=
 operator|new
 name|LinkedBlockingQueue
-argument_list|<
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|25000
 argument_list|)

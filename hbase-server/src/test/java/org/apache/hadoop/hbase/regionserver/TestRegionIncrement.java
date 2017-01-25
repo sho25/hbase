@@ -1205,9 +1205,7 @@ name|cells
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|(
 name|THREAD_COUNT
 argument_list|)
@@ -1473,9 +1471,7 @@ name|cells
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|100
 argument_list|)

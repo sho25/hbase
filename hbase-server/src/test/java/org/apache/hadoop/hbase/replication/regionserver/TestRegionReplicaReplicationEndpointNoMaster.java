@@ -1197,9 +1197,7 @@ name|entries
 init|=
 operator|new
 name|ConcurrentLinkedQueue
-argument_list|<
-name|Entry
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|public

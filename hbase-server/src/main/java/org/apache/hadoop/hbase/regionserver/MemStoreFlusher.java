@@ -576,9 +576,7 @@ name|flushQueue
 init|=
 operator|new
 name|DelayQueue
-argument_list|<
-name|FlushQueueEntry
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -593,11 +591,7 @@ name|regionsInQueue
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|Region
-argument_list|,
-name|FlushRegionEntry
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -664,9 +658,7 @@ name|flushRequestListeners
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|FlushRequestListener
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|1
 argument_list|)
@@ -851,9 +843,7 @@ name|excludedRegions
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|Region
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|double

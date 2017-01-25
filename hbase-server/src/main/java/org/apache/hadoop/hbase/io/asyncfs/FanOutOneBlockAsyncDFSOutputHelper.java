@@ -4574,9 +4574,7 @@ name|clientName
 argument_list|,
 operator|new
 name|EnumSetWritable
-argument_list|<
-name|CreateFlag
-argument_list|>
+argument_list|<>
 argument_list|(
 name|overwrite
 condition|?

@@ -325,11 +325,7 @@ name|repeatedFailuresMap
 init|=
 operator|new
 name|ConcurrentHashMap
-argument_list|<
-name|ServerName
-argument_list|,
-name|FailureInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// We populate repeatedFailuresMap every time there is a failure. So, to
@@ -362,9 +358,7 @@ name|threadRetryingInFastFailMode
 init|=
 operator|new
 name|ThreadLocal
-argument_list|<
-name|MutableBoolean
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|public

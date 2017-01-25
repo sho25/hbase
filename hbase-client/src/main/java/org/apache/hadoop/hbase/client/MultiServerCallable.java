@@ -738,9 +738,7 @@ name|cells
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|CellScannable
-argument_list|>
+argument_list|<>
 argument_list|(
 name|countOfActions
 argument_list|)

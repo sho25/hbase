@@ -106,9 +106,7 @@ name|pool
 init|=
 operator|new
 name|LinkedBlockingQueue
-argument_list|<
-name|PrefixTreeArraySearcher
-argument_list|>
+argument_list|<>
 argument_list|(
 name|MAX_POOL_SIZE
 argument_list|)

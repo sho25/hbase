@@ -1032,9 +1032,7 @@ name|q
 argument_list|,
 operator|new
 name|ArrayList
-argument_list|<
-name|RAMQueueEntry
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|1
 argument_list|)

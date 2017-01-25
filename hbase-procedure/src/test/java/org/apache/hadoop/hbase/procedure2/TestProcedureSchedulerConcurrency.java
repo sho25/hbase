@@ -442,9 +442,7 @@ name|waitQueue
 init|=
 operator|new
 name|ConcurrentSkipListSet
-argument_list|<
-name|TestProcedureWithEvent
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|threads

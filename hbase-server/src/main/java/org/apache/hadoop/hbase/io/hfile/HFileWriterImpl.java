@@ -624,10 +624,7 @@ name|metaNames
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/** {@link Writable}s representing meta block data. */
@@ -640,9 +637,7 @@ name|metaData
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Writable
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * First cell in a block.    * This reference should be short-lived since we write hfiles in a burst.    */
@@ -721,9 +716,7 @@ name|inlineBlockWriters
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|InlineBlockWriter
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/** block writer */
@@ -776,9 +769,7 @@ name|additionalLoadOnOpenData
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|BlockWritable
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|protected

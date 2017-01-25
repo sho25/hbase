@@ -1017,9 +1017,7 @@ name|iterator
 init|=
 operator|new
 name|AvlTreeIterator
-argument_list|<
-name|TNode
-argument_list|>
+argument_list|<>
 argument_list|(
 name|root
 argument_list|)

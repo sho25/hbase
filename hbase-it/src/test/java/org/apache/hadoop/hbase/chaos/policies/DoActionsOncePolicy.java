@@ -123,9 +123,7 @@ name|actions
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Action
-argument_list|>
+argument_list|<>
 argument_list|(
 name|actions
 argument_list|)

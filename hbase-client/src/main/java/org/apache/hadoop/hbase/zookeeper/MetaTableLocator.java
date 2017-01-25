@@ -702,14 +702,7 @@ name|list
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Pair
-argument_list|<
-name|HRegionInfo
-argument_list|,
-name|ServerName
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|1
 argument_list|)
@@ -720,11 +713,7 @@ name|add
 argument_list|(
 operator|new
 name|Pair
-argument_list|<
-name|HRegionInfo
-argument_list|,
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|(
 name|RegionReplicaUtil
 operator|.
@@ -852,9 +841,7 @@ name|result
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|(
 name|pairs
 operator|.
@@ -2512,9 +2499,7 @@ name|servers
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// Make the blocking call first so that we do the wait to know

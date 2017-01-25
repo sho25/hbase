@@ -885,9 +885,7 @@ name|compactEquals
 argument_list|(
 operator|new
 name|ArrayList
-argument_list|<
-name|StoreFile
-argument_list|>
+argument_list|<>
 argument_list|()
 comment|/* empty */
 argument_list|)
@@ -1322,9 +1320,7 @@ name|candidates
 argument_list|,
 operator|new
 name|ArrayList
-argument_list|<
-name|StoreFile
-argument_list|>
+argument_list|<>
 argument_list|()
 argument_list|,
 literal|false

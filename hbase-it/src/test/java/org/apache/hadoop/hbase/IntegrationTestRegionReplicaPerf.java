@@ -1549,9 +1549,7 @@ name|resultsWithoutReplicas
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|TimingResult
-argument_list|>
+argument_list|<>
 argument_list|(
 name|maxIters
 argument_list|)
@@ -1564,9 +1562,7 @@ name|resultsWithReplicas
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|TimingResult
-argument_list|>
+argument_list|<>
 argument_list|(
 name|maxIters
 argument_list|)

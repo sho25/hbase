@@ -728,9 +728,7 @@ name|acl
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|TablePermission
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|1
 argument_list|)
@@ -993,9 +991,7 @@ name|acl
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|TablePermission
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|1
 argument_list|)

@@ -1108,11 +1108,7 @@ name|userQuotas
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|UserQuotaState
-argument_list|>
+argument_list|<>
 argument_list|(
 name|results
 operator|.
@@ -1539,11 +1535,7 @@ name|globalQuotas
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|K
-argument_list|,
-name|QuotaState
-argument_list|>
+argument_list|<>
 argument_list|(
 name|results
 operator|.

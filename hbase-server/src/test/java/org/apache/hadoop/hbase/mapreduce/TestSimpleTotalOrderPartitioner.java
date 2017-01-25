@@ -213,10 +213,7 @@ name|p
 init|=
 operator|new
 name|SimpleTotalOrderPartitioner
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|this

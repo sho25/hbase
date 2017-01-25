@@ -573,9 +573,7 @@ name|fs
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Filter
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|DependentColumnFilter
@@ -825,9 +823,7 @@ name|puts
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Put
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// row1 =><f1:c1, 1_c1, ts=1>,<f1:c2, 1_c2, ts=2>,<f1:c3, 1_c3,ts=3>,

@@ -293,9 +293,7 @@ name|constraints
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Constraint
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * Create the constraint processor.    *<p>    * Stores the current classloader.    */

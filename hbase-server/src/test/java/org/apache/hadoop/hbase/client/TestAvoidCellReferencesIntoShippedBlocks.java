@@ -1783,9 +1783,7 @@ name|cacheList
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|BlockCacheKey
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|Iterator
@@ -2786,9 +2784,7 @@ name|cacheList
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|BlockCacheKey
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|Iterator
@@ -2992,9 +2988,7 @@ name|newCacheList
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|BlockCacheKey
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 while|while

@@ -5972,9 +5972,7 @@ argument_list|)
 argument_list|,
 operator|new
 name|MiniBatchOperationInProgress
-argument_list|<
-name|Mutation
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|null
 argument_list|,

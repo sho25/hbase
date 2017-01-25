@@ -513,9 +513,7 @@ name|locker
 init|=
 operator|new
 name|KeyLocker
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * A set used to synchronized parent path clean up.  Generally, there    * should be only one parent path, but using a set so that we can support more.    */
@@ -529,9 +527,7 @@ name|parentDirLockSet
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * Creates a JarClassLoader that loads classes from the given paths.    */

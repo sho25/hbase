@@ -769,9 +769,7 @@ name|tmp
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|(
 name|count
 argument_list|)
@@ -1281,10 +1279,7 @@ name|victimRegions
 init|=
 operator|new
 name|LinkedList
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -1315,10 +1310,7 @@ name|regions
 init|=
 operator|new
 name|LinkedList
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|(
 name|serverLoad
 operator|.

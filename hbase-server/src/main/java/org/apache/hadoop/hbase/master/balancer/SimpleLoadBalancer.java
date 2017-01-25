@@ -960,14 +960,7 @@ name|clusterMap
 operator|=
 operator|new
 name|HashMap
-argument_list|<
-name|ServerName
-argument_list|,
-name|List
-argument_list|<
-name|HRegionInfo
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|(
 name|clusterMap
 argument_list|)
@@ -1180,9 +1173,7 @@ name|regionsToReturn
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|RegionPlan
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 comment|// Walk down most loaded, pruning each to the max
@@ -1207,11 +1198,7 @@ name|serverBalanceInfo
 init|=
 operator|new
 name|TreeMap
-argument_list|<
-name|ServerName
-argument_list|,
-name|BalanceInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -1488,11 +1475,7 @@ name|underloadedServers
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|ServerName
-argument_list|,
-name|Integer
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|int
@@ -2792,11 +2775,7 @@ argument_list|()
 argument_list|,
 operator|new
 name|Pair
-argument_list|<
-name|ServerAndLoad
-argument_list|,
-name|Integer
-argument_list|>
+argument_list|<>
 argument_list|(
 name|serverLoadList
 operator|.

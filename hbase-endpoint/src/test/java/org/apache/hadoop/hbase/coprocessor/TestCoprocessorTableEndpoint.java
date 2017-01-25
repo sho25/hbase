@@ -824,11 +824,7 @@ operator|new
 name|CoprocessorRpcUtils
 operator|.
 name|BlockingRpcCallback
-argument_list|<
-name|ColumnAggregationProtos
-operator|.
-name|SumResponse
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|ColumnAggregationProtos

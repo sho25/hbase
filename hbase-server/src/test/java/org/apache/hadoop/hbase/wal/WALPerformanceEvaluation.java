@@ -1117,12 +1117,7 @@ name|scopes
 operator|=
 operator|new
 name|TreeMap
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|Integer
-argument_list|>
+argument_list|<>
 argument_list|(
 name|Bytes
 operator|.
@@ -3108,11 +3103,7 @@ name|sequenceIds
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 try|try
@@ -3619,9 +3610,7 @@ name|walsListenedTo
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|WAL
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private

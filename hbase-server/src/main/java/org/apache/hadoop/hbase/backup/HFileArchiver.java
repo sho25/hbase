@@ -691,9 +691,7 @@ name|toArchive
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|File
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|final
@@ -1670,9 +1668,7 @@ name|failures
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|File
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|String
@@ -2313,9 +2309,7 @@ name|errors
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|IOException
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|0
 argument_list|)

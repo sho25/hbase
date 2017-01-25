@@ -280,9 +280,7 @@ name|rsActions
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Action
-argument_list|>
+argument_list|<>
 argument_list|(
 name|actionList
 operator|.

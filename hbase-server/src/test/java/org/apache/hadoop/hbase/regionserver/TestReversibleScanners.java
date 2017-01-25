@@ -3264,9 +3264,7 @@ name|kvList
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|Result
@@ -3719,9 +3717,7 @@ name|scanners
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|KeyValueScanner
-argument_list|>
+argument_list|<>
 argument_list|(
 name|fileScanners
 operator|.
@@ -4382,11 +4378,7 @@ name|nextReadableNum
 operator|=
 operator|new
 name|Pair
-argument_list|<
-name|Integer
-argument_list|,
-name|Integer
-argument_list|>
+argument_list|<>
 argument_list|(
 name|i
 argument_list|,

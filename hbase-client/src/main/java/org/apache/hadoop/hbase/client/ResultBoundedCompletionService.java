@@ -737,9 +737,7 @@ name|newFuture
 init|=
 operator|new
 name|QueueingFuture
-argument_list|<
-name|V
-argument_list|>
+argument_list|<>
 argument_list|(
 name|task
 argument_list|,

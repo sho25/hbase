@@ -702,14 +702,7 @@ name|map
 init|=
 operator|new
 name|ConcurrentHashMap
-argument_list|<
-name|String
-argument_list|,
-name|List
-argument_list|<
-name|Path
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -815,9 +808,7 @@ name|locations
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Path
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|2
 argument_list|)
@@ -1858,9 +1849,7 @@ name|locations
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Path
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|2
 argument_list|)

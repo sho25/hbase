@@ -128,9 +128,7 @@ name|staleRefQueue
 init|=
 operator|new
 name|ReferenceQueue
-argument_list|<
-name|V
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -302,11 +300,7 @@ name|referenceCache
 operator|=
 operator|new
 name|ConcurrentHashMap
-argument_list|<
-name|K
-argument_list|,
-name|ObjectReference
-argument_list|>
+argument_list|<>
 argument_list|(
 name|initialCapacity
 argument_list|,

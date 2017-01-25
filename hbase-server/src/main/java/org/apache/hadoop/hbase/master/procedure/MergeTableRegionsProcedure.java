@@ -3759,9 +3759,7 @@ name|metaEntries
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Mutation
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|boolean

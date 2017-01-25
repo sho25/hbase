@@ -287,11 +287,7 @@ name|hostAndWeights
 operator|=
 operator|new
 name|TreeMap
-argument_list|<
-name|String
-argument_list|,
-name|HostAndWeight
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 block|}
@@ -681,9 +677,7 @@ name|topHosts
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|(
 name|hostAndWeights
 operator|.
@@ -728,9 +722,7 @@ name|orderedHosts
 init|=
 operator|new
 name|TreeSet
-argument_list|<
-name|HostAndWeight
-argument_list|>
+argument_list|<>
 argument_list|(
 operator|new
 name|HostAndWeight

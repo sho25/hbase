@@ -302,9 +302,7 @@ name|set
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|TableSplit
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|2
 argument_list|)
@@ -432,9 +430,7 @@ name|set
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|TableSplit
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|2
 argument_list|)

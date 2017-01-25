@@ -1246,9 +1246,7 @@ name|unmatchedFamilies
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// Source filesystem
@@ -3737,9 +3735,7 @@ name|SECONDS
 argument_list|,
 operator|new
 name|LinkedBlockingQueue
-argument_list|<
-name|Runnable
-argument_list|>
+argument_list|<>
 argument_list|()
 argument_list|,
 name|builder
@@ -5284,9 +5280,7 @@ name|lqis
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|LoadQueueItem
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|2
 argument_list|)

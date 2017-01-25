@@ -2414,9 +2414,7 @@ name|gets
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Get
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|gets
@@ -3121,9 +3119,7 @@ name|gets
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Get
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|gets
@@ -3288,9 +3284,7 @@ name|gets
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Get
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 name|gets
@@ -3400,9 +3394,7 @@ name|gets
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Get
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 name|gets

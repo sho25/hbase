@@ -821,9 +821,7 @@ name|rangeList
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|RowRange
-argument_list|>
+argument_list|<>
 argument_list|(
 name|length
 argument_list|)
@@ -1244,9 +1242,7 @@ name|invalidRanges
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|RowRange
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|List
@@ -1257,9 +1253,7 @@ name|newRanges
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|RowRange
-argument_list|>
+argument_list|<>
 argument_list|(
 name|ranges
 operator|.

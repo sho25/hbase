@@ -327,9 +327,7 @@ name|regionServers
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|0
 argument_list|)
@@ -678,9 +676,7 @@ name|addresses
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|(
 name|children
 operator|.

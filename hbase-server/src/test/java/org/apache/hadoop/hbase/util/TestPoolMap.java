@@ -269,11 +269,7 @@ name|poolMap
 operator|=
 operator|new
 name|PoolMap
-argument_list|<
-name|String
-argument_list|,
-name|String
-argument_list|>
+argument_list|<>
 argument_list|(
 name|getPoolType
 argument_list|()
@@ -701,9 +697,7 @@ name|randomValues
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -1392,9 +1386,7 @@ name|randomValues
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for

@@ -632,9 +632,7 @@ name|heapsForDelayedClose
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|KeyValueHeap
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * The number of KVs seen by the scanner. Includes explicitly skipped KVs, but not    * KVs skipped via seeking to next row/column. TODO: estimate them?    */
@@ -723,9 +721,7 @@ name|flushedStoreFiles
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|StoreFile
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|1
 argument_list|)
@@ -740,9 +736,7 @@ name|currentScanners
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|KeyValueScanner
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// flush update lock
@@ -2254,9 +2248,7 @@ name|scanners
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|KeyValueScanner
-argument_list|>
+argument_list|<>
 argument_list|(
 name|allScanners
 operator|.
@@ -4278,9 +4270,7 @@ name|handlers
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|ParallelSeekHandler
-argument_list|>
+argument_list|<>
 argument_list|(
 name|storeFileScannerCount
 argument_list|)
@@ -4423,9 +4413,7 @@ name|allScanners
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|KeyValueScanner
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|KeyValueScanner

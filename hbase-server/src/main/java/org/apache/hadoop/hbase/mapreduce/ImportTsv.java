@@ -1387,9 +1387,7 @@ name|tabOffsets
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Integer
-argument_list|>
+argument_list|<>
 argument_list|(
 name|maxColumnCount
 argument_list|)
@@ -2262,11 +2260,7 @@ block|}
 return|return
 operator|new
 name|Pair
-argument_list|<
-name|Integer
-argument_list|,
-name|Integer
-argument_list|>
+argument_list|<>
 argument_list|(
 name|startPos
 argument_list|,
@@ -2726,9 +2720,7 @@ name|unmatchedFamilies
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|Set
@@ -2802,9 +2794,7 @@ name|familyNames
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -3420,9 +3410,7 @@ name|cfSet
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for

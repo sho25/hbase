@@ -201,9 +201,7 @@ name|map
 init|=
 operator|new
 name|TreeSet
-argument_list|<
-name|KeyValue
-argument_list|>
+argument_list|<>
 argument_list|(
 name|CellComparator
 operator|.

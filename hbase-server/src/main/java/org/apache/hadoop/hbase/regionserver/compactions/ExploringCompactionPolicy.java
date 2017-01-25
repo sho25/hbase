@@ -221,9 +221,7 @@ block|{
 return|return
 operator|new
 name|ArrayList
-argument_list|<
-name|StoreFile
-argument_list|>
+argument_list|<>
 argument_list|(
 name|applyCompactionPolicy
 argument_list|(
@@ -298,9 +296,7 @@ name|bestSelection
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|StoreFile
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|0
 argument_list|)
@@ -315,9 +311,7 @@ name|mightBeStuck
 condition|?
 operator|new
 name|ArrayList
-argument_list|<
-name|StoreFile
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|0
 argument_list|)
@@ -567,9 +561,7 @@ expr_stmt|;
 return|return
 operator|new
 name|ArrayList
-argument_list|<
-name|StoreFile
-argument_list|>
+argument_list|<>
 argument_list|(
 name|smallest
 argument_list|)
@@ -608,9 +600,7 @@ expr_stmt|;
 return|return
 operator|new
 name|ArrayList
-argument_list|<
-name|StoreFile
-argument_list|>
+argument_list|<>
 argument_list|(
 name|bestSelection
 argument_list|)

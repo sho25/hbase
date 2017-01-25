@@ -262,12 +262,7 @@ name|queue
 init|=
 operator|new
 name|DelayQueue
-argument_list|<
-name|DelayedElement
-argument_list|<
-name|E
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|public
@@ -610,9 +605,7 @@ name|add
 argument_list|(
 operator|new
 name|DelayedElement
-argument_list|<
-name|E
-argument_list|>
+argument_list|<>
 argument_list|(
 name|e
 argument_list|,
@@ -638,9 +631,7 @@ name|offer
 argument_list|(
 operator|new
 name|DelayedElement
-argument_list|<
-name|E
-argument_list|>
+argument_list|<>
 argument_list|(
 name|e
 argument_list|,
@@ -667,9 +658,7 @@ name|put
 argument_list|(
 operator|new
 name|DelayedElement
-argument_list|<
-name|E
-argument_list|>
+argument_list|<>
 argument_list|(
 name|e
 argument_list|,
@@ -703,9 +692,7 @@ name|offer
 argument_list|(
 operator|new
 name|DelayedElement
-argument_list|<
-name|E
-argument_list|>
+argument_list|<>
 argument_list|(
 name|e
 argument_list|,

@@ -405,9 +405,7 @@ name|acquiringMembers
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|(
 name|expectedMembers
 argument_list|)
@@ -418,9 +416,7 @@ name|inBarrierMembers
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|(
 name|acquiringMembers
 operator|.
@@ -434,12 +430,7 @@ name|dataFromFinishedMembers
 operator|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 name|this

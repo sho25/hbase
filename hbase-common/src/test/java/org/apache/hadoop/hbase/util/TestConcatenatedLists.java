@@ -205,9 +205,7 @@ name|c
 init|=
 operator|new
 name|ConcatenatedLists
-argument_list|<
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|c
@@ -416,9 +414,7 @@ name|verify
 argument_list|(
 operator|new
 name|ConcatenatedLists
-argument_list|<
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|()
 argument_list|,
 operator|-
@@ -441,9 +437,7 @@ name|c
 init|=
 operator|new
 name|ConcatenatedLists
-argument_list|<
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|c
@@ -481,9 +475,7 @@ name|c
 init|=
 operator|new
 name|ConcatenatedLists
-argument_list|<
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|c
@@ -530,9 +522,7 @@ name|c
 init|=
 operator|new
 name|ConcatenatedLists
-argument_list|<
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|c
@@ -599,9 +589,7 @@ name|c
 init|=
 operator|new
 name|ConcatenatedLists
-argument_list|<
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|c
@@ -750,9 +738,7 @@ name|all
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|Iterator

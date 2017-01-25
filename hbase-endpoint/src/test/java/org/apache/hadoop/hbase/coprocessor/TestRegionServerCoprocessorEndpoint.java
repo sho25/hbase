@@ -555,11 +555,7 @@ operator|new
 name|CoprocessorRpcUtils
 operator|.
 name|BlockingRpcCallback
-argument_list|<
-name|DummyRegionServerEndpointProtos
-operator|.
-name|DummyResponse
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|DummyRegionServerEndpointProtos
@@ -682,11 +678,7 @@ operator|new
 name|CoprocessorRpcUtils
 operator|.
 name|BlockingRpcCallback
-argument_list|<
-name|DummyRegionServerEndpointProtos
-operator|.
-name|DummyResponse
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|DummyRegionServerEndpointProtos

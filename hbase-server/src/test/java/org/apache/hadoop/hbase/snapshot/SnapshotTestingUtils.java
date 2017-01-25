@@ -953,9 +953,7 @@ name|returnedSnapshots
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|SnapshotDescription
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -1458,10 +1456,7 @@ name|snapshotFamilies
 init|=
 operator|new
 name|TreeSet
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|(
 name|Bytes
 operator|.
@@ -2141,9 +2136,7 @@ name|hfiles
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|FSVisitor
@@ -2242,10 +2235,7 @@ name|nonEmptyFamilyNames
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|(
 literal|1
 argument_list|)
@@ -5373,9 +5363,7 @@ name|set
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for

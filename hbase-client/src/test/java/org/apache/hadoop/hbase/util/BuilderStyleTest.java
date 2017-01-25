@@ -308,9 +308,7 @@ name|sigMethods
 operator|=
 operator|new
 name|HashSet
-argument_list|<
-name|Method
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 name|methodsBySignature

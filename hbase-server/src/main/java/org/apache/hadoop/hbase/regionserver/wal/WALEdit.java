@@ -650,9 +650,7 @@ name|cells
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|(
 name|cellCount
 argument_list|)
@@ -1004,12 +1002,7 @@ name|scopes
 operator|=
 operator|new
 name|TreeMap
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|Integer
-argument_list|>
+argument_list|<>
 argument_list|(
 name|Bytes
 operator|.

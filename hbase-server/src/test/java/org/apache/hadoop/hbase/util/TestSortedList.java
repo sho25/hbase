@@ -206,9 +206,7 @@ name|list
 init|=
 operator|new
 name|SortedList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|(
 operator|new
 name|StringComparator
@@ -471,9 +469,7 @@ name|list
 init|=
 operator|new
 name|SortedList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|(
 name|Lists
 operator|.
@@ -633,9 +629,7 @@ name|list
 init|=
 operator|new
 name|SortedList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|(
 name|Lists
 operator|.
@@ -949,9 +943,7 @@ name|list
 init|=
 operator|new
 name|SortedList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|(
 name|Lists
 operator|.

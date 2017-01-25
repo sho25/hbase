@@ -852,9 +852,7 @@ name|SECONDS
 argument_list|,
 operator|new
 name|LinkedBlockingQueue
-argument_list|<
-name|Runnable
-argument_list|>
+argument_list|<>
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1164,9 +1162,7 @@ name|pool
 init|=
 operator|new
 name|ExecutorCompletionService
-argument_list|<
-name|Integer
-argument_list|>
+argument_list|<>
 argument_list|(
 name|this
 operator|.
@@ -1290,12 +1286,7 @@ name|entryLists
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|List
-argument_list|<
-name|Entry
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|(
 name|n
 argument_list|)
@@ -1338,9 +1329,7 @@ name|add
 argument_list|(
 operator|new
 name|ArrayList
-argument_list|<
-name|Entry
-argument_list|>
+argument_list|<>
 argument_list|(
 name|entries
 operator|.

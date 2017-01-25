@@ -2135,11 +2135,7 @@ name|actions
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Permission
-operator|.
-name|Action
-argument_list|>
+argument_list|<>
 argument_list|(
 name|protoActions
 operator|.
@@ -3367,9 +3363,7 @@ name|perms
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|UserPermission
-argument_list|>
+argument_list|<>
 argument_list|(
 name|response
 operator|.
@@ -3507,9 +3501,7 @@ name|perms
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|UserPermission
-argument_list|>
+argument_list|<>
 argument_list|(
 name|response
 operator|.
@@ -3648,9 +3640,7 @@ name|perms
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|UserPermission
-argument_list|>
+argument_list|<>
 argument_list|(
 name|response
 operator|.

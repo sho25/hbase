@@ -637,11 +637,7 @@ name|TIMESTAMP
 init|=
 operator|new
 name|TreeMap
-argument_list|<
-name|Long
-argument_list|,
-name|Boolean
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 static|static
@@ -893,9 +889,7 @@ name|tsList
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -1121,9 +1115,7 @@ name|puts
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Put
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for

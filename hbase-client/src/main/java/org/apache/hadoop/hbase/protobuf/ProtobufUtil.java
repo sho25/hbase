@@ -1284,14 +1284,7 @@ name|PRIMITIVES
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|Class
-argument_list|<
-name|?
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * Many results are simple: no cell, exists true or false. To save on object creations,    *  we reuse them across calls.    */
@@ -8965,9 +8958,7 @@ name|cells
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|(
 name|values
 operator|.
@@ -9155,9 +9146,7 @@ name|cells
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|(
 name|count
 operator|+
@@ -9234,9 +9223,7 @@ name|cells
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Cell
-argument_list|>
+argument_list|<>
 argument_list|(
 name|values
 operator|.

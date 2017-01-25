@@ -175,9 +175,7 @@ name|instanceHolder
 operator|=
 operator|new
 name|InstanceHolder
-argument_list|<
-name|T
-argument_list|>
+argument_list|<>
 argument_list|(
 name|instance
 argument_list|)

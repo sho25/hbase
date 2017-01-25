@@ -111,9 +111,7 @@ name|types
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|QuotaType
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private

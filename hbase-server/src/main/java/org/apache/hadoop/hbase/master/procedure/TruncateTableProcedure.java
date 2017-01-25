@@ -1330,9 +1330,7 @@ name|regions
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|(
 name|state
 operator|.
@@ -1392,9 +1390,7 @@ name|newRegions
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|HRegionInfo
-argument_list|>
+argument_list|<>
 argument_list|(
 name|regions
 operator|.

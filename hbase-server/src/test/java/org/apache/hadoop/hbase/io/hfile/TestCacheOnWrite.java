@@ -1128,9 +1128,7 @@ name|blockcaches
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|BlockCache
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// default
@@ -1295,10 +1293,7 @@ name|params
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Object
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -1878,11 +1873,7 @@ name|blockCountByType
 init|=
 operator|new
 name|EnumMap
-argument_list|<
-name|BlockType
-argument_list|,
-name|Integer
-argument_list|>
+argument_list|<>
 argument_list|(
 name|BlockType
 operator|.
@@ -1907,9 +1898,7 @@ name|cachedBlocksOffset
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|Map
@@ -1922,11 +1911,7 @@ name|cachedBlocks
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|Long
-argument_list|,
-name|HFileBlock
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 while|while
@@ -2775,9 +2760,7 @@ name|tagList
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Tag
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|tagList

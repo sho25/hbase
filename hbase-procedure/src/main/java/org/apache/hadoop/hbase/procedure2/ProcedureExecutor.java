@@ -1255,11 +1255,7 @@ name|completed
 init|=
 operator|new
 name|ConcurrentHashMap
-argument_list|<
-name|Long
-argument_list|,
-name|ProcedureInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * Map the the procId returned by submitProcedure(), the Root-ProcID, to the RootProcedureState.    * The RootProcedureState contains the execution stack of the Root-Procedure,    * It is added to the map by submitProcedure() and removed on procedure completion.    */
@@ -1275,11 +1271,7 @@ name|rollbackStack
 init|=
 operator|new
 name|ConcurrentHashMap
-argument_list|<
-name|Long
-argument_list|,
-name|RootProcedureState
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * Helper map to lookup the live procedures by ID.    * This map contains every procedure. root-procedures and subprocedures.    */
@@ -1295,11 +1287,7 @@ name|procedures
 init|=
 operator|new
 name|ConcurrentHashMap
-argument_list|<
-name|Long
-argument_list|,
-name|Procedure
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/**    * Helper map to lookup whether the procedure already issued from the same client.    * This map contains every root procedure.    */
@@ -1315,11 +1303,7 @@ name|nonceKeysToProcIdsMap
 init|=
 operator|new
 name|ConcurrentHashMap
-argument_list|<
-name|NonceKey
-argument_list|,
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -1332,9 +1316,7 @@ name|listeners
 init|=
 operator|new
 name|CopyOnWriteArrayList
-argument_list|<
-name|ProcedureExecutorListener
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -2198,9 +2180,7 @@ name|waitingSet
 operator|=
 operator|new
 name|HashSet
-argument_list|<
-name|Procedure
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 block|}
@@ -2635,9 +2615,7 @@ name|workerThreads
 operator|=
 operator|new
 name|CopyOnWriteArrayList
-argument_list|<
-name|WorkerThread
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 for|for
@@ -4535,9 +4513,7 @@ name|procedureLists
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|ProcedureInfo
-argument_list|>
+argument_list|<>
 argument_list|(
 name|procedures
 operator|.
@@ -7489,9 +7465,7 @@ name|queue
 init|=
 operator|new
 name|DelayQueue
-argument_list|<
-name|DelayedWithTimeout
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|public

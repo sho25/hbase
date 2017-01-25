@@ -869,14 +869,7 @@ name|queues
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|PriorityBlockingQueue
-argument_list|<
-name|Path
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// per group queue size, keep no more than this number of logs in each wal group
@@ -1021,11 +1014,7 @@ name|workerThreads
 init|=
 operator|new
 name|ConcurrentHashMap
-argument_list|<
-name|String
-argument_list|,
-name|ReplicationSourceShipperThread
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -1404,9 +1393,7 @@ name|queue
 operator|=
 operator|new
 name|PriorityBlockingQueue
-argument_list|<
-name|Path
-argument_list|>
+argument_list|<>
 argument_list|(
 name|queueSizePerGroup
 argument_list|,

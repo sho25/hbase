@@ -386,11 +386,7 @@ name|allKeys
 init|=
 operator|new
 name|ConcurrentHashMap
-argument_list|<
-name|Integer
-argument_list|,
-name|AuthenticationKey
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -914,9 +910,7 @@ name|token
 init|=
 operator|new
 name|Token
-argument_list|<
-name|AuthenticationTokenIdentifier
-argument_list|>
+argument_list|<>
 argument_list|(
 name|ident
 argument_list|,

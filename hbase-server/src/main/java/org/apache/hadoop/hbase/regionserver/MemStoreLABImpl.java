@@ -249,9 +249,7 @@ name|curChunk
 init|=
 operator|new
 name|AtomicReference
-argument_list|<
-name|Chunk
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// A queue of chunks from pool contained by this memstore LAB

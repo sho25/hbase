@@ -580,12 +580,7 @@ name|highestSequenceIds
 operator|=
 operator|new
 name|HashMap
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 return|return
@@ -2006,10 +2001,7 @@ name|toFlush
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 block|}

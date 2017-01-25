@@ -1505,9 +1505,7 @@ name|ret
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|KeyValue
-argument_list|>
+argument_list|<>
 argument_list|(
 name|SIZE
 argument_list|)

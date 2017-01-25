@@ -1515,11 +1515,7 @@ name|saslProperties
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|saslProperties
@@ -2163,9 +2159,7 @@ name|CallQueue
 argument_list|(
 operator|new
 name|LinkedBlockingQueue
-argument_list|<
-name|Call
-argument_list|>
+argument_list|<>
 argument_list|(
 name|maxCallQueueSize
 argument_list|)
@@ -2183,9 +2177,7 @@ name|CallQueue
 argument_list|(
 operator|new
 name|LinkedBlockingQueue
-argument_list|<
-name|Call
-argument_list|>
+argument_list|<>
 argument_list|()
 argument_list|,
 name|metrics

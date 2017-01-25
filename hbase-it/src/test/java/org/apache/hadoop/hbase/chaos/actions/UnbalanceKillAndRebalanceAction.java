@@ -228,9 +228,7 @@ name|victimServers
 init|=
 operator|new
 name|LinkedList
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|(
 name|status
 operator|.
@@ -246,9 +244,7 @@ name|killedServers
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|int
@@ -311,9 +307,7 @@ name|targetServers
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|ServerName
-argument_list|>
+argument_list|<>
 argument_list|(
 name|liveCount
 argument_list|)

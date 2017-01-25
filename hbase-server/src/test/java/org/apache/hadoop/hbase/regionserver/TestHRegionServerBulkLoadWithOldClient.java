@@ -630,15 +630,7 @@ name|famPaths
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Pair
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|String
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|(
 name|NUM_CFS
 argument_list|)

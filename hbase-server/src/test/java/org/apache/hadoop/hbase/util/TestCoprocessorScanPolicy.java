@@ -1545,11 +1545,7 @@ name|ttls
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|TableName
-argument_list|,
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -1563,11 +1559,7 @@ name|versions
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|TableName
-argument_list|,
-name|Integer
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// lame way to communicate with the coprocessor,

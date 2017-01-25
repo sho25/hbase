@@ -530,9 +530,7 @@ name|subprocStack
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Procedure
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 block|}
@@ -584,9 +582,7 @@ name|subprocs
 operator|=
 operator|new
 name|HashSet
-argument_list|<
-name|Procedure
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 block|}
@@ -641,9 +637,7 @@ name|subprocStack
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Procedure
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 block|}

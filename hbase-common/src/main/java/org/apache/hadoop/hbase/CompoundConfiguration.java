@@ -242,9 +242,7 @@ name|configs
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|ImmutableConfigMap
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|static
@@ -551,11 +549,7 @@ name|ret
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -1348,11 +1342,7 @@ name|ret
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// add in reverse order so that oldest get overridden.
