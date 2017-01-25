@@ -292,6 +292,9 @@ name|byte
 index|[]
 name|qualifier
 parameter_list|,
+name|boolean
+name|mergeExistingPermissions
+parameter_list|,
 name|AccessControlProtos
 operator|.
 name|Permission
@@ -467,6 +470,11 @@ name|ret
 argument_list|)
 argument_list|)
 operator|.
+name|setMergeExistingPermissions
+argument_list|(
+name|mergeExistingPermissions
+argument_list|)
+operator|.
 name|build
 argument_list|()
 return|;
@@ -484,6 +492,9 @@ name|username
 parameter_list|,
 name|String
 name|namespace
+parameter_list|,
+name|boolean
+name|mergeExistingPermissions
 parameter_list|,
 name|AccessControlProtos
 operator|.
@@ -611,6 +622,11 @@ name|setPermission
 argument_list|(
 name|ret
 argument_list|)
+argument_list|)
+operator|.
+name|setMergeExistingPermissions
+argument_list|(
+name|mergeExistingPermissions
 argument_list|)
 operator|.
 name|build
@@ -897,6 +913,9 @@ parameter_list|(
 name|String
 name|username
 parameter_list|,
+name|boolean
+name|mergeExistingPermissions
+parameter_list|,
 name|AccessControlProtos
 operator|.
 name|Permission
@@ -1003,6 +1022,11 @@ name|setPermission
 argument_list|(
 name|ret
 argument_list|)
+argument_list|)
+operator|.
+name|setMergeExistingPermissions
+argument_list|(
+name|mergeExistingPermissions
 argument_list|)
 operator|.
 name|build
@@ -2604,6 +2628,9 @@ parameter_list|,
 name|String
 name|userShortName
 parameter_list|,
+name|boolean
+name|mergeExistingPermissions
+parameter_list|,
 name|Permission
 operator|.
 name|Action
@@ -2661,6 +2688,8 @@ init|=
 name|buildGrantRequest
 argument_list|(
 name|userShortName
+argument_list|,
+name|mergeExistingPermissions
 argument_list|,
 name|permActions
 operator|.
@@ -2718,6 +2747,9 @@ name|byte
 index|[]
 name|q
 parameter_list|,
+name|boolean
+name|mergeExistingPermissions
+parameter_list|,
 name|Permission
 operator|.
 name|Action
@@ -2782,6 +2814,8 @@ name|f
 argument_list|,
 name|q
 argument_list|,
+name|mergeExistingPermissions
+argument_list|,
 name|permActions
 operator|.
 name|toArray
@@ -2829,6 +2863,9 @@ name|userShortName
 parameter_list|,
 name|String
 name|namespace
+parameter_list|,
+name|boolean
+name|mergeExistingPermissions
 parameter_list|,
 name|Permission
 operator|.
@@ -2889,6 +2926,8 @@ argument_list|(
 name|userShortName
 argument_list|,
 name|namespace
+argument_list|,
+name|mergeExistingPermissions
 argument_list|,
 name|permActions
 operator|.

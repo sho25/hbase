@@ -13444,6 +13444,11 @@ name|AccessControlLists
 operator|.
 name|ACL_TABLE_NAME
 argument_list|)
+argument_list|,
+name|request
+operator|.
+name|getMergeExistingPermissions
+argument_list|()
 argument_list|)
 expr_stmt|;
 return|return

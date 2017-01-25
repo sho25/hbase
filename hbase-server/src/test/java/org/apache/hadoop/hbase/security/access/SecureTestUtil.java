@@ -2586,6 +2586,8 @@ name|protocol
 argument_list|,
 name|user
 argument_list|,
+literal|false
+argument_list|,
 name|actions
 argument_list|)
 expr_stmt|;
@@ -2852,6 +2854,8 @@ name|user
 argument_list|,
 name|namespace
 argument_list|,
+literal|false
+argument_list|,
 name|actions
 argument_list|)
 expr_stmt|;
@@ -2947,10 +2951,14 @@ name|Throwable
 name|t
 parameter_list|)
 block|{
-name|t
+name|LOG
 operator|.
-name|printStackTrace
-argument_list|()
+name|error
+argument_list|(
+literal|"grant failed: "
+argument_list|,
+name|t
+argument_list|)
 expr_stmt|;
 block|}
 return|return
@@ -3043,10 +3051,14 @@ name|Throwable
 name|t
 parameter_list|)
 block|{
-name|t
+name|LOG
 operator|.
-name|printStackTrace
-argument_list|()
+name|error
+argument_list|(
+literal|"revoke failed: "
+argument_list|,
+name|t
+argument_list|)
 expr_stmt|;
 block|}
 return|return
@@ -3330,6 +3342,8 @@ name|family
 argument_list|,
 name|qualifier
 argument_list|,
+literal|false
+argument_list|,
 name|actions
 argument_list|)
 expr_stmt|;
@@ -3439,10 +3453,14 @@ name|Throwable
 name|t
 parameter_list|)
 block|{
-name|t
+name|LOG
 operator|.
-name|printStackTrace
-argument_list|()
+name|error
+argument_list|(
+literal|"grant failed: "
+argument_list|,
+name|t
+argument_list|)
 expr_stmt|;
 block|}
 return|return
@@ -3529,10 +3547,14 @@ name|Throwable
 name|t
 parameter_list|)
 block|{
-name|t
+name|LOG
 operator|.
-name|printStackTrace
-argument_list|()
+name|error
+argument_list|(
+literal|"grant failed: "
+argument_list|,
+name|t
+argument_list|)
 expr_stmt|;
 block|}
 return|return
@@ -3789,10 +3811,14 @@ name|Throwable
 name|t
 parameter_list|)
 block|{
-name|t
+name|LOG
 operator|.
-name|printStackTrace
-argument_list|()
+name|error
+argument_list|(
+literal|"revoke failed: "
+argument_list|,
+name|t
+argument_list|)
 expr_stmt|;
 block|}
 return|return
@@ -3879,10 +3905,14 @@ name|Throwable
 name|t
 parameter_list|)
 block|{
-name|t
+name|LOG
 operator|.
-name|printStackTrace
-argument_list|()
+name|error
+argument_list|(
+literal|"revoke failed: "
+argument_list|,
+name|t
+argument_list|)
 expr_stmt|;
 block|}
 return|return

@@ -3549,12 +3549,6 @@ name|Permission
 operator|.
 name|Action
 operator|.
-name|ADMIN
-block|,
-name|Permission
-operator|.
-name|Action
-operator|.
 name|READ
 block|,
 name|Permission
@@ -3562,6 +3556,12 @@ operator|.
 name|Action
 operator|.
 name|CREATE
+block|,
+name|Permission
+operator|.
+name|Action
+operator|.
+name|ADMIN
 block|}
 argument_list|,
 name|user3Perms
