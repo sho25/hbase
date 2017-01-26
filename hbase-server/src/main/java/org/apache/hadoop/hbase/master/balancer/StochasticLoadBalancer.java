@@ -592,7 +592,7 @@ name|String
 argument_list|,
 name|Deque
 argument_list|<
-name|RegionLoad
+name|BalancerRegionLoad
 argument_list|>
 argument_list|>
 name|loads
@@ -604,7 +604,7 @@ name|String
 argument_list|,
 name|Deque
 argument_list|<
-name|RegionLoad
+name|BalancerRegionLoad
 argument_list|>
 argument_list|>
 argument_list|()
@@ -2441,7 +2441,7 @@ name|String
 argument_list|,
 name|Deque
 argument_list|<
-name|RegionLoad
+name|BalancerRegionLoad
 argument_list|>
 argument_list|>
 name|oldLoads
@@ -2457,7 +2457,7 @@ name|String
 argument_list|,
 name|Deque
 argument_list|<
-name|RegionLoad
+name|BalancerRegionLoad
 argument_list|>
 argument_list|>
 argument_list|()
@@ -2514,7 +2514,7 @@ control|)
 block|{
 name|Deque
 argument_list|<
-name|RegionLoad
+name|BalancerRegionLoad
 argument_list|>
 name|rLoads
 init|=
@@ -2546,7 +2546,7 @@ operator|=
 operator|new
 name|ArrayDeque
 argument_list|<
-name|RegionLoad
+name|BalancerRegionLoad
 argument_list|>
 argument_list|()
 expr_stmt|;
@@ -2572,10 +2572,14 @@ name|rLoads
 operator|.
 name|add
 argument_list|(
+operator|new
+name|BalancerRegionLoad
+argument_list|(
 name|entry
 operator|.
 name|getValue
 argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|loads
@@ -5698,7 +5702,7 @@ name|String
 argument_list|,
 name|Deque
 argument_list|<
-name|RegionLoad
+name|BalancerRegionLoad
 argument_list|>
 argument_list|>
 name|loads
@@ -5747,7 +5751,7 @@ name|String
 argument_list|,
 name|Deque
 argument_list|<
-name|RegionLoad
+name|BalancerRegionLoad
 argument_list|>
 argument_list|>
 name|l
@@ -5846,7 +5850,7 @@ control|)
 block|{
 name|Collection
 argument_list|<
-name|RegionLoad
+name|BalancerRegionLoad
 argument_list|>
 name|regionLoadList
 init|=
@@ -5897,7 +5901,7 @@ name|getRegionLoadCost
 parameter_list|(
 name|Collection
 argument_list|<
-name|RegionLoad
+name|BalancerRegionLoad
 argument_list|>
 name|regionLoadList
 parameter_list|)
@@ -5909,7 +5913,7 @@ literal|0
 decl_stmt|;
 for|for
 control|(
-name|RegionLoad
+name|BalancerRegionLoad
 name|rl
 range|:
 name|regionLoadList
@@ -5937,7 +5941,7 @@ specifier|abstract
 name|double
 name|getCostFromRl
 parameter_list|(
-name|RegionLoad
+name|BalancerRegionLoad
 name|rl
 parameter_list|)
 function_decl|;
@@ -5970,7 +5974,7 @@ name|getRegionLoadCost
 parameter_list|(
 name|Collection
 argument_list|<
-name|RegionLoad
+name|BalancerRegionLoad
 argument_list|>
 name|regionLoadList
 parameter_list|)
@@ -5992,7 +5996,7 @@ literal|true
 decl_stmt|;
 for|for
 control|(
-name|RegionLoad
+name|BalancerRegionLoad
 name|rl
 range|:
 name|regionLoadList
@@ -6106,7 +6110,7 @@ specifier|protected
 name|double
 name|getCostFromRl
 parameter_list|(
-name|RegionLoad
+name|BalancerRegionLoad
 name|rl
 parameter_list|)
 block|{
@@ -6173,7 +6177,7 @@ specifier|protected
 name|double
 name|getCostFromRl
 parameter_list|(
-name|RegionLoad
+name|BalancerRegionLoad
 name|rl
 parameter_list|)
 block|{
@@ -6985,7 +6989,7 @@ specifier|protected
 name|double
 name|getCostFromRl
 parameter_list|(
-name|RegionLoad
+name|BalancerRegionLoad
 name|rl
 parameter_list|)
 block|{
@@ -7052,7 +7056,7 @@ specifier|protected
 name|double
 name|getCostFromRl
 parameter_list|(
-name|RegionLoad
+name|BalancerRegionLoad
 name|rl
 parameter_list|)
 block|{
