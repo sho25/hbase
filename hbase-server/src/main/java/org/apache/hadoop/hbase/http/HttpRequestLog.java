@@ -113,13 +113,11 @@ begin_import
 import|import
 name|org
 operator|.
-name|eclipse
+name|mortbay
 operator|.
 name|jetty
 operator|.
-name|server
-operator|.
-name|RequestLog
+name|NCSARequestLog
 import|;
 end_import
 
@@ -127,13 +125,11 @@ begin_import
 import|import
 name|org
 operator|.
-name|eclipse
+name|mortbay
 operator|.
 name|jetty
 operator|.
-name|server
-operator|.
-name|NCSARequestLog
+name|RequestLog
 import|;
 end_import
 

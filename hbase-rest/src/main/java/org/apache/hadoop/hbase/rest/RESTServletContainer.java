@@ -79,11 +79,15 @@ end_import
 
 begin_import
 import|import
-name|org
+name|com
 operator|.
-name|glassfish
+name|sun
 operator|.
 name|jersey
+operator|.
+name|spi
+operator|.
+name|container
 operator|.
 name|servlet
 operator|.

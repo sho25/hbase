@@ -965,13 +965,17 @@ name|IOException
 name|e
 parameter_list|)
 block|{
-name|GenericTestUtils
-operator|.
-name|assertExceptionContains
+name|assertTrue
 argument_list|(
-literal|"Unable to initialize WebAppContext"
-argument_list|,
 name|e
+operator|.
+name|getMessage
+argument_list|()
+operator|.
+name|contains
+argument_list|(
+literal|"Problem in starting http server. Server handlers failed"
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

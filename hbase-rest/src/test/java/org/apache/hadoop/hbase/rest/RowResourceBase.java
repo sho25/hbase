@@ -351,9 +351,11 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
+name|rest
 operator|.
-name|Bytes
+name|provider
+operator|.
+name|JacksonProvider
 import|;
 end_import
 
@@ -361,13 +363,15 @@ begin_import
 import|import
 name|org
 operator|.
-name|codehaus
+name|apache
 operator|.
-name|jackson
+name|hadoop
 operator|.
-name|jaxrs
+name|hbase
 operator|.
-name|JacksonJaxbJsonProvider
+name|util
+operator|.
+name|Bytes
 import|;
 end_import
 
@@ -678,7 +682,7 @@ expr_stmt|;
 name|jsonMapper
 operator|=
 operator|new
-name|JacksonJaxbJsonProvider
+name|JacksonProvider
 argument_list|()
 operator|.
 name|locateMapper
@@ -3842,7 +3846,7 @@ name|ObjectMapper
 name|mapper
 init|=
 operator|new
-name|JacksonJaxbJsonProvider
+name|JacksonProvider
 argument_list|()
 operator|.
 name|locateMapper
