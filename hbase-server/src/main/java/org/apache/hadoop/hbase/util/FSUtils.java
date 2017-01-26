@@ -1108,7 +1108,7 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Sets storage policy for given path according to config setting.    * If the passed path is a directory, we'll set the storage policy for all files    * created in the future in said directory. Note that this change in storage    * policy takes place at the HDFS level; it will persist beyond this RS's lifecycle.    * If we're running on a version of HDFS that doesn't support the given storage policy    * (or storage policies at all), then we'll issue a log message and continue.    *    * See http://hadoop.apache.org/docs/r2.6.0/hadoop-project-dist/hadoop-hdfs/ArchivalStorage.html    *    * @param fs We only do anything if an instance of DistributedFileSystem    * @param conf used to look up storage policy with given key; not modified.    * @param path the Path whose storage policy is to be set    * @param policyKey e.g. HConstants.WAL_STORAGE_POLICY    * @param defaultPolicy usually should be the policy NONE to delegate to HDFS    */
+comment|/**    * Sets storage policy for given path according to config setting.    * If the passed path is a directory, we'll set the storage policy for all files    * created in the future in said directory. Note that this change in storage    * policy takes place at the HDFS level; it will persist beyond this RS's lifecycle.    * If we're running on a version of HDFS that doesn't support the given storage policy    * (or storage policies at all), then we'll issue a log message and continue.    *    * See http://hadoop.apache.org/docs/r2.6.0/hadoop-project-dist/hadoop-hdfs/ArchivalStorage.html    *    * @param fs We only do anything if an instance of DistributedFileSystem    * @param conf used to look up storage policy with given key; not modified.    * @param path the Path whose storage policy is to be set    * @param policyKey Key to use pulling a policy from Configuration:    * e.g. HConstants.WAL_STORAGE_POLICY (hbase.wal.storage.policy).    * @param defaultPolicy usually should be the policy NONE to delegate to HDFS    */
 specifier|public
 specifier|static
 name|void
@@ -1186,35 +1186,189 @@ expr_stmt|;
 block|}
 return|return;
 block|}
+name|setStoragePolicy
+argument_list|(
+name|fs
+argument_list|,
+name|path
+argument_list|,
+name|storagePolicy
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Sets storage policy for given path.    * If the passed path is a directory, we'll set the storage policy for all files    * created in the future in said directory. Note that this change in storage    * policy takes place at the HDFS level; it will persist beyond this RS's lifecycle.    * If we're running on a version of HDFS that doesn't support the given storage policy    * (or storage policies at all), then we'll issue a log message and continue.    *    * See http://hadoop.apache.org/docs/r2.6.0/hadoop-project-dist/hadoop-hdfs/ArchivalStorage.html    *    * @param fs We only do anything if an instance of DistributedFileSystem    * @param path the Path whose storage policy is to be set    * @param storagePolicy Policy to set on<code>path</code>; see hadoop 2.6+    * org.apache.hadoop.hdfs.protocol.HdfsConstants for possible list e.g    * 'COLD', 'WARM', 'HOT', 'ONE_SSD', 'ALL_SSD', 'LAZY_PERSIST'.    */
+specifier|public
+specifier|static
+name|void
+name|setStoragePolicy
+parameter_list|(
+specifier|final
+name|FileSystem
+name|fs
+parameter_list|,
+specifier|final
+name|Path
+name|path
+parameter_list|,
+specifier|final
+name|String
+name|storagePolicy
+parameter_list|)
+block|{
 if|if
 condition|(
-name|fs
-operator|instanceof
-name|DistributedFileSystem
+name|storagePolicy
+operator|==
+literal|null
 condition|)
 block|{
-name|DistributedFileSystem
-name|dfs
-init|=
-operator|(
-name|DistributedFileSystem
-operator|)
-name|fs
-decl_stmt|;
-comment|// Once our minimum supported Hadoop version is 2.6.0 we can remove reflection.
-name|Class
-argument_list|<
-name|?
-extends|extends
-name|DistributedFileSystem
-argument_list|>
-name|dfsClass
-init|=
-name|dfs
+if|if
+condition|(
+name|LOG
 operator|.
-name|getClass
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"We were passed a null storagePolicy, exiting early."
+argument_list|)
+expr_stmt|;
+block|}
+return|return;
+block|}
+specifier|final
+name|String
+name|trimmedStoragePolicy
+init|=
+name|storagePolicy
+operator|.
+name|trim
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|trimmedStoragePolicy
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"We were passed an empty storagePolicy, exiting early."
+argument_list|)
+expr_stmt|;
+block|}
+return|return;
+block|}
+name|boolean
+name|distributed
+init|=
+literal|false
+decl_stmt|;
+try|try
+block|{
+name|distributed
+operator|=
+name|isDistributedFileSystem
+argument_list|(
+name|fs
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|ioe
+parameter_list|)
+block|{
+comment|// This should NEVER happen.
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Failed setStoragePolicy="
+operator|+
+name|trimmedStoragePolicy
+operator|+
+literal|" on path="
+operator|+
+name|path
+operator|+
+literal|"; failed isDFS test"
+argument_list|,
+name|ioe
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
+if|if
+condition|(
+name|distributed
+condition|)
+block|{
+name|invokeSetStoragePolicy
+argument_list|(
+name|fs
+argument_list|,
+name|path
+argument_list|,
+name|trimmedStoragePolicy
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"FileSystem isn't an instance of DistributedFileSystem; presuming it doesn't "
+operator|+
+literal|"support setStoragePolicy. Unable to set storagePolicy="
+operator|+
+name|trimmedStoragePolicy
+operator|+
+literal|" on path="
+operator|+
+name|path
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+comment|/*    * All args have been checked and are good. Run the setStoragePolicy invocation.    */
+specifier|private
+specifier|static
+name|void
+name|invokeSetStoragePolicy
+parameter_list|(
+specifier|final
+name|FileSystem
+name|fs
+parameter_list|,
+specifier|final
+name|Path
+name|path
+parameter_list|,
+specifier|final
+name|String
+name|storagePolicy
+parameter_list|)
+block|{
 name|Method
 name|m
 init|=
@@ -1224,7 +1378,10 @@ try|try
 block|{
 name|m
 operator|=
-name|dfsClass
+name|fs
+operator|.
+name|getClass
+argument_list|()
 operator|.
 name|getDeclaredMethod
 argument_list|(
@@ -1265,9 +1422,14 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"FileSystem doesn't support"
+literal|"FileSystem doesn't support setStoragePolicy; HDFS-6584 not available "
 operator|+
-literal|" setStoragePolicy; --HDFS-6584 not available"
+literal|"(hadoop-2.6.0+): "
+operator|+
+name|e
+operator|.
+name|getMessage
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -1281,9 +1443,9 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Doesn't have access to setStoragePolicy on "
+literal|"Don't have access to setStoragePolicy on FileSystems; HDFS-6584 not available "
 operator|+
-literal|"FileSystems --HDFS-6584 not available"
+literal|"(hadoop-2.6.0+): "
 argument_list|,
 name|e
 argument_list|)
@@ -1307,7 +1469,7 @@ name|m
 operator|.
 name|invoke
 argument_list|(
-name|dfs
+name|fs
 argument_list|,
 name|path
 argument_list|,
@@ -1318,11 +1480,11 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"set "
+literal|"Set storagePolicy="
 operator|+
 name|storagePolicy
 operator|+
-literal|" for "
+literal|" for path="
 operator|+
 name|path
 argument_list|)
@@ -1427,11 +1589,11 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Unable to set "
+literal|"Unable to set storagePolicy="
 operator|+
 name|storagePolicy
 operator|+
-literal|" for "
+literal|" for path="
 operator|+
 name|path
 argument_list|,
@@ -1442,20 +1604,59 @@ block|}
 block|}
 block|}
 block|}
-else|else
+end_class
+
+begin_comment
+comment|/**    * @return True is<code>fs</code> is instance of DistributedFileSystem    * @throws IOException    */
+end_comment
+
+begin_function
+specifier|private
+specifier|static
+name|boolean
+name|isDistributedFileSystem
+parameter_list|(
+specifier|final
+name|FileSystem
+name|fs
+parameter_list|)
+throws|throws
+name|IOException
 block|{
-name|LOG
+name|FileSystem
+name|fileSystem
+init|=
+name|fs
+decl_stmt|;
+comment|// If passed an instance of HFileSystem, it fails instanceof DistributedFileSystem.
+comment|// Check its backing fs for dfs-ness.
+if|if
+condition|(
+name|fs
+operator|instanceof
+name|HFileSystem
+condition|)
+block|{
+name|fileSystem
+operator|=
+operator|(
+operator|(
+name|HFileSystem
+operator|)
+name|fs
+operator|)
 operator|.
-name|info
-argument_list|(
-literal|"FileSystem isn't an instance of DistributedFileSystem; presuming it doesn't "
-operator|+
-literal|"support setStoragePolicy."
-argument_list|)
+name|getBackingFs
+argument_list|()
 expr_stmt|;
 block|}
+return|return
+name|fileSystem
+operator|instanceof
+name|DistributedFileSystem
+return|;
 block|}
-end_class
+end_function
 
 begin_comment
 comment|/**    * Compare of path component. Does not consider schema; i.e. if schemas    * different but<code>path</code> starts with<code>rootPath</code>,    * then the function returns true    * @param rootPath    * @param path    * @return True if<code>path</code> starts with<code>rootPath</code>    */

@@ -269,6 +269,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|FSUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|ReflectionUtils
 import|;
 end_import
@@ -733,7 +749,7 @@ return|return
 name|fs
 return|;
 block|}
-comment|/**    * Set the source path (directory/file) to the specified storage policy.<br>    *<i>"LAZY_PERSIST"</i>,<i>"ALL_SSD"</i>,<i>"ONE_SSD"</i>,<i>"HOT"</i>,<i>"WARM"</i>,    *<i>"COLD"</i><br>    *<br>    * See {@link org.apache.hadoop.hdfs.protocol.HdfsConstants} for more details.    * @param path The source path (directory/file).    * @param policyName The name of the storage policy.    */
+comment|/**    * Set the source path (directory/file) to the specified storage policy.    * @param path The source path (directory/file).    * @param policyName The name of the storage policy: 'HOT', 'COLD', etc.    * See see hadoop 2.6+ org.apache.hadoop.hdfs.protocol.HdfsConstants for possible list e.g    * 'COLD', 'WARM', 'HOT', 'ONE_SSD', 'ALL_SSD', 'LAZY_PERSIST'.    */
 specifier|public
 name|void
 name|setStoragePolicy
@@ -745,48 +761,19 @@ name|String
 name|policyName
 parameter_list|)
 block|{
-try|try
-block|{
-name|ReflectionUtils
+name|FSUtils
 operator|.
-name|invokeMethod
+name|setStoragePolicy
 argument_list|(
 name|this
 operator|.
 name|fs
 argument_list|,
-literal|"setStoragePolicy"
-argument_list|,
 name|path
 argument_list|,
 name|policyName
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|Exception
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Failed to set storage policy of ["
-operator|+
-name|path
-operator|+
-literal|"] to ["
-operator|+
-name|policyName
-operator|+
-literal|"]"
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 comment|/**    * Get the storage policy of the source path (directory/file).    * @param path The source path (directory/file).    * @return Storage policy name, or {@code null} if not using {@link DistributedFileSystem} or    *         exception thrown when trying to get policy    */
 annotation|@
