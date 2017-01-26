@@ -734,7 +734,7 @@ name|regions
 decl_stmt|;
 name|Deque
 argument_list|<
-name|BalancerRegionLoad
+name|RegionLoad
 argument_list|>
 index|[]
 name|regionLoads
@@ -953,7 +953,7 @@ name|String
 argument_list|,
 name|Deque
 argument_list|<
-name|BalancerRegionLoad
+name|RegionLoad
 argument_list|>
 argument_list|>
 name|loads
@@ -1010,7 +1010,7 @@ name|String
 argument_list|,
 name|Deque
 argument_list|<
-name|BalancerRegionLoad
+name|RegionLoad
 argument_list|>
 argument_list|>
 name|loads
@@ -2968,7 +2968,7 @@ name|String
 argument_list|,
 name|Deque
 argument_list|<
-name|BalancerRegionLoad
+name|RegionLoad
 argument_list|>
 argument_list|>
 name|loads
@@ -3076,7 +3076,7 @@ condition|)
 block|{
 name|Deque
 argument_list|<
-name|BalancerRegionLoad
+name|RegionLoad
 argument_list|>
 name|rl
 init|=

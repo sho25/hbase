@@ -583,7 +583,7 @@ name|when
 argument_list|(
 name|rl
 operator|.
-name|getStorefileSizeMB
+name|getStores
 argument_list|()
 argument_list|)
 operator|.
@@ -726,7 +726,7 @@ argument_list|)
 expr_stmt|;
 name|Queue
 argument_list|<
-name|BalancerRegionLoad
+name|RegionLoad
 argument_list|>
 name|loads
 init|=
@@ -754,7 +754,7 @@ operator|>
 literal|0
 condition|)
 block|{
-name|BalancerRegionLoad
+name|RegionLoad
 name|rl
 init|=
 name|loads
@@ -774,7 +774,7 @@ operator|)
 argument_list|,
 name|rl
 operator|.
-name|getStorefileSizeMB
+name|getStores
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1717,7 +1717,7 @@ parameter_list|()
 block|{
 name|List
 argument_list|<
-name|BalancerRegionLoad
+name|RegionLoad
 argument_list|>
 name|regionLoads
 init|=
@@ -1741,12 +1741,12 @@ name|i
 operator|++
 control|)
 block|{
-name|BalancerRegionLoad
+name|RegionLoad
 name|regionLoad
 init|=
 name|mock
 argument_list|(
-name|BalancerRegionLoad
+name|RegionLoad
 operator|.
 name|class
 argument_list|)
