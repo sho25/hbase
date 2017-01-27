@@ -1267,7 +1267,7 @@ try|try
 block|{
 name|util
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|disableTable
@@ -1277,7 +1277,7 @@ argument_list|)
 expr_stmt|;
 name|util
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|deleteTable

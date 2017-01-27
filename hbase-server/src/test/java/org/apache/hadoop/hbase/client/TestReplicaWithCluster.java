@@ -1486,7 +1486,7 @@ expr_stmt|;
 block|}
 name|HTU
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|disableTable
@@ -1634,7 +1634,7 @@ name|bHdt
 init|=
 name|HTU
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|getTableDescriptor
@@ -1663,7 +1663,7 @@ argument_list|)
 expr_stmt|;
 name|HTU
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|disableTable
@@ -1676,7 +1676,7 @@ argument_list|)
 expr_stmt|;
 name|HTU
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|modifyTable
@@ -1691,7 +1691,7 @@ argument_list|)
 expr_stmt|;
 name|HTU
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|enableTable
@@ -1707,7 +1707,7 @@ name|nHdt
 init|=
 name|HTU
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|getTableDescriptor
@@ -1879,7 +1879,7 @@ name|admin
 init|=
 name|HTU
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 decl_stmt|;
 name|nHdt
@@ -2024,7 +2024,7 @@ argument_list|)
 expr_stmt|;
 name|HTU
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|createTable
@@ -2116,7 +2116,7 @@ argument_list|)
 expr_stmt|;
 name|HTU2
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|createTable
@@ -2219,7 +2219,7 @@ argument_list|)
 expr_stmt|;
 name|HTU
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|flush
@@ -2505,7 +2505,7 @@ argument_list|()
 expr_stmt|;
 name|HTU
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|disableTable
@@ -2528,7 +2528,7 @@ argument_list|)
 expr_stmt|;
 name|HTU2
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|disableTable
@@ -3183,7 +3183,7 @@ expr_stmt|;
 block|}
 name|HTU
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|disableTable
@@ -3375,7 +3375,7 @@ finally|finally
 block|{
 name|HTU
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|disableTable
@@ -3584,7 +3584,7 @@ finally|finally
 block|{
 name|HTU
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|disableTable

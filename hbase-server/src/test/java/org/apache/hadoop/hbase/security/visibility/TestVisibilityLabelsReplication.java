@@ -1755,7 +1755,7 @@ name|hBaseAdmin
 init|=
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 decl_stmt|;
 name|HTableDescriptor
@@ -1823,7 +1823,7 @@ name|hBaseAdmin1
 init|=
 name|TEST_UTIL1
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 decl_stmt|;
 try|try

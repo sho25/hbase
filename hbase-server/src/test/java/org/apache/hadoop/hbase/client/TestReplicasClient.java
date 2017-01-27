@@ -1993,7 +1993,7 @@ name|ClusterConnection
 operator|)
 name|HTU
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|getConnection

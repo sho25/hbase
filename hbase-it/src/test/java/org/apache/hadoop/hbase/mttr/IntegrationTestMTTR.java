@@ -1172,7 +1172,7 @@ if|if
 condition|(
 name|util
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|tableExists
@@ -1193,7 +1193,7 @@ if|if
 condition|(
 name|util
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|tableExists
@@ -1255,7 +1255,7 @@ argument_list|)
 expr_stmt|;
 name|util
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|createTable
@@ -2793,7 +2793,7 @@ name|admin
 operator|=
 name|util
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 expr_stmt|;
 name|ClusterStatus

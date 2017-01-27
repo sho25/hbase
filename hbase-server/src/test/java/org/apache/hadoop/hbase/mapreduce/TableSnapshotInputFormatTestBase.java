@@ -991,7 +991,7 @@ finally|finally
 block|{
 name|UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|deleteSnapshot
@@ -1337,7 +1337,7 @@ name|admin
 init|=
 name|util
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 decl_stmt|;
 comment|// put some stuff in the table

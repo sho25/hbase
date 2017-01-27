@@ -2371,7 +2371,7 @@ condition|)
 block|{
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|move
@@ -5324,7 +5324,7 @@ argument_list|)
 expr_stmt|;
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|setBalancerRunning
@@ -5377,7 +5377,7 @@ name|previousBalance
 init|=
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|setBalancerRunning
@@ -5633,7 +5633,7 @@ argument_list|()
 expr_stmt|;
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|setBalancerRunning
@@ -5681,7 +5681,7 @@ name|previousBalance
 init|=
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|setBalancerRunning
@@ -6000,7 +6000,7 @@ argument_list|()
 expr_stmt|;
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|setBalancerRunning
@@ -6481,7 +6481,7 @@ argument_list|)
 expr_stmt|;
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|setBalancerRunning
@@ -6717,7 +6717,7 @@ argument_list|)
 expr_stmt|;
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|move
@@ -7127,7 +7127,7 @@ argument_list|)
 expr_stmt|;
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|move
@@ -8382,7 +8382,7 @@ argument_list|)
 expr_stmt|;
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|setBalancerRunning
@@ -8776,7 +8776,7 @@ argument_list|)
 expr_stmt|;
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|move

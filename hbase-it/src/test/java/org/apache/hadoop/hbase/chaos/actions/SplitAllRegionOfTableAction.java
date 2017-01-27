@@ -193,7 +193,7 @@ name|admin
 init|=
 name|util
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 decl_stmt|;
 comment|// Don't try the split if we're stopping

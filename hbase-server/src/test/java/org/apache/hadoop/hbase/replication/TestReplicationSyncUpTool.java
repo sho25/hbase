@@ -731,7 +731,7 @@ name|ha
 init|=
 name|utility1
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 decl_stmt|;
 name|ha
@@ -757,7 +757,7 @@ name|ha
 operator|=
 name|utility2
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 expr_stmt|;
 name|ha

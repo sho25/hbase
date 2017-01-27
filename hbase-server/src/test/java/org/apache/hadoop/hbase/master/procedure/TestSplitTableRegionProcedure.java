@@ -709,7 +709,7 @@ expr_stmt|;
 comment|// Turn off balancer so it doesn't cut in and mess up our placements.
 name|UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|setBalancerRunning
@@ -760,7 +760,7 @@ name|htd
 range|:
 name|UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|listTables
@@ -1635,7 +1635,7 @@ argument_list|)
 expr_stmt|;
 name|UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|majorCompact
@@ -1671,7 +1671,7 @@ block|{
 return|return
 name|UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|getCompactionState
@@ -2468,7 +2468,7 @@ condition|)
 block|{
 name|UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|flush
@@ -2572,7 +2572,7 @@ condition|)
 block|{
 name|UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|flush

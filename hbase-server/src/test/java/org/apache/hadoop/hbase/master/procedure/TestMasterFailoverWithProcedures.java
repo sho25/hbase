@@ -992,7 +992,7 @@ argument_list|)
 expr_stmt|;
 name|UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|disableTable
@@ -1235,7 +1235,7 @@ expr_stmt|;
 comment|// disable the table
 name|UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|disableTable
@@ -1318,7 +1318,7 @@ name|regions
 operator|=
 name|UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|getTableRegions
@@ -1706,7 +1706,7 @@ argument_list|)
 expr_stmt|;
 name|UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|disableTable

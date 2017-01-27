@@ -215,7 +215,7 @@ operator|.
 name|getHBaseIntegrationTestingUtility
 argument_list|()
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 expr_stmt|;
 block|}

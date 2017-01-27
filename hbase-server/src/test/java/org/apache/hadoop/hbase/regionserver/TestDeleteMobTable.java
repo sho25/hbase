@@ -568,7 +568,7 @@ expr_stmt|;
 comment|// create an hfile
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|flush
@@ -751,7 +751,7 @@ name|assertFalse
 argument_list|(
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|tableExists
@@ -938,7 +938,7 @@ name|assertFalse
 argument_list|(
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|tableExists
@@ -1136,7 +1136,7 @@ argument_list|)
 expr_stmt|;
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|deleteColumnFamily

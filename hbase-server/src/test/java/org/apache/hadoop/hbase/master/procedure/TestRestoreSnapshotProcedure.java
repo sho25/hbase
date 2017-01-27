@@ -621,7 +621,7 @@ name|deleteAllSnapshots
 argument_list|(
 name|UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -676,7 +676,7 @@ name|admin
 init|=
 name|UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 decl_stmt|;
 comment|// create Table
@@ -1240,7 +1240,7 @@ try|try
 block|{
 name|UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|enableTable
@@ -1318,7 +1318,7 @@ finally|finally
 block|{
 name|UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|disableTable
@@ -1423,7 +1423,7 @@ try|try
 block|{
 name|UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|enableTable
@@ -1436,7 +1436,7 @@ name|currentHTD
 init|=
 name|UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|getTableDescriptor
@@ -1521,7 +1521,7 @@ finally|finally
 block|{
 name|UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|disableTable

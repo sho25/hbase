@@ -1256,7 +1256,7 @@ name|hBaseAdmin
 init|=
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 init|)
 block|{
@@ -1275,7 +1275,7 @@ name|hBaseAdmin1
 init|=
 name|TEST_UTIL1
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 init|)
 block|{

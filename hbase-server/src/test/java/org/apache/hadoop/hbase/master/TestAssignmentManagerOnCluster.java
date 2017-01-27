@@ -1015,7 +1015,7 @@ name|admin
 operator|=
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 expr_stmt|;
 block|}
@@ -1555,7 +1555,7 @@ comment|// Region is assigned now. Let's assign it again.
 comment|// Master should not abort, and region should be assigned.
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|assign
@@ -2358,7 +2358,7 @@ argument_list|)
 expr_stmt|;
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|move
@@ -2509,7 +2509,7 @@ name|admin
 init|=
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 decl_stmt|;
 try|try
@@ -4777,7 +4777,7 @@ argument_list|)
 expr_stmt|;
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|disableTable
@@ -7441,7 +7441,7 @@ name|regions
 init|=
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|getOnlineRegions

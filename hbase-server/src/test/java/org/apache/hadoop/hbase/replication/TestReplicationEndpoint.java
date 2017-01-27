@@ -695,7 +695,7 @@ control|)
 block|{
 name|utility1
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|rollWALWriter

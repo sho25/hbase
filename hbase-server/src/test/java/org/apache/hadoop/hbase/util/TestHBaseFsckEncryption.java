@@ -744,7 +744,7 @@ argument_list|)
 expr_stmt|;
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|createTable
@@ -931,7 +931,7 @@ block|}
 comment|// Flush it
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|flush

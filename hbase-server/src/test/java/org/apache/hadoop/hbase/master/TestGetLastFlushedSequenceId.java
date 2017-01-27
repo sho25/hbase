@@ -451,7 +451,7 @@ name|InterruptedException
 block|{
 name|testUtil
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|createNamespace
@@ -666,7 +666,7 @@ argument_list|)
 expr_stmt|;
 name|testUtil
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|flush

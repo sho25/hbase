@@ -2010,7 +2010,7 @@ argument_list|)
 expr_stmt|;
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|createTable
@@ -2641,7 +2641,7 @@ expr_stmt|;
 comment|// major compaction, purged future deletes
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|flush
@@ -2651,7 +2651,7 @@ argument_list|)
 expr_stmt|;
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|majorCompact
@@ -2687,7 +2687,7 @@ block|{
 return|return
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|getCompactionState
@@ -4807,7 +4807,7 @@ name|admin
 init|=
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 decl_stmt|;
 name|admin
@@ -14311,7 +14311,7 @@ name|admin
 init|=
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 decl_stmt|;
 name|TableName
@@ -14691,7 +14691,7 @@ name|admin
 init|=
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 decl_stmt|;
 name|Table
@@ -31259,7 +31259,7 @@ name|admin
 init|=
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 decl_stmt|;
 comment|// Write a column with values at timestamp 1, 2 and 3
@@ -31690,7 +31690,7 @@ name|admin
 init|=
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 decl_stmt|;
 comment|// Write a column with values at timestamp 1, 2 and 3
@@ -34169,7 +34169,7 @@ name|admin
 init|=
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 decl_stmt|;
 name|HTableDescriptor
@@ -34854,7 +34854,7 @@ name|admin
 init|=
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 decl_stmt|;
 comment|// make a modifiable descriptor
@@ -42141,7 +42141,7 @@ name|admin
 operator|=
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 init|;
 name|RegionLocator
@@ -49898,7 +49898,7 @@ name|admin
 init|=
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 decl_stmt|;
 name|admin
@@ -50312,7 +50312,7 @@ name|admin
 init|=
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 decl_stmt|;
 name|admin

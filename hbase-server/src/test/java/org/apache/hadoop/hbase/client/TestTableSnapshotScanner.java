@@ -606,7 +606,7 @@ name|admin
 init|=
 name|util
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 decl_stmt|;
 comment|// put some stuff in the table
@@ -905,7 +905,7 @@ condition|)
 block|{
 name|util
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|deleteSnapshot

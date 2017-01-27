@@ -760,7 +760,7 @@ name|nsd
 init|=
 name|UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|getNamespaceDescriptor
@@ -1328,7 +1328,7 @@ name|nsDescriptor
 init|=
 name|UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|getNamespaceDescriptor
@@ -1404,7 +1404,7 @@ name|createdNsDescriptor
 init|=
 name|UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|getNamespaceDescriptor

@@ -808,7 +808,7 @@ name|Exception
 block|{
 name|util
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|createNamespace
@@ -2411,7 +2411,7 @@ condition|)
 block|{
 name|util
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|createTable

@@ -965,7 +965,7 @@ name|admin
 init|=
 name|UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 decl_stmt|;
 name|admin
@@ -1094,7 +1094,7 @@ name|admin
 init|=
 name|UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 decl_stmt|;
 try|try

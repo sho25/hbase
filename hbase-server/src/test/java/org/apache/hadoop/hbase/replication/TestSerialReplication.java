@@ -937,7 +937,7 @@ argument_list|)
 expr_stmt|;
 name|utility1
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|setBalancerRunning
@@ -1003,7 +1003,7 @@ argument_list|)
 expr_stmt|;
 name|utility1
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|createTable
@@ -1013,7 +1013,7 @@ argument_list|)
 expr_stmt|;
 name|utility2
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|createTable
@@ -1465,7 +1465,7 @@ argument_list|)
 expr_stmt|;
 name|utility1
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|createTable
@@ -1475,7 +1475,7 @@ argument_list|)
 expr_stmt|;
 name|utility2
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|createTable
@@ -1561,7 +1561,7 @@ expr_stmt|;
 block|}
 name|utility1
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|split
@@ -2013,7 +2013,7 @@ argument_list|)
 expr_stmt|;
 name|utility1
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|createTable
@@ -2023,7 +2023,7 @@ argument_list|)
 expr_stmt|;
 name|utility2
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|createTable
@@ -2040,7 +2040,7 @@ argument_list|)
 expr_stmt|;
 name|utility1
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|split
@@ -2161,7 +2161,7 @@ argument_list|)
 decl_stmt|;
 name|utility1
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|mergeRegionsAsync

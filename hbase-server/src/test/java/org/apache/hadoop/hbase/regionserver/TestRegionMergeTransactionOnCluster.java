@@ -103,6 +103,30 @@ name|util
 operator|.
 name|concurrent
 operator|.
+name|ExecutionException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|TimeUnit
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
 name|atomic
 operator|.
 name|AtomicBoolean
@@ -376,22 +400,6 @@ operator|.
 name|client
 operator|.
 name|Admin
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|HBaseAdmin
 import|;
 end_import
 
@@ -2277,14 +2285,23 @@ literal|"testMerge"
 argument_list|)
 decl_stmt|;
 specifier|final
-name|HBaseAdmin
-name|hbaseAdmin
+name|Admin
+name|admin
 init|=
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 decl_stmt|;
+specifier|final
+name|int
+name|syncWaitTimeout
+init|=
+literal|10
+operator|*
+literal|60000
+decl_stmt|;
+comment|// 10min
 try|try
 block|{
 comment|// Create table and load data.
@@ -2353,9 +2370,9 @@ expr_stmt|;
 try|try
 block|{
 comment|// Merge offline region. Region a is offline here
-name|hbaseAdmin
+name|admin
 operator|.
-name|mergeRegionsSync
+name|mergeRegionsAsync
 argument_list|(
 name|a
 operator|.
@@ -2369,6 +2386,15 @@ argument_list|()
 argument_list|,
 literal|false
 argument_list|)
+operator|.
+name|get
+argument_list|(
+name|syncWaitTimeout
+argument_list|,
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+argument_list|)
 expr_stmt|;
 name|fail
 argument_list|(
@@ -2378,7 +2404,7 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|IOException
+name|ExecutionException
 name|ie
 parameter_list|)
 block|{
@@ -2400,6 +2426,9 @@ operator|.
 name|stringifyException
 argument_list|(
 name|ie
+operator|.
+name|getCause
+argument_list|()
 argument_list|)
 operator|.
 name|contains
@@ -2408,6 +2437,9 @@ literal|"regions not online"
 argument_list|)
 operator|&&
 name|ie
+operator|.
+name|getCause
+argument_list|()
 operator|instanceof
 name|MergeRegionException
 argument_list|)
@@ -2416,9 +2448,9 @@ block|}
 try|try
 block|{
 comment|// Merge the same region: b and b.
-name|hbaseAdmin
+name|admin
 operator|.
-name|mergeRegionsSync
+name|mergeRegionsAsync
 argument_list|(
 name|b
 operator|.
@@ -2470,9 +2502,9 @@ block|}
 try|try
 block|{
 comment|// Merge unknown regions
-name|hbaseAdmin
+name|admin
 operator|.
-name|mergeRegionsSync
+name|mergeRegionsAsync
 argument_list|(
 name|Bytes
 operator|.

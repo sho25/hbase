@@ -2065,7 +2065,7 @@ expr_stmt|;
 block|}
 name|htu
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|rollWALWriter

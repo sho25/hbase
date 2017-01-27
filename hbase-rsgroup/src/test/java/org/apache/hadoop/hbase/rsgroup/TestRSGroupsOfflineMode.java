@@ -155,7 +155,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HBaseAdmin
+name|Admin
 import|;
 end_import
 
@@ -387,7 +387,7 @@ name|master
 decl_stmt|;
 specifier|private
 specifier|static
-name|HBaseAdmin
+name|Admin
 name|hbaseAdmin
 decl_stmt|;
 specifier|private
@@ -522,7 +522,7 @@ name|hbaseAdmin
 operator|=
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 expr_stmt|;
 comment|//wait till the balancer is in online mode

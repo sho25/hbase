@@ -620,7 +620,7 @@ argument_list|)
 expr_stmt|;
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|createTable
@@ -958,14 +958,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|Admin
-name|admin
-init|=
-name|TEST_UTIL
-operator|.
-name|getHBaseAdmin
-argument_list|()
-decl_stmt|;
 name|HTableDescriptor
 name|htd
 init|=

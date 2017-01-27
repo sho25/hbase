@@ -615,7 +615,7 @@ name|tableNames
 init|=
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|listTableNames
@@ -634,7 +634,7 @@ name|tableDescriptor
 init|=
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|getTableDescriptor
@@ -651,7 +651,7 @@ name|assertTrue
 argument_list|(
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|isTableEnabled

@@ -4054,7 +4054,7 @@ name|testUtil
 argument_list|,
 name|testUtil
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 argument_list|,
 name|htd
@@ -4098,7 +4098,7 @@ name|testUtil
 argument_list|,
 name|testUtil
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 argument_list|,
 name|htd
@@ -4133,7 +4133,7 @@ name|testUtil
 argument_list|,
 name|testUtil
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 argument_list|,
 name|htd
@@ -4312,7 +4312,7 @@ name|testUtil
 argument_list|,
 name|testUtil
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 argument_list|,
 name|tableName
@@ -4338,7 +4338,7 @@ name|Exception
 block|{
 name|testUtil
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|createNamespace
@@ -4366,7 +4366,7 @@ name|Exception
 block|{
 name|testUtil
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|deleteNamespace

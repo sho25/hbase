@@ -1223,7 +1223,7 @@ argument_list|()
 argument_list|,
 name|testUtil
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 argument_list|,
 name|mfs
@@ -4558,7 +4558,7 @@ name|regionReplication
 argument_list|,
 name|util
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|getTableRegions

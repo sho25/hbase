@@ -1584,7 +1584,7 @@ name|PerfEvalCallable
 argument_list|(
 name|util
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 argument_list|,
 name|writeOpts
@@ -1607,7 +1607,7 @@ argument_list|()
 argument_list|,
 name|util
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|getTableDescriptor
@@ -1664,7 +1664,7 @@ name|PerfEvalCallable
 argument_list|(
 name|util
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 argument_list|,
 name|readOpts
@@ -1708,7 +1708,7 @@ name|setReplicas
 argument_list|(
 name|util
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 argument_list|,
 name|tableName
@@ -1764,7 +1764,7 @@ name|PerfEvalCallable
 argument_list|(
 name|util
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 argument_list|,
 name|replicaReadOpts

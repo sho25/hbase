@@ -253,7 +253,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|ClusterConnection
+name|Admin
 import|;
 end_import
 
@@ -269,7 +269,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HBaseAdmin
+name|ClusterConnection
 import|;
 end_import
 
@@ -559,7 +559,7 @@ name|TEST_UTIL
 decl_stmt|;
 specifier|protected
 specifier|static
-name|HBaseAdmin
+name|Admin
 name|admin
 decl_stmt|;
 specifier|protected
@@ -801,7 +801,7 @@ name|desc
 range|:
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|listTables
@@ -838,7 +838,7 @@ name|desc
 range|:
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|listNamespaceDescriptors
@@ -3527,7 +3527,7 @@ expr_stmt|;
 comment|// Lets move this region to the new group.
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|move

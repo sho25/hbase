@@ -411,7 +411,7 @@ expr_stmt|;
 comment|// Test 2: modify the column family offline
 name|UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|disableTable
@@ -735,7 +735,7 @@ argument_list|)
 expr_stmt|;
 name|UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|disableTable

@@ -702,7 +702,7 @@ name|admin
 init|=
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 decl_stmt|;
 specifier|final
@@ -893,7 +893,7 @@ name|regions
 init|=
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|getTableRegions
@@ -921,7 +921,7 @@ control|)
 block|{
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|assign
@@ -1089,7 +1089,7 @@ name|admin
 init|=
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 decl_stmt|;
 specifier|final
@@ -1507,7 +1507,7 @@ name|admin
 init|=
 name|testUtil
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 decl_stmt|;
 if|if
@@ -1619,7 +1619,7 @@ name|admin
 init|=
 name|testUtil
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 decl_stmt|;
 try|try

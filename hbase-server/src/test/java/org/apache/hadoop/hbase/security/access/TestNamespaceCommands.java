@@ -1143,7 +1143,7 @@ argument_list|)
 expr_stmt|;
 name|UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|createNamespace
@@ -1161,7 +1161,7 @@ argument_list|)
 expr_stmt|;
 name|UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|createNamespace
@@ -1462,7 +1462,7 @@ name|Exception
 block|{
 name|UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|deleteNamespace
@@ -1472,7 +1472,7 @@ argument_list|)
 expr_stmt|;
 name|UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|deleteNamespace

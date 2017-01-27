@@ -900,7 +900,7 @@ argument_list|()
 decl_stmt|;
 name|hbtu
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|flush
@@ -1219,7 +1219,7 @@ argument_list|)
 expr_stmt|;
 name|hbtu
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|createTable

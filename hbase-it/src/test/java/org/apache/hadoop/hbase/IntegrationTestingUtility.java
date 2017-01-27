@@ -389,7 +389,7 @@ name|clusterManager
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 expr_stmt|;
 block|}

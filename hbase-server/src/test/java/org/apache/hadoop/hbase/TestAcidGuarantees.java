@@ -619,7 +619,7 @@ name|htd
 init|=
 name|util
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|getTableDescriptor
@@ -655,7 +655,7 @@ argument_list|)
 expr_stmt|;
 name|util
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|modifyColumnFamily
@@ -2003,7 +2003,7 @@ name|admin
 init|=
 name|util
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 decl_stmt|;
 specifier|public

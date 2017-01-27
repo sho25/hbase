@@ -1396,7 +1396,7 @@ name|admin
 init|=
 name|util
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 decl_stmt|;
 name|HTableDescriptor
@@ -1573,7 +1573,7 @@ if|if
 condition|(
 name|util
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|tableExists
@@ -1648,7 +1648,7 @@ name|setReplicas
 argument_list|(
 name|util
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 argument_list|,
 name|t
@@ -4181,7 +4181,7 @@ name|toString
 argument_list|(
 name|util
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|getClusterStatus

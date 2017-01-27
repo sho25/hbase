@@ -1082,7 +1082,7 @@ name|admin
 operator|=
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 expr_stmt|;
 name|rs

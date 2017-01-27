@@ -974,7 +974,7 @@ expr_stmt|;
 block|}
 name|util
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|createTable
@@ -1007,7 +1007,7 @@ name|regionReplication
 argument_list|,
 name|util
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|getTableRegions

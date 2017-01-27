@@ -844,7 +844,7 @@ if|if
 condition|(
 name|util
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|tableExists

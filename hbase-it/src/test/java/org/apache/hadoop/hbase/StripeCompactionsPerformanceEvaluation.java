@@ -1189,7 +1189,7 @@ if|if
 condition|(
 name|util
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|tableExists
@@ -1210,7 +1210,7 @@ condition|(
 operator|!
 name|util
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|isTableDisabled
@@ -1221,7 +1221,7 @@ condition|)
 block|{
 name|util
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|disableTable
@@ -1232,7 +1232,7 @@ expr_stmt|;
 block|}
 name|util
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|deleteTable
@@ -1938,7 +1938,7 @@ argument_list|)
 decl_stmt|;
 name|util
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|createTable

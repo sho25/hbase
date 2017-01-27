@@ -579,7 +579,7 @@ name|class
 argument_list|,
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|coprocessorService
@@ -706,7 +706,7 @@ name|class
 argument_list|,
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|coprocessorService

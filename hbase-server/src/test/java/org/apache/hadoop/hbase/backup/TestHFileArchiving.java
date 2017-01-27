@@ -774,7 +774,7 @@ name|admin
 init|=
 name|UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 decl_stmt|;
 comment|// get the current store files for the region
@@ -1488,7 +1488,7 @@ expr_stmt|;
 comment|// disable table to prevent new updates
 name|UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|disableTable
@@ -1931,7 +1931,7 @@ expr_stmt|;
 comment|// disable table to prevent new updates
 name|UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|disableTable
@@ -1990,7 +1990,7 @@ decl_stmt|;
 comment|// then delete the table so the hfiles get archived
 name|UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|deleteColumnFamily

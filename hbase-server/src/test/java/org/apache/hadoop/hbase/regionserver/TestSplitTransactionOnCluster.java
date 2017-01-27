@@ -1352,7 +1352,7 @@ name|admin
 operator|=
 name|TESTING_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 expr_stmt|;
 name|this
@@ -3672,7 +3672,7 @@ name|admin
 operator|=
 name|TESTING_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 expr_stmt|;
 comment|// Update the region to be offline and split, so that HRegionInfo#equals

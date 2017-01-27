@@ -1736,7 +1736,7 @@ name|htds
 init|=
 name|util
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|listTables
@@ -4261,7 +4261,7 @@ name|htds
 init|=
 name|util
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|listTables

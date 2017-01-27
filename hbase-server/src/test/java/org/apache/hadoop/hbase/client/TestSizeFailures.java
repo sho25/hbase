@@ -530,7 +530,7 @@ expr_stmt|;
 block|}
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|createTable

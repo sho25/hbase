@@ -3549,7 +3549,7 @@ control|)
 block|{
 name|utility
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|createTable
@@ -4713,7 +4713,7 @@ name|admin
 init|=
 name|utility
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 decl_stmt|;
 specifier|final
