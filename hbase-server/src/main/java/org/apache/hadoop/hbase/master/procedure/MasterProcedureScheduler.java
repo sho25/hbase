@@ -4354,12 +4354,6 @@ name|ProcedureEventQueue
 name|event
 decl_stmt|;
 specifier|private
-name|boolean
-name|suspended
-init|=
-literal|false
-decl_stmt|;
-specifier|private
 name|long
 name|exclusiveLockProcIdOwner
 init|=
