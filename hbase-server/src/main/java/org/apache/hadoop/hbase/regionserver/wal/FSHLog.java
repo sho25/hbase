@@ -1969,120 +1969,22 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-if|if
-condition|(
-name|this
-operator|.
-name|closed
-condition|)
-block|{
-throw|throw
-operator|new
-name|IOException
+return|return
+name|stampSequenceIdAndPublishToRingBuffer
 argument_list|(
-literal|"Cannot append; log is closed"
-argument_list|)
-throw|;
-block|}
-comment|// Make a trace scope for the append. It is closed on other side of the ring buffer by the
-comment|// single consuming thread. Don't have to worry about it.
-name|TraceScope
-name|scope
-init|=
-name|Trace
-operator|.
-name|startSpan
-argument_list|(
-literal|"FSHLog.append"
-argument_list|)
-decl_stmt|;
-comment|// This is crazy how much it takes to make an edit. Do we need all this stuff!!!!???? We need
-comment|// all this to make a key and then below to append the edit, we need to carry htd, info,
-comment|// etc. all over the ring buffer.
-name|FSWALEntry
-name|entry
-init|=
-literal|null
-decl_stmt|;
-name|long
-name|sequence
-init|=
-name|this
-operator|.
-name|disruptor
-operator|.
-name|getRingBuffer
-argument_list|()
-operator|.
-name|next
-argument_list|()
-decl_stmt|;
-try|try
-block|{
-name|RingBufferTruck
-name|truck
-init|=
-name|this
-operator|.
-name|disruptor
-operator|.
-name|getRingBuffer
-argument_list|()
-operator|.
-name|get
-argument_list|(
-name|sequence
-argument_list|)
-decl_stmt|;
-comment|// Construction of FSWALEntry sets a latch. The latch is thrown just after we stamp the
-comment|// edit with its edit/sequence id.
-comment|// TODO: reuse FSWALEntry as we do SyncFuture rather create per append.
-name|entry
-operator|=
-operator|new
-name|FSWALEntry
-argument_list|(
-name|sequence
+name|hri
 argument_list|,
 name|key
 argument_list|,
 name|edits
 argument_list|,
-name|hri
-argument_list|,
 name|inMemstore
-argument_list|)
-expr_stmt|;
-name|truck
-operator|.
-name|load
-argument_list|(
-name|entry
 argument_list|,
-name|scope
-operator|.
-name|detach
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-finally|finally
-block|{
-name|this
-operator|.
 name|disruptor
 operator|.
 name|getRingBuffer
 argument_list|()
-operator|.
-name|publish
-argument_list|(
-name|sequence
 argument_list|)
-expr_stmt|;
-block|}
-return|return
-name|sequence
 return|;
 block|}
 comment|/**    * Thread to runs the hdfs sync call. This call takes a while to complete. This is the longest    * pole adding edits to the WAL and this must complete to be sure all edits persisted. We run    * multiple threads sync'ng rather than one that just syncs in series so we have better latencies;    * otherwise, an edit that arrived just after a sync started, might have to wait almost the length    * of two sync invocations before it is marked done.    *<p>    * When the sync completes, it marks all the passed in futures done. On the other end of the sync    * future is a blocked thread, usually a regionserver Handler. There may be more than one future    * passed in the case where a few threads arrive at about the same time and all invoke 'sync'. In    * this case we'll batch up the invocations and run one filesystem sync only for a batch of    * Handler sync invocations. Do not confuse these Handler SyncFutures with the futures an    * ExecutorService returns when you call submit. We have no use for these in this model. These    * SyncFutures are 'artificial', something to hold the Handler until the filesystem sync    * completes.    */
@@ -4062,16 +3964,6 @@ operator|!=
 literal|null
 condition|)
 block|{
-comment|// We got an exception on an earlier attempt at append. Do not let this append
-comment|// go through. Fail it but stamp the sequenceid into this append though failed.
-comment|// We need to do this to close the latch held down deep in WALKey...that is waiting
-comment|// on sequenceid assignment otherwise it will just hang out (The #append method
-comment|// called below does this also internally).
-name|entry
-operator|.
-name|stampRegionSequenceId
-argument_list|()
-expr_stmt|;
 comment|// Return to keep processing events coming off the ringbuffer
 return|return;
 block|}

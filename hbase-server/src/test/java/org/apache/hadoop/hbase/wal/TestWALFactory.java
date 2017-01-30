@@ -2949,6 +2949,13 @@ literal|0
 argument_list|)
 expr_stmt|;
 block|}
+name|MultiVersionConcurrencyControl
+name|mvcc
+init|=
+operator|new
+name|MultiVersionConcurrencyControl
+argument_list|()
+decl_stmt|;
 for|for
 control|(
 name|int
@@ -3017,6 +3024,8 @@ name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
+argument_list|,
+name|mvcc
 argument_list|,
 name|scopes
 argument_list|)

@@ -8076,7 +8076,12 @@ decl_stmt|;
 name|entry
 operator|.
 name|stampRegionSequenceId
+argument_list|(
+name|mvcc
+operator|.
+name|begin
 argument_list|()
+argument_list|)
 expr_stmt|;
 return|return
 name|entry

@@ -1354,6 +1354,13 @@ argument_list|,
 literal|0
 argument_list|)
 expr_stmt|;
+name|MultiVersionConcurrencyControl
+name|mvcc
+init|=
+operator|new
+name|MultiVersionConcurrencyControl
+argument_list|()
+decl_stmt|;
 try|try
 block|{
 comment|// First get something into memstore. Make a Put and then pull the Cell out of it. Will
@@ -1407,6 +1414,8 @@ name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
+argument_list|,
+name|mvcc
 argument_list|,
 name|scopes
 argument_list|)
@@ -2228,6 +2237,13 @@ argument_list|,
 literal|0
 argument_list|)
 expr_stmt|;
+name|MultiVersionConcurrencyControl
+name|mvcc
+init|=
+operator|new
+name|MultiVersionConcurrencyControl
+argument_list|()
+decl_stmt|;
 try|try
 block|{
 name|Put
@@ -2278,6 +2294,8 @@ name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
+argument_list|,
+name|mvcc
 argument_list|,
 name|scopes
 argument_list|)
@@ -2438,6 +2456,8 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 argument_list|,
+name|mvcc
+argument_list|,
 name|scopes
 argument_list|)
 expr_stmt|;
@@ -2571,6 +2591,8 @@ name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
+argument_list|,
+name|mvcc
 argument_list|,
 name|scopes
 argument_list|)

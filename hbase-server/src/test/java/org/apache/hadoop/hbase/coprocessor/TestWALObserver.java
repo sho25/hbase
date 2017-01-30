@@ -1728,6 +1728,10 @@ argument_list|()
 argument_list|,
 name|now
 argument_list|,
+operator|new
+name|MultiVersionConcurrencyControl
+argument_list|()
+argument_list|,
 name|scopes
 argument_list|)
 argument_list|,
