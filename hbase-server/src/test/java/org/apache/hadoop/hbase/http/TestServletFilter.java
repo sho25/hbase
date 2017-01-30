@@ -969,7 +969,7 @@ name|GenericTestUtils
 operator|.
 name|assertExceptionContains
 argument_list|(
-literal|"Unable to initialize WebAppContext"
+literal|"Problem starting http server"
 argument_list|,
 name|e
 argument_list|)

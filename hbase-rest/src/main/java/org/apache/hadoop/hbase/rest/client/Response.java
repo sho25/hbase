@@ -45,9 +45,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|http
+name|commons
 operator|.
-name|Header
+name|logging
+operator|.
+name|Log
 import|;
 end_import
 
@@ -57,9 +59,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|http
+name|commons
 operator|.
-name|HttpResponse
+name|logging
+operator|.
+name|LogFactory
 import|;
 end_import
 
@@ -99,11 +103,23 @@ begin_import
 import|import
 name|org
 operator|.
-name|mortbay
+name|apache
 operator|.
-name|log
+name|http
 operator|.
-name|Log
+name|Header
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|http
+operator|.
+name|HttpResponse
 import|;
 end_import
 
@@ -124,6 +140,21 @@ specifier|public
 class|class
 name|Response
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|Log
+name|LOG
+init|=
+name|LogFactory
+operator|.
+name|getLog
+argument_list|(
+name|Response
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 specifier|private
 name|int
 name|code
@@ -401,7 +432,7 @@ name|IOException
 name|ioe
 parameter_list|)
 block|{
-name|Log
+name|LOG
 operator|.
 name|debug
 argument_list|(

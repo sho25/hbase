@@ -186,7 +186,7 @@ specifier|final
 name|String
 name|BUILD_WEBAPPS_DIR
 init|=
-literal|"build/test/webapps"
+literal|"src/main/resources/hbase-webapps"
 decl_stmt|;
 comment|/** name of the test webapp: {@value} */
 specifier|private
