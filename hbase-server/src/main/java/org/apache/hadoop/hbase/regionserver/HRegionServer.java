@@ -567,6 +567,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|DoNotRetryIOException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseConfiguration
 import|;
 end_import
@@ -7056,9 +7070,9 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Reports the given map of Regions and their size on the filesystem to the active Master.    *    * @param onlineRegionSizes A map of region info to size in bytes    */
+comment|/**    * Reports the given map of Regions and their size on the filesystem to the active Master.    *    * @param onlineRegionSizes A map of region info to size in bytes    * @return false if FileSystemUtilizationChore should pause reporting to master. true otherwise    */
 specifier|public
-name|void
+name|boolean
 name|reportRegionSizesForQuotas
 parameter_list|(
 specifier|final
@@ -7093,7 +7107,9 @@ argument_list|(
 literal|"Skipping Region size report to HMaster as stub is null"
 argument_list|)
 expr_stmt|;
-return|return;
+return|return
+literal|true
+return|;
 block|}
 try|try
 block|{
@@ -7147,23 +7163,18 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Failed to report region sizes to Master because it is initializing. This will be retried."
+literal|"Failed to report region sizes to Master because it is initializing."
+operator|+
+literal|" This will be retried."
 argument_list|,
 name|ioe
 argument_list|)
 expr_stmt|;
 comment|// The Master is coming up. Will retry the report later. Avoid re-creating the stub.
-return|return;
+return|return
+literal|true
+return|;
 block|}
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Failed to report region sizes to Master. This will be retried."
-argument_list|,
-name|ioe
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 name|rssStub
@@ -7181,7 +7192,72 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|ioe
+operator|instanceof
+name|DoNotRetryIOException
+condition|)
+block|{
+name|DoNotRetryIOException
+name|doNotRetryEx
+init|=
+operator|(
+name|DoNotRetryIOException
+operator|)
+name|ioe
+decl_stmt|;
+if|if
+condition|(
+name|doNotRetryEx
+operator|.
+name|getCause
+argument_list|()
+operator|!=
+literal|null
+condition|)
+block|{
+name|Throwable
+name|t
+init|=
+name|doNotRetryEx
+operator|.
+name|getCause
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|t
+operator|instanceof
+name|UnsupportedOperationException
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"master doesn't support ReportRegionSpaceUse, pause before retrying"
+argument_list|)
+expr_stmt|;
+return|return
+literal|false
+return|;
 block|}
+block|}
+block|}
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Failed to report region sizes to Master. This will be retried."
+argument_list|,
+name|ioe
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+literal|true
+return|;
 block|}
 comment|/**    * Builds a {@link RegionSpaceUseReportRequest} protobuf message from the region size map.    *    * @param regionSizes Map of region info to size in bytes.    * @return The corresponding protocol buffer message.    */
 name|RegionSpaceUseReportRequest
