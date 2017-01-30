@@ -1751,20 +1751,7 @@ argument_list|,
 literal|204
 argument_list|)
 expr_stmt|;
-name|assertEquals
-argument_list|(
-name|Constants
-operator|.
-name|MIMETYPE_XML
-argument_list|,
-name|response
-operator|.
-name|getHeader
-argument_list|(
-literal|"content-type"
-argument_list|)
-argument_list|)
-expr_stmt|;
+comment|// With no content in the payload, the 'Content-Type' header is not echo back
 block|}
 annotation|@
 name|Test
