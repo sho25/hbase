@@ -5453,6 +5453,8 @@ literal|true
 argument_list|,
 literal|true
 argument_list|,
+literal|true
+argument_list|,
 literal|false
 argument_list|,
 literal|false
@@ -5477,6 +5479,7 @@ index|[]
 block|{}
 argument_list|)
 expr_stmt|;
+comment|//no LINGERING_SPLIT_PARENT reported
 comment|// assert that the split hbase:meta entry is still there.
 name|Get
 name|get
@@ -5967,6 +5970,8 @@ argument_list|,
 literal|true
 argument_list|,
 literal|true
+argument_list|,
+literal|false
 argument_list|,
 literal|false
 argument_list|,
@@ -9846,6 +9851,8 @@ argument_list|,
 literal|false
 argument_list|,
 literal|true
+argument_list|,
+literal|false
 argument_list|,
 literal|false
 argument_list|,

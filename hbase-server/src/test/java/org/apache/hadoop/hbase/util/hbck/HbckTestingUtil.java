@@ -248,6 +248,8 @@ name|fix
 argument_list|,
 name|fix
 argument_list|,
+name|fix
+argument_list|,
 name|table
 argument_list|)
 return|;
@@ -283,6 +285,9 @@ name|fixVersionFile
 parameter_list|,
 name|boolean
 name|fixReferenceFiles
+parameter_list|,
+name|boolean
+name|fixHFileLinks
 parameter_list|,
 name|boolean
 name|fixEmptyMetaRegionInfo
@@ -379,6 +384,13 @@ operator|.
 name|setFixReferenceFiles
 argument_list|(
 name|fixReferenceFiles
+argument_list|)
+expr_stmt|;
+name|fsck
+operator|.
+name|setFixHFileLinks
+argument_list|(
+name|fixHFileLinks
 argument_list|)
 expr_stmt|;
 name|fsck
