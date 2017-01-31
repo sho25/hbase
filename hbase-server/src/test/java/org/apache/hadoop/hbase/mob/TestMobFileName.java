@@ -267,9 +267,6 @@ name|dateStr
 argument_list|,
 name|uuid
 argument_list|)
-operator|.
-name|hashCode
-argument_list|()
 argument_list|,
 name|MobFileName
 operator|.
@@ -281,9 +278,6 @@ name|dateStr
 argument_list|,
 name|uuid
 argument_list|)
-operator|.
-name|hashCode
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

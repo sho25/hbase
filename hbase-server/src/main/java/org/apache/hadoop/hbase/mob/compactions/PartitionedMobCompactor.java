@@ -837,6 +837,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|EnvironmentEdgeManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|Pair
 import|;
 end_import
@@ -2246,7 +2262,7 @@ return|return
 name|paths
 return|;
 block|}
-comment|/**    * Compacts a partition of selected small mob files and all the del files.    * @param request The compaction request.    * @param partition A compaction partition.    * @param delFiles The del files.    * @param connection to use    * @param table The current table.  @return The paths of new mob files after compactions.    * @throws IOException if IO failure is encountered    */
+comment|/**    * Compacts a partition of selected small mob files and all the del files.    * @param request The compaction request.    * @param partition A compaction partition.    * @param delFiles The del files.    * @param connection The connection to use.    * @param table The current table.    * @return The paths of new mob files after compactions.    * @throws IOException if IO failure is encountered    */
 specifier|private
 name|List
 argument_list|<
@@ -2275,6 +2291,38 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|MobUtils
+operator|.
+name|isMobFileExpired
+argument_list|(
+name|column
+argument_list|,
+name|EnvironmentEdgeManager
+operator|.
+name|currentTime
+argument_list|()
+argument_list|,
+name|partition
+operator|.
+name|getPartitionId
+argument_list|()
+operator|.
+name|getDate
+argument_list|()
+argument_list|)
+condition|)
+block|{
+comment|// If the files in the partition are expired, do not compact them and directly
+comment|// return an empty list.
+return|return
+name|Collections
+operator|.
+name|emptyList
+argument_list|()
+return|;
+block|}
 name|List
 argument_list|<
 name|Path
