@@ -3886,7 +3886,7 @@ operator|.
 name|getFavoredNodesManager
 argument_list|()
 operator|.
-name|getFavoredNodes
+name|getFavoredNodesWithDNPort
 argument_list|(
 name|region
 argument_list|)
@@ -5457,7 +5457,7 @@ operator|.
 name|getFavoredNodesManager
 argument_list|()
 operator|.
-name|getFavoredNodes
+name|getFavoredNodesWithDNPort
 argument_list|(
 name|region
 argument_list|)
@@ -8828,8 +8828,9 @@ name|hri
 argument_list|)
 condition|)
 block|{
-name|favoredNodes
-operator|=
+name|FavoredNodesManager
+name|fnm
+init|=
 operator|(
 operator|(
 name|MasterServices
@@ -8839,8 +8840,12 @@ operator|)
 operator|.
 name|getFavoredNodesManager
 argument_list|()
+decl_stmt|;
+name|favoredNodes
+operator|=
+name|fnm
 operator|.
-name|getFavoredNodes
+name|getFavoredNodesWithDNPort
 argument_list|(
 name|hri
 argument_list|)
