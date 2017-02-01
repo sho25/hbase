@@ -1583,6 +1583,34 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Enable/Disable the cleaner chore    *    * @param on if true enables the cleaner chore    * @return the previous state    * @throws IOException    */
+specifier|public
+name|boolean
+name|setCleanerChoreRunning
+parameter_list|(
+specifier|final
+name|boolean
+name|on
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Ask for cleaner chore to run    *    * @return True if cleaner chore ran, false otherwise    * @throws IOException    */
+specifier|public
+name|boolean
+name|runCleanerChore
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Query on the cleaner chore state (Enabled/Disabled?)    *    * @throws IOException    */
+specifier|public
+name|boolean
+name|isCleanerChoreEnabled
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Merge two regions. Asynchronous operation.    *    * @param nameOfRegionA encoded or full name of region a    * @param nameOfRegionB encoded or full name of region b    * @param forcible true if do a compulsory merge, otherwise we will only merge two adjacent    * regions    * @throws IOException    * @deprecated Since 2.0. Will be removed in 3.0. Use    *     {@link #mergeRegionsAsync(byte[], byte[], boolean)} instead.    */
 annotation|@
 name|Deprecated
