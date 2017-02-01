@@ -657,25 +657,6 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// no memory compaction
-name|conf
-operator|.
-name|set
-argument_list|(
-name|CompactingMemStore
-operator|.
-name|COMPACTING_MEMSTORE_TYPE_KEY
-argument_list|,
-name|String
-operator|.
-name|valueOf
-argument_list|(
-name|MemoryCompactionPolicy
-operator|.
-name|NONE
-argument_list|)
-argument_list|)
-expr_stmt|;
 block|}
 annotation|@
 name|After

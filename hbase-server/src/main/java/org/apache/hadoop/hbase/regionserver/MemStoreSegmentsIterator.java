@@ -164,11 +164,11 @@ name|KeyValueScanner
 argument_list|>
 argument_list|()
 decl_stmt|;
-comment|// create the list of scanners with the smallest read point, meaning that
-comment|// only relevant KVs are going to be returned by the pipeline traversing
+comment|// create the list of scanners to traverse over all the data
+comment|// no dirty reads here as these are immutable segments
 for|for
 control|(
-name|Segment
+name|ImmutableSegment
 name|segment
 range|:
 name|segments
@@ -182,10 +182,9 @@ name|segment
 operator|.
 name|getScanner
 argument_list|(
-name|store
+name|Integer
 operator|.
-name|getSmallestReadPoint
-argument_list|()
+name|MAX_VALUE
 argument_list|)
 argument_list|)
 expr_stmt|;
