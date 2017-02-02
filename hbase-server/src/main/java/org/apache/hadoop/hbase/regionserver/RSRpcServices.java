@@ -883,24 +883,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
-operator|.
-name|hfile
-operator|.
-name|CorruptHFileException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|ipc
 operator|.
 name|HBaseRPCErrorHandler
@@ -18625,14 +18607,22 @@ argument_list|,
 name|context
 argument_list|)
 expr_stmt|;
-comment|// If it is a CorruptHFileException or a FileNotFoundException, throw the
-comment|// DoNotRetryIOException. This can avoid the retry in ClientScanner.
+comment|// rethrow DoNotRetryIOException. This can avoid the retry in ClientScanner.
 if|if
 condition|(
 name|e
 operator|instanceof
-name|CorruptHFileException
-operator|||
+name|DoNotRetryIOException
+condition|)
+block|{
+throw|throw
+name|e
+throw|;
+block|}
+comment|// If it is a FileNotFoundException, wrap as a
+comment|// DoNotRetryIOException. This can avoid the retry in ClientScanner.
+if|if
+condition|(
 name|e
 operator|instanceof
 name|FileNotFoundException
