@@ -638,7 +638,9 @@ name|i
 argument_list|)
 operator|.
 name|createReader
-argument_list|()
+argument_list|(
+name|canUseDrop
+argument_list|)
 decl_stmt|;
 name|r
 operator|.
