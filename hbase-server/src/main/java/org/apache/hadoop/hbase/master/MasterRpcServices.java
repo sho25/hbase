@@ -4666,9 +4666,11 @@ name|UnknownProtocolException
 argument_list|(
 literal|null
 argument_list|,
-literal|"No registered master coprocessor service found for name "
+literal|"No registered Master Coprocessor Endpoint found for "
 operator|+
 name|serviceName
+operator|+
+literal|". Has it been enabled?"
 argument_list|)
 throw|;
 block|}

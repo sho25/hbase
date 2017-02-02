@@ -899,6 +899,24 @@ name|KeeperException
 import|;
 end_import
 
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|rsgroup
+operator|.
+name|Utility
+operator|.
+name|getOnlineServers
+import|;
+end_import
+
 begin_comment
 comment|/**  * This is an implementation of {@link RSGroupInfoManager}. Which makes  * use of an HBase table as the persistence store for the group information.  * It also makes use of zookeeper to store group information needed  * for bootstrapping during offline mode.  */
 end_comment
@@ -1299,7 +1317,10 @@ annotation|@
 name|Override
 specifier|public
 specifier|synchronized
-name|boolean
+name|Set
+argument_list|<
+name|HostAndPort
+argument_list|>
 name|moveServers
 parameter_list|(
 name|Set
@@ -1332,7 +1353,7 @@ throw|throw
 operator|new
 name|DoNotRetryIOException
 argument_list|(
-literal|"Group "
+literal|"RSGroup "
 operator|+
 name|srcGroup
 operator|+
@@ -1355,7 +1376,7 @@ throw|throw
 operator|new
 name|DoNotRetryIOException
 argument_list|(
-literal|"Group "
+literal|"RSGroup "
 operator|+
 name|dstGroup
 operator|+
@@ -1387,10 +1408,50 @@ name|dstGroup
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|boolean
-name|foundOne
+comment|// If destination is 'default' rsgroup, make sure servers is online.
+comment|// If not, just drop it.
+name|Set
+argument_list|<
+name|HostAndPort
+argument_list|>
+name|onlineServers
 init|=
-literal|false
+name|dst
+operator|.
+name|getName
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+name|RSGroupInfo
+operator|.
+name|DEFAULT_GROUP
+argument_list|)
+condition|?
+name|getOnlineServers
+argument_list|(
+name|this
+operator|.
+name|master
+argument_list|)
+else|:
+literal|null
+decl_stmt|;
+name|Set
+argument_list|<
+name|HostAndPort
+argument_list|>
+name|result
+init|=
+operator|new
+name|HashSet
+argument_list|<>
+argument_list|(
+name|hostPorts
+operator|.
+name|size
+argument_list|()
+argument_list|)
 decl_stmt|;
 for|for
 control|(
@@ -1400,20 +1461,66 @@ range|:
 name|hostPorts
 control|)
 block|{
-name|foundOne
-operator|=
 name|src
 operator|.
 name|removeServer
 argument_list|(
 name|el
 argument_list|)
-operator|||
-name|foundOne
 expr_stmt|;
+if|if
+condition|(
+name|onlineServers
+operator|!=
+literal|null
+condition|)
+block|{
+comment|// onlineServers is non-null if 'default' rsgroup.
+comment|// If the server is not online, drop it.
+if|if
+condition|(
+operator|!
+name|onlineServers
+operator|.
+name|contains
+argument_list|(
+name|el
+argument_list|)
+condition|)
+block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Dropping "
+operator|+
+name|el
+operator|+
+literal|" during move-to-default rsgroup because it is not online"
+argument_list|)
+expr_stmt|;
+block|}
+continue|continue;
+block|}
+block|}
 name|dst
 operator|.
 name|addServer
+argument_list|(
+name|el
+argument_list|)
+expr_stmt|;
+name|result
+operator|.
+name|add
 argument_list|(
 name|el
 argument_list|)
@@ -1464,7 +1571,7 @@ name|newGroupMap
 argument_list|)
 expr_stmt|;
 return|return
-name|foundOne
+name|result
 return|;
 block|}
 comment|/**    * Gets the group info of server.    *    * @param hostPort the server    * @return An instance of GroupInfo.    */

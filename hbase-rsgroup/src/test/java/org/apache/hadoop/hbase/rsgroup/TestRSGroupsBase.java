@@ -1994,7 +1994,7 @@ block|{
 name|String
 name|exp
 init|=
-literal|"Server foo:9999 does not have a group."
+literal|"Server foo:9999 does not have a rsgroup"
 decl_stmt|;
 name|String
 name|msg

@@ -231,8 +231,11 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * move servers to a new group.    * @param hostPorts list of servers, must be part of the same group    * @param srcGroup groupName being moved from    * @param dstGroup groupName being moved to    * @return true if move was successful    * @throws java.io.IOException on move failure    */
-name|boolean
+comment|/**    * move servers to a new group.    * @param hostPorts list of servers, must be part of the same group    * @param srcGroup groupName being moved from    * @param dstGroup groupName being moved to    * @return Set of servers moved (May be a subset of {@code hostPorts}).    * @throws java.io.IOException on move failure    */
+name|Set
+argument_list|<
+name|HostAndPort
+argument_list|>
 name|moveServers
 parameter_list|(
 name|Set

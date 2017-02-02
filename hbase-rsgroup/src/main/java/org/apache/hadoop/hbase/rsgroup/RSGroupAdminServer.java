@@ -18,58 +18,20 @@ package|;
 end_package
 
 begin_import
-import|import
-name|com
+import|import static
+name|org
 operator|.
-name|google
+name|apache
 operator|.
-name|common
+name|hadoop
 operator|.
-name|collect
+name|hbase
 operator|.
-name|Lists
-import|;
-end_import
-
-begin_import
-import|import
-name|com
+name|rsgroup
 operator|.
-name|google
+name|Utility
 operator|.
-name|common
-operator|.
-name|collect
-operator|.
-name|Maps
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|collect
-operator|.
-name|Sets
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|net
-operator|.
-name|HostAndPort
+name|getOnlineServers
 import|;
 end_import
 
@@ -119,16 +81,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|HashSet
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|Iterator
 import|;
 end_import
@@ -169,6 +121,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|NavigableMap
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Set
 import|;
 end_import
@@ -181,19 +143,7 @@ name|util
 operator|.
 name|concurrent
 operator|.
-name|ConcurrentHashMap
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|ConcurrentMap
+name|ConcurrentSkipListMap
 import|;
 end_import
 
@@ -473,6 +423,64 @@ name|LockProcedure
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Addressing
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|collect
+operator|.
+name|Maps
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|collect
+operator|.
+name|Sets
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|net
+operator|.
+name|HostAndPort
+import|;
+end_import
+
 begin_comment
 comment|/**  * Service to support Region Server Grouping (HBase-6721)  */
 end_comment
@@ -507,10 +515,10 @@ specifier|private
 name|MasterServices
 name|master
 decl_stmt|;
-comment|//List of servers that are being moved from one group to another
-comment|//Key=host:port,Value=targetGroup
+comment|// List of servers that are being moved from one group to another
+comment|// Key=host:port,Value=targetGroup
 specifier|private
-name|ConcurrentMap
+name|NavigableMap
 argument_list|<
 name|HostAndPort
 argument_list|,
@@ -519,17 +527,23 @@ argument_list|>
 name|serversInTransition
 init|=
 operator|new
-name|ConcurrentHashMap
+name|ConcurrentSkipListMap
 argument_list|<
 name|HostAndPort
 argument_list|,
 name|String
 argument_list|>
+argument_list|(
+operator|new
+name|Addressing
+operator|.
+name|HostAndPortComparable
 argument_list|()
+argument_list|)
 decl_stmt|;
 specifier|private
 name|RSGroupInfoManager
-name|RSGroupInfoManager
+name|rsgroupInfoManager
 decl_stmt|;
 specifier|public
 name|RSGroupAdminServer
@@ -551,7 +565,7 @@ name|master
 expr_stmt|;
 name|this
 operator|.
-name|RSGroupInfoManager
+name|rsgroupInfoManager
 operator|=
 name|RSGroupInfoManager
 expr_stmt|;
@@ -601,18 +615,13 @@ argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
+return|return
 name|groupName
 operator|==
 literal|null
-condition|)
-block|{
-return|return
+condition|?
 literal|null
-return|;
-block|}
-return|return
+else|:
 name|getRSGroupInfoManager
 argument_list|()
 operator|.
@@ -651,9 +660,19 @@ throw|throw
 operator|new
 name|ConstraintException
 argument_list|(
-literal|"The list of servers cannot be null."
+literal|"The list of servers to move cannot be null."
 argument_list|)
 throw|;
+block|}
+if|if
+condition|(
+name|servers
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
+return|return;
 block|}
 if|if
 condition|(
@@ -669,21 +688,9 @@ throw|throw
 operator|new
 name|ConstraintException
 argument_list|(
-literal|"The target group cannot be null."
+literal|"The target rsgroup cannot be null."
 argument_list|)
 throw|;
-block|}
-if|if
-condition|(
-name|servers
-operator|.
-name|size
-argument_list|()
-operator|<
-literal|1
-condition|)
-block|{
-return|return;
 block|}
 name|RSGroupInfo
 name|targetGrp
@@ -704,9 +711,11 @@ throw|throw
 operator|new
 name|ConstraintException
 argument_list|(
-literal|"Group does not exist: "
+literal|"RSGroup "
 operator|+
 name|targetGroupName
+operator|+
+literal|" does not exist."
 argument_list|)
 throw|;
 block|}
@@ -755,8 +764,7 @@ operator|.
 name|next
 argument_list|()
 decl_stmt|;
-comment|//we only allow a move from a single source group
-comment|//so this should be ok
+comment|// We only allow a move from a single source group so this should be ok
 name|RSGroupInfo
 name|srcGrp
 init|=
@@ -767,9 +775,6 @@ argument_list|(
 name|firstServer
 argument_list|)
 decl_stmt|;
-comment|//only move online servers (from default)
-comment|//or servers from other groups
-comment|//this prevents bogus servers from entering groups
 if|if
 condition|(
 name|srcGrp
@@ -785,10 +790,41 @@ literal|"Server "
 operator|+
 name|firstServer
 operator|+
-literal|" does not have a group."
+literal|" does not have a rsgroup."
 argument_list|)
 throw|;
 block|}
+if|if
+condition|(
+name|srcGrp
+operator|.
+name|getName
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+name|targetGroupName
+argument_list|)
+condition|)
+block|{
+throw|throw
+operator|new
+name|ConstraintException
+argument_list|(
+literal|"Target rsgroup "
+operator|+
+name|targetGroupName
+operator|+
+literal|" is same as source "
+operator|+
+name|srcGrp
+operator|+
+literal|" rsgroup."
+argument_list|)
+throw|;
+block|}
+comment|// Only move online servers (from default) or servers from other groups.
+comment|// This prevents bogus servers from entering groups
 if|if
 condition|(
 name|RSGroupInfo
@@ -810,41 +846,13 @@ name|HostAndPort
 argument_list|>
 name|onlineServers
 init|=
-operator|new
-name|HashSet
-argument_list|<
-name|HostAndPort
-argument_list|>
-argument_list|()
-decl_stmt|;
-for|for
-control|(
-name|ServerName
-name|server
-range|:
-name|master
-operator|.
-name|getServerManager
-argument_list|()
-operator|.
 name|getOnlineServers
-argument_list|()
-operator|.
-name|keySet
-argument_list|()
-control|)
-block|{
-name|onlineServers
-operator|.
-name|add
 argument_list|(
-name|server
+name|this
 operator|.
-name|getHostPort
-argument_list|()
+name|master
 argument_list|)
-expr_stmt|;
-block|}
+decl_stmt|;
 for|for
 control|(
 name|HostAndPort
@@ -872,7 +880,7 @@ literal|"Server "
 operator|+
 name|el
 operator|+
-literal|" is not an online server in default group."
+literal|" is not an online server in 'default' rsgroup."
 argument_list|)
 throw|;
 block|}
@@ -908,24 +916,21 @@ throw|throw
 operator|new
 name|ConstraintException
 argument_list|(
-literal|"Cannot leave a group "
+literal|"Cannot leave a rsgroup "
 operator|+
 name|srcGrp
 operator|.
 name|getName
 argument_list|()
 operator|+
-literal|" that contains tables "
-operator|+
-literal|"without servers."
+literal|" that contains tables without servers to host them."
 argument_list|)
 throw|;
 block|}
 name|String
 name|sourceGroupName
 init|=
-name|getRSGroupInfoManager
-argument_list|()
+name|manager
 operator|.
 name|getRSGroupOfServer
 argument_list|(
@@ -958,9 +963,11 @@ throw|throw
 operator|new
 name|ConstraintException
 argument_list|(
-literal|"Target group does not exist: "
+literal|"Target "
 operator|+
 name|targetGroupName
+operator|+
+literal|" rsgroup does not exist."
 argument_list|)
 throw|;
 block|}
@@ -986,17 +993,18 @@ throw|throw
 operator|new
 name|ConstraintException
 argument_list|(
-literal|"Server list contains a server that is already being moved: "
+literal|"Server list contains a server "
 operator|+
 name|server
+operator|+
+literal|" that is already being moved."
 argument_list|)
 throw|;
 block|}
 name|String
 name|tmpGroup
 init|=
-name|getRSGroupInfoManager
-argument_list|()
+name|manager
 operator|.
 name|getRSGroupOfServer
 argument_list|(
@@ -1025,7 +1033,7 @@ throw|throw
 operator|new
 name|ConstraintException
 argument_list|(
-literal|"Move server request should only come from one source group. "
+literal|"Move server request should only come from one source rsgroup. "
 operator|+
 literal|"Expecting only "
 operator|+
@@ -1052,9 +1060,11 @@ throw|throw
 operator|new
 name|ConstraintException
 argument_list|(
-literal|"Target group is the same as source group: "
+literal|"Target rsgroup "
 operator|+
-name|targetGroupName
+name|sourceGroupName
+operator|+
+literal|" is same as source rsgroup."
 argument_list|)
 throw|;
 block|}
@@ -1079,8 +1089,13 @@ name|targetGroupName
 argument_list|)
 expr_stmt|;
 block|}
-name|getRSGroupInfoManager
-argument_list|()
+name|Set
+argument_list|<
+name|HostAndPort
+argument_list|>
+name|movedServers
+init|=
+name|manager
 operator|.
 name|moveServers
 argument_list|(
@@ -1090,22 +1105,9 @@ name|sourceGroupName
 argument_list|,
 name|targetGroupName
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 name|boolean
 name|found
-decl_stmt|;
-name|List
-argument_list|<
-name|HostAndPort
-argument_list|>
-name|tmpServers
-init|=
-name|Lists
-operator|.
-name|newArrayList
-argument_list|(
-name|servers
-argument_list|)
 decl_stmt|;
 do|do
 block|{
@@ -1121,7 +1123,7 @@ name|HostAndPort
 argument_list|>
 name|iter
 init|=
-name|tmpServers
+name|movedServers
 operator|.
 name|iterator
 argument_list|()
@@ -1321,6 +1323,30 @@ argument_list|(
 name|region
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|master
+operator|.
+name|getAssignmentManager
+argument_list|()
+operator|.
+name|getRegionStates
+argument_list|()
+operator|.
+name|getRegionState
+argument_list|(
+name|region
+argument_list|)
+operator|.
+name|isFailedOpen
+argument_list|()
+condition|)
+block|{
+comment|// If region is in FAILED_OPEN state, it won't recover, not without
+comment|// operator intervention... in hbase-2.0.0 at least. Continue rather
+comment|// than mark region as 'found'.
+continue|continue;
+block|}
 name|found
 operator|=
 literal|true
@@ -1554,9 +1580,11 @@ throw|throw
 operator|new
 name|ConstraintException
 argument_list|(
-literal|"Target group does not exist: "
+literal|"Target "
 operator|+
 name|targetGroup
+operator|+
+literal|" rsgroup does not exist."
 argument_list|)
 throw|;
 block|}
@@ -1577,7 +1605,7 @@ throw|throw
 operator|new
 name|ConstraintException
 argument_list|(
-literal|"Target group must have at least one server."
+literal|"Target rsgroup must have at least one server."
 argument_list|)
 throw|;
 block|}
@@ -1618,13 +1646,17 @@ throw|throw
 operator|new
 name|ConstraintException
 argument_list|(
-literal|"Source group is the same as target group for table "
-operator|+
-name|table
-operator|+
-literal|" :"
+literal|"Source rsgroup "
 operator|+
 name|srcGroup
+operator|+
+literal|" is same as target "
+operator|+
+name|targetGroup
+operator|+
+literal|" rsgroup for table "
+operator|+
+name|table
 argument_list|)
 throw|;
 block|}
@@ -1698,7 +1730,7 @@ operator|.
 name|getName
 argument_list|()
 operator|+
-literal|": Group: table move"
+literal|": RSGroup: table move"
 argument_list|)
 decl_stmt|;
 try|try
@@ -1901,7 +1933,7 @@ throw|throw
 operator|new
 name|ConstraintException
 argument_list|(
-literal|"Group "
+literal|"RSGroup "
 operator|+
 name|name
 operator|+
@@ -1931,13 +1963,17 @@ throw|throw
 operator|new
 name|ConstraintException
 argument_list|(
-literal|"Group "
+literal|"RSGroup "
 operator|+
 name|name
 operator|+
-literal|" must have no associated tables: "
+literal|" has "
 operator|+
 name|tableCount
+operator|+
+literal|" tables; you must remove these tables from the rsgroup before "
+operator|+
+literal|"the rsgroup can be removed."
 argument_list|)
 throw|;
 block|}
@@ -1963,13 +1999,17 @@ throw|throw
 operator|new
 name|ConstraintException
 argument_list|(
-literal|"Group "
+literal|"RSGroup "
 operator|+
 name|name
 operator|+
-literal|" must have no associated servers: "
+literal|" has "
 operator|+
 name|serverCount
+operator|+
+literal|" servers; you must remove these servers from the rsgroup before"
+operator|+
+literal|"the rsgroup can be removed."
 argument_list|)
 throw|;
 block|}
@@ -2017,7 +2057,7 @@ throw|throw
 operator|new
 name|ConstraintException
 argument_list|(
-literal|"Group "
+literal|"RSGroup "
 operator|+
 name|name
 operator|+
@@ -2140,7 +2180,7 @@ throw|throw
 operator|new
 name|ConstraintException
 argument_list|(
-literal|"Group does not exist: "
+literal|"RSGroup does not exist: "
 operator|+
 name|groupName
 argument_list|)
@@ -2374,7 +2414,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Group balance "
+literal|"RSGroup balance "
 operator|+
 name|groupName
 operator|+
@@ -2415,7 +2455,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Group balance "
+literal|"RSGroup balance "
 operator|+
 name|groupName
 operator|+
@@ -2516,7 +2556,7 @@ throws|throws
 name|IOException
 block|{
 return|return
-name|RSGroupInfoManager
+name|rsgroupInfoManager
 return|;
 block|}
 specifier|private
