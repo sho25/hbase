@@ -1102,15 +1102,6 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/** Parameter name for HBase WAL directory */
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|HBASE_WAL_DIR
-init|=
-literal|"hbase.wal.dir"
-decl_stmt|;
 comment|/** Full access permissions (starting point for a umask) */
 specifier|public
 specifier|static
@@ -5477,7 +5468,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * @param c configuration    * @return {@link Path} to hbase log root directory: i.e. {@value #HBASE_WAL_DIR} from    * configuration as a qualified Path. Defaults to {@value org.apache.hadoop.hbase.HConstants#HBASE_DIR}    * @throws IOException e    */
+comment|/**    * @param c configuration    * @return {@link Path} to hbase log root directory: i.e. {@value org.apache.hadoop.hbase.fs.HFileSystem#HBASE_WAL_DIR} from    * configuration as a qualified Path. Defaults to {@value org.apache.hadoop.hbase.HConstants#HBASE_DIR}    * @throws IOException e    */
 end_comment
 
 begin_function
@@ -5503,6 +5494,8 @@ name|c
 operator|.
 name|get
 argument_list|(
+name|HFileSystem
+operator|.
 name|HBASE_WAL_DIR
 argument_list|,
 name|c
@@ -5578,6 +5571,8 @@ name|c
 operator|.
 name|set
 argument_list|(
+name|HFileSystem
+operator|.
 name|HBASE_WAL_DIR
 argument_list|,
 name|root
