@@ -329,6 +329,22 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|EnvironmentEdgeManager
+import|;
+end_import
+
+begin_import
+import|import
 name|com
 operator|.
 name|google
@@ -482,6 +498,25 @@ name|QUOTA_OBSERVER_CHORE_REPORT_PERCENT_DEFAULT
 init|=
 literal|0.95
 decl_stmt|;
+specifier|static
+specifier|final
+name|String
+name|REGION_REPORT_RETENTION_DURATION_KEY
+init|=
+literal|"hbase.master.quotas.region.report.retention.millis"
+decl_stmt|;
+specifier|static
+specifier|final
+name|long
+name|REGION_REPORT_RETENTION_DURATION_DEFAULT
+init|=
+literal|1000
+operator|*
+literal|60
+operator|*
+literal|10
+decl_stmt|;
+comment|// 10 minutes
 specifier|private
 specifier|final
 name|Connection
@@ -523,6 +558,12 @@ argument_list|,
 name|SpaceQuotaSnapshot
 argument_list|>
 name|namespaceQuotaSnapshots
+decl_stmt|;
+comment|// The time, in millis, that region reports should be kept by the master
+specifier|private
+specifier|final
+name|long
+name|regionReportLifetimeMillis
 decl_stmt|;
 comment|/*    * Encapsulates logic for tracking the state of a table/namespace WRT space quotas    */
 specifier|private
@@ -664,6 +705,19 @@ name|HashMap
 argument_list|<>
 argument_list|()
 expr_stmt|;
+name|this
+operator|.
+name|regionReportLifetimeMillis
+operator|=
+name|conf
+operator|.
+name|getLong
+argument_list|(
+name|REGION_REPORT_RETENTION_DURATION_KEY
+argument_list|,
+name|REGION_REPORT_RETENTION_DURATION_DEFAULT
+argument_list|)
+expr_stmt|;
 block|}
 annotation|@
 name|Override
@@ -781,6 +835,10 @@ literal|" region space use reports"
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Remove the "old" region reports
+name|pruneOldRegionReports
+argument_list|()
+expr_stmt|;
 comment|// Create the stores to track table and namespace snapshots
 name|initializeSnapshotStores
 argument_list|(
@@ -789,13 +847,21 @@ argument_list|)
 expr_stmt|;
 comment|// Filter out tables for which we don't have adequate regionspace reports yet.
 comment|// Important that we do this after we instantiate the stores above
+comment|// This gives us a set of Tables which may or may not be violating their quota.
+comment|// To be safe, we want to make sure that these are not in violation.
+name|Set
+argument_list|<
+name|TableName
+argument_list|>
+name|tablesInLimbo
+init|=
 name|tablesWithQuotas
 operator|.
 name|filterInsufficientlyReportedTables
 argument_list|(
 name|tableSnapshotStore
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 if|if
 condition|(
 name|LOG
@@ -818,6 +884,103 @@ operator|+
 literal|" regions reported"
 argument_list|)
 expr_stmt|;
+block|}
+for|for
+control|(
+name|TableName
+name|tableInLimbo
+range|:
+name|tablesInLimbo
+control|)
+block|{
+specifier|final
+name|SpaceQuotaSnapshot
+name|currentSnapshot
+init|=
+name|tableSnapshotStore
+operator|.
+name|getCurrentState
+argument_list|(
+name|tableInLimbo
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|currentSnapshot
+operator|.
+name|getQuotaStatus
+argument_list|()
+operator|.
+name|isInViolation
+argument_list|()
+condition|)
+block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Moving "
+operator|+
+name|tableInLimbo
+operator|+
+literal|" out of violation because fewer region sizes were"
+operator|+
+literal|" reported than required."
+argument_list|)
+expr_stmt|;
+block|}
+name|SpaceQuotaSnapshot
+name|targetSnapshot
+init|=
+operator|new
+name|SpaceQuotaSnapshot
+argument_list|(
+name|SpaceQuotaStatus
+operator|.
+name|notInViolation
+argument_list|()
+argument_list|,
+name|currentSnapshot
+operator|.
+name|getUsage
+argument_list|()
+argument_list|,
+name|currentSnapshot
+operator|.
+name|getLimit
+argument_list|()
+argument_list|)
+decl_stmt|;
+name|this
+operator|.
+name|snapshotNotifier
+operator|.
+name|transitionTable
+argument_list|(
+name|tableInLimbo
+argument_list|,
+name|targetSnapshot
+argument_list|)
+expr_stmt|;
+comment|// Update it in the Table QuotaStore so that memory is consistent with no violation.
+name|tableSnapshotStore
+operator|.
+name|setCurrentState
+argument_list|(
+name|tableInLimbo
+argument_list|,
+name|targetSnapshot
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|// Transition each table to/from quota violation based on the current and target state.
 comment|// Only table quotas are enacted.
@@ -1712,6 +1875,64 @@ block|}
 block|}
 block|}
 block|}
+comment|/**    * Removes region reports over a certain age.    */
+name|void
+name|pruneOldRegionReports
+parameter_list|()
+block|{
+specifier|final
+name|long
+name|now
+init|=
+name|EnvironmentEdgeManager
+operator|.
+name|currentTime
+argument_list|()
+decl_stmt|;
+specifier|final
+name|long
+name|pruneTime
+init|=
+name|now
+operator|-
+name|regionReportLifetimeMillis
+decl_stmt|;
+specifier|final
+name|int
+name|numRemoved
+init|=
+name|quotaManager
+operator|.
+name|pruneEntriesOlderThan
+argument_list|(
+name|pruneTime
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Removed "
+operator|+
+name|numRemoved
+operator|+
+literal|" old region size reports that were older than "
+operator|+
+name|pruneTime
+operator|+
+literal|"."
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 comment|/**    * Computes the set of all tables that have quotas defined. This includes tables with quotas    * explicitly set on them, in addition to tables that exist namespaces which have a quota    * defined.    */
 name|TablesWithQuotas
 name|fetchAllTablesWithQuotasDefined
@@ -2444,7 +2665,10 @@ return|;
 block|}
 comment|/**      * Filters out all tables for which the Master currently doesn't have enough region space      * reports received from RegionServers yet.      */
 specifier|public
-name|void
+name|Set
+argument_list|<
+name|TableName
+argument_list|>
 name|filterInsufficientlyReportedTables
 parameter_list|(
 name|QuotaSnapshotStore
@@ -2671,6 +2895,9 @@ name|tableToRemove
 argument_list|)
 expr_stmt|;
 block|}
+return|return
+name|tablesToRemove
+return|;
 block|}
 comment|/**      * Computes the total number of regions in a table.      */
 name|int
