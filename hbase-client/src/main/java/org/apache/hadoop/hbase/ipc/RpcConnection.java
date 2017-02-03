@@ -1230,7 +1230,7 @@ name|getStartTime
 argument_list|()
 operator|)
 operator|+
-literal|", rpcTimetout="
+literal|", rpcTimeout="
 operator|+
 name|call
 operator|.
