@@ -5419,6 +5419,20 @@ argument_list|(
 name|scan
 argument_list|)
 decl_stmt|;
+name|int
+name|rowNum
+init|=
+name|scanner
+operator|.
+name|next
+argument_list|()
+operator|!=
+literal|null
+condition|?
+literal|1
+else|:
+literal|0
+decl_stmt|;
 comment|//the started scanner shouldn't see the rows put below
 for|for
 control|(
@@ -5491,11 +5505,6 @@ name|put
 argument_list|)
 expr_stmt|;
 block|}
-name|int
-name|rowNum
-init|=
-literal|0
-decl_stmt|;
 for|for
 control|(
 name|Result

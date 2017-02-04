@@ -3787,6 +3787,22 @@ literal|true
 argument_list|)
 argument_list|)
 decl_stmt|;
+comment|// now the openScanner will also fetch data and will be executed lazily, i.e, only openScanner
+comment|// when you call next, so here we need to make a next call to open scanner. The maxResultSize
+comment|// limit can make sure that we will not fetch all the data at once, so the test sill works.
+name|int
+name|scannerCount
+init|=
+name|scanner
+operator|.
+name|next
+argument_list|()
+operator|.
+name|rawCells
+argument_list|()
+operator|.
+name|length
+decl_stmt|;
 name|Delete
 name|delete1
 init|=
@@ -3860,14 +3876,13 @@ name|delete2
 argument_list|)
 expr_stmt|;
 comment|// Should see all cells because scanner was opened prior to deletes
-name|int
 name|scannerCount
-init|=
+operator|+=
 name|countCellsFromScanner
 argument_list|(
 name|scanner
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 name|int
 name|expectedCount
 init|=
@@ -3967,6 +3982,18 @@ literal|true
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|scannerCount
+operator|=
+name|scanner
+operator|.
+name|next
+argument_list|()
+operator|.
+name|rawCells
+argument_list|()
+operator|.
+name|length
+expr_stmt|;
 comment|// Put in 2 new rows. The timestamps differ from the deleted rows
 name|Put
 name|put1
@@ -4064,7 +4091,7 @@ argument_list|)
 expr_stmt|;
 comment|// Scanner opened prior to puts. Cell count shouldn't have changed
 name|scannerCount
-operator|=
+operator|+=
 name|countCellsFromScanner
 argument_list|(
 name|scanner

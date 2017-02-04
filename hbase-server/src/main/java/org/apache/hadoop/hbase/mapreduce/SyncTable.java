@@ -1527,7 +1527,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**      * If there is an open hash batch, complete it and sync if there are diffs.      * Start a new batch, and seek to read the       */
+comment|/**      * If there is an open hash batch, complete it and sync if there are diffs.      * Start a new batch, and seek to read the      */
 specifier|private
 name|void
 name|moveToNextBatch
@@ -1879,7 +1879,11 @@ name|targetTable
 operator|.
 name|getScanner
 argument_list|(
+operator|new
+name|Scan
+argument_list|(
 name|scan
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|CellScanner

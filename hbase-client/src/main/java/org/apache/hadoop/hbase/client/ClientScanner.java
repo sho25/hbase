@@ -175,6 +175,22 @@ name|apache
 operator|.
 name|commons
 operator|.
+name|lang
+operator|.
+name|mutable
+operator|.
+name|MutableBoolean
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
 name|logging
 operator|.
 name|Log
@@ -348,6 +364,24 @@ operator|.
 name|classification
 operator|.
 name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|ScannerCallable
+operator|.
+name|MoreResults
 import|;
 end_import
 
@@ -901,9 +935,6 @@ expr_stmt|;
 name|initCache
 argument_list|()
 expr_stmt|;
-name|initializeScannerInConstruction
-argument_list|()
-expr_stmt|;
 block|}
 specifier|protected
 specifier|abstract
@@ -911,24 +942,6 @@ name|void
 name|initCache
 parameter_list|()
 function_decl|;
-specifier|protected
-name|void
-name|initializeScannerInConstruction
-parameter_list|()
-throws|throws
-name|IOException
-block|{
-comment|// initialize the scanner
-name|nextScanner
-argument_list|(
-name|this
-operator|.
-name|caching
-argument_list|,
-literal|false
-argument_list|)
-expr_stmt|;
-block|}
 specifier|protected
 name|ClusterConnection
 name|getConnection
@@ -1159,17 +1172,14 @@ literal|null
 expr_stmt|;
 block|}
 block|}
-comment|/*    * Gets a scanner for the next region. If this.currentRegion != null, then we will move to the    * endrow of this.currentRegion. Else we will get scanner at the scan.getStartRow(). We will go no    * further, just tidy up outstanding scanners, if<code>currentRegion != null</code> and    *<code>done</code> is true.    * @param nbRows    * @param done Server-side says we're done scanning.    */
+comment|/**    * Gets a scanner for the next region. If this.currentRegion != null, then we will move to the    * endrow of this.currentRegion. Else we will get scanner at the scan.getStartRow().    * @param nbRows the caching option of the scan    * @return the results fetched when open scanner, or null which means terminate the scan.    */
 specifier|protected
-name|boolean
+name|Result
+index|[]
 name|nextScanner
 parameter_list|(
 name|int
 name|nbRows
-parameter_list|,
-specifier|final
-name|boolean
-name|done
 parameter_list|)
 throws|throws
 name|IOException
@@ -1183,7 +1193,7 @@ name|byte
 index|[]
 name|localStartKey
 decl_stmt|;
-comment|// if we're at end of table, close and return false to stop iterating
+comment|// if we're at end of table, close and return null to stop iterating
 if|if
 condition|(
 name|this
@@ -1225,8 +1235,6 @@ name|checkScanStopRow
 argument_list|(
 name|endKey
 argument_list|)
-operator|||
-name|done
 condition|)
 block|{
 name|close
@@ -1253,7 +1261,7 @@ argument_list|)
 expr_stmt|;
 block|}
 return|return
-literal|false
+literal|null
 return|;
 block|}
 name|localStartKey
@@ -1344,6 +1352,10 @@ argument_list|)
 expr_stmt|;
 comment|// Open a scanner on the region server starting at the
 comment|// beginning of the region
+name|Result
+index|[]
+name|rrs
+init|=
 name|call
 argument_list|(
 name|callable
@@ -1352,7 +1364,7 @@ name|caller
 argument_list|,
 name|scannerTimeout
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 name|this
 operator|.
 name|currentRegion
@@ -1381,6 +1393,48 @@ name|incrementAndGet
 argument_list|()
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|rrs
+operator|!=
+literal|null
+operator|&&
+name|rrs
+operator|.
+name|length
+operator|==
+literal|0
+operator|&&
+name|callable
+operator|.
+name|moreResultsForScan
+argument_list|()
+operator|==
+name|MoreResults
+operator|.
+name|NO
+condition|)
+block|{
+comment|// no results for the scan, return null to terminate the scan.
+name|closed
+operator|=
+literal|true
+expr_stmt|;
+name|callable
+operator|=
+literal|null
+expr_stmt|;
+name|currentRegion
+operator|=
+literal|null
+expr_stmt|;
+return|return
+literal|null
+return|;
+block|}
+return|return
+name|rrs
+return|;
 block|}
 catch|catch
 parameter_list|(
@@ -1388,16 +1442,13 @@ name|IOException
 name|e
 parameter_list|)
 block|{
-name|close
+name|closeScanner
 argument_list|()
 expr_stmt|;
 throw|throw
 name|e
 throw|;
 block|}
-return|return
-literal|true
-return|;
 block|}
 annotation|@
 name|VisibleForTesting
@@ -1412,6 +1463,7 @@ name|isAnyRPCcancelled
 argument_list|()
 return|;
 block|}
+specifier|private
 name|Result
 index|[]
 name|call
@@ -1431,8 +1483,6 @@ name|scannerTimeout
 parameter_list|)
 throws|throws
 name|IOException
-throws|,
-name|RuntimeException
 block|{
 if|if
 condition|(
@@ -1696,6 +1746,32 @@ return|;
 block|}
 specifier|private
 name|boolean
+name|scanExhausted
+parameter_list|(
+name|Result
+index|[]
+name|values
+parameter_list|)
+block|{
+comment|// This means the server tells us the whole scan operation is done. Usually decided by filter or
+comment|// limit.
+return|return
+name|values
+operator|==
+literal|null
+operator|||
+name|callable
+operator|.
+name|moreResultsForScan
+argument_list|()
+operator|==
+name|MoreResults
+operator|.
+name|NO
+return|;
+block|}
+specifier|private
+name|boolean
 name|regionExhausted
 parameter_list|(
 name|Result
@@ -1703,21 +1779,12 @@ index|[]
 name|values
 parameter_list|)
 block|{
-comment|// This means the server tells us the whole scan operation is done. Usually decided by filter.
-if|if
-condition|(
-name|values
-operator|==
-literal|null
-condition|)
-block|{
+comment|// 1. Not a heartbeat message and we get nothing, this means the region is exhausted. And in the
+comment|// old time we always return empty result for a open scanner operation so we add a check here to
+comment|// keep compatible with the old logic. Should remove the isOpenScanner in the future.
+comment|// 2. Server tells us that it has no more results for this region.
 return|return
-literal|true
-return|;
-block|}
-comment|// Not a heartbeat message and we get nothing, this means the region is exhausted
-if|if
-condition|(
+operator|(
 name|values
 operator|.
 name|length
@@ -1729,35 +1796,22 @@ name|callable
 operator|.
 name|isHeartbeatMessage
 argument_list|()
-condition|)
-block|{
-return|return
-literal|true
-return|;
-block|}
-comment|// Server tells us that it has no more results for this region. Notice that this flag is get
-comment|// from the ScanResponse.getMoreResultsInRegion, not ScanResponse.getMoreResults. If the latter
-comment|// one is false then we will get a null values and quit in the first condition of this method.
-if|if
-condition|(
-name|callable
-operator|.
-name|hasMoreResultsContext
-argument_list|()
 operator|&&
 operator|!
 name|callable
 operator|.
-name|getServerHasMoreResults
+name|isOpenScanner
 argument_list|()
-condition|)
-block|{
-return|return
-literal|true
-return|;
-block|}
-return|return
-literal|false
+operator|)
+operator|||
+name|callable
+operator|.
+name|moreResultsInRegion
+argument_list|()
+operator|==
+name|MoreResults
+operator|.
+name|NO
 return|;
 block|}
 specifier|private
@@ -1804,77 +1858,17 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Contact the servers to load more {@link Result}s in the cache.    */
-specifier|protected
-name|void
-name|loadCache
-parameter_list|()
+specifier|private
+name|Result
+index|[]
+name|nextScannerWithRetries
+parameter_list|(
+name|int
+name|nbRows
+parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// check if scanner was closed during previous prefetch
-if|if
-condition|(
-name|closed
-condition|)
-return|return;
-name|Result
-index|[]
-name|values
-init|=
-literal|null
-decl_stmt|;
-name|long
-name|remainingResultSize
-init|=
-name|maxScannerResultSize
-decl_stmt|;
-name|int
-name|countdown
-init|=
-name|this
-operator|.
-name|caching
-decl_stmt|;
-comment|// This is possible if we just stopped at the boundary of a region in the previous call.
-if|if
-condition|(
-name|callable
-operator|==
-literal|null
-condition|)
-block|{
-if|if
-condition|(
-operator|!
-name|nextScanner
-argument_list|(
-name|countdown
-argument_list|,
-literal|false
-argument_list|)
-condition|)
-block|{
-return|return;
-block|}
-block|}
-comment|// We need to reset it if it's a new callable that was created with a countdown in nextScanner
-name|callable
-operator|.
-name|setCaching
-argument_list|(
-name|this
-operator|.
-name|caching
-argument_list|)
-expr_stmt|;
-comment|// This flag is set when we want to skip the result returned. We do
-comment|// this when we reset scanner because it split under us.
-name|boolean
-name|retryAfterOutOfOrderException
-init|=
-literal|true
-decl_stmt|;
 for|for
 control|(
 init|;
@@ -1883,63 +1877,41 @@ control|)
 block|{
 try|try
 block|{
-comment|// Server returns a null values if scanning is to stop. Else,
-comment|// returns an empty array if scanning is to go on and we've just
-comment|// exhausted current region.
-name|values
-operator|=
-name|call
+return|return
+name|nextScanner
 argument_list|(
-name|callable
-argument_list|,
-name|caller
-argument_list|,
-name|scannerTimeout
+name|nbRows
 argument_list|)
-expr_stmt|;
-comment|// When the replica switch happens, we need to do certain operations again.
-comment|// The callable will openScanner with the right startkey but we need to pick up
-comment|// from there. Bypass the rest of the loop and let the catch-up happen in the beginning
-comment|// of the loop as it happens for the cases where we see exceptions.
-comment|// Since only openScanner would have happened, values would be null
-if|if
-condition|(
-name|values
-operator|==
-literal|null
-operator|&&
-name|callable
-operator|.
-name|switchedToADifferentReplica
-argument_list|()
-condition|)
-block|{
-comment|// Any accumulated partial results are no longer valid since the callable will
-comment|// openScanner with the correct startkey and we must pick up from there
-name|clearPartialResults
-argument_list|()
-expr_stmt|;
-name|this
-operator|.
-name|currentRegion
-operator|=
-name|callable
-operator|.
-name|getHRegionInfo
-argument_list|()
-expr_stmt|;
-continue|continue;
-block|}
-name|retryAfterOutOfOrderException
-operator|=
-literal|true
-expr_stmt|;
+return|;
 block|}
 catch|catch
 parameter_list|(
 name|DoNotRetryIOException
 name|e
 parameter_list|)
+block|{
+name|handleScanError
+argument_list|(
+name|e
+argument_list|,
+literal|null
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+block|}
+specifier|private
+name|void
+name|handleScanError
+parameter_list|(
+name|DoNotRetryIOException
+name|e
+parameter_list|,
+name|MutableBoolean
+name|retryAfterOutOfOrderException
+parameter_list|)
+throws|throws
+name|DoNotRetryIOException
 block|{
 comment|// An exception was thrown which makes any partial results that we were collecting
 comment|// invalid. The scanner will need to be reset to the beginning of a row.
@@ -2098,11 +2070,24 @@ block|{
 if|if
 condition|(
 name|retryAfterOutOfOrderException
+operator|!=
+literal|null
+condition|)
+block|{
+if|if
+condition|(
+name|retryAfterOutOfOrderException
+operator|.
+name|isTrue
+argument_list|()
 condition|)
 block|{
 name|retryAfterOutOfOrderException
-operator|=
+operator|.
+name|setValue
+argument_list|(
 literal|false
+argument_list|)
 expr_stmt|;
 block|}
 else|else
@@ -2112,13 +2097,12 @@ throw|throw
 operator|new
 name|DoNotRetryIOException
 argument_list|(
-literal|"Failed after retry of "
-operator|+
-literal|"OutOfOrderScannerNextException: was there a rpc timeout?"
+literal|"Failed after retry of OutOfOrderScannerNextException: was there a rpc timeout?"
 argument_list|,
 name|e
 argument_list|)
 throw|;
+block|}
 block|}
 block|}
 comment|// Clear region.
@@ -2134,16 +2118,192 @@ name|callable
 operator|=
 literal|null
 expr_stmt|;
-comment|// reopen the scanner
+block|}
+comment|/**    * Contact the servers to load more {@link Result}s in the cache.    */
+specifier|protected
+name|void
+name|loadCache
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+comment|// check if scanner was closed during previous prefetch
 if|if
 condition|(
-operator|!
-name|nextScanner
+name|closed
+condition|)
+block|{
+return|return;
+block|}
+name|Result
+index|[]
+name|values
+init|=
+literal|null
+decl_stmt|;
+name|long
+name|remainingResultSize
+init|=
+name|maxScannerResultSize
+decl_stmt|;
+name|int
+name|countdown
+init|=
+name|this
+operator|.
+name|caching
+decl_stmt|;
+comment|// This is possible if we just stopped at the boundary of a region in the previous call.
+if|if
+condition|(
+name|callable
+operator|==
+literal|null
+condition|)
+block|{
+name|values
+operator|=
+name|nextScannerWithRetries
 argument_list|(
 name|countdown
-argument_list|,
-literal|false
 argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|values
+operator|==
+literal|null
+condition|)
+block|{
+return|return;
+block|}
+block|}
+comment|// We need to reset it if it's a new callable that was created with a countdown in nextScanner
+name|callable
+operator|.
+name|setCaching
+argument_list|(
+name|this
+operator|.
+name|caching
+argument_list|)
+expr_stmt|;
+comment|// This flag is set when we want to skip the result returned. We do
+comment|// this when we reset scanner because it split under us.
+name|MutableBoolean
+name|retryAfterOutOfOrderException
+init|=
+operator|new
+name|MutableBoolean
+argument_list|(
+literal|true
+argument_list|)
+decl_stmt|;
+for|for
+control|(
+init|;
+condition|;
+control|)
+block|{
+try|try
+block|{
+comment|// Server returns a null values if scanning is to stop. Else,
+comment|// returns an empty array if scanning is to go on and we've just
+comment|// exhausted current region.
+comment|// now we will also fetch data when openScanner, so do not make a next call again if values
+comment|// is already non-null.
+if|if
+condition|(
+name|values
+operator|==
+literal|null
+condition|)
+block|{
+name|values
+operator|=
+name|call
+argument_list|(
+name|callable
+argument_list|,
+name|caller
+argument_list|,
+name|scannerTimeout
+argument_list|)
+expr_stmt|;
+block|}
+comment|// When the replica switch happens, we need to do certain operations again.
+comment|// The callable will openScanner with the right startkey but we need to pick up
+comment|// from there. Bypass the rest of the loop and let the catch-up happen in the beginning
+comment|// of the loop as it happens for the cases where we see exceptions.
+if|if
+condition|(
+name|callable
+operator|.
+name|switchedToADifferentReplica
+argument_list|()
+condition|)
+block|{
+comment|// Any accumulated partial results are no longer valid since the callable will
+comment|// openScanner with the correct startkey and we must pick up from there
+name|clearPartialResults
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|currentRegion
+operator|=
+name|callable
+operator|.
+name|getHRegionInfo
+argument_list|()
+expr_stmt|;
+comment|// Now we will also fetch data when openScanner so usually we should not get a null
+comment|// result, but at some places we still use null to indicate the scan is terminated, so add
+comment|// a sanity check here. Should be removed later.
+if|if
+condition|(
+name|values
+operator|==
+literal|null
+condition|)
+block|{
+continue|continue;
+block|}
+block|}
+name|retryAfterOutOfOrderException
+operator|.
+name|setValue
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|DoNotRetryIOException
+name|e
+parameter_list|)
+block|{
+name|handleScanError
+argument_list|(
+name|e
+argument_list|,
+name|retryAfterOutOfOrderException
+argument_list|)
+expr_stmt|;
+comment|// reopen the scanner
+name|values
+operator|=
+name|nextScannerWithRetries
+argument_list|(
+name|countdown
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|values
+operator|==
+literal|null
 condition|)
 block|{
 break|break;
@@ -2305,9 +2465,62 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+if|if
+condition|(
+name|scan
+operator|.
+name|getLimit
+argument_list|()
+operator|>
+literal|0
+condition|)
+block|{
+name|int
+name|limit
+init|=
+name|scan
+operator|.
+name|getLimit
+argument_list|()
+operator|-
+name|resultsToAddToCache
+operator|.
+name|size
+argument_list|()
+decl_stmt|;
+assert|assert
+name|limit
+operator|>=
+literal|0
+assert|;
+name|scan
+operator|.
+name|setLimit
+argument_list|(
+name|limit
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+if|if
+condition|(
+name|scanExhausted
+argument_list|(
+name|values
+argument_list|)
+condition|)
+block|{
+name|closeScanner
+argument_list|()
+expr_stmt|;
+name|closed
+operator|=
+literal|true
+expr_stmt|;
+break|break;
 block|}
 name|boolean
-name|exhausted
+name|regionExhausted
 init|=
 name|regionExhausted
 argument_list|(
@@ -2368,7 +2581,7 @@ block|{
 comment|// we have enough result.
 name|closeScannerIfExhausted
 argument_list|(
-name|exhausted
+name|regionExhausted
 argument_list|)
 expr_stmt|;
 break|break;
@@ -2391,7 +2604,7 @@ condition|)
 block|{
 name|closeScannerIfExhausted
 argument_list|(
-name|exhausted
+name|regionExhausted
 argument_list|)
 expr_stmt|;
 break|break;
@@ -2409,7 +2622,7 @@ block|}
 comment|// we are done with the current region
 if|if
 condition|(
-name|exhausted
+name|regionExhausted
 condition|)
 block|{
 if|if
@@ -2432,23 +2645,37 @@ operator|+
 literal|" partialResults, this should not happen, retry on the current scanner anyway"
 argument_list|)
 expr_stmt|;
+name|values
+operator|=
+literal|null
+expr_stmt|;
+comment|// reset values for the next call
 continue|continue;
 block|}
-if|if
-condition|(
-operator|!
-name|nextScanner
+name|values
+operator|=
+name|nextScannerWithRetries
 argument_list|(
 name|countdown
-argument_list|,
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
 name|values
 operator|==
 literal|null
-argument_list|)
 condition|)
 block|{
 break|break;
 block|}
+block|}
+else|else
+block|{
+name|values
+operator|=
+literal|null
+expr_stmt|;
+comment|// reset values for the next call
 block|}
 block|}
 block|}

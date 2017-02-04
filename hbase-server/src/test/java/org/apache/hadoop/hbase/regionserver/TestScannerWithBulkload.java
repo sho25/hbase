@@ -417,6 +417,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Assert
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|BeforeClass
 import|;
 end_import
@@ -442,16 +452,6 @@ operator|.
 name|categories
 operator|.
 name|Category
-import|;
-end_import
-
-begin_import
-import|import
-name|junit
-operator|.
-name|framework
-operator|.
-name|Assert
 import|;
 end_import
 
@@ -1829,6 +1829,13 @@ init|=
 name|createScan
 argument_list|()
 decl_stmt|;
+name|scan
+operator|.
+name|setCaching
+argument_list|(
+literal|1
+argument_list|)
+expr_stmt|;
 specifier|final
 name|Table
 name|table
@@ -1896,6 +1903,14 @@ name|getScanner
 argument_list|(
 name|scan
 argument_list|)
+decl_stmt|;
+name|Result
+name|result
+init|=
+name|scanner
+operator|.
+name|next
+argument_list|()
 decl_stmt|;
 comment|// Create a scanner and then do bulk load
 specifier|final
@@ -2040,14 +2055,6 @@ argument_list|()
 expr_stmt|;
 comment|// By the time we do next() the bulk loaded files are also added to the kv
 comment|// scanner
-name|Result
-name|result
-init|=
-name|scanner
-operator|.
-name|next
-argument_list|()
-decl_stmt|;
 name|scanAfterBulkLoad
 argument_list|(
 name|scanner

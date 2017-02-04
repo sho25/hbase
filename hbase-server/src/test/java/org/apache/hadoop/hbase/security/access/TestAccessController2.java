@@ -2850,7 +2850,13 @@ name|s1
 argument_list|)
 init|;
 init|)
-block|{           }
+block|{
+name|scanner1
+operator|.
+name|next
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 return|return
 literal|null
@@ -3018,7 +3024,13 @@ name|s1
 argument_list|)
 init|;
 init|)
-block|{           }
+block|{
+name|scanner1
+operator|.
+name|next
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 return|return
 literal|null
@@ -3095,7 +3107,13 @@ name|s1
 argument_list|)
 init|;
 init|)
-block|{           }
+block|{
+name|scanner1
+operator|.
+name|next
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 return|return
 literal|null

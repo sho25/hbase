@@ -1179,6 +1179,11 @@ expr_stmt|;
 return|return
 name|builder
 operator|.
+name|setScannerId
+argument_list|(
+literal|1234567890L
+argument_list|)
+operator|.
 name|build
 argument_list|()
 return|;

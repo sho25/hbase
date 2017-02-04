@@ -208,7 +208,7 @@ name|ReversedScannerCallable
 extends|extends
 name|ScannerCallable
 block|{
-comment|/**    * The start row for locating regions. In reversed scanner, may locate the    * regions for a range of keys when doing    * {@link ReversedClientScanner#nextScanner(int, boolean)}    */
+comment|/**    * The start row for locating regions. In reversed scanner, may locate the    * regions for a range of keys when doing    * {@link ReversedClientScanner#nextScanner(int)}    */
 specifier|protected
 specifier|final
 name|byte

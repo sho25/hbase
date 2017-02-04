@@ -726,6 +726,17 @@ argument_list|)
 decl_stmt|;
 name|byte
 index|[]
+name|r0
+init|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+literal|"row-0"
+argument_list|)
+decl_stmt|;
+name|byte
+index|[]
 name|r1
 init|=
 name|Bytes
@@ -757,6 +768,13 @@ argument_list|(
 literal|"row-3"
 argument_list|)
 decl_stmt|;
+name|putToTable
+argument_list|(
+name|ht
+argument_list|,
+name|r0
+argument_list|)
+expr_stmt|;
 name|putToTable
 argument_list|(
 name|ht
@@ -823,6 +841,31 @@ operator|.
 name|next
 argument_list|()
 decl_stmt|;
+comment|// fetched when openScanner
+name|assertTrue
+argument_list|(
+literal|"Expected row: row-0"
+argument_list|,
+name|Bytes
+operator|.
+name|equals
+argument_list|(
+name|r0
+argument_list|,
+name|result
+operator|.
+name|getRow
+argument_list|()
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|result
+operator|=
+name|scanner
+operator|.
+name|next
+argument_list|()
+expr_stmt|;
 name|assertTrue
 argument_list|(
 literal|"Expected row: row-1"

@@ -6448,12 +6448,6 @@ block|{
 comment|// do nothing
 block|}
 block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{           }
 finally|finally
 block|{
 name|scanner

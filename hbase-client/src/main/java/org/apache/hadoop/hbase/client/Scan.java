@@ -3481,6 +3481,26 @@ return|return
 name|this
 return|;
 block|}
+comment|/**    * Call this when you only want to get one row. It will set {@code limit} to {@code 1}, and also    * set {@code readType} to {@link ReadType#PREAD}.    * @return this    */
+specifier|public
+name|Scan
+name|setOneRowLimit
+parameter_list|()
+block|{
+return|return
+name|setLimit
+argument_list|(
+literal|1
+argument_list|)
+operator|.
+name|setReadType
+argument_list|(
+name|ReadType
+operator|.
+name|PREAD
+argument_list|)
+return|;
+block|}
 annotation|@
 name|InterfaceAudience
 operator|.

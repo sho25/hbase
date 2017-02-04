@@ -628,8 +628,8 @@ argument_list|(
 name|s
 argument_list|)
 decl_stmt|;
-comment|// make sure that calling renewLease does not impact the scan results
-name|assertTrue
+comment|// we haven't open the scanner yet so nothing happens
+name|assertFalse
 argument_list|(
 name|rs
 operator|.
