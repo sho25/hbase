@@ -331,6 +331,78 @@ name|boolean
 name|preserveSplits
 parameter_list|)
 function_decl|;
+comment|/**    * Enable a table. The table has to be in disabled state for it to be enabled.    * @param tableName name of the table    */
+name|CompletableFuture
+argument_list|<
+name|Void
+argument_list|>
+name|enableTable
+parameter_list|(
+specifier|final
+name|TableName
+name|tableName
+parameter_list|)
+function_decl|;
+comment|/**    * Enable tables matching the passed in pattern. Warning: Use this method carefully, there is no    * prompting and the effect is immediate. Consider using {@link #listTables(Pattern, boolean)} and    * {@link #enableTable(TableName)}    * @param regex The regular expression to match table names against    * @return Table descriptors for tables that couldn't be enabled. The return value will be wrapped    *         by a {@link CompletableFuture}.    */
+name|CompletableFuture
+argument_list|<
+name|HTableDescriptor
+index|[]
+argument_list|>
+name|enableTables
+parameter_list|(
+name|String
+name|regex
+parameter_list|)
+function_decl|;
+comment|/**    * Enable tables matching the passed in pattern. Warning: Use this method carefully, there is no    * prompting and the effect is immediate. Consider using {@link #listTables(Pattern, boolean)} and    * {@link #enableTable(TableName)}    * @param pattern The pattern to match table names against    * @return Table descriptors for tables that couldn't be enabled. The return value will be wrapped    *         by a {@link CompletableFuture}.    */
+name|CompletableFuture
+argument_list|<
+name|HTableDescriptor
+index|[]
+argument_list|>
+name|enableTables
+parameter_list|(
+name|Pattern
+name|pattern
+parameter_list|)
+function_decl|;
+comment|/**    * Disable a table. The table has to be in enabled state for it to be disabled.    * @param tableName    */
+name|CompletableFuture
+argument_list|<
+name|Void
+argument_list|>
+name|disableTable
+parameter_list|(
+specifier|final
+name|TableName
+name|tableName
+parameter_list|)
+function_decl|;
+comment|/**    * Disable tables matching the passed in pattern. Warning: Use this method carefully, there is no    * prompting and the effect is immediate. Consider using {@link #listTables(Pattern, boolean)} and    * {@link #disableTable(TableName)}    * @param regex The regular expression to match table names against    * @return Table descriptors for tables that couldn't be disabled. The return value will be wrapped by a    *         {@link CompletableFuture}.    */
+name|CompletableFuture
+argument_list|<
+name|HTableDescriptor
+index|[]
+argument_list|>
+name|disableTables
+parameter_list|(
+name|String
+name|regex
+parameter_list|)
+function_decl|;
+comment|/**    * Disable tables matching the passed in pattern. Warning: Use this method carefully, there is no    * prompting and the effect is immediate. Consider using {@link #listTables(Pattern, boolean)} and    * {@link #disableTable(TableName)}    * @param pattern The pattern to match table names against    * @return Table descriptors for tables that couldn't be disabled. The return value will be wrapped by a    *         {@link CompletableFuture}.    */
+name|CompletableFuture
+argument_list|<
+name|HTableDescriptor
+index|[]
+argument_list|>
+name|disableTables
+parameter_list|(
+name|Pattern
+name|pattern
+parameter_list|)
+function_decl|;
 comment|/**    * Turn the load balancer on or off.    * @param on    * @return Previous balancer value wrapped by a {@link CompletableFuture}.    */
 name|CompletableFuture
 argument_list|<
