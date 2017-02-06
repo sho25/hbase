@@ -73,20 +73,6 @@ end_import
 
 begin_import
 import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|annotations
-operator|.
-name|VisibleForTesting
-import|;
-end_import
-
-begin_import
-import|import
 name|java
 operator|.
 name|io
@@ -500,6 +486,20 @@ operator|.
 name|util
 operator|.
 name|Bytes
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
 import|;
 end_import
 
@@ -1869,6 +1869,12 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|int
+name|retriesLeft
+init|=
+name|getRetries
+argument_list|()
+decl_stmt|;
 for|for
 control|(
 init|;
@@ -1895,6 +1901,9 @@ argument_list|(
 name|e
 argument_list|,
 literal|null
+argument_list|,
+name|retriesLeft
+operator|--
 argument_list|)
 expr_stmt|;
 block|}
@@ -1909,6 +1918,9 @@ name|e
 parameter_list|,
 name|MutableBoolean
 name|retryAfterOutOfOrderException
+parameter_list|,
+name|int
+name|retriesLeft
 parameter_list|)
 throws|throws
 name|DoNotRetryIOException
@@ -1918,8 +1930,17 @@ comment|// invalid. The scanner will need to be reset to the beginning of a row.
 name|clearPartialResults
 argument_list|()
 expr_stmt|;
-comment|// DNRIOEs are thrown to make us break out of retries. Some types of DNRIOEs want us
-comment|// to reset the scanner and come back in again.
+comment|// Unfortunately, DNRIOE is used in two different semantics.
+comment|// (1) The first is to close the client scanner and bubble up the exception all the way
+comment|// to the application. This is preferred when the exception is really un-recoverable
+comment|// (like CorruptHFileException, etc). Plain DoNotRetryIOException also falls into this
+comment|// bucket usually.
+comment|// (2) Second semantics is to close the current region scanner only, but continue the
+comment|// client scanner by overriding the exception. This is usually UnknownScannerException,
+comment|// OutOfOrderScannerNextException, etc where the region scanner has to be closed, but the
+comment|// application-level ClientScanner has to continue without bubbling up the exception to
+comment|// the client. See RSRpcServices to see how it throws DNRIOE's.
+comment|// See also: HBASE-16604, HBASE-17187
 comment|// If exception is any but the list below throw it back to the client; else setup
 comment|// the scanner and retry.
 name|Throwable
@@ -1967,6 +1988,18 @@ condition|)
 block|{
 comment|// Pass. It is easier writing the if loop test as list of what is allowed rather than
 comment|// as a list of what is not allowed... so if in here, it means we do not throw.
+if|if
+condition|(
+name|retriesLeft
+operator|<=
+literal|0
+condition|)
+block|{
+throw|throw
+name|e
+throw|;
+comment|// no more retries
+block|}
 block|}
 else|else
 block|{
@@ -2199,6 +2232,14 @@ argument_list|(
 literal|true
 argument_list|)
 decl_stmt|;
+comment|// Even if we are retrying due to UnknownScannerException, ScannerResetException, etc. we should
+comment|// make sure that we are not retrying indefinitely.
+name|int
+name|retriesLeft
+init|=
+name|getRetries
+argument_list|()
+decl_stmt|;
 for|for
 control|(
 init|;
@@ -2289,6 +2330,9 @@ argument_list|(
 name|e
 argument_list|,
 name|retryAfterOutOfOrderException
+argument_list|,
+name|retriesLeft
+operator|--
 argument_list|)
 expr_stmt|;
 comment|// reopen the scanner
