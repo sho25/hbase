@@ -8929,6 +8929,23 @@ name|Throwable
 name|e
 parameter_list|)
 block|{
+return|return
+name|exitIfOOME
+argument_list|(
+name|e
+argument_list|)
+return|;
+block|}
+specifier|public
+specifier|static
+name|boolean
+name|exitIfOOME
+parameter_list|(
+specifier|final
+name|Throwable
+name|e
+parameter_list|)
+block|{
 name|boolean
 name|stop
 init|=
@@ -8988,8 +9005,9 @@ name|fatal
 argument_list|(
 literal|"Run out of memory; "
 operator|+
-name|getClass
-argument_list|()
+name|RSRpcServices
+operator|.
+name|class
 operator|.
 name|getSimpleName
 argument_list|()
