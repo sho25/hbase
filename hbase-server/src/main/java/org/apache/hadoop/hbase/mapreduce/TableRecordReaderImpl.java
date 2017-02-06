@@ -770,6 +770,15 @@ name|void
 name|close
 parameter_list|()
 block|{
+if|if
+condition|(
+name|this
+operator|.
+name|scanner
+operator|!=
+literal|null
+condition|)
+block|{
 name|this
 operator|.
 name|scanner
@@ -777,6 +786,7 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
 try|try
 block|{
 name|this
