@@ -4441,10 +4441,6 @@ argument_list|()
 argument_list|,
 name|cellBufSize
 argument_list|,
-name|currTagsLen
-operator|>
-literal|0
-argument_list|,
 name|seqId
 argument_list|)
 expr_stmt|;

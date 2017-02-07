@@ -459,8 +459,6 @@ operator|.
 name|capacity
 argument_list|()
 argument_list|,
-literal|false
-argument_list|,
 literal|0l
 argument_list|)
 decl_stmt|;
@@ -784,8 +782,6 @@ operator|.
 name|capacity
 argument_list|()
 argument_list|,
-literal|false
-argument_list|,
 literal|0l
 argument_list|)
 expr_stmt|;
@@ -917,8 +913,6 @@ name|buf
 operator|.
 name|capacity
 argument_list|()
-argument_list|,
-literal|false
 argument_list|,
 literal|0l
 argument_list|)
@@ -1131,8 +1125,6 @@ name|buf
 operator|.
 name|capacity
 argument_list|()
-argument_list|,
-literal|true
 argument_list|,
 literal|0l
 argument_list|)

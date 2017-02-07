@@ -15798,10 +15798,6 @@ name|offset
 argument_list|,
 name|len
 argument_list|,
-name|tagsLen
-operator|>
-literal|0
-argument_list|,
 name|cell
 operator|.
 name|getSequenceId

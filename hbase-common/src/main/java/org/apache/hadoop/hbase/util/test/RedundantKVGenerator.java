@@ -2056,8 +2056,6 @@ operator|.
 name|getLength
 argument_list|()
 argument_list|,
-literal|true
-argument_list|,
 literal|0
 argument_list|)
 decl_stmt|;
@@ -2138,8 +2136,6 @@ operator|.
 name|getLength
 argument_list|()
 argument_list|,
-literal|false
-argument_list|,
 literal|0
 argument_list|)
 decl_stmt|;
@@ -2185,9 +2181,6 @@ parameter_list|,
 name|int
 name|length
 parameter_list|,
-name|boolean
-name|hasTags
-parameter_list|,
 name|long
 name|seqId
 parameter_list|)
@@ -2199,8 +2192,6 @@ argument_list|,
 name|offset
 argument_list|,
 name|length
-argument_list|,
-name|hasTags
 argument_list|,
 name|seqId
 argument_list|)
