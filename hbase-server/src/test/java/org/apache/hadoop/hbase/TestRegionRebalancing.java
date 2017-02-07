@@ -569,18 +569,6 @@ expr_stmt|;
 comment|// set minCostNeedBalance to 0, make sure balancer run
 name|UTIL
 operator|.
-name|getConfiguration
-argument_list|()
-operator|.
-name|setFloat
-argument_list|(
-literal|"hbase.master.balancer.stochastic.minCostNeedBalance"
-argument_list|,
-literal|0.0f
-argument_list|)
-expr_stmt|;
-name|UTIL
-operator|.
 name|startMiniCluster
 argument_list|(
 literal|1

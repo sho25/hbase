@@ -851,15 +851,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// reset config
-name|conf
-operator|.
-name|setFloat
-argument_list|(
-literal|"hbase.master.balancer.stochastic.minCostNeedBalance"
-argument_list|,
-literal|0.0f
-argument_list|)
-expr_stmt|;
 name|loadBalancer
 operator|.
 name|setConf
