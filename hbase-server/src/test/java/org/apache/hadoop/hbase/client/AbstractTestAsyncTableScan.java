@@ -1461,7 +1461,7 @@ argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
-comment|// from first region to first region
+comment|// from last region to first region
 name|testReversedScan
 argument_list|(
 literal|543

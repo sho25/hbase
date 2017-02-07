@@ -1118,22 +1118,6 @@ literal|"Server not running (3 of 3)"
 argument_list|)
 argument_list|)
 operator|.
-name|thenReturn
-argument_list|(
-name|ScanResponse
-operator|.
-name|newBuilder
-argument_list|()
-operator|.
-name|setScannerId
-argument_list|(
-literal|1234567890L
-argument_list|)
-operator|.
-name|build
-argument_list|()
-argument_list|)
-operator|.
 name|thenAnswer
 argument_list|(
 operator|new
@@ -1184,20 +1168,6 @@ argument_list|(
 literal|1234567890L
 argument_list|)
 operator|.
-name|build
-argument_list|()
-return|;
-block|}
-block|}
-argument_list|)
-operator|.
-name|thenReturn
-argument_list|(
-name|ScanResponse
-operator|.
-name|newBuilder
-argument_list|()
-operator|.
 name|setMoreResults
 argument_list|(
 literal|false
@@ -1205,6 +1175,9 @@ argument_list|)
 operator|.
 name|build
 argument_list|()
+return|;
+block|}
+block|}
 argument_list|)
 expr_stmt|;
 comment|// Associate a spied-upon Connection with UTIL.getConfiguration.  Need
@@ -1391,7 +1364,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Finally verify that scan was called four times -- three times
-comment|// with exception and then on 4th, 5th and 6th attempt we succeed
+comment|// with exception and then on 4th attempt we succeed
 name|Mockito
 operator|.
 name|verify
@@ -1402,7 +1375,7 @@ name|Mockito
 operator|.
 name|times
 argument_list|(
-literal|6
+literal|4
 argument_list|)
 argument_list|)
 operator|.

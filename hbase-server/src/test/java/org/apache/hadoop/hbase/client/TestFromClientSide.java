@@ -1601,6 +1601,17 @@ literal|true
 argument_list|)
 expr_stmt|;
 comment|// enable for below tests
+name|conf
+operator|.
+name|setLong
+argument_list|(
+name|HConstants
+operator|.
+name|HBASE_CLIENT_SCANNER_TIMEOUT_PERIOD
+argument_list|,
+literal|6000000
+argument_list|)
+expr_stmt|;
 comment|// We need more than one region server in this test
 name|TEST_UTIL
 operator|.

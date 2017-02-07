@@ -535,7 +535,8 @@ name|renew
 init|=
 literal|false
 decl_stmt|;
-specifier|private
+specifier|protected
+specifier|final
 name|Scan
 name|scan
 decl_stmt|;
@@ -587,10 +588,6 @@ decl_stmt|;
 specifier|private
 name|MoreResults
 name|moreResultsForScan
-decl_stmt|;
-specifier|private
-name|boolean
-name|openScanner
 decl_stmt|;
 comment|/**    * Saves whether or not the most recent response from the server was a heartbeat message.    * Heartbeat messages are identified by the flag {@link ScanResponse#getHeartbeatMessage()}    */
 specifier|protected
@@ -1325,12 +1322,6 @@ operator|-
 literal|1L
 condition|)
 block|{
-name|this
-operator|.
-name|openScanner
-operator|=
-literal|true
-expr_stmt|;
 name|response
 operator|=
 name|openScanner
@@ -1339,12 +1330,6 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|this
-operator|.
-name|openScanner
-operator|=
-literal|false
-expr_stmt|;
 name|response
 operator|=
 name|next
@@ -2248,15 +2233,6 @@ name|moreResultsForScan
 operator|=
 name|moreResults
 expr_stmt|;
-block|}
-comment|/**    * Whether the previous call is openScanner. This is used to keep compatible with the old    * implementation that we always returns empty result for openScanner.    */
-name|boolean
-name|isOpenScanner
-parameter_list|()
-block|{
-return|return
-name|openScanner
-return|;
 block|}
 block|}
 end_class

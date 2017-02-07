@@ -18,42 +18,6 @@ package|;
 end_package
 
 begin_import
-import|import static
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|ConnectionUtils
-operator|.
-name|createClosestRowAfter
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|ConnectionUtils
-operator|.
-name|createClosestRowBefore
-import|;
-end_import
-
-begin_import
 import|import
 name|com
 operator|.
@@ -649,18 +613,6 @@ return|return
 name|currentScannerCallable
 operator|.
 name|moreResultsForScan
-argument_list|()
-return|;
-block|}
-specifier|public
-name|boolean
-name|isOpenScanner
-parameter_list|()
-block|{
-return|return
-name|currentScannerCallable
-operator|.
-name|isOpenScanner
 argument_list|()
 return|;
 block|}
@@ -1691,94 +1643,38 @@ name|callable
 operator|==
 literal|null
 condition|)
+block|{
 return|return;
-if|if
-condition|(
+block|}
+comment|// 1. The last result was a partial result which means we have not received all of the cells
+comment|// for this row. Thus, use the last result's row as the start row. If a replica switch
+comment|// occurs, the scanner will ensure that any accumulated partial results are cleared,
+comment|// and the scan can resume from this row.
+comment|// 2. The last result was not a partial result which means it contained all of the cells for
+comment|// that row (we no longer need any information from it). Set the start row to the next
+comment|// closest row that could be seen.
+name|callable
+operator|.
+name|getScan
+argument_list|()
+operator|.
+name|withStartRow
+argument_list|(
+name|this
+operator|.
+name|lastResult
+operator|.
+name|getRow
+argument_list|()
+argument_list|,
 name|this
 operator|.
 name|lastResult
 operator|.
 name|isPartial
 argument_list|()
-condition|)
-block|{
-comment|// The last result was a partial result which means we have not received all of the cells
-comment|// for this row. Thus, use the last result's row as the start row. If a replica switch
-comment|// occurs, the scanner will ensure that any accumulated partial results are cleared,
-comment|// and the scan can resume from this row.
-name|callable
-operator|.
-name|getScan
-argument_list|()
-operator|.
-name|setStartRow
-argument_list|(
-name|this
-operator|.
-name|lastResult
-operator|.
-name|getRow
-argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
-else|else
-block|{
-comment|// The last result was not a partial result which means it contained all of the cells for
-comment|// that row (we no longer need any information from it). Set the start row to the next
-comment|// closest row that could be seen.
-if|if
-condition|(
-name|callable
-operator|.
-name|getScan
-argument_list|()
-operator|.
-name|isReversed
-argument_list|()
-condition|)
-block|{
-name|callable
-operator|.
-name|getScan
-argument_list|()
-operator|.
-name|setStartRow
-argument_list|(
-name|createClosestRowBefore
-argument_list|(
-name|this
-operator|.
-name|lastResult
-operator|.
-name|getRow
-argument_list|()
-argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
-else|else
-block|{
-name|callable
-operator|.
-name|getScan
-argument_list|()
-operator|.
-name|setStartRow
-argument_list|(
-name|createClosestRowAfter
-argument_list|(
-name|this
-operator|.
-name|lastResult
-operator|.
-name|getRow
-argument_list|()
-argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
-block|}
 block|}
 annotation|@
 name|VisibleForTesting

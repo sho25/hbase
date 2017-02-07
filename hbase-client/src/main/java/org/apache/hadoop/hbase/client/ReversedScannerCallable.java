@@ -18,6 +18,42 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|ConnectionUtils
+operator|.
+name|*
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|ConnectionUtils
+operator|.
+name|isEmptyStartRow
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -208,14 +244,7 @@ name|ReversedScannerCallable
 extends|extends
 name|ScannerCallable
 block|{
-comment|/**    * The start row for locating regions. In reversed scanner, may locate the    * regions for a range of keys when doing    * {@link ReversedClientScanner#nextScanner(int)}    */
-specifier|protected
-specifier|final
-name|byte
-index|[]
-name|locateStartRow
-decl_stmt|;
-comment|/**    * @param connection    * @param tableName    * @param scan    * @param scanMetrics    * @param locateStartRow The start row for locating regions    * @param rpcFactory to create an {@link com.google.protobuf.RpcController}     * to talk to the regionserver    */
+comment|/**    * @param connection    * @param tableName    * @param scan    * @param scanMetrics    * @param rpcFactory to create an {@link com.google.protobuf.RpcController} to talk to the    *          regionserver    */
 specifier|public
 name|ReversedScannerCallable
 parameter_list|(
@@ -230,10 +259,6 @@ name|scan
 parameter_list|,
 name|ScanMetrics
 name|scanMetrics
-parameter_list|,
-name|byte
-index|[]
-name|locateStartRow
 parameter_list|,
 name|RpcControllerFactory
 name|rpcFactory
@@ -252,14 +277,8 @@ argument_list|,
 name|rpcFactory
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|locateStartRow
-operator|=
-name|locateStartRow
-expr_stmt|;
 block|}
-comment|/**    * @param connection    * @param tableName    * @param scan    * @param scanMetrics    * @param locateStartRow The start row for locating regions    * @param rpcFactory to create an {@link com.google.protobuf.RpcController}     *        to talk to the regionserver    * @param replicaId the replica id    */
+comment|/**    * @param connection    * @param tableName    * @param scan    * @param scanMetrics    * @param rpcFactory to create an {@link com.google.protobuf.RpcController} to talk to the    *          regionserver    * @param replicaId the replica id    */
 specifier|public
 name|ReversedScannerCallable
 parameter_list|(
@@ -274,10 +293,6 @@ name|scan
 parameter_list|,
 name|ScanMetrics
 name|scanMetrics
-parameter_list|,
-name|byte
-index|[]
-name|locateStartRow
 parameter_list|,
 name|RpcControllerFactory
 name|rpcFactory
@@ -299,59 +314,6 @@ argument_list|,
 name|rpcFactory
 argument_list|,
 name|replicaId
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|locateStartRow
-operator|=
-name|locateStartRow
-expr_stmt|;
-block|}
-comment|/**    * @deprecated use    *  {@link #ReversedScannerCallable(ClusterConnection, TableName, Scan,     *     ScanMetrics, byte[], RpcControllerFactory )}    */
-annotation|@
-name|Deprecated
-specifier|public
-name|ReversedScannerCallable
-parameter_list|(
-name|ClusterConnection
-name|connection
-parameter_list|,
-name|TableName
-name|tableName
-parameter_list|,
-name|Scan
-name|scan
-parameter_list|,
-name|ScanMetrics
-name|scanMetrics
-parameter_list|,
-name|byte
-index|[]
-name|locateStartRow
-parameter_list|)
-block|{
-name|this
-argument_list|(
-name|connection
-argument_list|,
-name|tableName
-argument_list|,
-name|scan
-argument_list|,
-name|scanMetrics
-argument_list|,
-name|locateStartRow
-argument_list|,
-name|RpcControllerFactory
-operator|.
-name|instantiate
-argument_list|(
-name|connection
-operator|.
-name|getConfiguration
-argument_list|()
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -390,11 +352,22 @@ operator|||
 name|reload
 condition|)
 block|{
+comment|// we should use range locate if
+comment|// 1. we do not want the start row
+comment|// 2. the start row is empty which means we need to locate to the last region.
 if|if
 condition|(
-name|locateStartRow
-operator|==
-literal|null
+name|scan
+operator|.
+name|includeStartRow
+argument_list|()
+operator|&&
+operator|!
+name|isEmptyStartRow
+argument_list|(
+name|getRow
+argument_list|()
+argument_list|)
 condition|)
 block|{
 comment|// Just locate the region with the row
@@ -441,9 +414,14 @@ literal|null
 expr_stmt|;
 if|if
 condition|(
-name|this
-operator|.
 name|location
+operator|==
+literal|null
+operator|||
+name|location
+operator|.
+name|getServerName
+argument_list|()
 operator|==
 literal|null
 condition|)
@@ -478,6 +456,16 @@ else|else
 block|{
 comment|// Need to locate the regions with the range, and the target location is
 comment|// the last one which is the previous region of last region scanner
+name|byte
+index|[]
+name|locateStartRow
+init|=
+name|createCloseRowBefore
+argument_list|(
+name|getRow
+argument_list|()
+argument_list|)
+decl_stmt|;
 name|List
 argument_list|<
 name|HRegionLocation
@@ -877,10 +865,6 @@ argument_list|,
 name|this
 operator|.
 name|scanMetrics
-argument_list|,
-name|this
-operator|.
-name|locateStartRow
 argument_list|,
 name|rpcControllerFactory
 argument_list|,

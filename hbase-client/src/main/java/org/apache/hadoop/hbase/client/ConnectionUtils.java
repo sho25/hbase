@@ -1261,13 +1261,11 @@ literal|1
 argument_list|)
 return|;
 block|}
-comment|/**    * Create the closest row before the specified row    * @deprecated in fact, we do not know the closest row before the given row, the result is only a    *             row very close to the current row. Avoid using this method in the future.    */
-annotation|@
-name|Deprecated
+comment|/**    * Create a row before the specified row and very close to the specified row.    */
 specifier|static
 name|byte
 index|[]
-name|createClosestRowBefore
+name|createCloseRowBefore
 parameter_list|(
 name|byte
 index|[]

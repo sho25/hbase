@@ -208,7 +208,7 @@ specifier|public
 class|class
 name|ClientAsyncPrefetchScanner
 extends|extends
-name|ClientScanner
+name|ClientSimpleScanner
 block|{
 specifier|private
 specifier|static

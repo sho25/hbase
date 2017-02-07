@@ -4839,7 +4839,7 @@ argument_list|)
 expr_stmt|;
 name|s
 operator|.
-name|setStartRow
+name|withStartRow
 argument_list|(
 name|metaKey
 argument_list|)
