@@ -429,9 +429,9 @@ literal|1000
 operator|*
 literal|60
 operator|*
-literal|5
+literal|1
 decl_stmt|;
-comment|// 5 minutes in millis
+comment|// 1 minutes in millis
 specifier|static
 specifier|final
 name|String
@@ -446,9 +446,9 @@ name|QUOTA_OBSERVER_CHORE_DELAY_DEFAULT
 init|=
 literal|1000L
 operator|*
-literal|60L
+literal|15L
 decl_stmt|;
-comment|// 1 minute
+comment|// 15 seconds in millis
 specifier|static
 specifier|final
 name|String
