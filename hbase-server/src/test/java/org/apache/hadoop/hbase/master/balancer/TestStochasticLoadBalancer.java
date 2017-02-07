@@ -790,6 +790,18 @@ name|void
 name|testNeedBalance
 parameter_list|()
 block|{
+name|float
+name|minCost
+init|=
+name|conf
+operator|.
+name|getFloat
+argument_list|(
+literal|"hbase.master.balancer.stochastic.minCostNeedBalance"
+argument_list|,
+literal|0.05f
+argument_list|)
+decl_stmt|;
 name|conf
 operator|.
 name|setFloat
@@ -851,6 +863,15 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// reset config
+name|conf
+operator|.
+name|setFloat
+argument_list|(
+literal|"hbase.master.balancer.stochastic.minCostNeedBalance"
+argument_list|,
+name|minCost
+argument_list|)
+expr_stmt|;
 name|loadBalancer
 operator|.
 name|setConf
