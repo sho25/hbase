@@ -977,7 +977,7 @@ name|verifyCount
 argument_list|(
 name|counter
 operator|+
-literal|2
+literal|1
 argument_list|)
 expr_stmt|;
 name|Get
@@ -1077,7 +1077,7 @@ name|scanInfo
 argument_list|,
 name|counter
 operator|+
-literal|2
+literal|1
 argument_list|)
 expr_stmt|;
 name|table
