@@ -1032,13 +1032,12 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
-name|replicationAdmin
+name|admin
 operator|=
-operator|new
-name|ReplicationAdmin
-argument_list|(
-name|conf
-argument_list|)
+name|TEST_UTIL
+operator|.
+name|getAdmin
+argument_list|()
 expr_stmt|;
 comment|// Base conf2 on conf1 so it gets the right zk cluster.
 name|conf1
@@ -1204,15 +1203,13 @@ name|getClusterKey
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|replicationAdmin
+name|admin
 operator|.
-name|addPeer
+name|addReplicationPeer
 argument_list|(
 literal|"2"
 argument_list|,
 name|rpc
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|HTableDescriptor

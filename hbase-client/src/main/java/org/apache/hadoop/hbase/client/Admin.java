@@ -53,6 +53,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Collection
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|List
 import|;
 end_import
@@ -434,6 +444,22 @@ operator|.
 name|wal
 operator|.
 name|FailedLogCloseException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|replication
+operator|.
+name|ReplicationException
 import|;
 end_import
 
@@ -2839,6 +2865,58 @@ name|ReplicationPeerConfig
 name|peerConfig
 parameter_list|)
 throws|throws
+name|IOException
+block|{   }
+comment|/**    * Append the replicable table-cf config of the specified peer    * @param id a short that identifies the cluster    * @param tableCfs A map from tableName to column family names    * @throws ReplicationException    * @throws IOException    */
+specifier|default
+name|void
+name|appendReplicationPeerTableCFs
+parameter_list|(
+name|String
+name|id
+parameter_list|,
+name|Map
+argument_list|<
+name|TableName
+argument_list|,
+name|?
+extends|extends
+name|Collection
+argument_list|<
+name|String
+argument_list|>
+argument_list|>
+name|tableCfs
+parameter_list|)
+throws|throws
+name|ReplicationException
+throws|,
+name|IOException
+block|{   }
+comment|/**    * Remove some table-cfs from config of the specified peer    * @param id a short name that identifies the cluster    * @param tableCfs A map from tableName to column family names    * @throws ReplicationException    * @throws IOException    */
+specifier|default
+name|void
+name|removeReplicationPeerTableCFs
+parameter_list|(
+name|String
+name|id
+parameter_list|,
+name|Map
+argument_list|<
+name|TableName
+argument_list|,
+name|?
+extends|extends
+name|Collection
+argument_list|<
+name|String
+argument_list|>
+argument_list|>
+name|tableCfs
+parameter_list|)
+throws|throws
+name|ReplicationException
+throws|,
 name|IOException
 block|{   }
 comment|/**    * Return a list of replication peers.    * @return a list of replication peers description    * @throws IOException    */

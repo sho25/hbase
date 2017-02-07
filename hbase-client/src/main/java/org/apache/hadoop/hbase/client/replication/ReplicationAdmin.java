@@ -999,7 +999,9 @@ name|peerConfig
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Add a new remote slave cluster for replication.    * @param id a short name that identifies the cluster    * @param peerConfig configuration for the replication slave cluster    */
+comment|/**    * Add a new remote slave cluster for replication.    * @param id a short name that identifies the cluster    * @param peerConfig configuration for the replication slave cluster    * @deprecated use    *             {@link org.apache.hadoop.hbase.client.Admin#addReplicationPeer(String, ReplicationPeerConfig)}    *             instead    */
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|addPeer
@@ -1069,6 +1071,9 @@ name|tableCFsConfig
 argument_list|)
 return|;
 block|}
+comment|/**    * @deprecated use    *             {@link org.apache.hadoop.hbase.client.Admin#updateReplicationPeerConfig(String, ReplicationPeerConfig)}    *             instead    */
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|updatePeerConfig
@@ -1094,7 +1099,9 @@ name|peerConfig
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Removes a peer cluster and stops the replication to it.    * @param id a short name that identifies the cluster    */
+comment|/**    * Removes a peer cluster and stops the replication to it.    * @param id a short name that identifies the cluster    * @deprecated use {@link org.apache.hadoop.hbase.client.Admin#removeReplicationPeer(String)} instead    */
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|removePeer
@@ -1115,7 +1122,9 @@ name|id
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Restart the replication stream to the specified peer.    * @param id a short name that identifies the cluster    */
+comment|/**    * Restart the replication stream to the specified peer.    * @param id a short name that identifies the cluster    * @deprecated use {@link org.apache.hadoop.hbase.client.Admin#enableReplicationPeer(String)}    *             instead    */
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|enablePeer
@@ -1136,7 +1145,9 @@ name|id
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Stop the replication stream to the specified peer.    * @param id a short name that identifies the cluster    */
+comment|/**    * Stop the replication stream to the specified peer.    * @param id a short name that identifies the cluster    * @deprecated use {@link org.apache.hadoop.hbase.client.Admin#disableReplicationPeer(String)}    *             instead    */
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|disablePeer
@@ -1157,7 +1168,9 @@ name|id
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Get the number of slave clusters the local cluster has.    * @return number of slave clusters    * @throws IOException    */
+comment|/**    * Get the number of slave clusters the local cluster has.    * @return number of slave clusters    * @throws IOException    * @deprecated    */
+annotation|@
+name|Deprecated
 specifier|public
 name|int
 name|getPeersCount
@@ -1177,6 +1190,9 @@ name|size
 argument_list|()
 return|;
 block|}
+comment|/**    * @deprecated use {@link org.apache.hadoop.hbase.client.Admin#listReplicationPeers()} instead    */
+annotation|@
+name|Deprecated
 specifier|public
 name|Map
 argument_list|<
@@ -1247,6 +1263,9 @@ return|return
 name|result
 return|;
 block|}
+comment|/**    * @deprecated use {@link org.apache.hadoop.hbase.client.Admin#getReplicationPeerConfig(String)}    *             instead    */
+annotation|@
+name|Deprecated
 specifier|public
 name|ReplicationPeerConfig
 name|getPeerConfig
@@ -1333,6 +1352,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Append the replicable table-cf config of the specified peer    * @param id a short that identifies the cluster    * @param tableCfs A map from tableName to column family names    * @throws ReplicationException    * @throws IOException    */
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|appendPeerTableCFs
@@ -1629,6 +1650,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Remove some table-cfs from config of the specified peer    * @param id a short name that identifies the cluster    * @param tableCfs A map from tableName to column family names    * @throws ReplicationException    * @throws IOException    */
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|removePeerTableCFs
@@ -1975,6 +1998,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Set the replicable table-cf config of the specified peer    * @param id a short name that identifies the cluster    * @param tableCfs the table and column-family list which will be replicated for this peer.    * A map from tableName to column family names. An empty collection can be passed    * to indicate replicating all column families. Pass null for replicating all table and column    * families    */
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|setPeerTableCFs
@@ -2022,6 +2047,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Get the state of the specified peer cluster    * @param id String format of the Short name that identifies the peer,    * an IllegalArgumentException is thrown if it doesn't exist    * @return true if replication is enabled to that peer, false if it isn't    */
+annotation|@
+name|Deprecated
 specifier|public
 name|boolean
 name|getPeerState

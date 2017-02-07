@@ -15797,6 +15797,22 @@ argument_list|(
 name|peerId
 argument_list|)
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|getClientIdAuditPrefix
+argument_list|()
+operator|+
+literal|" get replication peer config, id="
+operator|+
+name|peerId
+operator|+
+literal|", config="
+operator|+
+name|peerConfig
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|cpHost
