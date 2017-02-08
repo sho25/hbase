@@ -525,7 +525,7 @@ operator|.
 name|Writer
 name|writer
 decl_stmt|;
-comment|/**    * Creates an HFile.Writer that also write helpful meta data.    * @param fs file system to write to    * @param path file name to create    * @param conf user configuration    * @param comparator key comparator    * @param bloomType bloom filter setting    * @param maxKeys the expected maximum number of keys to be added. Was used    *        for Bloom filter size in {@link HFile} format version 1.    * @param fileContext - The HFile context    * @throws IOException problem writing to FS    */
+comment|/**    * Creates an HFile.Writer that also write helpful meta data.    * @param fs file system to write to    * @param path file name to create    * @param conf user configuration    * @param comparator key comparator    * @param bloomType bloom filter setting    * @param maxKeys the expected maximum number of keys to be added. Was used    *        for Bloom filter size in {@link HFile} format version 1.    * @param fileContext - The HFile context    * @param shouldDropCacheBehind Drop pages written to page cache after writing the store file.    * @throws IOException problem writing to FS    */
 name|StoreFileWriter
 parameter_list|(
 name|FileSystem
@@ -557,6 +557,9 @@ name|favoredNodes
 parameter_list|,
 name|HFileContext
 name|fileContext
+parameter_list|,
+name|boolean
+name|shouldDropCacheBehind
 parameter_list|)
 throws|throws
 name|IOException
@@ -581,11 +584,13 @@ name|favoredNodes
 argument_list|,
 name|fileContext
 argument_list|,
+name|shouldDropCacheBehind
+argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**      * Creates an HFile.Writer that also write helpful meta data.      * @param fs file system to write to      * @param path file name to create      * @param conf user configuration      * @param comparator key comparator      * @param bloomType bloom filter setting      * @param maxKeys the expected maximum number of keys to be added. Was used      *        for Bloom filter size in {@link HFile} format version 1.      * @param favoredNodes      * @param fileContext - The HFile context    * @param trt Ready-made timetracker to use.      * @throws IOException problem writing to FS      */
+comment|/**      * Creates an HFile.Writer that also write helpful meta data.      * @param fs file system to write to      * @param path file name to create      * @param conf user configuration      * @param comparator key comparator      * @param bloomType bloom filter setting      * @param maxKeys the expected maximum number of keys to be added. Was used      *        for Bloom filter size in {@link HFile} format version 1.      * @param favoredNodes      * @param fileContext - The HFile context      * @param shouldDropCacheBehind Drop pages written to page cache after writing the store file.      * @param trt Ready-made timetracker to use.      * @throws IOException problem writing to FS      */
 specifier|private
 name|StoreFileWriter
 parameter_list|(
@@ -618,6 +623,9 @@ name|favoredNodes
 parameter_list|,
 name|HFileContext
 name|fileContext
+parameter_list|,
+name|boolean
+name|shouldDropCacheBehind
 parameter_list|,
 specifier|final
 name|TimeRangeTracker
@@ -683,6 +691,11 @@ operator|.
 name|withFileContext
 argument_list|(
 name|fileContext
+argument_list|)
+operator|.
+name|withShouldDropCacheBehind
+argument_list|(
+name|shouldDropCacheBehind
 argument_list|)
 operator|.
 name|create
@@ -1677,6 +1690,10 @@ specifier|private
 name|TimeRangeTracker
 name|trt
 decl_stmt|;
+specifier|private
+name|boolean
+name|shouldDropCacheBehind
+decl_stmt|;
 specifier|public
 name|Builder
 parameter_list|(
@@ -1901,10 +1918,14 @@ name|withShouldDropCacheBehind
 parameter_list|(
 name|boolean
 name|shouldDropCacheBehind
-comment|/*NOT USED!!*/
 parameter_list|)
 block|{
-comment|// TODO: HAS NO EFFECT!!! FIX!!
+name|this
+operator|.
+name|shouldDropCacheBehind
+operator|=
+name|shouldDropCacheBehind
+expr_stmt|;
 return|return
 name|this
 return|;
@@ -2107,6 +2128,8 @@ argument_list|,
 name|favoredNodes
 argument_list|,
 name|fileContext
+argument_list|,
+name|shouldDropCacheBehind
 argument_list|,
 name|trt
 argument_list|)
