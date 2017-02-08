@@ -75,7 +75,53 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HBaseInterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|MetaMutationAnnotation
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceStability
 import|;
 end_import
 
@@ -149,7 +195,24 @@ name|ReplicationEndpoint
 import|;
 end_import
 
+begin_comment
+comment|/**  * Defines coprocessor hooks for interacting with operations on the  * {@link org.apache.hadoop.hbase.regionserver.HRegionServer} process.  */
+end_comment
+
 begin_interface
+annotation|@
+name|InterfaceAudience
+operator|.
+name|LimitedPrivate
+argument_list|(
+name|HBaseInterfaceAudience
+operator|.
+name|COPROC
+argument_list|)
+annotation|@
+name|InterfaceStability
+operator|.
+name|Evolving
 specifier|public
 interface|interface
 name|RegionServerObserver
@@ -218,7 +281,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * This will be called before PONR step as part of regions merge transaction. Calling    * {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} rollback the merge    * @param ctx    * @param regionA    * @param regionB    * @param metaEntries mutations to execute on hbase:meta atomically with regions merge updates.     *        Any puts or deletes to execute on hbase:meta can be added to the mutations.    * @throws IOException    */
+comment|/**    * This will be called before PONR step as part of regions merge transaction. Calling    * {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} rollback the merge    * @param ctx    * @param regionA    * @param regionB    * @param metaEntries mutations to execute on hbase:meta atomically with regions merge updates.    *        Any puts or deletes to execute on hbase:meta can be added to the mutations.    * @throws IOException    */
 name|void
 name|preMergeCommit
 parameter_list|(
