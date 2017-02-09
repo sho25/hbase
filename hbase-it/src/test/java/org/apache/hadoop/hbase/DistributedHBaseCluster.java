@@ -1600,6 +1600,8 @@ operator|.
 name|getRegionLocation
 argument_list|(
 name|regionName
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 block|}
