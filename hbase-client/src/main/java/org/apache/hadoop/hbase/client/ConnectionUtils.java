@@ -1751,7 +1751,10 @@ operator|.
 name|isStale
 argument_list|()
 argument_list|,
-literal|true
+name|result
+operator|.
+name|mayHaveMoreCellsInRow
+argument_list|()
 argument_list|)
 return|;
 block|}

@@ -271,26 +271,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|shaded
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|ClientProtos
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|util
 operator|.
 name|Bytes
@@ -334,10 +314,10 @@ name|stale
 init|=
 literal|false
 decl_stmt|;
-comment|/**    * Partial results do not contain the full row's worth of cells. The result had to be returned in    * parts because the size of the cells in the row exceeded the RPC result size on the server.    * Partial results must be combined client side with results representing the remainder of the    * row's cells to form the complete result. Partial results and RPC result size allow us to avoid    * OOME on the server when servicing requests for large rows. The Scan configuration used to    * control the result size on the server is {@link Scan#setMaxResultSize(long)} and the default    * value can be seen here: {@link HConstants#DEFAULT_HBASE_CLIENT_SCANNER_MAX_RESULT_SIZE}    */
+comment|/**    * See {@link #mayHaveMoreCellsInRow()}. And please notice that, The client side implementation    * should also check for row key change to determine if a Result is the last one for a row.    */
 specifier|private
 name|boolean
-name|partial
+name|mayHaveMoreCellsInRow
 init|=
 literal|false
 decl_stmt|;
@@ -679,7 +659,7 @@ name|boolean
 name|stale
 parameter_list|,
 name|boolean
-name|partial
+name|mayHaveMoreCellsInRow
 parameter_list|)
 block|{
 if|if
@@ -699,7 +679,7 @@ name|exists
 argument_list|,
 name|stale
 argument_list|,
-name|partial
+name|mayHaveMoreCellsInRow
 argument_list|)
 return|;
 block|}
@@ -713,7 +693,7 @@ literal|null
 argument_list|,
 name|stale
 argument_list|,
-name|partial
+name|mayHaveMoreCellsInRow
 argument_list|)
 return|;
 block|}
@@ -732,7 +712,7 @@ name|boolean
 name|stale
 parameter_list|,
 name|boolean
-name|partial
+name|mayHaveMoreCellsInRow
 parameter_list|)
 block|{
 name|this
@@ -755,9 +735,9 @@ name|stale
 expr_stmt|;
 name|this
 operator|.
-name|partial
+name|mayHaveMoreCellsInRow
 operator|=
-name|partial
+name|mayHaveMoreCellsInRow
 expr_stmt|;
 name|this
 operator|.
@@ -3304,7 +3284,7 @@ operator|&&
 operator|!
 name|r
 operator|.
-name|isPartial
+name|mayHaveMoreCellsInRow
 argument_list|()
 condition|)
 block|{
@@ -3567,14 +3547,26 @@ return|return
 name|stale
 return|;
 block|}
-comment|/**    * Whether or not the result is a partial result. Partial results contain a subset of the cells    * for a row and should be combined with a result representing the remaining cells in that row to    * form a complete (non-partial) result.    * @return Whether or not the result is a partial result    */
+comment|/**    * Whether or not the result is a partial result. Partial results contain a subset of the cells    * for a row and should be combined with a result representing the remaining cells in that row to    * form a complete (non-partial) result.    * @return Whether or not the result is a partial result    * @deprecated the word 'partial' ambiguous, use {@link #mayHaveMoreCellsInRow()} instead.    *             Deprecated since 1.4.0.    * @see #mayHaveMoreCellsInRow()    */
+annotation|@
+name|Deprecated
 specifier|public
 name|boolean
 name|isPartial
 parameter_list|()
 block|{
 return|return
-name|partial
+name|mayHaveMoreCellsInRow
+return|;
+block|}
+comment|/**    * For scanning large rows, the RS may choose to return the cells chunk by chunk to prevent OOM.    * This flag is used to tell you if the current Result is the last one of the current row. False    * means this Result is the last one. True means there may still be more cells for the current    * row. Notice that, 'may' have, not must have. This is because we may reach the size or time    * limit just at the last cell of row at RS, so we do not know if it is the last one.    *<p>    * The Scan configuration used to control the result size on the server is    * {@link Scan#setMaxResultSize(long)} and the default value can be seen here:    * {@link HConstants#DEFAULT_HBASE_CLIENT_SCANNER_MAX_RESULT_SIZE}    */
+specifier|public
+name|boolean
+name|mayHaveMoreCellsInRow
+parameter_list|()
+block|{
+return|return
+name|mayHaveMoreCellsInRow
 return|;
 block|}
 comment|/**    * Set load information about the region to the information about the result    * @param loadStats statistics about the current region from which this was returned    */

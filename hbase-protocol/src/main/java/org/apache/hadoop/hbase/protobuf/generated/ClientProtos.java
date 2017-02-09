@@ -24123,12 +24123,12 @@ name|getStale
 parameter_list|()
 function_decl|;
 comment|// optional bool partial = 5 [default = false];
-comment|/**      *<code>optional bool partial = 5 [default = false];</code>      *      *<pre>      * Whether or not the entire result could be returned. Results will be split when      * the RPC chunk size limit is reached. Partial results contain only a subset of the      * cells for a row and must be combined with a result containing the remaining cells      * to form a complete result      *</pre>      */
+comment|/**      *<code>optional bool partial = 5 [default = false];</code>      *      *<pre>      * Whether or not the entire result could be returned. Results will be split when      * the RPC chunk size limit is reached. Partial results contain only a subset of the      * cells for a row and must be combined with a result containing the remaining cells      * to form a complete result. The equivalent flag in o.a.h.h.client.Result is      * mayHaveMoreCellsInRow.      *</pre>      */
 name|boolean
 name|hasPartial
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional bool partial = 5 [default = false];</code>      *      *<pre>      * Whether or not the entire result could be returned. Results will be split when      * the RPC chunk size limit is reached. Partial results contain only a subset of the      * cells for a row and must be combined with a result containing the remaining cells      * to form a complete result      *</pre>      */
+comment|/**      *<code>optional bool partial = 5 [default = false];</code>      *      *<pre>      * Whether or not the entire result could be returned. Results will be split when      * the RPC chunk size limit is reached. Partial results contain only a subset of the      * cells for a row and must be combined with a result containing the remaining cells      * to form a complete result. The equivalent flag in o.a.h.h.client.Result is      * mayHaveMoreCellsInRow.      *</pre>      */
 name|boolean
 name|getPartial
 parameter_list|()
@@ -25149,7 +25149,7 @@ specifier|private
 name|boolean
 name|partial_
 decl_stmt|;
-comment|/**      *<code>optional bool partial = 5 [default = false];</code>      *      *<pre>      * Whether or not the entire result could be returned. Results will be split when      * the RPC chunk size limit is reached. Partial results contain only a subset of the      * cells for a row and must be combined with a result containing the remaining cells      * to form a complete result      *</pre>      */
+comment|/**      *<code>optional bool partial = 5 [default = false];</code>      *      *<pre>      * Whether or not the entire result could be returned. Results will be split when      * the RPC chunk size limit is reached. Partial results contain only a subset of the      * cells for a row and must be combined with a result containing the remaining cells      * to form a complete result. The equivalent flag in o.a.h.h.client.Result is      * mayHaveMoreCellsInRow.      *</pre>      */
 specifier|public
 name|boolean
 name|hasPartial
@@ -25167,7 +25167,7 @@ literal|0x00000008
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional bool partial = 5 [default = false];</code>      *      *<pre>      * Whether or not the entire result could be returned. Results will be split when      * the RPC chunk size limit is reached. Partial results contain only a subset of the      * cells for a row and must be combined with a result containing the remaining cells      * to form a complete result      *</pre>      */
+comment|/**      *<code>optional bool partial = 5 [default = false];</code>      *      *<pre>      * Whether or not the entire result could be returned. Results will be split when      * the RPC chunk size limit is reached. Partial results contain only a subset of the      * cells for a row and must be combined with a result containing the remaining cells      * to form a complete result. The equivalent flag in o.a.h.h.client.Result is      * mayHaveMoreCellsInRow.      *</pre>      */
 specifier|public
 name|boolean
 name|getPartial
@@ -29501,7 +29501,7 @@ specifier|private
 name|boolean
 name|partial_
 decl_stmt|;
-comment|/**        *<code>optional bool partial = 5 [default = false];</code>        *        *<pre>        * Whether or not the entire result could be returned. Results will be split when        * the RPC chunk size limit is reached. Partial results contain only a subset of the        * cells for a row and must be combined with a result containing the remaining cells        * to form a complete result        *</pre>        */
+comment|/**        *<code>optional bool partial = 5 [default = false];</code>        *        *<pre>        * Whether or not the entire result could be returned. Results will be split when        * the RPC chunk size limit is reached. Partial results contain only a subset of the        * cells for a row and must be combined with a result containing the remaining cells        * to form a complete result. The equivalent flag in o.a.h.h.client.Result is        * mayHaveMoreCellsInRow.        *</pre>        */
 specifier|public
 name|boolean
 name|hasPartial
@@ -29519,7 +29519,7 @@ literal|0x00000010
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional bool partial = 5 [default = false];</code>        *        *<pre>        * Whether or not the entire result could be returned. Results will be split when        * the RPC chunk size limit is reached. Partial results contain only a subset of the        * cells for a row and must be combined with a result containing the remaining cells        * to form a complete result        *</pre>        */
+comment|/**        *<code>optional bool partial = 5 [default = false];</code>        *        *<pre>        * Whether or not the entire result could be returned. Results will be split when        * the RPC chunk size limit is reached. Partial results contain only a subset of the        * cells for a row and must be combined with a result containing the remaining cells        * to form a complete result. The equivalent flag in o.a.h.h.client.Result is        * mayHaveMoreCellsInRow.        *</pre>        */
 specifier|public
 name|boolean
 name|getPartial
@@ -29529,7 +29529,7 @@ return|return
 name|partial_
 return|;
 block|}
-comment|/**        *<code>optional bool partial = 5 [default = false];</code>        *        *<pre>        * Whether or not the entire result could be returned. Results will be split when        * the RPC chunk size limit is reached. Partial results contain only a subset of the        * cells for a row and must be combined with a result containing the remaining cells        * to form a complete result        *</pre>        */
+comment|/**        *<code>optional bool partial = 5 [default = false];</code>        *        *<pre>        * Whether or not the entire result could be returned. Results will be split when        * the RPC chunk size limit is reached. Partial results contain only a subset of the        * cells for a row and must be combined with a result containing the remaining cells        * to form a complete result. The equivalent flag in o.a.h.h.client.Result is        * mayHaveMoreCellsInRow.        *</pre>        */
 specifier|public
 name|Builder
 name|setPartial
@@ -29553,7 +29553,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional bool partial = 5 [default = false];</code>        *        *<pre>        * Whether or not the entire result could be returned. Results will be split when        * the RPC chunk size limit is reached. Partial results contain only a subset of the        * cells for a row and must be combined with a result containing the remaining cells        * to form a complete result        *</pre>        */
+comment|/**        *<code>optional bool partial = 5 [default = false];</code>        *        *<pre>        * Whether or not the entire result could be returned. Results will be split when        * the RPC chunk size limit is reached. Partial results contain only a subset of the        * cells for a row and must be combined with a result containing the remaining cells        * to form a complete result. The equivalent flag in o.a.h.h.client.Result is        * mayHaveMoreCellsInRow.        *</pre>        */
 specifier|public
 name|Builder
 name|clearPartial

@@ -653,20 +653,6 @@ name|concurrent
 operator|.
 name|locks
 operator|.
-name|ReentrantLock
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|locks
-operator|.
 name|ReentrantReadWriteLock
 import|;
 end_import
@@ -29144,22 +29130,22 @@ name|tmpList
 argument_list|)
 expr_stmt|;
 block|}
-comment|// If the size limit was reached it means a partial Result is being
-comment|// returned. Returning a
-comment|// partial Result means that we should not reset the filters; filters
-comment|// should only be reset in
+comment|// If the size limit was reached it means a partial Result is being returned. Returning a
+comment|// partial Result means that we should not reset the filters; filters should only be reset in
 comment|// between rows
 if|if
 condition|(
 operator|!
 name|scannerContext
 operator|.
-name|midRowResultFormed
+name|mayHaveMoreCellsInRow
 argument_list|()
 condition|)
+block|{
 name|resetFilters
 argument_list|()
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|isFilterDoneInternal

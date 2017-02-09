@@ -4515,7 +4515,9 @@ operator|.
 name|isEmpty
 argument_list|()
 condition|)
+block|{
 return|return;
+block|}
 if|if
 condition|(
 name|clientCellBlockSupported
@@ -4545,7 +4547,7 @@ name|addPartialFlagPerResult
 argument_list|(
 name|res
 operator|.
-name|isPartial
+name|mayHaveMoreCellsInRow
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -17331,15 +17333,6 @@ name|isEmpty
 argument_list|()
 condition|)
 block|{
-specifier|final
-name|boolean
-name|partial
-init|=
-name|scannerContext
-operator|.
-name|partialResultFormed
-argument_list|()
-decl_stmt|;
 name|Result
 name|r
 init|=
@@ -17353,7 +17346,10 @@ literal|null
 argument_list|,
 name|stale
 argument_list|,
-name|partial
+name|scannerContext
+operator|.
+name|mayHaveMoreCellsInRow
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|lastBlock
@@ -18497,7 +18493,7 @@ operator|-
 literal|1
 argument_list|)
 operator|.
-name|isPartial
+name|mayHaveMoreCellsInRow
 argument_list|()
 condition|)
 block|{
