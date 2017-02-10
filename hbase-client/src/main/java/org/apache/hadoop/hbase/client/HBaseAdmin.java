@@ -133,16 +133,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|Set
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|Map
 operator|.
 name|Entry
@@ -23373,7 +23363,7 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Connect to peer and check the table descriptor on peer:    *<ol>    *<li>Create the same table on peer when not exist.</li>    *<li>Throw exception if the table exists on peer cluster but descriptors are not same.</li>    *</ol>    * @param tableName name of the table to sync to the peer    * @param splits table split keys    * @throws IOException    */
+comment|/**    * Connect to peer and check the table descriptor on peer:    *<ol>    *<li>Create the same table on peer when not exist.</li>    *<li>Throw an exception if the table already has replication enabled on any of the column    * families.</li>    *<li>Throw an exception if the table exists on peer cluster but descriptors are not same.</li>    *</ol>    * @param tableName name of the table to sync to the peer    * @param splits table split keys    * @throws IOException    */
 specifier|private
 name|void
 name|checkAndSyncTableDescToPeers
@@ -23463,7 +23453,7 @@ init|;             Admin repHBaseAdmin = conn.getAdmin()
 block|)
 block|{
 name|HTableDescriptor
-name|htd
+name|localHtd
 init|=
 name|getTableDescriptor
 argument_list|(
@@ -23490,7 +23480,7 @@ name|repHBaseAdmin
 operator|.
 name|createTable
 argument_list|(
-name|htd
+name|localHtd
 argument_list|,
 name|splits
 argument_list|)
@@ -23534,15 +23524,46 @@ argument_list|()
 argument_list|)
 throw|;
 block|}
-elseif|else
+else|else
+block|{
+comment|// To support cyclic replication (HBASE-17460), we need to match the
+comment|// REPLICATION_SCOPE of table on both the clusters. We should do this
+comment|// only when the replication is not already enabled on local HTD (local
+comment|// table on this cluster).
+comment|//
+if|if
+condition|(
+name|localHtd
+operator|.
+name|isReplicationEnabled
+argument_list|()
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Table "
+operator|+
+name|tableName
+operator|.
+name|getNameAsString
+argument_list|()
+operator|+
+literal|" has replication already enabled for atleast one Column Family."
+argument_list|)
+throw|;
+block|}
+else|else
+block|{
 if|if
 condition|(
 operator|!
 name|peerHtd
 operator|.
-name|equals
+name|compareForReplication
 argument_list|(
-name|htd
+name|localHtd
 argument_list|)
 condition|)
 block|{
@@ -23569,6 +23590,8 @@ operator|+
 literal|" Thus can not enable the table's replication switch."
 argument_list|)
 throw|;
+block|}
+block|}
 block|}
 block|}
 block|}
