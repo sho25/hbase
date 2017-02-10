@@ -3030,6 +3030,23 @@ operator|.
 name|class
 argument_list|,
 comment|// hbase-server
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|metrics
+operator|.
+name|impl
+operator|.
+name|FastLongHistogram
+operator|.
+name|class
+argument_list|,
+comment|// hbase-metrics
 name|prefixTreeCodecClass
 argument_list|,
 comment|//  hbase-prefix-tree (if null will be skipped)
