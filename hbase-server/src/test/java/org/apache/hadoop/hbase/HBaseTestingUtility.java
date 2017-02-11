@@ -1830,6 +1830,12 @@ specifier|volatile
 name|Connection
 name|connection
 decl_stmt|;
+specifier|private
+name|boolean
+name|localMode
+init|=
+literal|false
+decl_stmt|;
 comment|/**    * System property key to get test directory value.    * Name is as it is because mini dfs has hard-codings to put test data here.    * It should NOT be used directly in HBase, as it's a property used in    *  mini dfs.    *  @deprecated can be used only with mini dfs    */
 annotation|@
 name|Deprecated
@@ -2586,10 +2592,24 @@ argument_list|()
 operator|.
 name|set
 argument_list|(
+literal|"fs.defaultFS"
+argument_list|,
+literal|"file:///"
+argument_list|)
+expr_stmt|;
+name|htu
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|set
+argument_list|(
 name|HConstants
 operator|.
 name|HBASE_DIR
 argument_list|,
+literal|"file://"
+operator|+
 name|dataTestDir
 argument_list|)
 expr_stmt|;
@@ -2607,6 +2627,12 @@ literal|" to "
 operator|+
 name|dataTestDir
 argument_list|)
+expr_stmt|;
+name|htu
+operator|.
+name|localMode
+operator|=
+literal|true
 expr_stmt|;
 return|return
 name|htu
@@ -5020,8 +5046,18 @@ operator|.
 name|dfsCluster
 operator|==
 literal|null
+operator|&&
+operator|!
+name|localMode
 condition|)
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"STARTING DFS"
+argument_list|)
+expr_stmt|;
 name|dfsCluster
 operator|=
 name|startMiniDFSCluster
@@ -5032,6 +5068,14 @@ name|dataNodeHosts
 argument_list|)
 expr_stmt|;
 block|}
+else|else
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"NOT STARTING DFS"
+argument_list|)
+expr_stmt|;
 comment|// Start up a zk cluster.
 if|if
 condition|(
