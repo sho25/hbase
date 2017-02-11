@@ -105,7 +105,7 @@ name|org
 operator|.
 name|junit
 operator|.
-name|Before
+name|BeforeClass
 import|;
 end_import
 
@@ -165,7 +165,7 @@ init|=
 literal|false
 decl_stmt|;
 annotation|@
-name|Before
+name|BeforeClass
 specifier|public
 name|void
 name|beforeMethod
@@ -235,9 +235,8 @@ operator|=
 operator|new
 name|VerifyingRSGroupAdminClient
 argument_list|(
-name|rsGroupAdmin
-operator|.
-name|newClient
+operator|new
+name|RSGroupAdminClient
 argument_list|(
 name|TEST_UTIL
 operator|.

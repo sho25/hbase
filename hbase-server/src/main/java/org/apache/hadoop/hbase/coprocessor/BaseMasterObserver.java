@@ -19,20 +19,6 @@ end_package
 
 begin_import
 import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|net
-operator|.
-name|HostAndPort
-import|;
-end_import
-
-begin_import
-import|import
 name|java
 operator|.
 name|io
@@ -360,6 +346,22 @@ operator|.
 name|QuotaProtos
 operator|.
 name|Quotas
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Address
 import|;
 end_import
 
@@ -3335,7 +3337,7 @@ name|ctx
 parameter_list|,
 name|Set
 argument_list|<
-name|HostAndPort
+name|Address
 argument_list|>
 name|servers
 parameter_list|,
@@ -3359,7 +3361,7 @@ name|ctx
 parameter_list|,
 name|Set
 argument_list|<
-name|HostAndPort
+name|Address
 argument_list|>
 name|servers
 parameter_list|,

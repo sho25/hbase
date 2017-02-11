@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Copyright The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -16,20 +16,6 @@ operator|.
 name|rsgroup
 package|;
 end_package
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|net
-operator|.
-name|HostAndPort
-import|;
-end_import
 
 begin_import
 import|import
@@ -111,9 +97,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
+name|util
 operator|.
-name|Connection
+name|Address
 import|;
 end_import
 
@@ -121,41 +107,16 @@ begin_comment
 comment|/**  * Group user API interface used between client and server.  */
 end_comment
 
-begin_class
+begin_interface
 annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
 specifier|public
-specifier|abstract
-class|class
+interface|interface
 name|RSGroupAdmin
-implements|implements
-name|Closeable
 block|{
-comment|/**    * Create a new RSGroupAdmin client    * @param conn connection RSGroupAdmin instance will use    * @return a new RSGroupAdmin client    * @throws IOException on failure to create new client    */
-specifier|public
-specifier|static
-name|RSGroupAdmin
-name|newClient
-parameter_list|(
-name|Connection
-name|conn
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-return|return
-operator|new
-name|RSGroupAdminClient
-argument_list|(
-name|conn
-argument_list|)
-return|;
-block|}
 comment|/**    * Gets the regionserver group information.    *    * @param groupName the group name    * @return An instance of RSGroupInfo    */
-specifier|public
-specifier|abstract
 name|RSGroupInfo
 name|getRSGroupInfo
 parameter_list|(
@@ -166,8 +127,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Gets the regionserver group info of table.    *    * @param tableName the table name    * @return An instance of RSGroupInfo.    */
-specifier|public
-specifier|abstract
 name|RSGroupInfo
 name|getRSGroupInfoOfTable
 parameter_list|(
@@ -178,14 +137,12 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Move a set of serves to another group    *    *    * @param servers set of servers, must be in the form HOST:PORT    * @param targetGroup the target group    * @throws java.io.IOException Signals that an I/O exception has occurred.    */
-specifier|public
-specifier|abstract
 name|void
 name|moveServers
 parameter_list|(
 name|Set
 argument_list|<
-name|HostAndPort
+name|Address
 argument_list|>
 name|servers
 parameter_list|,
@@ -196,8 +153,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Move tables to a new group.    * This will unassign all of a table's region so it can be reassigned to the correct group.    * @param tables list of tables to move    * @param targetGroup target group    * @throws java.io.IOException on failure to move tables    */
-specifier|public
-specifier|abstract
 name|void
 name|moveTables
 parameter_list|(
@@ -214,8 +169,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Add a new group    * @param name name of the group    * @throws java.io.IOException on failure to add group    */
-specifier|public
-specifier|abstract
 name|void
 name|addRSGroup
 parameter_list|(
@@ -226,8 +179,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Remove a regionserver group    * @param name name of the group    * @throws java.io.IOException on failure to remove group    */
-specifier|public
-specifier|abstract
 name|void
 name|removeRSGroup
 parameter_list|(
@@ -238,8 +189,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Balance the regions in a group    *    * @param name the name of the group to balance    * @return boolean whether balance ran or not    * @throws java.io.IOException on unexpected failure to balance group    */
-specifier|public
-specifier|abstract
 name|boolean
 name|balanceRSGroup
 parameter_list|(
@@ -250,8 +199,6 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Lists the existing groups.    *    * @return Collection of RSGroupInfo.    */
-specifier|public
-specifier|abstract
 name|List
 argument_list|<
 name|RSGroupInfo
@@ -262,19 +209,17 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Retrieve the RSGroupInfo a server is affiliated to    * @param hostPort HostPort to get RSGroupInfo for    * @return RSGroupInfo associated with the server    * @throws java.io.IOException on unexpected failure to retrieve GroupInfo    */
-specifier|public
-specifier|abstract
 name|RSGroupInfo
 name|getRSGroupOfServer
 parameter_list|(
-name|HostAndPort
+name|Address
 name|hostPort
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
 block|}
-end_class
+end_interface
 
 end_unit
 

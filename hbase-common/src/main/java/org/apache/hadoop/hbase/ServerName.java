@@ -141,26 +141,28 @@ name|common
 operator|.
 name|net
 operator|.
-name|HostAndPort
+name|InetAddresses
 import|;
 end_import
 
 begin_import
 import|import
-name|com
+name|org
 operator|.
-name|google
+name|apache
 operator|.
-name|common
+name|hadoop
 operator|.
-name|net
+name|hbase
 operator|.
-name|InetAddresses
+name|util
+operator|.
+name|Address
 import|;
 end_import
 
 begin_comment
-comment|/**  * Instance of an HBase ServerName.  * A server name is used uniquely identifying a server instance in a cluster and is made  * of the combination of hostname, port, and startcode.  The startcode distingushes restarted  * servers on same hostname and port (startcode is usually timestamp of server startup). The  * {@link #toString()} format of ServerName is safe to use in the  filesystem and as znode name  * up in ZooKeeper.  Its format is:  *<code>&lt;hostname&gt; '{@link #SERVERNAME_SEPARATOR}'&lt;port&gt;  * '{@link #SERVERNAME_SEPARATOR}'&lt;startcode&gt;</code>.  * For example, if hostname is<code>www.example.org</code>, port is<code>1234</code>,  * and the startcode for the regionserver is<code>1212121212</code>, then  * the {@link #toString()} would be<code>www.example.org,1234,1212121212</code>.  *   *<p>You can obtain a versioned serialized form of this class by calling  * {@link #getVersionedBytes()}.  To deserialize, call {@link #parseVersionedServerName(byte[])}  *   *<p>Immutable.  */
+comment|/**  * Name of a particular incarnation of an HBase Server.  * A {@link ServerName} is used uniquely identifying a server instance in a cluster and is made  * of the combination of hostname, port, and startcode.  The startcode distinguishes restarted  * servers on same hostname and port (startcode is usually timestamp of server startup). The  * {@link #toString()} format of ServerName is safe to use in the  filesystem and as znode name  * up in ZooKeeper.  Its format is:  *<code>&lt;hostname&gt; '{@link #SERVERNAME_SEPARATOR}'&lt;port&gt;  * '{@link #SERVERNAME_SEPARATOR}'&lt;startcode&gt;</code>.  * For example, if hostname is<code>www.example.org</code>, port is<code>1234</code>,  * and the startcode for the regionserver is<code>1212121212</code>, then  * the {@link #toString()} would be<code>www.example.org,1234,1212121212</code>.  *  *<p>You can obtain a versioned serialized form of this class by calling  * {@link #getVersionedBytes()}.  To deserialize, call  * {@link #parseVersionedServerName(byte[])}.  *  *<p>Use {@link #getAddress()} to obtain the Server hostname + port  * (Endpoint/Socket Address).  *  *<p>Immutable.  */
 end_comment
 
 begin_class
@@ -279,23 +281,13 @@ name|servername
 decl_stmt|;
 specifier|private
 specifier|final
-name|String
-name|hostnameOnly
-decl_stmt|;
-specifier|private
-specifier|final
-name|int
-name|port
-decl_stmt|;
-specifier|private
-specifier|final
 name|long
 name|startcode
 decl_stmt|;
 specifier|private
 specifier|transient
-name|HostAndPort
-name|hostAndPort
+name|Address
+name|address
 decl_stmt|;
 comment|/**    * Cached versioned bytes of this ServerName instance.    * @see #getVersionedBytes()    */
 specifier|private
@@ -337,19 +329,39 @@ name|long
 name|startcode
 parameter_list|)
 block|{
-comment|// Drop the domain is there is one; no need of it in a local cluster.  With it, we get long
-comment|// unwieldy names.
 name|this
+argument_list|(
+name|Address
 operator|.
-name|hostnameOnly
-operator|=
+name|fromParts
+argument_list|(
 name|hostname
+argument_list|,
+name|port
+argument_list|)
+argument_list|,
+name|startcode
+argument_list|)
 expr_stmt|;
+block|}
+specifier|private
+name|ServerName
+parameter_list|(
+specifier|final
+name|Address
+name|address
+parameter_list|,
+specifier|final
+name|long
+name|startcode
+parameter_list|)
+block|{
+comment|// Use HostAndPort to host port and hostname. Does validation and can do ipv6
 name|this
 operator|.
-name|port
+name|address
 operator|=
-name|port
+name|address
 expr_stmt|;
 name|this
 operator|.
@@ -363,15 +375,80 @@ name|servername
 operator|=
 name|getServerName
 argument_list|(
-name|hostname
+name|this
+operator|.
+name|address
+operator|.
+name|getHostname
+argument_list|()
 argument_list|,
-name|port
+name|this
+operator|.
+name|address
+operator|.
+name|getPort
+argument_list|()
 argument_list|,
 name|startcode
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param hostname    * @return hostname minus the domain, if there is one (will do pass-through on ip addresses)    */
+specifier|private
+name|ServerName
+parameter_list|(
+specifier|final
+name|String
+name|serverName
+parameter_list|)
+block|{
+name|this
+argument_list|(
+name|parseHostname
+argument_list|(
+name|serverName
+argument_list|)
+argument_list|,
+name|parsePort
+argument_list|(
+name|serverName
+argument_list|)
+argument_list|,
+name|parseStartcode
+argument_list|(
+name|serverName
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+specifier|private
+name|ServerName
+parameter_list|(
+specifier|final
+name|String
+name|hostAndPort
+parameter_list|,
+specifier|final
+name|long
+name|startCode
+parameter_list|)
+block|{
+name|this
+argument_list|(
+name|Address
+operator|.
+name|fromString
+argument_list|(
+name|hostAndPort
+argument_list|)
+argument_list|,
+name|startCode
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * @param hostname    * @return hostname minus the domain, if there is one (will do pass-through on ip addresses)    * @deprecated Since 2.0. This is for internal use only.    */
+annotation|@
+name|Deprecated
+comment|// Make this private in hbase-3.0.
 specifier|static
 name|String
 name|getHostNameMinusDomain
@@ -426,65 +503,10 @@ literal|0
 index|]
 return|;
 block|}
-specifier|private
-name|ServerName
-parameter_list|(
-specifier|final
-name|String
-name|serverName
-parameter_list|)
-block|{
-name|this
-argument_list|(
-name|parseHostname
-argument_list|(
-name|serverName
-argument_list|)
-argument_list|,
-name|parsePort
-argument_list|(
-name|serverName
-argument_list|)
-argument_list|,
-name|parseStartcode
-argument_list|(
-name|serverName
-argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
-specifier|private
-name|ServerName
-parameter_list|(
-specifier|final
-name|String
-name|hostAndPort
-parameter_list|,
-specifier|final
-name|long
-name|startCode
-parameter_list|)
-block|{
-name|this
-argument_list|(
-name|Addressing
-operator|.
-name|parseHostname
-argument_list|(
-name|hostAndPort
-argument_list|)
-argument_list|,
-name|Addressing
-operator|.
-name|parsePort
-argument_list|(
-name|hostAndPort
-argument_list|)
-argument_list|,
-name|startCode
-argument_list|)
-expr_stmt|;
-block|}
+comment|/**    * @deprecated Since 2.0. Use {@link #valueOf(String)}    */
+annotation|@
+name|Deprecated
+comment|// This is unused. Get rid of it.
 specifier|public
 specifier|static
 name|String
@@ -564,6 +586,10 @@ name|index
 argument_list|)
 return|;
 block|}
+comment|/**    * @deprecated Since 2.0. Use {@link #valueOf(String)}    */
+annotation|@
+name|Deprecated
+comment|// This is unused. Get rid of it.
 specifier|public
 specifier|static
 name|int
@@ -597,6 +623,10 @@ index|]
 argument_list|)
 return|;
 block|}
+comment|/**    * @deprecated Since 2.0. Use {@link #valueOf(String)}    */
+annotation|@
+name|Deprecated
+comment|// This is unused. Get rid of it.
 specifier|public
 specifier|static
 name|long
@@ -733,10 +763,20 @@ name|createHostAndPortStr
 argument_list|(
 name|getHostNameMinusDomain
 argument_list|(
-name|hostnameOnly
+name|this
+operator|.
+name|address
+operator|.
+name|getHostname
+argument_list|()
 argument_list|)
 argument_list|,
-name|port
+name|this
+operator|.
+name|address
+operator|.
+name|getPort
+argument_list|()
 argument_list|)
 return|;
 block|}
@@ -798,7 +838,12 @@ name|getHostname
 parameter_list|()
 block|{
 return|return
-name|hostnameOnly
+name|this
+operator|.
+name|address
+operator|.
+name|getHostname
+argument_list|()
 return|;
 block|}
 specifier|public
@@ -807,7 +852,12 @@ name|getPort
 parameter_list|()
 block|{
 return|return
-name|port
+name|this
+operator|.
+name|address
+operator|.
+name|getPort
+argument_list|()
 return|;
 block|}
 specifier|public
@@ -819,7 +869,10 @@ return|return
 name|startcode
 return|;
 block|}
-comment|/**    * For internal use only.    * @param hostName    * @param port    * @param startcode    * @return Server name made of the concatenation of hostname, port and    * startcode formatted as<code>&lt;hostname&gt; ','&lt;port&gt; ','&lt;startcode&gt;</code>    */
+comment|/**    * For internal use only.    * @param hostName    * @param port    * @param startcode    * @return Server name made of the concatenation of hostname, port and    * startcode formatted as<code>&lt;hostname&gt; ','&lt;port&gt; ','&lt;startcode&gt;</code>    * @deprecated Since 2.0. Use {@link ServerName#valueOf(String, int, long)} instead.    */
+annotation|@
+name|Deprecated
+comment|// TODO: Make this private in hbase-3.0.
 specifier|static
 name|String
 name|getServerName
@@ -904,7 +957,9 @@ name|toString
 argument_list|()
 return|;
 block|}
-comment|/**    * @param hostAndPort String in form of&lt;hostname&gt; ':'&lt;port&gt;    * @param startcode    * @return Server name made of the concatenation of hostname, port and    * startcode formatted as<code>&lt;hostname&gt; ','&lt;port&gt; ','&lt;startcode&gt;</code>    */
+comment|/**    * @param hostAndPort String in form of&lt;hostname&gt; ':'&lt;port&gt;    * @param startcode    * @return Server name made of the concatenation of hostname, port and    * startcode formatted as<code>&lt;hostname&gt; ','&lt;port&gt; ','&lt;startcode&gt;</code>    * @deprecated Since 2.0. Use {@link ServerName#valueOf(String, long)} instead.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 name|String
@@ -972,52 +1027,37 @@ name|startcode
 argument_list|)
 return|;
 block|}
-comment|/**    * @return Hostname and port formatted as described at    * {@link Addressing#createHostAndPortStr(String, int)}    */
+comment|/**    * @return Hostname and port formatted as described at    * {@link Addressing#createHostAndPortStr(String, int)}    * @deprecated Since 2.0. Use {@link #getAddress()} instead.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|String
 name|getHostAndPort
 parameter_list|()
 block|{
 return|return
-name|Addressing
+name|this
 operator|.
-name|createHostAndPortStr
-argument_list|(
-name|hostnameOnly
-argument_list|,
-name|port
-argument_list|)
+name|address
+operator|.
+name|toString
+argument_list|()
 return|;
 block|}
 specifier|public
-name|HostAndPort
-name|getHostPort
+name|Address
+name|getAddress
 parameter_list|()
 block|{
-if|if
-condition|(
-name|hostAndPort
-operator|==
-literal|null
-condition|)
-block|{
-name|hostAndPort
-operator|=
-name|HostAndPort
-operator|.
-name|fromParts
-argument_list|(
-name|hostnameOnly
-argument_list|,
-name|port
-argument_list|)
-expr_stmt|;
-block|}
 return|return
-name|hostAndPort
+name|this
+operator|.
+name|address
 return|;
 block|}
-comment|/**    * @param serverName ServerName in form specified by {@link #getServerName()}    * @return The server start code parsed from<code>servername</code>    */
+comment|/**    * @param serverName ServerName in form specified by {@link #getServerName()}    * @return The server start code parsed from<code>servername</code>    * @deprecated Since 2.0. Use instance of ServerName to pull out start code.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 name|long
@@ -1054,7 +1094,9 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Utility method to excise the start code from a server name    * @param inServerName full server name    * @return server name less its start code    */
+comment|/**    * Utility method to excise the start code from a server name    * @param inServerName full server name    * @return server name less its start code    * @deprecated Since 2.0. Use {@link #getAddress()}    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 name|String
@@ -1268,6 +1310,7 @@ name|ServerName
 name|right
 parameter_list|)
 block|{
+comment|// TODO: Make this left.getAddress().equals(right.getAddress())
 if|if
 condition|(
 name|left

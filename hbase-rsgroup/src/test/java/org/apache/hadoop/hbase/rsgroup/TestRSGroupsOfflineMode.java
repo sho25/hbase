@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Copyright The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -695,19 +695,6 @@ literal|"f"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|RSGroupAdmin
-name|groupAdmin
-init|=
-name|RSGroupAdmin
-operator|.
-name|newClient
-argument_list|(
-name|TEST_UTIL
-operator|.
-name|getConnection
-argument_list|()
-argument_list|)
-decl_stmt|;
 specifier|final
 name|HRegionServer
 name|killRS
@@ -760,6 +747,18 @@ name|String
 name|newGroup
 init|=
 literal|"my_group"
+decl_stmt|;
+name|RSGroupAdmin
+name|groupAdmin
+init|=
+operator|new
+name|RSGroupAdminClient
+argument_list|(
+name|TEST_UTIL
+operator|.
+name|getConnection
+argument_list|()
+argument_list|)
 decl_stmt|;
 name|groupAdmin
 operator|.
@@ -887,7 +886,6 @@ block|}
 block|}
 argument_list|)
 expr_stmt|;
-block|}
 comment|//move server to group and make sure all tables are assigned
 name|groupAdmin
 operator|.
@@ -902,7 +900,7 @@ operator|.
 name|getServerName
 argument_list|()
 operator|.
-name|getHostPort
+name|getAddress
 argument_list|()
 argument_list|)
 argument_list|,
@@ -1021,6 +1019,7 @@ block|}
 block|}
 argument_list|)
 expr_stmt|;
+block|}
 name|groupRS
 operator|.
 name|stop
@@ -1136,6 +1135,11 @@ name|getGroupInfoManager
 argument_list|()
 decl_stmt|;
 comment|//make sure balancer is in offline mode, since this is what we're testing
+synchronized|synchronized
+init|(
+name|groupMgr
+init|)
+block|{
 name|assertFalse
 argument_list|(
 name|groupMgr
@@ -1173,6 +1177,7 @@ name|failoverTable
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 comment|//kill final regionserver to see the failover happens for all tables
 comment|//except GROUP table since it's group does not have any online RS
 name|killRS

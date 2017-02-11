@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Copyright The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -24,16 +24,6 @@ operator|.
 name|util
 operator|.
 name|Collection
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|NavigableSet
 import|;
 end_import
 
@@ -125,35 +115,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|Addressing
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|collect
-operator|.
-name|Sets
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|net
-operator|.
-name|HostAndPort
+name|Address
 import|;
 end_import
 
@@ -194,15 +156,17 @@ specifier|private
 name|String
 name|name
 decl_stmt|;
+comment|// Keep servers in a sorted set so has an expected ordering when displayed.
 specifier|private
 name|SortedSet
 argument_list|<
-name|HostAndPort
+name|Address
 argument_list|>
 name|servers
 decl_stmt|;
+comment|// Keep tables sorted too.
 specifier|private
-name|NavigableSet
+name|SortedSet
 argument_list|<
 name|TableName
 argument_list|>
@@ -219,17 +183,12 @@ name|this
 argument_list|(
 name|name
 argument_list|,
-name|Sets
-operator|.
-expr|<
-name|HostAndPort
-operator|>
-name|newHashSet
+operator|new
+name|TreeSet
 argument_list|()
 argument_list|,
-name|Sets
-operator|.
-name|newTreeSet
+operator|new
+name|TreeSet
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -239,13 +198,13 @@ parameter_list|(
 name|String
 name|name
 parameter_list|,
-name|Set
+name|SortedSet
 argument_list|<
-name|HostAndPort
+name|Address
 argument_list|>
 name|servers
 parameter_list|,
-name|NavigableSet
+name|SortedSet
 argument_list|<
 name|TableName
 argument_list|>
@@ -262,16 +221,15 @@ name|this
 operator|.
 name|servers
 operator|=
+name|servers
+operator|==
+literal|null
+condition|?
 operator|new
 name|TreeSet
-argument_list|<>
-argument_list|(
-operator|new
-name|Addressing
-operator|.
-name|HostAndPortComparable
 argument_list|()
-argument_list|)
+else|:
+name|servers
 expr_stmt|;
 name|this
 operator|.
@@ -333,7 +291,7 @@ specifier|public
 name|void
 name|addServer
 parameter_list|(
-name|HostAndPort
+name|Address
 name|hostPort
 parameter_list|)
 block|{
@@ -352,7 +310,7 @@ name|addAllServers
 parameter_list|(
 name|Collection
 argument_list|<
-name|HostAndPort
+name|Address
 argument_list|>
 name|hostPort
 parameter_list|)
@@ -370,7 +328,7 @@ specifier|public
 name|boolean
 name|containsServer
 parameter_list|(
-name|HostAndPort
+name|Address
 name|hostPort
 parameter_list|)
 block|{
@@ -387,7 +345,7 @@ comment|/**    * Get list of servers.    *    * @return set of servers    */
 specifier|public
 name|Set
 argument_list|<
-name|HostAndPort
+name|Address
 argument_list|>
 name|getServers
 parameter_list|()
@@ -401,7 +359,7 @@ specifier|public
 name|boolean
 name|removeServer
 parameter_list|(
-name|HostAndPort
+name|Address
 name|hostPort
 parameter_list|)
 block|{
@@ -416,7 +374,7 @@ return|;
 block|}
 comment|/**    * Set of tables that are members of this group    * @return set of tables    */
 specifier|public
-name|NavigableSet
+name|SortedSet
 argument_list|<
 name|TableName
 argument_list|>

@@ -901,7 +901,7 @@ name|ServerName
 operator|.
 name|valueOf
 argument_list|(
-literal|"s1:1,1"
+literal|"s1,1,1"
 argument_list|)
 decl_stmt|;
 specifier|private
@@ -914,7 +914,7 @@ name|ServerName
 operator|.
 name|valueOf
 argument_list|(
-literal|"s2:2,2"
+literal|"s2,2,2"
 argument_list|)
 decl_stmt|;
 specifier|private
@@ -927,7 +927,7 @@ name|ServerName
 operator|.
 name|valueOf
 argument_list|(
-literal|"s3:3,3"
+literal|"s3,3,3"
 argument_list|)
 decl_stmt|;
 specifier|private

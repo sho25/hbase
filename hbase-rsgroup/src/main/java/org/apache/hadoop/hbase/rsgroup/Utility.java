@@ -85,15 +85,17 @@ end_import
 
 begin_import
 import|import
-name|com
+name|org
 operator|.
-name|google
+name|apache
 operator|.
-name|common
+name|hadoop
 operator|.
-name|net
+name|hbase
 operator|.
-name|HostAndPort
+name|util
+operator|.
+name|Address
 import|;
 end_import
 
@@ -113,7 +115,7 @@ comment|/**    * @param master    * @return Set of online Servers named for thei
 specifier|static
 name|Set
 argument_list|<
-name|HostAndPort
+name|Address
 argument_list|>
 name|getOnlineServers
 parameter_list|(
@@ -124,14 +126,14 @@ parameter_list|)
 block|{
 name|Set
 argument_list|<
-name|HostAndPort
+name|Address
 argument_list|>
 name|onlineServers
 init|=
 operator|new
 name|HashSet
 argument_list|<
-name|HostAndPort
+name|Address
 argument_list|>
 argument_list|()
 decl_stmt|;
@@ -167,7 +169,7 @@ name|add
 argument_list|(
 name|server
 operator|.
-name|getHostPort
+name|getAddress
 argument_list|()
 argument_list|)
 expr_stmt|;

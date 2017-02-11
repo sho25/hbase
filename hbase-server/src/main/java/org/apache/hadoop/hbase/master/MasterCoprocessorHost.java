@@ -535,15 +535,17 @@ end_import
 
 begin_import
 import|import
-name|com
+name|org
 operator|.
-name|google
+name|apache
 operator|.
-name|common
+name|hadoop
 operator|.
-name|net
+name|hbase
 operator|.
-name|HostAndPort
+name|util
+operator|.
+name|Address
 import|;
 end_import
 
@@ -8341,7 +8343,7 @@ parameter_list|(
 specifier|final
 name|Set
 argument_list|<
-name|HostAndPort
+name|Address
 argument_list|>
 name|servers
 parameter_list|,
@@ -8422,7 +8424,7 @@ parameter_list|(
 specifier|final
 name|Set
 argument_list|<
-name|HostAndPort
+name|Address
 argument_list|>
 name|servers
 parameter_list|,
