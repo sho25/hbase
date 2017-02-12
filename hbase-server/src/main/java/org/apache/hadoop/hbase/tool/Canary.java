@@ -3559,7 +3559,7 @@ specifier|final
 name|long
 name|DEFAULT_INTERVAL
 init|=
-literal|6000
+literal|60000
 decl_stmt|;
 specifier|private
 specifier|static
