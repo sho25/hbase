@@ -1255,7 +1255,12 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Starting testWholesomeMerge"
+literal|"Starting "
+operator|+
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 expr_stmt|;
 specifier|final
@@ -1266,7 +1271,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testWholesomeMerge"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// Create table and load data.
@@ -1512,7 +1520,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testMergeAndRestartingMaster"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// Create table and load data.
@@ -1585,7 +1596,12 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Starting testCleanMergeReference"
+literal|"Starting "
+operator|+
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|ADMIN
@@ -1605,7 +1621,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testCleanMergeReference"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// Create table and load data.
@@ -2270,7 +2289,12 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Starting testMerge"
+literal|"Starting "
+operator|+
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 expr_stmt|;
 specifier|final
@@ -2281,7 +2305,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testMerge"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 specifier|final
@@ -2579,7 +2606,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testMergeWithReplicas"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// Create table and load data.

@@ -197,6 +197,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Rule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -212,6 +222,18 @@ operator|.
 name|categories
 operator|.
 name|Category
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|rules
+operator|.
+name|TestName
 import|;
 end_import
 
@@ -233,6 +255,16 @@ specifier|public
 class|class
 name|TestBufferedMutatorParams
 block|{
+annotation|@
+name|Rule
+specifier|public
+name|TestName
+name|name
+init|=
+operator|new
+name|TestName
+argument_list|()
+decl_stmt|;
 comment|/**    * Just to create in instance, this doesn't actually function.    */
 specifier|private
 class|class
@@ -525,6 +557,15 @@ operator|new
 name|MockExecutorService
 argument_list|()
 decl_stmt|;
+specifier|final
+name|String
+name|tableName
+init|=
+name|name
+operator|.
+name|getMethodName
+argument_list|()
+decl_stmt|;
 name|BufferedMutatorParams
 name|bmp
 init|=
@@ -535,7 +576,7 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"SomeTableName"
+name|tableName
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -588,7 +629,7 @@ decl_stmt|;
 comment|// Confirm some literals
 name|assertEquals
 argument_list|(
-literal|"SomeTableName"
+name|tableName
 argument_list|,
 name|clone
 operator|.

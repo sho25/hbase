@@ -1183,6 +1183,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Rule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -1198,6 +1208,18 @@ operator|.
 name|categories
 operator|.
 name|Category
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|rules
+operator|.
+name|TestName
 import|;
 end_import
 
@@ -1270,6 +1292,16 @@ name|TESTING_UTIL
 init|=
 operator|new
 name|HBaseTestingUtility
+argument_list|()
+decl_stmt|;
+annotation|@
+name|Rule
+specifier|public
+name|TestName
+name|name
+init|=
+operator|new
+name|TestName
 argument_list|()
 decl_stmt|;
 annotation|@
@@ -1600,7 +1632,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testRITStateForRollback"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 specifier|final
@@ -1860,7 +1895,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testSplitFailedCompactionAndSplit"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// Create table then get the single region for our new table.
@@ -2250,7 +2288,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testExistingZnodeBlocksSplitAndWeRollback"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// Create table then get the single region for our new table.
@@ -2563,7 +2604,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testShutdownFixupWhenDaughterHasSplit"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// Create table then get the single region for our new table.
@@ -3046,7 +3090,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testSplitShouldNotThrowNPEEvenARegionHasEmptySplitFiles"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|HTableDescriptor
@@ -3539,7 +3586,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testMasterRestartAtRegionSplitPendingCatalogJanitor"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// Create table then get the single region for our new table.
@@ -3783,7 +3833,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"foobar"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|HTableDescriptor
@@ -3793,7 +3846,10 @@ name|TESTING_UTIL
 operator|.
 name|createTableDescriptor
 argument_list|(
-literal|"foobar"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|htd
@@ -4559,7 +4615,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testSplitRegionWithNoStoreFiles"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// Create table then get the single region for our new table.
@@ -5064,7 +5123,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testStoreFileReferenceCreationWhenSplitPolicySaysToSkipRangeCheck"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 try|try

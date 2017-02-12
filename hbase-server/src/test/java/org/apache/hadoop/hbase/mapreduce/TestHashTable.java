@@ -277,6 +277,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Rule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -323,6 +333,18 @@ name|Maps
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|rules
+operator|.
+name|TestName
+import|;
+end_import
+
 begin_comment
 comment|/**  * Basic test for the HashTable M/R tool  */
 end_comment
@@ -362,6 +384,16 @@ name|TEST_UTIL
 init|=
 operator|new
 name|HBaseTestingUtility
+argument_list|()
+decl_stmt|;
+annotation|@
+name|Rule
+specifier|public
+name|TestName
+name|name
+init|=
+operator|new
+name|TestName
 argument_list|()
 decl_stmt|;
 annotation|@
@@ -415,7 +447,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testHashTable"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 specifier|final

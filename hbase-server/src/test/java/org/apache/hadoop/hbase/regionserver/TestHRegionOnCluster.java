@@ -377,6 +377,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Rule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -392,6 +402,18 @@ operator|.
 name|categories
 operator|.
 name|Category
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|rules
+operator|.
+name|TestName
 import|;
 end_import
 
@@ -443,6 +465,16 @@ name|HBaseTestingUtility
 argument_list|()
 decl_stmt|;
 annotation|@
+name|Rule
+specifier|public
+name|TestName
+name|name
+init|=
+operator|new
+name|TestName
+argument_list|()
+decl_stmt|;
+annotation|@
 name|Test
 argument_list|(
 name|timeout
@@ -486,13 +518,16 @@ try|try
 block|{
 specifier|final
 name|TableName
-name|TABLENAME
+name|tableName
 init|=
 name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testDataCorrectnessReplayingRecoveredEdits"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 specifier|final
@@ -530,7 +565,7 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
-name|TABLENAME
+name|tableName
 argument_list|)
 decl_stmt|;
 name|desc
@@ -567,7 +602,7 @@ name|hbaseAdmin
 operator|.
 name|isTableAvailable
 argument_list|(
-name|TABLENAME
+name|tableName
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -578,7 +613,7 @@ name|info
 argument_list|(
 literal|"Loading r1 to v1 into "
 operator|+
-name|TABLENAME
+name|tableName
 argument_list|)
 expr_stmt|;
 name|Table
@@ -591,7 +626,7 @@ argument_list|()
 operator|.
 name|getTable
 argument_list|(
-name|TABLENAME
+name|tableName
 argument_list|)
 decl_stmt|;
 name|putDataAndVerify
@@ -633,7 +668,7 @@ argument_list|()
 operator|.
 name|getRegionLocator
 argument_list|(
-name|TABLENAME
+name|tableName
 argument_list|)
 init|)
 block|{
@@ -793,7 +828,7 @@ name|info
 argument_list|(
 literal|"Loading r2 to v2 into "
 operator|+
-name|TABLENAME
+name|tableName
 argument_list|)
 expr_stmt|;
 name|putDataAndVerify
@@ -894,7 +929,7 @@ name|info
 argument_list|(
 literal|"Loading r3 to v3 into "
 operator|+
-name|TABLENAME
+name|tableName
 argument_list|)
 expr_stmt|;
 name|putDataAndVerify
@@ -999,7 +1034,7 @@ name|info
 argument_list|(
 literal|"Loading r4 to v4 into "
 operator|+
-name|TABLENAME
+name|tableName
 argument_list|)
 expr_stmt|;
 name|putDataAndVerify

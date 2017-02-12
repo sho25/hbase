@@ -131,6 +131,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Rule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -146,6 +156,18 @@ operator|.
 name|categories
 operator|.
 name|Category
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|rules
+operator|.
+name|TestName
 import|;
 end_import
 
@@ -167,6 +189,16 @@ specifier|public
 class|class
 name|TestSplitTable
 block|{
+annotation|@
+name|Rule
+specifier|public
+name|TestName
+name|name
+init|=
+operator|new
+name|TestName
+argument_list|()
+decl_stmt|;
 annotation|@
 name|Test
 annotation|@
@@ -668,7 +700,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"table"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 argument_list|,
 literal|"row-start"
@@ -687,7 +722,14 @@ decl_stmt|;
 name|String
 name|str
 init|=
-literal|"HBase table split(table name: table, start row: row-start, "
+literal|"HBase table split(table name: "
+operator|+
+name|name
+operator|.
+name|getMethodName
+argument_list|()
+operator|+
+literal|", start row: row-start, "
 operator|+
 literal|"end row: row-end, region location: location)"
 decl_stmt|;

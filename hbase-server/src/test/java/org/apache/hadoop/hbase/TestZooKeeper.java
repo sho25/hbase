@@ -683,6 +683,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Rule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -698,6 +708,18 @@ operator|.
 name|categories
 operator|.
 name|Category
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|rules
+operator|.
+name|TestName
 import|;
 end_import
 
@@ -742,6 +764,16 @@ name|TEST_UTIL
 init|=
 operator|new
 name|HBaseTestingUtility
+argument_list|()
+decl_stmt|;
+annotation|@
+name|Rule
+specifier|public
+name|TestName
+name|name
+init|=
+operator|new
+name|TestName
 argument_list|()
 decl_stmt|;
 comment|/**    * @throws java.lang.Exception    */
@@ -1360,7 +1392,12 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Starting testRegionServerSessionExpired"
+literal|"Starting "
+operator|+
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|TEST_UTIL
@@ -1372,7 +1409,10 @@ argument_list|)
 expr_stmt|;
 name|testSanity
 argument_list|(
-literal|"testRegionServerSessionExpired"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -1394,7 +1434,12 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Starting testMasterSessionExpired"
+literal|"Starting "
+operator|+
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|TEST_UTIL
@@ -1404,7 +1449,10 @@ argument_list|()
 expr_stmt|;
 name|testSanity
 argument_list|(
-literal|"testMasterSessionExpired"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -1427,7 +1475,12 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Starting testMasterZKSessionRecoveryFailure"
+literal|"Starting "
+operator|+
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|MiniHBaseCluster
@@ -1470,7 +1523,10 @@ expr_stmt|;
 comment|// Master doesn't recover any more
 name|testSanity
 argument_list|(
-literal|"testMasterZKSessionRecoveryFailure"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -2517,7 +2573,10 @@ operator|.
 name|getConfiguration
 argument_list|()
 argument_list|,
-literal|"testGetChildDataAndWatchForNewChildrenShouldNotThrowNPE"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|,
 literal|null
 argument_list|)
@@ -2677,11 +2736,6 @@ literal|"j"
 argument_list|)
 block|}
 decl_stmt|;
-name|String
-name|tableName
-init|=
-literal|"testRegionAssignmentAfterMasterRecoveryDueToZKExpiry"
-decl_stmt|;
 name|HTableDescriptor
 name|htd
 init|=
@@ -2692,7 +2746,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-name|tableName
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -3019,11 +3076,6 @@ literal|"5"
 argument_list|)
 block|}
 decl_stmt|;
-name|String
-name|tableName
-init|=
-literal|"testLogSplittingAfterMasterRecoveryDueToZKExpiry"
-decl_stmt|;
 name|HTableDescriptor
 name|htd
 init|=
@@ -3034,7 +3086,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-name|tableName
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 argument_list|)
 decl_stmt|;

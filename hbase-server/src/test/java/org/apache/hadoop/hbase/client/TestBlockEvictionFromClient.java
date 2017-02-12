@@ -649,6 +649,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Rule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -664,6 +674,18 @@ operator|.
 name|categories
 operator|.
 name|Category
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|rules
+operator|.
+name|TestName
 import|;
 end_import
 
@@ -897,6 +919,16 @@ specifier|private
 specifier|static
 name|CountDownLatch
 name|exceptionLatch
+decl_stmt|;
+annotation|@
+name|Rule
+specifier|public
+name|TestName
+name|name
+init|=
+operator|new
+name|TestName
+argument_list|()
 decl_stmt|;
 comment|/**    * @throws java.lang.Exception    */
 annotation|@
@@ -1271,6 +1303,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
+specifier|final
 name|TableName
 name|tableName
 init|=
@@ -1278,7 +1311,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testBlockEvictionWithParallelScans"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// Create a table with block size as 1024
@@ -1931,6 +1967,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
+specifier|final
 name|TableName
 name|tableName
 init|=
@@ -1938,7 +1975,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testParallelGetsAndScans"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// Create KV that will give you two blocks
@@ -2277,6 +2317,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
+specifier|final
 name|TableName
 name|tableName
 init|=
@@ -2284,7 +2325,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testGetWithCellsInDifferentFiles"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// Create KV that will give you two blocks
@@ -2670,6 +2714,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
+specifier|final
 name|TableName
 name|tableName
 init|=
@@ -2677,7 +2722,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testGetsWithMultiColumnsAndExplicitTracker"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// Create KV that will give you two blocks
@@ -3248,6 +3296,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
+specifier|final
 name|TableName
 name|tableName
 init|=
@@ -3255,7 +3304,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testGetWithMultipleColumnFamilies"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// Create KV that will give you two blocks
@@ -3874,6 +3926,7 @@ literal|null
 decl_stmt|;
 try|try
 block|{
+specifier|final
 name|TableName
 name|tableName
 init|=
@@ -3881,7 +3934,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testBlockRefCountAfterSplits"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|table
@@ -4262,6 +4318,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
+specifier|final
 name|TableName
 name|tableName
 init|=
@@ -4269,7 +4326,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testMultiGets"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// Create KV that will give you two blocks
@@ -4779,6 +4839,7 @@ literal|1
 argument_list|)
 expr_stmt|;
 comment|// Check if get() returns blocks on its close() itself
+specifier|final
 name|TableName
 name|tableName
 init|=
@@ -4786,7 +4847,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testScanWithMultipleColumnFamilies"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// Create KV that will give you two blocks
@@ -5465,6 +5529,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
+specifier|final
 name|TableName
 name|tableName
 init|=
@@ -5472,7 +5537,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testParallelGetsAndScanWithWrappedRegionScanner"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// Create KV that will give you two blocks
@@ -5756,7 +5824,10 @@ name|InterruptedException
 block|{
 name|testScanWithCompactionInternals
 argument_list|(
-literal|"testScanWithCompaction"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|,
 literal|false
 argument_list|)
@@ -5775,7 +5846,10 @@ name|InterruptedException
 block|{
 name|testScanWithCompactionInternals
 argument_list|(
-literal|"testReverseScanWithCompaction"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|,
 literal|true
 argument_list|)
@@ -6600,6 +6674,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
+specifier|final
 name|TableName
 name|tableName
 init|=
@@ -6607,7 +6682,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testBlockEvictionAfterHBASE13082WithCompactionAndFlush"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// Create a table with block size as 1024
@@ -7449,6 +7527,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
+specifier|final
 name|TableName
 name|tableName
 init|=
@@ -7456,7 +7535,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testScanWithException"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// Create KV that will give you two blocks

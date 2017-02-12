@@ -293,6 +293,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Rule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -308,6 +318,18 @@ operator|.
 name|categories
 operator|.
 name|Category
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|rules
+operator|.
+name|TestName
 import|;
 end_import
 
@@ -379,6 +401,16 @@ name|TestSnapshotFromAdmin
 operator|.
 name|class
 argument_list|)
+decl_stmt|;
+annotation|@
+name|Rule
+specifier|public
+name|TestName
+name|name
+init|=
+operator|new
+name|TestName
+argument_list|()
 decl_stmt|;
 comment|/**    * Test that the logic for doing 'correct' back-off based on exponential increase and the max-time    * passed from the server ensures the correct overall waiting for the snapshot to finish.    * @throws Exception    */
 annotation|@
@@ -807,6 +839,7 @@ name|snapshot
 init|=
 literal|"snapshot"
 decl_stmt|;
+specifier|final
 name|TableName
 name|table
 init|=
@@ -814,7 +847,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"table"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// get start time
@@ -1226,7 +1262,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"table"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 argument_list|)
 argument_list|)

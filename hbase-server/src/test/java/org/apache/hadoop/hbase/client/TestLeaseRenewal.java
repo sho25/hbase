@@ -271,6 +271,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Rule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -286,6 +296,18 @@ operator|.
 name|categories
 operator|.
 name|Category
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|rules
+operator|.
+name|TestName
 import|;
 end_import
 
@@ -417,6 +439,16 @@ name|DEFAULT_HBASE_CLIENT_SCANNER_TIMEOUT_PERIOD
 operator|/
 literal|4
 decl_stmt|;
+annotation|@
+name|Rule
+specifier|public
+name|TestName
+name|name
+init|=
+operator|new
+name|TestName
+argument_list|()
+decl_stmt|;
 comment|/**    * @throws java.lang.Exception    */
 annotation|@
 name|BeforeClass
@@ -545,7 +577,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testLeaseRenewal"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 argument_list|,
 name|FAMILY

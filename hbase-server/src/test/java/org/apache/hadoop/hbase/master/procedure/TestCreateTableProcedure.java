@@ -205,6 +205,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Rule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -220,6 +230,18 @@ operator|.
 name|categories
 operator|.
 name|Category
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|rules
+operator|.
+name|TestName
 import|;
 end_import
 
@@ -268,6 +290,16 @@ extends|extends
 name|TestTableDDLProcedureBase
 block|{
 annotation|@
+name|Rule
+specifier|public
+name|TestName
+name|name
+init|=
+operator|new
+name|TestName
+argument_list|()
+decl_stmt|;
+annotation|@
 name|Test
 argument_list|(
 name|timeout
@@ -289,7 +321,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testSimpleCreate"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 specifier|final
@@ -330,7 +365,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testSimpleCreateWithSplits"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 specifier|final
@@ -464,7 +502,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testCreateWithoutColumnFamily"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// create table with 0 families will fail
@@ -602,7 +643,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testCreateExisting"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 specifier|final
@@ -755,7 +799,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testRecoveryAndDoubleExecution"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// create the table
@@ -892,7 +939,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testRollbackAndDoubleExecution"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|testRollbackAndDoubleExecution
@@ -932,7 +982,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testRollbackAndDoubleExecutionOnMobTable"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|HTableDescriptor

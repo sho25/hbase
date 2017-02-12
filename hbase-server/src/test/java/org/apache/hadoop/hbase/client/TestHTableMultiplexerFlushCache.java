@@ -235,6 +235,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Rule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -250,6 +260,18 @@ operator|.
 name|categories
 operator|.
 name|Category
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|rules
+operator|.
+name|TestName
 import|;
 end_import
 
@@ -398,6 +420,16 @@ name|int
 name|PER_REGIONSERVER_QUEUE_SIZE
 init|=
 literal|100000
+decl_stmt|;
+annotation|@
+name|Rule
+specifier|public
+name|TestName
+name|name
+init|=
+operator|new
+name|TestName
+argument_list|()
 decl_stmt|;
 comment|/**    * @throws java.lang.Exception    */
 annotation|@
@@ -576,14 +608,18 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+specifier|final
 name|TableName
-name|TABLE
+name|tableName
 init|=
 name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testOnRegionChange"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 specifier|final
@@ -599,7 +635,7 @@ name|TEST_UTIL
 operator|.
 name|createTable
 argument_list|(
-name|TABLE
+name|tableName
 argument_list|,
 operator|new
 name|byte
@@ -654,7 +690,7 @@ argument_list|()
 operator|.
 name|getRegionLocator
 argument_list|(
-name|TABLE
+name|tableName
 argument_list|)
 init|)
 block|{
@@ -718,7 +754,7 @@ name|multiplexer
 operator|.
 name|put
 argument_list|(
-name|TABLE
+name|tableName
 argument_list|,
 name|put
 argument_list|)
@@ -770,7 +806,7 @@ name|TEST_UTIL
 operator|.
 name|waitUntilAllRegionsAssigned
 argument_list|(
-name|TABLE
+name|tableName
 argument_list|)
 expr_stmt|;
 comment|// put with multiplexer.
@@ -799,7 +835,7 @@ name|multiplexer
 operator|.
 name|put
 argument_list|(
-name|TABLE
+name|tableName
 argument_list|,
 name|put
 argument_list|)
@@ -833,14 +869,18 @@ comment|// This test is doing near exactly the same thing that testOnRegionChang
 comment|// potential to get a ConnectionClosingException. By moving the region, we can be certain that
 comment|// the connection is still valid and that the implementation is correctly handling an invalid
 comment|// Region cache (and not just tearing down the entire connection).
+specifier|final
 name|TableName
-name|TABLE
+name|tableName
 init|=
 name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testOnRegionMove"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 specifier|final
@@ -856,7 +896,7 @@ name|TEST_UTIL
 operator|.
 name|createTable
 argument_list|(
-name|TABLE
+name|tableName
 argument_list|,
 operator|new
 name|byte
@@ -910,7 +950,7 @@ argument_list|()
 operator|.
 name|getRegionLocator
 argument_list|(
-name|TABLE
+name|tableName
 argument_list|)
 decl_stmt|;
 name|Pair
@@ -983,7 +1023,7 @@ name|multiplexer
 operator|.
 name|put
 argument_list|(
-name|TABLE
+name|tableName
 argument_list|,
 name|put
 argument_list|)
@@ -1151,7 +1191,7 @@ name|TEST_UTIL
 operator|.
 name|waitUntilAllRegionsAssigned
 argument_list|(
-name|TABLE
+name|tableName
 argument_list|)
 expr_stmt|;
 comment|// Send a new Put
@@ -1180,7 +1220,7 @@ name|multiplexer
 operator|.
 name|put
 argument_list|(
-name|TABLE
+name|tableName
 argument_list|,
 name|put
 argument_list|)

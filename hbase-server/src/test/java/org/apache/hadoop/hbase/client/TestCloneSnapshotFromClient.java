@@ -269,6 +269,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Rule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -284,6 +294,18 @@ operator|.
 name|categories
 operator|.
 name|Category
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|rules
+operator|.
+name|TestName
 import|;
 end_import
 
@@ -382,6 +404,16 @@ decl_stmt|;
 specifier|protected
 name|Admin
 name|admin
+decl_stmt|;
+annotation|@
+name|Rule
+specifier|public
+name|TestName
+name|name
+init|=
+operator|new
+name|TestName
+argument_list|()
 decl_stmt|;
 specifier|protected
 specifier|static
@@ -536,7 +568,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testtb-"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 operator|+
 name|tid
 argument_list|)
@@ -844,6 +879,7 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 decl_stmt|;
+specifier|final
 name|TableName
 name|tableName
 init|=
@@ -851,7 +887,12 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"random-table-"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
+operator|+
+literal|"-"
 operator|+
 name|System
 operator|.
@@ -887,6 +928,7 @@ name|IOException
 throws|,
 name|InterruptedException
 block|{
+specifier|final
 name|TableName
 name|clonedTableName
 init|=
@@ -894,7 +936,12 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"unknownNS:clonetb"
+literal|"unknownNS:"
+operator|+
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|admin
@@ -918,6 +965,7 @@ name|IOException
 throws|,
 name|InterruptedException
 block|{
+specifier|final
 name|TableName
 name|clonedTableName
 init|=
@@ -925,7 +973,12 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"clonedtb-"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
+operator|+
+literal|"-"
 operator|+
 name|System
 operator|.
@@ -1068,6 +1121,7 @@ name|build
 argument_list|()
 argument_list|)
 expr_stmt|;
+specifier|final
 name|TableName
 name|clonedTableName
 init|=
@@ -1077,7 +1131,12 @@ name|valueOf
 argument_list|(
 name|nsName
 argument_list|,
-literal|"clonedtb-"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
+operator|+
+literal|"-"
 operator|+
 name|System
 operator|.
@@ -1126,6 +1185,7 @@ throws|,
 name|InterruptedException
 block|{
 comment|// Clone a table from the first snapshot
+specifier|final
 name|TableName
 name|clonedTableName
 init|=
@@ -1133,7 +1193,12 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"clonedtb1-"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
+operator|+
+literal|"1-"
 operator|+
 name|System
 operator|.
@@ -1177,6 +1242,7 @@ name|clonedTableName
 argument_list|)
 expr_stmt|;
 comment|// Clone the snapshot of the cloned table
+specifier|final
 name|TableName
 name|clonedTableName2
 init|=
@@ -1184,7 +1250,12 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"clonedtb2-"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
+operator|+
+literal|"2-"
 operator|+
 name|System
 operator|.
@@ -1298,6 +1369,7 @@ name|snapshot0Rows
 argument_list|)
 expr_stmt|;
 comment|// Clone a new table from cloned
+specifier|final
 name|TableName
 name|clonedTableName3
 init|=
@@ -1305,7 +1377,12 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"clonedtb3-"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
+operator|+
+literal|"3-"
 operator|+
 name|System
 operator|.

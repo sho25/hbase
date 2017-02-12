@@ -549,6 +549,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Rule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -564,6 +574,18 @@ operator|.
 name|categories
 operator|.
 name|Category
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|rules
+operator|.
+name|TestName
 import|;
 end_import
 
@@ -655,6 +677,16 @@ name|TestHBaseAdminNoCluster
 operator|.
 name|class
 argument_list|)
+decl_stmt|;
+annotation|@
+name|Rule
+specifier|public
+name|TestName
+name|name
+init|=
+operator|new
+name|TestName
+argument_list|()
 decl_stmt|;
 comment|/**    * Verify that PleaseHoldException gets retried.    * HBASE-8764    * @throws IOException    * @throws ZooKeeperConnectionException    * @throws MasterNotRunningException    * @throws ServiceException    * @throws org.apache.hadoop.hbase.shaded.com.google.protobuf.ServiceException     */
 comment|//TODO: Clean up, with Procedure V2 and nonce to prevent the same procedure to call mulitple
@@ -836,7 +868,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testMasterMonitorCollableRetries"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -1119,7 +1154,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"getTableDescriptor"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;

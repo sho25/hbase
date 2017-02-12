@@ -469,6 +469,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Rule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -494,6 +504,18 @@ operator|.
 name|categories
 operator|.
 name|Category
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|rules
+operator|.
+name|TestName
 import|;
 end_import
 
@@ -590,6 +612,16 @@ name|int
 name|SLEEPTIME
 init|=
 literal|5000
+decl_stmt|;
+annotation|@
+name|Rule
+specifier|public
+name|TestName
+name|name
+init|=
+operator|new
+name|TestName
+argument_list|()
 decl_stmt|;
 comment|/**    * @throws java.lang.Exception    */
 annotation|@
@@ -711,7 +743,10 @@ specifier|final
 name|String
 name|tableName
 init|=
-literal|"testClientRelearningExperiment"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 decl_stmt|;
 name|HTableDescriptor
 name|desc
@@ -1716,7 +1751,10 @@ specifier|final
 name|String
 name|tableName
 init|=
-literal|"testCallQueueTooBigException"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 decl_stmt|;
 name|HTableDescriptor
 name|desc

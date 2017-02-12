@@ -1003,7 +1003,10 @@ block|{
 name|String
 name|testName
 init|=
-literal|"mytable_testSimpleLoadWithFileCopy"
+name|tn
+operator|.
+name|getMethodName
+argument_list|()
 decl_stmt|;
 specifier|final
 name|byte
@@ -3028,7 +3031,10 @@ block|{
 name|String
 name|testName
 init|=
-literal|"testNonexistentColumnFamilyLoad"
+name|tn
+operator|.
+name|getMethodName
+argument_list|()
 decl_stmt|;
 name|byte
 index|[]
@@ -4963,7 +4969,10 @@ decl_stmt|;
 name|String
 name|tableName
 init|=
-literal|"mytable_cfNameStartWithUnderScore"
+name|tn
+operator|.
+name|getMethodName
+argument_list|()
 decl_stmt|;
 name|Table
 name|table

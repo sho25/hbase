@@ -673,6 +673,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Rule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -688,6 +698,18 @@ operator|.
 name|categories
 operator|.
 name|Category
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|rules
+operator|.
+name|TestName
 import|;
 end_import
 
@@ -927,6 +949,16 @@ name|asByteBuffer
 argument_list|(
 literal|100l
 argument_list|)
+decl_stmt|;
+annotation|@
+name|Rule
+specifier|public
+name|TestName
+name|name
+init|=
+operator|new
+name|TestName
+argument_list|()
 decl_stmt|;
 annotation|@
 name|BeforeClass
@@ -4923,6 +4955,7 @@ init|=
 literal|"c"
 decl_stmt|;
 comment|// create a table which will throw exceptions for requests
+specifier|final
 name|TableName
 name|tableName
 init|=
@@ -4930,7 +4963,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testMetricsWithException"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|HTableDescriptor

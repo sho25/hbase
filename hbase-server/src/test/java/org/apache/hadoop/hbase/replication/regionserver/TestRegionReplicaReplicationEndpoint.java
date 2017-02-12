@@ -589,6 +589,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Rule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -618,6 +628,18 @@ operator|.
 name|collect
 operator|.
 name|Lists
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|rules
+operator|.
+name|TestName
 import|;
 end_import
 
@@ -696,6 +718,16 @@ name|HTU
 init|=
 operator|new
 name|HBaseTestingUtility
+argument_list|()
+decl_stmt|;
+annotation|@
+name|Rule
+specifier|public
+name|TestName
+name|name
+init|=
+operator|new
+name|TestName
 argument_list|()
 decl_stmt|;
 annotation|@
@@ -1857,6 +1889,7 @@ name|regionReplication
 init|=
 literal|3
 decl_stmt|;
+specifier|final
 name|TableName
 name|tableName
 init|=
@@ -1864,7 +1897,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testRegionReplicaWithoutMemstoreReplication"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|HTableDescriptor
@@ -1875,9 +1911,6 @@ operator|.
 name|createTableDescriptor
 argument_list|(
 name|tableName
-operator|.
-name|toString
-argument_list|()
 argument_list|)
 decl_stmt|;
 name|htd
@@ -2079,6 +2112,7 @@ name|regionReplication
 init|=
 literal|3
 decl_stmt|;
+specifier|final
 name|TableName
 name|tableName
 init|=
@@ -2086,7 +2120,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testRegionReplicaReplicationForFlushAndCompaction"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|HTableDescriptor
@@ -2097,9 +2134,6 @@ operator|.
 name|createTableDescriptor
 argument_list|(
 name|tableName
-operator|.
-name|toString
-argument_list|()
 argument_list|)
 decl_stmt|;
 name|htd
@@ -2305,6 +2339,7 @@ block|{
 comment|// tests having edits from a disabled or dropped table is handled correctly by skipping those
 comment|// entries and further edits after the edits from dropped/disabled table can be replicated
 comment|// without problems.
+specifier|final
 name|TableName
 name|tableName
 init|=
@@ -2312,7 +2347,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testRegionReplicaReplicationIgnoresDisabledTables"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 operator|+
 name|dropTable
 argument_list|)
@@ -2325,9 +2363,6 @@ operator|.
 name|createTableDescriptor
 argument_list|(
 name|tableName
-operator|.
-name|toString
-argument_list|()
 argument_list|)
 decl_stmt|;
 name|int

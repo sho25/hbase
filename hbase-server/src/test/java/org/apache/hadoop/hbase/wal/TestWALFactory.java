@@ -3576,7 +3576,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"tablename"
+name|currentTest
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 argument_list|)
 operator|.
@@ -4110,7 +4113,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"tablename"
+name|currentTest
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 argument_list|)
 operator|.
@@ -4620,7 +4626,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"tablename"
+name|currentTest
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 specifier|final

@@ -237,6 +237,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Rule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -252,6 +262,18 @@ operator|.
 name|categories
 operator|.
 name|Category
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|rules
+operator|.
+name|TestName
 import|;
 end_import
 
@@ -300,6 +322,16 @@ name|TEST_UTIL
 init|=
 operator|new
 name|HBaseTestingUtility
+argument_list|()
+decl_stmt|;
+annotation|@
+name|Rule
+specifier|public
+name|TestName
+name|name
+init|=
+operator|new
+name|TestName
 argument_list|()
 decl_stmt|;
 comment|/**    * @throws java.lang.Exception    */
@@ -370,6 +402,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+specifier|final
 name|byte
 index|[]
 name|TABLE
@@ -378,7 +411,10 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"testTimestampsFilter"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|byte
@@ -926,6 +962,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+specifier|final
 name|byte
 index|[]
 name|TABLE
@@ -934,7 +971,10 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"testTimestampsFilterMultiColumns"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|byte
@@ -1498,6 +1538,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+specifier|final
 name|byte
 index|[]
 name|TABLE
@@ -1506,7 +1547,12 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"testWithVersionDeletes_"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
+operator|+
+literal|"_"
 operator|+
 operator|(
 name|flushTables

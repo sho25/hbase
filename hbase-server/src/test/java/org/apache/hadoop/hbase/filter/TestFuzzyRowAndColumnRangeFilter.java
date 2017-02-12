@@ -359,6 +359,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Rule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -388,6 +398,18 @@ operator|.
 name|collect
 operator|.
 name|Lists
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|rules
+operator|.
+name|TestName
 import|;
 end_import
 
@@ -437,6 +459,16 @@ name|TestFuzzyRowAndColumnRangeFilter
 operator|.
 name|class
 argument_list|)
+decl_stmt|;
+annotation|@
+name|Rule
+specifier|public
+name|TestName
+name|name
+init|=
+operator|new
+name|TestName
+argument_list|()
 decl_stmt|;
 comment|/**    * @throws java.lang.Exception    */
 annotation|@
@@ -510,11 +542,6 @@ name|cf
 init|=
 literal|"f"
 decl_stmt|;
-name|String
-name|table
-init|=
-literal|"TestFuzzyAndColumnRangeFilterClient"
-decl_stmt|;
 name|Table
 name|ht
 init|=
@@ -526,7 +553,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-name|table
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 argument_list|,
 name|Bytes

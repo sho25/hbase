@@ -293,6 +293,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Rule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -308,6 +318,18 @@ operator|.
 name|categories
 operator|.
 name|Category
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|rules
+operator|.
+name|TestName
 import|;
 end_import
 
@@ -1196,6 +1218,16 @@ block|,
 literal|0
 block|}
 decl_stmt|;
+annotation|@
+name|Rule
+specifier|public
+name|TestName
+name|name
+init|=
+operator|new
+name|TestName
+argument_list|()
+decl_stmt|;
 comment|/**    * Test the load balancing algorithm.    *    * Invariant is that all servers should be hosting either floor(average) or    * ceiling(average) at both table level and cluster level    *    * @throws Exception    */
 annotation|@
 name|Test
@@ -1290,7 +1322,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"ensemble"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 argument_list|,
 name|clusterServers
@@ -1622,7 +1657,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"ensemble"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 argument_list|,
 name|clusterServers

@@ -4043,12 +4043,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-specifier|final
-name|String
-name|tableName
-init|=
-literal|"testPutAndCheckAndPut"
-decl_stmt|;
 name|Configuration
 name|conf
 init|=
@@ -4084,7 +4078,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-name|tableName
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 argument_list|)
 operator|.

@@ -341,6 +341,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Rule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -356,6 +366,18 @@ operator|.
 name|categories
 operator|.
 name|Category
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|rules
+operator|.
+name|TestName
 import|;
 end_import
 
@@ -431,6 +453,16 @@ specifier|private
 specifier|static
 name|FileSystem
 name|fs
+decl_stmt|;
+annotation|@
+name|Rule
+specifier|public
+name|TestName
+name|name
+init|=
+operator|new
+name|TestName
+argument_list|()
 decl_stmt|;
 comment|/**    * Setup the test environment    */
 annotation|@
@@ -587,6 +619,7 @@ argument_list|(
 name|snapshotName
 argument_list|)
 decl_stmt|;
+specifier|final
 name|TableName
 name|tableName
 init|=
@@ -594,7 +627,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"table"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|Path

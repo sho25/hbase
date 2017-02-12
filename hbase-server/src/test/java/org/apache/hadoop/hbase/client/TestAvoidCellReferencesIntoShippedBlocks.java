@@ -579,6 +579,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Rule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -594,6 +604,18 @@ operator|.
 name|categories
 operator|.
 name|Category
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|rules
+operator|.
+name|TestName
 import|;
 end_import
 
@@ -842,6 +864,16 @@ argument_list|(
 literal|false
 argument_list|)
 decl_stmt|;
+annotation|@
+name|Rule
+specifier|public
+name|TestName
+name|name
+init|=
+operator|new
+name|TestName
+argument_list|()
+decl_stmt|;
 comment|/**    * @throws java.lang.Exception    */
 annotation|@
 name|BeforeClass
@@ -1028,6 +1060,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+specifier|final
 name|TableName
 name|tableName
 init|=
@@ -1035,7 +1068,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testHBase16372InCompactionWritePath"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// Create a table with block size as 1024
@@ -2180,6 +2216,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+specifier|final
 name|TableName
 name|tableName
 init|=
@@ -2187,7 +2224,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testHBASE16372"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// Create a table with block size as 1024

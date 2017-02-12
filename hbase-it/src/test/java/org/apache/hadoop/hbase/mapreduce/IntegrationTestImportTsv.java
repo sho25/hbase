@@ -481,6 +481,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Rule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -496,6 +506,18 @@ operator|.
 name|categories
 operator|.
 name|Category
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|rules
+operator|.
+name|TestName
 import|;
 end_import
 
@@ -572,6 +594,16 @@ operator|+
 literal|"row9\t1\tc1\tc2\n"
 operator|+
 literal|"row10\t1\tc1\tc2\n"
+decl_stmt|;
+annotation|@
+name|Rule
+specifier|public
+name|TestName
+name|name
+init|=
+operator|new
+name|TestName
+argument_list|()
 decl_stmt|;
 specifier|protected
 specifier|static
@@ -1201,6 +1233,7 @@ argument_list|(
 literal|"Running test testGenerateAndLoad."
 argument_list|)
 expr_stmt|;
+specifier|final
 name|TableName
 name|table
 init|=
@@ -1208,13 +1241,9 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-name|NAME
-operator|+
-literal|"-"
-operator|+
-name|UUID
+name|name
 operator|.
-name|randomUUID
+name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;

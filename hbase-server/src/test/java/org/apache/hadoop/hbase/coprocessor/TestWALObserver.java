@@ -2243,6 +2243,7 @@ name|Exception
 block|{
 comment|// WAL replay is handled at HRegion::replayRecoveredEdits(), which is
 comment|// ultimately called by HRegion::initialize()
+specifier|final
 name|TableName
 name|tableName
 init|=
@@ -2250,7 +2251,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testWALCoprocessorReplay"
+name|currentTest
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 specifier|final

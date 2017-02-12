@@ -6689,7 +6689,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testShouldFlushMeta"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 argument_list|,
 name|Bytes
@@ -6717,7 +6720,10 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testShouldFlushMeta"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 argument_list|)
 decl_stmt|;

@@ -499,6 +499,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Rule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -514,6 +524,18 @@ operator|.
 name|categories
 operator|.
 name|Category
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|rules
+operator|.
+name|TestName
 import|;
 end_import
 
@@ -791,6 +813,16 @@ specifier|private
 specifier|static
 name|HTableDescriptor
 name|tabC
+decl_stmt|;
+annotation|@
+name|Rule
+specifier|public
+name|TestName
+name|name
+init|=
+operator|new
+name|TestName
+argument_list|()
 decl_stmt|;
 annotation|@
 name|BeforeClass
@@ -1415,44 +1447,65 @@ argument_list|,
 name|tabCFsMap
 argument_list|)
 expr_stmt|;
+specifier|final
 name|TableName
-name|tab1
+name|tableName1
 init|=
 name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"tab1"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
+operator|+
+literal|"1"
 argument_list|)
 decl_stmt|;
+specifier|final
 name|TableName
-name|tab2
+name|tableName2
 init|=
 name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"tab2"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
+operator|+
+literal|"2"
 argument_list|)
 decl_stmt|;
+specifier|final
 name|TableName
-name|tab3
+name|tableName3
 init|=
 name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"tab3"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
+operator|+
+literal|"3"
 argument_list|)
 decl_stmt|;
-comment|// 2. single table: "tab1" / "tab2:cf1" / "tab3:cf1,cf3"
+comment|// 2. single table: "tableName1" / "tableName2:cf1" / "tableName3:cf1,cf3"
 name|tabCFsMap
 operator|=
 name|ReplicationSerDeHelper
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(
-literal|"tab1"
+name|tableName1
+operator|.
+name|getNameAsString
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1472,18 +1525,18 @@ name|tabCFsMap
 operator|.
 name|containsKey
 argument_list|(
-name|tab1
+name|tableName1
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// its table name is "tab1"
+comment|// its table name is "tableName1"
 name|assertFalse
 argument_list|(
 name|tabCFsMap
 operator|.
 name|containsKey
 argument_list|(
-name|tab2
+name|tableName2
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1496,7 +1549,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-name|tab1
+name|tableName1
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1507,7 +1560,9 @@ name|ReplicationSerDeHelper
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(
-literal|"tab2:cf1"
+name|tableName2
+operator|+
+literal|":cf1"
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1527,18 +1582,18 @@ name|tabCFsMap
 operator|.
 name|containsKey
 argument_list|(
-name|tab2
+name|tableName2
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// its table name is "tab2"
+comment|// its table name is "tableName2"
 name|assertFalse
 argument_list|(
 name|tabCFsMap
 operator|.
 name|containsKey
 argument_list|(
-name|tab1
+name|tableName1
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1551,7 +1606,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-name|tab2
+name|tableName2
 argument_list|)
 operator|.
 name|size
@@ -1567,7 +1622,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-name|tab2
+name|tableName2
 argument_list|)
 operator|.
 name|get
@@ -1583,7 +1638,9 @@ name|ReplicationSerDeHelper
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(
-literal|"tab3 : cf1 , cf3"
+name|tableName3
+operator|+
+literal|" : cf1 , cf3"
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1603,18 +1660,18 @@ name|tabCFsMap
 operator|.
 name|containsKey
 argument_list|(
-name|tab3
+name|tableName3
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// its table name is "tab2"
+comment|// its table name is "tableName2"
 name|assertFalse
 argument_list|(
 name|tabCFsMap
 operator|.
 name|containsKey
 argument_list|(
-name|tab1
+name|tableName1
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1627,7 +1684,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-name|tab3
+name|tableName3
 argument_list|)
 operator|.
 name|size
@@ -1641,7 +1698,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-name|tab3
+name|tableName3
 argument_list|)
 operator|.
 name|contains
@@ -1657,7 +1714,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-name|tab3
+name|tableName3
 argument_list|)
 operator|.
 name|contains
@@ -1667,17 +1724,27 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// contains "cf3"
-comment|// 3. multiple tables: "tab1 ; tab2:cf1 ; tab3:cf1,cf3"
+comment|// 3. multiple tables: "tableName1 ; tableName2:cf1 ; tableName3:cf1,cf3"
 name|tabCFsMap
 operator|=
 name|ReplicationSerDeHelper
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(
-literal|"tab1 ; tab2:cf1 ; tab3:cf1,cf3"
+name|tableName1
+operator|+
+literal|" ; "
+operator|+
+name|tableName2
+operator|+
+literal|":cf1 ; "
+operator|+
+name|tableName3
+operator|+
+literal|":cf1,cf3"
 argument_list|)
 expr_stmt|;
-comment|// 3.1 contains 3 tables : "tab1", "tab2" and "tab3"
+comment|// 3.1 contains 3 tables : "tableName1", "tableName2" and "tableName3"
 name|assertEquals
 argument_list|(
 literal|3
@@ -1694,7 +1761,7 @@ name|tabCFsMap
 operator|.
 name|containsKey
 argument_list|(
-name|tab1
+name|tableName1
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1704,7 +1771,7 @@ name|tabCFsMap
 operator|.
 name|containsKey
 argument_list|(
-name|tab2
+name|tableName2
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1714,7 +1781,7 @@ name|tabCFsMap
 operator|.
 name|containsKey
 argument_list|(
-name|tab3
+name|tableName3
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1727,7 +1794,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-name|tab1
+name|tableName1
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1740,7 +1807,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-name|tab2
+name|tableName2
 argument_list|)
 operator|.
 name|size
@@ -1755,7 +1822,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-name|tab2
+name|tableName2
 argument_list|)
 operator|.
 name|get
@@ -1773,7 +1840,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-name|tab3
+name|tableName3
 argument_list|)
 operator|.
 name|size
@@ -1786,7 +1853,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-name|tab3
+name|tableName3
 argument_list|)
 operator|.
 name|contains
@@ -1801,7 +1868,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-name|tab3
+name|tableName3
 argument_list|)
 operator|.
 name|contains
@@ -1811,17 +1878,27 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// 4. contiguous or additional ";"(table delimiter) or ","(cf delimiter) can be tolerated
-comment|// still use the example of multiple tables: "tab1 ; tab2:cf1 ; tab3:cf1,cf3"
+comment|// still use the example of multiple tables: "tableName1 ; tableName2:cf1 ; tableName3:cf1,cf3"
 name|tabCFsMap
 operator|=
 name|ReplicationSerDeHelper
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(
-literal|"tab1 ; ; tab2:cf1 ; tab3:cf1,,cf3 ;"
+name|tableName1
+operator|+
+literal|" ; ; "
+operator|+
+name|tableName2
+operator|+
+literal|":cf1 ; "
+operator|+
+name|tableName3
+operator|+
+literal|":cf1,,cf3 ;"
 argument_list|)
 expr_stmt|;
-comment|// 4.1 contains 3 tables : "tab1", "tab2" and "tab3"
+comment|// 4.1 contains 3 tables : "tableName1", "tableName2" and "tableName3"
 name|assertEquals
 argument_list|(
 literal|3
@@ -1838,7 +1915,7 @@ name|tabCFsMap
 operator|.
 name|containsKey
 argument_list|(
-name|tab1
+name|tableName1
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1848,7 +1925,7 @@ name|tabCFsMap
 operator|.
 name|containsKey
 argument_list|(
-name|tab2
+name|tableName2
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1858,7 +1935,7 @@ name|tabCFsMap
 operator|.
 name|containsKey
 argument_list|(
-name|tab3
+name|tableName3
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1871,7 +1948,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-name|tab1
+name|tableName1
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1884,7 +1961,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-name|tab2
+name|tableName2
 argument_list|)
 operator|.
 name|size
@@ -1899,7 +1976,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-name|tab2
+name|tableName2
 argument_list|)
 operator|.
 name|get
@@ -1917,7 +1994,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-name|tab3
+name|tableName3
 argument_list|)
 operator|.
 name|size
@@ -1930,7 +2007,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-name|tab3
+name|tableName3
 argument_list|)
 operator|.
 name|contains
@@ -1945,7 +2022,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-name|tab3
+name|tableName3
 argument_list|)
 operator|.
 name|contains
@@ -1954,18 +2031,28 @@ literal|"cf3"
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// 5. invalid format "tab1:tt:cf1 ; tab2::cf1 ; tab3:cf1,cf3"
-comment|//    "tab1:tt:cf1" and "tab2::cf1" are invalid and will be ignored totally
+comment|// 5. invalid format "tableName1:tt:cf1 ; tableName2::cf1 ; tableName3:cf1,cf3"
+comment|//    "tableName1:tt:cf1" and "tableName2::cf1" are invalid and will be ignored totally
 name|tabCFsMap
 operator|=
 name|ReplicationSerDeHelper
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(
-literal|"tab1:tt:cf1 ; tab2::cf1 ; tab3:cf1,cf3"
+name|tableName1
+operator|+
+literal|":tt:cf1 ; "
+operator|+
+name|tableName2
+operator|+
+literal|"::cf1 ; "
+operator|+
+name|tableName3
+operator|+
+literal|":cf1,cf3"
 argument_list|)
 expr_stmt|;
-comment|// 5.1 no "tab1" and "tab2", only "tab3"
+comment|// 5.1 no "tableName1" and "tableName2", only "tableName3"
 name|assertEquals
 argument_list|(
 literal|1
@@ -1983,7 +2070,7 @@ name|tabCFsMap
 operator|.
 name|containsKey
 argument_list|(
-name|tab1
+name|tableName1
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1993,7 +2080,7 @@ name|tabCFsMap
 operator|.
 name|containsKey
 argument_list|(
-name|tab2
+name|tableName2
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2003,11 +2090,11 @@ name|tabCFsMap
 operator|.
 name|containsKey
 argument_list|(
-name|tab3
+name|tableName3
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// 5.2 table "tab3" : cf-list contains "cf1" and "cf3"
+comment|// 5.2 table "tableName3" : cf-list contains "cf1" and "cf3"
 name|assertEquals
 argument_list|(
 literal|2
@@ -2016,7 +2103,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-name|tab3
+name|tableName3
 argument_list|)
 operator|.
 name|size
@@ -2029,7 +2116,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-name|tab3
+name|tableName3
 argument_list|)
 operator|.
 name|contains
@@ -2044,7 +2131,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-name|tab3
+name|tableName3
 argument_list|)
 operator|.
 name|contains
@@ -2125,34 +2212,52 @@ operator|.
 name|length
 argument_list|)
 expr_stmt|;
+specifier|final
 name|TableName
-name|tab1
+name|tableName1
 init|=
 name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"tab1"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
+operator|+
+literal|"1"
 argument_list|)
 decl_stmt|;
+specifier|final
 name|TableName
-name|tab2
+name|tableName2
 init|=
 name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"tab2"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
+operator|+
+literal|"2"
 argument_list|)
 decl_stmt|;
+specifier|final
 name|TableName
-name|tab3
+name|tableName3
 init|=
 name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"tab3"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
+operator|+
+literal|"3"
 argument_list|)
 decl_stmt|;
 comment|// 2. single table: "tab1" / "tab2:cf1" / "tab3:cf1,cf3"
@@ -2165,7 +2270,7 @@ name|tabCFsMap
 operator|.
 name|put
 argument_list|(
-name|tab1
+name|tableName1
 argument_list|,
 literal|null
 argument_list|)
@@ -2191,7 +2296,7 @@ expr_stmt|;
 comment|// only one table
 name|assertEquals
 argument_list|(
-name|tab1
+name|tableName1
 operator|.
 name|toString
 argument_list|()
@@ -2233,7 +2338,7 @@ name|tabCFsMap
 operator|.
 name|put
 argument_list|(
-name|tab2
+name|tableName2
 argument_list|,
 operator|new
 name|ArrayList
@@ -2247,7 +2352,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-name|tab2
+name|tableName2
 argument_list|)
 operator|.
 name|add
@@ -2276,7 +2381,7 @@ expr_stmt|;
 comment|// only one table
 name|assertEquals
 argument_list|(
-name|tab2
+name|tableName2
 operator|.
 name|toString
 argument_list|()
@@ -2336,7 +2441,7 @@ name|tabCFsMap
 operator|.
 name|put
 argument_list|(
-name|tab3
+name|tableName3
 argument_list|,
 operator|new
 name|ArrayList
@@ -2350,7 +2455,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-name|tab3
+name|tableName3
 argument_list|)
 operator|.
 name|add
@@ -2362,7 +2467,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-name|tab3
+name|tableName3
 argument_list|)
 operator|.
 name|add
@@ -2390,7 +2495,7 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-name|tab3
+name|tableName3
 operator|.
 name|toString
 argument_list|()
@@ -2468,7 +2573,7 @@ name|tabCFsMap
 operator|.
 name|put
 argument_list|(
-name|tab1
+name|tableName1
 argument_list|,
 literal|null
 argument_list|)
@@ -2477,7 +2582,7 @@ name|tabCFsMap
 operator|.
 name|put
 argument_list|(
-name|tab2
+name|tableName2
 argument_list|,
 operator|new
 name|ArrayList
@@ -2491,7 +2596,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-name|tab2
+name|tableName2
 argument_list|)
 operator|.
 name|add
@@ -2503,7 +2608,7 @@ name|tabCFsMap
 operator|.
 name|put
 argument_list|(
-name|tab3
+name|tableName3
 argument_list|,
 operator|new
 name|ArrayList
@@ -2517,7 +2622,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-name|tab3
+name|tableName3
 argument_list|)
 operator|.
 name|add
@@ -2529,7 +2634,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-name|tab3
+name|tableName3
 argument_list|)
 operator|.
 name|add
@@ -2563,7 +2668,7 @@ name|getTableCF
 argument_list|(
 name|tableCFs
 argument_list|,
-name|tab1
+name|tableName1
 operator|.
 name|toString
 argument_list|()
@@ -2578,7 +2683,7 @@ name|getTableCF
 argument_list|(
 name|tableCFs
 argument_list|,
-name|tab2
+name|tableName2
 operator|.
 name|toString
 argument_list|()
@@ -2593,7 +2698,7 @@ name|getTableCF
 argument_list|(
 name|tableCFs
 argument_list|,
-name|tab3
+name|tableName3
 operator|.
 name|toString
 argument_list|()
@@ -2610,7 +2715,7 @@ name|getTableCF
 argument_list|(
 name|tableCFs
 argument_list|,
-name|tab1
+name|tableName1
 operator|.
 name|toString
 argument_list|()
@@ -2630,7 +2735,7 @@ name|getTableCF
 argument_list|(
 name|tableCFs
 argument_list|,
-name|tab2
+name|tableName2
 operator|.
 name|toString
 argument_list|()
@@ -2650,7 +2755,7 @@ name|getTableCF
 argument_list|(
 name|tableCFs
 argument_list|,
-name|tab2
+name|tableName2
 operator|.
 name|toString
 argument_list|()
@@ -2675,7 +2780,7 @@ name|getTableCF
 argument_list|(
 name|tableCFs
 argument_list|,
-name|tab3
+name|tableName3
 operator|.
 name|toString
 argument_list|()
@@ -2695,7 +2800,7 @@ name|getTableCF
 argument_list|(
 name|tableCFs
 argument_list|,
-name|tab3
+name|tableName3
 operator|.
 name|toString
 argument_list|()
@@ -2720,7 +2825,7 @@ name|getTableCF
 argument_list|(
 name|tableCFs
 argument_list|,
-name|tab3
+name|tableName3
 operator|.
 name|toString
 argument_list|()
@@ -2760,7 +2865,7 @@ name|tabCFsMap
 operator|.
 name|containsKey
 argument_list|(
-name|tab1
+name|tableName1
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2770,7 +2875,7 @@ name|tabCFsMap
 operator|.
 name|containsKey
 argument_list|(
-name|tab2
+name|tableName2
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2780,7 +2885,7 @@ name|tabCFsMap
 operator|.
 name|containsKey
 argument_list|(
-name|tab3
+name|tableName3
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2793,7 +2898,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-name|tab1
+name|tableName1
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2806,7 +2911,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-name|tab2
+name|tableName2
 argument_list|)
 operator|.
 name|size
@@ -2821,7 +2926,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-name|tab2
+name|tableName2
 argument_list|)
 operator|.
 name|get
@@ -2839,7 +2944,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-name|tab3
+name|tableName3
 argument_list|)
 operator|.
 name|size
@@ -2852,7 +2957,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-name|tab3
+name|tableName3
 argument_list|)
 operator|.
 name|contains
@@ -2867,7 +2972,7 @@ name|tabCFsMap
 operator|.
 name|get
 argument_list|(
-name|tab3
+name|tableName3
 argument_list|)
 operator|.
 name|contains
