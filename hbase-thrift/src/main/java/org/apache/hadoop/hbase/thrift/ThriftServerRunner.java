@@ -4443,7 +4443,7 @@ name|ThreadPoolExecutor
 name|threadPool
 init|=
 operator|new
-name|ThreadPoolExecutor
+name|THBaseThreadPoolExecutor
 argument_list|(
 name|minWorkers
 argument_list|,
@@ -4463,6 +4463,8 @@ name|tfb
 operator|.
 name|build
 argument_list|()
+argument_list|,
+name|metrics
 argument_list|)
 decl_stmt|;
 name|threadPool

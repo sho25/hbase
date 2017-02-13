@@ -92,6 +92,11 @@ name|CALL_QUEUE_LEN_KEY
 init|=
 literal|"callQueueLen"
 decl_stmt|;
+name|String
+name|ACTIVE_WORKER_COUNT_KEY
+init|=
+literal|"numActiveWorkers"
+decl_stmt|;
 comment|/**    * Add how long an operation was in the queue.    * @param time    */
 name|void
 name|incTimeInQueue
@@ -150,6 +155,16 @@ parameter_list|(
 name|long
 name|time
 parameter_list|)
+function_decl|;
+comment|/**    * Increment number of active thrift workers.    */
+name|void
+name|incActiveWorkerCount
+parameter_list|()
+function_decl|;
+comment|/**    * Decrement number of active thrift workers.    */
+name|void
+name|decActiveWorkerCount
+parameter_list|()
 function_decl|;
 block|}
 end_interface

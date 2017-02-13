@@ -663,7 +663,7 @@ expr_stmt|;
 name|executorService
 operator|=
 operator|new
-name|ThreadPoolExecutor
+name|THBaseThreadPoolExecutor
 argument_list|(
 name|minWorkerThreads
 argument_list|,
@@ -685,6 +685,8 @@ name|tfb
 operator|.
 name|build
 argument_list|()
+argument_list|,
+name|metrics
 argument_list|)
 expr_stmt|;
 name|executorService
