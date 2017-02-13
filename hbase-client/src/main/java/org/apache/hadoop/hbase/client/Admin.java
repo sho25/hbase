@@ -375,6 +375,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|procedure2
+operator|.
+name|LockInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|quotas
 operator|.
 name|QuotaFilter
@@ -2059,6 +2075,14 @@ comment|/**    * List procedures    * @return procedure list    * @throws IOExce
 name|ProcedureInfo
 index|[]
 name|listProcedures
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * List locks.    * @return lock list    * @throws IOException if a remote or network exception occurs    */
+name|LockInfo
+index|[]
+name|listLocks
 parameter_list|()
 throws|throws
 name|IOException

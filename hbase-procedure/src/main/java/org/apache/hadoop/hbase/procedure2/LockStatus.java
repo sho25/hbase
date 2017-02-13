@@ -57,6 +57,13 @@ name|Procedure
 name|proc
 parameter_list|)
 function_decl|;
+name|Procedure
+argument_list|<
+name|?
+argument_list|>
+name|getExclusiveLockOwnerProcedure
+parameter_list|()
+function_decl|;
 name|long
 name|getExclusiveLockProcIdOwner
 parameter_list|()

@@ -37,6 +37,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|List
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|concurrent
 operator|.
 name|TimeUnit
@@ -178,6 +188,14 @@ parameter_list|,
 name|Procedure
 name|procedure
 parameter_list|)
+function_decl|;
+comment|/**    * List lock queues.    * @return the locks    */
+name|List
+argument_list|<
+name|LockInfo
+argument_list|>
+name|listLocks
+parameter_list|()
 function_decl|;
 comment|/**    * Returns the number of elements in this queue.    * @return the number of elements in this queue.    */
 annotation|@

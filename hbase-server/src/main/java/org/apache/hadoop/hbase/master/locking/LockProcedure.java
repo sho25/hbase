@@ -944,6 +944,8 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Re run the procedure after every timeout to write new WAL entries so we don't hold back old    * WALs.    * @return false, so procedure framework doesn't mark this procedure as failure.    */
+annotation|@
+name|Override
 specifier|protected
 name|boolean
 name|setTimeoutFailure
@@ -1096,6 +1098,9 @@ annotation|@
 name|Override
 specifier|protected
 name|Procedure
+argument_list|<
+name|?
+argument_list|>
 index|[]
 name|execute
 parameter_list|(
@@ -1689,6 +1694,8 @@ name|RUNNABLE
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|toStringClassDetails
@@ -1818,6 +1825,15 @@ argument_list|(
 name|type
 argument_list|)
 expr_stmt|;
+block|}
+specifier|public
+name|LockType
+name|getType
+parameter_list|()
+block|{
+return|return
+name|type
+return|;
 block|}
 specifier|private
 name|LockInterface

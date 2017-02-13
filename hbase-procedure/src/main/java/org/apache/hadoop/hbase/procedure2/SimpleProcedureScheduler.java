@@ -19,15 +19,21 @@ end_package
 
 begin_import
 import|import
-name|com
+name|java
 operator|.
-name|google
+name|util
 operator|.
-name|common
+name|Collections
+import|;
+end_import
+
+begin_import
+import|import
+name|java
 operator|.
-name|annotations
+name|util
 operator|.
-name|VisibleForTesting
+name|List
 import|;
 end_import
 
@@ -60,6 +66,20 @@ operator|.
 name|classification
 operator|.
 name|InterfaceStability
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
 import|;
 end_import
 
@@ -228,6 +248,23 @@ name|Procedure
 name|proc
 parameter_list|)
 block|{   }
+annotation|@
+name|Override
+specifier|public
+name|List
+argument_list|<
+name|LockInfo
+argument_list|>
+name|listLocks
+parameter_list|()
+block|{
+return|return
+name|Collections
+operator|.
+name|emptyList
+argument_list|()
+return|;
+block|}
 block|}
 end_class
 
