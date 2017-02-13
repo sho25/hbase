@@ -8177,16 +8177,6 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|cacheConfig
-operator|=
-operator|new
-name|CacheConfig
-argument_list|(
-name|conf
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
 name|walFactory
 operator|=
 name|setupWALAndReplication
