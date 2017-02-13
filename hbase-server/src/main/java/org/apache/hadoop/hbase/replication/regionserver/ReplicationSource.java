@@ -3503,7 +3503,7 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|Exception
+name|IOException
 name|e
 parameter_list|)
 block|{
@@ -3522,6 +3522,30 @@ name|stop
 argument_list|(
 literal|"waitUntilCanBePushed fail"
 argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"waitUntilCanBePushed interrupted"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|interrupt
+argument_list|()
 expr_stmt|;
 block|}
 name|canSkipWaitingSet
