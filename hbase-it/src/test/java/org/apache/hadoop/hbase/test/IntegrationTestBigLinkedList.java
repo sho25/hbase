@@ -2896,6 +2896,22 @@ name|i
 operator|++
 control|)
 block|{
+if|if
+condition|(
+name|i
+operator|%
+literal|100
+operator|==
+literal|0
+condition|)
+block|{
+comment|// Tickle progress every so often else maprunner will think us hung
+name|output
+operator|.
+name|progress
+argument_list|()
+expr_stmt|;
+block|}
 name|Put
 name|put
 init|=
@@ -3057,22 +3073,6 @@ argument_list|(
 name|put
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|i
-operator|%
-literal|1000
-operator|==
-literal|0
-condition|)
-block|{
-comment|// Tickle progress every so often else maprunner will think us hung
-name|output
-operator|.
-name|progress
-argument_list|()
-expr_stmt|;
-block|}
 block|}
 name|mutator
 operator|.
