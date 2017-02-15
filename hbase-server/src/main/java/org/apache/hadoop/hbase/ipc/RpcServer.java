@@ -6878,7 +6878,7 @@ block|}
 comment|/**    * Needed for features such as delayed calls.  We need to be able to store the current call    * so that we can complete it later or ask questions of what is supported by the current ongoing    * call.    * @return An RpcCallContext backed by the currently ongoing call (gotten from a thread local)    */
 specifier|public
 specifier|static
-name|RpcCallContext
+name|RpcCall
 name|getCurrentCall
 parameter_list|()
 block|{
