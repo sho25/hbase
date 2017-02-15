@@ -3494,6 +3494,15 @@ decl_stmt|;
 comment|// key to the config parameter of server hostname
 comment|// the specification of server hostname is optional. The hostname should be resolvable from
 comment|// both master and region server
+annotation|@
+name|InterfaceAudience
+operator|.
+name|LimitedPrivate
+argument_list|(
+name|HBaseInterfaceAudience
+operator|.
+name|CONFIG
+argument_list|)
 specifier|final
 specifier|static
 name|String
@@ -3501,6 +3510,16 @@ name|RS_HOSTNAME_KEY
 init|=
 literal|"hbase.regionserver.hostname"
 decl_stmt|;
+annotation|@
+name|InterfaceAudience
+operator|.
+name|LimitedPrivate
+argument_list|(
+name|HBaseInterfaceAudience
+operator|.
+name|CONFIG
+argument_list|)
+specifier|protected
 specifier|final
 specifier|static
 name|String

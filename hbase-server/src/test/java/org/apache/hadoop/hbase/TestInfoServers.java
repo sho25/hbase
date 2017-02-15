@@ -379,7 +379,7 @@ name|shutdownMiniCluster
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * @throws Exception    */
+comment|/**    * Ensure when we go to top level index pages that we get redirected to an info-server specific status    * page.    */
 annotation|@
 name|Test
 specifier|public
