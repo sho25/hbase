@@ -17,6 +17,28 @@ name|master
 package|;
 end_package
 
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Map
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Map
+operator|.
+name|Entry
+import|;
+end_import
+
 begin_comment
 comment|/**  * This is the interface that will expose information to hadoop1/hadoop2 implementations of the  * MetricsMasterSource.  */
 end_comment
@@ -100,6 +122,36 @@ function_decl|;
 comment|/**    * Get the number of region merge plans executed.    */
 name|long
 name|getMergePlanCount
+parameter_list|()
+function_decl|;
+comment|/**    * Gets the space usage and limit for each table.    */
+name|Map
+argument_list|<
+name|String
+argument_list|,
+name|Entry
+argument_list|<
+name|Long
+argument_list|,
+name|Long
+argument_list|>
+argument_list|>
+name|getTableSpaceUtilization
+parameter_list|()
+function_decl|;
+comment|/**    * Gets the space usage and limit for each namespace.    */
+name|Map
+argument_list|<
+name|String
+argument_list|,
+name|Entry
+argument_list|<
+name|Long
+argument_list|,
+name|Long
+argument_list|>
+argument_list|>
+name|getNamespaceSpaceUtilization
 parameter_list|()
 function_decl|;
 block|}

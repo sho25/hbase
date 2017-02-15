@@ -5638,6 +5638,9 @@ operator|new
 name|QuotaObserverChore
 argument_list|(
 name|this
+argument_list|,
+name|getMasterMetrics
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Start the chore to read the region FS space reports and act on them
