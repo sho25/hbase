@@ -680,7 +680,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Coprocessors implement this interface to observe and mediate client actions  * on the region.  */
+comment|/**  * Coprocessors implement this interface to observe and mediate client actions  * on the region.  *  * Since most implementations will be interested in only a subset of hooks, this class uses  * 'default' functions to avoid having to add unnecessary overrides. When the functions are  * non-empty, it's simply to satisfy the compiler by returning value of expected (non-void) type.  * It is done in a way that these default definitions act as no-op. So our suggestion to  * implementation would be to not call these 'default' methods from overrides.  *<br><br>  *  *<h3>Exception Handling</h3>  * For all functions, exception handling is done as follows:  *<ul>  *<li>Exceptions of type {@link IOException} are reported back to client.</li>  *<li>For any other kind of exception:  *<ul>  *<li>If the configuration {@link CoprocessorHost#ABORT_ON_ERROR_KEY} is set to true, then  *         the server aborts.</li>  *<li>Otherwise, coprocessor is removed from the server and  *         {@link org.apache.hadoop.hbase.DoNotRetryIOException} is returned to the client.</li>  *</ul>  *</li>  *</ul>  */
 end_comment
 
 begin_interface
@@ -707,7 +707,6 @@ extends|extends
 name|Coprocessor
 block|{
 comment|/** Mutation type for postMutationBeforeWAL hook */
-specifier|public
 enum|enum
 name|MutationType
 block|{
@@ -715,7 +714,8 @@ name|APPEND
 block|,
 name|INCREMENT
 block|}
-comment|/**    * Called before the region is reported as open to the master.    * @param c the environment provided by the region server    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called before the region is reported as open to the master.    * @param c the environment provided by the region server    */
+specifier|default
 name|void
 name|preOpen
 parameter_list|(
@@ -728,8 +728,9 @@ name|c
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{}
 comment|/**    * Called after the region is reported as open to the master.    * @param c the environment provided by the region server    */
+specifier|default
 name|void
 name|postOpen
 parameter_list|(
@@ -740,8 +741,9 @@ name|RegionCoprocessorEnvironment
 argument_list|>
 name|c
 parameter_list|)
-function_decl|;
+block|{}
 comment|/**    * Called after the log replay on the region is over.    * @param c the environment provided by the region server    */
+specifier|default
 name|void
 name|postLogReplay
 parameter_list|(
@@ -752,10 +754,11 @@ name|RegionCoprocessorEnvironment
 argument_list|>
 name|c
 parameter_list|)
-function_decl|;
-comment|/**    * Called before a memstore is flushed to disk and prior to creating the scanner to read from    * the memstore.  To override or modify how a memstore is flushed,    * implementing classes can return a new scanner to provide the KeyValues to be    * stored into the new {@code StoreFile} or null to perform the default processing.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param c the environment provided by the region server    * @param store the store being flushed    * @param memstoreScanner the scanner for the memstore that is flushed    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @return the scanner to use during the flush.  {@code null} if the default implementation    * is to be used.    * @throws IOException if an error occurred on the coprocessor    * @deprecated Use {@link #preFlushScannerOpen(ObserverContext, Store, KeyValueScanner,    *             InternalScanner, long)}    */
+block|{}
+comment|/**    * Called before a memstore is flushed to disk and prior to creating the scanner to read from    * the memstore.  To override or modify how a memstore is flushed,    * implementing classes can return a new scanner to provide the KeyValues to be    * stored into the new {@code StoreFile} or null to perform the default processing.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param c the environment provided by the region server    * @param store the store being flushed    * @param memstoreScanner the scanner for the memstore that is flushed    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @return the scanner to use during the flush.  {@code null} if the default implementation    * is to be used.    * @deprecated Use {@link #preFlushScannerOpen(ObserverContext, Store, KeyValueScanner,    *             InternalScanner, long)}    */
 annotation|@
 name|Deprecated
+specifier|default
 name|InternalScanner
 name|preFlushScannerOpen
 parameter_list|(
@@ -780,8 +783,13 @@ name|s
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called before a memstore is flushed to disk and prior to creating the scanner to read from    * the memstore.  To override or modify how a memstore is flushed,    * implementing classes can return a new scanner to provide the KeyValues to be    * stored into the new {@code StoreFile} or null to perform the default processing.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param c the environment provided by the region server    * @param store the store being flushed    * @param memstoreScanner the scanner for the memstore that is flushed    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @param readPoint the readpoint to create scanner    * @return the scanner to use during the flush.  {@code null} if the default implementation    * is to be used.    * @throws IOException if an error occurred on the coprocessor    */
+block|{
+return|return
+name|s
+return|;
+block|}
+comment|/**    * Called before a memstore is flushed to disk and prior to creating the scanner to read from    * the memstore.  To override or modify how a memstore is flushed,    * implementing classes can return a new scanner to provide the KeyValues to be    * stored into the new {@code StoreFile} or null to perform the default processing.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param c the environment provided by the region server    * @param store the store being flushed    * @param memstoreScanner the scanner for the memstore that is flushed    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @param readPoint the readpoint to create scanner    * @return the scanner to use during the flush.  {@code null} if the default implementation    * is to be used.    */
+specifier|default
 name|InternalScanner
 name|preFlushScannerOpen
 parameter_list|(
@@ -810,10 +818,24 @@ name|readPoint
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called before the memstore is flushed to disk.    * @param c the environment provided by the region server    * @throws IOException if an error occurred on the coprocessor    * @deprecated use {@link #preFlush(ObserverContext, Store, InternalScanner)} instead    */
+block|{
+return|return
+name|preFlushScannerOpen
+argument_list|(
+name|c
+argument_list|,
+name|store
+argument_list|,
+name|memstoreScanner
+argument_list|,
+name|s
+argument_list|)
+return|;
+block|}
+comment|/**    * Called before the memstore is flushed to disk.    * @param c the environment provided by the region server    * @deprecated use {@link #preFlush(ObserverContext, Store, InternalScanner)} instead    */
 annotation|@
 name|Deprecated
+specifier|default
 name|void
 name|preFlush
 parameter_list|(
@@ -826,8 +848,9 @@ name|c
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called before a Store's memstore is flushed to disk.    * @param c the environment provided by the region server    * @param store the store where compaction is being requested    * @param scanner the scanner over existing data used in the store file    * @return the scanner to use during compaction.  Should not be {@code null}    * unless the implementation is writing new store files on its own.    * @throws IOException if an error occurred on the coprocessor    */
+block|{}
+comment|/**    * Called before a Store's memstore is flushed to disk.    * @param c the environment provided by the region server    * @param store the store where compaction is being requested    * @param scanner the scanner over existing data used in the store file    * @return the scanner to use during compaction.  Should not be {@code null}    * unless the implementation is writing new store files on its own.    */
+specifier|default
 name|InternalScanner
 name|preFlush
 parameter_list|(
@@ -848,10 +871,15 @@ name|scanner
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called after the memstore is flushed to disk.    * @param c the environment provided by the region server    * @throws IOException if an error occurred on the coprocessor    * @deprecated use {@link #preFlush(ObserverContext, Store, InternalScanner)} instead.    */
+block|{
+return|return
+name|scanner
+return|;
+block|}
+comment|/**    * Called after the memstore is flushed to disk.    * @param c the environment provided by the region server    * @deprecated use {@link #preFlush(ObserverContext, Store, InternalScanner)} instead.    */
 annotation|@
 name|Deprecated
+specifier|default
 name|void
 name|postFlush
 parameter_list|(
@@ -864,8 +892,9 @@ name|c
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called after a Store's memstore is flushed to disk.    * @param c the environment provided by the region server    * @param store the store being flushed    * @param resultFile the new store file written out during compaction    * @throws IOException if an error occurred on the coprocessor    */
+block|{}
+comment|/**    * Called after a Store's memstore is flushed to disk.    * @param c the environment provided by the region server    * @param store the store being flushed    * @param resultFile the new store file written out during compaction    */
+specifier|default
 name|void
 name|postFlush
 parameter_list|(
@@ -886,8 +915,9 @@ name|resultFile
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called prior to selecting the {@link StoreFile StoreFiles} to compact from the list of    * available candidates. To alter the files used for compaction, you may mutate the passed in list    * of candidates.    * @param c the environment provided by the region server    * @param store the store where compaction is being requested    * @param candidates the store files currently available for compaction    * @param request custom compaction request    * @throws IOException if an error occurred on the coprocessor    */
+block|{}
+comment|/**    * Called prior to selecting the {@link StoreFile StoreFiles} to compact from the list of    * available candidates. To alter the files used for compaction, you may mutate the passed in list    * of candidates.    * @param c the environment provided by the region server    * @param store the store where compaction is being requested    * @param candidates the store files currently available for compaction    * @param request custom compaction request    */
+specifier|default
 name|void
 name|preCompactSelection
 parameter_list|(
@@ -915,10 +945,21 @@ name|request
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called prior to selecting the {@link StoreFile}s to compact from the list of available    * candidates. To alter the files used for compaction, you may mutate the passed in list of    * candidates.    * @param c the environment provided by the region server    * @param store the store where compaction is being requested    * @param candidates the store files currently available for compaction    * @throws IOException if an error occurred on the coprocessor    * @deprecated Use {@link #preCompactSelection(ObserverContext, Store, List, CompactionRequest)}    *             instead    */
+block|{
+name|preCompactSelection
+argument_list|(
+name|c
+argument_list|,
+name|store
+argument_list|,
+name|candidates
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Called prior to selecting the {@link StoreFile}s to compact from the list of available    * candidates. To alter the files used for compaction, you may mutate the passed in list of    * candidates.    * @param c the environment provided by the region server    * @param store the store where compaction is being requested    * @param candidates the store files currently available for compaction    * @deprecated Use {@link #preCompactSelection(ObserverContext, Store, List, CompactionRequest)}    *             instead    */
 annotation|@
 name|Deprecated
+specifier|default
 name|void
 name|preCompactSelection
 parameter_list|(
@@ -942,8 +983,9 @@ name|candidates
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{}
 comment|/**    * Called after the {@link StoreFile}s to compact have been selected from the available    * candidates.    * @param c the environment provided by the region server    * @param store the store being compacted    * @param selected the store files selected to compact    * @param request custom compaction request    */
+specifier|default
 name|void
 name|postCompactSelection
 parameter_list|(
@@ -968,10 +1010,21 @@ parameter_list|,
 name|CompactionRequest
 name|request
 parameter_list|)
-function_decl|;
+block|{
+name|postCompactSelection
+argument_list|(
+name|c
+argument_list|,
+name|store
+argument_list|,
+name|selected
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Called after the {@link StoreFile}s to compact have been selected from the available    * candidates.    * @param c the environment provided by the region server    * @param store the store being compacted    * @param selected the store files selected to compact    * @deprecated use {@link #postCompactSelection(ObserverContext, Store, ImmutableList,    *             CompactionRequest)} instead.    */
 annotation|@
 name|Deprecated
+specifier|default
 name|void
 name|postCompactSelection
 parameter_list|(
@@ -993,8 +1046,9 @@ name|StoreFile
 argument_list|>
 name|selected
 parameter_list|)
-function_decl|;
-comment|/**    * Called prior to writing the {@link StoreFile}s selected for compaction into a new    * {@code StoreFile}. To override or modify the compaction process, implementing classes have two    * options:    *<ul>    *<li>Wrap the provided {@link InternalScanner} with a custom implementation that is returned    * from this method. The custom scanner can then inspect    *  {@link org.apache.hadoop.hbase.KeyValue}s from the wrapped scanner, applying its own    *   policy to what gets written.</li>    *<li>Call {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} and provide a    * custom implementation for writing of new {@link StoreFile}s.<strong>Note: any implementations    * bypassing core compaction using this approach must write out new store files themselves or the    * existing data will no longer be available after compaction.</strong></li>    *</ul>    * @param c the environment provided by the region server    * @param store the store being compacted    * @param scanner the scanner over existing data used in the store file rewriting    * @param scanType type of Scan    * @param request the requested compaction    * @return the scanner to use during compaction. Should not be {@code null} unless the    *         implementation is writing new store files on its own.    * @throws IOException if an error occurred on the coprocessor    */
+block|{}
+comment|/**    * Called prior to writing the {@link StoreFile}s selected for compaction into a new    * {@code StoreFile}. To override or modify the compaction process, implementing classes have two    * options:    *<ul>    *<li>Wrap the provided {@link InternalScanner} with a custom implementation that is returned    * from this method. The custom scanner can then inspect    *  {@link org.apache.hadoop.hbase.KeyValue}s from the wrapped scanner, applying its own    *   policy to what gets written.</li>    *<li>Call {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} and provide a    * custom implementation for writing of new {@link StoreFile}s.<strong>Note: any implementations    * bypassing core compaction using this approach must write out new store files themselves or the    * existing data will no longer be available after compaction.</strong></li>    *</ul>    * @param c the environment provided by the region server    * @param store the store being compacted    * @param scanner the scanner over existing data used in the store file rewriting    * @param scanType type of Scan    * @param request the requested compaction    * @return the scanner to use during compaction. Should not be {@code null} unless the    *         implementation is writing new store files on its own.    */
+specifier|default
 name|InternalScanner
 name|preCompact
 parameter_list|(
@@ -1022,10 +1076,24 @@ name|request
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called prior to writing the {@link StoreFile}s selected for compaction into a new    * {@code StoreFile}. To override or modify the compaction process, implementing classes have two    * options:    *<ul>    *<li>Wrap the provided {@link InternalScanner} with a custom implementation that is returned    * from this method. The custom scanner can then inspect    *  {@link org.apache.hadoop.hbase.KeyValue}s from the wrapped scanner, applying its own    *   policy to what gets written.</li>    *<li>Call {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} and provide a    * custom implementation for writing of new {@link StoreFile}s.<strong>Note: any implementations    * bypassing core compaction using this approach must write out new store files themselves or the    * existing data will no longer be available after compaction.</strong></li>    *</ul>    * @param c the environment provided by the region server    * @param store the store being compacted    * @param scanner the scanner over existing data used in the store file rewriting    * @param scanType type of Scan    * @return the scanner to use during compaction. Should not be {@code null} unless the    *         implementation is writing new store files on its own.    * @throws IOException if an error occurred on the coprocessor    * @deprecated use    *             {@link #preCompact(ObserverContext, Store, InternalScanner,    *             ScanType, CompactionRequest)} instead    */
+block|{
+return|return
+name|preCompact
+argument_list|(
+name|c
+argument_list|,
+name|store
+argument_list|,
+name|scanner
+argument_list|,
+name|scanType
+argument_list|)
+return|;
+block|}
+comment|/**    * Called prior to writing the {@link StoreFile}s selected for compaction into a new    * {@code StoreFile}. To override or modify the compaction process, implementing classes have two    * options:    *<ul>    *<li>Wrap the provided {@link InternalScanner} with a custom implementation that is returned    * from this method. The custom scanner can then inspect    *  {@link org.apache.hadoop.hbase.KeyValue}s from the wrapped scanner, applying its own    *   policy to what gets written.</li>    *<li>Call {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} and provide a    * custom implementation for writing of new {@link StoreFile}s.<strong>Note: any implementations    * bypassing core compaction using this approach must write out new store files themselves or the    * existing data will no longer be available after compaction.</strong></li>    *</ul>    * @param c the environment provided by the region server    * @param store the store being compacted    * @param scanner the scanner over existing data used in the store file rewriting    * @param scanType type of Scan    * @return the scanner to use during compaction. Should not be {@code null} unless the    *         implementation is writing new store files on its own.    * @deprecated use    *             {@link #preCompact(ObserverContext, Store, InternalScanner,    *             ScanType, CompactionRequest)} instead    */
 annotation|@
 name|Deprecated
+specifier|default
 name|InternalScanner
 name|preCompact
 parameter_list|(
@@ -1050,10 +1118,15 @@ name|scanType
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called prior to writing the {@link StoreFile}s selected for compaction into a new    * {@code StoreFile} and prior to creating the scanner used to read the input files. To override    * or modify the compaction process, implementing classes can return a new scanner to provide the    * KeyValues to be stored into the new {@code StoreFile} or null to perform the default    * processing. Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param c the environment provided by the region server    * @param store the store being compacted    * @param scanners the list {@link org.apache.hadoop.hbase.regionserver.StoreFileScanner}s    *  to be read from    * @param scanType the {@link ScanType} indicating whether this is a major or minor compaction    * @param earliestPutTs timestamp of the earliest put that was found in any of the involved store    *          files    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @param request the requested compaction    * @return the scanner to use during compaction. {@code null} if the default implementation is to    *         be used.    * @throws IOException if an error occurred on the coprocessor    * @deprecated Use {@link #preCompactScannerOpen(ObserverContext, Store, List, ScanType, long,    *             InternalScanner, CompactionRequest, long)} instead.    */
+block|{
+return|return
+name|scanner
+return|;
+block|}
+comment|/**    * Called prior to writing the {@link StoreFile}s selected for compaction into a new    * {@code StoreFile} and prior to creating the scanner used to read the input files. To override    * or modify the compaction process, implementing classes can return a new scanner to provide the    * KeyValues to be stored into the new {@code StoreFile} or null to perform the default    * processing. Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param c the environment provided by the region server    * @param store the store being compacted    * @param scanners the list {@link org.apache.hadoop.hbase.regionserver.StoreFileScanner}s    *  to be read from    * @param scanType the {@link ScanType} indicating whether this is a major or minor compaction    * @param earliestPutTs timestamp of the earliest put that was found in any of the involved store    *          files    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @param request the requested compaction    * @return the scanner to use during compaction. {@code null} if the default implementation is to    *         be used.    * @deprecated Use {@link #preCompactScannerOpen(ObserverContext, Store, List, ScanType, long,    *             InternalScanner, CompactionRequest, long)} instead.    */
 annotation|@
 name|Deprecated
+specifier|default
 name|InternalScanner
 name|preCompactScannerOpen
 parameter_list|(
@@ -1093,8 +1166,26 @@ name|request
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called prior to writing the {@link StoreFile}s selected for compaction into a new    * {@code StoreFile} and prior to creating the scanner used to read the input files. To override    * or modify the compaction process, implementing classes can return a new scanner to provide the    * KeyValues to be stored into the new {@code StoreFile} or null to perform the default    * processing. Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param c the environment provided by the region server    * @param store the store being compacted    * @param scanners the list {@link org.apache.hadoop.hbase.regionserver.StoreFileScanner}s    *  to be read from    * @param scanType the {@link ScanType} indicating whether this is a major or minor compaction    * @param earliestPutTs timestamp of the earliest put that was found in any of the involved store    *          files    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @param request compaction request    * @param readPoint the readpoint to create scanner    * @return the scanner to use during compaction. {@code null} if the default implementation is to    *          be used.    * @throws IOException if an error occurred on the coprocessor    */
+block|{
+return|return
+name|preCompactScannerOpen
+argument_list|(
+name|c
+argument_list|,
+name|store
+argument_list|,
+name|scanners
+argument_list|,
+name|scanType
+argument_list|,
+name|earliestPutTs
+argument_list|,
+name|s
+argument_list|)
+return|;
+block|}
+comment|/**    * Called prior to writing the {@link StoreFile}s selected for compaction into a new    * {@code StoreFile} and prior to creating the scanner used to read the input files. To override    * or modify the compaction process, implementing classes can return a new scanner to provide the    * KeyValues to be stored into the new {@code StoreFile} or null to perform the default    * processing. Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param c the environment provided by the region server    * @param store the store being compacted    * @param scanners the list {@link org.apache.hadoop.hbase.regionserver.StoreFileScanner}s    *  to be read from    * @param scanType the {@link ScanType} indicating whether this is a major or minor compaction    * @param earliestPutTs timestamp of the earliest put that was found in any of the involved store    *          files    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @param request compaction request    * @param readPoint the readpoint to create scanner    * @return the scanner to use during compaction. {@code null} if the default implementation is to    *          be used.    */
+specifier|default
 name|InternalScanner
 name|preCompactScannerOpen
 parameter_list|(
@@ -1139,10 +1230,30 @@ name|readPoint
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called prior to writing the {@link StoreFile}s selected for compaction into a new    * {@code StoreFile} and prior to creating the scanner used to read the input files. To override    * or modify the compaction process, implementing classes can return a new scanner to provide the    * KeyValues to be stored into the new {@code StoreFile} or null to perform the default    * processing. Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param c the environment provided by the region server    * @param store the store being compacted    * @param scanners the list {@link org.apache.hadoop.hbase.regionserver.StoreFileScanner}s    *  to be read from    * @param scanType the {@link ScanType} indicating whether this is a major or minor compaction    * @param earliestPutTs timestamp of the earliest put that was found in any of the involved store    *          files    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @return the scanner to use during compaction. {@code null} if the default implementation is to    *         be used.    * @throws IOException if an error occurred on the coprocessor    * @deprecated Use    *             {@link #preCompactScannerOpen(ObserverContext, Store, List, ScanType, long,    *             InternalScanner, CompactionRequest, long)} instead.    */
+block|{
+return|return
+name|preCompactScannerOpen
+argument_list|(
+name|c
+argument_list|,
+name|store
+argument_list|,
+name|scanners
+argument_list|,
+name|scanType
+argument_list|,
+name|earliestPutTs
+argument_list|,
+name|s
+argument_list|,
+name|request
+argument_list|)
+return|;
+block|}
+comment|/**    * Called prior to writing the {@link StoreFile}s selected for compaction into a new    * {@code StoreFile} and prior to creating the scanner used to read the input files. To override    * or modify the compaction process, implementing classes can return a new scanner to provide the    * KeyValues to be stored into the new {@code StoreFile} or null to perform the default    * processing. Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param c the environment provided by the region server    * @param store the store being compacted    * @param scanners the list {@link org.apache.hadoop.hbase.regionserver.StoreFileScanner}s    *  to be read from    * @param scanType the {@link ScanType} indicating whether this is a major or minor compaction    * @param earliestPutTs timestamp of the earliest put that was found in any of the involved store    *          files    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @return the scanner to use during compaction. {@code null} if the default implementation is to    *         be used.    * @deprecated Use    *             {@link #preCompactScannerOpen(ObserverContext, Store, List, ScanType, long,    *             InternalScanner, CompactionRequest, long)} instead.    */
 annotation|@
 name|Deprecated
+specifier|default
 name|InternalScanner
 name|preCompactScannerOpen
 parameter_list|(
@@ -1179,8 +1290,13 @@ name|s
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called after compaction has completed and the new store file has been moved in to place.    * @param c the environment provided by the region server    * @param store the store being compacted    * @param resultFile the new store file written out during compaction    * @param request the requested compaction    * @throws IOException if an error occurred on the coprocessor    */
+block|{
+return|return
+name|s
+return|;
+block|}
+comment|/**    * Called after compaction has completed and the new store file has been moved in to place.    * @param c the environment provided by the region server    * @param store the store being compacted    * @param resultFile the new store file written out during compaction    * @param request the requested compaction    */
+specifier|default
 name|void
 name|postCompact
 parameter_list|(
@@ -1203,10 +1319,21 @@ name|request
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called after compaction has completed and the new store file has been moved in to place.    * @param c the environment provided by the region server    * @param store the store being compacted    * @param resultFile the new store file written out during compaction    * @throws IOException if an error occurred on the coprocessor    * @deprecated Use {@link #postCompact(ObserverContext, Store, StoreFile, CompactionRequest)}    *             instead    */
+block|{
+name|postCompact
+argument_list|(
+name|c
+argument_list|,
+name|store
+argument_list|,
+name|resultFile
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Called after compaction has completed and the new store file has been moved in to place.    * @param c the environment provided by the region server    * @param store the store being compacted    * @param resultFile the new store file written out during compaction    * @deprecated Use {@link #postCompact(ObserverContext, Store, StoreFile, CompactionRequest)}    *             instead    */
 annotation|@
 name|Deprecated
+specifier|default
 name|void
 name|postCompact
 parameter_list|(
@@ -1226,10 +1353,11 @@ name|resultFile
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called before the region is split.    * @param c the environment provided by the region server    * (e.getRegion() returns the parent region)    * @throws IOException if an error occurred on the coprocessor    * @deprecated Use preSplit(    *    final ObserverContext&lt;RegionCoprocessorEnvironment&gt; c, byte[] splitRow)    */
+block|{}
+comment|/**    * Called before the region is split.    * @param c the environment provided by the region server    * (e.getRegion() returns the parent region)    * @deprecated Use preSplit(    *    final ObserverContext&lt;RegionCoprocessorEnvironment&gt; c, byte[] splitRow)    */
 annotation|@
 name|Deprecated
+specifier|default
 name|void
 name|preSplit
 parameter_list|(
@@ -1242,10 +1370,11 @@ name|c
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called before the region is split.    * @param c the environment provided by the region server    * (e.getRegion() returns the parent region)    * @throws IOException if an error occurred on the coprocessor    *    * Note: the logic moves to Master; it is unused in RS    */
+block|{}
+comment|/**    * Called before the region is split.    * @param c the environment provided by the region server    * (e.getRegion() returns the parent region)    *    * Note: the logic moves to Master; it is unused in RS    */
 annotation|@
 name|Deprecated
+specifier|default
 name|void
 name|preSplit
 parameter_list|(
@@ -1262,10 +1391,11 @@ name|splitRow
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called after the region is split.    * @param c the environment provided by the region server    * (e.getRegion() returns the parent region)    * @param l the left daughter region    * @param r the right daughter region    * @throws IOException if an error occurred on the coprocessor    * @deprecated Use postCompleteSplit() instead    */
+block|{}
+comment|/**    * Called after the region is split.    * @param c the environment provided by the region server    * (e.getRegion() returns the parent region)    * @param l the left daughter region    * @param r the right daughter region    * @deprecated Use postCompleteSplit() instead    */
 annotation|@
 name|Deprecated
+specifier|default
 name|void
 name|postSplit
 parameter_list|(
@@ -1286,10 +1416,11 @@ name|r
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * This will be called before PONR step as part of split transaction. Calling    * {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} rollback the split    * @param ctx    * @param splitKey    * @param metaEntries    * @throws IOException    *    * Note: the logic moves to Master; it is unused in RS   */
+block|{}
+comment|/**    * This will be called before PONR step as part of split transaction. Calling    * {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} rollback the split    * @param ctx    * @param splitKey    * @param metaEntries    *    * Note: the logic moves to Master; it is unused in RS   */
 annotation|@
 name|Deprecated
+specifier|default
 name|void
 name|preSplitBeforePONR
 parameter_list|(
@@ -1312,10 +1443,11 @@ name|metaEntries
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * This will be called after PONR step as part of split transaction    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param ctx    * @throws IOException    *    * Note: the logic moves to Master; it is unused in RS   */
+block|{}
+comment|/**    * This will be called after PONR step as part of split transaction    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param ctx    *    * Note: the logic moves to Master; it is unused in RS   */
 annotation|@
 name|Deprecated
+specifier|default
 name|void
 name|preSplitAfterPONR
 parameter_list|(
@@ -1328,10 +1460,11 @@ name|ctx
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * This will be called before the roll back of the split region is completed    * @param ctx    * @throws IOException    *    * Note: the logic moves to Master; it is unused in RS   */
+block|{}
+comment|/**    * This will be called before the roll back of the split region is completed    * @param ctx    *    * Note: the logic moves to Master; it is unused in RS   */
 annotation|@
 name|Deprecated
+specifier|default
 name|void
 name|preRollBackSplit
 parameter_list|(
@@ -1344,10 +1477,11 @@ name|ctx
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * This will be called after the roll back of the split region is completed    * @param ctx    * @throws IOException    *    * Note: the logic moves to Master; it is unused in RS   */
+block|{}
+comment|/**    * This will be called after the roll back of the split region is completed    * @param ctx    *    * Note: the logic moves to Master; it is unused in RS   */
 annotation|@
 name|Deprecated
+specifier|default
 name|void
 name|postRollBackSplit
 parameter_list|(
@@ -1360,8 +1494,9 @@ name|ctx
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called after any split request is processed.  This will be called irrespective of success or    * failure of the split.    * @param ctx    * @throws IOException    */
+block|{}
+comment|/**    * Called after any split request is processed.  This will be called irrespective of success or    * failure of the split.    * @param ctx    */
+specifier|default
 name|void
 name|postCompleteSplit
 parameter_list|(
@@ -1374,8 +1509,9 @@ name|ctx
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called before the region is reported as closed to the master.    * @param c the environment provided by the region server    * @param abortRequested true if the region server is aborting    * @throws IOException    */
+block|{}
+comment|/**    * Called before the region is reported as closed to the master.    * @param c the environment provided by the region server    * @param abortRequested true if the region server is aborting    */
+specifier|default
 name|void
 name|preClose
 parameter_list|(
@@ -1391,8 +1527,9 @@ name|abortRequested
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{}
 comment|/**    * Called after the region is reported as closed to the master.    * @param c the environment provided by the region server    * @param abortRequested true if the region server is aborting    */
+specifier|default
 name|void
 name|postClose
 parameter_list|(
@@ -1406,8 +1543,9 @@ parameter_list|,
 name|boolean
 name|abortRequested
 parameter_list|)
-function_decl|;
-comment|/**    * Called before the client performs a Get    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param get the Get request    * @param result The result to return to the client if default processing    * is bypassed. Can be modified. Will not be used if default processing    * is not bypassed.    * @throws IOException if an error occurred on the coprocessor    */
+block|{}
+comment|/**    * Called before the client performs a Get    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param get the Get request    * @param result The result to return to the client if default processing    * is bypassed. Can be modified. Will not be used if default processing    * is not bypassed.    */
+specifier|default
 name|void
 name|preGetOp
 parameter_list|(
@@ -1431,8 +1569,9 @@ name|result
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called after the client performs a Get    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'result' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param get the Get request    * @param result the result to return to the client, modify as necessary    * @throws IOException if an error occurred on the coprocessor    */
+block|{}
+comment|/**    * Called after the client performs a Get    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'result' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param get the Get request    * @param result the result to return to the client, modify as necessary    */
+specifier|default
 name|void
 name|postGetOp
 parameter_list|(
@@ -1456,8 +1595,9 @@ name|result
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called before the client tests for existence using a Get.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param get the Get request    * @param exists    * @return the value to return to the client if bypassing default processing    * @throws IOException if an error occurred on the coprocessor    */
+block|{}
+comment|/**    * Called before the client tests for existence using a Get.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param get the Get request    * @param exists    * @return the value to return to the client if bypassing default processing    */
+specifier|default
 name|boolean
 name|preExists
 parameter_list|(
@@ -1478,8 +1618,13 @@ name|exists
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called after the client tests for existence using a Get.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param get the Get request    * @param exists the result returned by the region server    * @return the result to return to the client    * @throws IOException if an error occurred on the coprocessor    */
+block|{
+return|return
+name|exists
+return|;
+block|}
+comment|/**    * Called after the client tests for existence using a Get.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param get the Get request    * @param exists the result returned by the region server    * @return the result to return to the client    */
+specifier|default
 name|boolean
 name|postExists
 parameter_list|(
@@ -1500,8 +1645,13 @@ name|exists
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called before the client stores a value.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'put' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param put The Put object    * @param edit The WALEdit object that will be written to the wal    * @param durability Persistence guarantee for this Put    * @throws IOException if an error occurred on the coprocessor    */
+block|{
+return|return
+name|exists
+return|;
+block|}
+comment|/**    * Called before the client stores a value.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'put' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param put The Put object    * @param edit The WALEdit object that will be written to the wal    * @param durability Persistence guarantee for this Put    */
+specifier|default
 name|void
 name|prePut
 parameter_list|(
@@ -1526,8 +1676,9 @@ name|durability
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called after the client stores a value.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'put' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param put The Put object    * @param edit The WALEdit object for the wal    * @param durability Persistence guarantee for this Put    * @throws IOException if an error occurred on the coprocessor    */
+block|{}
+comment|/**    * Called after the client stores a value.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'put' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param put The Put object    * @param edit The WALEdit object for the wal    * @param durability Persistence guarantee for this Put    */
+specifier|default
 name|void
 name|postPut
 parameter_list|(
@@ -1552,8 +1703,9 @@ name|durability
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called before the client deletes a value.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'delete' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param delete The Delete object    * @param edit The WALEdit object for the wal    * @param durability Persistence guarantee for this Delete    * @throws IOException if an error occurred on the coprocessor    */
+block|{}
+comment|/**    * Called before the client deletes a value.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'delete' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param delete The Delete object    * @param edit The WALEdit object for the wal    * @param durability Persistence guarantee for this Delete    */
+specifier|default
 name|void
 name|preDelete
 parameter_list|(
@@ -1578,8 +1730,9 @@ name|durability
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**  * Called before the server updates the timestamp for version delete with latest timestamp.  *<p>  * Call CoprocessorEnvironment#bypass to skip default actions  *<p>  * Call CoprocessorEnvironment#complete to skip any subsequent chained  * coprocessors  * @param c the environment provided by the region server  * @param mutation - the parent mutation associated with this delete cell  * @param cell - The deleteColumn with latest version cell  * @param byteNow - timestamp bytes  * @param get - the get formed using the current cell's row.  * Note that the get does not specify the family and qualifier  * @throws IOException  */
+block|{}
+comment|/**  * Called before the server updates the timestamp for version delete with latest timestamp.  *<p>  * Call CoprocessorEnvironment#bypass to skip default actions  *<p>  * Call CoprocessorEnvironment#complete to skip any subsequent chained  * coprocessors  * @param c the environment provided by the region server  * @param mutation - the parent mutation associated with this delete cell  * @param cell - The deleteColumn with latest version cell  * @param byteNow - timestamp bytes  * @param get - the get formed using the current cell's row.  * Note that the get does not specify the family and qualifier  */
+specifier|default
 name|void
 name|prePrepareTimeStampForDeleteVersion
 parameter_list|(
@@ -1609,8 +1762,9 @@ name|get
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called after the client deletes a value.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'delete' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param delete The Delete object    * @param edit The WALEdit object for the wal    * @param durability Persistence guarantee for this Delete    * @throws IOException if an error occurred on the coprocessor    */
+block|{}
+comment|/**    * Called after the client deletes a value.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'delete' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param delete The Delete object    * @param edit The WALEdit object for the wal    * @param durability Persistence guarantee for this Delete    */
+specifier|default
 name|void
 name|postDelete
 parameter_list|(
@@ -1635,8 +1789,9 @@ name|durability
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * This will be called for every batch mutation operation happening at the server. This will be    * called after acquiring the locks on the mutating rows and after applying the proper timestamp    * for each Mutation at the server. The batch may contain Put/Delete. By setting OperationStatus    * of Mutations ({@link MiniBatchOperationInProgress#setOperationStatus(int, OperationStatus)}),    * {@link RegionObserver} can make Region to skip these Mutations.    *<p>    * Note: Do not retain references to any Cells in Mutations beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param miniBatchOp batch of Mutations getting applied to region.    * @throws IOException if an error occurred on the coprocessor    */
+block|{}
+comment|/**    * This will be called for every batch mutation operation happening at the server. This will be    * called after acquiring the locks on the mutating rows and after applying the proper timestamp    * for each Mutation at the server. The batch may contain Put/Delete. By setting OperationStatus    * of Mutations ({@link MiniBatchOperationInProgress#setOperationStatus(int, OperationStatus)}),    * {@link RegionObserver} can make Region to skip these Mutations.    *<p>    * Note: Do not retain references to any Cells in Mutations beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param miniBatchOp batch of Mutations getting applied to region.    */
+specifier|default
 name|void
 name|preBatchMutate
 parameter_list|(
@@ -1656,8 +1811,9 @@ name|miniBatchOp
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * This will be called after applying a batch of Mutations on a region. The Mutations are added to    * memstore and WAL. The difference of this one with {@link #postPut(ObserverContext, Put, WALEdit, Durability) }    * and {@link #postDelete(ObserverContext, Delete, WALEdit, Durability) } is    * this hook will be executed before the mvcc transaction completion.    *<p>    * Note: Do not retain references to any Cells in Mutations beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param miniBatchOp batch of Mutations applied to region.    * @throws IOException if an error occurred on the coprocessor    */
+block|{}
+comment|/**    * This will be called after applying a batch of Mutations on a region. The Mutations are added to    * memstore and WAL. The difference of this one with    * {@link #postPut(ObserverContext, Put, WALEdit, Durability) }    * and {@link #postDelete(ObserverContext, Delete, WALEdit, Durability) } is    * this hook will be executed before the mvcc transaction completion.    *<p>    * Note: Do not retain references to any Cells in Mutations beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param miniBatchOp batch of Mutations applied to region.    */
+specifier|default
 name|void
 name|postBatchMutate
 parameter_list|(
@@ -1677,8 +1833,9 @@ name|miniBatchOp
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * This will be called for region operations where read lock is acquired in    * {@link Region#startRegionOperation()}.    * @param ctx    * @param operation The operation is about to be taken on the region    * @throws IOException    */
+block|{}
+comment|/**    * This will be called for region operations where read lock is acquired in    * {@link Region#startRegionOperation()}.    * @param ctx    * @param operation The operation is about to be taken on the region    */
+specifier|default
 name|void
 name|postStartRegionOperation
 parameter_list|(
@@ -1694,8 +1851,9 @@ name|operation
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called after releasing read lock in {@link Region#closeRegionOperation()}.    * @param ctx    * @param operation    * @throws IOException    */
+block|{}
+comment|/**    * Called after releasing read lock in {@link Region#closeRegionOperation()}.    * @param ctx    * @param operation    */
+specifier|default
 name|void
 name|postCloseRegionOperation
 parameter_list|(
@@ -1711,8 +1869,9 @@ name|operation
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called after the completion of batch put/delete and will be called even if the batch operation    * fails.    *<p>    * Note: Do not retain references to any Cells in Mutations beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param ctx    * @param miniBatchOp    * @param success true if batch operation is successful otherwise false.    * @throws IOException    */
+block|{}
+comment|/**    * Called after the completion of batch put/delete and will be called even if the batch operation    * fails.    *<p>    * Note: Do not retain references to any Cells in Mutations beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param ctx    * @param miniBatchOp    * @param success true if batch operation is successful otherwise false.    */
+specifier|default
 name|void
 name|postBatchMutateIndispensably
 parameter_list|(
@@ -1735,8 +1894,9 @@ name|success
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called before checkAndPut.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'put' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param compareOp the comparison operation    * @param comparator the comparator    * @param put data to put if check succeeds    * @param result    * @return the return value to return to client if bypassing default    * processing    * @throws IOException if an error occurred on the coprocessor    */
+block|{}
+comment|/**    * Called before checkAndPut.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'put' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param compareOp the comparison operation    * @param comparator the comparator    * @param put data to put if check succeeds    * @param result    * @return the return value to return to client if bypassing default    * processing    */
+specifier|default
 name|boolean
 name|preCheckAndPut
 parameter_list|(
@@ -1780,8 +1940,13 @@ name|result
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called before checkAndPut but after acquiring rowlock.    *<p>    *<b>Note:</b> Caution to be taken for not doing any long time operation in this hook.    * Row will be locked for longer time. Trying to acquire lock on another row, within this,    * can lead to potential deadlock.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'put' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param compareOp the comparison operation    * @param comparator the comparator    * @param put data to put if check succeeds    * @param result    * @return the return value to return to client if bypassing default    * processing    * @throws IOException if an error occurred on the coprocessor    */
+block|{
+return|return
+name|result
+return|;
+block|}
+comment|/**    * Called before checkAndPut but after acquiring rowlock.    *<p>    *<b>Note:</b> Caution to be taken for not doing any long time operation in this hook.    * Row will be locked for longer time. Trying to acquire lock on another row, within this,    * can lead to potential deadlock.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'put' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param compareOp the comparison operation    * @param comparator the comparator    * @param put data to put if check succeeds    * @param result    * @return the return value to return to client if bypassing default    * processing    */
+specifier|default
 name|boolean
 name|preCheckAndPutAfterRowLock
 parameter_list|(
@@ -1825,8 +1990,13 @@ name|result
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called after checkAndPut    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'put' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param compareOp the comparison operation    * @param comparator the comparator    * @param put data to put if check succeeds    * @param result from the checkAndPut    * @return the possibly transformed return value to return to client    * @throws IOException if an error occurred on the coprocessor    */
+block|{
+return|return
+name|result
+return|;
+block|}
+comment|/**    * Called after checkAndPut    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'put' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param compareOp the comparison operation    * @param comparator the comparator    * @param put data to put if check succeeds    * @param result from the checkAndPut    * @return the possibly transformed return value to return to client    */
+specifier|default
 name|boolean
 name|postCheckAndPut
 parameter_list|(
@@ -1870,8 +2040,13 @@ name|result
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called before checkAndDelete.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'delete' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param compareOp the comparison operation    * @param comparator the comparator    * @param delete delete to commit if check succeeds    * @param result    * @return the value to return to client if bypassing default processing    * @throws IOException if an error occurred on the coprocessor    */
+block|{
+return|return
+name|result
+return|;
+block|}
+comment|/**    * Called before checkAndDelete.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'delete' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param compareOp the comparison operation    * @param comparator the comparator    * @param delete delete to commit if check succeeds    * @param result    * @return the value to return to client if bypassing default processing    */
+specifier|default
 name|boolean
 name|preCheckAndDelete
 parameter_list|(
@@ -1915,8 +2090,13 @@ name|result
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called before checkAndDelete but after acquiring rowock.    *<p>    *<b>Note:</b> Caution to be taken for not doing any long time operation in this hook.    * Row will be locked for longer time. Trying to acquire lock on another row, within this,    * can lead to potential deadlock.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'delete' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param compareOp the comparison operation    * @param comparator the comparator    * @param delete delete to commit if check succeeds    * @param result    * @return the value to return to client if bypassing default processing    * @throws IOException if an error occurred on the coprocessor    */
+block|{
+return|return
+name|result
+return|;
+block|}
+comment|/**    * Called before checkAndDelete but after acquiring rowock.    *<p>    *<b>Note:</b> Caution to be taken for not doing any long time operation in this hook.    * Row will be locked for longer time. Trying to acquire lock on another row, within this,    * can lead to potential deadlock.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'delete' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param compareOp the comparison operation    * @param comparator the comparator    * @param delete delete to commit if check succeeds    * @param result    * @return the value to return to client if bypassing default processing    */
+specifier|default
 name|boolean
 name|preCheckAndDeleteAfterRowLock
 parameter_list|(
@@ -1960,8 +2140,13 @@ name|result
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called after checkAndDelete    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'delete' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param compareOp the comparison operation    * @param comparator the comparator    * @param delete delete to commit if check succeeds    * @param result from the CheckAndDelete    * @return the possibly transformed returned value to return to client    * @throws IOException if an error occurred on the coprocessor    */
+block|{
+return|return
+name|result
+return|;
+block|}
+comment|/**    * Called after checkAndDelete    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'delete' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param compareOp the comparison operation    * @param comparator the comparator    * @param delete delete to commit if check succeeds    * @param result from the CheckAndDelete    * @return the possibly transformed returned value to return to client    */
+specifier|default
 name|boolean
 name|postCheckAndDelete
 parameter_list|(
@@ -2005,10 +2190,15 @@ name|result
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called before incrementColumnValue    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param amount long amount to increment    * @param writeToWAL true if the change should be written to the WAL    * @return value to return to the client if bypassing default processing    * @throws IOException if an error occurred on the coprocessor    * @deprecated This hook is no longer called by the RegionServer    */
+block|{
+return|return
+name|result
+return|;
+block|}
+comment|/**    * Called before incrementColumnValue    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param amount long amount to increment    * @param writeToWAL true if the change should be written to the WAL    * @return value to return to the client if bypassing default processing    * @deprecated This hook is no longer called by the RegionServer    */
 annotation|@
 name|Deprecated
+specifier|default
 name|long
 name|preIncrementColumnValue
 parameter_list|(
@@ -2044,10 +2234,15 @@ name|writeToWAL
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called after incrementColumnValue    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param amount long amount to increment    * @param writeToWAL true if the change should be written to the WAL    * @param result the result returned by incrementColumnValue    * @return the result to return to the client    * @throws IOException if an error occurred on the coprocessor    * @deprecated This hook is no longer called by the RegionServer    */
+block|{
+return|return
+name|amount
+return|;
+block|}
+comment|/**    * Called after incrementColumnValue    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param amount long amount to increment    * @param writeToWAL true if the change should be written to the WAL    * @param result the result returned by incrementColumnValue    * @return the result to return to the client    * @deprecated This hook is no longer called by the RegionServer    */
 annotation|@
 name|Deprecated
+specifier|default
 name|long
 name|postIncrementColumnValue
 parameter_list|(
@@ -2087,8 +2282,13 @@ name|result
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called before Append.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'append' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param append Append object    * @return result to return to the client if bypassing default processing    * @throws IOException if an error occurred on the coprocessor    */
+block|{
+return|return
+name|result
+return|;
+block|}
+comment|/**    * Called before Append.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'append' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param append Append object    * @return result to return to the client if bypassing default processing    */
+specifier|default
 name|Result
 name|preAppend
 parameter_list|(
@@ -2105,8 +2305,13 @@ name|append
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called before Append but after acquiring rowlock.    *<p>    *<b>Note:</b> Caution to be taken for not doing any long time operation in this hook.    * Row will be locked for longer time. Trying to acquire lock on another row, within this,    * can lead to potential deadlock.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'append' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param append Append object    * @return result to return to the client if bypassing default processing    * @throws IOException if an error occurred on the coprocessor    */
+block|{
+return|return
+literal|null
+return|;
+block|}
+comment|/**    * Called before Append but after acquiring rowlock.    *<p>    *<b>Note:</b> Caution to be taken for not doing any long time operation in this hook.    * Row will be locked for longer time. Trying to acquire lock on another row, within this,    * can lead to potential deadlock.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'append' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param append Append object    * @return result to return to the client if bypassing default processing    */
+specifier|default
 name|Result
 name|preAppendAfterRowLock
 parameter_list|(
@@ -2123,8 +2328,13 @@ name|append
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called after Append    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'append' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param append Append object    * @param result the result returned by increment    * @return the result to return to the client    * @throws IOException if an error occurred on the coprocessor    */
+block|{
+return|return
+literal|null
+return|;
+block|}
+comment|/**    * Called after Append    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'append' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param append Append object    * @param result the result returned by increment    * @return the result to return to the client    */
+specifier|default
 name|Result
 name|postAppend
 parameter_list|(
@@ -2145,8 +2355,13 @@ name|result
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called before Increment.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'increment' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param increment increment object    * @return result to return to the client if bypassing default processing    * @throws IOException if an error occurred on the coprocessor    */
+block|{
+return|return
+name|result
+return|;
+block|}
+comment|/**    * Called before Increment.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'increment' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param increment increment object    * @return result to return to the client if bypassing default processing    */
+specifier|default
 name|Result
 name|preIncrement
 parameter_list|(
@@ -2163,8 +2378,13 @@ name|increment
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called before Increment but after acquiring rowlock.    *<p>    *<b>Note:</b> Caution to be taken for not doing any long time operation in this hook.    * Row will be locked for longer time. Trying to acquire lock on another row, within this,    * can lead to potential deadlock.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained coprocessors    *<p>    * Note: Do not retain references to any Cells in 'increment' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    *    * @param c    *          the environment provided by the region server    * @param increment    *          increment object    * @return result to return to the client if bypassing default processing    * @throws IOException    *           if an error occurred on the coprocessor    */
+block|{
+return|return
+literal|null
+return|;
+block|}
+comment|/**    * Called before Increment but after acquiring rowlock.    *<p>    *<b>Note:</b> Caution to be taken for not doing any long time operation in this hook.    * Row will be locked for longer time. Trying to acquire lock on another row, within this,    * can lead to potential deadlock.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained coprocessors    *<p>    * Note: Do not retain references to any Cells in 'increment' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    *    * @param c    *          the environment provided by the region server    * @param increment    *          increment object    * @return result to return to the client if bypassing default processing    *           if an error occurred on the coprocessor    */
+specifier|default
 name|Result
 name|preIncrementAfterRowLock
 parameter_list|(
@@ -2181,8 +2401,13 @@ name|increment
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called after increment    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'increment' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param increment increment object    * @param result the result returned by increment    * @return the result to return to the client    * @throws IOException if an error occurred on the coprocessor    */
+block|{
+return|return
+literal|null
+return|;
+block|}
+comment|/**    * Called after increment    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells in 'increment' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param increment increment object    * @param result the result returned by increment    * @return the result to return to the client    */
+specifier|default
 name|Result
 name|postIncrement
 parameter_list|(
@@ -2203,8 +2428,13 @@ name|result
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called before the client opens a new scanner.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells returned by scanner, beyond the life of this    * invocation. If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param scan the Scan specification    * @param s if not null, the base scanner    * @return an RegionScanner instance to use instead of the base scanner if    * overriding default behavior, null otherwise    * @throws IOException if an error occurred on the coprocessor    */
+block|{
+return|return
+name|result
+return|;
+block|}
+comment|/**    * Called before the client opens a new scanner.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells returned by scanner, beyond the life of this    * invocation. If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param scan the Scan specification    * @param s if not null, the base scanner    * @return an RegionScanner instance to use instead of the base scanner if    * overriding default behavior, null otherwise    */
+specifier|default
 name|RegionScanner
 name|preScannerOpen
 parameter_list|(
@@ -2225,10 +2455,15 @@ name|s
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called before a store opens a new scanner.    * This hook is called when a "user" scanner is opened.    *<p>    * See {@link #preFlushScannerOpen(ObserverContext, Store, KeyValueScanner, InternalScanner,    * long)} and {@link #preCompactScannerOpen(ObserverContext,    *  Store, List, ScanType, long, InternalScanner, CompactionRequest, long)}    * to override scanners created for flushes or compactions, resp.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    *<p>    * Note: Do not retain references to any Cells returned by scanner, beyond the life of this    * invocation. If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param store the store being scanned    * @param scan the Scan specification    * @param targetCols columns to be used in the scanner    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @return a KeyValueScanner instance to use or {@code null} to use the default implementation    * @throws IOException if an error occurred on the coprocessor    * @deprecated use {@link #preStoreScannerOpen(ObserverContext, Store, Scan, NavigableSet,    *   KeyValueScanner, long)} instead    */
+block|{
+return|return
+name|s
+return|;
+block|}
+comment|/**    * Called before a store opens a new scanner.    * This hook is called when a "user" scanner is opened.    *<p>    * See {@link #preFlushScannerOpen(ObserverContext, Store, KeyValueScanner, InternalScanner,    * long)} and {@link #preCompactScannerOpen(ObserverContext,    *  Store, List, ScanType, long, InternalScanner, CompactionRequest, long)}    * to override scanners created for flushes or compactions, resp.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    *<p>    * Note: Do not retain references to any Cells returned by scanner, beyond the life of this    * invocation. If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param store the store being scanned    * @param scan the Scan specification    * @param targetCols columns to be used in the scanner    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @return a KeyValueScanner instance to use or {@code null} to use the default implementation    * @deprecated use {@link #preStoreScannerOpen(ObserverContext, Store, Scan, NavigableSet,    *   KeyValueScanner, long)} instead    */
 annotation|@
 name|Deprecated
+specifier|default
 name|KeyValueScanner
 name|preStoreScannerOpen
 parameter_list|(
@@ -2261,8 +2496,13 @@ name|s
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called before a store opens a new scanner.    * This hook is called when a "user" scanner is opened.    *<p>    * See {@link #preFlushScannerOpen(ObserverContext, Store, KeyValueScanner, InternalScanner,    * long)} and {@link #preCompactScannerOpen(ObserverContext,    *  Store, List, ScanType, long, InternalScanner, CompactionRequest, long)}    * to override scanners created for flushes or compactions, resp.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    *<p>    * Note: Do not retain references to any Cells returned by scanner, beyond the life of this    * invocation. If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param store the store being scanned    * @param scan the Scan specification    * @param targetCols columns to be used in the scanner    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @param readPt the read point    * @return a KeyValueScanner instance to use or {@code null} to use the default implementation    * @throws IOException if an error occurred on the coprocessor    */
+block|{
+return|return
+name|s
+return|;
+block|}
+comment|/**    * Called before a store opens a new scanner.    * This hook is called when a "user" scanner is opened.    *<p>    * See {@link #preFlushScannerOpen(ObserverContext, Store, KeyValueScanner, InternalScanner,    * long)} and {@link #preCompactScannerOpen(ObserverContext,    *  Store, List, ScanType, long, InternalScanner, CompactionRequest, long)}    * to override scanners created for flushes or compactions, resp.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    *<p>    * Note: Do not retain references to any Cells returned by scanner, beyond the life of this    * invocation. If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param store the store being scanned    * @param scan the Scan specification    * @param targetCols columns to be used in the scanner    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @param readPt the read point    * @return a KeyValueScanner instance to use or {@code null} to use the default implementation    */
+specifier|default
 name|KeyValueScanner
 name|preStoreScannerOpen
 parameter_list|(
@@ -2299,8 +2539,24 @@ name|readPt
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called after the client opens a new scanner.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells returned by scanner, beyond the life of this    * invocation. If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param scan the Scan specification    * @param s if not null, the base scanner    * @return the scanner instance to use    * @throws IOException if an error occurred on the coprocessor    */
+block|{
+return|return
+name|preStoreScannerOpen
+argument_list|(
+name|c
+argument_list|,
+name|store
+argument_list|,
+name|scan
+argument_list|,
+name|targetCols
+argument_list|,
+name|s
+argument_list|)
+return|;
+block|}
+comment|/**    * Called after the client opens a new scanner.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells returned by scanner, beyond the life of this    * invocation. If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param scan the Scan specification    * @param s if not null, the base scanner    * @return the scanner instance to use    */
+specifier|default
 name|RegionScanner
 name|postScannerOpen
 parameter_list|(
@@ -2321,8 +2577,13 @@ name|s
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called before the client asks for the next row on a scanner.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells returned by scanner, beyond the life of this    * invocation. If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param s the scanner    * @param result The result to return to the client if default processing    * is bypassed. Can be modified. Will not be returned if default processing    * is not bypassed.    * @param limit the maximum number of results to return    * @param hasNext the 'has more' indication    * @return 'has more' indication that should be sent to client    * @throws IOException if an error occurred on the coprocessor    */
+block|{
+return|return
+name|s
+return|;
+block|}
+comment|/**    * Called before the client asks for the next row on a scanner.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells returned by scanner, beyond the life of this    * invocation. If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param s the scanner    * @param result The result to return to the client if default processing    * is bypassed. Can be modified. Will not be returned if default processing    * is not bypassed.    * @param limit the maximum number of results to return    * @param hasNext the 'has more' indication    * @return 'has more' indication that should be sent to client    */
+specifier|default
 name|boolean
 name|preScannerNext
 parameter_list|(
@@ -2354,8 +2615,13 @@ name|hasNext
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called after the client asks for the next row on a scanner.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells returned by scanner, beyond the life of this    * invocation. If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param s the scanner    * @param result the result to return to the client, can be modified    * @param limit the maximum number of results to return    * @param hasNext the 'has more' indication    * @return 'has more' indication that should be sent to client    * @throws IOException if an error occurred on the coprocessor    */
+block|{
+return|return
+name|hasNext
+return|;
+block|}
+comment|/**    * Called after the client asks for the next row on a scanner.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells returned by scanner, beyond the life of this    * invocation. If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param s the scanner    * @param result the result to return to the client, can be modified    * @param limit the maximum number of results to return    * @param hasNext the 'has more' indication    * @return 'has more' indication that should be sent to client    */
+specifier|default
 name|boolean
 name|postScannerNext
 parameter_list|(
@@ -2387,10 +2653,15 @@ name|hasNext
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * This will be called by the scan flow when the current scanned row is being filtered out by the    * filter. The filter may be filtering out the row via any of the below scenarios    *<ol>    *<li>    *<code>boolean filterRowKey(byte [] buffer, int offset, int length)</code> returning true</li>    *<li>    *<code>boolean filterRow()</code> returning true</li>    *<li>    *<code>void filterRow(List&lt;KeyValue&gt; kvs)</code> removing all the kvs    * from the passed List</li>    *</ol>    * @param c the environment provided by the region server    * @param s the scanner    * @param currentRow The current rowkey which got filtered out    * @param offset offset to rowkey    * @param length length of rowkey    * @param hasMore the 'has more' indication    * @return whether more rows are available for the scanner or not    * @throws IOException    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    * Instead use {@link #postScannerFilterRow(ObserverContext, InternalScanner, Cell, boolean)}    */
+block|{
+return|return
+name|hasNext
+return|;
+block|}
+comment|/**    * This will be called by the scan flow when the current scanned row is being filtered out by the    * filter. The filter may be filtering out the row via any of the below scenarios    *<ol>    *<li>    *<code>boolean filterRowKey(byte [] buffer, int offset, int length)</code> returning true</li>    *<li>    *<code>boolean filterRow()</code> returning true</li>    *<li>    *<code>default void filterRow(List&lt;KeyValue&gt; kvs)</code> removing all the kvs    * from the passed List</li>    *</ol>    * @param c the environment provided by the region server    * @param s the scanner    * @param currentRow The current rowkey which got filtered out    * @param offset offset to rowkey    * @param length length of rowkey    * @param hasMore the 'has more' indication    * @return whether more rows are available for the scanner or not    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    * Instead use {@link #postScannerFilterRow(ObserverContext, InternalScanner, Cell, boolean)}    */
 annotation|@
 name|Deprecated
+specifier|default
 name|boolean
 name|postScannerFilterRow
 parameter_list|(
@@ -2424,8 +2695,13 @@ name|hasMore
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * This will be called by the scan flow when the current scanned row is being filtered out by the    * filter. The filter may be filtering out the row via any of the below scenarios    *<ol>    *<li>    *<code>boolean filterRowKey(byte [] buffer, int offset, int length)</code> returning true</li>    *<li>    *<code>boolean filterRow()</code> returning true</li>    *<li>    *<code>void filterRow(List&lt;KeyValue&gt; kvs)</code> removing all the kvs from    * the passed List</li>    *</ol>    *<p>    * Note: Do not retain references to any Cells returned by scanner, beyond the life of this    * invocation. If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param s the scanner    * @param curRowCell The cell in the current row which got filtered out    * @param hasMore the 'has more' indication    * @return whether more rows are available for the scanner or not    * @throws IOException    */
+block|{
+return|return
+name|hasMore
+return|;
+block|}
+comment|/**    * This will be called by the scan flow when the current scanned row is being filtered out by the    * filter. The filter may be filtering out the row via any of the below scenarios    *<ol>    *<li>    *<code>boolean filterRowKey(byte [] buffer, int offset, int length)</code> returning true</li>    *<li>    *<code>boolean filterRow()</code> returning true</li>    *<li>    *<code>default void filterRow(List&lt;KeyValue&gt; kvs)</code> removing all the kvs from    * the passed List</li>    *</ol>    *<p>    * Note: Do not retain references to any Cells returned by scanner, beyond the life of this    * invocation. If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param s the scanner    * @param curRowCell The cell in the current row which got filtered out    * @param hasMore the 'has more' indication    * @return whether more rows are available for the scanner or not    */
+specifier|default
 name|boolean
 name|postScannerFilterRow
 parameter_list|(
@@ -2449,8 +2725,13 @@ name|hasMore
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called before the client closes a scanner.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param s the scanner    * @throws IOException if an error occurred on the coprocessor    */
+block|{
+return|return
+name|hasMore
+return|;
+block|}
+comment|/**    * Called before the client closes a scanner.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param s the scanner    */
+specifier|default
 name|void
 name|preScannerClose
 parameter_list|(
@@ -2467,8 +2748,9 @@ name|s
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called after the client closes a scanner.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param s the scanner    * @throws IOException if an error occurred on the coprocessor    */
+block|{}
+comment|/**    * Called after the client closes a scanner.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param ctx the environment provided by the region server    * @param s the scanner    */
+specifier|default
 name|void
 name|postScannerClose
 parameter_list|(
@@ -2477,7 +2759,7 @@ name|ObserverContext
 argument_list|<
 name|RegionCoprocessorEnvironment
 argument_list|>
-name|c
+name|ctx
 parameter_list|,
 specifier|final
 name|InternalScanner
@@ -2485,8 +2767,9 @@ name|s
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called before replaying WALs for this region.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param ctx the environment provided by the region server    * @param info the RegionInfo for this region    * @param edits the file of recovered edits    * @throws IOException if an error occurred on the coprocessor    */
+block|{}
+comment|/**    * Called before replaying WALs for this region.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param ctx the environment provided by the region server    * @param info the RegionInfo for this region    * @param edits the file of recovered edits    */
+specifier|default
 name|void
 name|preReplayWALs
 parameter_list|(
@@ -2507,8 +2790,9 @@ name|edits
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called after replaying WALs for this region.    * @param ctx the environment provided by the region server    * @param info the RegionInfo for this region    * @param edits the file of recovered edits    * @throws IOException if an error occurred on the coprocessor    */
+block|{}
+comment|/**    * Called after replaying WALs for this region.    * @param ctx the environment provided by the region server    * @param info the RegionInfo for this region    * @param edits the file of recovered edits    */
+specifier|default
 name|void
 name|postReplayWALs
 parameter_list|(
@@ -2529,8 +2813,9 @@ name|edits
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called before a {@link org.apache.hadoop.hbase.regionserver.wal.WALEdit}    * replayed for this region.    */
+block|{}
+comment|/**    * Called before a {@link org.apache.hadoop.hbase.regionserver.wal.WALEdit}    * replayed for this region.    * @param ctx the environment provided by the region server    */
+specifier|default
 name|void
 name|preWALRestore
 parameter_list|(
@@ -2554,8 +2839,9 @@ name|logEdit
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called after a {@link org.apache.hadoop.hbase.regionserver.wal.WALEdit}    * replayed for this region.    */
+block|{}
+comment|/**    * Called after a {@link org.apache.hadoop.hbase.regionserver.wal.WALEdit}    * replayed for this region.    * @param ctx the environment provided by the region server    */
+specifier|default
 name|void
 name|postWALRestore
 parameter_list|(
@@ -2579,8 +2865,9 @@ name|logEdit
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called before bulkLoadHFile. Users can create a StoreFile instance to    * access the contents of a HFile.    *    * @param ctx    * @param familyPaths pairs of { CF, HFile path } submitted for bulk load. Adding    * or removing from this list will add or remove HFiles to be bulk loaded.    * @throws IOException    */
+block|{}
+comment|/**    * Called before bulkLoadHFile. Users can create a StoreFile instance to    * access the contents of a HFile.    *    * @param ctx the environment provided by the region server    * @param familyPaths pairs of { CF, HFile path } submitted for bulk load. Adding    * or removing from this list will add or remove HFiles to be bulk loaded.    */
+specifier|default
 name|void
 name|preBulkLoadHFile
 parameter_list|(
@@ -2605,8 +2892,8 @@ name|familyPaths
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called before moving bulk loaded hfile to region directory.    *    * @param ctx    * @param family column family    * @param pairs List of pairs of { HFile location in staging dir, HFile path in region dir }    * Each pair are for the same hfile.    * @throws IOException    */
+block|{}
+comment|/**    * Called before moving bulk loaded hfile to region directory.    *    * @param ctx the environment provided by the region server    * @param family column family    * @param pairs List of pairs of { HFile location in staging dir, HFile path in region dir }    * Each pair are for the same hfile.    */
 specifier|default
 name|void
 name|preCommitStoreFile
@@ -2638,7 +2925,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{   }
-comment|/**    * Called after moving bulk loaded hfile to region directory.    *    * @param ctx    * @param family column family    * @param srcPath Path to file before the move    * @param dstPath Path to file after the move    */
+comment|/**    * Called after moving bulk loaded hfile to region directory.    *    * @param ctx the environment provided by the region server    * @param family column family    * @param srcPath Path to file before the move    * @param dstPath Path to file after the move    */
 specifier|default
 name|void
 name|postCommitStoreFile
@@ -2663,8 +2950,8 @@ name|dstPath
 parameter_list|)
 throws|throws
 name|IOException
-block|{   }
-comment|/**    * Called after bulkLoadHFile.    *    * @param ctx    * @param stagingFamilyPaths pairs of { CF, HFile path } submitted for bulk load    * @param finalPaths Map of CF to List of file paths for the final loaded files    * @param hasLoaded whether the bulkLoad was successful    * @return the new value of hasLoaded    * @throws IOException    */
+block|{}
+comment|/**    * Called after bulkLoadHFile.    *    * @param ctx the environment provided by the region server    * @param stagingFamilyPaths pairs of { CF, HFile path } submitted for bulk load    * @param finalPaths Map of CF to List of file paths for the final loaded files    * @param hasLoaded whether the bulkLoad was successful    * @return the new value of hasLoaded    */
 specifier|default
 name|boolean
 name|postBulkLoadHFile
@@ -2717,7 +3004,8 @@ name|hasLoaded
 argument_list|)
 return|;
 block|}
-comment|/**    * Called after bulkLoadHFile.    *    * @param ctx    * @param stagingFamilyPaths pairs of { CF, HFile path } submitted for bulk load    * @param hasLoaded whether the bulkLoad was successful    * @return the new value of hasLoaded    * @throws IOException    * @deprecated Use {@link #postBulkLoadHFile(ObserverContext, List, Map, boolean)}    */
+comment|/**    * Called after bulkLoadHFile.    *    * @param ctx the environment provided by the region server    * @param stagingFamilyPaths pairs of { CF, HFile path } submitted for bulk load    * @param hasLoaded whether the bulkLoad was successful    * @return the new value of hasLoaded    * @deprecated Use {@link #postBulkLoadHFile(ObserverContext, List, Map, boolean)}    */
+specifier|default
 name|boolean
 name|postBulkLoadHFile
 parameter_list|(
@@ -2745,8 +3033,13 @@ name|hasLoaded
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called before creation of Reader for a store file.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    *    * @param ctx the environment provided by the region server    * @param fs fileystem to read from    * @param p path to the file    * @param in {@link FSDataInputStreamWrapper}    * @param size Full size of the file    * @param cacheConf    * @param r original reference file. This will be not null only when reading a split file.    * @param reader the base reader, if not {@code null}, from previous RegionObserver in the chain    * @return a Reader instance to use instead of the base reader if overriding    * default behavior, null otherwise    * @throws IOException    */
+block|{
+return|return
+name|hasLoaded
+return|;
+block|}
+comment|/**    * Called before creation of Reader for a store file.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    *    * @param ctx the environment provided by the region server    * @param fs fileystem to read from    * @param p path to the file    * @param in {@link FSDataInputStreamWrapper}    * @param size Full size of the file    * @param cacheConf    * @param r original reference file. This will be not null only when reading a split file.    * @param reader the base reader, if not {@code null}, from previous RegionObserver in the chain    * @return a Reader instance to use instead of the base reader if overriding    * default behavior, null otherwise    */
+specifier|default
 name|StoreFileReader
 name|preStoreFileReaderOpen
 parameter_list|(
@@ -2785,8 +3078,13 @@ name|reader
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called after the creation of Reader for a store file.    *    * @param ctx the environment provided by the region server    * @param fs fileystem to read from    * @param p path to the file    * @param in {@link FSDataInputStreamWrapper}    * @param size Full size of the file    * @param cacheConf    * @param r original reference file. This will be not null only when reading a split file.    * @param reader the base reader instance    * @return The reader to use    * @throws IOException    */
+block|{
+return|return
+name|reader
+return|;
+block|}
+comment|/**    * Called after the creation of Reader for a store file.    *    * @param ctx the environment provided by the region server    * @param fs fileystem to read from    * @param p path to the file    * @param in {@link FSDataInputStreamWrapper}    * @param size Full size of the file    * @param cacheConf    * @param r original reference file. This will be not null only when reading a split file.    * @param reader the base reader instance    * @return The reader to use    */
+specifier|default
 name|StoreFileReader
 name|postStoreFileReaderOpen
 parameter_list|(
@@ -2825,8 +3123,13 @@ name|reader
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called after a new cell has been created during an increment operation, but before    * it is committed to the WAL or memstore.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param ctx the environment provided by the region server    * @param opType the operation type    * @param mutation the current mutation    * @param oldCell old cell containing previous value    * @param newCell the new cell containing the computed value    * @return the new cell, possibly changed    * @throws IOException    */
+block|{
+return|return
+name|reader
+return|;
+block|}
+comment|/**    * Called after a new cell has been created during an increment operation, but before    * it is committed to the WAL or memstore.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param ctx the environment provided by the region server    * @param opType the operation type    * @param mutation the current mutation    * @param oldCell old cell containing previous value    * @param newCell the new cell containing the computed value    * @return the new cell, possibly changed    */
+specifier|default
 name|Cell
 name|postMutationBeforeWAL
 parameter_list|(
@@ -2850,8 +3153,13 @@ name|newCell
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called after the ScanQueryMatcher creates ScanDeleteTracker. Implementing    * this hook would help in creating customised DeleteTracker and returning    * the newly created DeleteTracker    *    * @param ctx the environment provided by the region server    * @param delTracker the deleteTracker that is created by the QueryMatcher    * @return the Delete Tracker    * @throws IOException    */
+block|{
+return|return
+name|newCell
+return|;
+block|}
+comment|/**    * Called after the ScanQueryMatcher creates ScanDeleteTracker. Implementing    * this hook would help in creating customised DeleteTracker and returning    * the newly created DeleteTracker    *    * @param ctx the environment provided by the region server    * @param delTracker the deleteTracker that is created by the QueryMatcher    * @return the Delete Tracker    */
+specifier|default
 name|DeleteTracker
 name|postInstantiateDeleteTracker
 parameter_list|(
@@ -2867,7 +3175,11 @@ name|delTracker
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+return|return
+name|delTracker
+return|;
+block|}
 block|}
 end_interface
 

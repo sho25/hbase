@@ -773,8 +773,8 @@ decl_stmt|;
 specifier|static
 class|class
 name|DummyRegionObserver
-extends|extends
-name|BaseRegionObserver
+implements|implements
+name|RegionObserver
 block|{   }
 specifier|private
 name|Table

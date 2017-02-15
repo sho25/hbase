@@ -725,8 +725,8 @@ begin_class
 specifier|public
 class|class
 name|SimpleRegionObserver
-extends|extends
-name|BaseRegionObserver
+implements|implements
+name|RegionObserver
 block|{
 specifier|final
 name|AtomicInteger

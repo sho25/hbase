@@ -127,16 +127,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|Arrays
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|HashMap
 import|;
 end_import
@@ -544,22 +534,6 @@ operator|.
 name|client
 operator|.
 name|TableState
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|coprocessor
-operator|.
-name|BaseRegionObserver
 import|;
 end_import
 
@@ -8512,8 +8486,8 @@ specifier|public
 specifier|static
 class|class
 name|MyRegionObserver
-extends|extends
-name|BaseRegionObserver
+implements|implements
+name|RegionObserver
 block|{
 comment|// If enabled, fail all preClose calls
 specifier|static

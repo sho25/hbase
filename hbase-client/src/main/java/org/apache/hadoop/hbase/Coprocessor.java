@@ -135,6 +135,7 @@ block|,
 name|STOPPED
 block|}
 comment|// Interface
+specifier|default
 name|void
 name|start
 parameter_list|(
@@ -143,7 +144,8 @@ name|env
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{}
+specifier|default
 name|void
 name|stop
 parameter_list|(
@@ -152,7 +154,7 @@ name|env
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{}
 block|}
 end_interface
 

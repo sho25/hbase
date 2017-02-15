@@ -177,22 +177,6 @@ name|hbase
 operator|.
 name|coprocessor
 operator|.
-name|BaseRegionObserver
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|coprocessor
-operator|.
 name|ObserverContext
 import|;
 end_import
@@ -210,6 +194,22 @@ operator|.
 name|coprocessor
 operator|.
 name|RegionCoprocessorEnvironment
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|coprocessor
+operator|.
+name|RegionObserver
 import|;
 end_import
 
@@ -259,8 +259,8 @@ name|Private
 specifier|public
 class|class
 name|ConstraintProcessor
-extends|extends
-name|BaseRegionObserver
+implements|implements
+name|RegionObserver
 block|{
 specifier|private
 specifier|static
@@ -493,7 +493,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// Impl in BaseRegionObserver might do unnecessary copy for Off heap backed Cells.
+comment|// 'default' in RegionObserver might do unnecessary copy for Off heap backed Cells.
 return|return
 name|hasMore
 return|;

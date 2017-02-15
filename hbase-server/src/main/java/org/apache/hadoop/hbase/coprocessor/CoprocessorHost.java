@@ -343,22 +343,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|HTableWrapper
 import|;
 end_import
@@ -2642,6 +2626,10 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * This is used by coprocessor hooks which are declared to throw IOException    * (or its subtypes). For such hooks, we should handle throwable objects    * depending on the Throwable's type. Those which are instances of    * IOException should be passed on to the client. This is in conformance with    * the HBase idiom regarding IOException: that it represents a circumstance    * that should be passed along to the client for its own handling. For    * example, a coprocessor that implements access controls would throw a    * subclass of IOException, such as AccessDeniedException, in its preGet()    * method to prevent an unauthorized client's performing a Get on a particular    * table.    * @param env Coprocessor Environment    * @param e Throwable object thrown by coprocessor.    * @exception IOException Exception    */
+comment|// Note to devs: Class comments of all observers ({@link MasterObserver}, {@link WALObserver},
+comment|// etc) mention this nuance of our exception handling so that coprocessor can throw appropriate
+comment|// exceptions depending on situation. If any changes are made to this logic, make sure to
+comment|// update all classes' comments.
 specifier|protected
 name|void
 name|handleCoprocessorThrowable

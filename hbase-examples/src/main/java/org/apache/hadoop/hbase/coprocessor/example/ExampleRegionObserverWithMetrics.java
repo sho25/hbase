@@ -107,22 +107,6 @@ name|hbase
 operator|.
 name|coprocessor
 operator|.
-name|BaseRegionObserver
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|coprocessor
-operator|.
 name|ObserverContext
 import|;
 end_import
@@ -140,6 +124,22 @@ operator|.
 name|coprocessor
 operator|.
 name|RegionCoprocessorEnvironment
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|coprocessor
+operator|.
+name|RegionObserver
 import|;
 end_import
 
@@ -199,8 +199,8 @@ begin_class
 specifier|public
 class|class
 name|ExampleRegionObserverWithMetrics
-extends|extends
-name|BaseRegionObserver
+implements|implements
+name|RegionObserver
 block|{
 specifier|private
 name|Counter
@@ -234,17 +234,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|super
-operator|.
-name|preGetOp
-argument_list|(
-name|e
-argument_list|,
-name|get
-argument_list|,
-name|results
-argument_list|)
-expr_stmt|;
 comment|// Increment the Counter whenever the coprocessor is called
 name|preGetCounter
 operator|.
@@ -276,17 +265,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|super
-operator|.
-name|postGetOp
-argument_list|(
-name|e
-argument_list|,
-name|get
-argument_list|,
-name|results
-argument_list|)
-expr_stmt|;
 comment|// do a costly (high latency) operation which we want to measure how long it takes by
 comment|// using a Timer (which is a Meter and a Histogram).
 name|long
@@ -362,13 +340,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|super
-operator|.
-name|start
-argument_list|(
-name|env
-argument_list|)
-expr_stmt|;
 comment|// start for the RegionServerObserver will be called only once in the lifetime of the
 comment|// server. We will construct and register all metrics that we will track across method
 comment|// invocations.
@@ -451,13 +422,6 @@ name|IOException
 block|{
 comment|// we should NOT remove / deregister the metrics in stop(). The whole registry will be
 comment|// removed when the last region of the table is closed.
-name|super
-operator|.
-name|stop
-argument_list|(
-name|e
-argument_list|)
-expr_stmt|;
 block|}
 block|}
 end_class

@@ -394,6 +394,13 @@ operator|new
 name|HBaseTestingUtility
 argument_list|()
 decl_stmt|;
+specifier|public
+specifier|static
+class|class
+name|TestMasterCoprocessor
+implements|implements
+name|MasterObserver
+block|{}
 specifier|private
 specifier|static
 name|MiniDFSCluster
@@ -500,7 +507,7 @@ name|?
 argument_list|>
 name|masterCoprocessor
 init|=
-name|BaseMasterObserver
+name|TestMasterCoprocessor
 operator|.
 name|class
 decl_stmt|;
@@ -679,7 +686,7 @@ literal|"public class "
 operator|+
 name|className
 operator|+
-literal|" extends BaseRegionObserver {}"
+literal|" implements RegionObserver {}"
 decl_stmt|;
 return|return
 name|ClassLoaderTestHelper

@@ -115,22 +115,6 @@ name|hbase
 operator|.
 name|coprocessor
 operator|.
-name|BaseRegionObserver
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|coprocessor
-operator|.
 name|ObserverContext
 import|;
 end_import
@@ -151,6 +135,22 @@ name|RegionCoprocessorEnvironment
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|coprocessor
+operator|.
+name|RegionObserver
+import|;
+end_import
+
 begin_comment
 comment|/**  * RegionObserver that just reimplements the default behavior,  * in order to validate that all the necessary APIs for this are public  * This observer is also used in {@link TestFromClientSideWithCoprocessor} and  * {@link TestCompactionWithCoprocessor} to make sure that a wide range  * of functionality still behaves as expected.  */
 end_comment
@@ -159,8 +159,8 @@ begin_class
 specifier|public
 class|class
 name|NoOpScanPolicyObserver
-extends|extends
-name|BaseRegionObserver
+implements|implements
+name|RegionObserver
 block|{
 comment|/**    * Reimplement the default behavior    */
 annotation|@

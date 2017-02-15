@@ -125,7 +125,7 @@ name|hbase
 operator|.
 name|coprocessor
 operator|.
-name|BaseMasterObserver
+name|MasterObserver
 import|;
 end_import
 
@@ -233,8 +233,8 @@ begin_class
 specifier|public
 class|class
 name|ExampleMasterObserverWithMetrics
-extends|extends
-name|BaseMasterObserver
+implements|implements
+name|MasterObserver
 block|{
 specifier|private
 specifier|static
@@ -323,17 +323,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|super
-operator|.
-name|preCreateTable
-argument_list|(
-name|ctx
-argument_list|,
-name|desc
-argument_list|,
-name|regions
-argument_list|)
-expr_stmt|;
 comment|// we rely on the fact that there is only 1 instance of our MasterObserver. We keep track of
 comment|// when the operation starts before the operation is executing.
 name|this
@@ -368,17 +357,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|super
-operator|.
-name|postCreateTable
-argument_list|(
-name|ctx
-argument_list|,
-name|desc
-argument_list|,
-name|regions
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 name|this
@@ -437,15 +415,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|super
-operator|.
-name|preDisableTable
-argument_list|(
-name|ctx
-argument_list|,
-name|tableName
-argument_list|)
-expr_stmt|;
 comment|// Increment the Counter for disable table operations
 name|this
 operator|.
@@ -467,13 +436,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|super
-operator|.
-name|start
-argument_list|(
-name|env
-argument_list|)
-expr_stmt|;
 comment|// start for the MasterObserver will be called only once in the lifetime of the
 comment|// server. We will construct and register all metrics that we will track across method
 comment|// invocations.

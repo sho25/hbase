@@ -948,8 +948,8 @@ specifier|public
 specifier|static
 class|class
 name|CoprocessorImpl
-extends|extends
-name|BaseRegionObserver
+implements|implements
+name|RegionObserver
 block|{
 specifier|private
 name|boolean
@@ -1340,8 +1340,8 @@ specifier|public
 specifier|static
 class|class
 name|CoprocessorII
-extends|extends
-name|BaseRegionObserver
+implements|implements
+name|RegionObserver
 block|{
 specifier|private
 name|ConcurrentMap

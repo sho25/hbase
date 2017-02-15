@@ -203,10 +203,10 @@ begin_class
 specifier|public
 class|class
 name|SampleRegionWALObserver
-extends|extends
-name|BaseRegionObserver
 implements|implements
 name|WALObserver
+implements|,
+name|RegionObserver
 block|{
 specifier|private
 specifier|static

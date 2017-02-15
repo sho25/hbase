@@ -451,8 +451,8 @@ specifier|public
 specifier|static
 class|class
 name|BuggyMasterObserver
-extends|extends
-name|BaseMasterObserver
+implements|implements
+name|MasterObserver
 block|{
 specifier|private
 name|boolean

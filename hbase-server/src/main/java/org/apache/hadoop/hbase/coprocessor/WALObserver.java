@@ -150,7 +150,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * It's provided to have a way for coprocessors to observe, rewrite,  * or skip WALEdits as they are being written to the WAL.  *  * Note that implementers of WALObserver will not see WALEdits that report themselves  * as empty via {@link WALEdit#isEmpty()}.  *  * {@link org.apache.hadoop.hbase.coprocessor.RegionObserver} provides  * hooks for adding logic for WALEdits in the region context during reconstruction,  *  * Defines coprocessor hooks for interacting with operations on the  * {@link org.apache.hadoop.hbase.wal.WAL}.  */
+comment|/**  * It's provided to have a way for coprocessors to observe, rewrite,  * or skip WALEdits as they are being written to the WAL.  *  * Note that implementers of WALObserver will not see WALEdits that report themselves  * as empty via {@link WALEdit#isEmpty()}.  *  * {@link org.apache.hadoop.hbase.coprocessor.RegionObserver} provides  * hooks for adding logic for WALEdits in the region context during reconstruction.  *  * Defines coprocessor hooks for interacting with operations on the  * {@link org.apache.hadoop.hbase.wal.WAL}.  *  * Since most implementations will be interested in only a subset of hooks, this class uses  * 'default' functions to avoid having to add unnecessary overrides. When the functions are  * non-empty, it's simply to satisfy the compiler by returning value of expected (non-void) type.  * It is done in a way that these default definitions act as no-op. So our suggestion to  * implementation would be to not call these 'default' methods from overrides.  *<br><br>  *  *<h3>Exception Handling</h3>  * For all functions, exception handling is done as follows:  *<ul>  *<li>Exceptions of type {@link IOException} are reported back to client.</li>  *<li>For any other kind of exception:  *<ul>  *<li>If the configuration {@link CoprocessorHost#ABORT_ON_ERROR_KEY} is set to true, then  *         the server aborts.</li>  *<li>Otherwise, coprocessor is removed from the server and  *         {@link org.apache.hadoop.hbase.DoNotRetryIOException} is returned to the client.</li>  *</ul>  *</li>  *</ul>  */
 end_comment
 
 begin_interface
@@ -175,6 +175,7 @@ name|Coprocessor
 block|{
 comment|/**    * Called before a {@link org.apache.hadoop.hbase.regionserver.wal.WALEdit}    * is writen to WAL.    *    * @return true if default behavior should be bypassed, false otherwise    */
 comment|// TODO: return value is not used
+specifier|default
 name|boolean
 name|preWALWrite
 parameter_list|(
@@ -197,8 +198,13 @@ name|logEdit
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+return|return
+literal|false
+return|;
+block|}
 comment|/**    * Called after a {@link org.apache.hadoop.hbase.regionserver.wal.WALEdit}    * is writen to WAL.    */
+specifier|default
 name|void
 name|postWALWrite
 parameter_list|(
@@ -221,8 +227,9 @@ name|logEdit
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{}
 comment|/**    * Called before rolling the current WAL    * @param oldPath the path of the current wal that we are replacing    * @param newPath the path of the wal we are going to create    */
+specifier|default
 name|void
 name|preWALRoll
 parameter_list|(
@@ -242,8 +249,9 @@ name|newPath
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{}
 comment|/**    * Called after rolling the current WAL    * @param oldPath the path of the wal that we replaced    * @param newPath the path of the wal we have created and now is the current    */
+specifier|default
 name|void
 name|postWALRoll
 parameter_list|(
@@ -263,7 +271,7 @@ name|newPath
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{}
 block|}
 end_interface
 

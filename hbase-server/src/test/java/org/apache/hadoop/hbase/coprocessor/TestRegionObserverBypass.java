@@ -1437,8 +1437,8 @@ specifier|public
 specifier|static
 class|class
 name|TestCoprocessor
-extends|extends
-name|BaseRegionObserver
+implements|implements
+name|RegionObserver
 block|{
 annotation|@
 name|Override

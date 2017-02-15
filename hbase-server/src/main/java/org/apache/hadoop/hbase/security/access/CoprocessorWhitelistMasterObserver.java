@@ -181,7 +181,7 @@ name|hbase
 operator|.
 name|coprocessor
 operator|.
-name|BaseMasterObserver
+name|MasterObserver
 import|;
 end_import
 
@@ -336,8 +336,8 @@ argument_list|)
 specifier|public
 class|class
 name|CoprocessorWhitelistMasterObserver
-extends|extends
-name|BaseMasterObserver
+implements|implements
+name|MasterObserver
 block|{
 specifier|public
 specifier|static

@@ -112,7 +112,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Coprocessors implement this interface to observe and mediate endpoint invocations  * on a region.  */
+comment|/**  * Coprocessors implement this interface to observe and mediate endpoint invocations  * on a region.  *<br><br>  *  *<h3>Exception Handling</h3>  * For all functions, exception handling is done as follows:  *<ul>  *<li>Exceptions of type {@link IOException} are reported back to client.</li>  *<li>For any other kind of exception:  *<ul>  *<li>If the configuration {@link CoprocessorHost#ABORT_ON_ERROR_KEY} is set to true, then  *         the server aborts.</li>  *<li>Otherwise, coprocessor is removed from the server and  *         {@link org.apache.hadoop.hbase.DoNotRetryIOException} is returned to the client.</li>  *</ul>  *</li>  *</ul>  */
 end_comment
 
 begin_interface
@@ -135,7 +135,8 @@ name|EndpointObserver
 extends|extends
 name|Coprocessor
 block|{
-comment|/**    * Called before an Endpoint service method is invoked.    * The request message can be altered by returning a new instance. Throwing an    * exception will abort the invocation.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param ctx the environment provided by the region server    * @param service the endpoint service    * @param methodName the invoked service method    * @param request the request message    * @return the possibly modified message    * @throws IOException    */
+comment|/**    * Called before an Endpoint service method is invoked.    * The request message can be altered by returning a new instance. Throwing an    * exception will abort the invocation.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param ctx the environment provided by the region server    * @param service the endpoint service    * @param request  Request message expected by given {@code Service}'s method (by the name    *   {@code methodName}).    * @param methodName the invoked service method    * @return the possibly modified message    */
+specifier|default
 name|Message
 name|preEndpointInvocation
 parameter_list|(
@@ -156,8 +157,13 @@ name|request
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called after an Endpoint service method is invoked. The response message can be    * altered using the builder.    * @param ctx the environment provided by the region server    * @param service the endpoint service    * @param methodName the invoked service method    * @param request the request message    * @param responseBuilder the response message builder    * @throws IOException    */
+block|{
+return|return
+name|request
+return|;
+block|}
+comment|/**    * Called after an Endpoint service method is invoked. The response message can be    * altered using the builder.    * @param ctx the environment provided by the region server    * @param service the endpoint service    * @param methodName the invoked service method    * @param request  Request message expected by given {@code Service}'s method (by the name    *   {@code methodName}).    * @param responseBuilder Builder for final response to the client, with original response from    *   Service's method merged into it.    */
+specifier|default
 name|void
 name|postEndpointInvocation
 parameter_list|(
@@ -183,7 +189,7 @@ name|responseBuilder
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{}
 block|}
 end_interface
 

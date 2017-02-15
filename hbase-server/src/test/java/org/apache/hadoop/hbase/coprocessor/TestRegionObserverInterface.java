@@ -3363,8 +3363,8 @@ specifier|public
 specifier|static
 class|class
 name|EvenOnlyCompactor
-extends|extends
-name|BaseRegionObserver
+implements|implements
+name|RegionObserver
 block|{
 name|long
 name|lastCompaction

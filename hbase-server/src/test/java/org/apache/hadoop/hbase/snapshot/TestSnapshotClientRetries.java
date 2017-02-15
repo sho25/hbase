@@ -135,7 +135,7 @@ name|hbase
 operator|.
 name|coprocessor
 operator|.
-name|BaseMasterObserver
+name|MasterObserver
 import|;
 end_import
 
@@ -500,8 +500,8 @@ specifier|public
 specifier|static
 class|class
 name|MasterSyncObserver
-extends|extends
-name|BaseMasterObserver
+implements|implements
+name|MasterObserver
 block|{
 specifier|volatile
 name|AtomicInteger

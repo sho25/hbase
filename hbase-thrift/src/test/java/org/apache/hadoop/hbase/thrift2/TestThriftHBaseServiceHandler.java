@@ -311,22 +311,6 @@ name|hbase
 operator|.
 name|coprocessor
 operator|.
-name|BaseRegionObserver
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|coprocessor
-operator|.
 name|ObserverContext
 import|;
 end_import
@@ -357,9 +341,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|filter
+name|coprocessor
 operator|.
-name|ParseFilter
+name|RegionObserver
 import|;
 end_import
 
@@ -373,11 +357,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|protobuf
+name|filter
 operator|.
-name|generated
-operator|.
-name|HBaseProtos
+name|ParseFilter
 import|;
 end_import
 
@@ -10099,8 +10081,8 @@ specifier|public
 specifier|static
 class|class
 name|DelayingRegionObserver
-extends|extends
-name|BaseRegionObserver
+implements|implements
+name|RegionObserver
 block|{
 specifier|private
 specifier|static

@@ -476,8 +476,8 @@ specifier|public
 specifier|static
 class|class
 name|SendToOtherTableCoprocessor
-extends|extends
-name|BaseRegionObserver
+implements|implements
+name|RegionObserver
 block|{
 annotation|@
 name|Override
@@ -558,8 +558,8 @@ specifier|public
 specifier|static
 class|class
 name|CustomThreadPoolCoprocessor
-extends|extends
-name|BaseRegionObserver
+implements|implements
+name|RegionObserver
 block|{
 comment|/**      * Get a pool that has only ever one thread. A second action added to the pool (running      * concurrently), will cause an exception.      * @return      */
 specifier|private
@@ -872,11 +872,6 @@ name|void
 name|runCoprocessorConnectionToRemoteTable
 parameter_list|(
 name|Class
-argument_list|<
-name|?
-extends|extends
-name|BaseRegionObserver
-argument_list|>
 name|clazz
 parameter_list|,
 name|boolean
@@ -886,6 +881,19 @@ parameter_list|)
 throws|throws
 name|Throwable
 block|{
+comment|// Check if given class implements RegionObserver.
+assert|assert
+operator|(
+name|RegionObserver
+operator|.
+name|class
+operator|.
+name|isAssignableFrom
+argument_list|(
+name|clazz
+argument_list|)
+operator|)
+assert|;
 name|HTableDescriptor
 name|primary
 init|=

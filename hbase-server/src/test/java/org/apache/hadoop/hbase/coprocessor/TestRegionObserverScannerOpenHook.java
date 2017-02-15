@@ -826,21 +826,21 @@ literal|true
 return|;
 block|}
 block|}
-comment|/**    * Do the same logic as the {@link BaseRegionObserver}. Needed since {@link BaseRegionObserver} is    * an abstract class.    */
+comment|/**    * Do the default logic in {@link RegionObserver} interface.    */
 specifier|public
 specifier|static
 class|class
 name|EmptyRegionObsever
-extends|extends
-name|BaseRegionObserver
+implements|implements
+name|RegionObserver
 block|{   }
 comment|/**    * Don't return any data from a scan by creating a custom {@link StoreScanner}.    */
 specifier|public
 specifier|static
 class|class
 name|NoDataFromScan
-extends|extends
-name|BaseRegionObserver
+implements|implements
+name|RegionObserver
 block|{
 annotation|@
 name|Override
@@ -910,8 +910,8 @@ specifier|public
 specifier|static
 class|class
 name|NoDataFromFlush
-extends|extends
-name|BaseRegionObserver
+implements|implements
+name|RegionObserver
 block|{
 annotation|@
 name|Override
@@ -994,8 +994,8 @@ specifier|public
 specifier|static
 class|class
 name|NoDataFromCompaction
-extends|extends
-name|BaseRegionObserver
+implements|implements
+name|RegionObserver
 block|{
 annotation|@
 name|Override

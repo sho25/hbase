@@ -132,7 +132,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Coprocessors implement this interface to observe and mediate bulk load operations.  */
+comment|/**  * Coprocessors implement this interface to observe and mediate bulk load operations.  *<br><br>  *  *<h3>Exception Handling</h3>  * For all functions, exception handling is done as follows:  *<ul>  *<li>Exceptions of type {@link IOException} are reported back to client.</li>  *<li>For any other kind of exception:  *<ul>  *<li>If the configuration {@link CoprocessorHost#ABORT_ON_ERROR_KEY} is set to true, then  *         the server aborts.</li>  *<li>Otherwise, coprocessor is removed from the server and  *         {@link org.apache.hadoop.hbase.DoNotRetryIOException} is returned to the client.</li>  *</ul>  *</li>  *</ul>  */
 end_comment
 
 begin_interface
@@ -155,7 +155,8 @@ name|BulkLoadObserver
 extends|extends
 name|Coprocessor
 block|{
-comment|/**       * Called as part of SecureBulkLoadEndpoint.prepareBulkLoad() RPC call.       * It can't bypass the default action, e.g., ctx.bypass() won't have effect.       * @param ctx the environment to interact with the framework and master       * @throws IOException       */
+comment|/**       * Called as part of SecureBulkLoadEndpoint.prepareBulkLoad() RPC call.       * It can't bypass the default action, e.g., ctx.bypass() won't have effect.       * @param ctx the environment to interact with the framework and master       */
+specifier|default
 name|void
 name|prePrepareBulkLoad
 parameter_list|(
@@ -170,8 +171,9 @@ name|request
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**       * Called as part of SecureBulkLoadEndpoint.cleanupBulkLoad() RPC call.       * It can't bypass the default action, e.g., ctx.bypass() won't have effect.       * @param ctx the environment to interact with the framework and master       * @throws IOException       */
+block|{}
+comment|/**       * Called as part of SecureBulkLoadEndpoint.cleanupBulkLoad() RPC call.       * It can't bypass the default action, e.g., ctx.bypass() won't have effect.       * @param ctx the environment to interact with the framework and master       */
+specifier|default
 name|void
 name|preCleanupBulkLoad
 parameter_list|(
@@ -186,7 +188,7 @@ name|request
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{}
 block|}
 end_interface
 

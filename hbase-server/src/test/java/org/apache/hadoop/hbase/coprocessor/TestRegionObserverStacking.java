@@ -350,8 +350,8 @@ specifier|public
 specifier|static
 class|class
 name|ObserverA
-extends|extends
-name|BaseRegionObserver
+implements|implements
+name|RegionObserver
 block|{
 name|long
 name|id
@@ -413,8 +413,8 @@ specifier|public
 specifier|static
 class|class
 name|ObserverB
-extends|extends
-name|BaseRegionObserver
+implements|implements
+name|RegionObserver
 block|{
 name|long
 name|id
@@ -476,8 +476,8 @@ specifier|public
 specifier|static
 class|class
 name|ObserverC
-extends|extends
-name|BaseRegionObserver
+implements|implements
+name|RegionObserver
 block|{
 name|long
 name|id

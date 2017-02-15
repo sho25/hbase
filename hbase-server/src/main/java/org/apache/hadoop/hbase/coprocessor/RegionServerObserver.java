@@ -196,7 +196,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Defines coprocessor hooks for interacting with operations on the  * {@link org.apache.hadoop.hbase.regionserver.HRegionServer} process.  */
+comment|/**  * Defines coprocessor hooks for interacting with operations on the  * {@link org.apache.hadoop.hbase.regionserver.HRegionServer} process.  *  * Since most implementations will be interested in only a subset of hooks, this class uses  * 'default' functions to avoid having to add unnecessary overrides. When the functions are  * non-empty, it's simply to satisfy the compiler by returning value of expected (non-void) type.  * It is done in a way that these default definitions act as no-op. So our suggestion to  * implementation would be to not call these 'default' methods from overrides.  *<br><br>  *  *<h3>Exception Handling</h3>  * For all functions, exception handling is done as follows:  *<ul>  *<li>Exceptions of type {@link IOException} are reported back to client.</li>  *<li>For any other kind of exception:  *<ul>  *<li>If the configuration {@link CoprocessorHost#ABORT_ON_ERROR_KEY} is set to true, then  *         the server aborts.</li>  *<li>Otherwise, coprocessor is removed from the server and  *         {@link org.apache.hadoop.hbase.DoNotRetryIOException} is returned to the client.</li>  *</ul>  *</li>  *</ul>  */
 end_comment
 
 begin_interface
@@ -219,7 +219,8 @@ name|RegionServerObserver
 extends|extends
 name|Coprocessor
 block|{
-comment|/**    * Called before stopping region server.    * @param env An instance of RegionServerCoprocessorEnvironment    * @throws IOException Signals that an I/O exception has occurred.    */
+comment|/**    * Called before stopping region server.    * @param ctx the environment to interact with the framework and region server.    */
+specifier|default
 name|void
 name|preStopRegionServer
 parameter_list|(
@@ -228,12 +229,13 @@ name|ObserverContext
 argument_list|<
 name|RegionServerCoprocessorEnvironment
 argument_list|>
-name|env
+name|ctx
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Called before the regions merge.    * Call {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} to skip the merge.    * @throws IOException if an error occurred on the coprocessor    * @param ctx    * @param regionA    * @param regionB    * @throws IOException    */
+block|{}
+comment|/**    * Called before the regions merge.    * Call {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} to skip the merge.    * @param ctx the environment to interact with the framework and region server.    * @param regionA region being merged.    * @param regionB region being merged.    */
+specifier|default
 name|void
 name|preMerge
 parameter_list|(
@@ -254,8 +256,9 @@ name|regionB
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * called after the regions merge.    * @param c    * @param regionA    * @param regionB    * @param mergedRegion    * @throws IOException    */
+block|{}
+comment|/**    * called after the regions merge.    * @param ctx the environment to interact with the framework and region server.    * @param regionA region being merged.    * @param regionB region being merged.    */
+specifier|default
 name|void
 name|postMerge
 parameter_list|(
@@ -264,7 +267,7 @@ name|ObserverContext
 argument_list|<
 name|RegionServerCoprocessorEnvironment
 argument_list|>
-name|c
+name|ctx
 parameter_list|,
 specifier|final
 name|Region
@@ -280,8 +283,9 @@ name|mergedRegion
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * This will be called before PONR step as part of regions merge transaction. Calling    * {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} rollback the merge    * @param ctx    * @param regionA    * @param regionB    * @param metaEntries mutations to execute on hbase:meta atomically with regions merge updates.    *        Any puts or deletes to execute on hbase:meta can be added to the mutations.    * @throws IOException    */
+block|{}
+comment|/**    * This will be called before PONR step as part of regions merge transaction. Calling    * {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} rollback the merge    * @param ctx the environment to interact with the framework and region server.    * @param regionA region being merged.    * @param regionB region being merged.    * @param metaEntries mutations to execute on hbase:meta atomically with regions merge updates.    *        Any puts or deletes to execute on hbase:meta can be added to the mutations.    */
+specifier|default
 name|void
 name|preMergeCommit
 parameter_list|(
@@ -310,8 +314,9 @@ name|metaEntries
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * This will be called after PONR step as part of regions merge transaction.    * @param ctx    * @param regionA    * @param regionB    * @param mergedRegion    * @throws IOException    */
+block|{}
+comment|/**    * This will be called after PONR step as part of regions merge transaction.    * @param ctx the environment to interact with the framework and region server.    * @param regionA region being merged.    * @param regionB region being merged.    */
+specifier|default
 name|void
 name|postMergeCommit
 parameter_list|(
@@ -336,8 +341,9 @@ name|mergedRegion
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * This will be called before the roll back of the regions merge.    * @param ctx    * @param regionA    * @param regionB    * @throws IOException    */
+block|{}
+comment|/**    * This will be called before the roll back of the regions merge.    * @param ctx the environment to interact with the framework and region server.    * @param regionA region being merged.    * @param regionB region being merged.    */
+specifier|default
 name|void
 name|preRollBackMerge
 parameter_list|(
@@ -358,8 +364,9 @@ name|regionB
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * This will be called after the roll back of the regions merge.    * @param ctx    * @param regionA    * @param regionB    * @throws IOException    */
+block|{}
+comment|/**    * This will be called after the roll back of the regions merge.    * @param ctx the environment to interact with the framework and region server.    * @param regionA region being merged.    * @param regionB region being merged.    */
+specifier|default
 name|void
 name|postRollBackMerge
 parameter_list|(
@@ -380,8 +387,9 @@ name|regionB
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * This will be called before executing user request to roll a region server WAL.    * @param ctx An instance of ObserverContext    * @throws IOException Signals that an I/O exception has occurred.    */
+block|{}
+comment|/**    * This will be called before executing user request to roll a region server WAL.    * @param ctx the environment to interact with the framework and region server.    */
+specifier|default
 name|void
 name|preRollWALWriterRequest
 parameter_list|(
@@ -394,8 +402,9 @@ name|ctx
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * This will be called after executing user request to roll a region server WAL.    * @param ctx An instance of ObserverContext    * @throws IOException Signals that an I/O exception has occurred.    */
+block|{}
+comment|/**    * This will be called after executing user request to roll a region server WAL.    * @param ctx the environment to interact with the framework and region server.    */
+specifier|default
 name|void
 name|postRollWALWriterRequest
 parameter_list|(
@@ -408,8 +417,9 @@ name|ctx
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * This will be called after the replication endpoint is instantiated.    * @param ctx    * @param endpoint - the base endpoint for replication    * @return the endpoint to use during replication.    */
+block|{}
+comment|/**    * This will be called after the replication endpoint is instantiated.    * @param ctx the environment to interact with the framework and region server.    * @param endpoint - the base endpoint for replication    * @return the endpoint to use during replication.    */
+specifier|default
 name|ReplicationEndpoint
 name|postCreateReplicationEndPoint
 parameter_list|(
@@ -422,8 +432,13 @@ parameter_list|,
 name|ReplicationEndpoint
 name|endpoint
 parameter_list|)
-function_decl|;
-comment|/**    * This will be called before executing replication request to shipping log entries.    * @param ctx An instance of ObserverContext    * @param entries list of WALEntries to replicate    * @param cells Cells that the WALEntries refer to (if cells is non-null)    * @throws IOException Signals that an I/O exception has occurred.    */
+block|{
+return|return
+name|endpoint
+return|;
+block|}
+comment|/**    * This will be called before executing replication request to shipping log entries.    * @param ctx the environment to interact with the framework and region server.    * @param entries list of WALEntries to replicate    * @param cells Cells that the WALEntries refer to (if cells is non-null)    */
+specifier|default
 name|void
 name|preReplicateLogEntries
 parameter_list|(
@@ -445,8 +460,9 @@ name|cells
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * This will be called after executing replication request to shipping log entries.    * @param ctx An instance of ObserverContext    * @param entries list of WALEntries to replicate    * @param cells Cells that the WALEntries refer to (if cells is non-null)    * @throws IOException Signals that an I/O exception has occurred.    */
+block|{}
+comment|/**    * This will be called after executing replication request to shipping log entries.    * @param ctx the environment to interact with the framework and region server.    * @param entries list of WALEntries to replicate    * @param cells Cells that the WALEntries refer to (if cells is non-null)    */
+specifier|default
 name|void
 name|postReplicateLogEntries
 parameter_list|(
@@ -468,7 +484,7 @@ name|cells
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{}
 block|}
 end_interface
 

@@ -626,7 +626,7 @@ comment|// simple CP
 name|String
 name|className
 init|=
-literal|"org.apache.hadoop.hbase.coprocessor.BaseRegionObserver"
+literal|"org.apache.hadoop.hbase.coprocessor.SimpleRegionObserver"
 decl_stmt|;
 comment|// add and check that it is present
 name|desc
@@ -696,7 +696,7 @@ comment|// simple CP
 name|String
 name|className1
 init|=
-literal|"org.apache.hadoop.hbase.coprocessor.BaseRegionObserver"
+literal|"org.apache.hadoop.hbase.coprocessor.SimpleRegionObserver"
 decl_stmt|;
 name|String
 name|className2
