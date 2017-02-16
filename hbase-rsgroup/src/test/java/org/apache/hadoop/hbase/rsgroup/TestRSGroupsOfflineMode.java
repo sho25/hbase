@@ -41,6 +41,20 @@ name|commons
 operator|.
 name|logging
 operator|.
+name|Log
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|logging
+operator|.
 name|LogFactory
 import|;
 end_import
@@ -356,15 +370,31 @@ import|;
 end_import
 
 begin_comment
-comment|//This tests that GroupBasedBalancer will use data in zk
+comment|// This tests that GroupBasedBalancer will use data in zk to do balancing during master startup.
 end_comment
 
 begin_comment
-comment|//to do balancing during master startup
+comment|// This does not test retain assignment.
 end_comment
 
 begin_comment
-comment|//This does not test retain assignment
+comment|// The tests brings up 3 RS, creates a new RS group 'my_group', moves 1 RS to 'my_group', assigns
+end_comment
+
+begin_comment
+comment|// 'hbase:rsgroup' to 'my_group', and kill the only server in that group so that 'hbase:rsgroup'
+end_comment
+
+begin_comment
+comment|// table isn't available. It then kills the active master and waits for backup master to come
+end_comment
+
+begin_comment
+comment|// online. In new master, RSGroupInfoManagerImpl gets the data from zk and waits for the expected
+end_comment
+
+begin_comment
+comment|// assignment with a timeout.
 end_comment
 
 begin_class
@@ -382,14 +412,6 @@ block|{
 specifier|private
 specifier|static
 specifier|final
-name|org
-operator|.
-name|apache
-operator|.
-name|commons
-operator|.
-name|logging
-operator|.
 name|Log
 name|LOG
 init|=
@@ -423,11 +445,6 @@ name|HBaseCluster
 name|cluster
 decl_stmt|;
 specifier|private
-specifier|static
-name|RSGroupAdminEndpoint
-name|RSGroupAdminEndpoint
-decl_stmt|;
-specifier|public
 specifier|final
 specifier|static
 name|long
@@ -618,25 +635,6 @@ block|}
 block|}
 argument_list|)
 expr_stmt|;
-name|RSGroupAdminEndpoint
-operator|=
-name|master
-operator|.
-name|getMasterCoprocessorHost
-argument_list|()
-operator|.
-name|findCoprocessors
-argument_list|(
-name|RSGroupAdminEndpoint
-operator|.
-name|class
-argument_list|)
-operator|.
-name|get
-argument_list|(
-literal|0
-argument_list|)
-expr_stmt|;
 block|}
 annotation|@
 name|AfterClass
@@ -665,8 +663,7 @@ name|Exception
 throws|,
 name|InterruptedException
 block|{
-comment|//table should be after group table name
-comment|//so it gets assigned later
+comment|// Table should be after group table name so it gets assigned later.
 specifier|final
 name|TableName
 name|failoverTable
@@ -886,7 +883,8 @@ block|}
 block|}
 argument_list|)
 expr_stmt|;
-comment|//move server to group and make sure all tables are assigned
+block|}
+comment|// Move server to group and make sure all tables are assigned.
 name|groupAdmin
 operator|.
 name|moveServers
@@ -959,7 +957,7 @@ block|}
 block|}
 argument_list|)
 expr_stmt|;
-comment|//move table to group and wait
+comment|// Move table to group and wait.
 name|groupAdmin
 operator|.
 name|moveTables
@@ -1019,7 +1017,6 @@ block|}
 block|}
 argument_list|)
 expr_stmt|;
-block|}
 name|groupRS
 operator|.
 name|stop
@@ -1027,7 +1024,7 @@ argument_list|(
 literal|"die"
 argument_list|)
 expr_stmt|;
-comment|//race condition here
+comment|// Race condition here.
 name|TEST_UTIL
 operator|.
 name|getHBaseCluster
@@ -1126,15 +1123,39 @@ block|}
 block|}
 argument_list|)
 expr_stmt|;
+comment|// Get groupInfoManager from the new active master.
 name|RSGroupInfoManager
 name|groupMgr
 init|=
+operator|(
+operator|(
+name|MiniHBaseCluster
+operator|)
+name|cluster
+operator|)
+operator|.
+name|getMaster
+argument_list|()
+operator|.
+name|getMasterCoprocessorHost
+argument_list|()
+operator|.
+name|findCoprocessors
+argument_list|(
 name|RSGroupAdminEndpoint
+operator|.
+name|class
+argument_list|)
+operator|.
+name|get
+argument_list|(
+literal|0
+argument_list|)
 operator|.
 name|getGroupInfoManager
 argument_list|()
 decl_stmt|;
-comment|//make sure balancer is in offline mode, since this is what we're testing
+comment|// Make sure balancer is in offline mode, since this is what we're testing.
 name|assertFalse
 argument_list|(
 name|groupMgr
@@ -1143,7 +1164,7 @@ name|isOnline
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|//verify the group affiliation that's loaded from ZK instead of tables
+comment|// Verify the group affiliation that's loaded from ZK instead of tables.
 name|assertEquals
 argument_list|(
 name|newGroup
@@ -1172,8 +1193,8 @@ name|failoverTable
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|//kill final regionserver to see the failover happens for all tables
-comment|//except GROUP table since it's group does not have any online RS
+comment|// Kill final regionserver to see the failover happens for all tables except GROUP table since
+comment|// it's group does not have any online RS.
 name|killRS
 operator|.
 name|stop
@@ -1258,7 +1279,7 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|//need this for minicluster to shutdown cleanly
+comment|// Need this for minicluster to shutdown cleanly.
 name|master
 operator|.
 name|stopMaster

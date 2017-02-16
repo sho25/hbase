@@ -790,7 +790,7 @@ name|conf
 operator|.
 name|set
 argument_list|(
-literal|"hbase.group.grouploadbalancer.class"
+literal|"hbase.rsgroup.grouploadbalancer.class"
 argument_list|,
 name|SimpleLoadBalancer
 operator|.
@@ -804,6 +804,11 @@ name|loadBalancer
 operator|=
 operator|new
 name|RSGroupBasedLoadBalancer
+argument_list|()
+expr_stmt|;
+name|loadBalancer
+operator|.
+name|setRsGroupInfoManager
 argument_list|(
 name|getMockedGroupInfoManager
 argument_list|()

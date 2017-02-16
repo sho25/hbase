@@ -148,16 +148,18 @@ specifier|public
 specifier|static
 specifier|final
 name|String
-name|NAMESPACEDESC_PROP_GROUP
+name|NAMESPACE_DESC_PROP_GROUP
 init|=
 literal|"hbase.rsgroup.name"
 decl_stmt|;
 specifier|private
+specifier|final
 name|String
 name|name
 decl_stmt|;
 comment|// Keep servers in a sorted set so has an expected ordering when displayed.
 specifier|private
+specifier|final
 name|SortedSet
 argument_list|<
 name|Address
@@ -166,6 +168,7 @@ name|servers
 decl_stmt|;
 comment|// Keep tables sorted too.
 specifier|private
+specifier|final
 name|SortedSet
 argument_list|<
 name|TableName
@@ -233,9 +236,7 @@ literal|null
 condition|?
 operator|new
 name|TreeSet
-argument_list|<
-name|Address
-argument_list|>
+argument_list|<>
 argument_list|()
 else|:
 name|servers
@@ -285,7 +286,7 @@ name|tables
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Get group name.    *    * @return group name    */
+comment|/**    * Get group name.    */
 specifier|public
 name|String
 name|getName
@@ -295,7 +296,7 @@ return|return
 name|name
 return|;
 block|}
-comment|/**    * Adds the server to the group.    *    * @param hostPort the server    */
+comment|/**    * Adds the given server to the group.    */
 specifier|public
 name|void
 name|addServer
@@ -312,7 +313,7 @@ name|hostPort
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Adds a group of servers.    *    * @param hostPort the servers    */
+comment|/**    * Adds the given servers to the group.    */
 specifier|public
 name|void
 name|addAllServers
@@ -350,7 +351,7 @@ name|hostPort
 argument_list|)
 return|;
 block|}
-comment|/**    * Get list of servers.    *    * @return set of servers    */
+comment|/**    * Get list of servers.    */
 specifier|public
 name|Set
 argument_list|<
@@ -363,7 +364,7 @@ return|return
 name|servers
 return|;
 block|}
-comment|/**    * Remove a server from this group.    *    * @param hostPort HostPort of the server to remove    */
+comment|/**    * Remove given server from the group.    */
 specifier|public
 name|boolean
 name|removeServer
@@ -381,7 +382,7 @@ name|hostPort
 argument_list|)
 return|;
 block|}
-comment|/**    * Set of tables that are members of this group    * @return set of tables    */
+comment|/**    * Get set of tables that are members of the group.    */
 specifier|public
 name|SortedSet
 argument_list|<

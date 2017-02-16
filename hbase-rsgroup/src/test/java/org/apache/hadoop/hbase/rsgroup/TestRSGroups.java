@@ -1066,8 +1066,6 @@ name|appInfo
 init|=
 name|addGroup
 argument_list|(
-name|rsGroupAdmin
-argument_list|,
 literal|"appInfo"
 argument_list|,
 literal|1
@@ -1088,7 +1086,7 @@ name|addConfiguration
 argument_list|(
 name|RSGroupInfo
 operator|.
-name|NAMESPACEDESC_PROP_GROUP
+name|NAMESPACE_DESC_PROP_GROUP
 argument_list|,
 literal|"appInfo"
 argument_list|)
@@ -1276,7 +1274,7 @@ name|addConfiguration
 argument_list|(
 name|RSGroupInfo
 operator|.
-name|NAMESPACEDESC_PROP_GROUP
+name|NAMESPACE_DESC_PROP_GROUP
 argument_list|,
 literal|"default"
 argument_list|)
@@ -1409,7 +1407,7 @@ name|addConfiguration
 argument_list|(
 name|RSGroupInfo
 operator|.
-name|NAMESPACEDESC_PROP_GROUP
+name|NAMESPACE_DESC_PROP_GROUP
 argument_list|,
 name|groupName
 argument_list|)
@@ -1457,7 +1455,7 @@ name|addConfiguration
 argument_list|(
 name|RSGroupInfo
 operator|.
-name|NAMESPACEDESC_PROP_GROUP
+name|NAMESPACE_DESC_PROP_GROUP
 argument_list|,
 name|groupName
 argument_list|)
@@ -1512,7 +1510,7 @@ name|addConfiguration
 argument_list|(
 name|RSGroupInfo
 operator|.
-name|NAMESPACEDESC_PROP_GROUP
+name|NAMESPACE_DESC_PROP_GROUP
 argument_list|,
 literal|"foo"
 argument_list|)
@@ -1625,8 +1623,6 @@ name|RSGroupInfo
 init|=
 name|addGroup
 argument_list|(
-name|rsGroupAdmin
-argument_list|,
 literal|"testMisplacedRegions"
 argument_list|,
 literal|1

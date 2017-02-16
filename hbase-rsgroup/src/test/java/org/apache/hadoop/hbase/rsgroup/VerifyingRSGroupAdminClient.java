@@ -554,7 +554,7 @@ name|boolean
 name|balanceRSGroup
 parameter_list|(
 name|String
-name|name
+name|groupName
 parameter_list|)
 throws|throws
 name|IOException
@@ -564,7 +564,7 @@ name|wrapped
 operator|.
 name|balanceRSGroup
 argument_list|(
-name|name
+name|groupName
 argument_list|)
 return|;
 block|}
@@ -688,7 +688,7 @@ operator|.
 name|getName
 argument_list|()
 argument_list|,
-name|RSGroupSerDe
+name|RSGroupProtobufUtil
 operator|.
 name|toGroupInfo
 argument_list|(
@@ -813,7 +813,7 @@ name|zList
 operator|.
 name|add
 argument_list|(
-name|RSGroupSerDe
+name|RSGroupProtobufUtil
 operator|.
 name|toGroupInfo
 argument_list|(

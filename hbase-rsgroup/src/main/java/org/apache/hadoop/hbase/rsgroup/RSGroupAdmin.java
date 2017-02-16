@@ -23,16 +23,6 @@ name|java
 operator|.
 name|io
 operator|.
-name|Closeable
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
 name|IOException
 import|;
 end_import
@@ -116,7 +106,7 @@ specifier|public
 interface|interface
 name|RSGroupAdmin
 block|{
-comment|/**    * Gets the regionserver group information.    *    * @param groupName the group name    * @return An instance of RSGroupInfo    */
+comment|/**    * Gets {@code RSGroupInfo} for given group name.    */
 name|RSGroupInfo
 name|getRSGroupInfo
 parameter_list|(
@@ -126,7 +116,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Gets the regionserver group info of table.    *    * @param tableName the table name    * @return An instance of RSGroupInfo.    */
+comment|/**    * Gets {@code RSGroupInfo} for the given table's group.    */
 name|RSGroupInfo
 name|getRSGroupInfoOfTable
 parameter_list|(
@@ -136,7 +126,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Move a set of serves to another group    *    *    * @param servers set of servers, must be in the form HOST:PORT    * @param targetGroup the target group    * @throws java.io.IOException Signals that an I/O exception has occurred.    */
+comment|/**    * Move given set of servers to the specified target RegionServer group.    */
 name|void
 name|moveServers
 parameter_list|(
@@ -152,7 +142,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Move tables to a new group.    * This will unassign all of a table's region so it can be reassigned to the correct group.    * @param tables list of tables to move    * @param targetGroup target group    * @throws java.io.IOException on failure to move tables    */
+comment|/**    * Move given set of tables to the specified target RegionServer group.    * This will unassign all of a table's region so it can be reassigned to the correct group.    */
 name|void
 name|moveTables
 parameter_list|(
@@ -168,37 +158,37 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Add a new group    * @param name name of the group    * @throws java.io.IOException on failure to add group    */
+comment|/**    * Creates a new RegionServer group with the given name.    */
 name|void
 name|addRSGroup
 parameter_list|(
 name|String
-name|name
+name|groupName
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Remove a regionserver group    * @param name name of the group    * @throws java.io.IOException on failure to remove group    */
+comment|/**    * Removes RegionServer group associated with the given name.    */
 name|void
 name|removeRSGroup
 parameter_list|(
 name|String
-name|name
+name|groupName
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Balance the regions in a group    *    * @param name the name of the group to balance    * @return boolean whether balance ran or not    * @throws java.io.IOException on unexpected failure to balance group    */
+comment|/**    * Balance regions in the given RegionServer group.    *    * @return boolean Whether balance ran or not    */
 name|boolean
 name|balanceRSGroup
 parameter_list|(
 name|String
-name|name
+name|groupName
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Lists the existing groups.    *    * @return Collection of RSGroupInfo.    */
+comment|/**    * Lists current set of RegionServer groups.    */
 name|List
 argument_list|<
 name|RSGroupInfo
@@ -208,7 +198,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Retrieve the RSGroupInfo a server is affiliated to    * @param hostPort HostPort to get RSGroupInfo for    * @return RSGroupInfo associated with the server    * @throws java.io.IOException on unexpected failure to retrieve GroupInfo    */
+comment|/**    * Retrieve the RSGroupInfo a server is affiliated to    * @param hostPort HostPort to get RSGroupInfo for    */
 name|RSGroupInfo
 name|getRSGroupOfServer
 parameter_list|(

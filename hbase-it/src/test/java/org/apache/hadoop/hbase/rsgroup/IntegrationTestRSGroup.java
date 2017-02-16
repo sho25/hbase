@@ -124,7 +124,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Runs all of the units tests defined in TestGroupBase  * as an integration test.  * Requires TestRSGroupBase.NUM_SLAVE_BASE servers to run.  */
+comment|/**  * Runs all of the units tests defined in TestGroupBase as an integration test.  * Requires TestRSGroupBase.NUM_SLAVE_BASE servers to run.  */
 end_comment
 
 begin_class
@@ -141,7 +141,6 @@ name|IntegrationTestRSGroup
 extends|extends
 name|TestRSGroupsBase
 block|{
-comment|//Integration specific
 specifier|private
 specifier|final
 specifier|static
@@ -183,7 +182,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Setting up IntegrationTestGroup"
+literal|"Setting up IntegrationTestRSGroup"
 argument_list|)
 expr_stmt|;
 name|LOG

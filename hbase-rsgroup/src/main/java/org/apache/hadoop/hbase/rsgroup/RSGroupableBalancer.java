@@ -63,7 +63,14 @@ interface|interface
 name|RSGroupableBalancer
 extends|extends
 name|LoadBalancer
-block|{}
+block|{
+comment|/** Config for pluggable load balancers */
+name|String
+name|HBASE_RSGROUP_LOADBALANCER_CLASS
+init|=
+literal|"hbase.rsgroup.grouploadbalancer.class"
+decl_stmt|;
+block|}
 end_interface
 
 end_unit

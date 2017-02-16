@@ -137,9 +137,6 @@ interface|interface
 name|RSGroupInfoManager
 block|{
 comment|//Assigned before user tables
-specifier|public
-specifier|static
-specifier|final
 name|TableName
 name|RSGROUP_TABLE_NAME
 init|=
@@ -154,9 +151,6 @@ argument_list|,
 literal|"rsgroup"
 argument_list|)
 decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
 name|byte
 index|[]
 name|RSGROUP_TABLE_NAME_BYTES
@@ -166,17 +160,11 @@ operator|.
 name|toBytes
 argument_list|()
 decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
 name|String
 name|rsGroupZNode
 init|=
 literal|"rsgroup"
 decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
 name|byte
 index|[]
 name|META_FAMILY_BYTES
@@ -188,9 +176,6 @@ argument_list|(
 literal|"m"
 argument_list|)
 decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
 name|byte
 index|[]
 name|META_QUALIFIER_BYTES
@@ -202,9 +187,6 @@ argument_list|(
 literal|"i"
 argument_list|)
 decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
 name|byte
 index|[]
 name|ROW_KEY
@@ -213,7 +195,7 @@ block|{
 literal|0
 block|}
 decl_stmt|;
-comment|/**    * Adds the group.    *    * @param rsGroupInfo the group name    * @throws java.io.IOException Signals that an I/O exception has occurred.    */
+comment|/**    * Add given RSGroupInfo to existing list of group infos.    */
 name|void
 name|addRSGroup
 parameter_list|(
@@ -223,7 +205,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Remove a region server group.    *    * @param groupName the group name    * @throws java.io.IOException Signals that an I/O exception has occurred.    */
+comment|/**    * Remove a region server group.    */
 name|void
 name|removeRSGroup
 parameter_list|(
@@ -233,7 +215,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Move servers to a new group.    * @param servers list of servers, must be part of the same group    * @param srcGroup groupName being moved from    * @param dstGroup groupName being moved to    * @return Set of servers moved (May be a subset of {@code servers}).    * @throws java.io.IOException on move failure    */
+comment|/**    * Move servers to a new group.    * @param servers list of servers, must be part of the same group    * @param srcGroup groupName being moved from    * @param dstGroup groupName being moved to    * @return Set of servers moved (May be a subset of {@code servers}).    */
 name|Set
 argument_list|<
 name|Address
@@ -255,17 +237,17 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Gets the group info of server.    *    * @param hostPort the server    * @return An instance of RSGroupInfo    */
+comment|/**    * Gets the group info of server.    */
 name|RSGroupInfo
 name|getRSGroupOfServer
 parameter_list|(
 name|Address
-name|hostPort
+name|serverHostPort
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Gets the group information.    *    * @param groupName the group name    * @return An instance of RSGroupInfo    */
+comment|/**    * Gets {@code RSGroupInfo} for the given group name.    */
 name|RSGroupInfo
 name|getRSGroup
 parameter_list|(
@@ -275,7 +257,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get the group membership of a table    * @param tableName name of table to get group membership    * @return Group name of table    * @throws java.io.IOException on failure to retrive information    */
+comment|/**    * Get the group membership of a table    */
 name|String
 name|getRSGroupOfTable
 parameter_list|(
@@ -285,7 +267,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Set the group membership of a set of tables    *    * @param tableNames set of tables to move    * @param groupName name of group of tables to move to    * @throws java.io.IOException on failure to move    */
+comment|/**    * Set the group membership of a set of tables    *    * @param tableNames set of tables to move    * @param groupName name of group of tables to move to    */
 name|void
 name|moveTables
 parameter_list|(
@@ -301,7 +283,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List the groups    *    * @return list of RSGroupInfo    * @throws java.io.IOException on failure    */
+comment|/**    * List the existing {@code RSGroupInfo}s.    */
 name|List
 argument_list|<
 name|RSGroupInfo
@@ -311,14 +293,14 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Refresh/reload the group information from    * the persistent store    *    * @throws java.io.IOException on failure to refresh    */
+comment|/**    * Refresh/reload the group information from the persistent store    */
 name|void
 name|refresh
 parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Whether the manager is able to fully    * return group metadata    *    * @return whether the manager is in online mode    */
+comment|/**    * Whether the manager is able to fully return group metadata    *    * @return whether the manager is in online mode    */
 name|boolean
 name|isOnline
 parameter_list|()
