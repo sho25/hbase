@@ -113,7 +113,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
+name|net
 operator|.
 name|Address
 import|;
@@ -185,10 +185,16 @@ name|name
 argument_list|,
 operator|new
 name|TreeSet
+argument_list|<
+name|Address
+argument_list|>
 argument_list|()
 argument_list|,
 operator|new
 name|TreeSet
+argument_list|<
+name|TableName
+argument_list|>
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -227,6 +233,9 @@ literal|null
 condition|?
 operator|new
 name|TreeSet
+argument_list|<
+name|Address
+argument_list|>
 argument_list|()
 else|:
 name|servers

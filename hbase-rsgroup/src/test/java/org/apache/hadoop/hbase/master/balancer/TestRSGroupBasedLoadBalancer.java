@@ -309,9 +309,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|testclassification
+name|net
 operator|.
-name|SmallTests
+name|Address
 import|;
 end_import
 
@@ -325,9 +325,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
+name|testclassification
 operator|.
-name|Address
+name|SmallTests
 import|;
 end_import
 

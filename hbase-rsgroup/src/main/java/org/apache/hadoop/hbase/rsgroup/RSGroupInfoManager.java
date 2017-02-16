@@ -117,7 +117,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
+name|net
 operator|.
 name|Address
 import|;
