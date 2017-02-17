@@ -4273,7 +4273,7 @@ operator|==
 literal|0
 condition|)
 block|{
-comment|// punt on comparison for ordering, just calculate difference.
+comment|// punt on comparison for ordering, just calculate difference
 name|result
 operator|=
 name|this
