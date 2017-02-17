@@ -74,7 +74,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This is a {@link Tag} implementation in which value is backed by an off heap  * {@link java.nio.ByteBuffer}  */
+comment|/**  * This is a {@link Tag} implementation in which value is backed by  * {@link java.nio.ByteBuffer}  */
 end_comment
 
 begin_class
@@ -88,7 +88,7 @@ operator|.
 name|Evolving
 specifier|public
 class|class
-name|OffheapTag
+name|ByteBufferTag
 implements|implements
 name|Tag
 block|{
@@ -107,7 +107,7 @@ name|byte
 name|type
 decl_stmt|;
 specifier|public
-name|OffheapTag
+name|ByteBufferTag
 parameter_list|(
 name|ByteBuffer
 name|buffer

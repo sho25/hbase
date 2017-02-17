@@ -137,7 +137,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|OffheapKeyValue
+name|ByteBufferKeyValue
 import|;
 end_import
 
@@ -2024,7 +2024,7 @@ block|{
 name|ret
 operator|=
 operator|new
-name|OffheapKeyValue
+name|ByteBufferKeyValue
 argument_list|(
 name|buf
 argument_list|,

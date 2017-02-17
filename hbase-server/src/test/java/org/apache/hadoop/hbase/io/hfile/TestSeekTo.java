@@ -275,7 +275,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|OffheapKeyValue
+name|ByteBufferKeyValue
 import|;
 end_import
 
@@ -1738,7 +1738,7 @@ operator|.
 name|getCell
 argument_list|()
 operator|instanceof
-name|OffheapKeyValue
+name|ByteBufferKeyValue
 argument_list|)
 expr_stmt|;
 name|assertEquals

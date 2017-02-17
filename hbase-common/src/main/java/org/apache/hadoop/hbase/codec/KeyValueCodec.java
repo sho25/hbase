@@ -109,7 +109,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|NoTagsKeyValue
+name|NoTagsByteBufferKeyValue
 import|;
 end_import
 
@@ -123,7 +123,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|OffheapKeyValue
+name|NoTagsKeyValue
 import|;
 end_import
 
@@ -500,15 +500,13 @@ block|{
 comment|// We know there is not going to be any tags.
 return|return
 operator|new
-name|OffheapKeyValue
+name|NoTagsByteBufferKeyValue
 argument_list|(
 name|bb
 argument_list|,
 name|pos
 argument_list|,
 name|len
-argument_list|,
-literal|0
 argument_list|)
 return|;
 block|}

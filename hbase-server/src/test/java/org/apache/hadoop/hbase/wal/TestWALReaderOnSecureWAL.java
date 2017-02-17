@@ -299,7 +299,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|OffheapKeyValue
+name|ByteBufferKeyValue
 import|;
 end_import
 
@@ -1150,11 +1150,11 @@ name|getBuffer
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|OffheapKeyValue
+name|ByteBufferKeyValue
 name|offheapKV
 init|=
 operator|new
-name|OffheapKeyValue
+name|ByteBufferKeyValue
 argument_list|(
 name|bb
 argument_list|,

@@ -189,7 +189,7 @@ block|}
 argument_list|)
 specifier|public
 class|class
-name|TestOffheapKeyValue
+name|TestByteBufferKeyValue
 block|{
 specifier|private
 specifier|static
@@ -448,7 +448,7 @@ name|ByteBufferCell
 name|offheapKV
 init|=
 operator|new
-name|OffheapKeyValue
+name|ByteBufferKeyValue
 argument_list|(
 name|buf
 argument_list|,
@@ -771,7 +771,7 @@ expr_stmt|;
 name|offheapKV
 operator|=
 operator|new
-name|OffheapKeyValue
+name|ByteBufferKeyValue
 argument_list|(
 name|buf
 argument_list|,
@@ -903,7 +903,7 @@ expr_stmt|;
 name|offheapKV
 operator|=
 operator|new
-name|OffheapKeyValue
+name|ByteBufferKeyValue
 argument_list|(
 name|buf
 argument_list|,
@@ -1115,7 +1115,7 @@ name|ByteBufferCell
 name|offheapKV
 init|=
 operator|new
-name|OffheapKeyValue
+name|ByteBufferKeyValue
 argument_list|(
 name|buf
 argument_list|,

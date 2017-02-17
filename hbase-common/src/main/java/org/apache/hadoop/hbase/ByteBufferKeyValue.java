@@ -109,8 +109,22 @@ name|ClassSize
 import|;
 end_import
 
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
 begin_comment
-comment|/**  * This Cell is an implementation of {@link ByteBufferCell} where the data resides in off heap  * memory.  */
+comment|/**  * This Cell is an implementation of {@link ByteBufferCell} where the data resides in  * off heap/ on heap ByteBuffer  */
 end_comment
 
 begin_class
@@ -120,7 +134,7 @@ operator|.
 name|Private
 specifier|public
 class|class
-name|OffheapKeyValue
+name|ByteBufferKeyValue
 extends|extends
 name|ByteBufferCell
 implements|implements
@@ -147,7 +161,6 @@ name|seqId
 init|=
 literal|0
 decl_stmt|;
-comment|// TODO : See if famLen can be cached or not?
 specifier|private
 specifier|static
 specifier|final
@@ -163,7 +176,7 @@ operator|.
 name|REFERENCE
 operator|+
 operator|(
-literal|3
+literal|2
 operator|*
 name|Bytes
 operator|.
@@ -172,18 +185,10 @@ operator|)
 operator|+
 name|Bytes
 operator|.
-name|SIZEOF_SHORT
-operator|+
-name|Bytes
-operator|.
-name|SIZEOF_BOOLEAN
-operator|+
-name|Bytes
-operator|.
 name|SIZEOF_LONG
 decl_stmt|;
 specifier|public
-name|OffheapKeyValue
+name|ByteBufferKeyValue
 parameter_list|(
 name|ByteBuffer
 name|buf
@@ -198,12 +203,6 @@ name|long
 name|seqId
 parameter_list|)
 block|{
-assert|assert
-name|buf
-operator|.
-name|isDirect
-argument_list|()
-assert|;
 name|this
 operator|.
 name|buf
@@ -230,7 +229,7 @@ name|seqId
 expr_stmt|;
 block|}
 specifier|public
-name|OffheapKeyValue
+name|ByteBufferKeyValue
 parameter_list|(
 name|ByteBuffer
 name|buf
@@ -242,12 +241,6 @@ name|int
 name|length
 parameter_list|)
 block|{
-assert|assert
-name|buf
-operator|.
-name|isDirect
-argument_list|()
-assert|;
 name|this
 operator|.
 name|buf
@@ -266,6 +259,32 @@ name|length
 operator|=
 name|length
 expr_stmt|;
+block|}
+annotation|@
+name|VisibleForTesting
+specifier|public
+name|ByteBuffer
+name|getBuffer
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|buf
+return|;
+block|}
+annotation|@
+name|VisibleForTesting
+specifier|public
+name|int
+name|getOffset
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|offset
+return|;
 block|}
 annotation|@
 name|Override
