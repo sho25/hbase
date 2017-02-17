@@ -1135,11 +1135,6 @@ name|getGroupInfoManager
 argument_list|()
 decl_stmt|;
 comment|//make sure balancer is in offline mode, since this is what we're testing
-synchronized|synchronized
-init|(
-name|groupMgr
-init|)
-block|{
 name|assertFalse
 argument_list|(
 name|groupMgr
@@ -1177,7 +1172,6 @@ name|failoverTable
 argument_list|)
 argument_list|)
 expr_stmt|;
-block|}
 comment|//kill final regionserver to see the failover happens for all tables
 comment|//except GROUP table since it's group does not have any online RS
 name|killRS

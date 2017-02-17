@@ -549,6 +549,8 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// We are reading across two Maps in the below with out synchronizing across
+comment|// them; should be safe most of the time.
 name|String
 name|groupName
 init|=
@@ -589,6 +591,8 @@ parameter_list|)
 throws|throws
 name|ConstraintException
 block|{
+comment|// This uglyness is because we only have Address, not ServerName.
+comment|// Online servers are keyed by ServerName.
 name|Set
 argument_list|<
 name|Address
@@ -974,7 +978,8 @@ init|=
 name|getRSGroupInfoManager
 argument_list|()
 decl_stmt|;
-comment|// Lock the manager during the below manipulations.
+comment|// Hold a lock on the manager instance while moving servers to prevent
+comment|// another writer changing our state while we are working.
 synchronized|synchronized
 init|(
 name|manager
@@ -1003,8 +1008,7 @@ name|targetGroupName
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Presume first server is the source group. Later we check all servers are from
-comment|// this same group.
+comment|// Presume first server's source group. Later ensure all servers are from this group.
 name|Address
 name|firstServer
 init|=
@@ -1033,7 +1037,7 @@ operator|==
 literal|null
 condition|)
 block|{
-comment|// Be careful. This message is tested for in TestRSGroupsBase...
+comment|// Be careful. This exception message is tested for in TestRSGroupsBase...
 throw|throw
 operator|new
 name|ConstraintException
@@ -1075,8 +1079,8 @@ literal|" RSGroup."
 argument_list|)
 throw|;
 block|}
-comment|// Only move online servers (when from 'default') or servers from other groups.
-comment|// This prevents bogus servers from entering groups
+comment|// Only move online servers (when moving from 'default') or servers from other
+comment|// groups. This prevents bogus servers from entering groups
 if|if
 condition|(
 name|RSGroupInfo
@@ -1098,7 +1102,7 @@ name|servers
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Check all servers are of same rsgroup.
+comment|// Ensure all servers are of same rsgroup.
 for|for
 control|(
 name|Address
@@ -1216,8 +1220,6 @@ argument_list|,
 name|targetGroupName
 argument_list|)
 decl_stmt|;
-comment|// Appy makes note that if we were passed in a List of servers,
-comment|// we'd save having to do stuff like the below.
 name|List
 argument_list|<
 name|Address
@@ -1282,9 +1284,9 @@ argument_list|)
 decl_stmt|;
 comment|// Unassign regions for a server
 comment|// TODO: This is problematic especially if hbase:meta is in the mix.
-comment|// We need to update state in hbase:meta and if unassigned we hang
+comment|// We need to update state in hbase:meta on Master and if unassigned we hang
 comment|// around in here. There is a silly sort on linked list done above
-comment|// in getRegions putting hbase:meta last which helps but probably holes.
+comment|// in getRegions putting hbase:meta last which helps but probably has holes.
 name|LOG
 operator|.
 name|info
@@ -1533,7 +1535,8 @@ init|=
 name|getRSGroupInfoManager
 argument_list|()
 decl_stmt|;
-comment|// Lock the manager during below machinations.
+comment|// Hold a lock on the manager instance while moving servers to prevent
+comment|// another writer changing our state while we are working.
 synchronized|synchronized
 init|(
 name|manager
@@ -1895,7 +1898,8 @@ init|=
 name|getRSGroupInfoManager
 argument_list|()
 decl_stmt|;
-comment|// Hold lock across coprocessor calls.
+comment|// Hold a lock on the manager instance while moving servers to prevent
+comment|// another writer changing our state while we are working.
 synchronized|synchronized
 init|(
 name|manager
@@ -1923,7 +1927,7 @@ argument_list|)
 expr_stmt|;
 block|}
 name|RSGroupInfo
-name|RSGroupInfo
+name|rsgi
 init|=
 name|manager
 operator|.
@@ -1934,7 +1938,7 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|RSGroupInfo
+name|rsgi
 operator|==
 literal|null
 condition|)
@@ -1954,7 +1958,7 @@ block|}
 name|int
 name|tableCount
 init|=
-name|RSGroupInfo
+name|rsgi
 operator|.
 name|getTables
 argument_list|()
@@ -1990,7 +1994,7 @@ block|}
 name|int
 name|serverCount
 init|=
-name|RSGroupInfo
+name|rsgi
 operator|.
 name|getServers
 argument_list|()
@@ -2967,7 +2971,8 @@ name|serverName
 argument_list|,
 name|Collections
 operator|.
-name|EMPTY_LIST
+name|emptyList
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

@@ -504,8 +504,6 @@ specifier|private
 name|MasterServices
 name|masterServices
 decl_stmt|;
-comment|// Synchronize on access until we take the time to cmoe up with a finer-grained
-comment|// locking regime.
 specifier|private
 specifier|volatile
 name|RSGroupInfoManager
@@ -523,7 +521,7 @@ name|Private
 specifier|public
 name|RSGroupBasedLoadBalancer
 parameter_list|()
-block|{   }
+block|{}
 comment|//This constructor should only be used for unit testing
 annotation|@
 name|InterfaceAudience
@@ -2068,13 +2066,6 @@ name|otherInfo
 init|=
 literal|null
 decl_stmt|;
-synchronized|synchronized
-init|(
-name|this
-operator|.
-name|rsGroupInfoManager
-init|)
-block|{
 name|otherInfo
 operator|=
 name|rsGroupInfoManager
@@ -2087,7 +2078,6 @@ name|getAddress
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 name|LOG
 operator|.
 name|debug

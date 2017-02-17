@@ -527,7 +527,7 @@ decl_stmt|;
 specifier|private
 specifier|static
 name|RSGroupAdminEndpoint
-name|RSGroupAdminEndpoint
+name|rsGroupAdminEndpoint
 decl_stmt|;
 annotation|@
 name|BeforeClass
@@ -721,7 +721,7 @@ name|getConfiguration
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|RSGroupAdminEndpoint
+name|rsGroupAdminEndpoint
 operator|=
 name|master
 operator|.
@@ -1546,7 +1546,7 @@ block|{
 name|RSGroupInfoManager
 name|manager
 init|=
-name|RSGroupAdminEndpoint
+name|rsGroupAdminEndpoint
 operator|.
 name|getGroupInfoManager
 argument_list|()
@@ -1554,23 +1554,13 @@ decl_stmt|;
 name|RSGroupInfo
 name|defaultGroup
 init|=
-literal|null
-decl_stmt|;
-synchronized|synchronized
-init|(
-name|manager
-init|)
-block|{
-name|defaultGroup
-operator|=
 name|manager
 operator|.
 name|getRSGroup
 argument_list|(
 literal|"default"
 argument_list|)
-expr_stmt|;
-block|}
+decl_stmt|;
 comment|// getRSGroup updates default group's server list
 comment|// this process must not affect other threads iterating the list
 name|Iterator
@@ -1665,7 +1655,7 @@ argument_list|(
 name|tableName
 argument_list|)
 expr_stmt|;
-name|RSGroupAdminEndpoint
+name|rsGroupAdminEndpoint
 operator|.
 name|getGroupInfoManager
 argument_list|()

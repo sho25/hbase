@@ -906,7 +906,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This is an implementation of {@link RSGroupInfoManager} which makes  * use of an HBase table as the persistence store for the group information.  * It also makes use of zookeeper to store group information needed  * for bootstrapping during offline mode.  *  *<h2>Concurrency</h2>  * All methods are synchronized to protect against concurrent access on contained  * Maps and so as only one writer at a time to the backing zookeeper cache and rsgroup table.  *  *<p>Clients of this class, the {@link RSGroupAdminEndpoint} for example, want to query and  * then act on the results of the query modifying cache in zookeeper without another thread  * making intermediate modifications. These clients synchronize on the 'this' instance so  * no other has access concurrently.  *  * TODO: Spend time cleaning up this coarse locking that is prone to error if not carefully  * enforced everywhere.  */
+comment|/**  * This is an implementation of {@link RSGroupInfoManager} which makes  * use of an HBase table as the persistence store for the group information.  * It also makes use of zookeeper to store group information needed  * for bootstrapping during offline mode.  *  *<h2>Concurrency</h2>  * RSGroup state is kept locally in Maps. There is a rsgroup name to cached  * RSGroupInfo Map at this.rsGroupMap and a Map of tables to the name of the  * rsgroup they belong too (in this.tableMap). These Maps are persisted to the  * hbase:rsgroup table (and cached in zk) on each modification.  *  *<p>Mutations on state are synchronized but so reads can continue without having  * to wait on an instance monitor, mutations do wholesale replace of the Maps on  * update -- Copy-On-Write; the local Maps of state are read-only, just-in-case  * (see flushConfig).  *  *<p>Reads must not block else there is a danger we'll deadlock.  *  *<p>Clients of this class, the {@link RSGroupAdminEndpoint} for example, want to query and  * then act on the results of the query modifying cache in zookeeper without another thread  * making intermediate modifications. These clients synchronize on the 'this' instance so  * no other has access concurrently. Reads must be able to continue concurrently.  */
 end_comment
 
 begin_class
@@ -1015,7 +1015,10 @@ argument_list|)
 throw|;
 block|}
 block|}
+comment|// There two Maps are immutable and wholesale replaced on each modification
+comment|// so are safe to access concurrently. See class comment.
 specifier|private
+specifier|volatile
 name|Map
 argument_list|<
 name|String
@@ -1023,8 +1026,14 @@ argument_list|,
 name|RSGroupInfo
 argument_list|>
 name|rsGroupMap
+init|=
+name|Collections
+operator|.
+name|emptyMap
+argument_list|()
 decl_stmt|;
 specifier|private
+specifier|volatile
 name|Map
 argument_list|<
 name|TableName
@@ -1032,6 +1041,11 @@ argument_list|,
 name|String
 argument_list|>
 name|tableMap
+init|=
+name|Collections
+operator|.
+name|emptyMap
+argument_list|()
 decl_stmt|;
 specifier|private
 specifier|final
@@ -1063,11 +1077,22 @@ argument_list|<
 name|String
 argument_list|>
 name|prevRSGroups
+init|=
+operator|new
+name|HashSet
+argument_list|<
+name|String
+argument_list|>
+argument_list|()
 decl_stmt|;
 specifier|private
 specifier|final
 name|RSGroupSerDe
 name|rsGroupSerDe
+init|=
+operator|new
+name|RSGroupSerDe
+argument_list|()
 decl_stmt|;
 specifier|private
 name|DefaultServerUpdater
@@ -1088,30 +1113,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|this
-operator|.
-name|rsGroupMap
-operator|=
-name|Collections
-operator|.
-name|emptyMap
-argument_list|()
-expr_stmt|;
-name|this
-operator|.
-name|tableMap
-operator|=
-name|Collections
-operator|.
-name|emptyMap
-argument_list|()
-expr_stmt|;
-name|rsGroupSerDe
-operator|=
-operator|new
-name|RSGroupSerDe
-argument_list|()
-expr_stmt|;
 name|this
 operator|.
 name|master
@@ -1136,15 +1137,6 @@ operator|.
 name|getClusterConnection
 argument_list|()
 expr_stmt|;
-name|prevRSGroups
-operator|=
-operator|new
-name|HashSet
-argument_list|<
-name|String
-argument_list|>
-argument_list|()
-expr_stmt|;
 block|}
 specifier|public
 specifier|synchronized
@@ -1154,6 +1146,13 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|this
+operator|.
+name|init
+condition|)
+return|return;
 name|rsGroupStartupWorker
 operator|=
 operator|new
@@ -1197,6 +1196,8 @@ operator|.
 name|start
 argument_list|()
 expr_stmt|;
+name|this
+operator|.
 name|init
 operator|=
 literal|true
@@ -1412,7 +1413,7 @@ name|dstGroup
 argument_list|)
 decl_stmt|;
 comment|// If destination is 'default' rsgroup, only add servers that are online. If not online, drop it.
-comment|// If not 'default' group, add server to dst group EVEN IF IT IS NOT online (could be a group
+comment|// If not 'default' group, add server to 'dst' rsgroup EVEN IF IT IS NOT online (could be a rsgroup
 comment|// of dead servers that are to come back later).
 name|Set
 argument_list|<
@@ -1463,7 +1464,6 @@ operator|!=
 literal|null
 condition|)
 block|{
-comment|// onlineServers is non-null if 'default' rsgroup. If the server is not online, drop it.
 if|if
 condition|(
 operator|!
@@ -1561,7 +1561,6 @@ comment|/**    * Gets the group info of server.    *    * @param hostPort the se
 annotation|@
 name|Override
 specifier|public
-specifier|synchronized
 name|RSGroupInfo
 name|getRSGroupOfServer
 parameter_list|(
@@ -1605,7 +1604,6 @@ comment|/**    * Gets the group information.    *    * @param groupName    *    
 annotation|@
 name|Override
 specifier|public
-specifier|synchronized
 name|RSGroupInfo
 name|getRSGroup
 parameter_list|(
@@ -1629,7 +1627,6 @@ block|}
 annotation|@
 name|Override
 specifier|public
-specifier|synchronized
 name|String
 name|getRSGroupOfTable
 parameter_list|(
@@ -1891,7 +1888,6 @@ block|}
 annotation|@
 name|Override
 specifier|public
-specifier|synchronized
 name|List
 argument_list|<
 name|RSGroupInfo
@@ -1916,7 +1912,6 @@ block|}
 annotation|@
 name|Override
 specifier|public
-specifier|synchronized
 name|boolean
 name|isOnline
 parameter_list|()
@@ -1943,6 +1938,7 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Read rsgroup info from the source of truth, the hbase:rsgroup table.    * Update zk cache. Called on startup of the manager.    * @param forceOnline    * @throws IOException    */
 specifier|private
 specifier|synchronized
 name|void
@@ -1967,7 +1963,7 @@ name|RSGroupInfo
 argument_list|>
 argument_list|()
 decl_stmt|;
-comment|// overwrite anything read from zk, group table is source of truth
+comment|// Overwrite anything read from zk, group table is source of truth
 comment|// if online read from GROUP table
 if|if
 condition|(
@@ -2020,7 +2016,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Refershing in Offline mode."
+literal|"Refreshing in Offline mode."
 argument_list|)
 expr_stmt|;
 name|String
@@ -2225,8 +2221,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|// This is added to the last of the list
-comment|// so it overwrites the default group loaded
+comment|// This is added to the last of the list so it overwrites the 'default' rsgroup loaded
 comment|// from region group table or zk
 name|groupList
 operator|.
@@ -2239,13 +2234,8 @@ name|RSGroupInfo
 operator|.
 name|DEFAULT_GROUP
 argument_list|,
-name|Sets
-operator|.
-name|newTreeSet
-argument_list|(
 name|getDefaultServers
 argument_list|()
-argument_list|)
 argument_list|,
 name|orphanTables
 argument_list|)
@@ -2323,32 +2313,14 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-name|rsGroupMap
-operator|=
-name|Collections
-operator|.
-name|unmodifiableMap
+name|installNewMaps
 argument_list|(
 name|newGroupMap
-argument_list|)
-expr_stmt|;
-name|tableMap
-operator|=
-name|Collections
-operator|.
-name|unmodifiableMap
-argument_list|(
+argument_list|,
 name|newTableMap
 argument_list|)
 expr_stmt|;
-name|prevRSGroups
-operator|.
-name|clear
-argument_list|()
-expr_stmt|;
-name|prevRSGroups
-operator|.
-name|addAll
+name|updateCacheOfRSGroups
 argument_list|(
 name|rsGroupMap
 operator|.
@@ -2562,11 +2534,12 @@ name|IOException
 block|{
 name|flushConfig
 argument_list|(
+name|this
+operator|.
 name|rsGroupMap
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Called from RSGroupStartupWorker thread so synchronize
 specifier|private
 specifier|synchronized
 name|void
@@ -2696,23 +2669,11 @@ argument_list|(
 name|newGroupMap
 argument_list|)
 expr_stmt|;
-comment|// make changes visible since it has been
-comment|// persisted in the source of truth
-name|rsGroupMap
-operator|=
-name|Collections
-operator|.
-name|unmodifiableMap
+comment|// Make changes visible after having been persisted to the source of truth
+name|installNewMaps
 argument_list|(
 name|newGroupMap
-argument_list|)
-expr_stmt|;
-name|tableMap
-operator|=
-name|Collections
-operator|.
-name|unmodifiableMap
-argument_list|(
+argument_list|,
 name|newTableMap
 argument_list|)
 expr_stmt|;
@@ -2969,19 +2930,88 @@ name|e
 argument_list|)
 throw|;
 block|}
-name|prevRSGroups
-operator|.
-name|clear
-argument_list|()
-expr_stmt|;
-name|prevRSGroups
-operator|.
-name|addAll
+name|updateCacheOfRSGroups
 argument_list|(
 name|newGroupMap
 operator|.
 name|keySet
 argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Make changes visible.    * Caller must be synchronized on 'this'.    */
+specifier|private
+name|void
+name|installNewMaps
+parameter_list|(
+name|Map
+argument_list|<
+name|String
+argument_list|,
+name|RSGroupInfo
+argument_list|>
+name|newRSGroupMap
+parameter_list|,
+name|Map
+argument_list|<
+name|TableName
+argument_list|,
+name|String
+argument_list|>
+name|newTableMap
+parameter_list|)
+block|{
+comment|// Make maps Immutable.
+name|this
+operator|.
+name|rsGroupMap
+operator|=
+name|Collections
+operator|.
+name|unmodifiableMap
+argument_list|(
+name|newRSGroupMap
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|tableMap
+operator|=
+name|Collections
+operator|.
+name|unmodifiableMap
+argument_list|(
+name|newTableMap
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Update cache of rsgroups.    * Caller must be synchronized on 'this'.    * @param currentGroups Current list of Groups.    */
+specifier|private
+name|void
+name|updateCacheOfRSGroups
+parameter_list|(
+specifier|final
+name|Set
+argument_list|<
+name|String
+argument_list|>
+name|currentGroups
+parameter_list|)
+block|{
+name|this
+operator|.
+name|prevRSGroups
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|prevRSGroups
+operator|.
+name|addAll
+argument_list|(
+name|currentGroups
 argument_list|)
 expr_stmt|;
 block|}
@@ -3113,25 +3143,25 @@ decl_stmt|;
 for|for
 control|(
 name|ServerName
-name|server
+name|serverName
 range|:
 name|getOnlineRS
 argument_list|()
 control|)
 block|{
 name|Address
-name|hostPort
+name|server
 init|=
 name|Address
 operator|.
 name|fromParts
 argument_list|(
-name|server
+name|serverName
 operator|.
 name|getHostname
 argument_list|()
 argument_list|,
-name|server
+name|serverName
 operator|.
 name|getPort
 argument_list|()
@@ -3145,7 +3175,7 @@ decl_stmt|;
 for|for
 control|(
 name|RSGroupInfo
-name|RSGroupInfo
+name|rsgi
 range|:
 name|listRSGroups
 argument_list|()
@@ -3160,17 +3190,17 @@ name|DEFAULT_GROUP
 operator|.
 name|equals
 argument_list|(
-name|RSGroupInfo
+name|rsgi
 operator|.
 name|getName
 argument_list|()
 argument_list|)
 operator|&&
-name|RSGroupInfo
+name|rsgi
 operator|.
 name|containsServer
 argument_list|(
-name|hostPort
+name|server
 argument_list|)
 condition|)
 block|{
@@ -3191,7 +3221,7 @@ name|defaultServers
 operator|.
 name|add
 argument_list|(
-name|hostPort
+name|server
 argument_list|)
 expr_stmt|;
 block|}
@@ -3314,6 +3344,8 @@ name|serverChanged
 argument_list|()
 expr_stmt|;
 block|}
+comment|// TODO: Why do we need this extra thread? Why can't we just go
+comment|// fetch at balance time or admin time?
 specifier|private
 specifier|static
 class|class
@@ -3343,7 +3375,7 @@ name|mgr
 decl_stmt|;
 specifier|private
 name|boolean
-name|hasChanged
+name|changed
 init|=
 literal|false
 decl_stmt|;
@@ -3410,13 +3442,6 @@ argument_list|(
 literal|"Updating default servers."
 argument_list|)
 expr_stmt|;
-synchronized|synchronized
-init|(
-name|this
-operator|.
-name|mgr
-init|)
-block|{
 name|SortedSet
 argument_list|<
 name|Address
@@ -3463,7 +3488,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-block|}
 try|try
 block|{
 synchronized|synchronized
@@ -3474,14 +3498,14 @@ block|{
 if|if
 condition|(
 operator|!
-name|hasChanged
+name|changed
 condition|)
 block|{
 name|wait
 argument_list|()
 expr_stmt|;
 block|}
-name|hasChanged
+name|changed
 operator|=
 literal|false
 expr_stmt|;
@@ -3532,7 +3556,7 @@ init|(
 name|this
 init|)
 block|{
-name|hasChanged
+name|changed
 operator|=
 literal|true
 expr_stmt|;
@@ -4791,7 +4815,7 @@ throw|throw
 operator|new
 name|ConstraintException
 argument_list|(
-literal|"Group name should only contain alphanumeric characters"
+literal|"RSGroup name should only contain alphanumeric characters"
 argument_list|)
 throw|;
 block|}
