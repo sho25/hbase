@@ -2779,21 +2779,6 @@ argument_list|,
 literal|2
 argument_list|)
 expr_stmt|;
-comment|// Make lease timeout longer, lease checks less frequent
-name|TEST_UTIL
-operator|.
-name|getConfiguration
-argument_list|()
-operator|.
-name|setInt
-argument_list|(
-literal|"hbase.master.lease.thread.wakefrequency"
-argument_list|,
-literal|5
-operator|*
-literal|1000
-argument_list|)
-expr_stmt|;
 name|TEST_UTIL
 operator|.
 name|getConfiguration
