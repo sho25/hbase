@@ -536,6 +536,13 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+name|admin1
+operator|.
+name|disableTableReplication
+argument_list|(
+name|tableName
+argument_list|)
+expr_stmt|;
 name|admin2
 operator|.
 name|disableTable
