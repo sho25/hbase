@@ -393,7 +393,7 @@ literal|"deafult.FPBQ"
 argument_list|,
 name|handlerCount
 argument_list|,
-name|maxPriorityQueueLength
+name|maxQueueLength
 argument_list|,
 name|priority
 argument_list|,
