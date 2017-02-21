@@ -521,6 +521,18 @@ name|RemoteException
 import|;
 end_import
 
+begin_import
+import|import
+name|javax
+operator|.
+name|security
+operator|.
+name|sasl
+operator|.
+name|SaslException
+import|;
+end_import
+
 begin_comment
 comment|/**  * A {@link org.apache.hadoop.hbase.replication.ReplicationEndpoint}  * implementation for replicating to another HBase cluster.  * For the slave cluster it selects a random number of peers  * using a replication ratio. For example, if replication ration = 0.1  * and slave cluster has 100 region servers, 10 will be selected.  *<p>  * A stream is considered down when we cannot contact a region server on the  * peer cluster for more than 55 seconds by default.  *</p>  */
 end_comment
@@ -1792,6 +1804,29 @@ name|sleepMultiplier
 operator|++
 expr_stmt|;
 block|}
+block|}
+elseif|else
+if|if
+condition|(
+name|ioe
+operator|instanceof
+name|SaslException
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Peer encountered SaslException, rechecking all sinks: "
+argument_list|,
+name|ioe
+argument_list|)
+expr_stmt|;
+name|replicationSinkMgr
+operator|.
+name|chooseSinks
+argument_list|()
+expr_stmt|;
 block|}
 block|}
 else|else
