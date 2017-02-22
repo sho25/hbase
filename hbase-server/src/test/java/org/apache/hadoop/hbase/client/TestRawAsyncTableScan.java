@@ -261,12 +261,15 @@ annotation|@
 name|Override
 specifier|public
 specifier|synchronized
-name|boolean
+name|void
 name|onNext
 parameter_list|(
 name|Result
 index|[]
 name|results
+parameter_list|,
+name|ScanController
+name|controller
 parameter_list|)
 block|{
 for|for
@@ -288,9 +291,6 @@ block|}
 name|notifyAll
 argument_list|()
 expr_stmt|;
-return|return
-literal|true
-return|;
 block|}
 annotation|@
 name|Override

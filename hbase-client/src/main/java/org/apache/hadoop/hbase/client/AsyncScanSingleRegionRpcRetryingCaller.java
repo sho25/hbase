@@ -31,7 +31,25 @@ name|client
 operator|.
 name|ConnectionUtils
 operator|.
-name|*
+name|SLEEP_DELTA_NS
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|ConnectionUtils
+operator|.
+name|getPauseTime
 import|;
 end_import
 
@@ -109,6 +127,20 @@ end_import
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|base
+operator|.
+name|Preconditions
+import|;
+end_import
+
+begin_import
+import|import
 name|io
 operator|.
 name|netty
@@ -116,6 +148,18 @@ operator|.
 name|util
 operator|.
 name|HashedWheelTimer
+import|;
+end_import
+
+begin_import
+import|import
+name|io
+operator|.
+name|netty
+operator|.
+name|util
+operator|.
+name|Timeout
 import|;
 end_import
 
@@ -280,6 +324,24 @@ operator|.
 name|classification
 operator|.
 name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|RawScanResultConsumer
+operator|.
+name|ScanResumer
 import|;
 end_import
 
@@ -556,6 +618,11 @@ decl_stmt|;
 specifier|private
 specifier|final
 name|long
+name|scannerLeaseTimeoutPeriodNs
+decl_stmt|;
+specifier|private
+specifier|final
+name|long
 name|pauseNs
 decl_stmt|;
 specifier|private
@@ -632,6 +699,463 @@ init|=
 operator|-
 literal|1L
 decl_stmt|;
+specifier|private
+enum|enum
+name|ScanControllerState
+block|{
+name|INITIALIZED
+block|,
+name|SUSPENDED
+block|,
+name|TERMINATED
+block|,
+name|DESTROYED
+block|}
+comment|// Since suspend and terminate should only be called within onNext or onHeartbeat(see the comments
+comment|// of RawScanResultConsumer.onNext and onHeartbeat), we need to add some check to prevent invalid
+comment|// usage. We use two things to prevent invalid usage:
+comment|// 1. Record the thread that construct the ScanControllerImpl instance. We will throw an
+comment|// IllegalStateException if the caller thread is not this thread.
+comment|// 2. The ControllerState. The initial state is INITIALIZED, if you call suspend, the state will
+comment|// be transformed to SUSPENDED, and if you call terminate, the state will be transformed to
+comment|// TERMINATED. And when we are back from onNext or onHeartbeat in the onComplete method, we will
+comment|// call destroy to get the current state and set the state to DESTROYED. And when user calls
+comment|// suspend or terminate, we will check if the current state is INITIALIZED, if not we will throw
+comment|// an IllegalStateException. Notice that the DESTROYED state is necessary as you may not call
+comment|// suspend or terminate so the state will still be INITIALIZED when back from onNext or
+comment|// onHeartbeat. We need another state to replace the INITIALIZED state to prevent the controller
+comment|// to be used in the future.
+comment|// Notice that, the public methods of this class is supposed to be called by upper layer only, and
+comment|// package private methods can only be called within the implementation of
+comment|// AsyncScanSingleRegionRpcRetryingCaller.
+specifier|private
+specifier|final
+class|class
+name|ScanControllerImpl
+implements|implements
+name|RawScanResultConsumer
+operator|.
+name|ScanController
+block|{
+comment|// Make sure the methods are only called in this thread.
+specifier|private
+specifier|final
+name|Thread
+name|callerThread
+init|=
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+decl_stmt|;
+comment|// INITIALIZED -> SUSPENDED -> DESTROYED
+comment|// INITIALIZED -> TERMINATED -> DESTROYED
+comment|// INITIALIZED -> DESTROYED
+comment|// If the state is incorrect we will throw IllegalStateException.
+specifier|private
+name|ScanControllerState
+name|state
+init|=
+name|ScanControllerState
+operator|.
+name|INITIALIZED
+decl_stmt|;
+specifier|private
+name|ScanResumerImpl
+name|resumer
+decl_stmt|;
+specifier|private
+name|void
+name|preCheck
+parameter_list|()
+block|{
+name|Preconditions
+operator|.
+name|checkState
+argument_list|(
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|==
+name|callerThread
+argument_list|,
+literal|"The current thread is %s, expected thread is %s, "
+operator|+
+literal|"you should not call this method outside onNext or onHeartbeat"
+argument_list|,
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+argument_list|,
+name|callerThread
+argument_list|)
+expr_stmt|;
+name|Preconditions
+operator|.
+name|checkState
+argument_list|(
+name|state
+operator|.
+name|equals
+argument_list|(
+name|ScanControllerState
+operator|.
+name|INITIALIZED
+argument_list|)
+argument_list|,
+literal|"Invalid Stopper state %s"
+argument_list|,
+name|state
+argument_list|)
+expr_stmt|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|ScanResumer
+name|suspend
+parameter_list|()
+block|{
+name|preCheck
+argument_list|()
+expr_stmt|;
+name|state
+operator|=
+name|ScanControllerState
+operator|.
+name|SUSPENDED
+expr_stmt|;
+name|ScanResumerImpl
+name|resumer
+init|=
+operator|new
+name|ScanResumerImpl
+argument_list|()
+decl_stmt|;
+name|this
+operator|.
+name|resumer
+operator|=
+name|resumer
+expr_stmt|;
+return|return
+name|resumer
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|terminate
+parameter_list|()
+block|{
+name|preCheck
+argument_list|()
+expr_stmt|;
+name|state
+operator|=
+name|ScanControllerState
+operator|.
+name|TERMINATED
+expr_stmt|;
+block|}
+comment|// return the current state, and set the state to DESTROYED.
+name|ScanControllerState
+name|destroy
+parameter_list|()
+block|{
+name|ScanControllerState
+name|state
+init|=
+name|this
+operator|.
+name|state
+decl_stmt|;
+name|this
+operator|.
+name|state
+operator|=
+name|ScanControllerState
+operator|.
+name|DESTROYED
+expr_stmt|;
+return|return
+name|state
+return|;
+block|}
+block|}
+specifier|private
+enum|enum
+name|ScanResumerState
+block|{
+name|INITIALIZED
+block|,
+name|SUSPENDED
+block|,
+name|RESUMED
+block|}
+comment|// The resume method is allowed to be called in another thread so here we also use the
+comment|// ResumerState to prevent race. The initial state is INITIALIZED, and in most cases, when back
+comment|// from onNext or onHeartbeat, we will call the prepare method to change the state to SUSPENDED,
+comment|// and when user calls resume method, we will change the state to RESUMED. But the resume method
+comment|// could be called in other thread, and in fact, user could just do this:
+comment|// controller.suspend().resume()
+comment|// This is strange but valid. This means the scan could be resumed before we call the prepare
+comment|// method to do the actual suspend work. So in the resume method, we will check if the state is
+comment|// INTIALIZED, if it is, then we will just set the state to RESUMED and return. And in prepare
+comment|// method, if the state is RESUMED already, we will just return an let the scan go on.
+comment|// Notice that, the public methods of this class is supposed to be called by upper layer only, and
+comment|// package private methods can only be called within the implementation of
+comment|// AsyncScanSingleRegionRpcRetryingCaller.
+specifier|private
+specifier|final
+class|class
+name|ScanResumerImpl
+implements|implements
+name|RawScanResultConsumer
+operator|.
+name|ScanResumer
+block|{
+comment|// INITIALIZED -> SUSPENDED -> RESUMED
+comment|// INITIALIZED -> RESUMED
+specifier|private
+name|ScanResumerState
+name|state
+init|=
+name|ScanResumerState
+operator|.
+name|INITIALIZED
+decl_stmt|;
+specifier|private
+name|ScanResponse
+name|resp
+decl_stmt|;
+specifier|private
+name|int
+name|numValidResults
+decl_stmt|;
+comment|// If the scan is suspended successfully, we need to do lease renewal to prevent it being closed
+comment|// by RS due to lease expire. It is a one-time timer task so we need to schedule a new task
+comment|// every time when the previous task is finished. There could also be race as the renewal is
+comment|// executed in the timer thread, so we also need to check the state before lease renewal. If the
+comment|// state is RESUMED already, we will give up lease renewal and also not schedule the next lease
+comment|// renewal task.
+specifier|private
+name|Timeout
+name|leaseRenewer
+decl_stmt|;
+annotation|@
+name|Override
+specifier|public
+name|void
+name|resume
+parameter_list|()
+block|{
+comment|// just used to fix findbugs warnings. In fact, if resume is called before prepare, then we
+comment|// just return at the first if condition without loading the resp and numValidResuls field. If
+comment|// resume is called after suspend, then it is also safe to just reference resp and
+comment|// numValidResults after the synchronized block as no one will change it anymore.
+name|ScanResponse
+name|localResp
+decl_stmt|;
+name|int
+name|localNumValidResults
+decl_stmt|;
+synchronized|synchronized
+init|(
+name|this
+init|)
+block|{
+if|if
+condition|(
+name|state
+operator|==
+name|ScanResumerState
+operator|.
+name|INITIALIZED
+condition|)
+block|{
+comment|// user calls this method before we call prepare, so just set the state to
+comment|// RESUMED, the implementation will just go on.
+name|state
+operator|=
+name|ScanResumerState
+operator|.
+name|RESUMED
+expr_stmt|;
+return|return;
+block|}
+if|if
+condition|(
+name|state
+operator|==
+name|ScanResumerState
+operator|.
+name|RESUMED
+condition|)
+block|{
+comment|// already resumed, give up.
+return|return;
+block|}
+name|state
+operator|=
+name|ScanResumerState
+operator|.
+name|RESUMED
+expr_stmt|;
+if|if
+condition|(
+name|leaseRenewer
+operator|!=
+literal|null
+condition|)
+block|{
+name|leaseRenewer
+operator|.
+name|cancel
+argument_list|()
+expr_stmt|;
+block|}
+name|localResp
+operator|=
+name|this
+operator|.
+name|resp
+expr_stmt|;
+name|localNumValidResults
+operator|=
+name|this
+operator|.
+name|numValidResults
+expr_stmt|;
+block|}
+name|completeOrNext
+argument_list|(
+name|localResp
+argument_list|,
+name|localNumValidResults
+argument_list|)
+expr_stmt|;
+block|}
+specifier|private
+name|void
+name|scheduleRenewLeaseTask
+parameter_list|()
+block|{
+name|leaseRenewer
+operator|=
+name|retryTimer
+operator|.
+name|newTimeout
+argument_list|(
+name|t
+lambda|->
+name|tryRenewLease
+argument_list|()
+argument_list|,
+name|scannerLeaseTimeoutPeriodNs
+operator|/
+literal|2
+argument_list|,
+name|TimeUnit
+operator|.
+name|NANOSECONDS
+argument_list|)
+expr_stmt|;
+block|}
+specifier|private
+specifier|synchronized
+name|void
+name|tryRenewLease
+parameter_list|()
+block|{
+comment|// the scan has already been resumed, give up
+if|if
+condition|(
+name|state
+operator|==
+name|ScanResumerState
+operator|.
+name|RESUMED
+condition|)
+block|{
+return|return;
+block|}
+name|renewLease
+argument_list|()
+expr_stmt|;
+comment|// schedule the next renew lease task again as this is a one-time task.
+name|scheduleRenewLeaseTask
+argument_list|()
+expr_stmt|;
+block|}
+comment|// return false if the scan has already been resumed. See the comment above for ScanResumerImpl
+comment|// for more details.
+specifier|synchronized
+name|boolean
+name|prepare
+parameter_list|(
+name|ScanResponse
+name|resp
+parameter_list|,
+name|int
+name|numValidResults
+parameter_list|)
+block|{
+if|if
+condition|(
+name|state
+operator|==
+name|ScanResumerState
+operator|.
+name|RESUMED
+condition|)
+block|{
+comment|// user calls resume before we actually suspend the scan, just continue;
+return|return
+literal|false
+return|;
+block|}
+name|state
+operator|=
+name|ScanResumerState
+operator|.
+name|SUSPENDED
+expr_stmt|;
+name|this
+operator|.
+name|resp
+operator|=
+name|resp
+expr_stmt|;
+name|this
+operator|.
+name|numValidResults
+operator|=
+name|numValidResults
+expr_stmt|;
+comment|// if there are no more results in region then the scanner at RS side will be closed
+comment|// automatically so we do not need to renew lease.
+if|if
+condition|(
+name|resp
+operator|.
+name|getMoreResultsInRegion
+argument_list|()
+condition|)
+block|{
+comment|// schedule renew lease task
+name|scheduleRenewLeaseTask
+argument_list|()
+expr_stmt|;
+block|}
+return|return
+literal|true
+return|;
+block|}
+block|}
 specifier|public
 name|AsyncScanSingleRegionRpcRetryingCaller
 parameter_list|(
@@ -658,6 +1182,9 @@ name|stub
 parameter_list|,
 name|HRegionLocation
 name|loc
+parameter_list|,
+name|long
+name|scannerLeaseTimeoutPeriodNs
 parameter_list|,
 name|long
 name|pauseNs
@@ -716,6 +1243,12 @@ operator|.
 name|loc
 operator|=
 name|loc
+expr_stmt|;
+name|this
+operator|.
+name|scannerLeaseTimeoutPeriodNs
+operator|=
+name|scannerLeaseTimeoutPeriodNs
 expr_stmt|;
 name|this
 operator|.
@@ -1355,16 +1888,9 @@ argument_list|()
 expr_stmt|;
 name|includeNextStartRowWhenError
 operator|=
-name|scan
-operator|.
-name|getBatch
-argument_list|()
-operator|>
-literal|0
-operator|||
 name|result
 operator|.
-name|isPartial
+name|mayHaveMoreCellsInRow
 argument_list|()
 expr_stmt|;
 block|}
@@ -1445,6 +1971,93 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+specifier|private
+name|void
+name|completeOrNext
+parameter_list|(
+name|ScanResponse
+name|resp
+parameter_list|,
+name|int
+name|numValidResults
+parameter_list|)
+block|{
+if|if
+condition|(
+name|resp
+operator|.
+name|hasMoreResults
+argument_list|()
+operator|&&
+operator|!
+name|resp
+operator|.
+name|getMoreResults
+argument_list|()
+condition|)
+block|{
+comment|// RS tells us there is no more data for the whole scan
+name|completeNoMoreResults
+argument_list|()
+expr_stmt|;
+return|return;
+block|}
+if|if
+condition|(
+name|scan
+operator|.
+name|getLimit
+argument_list|()
+operator|>
+literal|0
+condition|)
+block|{
+comment|// The RS should have set the moreResults field in ScanResponse to false when we have reached
+comment|// the limit.
+name|int
+name|limit
+init|=
+name|scan
+operator|.
+name|getLimit
+argument_list|()
+operator|-
+name|numValidResults
+decl_stmt|;
+assert|assert
+name|limit
+operator|>
+literal|0
+assert|;
+name|scan
+operator|.
+name|setLimit
+argument_list|(
+name|limit
+argument_list|)
+expr_stmt|;
+block|}
+comment|// as in 2.0 this value will always be set
+if|if
+condition|(
+operator|!
+name|resp
+operator|.
+name|getMoreResultsInRegion
+argument_list|()
+condition|)
+block|{
+name|completeWhenNoMoreResultsInRegion
+operator|.
+name|run
+argument_list|()
+expr_stmt|;
+return|return;
+block|}
+name|next
+argument_list|()
+expr_stmt|;
 block|}
 specifier|private
 name|void
@@ -1553,8 +2166,12 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
-name|boolean
-name|stopByUser
+name|ScanControllerImpl
+name|scanController
+init|=
+operator|new
+name|ScanControllerImpl
+argument_list|()
 decl_stmt|;
 if|if
 condition|(
@@ -1566,13 +2183,12 @@ literal|0
 condition|)
 block|{
 comment|// if we have nothing to return then this must be a heartbeat message.
-name|stopByUser
-operator|=
-operator|!
 name|consumer
 operator|.
 name|onHeartbeat
-argument_list|()
+argument_list|(
+name|scanController
+argument_list|)
 expr_stmt|;
 block|}
 else|else
@@ -1589,40 +2205,31 @@ literal|1
 index|]
 argument_list|)
 expr_stmt|;
-name|stopByUser
-operator|=
-operator|!
 name|consumer
 operator|.
 name|onNext
 argument_list|(
 name|results
+argument_list|,
+name|scanController
 argument_list|)
 expr_stmt|;
 block|}
+name|ScanControllerState
+name|state
+init|=
+name|scanController
+operator|.
+name|destroy
+argument_list|()
+decl_stmt|;
 if|if
 condition|(
-name|resp
+name|state
+operator|==
+name|ScanControllerState
 operator|.
-name|hasMoreResults
-argument_list|()
-operator|&&
-operator|!
-name|resp
-operator|.
-name|getMoreResults
-argument_list|()
-condition|)
-block|{
-comment|// RS tells us there is no more data for the whole scan
-name|completeNoMoreResults
-argument_list|()
-expr_stmt|;
-return|return;
-block|}
-if|if
-condition|(
-name|stopByUser
+name|TERMINATED
 condition|)
 block|{
 if|if
@@ -1646,60 +2253,40 @@ return|return;
 block|}
 if|if
 condition|(
-name|scan
+name|state
+operator|==
+name|ScanControllerState
 operator|.
-name|getLimit
-argument_list|()
-operator|>
-literal|0
+name|SUSPENDED
 condition|)
 block|{
-comment|// The RS should have set the moreResults field in ScanResponse to false when we have reached
-comment|// the limit.
-name|int
-name|limit
-init|=
-name|scan
+if|if
+condition|(
+name|scanController
 operator|.
-name|getLimit
-argument_list|()
-operator|-
+name|resumer
+operator|.
+name|prepare
+argument_list|(
+name|resp
+argument_list|,
 name|results
 operator|.
 name|length
-decl_stmt|;
-assert|assert
-name|limit
-operator|>
-literal|0
-assert|;
-name|scan
-operator|.
-name|setLimit
-argument_list|(
-name|limit
 argument_list|)
-expr_stmt|;
-block|}
-comment|// as in 2.0 this value will always be set
-if|if
-condition|(
-operator|!
-name|resp
-operator|.
-name|getMoreResultsInRegion
-argument_list|()
 condition|)
 block|{
-name|completeWhenNoMoreResultsInRegion
-operator|.
-name|run
-argument_list|()
-expr_stmt|;
 return|return;
 block|}
-name|next
-argument_list|()
+block|}
+name|completeOrNext
+argument_list|(
+name|resp
+argument_list|,
+name|results
+operator|.
+name|length
+argument_list|)
 expr_stmt|;
 block|}
 specifier|private
@@ -1842,6 +2429,58 @@ argument_list|()
 expr_stmt|;
 name|call
 argument_list|()
+expr_stmt|;
+block|}
+specifier|private
+name|void
+name|renewLease
+parameter_list|()
+block|{
+name|nextCallSeq
+operator|++
+expr_stmt|;
+name|resetController
+argument_list|(
+name|controller
+argument_list|,
+name|rpcTimeoutNs
+argument_list|)
+expr_stmt|;
+name|ScanRequest
+name|req
+init|=
+name|RequestConverter
+operator|.
+name|buildScanRequest
+argument_list|(
+name|scannerId
+argument_list|,
+literal|0
+argument_list|,
+literal|false
+argument_list|,
+name|nextCallSeq
+argument_list|,
+literal|false
+argument_list|,
+literal|true
+argument_list|,
+operator|-
+literal|1
+argument_list|)
+decl_stmt|;
+name|stub
+operator|.
+name|scan
+argument_list|(
+name|controller
+argument_list|,
+name|req
+argument_list|,
+name|resp
+lambda|->
+block|{     }
+argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Now we will also fetch some cells along with the scanner id when opening a scanner, so we also    * need to process the ScanResponse for the open scanner request. The HBaseRpcController for the    * open scanner request is also needed because we may have some data in the CellScanner which is    * contained in the controller.    * @return {@code true} if we should continue, otherwise {@code false}.    */
