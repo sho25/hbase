@@ -1428,9 +1428,9 @@ name|namespace
 argument_list|)
 control|)
 block|{
+comment|// If there is a quota on this table in violation
 if|if
 condition|(
-operator|!
 name|tableSnapshotStore
 operator|.
 name|getCurrentState
@@ -1491,6 +1491,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|// We want to move into violation at the NS level
 block|}
 else|else
 block|{
@@ -1508,14 +1509,32 @@ name|namespace
 argument_list|)
 control|)
 block|{
-if|if
-condition|(
+specifier|final
+name|SpaceQuotaSnapshot
+name|tableQuotaSnapshot
+init|=
 name|tableSnapshotStore
 operator|.
 name|getCurrentState
 argument_list|(
 name|tableInNS
 argument_list|)
+decl_stmt|;
+specifier|final
+name|boolean
+name|hasTableQuota
+init|=
+name|QuotaSnapshotStore
+operator|.
+name|NO_QUOTA
+operator|!=
+name|tableQuotaSnapshot
+decl_stmt|;
+if|if
+condition|(
+name|hasTableQuota
+operator|&&
+name|tableQuotaSnapshot
 operator|.
 name|getQuotaStatus
 argument_list|()
@@ -1548,6 +1567,7 @@ block|}
 block|}
 else|else
 block|{
+comment|// No table quota present or a table quota present that is not in violation
 name|LOG
 operator|.
 name|info

@@ -1369,7 +1369,7 @@ name|TableName
 argument_list|,
 name|SpaceQuotaSnapshot
 argument_list|>
-name|violatedQuotas
+name|snapshots
 init|=
 name|snapshotNotifier
 operator|.
@@ -1398,10 +1398,10 @@ literal|"Should not see any quota violations after writing 2MB of data"
 argument_list|,
 literal|0
 argument_list|,
-name|violatedQuotas
-operator|.
-name|size
-argument_list|()
+name|numSnapshotsInViolation
+argument_list|(
+name|snapshots
+argument_list|)
 argument_list|)
 expr_stmt|;
 try|try
@@ -1430,7 +1430,7 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
-name|violatedQuotas
+name|snapshots
 operator|=
 name|snapshotNotifier
 operator|.
@@ -1458,7 +1458,7 @@ argument_list|(
 name|tn2
 argument_list|)
 expr_stmt|;
-name|violatedQuotas
+name|snapshots
 operator|=
 name|snapshotNotifier
 operator|.
@@ -1487,10 +1487,10 @@ literal|"Should not see any quota violations after writing 4MB of data"
 argument_list|,
 literal|0
 argument_list|,
-name|violatedQuotas
-operator|.
-name|size
-argument_list|()
+name|numSnapshotsInViolation
+argument_list|(
+name|snapshots
+argument_list|)
 argument_list|)
 expr_stmt|;
 try|try
@@ -1519,7 +1519,7 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
-name|violatedQuotas
+name|snapshots
 operator|=
 name|snapshotNotifier
 operator|.
@@ -1549,7 +1549,7 @@ argument_list|(
 name|tn3
 argument_list|)
 expr_stmt|;
-name|violatedQuotas
+name|snapshots
 operator|=
 name|snapshotNotifier
 operator|.
@@ -1558,10 +1558,10 @@ argument_list|()
 expr_stmt|;
 while|while
 condition|(
-name|violatedQuotas
-operator|.
-name|size
-argument_list|()
+name|numSnapshotsInViolation
+argument_list|(
+name|snapshots
+argument_list|)
 operator|<
 literal|3
 condition|)
@@ -1572,7 +1572,7 @@ name|debug
 argument_list|(
 literal|"Saw fewer violations than desired (expected 3): "
 operator|+
-name|violatedQuotas
+name|snapshots
 operator|+
 literal|". Current reports: "
 operator|+
@@ -1619,7 +1619,7 @@ name|interrupt
 argument_list|()
 expr_stmt|;
 block|}
-name|violatedQuotas
+name|snapshots
 operator|=
 name|snapshotNotifier
 operator|.
@@ -1630,7 +1630,7 @@ block|}
 name|SpaceQuotaSnapshot
 name|snapshot1
 init|=
-name|violatedQuotas
+name|snapshots
 operator|.
 name|remove
 argument_list|(
@@ -1660,7 +1660,7 @@ expr_stmt|;
 name|SpaceQuotaSnapshot
 name|snapshot2
 init|=
-name|violatedQuotas
+name|snapshots
 operator|.
 name|remove
 argument_list|(
@@ -1690,7 +1690,7 @@ expr_stmt|;
 name|SpaceQuotaSnapshot
 name|snapshot3
 init|=
-name|violatedQuotas
+name|snapshots
 operator|.
 name|remove
 argument_list|(
@@ -1721,9 +1721,9 @@ name|assertTrue
 argument_list|(
 literal|"Unexpected additional quota violations: "
 operator|+
-name|violatedQuotas
+name|snapshots
 argument_list|,
-name|violatedQuotas
+name|snapshots
 operator|.
 name|isEmpty
 argument_list|()
@@ -1884,7 +1884,7 @@ name|TableName
 argument_list|,
 name|SpaceQuotaSnapshot
 argument_list|>
-name|violatedQuotas
+name|snapshots
 init|=
 name|snapshotNotifier
 operator|.
@@ -1909,14 +1909,16 @@ block|{
 comment|// Check a few times to make sure we don't prematurely move to violation
 name|assertEquals
 argument_list|(
-literal|"Should not see any quota violations after writing 2MB of data"
+literal|"Should not see any quota violations after writing 2MB of data: "
+operator|+
+name|snapshots
 argument_list|,
 literal|0
 argument_list|,
-name|violatedQuotas
-operator|.
-name|size
-argument_list|()
+name|numSnapshotsInViolation
+argument_list|(
+name|snapshots
+argument_list|)
 argument_list|)
 expr_stmt|;
 try|try
@@ -1945,7 +1947,7 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
-name|violatedQuotas
+name|snapshots
 operator|=
 name|snapshotNotifier
 operator|.
@@ -1973,7 +1975,7 @@ argument_list|(
 name|tn2
 argument_list|)
 expr_stmt|;
-name|violatedQuotas
+name|snapshots
 operator|=
 name|snapshotNotifier
 operator|.
@@ -1982,10 +1984,10 @@ argument_list|()
 expr_stmt|;
 while|while
 condition|(
-name|violatedQuotas
-operator|.
-name|size
-argument_list|()
+name|numSnapshotsInViolation
+argument_list|(
+name|snapshots
+argument_list|)
 operator|<
 literal|2
 condition|)
@@ -1996,7 +1998,7 @@ name|debug
 argument_list|(
 literal|"Saw fewer violations than desired (expected 2): "
 operator|+
-name|violatedQuotas
+name|snapshots
 operator|+
 literal|". Current reports: "
 operator|+
@@ -2043,7 +2045,7 @@ name|interrupt
 argument_list|()
 expr_stmt|;
 block|}
-name|violatedQuotas
+name|snapshots
 operator|=
 name|snapshotNotifier
 operator|.
@@ -2054,7 +2056,7 @@ block|}
 name|SpaceQuotaSnapshot
 name|actualPolicyTN1
 init|=
-name|violatedQuotas
+name|snapshots
 operator|.
 name|get
 argument_list|(
@@ -2084,7 +2086,7 @@ expr_stmt|;
 name|SpaceQuotaSnapshot
 name|actualPolicyTN2
 init|=
-name|violatedQuotas
+name|snapshots
 operator|.
 name|get
 argument_list|(
@@ -2155,7 +2157,7 @@ condition|(
 literal|true
 condition|)
 block|{
-name|violatedQuotas
+name|snapshots
 operator|=
 name|snapshotNotifier
 operator|.
@@ -2165,7 +2167,7 @@ expr_stmt|;
 name|SpaceQuotaSnapshot
 name|actualTableSnapshot
 init|=
-name|violatedQuotas
+name|snapshots
 operator|.
 name|get
 argument_list|(
@@ -2251,7 +2253,7 @@ block|}
 comment|// This should not change with the introduction of the table quota for tn1
 name|actualPolicyTN2
 operator|=
-name|violatedQuotas
+name|snapshots
 operator|.
 name|get
 argument_list|(
@@ -2910,6 +2912,55 @@ name|tableWithoutQuota
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
+specifier|private
+name|int
+name|numSnapshotsInViolation
+parameter_list|(
+name|Map
+argument_list|<
+name|TableName
+argument_list|,
+name|SpaceQuotaSnapshot
+argument_list|>
+name|snapshots
+parameter_list|)
+block|{
+name|int
+name|sum
+init|=
+literal|0
+decl_stmt|;
+for|for
+control|(
+name|SpaceQuotaSnapshot
+name|snapshot
+range|:
+name|snapshots
+operator|.
+name|values
+argument_list|()
+control|)
+block|{
+if|if
+condition|(
+name|snapshot
+operator|.
+name|getQuotaStatus
+argument_list|()
+operator|.
+name|isInViolation
+argument_list|()
+condition|)
+block|{
+name|sum
+operator|++
+expr_stmt|;
+block|}
+block|}
+return|return
+name|sum
+return|;
 block|}
 specifier|private
 name|void
