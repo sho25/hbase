@@ -1150,6 +1150,12 @@ name|SyncFuture
 argument_list|>
 name|syncFuturesByHandler
 decl_stmt|;
+comment|/**    * The class name of the runtime implementation, used as prefix for logging/tracing.    *<p>    * Performance testing shows getClass().getSimpleName() might be a bottleneck so we store it here,    * refer to HBASE-17676 for more details    *</p>    */
+specifier|protected
+specifier|final
+name|String
+name|implClassName
+decl_stmt|;
 specifier|public
 name|long
 name|getFilenum
@@ -2047,6 +2053,16 @@ argument_list|>
 argument_list|(
 name|maxHandlersCount
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|implClassName
+operator|=
+name|getClass
+argument_list|()
+operator|.
+name|getSimpleName
+argument_list|()
 expr_stmt|;
 block|}
 annotation|@
@@ -3662,11 +3678,7 @@ name|debug
 argument_list|(
 literal|"Create new "
 operator|+
-name|getClass
-argument_list|()
-operator|.
-name|getSimpleName
-argument_list|()
+name|implClassName
 operator|+
 literal|" writer with pipeline: "
 operator|+
@@ -4718,11 +4730,7 @@ name|Trace
 operator|.
 name|startSpan
 argument_list|(
-name|getClass
-argument_list|()
-operator|.
-name|getSimpleName
-argument_list|()
+name|implClassName
 operator|+
 literal|".append"
 argument_list|)
@@ -4836,11 +4844,7 @@ name|toString
 parameter_list|()
 block|{
 return|return
-name|getClass
-argument_list|()
-operator|.
-name|getSimpleName
-argument_list|()
+name|implClassName
 operator|+
 literal|" "
 operator|+
