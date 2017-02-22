@@ -1480,6 +1480,8 @@ block|}
 catch|catch
 parameter_list|(
 name|IllegalArgumentException
+decl||
+name|IllegalStateException
 name|ex
 parameter_list|)
 block|{
