@@ -84,7 +84,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Implementations hold cluster information such as this cluster's id, location of hbase:meta, etc..  * All stuffs that may be related to zookeeper at client side are placed here.  *<p>  * Most methods are executed asynchronously except getClusterId. It will be executed synchronously  * and should be called only once when initialization.  *<p>  * Internal use only.  */
+comment|/**  * Implementations hold cluster information such as this cluster's id, location of hbase:meta, etc..  * All stuffs that may be related to zookeeper at client side are placed here.  *<p>  * Internal use only.  */
 end_comment
 
 begin_interface
@@ -106,7 +106,10 @@ name|getMetaRegionLocation
 parameter_list|()
 function_decl|;
 comment|/**    * Should only be called once.    *<p>    * The upper layer should store this value somewhere as it will not be change any more.    */
+name|CompletableFuture
+argument_list|<
 name|String
+argument_list|>
 name|getClusterId
 parameter_list|()
 function_decl|;

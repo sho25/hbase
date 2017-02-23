@@ -384,6 +384,9 @@ operator|.
 name|getConfiguration
 argument_list|()
 argument_list|)
+operator|.
+name|get
+argument_list|()
 expr_stmt|;
 name|ASYNC_CONN
 operator|.

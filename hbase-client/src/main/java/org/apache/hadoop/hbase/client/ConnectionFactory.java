@@ -47,6 +47,18 @@ name|util
 operator|.
 name|concurrent
 operator|.
+name|CompletableFuture
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
 name|ExecutorService
 import|;
 end_import
@@ -160,7 +172,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A non-instantiable class that manages creation of {@link Connection}s.  * Managing the lifecycle of the {@link Connection}s to the cluster is the responsibility of  * the caller.  * From a {@link Connection}, {@link Table} implementations are retrieved  * with {@link Connection#getTable(TableName)}. Example:  *<pre>  * Connection connection = ConnectionFactory.createConnection(config);  * Table table = connection.getTable(TableName.valueOf("table1"));  * try {  *   // Use the table as needed, for a single operation and a single thread  * } finally {  *   table.close();  *   connection.close();  * }  *</pre>  *  * Similarly, {@link Connection} also returns {@link Admin} and {@link RegionLocator}  * implementations.  *  * @see Connection  * @since 0.99.0  */
+comment|/**  * A non-instantiable class that manages creation of {@link Connection}s. Managing the lifecycle of  * the {@link Connection}s to the cluster is the responsibility of the caller. From a  * {@link Connection}, {@link Table} implementations are retrieved with  * {@link Connection#getTable(TableName)}. Example:  *  *<pre>  * Connection connection = ConnectionFactory.createConnection(config);  * Table table = connection.getTable(TableName.valueOf("table1"));  * try {  *   // Use the table as needed, for a single operation and a single thread  * } finally {  *   table.close();  *   connection.close();  * }  *</pre>  *  * Similarly, {@link Connection} also returns {@link Admin} and {@link RegionLocator}  * implementations.  * @see Connection  * @since 0.99.0  */
 end_comment
 
 begin_class
@@ -189,7 +201,7 @@ specifier|protected
 name|ConnectionFactory
 parameter_list|()
 block|{   }
-comment|/**    * Create a new Connection instance using default HBaseConfiguration. Connection    * encapsulates all housekeeping for a connection to the cluster. All tables and interfaces    * created from returned connection share zookeeper connection, meta cache, and connections    * to region servers and masters.    *<br>    * The caller is responsible for calling {@link Connection#close()} on the returned    * connection instance.    *    * Typical usage:    *<pre>    * Connection connection = ConnectionFactory.createConnection();    * Table table = connection.getTable(TableName.valueOf("mytable"));    * try {    *   table.get(...);    *   ...    * } finally {    *   table.close();    *   connection.close();    * }    *</pre>    *    * @return Connection object for<code>conf</code>    */
+comment|/**    * Create a new Connection instance using default HBaseConfiguration. Connection encapsulates all    * housekeeping for a connection to the cluster. All tables and interfaces created from returned    * connection share zookeeper connection, meta cache, and connections to region servers and    * masters.<br>    * The caller is responsible for calling {@link Connection#close()} on the returned connection    * instance. Typical usage:    *    *<pre>    * Connection connection = ConnectionFactory.createConnection();    * Table table = connection.getTable(TableName.valueOf("mytable"));    * try {    *   table.get(...);    *   ...    * } finally {    *   table.close();    *   connection.close();    * }    *</pre>    *    * @return Connection object for<code>conf</code>    */
 specifier|public
 specifier|static
 name|Connection
@@ -212,7 +224,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a new Connection instance using the passed<code>conf</code> instance. Connection    * encapsulates all housekeeping for a connection to the cluster. All tables and interfaces    * created from returned connection share zookeeper connection, meta cache, and connections    * to region servers and masters.    *<br>    * The caller is responsible for calling {@link Connection#close()} on the returned    * connection instance.    *    * Typical usage:    *<pre>    * Connection connection = ConnectionFactory.createConnection(conf);    * Table table = connection.getTable(TableName.valueOf("mytable"));    * try {    *   table.get(...);    *   ...    * } finally {    *   table.close();    *   connection.close();    * }    *</pre>    *    * @param conf configuration    * @return Connection object for<code>conf</code>    */
+comment|/**    * Create a new Connection instance using the passed<code>conf</code> instance. Connection    * encapsulates all housekeeping for a connection to the cluster. All tables and interfaces    * created from returned connection share zookeeper connection, meta cache, and connections to    * region servers and masters.<br>    * The caller is responsible for calling {@link Connection#close()} on the returned connection    * instance. Typical usage:    *    *<pre>    * Connection connection = ConnectionFactory.createConnection(conf);    * Table table = connection.getTable(TableName.valueOf("mytable"));    * try {    *   table.get(...);    *   ...    * } finally {    *   table.close();    *   connection.close();    * }    *</pre>    *    * @param conf configuration    * @return Connection object for<code>conf</code>    */
 specifier|public
 specifier|static
 name|Connection
@@ -235,7 +247,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a new Connection instance using the passed<code>conf</code> instance. Connection    * encapsulates all housekeeping for a connection to the cluster. All tables and interfaces    * created from returned connection share zookeeper connection, meta cache, and connections    * to region servers and masters.    *<br>    * The caller is responsible for calling {@link Connection#close()} on the returned    * connection instance.    *    * Typical usage:    *<pre>    * Connection connection = ConnectionFactory.createConnection(conf);    * Table table = connection.getTable(TableName.valueOf("mytable"));    * try {    *   table.get(...);    *   ...    * } finally {    *   table.close();    *   connection.close();    * }    *</pre>    *    * @param conf configuration    * @param pool the thread pool to use for batch operations    * @return Connection object for<code>conf</code>    */
+comment|/**    * Create a new Connection instance using the passed<code>conf</code> instance. Connection    * encapsulates all housekeeping for a connection to the cluster. All tables and interfaces    * created from returned connection share zookeeper connection, meta cache, and connections to    * region servers and masters.<br>    * The caller is responsible for calling {@link Connection#close()} on the returned connection    * instance. Typical usage:    *    *<pre>    * Connection connection = ConnectionFactory.createConnection(conf);    * Table table = connection.getTable(TableName.valueOf("mytable"));    * try {    *   table.get(...);    *   ...    * } finally {    *   table.close();    *   connection.close();    * }    *</pre>    *    * @param conf configuration    * @param pool the thread pool to use for batch operations    * @return Connection object for<code>conf</code>    */
 specifier|public
 specifier|static
 name|Connection
@@ -261,7 +273,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a new Connection instance using the passed<code>conf</code> instance. Connection    * encapsulates all housekeeping for a connection to the cluster. All tables and interfaces    * created from returned connection share zookeeper connection, meta cache, and connections    * to region servers and masters.    *<br>    * The caller is responsible for calling {@link Connection#close()} on the returned    * connection instance.    *    * Typical usage:    *<pre>    * Connection connection = ConnectionFactory.createConnection(conf);    * Table table = connection.getTable(TableName.valueOf("table1"));    * try {    *   table.get(...);    *   ...    * } finally {    *   table.close();    *   connection.close();    * }    *</pre>    *    * @param conf configuration    * @param user the user the connection is for    * @return Connection object for<code>conf</code>    */
+comment|/**    * Create a new Connection instance using the passed<code>conf</code> instance. Connection    * encapsulates all housekeeping for a connection to the cluster. All tables and interfaces    * created from returned connection share zookeeper connection, meta cache, and connections to    * region servers and masters.<br>    * The caller is responsible for calling {@link Connection#close()} on the returned connection    * instance. Typical usage:    *    *<pre>    * Connection connection = ConnectionFactory.createConnection(conf);    * Table table = connection.getTable(TableName.valueOf("table1"));    * try {    *   table.get(...);    *   ...    * } finally {    *   table.close();    *   connection.close();    * }    *</pre>    *    * @param conf configuration    * @param user the user the connection is for    * @return Connection object for<code>conf</code>    */
 specifier|public
 specifier|static
 name|Connection
@@ -287,7 +299,7 @@ name|user
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a new Connection instance using the passed<code>conf</code> instance. Connection    * encapsulates all housekeeping for a connection to the cluster. All tables and interfaces    * created from returned connection share zookeeper connection, meta cache, and connections    * to region servers and masters.    *<br>    * The caller is responsible for calling {@link Connection#close()} on the returned    * connection instance.    *    * Typical usage:    *<pre>    * Connection connection = ConnectionFactory.createConnection(conf);    * Table table = connection.getTable(TableName.valueOf("table1"));    * try {    *   table.get(...);    *   ...    * } finally {    *   table.close();    *   connection.close();    * }    *</pre>    *    * @param conf configuration    * @param user the user the connection is for    * @param pool the thread pool to use for batch operations    * @return Connection object for<code>conf</code>    */
+comment|/**    * Create a new Connection instance using the passed<code>conf</code> instance. Connection    * encapsulates all housekeeping for a connection to the cluster. All tables and interfaces    * created from returned connection share zookeeper connection, meta cache, and connections to    * region servers and masters.<br>    * The caller is responsible for calling {@link Connection#close()} on the returned connection    * instance. Typical usage:    *    *<pre>    * Connection connection = ConnectionFactory.createConnection(conf);    * Table table = connection.getTable(TableName.valueOf("table1"));    * try {    *   table.get(...);    *   ...    * } finally {    *   table.close();    *   connection.close();    * }    *</pre>    *    * @param conf configuration    * @param user the user the connection is for    * @param pool the thread pool to use for batch operations    * @return Connection object for<code>conf</code>    */
 specifier|public
 specifier|static
 name|Connection
@@ -445,14 +457,15 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Call {@link #createAsyncConnection(Configuration)} using default HBaseConfiguration.    * @see #createAsyncConnection(Configuration)    * @return AsyncConnection object    */
+comment|/**    * Call {@link #createAsyncConnection(Configuration)} using default HBaseConfiguration.    * @see #createAsyncConnection(Configuration)    * @return AsyncConnection object wrapped by CompletableFuture    */
 specifier|public
 specifier|static
+name|CompletableFuture
+argument_list|<
 name|AsyncConnection
+argument_list|>
 name|createAsyncConnection
 parameter_list|()
-throws|throws
-name|IOException
 block|{
 return|return
 name|createAsyncConnection
@@ -464,23 +477,26 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Call {@link #createAsyncConnection(Configuration, User)} using the given {@code conf} and a    * User object created by {@link UserProvider}. The given {@code conf} will also be used to    * initialize the {@link UserProvider}.    * @param conf configuration    * @return AsyncConnection object    * @see #createAsyncConnection(Configuration, User)    * @see UserProvider    */
+comment|/**    * Call {@link #createAsyncConnection(Configuration, User)} using the given {@code conf} and a    * User object created by {@link UserProvider}. The given {@code conf} will also be used to    * initialize the {@link UserProvider}.    * @param conf configuration    * @return AsyncConnection object wrapped by CompletableFuture    * @see #createAsyncConnection(Configuration, User)    * @see UserProvider    */
 specifier|public
 specifier|static
+name|CompletableFuture
+argument_list|<
 name|AsyncConnection
+argument_list|>
 name|createAsyncConnection
 parameter_list|(
 name|Configuration
 name|conf
 parameter_list|)
-throws|throws
-name|IOException
 block|{
-return|return
-name|createAsyncConnection
-argument_list|(
-name|conf
-argument_list|,
+name|User
+name|user
+decl_stmt|;
+try|try
+block|{
+name|user
+operator|=
 name|UserProvider
 operator|.
 name|instantiate
@@ -490,13 +506,52 @@ argument_list|)
 operator|.
 name|getCurrent
 argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|CompletableFuture
+argument_list|<
+name|AsyncConnection
+argument_list|>
+name|future
+init|=
+operator|new
+name|CompletableFuture
+argument_list|<>
+argument_list|()
+decl_stmt|;
+name|future
+operator|.
+name|completeExceptionally
+argument_list|(
+name|e
+argument_list|)
+expr_stmt|;
+return|return
+name|future
+return|;
+block|}
+return|return
+name|createAsyncConnection
+argument_list|(
+name|conf
+argument_list|,
+name|user
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a new AsyncConnection instance using the passed {@code conf} and {@code user}.    * AsyncConnection encapsulates all housekeeping for a connection to the cluster. All tables and    * interfaces created from returned connection share zookeeper connection, meta cache, and    * connections to region servers and masters.    *<p>    * The caller is responsible for calling {@link AsyncConnection#close()} on the returned    * connection instance.    *<p>    * Usually you should only create one AsyncConnection instance in your code and use it everywhere    * as it is thread safe.    * @param conf configuration    * @param user the user the asynchronous connection is for    * @return AsyncConnection object    * @throws IOException    */
+comment|/**    * Create a new AsyncConnection instance using the passed {@code conf} and {@code user}.    * AsyncConnection encapsulates all housekeeping for a connection to the cluster. All tables and    * interfaces created from returned connection share zookeeper connection, meta cache, and    * connections to region servers and masters.    *<p>    * The caller is responsible for calling {@link AsyncConnection#close()} on the returned    * connection instance.    *<p>    * Usually you should only create one AsyncConnection instance in your code and use it everywhere    * as it is thread safe.    * @param conf configuration    * @param user the user the asynchronous connection is for    * @return AsyncConnection object wrapped by CompletableFuture    * @throws IOException    */
 specifier|public
 specifier|static
+name|CompletableFuture
+argument_list|<
 name|AsyncConnection
+argument_list|>
 name|createAsyncConnection
 parameter_list|(
 name|Configuration
@@ -505,9 +560,78 @@ parameter_list|,
 name|User
 name|user
 parameter_list|)
-throws|throws
-name|IOException
 block|{
+name|CompletableFuture
+argument_list|<
+name|AsyncConnection
+argument_list|>
+name|future
+init|=
+operator|new
+name|CompletableFuture
+argument_list|<>
+argument_list|()
+decl_stmt|;
+name|AsyncRegistry
+name|registry
+init|=
+name|AsyncRegistryFactory
+operator|.
+name|getRegistry
+argument_list|(
+name|conf
+argument_list|)
+decl_stmt|;
+name|registry
+operator|.
+name|getClusterId
+argument_list|()
+operator|.
+name|whenComplete
+argument_list|(
+parameter_list|(
+name|clusterId
+parameter_list|,
+name|error
+parameter_list|)
+lambda|->
+block|{
+if|if
+condition|(
+name|error
+operator|!=
+literal|null
+condition|)
+block|{
+name|future
+operator|.
+name|completeExceptionally
+argument_list|(
+name|error
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
+if|if
+condition|(
+name|clusterId
+operator|==
+literal|null
+condition|)
+block|{
+name|future
+operator|.
+name|completeExceptionally
+argument_list|(
+operator|new
+name|IOException
+argument_list|(
+literal|"clusterid came back null"
+argument_list|)
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 name|Class
 argument_list|<
 name|?
@@ -533,7 +657,10 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
-return|return
+name|future
+operator|.
+name|complete
+argument_list|(
 name|ReflectionUtils
 operator|.
 name|newInstance
@@ -542,9 +669,14 @@ name|clazz
 argument_list|,
 name|conf
 argument_list|,
+name|registry
+argument_list|,
+name|clusterId
+argument_list|,
 name|user
 argument_list|)
-return|;
+argument_list|)
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -552,14 +684,20 @@ name|Exception
 name|e
 parameter_list|)
 block|{
-throw|throw
-operator|new
-name|IOException
+name|future
+operator|.
+name|completeExceptionally
 argument_list|(
 name|e
 argument_list|)
-throw|;
+expr_stmt|;
 block|}
+block|}
+argument_list|)
+expr_stmt|;
+return|return
+name|future
+return|;
 block|}
 block|}
 end_class

@@ -573,6 +573,9 @@ name|REGISTRY
 operator|.
 name|getClusterId
 argument_list|()
+operator|.
+name|get
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|assertEquals
