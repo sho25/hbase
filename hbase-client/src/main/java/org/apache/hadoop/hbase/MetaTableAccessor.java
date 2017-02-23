@@ -8990,6 +8990,13 @@ argument_list|,
 name|time
 argument_list|)
 decl_stmt|;
+name|addRegionInfo
+argument_list|(
+name|put
+argument_list|,
+name|regionInfo
+argument_list|)
+expr_stmt|;
 name|addLocation
 argument_list|(
 name|put
