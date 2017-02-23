@@ -2482,16 +2482,6 @@ parameter_list|()
 block|{
 return|return
 name|FIXED_OVERHEAD
-operator|+
-name|rowLength
-operator|+
-name|famLength
-operator|+
-name|qualLength
-operator|+
-name|valLength
-operator|+
-name|tagsLength
 return|;
 block|}
 annotation|@

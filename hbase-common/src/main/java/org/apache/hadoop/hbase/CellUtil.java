@@ -3942,6 +3942,7 @@ argument_list|(
 name|cell
 argument_list|)
 decl_stmt|;
+comment|// this.tags is on heap byte[]
 if|if
 condition|(
 name|this

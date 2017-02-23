@@ -8321,7 +8321,7 @@ name|incrementResponseCellSize
 argument_list|(
 name|CellUtil
 operator|.
-name|estimatedHeapSizeOf
+name|estimatedSerializedSizeOf
 argument_list|(
 name|c
 argument_list|)
@@ -17245,11 +17245,15 @@ argument_list|(
 literal|true
 argument_list|)
 decl_stmt|;
+comment|// maxResultSize - either we can reach this much size for all cells(being read) data or sum
+comment|// of heap size occupied by cells(being read). Cell data means its key and value parts.
 name|contextBuilder
 operator|.
 name|setSizeLimit
 argument_list|(
 name|sizeScope
+argument_list|,
+name|maxResultSize
 argument_list|,
 name|maxResultSize
 argument_list|)

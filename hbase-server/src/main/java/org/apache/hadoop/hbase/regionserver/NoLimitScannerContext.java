@@ -153,6 +153,9 @@ name|setSizeProgress
 parameter_list|(
 name|long
 name|sizeProgress
+parameter_list|,
+name|long
+name|heapSizeProgress
 parameter_list|)
 block|{
 comment|// Do nothing. NoLimitScannerContext instances are immutable post-construction
@@ -186,6 +189,9 @@ name|batchProgress
 parameter_list|,
 name|long
 name|sizeProgress
+parameter_list|,
+name|long
+name|heapSizeProgress
 parameter_list|,
 name|long
 name|timeProgress
