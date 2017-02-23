@@ -3233,6 +3233,10 @@ argument_list|,
 name|State
 operator|.
 name|SPLITTING_NEW
+argument_list|,
+name|State
+operator|.
+name|MERGING_NEW
 argument_list|)
 condition|)
 block|{
