@@ -570,9 +570,9 @@ return|return
 name|state
 return|;
 block|}
-comment|/**    * @return true when we may have more cells for the current row. This usually because we have    *         reached a limit in the middle of a row    */
+comment|/**    * @return true when we have more cells for the current row. This usually because we have reached    *         a limit in the middle of a row    */
 name|boolean
-name|mayHaveMoreCellsInRow
+name|hasMoreCellsInRow
 parameter_list|()
 block|{
 return|return

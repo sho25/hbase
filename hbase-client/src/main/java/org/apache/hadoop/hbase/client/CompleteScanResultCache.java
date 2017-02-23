@@ -345,7 +345,7 @@ if|if
 condition|(
 name|last
 operator|.
-name|isPartial
+name|hasMoreCellsInRow
 argument_list|()
 condition|)
 block|{

@@ -8725,7 +8725,7 @@ name|setPartial
 argument_list|(
 name|result
 operator|.
-name|mayHaveMoreCellsInRow
+name|hasMoreCellsInRow
 argument_list|()
 argument_list|)
 expr_stmt|;

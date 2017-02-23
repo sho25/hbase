@@ -103,6 +103,24 @@ name|client
 operator|.
 name|ConnectionUtils
 operator|.
+name|numberOfIndividualRows
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|ConnectionUtils
+operator|.
 name|resetController
 import|;
 end_import
@@ -180,6 +198,16 @@ operator|.
 name|util
 operator|.
 name|ArrayList
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Arrays
 import|;
 end_import
 
@@ -934,7 +962,7 @@ name|resp
 decl_stmt|;
 specifier|private
 name|int
-name|numValidResults
+name|numberOfIndividualRows
 decl_stmt|;
 comment|// If the scan is suspended successfully, we need to do lease renewal to prevent it being closed
 comment|// by RS due to lease expire. It is a one-time timer task so we need to schedule a new task
@@ -961,7 +989,7 @@ name|ScanResponse
 name|localResp
 decl_stmt|;
 name|int
-name|localNumValidResults
+name|localNumberOfIndividualRows
 decl_stmt|;
 synchronized|synchronized
 init|(
@@ -1024,18 +1052,18 @@ name|this
 operator|.
 name|resp
 expr_stmt|;
-name|localNumValidResults
+name|localNumberOfIndividualRows
 operator|=
 name|this
 operator|.
-name|numValidResults
+name|numberOfIndividualRows
 expr_stmt|;
 block|}
 name|completeOrNext
 argument_list|(
 name|localResp
 argument_list|,
-name|localNumValidResults
+name|localNumberOfIndividualRows
 argument_list|)
 expr_stmt|;
 block|}
@@ -1101,7 +1129,7 @@ name|ScanResponse
 name|resp
 parameter_list|,
 name|int
-name|numValidResults
+name|numberOfIndividualRows
 parameter_list|)
 block|{
 if|if
@@ -1132,9 +1160,9 @@ name|resp
 expr_stmt|;
 name|this
 operator|.
-name|numValidResults
+name|numberOfIndividualRows
 operator|=
-name|numValidResults
+name|numberOfIndividualRows
 expr_stmt|;
 comment|// if there are no more results in region then the scanner at RS side will be closed
 comment|// automatically so we do not need to renew lease.
@@ -1890,7 +1918,7 @@ name|includeNextStartRowWhenError
 operator|=
 name|result
 operator|.
-name|mayHaveMoreCellsInRow
+name|hasMoreCellsInRow
 argument_list|()
 expr_stmt|;
 block|}
@@ -1980,7 +2008,7 @@ name|ScanResponse
 name|resp
 parameter_list|,
 name|int
-name|numValidResults
+name|numIndividualRows
 parameter_list|)
 block|{
 if|if
@@ -2014,19 +2042,19 @@ literal|0
 condition|)
 block|{
 comment|// The RS should have set the moreResults field in ScanResponse to false when we have reached
-comment|// the limit.
+comment|// the limit, so we add an assert here.
 name|int
-name|limit
+name|newLimit
 init|=
 name|scan
 operator|.
 name|getLimit
 argument_list|()
 operator|-
-name|numValidResults
+name|numIndividualRows
 decl_stmt|;
 assert|assert
-name|limit
+name|newLimit
 operator|>
 literal|0
 assert|;
@@ -2034,7 +2062,7 @@ name|scan
 operator|.
 name|setLimit
 argument_list|(
-name|limit
+name|newLimit
 argument_list|)
 expr_stmt|;
 block|}
@@ -2166,6 +2194,21 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
+comment|// calculate this before calling onNext as it is free for user to modify the result array in
+comment|// onNext.
+name|int
+name|numberOfIndividualRows
+init|=
+name|numberOfIndividualRows
+argument_list|(
+name|Arrays
+operator|.
+name|asList
+argument_list|(
+name|results
+argument_list|)
+argument_list|)
+decl_stmt|;
 name|ScanControllerImpl
 name|scanController
 init|=
@@ -2182,7 +2225,7 @@ operator|==
 literal|0
 condition|)
 block|{
-comment|// if we have nothing to return then this must be a heartbeat message.
+comment|// if we have nothing to return then just call onHeartbeat.
 name|consumer
 operator|.
 name|onHeartbeat
@@ -2270,9 +2313,7 @@ name|prepare
 argument_list|(
 name|resp
 argument_list|,
-name|results
-operator|.
-name|length
+name|numberOfIndividualRows
 argument_list|)
 condition|)
 block|{
@@ -2283,9 +2324,7 @@ name|completeOrNext
 argument_list|(
 name|resp
 argument_list|,
-name|results
-operator|.
-name|length
+name|numberOfIndividualRows
 argument_list|)
 expr_stmt|;
 block|}
