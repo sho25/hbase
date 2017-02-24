@@ -1563,10 +1563,12 @@ operator|)
 name|fileSize
 expr_stmt|;
 block|}
-name|istream
+name|HFileUtil
 operator|.
-name|seek
+name|seekOnMultipleSources
 argument_list|(
+name|istream
+argument_list|,
 name|seekPoint
 argument_list|)
 expr_stmt|;
