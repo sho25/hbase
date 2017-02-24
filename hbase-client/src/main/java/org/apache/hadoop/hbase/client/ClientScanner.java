@@ -459,26 +459,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|shaded
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|MapReduceProtos
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|util
 operator|.
 name|Bytes
@@ -1388,7 +1368,7 @@ return|return
 name|rrs
 return|;
 block|}
-comment|/**    * Publish the scan metrics. For now, we use scan.setAttribute to pass the metrics back to the    * application or TableInputFormat.Later, we could push it to other systems. We don't use metrics    * framework because it doesn't support multi-instances of the same metrics on the same machine;    * for scan/map reduce scenarios, we will have multiple scans running at the same time. By    * default, scan metrics are disabled; if the application wants to collect them, this behavior can    * be turned on by calling calling {@link Scan#setScanMetricsEnabled(boolean)}    *<p>    * This invocation clears the scan metrics. Metrics are aggregated in the Scan instance.    */
+comment|/**    * Publish the scan metrics. For now, we use scan.setAttribute to pass the metrics back to the    * application or TableInputFormat.Later, we could push it to other systems. We don't use metrics    * framework because it doesn't support multi-instances of the same metrics on the same machine;    * for scan/map reduce scenarios, we will have multiple scans running at the same time. By    * default, scan metrics are disabled; if the application wants to collect them, this behavior can    * be turned on by calling calling {@link Scan#setScanMetricsEnabled(boolean)}    */
 specifier|protected
 name|void
 name|writeScanMetrics
@@ -1407,18 +1387,10 @@ condition|)
 block|{
 return|return;
 block|}
-name|MapReduceProtos
-operator|.
-name|ScanMetrics
-name|pScanMetrics
-init|=
-name|ProtobufUtil
-operator|.
-name|toScanMetrics
-argument_list|(
-name|scanMetrics
-argument_list|)
-decl_stmt|;
+comment|// Publish ScanMetrics to the Scan Object.
+comment|// As we have claimed in the comment of Scan.getScanMetrics, this relies on that user will not
+comment|// call ResultScanner.getScanMetrics and reset the ScanMetrics. Otherwise the metrics published
+comment|// to Scan will be messed up.
 name|scan
 operator|.
 name|setAttribute
@@ -1427,7 +1399,14 @@ name|Scan
 operator|.
 name|SCAN_ATTRIBUTES_METRICS_DATA
 argument_list|,
-name|pScanMetrics
+name|ProtobufUtil
+operator|.
+name|toScanMetrics
+argument_list|(
+name|scanMetrics
+argument_list|,
+literal|false
+argument_list|)
 operator|.
 name|toByteArray
 argument_list|()

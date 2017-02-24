@@ -541,6 +541,24 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|metrics
+operator|.
+name|ScanMetrics
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|filter
 operator|.
 name|CompareFilter
@@ -3951,6 +3969,21 @@ operator|new
 name|RuntimeException
 argument_list|(
 literal|"renewLease() not supported"
+argument_list|)
+throw|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|ScanMetrics
+name|getScanMetrics
+parameter_list|()
+block|{
+throw|throw
+operator|new
+name|RuntimeException
+argument_list|(
+literal|"getScanMetrics() not supported"
 argument_list|)
 throw|;
 block|}

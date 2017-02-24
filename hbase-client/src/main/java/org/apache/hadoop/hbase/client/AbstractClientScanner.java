@@ -97,7 +97,9 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Used internally accumulating metrics on scan. To    * enable collection of metrics on a Scanner, call {@link Scan#setScanMetricsEnabled(boolean)}.    * These metrics are cleared at key transition points. Metrics are accumulated in the    * {@link Scan} object itself.    * @see Scan#getScanMetrics()    * @return Returns the running {@link ScanMetrics} instance or null if scan metrics not enabled.    */
+comment|/**    * Used internally accumulating metrics on scan. To enable collection of metrics on a Scanner,    * call {@link Scan#setScanMetricsEnabled(boolean)}.    * @return Returns the running {@link ScanMetrics} instance or null if scan metrics not enabled.    */
+annotation|@
+name|Override
 specifier|public
 name|ScanMetrics
 name|getScanMetrics

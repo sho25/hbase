@@ -1184,7 +1184,7 @@ argument_list|)
 expr_stmt|;
 name|scan
 operator|.
-name|setStartRow
+name|withStartRow
 argument_list|(
 name|ROWS
 index|[
@@ -1194,7 +1194,7 @@ argument_list|)
 expr_stmt|;
 name|scan
 operator|.
-name|setStopRow
+name|withStopRow
 argument_list|(
 name|ROWS
 index|[
@@ -1247,7 +1247,7 @@ argument_list|)
 expr_stmt|;
 name|scan
 operator|.
-name|setStartRow
+name|withStartRow
 argument_list|(
 name|ROWS
 index|[
@@ -1259,7 +1259,7 @@ argument_list|)
 expr_stmt|;
 name|scan
 operator|.
-name|setStopRow
+name|withStopRow
 argument_list|(
 name|ROWS
 index|[
@@ -1976,14 +1976,16 @@ name|scan
 argument_list|)
 decl_stmt|;
 comment|// Iterate through all the results
-for|for
-control|(
-name|Result
-name|r
-range|:
+while|while
+condition|(
 name|scanner
-control|)
-block|{     }
+operator|.
+name|next
+argument_list|()
+operator|!=
+literal|null
+condition|)
+block|{      }
 name|scanner
 operator|.
 name|close
@@ -1992,7 +1994,7 @@ expr_stmt|;
 name|ScanMetrics
 name|metrics
 init|=
-name|scan
+name|scanner
 operator|.
 name|getScanMetrics
 argument_list|()

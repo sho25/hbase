@@ -3361,7 +3361,9 @@ name|attr
 argument_list|)
 return|;
 block|}
-comment|/**    * @return Metrics on this Scan, if metrics were enabled.    * @see #setScanMetricsEnabled(boolean)    */
+comment|/**    * @return Metrics on this Scan, if metrics were enabled.    * @see #setScanMetricsEnabled(boolean)    * @deprecated Use {@link ResultScanner#getScanMetrics()} instead. And notice that, please do not    *             use this method and {@link ResultScanner#getScanMetrics()} together, the metrics    *             will be messed up.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|ScanMetrics
 name|getScanMetrics

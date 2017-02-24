@@ -496,7 +496,7 @@ argument_list|)
 expr_stmt|;
 name|currentScan
 operator|.
-name|setStartRow
+name|withStartRow
 argument_list|(
 name|firstRow
 argument_list|)
@@ -1195,7 +1195,7 @@ block|{
 name|ScanMetrics
 name|scanMetrics
 init|=
-name|currentScan
+name|scanner
 operator|.
 name|getScanMetrics
 argument_list|()

@@ -109,6 +109,24 @@ name|InterfaceStability
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|metrics
+operator|.
+name|ScanMetrics
+import|;
+end_import
+
 begin_comment
 comment|/**  * Interface for client-side scanning. Go to {@link Table} to obtain instances.  */
 end_comment
@@ -348,6 +366,11 @@ function_decl|;
 comment|/**    * Allow the client to renew the scanner's lease on the server.    * @return true if the lease was successfully renewed, false otherwise.    */
 name|boolean
 name|renewLease
+parameter_list|()
+function_decl|;
+comment|/**    * @return the scan metrics, or {@code null} if we do not enable metrics.    */
+name|ScanMetrics
+name|getScanMetrics
 parameter_list|()
 function_decl|;
 block|}
