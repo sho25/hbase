@@ -9340,6 +9340,11 @@ name|isMajorCompaction
 argument_list|()
 condition|)
 block|{
+name|s
+operator|.
+name|triggerMajorCompaction
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|majorCompactPriority
