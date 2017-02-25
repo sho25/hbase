@@ -570,13 +570,6 @@ block|}
 comment|// ==========================================================================
 comment|//  Utils
 comment|// ==========================================================================
-comment|/**    * Removes all of the elements from the queue    * NOTE: this method is called with the sched lock held.    */
-specifier|protected
-specifier|abstract
-name|void
-name|clearQueue
-parameter_list|()
-function_decl|;
 comment|/**    * Returns the number of elements in this queue.    * NOTE: this method is called with the sched lock held.    * @return the number of elements in this queue.    */
 specifier|protected
 specifier|abstract
@@ -591,30 +584,6 @@ name|boolean
 name|queueHasRunnables
 parameter_list|()
 function_decl|;
-annotation|@
-name|Override
-specifier|public
-name|void
-name|clear
-parameter_list|()
-block|{
-comment|// NOTE: USED ONLY FOR TESTING
-name|schedLock
-argument_list|()
-expr_stmt|;
-try|try
-block|{
-name|clearQueue
-argument_list|()
-expr_stmt|;
-block|}
-finally|finally
-block|{
-name|schedUnlock
-argument_list|()
-expr_stmt|;
-block|}
-block|}
 annotation|@
 name|Override
 specifier|public

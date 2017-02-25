@@ -2875,6 +2875,8 @@ name|sendStopSignal
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|VisibleForTesting
 specifier|public
 name|void
 name|join

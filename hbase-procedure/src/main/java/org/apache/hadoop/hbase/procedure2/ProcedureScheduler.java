@@ -206,7 +206,7 @@ name|int
 name|size
 parameter_list|()
 function_decl|;
-comment|/**    * Removes all of the elements from the queue    */
+comment|/**    * Clear current state of scheduler such that it is equivalent to newly created scheduler.    * Used for testing failure and recovery. To emulate server crash/restart,    * {@link ProcedureExecutor} resets its own state and calls clear() on scheduler.    */
 annotation|@
 name|VisibleForTesting
 name|void
