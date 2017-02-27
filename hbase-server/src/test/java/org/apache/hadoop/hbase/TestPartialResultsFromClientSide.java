@@ -1037,7 +1037,7 @@ name|assertFalse
 argument_list|(
 name|result
 operator|.
-name|isPartial
+name|hasMoreCellsInRow
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1117,7 +1117,7 @@ name|assertTrue
 argument_list|(
 name|result
 operator|.
-name|isPartial
+name|hasMoreCellsInRow
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1183,7 +1183,7 @@ argument_list|(
 operator|!
 name|result
 operator|.
-name|isPartial
+name|hasMoreCellsInRow
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1635,7 +1635,7 @@ do|while
 condition|(
 name|partialResult
 operator|.
-name|isPartial
+name|hasMoreCellsInRow
 argument_list|()
 condition|)
 do|;
@@ -1967,7 +1967,7 @@ operator|||
 operator|!
 name|result
 operator|.
-name|isPartial
+name|hasMoreCellsInRow
 argument_list|()
 operator|||
 operator|!
@@ -2319,7 +2319,7 @@ if|if
 condition|(
 name|result
 operator|.
-name|isPartial
+name|hasMoreCellsInRow
 argument_list|()
 condition|)
 block|{
@@ -2572,7 +2572,7 @@ literal|null
 operator|&&
 name|partialResult
 operator|.
-name|isPartial
+name|hasMoreCellsInRow
 argument_list|()
 condition|)
 do|;
@@ -2841,7 +2841,7 @@ name|assertFalse
 argument_list|(
 name|r
 operator|.
-name|isPartial
+name|hasMoreCellsInRow
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3019,7 +3019,7 @@ argument_list|(
 operator|!
 name|r
 operator|.
-name|isPartial
+name|hasMoreCellsInRow
 argument_list|()
 operator|||
 name|expectToSeePartialResults
@@ -4688,7 +4688,7 @@ name|assertFalse
 argument_list|(
 name|result1
 operator|.
-name|isPartial
+name|hasMoreCellsInRow
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -4754,7 +4754,7 @@ name|assertTrue
 argument_list|(
 name|result2
 operator|.
-name|isPartial
+name|hasMoreCellsInRow
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -4820,7 +4820,7 @@ name|assertTrue
 argument_list|(
 name|result3
 operator|.
-name|isPartial
+name|hasMoreCellsInRow
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -4989,7 +4989,7 @@ name|assertFalse
 argument_list|(
 name|result1
 operator|.
-name|isPartial
+name|hasMoreCellsInRow
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -5057,7 +5057,7 @@ name|assertTrue
 argument_list|(
 name|result2
 operator|.
-name|isPartial
+name|hasMoreCellsInRow
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -5125,7 +5125,7 @@ name|assertTrue
 argument_list|(
 name|result3
 operator|.
-name|isPartial
+name|hasMoreCellsInRow
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -5258,7 +5258,7 @@ name|assertFalse
 argument_list|(
 name|result1
 operator|.
-name|isPartial
+name|hasMoreCellsInRow
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -5326,7 +5326,7 @@ name|assertFalse
 argument_list|(
 name|result2
 operator|.
-name|isPartial
+name|hasMoreCellsInRow
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -5394,7 +5394,7 @@ name|assertFalse
 argument_list|(
 name|result3
 operator|.
-name|isPartial
+name|hasMoreCellsInRow
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -5536,7 +5536,7 @@ name|assertFalse
 argument_list|(
 name|result1
 operator|.
-name|isPartial
+name|hasMoreCellsInRow
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -5606,7 +5606,7 @@ name|assertFalse
 argument_list|(
 name|result2
 operator|.
-name|isPartial
+name|hasMoreCellsInRow
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -5676,7 +5676,7 @@ name|assertFalse
 argument_list|(
 name|result3
 operator|.
-name|isPartial
+name|hasMoreCellsInRow
 argument_list|()
 argument_list|)
 expr_stmt|;

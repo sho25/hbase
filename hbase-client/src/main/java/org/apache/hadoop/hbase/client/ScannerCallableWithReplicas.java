@@ -1671,7 +1671,7 @@ name|this
 operator|.
 name|lastResult
 operator|.
-name|isPartial
+name|hasMoreCellsInRow
 argument_list|()
 argument_list|)
 expr_stmt|;
