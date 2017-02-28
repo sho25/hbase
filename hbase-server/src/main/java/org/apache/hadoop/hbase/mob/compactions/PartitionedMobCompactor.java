@@ -3902,6 +3902,8 @@ argument_list|,
 name|compactionCacheConfig
 argument_list|,
 name|cryptoContext
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 name|cleanupTmpMobFile
@@ -3955,6 +3957,8 @@ argument_list|,
 name|compactionCacheConfig
 argument_list|,
 name|cryptoContext
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 name|cleanupBulkloadDirOfPartition

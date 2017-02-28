@@ -1127,16 +1127,13 @@ argument_list|(
 name|row1
 argument_list|)
 decl_stmt|;
-name|Result
-name|r
-init|=
 name|table
 operator|.
 name|get
 argument_list|(
 name|g
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 comment|// should not have blown up.
 block|}
 annotation|@

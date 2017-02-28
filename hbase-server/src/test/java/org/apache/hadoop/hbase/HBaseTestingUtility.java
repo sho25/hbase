@@ -10414,7 +10414,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// Do not retrieve the mob data when scanning
 name|int
 name|scannedCount
 init|=

@@ -1264,7 +1264,7 @@ name|int
 name|bytesPerChecksum
 decl_stmt|;
 comment|// Comparing KeyValues
-specifier|private
+specifier|protected
 specifier|final
 name|CellComparator
 name|comparator
