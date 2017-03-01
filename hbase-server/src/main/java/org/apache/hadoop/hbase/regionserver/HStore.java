@@ -3470,6 +3470,34 @@ return|return
 name|storeFile
 return|;
 block|}
+comment|/**    * This message intends to inform the MemStore that next coming updates    * are going to be part of the replaying edits from WAL    */
+specifier|public
+name|void
+name|startReplayingFromWAL
+parameter_list|()
+block|{
+name|this
+operator|.
+name|memstore
+operator|.
+name|startReplayingFromWAL
+argument_list|()
+expr_stmt|;
+block|}
+comment|/**    * This message intends to inform the MemStore that the replaying edits from WAL    * are done    */
+specifier|public
+name|void
+name|stopReplayingFromWAL
+parameter_list|()
+block|{
+name|this
+operator|.
+name|memstore
+operator|.
+name|stopReplayingFromWAL
+argument_list|()
+expr_stmt|;
+block|}
 comment|/**    * Adds a value to the memstore    * @param cell    * @param memstoreSize    */
 specifier|public
 name|void

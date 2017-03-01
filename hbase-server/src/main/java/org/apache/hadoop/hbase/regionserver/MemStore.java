@@ -197,6 +197,22 @@ name|boolean
 name|isSloppy
 parameter_list|()
 function_decl|;
+comment|/**    * This message intends to inform the MemStore that next coming updates    * are going to be part of the replaying edits from WAL    */
+specifier|default
+name|void
+name|startReplayingFromWAL
+parameter_list|()
+block|{
+return|return;
+block|}
+comment|/**    * This message intends to inform the MemStore that the replaying edits from WAL    * are done    */
+specifier|default
+name|void
+name|stopReplayingFromWAL
+parameter_list|()
+block|{
+return|return;
+block|}
 block|}
 end_interface
 

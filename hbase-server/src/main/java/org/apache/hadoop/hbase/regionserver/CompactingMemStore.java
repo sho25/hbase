@@ -378,6 +378,13 @@ argument_list|(
 literal|false
 argument_list|)
 decl_stmt|;
+comment|// inWalReplay is true while we are synchronously replaying the edits from WAL
+specifier|private
+name|boolean
+name|inWalReplay
+init|=
+literal|false
+decl_stmt|;
 annotation|@
 name|VisibleForTesting
 specifier|private
@@ -403,6 +410,10 @@ specifier|final
 name|long
 name|DEEP_OVERHEAD
 init|=
+name|ClassSize
+operator|.
+name|align
+argument_list|(
 name|AbstractMemStore
 operator|.
 name|DEEP_OVERHEAD
@@ -422,6 +433,13 @@ comment|// inmemoryFlushSize
 operator|+
 literal|2
 operator|*
+name|Bytes
+operator|.
+name|SIZEOF_BOOLEAN
+comment|// compositeSnapshot and inWalReplay
+operator|+
+literal|2
+operator|*
 name|ClassSize
 operator|.
 name|ATOMIC_BOOLEAN
@@ -434,6 +452,7 @@ operator|+
 name|MemStoreCompactor
 operator|.
 name|DEEP_OVERHEAD
+argument_list|)
 decl_stmt|;
 specifier|public
 name|CompactingMemStore
@@ -1068,6 +1087,32 @@ expr_stmt|;
 block|}
 block|}
 block|}
+comment|/**    * This message intends to inform the MemStore that next coming updates    * are going to be part of the replaying edits from WAL    */
+annotation|@
+name|Override
+specifier|public
+name|void
+name|startReplayingFromWAL
+parameter_list|()
+block|{
+name|inWalReplay
+operator|=
+literal|true
+expr_stmt|;
+block|}
+comment|/**    * This message intends to inform the MemStore that the replaying edits from WAL    * are done    */
+annotation|@
+name|Override
+specifier|public
+name|void
+name|stopReplayingFromWAL
+parameter_list|()
+block|{
+name|inWalReplay
+operator|=
+literal|false
+expr_stmt|;
+block|}
 comment|// the getSegments() method is used for tests only
 annotation|@
 name|VisibleForTesting
@@ -1689,6 +1734,17 @@ name|inmemoryFlushSize
 condition|)
 block|{
 comment|// size above flush threshold
+if|if
+condition|(
+name|inWalReplay
+condition|)
+block|{
+comment|// when replaying edits from WAL there is no need in in-memory flush
+return|return
+literal|false
+return|;
+comment|// regardless the size
+block|}
 comment|// the inMemoryFlushInProgress is CASed to be true here in order to mutual exclude
 comment|// the insert of the active into the compaction pipeline
 return|return

@@ -1882,6 +1882,7 @@ argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
+comment|//inside CompactionPipeline
 name|expected
 operator|+=
 name|ClassSize
@@ -1895,6 +1896,7 @@ argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
+comment|//inside CompactionPipeline
 name|expected
 operator|+=
 name|ClassSize
@@ -1921,6 +1923,7 @@ argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
+comment|// inside MemStoreCompactor
 if|if
 condition|(
 name|expected

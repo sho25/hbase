@@ -287,10 +287,6 @@ name|FIXED_OVERHEAD
 init|=
 name|ClassSize
 operator|.
-name|align
-argument_list|(
-name|ClassSize
-operator|.
 name|OBJECT
 operator|+
 operator|(
@@ -308,8 +304,8 @@ name|Bytes
 operator|.
 name|SIZEOF_LONG
 operator|)
-argument_list|)
 decl_stmt|;
+comment|// snapshotId, timeOfOldestEdit
 specifier|public
 specifier|final
 specifier|static
