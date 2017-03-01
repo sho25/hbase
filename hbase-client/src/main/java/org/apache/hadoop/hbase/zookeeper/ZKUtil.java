@@ -3924,7 +3924,7 @@ argument_list|,
 operator|new
 name|Id
 argument_list|(
-literal|"auth"
+literal|"sasl"
 argument_list|,
 name|user
 argument_list|)
