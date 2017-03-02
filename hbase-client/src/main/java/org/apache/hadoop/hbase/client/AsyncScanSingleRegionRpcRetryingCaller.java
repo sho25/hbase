@@ -1918,7 +1918,7 @@ name|includeNextStartRowWhenError
 operator|=
 name|result
 operator|.
-name|hasMoreCellsInRow
+name|mayHaveMoreCellsInRow
 argument_list|()
 expr_stmt|;
 block|}

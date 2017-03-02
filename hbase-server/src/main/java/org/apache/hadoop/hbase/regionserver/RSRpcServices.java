@@ -4533,7 +4533,7 @@ name|addPartialFlagPerResult
 argument_list|(
 name|res
 operator|.
-name|hasMoreCellsInRow
+name|mayHaveMoreCellsInRow
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -18452,7 +18452,7 @@ operator|-
 literal|1
 argument_list|)
 operator|.
-name|hasMoreCellsInRow
+name|mayHaveMoreCellsInRow
 argument_list|()
 operator|&&
 name|ConnectionUtils

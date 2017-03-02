@@ -949,7 +949,7 @@ literal|"Should not have partial result"
 argument_list|,
 name|result
 operator|.
-name|hasMoreCellsInRow
+name|mayHaveMoreCellsInRow
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -993,7 +993,7 @@ condition|(
 operator|!
 name|result
 operator|.
-name|hasMoreCellsInRow
+name|mayHaveMoreCellsInRow
 argument_list|()
 condition|)
 block|{

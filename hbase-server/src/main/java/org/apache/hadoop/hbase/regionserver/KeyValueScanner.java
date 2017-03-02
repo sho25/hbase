@@ -128,7 +128,7 @@ operator|new
 name|KeyValue
 argument_list|()
 decl_stmt|;
-comment|/**    * Look at the next Cell in this scanner, but do not iterate scanner.    * @return the next Cell    */
+comment|/**    * Look at the next Cell in this scanner, but do not iterate scanner.    * NOTICE: The returned cell has not been passed into ScanQueryMatcher. So it may not be what the    * user need.    * @return the next Cell    */
 name|Cell
 name|peek
 parameter_list|()

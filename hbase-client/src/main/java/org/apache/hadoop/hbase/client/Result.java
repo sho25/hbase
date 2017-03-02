@@ -314,10 +314,10 @@ name|stale
 init|=
 literal|false
 decl_stmt|;
-comment|/**    * See {@link #hasMoreCellsInRow()}.    */
+comment|/**    * See {@link #mayHaveMoreCellsInRow()}.    */
 specifier|private
 name|boolean
-name|hasMoreCellsInRow
+name|mayHaveMoreCellsInRow
 init|=
 literal|false
 decl_stmt|;
@@ -542,7 +542,7 @@ name|boolean
 name|stale
 parameter_list|,
 name|boolean
-name|partial
+name|hasMoreCellsInRow
 parameter_list|)
 block|{
 if|if
@@ -562,7 +562,7 @@ name|exists
 argument_list|,
 name|stale
 argument_list|,
-name|partial
+name|hasMoreCellsInRow
 argument_list|)
 return|;
 block|}
@@ -588,7 +588,7 @@ literal|null
 argument_list|,
 name|stale
 argument_list|,
-name|partial
+name|hasMoreCellsInRow
 argument_list|)
 return|;
 block|}
@@ -735,7 +735,7 @@ name|stale
 expr_stmt|;
 name|this
 operator|.
-name|hasMoreCellsInRow
+name|mayHaveMoreCellsInRow
 operator|=
 name|mayHaveMoreCellsInRow
 expr_stmt|;
@@ -3284,7 +3284,7 @@ operator|&&
 operator|!
 name|r
 operator|.
-name|hasMoreCellsInRow
+name|mayHaveMoreCellsInRow
 argument_list|()
 condition|)
 block|{
@@ -3547,7 +3547,7 @@ return|return
 name|stale
 return|;
 block|}
-comment|/**    * Whether or not the result is a partial result. Partial results contain a subset of the cells    * for a row and should be combined with a result representing the remaining cells in that row to    * form a complete (non-partial) result.    * @return Whether or not the result is a partial result    * @deprecated the word 'partial' ambiguous, use {@link #hasMoreCellsInRow()} instead.    *             Deprecated since 1.4.0.    * @see #hasMoreCellsInRow()    */
+comment|/**    * Whether or not the result is a partial result. Partial results contain a subset of the cells    * for a row and should be combined with a result representing the remaining cells in that row to    * form a complete (non-partial) result.    * @return Whether or not the result is a partial result    * @deprecated the word 'partial' ambiguous, use {@link #mayHaveMoreCellsInRow()} instead.    *             Deprecated since 1.4.0.    * @see #mayHaveMoreCellsInRow()    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -3556,17 +3556,17 @@ name|isPartial
 parameter_list|()
 block|{
 return|return
-name|hasMoreCellsInRow
+name|mayHaveMoreCellsInRow
 return|;
 block|}
 comment|/**    * For scanning large rows, the RS may choose to return the cells chunk by chunk to prevent OOM.    * This flag is used to tell you if the current Result is the last one of the current row. False    * means this Result is the last one. True means there are be more cells for the current row.    *<p>    * The Scan configuration used to control the result size on the server is    * {@link Scan#setMaxResultSize(long)} and the default value can be seen here:    * {@link HConstants#DEFAULT_HBASE_CLIENT_SCANNER_MAX_RESULT_SIZE}    */
 specifier|public
 name|boolean
-name|hasMoreCellsInRow
+name|mayHaveMoreCellsInRow
 parameter_list|()
 block|{
 return|return
-name|hasMoreCellsInRow
+name|mayHaveMoreCellsInRow
 return|;
 block|}
 comment|/**    * Set load information about the region to the information about the result    * @param loadStats statistics about the current region from which this was returned    */

@@ -1751,7 +1751,7 @@ argument_list|()
 argument_list|,
 name|result
 operator|.
-name|hasMoreCellsInRow
+name|mayHaveMoreCellsInRow
 argument_list|()
 argument_list|)
 return|;
@@ -2153,7 +2153,7 @@ lambda|->
 operator|!
 name|r
 operator|.
-name|hasMoreCellsInRow
+name|mayHaveMoreCellsInRow
 argument_list|()
 argument_list|)
 operator|.

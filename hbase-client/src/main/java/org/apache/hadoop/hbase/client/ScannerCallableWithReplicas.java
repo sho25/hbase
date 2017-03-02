@@ -1671,7 +1671,7 @@ name|this
 operator|.
 name|lastResult
 operator|.
-name|hasMoreCellsInRow
+name|mayHaveMoreCellsInRow
 argument_list|()
 argument_list|)
 expr_stmt|;
