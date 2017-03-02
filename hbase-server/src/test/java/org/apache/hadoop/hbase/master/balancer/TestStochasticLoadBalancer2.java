@@ -392,6 +392,15 @@ literal|1000
 argument_list|)
 expr_stmt|;
 comment|// 120 sec
+name|conf
+operator|.
+name|setFloat
+argument_list|(
+literal|"hbase.master.balancer.stochastic.tableSkewCost"
+argument_list|,
+literal|4
+argument_list|)
+expr_stmt|;
 name|loadBalancer
 operator|.
 name|setConf
@@ -442,6 +451,16 @@ argument_list|,
 literal|false
 argument_list|,
 literal|true
+argument_list|)
+expr_stmt|;
+comment|// reset config
+name|conf
+operator|.
+name|setFloat
+argument_list|(
+literal|"hbase.master.balancer.stochastic.tableSkewCost"
+argument_list|,
+literal|35
 argument_list|)
 expr_stmt|;
 block|}
