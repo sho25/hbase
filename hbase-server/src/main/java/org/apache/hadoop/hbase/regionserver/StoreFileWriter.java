@@ -1999,10 +1999,16 @@ name|dir
 argument_list|)
 condition|)
 block|{
-name|fs
+comment|// Handle permission for non-HDFS filesystem properly
+comment|// See HBASE-17710
+name|HRegionFileSystem
 operator|.
 name|mkdirs
 argument_list|(
+name|fs
+argument_list|,
+name|conf
+argument_list|,
 name|dir
 argument_list|)
 expr_stmt|;

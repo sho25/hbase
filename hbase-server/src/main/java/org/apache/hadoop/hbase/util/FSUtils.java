@@ -1657,7 +1657,7 @@ comment|/**    * @return True is<code>fs</code> is instance of DistributedFileSy
 end_comment
 
 begin_function
-specifier|private
+specifier|public
 specifier|static
 name|boolean
 name|isDistributedFileSystem
