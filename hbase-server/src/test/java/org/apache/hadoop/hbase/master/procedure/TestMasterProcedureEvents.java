@@ -924,7 +924,7 @@ operator|.
 name|getServerManager
 argument_list|()
 operator|.
-name|moveFromOnelineToDeadServers
+name|moveFromOnlineToDeadServers
 argument_list|(
 name|hrs
 operator|.

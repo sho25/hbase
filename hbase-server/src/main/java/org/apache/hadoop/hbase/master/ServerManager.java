@@ -37,15 +37,11 @@ end_import
 
 begin_import
 import|import
-name|com
+name|java
 operator|.
-name|google
+name|io
 operator|.
-name|common
-operator|.
-name|annotations
-operator|.
-name|VisibleForTesting
+name|IOException
 import|;
 end_import
 
@@ -53,9 +49,9 @@ begin_import
 import|import
 name|java
 operator|.
-name|io
+name|net
 operator|.
-name|IOException
+name|ConnectException
 import|;
 end_import
 
@@ -990,6 +986,20 @@ operator|.
 name|zookeeper
 operator|.
 name|KeeperException
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
 import|;
 end_import
 
@@ -2923,17 +2933,9 @@ name|String
 argument_list|>
 name|servers
 init|=
-name|ZKUtil
-operator|.
-name|listChildrenNoWatch
+name|getRegionServersInZK
 argument_list|(
 name|zkw
-argument_list|,
-name|zkw
-operator|.
-name|znodePaths
-operator|.
-name|rsZNode
 argument_list|)
 decl_stmt|;
 if|if
@@ -3030,6 +3032,35 @@ comment|// continue
 block|}
 block|}
 block|}
+block|}
+specifier|private
+name|List
+argument_list|<
+name|String
+argument_list|>
+name|getRegionServersInZK
+parameter_list|(
+specifier|final
+name|ZooKeeperWatcher
+name|zkw
+parameter_list|)
+throws|throws
+name|KeeperException
+block|{
+return|return
+name|ZKUtil
+operator|.
+name|listChildrenNoWatch
+argument_list|(
+name|zkw
+argument_list|,
+name|zkw
+operator|.
+name|znodePaths
+operator|.
+name|rsZNode
+argument_list|)
+return|;
 block|}
 comment|/*    * Expire the passed server.  Add it to list of dead servers and queue a    * shutdown processing.    */
 specifier|public
@@ -3138,7 +3169,7 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
-name|moveFromOnelineToDeadServers
+name|moveFromOnlineToDeadServers
 argument_list|(
 name|serverName
 argument_list|)
@@ -3285,7 +3316,7 @@ annotation|@
 name|VisibleForTesting
 specifier|public
 name|void
-name|moveFromOnelineToDeadServers
+name|moveFromOnlineToDeadServers
 parameter_list|(
 specifier|final
 name|ServerName
@@ -3827,6 +3858,13 @@ name|ServiceException
 name|se
 parameter_list|)
 block|{
+name|checkForRSznode
+argument_list|(
+name|server
+argument_list|,
+name|se
+argument_list|)
+expr_stmt|;
 throw|throw
 name|ProtobufUtil
 operator|.
@@ -3835,6 +3873,176 @@ argument_list|(
 name|se
 argument_list|)
 throw|;
+block|}
+block|}
+comment|/**    * Check for an odd state, where we think an RS is up but it is not. Do it on OPEN.    * This is only case where the check makes sense.    *    *<p>We are checking for instance of HBASE-9593 where a RS registered but died before it put    * up its znode in zk. In this case, the RS made it into the list of online servers but it    * is not actually UP. We do the check here where there is an evident problem rather    * than do some crazy footwork where we'd have master check zk after a RS had reported    * for duty with provisional state followed by a confirmed state; that'd be a mess.    * Real fix is HBASE-17733.    */
+specifier|private
+name|void
+name|checkForRSznode
+parameter_list|(
+specifier|final
+name|ServerName
+name|serverName
+parameter_list|,
+specifier|final
+name|ServiceException
+name|se
+parameter_list|)
+block|{
+if|if
+condition|(
+name|se
+operator|.
+name|getCause
+argument_list|()
+operator|==
+literal|null
+condition|)
+return|return;
+if|if
+condition|(
+operator|!
+operator|(
+name|se
+operator|.
+name|getCause
+argument_list|()
+operator|instanceof
+name|ConnectException
+operator|)
+condition|)
+return|return;
+if|if
+condition|(
+operator|!
+name|isServerOnline
+argument_list|(
+name|serverName
+argument_list|)
+condition|)
+return|return;
+comment|// We think this server is online. Check it has a znode up. Currently, a RS
+comment|// registers an ephereral znode in zk. If not present, something is up. Maybe
+comment|// HBASE-9593 where RS crashed AFTER reportForDuty but BEFORE it put up an ephemeral
+comment|// znode.
+name|List
+argument_list|<
+name|String
+argument_list|>
+name|servers
+init|=
+literal|null
+decl_stmt|;
+try|try
+block|{
+name|servers
+operator|=
+name|getRegionServersInZK
+argument_list|(
+name|this
+operator|.
+name|master
+operator|.
+name|getZooKeeper
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|KeeperException
+name|ke
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Failed to list regionservers"
+argument_list|,
+name|ke
+argument_list|)
+expr_stmt|;
+comment|// ZK is malfunctioning, don't hang here
+block|}
+name|boolean
+name|found
+init|=
+literal|false
+decl_stmt|;
+if|if
+condition|(
+name|servers
+operator|!=
+literal|null
+condition|)
+block|{
+for|for
+control|(
+name|String
+name|serverNameAsStr
+range|:
+name|servers
+control|)
+block|{
+name|ServerName
+name|sn
+init|=
+name|ServerName
+operator|.
+name|valueOf
+argument_list|(
+name|serverNameAsStr
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|sn
+operator|.
+name|equals
+argument_list|(
+name|serverName
+argument_list|)
+condition|)
+block|{
+comment|// Found a server up in zk.
+name|found
+operator|=
+literal|true
+expr_stmt|;
+break|break;
+block|}
+block|}
+block|}
+if|if
+condition|(
+operator|!
+name|found
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Online server "
+operator|+
+name|serverName
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|" has no corresponding "
+operator|+
+literal|"ephemeral znode (Did it die before registering in zk?); "
+operator|+
+literal|"calling expire to clean it up!"
+argument_list|)
+expr_stmt|;
+name|expireServer
+argument_list|(
+name|serverName
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 comment|/**    * Sends an OPEN RPC to the specified server to open the specified region.    *<p>    * Open should not fail but can if server just crashed.    *<p>    * @param server server to open a region    * @param regionOpenInfos info of a list of regions to open    * @return a list of region opening states    */
@@ -3954,6 +4162,13 @@ name|ServiceException
 name|se
 parameter_list|)
 block|{
+name|checkForRSznode
+argument_list|(
+name|server
+argument_list|,
+name|se
+argument_list|)
+expr_stmt|;
 throw|throw
 name|ProtobufUtil
 operator|.
@@ -4719,6 +4934,88 @@ return|return
 name|admin
 return|;
 block|}
+comment|/**    * Calculate min necessary to start. This is not an absolute. It is just    * a friction that will cause us hang around a bit longer waiting on    * RegionServers to check-in.    */
+specifier|private
+name|int
+name|getMinToStart
+parameter_list|()
+block|{
+comment|// One server should be enough to get us off the ground.
+name|int
+name|requiredMinToStart
+init|=
+literal|1
+decl_stmt|;
+if|if
+condition|(
+name|BaseLoadBalancer
+operator|.
+name|tablesOnMaster
+argument_list|(
+name|master
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
+condition|)
+block|{
+if|if
+condition|(
+operator|!
+name|BaseLoadBalancer
+operator|.
+name|userTablesOnMaster
+argument_list|(
+name|master
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
+condition|)
+block|{
+comment|// If Master is carrying regions but NOT user-space regions (the current default),
+comment|// since the Master shows as a 'server', we need at least one more server to check
+comment|// in before we can start up so up defaultMinToStart to 2.
+name|requiredMinToStart
+operator|=
+literal|2
+expr_stmt|;
+block|}
+block|}
+name|int
+name|minToStart
+init|=
+name|this
+operator|.
+name|master
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|getInt
+argument_list|(
+name|WAIT_ON_REGIONSERVERS_MINTOSTART
+argument_list|,
+operator|-
+literal|1
+argument_list|)
+decl_stmt|;
+comment|// Ensure we are never less than requiredMinToStart else stuff won't work.
+return|return
+name|minToStart
+operator|==
+operator|-
+literal|1
+operator|||
+name|minToStart
+operator|<
+name|requiredMinToStart
+condition|?
+name|requiredMinToStart
+else|:
+name|minToStart
+return|;
+block|}
 comment|/**    * Wait for the region servers to report in.    * We will wait until one of this condition is met:    *  - the master is stopped    *  - the 'hbase.master.wait.on.regionservers.maxtostart' number of    *    region servers is reached    *  - the 'hbase.master.wait.on.regionservers.mintostart' is reached AND    *   there have been no new region server in for    *      'hbase.master.wait.on.regionservers.interval' time AND    *   the 'hbase.master.wait.on.regionservers.timeout' is reached    *    * @throws InterruptedException    */
 specifier|public
 name|void
@@ -4766,78 +5063,13 @@ argument_list|,
 literal|4500
 argument_list|)
 decl_stmt|;
-name|int
-name|defaultMinToStart
-init|=
-literal|1
-decl_stmt|;
-if|if
-condition|(
-name|BaseLoadBalancer
-operator|.
-name|tablesOnMaster
-argument_list|(
-name|master
-operator|.
-name|getConfiguration
-argument_list|()
-argument_list|)
-condition|)
-block|{
-comment|// If we assign regions to master, we'd like to start
-comment|// at least another region server so that we don't
-comment|// assign all regions to master if other region servers
-comment|// don't come up in time.
-name|defaultMinToStart
-operator|=
-literal|2
-expr_stmt|;
-block|}
+comment|// Min is not an absolute; just a friction making us wait longer on server checkin.
 name|int
 name|minToStart
 init|=
-name|this
-operator|.
-name|master
-operator|.
-name|getConfiguration
+name|getMinToStart
 argument_list|()
-operator|.
-name|getInt
-argument_list|(
-name|WAIT_ON_REGIONSERVERS_MINTOSTART
-argument_list|,
-name|defaultMinToStart
-argument_list|)
 decl_stmt|;
-if|if
-condition|(
-name|minToStart
-operator|<
-literal|1
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-name|String
-operator|.
-name|format
-argument_list|(
-literal|"The value of '%s' (%d) can not be less than 1, ignoring."
-argument_list|,
-name|WAIT_ON_REGIONSERVERS_MINTOSTART
-argument_list|,
-name|minToStart
-argument_list|)
-argument_list|)
-expr_stmt|;
-name|minToStart
-operator|=
-literal|1
-expr_stmt|;
-block|}
 name|int
 name|maxToStart
 init|=
@@ -4931,6 +5163,14 @@ name|oldCount
 init|=
 literal|0
 decl_stmt|;
+comment|// This while test is a little hard to read. We try to comment it in below but in essence:
+comment|// Wait if Master is not stopped and the number of regionservers that have checked-in is
+comment|// less than the maxToStart. Both of these conditions will be true near universally.
+comment|// Next, we will keep cycling if ANY of the following three conditions are true:
+comment|// 1. The time since a regionserver registered is< interval (means servers are actively checking in).
+comment|// 2. We are under the total timeout.
+comment|// 3. The count of servers is< minimum expected AND we are within timeout (this just puts up
+comment|// a little friction making us wait a bit longer if< minimum servers).
 while|while
 condition|(
 operator|!
@@ -4946,19 +5186,35 @@ operator|<
 name|maxToStart
 operator|&&
 operator|(
+operator|(
+operator|(
 name|lastCountChange
 operator|+
 name|interval
+operator|)
 operator|>
 name|now
+operator|)
 operator|||
+operator|(
 name|timeout
 operator|>
 name|slept
+operator|)
 operator|||
+operator|(
+operator|(
 name|count
 operator|<
 name|minToStart
+operator|)
+operator|&&
+operator|(
+name|timeout
+operator|>
+name|slept
+operator|)
+operator|)
 operator|)
 condition|)
 block|{
@@ -4983,35 +5239,40 @@ expr_stmt|;
 name|String
 name|msg
 init|=
-literal|"Waiting for region servers count to settle; currently"
-operator|+
-literal|" checked in "
+literal|"Waiting for RegionServer count="
 operator|+
 name|count
 operator|+
-literal|", slept for "
+literal|" to settle; waited "
 operator|+
 name|slept
 operator|+
-literal|" ms,"
-operator|+
-literal|" expecting minimum of "
+literal|"ms, expecting minimum="
 operator|+
 name|minToStart
 operator|+
-literal|", maximum of "
+literal|"server(s) (max="
 operator|+
+name|getStrForMax
+argument_list|(
 name|maxToStart
+argument_list|)
 operator|+
-literal|", timeout of "
+literal|"server(s)), "
+operator|+
+literal|"timeout="
 operator|+
 name|timeout
 operator|+
-literal|" ms, interval of "
+literal|"ms, lastChange="
 operator|+
-name|interval
+operator|(
+name|lastCountChange
+operator|-
+name|now
+operator|)
 operator|+
-literal|" ms."
+literal|"ms"
 decl_stmt|;
 name|LOG
 operator|.
@@ -5081,29 +5342,30 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Finished waiting for region servers count to settle;"
-operator|+
-literal|" checked in "
+literal|"Finished waiting for RegionServer count="
 operator|+
 name|count
 operator|+
-literal|", slept for "
+literal|" to settle, slept for "
 operator|+
 name|slept
 operator|+
-literal|" ms,"
+literal|"ms,"
 operator|+
-literal|" expecting minimum of "
+literal|" expecting minimum="
 operator|+
 name|minToStart
 operator|+
-literal|", maximum of "
+literal|" server(s) (max="
 operator|+
+name|getStrForMax
+argument_list|(
 name|maxToStart
+argument_list|)
 operator|+
-literal|","
+literal|" server(s),"
 operator|+
-literal|" master is "
+literal|" Master is "
 operator|+
 operator|(
 name|this
@@ -5119,6 +5381,32 @@ literal|"running"
 operator|)
 argument_list|)
 expr_stmt|;
+block|}
+specifier|private
+name|String
+name|getStrForMax
+parameter_list|(
+specifier|final
+name|int
+name|max
+parameter_list|)
+block|{
+return|return
+name|max
+operator|==
+name|Integer
+operator|.
+name|MAX_VALUE
+condition|?
+literal|"NO_LIMIT"
+else|:
+name|Integer
+operator|.
+name|toString
+argument_list|(
+name|max
+argument_list|)
+return|;
 block|}
 comment|/**    * @return A copy of the internal list of online servers.    */
 specifier|public

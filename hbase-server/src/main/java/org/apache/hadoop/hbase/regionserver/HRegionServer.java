@@ -3255,7 +3255,6 @@ name|stopping
 init|=
 literal|false
 decl_stmt|;
-specifier|private
 specifier|volatile
 name|boolean
 name|killed
@@ -5640,10 +5639,6 @@ operator|.
 name|currentThread
 argument_list|()
 argument_list|)
-expr_stmt|;
-comment|// Set our ephemeral znode up in zookeeper now we have a name.
-name|createMyEphemeralNode
-argument_list|()
 expr_stmt|;
 comment|// Initialize the RegionServerCoprocessorHost now that our ephemeral
 comment|// node was created, in case any coprocessors want to use ZooKeeper
@@ -8140,6 +8135,10 @@ name|value
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Set our ephemeral znode up in zookeeper now we have a name.
+name|createMyEphemeralNode
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|updateRootDir
@@ -12486,6 +12485,8 @@ name|abortRequested
 return|;
 block|}
 comment|/*    * Simulate a kill -9 of this server. Exits w/o closing regions or cleaninup    * logs but it does close socket in case want to bring up server on old    * hostname+port immediately.    */
+annotation|@
+name|VisibleForTesting
 specifier|protected
 name|void
 name|kill
