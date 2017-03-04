@@ -94,6 +94,14 @@ name|PHOENIX
 init|=
 literal|"Phoenix"
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|SPARK
+init|=
+literal|"Spark"
+decl_stmt|;
 comment|/**    * Denotes class names that appear in user facing configuration files.    */
 specifier|public
 specifier|static
