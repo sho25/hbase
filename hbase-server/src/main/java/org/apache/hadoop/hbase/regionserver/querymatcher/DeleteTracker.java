@@ -49,6 +49,22 @@ name|Cell
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|ShipperListener
+import|;
+end_import
+
 begin_comment
 comment|/**  * This interface is used for the tracking and enforcement of Deletes during the course of a Get or  * Scan operation.  *<p>  * This class is utilized through three methods:  *<ul>  *<li>{@link #add} when encountering a Delete</li>  *<li>{@link #isDeleted} when checking if a Put KeyValue has been deleted</li>  *<li>{@link #update} when reaching the end of a StoreFile</li>  *</ul>  */
 end_comment
@@ -61,6 +77,8 @@ name|Private
 specifier|public
 interface|interface
 name|DeleteTracker
+extends|extends
+name|ShipperListener
 block|{
 comment|/**    * Add the specified cell to the list of deletes to check against for this row operation.    *<p>    * This is called when a Delete is encountered in a StoreFile.    * @param cell - the delete cell    */
 name|void

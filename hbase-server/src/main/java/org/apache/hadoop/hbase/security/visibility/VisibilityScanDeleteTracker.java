@@ -522,7 +522,7 @@ block|}
 comment|// new column, or more general delete type
 if|if
 condition|(
-name|deleteBuffer
+name|deleteCell
 operator|!=
 literal|null
 condition|)
@@ -537,11 +537,7 @@ name|matchingQualifier
 argument_list|(
 name|delCell
 argument_list|,
-name|deleteBuffer
-argument_list|,
-name|deleteOffset
-argument_list|,
-name|deleteLength
+name|deleteCell
 argument_list|)
 operator|)
 condition|)
@@ -591,26 +587,9 @@ literal|null
 expr_stmt|;
 block|}
 block|}
-name|deleteBuffer
+name|deleteCell
 operator|=
 name|delCell
-operator|.
-name|getQualifierArray
-argument_list|()
-expr_stmt|;
-name|deleteOffset
-operator|=
-name|delCell
-operator|.
-name|getQualifierOffset
-argument_list|()
-expr_stmt|;
-name|deleteLength
-operator|=
-name|delCell
-operator|.
-name|getQualifierLength
-argument_list|()
 expr_stmt|;
 name|deleteType
 operator|=
@@ -1452,7 +1431,7 @@ block|}
 block|}
 if|if
 condition|(
-name|deleteBuffer
+name|deleteCell
 operator|!=
 literal|null
 condition|)
@@ -1466,11 +1445,7 @@ name|compareQualifiers
 argument_list|(
 name|cell
 argument_list|,
-name|deleteBuffer
-argument_list|,
-name|deleteOffset
-argument_list|,
-name|deleteLength
+name|deleteCell
 argument_list|)
 decl_stmt|;
 if|if
@@ -1797,7 +1772,7 @@ literal|0
 condition|)
 block|{
 comment|// Next column case.
-name|deleteBuffer
+name|deleteCell
 operator|=
 literal|null
 expr_stmt|;
@@ -1823,11 +1798,20 @@ name|Bytes
 operator|.
 name|toStringBinary
 argument_list|(
-name|deleteBuffer
+name|deleteCell
+operator|.
+name|getQualifierArray
+argument_list|()
 argument_list|,
-name|deleteOffset
+name|deleteCell
+operator|.
+name|getQualifierOffset
+argument_list|()
 argument_list|,
-name|deleteLength
+name|deleteCell
+operator|.
+name|getQualifierLength
+argument_list|()
 argument_list|)
 operator|+
 literal|", qualifier="
