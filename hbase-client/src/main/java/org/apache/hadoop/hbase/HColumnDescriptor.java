@@ -465,7 +465,7 @@ name|PREFETCH_BLOCKS_ON_OPEN
 init|=
 literal|"PREFETCH_BLOCKS_ON_OPEN"
 decl_stmt|;
-comment|/**    * Size of storefile/hfile 'blocks'.  Default is {@link #DEFAULT_BLOCKSIZE}.    * Use smaller block sizes for faster random-access at expense of larger    * indices (more memory consumption).    */
+comment|/**    * Size of storefile/hfile 'blocks'.  Default is {@link #DEFAULT_BLOCKSIZE}.    * Use smaller block sizes for faster random-access at expense of larger    * indices (more memory consumption). Note that this is a soft limit and that    * blocks have overhead (metadata, CRCs) so blocks will tend to be the size    * specified here and then some; i.e. don't expect that setting BLOCKSIZE=4k    * means hbase data will align with an SSDs 4k page accesses (TODO).    */
 specifier|public
 specifier|static
 specifier|final
