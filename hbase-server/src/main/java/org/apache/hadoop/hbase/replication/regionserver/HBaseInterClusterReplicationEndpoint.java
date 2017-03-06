@@ -1794,19 +1794,13 @@ operator|++
 expr_stmt|;
 block|}
 block|}
-elseif|else
-if|if
-condition|(
-name|ioe
-operator|instanceof
-name|SaslException
-condition|)
+else|else
 block|{
 name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Peer encountered SaslException, rechecking all sinks: "
+literal|"Peer encountered RemoteException, rechecking all sinks: "
 argument_list|,
 name|ioe
 argument_list|)
