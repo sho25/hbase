@@ -1150,7 +1150,7 @@ name|scan
 argument_list|,
 name|ServerSideScanMetrics
 operator|.
-name|COUNT_OF_ROWS_SCANNED_KEY
+name|COUNT_OF_ROWS_SCANNED_KEY_METRIC_NAME
 argument_list|,
 name|NUM_ROWS
 argument_list|)
@@ -1210,7 +1210,7 @@ name|scan
 argument_list|,
 name|ServerSideScanMetrics
 operator|.
-name|COUNT_OF_ROWS_SCANNED_KEY
+name|COUNT_OF_ROWS_SCANNED_KEY_METRIC_NAME
 argument_list|,
 name|i
 operator|+
@@ -1277,7 +1277,7 @@ name|scan
 argument_list|,
 name|ServerSideScanMetrics
 operator|.
-name|COUNT_OF_ROWS_SCANNED_KEY
+name|COUNT_OF_ROWS_SCANNED_KEY_METRIC_NAME
 argument_list|,
 name|ROWS
 operator|.
@@ -1329,7 +1329,7 @@ name|scan
 argument_list|,
 name|ServerSideScanMetrics
 operator|.
-name|COUNT_OF_ROWS_SCANNED_KEY
+name|COUNT_OF_ROWS_SCANNED_KEY_METRIC_NAME
 argument_list|,
 name|ROWS
 operator|.
@@ -1381,7 +1381,7 @@ name|scan
 argument_list|,
 name|ServerSideScanMetrics
 operator|.
-name|COUNT_OF_ROWS_SCANNED_KEY
+name|COUNT_OF_ROWS_SCANNED_KEY_METRIC_NAME
 argument_list|,
 name|ROWS
 operator|.
@@ -1432,7 +1432,7 @@ name|scan
 argument_list|,
 name|ServerSideScanMetrics
 operator|.
-name|COUNT_OF_ROWS_SCANNED_KEY
+name|COUNT_OF_ROWS_SCANNED_KEY_METRIC_NAME
 argument_list|,
 name|ROWS
 operator|.
@@ -1934,7 +1934,7 @@ name|scan
 argument_list|,
 name|ServerSideScanMetrics
 operator|.
-name|COUNT_OF_ROWS_FILTERED_KEY
+name|COUNT_OF_ROWS_FILTERED_KEY_METRIC_NAME
 argument_list|,
 name|expectedNumFiltered
 argument_list|)

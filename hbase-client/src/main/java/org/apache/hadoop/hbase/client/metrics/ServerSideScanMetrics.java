@@ -171,7 +171,7 @@ specifier|public
 specifier|static
 specifier|final
 name|String
-name|COUNT_OF_ROWS_SCANNED_KEY
+name|COUNT_OF_ROWS_SCANNED_KEY_METRIC_NAME
 init|=
 literal|"ROWS_SCANNED"
 decl_stmt|;
@@ -179,7 +179,7 @@ specifier|public
 specifier|static
 specifier|final
 name|String
-name|COUNT_OF_ROWS_FILTERED_KEY
+name|COUNT_OF_ROWS_FILTERED_KEY_METRIC_NAME
 init|=
 literal|"ROWS_FILTERED"
 decl_stmt|;
@@ -191,7 +191,7 @@ name|countOfRowsFiltered
 init|=
 name|createCounter
 argument_list|(
-name|COUNT_OF_ROWS_FILTERED_KEY
+name|COUNT_OF_ROWS_FILTERED_KEY_METRIC_NAME
 argument_list|)
 decl_stmt|;
 comment|/**    * number of rows scanned during scan RPC. Not every row scanned will be returned to the client    * since rows may be filtered.    */
@@ -202,7 +202,7 @@ name|countOfRowsScanned
 init|=
 name|createCounter
 argument_list|(
-name|COUNT_OF_ROWS_SCANNED_KEY
+name|COUNT_OF_ROWS_SCANNED_KEY_METRIC_NAME
 argument_list|)
 decl_stmt|;
 comment|/**    * @param counterName    * @param value    */

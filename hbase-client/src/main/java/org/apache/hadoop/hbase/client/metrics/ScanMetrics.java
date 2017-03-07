@@ -87,6 +87,78 @@ block|{
 comment|// AtomicLongs to hold the metrics values. These are all updated through ClientScanner and
 comment|// ScannerCallable. They are atomic longs so that atomic getAndSet can be used to reset the
 comment|// values after progress is passed to hadoop's counters.
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|RPC_CALLS_METRIC_NAME
+init|=
+literal|"RPC_CALLS"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|REMOTE_RPC_CALLS_METRIC_NAME
+init|=
+literal|"REMOTE_RPC_CALLS"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|MILLIS_BETWEEN_NEXTS_METRIC_NAME
+init|=
+literal|"MILLIS_BETWEEN_NEXTS"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|NOT_SERVING_REGION_EXCEPTION_METRIC_NAME
+init|=
+literal|"NOT_SERVING_REGION_EXCEPTION"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|BYTES_IN_RESULTS_METRIC_NAME
+init|=
+literal|"BYTES_IN_RESULTS"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|BYTES_IN_REMOTE_RESULTS_METRIC_NAME
+init|=
+literal|"BYTES_IN_REMOTE_RESULTS"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|REGIONS_SCANNED_METRIC_NAME
+init|=
+literal|"REGIONS_SCANNED"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|RPC_RETRIES_METRIC_NAME
+init|=
+literal|"RPC_RETRIES"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|REMOTE_RPC_RETRIES_METRIC_NAME
+init|=
+literal|"REMOTE_RPC_RETRIES"
+decl_stmt|;
 comment|/**    * number of RPC calls    */
 specifier|public
 specifier|final
@@ -95,7 +167,7 @@ name|countOfRPCcalls
 init|=
 name|createCounter
 argument_list|(
-literal|"RPC_CALLS"
+name|RPC_CALLS_METRIC_NAME
 argument_list|)
 decl_stmt|;
 comment|/**    * number of remote RPC calls    */
@@ -106,7 +178,7 @@ name|countOfRemoteRPCcalls
 init|=
 name|createCounter
 argument_list|(
-literal|"REMOTE_RPC_CALLS"
+name|REMOTE_RPC_CALLS_METRIC_NAME
 argument_list|)
 decl_stmt|;
 comment|/**    * sum of milliseconds between sequential next calls    */
@@ -117,7 +189,7 @@ name|sumOfMillisSecBetweenNexts
 init|=
 name|createCounter
 argument_list|(
-literal|"MILLIS_BETWEEN_NEXTS"
+name|MILLIS_BETWEEN_NEXTS_METRIC_NAME
 argument_list|)
 decl_stmt|;
 comment|/**    * number of NotServingRegionException caught    */
@@ -128,7 +200,7 @@ name|countOfNSRE
 init|=
 name|createCounter
 argument_list|(
-literal|"NOT_SERVING_REGION_EXCEPTION"
+name|NOT_SERVING_REGION_EXCEPTION_METRIC_NAME
 argument_list|)
 decl_stmt|;
 comment|/**    * number of bytes in Result objects from region servers    */
@@ -139,7 +211,7 @@ name|countOfBytesInResults
 init|=
 name|createCounter
 argument_list|(
-literal|"BYTES_IN_RESULTS"
+name|BYTES_IN_RESULTS_METRIC_NAME
 argument_list|)
 decl_stmt|;
 comment|/**    * number of bytes in Result objects from remote region servers    */
@@ -150,7 +222,7 @@ name|countOfBytesInRemoteResults
 init|=
 name|createCounter
 argument_list|(
-literal|"BYTES_IN_REMOTE_RESULTS"
+name|BYTES_IN_REMOTE_RESULTS_METRIC_NAME
 argument_list|)
 decl_stmt|;
 comment|/**    * number of regions    */
@@ -161,7 +233,7 @@ name|countOfRegions
 init|=
 name|createCounter
 argument_list|(
-literal|"REGIONS_SCANNED"
+name|REGIONS_SCANNED_METRIC_NAME
 argument_list|)
 decl_stmt|;
 comment|/**    * number of RPC retries    */
@@ -172,7 +244,7 @@ name|countOfRPCRetries
 init|=
 name|createCounter
 argument_list|(
-literal|"RPC_RETRIES"
+name|RPC_RETRIES_METRIC_NAME
 argument_list|)
 decl_stmt|;
 comment|/**    * number of remote RPC retries    */
@@ -183,7 +255,7 @@ name|countOfRemoteRPCRetries
 init|=
 name|createCounter
 argument_list|(
-literal|"REMOTE_RPC_RETRIES"
+name|REMOTE_RPC_RETRIES_METRIC_NAME
 argument_list|)
 decl_stmt|;
 comment|/**    * constructor    */
