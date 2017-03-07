@@ -140,6 +140,19 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Callback for handling two regions that have the same regionID    * a specific case of a split    * @param hi1 one of the overlapping HbckInfo    * @param hi2 the other overlapping HbckInfo    */
+name|void
+name|handleSplit
+parameter_list|(
+name|HbckInfo
+name|hi1
+parameter_list|,
+name|HbckInfo
+name|hi2
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Callback for handling two reigons that overlap in some arbitrary way.    * This is a specific case of region overlap, and called for each possible    * pair. If two regions have the same start key, the handleDuplicateStartKeys    * method is called.    * @param hi1 one of the overlapping HbckInfo    * @param hi2 the other overlapping HbckInfo    */
 name|void
 name|handleOverlapInRegionChain
