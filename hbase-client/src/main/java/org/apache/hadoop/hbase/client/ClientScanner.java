@@ -2856,6 +2856,19 @@ operator|.
 name|getBatch
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|partialResultsCellSizes
+operator|==
+literal|0
+condition|)
+block|{
+comment|// We have nothing in partialResults, clear the flags to prevent returning empty Result
+comment|// when next result belongs to the next row.
+name|clearPartialResults
+argument_list|()
+expr_stmt|;
+block|}
 return|return
 name|Result
 operator|.
