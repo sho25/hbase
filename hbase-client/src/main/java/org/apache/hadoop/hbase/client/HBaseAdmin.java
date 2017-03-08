@@ -23738,38 +23738,6 @@ argument_list|()
 argument_list|)
 throw|;
 block|}
-else|else
-block|{
-comment|// To support cyclic replication (HBASE-17460), we need to match the
-comment|// REPLICATION_SCOPE of table on both the clusters. We should do this
-comment|// only when the replication is not already enabled on local HTD (local
-comment|// table on this cluster).
-comment|//
-if|if
-condition|(
-name|localHtd
-operator|.
-name|isReplicationEnabled
-argument_list|()
-condition|)
-block|{
-throw|throw
-operator|new
-name|IllegalArgumentException
-argument_list|(
-literal|"Table "
-operator|+
-name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
-operator|+
-literal|" has replication already enabled for at least one Column Family."
-argument_list|)
-throw|;
-block|}
-else|else
-block|{
 if|if
 condition|(
 operator|!
@@ -23804,8 +23772,6 @@ operator|+
 literal|" Thus can not enable the table's replication switch."
 argument_list|)
 throw|;
-block|}
-block|}
 block|}
 block|}
 block|}
