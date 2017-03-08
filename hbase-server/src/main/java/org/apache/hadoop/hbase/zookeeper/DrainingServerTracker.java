@@ -310,18 +310,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-annotation|@
-name|Override
-specifier|public
-name|void
-name|serverRemoved
-parameter_list|(
-name|ServerName
-name|serverName
-parameter_list|)
-block|{
-comment|// no-op
-block|}
 block|}
 argument_list|)
 expr_stmt|;

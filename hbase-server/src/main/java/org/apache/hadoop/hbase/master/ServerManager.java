@@ -445,6 +445,22 @@ name|hbase
 operator|.
 name|ipc
 operator|.
+name|FailedServerException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ipc
+operator|.
 name|HBaseRpcController
 import|;
 end_import
@@ -3863,19 +3879,61 @@ operator|==
 literal|null
 condition|)
 return|return;
-if|if
-condition|(
-operator|!
-operator|(
+name|Throwable
+name|t
+init|=
 name|se
 operator|.
 name|getCause
 argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|t
 operator|instanceof
 name|ConnectException
+condition|)
+block|{
+comment|// If this, proceed to do cleanup.
+block|}
+else|else
+block|{
+comment|// Look for FailedServerException
+if|if
+condition|(
+operator|!
+operator|(
+name|t
+operator|instanceof
+name|IOException
 operator|)
 condition|)
 return|return;
+if|if
+condition|(
+name|t
+operator|.
+name|getCause
+argument_list|()
+operator|==
+literal|null
+condition|)
+return|return;
+if|if
+condition|(
+operator|!
+operator|(
+name|t
+operator|.
+name|getCause
+argument_list|()
+operator|instanceof
+name|FailedServerException
+operator|)
+condition|)
+return|return;
+comment|// Ok, found FailedServerException -- continue.
+block|}
 if|if
 condition|(
 operator|!
@@ -5133,8 +5191,23 @@ comment|// less than the maxToStart. Both of these conditions will be true near 
 comment|// Next, we will keep cycling if ANY of the following three conditions are true:
 comment|// 1. The time since a regionserver registered is< interval (means servers are actively checking in).
 comment|// 2. We are under the total timeout.
-comment|// 3. The count of servers is< minimum expected AND we are within timeout (this just puts up
-comment|// a little friction making us wait a bit longer if< minimum servers).
+comment|// 3. The count of servers is< minimum.
+for|for
+control|(
+name|ServerListener
+name|listener
+range|:
+name|this
+operator|.
+name|listeners
+control|)
+block|{
+name|listener
+operator|.
+name|waiting
+argument_list|()
+expr_stmt|;
+block|}
 while|while
 condition|(
 operator|!
@@ -5151,34 +5224,20 @@ name|maxToStart
 operator|&&
 operator|(
 operator|(
-operator|(
 name|lastCountChange
 operator|+
 name|interval
 operator|)
 operator|>
 name|now
-operator|)
 operator|||
-operator|(
 name|timeout
 operator|>
 name|slept
-operator|)
 operator|||
-operator|(
-operator|(
 name|count
 operator|<
 name|minToStart
-operator|)
-operator|&&
-operator|(
-name|timeout
-operator|>
-name|slept
-operator|)
-operator|)
 operator|)
 condition|)
 block|{
@@ -5203,26 +5262,26 @@ expr_stmt|;
 name|String
 name|msg
 init|=
-literal|"Waiting for RegionServer count="
+literal|"Waiting on RegionServer count="
 operator|+
 name|count
 operator|+
-literal|" to settle; waited "
+literal|" to settle; waited="
 operator|+
 name|slept
 operator|+
-literal|"ms, expecting minimum="
+literal|"ms, expecting min="
 operator|+
 name|minToStart
 operator|+
-literal|"server(s) (max="
+literal|" server(s), max="
 operator|+
 name|getStrForMax
 argument_list|(
 name|maxToStart
 argument_list|)
 operator|+
-literal|"server(s)), "
+literal|" server(s), "
 operator|+
 literal|"timeout="
 operator|+
@@ -5306,21 +5365,21 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Finished waiting for RegionServer count="
+literal|"Finished wait on RegionServer count="
 operator|+
 name|count
 operator|+
-literal|" to settle, slept for "
+literal|"; waited="
 operator|+
 name|slept
 operator|+
 literal|"ms,"
 operator|+
-literal|" expecting minimum="
+literal|" expected min="
 operator|+
 name|minToStart
 operator|+
-literal|" server(s) (max="
+literal|" server(s), max="
 operator|+
 name|getStrForMax
 argument_list|(
@@ -5329,7 +5388,7 @@ argument_list|)
 operator|+
 literal|" server(s),"
 operator|+
-literal|" Master is "
+literal|" master is "
 operator|+
 operator|(
 name|this

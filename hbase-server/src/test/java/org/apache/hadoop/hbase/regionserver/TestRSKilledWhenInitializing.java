@@ -30,6 +30,18 @@ import|;
 end_import
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -254,6 +266,22 @@ operator|.
 name|master
 operator|.
 name|HMaster
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
+name|ServerListener
 import|;
 end_import
 
@@ -655,16 +683,7 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
-name|masterActive
-operator|.
-name|set
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
-comment|// Now start regionservers.
-comment|// First RS to report for duty will kill itself when it gets a response.
-comment|// See below in the RegisterAndDieRegionServer handleReportForDutyResponse.
+comment|// Master is up waiting on RegionServers to check in. Now start RegionServers.
 for|for
 control|(
 name|int
@@ -694,39 +713,18 @@ name|start
 argument_list|()
 expr_stmt|;
 block|}
-comment|// Now wait on master to see NUM_RS + 1 servers as being online, NUM_RS and itself.
-comment|// Then wait until the killed RS gets removed from zk and triggers Master to remove
-comment|// it from list of online RS.
+comment|// Now wait on master to see NUM_RS + 1 servers as being online, thats NUM_RS plus
+comment|// the Master itself (because Master hosts hbase:meta and checks in as though it a RS).
 name|List
 argument_list|<
 name|ServerName
 argument_list|>
 name|onlineServersList
 init|=
-name|master
-operator|.
-name|getMaster
-argument_list|()
-operator|.
-name|getServerManager
-argument_list|()
-operator|.
-name|getOnlineServersList
-argument_list|()
+literal|null
 decl_stmt|;
-while|while
-condition|(
-name|onlineServersList
-operator|.
-name|size
-argument_list|()
-operator|<
-name|NUM_RS
-operator|+
-literal|1
-condition|)
+do|do
 block|{
-comment|// Spin till we see NUM_RS + Master in online servers list.
 name|onlineServersList
 operator|=
 name|master
@@ -741,27 +739,21 @@ name|getOnlineServersList
 argument_list|()
 expr_stmt|;
 block|}
-name|LOG
-operator|.
-name|info
-argument_list|(
-name|onlineServersList
-argument_list|)
-expr_stmt|;
-name|assertEquals
-argument_list|(
-name|NUM_RS
-operator|+
-literal|1
-argument_list|,
+do|while
+condition|(
 name|onlineServersList
 operator|.
 name|size
 argument_list|()
-argument_list|)
-expr_stmt|;
-comment|// Steady state. How many regions open?
-comment|// Wait until killedRS is set
+operator|<
+operator|(
+name|NUM_RS
+operator|+
+literal|1
+operator|)
+condition|)
+do|;
+comment|// Wait until killedRS is set. Means RegionServer is starting to go down.
 while|while
 condition|(
 name|killedRS
@@ -776,25 +768,75 @@ name|Threads
 operator|.
 name|sleep
 argument_list|(
-literal|10
+literal|1
 argument_list|)
 expr_stmt|;
 block|}
-specifier|final
-name|int
-name|regionsOpenCount
-init|=
+comment|// Wait on the RegionServer to fully die.
+while|while
+condition|(
+name|cluster
+operator|.
+name|getLiveRegionServers
+argument_list|()
+operator|.
+name|size
+argument_list|()
+operator|>
+name|NUM_RS
+condition|)
+block|{
+name|Threads
+operator|.
+name|sleep
+argument_list|(
+literal|1
+argument_list|)
+expr_stmt|;
+block|}
+comment|// Make sure Master is fully up before progressing. Could take a while if regions
+comment|// being reassigned.
+while|while
+condition|(
+operator|!
 name|master
 operator|.
 name|getMaster
 argument_list|()
 operator|.
-name|getAssignmentManager
+name|isInitialized
+argument_list|()
+condition|)
+block|{
+name|Threads
+operator|.
+name|sleep
+argument_list|(
+literal|1
+argument_list|)
+expr_stmt|;
+block|}
+comment|// Now in steady state. How many regions open? Master should have too many regionservers
+comment|// showing still. The downed RegionServer should still be showing as registered.
+name|assertTrue
+argument_list|(
+name|master
+operator|.
+name|getMaster
 argument_list|()
 operator|.
-name|getNumRegionsOpened
+name|getServerManager
 argument_list|()
-decl_stmt|;
+operator|.
+name|isServerOnline
+argument_list|(
+name|killedRS
+operator|.
+name|get
+argument_list|()
+argument_list|)
+argument_list|)
+expr_stmt|;
 comment|// Find non-meta region (namespace?) and assign to the killed server. That'll trigger cleanup.
 name|Map
 argument_list|<
@@ -802,8 +844,14 @@ name|HRegionInfo
 argument_list|,
 name|ServerName
 argument_list|>
-name|assigments
+name|assignments
 init|=
+literal|null
+decl_stmt|;
+do|do
+block|{
+name|assignments
+operator|=
 name|master
 operator|.
 name|getMaster
@@ -817,7 +865,22 @@ argument_list|()
 operator|.
 name|getRegionAssignments
 argument_list|()
-decl_stmt|;
+expr_stmt|;
+block|}
+do|while
+condition|(
+name|assignments
+operator|==
+literal|null
+operator|||
+name|assignments
+operator|.
+name|size
+argument_list|()
+operator|<
+literal|2
+condition|)
+do|;
 name|HRegionInfo
 name|hri
 init|=
@@ -835,7 +898,7 @@ name|ServerName
 argument_list|>
 name|e
 range|:
-name|assigments
+name|assignments
 operator|.
 name|entrySet
 argument_list|()
@@ -863,6 +926,27 @@ break|break;
 block|}
 comment|// Try moving region to the killed server. It will fail. As by-product, we will
 comment|// remove the RS from Master online list because no corresponding znode.
+name|assertEquals
+argument_list|(
+name|NUM_RS
+operator|+
+literal|1
+argument_list|,
+name|master
+operator|.
+name|getMaster
+argument_list|()
+operator|.
+name|getServerManager
+argument_list|()
+operator|.
+name|getOnlineServersList
+argument_list|()
+operator|.
+name|size
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
 name|info
@@ -908,6 +992,7 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
+comment|// Wait until the RS no longer shows as registered in Master.
 while|while
 condition|(
 name|onlineServersList
@@ -915,7 +1000,11 @@ operator|.
 name|size
 argument_list|()
 operator|>
+operator|(
 name|NUM_RS
+operator|+
+literal|1
+operator|)
 condition|)
 block|{
 name|Thread
@@ -939,26 +1028,10 @@ name|getOnlineServersList
 argument_list|()
 expr_stmt|;
 block|}
-comment|// Just for kicks, ensure namespace was put back on the old server after above failed move.
-name|assertEquals
-argument_list|(
-name|regionsOpenCount
-argument_list|,
-name|master
-operator|.
-name|getMaster
-argument_list|()
-operator|.
-name|getAssignmentManager
-argument_list|()
-operator|.
-name|getNumRegionsOpened
-argument_list|()
-argument_list|)
-expr_stmt|;
 block|}
 finally|finally
 block|{
+comment|// Shutdown is messy with complaints about fs being closed. Why? TODO.
 name|cluster
 operator|.
 name|shutdown
@@ -986,6 +1059,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+comment|/**    * Start Master. Get as far as the state where Master is waiting on    * RegionServers to check in, then return.    */
 specifier|private
 name|MasterThread
 name|startMaster
@@ -999,71 +1073,105 @@ operator|.
 name|start
 argument_list|()
 expr_stmt|;
-name|long
-name|startTime
-init|=
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
-decl_stmt|;
+comment|// It takes a while until ServerManager creation to happen inside Master startup.
 while|while
 condition|(
-operator|!
 name|master
 operator|.
 name|getMaster
 argument_list|()
 operator|.
-name|isInitialized
+name|getServerManager
 argument_list|()
+operator|==
+literal|null
 condition|)
 block|{
-try|try
-block|{
-name|Thread
-operator|.
-name|sleep
-argument_list|(
-literal|100
-argument_list|)
-expr_stmt|;
+continue|continue;
 block|}
-catch|catch
-parameter_list|(
-name|InterruptedException
-name|ignored
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|info
+comment|// Set a listener for the waiting-on-RegionServers state. We want to wait
+comment|// until this condition before we leave this method and start regionservers.
+specifier|final
+name|AtomicBoolean
+name|waiting
+init|=
+operator|new
+name|AtomicBoolean
 argument_list|(
-literal|"Interrupted: ignoring"
+literal|false
 argument_list|)
-expr_stmt|;
-block|}
+decl_stmt|;
 if|if
 condition|(
-name|System
+name|master
 operator|.
-name|currentTimeMillis
+name|getMaster
 argument_list|()
-operator|>
-name|startTime
-operator|+
-literal|30000
+operator|.
+name|getServerManager
+argument_list|()
+operator|==
+literal|null
 condition|)
-block|{
 throw|throw
 operator|new
-name|RuntimeException
+name|NullPointerException
 argument_list|(
-literal|"Master not active after 30 seconds"
+literal|"SM"
 argument_list|)
 throw|;
+name|master
+operator|.
+name|getMaster
+argument_list|()
+operator|.
+name|getServerManager
+argument_list|()
+operator|.
+name|registerListener
+argument_list|(
+operator|new
+name|ServerListener
+argument_list|()
+block|{
+annotation|@
+name|Override
+specifier|public
+name|void
+name|waiting
+parameter_list|()
+block|{
+name|waiting
+operator|.
+name|set
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
 block|}
 block|}
+argument_list|)
+expr_stmt|;
+comment|// Wait until the Master gets to place where it is waiting on RegionServers to check in.
+while|while
+condition|(
+operator|!
+name|waiting
+operator|.
+name|get
+argument_list|()
+condition|)
+block|{
+continue|continue;
+block|}
+comment|// Set the global master-is-active; gets picked up by regionservers later.
+name|masterActive
+operator|.
+name|set
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
 return|return
 name|master
 return|;

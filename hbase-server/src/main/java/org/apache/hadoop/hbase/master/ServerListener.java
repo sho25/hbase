@@ -48,7 +48,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Get notification of server events. The invocations are inline  * so make sure your implementation is fast else you'll slow hbase.  */
+comment|/**  * Get notification of server registration events. The invocations are inline  * so make sure your implementation is fast or else you'll slow hbase.  */
 end_comment
 
 begin_interface
@@ -60,7 +60,15 @@ specifier|public
 interface|interface
 name|ServerListener
 block|{
+comment|/**    * Started waiting on RegionServers to check-in.    */
+specifier|default
+name|void
+name|waiting
+parameter_list|()
+block|{}
+empty_stmt|;
 comment|/**    * The server has joined the cluster.    * @param serverName The remote servers name.    */
+specifier|default
 name|void
 name|serverAdded
 parameter_list|(
@@ -68,8 +76,10 @@ specifier|final
 name|ServerName
 name|serverName
 parameter_list|)
-function_decl|;
+block|{}
+empty_stmt|;
 comment|/**    * The server was removed from the cluster.    * @param serverName The remote servers name.    */
+specifier|default
 name|void
 name|serverRemoved
 parameter_list|(
@@ -77,7 +87,8 @@ specifier|final
 name|ServerName
 name|serverName
 parameter_list|)
-function_decl|;
+block|{}
+empty_stmt|;
 block|}
 end_interface
 

@@ -2940,7 +2940,7 @@ comment|// flag set after we become the active master (used for testing)
 specifier|private
 specifier|volatile
 name|boolean
-name|isActiveMaster
+name|activeMaster
 init|=
 literal|false
 decl_stmt|;
@@ -4139,7 +4139,7 @@ operator|!
 operator|(
 name|tablesOnMaster
 operator|&&
-name|isActiveMaster
+name|activeMaster
 operator|)
 operator|&&
 operator|!
@@ -4716,7 +4716,7 @@ name|KeeperException
 throws|,
 name|CoordinatedStateException
 block|{
-name|isActiveMaster
+name|activeMaster
 operator|=
 literal|true
 expr_stmt|;
@@ -13305,7 +13305,7 @@ name|isActiveMaster
 parameter_list|()
 block|{
 return|return
-name|isActiveMaster
+name|activeMaster
 return|;
 block|}
 comment|/**    * Report whether this master has completed with its initialization and is    * ready.  If ready, the master is also the active master.  A standby master    * is never ready.    *    * This method is used for testing.    *    * @return true if master is ready to go, false if not.    */
