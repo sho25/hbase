@@ -107,6 +107,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|NamespaceDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|TableName
 import|;
 end_import
@@ -526,6 +540,63 @@ specifier|final
 name|HColumnDescriptor
 name|columnFamily
 parameter_list|)
+function_decl|;
+comment|/**    * Create a new namespace.    * @param descriptor descriptor which describes the new namespace    */
+name|CompletableFuture
+argument_list|<
+name|Void
+argument_list|>
+name|createNamespace
+parameter_list|(
+specifier|final
+name|NamespaceDescriptor
+name|descriptor
+parameter_list|)
+function_decl|;
+comment|/**    * Modify an existing namespace.    * @param descriptor descriptor which describes the new namespace    */
+name|CompletableFuture
+argument_list|<
+name|Void
+argument_list|>
+name|modifyNamespace
+parameter_list|(
+specifier|final
+name|NamespaceDescriptor
+name|descriptor
+parameter_list|)
+function_decl|;
+comment|/**    * Delete an existing namespace. Only empty namespaces (no tables) can be removed.    * @param name namespace name    */
+name|CompletableFuture
+argument_list|<
+name|Void
+argument_list|>
+name|deleteNamespace
+parameter_list|(
+specifier|final
+name|String
+name|name
+parameter_list|)
+function_decl|;
+comment|/**    * Get a namespace descriptor by name    * @param name name of namespace descriptor    * @return A descriptor wrapped by a {@link CompletableFuture}.    */
+name|CompletableFuture
+argument_list|<
+name|NamespaceDescriptor
+argument_list|>
+name|getNamespaceDescriptor
+parameter_list|(
+specifier|final
+name|String
+name|name
+parameter_list|)
+function_decl|;
+comment|/**    * List available namespace descriptors    * @return List of descriptors wrapped by a {@link CompletableFuture}.    */
+name|CompletableFuture
+argument_list|<
+name|NamespaceDescriptor
+index|[]
+argument_list|>
+name|listNamespaceDescriptors
+parameter_list|()
 function_decl|;
 comment|/**    * Turn the load balancer on or off.    * @param on    * @return Previous balancer value wrapped by a {@link CompletableFuture}.    */
 name|CompletableFuture
