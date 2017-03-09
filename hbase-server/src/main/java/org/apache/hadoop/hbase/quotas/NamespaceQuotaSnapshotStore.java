@@ -43,7 +43,9 @@ name|java
 operator|.
 name|util
 operator|.
-name|Objects
+name|Map
+operator|.
+name|Entry
 import|;
 end_import
 
@@ -53,9 +55,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|Map
-operator|.
-name|Entry
+name|Objects
 import|;
 end_import
 
@@ -475,6 +475,8 @@ parameter_list|,
 name|SpaceQuota
 name|spaceQuota
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|rlock
 operator|.
@@ -521,6 +523,18 @@ name|getValue
 argument_list|()
 expr_stmt|;
 block|}
+comment|// Add in the size for any snapshots against this table
+name|sum
+operator|+=
+name|QuotaTableUtil
+operator|.
+name|getNamespaceSnapshotSize
+argument_list|(
+name|conn
+argument_list|,
+name|subject
+argument_list|)
+expr_stmt|;
 comment|// Observance is defined as the size of the table being less than the limit
 name|SpaceQuotaStatus
 name|status

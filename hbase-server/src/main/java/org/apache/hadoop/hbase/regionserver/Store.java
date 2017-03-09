@@ -1022,6 +1022,11 @@ name|long
 name|getStorefilesSize
 parameter_list|()
 function_decl|;
+comment|/**    * @return The size of only the store files which are HFiles, in bytes.    */
+name|long
+name|getHFilesSize
+parameter_list|()
+function_decl|;
 comment|/**    * @return The size of the store file indexes, in bytes.    */
 name|long
 name|getStorefilesIndexSize

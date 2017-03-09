@@ -198,6 +198,8 @@ parameter_list|,
 name|SpaceQuota
 name|spaceQuota
 parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
 comment|/**    * Filters the provided<code>regions</code>, returning those which match the given    *<code>subject</code>.    *    * @param subject The filter criteria. Only regions belonging to this parameter will be returned    */
 name|Iterable

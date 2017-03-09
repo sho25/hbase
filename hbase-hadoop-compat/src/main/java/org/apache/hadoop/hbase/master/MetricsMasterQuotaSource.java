@@ -117,6 +117,36 @@ init|=
 literal|"Histogram for the time in millis for the QuotaObserverChore"
 decl_stmt|;
 name|String
+name|SNAPSHOT_OBSERVER_CHORE_TIME_NAME
+init|=
+literal|"snapshotQuotaObserverChoreTime"
+decl_stmt|;
+name|String
+name|SNAPSHOT_OBSERVER_CHORE_TIME_DESC
+init|=
+literal|"Histogram for the time in millis for the SnapshotQuotaObserverChore"
+decl_stmt|;
+name|String
+name|SNAPSHOT_OBSERVER_SIZE_COMPUTATION_TIME_NAME
+init|=
+literal|"snapshotObserverSizeComputationTime"
+decl_stmt|;
+name|String
+name|SNAPSHOT_OBSERVER_SIZE_COMPUTATION_TIME_DESC
+init|=
+literal|"Histogram for the time in millis to compute the size of each snapshot"
+decl_stmt|;
+name|String
+name|SNAPSHOT_OBSERVER_FETCH_TIME_NAME
+init|=
+literal|"snapshotObserverSnapshotFetchTime"
+decl_stmt|;
+name|String
+name|SNAPSHOT_OBSERVER_FETCH_TIME_DESC
+init|=
+literal|"Histogram for the time in millis to fetch all snapshots from HBase"
+decl_stmt|;
+name|String
 name|TABLE_QUOTA_USAGE_NAME
 init|=
 literal|"tableSpaceQuotaOverview"
@@ -171,6 +201,30 @@ function_decl|;
 comment|/**    * Updates the metric tracking the amount of time taken by the {@code QuotaObserverChore}    * which runs periodically.    *    * @param time The execution time of the chore in milliseconds    */
 name|void
 name|incrementSpaceQuotaObserverChoreTime
+parameter_list|(
+name|long
+name|time
+parameter_list|)
+function_decl|;
+comment|/**    * Updates the metric tracking the amount of time taken by the {@code SnapshotQuotaObserverChore}    * which runs periodically.    */
+name|void
+name|incrementSnapshotObserverChoreTime
+parameter_list|(
+name|long
+name|time
+parameter_list|)
+function_decl|;
+comment|/**    * Updates the metric tracking the amount of time taken by the {@code SnapshotQuotaObserverChore}    * to compute the size of one snapshot, relative to the files referenced by the originating table.    */
+name|void
+name|incrementSnapshotObserverSnapshotComputationTime
+parameter_list|(
+name|long
+name|time
+parameter_list|)
+function_decl|;
+comment|/**    * Updates the metric tracking the amount of time taken by the {@code SnapshotQuotaObserverChore}    * to fetch all snapshots.    */
+name|void
+name|incrementSnapshotObserverSnapshotFetchTime
 parameter_list|(
 name|long
 name|time

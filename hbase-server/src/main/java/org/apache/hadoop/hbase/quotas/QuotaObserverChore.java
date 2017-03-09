@@ -972,7 +972,9 @@ operator|.
 name|size
 argument_list|()
 operator|+
-literal|" region space use reports"
+literal|" region space use reports: "
+operator|+
+name|reportedRegionSpaceUse
 argument_list|)
 expr_stmt|;
 block|}

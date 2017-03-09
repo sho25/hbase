@@ -168,7 +168,7 @@ name|p
 init|=
 name|QuotaTableUtil
 operator|.
-name|createPutSpaceSnapshot
+name|createPutForSpaceSnapshot
 argument_list|(
 name|tableName
 argument_list|,
