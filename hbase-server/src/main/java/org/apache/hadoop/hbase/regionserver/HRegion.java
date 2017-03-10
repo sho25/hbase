@@ -28798,13 +28798,13 @@ name|Throwable
 name|fnfe
 parameter_list|)
 block|{
-comment|// Try reopenning the region since we have lost some storefiles.
+comment|// Try reopening the region since we have lost some storefiles.
 comment|// See HBASE-17712 for more details.
 name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"A store file got lost"
+literal|"A store file got lost, so close and reopen region"
 argument_list|,
 name|fnfe
 argument_list|)
