@@ -1293,9 +1293,22 @@ name|time
 operator|+
 literal|", latency="
 operator|+
+name|String
+operator|.
+name|format
+argument_list|(
+literal|"%.2f"
+argument_list|,
+operator|(
+name|double
+operator|)
 name|totalOpTime
 operator|/
+operator|(
+name|double
+operator|)
 name|numKeys
+argument_list|)
 operator|+
 literal|" ms]"
 operator|)
@@ -1323,9 +1336,22 @@ name|REPORTING_INTERVAL_MS
 operator|+
 literal|", latency="
 operator|+
+name|String
+operator|.
+name|format
+argument_list|(
+literal|"%.2f"
+argument_list|,
+operator|(
+name|double
+operator|)
 name|totalOpTimeDelta
 operator|/
+operator|(
+name|double
+operator|)
 name|numKeysDelta
+argument_list|)
 operator|+
 literal|" ms]"
 operator|)
