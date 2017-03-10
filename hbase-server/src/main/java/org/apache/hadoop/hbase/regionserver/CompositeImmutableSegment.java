@@ -83,20 +83,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellScanner
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -202,11 +188,6 @@ name|ImmutableSegment
 argument_list|>
 name|segments
 decl_stmt|;
-specifier|private
-specifier|final
-name|CellComparator
-name|comparator
-decl_stmt|;
 comment|// CompositeImmutableSegment is used for snapshots and snapshot should
 comment|// support getTimeRangeTracker() interface.
 comment|// Thus we hold a constant TRT build in the construction time from TRT of the given segments.
@@ -238,12 +219,6 @@ name|super
 argument_list|(
 name|comparator
 argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|comparator
-operator|=
-name|comparator
 expr_stmt|;
 name|this
 operator|.
@@ -310,6 +285,8 @@ block|}
 block|}
 annotation|@
 name|VisibleForTesting
+annotation|@
+name|Override
 specifier|public
 name|List
 argument_list|<
@@ -327,6 +304,8 @@ name|segments
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|int
 name|getNumOfSegments
@@ -340,6 +319,8 @@ argument_list|()
 return|;
 block|}
 comment|/**    * Builds a special scanner for the MemStoreSnapshot object that is different than the    * general segment scanner.    * @return a special scanner for the MemStoreSnapshot object    */
+annotation|@
+name|Override
 specifier|public
 name|KeyValueScanner
 name|getSnapshotScanner
@@ -359,6 +340,8 @@ argument_list|)
 return|;
 block|}
 comment|/**    * @return whether the segment has any cells    */
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isEmpty
@@ -389,6 +372,8 @@ literal|true
 return|;
 block|}
 comment|/**    * @return number of cells in segment    */
+annotation|@
+name|Override
 specifier|public
 name|int
 name|getCellsCount
@@ -420,6 +405,8 @@ name|result
 return|;
 block|}
 comment|/**    * @return the first cell in the segment that has equal or greater key than the given cell    */
+annotation|@
+name|Override
 specifier|public
 name|Cell
 name|getFirstAfter
@@ -437,6 +424,8 @@ argument_list|)
 throw|;
 block|}
 comment|/**    * Closing a segment before it is being discarded    */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|close
@@ -458,6 +447,8 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * If the segment has a memory allocator the cell is being cloned to this space, and returned;    * otherwise the given cell is returned    * @return either the given cell or its clone    */
+annotation|@
+name|Override
 specifier|public
 name|Cell
 name|maybeCloneWithAllocator
@@ -474,6 +465,8 @@ literal|"Not supported by CompositeImmutableScanner"
 argument_list|)
 throw|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|shouldSeek
@@ -493,6 +486,8 @@ literal|"Not supported by CompositeImmutableScanner"
 argument_list|)
 throw|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|long
 name|getMinTimestamp
@@ -507,6 +502,8 @@ argument_list|)
 throw|;
 block|}
 comment|/**    * Creates the scanner for the given read point    * @return a scanner for the given read point    */
+annotation|@
+name|Override
 specifier|public
 name|KeyValueScanner
 name|getScanner
@@ -528,6 +525,8 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Creates the scanner for the given read point, and a specific order in a list    * @return a scanner for the given read point    */
+annotation|@
+name|Override
 specifier|public
 name|KeyValueScanner
 name|getScanner
@@ -613,6 +612,8 @@ return|return
 name|resultScanner
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isTagsPresent
@@ -641,6 +642,8 @@ return|return
 literal|false
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|incScannerCount
@@ -654,6 +657,8 @@ literal|"Not supported by CompositeImmutableScanner"
 argument_list|)
 throw|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|decScannerCount
@@ -668,6 +673,8 @@ argument_list|)
 throw|;
 block|}
 comment|/**    * Setting the CellSet of the segment - used only for flat immutable segment for setting    * immutable CellSet after its creation in immutable segment constructor    * @return this object    */
+annotation|@
+name|Override
 specifier|protected
 name|CompositeImmutableSegment
 name|setCellSet
@@ -688,6 +695,8 @@ argument_list|)
 throw|;
 block|}
 comment|/**    * @return Sum of all cell sizes.    */
+annotation|@
+name|Override
 specifier|public
 name|long
 name|keySize
@@ -699,10 +708,12 @@ operator|.
 name|keySize
 return|;
 block|}
-comment|/**    * @return The heap overhead of this segment.    */
+comment|/**    * @return The heap size of this segment.    */
+annotation|@
+name|Override
 specifier|public
 name|long
-name|heapOverhead
+name|heapSize
 parameter_list|()
 block|{
 name|long
@@ -722,7 +733,7 @@ name|result
 operator|+=
 name|s
 operator|.
-name|heapOverhead
+name|heapSize
 argument_list|()
 expr_stmt|;
 block|}
@@ -731,6 +742,8 @@ name|result
 return|;
 block|}
 comment|/**    * Updates the heap size counter of the segment by the given delta    */
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|incSize
@@ -750,22 +763,8 @@ literal|"Not supported by CompositeImmutableScanner"
 argument_list|)
 throw|;
 block|}
-specifier|protected
-name|void
-name|incHeapOverheadSize
-parameter_list|(
-name|long
-name|delta
-parameter_list|)
-block|{
-throw|throw
-operator|new
-name|IllegalStateException
-argument_list|(
-literal|"Not supported by CompositeImmutableScanner"
-argument_list|)
-throw|;
-block|}
+annotation|@
+name|Override
 specifier|public
 name|long
 name|getMinSequenceId
@@ -779,6 +778,8 @@ literal|"Not supported by CompositeImmutableScanner"
 argument_list|)
 throw|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|TimeRangeTracker
 name|getTimeRangeTracker
@@ -791,6 +792,8 @@ name|timeRangeTracker
 return|;
 block|}
 comment|//*** Methods for SegmentsScanner
+annotation|@
+name|Override
 specifier|public
 name|Cell
 name|last
@@ -804,6 +807,8 @@ literal|"Not supported by CompositeImmutableScanner"
 argument_list|)
 throw|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|Iterator
 argument_list|<
@@ -820,6 +825,8 @@ literal|"Not supported by CompositeImmutableScanner"
 argument_list|)
 throw|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|SortedSet
 argument_list|<
@@ -839,6 +846,8 @@ literal|"Not supported by CompositeImmutableScanner"
 argument_list|)
 throw|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|int
 name|compare
@@ -858,6 +867,8 @@ literal|"Not supported by CompositeImmutableScanner"
 argument_list|)
 throw|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|int
 name|compareRows
@@ -878,6 +889,8 @@ argument_list|)
 throw|;
 block|}
 comment|/**    * @return a set of all cells in the segment    */
+annotation|@
+name|Override
 specifier|protected
 name|CellSet
 name|getCellSet
@@ -891,16 +904,8 @@ literal|"Not supported by CompositeImmutableScanner"
 argument_list|)
 throw|;
 block|}
-comment|/**    * Returns the Cell comparator used by this segment    * @return the Cell comparator used by this segment    */
-specifier|protected
-name|CellComparator
-name|getComparator
-parameter_list|()
-block|{
-return|return
-name|comparator
-return|;
-block|}
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|internalAdd
@@ -923,6 +928,8 @@ literal|"Not supported by CompositeImmutableScanner"
 argument_list|)
 throw|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|updateMetaInfo
@@ -948,26 +955,9 @@ literal|"Not supported by CompositeImmutableScanner"
 argument_list|)
 throw|;
 block|}
-specifier|protected
-name|long
-name|heapOverheadChange
-parameter_list|(
-name|Cell
-name|cell
-parameter_list|,
-name|boolean
-name|succ
-parameter_list|)
-block|{
-throw|throw
-operator|new
-name|IllegalStateException
-argument_list|(
-literal|"Not supported by CompositeImmutableScanner"
-argument_list|)
-throw|;
-block|}
 comment|/**    * Returns a subset of the segment cell set, which starts with the given cell    * @param firstCell a cell in the segment    * @return a subset of the segment cell set, which starts with the given cell    */
+annotation|@
+name|Override
 specifier|protected
 name|SortedSet
 argument_list|<

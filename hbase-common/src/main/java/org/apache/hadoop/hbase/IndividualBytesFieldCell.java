@@ -616,9 +616,7 @@ name|withTags
 argument_list|)
 return|;
 block|}
-annotation|@
-name|Override
-specifier|public
+specifier|private
 name|long
 name|heapOverhead
 parameter_list|()

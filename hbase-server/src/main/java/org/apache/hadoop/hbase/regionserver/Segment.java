@@ -137,7 +137,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ExtendedCell
+name|CellUtil
 import|;
 end_import
 
@@ -351,7 +351,7 @@ decl_stmt|;
 specifier|protected
 specifier|final
 name|AtomicLong
-name|heapOverhead
+name|heapSize
 decl_stmt|;
 specifier|protected
 specifier|final
@@ -390,7 +390,7 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|heapOverhead
+name|heapSize
 operator|=
 operator|new
 name|AtomicLong
@@ -462,7 +462,7 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|heapOverhead
+name|heapSize
 operator|=
 operator|new
 name|AtomicLong
@@ -546,14 +546,14 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|heapOverhead
+name|heapSize
 operator|=
 operator|new
 name|AtomicLong
 argument_list|(
 name|segment
 operator|.
-name|heapOverhead
+name|heapSize
 operator|.
 name|get
 argument_list|()
@@ -939,22 +939,23 @@ name|get
 argument_list|()
 return|;
 block|}
-comment|/**    * @return The heap overhead of this segment.    */
+comment|/**    * @return The heap size of this segment.    */
 specifier|public
 name|long
-name|heapOverhead
+name|heapSize
 parameter_list|()
 block|{
 return|return
 name|this
 operator|.
-name|heapOverhead
+name|heapSize
 operator|.
 name|get
 argument_list|()
 return|;
 block|}
-comment|/**    * Updates the heap size counter of the segment by the given delta    */
+comment|/**    * Updates the size counters of the segment by the given delta    */
+comment|//TODO
 specifier|protected
 name|void
 name|incSize
@@ -977,29 +978,11 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|heapOverhead
+name|heapSize
 operator|.
 name|addAndGet
 argument_list|(
 name|heapOverhead
-argument_list|)
-expr_stmt|;
-block|}
-specifier|protected
-name|void
-name|incHeapOverheadSize
-parameter_list|(
-name|long
-name|delta
-parameter_list|)
-block|{
-name|this
-operator|.
-name|heapOverhead
-operator|.
-name|addAndGet
-argument_list|(
-name|delta
 argument_list|)
 expr_stmt|;
 block|}
@@ -1221,9 +1204,9 @@ argument_list|)
 expr_stmt|;
 block|}
 name|long
-name|overhead
+name|heapSize
 init|=
-name|heapOverheadChange
+name|heapSizeChange
 argument_list|(
 name|cellToAdd
 argument_list|,
@@ -1234,7 +1217,7 @@ name|incSize
 argument_list|(
 name|cellSize
 argument_list|,
-name|overhead
+name|heapSize
 argument_list|)
 expr_stmt|;
 if|if
@@ -1250,7 +1233,7 @@ name|incMemstoreSize
 argument_list|(
 name|cellSize
 argument_list|,
-name|overhead
+name|heapSize
 argument_list|)
 expr_stmt|;
 block|}
@@ -1296,9 +1279,10 @@ literal|true
 expr_stmt|;
 block|}
 block|}
+comment|/**    * @return The increase in heap size because of this cell addition. This includes this cell POJO's    *         heap size itself and additional overhead because of addition on to CSLM.    */
 specifier|protected
 name|long
-name|heapOverheadChange
+name|heapSizeChange
 parameter_list|(
 name|Cell
 name|cell
@@ -1312,13 +1296,6 @@ condition|(
 name|succ
 condition|)
 block|{
-if|if
-condition|(
-name|cell
-operator|instanceof
-name|ExtendedCell
-condition|)
-block|{
 return|return
 name|ClassSize
 operator|.
@@ -1328,32 +1305,12 @@ name|ClassSize
 operator|.
 name|CONCURRENT_SKIPLISTMAP_ENTRY
 operator|+
-operator|(
-operator|(
-name|ExtendedCell
-operator|)
-name|cell
-operator|)
+name|CellUtil
 operator|.
-name|heapOverhead
-argument_list|()
+name|estimatedHeapSizeOf
+argument_list|(
+name|cell
 argument_list|)
-return|;
-block|}
-comment|// All cells in server side will be of type ExtendedCell. If not just go with estimation on
-comment|// the heap overhead considering it is KeyValue.
-return|return
-name|ClassSize
-operator|.
-name|align
-argument_list|(
-name|ClassSize
-operator|.
-name|CONCURRENT_SKIPLISTMAP_ENTRY
-operator|+
-name|KeyValue
-operator|.
-name|FIXED_OVERHEAD
 argument_list|)
 return|;
 block|}
@@ -1459,7 +1416,7 @@ literal|"; "
 expr_stmt|;
 name|res
 operator|+=
-literal|"cellCount "
+literal|"cellsCount "
 operator|+
 name|getCellsCount
 argument_list|()
@@ -1477,9 +1434,9 @@ literal|"; "
 expr_stmt|;
 name|res
 operator|+=
-literal|"heapOverhead "
+literal|"totalHeapSize "
 operator|+
-name|heapOverhead
+name|heapSize
 argument_list|()
 operator|+
 literal|"; "

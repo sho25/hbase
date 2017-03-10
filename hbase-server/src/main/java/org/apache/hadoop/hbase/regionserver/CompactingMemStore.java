@@ -625,7 +625,7 @@ name|this
 operator|.
 name|active
 operator|.
-name|heapOverhead
+name|heapSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -651,7 +651,7 @@ argument_list|()
 argument_list|,
 name|item
 operator|.
-name|heapOverhead
+name|heapSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -877,7 +877,7 @@ name|this
 operator|.
 name|active
 operator|.
-name|heapOverhead
+name|heapSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -917,7 +917,7 @@ name|this
 operator|.
 name|active
 operator|.
-name|heapOverhead
+name|heapSize
 argument_list|()
 argument_list|)
 return|;
@@ -969,7 +969,7 @@ annotation|@
 name|Override
 specifier|protected
 name|long
-name|heapOverhead
+name|heapSize
 parameter_list|()
 block|{
 comment|// Need to consider heapOverhead of all segments in pipeline and active
@@ -980,7 +980,7 @@ name|this
 operator|.
 name|active
 operator|.
-name|heapOverhead
+name|heapSize
 argument_list|()
 decl_stmt|;
 for|for
@@ -1000,7 +1000,7 @@ name|h
 operator|+=
 name|segment
 operator|.
-name|heapOverhead
+name|heapSize
 argument_list|()
 expr_stmt|;
 block|}

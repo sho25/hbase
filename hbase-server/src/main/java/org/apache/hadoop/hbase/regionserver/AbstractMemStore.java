@@ -701,7 +701,7 @@ name|this
 operator|.
 name|snapshot
 operator|.
-name|heapOverhead
+name|heapSize
 argument_list|()
 argument_list|)
 return|;
@@ -1075,11 +1075,11 @@ name|long
 name|keySize
 parameter_list|()
 function_decl|;
-comment|/**    * @return The total heap overhead of cells in this memstore. We will not consider cells in the    *         snapshot    */
+comment|/**    * @return The total heap size of cells in this memstore. We will not consider cells in the    *         snapshot    */
 specifier|protected
 specifier|abstract
 name|long
-name|heapOverhead
+name|heapSize
 parameter_list|()
 function_decl|;
 specifier|protected

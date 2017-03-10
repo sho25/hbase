@@ -191,22 +191,6 @@ operator|+
 name|FIXED_OVERHEAD
 return|;
 block|}
-annotation|@
-name|Override
-specifier|public
-name|long
-name|heapOverhead
-parameter_list|()
-block|{
-return|return
-name|super
-operator|.
-name|heapOverhead
-argument_list|()
-operator|+
-name|FIXED_OVERHEAD
-return|;
-block|}
 block|}
 end_class
 

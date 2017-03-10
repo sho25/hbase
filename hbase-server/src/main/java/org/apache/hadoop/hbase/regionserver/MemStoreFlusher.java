@@ -1115,7 +1115,7 @@ literal|"Refreshing storefiles of region "
 operator|+
 name|bestRegionReplica
 operator|+
-literal|" due to global heap pressure. Total memstore size="
+literal|" due to global heap pressure. Total memstore datasize="
 operator|+
 name|StringUtils
 operator|.
@@ -1130,7 +1130,7 @@ name|getGlobalMemstoreDataSize
 argument_list|()
 argument_list|)
 operator|+
-literal|" memstore heap overhead="
+literal|" memstore heap size="
 operator|+
 name|StringUtils
 operator|.
@@ -1141,7 +1141,7 @@ operator|.
 name|getRegionServerAccounting
 argument_list|()
 operator|.
-name|getGlobalMemstoreHeapOverhead
+name|getGlobalMemstoreHeapSize
 argument_list|()
 argument_list|)
 argument_list|)
@@ -2875,9 +2875,23 @@ condition|)
 block|{
 name|logMsg
 argument_list|(
-literal|"the global memstore size"
+literal|"global memstore heapsize"
 argument_list|,
-literal|"global memstore heap overhead"
+name|server
+operator|.
+name|getRegionServerAccounting
+argument_list|()
+operator|.
+name|getGlobalMemstoreHeapSize
+argument_list|()
+argument_list|,
+name|server
+operator|.
+name|getRegionServerAccounting
+argument_list|()
+operator|.
+name|getGlobalMemstoreLimit
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -2893,9 +2907,23 @@ name|ABOVE_OFFHEAP_HIGHER_MARK
 case|:
 name|logMsg
 argument_list|(
-literal|"the global offheap memstore size"
+literal|"the global offheap memstore datasize"
 argument_list|,
-literal|"global memstore heap overhead"
+name|server
+operator|.
+name|getRegionServerAccounting
+argument_list|()
+operator|.
+name|getGlobalMemstoreDataSize
+argument_list|()
+argument_list|,
+name|server
+operator|.
+name|getRegionServerAccounting
+argument_list|()
+operator|.
+name|getGlobalMemstoreLimit
+argument_list|()
 argument_list|)
 expr_stmt|;
 break|break;
@@ -2904,9 +2932,23 @@ name|ABOVE_ONHEAP_HIGHER_MARK
 case|:
 name|logMsg
 argument_list|(
-literal|"global memstore heap overhead"
+literal|"global memstore heapsize"
 argument_list|,
-literal|""
+name|server
+operator|.
+name|getRegionServerAccounting
+argument_list|()
+operator|.
+name|getGlobalMemstoreHeapSize
+argument_list|()
+argument_list|,
+name|server
+operator|.
+name|getRegionServerAccounting
+argument_list|()
+operator|.
+name|getGlobalOnHeapMemstoreLimit
+argument_list|()
 argument_list|)
 expr_stmt|;
 break|break;
@@ -3075,8 +3117,11 @@ parameter_list|(
 name|String
 name|string1
 parameter_list|,
-name|String
-name|string2
+name|long
+name|val
+parameter_list|,
+name|long
+name|max
 parameter_list|)
 block|{
 name|LOG
@@ -3100,36 +3145,7 @@ name|TraditionalBinaryPrefix
 operator|.
 name|long2String
 argument_list|(
-name|server
-operator|.
-name|getRegionServerAccounting
-argument_list|()
-operator|.
-name|getGlobalMemstoreDataSize
-argument_list|()
-argument_list|,
-literal|""
-argument_list|,
-literal|1
-argument_list|)
-operator|+
-literal|" + "
-operator|+
-name|string2
-operator|+
-literal|" "
-operator|+
-name|TraditionalBinaryPrefix
-operator|.
-name|long2String
-argument_list|(
-name|server
-operator|.
-name|getRegionServerAccounting
-argument_list|()
-operator|.
-name|getGlobalMemstoreHeapOverhead
-argument_list|()
+name|val
 argument_list|,
 literal|""
 argument_list|,
@@ -3142,13 +3158,7 @@ name|TraditionalBinaryPrefix
 operator|.
 name|long2String
 argument_list|(
-name|server
-operator|.
-name|getRegionServerAccounting
-argument_list|()
-operator|.
-name|getGlobalMemstoreLimit
-argument_list|()
+name|max
 argument_list|,
 literal|""
 argument_list|,

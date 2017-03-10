@@ -172,11 +172,13 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
-comment|// memstore heap over head size
+comment|// memstore heap size. When off heap MSLAB in place, this will be only heap overhead of the Cell
+comment|// POJOs and entry overhead of them onto memstore. When on heap MSLAB, this will be include heap
+comment|// overhead as well as the cell data size. Ya cell data is in on heap area only then.
 specifier|private
 specifier|final
 name|AtomicLong
-name|globalMemstoreHeapOverhead
+name|globalMemstoreHeapSize
 init|=
 operator|new
 name|AtomicLong
@@ -205,11 +207,6 @@ name|Bytes
 operator|.
 name|BYTES_COMPARATOR
 argument_list|)
-decl_stmt|;
-specifier|private
-specifier|final
-name|Configuration
-name|conf
 decl_stmt|;
 specifier|private
 name|long
@@ -244,12 +241,6 @@ name|Configuration
 name|conf
 parameter_list|)
 block|{
-name|this
-operator|.
-name|conf
-operator|=
-name|conf
-expr_stmt|;
 name|Pair
 argument_list|<
 name|Long
@@ -357,7 +348,6 @@ name|globalMemStoreLimitLowMarkPercent
 argument_list|)
 expr_stmt|;
 block|}
-specifier|public
 name|long
 name|getGlobalMemstoreLimit
 parameter_list|()
@@ -368,9 +358,8 @@ operator|.
 name|globalMemStoreLimit
 return|;
 block|}
-specifier|public
 name|long
-name|getOnheapGlobalMemstoreLimit
+name|getGlobalOnHeapMemstoreLimit
 parameter_list|()
 block|{
 return|return
@@ -380,7 +369,6 @@ name|globalOnHeapMemstoreLimit
 return|;
 block|}
 comment|// Called by the tuners.
-specifier|public
 name|void
 name|setGlobalMemstoreLimits
 parameter_list|(
@@ -450,7 +438,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-specifier|public
 name|boolean
 name|isOffheap
 parameter_list|()
@@ -465,7 +452,6 @@ operator|.
 name|NON_HEAP
 return|;
 block|}
-specifier|public
 name|long
 name|getGlobalMemstoreLimitLowMark
 parameter_list|()
@@ -476,7 +462,6 @@ operator|.
 name|globalMemStoreLimitLowMark
 return|;
 block|}
-specifier|public
 name|float
 name|getGlobalMemstoreLimitLowMarkPercent
 parameter_list|()
@@ -500,49 +485,20 @@ name|get
 argument_list|()
 return|;
 block|}
-comment|/**    * @return the global memstore heap overhead size in the RegionServer    */
+comment|/**    * @return the global memstore heap size in the RegionServer    */
 specifier|public
 name|long
-name|getGlobalMemstoreHeapOverhead
+name|getGlobalMemstoreHeapSize
 parameter_list|()
 block|{
 return|return
 name|this
 operator|.
-name|globalMemstoreHeapOverhead
+name|globalMemstoreHeapSize
 operator|.
 name|get
 argument_list|()
 return|;
-block|}
-comment|/**    * @return the global memstore data size and heap overhead size for an onheap memstore    * whereas return the heap overhead size for an offheap memstore    */
-specifier|public
-name|long
-name|getGlobalMemstoreSize
-parameter_list|()
-block|{
-if|if
-condition|(
-name|isOffheap
-argument_list|()
-condition|)
-block|{
-comment|// get only the heap overhead for offheap memstore
-return|return
-name|getGlobalMemstoreHeapOverhead
-argument_list|()
-return|;
-block|}
-else|else
-block|{
-return|return
-name|getGlobalMemstoreDataSize
-argument_list|()
-operator|+
-name|getGlobalMemstoreHeapOverhead
-argument_list|()
-return|;
-block|}
 block|}
 comment|/**    * @param memStoreSize the Memstore size will be added to     *        the global Memstore size     */
 specifier|public
@@ -563,13 +519,13 @@ name|getDataSize
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|globalMemstoreHeapOverhead
+name|globalMemstoreHeapSize
 operator|.
 name|addAndGet
 argument_list|(
 name|memStoreSize
 operator|.
-name|getHeapOverhead
+name|getHeapSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -593,14 +549,14 @@ name|getDataSize
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|globalMemstoreHeapOverhead
+name|globalMemstoreHeapSize
 operator|.
 name|addAndGet
 argument_list|(
 operator|-
 name|memStoreSize
 operator|.
-name|getHeapOverhead
+name|getHeapSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -624,10 +580,7 @@ condition|)
 block|{
 if|if
 condition|(
-name|getGlobalMemstoreDataSize
-argument_list|()
-operator|+
-name|getGlobalMemstoreHeapOverhead
+name|getGlobalMemstoreHeapSize
 argument_list|()
 operator|>=
 name|globalMemStoreLimit
@@ -668,7 +621,7 @@ block|}
 elseif|else
 if|if
 condition|(
-name|getGlobalMemstoreHeapOverhead
+name|getGlobalMemstoreHeapSize
 argument_list|()
 operator|>=
 name|this
@@ -710,10 +663,7 @@ condition|)
 block|{
 if|if
 condition|(
-name|getGlobalMemstoreDataSize
-argument_list|()
-operator|+
-name|getGlobalMemstoreHeapOverhead
+name|getGlobalMemstoreHeapSize
 argument_list|()
 operator|>=
 name|globalMemStoreLimitLowMark
@@ -747,7 +697,7 @@ block|}
 elseif|else
 if|if
 condition|(
-name|getGlobalMemstoreHeapOverhead
+name|getGlobalMemstoreHeapSize
 argument_list|()
 operator|>=
 name|globalOnHeapMemstoreLimitLowMark
@@ -785,10 +735,7 @@ condition|)
 block|{
 return|return
 operator|(
-name|getGlobalMemstoreDataSize
-argument_list|()
-operator|+
-name|getGlobalMemstoreHeapOverhead
+name|getGlobalMemstoreHeapSize
 argument_list|()
 operator|)
 operator|*
@@ -811,7 +758,7 @@ literal|1.0
 operator|/
 name|globalMemStoreLimitLowMark
 argument_list|,
-name|getGlobalMemstoreHeapOverhead
+name|getGlobalMemstoreHeapSize
 argument_list|()
 operator|*
 literal|1.0

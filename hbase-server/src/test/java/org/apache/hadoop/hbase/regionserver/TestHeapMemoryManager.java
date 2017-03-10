@@ -81,18 +81,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|lang
-operator|.
-name|management
-operator|.
-name|MemoryType
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|Iterator
@@ -5974,7 +5962,7 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|getGlobalMemstoreHeapOverhead
+name|getGlobalMemstoreHeapSize
 parameter_list|()
 block|{
 return|return

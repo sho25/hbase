@@ -64,7 +64,7 @@ decl_stmt|;
 specifier|private
 specifier|final
 name|long
-name|heapOverhead
+name|heapSize
 decl_stmt|;
 specifier|private
 specifier|final
@@ -117,11 +117,11 @@ argument_list|()
 expr_stmt|;
 name|this
 operator|.
-name|heapOverhead
+name|heapSize
 operator|=
 name|snapshot
 operator|.
-name|heapOverhead
+name|heapSize
 argument_list|()
 expr_stmt|;
 name|this
@@ -184,13 +184,13 @@ return|;
 block|}
 specifier|public
 name|long
-name|getHeapOverhead
+name|getHeapSize
 parameter_list|()
 block|{
 return|return
 name|this
 operator|.
-name|heapOverhead
+name|heapSize
 return|;
 block|}
 comment|/**    * @return {@link TimeRangeTracker} for all the Cells in the snapshot.    */

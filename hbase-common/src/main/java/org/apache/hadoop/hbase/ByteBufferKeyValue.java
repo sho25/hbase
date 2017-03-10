@@ -161,7 +161,7 @@ name|seqId
 init|=
 literal|0
 decl_stmt|;
-specifier|private
+specifier|public
 specifier|static
 specifier|final
 name|int
@@ -1213,17 +1213,6 @@ operator|.
 name|SIZEOF_LONG
 argument_list|)
 expr_stmt|;
-block|}
-annotation|@
-name|Override
-specifier|public
-name|long
-name|heapOverhead
-parameter_list|()
-block|{
-return|return
-name|FIXED_OVERHEAD
-return|;
 block|}
 annotation|@
 name|Override

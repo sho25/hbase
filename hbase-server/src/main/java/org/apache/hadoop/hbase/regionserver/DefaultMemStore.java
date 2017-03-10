@@ -491,7 +491,7 @@ argument_list|(
 name|keySize
 argument_list|()
 argument_list|,
-name|heapOverhead
+name|heapSize
 argument_list|()
 argument_list|)
 return|;
@@ -516,7 +516,7 @@ annotation|@
 name|Override
 specifier|protected
 name|long
-name|heapOverhead
+name|heapSize
 parameter_list|()
 block|{
 return|return
@@ -524,7 +524,7 @@ name|this
 operator|.
 name|active
 operator|.
-name|heapOverhead
+name|heapSize
 argument_list|()
 return|;
 block|}
@@ -725,7 +725,7 @@ name|this
 operator|.
 name|active
 operator|.
-name|heapOverhead
+name|heapSize
 argument_list|()
 argument_list|)
 return|;
@@ -931,7 +931,7 @@ argument_list|()
 operator|+
 name|memstoreSize
 operator|.
-name|getHeapOverhead
+name|getHeapSize
 argument_list|()
 operator|)
 argument_list|)
@@ -992,7 +992,7 @@ argument_list|()
 operator|+
 name|memstoreSize
 operator|.
-name|getHeapOverhead
+name|getHeapSize
 argument_list|()
 operator|)
 argument_list|)
@@ -1071,7 +1071,7 @@ argument_list|()
 operator|+
 name|memstoreSize
 operator|.
-name|getHeapOverhead
+name|getHeapSize
 argument_list|()
 operator|)
 argument_list|)

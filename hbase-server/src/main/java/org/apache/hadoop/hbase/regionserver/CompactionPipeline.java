@@ -579,15 +579,15 @@ operator|-
 name|newDataSize
 decl_stmt|;
 name|long
-name|suffixHeapOverhead
+name|suffixHeapSize
 init|=
-name|getSegmentsHeapOverhead
+name|getSegmentsHeapSize
 argument_list|(
 name|suffix
 argument_list|)
 decl_stmt|;
 name|long
-name|newHeapOverhead
+name|newHeapSize
 init|=
 literal|0
 decl_stmt|;
@@ -597,19 +597,19 @@ name|segment
 operator|!=
 literal|null
 condition|)
-name|newHeapOverhead
+name|newHeapSize
 operator|=
 name|segment
 operator|.
-name|heapOverhead
+name|heapSize
 argument_list|()
 expr_stmt|;
 name|long
-name|heapOverheadDelta
+name|heapSizeDelta
 init|=
-name|suffixHeapOverhead
+name|suffixHeapSize
 operator|-
-name|newHeapOverhead
+name|newHeapSize
 decl_stmt|;
 name|region
 operator|.
@@ -622,7 +622,7 @@ operator|-
 name|dataSizeDelta
 argument_list|,
 operator|-
-name|heapOverheadDelta
+name|heapSizeDelta
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -646,13 +646,13 @@ literal|" new segment data size: "
 operator|+
 name|newDataSize
 operator|+
-literal|". Suffix heap overhead: "
+literal|". Suffix heap size: "
 operator|+
-name|suffixHeapOverhead
+name|suffixHeapSize
 operator|+
-literal|" new segment heap overhead: "
+literal|" new segment heap size: "
 operator|+
-name|newHeapOverhead
+name|newHeapSize
 argument_list|)
 expr_stmt|;
 block|}
@@ -664,7 +664,7 @@ block|}
 specifier|private
 specifier|static
 name|long
-name|getSegmentsHeapOverhead
+name|getSegmentsHeapSize
 parameter_list|(
 name|List
 argument_list|<
@@ -692,7 +692,7 @@ name|res
 operator|+=
 name|segment
 operator|.
-name|heapOverhead
+name|heapSize
 argument_list|()
 expr_stmt|;
 block|}
@@ -966,9 +966,11 @@ name|isEmpty
 argument_list|()
 condition|)
 return|return
+operator|new
 name|MemstoreSize
-operator|.
-name|EMPTY_SIZE
+argument_list|(
+literal|true
+argument_list|)
 return|;
 return|return
 operator|new
@@ -987,7 +989,7 @@ operator|.
 name|peekLast
 argument_list|()
 operator|.
-name|heapOverhead
+name|heapSize
 argument_list|()
 argument_list|)
 return|;
@@ -1003,7 +1005,7 @@ init|=
 literal|0
 decl_stmt|;
 name|long
-name|heapOverhead
+name|heapSize
 init|=
 literal|0
 decl_stmt|;
@@ -1025,9 +1027,11 @@ name|isEmpty
 argument_list|()
 condition|)
 return|return
+operator|new
 name|MemstoreSize
-operator|.
-name|EMPTY_SIZE
+argument_list|(
+literal|true
+argument_list|)
 return|;
 for|for
 control|(
@@ -1044,11 +1048,11 @@ operator|.
 name|keySize
 argument_list|()
 expr_stmt|;
-name|heapOverhead
+name|heapSize
 operator|+=
 name|segment
 operator|.
-name|heapOverhead
+name|heapSize
 argument_list|()
 expr_stmt|;
 block|}
@@ -1058,7 +1062,7 @@ name|MemstoreSize
 argument_list|(
 name|keySize
 argument_list|,
-name|heapOverhead
+name|heapSize
 argument_list|)
 return|;
 block|}

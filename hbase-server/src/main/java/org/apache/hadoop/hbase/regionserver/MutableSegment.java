@@ -411,9 +411,9 @@ name|cur
 argument_list|)
 decl_stmt|;
 name|long
-name|heapOverheadDelta
+name|heapSize
 init|=
-name|heapOverheadChange
+name|heapSizeChange
 argument_list|(
 name|cur
 argument_list|,
@@ -428,7 +428,7 @@ operator|-
 name|cellLen
 argument_list|,
 operator|-
-name|heapOverheadDelta
+name|heapSize
 argument_list|)
 expr_stmt|;
 if|if
@@ -444,7 +444,7 @@ name|decMemstoreSize
 argument_list|(
 name|cellLen
 argument_list|,
-name|heapOverheadDelta
+name|heapSize
 argument_list|)
 expr_stmt|;
 block|}
