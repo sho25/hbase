@@ -3230,16 +3230,7 @@ name|threadNamePrefixs
 operator|.
 name|add
 argument_list|(
-literal|"RpcServer.CodelFPBQ.default.handler"
-argument_list|)
-expr_stmt|;
-name|envEdge
-operator|.
-name|threadNamePrefixs
-operator|.
-name|add
-argument_list|(
-literal|"RpcServer.CodelRWQ.default.handler"
+literal|"RpcServer.deafult.FPBQ.Codel.handler"
 argument_list|)
 expr_stmt|;
 name|Configuration

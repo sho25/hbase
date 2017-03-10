@@ -382,6 +382,13 @@ name|isFifoQueueType
 argument_list|(
 name|callQueueType
 argument_list|)
+operator|||
+name|RpcExecutor
+operator|.
+name|isCodelQueueType
+argument_list|(
+name|callQueueType
+argument_list|)
 condition|)
 block|{
 name|callExecutor
