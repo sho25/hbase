@@ -105,7 +105,7 @@ name|org
 operator|.
 name|junit
 operator|.
-name|BeforeClass
+name|Before
 import|;
 end_import
 
@@ -164,7 +164,7 @@ init|=
 literal|false
 decl_stmt|;
 annotation|@
-name|BeforeClass
+name|Before
 specifier|public
 name|void
 name|beforeMethod
