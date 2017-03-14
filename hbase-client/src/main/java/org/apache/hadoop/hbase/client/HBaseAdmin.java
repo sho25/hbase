@@ -23920,7 +23920,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Set the table's replication switch if the table's replication switch is already not set.    * @param tableName name of the table    * @param isRepEnabled is replication switch enable or disable    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Set the table's replication switch if the table's replication switch is already not set.    * @param tableName name of the table    * @param enableRep is replication switch enable or disable    * @throws IOException if a remote or network exception occurs    */
 end_comment
 
 begin_function
@@ -23933,7 +23933,7 @@ name|TableName
 name|tableName
 parameter_list|,
 name|boolean
-name|isRepEnabled
+name|enableRep
 parameter_list|)
 throws|throws
 name|IOException
@@ -23946,14 +23946,32 @@ argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
-name|isTableRepEnabled
+name|ReplicationState
+name|currentReplicationState
+init|=
+name|getTableReplicationState
 argument_list|(
 name|htd
 argument_list|)
-operator|^
-name|isRepEnabled
+decl_stmt|;
+if|if
+condition|(
+name|enableRep
+operator|&&
+name|currentReplicationState
+operator|!=
+name|ReplicationState
+operator|.
+name|ENABLED
+operator|||
+operator|!
+name|enableRep
+operator|&&
+name|currentReplicationState
+operator|!=
+name|ReplicationState
+operator|.
+name|DISABLED
 condition|)
 block|{
 for|for
@@ -23971,7 +23989,7 @@ name|hcd
 operator|.
 name|setScope
 argument_list|(
-name|isRepEnabled
+name|enableRep
 condition|?
 name|HConstants
 operator|.
@@ -23995,18 +24013,48 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * @param htd table descriptor details for the table to check    * @return true if table's replication switch is enabled    */
+comment|/**    * This enum indicates the current state of the replication for a given table.    */
+end_comment
+
+begin_enum
+specifier|private
+enum|enum
+name|ReplicationState
+block|{
+name|ENABLED
+block|,
+comment|// all column families enabled
+name|MIXED
+block|,
+comment|// some column families enabled, some disabled
+name|DISABLED
+comment|// all column families disabled
+block|}
+end_enum
+
+begin_comment
+comment|/**    * @param htd table descriptor details for the table to check    * @return ReplicationState the current state of the table.    */
 end_comment
 
 begin_function
 specifier|private
-name|boolean
-name|isTableRepEnabled
+name|ReplicationState
+name|getTableReplicationState
 parameter_list|(
 name|HTableDescriptor
 name|htd
 parameter_list|)
 block|{
+name|boolean
+name|hasEnabled
+init|=
+literal|false
+decl_stmt|;
+name|boolean
+name|hasDisabled
+init|=
+literal|false
+decl_stmt|;
 for|for
 control|(
 name|HColumnDescriptor
@@ -24039,13 +24087,43 @@ operator|.
 name|REPLICATION_SCOPE_SERIAL
 condition|)
 block|{
-return|return
-literal|false
-return|;
-block|}
-block|}
-return|return
+name|hasDisabled
+operator|=
 literal|true
+expr_stmt|;
+block|}
+else|else
+block|{
+name|hasEnabled
+operator|=
+literal|true
+expr_stmt|;
+block|}
+block|}
+if|if
+condition|(
+name|hasEnabled
+operator|&&
+name|hasDisabled
+condition|)
+return|return
+name|ReplicationState
+operator|.
+name|MIXED
+return|;
+if|if
+condition|(
+name|hasEnabled
+condition|)
+return|return
+name|ReplicationState
+operator|.
+name|ENABLED
+return|;
+return|return
+name|ReplicationState
+operator|.
+name|DISABLED
 return|;
 block|}
 end_function
