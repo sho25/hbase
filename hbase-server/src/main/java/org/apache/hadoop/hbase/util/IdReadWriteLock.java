@@ -83,11 +83,11 @@ name|NB_CONCURRENT_LOCKS
 init|=
 literal|1000
 decl_stmt|;
-comment|// The pool to get entry from, entries are mapped by weak reference to make it able to be
-comment|// garbage-collected asap
+comment|// The pool to get entry from, entries are mapped by soft reference and will be
+comment|// automatically garbage-collected when JVM memory pressure is high
 specifier|private
 specifier|final
-name|WeakObjectPool
+name|ObjectPool
 argument_list|<
 name|Long
 argument_list|,
@@ -96,11 +96,11 @@ argument_list|>
 name|lockPool
 init|=
 operator|new
-name|WeakObjectPool
+name|SoftObjectPool
 argument_list|<>
 argument_list|(
 operator|new
-name|WeakObjectPool
+name|ObjectPool
 operator|.
 name|ObjectFactory
 argument_list|<

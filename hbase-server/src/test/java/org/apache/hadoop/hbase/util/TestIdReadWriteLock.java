@@ -693,7 +693,8 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|// make sure the entry pool will be cleared after GC and purge call
+comment|// make sure the entry pool won't be cleared when JVM memory is enough
+comment|// even after GC and purge call
 name|int
 name|entryPoolSize
 init|=
@@ -713,7 +714,7 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|0
+name|NUM_IDS
 argument_list|,
 name|entryPoolSize
 argument_list|)

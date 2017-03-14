@@ -151,7 +151,7 @@ specifier|public
 class|class
 name|TestWeakObjectPool
 block|{
-name|WeakObjectPool
+name|ObjectPool
 argument_list|<
 name|String
 argument_list|,
@@ -173,7 +173,7 @@ name|WeakObjectPool
 argument_list|<>
 argument_list|(
 operator|new
-name|WeakObjectPool
+name|ObjectPool
 operator|.
 name|ObjectFactory
 argument_list|<

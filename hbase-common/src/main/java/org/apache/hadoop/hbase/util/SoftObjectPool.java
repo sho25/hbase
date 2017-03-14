@@ -37,7 +37,7 @@ name|lang
 operator|.
 name|ref
 operator|.
-name|WeakReference
+name|SoftReference
 import|;
 end_import
 
@@ -76,7 +76,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A {@code WeakReference} based shared object pool.  * The objects are kept in weak references and  * associated with keys which are identified by the {@code equals} method.  * The objects are created by {@link ObjectFactory} on demand.  * The object creation is expected to be lightweight,  * and the objects may be excessively created and discarded.  * Thread safe.  */
+comment|/**  * A {@code SoftReference} based shared object pool.  * The objects are kept in soft references and  * associated with keys which are identified by the {@code equals} method.  * The objects are created by {@link ObjectFactory} on demand.  * The object creation is expected to be lightweight,  * and the objects may be excessively created and discarded.  * Thread safe.  */
 end_comment
 
 begin_class
@@ -86,7 +86,7 @@ operator|.
 name|Private
 specifier|public
 class|class
-name|WeakObjectPool
+name|SoftObjectPool
 parameter_list|<
 name|K
 parameter_list|,
@@ -101,7 +101,7 @@ name|V
 argument_list|>
 block|{
 specifier|public
-name|WeakObjectPool
+name|SoftObjectPool
 parameter_list|(
 name|ObjectFactory
 argument_list|<
@@ -119,7 +119,7 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|public
-name|WeakObjectPool
+name|SoftObjectPool
 parameter_list|(
 name|ObjectFactory
 argument_list|<
@@ -142,7 +142,7 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|public
-name|WeakObjectPool
+name|SoftObjectPool
 parameter_list|(
 name|ObjectFactory
 argument_list|<
@@ -190,11 +190,11 @@ name|SuppressWarnings
 argument_list|(
 literal|"unchecked"
 argument_list|)
-name|WeakObjectReference
+name|SoftObjectReference
 name|ref
 init|=
 operator|(
-name|WeakObjectReference
+name|SoftObjectReference
 operator|)
 name|staleRefQueue
 operator|.
@@ -241,7 +241,7 @@ parameter_list|)
 block|{
 return|return
 operator|new
-name|WeakObjectReference
+name|SoftObjectReference
 argument_list|(
 name|key
 argument_list|,
@@ -251,9 +251,9 @@ return|;
 block|}
 specifier|private
 class|class
-name|WeakObjectReference
+name|SoftObjectReference
 extends|extends
-name|WeakReference
+name|SoftReference
 argument_list|<
 name|V
 argument_list|>
@@ -262,7 +262,7 @@ specifier|final
 name|K
 name|key
 decl_stmt|;
-name|WeakObjectReference
+name|SoftObjectReference
 parameter_list|(
 name|K
 name|key

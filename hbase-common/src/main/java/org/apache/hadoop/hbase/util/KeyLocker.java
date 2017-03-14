@@ -141,7 +141,7 @@ name|WeakObjectPool
 argument_list|<>
 argument_list|(
 operator|new
-name|WeakObjectPool
+name|ObjectPool
 operator|.
 name|ObjectFactory
 argument_list|<
