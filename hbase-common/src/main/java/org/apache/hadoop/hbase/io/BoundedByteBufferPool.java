@@ -593,13 +593,13 @@ if|if
 condition|(
 name|LOG
 operator|.
-name|isWarnEnabled
+name|isDebugEnabled
 argument_list|()
 condition|)
 block|{
 name|LOG
 operator|.
-name|warn
+name|debug
 argument_list|(
 literal|"At capacity: "
 operator|+
