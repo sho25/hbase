@@ -717,6 +717,24 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|IdReadWriteLock
+operator|.
+name|ReferenceType
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|util
 operator|.
 name|StringUtils
@@ -1070,7 +1088,7 @@ init|=
 operator|-
 literal|1
 decl_stmt|;
-comment|/**    * A ReentrantReadWriteLock to lock on a particular block identified by offset.    * The purpose of this is to avoid freeing the block which is being read.    */
+comment|/**    * A ReentrantReadWriteLock to lock on a particular block identified by offset.    * The purpose of this is to avoid freeing the block which is being read.    *<p>    * Key set of offsets in BucketCache is limited so soft reference is the best choice here.    */
 annotation|@
 name|VisibleForTesting
 specifier|final
@@ -1079,7 +1097,11 @@ name|offsetLock
 init|=
 operator|new
 name|IdReadWriteLock
-argument_list|()
+argument_list|(
+name|ReferenceType
+operator|.
+name|SOFT
+argument_list|)
 decl_stmt|;
 specifier|private
 specifier|final
