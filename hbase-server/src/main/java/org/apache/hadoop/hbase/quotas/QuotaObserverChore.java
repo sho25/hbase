@@ -2514,9 +2514,9 @@ return|return
 name|state
 return|;
 block|}
-comment|/**    * Stores the quota violation state for the given table.    */
+comment|/**    * Stores the quota state for the given table.    */
 name|void
-name|setTableQuotaViolation
+name|setTableQuotaSnapshot
 parameter_list|(
 name|TableName
 name|table
@@ -2576,7 +2576,7 @@ return|return
 name|state
 return|;
 block|}
-comment|/**    * Stores the quota violation state for the given namespace.    */
+comment|/**    * Stores the quota state for the given namespace.    */
 name|void
 name|setNamespaceQuotaSnapshot
 parameter_list|(

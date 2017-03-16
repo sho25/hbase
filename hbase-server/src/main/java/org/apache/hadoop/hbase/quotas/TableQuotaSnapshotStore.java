@@ -689,7 +689,7 @@ name|this
 operator|.
 name|chore
 operator|.
-name|setTableQuotaViolation
+name|setTableQuotaSnapshot
 argument_list|(
 name|table
 argument_list|,

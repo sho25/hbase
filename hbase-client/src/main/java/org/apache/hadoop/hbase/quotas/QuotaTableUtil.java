@@ -1887,7 +1887,7 @@ return|return
 name|filterList
 return|;
 block|}
-comment|/**    * Creates a {@link Scan} which returns only quota violations from the quota table.    */
+comment|/**    * Creates a {@link Scan} which returns only quota snapshots from the quota table.    */
 specifier|public
 specifier|static
 name|Scan
@@ -1923,7 +1923,7 @@ return|return
 name|s
 return|;
 block|}
-comment|/**    * Extracts the {@link SpaceViolationPolicy} and {@link TableName} from the provided    * {@link Result} and adds them to the given {@link Map}. If the result does not contain    * the expected information or the serialized policy in the value is invalid, this method    * will throw an {@link IllegalArgumentException}.    *    * @param result A row from the quota table.    * @param snapshots A map of violations to add the result of this method into.    */
+comment|/**    * Extracts the {@link SpaceViolationPolicy} and {@link TableName} from the provided    * {@link Result} and adds them to the given {@link Map}. If the result does not contain    * the expected information or the serialized policy in the value is invalid, this method    * will throw an {@link IllegalArgumentException}.    *    * @param result A row from the quota table.    * @param snapshots A map of snapshots to add the result of this method into.    */
 specifier|public
 specifier|static
 name|void
