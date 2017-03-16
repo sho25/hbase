@@ -966,13 +966,6 @@ argument_list|(
 name|tabBName
 argument_list|)
 decl_stmt|;
-name|admin
-operator|.
-name|peerAdded
-argument_list|(
-literal|"2"
-argument_list|)
-expr_stmt|;
 comment|// add ns1 to peer config which replicate to cluster2
 name|ReplicationPeerConfig
 name|rpc

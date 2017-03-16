@@ -2341,6 +2341,8 @@ expr_stmt|;
 block|}
 annotation|@
 name|VisibleForTesting
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|peerAdded
@@ -2361,8 +2363,11 @@ name|id
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @deprecated use {@link org.apache.hadoop.hbase.client.Admin#listReplicationPeers()} instead    */
 annotation|@
 name|VisibleForTesting
+annotation|@
+name|Deprecated
 name|List
 argument_list|<
 name|ReplicationPeer
