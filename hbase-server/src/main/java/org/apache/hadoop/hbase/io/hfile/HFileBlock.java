@@ -5217,12 +5217,10 @@ block|{
 comment|// Seek + read. Better for scanning.
 try|try
 block|{
-name|HFileUtil
-operator|.
-name|seekOnMultipleSources
-argument_list|(
 name|istream
-argument_list|,
+operator|.
+name|seek
+argument_list|(
 name|fileOffset
 argument_list|)
 expr_stmt|;
