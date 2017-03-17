@@ -305,6 +305,31 @@ name|boolean
 name|isOnline
 parameter_list|()
 function_decl|;
+comment|/**    * Move servers and tables to a new group.    * @param servers list of servers, must be part of the same group    * @param tables set of tables to move    * @param srcGroup groupName being moved from    * @param dstGroup groupName being moved to    */
+name|void
+name|moveServersAndTables
+parameter_list|(
+name|Set
+argument_list|<
+name|Address
+argument_list|>
+name|servers
+parameter_list|,
+name|Set
+argument_list|<
+name|TableName
+argument_list|>
+name|tables
+parameter_list|,
+name|String
+name|srcGroup
+parameter_list|,
+name|String
+name|dstGroup
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 block|}
 end_interface
 

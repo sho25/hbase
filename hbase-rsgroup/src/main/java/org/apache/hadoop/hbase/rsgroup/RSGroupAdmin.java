@@ -208,6 +208,28 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Move given set of servers and tables to the specified target RegionServer group.    * @param servers set of servers to move    * @param tables set of tables to move    * @param targetGroup the target group name    * @throws IOException    */
+name|void
+name|moveServersAndTables
+parameter_list|(
+name|Set
+argument_list|<
+name|Address
+argument_list|>
+name|servers
+parameter_list|,
+name|Set
+argument_list|<
+name|TableName
+argument_list|>
+name|tables
+parameter_list|,
+name|String
+name|targetGroup
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 block|}
 end_interface
 
