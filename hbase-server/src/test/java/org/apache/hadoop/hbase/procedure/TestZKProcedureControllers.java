@@ -25,7 +25,7 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|assertEquals
+name|assertArrayEquals
 import|;
 end_import
 
@@ -37,7 +37,7 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|assertArrayEquals
+name|assertEquals
 import|;
 end_import
 
@@ -173,38 +173,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|testclassification
-operator|.
-name|MasterTests
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|testclassification
-operator|.
-name|MediumTests
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|errorhandling
 operator|.
 name|ForeignException
@@ -242,6 +210,38 @@ operator|.
 name|protobuf
 operator|.
 name|ProtobufUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|testclassification
+operator|.
+name|MasterTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|testclassification
+operator|.
+name|MediumTests
 import|;
 end_import
 
@@ -1272,7 +1272,7 @@ argument_list|)
 decl_stmt|;
 name|Pair
 argument_list|<
-name|ZKProcedureCoordinatorRpcs
+name|ZKProcedureCoordinator
 argument_list|,
 name|List
 argument_list|<
@@ -1298,7 +1298,7 @@ argument_list|,
 name|expected
 argument_list|)
 decl_stmt|;
-name|ZKProcedureCoordinatorRpcs
+name|ZKProcedureCoordinator
 name|controller
 init|=
 name|pair
@@ -1733,7 +1733,7 @@ argument_list|)
 expr_stmt|;
 name|Pair
 argument_list|<
-name|ZKProcedureCoordinatorRpcs
+name|ZKProcedureCoordinator
 argument_list|,
 name|List
 argument_list|<
@@ -1759,7 +1759,7 @@ argument_list|,
 name|expected
 argument_list|)
 decl_stmt|;
-name|ZKProcedureCoordinatorRpcs
+name|ZKProcedureCoordinator
 name|controller
 init|=
 name|pair
@@ -2391,7 +2391,7 @@ specifier|public
 specifier|abstract
 name|Pair
 argument_list|<
-name|ZKProcedureCoordinatorRpcs
+name|ZKProcedureCoordinator
 argument_list|,
 name|List
 argument_list|<
@@ -2439,7 +2439,7 @@ name|Override
 specifier|public
 name|Pair
 argument_list|<
-name|ZKProcedureCoordinatorRpcs
+name|ZKProcedureCoordinator
 argument_list|,
 name|List
 argument_list|<
@@ -2473,11 +2473,11 @@ throws|throws
 name|Exception
 block|{
 comment|// start the controller
-name|ZKProcedureCoordinatorRpcs
+name|ZKProcedureCoordinator
 name|controller
 init|=
 operator|new
-name|ZKProcedureCoordinatorRpcs
+name|ZKProcedureCoordinator
 argument_list|(
 name|watcher
 argument_list|,
@@ -2569,7 +2569,7 @@ name|Override
 specifier|public
 name|Pair
 argument_list|<
-name|ZKProcedureCoordinatorRpcs
+name|ZKProcedureCoordinator
 argument_list|,
 name|List
 argument_list|<
@@ -2651,11 +2651,11 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// start the controller
-name|ZKProcedureCoordinatorRpcs
+name|ZKProcedureCoordinator
 name|controller
 init|=
 operator|new
-name|ZKProcedureCoordinatorRpcs
+name|ZKProcedureCoordinator
 argument_list|(
 name|watcher
 argument_list|,

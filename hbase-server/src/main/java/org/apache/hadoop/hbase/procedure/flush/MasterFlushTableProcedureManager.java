@@ -375,7 +375,7 @@ name|hbase
 operator|.
 name|procedure
 operator|.
-name|ZKProcedureCoordinatorRpcs
+name|ZKProcedureCoordinator
 import|;
 end_import
 
@@ -714,7 +714,7 @@ name|ProcedureCoordinatorRpcs
 name|comms
 init|=
 operator|new
-name|ZKProcedureCoordinatorRpcs
+name|ZKProcedureCoordinator
 argument_list|(
 name|master
 operator|.

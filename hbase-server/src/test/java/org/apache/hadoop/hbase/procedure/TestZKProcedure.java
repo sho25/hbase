@@ -825,11 +825,11 @@ operator|+
 literal|" cohort members"
 decl_stmt|;
 comment|// start running the controller
-name|ZKProcedureCoordinatorRpcs
+name|ZKProcedureCoordinator
 name|coordinatorComms
 init|=
 operator|new
-name|ZKProcedureCoordinatorRpcs
+name|ZKProcedureCoordinator
 argument_list|(
 name|coordZkw
 argument_list|,
@@ -1340,11 +1340,11 @@ init|=
 name|newZooKeeperWatcher
 argument_list|()
 decl_stmt|;
-name|ZKProcedureCoordinatorRpcs
+name|ZKProcedureCoordinator
 name|coordinatorController
 init|=
 operator|new
-name|ZKProcedureCoordinatorRpcs
+name|ZKProcedureCoordinator
 argument_list|(
 name|coordinatorWatcher
 argument_list|,
@@ -2437,7 +2437,7 @@ parameter_list|(
 name|ProcedureCoordinator
 name|coordinator
 parameter_list|,
-name|ZKProcedureCoordinatorRpcs
+name|ZKProcedureCoordinator
 name|coordinatorController
 parameter_list|,
 name|List

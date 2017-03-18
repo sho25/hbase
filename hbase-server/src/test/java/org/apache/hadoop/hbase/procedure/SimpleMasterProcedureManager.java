@@ -349,7 +349,7 @@ name|ProcedureCoordinatorRpcs
 name|comms
 init|=
 operator|new
-name|ZKProcedureCoordinatorRpcs
+name|ZKProcedureCoordinator
 argument_list|(
 name|master
 operator|.

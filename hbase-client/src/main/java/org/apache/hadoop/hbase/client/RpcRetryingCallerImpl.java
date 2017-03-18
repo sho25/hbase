@@ -607,6 +607,14 @@ name|Throwable
 name|t
 parameter_list|)
 block|{
+name|Throwable
+name|e
+init|=
+name|t
+operator|.
+name|getCause
+argument_list|()
+decl_stmt|;
 name|ExceptionUtil
 operator|.
 name|rethrowIfInterrupt

@@ -2871,6 +2871,26 @@ end_import
 
 begin_import
 import|import
+name|sun
+operator|.
+name|misc
+operator|.
+name|Signal
+import|;
+end_import
+
+begin_import
+import|import
+name|sun
+operator|.
+name|misc
+operator|.
+name|SignalHandler
+import|;
+end_import
+
+begin_import
+import|import
 name|com
 operator|.
 name|google
@@ -2908,26 +2928,6 @@ operator|.
 name|collect
 operator|.
 name|Maps
-import|;
-end_import
-
-begin_import
-import|import
-name|sun
-operator|.
-name|misc
-operator|.
-name|Signal
-import|;
-end_import
-
-begin_import
-import|import
-name|sun
-operator|.
-name|misc
-operator|.
-name|SignalHandler
 import|;
 end_import
 
@@ -3366,6 +3366,7 @@ name|walFactory
 decl_stmt|;
 comment|// WAL roller. log is protected rather than private to avoid
 comment|// eclipse warning when accessed by inner classes
+specifier|protected
 specifier|final
 name|LogRoller
 name|walRoller
@@ -4317,14 +4318,8 @@ name|CompactedHFilesDischarger
 argument_list|(
 name|cleanerInterval
 argument_list|,
-operator|(
-name|Stoppable
-operator|)
 name|this
 argument_list|,
-operator|(
-name|RegionServerServices
-operator|)
 name|this
 argument_list|)
 expr_stmt|;
@@ -5168,7 +5163,7 @@ name|this
 operator|.
 name|abort
 argument_list|(
-literal|"Failed to reach zk cluster when creating procedure handler."
+literal|"Failed to reach coordination cluster when creating procedure handler."
 argument_list|,
 name|e
 argument_list|)
@@ -10859,6 +10854,15 @@ argument_list|)
 expr_stmt|;
 return|return
 name|wal
+return|;
+block|}
+specifier|public
+name|LogRoller
+name|getWalRoller
+parameter_list|()
+block|{
+return|return
+name|walRoller
 return|;
 block|}
 annotation|@

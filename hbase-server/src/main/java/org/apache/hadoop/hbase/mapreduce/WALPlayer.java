@@ -584,6 +584,7 @@ name|NAME
 init|=
 literal|"WALPlayer"
 decl_stmt|;
+specifier|public
 specifier|final
 specifier|static
 name|String
@@ -591,6 +592,7 @@ name|BULK_OUTPUT_CONF_KEY
 init|=
 literal|"wal.bulk.output"
 decl_stmt|;
+specifier|public
 specifier|final
 specifier|static
 name|String
@@ -598,6 +600,7 @@ name|TABLES_KEY
 init|=
 literal|"wal.input.tables"
 decl_stmt|;
+specifier|public
 specifier|final
 specifier|static
 name|String
@@ -645,6 +648,10 @@ name|JOB_NAME_CONF_KEY
 init|=
 literal|"mapreduce.job.name"
 decl_stmt|;
+specifier|public
+name|WALPlayer
+parameter_list|()
+block|{   }
 specifier|protected
 name|WALPlayer
 parameter_list|(
@@ -749,7 +756,9 @@ argument_list|(
 name|kv
 argument_list|)
 condition|)
+block|{
 continue|continue;
+block|}
 name|context
 operator|.
 name|write
@@ -987,7 +996,9 @@ argument_list|(
 name|cell
 argument_list|)
 condition|)
+block|{
 continue|continue;
+block|}
 comment|// Allow a subclass filter out this cell.
 if|if
 condition|(
@@ -1037,6 +1048,7 @@ name|put
 operator|!=
 literal|null
 condition|)
+block|{
 name|context
 operator|.
 name|write
@@ -1046,12 +1058,14 @@ argument_list|,
 name|put
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|del
 operator|!=
 literal|null
 condition|)
+block|{
 name|context
 operator|.
 name|write
@@ -1061,6 +1075,7 @@ argument_list|,
 name|del
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|CellUtil
@@ -1143,6 +1158,7 @@ name|put
 operator|!=
 literal|null
 condition|)
+block|{
 name|context
 operator|.
 name|write
@@ -1152,12 +1168,14 @@ argument_list|,
 name|put
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|del
 operator|!=
 literal|null
 condition|)
+block|{
 name|context
 operator|.
 name|write
@@ -1167,6 +1185,7 @@ argument_list|,
 name|del
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 catch|catch
@@ -1182,7 +1201,6 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**      * @param cell      * @return Return true if we are to emit this cell.      */
 specifier|protected
 name|boolean
 name|filter
@@ -1198,6 +1216,39 @@ block|{
 return|return
 literal|true
 return|;
+block|}
+annotation|@
+name|Override
+specifier|protected
+name|void
+name|cleanup
+parameter_list|(
+name|Mapper
+argument_list|<
+name|WALKey
+argument_list|,
+name|WALEdit
+argument_list|,
+name|ImmutableBytesWritable
+argument_list|,
+name|Mutation
+argument_list|>
+operator|.
+name|Context
+name|context
+parameter_list|)
+throws|throws
+name|IOException
+throws|,
+name|InterruptedException
+block|{
+name|super
+operator|.
+name|cleanup
+argument_list|(
+name|context
+argument_list|)
+expr_stmt|;
 block|}
 annotation|@
 name|Override
@@ -1241,11 +1292,19 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|tablesToUse
+name|tableMap
 operator|==
 literal|null
-operator|&&
+condition|)
+block|{
 name|tableMap
+operator|=
+name|tablesToUse
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|tablesToUse
 operator|==
 literal|null
 condition|)
@@ -1255,14 +1314,6 @@ block|}
 elseif|else
 if|if
 condition|(
-name|tablesToUse
-operator|==
-literal|null
-operator|||
-name|tableMap
-operator|==
-literal|null
-operator|||
 name|tablesToUse
 operator|.
 name|length
@@ -1277,7 +1328,7 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"No tables or incorrect table mapping specified."
+literal|"Incorrect table mapping specified ."
 argument_list|)
 throw|;
 block|}
@@ -1356,7 +1407,9 @@ literal|null
 operator|==
 name|val
 condition|)
+block|{
 return|return;
+block|}
 name|long
 name|ms
 decl_stmt|;
@@ -1464,17 +1517,13 @@ operator|.
 name|END_TIME_KEY
 argument_list|)
 expr_stmt|;
-name|Path
-name|inputDir
+name|String
+name|inputDirs
 init|=
-operator|new
-name|Path
-argument_list|(
 name|args
 index|[
 literal|0
 index|]
-argument_list|)
 decl_stmt|;
 name|String
 index|[]
@@ -1580,7 +1629,10 @@ name|NAME
 operator|+
 literal|"_"
 operator|+
-name|inputDir
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -1595,11 +1647,11 @@ argument_list|)
 expr_stmt|;
 name|FileInputFormat
 operator|.
-name|setInputPaths
+name|addInputPaths
 argument_list|(
 name|job
 argument_list|,
-name|inputDir
+name|inputDirs
 argument_list|)
 expr_stmt|;
 name|job
@@ -1637,6 +1689,19 @@ operator|!=
 literal|null
 condition|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"add incremental job :"
+operator|+
+name|hfileOutPath
+operator|+
+literal|" from "
+operator|+
+name|inputDirs
+argument_list|)
+expr_stmt|;
 comment|// the bulk HFile case
 if|if
 condition|(
@@ -1871,7 +1936,7 @@ return|return
 name|job
 return|;
 block|}
-comment|/*    * @param errorMsg Error message.  Can be null.    */
+comment|/**    * Print usage    * @param errorMsg Error message.  Can be null.    */
 specifier|private
 name|void
 name|usage
@@ -1944,7 +2009,9 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"(Careful, even -ROOT- and hbase:meta entries will be imported in that case.)"
+literal|"(Careful, even hbase:meta entries will be imported"
+operator|+
+literal|" in that case.)"
 argument_list|)
 expr_stmt|;
 name|System

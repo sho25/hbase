@@ -190,7 +190,7 @@ operator|.
 name|Private
 specifier|public
 class|class
-name|ZKProcedureCoordinatorRpcs
+name|ZKProcedureCoordinator
 implements|implements
 name|ProcedureCoordinatorRpcs
 block|{
@@ -204,7 +204,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|ZKProcedureCoordinatorRpcs
+name|ZKProcedureCoordinator
 operator|.
 name|class
 argument_list|)
@@ -233,7 +233,7 @@ name|coordName
 decl_stmt|;
 comment|/**    * @param watcher zookeeper watcher. Owned by<tt>this</tt> and closed via {@link #close()}    * @param procedureClass procedure type name is a category for when there are multiple kinds of    *    procedures.-- this becomes a znode so be aware of the naming restrictions    * @param coordName name of the node running the coordinator    * @throws KeeperException if an unexpected zk error occurs    */
 specifier|public
-name|ZKProcedureCoordinatorRpcs
+name|ZKProcedureCoordinator
 parameter_list|(
 name|ZooKeeperWatcher
 name|watcher
@@ -244,8 +244,6 @@ parameter_list|,
 name|String
 name|coordName
 parameter_list|)
-throws|throws
-name|KeeperException
 block|{
 name|this
 operator|.
@@ -887,6 +885,8 @@ condition|)
 do|;
 block|}
 comment|/**    * Start monitoring znodes in ZK - subclass hook to start monitoring znodes they are about.    * @return true if succeed, false if encountered initialization errors.    */
+annotation|@
+name|Override
 specifier|final
 specifier|public
 name|boolean
