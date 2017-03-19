@@ -232,7 +232,7 @@ argument_list|(
 literal|"a"
 argument_list|)
 decl_stmt|;
-comment|/**    * Test the functionality of    * {@link FirstKeyValueMatchingQualifiersFilter#filterKeyValue(KeyValue)}    *     * @throws Exception    */
+comment|/**    * Test the functionality of    * {@link FirstKeyValueMatchingQualifiersFilter#filterKeyValue(org.apache.hadoop.hbase.Cell)}    *     * @throws Exception    */
 specifier|public
 name|void
 name|testFirstKeyMatchingQualifierFilter

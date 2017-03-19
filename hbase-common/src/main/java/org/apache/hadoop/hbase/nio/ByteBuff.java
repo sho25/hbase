@@ -1040,7 +1040,7 @@ return|return
 name|tmpLength
 return|;
 block|}
-comment|/**    * Similar to {@link WritableUtils#readVLong(DataInput)} but reads from a    * {@link ByteBuff}.    */
+comment|/**    * Similar to {@link WritableUtils#readVLong(java.io.DataInput)} but reads from a    * {@link ByteBuff}.    */
 specifier|public
 specifier|static
 name|long

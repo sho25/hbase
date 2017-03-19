@@ -300,7 +300,7 @@ name|tries
 argument_list|)
 return|;
 block|}
-comment|/**    * Override that changes the {@link Callable#call()} Exception from {@link Exception} to    * {@link IOException}. It also does setup of an rpcController and calls through to the rpcCall()    * method which callers are expected to implement. If rpcController is an instance of    * PayloadCarryingRpcController, we will set a timeout on it.    */
+comment|/**    * Override that changes the {@link java.util.concurrent.Callable#call()} Exception from {@link Exception} to    * {@link IOException}. It also does setup of an rpcController and calls through to the rpcCall()    * method which callers are expected to implement. If rpcController is an instance of    * PayloadCarryingRpcController, we will set a timeout on it.    */
 annotation|@
 name|Override
 comment|// Same trick as in RegionServerCallable so users don't have to copy/paste so much boilerplate

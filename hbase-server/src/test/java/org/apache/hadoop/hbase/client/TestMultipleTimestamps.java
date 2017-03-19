@@ -246,7 +246,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Run tests related to {@link TimestampsFilter} using HBase client APIs.  * Sets up the HBase mini cluster once at start. Each creates a table  * named for the method and does its stuff against that.  */
+comment|/**  * Run tests related to {@link org.apache.hadoop.hbase.filter.TimestampsFilter} using HBase client APIs.  * Sets up the HBase mini cluster once at start. Each creates a table  * named for the method and does its stuff against that.  */
 end_comment
 
 begin_class

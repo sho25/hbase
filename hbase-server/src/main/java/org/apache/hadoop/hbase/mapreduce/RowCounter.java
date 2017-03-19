@@ -450,7 +450,7 @@ name|Counters
 block|{
 name|ROWS
 block|}
-comment|/**      * Maps the data.      *      * @param row  The current table row key.      * @param values  The columns.      * @param context  The current context.      * @throws IOException When something is broken with the data.      * @see org.apache.hadoop.mapreduce.Mapper#map(KEYIN, VALUEIN,      *   org.apache.hadoop.mapreduce.Mapper.Context)      */
+comment|/**      * Maps the data.      *      * @param row  The current table row key.      * @param values  The columns.      * @param context  The current context.      * @throws IOException When something is broken with the data.      * @see org.apache.hadoop.mapreduce.Mapper#map(Object, Object, Context)      */
 annotation|@
 name|Override
 specifier|public

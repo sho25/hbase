@@ -1949,7 +1949,7 @@ operator|new
 name|Random
 argument_list|()
 decl_stmt|;
-comment|/**    * Map of regions to map of rows and {@link Result}.  Used as data source when    * {@link MockRegionServer#get(byte[], Get)} is called. Because we have a byte    * key, need to use TreeMap and provide a Comparator.  Use    * {@link #setGetResult(byte[], byte[], Result)} filling this map.    */
+comment|/**    * Map of regions to map of rows and {@link Result}.  Used as data source when    * {@link #get(RpcController, GetRequest)} is called. Because we have a byte    * key, need to use TreeMap and provide a Comparator.  Use    * {@link #setGetResult(byte[], byte[], Result)} filling this map.    */
 specifier|private
 specifier|final
 name|Map
@@ -2125,7 +2125,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Use this method filling the backing data source used by {@link #get(byte[], Get)}    * @param regionName    * @param row    * @param r    */
+comment|/**    * Use this method filling the backing data source used by {@link #get(RpcController, GetRequest)}    * @param regionName    * @param row    * @param r    */
 name|void
 name|setGetResult
 parameter_list|(

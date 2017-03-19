@@ -8859,7 +8859,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/** A tracker for tracking and validating table rows    * generated with {@link HBaseTestingUtility#loadTable(HTable, byte[])}    */
+comment|/** A tracker for tracking and validating table rows    * generated with {@link HBaseTestingUtility#loadTable(Table, byte[])}    */
 specifier|public
 specifier|static
 class|class
@@ -10666,7 +10666,7 @@ block|}
 end_function
 
 begin_comment
-comment|/** All the row values for the data loaded by {@link #loadTable(HTable, byte[])} */
+comment|/** All the row values for the data loaded by {@link #loadTable(Table, byte[])} */
 end_comment
 
 begin_decl_stmt
@@ -14479,7 +14479,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Waits for a table to be 'enabled'.  Enabled means that table is set as 'enabled' and the    * regions have been all assigned.    * @see #waitTableEnabled(Admin, byte[], long)    * @param table Table to wait on.    * @param timeoutMillis Time to wait on it being marked enabled.    * @throws InterruptedException    * @throws IOException    */
+comment|/**    * Waits for a table to be 'enabled'.  Enabled means that table is set as 'enabled' and the    * regions have been all assigned.    * @see #waitTableEnabled(TableName, long)    * @param table Table to wait on.    * @param timeoutMillis Time to wait on it being marked enabled.    * @throws InterruptedException    * @throws IOException    */
 end_comment
 
 begin_function

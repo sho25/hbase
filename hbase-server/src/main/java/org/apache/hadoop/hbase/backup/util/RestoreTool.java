@@ -1610,7 +1610,7 @@ return|return
 name|tableDescriptor
 return|;
 block|}
-comment|/**    * Duplicate the backup image if it's on local cluster    * @see HStore#bulkLoadHFile(String, long)    * @see HRegionFileSystem#bulkLoadStoreFile(String familyName, Path srcPath, long seqNum)    * @param tableArchivePath archive path    * @return the new tableArchivePath    * @throws IOException exception    */
+comment|/**    * Duplicate the backup image if it's on local cluster    * @see HStore#bulkLoadHFile(org.apache.hadoop.hbase.regionserver.StoreFile)    * @see HRegionFileSystem#bulkLoadStoreFile(String familyName, Path srcPath, long seqNum)    * @param tableArchivePath archive path    * @return the new tableArchivePath    * @throws IOException exception    */
 name|Path
 name|checkLocalAndBackup
 parameter_list|(
@@ -3008,7 +3008,7 @@ name|map
 argument_list|)
 return|;
 block|}
-comment|/**    * Prepare the table for bulkload, most codes copied from    * {@link LoadIncrementalHFiles#createTable(String, String)}    * @param conn connection    * @param tableBackupPath path    * @param tableName table name    * @param targetTableName target table name    * @param regionDirList region directory list    * @param htd table descriptor    * @param truncateIfExists truncates table if exists    * @throws IOException exception    */
+comment|/**    * Prepare the table for bulkload, most codes copied from    * {@link LoadIncrementalHFiles#createTable(TableName, String, Admin)}    * @param conn connection    * @param tableBackupPath path    * @param tableName table name    * @param targetTableName target table name    * @param regionDirList region directory list    * @param htd table descriptor    * @param truncateIfExists truncates table if exists    * @throws IOException exception    */
 specifier|private
 name|void
 name|checkAndCreateTable

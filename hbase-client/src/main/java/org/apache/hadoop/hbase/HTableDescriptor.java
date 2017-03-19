@@ -2409,7 +2409,7 @@ name|getNameAsString
 argument_list|()
 return|;
 block|}
-comment|/**    * This sets the class associated with the region split policy which    * determines when a region split should occur.  The class used by    * default is defined in {@link org.apache.hadoop.hbase.regionserver.RegionSplitPolicy}    * @param clazz the class name    */
+comment|/**    * This sets the class associated with the region split policy which    * determines when a region split should occur.  The class used by    * default is defined in org.apache.hadoop.hbase.regionserver.RegionSplitPolicy    * @param clazz the class name    */
 specifier|public
 name|HTableDescriptor
 name|setRegionSplitPolicyClassName
@@ -2429,7 +2429,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * This gets the class associated with the region split policy which    * determines when a region split should occur.  The class used by    * default is defined in {@link org.apache.hadoop.hbase.regionserver.RegionSplitPolicy}    *    * @return the class name of the region split policy for this table.    * If this returns null, the default split policy is used.    */
+comment|/**    * This gets the class associated with the region split policy which    * determines when a region split should occur.  The class used by    * default is defined in org.apache.hadoop.hbase.regionserver.RegionSplitPolicy    *    * @return the class name of the region split policy for this table.    * If this returns null, the default split policy is used.    */
 specifier|public
 name|String
 name|getRegionSplitPolicyClassName
@@ -2627,7 +2627,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * This sets the class associated with the flush policy which determines determines the stores    * need to be flushed when flushing a region. The class used by default is defined in    * {@link org.apache.hadoop.hbase.regionserver.FlushPolicy}    * @param clazz the class name    */
+comment|/**    * This sets the class associated with the flush policy which determines determines the stores    * need to be flushed when flushing a region. The class used by default is defined in    * org.apache.hadoop.hbase.regionserver.FlushPolicy.    * @param clazz the class name    */
 specifier|public
 name|HTableDescriptor
 name|setFlushPolicyClassName
@@ -2647,7 +2647,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * This gets the class associated with the flush policy which determines the stores need to be    * flushed when flushing a region. The class used by default is defined in    * {@link org.apache.hadoop.hbase.regionserver.FlushPolicy}    * @return the class name of the flush policy for this table. If this returns null, the default    *         flush policy is used.    */
+comment|/**    * This gets the class associated with the flush policy which determines the stores need to be    * flushed when flushing a region. The class used by default is defined in    * org.apache.hadoop.hbase.regionserver.FlushPolicy.    * @return the class name of the flush policy for this table. If this returns null, the default    *         flush policy is used.    */
 specifier|public
 name|String
 name|getFlushPolicyClassName
@@ -4437,7 +4437,7 @@ name|column
 argument_list|)
 return|;
 block|}
-comment|/**    * Add a table coprocessor to this table. The coprocessor    * type must be {@link org.apache.hadoop.hbase.coprocessor.RegionObserver}    * or Endpoint.    * It won't check if the class can be loaded or not.    * Whether a coprocessor is loadable or not will be determined when    * a region is opened.    * @param className Full class name.    * @throws IOException    */
+comment|/**    * Add a table coprocessor to this table. The coprocessor    * type must be org.apache.hadoop.hbase.coprocessor.RegionObserver    * or Endpoint.    * It won't check if the class can be loaded or not.    * Whether a coprocessor is loadable or not will be determined when    * a region is opened.    * @param className Full class name.    * @throws IOException    */
 specifier|public
 name|HTableDescriptor
 name|addCoprocessor
@@ -4465,7 +4465,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Add a table coprocessor to this table. The coprocessor    * type must be {@link org.apache.hadoop.hbase.coprocessor.RegionObserver}    * or Endpoint.    * It won't check if the class can be loaded or not.    * Whether a coprocessor is loadable or not will be determined when    * a region is opened.    * @param jarFilePath Path of the jar file. If it's null, the class will be    * loaded from default classloader.    * @param className Full class name.    * @param priority Priority    * @param kvs Arbitrary key-value parameter pairs passed into the coprocessor.    * @throws IOException    */
+comment|/**    * Add a table coprocessor to this table. The coprocessor    * type must be org.apache.hadoop.hbase.coprocessor.RegionObserver    * or Endpoint.    * It won't check if the class can be loaded or not.    * Whether a coprocessor is loadable or not will be determined when    * a region is opened.    * @param jarFilePath Path of the jar file. If it's null, the class will be    * loaded from default classloader.    * @param className Full class name.    * @param priority Priority    * @param kvs Arbitrary key-value parameter pairs passed into the coprocessor.    * @throws IOException    */
 specifier|public
 name|HTableDescriptor
 name|addCoprocessor
@@ -4686,7 +4686,7 @@ name|value
 argument_list|)
 return|;
 block|}
-comment|/**    * Add a table coprocessor to this table. The coprocessor    * type must be {@link org.apache.hadoop.hbase.coprocessor.RegionObserver}    * or Endpoint.    * It won't check if the class can be loaded or not.    * Whether a coprocessor is loadable or not will be determined when    * a region is opened.    * @param specStr The Coprocessor specification all in in one String formatted so matches    * {@link HConstants#CP_HTD_ATTR_VALUE_PATTERN}    * @throws IOException    */
+comment|/**    * Add a table coprocessor to this table. The coprocessor    * type must be org.apache.hadoop.hbase.coprocessor.RegionObserver    * or Endpoint.    * It won't check if the class can be loaded or not.    * Whether a coprocessor is loadable or not will be determined when    * a region is opened.    * @param specStr The Coprocessor specification all in in one String formatted so matches    * {@link HConstants#CP_HTD_ATTR_VALUE_PATTERN}    * @throws IOException    */
 specifier|public
 name|HTableDescriptor
 name|addCoprocessorWithSpec

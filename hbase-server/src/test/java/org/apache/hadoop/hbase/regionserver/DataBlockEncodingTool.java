@@ -595,7 +595,7 @@ name|includesMemstoreTS
 init|=
 literal|true
 decl_stmt|;
-comment|/**    * How many times to run the benchmark. More times means better data in terms    * of statistics but slower execution. Has to be strictly larger than    * {@link DEFAULT_BENCHMARK_N_OMIT}.    */
+comment|/**    * How many times to run the benchmark. More times means better data in terms    * of statistics but slower execution. Has to be strictly larger than    * {@link #DEFAULT_BENCHMARK_N_OMIT}.    */
 specifier|private
 specifier|static
 specifier|final

@@ -148,7 +148,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Common helpers for testing HBase that do not depend on specific server/etc. things.  * @see {@link HBaseTestingUtility}  *  */
+comment|/**  * Common helpers for testing HBase that do not depend on specific server/etc. things.  * {@see org.apache.hadoop.hbase.HBaseTestingUtility}  */
 end_comment
 
 begin_class

@@ -2841,7 +2841,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Cannot be {@link #UNSET}. Must be a legitimate value. Used re-making the {@link CacheKey} when    * block is returned to the cache.    * @return the offset of this block in the file it was read from    */
+comment|/**    * Cannot be {@link #UNSET}. Must be a legitimate value. Used re-making the {@link BlockCacheKey} when    * block is returned to the cache.    * @return the offset of this block in the file it was read from    */
 name|long
 name|getOffset
 parameter_list|()

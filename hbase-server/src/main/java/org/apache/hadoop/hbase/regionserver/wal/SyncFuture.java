@@ -135,7 +135,7 @@ specifier|private
 name|Span
 name|span
 decl_stmt|;
-comment|/**    * Call this method to clear old usage and get it ready for new deploy.    * @param txid the new transaction id    * @param span current span, detached from caller. Don't forget to attach it when resuming after a    *          call to {@link #get()}.    * @return this    */
+comment|/**    * Call this method to clear old usage and get it ready for new deploy.    * @param txid the new transaction id    * @param span current span, detached from caller. Don't forget to attach it when resuming after a    *          call to {@link #get(long)}.    * @return this    */
 specifier|synchronized
 name|SyncFuture
 name|reset
@@ -259,7 +259,7 @@ operator|.
 name|txid
 return|;
 block|}
-comment|/**    * Retrieve the {@code span} instance from this Future. EventHandler calls this method to continue    * the span. Thread waiting on this Future musn't call this method until AFTER calling    * {@link #get()} and the future has been released back to the originating thread.    */
+comment|/**    * Retrieve the {@code span} instance from this Future. EventHandler calls this method to continue    * the span. Thread waiting on this Future musn't call this method until AFTER calling    * {@link #get(long)} and the future has been released back to the originating thread.    */
 specifier|synchronized
 name|Span
 name|getSpan

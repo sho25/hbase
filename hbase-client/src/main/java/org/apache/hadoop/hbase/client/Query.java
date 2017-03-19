@@ -371,7 +371,7 @@ return|return
 name|filter
 return|;
 block|}
-comment|/**    * Apply the specified server-side filter when performing the Query.    * Only {@link Filter#filterKeyValue(Cell)} is called AFTER all tests    * for ttl, column match, deletes and max versions have been run.    * @param filter filter to run on the server    * @return this for invocation chaining    */
+comment|/**    * Apply the specified server-side filter when performing the Query.    * Only {@link Filter#filterKeyValue(org.apache.hadoop.hbase.Cell)} is called AFTER all tests    * for ttl, column match, deletes and max versions have been run.    * @param filter filter to run on the server    * @return this for invocation chaining    */
 specifier|public
 name|Query
 name|setFilter

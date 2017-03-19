@@ -95,7 +95,7 @@ name|Cell
 name|key
 parameter_list|)
 function_decl|;
-comment|/**    *<p>    * Note: Added for backwards compatibility with    * {@link org.apache.hadoop.hbase.regionserver.KeyValueScanner#reseek}    *</p><p>    * Look for the key, but only look after the current position. Probably not needed for an    * efficient tree implementation, but is important for implementations without random access such    * as unencoded KeyValue blocks.    *</p>    * @param key position the CellScanner exactly on this key    * @return true if getCurrent() holds a valid cell    */
+comment|/**    *<p>    * Note: Added for backwards compatibility with    * org.apache.hadoop.hbase.regionserver.KeyValueScanner#reseek(Cell)    *</p><p>    * Look for the key, but only look after the current position. Probably not needed for an    * efficient tree implementation, but is important for implementations without random access such    * as unencoded KeyValue blocks.    *</p>    * @param key position the CellScanner exactly on this key    * @return true if getCurrent() holds a valid cell    */
 name|boolean
 name|seekForwardTo
 parameter_list|(

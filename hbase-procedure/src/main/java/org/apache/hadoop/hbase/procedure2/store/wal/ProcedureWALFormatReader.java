@@ -376,7 +376,7 @@ name|ProcedureStoreTracker
 name|tracker
 decl_stmt|;
 comment|// private final boolean hasFastStartSupport;
-comment|/**    * If tracker for a log file is partial (see {@link ProcedureStoreTracker#partial}), we    * re-build the list of procedures updated in that WAL because we need it for log cleaning    * purpose. If all procedures updated in a WAL are found to be obsolete, it can be safely deleted.    * (see {@link WALProcedureStore#removeInactiveLogs()}).    * However, we don't need deleted part of a WAL's tracker for this purpose, so we don't bother    * re-building it. (To understand why, take a look at    * {@link ProcedureStoreTracker.BitSetNode#subtract(ProcedureStoreTracker.BitSetNode)}).    */
+comment|/**    * If tracker for a log file is partial (see {@link ProcedureStoreTracker#partial}), we    * re-build the list of procedures updated in that WAL because we need it for log cleaning    * purpose. If all procedures updated in a WAL are found to be obsolete, it can be safely deleted.    * (see {@link WALProcedureStore#removeInactiveLogs()}).    * However, we don't need deleted part of a WAL's tracker for this purpose, so we don't bother    * re-building it.    */
 specifier|private
 name|ProcedureStoreTracker
 name|localTracker

@@ -2250,7 +2250,7 @@ name|sn
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Only used w/useGlobalErrors ctor argument, for HTable backward compat.    * @return Whether there were any errors in any request since the last time    *          {@link #waitForAllPreviousOpsAndReset(List, String)} was called, or AP was created.    */
+comment|/**    * Only used w/useGlobalErrors ctor argument, for HTable backward compat.    * @return Whether there were any errors in any request since the last time    *          {@link #waitForAllPreviousOpsAndReset(List, TableName)} was called, or AP was created.    */
 specifier|public
 name|boolean
 name|hasError
@@ -2267,7 +2267,7 @@ name|hasErrors
 argument_list|()
 return|;
 block|}
-comment|/**    * Only used w/useGlobalErrors ctor argument, for HTable backward compat.    * Waits for all previous operations to finish, and returns errors and (optionally)    * failed operations themselves.    * @param failedRows an optional list into which the rows that failed since the last time    *        {@link #waitForAllPreviousOpsAndReset(List, String)} was called, or AP was created, are saved.    * @param tableName name of the table    * @return all the errors since the last time {@link #waitForAllPreviousOpsAndReset(List, String)}    *          was called, or AP was created.    */
+comment|/**    * Only used w/useGlobalErrors ctor argument, for HTable backward compat.    * Waits for all previous operations to finish, and returns errors and (optionally)    * failed operations themselves.    * @param failedRows an optional list into which the rows that failed since the last time    *        {@link #waitForAllPreviousOpsAndReset(List, TableName)} was called, or AP was created, are saved.    * @param tableName name of the table    * @return all the errors since the last time {@link #waitForAllPreviousOpsAndReset(List, TableName)}    *          was called, or AP was created.    */
 specifier|public
 name|RetriesExhaustedWithDetailsException
 name|waitForAllPreviousOpsAndReset

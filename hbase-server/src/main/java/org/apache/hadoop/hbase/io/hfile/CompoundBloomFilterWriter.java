@@ -1034,7 +1034,7 @@ literal|"Cant read with this class."
 argument_list|)
 throw|;
 block|}
-comment|/**      * This is modeled after {@link BloomFilterChunk.MetaWriter} for simplicity,      * although the two metadata formats do not have to be consistent. This      * does have to be consistent with how {@link      * CompoundBloomFilter#CompoundBloomFilter(DataInput,      * org.apache.hadoop.hbase.io.hfile.HFile.Reader)} reads fields.      */
+comment|/**      * This is modeled after {@link CompoundBloomFilterWriter.MetaWriter} for simplicity,      * although the two metadata formats do not have to be consistent. This      * does have to be consistent with how {@link      * CompoundBloomFilter#CompoundBloomFilter(DataInput,      * org.apache.hadoop.hbase.io.hfile.HFile.Reader)} reads fields.      */
 annotation|@
 name|Override
 specifier|public

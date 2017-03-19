@@ -4862,7 +4862,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * This listens to the {@link #visitLogEntryBeforeWrite(HTableDescriptor, WALKey, WALEdit)} to    * identify that an entry is written to the Write Ahead Log for the given table.    */
+comment|/**    * This listens to the {@link #visitLogEntryBeforeWrite(HRegionInfo, WALKey, WALEdit)} to    * identify that an entry is written to the Write Ahead Log for the given table.    */
 specifier|private
 specifier|static
 class|class

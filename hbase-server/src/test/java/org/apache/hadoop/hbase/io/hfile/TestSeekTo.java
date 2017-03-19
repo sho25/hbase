@@ -440,7 +440,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Test {@link HFileScanner#seekTo(byte[])} and its variants.  */
+comment|/**  * Test {@link HFileScanner#seekTo(Cell)} and its variants.  */
 end_comment
 
 begin_class

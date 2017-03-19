@@ -2279,7 +2279,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * Just do a simple delete of the given store files    *<p>    * A best effort is made to delete each of the files, rather than bailing on the first failure.    *<p>    * This method is preferable to {@link #deleteFilesWithoutArchiving(Collection)} since it consumes    * less resources, but is limited in terms of usefulness    * @param compactedFiles store files to delete from the file system.    * @throws IOException if a file cannot be deleted. All files will be attempted to deleted before    *           throwing the exception, rather than failing at the first file.    */
+comment|/**    * Just do a simple delete of the given store files    *<p>    * A best effort is made to delete each of the files, rather than bailing on the first failure.    *<p>    * @param compactedFiles store files to delete from the file system.    * @throws IOException if a file cannot be deleted. All files will be attempted to deleted before    *           throwing the exception, rather than failing at the first file.    */
 specifier|private
 specifier|static
 name|void

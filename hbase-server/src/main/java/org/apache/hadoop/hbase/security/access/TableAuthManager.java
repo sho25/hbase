@@ -574,7 +574,7 @@ name|perms
 argument_list|)
 return|;
 block|}
-comment|/**      * Returns a combined map of user and group permissions, with group names      * distinguished according to {@link AuthUtil.isGroupPrincipal}      */
+comment|/**      * Returns a combined map of user and group permissions, with group names      * distinguished according to {@link AuthUtil#isGroupPrincipal(String)}.      */
 specifier|public
 name|ListMultimap
 argument_list|<

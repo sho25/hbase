@@ -1302,7 +1302,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Fail correctly if coordinator aborts the procedure.  The subprocedure will not interrupt a    * running {@link Subprocedure#prepare} -- prepare needs to finish first, and the the abort    * is checked.  Thus, the {@link Subprocedure#prepare} should succeed but later get rolled back    * via {@link Subprocedure#cleanup}.    */
+comment|/**    * Fail correctly if coordinator aborts the procedure.  The subprocedure will not interrupt a    * running {@link Subprocedure#acquireBarrier()} -- prepare needs to finish first, and the the abort    * is checked.  Thus, the {@link Subprocedure#acquireBarrier()} should succeed but later get rolled back    * via {@link Subprocedure#cleanup}.    */
 annotation|@
 name|Test
 argument_list|(

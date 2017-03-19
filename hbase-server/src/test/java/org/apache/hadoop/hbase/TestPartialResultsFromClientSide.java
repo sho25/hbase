@@ -2398,7 +2398,7 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Test the method {@link Result#createCompleteResult(List)}    * @throws Exception    */
+comment|/**    * Test the method {@link Result#createCompleteResult(Iterable)}    * @throws Exception    */
 annotation|@
 name|Test
 specifier|public

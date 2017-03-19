@@ -2686,7 +2686,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Convert Iterable of {@link ZKOp} we got into the ZooKeeper.Op    * instances to actually pass to multi (need to do this in order to appendMetaData).    */
+comment|/**    * Convert Iterable of {@link org.apache.zookeeper.Op} we got into the ZooKeeper.Op    * instances to actually pass to multi (need to do this in order to appendMetaData).    */
 specifier|private
 name|Iterable
 argument_list|<

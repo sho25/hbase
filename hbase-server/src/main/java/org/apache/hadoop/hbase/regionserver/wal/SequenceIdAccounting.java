@@ -266,7 +266,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/**    * This lock ties all operations on {@link SequenceIdAccounting#flushingSequenceIds} and    * {@link #lowestUnflushedSequenceIds} Maps. {@link #lowestUnflushedSequenceIds} has the    * lowest outstanding sequence ids EXCEPT when flushing. When we flush, the current    * lowest set for the region/column family are moved (atomically because of this lock) to    * {@link #flushingSequenceIds}.    *     *<p>The two Maps are tied by this locking object EXCEPT when we go to update the lowest    * entry; see {@link #lowest(byte[], Set, Long)}. In here is a putIfAbsent call on    * {@link #lowestUnflushedSequenceIds}. In this latter case, we will add this lowest    * sequence id if we find that there is no entry for the current column family. There will be no    * entry only if we just came up OR we have moved aside current set of lowest sequence ids    * because the current set are being flushed (by putting them into {@link #flushingSequenceIds}).    * This is how we pick up the next 'lowest' sequence id per region per column family to be used    * figuring what is in the next flush.    */
+comment|/**    * This lock ties all operations on {@link SequenceIdAccounting#flushingSequenceIds} and    * {@link #lowestUnflushedSequenceIds} Maps. {@link #lowestUnflushedSequenceIds} has the    * lowest outstanding sequence ids EXCEPT when flushing. When we flush, the current    * lowest set for the region/column family are moved (atomically because of this lock) to    * {@link #flushingSequenceIds}.    *     *<p>The two Maps are tied by this locking object EXCEPT when we go to update the lowest    * entry; see {@link #lowestUnflushedSequenceIds}. In here is a putIfAbsent call on    * {@link #lowestUnflushedSequenceIds}. In this latter case, we will add this lowest    * sequence id if we find that there is no entry for the current column family. There will be no    * entry only if we just came up OR we have moved aside current set of lowest sequence ids    * because the current set are being flushed (by putting them into {@link #flushingSequenceIds}).    * This is how we pick up the next 'lowest' sequence id per region per column family to be used    * figuring what is in the next flush.    */
 specifier|private
 specifier|final
 name|Object
@@ -1886,7 +1886,7 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * Iterates over the given Map and compares sequence ids with corresponding entries in    * {@link #oldestUnflushedRegionSequenceIds}. If a region in    * {@link #oldestUnflushedRegionSequenceIds} has a sequence id less than that passed in    *<code>sequenceids</code> then return it.    * @param sequenceids Sequenceids keyed by encoded region name.    * @return regions found in this instance with sequence ids less than those passed in.    */
+comment|/**    * Iterates over the given Map and compares sequence ids with corresponding entries in    * {@link #lowestUnflushedSequenceIds}. If a region in    * {@link #lowestUnflushedSequenceIds} has a sequence id less than that passed in    *<code>sequenceids</code> then return it.    * @param sequenceids Sequenceids keyed by encoded region name.    * @return regions found in this instance with sequence ids less than those passed in.    */
 name|byte
 index|[]
 index|[]

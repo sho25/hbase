@@ -983,10 +983,6 @@ name|ServiceException
 import|;
 end_import
 
-begin_comment
-comment|/**  * Like {@link TestRegionMergeTransaction} in that we're testing  * {@link RegionMergeTransactionImpl} only the below tests are against a running  * cluster where {@link TestRegionMergeTransaction} is tests against bare  * {@link HRegion}.  */
-end_comment
-
 begin_class
 annotation|@
 name|Category
