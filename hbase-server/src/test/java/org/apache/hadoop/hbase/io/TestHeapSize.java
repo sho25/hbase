@@ -524,7 +524,7 @@ argument_list|)
 decl_stmt|;
 comment|// List of classes implementing HeapSize
 comment|// BatchOperation, BatchUpdate, BlockIndex, Entry, Entry<K,V>, HStoreKey
-comment|// KeyValue, LruBlockCache, LruHashMap<K,V>, Put, WALKey
+comment|// KeyValue, LruBlockCache, Put, WALKey
 annotation|@
 name|BeforeClass
 specifier|public
