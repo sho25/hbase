@@ -860,6 +860,16 @@ name|scan
 argument_list|)
 init|)
 block|{
+name|consumer
+operator|.
+name|onScanMetricsCreated
+argument_list|(
+name|scanner
+operator|.
+name|getScanMetrics
+argument_list|()
+argument_list|)
+expr_stmt|;
 for|for
 control|(
 name|Result

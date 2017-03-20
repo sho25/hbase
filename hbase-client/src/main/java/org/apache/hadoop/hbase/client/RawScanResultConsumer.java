@@ -65,6 +65,24 @@ name|Result
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|metrics
+operator|.
+name|ScanMetrics
+import|;
+end_import
+
 begin_comment
 comment|/**  * Receives {@link Result} for an asynchronous scan.  *<p>  * Notice that, the {@link #onNext(Result[], ScanController)} method will be called in the thread  * which we send request to HBase service. So if you want the asynchronous scanner fetch data from  * HBase in background while you process the returned data, you need to move the processing work to  * another thread to make the {@code onNext} call return immediately. And please do NOT do any time  * consuming tasks in all methods below unless you know what you are doing.  */
 end_comment
@@ -157,6 +175,15 @@ name|void
 name|onComplete
 parameter_list|()
 function_decl|;
+comment|/**    * If {@code scan.isScanMetricsEnabled()} returns true, then this method will be called prior to    * all other methods in this interface to give you the {@link ScanMetrics} instance for this scan    * operation. The {@link ScanMetrics} instance will be updated on-the-fly during the scan, you can    * store it somewhere to get the metrics at any time if you want.    */
+specifier|default
+name|void
+name|onScanMetricsCreated
+parameter_list|(
+name|ScanMetrics
+name|scanMetrics
+parameter_list|)
+block|{   }
 block|}
 end_interface
 

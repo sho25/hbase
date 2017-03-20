@@ -49,6 +49,24 @@ name|InterfaceStability
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|metrics
+operator|.
+name|ScanMetrics
+import|;
+end_import
+
 begin_comment
 comment|/**  * Receives {@link Result} for an asynchronous scan.  */
 end_comment
@@ -87,6 +105,15 @@ name|void
 name|onComplete
 parameter_list|()
 function_decl|;
+comment|/**    * If {@code scan.isScanMetricsEnabled()} returns true, then this method will be called prior to    * all other methods in this interface to give you the {@link ScanMetrics} instance for this scan    * operation. The {@link ScanMetrics} instance will be updated on-the-fly during the scan, you can    * store it somewhere to get the metrics at any time if you want.    */
+specifier|default
+name|void
+name|onScanMetricsCreated
+parameter_list|(
+name|ScanMetrics
+name|scanMetrics
+parameter_list|)
+block|{   }
 block|}
 end_interface
 
