@@ -517,6 +517,29 @@ operator|.
 name|servers
 argument_list|)
 expr_stmt|;
+name|sb
+operator|.
+name|append
+argument_list|(
+literal|", "
+argument_list|)
+expr_stmt|;
+name|sb
+operator|.
+name|append
+argument_list|(
+literal|" Tables:"
+argument_list|)
+expr_stmt|;
+name|sb
+operator|.
+name|append
+argument_list|(
+name|this
+operator|.
+name|tables
+argument_list|)
+expr_stmt|;
 return|return
 name|sb
 operator|.
