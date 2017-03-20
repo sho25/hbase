@@ -2624,6 +2624,15 @@ operator|.
 name|remoteId
 argument_list|)
 expr_stmt|;
+name|connections
+operator|.
+name|removeValue
+argument_list|(
+name|remoteId
+argument_list|,
+name|connection
+argument_list|)
+expr_stmt|;
 name|connection
 operator|.
 name|shutdown
