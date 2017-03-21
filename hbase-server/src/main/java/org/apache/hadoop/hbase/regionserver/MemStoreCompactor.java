@@ -856,11 +856,6 @@ name|getComparator
 argument_list|()
 argument_list|,
 name|compactionKVMax
-argument_list|,
-name|compactingMemStore
-operator|.
-name|getStore
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|result

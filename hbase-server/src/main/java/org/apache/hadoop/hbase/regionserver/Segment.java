@@ -23,7 +23,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|ArrayList
+name|Collections
 import|;
 end_import
 
@@ -579,7 +579,7 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Creates the scanner for the given read point    * @return a scanner for the given read point    */
-specifier|public
+specifier|protected
 name|KeyValueScanner
 name|getScanner
 parameter_list|(
@@ -635,33 +635,21 @@ name|long
 name|order
 parameter_list|)
 block|{
-name|List
-argument_list|<
-name|KeyValueScanner
-argument_list|>
-name|scanners
-init|=
-operator|new
-name|ArrayList
-argument_list|<>
-argument_list|(
-literal|1
-argument_list|)
-decl_stmt|;
-name|scanners
+return|return
+name|Collections
 operator|.
-name|add
+name|singletonList
 argument_list|(
-name|getScanner
+operator|new
+name|SegmentScanner
 argument_list|(
+name|this
+argument_list|,
 name|readPoint
 argument_list|,
 name|order
 argument_list|)
 argument_list|)
-expr_stmt|;
-return|return
-name|scanners
 return|;
 block|}
 comment|/**    * @return whether the segment has any cells    */

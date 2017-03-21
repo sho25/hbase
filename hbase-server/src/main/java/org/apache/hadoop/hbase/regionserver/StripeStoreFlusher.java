@@ -372,7 +372,7 @@ name|createScanner
 argument_list|(
 name|snapshot
 operator|.
-name|getScanner
+name|getScanners
 argument_list|()
 argument_list|,
 name|smallestReadPoint

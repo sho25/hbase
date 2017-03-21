@@ -53,6 +53,20 @@ name|org
 operator|.
 name|apache
 operator|.
+name|commons
+operator|.
+name|lang
+operator|.
+name|NotImplementedException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -852,7 +866,6 @@ name|oldestUnexpiredTS
 argument_list|)
 return|;
 block|}
-comment|/**    * This scanner is working solely on the in-memory MemStore therefore this    * interface is not relevant.    */
 annotation|@
 name|Override
 specifier|public
@@ -871,13 +884,18 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-throw|throw
-operator|new
-name|IllegalStateException
+return|return
+name|NonLazyKeyValueScanner
+operator|.
+name|doRealSeek
 argument_list|(
-literal|"requestSeek cannot be called on MutableCellSetSegmentScanner"
+name|this
+argument_list|,
+name|c
+argument_list|,
+name|forward
 argument_list|)
-throw|;
+return|;
 block|}
 comment|/**    * This scanner is working solely on the in-memory MemStore and doesn't work on    * store files, MutableCellSetSegmentScanner always does the seek,    * therefore always returning true.    */
 annotation|@
@@ -903,9 +921,9 @@ name|IOException
 block|{
 throw|throw
 operator|new
-name|IllegalStateException
+name|NotImplementedException
 argument_list|(
-literal|"enforceSeek cannot be called on MutableCellSetSegmentScanner"
+literal|"enforceSeek cannot be called on a SegmentScanner"
 argument_list|)
 throw|;
 block|}

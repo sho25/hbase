@@ -164,7 +164,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * ImmutableSegment is an abstract class that extends the API supported by a {@link Segment},  * and is not needed for a {@link MutableSegment}. Specifically, the method  * {@link ImmutableSegment#getSnapshotScanner()} builds a special scanner for the  * {@link MemStoreSnapshot} object.  */
+comment|/**  * ImmutableSegment is an abstract class that extends the API supported by a {@link Segment},  * and is not needed for a {@link MutableSegment}.  */
 end_comment
 
 begin_class
@@ -508,20 +508,6 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|/////////////////////  PUBLIC METHODS  /////////////////////
-comment|/**    * Builds a special scanner for the MemStoreSnapshot object that is different than the    * general segment scanner.    * @return a special scanner for the MemStoreSnapshot object    */
-specifier|public
-name|KeyValueScanner
-name|getSnapshotScanner
-parameter_list|()
-block|{
-return|return
-operator|new
-name|SnapshotScanner
-argument_list|(
-name|this
-argument_list|)
-return|;
-block|}
 annotation|@
 name|Override
 specifier|public

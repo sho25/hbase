@@ -33,6 +33,16 @@ name|InterfaceAudience
 import|;
 end_import
 
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
+import|;
+end_import
+
 begin_comment
 comment|/**  * Holds details of the snapshot taken on a MemStore. Details include the snapshot's identifier,  * count of cells in it and total memory size occupied by all the cells, timestamp information of  * all the cells and a scanner to read all cells in it.  */
 end_comment
@@ -73,8 +83,11 @@ name|timeRangeTracker
 decl_stmt|;
 specifier|private
 specifier|final
+name|List
+argument_list|<
 name|KeyValueScanner
-name|scanner
+argument_list|>
+name|scanners
 decl_stmt|;
 specifier|private
 specifier|final
@@ -135,12 +148,20 @@ argument_list|()
 expr_stmt|;
 name|this
 operator|.
-name|scanner
+name|scanners
 operator|=
 name|snapshot
 operator|.
-name|getSnapshotScanner
-argument_list|()
+name|getScanners
+argument_list|(
+name|Long
+operator|.
+name|MAX_VALUE
+argument_list|,
+name|Long
+operator|.
+name|MAX_VALUE
+argument_list|)
 expr_stmt|;
 name|this
 operator|.
@@ -188,8 +209,6 @@ name|getHeapSize
 parameter_list|()
 block|{
 return|return
-name|this
-operator|.
 name|heapSize
 return|;
 block|}
@@ -200,21 +219,20 @@ name|getTimeRangeTracker
 parameter_list|()
 block|{
 return|return
-name|this
-operator|.
 name|timeRangeTracker
 return|;
 block|}
 comment|/**    * @return {@link KeyValueScanner} for iterating over the snapshot    */
 specifier|public
+name|List
+argument_list|<
 name|KeyValueScanner
-name|getScanner
+argument_list|>
+name|getScanners
 parameter_list|()
 block|{
 return|return
-name|this
-operator|.
-name|scanner
+name|scanners
 return|;
 block|}
 comment|/**    * @return true if tags are present in this snapshot    */

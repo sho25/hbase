@@ -3451,7 +3451,7 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * See    * {@link RegionObserver#preFlushScannerOpen(ObserverContext,    *    Store, KeyValueScanner, InternalScanner, long)}    */
+comment|/**    * See    * {@link RegionObserver#preFlushScannerOpen(ObserverContext, Store, List, InternalScanner, long)}    */
 specifier|public
 name|InternalScanner
 name|preFlushScannerOpen
@@ -3461,8 +3461,11 @@ name|Store
 name|store
 parameter_list|,
 specifier|final
+name|List
+argument_list|<
 name|KeyValueScanner
-name|memstoreScanner
+argument_list|>
+name|scanners
 parameter_list|,
 specifier|final
 name|long
@@ -3518,7 +3521,7 @@ name|ctx
 argument_list|,
 name|store
 argument_list|,
-name|memstoreScanner
+name|scanners
 argument_list|,
 name|getResult
 argument_list|()

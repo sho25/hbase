@@ -179,8 +179,11 @@ parameter_list|,
 name|Store
 name|store
 parameter_list|,
+name|List
+argument_list|<
 name|KeyValueScanner
-name|memstoreScanner
+argument_list|>
+name|scanners
 parameter_list|,
 name|InternalScanner
 name|s
@@ -255,12 +258,7 @@ name|scanInfo
 argument_list|,
 name|scan
 argument_list|,
-name|Collections
-operator|.
-name|singletonList
-argument_list|(
-name|memstoreScanner
-argument_list|)
+name|scanners
 argument_list|,
 name|ScanType
 operator|.

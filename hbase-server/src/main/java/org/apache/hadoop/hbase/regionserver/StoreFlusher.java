@@ -345,13 +345,16 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Creates the scanner for flushing snapshot. Also calls coprocessors.    * @param snapshotScanner    * @param smallestReadPoint    * @return The scanner; null if coprocessor is canceling the flush.    */
+comment|/**    * Creates the scanner for flushing snapshot. Also calls coprocessors.    * @param snapshotScanners    * @param smallestReadPoint    * @return The scanner; null if coprocessor is canceling the flush.    */
 specifier|protected
 name|InternalScanner
 name|createScanner
 parameter_list|(
+name|List
+argument_list|<
 name|KeyValueScanner
-name|snapshotScanner
+argument_list|>
+name|snapshotScanners
 parameter_list|,
 name|long
 name|smallestReadPoint
@@ -385,7 +388,7 @@ name|preFlushScannerOpen
 argument_list|(
 name|store
 argument_list|,
-name|snapshotScanner
+name|snapshotScanners
 argument_list|,
 name|smallestReadPoint
 argument_list|)
@@ -432,12 +435,7 @@ argument_list|()
 argument_list|,
 name|scan
 argument_list|,
-name|Collections
-operator|.
-name|singletonList
-argument_list|(
-name|snapshotScanner
-argument_list|)
+name|snapshotScanners
 argument_list|,
 name|ScanType
 operator|.

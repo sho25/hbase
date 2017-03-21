@@ -1985,11 +1985,34 @@ name|MAX_VALUE
 argument_list|)
 decl_stmt|;
 comment|// seek
+name|int
+name|count
+init|=
+literal|0
+decl_stmt|;
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|0
+init|;
+name|i
+operator|<
+name|scanners
+operator|.
+name|size
+argument_list|()
+condition|;
+name|i
+operator|++
+control|)
+block|{
 name|scanners
 operator|.
 name|get
 argument_list|(
-literal|0
+name|i
 argument_list|)
 operator|.
 name|seek
@@ -1999,18 +2022,13 @@ operator|.
 name|LOWESTKEY
 argument_list|)
 expr_stmt|;
-name|int
-name|count
-init|=
-literal|0
-decl_stmt|;
 while|while
 condition|(
 name|scanners
 operator|.
 name|get
 argument_list|(
-literal|0
+name|i
 argument_list|)
 operator|.
 name|next
@@ -2023,6 +2041,7 @@ name|count
 operator|++
 expr_stmt|;
 block|}
+block|}
 name|assertEquals
 argument_list|(
 literal|"the count should be "
@@ -2032,16 +2051,35 @@ argument_list|,
 literal|150
 argument_list|)
 expr_stmt|;
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|0
+init|;
+name|i
+operator|<
+name|scanners
+operator|.
+name|size
+argument_list|()
+condition|;
+name|i
+operator|++
+control|)
+block|{
 name|scanners
 operator|.
 name|get
 argument_list|(
-literal|0
+name|i
 argument_list|)
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Test
@@ -2129,16 +2167,6 @@ operator|.
 name|COMPARATOR
 argument_list|,
 literal|10
-argument_list|,
-operator|(
-operator|(
-name|CompactingMemStore
-operator|)
-name|memstore
-operator|)
-operator|.
-name|getStore
-argument_list|()
 argument_list|)
 decl_stmt|;
 name|int
@@ -2606,15 +2634,24 @@ argument_list|)
 decl_stmt|;
 comment|// Shouldn't putting back the chunks to pool,since some scanners are opening
 comment|// based on their data
-comment|// close the scanner
+comment|// close the scanners
+for|for
+control|(
+name|KeyValueScanner
+name|scanner
+range|:
 name|snapshot
 operator|.
-name|getScanner
+name|getScanners
 argument_list|()
+control|)
+block|{
+name|scanner
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
 name|memstore
 operator|.
 name|clearSnapshot
@@ -2740,15 +2777,24 @@ expr_stmt|;
 block|}
 comment|// Since no opening scanner, the chunks of snapshot should be put back to
 comment|// pool
-comment|// close the scanner
+comment|// close the scanners
+for|for
+control|(
+name|KeyValueScanner
+name|scanner
+range|:
 name|snapshot
 operator|.
-name|getScanner
+name|getScanners
 argument_list|()
+control|)
+block|{
+name|scanner
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
 name|memstore
 operator|.
 name|clearSnapshot
@@ -3012,15 +3058,24 @@ name|getCellsCount
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// close the scanner
+comment|// close the scanners
+for|for
+control|(
+name|KeyValueScanner
+name|scanner
+range|:
 name|snapshot
 operator|.
-name|getScanner
+name|getScanners
 argument_list|()
+control|)
+block|{
+name|scanner
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
 name|memstore
 operator|.
 name|clearSnapshot

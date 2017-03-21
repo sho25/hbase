@@ -47,6 +47,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Collections
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|List
 import|;
 end_import
@@ -755,7 +765,7 @@ argument_list|>
 name|c
 parameter_list|)
 block|{}
-comment|/**    * Called before a memstore is flushed to disk and prior to creating the scanner to read from    * the memstore.  To override or modify how a memstore is flushed,    * implementing classes can return a new scanner to provide the KeyValues to be    * stored into the new {@code StoreFile} or null to perform the default processing.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param c the environment provided by the region server    * @param store the store being flushed    * @param memstoreScanner the scanner for the memstore that is flushed    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @return the scanner to use during the flush.  {@code null} if the default implementation    * is to be used.    * @deprecated Use {@link #preFlushScannerOpen(ObserverContext, Store, KeyValueScanner,    *             InternalScanner, long)}    */
+comment|/**    * Called before a memstore is flushed to disk and prior to creating the scanner to read from    * the memstore.  To override or modify how a memstore is flushed,    * implementing classes can return a new scanner to provide the KeyValues to be    * stored into the new {@code StoreFile} or null to perform the default processing.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param c the environment provided by the region server    * @param store the store being flushed    * @param scanners the scanners for the memstore that is flushed    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @return the scanner to use during the flush.  {@code null} if the default implementation    * is to be used.    * @deprecated Use {@link #preFlushScannerOpen(ObserverContext, Store, List,    *             InternalScanner, long)}    */
 annotation|@
 name|Deprecated
 specifier|default
@@ -774,8 +784,11 @@ name|Store
 name|store
 parameter_list|,
 specifier|final
+name|List
+argument_list|<
 name|KeyValueScanner
-name|memstoreScanner
+argument_list|>
+name|scanners
 parameter_list|,
 specifier|final
 name|InternalScanner
@@ -788,7 +801,7 @@ return|return
 name|s
 return|;
 block|}
-comment|/**    * Called before a memstore is flushed to disk and prior to creating the scanner to read from    * the memstore.  To override or modify how a memstore is flushed,    * implementing classes can return a new scanner to provide the KeyValues to be    * stored into the new {@code StoreFile} or null to perform the default processing.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param c the environment provided by the region server    * @param store the store being flushed    * @param memstoreScanner the scanner for the memstore that is flushed    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @param readPoint the readpoint to create scanner    * @return the scanner to use during the flush.  {@code null} if the default implementation    * is to be used.    */
+comment|/**    * Called before a memstore is flushed to disk and prior to creating the scanner to read from    * the memstore.  To override or modify how a memstore is flushed,    * implementing classes can return a new scanner to provide the KeyValues to be    * stored into the new {@code StoreFile} or null to perform the default processing.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param c the environment provided by the region server    * @param store the store being flushed    * @param scanners the scanners for the memstore that is flushed    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @param readPoint the readpoint to create scanner    * @return the scanner to use during the flush.  {@code null} if the default implementation    * is to be used.    */
 specifier|default
 name|InternalScanner
 name|preFlushScannerOpen
@@ -805,8 +818,11 @@ name|Store
 name|store
 parameter_list|,
 specifier|final
+name|List
+argument_list|<
 name|KeyValueScanner
-name|memstoreScanner
+argument_list|>
+name|scanners
 parameter_list|,
 specifier|final
 name|InternalScanner
@@ -826,9 +842,60 @@ name|c
 argument_list|,
 name|store
 argument_list|,
-name|memstoreScanner
+name|scanners
 argument_list|,
 name|s
+argument_list|)
+return|;
+block|}
+comment|/**    * Maintain backward compatibility.    * @param c the environment provided by the region server    * @param store the store being flushed    * @param scanner the scanner for the memstore that is flushed    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @param readPoint the readpoint to create scanner    * @return the scanner to use during the flush.  {@code null} if the default implementation    * is to be used.    */
+specifier|default
+name|InternalScanner
+name|preFlushScannerOpen
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|RegionCoprocessorEnvironment
+argument_list|>
+name|c
+parameter_list|,
+specifier|final
+name|Store
+name|store
+parameter_list|,
+specifier|final
+name|KeyValueScanner
+name|scanner
+parameter_list|,
+specifier|final
+name|InternalScanner
+name|s
+parameter_list|,
+specifier|final
+name|long
+name|readPoint
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|preFlushScannerOpen
+argument_list|(
+name|c
+argument_list|,
+name|store
+argument_list|,
+name|Collections
+operator|.
+name|singletonList
+argument_list|(
+name|scanner
+argument_list|)
+argument_list|,
+name|s
+argument_list|,
+name|readPoint
 argument_list|)
 return|;
 block|}
@@ -2460,7 +2527,7 @@ return|return
 name|s
 return|;
 block|}
-comment|/**    * Called before a store opens a new scanner.    * This hook is called when a "user" scanner is opened.    *<p>    * See {@link #preFlushScannerOpen(ObserverContext, Store, KeyValueScanner, InternalScanner,    * long)} and {@link #preCompactScannerOpen(ObserverContext,    *  Store, List, ScanType, long, InternalScanner, CompactionRequest, long)}    * to override scanners created for flushes or compactions, resp.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    *<p>    * Note: Do not retain references to any Cells returned by scanner, beyond the life of this    * invocation. If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param store the store being scanned    * @param scan the Scan specification    * @param targetCols columns to be used in the scanner    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @return a KeyValueScanner instance to use or {@code null} to use the default implementation    * @deprecated use {@link #preStoreScannerOpen(ObserverContext, Store, Scan, NavigableSet,    *   KeyValueScanner, long)} instead    */
+comment|/**    * Called before a store opens a new scanner.    * This hook is called when a "user" scanner is opened.    *<p>    * See {@link #preFlushScannerOpen(ObserverContext, Store, List, InternalScanner, long)} and {@link #preCompactScannerOpen(ObserverContext,    *  Store, List, ScanType, long, InternalScanner, CompactionRequest, long)}    * to override scanners created for flushes or compactions, resp.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    *<p>    * Note: Do not retain references to any Cells returned by scanner, beyond the life of this    * invocation. If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param store the store being scanned    * @param scan the Scan specification    * @param targetCols columns to be used in the scanner    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @return a KeyValueScanner instance to use or {@code null} to use the default implementation    * @deprecated use {@link #preStoreScannerOpen(ObserverContext, Store, Scan, NavigableSet,    *   KeyValueScanner, long)} instead    */
 annotation|@
 name|Deprecated
 specifier|default
@@ -2501,7 +2568,7 @@ return|return
 name|s
 return|;
 block|}
-comment|/**    * Called before a store opens a new scanner.    * This hook is called when a "user" scanner is opened.    *<p>    * See {@link #preFlushScannerOpen(ObserverContext, Store, KeyValueScanner, InternalScanner,    * long)} and {@link #preCompactScannerOpen(ObserverContext,    *  Store, List, ScanType, long, InternalScanner, CompactionRequest, long)}    * to override scanners created for flushes or compactions, resp.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    *<p>    * Note: Do not retain references to any Cells returned by scanner, beyond the life of this    * invocation. If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param store the store being scanned    * @param scan the Scan specification    * @param targetCols columns to be used in the scanner    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @param readPt the read point    * @return a KeyValueScanner instance to use or {@code null} to use the default implementation    */
+comment|/**    * Called before a store opens a new scanner.    * This hook is called when a "user" scanner is opened.    *<p>    * See {@link #preFlushScannerOpen(ObserverContext, Store, List, InternalScanner, long)} and {@link #preCompactScannerOpen(ObserverContext,    *  Store, List, ScanType, long, InternalScanner, CompactionRequest, long)}    * to override scanners created for flushes or compactions, resp.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    *<p>    * Note: Do not retain references to any Cells returned by scanner, beyond the life of this    * invocation. If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param store the store being scanned    * @param scan the Scan specification    * @param targetCols columns to be used in the scanner    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @param readPt the read point    * @return a KeyValueScanner instance to use or {@code null} to use the default implementation    */
 specifier|default
 name|KeyValueScanner
 name|preStoreScannerOpen
