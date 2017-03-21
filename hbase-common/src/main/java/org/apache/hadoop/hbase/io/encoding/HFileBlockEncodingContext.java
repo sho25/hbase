@@ -81,6 +81,22 @@ name|HFileContext
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Bytes
+import|;
+end_import
+
 begin_comment
 comment|/**  * An encoding context that is created by a writer's encoder, and is shared  * across the writer's whole lifetime.  *  * @see HFileBlockDecodingContext for decoding  *  */
 end_comment
@@ -137,14 +153,19 @@ name|EncodingState
 name|getEncodingState
 parameter_list|()
 function_decl|;
-comment|/**    * @param uncompressedBytesWithHeader encoded bytes with header    * @return Bytes with header which are ready to write out to disk. This is compressed and    *         encrypted bytes applying the set compression algorithm and encryption.    */
-name|byte
-index|[]
+comment|/**    * @param data encoded bytes with header    * @param offset the offset in encoded data to start at    * @param length the number of encoded bytes    * @return Bytes with header which are ready to write out to disk.    *         This is compressed and encrypted bytes applying the set compression    *         algorithm and encryption. The bytes may be changed.    *         If need a Bytes reference for later use, clone the bytes and use that.    *         Null if the data doesn't need to be compressed and encrypted.    */
+name|Bytes
 name|compressAndEncrypt
 parameter_list|(
 name|byte
 index|[]
-name|uncompressedBytesWithHeader
+name|data
+parameter_list|,
+name|int
+name|offset
+parameter_list|,
+name|int
+name|length
 parameter_list|)
 throws|throws
 name|IOException

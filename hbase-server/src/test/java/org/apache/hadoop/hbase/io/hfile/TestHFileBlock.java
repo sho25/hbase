@@ -2721,7 +2721,7 @@ name|encodedResultWithHeader
 init|=
 name|hbw
 operator|.
-name|getUncompressedBufferWithHeader
+name|cloneUncompressedBufferWithHeader
 argument_list|()
 operator|.
 name|array
@@ -5359,7 +5359,7 @@ name|add
 argument_list|(
 name|hbw
 operator|.
-name|getUncompressedBufferWithHeader
+name|cloneUncompressedBufferWithHeader
 argument_list|()
 argument_list|)
 expr_stmt|;
