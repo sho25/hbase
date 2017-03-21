@@ -2134,7 +2134,25 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
-return|return;
+block|}
+catch|catch
+parameter_list|(
+name|CancelledKeyException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+name|getName
+argument_list|()
+operator|+
+literal|": CancelledKeyException in Reader"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
