@@ -307,10 +307,6 @@ implements|implements
 name|EncodedSeeker
 block|{
 specifier|protected
-name|ByteBuffer
-name|block
-decl_stmt|;
-specifier|protected
 name|boolean
 name|includeMvccVersion
 decl_stmt|;
