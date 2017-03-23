@@ -981,9 +981,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-name|this
-operator|.
-name|configs
+name|m
 argument_list|)
 expr_stmt|;
 block|}
