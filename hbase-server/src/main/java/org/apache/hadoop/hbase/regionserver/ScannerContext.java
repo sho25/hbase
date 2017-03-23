@@ -572,7 +572,7 @@ return|;
 block|}
 comment|/**    * @return true when we have more cells for the current row. This usually because we have reached    *         a limit in the middle of a row    */
 name|boolean
-name|hasMoreCellsInRow
+name|mayHaveMoreCellsInRow
 parameter_list|()
 block|{
 return|return

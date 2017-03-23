@@ -3435,7 +3435,7 @@ return|return
 name|limit
 return|;
 block|}
-comment|/**    * Set the limit of rows for this scan. We will terminate the scan if the number of returned rows    * reaches this value.    *<p>    * This condition will be tested at last, after all other conditions such as stopRow, filter, etc.    *<p>    * Can not be used together with batch and allowPartial.    * @param limit the limit of rows for this scan    * @return this    */
+comment|/**    * Set the limit of rows for this scan. We will terminate the scan if the number of returned rows    * reaches this value.    *<p>    * This condition will be tested at last, after all other conditions such as stopRow, filter, etc.    * @param limit the limit of rows for this scan    * @return this    */
 specifier|public
 name|Scan
 name|setLimit

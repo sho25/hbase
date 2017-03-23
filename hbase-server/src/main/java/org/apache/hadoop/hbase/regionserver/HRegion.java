@@ -29228,7 +29228,7 @@ condition|(
 operator|!
 name|scannerContext
 operator|.
-name|hasMoreCellsInRow
+name|mayHaveMoreCellsInRow
 argument_list|()
 condition|)
 block|{

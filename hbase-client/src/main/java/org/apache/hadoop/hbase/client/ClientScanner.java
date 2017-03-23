@@ -72,24 +72,6 @@ import|;
 end_import
 
 begin_import
-import|import static
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|ConnectionUtils
-operator|.
-name|numberOfIndividualRows
-import|;
-end_import
-
-begin_import
 import|import
 name|com
 operator|.
@@ -120,16 +102,6 @@ operator|.
 name|io
 operator|.
 name|InterruptedIOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Arrays
 import|;
 end_import
 
@@ -1923,6 +1895,14 @@ expr_stmt|;
 comment|// Groom the array of Results that we received back from the server before adding that
 comment|// Results to the scanner's cache. If partial results are not allowed to be seen by the
 comment|// caller, all book keeping will be performed within this method.
+name|int
+name|numberOfCompleteRowsBefore
+init|=
+name|scanResultCache
+operator|.
+name|numberOfCompleteRows
+argument_list|()
+decl_stmt|;
 name|Result
 index|[]
 name|resultsToAddToCache
@@ -1938,6 +1918,16 @@ operator|.
 name|isHeartbeatMessage
 argument_list|()
 argument_list|)
+decl_stmt|;
+name|int
+name|numberOfCompleteRows
+init|=
+name|scanResultCache
+operator|.
+name|numberOfCompleteRows
+argument_list|()
+operator|-
+name|numberOfCompleteRowsBefore
 decl_stmt|;
 if|if
 condition|(
@@ -1990,6 +1980,7 @@ operator|=
 name|rs
 expr_stmt|;
 block|}
+block|}
 if|if
 condition|(
 name|scan
@@ -2008,15 +1999,7 @@ operator|.
 name|getLimit
 argument_list|()
 operator|-
-name|numberOfIndividualRows
-argument_list|(
-name|Arrays
-operator|.
-name|asList
-argument_list|(
-name|resultsToAddToCache
-argument_list|)
-argument_list|)
+name|numberOfCompleteRows
 decl_stmt|;
 assert|assert
 name|newLimit
@@ -2030,7 +2013,6 @@ argument_list|(
 name|newLimit
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 if|if
 condition|(

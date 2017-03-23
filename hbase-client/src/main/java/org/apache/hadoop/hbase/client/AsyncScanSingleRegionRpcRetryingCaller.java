@@ -31,7 +31,7 @@ name|client
 operator|.
 name|ConnectionUtils
 operator|.
-name|*
+name|SLEEP_DELTA_NS
 import|;
 end_import
 
@@ -50,6 +50,42 @@ operator|.
 name|ConnectionUtils
 operator|.
 name|getPauseTime
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|ConnectionUtils
+operator|.
+name|incRPCCallsMetrics
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|ConnectionUtils
+operator|.
+name|incRPCRetriesMetrics
 import|;
 end_import
 
@@ -103,24 +139,6 @@ name|client
 operator|.
 name|ConnectionUtils
 operator|.
-name|numberOfIndividualRows
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|ConnectionUtils
-operator|.
 name|resetController
 import|;
 end_import
@@ -140,6 +158,42 @@ operator|.
 name|ConnectionUtils
 operator|.
 name|translateException
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|ConnectionUtils
+operator|.
+name|updateResultsMetrics
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|ConnectionUtils
+operator|.
+name|updateServerSideMetrics
 import|;
 end_import
 
@@ -198,16 +252,6 @@ operator|.
 name|util
 operator|.
 name|ArrayList
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Arrays
 import|;
 end_import
 
@@ -988,7 +1032,7 @@ name|resp
 decl_stmt|;
 specifier|private
 name|int
-name|numberOfIndividualRows
+name|numberOfCompleteRows
 decl_stmt|;
 comment|// If the scan is suspended successfully, we need to do lease renewal to prevent it being closed
 comment|// by RS due to lease expire. It is a one-time timer task so we need to schedule a new task
@@ -1015,7 +1059,7 @@ name|ScanResponse
 name|localResp
 decl_stmt|;
 name|int
-name|localNumberOfIndividualRows
+name|localNumberOfCompleteRows
 decl_stmt|;
 synchronized|synchronized
 init|(
@@ -1078,18 +1122,18 @@ name|this
 operator|.
 name|resp
 expr_stmt|;
-name|localNumberOfIndividualRows
+name|localNumberOfCompleteRows
 operator|=
 name|this
 operator|.
-name|numberOfIndividualRows
+name|numberOfCompleteRows
 expr_stmt|;
 block|}
 name|completeOrNext
 argument_list|(
 name|localResp
 argument_list|,
-name|localNumberOfIndividualRows
+name|localNumberOfCompleteRows
 argument_list|)
 expr_stmt|;
 block|}
@@ -1155,7 +1199,7 @@ name|ScanResponse
 name|resp
 parameter_list|,
 name|int
-name|numberOfIndividualRows
+name|numberOfCompleteRows
 parameter_list|)
 block|{
 if|if
@@ -1186,9 +1230,9 @@ name|resp
 expr_stmt|;
 name|this
 operator|.
-name|numberOfIndividualRows
+name|numberOfCompleteRows
 operator|=
-name|numberOfIndividualRows
+name|numberOfCompleteRows
 expr_stmt|;
 comment|// if there are no more results in region then the scanner at RS side will be closed
 comment|// automatically so we do not need to renew lease.
@@ -2066,7 +2110,7 @@ name|ScanResponse
 name|resp
 parameter_list|,
 name|int
-name|numIndividualRows
+name|numberOfCompleteRows
 parameter_list|)
 block|{
 if|if
@@ -2109,7 +2153,7 @@ operator|.
 name|getLimit
 argument_list|()
 operator|-
-name|numIndividualRows
+name|numberOfCompleteRows
 decl_stmt|;
 assert|assert
 name|newLimit
@@ -2198,6 +2242,14 @@ name|Result
 index|[]
 name|results
 decl_stmt|;
+name|int
+name|numberOfCompleteRowsBefore
+init|=
+name|resultCache
+operator|.
+name|numberOfCompleteRows
+argument_list|()
+decl_stmt|;
 try|try
 block|{
 name|Result
@@ -2274,21 +2326,6 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
-comment|// calculate this before calling onNext as it is free for user to modify the result array in
-comment|// onNext.
-name|int
-name|numberOfIndividualRows
-init|=
-name|numberOfIndividualRows
-argument_list|(
-name|Arrays
-operator|.
-name|asList
-argument_list|(
-name|results
-argument_list|)
-argument_list|)
-decl_stmt|;
 name|ScanControllerImpl
 name|scanController
 init|=
@@ -2301,20 +2338,9 @@ condition|(
 name|results
 operator|.
 name|length
-operator|==
+operator|>
 literal|0
 condition|)
-block|{
-comment|// if we have nothing to return then just call onHeartbeat.
-name|consumer
-operator|.
-name|onHeartbeat
-argument_list|(
-name|scanController
-argument_list|)
-expr_stmt|;
-block|}
-else|else
 block|{
 name|updateNextStartRowWhenError
 argument_list|(
@@ -2334,6 +2360,28 @@ name|onNext
 argument_list|(
 name|results
 argument_list|,
+name|scanController
+argument_list|)
+expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
+name|resp
+operator|.
+name|hasHeartbeatMessage
+argument_list|()
+operator|&&
+name|resp
+operator|.
+name|getHeartbeatMessage
+argument_list|()
+condition|)
+block|{
+name|consumer
+operator|.
+name|onHeartbeat
+argument_list|(
 name|scanController
 argument_list|)
 expr_stmt|;
@@ -2374,6 +2422,16 @@ argument_list|()
 expr_stmt|;
 return|return;
 block|}
+name|int
+name|numberOfCompleteRows
+init|=
+name|resultCache
+operator|.
+name|numberOfCompleteRows
+argument_list|()
+operator|-
+name|numberOfCompleteRowsBefore
+decl_stmt|;
 if|if
 condition|(
 name|state
@@ -2393,7 +2451,7 @@ name|prepare
 argument_list|(
 name|resp
 argument_list|,
-name|numberOfIndividualRows
+name|numberOfCompleteRows
 argument_list|)
 condition|)
 block|{
@@ -2404,7 +2462,7 @@ name|completeOrNext
 argument_list|(
 name|resp
 argument_list|,
-name|numberOfIndividualRows
+name|numberOfCompleteRows
 argument_list|)
 expr_stmt|;
 block|}

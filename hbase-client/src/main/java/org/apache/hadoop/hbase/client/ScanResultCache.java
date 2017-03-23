@@ -44,7 +44,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Used to separate the row constructing logic.  *<p>  * After we add heartbeat support for scan, RS may return partial result even if allowPartial is  * false and batch is 0. With this interface, the implementation now looks like:  *<ol>  *<li>Get results from ScanResponse proto.</li>  *<li>Pass them to ScanResultCache and get something back.</li>  *<li>If we actually get something back, then pass it to ScanObserver.</li>  *</ol>  */
+comment|/**  * Used to separate the row constructing logic.  *<p>  * After we add heartbeat support for scan, RS may return partial result even if allowPartial is  * false and batch is 0. With this interface, the implementation now looks like:  *<ol>  *<li>Get results from ScanResponse proto.</li>  *<li>Pass them to ScanResultCache and get something back.</li>  *<li>If we actually get something back, then pass it to ScanConsumer.</li>  *</ol>  */
 end_comment
 
 begin_interface
@@ -85,6 +85,11 @@ function_decl|;
 comment|/**    * Clear the cached result if any. Called when scan error and we will start from a start of a row    * again.    */
 name|void
 name|clear
+parameter_list|()
+function_decl|;
+comment|/**    * Return the number of complete rows. Used to implement limited scan.    */
+name|int
+name|numberOfCompleteRows
 parameter_list|()
 function_decl|;
 block|}
