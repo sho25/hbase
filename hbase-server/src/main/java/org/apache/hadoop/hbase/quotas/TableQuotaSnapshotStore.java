@@ -778,7 +778,7 @@ name|s
 init|=
 name|QuotaTableUtil
 operator|.
-name|createScanForSnapshotSizes
+name|createScanForSpaceSnapshotSizes
 argument_list|(
 name|tn
 argument_list|)
