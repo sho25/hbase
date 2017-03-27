@@ -365,7 +365,7 @@ name|type
 operator|=
 name|type
 expr_stmt|;
-comment|// build the true CellSet based on CellArrayMap
+comment|// build the new CellSet based on CellArrayMap
 name|CellSet
 name|cs
 init|=
@@ -792,7 +792,7 @@ operator|!=
 literal|null
 operator|)
 decl_stmt|;
-comment|// second parameter true, because in compaction addition of the cell to new segment
+comment|// second parameter true, because in compaction/merge the addition of the cell to new segment
 comment|// is always successful
 name|updateMetaInfo
 argument_list|(
