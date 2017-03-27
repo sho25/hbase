@@ -381,7 +381,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * Swaps the versioned list at the tail of the pipeline with a new segment.    * Swapping only if there were no changes to the suffix of the list since the version list was    * created.    * @param versionedList suffix of the pipeline to be replaced can be tail or all the pipeline    * @param segment new segment to replace the suffix. Can be null if the suffix just needs to be    *                removed.    * @param closeSuffix whether to close the suffix (to release memory), as part of swapping it out    *        During index merge op this will be false and for compaction it will be true.    * @return true iff swapped tail with new segment    */
+comment|/**    * Swaps the versioned list at the tail of the pipeline with a new segment.    * Swapping only if there were no changes to the suffix of the list since the version list was    * created.    * @param versionedList suffix of the pipeline to be replaced can be tail or all the pipeline    * @param segment new segment to replace the suffix. Can be null if the suffix just needs to be    *                removed.    * @param closeSuffix whether to close the suffix (to release memory), as part of swapping it out    *        During index merge op this will be false and for compaction it will be true.    * @param updateRegionSize whether to update the region size. Update the region size,    *                         when the pipeline is swapped as part of in-memory-flush and    *                         further merge/compaction. Don't update the region size when the    *                         swap is result of the snapshot (flush-to-disk).    * @return true iff swapped tail with new segment    */
 annotation|@
 name|edu
 operator|.
@@ -415,6 +415,9 @@ name|segment
 parameter_list|,
 name|boolean
 name|closeSuffix
+parameter_list|,
+name|boolean
+name|updateRegionSize
 parameter_list|)
 block|{
 if|if
@@ -537,7 +540,7 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-name|closeSuffix
+name|updateRegionSize
 operator|&&
 name|region
 operator|!=
