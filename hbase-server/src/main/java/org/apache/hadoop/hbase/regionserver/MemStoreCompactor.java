@@ -172,26 +172,6 @@ specifier|public
 class|class
 name|MemStoreCompactor
 block|{
-comment|// The upper bound for the number of segments we store in the pipeline prior to merging.
-comment|// This constant is subject to further experimentation.
-comment|// The external setting of the compacting MemStore behaviour
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|COMPACTING_MEMSTORE_THRESHOLD_KEY
-init|=
-literal|"hbase.hregion.compacting.pipeline.segments.limit"
-decl_stmt|;
-comment|// remaining with the same ("infinity") but configurable default for now
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|COMPACTING_MEMSTORE_THRESHOLD_DEFAULT
-init|=
-literal|30
-decl_stmt|;
 specifier|public
 specifier|static
 specifier|final
@@ -215,12 +195,10 @@ comment|// compactingMemStore, versionedList, action, isInterrupted (the referen
 comment|// "action" is an enum and thus it is a class with static final constants,
 comment|// so counting only the size of the reference to it and not the size of the internals
 operator|+
-literal|2
-operator|*
 name|Bytes
 operator|.
 name|SIZEOF_INT
-comment|// compactionKVMax, pipelineThreshold
+comment|// compactionKVMax
 operator|+
 name|ClassSize
 operator|.
@@ -228,6 +206,17 @@ name|ATOMIC_BOOLEAN
 comment|// isInterrupted (the internals)
 argument_list|)
 decl_stmt|;
+comment|// The upper bound for the number of segments we store in the pipeline prior to merging.
+comment|// This constant is subject to further experimentation.
+specifier|private
+specifier|static
+specifier|final
+name|int
+name|THRESHOLD_PIPELINE_SEGMENTS
+init|=
+literal|30
+decl_stmt|;
+comment|// stands here for infinity
 specifier|private
 specifier|static
 specifier|final
@@ -243,12 +232,6 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-specifier|private
-specifier|final
-name|int
-name|pipelineThreshold
-decl_stmt|;
-comment|// the limit on the number of the segments in the pipeline
 specifier|private
 name|CompactingMemStore
 name|compactingMemStore
@@ -339,21 +322,6 @@ expr_stmt|;
 name|initiateAction
 argument_list|(
 name|compactionPolicy
-argument_list|)
-expr_stmt|;
-name|pipelineThreshold
-operator|=
-comment|// get the limit on the number of the segments in the pipeline
-name|compactingMemStore
-operator|.
-name|getConfiguration
-argument_list|()
-operator|.
-name|getInt
-argument_list|(
-name|COMPACTING_MEMSTORE_THRESHOLD_KEY
-argument_list|,
-name|COMPACTING_MEMSTORE_THRESHOLD_DEFAULT
 argument_list|)
 expr_stmt|;
 block|}
@@ -542,7 +510,7 @@ if|if
 condition|(
 name|numOfSegments
 operator|>
-name|pipelineThreshold
+name|THRESHOLD_PIPELINE_SEGMENTS
 condition|)
 block|{
 name|LOG

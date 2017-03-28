@@ -1220,7 +1220,6 @@ name|boolean
 name|merge
 parameter_list|)
 block|{
-comment|// last true stands for updating the region size
 return|return
 name|pipeline
 operator|.
@@ -1232,8 +1231,6 @@ name|result
 argument_list|,
 operator|!
 name|merge
-argument_list|,
-literal|true
 argument_list|)
 return|;
 block|}
@@ -1799,7 +1796,6 @@ name|getStoreSegments
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// In Swap: don't close segments (they are in snapshot now) and don't update the region size
 name|pipeline
 operator|.
 name|swap
@@ -1809,10 +1805,9 @@ argument_list|,
 literal|null
 argument_list|,
 literal|false
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
+comment|// do not close segments as they are in snapshot now
 block|}
 specifier|private
 name|void
@@ -1856,7 +1851,6 @@ argument_list|)
 expr_stmt|;
 comment|// swap can return false in case the pipeline was updated by ongoing compaction
 comment|// and the version increase, the chance of it happenning is very low
-comment|// In Swap: don't close segments (they are in snapshot now) and don't update the region size
 name|done
 operator|=
 name|pipeline
@@ -1868,10 +1862,9 @@ argument_list|,
 literal|null
 argument_list|,
 literal|false
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
+comment|// don't close segments; they are in snapshot now
 if|if
 condition|(
 name|iterationsCnt
