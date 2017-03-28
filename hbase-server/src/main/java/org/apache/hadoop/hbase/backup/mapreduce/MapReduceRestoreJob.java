@@ -547,7 +547,10 @@ name|LoadIncrementalHFiles
 name|loader
 init|=
 name|createLoader
+argument_list|(
+name|getConf
 argument_list|()
+argument_list|)
 decl_stmt|;
 if|if
 condition|(
@@ -716,10 +719,14 @@ operator|==
 literal|0
 return|;
 block|}
-specifier|private
+specifier|public
+specifier|static
 name|LoadIncrementalHFiles
 name|createLoader
-parameter_list|()
+parameter_list|(
+name|Configuration
+name|config
+parameter_list|)
 throws|throws
 name|IOException
 block|{
@@ -738,8 +745,7 @@ init|=
 operator|new
 name|Configuration
 argument_list|(
-name|getConf
-argument_list|()
+name|config
 argument_list|)
 decl_stmt|;
 name|conf
