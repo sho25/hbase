@@ -33,22 +33,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
 begin_comment
 comment|/**  * Basic ProcedureEvent that contains an "object", which can be a description or a reference to the  * resource to wait on, and a queue for suspended procedures.  * Access to suspended procedures queue is 'synchronized' on the event itself.  */
 end_comment
@@ -148,11 +132,22 @@ operator|.
 name|getSimpleName
 argument_list|()
 operator|+
-literal|"("
+literal|" for "
 operator|+
 name|object
 operator|+
-literal|")"
+literal|", ready="
+operator|+
+name|isReady
+argument_list|()
+operator|+
+literal|", suspended procedures count="
+operator|+
+name|getSuspendedProcedures
+argument_list|()
+operator|.
+name|size
+argument_list|()
 return|;
 block|}
 block|}

@@ -59,22 +59,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
 begin_comment
 comment|/**  * Keep track of the runnable procedures  */
 end_comment
@@ -84,10 +68,6 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
-annotation|@
-name|InterfaceStability
-operator|.
-name|Evolving
 specifier|public
 interface|interface
 name|ProcedureScheduler
@@ -160,7 +140,7 @@ name|TimeUnit
 name|unit
 parameter_list|)
 function_decl|;
-comment|/**    * Mark the event has not ready.    * procedures calling waitEvent() will be suspended.    * @param event the event to mark as suspended/not ready    */
+comment|/**    * Mark the event as not ready.    * procedures calling waitEvent() will be suspended.    * @param event the event to mark as suspended/not ready    */
 name|void
 name|suspendEvent
 parameter_list|(

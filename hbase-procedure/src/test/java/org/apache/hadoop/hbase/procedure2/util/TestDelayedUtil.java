@@ -528,7 +528,7 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|getTimeoutTimestamp
+name|getTimeout
 parameter_list|()
 block|{
 return|return

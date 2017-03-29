@@ -573,7 +573,9 @@ throw|throw
 operator|new
 name|IllegalStateException
 argument_list|(
-literal|""
+literal|"Unhandled state "
+operator|+
+name|protoState
 argument_list|)
 throw|;
 block|}

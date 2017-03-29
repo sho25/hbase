@@ -366,6 +366,24 @@ expr_stmt|;
 block|}
 else|else
 block|{
+if|if
+condition|(
+name|aborted
+operator|.
+name|get
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"ignoring abort request "
+operator|+
+name|state
+argument_list|)
+expr_stmt|;
+block|}
 name|setNextState
 argument_list|(
 name|getStateId

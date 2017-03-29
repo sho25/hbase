@@ -372,19 +372,21 @@ if|if
 condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
+name|isTraceEnabled
 argument_list|()
 condition|)
 block|{
+comment|// TODO: FIX!!! Don't log unless some activity or a change in config. Making TRACE
+comment|// in the meantime.
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
-literal|"compactionPressure is "
+literal|"CompactionPressure is "
 operator|+
 name|compactionPressure
 operator|+
-literal|", tune compaction throughput to "
+literal|", tune throughput to "
 operator|+
 name|throughputDesc
 argument_list|(

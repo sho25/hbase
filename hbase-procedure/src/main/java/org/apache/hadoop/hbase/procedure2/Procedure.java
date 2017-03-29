@@ -585,16 +585,11 @@ operator|new
 name|StringBuilder
 argument_list|()
 decl_stmt|;
-name|toStringClassDetails
-argument_list|(
-name|sb
-argument_list|)
-expr_stmt|;
 name|sb
 operator|.
 name|append
 argument_list|(
-literal|", procId="
+literal|"procId="
 argument_list|)
 expr_stmt|;
 name|sb
@@ -615,7 +610,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|", parent="
+literal|", parentProcId="
 argument_list|)
 expr_stmt|;
 name|sb
@@ -678,6 +673,18 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+name|sb
+operator|.
+name|append
+argument_list|(
+literal|", "
+argument_list|)
+expr_stmt|;
+name|toStringClassDetails
+argument_list|(
+name|sb
+argument_list|)
+expr_stmt|;
 return|return
 name|sb
 return|;
@@ -1646,6 +1653,8 @@ assert|assert
 name|childrenLatch
 operator|>
 literal|0
+operator|:
+name|this
 assert|;
 return|return
 operator|--

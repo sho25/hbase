@@ -9551,7 +9551,7 @@ block|}
 end_function
 
 begin_function
-specifier|private
+specifier|public
 specifier|static
 name|Put
 name|addRegionInfo

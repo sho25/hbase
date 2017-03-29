@@ -340,7 +340,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Procedure to allow clients and external admin tools to take locks on table/namespace/regions.  * This procedure when scheduled, acquires specified locks, suspends itself and waits for :  * - call to unlock: if lock request came from the process itself, say master chore.  * - Timeout : if lock request came from RPC. On timeout, evaluates if it should continue holding  * the lock or not based on last heartbeat timestamp.  */
+comment|/**  * Procedure to allow blessed clients and external admin tools to take our internal Schema locks  * used by the procedure framework isolating procedures doing creates/deletes etc. on  * table/namespace/regions.  * This procedure when scheduled, acquires specified locks, suspends itself and waits for:  *<ul>  *<li>Call to unlock: if lock request came from the process itself, say master chore.</li>  *<li>Timeout : if lock request came from RPC. On timeout, evaluates if it should continue holding  * the lock or not based on last heartbeat timestamp.</li>  *</ul>  */
 end_comment
 
 begin_class
@@ -935,7 +935,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Update heartbeat. Proc: "
+literal|"Heartbeat "
 operator|+
 name|toString
 argument_list|()
@@ -960,6 +960,24 @@ init|)
 block|{
 if|if
 condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Timeout failure "
+operator|+
+name|this
+operator|.
+name|event
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
 operator|!
 name|event
 operator|.
@@ -967,7 +985,7 @@ name|isReady
 argument_list|()
 condition|)
 block|{
-comment|// maybe unlock() awakened the event.
+comment|// Maybe unlock() awakened the event.
 name|setState
 argument_list|(
 name|ProcedureProtos
@@ -975,6 +993,24 @@ operator|.
 name|ProcedureState
 operator|.
 name|RUNNABLE
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Calling wake on "
+operator|+
+name|this
+operator|.
+name|event
 argument_list|)
 expr_stmt|;
 name|env
@@ -1120,9 +1156,9 @@ operator|.
 name|get
 argument_list|()
 condition|?
-literal|"UNLOCKED - "
+literal|"UNLOCKED "
 else|:
-literal|"TIMED OUT - "
+literal|"TIMED OUT "
 operator|)
 operator|+
 name|toString
@@ -1568,7 +1604,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"LOCKED - "
+literal|"LOCKED "
 operator|+
 name|toString
 argument_list|()
@@ -1834,7 +1870,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Unknown level specified in proc - "
+literal|"Unknown level specified in "
 operator|+
 name|toString
 argument_list|()
@@ -1892,7 +1928,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Shared lock on namespace not supported. Proc - "
+literal|"Shared lock on namespace not supported for "
 operator|+
 name|toString
 argument_list|()
@@ -1910,7 +1946,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Unexpected lock type in proc - "
+literal|"Unexpected lock type "
 operator|+
 name|toString
 argument_list|()
@@ -1979,7 +2015,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Unexpected lock type in proc - "
+literal|"Unexpected lock type "
 operator|+
 name|toString
 argument_list|()
@@ -2044,7 +2080,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Only exclusive lock supported on regions. Proc - "
+literal|"Only exclusive lock supported on regions for "
 operator|+
 name|toString
 argument_list|()

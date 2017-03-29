@@ -2018,17 +2018,7 @@ name|String
 operator|.
 name|format
 argument_list|(
-literal|"Loading state=%s isFailed=%s: %s"
-argument_list|,
-name|proc
-operator|.
-name|getState
-argument_list|()
-argument_list|,
-name|proc
-operator|.
-name|hasException
-argument_list|()
+literal|"Loading %s"
 argument_list|,
 name|proc
 argument_list|)
@@ -2580,7 +2570,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Starting executor threads="
+literal|"Starting executor worker threads="
 operator|+
 name|corePoolSize
 argument_list|)
@@ -2759,9 +2749,17 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Start the executors. Here we must have the lastProcId set.
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"Start workers "
 operator|+
@@ -2771,6 +2769,7 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 name|timeoutExecutor
 operator|.
 name|start
@@ -5254,7 +5253,11 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Completed in "
+literal|"Finished "
+operator|+
+name|proc
+operator|+
+literal|" in "
 operator|+
 name|StringUtils
 operator|.
@@ -5265,10 +5268,6 @@ operator|.
 name|elapsedTime
 argument_list|()
 argument_list|)
-operator|+
-literal|": "
-operator|+
-name|proc
 argument_list|)
 expr_stmt|;
 block|}
@@ -5684,13 +5683,6 @@ operator|.
 name|elapsedTime
 argument_list|()
 argument_list|)
-operator|+
-literal|" exception="
-operator|+
-name|exception
-operator|.
-name|getMessage
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|procedureFinished
@@ -6101,7 +6093,7 @@ comment|// Catch NullPointerExceptions or similar errors...
 name|String
 name|msg
 init|=
-literal|"CODE-BUG: Uncatched runtime exception for procedure: "
+literal|"CODE-BUG: Uncaught runtime exception: "
 operator|+
 name|procedure
 decl_stmt|;
@@ -7223,7 +7215,7 @@ name|super
 argument_list|(
 name|group
 argument_list|,
-literal|"ProcedureExecutorWorker-"
+literal|"ProcExecWorker-"
 operator|+
 name|workerId
 operator|.
@@ -7761,7 +7753,7 @@ condition|)
 block|{
 name|delayed
 operator|.
-name|setTimeoutTimestamp
+name|setTimeout
 argument_list|(
 name|procedure
 operator|.
@@ -8126,7 +8118,7 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|getTimeoutTimestamp
+name|getTimeout
 parameter_list|()
 block|{
 return|return

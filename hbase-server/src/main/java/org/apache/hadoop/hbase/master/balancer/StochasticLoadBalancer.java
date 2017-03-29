@@ -155,13 +155,15 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|commons
 operator|.
-name|hbase
+name|math
 operator|.
-name|classification
+name|stat
 operator|.
-name|InterfaceAudience
+name|descriptive
+operator|.
+name|DescriptiveStatistics
 import|;
 end_import
 
@@ -288,6 +290,22 @@ operator|.
 name|hbase
 operator|.
 name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -748,13 +766,6 @@ argument_list|(
 name|conf
 argument_list|)
 expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"loading config"
-argument_list|)
-expr_stmt|;
 name|maxSteps
 operator|=
 name|conf
@@ -1001,6 +1012,29 @@ name|costFunctions
 operator|.
 name|length
 index|]
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Loaded config; maxSteps="
+operator|+
+name|maxSteps
+operator|+
+literal|", stepsPerRegion="
+operator|+
+name|stepsPerRegion
+operator|+
+literal|", maxRunningTime="
+operator|+
+name|maxRunningTime
+operator|+
+literal|", isByTable="
+operator|+
+name|isByTable
+operator|+
+literal|", etc."
+argument_list|)
 expr_stmt|;
 block|}
 annotation|@

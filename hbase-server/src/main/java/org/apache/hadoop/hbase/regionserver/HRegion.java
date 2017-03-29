@@ -2924,10 +2924,6 @@ specifier|final
 name|int
 name|rowLockWaitDuration
 decl_stmt|;
-specifier|private
-name|CompactedHFilesDischarger
-name|compactedFileDischarger
-decl_stmt|;
 specifier|static
 specifier|final
 name|int
@@ -8700,24 +8696,6 @@ name|metricsRegionWrapper
 argument_list|)
 expr_stmt|;
 block|}
-comment|// stop the Compacted hfile discharger
-if|if
-condition|(
-name|this
-operator|.
-name|compactedFileDischarger
-operator|!=
-literal|null
-condition|)
-name|this
-operator|.
-name|compactedFileDischarger
-operator|.
-name|cancel
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
 name|status
 operator|.
 name|markComplete
@@ -36978,7 +36956,7 @@ name|ClassSize
 operator|.
 name|ARRAY
 operator|+
-literal|50
+literal|49
 operator|*
 name|ClassSize
 operator|.

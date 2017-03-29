@@ -1121,6 +1121,15 @@ name|j
 argument_list|)
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|kv
+operator|==
+literal|null
+condition|)
+block|{
+continue|continue;
+block|}
 name|assertTrue
 argument_list|(
 name|CellUtil
@@ -1577,7 +1586,7 @@ literal|0
 init|;
 name|i
 operator|<
-literal|20
+literal|10
 condition|;
 operator|++
 name|i

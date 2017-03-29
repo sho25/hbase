@@ -829,14 +829,9 @@ expr_stmt|;
 name|TableName
 name|tableName
 init|=
-name|TableName
-operator|.
-name|valueOf
-argument_list|(
 name|HConstants
 operator|.
 name|ENSEMBLE_TABLE_NAME
-argument_list|)
 decl_stmt|;
 name|Map
 argument_list|<

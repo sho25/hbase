@@ -131,6 +131,7 @@ specifier|private
 name|DelayedUtil
 parameter_list|()
 block|{ }
+comment|/**    * Add a timeout to a Delay    */
 specifier|public
 interface|interface
 name|DelayedWithTimeout
@@ -138,10 +139,11 @@ extends|extends
 name|Delayed
 block|{
 name|long
-name|getTimeoutTimestamp
+name|getTimeout
 parameter_list|()
 function_decl|;
 block|}
+comment|/**    * POISON implementation; used to mark special state: e.g. shutdown.    */
 specifier|public
 specifier|static
 specifier|final
@@ -156,7 +158,7 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|getTimeoutTimestamp
+name|getTimeout
 parameter_list|()
 block|{
 return|return
@@ -198,7 +200,7 @@ literal|0
 argument_list|,
 name|DelayedUtil
 operator|.
-name|getTimeoutTimestamp
+name|getTimeout
 argument_list|(
 name|o
 argument_list|)
@@ -241,6 +243,7 @@ return|;
 block|}
 block|}
 decl_stmt|;
+comment|/**    * @return null (if an interrupt) or an instance of E; resets interrupt on calling thread.    */
 specifier|public
 specifier|static
 parameter_list|<
@@ -287,6 +290,7 @@ literal|null
 return|;
 block|}
 block|}
+comment|/**    * @return Time remaining as milliseconds.    */
 specifier|public
 specifier|static
 name|long
@@ -298,7 +302,7 @@ name|resultUnit
 parameter_list|,
 specifier|final
 name|long
-name|timeoutTime
+name|timeout
 parameter_list|)
 block|{
 specifier|final
@@ -314,7 +318,7 @@ if|if
 condition|(
 name|currentTime
 operator|>=
-name|timeoutTime
+name|timeout
 condition|)
 block|{
 return|return
@@ -326,7 +330,7 @@ name|resultUnit
 operator|.
 name|convert
 argument_list|(
-name|timeoutTime
+name|timeout
 operator|-
 name|currentTime
 argument_list|,
@@ -355,12 +359,12 @@ name|Long
 operator|.
 name|compare
 argument_list|(
-name|getTimeoutTimestamp
+name|getTimeout
 argument_list|(
 name|o1
 argument_list|)
 argument_list|,
-name|getTimeoutTimestamp
+name|getTimeout
 argument_list|(
 name|o2
 argument_list|)
@@ -370,7 +374,7 @@ block|}
 specifier|private
 specifier|static
 name|long
-name|getTimeoutTimestamp
+name|getTimeout
 parameter_list|(
 specifier|final
 name|Delayed
@@ -394,7 +398,7 @@ operator|)
 name|o
 operator|)
 operator|.
-name|getTimeoutTimestamp
+name|getTimeout
 argument_list|()
 return|;
 block|}
@@ -424,7 +428,7 @@ name|getRemainingTime
 argument_list|(
 name|unit
 argument_list|,
-name|getTimeoutTimestamp
+name|getTimeout
 argument_list|()
 argument_list|)
 return|;
@@ -448,6 +452,34 @@ argument_list|(
 name|this
 argument_list|,
 name|other
+argument_list|)
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|String
+name|toString
+parameter_list|()
+block|{
+name|long
+name|timeout
+init|=
+name|getTimeout
+argument_list|()
+decl_stmt|;
+return|return
+literal|"timeout="
+operator|+
+name|timeout
+operator|+
+literal|", delay="
+operator|+
+name|getDelay
+argument_list|(
+name|TimeUnit
+operator|.
+name|MILLISECONDS
 argument_list|)
 return|;
 block|}
@@ -574,18 +606,17 @@ name|toString
 parameter_list|()
 block|{
 return|return
-name|getClass
-argument_list|()
-operator|.
-name|getSimpleName
-argument_list|()
-operator|+
-literal|"("
+literal|"containedObject="
 operator|+
 name|getObject
 argument_list|()
 operator|+
-literal|")"
+literal|", "
+operator|+
+name|super
+operator|.
+name|toString
+argument_list|()
 return|;
 block|}
 block|}
@@ -604,7 +635,7 @@ argument_list|>
 block|{
 specifier|private
 name|long
-name|timeoutTimestamp
+name|timeout
 decl_stmt|;
 specifier|public
 name|DelayedContainerWithTimestamp
@@ -615,7 +646,7 @@ name|object
 parameter_list|,
 specifier|final
 name|long
-name|timeoutTimestamp
+name|timeout
 parameter_list|)
 block|{
 name|super
@@ -623,9 +654,9 @@ argument_list|(
 name|object
 argument_list|)
 expr_stmt|;
-name|setTimeoutTimestamp
+name|setTimeout
 argument_list|(
-name|timeoutTimestamp
+name|timeout
 argument_list|)
 expr_stmt|;
 block|}
@@ -633,27 +664,27 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|getTimeoutTimestamp
+name|getTimeout
 parameter_list|()
 block|{
 return|return
-name|timeoutTimestamp
+name|timeout
 return|;
 block|}
 specifier|public
 name|void
-name|setTimeoutTimestamp
+name|setTimeout
 parameter_list|(
 specifier|final
 name|long
-name|timeoutTimestamp
+name|timeout
 parameter_list|)
 block|{
 name|this
 operator|.
-name|timeoutTimestamp
+name|timeout
 operator|=
-name|timeoutTimestamp
+name|timeout
 expr_stmt|;
 block|}
 block|}

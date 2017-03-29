@@ -262,6 +262,28 @@ name|OLD_ROOT_STR
 init|=
 literal|"-ROOT-"
 decl_stmt|;
+comment|/**    * @return True if<code>tn</code> is the hbase:meta table name.    */
+specifier|public
+specifier|static
+name|boolean
+name|isMetaTableName
+parameter_list|(
+specifier|final
+name|TableName
+name|tn
+parameter_list|)
+block|{
+return|return
+name|tn
+operator|.
+name|equals
+argument_list|(
+name|TableName
+operator|.
+name|META_TABLE_NAME
+argument_list|)
+return|;
+block|}
 comment|/**    * TableName for old -ROOT- table. It is used to read/process old WALs which have    * ROOT edits.    */
 specifier|public
 specifier|static

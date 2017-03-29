@@ -681,16 +681,6 @@ decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
-name|int
-name|ZK_EXPIRATION
-init|=
-literal|2
-operator|*
-name|HEARTBEAT_TIMEOUT
-decl_stmt|;
-specifier|private
-specifier|static
-specifier|final
 name|Log
 name|LOG
 init|=

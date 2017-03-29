@@ -260,7 +260,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|" (table="
+literal|" table="
 argument_list|)
 expr_stmt|;
 name|sb
@@ -269,13 +269,6 @@ name|append
 argument_list|(
 name|getTableName
 argument_list|()
-argument_list|)
-expr_stmt|;
-name|sb
-operator|.
-name|append
-argument_list|(
-literal|")"
 argument_list|)
 expr_stmt|;
 block|}

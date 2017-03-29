@@ -4368,6 +4368,8 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// TODO: Why are we using a method in here as part of our normal region open where
+comment|// there is no splitting involved? Fix. St.Ack 01/20/2017.
 name|Path
 name|editsdir
 init|=
@@ -4595,11 +4597,11 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Wrote region seqId="
+literal|"Wrote file="
 operator|+
 name|newSeqIdFile
 operator|+
-literal|" to file, newSeqId="
+literal|", newSeqId="
 operator|+
 name|newSeqId
 operator|+

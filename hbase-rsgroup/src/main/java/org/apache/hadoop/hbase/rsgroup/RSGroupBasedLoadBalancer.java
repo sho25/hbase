@@ -842,14 +842,9 @@ name|groupClusterLoad
 operator|.
 name|put
 argument_list|(
-name|TableName
-operator|.
-name|valueOf
-argument_list|(
 name|HConstants
 operator|.
 name|ENSEMBLE_TABLE_NAME
-argument_list|)
 argument_list|,
 name|groupClusterState
 argument_list|)

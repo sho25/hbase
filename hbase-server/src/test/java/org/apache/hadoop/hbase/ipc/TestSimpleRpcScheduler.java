@@ -3230,7 +3230,7 @@ name|threadNamePrefixs
 operator|.
 name|add
 argument_list|(
-literal|"RpcServer.deafult.FPBQ.Codel.handler"
+literal|"RpcServer.default.FPBQ.Codel.handler"
 argument_list|)
 expr_stmt|;
 name|Configuration
@@ -3400,14 +3400,6 @@ argument_list|(
 name|time
 argument_list|)
 expr_stmt|;
-name|long
-name|now
-init|=
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
-decl_stmt|;
 name|CallRunner
 name|cr
 init|=

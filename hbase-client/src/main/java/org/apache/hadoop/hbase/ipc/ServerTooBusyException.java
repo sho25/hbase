@@ -74,10 +74,15 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Throw this in rpc call if there are too many pending requests for one region server  */
+comment|/**  * Throw this in RPC call if there are too many pending requests for one region server  */
 end_comment
 
 begin_class
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"serial"
+argument_list|)
 annotation|@
 name|InterfaceAudience
 operator|.
@@ -104,11 +109,11 @@ parameter_list|)
 block|{
 name|super
 argument_list|(
-literal|"There are "
+literal|"Busy Server! "
 operator|+
 name|count
 operator|+
-literal|" concurrent rpc requests for "
+literal|" concurrent RPCs against "
 operator|+
 name|address
 argument_list|)

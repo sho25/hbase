@@ -6315,23 +6315,6 @@ argument_list|(
 literal|"Starting compaction of "
 operator|+
 name|filesToCompact
-operator|.
-name|size
-argument_list|()
-operator|+
-literal|" file(s) in "
-operator|+
-name|this
-operator|+
-literal|" of "
-operator|+
-name|this
-operator|.
-name|getRegionInfo
-argument_list|()
-operator|.
-name|getRegionNameAsString
-argument_list|()
 operator|+
 literal|" into tmpdir="
 operator|+

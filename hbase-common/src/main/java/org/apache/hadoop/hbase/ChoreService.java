@@ -820,7 +820,7 @@ specifier|static
 name|String
 name|THREAD_NAME_SUFFIX
 init|=
-literal|"_ChoreService_"
+literal|"_Chore_"
 decl_stmt|;
 specifier|private
 name|AtomicInteger

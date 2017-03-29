@@ -477,10 +477,15 @@ comment|/** The name of the ensemble table */
 specifier|public
 specifier|static
 specifier|final
-name|String
+name|TableName
 name|ENSEMBLE_TABLE_NAME
 init|=
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 literal|"hbase:ensemble"
+argument_list|)
 decl_stmt|;
 comment|/** Config for pluggable region normalizer */
 specifier|public

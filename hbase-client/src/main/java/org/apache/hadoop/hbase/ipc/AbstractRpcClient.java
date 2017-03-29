@@ -1459,8 +1459,8 @@ name|values
 argument_list|()
 control|)
 block|{
-comment|// remove connection if it has not been chosen by anyone for more than maxIdleTime, and the
-comment|// connection itself has already shutdown. The latter check is because that we may still
+comment|// Remove connection if it has not been chosen by anyone for more than maxIdleTime, and the
+comment|// connection itself has already shutdown. The latter check is because we may still
 comment|// have some pending calls on connection so we should not shutdown the connection outside.
 comment|// The connection itself will disconnect if there is no pending call for maxIdleTime.
 if|if
@@ -1479,9 +1479,16 @@ name|isActive
 argument_list|()
 condition|)
 block|{
+if|if
+condition|(
 name|LOG
 operator|.
-name|info
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"Cleanup idle connection to "
 operator|+
