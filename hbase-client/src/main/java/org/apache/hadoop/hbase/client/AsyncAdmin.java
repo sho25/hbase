@@ -475,6 +475,44 @@ name|Pattern
 name|pattern
 parameter_list|)
 function_decl|;
+comment|/**    * @param tableName name of table to check    * @return true if table is off-line. The return value will be wrapped by a    *         {@link CompletableFuture}.    */
+name|CompletableFuture
+argument_list|<
+name|Boolean
+argument_list|>
+name|isTableDisabled
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|)
+function_decl|;
+comment|/**    * @param tableName name of table to check    * @return true if all regions of the table are available. The return value will be wrapped by a    *         {@link CompletableFuture}.    */
+name|CompletableFuture
+argument_list|<
+name|Boolean
+argument_list|>
+name|isTableAvailable
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|)
+function_decl|;
+comment|/**    * Use this api to check if the table has been created with the specified number of splitkeys    * which was used while creating the given table. Note : If this api is used after a table's    * region gets splitted, the api may return false. The return value will be wrapped by a    * {@link CompletableFuture}.    * @param tableName name of table to check    * @param splitKeys keys to check if the table has been created with all split keys    */
+name|CompletableFuture
+argument_list|<
+name|Boolean
+argument_list|>
+name|isTableAvailable
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|,
+name|byte
+index|[]
+index|[]
+name|splitKeys
+parameter_list|)
+function_decl|;
 comment|/**    * Get the status of alter command - indicates how many regions have received the updated schema    * Asynchronous operation.    * @param tableName TableName instance    * @return Pair indicating the number of regions updated Pair.getFirst() is the regions that are    *         yet to be updated Pair.getSecond() is the total number of regions of the table. The    *         return value will be wrapped by a {@link CompletableFuture}.    */
 name|CompletableFuture
 argument_list|<
@@ -597,6 +635,17 @@ index|[]
 argument_list|>
 name|listNamespaceDescriptors
 parameter_list|()
+function_decl|;
+comment|/**    * @param tableName name of table to check    * @return true if table is on-line. The return value will be wrapped by a    *         {@link CompletableFuture}.    */
+name|CompletableFuture
+argument_list|<
+name|Boolean
+argument_list|>
+name|isTableEnabled
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|)
 function_decl|;
 comment|/**    * Turn the load balancer on or off.    * @param on    * @return Previous balancer value wrapped by a {@link CompletableFuture}.    */
 name|CompletableFuture
