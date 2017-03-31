@@ -19,6 +19,20 @@ end_package
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -273,9 +287,9 @@ literal|1
 operator|<<
 literal|7
 decl_stmt|;
-specifier|private
+annotation|@
+name|VisibleForTesting
 specifier|static
-specifier|final
 name|boolean
 name|UNSAFE_AVAIL
 init|=
@@ -284,9 +298,9 @@ operator|.
 name|isAvailable
 argument_list|()
 decl_stmt|;
-specifier|private
+annotation|@
+name|VisibleForTesting
 specifier|static
-specifier|final
 name|boolean
 name|UNSAFE_UNALIGNED
 init|=
@@ -3241,7 +3255,7 @@ name|buf2
 operator|.
 name|get
 argument_list|(
-name|i
+name|j
 argument_list|)
 operator|&
 literal|0xFF
