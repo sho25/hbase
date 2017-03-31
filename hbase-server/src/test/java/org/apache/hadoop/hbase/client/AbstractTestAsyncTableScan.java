@@ -1898,7 +1898,20 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-comment|//   testScan(1, true, 998, false, 900); // from first region to last region
+name|testScan
+argument_list|(
+literal|1
+argument_list|,
+literal|true
+argument_list|,
+literal|998
+argument_list|,
+literal|false
+argument_list|,
+literal|900
+argument_list|)
+expr_stmt|;
+comment|// from first region to last region
 name|testScan
 argument_list|(
 literal|123
@@ -1912,9 +1925,45 @@ argument_list|,
 literal|100
 argument_list|)
 expr_stmt|;
-comment|//  testScan(234, true, 456, false, 100);
-comment|//   testScan(345, false, 567, true, 100);
-comment|//   testScan(456, false, 678, false, 100);
+name|testScan
+argument_list|(
+literal|234
+argument_list|,
+literal|true
+argument_list|,
+literal|456
+argument_list|,
+literal|false
+argument_list|,
+literal|100
+argument_list|)
+expr_stmt|;
+name|testScan
+argument_list|(
+literal|345
+argument_list|,
+literal|false
+argument_list|,
+literal|567
+argument_list|,
+literal|true
+argument_list|,
+literal|100
+argument_list|)
+expr_stmt|;
+name|testScan
+argument_list|(
+literal|456
+argument_list|,
+literal|false
+argument_list|,
+literal|678
+argument_list|,
+literal|false
+argument_list|,
+literal|100
+argument_list|)
+expr_stmt|;
 block|}
 annotation|@
 name|Test

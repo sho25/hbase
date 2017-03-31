@@ -442,7 +442,9 @@ name|Throwable
 name|exception
 parameter_list|)
 block|{
-name|updateCachedLoation
+name|AsyncRegionLocator
+operator|.
+name|updateCachedLocation
 argument_list|(
 name|loc
 argument_list|,

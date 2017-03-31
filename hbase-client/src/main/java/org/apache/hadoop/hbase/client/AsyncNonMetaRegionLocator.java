@@ -109,24 +109,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|AsyncRegionLocator
-operator|.
-name|updateCachedLoation
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|ConnectionUtils
 operator|.
 name|createClosestRowAfter
@@ -2916,7 +2898,9 @@ name|Throwable
 name|exception
 parameter_list|)
 block|{
-name|updateCachedLoation
+name|AsyncRegionLocator
+operator|.
+name|updateCachedLocation
 argument_list|(
 name|loc
 argument_list|,

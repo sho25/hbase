@@ -606,7 +606,7 @@ return|;
 block|}
 specifier|static
 name|void
-name|updateCachedLoation
+name|updateCachedLocation
 parameter_list|(
 name|HRegionLocation
 name|loc
