@@ -7469,32 +7469,31 @@ name|Cell
 name|cell
 parameter_list|)
 block|{
-comment|// If a KeyValue, we can give a good estimate of size.
 if|if
 condition|(
 name|cell
 operator|instanceof
-name|KeyValue
+name|ExtendedCell
 condition|)
 block|{
 return|return
 operator|(
 operator|(
-name|KeyValue
+name|ExtendedCell
 operator|)
 name|cell
 operator|)
 operator|.
-name|getLength
-argument_list|()
+name|getSerializedSize
+argument_list|(
+literal|true
+argument_list|)
 operator|+
 name|Bytes
 operator|.
 name|SIZEOF_INT
 return|;
 block|}
-comment|// TODO: Should we add to Cell a sizeOf?  Would it help? Does it make sense if Cell is
-comment|// prefix encoded or compressed?
 return|return
 name|getSumOfCellElementLengths
 argument_list|(
