@@ -5399,6 +5399,15 @@ operator|.
 name|balancer
 argument_list|)
 expr_stmt|;
+name|configurationManager
+operator|.
+name|registerObserver
+argument_list|(
+name|this
+operator|.
+name|hfileCleaner
+argument_list|)
+expr_stmt|;
 comment|// Set master as 'initialized'.
 name|setInitialized
 argument_list|(

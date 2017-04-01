@@ -8758,7 +8758,13 @@ throw|throw
 operator|new
 name|ServerNotRunningYetException
 argument_list|(
-literal|"Server is not running yet"
+literal|"Server "
+operator|+
+name|regionServer
+operator|.
+name|serverName
+operator|+
+literal|" is not running yet"
 argument_list|)
 throw|;
 block|}
