@@ -237,6 +237,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|ListIterator
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Map
 import|;
 end_import
@@ -266,7 +276,12 @@ block|{
 specifier|private
 name|UnknownFieldSet
 parameter_list|()
-block|{}
+block|{
+name|fields
+operator|=
+literal|null
+expr_stmt|;
+block|}
 comment|/** Create a new {@link Builder}. */
 specifier|public
 specifier|static
@@ -342,6 +357,16 @@ name|Field
 operator|>
 name|emptyMap
 argument_list|()
+argument_list|,
+name|Collections
+operator|.
+expr|<
+name|Integer
+argument_list|,
+name|Field
+operator|>
+name|emptyMap
+argument_list|()
 argument_list|)
 decl_stmt|;
 comment|/**    * Construct an {@code UnknownFieldSet} around the given map.  The map is    * expected to be immutable.    */
@@ -356,6 +381,15 @@ argument_list|,
 name|Field
 argument_list|>
 name|fields
+parameter_list|,
+specifier|final
+name|Map
+argument_list|<
+name|Integer
+argument_list|,
+name|Field
+argument_list|>
+name|fieldsDescending
 parameter_list|)
 block|{
 name|this
@@ -366,6 +400,7 @@ name|fields
 expr_stmt|;
 block|}
 specifier|private
+specifier|final
 name|Map
 argument_list|<
 name|Integer
@@ -879,7 +914,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Get the number of bytes required to encode this set using    * {@code MessageSet} wire format.    */
+comment|/** Get the number of bytes required to encode this set using {@code MessageSet} wire format. */
 specifier|public
 name|int
 name|getSerializedSizeAsMessageSet
@@ -1267,6 +1302,16 @@ expr_stmt|;
 block|}
 else|else
 block|{
+name|Map
+argument_list|<
+name|Integer
+argument_list|,
+name|Field
+argument_list|>
+name|descendingFields
+init|=
+literal|null
+decl_stmt|;
 name|result
 operator|=
 operator|new
@@ -1278,6 +1323,8 @@ name|unmodifiableMap
 argument_list|(
 name|fields
 argument_list|)
+argument_list|,
+name|descendingFields
 argument_list|)
 expr_stmt|;
 block|}
@@ -1315,6 +1362,16 @@ literal|0
 argument_list|)
 expr_stmt|;
 comment|// Force lastField to be built.
+name|Map
+argument_list|<
+name|Integer
+argument_list|,
+name|Field
+argument_list|>
+name|descendingFields
+init|=
+literal|null
+decl_stmt|;
 return|return
 name|UnknownFieldSet
 operator|.
@@ -1327,6 +1384,8 @@ operator|new
 name|UnknownFieldSet
 argument_list|(
 name|fields
+argument_list|,
+name|descendingFields
 argument_list|)
 argument_list|)
 return|;
@@ -3073,7 +3132,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**      * Get the number of bytes required to encode this field, including field      * number, using {@code MessageSet} wire format.      */
+comment|/**      * Get the number of bytes required to encode this field, including field number, using {@code      * MessageSet} wire format.      */
 specifier|public
 name|int
 name|getSerializedSizeAsMessageSetExtension
@@ -3928,9 +3987,6 @@ operator|new
 name|InvalidProtocolBufferException
 argument_list|(
 name|e
-operator|.
-name|getMessage
-argument_list|()
 argument_list|)
 operator|.
 name|setUnfinishedMessage

@@ -51,12 +51,12 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|/**    *<pre>    * Represents seconds of UTC time since Unix epoch    * 1970-01-01T00:00:00Z. Must be from 0001-01-01T00:00:00Z to    * 9999-12-31T23:59:59Z inclusive.    *</pre>    *    *<code>optional int64 seconds = 1;</code>    */
+comment|/**    *<pre>    * Represents seconds of UTC time since Unix epoch    * 1970-01-01T00:00:00Z. Must be from 0001-01-01T00:00:00Z to    * 9999-12-31T23:59:59Z inclusive.    *</pre>    *    *<code>int64 seconds = 1;</code>    */
 name|long
 name|getSeconds
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * Non-negative fractions of a second at nanosecond resolution. Negative    * second values with fractions must still have non-negative nanos values    * that count forward in time. Must be from 0 to 999,999,999    * inclusive.    *</pre>    *    *<code>optional int32 nanos = 2;</code>    */
+comment|/**    *<pre>    * Non-negative fractions of a second at nanosecond resolution. Negative    * second values with fractions must still have non-negative nanos values    * that count forward in time. Must be from 0 to 999,999,999    * inclusive.    *</pre>    *    *<code>int32 nanos = 2;</code>    */
 name|int
 name|getNanos
 parameter_list|()

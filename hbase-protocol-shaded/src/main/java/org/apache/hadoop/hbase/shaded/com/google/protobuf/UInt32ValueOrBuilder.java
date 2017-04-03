@@ -51,7 +51,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|/**    *<pre>    * The uint32 value.    *</pre>    *    *<code>optional uint32 value = 1;</code>    */
+comment|/**    *<pre>    * The uint32 value.    *</pre>    *    *<code>uint32 value = 1;</code>    */
 name|int
 name|getValue
 parameter_list|()

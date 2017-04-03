@@ -2175,7 +2175,7 @@ specifier|private
 name|int
 name|kind_
 decl_stmt|;
-comment|/**    *<pre>    * The field type.    *</pre>    *    *<code>optional .google.protobuf.Field.Kind kind = 1;</code>    */
+comment|/**    *<pre>    * The field type.    *</pre>    *    *<code>.google.protobuf.Field.Kind kind = 1;</code>    */
 specifier|public
 name|int
 name|getKindValue
@@ -2185,7 +2185,7 @@ return|return
 name|kind_
 return|;
 block|}
-comment|/**    *<pre>    * The field type.    *</pre>    *    *<code>optional .google.protobuf.Field.Kind kind = 1;</code>    */
+comment|/**    *<pre>    * The field type.    *</pre>    *    *<code>.google.protobuf.Field.Kind kind = 1;</code>    */
 specifier|public
 name|org
 operator|.
@@ -2297,7 +2297,7 @@ specifier|private
 name|int
 name|cardinality_
 decl_stmt|;
-comment|/**    *<pre>    * The field cardinality.    *</pre>    *    *<code>optional .google.protobuf.Field.Cardinality cardinality = 2;</code>    */
+comment|/**    *<pre>    * The field cardinality.    *</pre>    *    *<code>.google.protobuf.Field.Cardinality cardinality = 2;</code>    */
 specifier|public
 name|int
 name|getCardinalityValue
@@ -2307,7 +2307,7 @@ return|return
 name|cardinality_
 return|;
 block|}
-comment|/**    *<pre>    * The field cardinality.    *</pre>    *    *<code>optional .google.protobuf.Field.Cardinality cardinality = 2;</code>    */
+comment|/**    *<pre>    * The field cardinality.    *</pre>    *    *<code>.google.protobuf.Field.Cardinality cardinality = 2;</code>    */
 specifier|public
 name|org
 operator|.
@@ -2419,7 +2419,7 @@ specifier|private
 name|int
 name|number_
 decl_stmt|;
-comment|/**    *<pre>    * The field number.    *</pre>    *    *<code>optional int32 number = 3;</code>    */
+comment|/**    *<pre>    * The field number.    *</pre>    *    *<code>int32 number = 3;</code>    */
 specifier|public
 name|int
 name|getNumber
@@ -2446,7 +2446,7 @@ operator|.
 name|Object
 name|name_
 decl_stmt|;
-comment|/**    *<pre>    * The field name.    *</pre>    *    *<code>optional string name = 4;</code>    */
+comment|/**    *<pre>    * The field name.    *</pre>    *    *<code>string name = 4;</code>    */
 specifier|public
 name|java
 operator|.
@@ -2550,7 +2550,7 @@ name|s
 return|;
 block|}
 block|}
-comment|/**    *<pre>    * The field name.    *</pre>    *    *<code>optional string name = 4;</code>    */
+comment|/**    *<pre>    * The field name.    *</pre>    *    *<code>string name = 4;</code>    */
 specifier|public
 name|org
 operator|.
@@ -2692,7 +2692,7 @@ operator|.
 name|Object
 name|typeUrl_
 decl_stmt|;
-comment|/**    *<pre>    * The field type URL, without the scheme, for message or enumeration    * types. Example: `"type.googleapis.org.apache.hadoop.hbase.shaded.com.google.protobuf.Timestamp"`.    *</pre>    *    *<code>optional string type_url = 6;</code>    */
+comment|/**    *<pre>    * The field type URL, without the scheme, for message or enumeration    * types. Example: `"type.googleapis.org.apache.hadoop.hbase.shaded.com.google.protobuf.Timestamp"`.    *</pre>    *    *<code>string type_url = 6;</code>    */
 specifier|public
 name|java
 operator|.
@@ -2796,7 +2796,7 @@ name|s
 return|;
 block|}
 block|}
-comment|/**    *<pre>    * The field type URL, without the scheme, for message or enumeration    * types. Example: `"type.googleapis.org.apache.hadoop.hbase.shaded.com.google.protobuf.Timestamp"`.    *</pre>    *    *<code>optional string type_url = 6;</code>    */
+comment|/**    *<pre>    * The field type URL, without the scheme, for message or enumeration    * types. Example: `"type.googleapis.org.apache.hadoop.hbase.shaded.com.google.protobuf.Timestamp"`.    *</pre>    *    *<code>string type_url = 6;</code>    */
 specifier|public
 name|org
 operator|.
@@ -2933,7 +2933,7 @@ specifier|private
 name|int
 name|oneofIndex_
 decl_stmt|;
-comment|/**    *<pre>    * The index of the field type in `Type.oneofs`, for message or enumeration    * types. The first type has index 1; zero means the type is not in the list.    *</pre>    *    *<code>optional int32 oneof_index = 7;</code>    */
+comment|/**    *<pre>    * The index of the field type in `Type.oneofs`, for message or enumeration    * types. The first type has index 1; zero means the type is not in the list.    *</pre>    *    *<code>int32 oneof_index = 7;</code>    */
 specifier|public
 name|int
 name|getOneofIndex
@@ -2955,7 +2955,7 @@ specifier|private
 name|boolean
 name|packed_
 decl_stmt|;
-comment|/**    *<pre>    * Whether to use alternative packed wire representation.    *</pre>    *    *<code>optional bool packed = 8;</code>    */
+comment|/**    *<pre>    * Whether to use alternative packed wire representation.    *</pre>    *    *<code>bool packed = 8;</code>    */
 specifier|public
 name|boolean
 name|getPacked
@@ -3166,7 +3166,7 @@ operator|.
 name|Object
 name|jsonName_
 decl_stmt|;
-comment|/**    *<pre>    * The field JSON name.    *</pre>    *    *<code>optional string json_name = 10;</code>    */
+comment|/**    *<pre>    * The field JSON name.    *</pre>    *    *<code>string json_name = 10;</code>    */
 specifier|public
 name|java
 operator|.
@@ -3270,7 +3270,7 @@ name|s
 return|;
 block|}
 block|}
-comment|/**    *<pre>    * The field JSON name.    *</pre>    *    *<code>optional string json_name = 10;</code>    */
+comment|/**    *<pre>    * The field JSON name.    *</pre>    *    *<code>string json_name = 10;</code>    */
 specifier|public
 name|org
 operator|.
@@ -3412,7 +3412,7 @@ operator|.
 name|Object
 name|defaultValue_
 decl_stmt|;
-comment|/**    *<pre>    * The string value of the default value of this field. Proto2 syntax only.    *</pre>    *    *<code>optional string default_value = 11;</code>    */
+comment|/**    *<pre>    * The string value of the default value of this field. Proto2 syntax only.    *</pre>    *    *<code>string default_value = 11;</code>    */
 specifier|public
 name|java
 operator|.
@@ -3516,7 +3516,7 @@ name|s
 return|;
 block|}
 block|}
-comment|/**    *<pre>    * The string value of the default value of this field. Proto2 syntax only.    *</pre>    *    *<code>optional string default_value = 11;</code>    */
+comment|/**    *<pre>    * The string value of the default value of this field. Proto2 syntax only.    *</pre>    *    *<code>string default_value = 11;</code>    */
 specifier|public
 name|org
 operator|.
@@ -4782,7 +4782,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|getDescriptorForType
+name|getDescriptor
 argument_list|()
 operator|.
 name|hashCode
@@ -7515,7 +7515,7 @@ name|kind_
 init|=
 literal|0
 decl_stmt|;
-comment|/**      *<pre>      * The field type.      *</pre>      *      *<code>optional .google.protobuf.Field.Kind kind = 1;</code>      */
+comment|/**      *<pre>      * The field type.      *</pre>      *      *<code>.google.protobuf.Field.Kind kind = 1;</code>      */
 specifier|public
 name|int
 name|getKindValue
@@ -7525,7 +7525,7 @@ return|return
 name|kind_
 return|;
 block|}
-comment|/**      *<pre>      * The field type.      *</pre>      *      *<code>optional .google.protobuf.Field.Kind kind = 1;</code>      */
+comment|/**      *<pre>      * The field type.      *</pre>      *      *<code>.google.protobuf.Field.Kind kind = 1;</code>      */
 specifier|public
 name|Builder
 name|setKindValue
@@ -7545,7 +7545,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * The field type.      *</pre>      *      *<code>optional .google.protobuf.Field.Kind kind = 1;</code>      */
+comment|/**      *<pre>      * The field type.      *</pre>      *      *<code>.google.protobuf.Field.Kind kind = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -7645,7 +7645,7 @@ else|:
 name|result
 return|;
 block|}
-comment|/**      *<pre>      * The field type.      *</pre>      *      *<code>optional .google.protobuf.Field.Kind kind = 1;</code>      */
+comment|/**      *<pre>      * The field type.      *</pre>      *      *<code>.google.protobuf.Field.Kind kind = 1;</code>      */
 specifier|public
 name|Builder
 name|setKind
@@ -7699,7 +7699,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * The field type.      *</pre>      *      *<code>optional .google.protobuf.Field.Kind kind = 1;</code>      */
+comment|/**      *<pre>      * The field type.      *</pre>      *      *<code>.google.protobuf.Field.Kind kind = 1;</code>      */
 specifier|public
 name|Builder
 name|clearKind
@@ -7722,7 +7722,7 @@ name|cardinality_
 init|=
 literal|0
 decl_stmt|;
-comment|/**      *<pre>      * The field cardinality.      *</pre>      *      *<code>optional .google.protobuf.Field.Cardinality cardinality = 2;</code>      */
+comment|/**      *<pre>      * The field cardinality.      *</pre>      *      *<code>.google.protobuf.Field.Cardinality cardinality = 2;</code>      */
 specifier|public
 name|int
 name|getCardinalityValue
@@ -7732,7 +7732,7 @@ return|return
 name|cardinality_
 return|;
 block|}
-comment|/**      *<pre>      * The field cardinality.      *</pre>      *      *<code>optional .google.protobuf.Field.Cardinality cardinality = 2;</code>      */
+comment|/**      *<pre>      * The field cardinality.      *</pre>      *      *<code>.google.protobuf.Field.Cardinality cardinality = 2;</code>      */
 specifier|public
 name|Builder
 name|setCardinalityValue
@@ -7752,7 +7752,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * The field cardinality.      *</pre>      *      *<code>optional .google.protobuf.Field.Cardinality cardinality = 2;</code>      */
+comment|/**      *<pre>      * The field cardinality.      *</pre>      *      *<code>.google.protobuf.Field.Cardinality cardinality = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -7852,7 +7852,7 @@ else|:
 name|result
 return|;
 block|}
-comment|/**      *<pre>      * The field cardinality.      *</pre>      *      *<code>optional .google.protobuf.Field.Cardinality cardinality = 2;</code>      */
+comment|/**      *<pre>      * The field cardinality.      *</pre>      *      *<code>.google.protobuf.Field.Cardinality cardinality = 2;</code>      */
 specifier|public
 name|Builder
 name|setCardinality
@@ -7906,7 +7906,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * The field cardinality.      *</pre>      *      *<code>optional .google.protobuf.Field.Cardinality cardinality = 2;</code>      */
+comment|/**      *<pre>      * The field cardinality.      *</pre>      *      *<code>.google.protobuf.Field.Cardinality cardinality = 2;</code>      */
 specifier|public
 name|Builder
 name|clearCardinality
@@ -7927,7 +7927,7 @@ specifier|private
 name|int
 name|number_
 decl_stmt|;
-comment|/**      *<pre>      * The field number.      *</pre>      *      *<code>optional int32 number = 3;</code>      */
+comment|/**      *<pre>      * The field number.      *</pre>      *      *<code>int32 number = 3;</code>      */
 specifier|public
 name|int
 name|getNumber
@@ -7937,7 +7937,7 @@ return|return
 name|number_
 return|;
 block|}
-comment|/**      *<pre>      * The field number.      *</pre>      *      *<code>optional int32 number = 3;</code>      */
+comment|/**      *<pre>      * The field number.      *</pre>      *      *<code>int32 number = 3;</code>      */
 specifier|public
 name|Builder
 name|setNumber
@@ -7957,7 +7957,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * The field number.      *</pre>      *      *<code>optional int32 number = 3;</code>      */
+comment|/**      *<pre>      * The field number.      *</pre>      *      *<code>int32 number = 3;</code>      */
 specifier|public
 name|Builder
 name|clearNumber
@@ -7984,7 +7984,7 @@ name|name_
 init|=
 literal|""
 decl_stmt|;
-comment|/**      *<pre>      * The field name.      *</pre>      *      *<code>optional string name = 4;</code>      */
+comment|/**      *<pre>      * The field name.      *</pre>      *      *<code>string name = 4;</code>      */
 specifier|public
 name|java
 operator|.
@@ -8091,7 +8091,7 @@ name|ref
 return|;
 block|}
 block|}
-comment|/**      *<pre>      * The field name.      *</pre>      *      *<code>optional string name = 4;</code>      */
+comment|/**      *<pre>      * The field name.      *</pre>      *      *<code>string name = 4;</code>      */
 specifier|public
 name|org
 operator|.
@@ -8212,7 +8212,7 @@ name|ref
 return|;
 block|}
 block|}
-comment|/**      *<pre>      * The field name.      *</pre>      *      *<code>optional string name = 4;</code>      */
+comment|/**      *<pre>      * The field name.      *</pre>      *      *<code>string name = 4;</code>      */
 specifier|public
 name|Builder
 name|setName
@@ -8249,7 +8249,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * The field name.      *</pre>      *      *<code>optional string name = 4;</code>      */
+comment|/**      *<pre>      * The field name.      *</pre>      *      *<code>string name = 4;</code>      */
 specifier|public
 name|Builder
 name|clearName
@@ -8270,7 +8270,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * The field name.      *</pre>      *      *<code>optional string name = 4;</code>      */
+comment|/**      *<pre>      * The field name.      *</pre>      *      *<code>string name = 4;</code>      */
 specifier|public
 name|Builder
 name|setNameBytes
@@ -8334,7 +8334,7 @@ name|typeUrl_
 init|=
 literal|""
 decl_stmt|;
-comment|/**      *<pre>      * The field type URL, without the scheme, for message or enumeration      * types. Example: `"type.googleapis.org.apache.hadoop.hbase.shaded.com.google.protobuf.Timestamp"`.      *</pre>      *      *<code>optional string type_url = 6;</code>      */
+comment|/**      *<pre>      * The field type URL, without the scheme, for message or enumeration      * types. Example: `"type.googleapis.org.apache.hadoop.hbase.shaded.com.google.protobuf.Timestamp"`.      *</pre>      *      *<code>string type_url = 6;</code>      */
 specifier|public
 name|java
 operator|.
@@ -8441,7 +8441,7 @@ name|ref
 return|;
 block|}
 block|}
-comment|/**      *<pre>      * The field type URL, without the scheme, for message or enumeration      * types. Example: `"type.googleapis.org.apache.hadoop.hbase.shaded.com.google.protobuf.Timestamp"`.      *</pre>      *      *<code>optional string type_url = 6;</code>      */
+comment|/**      *<pre>      * The field type URL, without the scheme, for message or enumeration      * types. Example: `"type.googleapis.org.apache.hadoop.hbase.shaded.com.google.protobuf.Timestamp"`.      *</pre>      *      *<code>string type_url = 6;</code>      */
 specifier|public
 name|org
 operator|.
@@ -8562,7 +8562,7 @@ name|ref
 return|;
 block|}
 block|}
-comment|/**      *<pre>      * The field type URL, without the scheme, for message or enumeration      * types. Example: `"type.googleapis.org.apache.hadoop.hbase.shaded.com.google.protobuf.Timestamp"`.      *</pre>      *      *<code>optional string type_url = 6;</code>      */
+comment|/**      *<pre>      * The field type URL, without the scheme, for message or enumeration      * types. Example: `"type.googleapis.org.apache.hadoop.hbase.shaded.com.google.protobuf.Timestamp"`.      *</pre>      *      *<code>string type_url = 6;</code>      */
 specifier|public
 name|Builder
 name|setTypeUrl
@@ -8599,7 +8599,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * The field type URL, without the scheme, for message or enumeration      * types. Example: `"type.googleapis.org.apache.hadoop.hbase.shaded.com.google.protobuf.Timestamp"`.      *</pre>      *      *<code>optional string type_url = 6;</code>      */
+comment|/**      *<pre>      * The field type URL, without the scheme, for message or enumeration      * types. Example: `"type.googleapis.org.apache.hadoop.hbase.shaded.com.google.protobuf.Timestamp"`.      *</pre>      *      *<code>string type_url = 6;</code>      */
 specifier|public
 name|Builder
 name|clearTypeUrl
@@ -8620,7 +8620,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * The field type URL, without the scheme, for message or enumeration      * types. Example: `"type.googleapis.org.apache.hadoop.hbase.shaded.com.google.protobuf.Timestamp"`.      *</pre>      *      *<code>optional string type_url = 6;</code>      */
+comment|/**      *<pre>      * The field type URL, without the scheme, for message or enumeration      * types. Example: `"type.googleapis.org.apache.hadoop.hbase.shaded.com.google.protobuf.Timestamp"`.      *</pre>      *      *<code>string type_url = 6;</code>      */
 specifier|public
 name|Builder
 name|setTypeUrlBytes
@@ -8678,7 +8678,7 @@ specifier|private
 name|int
 name|oneofIndex_
 decl_stmt|;
-comment|/**      *<pre>      * The index of the field type in `Type.oneofs`, for message or enumeration      * types. The first type has index 1; zero means the type is not in the list.      *</pre>      *      *<code>optional int32 oneof_index = 7;</code>      */
+comment|/**      *<pre>      * The index of the field type in `Type.oneofs`, for message or enumeration      * types. The first type has index 1; zero means the type is not in the list.      *</pre>      *      *<code>int32 oneof_index = 7;</code>      */
 specifier|public
 name|int
 name|getOneofIndex
@@ -8688,7 +8688,7 @@ return|return
 name|oneofIndex_
 return|;
 block|}
-comment|/**      *<pre>      * The index of the field type in `Type.oneofs`, for message or enumeration      * types. The first type has index 1; zero means the type is not in the list.      *</pre>      *      *<code>optional int32 oneof_index = 7;</code>      */
+comment|/**      *<pre>      * The index of the field type in `Type.oneofs`, for message or enumeration      * types. The first type has index 1; zero means the type is not in the list.      *</pre>      *      *<code>int32 oneof_index = 7;</code>      */
 specifier|public
 name|Builder
 name|setOneofIndex
@@ -8708,7 +8708,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * The index of the field type in `Type.oneofs`, for message or enumeration      * types. The first type has index 1; zero means the type is not in the list.      *</pre>      *      *<code>optional int32 oneof_index = 7;</code>      */
+comment|/**      *<pre>      * The index of the field type in `Type.oneofs`, for message or enumeration      * types. The first type has index 1; zero means the type is not in the list.      *</pre>      *      *<code>int32 oneof_index = 7;</code>      */
 specifier|public
 name|Builder
 name|clearOneofIndex
@@ -8729,7 +8729,7 @@ specifier|private
 name|boolean
 name|packed_
 decl_stmt|;
-comment|/**      *<pre>      * Whether to use alternative packed wire representation.      *</pre>      *      *<code>optional bool packed = 8;</code>      */
+comment|/**      *<pre>      * Whether to use alternative packed wire representation.      *</pre>      *      *<code>bool packed = 8;</code>      */
 specifier|public
 name|boolean
 name|getPacked
@@ -8739,7 +8739,7 @@ return|return
 name|packed_
 return|;
 block|}
-comment|/**      *<pre>      * Whether to use alternative packed wire representation.      *</pre>      *      *<code>optional bool packed = 8;</code>      */
+comment|/**      *<pre>      * Whether to use alternative packed wire representation.      *</pre>      *      *<code>bool packed = 8;</code>      */
 specifier|public
 name|Builder
 name|setPacked
@@ -8759,7 +8759,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * Whether to use alternative packed wire representation.      *</pre>      *      *<code>optional bool packed = 8;</code>      */
+comment|/**      *<pre>      * Whether to use alternative packed wire representation.      *</pre>      *      *<code>bool packed = 8;</code>      */
 specifier|public
 name|Builder
 name|clearPacked
@@ -10222,7 +10222,7 @@ name|jsonName_
 init|=
 literal|""
 decl_stmt|;
-comment|/**      *<pre>      * The field JSON name.      *</pre>      *      *<code>optional string json_name = 10;</code>      */
+comment|/**      *<pre>      * The field JSON name.      *</pre>      *      *<code>string json_name = 10;</code>      */
 specifier|public
 name|java
 operator|.
@@ -10329,7 +10329,7 @@ name|ref
 return|;
 block|}
 block|}
-comment|/**      *<pre>      * The field JSON name.      *</pre>      *      *<code>optional string json_name = 10;</code>      */
+comment|/**      *<pre>      * The field JSON name.      *</pre>      *      *<code>string json_name = 10;</code>      */
 specifier|public
 name|org
 operator|.
@@ -10450,7 +10450,7 @@ name|ref
 return|;
 block|}
 block|}
-comment|/**      *<pre>      * The field JSON name.      *</pre>      *      *<code>optional string json_name = 10;</code>      */
+comment|/**      *<pre>      * The field JSON name.      *</pre>      *      *<code>string json_name = 10;</code>      */
 specifier|public
 name|Builder
 name|setJsonName
@@ -10487,7 +10487,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * The field JSON name.      *</pre>      *      *<code>optional string json_name = 10;</code>      */
+comment|/**      *<pre>      * The field JSON name.      *</pre>      *      *<code>string json_name = 10;</code>      */
 specifier|public
 name|Builder
 name|clearJsonName
@@ -10508,7 +10508,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * The field JSON name.      *</pre>      *      *<code>optional string json_name = 10;</code>      */
+comment|/**      *<pre>      * The field JSON name.      *</pre>      *      *<code>string json_name = 10;</code>      */
 specifier|public
 name|Builder
 name|setJsonNameBytes
@@ -10572,7 +10572,7 @@ name|defaultValue_
 init|=
 literal|""
 decl_stmt|;
-comment|/**      *<pre>      * The string value of the default value of this field. Proto2 syntax only.      *</pre>      *      *<code>optional string default_value = 11;</code>      */
+comment|/**      *<pre>      * The string value of the default value of this field. Proto2 syntax only.      *</pre>      *      *<code>string default_value = 11;</code>      */
 specifier|public
 name|java
 operator|.
@@ -10679,7 +10679,7 @@ name|ref
 return|;
 block|}
 block|}
-comment|/**      *<pre>      * The string value of the default value of this field. Proto2 syntax only.      *</pre>      *      *<code>optional string default_value = 11;</code>      */
+comment|/**      *<pre>      * The string value of the default value of this field. Proto2 syntax only.      *</pre>      *      *<code>string default_value = 11;</code>      */
 specifier|public
 name|org
 operator|.
@@ -10800,7 +10800,7 @@ name|ref
 return|;
 block|}
 block|}
-comment|/**      *<pre>      * The string value of the default value of this field. Proto2 syntax only.      *</pre>      *      *<code>optional string default_value = 11;</code>      */
+comment|/**      *<pre>      * The string value of the default value of this field. Proto2 syntax only.      *</pre>      *      *<code>string default_value = 11;</code>      */
 specifier|public
 name|Builder
 name|setDefaultValue
@@ -10837,7 +10837,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * The string value of the default value of this field. Proto2 syntax only.      *</pre>      *      *<code>optional string default_value = 11;</code>      */
+comment|/**      *<pre>      * The string value of the default value of this field. Proto2 syntax only.      *</pre>      *      *<code>string default_value = 11;</code>      */
 specifier|public
 name|Builder
 name|clearDefaultValue
@@ -10858,7 +10858,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * The string value of the default value of this field. Proto2 syntax only.      *</pre>      *      *<code>optional string default_value = 11;</code>      */
+comment|/**      *<pre>      * The string value of the default value of this field. Proto2 syntax only.      *</pre>      *      *<code>string default_value = 11;</code>      */
 specifier|public
 name|Builder
 name|setDefaultValueBytes

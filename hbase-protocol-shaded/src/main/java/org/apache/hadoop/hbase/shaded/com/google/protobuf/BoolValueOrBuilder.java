@@ -51,7 +51,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|/**    *<pre>    * The bool value.    *</pre>    *    *<code>optional bool value = 1;</code>    */
+comment|/**    *<pre>    * The bool value.    *</pre>    *    *<code>bool value = 1;</code>    */
 name|boolean
 name|getValue
 parameter_list|()

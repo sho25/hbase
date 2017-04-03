@@ -51,7 +51,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|/**    *<pre>    * The fully qualified message name.    *</pre>    *    *<code>optional string name = 1;</code>    */
+comment|/**    *<pre>    * The fully qualified message name.    *</pre>    *    *<code>string name = 1;</code>    */
 name|java
 operator|.
 name|lang
@@ -60,7 +60,7 @@ name|String
 name|getName
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * The fully qualified message name.    *</pre>    *    *<code>optional string name = 1;</code>    */
+comment|/**    *<pre>    * The fully qualified message name.    *</pre>    *    *<code>string name = 1;</code>    */
 name|org
 operator|.
 name|apache
@@ -360,12 +360,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**    *<pre>    * The source context.    *</pre>    *    *<code>optional .google.protobuf.SourceContext source_context = 5;</code>    */
+comment|/**    *<pre>    * The source context.    *</pre>    *    *<code>.google.protobuf.SourceContext source_context = 5;</code>    */
 name|boolean
 name|hasSourceContext
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * The source context.    *</pre>    *    *<code>optional .google.protobuf.SourceContext source_context = 5;</code>    */
+comment|/**    *<pre>    * The source context.    *</pre>    *    *<code>.google.protobuf.SourceContext source_context = 5;</code>    */
 name|org
 operator|.
 name|apache
@@ -386,7 +386,7 @@ name|SourceContext
 name|getSourceContext
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * The source context.    *</pre>    *    *<code>optional .google.protobuf.SourceContext source_context = 5;</code>    */
+comment|/**    *<pre>    * The source context.    *</pre>    *    *<code>.google.protobuf.SourceContext source_context = 5;</code>    */
 name|org
 operator|.
 name|apache
@@ -407,12 +407,12 @@ name|SourceContextOrBuilder
 name|getSourceContextOrBuilder
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * The source syntax.    *</pre>    *    *<code>optional .google.protobuf.Syntax syntax = 6;</code>    */
+comment|/**    *<pre>    * The source syntax.    *</pre>    *    *<code>.google.protobuf.Syntax syntax = 6;</code>    */
 name|int
 name|getSyntaxValue
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * The source syntax.    *</pre>    *    *<code>optional .google.protobuf.Syntax syntax = 6;</code>    */
+comment|/**    *<pre>    * The source syntax.    *</pre>    *    *<code>.google.protobuf.Syntax syntax = 6;</code>    */
 name|org
 operator|.
 name|apache

@@ -1054,7 +1054,7 @@ operator|.
 name|Object
 name|name_
 decl_stmt|;
-comment|/**    *<pre>    * The fully qualified name of this api, including package name    * followed by the api's simple name.    *</pre>    *    *<code>optional string name = 1;</code>    */
+comment|/**    *<pre>    * The fully qualified name of this api, including package name    * followed by the api's simple name.    *</pre>    *    *<code>string name = 1;</code>    */
 specifier|public
 name|java
 operator|.
@@ -1158,7 +1158,7 @@ name|s
 return|;
 block|}
 block|}
-comment|/**    *<pre>    * The fully qualified name of this api, including package name    * followed by the api's simple name.    *</pre>    *    *<code>optional string name = 1;</code>    */
+comment|/**    *<pre>    * The fully qualified name of this api, including package name    * followed by the api's simple name.    *</pre>    *    *<code>string name = 1;</code>    */
 specifier|public
 name|org
 operator|.
@@ -1668,7 +1668,7 @@ operator|.
 name|Object
 name|version_
 decl_stmt|;
-comment|/**    *<pre>    * A version string for this api. If specified, must have the form    * `major-version.minor-version`, as in `1.10`. If the minor version    * is omitted, it defaults to zero. If the entire version field is    * empty, the major version is derived from the package name, as    * outlined below. If the field is not empty, the version in the    * package name will be verified to be consistent with what is    * provided here.    * The versioning schema uses [semantic    * versioning](http://semver.org) where the major version number    * indicates a breaking change and the minor version an additive,    * non-breaking change. Both version numbers are signals to users    * what to expect from different versions, and should be carefully    * chosen based on the product plan.    * The major version is also reflected in the package name of the    * API, which must end in `v&lt;major-version&gt;`, as in    * `google.feature.v1`. For major versions 0 and 1, the suffix can    * be omitted. Zero major versions must only be used for    * experimental, none-GA apis.    *</pre>    *    *<code>optional string version = 4;</code>    */
+comment|/**    *<pre>    * A version string for this api. If specified, must have the form    * `major-version.minor-version`, as in `1.10`. If the minor version    * is omitted, it defaults to zero. If the entire version field is    * empty, the major version is derived from the package name, as    * outlined below. If the field is not empty, the version in the    * package name will be verified to be consistent with what is    * provided here.    * The versioning schema uses [semantic    * versioning](http://semver.org) where the major version number    * indicates a breaking change and the minor version an additive,    * non-breaking change. Both version numbers are signals to users    * what to expect from different versions, and should be carefully    * chosen based on the product plan.    * The major version is also reflected in the package name of the    * API, which must end in `v&lt;major-version&gt;`, as in    * `google.feature.v1`. For major versions 0 and 1, the suffix can    * be omitted. Zero major versions must only be used for    * experimental, none-GA apis.    *</pre>    *    *<code>string version = 4;</code>    */
 specifier|public
 name|java
 operator|.
@@ -1772,7 +1772,7 @@ name|s
 return|;
 block|}
 block|}
-comment|/**    *<pre>    * A version string for this api. If specified, must have the form    * `major-version.minor-version`, as in `1.10`. If the minor version    * is omitted, it defaults to zero. If the entire version field is    * empty, the major version is derived from the package name, as    * outlined below. If the field is not empty, the version in the    * package name will be verified to be consistent with what is    * provided here.    * The versioning schema uses [semantic    * versioning](http://semver.org) where the major version number    * indicates a breaking change and the minor version an additive,    * non-breaking change. Both version numbers are signals to users    * what to expect from different versions, and should be carefully    * chosen based on the product plan.    * The major version is also reflected in the package name of the    * API, which must end in `v&lt;major-version&gt;`, as in    * `google.feature.v1`. For major versions 0 and 1, the suffix can    * be omitted. Zero major versions must only be used for    * experimental, none-GA apis.    *</pre>    *    *<code>optional string version = 4;</code>    */
+comment|/**    *<pre>    * A version string for this api. If specified, must have the form    * `major-version.minor-version`, as in `1.10`. If the minor version    * is omitted, it defaults to zero. If the entire version field is    * empty, the major version is derived from the package name, as    * outlined below. If the field is not empty, the version in the    * package name will be verified to be consistent with what is    * provided here.    * The versioning schema uses [semantic    * versioning](http://semver.org) where the major version number    * indicates a breaking change and the minor version an additive,    * non-breaking change. Both version numbers are signals to users    * what to expect from different versions, and should be carefully    * chosen based on the product plan.    * The major version is also reflected in the package name of the    * API, which must end in `v&lt;major-version&gt;`, as in    * `google.feature.v1`. For major versions 0 and 1, the suffix can    * be omitted. Zero major versions must only be used for    * experimental, none-GA apis.    *</pre>    *    *<code>string version = 4;</code>    */
 specifier|public
 name|org
 operator|.
@@ -1925,7 +1925,7 @@ operator|.
 name|SourceContext
 name|sourceContext_
 decl_stmt|;
-comment|/**    *<pre>    * Source context for the protocol buffer service represented by this    * message.    *</pre>    *    *<code>optional .google.protobuf.SourceContext source_context = 5;</code>    */
+comment|/**    *<pre>    * Source context for the protocol buffer service represented by this    * message.    *</pre>    *    *<code>.google.protobuf.SourceContext source_context = 5;</code>    */
 specifier|public
 name|boolean
 name|hasSourceContext
@@ -1937,7 +1937,7 @@ operator|!=
 literal|null
 return|;
 block|}
-comment|/**    *<pre>    * Source context for the protocol buffer service represented by this    * message.    *</pre>    *    *<code>optional .google.protobuf.SourceContext source_context = 5;</code>    */
+comment|/**    *<pre>    * Source context for the protocol buffer service represented by this    * message.    *</pre>    *    *<code>.google.protobuf.SourceContext source_context = 5;</code>    */
 specifier|public
 name|org
 operator|.
@@ -1988,7 +1988,7 @@ else|:
 name|sourceContext_
 return|;
 block|}
-comment|/**    *<pre>    * Source context for the protocol buffer service represented by this    * message.    *</pre>    *    *<code>optional .google.protobuf.SourceContext source_context = 5;</code>    */
+comment|/**    *<pre>    * Source context for the protocol buffer service represented by this    * message.    *</pre>    *    *<code>.google.protobuf.SourceContext source_context = 5;</code>    */
 specifier|public
 name|org
 operator|.
@@ -2211,7 +2211,7 @@ specifier|private
 name|int
 name|syntax_
 decl_stmt|;
-comment|/**    *<pre>    * The source syntax of the service.    *</pre>    *    *<code>optional .google.protobuf.Syntax syntax = 7;</code>    */
+comment|/**    *<pre>    * The source syntax of the service.    *</pre>    *    *<code>.google.protobuf.Syntax syntax = 7;</code>    */
 specifier|public
 name|int
 name|getSyntaxValue
@@ -2221,7 +2221,7 @@ return|return
 name|syntax_
 return|;
 block|}
-comment|/**    *<pre>    * The source syntax of the service.    *</pre>    *    *<code>optional .google.protobuf.Syntax syntax = 7;</code>    */
+comment|/**    *<pre>    * The source syntax of the service.    *</pre>    *    *<code>.google.protobuf.Syntax syntax = 7;</code>    */
 specifier|public
 name|org
 operator|.
@@ -3250,7 +3250,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|getDescriptorForType
+name|getDescriptor
 argument_list|()
 operator|.
 name|hashCode
@@ -6319,7 +6319,7 @@ name|name_
 init|=
 literal|""
 decl_stmt|;
-comment|/**      *<pre>      * The fully qualified name of this api, including package name      * followed by the api's simple name.      *</pre>      *      *<code>optional string name = 1;</code>      */
+comment|/**      *<pre>      * The fully qualified name of this api, including package name      * followed by the api's simple name.      *</pre>      *      *<code>string name = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -6426,7 +6426,7 @@ name|ref
 return|;
 block|}
 block|}
-comment|/**      *<pre>      * The fully qualified name of this api, including package name      * followed by the api's simple name.      *</pre>      *      *<code>optional string name = 1;</code>      */
+comment|/**      *<pre>      * The fully qualified name of this api, including package name      * followed by the api's simple name.      *</pre>      *      *<code>string name = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -6547,7 +6547,7 @@ name|ref
 return|;
 block|}
 block|}
-comment|/**      *<pre>      * The fully qualified name of this api, including package name      * followed by the api's simple name.      *</pre>      *      *<code>optional string name = 1;</code>      */
+comment|/**      *<pre>      * The fully qualified name of this api, including package name      * followed by the api's simple name.      *</pre>      *      *<code>string name = 1;</code>      */
 specifier|public
 name|Builder
 name|setName
@@ -6584,7 +6584,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * The fully qualified name of this api, including package name      * followed by the api's simple name.      *</pre>      *      *<code>optional string name = 1;</code>      */
+comment|/**      *<pre>      * The fully qualified name of this api, including package name      * followed by the api's simple name.      *</pre>      *      *<code>string name = 1;</code>      */
 specifier|public
 name|Builder
 name|clearName
@@ -6605,7 +6605,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * The fully qualified name of this api, including package name      * followed by the api's simple name.      *</pre>      *      *<code>optional string name = 1;</code>      */
+comment|/**      *<pre>      * The fully qualified name of this api, including package name      * followed by the api's simple name.      *</pre>      *      *<code>string name = 1;</code>      */
 specifier|public
 name|Builder
 name|setNameBytes
@@ -9541,7 +9541,7 @@ name|version_
 init|=
 literal|""
 decl_stmt|;
-comment|/**      *<pre>      * A version string for this api. If specified, must have the form      * `major-version.minor-version`, as in `1.10`. If the minor version      * is omitted, it defaults to zero. If the entire version field is      * empty, the major version is derived from the package name, as      * outlined below. If the field is not empty, the version in the      * package name will be verified to be consistent with what is      * provided here.      * The versioning schema uses [semantic      * versioning](http://semver.org) where the major version number      * indicates a breaking change and the minor version an additive,      * non-breaking change. Both version numbers are signals to users      * what to expect from different versions, and should be carefully      * chosen based on the product plan.      * The major version is also reflected in the package name of the      * API, which must end in `v&lt;major-version&gt;`, as in      * `google.feature.v1`. For major versions 0 and 1, the suffix can      * be omitted. Zero major versions must only be used for      * experimental, none-GA apis.      *</pre>      *      *<code>optional string version = 4;</code>      */
+comment|/**      *<pre>      * A version string for this api. If specified, must have the form      * `major-version.minor-version`, as in `1.10`. If the minor version      * is omitted, it defaults to zero. If the entire version field is      * empty, the major version is derived from the package name, as      * outlined below. If the field is not empty, the version in the      * package name will be verified to be consistent with what is      * provided here.      * The versioning schema uses [semantic      * versioning](http://semver.org) where the major version number      * indicates a breaking change and the minor version an additive,      * non-breaking change. Both version numbers are signals to users      * what to expect from different versions, and should be carefully      * chosen based on the product plan.      * The major version is also reflected in the package name of the      * API, which must end in `v&lt;major-version&gt;`, as in      * `google.feature.v1`. For major versions 0 and 1, the suffix can      * be omitted. Zero major versions must only be used for      * experimental, none-GA apis.      *</pre>      *      *<code>string version = 4;</code>      */
 specifier|public
 name|java
 operator|.
@@ -9648,7 +9648,7 @@ name|ref
 return|;
 block|}
 block|}
-comment|/**      *<pre>      * A version string for this api. If specified, must have the form      * `major-version.minor-version`, as in `1.10`. If the minor version      * is omitted, it defaults to zero. If the entire version field is      * empty, the major version is derived from the package name, as      * outlined below. If the field is not empty, the version in the      * package name will be verified to be consistent with what is      * provided here.      * The versioning schema uses [semantic      * versioning](http://semver.org) where the major version number      * indicates a breaking change and the minor version an additive,      * non-breaking change. Both version numbers are signals to users      * what to expect from different versions, and should be carefully      * chosen based on the product plan.      * The major version is also reflected in the package name of the      * API, which must end in `v&lt;major-version&gt;`, as in      * `google.feature.v1`. For major versions 0 and 1, the suffix can      * be omitted. Zero major versions must only be used for      * experimental, none-GA apis.      *</pre>      *      *<code>optional string version = 4;</code>      */
+comment|/**      *<pre>      * A version string for this api. If specified, must have the form      * `major-version.minor-version`, as in `1.10`. If the minor version      * is omitted, it defaults to zero. If the entire version field is      * empty, the major version is derived from the package name, as      * outlined below. If the field is not empty, the version in the      * package name will be verified to be consistent with what is      * provided here.      * The versioning schema uses [semantic      * versioning](http://semver.org) where the major version number      * indicates a breaking change and the minor version an additive,      * non-breaking change. Both version numbers are signals to users      * what to expect from different versions, and should be carefully      * chosen based on the product plan.      * The major version is also reflected in the package name of the      * API, which must end in `v&lt;major-version&gt;`, as in      * `google.feature.v1`. For major versions 0 and 1, the suffix can      * be omitted. Zero major versions must only be used for      * experimental, none-GA apis.      *</pre>      *      *<code>string version = 4;</code>      */
 specifier|public
 name|org
 operator|.
@@ -9769,7 +9769,7 @@ name|ref
 return|;
 block|}
 block|}
-comment|/**      *<pre>      * A version string for this api. If specified, must have the form      * `major-version.minor-version`, as in `1.10`. If the minor version      * is omitted, it defaults to zero. If the entire version field is      * empty, the major version is derived from the package name, as      * outlined below. If the field is not empty, the version in the      * package name will be verified to be consistent with what is      * provided here.      * The versioning schema uses [semantic      * versioning](http://semver.org) where the major version number      * indicates a breaking change and the minor version an additive,      * non-breaking change. Both version numbers are signals to users      * what to expect from different versions, and should be carefully      * chosen based on the product plan.      * The major version is also reflected in the package name of the      * API, which must end in `v&lt;major-version&gt;`, as in      * `google.feature.v1`. For major versions 0 and 1, the suffix can      * be omitted. Zero major versions must only be used for      * experimental, none-GA apis.      *</pre>      *      *<code>optional string version = 4;</code>      */
+comment|/**      *<pre>      * A version string for this api. If specified, must have the form      * `major-version.minor-version`, as in `1.10`. If the minor version      * is omitted, it defaults to zero. If the entire version field is      * empty, the major version is derived from the package name, as      * outlined below. If the field is not empty, the version in the      * package name will be verified to be consistent with what is      * provided here.      * The versioning schema uses [semantic      * versioning](http://semver.org) where the major version number      * indicates a breaking change and the minor version an additive,      * non-breaking change. Both version numbers are signals to users      * what to expect from different versions, and should be carefully      * chosen based on the product plan.      * The major version is also reflected in the package name of the      * API, which must end in `v&lt;major-version&gt;`, as in      * `google.feature.v1`. For major versions 0 and 1, the suffix can      * be omitted. Zero major versions must only be used for      * experimental, none-GA apis.      *</pre>      *      *<code>string version = 4;</code>      */
 specifier|public
 name|Builder
 name|setVersion
@@ -9806,7 +9806,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * A version string for this api. If specified, must have the form      * `major-version.minor-version`, as in `1.10`. If the minor version      * is omitted, it defaults to zero. If the entire version field is      * empty, the major version is derived from the package name, as      * outlined below. If the field is not empty, the version in the      * package name will be verified to be consistent with what is      * provided here.      * The versioning schema uses [semantic      * versioning](http://semver.org) where the major version number      * indicates a breaking change and the minor version an additive,      * non-breaking change. Both version numbers are signals to users      * what to expect from different versions, and should be carefully      * chosen based on the product plan.      * The major version is also reflected in the package name of the      * API, which must end in `v&lt;major-version&gt;`, as in      * `google.feature.v1`. For major versions 0 and 1, the suffix can      * be omitted. Zero major versions must only be used for      * experimental, none-GA apis.      *</pre>      *      *<code>optional string version = 4;</code>      */
+comment|/**      *<pre>      * A version string for this api. If specified, must have the form      * `major-version.minor-version`, as in `1.10`. If the minor version      * is omitted, it defaults to zero. If the entire version field is      * empty, the major version is derived from the package name, as      * outlined below. If the field is not empty, the version in the      * package name will be verified to be consistent with what is      * provided here.      * The versioning schema uses [semantic      * versioning](http://semver.org) where the major version number      * indicates a breaking change and the minor version an additive,      * non-breaking change. Both version numbers are signals to users      * what to expect from different versions, and should be carefully      * chosen based on the product plan.      * The major version is also reflected in the package name of the      * API, which must end in `v&lt;major-version&gt;`, as in      * `google.feature.v1`. For major versions 0 and 1, the suffix can      * be omitted. Zero major versions must only be used for      * experimental, none-GA apis.      *</pre>      *      *<code>string version = 4;</code>      */
 specifier|public
 name|Builder
 name|clearVersion
@@ -9827,7 +9827,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * A version string for this api. If specified, must have the form      * `major-version.minor-version`, as in `1.10`. If the minor version      * is omitted, it defaults to zero. If the entire version field is      * empty, the major version is derived from the package name, as      * outlined below. If the field is not empty, the version in the      * package name will be verified to be consistent with what is      * provided here.      * The versioning schema uses [semantic      * versioning](http://semver.org) where the major version number      * indicates a breaking change and the minor version an additive,      * non-breaking change. Both version numbers are signals to users      * what to expect from different versions, and should be carefully      * chosen based on the product plan.      * The major version is also reflected in the package name of the      * API, which must end in `v&lt;major-version&gt;`, as in      * `google.feature.v1`. For major versions 0 and 1, the suffix can      * be omitted. Zero major versions must only be used for      * experimental, none-GA apis.      *</pre>      *      *<code>optional string version = 4;</code>      */
+comment|/**      *<pre>      * A version string for this api. If specified, must have the form      * `major-version.minor-version`, as in `1.10`. If the minor version      * is omitted, it defaults to zero. If the entire version field is      * empty, the major version is derived from the package name, as      * outlined below. If the field is not empty, the version in the      * package name will be verified to be consistent with what is      * provided here.      * The versioning schema uses [semantic      * versioning](http://semver.org) where the major version number      * indicates a breaking change and the minor version an additive,      * non-breaking change. Both version numbers are signals to users      * what to expect from different versions, and should be carefully      * chosen based on the product plan.      * The major version is also reflected in the package name of the      * API, which must end in `v&lt;major-version&gt;`, as in      * `google.feature.v1`. For major versions 0 and 1, the suffix can      * be omitted. Zero major versions must only be used for      * experimental, none-GA apis.      *</pre>      *      *<code>string version = 4;</code>      */
 specifier|public
 name|Builder
 name|setVersionBytes
@@ -9980,7 +9980,7 @@ name|SourceContextOrBuilder
 argument_list|>
 name|sourceContextBuilder_
 decl_stmt|;
-comment|/**      *<pre>      * Source context for the protocol buffer service represented by this      * message.      *</pre>      *      *<code>optional .google.protobuf.SourceContext source_context = 5;</code>      */
+comment|/**      *<pre>      * Source context for the protocol buffer service represented by this      * message.      *</pre>      *      *<code>.google.protobuf.SourceContext source_context = 5;</code>      */
 specifier|public
 name|boolean
 name|hasSourceContext
@@ -9996,7 +9996,7 @@ operator|!=
 literal|null
 return|;
 block|}
-comment|/**      *<pre>      * Source context for the protocol buffer service represented by this      * message.      *</pre>      *      *<code>optional .google.protobuf.SourceContext source_context = 5;</code>      */
+comment|/**      *<pre>      * Source context for the protocol buffer service represented by this      * message.      *</pre>      *      *<code>.google.protobuf.SourceContext source_context = 5;</code>      */
 specifier|public
 name|org
 operator|.
@@ -10064,7 +10064,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**      *<pre>      * Source context for the protocol buffer service represented by this      * message.      *</pre>      *      *<code>optional .google.protobuf.SourceContext source_context = 5;</code>      */
+comment|/**      *<pre>      * Source context for the protocol buffer service represented by this      * message.      *</pre>      *      *<code>.google.protobuf.SourceContext source_context = 5;</code>      */
 specifier|public
 name|Builder
 name|setSourceContext
@@ -10131,7 +10131,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * Source context for the protocol buffer service represented by this      * message.      *</pre>      *      *<code>optional .google.protobuf.SourceContext source_context = 5;</code>      */
+comment|/**      *<pre>      * Source context for the protocol buffer service represented by this      * message.      *</pre>      *      *<code>.google.protobuf.SourceContext source_context = 5;</code>      */
 specifier|public
 name|Builder
 name|setSourceContext
@@ -10193,7 +10193,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * Source context for the protocol buffer service represented by this      * message.      *</pre>      *      *<code>optional .google.protobuf.SourceContext source_context = 5;</code>      */
+comment|/**      *<pre>      * Source context for the protocol buffer service represented by this      * message.      *</pre>      *      *<code>.google.protobuf.SourceContext source_context = 5;</code>      */
 specifier|public
 name|Builder
 name|mergeSourceContext
@@ -10291,7 +10291,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * Source context for the protocol buffer service represented by this      * message.      *</pre>      *      *<code>optional .google.protobuf.SourceContext source_context = 5;</code>      */
+comment|/**      *<pre>      * Source context for the protocol buffer service represented by this      * message.      *</pre>      *      *<code>.google.protobuf.SourceContext source_context = 5;</code>      */
 specifier|public
 name|Builder
 name|clearSourceContext
@@ -10327,7 +10327,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * Source context for the protocol buffer service represented by this      * message.      *</pre>      *      *<code>optional .google.protobuf.SourceContext source_context = 5;</code>      */
+comment|/**      *<pre>      * Source context for the protocol buffer service represented by this      * message.      *</pre>      *      *<code>.google.protobuf.SourceContext source_context = 5;</code>      */
 specifier|public
 name|org
 operator|.
@@ -10362,7 +10362,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**      *<pre>      * Source context for the protocol buffer service represented by this      * message.      *</pre>      *      *<code>optional .google.protobuf.SourceContext source_context = 5;</code>      */
+comment|/**      *<pre>      * Source context for the protocol buffer service represented by this      * message.      *</pre>      *      *<code>.google.protobuf.SourceContext source_context = 5;</code>      */
 specifier|public
 name|org
 operator|.
@@ -10430,7 +10430,7 @@ name|sourceContext_
 return|;
 block|}
 block|}
-comment|/**      *<pre>      * Source context for the protocol buffer service represented by this      * message.      *</pre>      *      *<code>optional .google.protobuf.SourceContext source_context = 5;</code>      */
+comment|/**      *<pre>      * Source context for the protocol buffer service represented by this      * message.      *</pre>      *      *<code>.google.protobuf.SourceContext source_context = 5;</code>      */
 specifier|private
 name|org
 operator|.
@@ -12055,7 +12055,7 @@ name|syntax_
 init|=
 literal|0
 decl_stmt|;
-comment|/**      *<pre>      * The source syntax of the service.      *</pre>      *      *<code>optional .google.protobuf.Syntax syntax = 7;</code>      */
+comment|/**      *<pre>      * The source syntax of the service.      *</pre>      *      *<code>.google.protobuf.Syntax syntax = 7;</code>      */
 specifier|public
 name|int
 name|getSyntaxValue
@@ -12065,7 +12065,7 @@ return|return
 name|syntax_
 return|;
 block|}
-comment|/**      *<pre>      * The source syntax of the service.      *</pre>      *      *<code>optional .google.protobuf.Syntax syntax = 7;</code>      */
+comment|/**      *<pre>      * The source syntax of the service.      *</pre>      *      *<code>.google.protobuf.Syntax syntax = 7;</code>      */
 specifier|public
 name|Builder
 name|setSyntaxValue
@@ -12085,7 +12085,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * The source syntax of the service.      *</pre>      *      *<code>optional .google.protobuf.Syntax syntax = 7;</code>      */
+comment|/**      *<pre>      * The source syntax of the service.      *</pre>      *      *<code>.google.protobuf.Syntax syntax = 7;</code>      */
 specifier|public
 name|org
 operator|.
@@ -12177,7 +12177,7 @@ else|:
 name|result
 return|;
 block|}
-comment|/**      *<pre>      * The source syntax of the service.      *</pre>      *      *<code>optional .google.protobuf.Syntax syntax = 7;</code>      */
+comment|/**      *<pre>      * The source syntax of the service.      *</pre>      *      *<code>.google.protobuf.Syntax syntax = 7;</code>      */
 specifier|public
 name|Builder
 name|setSyntax
@@ -12229,7 +12229,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * The source syntax of the service.      *</pre>      *      *<code>optional .google.protobuf.Syntax syntax = 7;</code>      */
+comment|/**      *<pre>      * The source syntax of the service.      *</pre>      *      *<code>.google.protobuf.Syntax syntax = 7;</code>      */
 specifier|public
 name|Builder
 name|clearSyntax

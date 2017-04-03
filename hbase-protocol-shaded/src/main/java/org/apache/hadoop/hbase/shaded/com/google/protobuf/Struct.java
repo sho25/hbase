@@ -1831,7 +1831,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|getDescriptorForType
+name|getDescriptor
 argument_list|()
 operator|.
 name|hashCode
@@ -4574,7 +4574,10 @@ name|Builder
 name|clearFields
 parameter_list|()
 block|{
-name|getMutableFields
+name|internalGetMutableFields
+argument_list|()
+operator|.
+name|getMutableMap
 argument_list|()
 operator|.
 name|clear
@@ -4614,7 +4617,10 @@ name|NullPointerException
 argument_list|()
 throw|;
 block|}
-name|getMutableFields
+name|internalGetMutableFields
+argument_list|()
+operator|.
+name|getMutableMap
 argument_list|()
 operator|.
 name|remove
@@ -4741,7 +4747,10 @@ name|NullPointerException
 argument_list|()
 throw|;
 block|}
-name|getMutableFields
+name|internalGetMutableFields
+argument_list|()
+operator|.
+name|getMutableMap
 argument_list|()
 operator|.
 name|put
@@ -4793,7 +4802,10 @@ argument_list|>
 name|values
 parameter_list|)
 block|{
-name|getMutableFields
+name|internalGetMutableFields
+argument_list|()
+operator|.
+name|getMutableMap
 argument_list|()
 operator|.
 name|putAll

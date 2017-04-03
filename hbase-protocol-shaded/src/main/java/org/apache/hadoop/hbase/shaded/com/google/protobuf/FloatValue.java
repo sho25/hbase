@@ -517,7 +517,7 @@ specifier|private
 name|float
 name|value_
 decl_stmt|;
-comment|/**    *<pre>    * The float value.    *</pre>    *    *<code>optional float value = 1;</code>    */
+comment|/**    *<pre>    * The float value.    *</pre>    *    *<code>float value = 1;</code>    */
 specifier|public
 name|float
 name|getValue
@@ -875,7 +875,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|getDescriptorForType
+name|getDescriptor
 argument_list|()
 operator|.
 name|hashCode
@@ -2870,7 +2870,7 @@ specifier|private
 name|float
 name|value_
 decl_stmt|;
-comment|/**      *<pre>      * The float value.      *</pre>      *      *<code>optional float value = 1;</code>      */
+comment|/**      *<pre>      * The float value.      *</pre>      *      *<code>float value = 1;</code>      */
 specifier|public
 name|float
 name|getValue
@@ -2880,7 +2880,7 @@ return|return
 name|value_
 return|;
 block|}
-comment|/**      *<pre>      * The float value.      *</pre>      *      *<code>optional float value = 1;</code>      */
+comment|/**      *<pre>      * The float value.      *</pre>      *      *<code>float value = 1;</code>      */
 specifier|public
 name|Builder
 name|setValue
@@ -2900,7 +2900,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * The float value.      *</pre>      *      *<code>optional float value = 1;</code>      */
+comment|/**      *<pre>      * The float value.      *</pre>      *      *<code>float value = 1;</code>      */
 specifier|public
 name|Builder
 name|clearValue

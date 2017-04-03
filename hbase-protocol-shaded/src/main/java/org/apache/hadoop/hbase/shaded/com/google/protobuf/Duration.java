@@ -534,7 +534,7 @@ specifier|private
 name|long
 name|seconds_
 decl_stmt|;
-comment|/**    *<pre>    * Signed seconds of the span of time. Must be from -315,576,000,000    * to +315,576,000,000 inclusive.    *</pre>    *    *<code>optional int64 seconds = 1;</code>    */
+comment|/**    *<pre>    * Signed seconds of the span of time. Must be from -315,576,000,000    * to +315,576,000,000 inclusive.    *</pre>    *    *<code>int64 seconds = 1;</code>    */
 specifier|public
 name|long
 name|getSeconds
@@ -556,7 +556,7 @@ specifier|private
 name|int
 name|nanos_
 decl_stmt|;
-comment|/**    *<pre>    * Signed fractions of a second at nanosecond resolution of the span    * of time. Durations less than one second are represented with a 0    * `seconds` field and a positive or negative `nanos` field. For durations    * of one second or more, a non-zero value for the `nanos` field must be    * of the same sign as the `seconds` field. Must be from -999,999,999    * to +999,999,999 inclusive.    *</pre>    *    *<code>optional int32 nanos = 2;</code>    */
+comment|/**    *<pre>    * Signed fractions of a second at nanosecond resolution of the span    * of time. Durations less than one second are represented with a 0    * `seconds` field and a positive or negative `nanos` field. For durations    * of one second or more, a non-zero value for the `nanos` field must be    * of the same sign as the `seconds` field. Must be from -999,999,999    * to +999,999,999 inclusive.    *</pre>    *    *<code>int32 nanos = 2;</code>    */
 specifier|public
 name|int
 name|getNanos
@@ -962,7 +962,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|getDescriptorForType
+name|getDescriptor
 argument_list|()
 operator|.
 name|hashCode
@@ -3019,7 +3019,7 @@ specifier|private
 name|long
 name|seconds_
 decl_stmt|;
-comment|/**      *<pre>      * Signed seconds of the span of time. Must be from -315,576,000,000      * to +315,576,000,000 inclusive.      *</pre>      *      *<code>optional int64 seconds = 1;</code>      */
+comment|/**      *<pre>      * Signed seconds of the span of time. Must be from -315,576,000,000      * to +315,576,000,000 inclusive.      *</pre>      *      *<code>int64 seconds = 1;</code>      */
 specifier|public
 name|long
 name|getSeconds
@@ -3029,7 +3029,7 @@ return|return
 name|seconds_
 return|;
 block|}
-comment|/**      *<pre>      * Signed seconds of the span of time. Must be from -315,576,000,000      * to +315,576,000,000 inclusive.      *</pre>      *      *<code>optional int64 seconds = 1;</code>      */
+comment|/**      *<pre>      * Signed seconds of the span of time. Must be from -315,576,000,000      * to +315,576,000,000 inclusive.      *</pre>      *      *<code>int64 seconds = 1;</code>      */
 specifier|public
 name|Builder
 name|setSeconds
@@ -3049,7 +3049,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * Signed seconds of the span of time. Must be from -315,576,000,000      * to +315,576,000,000 inclusive.      *</pre>      *      *<code>optional int64 seconds = 1;</code>      */
+comment|/**      *<pre>      * Signed seconds of the span of time. Must be from -315,576,000,000      * to +315,576,000,000 inclusive.      *</pre>      *      *<code>int64 seconds = 1;</code>      */
 specifier|public
 name|Builder
 name|clearSeconds
@@ -3070,7 +3070,7 @@ specifier|private
 name|int
 name|nanos_
 decl_stmt|;
-comment|/**      *<pre>      * Signed fractions of a second at nanosecond resolution of the span      * of time. Durations less than one second are represented with a 0      * `seconds` field and a positive or negative `nanos` field. For durations      * of one second or more, a non-zero value for the `nanos` field must be      * of the same sign as the `seconds` field. Must be from -999,999,999      * to +999,999,999 inclusive.      *</pre>      *      *<code>optional int32 nanos = 2;</code>      */
+comment|/**      *<pre>      * Signed fractions of a second at nanosecond resolution of the span      * of time. Durations less than one second are represented with a 0      * `seconds` field and a positive or negative `nanos` field. For durations      * of one second or more, a non-zero value for the `nanos` field must be      * of the same sign as the `seconds` field. Must be from -999,999,999      * to +999,999,999 inclusive.      *</pre>      *      *<code>int32 nanos = 2;</code>      */
 specifier|public
 name|int
 name|getNanos
@@ -3080,7 +3080,7 @@ return|return
 name|nanos_
 return|;
 block|}
-comment|/**      *<pre>      * Signed fractions of a second at nanosecond resolution of the span      * of time. Durations less than one second are represented with a 0      * `seconds` field and a positive or negative `nanos` field. For durations      * of one second or more, a non-zero value for the `nanos` field must be      * of the same sign as the `seconds` field. Must be from -999,999,999      * to +999,999,999 inclusive.      *</pre>      *      *<code>optional int32 nanos = 2;</code>      */
+comment|/**      *<pre>      * Signed fractions of a second at nanosecond resolution of the span      * of time. Durations less than one second are represented with a 0      * `seconds` field and a positive or negative `nanos` field. For durations      * of one second or more, a non-zero value for the `nanos` field must be      * of the same sign as the `seconds` field. Must be from -999,999,999      * to +999,999,999 inclusive.      *</pre>      *      *<code>int32 nanos = 2;</code>      */
 specifier|public
 name|Builder
 name|setNanos
@@ -3100,7 +3100,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * Signed fractions of a second at nanosecond resolution of the span      * of time. Durations less than one second are represented with a 0      * `seconds` field and a positive or negative `nanos` field. For durations      * of one second or more, a non-zero value for the `nanos` field must be      * of the same sign as the `seconds` field. Must be from -999,999,999      * to +999,999,999 inclusive.      *</pre>      *      *<code>optional int32 nanos = 2;</code>      */
+comment|/**      *<pre>      * Signed fractions of a second at nanosecond resolution of the span      * of time. Durations less than one second are represented with a 0      * `seconds` field and a positive or negative `nanos` field. For durations      * of one second or more, a non-zero value for the `nanos` field must be      * of the same sign as the `seconds` field. Must be from -999,999,999      * to +999,999,999 inclusive.      *</pre>      *      *<code>int32 nanos = 2;</code>      */
 specifier|public
 name|Builder
 name|clearNanos

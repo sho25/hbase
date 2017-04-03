@@ -51,7 +51,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|/**    *<pre>    * The double value.    *</pre>    *    *<code>optional double value = 1;</code>    */
+comment|/**    *<pre>    * The double value.    *</pre>    *    *<code>double value = 1;</code>    */
 name|double
 name|getValue
 parameter_list|()

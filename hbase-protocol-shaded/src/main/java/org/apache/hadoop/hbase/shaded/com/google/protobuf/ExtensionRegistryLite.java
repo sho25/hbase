@@ -264,7 +264,7 @@ operator|=
 name|isEagerlyParse
 expr_stmt|;
 block|}
-comment|/**    * Construct a new, empty instance.    *     *<p>    * This may be an {@code ExtensionRegistry} if the full (non-Lite) proto libraries are available.    */
+comment|/**    * Construct a new, empty instance.    *    *<p>This may be an {@code ExtensionRegistry} if the full (non-Lite) proto libraries are    * available.    */
 specifier|public
 specifier|static
 name|ExtensionRegistryLite

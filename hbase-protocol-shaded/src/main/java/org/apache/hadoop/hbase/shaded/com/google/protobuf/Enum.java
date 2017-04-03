@@ -903,7 +903,7 @@ operator|.
 name|Object
 name|name_
 decl_stmt|;
-comment|/**    *<pre>    * Enum type name.    *</pre>    *    *<code>optional string name = 1;</code>    */
+comment|/**    *<pre>    * Enum type name.    *</pre>    *    *<code>string name = 1;</code>    */
 specifier|public
 name|java
 operator|.
@@ -1007,7 +1007,7 @@ name|s
 return|;
 block|}
 block|}
-comment|/**    *<pre>    * Enum type name.    *</pre>    *    *<code>optional string name = 1;</code>    */
+comment|/**    *<pre>    * Enum type name.    *</pre>    *    *<code>string name = 1;</code>    */
 specifier|public
 name|org
 operator|.
@@ -1528,7 +1528,7 @@ operator|.
 name|SourceContext
 name|sourceContext_
 decl_stmt|;
-comment|/**    *<pre>    * The source context.    *</pre>    *    *<code>optional .google.protobuf.SourceContext source_context = 4;</code>    */
+comment|/**    *<pre>    * The source context.    *</pre>    *    *<code>.google.protobuf.SourceContext source_context = 4;</code>    */
 specifier|public
 name|boolean
 name|hasSourceContext
@@ -1540,7 +1540,7 @@ operator|!=
 literal|null
 return|;
 block|}
-comment|/**    *<pre>    * The source context.    *</pre>    *    *<code>optional .google.protobuf.SourceContext source_context = 4;</code>    */
+comment|/**    *<pre>    * The source context.    *</pre>    *    *<code>.google.protobuf.SourceContext source_context = 4;</code>    */
 specifier|public
 name|org
 operator|.
@@ -1591,7 +1591,7 @@ else|:
 name|sourceContext_
 return|;
 block|}
-comment|/**    *<pre>    * The source context.    *</pre>    *    *<code>optional .google.protobuf.SourceContext source_context = 4;</code>    */
+comment|/**    *<pre>    * The source context.    *</pre>    *    *<code>.google.protobuf.SourceContext source_context = 4;</code>    */
 specifier|public
 name|org
 operator|.
@@ -1630,7 +1630,7 @@ specifier|private
 name|int
 name|syntax_
 decl_stmt|;
-comment|/**    *<pre>    * The source syntax.    *</pre>    *    *<code>optional .google.protobuf.Syntax syntax = 5;</code>    */
+comment|/**    *<pre>    * The source syntax.    *</pre>    *    *<code>.google.protobuf.Syntax syntax = 5;</code>    */
 specifier|public
 name|int
 name|getSyntaxValue
@@ -1640,7 +1640,7 @@ return|return
 name|syntax_
 return|;
 block|}
-comment|/**    *<pre>    * The source syntax.    *</pre>    *    *<code>optional .google.protobuf.Syntax syntax = 5;</code>    */
+comment|/**    *<pre>    * The source syntax.    *</pre>    *    *<code>.google.protobuf.Syntax syntax = 5;</code>    */
 specifier|public
 name|org
 operator|.
@@ -2479,7 +2479,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|getDescriptorForType
+name|getDescriptor
 argument_list|()
 operator|.
 name|hashCode
@@ -5209,7 +5209,7 @@ name|name_
 init|=
 literal|""
 decl_stmt|;
-comment|/**      *<pre>      * Enum type name.      *</pre>      *      *<code>optional string name = 1;</code>      */
+comment|/**      *<pre>      * Enum type name.      *</pre>      *      *<code>string name = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -5316,7 +5316,7 @@ name|ref
 return|;
 block|}
 block|}
-comment|/**      *<pre>      * Enum type name.      *</pre>      *      *<code>optional string name = 1;</code>      */
+comment|/**      *<pre>      * Enum type name.      *</pre>      *      *<code>string name = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -5437,7 +5437,7 @@ name|ref
 return|;
 block|}
 block|}
-comment|/**      *<pre>      * Enum type name.      *</pre>      *      *<code>optional string name = 1;</code>      */
+comment|/**      *<pre>      * Enum type name.      *</pre>      *      *<code>string name = 1;</code>      */
 specifier|public
 name|Builder
 name|setName
@@ -5474,7 +5474,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * Enum type name.      *</pre>      *      *<code>optional string name = 1;</code>      */
+comment|/**      *<pre>      * Enum type name.      *</pre>      *      *<code>string name = 1;</code>      */
 specifier|public
 name|Builder
 name|clearName
@@ -5495,7 +5495,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * Enum type name.      *</pre>      *      *<code>optional string name = 1;</code>      */
+comment|/**      *<pre>      * Enum type name.      *</pre>      *      *<code>string name = 1;</code>      */
 specifier|public
 name|Builder
 name|setNameBytes
@@ -8520,7 +8520,7 @@ name|SourceContextOrBuilder
 argument_list|>
 name|sourceContextBuilder_
 decl_stmt|;
-comment|/**      *<pre>      * The source context.      *</pre>      *      *<code>optional .google.protobuf.SourceContext source_context = 4;</code>      */
+comment|/**      *<pre>      * The source context.      *</pre>      *      *<code>.google.protobuf.SourceContext source_context = 4;</code>      */
 specifier|public
 name|boolean
 name|hasSourceContext
@@ -8536,7 +8536,7 @@ operator|!=
 literal|null
 return|;
 block|}
-comment|/**      *<pre>      * The source context.      *</pre>      *      *<code>optional .google.protobuf.SourceContext source_context = 4;</code>      */
+comment|/**      *<pre>      * The source context.      *</pre>      *      *<code>.google.protobuf.SourceContext source_context = 4;</code>      */
 specifier|public
 name|org
 operator|.
@@ -8604,7 +8604,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**      *<pre>      * The source context.      *</pre>      *      *<code>optional .google.protobuf.SourceContext source_context = 4;</code>      */
+comment|/**      *<pre>      * The source context.      *</pre>      *      *<code>.google.protobuf.SourceContext source_context = 4;</code>      */
 specifier|public
 name|Builder
 name|setSourceContext
@@ -8671,7 +8671,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * The source context.      *</pre>      *      *<code>optional .google.protobuf.SourceContext source_context = 4;</code>      */
+comment|/**      *<pre>      * The source context.      *</pre>      *      *<code>.google.protobuf.SourceContext source_context = 4;</code>      */
 specifier|public
 name|Builder
 name|setSourceContext
@@ -8733,7 +8733,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * The source context.      *</pre>      *      *<code>optional .google.protobuf.SourceContext source_context = 4;</code>      */
+comment|/**      *<pre>      * The source context.      *</pre>      *      *<code>.google.protobuf.SourceContext source_context = 4;</code>      */
 specifier|public
 name|Builder
 name|mergeSourceContext
@@ -8831,7 +8831,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * The source context.      *</pre>      *      *<code>optional .google.protobuf.SourceContext source_context = 4;</code>      */
+comment|/**      *<pre>      * The source context.      *</pre>      *      *<code>.google.protobuf.SourceContext source_context = 4;</code>      */
 specifier|public
 name|Builder
 name|clearSourceContext
@@ -8867,7 +8867,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * The source context.      *</pre>      *      *<code>optional .google.protobuf.SourceContext source_context = 4;</code>      */
+comment|/**      *<pre>      * The source context.      *</pre>      *      *<code>.google.protobuf.SourceContext source_context = 4;</code>      */
 specifier|public
 name|org
 operator|.
@@ -8902,7 +8902,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**      *<pre>      * The source context.      *</pre>      *      *<code>optional .google.protobuf.SourceContext source_context = 4;</code>      */
+comment|/**      *<pre>      * The source context.      *</pre>      *      *<code>.google.protobuf.SourceContext source_context = 4;</code>      */
 specifier|public
 name|org
 operator|.
@@ -8970,7 +8970,7 @@ name|sourceContext_
 return|;
 block|}
 block|}
-comment|/**      *<pre>      * The source context.      *</pre>      *      *<code>optional .google.protobuf.SourceContext source_context = 4;</code>      */
+comment|/**      *<pre>      * The source context.      *</pre>      *      *<code>.google.protobuf.SourceContext source_context = 4;</code>      */
 specifier|private
 name|org
 operator|.
@@ -9159,7 +9159,7 @@ name|syntax_
 init|=
 literal|0
 decl_stmt|;
-comment|/**      *<pre>      * The source syntax.      *</pre>      *      *<code>optional .google.protobuf.Syntax syntax = 5;</code>      */
+comment|/**      *<pre>      * The source syntax.      *</pre>      *      *<code>.google.protobuf.Syntax syntax = 5;</code>      */
 specifier|public
 name|int
 name|getSyntaxValue
@@ -9169,7 +9169,7 @@ return|return
 name|syntax_
 return|;
 block|}
-comment|/**      *<pre>      * The source syntax.      *</pre>      *      *<code>optional .google.protobuf.Syntax syntax = 5;</code>      */
+comment|/**      *<pre>      * The source syntax.      *</pre>      *      *<code>.google.protobuf.Syntax syntax = 5;</code>      */
 specifier|public
 name|Builder
 name|setSyntaxValue
@@ -9189,7 +9189,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * The source syntax.      *</pre>      *      *<code>optional .google.protobuf.Syntax syntax = 5;</code>      */
+comment|/**      *<pre>      * The source syntax.      *</pre>      *      *<code>.google.protobuf.Syntax syntax = 5;</code>      */
 specifier|public
 name|org
 operator|.
@@ -9281,7 +9281,7 @@ else|:
 name|result
 return|;
 block|}
-comment|/**      *<pre>      * The source syntax.      *</pre>      *      *<code>optional .google.protobuf.Syntax syntax = 5;</code>      */
+comment|/**      *<pre>      * The source syntax.      *</pre>      *      *<code>.google.protobuf.Syntax syntax = 5;</code>      */
 specifier|public
 name|Builder
 name|setSyntax
@@ -9333,7 +9333,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * The source syntax.      *</pre>      *      *<code>optional .google.protobuf.Syntax syntax = 5;</code>      */
+comment|/**      *<pre>      * The source syntax.      *</pre>      *      *<code>.google.protobuf.Syntax syntax = 5;</code>      */
 specifier|public
 name|Builder
 name|clearSyntax

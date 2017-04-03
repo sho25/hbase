@@ -51,7 +51,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|/**    *<pre>    * The option's name. For example, `"java_package"`.    *</pre>    *    *<code>optional string name = 1;</code>    */
+comment|/**    *<pre>    * The option's name. For protobuf built-in options (options defined in    * descriptor.proto), this is the short name. For example, `"map_entry"`.    * For custom options, it should be the fully-qualified name. For example,    * `"google.api.http"`.    *</pre>    *    *<code>string name = 1;</code>    */
 name|java
 operator|.
 name|lang
@@ -60,7 +60,7 @@ name|String
 name|getName
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * The option's name. For example, `"java_package"`.    *</pre>    *    *<code>optional string name = 1;</code>    */
+comment|/**    *<pre>    * The option's name. For protobuf built-in options (options defined in    * descriptor.proto), this is the short name. For example, `"map_entry"`.    * For custom options, it should be the fully-qualified name. For example,    * `"google.api.http"`.    *</pre>    *    *<code>string name = 1;</code>    */
 name|org
 operator|.
 name|apache
@@ -81,12 +81,12 @@ name|ByteString
 name|getNameBytes
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * The option's value. For example, `"org.apache.hadoop.hbase.shaded.com.google.protobuf"`.    *</pre>    *    *<code>optional .google.protobuf.Any value = 2;</code>    */
+comment|/**    *<pre>    * The option's value packed in an Any message. If the value is a primitive,    * the corresponding wrapper type defined in google/protobuf/wrappers.proto    * should be used. If the value is an enum, it should be stored as an int32    * value using the google.protobuf.Int32Value type.    *</pre>    *    *<code>.google.protobuf.Any value = 2;</code>    */
 name|boolean
 name|hasValue
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * The option's value. For example, `"org.apache.hadoop.hbase.shaded.com.google.protobuf"`.    *</pre>    *    *<code>optional .google.protobuf.Any value = 2;</code>    */
+comment|/**    *<pre>    * The option's value packed in an Any message. If the value is a primitive,    * the corresponding wrapper type defined in google/protobuf/wrappers.proto    * should be used. If the value is an enum, it should be stored as an int32    * value using the google.protobuf.Int32Value type.    *</pre>    *    *<code>.google.protobuf.Any value = 2;</code>    */
 name|org
 operator|.
 name|apache
@@ -107,7 +107,7 @@ name|Any
 name|getValue
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * The option's value. For example, `"org.apache.hadoop.hbase.shaded.com.google.protobuf"`.    *</pre>    *    *<code>optional .google.protobuf.Any value = 2;</code>    */
+comment|/**    *<pre>    * The option's value packed in an Any message. If the value is a primitive,    * the corresponding wrapper type defined in google/protobuf/wrappers.proto    * should be used. If the value is an enum, it should be stored as an int32    * value using the google.protobuf.Int32Value type.    *</pre>    *    *<code>.google.protobuf.Any value = 2;</code>    */
 name|org
 operator|.
 name|apache

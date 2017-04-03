@@ -8474,9 +8474,13 @@ block|{
 comment|// Can't happen, because addPackage() only fails when the name
 comment|// conflicts with a non-package, but we have not yet added any
 comment|// non-packages at this point.
-assert|assert
-literal|false
-assert|;
+throw|throw
+operator|new
+name|AssertionError
+argument_list|(
+name|e
+argument_list|)
+throw|;
 block|}
 block|}
 block|}

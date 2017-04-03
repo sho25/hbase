@@ -677,7 +677,7 @@ operator|.
 name|Object
 name|name_
 decl_stmt|;
-comment|/**    *<pre>    * Enum value name.    *</pre>    *    *<code>optional string name = 1;</code>    */
+comment|/**    *<pre>    * Enum value name.    *</pre>    *    *<code>string name = 1;</code>    */
 specifier|public
 name|java
 operator|.
@@ -781,7 +781,7 @@ name|s
 return|;
 block|}
 block|}
-comment|/**    *<pre>    * Enum value name.    *</pre>    *    *<code>optional string name = 1;</code>    */
+comment|/**    *<pre>    * Enum value name.    *</pre>    *    *<code>string name = 1;</code>    */
 specifier|public
 name|org
 operator|.
@@ -918,7 +918,7 @@ specifier|private
 name|int
 name|number_
 decl_stmt|;
-comment|/**    *<pre>    * Enum value number.    *</pre>    *    *<code>optional int32 number = 2;</code>    */
+comment|/**    *<pre>    * Enum value number.    *</pre>    *    *<code>int32 number = 2;</code>    */
 specifier|public
 name|int
 name|getNumber
@@ -1632,7 +1632,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|getDescriptorForType
+name|getDescriptor
 argument_list|()
 operator|.
 name|hashCode
@@ -3984,7 +3984,7 @@ name|name_
 init|=
 literal|""
 decl_stmt|;
-comment|/**      *<pre>      * Enum value name.      *</pre>      *      *<code>optional string name = 1;</code>      */
+comment|/**      *<pre>      * Enum value name.      *</pre>      *      *<code>string name = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -4091,7 +4091,7 @@ name|ref
 return|;
 block|}
 block|}
-comment|/**      *<pre>      * Enum value name.      *</pre>      *      *<code>optional string name = 1;</code>      */
+comment|/**      *<pre>      * Enum value name.      *</pre>      *      *<code>string name = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -4212,7 +4212,7 @@ name|ref
 return|;
 block|}
 block|}
-comment|/**      *<pre>      * Enum value name.      *</pre>      *      *<code>optional string name = 1;</code>      */
+comment|/**      *<pre>      * Enum value name.      *</pre>      *      *<code>string name = 1;</code>      */
 specifier|public
 name|Builder
 name|setName
@@ -4249,7 +4249,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * Enum value name.      *</pre>      *      *<code>optional string name = 1;</code>      */
+comment|/**      *<pre>      * Enum value name.      *</pre>      *      *<code>string name = 1;</code>      */
 specifier|public
 name|Builder
 name|clearName
@@ -4270,7 +4270,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * Enum value name.      *</pre>      *      *<code>optional string name = 1;</code>      */
+comment|/**      *<pre>      * Enum value name.      *</pre>      *      *<code>string name = 1;</code>      */
 specifier|public
 name|Builder
 name|setNameBytes
@@ -4328,7 +4328,7 @@ specifier|private
 name|int
 name|number_
 decl_stmt|;
-comment|/**      *<pre>      * Enum value number.      *</pre>      *      *<code>optional int32 number = 2;</code>      */
+comment|/**      *<pre>      * Enum value number.      *</pre>      *      *<code>int32 number = 2;</code>      */
 specifier|public
 name|int
 name|getNumber
@@ -4338,7 +4338,7 @@ return|return
 name|number_
 return|;
 block|}
-comment|/**      *<pre>      * Enum value number.      *</pre>      *      *<code>optional int32 number = 2;</code>      */
+comment|/**      *<pre>      * Enum value number.      *</pre>      *      *<code>int32 number = 2;</code>      */
 specifier|public
 name|Builder
 name|setNumber
@@ -4358,7 +4358,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * Enum value number.      *</pre>      *      *<code>optional int32 number = 2;</code>      */
+comment|/**      *<pre>      * Enum value number.      *</pre>      *      *<code>int32 number = 2;</code>      */
 specifier|public
 name|Builder
 name|clearNumber

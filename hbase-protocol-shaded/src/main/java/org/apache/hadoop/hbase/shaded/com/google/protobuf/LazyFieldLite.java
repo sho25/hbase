@@ -742,101 +742,27 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
-comment|// At this point we have two fully parsed messages. We can't merge directly from one to the
-comment|// other because only generated builder code contains methods to mergeFrom another parsed
-comment|// message. We have to serialize one instance and then merge the bytes into the other. This may
-comment|// drop extensions from one of the messages if one of the values had an extension set on it
-comment|// directly.
-comment|//
-comment|// To mitigate this we prefer serializing a message that has an extension registry, and
-comment|// therefore a chance that all extensions set on it are in that registry.
-comment|//
-comment|// NOTE: The check for other.extensionRegistry not being null must come first because at this
-comment|// point in time if other.extensionRegistry is not null then this.extensionRegistry will not be
-comment|// null either.
-if|if
-condition|(
-name|other
-operator|.
-name|extensionRegistry
-operator|!=
-literal|null
-condition|)
-block|{
+comment|// At this point we have two fully parsed messages.
 name|setValue
-argument_list|(
-name|mergeValueAndBytes
 argument_list|(
 name|this
 operator|.
 name|value
-argument_list|,
-name|other
 operator|.
-name|toByteString
+name|toBuilder
 argument_list|()
-argument_list|,
-name|other
 operator|.
-name|extensionRegistry
-argument_list|)
-argument_list|)
-expr_stmt|;
-return|return;
-block|}
-elseif|else
-if|if
-condition|(
-name|this
-operator|.
-name|extensionRegistry
-operator|!=
-literal|null
-condition|)
-block|{
-name|setValue
-argument_list|(
-name|mergeValueAndBytes
+name|mergeFrom
 argument_list|(
 name|other
 operator|.
 name|value
-argument_list|,
-name|this
-operator|.
-name|toByteString
-argument_list|()
-argument_list|,
-name|this
-operator|.
-name|extensionRegistry
 argument_list|)
+operator|.
+name|build
+argument_list|()
 argument_list|)
 expr_stmt|;
-return|return;
-block|}
-else|else
-block|{
-comment|// All extensions from the other message will be dropped because we have no registry.
-name|setValue
-argument_list|(
-name|mergeValueAndBytes
-argument_list|(
-name|this
-operator|.
-name|value
-argument_list|,
-name|other
-operator|.
-name|toByteString
-argument_list|()
-argument_list|,
-name|EMPTY_REGISTRY
-argument_list|)
-argument_list|)
-expr_stmt|;
-return|return;
-block|}
 block|}
 comment|/**    * Merges another instance's contents from a stream.    *    *<p>LazyField is not thread-safe for write access. Synchronizations are needed    * under read/write situations.    */
 specifier|public

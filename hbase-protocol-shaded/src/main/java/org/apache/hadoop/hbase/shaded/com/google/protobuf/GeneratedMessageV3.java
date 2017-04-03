@@ -279,6 +279,46 @@ name|OneofDescriptor
 import|;
 end_import
 
+begin_comment
+comment|// In opensource protobuf, we have versioned this GeneratedMessageV3 class to GeneratedMessageV3V3 and
+end_comment
+
+begin_comment
+comment|// in the future may have GeneratedMessageV3V4 etc. This allows us to change some aspects of this
+end_comment
+
+begin_comment
+comment|// class without breaking binary compatibility with old generated code that still subclasses
+end_comment
+
+begin_comment
+comment|// the old GeneratedMessageV3 class. To allow these different GeneratedMessageV3V? classes to
+end_comment
+
+begin_comment
+comment|// interoperate (e.g., a GeneratedMessageV3V3 object has a message extension field whose class
+end_comment
+
+begin_comment
+comment|// type is GeneratedMessageV3V4), these classes still share a common parent class AbstarctMessage
+end_comment
+
+begin_comment
+comment|// and are using the same GeneratedMessage.GeneratedExtension class for extension definitions.
+end_comment
+
+begin_comment
+comment|// Since this class becomes GeneratedMessageV3V? in opensource, we have to add an import here
+end_comment
+
+begin_comment
+comment|// to be able to use GeneratedMessage.GeneratedExtension. The GeneratedExtension definition in
+end_comment
+
+begin_comment
+comment|// this file is also excluded from opensource to avoid conflict.
+end_comment
+
 begin_import
 import|import
 name|org
@@ -4890,23 +4930,6 @@ name|clear
 argument_list|()
 return|;
 block|}
-comment|// This is implemented here only to work around an apparent bug in the
-comment|// Java compiler and/or build system.  See bug #1898463.  The mere presence
-comment|// of this clone() implementation makes it go away.
-annotation|@
-name|Override
-specifier|public
-name|BuilderType
-name|clone
-parameter_list|()
-block|{
-return|return
-name|super
-operator|.
-name|clone
-argument_list|()
-return|;
-block|}
 specifier|private
 name|void
 name|ensureExtensionsIsMutable
@@ -7329,23 +7352,6 @@ operator|=
 literal|false
 expr_stmt|;
 block|}
-specifier|private
-name|boolean
-name|isMapFieldEnabled
-parameter_list|(
-name|FieldDescriptor
-name|field
-parameter_list|)
-block|{
-name|boolean
-name|result
-init|=
-literal|true
-decl_stmt|;
-return|return
-name|result
-return|;
-block|}
 comment|/**      * Ensures the field accessors are initialized. This method is thread-safe.      *      * @param messageClass   The message type.      * @param builderClass   The builder type.      * @return this      */
 specifier|public
 name|FieldAccessorTable
@@ -7485,11 +7491,6 @@ name|field
 operator|.
 name|isMapField
 argument_list|()
-operator|&&
-name|isMapFieldEnabled
-argument_list|(
-name|field
-argument_list|)
 condition|)
 block|{
 name|fields

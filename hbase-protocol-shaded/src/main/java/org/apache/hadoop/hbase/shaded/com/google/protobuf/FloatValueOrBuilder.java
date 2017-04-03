@@ -51,7 +51,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|/**    *<pre>    * The float value.    *</pre>    *    *<code>optional float value = 1;</code>    */
+comment|/**    *<pre>    * The float value.    *</pre>    *    *<code>float value = 1;</code>    */
 name|float
 name|getValue
 parameter_list|()

@@ -51,7 +51,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|/**    *<pre>    * The bytes value.    *</pre>    *    *<code>optional bytes value = 1;</code>    */
+comment|/**    *<pre>    * The bytes value.    *</pre>    *    *<code>bytes value = 1;</code>    */
 name|org
 operator|.
 name|apache

@@ -51,7 +51,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|/**    *<pre>    * The simple name of this method.    *</pre>    *    *<code>optional string name = 1;</code>    */
+comment|/**    *<pre>    * The simple name of this method.    *</pre>    *    *<code>string name = 1;</code>    */
 name|java
 operator|.
 name|lang
@@ -60,7 +60,7 @@ name|String
 name|getName
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * The simple name of this method.    *</pre>    *    *<code>optional string name = 1;</code>    */
+comment|/**    *<pre>    * The simple name of this method.    *</pre>    *    *<code>string name = 1;</code>    */
 name|org
 operator|.
 name|apache
@@ -81,7 +81,7 @@ name|ByteString
 name|getNameBytes
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * A URL of the input message type.    *</pre>    *    *<code>optional string request_type_url = 2;</code>    */
+comment|/**    *<pre>    * A URL of the input message type.    *</pre>    *    *<code>string request_type_url = 2;</code>    */
 name|java
 operator|.
 name|lang
@@ -90,7 +90,7 @@ name|String
 name|getRequestTypeUrl
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * A URL of the input message type.    *</pre>    *    *<code>optional string request_type_url = 2;</code>    */
+comment|/**    *<pre>    * A URL of the input message type.    *</pre>    *    *<code>string request_type_url = 2;</code>    */
 name|org
 operator|.
 name|apache
@@ -111,12 +111,12 @@ name|ByteString
 name|getRequestTypeUrlBytes
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * If true, the request is streamed.    *</pre>    *    *<code>optional bool request_streaming = 3;</code>    */
+comment|/**    *<pre>    * If true, the request is streamed.    *</pre>    *    *<code>bool request_streaming = 3;</code>    */
 name|boolean
 name|getRequestStreaming
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * The URL of the output message type.    *</pre>    *    *<code>optional string response_type_url = 4;</code>    */
+comment|/**    *<pre>    * The URL of the output message type.    *</pre>    *    *<code>string response_type_url = 4;</code>    */
 name|java
 operator|.
 name|lang
@@ -125,7 +125,7 @@ name|String
 name|getResponseTypeUrl
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * The URL of the output message type.    *</pre>    *    *<code>optional string response_type_url = 4;</code>    */
+comment|/**    *<pre>    * The URL of the output message type.    *</pre>    *    *<code>string response_type_url = 4;</code>    */
 name|org
 operator|.
 name|apache
@@ -146,7 +146,7 @@ name|ByteString
 name|getResponseTypeUrlBytes
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * If true, the response is streamed.    *</pre>    *    *<code>optional bool response_streaming = 5;</code>    */
+comment|/**    *<pre>    * If true, the response is streamed.    *</pre>    *    *<code>bool response_streaming = 5;</code>    */
 name|boolean
 name|getResponseStreaming
 parameter_list|()
@@ -262,12 +262,12 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**    *<pre>    * The source syntax of this method.    *</pre>    *    *<code>optional .google.protobuf.Syntax syntax = 7;</code>    */
+comment|/**    *<pre>    * The source syntax of this method.    *</pre>    *    *<code>.google.protobuf.Syntax syntax = 7;</code>    */
 name|int
 name|getSyntaxValue
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * The source syntax of this method.    *</pre>    *    *<code>optional .google.protobuf.Syntax syntax = 7;</code>    */
+comment|/**    *<pre>    * The source syntax of this method.    *</pre>    *    *<code>.google.protobuf.Syntax syntax = 7;</code>    */
 name|org
 operator|.
 name|apache

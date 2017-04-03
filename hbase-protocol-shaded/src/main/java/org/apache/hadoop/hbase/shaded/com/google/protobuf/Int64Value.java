@@ -517,7 +517,7 @@ specifier|private
 name|long
 name|value_
 decl_stmt|;
-comment|/**    *<pre>    * The int64 value.    *</pre>    *    *<code>optional int64 value = 1;</code>    */
+comment|/**    *<pre>    * The int64 value.    *</pre>    *    *<code>int64 value = 1;</code>    */
 specifier|public
 name|long
 name|getValue
@@ -857,7 +857,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|getDescriptorForType
+name|getDescriptor
 argument_list|()
 operator|.
 name|hashCode
@@ -2864,7 +2864,7 @@ specifier|private
 name|long
 name|value_
 decl_stmt|;
-comment|/**      *<pre>      * The int64 value.      *</pre>      *      *<code>optional int64 value = 1;</code>      */
+comment|/**      *<pre>      * The int64 value.      *</pre>      *      *<code>int64 value = 1;</code>      */
 specifier|public
 name|long
 name|getValue
@@ -2874,7 +2874,7 @@ return|return
 name|value_
 return|;
 block|}
-comment|/**      *<pre>      * The int64 value.      *</pre>      *      *<code>optional int64 value = 1;</code>      */
+comment|/**      *<pre>      * The int64 value.      *</pre>      *      *<code>int64 value = 1;</code>      */
 specifier|public
 name|Builder
 name|setValue
@@ -2894,7 +2894,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * The int64 value.      *</pre>      *      *<code>optional int64 value = 1;</code>      */
+comment|/**      *<pre>      * The int64 value.      *</pre>      *      *<code>int64 value = 1;</code>      */
 specifier|public
 name|Builder
 name|clearValue

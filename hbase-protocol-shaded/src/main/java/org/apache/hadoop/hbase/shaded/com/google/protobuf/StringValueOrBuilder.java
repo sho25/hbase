@@ -51,7 +51,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|/**    *<pre>    * The string value.    *</pre>    *    *<code>optional string value = 1;</code>    */
+comment|/**    *<pre>    * The string value.    *</pre>    *    *<code>string value = 1;</code>    */
 name|java
 operator|.
 name|lang
@@ -60,7 +60,7 @@ name|String
 name|getValue
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * The string value.    *</pre>    *    *<code>optional string value = 1;</code>    */
+comment|/**    *<pre>    * The string value.    *</pre>    *    *<code>string value = 1;</code>    */
 name|org
 operator|.
 name|apache

@@ -51,7 +51,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|/**    *<pre>    * The path-qualified name of the .proto file that contained the associated    * protobuf element.  For example: `"google/protobuf/source_context.proto"`.    *</pre>    *    *<code>optional string file_name = 1;</code>    */
+comment|/**    *<pre>    * The path-qualified name of the .proto file that contained the associated    * protobuf element.  For example: `"google/protobuf/source_context.proto"`.    *</pre>    *    *<code>string file_name = 1;</code>    */
 name|java
 operator|.
 name|lang
@@ -60,7 +60,7 @@ name|String
 name|getFileName
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * The path-qualified name of the .proto file that contained the associated    * protobuf element.  For example: `"google/protobuf/source_context.proto"`.    *</pre>    *    *<code>optional string file_name = 1;</code>    */
+comment|/**    *<pre>    * The path-qualified name of the .proto file that contained the associated    * protobuf element.  For example: `"google/protobuf/source_context.proto"`.    *</pre>    *    *<code>string file_name = 1;</code>    */
 name|org
 operator|.
 name|apache

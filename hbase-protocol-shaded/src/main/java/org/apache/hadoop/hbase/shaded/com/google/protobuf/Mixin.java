@@ -557,7 +557,7 @@ operator|.
 name|Object
 name|name_
 decl_stmt|;
-comment|/**    *<pre>    * The fully qualified name of the API which is included.    *</pre>    *    *<code>optional string name = 1;</code>    */
+comment|/**    *<pre>    * The fully qualified name of the API which is included.    *</pre>    *    *<code>string name = 1;</code>    */
 specifier|public
 name|java
 operator|.
@@ -661,7 +661,7 @@ name|s
 return|;
 block|}
 block|}
-comment|/**    *<pre>    * The fully qualified name of the API which is included.    *</pre>    *    *<code>optional string name = 1;</code>    */
+comment|/**    *<pre>    * The fully qualified name of the API which is included.    *</pre>    *    *<code>string name = 1;</code>    */
 specifier|public
 name|org
 operator|.
@@ -803,7 +803,7 @@ operator|.
 name|Object
 name|root_
 decl_stmt|;
-comment|/**    *<pre>    * If non-empty specifies a path under which inherited HTTP paths    * are rooted.    *</pre>    *    *<code>optional string root = 2;</code>    */
+comment|/**    *<pre>    * If non-empty specifies a path under which inherited HTTP paths    * are rooted.    *</pre>    *    *<code>string root = 2;</code>    */
 specifier|public
 name|java
 operator|.
@@ -907,7 +907,7 @@ name|s
 return|;
 block|}
 block|}
-comment|/**    *<pre>    * If non-empty specifies a path under which inherited HTTP paths    * are rooted.    *</pre>    *    *<code>optional string root = 2;</code>    */
+comment|/**    *<pre>    * If non-empty specifies a path under which inherited HTTP paths    * are rooted.    *</pre>    *    *<code>string root = 2;</code>    */
 specifier|public
 name|org
 operator|.
@@ -1478,7 +1478,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|getDescriptorForType
+name|getDescriptor
 argument_list|()
 operator|.
 name|hashCode
@@ -3532,7 +3532,7 @@ name|name_
 init|=
 literal|""
 decl_stmt|;
-comment|/**      *<pre>      * The fully qualified name of the API which is included.      *</pre>      *      *<code>optional string name = 1;</code>      */
+comment|/**      *<pre>      * The fully qualified name of the API which is included.      *</pre>      *      *<code>string name = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -3639,7 +3639,7 @@ name|ref
 return|;
 block|}
 block|}
-comment|/**      *<pre>      * The fully qualified name of the API which is included.      *</pre>      *      *<code>optional string name = 1;</code>      */
+comment|/**      *<pre>      * The fully qualified name of the API which is included.      *</pre>      *      *<code>string name = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -3760,7 +3760,7 @@ name|ref
 return|;
 block|}
 block|}
-comment|/**      *<pre>      * The fully qualified name of the API which is included.      *</pre>      *      *<code>optional string name = 1;</code>      */
+comment|/**      *<pre>      * The fully qualified name of the API which is included.      *</pre>      *      *<code>string name = 1;</code>      */
 specifier|public
 name|Builder
 name|setName
@@ -3797,7 +3797,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * The fully qualified name of the API which is included.      *</pre>      *      *<code>optional string name = 1;</code>      */
+comment|/**      *<pre>      * The fully qualified name of the API which is included.      *</pre>      *      *<code>string name = 1;</code>      */
 specifier|public
 name|Builder
 name|clearName
@@ -3818,7 +3818,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * The fully qualified name of the API which is included.      *</pre>      *      *<code>optional string name = 1;</code>      */
+comment|/**      *<pre>      * The fully qualified name of the API which is included.      *</pre>      *      *<code>string name = 1;</code>      */
 specifier|public
 name|Builder
 name|setNameBytes
@@ -3882,7 +3882,7 @@ name|root_
 init|=
 literal|""
 decl_stmt|;
-comment|/**      *<pre>      * If non-empty specifies a path under which inherited HTTP paths      * are rooted.      *</pre>      *      *<code>optional string root = 2;</code>      */
+comment|/**      *<pre>      * If non-empty specifies a path under which inherited HTTP paths      * are rooted.      *</pre>      *      *<code>string root = 2;</code>      */
 specifier|public
 name|java
 operator|.
@@ -3989,7 +3989,7 @@ name|ref
 return|;
 block|}
 block|}
-comment|/**      *<pre>      * If non-empty specifies a path under which inherited HTTP paths      * are rooted.      *</pre>      *      *<code>optional string root = 2;</code>      */
+comment|/**      *<pre>      * If non-empty specifies a path under which inherited HTTP paths      * are rooted.      *</pre>      *      *<code>string root = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -4110,7 +4110,7 @@ name|ref
 return|;
 block|}
 block|}
-comment|/**      *<pre>      * If non-empty specifies a path under which inherited HTTP paths      * are rooted.      *</pre>      *      *<code>optional string root = 2;</code>      */
+comment|/**      *<pre>      * If non-empty specifies a path under which inherited HTTP paths      * are rooted.      *</pre>      *      *<code>string root = 2;</code>      */
 specifier|public
 name|Builder
 name|setRoot
@@ -4147,7 +4147,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * If non-empty specifies a path under which inherited HTTP paths      * are rooted.      *</pre>      *      *<code>optional string root = 2;</code>      */
+comment|/**      *<pre>      * If non-empty specifies a path under which inherited HTTP paths      * are rooted.      *</pre>      *      *<code>string root = 2;</code>      */
 specifier|public
 name|Builder
 name|clearRoot
@@ -4168,7 +4168,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * If non-empty specifies a path under which inherited HTTP paths      * are rooted.      *</pre>      *      *<code>optional string root = 2;</code>      */
+comment|/**      *<pre>      * If non-empty specifies a path under which inherited HTTP paths      * are rooted.      *</pre>      *      *<code>string root = 2;</code>      */
 specifier|public
 name|Builder
 name|setRootBytes

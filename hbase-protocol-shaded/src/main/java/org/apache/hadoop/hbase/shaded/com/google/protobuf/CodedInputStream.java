@@ -399,17 +399,17 @@ name|DEFAULT_RECURSION_LIMIT
 init|=
 literal|100
 decl_stmt|;
+comment|// Integer.MAX_VALUE == 0x7FFFFFF == INT_MAX from limits.h
 specifier|private
 specifier|static
 specifier|final
 name|int
 name|DEFAULT_SIZE_LIMIT
 init|=
-literal|64
-operator|<<
-literal|20
+name|Integer
+operator|.
+name|MAX_VALUE
 decl_stmt|;
-comment|// 64MB
 comment|/** Visible for subclasses. See setRecursionLimit() */
 name|int
 name|recursionDepth
@@ -12422,7 +12422,7 @@ name|negativeSize
 argument_list|()
 throw|;
 block|}
-comment|// Verify that the message size so far has not exceeded sizeLimit.
+comment|// Integer-overflow-conscious check that the message size so far has not exceeded sizeLimit.
 name|int
 name|currentMessageSize
 init|=
@@ -12435,8 +12435,10 @@ decl_stmt|;
 if|if
 condition|(
 name|currentMessageSize
-operator|>
+operator|-
 name|sizeLimit
+operator|>
+literal|0
 condition|)
 block|{
 throw|throw

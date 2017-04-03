@@ -51,12 +51,12 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|/**    *<pre>    * The field type.    *</pre>    *    *<code>optional .google.protobuf.Field.Kind kind = 1;</code>    */
+comment|/**    *<pre>    * The field type.    *</pre>    *    *<code>.google.protobuf.Field.Kind kind = 1;</code>    */
 name|int
 name|getKindValue
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * The field type.    *</pre>    *    *<code>optional .google.protobuf.Field.Kind kind = 1;</code>    */
+comment|/**    *<pre>    * The field type.    *</pre>    *    *<code>.google.protobuf.Field.Kind kind = 1;</code>    */
 name|org
 operator|.
 name|apache
@@ -79,12 +79,12 @@ name|Kind
 name|getKind
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * The field cardinality.    *</pre>    *    *<code>optional .google.protobuf.Field.Cardinality cardinality = 2;</code>    */
+comment|/**    *<pre>    * The field cardinality.    *</pre>    *    *<code>.google.protobuf.Field.Cardinality cardinality = 2;</code>    */
 name|int
 name|getCardinalityValue
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * The field cardinality.    *</pre>    *    *<code>optional .google.protobuf.Field.Cardinality cardinality = 2;</code>    */
+comment|/**    *<pre>    * The field cardinality.    *</pre>    *    *<code>.google.protobuf.Field.Cardinality cardinality = 2;</code>    */
 name|org
 operator|.
 name|apache
@@ -107,12 +107,12 @@ name|Cardinality
 name|getCardinality
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * The field number.    *</pre>    *    *<code>optional int32 number = 3;</code>    */
+comment|/**    *<pre>    * The field number.    *</pre>    *    *<code>int32 number = 3;</code>    */
 name|int
 name|getNumber
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * The field name.    *</pre>    *    *<code>optional string name = 4;</code>    */
+comment|/**    *<pre>    * The field name.    *</pre>    *    *<code>string name = 4;</code>    */
 name|java
 operator|.
 name|lang
@@ -121,7 +121,7 @@ name|String
 name|getName
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * The field name.    *</pre>    *    *<code>optional string name = 4;</code>    */
+comment|/**    *<pre>    * The field name.    *</pre>    *    *<code>string name = 4;</code>    */
 name|org
 operator|.
 name|apache
@@ -142,7 +142,7 @@ name|ByteString
 name|getNameBytes
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * The field type URL, without the scheme, for message or enumeration    * types. Example: `"type.googleapis.org.apache.hadoop.hbase.shaded.com.google.protobuf.Timestamp"`.    *</pre>    *    *<code>optional string type_url = 6;</code>    */
+comment|/**    *<pre>    * The field type URL, without the scheme, for message or enumeration    * types. Example: `"type.googleapis.org.apache.hadoop.hbase.shaded.com.google.protobuf.Timestamp"`.    *</pre>    *    *<code>string type_url = 6;</code>    */
 name|java
 operator|.
 name|lang
@@ -151,7 +151,7 @@ name|String
 name|getTypeUrl
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * The field type URL, without the scheme, for message or enumeration    * types. Example: `"type.googleapis.org.apache.hadoop.hbase.shaded.com.google.protobuf.Timestamp"`.    *</pre>    *    *<code>optional string type_url = 6;</code>    */
+comment|/**    *<pre>    * The field type URL, without the scheme, for message or enumeration    * types. Example: `"type.googleapis.org.apache.hadoop.hbase.shaded.com.google.protobuf.Timestamp"`.    *</pre>    *    *<code>string type_url = 6;</code>    */
 name|org
 operator|.
 name|apache
@@ -172,12 +172,12 @@ name|ByteString
 name|getTypeUrlBytes
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * The index of the field type in `Type.oneofs`, for message or enumeration    * types. The first type has index 1; zero means the type is not in the list.    *</pre>    *    *<code>optional int32 oneof_index = 7;</code>    */
+comment|/**    *<pre>    * The index of the field type in `Type.oneofs`, for message or enumeration    * types. The first type has index 1; zero means the type is not in the list.    *</pre>    *    *<code>int32 oneof_index = 7;</code>    */
 name|int
 name|getOneofIndex
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * Whether to use alternative packed wire representation.    *</pre>    *    *<code>optional bool packed = 8;</code>    */
+comment|/**    *<pre>    * Whether to use alternative packed wire representation.    *</pre>    *    *<code>bool packed = 8;</code>    */
 name|boolean
 name|getPacked
 parameter_list|()
@@ -293,7 +293,7 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/**    *<pre>    * The field JSON name.    *</pre>    *    *<code>optional string json_name = 10;</code>    */
+comment|/**    *<pre>    * The field JSON name.    *</pre>    *    *<code>string json_name = 10;</code>    */
 name|java
 operator|.
 name|lang
@@ -302,7 +302,7 @@ name|String
 name|getJsonName
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * The field JSON name.    *</pre>    *    *<code>optional string json_name = 10;</code>    */
+comment|/**    *<pre>    * The field JSON name.    *</pre>    *    *<code>string json_name = 10;</code>    */
 name|org
 operator|.
 name|apache
@@ -323,7 +323,7 @@ name|ByteString
 name|getJsonNameBytes
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * The string value of the default value of this field. Proto2 syntax only.    *</pre>    *    *<code>optional string default_value = 11;</code>    */
+comment|/**    *<pre>    * The string value of the default value of this field. Proto2 syntax only.    *</pre>    *    *<code>string default_value = 11;</code>    */
 name|java
 operator|.
 name|lang
@@ -332,7 +332,7 @@ name|String
 name|getDefaultValue
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * The string value of the default value of this field. Proto2 syntax only.    *</pre>    *    *<code>optional string default_value = 11;</code>    */
+comment|/**    *<pre>    * The string value of the default value of this field. Proto2 syntax only.    *</pre>    *    *<code>string default_value = 11;</code>    */
 name|org
 operator|.
 name|apache

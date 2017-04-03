@@ -51,7 +51,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|/**    *<pre>    * A URL/resource name whose content describes the type of the    * serialized protocol buffer message.    * For URLs which use the scheme `http`, `https`, or no scheme, the    * following restrictions and interpretations apply:    * * If no scheme is provided, `https` is assumed.    * * The last segment of the URL's path must represent the fully    *   qualified name of the type (as in `path/google.protobuf.Duration`).    *   The name should be in a canonical form (e.g., leading "." is    *   not accepted).    * * An HTTP GET on the URL must yield a [google.protobuf.Type][]    *   value in binary format, or produce an error.    * * Applications are allowed to cache lookup results based on the    *   URL, or have them precompiled into a binary to avoid any    *   lookup. Therefore, binary compatibility needs to be preserved    *   on changes to types. (Use versioned type names to manage    *   breaking changes.)    * Schemes other than `http`, `https` (or the empty scheme) might be    * used with implementation specific semantics.    *</pre>    *    *<code>optional string type_url = 1;</code>    */
+comment|/**    *<pre>    * A URL/resource name whose content describes the type of the    * serialized protocol buffer message.    * For URLs which use the scheme `http`, `https`, or no scheme, the    * following restrictions and interpretations apply:    * * If no scheme is provided, `https` is assumed.    * * The last segment of the URL's path must represent the fully    *   qualified name of the type (as in `path/google.protobuf.Duration`).    *   The name should be in a canonical form (e.g., leading "." is    *   not accepted).    * * An HTTP GET on the URL must yield a [google.protobuf.Type][]    *   value in binary format, or produce an error.    * * Applications are allowed to cache lookup results based on the    *   URL, or have them precompiled into a binary to avoid any    *   lookup. Therefore, binary compatibility needs to be preserved    *   on changes to types. (Use versioned type names to manage    *   breaking changes.)    * Schemes other than `http`, `https` (or the empty scheme) might be    * used with implementation specific semantics.    *</pre>    *    *<code>string type_url = 1;</code>    */
 name|java
 operator|.
 name|lang
@@ -60,7 +60,7 @@ name|String
 name|getTypeUrl
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * A URL/resource name whose content describes the type of the    * serialized protocol buffer message.    * For URLs which use the scheme `http`, `https`, or no scheme, the    * following restrictions and interpretations apply:    * * If no scheme is provided, `https` is assumed.    * * The last segment of the URL's path must represent the fully    *   qualified name of the type (as in `path/google.protobuf.Duration`).    *   The name should be in a canonical form (e.g., leading "." is    *   not accepted).    * * An HTTP GET on the URL must yield a [google.protobuf.Type][]    *   value in binary format, or produce an error.    * * Applications are allowed to cache lookup results based on the    *   URL, or have them precompiled into a binary to avoid any    *   lookup. Therefore, binary compatibility needs to be preserved    *   on changes to types. (Use versioned type names to manage    *   breaking changes.)    * Schemes other than `http`, `https` (or the empty scheme) might be    * used with implementation specific semantics.    *</pre>    *    *<code>optional string type_url = 1;</code>    */
+comment|/**    *<pre>    * A URL/resource name whose content describes the type of the    * serialized protocol buffer message.    * For URLs which use the scheme `http`, `https`, or no scheme, the    * following restrictions and interpretations apply:    * * If no scheme is provided, `https` is assumed.    * * The last segment of the URL's path must represent the fully    *   qualified name of the type (as in `path/google.protobuf.Duration`).    *   The name should be in a canonical form (e.g., leading "." is    *   not accepted).    * * An HTTP GET on the URL must yield a [google.protobuf.Type][]    *   value in binary format, or produce an error.    * * Applications are allowed to cache lookup results based on the    *   URL, or have them precompiled into a binary to avoid any    *   lookup. Therefore, binary compatibility needs to be preserved    *   on changes to types. (Use versioned type names to manage    *   breaking changes.)    * Schemes other than `http`, `https` (or the empty scheme) might be    * used with implementation specific semantics.    *</pre>    *    *<code>string type_url = 1;</code>    */
 name|org
 operator|.
 name|apache
@@ -81,7 +81,7 @@ name|ByteString
 name|getTypeUrlBytes
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * Must be a valid serialized protocol buffer of the above specified type.    *</pre>    *    *<code>optional bytes value = 2;</code>    */
+comment|/**    *<pre>    * Must be a valid serialized protocol buffer of the above specified type.    *</pre>    *    *<code>bytes value = 2;</code>    */
 name|org
 operator|.
 name|apache

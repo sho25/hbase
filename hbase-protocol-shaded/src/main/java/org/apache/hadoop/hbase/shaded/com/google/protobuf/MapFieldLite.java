@@ -287,12 +287,7 @@ name|EMPTY_MAP_FIELD
 init|=
 operator|new
 name|MapFieldLite
-argument_list|(
-name|Collections
-operator|.
-name|emptyMap
 argument_list|()
-argument_list|)
 decl_stmt|;
 static|static
 block|{
@@ -433,6 +428,8 @@ block|{
 name|ensureMutable
 argument_list|()
 expr_stmt|;
+name|super
+operator|.
 name|clear
 argument_list|()
 expr_stmt|;

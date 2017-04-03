@@ -551,7 +551,7 @@ operator|.
 name|ByteString
 name|value_
 decl_stmt|;
-comment|/**    *<pre>    * The bytes value.    *</pre>    *    *<code>optional bytes value = 1;</code>    */
+comment|/**    *<pre>    * The bytes value.    *</pre>    *    *<code>bytes value = 1;</code>    */
 specifier|public
 name|org
 operator|.
@@ -912,7 +912,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|getDescriptorForType
+name|getDescriptor
 argument_list|()
 operator|.
 name|hashCode
@@ -2973,7 +2973,7 @@ name|ByteString
 operator|.
 name|EMPTY
 decl_stmt|;
-comment|/**      *<pre>      * The bytes value.      *</pre>      *      *<code>optional bytes value = 1;</code>      */
+comment|/**      *<pre>      * The bytes value.      *</pre>      *      *<code>bytes value = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -2999,7 +2999,7 @@ return|return
 name|value_
 return|;
 block|}
-comment|/**      *<pre>      * The bytes value.      *</pre>      *      *<code>optional bytes value = 1;</code>      */
+comment|/**      *<pre>      * The bytes value.      *</pre>      *      *<code>bytes value = 1;</code>      */
 specifier|public
 name|Builder
 name|setValue
@@ -3048,7 +3048,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * The bytes value.      *</pre>      *      *<code>optional bytes value = 1;</code>      */
+comment|/**      *<pre>      * The bytes value.      *</pre>      *      *<code>bytes value = 1;</code>      */
 specifier|public
 name|Builder
 name|clearValue

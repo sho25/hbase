@@ -51,7 +51,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|/**    *<pre>    * The int64 value.    *</pre>    *    *<code>optional int64 value = 1;</code>    */
+comment|/**    *<pre>    * The int64 value.    *</pre>    *    *<code>int64 value = 1;</code>    */
 name|long
 name|getValue
 parameter_list|()

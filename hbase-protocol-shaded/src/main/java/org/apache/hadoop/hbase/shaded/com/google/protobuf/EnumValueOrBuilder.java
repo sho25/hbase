@@ -51,7 +51,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|/**    *<pre>    * Enum value name.    *</pre>    *    *<code>optional string name = 1;</code>    */
+comment|/**    *<pre>    * Enum value name.    *</pre>    *    *<code>string name = 1;</code>    */
 name|java
 operator|.
 name|lang
@@ -60,7 +60,7 @@ name|String
 name|getName
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * Enum value name.    *</pre>    *    *<code>optional string name = 1;</code>    */
+comment|/**    *<pre>    * Enum value name.    *</pre>    *    *<code>string name = 1;</code>    */
 name|org
 operator|.
 name|apache
@@ -81,7 +81,7 @@ name|ByteString
 name|getNameBytes
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * Enum value number.    *</pre>    *    *<code>optional int32 number = 2;</code>    */
+comment|/**    *<pre>    * Enum value number.    *</pre>    *    *<code>int32 number = 2;</code>    */
 name|int
 name|getNumber
 parameter_list|()

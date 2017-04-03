@@ -224,11 +224,13 @@ literal|"\n google/protobuf/field_mask.proto\022\017goog"
 operator|+
 literal|"le.protobuf\"\032\n\tFieldMask\022\r\n\005paths\030\001 \003(\tB"
 operator|+
-literal|"N\n\023com.google.protobufB\016FieldMaskProtoP\001"
+literal|"\211\001\n\023com.google.protobufB\016FieldMaskProtoP"
 operator|+
-literal|"\242\002\003GPB\252\002\036Google.Protobuf.WellKnownTypesb"
+literal|"\001Z9google.golang.org/genproto/protobuf/f"
 operator|+
-literal|"\006proto3"
+literal|"ield_mask;field_mask\242\002\003GPB\252\002\036Google.Prot"
+operator|+
+literal|"obuf.WellKnownTypesb\006proto3"
 block|}
 decl_stmt|;
 name|org

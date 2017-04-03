@@ -51,12 +51,12 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|/**    *<pre>    * Represents a null value.    *</pre>    *    *<code>optional .google.protobuf.NullValue null_value = 1;</code>    */
+comment|/**    *<pre>    * Represents a null value.    *</pre>    *    *<code>.google.protobuf.NullValue null_value = 1;</code>    */
 name|int
 name|getNullValueValue
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * Represents a null value.    *</pre>    *    *<code>optional .google.protobuf.NullValue null_value = 1;</code>    */
+comment|/**    *<pre>    * Represents a null value.    *</pre>    *    *<code>.google.protobuf.NullValue null_value = 1;</code>    */
 name|org
 operator|.
 name|apache
@@ -77,12 +77,12 @@ name|NullValue
 name|getNullValue
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * Represents a double value.    *</pre>    *    *<code>optional double number_value = 2;</code>    */
+comment|/**    *<pre>    * Represents a double value.    *</pre>    *    *<code>double number_value = 2;</code>    */
 name|double
 name|getNumberValue
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * Represents a string value.    *</pre>    *    *<code>optional string string_value = 3;</code>    */
+comment|/**    *<pre>    * Represents a string value.    *</pre>    *    *<code>string string_value = 3;</code>    */
 name|java
 operator|.
 name|lang
@@ -91,7 +91,7 @@ name|String
 name|getStringValue
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * Represents a string value.    *</pre>    *    *<code>optional string string_value = 3;</code>    */
+comment|/**    *<pre>    * Represents a string value.    *</pre>    *    *<code>string string_value = 3;</code>    */
 name|org
 operator|.
 name|apache
@@ -112,12 +112,12 @@ name|ByteString
 name|getStringValueBytes
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * Represents a boolean value.    *</pre>    *    *<code>optional bool bool_value = 4;</code>    */
+comment|/**    *<pre>    * Represents a boolean value.    *</pre>    *    *<code>bool bool_value = 4;</code>    */
 name|boolean
 name|getBoolValue
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * Represents a structured value.    *</pre>    *    *<code>optional .google.protobuf.Struct struct_value = 5;</code>    */
+comment|/**    *<pre>    * Represents a structured value.    *</pre>    *    *<code>.google.protobuf.Struct struct_value = 5;</code>    */
 name|org
 operator|.
 name|apache
@@ -138,7 +138,7 @@ name|Struct
 name|getStructValue
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * Represents a structured value.    *</pre>    *    *<code>optional .google.protobuf.Struct struct_value = 5;</code>    */
+comment|/**    *<pre>    * Represents a structured value.    *</pre>    *    *<code>.google.protobuf.Struct struct_value = 5;</code>    */
 name|org
 operator|.
 name|apache
@@ -159,7 +159,7 @@ name|StructOrBuilder
 name|getStructValueOrBuilder
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * Represents a repeated `Value`.    *</pre>    *    *<code>optional .google.protobuf.ListValue list_value = 6;</code>    */
+comment|/**    *<pre>    * Represents a repeated `Value`.    *</pre>    *    *<code>.google.protobuf.ListValue list_value = 6;</code>    */
 name|org
 operator|.
 name|apache
@@ -180,7 +180,7 @@ name|ListValue
 name|getListValue
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * Represents a repeated `Value`.    *</pre>    *    *<code>optional .google.protobuf.ListValue list_value = 6;</code>    */
+comment|/**    *<pre>    * Represents a repeated `Value`.    *</pre>    *    *<code>.google.protobuf.ListValue list_value = 6;</code>    */
 name|org
 operator|.
 name|apache

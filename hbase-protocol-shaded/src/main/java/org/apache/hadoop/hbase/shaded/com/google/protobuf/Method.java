@@ -768,7 +768,7 @@ operator|.
 name|Object
 name|name_
 decl_stmt|;
-comment|/**    *<pre>    * The simple name of this method.    *</pre>    *    *<code>optional string name = 1;</code>    */
+comment|/**    *<pre>    * The simple name of this method.    *</pre>    *    *<code>string name = 1;</code>    */
 specifier|public
 name|java
 operator|.
@@ -872,7 +872,7 @@ name|s
 return|;
 block|}
 block|}
-comment|/**    *<pre>    * The simple name of this method.    *</pre>    *    *<code>optional string name = 1;</code>    */
+comment|/**    *<pre>    * The simple name of this method.    *</pre>    *    *<code>string name = 1;</code>    */
 specifier|public
 name|org
 operator|.
@@ -1014,7 +1014,7 @@ operator|.
 name|Object
 name|requestTypeUrl_
 decl_stmt|;
-comment|/**    *<pre>    * A URL of the input message type.    *</pre>    *    *<code>optional string request_type_url = 2;</code>    */
+comment|/**    *<pre>    * A URL of the input message type.    *</pre>    *    *<code>string request_type_url = 2;</code>    */
 specifier|public
 name|java
 operator|.
@@ -1118,7 +1118,7 @@ name|s
 return|;
 block|}
 block|}
-comment|/**    *<pre>    * A URL of the input message type.    *</pre>    *    *<code>optional string request_type_url = 2;</code>    */
+comment|/**    *<pre>    * A URL of the input message type.    *</pre>    *    *<code>string request_type_url = 2;</code>    */
 specifier|public
 name|org
 operator|.
@@ -1255,7 +1255,7 @@ specifier|private
 name|boolean
 name|requestStreaming_
 decl_stmt|;
-comment|/**    *<pre>    * If true, the request is streamed.    *</pre>    *    *<code>optional bool request_streaming = 3;</code>    */
+comment|/**    *<pre>    * If true, the request is streamed.    *</pre>    *    *<code>bool request_streaming = 3;</code>    */
 specifier|public
 name|boolean
 name|getRequestStreaming
@@ -1282,7 +1282,7 @@ operator|.
 name|Object
 name|responseTypeUrl_
 decl_stmt|;
-comment|/**    *<pre>    * The URL of the output message type.    *</pre>    *    *<code>optional string response_type_url = 4;</code>    */
+comment|/**    *<pre>    * The URL of the output message type.    *</pre>    *    *<code>string response_type_url = 4;</code>    */
 specifier|public
 name|java
 operator|.
@@ -1386,7 +1386,7 @@ name|s
 return|;
 block|}
 block|}
-comment|/**    *<pre>    * The URL of the output message type.    *</pre>    *    *<code>optional string response_type_url = 4;</code>    */
+comment|/**    *<pre>    * The URL of the output message type.    *</pre>    *    *<code>string response_type_url = 4;</code>    */
 specifier|public
 name|org
 operator|.
@@ -1523,7 +1523,7 @@ specifier|private
 name|boolean
 name|responseStreaming_
 decl_stmt|;
-comment|/**    *<pre>    * If true, the response is streamed.    *</pre>    *    *<code>optional bool response_streaming = 5;</code>    */
+comment|/**    *<pre>    * If true, the response is streamed.    *</pre>    *    *<code>bool response_streaming = 5;</code>    */
 specifier|public
 name|boolean
 name|getResponseStreaming
@@ -1729,7 +1729,7 @@ specifier|private
 name|int
 name|syntax_
 decl_stmt|;
-comment|/**    *<pre>    * The source syntax of this method.    *</pre>    *    *<code>optional .google.protobuf.Syntax syntax = 7;</code>    */
+comment|/**    *<pre>    * The source syntax of this method.    *</pre>    *    *<code>.google.protobuf.Syntax syntax = 7;</code>    */
 specifier|public
 name|int
 name|getSyntaxValue
@@ -1739,7 +1739,7 @@ return|return
 name|syntax_
 return|;
 block|}
-comment|/**    *<pre>    * The source syntax of this method.    *</pre>    *    *<code>optional .google.protobuf.Syntax syntax = 7;</code>    */
+comment|/**    *<pre>    * The source syntax of this method.    *</pre>    *    *<code>.google.protobuf.Syntax syntax = 7;</code>    */
 specifier|public
 name|org
 operator|.
@@ -2703,7 +2703,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|getDescriptorForType
+name|getDescriptor
 argument_list|()
 operator|.
 name|hashCode
@@ -5307,7 +5307,7 @@ name|name_
 init|=
 literal|""
 decl_stmt|;
-comment|/**      *<pre>      * The simple name of this method.      *</pre>      *      *<code>optional string name = 1;</code>      */
+comment|/**      *<pre>      * The simple name of this method.      *</pre>      *      *<code>string name = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -5414,7 +5414,7 @@ name|ref
 return|;
 block|}
 block|}
-comment|/**      *<pre>      * The simple name of this method.      *</pre>      *      *<code>optional string name = 1;</code>      */
+comment|/**      *<pre>      * The simple name of this method.      *</pre>      *      *<code>string name = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -5535,7 +5535,7 @@ name|ref
 return|;
 block|}
 block|}
-comment|/**      *<pre>      * The simple name of this method.      *</pre>      *      *<code>optional string name = 1;</code>      */
+comment|/**      *<pre>      * The simple name of this method.      *</pre>      *      *<code>string name = 1;</code>      */
 specifier|public
 name|Builder
 name|setName
@@ -5572,7 +5572,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * The simple name of this method.      *</pre>      *      *<code>optional string name = 1;</code>      */
+comment|/**      *<pre>      * The simple name of this method.      *</pre>      *      *<code>string name = 1;</code>      */
 specifier|public
 name|Builder
 name|clearName
@@ -5593,7 +5593,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * The simple name of this method.      *</pre>      *      *<code>optional string name = 1;</code>      */
+comment|/**      *<pre>      * The simple name of this method.      *</pre>      *      *<code>string name = 1;</code>      */
 specifier|public
 name|Builder
 name|setNameBytes
@@ -5657,7 +5657,7 @@ name|requestTypeUrl_
 init|=
 literal|""
 decl_stmt|;
-comment|/**      *<pre>      * A URL of the input message type.      *</pre>      *      *<code>optional string request_type_url = 2;</code>      */
+comment|/**      *<pre>      * A URL of the input message type.      *</pre>      *      *<code>string request_type_url = 2;</code>      */
 specifier|public
 name|java
 operator|.
@@ -5764,7 +5764,7 @@ name|ref
 return|;
 block|}
 block|}
-comment|/**      *<pre>      * A URL of the input message type.      *</pre>      *      *<code>optional string request_type_url = 2;</code>      */
+comment|/**      *<pre>      * A URL of the input message type.      *</pre>      *      *<code>string request_type_url = 2;</code>      */
 specifier|public
 name|org
 operator|.
@@ -5885,7 +5885,7 @@ name|ref
 return|;
 block|}
 block|}
-comment|/**      *<pre>      * A URL of the input message type.      *</pre>      *      *<code>optional string request_type_url = 2;</code>      */
+comment|/**      *<pre>      * A URL of the input message type.      *</pre>      *      *<code>string request_type_url = 2;</code>      */
 specifier|public
 name|Builder
 name|setRequestTypeUrl
@@ -5922,7 +5922,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * A URL of the input message type.      *</pre>      *      *<code>optional string request_type_url = 2;</code>      */
+comment|/**      *<pre>      * A URL of the input message type.      *</pre>      *      *<code>string request_type_url = 2;</code>      */
 specifier|public
 name|Builder
 name|clearRequestTypeUrl
@@ -5943,7 +5943,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * A URL of the input message type.      *</pre>      *      *<code>optional string request_type_url = 2;</code>      */
+comment|/**      *<pre>      * A URL of the input message type.      *</pre>      *      *<code>string request_type_url = 2;</code>      */
 specifier|public
 name|Builder
 name|setRequestTypeUrlBytes
@@ -6001,7 +6001,7 @@ specifier|private
 name|boolean
 name|requestStreaming_
 decl_stmt|;
-comment|/**      *<pre>      * If true, the request is streamed.      *</pre>      *      *<code>optional bool request_streaming = 3;</code>      */
+comment|/**      *<pre>      * If true, the request is streamed.      *</pre>      *      *<code>bool request_streaming = 3;</code>      */
 specifier|public
 name|boolean
 name|getRequestStreaming
@@ -6011,7 +6011,7 @@ return|return
 name|requestStreaming_
 return|;
 block|}
-comment|/**      *<pre>      * If true, the request is streamed.      *</pre>      *      *<code>optional bool request_streaming = 3;</code>      */
+comment|/**      *<pre>      * If true, the request is streamed.      *</pre>      *      *<code>bool request_streaming = 3;</code>      */
 specifier|public
 name|Builder
 name|setRequestStreaming
@@ -6031,7 +6031,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * If true, the request is streamed.      *</pre>      *      *<code>optional bool request_streaming = 3;</code>      */
+comment|/**      *<pre>      * If true, the request is streamed.      *</pre>      *      *<code>bool request_streaming = 3;</code>      */
 specifier|public
 name|Builder
 name|clearRequestStreaming
@@ -6058,7 +6058,7 @@ name|responseTypeUrl_
 init|=
 literal|""
 decl_stmt|;
-comment|/**      *<pre>      * The URL of the output message type.      *</pre>      *      *<code>optional string response_type_url = 4;</code>      */
+comment|/**      *<pre>      * The URL of the output message type.      *</pre>      *      *<code>string response_type_url = 4;</code>      */
 specifier|public
 name|java
 operator|.
@@ -6165,7 +6165,7 @@ name|ref
 return|;
 block|}
 block|}
-comment|/**      *<pre>      * The URL of the output message type.      *</pre>      *      *<code>optional string response_type_url = 4;</code>      */
+comment|/**      *<pre>      * The URL of the output message type.      *</pre>      *      *<code>string response_type_url = 4;</code>      */
 specifier|public
 name|org
 operator|.
@@ -6286,7 +6286,7 @@ name|ref
 return|;
 block|}
 block|}
-comment|/**      *<pre>      * The URL of the output message type.      *</pre>      *      *<code>optional string response_type_url = 4;</code>      */
+comment|/**      *<pre>      * The URL of the output message type.      *</pre>      *      *<code>string response_type_url = 4;</code>      */
 specifier|public
 name|Builder
 name|setResponseTypeUrl
@@ -6323,7 +6323,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * The URL of the output message type.      *</pre>      *      *<code>optional string response_type_url = 4;</code>      */
+comment|/**      *<pre>      * The URL of the output message type.      *</pre>      *      *<code>string response_type_url = 4;</code>      */
 specifier|public
 name|Builder
 name|clearResponseTypeUrl
@@ -6344,7 +6344,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * The URL of the output message type.      *</pre>      *      *<code>optional string response_type_url = 4;</code>      */
+comment|/**      *<pre>      * The URL of the output message type.      *</pre>      *      *<code>string response_type_url = 4;</code>      */
 specifier|public
 name|Builder
 name|setResponseTypeUrlBytes
@@ -6402,7 +6402,7 @@ specifier|private
 name|boolean
 name|responseStreaming_
 decl_stmt|;
-comment|/**      *<pre>      * If true, the response is streamed.      *</pre>      *      *<code>optional bool response_streaming = 5;</code>      */
+comment|/**      *<pre>      * If true, the response is streamed.      *</pre>      *      *<code>bool response_streaming = 5;</code>      */
 specifier|public
 name|boolean
 name|getResponseStreaming
@@ -6412,7 +6412,7 @@ return|return
 name|responseStreaming_
 return|;
 block|}
-comment|/**      *<pre>      * If true, the response is streamed.      *</pre>      *      *<code>optional bool response_streaming = 5;</code>      */
+comment|/**      *<pre>      * If true, the response is streamed.      *</pre>      *      *<code>bool response_streaming = 5;</code>      */
 specifier|public
 name|Builder
 name|setResponseStreaming
@@ -6432,7 +6432,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * If true, the response is streamed.      *</pre>      *      *<code>optional bool response_streaming = 5;</code>      */
+comment|/**      *<pre>      * If true, the response is streamed.      *</pre>      *      *<code>bool response_streaming = 5;</code>      */
 specifier|public
 name|Builder
 name|clearResponseStreaming
@@ -7891,7 +7891,7 @@ name|syntax_
 init|=
 literal|0
 decl_stmt|;
-comment|/**      *<pre>      * The source syntax of this method.      *</pre>      *      *<code>optional .google.protobuf.Syntax syntax = 7;</code>      */
+comment|/**      *<pre>      * The source syntax of this method.      *</pre>      *      *<code>.google.protobuf.Syntax syntax = 7;</code>      */
 specifier|public
 name|int
 name|getSyntaxValue
@@ -7901,7 +7901,7 @@ return|return
 name|syntax_
 return|;
 block|}
-comment|/**      *<pre>      * The source syntax of this method.      *</pre>      *      *<code>optional .google.protobuf.Syntax syntax = 7;</code>      */
+comment|/**      *<pre>      * The source syntax of this method.      *</pre>      *      *<code>.google.protobuf.Syntax syntax = 7;</code>      */
 specifier|public
 name|Builder
 name|setSyntaxValue
@@ -7921,7 +7921,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * The source syntax of this method.      *</pre>      *      *<code>optional .google.protobuf.Syntax syntax = 7;</code>      */
+comment|/**      *<pre>      * The source syntax of this method.      *</pre>      *      *<code>.google.protobuf.Syntax syntax = 7;</code>      */
 specifier|public
 name|org
 operator|.
@@ -8013,7 +8013,7 @@ else|:
 name|result
 return|;
 block|}
-comment|/**      *<pre>      * The source syntax of this method.      *</pre>      *      *<code>optional .google.protobuf.Syntax syntax = 7;</code>      */
+comment|/**      *<pre>      * The source syntax of this method.      *</pre>      *      *<code>.google.protobuf.Syntax syntax = 7;</code>      */
 specifier|public
 name|Builder
 name|setSyntax
@@ -8065,7 +8065,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * The source syntax of this method.      *</pre>      *      *<code>optional .google.protobuf.Syntax syntax = 7;</code>      */
+comment|/**      *<pre>      * The source syntax of this method.      *</pre>      *      *<code>.google.protobuf.Syntax syntax = 7;</code>      */
 specifier|public
 name|Builder
 name|clearSyntax

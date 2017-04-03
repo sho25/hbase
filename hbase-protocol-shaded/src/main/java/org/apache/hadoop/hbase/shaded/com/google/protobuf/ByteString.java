@@ -330,7 +330,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Immutable sequence of bytes.  Substring is supported by sharing the reference  * to the immutable underlying bytes.  Concatenation is likewise supported  * without copying (long strings) by building a tree of pieces in  * {@link RopeByteString}.  *<p>  * Like {@link String}, the contents of a {@link ByteString} can never be  * observed to change, not even in the presence of a data race or incorrect  * API usage in the client code.  *  * @author crazybob@google.com Bob Lee  * @author kenton@google.com Kenton Varda  * @author carlanton@google.com Carl Haverl  * @author martinrb@google.com Martin Buchholz  */
+comment|/**  * Immutable sequence of bytes. Substring is supported by sharing the reference to the immutable  * underlying bytes. Concatenation is likewise supported without copying (long strings) by building  * a tree of pieces in {@link RopeByteString}.  *  *<p>Like {@link String}, the contents of a {@link ByteString} can never be observed to change, not  * even in the presence of a data race or incorrect API usage in the client code.  *  * @author crazybob@google.com Bob Lee  * @author kenton@google.com Kenton Varda  * @author carlanton@google.com Carl Haverl  * @author martinrb@google.com Martin Buchholz  */
 end_comment
 
 begin_class
@@ -1577,11 +1577,28 @@ name|int
 name|length
 parameter_list|)
 block|{
-assert|assert
+if|if
+condition|(
 name|length
-operator|>=
+operator|<
 literal|1
-assert|;
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+name|String
+operator|.
+name|format
+argument_list|(
+literal|"length (%s) must be>= 1"
+argument_list|,
+name|length
+argument_list|)
+argument_list|)
+throw|;
+block|}
 name|ByteString
 name|result
 decl_stmt|;

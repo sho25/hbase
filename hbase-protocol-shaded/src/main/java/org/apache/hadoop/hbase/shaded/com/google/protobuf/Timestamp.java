@@ -534,7 +534,7 @@ specifier|private
 name|long
 name|seconds_
 decl_stmt|;
-comment|/**    *<pre>    * Represents seconds of UTC time since Unix epoch    * 1970-01-01T00:00:00Z. Must be from 0001-01-01T00:00:00Z to    * 9999-12-31T23:59:59Z inclusive.    *</pre>    *    *<code>optional int64 seconds = 1;</code>    */
+comment|/**    *<pre>    * Represents seconds of UTC time since Unix epoch    * 1970-01-01T00:00:00Z. Must be from 0001-01-01T00:00:00Z to    * 9999-12-31T23:59:59Z inclusive.    *</pre>    *    *<code>int64 seconds = 1;</code>    */
 specifier|public
 name|long
 name|getSeconds
@@ -556,7 +556,7 @@ specifier|private
 name|int
 name|nanos_
 decl_stmt|;
-comment|/**    *<pre>    * Non-negative fractions of a second at nanosecond resolution. Negative    * second values with fractions must still have non-negative nanos values    * that count forward in time. Must be from 0 to 999,999,999    * inclusive.    *</pre>    *    *<code>optional int32 nanos = 2;</code>    */
+comment|/**    *<pre>    * Non-negative fractions of a second at nanosecond resolution. Negative    * second values with fractions must still have non-negative nanos values    * that count forward in time. Must be from 0 to 999,999,999    * inclusive.    *</pre>    *    *<code>int32 nanos = 2;</code>    */
 specifier|public
 name|int
 name|getNanos
@@ -962,7 +962,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|getDescriptorForType
+name|getDescriptor
 argument_list|()
 operator|.
 name|hashCode
@@ -3019,7 +3019,7 @@ specifier|private
 name|long
 name|seconds_
 decl_stmt|;
-comment|/**      *<pre>      * Represents seconds of UTC time since Unix epoch      * 1970-01-01T00:00:00Z. Must be from 0001-01-01T00:00:00Z to      * 9999-12-31T23:59:59Z inclusive.      *</pre>      *      *<code>optional int64 seconds = 1;</code>      */
+comment|/**      *<pre>      * Represents seconds of UTC time since Unix epoch      * 1970-01-01T00:00:00Z. Must be from 0001-01-01T00:00:00Z to      * 9999-12-31T23:59:59Z inclusive.      *</pre>      *      *<code>int64 seconds = 1;</code>      */
 specifier|public
 name|long
 name|getSeconds
@@ -3029,7 +3029,7 @@ return|return
 name|seconds_
 return|;
 block|}
-comment|/**      *<pre>      * Represents seconds of UTC time since Unix epoch      * 1970-01-01T00:00:00Z. Must be from 0001-01-01T00:00:00Z to      * 9999-12-31T23:59:59Z inclusive.      *</pre>      *      *<code>optional int64 seconds = 1;</code>      */
+comment|/**      *<pre>      * Represents seconds of UTC time since Unix epoch      * 1970-01-01T00:00:00Z. Must be from 0001-01-01T00:00:00Z to      * 9999-12-31T23:59:59Z inclusive.      *</pre>      *      *<code>int64 seconds = 1;</code>      */
 specifier|public
 name|Builder
 name|setSeconds
@@ -3049,7 +3049,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * Represents seconds of UTC time since Unix epoch      * 1970-01-01T00:00:00Z. Must be from 0001-01-01T00:00:00Z to      * 9999-12-31T23:59:59Z inclusive.      *</pre>      *      *<code>optional int64 seconds = 1;</code>      */
+comment|/**      *<pre>      * Represents seconds of UTC time since Unix epoch      * 1970-01-01T00:00:00Z. Must be from 0001-01-01T00:00:00Z to      * 9999-12-31T23:59:59Z inclusive.      *</pre>      *      *<code>int64 seconds = 1;</code>      */
 specifier|public
 name|Builder
 name|clearSeconds
@@ -3070,7 +3070,7 @@ specifier|private
 name|int
 name|nanos_
 decl_stmt|;
-comment|/**      *<pre>      * Non-negative fractions of a second at nanosecond resolution. Negative      * second values with fractions must still have non-negative nanos values      * that count forward in time. Must be from 0 to 999,999,999      * inclusive.      *</pre>      *      *<code>optional int32 nanos = 2;</code>      */
+comment|/**      *<pre>      * Non-negative fractions of a second at nanosecond resolution. Negative      * second values with fractions must still have non-negative nanos values      * that count forward in time. Must be from 0 to 999,999,999      * inclusive.      *</pre>      *      *<code>int32 nanos = 2;</code>      */
 specifier|public
 name|int
 name|getNanos
@@ -3080,7 +3080,7 @@ return|return
 name|nanos_
 return|;
 block|}
-comment|/**      *<pre>      * Non-negative fractions of a second at nanosecond resolution. Negative      * second values with fractions must still have non-negative nanos values      * that count forward in time. Must be from 0 to 999,999,999      * inclusive.      *</pre>      *      *<code>optional int32 nanos = 2;</code>      */
+comment|/**      *<pre>      * Non-negative fractions of a second at nanosecond resolution. Negative      * second values with fractions must still have non-negative nanos values      * that count forward in time. Must be from 0 to 999,999,999      * inclusive.      *</pre>      *      *<code>int32 nanos = 2;</code>      */
 specifier|public
 name|Builder
 name|setNanos
@@ -3100,7 +3100,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * Non-negative fractions of a second at nanosecond resolution. Negative      * second values with fractions must still have non-negative nanos values      * that count forward in time. Must be from 0 to 999,999,999      * inclusive.      *</pre>      *      *<code>optional int32 nanos = 2;</code>      */
+comment|/**      *<pre>      * Non-negative fractions of a second at nanosecond resolution. Negative      * second values with fractions must still have non-negative nanos values      * that count forward in time. Must be from 0 to 999,999,999      * inclusive.      *</pre>      *      *<code>int32 nanos = 2;</code>      */
 specifier|public
 name|Builder
 name|clearNanos

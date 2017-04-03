@@ -342,11 +342,13 @@ literal|"2\027.google.protobuf.Option\022\'\n\006syntax\030\007 \001("
 operator|+
 literal|"\0162\027.google.protobuf.Syntax\"#\n\005Mixin\022\014\n\004n"
 operator|+
-literal|"ame\030\001 \001(\t\022\014\n\004root\030\002 \001(\tBH\n\023com.google.pr"
+literal|"ame\030\001 \001(\t\022\014\n\004root\030\002 \001(\tBu\n\023com.google.pr"
 operator|+
-literal|"otobufB\010ApiProtoP\001\242\002\003GPB\252\002\036Google.Protob"
+literal|"otobufB\010ApiProtoP\001Z+google.golang.org/ge"
 operator|+
-literal|"uf.WellKnownTypesb\006proto3"
+literal|"nproto/protobuf/api;api\242\002\003GPB\252\002\036Google.P"
+operator|+
+literal|"rotobuf.WellKnownTypesb\006proto3"
 block|}
 decl_stmt|;
 name|org

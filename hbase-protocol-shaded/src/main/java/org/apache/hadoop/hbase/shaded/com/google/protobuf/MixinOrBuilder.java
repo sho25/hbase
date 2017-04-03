@@ -51,7 +51,7 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|/**    *<pre>    * The fully qualified name of the API which is included.    *</pre>    *    *<code>optional string name = 1;</code>    */
+comment|/**    *<pre>    * The fully qualified name of the API which is included.    *</pre>    *    *<code>string name = 1;</code>    */
 name|java
 operator|.
 name|lang
@@ -60,7 +60,7 @@ name|String
 name|getName
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * The fully qualified name of the API which is included.    *</pre>    *    *<code>optional string name = 1;</code>    */
+comment|/**    *<pre>    * The fully qualified name of the API which is included.    *</pre>    *    *<code>string name = 1;</code>    */
 name|org
 operator|.
 name|apache
@@ -81,7 +81,7 @@ name|ByteString
 name|getNameBytes
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * If non-empty specifies a path under which inherited HTTP paths    * are rooted.    *</pre>    *    *<code>optional string root = 2;</code>    */
+comment|/**    *<pre>    * If non-empty specifies a path under which inherited HTTP paths    * are rooted.    *</pre>    *    *<code>string root = 2;</code>    */
 name|java
 operator|.
 name|lang
@@ -90,7 +90,7 @@ name|String
 name|getRoot
 parameter_list|()
 function_decl|;
-comment|/**    *<pre>    * If non-empty specifies a path under which inherited HTTP paths    * are rooted.    *</pre>    *    *<code>optional string root = 2;</code>    */
+comment|/**    *<pre>    * If non-empty specifies a path under which inherited HTTP paths    * are rooted.    *</pre>    *    *<code>string root = 2;</code>    */
 name|org
 operator|.
 name|apache

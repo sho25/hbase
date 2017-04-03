@@ -224,11 +224,15 @@ literal|"\n$google/protobuf/source_context.proto\022\017"
 operator|+
 literal|"google.protobuf\"\"\n\rSourceContext\022\021\n\tfile"
 operator|+
-literal|"_name\030\001 \001(\tBR\n\023com.google.protobufB\022Sour"
+literal|"_name\030\001 \001(\tB\225\001\n\023com.google.protobufB\022Sou"
 operator|+
-literal|"ceContextProtoP\001\242\002\003GPB\252\002\036Google.Protobuf"
+literal|"rceContextProtoP\001ZAgoogle.golang.org/gen"
 operator|+
-literal|".WellKnownTypesb\006proto3"
+literal|"proto/protobuf/source_context;source_con"
+operator|+
+literal|"text\242\002\003GPB\252\002\036Google.Protobuf.WellKnownTy"
+operator|+
+literal|"pesb\006proto3"
 block|}
 decl_stmt|;
 name|org

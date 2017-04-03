@@ -517,7 +517,7 @@ specifier|private
 name|double
 name|value_
 decl_stmt|;
-comment|/**    *<pre>    * The double value.    *</pre>    *    *<code>optional double value = 1;</code>    */
+comment|/**    *<pre>    * The double value.    *</pre>    *    *<code>double value = 1;</code>    */
 specifier|public
 name|double
 name|getValue
@@ -875,7 +875,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|getDescriptorForType
+name|getDescriptor
 argument_list|()
 operator|.
 name|hashCode
@@ -2891,7 +2891,7 @@ specifier|private
 name|double
 name|value_
 decl_stmt|;
-comment|/**      *<pre>      * The double value.      *</pre>      *      *<code>optional double value = 1;</code>      */
+comment|/**      *<pre>      * The double value.      *</pre>      *      *<code>double value = 1;</code>      */
 specifier|public
 name|double
 name|getValue
@@ -2901,7 +2901,7 @@ return|return
 name|value_
 return|;
 block|}
-comment|/**      *<pre>      * The double value.      *</pre>      *      *<code>optional double value = 1;</code>      */
+comment|/**      *<pre>      * The double value.      *</pre>      *      *<code>double value = 1;</code>      */
 specifier|public
 name|Builder
 name|setValue
@@ -2921,7 +2921,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * The double value.      *</pre>      *      *<code>optional double value = 1;</code>      */
+comment|/**      *<pre>      * The double value.      *</pre>      *      *<code>double value = 1;</code>      */
 specifier|public
 name|Builder
 name|clearValue

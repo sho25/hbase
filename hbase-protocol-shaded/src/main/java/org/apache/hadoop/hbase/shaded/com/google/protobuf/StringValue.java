@@ -531,7 +531,7 @@ operator|.
 name|Object
 name|value_
 decl_stmt|;
-comment|/**    *<pre>    * The string value.    *</pre>    *    *<code>optional string value = 1;</code>    */
+comment|/**    *<pre>    * The string value.    *</pre>    *    *<code>string value = 1;</code>    */
 specifier|public
 name|java
 operator|.
@@ -635,7 +635,7 @@ name|s
 return|;
 block|}
 block|}
-comment|/**    *<pre>    * The string value.    *</pre>    *    *<code>optional string value = 1;</code>    */
+comment|/**    *<pre>    * The string value.    *</pre>    *    *<code>string value = 1;</code>    */
 specifier|public
 name|org
 operator|.
@@ -1115,7 +1115,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|getDescriptorForType
+name|getDescriptor
 argument_list|()
 operator|.
 name|hashCode
@@ -3113,7 +3113,7 @@ name|value_
 init|=
 literal|""
 decl_stmt|;
-comment|/**      *<pre>      * The string value.      *</pre>      *      *<code>optional string value = 1;</code>      */
+comment|/**      *<pre>      * The string value.      *</pre>      *      *<code>string value = 1;</code>      */
 specifier|public
 name|java
 operator|.
@@ -3220,7 +3220,7 @@ name|ref
 return|;
 block|}
 block|}
-comment|/**      *<pre>      * The string value.      *</pre>      *      *<code>optional string value = 1;</code>      */
+comment|/**      *<pre>      * The string value.      *</pre>      *      *<code>string value = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -3341,7 +3341,7 @@ name|ref
 return|;
 block|}
 block|}
-comment|/**      *<pre>      * The string value.      *</pre>      *      *<code>optional string value = 1;</code>      */
+comment|/**      *<pre>      * The string value.      *</pre>      *      *<code>string value = 1;</code>      */
 specifier|public
 name|Builder
 name|setValue
@@ -3378,7 +3378,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * The string value.      *</pre>      *      *<code>optional string value = 1;</code>      */
+comment|/**      *<pre>      * The string value.      *</pre>      *      *<code>string value = 1;</code>      */
 specifier|public
 name|Builder
 name|clearValue
@@ -3399,7 +3399,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * The string value.      *</pre>      *      *<code>optional string value = 1;</code>      */
+comment|/**      *<pre>      * The string value.      *</pre>      *      *<code>string value = 1;</code>      */
 specifier|public
 name|Builder
 name|setValueBytes

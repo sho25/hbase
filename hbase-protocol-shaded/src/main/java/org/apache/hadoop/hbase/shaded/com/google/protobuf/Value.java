@@ -1061,7 +1061,7 @@ name|NULL_VALUE_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
-comment|/**    *<pre>    * Represents a null value.    *</pre>    *    *<code>optional .google.protobuf.NullValue null_value = 1;</code>    */
+comment|/**    *<pre>    * Represents a null value.    *</pre>    *    *<code>.google.protobuf.NullValue null_value = 1;</code>    */
 specifier|public
 name|int
 name|getNullValueValue
@@ -1089,7 +1089,7 @@ return|return
 literal|0
 return|;
 block|}
-comment|/**    *<pre>    * Represents a null value.    *</pre>    *    *<code>optional .google.protobuf.NullValue null_value = 1;</code>    */
+comment|/**    *<pre>    * Represents a null value.    *</pre>    *    *<code>.google.protobuf.NullValue null_value = 1;</code>    */
 specifier|public
 name|org
 operator|.
@@ -1225,7 +1225,7 @@ name|NUMBER_VALUE_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
-comment|/**    *<pre>    * Represents a double value.    *</pre>    *    *<code>optional double number_value = 2;</code>    */
+comment|/**    *<pre>    * Represents a double value.    *</pre>    *    *<code>double number_value = 2;</code>    */
 specifier|public
 name|double
 name|getNumberValue
@@ -1261,7 +1261,7 @@ name|STRING_VALUE_FIELD_NUMBER
 init|=
 literal|3
 decl_stmt|;
-comment|/**    *<pre>    * Represents a string value.    *</pre>    *    *<code>optional string string_value = 3;</code>    */
+comment|/**    *<pre>    * Represents a string value.    *</pre>    *    *<code>string string_value = 3;</code>    */
 specifier|public
 name|java
 operator|.
@@ -1385,7 +1385,7 @@ name|s
 return|;
 block|}
 block|}
-comment|/**    *<pre>    * Represents a string value.    *</pre>    *    *<code>optional string string_value = 3;</code>    */
+comment|/**    *<pre>    * Represents a string value.    *</pre>    *    *<code>string string_value = 3;</code>    */
 specifier|public
 name|org
 operator|.
@@ -1538,7 +1538,7 @@ name|BOOL_VALUE_FIELD_NUMBER
 init|=
 literal|4
 decl_stmt|;
-comment|/**    *<pre>    * Represents a boolean value.    *</pre>    *    *<code>optional bool bool_value = 4;</code>    */
+comment|/**    *<pre>    * Represents a boolean value.    *</pre>    *    *<code>bool bool_value = 4;</code>    */
 specifier|public
 name|boolean
 name|getBoolValue
@@ -1574,7 +1574,7 @@ name|STRUCT_VALUE_FIELD_NUMBER
 init|=
 literal|5
 decl_stmt|;
-comment|/**    *<pre>    * Represents a structured value.    *</pre>    *    *<code>optional .google.protobuf.Struct struct_value = 5;</code>    */
+comment|/**    *<pre>    * Represents a structured value.    *</pre>    *    *<code>.google.protobuf.Struct struct_value = 5;</code>    */
 specifier|public
 name|org
 operator|.
@@ -1649,7 +1649,7 @@ name|getDefaultInstance
 argument_list|()
 return|;
 block|}
-comment|/**    *<pre>    * Represents a structured value.    *</pre>    *    *<code>optional .google.protobuf.Struct struct_value = 5;</code>    */
+comment|/**    *<pre>    * Represents a structured value.    *</pre>    *    *<code>.google.protobuf.Struct struct_value = 5;</code>    */
 specifier|public
 name|org
 operator|.
@@ -1732,7 +1732,7 @@ name|LIST_VALUE_FIELD_NUMBER
 init|=
 literal|6
 decl_stmt|;
-comment|/**    *<pre>    * Represents a repeated `Value`.    *</pre>    *    *<code>optional .google.protobuf.ListValue list_value = 6;</code>    */
+comment|/**    *<pre>    * Represents a repeated `Value`.    *</pre>    *    *<code>.google.protobuf.ListValue list_value = 6;</code>    */
 specifier|public
 name|org
 operator|.
@@ -1807,7 +1807,7 @@ name|getDefaultInstance
 argument_list|()
 return|;
 block|}
-comment|/**    *<pre>    * Represents a repeated `Value`.    *</pre>    *    *<code>optional .google.protobuf.ListValue list_value = 6;</code>    */
+comment|/**    *<pre>    * Represents a repeated `Value`.    *</pre>    *    *<code>.google.protobuf.ListValue list_value = 6;</code>    */
 specifier|public
 name|org
 operator|.
@@ -2778,7 +2778,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|getDescriptorForType
+name|getDescriptor
 argument_list|()
 operator|.
 name|hashCode
@@ -5220,7 +5220,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * Represents a null value.      *</pre>      *      *<code>optional .google.protobuf.NullValue null_value = 1;</code>      */
+comment|/**      *<pre>      * Represents a null value.      *</pre>      *      *<code>.google.protobuf.NullValue null_value = 1;</code>      */
 specifier|public
 name|int
 name|getNullValueValue
@@ -5253,7 +5253,7 @@ return|return
 literal|0
 return|;
 block|}
-comment|/**      *<pre>      * Represents a null value.      *</pre>      *      *<code>optional .google.protobuf.NullValue null_value = 1;</code>      */
+comment|/**      *<pre>      * Represents a null value.      *</pre>      *      *<code>.google.protobuf.NullValue null_value = 1;</code>      */
 specifier|public
 name|Builder
 name|setNullValueValue
@@ -5277,7 +5277,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * Represents a null value.      *</pre>      *      *<code>optional .google.protobuf.NullValue null_value = 1;</code>      */
+comment|/**      *<pre>      * Represents a null value.      *</pre>      *      *<code>.google.protobuf.NullValue null_value = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -5405,7 +5405,7 @@ operator|.
 name|NULL_VALUE
 return|;
 block|}
-comment|/**      *<pre>      * Represents a null value.      *</pre>      *      *<code>optional .google.protobuf.NullValue null_value = 1;</code>      */
+comment|/**      *<pre>      * Represents a null value.      *</pre>      *      *<code>.google.protobuf.NullValue null_value = 1;</code>      */
 specifier|public
 name|Builder
 name|setNullValue
@@ -5461,7 +5461,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * Represents a null value.      *</pre>      *      *<code>optional .google.protobuf.NullValue null_value = 1;</code>      */
+comment|/**      *<pre>      * Represents a null value.      *</pre>      *      *<code>.google.protobuf.NullValue null_value = 1;</code>      */
 specifier|public
 name|Builder
 name|clearNullValue
@@ -5490,7 +5490,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * Represents a double value.      *</pre>      *      *<code>optional double number_value = 2;</code>      */
+comment|/**      *<pre>      * Represents a double value.      *</pre>      *      *<code>double number_value = 2;</code>      */
 specifier|public
 name|double
 name|getNumberValue
@@ -5518,7 +5518,7 @@ return|return
 literal|0D
 return|;
 block|}
-comment|/**      *<pre>      * Represents a double value.      *</pre>      *      *<code>optional double number_value = 2;</code>      */
+comment|/**      *<pre>      * Represents a double value.      *</pre>      *      *<code>double number_value = 2;</code>      */
 specifier|public
 name|Builder
 name|setNumberValue
@@ -5542,7 +5542,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * Represents a double value.      *</pre>      *      *<code>optional double number_value = 2;</code>      */
+comment|/**      *<pre>      * Represents a double value.      *</pre>      *      *<code>double number_value = 2;</code>      */
 specifier|public
 name|Builder
 name|clearNumberValue
@@ -5571,7 +5571,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * Represents a string value.      *</pre>      *      *<code>optional string string_value = 3;</code>      */
+comment|/**      *<pre>      * Represents a string value.      *</pre>      *      *<code>string string_value = 3;</code>      */
 specifier|public
 name|java
 operator|.
@@ -5698,7 +5698,7 @@ name|ref
 return|;
 block|}
 block|}
-comment|/**      *<pre>      * Represents a string value.      *</pre>      *      *<code>optional string string_value = 3;</code>      */
+comment|/**      *<pre>      * Represents a string value.      *</pre>      *      *<code>string string_value = 3;</code>      */
 specifier|public
 name|org
 operator|.
@@ -5839,7 +5839,7 @@ name|ref
 return|;
 block|}
 block|}
-comment|/**      *<pre>      * Represents a string value.      *</pre>      *      *<code>optional string string_value = 3;</code>      */
+comment|/**      *<pre>      * Represents a string value.      *</pre>      *      *<code>string string_value = 3;</code>      */
 specifier|public
 name|Builder
 name|setStringValue
@@ -5880,7 +5880,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * Represents a string value.      *</pre>      *      *<code>optional string string_value = 3;</code>      */
+comment|/**      *<pre>      * Represents a string value.      *</pre>      *      *<code>string string_value = 3;</code>      */
 specifier|public
 name|Builder
 name|clearStringValue
@@ -5909,7 +5909,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * Represents a string value.      *</pre>      *      *<code>optional string string_value = 3;</code>      */
+comment|/**      *<pre>      * Represents a string value.      *</pre>      *      *<code>string string_value = 3;</code>      */
 specifier|public
 name|Builder
 name|setStringValueBytes
@@ -5967,7 +5967,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * Represents a boolean value.      *</pre>      *      *<code>optional bool bool_value = 4;</code>      */
+comment|/**      *<pre>      * Represents a boolean value.      *</pre>      *      *<code>bool bool_value = 4;</code>      */
 specifier|public
 name|boolean
 name|getBoolValue
@@ -5995,7 +5995,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**      *<pre>      * Represents a boolean value.      *</pre>      *      *<code>optional bool bool_value = 4;</code>      */
+comment|/**      *<pre>      * Represents a boolean value.      *</pre>      *      *<code>bool bool_value = 4;</code>      */
 specifier|public
 name|Builder
 name|setBoolValue
@@ -6019,7 +6019,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * Represents a boolean value.      *</pre>      *      *<code>optional bool bool_value = 4;</code>      */
+comment|/**      *<pre>      * Represents a boolean value.      *</pre>      *      *<code>bool bool_value = 4;</code>      */
 specifier|public
 name|Builder
 name|clearBoolValue
@@ -6125,7 +6125,7 @@ name|StructOrBuilder
 argument_list|>
 name|structValueBuilder_
 decl_stmt|;
-comment|/**      *<pre>      * Represents a structured value.      *</pre>      *      *<code>optional .google.protobuf.Struct struct_value = 5;</code>      */
+comment|/**      *<pre>      * Represents a structured value.      *</pre>      *      *<code>.google.protobuf.Struct struct_value = 5;</code>      */
 specifier|public
 name|org
 operator|.
@@ -6247,7 +6247,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**      *<pre>      * Represents a structured value.      *</pre>      *      *<code>optional .google.protobuf.Struct struct_value = 5;</code>      */
+comment|/**      *<pre>      * Represents a structured value.      *</pre>      *      *<code>.google.protobuf.Struct struct_value = 5;</code>      */
 specifier|public
 name|Builder
 name|setStructValue
@@ -6318,7 +6318,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * Represents a structured value.      *</pre>      *      *<code>optional .google.protobuf.Struct struct_value = 5;</code>      */
+comment|/**      *<pre>      * Represents a structured value.      *</pre>      *      *<code>.google.protobuf.Struct struct_value = 5;</code>      */
 specifier|public
 name|Builder
 name|setStructValue
@@ -6384,7 +6384,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * Represents a structured value.      *</pre>      *      *<code>optional .google.protobuf.Struct struct_value = 5;</code>      */
+comment|/**      *<pre>      * Represents a structured value.      *</pre>      *      *<code>.google.protobuf.Struct struct_value = 5;</code>      */
 specifier|public
 name|Builder
 name|mergeStructValue
@@ -6543,7 +6543,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * Represents a structured value.      *</pre>      *      *<code>optional .google.protobuf.Struct struct_value = 5;</code>      */
+comment|/**      *<pre>      * Represents a structured value.      *</pre>      *      *<code>.google.protobuf.Struct struct_value = 5;</code>      */
 specifier|public
 name|Builder
 name|clearStructValue
@@ -6604,7 +6604,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * Represents a structured value.      *</pre>      *      *<code>optional .google.protobuf.Struct struct_value = 5;</code>      */
+comment|/**      *<pre>      * Represents a structured value.      *</pre>      *      *<code>.google.protobuf.Struct struct_value = 5;</code>      */
 specifier|public
 name|org
 operator|.
@@ -6636,7 +6636,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**      *<pre>      * Represents a structured value.      *</pre>      *      *<code>optional .google.protobuf.Struct struct_value = 5;</code>      */
+comment|/**      *<pre>      * Represents a structured value.      *</pre>      *      *<code>.google.protobuf.Struct struct_value = 5;</code>      */
 specifier|public
 name|org
 operator|.
@@ -6736,7 +6736,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**      *<pre>      * Represents a structured value.      *</pre>      *      *<code>optional .google.protobuf.Struct struct_value = 5;</code>      */
+comment|/**      *<pre>      * Represents a structured value.      *</pre>      *      *<code>.google.protobuf.Struct struct_value = 5;</code>      */
 specifier|private
 name|org
 operator|.
@@ -7056,7 +7056,7 @@ name|ListValueOrBuilder
 argument_list|>
 name|listValueBuilder_
 decl_stmt|;
-comment|/**      *<pre>      * Represents a repeated `Value`.      *</pre>      *      *<code>optional .google.protobuf.ListValue list_value = 6;</code>      */
+comment|/**      *<pre>      * Represents a repeated `Value`.      *</pre>      *      *<code>.google.protobuf.ListValue list_value = 6;</code>      */
 specifier|public
 name|org
 operator|.
@@ -7178,7 +7178,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**      *<pre>      * Represents a repeated `Value`.      *</pre>      *      *<code>optional .google.protobuf.ListValue list_value = 6;</code>      */
+comment|/**      *<pre>      * Represents a repeated `Value`.      *</pre>      *      *<code>.google.protobuf.ListValue list_value = 6;</code>      */
 specifier|public
 name|Builder
 name|setListValue
@@ -7249,7 +7249,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * Represents a repeated `Value`.      *</pre>      *      *<code>optional .google.protobuf.ListValue list_value = 6;</code>      */
+comment|/**      *<pre>      * Represents a repeated `Value`.      *</pre>      *      *<code>.google.protobuf.ListValue list_value = 6;</code>      */
 specifier|public
 name|Builder
 name|setListValue
@@ -7315,7 +7315,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * Represents a repeated `Value`.      *</pre>      *      *<code>optional .google.protobuf.ListValue list_value = 6;</code>      */
+comment|/**      *<pre>      * Represents a repeated `Value`.      *</pre>      *      *<code>.google.protobuf.ListValue list_value = 6;</code>      */
 specifier|public
 name|Builder
 name|mergeListValue
@@ -7474,7 +7474,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * Represents a repeated `Value`.      *</pre>      *      *<code>optional .google.protobuf.ListValue list_value = 6;</code>      */
+comment|/**      *<pre>      * Represents a repeated `Value`.      *</pre>      *      *<code>.google.protobuf.ListValue list_value = 6;</code>      */
 specifier|public
 name|Builder
 name|clearListValue
@@ -7535,7 +7535,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      *<pre>      * Represents a repeated `Value`.      *</pre>      *      *<code>optional .google.protobuf.ListValue list_value = 6;</code>      */
+comment|/**      *<pre>      * Represents a repeated `Value`.      *</pre>      *      *<code>.google.protobuf.ListValue list_value = 6;</code>      */
 specifier|public
 name|org
 operator|.
@@ -7567,7 +7567,7 @@ name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**      *<pre>      * Represents a repeated `Value`.      *</pre>      *      *<code>optional .google.protobuf.ListValue list_value = 6;</code>      */
+comment|/**      *<pre>      * Represents a repeated `Value`.      *</pre>      *      *<code>.google.protobuf.ListValue list_value = 6;</code>      */
 specifier|public
 name|org
 operator|.
@@ -7667,7 +7667,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**      *<pre>      * Represents a repeated `Value`.      *</pre>      *      *<code>optional .google.protobuf.ListValue list_value = 6;</code>      */
+comment|/**      *<pre>      * Represents a repeated `Value`.      *</pre>      *      *<code>.google.protobuf.ListValue list_value = 6;</code>      */
 specifier|private
 name|org
 operator|.
