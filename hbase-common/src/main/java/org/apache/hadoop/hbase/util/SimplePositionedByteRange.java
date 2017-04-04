@@ -33,22 +33,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
 begin_comment
 comment|/**  * Extends the basic {@link SimpleMutableByteRange} implementation with position  * support and it is a readonly version. {@code position} is considered  * transient, not fundamental to the definition of the range, and does not  * participate in {@link #compareTo(ByteRange)}, {@link #hashCode()}, or  * {@link #equals(Object)}. {@code Position} is retained by copy operations.  */
 end_comment
@@ -58,10 +42,6 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Evolving
 annotation|@
 name|edu
 operator|.

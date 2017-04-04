@@ -57,22 +57,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
 begin_comment
 comment|/**  * Describe the throttling result.  *  * TODO: At some point this will be handled on the client side to prevent  * operation to go on the server if the waitInterval is grater than the one got  * as result of this exception.  */
 end_comment
@@ -82,10 +66,6 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Evolving
 specifier|public
 class|class
 name|ThrottlingException
@@ -104,10 +84,6 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Evolving
 specifier|public
 enum|enum
 name|Type

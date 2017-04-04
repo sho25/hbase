@@ -49,22 +49,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
 begin_comment
 comment|/**  * Configurable policy for the amount of time a client should wait for a new request to the  * server when given the server load statistics.  *<p>  * Must have a single-argument constructor that takes a {@link org.apache.hadoop.conf.Configuration}  *</p>  */
 end_comment
@@ -74,10 +58,6 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Unstable
 specifier|public
 interface|interface
 name|ClientBackoffPolicy

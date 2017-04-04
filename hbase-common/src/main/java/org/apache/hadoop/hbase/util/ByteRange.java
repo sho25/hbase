@@ -33,22 +33,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
 begin_comment
 comment|/**  * Lightweight, reusable class for specifying ranges of byte[]'s.  *<p>  * {@code ByteRange} maintains an underlying byte[] and a viewport into that  * byte[] as a range of bytes. The {@code ByteRange} is a mutable, reusable  * object, so the underlying byte[] can be modified after instantiation. This  * is done using the {@link #set(byte[])} and {@link #unset()} methods. Direct  * access to the byte[] is also available via {@link #getBytes()}. The viewport  * is defined by an {@code offset} into the byte[] and a {@code length}. The  * range of bytes is 0-indexed, and is accessed by index via the  * {@link #get(int)} and {@link #put(int, byte)} methods.  *</p>  *<p>  * This interface differs from ByteBuffer:  *</p>  *<ul>  *<li>On-heap bytes only</li>  *<li>Raw {@code byte} access only; does not encode other primitives.</li>  *<li>Implements {@code equals(Object)}, {@code #hashCode()}, and  * {@code #compareTo(ByteRange)} so that it can be used in standard java  * Collections. Comparison operations are lexicographic, which is native to  * HBase.</li>  *<li>Allows the addition of simple core methods like the deep and shallow  * copy methods.</li>  *<li>Can be reused in tight loops like a major compaction which can save  * significant amounts of garbage. (Without reuse, we throw off garbage like  *<a href="http://www.youtube.com/watch?v=lkmBH-MjZF4">this thing</a>.)</li>  *</ul>  *<p>  * Mutable, and always evaluates {@code #equals(Object)}, {@code #hashCode()},  * and {@code #compareTo(ByteRange)} based on the current contents.  *</p>  *<p>  * Can contain convenience methods for comparing, printing, cloning, spawning  * new arrays, copying to other arrays, etc. Please place non-core methods into  * {@link ByteRangeUtils}.  *</p>  */
 end_comment
@@ -58,10 +42,6 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Evolving
 specifier|public
 interface|interface
 name|ByteRange

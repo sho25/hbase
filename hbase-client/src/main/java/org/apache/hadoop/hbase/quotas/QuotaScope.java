@@ -33,22 +33,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
 begin_comment
 comment|/**  * Describe the Scope of the quota rules.  * The quota can be enforced at the cluster level or at machine level.  */
 end_comment
@@ -58,10 +42,6 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Evolving
 specifier|public
 enum|enum
 name|QuotaScope

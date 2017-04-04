@@ -256,10 +256,6 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Evolving
 specifier|public
 class|class
 name|RestCsrfPreventionFilter

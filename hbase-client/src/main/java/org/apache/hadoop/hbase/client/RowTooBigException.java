@@ -33,22 +33,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
 begin_comment
 comment|/**  * Gets or Scans throw this exception if running without in-row scan flag  * set and row size appears to exceed max configured size (configurable via  * hbase.table.max.rowsize).  */
 end_comment
@@ -58,10 +42,6 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Stable
 specifier|public
 class|class
 name|RowTooBigException

@@ -47,22 +47,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
 begin_comment
 comment|/**  * Thrown when server finds fatal issue w/ connection setup: e.g. bad rpc version  * or unsupported auth method.  * Closes connection after throwing this exception with message on why the failure.  */
 end_comment
@@ -77,10 +61,6 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Evolving
 specifier|public
 class|class
 name|FatalConnectionException

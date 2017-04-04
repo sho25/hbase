@@ -47,22 +47,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
 begin_comment
 comment|/**  * Thrown when the server side has received an Exception, and asks the Client to reset the scanner  * state by closing the current region scanner, and reopening from the start of last seen row.  */
 end_comment
@@ -72,10 +56,6 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Stable
 specifier|public
 class|class
 name|ScannerResetException

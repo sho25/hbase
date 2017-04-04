@@ -47,22 +47,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
 begin_comment
 comment|/**  * Thrown when the size of the rpc request received by the server is too large.  *  * On receiving such an exception, the client does not retry the offending rpc.  * @since 1.3.0  */
 end_comment
@@ -72,10 +56,6 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Evolving
 specifier|public
 class|class
 name|RequestTooBigException

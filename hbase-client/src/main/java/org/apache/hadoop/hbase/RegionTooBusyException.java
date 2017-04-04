@@ -41,22 +41,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
 begin_comment
 comment|/**  * Thrown by a region server if it will block and wait to serve a request.  * For example, the client wants to insert something to a region while the  * region is compacting.  */
 end_comment
@@ -66,10 +50,6 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Evolving
 specifier|public
 class|class
 name|RegionTooBusyException

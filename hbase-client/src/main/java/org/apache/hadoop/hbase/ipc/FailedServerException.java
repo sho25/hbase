@@ -47,22 +47,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
 begin_comment
 comment|/**  * Indicates that we're trying to connect to a already known as dead server. We will want to  *  retry: we're getting this because the region location was wrong, or because  *  the server just died, in which case the retry loop will help us to wait for the  *  regions to recover.  */
 end_comment
@@ -77,10 +61,6 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Evolving
 specifier|public
 class|class
 name|FailedServerException

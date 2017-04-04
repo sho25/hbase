@@ -107,22 +107,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
 begin_comment
 comment|/**  * A low level asynchronous table.  *<p>  * The implementation is required to be thread safe.  *<p>  * The returned {@code CompletableFuture} will be finished directly in the rpc framework's callback  * thread, so typically you should not do any time consuming work inside these methods, otherwise  * you will be likely to block at least one connection to RS(even more if the rpc framework uses  * NIO).  *<p>  * So, only experts that want to build high performance service should use this interface directly,  * especially for the {@link #scan(Scan, RawScanResultConsumer)} below.  *<p>  * TODO: For now the only difference between this interface and {@link AsyncTable} is the scan  * method. The {@link RawScanResultConsumer} exposes the implementation details of a scan(heartbeat)  * so it is not suitable for a normal user. If it is still the only difference after we implement  * most features of AsyncTable, we can think about merge these two interfaces.  */
 end_comment
@@ -132,10 +116,6 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Unstable
 specifier|public
 interface|interface
 name|RawAsyncTable
@@ -158,10 +138,6 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Unstable
 annotation|@
 name|FunctionalInterface
 interface|interface
@@ -228,10 +204,6 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Unstable
 interface|interface
 name|CoprocessorCallback
 parameter_list|<

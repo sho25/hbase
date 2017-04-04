@@ -49,22 +49,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
 begin_comment
 comment|/**  * Provides metrics related to scan operations (both server side and client side metrics).  *<p>  * The data can be passed to mapreduce framework or other systems.  * We use atomic longs so that one thread can increment,  * while another atomically resets to zero after the values are reported  * to hadoop's counters.  *<p>  * Some of these metrics are general for any client operation such as put  * However, there is no need for this. So they are defined under scan operation  * for now.  */
 end_comment
@@ -74,10 +58,6 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Evolving
 specifier|public
 class|class
 name|ScanMetrics

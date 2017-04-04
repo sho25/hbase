@@ -53,22 +53,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|exceptions
 operator|.
 name|DeserializationException
@@ -116,10 +100,6 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Stable
 comment|// TODO Now we are deviating a lot from the actual Comparable<byte[]> what this implements, by
 comment|// adding special compareTo methods. We have to clean it. Deprecate this class and replace it
 comment|// with a more generic one which says it compares bytes (not necessary a byte array only)

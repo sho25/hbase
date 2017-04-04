@@ -33,22 +33,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
 begin_comment
 comment|/**  * Specify Isolation levels in Scan operations.  *<p>  * There are two isolation levels. A READ_COMMITTED isolation level  * indicates that only data that is committed be returned in a scan.  * An isolation level of READ_UNCOMMITTED indicates that a scan  * should return data that is being modified by transactions that might  * not have been committed yet.  */
 end_comment
@@ -58,10 +42,6 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Stable
 specifier|public
 enum|enum
 name|IsolationLevel

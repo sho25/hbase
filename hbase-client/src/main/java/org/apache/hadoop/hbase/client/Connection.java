@@ -107,22 +107,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
 begin_comment
 comment|/**  * A cluster connection encapsulating lower level individual connections to actual servers and  * a connection to zookeeper. Connections are instantiated through the {@link ConnectionFactory}  * class. The lifecycle of the connection is managed by the caller, who has to {@link #close()}  * the connection to release the resources.  *  *<p> The connection object contains logic to find the master, locate regions out on the cluster,  * keeps a cache of locations and then knows how to re-calibrate after they move. The individual  * connections to servers, meta cache, zookeeper connection, etc are all shared by the  * {@link Table} and {@link Admin} instances obtained from this connection.  *  *<p> Connection creation is a heavy-weight operation. Connection implementations are thread-safe,  * so that the client can create a connection once, and share it with different threads.  * {@link Table} and {@link Admin} instances, on the other hand, are light-weight and are not  * thread-safe.  Typically, a single connection per client application is instantiated and every  * thread will obtain its own Table instance. Caching or pooling of {@link Table} and {@link Admin}  * is not recommended.  *  * @see ConnectionFactory  * @since 0.99.0  */
 end_comment
@@ -132,10 +116,6 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Evolving
 specifier|public
 interface|interface
 name|Connection

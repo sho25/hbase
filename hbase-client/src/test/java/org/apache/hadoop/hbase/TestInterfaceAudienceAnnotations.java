@@ -307,6 +307,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -326,7 +336,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Test cases for ensuring our client visible classes have annotations  * for {@link InterfaceAudience}.  *  * All classes in hbase-client and hbase-common module MUST have InterfaceAudience  * annotations. All InterfaceAudience.Public annotated classes MUST also have InterfaceStability  * annotations. Think twice about marking an interface InterfaceAudience.Public. Make sure that  * it is an interface, not a class (for most cases), and clients will actually depend on it. Once  * something is marked with Public, we cannot change the signatures within the major release. NOT  * everything in the hbase-client module or every java public class has to be marked with  * InterfaceAudience.Public. ONLY the ones that an hbase application will directly use (Table, Get,  * etc, versus ProtobufUtil).  *  * Also note that HBase has it's own annotations in hbase-annotations module with the same names  * as in Hadoop. You should use the HBase's classes.  *  * See https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/InterfaceClassification.html  * and https://issues.apache.org/jira/browse/HBASE-10462.  */
+comment|/**  * Test cases for ensuring our client visible classes have annotations for  * {@link InterfaceAudience}.  *<p>  * All classes in hbase-client and hbase-common module MUST have InterfaceAudience annotations.  * Think twice about marking an interface InterfaceAudience.Public. Make sure that it is an  * interface, not a class (for most cases), and clients will actually depend on it. Once something  * is marked with Public, we cannot change the signatures within the major release. NOT everything  * in the hbase-client module or every java public class has to be marked with  * InterfaceAudience.Public. ONLY the ones that an hbase application will directly use (Table, Get,  * etc, versus ProtobufUtil). And also, InterfaceAudience.Public annotated classes MUST NOT have  * InterfaceStability annotations. The stability of these classes only depends on versioning.  *<p>  * All classes which are marked as InterfaceAudience.LimitedPrivate MUST also have  * InterfaceStability annotations. The only exception is HBaseInterfaceAudience.CONFIG. It is used  * to indicate that the class name will be exposed in user facing configuration files.  *<p>  * Also note that HBase has it's own annotations in hbase-annotations module with the same names as  * in Hadoop. You should use the HBase's classes.  *<p>  * See  * https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/InterfaceClassification.html  * and https://issues.apache.org/jira/browse/HBASE-10462.  */
 end_comment
 
 begin_class
@@ -507,10 +517,7 @@ return|return
 literal|false
 return|;
 block|}
-name|Class
-argument_list|<
-name|?
-argument_list|>
+name|Annotation
 name|ann
 init|=
 name|getAnnotation
@@ -534,6 +541,9 @@ operator|.
 name|equals
 argument_list|(
 name|ann
+operator|.
+name|annotationType
+argument_list|()
 argument_list|)
 condition|)
 block|{
@@ -552,10 +562,7 @@ argument_list|)
 return|;
 block|}
 specifier|protected
-name|Class
-argument_list|<
-name|?
-argument_list|>
+name|Annotation
 name|getAnnotation
 parameter_list|(
 name|Class
@@ -605,7 +612,7 @@ argument_list|)
 condition|)
 block|{
 return|return
-name|type
+name|ann
 return|;
 block|}
 block|}
@@ -717,7 +724,7 @@ literal|null
 return|;
 block|}
 block|}
-comment|/** Selects classes with one of the {@link InterfaceAudience.Public} annotation in their    * class declaration.    */
+comment|/**    * Selects classes with one of the {@link InterfaceAudience.Public} annotation in their class    * declaration.    */
 class|class
 name|InterfaceAudiencePublicAnnotatedClassFilter
 extends|extends
@@ -736,8 +743,19 @@ argument_list|>
 name|c
 parameter_list|)
 block|{
+name|Annotation
+name|ann
+init|=
+name|getAnnotation
+argument_list|(
+name|c
+argument_list|)
+decl_stmt|;
 return|return
-operator|(
+name|ann
+operator|!=
+literal|null
+operator|&&
 name|InterfaceAudience
 operator|.
 name|Public
@@ -746,12 +764,104 @@ name|class
 operator|.
 name|equals
 argument_list|(
+name|ann
+operator|.
+name|annotationType
+argument_list|()
+argument_list|)
+return|;
+block|}
+block|}
+comment|/**    * Selects classes with one of the {@link InterfaceAudience.LimitedPrivate} annotation in their    * class declaration.    */
+class|class
+name|InterfaceAudienceLimitedPrivateAnnotatedNotConfigClassFilter
+extends|extends
+name|InterfaceAudienceAnnotatedClassFilter
+block|{
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|isCandidateClass
+parameter_list|(
+name|Class
+argument_list|<
+name|?
+argument_list|>
+name|c
+parameter_list|)
+block|{
+name|Annotation
+name|ann
+init|=
 name|getAnnotation
 argument_list|(
 name|c
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|ann
+operator|==
+literal|null
+operator|||
+operator|!
+name|InterfaceAudience
+operator|.
+name|LimitedPrivate
+operator|.
+name|class
+operator|.
+name|equals
+argument_list|(
+name|ann
+operator|.
+name|annotationType
+argument_list|()
 argument_list|)
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
+name|InterfaceAudience
+operator|.
+name|LimitedPrivate
+name|iaAnn
+init|=
+operator|(
+name|InterfaceAudience
+operator|.
+name|LimitedPrivate
 operator|)
+name|ann
+decl_stmt|;
+return|return
+name|iaAnn
+operator|.
+name|value
+argument_list|()
+operator|.
+name|length
+operator|==
+literal|0
+operator|||
+operator|!
+name|HBaseInterfaceAudience
+operator|.
+name|CONFIG
+operator|.
+name|equals
+argument_list|(
+name|iaAnn
+operator|.
+name|value
+argument_list|()
+index|[
+literal|0
+index|]
+argument_list|)
 return|;
 block|}
 block|}
@@ -1278,6 +1388,15 @@ argument_list|(
 literal|false
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+operator|!
+name|classes
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|info
@@ -1304,6 +1423,7 @@ name|clazz
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 name|Assert
 operator|.
 name|assertEquals
@@ -1319,12 +1439,12 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Checks whether all the classes in client and common modules that are marked    * InterfaceAudience.Public also have {@link InterfaceStability} annotations.    */
+comment|/**    * Checks whether all the classes in client and common modules that are marked    * InterfaceAudience.Public do not have {@link InterfaceStability} annotations.    */
 annotation|@
 name|Test
 specifier|public
 name|void
-name|testInterfaceStabilityAnnotation
+name|testNoInterfaceStabilityAnnotationForPublicAPI
 parameter_list|()
 throws|throws
 name|ClassNotFoundException
@@ -1340,7 +1460,7 @@ comment|// AND are public
 comment|// NOT test classes
 comment|// AND NOT generated classes
 comment|// AND are annotated with InterfaceAudience.Public
-comment|// AND NOT annotated with InterfaceStability
+comment|// AND annotated with InterfaceStability
 name|ClassFinder
 name|classFinder
 init|=
@@ -1414,6 +1534,179 @@ argument_list|()
 argument_list|)
 argument_list|,
 operator|new
+name|InterfaceStabilityAnnotatedClassFilter
+argument_list|()
+argument_list|)
+argument_list|)
+decl_stmt|;
+name|Set
+argument_list|<
+name|Class
+argument_list|<
+name|?
+argument_list|>
+argument_list|>
+name|classes
+init|=
+name|classFinder
+operator|.
+name|findClasses
+argument_list|(
+literal|false
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|classes
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"These are the @InterfaceAudience.Public classes that have @InterfaceStability "
+operator|+
+literal|"annotation:"
+argument_list|)
+expr_stmt|;
+for|for
+control|(
+name|Class
+argument_list|<
+name|?
+argument_list|>
+name|clazz
+range|:
+name|classes
+control|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|clazz
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+name|Assert
+operator|.
+name|assertEquals
+argument_list|(
+literal|"All classes that are marked with @InterfaceAudience.Public should not "
+operator|+
+literal|"have @InterfaceStability annotation"
+argument_list|,
+literal|0
+argument_list|,
+name|classes
+operator|.
+name|size
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Checks whether all the classes in client and common modules that are marked    * InterfaceAudience.Public do not have {@link InterfaceStability} annotations.    */
+annotation|@
+name|Ignore
+annotation|@
+name|Test
+specifier|public
+name|void
+name|testInterfaceStabilityAnnotationForLimitedAPI
+parameter_list|()
+throws|throws
+name|ClassNotFoundException
+throws|,
+name|IOException
+throws|,
+name|LinkageError
+block|{
+comment|// find classes that are:
+comment|// In the main jar
+comment|// AND are not in a hadoop-compat module
+comment|// AND are public
+comment|// NOT test classes
+comment|// AND NOT generated classes
+comment|// AND are annotated with InterfaceAudience.LimitedPrivate
+comment|// AND NOT annotated with InterfaceStability
+name|ClassFinder
+name|classFinder
+init|=
+operator|new
+name|ClassFinder
+argument_list|(
+operator|new
+name|And
+argument_list|(
+operator|new
+name|MainCodeResourcePathFilter
+argument_list|()
+argument_list|,
+operator|new
+name|TestFileNameFilter
+argument_list|()
+argument_list|)
+argument_list|,
+operator|new
+name|Not
+argument_list|(
+operator|(
+name|FileNameFilter
+operator|)
+operator|new
+name|TestFileNameFilter
+argument_list|()
+argument_list|)
+argument_list|,
+operator|new
+name|And
+argument_list|(
+operator|new
+name|PublicClassFilter
+argument_list|()
+argument_list|,
+operator|new
+name|Not
+argument_list|(
+operator|new
+name|TestClassFilter
+argument_list|()
+argument_list|)
+argument_list|,
+operator|new
+name|Not
+argument_list|(
+operator|new
+name|GeneratedClassFilter
+argument_list|()
+argument_list|)
+argument_list|,
+operator|new
+name|Not
+argument_list|(
+operator|new
+name|ShadedProtobufClassFilter
+argument_list|()
+argument_list|)
+argument_list|,
+operator|new
+name|InterfaceAudienceLimitedPrivateAnnotatedNotConfigClassFilter
+argument_list|()
+argument_list|,
+operator|new
+name|Not
+argument_list|(
+operator|new
+name|IsInterfaceStabilityClassFilter
+argument_list|()
+argument_list|)
+argument_list|,
+operator|new
 name|Not
 argument_list|(
 operator|new
@@ -1439,11 +1732,22 @@ argument_list|(
 literal|false
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+operator|!
+name|classes
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"These are the classes that DO NOT have @InterfaceStability annotation:"
+literal|"These are the @InterfaceAudience.LimitedPrivate classes that DO NOT "
+operator|+
+literal|"have @InterfaceStability annotation:"
 argument_list|)
 expr_stmt|;
 for|for
@@ -1465,13 +1769,14 @@ name|clazz
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 name|Assert
 operator|.
 name|assertEquals
 argument_list|(
-literal|"All classes that are marked with @InterfaceAudience.Public should "
+literal|"All classes that are marked with @InterfaceAudience.LimitedPrivate "
 operator|+
-literal|"have @InterfaceStability annotation as well"
+literal|"should have @InterfaceStability annotation"
 argument_list|,
 literal|0
 argument_list|,

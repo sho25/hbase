@@ -45,22 +45,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
 begin_comment
 comment|/**  * A collection of interfaces and utilities used for interacting with custom RPC  * interfaces exposed by Coprocessors.  */
 end_comment
@@ -70,10 +54,6 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Stable
 specifier|public
 specifier|abstract
 class|class
@@ -84,10 +64,6 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Stable
 specifier|public
 interface|interface
 name|Call
@@ -112,10 +88,6 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Stable
 specifier|public
 interface|interface
 name|Callback

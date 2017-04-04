@@ -35,22 +35,6 @@ end_import
 
 begin_import
 import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
-begin_import
-import|import
 name|com
 operator|.
 name|google
@@ -68,10 +52,6 @@ comment|/**  * An immutable type to hold a hostname and port combo, like an Endp
 end_comment
 
 begin_class
-annotation|@
-name|InterfaceStability
-operator|.
-name|Evolving
 annotation|@
 name|InterfaceAudience
 operator|.

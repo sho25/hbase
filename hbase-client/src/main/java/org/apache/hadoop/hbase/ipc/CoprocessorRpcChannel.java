@@ -57,22 +57,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
 begin_comment
 comment|/**  * Base interface which provides clients with an RPC connection to  * call coprocessor endpoint {@link com.google.protobuf.Service}s.  * Note that clients should not use this class directly, except through  * {@link org.apache.hadoop.hbase.client.Table#coprocessorService(byte[])}.  */
 end_comment
@@ -82,10 +66,6 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Evolving
 specifier|public
 interface|interface
 name|CoprocessorRpcChannel

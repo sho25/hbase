@@ -181,22 +181,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
 begin_comment
 comment|/**  * ChoreService is a service that can be used to schedule instances of {@link ScheduledChore} to run  * periodically while sharing threads. The ChoreService is backed by a  * {@link ScheduledThreadPoolExecutor} whose core pool size changes dynamically depending on the  * number of {@link ScheduledChore} scheduled. All of the threads in the core thread pool of the  * underlying {@link ScheduledThreadPoolExecutor} are set to be daemon threads.  *<p>  * The ChoreService provides the ability to schedule, cancel, and trigger instances of  * {@link ScheduledChore}. The ChoreService also provides the ability to check on the status of  * scheduled chores. The number of threads used by the ChoreService changes based on the scheduling  * load and whether or not the scheduled chores are executing on time. As more chores are scheduled,  * there may be a need to increase the number of threads if it is noticed that chores are no longer  * meeting their scheduled start times. On the other hand, as chores are cancelled, an attempt is  * made to reduce the number of running threads to see if chores can still meet their start times  * with a smaller thread pool.  *<p>  * When finished with a ChoreService it is good practice to call {@link ChoreService#shutdown()}.  * Calling this method ensures that all scheduled chores are cancelled and cleaned up properly.  */
 end_comment
@@ -206,10 +190,6 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Stable
 specifier|public
 class|class
 name|ChoreService

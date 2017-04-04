@@ -63,22 +63,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
 begin_comment
 comment|/**  * For creating {@link AsyncTable} or {@link RawAsyncTable}.  *<p>  * The implementation should have default configurations set before returning the builder to user.  * So users are free to only set the configs they care about to create a new  * AsyncTable/RawAsyncTable instance.  */
 end_comment
@@ -88,10 +72,6 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Unstable
 specifier|public
 interface|interface
 name|AsyncTableBuilder

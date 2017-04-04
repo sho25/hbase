@@ -31,22 +31,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
 begin_comment
 comment|/**  * Exception thrown when the result needs to be chunked on the server side.  * It signals that retries should happen right away and not count against the number of  * retries because some of the multi was a success.  */
 end_comment
@@ -56,10 +40,6 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Evolving
 specifier|public
 class|class
 name|MultiActionResultTooLarge
