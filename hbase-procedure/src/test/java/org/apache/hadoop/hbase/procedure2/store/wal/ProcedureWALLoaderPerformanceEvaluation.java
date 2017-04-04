@@ -530,7 +530,7 @@ if|if
 condition|(
 name|procIter
 operator|.
-name|isNextCompleted
+name|isNextFinished
 argument_list|()
 condition|)
 block|{

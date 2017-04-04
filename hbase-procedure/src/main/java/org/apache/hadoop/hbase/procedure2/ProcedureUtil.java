@@ -1012,7 +1012,7 @@ name|ProcedureProtos
 operator|.
 name|ProcedureState
 operator|.
-name|FINISHED
+name|FAILED
 operator|||
 name|proc
 operator|.

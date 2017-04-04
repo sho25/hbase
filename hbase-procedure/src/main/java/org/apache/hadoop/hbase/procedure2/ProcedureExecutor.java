@@ -1760,7 +1760,7 @@ if|if
 condition|(
 name|procIter
 operator|.
-name|isNextCompleted
+name|isNextFinished
 argument_list|()
 condition|)
 block|{
@@ -1967,7 +1967,7 @@ if|if
 condition|(
 name|procIter
 operator|.
-name|isNextCompleted
+name|isNextFinished
 argument_list|()
 condition|)
 block|{
@@ -2183,16 +2183,8 @@ argument_list|)
 expr_stmt|;
 break|break;
 case|case
-name|FINISHED
+name|FAILED
 case|:
-if|if
-condition|(
-name|proc
-operator|.
-name|hasException
-argument_list|()
-condition|)
-block|{
 comment|// add the proc to the scheduler to perform the rollback
 name|scheduler
 operator|.
@@ -2201,7 +2193,6 @@ argument_list|(
 name|proc
 argument_list|)
 expr_stmt|;
-block|}
 break|break;
 case|case
 name|ROLLEDBACK
@@ -3182,7 +3173,7 @@ name|setState
 argument_list|(
 name|ProcedureState
 operator|.
-name|FINISHED
+name|SUCCESS
 argument_list|)
 expr_stmt|;
 return|return
@@ -5958,7 +5949,7 @@ argument_list|)
 expr_stmt|;
 comment|// Execute the procedure
 name|boolean
-name|isSuspended
+name|suspended
 init|=
 literal|false
 decl_stmt|;
@@ -6016,7 +6007,7 @@ name|ProcedureSuspendedException
 name|e
 parameter_list|)
 block|{
-name|isSuspended
+name|suspended
 operator|=
 literal|true
 expr_stmt|;
@@ -6203,7 +6194,7 @@ elseif|else
 if|if
 condition|(
 operator|!
-name|isSuspended
+name|suspended
 condition|)
 block|{
 comment|// No subtask, so we are done
@@ -6213,7 +6204,7 @@ name|setState
 argument_list|(
 name|ProcedureState
 operator|.
-name|FINISHED
+name|SUCCESS
 argument_list|)
 expr_stmt|;
 block|}
@@ -6238,7 +6229,7 @@ name|testing
 operator|.
 name|shouldKillBeforeStoreUpdate
 argument_list|(
-name|isSuspended
+name|suspended
 argument_list|)
 condition|)
 block|{
@@ -6256,16 +6247,6 @@ argument_list|()
 expr_stmt|;
 return|return;
 block|}
-comment|// Commit the transaction
-name|updateStoreOnExec
-argument_list|(
-name|procStack
-argument_list|,
-name|procedure
-argument_list|,
-name|subprocs
-argument_list|)
-expr_stmt|;
 comment|// if the store is not running we are aborting
 if|if
 condition|(
@@ -6276,6 +6257,16 @@ name|isRunning
 argument_list|()
 condition|)
 return|return;
+comment|// Commit the transaction
+name|updateStoreOnExec
+argument_list|(
+name|procStack
+argument_list|,
+name|procedure
+argument_list|,
+name|subprocs
+argument_list|)
+expr_stmt|;
 comment|// if the procedure is kind enough to pass the slot to someone else, yield
 if|if
 condition|(
@@ -6285,7 +6276,7 @@ name|isRunnable
 argument_list|()
 operator|&&
 operator|!
-name|isSuspended
+name|suspended
 operator|&&
 name|procedure
 operator|.

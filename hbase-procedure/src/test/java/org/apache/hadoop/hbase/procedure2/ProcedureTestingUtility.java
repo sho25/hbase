@@ -2481,7 +2481,7 @@ name|setState
 argument_list|(
 name|ProcedureState
 operator|.
-name|FINISHED
+name|SUCCESS
 argument_list|)
 expr_stmt|;
 block|}
@@ -2948,7 +2948,7 @@ if|if
 condition|(
 name|procIter
 operator|.
-name|isNextCompleted
+name|isNextFinished
 argument_list|()
 condition|)
 block|{

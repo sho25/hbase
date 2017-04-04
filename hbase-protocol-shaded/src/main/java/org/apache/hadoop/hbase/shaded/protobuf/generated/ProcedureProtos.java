@@ -163,10 +163,16 @@ argument_list|(
 literal|5
 argument_list|)
 block|,
-comment|/**      *<pre>      * The procedure execution is completed. may need a rollback if failed.      *</pre>      *      *<code>FINISHED = 6;</code>      */
-name|FINISHED
+comment|/**      *<pre>      * The procedure execution is completed successfully.      *</pre>      *      *<code>SUCCESS = 6;</code>      */
+name|SUCCESS
 argument_list|(
 literal|6
+argument_list|)
+block|,
+comment|/**      *<pre>      * The procedure execution is failed, may need to rollback      *</pre>      *      *<code>FAILED = 7;</code>      */
+name|FAILED
+argument_list|(
+literal|7
 argument_list|)
 block|,     ;
 comment|/**      *<pre>      * Procedure in construction, not yet added to the executor      *</pre>      *      *<code>INITIALIZING = 1;</code>      */
@@ -214,14 +220,23 @@ name|ROLLEDBACK_VALUE
 init|=
 literal|5
 decl_stmt|;
-comment|/**      *<pre>      * The procedure execution is completed. may need a rollback if failed.      *</pre>      *      *<code>FINISHED = 6;</code>      */
+comment|/**      *<pre>      * The procedure execution is completed successfully.      *</pre>      *      *<code>SUCCESS = 6;</code>      */
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|FINISHED_VALUE
+name|SUCCESS_VALUE
 init|=
 literal|6
+decl_stmt|;
+comment|/**      *<pre>      * The procedure execution is failed, may need to rollback      *</pre>      *      *<code>FAILED = 7;</code>      */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|FAILED_VALUE
+init|=
+literal|7
 decl_stmt|;
 specifier|public
 specifier|final
@@ -304,7 +319,13 @@ case|case
 literal|6
 case|:
 return|return
-name|FINISHED
+name|SUCCESS
+return|;
+case|case
+literal|7
+case|:
+return|return
+name|FAILED
 return|;
 default|default:
 return|return
@@ -47002,15 +47023,17 @@ literal|"\003\022\030\n\024PROCEDURE_WAL_UPDATE\020\004\022\030\n\024PROCEDURE"
 operator|+
 literal|"_WAL_DELETE\020\005\022\031\n\025PROCEDURE_WAL_COMPACT\020\006"
 operator|+
-literal|"*p\n\016ProcedureState\022\020\n\014INITIALIZING\020\001\022\014\n\010"
+literal|"*{\n\016ProcedureState\022\020\n\014INITIALIZING\020\001\022\014\n\010"
 operator|+
 literal|"RUNNABLE\020\002\022\013\n\007WAITING\020\003\022\023\n\017WAITING_TIMEO"
 operator|+
-literal|"UT\020\004\022\016\n\nROLLEDBACK\020\005\022\014\n\010FINISHED\020\006BL\n1or"
+literal|"UT\020\004\022\016\n\nROLLEDBACK\020\005\022\013\n\007SUCCESS\020\006\022\n\n\006FAI"
 block|,
-literal|"g.apache.hadoop.hbase.shaded.protobuf.ge"
+literal|"LED\020\007BL\n1org.apache.hadoop.hbase.shaded."
 operator|+
-literal|"neratedB\017ProcedureProtosH\001\210\001\001\240\001\001"
+literal|"protobuf.generatedB\017ProcedureProtosH\001\210\001\001"
+operator|+
+literal|"\240\001\001"
 block|}
 decl_stmt|;
 name|org

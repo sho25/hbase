@@ -291,7 +291,7 @@ comment|//  We have different entry types:
 comment|//   - INIT: Procedure submitted by the user (also known as 'root procedure')
 comment|//   - INSERT: Children added to the procedure<parentId>:[<childId>, ...]
 comment|//   - UPDATE: The specified procedure was updated
-comment|//   - DELETE: The procedure was removed (completed/rolledback and result TTL expired)
+comment|//   - DELETE: The procedure was removed (finished/rolledback and result TTL expired)
 comment|//
 comment|// In the WAL we can find multiple times the same procedure as UPDATE or INSERT.
 comment|// We read the WAL from top to bottom, so every time we find an entry of the
@@ -1342,7 +1342,7 @@ return|;
 block|}
 specifier|public
 name|boolean
-name|isCompleted
+name|isFinished
 parameter_list|()
 block|{
 if|if
@@ -1352,8 +1352,8 @@ name|hasParent
 argument_list|()
 condition|)
 block|{
-comment|// we only consider 'root' procedures. because for the user 'completed'
-comment|// means when everything up to the 'root' is complete.
+comment|// we only consider 'root' procedures. because for the user 'finished'
+comment|// means when everything up to the 'root' is finished.
 switch|switch
 condition|(
 name|proto
@@ -1365,18 +1365,11 @@ block|{
 case|case
 name|ROLLEDBACK
 case|:
-return|return
-literal|true
-return|;
 case|case
-name|FINISHED
+name|SUCCESS
 case|:
 return|return
-operator|!
-name|proto
-operator|.
-name|hasException
-argument_list|()
+literal|true
 return|;
 default|default:
 break|break;
@@ -1572,7 +1565,7 @@ annotation|@
 name|Override
 specifier|public
 name|boolean
-name|isNextCompleted
+name|isNextFinished
 parameter_list|()
 block|{
 return|return
@@ -1582,7 +1575,7 @@ literal|null
 operator|&&
 name|current
 operator|.
-name|isCompleted
+name|isFinished
 argument_list|()
 return|;
 block|}
@@ -2664,11 +2657,11 @@ if|if
 condition|(
 name|rootEntry
 operator|.
-name|isCompleted
+name|isFinished
 argument_list|()
 condition|)
 block|{
-comment|// if the root procedure is completed, sub-procedures should be gone
+comment|// if the root procedure is finished, sub-procedures should be gone
 if|if
 condition|(
 name|rootEntry

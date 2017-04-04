@@ -527,7 +527,7 @@ parameter_list|)
 block|{
 comment|// no-op
 block|}
-comment|/**    * By default, the executor will try ro run procedures start to finish.    * Return true to make the executor yield between each execution step to    * give other procedures time to run their steps.    * @param env the environment passed to the ProcedureExecutor    * @return Return true if the executor should yield on completion of an execution step.    *         Defaults to return false.    */
+comment|/**    * By default, the executor will try to run procedures start to finish.    * Return true to make the executor yield between each execution step to    * give other procedures a chance to run.    * @param env the environment passed to the ProcedureExecutor    * @return Return true if the executor should yield on completion of an execution step.    *         Defaults to return false.    */
 specifier|protected
 name|boolean
 name|isYieldAfterExecutionStep
@@ -666,7 +666,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|", failed="
+literal|", exception="
 operator|+
 name|getException
 argument_list|()
@@ -1270,6 +1270,7 @@ comment|//  The ProcedureExecutor may check and set states, or some Procecedure 
 comment|//  update its own state. but no concurrent updates. we use synchronized here
 comment|//  just because the procedure can get scheduled on different executor threads on each step.
 comment|// ==============================================================================================
+comment|/**    * Procedure has states which are defined in proto file. At some places in the code, we    * need to determine more about those states. Following Methods help determine:    *    * {@link #isFailed()} - A procedure has executed at least once and has failed. The procedure    *                       may or may not have rolled back yet. Any procedure in FAILED state    *                       will be eventually moved to ROLLEDBACK state.    *    * {@link #isSuccess()} - A procedure is completed successfully without any exception.    *    * {@link #isFinished()} - As a procedure in FAILED state will be tried forever for rollback, only    *                         condition when scheduler/ executor will drop procedure from further    *                         processing is when procedure state is ROLLEDBACK or isSuccess()    *                         returns true. This is a terminal state of the procedure.    *    * {@link #isWaiting()} - Procedure is in one of the two waiting states ({@link    *                        ProcedureState#WAITING}, {@link ProcedureState#WAITING_TIMEOUT}).    */
 comment|/**    * @return true if the procedure is in a RUNNABLE state.    */
 specifier|protected
 specifier|synchronized
@@ -1299,7 +1300,7 @@ operator|.
 name|INITIALIZING
 return|;
 block|}
-comment|/**    * @return true if the procedure has failed.    *         true may mean failed but not yet rolledback or failed and rolledback.    */
+comment|/**    * @return true if the procedure has failed. It may or may not have rolled back.    */
 specifier|public
 specifier|synchronized
 name|boolean
@@ -1307,9 +1308,11 @@ name|isFailed
 parameter_list|()
 block|{
 return|return
-name|exception
-operator|!=
-literal|null
+name|state
+operator|==
+name|ProcedureState
+operator|.
+name|FAILED
 operator|||
 name|state
 operator|==
@@ -1330,44 +1333,29 @@ name|state
 operator|==
 name|ProcedureState
 operator|.
-name|FINISHED
+name|SUCCESS
 operator|&&
-name|exception
-operator|==
-literal|null
+operator|!
+name|hasException
+argument_list|()
 return|;
 block|}
-comment|/**    * @return true if the procedure is finished. The Procedure may be completed    *         successfuly or failed and rolledback.    */
+comment|/**    * @return true if the procedure is finished. The Procedure may be completed successfully or    * rolledback.    */
 specifier|public
 specifier|synchronized
 name|boolean
 name|isFinished
 parameter_list|()
 block|{
-switch|switch
-condition|(
+return|return
+name|isSuccess
+argument_list|()
+operator|||
 name|state
-condition|)
-block|{
-case|case
-name|ROLLEDBACK
-case|:
-return|return
-literal|true
-return|;
-case|case
-name|FINISHED
-case|:
-return|return
-name|exception
 operator|==
-literal|null
-return|;
-default|default:
-break|break;
-block|}
-return|return
-literal|false
+name|ProcedureState
+operator|.
+name|ROLLEDBACK
 return|;
 block|}
 comment|/**    * @return true if the procedure is waiting for a child to finish or for an external event.    */
@@ -1490,7 +1478,7 @@ name|setState
 argument_list|(
 name|ProcedureState
 operator|.
-name|FINISHED
+name|FAILED
 argument_list|)
 expr_stmt|;
 block|}

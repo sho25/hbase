@@ -141,7 +141,7 @@ parameter_list|()
 function_decl|;
 comment|/**      * @return true if the iterator next element is a completed procedure.      */
 name|boolean
-name|isNextCompleted
+name|isNextFinished
 parameter_list|()
 function_decl|;
 comment|/**      * Skip the next procedure      */

@@ -54,7 +54,9 @@ name|WAITING_TIMEOUT
 block|,
 name|ROLLEDBACK
 block|,
-name|FINISHED
+name|SUCCESS
+block|,
+name|FAILED
 block|; }
 end_enum
 
