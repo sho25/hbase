@@ -661,9 +661,8 @@ specifier|static
 name|int
 name|batch
 init|=
-name|Integer
-operator|.
-name|MAX_VALUE
+operator|-
+literal|1
 decl_stmt|;
 specifier|static
 name|int
@@ -796,6 +795,13 @@ name|verbose
 init|=
 literal|false
 decl_stmt|;
+specifier|private
+name|int
+name|batch
+init|=
+operator|-
+literal|1
+decl_stmt|;
 comment|/**      * Map method that compares every scanned row with the equivalent from      * a distant cluster.      * @param row  The current table row key.      * @param value  The columns.      * @param context  The current context.      * @throws IOException When something is broken with the data.      */
 annotation|@
 name|Override
@@ -870,6 +876,20 @@ argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
+name|batch
+operator|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+name|NAME
+operator|+
+literal|".batch"
+argument_list|,
+operator|-
+literal|1
+argument_list|)
+expr_stmt|;
 specifier|final
 name|Scan
 name|scan
@@ -878,6 +898,13 @@ operator|new
 name|Scan
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|batch
+operator|>
+literal|0
+condition|)
+block|{
 name|scan
 operator|.
 name|setBatch
@@ -885,6 +912,7 @@ argument_list|(
 name|batch
 argument_list|)
 expr_stmt|;
+block|}
 name|scan
 operator|.
 name|setCacheBlocks
@@ -2068,6 +2096,17 @@ argument_list|)
 expr_stmt|;
 name|conf
 operator|.
+name|setInt
+argument_list|(
+name|NAME
+operator|+
+literal|".batch"
+argument_list|,
+name|batch
+argument_list|)
+expr_stmt|;
+name|conf
+operator|.
 name|setBoolean
 argument_list|(
 name|NAME
@@ -2274,6 +2313,28 @@ argument_list|(
 name|includeDeletedCells
 argument_list|)
 expr_stmt|;
+name|scan
+operator|.
+name|setCacheBlocks
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|batch
+operator|>
+literal|0
+condition|)
+block|{
+name|scan
+operator|.
+name|setBatch
+argument_list|(
+name|batch
+argument_list|)
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|versions
@@ -3111,9 +3172,8 @@ name|MAX_VALUE
 expr_stmt|;
 name|batch
 operator|=
-name|Integer
-operator|.
-name|MAX_VALUE
+operator|-
+literal|1
 expr_stmt|;
 name|versions
 operator|=
@@ -3188,7 +3248,7 @@ literal|"Usage: verifyrep [--starttime=X]"
 operator|+
 literal|" [--endtime=Y] [--families=A] [--row-prefixes=B] [--delimiter=] [--recomparesleep=] "
 operator|+
-literal|"[--verbose]<peerid><tablename>"
+literal|"[--batch=] [--verbose]<peerid><tablename>"
 argument_list|)
 expr_stmt|;
 name|System
@@ -3241,6 +3301,17 @@ operator|.
 name|println
 argument_list|(
 literal|" versions     number of cell versions to verify"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|" batch        batch count for scan, "
+operator|+
+literal|"note that result row counts will no longer be actual number of rows when you use this option"
 argument_list|)
 expr_stmt|;
 name|System
