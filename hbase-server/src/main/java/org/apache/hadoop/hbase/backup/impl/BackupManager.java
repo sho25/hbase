@@ -2075,7 +2075,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Saves list of WAL files after incremental backup operation. These files will be stored until    * TTL expiration and are used by Backup Log Cleaner plugin to determine which WAL files can be    * safely purged.    */
+comment|/**    * Saves list of WAL files after incremental backup operation. These files will be stored until    * TTL expiration and are used by Backup Log Cleaner plug-in to determine which WAL files can be    * safely purged.    */
 specifier|public
 name|void
 name|recordWALFiles

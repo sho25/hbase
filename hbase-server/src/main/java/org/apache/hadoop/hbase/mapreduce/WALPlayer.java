@@ -542,7 +542,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A tool to replay WAL files as a M/R job.  * The WAL can be replayed for a set of tables or all tables,  * and a timerange can be provided (in milliseconds).  * The WAL is filtered to the passed set of tables and  the output  * can optionally be mapped to another set of tables.  *  * WAL replay can also generate HFiles for later bulk importing,  * in that case the WAL is replayed for a single table only.  */
+comment|/**  * A tool to replay WAL files as a M/R job.  * The WAL can be replayed for a set of tables or all tables,  * and a time range can be provided (in milliseconds).  * The WAL is filtered to the passed set of tables and  the output  * can optionally be mapped to another set of tables.  *  * WAL replay can also generate HFiles for later bulk importing,  * in that case the WAL is replayed for a single table only.  */
 end_comment
 
 begin_class
@@ -607,6 +607,22 @@ name|String
 name|TABLE_MAP_KEY
 init|=
 literal|"wal.input.tablesmap"
+decl_stmt|;
+specifier|public
+specifier|final
+specifier|static
+name|String
+name|INPUT_FILES_SEPARATOR_KEY
+init|=
+literal|"wal.input.separator"
+decl_stmt|;
+specifier|public
+specifier|final
+specifier|static
+name|String
+name|IGNORE_MISSING_FILES
+init|=
+literal|"wal.input.ignore.missing.files"
 decl_stmt|;
 comment|// This relies on Hadoop Configuration to handle warning about deprecated configs and
 comment|// to set the correct non-deprecated configs when an old one shows up.
@@ -1610,6 +1626,17 @@ argument_list|,
 name|tableMap
 argument_list|)
 expr_stmt|;
+name|conf
+operator|.
+name|set
+argument_list|(
+name|FileInputFormat
+operator|.
+name|INPUT_DIR
+argument_list|,
+name|inputDirs
+argument_list|)
+expr_stmt|;
 name|Job
 name|job
 init|=
@@ -1643,15 +1670,6 @@ argument_list|(
 name|WALPlayer
 operator|.
 name|class
-argument_list|)
-expr_stmt|;
-name|FileInputFormat
-operator|.
-name|addInputPaths
-argument_list|(
-name|job
-argument_list|,
-name|inputDirs
 argument_list|)
 expr_stmt|;
 name|job

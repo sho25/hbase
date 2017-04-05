@@ -1983,15 +1983,6 @@ argument_list|,
 name|conf
 argument_list|)
 expr_stmt|;
-comment|// after major steps done and manifest persisted, do convert if needed for incremental backup
-comment|/* in-fly convert code here, provided by future jira */
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"in-fly convert code here, provided by future jira"
-argument_list|)
-expr_stmt|;
 comment|// compose the backup complete data
 name|String
 name|backupCompleteData

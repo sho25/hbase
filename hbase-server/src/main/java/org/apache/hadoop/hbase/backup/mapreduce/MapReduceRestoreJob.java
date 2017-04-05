@@ -320,11 +320,6 @@ block|{
 name|String
 name|bulkOutputConfKey
 decl_stmt|;
-if|if
-condition|(
-name|fullBackupRestore
-condition|)
-block|{
 name|player
 operator|=
 operator|new
@@ -337,22 +332,6 @@ name|HFileSplitterJob
 operator|.
 name|BULK_OUTPUT_CONF_KEY
 expr_stmt|;
-block|}
-else|else
-block|{
-name|player
-operator|=
-operator|new
-name|WALPlayer
-argument_list|()
-expr_stmt|;
-name|bulkOutputConfKey
-operator|=
-name|WALPlayer
-operator|.
-name|BULK_OUTPUT_CONF_KEY
-expr_stmt|;
-block|}
 comment|// Player reads all files in arbitrary directory structure and creates
 comment|// a Map task for each file
 name|String
@@ -496,6 +475,16 @@ init|=
 block|{
 name|dirs
 block|,
+name|fullBackupRestore
+operator|?
+name|newTableNames
+index|[
+name|i
+index|]
+operator|.
+name|getNameAsString
+argument_list|()
+operator|:
 name|tableNames
 index|[
 name|i
