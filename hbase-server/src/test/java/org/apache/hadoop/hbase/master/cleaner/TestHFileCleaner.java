@@ -1875,7 +1875,7 @@ literal|1024
 decl_stmt|;
 specifier|final
 name|int
-name|ORIGINAL_QUEUE_SIZE
+name|ORIGINAL_QUEUE_INIT_SIZE
 init|=
 literal|512
 decl_stmt|;
@@ -1888,7 +1888,7 @@ decl_stmt|;
 comment|// small enough to change large/small check
 specifier|final
 name|int
-name|UPDATE_QUEUE_SIZE
+name|UPDATE_QUEUE_INIT_SIZE
 init|=
 literal|1024
 decl_stmt|;
@@ -1941,9 +1941,9 @@ name|setInt
 argument_list|(
 name|HFileCleaner
 operator|.
-name|LARGE_HFILE_DELETE_QUEUE_SIZE
+name|LARGE_HFILE_QUEUE_INIT_SIZE
 argument_list|,
-name|ORIGINAL_QUEUE_SIZE
+name|ORIGINAL_QUEUE_INIT_SIZE
 argument_list|)
 expr_stmt|;
 name|conf
@@ -1952,9 +1952,9 @@ name|setInt
 argument_list|(
 name|HFileCleaner
 operator|.
-name|SMALL_HFILE_DELETE_QUEUE_SIZE
+name|SMALL_HFILE_QUEUE_INIT_SIZE
 argument_list|,
-name|ORIGINAL_QUEUE_SIZE
+name|ORIGINAL_QUEUE_INIT_SIZE
 argument_list|)
 expr_stmt|;
 name|Server
@@ -2026,11 +2026,11 @@ name|Assert
 operator|.
 name|assertEquals
 argument_list|(
-name|ORIGINAL_QUEUE_SIZE
+name|ORIGINAL_QUEUE_INIT_SIZE
 argument_list|,
 name|cleaner
 operator|.
-name|getLargeQueueSize
+name|getLargeQueueInitSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2038,11 +2038,11 @@ name|Assert
 operator|.
 name|assertEquals
 argument_list|(
-name|ORIGINAL_QUEUE_SIZE
+name|ORIGINAL_QUEUE_INIT_SIZE
 argument_list|,
 name|cleaner
 operator|.
-name|getSmallQueueSize
+name|getSmallQueueInitSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2109,14 +2109,23 @@ operator|.
 name|start
 argument_list|()
 expr_stmt|;
-comment|// let the cleaner run for some while
+comment|// wait until file clean started
+while|while
+condition|(
+name|cleaner
+operator|.
+name|getNumOfDeletedSmallFiles
+argument_list|()
+operator|==
+literal|0
+condition|)
+block|{
 name|Thread
 operator|.
-name|sleep
-argument_list|(
-literal|20
-argument_list|)
+name|yield
+argument_list|()
 expr_stmt|;
+block|}
 comment|// trigger configuration change
 name|Configuration
 name|newConf
@@ -2144,9 +2153,9 @@ name|setInt
 argument_list|(
 name|HFileCleaner
 operator|.
-name|LARGE_HFILE_DELETE_QUEUE_SIZE
+name|LARGE_HFILE_QUEUE_INIT_SIZE
 argument_list|,
-name|UPDATE_QUEUE_SIZE
+name|UPDATE_QUEUE_INIT_SIZE
 argument_list|)
 expr_stmt|;
 name|newConf
@@ -2155,16 +2164,9 @@ name|setInt
 argument_list|(
 name|HFileCleaner
 operator|.
-name|SMALL_HFILE_DELETE_QUEUE_SIZE
+name|SMALL_HFILE_QUEUE_INIT_SIZE
 argument_list|,
-name|UPDATE_QUEUE_SIZE
-argument_list|)
-expr_stmt|;
-name|cleaner
-operator|.
-name|onConfigurationChange
-argument_list|(
-name|newConf
+name|UPDATE_QUEUE_INIT_SIZE
 argument_list|)
 expr_stmt|;
 name|LOG
@@ -2186,6 +2188,13 @@ name|getNumOfDeletedSmallFiles
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|cleaner
+operator|.
+name|onConfigurationChange
+argument_list|(
+name|newConf
+argument_list|)
+expr_stmt|;
 comment|// check values after change
 name|Assert
 operator|.
@@ -2203,11 +2212,11 @@ name|Assert
 operator|.
 name|assertEquals
 argument_list|(
-name|UPDATE_QUEUE_SIZE
+name|UPDATE_QUEUE_INIT_SIZE
 argument_list|,
 name|cleaner
 operator|.
-name|getLargeQueueSize
+name|getLargeQueueInitSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2215,11 +2224,11 @@ name|Assert
 operator|.
 name|assertEquals
 argument_list|(
-name|UPDATE_QUEUE_SIZE
+name|UPDATE_QUEUE_INIT_SIZE
 argument_list|,
 name|cleaner
 operator|.
-name|getSmallQueueSize
+name|getSmallQueueInitSize
 argument_list|()
 argument_list|)
 expr_stmt|;

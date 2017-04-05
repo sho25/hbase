@@ -198,6 +198,9 @@ argument_list|>
 name|stealJobQueue
 decl_stmt|;
 name|BlockingQueue
+argument_list|<
+name|Integer
+argument_list|>
 name|stealFromQueue
 decl_stmt|;
 annotation|@
