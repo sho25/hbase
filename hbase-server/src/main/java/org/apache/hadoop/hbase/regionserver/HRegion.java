@@ -33447,6 +33447,16 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|writeRequestsCount
+operator|.
+name|add
+argument_list|(
+name|mutations
+operator|.
+name|size
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|MultiRowMutationProcessor
 name|proc
 init|=
