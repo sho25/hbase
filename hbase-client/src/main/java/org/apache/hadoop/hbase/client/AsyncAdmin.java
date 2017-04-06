@@ -256,14 +256,14 @@ import|;
 end_import
 
 begin_comment
-comment|/**  *  The asynchronous administrative API for HBase.  */
+comment|/**  * The asynchronous administrative API for HBase.  *<p>  * This feature is still under development, so marked as IA.Private. Will change to public when  * done. Use it with caution.  */
 end_comment
 
 begin_interface
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Public
+name|Private
 specifier|public
 interface|interface
 name|AsyncAdmin
