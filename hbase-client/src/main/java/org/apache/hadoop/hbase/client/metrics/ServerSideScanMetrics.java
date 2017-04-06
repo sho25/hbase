@@ -159,6 +159,24 @@ name|COUNT_OF_ROWS_FILTERED_KEY_METRIC_NAME
 init|=
 literal|"ROWS_FILTERED"
 decl_stmt|;
+comment|/** @deprecated Use {@link #COUNT_OF_ROWS_SCANNED_KEY_METRIC_NAME} instead */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|COUNT_OF_ROWS_SCANNED_KEY
+init|=
+name|COUNT_OF_ROWS_SCANNED_KEY_METRIC_NAME
+decl_stmt|;
+comment|/** @deprecated Use {@link #COUNT_OF_ROWS_FILTERED_KEY_METRIC_NAME} instead */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|COUNT_OF_ROWS_FILTERED_KEY
+init|=
+name|COUNT_OF_ROWS_FILTERED_KEY_METRIC_NAME
+decl_stmt|;
 comment|/**    * number of rows filtered during scan RPC    */
 specifier|public
 specifier|final
