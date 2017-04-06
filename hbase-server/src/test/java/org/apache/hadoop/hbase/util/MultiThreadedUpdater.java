@@ -1252,7 +1252,12 @@ name|error
 argument_list|(
 literal|"Failed to update the row with key = ["
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|rowKey
+argument_list|)
 operator|+
 literal|"], since we could not get the original row"
 argument_list|)

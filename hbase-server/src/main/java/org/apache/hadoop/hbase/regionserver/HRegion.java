@@ -7297,11 +7297,7 @@ name|debug
 argument_list|(
 literal|"Region "
 operator|+
-name|getRegionInfo
-argument_list|()
-operator|.
-name|getRegionNameAsString
-argument_list|()
+name|this
 operator|+
 literal|" is not mergeable because it is closing or closed"
 argument_list|)
@@ -7322,11 +7318,7 @@ name|debug
 argument_list|(
 literal|"Region "
 operator|+
-name|getRegionInfo
-argument_list|()
-operator|.
-name|getRegionNameAsString
-argument_list|()
+name|this
 operator|+
 literal|" is not mergeable because it has references"
 argument_list|)
@@ -7824,11 +7816,7 @@ name|info
 argument_list|(
 literal|"Running close preflush of "
 operator|+
-name|getRegionInfo
-argument_list|()
-operator|.
-name|getRegionNameAsString
-argument_list|()
+name|this
 argument_list|)
 expr_stmt|;
 try|try

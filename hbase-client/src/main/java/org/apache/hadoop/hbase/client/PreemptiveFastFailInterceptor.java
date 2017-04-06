@@ -1174,9 +1174,6 @@ argument_list|(
 literal|"Clearing out PFFE for server "
 operator|+
 name|server
-operator|.
-name|getServerName
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|repeatedFailuresMap
