@@ -2474,7 +2474,7 @@ expr_stmt|;
 block|}
 specifier|public
 name|void
-name|setFinishedState
+name|setSuccessState
 parameter_list|()
 block|{
 name|setState

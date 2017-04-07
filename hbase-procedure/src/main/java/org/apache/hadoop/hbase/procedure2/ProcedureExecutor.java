@@ -6247,16 +6247,11 @@ argument_list|()
 expr_stmt|;
 return|return;
 block|}
-comment|// if the store is not running we are aborting
-if|if
-condition|(
-operator|!
-name|store
-operator|.
-name|isRunning
-argument_list|()
-condition|)
-return|return;
+comment|// TODO: The code here doesn't check if store is running before persisting to the store as
+comment|// it relies on the method call below to throw RuntimeException to wind up the stack and
+comment|// executor thread to stop. The statement following the method call below seems to check if
+comment|// store is not running, to prevent scheduling children procedures, re-execution or yield
+comment|// of this procedure. This may need more scrutiny and subsequent cleanup in future
 comment|// Commit the transaction
 name|updateStoreOnExec
 argument_list|(
@@ -6267,6 +6262,16 @@ argument_list|,
 name|subprocs
 argument_list|)
 expr_stmt|;
+comment|// if the store is not running we are aborting
+if|if
+condition|(
+operator|!
+name|store
+operator|.
+name|isRunning
+argument_list|()
+condition|)
+return|return;
 comment|// if the procedure is kind enough to pass the slot to someone else, yield
 if|if
 condition|(

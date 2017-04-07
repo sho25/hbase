@@ -107,16 +107,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|List
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|Set
 import|;
 end_import
@@ -5276,7 +5266,7 @@ argument_list|)
 expr_stmt|;
 name|a
 operator|.
-name|setFinishedState
+name|setSuccessState
 argument_list|()
 expr_stmt|;
 name|procStore
