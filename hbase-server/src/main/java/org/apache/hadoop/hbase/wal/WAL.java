@@ -574,13 +574,6 @@ name|CompressionContext
 name|compressionContext
 parameter_list|)
 block|{
-name|edit
-operator|.
-name|setCompressionContext
-argument_list|(
-name|compressionContext
-argument_list|)
-expr_stmt|;
 name|key
 operator|.
 name|setCompressionContext
