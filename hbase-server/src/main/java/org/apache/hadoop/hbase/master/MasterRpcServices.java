@@ -9042,11 +9042,11 @@ argument_list|)
 expr_stmt|;
 name|builder
 operator|.
-name|setStartTime
+name|setSubmittedTime
 argument_list|(
 name|result
 operator|.
-name|getStartTime
+name|getSubmittedTime
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -9166,11 +9166,11 @@ argument_list|)
 expr_stmt|;
 name|builder
 operator|.
-name|setStartTime
+name|setSubmittedTime
 argument_list|(
 name|proc
 operator|.
-name|getStartTime
+name|getSubmittedTime
 argument_list|()
 argument_list|)
 expr_stmt|;

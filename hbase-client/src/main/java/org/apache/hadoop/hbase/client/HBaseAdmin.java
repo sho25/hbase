@@ -13270,7 +13270,7 @@ argument_list|()
 argument_list|,
 name|procProto
 operator|.
-name|getStartTime
+name|getSubmittedTime
 argument_list|()
 argument_list|,
 name|procProto

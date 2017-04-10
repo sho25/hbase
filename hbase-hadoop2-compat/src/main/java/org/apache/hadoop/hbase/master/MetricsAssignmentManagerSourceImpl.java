@@ -173,7 +173,7 @@ name|newGauge
 argument_list|(
 name|RIT_COUNT_NAME
 argument_list|,
-literal|""
+name|RIT_COUNT_DESC
 argument_list|,
 literal|0l
 argument_list|)
@@ -186,7 +186,7 @@ name|newGauge
 argument_list|(
 name|RIT_COUNT_OVER_THRESHOLD_NAME
 argument_list|,
-literal|""
+name|RIT_COUNT_OVER_THRESHOLD_DESC
 argument_list|,
 literal|0l
 argument_list|)
@@ -199,7 +199,7 @@ name|newGauge
 argument_list|(
 name|RIT_OLDEST_AGE_NAME
 argument_list|,
-literal|""
+name|RIT_OLDEST_AGE_DESC
 argument_list|,
 literal|0l
 argument_list|)
@@ -229,6 +229,8 @@ operator|.
 name|newTimeHistogram
 argument_list|(
 name|RIT_DURATION_NAME
+argument_list|,
+name|RIT_DURATION_DESC
 argument_list|)
 expr_stmt|;
 block|}

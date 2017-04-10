@@ -64,7 +64,7 @@ comment|/**    * Description    */
 name|String
 name|METRICS_DESCRIPTION
 init|=
-literal|"Metrics about HBase master assingment manager."
+literal|"Metrics about HBase master assignment manager."
 decl_stmt|;
 name|String
 name|RIT_COUNT_NAME
@@ -95,6 +95,26 @@ name|String
 name|BULK_ASSIGN_TIME_NAME
 init|=
 literal|"bulkAssign"
+decl_stmt|;
+name|String
+name|RIT_COUNT_DESC
+init|=
+literal|"Current number of Regions In Transition (Gauge)."
+decl_stmt|;
+name|String
+name|RIT_COUNT_OVER_THRESHOLD_DESC
+init|=
+literal|"Current number of Regions In Transition over threshold time (Gauge)."
+decl_stmt|;
+name|String
+name|RIT_OLDEST_AGE_DESC
+init|=
+literal|"Timestamp in milliseconds of the oldest Region In Transition (Gauge)."
+decl_stmt|;
+name|String
+name|RIT_DURATION_DESC
+init|=
+literal|"Total durations in milliseconds for all Regions in Transition (Histogram)."
 decl_stmt|;
 name|void
 name|updateAssignmentTime

@@ -3953,6 +3953,15 @@ operator|.
 name|getProcId
 argument_list|()
 decl_stmt|;
+comment|// Update metrics on start of a procedure
+name|proc
+operator|.
+name|updateMetricsOnSubmit
+argument_list|(
+name|getEnvironment
+argument_list|()
+argument_list|)
+expr_stmt|;
 comment|// Create the rollback stack for the procedure
 name|RootProcedureState
 name|stack
@@ -5232,6 +5241,22 @@ name|isSuccess
 argument_list|()
 condition|)
 block|{
+comment|// update metrics on finishing the procedure
+name|proc
+operator|.
+name|updateMetricsOnFinish
+argument_list|(
+name|getEnvironment
+argument_list|()
+argument_list|,
+name|proc
+operator|.
+name|elapsedTime
+argument_list|()
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|LOG
@@ -5823,6 +5848,22 @@ argument_list|(
 name|ProcedureState
 operator|.
 name|ROLLEDBACK
+argument_list|)
+expr_stmt|;
+comment|// update metrics on finishing the procedure (fail)
+name|proc
+operator|.
+name|updateMetricsOnFinish
+argument_list|(
+name|getEnvironment
+argument_list|()
+argument_list|,
+name|proc
+operator|.
+name|elapsedTime
+argument_list|()
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 if|if
@@ -6599,6 +6640,14 @@ index|[
 name|i
 index|]
 decl_stmt|;
+name|subproc
+operator|.
+name|updateMetricsOnSubmit
+argument_list|(
+name|getEnvironment
+argument_list|()
+argument_list|)
+expr_stmt|;
 assert|assert
 operator|!
 name|procedures

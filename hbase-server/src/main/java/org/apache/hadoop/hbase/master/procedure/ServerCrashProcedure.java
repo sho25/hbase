@@ -775,7 +775,7 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 argument_list|,
-name|getStartTime
+name|getSubmittedTime
 argument_list|()
 argument_list|)
 decl_stmt|;

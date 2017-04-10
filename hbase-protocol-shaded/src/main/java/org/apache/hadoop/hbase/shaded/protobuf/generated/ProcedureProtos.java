@@ -725,14 +725,14 @@ name|long
 name|getProcId
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required uint64 start_time = 4;</code>      */
+comment|/**      *<code>required uint64 submitted_time = 4;</code>      */
 name|boolean
-name|hasStartTime
+name|hasSubmittedTime
 parameter_list|()
 function_decl|;
-comment|/**      *<code>required uint64 start_time = 4;</code>      */
+comment|/**      *<code>required uint64 submitted_time = 4;</code>      */
 name|long
-name|getStartTime
+name|getSubmittedTime
 parameter_list|()
 function_decl|;
 comment|/**      *<code>optional string owner = 5;</code>      */
@@ -1044,7 +1044,7 @@ name|procId_
 operator|=
 literal|0L
 expr_stmt|;
-name|startTime_
+name|submittedTime_
 operator|=
 literal|0L
 expr_stmt|;
@@ -1410,7 +1410,7 @@ name|bitField0_
 operator||=
 literal|0x00000008
 expr_stmt|;
-name|startTime_
+name|submittedTime_
 operator|=
 name|input
 operator|.
@@ -2505,18 +2505,18 @@ specifier|public
 specifier|static
 specifier|final
 name|int
-name|START_TIME_FIELD_NUMBER
+name|SUBMITTED_TIME_FIELD_NUMBER
 init|=
 literal|4
 decl_stmt|;
 specifier|private
 name|long
-name|startTime_
+name|submittedTime_
 decl_stmt|;
-comment|/**      *<code>required uint64 start_time = 4;</code>      */
+comment|/**      *<code>required uint64 submitted_time = 4;</code>      */
 specifier|public
 name|boolean
-name|hasStartTime
+name|hasSubmittedTime
 parameter_list|()
 block|{
 return|return
@@ -2531,14 +2531,14 @@ literal|0x00000008
 operator|)
 return|;
 block|}
-comment|/**      *<code>required uint64 start_time = 4;</code>      */
+comment|/**      *<code>required uint64 submitted_time = 4;</code>      */
 specifier|public
 name|long
-name|getStartTime
+name|getSubmittedTime
 parameter_list|()
 block|{
 return|return
-name|startTime_
+name|submittedTime_
 return|;
 block|}
 specifier|public
@@ -3532,7 +3532,7 @@ block|}
 if|if
 condition|(
 operator|!
-name|hasStartTime
+name|hasSubmittedTime
 argument_list|()
 condition|)
 block|{
@@ -3718,7 +3718,7 @@ name|writeUInt64
 argument_list|(
 literal|4
 argument_list|,
-name|startTime_
+name|submittedTime_
 argument_list|)
 expr_stmt|;
 block|}
@@ -4173,7 +4173,7 @@ name|computeUInt64Size
 argument_list|(
 literal|4
 argument_list|,
-name|startTime_
+name|submittedTime_
 argument_list|)
 expr_stmt|;
 block|}
@@ -4861,18 +4861,18 @@ operator|=
 name|result
 operator|&&
 operator|(
-name|hasStartTime
+name|hasSubmittedTime
 argument_list|()
 operator|==
 name|other
 operator|.
-name|hasStartTime
+name|hasSubmittedTime
 argument_list|()
 operator|)
 expr_stmt|;
 if|if
 condition|(
-name|hasStartTime
+name|hasSubmittedTime
 argument_list|()
 condition|)
 block|{
@@ -4881,12 +4881,12 @@ operator|=
 name|result
 operator|&&
 operator|(
-name|getStartTime
+name|getSubmittedTime
 argument_list|()
 operator|==
 name|other
 operator|.
-name|getStartTime
+name|getSubmittedTime
 argument_list|()
 operator|)
 expr_stmt|;
@@ -5410,7 +5410,7 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-name|hasStartTime
+name|hasSubmittedTime
 argument_list|()
 condition|)
 block|{
@@ -5422,7 +5422,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|START_TIME_FIELD_NUMBER
+name|SUBMITTED_TIME_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -5452,7 +5452,7 @@ name|Internal
 operator|.
 name|hashLong
 argument_list|(
-name|getStartTime
+name|getSubmittedTime
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -7016,7 +7016,7 @@ operator|~
 literal|0x00000004
 operator|)
 expr_stmt|;
-name|startTime_
+name|submittedTime_
 operator|=
 literal|0L
 expr_stmt|;
@@ -7536,9 +7536,9 @@ expr_stmt|;
 block|}
 name|result
 operator|.
-name|startTime_
+name|submittedTime_
 operator|=
-name|startTime_
+name|submittedTime_
 expr_stmt|;
 if|if
 condition|(
@@ -8255,15 +8255,15 @@ if|if
 condition|(
 name|other
 operator|.
-name|hasStartTime
+name|hasSubmittedTime
 argument_list|()
 condition|)
 block|{
-name|setStartTime
+name|setSubmittedTime
 argument_list|(
 name|other
 operator|.
-name|getStartTime
+name|getSubmittedTime
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -8527,7 +8527,7 @@ block|}
 if|if
 condition|(
 operator|!
-name|hasStartTime
+name|hasSubmittedTime
 argument_list|()
 condition|)
 block|{
@@ -9279,12 +9279,12 @@ return|;
 block|}
 specifier|private
 name|long
-name|startTime_
+name|submittedTime_
 decl_stmt|;
-comment|/**        *<code>required uint64 start_time = 4;</code>        */
+comment|/**        *<code>required uint64 submitted_time = 4;</code>        */
 specifier|public
 name|boolean
-name|hasStartTime
+name|hasSubmittedTime
 parameter_list|()
 block|{
 return|return
@@ -9299,20 +9299,20 @@ literal|0x00000008
 operator|)
 return|;
 block|}
-comment|/**        *<code>required uint64 start_time = 4;</code>        */
+comment|/**        *<code>required uint64 submitted_time = 4;</code>        */
 specifier|public
 name|long
-name|getStartTime
+name|getSubmittedTime
 parameter_list|()
 block|{
 return|return
-name|startTime_
+name|submittedTime_
 return|;
 block|}
-comment|/**        *<code>required uint64 start_time = 4;</code>        */
+comment|/**        *<code>required uint64 submitted_time = 4;</code>        */
 specifier|public
 name|Builder
-name|setStartTime
+name|setSubmittedTime
 parameter_list|(
 name|long
 name|value
@@ -9322,7 +9322,7 @@ name|bitField0_
 operator||=
 literal|0x00000008
 expr_stmt|;
-name|startTime_
+name|submittedTime_
 operator|=
 name|value
 expr_stmt|;
@@ -9333,10 +9333,10 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>required uint64 start_time = 4;</code>        */
+comment|/**        *<code>required uint64 submitted_time = 4;</code>        */
 specifier|public
 name|Builder
-name|clearStartTime
+name|clearSubmittedTime
 parameter_list|()
 block|{
 name|bitField0_
@@ -9348,7 +9348,7 @@ operator|~
 literal|0x00000008
 operator|)
 expr_stmt|;
-name|startTime_
+name|submittedTime_
 operator|=
 literal|0L
 expr_stmt|;
@@ -46971,69 +46971,69 @@ init|=
 block|{
 literal|"\n\017Procedure.proto\022\010hbase.pb\032\023ErrorHandli"
 operator|+
-literal|"ng.proto\"\313\002\n\tProcedure\022\022\n\nclass_name\030\001 \002"
+literal|"ng.proto\"\317\002\n\tProcedure\022\022\n\nclass_name\030\001 \002"
 operator|+
-literal|"(\t\022\021\n\tparent_id\030\002 \001(\004\022\017\n\007proc_id\030\003 \002(\004\022\022"
+literal|"(\t\022\021\n\tparent_id\030\002 \001(\004\022\017\n\007proc_id\030\003 \002(\004\022\026"
 operator|+
-literal|"\n\nstart_time\030\004 \002(\004\022\r\n\005owner\030\005 \001(\t\022\'\n\005sta"
+literal|"\n\016submitted_time\030\004 \002(\004\022\r\n\005owner\030\005 \001(\t\022\'\n"
 operator|+
-literal|"te\030\006 \002(\0162\030.hbase.pb.ProcedureState\022\020\n\010st"
+literal|"\005state\030\006 \002(\0162\030.hbase.pb.ProcedureState\022\020"
 operator|+
-literal|"ack_id\030\007 \003(\r\022\023\n\013last_update\030\010 \002(\004\022\017\n\007tim"
+literal|"\n\010stack_id\030\007 \003(\r\022\023\n\013last_update\030\010 \002(\004\022\017\n"
 operator|+
-literal|"eout\030\t \001(\r\0224\n\texception\030\n \001(\0132!.hbase.pb"
+literal|"\007timeout\030\t \001(\r\0224\n\texception\030\n \001(\0132!.hbas"
 operator|+
-literal|".ForeignExceptionMessage\022\016\n\006result\030\013 \001(\014"
+literal|"e.pb.ForeignExceptionMessage\022\016\n\006result\030\013"
 operator|+
-literal|"\022\022\n\nstate_data\030\014 \001(\014\022\026\n\013nonce_group\030\r \001("
+literal|" \001(\014\022\022\n\nstate_data\030\014 \001(\014\022\026\n\013nonce_group\030"
 operator|+
-literal|"\004:\0010\022\020\n\005nonce\030\016 \001(\004:\0010\"+\n\027SequentialProc"
+literal|"\r \001(\004:\0010\022\020\n\005nonce\030\016 \001(\004:\0010\"+\n\027Sequential"
 block|,
-literal|"edureData\022\020\n\010executed\030\001 \002(\010\"*\n\031StateMach"
+literal|"ProcedureData\022\020\n\010executed\030\001 \002(\010\"*\n\031State"
 operator|+
-literal|"ineProcedureData\022\r\n\005state\030\001 \003(\r\"X\n\022Proce"
+literal|"MachineProcedureData\022\r\n\005state\030\001 \003(\r\"X\n\022P"
 operator|+
-literal|"dureWALHeader\022\017\n\007version\030\001 \002(\r\022\014\n\004type\030\002"
+literal|"rocedureWALHeader\022\017\n\007version\030\001 \002(\r\022\014\n\004ty"
 operator|+
-literal|" \002(\r\022\016\n\006log_id\030\003 \002(\004\022\023\n\013min_proc_id\030\004 \002("
+literal|"pe\030\002 \002(\r\022\016\n\006log_id\030\003 \002(\004\022\023\n\013min_proc_id\030"
 operator|+
-literal|"\004\";\n\023ProcedureWALTrailer\022\017\n\007version\030\001 \002("
+literal|"\004 \002(\004\";\n\023ProcedureWALTrailer\022\017\n\007version\030"
 operator|+
-literal|"\r\022\023\n\013tracker_pos\030\002 \002(\004\"\225\001\n\025ProcedureStor"
+literal|"\001 \002(\r\022\023\n\013tracker_pos\030\002 \002(\004\"\225\001\n\025Procedure"
 operator|+
-literal|"eTracker\0229\n\004node\030\001 \003(\0132+.hbase.pb.Proced"
+literal|"StoreTracker\0229\n\004node\030\001 \003(\0132+.hbase.pb.Pr"
 operator|+
-literal|"ureStoreTracker.TrackerNode\032A\n\013TrackerNo"
+literal|"ocedureStoreTracker.TrackerNode\032A\n\013Track"
 operator|+
-literal|"de\022\020\n\010start_id\030\001 \002(\004\022\017\n\007updated\030\002 \003(\004\022\017\n"
+literal|"erNode\022\020\n\010start_id\030\001 \002(\004\022\017\n\007updated\030\002 \003("
 operator|+
-literal|"\007deleted\030\003 \003(\004\"\257\002\n\021ProcedureWALEntry\022.\n\004"
+literal|"\004\022\017\n\007deleted\030\003 \003(\004\"\257\002\n\021ProcedureWALEntry"
 block|,
-literal|"type\030\001 \002(\0162 .hbase.pb.ProcedureWALEntry."
+literal|"\022.\n\004type\030\001 \002(\0162 .hbase.pb.ProcedureWALEn"
 operator|+
-literal|"Type\022&\n\tprocedure\030\002 \003(\0132\023.hbase.pb.Proce"
+literal|"try.Type\022&\n\tprocedure\030\002 \003(\0132\023.hbase.pb.P"
 operator|+
-literal|"dure\022\017\n\007proc_id\030\003 \001(\004\022\020\n\010child_id\030\004 \003(\004\""
+literal|"rocedure\022\017\n\007proc_id\030\003 \001(\004\022\020\n\010child_id\030\004 "
 operator|+
-literal|"\236\001\n\004Type\022\025\n\021PROCEDURE_WAL_EOF\020\001\022\026\n\022PROCE"
+literal|"\003(\004\"\236\001\n\004Type\022\025\n\021PROCEDURE_WAL_EOF\020\001\022\026\n\022P"
 operator|+
-literal|"DURE_WAL_INIT\020\002\022\030\n\024PROCEDURE_WAL_INSERT\020"
+literal|"ROCEDURE_WAL_INIT\020\002\022\030\n\024PROCEDURE_WAL_INS"
 operator|+
-literal|"\003\022\030\n\024PROCEDURE_WAL_UPDATE\020\004\022\030\n\024PROCEDURE"
+literal|"ERT\020\003\022\030\n\024PROCEDURE_WAL_UPDATE\020\004\022\030\n\024PROCE"
 operator|+
-literal|"_WAL_DELETE\020\005\022\031\n\025PROCEDURE_WAL_COMPACT\020\006"
+literal|"DURE_WAL_DELETE\020\005\022\031\n\025PROCEDURE_WAL_COMPA"
 operator|+
-literal|"*{\n\016ProcedureState\022\020\n\014INITIALIZING\020\001\022\014\n\010"
+literal|"CT\020\006*{\n\016ProcedureState\022\020\n\014INITIALIZING\020\001"
 operator|+
-literal|"RUNNABLE\020\002\022\013\n\007WAITING\020\003\022\023\n\017WAITING_TIMEO"
+literal|"\022\014\n\010RUNNABLE\020\002\022\013\n\007WAITING\020\003\022\023\n\017WAITING_T"
 operator|+
-literal|"UT\020\004\022\016\n\nROLLEDBACK\020\005\022\013\n\007SUCCESS\020\006\022\n\n\006FAI"
+literal|"IMEOUT\020\004\022\016\n\nROLLEDBACK\020\005\022\013\n\007SUCCESS\020\006\022\n\n"
 block|,
-literal|"LED\020\007BL\n1org.apache.hadoop.hbase.shaded."
+literal|"\006FAILED\020\007BL\n1org.apache.hadoop.hbase.sha"
 operator|+
-literal|"protobuf.generatedB\017ProcedureProtosH\001\210\001\001"
+literal|"ded.protobuf.generatedB\017ProcedureProtosH"
 operator|+
-literal|"\240\001\001"
+literal|"\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|org
@@ -47256,7 +47256,7 @@ literal|"ParentId"
 block|,
 literal|"ProcId"
 block|,
-literal|"StartTime"
+literal|"SubmittedTime"
 block|,
 literal|"Owner"
 block|,

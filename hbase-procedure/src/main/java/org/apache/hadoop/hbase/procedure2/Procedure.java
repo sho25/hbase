@@ -228,7 +228,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Base Procedure class responsible to handle the Procedure Metadata  * e.g. state, startTime, lastUpdate, stack-indexes, ...  *  * execute() is called each time the procedure is executed.  * it may be called multiple times in case of failure and restart, so the  * code must be idempotent.  * the return is a set of sub-procedures or null in case the procedure doesn't  * have sub-procedures. Once the sub-procedures are successfully completed  * the execute() method is called again, you should think at it as a stack:  *  -&gt; step 1  *  ---&gt; step 2  *  -&gt; step 1  *  * rollback() is called when the procedure or one of the sub-procedures is failed.  * the rollback step is supposed to cleanup the resources created during the  * execute() step. in case of failure and restart rollback() may be called  * multiple times, so the code must be idempotent.  */
+comment|/**  * Base Procedure class responsible to handle the Procedure Metadata  * e.g. state, submittedTime, lastUpdate, stack-indexes, ...  *  * execute() is called each time the procedure is executed.  * it may be called multiple times in case of failure and restart, so the  * code must be idempotent.  * the return is a set of sub-procedures or null in case the procedure doesn't  * have sub-procedures. Once the sub-procedures are successfully completed  * the execute() method is called again, you should think at it as a stack:  *  -&gt; step 1  *  ---&gt; step 2  *  -&gt; step 1  *  * rollback() is called when the procedure or one of the sub-procedures is failed.  * the rollback step is supposed to cleanup the resources created during the  * execute() step. in case of failure and restart rollback() may be called  * multiple times, so the code must be idempotent.  */
 end_comment
 
 begin_class
@@ -318,7 +318,7 @@ name|NO_PROC_ID
 decl_stmt|;
 specifier|private
 name|long
-name|startTime
+name|submittedTime
 decl_stmt|;
 comment|// runtime state, updated every operation
 specifier|private
@@ -555,6 +555,33 @@ return|return
 literal|true
 return|;
 block|}
+comment|/**    * This function will be called just when procedure is submitted for execution. Override this    * method to update the metrics at the beginning of the procedure    */
+specifier|protected
+name|void
+name|updateMetricsOnSubmit
+parameter_list|(
+specifier|final
+name|TEnvironment
+name|env
+parameter_list|)
+block|{}
+comment|/**    * This function will be called just after procedure execution is finished. Override this method    * to update metrics at the end of the procedure    *    * TODO: As any of the sub-procedures on failure rolls back all procedures in the stack,    * including successfully finished siblings, this function may get called twice in certain    * cases for certain procedures. Explore further if this can be called once.    *    * @param env    * @param runtime - Runtime of the procedure in milliseconds    * @param success - true if procedure is completed successfully    */
+specifier|protected
+name|void
+name|updateMetricsOnFinish
+parameter_list|(
+specifier|final
+name|TEnvironment
+name|env
+parameter_list|,
+specifier|final
+name|long
+name|runtime
+parameter_list|,
+name|boolean
+name|success
+parameter_list|)
+block|{}
 annotation|@
 name|Override
 specifier|public
@@ -706,14 +733,14 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|" startTime="
+literal|" submittedTime="
 argument_list|)
 expr_stmt|;
 name|sb
 operator|.
 name|append
 argument_list|(
-name|getStartTime
+name|getSubmittedTime
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -900,11 +927,11 @@ return|;
 block|}
 specifier|public
 name|long
-name|getStartTime
+name|getSubmittedTime
 parameter_list|()
 block|{
 return|return
-name|startTime
+name|submittedTime
 return|;
 block|}
 specifier|public
@@ -951,7 +978,7 @@ name|procId
 expr_stmt|;
 name|this
 operator|.
-name|startTime
+name|submittedTime
 operator|=
 name|EnvironmentEdgeManager
 operator|.
@@ -1093,18 +1120,18 @@ operator|.
 name|Private
 specifier|protected
 name|void
-name|setStartTime
+name|setSubmittedTime
 parameter_list|(
 specifier|final
 name|long
-name|startTime
+name|submittedTime
 parameter_list|)
 block|{
 name|this
 operator|.
-name|startTime
+name|submittedTime
 operator|=
-name|startTime
+name|submittedTime
 expr_stmt|;
 block|}
 comment|// ==========================================================================
@@ -1229,7 +1256,7 @@ return|return
 name|getLastUpdate
 argument_list|()
 operator|-
-name|getStartTime
+name|getSubmittedTime
 argument_list|()
 return|;
 block|}

@@ -161,7 +161,7 @@ decl_stmt|;
 specifier|private
 specifier|final
 name|long
-name|startTime
+name|submittedTime
 decl_stmt|;
 specifier|private
 specifier|final
@@ -217,7 +217,7 @@ name|lastUpdate
 parameter_list|,
 specifier|final
 name|long
-name|startTime
+name|submittedTime
 parameter_list|,
 specifier|final
 name|byte
@@ -269,9 +269,9 @@ name|lastUpdate
 expr_stmt|;
 name|this
 operator|.
-name|startTime
+name|submittedTime
 operator|=
-name|startTime
+name|submittedTime
 expr_stmt|;
 comment|// If the procedure is completed, we should treat exception and result differently
 name|this
@@ -333,7 +333,7 @@ name|exception
 argument_list|,
 name|lastUpdate
 argument_list|,
-name|startTime
+name|submittedTime
 argument_list|,
 name|result
 argument_list|)
@@ -449,7 +449,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|", startTime="
+literal|", submittedTime="
 argument_list|)
 expr_stmt|;
 name|sb
@@ -462,7 +462,7 @@ name|formatTime
 argument_list|(
 name|now
 operator|-
-name|startTime
+name|submittedTime
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -483,7 +483,7 @@ name|formatTime
 argument_list|(
 name|now
 operator|-
-name|startTime
+name|submittedTime
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -705,11 +705,11 @@ return|;
 block|}
 specifier|public
 name|long
-name|getStartTime
+name|getSubmittedTime
 parameter_list|()
 block|{
 return|return
-name|startTime
+name|submittedTime
 return|;
 block|}
 specifier|public
@@ -729,7 +729,7 @@ block|{
 return|return
 name|lastUpdate
 operator|-
-name|startTime
+name|submittedTime
 return|;
 block|}
 annotation|@
