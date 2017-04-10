@@ -472,7 +472,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"bbb"
+literal|"aab"
 argument_list|)
 decl_stmt|;
 specifier|private
@@ -486,7 +486,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"ccc"
+literal|"aac"
 argument_list|)
 decl_stmt|;
 specifier|private
@@ -500,7 +500,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"ddd"
+literal|"aad"
 argument_list|)
 decl_stmt|;
 specifier|private
