@@ -143,6 +143,22 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|HStore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|RSRpcServices
 import|;
 end_import
@@ -343,6 +359,52 @@ name|mcTime
 operator|)
 condition|)
 block|{
+name|String
+name|regionInfo
+decl_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|storeConfigInfo
+operator|!=
+literal|null
+operator|&&
+name|this
+operator|.
+name|storeConfigInfo
+operator|instanceof
+name|HStore
+condition|)
+block|{
+name|regionInfo
+operator|=
+operator|(
+operator|(
+name|HStore
+operator|)
+name|this
+operator|.
+name|storeConfigInfo
+operator|)
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getRegionNameAsString
+argument_list|()
+expr_stmt|;
+block|}
+else|else
+block|{
+name|regionInfo
+operator|=
+name|this
+operator|.
+name|toString
+argument_list|()
+expr_stmt|;
+block|}
 comment|// Major compaction time has elapsed.
 name|long
 name|cfTTL
@@ -462,7 +524,7 @@ name|debug
 argument_list|(
 literal|"Major compaction triggered on only store "
 operator|+
-name|this
+name|regionInfo
 operator|+
 literal|"; to make hdfs blocks local, current blockLocalityIndex is "
 operator|+
@@ -491,7 +553,7 @@ name|debug
 argument_list|(
 literal|"Skipping major compaction of "
 operator|+
-name|this
+name|regionInfo
 operator|+
 literal|" because one (major) compacted file only, oldestTime "
 operator|+
@@ -537,7 +599,7 @@ name|debug
 argument_list|(
 literal|"Major compaction triggered on store "
 operator|+
-name|this
+name|regionInfo
 operator|+
 literal|", because keyvalues outdated; time since last major compaction "
 operator|+
@@ -564,7 +626,7 @@ name|debug
 argument_list|(
 literal|"Major compaction triggered on store "
 operator|+
-name|this
+name|regionInfo
 operator|+
 literal|"; time since last major compaction "
 operator|+
