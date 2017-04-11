@@ -2681,6 +2681,56 @@ expr_stmt|;
 block|}
 else|else
 block|{
+comment|// If available, pull a table name out of the environment
+if|if
+condition|(
+name|env
+operator|instanceof
+name|RegionCoprocessorEnvironment
+condition|)
+block|{
+name|String
+name|tableName
+init|=
+operator|(
+operator|(
+name|RegionCoprocessorEnvironment
+operator|)
+name|env
+operator|)
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getTable
+argument_list|()
+operator|.
+name|getNameAsString
+argument_list|()
+decl_stmt|;
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Removing coprocessor '"
+operator|+
+name|env
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|"' from table '"
+operator|+
+name|tableName
+operator|+
+literal|"'"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
 name|LOG
 operator|.
 name|error
@@ -2694,13 +2744,12 @@ argument_list|()
 operator|+
 literal|"' from "
 operator|+
-literal|"environment because it threw:  "
-operator|+
-name|e
+literal|"environment"
 argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
+block|}
 name|coprocessors
 operator|.
 name|remove
