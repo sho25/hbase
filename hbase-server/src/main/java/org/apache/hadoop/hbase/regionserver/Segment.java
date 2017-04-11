@@ -261,6 +261,7 @@ specifier|abstract
 class|class
 name|Segment
 block|{
+specifier|public
 specifier|final
 specifier|static
 name|long
@@ -274,12 +275,13 @@ name|ClassSize
 operator|.
 name|OBJECT
 operator|+
-literal|5
+literal|6
 operator|*
 name|ClassSize
 operator|.
 name|REFERENCE
-comment|// cellSet, comparator, memStoreLAB, size, timeRangeTracker
+comment|// cellSet, comparator, memStoreLAB, dataSize,
+comment|// heapSize, and timeRangeTracker
 operator|+
 name|Bytes
 operator|.
@@ -308,6 +310,8 @@ name|ClassSize
 operator|.
 name|CELL_SET
 operator|+
+literal|2
+operator|*
 name|ClassSize
 operator|.
 name|ATOMIC_LONG

@@ -2051,6 +2051,8 @@ argument_list|)
 expr_stmt|;
 name|expected
 operator|+=
+literal|2
+operator|*
 name|ClassSize
 operator|.
 name|estimateBase
@@ -2195,6 +2197,8 @@ argument_list|)
 expr_stmt|;
 name|expected
 operator|+=
+literal|2
+operator|*
 name|ClassSize
 operator|.
 name|estimateBase
@@ -2363,6 +2367,8 @@ argument_list|)
 expr_stmt|;
 name|expected
 operator|+=
+literal|2
+operator|*
 name|ClassSize
 operator|.
 name|estimateBase
@@ -2548,6 +2554,8 @@ argument_list|)
 expr_stmt|;
 name|expected
 operator|+=
+literal|2
+operator|*
 name|ClassSize
 operator|.
 name|estimateBase
@@ -3183,6 +3191,14 @@ argument_list|)
 expr_stmt|;
 comment|// depending on CompressedOops
 block|}
+if|if
+condition|(
+name|ClassSize
+operator|.
+name|useUnsafeLayout
+argument_list|()
+condition|)
+block|{
 name|assertEquals
 argument_list|(
 name|ClassSize
@@ -3196,6 +3212,23 @@ operator|.
 name|ARRAY
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|assertEquals
+argument_list|(
+name|ClassSize
+operator|.
+name|OBJECT
+operator|+
+literal|8
+argument_list|,
+name|ClassSize
+operator|.
+name|ARRAY
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 end_class
