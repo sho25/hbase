@@ -2822,19 +2822,6 @@ name|e
 argument_list|)
 throw|;
 block|}
-comment|// Thrift's implementation uses '0' as a placeholder for 'use the default.'
-name|int
-name|backlog
-init|=
-name|conf
-operator|.
-name|getInt
-argument_list|(
-name|BACKLOG_CONF_KEY
-argument_list|,
-literal|0
-argument_list|)
-decl_stmt|;
 comment|// Local hostname and user name,
 comment|// used only if QOP is configured.
 name|String
