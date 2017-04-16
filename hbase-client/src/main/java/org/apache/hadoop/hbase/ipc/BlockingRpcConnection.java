@@ -1111,7 +1111,9 @@ block|{
 name|callsToWrite
 operator|.
 name|remove
-argument_list|()
+argument_list|(
+name|call
+argument_list|)
 expr_stmt|;
 comment|// By removing the call from the expected call list, we make the list smaller, but
 comment|// it means as well that we don't know how many calls we cancelled.
