@@ -910,8 +910,6 @@ name|Builder
 argument_list|(
 name|conf
 argument_list|,
-name|cacheConf
-argument_list|,
 name|fs
 argument_list|)
 operator|.
