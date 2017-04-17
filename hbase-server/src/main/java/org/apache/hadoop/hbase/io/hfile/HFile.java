@@ -201,6 +201,20 @@ name|apache
 operator|.
 name|commons
 operator|.
+name|io
+operator|.
+name|IOUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
 name|logging
 operator|.
 name|Log
@@ -1665,13 +1679,6 @@ name|boolean
 name|isPrimaryReplicaReader
 parameter_list|()
 function_decl|;
-name|void
-name|setPrimaryReplicaReader
-parameter_list|(
-name|boolean
-name|isPrimaryReplicaReader
-parameter_list|)
-function_decl|;
 name|boolean
 name|shouldIncludeMemstoreTS
 parameter_list|()
@@ -1702,7 +1709,7 @@ name|prefetchComplete
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Method returns the reader given the specified arguments.    * TODO This is a bad abstraction.  See HBASE-6635.    *    * @param path hfile's path    * @param fsdis stream of path's file    * @param size max size of the trailer.    * @param cacheConf Cache configuation values, cannot be null.    * @param hfs    * @return an appropriate instance of HFileReader    * @throws IOException If file is invalid, will throw CorruptHFileException flavored IOException    */
+comment|/**    * Method returns the reader given the specified arguments.    * TODO This is a bad abstraction.  See HBASE-6635.    *    * @param path hfile's path    * @param fsdis stream of path's file    * @param size max size of the trailer.    * @param cacheConf Cache configuation values, cannot be null.    * @param hfs    * @param primaryReplicaReader true if this is a reader for primary replica    * @return an appropriate instance of HFileReader    * @throws IOException If file is invalid, will throw CorruptHFileException flavored IOException    */
 annotation|@
 name|edu
 operator|.
@@ -1743,6 +1750,9 @@ name|cacheConf
 parameter_list|,
 name|HFileSystem
 name|hfs
+parameter_list|,
+name|boolean
+name|primaryReplicaReader
 parameter_list|,
 name|Configuration
 name|conf
@@ -1824,6 +1834,8 @@ name|cacheConf
 argument_list|,
 name|hfs
 argument_list|,
+name|primaryReplicaReader
+argument_list|,
 name|conf
 argument_list|)
 return|;
@@ -1848,30 +1860,13 @@ name|Throwable
 name|t
 parameter_list|)
 block|{
-try|try
-block|{
-name|fsdis
+name|IOUtils
 operator|.
-name|close
-argument_list|()
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|Throwable
-name|t2
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|warn
+name|closeQuietly
 argument_list|(
-literal|"Error closing fsdis FSDataInputStreamWrapper"
-argument_list|,
-name|t2
+name|fsdis
 argument_list|)
 expr_stmt|;
-block|}
 throw|throw
 operator|new
 name|CorruptHFileException
@@ -1885,12 +1880,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * @param fs A file system    * @param path Path to HFile    * @param fsdis a stream of path's file    * @param size max size of the trailer.    * @param cacheConf Cache configuration for hfile's contents    * @param conf Configuration    * @return A version specific Hfile Reader    * @throws IOException If file is invalid, will throw CorruptHFileException flavored IOException    */
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"resource"
-argument_list|)
+comment|/**    * @param fs A file system    * @param path Path to HFile    * @param fsdis a stream of path's file    * @param size max size of the trailer.    * @param cacheConf Cache configuration for hfile's contents    * @param primaryReplicaReader true if this is a reader for primary replica    * @param conf Configuration    * @return A version specific Hfile Reader    * @throws IOException If file is invalid, will throw CorruptHFileException flavored IOException    */
 specifier|public
 specifier|static
 name|Reader
@@ -1910,6 +1900,9 @@ name|size
 parameter_list|,
 name|CacheConfig
 name|cacheConf
+parameter_list|,
+name|boolean
+name|primaryReplicaReader
 parameter_list|,
 name|Configuration
 name|conf
@@ -1968,6 +1961,8 @@ name|cacheConf
 argument_list|,
 name|hfs
 argument_list|,
+name|primaryReplicaReader
+argument_list|,
 name|conf
 argument_list|)
 return|;
@@ -1990,6 +1985,8 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// The primaryReplicaReader is mainly used for constructing block cache key, so if we do not use
+comment|// block cache then it is OK to set it as any value. We use true here.
 return|return
 name|createReader
 argument_list|(
@@ -2001,11 +1998,13 @@ name|CacheConfig
 operator|.
 name|DISABLED
 argument_list|,
+literal|true
+argument_list|,
 name|conf
 argument_list|)
 return|;
 block|}
-comment|/**    *    * @param fs filesystem    * @param path Path to file to read    * @param cacheConf This must not be null.  @see {@link org.apache.hadoop.hbase.io.hfile.CacheConfig#CacheConfig(Configuration)}    * @return an active Reader instance    * @throws IOException Will throw a CorruptHFileException (DoNotRetryIOException subtype) if hfile is corrupt/invalid.    */
+comment|/**    * @param fs filesystem    * @param path Path to file to read    * @param cacheConf This must not be null. @see    *          {@link org.apache.hadoop.hbase.io.hfile.CacheConfig#CacheConfig(Configuration)}    * @param primaryReplicaReader true if this is a reader for primary replica    * @return an active Reader instance    * @throws IOException Will throw a CorruptHFileException (DoNotRetryIOException subtype) if hfile    *           is corrupt/invalid.    */
 specifier|public
 specifier|static
 name|Reader
@@ -2019,6 +2018,9 @@ name|path
 parameter_list|,
 name|CacheConfig
 name|cacheConf
+parameter_list|,
+name|boolean
+name|primaryReplicaReader
 parameter_list|,
 name|Configuration
 name|conf
@@ -2070,11 +2072,15 @@ operator|.
 name|getHfs
 argument_list|()
 argument_list|,
+name|primaryReplicaReader
+argument_list|,
 name|conf
 argument_list|)
 return|;
 block|}
 comment|/**    * This factory method is used only by unit tests    */
+annotation|@
+name|VisibleForTesting
 specifier|static
 name|Reader
 name|createReaderFromStream
@@ -2118,6 +2124,8 @@ argument_list|,
 name|cacheConf
 argument_list|,
 literal|null
+argument_list|,
+literal|true
 argument_list|,
 name|conf
 argument_list|)
@@ -2189,6 +2197,8 @@ operator|.
 name|getLen
 argument_list|()
 decl_stmt|;
+try|try
+init|(
 name|FSDataInputStreamWrapper
 name|fsdis
 init|=
@@ -2199,8 +2209,7 @@ name|fs
 argument_list|,
 name|path
 argument_list|)
-decl_stmt|;
-try|try
+init|)
 block|{
 name|boolean
 name|isHBaseChecksum
@@ -2242,45 +2251,6 @@ block|{
 return|return
 literal|false
 return|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-throw|throw
-name|e
-throw|;
-block|}
-finally|finally
-block|{
-try|try
-block|{
-name|fsdis
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|Throwable
-name|t
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Error closing fsdis FSDataInputStreamWrapper: "
-operator|+
-name|path
-argument_list|,
-name|t
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 block|}
 comment|/**    * Metadata for this file. Conjured by the writer. Read in by the reader.    */

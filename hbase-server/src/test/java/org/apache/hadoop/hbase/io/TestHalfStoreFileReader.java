@@ -85,6 +85,20 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|atomic
+operator|.
+name|AtomicInteger
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -447,7 +461,7 @@ name|cleanupTestDir
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Test the scanner and reseek of a half hfile scanner. The scanner API    * demands that seekTo and reseekTo() only return< 0 if the key lies    * before the start of the file (with no position on the scanner). Returning    * 0 if perfect match (rare), and return> 1 if we got an imperfect match.    *    * The latter case being the most common, we should generally be returning 1,    * and if we do, there may or may not be a 'next' in the scanner/file.    *    * A bug in the half file scanner was returning -1 at the end of the bottom    * half, and that was causing the infrastructure above to go null causing NPEs    * and other problems.  This test reproduces that failure, and also tests    * both the bottom and top of the file while we are at it.    *    * @throws IOException    */
+comment|/**    * Test the scanner and reseek of a half hfile scanner. The scanner API demands that seekTo and    * reseekTo() only return< 0 if the key lies before the start of the file (with no position on    * the scanner). Returning 0 if perfect match (rare), and return> 1 if we got an imperfect match.    * The latter case being the most common, we should generally be returning 1, and if we do, there    * may or may not be a 'next' in the scanner/file. A bug in the half file scanner was returning -1    * at the end of the bottom half, and that was causing the infrastructure above to go null causing    * NPEs and other problems. This test reproduces that failure, and also tests both the bottom and    * top of the file while we are at it.    * @throws IOException    */
 annotation|@
 name|Test
 specifier|public
@@ -596,6 +610,8 @@ name|p
 argument_list|,
 name|cacheConf
 argument_list|,
+literal|true
+argument_list|,
 name|conf
 argument_list|)
 decl_stmt|;
@@ -623,7 +639,7 @@ argument_list|(
 name|midKV
 argument_list|)
 decl_stmt|;
-comment|//System.out.println("midkey: " + midKV + " or: " + Bytes.toStringBinary(midkey));
+comment|// System.out.println("midkey: " + midKV + " or: " + Bytes.toStringBinary(midkey));
 name|Reference
 name|bottom
 init|=
@@ -716,6 +732,16 @@ name|cacheConf
 argument_list|,
 name|bottom
 argument_list|,
+literal|true
+argument_list|,
+operator|new
+name|AtomicInteger
+argument_list|(
+literal|0
+argument_list|)
+argument_list|,
+literal|true
+argument_list|,
 name|TEST_UTIL
 operator|.
 name|getConfiguration
@@ -786,7 +812,7 @@ operator|>
 literal|0
 argument_list|)
 expr_stmt|;
-comment|//System.out.println(curr + ": " + ret);
+comment|// System.out.println(curr + ": " + ret);
 block|}
 do|while
 condition|(
@@ -809,7 +835,7 @@ name|curr
 argument_list|)
 argument_list|)
 decl_stmt|;
-comment|//System.out.println("Last reseek: " + ret);
+comment|// System.out.println("Last reseek: " + ret);
 name|assertTrue
 argument_list|(
 name|ret
@@ -974,6 +1000,8 @@ name|p
 argument_list|,
 name|cacheConf
 argument_list|,
+literal|true
+argument_list|,
 name|conf
 argument_list|)
 decl_stmt|;
@@ -1123,7 +1151,8 @@ argument_list|,
 name|foundKeyValue
 argument_list|)
 expr_stmt|;
-comment|// Seek tot the last thing should be the penultimate on the top, the one before the midkey on the bottom.
+comment|// Seek tot the last thing should be the penultimate on the top, the one before the midkey on
+comment|// the bottom.
 name|foundKeyValue
 operator|=
 name|doTestOfSeekBefore
@@ -1366,6 +1395,16 @@ argument_list|,
 name|cacheConfig
 argument_list|,
 name|bottom
+argument_list|,
+literal|true
+argument_list|,
+operator|new
+name|AtomicInteger
+argument_list|(
+literal|0
+argument_list|)
+argument_list|,
+literal|true
 argument_list|,
 name|TEST_UTIL
 operator|.

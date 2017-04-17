@@ -696,6 +696,8 @@ name|p
 argument_list|,
 name|cacheConf
 argument_list|,
+literal|true
+argument_list|,
 name|conf
 argument_list|)
 expr_stmt|;
@@ -1295,6 +1297,8 @@ argument_list|,
 name|p
 argument_list|,
 name|cacheConf
+argument_list|,
+literal|true
 argument_list|,
 name|conf
 argument_list|)

@@ -663,7 +663,7 @@ name|updatedCompactedfiles
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Mark the files as compactedAway once the storefiles and compactedfiles list is finalised
+comment|// Mark the files as compactedAway once the storefiles and compactedfiles list is finalized
 comment|// Let a background thread close the actual reader on these compacted files and also
 comment|// ensure to evict the blocks from block cache so that they are no longer in
 comment|// cache

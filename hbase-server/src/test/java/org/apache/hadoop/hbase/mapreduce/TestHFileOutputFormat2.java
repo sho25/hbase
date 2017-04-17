@@ -2819,6 +2819,8 @@ argument_list|(
 name|conf
 argument_list|)
 argument_list|,
+literal|true
+argument_list|,
 name|conf
 argument_list|)
 decl_stmt|;
@@ -3480,6 +3482,8 @@ name|CacheConfig
 argument_list|(
 name|conf
 argument_list|)
+argument_list|,
+literal|true
 argument_list|,
 name|conf
 argument_list|)
@@ -6934,6 +6938,8 @@ name|CacheConfig
 argument_list|(
 name|conf
 argument_list|)
+argument_list|,
+literal|true
 argument_list|,
 name|conf
 argument_list|)

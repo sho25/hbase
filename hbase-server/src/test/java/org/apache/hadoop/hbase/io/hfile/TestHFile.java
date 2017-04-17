@@ -1260,6 +1260,8 @@ name|f
 argument_list|,
 name|cacheConf
 argument_list|,
+literal|true
+argument_list|,
 name|conf
 argument_list|)
 decl_stmt|;
@@ -1352,6 +1354,8 @@ argument_list|,
 name|f
 argument_list|,
 name|cacheConf
+argument_list|,
+literal|true
 argument_list|,
 name|conf
 argument_list|)
@@ -1605,6 +1609,8 @@ argument_list|,
 name|trunc
 argument_list|,
 name|cacheConf
+argument_list|,
+literal|true
 argument_list|,
 name|conf
 argument_list|)
@@ -3306,6 +3312,8 @@ argument_list|,
 name|mFile
 argument_list|,
 name|cacheConf
+argument_list|,
+literal|true
 argument_list|,
 name|conf
 argument_list|)

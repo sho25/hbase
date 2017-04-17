@@ -3473,13 +3473,15 @@ argument_list|,
 name|BloomType
 operator|.
 name|NONE
+argument_list|,
+literal|true
 argument_list|)
 decl_stmt|;
-comment|// pre-create reader of a del file to avoid race condition when opening the reader in each
-comment|// partition.
+comment|// pre-create reader of a del file to avoid race condition when opening the reader in
+comment|// each partition.
 name|sf
 operator|.
-name|createReader
+name|initReader
 argument_list|()
 expr_stmt|;
 name|delPartition
@@ -4960,11 +4962,6 @@ argument_list|>
 name|delPartitions
 parameter_list|)
 block|{
-name|int
-name|i
-init|=
-literal|0
-decl_stmt|;
 name|Map
 argument_list|<
 name|Path
@@ -5494,6 +5491,8 @@ argument_list|,
 name|BloomType
 operator|.
 name|NONE
+argument_list|,
+literal|true
 argument_list|)
 decl_stmt|;
 name|sfs
@@ -5505,8 +5504,15 @@ argument_list|)
 expr_stmt|;
 block|}
 name|List
+argument_list|<
+name|KeyValueScanner
+argument_list|>
 name|scanners
 init|=
+operator|new
+name|ArrayList
+argument_list|<>
+argument_list|(
 name|StoreFileScanner
 operator|.
 name|getScannersForStoreFiles
@@ -5524,6 +5530,7 @@ argument_list|,
 name|HConstants
 operator|.
 name|LATEST_TIMESTAMP
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|Scan

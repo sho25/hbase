@@ -2165,6 +2165,8 @@ name|getConf
 argument_list|()
 argument_list|)
 argument_list|,
+literal|true
+argument_list|,
 name|getConf
 argument_list|()
 argument_list|)

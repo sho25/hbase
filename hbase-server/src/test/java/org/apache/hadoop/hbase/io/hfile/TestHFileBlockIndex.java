@@ -3532,6 +3532,8 @@ name|hfilePath
 argument_list|,
 name|cacheConf
 argument_list|,
+literal|true
+argument_list|,
 name|conf
 argument_list|)
 decl_stmt|;
@@ -3966,6 +3968,8 @@ argument_list|,
 name|hfilePath
 argument_list|,
 name|cacheConf
+argument_list|,
+literal|true
 argument_list|,
 name|conf
 argument_list|)
@@ -4976,6 +4980,8 @@ argument_list|,
 name|hfPath
 argument_list|,
 name|cacheConf
+argument_list|,
+literal|true
 argument_list|,
 name|conf
 argument_list|)

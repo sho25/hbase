@@ -1472,7 +1472,7 @@ block|{
 return|return
 name|MergeTableRegionsState
 operator|.
-name|valueOf
+name|forNumber
 argument_list|(
 name|stateId
 argument_list|)
@@ -3462,6 +3462,8 @@ name|hcd
 operator|.
 name|getBloomFilterType
 argument_list|()
+argument_list|,
+literal|true
 argument_list|)
 argument_list|,
 name|mergedDir

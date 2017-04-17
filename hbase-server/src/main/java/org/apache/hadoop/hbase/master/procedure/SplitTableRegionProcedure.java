@@ -1546,7 +1546,7 @@ block|{
 return|return
 name|SplitTableRegionState
 operator|.
-name|valueOf
+name|forNumber
 argument_list|(
 name|stateId
 argument_list|)
@@ -3050,6 +3050,8 @@ name|hcd
 operator|.
 name|getBloomFilterType
 argument_list|()
+argument_list|,
+literal|true
 argument_list|)
 argument_list|)
 decl_stmt|;

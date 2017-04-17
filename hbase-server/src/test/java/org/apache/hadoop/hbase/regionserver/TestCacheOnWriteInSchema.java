@@ -1514,8 +1514,15 @@ argument_list|,
 name|BloomType
 operator|.
 name|ROWCOL
+argument_list|,
+literal|true
 argument_list|)
 decl_stmt|;
+name|sf
+operator|.
+name|initReader
+argument_list|()
+expr_stmt|;
 name|HFile
 operator|.
 name|Reader
@@ -1523,7 +1530,7 @@ name|reader
 init|=
 name|sf
 operator|.
-name|createReader
+name|getReader
 argument_list|()
 operator|.
 name|getHFileReader

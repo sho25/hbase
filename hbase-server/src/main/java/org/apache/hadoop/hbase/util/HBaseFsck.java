@@ -4730,6 +4730,8 @@ name|getConf
 argument_list|()
 argument_list|)
 argument_list|,
+literal|true
+argument_list|,
 name|getConf
 argument_list|()
 argument_list|)
@@ -5345,6 +5347,8 @@ name|getPath
 argument_list|()
 argument_list|,
 name|cacheConf
+argument_list|,
+literal|true
 argument_list|,
 name|getConf
 argument_list|()

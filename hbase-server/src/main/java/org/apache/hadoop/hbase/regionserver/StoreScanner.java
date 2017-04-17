@@ -1618,6 +1618,8 @@ parameter_list|,
 specifier|final
 name|List
 argument_list|<
+name|?
+extends|extends
 name|KeyValueScanner
 argument_list|>
 name|scanners
@@ -1671,6 +1673,8 @@ parameter_list|,
 specifier|final
 name|List
 argument_list|<
+name|?
+extends|extends
 name|KeyValueScanner
 argument_list|>
 name|scanners
@@ -1724,6 +1728,8 @@ parameter_list|,
 specifier|final
 name|List
 argument_list|<
+name|?
+extends|extends
 name|KeyValueScanner
 argument_list|>
 name|scanners

@@ -994,6 +994,8 @@ argument_list|,
 name|BloomType
 operator|.
 name|NONE
+argument_list|,
+literal|true
 argument_list|)
 decl_stmt|;
 name|List
@@ -1369,6 +1371,8 @@ argument_list|,
 name|BloomType
 operator|.
 name|NONE
+argument_list|,
+literal|true
 argument_list|)
 decl_stmt|;
 name|StoreFile
@@ -1394,6 +1398,8 @@ argument_list|,
 name|BloomType
 operator|.
 name|NONE
+argument_list|,
+literal|true
 argument_list|)
 decl_stmt|;
 comment|/**      * Test without MVCC      */
@@ -1971,6 +1977,8 @@ argument_list|,
 name|BloomType
 operator|.
 name|NONE
+argument_list|,
+literal|true
 argument_list|)
 decl_stmt|;
 name|StoreFile
@@ -1996,6 +2004,8 @@ argument_list|,
 name|BloomType
 operator|.
 name|NONE
+argument_list|,
+literal|true
 argument_list|)
 decl_stmt|;
 name|ScanType
@@ -2106,7 +2116,7 @@ index|]
 decl_stmt|;
 name|scan
 operator|.
-name|setStartRow
+name|withStartRow
 argument_list|(
 name|startRow
 argument_list|)
@@ -2650,7 +2660,7 @@ literal|4
 decl_stmt|;
 name|scan
 operator|.
-name|setStartRow
+name|withStartRow
 argument_list|(
 name|ROWS
 index|[
@@ -2700,7 +2710,7 @@ literal|4
 decl_stmt|;
 name|scan
 operator|.
-name|setStartRow
+name|withStartRow
 argument_list|(
 name|HConstants
 operator|.
@@ -2709,7 +2719,7 @@ argument_list|)
 expr_stmt|;
 name|scan
 operator|.
-name|setStopRow
+name|withStopRow
 argument_list|(
 name|ROWS
 index|[
@@ -2756,7 +2766,7 @@ expr_stmt|;
 comment|// Case7: Case4 + specify start row + specify stop row
 name|scan
 operator|.
-name|setStartRow
+name|withStartRow
 argument_list|(
 name|ROWS
 index|[
@@ -4206,32 +4216,6 @@ name|ROWSIZE
 operator|-
 literal|3
 decl_stmt|;
-name|KeyValue
-name|seekKey
-init|=
-name|KeyValueUtil
-operator|.
-name|createLastOnRow
-argument_list|(
-name|ROWS
-index|[
-name|seekRowNum
-index|]
-argument_list|)
-decl_stmt|;
-name|expectedKey
-operator|=
-name|getNextReadableKeyValueWithBackwardScan
-argument_list|(
-name|seekRowNum
-operator|-
-literal|1
-argument_list|,
-literal|0
-argument_list|,
-name|readPoint
-argument_list|)
-expr_stmt|;
 name|res
 operator|=
 literal|false

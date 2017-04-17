@@ -216,6 +216,8 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// XXX: primaryReplica is only used for constructing the key of block cache so it is not a
+comment|// critical problem if we pass the wrong value, so here we always pass true. Need to fix later.
 name|StoreFile
 name|sf
 init|=
@@ -233,6 +235,8 @@ argument_list|,
 name|BloomType
 operator|.
 name|NONE
+argument_list|,
+literal|true
 argument_list|)
 decl_stmt|;
 return|return

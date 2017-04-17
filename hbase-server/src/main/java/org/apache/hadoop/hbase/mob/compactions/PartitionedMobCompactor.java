@@ -1756,6 +1756,8 @@ condition|)
 block|{
 comment|// File in the Del Partition List
 comment|// Get delId from the file
+try|try
+init|(
 name|Reader
 name|reader
 init|=
@@ -1770,14 +1772,9 @@ operator|.
 name|getPath
 argument_list|()
 argument_list|,
-name|CacheConfig
-operator|.
-name|DISABLED
-argument_list|,
 name|conf
 argument_list|)
-decl_stmt|;
-try|try
+init|)
 block|{
 name|delId
 operator|.
@@ -1798,14 +1795,6 @@ operator|.
 name|getLastRowKey
 argument_list|()
 argument_list|)
-expr_stmt|;
-block|}
-finally|finally
-block|{
-name|reader
-operator|.
-name|close
-argument_list|()
 expr_stmt|;
 block|}
 name|CompactionDelPartition
@@ -2047,6 +2036,8 @@ condition|)
 block|{
 comment|// get startKey and endKey from the file and update partition
 comment|// TODO: is it possible to skip read of most hfiles?
+try|try
+init|(
 name|Reader
 name|reader
 init|=
@@ -2061,14 +2052,9 @@ operator|.
 name|getPath
 argument_list|()
 argument_list|,
-name|CacheConfig
-operator|.
-name|DISABLED
-argument_list|,
 name|conf
 argument_list|)
-decl_stmt|;
-try|try
+init|)
 block|{
 name|compactionPartition
 operator|.
@@ -2089,14 +2075,6 @@ operator|.
 name|getLastRowKey
 argument_list|()
 argument_list|)
-expr_stmt|;
-block|}
-finally|finally
-block|{
-name|reader
-operator|.
-name|close
-argument_list|()
 expr_stmt|;
 block|}
 block|}
@@ -2429,13 +2407,15 @@ argument_list|,
 name|BloomType
 operator|.
 name|NONE
+argument_list|,
+literal|true
 argument_list|)
 decl_stmt|;
 comment|// pre-create reader of a del file to avoid race condition when opening the reader in each
 comment|// partition.
 name|sf
 operator|.
-name|createReader
+name|initReader
 argument_list|()
 expr_stmt|;
 name|delPartition
@@ -3610,6 +3590,8 @@ argument_list|,
 name|BloomType
 operator|.
 name|NONE
+argument_list|,
+literal|true
 argument_list|)
 decl_stmt|;
 name|filesToCompact
@@ -4455,6 +4437,8 @@ argument_list|,
 name|BloomType
 operator|.
 name|NONE
+argument_list|,
+literal|true
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -4777,6 +4761,9 @@ throws|throws
 name|IOException
 block|{
 name|List
+argument_list|<
+name|StoreFileScanner
+argument_list|>
 name|scanners
 init|=
 name|StoreFileScanner
@@ -5152,13 +5139,18 @@ name|getMaxSequenceId
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|sf
+operator|.
+name|initReader
+argument_list|()
+expr_stmt|;
 name|byte
 index|[]
 name|count
 init|=
 name|sf
 operator|.
-name|createReader
+name|getReader
 argument_list|()
 operator|.
 name|loadFileInfo

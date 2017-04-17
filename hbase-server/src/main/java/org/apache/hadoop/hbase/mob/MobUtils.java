@@ -1874,6 +1874,8 @@ argument_list|,
 name|BloomType
 operator|.
 name|NONE
+argument_list|,
+literal|true
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2059,6 +2061,14 @@ operator|.
 name|makeQualified
 argument_list|(
 name|fs
+operator|.
+name|getUri
+argument_list|()
+argument_list|,
+name|fs
+operator|.
+name|getWorkingDirectory
+argument_list|()
 argument_list|)
 return|;
 block|}
@@ -3251,6 +3261,8 @@ argument_list|,
 name|sourceFile
 argument_list|,
 name|cacheConfig
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 name|String
@@ -3346,6 +3358,9 @@ name|path
 parameter_list|,
 name|CacheConfig
 name|cacheConfig
+parameter_list|,
+name|boolean
+name|primaryReplica
 parameter_list|)
 throws|throws
 name|IOException
@@ -3373,11 +3388,13 @@ argument_list|,
 name|BloomType
 operator|.
 name|NONE
+argument_list|,
+name|primaryReplica
 argument_list|)
 expr_stmt|;
 name|storeFile
 operator|.
-name|createReader
+name|initReader
 argument_list|()
 expr_stmt|;
 block|}

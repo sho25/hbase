@@ -462,22 +462,11 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-if|if
-condition|(
 name|sf
 operator|.
-name|getReader
-argument_list|()
-operator|==
-literal|null
-condition|)
-block|{
-name|sf
-operator|.
-name|createReader
+name|initReader
 argument_list|()
 expr_stmt|;
-block|}
 block|}
 comment|/**    * Closes the underlying reader, but do no evict blocks belonging to this file.    * It's not thread-safe. Use MobFileCache.closeFile() instead.    * @throws IOException    */
 specifier|public
@@ -528,6 +517,8 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// XXX: primaryReplica is only used for constructing the key of block cache so it is not a
+comment|// critical problem if we pass the wrong value, so here we always pass true. Need to fix later.
 name|StoreFile
 name|sf
 init|=
@@ -545,6 +536,8 @@ argument_list|,
 name|BloomType
 operator|.
 name|NONE
+argument_list|,
+literal|true
 argument_list|)
 decl_stmt|;
 return|return

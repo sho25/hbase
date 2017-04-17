@@ -42578,6 +42578,11 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
+name|store
+operator|.
+name|closeAndArchiveCompactedFiles
+argument_list|()
+expr_stmt|;
 name|waitForStoreFileCount
 argument_list|(
 name|store

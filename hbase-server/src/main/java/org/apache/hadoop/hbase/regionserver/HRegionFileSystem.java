@@ -1344,9 +1344,15 @@ argument_list|)
 operator|.
 name|makeQualified
 argument_list|(
-name|this
-operator|.
 name|fs
+operator|.
+name|getUri
+argument_list|()
+argument_list|,
+name|fs
+operator|.
+name|getWorkingDirectory
+argument_list|()
 argument_list|)
 return|;
 block|}
@@ -2813,22 +2819,11 @@ condition|)
 block|{
 comment|// Check whether the split row lies in the range of the store file
 comment|// If it is outside the range, return directly.
-if|if
-condition|(
 name|f
 operator|.
-name|getReader
-argument_list|()
-operator|==
-literal|null
-condition|)
-block|{
-name|f
-operator|.
-name|createReader
+name|initReader
 argument_list|()
 expr_stmt|;
-block|}
 try|try
 block|{
 if|if

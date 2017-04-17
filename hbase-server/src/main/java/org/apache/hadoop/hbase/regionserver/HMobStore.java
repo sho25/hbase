@@ -1642,11 +1642,14 @@ argument_list|,
 name|BloomType
 operator|.
 name|NONE
+argument_list|,
+name|isPrimaryReplicaStore
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|storeFile
 operator|.
-name|createReader
+name|initReader
 argument_list|()
 expr_stmt|;
 block|}
