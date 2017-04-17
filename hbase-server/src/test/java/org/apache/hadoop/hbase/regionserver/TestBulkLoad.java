@@ -1857,6 +1857,25 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+name|ChunkCreator
+operator|.
+name|initialize
+argument_list|(
+name|MemStoreLABImpl
+operator|.
+name|CHUNK_SIZE_DEFAULT
+argument_list|,
+literal|false
+argument_list|,
+literal|0
+argument_list|,
+literal|0
+argument_list|,
+literal|0
+argument_list|,
+literal|null
+argument_list|)
+expr_stmt|;
 comment|// TODO We need a way to do this without creating files
 return|return
 name|HRegion

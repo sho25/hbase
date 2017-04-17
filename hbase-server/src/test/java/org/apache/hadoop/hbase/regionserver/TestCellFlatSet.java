@@ -574,7 +574,7 @@ argument_list|,
 literal|0.2f
 argument_list|)
 expr_stmt|;
-name|MemStoreChunkPool
+name|ChunkCreator
 operator|.
 name|chunkPoolDisabled
 operator|=

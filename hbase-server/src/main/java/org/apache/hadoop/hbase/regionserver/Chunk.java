@@ -59,6 +59,22 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Bytes
+import|;
+end_import
+
+begin_import
+import|import
 name|com
 operator|.
 name|google
@@ -68,6 +84,20 @@ operator|.
 name|annotations
 operator|.
 name|VisibleForTesting
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|base
+operator|.
+name|Preconditions
 import|;
 end_import
 
@@ -134,11 +164,51 @@ specifier|final
 name|int
 name|size
 decl_stmt|;
-comment|/**    * Create an uninitialized chunk. Note that memory is not allocated yet, so this is cheap.    *    * @param size in bytes    */
+comment|// The unique id associated with the chunk.
+specifier|private
+specifier|final
+name|int
+name|id
+decl_stmt|;
+comment|// indicates if the chunk is formed by ChunkCreator#MemstorePool
+specifier|private
+specifier|final
+name|boolean
+name|fromPool
+decl_stmt|;
+comment|/**    * Create an uninitialized chunk. Note that memory is not allocated yet, so    * this is cheap.    * @param size in bytes    * @param id the chunk id    */
+specifier|public
 name|Chunk
 parameter_list|(
 name|int
 name|size
+parameter_list|,
+name|int
+name|id
+parameter_list|)
+block|{
+name|this
+argument_list|(
+name|size
+argument_list|,
+name|id
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Create an uninitialized chunk. Note that memory is not allocated yet, so    * this is cheap.    * @param size in bytes    * @param id the chunk id    * @param fromPool if the chunk is formed by pool    */
+specifier|public
+name|Chunk
+parameter_list|(
+name|int
+name|size
+parameter_list|,
+name|int
+name|id
+parameter_list|,
+name|boolean
+name|fromPool
 parameter_list|)
 block|{
 name|this
@@ -147,12 +217,116 @@ name|size
 operator|=
 name|size
 expr_stmt|;
+name|this
+operator|.
+name|id
+operator|=
+name|id
+expr_stmt|;
+name|this
+operator|.
+name|fromPool
+operator|=
+name|fromPool
+expr_stmt|;
+block|}
+name|int
+name|getId
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|id
+return|;
+block|}
+name|boolean
+name|isFromPool
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|fromPool
+return|;
 block|}
 comment|/**    * Actually claim the memory for this chunk. This should only be called from the thread that    * constructed the chunk. It is thread-safe against other threads calling alloc(), who will block    * until the allocation is complete.    */
 specifier|public
-specifier|abstract
 name|void
 name|init
+parameter_list|()
+block|{
+assert|assert
+name|nextFreeOffset
+operator|.
+name|get
+argument_list|()
+operator|==
+name|UNINITIALIZED
+assert|;
+try|try
+block|{
+name|allocateDataBuffer
+argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|OutOfMemoryError
+name|e
+parameter_list|)
+block|{
+name|boolean
+name|failInit
+init|=
+name|nextFreeOffset
+operator|.
+name|compareAndSet
+argument_list|(
+name|UNINITIALIZED
+argument_list|,
+name|OOM
+argument_list|)
+decl_stmt|;
+assert|assert
+name|failInit
+assert|;
+comment|// should be true.
+throw|throw
+name|e
+throw|;
+block|}
+comment|// Mark that it's ready for use
+comment|// Move 8 bytes since the first 8 bytes are having the chunkid in it
+name|boolean
+name|initted
+init|=
+name|nextFreeOffset
+operator|.
+name|compareAndSet
+argument_list|(
+name|UNINITIALIZED
+argument_list|,
+name|Bytes
+operator|.
+name|SIZEOF_LONG
+argument_list|)
+decl_stmt|;
+comment|// We should always succeed the above CAS since only one thread
+comment|// calls init()!
+name|Preconditions
+operator|.
+name|checkState
+argument_list|(
+name|initted
+argument_list|,
+literal|"Multiple threads tried to init same chunk"
+argument_list|)
+expr_stmt|;
+block|}
+specifier|abstract
+name|void
+name|allocateDataBuffer
 parameter_list|()
 function_decl|;
 comment|/**    * Reset the offset to UNINITIALIZED before before reusing an old chunk    */
@@ -186,7 +360,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Try to allocate<code>size</code> bytes from the chunk.    *    * @return the offset of the successful allocation, or -1 to indicate not-enough-space    */
+comment|/**    * Try to allocate<code>size</code> bytes from the chunk.    * If a chunk is tried to get allocated before init() call, the thread doing the allocation    * will be in busy-wait state as it will keep looping till the nextFreeOffset is set.    * @return the offset of the successful allocation, or -1 to indicate not-enough-space    */
 specifier|public
 name|int
 name|alloc
@@ -257,6 +431,7 @@ literal|1
 return|;
 comment|// alloc doesn't fit
 block|}
+comment|// TODO : If seqID is to be written add 8 bytes here for nextFreeOFfset
 comment|// Try to atomically claim this chunk
 if|if
 condition|(
