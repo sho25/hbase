@@ -483,16 +483,10 @@ literal|false
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|ChunkCreator
+name|MemStoreChunkPool
 operator|.
 name|initialize
 argument_list|(
-name|MemStoreLABImpl
-operator|.
-name|CHUNK_SIZE_DEFAULT
-argument_list|,
-literal|false
-argument_list|,
 name|globalMemStoreLimit
 argument_list|,
 literal|0.2f
@@ -501,7 +495,11 @@ name|MemStoreLAB
 operator|.
 name|POOL_INITIAL_SIZE_DEFAULT
 argument_list|,
-literal|null
+name|MemStoreLABImpl
+operator|.
+name|CHUNK_SIZE_DEFAULT
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 block|}
@@ -536,12 +534,6 @@ name|ByteBuffer
 name|lastBuffer
 init|=
 literal|null
-decl_stmt|;
-name|long
-name|lastChunkId
-init|=
-operator|-
-literal|1
 decl_stmt|;
 comment|// 100K iterations by 0-1K alloc -> 50MB expected
 comment|// should be reasonable for unit test and also cover wraparound
@@ -623,13 +615,9 @@ operator|!=
 name|lastBuffer
 condition|)
 block|{
-comment|// since we add the chunkID at the 0th offset of the chunk and the
-comment|// chunkid is a long we need to account for those 8 bytes
 name|expectedOff
 operator|=
-name|Bytes
-operator|.
-name|SIZEOF_LONG
+literal|0
 expr_stmt|;
 name|lastBuffer
 operator|=
@@ -637,32 +625,6 @@ name|newKv
 operator|.
 name|getBuffer
 argument_list|()
-expr_stmt|;
-name|long
-name|chunkId
-init|=
-name|newKv
-operator|.
-name|getBuffer
-argument_list|()
-operator|.
-name|getLong
-argument_list|(
-literal|0
-argument_list|)
-decl_stmt|;
-name|assertTrue
-argument_list|(
-literal|"chunkid should be different"
-argument_list|,
-name|chunkId
-operator|!=
-name|lastChunkId
-argument_list|)
-expr_stmt|;
-name|lastChunkId
-operator|=
-name|chunkId
 expr_stmt|;
 block|}
 name|assertEquals
@@ -1159,14 +1121,10 @@ name|values
 argument_list|()
 control|)
 block|{
-comment|// since we add the chunkID at the 0th offset of the chunk and the
-comment|// chunkid is a long we need to account for those 8 bytes
 name|int
 name|expectedOff
 init|=
-name|Bytes
-operator|.
-name|SIZEOF_LONG
+literal|0
 decl_stmt|;
 for|for
 control|(
@@ -1281,7 +1239,7 @@ name|MAX_ALLOC_DEFAULT
 argument_list|)
 expr_stmt|;
 comment|// reconstruct mslab
-name|ChunkCreator
+name|MemStoreChunkPool
 operator|.
 name|clearDisableFlag
 argument_list|()
@@ -1456,21 +1414,6 @@ name|mslab
 operator|.
 name|close
 argument_list|()
-expr_stmt|;
-comment|// none of the chunkIds would have been returned back
-name|assertTrue
-argument_list|(
-literal|"All the chunks must have been cleared"
-argument_list|,
-name|ChunkCreator
-operator|.
-name|INSTANCE
-operator|.
-name|size
-argument_list|()
-operator|!=
-literal|0
-argument_list|)
 expr_stmt|;
 comment|// make sure all chunks reclaimed or removed from chunk queue
 name|int

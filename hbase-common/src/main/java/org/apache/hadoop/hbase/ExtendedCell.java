@@ -105,14 +105,6 @@ name|HeapSize
 extends|,
 name|Cloneable
 block|{
-specifier|public
-specifier|static
-name|int
-name|CELL_NOT_BASED_ON_CHUNK
-init|=
-operator|-
-literal|1
-decl_stmt|;
 comment|/**    * Write this cell to an OutputStream in a {@link KeyValue} format.    *<br> KeyValue format<br>    *<code>&lt;4 bytes keylength&gt;&lt;4 bytes valuelength&gt;&lt;2 bytes rowlength&gt;    *&lt;row&gt;&lt;1 byte columnfamilylength&gt;&lt;columnfamily&gt;&lt;columnqualifier&gt;    *&lt;8 bytes timestamp&gt;&lt;1 byte keytype&gt;&lt;value&gt;&lt;2 bytes tagslength&gt;    *&lt;tags&gt;</code>    * @param out Stream to which cell has to be written    * @param withTags Whether to write tags.    * @return how many bytes are written.    * @throws IOException    */
 comment|// TODO remove the boolean param once HBASE-16706 is done.
 name|int
@@ -152,16 +144,6 @@ name|Cell
 name|deepClone
 parameter_list|()
 function_decl|;
-comment|/**    * Extracts the id of the backing bytebuffer of this cell if it was obtained from fixed sized    * chunks as in case of MemstoreLAB    * @return the chunk id if the cell is backed by fixed sized Chunks, else return -1    */
-specifier|default
-name|int
-name|getChunkId
-parameter_list|()
-block|{
-return|return
-name|CELL_NOT_BASED_ON_CHUNK
-return|;
-block|}
 block|}
 end_interface
 
