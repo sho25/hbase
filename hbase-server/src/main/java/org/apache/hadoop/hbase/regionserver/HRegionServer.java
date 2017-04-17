@@ -9139,11 +9139,13 @@ name|Integer
 operator|.
 name|MAX_VALUE
 decl_stmt|;
+comment|//Iteration is 1-based rather than 0-based so we don't check for compaction
+comment|// immediately upon region server startup
 specifier|private
 name|long
 name|iteration
 init|=
-literal|0
+literal|1
 decl_stmt|;
 name|CompactionChecker
 parameter_list|(
