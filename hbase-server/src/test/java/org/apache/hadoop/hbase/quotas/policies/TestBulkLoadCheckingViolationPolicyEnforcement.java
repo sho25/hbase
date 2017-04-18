@@ -312,7 +312,7 @@ expr_stmt|;
 name|policy
 operator|=
 operator|new
-name|BulkLoadVerifyingViolationPolicyEnforcement
+name|DefaultViolationPolicyEnforcement
 argument_list|()
 expr_stmt|;
 block|}

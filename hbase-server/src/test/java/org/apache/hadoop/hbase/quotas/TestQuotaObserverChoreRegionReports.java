@@ -658,12 +658,12 @@ decl_stmt|;
 comment|// Wait for the master to finish initialization.
 while|while
 condition|(
-literal|null
-operator|==
 name|master
 operator|.
 name|getMasterQuotaManager
 argument_list|()
+operator|==
+literal|null
 condition|)
 block|{
 name|LOG
@@ -1211,9 +1211,9 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-literal|null
-operator|==
 name|snapshot
+operator|==
+literal|null
 condition|)
 block|{
 return|return
@@ -1331,9 +1331,9 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-literal|null
-operator|==
 name|snapshot
+operator|==
+literal|null
 condition|)
 block|{
 return|return

@@ -146,7 +146,7 @@ specifier|final
 name|long
 name|limit
 decl_stmt|;
-comment|/**    * Encapsulates the state of a quota on a table. The quota may or may not be in violation.    * If it is in violation, there will be a non-null violation policy.    */
+comment|/**    * Encapsulates the state of a quota on a table. The quota may or may not be in violation.    * If the quota is not in violation, the violation may be null. If the quota is in violation,    * there is guaranteed to be a non-null violation policy.    */
 annotation|@
 name|InterfaceAudience
 operator|.
@@ -178,6 +178,7 @@ specifier|final
 name|boolean
 name|inViolation
 decl_stmt|;
+comment|/**      * Constructs a {@code SpaceQuotaSnapshot} which is in violation of the provided {@code policy}.      *      * Use {@link #notInViolation()} to obtain an instance of this class for the cases when the      * quota is not in violation.      *      * @param policy The non-null policy being violated.      */
 specifier|public
 name|SpaceQuotaStatus
 parameter_list|(
@@ -185,22 +186,18 @@ name|SpaceViolationPolicy
 name|policy
 parameter_list|)
 block|{
+comment|// If the caller is instantiating a status, the policy must be non-null
 name|this
-operator|.
-name|policy
-operator|=
+argument_list|(
 name|Objects
 operator|.
 name|requireNonNull
 argument_list|(
 name|policy
 argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|inViolation
-operator|=
+argument_list|,
 literal|true
+argument_list|)
 expr_stmt|;
 block|}
 specifier|private
@@ -226,7 +223,7 @@ operator|=
 name|inViolation
 expr_stmt|;
 block|}
-comment|/**      * The violation policy which may be null. Is guaranteed to be non-null if      * {@link #isInViolation()} is<code>true</code>, and<code>false</code>      * otherwise.      */
+comment|/**      * Returns the violation policy, which may be null. It is guaranteed to be non-null if      * {@link #isInViolation()} is {@code true}, but may be null otherwise.      */
 specifier|public
 name|SpaceViolationPolicy
 name|getPolicy
@@ -236,7 +233,7 @@ return|return
 name|policy
 return|;
 block|}
-comment|/**      *<code>true</code> if the quota is being violated,<code>false</code> otherwise.      */
+comment|/**      * @return {@code true} if the quota is being violated, {@code false} otherwise.      */
 specifier|public
 name|boolean
 name|isInViolation
@@ -440,7 +437,7 @@ condition|)
 block|{
 name|builder
 operator|.
-name|setPolicy
+name|setViolationPolicy
 argument_list|(
 name|ProtobufUtil
 operator|.
@@ -490,7 +487,7 @@ name|toViolationPolicy
 argument_list|(
 name|proto
 operator|.
-name|getPolicy
+name|getViolationPolicy
 argument_list|()
 argument_list|)
 argument_list|)
@@ -741,18 +738,18 @@ name|toStatus
 argument_list|(
 name|proto
 operator|.
-name|getStatus
+name|getQuotaStatus
 argument_list|()
 argument_list|)
 argument_list|,
 name|proto
 operator|.
-name|getUsage
+name|getQuotaUsage
 argument_list|()
 argument_list|,
 name|proto
 operator|.
-name|getLimit
+name|getQuotaLimit
 argument_list|()
 argument_list|)
 return|;
@@ -776,7 +773,7 @@ operator|.
 name|newBuilder
 argument_list|()
 operator|.
-name|setStatus
+name|setQuotaStatus
 argument_list|(
 name|SpaceQuotaStatus
 operator|.
@@ -789,7 +786,7 @@ argument_list|()
 argument_list|)
 argument_list|)
 operator|.
-name|setUsage
+name|setQuotaUsage
 argument_list|(
 name|snapshot
 operator|.
@@ -797,7 +794,7 @@ name|getUsage
 argument_list|()
 argument_list|)
 operator|.
-name|setLimit
+name|setQuotaLimit
 argument_list|(
 name|snapshot
 operator|.

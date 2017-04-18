@@ -2002,9 +2002,9 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-literal|null
-operator|!=
 name|spaceQuotaManager
+operator|!=
+literal|null
 operator|&&
 name|spaceQuotaManager
 operator|.

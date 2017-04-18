@@ -1957,9 +1957,9 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-literal|null
-operator|==
 name|row
+operator|==
+literal|null
 condition|)
 block|{
 throw|throw
@@ -1993,9 +1993,9 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-literal|null
-operator|==
 name|c
+operator|==
+literal|null
 condition|)
 block|{
 throw|throw
@@ -2912,7 +2912,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Creates a {@link Put} to enable the given<code>policy</code> on the<code>table</code>.    */
+comment|/**    * Creates a {@link Put} to store the given {@code snapshot} for the given {@code tableName} in    * the quota table.    */
 specifier|public
 specifier|static
 name|Put

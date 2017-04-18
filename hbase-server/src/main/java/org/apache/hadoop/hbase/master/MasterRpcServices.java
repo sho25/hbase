@@ -12315,13 +12315,13 @@ name|convert
 argument_list|(
 name|report
 operator|.
-name|getRegion
+name|getRegionInfo
 argument_list|()
 argument_list|)
 argument_list|,
 name|report
 operator|.
-name|getSize
+name|getRegionSize
 argument_list|()
 argument_list|,
 name|now
@@ -12397,9 +12397,9 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-literal|null
-operator|!=
 name|quotaManager
+operator|!=
+literal|null
 condition|)
 block|{
 name|Map
@@ -12469,9 +12469,9 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-literal|null
-operator|==
 name|prevSize
+operator|==
+literal|null
 condition|)
 block|{
 name|prevSize
@@ -12619,9 +12619,9 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-literal|null
-operator|!=
 name|quotaChore
+operator|!=
+literal|null
 condition|)
 block|{
 comment|// The "current" view of all tables with quotas

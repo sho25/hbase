@@ -158,9 +158,9 @@ comment|// Hack around ResponseConverter expecting to invoke a single-arg String
 comment|// on this class
 if|if
 condition|(
-literal|null
-operator|!=
 name|msg
+operator|!=
+literal|null
 condition|)
 block|{
 for|for
@@ -282,9 +282,9 @@ comment|// "org.apache.hadoop.hbase.quotas.SpaceLimitingException: NO_INSERTS A 
 comment|// to a space quota."
 if|if
 condition|(
-literal|null
-operator|!=
 name|originalMessage
+operator|!=
+literal|null
 operator|&&
 name|originalMessage
 operator|.
@@ -362,9 +362,9 @@ parameter_list|()
 block|{
 return|return
 operator|(
-literal|null
-operator|==
 name|policyName
+operator|==
+literal|null
 condition|?
 literal|"(unknown policy)"
 else|:

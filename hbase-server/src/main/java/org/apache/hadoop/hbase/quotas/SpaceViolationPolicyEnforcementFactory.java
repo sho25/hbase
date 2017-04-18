@@ -95,7 +95,7 @@ name|quotas
 operator|.
 name|policies
 operator|.
-name|BulkLoadVerifyingViolationPolicyEnforcement
+name|DefaultViolationPolicyEnforcement
 import|;
 end_import
 
@@ -114,6 +114,24 @@ operator|.
 name|policies
 operator|.
 name|DisableTableViolationPolicyEnforcement
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|quotas
+operator|.
+name|policies
+operator|.
+name|MissingSnapshotViolationPolicyEnforcement
 import|;
 end_import
 
@@ -353,7 +371,7 @@ return|return
 name|enforcement
 return|;
 block|}
-comment|/**    * Creates the "default" {@link SpaceViolationPolicyEnforcement} for a table that isn't in    * violation. This is used to have uniform policy checking for tables in and not quotas.    */
+comment|/**    * Creates the "default" {@link SpaceViolationPolicyEnforcement} for a table that isn't in    * violation. This is used to have uniform policy checking for tables in and not quotas. This    * policy will still verify that new bulk loads do not exceed the configured quota limit.    *    * @param rss RegionServerServices instance the policy enforcement should use.    * @param tableName The target HBase table.    * @param snapshot The current quota snapshot for the {@code tableName}, can be null.    */
 specifier|public
 name|SpaceViolationPolicyEnforcement
 name|createWithoutViolation
@@ -368,6 +386,24 @@ name|SpaceQuotaSnapshot
 name|snapshot
 parameter_list|)
 block|{
+if|if
+condition|(
+name|snapshot
+operator|==
+literal|null
+condition|)
+block|{
+comment|// If we have no snapshot, this is equivalent to no quota for this table.
+comment|// We should do use the (singleton instance) of this policy to do nothing.
+return|return
+name|MissingSnapshotViolationPolicyEnforcement
+operator|.
+name|getInstance
+argument_list|()
+return|;
+block|}
+comment|// We have a snapshot which means that there is a quota set on this table, but it's not in
+comment|// violation of that quota. We need to construct a policy for this table.
 name|SpaceQuotaStatus
 name|status
 init|=
@@ -396,11 +432,12 @@ name|snapshot
 argument_list|)
 throw|;
 block|}
-name|BulkLoadVerifyingViolationPolicyEnforcement
+comment|// We have a unique size snapshot to use. Create an instance for this tablename + snapshot.
+name|DefaultViolationPolicyEnforcement
 name|enforcement
 init|=
 operator|new
-name|BulkLoadVerifyingViolationPolicyEnforcement
+name|DefaultViolationPolicyEnforcement
 argument_list|()
 decl_stmt|;
 name|enforcement

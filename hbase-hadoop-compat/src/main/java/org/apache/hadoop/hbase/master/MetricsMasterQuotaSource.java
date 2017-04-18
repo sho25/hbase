@@ -34,7 +34,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A collection of exposed metrics for HBase quotas from the HBase Master.  */
+comment|/**  * A collection of exposed metrics for space quotas from the HBase Master.  */
 end_comment
 
 begin_interface
@@ -136,7 +136,7 @@ name|NS_QUOTA_USAGE_DESC
 init|=
 literal|"A JSON summary of the usage of all namespaces with space quotas"
 decl_stmt|;
-comment|/**    * Updates the metric tracking the number of space quotas defined in the system.    */
+comment|/**    * Updates the metric tracking the number of space quotas defined in the system.    *    * @param numSpaceQuotas The number of space quotas defined    */
 name|void
 name|updateNumSpaceQuotas
 parameter_list|(
@@ -144,7 +144,7 @@ name|long
 name|numSpaceQuotas
 parameter_list|)
 function_decl|;
-comment|/**    * Updates the metric tracking the number of tables the master has computed to be in    * violation of their space quota.    */
+comment|/**    * Updates the metric tracking the number of tables the master has computed to be in    * violation of their space quota.    *    * @param numTablesInViolation The number of tables violating a space quota    */
 name|void
 name|updateNumTablesInSpaceQuotaViolation
 parameter_list|(
@@ -152,7 +152,7 @@ name|long
 name|numTablesInViolation
 parameter_list|)
 function_decl|;
-comment|/**    * Updates the metric tracking the number of namespaces the master has computed to be in    * violation of their space quota.    */
+comment|/**    * Updates the metric tracking the number of namespaces the master has computed to be in    * violation of their space quota.    *    * @param numNamespacesInViolation The number of namespaces violating a space quota    */
 name|void
 name|updateNumNamespacesInSpaceQuotaViolation
 parameter_list|(
@@ -160,7 +160,7 @@ name|long
 name|numNamespacesInViolation
 parameter_list|)
 function_decl|;
-comment|/**    * Updates the metric tracking the number of region size reports the master is currently    * retaining in memory.    */
+comment|/**    * Updates the metric tracking the number of region size reports the master is currently    * retaining in memory.    *    * @param numCurrentRegionSizeReports The number of region size reports the master is holding in    *    memory    */
 name|void
 name|updateNumCurrentSpaceQuotaRegionSizeReports
 parameter_list|(
@@ -168,7 +168,7 @@ name|long
 name|numCurrentRegionSizeReports
 parameter_list|)
 function_decl|;
-comment|/**    * Updates the metric tracking the amount of time taken by the {@code QuotaObserverChore}    * which runs periodically.    */
+comment|/**    * Updates the metric tracking the amount of time taken by the {@code QuotaObserverChore}    * which runs periodically.    *    * @param time The execution time of the chore in milliseconds    */
 name|void
 name|incrementSpaceQuotaObserverChoreTime
 parameter_list|(

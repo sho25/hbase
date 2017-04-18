@@ -7423,7 +7423,7 @@ operator|.
 name|newBuilder
 argument_list|()
 operator|.
-name|setRegion
+name|setRegionInfo
 argument_list|(
 name|HRegionInfo
 operator|.
@@ -7438,7 +7438,7 @@ argument_list|)
 argument_list|)
 argument_list|)
 operator|.
-name|setSize
+name|setRegionSize
 argument_list|(
 name|Objects
 operator|.

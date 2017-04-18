@@ -33,6 +33,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|HashMap
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Map
 import|;
 end_import
@@ -126,7 +136,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A class to ease dealing with tables that have and do not have violation policies  * being enforced in a uniform manner. Immutable.  */
+comment|/**  * A class to ease dealing with tables that have and do not have violation policies  * being enforced. This class is immutable, expect for {@code locallyCachedPolicies}.  *  * The {@code locallyCachedPolicies} are mutable given the current {@code activePolicies}  * and {@code snapshots}. It is expected that when a new instance of this class is  * instantiated, we also want to invalidate those previously cached policies (as they  * may now be invalidate if we received new quota usage information).  */
 end_comment
 
 begin_class
@@ -167,6 +177,21 @@ specifier|final
 name|RegionServerServices
 name|rss
 decl_stmt|;
+specifier|private
+specifier|final
+name|SpaceViolationPolicyEnforcementFactory
+name|factory
+decl_stmt|;
+specifier|private
+specifier|final
+name|Map
+argument_list|<
+name|TableName
+argument_list|,
+name|SpaceViolationPolicyEnforcement
+argument_list|>
+name|locallyCachedPolicies
+decl_stmt|;
 specifier|public
 name|ActivePolicyEnforcement
 parameter_list|(
@@ -191,6 +216,47 @@ name|rss
 parameter_list|)
 block|{
 name|this
+argument_list|(
+name|activePolicies
+argument_list|,
+name|snapshots
+argument_list|,
+name|rss
+argument_list|,
+name|SpaceViolationPolicyEnforcementFactory
+operator|.
+name|getInstance
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+specifier|public
+name|ActivePolicyEnforcement
+parameter_list|(
+name|Map
+argument_list|<
+name|TableName
+argument_list|,
+name|SpaceViolationPolicyEnforcement
+argument_list|>
+name|activePolicies
+parameter_list|,
+name|Map
+argument_list|<
+name|TableName
+argument_list|,
+name|SpaceQuotaSnapshot
+argument_list|>
+name|snapshots
+parameter_list|,
+name|RegionServerServices
+name|rss
+parameter_list|,
+name|SpaceViolationPolicyEnforcementFactory
+name|factory
+parameter_list|)
+block|{
+name|this
 operator|.
 name|activePolicies
 operator|=
@@ -207,6 +273,22 @@ operator|.
 name|rss
 operator|=
 name|rss
+expr_stmt|;
+name|this
+operator|.
+name|factory
+operator|=
+name|factory
+expr_stmt|;
+comment|// Mutable!
+name|this
+operator|.
+name|locallyCachedPolicies
+operator|=
+operator|new
+name|HashMap
+argument_list|<>
+argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Returns the proper {@link SpaceViolationPolicyEnforcement} implementation for the given table.    * If the given table does not have a violation policy enforced, a "no-op" policy will    * be returned which always allows an action.    *    * @see #getPolicyEnforcement(TableName)    */
@@ -262,48 +344,49 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-literal|null
-operator|==
 name|policy
+operator|==
+literal|null
 condition|)
 block|{
 synchronized|synchronized
 init|(
-name|activePolicies
+name|locallyCachedPolicies
 init|)
 block|{
-comment|// If we've never seen a snapshot, assume no use, and infinite limit
-name|SpaceQuotaSnapshot
-name|snapshot
-init|=
-name|snapshots
+comment|// When we don't have an policy enforcement for the table, there could be one of two cases:
+comment|//  1) The table has no quota defined
+comment|//  2) The table is not in violation of its quota
+comment|// In both of these cases, we want to make sure that access remains fast and we minimize
+comment|// object creation. We can accomplish this by locally caching policies instead of creating
+comment|// a new instance of the policy each time.
+name|policy
+operator|=
+name|locallyCachedPolicies
 operator|.
 name|get
 argument_list|(
 name|tableName
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+comment|// We have already created/cached the enforcement, use it again. `activePolicies` and
+comment|// `snapshots` are immutable, thus this policy is valid for the lifetime of `this`.
 if|if
 condition|(
+name|policy
+operator|!=
 literal|null
-operator|==
-name|snapshot
 condition|)
 block|{
-name|snapshot
-operator|=
-name|SpaceQuotaSnapshot
-operator|.
-name|getNoSuchSnapshot
-argument_list|()
-expr_stmt|;
-block|}
-comment|// Create the default policy and cache it
 return|return
-name|SpaceViolationPolicyEnforcementFactory
-operator|.
-name|getInstance
-argument_list|()
+name|policy
+return|;
+block|}
+comment|// Create a PolicyEnforcement for this table and snapshot. The snapshot may be null
+comment|// which is OK.
+name|policy
+operator|=
+name|factory
 operator|.
 name|createWithoutViolation
 argument_list|(
@@ -311,9 +394,24 @@ name|rss
 argument_list|,
 name|tableName
 argument_list|,
-name|snapshot
+name|snapshots
+operator|.
+name|get
+argument_list|(
+name|tableName
 argument_list|)
-return|;
+argument_list|)
+expr_stmt|;
+comment|// Cache the policy we created
+name|locallyCachedPolicies
+operator|.
+name|put
+argument_list|(
+name|tableName
+argument_list|,
+name|policy
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 return|return
@@ -337,6 +435,25 @@ operator|.
 name|unmodifiableMap
 argument_list|(
 name|activePolicies
+argument_list|)
+return|;
+block|}
+comment|/**    * Returns an unmodifiable version of the policy enforcements that were cached because they are    * not in violation of their quota.    */
+name|Map
+argument_list|<
+name|TableName
+argument_list|,
+name|SpaceViolationPolicyEnforcement
+argument_list|>
+name|getLocallyCachedPolicies
+parameter_list|()
+block|{
+return|return
+name|Collections
+operator|.
+name|unmodifiableMap
+argument_list|(
+name|locallyCachedPolicies
 argument_list|)
 return|;
 block|}

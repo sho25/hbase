@@ -512,7 +512,7 @@ name|ri
 init|=
 name|spaceUse
 operator|.
-name|getRegion
+name|getRegionInfo
 argument_list|()
 decl_stmt|;
 name|HRegionInfo
@@ -553,7 +553,7 @@ argument_list|()
 argument_list|,
 name|spaceUse
 operator|.
-name|getSize
+name|getRegionSize
 argument_list|()
 argument_list|)
 expr_stmt|;

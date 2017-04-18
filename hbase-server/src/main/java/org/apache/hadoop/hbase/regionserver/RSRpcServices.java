@@ -14032,9 +14032,9 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-literal|null
-operator|!=
 name|enforcement
+operator|!=
+literal|null
 condition|)
 block|{
 comment|// Bulk loads must still be atomic. We must enact all or none.
@@ -20145,9 +20145,9 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-literal|null
-operator|!=
 name|manager
+operator|!=
+literal|null
 condition|)
 block|{
 specifier|final
@@ -20282,9 +20282,9 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-literal|null
-operator|!=
 name|manager
+operator|!=
+literal|null
 condition|)
 block|{
 name|ActivePolicyEnforcement

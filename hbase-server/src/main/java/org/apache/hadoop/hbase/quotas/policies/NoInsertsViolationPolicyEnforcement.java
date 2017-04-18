@@ -160,7 +160,7 @@ specifier|public
 class|class
 name|NoInsertsViolationPolicyEnforcement
 extends|extends
-name|AbstractViolationPolicyEnforcement
+name|DefaultViolationPolicyEnforcement
 block|{
 annotation|@
 name|Override

@@ -721,9 +721,9 @@ parameter_list|)
 block|{
 if|if
 condition|(
-literal|null
-operator|==
 name|snapshot
+operator|==
+literal|null
 condition|)
 block|{
 return|return

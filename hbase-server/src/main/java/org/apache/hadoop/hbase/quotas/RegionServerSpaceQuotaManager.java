@@ -438,9 +438,9 @@ parameter_list|()
 block|{
 if|if
 condition|(
-literal|null
-operator|!=
 name|spaceQuotaRefresher
+operator|!=
+literal|null
 condition|)
 block|{
 name|spaceQuotaRefresher
@@ -605,9 +605,9 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-literal|null
-operator|!=
 name|snapshot
+operator|!=
+literal|null
 condition|)
 block|{
 name|policies
@@ -711,9 +711,10 @@ name|snapshot
 argument_list|)
 decl_stmt|;
 comment|// "Enables" the policy
-comment|// TODO Should this synchronize on the actual table name instead of the map? That would allow
-comment|// policy enable/disable on different tables to happen concurrently. As written now, only one
-comment|// table will be allowed to transition at a time.
+comment|// HBASE-XXXX: Should this synchronize on the actual table name instead of the map? That would
+comment|// allow policy enable/disable on different tables to happen concurrently. As written now, only
+comment|// one table will be allowed to transition at a time. This is probably OK, but not sure if
+comment|// it would become a bottleneck at large clusters/number of tables.
 synchronized|synchronized
 init|(
 name|enforcedPolicies
@@ -787,7 +788,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// "Disables" the policy
-comment|// TODO Should this synchronize on the actual table name instead of the map?
 synchronized|synchronized
 init|(
 name|enforcedPolicies
@@ -805,9 +805,9 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-literal|null
-operator|!=
 name|enforcement
+operator|!=
+literal|null
 condition|)
 block|{
 try|try
@@ -878,9 +878,9 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-literal|null
-operator|!=
 name|enforcement
+operator|!=
+literal|null
 condition|)
 block|{
 return|return

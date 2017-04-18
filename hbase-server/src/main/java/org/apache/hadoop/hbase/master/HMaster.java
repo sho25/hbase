@@ -11948,9 +11948,9 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-literal|null
-operator|!=
 name|quotaManager
+operator|!=
+literal|null
 condition|)
 block|{
 if|if
@@ -11976,9 +11976,9 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-literal|null
-operator|!=
 name|quotaForTable
+operator|!=
+literal|null
 operator|&&
 name|quotaForTable
 operator|.

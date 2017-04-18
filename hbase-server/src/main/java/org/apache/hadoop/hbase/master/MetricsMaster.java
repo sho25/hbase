@@ -237,7 +237,7 @@ name|inc
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Sets the number of space quotas defined.    */
+comment|/**    * Sets the number of space quotas defined.    *    * @see MetricsMasterQuotaSource#updateNumSpaceQuotas(long)    */
 specifier|public
 name|void
 name|setNumSpaceQuotas
@@ -255,7 +255,7 @@ name|numSpaceQuotas
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Sets the number of table in violation of a space quota.    */
+comment|/**    * Sets the number of table in violation of a space quota.    *    * @see MetricsMasterQuotaSource#updateNumTablesInSpaceQuotaViolation(long)    */
 specifier|public
 name|void
 name|setNumTableInSpaceQuotaViolation
@@ -273,7 +273,7 @@ name|numTablesInViolation
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Sets the number of namespaces in violation of a space quota.    */
+comment|/**    * Sets the number of namespaces in violation of a space quota.    *    * @see MetricsMasterQuotaSource#updateNumNamespacesInSpaceQuotaViolation(long)    */
 specifier|public
 name|void
 name|setNumNamespacesInSpaceQuotaViolation
@@ -291,7 +291,7 @@ name|numNamespacesInViolation
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Sets the number of region size reports the master has seen.    */
+comment|/**    * Sets the number of region size reports the master currently has in memory.    *    * @see MetricsMasterQuotaSource#updateNumCurrentSpaceQuotaRegionSizeReports(long)    */
 specifier|public
 name|void
 name|setNumRegionSizeReports
@@ -309,7 +309,7 @@ name|numRegionReports
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Sets the execution time of a period of the QuotaObserverChore.    */
+comment|/**    * Sets the execution time of a period of the QuotaObserverChore.    *    * @param executionTime The execution time in milliseconds.    * @see MetricsMasterQuotaSource#incrementSpaceQuotaObserverChoreTime(long)    */
 specifier|public
 name|void
 name|incrementQuotaObserverTime

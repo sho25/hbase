@@ -64946,12 +64946,12 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|/**      *<pre>      * A region identifier      *</pre>      *      *<code>optional .hbase.pb.RegionInfo region = 1;</code>      */
+comment|/**      *<pre>      * A region identifier      *</pre>      *      *<code>optional .hbase.pb.RegionInfo region_info = 1;</code>      */
 name|boolean
-name|hasRegion
+name|hasRegionInfo
 parameter_list|()
 function_decl|;
-comment|/**      *<pre>      * A region identifier      *</pre>      *      *<code>optional .hbase.pb.RegionInfo region = 1;</code>      */
+comment|/**      *<pre>      * A region identifier      *</pre>      *      *<code>optional .hbase.pb.RegionInfo region_info = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -64969,10 +64969,10 @@ operator|.
 name|HBaseProtos
 operator|.
 name|RegionInfo
-name|getRegion
+name|getRegionInfo
 parameter_list|()
 function_decl|;
-comment|/**      *<pre>      * A region identifier      *</pre>      *      *<code>optional .hbase.pb.RegionInfo region = 1;</code>      */
+comment|/**      *<pre>      * A region identifier      *</pre>      *      *<code>optional .hbase.pb.RegionInfo region_info = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -64990,17 +64990,17 @@ operator|.
 name|HBaseProtos
 operator|.
 name|RegionInfoOrBuilder
-name|getRegionOrBuilder
+name|getRegionInfoOrBuilder
 parameter_list|()
 function_decl|;
-comment|/**      *<pre>      * The size in bytes of the region      *</pre>      *      *<code>optional uint64 size = 2;</code>      */
+comment|/**      *<pre>      * The size in bytes of the region      *</pre>      *      *<code>optional uint64 region_size = 2;</code>      */
 name|boolean
-name|hasSize
+name|hasRegionSize
 parameter_list|()
 function_decl|;
-comment|/**      *<pre>      * The size in bytes of the region      *</pre>      *      *<code>optional uint64 size = 2;</code>      */
+comment|/**      *<pre>      * The size in bytes of the region      *</pre>      *      *<code>optional uint64 region_size = 2;</code>      */
 name|long
-name|getSize
+name|getRegionSize
 parameter_list|()
 function_decl|;
 block|}
@@ -65071,7 +65071,7 @@ specifier|private
 name|RegionSpaceUse
 parameter_list|()
 block|{
-name|size_
+name|regionSize_
 operator|=
 literal|0L
 expr_stmt|;
@@ -65320,13 +65320,13 @@ condition|)
 block|{
 name|subBuilder
 operator|=
-name|region_
+name|regionInfo_
 operator|.
 name|toBuilder
 argument_list|()
 expr_stmt|;
 block|}
-name|region_
+name|regionInfo_
 operator|=
 name|input
 operator|.
@@ -65366,10 +65366,10 @@ name|subBuilder
 operator|.
 name|mergeFrom
 argument_list|(
-name|region_
+name|regionInfo_
 argument_list|)
 expr_stmt|;
-name|region_
+name|regionInfo_
 operator|=
 name|subBuilder
 operator|.
@@ -65391,7 +65391,7 @@ name|bitField0_
 operator||=
 literal|0x00000002
 expr_stmt|;
-name|size_
+name|regionSize_
 operator|=
 name|input
 operator|.
@@ -65630,7 +65630,7 @@ specifier|public
 specifier|static
 specifier|final
 name|int
-name|REGION_FIELD_NUMBER
+name|REGION_INFO_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -65652,12 +65652,12 @@ operator|.
 name|HBaseProtos
 operator|.
 name|RegionInfo
-name|region_
+name|regionInfo_
 decl_stmt|;
-comment|/**      *<pre>      * A region identifier      *</pre>      *      *<code>optional .hbase.pb.RegionInfo region = 1;</code>      */
+comment|/**      *<pre>      * A region identifier      *</pre>      *      *<code>optional .hbase.pb.RegionInfo region_info = 1;</code>      */
 specifier|public
 name|boolean
-name|hasRegion
+name|hasRegionInfo
 parameter_list|()
 block|{
 return|return
@@ -65672,7 +65672,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<pre>      * A region identifier      *</pre>      *      *<code>optional .hbase.pb.RegionInfo region = 1;</code>      */
+comment|/**      *<pre>      * A region identifier      *</pre>      *      *<code>optional .hbase.pb.RegionInfo region_info = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -65691,11 +65691,11 @@ operator|.
 name|HBaseProtos
 operator|.
 name|RegionInfo
-name|getRegion
+name|getRegionInfo
 parameter_list|()
 block|{
 return|return
-name|region_
+name|regionInfo_
 operator|==
 literal|null
 condition|?
@@ -65720,10 +65720,10 @@ operator|.
 name|getDefaultInstance
 argument_list|()
 else|:
-name|region_
+name|regionInfo_
 return|;
 block|}
-comment|/**      *<pre>      * A region identifier      *</pre>      *      *<code>optional .hbase.pb.RegionInfo region = 1;</code>      */
+comment|/**      *<pre>      * A region identifier      *</pre>      *      *<code>optional .hbase.pb.RegionInfo region_info = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -65742,11 +65742,11 @@ operator|.
 name|HBaseProtos
 operator|.
 name|RegionInfoOrBuilder
-name|getRegionOrBuilder
+name|getRegionInfoOrBuilder
 parameter_list|()
 block|{
 return|return
-name|region_
+name|regionInfo_
 operator|==
 literal|null
 condition|?
@@ -65771,25 +65771,25 @@ operator|.
 name|getDefaultInstance
 argument_list|()
 else|:
-name|region_
+name|regionInfo_
 return|;
 block|}
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|SIZE_FIELD_NUMBER
+name|REGION_SIZE_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
 specifier|private
 name|long
-name|size_
+name|regionSize_
 decl_stmt|;
-comment|/**      *<pre>      * The size in bytes of the region      *</pre>      *      *<code>optional uint64 size = 2;</code>      */
+comment|/**      *<pre>      * The size in bytes of the region      *</pre>      *      *<code>optional uint64 region_size = 2;</code>      */
 specifier|public
 name|boolean
-name|hasSize
+name|hasRegionSize
 parameter_list|()
 block|{
 return|return
@@ -65804,14 +65804,14 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<pre>      * The size in bytes of the region      *</pre>      *      *<code>optional uint64 size = 2;</code>      */
+comment|/**      *<pre>      * The size in bytes of the region      *</pre>      *      *<code>optional uint64 region_size = 2;</code>      */
 specifier|public
 name|long
-name|getSize
+name|getRegionSize
 parameter_list|()
 block|{
 return|return
-name|size_
+name|regionSize_
 return|;
 block|}
 specifier|private
@@ -65852,14 +65852,14 @@ literal|false
 return|;
 if|if
 condition|(
-name|hasRegion
+name|hasRegionInfo
 argument_list|()
 condition|)
 block|{
 if|if
 condition|(
 operator|!
-name|getRegion
+name|getRegionInfo
 argument_list|()
 operator|.
 name|isInitialized
@@ -65932,7 +65932,7 @@ name|writeMessage
 argument_list|(
 literal|1
 argument_list|,
-name|getRegion
+name|getRegionInfo
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -65956,7 +65956,7 @@ name|writeUInt64
 argument_list|(
 literal|2
 argument_list|,
-name|size_
+name|regionSize_
 argument_list|)
 expr_stmt|;
 block|}
@@ -66029,7 +66029,7 @@ name|computeMessageSize
 argument_list|(
 literal|1
 argument_list|,
-name|getRegion
+name|getRegionInfo
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -66071,7 +66071,7 @@ name|computeUInt64Size
 argument_list|(
 literal|2
 argument_list|,
-name|size_
+name|regionSize_
 argument_list|)
 expr_stmt|;
 block|}
@@ -66213,18 +66213,18 @@ operator|=
 name|result
 operator|&&
 operator|(
-name|hasRegion
+name|hasRegionInfo
 argument_list|()
 operator|==
 name|other
 operator|.
-name|hasRegion
+name|hasRegionInfo
 argument_list|()
 operator|)
 expr_stmt|;
 if|if
 condition|(
-name|hasRegion
+name|hasRegionInfo
 argument_list|()
 condition|)
 block|{
@@ -66232,14 +66232,14 @@ name|result
 operator|=
 name|result
 operator|&&
-name|getRegion
+name|getRegionInfo
 argument_list|()
 operator|.
 name|equals
 argument_list|(
 name|other
 operator|.
-name|getRegion
+name|getRegionInfo
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -66249,18 +66249,18 @@ operator|=
 name|result
 operator|&&
 operator|(
-name|hasSize
+name|hasRegionSize
 argument_list|()
 operator|==
 name|other
 operator|.
-name|hasSize
+name|hasRegionSize
 argument_list|()
 operator|)
 expr_stmt|;
 if|if
 condition|(
-name|hasSize
+name|hasRegionSize
 argument_list|()
 condition|)
 block|{
@@ -66269,12 +66269,12 @@ operator|=
 name|result
 operator|&&
 operator|(
-name|getSize
+name|getRegionSize
 argument_list|()
 operator|==
 name|other
 operator|.
-name|getSize
+name|getRegionSize
 argument_list|()
 operator|)
 expr_stmt|;
@@ -66339,7 +66339,7 @@ argument_list|()
 expr_stmt|;
 if|if
 condition|(
-name|hasRegion
+name|hasRegionInfo
 argument_list|()
 condition|)
 block|{
@@ -66351,7 +66351,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|REGION_FIELD_NUMBER
+name|REGION_INFO_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -66361,7 +66361,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|getRegion
+name|getRegionInfo
 argument_list|()
 operator|.
 name|hashCode
@@ -66370,7 +66370,7 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-name|hasSize
+name|hasRegionSize
 argument_list|()
 condition|)
 block|{
@@ -66382,7 +66382,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|SIZE_FIELD_NUMBER
+name|REGION_SIZE_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -66412,7 +66412,7 @@ name|Internal
 operator|.
 name|hashLong
 argument_list|(
-name|getSize
+name|getRegionSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -67563,7 +67563,7 @@ operator|.
 name|alwaysUseFieldBuilders
 condition|)
 block|{
-name|getRegionFieldBuilder
+name|getRegionInfoFieldBuilder
 argument_list|()
 expr_stmt|;
 block|}
@@ -67580,19 +67580,19 @@ argument_list|()
 expr_stmt|;
 if|if
 condition|(
-name|regionBuilder_
+name|regionInfoBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|region_
+name|regionInfo_
 operator|=
 literal|null
 expr_stmt|;
 block|}
 else|else
 block|{
-name|regionBuilder_
+name|regionInfoBuilder_
 operator|.
 name|clear
 argument_list|()
@@ -67607,7 +67607,7 @@ operator|~
 literal|0x00000001
 operator|)
 expr_stmt|;
-name|size_
+name|regionSize_
 operator|=
 literal|0L
 expr_stmt|;
@@ -67866,25 +67866,25 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-name|regionBuilder_
+name|regionInfoBuilder_
 operator|==
 literal|null
 condition|)
 block|{
 name|result
 operator|.
-name|region_
+name|regionInfo_
 operator|=
-name|region_
+name|regionInfo_
 expr_stmt|;
 block|}
 else|else
 block|{
 name|result
 operator|.
-name|region_
+name|regionInfo_
 operator|=
-name|regionBuilder_
+name|regionInfoBuilder_
 operator|.
 name|build
 argument_list|()
@@ -67910,9 +67910,9 @@ expr_stmt|;
 block|}
 name|result
 operator|.
-name|size_
+name|regionSize_
 operator|=
-name|size_
+name|regionSize_
 expr_stmt|;
 name|result
 operator|.
@@ -68295,15 +68295,15 @@ if|if
 condition|(
 name|other
 operator|.
-name|hasRegion
+name|hasRegionInfo
 argument_list|()
 condition|)
 block|{
-name|mergeRegion
+name|mergeRegionInfo
 argument_list|(
 name|other
 operator|.
-name|getRegion
+name|getRegionInfo
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -68312,15 +68312,15 @@ if|if
 condition|(
 name|other
 operator|.
-name|hasSize
+name|hasRegionSize
 argument_list|()
 condition|)
 block|{
-name|setSize
+name|setRegionSize
 argument_list|(
 name|other
 operator|.
-name|getSize
+name|getRegionSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -68349,14 +68349,14 @@ parameter_list|()
 block|{
 if|if
 condition|(
-name|hasRegion
+name|hasRegionInfo
 argument_list|()
 condition|)
 block|{
 if|if
 condition|(
 operator|!
-name|getRegion
+name|getRegionInfo
 argument_list|()
 operator|.
 name|isInitialized
@@ -68553,7 +68553,7 @@ operator|.
 name|HBaseProtos
 operator|.
 name|RegionInfo
-name|region_
+name|regionInfo_
 init|=
 literal|null
 decl_stmt|;
@@ -68632,12 +68632,12 @@ name|HBaseProtos
 operator|.
 name|RegionInfoOrBuilder
 argument_list|>
-name|regionBuilder_
+name|regionInfoBuilder_
 decl_stmt|;
-comment|/**        *<pre>        * A region identifier        *</pre>        *        *<code>optional .hbase.pb.RegionInfo region = 1;</code>        */
+comment|/**        *<pre>        * A region identifier        *</pre>        *        *<code>optional .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|public
 name|boolean
-name|hasRegion
+name|hasRegionInfo
 parameter_list|()
 block|{
 return|return
@@ -68652,7 +68652,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<pre>        * A region identifier        *</pre>        *        *<code>optional .hbase.pb.RegionInfo region = 1;</code>        */
+comment|/**        *<pre>        * A region identifier        *</pre>        *        *<code>optional .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -68671,18 +68671,18 @@ operator|.
 name|HBaseProtos
 operator|.
 name|RegionInfo
-name|getRegion
+name|getRegionInfo
 parameter_list|()
 block|{
 if|if
 condition|(
-name|regionBuilder_
+name|regionInfoBuilder_
 operator|==
 literal|null
 condition|)
 block|{
 return|return
-name|region_
+name|regionInfo_
 operator|==
 literal|null
 condition|?
@@ -68707,23 +68707,23 @@ operator|.
 name|getDefaultInstance
 argument_list|()
 else|:
-name|region_
+name|regionInfo_
 return|;
 block|}
 else|else
 block|{
 return|return
-name|regionBuilder_
+name|regionInfoBuilder_
 operator|.
 name|getMessage
 argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<pre>        * A region identifier        *</pre>        *        *<code>optional .hbase.pb.RegionInfo region = 1;</code>        */
+comment|/**        *<pre>        * A region identifier        *</pre>        *        *<code>optional .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|public
 name|Builder
-name|setRegion
+name|setRegionInfo
 parameter_list|(
 name|org
 operator|.
@@ -68747,7 +68747,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|regionBuilder_
+name|regionInfoBuilder_
 operator|==
 literal|null
 condition|)
@@ -68765,7 +68765,7 @@ name|NullPointerException
 argument_list|()
 throw|;
 block|}
-name|region_
+name|regionInfo_
 operator|=
 name|value
 expr_stmt|;
@@ -68775,7 +68775,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|regionBuilder_
+name|regionInfoBuilder_
 operator|.
 name|setMessage
 argument_list|(
@@ -68791,10 +68791,10 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<pre>        * A region identifier        *</pre>        *        *<code>optional .hbase.pb.RegionInfo region = 1;</code>        */
+comment|/**        *<pre>        * A region identifier        *</pre>        *        *<code>optional .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|public
 name|Builder
-name|setRegion
+name|setRegionInfo
 parameter_list|(
 name|org
 operator|.
@@ -68820,12 +68820,12 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|regionBuilder_
+name|regionInfoBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|region_
+name|regionInfo_
 operator|=
 name|builderForValue
 operator|.
@@ -68838,7 +68838,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|regionBuilder_
+name|regionInfoBuilder_
 operator|.
 name|setMessage
 argument_list|(
@@ -68857,10 +68857,10 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<pre>        * A region identifier        *</pre>        *        *<code>optional .hbase.pb.RegionInfo region = 1;</code>        */
+comment|/**        *<pre>        * A region identifier        *</pre>        *        *<code>optional .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|public
 name|Builder
-name|mergeRegion
+name|mergeRegionInfo
 parameter_list|(
 name|org
 operator|.
@@ -68884,7 +68884,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|regionBuilder_
+name|regionInfoBuilder_
 operator|==
 literal|null
 condition|)
@@ -68901,11 +68901,11 @@ operator|==
 literal|0x00000001
 operator|)
 operator|&&
-name|region_
+name|regionInfo_
 operator|!=
 literal|null
 operator|&&
-name|region_
+name|regionInfo_
 operator|!=
 name|org
 operator|.
@@ -68929,7 +68929,7 @@ name|getDefaultInstance
 argument_list|()
 condition|)
 block|{
-name|region_
+name|regionInfo_
 operator|=
 name|org
 operator|.
@@ -68951,7 +68951,7 @@ name|RegionInfo
 operator|.
 name|newBuilder
 argument_list|(
-name|region_
+name|regionInfo_
 argument_list|)
 operator|.
 name|mergeFrom
@@ -68965,7 +68965,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|region_
+name|regionInfo_
 operator|=
 name|value
 expr_stmt|;
@@ -68976,7 +68976,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|regionBuilder_
+name|regionInfoBuilder_
 operator|.
 name|mergeFrom
 argument_list|(
@@ -68992,20 +68992,20 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<pre>        * A region identifier        *</pre>        *        *<code>optional .hbase.pb.RegionInfo region = 1;</code>        */
+comment|/**        *<pre>        * A region identifier        *</pre>        *        *<code>optional .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|public
 name|Builder
-name|clearRegion
+name|clearRegionInfo
 parameter_list|()
 block|{
 if|if
 condition|(
-name|regionBuilder_
+name|regionInfoBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|region_
+name|regionInfo_
 operator|=
 literal|null
 expr_stmt|;
@@ -69015,7 +69015,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|regionBuilder_
+name|regionInfoBuilder_
 operator|.
 name|clear
 argument_list|()
@@ -69034,7 +69034,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<pre>        * A region identifier        *</pre>        *        *<code>optional .hbase.pb.RegionInfo region = 1;</code>        */
+comment|/**        *<pre>        * A region identifier        *</pre>        *        *<code>optional .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -69055,7 +69055,7 @@ operator|.
 name|RegionInfo
 operator|.
 name|Builder
-name|getRegionBuilder
+name|getRegionInfoBuilder
 parameter_list|()
 block|{
 name|bitField0_
@@ -69066,14 +69066,14 @@ name|onChanged
 argument_list|()
 expr_stmt|;
 return|return
-name|getRegionFieldBuilder
+name|getRegionInfoFieldBuilder
 argument_list|()
 operator|.
 name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<pre>        * A region identifier        *</pre>        *        *<code>optional .hbase.pb.RegionInfo region = 1;</code>        */
+comment|/**        *<pre>        * A region identifier        *</pre>        *        *<code>optional .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -69092,18 +69092,18 @@ operator|.
 name|HBaseProtos
 operator|.
 name|RegionInfoOrBuilder
-name|getRegionOrBuilder
+name|getRegionInfoOrBuilder
 parameter_list|()
 block|{
 if|if
 condition|(
-name|regionBuilder_
+name|regionInfoBuilder_
 operator|!=
 literal|null
 condition|)
 block|{
 return|return
-name|regionBuilder_
+name|regionInfoBuilder_
 operator|.
 name|getMessageOrBuilder
 argument_list|()
@@ -69112,7 +69112,7 @@ block|}
 else|else
 block|{
 return|return
-name|region_
+name|regionInfo_
 operator|==
 literal|null
 condition|?
@@ -69137,11 +69137,11 @@ operator|.
 name|getDefaultInstance
 argument_list|()
 else|:
-name|region_
+name|regionInfo_
 return|;
 block|}
 block|}
-comment|/**        *<pre>        * A region identifier        *</pre>        *        *<code>optional .hbase.pb.RegionInfo region = 1;</code>        */
+comment|/**        *<pre>        * A region identifier        *</pre>        *        *<code>optional .hbase.pb.RegionInfo region_info = 1;</code>        */
 specifier|private
 name|org
 operator|.
@@ -69217,17 +69217,17 @@ name|HBaseProtos
 operator|.
 name|RegionInfoOrBuilder
 argument_list|>
-name|getRegionFieldBuilder
+name|getRegionInfoFieldBuilder
 parameter_list|()
 block|{
 if|if
 condition|(
-name|regionBuilder_
+name|regionInfoBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|regionBuilder_
+name|regionInfoBuilder_
 operator|=
 operator|new
 name|org
@@ -69305,7 +69305,7 @@ operator|.
 name|RegionInfoOrBuilder
 argument_list|>
 argument_list|(
-name|getRegion
+name|getRegionInfo
 argument_list|()
 argument_list|,
 name|getParentForChildren
@@ -69315,23 +69315,23 @@ name|isClean
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|region_
+name|regionInfo_
 operator|=
 literal|null
 expr_stmt|;
 block|}
 return|return
-name|regionBuilder_
+name|regionInfoBuilder_
 return|;
 block|}
 specifier|private
 name|long
-name|size_
+name|regionSize_
 decl_stmt|;
-comment|/**        *<pre>        * The size in bytes of the region        *</pre>        *        *<code>optional uint64 size = 2;</code>        */
+comment|/**        *<pre>        * The size in bytes of the region        *</pre>        *        *<code>optional uint64 region_size = 2;</code>        */
 specifier|public
 name|boolean
-name|hasSize
+name|hasRegionSize
 parameter_list|()
 block|{
 return|return
@@ -69346,20 +69346,20 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<pre>        * The size in bytes of the region        *</pre>        *        *<code>optional uint64 size = 2;</code>        */
+comment|/**        *<pre>        * The size in bytes of the region        *</pre>        *        *<code>optional uint64 region_size = 2;</code>        */
 specifier|public
 name|long
-name|getSize
+name|getRegionSize
 parameter_list|()
 block|{
 return|return
-name|size_
+name|regionSize_
 return|;
 block|}
-comment|/**        *<pre>        * The size in bytes of the region        *</pre>        *        *<code>optional uint64 size = 2;</code>        */
+comment|/**        *<pre>        * The size in bytes of the region        *</pre>        *        *<code>optional uint64 region_size = 2;</code>        */
 specifier|public
 name|Builder
-name|setSize
+name|setRegionSize
 parameter_list|(
 name|long
 name|value
@@ -69369,7 +69369,7 @@ name|bitField0_
 operator||=
 literal|0x00000002
 expr_stmt|;
-name|size_
+name|regionSize_
 operator|=
 name|value
 expr_stmt|;
@@ -69380,10 +69380,10 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<pre>        * The size in bytes of the region        *</pre>        *        *<code>optional uint64 size = 2;</code>        */
+comment|/**        *<pre>        * The size in bytes of the region        *</pre>        *        *<code>optional uint64 region_size = 2;</code>        */
 specifier|public
 name|Builder
-name|clearSize
+name|clearRegionSize
 parameter_list|()
 block|{
 name|bitField0_
@@ -69395,7 +69395,7 @@ operator|~
 literal|0x00000002
 operator|)
 expr_stmt|;
-name|size_
+name|regionSize_
 operator|=
 literal|0L
 expr_stmt|;
@@ -87302,63 +87302,63 @@ literal|"onInfo\022\021\n\tsplit_row\030\002 \002(\014\022\026\n\013nonce_group"
 operator|+
 literal|"\030\003 \001(\004:\0010\022\020\n\005nonce\030\004 \001(\004:\0010\"+\n\030SplitTabl"
 operator|+
-literal|"eRegionResponse\022\017\n\007proc_id\030\001 \001(\004\"D\n\016Regi"
+literal|"eRegionResponse\022\017\n\007proc_id\030\001 \001(\004\"P\n\016Regi"
 operator|+
-literal|"onSpaceUse\022$\n\006region\030\001 \001(\0132\024.hbase.pb.Re"
+literal|"onSpaceUse\022)\n\013region_info\030\001 \001(\0132\024.hbase."
 operator|+
-literal|"gionInfo\022\014\n\004size\030\002 \001(\004\"J\n\033RegionSpaceUse"
+literal|"pb.RegionInfo\022\023\n\013region_size\030\002 \001(\004\"J\n\033Re"
 operator|+
-literal|"ReportRequest\022+\n\tspace_use\030\001 \003(\0132\030.hbase"
+literal|"gionSpaceUseReportRequest\022+\n\tspace_use\030\001"
 block|,
-literal|".pb.RegionSpaceUse\"\036\n\034RegionSpaceUseRepo"
+literal|" \003(\0132\030.hbase.pb.RegionSpaceUse\"\036\n\034Region"
 operator|+
-literal|"rtResponse2\316\006\n\031RegionServerStatusService"
+literal|"SpaceUseReportResponse2\316\006\n\031RegionServerS"
 operator|+
-literal|"\022b\n\023RegionServerStartup\022$.hbase.pb.Regio"
+literal|"tatusService\022b\n\023RegionServerStartup\022$.hb"
 operator|+
-literal|"nServerStartupRequest\032%.hbase.pb.RegionS"
+literal|"ase.pb.RegionServerStartupRequest\032%.hbas"
 operator|+
-literal|"erverStartupResponse\022_\n\022RegionServerRepo"
+literal|"e.pb.RegionServerStartupResponse\022_\n\022Regi"
 operator|+
-literal|"rt\022#.hbase.pb.RegionServerReportRequest\032"
+literal|"onServerReport\022#.hbase.pb.RegionServerRe"
 operator|+
-literal|"$.hbase.pb.RegionServerReportResponse\022_\n"
+literal|"portRequest\032$.hbase.pb.RegionServerRepor"
 operator|+
-literal|"\022ReportRSFatalError\022#.hbase.pb.ReportRSF"
+literal|"tResponse\022_\n\022ReportRSFatalError\022#.hbase."
 operator|+
-literal|"atalErrorRequest\032$.hbase.pb.ReportRSFata"
+literal|"pb.ReportRSFatalErrorRequest\032$.hbase.pb."
 operator|+
-literal|"lErrorResponse\022q\n\030GetLastFlushedSequence"
+literal|"ReportRSFatalErrorResponse\022q\n\030GetLastFlu"
 block|,
-literal|"Id\022).hbase.pb.GetLastFlushedSequenceIdRe"
+literal|"shedSequenceId\022).hbase.pb.GetLastFlushed"
 operator|+
-literal|"quest\032*.hbase.pb.GetLastFlushedSequenceI"
+literal|"SequenceIdRequest\032*.hbase.pb.GetLastFlus"
 operator|+
-literal|"dResponse\022z\n\033ReportRegionStateTransition"
+literal|"hedSequenceIdResponse\022z\n\033ReportRegionSta"
 operator|+
-literal|"\022,.hbase.pb.ReportRegionStateTransitionR"
+literal|"teTransition\022,.hbase.pb.ReportRegionStat"
 operator|+
-literal|"equest\032-.hbase.pb.ReportRegionStateTrans"
+literal|"eTransitionRequest\032-.hbase.pb.ReportRegi"
 operator|+
-literal|"itionResponse\022T\n\013SplitRegion\022!.hbase.pb."
+literal|"onStateTransitionResponse\022T\n\013SplitRegion"
 operator|+
-literal|"SplitTableRegionRequest\032\".hbase.pb.Split"
+literal|"\022!.hbase.pb.SplitTableRegionRequest\032\".hb"
 operator|+
-literal|"TableRegionResponse\022_\n\022getProcedureResul"
+literal|"ase.pb.SplitTableRegionResponse\022_\n\022getPr"
 operator|+
-literal|"t\022#.hbase.pb.GetProcedureResultRequest\032$"
+literal|"ocedureResult\022#.hbase.pb.GetProcedureRes"
 operator|+
-literal|".hbase.pb.GetProcedureResultResponse\022e\n\024"
+literal|"ultRequest\032$.hbase.pb.GetProcedureResult"
 block|,
-literal|"ReportRegionSpaceUse\022%.hbase.pb.RegionSp"
+literal|"Response\022e\n\024ReportRegionSpaceUse\022%.hbase"
 operator|+
-literal|"aceUseReportRequest\032&.hbase.pb.RegionSpa"
+literal|".pb.RegionSpaceUseReportRequest\032&.hbase."
 operator|+
-literal|"ceUseReportResponseBU\n1org.apache.hadoop"
+literal|"pb.RegionSpaceUseReportResponseBU\n1org.a"
 operator|+
-literal|".hbase.shaded.protobuf.generatedB\030Region"
+literal|"pache.hadoop.hbase.shaded.protobuf.gener"
 operator|+
-literal|"ServerStatusProtosH\001\210\001\001\240\001\001"
+literal|"atedB\030RegionServerStatusProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|org
@@ -88283,9 +88283,9 @@ operator|.
 name|String
 index|[]
 block|{
-literal|"Region"
+literal|"RegionInfo"
 block|,
-literal|"Size"
+literal|"RegionSize"
 block|, }
 argument_list|)
 expr_stmt|;

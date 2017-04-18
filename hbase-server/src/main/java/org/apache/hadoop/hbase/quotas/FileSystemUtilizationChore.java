@@ -519,9 +519,9 @@ name|processingLeftovers
 decl_stmt|;
 if|if
 condition|(
-literal|null
-operator|==
 name|oldRegionsToProcess
+operator|==
+literal|null
 condition|)
 block|{
 name|iterator
@@ -860,7 +860,7 @@ return|return
 name|regionSize
 return|;
 block|}
-comment|/**    * Reports the computed region sizes to the currently active Master.    *    * @param onlineRegionSizes The computed region sizes to report.    */
+comment|/**    * Reports the computed region sizes to the currently active Master.    *    * @param onlineRegionSizes The computed region sizes to report.    * @return {@code false} if FileSystemUtilizationChore should pause reporting to master,    *    {@code true} otherwise.    */
 name|boolean
 name|reportRegionSizesToMaster
 parameter_list|(

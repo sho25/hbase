@@ -836,9 +836,9 @@ argument_list|()
 expr_stmt|;
 if|if
 condition|(
-literal|null
-operator|!=
 name|metrics
+operator|!=
+literal|null
 condition|)
 block|{
 name|metrics
@@ -910,9 +910,9 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-literal|null
-operator|!=
 name|metrics
+operator|!=
+literal|null
 condition|)
 block|{
 comment|// Set the number of namespaces and tables with quotas defined
@@ -989,9 +989,9 @@ expr_stmt|;
 comment|// Report the number of (non-expired) region size reports
 if|if
 condition|(
-literal|null
-operator|!=
 name|metrics
+operator|!=
+literal|null
 condition|)
 block|{
 name|metrics
@@ -1226,9 +1226,9 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-literal|null
-operator|==
 name|tableSnapshotStore
+operator|==
+literal|null
 condition|)
 block|{
 name|tableSnapshotStore
@@ -1256,9 +1256,9 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-literal|null
-operator|==
 name|namespaceSnapshotStore
+operator|==
+literal|null
 condition|)
 block|{
 name|namespaceSnapshotStore
@@ -1325,9 +1325,9 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-literal|null
-operator|==
 name|spaceQuota
+operator|==
+literal|null
 condition|)
 block|{
 if|if
@@ -1430,9 +1430,9 @@ block|}
 comment|// Report the number of tables in violation
 if|if
 condition|(
-literal|null
-operator|!=
 name|metrics
+operator|!=
+literal|null
 condition|)
 block|{
 name|metrics
@@ -1494,9 +1494,9 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-literal|null
-operator|==
 name|spaceQuota
+operator|==
+literal|null
 condition|)
 block|{
 if|if
@@ -1601,9 +1601,9 @@ block|}
 comment|// Report the number of namespaces in violation
 if|if
 condition|(
-literal|null
-operator|!=
 name|metrics
+operator|!=
+literal|null
 condition|)
 block|{
 name|metrics
@@ -2222,14 +2222,6 @@ literal|null
 argument_list|)
 decl_stmt|;
 specifier|final
-name|QuotaRetriever
-name|scanner
-init|=
-operator|new
-name|QuotaRetriever
-argument_list|()
-decl_stmt|;
-specifier|final
 name|TablesWithQuotas
 name|tablesWithQuotas
 init|=
@@ -2242,6 +2234,15 @@ name|conf
 argument_list|)
 decl_stmt|;
 try|try
+init|(
+specifier|final
+name|QuotaRetriever
+name|scanner
+init|=
+operator|new
+name|QuotaRetriever
+argument_list|()
+init|)
 block|{
 name|scanner
 operator|.
@@ -2295,15 +2296,15 @@ continue|continue;
 block|}
 if|if
 condition|(
-literal|null
-operator|!=
 name|namespace
+operator|!=
+literal|null
 condition|)
 block|{
 assert|assert
-literal|null
-operator|==
 name|tableName
+operator|==
+literal|null
 assert|;
 comment|// Collect all of the tables in the namespace
 name|TableName
@@ -2364,9 +2365,9 @@ block|}
 else|else
 block|{
 assert|assert
-literal|null
-operator|!=
 name|tableName
+operator|!=
+literal|null
 assert|;
 if|if
 condition|(
@@ -2402,22 +2403,6 @@ return|return
 name|tablesWithQuotas
 return|;
 block|}
-finally|finally
-block|{
-if|if
-condition|(
-literal|null
-operator|!=
-name|scanner
-condition|)
-block|{
-name|scanner
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-block|}
-block|}
 block|}
 annotation|@
 name|VisibleForTesting
@@ -2445,7 +2430,7 @@ return|return
 name|namespaceSnapshotStore
 return|;
 block|}
-comment|/**    * Returns an unmodifiable view over the current {@link SpaceQuotaSnapshot} objects    * for each HBase table with a quota.    */
+comment|/**    * Returns an unmodifiable view over the current {@link SpaceQuotaSnapshot} objects    * for each HBase table with a quota defined.    */
 specifier|public
 name|Map
 argument_list|<
@@ -2460,7 +2445,7 @@ return|return
 name|readOnlyTableQuotaSnapshots
 return|;
 block|}
-comment|/**    * Returns an unmodifiable view over the current {@link SpaceQuotaSnapshot} objects    * for each HBase namespace with a quota.    */
+comment|/**    * Returns an unmodifiable view over the current {@link SpaceQuotaSnapshot} objects    * for each HBase namespace with a quota defined.    */
 specifier|public
 name|Map
 argument_list|<
@@ -2483,7 +2468,6 @@ name|TableName
 name|table
 parameter_list|)
 block|{
-comment|// TODO Can one instance of a Chore be executed concurrently?
 name|SpaceQuotaSnapshot
 name|state
 init|=
@@ -2498,9 +2482,9 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-literal|null
-operator|==
 name|state
+operator|==
+literal|null
 condition|)
 block|{
 comment|// No tracked state implies observance.
@@ -2537,7 +2521,7 @@ name|snapshot
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Fetches the {@link SpaceQuotaSnapshot} for the given namespace.    */
+comment|/**    * Fetches the {@link SpaceQuotaSnapshot} for the given namespace from this chore.    */
 name|SpaceQuotaSnapshot
 name|getNamespaceQuotaSnapshot
 parameter_list|(
@@ -2545,7 +2529,6 @@ name|String
 name|namespace
 parameter_list|)
 block|{
-comment|// TODO Can one instance of a Chore be executed concurrently?
 name|SpaceQuotaSnapshot
 name|state
 init|=
@@ -2560,9 +2543,9 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-literal|null
-operator|==
 name|state
+operator|==
+literal|null
 condition|)
 block|{
 comment|// No tracked state implies observance.
@@ -2576,7 +2559,7 @@ return|return
 name|state
 return|;
 block|}
-comment|/**    * Stores the quota state for the given namespace.    */
+comment|/**    * Stores the given {@code snapshot} for the given {@code namespace} in this chore.    */
 name|void
 name|setNamespaceQuotaSnapshot
 parameter_list|(
@@ -2599,7 +2582,7 @@ name|snapshot
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Extracts the period for the chore from the configuration.    *    * @param conf The configuration object.    * @return The configured chore period or the default value.    */
+comment|/**    * Extracts the period for the chore from the configuration.    *    * @param conf The configuration object.    * @return The configured chore period or the default value in the given timeunit.    * @see #getTimeUnit(Configuration)    */
 specifier|static
 name|int
 name|getPeriod
@@ -2619,7 +2602,7 @@ name|QUOTA_OBSERVER_CHORE_PERIOD_DEFAULT
 argument_list|)
 return|;
 block|}
-comment|/**    * Extracts the initial delay for the chore from the configuration.    *    * @param conf The configuration object.    * @return The configured chore initial delay or the default value.    */
+comment|/**    * Extracts the initial delay for the chore from the configuration.    *    * @param conf The configuration object.    * @return The configured chore initial delay or the default value in the given timeunit.    * @see #getTimeUnit(Configuration)    */
 specifier|static
 name|long
 name|getInitialDelay
@@ -2684,7 +2667,7 @@ name|QUOTA_OBSERVER_CHORE_REPORT_PERCENT_DEFAULT
 argument_list|)
 return|;
 block|}
-comment|/**    * A container which encapsulates the tables which have a table quota and the tables which    * are contained in a namespace which have a namespace quota.    */
+comment|/**    * A container which encapsulates the tables that have either a table quota or are contained in a    * namespace which have a namespace quota.    */
 specifier|static
 class|class
 name|TablesWithQuotas
@@ -3041,9 +3024,9 @@ decl_stmt|;
 comment|// If the table doesn't exist (no regions), bail out.
 if|if
 condition|(
-literal|0
-operator|==
 name|numRegionsInTable
+operator|==
+literal|0
 condition|)
 block|{
 if|if
@@ -3229,9 +3212,9 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-literal|null
-operator|==
 name|regions
+operator|==
+literal|null
 condition|)
 block|{
 return|return

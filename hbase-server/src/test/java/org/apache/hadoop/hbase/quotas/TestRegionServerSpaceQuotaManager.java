@@ -237,7 +237,7 @@ name|quotas
 operator|.
 name|policies
 operator|.
-name|BulkLoadVerifyingViolationPolicyEnforcement
+name|DefaultViolationPolicyEnforcement
 import|;
 end_import
 
@@ -694,7 +694,7 @@ literal|"no_policy"
 argument_list|)
 argument_list|,
 operator|new
-name|BulkLoadVerifyingViolationPolicyEnforcement
+name|DefaultViolationPolicyEnforcement
 argument_list|()
 argument_list|)
 expr_stmt|;

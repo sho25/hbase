@@ -180,7 +180,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A {@link QuotaSettings} implementation for implementing filesystem-use quotas.  */
+comment|/**  * A {@link QuotaSettings} implementation for configuring filesystem-use quotas.  */
 end_comment
 
 begin_class
@@ -230,9 +230,9 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-literal|0L
-operator|>
 name|sizeLimit
+operator|<
+literal|0L
 condition|)
 block|{
 throw|throw
@@ -258,13 +258,11 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Constructs a {@code SpaceLimitSettings} to remove a space quota on the given {@code tableName}.    */
 name|SpaceLimitSettings
 parameter_list|(
 name|TableName
 name|tableName
-parameter_list|,
-name|boolean
-name|remove
 parameter_list|)
 block|{
 name|super
@@ -281,20 +279,6 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-operator|!
-name|remove
-condition|)
-block|{
-throw|throw
-operator|new
-name|IllegalArgumentException
-argument_list|(
-literal|"A value of 'false' for removing a quota makes no sense"
-argument_list|)
-throw|;
-block|}
 name|proto
 operator|=
 name|buildProtoRemoveQuota
@@ -329,9 +313,9 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-literal|0L
-operator|>
 name|sizeLimit
+operator|<
+literal|0L
 condition|)
 block|{
 throw|throw
@@ -357,13 +341,11 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Constructs a {@code SpaceLimitSettings} to remove a space quota on the given {@code namespace}.    */
 name|SpaceLimitSettings
 parameter_list|(
 name|String
 name|namespace
-parameter_list|,
-name|boolean
-name|remove
 parameter_list|)
 block|{
 name|super
@@ -380,20 +362,6 @@ name|namespace
 argument_list|)
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-operator|!
-name|remove
-condition|)
-block|{
-throw|throw
-operator|new
-name|IllegalArgumentException
-argument_list|(
-literal|"A value of 'false' for removing a quota makes no sense"
-argument_list|)
-throw|;
-block|}
 name|proto
 operator|=
 name|buildProtoRemoveQuota
@@ -795,10 +763,10 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-literal|null
-operator|!=
 name|getTableName
 argument_list|()
+operator|!=
+literal|null
 condition|)
 block|{
 name|sb
@@ -817,10 +785,10 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-literal|null
-operator|!=
 name|getNamespace
 argument_list|()
+operator|!=
+literal|null
 condition|)
 block|{
 name|sb

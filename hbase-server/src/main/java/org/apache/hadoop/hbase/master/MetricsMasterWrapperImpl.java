@@ -598,9 +598,9 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-literal|null
-operator|==
 name|quotaChore
+operator|==
+literal|null
 condition|)
 block|{
 return|return
@@ -710,9 +710,9 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-literal|null
-operator|==
 name|quotaChore
+operator|==
+literal|null
 condition|)
 block|{
 return|return

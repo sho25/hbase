@@ -50,7 +50,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Enumeration that represents the action HBase will take when a space quota is violated.  */
+comment|/**  * Enumeration that represents the action HBase will take when a space quota is violated.  *  * The target for a violation policy is either an HBase table or namespace. In the case of a  * namespace, it is treated as a collection of tables (all tables are subject to the same policy).  */
 end_comment
 
 begin_enum
@@ -77,7 +77,7 @@ name|NO_WRITES
 block|,
 comment|/**    * Disallows any updates (but allows deletes and compactions) on the table(s).    */
 name|NO_INSERTS
-block|, }
+block|; }
 end_enum
 
 end_unit

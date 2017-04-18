@@ -176,7 +176,7 @@ specifier|public
 class|class
 name|NoWritesViolationPolicyEnforcement
 extends|extends
-name|AbstractViolationPolicyEnforcement
+name|DefaultViolationPolicyEnforcement
 block|{
 annotation|@
 name|Override

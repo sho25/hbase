@@ -41619,12 +41619,12 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|/**      *<code>optional .hbase.pb.SpaceViolationPolicy policy = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.SpaceViolationPolicy violation_policy = 1;</code>      */
 name|boolean
-name|hasPolicy
+name|hasViolationPolicy
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .hbase.pb.SpaceViolationPolicy policy = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.SpaceViolationPolicy violation_policy = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -41642,7 +41642,7 @@ operator|.
 name|QuotaProtos
 operator|.
 name|SpaceViolationPolicy
-name|getPolicy
+name|getViolationPolicy
 parameter_list|()
 function_decl|;
 comment|/**      *<code>optional bool in_violation = 2;</code>      */
@@ -41656,7 +41656,7 @@ name|getInViolation
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    *<pre>    * Represents the state of a quota on a table. Either the quota is not in violation    * or it is in violatino there is a violation policy which should be in effect.    *</pre>    *    * Protobuf type {@code hbase.pb.SpaceQuotaStatus}    */
+comment|/**    *<pre>    * Represents the state of a quota on a table. Either the quota is not in violation    * or it is in violation there is a violation policy which should be in effect.    *</pre>    *    * Protobuf type {@code hbase.pb.SpaceQuotaStatus}    */
 specifier|public
 specifier|static
 specifier|final
@@ -41723,7 +41723,7 @@ specifier|private
 name|SpaceQuotaStatus
 parameter_list|()
 block|{
-name|policy_
+name|violationPolicy_
 operator|=
 literal|1
 expr_stmt|;
@@ -42011,7 +42011,7 @@ name|bitField0_
 operator||=
 literal|0x00000001
 expr_stmt|;
-name|policy_
+name|violationPolicy_
 operator|=
 name|rawValue
 expr_stmt|;
@@ -42265,18 +42265,18 @@ specifier|public
 specifier|static
 specifier|final
 name|int
-name|POLICY_FIELD_NUMBER
+name|VIOLATION_POLICY_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
 specifier|private
 name|int
-name|policy_
+name|violationPolicy_
 decl_stmt|;
-comment|/**      *<code>optional .hbase.pb.SpaceViolationPolicy policy = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.SpaceViolationPolicy violation_policy = 1;</code>      */
 specifier|public
 name|boolean
-name|hasPolicy
+name|hasViolationPolicy
 parameter_list|()
 block|{
 return|return
@@ -42291,7 +42291,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .hbase.pb.SpaceViolationPolicy policy = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.SpaceViolationPolicy violation_policy = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -42310,7 +42310,7 @@ operator|.
 name|QuotaProtos
 operator|.
 name|SpaceViolationPolicy
-name|getPolicy
+name|getViolationPolicy
 parameter_list|()
 block|{
 name|org
@@ -42352,7 +42352,7 @@ name|SpaceViolationPolicy
 operator|.
 name|valueOf
 argument_list|(
-name|policy_
+name|violationPolicy_
 argument_list|)
 decl_stmt|;
 return|return
@@ -42516,7 +42516,7 @@ name|writeEnum
 argument_list|(
 literal|1
 argument_list|,
-name|policy_
+name|violationPolicy_
 argument_list|)
 expr_stmt|;
 block|}
@@ -42612,7 +42612,7 @@ name|computeEnumSize
 argument_list|(
 literal|1
 argument_list|,
-name|policy_
+name|violationPolicy_
 argument_list|)
 expr_stmt|;
 block|}
@@ -42795,18 +42795,18 @@ operator|=
 name|result
 operator|&&
 operator|(
-name|hasPolicy
+name|hasViolationPolicy
 argument_list|()
 operator|==
 name|other
 operator|.
-name|hasPolicy
+name|hasViolationPolicy
 argument_list|()
 operator|)
 expr_stmt|;
 if|if
 condition|(
-name|hasPolicy
+name|hasViolationPolicy
 argument_list|()
 condition|)
 block|{
@@ -42814,11 +42814,11 @@ name|result
 operator|=
 name|result
 operator|&&
-name|policy_
+name|violationPolicy_
 operator|==
 name|other
 operator|.
-name|policy_
+name|violationPolicy_
 expr_stmt|;
 block|}
 name|result
@@ -42916,7 +42916,7 @@ argument_list|()
 expr_stmt|;
 if|if
 condition|(
-name|hasPolicy
+name|hasViolationPolicy
 argument_list|()
 condition|)
 block|{
@@ -42928,7 +42928,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|POLICY_FIELD_NUMBER
+name|VIOLATION_POLICY_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -42938,7 +42938,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|policy_
+name|violationPolicy_
 expr_stmt|;
 block|}
 if|if
@@ -43883,7 +43883,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      *<pre>      * Represents the state of a quota on a table. Either the quota is not in violation      * or it is in violatino there is a violation policy which should be in effect.      *</pre>      *      * Protobuf type {@code hbase.pb.SpaceQuotaStatus}      */
+comment|/**      *<pre>      * Represents the state of a quota on a table. Either the quota is not in violation      * or it is in violation there is a violation policy which should be in effect.      *</pre>      *      * Protobuf type {@code hbase.pb.SpaceQuotaStatus}      */
 specifier|public
 specifier|static
 specifier|final
@@ -44147,7 +44147,7 @@ operator|.
 name|clear
 argument_list|()
 expr_stmt|;
-name|policy_
+name|violationPolicy_
 operator|=
 literal|1
 expr_stmt|;
@@ -44419,9 +44419,9 @@ expr_stmt|;
 block|}
 name|result
 operator|.
-name|policy_
+name|violationPolicy_
 operator|=
-name|policy_
+name|violationPolicy_
 expr_stmt|;
 if|if
 condition|(
@@ -44828,15 +44828,15 @@ if|if
 condition|(
 name|other
 operator|.
-name|hasPolicy
+name|hasViolationPolicy
 argument_list|()
 condition|)
 block|{
-name|setPolicy
+name|setViolationPolicy
 argument_list|(
 name|other
 operator|.
-name|getPolicy
+name|getViolationPolicy
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -45049,14 +45049,14 @@ name|bitField0_
 decl_stmt|;
 specifier|private
 name|int
-name|policy_
+name|violationPolicy_
 init|=
 literal|1
 decl_stmt|;
-comment|/**        *<code>optional .hbase.pb.SpaceViolationPolicy policy = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.SpaceViolationPolicy violation_policy = 1;</code>        */
 specifier|public
 name|boolean
-name|hasPolicy
+name|hasViolationPolicy
 parameter_list|()
 block|{
 return|return
@@ -45071,7 +45071,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .hbase.pb.SpaceViolationPolicy policy = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.SpaceViolationPolicy violation_policy = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -45090,7 +45090,7 @@ operator|.
 name|QuotaProtos
 operator|.
 name|SpaceViolationPolicy
-name|getPolicy
+name|getViolationPolicy
 parameter_list|()
 block|{
 name|org
@@ -45132,7 +45132,7 @@ name|SpaceViolationPolicy
 operator|.
 name|valueOf
 argument_list|(
-name|policy_
+name|violationPolicy_
 argument_list|)
 decl_stmt|;
 return|return
@@ -45163,10 +45163,10 @@ else|:
 name|result
 return|;
 block|}
-comment|/**        *<code>optional .hbase.pb.SpaceViolationPolicy policy = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.SpaceViolationPolicy violation_policy = 1;</code>        */
 specifier|public
 name|Builder
-name|setPolicy
+name|setViolationPolicy
 parameter_list|(
 name|org
 operator|.
@@ -45205,7 +45205,7 @@ name|bitField0_
 operator||=
 literal|0x00000001
 expr_stmt|;
-name|policy_
+name|violationPolicy_
 operator|=
 name|value
 operator|.
@@ -45219,10 +45219,10 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .hbase.pb.SpaceViolationPolicy policy = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.SpaceViolationPolicy violation_policy = 1;</code>        */
 specifier|public
 name|Builder
-name|clearPolicy
+name|clearViolationPolicy
 parameter_list|()
 block|{
 name|bitField0_
@@ -45234,7 +45234,7 @@ operator|~
 literal|0x00000001
 operator|)
 expr_stmt|;
-name|policy_
+name|violationPolicy_
 operator|=
 literal|1
 expr_stmt|;
@@ -45712,12 +45712,12 @@ name|protobuf
 operator|.
 name|MessageOrBuilder
 block|{
-comment|/**      *<code>optional .hbase.pb.SpaceQuotaStatus status = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.SpaceQuotaStatus quota_status = 1;</code>      */
 name|boolean
-name|hasStatus
+name|hasQuotaStatus
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .hbase.pb.SpaceQuotaStatus status = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.SpaceQuotaStatus quota_status = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -45735,10 +45735,10 @@ operator|.
 name|QuotaProtos
 operator|.
 name|SpaceQuotaStatus
-name|getStatus
+name|getQuotaStatus
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional .hbase.pb.SpaceQuotaStatus status = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.SpaceQuotaStatus quota_status = 1;</code>      */
 name|org
 operator|.
 name|apache
@@ -45756,27 +45756,27 @@ operator|.
 name|QuotaProtos
 operator|.
 name|SpaceQuotaStatusOrBuilder
-name|getStatusOrBuilder
+name|getQuotaStatusOrBuilder
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional uint64 usage = 2;</code>      */
+comment|/**      *<code>optional uint64 quota_usage = 2;</code>      */
 name|boolean
-name|hasUsage
+name|hasQuotaUsage
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional uint64 usage = 2;</code>      */
+comment|/**      *<code>optional uint64 quota_usage = 2;</code>      */
 name|long
-name|getUsage
+name|getQuotaUsage
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional uint64 limit = 3;</code>      */
+comment|/**      *<code>optional uint64 quota_limit = 3;</code>      */
 name|boolean
-name|hasLimit
+name|hasQuotaLimit
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional uint64 limit = 3;</code>      */
+comment|/**      *<code>optional uint64 quota_limit = 3;</code>      */
 name|long
-name|getLimit
+name|getQuotaLimit
 parameter_list|()
 function_decl|;
 block|}
@@ -45847,11 +45847,11 @@ specifier|private
 name|SpaceQuotaSnapshot
 parameter_list|()
 block|{
-name|usage_
+name|quotaUsage_
 operator|=
 literal|0L
 expr_stmt|;
-name|limit_
+name|quotaLimit_
 operator|=
 literal|0L
 expr_stmt|;
@@ -46100,13 +46100,13 @@ condition|)
 block|{
 name|subBuilder
 operator|=
-name|status_
+name|quotaStatus_
 operator|.
 name|toBuilder
 argument_list|()
 expr_stmt|;
 block|}
-name|status_
+name|quotaStatus_
 operator|=
 name|input
 operator|.
@@ -46146,10 +46146,10 @@ name|subBuilder
 operator|.
 name|mergeFrom
 argument_list|(
-name|status_
+name|quotaStatus_
 argument_list|)
 expr_stmt|;
-name|status_
+name|quotaStatus_
 operator|=
 name|subBuilder
 operator|.
@@ -46171,7 +46171,7 @@ name|bitField0_
 operator||=
 literal|0x00000002
 expr_stmt|;
-name|usage_
+name|quotaUsage_
 operator|=
 name|input
 operator|.
@@ -46188,7 +46188,7 @@ name|bitField0_
 operator||=
 literal|0x00000004
 expr_stmt|;
-name|limit_
+name|quotaLimit_
 operator|=
 name|input
 operator|.
@@ -46427,7 +46427,7 @@ specifier|public
 specifier|static
 specifier|final
 name|int
-name|STATUS_FIELD_NUMBER
+name|QUOTA_STATUS_FIELD_NUMBER
 init|=
 literal|1
 decl_stmt|;
@@ -46449,12 +46449,12 @@ operator|.
 name|QuotaProtos
 operator|.
 name|SpaceQuotaStatus
-name|status_
+name|quotaStatus_
 decl_stmt|;
-comment|/**      *<code>optional .hbase.pb.SpaceQuotaStatus status = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.SpaceQuotaStatus quota_status = 1;</code>      */
 specifier|public
 name|boolean
-name|hasStatus
+name|hasQuotaStatus
 parameter_list|()
 block|{
 return|return
@@ -46469,7 +46469,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional .hbase.pb.SpaceQuotaStatus status = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.SpaceQuotaStatus quota_status = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -46488,11 +46488,11 @@ operator|.
 name|QuotaProtos
 operator|.
 name|SpaceQuotaStatus
-name|getStatus
+name|getQuotaStatus
 parameter_list|()
 block|{
 return|return
-name|status_
+name|quotaStatus_
 operator|==
 literal|null
 condition|?
@@ -46517,10 +46517,10 @@ operator|.
 name|getDefaultInstance
 argument_list|()
 else|:
-name|status_
+name|quotaStatus_
 return|;
 block|}
-comment|/**      *<code>optional .hbase.pb.SpaceQuotaStatus status = 1;</code>      */
+comment|/**      *<code>optional .hbase.pb.SpaceQuotaStatus quota_status = 1;</code>      */
 specifier|public
 name|org
 operator|.
@@ -46539,11 +46539,11 @@ operator|.
 name|QuotaProtos
 operator|.
 name|SpaceQuotaStatusOrBuilder
-name|getStatusOrBuilder
+name|getQuotaStatusOrBuilder
 parameter_list|()
 block|{
 return|return
-name|status_
+name|quotaStatus_
 operator|==
 literal|null
 condition|?
@@ -46568,25 +46568,25 @@ operator|.
 name|getDefaultInstance
 argument_list|()
 else|:
-name|status_
+name|quotaStatus_
 return|;
 block|}
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|USAGE_FIELD_NUMBER
+name|QUOTA_USAGE_FIELD_NUMBER
 init|=
 literal|2
 decl_stmt|;
 specifier|private
 name|long
-name|usage_
+name|quotaUsage_
 decl_stmt|;
-comment|/**      *<code>optional uint64 usage = 2;</code>      */
+comment|/**      *<code>optional uint64 quota_usage = 2;</code>      */
 specifier|public
 name|boolean
-name|hasUsage
+name|hasQuotaUsage
 parameter_list|()
 block|{
 return|return
@@ -46601,32 +46601,32 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional uint64 usage = 2;</code>      */
+comment|/**      *<code>optional uint64 quota_usage = 2;</code>      */
 specifier|public
 name|long
-name|getUsage
+name|getQuotaUsage
 parameter_list|()
 block|{
 return|return
-name|usage_
+name|quotaUsage_
 return|;
 block|}
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|LIMIT_FIELD_NUMBER
+name|QUOTA_LIMIT_FIELD_NUMBER
 init|=
 literal|3
 decl_stmt|;
 specifier|private
 name|long
-name|limit_
+name|quotaLimit_
 decl_stmt|;
-comment|/**      *<code>optional uint64 limit = 3;</code>      */
+comment|/**      *<code>optional uint64 quota_limit = 3;</code>      */
 specifier|public
 name|boolean
-name|hasLimit
+name|hasQuotaLimit
 parameter_list|()
 block|{
 return|return
@@ -46641,14 +46641,14 @@ literal|0x00000004
 operator|)
 return|;
 block|}
-comment|/**      *<code>optional uint64 limit = 3;</code>      */
+comment|/**      *<code>optional uint64 quota_limit = 3;</code>      */
 specifier|public
 name|long
-name|getLimit
+name|getQuotaLimit
 parameter_list|()
 block|{
 return|return
-name|limit_
+name|quotaLimit_
 return|;
 block|}
 specifier|private
@@ -46744,7 +46744,7 @@ name|writeMessage
 argument_list|(
 literal|1
 argument_list|,
-name|getStatus
+name|getQuotaStatus
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -46768,7 +46768,7 @@ name|writeUInt64
 argument_list|(
 literal|2
 argument_list|,
-name|usage_
+name|quotaUsage_
 argument_list|)
 expr_stmt|;
 block|}
@@ -46791,7 +46791,7 @@ name|writeUInt64
 argument_list|(
 literal|3
 argument_list|,
-name|limit_
+name|quotaLimit_
 argument_list|)
 expr_stmt|;
 block|}
@@ -46864,7 +46864,7 @@ name|computeMessageSize
 argument_list|(
 literal|1
 argument_list|,
-name|getStatus
+name|getQuotaStatus
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -46906,7 +46906,7 @@ name|computeUInt64Size
 argument_list|(
 literal|2
 argument_list|,
-name|usage_
+name|quotaUsage_
 argument_list|)
 expr_stmt|;
 block|}
@@ -46947,7 +46947,7 @@ name|computeUInt64Size
 argument_list|(
 literal|3
 argument_list|,
-name|limit_
+name|quotaLimit_
 argument_list|)
 expr_stmt|;
 block|}
@@ -47089,18 +47089,18 @@ operator|=
 name|result
 operator|&&
 operator|(
-name|hasStatus
+name|hasQuotaStatus
 argument_list|()
 operator|==
 name|other
 operator|.
-name|hasStatus
+name|hasQuotaStatus
 argument_list|()
 operator|)
 expr_stmt|;
 if|if
 condition|(
-name|hasStatus
+name|hasQuotaStatus
 argument_list|()
 condition|)
 block|{
@@ -47108,14 +47108,14 @@ name|result
 operator|=
 name|result
 operator|&&
-name|getStatus
+name|getQuotaStatus
 argument_list|()
 operator|.
 name|equals
 argument_list|(
 name|other
 operator|.
-name|getStatus
+name|getQuotaStatus
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -47125,18 +47125,18 @@ operator|=
 name|result
 operator|&&
 operator|(
-name|hasUsage
+name|hasQuotaUsage
 argument_list|()
 operator|==
 name|other
 operator|.
-name|hasUsage
+name|hasQuotaUsage
 argument_list|()
 operator|)
 expr_stmt|;
 if|if
 condition|(
-name|hasUsage
+name|hasQuotaUsage
 argument_list|()
 condition|)
 block|{
@@ -47145,12 +47145,12 @@ operator|=
 name|result
 operator|&&
 operator|(
-name|getUsage
+name|getQuotaUsage
 argument_list|()
 operator|==
 name|other
 operator|.
-name|getUsage
+name|getQuotaUsage
 argument_list|()
 operator|)
 expr_stmt|;
@@ -47160,18 +47160,18 @@ operator|=
 name|result
 operator|&&
 operator|(
-name|hasLimit
+name|hasQuotaLimit
 argument_list|()
 operator|==
 name|other
 operator|.
-name|hasLimit
+name|hasQuotaLimit
 argument_list|()
 operator|)
 expr_stmt|;
 if|if
 condition|(
-name|hasLimit
+name|hasQuotaLimit
 argument_list|()
 condition|)
 block|{
@@ -47180,12 +47180,12 @@ operator|=
 name|result
 operator|&&
 operator|(
-name|getLimit
+name|getQuotaLimit
 argument_list|()
 operator|==
 name|other
 operator|.
-name|getLimit
+name|getQuotaLimit
 argument_list|()
 operator|)
 expr_stmt|;
@@ -47250,7 +47250,7 @@ argument_list|()
 expr_stmt|;
 if|if
 condition|(
-name|hasStatus
+name|hasQuotaStatus
 argument_list|()
 condition|)
 block|{
@@ -47262,7 +47262,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|STATUS_FIELD_NUMBER
+name|QUOTA_STATUS_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -47272,7 +47272,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|getStatus
+name|getQuotaStatus
 argument_list|()
 operator|.
 name|hashCode
@@ -47281,7 +47281,7 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-name|hasUsage
+name|hasQuotaUsage
 argument_list|()
 condition|)
 block|{
@@ -47293,7 +47293,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|USAGE_FIELD_NUMBER
+name|QUOTA_USAGE_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -47323,14 +47323,14 @@ name|Internal
 operator|.
 name|hashLong
 argument_list|(
-name|getUsage
+name|getQuotaUsage
 argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
 if|if
 condition|(
-name|hasLimit
+name|hasQuotaLimit
 argument_list|()
 condition|)
 block|{
@@ -47342,7 +47342,7 @@ operator|*
 name|hash
 operator|)
 operator|+
-name|LIMIT_FIELD_NUMBER
+name|QUOTA_LIMIT_FIELD_NUMBER
 expr_stmt|;
 name|hash
 operator|=
@@ -47372,7 +47372,7 @@ name|Internal
 operator|.
 name|hashLong
 argument_list|(
-name|getLimit
+name|getQuotaLimit
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -48523,7 +48523,7 @@ operator|.
 name|alwaysUseFieldBuilders
 condition|)
 block|{
-name|getStatusFieldBuilder
+name|getQuotaStatusFieldBuilder
 argument_list|()
 expr_stmt|;
 block|}
@@ -48540,19 +48540,19 @@ argument_list|()
 expr_stmt|;
 if|if
 condition|(
-name|statusBuilder_
+name|quotaStatusBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|status_
+name|quotaStatus_
 operator|=
 literal|null
 expr_stmt|;
 block|}
 else|else
 block|{
-name|statusBuilder_
+name|quotaStatusBuilder_
 operator|.
 name|clear
 argument_list|()
@@ -48567,7 +48567,7 @@ operator|~
 literal|0x00000001
 operator|)
 expr_stmt|;
-name|usage_
+name|quotaUsage_
 operator|=
 literal|0L
 expr_stmt|;
@@ -48580,7 +48580,7 @@ operator|~
 literal|0x00000002
 operator|)
 expr_stmt|;
-name|limit_
+name|quotaLimit_
 operator|=
 literal|0L
 expr_stmt|;
@@ -48839,25 +48839,25 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-name|statusBuilder_
+name|quotaStatusBuilder_
 operator|==
 literal|null
 condition|)
 block|{
 name|result
 operator|.
-name|status_
+name|quotaStatus_
 operator|=
-name|status_
+name|quotaStatus_
 expr_stmt|;
 block|}
 else|else
 block|{
 name|result
 operator|.
-name|status_
+name|quotaStatus_
 operator|=
-name|statusBuilder_
+name|quotaStatusBuilder_
 operator|.
 name|build
 argument_list|()
@@ -48883,9 +48883,9 @@ expr_stmt|;
 block|}
 name|result
 operator|.
-name|usage_
+name|quotaUsage_
 operator|=
-name|usage_
+name|quotaUsage_
 expr_stmt|;
 if|if
 condition|(
@@ -48907,9 +48907,9 @@ expr_stmt|;
 block|}
 name|result
 operator|.
-name|limit_
+name|quotaLimit_
 operator|=
-name|limit_
+name|quotaLimit_
 expr_stmt|;
 name|result
 operator|.
@@ -49292,15 +49292,15 @@ if|if
 condition|(
 name|other
 operator|.
-name|hasStatus
+name|hasQuotaStatus
 argument_list|()
 condition|)
 block|{
-name|mergeStatus
+name|mergeQuotaStatus
 argument_list|(
 name|other
 operator|.
-name|getStatus
+name|getQuotaStatus
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -49309,15 +49309,15 @@ if|if
 condition|(
 name|other
 operator|.
-name|hasUsage
+name|hasQuotaUsage
 argument_list|()
 condition|)
 block|{
-name|setUsage
+name|setQuotaUsage
 argument_list|(
 name|other
 operator|.
-name|getUsage
+name|getQuotaUsage
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -49326,15 +49326,15 @@ if|if
 condition|(
 name|other
 operator|.
-name|hasLimit
+name|hasQuotaLimit
 argument_list|()
 condition|)
 block|{
-name|setLimit
+name|setQuotaLimit
 argument_list|(
 name|other
 operator|.
-name|getLimit
+name|getQuotaLimit
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -49546,7 +49546,7 @@ operator|.
 name|QuotaProtos
 operator|.
 name|SpaceQuotaStatus
-name|status_
+name|quotaStatus_
 init|=
 literal|null
 decl_stmt|;
@@ -49625,12 +49625,12 @@ name|QuotaProtos
 operator|.
 name|SpaceQuotaStatusOrBuilder
 argument_list|>
-name|statusBuilder_
+name|quotaStatusBuilder_
 decl_stmt|;
-comment|/**        *<code>optional .hbase.pb.SpaceQuotaStatus status = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.SpaceQuotaStatus quota_status = 1;</code>        */
 specifier|public
 name|boolean
-name|hasStatus
+name|hasQuotaStatus
 parameter_list|()
 block|{
 return|return
@@ -49645,7 +49645,7 @@ literal|0x00000001
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional .hbase.pb.SpaceQuotaStatus status = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.SpaceQuotaStatus quota_status = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -49664,18 +49664,18 @@ operator|.
 name|QuotaProtos
 operator|.
 name|SpaceQuotaStatus
-name|getStatus
+name|getQuotaStatus
 parameter_list|()
 block|{
 if|if
 condition|(
-name|statusBuilder_
+name|quotaStatusBuilder_
 operator|==
 literal|null
 condition|)
 block|{
 return|return
-name|status_
+name|quotaStatus_
 operator|==
 literal|null
 condition|?
@@ -49700,23 +49700,23 @@ operator|.
 name|getDefaultInstance
 argument_list|()
 else|:
-name|status_
+name|quotaStatus_
 return|;
 block|}
 else|else
 block|{
 return|return
-name|statusBuilder_
+name|quotaStatusBuilder_
 operator|.
 name|getMessage
 argument_list|()
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .hbase.pb.SpaceQuotaStatus status = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.SpaceQuotaStatus quota_status = 1;</code>        */
 specifier|public
 name|Builder
-name|setStatus
+name|setQuotaStatus
 parameter_list|(
 name|org
 operator|.
@@ -49740,7 +49740,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|statusBuilder_
+name|quotaStatusBuilder_
 operator|==
 literal|null
 condition|)
@@ -49758,7 +49758,7 @@ name|NullPointerException
 argument_list|()
 throw|;
 block|}
-name|status_
+name|quotaStatus_
 operator|=
 name|value
 expr_stmt|;
@@ -49768,7 +49768,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|statusBuilder_
+name|quotaStatusBuilder_
 operator|.
 name|setMessage
 argument_list|(
@@ -49784,10 +49784,10 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .hbase.pb.SpaceQuotaStatus status = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.SpaceQuotaStatus quota_status = 1;</code>        */
 specifier|public
 name|Builder
-name|setStatus
+name|setQuotaStatus
 parameter_list|(
 name|org
 operator|.
@@ -49813,12 +49813,12 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|statusBuilder_
+name|quotaStatusBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|status_
+name|quotaStatus_
 operator|=
 name|builderForValue
 operator|.
@@ -49831,7 +49831,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|statusBuilder_
+name|quotaStatusBuilder_
 operator|.
 name|setMessage
 argument_list|(
@@ -49850,10 +49850,10 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .hbase.pb.SpaceQuotaStatus status = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.SpaceQuotaStatus quota_status = 1;</code>        */
 specifier|public
 name|Builder
-name|mergeStatus
+name|mergeQuotaStatus
 parameter_list|(
 name|org
 operator|.
@@ -49877,7 +49877,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|statusBuilder_
+name|quotaStatusBuilder_
 operator|==
 literal|null
 condition|)
@@ -49894,11 +49894,11 @@ operator|==
 literal|0x00000001
 operator|)
 operator|&&
-name|status_
+name|quotaStatus_
 operator|!=
 literal|null
 operator|&&
-name|status_
+name|quotaStatus_
 operator|!=
 name|org
 operator|.
@@ -49922,7 +49922,7 @@ name|getDefaultInstance
 argument_list|()
 condition|)
 block|{
-name|status_
+name|quotaStatus_
 operator|=
 name|org
 operator|.
@@ -49944,7 +49944,7 @@ name|SpaceQuotaStatus
 operator|.
 name|newBuilder
 argument_list|(
-name|status_
+name|quotaStatus_
 argument_list|)
 operator|.
 name|mergeFrom
@@ -49958,7 +49958,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|status_
+name|quotaStatus_
 operator|=
 name|value
 expr_stmt|;
@@ -49969,7 +49969,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|statusBuilder_
+name|quotaStatusBuilder_
 operator|.
 name|mergeFrom
 argument_list|(
@@ -49985,20 +49985,20 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .hbase.pb.SpaceQuotaStatus status = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.SpaceQuotaStatus quota_status = 1;</code>        */
 specifier|public
 name|Builder
-name|clearStatus
+name|clearQuotaStatus
 parameter_list|()
 block|{
 if|if
 condition|(
-name|statusBuilder_
+name|quotaStatusBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|status_
+name|quotaStatus_
 operator|=
 literal|null
 expr_stmt|;
@@ -50008,7 +50008,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|statusBuilder_
+name|quotaStatusBuilder_
 operator|.
 name|clear
 argument_list|()
@@ -50027,7 +50027,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional .hbase.pb.SpaceQuotaStatus status = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.SpaceQuotaStatus quota_status = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -50048,7 +50048,7 @@ operator|.
 name|SpaceQuotaStatus
 operator|.
 name|Builder
-name|getStatusBuilder
+name|getQuotaStatusBuilder
 parameter_list|()
 block|{
 name|bitField0_
@@ -50059,14 +50059,14 @@ name|onChanged
 argument_list|()
 expr_stmt|;
 return|return
-name|getStatusFieldBuilder
+name|getQuotaStatusFieldBuilder
 argument_list|()
 operator|.
 name|getBuilder
 argument_list|()
 return|;
 block|}
-comment|/**        *<code>optional .hbase.pb.SpaceQuotaStatus status = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.SpaceQuotaStatus quota_status = 1;</code>        */
 specifier|public
 name|org
 operator|.
@@ -50085,18 +50085,18 @@ operator|.
 name|QuotaProtos
 operator|.
 name|SpaceQuotaStatusOrBuilder
-name|getStatusOrBuilder
+name|getQuotaStatusOrBuilder
 parameter_list|()
 block|{
 if|if
 condition|(
-name|statusBuilder_
+name|quotaStatusBuilder_
 operator|!=
 literal|null
 condition|)
 block|{
 return|return
-name|statusBuilder_
+name|quotaStatusBuilder_
 operator|.
 name|getMessageOrBuilder
 argument_list|()
@@ -50105,7 +50105,7 @@ block|}
 else|else
 block|{
 return|return
-name|status_
+name|quotaStatus_
 operator|==
 literal|null
 condition|?
@@ -50130,11 +50130,11 @@ operator|.
 name|getDefaultInstance
 argument_list|()
 else|:
-name|status_
+name|quotaStatus_
 return|;
 block|}
 block|}
-comment|/**        *<code>optional .hbase.pb.SpaceQuotaStatus status = 1;</code>        */
+comment|/**        *<code>optional .hbase.pb.SpaceQuotaStatus quota_status = 1;</code>        */
 specifier|private
 name|org
 operator|.
@@ -50210,17 +50210,17 @@ name|QuotaProtos
 operator|.
 name|SpaceQuotaStatusOrBuilder
 argument_list|>
-name|getStatusFieldBuilder
+name|getQuotaStatusFieldBuilder
 parameter_list|()
 block|{
 if|if
 condition|(
-name|statusBuilder_
+name|quotaStatusBuilder_
 operator|==
 literal|null
 condition|)
 block|{
-name|statusBuilder_
+name|quotaStatusBuilder_
 operator|=
 operator|new
 name|org
@@ -50298,7 +50298,7 @@ operator|.
 name|SpaceQuotaStatusOrBuilder
 argument_list|>
 argument_list|(
-name|getStatus
+name|getQuotaStatus
 argument_list|()
 argument_list|,
 name|getParentForChildren
@@ -50308,23 +50308,23 @@ name|isClean
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|status_
+name|quotaStatus_
 operator|=
 literal|null
 expr_stmt|;
 block|}
 return|return
-name|statusBuilder_
+name|quotaStatusBuilder_
 return|;
 block|}
 specifier|private
 name|long
-name|usage_
+name|quotaUsage_
 decl_stmt|;
-comment|/**        *<code>optional uint64 usage = 2;</code>        */
+comment|/**        *<code>optional uint64 quota_usage = 2;</code>        */
 specifier|public
 name|boolean
-name|hasUsage
+name|hasQuotaUsage
 parameter_list|()
 block|{
 return|return
@@ -50339,20 +50339,20 @@ literal|0x00000002
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional uint64 usage = 2;</code>        */
+comment|/**        *<code>optional uint64 quota_usage = 2;</code>        */
 specifier|public
 name|long
-name|getUsage
+name|getQuotaUsage
 parameter_list|()
 block|{
 return|return
-name|usage_
+name|quotaUsage_
 return|;
 block|}
-comment|/**        *<code>optional uint64 usage = 2;</code>        */
+comment|/**        *<code>optional uint64 quota_usage = 2;</code>        */
 specifier|public
 name|Builder
-name|setUsage
+name|setQuotaUsage
 parameter_list|(
 name|long
 name|value
@@ -50362,7 +50362,7 @@ name|bitField0_
 operator||=
 literal|0x00000002
 expr_stmt|;
-name|usage_
+name|quotaUsage_
 operator|=
 name|value
 expr_stmt|;
@@ -50373,10 +50373,10 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional uint64 usage = 2;</code>        */
+comment|/**        *<code>optional uint64 quota_usage = 2;</code>        */
 specifier|public
 name|Builder
-name|clearUsage
+name|clearQuotaUsage
 parameter_list|()
 block|{
 name|bitField0_
@@ -50388,7 +50388,7 @@ operator|~
 literal|0x00000002
 operator|)
 expr_stmt|;
-name|usage_
+name|quotaUsage_
 operator|=
 literal|0L
 expr_stmt|;
@@ -50401,12 +50401,12 @@ return|;
 block|}
 specifier|private
 name|long
-name|limit_
+name|quotaLimit_
 decl_stmt|;
-comment|/**        *<code>optional uint64 limit = 3;</code>        */
+comment|/**        *<code>optional uint64 quota_limit = 3;</code>        */
 specifier|public
 name|boolean
-name|hasLimit
+name|hasQuotaLimit
 parameter_list|()
 block|{
 return|return
@@ -50421,20 +50421,20 @@ literal|0x00000004
 operator|)
 return|;
 block|}
-comment|/**        *<code>optional uint64 limit = 3;</code>        */
+comment|/**        *<code>optional uint64 quota_limit = 3;</code>        */
 specifier|public
 name|long
-name|getLimit
+name|getQuotaLimit
 parameter_list|()
 block|{
 return|return
-name|limit_
+name|quotaLimit_
 return|;
 block|}
-comment|/**        *<code>optional uint64 limit = 3;</code>        */
+comment|/**        *<code>optional uint64 quota_limit = 3;</code>        */
 specifier|public
 name|Builder
-name|setLimit
+name|setQuotaLimit
 parameter_list|(
 name|long
 name|value
@@ -50444,7 +50444,7 @@ name|bitField0_
 operator||=
 literal|0x00000004
 expr_stmt|;
-name|limit_
+name|quotaLimit_
 operator|=
 name|value
 expr_stmt|;
@@ -50455,10 +50455,10 @@ return|return
 name|this
 return|;
 block|}
-comment|/**        *<code>optional uint64 limit = 3;</code>        */
+comment|/**        *<code>optional uint64 quota_limit = 3;</code>        */
 specifier|public
 name|Builder
-name|clearLimit
+name|clearQuotaLimit
 parameter_list|()
 block|{
 name|bitField0_
@@ -50470,7 +50470,7 @@ operator|~
 literal|0x00000004
 operator|)
 expr_stmt|;
-name|limit_
+name|quotaLimit_
 operator|=
 literal|0L
 expr_stmt|;
@@ -116004,93 +116004,95 @@ literal|"hbase.pb.SpaceViolationPolicy\022\025\n\006remove\030"
 operator|+
 literal|"\003 \001(\010:\005false\"8\n\021SpaceLimitRequest\022#\n\005quo"
 block|,
-literal|"ta\030\001 \001(\0132\024.hbase.pb.SpaceQuota\"X\n\020SpaceQ"
+literal|"ta\030\001 \001(\0132\024.hbase.pb.SpaceQuota\"b\n\020SpaceQ"
 operator|+
-literal|"uotaStatus\022.\n\006policy\030\001 \001(\0162\036.hbase.pb.Sp"
+literal|"uotaStatus\0228\n\020violation_policy\030\001 \001(\0162\036.h"
 operator|+
-literal|"aceViolationPolicy\022\024\n\014in_violation\030\002 \001(\010"
+literal|"base.pb.SpaceViolationPolicy\022\024\n\014in_viola"
 operator|+
-literal|"\"^\n\022SpaceQuotaSnapshot\022*\n\006status\030\001 \001(\0132\032"
+literal|"tion\030\002 \001(\010\"p\n\022SpaceQuotaSnapshot\0220\n\014quot"
 operator|+
-literal|".hbase.pb.SpaceQuotaStatus\022\r\n\005usage\030\002 \001("
+literal|"a_status\030\001 \001(\0132\032.hbase.pb.SpaceQuotaStat"
 operator|+
-literal|"\004\022\r\n\005limit\030\003 \001(\004\"!\n\037GetSpaceQuotaRegionS"
+literal|"us\022\023\n\013quota_usage\030\002 \001(\004\022\023\n\013quota_limit\030\003"
 operator|+
-literal|"izesRequest\"\257\001\n GetSpaceQuotaRegionSizes"
+literal|" \001(\004\"!\n\037GetSpaceQuotaRegionSizesRequest\""
 operator|+
-literal|"Response\022E\n\005sizes\030\001 \003(\01326.hbase.pb.GetSp"
+literal|"\257\001\n GetSpaceQuotaRegionSizesResponse\022E\n\005"
 operator|+
-literal|"aceQuotaRegionSizesResponse.RegionSizes\032"
+literal|"sizes\030\001 \003(\01326.hbase.pb.GetSpaceQuotaRegi"
 operator|+
-literal|"D\n\013RegionSizes\022\'\n\ntable_name\030\001 \001(\0132\023.hba"
+literal|"onSizesResponse.RegionSizes\032D\n\013RegionSiz"
 block|,
-literal|"se.pb.TableName\022\014\n\004size\030\002 \001(\004\"\037\n\035GetSpac"
+literal|"es\022\'\n\ntable_name\030\001 \001(\0132\023.hbase.pb.TableN"
 operator|+
-literal|"eQuotaSnapshotsRequest\"\337\001\n\036GetSpaceQuota"
+literal|"ame\022\014\n\004size\030\002 \001(\004\"\037\n\035GetSpaceQuotaSnapsh"
 operator|+
-literal|"SnapshotsResponse\022N\n\tsnapshots\030\001 \003(\0132;.h"
+literal|"otsRequest\"\337\001\n\036GetSpaceQuotaSnapshotsRes"
 operator|+
-literal|"base.pb.GetSpaceQuotaSnapshotsResponse.T"
+literal|"ponse\022N\n\tsnapshots\030\001 \003(\0132;.hbase.pb.GetS"
 operator|+
-literal|"ableQuotaSnapshot\032m\n\022TableQuotaSnapshot\022"
+literal|"paceQuotaSnapshotsResponse.TableQuotaSna"
 operator|+
-literal|"\'\n\ntable_name\030\001 \001(\0132\023.hbase.pb.TableName"
+literal|"pshot\032m\n\022TableQuotaSnapshot\022\'\n\ntable_nam"
 operator|+
-literal|"\022.\n\010snapshot\030\002 \001(\0132\034.hbase.pb.SpaceQuota"
+literal|"e\030\001 \001(\0132\023.hbase.pb.TableName\022.\n\010snapshot"
 operator|+
-literal|"Snapshot\"\"\n GetSpaceQuotaEnforcementsReq"
+literal|"\030\002 \001(\0132\034.hbase.pb.SpaceQuotaSnapshot\"\"\n "
 operator|+
-literal|"uest\"\374\001\n!GetSpaceQuotaEnforcementsRespon"
+literal|"GetSpaceQuotaEnforcementsRequest\"\374\001\n!Get"
 operator|+
-literal|"se\022\\\n\022violation_policies\030\001 \003(\0132@.hbase.p"
+literal|"SpaceQuotaEnforcementsResponse\022\\\n\022violat"
 block|,
-literal|"b.GetSpaceQuotaEnforcementsResponse.Tabl"
+literal|"ion_policies\030\001 \003(\0132@.hbase.pb.GetSpaceQu"
 operator|+
-literal|"eViolationPolicy\032y\n\024TableViolationPolicy"
+literal|"otaEnforcementsResponse.TableViolationPo"
 operator|+
-literal|"\022\'\n\ntable_name\030\001 \001(\0132\023.hbase.pb.TableNam"
+literal|"licy\032y\n\024TableViolationPolicy\022\'\n\ntable_na"
 operator|+
-literal|"e\0228\n\020violation_policy\030\002 \001(\0162\036.hbase.pb.S"
+literal|"me\030\001 \001(\0132\023.hbase.pb.TableName\0228\n\020violati"
 operator|+
-literal|"paceViolationPolicy\"\027\n\025GetQuotaStatesReq"
+literal|"on_policy\030\002 \001(\0162\036.hbase.pb.SpaceViolatio"
 operator|+
-literal|"uest\"\201\003\n\026GetQuotaStatesResponse\022L\n\017table"
+literal|"nPolicy\"\027\n\025GetQuotaStatesRequest\"\201\003\n\026Get"
 operator|+
-literal|"_snapshots\030\001 \003(\01323.hbase.pb.GetQuotaStat"
+literal|"QuotaStatesResponse\022L\n\017table_snapshots\030\001"
 operator|+
-literal|"esResponse.TableQuotaSnapshot\022M\n\014ns_snap"
+literal|" \003(\01323.hbase.pb.GetQuotaStatesResponse.T"
 operator|+
-literal|"shots\030\002 \003(\01327.hbase.pb.GetQuotaStatesRes"
+literal|"ableQuotaSnapshot\022M\n\014ns_snapshots\030\002 \003(\0132"
 operator|+
-literal|"ponse.NamespaceQuotaSnapshot\032m\n\022TableQuo"
+literal|"7.hbase.pb.GetQuotaStatesResponse.Namesp"
 block|,
-literal|"taSnapshot\022\'\n\ntable_name\030\001 \001(\0132\023.hbase.p"
+literal|"aceQuotaSnapshot\032m\n\022TableQuotaSnapshot\022\'"
 operator|+
-literal|"b.TableName\022.\n\010snapshot\030\002 \001(\0132\034.hbase.pb"
+literal|"\n\ntable_name\030\001 \001(\0132\023.hbase.pb.TableName\022"
 operator|+
-literal|".SpaceQuotaSnapshot\032[\n\026NamespaceQuotaSna"
+literal|".\n\010snapshot\030\002 \001(\0132\034.hbase.pb.SpaceQuotaS"
 operator|+
-literal|"pshot\022\021\n\tnamespace\030\001 \001(\t\022.\n\010snapshot\030\002 \001"
+literal|"napshot\032[\n\026NamespaceQuotaSnapshot\022\021\n\tnam"
 operator|+
-literal|"(\0132\034.hbase.pb.SpaceQuotaSnapshot*&\n\nQuot"
+literal|"espace\030\001 \001(\t\022.\n\010snapshot\030\002 \001(\0132\034.hbase.p"
 operator|+
-literal|"aScope\022\013\n\007CLUSTER\020\001\022\013\n\007MACHINE\020\002*v\n\014Thro"
+literal|"b.SpaceQuotaSnapshot*&\n\nQuotaScope\022\013\n\007CL"
 operator|+
-literal|"ttleType\022\022\n\016REQUEST_NUMBER\020\001\022\020\n\014REQUEST_"
+literal|"USTER\020\001\022\013\n\007MACHINE\020\002*v\n\014ThrottleType\022\022\n\016"
 operator|+
-literal|"SIZE\020\002\022\020\n\014WRITE_NUMBER\020\003\022\016\n\nWRITE_SIZE\020\004"
+literal|"REQUEST_NUMBER\020\001\022\020\n\014REQUEST_SIZE\020\002\022\020\n\014WR"
 operator|+
-literal|"\022\017\n\013READ_NUMBER\020\005\022\r\n\tREAD_SIZE\020\006*$\n\tQuot"
+literal|"ITE_NUMBER\020\003\022\016\n\nWRITE_SIZE\020\004\022\017\n\013READ_NUM"
 operator|+
-literal|"aType\022\014\n\010THROTTLE\020\001\022\t\n\005SPACE\020\002*]\n\024SpaceV"
+literal|"BER\020\005\022\r\n\tREAD_SIZE\020\006*$\n\tQuotaType\022\014\n\010THR"
 block|,
-literal|"iolationPolicy\022\013\n\007DISABLE\020\001\022\031\n\025NO_WRITES"
+literal|"OTTLE\020\001\022\t\n\005SPACE\020\002*]\n\024SpaceViolationPoli"
 operator|+
-literal|"_COMPACTIONS\020\002\022\r\n\tNO_WRITES\020\003\022\016\n\nNO_INSE"
+literal|"cy\022\013\n\007DISABLE\020\001\022\031\n\025NO_WRITES_COMPACTIONS"
 operator|+
-literal|"RTS\020\004BH\n1org.apache.hadoop.hbase.shaded."
+literal|"\020\002\022\r\n\tNO_WRITES\020\003\022\016\n\nNO_INSERTS\020\004BH\n1org"
 operator|+
-literal|"protobuf.generatedB\013QuotaProtosH\001\210\001\001\240\001\001"
+literal|".apache.hadoop.hbase.shaded.protobuf.gen"
+operator|+
+literal|"eratedB\013QuotaProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|org
@@ -116681,7 +116683,7 @@ operator|.
 name|String
 index|[]
 block|{
-literal|"Policy"
+literal|"ViolationPolicy"
 block|,
 literal|"InViolation"
 block|, }
@@ -116733,11 +116735,11 @@ operator|.
 name|String
 index|[]
 block|{
-literal|"Status"
+literal|"QuotaStatus"
 block|,
-literal|"Usage"
+literal|"QuotaUsage"
 block|,
-literal|"Limit"
+literal|"QuotaLimit"
 block|, }
 argument_list|)
 expr_stmt|;

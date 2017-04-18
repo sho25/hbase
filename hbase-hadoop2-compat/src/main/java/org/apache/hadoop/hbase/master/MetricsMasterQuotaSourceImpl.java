@@ -145,6 +145,10 @@ name|MutableGaugeLong
 import|;
 end_import
 
+begin_comment
+comment|/**  * Implementation of {@link MetricsMasterQuotaSource} which writes the values passed in via the  * interface to the metrics backend.  */
+end_comment
+
 begin_class
 annotation|@
 name|InterfaceAudience
@@ -432,9 +436,9 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-literal|null
-operator|!=
 name|wrapper
+operator|!=
+literal|null
 condition|)
 block|{
 comment|// Summarize the tables
@@ -463,9 +467,9 @@ literal|"[]"
 decl_stmt|;
 if|if
 condition|(
-literal|null
-operator|!=
 name|tableUsages
+operator|!=
+literal|null
 operator|&&
 operator|!
 name|tableUsages
@@ -529,9 +533,9 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-literal|null
-operator|!=
 name|namespaceUsages
+operator|!=
+literal|null
 operator|&&
 operator|!
 name|namespaceUsages

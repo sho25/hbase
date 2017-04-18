@@ -65,9 +65,9 @@ parameter_list|)
 block|{
 if|if
 condition|(
-literal|null
-operator|==
 name|quotaSource
+operator|==
+literal|null
 condition|)
 block|{
 name|quotaSource

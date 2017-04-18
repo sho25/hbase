@@ -3089,9 +3089,9 @@ name|initializeRegionSizes
 parameter_list|()
 block|{
 assert|assert
-literal|null
-operator|==
 name|regionSizes
+operator|==
+literal|null
 assert|;
 name|this
 operator|.
@@ -3119,9 +3119,9 @@ parameter_list|)
 block|{
 if|if
 condition|(
-literal|null
-operator|==
 name|regionSizes
+operator|==
+literal|null
 condition|)
 block|{
 return|return;
@@ -3154,9 +3154,9 @@ parameter_list|()
 block|{
 if|if
 condition|(
-literal|null
-operator|==
 name|regionSizes
+operator|==
+literal|null
 condition|)
 block|{
 return|return
@@ -3224,9 +3224,9 @@ parameter_list|)
 block|{
 if|if
 condition|(
-literal|null
-operator|==
 name|regionSizes
+operator|==
+literal|null
 condition|)
 block|{
 return|return

@@ -824,23 +824,23 @@ block|{
 if|if
 condition|(
 operator|(
-literal|null
-operator|==
 name|table
-operator|&&
-literal|null
 operator|==
+literal|null
+operator|&&
 name|namespace
+operator|==
+literal|null
 operator|)
 operator|||
 operator|(
-literal|null
-operator|!=
 name|table
-operator|&&
-literal|null
 operator|!=
+literal|null
+operator|&&
 name|namespace
+operator|!=
+literal|null
 operator|)
 condition|)
 block|{
@@ -854,9 +854,9 @@ throw|;
 block|}
 if|if
 condition|(
-literal|null
-operator|!=
 name|table
+operator|!=
+literal|null
 condition|)
 block|{
 return|return
@@ -1426,8 +1426,6 @@ operator|new
 name|SpaceLimitSettings
 argument_list|(
 name|tableName
-argument_list|,
-literal|true
 argument_list|)
 return|;
 block|}
@@ -1461,7 +1459,7 @@ name|violationPolicy
 argument_list|)
 return|;
 block|}
-comment|/**    * Creates a {@link QuotaSettings} object to remove the FileSystem space quota for the given 	 * namespace.    *    * @param namespace The namespace to remove the quota on.    * @return A {@link QuotaSettings} object.    */
+comment|/**    * Creates a {@link QuotaSettings} object to remove the FileSystem space quota for the given    * namespace.    *    * @param namespace The namespace to remove the quota on.    * @return A {@link QuotaSettings} object.    */
 specifier|public
 specifier|static
 name|QuotaSettings
@@ -1476,8 +1474,6 @@ operator|new
 name|SpaceLimitSettings
 argument_list|(
 name|namespace
-argument_list|,
-literal|true
 argument_list|)
 return|;
 block|}
