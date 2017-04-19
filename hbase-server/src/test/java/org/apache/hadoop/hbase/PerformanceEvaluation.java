@@ -10915,6 +10915,33 @@ operator|.
 name|err
 operator|.
 name|println
+argument_list|(
+literal|" asyncPrefetch   Enable asyncPrefetch for scan"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|" cacheBlocks     Set the cacheBlocks option for scan. Default: true"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|" scanReadType    Set the readType option for scan, stream/pread/default. Default: default"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
 argument_list|()
 expr_stmt|;
 name|System
@@ -12490,7 +12517,7 @@ name|cmd
 operator|.
 name|startsWith
 argument_list|(
-name|cacheBlocks
+name|scanReadType
 argument_list|)
 condition|)
 block|{
