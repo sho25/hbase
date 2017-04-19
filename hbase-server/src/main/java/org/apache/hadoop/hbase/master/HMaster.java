@@ -4763,6 +4763,10 @@ name|currentTimeMillis
 argument_list|()
 expr_stmt|;
 comment|// TODO: Do this using Dependency Injection, using PicoContainer, Guice or Spring.
+comment|// Initialize the chunkCreator
+name|initializeMemStoreChunkCreator
+argument_list|()
+expr_stmt|;
 name|this
 operator|.
 name|fileSystemManager

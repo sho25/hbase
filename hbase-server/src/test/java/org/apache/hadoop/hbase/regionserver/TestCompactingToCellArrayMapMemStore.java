@@ -244,10 +244,6 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|//private static MemStoreChunkPool chunkPool;
-comment|//private HRegion region;
-comment|//private RegionServicesForStores regionServicesForStores;
-comment|//private HStore store;
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Helpers
 comment|//////////////////////////////////////////////////////////////////////////////
@@ -260,9 +256,9 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|chunkPool
+name|chunkCreator
 operator|.
-name|clearChunks
+name|clearChunksInPool
 argument_list|()
 expr_stmt|;
 block|}
@@ -2664,7 +2660,7 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|chunkPool
+name|chunkCreator
 operator|.
 name|getPoolSize
 argument_list|()
@@ -2689,7 +2685,7 @@ expr_stmt|;
 block|}
 name|assertTrue
 argument_list|(
-name|chunkPool
+name|chunkCreator
 operator|.
 name|getPoolSize
 argument_list|()
@@ -2698,9 +2694,9 @@ literal|0
 argument_list|)
 expr_stmt|;
 comment|// clear chunks
-name|chunkPool
+name|chunkCreator
 operator|.
-name|clearChunks
+name|clearChunksInPool
 argument_list|()
 expr_stmt|;
 comment|// Creating another snapshot
@@ -2807,7 +2803,7 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|chunkPool
+name|chunkCreator
 operator|.
 name|getPoolSize
 argument_list|()
@@ -3089,7 +3085,7 @@ expr_stmt|;
 name|int
 name|chunkCount
 init|=
-name|chunkPool
+name|chunkCreator
 operator|.
 name|getPoolSize
 argument_list|()
