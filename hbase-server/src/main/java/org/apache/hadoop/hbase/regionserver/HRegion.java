@@ -16557,6 +16557,14 @@ name|memstoreSize
 argument_list|)
 expr_stmt|;
 block|}
+comment|// update memstore size
+name|this
+operator|.
+name|addAndGetMemstoreSize
+argument_list|(
+name|memstoreSize
+argument_list|)
+expr_stmt|;
 comment|// calling the post CP hook for batch mutation
 if|if
 condition|(
@@ -16829,13 +16837,6 @@ operator|.
 name|complete
 argument_list|(
 name|writeEntry
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|addAndGetMemstoreSize
-argument_list|(
-name|memstoreSize
 argument_list|)
 expr_stmt|;
 if|if
