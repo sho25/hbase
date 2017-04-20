@@ -171,7 +171,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|TestAdmin1
+name|TestAsyncAdminBase
 operator|.
 name|class
 argument_list|)
