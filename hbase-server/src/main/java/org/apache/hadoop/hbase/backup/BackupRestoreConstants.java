@@ -75,7 +75,7 @@ specifier|static
 name|String
 name|BACKUP_SYSTEM_TABLE_NAME_DEFAULT
 init|=
-literal|"hbase:backup"
+literal|"backup:system"
 decl_stmt|;
 specifier|public
 specifier|final

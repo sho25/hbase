@@ -392,13 +392,13 @@ name|prevReadFromBackupTbl
 init|=
 literal|0
 decl_stmt|,
-comment|// timestamp of most recent read from hbase:backup table
+comment|// timestamp of most recent read from backup:system table
 name|secondPrevReadFromBackupTbl
 init|=
 literal|0
 decl_stmt|;
-comment|// timestamp of 2nd most recent read from hbase:backup table
-comment|//used by unit test to skip reading hbase:backup
+comment|// timestamp of 2nd most recent read from backup:system table
+comment|//used by unit test to skip reading backup:system
 specifier|private
 name|boolean
 name|checkForFullyBackedUpTables
@@ -776,7 +776,7 @@ name|FileStatus
 name|file
 parameter_list|)
 block|{
-comment|// If the file is recent, be conservative and wait for one more scan of hbase:backup table
+comment|// If the file is recent, be conservative and wait for one more scan of backup:system table
 if|if
 condition|(
 name|file
