@@ -15156,9 +15156,13 @@ name|conf
 operator|.
 name|getBoolean
 argument_list|(
-literal|"hbase.snapshot.restore.take.failsafe.snapshot"
+name|HConstants
+operator|.
+name|SNAPSHOT_RESTORE_TAKE_FAILSAFE_SNAPSHOT
 argument_list|,
-literal|false
+name|HConstants
+operator|.
+name|DEFAULT_SNAPSHOT_RESTORE_TAKE_FAILSAFE_SNAPSHOT
 argument_list|)
 decl_stmt|;
 name|restoreSnapshot
