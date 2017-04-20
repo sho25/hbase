@@ -175,7 +175,7 @@ name|i
 operator|<
 name|minCellIdx
 operator|)
-operator|&&
+operator|||
 operator|(
 name|i
 operator|>=
