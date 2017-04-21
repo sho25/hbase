@@ -2183,6 +2183,16 @@ return|return
 name|lowest
 return|;
 block|}
+annotation|@
+name|VisibleForTesting
+name|long
+name|getInmemoryFlushSize
+parameter_list|()
+block|{
+return|return
+name|inmemoryFlushSize
+return|;
+block|}
 comment|// debug method
 specifier|public
 name|void

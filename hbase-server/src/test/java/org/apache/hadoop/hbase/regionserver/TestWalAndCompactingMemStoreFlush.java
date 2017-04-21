@@ -809,6 +809,62 @@ name|row
 argument_list|)
 return|;
 block|}
+specifier|private
+name|void
+name|verifyInMemoryFlushSize
+parameter_list|(
+name|Region
+name|region
+parameter_list|)
+block|{
+name|assertEquals
+argument_list|(
+operator|(
+call|(
+name|CompactingMemStore
+call|)
+argument_list|(
+operator|(
+name|HStore
+operator|)
+name|region
+operator|.
+name|getStore
+argument_list|(
+name|FAMILY1
+argument_list|)
+argument_list|)
+operator|.
+name|memstore
+operator|)
+operator|.
+name|getInmemoryFlushSize
+argument_list|()
+argument_list|,
+operator|(
+call|(
+name|CompactingMemStore
+call|)
+argument_list|(
+operator|(
+name|HStore
+operator|)
+name|region
+operator|.
+name|getStore
+argument_list|(
+name|FAMILY3
+argument_list|)
+argument_list|)
+operator|.
+name|memstore
+operator|)
+operator|.
+name|getInmemoryFlushSize
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 comment|// A helper function to verify edits.
 name|void
 name|verifyEdit
@@ -1065,6 +1121,11 @@ argument_list|,
 name|conf
 argument_list|)
 decl_stmt|;
+name|verifyInMemoryFlushSize
+argument_list|(
+name|region
+argument_list|)
+expr_stmt|;
 comment|// Add 1200 entries for CF1, 100 for CF2 and 50 for CF3
 for|for
 control|(
@@ -2346,6 +2407,11 @@ argument_list|,
 name|conf
 argument_list|)
 decl_stmt|;
+name|verifyInMemoryFlushSize
+argument_list|(
+name|region
+argument_list|)
+expr_stmt|;
 comment|/*------------------------------------------------------------------------------*/
 comment|/* PHASE I - insertions */
 comment|// Add 1200 entries for CF1, 100 for CF2 and 50 for CF3
@@ -3711,6 +3777,11 @@ argument_list|,
 name|conf
 argument_list|)
 decl_stmt|;
+name|verifyInMemoryFlushSize
+argument_list|(
+name|region
+argument_list|)
+expr_stmt|;
 comment|// Add 1200 entries for CF1, 100 for CF2 and 50 for CF3
 for|for
 control|(
@@ -4600,6 +4671,11 @@ argument_list|,
 name|conf
 argument_list|)
 decl_stmt|;
+name|verifyInMemoryFlushSize
+argument_list|(
+name|region
+argument_list|)
+expr_stmt|;
 comment|// Add 1200 entries for CF1 (CompactingMemStore), 100 for CF2 (DefaultMemStore) and 50 for CF3
 for|for
 control|(
@@ -5566,6 +5642,11 @@ argument_list|,
 name|conf
 argument_list|)
 decl_stmt|;
+name|verifyInMemoryFlushSize
+argument_list|(
+name|region
+argument_list|)
+expr_stmt|;
 name|Thread
 index|[]
 name|threads

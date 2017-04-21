@@ -311,10 +311,10 @@ block|{
 return|return
 name|region
 operator|.
-name|getStores
+name|getTableDesc
 argument_list|()
 operator|.
-name|size
+name|getColumnFamilyCount
 argument_list|()
 return|;
 block|}
