@@ -290,7 +290,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Sample coprocessor endpoint exposing a Service interface for counting rows and key values.  *  *<p>  * For the protocol buffer definition of the RowCountService, see the source file located under  * hbase-server/src/main/protobuf/Examples.proto.  *</p>  */
+comment|/**  * Sample coprocessor endpoint exposing a Service interface for counting rows and key values.  *  *<p>  * For the protocol buffer definition of the RowCountService, see the source file located under  * hbase-examples/src/main/protobuf/Examples.proto.  *</p>  */
 end_comment
 
 begin_class
