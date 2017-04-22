@@ -267,18 +267,6 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|assertFalse
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
 name|assertNotNull
 import|;
 end_import
@@ -1088,7 +1076,7 @@ name|CompactingMemStore
 operator|.
 name|IN_MEMORY_FLUSH_THRESHOLD_FACTOR_KEY
 argument_list|,
-literal|0.25
+literal|0.5
 argument_list|)
 expr_stmt|;
 comment|// set memstore to do data compaction
@@ -4626,7 +4614,7 @@ name|CompactingMemStore
 operator|.
 name|IN_MEMORY_FLUSH_THRESHOLD_FACTOR_KEY
 argument_list|,
-literal|0.5
+literal|0.8
 argument_list|)
 expr_stmt|;
 comment|// set memstore to do index compaction with merge
