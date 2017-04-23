@@ -3747,6 +3747,10 @@ decl_stmt|;
 if|if
 condition|(
 operator|!
+name|Bytes
+operator|.
+name|equals
+argument_list|(
 name|this
 operator|.
 name|region
@@ -3754,11 +3758,9 @@ operator|.
 name|getRegionInfo
 argument_list|()
 operator|.
-name|getRegionNameAsString
+name|getRegionName
 argument_list|()
-operator|.
-name|equals
-argument_list|(
+argument_list|,
 name|other
 operator|.
 name|region
@@ -3766,7 +3768,7 @@ operator|.
 name|getRegionInfo
 argument_list|()
 operator|.
-name|getRegionNameAsString
+name|getRegionName
 argument_list|()
 argument_list|)
 condition|)
