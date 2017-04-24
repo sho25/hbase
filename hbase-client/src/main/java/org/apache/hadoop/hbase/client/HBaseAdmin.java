@@ -15485,7 +15485,7 @@ name|IOException
 name|e
 parameter_list|)
 block|{
-comment|// Somthing went wrong during the restore...
+comment|// Something went wrong during the restore...
 comment|// if the pre-restore snapshot is available try to rollback
 if|if
 condition|(
