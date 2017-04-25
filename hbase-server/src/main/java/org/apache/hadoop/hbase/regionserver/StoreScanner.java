@@ -862,6 +862,13 @@ name|this
 operator|.
 name|oldestUnexpiredTS
 operator|=
+name|scan
+operator|.
+name|isRaw
+argument_list|()
+condition|?
+literal|0L
+else|:
 name|now
 operator|-
 name|scanInfo
