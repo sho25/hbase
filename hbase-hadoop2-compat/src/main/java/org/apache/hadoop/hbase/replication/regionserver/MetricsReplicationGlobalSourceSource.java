@@ -75,6 +75,14 @@ implements|implements
 name|MetricsReplicationSourceSource
 block|{
 specifier|private
+specifier|static
+specifier|final
+name|String
+name|KEY_PREFIX
+init|=
+literal|"source."
+decl_stmt|;
+specifier|private
 specifier|final
 name|MetricsReplicationSourceImpl
 name|rms
@@ -905,6 +913,8 @@ name|rms
 operator|.
 name|setGauge
 argument_list|(
+name|KEY_PREFIX
+operator|+
 name|gaugeName
 argument_list|,
 name|value
@@ -928,6 +938,8 @@ name|rms
 operator|.
 name|incGauge
 argument_list|(
+name|KEY_PREFIX
+operator|+
 name|gaugeName
 argument_list|,
 name|delta
@@ -951,6 +963,8 @@ name|rms
 operator|.
 name|decGauge
 argument_list|(
+name|KEY_PREFIX
+operator|+
 name|gaugeName
 argument_list|,
 name|delta
@@ -971,6 +985,8 @@ name|rms
 operator|.
 name|removeMetric
 argument_list|(
+name|KEY_PREFIX
+operator|+
 name|key
 argument_list|)
 expr_stmt|;
@@ -992,6 +1008,8 @@ name|rms
 operator|.
 name|incCounters
 argument_list|(
+name|KEY_PREFIX
+operator|+
 name|counterName
 argument_list|,
 name|delta
@@ -1015,6 +1033,8 @@ name|rms
 operator|.
 name|updateHistogram
 argument_list|(
+name|KEY_PREFIX
+operator|+
 name|name
 argument_list|,
 name|value

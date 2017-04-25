@@ -1955,6 +1955,13 @@ literal|"source.id."
 operator|+
 name|gaugeName
 decl_stmt|;
+name|String
+name|globalGaugeName
+init|=
+literal|"source."
+operator|+
+name|gaugeName
+decl_stmt|;
 name|long
 name|delta
 init|=
@@ -1969,6 +1976,13 @@ name|String
 name|singleCounterName
 init|=
 literal|"source.id."
+operator|+
+name|counterName
+decl_stmt|;
+name|String
+name|globalCounterName
+init|=
+literal|"source."
 operator|+
 name|counterName
 decl_stmt|;
@@ -2073,7 +2087,7 @@ argument_list|)
 operator|.
 name|decGauge
 argument_list|(
-name|gaugeName
+name|globalGaugeName
 argument_list|,
 name|delta
 argument_list|)
@@ -2121,7 +2135,7 @@ argument_list|)
 operator|.
 name|incCounters
 argument_list|(
-name|counterName
+name|globalCounterName
 argument_list|,
 name|count
 argument_list|)
@@ -2145,7 +2159,7 @@ argument_list|)
 operator|.
 name|incGauge
 argument_list|(
-name|gaugeName
+name|globalGaugeName
 argument_list|,
 name|delta
 argument_list|)
@@ -2175,7 +2189,7 @@ argument_list|)
 operator|.
 name|removeMetric
 argument_list|(
-name|gaugeName
+name|globalGaugeName
 argument_list|)
 expr_stmt|;
 name|verify
@@ -2197,7 +2211,7 @@ argument_list|)
 operator|.
 name|setGauge
 argument_list|(
-name|gaugeName
+name|globalGaugeName
 argument_list|,
 name|delta
 argument_list|)
@@ -2221,7 +2235,7 @@ argument_list|)
 operator|.
 name|updateHistogram
 argument_list|(
-name|counterName
+name|globalCounterName
 argument_list|,
 name|count
 argument_list|)
