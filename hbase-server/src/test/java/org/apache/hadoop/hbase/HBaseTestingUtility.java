@@ -7470,11 +7470,15 @@ expr_stmt|;
 name|HTableDescriptor
 name|desc
 init|=
+operator|new
+name|HTableDescriptor
+argument_list|(
 name|admin
 operator|.
 name|getTableDescriptor
 argument_list|(
 name|table
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|desc

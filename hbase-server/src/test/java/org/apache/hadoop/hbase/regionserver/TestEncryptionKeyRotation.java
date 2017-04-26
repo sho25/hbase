@@ -1383,7 +1383,7 @@ name|waitTableAvailable
 argument_list|(
 name|htd
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|,
 literal|5000
@@ -1804,7 +1804,7 @@ name|waitTableAvailable
 argument_list|(
 name|htd
 operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|,
 literal|5000

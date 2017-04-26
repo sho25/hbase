@@ -315,20 +315,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HTableDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|MetaTableAccessor
 import|;
 end_import
@@ -3421,7 +3407,7 @@ block|}
 specifier|private
 name|CompletableFuture
 argument_list|<
-name|HTableDescriptor
+name|TableDescriptor
 index|[]
 argument_list|>
 name|batchTableOperations
@@ -3438,7 +3424,7 @@ parameter_list|)
 block|{
 name|CompletableFuture
 argument_list|<
-name|HTableDescriptor
+name|TableDescriptor
 index|[]
 argument_list|>
 name|future
@@ -3450,7 +3436,7 @@ argument_list|()
 decl_stmt|;
 name|List
 argument_list|<
-name|HTableDescriptor
+name|TableDescriptor
 argument_list|>
 name|failed
 init|=
@@ -3590,7 +3576,7 @@ operator|.
 name|toArray
 argument_list|(
 operator|new
-name|HTableDescriptor
+name|TableDescriptor
 index|[
 name|failed
 operator|.
@@ -3665,7 +3651,7 @@ name|Override
 specifier|public
 name|CompletableFuture
 argument_list|<
-name|HTableDescriptor
+name|TableDescriptor
 index|[]
 argument_list|>
 name|listTables
@@ -3691,7 +3677,7 @@ name|Override
 specifier|public
 name|CompletableFuture
 argument_list|<
-name|HTableDescriptor
+name|TableDescriptor
 index|[]
 argument_list|>
 name|listTables
@@ -3725,7 +3711,7 @@ name|Override
 specifier|public
 name|CompletableFuture
 argument_list|<
-name|HTableDescriptor
+name|TableDescriptor
 index|[]
 argument_list|>
 name|listTables
@@ -3741,7 +3727,7 @@ return|return
 name|this
 operator|.
 expr|<
-name|HTableDescriptor
+name|TableDescriptor
 index|[]
 operator|>
 name|newMasterCaller
@@ -3761,7 +3747,7 @@ block|<GetTableDescriptorsRequest
 argument_list|,
 name|GetTableDescriptorsResponse
 argument_list|,
-name|HTableDescriptor
+name|TableDescriptor
 index|[]
 operator|>
 name|call
@@ -3806,7 +3792,7 @@ parameter_list|)
 lambda|->
 name|ProtobufUtil
 operator|.
-name|getHTableDescriptorArray
+name|getTableDescriptorArray
 argument_list|(
 name|resp
 argument_list|)
@@ -3988,7 +3974,7 @@ name|Override
 specifier|public
 name|CompletableFuture
 argument_list|<
-name|HTableDescriptor
+name|TableDescriptor
 argument_list|>
 name|getTableDescriptor
 parameter_list|(
@@ -3998,7 +3984,7 @@ parameter_list|)
 block|{
 name|CompletableFuture
 argument_list|<
-name|HTableDescriptor
+name|TableDescriptor
 argument_list|>
 name|future
 init|=
@@ -4120,7 +4106,7 @@ name|complete
 argument_list|(
 name|ProtobufUtil
 operator|.
-name|convertToHTableDesc
+name|convertToTableDesc
 argument_list|(
 name|tableSchemas
 operator|.
@@ -4175,7 +4161,7 @@ name|Void
 argument_list|>
 name|createTable
 parameter_list|(
-name|HTableDescriptor
+name|TableDescriptor
 name|desc
 parameter_list|)
 block|{
@@ -4200,7 +4186,7 @@ name|Void
 argument_list|>
 name|createTable
 parameter_list|(
-name|HTableDescriptor
+name|TableDescriptor
 name|desc
 parameter_list|,
 name|byte
@@ -4259,7 +4245,7 @@ name|Void
 argument_list|>
 name|createTable
 parameter_list|(
-name|HTableDescriptor
+name|TableDescriptor
 name|desc
 parameter_list|,
 name|byte
@@ -4570,7 +4556,7 @@ name|Override
 specifier|public
 name|CompletableFuture
 argument_list|<
-name|HTableDescriptor
+name|TableDescriptor
 index|[]
 argument_list|>
 name|deleteTables
@@ -4599,7 +4585,7 @@ name|Override
 specifier|public
 name|CompletableFuture
 argument_list|<
-name|HTableDescriptor
+name|TableDescriptor
 index|[]
 argument_list|>
 name|deleteTables
@@ -4805,7 +4791,7 @@ name|Override
 specifier|public
 name|CompletableFuture
 argument_list|<
-name|HTableDescriptor
+name|TableDescriptor
 index|[]
 argument_list|>
 name|enableTables
@@ -4834,7 +4820,7 @@ name|Override
 specifier|public
 name|CompletableFuture
 argument_list|<
-name|HTableDescriptor
+name|TableDescriptor
 index|[]
 argument_list|>
 name|enableTables
@@ -4952,7 +4938,7 @@ name|Override
 specifier|public
 name|CompletableFuture
 argument_list|<
-name|HTableDescriptor
+name|TableDescriptor
 index|[]
 argument_list|>
 name|disableTables
@@ -4981,7 +4967,7 @@ name|Override
 specifier|public
 name|CompletableFuture
 argument_list|<
-name|HTableDescriptor
+name|TableDescriptor
 index|[]
 argument_list|>
 name|disableTables

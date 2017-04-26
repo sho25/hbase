@@ -4482,7 +4482,11 @@ literal|null
 condition|)
 block|{
 return|return
+operator|new
+name|ImmutableHTableDescriptor
+argument_list|(
 name|htd
+argument_list|)
 return|;
 block|}
 throw|throw
@@ -5053,7 +5057,11 @@ name|this
 operator|.
 name|desc
 operator|=
+operator|new
+name|ImmutableHTableDescriptor
+argument_list|(
 name|desc
+argument_list|)
 expr_stmt|;
 block|}
 annotation|@
@@ -13418,6 +13426,9 @@ index|[
 name|i
 index|]
 operator|=
+operator|new
+name|ImmutableHTableDescriptor
+argument_list|(
 name|ProtobufUtil
 operator|.
 name|convertToHTableDesc
@@ -13427,6 +13438,7 @@ operator|.
 name|get
 argument_list|(
 name|i
+argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;

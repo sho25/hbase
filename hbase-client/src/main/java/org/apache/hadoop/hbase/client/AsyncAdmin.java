@@ -109,20 +109,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HTableDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|ServerName
 import|;
 end_import
@@ -299,19 +285,19 @@ name|TableName
 name|tableName
 parameter_list|)
 function_decl|;
-comment|/**    * List all the userspace tables.    * @return - returns an array of HTableDescriptors wrapped by a {@link CompletableFuture}.    * @see #listTables(Pattern, boolean)    */
+comment|/**    * List all the userspace tables.    * @return - returns an array of TableDescriptors wrapped by a {@link CompletableFuture}.    * @see #listTables(Pattern, boolean)    */
 name|CompletableFuture
 argument_list|<
-name|HTableDescriptor
+name|TableDescriptor
 index|[]
 argument_list|>
 name|listTables
 parameter_list|()
 function_decl|;
-comment|/**    * List all the tables matching the given pattern.    * @param regex The regular expression to match against    * @param includeSysTables False to match only against userspace tables    * @return - returns an array of HTableDescriptors wrapped by a {@link CompletableFuture}.    * @see #listTables(Pattern, boolean)    */
+comment|/**    * List all the tables matching the given pattern.    * @param regex The regular expression to match against    * @param includeSysTables False to match only against userspace tables    * @return - returns an array of TableDescriptors wrapped by a {@link CompletableFuture}.    * @see #listTables(Pattern, boolean)    */
 name|CompletableFuture
 argument_list|<
-name|HTableDescriptor
+name|TableDescriptor
 index|[]
 argument_list|>
 name|listTables
@@ -323,10 +309,10 @@ name|boolean
 name|includeSysTables
 parameter_list|)
 function_decl|;
-comment|/**    * List all the tables matching the given pattern.    * @param pattern The compiled regular expression to match against    * @param includeSysTables False to match only against userspace tables    * @return - returns an array of HTableDescriptors wrapped by a {@link CompletableFuture}.    */
+comment|/**    * List all the tables matching the given pattern.    * @param pattern The compiled regular expression to match against    * @param includeSysTables False to match only against userspace tables    * @return - returns an array of TableDescriptors wrapped by a {@link CompletableFuture}.    */
 name|CompletableFuture
 argument_list|<
-name|HTableDescriptor
+name|TableDescriptor
 index|[]
 argument_list|>
 name|listTables
@@ -381,10 +367,10 @@ name|boolean
 name|includeSysTables
 parameter_list|)
 function_decl|;
-comment|/**    * Method for getting the tableDescriptor    * @param tableName as a {@link TableName}    * @return the tableDescriptor wrapped by a {@link CompletableFuture}.    */
+comment|/**    * Method for getting the tableDescriptor    * @param tableName as a {@link TableName}    * @return the read-only tableDescriptor wrapped by a {@link CompletableFuture}.    */
 name|CompletableFuture
 argument_list|<
-name|HTableDescriptor
+name|TableDescriptor
 argument_list|>
 name|getTableDescriptor
 parameter_list|(
@@ -400,7 +386,7 @@ name|Void
 argument_list|>
 name|createTable
 parameter_list|(
-name|HTableDescriptor
+name|TableDescriptor
 name|desc
 parameter_list|)
 function_decl|;
@@ -411,7 +397,7 @@ name|Void
 argument_list|>
 name|createTable
 parameter_list|(
-name|HTableDescriptor
+name|TableDescriptor
 name|desc
 parameter_list|,
 name|byte
@@ -434,7 +420,7 @@ argument_list|>
 name|createTable
 parameter_list|(
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|desc
 parameter_list|,
 name|byte
@@ -455,10 +441,10 @@ name|TableName
 name|tableName
 parameter_list|)
 function_decl|;
-comment|/**    * Deletes tables matching the passed in pattern and wait on completion. Warning: Use this method    * carefully, there is no prompting and the effect is immediate. Consider using    * {@link #listTables(String, boolean)} and    * {@link #deleteTable(org.apache.hadoop.hbase.TableName)}    * @param regex The regular expression to match table names against    * @return Table descriptors for tables that couldn't be deleted. The return value will be wrapped    *         by a {@link CompletableFuture}.    */
+comment|/**    * Deletes tables matching the passed in pattern and wait on completion. Warning: Use this method    * carefully, there is no prompting and the effect is immediate. Consider using    * {@link #listTables(String, boolean)} and    * {@link #deleteTable(org.apache.hadoop.hbase.TableName)}    * @param regex The regular expression to match table names against    * @return Table descriptors for tables that couldn't be deleted. The return value will be wrapped    *         by a {@link CompletableFuture}. The return HTDs are read-only.    */
 name|CompletableFuture
 argument_list|<
-name|HTableDescriptor
+name|TableDescriptor
 index|[]
 argument_list|>
 name|deleteTables
@@ -467,10 +453,10 @@ name|String
 name|regex
 parameter_list|)
 function_decl|;
-comment|/**    * Delete tables matching the passed in pattern and wait on completion. Warning: Use this method    * carefully, there is no prompting and the effect is immediate. Consider using    * {@link #listTables(Pattern, boolean) } and    * {@link #deleteTable(org.apache.hadoop.hbase.TableName)}    * @param pattern The pattern to match table names against    * @return Table descriptors for tables that couldn't be deleted. The return value will be wrapped    *         by a {@link CompletableFuture}.    */
+comment|/**    * Delete tables matching the passed in pattern and wait on completion. Warning: Use this method    * carefully, there is no prompting and the effect is immediate. Consider using    * {@link #listTables(Pattern, boolean) } and    * {@link #deleteTable(org.apache.hadoop.hbase.TableName)}    * @param pattern The pattern to match table names against    * @return Table descriptors for tables that couldn't be deleted. The return value will be wrapped    *         by a {@link CompletableFuture}. The return HTDs are read-only.    */
 name|CompletableFuture
 argument_list|<
-name|HTableDescriptor
+name|TableDescriptor
 index|[]
 argument_list|>
 name|deleteTables
@@ -507,10 +493,10 @@ name|TableName
 name|tableName
 parameter_list|)
 function_decl|;
-comment|/**    * Enable tables matching the passed in pattern. Warning: Use this method carefully, there is no    * prompting and the effect is immediate. Consider using {@link #listTables(Pattern, boolean)} and    * {@link #enableTable(TableName)}    * @param regex The regular expression to match table names against    * @return Table descriptors for tables that couldn't be enabled. The return value will be wrapped    *         by a {@link CompletableFuture}.    */
+comment|/**    * Enable tables matching the passed in pattern. Warning: Use this method carefully, there is no    * prompting and the effect is immediate. Consider using {@link #listTables(Pattern, boolean)} and    * {@link #enableTable(TableName)}    * @param regex The regular expression to match table names against    * @return Table descriptors for tables that couldn't be enabled. The return value will be wrapped    *         by a {@link CompletableFuture}. The return HTDs are read-only.    */
 name|CompletableFuture
 argument_list|<
-name|HTableDescriptor
+name|TableDescriptor
 index|[]
 argument_list|>
 name|enableTables
@@ -519,10 +505,10 @@ name|String
 name|regex
 parameter_list|)
 function_decl|;
-comment|/**    * Enable tables matching the passed in pattern. Warning: Use this method carefully, there is no    * prompting and the effect is immediate. Consider using {@link #listTables(Pattern, boolean)} and    * {@link #enableTable(TableName)}    * @param pattern The pattern to match table names against    * @return Table descriptors for tables that couldn't be enabled. The return value will be wrapped    *         by a {@link CompletableFuture}.    */
+comment|/**    * Enable tables matching the passed in pattern. Warning: Use this method carefully, there is no    * prompting and the effect is immediate. Consider using {@link #listTables(Pattern, boolean)} and    * {@link #enableTable(TableName)}    * @param pattern The pattern to match table names against    * @return Table descriptors for tables that couldn't be enabled. The return value will be wrapped    *         by a {@link CompletableFuture}. The return HTDs are read-only.    */
 name|CompletableFuture
 argument_list|<
-name|HTableDescriptor
+name|TableDescriptor
 index|[]
 argument_list|>
 name|enableTables
@@ -543,10 +529,10 @@ name|TableName
 name|tableName
 parameter_list|)
 function_decl|;
-comment|/**    * Disable tables matching the passed in pattern. Warning: Use this method carefully, there is no    * prompting and the effect is immediate. Consider using {@link #listTables(Pattern, boolean)} and    * {@link #disableTable(TableName)}    * @param regex The regular expression to match table names against    * @return Table descriptors for tables that couldn't be disabled. The return value will be wrapped by a    *         {@link CompletableFuture}.    */
+comment|/**    * Disable tables matching the passed in pattern. Warning: Use this method carefully, there is no    * prompting and the effect is immediate. Consider using {@link #listTables(Pattern, boolean)} and    * {@link #disableTable(TableName)}    * @param regex The regular expression to match table names against    * @return Table descriptors for tables that couldn't be disabled. The return value will be wrapped by a    *         {@link CompletableFuture}. The return HTDs are read-only.    */
 name|CompletableFuture
 argument_list|<
-name|HTableDescriptor
+name|TableDescriptor
 index|[]
 argument_list|>
 name|disableTables
@@ -555,10 +541,10 @@ name|String
 name|regex
 parameter_list|)
 function_decl|;
-comment|/**    * Disable tables matching the passed in pattern. Warning: Use this method carefully, there is no    * prompting and the effect is immediate. Consider using {@link #listTables(Pattern, boolean)} and    * {@link #disableTable(TableName)}    * @param pattern The pattern to match table names against    * @return Table descriptors for tables that couldn't be disabled. The return value will be wrapped by a    *         {@link CompletableFuture}.    */
+comment|/**    * Disable tables matching the passed in pattern. Warning: Use this method carefully, there is no    * prompting and the effect is immediate. Consider using {@link #listTables(Pattern, boolean)} and    * {@link #disableTable(TableName)}    * @param pattern The pattern to match table names against    * @return Table descriptors for tables that couldn't be disabled. The return value will be wrapped by a    *         {@link CompletableFuture}. The return HTDs are read-only.    */
 name|CompletableFuture
 argument_list|<
-name|HTableDescriptor
+name|TableDescriptor
 index|[]
 argument_list|>
 name|disableTables

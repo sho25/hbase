@@ -982,7 +982,7 @@ operator|=
 operator|new
 name|HTableDescriptor
 argument_list|(
-name|RSGROUP_TABLE_NAME_BYTES
+name|RSGROUP_TABLE_NAME
 argument_list|)
 expr_stmt|;
 name|RSGROUP_TABLE_DESC

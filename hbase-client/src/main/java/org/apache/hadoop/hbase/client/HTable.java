@@ -1537,7 +1537,7 @@ condition|)
 block|{
 return|return
 operator|new
-name|UnmodifyableHTableDescriptor
+name|ImmutableHTableDescriptor
 argument_list|(
 name|htd
 argument_list|)

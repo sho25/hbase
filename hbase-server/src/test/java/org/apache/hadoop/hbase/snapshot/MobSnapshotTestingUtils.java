@@ -863,7 +863,12 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|tableName
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|HColumnDescriptor

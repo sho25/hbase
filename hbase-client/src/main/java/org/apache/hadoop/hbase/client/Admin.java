@@ -630,7 +630,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List all the userspace tables.    *    * @return - returns an array of HTableDescriptors    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * List all the userspace tables.    *    * @return - returns an array of read-only HTableDescriptors    * @throws IOException if a remote or network exception occurs    */
 name|HTableDescriptor
 index|[]
 name|listTables
@@ -638,7 +638,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List all the userspace tables matching the given pattern.    *    * @param pattern The compiled regular expression to match against    * @return - returns an array of HTableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTables()    */
+comment|/**    * List all the userspace tables matching the given pattern.    *    * @param pattern The compiled regular expression to match against    * @return - returns an array of read-only HTableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTables()    */
 name|HTableDescriptor
 index|[]
 name|listTables
@@ -660,7 +660,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List all the tables matching the given pattern.    *    * @param pattern The compiled regular expression to match against    * @param includeSysTables False to match only against userspace tables    * @return - returns an array of HTableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTables()    */
+comment|/**    * List all the tables matching the given pattern.    *    * @param pattern The compiled regular expression to match against    * @param includeSysTables False to match only against userspace tables    * @return - returns an array of read-only HTableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTables()    */
 name|HTableDescriptor
 index|[]
 name|listTables
@@ -674,7 +674,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List all the tables matching the given pattern.    *    * @param regex The regular expression to match against    * @param includeSysTables False to match only against userspace tables    * @return - returns an array of HTableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTables(java.util.regex.Pattern, boolean)    */
+comment|/**    * List all the tables matching the given pattern.    *    * @param regex The regular expression to match against    * @param includeSysTables False to match only against userspace tables    * @return - returns an array of read-only HTableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTables(java.util.regex.Pattern, boolean)    */
 name|HTableDescriptor
 index|[]
 name|listTables
@@ -750,7 +750,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Method for getting the tableDescriptor    *    * @param tableName as a {@link TableName}    * @return the tableDescriptor    * @throws org.apache.hadoop.hbase.TableNotFoundException    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Method for getting the tableDescriptor    *    * @param tableName as a {@link TableName}    * @return the read-only tableDescriptor    * @throws org.apache.hadoop.hbase.TableNotFoundException    * @throws IOException if a remote or network exception occurs    */
 name|HTableDescriptor
 name|getTableDescriptor
 parameter_list|(
@@ -854,7 +854,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Deletes tables matching the passed in pattern and wait on completion. Warning: Use this method    * carefully, there is no prompting and the effect is immediate. Consider using {@link    * #listTables(java.lang.String)} and {@link #deleteTable(org.apache.hadoop.hbase.TableName)}    *    * @param regex The regular expression to match table names against    * @return Table descriptors for tables that couldn't be deleted    * @throws IOException    * @see #deleteTables(java.util.regex.Pattern)    * @see #deleteTable(org.apache.hadoop.hbase.TableName)    */
+comment|/**    * Deletes tables matching the passed in pattern and wait on completion. Warning: Use this method    * carefully, there is no prompting and the effect is immediate. Consider using {@link    * #listTables(java.lang.String)} and {@link #deleteTable(org.apache.hadoop.hbase.TableName)}    *    * @param regex The regular expression to match table names against    * @return Table descriptors for tables that couldn't be deleted.    *         The return htds are read-only    * @throws IOException    * @see #deleteTables(java.util.regex.Pattern)    * @see #deleteTable(org.apache.hadoop.hbase.TableName)    */
 name|HTableDescriptor
 index|[]
 name|deleteTables
@@ -865,7 +865,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Delete tables matching the passed in pattern and wait on completion. Warning: Use this method    * carefully, there is no prompting and the effect is immediate. Consider using {@link    * #listTables(java.util.regex.Pattern) } and    * {@link #deleteTable(org.apache.hadoop.hbase.TableName)}    *    * @param pattern The pattern to match table names against    * @return Table descriptors for tables that couldn't be deleted    * @throws IOException    */
+comment|/**    * Delete tables matching the passed in pattern and wait on completion. Warning: Use this method    * carefully, there is no prompting and the effect is immediate. Consider using {@link    * #listTables(java.util.regex.Pattern) } and    * {@link #deleteTable(org.apache.hadoop.hbase.TableName)}    *    * @param pattern The pattern to match table names against    * @return Table descriptors for tables that couldn't be deleted    *         The return htds are read-only    * @throws IOException    */
 name|HTableDescriptor
 index|[]
 name|deleteTables
@@ -935,7 +935,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Enable tables matching the passed in pattern and wait on completion. Warning: Use this method    * carefully, there is no prompting and the effect is immediate. Consider using {@link    * #listTables(java.lang.String)} and {@link #enableTable(org.apache.hadoop.hbase.TableName)}    *    * @param regex The regular expression to match table names against    * @throws IOException    * @see #enableTables(java.util.regex.Pattern)    * @see #enableTable(org.apache.hadoop.hbase.TableName)    */
+comment|/**    * Enable tables matching the passed in pattern and wait on completion. Warning: Use this method    * carefully, there is no prompting and the effect is immediate. Consider using {@link    * #listTables(java.lang.String)} and {@link #enableTable(org.apache.hadoop.hbase.TableName)}    *    * @param regex The regular expression to match table names against    * @throws IOException    * @return Table descriptors for tables that couldn't be enabled.    *         The return HTDs are read-only.    * @see #enableTables(java.util.regex.Pattern)    * @see #enableTable(org.apache.hadoop.hbase.TableName)    */
 name|HTableDescriptor
 index|[]
 name|enableTables
@@ -946,7 +946,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Enable tables matching the passed in pattern and wait on completion. Warning: Use this method    * carefully, there is no prompting and the effect is immediate. Consider using {@link    * #listTables(java.util.regex.Pattern) } and    * {@link #enableTable(org.apache.hadoop.hbase.TableName)}    *    * @param pattern The pattern to match table names against    * @throws IOException    */
+comment|/**    * Enable tables matching the passed in pattern and wait on completion. Warning: Use this method    * carefully, there is no prompting and the effect is immediate. Consider using {@link    * #listTables(java.util.regex.Pattern) } and    * {@link #enableTable(org.apache.hadoop.hbase.TableName)}    *    * @param pattern The pattern to match table names against    * @throws IOException    * @return Table descriptors for tables that couldn't be enabled.    *         The return HTDs are read-only.    */
 name|HTableDescriptor
 index|[]
 name|enableTables
@@ -982,7 +982,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Disable tables matching the passed in pattern and wait on completion. Warning: Use this method    * carefully, there is no prompting and the effect is immediate. Consider using {@link    * #listTables(java.lang.String)} and {@link #disableTable(org.apache.hadoop.hbase.TableName)}    *    * @param regex The regular expression to match table names against    * @return Table descriptors for tables that couldn't be disabled    * @throws IOException    * @see #disableTables(java.util.regex.Pattern)    * @see #disableTable(org.apache.hadoop.hbase.TableName)    */
+comment|/**    * Disable tables matching the passed in pattern and wait on completion. Warning: Use this method    * carefully, there is no prompting and the effect is immediate. Consider using {@link    * #listTables(java.lang.String)} and {@link #disableTable(org.apache.hadoop.hbase.TableName)}    *    * @param regex The regular expression to match table names against    * @return Table descriptors for tables that couldn't be disabled    *         The return htds are read-only    * @throws IOException    * @see #disableTables(java.util.regex.Pattern)    * @see #disableTable(org.apache.hadoop.hbase.TableName)    */
 name|HTableDescriptor
 index|[]
 name|disableTables
@@ -993,7 +993,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Disable tables matching the passed in pattern and wait on completion. Warning: Use this method    * carefully, there is no prompting and the effect is immediate. Consider using {@link    * #listTables(java.util.regex.Pattern) } and    * {@link #disableTable(org.apache.hadoop.hbase.TableName)}    *    * @param pattern The pattern to match table names against    * @return Table descriptors for tables that couldn't be disabled    * @throws IOException    */
+comment|/**    * Disable tables matching the passed in pattern and wait on completion. Warning: Use this method    * carefully, there is no prompting and the effect is immediate. Consider using {@link    * #listTables(java.util.regex.Pattern) } and    * {@link #disableTable(org.apache.hadoop.hbase.TableName)}    *    * @param pattern The pattern to match table names against    * @return Table descriptors for tables that couldn't be disabled    *         The return htds are read-only    * @throws IOException    */
 name|HTableDescriptor
 index|[]
 name|disableTables
@@ -1964,7 +1964,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get list of table descriptors by namespace    *    * @param name namespace name    * @return A descriptor    * @throws IOException    */
+comment|/**    * Get list of table descriptors by namespace    *    * @param name namespace name    * @return HTD[] the read-only tableDescriptors    * @throws IOException    */
 name|HTableDescriptor
 index|[]
 name|listTableDescriptorsByNamespace
@@ -2010,7 +2010,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get tableDescriptors    *    * @param tableNames List of table names    * @return HTD[] the tableDescriptor    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Get tableDescriptors    *    * @param tableNames List of table names    * @return HTD[] the read-only tableDescriptors    * @throws IOException if a remote or network exception occurs    */
 name|HTableDescriptor
 index|[]
 name|getTableDescriptorsByTableName
@@ -2024,7 +2024,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get tableDescriptors    *    * @param names List of table names    * @return HTD[] the tableDescriptor    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Get tableDescriptors    *    * @param names List of table names    * @return HTD[] the read-only tableDescriptors    * @throws IOException if a remote or network exception occurs    */
 name|HTableDescriptor
 index|[]
 name|getTableDescriptors

@@ -41194,7 +41194,10 @@ argument_list|()
 argument_list|,
 name|htd
 operator|.
-name|getName
+name|getTableName
+argument_list|()
+operator|.
+name|toBytes
 argument_list|()
 argument_list|)
 argument_list|)
@@ -42142,7 +42145,10 @@ argument_list|()
 argument_list|,
 name|htd
 operator|.
-name|getName
+name|getTableName
+argument_list|()
+operator|.
+name|toBytes
 argument_list|()
 argument_list|)
 argument_list|)
@@ -42771,7 +42777,10 @@ argument_list|()
 argument_list|,
 name|htd
 operator|.
-name|getName
+name|getTableName
+argument_list|()
+operator|.
+name|toBytes
 argument_list|()
 argument_list|)
 argument_list|)

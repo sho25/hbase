@@ -151,15 +151,6 @@ argument_list|,
 literal|"rsgroup"
 argument_list|)
 decl_stmt|;
-name|byte
-index|[]
-name|RSGROUP_TABLE_NAME_BYTES
-init|=
-name|RSGROUP_TABLE_NAME
-operator|.
-name|toBytes
-argument_list|()
-decl_stmt|;
 name|String
 name|rsGroupZNode
 init|=

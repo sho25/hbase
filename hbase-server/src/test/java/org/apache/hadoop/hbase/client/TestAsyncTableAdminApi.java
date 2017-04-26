@@ -765,7 +765,7 @@ name|FAMILY
 argument_list|)
 expr_stmt|;
 block|}
-name|HTableDescriptor
+name|TableDescriptor
 index|[]
 name|tableDescs
 init|=
@@ -1159,7 +1159,7 @@ operator|.
 name|join
 argument_list|()
 expr_stmt|;
-name|HTableDescriptor
+name|TableDescriptor
 name|confirmedHtd
 init|=
 name|admin
@@ -1181,7 +1181,11 @@ name|htd
 operator|.
 name|compareTo
 argument_list|(
+operator|new
+name|HTableDescriptor
+argument_list|(
 name|confirmedHtd
+argument_list|)
 argument_list|)
 argument_list|,
 literal|0
@@ -1202,7 +1206,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HTableDescriptor
+name|TableDescriptor
 index|[]
 name|tables
 init|=
@@ -4610,7 +4614,7 @@ class|;
 end_class
 
 begin_decl_stmt
-name|HTableDescriptor
+name|TableDescriptor
 index|[]
 name|failed
 init|=
@@ -6532,7 +6536,7 @@ operator|.
 name|join
 argument_list|()
 expr_stmt|;
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 init|=
 name|admin
