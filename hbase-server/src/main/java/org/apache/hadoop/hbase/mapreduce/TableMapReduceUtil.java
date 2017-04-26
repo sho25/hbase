@@ -3025,6 +3025,21 @@ operator|.
 name|class
 argument_list|,
 comment|// hbase-metrics
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|metrics
+operator|.
+name|Snapshot
+operator|.
+name|class
+argument_list|,
+comment|// hbase-metrics-api
 name|prefixTreeCodecClass
 argument_list|,
 comment|//  hbase-prefix-tree (if null will be skipped)
