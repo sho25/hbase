@@ -1003,7 +1003,26 @@ argument_list|)
 operator|.
 name|entity
 argument_list|(
-literal|"Bad request: Either 0 or more than 1 columns specified."
+literal|"Bad request: Default 'GET' method only works if there is exactly 1 column "
+operator|+
+literal|"in the row. Using the 'Accept' header with one of these formats lets you "
+operator|+
+literal|"retrieve the entire row if it has multiple columns: "
+operator|+
+comment|// Same as the @Produces list for the get method.
+name|MIMETYPE_XML
+operator|+
+literal|", "
+operator|+
+name|MIMETYPE_JSON
+operator|+
+literal|", "
+operator|+
+name|MIMETYPE_PROTOBUF
+operator|+
+literal|", "
+operator|+
+name|MIMETYPE_PROTOBUF_IETF
 operator|+
 name|CRLF
 argument_list|)
