@@ -3382,6 +3382,8 @@ name|ServerName
 argument_list|>
 name|servers
 parameter_list|)
+throws|throws
+name|HBaseIOException
 block|{
 name|retainAssignCalled
 operator|=

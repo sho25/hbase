@@ -88,6 +88,12 @@ specifier|public
 interface|interface
 name|FavoredNodesPromoter
 block|{
+comment|/* Try and assign regions even if favored nodes are dead */
+name|String
+name|FAVORED_ALWAYS_ASSIGN_REGIONS
+init|=
+literal|"hbase.favored.assignment.always.assign"
+decl_stmt|;
 name|void
 name|generateFavoredNodesForDaughter
 parameter_list|(

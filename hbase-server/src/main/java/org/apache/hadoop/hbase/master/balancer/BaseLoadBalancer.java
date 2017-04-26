@@ -7268,6 +7268,8 @@ name|ServerName
 argument_list|>
 name|servers
 parameter_list|)
+throws|throws
+name|HBaseIOException
 block|{
 name|metricsBalancer
 operator|.
@@ -7900,6 +7902,8 @@ name|ServerName
 argument_list|>
 name|servers
 parameter_list|)
+throws|throws
+name|HBaseIOException
 block|{
 name|metricsBalancer
 operator|.
@@ -8110,6 +8114,8 @@ name|ServerName
 argument_list|>
 name|servers
 parameter_list|)
+throws|throws
+name|HBaseIOException
 block|{
 comment|// Update metrics
 name|metricsBalancer

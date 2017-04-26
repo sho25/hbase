@@ -283,6 +283,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HBaseIOException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseTestingUtility
 import|;
 end_import
@@ -7998,6 +8012,8 @@ name|ServerName
 argument_list|>
 name|servers
 parameter_list|)
+throws|throws
+name|HBaseIOException
 block|{
 if|if
 condition|(
@@ -8050,6 +8066,8 @@ name|ServerName
 argument_list|>
 name|servers
 parameter_list|)
+throws|throws
+name|HBaseIOException
 block|{
 if|if
 condition|(
@@ -8180,6 +8198,8 @@ name|ServerName
 argument_list|>
 name|servers
 parameter_list|)
+throws|throws
+name|HBaseIOException
 block|{
 for|for
 control|(
