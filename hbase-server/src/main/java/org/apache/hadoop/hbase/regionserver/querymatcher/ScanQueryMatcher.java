@@ -401,10 +401,6 @@ name|Cell
 name|currentRow
 decl_stmt|;
 specifier|protected
-name|boolean
-name|stickyNextRow
-decl_stmt|;
-specifier|protected
 name|ScanQueryMatcher
 parameter_list|(
 name|Cell
@@ -618,20 +614,6 @@ operator|.
 name|DONE
 return|;
 block|}
-comment|// optimize case.
-if|if
-condition|(
-name|this
-operator|.
-name|stickyNextRow
-condition|)
-block|{
-return|return
-name|MatchCode
-operator|.
-name|SEEK_NEXT_ROW
-return|;
-block|}
 if|if
 condition|(
 name|this
@@ -642,10 +624,6 @@ name|done
 argument_list|()
 condition|)
 block|{
-name|stickyNextRow
-operator|=
-literal|true
-expr_stmt|;
 return|return
 name|MatchCode
 operator|.
@@ -875,10 +853,6 @@ argument_list|()
 expr_stmt|;
 name|reset
 argument_list|()
-expr_stmt|;
-name|stickyNextRow
-operator|=
-literal|false
 expr_stmt|;
 block|}
 specifier|public
