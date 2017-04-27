@@ -1046,6 +1046,9 @@ specifier|public
 name|void
 name|publishReadFailure
 parameter_list|(
+name|ServerName
+name|serverName
+parameter_list|,
 name|HRegionInfo
 name|region
 parameter_list|,
@@ -1057,6 +1060,9 @@ specifier|public
 name|void
 name|publishReadFailure
 parameter_list|(
+name|ServerName
+name|serverName
+parameter_list|,
 name|HRegionInfo
 name|region
 parameter_list|,
@@ -1092,6 +1098,9 @@ specifier|public
 name|void
 name|publishReadTiming
 parameter_list|(
+name|ServerName
+name|serverName
+parameter_list|,
 name|HRegionInfo
 name|region
 parameter_list|,
@@ -1111,6 +1120,9 @@ specifier|public
 name|void
 name|publishWriteFailure
 parameter_list|(
+name|ServerName
+name|serverName
+parameter_list|,
 name|HRegionInfo
 name|region
 parameter_list|,
@@ -1122,6 +1134,9 @@ specifier|public
 name|void
 name|publishWriteFailure
 parameter_list|(
+name|ServerName
+name|serverName
+parameter_list|,
 name|HRegionInfo
 name|region
 parameter_list|,
@@ -1136,6 +1151,9 @@ specifier|public
 name|void
 name|publishWriteTiming
 parameter_list|(
+name|ServerName
+name|serverName
+parameter_list|,
 name|HRegionInfo
 name|region
 parameter_list|,
@@ -1291,6 +1309,9 @@ specifier|public
 name|void
 name|publishReadFailure
 parameter_list|(
+name|ServerName
+name|serverName
+parameter_list|,
 name|HRegionInfo
 name|region
 parameter_list|,
@@ -1311,12 +1332,14 @@ name|String
 operator|.
 name|format
 argument_list|(
-literal|"read from region %s failed"
+literal|"read from region %s on regionserver %s failed"
 argument_list|,
 name|region
 operator|.
 name|getRegionNameAsString
 argument_list|()
+argument_list|,
+name|serverName
 argument_list|)
 argument_list|,
 name|e
@@ -1329,6 +1352,9 @@ specifier|public
 name|void
 name|publishReadFailure
 parameter_list|(
+name|ServerName
+name|serverName
+parameter_list|,
 name|HRegionInfo
 name|region
 parameter_list|,
@@ -1352,12 +1378,14 @@ name|String
 operator|.
 name|format
 argument_list|(
-literal|"read from region %s column family %s failed"
+literal|"read from region %s on regionserver %s column family %s failed"
 argument_list|,
 name|region
 operator|.
 name|getRegionNameAsString
 argument_list|()
+argument_list|,
+name|serverName
 argument_list|,
 name|column
 operator|.
@@ -1401,6 +1429,9 @@ specifier|public
 name|void
 name|publishReadTiming
 parameter_list|(
+name|ServerName
+name|serverName
+parameter_list|,
 name|HRegionInfo
 name|region
 parameter_list|,
@@ -1419,12 +1450,14 @@ name|String
 operator|.
 name|format
 argument_list|(
-literal|"read from region %s column family %s in %dms"
+literal|"read from region %s on regionserver %s column family %s in %dms"
 argument_list|,
 name|region
 operator|.
 name|getRegionNameAsString
 argument_list|()
+argument_list|,
+name|serverName
 argument_list|,
 name|column
 operator|.
@@ -1488,6 +1521,9 @@ specifier|public
 name|void
 name|publishWriteFailure
 parameter_list|(
+name|ServerName
+name|serverName
+parameter_list|,
 name|HRegionInfo
 name|region
 parameter_list|,
@@ -1508,12 +1544,14 @@ name|String
 operator|.
 name|format
 argument_list|(
-literal|"write to region %s failed"
+literal|"write to region %s on regionserver %s failed"
 argument_list|,
 name|region
 operator|.
 name|getRegionNameAsString
 argument_list|()
+argument_list|,
+name|serverName
 argument_list|)
 argument_list|,
 name|e
@@ -1526,6 +1564,9 @@ specifier|public
 name|void
 name|publishWriteFailure
 parameter_list|(
+name|ServerName
+name|serverName
+parameter_list|,
 name|HRegionInfo
 name|region
 parameter_list|,
@@ -1549,12 +1590,14 @@ name|String
 operator|.
 name|format
 argument_list|(
-literal|"write to region %s column family %s failed"
+literal|"write to region %s on regionserver %s column family %s failed"
 argument_list|,
 name|region
 operator|.
 name|getRegionNameAsString
 argument_list|()
+argument_list|,
+name|serverName
 argument_list|,
 name|column
 operator|.
@@ -1572,6 +1615,9 @@ specifier|public
 name|void
 name|publishWriteTiming
 parameter_list|(
+name|ServerName
+name|serverName
+parameter_list|,
 name|HRegionInfo
 name|region
 parameter_list|,
@@ -1590,12 +1636,14 @@ name|String
 operator|.
 name|format
 argument_list|(
-literal|"write to region %s column family %s in %dms"
+literal|"write to region %s on regionserver %s column family %s in %dms"
 argument_list|,
 name|region
 operator|.
 name|getRegionNameAsString
 argument_list|()
+argument_list|,
+name|serverName
 argument_list|,
 name|column
 operator|.
@@ -2212,6 +2260,8 @@ name|sink
 operator|.
 name|publishReadFailure
 argument_list|(
+name|serverName
+argument_list|,
 name|region
 argument_list|,
 name|e
@@ -2531,6 +2581,8 @@ name|sink
 operator|.
 name|publishReadTiming
 argument_list|(
+name|serverName
+argument_list|,
 name|region
 argument_list|,
 name|column
@@ -2552,6 +2604,8 @@ name|sink
 operator|.
 name|publishReadFailure
 argument_list|(
+name|serverName
+argument_list|,
 name|region
 argument_list|,
 name|column
@@ -2838,6 +2892,8 @@ name|sink
 operator|.
 name|publishWriteTiming
 argument_list|(
+name|serverName
+argument_list|,
 name|region
 argument_list|,
 name|column
@@ -2856,6 +2912,8 @@ name|sink
 operator|.
 name|publishWriteFailure
 argument_list|(
+name|serverName
+argument_list|,
 name|region
 argument_list|,
 name|column
@@ -2881,6 +2939,8 @@ name|sink
 operator|.
 name|publishWriteFailure
 argument_list|(
+name|serverName
+argument_list|,
 name|region
 argument_list|,
 name|e
