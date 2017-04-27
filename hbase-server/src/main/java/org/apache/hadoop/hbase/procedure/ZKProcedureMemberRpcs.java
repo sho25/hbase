@@ -481,7 +481,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Recieved reached global barrier:"
+literal|"Received reached global barrier:"
 operator|+
 name|path
 argument_list|)

@@ -1226,7 +1226,7 @@ name|warn
 argument_list|(
 literal|"Full tracing of all iterations will produce a lot of data. Be sure your"
 operator|+
-literal|" SpanReciever can keep up."
+literal|" SpanReceiver can keep up."
 argument_list|)
 expr_stmt|;
 block|}

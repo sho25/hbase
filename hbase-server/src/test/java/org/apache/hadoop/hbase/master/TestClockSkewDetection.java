@@ -623,7 +623,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Recieved expected exception: "
+literal|"Received expected exception: "
 operator|+
 name|e
 argument_list|)
@@ -719,7 +719,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Recieved expected exception: "
+literal|"Received expected exception: "
 operator|+
 name|e
 argument_list|)

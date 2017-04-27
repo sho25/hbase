@@ -1212,7 +1212,7 @@ name|SnapshotDescription
 name|snapshot
 parameter_list|)
 function_decl|;
-comment|/**    * Check the current state of the passed snapshot. There are three possible states:    *<ol>    *<li>running - returns<tt>false</tt></li>    *<li>finished - returns<tt>true</tt></li>    *<li>finished with error - throws the exception that caused the snapshot to fail</li>    *</ol>    * The cluster only knows about the most recent snapshot. Therefore, if another snapshot has been    * run/started since the snapshot your are checking, you will recieve an    * {@link org.apache.hadoop.hbase.snapshot.UnknownSnapshotException}.    * @param snapshot description of the snapshot to check    * @return<tt>true</tt> if the snapshot is completed,<tt>false</tt> if the snapshot is still    *         running    */
+comment|/**    * Check the current state of the passed snapshot. There are three possible states:    *<ol>    *<li>running - returns<tt>false</tt></li>    *<li>finished - returns<tt>true</tt></li>    *<li>finished with error - throws the exception that caused the snapshot to fail</li>    *</ol>    * The cluster only knows about the most recent snapshot. Therefore, if another snapshot has been    * run/started since the snapshot you are checking, you will receive an    * {@link org.apache.hadoop.hbase.snapshot.UnknownSnapshotException}.    * @param snapshot description of the snapshot to check    * @return<tt>true</tt> if the snapshot is completed,<tt>false</tt> if the snapshot is still    *         running    */
 name|CompletableFuture
 argument_list|<
 name|Boolean
