@@ -3287,6 +3287,12 @@ specifier|private
 name|int
 name|unencodedDataSizeWritten
 decl_stmt|;
+comment|// Size of actual data being written. considering the block encoding. This
+comment|// includes the header size also.
+specifier|private
+name|int
+name|encodedDataSizeWritten
+decl_stmt|;
 comment|/**      * Bytes to be written to the file system, including the header. Compressed      * if compression is turned on. It also includes the checksum data that      * immediately follows the block data. (header + data + checksums)      */
 specifier|private
 name|ByteArrayOutputStream
@@ -3571,6 +3577,12 @@ name|unencodedDataSizeWritten
 operator|=
 literal|0
 expr_stmt|;
+name|this
+operator|.
+name|encodedDataSizeWritten
+operator|=
+literal|0
+expr_stmt|;
 return|return
 name|userDataStream
 return|;
@@ -3592,6 +3604,16 @@ operator|.
 name|WRITING
 argument_list|)
 expr_stmt|;
+name|int
+name|posBeforeEncode
+init|=
+name|this
+operator|.
+name|userDataStream
+operator|.
+name|size
+argument_list|()
+decl_stmt|;
 name|this
 operator|.
 name|unencodedDataSizeWritten
@@ -3610,6 +3632,19 @@ name|this
 operator|.
 name|userDataStream
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|encodedDataSizeWritten
+operator|+=
+name|this
+operator|.
+name|userDataStream
+operator|.
+name|size
+argument_list|()
+operator|-
+name|posBeforeEncode
 expr_stmt|;
 block|}
 comment|/**      * Returns the stream for the user to write to. The block writer takes care      * of handling compression and buffering for caching on write. Can only be      * called in the "writing" state.      *      * @return the data output stream for the user to write to      */
@@ -4437,6 +4472,29 @@ operator|==
 name|State
 operator|.
 name|WRITING
+return|;
+block|}
+comment|/**      * Returns the number of bytes written into the current block so far, or      * zero if not writing the block at the moment. Note that this will return      * zero in the "block ready" state as well.      *      * @return the number of bytes written      */
+specifier|public
+name|int
+name|encodedBlockSizeWritten
+parameter_list|()
+block|{
+if|if
+condition|(
+name|state
+operator|!=
+name|State
+operator|.
+name|WRITING
+condition|)
+return|return
+literal|0
+return|;
+return|return
+name|this
+operator|.
+name|encodedDataSizeWritten
 return|;
 block|}
 comment|/**      * Returns the number of bytes written into the current block so far, or      * zero if not writing the block at the moment. Note that this will return      * zero in the "block ready" state as well.      *      * @return the number of bytes written      */

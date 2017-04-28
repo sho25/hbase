@@ -550,6 +550,21 @@ init|=
 operator|-
 literal|1
 decl_stmt|;
+comment|/** if this feature is enabled, preCalculate encoded data size before real encoding happens*/
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|UNIFIED_ENCODED_BLOCKSIZE_RATIO
+init|=
+literal|"hbase.writer.unified.encoded.blocksize.ratio"
+decl_stmt|;
+comment|/** Block size limit after encoding, used to unify encoded block Cache entry size*/
+specifier|private
+specifier|final
+name|int
+name|encodedBlockSizeLimit
+decl_stmt|;
 comment|/** The Cell previously appended. Becomes the last cell in the file.*/
 specifier|protected
 name|Cell
@@ -901,6 +916,34 @@ operator|.
 name|cacheConf
 operator|=
 name|cacheConf
+expr_stmt|;
+name|float
+name|encodeBlockSizeRatio
+init|=
+name|conf
+operator|.
+name|getFloat
+argument_list|(
+name|UNIFIED_ENCODED_BLOCKSIZE_RATIO
+argument_list|,
+literal|1f
+argument_list|)
+decl_stmt|;
+name|this
+operator|.
+name|encodedBlockSizeLimit
+operator|=
+call|(
+name|int
+call|)
+argument_list|(
+name|hFileContext
+operator|.
+name|getBlocksize
+argument_list|()
+operator|*
+name|encodeBlockSizeRatio
+argument_list|)
 expr_stmt|;
 name|finishInit
 argument_list|(
@@ -1420,19 +1463,28 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+comment|//for encoder like prefixTree, encoded size is not available, so we have to compare both encoded size
+comment|//and unencoded size to blocksize limit.
 if|if
 condition|(
 name|blockWriter
 operator|.
+name|encodedBlockSizeWritten
+argument_list|()
+operator|>=
+name|encodedBlockSizeLimit
+operator|||
+name|blockWriter
+operator|.
 name|blockSizeWritten
 argument_list|()
-operator|<
+operator|>=
 name|hFileContext
 operator|.
 name|getBlocksize
 argument_list|()
 condition|)
-return|return;
+block|{
 name|finishBlock
 argument_list|()
 expr_stmt|;
@@ -1444,6 +1496,7 @@ expr_stmt|;
 name|newBlock
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 comment|/** Clean up the data block that is currently being written.*/
 specifier|private
