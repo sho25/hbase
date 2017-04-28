@@ -33,22 +33,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
 begin_comment
 comment|/**  * Enumeration that represents the action HBase will take when a space quota is violated.  *  * The target for a violation policy is either an HBase table or namespace. In the case of a  * namespace, it is treated as a collection of tables (all tables are subject to the same policy).  */
 end_comment
@@ -58,10 +42,6 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Public
-annotation|@
-name|InterfaceStability
-operator|.
-name|Evolving
 specifier|public
 enum|enum
 name|SpaceViolationPolicy
