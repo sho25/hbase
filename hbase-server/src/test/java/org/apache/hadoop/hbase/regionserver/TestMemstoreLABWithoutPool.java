@@ -419,7 +419,7 @@ name|lastBuffer
 init|=
 literal|null
 decl_stmt|;
-name|long
+name|int
 name|lastChunkId
 init|=
 operator|-
@@ -506,12 +506,12 @@ name|lastBuffer
 condition|)
 block|{
 comment|// since we add the chunkID at the 0th offset of the chunk and the
-comment|// chunkid is a long we need to account for those 8 bytes
+comment|// chunkid is an int we need to account for those 4 bytes
 name|expectedOff
 operator|=
 name|Bytes
 operator|.
-name|SIZEOF_LONG
+name|SIZEOF_INT
 expr_stmt|;
 name|lastBuffer
 operator|=
@@ -520,7 +520,7 @@ operator|.
 name|getBuffer
 argument_list|()
 expr_stmt|;
-name|long
+name|int
 name|chunkId
 init|=
 name|newKv
@@ -528,7 +528,7 @@ operator|.
 name|getBuffer
 argument_list|()
 operator|.
-name|getLong
+name|getInt
 argument_list|(
 literal|0
 argument_list|)

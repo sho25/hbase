@@ -1169,7 +1169,7 @@ name|MemStoreLABImpl
 condition|)
 block|{
 comment|// since we add the chunkID at the 0th offset of the chunk and the
-comment|// chunkid is a long we need to account for those 8 bytes
+comment|// chunkid is an int we need to account for those 4 bytes
 name|assertEquals
 argument_list|(
 literal|2
@@ -1183,7 +1183,7 @@ argument_list|)
 operator|+
 name|Bytes
 operator|.
-name|SIZEOF_LONG
+name|SIZEOF_INT
 argument_list|,
 operator|(
 operator|(

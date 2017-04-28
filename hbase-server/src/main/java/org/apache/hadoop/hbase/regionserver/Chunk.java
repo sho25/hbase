@@ -297,7 +297,7 @@ name|e
 throw|;
 block|}
 comment|// Mark that it's ready for use
-comment|// Move 8 bytes since the first 8 bytes are having the chunkid in it
+comment|// Move 4 bytes since the first 4 bytes are having the chunkid in it
 name|boolean
 name|initted
 init|=
@@ -309,7 +309,7 @@ name|UNINITIALIZED
 argument_list|,
 name|Bytes
 operator|.
-name|SIZEOF_LONG
+name|SIZEOF_INT
 argument_list|)
 decl_stmt|;
 comment|// We should always succeed the above CAS since only one thread

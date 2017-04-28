@@ -611,7 +611,7 @@ condition|)
 block|{
 name|expectedOff
 operator|=
-literal|8
+literal|4
 expr_stmt|;
 name|lastBuffer
 operator|=
