@@ -108,7 +108,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * TableDescriptor contains the details about an HBase table such as the descriptors of  * all the column families, is the table a catalog table,<code> -ROOT-</code> or  *<code> hbase:meta</code>, if the table is read only, the maximum size of the memstore,  * when the region split should occur, coprocessors associated with it etc...  */
+comment|/**  * TableDescriptor contains the details about an HBase table such as the descriptors of  * all the column families, is the table a catalog table,<code> hbase:meta</code>,  * if the table is read only, the maximum size of the memstore,  * when the region split should occur, coprocessors associated with it etc...  */
 end_comment
 
 begin_interface
@@ -300,11 +300,6 @@ function_decl|;
 comment|/**    * Check if the readOnly flag of the table is set. If the readOnly flag is set    * then the contents of the table can only be read from but not modified.    *    * @return true if all columns in the table should be read only    */
 name|boolean
 name|isReadOnly
-parameter_list|()
-function_decl|;
-comment|/**    * Check if the descriptor represents a<code> -ROOT-</code> region.    *    * @return true if this is a<code> -ROOT-</code> region    */
-name|boolean
-name|isRootRegion
 parameter_list|()
 function_decl|;
 block|}

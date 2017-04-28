@@ -220,7 +220,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * HTableDescriptor contains the details about an HBase table  such as the descriptors of  * all the column families, is the table a catalog table,<code> -ROOT-</code> or  *<code> hbase:meta</code>, if the table is read only, the maximum size of the memstore,  * when the region split should occur, coprocessors associated with it etc...  * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.  *             use {@link TableDescriptorBuilder} to build {@link HTableDescriptor}.  */
+comment|/**  * HTableDescriptor contains the details about an HBase table  such as the descriptors of  * all the column families, is the table a catalog table,<code> hbase:meta</code>,  * if the table is read only, the maximum size of the memstore,  * when the region split should occur, coprocessors associated with it etc...  * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.  *             use {@link TableDescriptorBuilder} to build {@link HTableDescriptor}.  */
 end_comment
 
 begin_class
@@ -327,9 +327,7 @@ specifier|final
 name|String
 name|IS_ROOT
 init|=
-name|TableDescriptorBuilder
-operator|.
-name|IS_ROOT
+literal|"IS_ROOT"
 decl_stmt|;
 specifier|public
 specifier|static
@@ -643,19 +641,14 @@ operator|=
 name|delegatee
 expr_stmt|;
 block|}
-comment|/**    * Check if the descriptor represents a<code> -ROOT-</code> region.    *    * @return true if this is a<code> -ROOT-</code> region    */
-annotation|@
-name|Override
+comment|/**    * This is vestigial API. It will be removed in 3.0.    *    * @return always return the false    */
 specifier|public
 name|boolean
 name|isRootRegion
 parameter_list|()
 block|{
 return|return
-name|delegatee
-operator|.
-name|isRootRegion
-argument_list|()
+literal|false
 return|;
 block|}
 comment|/**    * Checks if this table is<code> hbase:meta</code>    * region.    *    * @return true if this table is<code> hbase:meta</code>    * region    */

@@ -399,6 +399,10 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 specifier|static
 specifier|final
@@ -407,7 +411,11 @@ name|SPLIT_POLICY
 init|=
 literal|"SPLIT_POLICY"
 decl_stmt|;
-comment|/**    *<em>INTERNAL</em> Used by HBase Shell interface to access this metadata    * attribute which denotes the maximum size of the store file after which a    * region split occurs.    */
+comment|/**    * Used by HBase Shell interface to access this metadata    * attribute which denotes the maximum size of the store file after which a    * region split occurs.    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 specifier|static
 specifier|final
@@ -433,6 +441,10 @@ name|MAX_FILESIZE
 argument_list|)
 argument_list|)
 decl_stmt|;
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 specifier|static
 specifier|final
@@ -441,6 +453,10 @@ name|OWNER
 init|=
 literal|"OWNER"
 decl_stmt|;
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 specifier|static
 specifier|final
@@ -458,7 +474,11 @@ name|OWNER
 argument_list|)
 argument_list|)
 decl_stmt|;
-comment|/**    *<em>INTERNAL</em> Used by rest interface to access this metadata attribute    * which denotes if the table is Read Only.    */
+comment|/**    * Used by rest interface to access this metadata attribute    * which denotes if the table is Read Only.    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 specifier|static
 specifier|final
@@ -484,7 +504,11 @@ name|READONLY
 argument_list|)
 argument_list|)
 decl_stmt|;
-comment|/**    *<em>INTERNAL</em> Used by HBase Shell interface to access this metadata    * attribute which denotes if the table is compaction enabled.    */
+comment|/**    * Used by HBase Shell interface to access this metadata    * attribute which denotes if the table is compaction enabled.    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 specifier|static
 specifier|final
@@ -510,7 +534,11 @@ name|COMPACTION_ENABLED
 argument_list|)
 argument_list|)
 decl_stmt|;
-comment|/**    *<em>INTERNAL</em> Used by HBase Shell interface to access this metadata    * attribute which represents the maximum size of the memstore after which its    * contents are flushed onto the disk.    */
+comment|/**    * Used by HBase Shell interface to access this metadata    * attribute which represents the maximum size of the memstore after which its    * contents are flushed onto the disk.    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 specifier|static
 specifier|final
@@ -536,6 +564,10 @@ name|MEMSTORE_FLUSHSIZE
 argument_list|)
 argument_list|)
 decl_stmt|;
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 specifier|static
 specifier|final
@@ -544,33 +576,11 @@ name|FLUSH_POLICY
 init|=
 literal|"FLUSH_POLICY"
 decl_stmt|;
-comment|/**    *<em>INTERNAL</em> Used by rest interface to access this metadata attribute    * which denotes if the table is a -ROOT- region or not.    */
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|IS_ROOT
-init|=
-literal|"IS_ROOT"
-decl_stmt|;
-specifier|private
-specifier|static
-specifier|final
-name|Bytes
-name|IS_ROOT_KEY
-init|=
-operator|new
-name|Bytes
-argument_list|(
-name|Bytes
+comment|/**    * Used by rest interface to access this metadata attribute    * which denotes if it is a catalog table, either<code> hbase:meta</code>.    */
+annotation|@
+name|InterfaceAudience
 operator|.
-name|toBytes
-argument_list|(
-name|IS_ROOT
-argument_list|)
-argument_list|)
-decl_stmt|;
-comment|/**    *<em>INTERNAL</em> Used by rest interface to access this metadata attribute    * which denotes if it is a catalog table, either<code> hbase:meta</code> or<code> -ROOT-    *</code>.    */
+name|Private
 specifier|public
 specifier|static
 specifier|final
@@ -596,7 +606,11 @@ name|IS_META
 argument_list|)
 argument_list|)
 decl_stmt|;
-comment|/**    *<em>INTERNAL</em> {@link Durability} setting for the table.    */
+comment|/**    * {@link Durability} setting for the table.    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 specifier|static
 specifier|final
@@ -622,7 +636,11 @@ literal|"DURABILITY"
 argument_list|)
 argument_list|)
 decl_stmt|;
-comment|/**    *<em>INTERNAL</em> number of region replicas for the table.    */
+comment|/**    * The number of region replicas for the table.    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 specifier|static
 specifier|final
@@ -648,7 +666,11 @@ name|REGION_REPLICATION
 argument_list|)
 argument_list|)
 decl_stmt|;
-comment|/**    *<em>INTERNAL</em> flag to indicate whether or not the memstore should be    * replicated for read-replicas (CONSISTENCY =&gt; TIMELINE).    */
+comment|/**    * The flag to indicate whether or not the memstore should be    * replicated for read-replicas (CONSISTENCY =&gt; TIMELINE).    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 specifier|static
 specifier|final
@@ -674,7 +696,11 @@ name|REGION_MEMSTORE_REPLICATION
 argument_list|)
 argument_list|)
 decl_stmt|;
-comment|/**    *<em>INTERNAL</em> Used by shell/rest interface to access this metadata    * attribute which denotes if the table should be treated by region    * normalizer.    */
+comment|/**    * Used by shell/rest interface to access this metadata    * attribute which denotes if the table should be treated by region    * normalizer.    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 specifier|static
 specifier|final
@@ -711,6 +737,10 @@ name|Durability
 operator|.
 name|USE_DEFAULT
 decl_stmt|;
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 specifier|static
 specifier|final
@@ -1014,17 +1044,14 @@ name|RESERVED_KEYWORDS
 operator|.
 name|add
 argument_list|(
-name|IS_ROOT_KEY
-argument_list|)
-expr_stmt|;
-name|RESERVED_KEYWORDS
-operator|.
-name|add
-argument_list|(
 name|IS_META_KEY
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 specifier|final
 specifier|static
@@ -1033,6 +1060,10 @@ name|NAMESPACE_FAMILY_INFO
 init|=
 literal|"info"
 decl_stmt|;
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 specifier|final
 specifier|static
@@ -1047,6 +1078,10 @@ argument_list|(
 name|NAMESPACE_FAMILY_INFO
 argument_list|)
 decl_stmt|;
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 specifier|final
 specifier|static
@@ -1876,7 +1911,7 @@ name|desc
 argument_list|)
 return|;
 block|}
-comment|/**    * ModifyableTableDescriptor contains the details about an HBase table such as the    * descriptors of all the column families, is the table a catalog table,<code> -ROOT-    *</code> or<code> hbase:meta</code>, if the table is read only, the    * maximum size of the memstore, when the region split should occur,    * coprocessors associated with it etc... TODO: make this private after    * removing the HTableDescriptor    */
+comment|/**    * TODO: make this private after removing the HTableDescriptor    */
 annotation|@
 name|InterfaceAudience
 operator|.
@@ -1898,7 +1933,7 @@ specifier|final
 name|TableName
 name|name
 decl_stmt|;
-comment|/**      * A map which holds the metadata information of the table. This metadata      * includes values like IS_ROOT, IS_META, SPLIT_POLICY, MAX_FILE_SIZE,      * READONLY, MEMSTORE_FLUSHSIZE etc...      */
+comment|/**      * A map which holds the metadata information of the table. This metadata      * includes values like IS_META, SPLIT_POLICY, MAX_FILE_SIZE,      * READONLY, MEMSTORE_FLUSHSIZE etc...      */
 specifier|private
 specifier|final
 name|Map
@@ -2110,7 +2145,7 @@ name|name
 argument_list|)
 expr_stmt|;
 block|}
-comment|/*      * Set meta flags on this table.      * IS_ROOT_KEY is set if its a -ROOT- table      * IS_META_KEY is set either if its a -ROOT- or a hbase:meta table      * Called by constructors.      * @param name      */
+comment|/*      * Set meta flags on this table.      * IS_META_KEY is set if its a hbase:meta table      * Called by constructors.      * @param name      */
 specifier|private
 name|void
 name|setMetaFlags
@@ -2126,9 +2161,6 @@ name|put
 argument_list|(
 name|IS_META_KEY
 argument_list|,
-name|isRootRegion
-argument_list|()
-operator|||
 name|name
 operator|.
 name|equals
@@ -2143,23 +2175,6 @@ else|:
 name|FALSE
 argument_list|)
 expr_stmt|;
-block|}
-comment|/**      * Check if the descriptor represents a<code> -ROOT-</code> region.      *      * @return true if this is a<code> -ROOT-</code> region      */
-annotation|@
-name|Override
-specifier|public
-name|boolean
-name|isRootRegion
-parameter_list|()
-block|{
-return|return
-name|isSomething
-argument_list|(
-name|IS_ROOT_KEY
-argument_list|,
-literal|false
-argument_list|)
-return|;
 block|}
 comment|/**      * Checks if this table is<code> hbase:meta</code> region.      *      * @return true if this table is<code> hbase:meta</code> region      */
 annotation|@
@@ -2235,10 +2250,6 @@ parameter_list|()
 block|{
 return|return
 name|isMetaRegion
-argument_list|()
-operator|&&
-operator|!
-name|isRootRegion
 argument_list|()
 return|;
 block|}
@@ -3547,7 +3558,7 @@ argument_list|)
 expr_stmt|;
 continue|continue;
 block|}
-comment|// only print out IS_ROOT/IS_META if true
+comment|// only print out IS_META if true
 name|String
 name|value
 init|=
@@ -3566,13 +3577,6 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|key
-operator|.
-name|equalsIgnoreCase
-argument_list|(
-name|IS_ROOT
-argument_list|)
-operator|||
 name|key
 operator|.
 name|equalsIgnoreCase
@@ -5880,7 +5884,7 @@ argument_list|)
 return|;
 block|}
 comment|// Note that every table should have an owner (i.e. should have OWNER_KEY set).
-comment|// hbase:meta and -ROOT- should return system user as owner, not null (see
+comment|// hbase:meta should return system user as owner, not null (see
 comment|// MasterFileSystem.java:bootstrap()).
 return|return
 literal|null
