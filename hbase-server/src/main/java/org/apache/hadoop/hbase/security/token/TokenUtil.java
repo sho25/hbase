@@ -408,7 +408,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/**    * Obtain and return an authentication token for the current user.    * @param conn The HBase cluster connection    * @return the authentication token instance    */
+comment|/**    * Obtain and return an authentication token for the current user.    * @param conn The HBase cluster connection    * @throws IOException if a remote error or serialization problem occurs.    * @return the authentication token instance    */
 specifier|public
 specifier|static
 name|Token
@@ -504,13 +504,14 @@ name|ServiceException
 name|se
 parameter_list|)
 block|{
+throw|throw
 name|ProtobufUtil
 operator|.
 name|handleRemoteException
 argument_list|(
 name|se
 argument_list|)
-expr_stmt|;
+throw|;
 block|}
 finally|finally
 block|{
@@ -528,10 +529,6 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|// dummy return for ServiceException block
-return|return
-literal|null
-return|;
 block|}
 comment|/**    * Converts a Token instance (with embedded identifier) to the protobuf representation.    *    * @param token the Token instance to copy    * @return the protobuf Token message    */
 specifier|public
