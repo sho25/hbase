@@ -1254,17 +1254,18 @@ block|}
 block|}
 argument_list|)
 expr_stmt|;
+comment|// We obtain the violations for a RegionServer by observing the snapshots
 name|Map
 argument_list|<
 name|TableName
 argument_list|,
-name|SpaceViolationPolicy
+name|SpaceQuotaSnapshot
 argument_list|>
-name|violations
+name|snapshots
 init|=
 name|QuotaTableUtil
 operator|.
-name|getRegionServerQuotaViolations
+name|getRegionServerQuotaSnapshots
 argument_list|(
 name|TEST_UTIL
 operator|.
@@ -1277,10 +1278,10 @@ name|getServerName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|SpaceViolationPolicy
-name|policy
+name|SpaceQuotaSnapshot
+name|snapshot
 init|=
-name|violations
+name|snapshots
 operator|.
 name|get
 argument_list|(
@@ -1289,11 +1290,22 @@ argument_list|)
 decl_stmt|;
 name|assertNotNull
 argument_list|(
-literal|"Did not find policy for "
+literal|"Did not find snapshot for "
 operator|+
 name|tn
 argument_list|,
-name|policy
+name|snapshot
+argument_list|)
+expr_stmt|;
+name|assertTrue
+argument_list|(
+name|snapshot
+operator|.
+name|getQuotaStatus
+argument_list|()
+operator|.
+name|isInViolation
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1302,7 +1314,13 @@ name|SpaceViolationPolicy
 operator|.
 name|NO_INSERTS
 argument_list|,
-name|policy
+name|snapshot
+operator|.
+name|getQuotaStatus
+argument_list|()
+operator|.
+name|getPolicy
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
