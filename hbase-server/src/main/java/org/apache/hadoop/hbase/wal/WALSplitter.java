@@ -4345,7 +4345,7 @@ name|OLD_SEQUENCE_ID_FILE_SUFFIX
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a file with name as region open sequence id    * @param fs    * @param regiondir    * @param newSeqId    * @param saftyBumper    * @return long new sequence Id value    * @throws IOException    */
+comment|/**    * Create a file with name as region open sequence id    * @param fs    * @param regiondir    * @param newSeqId    * @param safetyBumper    * @return long new sequence Id value    * @throws IOException    */
 specifier|public
 specifier|static
 name|long
@@ -4363,7 +4363,7 @@ name|long
 name|newSeqId
 parameter_list|,
 name|long
-name|saftyBumper
+name|safetyBumper
 parameter_list|)
 throws|throws
 name|IOException
@@ -4530,7 +4530,7 @@ expr_stmt|;
 block|}
 name|newSeqId
 operator|+=
-name|saftyBumper
+name|safetyBumper
 expr_stmt|;
 comment|// bump up SeqId
 comment|// write a new seqId file
