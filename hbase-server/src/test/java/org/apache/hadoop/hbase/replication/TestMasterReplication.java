@@ -3754,7 +3754,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Exception occured while closing the object:"
+literal|"Exception occurred while closing the object:"
 argument_list|,
 name|e
 argument_list|)

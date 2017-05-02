@@ -3572,7 +3572,7 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-comment|// to check if ArrayIndexOutOfBoundsException occured
+comment|// to check if ArrayIndexOutOfBoundsException occurred
 name|assertFalse
 argument_list|(
 name|hasArrayIndexOutOfBoundsException

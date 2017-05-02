@@ -1586,7 +1586,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Resolve any conflict with an existing archive file via timestamp-append    * renaming of the existing file and then archive the passed in files.    * @param fs {@link FileSystem} on which to archive the files    * @param baseArchiveDir base archive directory to store the files. If any of    *          the files to archive are directories, will append the name of the    *          directory to the base archive directory name, creating a parallel    *          structure.    * @param toArchive files/directories that need to be archvied    * @param start time the archiving started - used for resolving archive    *          conflicts.    * @return the list of failed to archive files.    * @throws IOException if an unexpected file operation exception occured    */
+comment|/**    * Resolve any conflict with an existing archive file via timestamp-append    * renaming of the existing file and then archive the passed in files.    * @param fs {@link FileSystem} on which to archive the files    * @param baseArchiveDir base archive directory to store the files. If any of    *          the files to archive are directories, will append the name of the    *          directory to the base archive directory name, creating a parallel    *          structure.    * @param toArchive files/directories that need to be archvied    * @param start time the archiving started - used for resolving archive    *          conflicts.    * @return the list of failed to archive files.    * @throws IOException if an unexpected file operation exception occurred    */
 specifier|private
 specifier|static
 name|List

@@ -401,7 +401,7 @@ parameter_list|)
 block|{
 name|assertNull
 argument_list|(
-literal|"Exception occured while created the RegexStringComparator object"
+literal|"Exception occurred while created the RegexStringComparator object"
 argument_list|,
 name|t
 argument_list|)

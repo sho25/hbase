@@ -288,7 +288,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Exception occured during performing action: "
+literal|"Exception occurred during performing action: "
 operator|+
 name|StringUtils
 operator|.

@@ -519,7 +519,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Exception occured while stopping HMaster. "
+literal|"Exception occurred while stopping HMaster. "
 argument_list|,
 name|e
 argument_list|)
@@ -872,7 +872,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Exception occured while stopping HMaster. "
+literal|"Exception occurred while stopping HMaster. "
 argument_list|,
 name|e
 argument_list|)

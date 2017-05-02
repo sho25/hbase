@@ -387,7 +387,7 @@ return|return
 literal|null
 return|;
 block|}
-comment|/**    * @return Some IPv4/IPv6 address available on the current machine that is up, not virtual    *         and not a loopback address. Empty array if none can be found or error occured.    */
+comment|/**    * @return Some IPv4/IPv6 address available on the current machine that is up, not virtual    *         and not a loopback address. Empty array if none can be found or error occurred.    */
 specifier|public
 specifier|static
 name|byte

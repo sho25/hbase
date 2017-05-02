@@ -130,7 +130,7 @@ specifier|volatile
 name|Throwable
 name|exception
 decl_stmt|;
-comment|/**    * Create a new instance of the deletion watcher.    * @param zkWatcher ZookeeperWatcher instance    * @param pathToWatch (Fully qualified) ZNode path that we are waiting to    *                    be deleted.    * @param deletedLatch Count down on this latch when deletion has occured.    */
+comment|/**    * Create a new instance of the deletion watcher.    * @param zkWatcher ZookeeperWatcher instance    * @param pathToWatch (Fully qualified) ZNode path that we are waiting to    *                    be deleted.    * @param deletedLatch Count down on this latch when deletion has occurred.    */
 specifier|public
 name|DeletionListener
 parameter_list|(
