@@ -867,7 +867,7 @@ operator|.
 name|getLimit
 argument_list|()
 operator|==
-name|this
+name|other
 operator|.
 name|getLimit
 argument_list|()
