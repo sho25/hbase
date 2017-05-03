@@ -2472,7 +2472,7 @@ expr_stmt|;
 block|}
 annotation|@
 name|Override
-specifier|protected
+specifier|public
 name|void
 name|processRequest
 parameter_list|(
