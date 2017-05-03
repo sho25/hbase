@@ -198,7 +198,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Makes decisions about the placement and movement of Regions across  * RegionServers.  *  *<p>Cluster-wide load balancing will occur only when there are no regions in  * transition and according to a fixed period of a time using {@link #balanceCluster(Map)}.  *  *<p>On cluster startup, bulk assignment can be used to determine  * locations for all Regions in a cluster.  *  *<p>This classes produces plans for the  * {@link org.apache.hadoop.hbase.master.AssignmentManager}  * to execute.  */
+comment|/**  * Makes decisions about the placement and movement of Regions across  * RegionServers.  *  *<p>Cluster-wide load balancing will occur only when there are no regions in  * transition and according to a fixed period of a time using {@link #balanceCluster(Map)}.  *  *<p>On cluster startup, bulk assignment can be used to determine  * locations for all Regions in a cluster.  *  *<p>This class produces plans for the  * {@link org.apache.hadoop.hbase.master.AssignmentManager}  * to execute.  */
 end_comment
 
 begin_interface
@@ -217,8 +217,6 @@ extends|,
 name|ConfigurationObserver
 block|{
 comment|// Used to signal to the caller that the region(s) cannot be assigned
-specifier|static
-specifier|final
 name|ServerName
 name|BOGUS_SERVER_NAME
 init|=
