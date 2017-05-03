@@ -1303,6 +1303,22 @@ name|hbase
 operator|.
 name|security
 operator|.
+name|Superusers
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|security
+operator|.
 name|User
 import|;
 end_import
@@ -9957,6 +9973,8 @@ name|getRegion
 argument_list|()
 argument_list|)
 decl_stmt|;
+comment|// Quota support is enabled, the requesting user is not system/super user
+comment|// and a quota policy is enforced that disables compactions.
 if|if
 condition|(
 name|QuotaUtil
@@ -9964,6 +9982,17 @@ operator|.
 name|isQuotaEnabled
 argument_list|(
 name|getConfiguration
+argument_list|()
+argument_list|)
+operator|&&
+operator|!
+name|Superusers
+operator|.
+name|isSuperUser
+argument_list|(
+name|RpcServer
+operator|.
+name|getRequestUser
 argument_list|()
 argument_list|)
 operator|&&
