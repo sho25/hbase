@@ -2514,6 +2514,10 @@ specifier|private
 name|User
 name|user
 decl_stmt|;
+specifier|private
+name|long
+name|time
+decl_stmt|;
 specifier|public
 name|CompactionRunner
 parameter_list|(
@@ -2594,6 +2598,15 @@ name|user
 operator|=
 name|user
 expr_stmt|;
+name|this
+operator|.
+name|time
+operator|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+expr_stmt|;
 block|}
 annotation|@
 name|Override
@@ -2621,16 +2634,27 @@ argument_list|()
 operator|)
 else|:
 operator|(
-literal|"Store = "
+literal|"regionName = "
+operator|+
+name|region
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|", storeName = "
 operator|+
 name|store
 operator|.
 name|toString
 argument_list|()
 operator|+
-literal|", pri = "
+literal|", priority = "
 operator|+
 name|queuedPriority
+operator|+
+literal|", time = "
+operator|+
+name|time
 operator|)
 return|;
 block|}
