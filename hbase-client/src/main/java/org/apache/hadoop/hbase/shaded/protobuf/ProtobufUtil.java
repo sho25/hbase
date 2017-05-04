@@ -12756,6 +12756,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Get the list of region info from a GetOnlineRegionResponse    *    * @param proto the GetOnlineRegionResponse    * @return the list of region info or null if<code>proto</code> is null    */
+specifier|public
 specifier|static
 name|List
 argument_list|<
