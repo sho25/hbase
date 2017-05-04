@@ -23,6 +23,34 @@ name|org
 operator|.
 name|apache
 operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|Log
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|LogFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|hadoop
 operator|.
 name|conf
@@ -401,6 +429,21 @@ specifier|abstract
 class|class
 name|TableSnapshotInputFormatTestBase
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|Log
+name|LOG
+init|=
+name|LogFactory
+operator|.
+name|getLog
+argument_list|(
+name|TableSnapshotInputFormatTestBase
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 annotation|@
 name|Rule
 specifier|public
@@ -1279,6 +1322,13 @@ name|Exception
 block|{
 try|try
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Ensuring table doesn't exist."
+argument_list|)
+expr_stmt|;
 name|util
 operator|.
 name|deleteTable
@@ -1295,6 +1345,17 @@ parameter_list|)
 block|{
 comment|// ignore
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"creating table '"
+operator|+
+name|tableName
+operator|+
+literal|"'"
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|numRegions
@@ -1340,7 +1401,13 @@ operator|.
 name|getAdmin
 argument_list|()
 decl_stmt|;
-comment|// put some stuff in the table
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"put some stuff in the table"
+argument_list|)
+expr_stmt|;
 name|Table
 name|table
 init|=
@@ -1389,6 +1456,13 @@ name|getConfiguration
 argument_list|()
 argument_list|)
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"snapshot"
+argument_list|)
+expr_stmt|;
 name|SnapshotTestingUtils
 operator|.
 name|createSnapshotAndValidate
@@ -1415,7 +1489,13 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
-comment|// load different values
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"load different values"
+argument_list|)
+expr_stmt|;
 name|byte
 index|[]
 name|value
@@ -1438,7 +1518,13 @@ argument_list|,
 name|value
 argument_list|)
 expr_stmt|;
-comment|// cause flush to create new files in the region
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"cause flush to create new files in the region"
+argument_list|)
+expr_stmt|;
 name|admin
 operator|.
 name|flush

@@ -1465,6 +1465,12 @@ argument_list|)
 decl_stmt|;
 name|assertTrue
 argument_list|(
+literal|"target snapshot directory, '"
+operator|+
+name|snapshotDir
+operator|+
+literal|"', doesn't exist."
+argument_list|,
 name|fs
 operator|.
 name|exists
@@ -1617,6 +1623,17 @@ control|)
 block|{
 name|assertTrue
 argument_list|(
+literal|"Expected snapshot to contain family '"
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|familyName
+argument_list|)
+operator|+
+literal|"', but it does not."
+argument_list|,
 name|snapshotFamilies
 operator|.
 name|contains
@@ -1647,6 +1664,17 @@ control|)
 block|{
 name|assertFalse
 argument_list|(
+literal|"Expected snapshot to skip empty family '"
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|familyName
+argument_list|)
+operator|+
+literal|"', but it is present."
+argument_list|,
 name|snapshotFamilies
 operator|.
 name|contains
@@ -1704,6 +1732,8 @@ condition|)
 block|{
 name|assertEquals
 argument_list|(
+literal|"Wrong number of regions."
+argument_list|,
 name|regions
 operator|.
 name|size
@@ -1779,6 +1809,8 @@ expr_stmt|;
 block|}
 name|assertEquals
 argument_list|(
+literal|"Wrong number of regions."
+argument_list|,
 name|regions
 operator|.
 name|size
@@ -1807,6 +1839,12 @@ argument_list|()
 decl_stmt|;
 name|assertTrue
 argument_list|(
+literal|"Missing region name: '"
+operator|+
+name|regionName
+operator|+
+literal|"'"
+argument_list|,
 name|regionManifests
 operator|.
 name|containsKey
@@ -2418,6 +2456,13 @@ condition|)
 block|{
 try|try
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"prepping for offline snapshot."
+argument_list|)
+expr_stmt|;
 name|admin
 operator|.
 name|disableTable
@@ -2447,6 +2492,13 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"taking snapshot."
+argument_list|)
+expr_stmt|;
 name|admin
 operator|.
 name|snapshot
@@ -2454,6 +2506,13 @@ argument_list|(
 name|snapshotNameString
 argument_list|,
 name|tableName
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Confirming snapshot exists."
 argument_list|)
 expr_stmt|;
 name|List
@@ -2497,6 +2556,13 @@ name|tableName
 argument_list|)
 expr_stmt|;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"validating snapshot."
+argument_list|)
+expr_stmt|;
 name|SnapshotTestingUtils
 operator|.
 name|confirmSnapshotValid
