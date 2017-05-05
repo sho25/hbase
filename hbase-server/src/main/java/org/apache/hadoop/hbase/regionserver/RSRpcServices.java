@@ -18109,6 +18109,18 @@ argument_list|(
 name|request
 argument_list|)
 expr_stmt|;
+comment|// The downstream projects such as AsyncHBase in OpenTSDB need this value. See HBASE-18000
+comment|// for more details.
+name|builder
+operator|.
+name|setScannerId
+argument_list|(
+name|request
+operator|.
+name|getScannerId
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 else|else
 block|{
