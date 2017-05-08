@@ -2353,6 +2353,29 @@ name|TableExistsException
 throws|,
 name|RestoreSnapshotException
 function_decl|;
+comment|/**    * Create a new table by cloning the snapshot content.    * @param snapshotName name of the snapshot to be cloned    * @param tableName name of the table where the snapshot will be restored    * @param restoreAcl true to clone acl into newly created table    * @throws IOException if a remote or network exception occurs    * @throws TableExistsException if table to be created already exists    * @throws RestoreSnapshotException if snapshot failed to be cloned    * @throws IllegalArgumentException if the specified table has not a valid name    */
+name|void
+name|cloneSnapshot
+parameter_list|(
+specifier|final
+name|String
+name|snapshotName
+parameter_list|,
+specifier|final
+name|TableName
+name|tableName
+parameter_list|,
+specifier|final
+name|boolean
+name|restoreAcl
+parameter_list|)
+throws|throws
+name|IOException
+throws|,
+name|TableExistsException
+throws|,
+name|RestoreSnapshotException
+function_decl|;
 comment|/**    * Create a new table by cloning the snapshot content.    *    * @param snapshotName name of the snapshot to be cloned    * @param tableName name of the table where the snapshot will be restored    * @throws IOException if a remote or network exception occurs    * @throws TableExistsException if table to be created already exists    * @throws RestoreSnapshotException if snapshot failed to be cloned    * @throws IllegalArgumentException if the specified table has not a valid name    */
 name|void
 name|cloneSnapshot

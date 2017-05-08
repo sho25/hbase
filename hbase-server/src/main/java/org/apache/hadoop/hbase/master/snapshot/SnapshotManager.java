@@ -3315,6 +3315,10 @@ parameter_list|,
 specifier|final
 name|NonceKey
 name|nonceKey
+parameter_list|,
+specifier|final
+name|boolean
+name|restoreAcl
 parameter_list|)
 throws|throws
 name|IOException
@@ -3369,6 +3373,8 @@ argument_list|,
 name|htd
 argument_list|,
 name|nonceKey
+argument_list|,
+name|restoreAcl
 argument_list|)
 expr_stmt|;
 block|}
@@ -3456,6 +3462,10 @@ parameter_list|,
 specifier|final
 name|NonceKey
 name|nonceKey
+parameter_list|,
+specifier|final
+name|boolean
+name|restoreAcl
 parameter_list|)
 throws|throws
 name|HBaseSnapshotException
@@ -3532,6 +3542,8 @@ argument_list|,
 name|hTableDescriptor
 argument_list|,
 name|snapshot
+argument_list|,
+name|restoreAcl
 argument_list|)
 argument_list|,
 name|nonceKey
@@ -3606,6 +3618,10 @@ parameter_list|,
 specifier|final
 name|NonceKey
 name|nonceKey
+parameter_list|,
+specifier|final
+name|boolean
+name|restoreAcl
 parameter_list|)
 throws|throws
 name|IOException
@@ -3796,6 +3812,8 @@ argument_list|,
 name|snapshotTableDesc
 argument_list|,
 name|nonceKey
+argument_list|,
+name|restoreAcl
 argument_list|)
 expr_stmt|;
 block|}

@@ -12274,6 +12274,10 @@ parameter_list|,
 specifier|final
 name|long
 name|nonce
+parameter_list|,
+specifier|final
+name|boolean
+name|restoreAcl
 parameter_list|)
 throws|throws
 name|IOException
@@ -12350,6 +12354,8 @@ name|snapshotDesc
 argument_list|,
 name|getNonceKey
 argument_list|()
+argument_list|,
+name|restoreAcl
 argument_list|)
 argument_list|)
 expr_stmt|;
