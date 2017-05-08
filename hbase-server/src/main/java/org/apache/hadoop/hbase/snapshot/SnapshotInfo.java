@@ -327,6 +327,26 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|SnapshotProtos
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|AbstractHBaseTool
@@ -866,7 +886,7 @@ argument_list|()
 decl_stmt|;
 specifier|private
 specifier|final
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 name|snapshot
@@ -945,7 +965,7 @@ name|FileSystem
 name|fs
 parameter_list|,
 specifier|final
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 name|snapshot
@@ -1193,7 +1213,7 @@ name|get
 argument_list|()
 return|;
 block|}
-comment|/** @return the total size of the store files in the archive which is not shared      *    with other snapshots and tables      *      *    This is only calculated when      *  {@link #getSnapshotStats(Configuration, HBaseProtos.SnapshotDescription, Map)}      *    is called with a non-null Map      */
+comment|/** @return the total size of the store files in the archive which is not shared      *    with other snapshots and tables      *      *    This is only calculated when      *  {@link #getSnapshotStats(Configuration, SnapshotProtos.SnapshotDescription, Map)}      *    is called with a non-null Map      */
 specifier|public
 name|long
 name|getNonSharedArchivedStoreFilesSize
@@ -2052,7 +2072,7 @@ return|return
 literal|false
 return|;
 block|}
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 name|snapshotDesc
@@ -2092,7 +2112,7 @@ name|void
 name|printInfo
 parameter_list|()
 block|{
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 name|snapshotDesc
@@ -2319,7 +2339,7 @@ expr_stmt|;
 block|}
 comment|// Collect information about hfiles and logs in the snapshot
 specifier|final
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 name|snapshotDesc
@@ -2946,7 +2966,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 name|snapshotDesc
@@ -2980,7 +3000,7 @@ name|Configuration
 name|conf
 parameter_list|,
 specifier|final
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 name|snapshotDesc
@@ -3229,7 +3249,7 @@ range|:
 name|snapshots
 control|)
 block|{
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 name|snapshotDesc
@@ -3305,7 +3325,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 name|snapshotDesc

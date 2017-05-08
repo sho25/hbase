@@ -261,6 +261,26 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|SnapshotProtos
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|snapshot
 operator|.
 name|SnapshotTestingUtils
@@ -411,7 +431,7 @@ argument_list|)
 decl_stmt|;
 specifier|private
 specifier|static
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 name|snapshot
@@ -450,7 +470,7 @@ literal|null
 expr_stmt|;
 block|}
 specifier|private
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 name|getSnapshot
@@ -706,7 +726,7 @@ name|CF
 argument_list|)
 decl_stmt|;
 comment|// take the snapshot
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 name|snapshotDesc
@@ -780,7 +800,7 @@ throws|throws
 name|Exception
 block|{
 comment|// take the snapshot
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 name|snapshotDesc
@@ -936,7 +956,7 @@ name|CF
 argument_list|)
 decl_stmt|;
 comment|// take the snapshot
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 name|snapshotDesc
@@ -1060,7 +1080,7 @@ name|CF
 argument_list|)
 decl_stmt|;
 comment|// take the snapshot
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 name|snapshotDesc

@@ -383,9 +383,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|QuotaProtos
 operator|.
-name|SnapshotDescription
+name|Quotas
 import|;
 end_import
 
@@ -405,9 +405,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|QuotaProtos
+name|SnapshotProtos
 operator|.
-name|Quotas
+name|SnapshotDescription
 import|;
 end_import
 

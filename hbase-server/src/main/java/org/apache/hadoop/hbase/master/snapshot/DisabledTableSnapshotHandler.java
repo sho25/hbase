@@ -239,7 +239,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 import|;

@@ -391,9 +391,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
-name|SnapshotDescription
+name|SnapshotDataManifest
 import|;
 end_import
 
@@ -415,7 +415,7 @@ name|generated
 operator|.
 name|SnapshotProtos
 operator|.
-name|SnapshotDataManifest
+name|SnapshotDescription
 import|;
 end_import
 

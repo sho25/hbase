@@ -1603,9 +1603,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|ProcedureProtos
 operator|.
-name|SnapshotDescription
+name|ProcedureState
 import|;
 end_import
 
@@ -1625,9 +1625,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|ProcedureProtos
+name|SnapshotProtos
 operator|.
-name|ProcedureState
+name|SnapshotDescription
 import|;
 end_import
 
@@ -1782,16 +1782,6 @@ operator|.
 name|rules
 operator|.
 name|TestName
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|mockito
-operator|.
-name|Mockito
 import|;
 end_import
 

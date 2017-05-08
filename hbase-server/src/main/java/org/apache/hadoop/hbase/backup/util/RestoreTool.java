@@ -421,7 +421,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 import|;
@@ -636,7 +636,7 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * return value represent path for:    * ".../user/biadmin/backup1/default/t1_dn/backup_1396650096738/archive/data/default/t1_dn"    * @param tabelName table name    * @return path to table archive    * @throws IOException exception    */
+comment|/**    * return value represent path for:    * ".../user/biadmin/backup1/default/t1_dn/backup_1396650096738/archive/data/default/t1_dn"    * @param tableName table name    * @return path to table archive    * @throws IOException exception    */
 name|Path
 name|getTableArchivePath
 parameter_list|(

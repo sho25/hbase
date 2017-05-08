@@ -211,18 +211,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|stream
-operator|.
-name|Collectors
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -2602,6 +2590,26 @@ operator|.
 name|RegionServerStatusProtos
 operator|.
 name|RegionServerStartupRequest
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|SnapshotProtos
 import|;
 end_import
 
@@ -18183,7 +18191,7 @@ block|}
 comment|/**    * Creates {@link org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.SnapshotDescription.Type}    * from {@link SnapshotType}    * @param type the SnapshotDescription type    * @return the protobuf SnapshotDescription type    */
 specifier|public
 specifier|static
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 operator|.
@@ -18195,7 +18203,7 @@ name|type
 parameter_list|)
 block|{
 return|return
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 operator|.
@@ -18213,7 +18221,7 @@ block|}
 comment|/**    * Creates {@link org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.SnapshotDescription.Type}    * from the type of SnapshotDescription string    * @param snapshotDesc string representing the snapshot description type    * @return the protobuf SnapshotDescription type    */
 specifier|public
 specifier|static
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 operator|.
@@ -18225,7 +18233,7 @@ name|snapshotDesc
 parameter_list|)
 block|{
 return|return
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 operator|.
@@ -18250,7 +18258,7 @@ specifier|static
 name|SnapshotType
 name|createSnapshotType
 parameter_list|(
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 operator|.
@@ -18273,7 +18281,7 @@ block|}
 comment|/**    * Convert from {@link SnapshotDescription} to    * {@link org.apache.hadoop.hbase.protobuf.generated.HBaseProtos.SnapshotDescription}    * @param snapshotDesc the POJO SnapshotDescription    * @return the protobuf SnapshotDescription    */
 specifier|public
 specifier|static
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 name|createHBaseProtosSnapshotDesc
@@ -18282,14 +18290,14 @@ name|SnapshotDescription
 name|snapshotDesc
 parameter_list|)
 block|{
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 operator|.
 name|Builder
 name|builder
 init|=
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 operator|.
@@ -18418,7 +18426,7 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 name|snapshot
@@ -18438,7 +18446,7 @@ specifier|static
 name|SnapshotDescription
 name|createSnapshotDesc
 parameter_list|(
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 name|snapshotDesc

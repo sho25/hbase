@@ -319,9 +319,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|MapReduceProtos
 operator|.
-name|SnapshotDescription
+name|TableSnapshotRegionSplit
 import|;
 end_import
 
@@ -341,9 +341,9 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|MapReduceProtos
+name|SnapshotProtos
 operator|.
-name|TableSnapshotRegionSplit
+name|SnapshotDescription
 import|;
 end_import
 

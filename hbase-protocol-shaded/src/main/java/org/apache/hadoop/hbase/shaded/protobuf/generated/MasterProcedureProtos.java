@@ -6255,6 +6255,12 @@ name|CLONE_SNAPSHOT_POST_OPERATION
 argument_list|(
 literal|6
 argument_list|)
+block|,
+comment|/**      *<code>CLONE_SNAPHOST_RESTORE_ACL = 7;</code>      */
+name|CLONE_SNAPHOST_RESTORE_ACL
+argument_list|(
+literal|7
+argument_list|)
 block|,     ;
 comment|/**      *<code>CLONE_SNAPSHOT_PRE_OPERATION = 1;</code>      */
 specifier|public
@@ -6309,6 +6315,15 @@ name|int
 name|CLONE_SNAPSHOT_POST_OPERATION_VALUE
 init|=
 literal|6
+decl_stmt|;
+comment|/**      *<code>CLONE_SNAPHOST_RESTORE_ACL = 7;</code>      */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|CLONE_SNAPHOST_RESTORE_ACL_VALUE
+init|=
+literal|7
 decl_stmt|;
 specifier|public
 specifier|final
@@ -6392,6 +6407,12 @@ literal|6
 case|:
 return|return
 name|CLONE_SNAPSHOT_POST_OPERATION
+return|;
+case|case
+literal|7
+case|:
+return|return
+name|CLONE_SNAPHOST_RESTORE_ACL
 return|;
 default|default:
 return|return
@@ -6759,6 +6780,12 @@ name|RESTORE_SNAPSHOT_UPDATE_META
 argument_list|(
 literal|4
 argument_list|)
+block|,
+comment|/**      *<code>RESTORE_SNAPSHOT_RESTORE_ACL = 5;</code>      */
+name|RESTORE_SNAPSHOT_RESTORE_ACL
+argument_list|(
+literal|5
+argument_list|)
 block|,     ;
 comment|/**      *<code>RESTORE_SNAPSHOT_PRE_OPERATION = 1;</code>      */
 specifier|public
@@ -6795,6 +6822,15 @@ name|int
 name|RESTORE_SNAPSHOT_UPDATE_META_VALUE
 init|=
 literal|4
+decl_stmt|;
+comment|/**      *<code>RESTORE_SNAPSHOT_RESTORE_ACL = 5;</code>      */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|RESTORE_SNAPSHOT_RESTORE_ACL_VALUE
+init|=
+literal|5
 decl_stmt|;
 specifier|public
 specifier|final
@@ -6866,6 +6902,12 @@ literal|4
 case|:
 return|return
 name|RESTORE_SNAPSHOT_UPDATE_META
+return|;
+case|case
+literal|5
+case|:
+return|return
+name|RESTORE_SNAPSHOT_RESTORE_ACL
 return|;
 default|default:
 return|return
@@ -102340,7 +102382,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 name|getSnapshot
@@ -102361,7 +102403,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescriptionOrBuilder
 name|getSnapshotOrBuilder
@@ -103052,7 +103094,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 operator|.
@@ -103102,7 +103144,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 operator|.
@@ -103867,7 +103909,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 name|snapshot_
@@ -103906,7 +103948,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 name|getSnapshot
@@ -103931,7 +103973,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 operator|.
@@ -103957,7 +103999,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescriptionOrBuilder
 name|getSnapshotOrBuilder
@@ -103982,7 +104024,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 operator|.
@@ -109315,7 +109357,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 name|snapshot_
@@ -109355,7 +109397,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 argument_list|,
@@ -109373,7 +109415,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 operator|.
@@ -109393,7 +109435,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescriptionOrBuilder
 argument_list|>
@@ -109433,7 +109475,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 name|getSnapshot
@@ -109465,7 +109507,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 operator|.
@@ -109504,7 +109546,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 name|value
@@ -109575,7 +109617,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 operator|.
@@ -109641,7 +109683,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 name|value
@@ -109686,7 +109728,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 operator|.
@@ -109710,7 +109752,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 operator|.
@@ -109815,7 +109857,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 operator|.
@@ -109854,7 +109896,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescriptionOrBuilder
 name|getSnapshotOrBuilder
@@ -109895,7 +109937,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 operator|.
@@ -109940,7 +109982,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 argument_list|,
@@ -109958,7 +110000,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 operator|.
@@ -109978,7 +110020,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescriptionOrBuilder
 argument_list|>
@@ -110027,7 +110069,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 argument_list|,
@@ -110045,7 +110087,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 operator|.
@@ -110065,7 +110107,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescriptionOrBuilder
 argument_list|>
@@ -114202,7 +114244,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 name|getSnapshot
@@ -114223,7 +114265,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescriptionOrBuilder
 name|getSnapshotOrBuilder
@@ -115158,7 +115200,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 operator|.
@@ -115208,7 +115250,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 operator|.
@@ -116199,7 +116241,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 name|snapshot_
@@ -116238,7 +116280,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 name|getSnapshot
@@ -116263,7 +116305,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 operator|.
@@ -116289,7 +116331,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescriptionOrBuilder
 name|getSnapshotOrBuilder
@@ -116314,7 +116356,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 operator|.
@@ -122919,7 +122961,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 name|snapshot_
@@ -122959,7 +123001,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 argument_list|,
@@ -122977,7 +123019,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 operator|.
@@ -122997,7 +123039,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescriptionOrBuilder
 argument_list|>
@@ -123037,7 +123079,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 name|getSnapshot
@@ -123069,7 +123111,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 operator|.
@@ -123108,7 +123150,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 name|value
@@ -123179,7 +123221,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 operator|.
@@ -123245,7 +123287,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 name|value
@@ -123290,7 +123332,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 operator|.
@@ -123314,7 +123356,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 operator|.
@@ -123419,7 +123461,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 operator|.
@@ -123458,7 +123500,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescriptionOrBuilder
 name|getSnapshotOrBuilder
@@ -123499,7 +123541,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 operator|.
@@ -123544,7 +123586,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 argument_list|,
@@ -123562,7 +123604,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 operator|.
@@ -123582,7 +123624,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescriptionOrBuilder
 argument_list|>
@@ -123631,7 +123673,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 argument_list|,
@@ -123649,7 +123691,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 operator|.
@@ -123669,7 +123711,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescriptionOrBuilder
 argument_list|>
@@ -158418,409 +158460,413 @@ init|=
 block|{
 literal|"\n\025MasterProcedure.proto\022\010hbase.pb\032\013HBase"
 operator|+
-literal|".proto\032\tRPC.proto\"\234\001\n\024CreateTableStateDa"
+literal|".proto\032\tRPC.proto\032\016Snapshot.proto\"\234\001\n\024Cr"
 operator|+
-literal|"ta\022,\n\tuser_info\030\001 \002(\0132\031.hbase.pb.UserInf"
+literal|"eateTableStateData\022,\n\tuser_info\030\001 \002(\0132\031."
 operator|+
-literal|"ormation\022+\n\014table_schema\030\002 \002(\0132\025.hbase.p"
+literal|"hbase.pb.UserInformation\022+\n\014table_schema"
 operator|+
-literal|"b.TableSchema\022)\n\013region_info\030\003 \003(\0132\024.hba"
+literal|"\030\002 \002(\0132\025.hbase.pb.TableSchema\022)\n\013region_"
 operator|+
-literal|"se.pb.RegionInfo\"\332\001\n\024ModifyTableStateDat"
+literal|"info\030\003 \003(\0132\024.hbase.pb.RegionInfo\"\332\001\n\024Mod"
 operator|+
-literal|"a\022,\n\tuser_info\030\001 \002(\0132\031.hbase.pb.UserInfo"
+literal|"ifyTableStateData\022,\n\tuser_info\030\001 \002(\0132\031.h"
 operator|+
-literal|"rmation\0226\n\027unmodified_table_schema\030\002 \001(\013"
+literal|"base.pb.UserInformation\0226\n\027unmodified_ta"
 operator|+
-literal|"2\025.hbase.pb.TableSchema\0224\n\025modified_tabl"
+literal|"ble_schema\030\002 \001(\0132\025.hbase.pb.TableSchema\022"
 operator|+
-literal|"e_schema\030\003 \002(\0132\025.hbase.pb.TableSchema\022&\n"
+literal|"4\n\025modified_table_schema\030\003 \002(\0132\025.hbase.p"
 block|,
-literal|"\036delete_column_family_in_modify\030\004 \002(\010\"\340\001"
+literal|"b.TableSchema\022&\n\036delete_column_family_in"
 operator|+
-literal|"\n\026TruncateTableStateData\022,\n\tuser_info\030\001 "
-operator|+
-literal|"\002(\0132\031.hbase.pb.UserInformation\022\027\n\017preser"
-operator|+
-literal|"ve_splits\030\002 \002(\010\022\'\n\ntable_name\030\003 \001(\0132\023.hb"
-operator|+
-literal|"ase.pb.TableName\022+\n\014table_schema\030\004 \001(\0132\025"
-operator|+
-literal|".hbase.pb.TableSchema\022)\n\013region_info\030\005 \003"
-operator|+
-literal|"(\0132\024.hbase.pb.RegionInfo\"\230\001\n\024DeleteTable"
-operator|+
-literal|"StateData\022,\n\tuser_info\030\001 \002(\0132\031.hbase.pb."
-operator|+
-literal|"UserInformation\022\'\n\ntable_name\030\002 \002(\0132\023.hb"
-operator|+
-literal|"ase.pb.TableName\022)\n\013region_info\030\003 \003(\0132\024."
-block|,
-literal|"hbase.pb.RegionInfo\"W\n\030CreateNamespaceSt"
-operator|+
-literal|"ateData\022;\n\024namespace_descriptor\030\001 \002(\0132\035."
-operator|+
-literal|"hbase.pb.NamespaceDescriptor\"\237\001\n\030ModifyN"
-operator|+
-literal|"amespaceStateData\022;\n\024namespace_descripto"
-operator|+
-literal|"r\030\001 \002(\0132\035.hbase.pb.NamespaceDescriptor\022F"
-operator|+
-literal|"\n\037unmodified_namespace_descriptor\030\002 \001(\0132"
-operator|+
-literal|"\035.hbase.pb.NamespaceDescriptor\"o\n\030Delete"
-operator|+
-literal|"NamespaceStateData\022\026\n\016namespace_name\030\001 \002"
-operator|+
-literal|"(\t\022;\n\024namespace_descriptor\030\002 \001(\0132\035.hbase"
-operator|+
-literal|".pb.NamespaceDescriptor\"\344\001\n\030AddColumnFam"
-block|,
-literal|"ilyStateData\022,\n\tuser_info\030\001 \002(\0132\031.hbase."
-operator|+
-literal|"pb.UserInformation\022\'\n\ntable_name\030\002 \002(\0132\023"
-operator|+
-literal|".hbase.pb.TableName\0229\n\023columnfamily_sche"
-operator|+
-literal|"ma\030\003 \002(\0132\034.hbase.pb.ColumnFamilySchema\0226"
-operator|+
-literal|"\n\027unmodified_table_schema\030\004 \001(\0132\025.hbase."
-operator|+
-literal|"pb.TableSchema\"\347\001\n\033ModifyColumnFamilySta"
-operator|+
-literal|"teData\022,\n\tuser_info\030\001 \002(\0132\031.hbase.pb.Use"
-operator|+
-literal|"rInformation\022\'\n\ntable_name\030\002 \002(\0132\023.hbase"
-operator|+
-literal|".pb.TableName\0229\n\023columnfamily_schema\030\003 \002"
-operator|+
-literal|"(\0132\034.hbase.pb.ColumnFamilySchema\0226\n\027unmo"
-block|,
-literal|"dified_table_schema\030\004 \001(\0132\025.hbase.pb.Tab"
-operator|+
-literal|"leSchema\"\307\001\n\033DeleteColumnFamilyStateData"
+literal|"_modify\030\004 \002(\010\"\340\001\n\026TruncateTableStateData"
 operator|+
 literal|"\022,\n\tuser_info\030\001 \002(\0132\031.hbase.pb.UserInfor"
 operator|+
-literal|"mation\022\'\n\ntable_name\030\002 \002(\0132\023.hbase.pb.Ta"
+literal|"mation\022\027\n\017preserve_splits\030\002 \002(\010\022\'\n\ntable"
 operator|+
-literal|"bleName\022\031\n\021columnfamily_name\030\003 \002(\014\0226\n\027un"
+literal|"_name\030\003 \001(\0132\023.hbase.pb.TableName\022+\n\014tabl"
 operator|+
-literal|"modified_table_schema\030\004 \001(\0132\025.hbase.pb.T"
+literal|"e_schema\030\004 \001(\0132\025.hbase.pb.TableSchema\022)\n"
 operator|+
-literal|"ableSchema\"\215\001\n\024EnableTableStateData\022,\n\tu"
+literal|"\013region_info\030\005 \003(\0132\024.hbase.pb.RegionInfo"
 operator|+
-literal|"ser_info\030\001 \002(\0132\031.hbase.pb.UserInformatio"
+literal|"\"\230\001\n\024DeleteTableStateData\022,\n\tuser_info\030\001"
 operator|+
-literal|"n\022\'\n\ntable_name\030\002 \002(\0132\023.hbase.pb.TableNa"
+literal|" \002(\0132\031.hbase.pb.UserInformation\022\'\n\ntable"
 operator|+
-literal|"me\022\036\n\026skip_table_state_check\030\003 \002(\010\"\216\001\n\025D"
+literal|"_name\030\002 \002(\0132\023.hbase.pb.TableName\022)\n\013regi"
 block|,
-literal|"isableTableStateData\022,\n\tuser_info\030\001 \002(\0132"
+literal|"on_info\030\003 \003(\0132\024.hbase.pb.RegionInfo\"W\n\030C"
 operator|+
-literal|"\031.hbase.pb.UserInformation\022\'\n\ntable_name"
+literal|"reateNamespaceStateData\022;\n\024namespace_des"
 operator|+
-literal|"\030\002 \002(\0132\023.hbase.pb.TableName\022\036\n\026skip_tabl"
+literal|"criptor\030\001 \002(\0132\035.hbase.pb.NamespaceDescri"
 operator|+
-literal|"e_state_check\030\003 \002(\010\"u\n\037RestoreParentToCh"
+literal|"ptor\"\237\001\n\030ModifyNamespaceStateData\022;\n\024nam"
 operator|+
-literal|"ildRegionsPair\022\032\n\022parent_region_name\030\001 \002"
+literal|"espace_descriptor\030\001 \002(\0132\035.hbase.pb.Names"
 operator|+
-literal|"(\t\022\032\n\022child1_region_name\030\002 \002(\t\022\032\n\022child2"
+literal|"paceDescriptor\022F\n\037unmodified_namespace_d"
 operator|+
-literal|"_region_name\030\003 \002(\t\"\245\002\n\026CloneSnapshotStat"
+literal|"escriptor\030\002 \001(\0132\035.hbase.pb.NamespaceDesc"
 operator|+
-literal|"eData\022,\n\tuser_info\030\001 \002(\0132\031.hbase.pb.User"
+literal|"riptor\"o\n\030DeleteNamespaceStateData\022\026\n\016na"
 operator|+
-literal|"Information\022/\n\010snapshot\030\002 \002(\0132\035.hbase.pb"
+literal|"mespace_name\030\001 \002(\t\022;\n\024namespace_descript"
 operator|+
-literal|".SnapshotDescription\022+\n\014table_schema\030\003 \002"
+literal|"or\030\002 \001(\0132\035.hbase.pb.NamespaceDescriptor\""
 block|,
-literal|"(\0132\025.hbase.pb.TableSchema\022)\n\013region_info"
+literal|"\344\001\n\030AddColumnFamilyStateData\022,\n\tuser_inf"
 operator|+
-literal|"\030\004 \003(\0132\024.hbase.pb.RegionInfo\022T\n!parent_t"
+literal|"o\030\001 \002(\0132\031.hbase.pb.UserInformation\022\'\n\nta"
 operator|+
-literal|"o_child_regions_pair_list\030\005 \003(\0132).hbase."
+literal|"ble_name\030\002 \002(\0132\023.hbase.pb.TableName\0229\n\023c"
 operator|+
-literal|"pb.RestoreParentToChildRegionsPair\"\245\003\n\030R"
+literal|"olumnfamily_schema\030\003 \002(\0132\034.hbase.pb.Colu"
 operator|+
-literal|"estoreSnapshotStateData\022,\n\tuser_info\030\001 \002"
+literal|"mnFamilySchema\0226\n\027unmodified_table_schem"
 operator|+
-literal|"(\0132\031.hbase.pb.UserInformation\022/\n\010snapsho"
+literal|"a\030\004 \001(\0132\025.hbase.pb.TableSchema\"\347\001\n\033Modif"
 operator|+
-literal|"t\030\002 \002(\0132\035.hbase.pb.SnapshotDescription\0224"
+literal|"yColumnFamilyStateData\022,\n\tuser_info\030\001 \002("
 operator|+
-literal|"\n\025modified_table_schema\030\003 \002(\0132\025.hbase.pb"
+literal|"\0132\031.hbase.pb.UserInformation\022\'\n\ntable_na"
 operator|+
-literal|".TableSchema\0225\n\027region_info_for_restore\030"
+literal|"me\030\002 \002(\0132\023.hbase.pb.TableName\0229\n\023columnf"
 operator|+
-literal|"\004 \003(\0132\024.hbase.pb.RegionInfo\0224\n\026region_in"
+literal|"amily_schema\030\003 \002(\0132\034.hbase.pb.ColumnFami"
 block|,
-literal|"fo_for_remove\030\005 \003(\0132\024.hbase.pb.RegionInf"
+literal|"lySchema\0226\n\027unmodified_table_schema\030\004 \001("
 operator|+
-literal|"o\0221\n\023region_info_for_add\030\006 \003(\0132\024.hbase.p"
+literal|"\0132\025.hbase.pb.TableSchema\"\307\001\n\033DeleteColum"
 operator|+
-literal|"b.RegionInfo\022T\n!parent_to_child_regions_"
+literal|"nFamilyStateData\022,\n\tuser_info\030\001 \002(\0132\031.hb"
 operator|+
-literal|"pair_list\030\007 \003(\0132).hbase.pb.RestoreParent"
+literal|"ase.pb.UserInformation\022\'\n\ntable_name\030\002 \002"
 operator|+
-literal|"ToChildRegionsPair\"\300\001\n\032MergeTableRegions"
+literal|"(\0132\023.hbase.pb.TableName\022\031\n\021columnfamily_"
 operator|+
-literal|"StateData\022,\n\tuser_info\030\001 \002(\0132\031.hbase.pb."
+literal|"name\030\003 \002(\014\0226\n\027unmodified_table_schema\030\004 "
 operator|+
-literal|"UserInformation\022)\n\013region_info\030\002 \003(\0132\024.h"
+literal|"\001(\0132\025.hbase.pb.TableSchema\"\215\001\n\024EnableTab"
 operator|+
-literal|"base.pb.RegionInfo\0220\n\022merged_region_info"
+literal|"leStateData\022,\n\tuser_info\030\001 \002(\0132\031.hbase.p"
 operator|+
-literal|"\030\003 \002(\0132\024.hbase.pb.RegionInfo\022\027\n\010forcible"
+literal|"b.UserInformation\022\'\n\ntable_name\030\002 \002(\0132\023."
 operator|+
-literal|"\030\004 \001(\010:\005false\"\254\001\n\031SplitTableRegionStateD"
+literal|"hbase.pb.TableName\022\036\n\026skip_table_state_c"
 block|,
-literal|"ata\022,\n\tuser_info\030\001 \002(\0132\031.hbase.pb.UserIn"
+literal|"heck\030\003 \002(\010\"\216\001\n\025DisableTableStateData\022,\n\t"
 operator|+
-literal|"formation\0220\n\022parent_region_info\030\002 \002(\0132\024."
+literal|"user_info\030\001 \002(\0132\031.hbase.pb.UserInformati"
 operator|+
-literal|"hbase.pb.RegionInfo\022/\n\021child_region_info"
+literal|"on\022\'\n\ntable_name\030\002 \002(\0132\023.hbase.pb.TableN"
 operator|+
-literal|"\030\003 \003(\0132\024.hbase.pb.RegionInfo\"\201\002\n\024ServerC"
+literal|"ame\022\036\n\026skip_table_state_check\030\003 \002(\010\"u\n\037R"
 operator|+
-literal|"rashStateData\022)\n\013server_name\030\001 \002(\0132\024.hba"
+literal|"estoreParentToChildRegionsPair\022\032\n\022parent"
 operator|+
-literal|"se.pb.ServerName\022\036\n\026distributed_log_repl"
+literal|"_region_name\030\001 \002(\t\022\032\n\022child1_region_name"
 operator|+
-literal|"ay\030\002 \001(\010\0227\n\031regions_on_crashed_server\030\003 "
+literal|"\030\002 \002(\t\022\032\n\022child2_region_name\030\003 \002(\t\"\245\002\n\026C"
 operator|+
-literal|"\003(\0132\024.hbase.pb.RegionInfo\022.\n\020regions_ass"
+literal|"loneSnapshotStateData\022,\n\tuser_info\030\001 \002(\013"
 operator|+
-literal|"igned\030\004 \003(\0132\024.hbase.pb.RegionInfo\022\025\n\rcar"
+literal|"2\031.hbase.pb.UserInformation\022/\n\010snapshot\030"
 operator|+
-literal|"rying_meta\030\005 \001(\010\022\036\n\020should_split_wal\030\006 \001"
+literal|"\002 \002(\0132\035.hbase.pb.SnapshotDescription\022+\n\014"
 block|,
-literal|"(\010:\004true*\330\001\n\020CreateTableState\022\036\n\032CREATE_"
+literal|"table_schema\030\003 \002(\0132\025.hbase.pb.TableSchem"
 operator|+
-literal|"TABLE_PRE_OPERATION\020\001\022 \n\034CREATE_TABLE_WR"
+literal|"a\022)\n\013region_info\030\004 \003(\0132\024.hbase.pb.Region"
 operator|+
-literal|"ITE_FS_LAYOUT\020\002\022\034\n\030CREATE_TABLE_ADD_TO_M"
+literal|"Info\022T\n!parent_to_child_regions_pair_lis"
 operator|+
-literal|"ETA\020\003\022\037\n\033CREATE_TABLE_ASSIGN_REGIONS\020\004\022\""
+literal|"t\030\005 \003(\0132).hbase.pb.RestoreParentToChildR"
 operator|+
-literal|"\n\036CREATE_TABLE_UPDATE_DESC_CACHE\020\005\022\037\n\033CR"
+literal|"egionsPair\"\245\003\n\030RestoreSnapshotStateData\022"
 operator|+
-literal|"EATE_TABLE_POST_OPERATION\020\006*\207\002\n\020ModifyTa"
+literal|",\n\tuser_info\030\001 \002(\0132\031.hbase.pb.UserInform"
 operator|+
-literal|"bleState\022\030\n\024MODIFY_TABLE_PREPARE\020\001\022\036\n\032MO"
+literal|"ation\022/\n\010snapshot\030\002 \002(\0132\035.hbase.pb.Snaps"
 operator|+
-literal|"DIFY_TABLE_PRE_OPERATION\020\002\022(\n$MODIFY_TAB"
+literal|"hotDescription\0224\n\025modified_table_schema\030"
 operator|+
-literal|"LE_UPDATE_TABLE_DESCRIPTOR\020\003\022&\n\"MODIFY_T"
+literal|"\003 \002(\0132\025.hbase.pb.TableSchema\0225\n\027region_i"
 operator|+
-literal|"ABLE_REMOVE_REPLICA_COLUMN\020\004\022!\n\035MODIFY_T"
+literal|"nfo_for_restore\030\004 \003(\0132\024.hbase.pb.RegionI"
 block|,
-literal|"ABLE_DELETE_FS_LAYOUT\020\005\022\037\n\033MODIFY_TABLE_"
+literal|"nfo\0224\n\026region_info_for_remove\030\005 \003(\0132\024.hb"
 operator|+
-literal|"POST_OPERATION\020\006\022#\n\037MODIFY_TABLE_REOPEN_"
+literal|"ase.pb.RegionInfo\0221\n\023region_info_for_add"
 operator|+
-literal|"ALL_REGIONS\020\007*\212\002\n\022TruncateTableState\022 \n\034"
+literal|"\030\006 \003(\0132\024.hbase.pb.RegionInfo\022T\n!parent_t"
 operator|+
-literal|"TRUNCATE_TABLE_PRE_OPERATION\020\001\022#\n\037TRUNCA"
+literal|"o_child_regions_pair_list\030\007 \003(\0132).hbase."
 operator|+
-literal|"TE_TABLE_REMOVE_FROM_META\020\002\022\"\n\036TRUNCATE_"
+literal|"pb.RestoreParentToChildRegionsPair\"\300\001\n\032M"
 operator|+
-literal|"TABLE_CLEAR_FS_LAYOUT\020\003\022#\n\037TRUNCATE_TABL"
+literal|"ergeTableRegionsStateData\022,\n\tuser_info\030\001"
 operator|+
-literal|"E_CREATE_FS_LAYOUT\020\004\022\036\n\032TRUNCATE_TABLE_A"
+literal|" \002(\0132\031.hbase.pb.UserInformation\022)\n\013regio"
 operator|+
-literal|"DD_TO_META\020\005\022!\n\035TRUNCATE_TABLE_ASSIGN_RE"
+literal|"n_info\030\002 \003(\0132\024.hbase.pb.RegionInfo\0220\n\022me"
 operator|+
-literal|"GIONS\020\006\022!\n\035TRUNCATE_TABLE_POST_OPERATION"
+literal|"rged_region_info\030\003 \002(\0132\024.hbase.pb.Region"
 operator|+
-literal|"\020\007*\337\001\n\020DeleteTableState\022\036\n\032DELETE_TABLE_"
+literal|"Info\022\027\n\010forcible\030\004 \001(\010:\005false\"\254\001\n\031SplitT"
 block|,
-literal|"PRE_OPERATION\020\001\022!\n\035DELETE_TABLE_REMOVE_F"
+literal|"ableRegionStateData\022,\n\tuser_info\030\001 \002(\0132\031"
 operator|+
-literal|"ROM_META\020\002\022 \n\034DELETE_TABLE_CLEAR_FS_LAYO"
+literal|".hbase.pb.UserInformation\0220\n\022parent_regi"
 operator|+
-literal|"UT\020\003\022\"\n\036DELETE_TABLE_UPDATE_DESC_CACHE\020\004"
+literal|"on_info\030\002 \002(\0132\024.hbase.pb.RegionInfo\022/\n\021c"
 operator|+
-literal|"\022!\n\035DELETE_TABLE_UNASSIGN_REGIONS\020\005\022\037\n\033D"
+literal|"hild_region_info\030\003 \003(\0132\024.hbase.pb.Region"
 operator|+
-literal|"ELETE_TABLE_POST_OPERATION\020\006*\320\001\n\024CreateN"
+literal|"Info\"\201\002\n\024ServerCrashStateData\022)\n\013server_"
 operator|+
-literal|"amespaceState\022\034\n\030CREATE_NAMESPACE_PREPAR"
+literal|"name\030\001 \002(\0132\024.hbase.pb.ServerName\022\036\n\026dist"
 operator|+
-literal|"E\020\001\022%\n!CREATE_NAMESPACE_CREATE_DIRECTORY"
+literal|"ributed_log_replay\030\002 \001(\010\0227\n\031regions_on_c"
 operator|+
-literal|"\020\002\022)\n%CREATE_NAMESPACE_INSERT_INTO_NS_TA"
+literal|"rashed_server\030\003 \003(\0132\024.hbase.pb.RegionInf"
 operator|+
-literal|"BLE\020\003\022\036\n\032CREATE_NAMESPACE_UPDATE_ZK\020\004\022(\n"
+literal|"o\022.\n\020regions_assigned\030\004 \003(\0132\024.hbase.pb.R"
 operator|+
-literal|"$CREATE_NAMESPACE_SET_NAMESPACE_QUOTA\020\005*"
+literal|"egionInfo\022\025\n\rcarrying_meta\030\005 \001(\010\022\036\n\020shou"
 block|,
-literal|"z\n\024ModifyNamespaceState\022\034\n\030MODIFY_NAMESP"
+literal|"ld_split_wal\030\006 \001(\010:\004true*\330\001\n\020CreateTable"
 operator|+
-literal|"ACE_PREPARE\020\001\022$\n MODIFY_NAMESPACE_UPDATE"
+literal|"State\022\036\n\032CREATE_TABLE_PRE_OPERATION\020\001\022 \n"
 operator|+
-literal|"_NS_TABLE\020\002\022\036\n\032MODIFY_NAMESPACE_UPDATE_Z"
+literal|"\034CREATE_TABLE_WRITE_FS_LAYOUT\020\002\022\034\n\030CREAT"
 operator|+
-literal|"K\020\003*\332\001\n\024DeleteNamespaceState\022\034\n\030DELETE_N"
+literal|"E_TABLE_ADD_TO_META\020\003\022\037\n\033CREATE_TABLE_AS"
 operator|+
-literal|"AMESPACE_PREPARE\020\001\022)\n%DELETE_NAMESPACE_D"
+literal|"SIGN_REGIONS\020\004\022\"\n\036CREATE_TABLE_UPDATE_DE"
 operator|+
-literal|"ELETE_FROM_NS_TABLE\020\002\022#\n\037DELETE_NAMESPAC"
+literal|"SC_CACHE\020\005\022\037\n\033CREATE_TABLE_POST_OPERATIO"
 operator|+
-literal|"E_REMOVE_FROM_ZK\020\003\022\'\n#DELETE_NAMESPACE_D"
+literal|"N\020\006*\207\002\n\020ModifyTableState\022\030\n\024MODIFY_TABLE"
 operator|+
-literal|"ELETE_DIRECTORIES\020\004\022+\n\'DELETE_NAMESPACE_"
+literal|"_PREPARE\020\001\022\036\n\032MODIFY_TABLE_PRE_OPERATION"
 operator|+
-literal|"REMOVE_NAMESPACE_QUOTA\020\005*\331\001\n\024AddColumnFa"
+literal|"\020\002\022(\n$MODIFY_TABLE_UPDATE_TABLE_DESCRIPT"
 operator|+
-literal|"milyState\022\035\n\031ADD_COLUMN_FAMILY_PREPARE\020\001"
+literal|"OR\020\003\022&\n\"MODIFY_TABLE_REMOVE_REPLICA_COLU"
 block|,
-literal|"\022#\n\037ADD_COLUMN_FAMILY_PRE_OPERATION\020\002\022-\n"
+literal|"MN\020\004\022!\n\035MODIFY_TABLE_DELETE_FS_LAYOUT\020\005\022"
 operator|+
-literal|")ADD_COLUMN_FAMILY_UPDATE_TABLE_DESCRIPT"
+literal|"\037\n\033MODIFY_TABLE_POST_OPERATION\020\006\022#\n\037MODI"
 operator|+
-literal|"OR\020\003\022$\n ADD_COLUMN_FAMILY_POST_OPERATION"
+literal|"FY_TABLE_REOPEN_ALL_REGIONS\020\007*\212\002\n\022Trunca"
 operator|+
-literal|"\020\004\022(\n$ADD_COLUMN_FAMILY_REOPEN_ALL_REGIO"
+literal|"teTableState\022 \n\034TRUNCATE_TABLE_PRE_OPERA"
 operator|+
-literal|"NS\020\005*\353\001\n\027ModifyColumnFamilyState\022 \n\034MODI"
+literal|"TION\020\001\022#\n\037TRUNCATE_TABLE_REMOVE_FROM_MET"
 operator|+
-literal|"FY_COLUMN_FAMILY_PREPARE\020\001\022&\n\"MODIFY_COL"
+literal|"A\020\002\022\"\n\036TRUNCATE_TABLE_CLEAR_FS_LAYOUT\020\003\022"
 operator|+
-literal|"UMN_FAMILY_PRE_OPERATION\020\002\0220\n,MODIFY_COL"
+literal|"#\n\037TRUNCATE_TABLE_CREATE_FS_LAYOUT\020\004\022\036\n\032"
 operator|+
-literal|"UMN_FAMILY_UPDATE_TABLE_DESCRIPTOR\020\003\022\'\n#"
+literal|"TRUNCATE_TABLE_ADD_TO_META\020\005\022!\n\035TRUNCATE"
 operator|+
-literal|"MODIFY_COLUMN_FAMILY_POST_OPERATION\020\004\022+\n"
+literal|"_TABLE_ASSIGN_REGIONS\020\006\022!\n\035TRUNCATE_TABL"
 operator|+
-literal|"\'MODIFY_COLUMN_FAMILY_REOPEN_ALL_REGIONS"
+literal|"E_POST_OPERATION\020\007*\337\001\n\020DeleteTableState\022"
 block|,
-literal|"\020\005*\226\002\n\027DeleteColumnFamilyState\022 \n\034DELETE"
+literal|"\036\n\032DELETE_TABLE_PRE_OPERATION\020\001\022!\n\035DELET"
 operator|+
-literal|"_COLUMN_FAMILY_PREPARE\020\001\022&\n\"DELETE_COLUM"
+literal|"E_TABLE_REMOVE_FROM_META\020\002\022 \n\034DELETE_TAB"
 operator|+
-literal|"N_FAMILY_PRE_OPERATION\020\002\0220\n,DELETE_COLUM"
+literal|"LE_CLEAR_FS_LAYOUT\020\003\022\"\n\036DELETE_TABLE_UPD"
 operator|+
-literal|"N_FAMILY_UPDATE_TABLE_DESCRIPTOR\020\003\022)\n%DE"
+literal|"ATE_DESC_CACHE\020\004\022!\n\035DELETE_TABLE_UNASSIG"
 operator|+
-literal|"LETE_COLUMN_FAMILY_DELETE_FS_LAYOUT\020\004\022\'\n"
+literal|"N_REGIONS\020\005\022\037\n\033DELETE_TABLE_POST_OPERATI"
 operator|+
-literal|"#DELETE_COLUMN_FAMILY_POST_OPERATION\020\005\022+"
+literal|"ON\020\006*\320\001\n\024CreateNamespaceState\022\034\n\030CREATE_"
 operator|+
-literal|"\n\'DELETE_COLUMN_FAMILY_REOPEN_ALL_REGION"
+literal|"NAMESPACE_PREPARE\020\001\022%\n!CREATE_NAMESPACE_"
 operator|+
-literal|"S\020\006*\350\001\n\020EnableTableState\022\030\n\024ENABLE_TABLE"
+literal|"CREATE_DIRECTORY\020\002\022)\n%CREATE_NAMESPACE_I"
 operator|+
-literal|"_PREPARE\020\001\022\036\n\032ENABLE_TABLE_PRE_OPERATION"
+literal|"NSERT_INTO_NS_TABLE\020\003\022\036\n\032CREATE_NAMESPAC"
 operator|+
-literal|"\020\002\022)\n%ENABLE_TABLE_SET_ENABLING_TABLE_ST"
+literal|"E_UPDATE_ZK\020\004\022(\n$CREATE_NAMESPACE_SET_NA"
 block|,
-literal|"ATE\020\003\022$\n ENABLE_TABLE_MARK_REGIONS_ONLIN"
+literal|"MESPACE_QUOTA\020\005*z\n\024ModifyNamespaceState\022"
 operator|+
-literal|"E\020\004\022(\n$ENABLE_TABLE_SET_ENABLED_TABLE_ST"
+literal|"\034\n\030MODIFY_NAMESPACE_PREPARE\020\001\022$\n MODIFY_"
 operator|+
-literal|"ATE\020\005\022\037\n\033ENABLE_TABLE_POST_OPERATION\020\006*\362"
+literal|"NAMESPACE_UPDATE_NS_TABLE\020\002\022\036\n\032MODIFY_NA"
 operator|+
-literal|"\001\n\021DisableTableState\022\031\n\025DISABLE_TABLE_PR"
+literal|"MESPACE_UPDATE_ZK\020\003*\332\001\n\024DeleteNamespaceS"
 operator|+
-literal|"EPARE\020\001\022\037\n\033DISABLE_TABLE_PRE_OPERATION\020\002"
+literal|"tate\022\034\n\030DELETE_NAMESPACE_PREPARE\020\001\022)\n%DE"
 operator|+
-literal|"\022+\n\'DISABLE_TABLE_SET_DISABLING_TABLE_ST"
+literal|"LETE_NAMESPACE_DELETE_FROM_NS_TABLE\020\002\022#\n"
 operator|+
-literal|"ATE\020\003\022&\n\"DISABLE_TABLE_MARK_REGIONS_OFFL"
+literal|"\037DELETE_NAMESPACE_REMOVE_FROM_ZK\020\003\022\'\n#DE"
 operator|+
-literal|"INE\020\004\022*\n&DISABLE_TABLE_SET_DISABLED_TABL"
+literal|"LETE_NAMESPACE_DELETE_DIRECTORIES\020\004\022+\n\'D"
 operator|+
-literal|"E_STATE\020\005\022 \n\034DISABLE_TABLE_POST_OPERATIO"
+literal|"ELETE_NAMESPACE_REMOVE_NAMESPACE_QUOTA\020\005"
 operator|+
-literal|"N\020\006*\346\001\n\022CloneSnapshotState\022 \n\034CLONE_SNAP"
+literal|"*\331\001\n\024AddColumnFamilyState\022\035\n\031ADD_COLUMN_"
 block|,
-literal|"SHOT_PRE_OPERATION\020\001\022\"\n\036CLONE_SNAPSHOT_W"
+literal|"FAMILY_PREPARE\020\001\022#\n\037ADD_COLUMN_FAMILY_PR"
 operator|+
-literal|"RITE_FS_LAYOUT\020\002\022\036\n\032CLONE_SNAPSHOT_ADD_T"
+literal|"E_OPERATION\020\002\022-\n)ADD_COLUMN_FAMILY_UPDAT"
 operator|+
-literal|"O_META\020\003\022!\n\035CLONE_SNAPSHOT_ASSIGN_REGION"
+literal|"E_TABLE_DESCRIPTOR\020\003\022$\n ADD_COLUMN_FAMIL"
 operator|+
-literal|"S\020\004\022$\n CLONE_SNAPSHOT_UPDATE_DESC_CACHE\020"
+literal|"Y_POST_OPERATION\020\004\022(\n$ADD_COLUMN_FAMILY_"
 operator|+
-literal|"\005\022!\n\035CLONE_SNAPSHOT_POST_OPERATION\020\006*\260\001\n"
+literal|"REOPEN_ALL_REGIONS\020\005*\353\001\n\027ModifyColumnFam"
 operator|+
-literal|"\024RestoreSnapshotState\022\"\n\036RESTORE_SNAPSHO"
+literal|"ilyState\022 \n\034MODIFY_COLUMN_FAMILY_PREPARE"
 operator|+
-literal|"T_PRE_OPERATION\020\001\022,\n(RESTORE_SNAPSHOT_UP"
+literal|"\020\001\022&\n\"MODIFY_COLUMN_FAMILY_PRE_OPERATION"
 operator|+
-literal|"DATE_TABLE_DESCRIPTOR\020\002\022$\n RESTORE_SNAPS"
+literal|"\020\002\0220\n,MODIFY_COLUMN_FAMILY_UPDATE_TABLE_"
 operator|+
-literal|"HOT_WRITE_FS_LAYOUT\020\003\022 \n\034RESTORE_SNAPSHO"
+literal|"DESCRIPTOR\020\003\022\'\n#MODIFY_COLUMN_FAMILY_POS"
 operator|+
-literal|"T_UPDATE_META\020\004*\376\003\n\026MergeTableRegionsSta"
+literal|"T_OPERATION\020\004\022+\n\'MODIFY_COLUMN_FAMILY_RE"
 block|,
-literal|"te\022\037\n\033MERGE_TABLE_REGIONS_PREPARE\020\001\022.\n*M"
+literal|"OPEN_ALL_REGIONS\020\005*\226\002\n\027DeleteColumnFamil"
 operator|+
-literal|"ERGE_TABLE_REGIONS_MOVE_REGION_TO_SAME_R"
+literal|"yState\022 \n\034DELETE_COLUMN_FAMILY_PREPARE\020\001"
 operator|+
-literal|"S\020\002\022+\n\'MERGE_TABLE_REGIONS_PRE_MERGE_OPE"
+literal|"\022&\n\"DELETE_COLUMN_FAMILY_PRE_OPERATION\020\002"
 operator|+
-literal|"RATION\020\003\022/\n+MERGE_TABLE_REGIONS_SET_MERG"
+literal|"\0220\n,DELETE_COLUMN_FAMILY_UPDATE_TABLE_DE"
 operator|+
-literal|"ING_TABLE_STATE\020\004\022%\n!MERGE_TABLE_REGIONS"
+literal|"SCRIPTOR\020\003\022)\n%DELETE_COLUMN_FAMILY_DELET"
 operator|+
-literal|"_CLOSE_REGIONS\020\005\022,\n(MERGE_TABLE_REGIONS_"
+literal|"E_FS_LAYOUT\020\004\022\'\n#DELETE_COLUMN_FAMILY_PO"
 operator|+
-literal|"CREATE_MERGED_REGION\020\006\0222\n.MERGE_TABLE_RE"
+literal|"ST_OPERATION\020\005\022+\n\'DELETE_COLUMN_FAMILY_R"
 operator|+
-literal|"GIONS_PRE_MERGE_COMMIT_OPERATION\020\007\022#\n\037ME"
+literal|"EOPEN_ALL_REGIONS\020\006*\350\001\n\020EnableTableState"
 operator|+
-literal|"RGE_TABLE_REGIONS_UPDATE_META\020\010\0223\n/MERGE"
+literal|"\022\030\n\024ENABLE_TABLE_PREPARE\020\001\022\036\n\032ENABLE_TAB"
 operator|+
-literal|"_TABLE_REGIONS_POST_MERGE_COMMIT_OPERATI"
+literal|"LE_PRE_OPERATION\020\002\022)\n%ENABLE_TABLE_SET_E"
 block|,
-literal|"ON\020\t\022*\n&MERGE_TABLE_REGIONS_OPEN_MERGED_"
+literal|"NABLING_TABLE_STATE\020\003\022$\n ENABLE_TABLE_MA"
 operator|+
-literal|"REGION\020\n\022&\n\"MERGE_TABLE_REGIONS_POST_OPE"
+literal|"RK_REGIONS_ONLINE\020\004\022(\n$ENABLE_TABLE_SET_"
 operator|+
-literal|"RATION\020\013*\304\003\n\025SplitTableRegionState\022\036\n\032SP"
+literal|"ENABLED_TABLE_STATE\020\005\022\037\n\033ENABLE_TABLE_PO"
 operator|+
-literal|"LIT_TABLE_REGION_PREPARE\020\001\022$\n SPLIT_TABL"
+literal|"ST_OPERATION\020\006*\362\001\n\021DisableTableState\022\031\n\025"
 operator|+
-literal|"E_REGION_PRE_OPERATION\020\002\0220\n,SPLIT_TABLE_"
+literal|"DISABLE_TABLE_PREPARE\020\001\022\037\n\033DISABLE_TABLE"
 operator|+
-literal|"REGION_SET_SPLITTING_TABLE_STATE\020\003\022*\n&SP"
+literal|"_PRE_OPERATION\020\002\022+\n\'DISABLE_TABLE_SET_DI"
 operator|+
-literal|"LIT_TABLE_REGION_CLOSE_PARENT_REGION\020\004\022."
+literal|"SABLING_TABLE_STATE\020\003\022&\n\"DISABLE_TABLE_M"
 operator|+
-literal|"\n*SPLIT_TABLE_REGION_CREATE_DAUGHTER_REG"
+literal|"ARK_REGIONS_OFFLINE\020\004\022*\n&DISABLE_TABLE_S"
 operator|+
-literal|"IONS\020\005\0220\n,SPLIT_TABLE_REGION_PRE_OPERATI"
+literal|"ET_DISABLED_TABLE_STATE\020\005\022 \n\034DISABLE_TAB"
 operator|+
-literal|"ON_BEFORE_PONR\020\006\022\"\n\036SPLIT_TABLE_REGION_U"
+literal|"LE_POST_OPERATION\020\006*\206\002\n\022CloneSnapshotSta"
 block|,
-literal|"PDATE_META\020\007\022/\n+SPLIT_TABLE_REGION_PRE_O"
+literal|"te\022 \n\034CLONE_SNAPSHOT_PRE_OPERATION\020\001\022\"\n\036"
 operator|+
-literal|"PERATION_AFTER_PONR\020\010\022)\n%SPLIT_TABLE_REG"
+literal|"CLONE_SNAPSHOT_WRITE_FS_LAYOUT\020\002\022\036\n\032CLON"
 operator|+
-literal|"ION_OPEN_CHILD_REGIONS\020\t\022%\n!SPLIT_TABLE_"
+literal|"E_SNAPSHOT_ADD_TO_META\020\003\022!\n\035CLONE_SNAPSH"
 operator|+
-literal|"REGION_POST_OPERATION\020\n*\234\002\n\020ServerCrashS"
+literal|"OT_ASSIGN_REGIONS\020\004\022$\n CLONE_SNAPSHOT_UP"
 operator|+
-literal|"tate\022\026\n\022SERVER_CRASH_START\020\001\022\035\n\031SERVER_C"
+literal|"DATE_DESC_CACHE\020\005\022!\n\035CLONE_SNAPSHOT_POST"
 operator|+
-literal|"RASH_PROCESS_META\020\002\022\034\n\030SERVER_CRASH_GET_"
+literal|"_OPERATION\020\006\022\036\n\032CLONE_SNAPHOST_RESTORE_A"
 operator|+
-literal|"REGIONS\020\003\022\036\n\032SERVER_CRASH_NO_SPLIT_LOGS\020"
+literal|"CL\020\007*\322\001\n\024RestoreSnapshotState\022\"\n\036RESTORE"
 operator|+
-literal|"\004\022\033\n\027SERVER_CRASH_SPLIT_LOGS\020\005\022#\n\037SERVER"
+literal|"_SNAPSHOT_PRE_OPERATION\020\001\022,\n(RESTORE_SNA"
 operator|+
-literal|"_CRASH_PREPARE_LOG_REPLAY\020\006\022\027\n\023SERVER_CR"
+literal|"PSHOT_UPDATE_TABLE_DESCRIPTOR\020\002\022$\n RESTO"
 operator|+
-literal|"ASH_ASSIGN\020\010\022\037\n\033SERVER_CRASH_WAIT_ON_ASS"
+literal|"RE_SNAPSHOT_WRITE_FS_LAYOUT\020\003\022 \n\034RESTORE"
 block|,
-literal|"IGN\020\t\022\027\n\023SERVER_CRASH_FINISH\020dBR\n1org.ap"
+literal|"_SNAPSHOT_UPDATE_META\020\004\022 \n\034RESTORE_SNAPS"
 operator|+
-literal|"ache.hadoop.hbase.shaded.protobuf.genera"
+literal|"HOT_RESTORE_ACL\020\005*\376\003\n\026MergeTableRegionsS"
 operator|+
-literal|"tedB\025MasterProcedureProtosH\001\210\001\001\240\001\001"
+literal|"tate\022\037\n\033MERGE_TABLE_REGIONS_PREPARE\020\001\022.\n"
+operator|+
+literal|"*MERGE_TABLE_REGIONS_MOVE_REGION_TO_SAME"
+operator|+
+literal|"_RS\020\002\022+\n\'MERGE_TABLE_REGIONS_PRE_MERGE_O"
+operator|+
+literal|"PERATION\020\003\022/\n+MERGE_TABLE_REGIONS_SET_ME"
+operator|+
+literal|"RGING_TABLE_STATE\020\004\022%\n!MERGE_TABLE_REGIO"
+operator|+
+literal|"NS_CLOSE_REGIONS\020\005\022,\n(MERGE_TABLE_REGION"
+operator|+
+literal|"S_CREATE_MERGED_REGION\020\006\0222\n.MERGE_TABLE_"
+operator|+
+literal|"REGIONS_PRE_MERGE_COMMIT_OPERATION\020\007\022#\n\037"
+block|,
+literal|"MERGE_TABLE_REGIONS_UPDATE_META\020\010\0223\n/MER"
+operator|+
+literal|"GE_TABLE_REGIONS_POST_MERGE_COMMIT_OPERA"
+operator|+
+literal|"TION\020\t\022*\n&MERGE_TABLE_REGIONS_OPEN_MERGE"
+operator|+
+literal|"D_REGION\020\n\022&\n\"MERGE_TABLE_REGIONS_POST_O"
+operator|+
+literal|"PERATION\020\013*\304\003\n\025SplitTableRegionState\022\036\n\032"
+operator|+
+literal|"SPLIT_TABLE_REGION_PREPARE\020\001\022$\n SPLIT_TA"
+operator|+
+literal|"BLE_REGION_PRE_OPERATION\020\002\0220\n,SPLIT_TABL"
+operator|+
+literal|"E_REGION_SET_SPLITTING_TABLE_STATE\020\003\022*\n&"
+operator|+
+literal|"SPLIT_TABLE_REGION_CLOSE_PARENT_REGION\020\004"
+operator|+
+literal|"\022.\n*SPLIT_TABLE_REGION_CREATE_DAUGHTER_R"
+block|,
+literal|"EGIONS\020\005\0220\n,SPLIT_TABLE_REGION_PRE_OPERA"
+operator|+
+literal|"TION_BEFORE_PONR\020\006\022\"\n\036SPLIT_TABLE_REGION"
+operator|+
+literal|"_UPDATE_META\020\007\022/\n+SPLIT_TABLE_REGION_PRE"
+operator|+
+literal|"_OPERATION_AFTER_PONR\020\010\022)\n%SPLIT_TABLE_R"
+operator|+
+literal|"EGION_OPEN_CHILD_REGIONS\020\t\022%\n!SPLIT_TABL"
+operator|+
+literal|"E_REGION_POST_OPERATION\020\n*\234\002\n\020ServerCras"
+operator|+
+literal|"hState\022\026\n\022SERVER_CRASH_START\020\001\022\035\n\031SERVER"
+operator|+
+literal|"_CRASH_PROCESS_META\020\002\022\034\n\030SERVER_CRASH_GE"
+operator|+
+literal|"T_REGIONS\020\003\022\036\n\032SERVER_CRASH_NO_SPLIT_LOG"
+operator|+
+literal|"S\020\004\022\033\n\027SERVER_CRASH_SPLIT_LOGS\020\005\022#\n\037SERV"
+block|,
+literal|"ER_CRASH_PREPARE_LOG_REPLAY\020\006\022\027\n\023SERVER_"
+operator|+
+literal|"CRASH_ASSIGN\020\010\022\037\n\033SERVER_CRASH_WAIT_ON_A"
+operator|+
+literal|"SSIGN\020\t\022\027\n\023SERVER_CRASH_FINISH\020dBR\n1org."
+operator|+
+literal|"apache.hadoop.hbase.shaded.protobuf.gene"
+operator|+
+literal|"ratedB\025MasterProcedureProtosH\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|org
@@ -159002,6 +159048,25 @@ operator|.
 name|generated
 operator|.
 name|RPCProtos
+operator|.
+name|getDescriptor
+argument_list|()
+block|,
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|SnapshotProtos
 operator|.
 name|getDescriptor
 argument_list|()
@@ -160040,6 +160105,25 @@ operator|.
 name|generated
 operator|.
 name|RPCProtos
+operator|.
+name|getDescriptor
+argument_list|()
+expr_stmt|;
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|SnapshotProtos
 operator|.
 name|getDescriptor
 argument_list|()

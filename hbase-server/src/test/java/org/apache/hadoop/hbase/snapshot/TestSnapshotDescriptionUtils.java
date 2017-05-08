@@ -165,7 +165,7 @@ name|protobuf
 operator|.
 name|generated
 operator|.
-name|HBaseProtos
+name|SnapshotProtos
 operator|.
 name|SnapshotDescription
 import|;
@@ -427,6 +427,8 @@ specifier|public
 name|void
 name|testValidateMissingTableName
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 name|Configuration
 name|conf

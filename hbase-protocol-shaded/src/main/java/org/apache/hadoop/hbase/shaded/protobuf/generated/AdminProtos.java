@@ -136960,7 +136960,7 @@ name|index
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    *<pre>    *    * Roll request responses no longer include regions to flush    * this list will always be empty when talking to a 1.0 server    *</pre>    *    * Protobuf type {@code hbase.pb.RollWALWriterResponse}    */
+comment|/**    *<pre>    * Roll request responses no longer include regions to flush    * this list will always be empty when talking to a 1.0 server    *</pre>    *    * Protobuf type {@code hbase.pb.RollWALWriterResponse}    */
 specifier|public
 specifier|static
 specifier|final
@@ -139010,7 +139010,7 @@ return|return
 name|builder
 return|;
 block|}
-comment|/**      *<pre>      *      * Roll request responses no longer include regions to flush      * this list will always be empty when talking to a 1.0 server      *</pre>      *      * Protobuf type {@code hbase.pb.RollWALWriterResponse}      */
+comment|/**      *<pre>      * Roll request responses no longer include regions to flush      * this list will always be empty when talking to a 1.0 server      *</pre>      *      * Protobuf type {@code hbase.pb.RollWALWriterResponse}      */
 specifier|public
 specifier|static
 specifier|final

@@ -2343,6 +2343,27 @@ name|IOException
 throws|,
 name|RestoreSnapshotException
 function_decl|;
+comment|/**    * Restore the specified snapshot on the original table. (The table must be disabled) If    * 'takeFailSafeSnapshot' is set to true, a snapshot of the current table is taken before    * executing the restore operation. In case of restore failure, the failsafe snapshot will be    * restored. If the restore completes without problem the failsafe snapshot is deleted. The    * failsafe snapshot name is configurable by using the property    * "hbase.snapshot.restore.failsafe.name".    * @param snapshotName name of the snapshot to restore    * @param takeFailSafeSnapshot true if the failsafe snapshot should be taken    * @param restoreAcl true to restore acl of snapshot    * @throws IOException if a remote or network exception occurs    * @throws RestoreSnapshotException if snapshot failed to be restored    * @throws IllegalArgumentException if the restore request is formatted incorrectly    */
+name|void
+name|restoreSnapshot
+parameter_list|(
+specifier|final
+name|String
+name|snapshotName
+parameter_list|,
+specifier|final
+name|boolean
+name|takeFailSafeSnapshot
+parameter_list|,
+specifier|final
+name|boolean
+name|restoreAcl
+parameter_list|)
+throws|throws
+name|IOException
+throws|,
+name|RestoreSnapshotException
+function_decl|;
 comment|/**    * Create a new table by cloning the snapshot content.    *    * @param snapshotName name of the snapshot to be cloned    * @param tableName name of the table where the snapshot will be restored    * @throws IOException if a remote or network exception occurs    * @throws TableExistsException if table to be created already exists    * @throws RestoreSnapshotException if snapshot failed to be cloned    * @throws IllegalArgumentException if the specified table has not a valid name    */
 name|void
 name|cloneSnapshot
@@ -2355,6 +2376,29 @@ parameter_list|,
 specifier|final
 name|TableName
 name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+throws|,
+name|TableExistsException
+throws|,
+name|RestoreSnapshotException
+function_decl|;
+comment|/**    * Create a new table by cloning the snapshot content.    * @param snapshotName name of the snapshot to be cloned    * @param tableName name of the table where the snapshot will be restored    * @param restoreAcl true to clone acl into newly created table    * @throws IOException if a remote or network exception occurs    * @throws TableExistsException if table to be created already exists    * @throws RestoreSnapshotException if snapshot failed to be cloned    * @throws IllegalArgumentException if the specified table has not a valid name    */
+name|void
+name|cloneSnapshot
+parameter_list|(
+specifier|final
+name|String
+name|snapshotName
+parameter_list|,
+specifier|final
+name|TableName
+name|tableName
+parameter_list|,
+specifier|final
+name|boolean
+name|restoreAcl
 parameter_list|)
 throws|throws
 name|IOException
