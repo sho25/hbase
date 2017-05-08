@@ -1242,6 +1242,26 @@ name|storagePolicy
 argument_list|)
 expr_stmt|;
 block|}
+specifier|private
+specifier|static
+specifier|final
+name|Map
+argument_list|<
+name|FileSystem
+argument_list|,
+name|Boolean
+argument_list|>
+name|warningMap
+init|=
+operator|new
+name|ConcurrentHashMap
+argument_list|<
+name|FileSystem
+argument_list|,
+name|Boolean
+argument_list|>
+argument_list|()
+decl_stmt|;
 comment|/**    * Sets storage policy for given path.    * If the passed path is a directory, we'll set the storage policy for all files    * created in the future in said directory. Note that this change in storage    * policy takes place at the HDFS level; it will persist beyond this RS's lifecycle.    * If we're running on a version of HDFS that doesn't support the given storage policy    * (or storage policies at all), then we'll issue a log message and continue.    *    * See http://hadoop.apache.org/docs/r2.6.0/hadoop-project-dist/hadoop-hdfs/ArchivalStorage.html    *    * @param fs We only do anything if an instance of DistributedFileSystem    * @param path the Path whose storage policy is to be set    * @param storagePolicy Policy to set on<code>path</code>; see hadoop 2.6+    * org.apache.hadoop.hdfs.protocol.HdfsConstants for possible list e.g    * 'COLD', 'WARM', 'HOT', 'ONE_SSD', 'ALL_SSD', 'LAZY_PERSIST'.    */
 specifier|public
 specifier|static
@@ -1342,24 +1362,67 @@ name|IOException
 name|ioe
 parameter_list|)
 block|{
-comment|// This should NEVER happen.
+if|if
+condition|(
+operator|!
+name|warningMap
+operator|.
+name|containsKey
+argument_list|(
+name|fs
+argument_list|)
+condition|)
+block|{
+name|warningMap
+operator|.
+name|put
+argument_list|(
+name|fs
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed setStoragePolicy="
+literal|"FileSystem isn't an instance of DistributedFileSystem; presuming it doesn't "
+operator|+
+literal|"support setStoragePolicy. Unable to set storagePolicy="
 operator|+
 name|trimmedStoragePolicy
 operator|+
 literal|" on path="
 operator|+
 name|path
-operator|+
-literal|"; failed isDFS test"
-argument_list|,
-name|ioe
 argument_list|)
 expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"FileSystem isn't an instance of DistributedFileSystem; presuming it doesn't "
+operator|+
+literal|"support setStoragePolicy. Unable to set storagePolicy="
+operator|+
+name|trimmedStoragePolicy
+operator|+
+literal|" on path="
+operator|+
+name|path
+argument_list|)
+expr_stmt|;
+block|}
 return|return;
 block|}
 if|if
@@ -1374,24 +1437,6 @@ argument_list|,
 name|path
 argument_list|,
 name|trimmedStoragePolicy
-argument_list|)
-expr_stmt|;
-block|}
-else|else
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"FileSystem isn't an instance of DistributedFileSystem; presuming it doesn't "
-operator|+
-literal|"support setStoragePolicy. Unable to set storagePolicy="
-operator|+
-name|trimmedStoragePolicy
-operator|+
-literal|" on path="
-operator|+
-name|path
 argument_list|)
 expr_stmt|;
 block|}
@@ -1464,19 +1509,64 @@ name|NoSuchMethodException
 name|e
 parameter_list|)
 block|{
+specifier|final
+name|String
+name|msg
+init|=
+literal|"FileSystem doesn't support setStoragePolicy; HDFS-6584 not available"
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|warningMap
+operator|.
+name|containsKey
+argument_list|(
+name|fs
+argument_list|)
+condition|)
+block|{
+name|warningMap
+operator|.
+name|put
+argument_list|(
+name|fs
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
-name|info
+name|warn
 argument_list|(
-literal|"FileSystem doesn't support setStoragePolicy; HDFS-6584 not available "
-operator|+
-literal|"(hadoop-2.6.0+): "
-operator|+
+name|msg
+argument_list|,
 name|e
-operator|.
-name|getMessage
-argument_list|()
 argument_list|)
+expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+name|msg
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+name|m
+operator|=
+literal|null
 expr_stmt|;
 block|}
 catch|catch
@@ -1485,17 +1575,61 @@ name|SecurityException
 name|e
 parameter_list|)
 block|{
+specifier|final
+name|String
+name|msg
+init|=
+literal|"No access to setStoragePolicy on FileSystem; HDFS-6584 not available"
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|warningMap
+operator|.
+name|containsKey
+argument_list|(
+name|fs
+argument_list|)
+condition|)
+block|{
+name|warningMap
+operator|.
+name|put
+argument_list|(
+name|fs
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
-name|info
+name|warn
 argument_list|(
-literal|"Don't have access to setStoragePolicy on FileSystems; HDFS-6584 not available "
-operator|+
-literal|"(hadoop-2.6.0+): "
+name|msg
 argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+name|msg
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 name|m
 operator|=
 literal|null
@@ -1522,9 +1656,17 @@ argument_list|,
 name|storagePolicy
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
 name|LOG
 operator|.
-name|info
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
 argument_list|(
 literal|"Set storagePolicy="
 operator|+
@@ -1536,18 +1678,77 @@ name|path
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 catch|catch
 parameter_list|(
 name|Exception
 name|e
 parameter_list|)
 block|{
+comment|// This swallows FNFE, should we be throwing it? seems more likely to indicate dev
+comment|// misuse than a runtime problem with HDFS.
+if|if
+condition|(
+operator|!
+name|warningMap
+operator|.
+name|containsKey
+argument_list|(
+name|fs
+argument_list|)
+condition|)
+block|{
+name|warningMap
+operator|.
+name|put
+argument_list|(
+name|fs
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Unable to set storagePolicy="
+operator|+
+name|storagePolicy
+operator|+
+literal|" for path="
+operator|+
+name|path
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Unable to set storagePolicy="
+operator|+
+name|storagePolicy
+operator|+
+literal|" for path="
+operator|+
+name|path
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 comment|// check for lack of HDFS-7228
-name|boolean
-name|probablyBadPolicy
-init|=
-literal|false
-decl_stmt|;
 if|if
 condition|(
 name|e
@@ -1591,9 +1792,17 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
+if|if
+condition|(
 name|LOG
 operator|.
-name|warn
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
 argument_list|(
 literal|"Given storage policy, '"
 operator|+
@@ -1608,44 +1817,8 @@ operator|+
 literal|"more information see the 'ArchivalStorage' docs for your Hadoop release."
 argument_list|)
 expr_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"More information about the invalid storage policy."
-argument_list|,
-name|exception
-argument_list|)
-expr_stmt|;
-name|probablyBadPolicy
-operator|=
-literal|true
-expr_stmt|;
 block|}
 block|}
-if|if
-condition|(
-operator|!
-name|probablyBadPolicy
-condition|)
-block|{
-comment|// This swallows FNFE, should we be throwing it? seems more likely to indicate dev
-comment|// misuse than a runtime problem with HDFS.
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Unable to set storagePolicy="
-operator|+
-name|storagePolicy
-operator|+
-literal|" for path="
-operator|+
-name|path
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
 block|}
 block|}
 block|}
