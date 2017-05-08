@@ -157,6 +157,20 @@ end_import
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|collect
+operator|.
+name|Lists
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -559,7 +573,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|SecurityTests
+name|MediumTests
 import|;
 end_import
 
@@ -575,7 +589,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|SmallTests
+name|SecurityTests
 import|;
 end_import
 
@@ -761,20 +775,6 @@ name|Mockito
 import|;
 end_import
 
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|collect
-operator|.
-name|Lists
-import|;
-end_import
-
 begin_class
 annotation|@
 name|RunWith
@@ -791,7 +791,7 @@ name|SecurityTests
 operator|.
 name|class
 block|,
-name|SmallTests
+name|MediumTests
 operator|.
 name|class
 block|}

@@ -244,14 +244,6 @@ name|long
 name|getReceiveTime
 parameter_list|()
 function_decl|;
-comment|/**    * Set the timestamp when the call is constructed.    */
-name|void
-name|setReceiveTime
-parameter_list|(
-name|long
-name|receiveTime
-parameter_list|)
-function_decl|;
 comment|/**    * @return The time when the call starts to be executed.    */
 name|long
 name|getStartTime
