@@ -433,7 +433,7 @@ return|return
 name|filters
 return|;
 block|}
-specifier|private
+specifier|public
 name|int
 name|size
 parameter_list|()
