@@ -1031,6 +1031,37 @@ block|}
 annotation|@
 name|Override
 specifier|protected
+name|boolean
+name|abort
+parameter_list|(
+name|MasterProcedureEnv
+name|env
+parameter_list|)
+block|{
+comment|// TODO: Current behavior is: with no rollback and no abort support, procedure may stuck
+comment|// looping in retrying failing step forever. Default behavior of abort is changed to support
+comment|// aborting all procedures. Override the default wisely. Following code retains the current
+comment|// behavior. Revisit it later.
+return|return
+name|isRollbackSupported
+argument_list|(
+name|getCurrentState
+argument_list|()
+argument_list|)
+condition|?
+name|super
+operator|.
+name|abort
+argument_list|(
+name|env
+argument_list|)
+else|:
+literal|false
+return|;
+block|}
+annotation|@
+name|Override
+specifier|protected
 name|void
 name|rollbackState
 parameter_list|(
