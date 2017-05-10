@@ -187,24 +187,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ipc
-operator|.
-name|RpcServer
-operator|.
-name|Connection
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|security
 operator|.
 name|User
@@ -499,6 +481,11 @@ name|Private
 specifier|abstract
 class|class
 name|ServerCall
+parameter_list|<
+name|T
+extends|extends
+name|ServerRpcConnection
+parameter_list|>
 implements|implements
 name|RpcCall
 block|{
@@ -536,7 +523,7 @@ name|cellScanner
 decl_stmt|;
 specifier|protected
 specifier|final
-name|Connection
+name|T
 name|connection
 decl_stmt|;
 comment|// connection to client
@@ -682,7 +669,7 @@ parameter_list|,
 name|CellScanner
 name|cellScanner
 parameter_list|,
-name|Connection
+name|T
 name|connection
 parameter_list|,
 name|long

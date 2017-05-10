@@ -69,6 +69,18 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|function
+operator|.
+name|Consumer
+import|;
+end_import
+
+begin_import
+import|import
 name|javax
 operator|.
 name|security
@@ -197,22 +209,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
-operator|.
-name|classification
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|conf
 operator|.
 name|Configuration
@@ -229,9 +225,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ipc
+name|classification
 operator|.
-name|RpcServer
+name|InterfaceAudience
 import|;
 end_import
 
@@ -295,7 +291,9 @@ name|security
 operator|.
 name|token
 operator|.
-name|TokenIdentifier
+name|SecretManager
+operator|.
+name|InvalidToken
 import|;
 end_import
 
@@ -311,9 +309,7 @@ name|security
 operator|.
 name|token
 operator|.
-name|SecretManager
-operator|.
-name|InvalidToken
+name|TokenIdentifier
 import|;
 end_import
 
@@ -511,10 +507,11 @@ argument_list|>
 name|secretManager
 decl_stmt|;
 specifier|private
-name|RpcServer
-operator|.
-name|Connection
-name|connection
+name|Consumer
+argument_list|<
+name|UserGroupInformation
+argument_list|>
+name|attemptingUserConsumer
 decl_stmt|;
 specifier|public
 name|SaslDigestCallbackHandler
@@ -525,10 +522,11 @@ name|TokenIdentifier
 argument_list|>
 name|secretManager
 parameter_list|,
-name|RpcServer
-operator|.
-name|Connection
-name|connection
+name|Consumer
+argument_list|<
+name|UserGroupInformation
+argument_list|>
+name|attemptingUserConsumer
 parameter_list|)
 block|{
 name|this
@@ -539,9 +537,9 @@ name|secretManager
 expr_stmt|;
 name|this
 operator|.
-name|connection
+name|attemptingUserConsumer
 operator|=
-name|connection
+name|attemptingUserConsumer
 expr_stmt|;
 block|}
 specifier|private
@@ -711,21 +709,18 @@ decl_stmt|;
 name|UserGroupInformation
 name|user
 init|=
-literal|null
-decl_stmt|;
-name|user
-operator|=
 name|tokenIdentifier
 operator|.
 name|getUser
 argument_list|()
-expr_stmt|;
+decl_stmt|;
 comment|// may throw exception
-name|connection
+name|attemptingUserConsumer
 operator|.
-name|attemptingUser
-operator|=
+name|accept
+argument_list|(
 name|user
+argument_list|)
 expr_stmt|;
 if|if
 condition|(

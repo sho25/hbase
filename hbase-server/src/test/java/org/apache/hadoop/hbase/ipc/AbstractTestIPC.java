@@ -2450,11 +2450,14 @@ block|}
 class|class
 name|FailingConnection
 extends|extends
-name|Connection
+name|SimpleServerRpcConnection
 block|{
 specifier|public
 name|FailingConnection
 parameter_list|(
+name|TestFailingRpcServer
+name|rpcServer
+parameter_list|,
 name|SocketChannel
 name|channel
 parameter_list|,
@@ -2464,6 +2467,8 @@ parameter_list|)
 block|{
 name|super
 argument_list|(
+name|rpcServer
+argument_list|,
 name|channel
 argument_list|,
 name|lastContact
@@ -2498,7 +2503,7 @@ block|}
 annotation|@
 name|Override
 specifier|protected
-name|Connection
+name|SimpleServerRpcConnection
 name|getConnection
 parameter_list|(
 name|SocketChannel
@@ -2512,6 +2517,8 @@ return|return
 operator|new
 name|FailingConnection
 argument_list|(
+name|this
+argument_list|,
 name|channel
 argument_list|,
 name|time
