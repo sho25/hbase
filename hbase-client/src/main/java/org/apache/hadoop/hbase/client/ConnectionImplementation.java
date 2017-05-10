@@ -5265,18 +5265,29 @@ throw|throw
 operator|new
 name|TableNotFoundException
 argument_list|(
-literal|"Table '"
+literal|"Region of '"
+operator|+
+name|regionInfo
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|"' is expected in the table of '"
 operator|+
 name|tableName
 operator|+
-literal|"' was not found, got: "
+literal|"', "
+operator|+
+literal|"but hbase:meta says it is in the table of '"
 operator|+
 name|regionInfo
 operator|.
 name|getTable
 argument_list|()
 operator|+
-literal|"."
+literal|"'. "
+operator|+
+literal|"hbase:meta might be damaged."
 argument_list|)
 throw|;
 block|}
