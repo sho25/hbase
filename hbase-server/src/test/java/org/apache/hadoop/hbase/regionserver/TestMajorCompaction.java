@@ -1976,6 +1976,11 @@ operator|.
 name|getKeepDeletedCells
 argument_list|()
 argument_list|,
+name|old
+operator|.
+name|getPreadMaxBytes
+argument_list|()
+argument_list|,
 literal|0
 argument_list|,
 name|old

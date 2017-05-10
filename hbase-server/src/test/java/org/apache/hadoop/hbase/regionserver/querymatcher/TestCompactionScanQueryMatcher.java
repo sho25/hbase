@@ -706,6 +706,10 @@ name|KeepDeletedCells
 operator|.
 name|FALSE
 argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_BLOCKSIZE
+argument_list|,
 operator|-
 literal|1L
 argument_list|,

@@ -4530,13 +4530,11 @@ argument_list|(
 name|blockId
 argument_list|)
 decl_stmt|;
+comment|// now we only support concurrent read with pread = true
 name|boolean
 name|pread
 init|=
-name|rand
-operator|.
-name|nextBoolean
-argument_list|()
+literal|true
 decl_stmt|;
 name|boolean
 name|withOnDiskSize

@@ -552,7 +552,8 @@ name|refCount
 decl_stmt|;
 comment|// indicate that whether this StoreFileReader is shared, i.e., used for pread. If not, we will
 comment|// close the internal reader when readCompleted is called.
-specifier|private
+annotation|@
+name|VisibleForTesting
 specifier|final
 name|boolean
 name|shared

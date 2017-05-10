@@ -19,6 +19,20 @@ end_package
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -1493,6 +1507,8 @@ return|return
 literal|0
 return|;
 block|}
+annotation|@
+name|VisibleForTesting
 name|KeyValueScanner
 name|getCurrentForTesting
 parameter_list|()

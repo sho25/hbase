@@ -1223,6 +1223,11 @@ argument_list|()
 argument_list|,
 name|oldScanInfo
 operator|.
+name|getPreadMaxBytes
+argument_list|()
+argument_list|,
+name|oldScanInfo
+operator|.
 name|getTimeToPurgeDeletes
 argument_list|()
 argument_list|,

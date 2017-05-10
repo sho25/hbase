@@ -2080,6 +2080,10 @@ name|KeepDeletedCells
 operator|.
 name|FALSE
 argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_BLOCKSIZE
+argument_list|,
 literal|0
 argument_list|,
 name|CellComparator

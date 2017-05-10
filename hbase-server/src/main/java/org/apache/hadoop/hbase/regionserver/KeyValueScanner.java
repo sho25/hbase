@@ -61,6 +61,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|fs
+operator|.
+name|Path
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|hbase
 operator|.
 name|Cell
@@ -216,6 +230,11 @@ function_decl|;
 comment|/**    * @return true if this is a file scanner. Otherwise a memory scanner is    *         assumed.    */
 name|boolean
 name|isFileScanner
+parameter_list|()
+function_decl|;
+comment|/**    * @return the file path if this is a file scanner, otherwise null.    * @see #isFileScanner()    */
+name|Path
+name|getFilePath
 parameter_list|()
 function_decl|;
 comment|// Support for "Reversed Scanner"

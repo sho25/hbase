@@ -65,6 +65,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|fs
+operator|.
+name|Path
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|hbase
 operator|.
 name|Cell
@@ -228,6 +242,18 @@ block|{
 comment|// Not a file by default.
 return|return
 literal|false
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|Path
+name|getFilePath
+parameter_list|()
+block|{
+comment|// Not a file by default.
+return|return
+literal|null
 return|;
 block|}
 annotation|@

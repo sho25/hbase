@@ -21,6 +21,34 @@ end_package
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|base
+operator|.
+name|Preconditions
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -90,34 +118,6 @@ operator|.
 name|atomic
 operator|.
 name|AtomicReference
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|locks
-operator|.
-name|Lock
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|locks
-operator|.
-name|ReentrantLock
 import|;
 end_import
 
@@ -512,34 +512,6 @@ operator|.
 name|io
 operator|.
 name|IOUtils
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|annotations
-operator|.
-name|VisibleForTesting
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|base
-operator|.
-name|Preconditions
 import|;
 end_import
 
@@ -5000,7 +4972,7 @@ implements|implements
 name|FSReader
 block|{
 comment|/** The file system stream of the underlying {@link HFile} that      * does or doesn't do checksum validations in the filesystem */
-specifier|protected
+specifier|private
 name|FSDataInputStreamWrapper
 name|streamWrapper
 decl_stmt|;
@@ -5032,47 +5004,29 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 comment|/** The size of the file we are reading from, or -1 if unknown. */
-specifier|protected
+specifier|private
 name|long
 name|fileSize
 decl_stmt|;
 comment|/** The size of the header */
+annotation|@
+name|VisibleForTesting
 specifier|protected
 specifier|final
 name|int
 name|hdrSize
 decl_stmt|;
 comment|/** The filesystem used to access data */
-specifier|protected
+specifier|private
 name|HFileSystem
 name|hfs
 decl_stmt|;
 specifier|private
-specifier|final
-name|Lock
-name|streamLock
-init|=
-operator|new
-name|ReentrantLock
-argument_list|()
-decl_stmt|;
-comment|/** The default buffer size for our buffered streams */
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|DEFAULT_BUFFER_SIZE
-init|=
-literal|1
-operator|<<
-literal|20
-decl_stmt|;
-specifier|protected
 name|HFileContext
 name|fileContext
 decl_stmt|;
 comment|// Cache the fileName
-specifier|protected
+specifier|private
 name|String
 name|pathName
 decl_stmt|;
@@ -5358,6 +5312,8 @@ block|}
 return|;
 block|}
 comment|/**      * Does a positional read or a seek and read into the given buffer. Returns      * the on-disk size of the next block, or -1 if it could not be read/determined; e.g. EOF.      *      * @param dest destination buffer      * @param destOffset offset into the destination buffer at where to put the bytes we read      * @param size size of read      * @param peekIntoNextBlock whether to read the next block's on-disk size      * @param fileOffset position in the stream to read at      * @param pread whether we should do a positional read      * @param istream The input source of data      * @return the on-disk size of the next block with header size included, or      *         -1 if it could not be determined; if not -1, the<code>dest</code> INCLUDES the      *         next header      * @throws IOException      */
+annotation|@
+name|VisibleForTesting
 specifier|protected
 name|int
 name|readAtOffset
@@ -5432,16 +5388,9 @@ if|if
 condition|(
 operator|!
 name|pread
-operator|&&
-name|streamLock
-operator|.
-name|tryLock
-argument_list|()
 condition|)
 block|{
 comment|// Seek + read. Better for scanning.
-try|try
-block|{
 name|HFileUtil
 operator|.
 name|seekOnMultipleSources
@@ -5534,15 +5483,6 @@ return|return
 operator|-
 literal|1
 return|;
-block|}
-block|}
-finally|finally
-block|{
-name|streamLock
-operator|.
-name|unlock
-argument_list|()
-expr_stmt|;
 block|}
 block|}
 else|else
@@ -6099,6 +6039,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**      * Reads a version 2 block.      *      * @param offset the offset in the stream to read at. Usually the      * @param onDiskSizeWithHeaderL the on-disk size of the block, including      *          the header and checksums if present or -1 if unknown (as a long). Can be -1      *          if we are doing raw iteration of blocks as when loading up file metadata; i.e.      *          the first read of a new file (TODO: Fix! See HBASE-17072). Usually non-null gotten      *          from the file index.      * @param pread whether to use a positional read      * @param verifyChecksum Whether to use HBase checksums.      *        If HBase checksum is switched off, then use HDFS checksum.      * @return the HFileBlock or null if there is a HBase checksum mismatch      */
+annotation|@
+name|VisibleForTesting
 specifier|protected
 name|HFileBlock
 name|readBlockDataInternal
@@ -6624,7 +6566,7 @@ name|defaultDecodingCtx
 return|;
 block|}
 comment|/**      * Generates the checksum for the header as well as the data and then validates it.      * If the block doesn't uses checksum, returns false.      * @return True if checksum matches, else false.      */
-specifier|protected
+specifier|private
 name|boolean
 name|validateChecksum
 parameter_list|(

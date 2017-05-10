@@ -1905,6 +1905,11 @@ operator|.
 name|getKeepDeletedCells
 argument_list|()
 argument_list|,
+name|family
+operator|.
+name|getBlocksize
+argument_list|()
+argument_list|,
 name|oldSI
 operator|.
 name|getTimeToPurgeDeletes
@@ -2090,6 +2095,11 @@ argument_list|,
 name|family
 operator|.
 name|getKeepDeletedCells
+argument_list|()
+argument_list|,
+name|family
+operator|.
+name|getBlocksize
 argument_list|()
 argument_list|,
 name|oldSI
@@ -2291,6 +2301,11 @@ argument_list|,
 name|family
 operator|.
 name|getKeepDeletedCells
+argument_list|()
+argument_list|,
+name|family
+operator|.
+name|getBlocksize
 argument_list|()
 argument_list|,
 name|oldSI

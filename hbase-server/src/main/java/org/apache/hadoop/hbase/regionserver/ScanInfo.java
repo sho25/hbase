@@ -219,6 +219,11 @@ name|parallelSeekEnabled
 decl_stmt|;
 specifier|private
 specifier|final
+name|long
+name|preadMaxBytes
+decl_stmt|;
+specifier|private
+specifier|final
 name|Configuration
 name|conf
 decl_stmt|;
@@ -269,7 +274,7 @@ name|SIZEOF_BOOLEAN
 operator|)
 argument_list|)
 decl_stmt|;
-comment|/**    * @param conf    * @param family {@link HColumnDescriptor} describing the column family    * @param ttl Store's TTL (in ms)    * @param timeToPurgeDeletes duration in ms after which a delete marker can    *        be purged during a major compaction.    * @param comparator The store's comparator    */
+comment|/**    * @param conf    * @param family {@link HColumnDescriptor} describing the column family    * @param ttl Store's TTL (in ms)    * @param timeToPurgeDeletes duration in ms after which a delete marker can be purged during a    *          major compaction.    * @param comparator The store's comparator    */
 specifier|public
 name|ScanInfo
 parameter_list|(
@@ -320,13 +325,18 @@ operator|.
 name|getKeepDeletedCells
 argument_list|()
 argument_list|,
+name|family
+operator|.
+name|getBlocksize
+argument_list|()
+argument_list|,
 name|timeToPurgeDeletes
 argument_list|,
 name|comparator
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param conf    * @param family Name of this store's column family    * @param minVersions Store's MIN_VERSIONS setting    * @param maxVersions Store's VERSIONS setting    * @param ttl Store's TTL (in ms)    * @param timeToPurgeDeletes duration in ms after which a delete marker can    *        be purged during a major compaction.    * @param keepDeletedCells Store's keepDeletedCells setting    * @param comparator The store's comparator    */
+comment|/**    * @param conf    * @param family Name of this store's column family    * @param minVersions Store's MIN_VERSIONS setting    * @param maxVersions Store's VERSIONS setting    * @param ttl Store's TTL (in ms)    * @param blockSize Store's block size    * @param timeToPurgeDeletes duration in ms after which a delete marker can    *        be purged during a major compaction.    * @param keepDeletedCells Store's keepDeletedCells setting    * @param comparator The store's comparator    */
 specifier|public
 name|ScanInfo
 parameter_list|(
@@ -354,6 +364,10 @@ parameter_list|,
 specifier|final
 name|KeepDeletedCells
 name|keepDeletedCells
+parameter_list|,
+specifier|final
+name|long
+name|blockSize
 parameter_list|,
 specifier|final
 name|long
@@ -483,6 +497,23 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
+name|preadMaxBytes
+operator|=
+name|conf
+operator|.
+name|getLong
+argument_list|(
+name|StoreScanner
+operator|.
+name|STORESCANNER_PREAD_MAX_BYTES
+argument_list|,
+literal|4
+operator|*
+name|blockSize
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
 name|conf
 operator|=
 name|conf
@@ -601,6 +632,14 @@ parameter_list|()
 block|{
 return|return
 name|comparator
+return|;
+block|}
+name|long
+name|getPreadMaxBytes
+parameter_list|()
+block|{
+return|return
+name|preadMaxBytes
 return|;
 block|}
 block|}

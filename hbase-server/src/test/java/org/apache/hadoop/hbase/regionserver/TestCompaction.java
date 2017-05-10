@@ -1700,6 +1700,10 @@ operator|.
 name|getKeepDeletedCells
 argument_list|()
 argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_BLOCKSIZE
+argument_list|,
 literal|0
 argument_list|,
 name|old
