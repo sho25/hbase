@@ -485,6 +485,36 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
+comment|/**    * This will be called before clearing compaction queues    * @param ctx the environment to interact with the framework and region server.    */
+specifier|default
+name|void
+name|preClearCompactionQueues
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|RegionServerCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|)
+throws|throws
+name|IOException
+block|{}
+comment|/**    * This will be called after clearing compaction queues    * @param ctx the environment to interact with the framework and region server.    */
+specifier|default
+name|void
+name|postClearCompactionQueues
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|RegionServerCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|)
+throws|throws
+name|IOException
+block|{}
 block|}
 end_interface
 
