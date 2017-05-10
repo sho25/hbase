@@ -6000,7 +6000,7 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * @param scan the Scan specification    * @return scanner id to return to client if default operation should be    * bypassed, false otherwise    * @exception IOException Exception    */
+comment|/**    * @param scan the Scan specification    * @return scanner id to return to client if default operation should be    * bypassed, null otherwise    * @exception IOException Exception    */
 specifier|public
 name|RegionScanner
 name|preScannerOpen
