@@ -66,7 +66,12 @@ specifier|public
 interface|interface
 name|ChangedReadersObserver
 block|{
-comment|/**    * Notify observers.    * @throws IOException e    */
+comment|/**    * @return the read point of the current scan    */
+name|long
+name|getReadPoint
+parameter_list|()
+function_decl|;
+comment|/**    * Notify observers.    * @param sfs The new files    * @param memStoreScanners scanner of current memstore    * @throws IOException e    */
 name|void
 name|updateReaders
 parameter_list|(
@@ -75,6 +80,12 @@ argument_list|<
 name|StoreFile
 argument_list|>
 name|sfs
+parameter_list|,
+name|List
+argument_list|<
+name|KeyValueScanner
+argument_list|>
+name|memStoreScanners
 parameter_list|)
 throws|throws
 name|IOException
