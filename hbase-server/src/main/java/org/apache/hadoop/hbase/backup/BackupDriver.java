@@ -1025,6 +1025,14 @@ throw|throw
 name|e
 throw|;
 block|}
+finally|finally
+block|{
+name|command
+operator|.
+name|finish
+argument_list|()
+expr_stmt|;
+block|}
 return|return
 literal|0
 return|;

@@ -566,7 +566,7 @@ name|request
 argument_list|)
 expr_stmt|;
 block|}
-specifier|private
+specifier|protected
 name|List
 argument_list|<
 name|String
@@ -663,7 +663,7 @@ name|list
 return|;
 block|}
 comment|/**    * Check if a given path is belongs to active WAL directory    * @param p path    * @return true, if yes    */
-specifier|private
+specifier|protected
 name|boolean
 name|isActiveWalPath
 parameter_list|(
@@ -681,6 +681,7 @@ name|p
 argument_list|)
 return|;
 block|}
+specifier|protected
 specifier|static
 name|int
 name|getIndex
@@ -748,6 +749,7 @@ literal|1
 return|;
 block|}
 comment|/*    * Reads bulk load records from backup table, iterates through the records and forms the paths    * for bulk loaded hfiles. Copies the bulk loaded hfiles to backup destination    * @param sTableList list of tables to be backed up    * @return map of table to List of files    */
+specifier|protected
 name|Map
 argument_list|<
 name|byte
@@ -1644,6 +1646,8 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+try|try
+block|{
 comment|// case PREPARE_INCREMENTAL:
 name|beginBackup
 argument_list|(
@@ -1673,8 +1677,6 @@ name|getIncrementalBackupTableSet
 argument_list|()
 argument_list|)
 expr_stmt|;
-try|try
-block|{
 name|newTimestamps
 operator|=
 operator|(
@@ -1714,6 +1716,7 @@ argument_list|,
 name|conf
 argument_list|)
 expr_stmt|;
+return|return;
 block|}
 comment|// case INCREMENTAL_COPY:
 try|try
@@ -1934,7 +1937,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-specifier|private
+specifier|protected
 name|void
 name|incrementalCopyHFiles
 parameter_list|(
@@ -2128,7 +2131,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-specifier|private
+specifier|protected
 name|void
 name|deleteBulkLoadDirectory
 parameter_list|()
@@ -2181,7 +2184,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-specifier|private
+specifier|protected
 name|void
 name|convertWALsToHFiles
 parameter_list|(
@@ -2266,7 +2269,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-specifier|private
+specifier|protected
 name|boolean
 name|tableExists
 parameter_list|(
@@ -2301,7 +2304,7 @@ argument_list|)
 return|;
 block|}
 block|}
-specifier|private
+specifier|protected
 name|void
 name|walToHFiles
 parameter_list|(
@@ -2460,7 +2463,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-specifier|private
+specifier|protected
 name|Path
 name|getBulkOutputDirForTable
 parameter_list|(
@@ -2510,7 +2513,7 @@ literal|"data"
 argument_list|)
 return|;
 block|}
-specifier|private
+specifier|protected
 name|Path
 name|getBulkOutputDir
 parameter_list|()

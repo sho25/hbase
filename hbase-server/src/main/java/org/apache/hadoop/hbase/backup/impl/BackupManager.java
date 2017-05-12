@@ -1724,6 +1724,34 @@ name|context
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Starts new backup session    * @throws IOException if active session already exists    */
+specifier|public
+name|void
+name|startBackupSession
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+name|systemTable
+operator|.
+name|startBackupSession
+argument_list|()
+expr_stmt|;
+block|}
+comment|/**    * Finishes active backup session    * @throws IOException if no active session    */
+specifier|public
+name|void
+name|finishBackupSession
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+name|systemTable
+operator|.
+name|finishBackupSession
+argument_list|()
+expr_stmt|;
+block|}
 comment|/**    * Read the last backup start code (timestamp) of last successful backup. Will return null if    * there is no startcode stored in backup system table or the value is of length 0. These two    * cases indicate there is no successful backup completed so far.    * @return the timestamp of a last successful backup    * @throws IOException exception    */
 specifier|public
 name|String
