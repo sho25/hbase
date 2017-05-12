@@ -1152,11 +1152,21 @@ throw|throw
 operator|new
 name|RetriesExhaustedException
 argument_list|(
-literal|"timed out after "
+literal|"Timed out after "
 operator|+
 name|operationTimeout
 operator|+
-literal|" ms"
+literal|"ms. Get is sent to replicas with startIndex: "
+operator|+
+name|startIndex
+operator|+
+literal|", endIndex: "
+operator|+
+name|endIndex
+operator|+
+literal|", Locations: "
+operator|+
+name|rl
 argument_list|)
 throw|;
 block|}
