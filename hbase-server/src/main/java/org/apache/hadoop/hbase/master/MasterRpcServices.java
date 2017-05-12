@@ -7662,11 +7662,6 @@ name|request
 operator|.
 name|getNonce
 argument_list|()
-argument_list|,
-name|request
-operator|.
-name|getRestoreACL
-argument_list|()
 argument_list|)
 decl_stmt|;
 return|return

@@ -2541,7 +2541,6 @@ return|return
 name|allPerms
 return|;
 block|}
-specifier|public
 specifier|static
 name|ListMultimap
 argument_list|<

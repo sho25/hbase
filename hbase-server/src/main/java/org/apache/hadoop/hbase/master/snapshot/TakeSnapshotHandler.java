@@ -1173,20 +1173,6 @@ operator|.
 name|rethrowException
 argument_list|()
 expr_stmt|;
-comment|// write down the table acl info in the working directory.
-name|SnapshotDescriptionUtils
-operator|.
-name|writeTableAclInfo
-argument_list|(
-name|snapshot
-argument_list|,
-name|workingDir
-argument_list|,
-name|fs
-argument_list|,
-name|conf
-argument_list|)
-expr_stmt|;
 name|List
 argument_list|<
 name|Pair
