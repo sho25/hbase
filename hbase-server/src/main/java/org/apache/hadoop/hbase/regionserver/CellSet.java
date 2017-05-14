@@ -555,6 +555,9 @@ literal|"Not implemented"
 argument_list|)
 throw|;
 block|}
+comment|// TODO: why do we have a double traversing through map? Recall we have Cell to Cell mapping...
+comment|// First for first/last key, which actually returns Cell and then get for the same Cell?
+comment|// TODO: Consider just return the first/lastKey(), should be twice more effective...
 specifier|public
 name|Cell
 name|first
