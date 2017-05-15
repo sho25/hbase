@@ -1016,22 +1016,6 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|boolean
-name|abort
-parameter_list|(
-specifier|final
-name|MasterProcedureEnv
-name|env
-parameter_list|)
-block|{
-comment|// TODO: We may be able to abort if the procedure is not started yet.
-return|return
-literal|false
-return|;
-block|}
-annotation|@
-name|Override
-specifier|public
 name|void
 name|toStringClassDetails
 parameter_list|(
