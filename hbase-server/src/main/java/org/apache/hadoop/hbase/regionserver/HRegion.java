@@ -2633,6 +2633,22 @@ name|DEFAULT_HREGION_UNASSIGN_FOR_FNFE
 init|=
 literal|true
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_MAX_CELL_SIZE_KEY
+init|=
+literal|"hbase.server.keyvalue.maxsize"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_MAX_CELL_SIZE
+init|=
+literal|10485760
+decl_stmt|;
 comment|/**    * This is the global default value for durability. All tables/mutations not    * defining a durability or using USE_DEFAULT will default to this value.    */
 specifier|private
 specifier|static
@@ -2962,6 +2978,12 @@ comment|// purge timeout, when a RPC call will be terminated by the RPC engine.
 specifier|final
 name|long
 name|maxBusyWaitDuration
+decl_stmt|;
+comment|// Max cell size. If nonzero, the maximum allowed size for any given cell
+comment|// in bytes
+specifier|final
+name|long
+name|maxCellSize
 decl_stmt|;
 comment|// negative number indicates infinite timeout
 specifier|static
@@ -4715,6 +4737,19 @@ argument_list|,
 name|HConstants
 operator|.
 name|DEFAULT_ENABLE_CLIENT_BACKPRESSURE
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|maxCellSize
+operator|=
+name|conf
+operator|.
+name|getLong
+argument_list|(
+name|HBASE_MAX_CELL_SIZE_KEY
+argument_list|,
+name|DEFAULT_MAX_CELL_SIZE
 argument_list|)
 expr_stmt|;
 name|boolean
@@ -36970,7 +37005,7 @@ operator|.
 name|SIZEOF_INT
 operator|+
 operator|(
-literal|14
+literal|15
 operator|*
 name|Bytes
 operator|.
