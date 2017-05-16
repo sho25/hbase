@@ -463,6 +463,9 @@ name|error
 operator|=
 name|error
 expr_stmt|;
+name|notifyAll
+argument_list|()
+expr_stmt|;
 block|}
 annotation|@
 name|Override
