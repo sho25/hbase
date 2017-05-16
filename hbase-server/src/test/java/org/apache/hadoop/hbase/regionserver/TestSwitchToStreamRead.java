@@ -794,6 +794,11 @@ operator|.
 name|clear
 argument_list|()
 expr_stmt|;
+name|scanner
+operator|.
+name|shipped
+argument_list|()
+expr_stmt|;
 block|}
 for|for
 control|(
@@ -897,6 +902,11 @@ expr_stmt|;
 name|cells
 operator|.
 name|clear
+argument_list|()
+expr_stmt|;
+name|scanner
+operator|.
+name|shipped
 argument_list|()
 expr_stmt|;
 block|}
