@@ -1454,7 +1454,9 @@ name|conf
 operator|.
 name|getInt
 argument_list|(
-literal|"hbase.client.keyvalue.maxsize"
+name|ConnectionConfiguration
+operator|.
+name|MAX_KEYVALUE_SIZE_KEY
 argument_list|,
 operator|-
 literal|1
