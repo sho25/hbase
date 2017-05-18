@@ -753,7 +753,7 @@ argument_list|(
 literal|1
 argument_list|)
 decl_stmt|;
-comment|// generally we get one memstore scanner from a flush
+comment|// Since CompactingMemstore is now default, we get three memstore scanners from a flush
 specifier|private
 specifier|final
 name|List
@@ -766,11 +766,12 @@ operator|new
 name|ArrayList
 argument_list|<>
 argument_list|(
-literal|1
+literal|3
 argument_list|)
 decl_stmt|;
 comment|// The current list of scanners
-specifier|private
+annotation|@
+name|VisibleForTesting
 specifier|final
 name|List
 argument_list|<
@@ -4090,17 +4091,19 @@ control|(
 name|int
 name|i
 init|=
-literal|0
-init|;
-name|i
-operator|<
 name|currentScanners
 operator|.
 name|size
 argument_list|()
+operator|-
+literal|1
+init|;
+name|i
+operator|>=
+literal|0
 condition|;
 name|i
-operator|++
+operator|--
 control|)
 block|{
 if|if
@@ -4127,6 +4130,10 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
+else|else
+block|{
+comment|// we add the memstore scanner to the end of currentScanners
 break|break;
 block|}
 block|}
