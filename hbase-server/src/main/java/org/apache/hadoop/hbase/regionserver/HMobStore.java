@@ -231,6 +231,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|DoNotRetryIOException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HColumnDescriptor
 import|;
 end_import
@@ -2364,6 +2378,37 @@ block|{
 return|return
 literal|null
 return|;
+block|}
+elseif|else
+if|if
+condition|(
+operator|(
+name|throwable
+operator|instanceof
+name|FileNotFoundException
+operator|)
+operator|||
+operator|(
+name|throwable
+operator|.
+name|getCause
+argument_list|()
+operator|instanceof
+name|FileNotFoundException
+operator|)
+condition|)
+block|{
+comment|// The region is re-opened when FileNotFoundException is thrown.
+comment|// This is not necessary when MOB files cannot be found, because the store files
+comment|// in a region only contain the references to MOB files and a re-open on a region
+comment|// doesn't help fix the lost MOB files.
+throw|throw
+operator|new
+name|DoNotRetryIOException
+argument_list|(
+name|throwable
+argument_list|)
+throw|;
 block|}
 elseif|else
 if|if
