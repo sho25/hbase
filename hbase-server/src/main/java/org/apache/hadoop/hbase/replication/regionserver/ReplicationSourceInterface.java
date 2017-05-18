@@ -115,7 +115,21 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Stoppable
+name|Server
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ServerName
 import|;
 end_import
 
@@ -244,7 +258,7 @@ specifier|public
 interface|interface
 name|ReplicationSourceInterface
 block|{
-comment|/**    * Initializer for the source    * @param conf the configuration to use    * @param fs the file system to use    * @param manager the manager to use    * @param replicationQueues    * @param replicationPeers    * @param stopper the stopper object for this region server    * @param peerClusterZnode    * @param clusterId    * @throws IOException    */
+comment|/**    * Initializer for the source    * @param conf the configuration to use    * @param fs the file system to use    * @param manager the manager to use    * @param replicationQueues    * @param replicationPeers    * @param server the server for this region server    * @param peerClusterZnode    * @param clusterId    * @throws IOException    */
 name|void
 name|init
 parameter_list|(
@@ -263,8 +277,8 @@ parameter_list|,
 name|ReplicationPeers
 name|replicationPeers
 parameter_list|,
-name|Stoppable
-name|stopper
+name|Server
+name|server
 parameter_list|,
 name|String
 name|peerClusterZnode
@@ -414,6 +428,11 @@ parameter_list|,
 name|int
 name|batchSize
 parameter_list|)
+function_decl|;
+comment|/**    * The queue of WALs only belong to one region server. This will return the server name which all    * WALs belong to.    * @return the server name which all WALs belong to    */
+name|ServerName
+name|getServerWALsBelongTo
+parameter_list|()
 function_decl|;
 block|}
 end_interface

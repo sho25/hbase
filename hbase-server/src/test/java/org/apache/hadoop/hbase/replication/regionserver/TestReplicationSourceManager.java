@@ -4321,8 +4321,8 @@ parameter_list|,
 name|ReplicationPeers
 name|rp
 parameter_list|,
-name|Stoppable
-name|stopper
+name|Server
+name|server
 parameter_list|,
 name|String
 name|peerClusterId

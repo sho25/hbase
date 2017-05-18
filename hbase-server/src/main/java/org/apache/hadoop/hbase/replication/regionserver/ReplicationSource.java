@@ -283,6 +283,34 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|Server
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ServerName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|Stoppable
 import|;
 end_import
@@ -681,8 +709,8 @@ name|manager
 decl_stmt|;
 comment|// Should we stop everything?
 specifier|protected
-name|Stoppable
-name|stopper
+name|Server
+name|server
 decl_stmt|;
 comment|// How long should we sleep for each retry
 specifier|private
@@ -811,7 +839,7 @@ init|=
 operator|-
 literal|1
 decl_stmt|;
-comment|/**    * Instantiation method used by region servers    *    * @param conf configuration to use    * @param fs file system to use    * @param manager replication manager to ping to    * @param stopper     the atomic boolean to use to stop the regionserver    * @param peerClusterZnode the name of our znode    * @param clusterId unique UUID for the cluster    * @param replicationEndpoint the replication endpoint implementation    * @param metrics metrics for replication source    * @throws IOException    */
+comment|/**    * Instantiation method used by region servers    *    * @param conf configuration to use    * @param fs file system to use    * @param manager replication manager to ping to    * @param server the server for this region server    * @param peerClusterZnode the name of our znode    * @param clusterId unique UUID for the cluster    * @param replicationEndpoint the replication endpoint implementation    * @param metrics metrics for replication source    * @throws IOException    */
 annotation|@
 name|Override
 specifier|public
@@ -833,8 +861,8 @@ parameter_list|,
 name|ReplicationPeers
 name|replicationPeers
 parameter_list|,
-name|Stoppable
-name|stopper
+name|Server
+name|server
 parameter_list|,
 name|String
 name|peerClusterZnode
@@ -856,9 +884,9 @@ name|IOException
 block|{
 name|this
 operator|.
-name|stopper
+name|server
 operator|=
-name|stopper
+name|server
 expr_stmt|;
 name|this
 operator|.
@@ -2021,7 +2049,7 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
-name|stopper
+name|server
 operator|.
 name|stop
 argument_list|(
@@ -2811,7 +2839,7 @@ return|return
 operator|!
 name|this
 operator|.
-name|stopper
+name|server
 operator|.
 name|isStopped
 argument_list|()
@@ -3129,6 +3157,20 @@ parameter_list|()
 block|{
 return|return
 name|walFileLengthProvider
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|ServerName
+name|getServerWALsBelongTo
+parameter_list|()
+block|{
+return|return
+name|server
+operator|.
+name|getServerName
+argument_list|()
 return|;
 block|}
 block|}

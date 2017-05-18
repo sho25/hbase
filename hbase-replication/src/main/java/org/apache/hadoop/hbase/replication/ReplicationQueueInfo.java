@@ -149,7 +149,7 @@ comment|// List of all the dead region servers that had this queue (if recovered
 specifier|private
 name|List
 argument_list|<
-name|String
+name|ServerName
 argument_list|>
 name|deadRegionServers
 init|=
@@ -245,7 +245,7 @@ name|deadServerListStr
 parameter_list|,
 name|List
 argument_list|<
-name|String
+name|ServerName
 argument_list|>
 name|result
 parameter_list|)
@@ -361,7 +361,12 @@ name|result
 operator|.
 name|add
 argument_list|(
+name|ServerName
+operator|.
+name|valueOf
+argument_list|(
 name|serverName
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -430,7 +435,12 @@ name|result
 operator|.
 name|add
 argument_list|(
+name|ServerName
+operator|.
+name|valueOf
+argument_list|(
 name|serverName
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -460,7 +470,7 @@ block|}
 specifier|public
 name|List
 argument_list|<
-name|String
+name|ServerName
 argument_list|>
 name|getDeadRegionServers
 parameter_list|()

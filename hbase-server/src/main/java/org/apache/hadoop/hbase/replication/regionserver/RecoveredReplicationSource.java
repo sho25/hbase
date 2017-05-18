@@ -155,7 +155,21 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Stoppable
+name|Server
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ServerName
 import|;
 end_import
 
@@ -324,8 +338,8 @@ parameter_list|,
 name|ReplicationPeers
 name|replicationPeers
 parameter_list|,
-name|Stoppable
-name|stopper
+name|Server
+name|server
 parameter_list|,
 name|String
 name|peerClusterZnode
@@ -359,7 +373,7 @@ name|replicationQueues
 argument_list|,
 name|replicationPeers
 argument_list|,
-name|stopper
+name|server
 argument_list|,
 name|peerClusterZnode
 argument_list|,
@@ -640,7 +654,7 @@ literal|true
 expr_stmt|;
 if|if
 condition|(
-name|stopper
+name|server
 operator|instanceof
 name|ReplicationSyncUp
 operator|.
@@ -672,7 +686,7 @@ comment|// See if Path exists in the dead RS folder (there could be a chain of f
 comment|// to look at)
 name|List
 argument_list|<
-name|String
+name|ServerName
 argument_list|>
 name|deadRegionServers
 init|=
@@ -708,7 +722,7 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|String
+name|ServerName
 name|curDeadServerName
 range|:
 name|deadRegionServers
@@ -728,6 +742,9 @@ operator|.
 name|getWALDirectoryName
 argument_list|(
 name|curDeadServerName
+operator|.
+name|getServerName
+argument_list|()
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -1138,6 +1155,27 @@ return|return
 name|this
 operator|.
 name|actualPeerId
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|ServerName
+name|getServerWALsBelongTo
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|replicationQueueInfo
+operator|.
+name|getDeadRegionServers
+argument_list|()
+operator|.
+name|get
+argument_list|(
+literal|0
+argument_list|)
 return|;
 block|}
 block|}

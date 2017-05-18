@@ -1574,6 +1574,11 @@ argument_list|,
 name|faultyZK
 argument_list|)
 expr_stmt|;
+name|cleaner
+operator|.
+name|preClean
+argument_list|()
+expr_stmt|;
 comment|// should keep all files due to a ConnectionLossException getting the queues znodes
 name|Iterable
 argument_list|<
@@ -1639,6 +1644,11 @@ name|conf
 argument_list|,
 name|zkw
 argument_list|)
+expr_stmt|;
+name|cleaner
+operator|.
+name|preClean
+argument_list|()
 expr_stmt|;
 name|Iterable
 argument_list|<

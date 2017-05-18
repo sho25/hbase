@@ -129,6 +129,12 @@ argument_list|>
 name|params
 parameter_list|)
 function_decl|;
+comment|/**    * Used to do some initialize work before every period clean    */
+specifier|default
+name|void
+name|preClean
+parameter_list|()
+block|{   }
 block|}
 end_interface
 

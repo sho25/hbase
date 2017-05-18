@@ -817,6 +817,11 @@ argument_list|()
 argument_list|,
 name|source
 operator|.
+name|getServerWALsBelongTo
+argument_list|()
+argument_list|,
+name|source
+operator|.
 name|getSourceMetrics
 argument_list|()
 argument_list|)

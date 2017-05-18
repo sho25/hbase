@@ -367,6 +367,22 @@ name|hbase
 operator|.
 name|wal
 operator|.
+name|AbstractFSWALProvider
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|wal
+operator|.
 name|FSHLogProvider
 import|;
 end_import
@@ -3428,7 +3444,6 @@ argument_list|(
 name|conf
 argument_list|)
 decl_stmt|;
-specifier|final
 name|Path
 name|archiveDir
 init|=
@@ -3442,6 +3457,36 @@ operator|.
 name|HREGION_OLDLOGDIR_NAME
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+name|AbstractFSWALProvider
+operator|.
+name|SEPARATE_OLDLOGDIR
+argument_list|,
+name|AbstractFSWALProvider
+operator|.
+name|DEFAULT_SEPARATE_OLDLOGDIR
+argument_list|)
+condition|)
+block|{
+name|archiveDir
+operator|=
+operator|new
+name|Path
+argument_list|(
+name|archiveDir
+argument_list|,
+name|p
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 name|WALSplitter
 operator|.
 name|split
@@ -4603,7 +4648,7 @@ name|println
 argument_list|(
 literal|"         For example: "
 operator|+
-literal|"FSHLog --dump hdfs://example.com:9000/hbase/.logs/MACHINE/LOGFILE"
+literal|"FSHLog --dump hdfs://example.com:9000/hbase/WALs/MACHINE/LOGFILE"
 argument_list|)
 expr_stmt|;
 name|System
@@ -4623,7 +4668,7 @@ name|println
 argument_list|(
 literal|"         For example: "
 operator|+
-literal|"FSHLog --split hdfs://example.com:9000/hbase/.logs/DIR"
+literal|"FSHLog --split hdfs://example.com:9000/hbase/WALs/DIR"
 argument_list|)
 expr_stmt|;
 block|}

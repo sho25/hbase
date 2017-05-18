@@ -1114,6 +1114,8 @@ literal|0
 argument_list|,
 name|log
 argument_list|,
+literal|null
+argument_list|,
 operator|new
 name|MetricsSource
 argument_list|(
@@ -1211,6 +1213,8 @@ literal|0
 argument_list|,
 name|log
 argument_list|,
+literal|null
+argument_list|,
 operator|new
 name|MetricsSource
 argument_list|(
@@ -1301,6 +1305,8 @@ name|oldPos
 argument_list|,
 name|log
 argument_list|,
+literal|null
+argument_list|,
 operator|new
 name|MetricsSource
 argument_list|(
@@ -1372,6 +1378,8 @@ argument_list|,
 name|oldPos
 argument_list|,
 name|log
+argument_list|,
+literal|null
 argument_list|,
 operator|new
 name|MetricsSource
@@ -1485,6 +1493,8 @@ argument_list|,
 literal|0
 argument_list|,
 name|log
+argument_list|,
+literal|null
 argument_list|,
 operator|new
 name|MetricsSource
@@ -1633,6 +1643,8 @@ literal|0
 argument_list|,
 name|log
 argument_list|,
+literal|null
+argument_list|,
 operator|new
 name|MetricsSource
 argument_list|(
@@ -1746,6 +1758,8 @@ literal|0
 argument_list|,
 name|log
 argument_list|,
+literal|null
+argument_list|,
 operator|new
 name|MetricsSource
 argument_list|(
@@ -1796,6 +1810,8 @@ argument_list|,
 name|lastPosition
 argument_list|,
 name|log
+argument_list|,
+literal|null
 argument_list|,
 operator|new
 name|MetricsSource
@@ -1891,6 +1907,8 @@ name|lastPosition
 argument_list|,
 name|log
 argument_list|,
+literal|null
+argument_list|,
 operator|new
 name|MetricsSource
 argument_list|(
@@ -1930,6 +1948,8 @@ argument_list|,
 name|lastPosition
 argument_list|,
 name|log
+argument_list|,
+literal|null
 argument_list|,
 operator|new
 name|MetricsSource
@@ -1992,6 +2012,8 @@ literal|0
 argument_list|,
 name|log
 argument_list|,
+literal|null
+argument_list|,
 operator|new
 name|MetricsSource
 argument_list|(
@@ -2045,6 +2067,8 @@ argument_list|,
 literal|0
 argument_list|,
 name|log
+argument_list|,
+literal|null
 argument_list|,
 operator|new
 name|MetricsSource
@@ -2747,6 +2771,8 @@ operator|.
 name|get
 argument_list|()
 argument_list|)
+argument_list|,
+literal|null
 argument_list|,
 operator|new
 name|MetricsSource

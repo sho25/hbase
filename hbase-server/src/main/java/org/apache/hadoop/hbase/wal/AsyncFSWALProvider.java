@@ -483,9 +483,14 @@ operator|.
 name|factoryId
 argument_list|)
 argument_list|,
-name|HConstants
+name|getWALArchiveDirectoryName
+argument_list|(
+name|conf
+argument_list|,
+name|factory
 operator|.
-name|HREGION_OLDLOGDIR_NAME
+name|factoryId
+argument_list|)
 argument_list|,
 name|conf
 argument_list|,
