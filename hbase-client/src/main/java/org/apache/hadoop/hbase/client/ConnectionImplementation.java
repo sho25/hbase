@@ -1814,9 +1814,13 @@ name|pauseForCQTBE
 decl_stmt|;
 comment|// pause for CallQueueTooBigException, if specified
 specifier|private
-specifier|final
 name|boolean
 name|useMetaReplicas
+decl_stmt|;
+specifier|private
+specifier|final
+name|int
+name|metaReplicaCallTimeoutScanInMicroSecond
 decl_stmt|;
 specifier|private
 specifier|final
@@ -2128,6 +2132,15 @@ name|HConstants
 operator|.
 name|DEFAULT_USE_META_REPLICAS
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|metaReplicaCallTimeoutScanInMicroSecond
+operator|=
+name|connectionConfig
+operator|.
+name|getMetaReplicaCallTimeoutMicroSecondScan
+argument_list|()
 expr_stmt|;
 comment|// how many times to try, one more than max *retry* time
 name|this
@@ -2536,6 +2549,24 @@ throw|throw
 name|e
 throw|;
 block|}
+block|}
+comment|/**    * @param useMetaReplicas    */
+annotation|@
+name|VisibleForTesting
+name|void
+name|setUseMetaReplicas
+parameter_list|(
+specifier|final
+name|boolean
+name|useMetaReplicas
+parameter_list|)
+block|{
+name|this
+operator|.
+name|useMetaReplicas
+operator|=
+name|useMetaReplicas
+expr_stmt|;
 block|}
 comment|/**    * @param conn The connection for which to replace the generator.    * @param cnm Replaces the nonce generator used, for testing.    * @return old nonce generator.    */
 annotation|@
@@ -5020,7 +5051,7 @@ argument_list|,
 name|getMetaLookupPool
 argument_list|()
 argument_list|,
-literal|0
+name|metaReplicaCallTimeoutScanInMicroSecond
 argument_list|)
 init|)
 block|{

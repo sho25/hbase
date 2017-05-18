@@ -913,6 +913,24 @@ name|DEFAULT_HBASE_CLIENT_OPERATION_TIMEOUT
 init|=
 literal|1200000
 decl_stmt|;
+comment|/** Parameter name for HBase client meta replica scan call timeout. */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_CLIENT_MEAT_REPLICA_SCAN_TIMEOUT
+init|=
+literal|"hbase.client.meta.replica.scan.timeout"
+decl_stmt|;
+comment|/** Default HBase client meta replica scan call timeout, 1 second */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|HBASE_CLIENT_MEAT_REPLICA_SCAN_TIMEOUT_DEFAULT
+init|=
+literal|1000000
+decl_stmt|;
 comment|/** Used to construct the name of the log directory for a region server */
 specifier|public
 specifier|static
