@@ -533,21 +533,6 @@ literal|"family cannot be null"
 argument_list|)
 throw|;
 block|}
-if|if
-condition|(
-name|qualifier
-operator|==
-literal|null
-condition|)
-block|{
-throw|throw
-operator|new
-name|IllegalArgumentException
-argument_list|(
-literal|"qualifier cannot be null"
-argument_list|)
-throw|;
-block|}
 name|List
 argument_list|<
 name|Cell

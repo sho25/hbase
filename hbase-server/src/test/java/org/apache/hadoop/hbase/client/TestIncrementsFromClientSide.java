@@ -1513,36 +1513,6 @@ parameter_list|)
 block|{
 comment|// success
 block|}
-try|try
-block|{
-comment|// try null qualifier
-name|ht
-operator|.
-name|incrementColumnValue
-argument_list|(
-name|ROW
-argument_list|,
-name|FAMILY
-argument_list|,
-literal|null
-argument_list|,
-literal|5
-argument_list|)
-expr_stmt|;
-name|fail
-argument_list|(
-literal|"Should have thrown IOException"
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|iox
-parameter_list|)
-block|{
-comment|// success
-block|}
 comment|// try null row
 try|try
 block|{
@@ -1611,43 +1581,6 @@ argument_list|(
 literal|null
 argument_list|,
 name|COLUMN
-argument_list|,
-literal|5
-argument_list|)
-expr_stmt|;
-name|fail
-argument_list|(
-literal|"Should have thrown IllegalArgumentException"
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IllegalArgumentException
-name|iax
-parameter_list|)
-block|{
-comment|// success
-block|}
-comment|// try null qualifier
-try|try
-block|{
-name|Increment
-name|incNoQualifier
-init|=
-operator|new
-name|Increment
-argument_list|(
-name|ROW
-argument_list|)
-decl_stmt|;
-name|incNoQualifier
-operator|.
-name|addColumn
-argument_list|(
-name|FAMILY
-argument_list|,
-literal|null
 argument_list|,
 literal|5
 argument_list|)

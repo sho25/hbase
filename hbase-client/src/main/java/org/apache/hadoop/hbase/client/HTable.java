@@ -3992,23 +3992,6 @@ literal|"family is null"
 argument_list|)
 expr_stmt|;
 block|}
-elseif|else
-if|if
-condition|(
-name|qualifier
-operator|==
-literal|null
-condition|)
-block|{
-name|npe
-operator|=
-operator|new
-name|NullPointerException
-argument_list|(
-literal|"qualifier is null"
-argument_list|)
-expr_stmt|;
-block|}
 if|if
 condition|(
 name|npe
