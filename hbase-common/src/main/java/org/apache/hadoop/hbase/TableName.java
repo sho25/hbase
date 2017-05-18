@@ -29,6 +29,18 @@ begin_import
 import|import
 name|java
 operator|.
+name|nio
+operator|.
+name|charset
+operator|.
+name|StandardCharsets
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|Arrays
@@ -159,7 +171,7 @@ specifier|final
 name|String
 name|VALID_NAMESPACE_REGEX
 init|=
-literal|"(?:[a-zA-Z_0-9]+)"
+literal|"(?:[_\\p{Digit}\\p{IsAlphabetic}]+)"
 decl_stmt|;
 comment|//Allows only letters, digits, '_', '-' and '.'
 specifier|public
@@ -168,7 +180,7 @@ specifier|final
 name|String
 name|VALID_TABLE_QUALIFIER_REGEX
 init|=
-literal|"(?:[a-zA-Z_0-9][a-zA-Z_0-9-.]*)"
+literal|"(?:[_\\p{Digit}\\p{IsAlphabetic}][-_.\\p{Digit}\\p{IsAlphabetic}]*)"
 decl_stmt|;
 comment|//Concatenation of NAMESPACE_REGEX and TABLE_QUALIFIER_REGEX,
 comment|//with NAMESPACE_DELIM as delimiter
@@ -241,6 +253,15 @@ name|String
 name|OLD_ROOT_STR
 init|=
 literal|"-ROOT-"
+decl_stmt|;
+comment|/** One globally disallowed name */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|DISALLOWED_TABLE_NAME
+init|=
+literal|"zookeeper"
 decl_stmt|;
 comment|/**    * @return True if<code>tn</code> is the hbase:meta table name.    */
 specifier|public
@@ -331,7 +352,7 @@ specifier|final
 name|int
 name|hashCode
 decl_stmt|;
-comment|/**    * Check passed byte array, "tableName", is legal user-space table name.    * @return Returns passed<code>tableName</code> param    * @throws IllegalArgumentException if passed a tableName is null or    * is made of other than 'word' characters or underscores: i.e.    *<code>[a-zA-Z_0-9.-:]</code>. The ':' is used to delimit the namespace    * from the table name and can be used for nothing else.    *    * Namespace names can only contain 'word' characters    *<code>[a-zA-Z_0-9]</code> or '_'    *    * Qualifier names can only contain 'word' characters    *<code>[a-zA-Z_0-9]</code> or '_', '.' or '-'.    * The name may not start with '.' or '-'.    *    * Valid fully qualified table names:    * foo:bar, namespace=&gt;foo, table=&gt;bar    * org:foo.bar, namespace=org, table=&gt;foo.bar    */
+comment|/**    * Check passed byte array, "tableName", is legal user-space table name.    * @return Returns passed<code>tableName</code> param    * @throws IllegalArgumentException if passed a tableName is null or    * is made of other than 'word' characters or underscores: i.e.    *<code>[\p{IsAlphabetic}\p{Digit}.-:]</code>. The ':' is used to delimit the namespace    * from the table name and can be used for nothing else.    *    * Namespace names can only contain 'word' characters    *<code>[\p{IsAlphabetic}\p{Digit}]</code> or '_'    *    * Qualifier names can only contain 'word' characters    *<code>[\p{IsAlphabetic}\p{Digit}]</code> or '_', '.' or '-'.    * The name may not start with '.' or '-'.    *    * Valid fully qualified table names:    * foo:bar, namespace=&gt;foo, table=&gt;bar    * org:foo.bar, namespace=org, table=&gt;foo.bar    */
 specifier|public
 specifier|static
 name|byte
@@ -491,7 +512,7 @@ return|return
 name|qualifierName
 return|;
 block|}
-comment|/**    * Qualifier names can only contain 'word' characters    *<code>[a-zA-Z_0-9]</code> or '_', '.' or '-'.    * The name may not start with '.' or '-'.    *    * @param qualifierName byte array containing the qualifier name    * @param start start index    * @param end end index (exclusive)    */
+comment|/**    * Qualifier names can only contain 'word' characters    *<code>[\p{IsAlphabetic}\p{Digit}]</code> or '_', '.' or '-'.    * The name may not start with '.' or '-'.    *    * @param qualifierName byte array containing the qualifier name    * @param start start index    * @param end end index (exclusive)    */
 specifier|public
 specifier|static
 name|void
@@ -604,7 +625,7 @@ operator|)
 operator|+
 literal|" qualifiers can only start with 'alphanumeric "
 operator|+
-literal|"characters': i.e. [a-zA-Z_0-9]: "
+literal|"characters' from any language: "
 operator|+
 name|Bytes
 operator|.
@@ -619,51 +640,109 @@ argument_list|)
 argument_list|)
 throw|;
 block|}
+comment|// Treat the bytes as UTF-8
+name|String
+name|qualifierString
+init|=
+operator|new
+name|String
+argument_list|(
+name|qualifierName
+argument_list|,
+name|start
+argument_list|,
+operator|(
+name|end
+operator|-
+name|start
+operator|)
+argument_list|,
+name|StandardCharsets
+operator|.
+name|UTF_8
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|qualifierString
+operator|.
+name|equals
+argument_list|(
+name|DISALLOWED_TABLE_NAME
+argument_list|)
+condition|)
+block|{
+comment|// Per https://zookeeper.apache.org/doc/r3.4.10/zookeeperProgrammers.html#ch_zkDataModel
+comment|// A znode named "zookeeper" is disallowed by zookeeper.
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Tables may not be named '"
+operator|+
+name|DISALLOWED_TABLE_NAME
+operator|+
+literal|"'"
+argument_list|)
+throw|;
+block|}
 for|for
 control|(
 name|int
 name|i
 init|=
-name|start
+literal|0
 init|;
 name|i
 operator|<
-name|end
+name|qualifierString
+operator|.
+name|length
+argument_list|()
 condition|;
 name|i
 operator|++
 control|)
 block|{
+comment|// Treat the string as a char-array as some characters may be multi-byte
+name|char
+name|c
+init|=
+name|qualifierString
+operator|.
+name|charAt
+argument_list|(
+name|i
+argument_list|)
+decl_stmt|;
+comment|// Check for letter, digit, underscore, hyphen, or period, and allowed by ZK.
+comment|// ZooKeeper also has limitations, but Character.isAlphabetic omits those all
+comment|//   See https://zookeeper.apache.org/doc/r3.4.10/zookeeperProgrammers.html#ch_zkDataModel
 if|if
 condition|(
 name|Character
 operator|.
-name|isLetterOrDigit
+name|isAlphabetic
 argument_list|(
-name|qualifierName
-index|[
-name|i
-index|]
+name|c
 argument_list|)
 operator|||
-name|qualifierName
-index|[
-name|i
-index|]
+name|Character
+operator|.
+name|isDigit
+argument_list|(
+name|c
+argument_list|)
+operator|||
+name|c
 operator|==
 literal|'_'
 operator|||
-name|qualifierName
-index|[
-name|i
-index|]
+name|c
 operator|==
 literal|'-'
 operator|||
-name|qualifierName
-index|[
-name|i
-index|]
+name|c
 operator|==
 literal|'.'
 condition|)
@@ -676,20 +755,14 @@ name|IllegalArgumentException
 argument_list|(
 literal|"Illegal character code:"
 operator|+
-name|qualifierName
-index|[
-name|i
-index|]
+operator|(
+name|int
+operator|)
+name|c
 operator|+
 literal|",<"
 operator|+
-operator|(
-name|char
-operator|)
-name|qualifierName
-index|[
-name|i
-index|]
+name|c
 operator|+
 literal|"> at "
 operator|+
@@ -705,20 +778,9 @@ else|:
 literal|"User-space table"
 operator|)
 operator|+
-literal|" qualifiers can only contain "
+literal|" qualifiers may only contain 'alphanumeric characters' and digits: "
 operator|+
-literal|"'alphanumeric characters': i.e. [a-zA-Z_0-9-.]: "
-operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
-name|qualifierName
-argument_list|,
-name|start
-argument_list|,
-name|end
-argument_list|)
+name|qualifierString
 argument_list|)
 throw|;
 block|}
@@ -782,37 +844,99 @@ literal|"Namespace name must not be empty"
 argument_list|)
 throw|;
 block|}
+name|String
+name|nsString
+init|=
+operator|new
+name|String
+argument_list|(
+name|namespaceName
+argument_list|,
+name|start
+argument_list|,
+operator|(
+name|end
+operator|-
+name|start
+operator|)
+argument_list|,
+name|StandardCharsets
+operator|.
+name|UTF_8
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|nsString
+operator|.
+name|equals
+argument_list|(
+name|DISALLOWED_TABLE_NAME
+argument_list|)
+condition|)
+block|{
+comment|// Per https://zookeeper.apache.org/doc/r3.4.10/zookeeperProgrammers.html#ch_zkDataModel
+comment|// A znode named "zookeeper" is disallowed by zookeeper.
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Tables may not be named '"
+operator|+
+name|DISALLOWED_TABLE_NAME
+operator|+
+literal|"'"
+argument_list|)
+throw|;
+block|}
 for|for
 control|(
 name|int
 name|i
 init|=
-name|start
+literal|0
 init|;
 name|i
 operator|<
-name|end
+name|nsString
+operator|.
+name|length
+argument_list|()
 condition|;
 name|i
 operator|++
 control|)
 block|{
+comment|// Treat the string as a char-array as some characters may be multi-byte
+name|char
+name|c
+init|=
+name|nsString
+operator|.
+name|charAt
+argument_list|(
+name|i
+argument_list|)
+decl_stmt|;
+comment|// ZooKeeper also has limitations, but Character.isAlphabetic omits those all
+comment|//   See https://zookeeper.apache.org/doc/r3.4.10/zookeeperProgrammers.html#ch_zkDataModel
 if|if
 condition|(
 name|Character
 operator|.
-name|isLetterOrDigit
+name|isAlphabetic
 argument_list|(
-name|namespaceName
-index|[
-name|i
-index|]
+name|c
 argument_list|)
 operator|||
-name|namespaceName
-index|[
-name|i
-index|]
+name|Character
+operator|.
+name|isDigit
+argument_list|(
+name|c
+argument_list|)
+operator|||
+name|c
 operator|==
 literal|'_'
 condition|)
@@ -825,29 +949,17 @@ name|IllegalArgumentException
 argument_list|(
 literal|"Illegal character<"
 operator|+
-name|namespaceName
-index|[
-name|i
-index|]
+name|c
 operator|+
 literal|"> at "
 operator|+
 name|i
 operator|+
-literal|". Namespaces can only contain "
+literal|". Namespaces may only contain "
 operator|+
-literal|"'alphanumeric characters': i.e. [a-zA-Z_0-9]: "
+literal|"'alphanumeric characters' from any language and digits: "
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
-name|namespaceName
-argument_list|,
-name|start
-argument_list|,
-name|end
-argument_list|)
+name|nsString
 argument_list|)
 throw|;
 block|}
@@ -1748,6 +1860,7 @@ name|tn
 return|;
 block|}
 block|}
+specifier|final
 name|int
 name|namespaceDelimIndex
 init|=
@@ -1756,17 +1869,6 @@ operator|.
 name|indexOf
 argument_list|(
 name|NAMESPACE_DELIM
-argument_list|)
-decl_stmt|;
-name|byte
-index|[]
-name|nameB
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|name
 argument_list|)
 decl_stmt|;
 if|if
@@ -1792,13 +1894,43 @@ name|ByteBuffer
 operator|.
 name|wrap
 argument_list|(
-name|nameB
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|name
+argument_list|)
 argument_list|)
 argument_list|)
 return|;
 block|}
 else|else
 block|{
+comment|// indexOf is by character, not byte (consider multi-byte characters)
+name|String
+name|ns
+init|=
+name|name
+operator|.
+name|substring
+argument_list|(
+literal|0
+argument_list|,
+name|namespaceDelimIndex
+argument_list|)
+decl_stmt|;
+name|String
+name|qualifier
+init|=
+name|name
+operator|.
+name|substring
+argument_list|(
+name|namespaceDelimIndex
+operator|+
+literal|1
+argument_list|)
+decl_stmt|;
 return|return
 name|createTableNameIfNecessary
 argument_list|(
@@ -1806,32 +1938,24 @@ name|ByteBuffer
 operator|.
 name|wrap
 argument_list|(
-name|nameB
-argument_list|,
-literal|0
-argument_list|,
-name|namespaceDelimIndex
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|ns
+argument_list|)
 argument_list|)
 argument_list|,
 name|ByteBuffer
 operator|.
 name|wrap
 argument_list|(
-name|nameB
-argument_list|,
-name|namespaceDelimIndex
-operator|+
-literal|1
-argument_list|,
-name|nameB
+name|Bytes
 operator|.
-name|length
-operator|-
-operator|(
-name|namespaceDelimIndex
-operator|+
-literal|1
-operator|)
+name|toBytes
+argument_list|(
+name|qualifier
+argument_list|)
 argument_list|)
 argument_list|)
 return|;
