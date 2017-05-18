@@ -512,6 +512,9 @@ name|maxRetries
 parameter_list|,
 name|int
 name|retryIntervalMillis
+parameter_list|,
+name|int
+name|maxSleepTime
 parameter_list|)
 throws|throws
 name|IOException
@@ -527,6 +530,8 @@ argument_list|,
 name|maxRetries
 argument_list|,
 name|retryIntervalMillis
+argument_list|,
+name|maxSleepTime
 argument_list|,
 literal|null
 argument_list|)
@@ -571,6 +576,9 @@ parameter_list|,
 name|int
 name|retryIntervalMillis
 parameter_list|,
+name|int
+name|maxSleepTime
+parameter_list|,
 name|String
 name|identifier
 parameter_list|)
@@ -590,6 +598,8 @@ operator|+
 literal|1
 argument_list|,
 name|retryIntervalMillis
+argument_list|,
+name|maxSleepTime
 argument_list|)
 expr_stmt|;
 if|if

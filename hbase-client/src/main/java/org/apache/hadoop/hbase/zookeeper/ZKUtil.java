@@ -1017,6 +1017,18 @@ argument_list|,
 literal|1000
 argument_list|)
 decl_stmt|;
+name|int
+name|maxSleepTime
+init|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"zookeeper.recovery.retry.maxsleeptime"
+argument_list|,
+literal|60000
+argument_list|)
+decl_stmt|;
 name|zkDumpConnectionTimeOut
 operator|=
 name|conf
@@ -1041,6 +1053,8 @@ argument_list|,
 name|retry
 argument_list|,
 name|retryIntervalMillis
+argument_list|,
+name|maxSleepTime
 argument_list|,
 name|identifier
 argument_list|)
