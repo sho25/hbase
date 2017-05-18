@@ -539,9 +539,6 @@ argument_list|)
 expr_stmt|;
 name|jruby
 operator|.
-name|getProvider
-argument_list|()
-operator|.
 name|setLoadPaths
 argument_list|(
 name|loadPaths
