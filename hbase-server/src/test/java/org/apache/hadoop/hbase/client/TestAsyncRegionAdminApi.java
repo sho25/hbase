@@ -2534,6 +2534,9 @@ argument_list|)
 argument_list|,
 literal|5
 argument_list|)
+operator|.
+name|get
+argument_list|()
 expr_stmt|;
 comment|// wait till the table is assigned
 name|HMaster
