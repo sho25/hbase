@@ -429,15 +429,6 @@ argument_list|,
 literal|"family is null"
 argument_list|)
 expr_stmt|;
-name|Preconditions
-operator|.
-name|checkNotNull
-argument_list|(
-name|qualifier
-argument_list|,
-literal|"qualifier is null"
-argument_list|)
-expr_stmt|;
 return|return
 name|increment
 argument_list|(
