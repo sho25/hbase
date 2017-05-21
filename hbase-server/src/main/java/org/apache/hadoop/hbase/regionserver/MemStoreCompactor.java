@@ -190,7 +190,7 @@ specifier|final
 name|int
 name|COMPACTING_MEMSTORE_THRESHOLD_DEFAULT
 init|=
-literal|30
+literal|1
 decl_stmt|;
 specifier|public
 specifier|static
