@@ -279,24 +279,6 @@ name|hbase
 operator|.
 name|backup
 operator|.
-name|BackupInfo
-operator|.
-name|BackupState
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|backup
-operator|.
 name|BackupRequest
 import|;
 end_import
@@ -539,6 +521,10 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+specifier|protected
+name|IncrementalTableBackupClient
+parameter_list|()
+block|{   }
 specifier|public
 name|IncrementalTableBackupClient
 parameter_list|(
@@ -1796,15 +1782,6 @@ comment|// set overall backup status: complete. Here we make sure to complete th
 comment|// After this checkpoint, even if entering cancel process, will let the backup finished
 try|try
 block|{
-name|backupInfo
-operator|.
-name|setState
-argument_list|(
-name|BackupState
-operator|.
-name|COMPLETE
-argument_list|)
-expr_stmt|;
 comment|// Set the previousTimestampMap which is before this current log roll to the manifest.
 name|HashMap
 argument_list|<

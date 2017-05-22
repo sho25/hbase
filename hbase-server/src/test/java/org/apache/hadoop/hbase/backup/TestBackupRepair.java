@@ -223,7 +223,7 @@ name|class
 argument_list|)
 specifier|public
 class|class
-name|TestFullBackupWithFailures
+name|TestBackupRepair
 extends|extends
 name|TestBackupBase
 block|{
@@ -237,7 +237,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|TestFullBackupWithFailures
+name|TestBackupRepair
 operator|.
 name|class
 argument_list|)
@@ -246,11 +246,15 @@ annotation|@
 name|Test
 specifier|public
 name|void
-name|testFullBackupWithFailures
+name|testFullBackupWithFailuresAndRestore
 parameter_list|()
 throws|throws
 name|Exception
 block|{
+name|autoRestoreOnFailure
+operator|=
+literal|false
+expr_stmt|;
 name|conf1
 operator|.
 name|set
@@ -279,7 +283,7 @@ name|length
 operator|-
 literal|1
 decl_stmt|;
-comment|// Fail stages between 0 and 4 inclusive
+comment|// Fail stage in loop between 0 and 4 inclusive
 for|for
 control|(
 name|int
@@ -288,7 +292,7 @@ init|=
 literal|0
 init|;
 name|stage
-operator|<=
+operator|<
 name|maxStage
 condition|;
 name|stage
@@ -304,7 +308,7 @@ operator|+
 name|stage
 argument_list|)
 expr_stmt|;
-name|runBackupAndFailAtStage
+name|runBackupAndFailAtStageWithRestore
 argument_list|(
 name|stage
 argument_list|)
@@ -313,7 +317,7 @@ block|}
 block|}
 specifier|public
 name|void
-name|runBackupAndFailAtStage
+name|runBackupAndFailAtStageWithRestore
 parameter_list|(
 name|int
 name|stage
@@ -405,6 +409,38 @@ name|args
 argument_list|)
 decl_stmt|;
 name|assertFalse
+argument_list|(
+name|ret
+operator|==
+literal|0
+argument_list|)
+expr_stmt|;
+comment|// Now run restore
+name|args
+operator|=
+operator|new
+name|String
+index|[]
+block|{
+literal|"repair"
+block|}
+expr_stmt|;
+name|ret
+operator|=
+name|ToolRunner
+operator|.
+name|run
+argument_list|(
+name|conf1
+argument_list|,
+operator|new
+name|BackupDriver
+argument_list|()
+argument_list|,
+name|args
+argument_list|)
+expr_stmt|;
+name|assertTrue
 argument_list|(
 name|ret
 operator|==

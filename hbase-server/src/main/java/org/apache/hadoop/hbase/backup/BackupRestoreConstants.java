@@ -455,6 +455,8 @@ block|,
 name|SET_DESCRIBE
 block|,
 name|SET_LIST
+block|,
+name|REPAIR
 block|}
 block|}
 end_interface

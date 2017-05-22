@@ -391,6 +391,10 @@ comment|/**    * Backup phase    */
 specifier|private
 name|BackupPhase
 name|phase
+init|=
+name|BackupPhase
+operator|.
+name|REQUEST
 decl_stmt|;
 comment|/**    * Backup failure message    */
 specifier|private

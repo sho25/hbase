@@ -643,9 +643,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// TODO: requires Fault tolerance support, failure will leave system
-comment|// in a non-consistent state
-comment|// see HBASE-15227
 name|int
 name|totalDeleted
 init|=
