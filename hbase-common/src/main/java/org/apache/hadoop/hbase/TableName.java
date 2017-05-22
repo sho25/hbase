@@ -807,7 +807,7 @@ name|length
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Valid namespace characters are [a-zA-Z_0-9]    */
+comment|/**    * Valid namespace characters are alphabetic characters, numbers, and underscores.    */
 specifier|public
 specifier|static
 name|void
