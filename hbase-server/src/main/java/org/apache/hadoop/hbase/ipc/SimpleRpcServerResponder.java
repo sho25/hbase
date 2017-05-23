@@ -201,7 +201,6 @@ name|SimpleRpcServerResponder
 extends|extends
 name|Thread
 block|{
-comment|/**  */
 specifier|private
 specifier|final
 name|SimpleRpcServer
@@ -226,11 +225,7 @@ name|newSetFromMap
 argument_list|(
 operator|new
 name|ConcurrentHashMap
-argument_list|<
-name|SimpleServerRpcConnection
-argument_list|,
-name|Boolean
-argument_list|>
+argument_list|<>
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -897,25 +892,17 @@ literal|"Coding error: SelectionKey key without attachment."
 argument_list|)
 throw|;
 block|}
-name|SimpleServerCall
-name|call
-init|=
-name|connection
-operator|.
-name|responseQueue
-operator|.
-name|peekFirst
-argument_list|()
-decl_stmt|;
 if|if
 condition|(
-name|call
-operator|!=
-literal|null
+name|connection
+operator|.
+name|lastSentTime
+operator|>
+literal|0
 operator|&&
 name|now
 operator|>
-name|call
+name|connection
 operator|.
 name|lastSentTime
 operator|+
@@ -930,10 +917,7 @@ name|conWithOldCalls
 operator|.
 name|add
 argument_list|(
-name|call
-operator|.
-name|getConnection
-argument_list|()
+name|connection
 argument_list|)
 expr_stmt|;
 block|}
@@ -1059,13 +1043,16 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Process the response for this call. You need to have the lock on    * {@link org.apache.hadoop.hbase.ipc.SimpleServerRpcConnection#responseWriteLock}    * @param call the call    * @return true if we proceed the call fully, false otherwise.    * @throws IOException    */
+comment|/**    * Process the response for this call. You need to have the lock on    * {@link org.apache.hadoop.hbase.ipc.SimpleServerRpcConnection#responseWriteLock}    * @return true if we proceed the call fully, false otherwise.    * @throws IOException    */
+specifier|private
 name|boolean
 name|processResponse
 parameter_list|(
-specifier|final
-name|SimpleServerCall
-name|call
+name|SimpleServerRpcConnection
+name|conn
+parameter_list|,
+name|RpcResponse
+name|resp
 parameter_list|)
 throws|throws
 name|IOException
@@ -1074,6 +1061,14 @@ name|boolean
 name|error
 init|=
 literal|true
+decl_stmt|;
+name|BufferChain
+name|buf
+init|=
+name|resp
+operator|.
+name|getResponse
+argument_list|()
 decl_stmt|;
 try|try
 block|{
@@ -1087,16 +1082,11 @@ name|simpleRpcServer
 operator|.
 name|channelWrite
 argument_list|(
-name|call
-operator|.
-name|getConnection
-argument_list|()
+name|conn
 operator|.
 name|channel
 argument_list|,
-name|call
-operator|.
-name|response
+name|buf
 argument_list|)
 decl_stmt|;
 if|if
@@ -1112,12 +1102,7 @@ name|HBaseIOException
 argument_list|(
 literal|"Error writing on the socket "
 operator|+
-literal|"for the call:"
-operator|+
-name|call
-operator|.
-name|toShortString
-argument_list|()
+name|conn
 argument_list|)
 throw|;
 block|}
@@ -1139,20 +1124,14 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-name|getName
-argument_list|()
-operator|+
-name|call
-operator|.
-name|toShortString
-argument_list|()
+name|conn
 operator|+
 literal|": output error -- closing"
 argument_list|)
 expr_stmt|;
 comment|// We will be closing this connection itself. Mark this call as done so that all the
 comment|// buffer(s) it got from pool can get released
-name|call
+name|resp
 operator|.
 name|done
 argument_list|()
@@ -1163,10 +1142,7 @@ name|simpleRpcServer
 operator|.
 name|closeConnection
 argument_list|(
-name|call
-operator|.
-name|getConnection
-argument_list|()
+name|conn
 argument_list|)
 expr_stmt|;
 block|}
@@ -1174,15 +1150,13 @@ block|}
 if|if
 condition|(
 operator|!
-name|call
-operator|.
-name|response
+name|buf
 operator|.
 name|hasRemaining
 argument_list|()
 condition|)
 block|{
-name|call
+name|resp
 operator|.
 name|done
 argument_list|()
@@ -1193,6 +1167,16 @@ return|;
 block|}
 else|else
 block|{
+comment|// set the serve time when the response has to be sent later
+name|conn
+operator|.
+name|lastSentTime
+operator|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+expr_stmt|;
 return|return
 literal|false
 return|;
@@ -1237,8 +1221,8 @@ operator|++
 control|)
 block|{
 comment|// protection if some handlers manage to need all the responder
-name|SimpleServerCall
-name|call
+name|RpcResponse
+name|resp
 init|=
 name|connection
 operator|.
@@ -1249,7 +1233,7 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|call
+name|resp
 operator|==
 literal|null
 condition|)
@@ -1263,7 +1247,9 @@ condition|(
 operator|!
 name|processResponse
 argument_list|(
-name|call
+name|connection
+argument_list|,
+name|resp
 argument_list|)
 condition|)
 block|{
@@ -1273,7 +1259,7 @@ name|responseQueue
 operator|.
 name|addFirst
 argument_list|(
-name|call
+name|resp
 argument_list|)
 expr_stmt|;
 return|return
@@ -1307,8 +1293,11 @@ comment|//
 name|void
 name|doRespond
 parameter_list|(
-name|SimpleServerCall
-name|call
+name|SimpleServerRpcConnection
+name|conn
+parameter_list|,
+name|RpcResponse
+name|resp
 parameter_list|)
 throws|throws
 name|IOException
@@ -1322,20 +1311,14 @@ comment|// If there is already a write in progress, we don't wait. This allows t
 comment|// immediately for other tasks.
 if|if
 condition|(
-name|call
-operator|.
-name|getConnection
-argument_list|()
+name|conn
 operator|.
 name|responseQueue
 operator|.
 name|isEmpty
 argument_list|()
 operator|&&
-name|call
-operator|.
-name|getConnection
-argument_list|()
+name|conn
 operator|.
 name|responseWriteLock
 operator|.
@@ -1347,10 +1330,7 @@ try|try
 block|{
 if|if
 condition|(
-name|call
-operator|.
-name|getConnection
-argument_list|()
+name|conn
 operator|.
 name|responseQueue
 operator|.
@@ -1359,12 +1339,14 @@ argument_list|()
 condition|)
 block|{
 comment|// If we're alone, we can try to do a direct call to the socket. It's
-comment|// an optimisation to save on context switches and data transfer between cores..
+comment|// an optimization to save on context switches and data transfer between cores..
 if|if
 condition|(
 name|processResponse
 argument_list|(
-name|call
+name|conn
+argument_list|,
+name|resp
 argument_list|)
 condition|)
 block|{
@@ -1372,16 +1354,13 @@ return|return;
 comment|// we're done.
 block|}
 comment|// Too big to fit, putting ahead.
-name|call
-operator|.
-name|getConnection
-argument_list|()
+name|conn
 operator|.
 name|responseQueue
 operator|.
 name|addFirst
 argument_list|(
-name|call
+name|resp
 argument_list|)
 expr_stmt|;
 name|added
@@ -1393,10 +1372,7 @@ block|}
 block|}
 finally|finally
 block|{
-name|call
-operator|.
-name|getConnection
-argument_list|()
+name|conn
 operator|.
 name|responseWriteLock
 operator|.
@@ -1411,40 +1387,20 @@ operator|!
 name|added
 condition|)
 block|{
-name|call
-operator|.
-name|getConnection
-argument_list|()
+name|conn
 operator|.
 name|responseQueue
 operator|.
 name|addLast
 argument_list|(
-name|call
+name|resp
 argument_list|)
 expr_stmt|;
 block|}
-name|call
-operator|.
-name|responder
-operator|.
 name|registerForWrite
 argument_list|(
-name|call
-operator|.
-name|getConnection
-argument_list|()
+name|conn
 argument_list|)
-expr_stmt|;
-comment|// set the serve time when the response has to be sent later
-name|call
-operator|.
-name|lastSentTime
-operator|=
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
 expr_stmt|;
 block|}
 block|}

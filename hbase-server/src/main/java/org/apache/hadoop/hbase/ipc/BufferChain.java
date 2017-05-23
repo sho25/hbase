@@ -102,7 +102,7 @@ decl_stmt|;
 name|BufferChain
 parameter_list|(
 name|ByteBuffer
-index|[]
+modifier|...
 name|buffers
 parameter_list|)
 block|{

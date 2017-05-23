@@ -220,9 +220,6 @@ argument_list|<
 name|SimpleServerRpcConnection
 argument_list|>
 block|{
-name|long
-name|lastSentTime
-decl_stmt|;
 specifier|final
 name|SimpleRpcServerResponder
 name|responder
@@ -366,6 +363,7 @@ literal|"Presume the lock on processing request held by caller is protection eno
 argument_list|)
 annotation|@
 name|Override
+specifier|public
 name|void
 name|done
 parameter_list|()
@@ -408,6 +406,9 @@ name|responder
 operator|.
 name|doRespond
 argument_list|(
+name|getConnection
+argument_list|()
+argument_list|,
 name|this
 argument_list|)
 expr_stmt|;
@@ -417,9 +418,6 @@ name|getConnection
 parameter_list|()
 block|{
 return|return
-operator|(
-name|SimpleServerRpcConnection
-operator|)
 name|this
 operator|.
 name|connection
