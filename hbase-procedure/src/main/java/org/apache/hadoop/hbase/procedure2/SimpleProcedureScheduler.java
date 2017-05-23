@@ -265,6 +265,25 @@ name|emptyList
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|LockInfo
+name|getLockInfoForResource
+parameter_list|(
+name|LockInfo
+operator|.
+name|ResourceType
+name|resourceType
+parameter_list|,
+name|String
+name|resourceName
+parameter_list|)
+block|{
+return|return
+literal|null
+return|;
+block|}
 block|}
 end_class
 

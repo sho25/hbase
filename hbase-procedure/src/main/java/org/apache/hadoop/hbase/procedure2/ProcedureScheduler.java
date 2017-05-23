@@ -197,6 +197,19 @@ argument_list|>
 name|listLocks
 parameter_list|()
 function_decl|;
+comment|/**    * @return {@link LockInfo} for resource of specified type& name. null if resource is not locked.    */
+name|LockInfo
+name|getLockInfoForResource
+parameter_list|(
+name|LockInfo
+operator|.
+name|ResourceType
+name|resourceType
+parameter_list|,
+name|String
+name|resourceName
+parameter_list|)
+function_decl|;
 comment|/**    * Returns the number of elements in this queue.    * @return the number of elements in this queue.    */
 annotation|@
 name|VisibleForTesting
