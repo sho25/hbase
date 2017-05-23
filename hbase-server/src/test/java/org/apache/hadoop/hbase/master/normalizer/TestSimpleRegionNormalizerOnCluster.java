@@ -618,7 +618,7 @@ argument_list|)
 expr_stmt|;
 name|TestNamespaceAuditor
 operator|.
-name|waitForQuotaEnabled
+name|waitForQuotaInitialize
 argument_list|(
 name|TEST_UTIL
 argument_list|)

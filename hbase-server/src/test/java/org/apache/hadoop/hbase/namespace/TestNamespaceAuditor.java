@@ -1168,7 +1168,7 @@ argument_list|,
 literal|1
 argument_list|)
 expr_stmt|;
-name|waitForQuotaEnabled
+name|waitForQuotaInitialize
 argument_list|(
 name|UTIL
 argument_list|)
@@ -1276,7 +1276,7 @@ block|}
 block|}
 name|assertTrue
 argument_list|(
-literal|"Quota manager not enabled"
+literal|"Quota manager not initialized"
 argument_list|,
 name|UTIL
 operator|.
@@ -1289,7 +1289,7 @@ operator|.
 name|getMasterQuotaManager
 argument_list|()
 operator|.
-name|isQuotaEnabled
+name|isQuotaInitialized
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -4772,7 +4772,7 @@ block|}
 specifier|public
 specifier|static
 name|void
-name|waitForQuotaEnabled
+name|waitForQuotaInitialize
 parameter_list|(
 specifier|final
 name|HBaseTestingUtility
@@ -4842,7 +4842,7 @@ literal|null
 operator|&&
 name|quotaManager
 operator|.
-name|isQuotaEnabled
+name|isQuotaInitialized
 argument_list|()
 return|;
 block|}
@@ -4890,7 +4890,7 @@ operator|.
 name|startMaster
 argument_list|()
 expr_stmt|;
-name|waitForQuotaEnabled
+name|waitForQuotaInitialize
 argument_list|(
 name|UTIL
 argument_list|)

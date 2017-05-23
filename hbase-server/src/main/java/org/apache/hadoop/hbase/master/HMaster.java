@@ -12110,7 +12110,7 @@ if|if
 condition|(
 name|quotaManager
 operator|.
-name|isQuotaEnabled
+name|isQuotaInitialized
 argument_list|()
 condition|)
 block|{
