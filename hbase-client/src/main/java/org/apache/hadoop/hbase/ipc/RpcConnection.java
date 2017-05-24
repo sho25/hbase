@@ -850,14 +850,34 @@ operator|.
 name|KERBEROS
 expr_stmt|;
 block|}
+comment|// Log if debug AND non-default auth, else if trace enabled.
+comment|// No point logging obvious.
 if|if
 condition|(
+operator|(
 name|LOG
 operator|.
 name|isDebugEnabled
 argument_list|()
+operator|&&
+operator|!
+name|authMethod
+operator|.
+name|equals
+argument_list|(
+name|AuthMethod
+operator|.
+name|SIMPLE
+argument_list|)
+operator|)
+operator|||
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
 condition|)
 block|{
+comment|// Only log if not default auth.
 name|LOG
 operator|.
 name|debug

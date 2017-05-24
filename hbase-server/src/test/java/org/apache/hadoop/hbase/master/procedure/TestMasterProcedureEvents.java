@@ -785,7 +785,7 @@ operator|.
 name|getRegionStates
 argument_list|()
 operator|.
-name|isRegionsInTransition
+name|hasRegionsInTransition
 argument_list|()
 condition|)
 block|{

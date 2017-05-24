@@ -113,6 +113,18 @@ name|util
 operator|.
 name|concurrent
 operator|.
+name|ExecutionException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
 name|atomic
 operator|.
 name|AtomicInteger
@@ -211,20 +223,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|MetaTableAccessor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|ServerName
 import|;
 end_import
@@ -240,22 +238,6 @@ operator|.
 name|hbase
 operator|.
 name|TableName
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|master
-operator|.
-name|AssignmentManager
 import|;
 end_import
 
@@ -287,6 +269,22 @@ name|hbase
 operator|.
 name|master
 operator|.
+name|NoSuchProcedureException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
 name|RegionState
 import|;
 end_import
@@ -303,7 +301,7 @@ name|hbase
 operator|.
 name|master
 operator|.
-name|RegionStates
+name|ServerManager
 import|;
 end_import
 
@@ -319,7 +317,27 @@ name|hbase
 operator|.
 name|master
 operator|.
-name|ServerManager
+name|assignment
+operator|.
+name|AssignmentManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
+name|assignment
+operator|.
+name|RegionStates
 import|;
 end_import
 
@@ -476,6 +494,16 @@ operator|.
 name|junit
 operator|.
 name|Assert
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|Ignore
 import|;
 end_import
 
@@ -2263,57 +2291,6 @@ operator|.
 name|get
 argument_list|()
 expr_stmt|;
-comment|// add region to meta.
-name|Table
-name|meta
-init|=
-name|TEST_UTIL
-operator|.
-name|getConnection
-argument_list|()
-operator|.
-name|getTable
-argument_list|(
-name|TableName
-operator|.
-name|META_TABLE_NAME
-argument_list|)
-decl_stmt|;
-name|HRegionInfo
-name|hri
-init|=
-operator|new
-name|HRegionInfo
-argument_list|(
-name|desc
-operator|.
-name|getTableName
-argument_list|()
-argument_list|,
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"A"
-argument_list|)
-argument_list|,
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"Z"
-argument_list|)
-argument_list|)
-decl_stmt|;
-name|MetaTableAccessor
-operator|.
-name|addRegionToMeta
-argument_list|(
-name|meta
-argument_list|,
-name|hri
-argument_list|)
-expr_stmt|;
 comment|// assign region.
 name|HMaster
 name|master
@@ -2334,26 +2311,24 @@ operator|.
 name|getAssignmentManager
 argument_list|()
 decl_stmt|;
-name|admin
-operator|.
-name|assign
-argument_list|(
+name|HRegionInfo
 name|hri
+init|=
+name|am
 operator|.
-name|getRegionName
+name|getRegionStates
 argument_list|()
+operator|.
+name|getRegionsOfTable
+argument_list|(
+name|tableName
 argument_list|)
 operator|.
 name|get
-argument_list|()
-expr_stmt|;
-name|am
-operator|.
-name|waitForAssignment
 argument_list|(
-name|hri
+literal|0
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 comment|// assert region on server
 name|RegionStates
 name|regionStates
@@ -2398,7 +2373,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Region is assigned now. Let's assign it again.
-comment|// Master should not abort, and region should be assigned.
+comment|// Master should not abort, and region should stay assigned.
 name|admin
 operator|.
 name|assign
@@ -2412,6 +2387,8 @@ operator|.
 name|get
 argument_list|()
 expr_stmt|;
+try|try
+block|{
 name|am
 operator|.
 name|waitForAssignment
@@ -2419,6 +2396,20 @@ argument_list|(
 name|hri
 argument_list|)
 expr_stmt|;
+name|fail
+argument_list|(
+literal|"Expected NoSuchProcedureException"
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|NoSuchProcedureException
+name|e
+parameter_list|)
+block|{
+comment|// Expected
+block|}
 name|assertTrue
 argument_list|(
 name|regionStates
@@ -2448,6 +2439,8 @@ operator|.
 name|get
 argument_list|()
 expr_stmt|;
+try|try
+block|{
 name|am
 operator|.
 name|waitForAssignment
@@ -2455,6 +2448,20 @@ argument_list|(
 name|hri
 argument_list|)
 expr_stmt|;
+name|fail
+argument_list|(
+literal|"Expected NoSuchProcedureException"
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|NoSuchProcedureException
+name|e
+parameter_list|)
+block|{
+comment|// Expected
+block|}
 name|assertTrue
 argument_list|(
 name|regionStates
@@ -2464,7 +2471,7 @@ argument_list|(
 name|hri
 argument_list|)
 operator|.
-name|isOpened
+name|isClosed
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2491,6 +2498,8 @@ throws|throws
 name|IOException
 throws|,
 name|InterruptedException
+throws|,
+name|ExecutionException
 block|{
 name|HTableDescriptor
 name|desc
@@ -2631,7 +2640,14 @@ expr_stmt|;
 block|}
 block|}
 annotation|@
+name|Ignore
+annotation|@
 name|Test
+comment|// Turning off this tests in AMv2. Doesn't make sense.Offlining means something
+comment|// different now.
+comment|// You can't 'offline' a region unless you know what you are doing
+comment|// Will cause the Master to tell the regionserver to shut itself down because
+comment|// regionserver is reporting the state as OPEN.
 specifier|public
 name|void
 name|testOfflineRegion
@@ -2677,27 +2693,6 @@ operator|.
 name|getRegionStates
 argument_list|()
 decl_stmt|;
-name|ServerName
-name|serverName
-init|=
-name|regionStates
-operator|.
-name|getRegionServerOfRegion
-argument_list|(
-name|hri
-argument_list|)
-decl_stmt|;
-name|TEST_UTIL
-operator|.
-name|assertRegionOnServer
-argument_list|(
-name|hri
-argument_list|,
-name|serverName
-argument_list|,
-literal|200
-argument_list|)
-expr_stmt|;
 name|admin
 operator|.
 name|offline
@@ -3067,7 +3062,7 @@ expr_stmt|;
 block|}
 name|regionStates
 operator|.
-name|waitForUpdate
+name|wait
 argument_list|(
 literal|50
 argument_list|)
@@ -3223,6 +3218,28 @@ argument_list|)
 expr_stmt|;
 block|}
 end_class
+
+begin_catch
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Exception"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+throw|throw
+name|e
+throw|;
+block|}
+end_catch
 
 begin_finally
 finally|finally

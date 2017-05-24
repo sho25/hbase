@@ -70,7 +70,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Special procedure used as a chore.  * instead of bringing the Chore class in (dependencies reason),  * we reuse the executor timeout thread for this special case.  *  * The assumption is that procedure is used as hook to dispatch other procedures  * or trigger some cleanups. It does not store state in the ProcedureStore.  * this is just for in-memory chore executions.  */
+comment|/**  * Special procedure used as a chore.  * Instead of bringing the Chore class in (dependencies reason),  * we reuse the executor timeout thread for this special case.  *  * The assumption is that procedure is used as hook to dispatch other procedures  * or trigger some cleanups. It does not store state in the ProcedureStore.  * this is just for in-memory chore executions.  */
 end_comment
 
 begin_class
@@ -123,6 +123,9 @@ annotation|@
 name|Override
 specifier|protected
 name|Procedure
+argument_list|<
+name|TEnvironment
+argument_list|>
 index|[]
 name|execute
 parameter_list|(

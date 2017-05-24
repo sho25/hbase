@@ -345,22 +345,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|master
-operator|.
-name|RegionStates
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|monitoring
 operator|.
 name|MonitoredTask
@@ -2237,34 +2221,7 @@ operator|.
 name|getConnection
 argument_list|()
 decl_stmt|;
-comment|// 1. Forces all the RegionStates to be offline
-comment|//
-comment|// The AssignmentManager keeps all the region states around
-comment|// with no possibility to remove them, until the master is restarted.
-comment|// This means that a region marked as SPLIT before the restore will never be assigned again.
-comment|// To avoid having all states around all the regions are switched to the OFFLINE state,
-comment|// which is the same state that the regions will be after a delete table.
-name|forceRegionsOffline
-argument_list|(
-name|env
-argument_list|,
-name|regionsToAdd
-argument_list|)
-expr_stmt|;
-name|forceRegionsOffline
-argument_list|(
-name|env
-argument_list|,
-name|regionsToRestore
-argument_list|)
-expr_stmt|;
-name|forceRegionsOffline
-argument_list|(
-name|env
-argument_list|,
-name|regionsToRemove
-argument_list|)
-expr_stmt|;
+comment|// 1. Prepare to restore
 name|getMonitorStatus
 argument_list|()
 operator|.
@@ -2568,62 +2525,6 @@ name|getConfiguration
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
-block|}
-comment|/**    * Make sure that region states of the region list is in OFFLINE state.    * @param env MasterProcedureEnv    * @param hris region info list    **/
-specifier|private
-name|void
-name|forceRegionsOffline
-parameter_list|(
-specifier|final
-name|MasterProcedureEnv
-name|env
-parameter_list|,
-specifier|final
-name|List
-argument_list|<
-name|HRegionInfo
-argument_list|>
-name|hris
-parameter_list|)
-block|{
-name|RegionStates
-name|states
-init|=
-name|env
-operator|.
-name|getMasterServices
-argument_list|()
-operator|.
-name|getAssignmentManager
-argument_list|()
-operator|.
-name|getRegionStates
-argument_list|()
-decl_stmt|;
-if|if
-condition|(
-name|hris
-operator|!=
-literal|null
-condition|)
-block|{
-for|for
-control|(
-name|HRegionInfo
-name|hri
-range|:
-name|hris
-control|)
-block|{
-name|states
-operator|.
-name|regionOffline
-argument_list|(
-name|hri
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 block|}
 comment|/**    * The procedure could be restarted from a different machine. If the variable is null, we need to    * retrieve it.    * @return traceEnabled    */

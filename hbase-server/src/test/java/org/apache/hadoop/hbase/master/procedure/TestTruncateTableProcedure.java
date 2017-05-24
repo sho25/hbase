@@ -20,6 +20,30 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
 import|import
 name|org
 operator|.
@@ -44,6 +68,20 @@ operator|.
 name|logging
 operator|.
 name|LogFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|CategoryBasedTimeout
 import|;
 end_import
 
@@ -244,6 +282,18 @@ import|;
 end_import
 
 begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|rules
+operator|.
+name|TestRule
+import|;
+end_import
+
+begin_import
 import|import static
 name|org
 operator|.
@@ -301,6 +351,34 @@ name|TestTruncateTableProcedure
 operator|.
 name|class
 argument_list|)
+decl_stmt|;
+annotation|@
+name|Rule
+specifier|public
+specifier|final
+name|TestRule
+name|timeout
+init|=
+name|CategoryBasedTimeout
+operator|.
+name|builder
+argument_list|()
+operator|.
+name|withTimeout
+argument_list|(
+name|this
+operator|.
+name|getClass
+argument_list|()
+argument_list|)
+operator|.
+name|withLookingForStuckThread
+argument_list|(
+literal|true
+argument_list|)
+operator|.
+name|build
+argument_list|()
 decl_stmt|;
 annotation|@
 name|Rule
@@ -1140,8 +1218,6 @@ argument_list|)
 argument_list|)
 decl_stmt|;
 comment|// Restart the executor and execute the step twice
-comment|// NOTE: the 7 (number of TruncateTableState steps) is hardcoded,
-comment|//       so you have to look at this test at least once when you add a new step.
 name|MasterProcedureTestingUtility
 operator|.
 name|testRecoveryAndDoubleExecution
@@ -1149,8 +1225,6 @@ argument_list|(
 name|procExec
 argument_list|,
 name|procId
-argument_list|,
-literal|7
 argument_list|)
 expr_stmt|;
 name|ProcedureTestingUtility

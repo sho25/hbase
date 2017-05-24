@@ -381,22 +381,6 @@ name|hbase
 operator|.
 name|master
 operator|.
-name|AssignmentManager
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|master
-operator|.
 name|MasterCoprocessorHost
 import|;
 end_import
@@ -743,7 +727,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"waiting for '"
+literal|"Waiting for '"
 operator|+
 name|getTableName
 argument_list|()
@@ -753,12 +737,16 @@ argument_list|)
 expr_stmt|;
 name|regions
 operator|=
-name|ProcedureSyncWait
-operator|.
-name|getRegionsFromMeta
-argument_list|(
 name|env
-argument_list|,
+operator|.
+name|getAssignmentManager
+argument_list|()
+operator|.
+name|getRegionStates
+argument_list|()
+operator|.
+name|getRegionsOfTable
+argument_list|(
 name|getTableName
 argument_list|()
 argument_list|)
@@ -2323,18 +2311,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-specifier|final
-name|AssignmentManager
-name|am
-init|=
-name|env
-operator|.
-name|getMasterServices
-argument_list|()
-operator|.
-name|getAssignmentManager
-argument_list|()
-decl_stmt|;
 comment|// Clean up regions of the table in RegionStates.
 name|LOG
 operator|.
@@ -2347,12 +2323,15 @@ operator|+
 literal|"' from region states."
 argument_list|)
 expr_stmt|;
-name|am
+name|env
 operator|.
-name|getRegionStates
+name|getMasterServices
 argument_list|()
 operator|.
-name|tableDeleted
+name|getAssignmentManager
+argument_list|()
+operator|.
+name|deleteTable
 argument_list|(
 name|tableName
 argument_list|)

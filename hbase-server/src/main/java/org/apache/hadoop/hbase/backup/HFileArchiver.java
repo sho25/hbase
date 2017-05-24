@@ -195,20 +195,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HBaseInterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HRegionInfo
 import|;
 end_import
@@ -490,6 +476,55 @@ name|HFileArchiver
 parameter_list|()
 block|{
 comment|// hidden ctor since this is just a util
+block|}
+comment|/**    * @return True if the Region exits in the filesystem.    */
+specifier|public
+specifier|static
+name|boolean
+name|exists
+parameter_list|(
+name|Configuration
+name|conf
+parameter_list|,
+name|FileSystem
+name|fs
+parameter_list|,
+name|HRegionInfo
+name|info
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|Path
+name|rootDir
+init|=
+name|FSUtils
+operator|.
+name|getRootDir
+argument_list|(
+name|conf
+argument_list|)
+decl_stmt|;
+name|Path
+name|regionDir
+init|=
+name|HRegion
+operator|.
+name|getRegionDir
+argument_list|(
+name|rootDir
+argument_list|,
+name|info
+argument_list|)
+decl_stmt|;
+return|return
+name|fs
+operator|.
+name|exists
+argument_list|(
+name|regionDir
+argument_list|)
+return|;
 block|}
 comment|/**    * Cleans up all the files for a HRegion by archiving the HFiles to the    * archive directory    * @param conf the configuration to use    * @param fs the file system object    * @param info HRegionInfo for region to be deleted    * @throws IOException    */
 specifier|public
@@ -775,11 +810,11 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Region directory ("
+literal|"Region directory "
 operator|+
 name|regionDir
 operator|+
-literal|") was empty, just deleting and returning!"
+literal|" empty."
 argument_list|)
 expr_stmt|;
 return|return
@@ -2257,7 +2292,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Deleted all region files in: "
+literal|"Deleted "
 operator|+
 name|regionDir
 argument_list|)

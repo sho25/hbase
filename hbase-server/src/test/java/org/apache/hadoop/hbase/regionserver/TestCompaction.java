@@ -2151,11 +2151,11 @@ name|getBaseConf
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|CompactSplitThread
+name|CompactSplit
 name|thread
 init|=
 operator|new
-name|CompactSplitThread
+name|CompactSplit
 argument_list|(
 name|mockServer
 argument_list|)
@@ -2303,11 +2303,11 @@ name|getBaseConf
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|CompactSplitThread
+name|CompactSplit
 name|thread
 init|=
 operator|new
-name|CompactSplitThread
+name|CompactSplit
 argument_list|(
 name|mockServer
 argument_list|)
@@ -2521,7 +2521,7 @@ name|preFailedCount
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * HBASE-7947: Regression test to ensure adding to the correct list in the    * {@link CompactSplitThread}    * @throws Exception on failure    */
+comment|/**    * HBASE-7947: Regression test to ensure adding to the correct list in the    * {@link CompactSplit}    * @throws Exception on failure    */
 annotation|@
 name|Test
 specifier|public
@@ -2562,11 +2562,11 @@ name|getBaseConf
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|CompactSplitThread
+name|CompactSplit
 name|thread
 init|=
 operator|new
-name|CompactSplitThread
+name|CompactSplit
 argument_list|(
 name|mockServer
 argument_list|)
@@ -3504,11 +3504,11 @@ literal|"test"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|CompactSplitThread
+name|CompactSplit
 name|cst
 init|=
 operator|new
-name|CompactSplitThread
+name|CompactSplit
 argument_list|(
 name|mockServer
 argument_list|)

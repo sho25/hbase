@@ -1945,6 +1945,22 @@ parameter_list|)
 throws|throws
 name|KeeperException
 block|{
+if|if
+condition|(
+name|serverName
+operator|==
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Tried to set null ServerName in hbase:meta; skipping -- ServerName required"
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 name|LOG
 operator|.
 name|info

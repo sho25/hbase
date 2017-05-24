@@ -101,16 +101,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|Deque
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|List
 import|;
 end_import
@@ -564,6 +554,16 @@ operator|.
 name|junit
 operator|.
 name|BeforeClass
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|Ignore
 import|;
 end_import
 

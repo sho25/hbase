@@ -222,7 +222,7 @@ specifier|final
 name|String
 name|SIMPLE_SIGNATURE
 init|=
-literal|"simle_test"
+literal|"simple_test"
 decl_stmt|;
 specifier|public
 specifier|static

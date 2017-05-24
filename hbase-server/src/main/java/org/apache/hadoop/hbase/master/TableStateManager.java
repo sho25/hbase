@@ -882,6 +882,7 @@ operator|.
 name|META_TABLE_NAME
 argument_list|)
 condition|)
+block|{
 return|return
 operator|new
 name|TableState
@@ -895,6 +896,7 @@ operator|.
 name|ENABLED
 argument_list|)
 return|;
+block|}
 return|return
 name|MetaTableAccessor
 operator|.

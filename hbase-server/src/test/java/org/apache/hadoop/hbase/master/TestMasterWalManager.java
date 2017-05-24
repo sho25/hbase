@@ -559,11 +559,6 @@ operator|.
 name|Owned
 argument_list|(
 name|inRecoveryServerName
-argument_list|,
-name|mwm
-operator|.
-name|getLogRecoveryMode
-argument_list|()
 argument_list|)
 operator|.
 name|toByteArray

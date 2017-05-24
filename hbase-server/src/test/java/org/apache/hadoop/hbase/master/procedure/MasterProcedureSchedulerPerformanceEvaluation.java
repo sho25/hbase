@@ -457,7 +457,7 @@ argument_list|()
 argument_list|,
 name|TableOperationType
 operator|.
-name|UNASSIGN
+name|REGION_UNASSIGN
 argument_list|,
 name|hri
 argument_list|)

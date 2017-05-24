@@ -131,7 +131,7 @@ decl_stmt|;
 specifier|private
 specifier|final
 name|ReentrantLock
-name|schedLock
+name|schedulerLock
 init|=
 operator|new
 name|ReentrantLock
@@ -142,7 +142,7 @@ specifier|final
 name|Condition
 name|schedWaitCond
 init|=
-name|schedLock
+name|schedulerLock
 operator|.
 name|newCondition
 argument_list|()
@@ -315,7 +315,7 @@ name|boolean
 name|notify
 parameter_list|)
 block|{
-name|schedLock
+name|schedulerLock
 operator|.
 name|lock
 argument_list|()
@@ -343,7 +343,7 @@ block|}
 block|}
 finally|finally
 block|{
-name|schedLock
+name|schedulerLock
 operator|.
 name|unlock
 argument_list|()
@@ -696,7 +696,7 @@ parameter_list|)
 block|{
 specifier|final
 name|boolean
-name|isTraceEnabled
+name|traceEnabled
 init|=
 name|LOG
 operator|.
@@ -717,14 +717,14 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|isTraceEnabled
+name|traceEnabled
 condition|)
 block|{
 name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Suspend event "
+literal|"Suspend "
 operator|+
 name|event
 argument_list|)
@@ -769,7 +769,7 @@ parameter_list|)
 block|{
 specifier|final
 name|boolean
-name|isTraceEnabled
+name|traceEnabled
 init|=
 name|LOG
 operator|.
@@ -815,6 +815,18 @@ init|(
 name|event
 init|)
 block|{
+if|if
+condition|(
+operator|!
+name|event
+operator|.
+name|isReady
+argument_list|()
+condition|)
+block|{
+comment|// Only set ready if we were not ready; i.e. suspended. Otherwise, we double-wake
+comment|// on this event and down in wakeWaitingProcedures, we double decrement this
+comment|// finish which messes up child procedure accounting.
 name|event
 operator|.
 name|setReady
@@ -824,14 +836,14 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|isTraceEnabled
+name|traceEnabled
 condition|)
 block|{
 name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Wake event "
+literal|"Unsuspend "
 operator|+
 name|event
 argument_list|)
@@ -847,6 +859,56 @@ name|getSuspendedProcedures
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|ProcedureDeque
+name|q
+init|=
+name|event
+operator|.
+name|getSuspendedProcedures
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|q
+operator|!=
+literal|null
+operator|&&
+operator|!
+name|q
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Q is not empty! size="
+operator|+
+name|q
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|"; PROCESSING..."
+argument_list|)
+expr_stmt|;
+name|waitingCount
+operator|+=
+name|wakeWaitingProcedures
+argument_list|(
+name|event
+operator|.
+name|getSuspendedProcedures
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 block|}
 block|}
 name|wakePollIfNeeded
@@ -935,6 +997,22 @@ name|Procedure
 name|procedure
 parameter_list|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Wake "
+operator|+
+name|procedure
+argument_list|)
+expr_stmt|;
 name|push
 argument_list|(
 name|procedure
@@ -955,7 +1033,7 @@ name|void
 name|schedLock
 parameter_list|()
 block|{
-name|schedLock
+name|schedulerLock
 operator|.
 name|lock
 argument_list|()
@@ -966,7 +1044,7 @@ name|void
 name|schedUnlock
 parameter_list|()
 block|{
-name|schedLock
+name|schedulerLock
 operator|.
 name|unlock
 argument_list|()

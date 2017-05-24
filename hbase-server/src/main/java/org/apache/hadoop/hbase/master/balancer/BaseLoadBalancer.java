@@ -554,7 +554,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The base class for load balancers. It provides functions used by  * {@link org.apache.hadoop.hbase.master.AssignmentManager} to assign regions in the edge cases.  * It doesn't provide an implementation of the actual balancing algorithm.  */
+comment|/**  * The base class for load balancers. It provides the the functions used to by  * {@link org.apache.hadoop.hbase.master.assignment.AssignmentManager} to assign regions  * in the edge cases. It doesn't provide an implementation of the  * actual balancing algorithm.  *  */
 end_comment
 
 begin_class
@@ -1127,13 +1127,55 @@ control|)
 block|{
 if|if
 condition|(
+name|sn
+operator|==
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"TODO: Enable TRACE on BaseLoadBalancer. Empty servername); "
+operator|+
+literal|"skipping; unassigned regions?"
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"EMPTY SERVERNAME "
+operator|+
+name|clusterState
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+continue|continue;
+block|}
+if|if
+condition|(
 name|serversToIndex
 operator|.
 name|get
 argument_list|(
 name|sn
 operator|.
-name|getHostAndPort
+name|getAddress
+argument_list|()
+operator|.
+name|toString
 argument_list|()
 argument_list|)
 operator|==
@@ -1555,6 +1597,30 @@ name|entrySet
 argument_list|()
 control|)
 block|{
+if|if
+condition|(
+name|entry
+operator|.
+name|getKey
+argument_list|()
+operator|==
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"SERVERNAME IS NULL, skipping "
+operator|+
+name|entry
+operator|.
+name|getValue
+argument_list|()
+argument_list|)
+expr_stmt|;
+continue|continue;
+block|}
 name|int
 name|serverIndex
 init|=
@@ -3850,7 +3916,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**      * Return true if the placement of region on server would lower the availability      * of the region in question      * @param server      * @param region      * @return true or false      */
+comment|/**      * Return true if the placement of region on server would lower the availability      * of the region in question      * @return true or false      */
 name|boolean
 name|wouldLowerAvailability
 parameter_list|(
@@ -5684,9 +5750,17 @@ operator|-
 literal|1
 condition|)
 block|{
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"Pick the least loaded server "
 operator|+
@@ -5704,8 +5778,12 @@ name|regions
 index|[
 name|region
 index|]
+operator|.
+name|getShortNameToLog
+argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 return|return
 name|leastLoadedServerIndex

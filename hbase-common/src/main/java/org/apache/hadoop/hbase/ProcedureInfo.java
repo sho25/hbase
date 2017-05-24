@@ -357,13 +357,6 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|"Procedure="
-argument_list|)
-expr_stmt|;
-name|sb
-operator|.
-name|append
-argument_list|(
 name|procName
 argument_list|)
 expr_stmt|;
@@ -371,7 +364,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|" (id="
+literal|" pid="
 argument_list|)
 expr_stmt|;
 name|sb
@@ -391,7 +384,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|", parent="
+literal|", ppid="
 argument_list|)
 expr_stmt|;
 name|sb
@@ -527,13 +520,6 @@ literal|"\""
 argument_list|)
 expr_stmt|;
 block|}
-name|sb
-operator|.
-name|append
-argument_list|(
-literal|")"
-argument_list|)
-expr_stmt|;
 return|return
 name|sb
 operator|.
