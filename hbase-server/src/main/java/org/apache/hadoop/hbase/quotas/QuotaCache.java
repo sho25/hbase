@@ -836,7 +836,7 @@ name|this
 operator|.
 name|tableQuotaCache
 operator|.
-name|contains
+name|containsKey
 argument_list|(
 name|table
 argument_list|)
@@ -875,7 +875,7 @@ name|this
 operator|.
 name|namespaceQuotaCache
 operator|.
-name|contains
+name|containsKey
 argument_list|(
 name|ns
 argument_list|)
