@@ -240,8 +240,8 @@ name|int
 name|getNumThreads
 parameter_list|()
 function_decl|;
-comment|/**    * Set the number of procedure running.    * This can be used, for example, by the store to know how long to wait before a sync.    * @return how many procedures are running (may not be same as<code>count</code>).    */
-name|int
+comment|/**    * Set the number of procedure running.    * This can be used, for example, by the store to know how long to wait before a sync.    */
+name|void
 name|setRunningProcedureCount
 parameter_list|(
 name|int

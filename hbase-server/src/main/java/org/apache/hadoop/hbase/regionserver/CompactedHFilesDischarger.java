@@ -192,7 +192,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A chore service that periodically cleans up the compacted files when there are no active readers  * using those compacted files and also helps in clearing the block cache of these compacted  * file entries.  */
+comment|/**  * A chore service that periodically cleans up the compacted files when there are no active readers  * using those compacted files and also helps in clearing the block cache with these compacted  * file entries  */
 end_comment
 
 begin_class
@@ -307,34 +307,6 @@ operator|=
 name|useExecutor
 expr_stmt|;
 block|}
-comment|/**    * CompactedHFilesDischarger runs asynchronously by default using the hosting    * RegionServer's Executor. In tests it can be useful to force a synchronous    * cleanup. Use this method to set no-executor before you call run.    * @return The old setting for<code>useExecutor</code>    */
-annotation|@
-name|VisibleForTesting
-name|boolean
-name|setUseExecutor
-parameter_list|(
-specifier|final
-name|boolean
-name|useExecutor
-parameter_list|)
-block|{
-name|boolean
-name|oldSetting
-init|=
-name|this
-operator|.
-name|useExecutor
-decl_stmt|;
-name|this
-operator|.
-name|useExecutor
-operator|=
-name|useExecutor
-expr_stmt|;
-return|return
-name|oldSetting
-return|;
-block|}
 annotation|@
 name|Override
 specifier|public
@@ -365,10 +337,10 @@ decl_stmt|;
 if|if
 condition|(
 name|onlineRegions
-operator|==
+operator|!=
 literal|null
 condition|)
-return|return;
+block|{
 for|for
 control|(
 name|Region
@@ -389,7 +361,7 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Started compacted hfiles cleaner on "
+literal|"Started the compacted hfiles cleaner for the region "
 operator|+
 name|region
 operator|.
@@ -544,6 +516,7 @@ name|getRegionInfo
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}

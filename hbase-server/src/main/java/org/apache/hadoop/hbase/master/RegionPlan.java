@@ -421,7 +421,7 @@ operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
-literal|", source="
+literal|", src="
 operator|+
 operator|(
 name|this
@@ -440,7 +440,7 @@ name|toString
 argument_list|()
 operator|)
 operator|+
-literal|", destination="
+literal|", dest="
 operator|+
 operator|(
 name|this

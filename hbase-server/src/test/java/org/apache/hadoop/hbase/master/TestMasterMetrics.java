@@ -283,16 +283,6 @@ name|org
 operator|.
 name|junit
 operator|.
-name|Ignore
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
 name|Test
 import|;
 end_import
@@ -405,7 +395,21 @@ name|cp
 argument_list|)
 expr_stmt|;
 block|}
-comment|/*     @Override     protected void tryRegionServerReport(         long reportStartTime, long reportEndTime) {       // do nothing     } */
+annotation|@
+name|Override
+specifier|protected
+name|void
+name|tryRegionServerReport
+parameter_list|(
+name|long
+name|reportStartTime
+parameter_list|,
+name|long
+name|reportEndTime
+parameter_list|)
+block|{
+comment|// do nothing
+block|}
 block|}
 annotation|@
 name|BeforeClass
@@ -500,8 +504,6 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-annotation|@
-name|Ignore
 annotation|@
 name|Test
 argument_list|(
@@ -707,8 +709,6 @@ name|stopMaster
 argument_list|()
 expr_stmt|;
 block|}
-annotation|@
-name|Ignore
 annotation|@
 name|Test
 specifier|public

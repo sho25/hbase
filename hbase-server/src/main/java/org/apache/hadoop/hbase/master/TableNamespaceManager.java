@@ -1786,8 +1786,8 @@ name|boolean
 name|isTableAssigned
 parameter_list|()
 block|{
-comment|// TODO: we have a better way now (wait on event)
 return|return
+operator|!
 name|masterServices
 operator|.
 name|getAssignmentManager
@@ -1796,12 +1796,15 @@ operator|.
 name|getRegionStates
 argument_list|()
 operator|.
-name|hasTableRegionStates
+name|getRegionsOfTable
 argument_list|(
 name|TableName
 operator|.
 name|NAMESPACE_TABLE_NAME
 argument_list|)
+operator|.
+name|isEmpty
+argument_list|()
 return|;
 block|}
 specifier|public

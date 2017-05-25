@@ -590,16 +590,6 @@ name|boolean
 name|isReadOnly
 parameter_list|()
 function_decl|;
-comment|/** @return true if region is splittable */
-name|boolean
-name|isSplittable
-parameter_list|()
-function_decl|;
-comment|/**    * @return true if region is mergeable    */
-name|boolean
-name|isMergeable
-parameter_list|()
-function_decl|;
 comment|/**    * Return the list of Stores managed by this region    *<p>Use with caution.  Exposed for use of fixup utilities.    * @return a list of the Stores managed by this region    */
 name|List
 argument_list|<

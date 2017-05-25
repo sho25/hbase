@@ -247,8 +247,6 @@ name|hbase
 operator|.
 name|master
 operator|.
-name|assignment
-operator|.
 name|AssignmentManager
 import|;
 end_import

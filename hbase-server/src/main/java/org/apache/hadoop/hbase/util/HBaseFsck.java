@@ -3527,7 +3527,7 @@ name|getRegionsCount
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|List
+name|Set
 argument_list|<
 name|RegionState
 argument_list|>

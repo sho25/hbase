@@ -83,34 +83,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|Log
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|LogFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -256,7 +228,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Base Procedure class responsible for Procedure Metadata;  * e.g. state, submittedTime, lastUpdate, stack-indexes, etc.  *  *<p>Procedures are run by a {@link ProcedureExecutor} instance. They are submitted and then  * the ProcedureExecutor keeps calling {@link #execute(Object)} until the Procedure is done.  * Execute may be called multiple times in the case of failure or a restart, so code must be  * idempotent. The return from an execute call is either: null to indicate we are done;  * ourself if there is more to do; or, a set of sub-procedures that need to  * be run to completion before the framework resumes our execution.  *  *<p>The ProcedureExecutor keeps its  * notion of Procedure State in the Procedure itself; e.g. it stamps the Procedure as INITIALIZING,  * RUNNABLE, SUCCESS, etc. Here are some of the States defined in the ProcedureState enum from  * protos:  *<ul>  *<li>{@link #isFailed()} A procedure has executed at least once and has failed. The procedure  * may or may not have rolled back yet. Any procedure in FAILED state will be eventually moved  * to ROLLEDBACK state.</li>  *  *<li>{@link #isSuccess()} A procedure is completed successfully without exception.</li>  *  *<li>{@link #isFinished()} As a procedure in FAILED state will be tried forever for rollback, only  * condition when scheduler/ executor will drop procedure from further processing is when procedure  * state is ROLLEDBACK or isSuccess() returns true. This is a terminal state of the procedure.</li>  *  *<li>{@link #isWaiting()} - Procedure is in one of the two waiting states  * ({@link ProcedureState#WAITING}, {@link ProcedureState#WAITING_TIMEOUT}).</li>  *</ul>  * NOTE: This states are of the ProcedureExecutor. Procedure implementations in turn can keep  * their own state. This can lead to confusion. Try to keep the two distinct.  *  *<p>rollback() is called when the procedure or one of the sub-procedures  * has failed. The rollback step is supposed to cleanup the resources created  * during the execute() step. In case of failure and restart, rollback() may be  * called multiple times, so again the code must be idempotent.  *  *<p>Procedure can be made respect a locking regime. It has acqure/release methods as  * well as an {@link #hasLock(Object)}. The lock implementation is up to the implementor.  * If an entity needs to be locked for the life of a procedure -- not just the calls to  * execute -- then implementations should say so with the {@link #holdLock(Object)}  * method.  *  *<p>There are hooks for collecting metrics on submit of the procedure and on finish.  * See {@link #updateMetricsOnSubmit(Object)} and  * {@link #updateMetricsOnFinish(Object, long, boolean)}.  */
+comment|/**  * Base Procedure class responsible to handle the Procedure Metadata  * e.g. state, submittedTime, lastUpdate, stack-indexes, ...  *  * execute() is called each time the procedure is executed.  * it may be called multiple times in case of failure and restart, so the  * code must be idempotent.  * the return is a set of sub-procedures or null in case the procedure doesn't  * have sub-procedures. Once the sub-procedures are successfully completed  * the execute() method is called again, you should think at it as a stack:  *  -&gt; step 1  *  ---&gt; step 2  *  -&gt; step 1  *  * rollback() is called when the procedure or one of the sub-procedures is failed.  * the rollback step is supposed to cleanup the resources created during the  * execute() step. in case of failure and restart rollback() may be called  * multiple times, so the code must be idempotent.  */
 end_comment
 
 begin_class
@@ -279,26 +251,8 @@ implements|implements
 name|Comparable
 argument_list|<
 name|Procedure
-argument_list|<
-name|TEnvironment
-argument_list|>
 argument_list|>
 block|{
-specifier|private
-specifier|static
-specifier|final
-name|Log
-name|LOG
-init|=
-name|LogFactory
-operator|.
-name|getLog
-argument_list|(
-name|Procedure
-operator|.
-name|class
-argument_list|)
-decl_stmt|;
 specifier|public
 specifier|static
 specifier|final
@@ -323,15 +277,15 @@ name|LockState
 block|{
 name|LOCK_ACQUIRED
 block|,
-comment|// Lock acquired and ready to execute
+comment|// lock acquired and ready to execute
 name|LOCK_YIELD_WAIT
 block|,
-comment|// Lock not acquired, framework needs to yield
+comment|// lock not acquired, framework needs to yield
 name|LOCK_EVENT_WAIT
 block|,
-comment|// Lock not acquired, an event will yield the procedure
+comment|// lock not acquired, an event will yield the procedure
 block|}
-comment|// Unchanged after initialization
+comment|// unchanged after initialization
 specifier|private
 name|NonceKey
 name|nonceKey
@@ -366,7 +320,7 @@ specifier|private
 name|long
 name|submittedTime
 decl_stmt|;
-comment|// Runtime state, updated every operation
+comment|// runtime state, updated every operation
 specifier|private
 name|ProcedureState
 name|state
@@ -414,13 +368,10 @@ name|result
 init|=
 literal|null
 decl_stmt|;
-comment|/**    * The main code of the procedure. It must be idempotent since execute()    * may be called multiple times in case of machine failure in the middle    * of the execution.    * @param env the environment passed to the ProcedureExecutor    * @return a set of sub-procedures to run or ourselves if there is more work to do or null if the    * procedure is done.    * @throws ProcedureYieldException the procedure will be added back to the queue and retried later.    * @throws InterruptedException the procedure will be added back to the queue and retried later.    * @throws ProcedureSuspendedException Signal to the executor that Procedure has suspended itself and    * has set itself up waiting for an external event to wake it back up again.    */
+comment|/**    * The main code of the procedure. It must be idempotent since execute()    * may be called multiple time in case of machine failure in the middle    * of the execution.    * @param env the environment passed to the ProcedureExecutor    * @return a set of sub-procedures or null if there is nothing else to execute.    * @throws ProcedureYieldException the procedure will be added back to the queue and retried later    * @throws InterruptedException the procedure will be added back to the queue and retried later    */
 specifier|protected
 specifier|abstract
 name|Procedure
-argument_list|<
-name|TEnvironment
-argument_list|>
 index|[]
 name|execute
 parameter_list|(
@@ -434,7 +385,7 @@ name|ProcedureSuspendedException
 throws|,
 name|InterruptedException
 function_decl|;
-comment|/**    * The code to undo what was done by the execute() code.    * It is called when the procedure or one of the sub-procedures failed or an    * abort was requested. It should cleanup all the resources created by    * the execute() call. The implementation must be idempotent since rollback()    * may be called multiple time in case of machine failure in the middle    * of the execution.    * @param env the environment passed to the ProcedureExecutor    * @throws IOException temporary failure, the rollback will retry later    * @throws InterruptedException the procedure will be added back to the queue and retried later    */
+comment|/**    * The code to undo what done by the execute() code.    * It is called when the procedure or one of the sub-procedure failed or an    * abort was requested. It should cleanup all the resources created by    * the execute() call. The implementation must be idempotent since rollback()    * may be called multiple time in case of machine failure in the middle    * of the execution.    * @param env the environment passed to the ProcedureExecutor    * @throws IOException temporary failure, the rollback will retry later    * @throws InterruptedException the procedure will be added back to the queue and retried later    */
 specifier|protected
 specifier|abstract
 name|void
@@ -448,7 +399,7 @@ name|IOException
 throws|,
 name|InterruptedException
 function_decl|;
-comment|/**    * The abort() call is asynchronous and each procedure must decide how to deal    * with it, if they want to be abortable. The simplest implementation    * is to have an AtomicBoolean set in the abort() method and then the execute()    * will check if the abort flag is set or not.    * abort() may be called multiple times from the client, so the implementation    * must be idempotent.    *    *<p>NOTE: abort() is not like Thread.interrupt(). It is just a notification    * that allows the procedure implementor abort.    */
+comment|/**    * The abort() call is asynchronous and each procedure must decide how to deal    * with that, if they want to be abortable. The simplest implementation    * is to have an AtomicBoolean set in the abort() method and then the execute()    * will check if the abort flag is set or not.    * abort() may be called multiple times from the client, so the implementation    * must be idempotent.    *    * NOTE: abort() is not like Thread.interrupt() it is just a notification    * that allows the procedure implementor where to abort to avoid leak and    * have a better control on what was executed and what not.    */
 specifier|protected
 specifier|abstract
 name|boolean
@@ -458,7 +409,7 @@ name|TEnvironment
 name|env
 parameter_list|)
 function_decl|;
-comment|/**    * The user-level code of the procedure may have some state to    * persist (e.g. input arguments or current position in the processing state) to    * be able to resume on failure.    * @param stream the stream that will contain the user serialized data    */
+comment|/**    * The user-level code of the procedure may have some state to    * persist (e.g. input arguments) to be able to resume on failure.    * @param stream the stream that will contain the user serialized data    */
 specifier|protected
 specifier|abstract
 name|void
@@ -484,7 +435,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * The user should override this method if they need a lock on an Entity.    * A lock can be anything, and it is up to the implementor. The Procedure    * Framework will call this method just before it invokes {@link #execute(Object)}.    * It calls {@link #releaseLock(Object)} after the call to execute.    *     *<p>If you need to hold the lock for the life of the Procdure -- i.e. you do not    * want any other Procedure interfering while this Procedure is running, see    * {@link #holdLock(Object)}.    *    *<p>Example: in our Master we can execute request in parallel for different tables.    * We can create t1 and create t2 and these creates can be executed at the same time.    * Anything else on t1/t2 is queued waiting that specific table create to happen.    *    *<p>There are 3 LockState:    *<ul><li>LOCK_ACQUIRED should be returned when the proc has the lock and the proc is    * ready to execute.</li>    *<li>LOCK_YIELD_WAIT should be returned when the proc has not the lock and the framework    * should take care of readding the procedure back to the runnable set for retry</li>    *<li>LOCK_EVENT_WAIT should be returned when the proc has not the lock and someone will    * take care of readding the procedure back to the runnable set when the lock is available.    *</li></ul>    * @return the lock state as described above.    */
+comment|/**    * The user should override this method, and try to take a lock if necessary.    * A lock can be anything, and it is up to the implementor.    *    *<p>Example: in our Master we can execute request in parallel for different tables.    * We can create t1 and create t2 and this can be executed at the same time.    * Anything else on t1/t2 is queued waiting that specific table create to happen.    *    *<p>There are 3 LockState:    *<ul><li>LOCK_ACQUIRED should be returned when the proc has the lock and the proc is    * ready to execute.</li>    *<li>LOCK_YIELD_WAIT should be returned when the proc has not the lock and the framework    * should take care of readding the procedure back to the runnable set for retry</li>    *<li>LOCK_EVENT_WAIT should be returned when the proc has not the lock and someone will    * take care of readding the procedure back to the runnable set when the lock is available.    *</li></ul>    * @return the lock state as described above.    */
 specifier|protected
 name|LockState
 name|acquireLock
@@ -512,7 +463,7 @@ parameter_list|)
 block|{
 comment|// no-op
 block|}
-comment|/**    * Used to keep the procedure lock even when the procedure is yielding or suspended.    * Must implement {@link #hasLock(Object)} if you want to hold the lock for life    * of the Procedure.    * @see #hasLock(Object)    * @return true if the procedure should hold on the lock until completionCleanup()    */
+comment|/**    * Used to keep the procedure lock even when the procedure is yielding or suspended.    * @return true if the procedure should hold on the lock until completionCleanup()    */
 specifier|protected
 name|boolean
 name|holdLock
@@ -526,7 +477,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * This is used in conjunction with {@link #holdLock(Object)}. If {@link #holdLock(Object)}    * returns true, the procedure executor will call acquireLock() once and thereafter    * not call {@link #releaseLock(Object)} until the Procedure is done (Normally, it calls    * release/acquire around each invocation of {@link #execute(Object)}.    * @see #holdLock(Object)    * @return true if the procedure has the lock, false otherwise.    */
+comment|/**    * This is used in conjuction with holdLock(). If holdLock() is true    * the procedure executor will not call acquireLock() if hasLock() is true.    * @return true if the procedure has the lock, false otherwise.    */
 specifier|protected
 name|boolean
 name|hasLock
@@ -564,7 +515,7 @@ parameter_list|)
 block|{
 comment|// no-op
 block|}
-comment|/**    * Called when the procedure is marked as completed (success or rollback).    * The procedure implementor may use this method to cleanup in-memory states.    * This operation will not be retried on failure. If a procedure took a lock,    * it will have been released when this method runs.    */
+comment|/**    * Called when the procedure is marked as completed (success or rollback).    * The procedure implementor may use this method to cleanup in-memory states.    * This operation will not be retried on failure.    */
 specifier|protected
 name|void
 name|completionCleanup
@@ -576,7 +527,7 @@ parameter_list|)
 block|{
 comment|// no-op
 block|}
-comment|/**    * By default, the procedure framework/executor will try to run procedures start to finish.    * Return true to make the executor yield between each execution step to    * give other procedures a chance to run.    * @param env the environment passed to the ProcedureExecutor    * @return Return true if the executor should yield on completion of an execution step.    *         Defaults to return false.    */
+comment|/**    * By default, the executor will try to run procedures start to finish.    * Return true to make the executor yield between each execution step to    * give other procedures a chance to run.    * @param env the environment passed to the ProcedureExecutor    * @return Return true if the executor should yield on completion of an execution step.    *         Defaults to return false.    */
 specifier|protected
 name|boolean
 name|isYieldAfterExecutionStep
@@ -665,7 +616,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|"pid="
+literal|"procId="
 argument_list|)
 expr_stmt|;
 name|sb
@@ -686,7 +637,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|", ppid="
+literal|", parentProcId="
 argument_list|)
 expr_stmt|;
 name|sb
@@ -698,7 +649,28 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**      * Enable later when this is being used.      * Currently owner not used.     if (hasOwner()) {       sb.append(", owner=");       sb.append(getOwner());     }*/
+if|if
+condition|(
+name|hasOwner
+argument_list|()
+condition|)
+block|{
+name|sb
+operator|.
+name|append
+argument_list|(
+literal|", owner="
+argument_list|)
+expr_stmt|;
+name|sb
+operator|.
+name|append
+argument_list|(
+name|getOwner
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 name|sb
 operator|.
 name|append
@@ -706,7 +678,6 @@ argument_list|(
 literal|", state="
 argument_list|)
 expr_stmt|;
-comment|// pState for Procedure State as opposed to any other kind.
 name|toStringState
 argument_list|(
 name|sb
@@ -733,7 +704,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|"; "
+literal|", "
 argument_list|)
 expr_stmt|;
 name|toStringClassDetails
@@ -777,7 +748,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|", lastUpdate="
+literal|" lastUpdate="
 argument_list|)
 expr_stmt|;
 name|sb
@@ -861,7 +832,7 @@ name|toString
 argument_list|()
 return|;
 block|}
-comment|/**    * Called from {@link #toString()} when interpolating {@link Procedure} State.    * Allows decorating generic Procedure State with Procedure particulars.    * @param builder Append current {@link ProcedureState}    */
+comment|/**    * Called from {@link #toString()} when interpolating {@link Procedure} state    * @param builder Append current {@link ProcedureState}    */
 specifier|protected
 name|void
 name|toStringState
@@ -1326,6 +1297,7 @@ comment|//  The ProcedureExecutor may check and set states, or some Procecedure 
 comment|//  update its own state. but no concurrent updates. we use synchronized here
 comment|//  just because the procedure can get scheduled on different executor threads on each step.
 comment|// ==============================================================================================
+comment|/**    * Procedure has states which are defined in proto file. At some places in the code, we    * need to determine more about those states. Following Methods help determine:    *    * {@link #isFailed()} - A procedure has executed at least once and has failed. The procedure    *                       may or may not have rolled back yet. Any procedure in FAILED state    *                       will be eventually moved to ROLLEDBACK state.    *    * {@link #isSuccess()} - A procedure is completed successfully without any exception.    *    * {@link #isFinished()} - As a procedure in FAILED state will be tried forever for rollback, only    *                         condition when scheduler/ executor will drop procedure from further    *                         processing is when procedure state is ROLLEDBACK or isSuccess()    *                         returns true. This is a terminal state of the procedure.    *    * {@link #isWaiting()} - Procedure is in one of the two waiting states ({@link    *                        ProcedureState#WAITING}, {@link ProcedureState#WAITING_TIMEOUT}).    */
 comment|/**    * @return true if the procedure is in a RUNNABLE state.    */
 specifier|protected
 specifier|synchronized
@@ -1662,35 +1634,6 @@ name|childrenLatch
 operator|=
 name|numChildren
 expr_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|trace
-argument_list|(
-literal|"CHILD LATCH INCREMENT SET "
-operator|+
-name|this
-operator|.
-name|childrenLatch
-argument_list|,
-operator|new
-name|Throwable
-argument_list|(
-name|this
-operator|.
-name|toString
-argument_list|()
-argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 comment|/**    * Called by the ProcedureExecutor on procedure-load to restore the latch state    */
 annotation|@
@@ -1709,42 +1652,13 @@ operator|.
 name|childrenLatch
 operator|++
 expr_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|trace
-argument_list|(
-literal|"CHILD LATCH INCREMENT "
-operator|+
-name|this
-operator|.
-name|childrenLatch
-argument_list|,
-operator|new
-name|Throwable
-argument_list|(
-name|this
-operator|.
-name|toString
-argument_list|()
-argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 comment|/**    * Called by the ProcedureExecutor to notify that one of the sub-procedures has completed.    */
 annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
-specifier|private
+specifier|protected
 specifier|synchronized
 name|boolean
 name|childrenCountDown
@@ -1757,78 +1671,11 @@ literal|0
 operator|:
 name|this
 assert|;
-name|boolean
-name|b
-init|=
+return|return
 operator|--
 name|childrenLatch
 operator|==
 literal|0
-decl_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|trace
-argument_list|(
-literal|"CHILD LATCH DECREMENT "
-operator|+
-name|childrenLatch
-argument_list|,
-operator|new
-name|Throwable
-argument_list|(
-name|this
-operator|.
-name|toString
-argument_list|()
-argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
-return|return
-name|b
-return|;
-block|}
-comment|/**    * Try to set this procedure into RUNNABLE state.    * Succeeds if all subprocedures/children are done.    * @return True if we were able to move procedure to RUNNABLE state.    */
-specifier|synchronized
-name|boolean
-name|tryRunnable
-parameter_list|()
-block|{
-comment|// Don't use isWaiting in the below; it returns true for WAITING and WAITING_TIMEOUT
-name|boolean
-name|b
-init|=
-name|getState
-argument_list|()
-operator|==
-name|ProcedureState
-operator|.
-name|WAITING
-operator|&&
-name|childrenCountDown
-argument_list|()
-decl_stmt|;
-if|if
-condition|(
-name|b
-condition|)
-name|setState
-argument_list|(
-name|ProcedureState
-operator|.
-name|RUNNABLE
-argument_list|)
-expr_stmt|;
-return|return
-name|b
 return|;
 block|}
 annotation|@
@@ -2077,16 +1924,13 @@ block|}
 comment|// ==========================================================================
 comment|//  Internal methods - called by the ProcedureExecutor
 comment|// ==========================================================================
-comment|/**    * Internal method called by the ProcedureExecutor that starts the user-level code execute().    * @throws ProcedureSuspendedException This is used when procedure wants to halt processing and    * skip out without changing states or releasing any locks held.    */
+comment|/**    * Internal method called by the ProcedureExecutor that starts the user-level code execute().    */
 annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
 specifier|protected
 name|Procedure
-argument_list|<
-name|TEnvironment
-argument_list|>
 index|[]
 name|doExecute
 parameter_list|(
@@ -2205,9 +2049,6 @@ name|compareTo
 parameter_list|(
 specifier|final
 name|Procedure
-argument_list|<
-name|TEnvironment
-argument_list|>
 name|other
 parameter_list|)
 block|{
@@ -2295,9 +2136,6 @@ argument_list|>
 name|procedures
 parameter_list|,
 name|Procedure
-argument_list|<
-name|?
-argument_list|>
 name|proc
 parameter_list|)
 block|{
@@ -2346,16 +2184,10 @@ name|haveSameParent
 parameter_list|(
 specifier|final
 name|Procedure
-argument_list|<
-name|?
-argument_list|>
 name|a
 parameter_list|,
 specifier|final
 name|Procedure
-argument_list|<
-name|?
-argument_list|>
 name|b
 parameter_list|)
 block|{

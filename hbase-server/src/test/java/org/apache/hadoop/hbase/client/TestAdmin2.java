@@ -471,8 +471,6 @@ name|hbase
 operator|.
 name|master
 operator|.
-name|assignment
-operator|.
 name|AssignmentManager
 import|;
 end_import
@@ -3394,6 +3392,25 @@ operator|.
 name|getAssignmentManager
 argument_list|()
 decl_stmt|;
+name|assertTrue
+argument_list|(
+literal|"Region "
+operator|+
+name|hri
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|" should be assigned properly"
+argument_list|,
+name|am
+operator|.
+name|waitForAssignment
+argument_list|(
+name|hri
+argument_list|)
+argument_list|)
+expr_stmt|;
 name|ServerName
 name|server
 init|=

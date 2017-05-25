@@ -7622,16 +7622,7 @@ argument_list|,
 name|time
 argument_list|)
 decl_stmt|;
-comment|// The merged is a new region, openSeqNum = 1 is fine. ServerName may be null
-comment|// if crash after merge happened but before we got to here.. means in-memory
-comment|// locations of offlined merged, now-closed, regions is lost. Should be ok. We
-comment|// assign the merged region later.
-if|if
-condition|(
-name|sn
-operator|!=
-literal|null
-condition|)
+comment|// The merged is a new region, openSeqNum = 1 is fine.
 name|addLocation
 argument_list|(
 name|putOfMerged
@@ -9342,12 +9333,7 @@ name|debug
 argument_list|(
 literal|"Deleted "
 operator|+
-name|HRegionInfo
-operator|.
-name|getShortNameToLog
-argument_list|(
 name|regionsToRemove
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -9371,12 +9357,7 @@ name|debug
 argument_list|(
 literal|"Added "
 operator|+
-name|HRegionInfo
-operator|.
-name|getShortNameToLog
-argument_list|(
 name|regionsToAdd
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

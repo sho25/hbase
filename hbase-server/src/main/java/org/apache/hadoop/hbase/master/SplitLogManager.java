@@ -3453,15 +3453,15 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"total="
+literal|"total tasks = "
 operator|+
 name|tot
 operator|+
-literal|", unassigned="
+literal|" unassigned = "
 operator|+
 name|unassigned
 operator|+
-literal|", tasks="
+literal|" tasks="
 operator|+
 name|tasks
 argument_list|)

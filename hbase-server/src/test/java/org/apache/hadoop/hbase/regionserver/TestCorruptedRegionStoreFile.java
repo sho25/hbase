@@ -411,16 +411,6 @@ name|org
 operator|.
 name|junit
 operator|.
-name|Ignore
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
 name|Rule
 import|;
 end_import
@@ -473,13 +463,7 @@ name|assertTrue
 import|;
 end_import
 
-begin_comment
-comment|/**  * HBASE-13651 Handle StoreFileScanner FileNotFoundException  */
-end_comment
-
 begin_class
-annotation|@
-name|Ignore
 annotation|@
 name|Category
 argument_list|(

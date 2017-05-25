@@ -625,17 +625,9 @@ operator|.
 name|SECONDS
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
+name|info
 argument_list|(
 literal|"MobFileCache enabled with cacheSize="
 operator|+
@@ -650,7 +642,6 @@ operator|+
 name|evictRemainRatio
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 else|else
 block|{

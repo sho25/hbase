@@ -227,16 +227,6 @@ name|org
 operator|.
 name|junit
 operator|.
-name|Ignore
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
 name|Test
 import|;
 end_import
@@ -274,8 +264,6 @@ comment|/**  * This builds a table, builds an overlap, and then fails when attem
 end_comment
 
 begin_class
-annotation|@
-name|Ignore
 annotation|@
 name|Category
 argument_list|(

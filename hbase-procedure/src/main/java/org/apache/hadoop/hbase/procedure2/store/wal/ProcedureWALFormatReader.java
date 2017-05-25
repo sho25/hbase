@@ -325,11 +325,11 @@ comment|// so using the example above we end up with: [D, C, A, B] + [F, G] as r
 comment|//
 comment|//  Fast Start: INIT/INSERT record and StackIDs
 comment|// ---------------------------------------------
-comment|// We have two special records, INIT and INSERT, that track the first time
-comment|// the procedure was added to the WAL. We can use this information to be able
-comment|// to start procedures before reaching the end of the WAL, or before reading all WALs.
-comment|// But in some cases, the WAL with that record can be already gone.
-comment|// As an alternative, we can use the stackIds on each procedure,
+comment|// We have two special record, INIT and INSERT that tracks the first time
+comment|// the procedure was added to the WAL. We can use that information to be able
+comment|// to start procedures before reaching the end of the WAL, or before reading all the WALs.
+comment|// but in some cases the WAL with that record can be already gone.
+comment|// In alternative we can use the stackIds on each procedure,
 comment|// to identify when a procedure is ready to start.
 comment|// If there are gaps in the sum of the stackIds we need to read more WALs.
 comment|//
@@ -369,14 +369,14 @@ operator|.
 name|Loader
 name|loader
 decl_stmt|;
-comment|/**    * Global tracker that will be used by the WALProcedureStore after load.    * If the last WAL was closed cleanly we already have a full tracker ready to be used.    * If the last WAL was truncated (e.g. master killed) the tracker will be empty    * and the 'partial' flag will be set. In this case, on WAL replay we are going    * to rebuild the tracker.    */
+comment|/**    * Global tracker that will be used by the WALProcedureStore after load.    * If the last WAL was closed cleanly we already have a full tracker ready to be used.    * If the last WAL was truncated (e.g. master killed) the tracker will be empty    * and the 'partial' flag will be set. In this case on WAL replay we are going    * to rebuild the tracker.    */
 specifier|private
 specifier|final
 name|ProcedureStoreTracker
 name|tracker
 decl_stmt|;
-comment|// TODO: private final boolean hasFastStartSupport;
-comment|/**    * If tracker for a log file is partial (see {@link ProcedureStoreTracker#partial}), we    * re-build the list of procedures updated in that WAL because we need it for log cleaning    * purposes. If all procedures updated in a WAL are found to be obsolete, it can be safely deleted.    * (see {@link WALProcedureStore#removeInactiveLogs()}).    * However, we don't need deleted part of a WAL's tracker for this purpose, so we don't bother    * re-building it.    */
+comment|// private final boolean hasFastStartSupport;
+comment|/**    * If tracker for a log file is partial (see {@link ProcedureStoreTracker#partial}), we    * re-build the list of procedures updated in that WAL because we need it for log cleaning    * purpose. If all procedures updated in a WAL are found to be obsolete, it can be safely deleted.    * (see {@link WALProcedureStore#removeInactiveLogs()}).    * However, we don't need deleted part of a WAL's tracker for this purpose, so we don't bother    * re-building it.    */
 specifier|private
 name|ProcedureStoreTracker
 name|localTracker
@@ -455,7 +455,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Rebuilding tracker for "
+literal|"Rebuilding tracker for log - "
 operator|+
 name|log
 argument_list|)
@@ -502,9 +502,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Nothing left to decode. Exiting with missing EOF, log="
-operator|+
-name|log
+literal|"nothing left to decode. exiting with missing EOF"
 argument_list|)
 expr_stmt|;
 break|break;
@@ -587,7 +585,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"While reading procedure from "
+literal|"got an exception while reading the procedure WAL: "
 operator|+
 name|log
 argument_list|,
@@ -772,7 +770,7 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Read "
+literal|"read "
 operator|+
 name|entry
 operator|.
@@ -1226,7 +1224,7 @@ comment|//                       D               B
 comment|//      replayOrderHead = C<-> B<-> E<-> D<-> A<-> G
 comment|//
 comment|//  We also have a lazy grouping by "root procedure", and a list of
-comment|//  unlinked procedures. If after reading all the WALs we have unlinked
+comment|//  unlinked procedure. If after reading all the WALs we have unlinked
 comment|//  procedures it means that we had a missing WAL or a corruption.
 comment|//      rootHead = A<-> D<-> G
 comment|//                 B     E
@@ -2635,7 +2633,7 @@ return|return
 name|entry
 return|;
 block|}
-comment|/*      * (see the comprehensive explaination in the beginning of the file)      * A Procedure is ready when parent and children are ready.      * "ready" means that we all the information that we need in-memory.      *      * Example-1:      * We have two WALs, we start reading from the newest (wal-2)      *    wal-2 | C B |      *    wal-1 | A B C |      *      * If C and B don't depend on A (A is not the parent), we can start them      * before reading wal-1. If B is the only one with parent A we can start C.      * We have to read one more WAL before being able to start B.      *      * How do we know with the only information in B that we are not ready.      *  - easy case, the parent is missing from the global map      *  - more complex case we look at the Stack IDs.      *      * The Stack-IDs are added to the procedure order as incremental index      * tracking how many times that procedure was executed, which is equivalent      * at the number of times we wrote the procedure to the WAL.      * In the example above:      *   wal-2: B has stackId = [1, 2]      *   wal-1: B has stackId = [1]      *   wal-1: A has stackId = [0]      *      * Since we know that the Stack-IDs are incremental for a Procedure,      * we notice that there is a gap in the stackIds of B, so something was      * executed before.      * To identify when a Procedure is ready we do the sum of the stackIds of      * the procedure and the parent. if the stackIdSum is equals to the      * sum of {1..maxStackId} then everything we need is available.      *      * Example-2      *    wal-2 | A |              A stackIds = [0, 2]      *    wal-1 | A B |            B stackIds = [1]      *      * There is a gap between A stackIds so something was executed in between.      */
+comment|/*      * (see the comprehensive explaination in the beginning of the file)      * A Procedure is ready when parent and children are ready.      * "ready" means that we all the information that we need in-memory.      *      * Example-1:      * We have two WALs, we start reading fronm the newest (wal-2)      *    wal-2 | C B |      *    wal-1 | A B C |      *      * If C and B don't depend on A (A is not the parent), we can start them      * before reading wal-1. If B is the only one with parent A we can start C      * and read one more WAL before being able to start B.      *      * How do we know with the only information in B that we are not ready.      *  - easy case, the parent is missing from the global map      *  - more complex case we look at the Stack IDs      *      * The Stack-IDs are added to the procedure order as incremental index      * tracking how many times that procedure was executed, which is equivalent      * at the number of times we wrote the procedure to the WAL.      * In the example above:      *   wal-2: B has stackId = [1, 2]      *   wal-1: B has stackId = [1]      *   wal-1: A has stackId = [0]      *      * Since we know that the Stack-IDs are incremental for a Procedure,      * we notice that there is a gap in the stackIds of B, so something was      * executed before.      * To identify when a Procedure is ready we do the sum of the stackIds of      * the procedure and the parent. if the stackIdSum is equals to the      * sum of {1..maxStackId} then everything we need is avaiable.      *      * Example-2      *    wal-2 | A |              A stackIds = [0, 2]      *    wal-1 | A B |            B stackIds = [1]      *      * There is a gap between A stackIds so something was executed in between.      */
 specifier|private
 name|boolean
 name|checkReadyToRun
@@ -2663,7 +2661,7 @@ name|isFinished
 argument_list|()
 condition|)
 block|{
-comment|// If the root procedure is finished, sub-procedures should be gone
+comment|// if the root procedure is finished, sub-procedures should be gone
 if|if
 condition|(
 name|rootEntry

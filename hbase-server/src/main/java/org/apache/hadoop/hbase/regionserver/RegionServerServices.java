@@ -652,6 +652,31 @@ modifier|...
 name|hris
 parameter_list|)
 function_decl|;
+comment|/**    * Notify master that a region wants to be splitted.    */
+name|long
+name|requestRegionSplit
+parameter_list|(
+specifier|final
+name|HRegionInfo
+name|regionInfo
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|splitRow
+parameter_list|)
+function_decl|;
+comment|/**    * Check with master whether a procedure is completed (either succeed or fail)    */
+name|boolean
+name|isProcedureFinished
+parameter_list|(
+specifier|final
+name|long
+name|procId
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Returns a reference to the region server's RPC server    */
 name|RpcServerInterface
 name|getRpcServer

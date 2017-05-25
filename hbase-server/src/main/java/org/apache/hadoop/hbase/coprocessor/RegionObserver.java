@@ -1421,7 +1421,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called before the region is split.    * @param c the environment provided by the region server    * (e.getRegion() returns the parent region)    * @deprecated No longer called in hbase2/AMv2 given the master runs splits now;    * @see MasterObserver    */
+comment|/**    * Called before the region is split.    * @param c the environment provided by the region server    * (e.getRegion() returns the parent region)    * @deprecated Use preSplit(    *    final ObserverContext&lt;RegionCoprocessorEnvironment&gt; c, byte[] splitRow)    */
 annotation|@
 name|Deprecated
 specifier|default
@@ -1438,7 +1438,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called before the region is split.    * @param c the environment provided by the region server    * (e.getRegion() returns the parent region)    *    * Note: the logic moves to Master; it is unused in RS    * @deprecated No longer called in hbase2/AMv2 given the master runs splits now;    * @see MasterObserver    */
+comment|/**    * Called before the region is split.    * @param c the environment provided by the region server    * (e.getRegion() returns the parent region)    *    * Note: the logic moves to Master; it is unused in RS    */
 annotation|@
 name|Deprecated
 specifier|default
@@ -1459,7 +1459,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called after the region is split.    * @param c the environment provided by the region server    * (e.getRegion() returns the parent region)    * @param l the left daughter region    * @param r the right daughter region    * @deprecated No longer called in hbase2/AMv2 given the master runs splits now;    * @see MasterObserver    */
+comment|/**    * Called after the region is split.    * @param c the environment provided by the region server    * (e.getRegion() returns the parent region)    * @param l the left daughter region    * @param r the right daughter region    * @deprecated Use postCompleteSplit() instead    */
 annotation|@
 name|Deprecated
 specifier|default
@@ -1484,7 +1484,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * This will be called before PONR step as part of split transaction. Calling    * {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} rollback the split    * @param ctx    * @param splitKey    * @param metaEntries    *    * Note: the logic moves to Master; it is unused in RS    * @deprecated No longer called in hbase2/AMv2 given the master runs splits now;    * @see MasterObserver   */
+comment|/**    * This will be called before PONR step as part of split transaction. Calling    * {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} rollback the split    * @param ctx    * @param splitKey    * @param metaEntries    *    * Note: the logic moves to Master; it is unused in RS   */
 annotation|@
 name|Deprecated
 specifier|default
@@ -1511,7 +1511,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * This will be called after PONR step as part of split transaction    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param ctx    * Note: the logic moves to Master; it is unused in RS    * @deprecated No longer called in hbase2/AMv2 given the master runs splits now;    * @see MasterObserver   */
+comment|/**    * This will be called after PONR step as part of split transaction    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param ctx    *    * Note: the logic moves to Master; it is unused in RS   */
 annotation|@
 name|Deprecated
 specifier|default
@@ -1528,7 +1528,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * This will be called before the roll back of the split region is completed    * @param ctx    *    * Note: the logic moves to Master; it is unused in RS    * @deprecated No longer called in hbase2/AMv2 given the master runs splits now;    * @see MasterObserver   */
+comment|/**    * This will be called before the roll back of the split region is completed    * @param ctx    *    * Note: the logic moves to Master; it is unused in RS   */
 annotation|@
 name|Deprecated
 specifier|default
@@ -1545,7 +1545,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * This will be called after the roll back of the split region is completed    * @param ctx    *    * Note: the logic moves to Master; it is unused in RS    * @deprecated No longer called in hbase2/AMv2 given the master runs splits now;    * @see MasterObserver   */
+comment|/**    * This will be called after the roll back of the split region is completed    * @param ctx    *    * Note: the logic moves to Master; it is unused in RS   */
 annotation|@
 name|Deprecated
 specifier|default
@@ -1562,9 +1562,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called after any split request is processed.  This will be called irrespective of success or    * failure of the split.    * @param ctx    * @deprecated No longer called in hbase2/AMv2 given the master runs splits now;    * implement {@link MasterObserver#postCompletedSplitRegionAction(ObserverContext, HRegionInfo, HRegionInfo)}    * instead.    */
-annotation|@
-name|Deprecated
+comment|/**    * Called after any split request is processed.  This will be called irrespective of success or    * failure of the split.    * @param ctx    */
 specifier|default
 name|void
 name|postCompleteSplit

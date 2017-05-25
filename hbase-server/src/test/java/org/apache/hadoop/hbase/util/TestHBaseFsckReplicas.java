@@ -225,8 +225,6 @@ name|hbase
 operator|.
 name|master
 operator|.
-name|assignment
-operator|.
 name|AssignmentManager
 import|;
 end_import
@@ -306,16 +304,6 @@ operator|.
 name|junit
 operator|.
 name|BeforeClass
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
-name|Ignore
 import|;
 end_import
 
@@ -516,8 +504,6 @@ import|;
 end_import
 
 begin_class
-annotation|@
-name|Ignore
 annotation|@
 name|Category
 argument_list|(

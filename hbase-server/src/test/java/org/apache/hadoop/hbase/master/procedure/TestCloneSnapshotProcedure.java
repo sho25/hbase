@@ -20,18 +20,6 @@ package|;
 end_package
 
 begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertTrue
-import|;
-end_import
-
-begin_import
 import|import
 name|java
 operator|.
@@ -152,22 +140,6 @@ operator|.
 name|client
 operator|.
 name|Admin
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|SnapshotDescription
 import|;
 end_import
 
@@ -394,6 +366,18 @@ operator|.
 name|categories
 operator|.
 name|Category
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
 import|;
 end_import
 
@@ -1012,6 +996,16 @@ argument_list|)
 argument_list|)
 decl_stmt|;
 comment|// Restart the executor and execute the step twice
+name|int
+name|numberOfSteps
+init|=
+name|CloneSnapshotState
+operator|.
+name|values
+argument_list|()
+operator|.
+name|length
+decl_stmt|;
 name|MasterProcedureTestingUtility
 operator|.
 name|testRecoveryAndDoubleExecution
@@ -1019,6 +1013,8 @@ argument_list|(
 name|procExec
 argument_list|,
 name|procId
+argument_list|,
+name|numberOfSteps
 argument_list|)
 expr_stmt|;
 name|MasterProcedureTestingUtility

@@ -32,6 +32,30 @@ import|;
 end_import
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|fail
+import|;
+end_import
+
+begin_import
 import|import
 name|org
 operator|.
@@ -154,22 +178,6 @@ operator|.
 name|hbase
 operator|.
 name|TableName
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|procedure2
-operator|.
-name|Procedure
 import|;
 end_import
 
@@ -839,6 +847,11 @@ argument_list|,
 name|procId
 argument_list|,
 name|step
+argument_list|,
+name|CreateTableState
+operator|.
+name|values
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|MasterProcedureTestingUtility
@@ -1041,6 +1054,11 @@ argument_list|,
 name|procId
 argument_list|,
 name|step
+argument_list|,
+name|DeleteTableState
+operator|.
+name|values
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|MasterProcedureTestingUtility
@@ -1272,6 +1290,11 @@ argument_list|,
 name|procId
 argument_list|,
 name|step
+argument_list|,
+name|TruncateTableState
+operator|.
+name|values
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|ProcedureTestingUtility
@@ -1556,6 +1579,11 @@ argument_list|,
 name|procId
 argument_list|,
 name|step
+argument_list|,
+name|DisableTableState
+operator|.
+name|values
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|MasterProcedureTestingUtility
@@ -1733,6 +1761,11 @@ argument_list|,
 name|procId
 argument_list|,
 name|step
+argument_list|,
+name|EnableTableState
+operator|.
+name|values
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|MasterProcedureTestingUtility
@@ -1756,6 +1789,9 @@ comment|//  Test Helpers
 comment|// ==========================================================================
 specifier|public
 specifier|static
+parameter_list|<
+name|TState
+parameter_list|>
 name|void
 name|testRecoveryAndDoubleExecution
 parameter_list|(
@@ -1770,6 +1806,10 @@ parameter_list|,
 specifier|final
 name|int
 name|lastStepBeforeFailover
+parameter_list|,
+name|TState
+index|[]
+name|states
 parameter_list|)
 throws|throws
 name|Exception
@@ -1800,17 +1840,6 @@ argument_list|,
 name|procId
 argument_list|)
 expr_stmt|;
-specifier|final
-name|Procedure
-name|proc
-init|=
-name|procExec
-operator|.
-name|getProcedure
-argument_list|(
-name|procId
-argument_list|)
-decl_stmt|;
 for|for
 control|(
 name|int
@@ -1836,7 +1865,10 @@ name|i
 operator|+
 literal|" exec state: "
 operator|+
-name|proc
+name|states
+index|[
+name|i
+index|]
 argument_list|)
 expr_stmt|;
 name|ProcedureTestingUtility
@@ -1848,9 +1880,9 @@ argument_list|,
 name|procId
 argument_list|)
 expr_stmt|;
-name|MasterProcedureTestingUtility
+name|ProcedureTestingUtility
 operator|.
-name|restartMasterProcedureExecutor
+name|restart
 argument_list|(
 name|procExec
 argument_list|)

@@ -173,30 +173,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|stream
-operator|.
-name|Collectors
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|stream
-operator|.
-name|Stream
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|concurrent
 operator|.
 name|ConcurrentHashMap
@@ -761,7 +737,7 @@ name|procId
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Internal cleaner that removes the completed procedure results after a TTL.    * NOTE: This is a special case handled in timeoutLoop().    *    *<p>Since the client code looks more or less like:    *<pre>    *   procId = master.doOperation()    *   while (master.getProcResult(procId) == ProcInProgress);    *</pre>    * The master should not throw away the proc result as soon as the procedure is done    * but should wait a result request from the client (see executor.removeResult(procId))    * The client will call something like master.isProcDone() or master.getProcResult()    * which will return the result/state to the client, and it will mark the completed    * proc as ready to delete. note that the client may not receive the response from    * the master (e.g. master failover) so, if we delay a bit the real deletion of    * the proc result the client will be able to get the result the next try.    */
+comment|/**    * Internal cleaner that removes the completed procedure results after a TTL.    * NOTE: This is a special case handled in timeoutLoop().    *    * Since the client code looks more or less like:    *   procId = master.doOperation()    *   while (master.getProcResult(procId) == ProcInProgress);    * The master should not throw away the proc result as soon as the procedure is done    * but should wait a result request from the client (see executor.removeResult(procId))    * The client will call something like master.isProcDone() or master.getProcResult()    * which will return the result/state to the client, and it will mark the completed    * proc as ready to delete. note that the client may not receive the response from    * the master (e.g. master failover) so, if we delay a bit the real deletion of    * the proc result the client will be able to get the result the next try.    */
 specifier|private
 specifier|static
 class|class
@@ -2585,7 +2561,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Starting ProcedureExecutor Worker threads (ProcExecWrkr)="
+literal|"Starting executor worker threads="
 operator|+
 name|corePoolSize
 argument_list|)
@@ -2596,7 +2572,7 @@ operator|=
 operator|new
 name|ThreadGroup
 argument_list|(
-literal|"ProcExecThrdGrp"
+literal|"ProcedureExecutor"
 argument_list|)
 expr_stmt|;
 comment|// Create the timeout executor
@@ -5026,15 +5002,6 @@ literal|null
 condition|)
 block|{
 comment|// The 'proc' was ready to run but the root procedure was rolledback
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Rollback because parent is done/rolledback proc="
-operator|+
-name|proc
-argument_list|)
-expr_stmt|;
 name|executeRollback
 argument_list|(
 name|proc
@@ -5059,21 +5026,7 @@ name|procStack
 operator|==
 literal|null
 condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"RootProcedureState is null for "
-operator|+
-name|proc
-operator|.
-name|getProcId
-argument_list|()
-argument_list|)
-expr_stmt|;
 return|return;
-block|}
 do|do
 block|{
 comment|// Try to acquire the execution
@@ -5130,15 +5083,6 @@ break|break;
 case|case
 name|LOCK_EVENT_WAIT
 case|:
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"LOCK_EVENT_WAIT rollback..."
-operator|+
-name|proc
-argument_list|)
-expr_stmt|;
 name|procStack
 operator|.
 name|unsetRollback
@@ -5193,15 +5137,6 @@ break|break;
 case|case
 name|LOCK_EVENT_WAIT
 case|:
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"LOCK_EVENT_WAIT can't rollback child running?..."
-operator|+
-name|proc
-argument_list|)
-expr_stmt|;
 break|break;
 default|default:
 throw|throw
@@ -5227,19 +5162,12 @@ name|RUNNABLE
 operator|:
 name|proc
 assert|;
-comment|// Note that lock is NOT about concurrency but rather about ensuring
-comment|// ownership of a procedure of an entity such as a region or table
-name|LockState
-name|lockState
-init|=
+switch|switch
+condition|(
 name|acquireLock
 argument_list|(
 name|proc
 argument_list|)
-decl_stmt|;
-switch|switch
-condition|(
-name|lockState
 condition|)
 block|{
 case|case
@@ -5263,17 +5191,6 @@ break|break;
 case|case
 name|LOCK_YIELD_WAIT
 case|:
-name|LOG
-operator|.
-name|info
-argument_list|(
-name|lockState
-operator|+
-literal|" "
-operator|+
-name|proc
-argument_list|)
-expr_stmt|;
 name|scheduler
 operator|.
 name|yield
@@ -5285,18 +5202,7 @@ break|break;
 case|case
 name|LOCK_EVENT_WAIT
 case|:
-comment|// Someone will wake us up when the lock is available
-name|LOG
-operator|.
-name|debug
-argument_list|(
-name|lockState
-operator|+
-literal|" "
-operator|+
-name|proc
-argument_list|)
-expr_stmt|;
+comment|// someone will wake us up when the lock is available
 break|break;
 default|default:
 throw|throw
@@ -5351,11 +5257,19 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
 name|LOG
 operator|.
-name|info
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
 argument_list|(
-literal|"Finish "
+literal|"Finished "
 operator|+
 name|proc
 operator|+
@@ -5372,6 +5286,7 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 comment|// Finalize the procedure state
 if|if
 condition|(
@@ -5480,7 +5395,7 @@ init|=
 name|getEnvironment
 argument_list|()
 decl_stmt|;
-comment|// For how the framework works, we know that we will always have the lock
+comment|// for how the framework works, we know that we will always have the lock
 comment|// when we call releaseLock(), so we can avoid calling proc.hasLock()
 if|if
 condition|(
@@ -5537,8 +5452,6 @@ operator|.
 name|getException
 argument_list|()
 decl_stmt|;
-comment|// TODO: This needs doc. The root proc doesn't have an exception. Maybe we are
-comment|// rolling back because the subprocedure does. Clarify.
 if|if
 condition|(
 name|exception
@@ -5882,7 +5795,7 @@ name|LOG
 operator|.
 name|fatal
 argument_list|(
-literal|"CODE-BUG: Uncaught runtime exception fo "
+literal|"CODE-BUG: Uncatched runtime exception for procedure: "
 operator|+
 name|proc
 argument_list|,
@@ -6047,7 +5960,7 @@ operator|.
 name|LOCK_ACQUIRED
 return|;
 block|}
-comment|/**    * Executes<code>procedure</code>    *<ul>    *<li>Calls the doExecute() of the procedure    *<li>If the procedure execution didn't fail (i.e. valid user input)    *<ul>    *<li>...and returned subprocedures    *<ul><li>The subprocedures are initialized.    *<li>The subprocedures are added to the store    *<li>The subprocedures are added to the runnable queue    *<li>The procedure is now in a WAITING state, waiting for the subprocedures to complete    *</ul>    *</li>    *<li>...if there are no subprocedure    *<ul><li>the procedure completed successfully    *<li>if there is a parent (WAITING)    *<li>the parent state will be set to RUNNABLE    *</ul>    *</li>    *</ul>    *</li>    *<li>In case of failure    *<ul>    *<li>The store is updated with the new state</li>    *<li>The executor (caller of this method) will start the rollback of the procedure</li>    *</ul>    *</li>    *</ul>    */
+comment|/**    * Executes the specified procedure    *  - calls the doExecute() of the procedure    *  - if the procedure execution didn't fail (e.g. invalid user input)    *     - ...and returned subprocedures    *        - the subprocedures are initialized.    *        - the subprocedures are added to the store    *        - the subprocedures are added to the runnable queue    *        - the procedure is now in a WAITING state, waiting for the subprocedures to complete    *     - ...if there are no subprocedure    *        - the procedure completed successfully    *        - if there is a parent (WAITING)    *            - the parent state will be set to RUNNABLE    *  - in case of failure    *    - the store is updated with the new state    *    - the executor (caller of this method) will start the rollback of the procedure    */
 specifier|private
 name|void
 name|execProcedure
@@ -6058,9 +5971,6 @@ name|procStack
 parameter_list|,
 specifier|final
 name|Procedure
-argument_list|<
-name|TEnvironment
-argument_list|>
 name|procedure
 parameter_list|)
 block|{
@@ -6078,32 +5988,18 @@ operator|.
 name|RUNNABLE
 argument_list|)
 expr_stmt|;
-comment|// Procedures can suspend themselves. They skip out by throwing a ProcedureSuspendedException.
-comment|// The exception is caught below and then we hurry to the exit without disturbing state. The
-comment|// idea is that the processing of this procedure will be unsuspended later by an external event
-comment|// such the report of a region open. TODO: Currently, its possible for two worker threads
-comment|// to be working on the same procedure concurrently (locking in procedures is NOT about
-comment|// concurrency but about tying an entity to a procedure; i.e. a region to a particular
-comment|// procedure instance). This can make for issues if both threads are changing state.
-comment|// See env.getProcedureScheduler().wakeEvent(regionNode.getProcedureEvent());
-comment|// in RegionTransitionProcedure#reportTransition for example of Procedure putting
-comment|// itself back on the scheduler making it possible for two threads running against
-comment|// the one Procedure. Might be ok if they are both doing different, idempotent sections.
+comment|// Execute the procedure
 name|boolean
 name|suspended
 init|=
 literal|false
 decl_stmt|;
-comment|// Whether to 're-' -execute; run through the loop again.
 name|boolean
 name|reExecute
 init|=
 literal|false
 decl_stmt|;
 name|Procedure
-argument_list|<
-name|TEnvironment
-argument_list|>
 index|[]
 name|subprocs
 init|=
@@ -6152,24 +6048,6 @@ name|ProcedureSuspendedException
 name|e
 parameter_list|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|trace
-argument_list|(
-literal|"Suspend "
-operator|+
-name|procedure
-argument_list|)
-expr_stmt|;
-block|}
 name|suspended
 operator|=
 literal|true
@@ -6203,8 +6081,6 @@ name|e
 operator|.
 name|getMessage
 argument_list|()
-argument_list|,
-name|e
 argument_list|)
 expr_stmt|;
 block|}
@@ -6223,33 +6099,6 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|trace
-argument_list|(
-literal|"Yield interrupt "
-operator|+
-name|procedure
-operator|+
-literal|": "
-operator|+
-name|e
-operator|.
-name|getMessage
-argument_list|()
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-block|}
 name|handleInterruptedException
 argument_list|(
 name|procedure
@@ -6335,8 +6184,7 @@ operator|==
 name|procedure
 condition|)
 block|{
-comment|// Procedure returned itself. Quick-shortcut for a state machine-like procedure;
-comment|// i.e. we go around this loop again rather than go back out on the scheduler queue.
+comment|// quick-shortcut for a state machine like procedure
 name|subprocs
 operator|=
 literal|null
@@ -6345,32 +6193,10 @@ name|reExecute
 operator|=
 literal|true
 expr_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|trace
-argument_list|(
-literal|"Short-circuit to next step on pid="
-operator|+
-name|procedure
-operator|.
-name|getProcId
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 else|else
 block|{
-comment|// Yield the current procedure, and make the subprocedure runnable
-comment|// subprocs may come back 'null'.
+comment|// yield the current procedure, and make the subprocedure runnable
 name|subprocs
 operator|=
 name|initializeChildren
@@ -6380,53 +6206,6 @@ argument_list|,
 name|procedure
 argument_list|,
 name|subprocs
-argument_list|)
-expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Initialized subprocedures="
-operator|+
-operator|(
-name|subprocs
-operator|==
-literal|null
-condition|?
-literal|null
-else|:
-name|Stream
-operator|.
-name|of
-argument_list|(
-name|subprocs
-argument_list|)
-operator|.
-name|map
-argument_list|(
-name|e
-lambda|->
-literal|"{"
-operator|+
-name|e
-operator|.
-name|toString
-argument_list|()
-operator|+
-literal|"}"
-argument_list|)
-operator|.
-name|collect
-argument_list|(
-name|Collectors
-operator|.
-name|toList
-argument_list|()
-argument_list|)
-operator|.
-name|toString
-argument_list|()
-operator|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -6444,24 +6223,6 @@ operator|.
 name|WAITING_TIMEOUT
 condition|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|trace
-argument_list|(
-literal|"Added to timeoutExecutor "
-operator|+
-name|procedure
-argument_list|)
-expr_stmt|;
-block|}
 name|timeoutExecutor
 operator|.
 name|add
@@ -6532,9 +6293,7 @@ comment|// it relies on the method call below to throw RuntimeException to wind 
 comment|// executor thread to stop. The statement following the method call below seems to check if
 comment|// store is not running, to prevent scheduling children procedures, re-execution or yield
 comment|// of this procedure. This may need more scrutiny and subsequent cleanup in future
-comment|//
-comment|// Commit the transaction even if a suspend (state may have changed). Note this append
-comment|// can take a bunch of time to complete.
+comment|// Commit the transaction
 name|updateStoreOnExec
 argument_list|(
 name|procStack
@@ -6621,13 +6380,9 @@ name|subprocs
 argument_list|)
 expr_stmt|;
 block|}
-comment|// if the procedure is complete and has a parent, count down the children latch.
-comment|// If 'suspended', do nothing to change state -- let other threads handle unsuspend event.
+comment|// if the procedure is complete and has a parent, count down the children latch
 if|if
 condition|(
-operator|!
-name|suspended
-operator|&&
 name|procedure
 operator|.
 name|isFinished
@@ -6969,25 +6724,58 @@ assert|;
 return|return;
 block|}
 comment|// If this procedure is the last child awake the parent procedure
+specifier|final
+name|boolean
+name|traceEnabled
+init|=
 name|LOG
 operator|.
-name|info
+name|isTraceEnabled
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|traceEnabled
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
-literal|"Finish suprocedure "
+name|parent
+operator|+
+literal|" child is done: "
 operator|+
 name|procedure
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|parent
 operator|.
-name|tryRunnable
+name|childrenCountDown
 argument_list|()
+operator|&&
+name|parent
+operator|.
+name|getState
+argument_list|()
+operator|==
+name|ProcedureState
+operator|.
+name|WAITING
 condition|)
 block|{
-comment|// If we succeeded in making the parent runnable -- i.e. all of its
-comment|// children have completed, move parent to front of the queue.
+name|parent
+operator|.
+name|setState
+argument_list|(
+name|ProcedureState
+operator|.
+name|RUNNABLE
+argument_list|)
+expr_stmt|;
 name|store
 operator|.
 name|update
@@ -7002,17 +6790,21 @@ argument_list|(
 name|parent
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|traceEnabled
+condition|)
+block|{
 name|LOG
 operator|.
-name|info
+name|trace
 argument_list|(
-literal|"Finished subprocedure(s) of "
-operator|+
 name|parent
 operator|+
-literal|"; resume parent processing."
+literal|" all the children finished their work, resume."
 argument_list|)
 expr_stmt|;
+block|}
 return|return;
 block|}
 block|}
@@ -7456,10 +7248,6 @@ operator|.
 name|MAX_VALUE
 argument_list|)
 decl_stmt|;
-specifier|private
-name|Procedure
-name|activeProcedure
-decl_stmt|;
 specifier|public
 name|WorkerThread
 parameter_list|(
@@ -7472,7 +7260,7 @@ name|super
 argument_list|(
 name|group
 argument_list|,
-literal|"ProcExecWrkr-"
+literal|"ProcExecWorker-"
 operator|+
 name|workerId
 operator|.
@@ -7501,6 +7289,15 @@ name|void
 name|run
 parameter_list|()
 block|{
+specifier|final
+name|boolean
+name|traceEnabled
+init|=
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+decl_stmt|;
 name|long
 name|lastUpdate
 init|=
@@ -7509,8 +7306,6 @@ operator|.
 name|currentTime
 argument_list|()
 decl_stmt|;
-try|try
-block|{
 while|while
 condition|(
 name|isRunning
@@ -7522,10 +7317,10 @@ name|lastUpdate
 argument_list|)
 condition|)
 block|{
-name|this
-operator|.
-name|activeProcedure
-operator|=
+specifier|final
+name|Procedure
+name|procedure
+init|=
 name|scheduler
 operator|.
 name|poll
@@ -7536,65 +7331,24 @@ name|TimeUnit
 operator|.
 name|MILLISECONDS
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 if|if
 condition|(
-name|this
-operator|.
-name|activeProcedure
+name|procedure
 operator|==
 literal|null
 condition|)
 continue|continue;
-name|int
-name|activeCount
-init|=
-name|activeExecutorCount
-operator|.
-name|incrementAndGet
-argument_list|()
-decl_stmt|;
-name|int
-name|runningCount
-init|=
 name|store
 operator|.
 name|setRunningProcedureCount
 argument_list|(
-name|activeCount
-argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|LOG
+name|activeExecutorCount
 operator|.
-name|isTraceEnabled
+name|incrementAndGet
 argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|trace
-argument_list|(
-literal|"Execute pid="
-operator|+
-name|this
-operator|.
-name|activeProcedure
-operator|.
-name|getProcId
-argument_list|()
-operator|+
-literal|" runningCount="
-operator|+
-name|runningCount
-operator|+
-literal|", activeCount="
-operator|+
-name|activeCount
 argument_list|)
 expr_stmt|;
-block|}
 name|executionStartTime
 operator|.
 name|set
@@ -7607,94 +7361,38 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
-name|executeProcedure
-argument_list|(
-name|this
-operator|.
-name|activeProcedure
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|AssertionError
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"ASSERT pid="
-operator|+
-name|this
-operator|.
-name|activeProcedure
-operator|.
-name|getProcId
-argument_list|()
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-throw|throw
-name|e
-throw|;
-block|}
-finally|finally
-block|{
-name|activeCount
-operator|=
-name|activeExecutorCount
-operator|.
-name|decrementAndGet
-argument_list|()
-expr_stmt|;
-name|runningCount
-operator|=
-name|store
-operator|.
-name|setRunningProcedureCount
-argument_list|(
-name|activeCount
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
+name|traceEnabled
 condition|)
 block|{
 name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Halt pid="
+literal|"Trying to start the execution of "
 operator|+
-name|this
-operator|.
-name|activeProcedure
-operator|.
-name|getProcId
-argument_list|()
-operator|+
-literal|" runningCount="
-operator|+
-name|runningCount
-operator|+
-literal|", activeCount="
-operator|+
-name|activeCount
+name|procedure
 argument_list|)
 expr_stmt|;
 block|}
-name|this
+name|executeProcedure
+argument_list|(
+name|procedure
+argument_list|)
+expr_stmt|;
+block|}
+finally|finally
+block|{
+name|store
 operator|.
-name|activeProcedure
-operator|=
-literal|null
+name|setRunningProcedureCount
+argument_list|(
+name|activeExecutorCount
+operator|.
+name|decrementAndGet
+argument_list|()
+argument_list|)
 expr_stmt|;
 name|lastUpdate
 operator|=
@@ -7714,37 +7412,15 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-block|}
-catch|catch
-parameter_list|(
-name|Throwable
-name|t
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Worker terminating UNNATURALLY "
-operator|+
-name|this
-operator|.
-name|activeProcedure
-argument_list|,
-name|t
-argument_list|)
-expr_stmt|;
-block|}
-finally|finally
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Worker terminated."
+literal|"Worker thread terminated "
+operator|+
+name|this
 argument_list|)
 expr_stmt|;
-block|}
 name|workerThreads
 operator|.
 name|remove
@@ -7752,47 +7428,6 @@ argument_list|(
 name|this
 argument_list|)
 expr_stmt|;
-block|}
-annotation|@
-name|Override
-specifier|public
-name|String
-name|toString
-parameter_list|()
-block|{
-name|Procedure
-argument_list|<
-name|?
-argument_list|>
-name|p
-init|=
-name|this
-operator|.
-name|activeProcedure
-decl_stmt|;
-return|return
-name|getName
-argument_list|()
-operator|+
-literal|"(pid="
-operator|+
-operator|(
-name|p
-operator|==
-literal|null
-condition|?
-name|Procedure
-operator|.
-name|NO_PROC_ID
-else|:
-name|p
-operator|.
-name|getProcId
-argument_list|()
-operator|+
-literal|")"
-operator|)
-return|;
 block|}
 comment|/**      * @return the time since the current procedure is running      */
 specifier|public
@@ -7847,7 +7482,9 @@ name|keepAliveTime
 return|;
 block|}
 block|}
-comment|/**    * Runs task on a period such as check for stuck workers.    * @see InlineChore    */
+comment|// ==========================================================================
+comment|//  Timeout Thread
+comment|// ==========================================================================
 specifier|private
 specifier|final
 class|class
@@ -7880,7 +7517,7 @@ name|super
 argument_list|(
 name|group
 argument_list|,
-literal|"ProcExecTimeout"
+literal|"ProcedureTimeoutExecutor"
 argument_list|)
 expr_stmt|;
 block|}
@@ -7910,7 +7547,7 @@ parameter_list|()
 block|{
 specifier|final
 name|boolean
-name|traceEnabled
+name|isTraceEnabled
 init|=
 name|LOG
 operator|.
@@ -7953,14 +7590,14 @@ continue|continue;
 block|}
 if|if
 condition|(
-name|traceEnabled
+name|isTraceEnabled
 condition|)
 block|{
 name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Executing "
+literal|"Trying to start the execution of "
 operator|+
 name|task
 argument_list|)
@@ -8055,29 +7692,6 @@ name|ProcedureState
 operator|.
 name|WAITING_TIMEOUT
 assert|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"ADDED "
-operator|+
-name|procedure
-operator|+
-literal|"; timeout="
-operator|+
-name|procedure
-operator|.
-name|getTimeout
-argument_list|()
-operator|+
-literal|", timestamp="
-operator|+
-name|procedure
-operator|.
-name|getTimeoutTimestamp
-argument_list|()
-argument_list|)
-expr_stmt|;
 name|queue
 operator|.
 name|add

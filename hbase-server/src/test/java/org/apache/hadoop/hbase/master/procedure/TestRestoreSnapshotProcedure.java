@@ -20,54 +20,6 @@ package|;
 end_package
 
 begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertEquals
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertFalse
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertNotEquals
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertTrue
-import|;
-end_import
-
-begin_import
 import|import
 name|java
 operator|.
@@ -112,20 +64,6 @@ operator|.
 name|logging
 operator|.
 name|LogFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|CategoryBasedTimeout
 import|;
 end_import
 
@@ -488,18 +426,6 @@ import|;
 end_import
 
 begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
-name|rules
-operator|.
-name|TestRule
-import|;
-end_import
-
-begin_import
 import|import static
 name|org
 operator|.
@@ -581,34 +507,6 @@ name|TestRestoreSnapshotProcedure
 operator|.
 name|class
 argument_list|)
-decl_stmt|;
-annotation|@
-name|Rule
-specifier|public
-specifier|final
-name|TestRule
-name|timeout
-init|=
-name|CategoryBasedTimeout
-operator|.
-name|builder
-argument_list|()
-operator|.
-name|withTimeout
-argument_list|(
-name|this
-operator|.
-name|getClass
-argument_list|()
-argument_list|)
-operator|.
-name|withLookingForStuckThread
-argument_list|(
-literal|true
-argument_list|)
-operator|.
-name|build
-argument_list|()
 decl_stmt|;
 specifier|protected
 specifier|final
@@ -1541,6 +1439,16 @@ argument_list|)
 argument_list|)
 decl_stmt|;
 comment|// Restart the executor and execute the step twice
+name|int
+name|numberOfSteps
+init|=
+name|RestoreSnapshotState
+operator|.
+name|values
+argument_list|()
+operator|.
+name|length
+decl_stmt|;
 name|MasterProcedureTestingUtility
 operator|.
 name|testRecoveryAndDoubleExecution
@@ -1548,6 +1456,8 @@ argument_list|(
 name|procExec
 argument_list|,
 name|procId
+argument_list|,
+name|numberOfSteps
 argument_list|)
 expr_stmt|;
 name|resetProcExecutorTestingKillFlag

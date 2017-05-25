@@ -92,11 +92,6 @@ init|=
 literal|"assign"
 decl_stmt|;
 name|String
-name|UNASSIGN_TIME_NAME
-init|=
-literal|"unassign"
-decl_stmt|;
-name|String
 name|BULK_ASSIGN_TIME_NAME
 init|=
 literal|"bulkAssign"
@@ -121,11 +116,20 @@ name|RIT_DURATION_DESC
 init|=
 literal|"Total durations in milliseconds for all Regions in Transition (Histogram)."
 decl_stmt|;
-name|String
-name|OPERATION_COUNT_NAME
-init|=
-literal|"operationCount"
-decl_stmt|;
+name|void
+name|updateAssignmentTime
+parameter_list|(
+name|long
+name|time
+parameter_list|)
+function_decl|;
+name|void
+name|updateBulkAssignTime
+parameter_list|(
+name|long
+name|time
+parameter_list|)
+function_decl|;
 comment|/**    * Set the number of regions in transition.    *    * @param ritCount count of the regions in transition.    */
 name|void
 name|setRIT
@@ -155,27 +159,6 @@ name|updateRitDuration
 parameter_list|(
 name|long
 name|duration
-parameter_list|)
-function_decl|;
-comment|/**    * Increment the count of assignment operation (assign/unassign).    */
-name|void
-name|incrementOperationCounter
-parameter_list|()
-function_decl|;
-comment|/**    * Add the time took to perform the last assign operation    */
-name|void
-name|updateAssignTime
-parameter_list|(
-name|long
-name|time
-parameter_list|)
-function_decl|;
-comment|/**    * Add the time took to perform the last unassign operation    */
-name|void
-name|updateUnassignTime
-parameter_list|(
-name|long
-name|time
 parameter_list|)
 function_decl|;
 block|}

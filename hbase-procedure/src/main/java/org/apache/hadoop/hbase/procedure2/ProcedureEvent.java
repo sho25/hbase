@@ -141,9 +141,12 @@ operator|+
 name|isReady
 argument_list|()
 operator|+
-literal|", "
+literal|", suspended procedures count="
 operator|+
 name|getSuspendedProcedures
+argument_list|()
+operator|.
+name|size
 argument_list|()
 return|;
 block|}

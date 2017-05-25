@@ -764,7 +764,7 @@ argument_list|()
 operator|.
 name|setNameFormat
 argument_list|(
-literal|"Reader=%d,bindAddress="
+literal|"RpcServer.reader=%d,bindAddress="
 operator|+
 name|bindAddress
 operator|.
@@ -861,7 +861,7 @@ name|this
 operator|.
 name|setName
 argument_list|(
-literal|"Listener,port="
+literal|"RpcServer.listener,port="
 operator|+
 name|port
 argument_list|)
@@ -1822,7 +1822,10 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Caught exception while reading:"
+name|getName
+argument_list|()
+operator|+
+literal|": Caught exception while reading:"
 argument_list|,
 name|e
 argument_list|)
@@ -2946,15 +2949,15 @@ if|if
 condition|(
 name|LOG
 operator|.
-name|isTraceEnabled
+name|isDebugEnabled
 argument_list|()
 condition|)
 block|{
 name|LOG
 operator|.
-name|trace
+name|debug
 argument_list|(
-literal|"Connection from "
+literal|"Server connection from "
 operator|+
 name|connection
 operator|+
@@ -3014,13 +3017,13 @@ if|if
 condition|(
 name|LOG
 operator|.
-name|isTraceEnabled
+name|isDebugEnabled
 argument_list|()
 condition|)
 block|{
 name|LOG
 operator|.
-name|trace
+name|debug
 argument_list|(
 name|Thread
 operator|.

@@ -885,7 +885,7 @@ name|info
 argument_list|(
 literal|"RpcExecutor "
 operator|+
-name|name
+literal|" name "
 operator|+
 literal|" using "
 operator|+
@@ -1253,30 +1253,6 @@ operator|.
 name|DEFAULT_REGION_SERVER_HANDLER_ABORT_ON_ERROR_PERCENT
 argument_list|)
 decl_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Started "
-operator|+
-name|handlers
-operator|.
-name|size
-argument_list|()
-operator|+
-literal|" "
-operator|+
-name|threadPrefix
-operator|+
-literal|" handlers, qsize="
-operator|+
-name|qsize
-operator|+
-literal|" on port="
-operator|+
-name|port
-argument_list|)
-expr_stmt|;
 for|for
 control|(
 name|int
@@ -1349,6 +1325,15 @@ name|handler
 operator|.
 name|start
 argument_list|()
+expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Started "
+operator|+
+name|name
+argument_list|)
 expr_stmt|;
 name|handlers
 operator|.

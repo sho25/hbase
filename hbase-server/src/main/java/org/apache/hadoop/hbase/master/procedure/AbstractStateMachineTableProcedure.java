@@ -120,7 +120,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Base class for all the Table procedures that want to use a StateMachineProcedure.  * It provides helpers like basic locking, sync latch, and toStringClassDetails().  */
+comment|/**  * Base class for all the Table procedures that want to use a StateMachineProcedure.  * It provide some basic helpers like basic locking, sync latch, and basic toStringClassDetails().  */
 end_comment
 
 begin_class
@@ -181,7 +181,6 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param env Uses this to set Procedure Owner at least.    */
 specifier|protected
 name|AbstractStateMachineTableProcedure
 parameter_list|(
@@ -193,13 +192,6 @@ specifier|final
 name|ProcedurePrepareLatch
 name|latch
 parameter_list|)
-block|{
-if|if
-condition|(
-name|env
-operator|!=
-literal|null
-condition|)
 block|{
 name|this
 operator|.
@@ -217,7 +209,6 @@ argument_list|(
 name|user
 argument_list|)
 expr_stmt|;
-block|}
 comment|// used for compatibility with clients without procedures
 comment|// they need a sync TableExistsException, TableNotFoundException, TableNotDisabledException, ...
 name|this

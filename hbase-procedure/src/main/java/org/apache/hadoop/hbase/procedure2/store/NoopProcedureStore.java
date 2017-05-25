@@ -131,7 +131,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|int
+name|void
 name|setRunningProcedureCount
 parameter_list|(
 specifier|final
@@ -139,9 +139,7 @@ name|int
 name|count
 parameter_list|)
 block|{
-return|return
-name|count
-return|;
+comment|// no-op
 block|}
 annotation|@
 name|Override

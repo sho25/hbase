@@ -235,6 +235,28 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|MasterProcedureProtos
+operator|.
+name|CreateNamespaceState
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|testclassification
 operator|.
 name|MasterTests
@@ -1170,6 +1192,16 @@ argument_list|)
 argument_list|)
 decl_stmt|;
 comment|// Restart the executor and execute the step twice
+name|int
+name|numberOfSteps
+init|=
+name|CreateNamespaceState
+operator|.
+name|values
+argument_list|()
+operator|.
+name|length
+decl_stmt|;
 name|MasterProcedureTestingUtility
 operator|.
 name|testRecoveryAndDoubleExecution
@@ -1177,6 +1209,8 @@ argument_list|(
 name|procExec
 argument_list|,
 name|procId
+argument_list|,
+name|numberOfSteps
 argument_list|)
 expr_stmt|;
 comment|// Validate the creation of namespace

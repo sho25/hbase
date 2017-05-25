@@ -73,7 +73,7 @@ specifier|final
 name|int
 name|DEFAULT_MIN_MASTER_PROCEDURE_THREADS
 init|=
-literal|16
+literal|4
 decl_stmt|;
 comment|/**    * Procedure replay sanity check. In case a WAL is missing or unreadable we    * may lose information about pending/running procedures.    * Set this to true in case you want the Master failing on load if a corrupted    * procedure is encountred.    * (Default is off, because we prefer having the Master up and running and    * fix the "in transition" state "by hand")    */
 specifier|public
