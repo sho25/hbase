@@ -762,7 +762,8 @@ name|ROW_BYTES
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|assertTrue
+comment|// renewLease should return false now as we have read all the data already
+name|assertFalse
 argument_list|(
 name|rs
 operator|.
