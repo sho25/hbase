@@ -1533,6 +1533,11 @@ name|void
 name|waitForFlushesAndCompactions
 parameter_list|()
 function_decl|;
+comment|/** Wait for all current flushes of the region to complete    */
+name|void
+name|waitForFlushes
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 
