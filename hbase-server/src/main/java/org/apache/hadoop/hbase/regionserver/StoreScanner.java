@@ -2932,6 +2932,13 @@ name|BETWEEN_CELLS
 argument_list|)
 condition|)
 block|{
+name|scannerContext
+operator|.
+name|setPeekedCellInHeartbeat
+argument_list|(
+name|prevCell
+argument_list|)
+expr_stmt|;
 return|return
 name|scannerContext
 operator|.
