@@ -113,6 +113,18 @@ name|util
 operator|.
 name|concurrent
 operator|.
+name|ExecutionException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
 name|atomic
 operator|.
 name|AtomicInteger
@@ -2488,7 +2500,7 @@ name|TableName
 name|tableName
 parameter_list|)
 throws|throws
-name|IOException
+name|ExecutionException
 throws|,
 name|InterruptedException
 block|{
