@@ -225,6 +225,9 @@ decl_stmt|;
 name|Path
 name|currentPath
 decl_stmt|;
+name|MetricsSource
+name|metrics
+decl_stmt|;
 annotation|@
 name|Override
 specifier|public
@@ -276,6 +279,12 @@ name|peerClusterId
 operator|=
 name|peerClusterId
 expr_stmt|;
+name|this
+operator|.
+name|metrics
+operator|=
+name|metrics
+expr_stmt|;
 block|}
 annotation|@
 name|Override
@@ -292,6 +301,11 @@ operator|.
 name|currentPath
 operator|=
 name|log
+expr_stmt|;
+name|metrics
+operator|.
+name|incrSizeOfLogQueue
+argument_list|()
 expr_stmt|;
 block|}
 annotation|@
@@ -453,7 +467,7 @@ name|getSourceMetrics
 parameter_list|()
 block|{
 return|return
-literal|null
+name|metrics
 return|;
 block|}
 annotation|@

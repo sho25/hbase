@@ -3049,7 +3049,6 @@ name|toString
 argument_list|()
 return|;
 block|}
-comment|/**    * Get Replication Source Metrics    * @return sourceMetrics    */
 annotation|@
 name|Override
 specifier|public
