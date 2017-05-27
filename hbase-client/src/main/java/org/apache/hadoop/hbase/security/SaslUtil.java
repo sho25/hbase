@@ -75,6 +75,18 @@ end_import
 
 begin_import
 import|import
+name|javax
+operator|.
+name|security
+operator|.
+name|sasl
+operator|.
+name|SaslServer
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -400,6 +412,7 @@ argument_list|)
 throw|;
 block|}
 comment|/**    * @param rpcProtection Value of 'hbase.rpc.protection' configuration.    * @return Map with values for SASL properties.    */
+specifier|public
 specifier|static
 name|Map
 argument_list|<
@@ -575,6 +588,39 @@ operator|.
 name|error
 argument_list|(
 literal|"Error disposing of SASL client"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+specifier|static
+name|void
+name|safeDispose
+parameter_list|(
+name|SaslServer
+name|saslServer
+parameter_list|)
+block|{
+try|try
+block|{
+name|saslServer
+operator|.
+name|dispose
+argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|SaslException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Error disposing of SASL server"
 argument_list|,
 name|e
 argument_list|)
