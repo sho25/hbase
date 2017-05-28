@@ -3250,7 +3250,7 @@ literal|"FakePeer"
 argument_list|,
 name|source
 operator|.
-name|getPeerClusterId
+name|getPeerId
 argument_list|()
 argument_list|)
 expr_stmt|;

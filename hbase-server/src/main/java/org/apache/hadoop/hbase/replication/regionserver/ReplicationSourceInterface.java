@@ -215,6 +215,24 @@ name|Pair
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|wal
+operator|.
+name|WAL
+operator|.
+name|Entry
+import|;
+end_import
+
 begin_comment
 comment|/**  * Interface that defines a replication source  */
 end_comment
@@ -283,10 +301,30 @@ name|Path
 name|log
 parameter_list|)
 function_decl|;
-comment|/**    * Get the current log that's replicated    * @return the current log    */
+comment|/**    * Add hfile names to the queue to be replicated.    * @param tableName Name of the table these files belongs to    * @param family Name of the family these files belong to    * @param pairs list of pairs of { HFile location in staging dir, HFile path in region dir which    *          will be added in the queue for replication}    * @throws ReplicationException If failed to add hfile references    */
+name|void
+name|addHFileRefs
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|,
+name|byte
+index|[]
+name|family
+parameter_list|,
+name|List
+argument_list|<
+name|Pair
+argument_list|<
 name|Path
-name|getCurrentPath
-parameter_list|()
+argument_list|,
+name|Path
+argument_list|>
+argument_list|>
+name|pairs
+parameter_list|)
+throws|throws
+name|ReplicationException
 function_decl|;
 comment|/**    * Start the replication    */
 name|void
@@ -312,14 +350,19 @@ name|Exception
 name|cause
 parameter_list|)
 function_decl|;
+comment|/**    * Get the current log that's replicated    * @return the current log    */
+name|Path
+name|getCurrentPath
+parameter_list|()
+function_decl|;
 comment|/**    * Get the id that the source is replicating to    *    * @return peer cluster id    */
 name|String
 name|getPeerClusterZnode
 parameter_list|()
 function_decl|;
-comment|/**    * Get the id that the source is replicating to.    *    * @return peer cluster id    */
+comment|/**    * Get the id that the source is replicating to.    *    * @return peer id    */
 name|String
-name|getPeerClusterId
+name|getPeerId
 parameter_list|()
 function_decl|;
 comment|/**    * Get a string representation of the current statistics    * for this source    * @return printable stats    */
@@ -327,30 +370,54 @@ name|String
 name|getStats
 parameter_list|()
 function_decl|;
-comment|/**    * Add hfile names to the queue to be replicated.    * @param tableName Name of the table these files belongs to    * @param family Name of the family these files belong to    * @param pairs list of pairs of { HFile location in staging dir, HFile path in region dir which    *          will be added in the queue for replication}    * @throws ReplicationException If failed to add hfile references    */
+comment|/**    * @return peer enabled or not    */
+name|boolean
+name|isPeerEnabled
+parameter_list|()
+function_decl|;
+comment|/**    * @return active or not    */
+name|boolean
+name|isSourceActive
+parameter_list|()
+function_decl|;
+comment|/**    * @return metrics of this replication source    */
+name|MetricsSource
+name|getSourceMetrics
+parameter_list|()
+function_decl|;
+comment|/**    * @return the replication endpoint used by this replication source    */
+name|ReplicationEndpoint
+name|getReplicationEndpoint
+parameter_list|()
+function_decl|;
+comment|/**    * @return the replication source manager    */
+name|ReplicationSourceManager
+name|getSourceManager
+parameter_list|()
+function_decl|;
+comment|/**    * Try to throttle when the peer config with a bandwidth    * @param batchSize entries size will be pushed    * @throws InterruptedException    */
 name|void
-name|addHFileRefs
+name|tryThrottle
 parameter_list|(
-name|TableName
-name|tableName
-parameter_list|,
-name|byte
-index|[]
-name|family
-parameter_list|,
-name|List
-argument_list|<
-name|Pair
-argument_list|<
-name|Path
-argument_list|,
-name|Path
-argument_list|>
-argument_list|>
-name|pairs
+name|int
+name|batchSize
 parameter_list|)
 throws|throws
-name|ReplicationException
+name|InterruptedException
+function_decl|;
+comment|/**    * Call this after the shipper thread ship some entries to peer cluster.    * @param entries pushed    * @param batchSize entries size pushed    */
+name|void
+name|postShipEdits
+parameter_list|(
+name|List
+argument_list|<
+name|Entry
+argument_list|>
+name|entries
+parameter_list|,
+name|int
+name|batchSize
+parameter_list|)
 function_decl|;
 block|}
 end_interface
