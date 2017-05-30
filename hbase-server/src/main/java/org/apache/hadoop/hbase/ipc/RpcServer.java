@@ -1145,7 +1145,7 @@ name|errorHandler
 init|=
 literal|null
 decl_stmt|;
-specifier|protected
+specifier|public
 specifier|static
 specifier|final
 name|String
@@ -1197,7 +1197,7 @@ init|=
 literal|20
 decl_stmt|;
 comment|/** Default value for above params */
-specifier|protected
+specifier|public
 specifier|static
 specifier|final
 name|int
