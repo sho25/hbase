@@ -705,11 +705,10 @@ extends|extends
 name|BuilderBase
 block|{
 specifier|private
-name|long
+name|Long
 name|scannerId
 init|=
-operator|-
-literal|1L
+literal|null
 decl_stmt|;
 specifier|private
 name|Scan
@@ -1047,8 +1046,8 @@ block|{
 name|checkArgument
 argument_list|(
 name|scannerId
-operator|>=
-literal|0
+operator|!=
+literal|null
 argument_list|,
 literal|"invalid scannerId %d"
 argument_list|,
