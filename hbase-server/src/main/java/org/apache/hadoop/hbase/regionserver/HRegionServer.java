@@ -12051,16 +12051,9 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Failed transition "
+literal|"TRANSITION FAILED "
 operator|+
-name|hris
-index|[
-literal|0
-index|]
-operator|+
-literal|" to "
-operator|+
-name|code
+name|request
 operator|+
 literal|": "
 operator|+
@@ -12070,6 +12063,7 @@ name|getErrorMessage
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// NOTE: Return mid-method!!!
 return|return
 literal|false
 return|;
@@ -12090,7 +12084,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|trace
+name|info
 argument_list|(
 literal|"TRANSITION REPORTED "
 operator|+
@@ -12098,6 +12092,7 @@ name|request
 argument_list|)
 expr_stmt|;
 block|}
+comment|// NOTE: Return mid-method!!!
 return|return
 literal|true
 return|;
@@ -12141,7 +12136,7 @@ name|ConnectionUtils
 operator|.
 name|getPauseTime
 argument_list|(
-name|pauseTime
+name|INIT_PAUSE_TIME_MS
 argument_list|,
 name|tries
 argument_list|)
@@ -12159,7 +12154,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Failed report of region transition "
+literal|"Failed report transition "
 operator|+
 name|TextFormat
 operator|.
@@ -12217,24 +12212,15 @@ expr_stmt|;
 block|}
 block|}
 block|}
-if|if
-condition|(
 name|LOG
 operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|trace
+name|info
 argument_list|(
 literal|"TRANSITION NOT REPORTED "
 operator|+
 name|request
 argument_list|)
 expr_stmt|;
-block|}
 return|return
 literal|false
 return|;
