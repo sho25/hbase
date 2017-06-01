@@ -113,6 +113,10 @@ name|EnvironmentEdgeManager
 import|;
 end_import
 
+begin_comment
+comment|// FIX namings. TODO.
+end_comment
+
 begin_class
 annotation|@
 name|InterfaceAudience
@@ -620,6 +624,7 @@ argument_list|()
 return|;
 block|}
 block|}
+comment|/**    * Has a timeout.    */
 specifier|public
 specifier|static
 class|class

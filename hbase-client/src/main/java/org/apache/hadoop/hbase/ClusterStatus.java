@@ -51,7 +51,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|Set
+name|List
 import|;
 end_import
 
@@ -167,7 +167,7 @@ argument_list|>
 name|backupMasters
 decl_stmt|;
 specifier|private
-name|Set
+name|List
 argument_list|<
 name|RegionState
 argument_list|>
@@ -225,7 +225,7 @@ argument_list|>
 name|backupMasters
 parameter_list|,
 specifier|final
-name|Set
+name|List
 argument_list|<
 name|RegionState
 argument_list|>
@@ -879,7 +879,7 @@ name|InterfaceAudience
 operator|.
 name|Private
 specifier|public
-name|Set
+name|List
 argument_list|<
 name|RegionState
 argument_list|>

@@ -310,7 +310,7 @@ specifier|final
 name|String
 name|DEFAULT_TUNNEL_CMD
 init|=
-literal|"/usr/bin/ssh %1$s %2$s%3$s%4$s \"sudo -u %6$s %5$s\""
+literal|"timeout 30 /usr/bin/ssh %1$s %2$s%3$s%4$s \"sudo -u %6$s %5$s\""
 decl_stmt|;
 specifier|private
 name|String

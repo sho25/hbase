@@ -20,12 +20,26 @@ package|;
 end_package
 
 begin_import
-import|import
-name|java
+import|import static
+name|org
 operator|.
-name|util
+name|junit
 operator|.
-name|Random
+name|Assert
+operator|.
+name|assertFalse
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
 import|;
 end_import
 
@@ -36,6 +50,16 @@ operator|.
 name|util
 operator|.
 name|List
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Random
 import|;
 end_import
 
@@ -78,6 +102,20 @@ operator|.
 name|conf
 operator|.
 name|Configuration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|CategoryBasedTimeout
 import|;
 end_import
 
@@ -316,6 +354,18 @@ import|;
 end_import
 
 begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|rules
+operator|.
+name|TestRule
+import|;
+end_import
+
+begin_import
 import|import static
 name|org
 operator|.
@@ -360,14 +410,32 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-specifier|protected
-specifier|static
+annotation|@
+name|Rule
+specifier|public
 specifier|final
-name|HBaseTestingUtility
-name|UTIL
+name|TestRule
+name|timeout
 init|=
-operator|new
-name|HBaseTestingUtility
+name|CategoryBasedTimeout
+operator|.
+name|builder
+argument_list|()
+operator|.
+name|withTimeout
+argument_list|(
+name|this
+operator|.
+name|getClass
+argument_list|()
+argument_list|)
+operator|.
+name|withLookingForStuckThread
+argument_list|(
+literal|true
+argument_list|)
+operator|.
+name|build
 argument_list|()
 decl_stmt|;
 annotation|@
@@ -378,6 +446,16 @@ name|name
 init|=
 operator|new
 name|TestName
+argument_list|()
+decl_stmt|;
+specifier|protected
+specifier|static
+specifier|final
+name|HBaseTestingUtility
+name|UTIL
+init|=
+operator|new
+name|HBaseTestingUtility
 argument_list|()
 decl_stmt|;
 specifier|private

@@ -169,9 +169,12 @@ expr_stmt|;
 operator|new
 name|Thread
 argument_list|(
-literal|"Unassign-"
+literal|"RegionUnassigner."
 operator|+
 name|regionInfo
+operator|.
+name|getEncodedName
+argument_list|()
 argument_list|)
 block|{
 annotation|@

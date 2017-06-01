@@ -1686,6 +1686,16 @@ argument_list|(
 literal|1000
 argument_list|)
 expr_stmt|;
+name|admin
+operator|.
+name|flush
+argument_list|(
+name|table
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|assertTrue
 argument_list|(
 literal|"Timed out waiting for the region to flush"

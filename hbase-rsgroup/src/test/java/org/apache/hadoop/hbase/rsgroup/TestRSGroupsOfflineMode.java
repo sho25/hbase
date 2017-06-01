@@ -305,6 +305,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Rule
 import|;
 end_import
@@ -652,6 +662,8 @@ name|shutdownMiniCluster
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Ignore
 annotation|@
 name|Test
 specifier|public

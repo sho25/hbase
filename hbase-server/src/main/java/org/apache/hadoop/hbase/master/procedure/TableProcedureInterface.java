@@ -100,14 +100,17 @@ name|READ
 block|,
 name|REGION_EDIT
 block|,
-name|SPLIT
+name|REGION_SPLIT
 block|,
-name|MERGE
+name|REGION_MERGE
 block|,
-name|ASSIGN
+name|REGION_ASSIGN
 block|,
-name|UNASSIGN
+name|REGION_UNASSIGN
 block|,
+name|REGION_GC
+block|,
+name|MERGED_REGIONS_GC
 comment|/* region operations */
 block|}
 empty_stmt|;

@@ -2322,20 +2322,15 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Splitting wal: "
+literal|"Splitting WAL="
 operator|+
 name|logPath
 operator|+
 literal|", length="
 operator|+
 name|logLength
-argument_list|)
-expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"DistributedLogReplay = "
+operator|+
+literal|", distributedLogReplay="
 operator|+
 name|this
 operator|.
@@ -2392,7 +2387,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Nothing to split in log file "
+literal|"Nothing to split in WAL="
 operator|+
 name|logPath
 argument_list|)
@@ -2897,7 +2892,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Could not parse, corrupted log file "
+literal|"Could not parse, corrupted WAL="
 operator|+
 name|logPath
 argument_list|,
@@ -3026,7 +3021,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Could not close wal reader: "
+literal|"Could not close WAL reader: "
 operator|+
 name|exception
 operator|.
@@ -8489,13 +8484,15 @@ if|if
 condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
+name|isTraceEnabled
 argument_list|()
 condition|)
 block|{
+comment|// This log spews the full edit. Can be massive in the log. Enable only debugging
+comment|// WAL lost edit issues.
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
 literal|"getWriterAndPath decided we don't need to write edits for "
 operator|+

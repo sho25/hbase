@@ -938,7 +938,7 @@ operator|.
 name|getRegionStates
 argument_list|()
 operator|.
-name|isRegionsInTransition
+name|hasRegionsInTransition
 argument_list|()
 condition|)
 block|{
@@ -1007,7 +1007,7 @@ operator|.
 name|getRegionStates
 argument_list|()
 operator|.
-name|isRegionsInTransition
+name|hasRegionsInTransition
 argument_list|()
 condition|)
 block|{

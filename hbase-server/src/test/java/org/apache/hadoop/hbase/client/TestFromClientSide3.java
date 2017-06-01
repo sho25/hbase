@@ -5121,7 +5121,10 @@ parameter_list|(
 name|Throwable
 name|ex
 parameter_list|)
-block|{         }
+block|{
+comment|// TODO!!!! Is this right? It catches everything including the above fail
+comment|// if it happens (which it seems too....)
+block|}
 block|}
 argument_list|)
 expr_stmt|;

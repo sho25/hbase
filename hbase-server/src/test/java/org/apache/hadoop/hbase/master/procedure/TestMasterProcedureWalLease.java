@@ -587,7 +587,7 @@ name|startMiniCluster
 argument_list|(
 literal|2
 argument_list|,
-literal|1
+literal|2
 argument_list|)
 expr_stmt|;
 block|}

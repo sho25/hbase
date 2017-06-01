@@ -157,28 +157,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|shaded
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|MasterProcedureProtos
-operator|.
-name|ModifyColumnFamilyState
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|testclassification
 operator|.
 name|MasterTests
@@ -830,16 +808,6 @@ argument_list|)
 argument_list|)
 decl_stmt|;
 comment|// Restart the executor and execute the step twice
-name|int
-name|numberOfSteps
-init|=
-name|ModifyColumnFamilyState
-operator|.
-name|values
-argument_list|()
-operator|.
-name|length
-decl_stmt|;
 name|MasterProcedureTestingUtility
 operator|.
 name|testRecoveryAndDoubleExecution
@@ -847,8 +815,6 @@ argument_list|(
 name|procExec
 argument_list|,
 name|procId
-argument_list|,
-name|numberOfSteps
 argument_list|)
 expr_stmt|;
 name|MasterProcedureTestingUtility
@@ -1004,16 +970,6 @@ argument_list|)
 argument_list|)
 decl_stmt|;
 comment|// Restart the executor and execute the step twice
-name|int
-name|numberOfSteps
-init|=
-name|ModifyColumnFamilyState
-operator|.
-name|values
-argument_list|()
-operator|.
-name|length
-decl_stmt|;
 name|MasterProcedureTestingUtility
 operator|.
 name|testRecoveryAndDoubleExecution
@@ -1021,8 +977,6 @@ argument_list|(
 name|procExec
 argument_list|,
 name|procId
-argument_list|,
-name|numberOfSteps
 argument_list|)
 expr_stmt|;
 name|MasterProcedureTestingUtility
@@ -1180,7 +1134,7 @@ decl_stmt|;
 name|int
 name|numberOfSteps
 init|=
-literal|1
+literal|0
 decl_stmt|;
 comment|// failing at pre operation
 name|MasterProcedureTestingUtility

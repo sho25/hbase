@@ -379,7 +379,29 @@ name|hbase
 operator|.
 name|master
 operator|.
+name|assignment
+operator|.
 name|RegionStates
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
+name|assignment
+operator|.
+name|RegionStates
+operator|.
+name|RegionStateNode
 import|;
 end_import
 
@@ -550,6 +572,16 @@ operator|.
 name|junit
 operator|.
 name|BeforeClass
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|Ignore
 import|;
 end_import
 
@@ -2058,6 +2090,8 @@ argument_list|)
 expr_stmt|;
 block|}
 annotation|@
+name|Ignore
+annotation|@
 name|Test
 specifier|public
 name|void
@@ -2312,6 +2346,7 @@ argument_list|(
 name|regionFNMap
 argument_list|)
 expr_stmt|;
+specifier|final
 name|RegionStates
 name|regionStates
 init|=
@@ -2591,6 +2626,7 @@ operator|.
 name|waitUntilNoRegionsInTransition
 argument_list|()
 expr_stmt|;
+specifier|final
 name|RegionStates
 name|regionStates
 init|=
@@ -2694,6 +2730,8 @@ name|regionStates
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Ignore
 annotation|@
 name|Test
 specifier|public
@@ -2822,6 +2860,7 @@ argument_list|(
 name|currentFN
 argument_list|)
 expr_stmt|;
+specifier|final
 name|RegionStates
 name|regionStates
 init|=
@@ -2958,7 +2997,7 @@ argument_list|()
 expr_stmt|;
 for|for
 control|(
-name|RegionState
+name|RegionStateNode
 name|regionState
 range|:
 name|regionStates
@@ -2972,7 +3011,7 @@ name|regionInfo
 init|=
 name|regionState
 operator|.
-name|getRegion
+name|getRegionInfo
 argument_list|()
 decl_stmt|;
 name|List
@@ -3137,6 +3176,8 @@ argument_list|)
 expr_stmt|;
 block|}
 annotation|@
+name|Ignore
+annotation|@
 name|Test
 specifier|public
 name|void
@@ -3264,6 +3305,7 @@ argument_list|(
 name|currentFN
 argument_list|)
 expr_stmt|;
+specifier|final
 name|RegionStates
 name|regionStatesBeforeMaster
 init|=
@@ -3346,7 +3388,7 @@ argument_list|()
 decl_stmt|;
 for|for
 control|(
-name|RegionState
+name|RegionStateNode
 name|regionState
 range|:
 name|regionStatesBeforeMaster
@@ -3360,7 +3402,7 @@ name|regionInfo
 init|=
 name|regionState
 operator|.
-name|getRegion
+name|getRegionInfo
 argument_list|()
 decl_stmt|;
 name|LOG

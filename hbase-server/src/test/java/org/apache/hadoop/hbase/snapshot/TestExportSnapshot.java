@@ -491,6 +491,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|experimental
 operator|.
 name|categories
@@ -528,6 +538,8 @@ comment|/**  * Test Export Snapshot Tool  */
 end_comment
 
 begin_class
+annotation|@
+name|Ignore
 annotation|@
 name|Category
 argument_list|(

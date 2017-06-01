@@ -2161,7 +2161,7 @@ name|TableProcedureInterface
 operator|.
 name|TableOperationType
 operator|.
-name|ASSIGN
+name|REGION_ASSIGN
 argument_list|,
 name|regionA
 argument_list|)
@@ -2201,7 +2201,7 @@ name|TableProcedureInterface
 operator|.
 name|TableOperationType
 operator|.
-name|UNASSIGN
+name|REGION_UNASSIGN
 argument_list|,
 name|regionA
 argument_list|)
@@ -2502,7 +2502,7 @@ name|TableProcedureInterface
 operator|.
 name|TableOperationType
 operator|.
-name|MERGE
+name|REGION_MERGE
 argument_list|,
 name|regionA
 argument_list|,
@@ -2525,7 +2525,7 @@ name|TableProcedureInterface
 operator|.
 name|TableOperationType
 operator|.
-name|SPLIT
+name|REGION_SPLIT
 argument_list|,
 name|regionA
 argument_list|)
@@ -2546,7 +2546,7 @@ name|TableProcedureInterface
 operator|.
 name|TableOperationType
 operator|.
-name|SPLIT
+name|REGION_SPLIT
 argument_list|,
 name|regionB
 argument_list|)
@@ -2567,7 +2567,7 @@ name|TableProcedureInterface
 operator|.
 name|TableOperationType
 operator|.
-name|UNASSIGN
+name|REGION_UNASSIGN
 argument_list|,
 name|regionC
 argument_list|)
@@ -3382,7 +3382,7 @@ name|TableProcedureInterface
 operator|.
 name|TableOperationType
 operator|.
-name|SPLIT
+name|REGION_SPLIT
 argument_list|,
 name|region
 argument_list|)
@@ -3405,7 +3405,7 @@ name|TableProcedureInterface
 operator|.
 name|TableOperationType
 operator|.
-name|UNASSIGN
+name|REGION_UNASSIGN
 argument_list|,
 name|region
 argument_list|)
@@ -3937,7 +3937,7 @@ name|TableProcedureInterface
 operator|.
 name|TableOperationType
 operator|.
-name|ASSIGN
+name|REGION_ASSIGN
 argument_list|,
 name|regions
 index|[
@@ -4053,7 +4053,7 @@ name|TableProcedureInterface
 operator|.
 name|TableOperationType
 operator|.
-name|ASSIGN
+name|REGION_ASSIGN
 argument_list|,
 name|regions
 index|[

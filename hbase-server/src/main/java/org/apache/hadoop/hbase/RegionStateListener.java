@@ -54,6 +54,8 @@ specifier|public
 interface|interface
 name|RegionStateListener
 block|{
+comment|// TODO: Get rid of this!!!! Ain't there a better way to watch region
+comment|// state than introduce a whole new listening mechanism? St.Ack
 comment|/**    * Process region split event.    *    * @param hri An instance of HRegionInfo    * @throws IOException    */
 name|void
 name|onRegionSplit
@@ -74,12 +76,12 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Process region merge event.    *    * @param hri An instance of HRegionInfo    * @throws IOException    */
+comment|/**    * Process region merge event.    * @throws IOException    */
 name|void
 name|onRegionMerged
 parameter_list|(
 name|HRegionInfo
-name|hri
+name|mergedRegion
 parameter_list|)
 throws|throws
 name|IOException

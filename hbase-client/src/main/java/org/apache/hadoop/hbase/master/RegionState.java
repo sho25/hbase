@@ -135,18 +135,12 @@ block|{
 name|OFFLINE
 block|,
 comment|// region is in an offline state
-name|PENDING_OPEN
-block|,
-comment|// same as OPENING, to be removed
 name|OPENING
 block|,
 comment|// server has begun to open but not yet done
 name|OPEN
 block|,
 comment|// server opened region and updated meta
-name|PENDING_CLOSE
-block|,
-comment|// same as CLOSING, to be removed
 name|CLOSING
 block|,
 comment|// server has begun to close but not yet done
@@ -218,20 +212,6 @@ name|OFFLINE
 expr_stmt|;
 break|break;
 case|case
-name|PENDING_OPEN
-case|:
-name|rs
-operator|=
-name|ClusterStatusProtos
-operator|.
-name|RegionState
-operator|.
-name|State
-operator|.
-name|PENDING_OPEN
-expr_stmt|;
-break|break;
-case|case
 name|OPENING
 case|:
 name|rs
@@ -257,20 +237,6 @@ operator|.
 name|State
 operator|.
 name|OPEN
-expr_stmt|;
-break|break;
-case|case
-name|PENDING_CLOSE
-case|:
-name|rs
-operator|=
-name|ClusterStatusProtos
-operator|.
-name|RegionState
-operator|.
-name|State
-operator|.
-name|PENDING_CLOSE
 expr_stmt|;
 break|break;
 case|case
@@ -459,11 +425,6 @@ break|break;
 case|case
 name|PENDING_OPEN
 case|:
-name|state
-operator|=
-name|PENDING_OPEN
-expr_stmt|;
-break|break;
 case|case
 name|OPENING
 case|:
@@ -483,11 +444,6 @@ break|break;
 case|case
 name|PENDING_CLOSE
 case|:
-name|state
-operator|=
-name|PENDING_CLOSE
-expr_stmt|;
-break|break;
 case|case
 name|CLOSING
 case|:
@@ -812,19 +768,12 @@ name|previousStamp
 operator|)
 expr_stmt|;
 block|}
-comment|/**    * PENDING_CLOSE (to be removed) is the same as CLOSING    */
 specifier|public
 name|boolean
 name|isClosing
 parameter_list|()
 block|{
 return|return
-name|state
-operator|==
-name|State
-operator|.
-name|PENDING_CLOSE
-operator|||
 name|state
 operator|==
 name|State
@@ -845,19 +794,12 @@ operator|.
 name|CLOSED
 return|;
 block|}
-comment|/**    * PENDING_OPEN (to be removed) is the same as OPENING    */
 specifier|public
 name|boolean
 name|isOpening
 parameter_list|()
 block|{
 return|return
-name|state
-operator|==
-name|State
-operator|.
-name|PENDING_OPEN
-operator|||
 name|state
 operator|==
 name|State

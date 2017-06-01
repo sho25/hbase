@@ -65,6 +65,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CategoryBasedTimeout
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|DoNotRetryIOException
 import|;
 end_import
@@ -181,28 +195,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|shaded
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|MasterProcedureProtos
-operator|.
-name|ModifyTableState
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|testclassification
 operator|.
 name|MasterTests
@@ -271,6 +263,18 @@ name|TestName
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|rules
+operator|.
+name|TestRule
+import|;
+end_import
+
 begin_class
 annotation|@
 name|Category
@@ -291,6 +295,34 @@ name|TestModifyTableProcedure
 extends|extends
 name|TestTableDDLProcedureBase
 block|{
+annotation|@
+name|Rule
+specifier|public
+specifier|final
+name|TestRule
+name|timeout
+init|=
+name|CategoryBasedTimeout
+operator|.
+name|builder
+argument_list|()
+operator|.
+name|withTimeout
+argument_list|(
+name|this
+operator|.
+name|getClass
+argument_list|()
+argument_list|)
+operator|.
+name|withLookingForStuckThread
+argument_list|(
+literal|true
+argument_list|)
+operator|.
+name|build
+argument_list|()
+decl_stmt|;
 annotation|@
 name|Rule
 specifier|public
@@ -1498,16 +1530,6 @@ argument_list|)
 argument_list|)
 decl_stmt|;
 comment|// Restart the executor and execute the step twice
-name|int
-name|numberOfSteps
-init|=
-name|ModifyTableState
-operator|.
-name|values
-argument_list|()
-operator|.
-name|length
-decl_stmt|;
 name|MasterProcedureTestingUtility
 operator|.
 name|testRecoveryAndDoubleExecution
@@ -1515,8 +1537,6 @@ argument_list|(
 name|procExec
 argument_list|,
 name|procId
-argument_list|,
-name|numberOfSteps
 argument_list|)
 expr_stmt|;
 comment|// Validate descriptor
@@ -1739,16 +1759,6 @@ argument_list|)
 argument_list|)
 decl_stmt|;
 comment|// Restart the executor and execute the step twice
-name|int
-name|numberOfSteps
-init|=
-name|ModifyTableState
-operator|.
-name|values
-argument_list|()
-operator|.
-name|length
-decl_stmt|;
 name|MasterProcedureTestingUtility
 operator|.
 name|testRecoveryAndDoubleExecution
@@ -1756,8 +1766,6 @@ argument_list|(
 name|procExec
 argument_list|,
 name|procId
-argument_list|,
-name|numberOfSteps
 argument_list|)
 expr_stmt|;
 comment|// Validate descriptor
@@ -1987,7 +1995,7 @@ decl_stmt|;
 name|int
 name|numberOfSteps
 init|=
-literal|1
+literal|0
 decl_stmt|;
 comment|// failing at pre operation
 name|MasterProcedureTestingUtility
@@ -2188,7 +2196,7 @@ comment|// Restart the executor and rollback the step twice
 name|int
 name|numberOfSteps
 init|=
-literal|1
+literal|0
 decl_stmt|;
 comment|// failing at pre operation
 name|MasterProcedureTestingUtility

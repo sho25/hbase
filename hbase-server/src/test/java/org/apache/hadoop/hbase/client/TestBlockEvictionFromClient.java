@@ -669,6 +669,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|experimental
 operator|.
 name|categories
@@ -4179,6 +4189,20 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"About to SPLIT on "
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|ROW1
+argument_list|)
+argument_list|)
+expr_stmt|;
 name|TEST_UTIL
 operator|.
 name|getAdmin
@@ -4235,6 +4259,13 @@ operator|.
 name|sleep
 argument_list|(
 literal|100
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Waiting on SPLIT to complete..."
 argument_list|)
 expr_stmt|;
 block|}
@@ -5833,6 +5864,8 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Ignore
 annotation|@
 name|Test
 specifier|public

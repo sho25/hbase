@@ -260,6 +260,7 @@ literal|0
 decl_stmt|;
 comment|/**    * Whether a dead server is being processed currently.    */
 specifier|private
+specifier|volatile
 name|boolean
 name|processing
 init|=
@@ -455,13 +456,13 @@ if|if
 condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
+name|isTraceEnabled
 argument_list|()
 condition|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
 literal|"Started processing "
 operator|+
@@ -493,12 +494,12 @@ if|if
 condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
+name|isTraceEnabled
 argument_list|()
 condition|)
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
 literal|"Finished "
 operator|+

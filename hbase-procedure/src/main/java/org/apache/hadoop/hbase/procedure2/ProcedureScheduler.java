@@ -150,7 +150,7 @@ name|TimeUnit
 name|unit
 parameter_list|)
 function_decl|;
-comment|/**    * Mark the event as not ready.    * procedures calling waitEvent() will be suspended.    * @param event the event to mark as suspended/not ready    */
+comment|/**    * Mark the event as not ready.    * Procedures calling waitEvent() will be suspended.    * @param event the event to mark as suspended/not ready    */
 name|void
 name|suspendEvent
 parameter_list|(
@@ -190,6 +190,7 @@ name|procedure
 parameter_list|)
 function_decl|;
 comment|/**    * List lock queues.    * @return the locks    */
+comment|// TODO: This seems to be the wrong place to hang this method.
 name|List
 argument_list|<
 name|LockInfo

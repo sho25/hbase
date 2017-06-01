@@ -589,9 +589,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|master
+name|mob
 operator|.
-name|RegionStates
+name|MobFileName
 import|;
 end_import
 
@@ -605,9 +605,29 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|mob
+name|master
 operator|.
-name|MobFileName
+name|assignment
+operator|.
+name|AssignmentManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
+name|assignment
+operator|.
+name|RegionStates
 import|;
 end_import
 
@@ -858,6 +878,11 @@ name|int
 name|REGION_ONLINE_TIMEOUT
 init|=
 literal|800
+decl_stmt|;
+specifier|protected
+specifier|static
+name|AssignmentManager
+name|assignmentManager
 decl_stmt|;
 specifier|protected
 specifier|static

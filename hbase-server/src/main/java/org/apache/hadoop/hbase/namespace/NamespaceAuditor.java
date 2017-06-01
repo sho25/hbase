@@ -559,7 +559,7 @@ name|void
 name|updateQuotaForRegionMerge
 parameter_list|(
 name|HRegionInfo
-name|hri
+name|mergedRegion
 parameter_list|)
 throws|throws
 name|IOException
@@ -589,12 +589,12 @@ name|stateManager
 operator|.
 name|checkAndUpdateNamespaceRegionCount
 argument_list|(
-name|hri
+name|mergedRegion
 operator|.
 name|getTable
 argument_list|()
 argument_list|,
-name|hri
+name|mergedRegion
 operator|.
 name|getRegionName
 argument_list|()
@@ -608,9 +608,9 @@ throw|throw
 operator|new
 name|QuotaExceededException
 argument_list|(
-literal|"Region split not possible for :"
+literal|"Region merge not possible for :"
 operator|+
-name|hri
+name|mergedRegion
 operator|.
 name|getEncodedName
 argument_list|()
