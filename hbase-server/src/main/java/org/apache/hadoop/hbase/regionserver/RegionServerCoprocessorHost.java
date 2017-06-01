@@ -594,6 +594,9 @@ name|preStop
 parameter_list|(
 name|String
 name|message
+parameter_list|,
+name|User
+name|user
 parameter_list|)
 throws|throws
 name|IOException
@@ -611,7 +614,9 @@ literal|null
 else|:
 operator|new
 name|CoprocessorOperation
-argument_list|()
+argument_list|(
+name|user
+argument_list|)
 block|{
 annotation|@
 name|Override
