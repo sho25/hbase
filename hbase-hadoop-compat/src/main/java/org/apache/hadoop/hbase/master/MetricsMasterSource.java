@@ -33,6 +33,22 @@ name|BaseSource
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|metrics
+operator|.
+name|OperationMetrics
+import|;
+end_import
+
 begin_comment
 comment|/**  * Interface that classes that expose metrics about the master will implement.  */
 end_comment
@@ -206,6 +222,11 @@ name|MERGE_PLAN_COUNT_DESC
 init|=
 literal|"Number of Region Merge Plans executed"
 decl_stmt|;
+name|String
+name|SERVER_CRASH_METRIC_PREFIX
+init|=
+literal|"serverCrash"
+decl_stmt|;
 comment|/**    * Increment the number of requests the cluster has seen.    *    * @param inc Ammount to increment the total by.    */
 name|void
 name|incRequests
@@ -214,6 +235,11 @@ specifier|final
 name|long
 name|inc
 parameter_list|)
+function_decl|;
+comment|/**    * @return {@link OperationMetrics} containing common metrics for server crash operation    */
+name|OperationMetrics
+name|getServerCrashMetrics
+parameter_list|()
 function_decl|;
 block|}
 end_interface

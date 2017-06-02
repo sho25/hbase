@@ -33,6 +33,22 @@ name|BaseSource
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|metrics
+operator|.
+name|OperationMetrics
+import|;
+end_import
+
 begin_interface
 specifier|public
 interface|interface
@@ -66,6 +82,7 @@ name|METRICS_DESCRIPTION
 init|=
 literal|"Metrics about HBase master assignment manager."
 decl_stmt|;
+comment|// RIT metrics
 name|String
 name|RIT_COUNT_NAME
 init|=
@@ -87,21 +104,6 @@ init|=
 literal|"ritDuration"
 decl_stmt|;
 name|String
-name|ASSIGN_TIME_NAME
-init|=
-literal|"assign"
-decl_stmt|;
-name|String
-name|UNASSIGN_TIME_NAME
-init|=
-literal|"unassign"
-decl_stmt|;
-name|String
-name|BULK_ASSIGN_TIME_NAME
-init|=
-literal|"bulkAssign"
-decl_stmt|;
-name|String
 name|RIT_COUNT_DESC
 init|=
 literal|"Current number of Regions In Transition (Gauge)."
@@ -120,6 +122,26 @@ name|String
 name|RIT_DURATION_DESC
 init|=
 literal|"Total durations in milliseconds for all Regions in Transition (Histogram)."
+decl_stmt|;
+name|String
+name|ASSIGN_METRIC_PREFIX
+init|=
+literal|"assign"
+decl_stmt|;
+name|String
+name|UNASSIGN_METRIC_PREFIX
+init|=
+literal|"unassign"
+decl_stmt|;
+name|String
+name|SPLIT_METRIC_PREFIX
+init|=
+literal|"split"
+decl_stmt|;
+name|String
+name|MERGE_METRIC_PREFIX
+init|=
+literal|"merge"
 decl_stmt|;
 name|String
 name|OPERATION_COUNT_NAME
@@ -157,26 +179,30 @@ name|long
 name|duration
 parameter_list|)
 function_decl|;
-comment|/**    * Increment the count of assignment operation (assign/unassign).    */
+comment|/**    * TODO: Remove. This may not be needed now as assign and unassign counts are tracked separately    * Increment the count of operations (assign/unassign).    */
 name|void
 name|incrementOperationCounter
 parameter_list|()
 function_decl|;
-comment|/**    * Add the time took to perform the last assign operation    */
-name|void
-name|updateAssignTime
-parameter_list|(
-name|long
-name|time
-parameter_list|)
+comment|/**    * @return {@link OperationMetrics} containing common metrics for assign operation    */
+name|OperationMetrics
+name|getAssignMetrics
+parameter_list|()
 function_decl|;
-comment|/**    * Add the time took to perform the last unassign operation    */
-name|void
-name|updateUnassignTime
-parameter_list|(
-name|long
-name|time
-parameter_list|)
+comment|/**    * @return {@link OperationMetrics} containing common metrics for unassign operation    */
+name|OperationMetrics
+name|getUnassignMetrics
+parameter_list|()
+function_decl|;
+comment|/**    * @return {@link OperationMetrics} containing common metrics for split operation    */
+name|OperationMetrics
+name|getSplitMetrics
+parameter_list|()
+function_decl|;
+comment|/**    * @return {@link OperationMetrics} containing common metrics for merge operation    */
+name|OperationMetrics
+name|getMergeMetrics
+parameter_list|()
 function_decl|;
 block|}
 end_interface

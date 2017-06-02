@@ -581,6 +581,11 @@ name|ProcedureEvent
 name|getInitializedEvent
 parameter_list|()
 function_decl|;
+comment|/**    * @return Master's instance of {@link MetricsMaster}    */
+name|MetricsMaster
+name|getMasterMetrics
+parameter_list|()
+function_decl|;
 comment|/**    * Check table is modifiable; i.e. exists and is offline.    * @param tableName Name of table to check.    * @throws TableNotDisabledException    * @throws TableNotFoundException    * @throws IOException    */
 comment|// We actually throw the exceptions mentioned in the
 name|void
