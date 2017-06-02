@@ -286,7 +286,7 @@ name|class
 argument_list|)
 decl_stmt|;
 comment|// ==============================================================================================
-comment|//  We read the WALs in reverse order. from the newest to the oldest.
+comment|//  We read the WALs in reverse order from the newest to the oldest.
 comment|//  We have different entry types:
 comment|//   - INIT: Procedure submitted by the user (also known as 'root procedure')
 comment|//   - INSERT: Children added to the procedure<parentId>:[<childId>, ...]
@@ -295,7 +295,8 @@ comment|//   - DELETE: The procedure was removed (finished/rolledback and result
 comment|//
 comment|// In the WAL we can find multiple times the same procedure as UPDATE or INSERT.
 comment|// We read the WAL from top to bottom, so every time we find an entry of the
-comment|// same procedure, that will be the "latest" update.
+comment|// same procedure, that will be the "latest" update (Caveat: with multiple threads writing
+comment|// the store, this assumption does not hold).
 comment|//
 comment|// We keep two in-memory maps:
 comment|//  - localProcedureMap: is the map containing the entries in the WAL we are processing
@@ -307,7 +308,7 @@ comment|// if we find an entry related to a procedure we already have in 'proced
 comment|//
 comment|// The WAL is append-only so the last procedure in the WAL is the one that
 comment|// was in execution at the time we crashed/closed the server.
-comment|// given that, the procedure replay order can be inferred by the WAL order.
+comment|// Given that, the procedure replay order can be inferred by the WAL order.
 comment|//
 comment|// Example:
 comment|//    WAL-2: [A, B, A, C, D]
@@ -320,7 +321,7 @@ comment|// Using the example above:
 comment|//    WAL-2 localProcedureMap.replayOrder is [D, C, A, B]
 comment|//    WAL-1 localProcedureMap.replayOrder is [F, G]
 comment|//
-comment|// each time we reach the WAL-EOF, the "replayOrder" list is merged/appended in 'procedureMap'
+comment|// Each time we reach the WAL-EOF, the "replayOrder" list is merged/appended in 'procedureMap'
 comment|// so using the example above we end up with: [D, C, A, B] + [F, G] as replay order.
 comment|//
 comment|//  Fast Start: INIT/INSERT record and StackIDs
@@ -1764,7 +1765,7 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 name|boolean
-name|isNew
+name|newEntry
 init|=
 name|entry
 operator|.
@@ -1772,12 +1773,32 @@ name|proto
 operator|==
 literal|null
 decl_stmt|;
+comment|// We have seen procedure WALs where the entries are out of order; see HBASE-18152.
+comment|// To compensate, only replace the Entry procedure if for sure this new procedure
+comment|// is indeed an entry that came later. TODO: Fix the writing of procedure info so
+comment|// it does not violate basic expectation, that WALs contain procedure changes going
+comment|// from start to finish in sequence.
+if|if
+condition|(
+name|newEntry
+operator|||
+name|isIncreasing
+argument_list|(
+name|entry
+operator|.
+name|proto
+argument_list|,
+name|procProto
+argument_list|)
+condition|)
+block|{
 name|entry
 operator|.
 name|proto
 operator|=
 name|procProto
 expr_stmt|;
+block|}
 name|addToReplayList
 argument_list|(
 name|entry
@@ -1785,7 +1806,7 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|isNew
+name|newEntry
 condition|)
 block|{
 if|if
@@ -1819,6 +1840,70 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+block|}
+comment|/**      * @return True if this new procedure is 'richer' than the current one else      * false and we log this incidence where it appears that the WAL has older entries      * appended after newer ones. See HBASE-18152.      */
+specifier|private
+specifier|static
+name|boolean
+name|isIncreasing
+parameter_list|(
+name|ProcedureProtos
+operator|.
+name|Procedure
+name|current
+parameter_list|,
+name|ProcedureProtos
+operator|.
+name|Procedure
+name|candidate
+parameter_list|)
+block|{
+name|boolean
+name|increasing
+init|=
+name|current
+operator|.
+name|getStackIdCount
+argument_list|()
+operator|<
+name|candidate
+operator|.
+name|getStackIdCount
+argument_list|()
+operator|&&
+name|current
+operator|.
+name|getLastUpdate
+argument_list|()
+operator|<=
+name|candidate
+operator|.
+name|getLastUpdate
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|increasing
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"NOT INCREASING! current="
+operator|+
+name|current
+operator|+
+literal|", candidate="
+operator|+
+name|candidate
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+name|increasing
+return|;
 block|}
 specifier|public
 name|boolean
@@ -2635,7 +2720,7 @@ return|return
 name|entry
 return|;
 block|}
-comment|/*      * (see the comprehensive explaination in the beginning of the file)      * A Procedure is ready when parent and children are ready.      * "ready" means that we all the information that we need in-memory.      *      * Example-1:      * We have two WALs, we start reading from the newest (wal-2)      *    wal-2 | C B |      *    wal-1 | A B C |      *      * If C and B don't depend on A (A is not the parent), we can start them      * before reading wal-1. If B is the only one with parent A we can start C.      * We have to read one more WAL before being able to start B.      *      * How do we know with the only information in B that we are not ready.      *  - easy case, the parent is missing from the global map      *  - more complex case we look at the Stack IDs.      *      * The Stack-IDs are added to the procedure order as incremental index      * tracking how many times that procedure was executed, which is equivalent      * at the number of times we wrote the procedure to the WAL.      * In the example above:      *   wal-2: B has stackId = [1, 2]      *   wal-1: B has stackId = [1]      *   wal-1: A has stackId = [0]      *      * Since we know that the Stack-IDs are incremental for a Procedure,      * we notice that there is a gap in the stackIds of B, so something was      * executed before.      * To identify when a Procedure is ready we do the sum of the stackIds of      * the procedure and the parent. if the stackIdSum is equals to the      * sum of {1..maxStackId} then everything we need is available.      *      * Example-2      *    wal-2 | A |              A stackIds = [0, 2]      *    wal-1 | A B |            B stackIds = [1]      *      * There is a gap between A stackIds so something was executed in between.      */
+comment|/*      * (see the comprehensive explanation in the beginning of the file)      * A Procedure is ready when parent and children are ready.      * "ready" means that we all the information that we need in-memory.      *      * Example-1:      * We have two WALs, we start reading from the newest (wal-2)      *    wal-2 | C B |      *    wal-1 | A B C |      *      * If C and B don't depend on A (A is not the parent), we can start them      * before reading wal-1. If B is the only one with parent A we can start C.      * We have to read one more WAL before being able to start B.      *      * How do we know with the only information in B that we are not ready.      *  - easy case, the parent is missing from the global map      *  - more complex case we look at the Stack IDs.      *      * The Stack-IDs are added to the procedure order as an incremental index      * tracking how many times that procedure was executed, which is equivalent      * to the number of times we wrote the procedure to the WAL.      * In the example above:      *   wal-2: B has stackId = [1, 2]      *   wal-1: B has stackId = [1]      *   wal-1: A has stackId = [0]      *      * Since we know that the Stack-IDs are incremental for a Procedure,      * we notice that there is a gap in the stackIds of B, so something was      * executed before.      * To identify when a Procedure is ready we do the sum of the stackIds of      * the procedure and the parent. if the stackIdSum is equal to the      * sum of {1..maxStackId} then everything we need is available.      *      * Example-2      *    wal-2 | A |              A stackIds = [0, 2]      *    wal-1 | A B |            B stackIds = [1]      *      * There is a gap between A stackIds so something was executed in between.      */
 specifier|private
 name|boolean
 name|checkReadyToRun
@@ -2793,6 +2878,36 @@ name|stackIdSum
 operator|+=
 name|stackId
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"stackId="
+operator|+
+name|stackId
+operator|+
+literal|" stackIdSum="
+operator|+
+name|stackIdSum
+operator|+
+literal|" maxStackid="
+operator|+
+name|maxStackId
+operator|+
+literal|" "
+operator|+
+name|rootEntry
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 for|for
 control|(
@@ -2863,8 +2978,40 @@ name|stackIdSum
 operator|+=
 name|stackId
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"stackId="
+operator|+
+name|stackId
+operator|+
+literal|" stackIdSum="
+operator|+
+name|stackIdSum
+operator|+
+literal|" maxStackid="
+operator|+
+name|maxStackId
+operator|+
+literal|" "
+operator|+
+name|p
+argument_list|)
+expr_stmt|;
 block|}
 block|}
+block|}
+comment|// The cmpStackIdSum is this formula for finding the sum of a series of numbers:
+comment|// http://www.wikihow.com/Sum-the-Integers-from-1-to-N#/Image:Sum-the-Integers-from-1-to-N-Step-2-Version-3.jpg
 specifier|final
 name|int
 name|cmpStackIdSum
