@@ -902,6 +902,17 @@ decl_stmt|;
 name|RegionLocations
 name|rl
 init|=
+literal|null
+decl_stmt|;
+name|boolean
+name|skipPrimary
+init|=
+literal|false
+decl_stmt|;
+try|try
+block|{
+name|rl
+operator|=
 name|getRegionLocations
 argument_list|(
 literal|true
@@ -928,7 +939,83 @@ operator|.
 name|getRow
 argument_list|()
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|RetriesExhaustedException
+decl||
+name|DoNotRetryIOException
+name|e
+parameter_list|)
+block|{
+comment|// When there is no specific replica id specified. It just needs to load all replicas.
+if|if
+condition|(
+name|isTargetReplicaSpecified
+condition|)
+block|{
+throw|throw
+name|e
+throw|;
+block|}
+else|else
+block|{
+comment|// We cannot get the primary replica location, it is possible that the region
+comment|// server hosting meta is down, it needs to proceed to try cached replicas.
+if|if
+condition|(
+name|cConnection
+operator|instanceof
+name|ConnectionImplementation
+condition|)
+block|{
+name|rl
+operator|=
+operator|(
+operator|(
+name|ConnectionImplementation
+operator|)
+name|cConnection
+operator|)
+operator|.
+name|getCachedLocation
+argument_list|(
+name|tableName
+argument_list|,
+name|get
+operator|.
+name|getRow
+argument_list|()
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|rl
+operator|==
+literal|null
+condition|)
+block|{
+comment|// No cached locations
+throw|throw
+name|e
+throw|;
+block|}
+comment|// Primary replica location is not known, skip primary replica
+name|skipPrimary
+operator|=
+literal|true
+expr_stmt|;
+block|}
+else|else
+block|{
+comment|// For completeness
+throw|throw
+name|e
+throw|;
+block|}
+block|}
+block|}
 specifier|final
 name|ResultBoundedCompletionService
 argument_list|<
@@ -993,6 +1080,12 @@ literal|1
 expr_stmt|;
 block|}
 else|else
+block|{
+if|if
+condition|(
+operator|!
+name|skipPrimary
+condition|)
 block|{
 name|addCallsForReplica
 argument_list|(
@@ -1099,6 +1192,14 @@ operator|new
 name|InterruptedIOException
 argument_list|()
 throw|;
+block|}
+block|}
+else|else
+block|{
+comment|// Since primary replica is skipped, the endIndex needs to be adjusted accordingly
+name|endIndex
+operator|--
+expr_stmt|;
 block|}
 comment|// submit call for the all of the secondaries at once
 name|addCallsForReplica
@@ -1508,7 +1609,9 @@ throw|throw
 operator|new
 name|RetriesExhaustedException
 argument_list|(
-literal|"Can't get the location"
+literal|"Can't get the location for replica "
+operator|+
+name|replicaId
 argument_list|,
 name|e
 argument_list|)
@@ -1525,7 +1628,9 @@ throw|throw
 operator|new
 name|RetriesExhaustedException
 argument_list|(
-literal|"Can't get the locations"
+literal|"Can't get the location for replica "
+operator|+
+name|replicaId
 argument_list|)
 throw|;
 block|}

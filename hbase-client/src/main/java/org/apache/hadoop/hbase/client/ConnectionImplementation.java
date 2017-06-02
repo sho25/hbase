@@ -5084,6 +5084,7 @@ else|else
 block|{
 comment|// If we are not supposed to be using the cache, delete any existing cached location
 comment|// so it won't interfere.
+comment|// We are only supposed to clean the cache for the specific replicaId
 name|metaCache
 operator|.
 name|clearCache
@@ -5091,6 +5092,8 @@ argument_list|(
 name|tableName
 argument_list|,
 name|row
+argument_list|,
+name|replicaId
 argument_list|)
 expr_stmt|;
 block|}
