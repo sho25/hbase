@@ -2261,6 +2261,8 @@ operator|-
 literal|1
 argument_list|,
 name|pread
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 name|is
@@ -2274,7 +2276,7 @@ literal|0
 argument_list|,
 name|HFile
 operator|.
-name|getChecksumFailuresCount
+name|getAndResetChecksumFailuresCount
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2369,6 +2371,8 @@ name|totalChecksumBytes
 argument_list|()
 argument_list|,
 name|pread
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -2400,6 +2404,8 @@ operator|.
 name|HFILEBLOCK_HEADER_SIZE
 argument_list|,
 name|pread
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|fail
@@ -2931,6 +2937,8 @@ operator|-
 literal|1
 argument_list|,
 name|pread
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -2939,7 +2947,7 @@ literal|0
 argument_list|,
 name|HFile
 operator|.
-name|getChecksumFailuresCount
+name|getAndResetChecksumFailuresCount
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3823,6 +3831,8 @@ operator|-
 literal|1
 argument_list|,
 name|pread
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 if|if
@@ -3930,6 +3940,8 @@ name|getOnDiskSizeWithHeader
 argument_list|()
 argument_list|,
 name|pread
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 name|b2
@@ -4044,7 +4056,7 @@ literal|0
 argument_list|,
 name|HFile
 operator|.
-name|getChecksumFailuresCount
+name|getAndResetChecksumFailuresCount
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -4594,6 +4606,8 @@ argument_list|,
 name|onDiskSizeArg
 argument_list|,
 name|pread
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 block|}

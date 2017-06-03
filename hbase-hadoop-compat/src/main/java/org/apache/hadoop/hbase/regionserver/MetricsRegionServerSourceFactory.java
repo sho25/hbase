@@ -17,6 +17,38 @@ name|regionserver
 package|;
 end_package
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|MetricsIOSource
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|MetricsIOWrapper
+import|;
+end_import
+
 begin_comment
 comment|/**  * Interface of a factory to create Metrics Sources used inside of regionservers.  */
 end_comment
@@ -62,6 +94,14 @@ comment|/**    * Get a MetricsHeapMemoryManagerSource    * @return A metrics hea
 name|MetricsHeapMemoryManagerSource
 name|getHeapMemoryManager
 parameter_list|()
+function_decl|;
+comment|/**    * Create a MetricsIOSource from a MetricsIOWrapper.    *    * @return A metrics IO source    */
+name|MetricsIOSource
+name|createIO
+parameter_list|(
+name|MetricsIOWrapper
+name|wrapper
+parameter_list|)
 function_decl|;
 block|}
 end_interface

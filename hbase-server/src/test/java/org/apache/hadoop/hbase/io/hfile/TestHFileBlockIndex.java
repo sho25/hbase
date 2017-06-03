@@ -1179,6 +1179,8 @@ argument_list|,
 name|onDiskSize
 argument_list|,
 name|pread
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|prevOffset

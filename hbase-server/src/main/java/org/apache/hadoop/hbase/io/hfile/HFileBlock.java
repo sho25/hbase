@@ -21,34 +21,6 @@ end_package
 
 begin_import
 import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|annotations
-operator|.
-name|VisibleForTesting
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|base
-operator|.
-name|Preconditions
-import|;
-end_import
-
-begin_import
-import|import
 name|java
 operator|.
 name|io
@@ -512,6 +484,34 @@ operator|.
 name|io
 operator|.
 name|IOUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|base
+operator|.
+name|Preconditions
 import|;
 end_import
 
@@ -1596,6 +1596,8 @@ return|return
 name|nextBlockOnDiskSize
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|BlockType
 name|getBlockType
@@ -4201,6 +4203,14 @@ block|{
 name|ensureBlockReady
 argument_list|()
 expr_stmt|;
+name|long
+name|startTime
+init|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+decl_stmt|;
 name|out
 operator|.
 name|write
@@ -4223,6 +4233,18 @@ operator|.
 name|write
 argument_list|(
 name|onDiskChecksum
+argument_list|)
+expr_stmt|;
+name|HFile
+operator|.
+name|updateWriteLatency
+argument_list|(
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+operator|-
+name|startTime
 argument_list|)
 expr_stmt|;
 block|}
@@ -4851,6 +4873,9 @@ name|onDiskSize
 parameter_list|,
 name|boolean
 name|pread
+parameter_list|,
+name|boolean
+name|updateMetrics
 parameter_list|)
 throws|throws
 name|IOException
@@ -5232,6 +5257,8 @@ argument_list|,
 name|length
 argument_list|,
 literal|false
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 name|offset
@@ -5400,6 +5427,7 @@ argument_list|,
 name|fileOffset
 argument_list|)
 expr_stmt|;
+comment|// TODO: do we need seek time latencies?
 name|long
 name|realOffset
 init|=
@@ -5559,6 +5587,9 @@ name|onDiskSizeWithHeaderL
 parameter_list|,
 name|boolean
 name|pread
+parameter_list|,
+name|boolean
+name|updateMetrics
 parameter_list|)
 throws|throws
 name|IOException
@@ -5600,6 +5631,8 @@ argument_list|,
 name|pread
 argument_list|,
 name|doVerificationThruHBaseChecksum
+argument_list|,
+name|updateMetrics
 argument_list|)
 decl_stmt|;
 if|if
@@ -5715,6 +5748,8 @@ argument_list|,
 name|pread
 argument_list|,
 name|doVerificationThruHBaseChecksum
+argument_list|,
+name|updateMetrics
 argument_list|)
 expr_stmt|;
 if|if
@@ -6059,6 +6094,9 @@ name|pread
 parameter_list|,
 name|boolean
 name|verifyChecksum
+parameter_list|,
+name|boolean
+name|updateMetrics
 parameter_list|)
 throws|throws
 name|IOException
@@ -6152,6 +6190,14 @@ name|onDiskSizeWithHeader
 argument_list|)
 expr_stmt|;
 block|}
+name|long
+name|startTime
+init|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+decl_stmt|;
 if|if
 condition|(
 name|onDiskSizeWithHeader
@@ -6400,6 +6446,31 @@ return|return
 literal|null
 return|;
 block|}
+name|long
+name|duration
+init|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+operator|-
+name|startTime
+decl_stmt|;
+if|if
+condition|(
+name|updateMetrics
+condition|)
+block|{
+name|HFile
+operator|.
+name|updateReadLatency
+argument_list|(
+name|duration
+argument_list|,
+name|pread
+argument_list|)
+expr_stmt|;
+block|}
 comment|// The onDiskBlock will become the headerAndDataBuffer for this block.
 comment|// If nextBlockOnDiskSizeWithHeader is not zero, the onDiskBlock already
 comment|// contains the header of next block, so no need to set next block's header in it.
@@ -6464,6 +6535,12 @@ argument_list|(
 literal|"Read "
 operator|+
 name|hFileBlock
+operator|+
+literal|" in "
+operator|+
+name|duration
+operator|+
+literal|" ns"
 argument_list|)
 expr_stmt|;
 block|}

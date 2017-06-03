@@ -6269,6 +6269,8 @@ argument_list|,
 name|blockSize
 argument_list|,
 literal|true
+argument_list|,
+literal|false
 argument_list|)
 operator|.
 name|unpack
@@ -6685,6 +6687,9 @@ argument_list|,
 name|onDiskBlockSize
 argument_list|,
 name|pread
+argument_list|,
+operator|!
+name|isCompaction
 argument_list|)
 decl_stmt|;
 name|validateBlockType

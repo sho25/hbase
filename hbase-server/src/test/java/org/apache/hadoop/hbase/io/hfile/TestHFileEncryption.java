@@ -20,6 +20,66 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertFalse
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertNotNull
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|fail
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -437,18 +497,6 @@ name|Category
 import|;
 end_import
 
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|*
-import|;
-end_import
-
 begin_class
 annotation|@
 name|Category
@@ -815,6 +863,8 @@ operator|-
 literal|1
 argument_list|,
 literal|false
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 name|assertEquals
@@ -823,7 +873,7 @@ literal|0
 argument_list|,
 name|HFile
 operator|.
-name|getChecksumFailuresCount
+name|getAndResetChecksumFailuresCount
 argument_list|()
 argument_list|)
 expr_stmt|;

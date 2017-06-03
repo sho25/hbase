@@ -745,6 +745,8 @@ operator|-
 literal|1
 argument_list|,
 literal|false
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 name|assertEquals
@@ -1010,6 +1012,8 @@ operator|-
 literal|1
 argument_list|,
 literal|false
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 name|ByteBuff
@@ -1081,7 +1085,7 @@ literal|0
 argument_list|,
 name|HFile
 operator|.
-name|getChecksumFailuresCount
+name|getAndResetChecksumFailuresCount
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1386,6 +1390,8 @@ operator|-
 literal|1
 argument_list|,
 name|pread
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 name|b
@@ -1475,7 +1481,7 @@ literal|1
 argument_list|,
 name|HFile
 operator|.
-name|getChecksumFailuresCount
+name|getAndResetChecksumFailuresCount
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1518,6 +1524,8 @@ operator|-
 literal|1
 argument_list|,
 name|pread
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1526,7 +1534,7 @@ literal|0
 argument_list|,
 name|HFile
 operator|.
-name|getChecksumFailuresCount
+name|getAndResetChecksumFailuresCount
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1545,6 +1553,8 @@ operator|-
 literal|1
 argument_list|,
 name|pread
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1553,7 +1563,7 @@ literal|1
 argument_list|,
 name|HFile
 operator|.
-name|getChecksumFailuresCount
+name|getAndResetChecksumFailuresCount
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1571,6 +1581,8 @@ operator|-
 literal|1
 argument_list|,
 name|pread
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1579,7 +1591,7 @@ literal|0
 argument_list|,
 name|HFile
 operator|.
-name|getChecksumFailuresCount
+name|getAndResetChecksumFailuresCount
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1653,6 +1665,8 @@ operator|-
 literal|1
 argument_list|,
 name|pread
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|is
@@ -1749,7 +1763,7 @@ literal|0
 argument_list|,
 name|HFile
 operator|.
-name|getChecksumFailuresCount
+name|getAndResetChecksumFailuresCount
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2128,6 +2142,8 @@ operator|-
 literal|1
 argument_list|,
 name|pread
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 name|is
@@ -2175,7 +2191,7 @@ literal|0
 argument_list|,
 name|HFile
 operator|.
-name|getChecksumFailuresCount
+name|getAndResetChecksumFailuresCount
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2303,6 +2319,9 @@ name|pread
 parameter_list|,
 name|boolean
 name|verifyChecksum
+parameter_list|,
+name|boolean
+name|updateMetrics
 parameter_list|)
 throws|throws
 name|IOException
@@ -2333,6 +2352,8 @@ argument_list|,
 name|pread
 argument_list|,
 name|verifyChecksum
+argument_list|,
+name|updateMetrics
 argument_list|)
 decl_stmt|;
 name|corruptDataStream
