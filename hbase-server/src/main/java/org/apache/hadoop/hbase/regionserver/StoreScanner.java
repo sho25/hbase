@@ -628,15 +628,18 @@ specifier|final
 name|long
 name|cellsPerHeartbeatCheck
 decl_stmt|;
-comment|// Collects all the KVHeap that are eagerly getting closed during the
-comment|// course of a scan
+comment|// 1) Collects all the KVHeap that are eagerly getting closed during the
+comment|//    course of a scan
+comment|// 2) Collects the unused memstore scanners. If we close the memstore scanners
+comment|//    before sending data to client, the chunk may be reclaimed by other
+comment|//    updates and the data will be corrupt.
 specifier|private
 specifier|final
 name|List
 argument_list|<
-name|KeyValueHeap
+name|KeyValueScanner
 argument_list|>
-name|heapsForDelayedClose
+name|scannersForDelayedClose
 init|=
 operator|new
 name|ArrayList
@@ -2501,7 +2504,7 @@ name|void
 name|close
 parameter_list|(
 name|boolean
-name|withHeapClose
+name|withDelayedScannersClose
 parameter_list|)
 block|{
 if|if
@@ -2515,7 +2518,7 @@ return|return;
 block|}
 if|if
 condition|(
-name|withHeapClose
+name|withDelayedScannersClose
 condition|)
 block|{
 name|this
@@ -2547,36 +2550,18 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-name|withHeapClose
+name|withDelayedScannersClose
 condition|)
 block|{
 name|clearAndClose
 argument_list|(
-name|memStoreScannersAfterFlush
+name|scannersForDelayedClose
 argument_list|)
 expr_stmt|;
-for|for
-control|(
-name|KeyValueHeap
-name|h
-range|:
-name|this
-operator|.
-name|heapsForDelayedClose
-control|)
-block|{
-name|h
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-block|}
-name|this
-operator|.
-name|heapsForDelayedClose
-operator|.
-name|clear
-argument_list|()
+name|clearAndClose
+argument_list|(
+name|memStoreScannersAfterFlush
+argument_list|)
 expr_stmt|;
 if|if
 condition|(
@@ -2623,7 +2608,7 @@ condition|)
 block|{
 name|this
 operator|.
-name|heapsForDelayedClose
+name|scannersForDelayedClose
 operator|.
 name|add
 argument_list|(
@@ -4120,15 +4105,17 @@ name|isFileScanner
 argument_list|()
 condition|)
 block|{
+name|scannersForDelayedClose
+operator|.
+name|add
+argument_list|(
 name|currentScanners
 operator|.
 name|remove
 argument_list|(
 name|i
 argument_list|)
-operator|.
-name|close
-argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 else|else
@@ -5221,23 +5208,10 @@ name|beforeShipped
 argument_list|()
 expr_stmt|;
 comment|// There wont be further fetch of Cells from these scanners. Just close.
-name|this
-operator|.
-name|heapsForDelayedClose
-operator|.
-name|forEach
+name|clearAndClose
 argument_list|(
-name|KeyValueHeap
-operator|::
-name|close
+name|scannersForDelayedClose
 argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|heapsForDelayedClose
-operator|.
-name|clear
-argument_list|()
 expr_stmt|;
 if|if
 condition|(
