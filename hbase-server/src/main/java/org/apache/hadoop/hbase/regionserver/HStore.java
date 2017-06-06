@@ -7285,7 +7285,7 @@ operator|.
 name|getRegionInfo
 argument_list|()
 operator|.
-name|getRegionNameAsString
+name|getShortNameToLog
 argument_list|()
 operator|+
 literal|" into "

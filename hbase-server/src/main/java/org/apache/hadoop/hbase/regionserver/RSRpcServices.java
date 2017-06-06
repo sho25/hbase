@@ -17310,16 +17310,22 @@ block|{
 name|String
 name|msg
 init|=
-literal|"Region was re-opened after the scanner"
+literal|"Region has changed on the scanner "
 operator|+
 name|scannerName
 operator|+
-literal|" was created: "
+literal|": regionName="
 operator|+
 name|hri
 operator|.
-name|getRegionNameAsString
+name|getRegionName
 argument_list|()
+operator|+
+literal|", scannerRegionName="
+operator|+
+name|rsh
+operator|.
+name|r
 decl_stmt|;
 name|LOG
 operator|.

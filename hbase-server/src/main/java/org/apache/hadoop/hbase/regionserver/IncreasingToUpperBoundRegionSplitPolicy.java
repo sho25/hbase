@@ -137,6 +137,24 @@ name|InterfaceAudience
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|procedure2
+operator|.
+name|util
+operator|.
+name|StringUtils
+import|;
+end_import
+
 begin_comment
 comment|/**  * Split size is the number of regions that are on this server that all are  * of the same table, cubed, times 2x the region flush size OR the maximum  * region split size, whichever is smaller.  *<p>  * For example, if the flush size is 128MB, then after two flushes (256MB) we  * will split which will make two regions that will split when their size is  * {@code 2^3 * 128MB*2 = 2048MB}.  *<p>  * If one of these regions splits, then there are three regions and now the  * split size is {@code 3^3 * 128MB*2 = 6912MB}, and so on until we reach the configured  * maximum file size and then from there on out, we'll use that.  */
 end_comment
@@ -357,11 +375,21 @@ argument_list|()
 operator|+
 literal|" size="
 operator|+
+name|StringUtils
+operator|.
+name|humanSize
+argument_list|(
 name|size
+argument_list|)
 operator|+
 literal|", sizeToCheck="
 operator|+
+name|StringUtils
+operator|.
+name|humanSize
+argument_list|(
 name|sizeToCheck
+argument_list|)
 operator|+
 literal|", regionsWithCommonTable="
 operator|+
