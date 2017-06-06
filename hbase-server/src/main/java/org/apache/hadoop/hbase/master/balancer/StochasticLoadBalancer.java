@@ -6080,9 +6080,18 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// We normalize locality to be a score between 0 and 1.0 representing how good it
-comment|// is compared to how good it could be
+comment|// is compared to how good it could be. If bestLocality is 0, assume locality is 100
+comment|// (and the cost is 0)
 name|locality
-operator|/=
+operator|=
+name|bestLocality
+operator|==
+literal|0
+condition|?
+literal|1
+else|:
+name|locality
+operator|/
 name|bestLocality
 expr_stmt|;
 block|}
@@ -6169,6 +6178,12 @@ decl_stmt|;
 name|double
 name|normalizedDelta
 init|=
+name|bestLocality
+operator|==
+literal|0
+condition|?
+literal|0.0
+else|:
 name|localityDelta
 operator|/
 name|bestLocality
