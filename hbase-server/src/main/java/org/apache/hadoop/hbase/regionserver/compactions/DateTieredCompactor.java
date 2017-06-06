@@ -171,7 +171,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
+name|StoreUtils
 import|;
 end_import
 
@@ -271,7 +271,7 @@ block|{
 comment|// if we are going to compact the last N files, then we need to emit an empty file to retain the
 comment|// maxSeqId if we haven't written out anything.
 return|return
-name|StoreFile
+name|StoreUtils
 operator|.
 name|getMaxSequenceIdInList
 argument_list|(

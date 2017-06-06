@@ -103,6 +103,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|OptionalLong
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|TreeSet
 import|;
 end_import
@@ -761,7 +771,7 @@ block|}
 argument_list|)
 specifier|public
 class|class
-name|TestStoreFile
+name|TestHStoreFile
 extends|extends
 name|HBaseTestCase
 block|{
@@ -775,7 +785,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|TestStoreFile
+name|TestHStoreFile
 operator|.
 name|class
 argument_list|)
@@ -996,11 +1006,11 @@ name|getPath
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|StoreFile
+name|HStoreFile
 name|sf
 init|=
 operator|new
-name|StoreFile
+name|HStoreFile
 argument_list|(
 name|this
 operator|.
@@ -1315,11 +1325,11 @@ name|getPath
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|StoreFile
+name|HStoreFile
 name|hsf
 init|=
 operator|new
-name|StoreFile
+name|HStoreFile
 argument_list|(
 name|this
 operator|.
@@ -1433,11 +1443,11 @@ argument_list|,
 literal|true
 argument_list|)
 decl_stmt|;
-name|StoreFile
+name|HStoreFile
 name|refHsf
 init|=
 operator|new
-name|StoreFile
+name|HStoreFile
 argument_list|(
 name|this
 operator|.
@@ -1963,11 +1973,11 @@ argument_list|,
 name|linkFilePath
 argument_list|)
 decl_stmt|;
-name|StoreFile
+name|HStoreFile
 name|hsf
 init|=
 operator|new
-name|StoreFile
+name|HStoreFile
 argument_list|(
 name|this
 operator|.
@@ -2329,11 +2339,11 @@ argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
-name|StoreFile
+name|HStoreFile
 name|f
 init|=
 operator|new
-name|StoreFile
+name|HStoreFile
 argument_list|(
 name|fs
 argument_list|,
@@ -2415,11 +2425,11 @@ expr_stmt|;
 comment|// There is a case where a file with the hfilelink pattern is actually a daughter
 comment|// reference to a hfile link.  This code in StoreFile that handles this case.
 comment|// Try to open store file from link
-name|StoreFile
+name|HStoreFile
 name|hsfA
 init|=
 operator|new
-name|StoreFile
+name|HStoreFile
 argument_list|(
 name|this
 operator|.
@@ -2490,11 +2500,11 @@ argument_list|)
 expr_stmt|;
 comment|// read some rows here
 comment|// Try to open store file from link
-name|StoreFile
+name|HStoreFile
 name|hsfB
 init|=
 operator|new
-name|StoreFile
+name|HStoreFile
 argument_list|(
 name|this
 operator|.
@@ -2587,7 +2597,7 @@ name|HRegionFileSystem
 name|regionFs
 parameter_list|,
 specifier|final
-name|StoreFile
+name|HStoreFile
 name|f
 parameter_list|)
 throws|throws
@@ -2705,11 +2715,11 @@ literal|false
 argument_list|)
 decl_stmt|;
 comment|// Make readers on top and bottom.
-name|StoreFile
+name|HStoreFile
 name|topF
 init|=
 operator|new
-name|StoreFile
+name|HStoreFile
 argument_list|(
 name|this
 operator|.
@@ -2741,11 +2751,11 @@ operator|.
 name|getReader
 argument_list|()
 decl_stmt|;
-name|StoreFile
+name|HStoreFile
 name|bottomF
 init|=
 operator|new
-name|StoreFile
+name|HStoreFile
 argument_list|(
 name|this
 operator|.
@@ -3214,7 +3224,7 @@ expr_stmt|;
 name|topF
 operator|=
 operator|new
-name|StoreFile
+name|HStoreFile
 argument_list|(
 name|this
 operator|.
@@ -3585,7 +3595,7 @@ expr_stmt|;
 name|bottomF
 operator|=
 operator|new
-name|StoreFile
+name|HStoreFile
 argument_list|(
 name|this
 operator|.
@@ -5808,9 +5818,7 @@ parameter_list|()
 block|{
 name|assertOrdering
 argument_list|(
-name|StoreFile
-operator|.
-name|Comparators
+name|StoreFileComparators
 operator|.
 name|SEQ_ID
 argument_list|,
@@ -5935,18 +5943,20 @@ name|assertOrdering
 parameter_list|(
 name|Comparator
 argument_list|<
-name|StoreFile
+name|?
+super|super
+name|HStoreFile
 argument_list|>
 name|comparator
 parameter_list|,
-name|StoreFile
+name|HStoreFile
 modifier|...
 name|sfs
 parameter_list|)
 block|{
 name|ArrayList
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|sorted
 init|=
@@ -6031,7 +6041,7 @@ expr_stmt|;
 block|}
 comment|/**    * Create a mock StoreFile with the given attributes.    */
 specifier|private
-name|StoreFile
+name|HStoreFile
 name|mockStoreFile
 parameter_list|(
 name|boolean
@@ -6050,14 +6060,14 @@ name|String
 name|path
 parameter_list|)
 block|{
-name|StoreFile
+name|HStoreFile
 name|mock
 init|=
 name|Mockito
 operator|.
 name|mock
 argument_list|(
-name|StoreFile
+name|HStoreFile
 operator|.
 name|class
 argument_list|)
@@ -6123,7 +6133,12 @@ name|Mockito
 operator|.
 name|doReturn
 argument_list|(
+name|OptionalLong
+operator|.
+name|of
+argument_list|(
 name|bulkTimestamp
+argument_list|)
 argument_list|)
 operator|.
 name|when
@@ -6513,11 +6528,11 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
-name|StoreFile
+name|HStoreFile
 name|hsf
 init|=
 operator|new
-name|StoreFile
+name|HStoreFile
 argument_list|(
 name|this
 operator|.
@@ -6943,11 +6958,11 @@ argument_list|,
 literal|3
 argument_list|)
 decl_stmt|;
-name|StoreFile
+name|HStoreFile
 name|hsf
 init|=
 operator|new
-name|StoreFile
+name|HStoreFile
 argument_list|(
 name|this
 operator|.
@@ -7130,7 +7145,7 @@ expr_stmt|;
 name|hsf
 operator|=
 operator|new
-name|StoreFile
+name|HStoreFile
 argument_list|(
 name|this
 operator|.
@@ -7250,7 +7265,7 @@ comment|// Let's read back the two files to ensure the blocks exactly match
 name|hsf
 operator|=
 operator|new
-name|StoreFile
+name|HStoreFile
 argument_list|(
 name|this
 operator|.
@@ -7311,7 +7326,7 @@ expr_stmt|;
 name|hsf
 operator|=
 operator|new
-name|StoreFile
+name|HStoreFile
 argument_list|(
 name|this
 operator|.
@@ -7606,7 +7621,7 @@ expr_stmt|;
 name|hsf
 operator|=
 operator|new
-name|StoreFile
+name|HStoreFile
 argument_list|(
 name|this
 operator|.
@@ -7700,7 +7715,7 @@ expr_stmt|;
 name|hsf
 operator|=
 operator|new
-name|StoreFile
+name|HStoreFile
 argument_list|(
 name|this
 operator|.
@@ -7790,7 +7805,7 @@ name|String
 name|family
 parameter_list|,
 specifier|final
-name|StoreFile
+name|HStoreFile
 name|sf
 parameter_list|,
 specifier|final
@@ -8227,11 +8242,11 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
-name|StoreFile
+name|HStoreFile
 name|storeFile
 init|=
 operator|new
-name|StoreFile
+name|HStoreFile
 argument_list|(
 name|fs
 argument_list|,

@@ -21,20 +21,6 @@ end_package
 
 begin_import
 import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|io
-operator|.
-name|Closeables
-import|;
-end_import
-
-begin_import
-import|import
 name|java
 operator|.
 name|io
@@ -614,6 +600,20 @@ operator|.
 name|StringUtils
 operator|.
 name|TraditionalBinaryPrefix
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|io
+operator|.
+name|Closeables
 import|;
 end_import
 

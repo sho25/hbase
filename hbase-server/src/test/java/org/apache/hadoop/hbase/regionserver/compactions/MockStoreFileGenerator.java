@@ -20,6 +20,44 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|mockito
+operator|.
+name|Mockito
+operator|.
+name|mock
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|mockito
+operator|.
+name|Mockito
+operator|.
+name|when
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|base
+operator|.
+name|Objects
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -46,20 +84,6 @@ operator|.
 name|util
 operator|.
 name|Random
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|base
-operator|.
-name|Objects
 import|;
 end_import
 
@@ -134,30 +158,6 @@ operator|.
 name|util
 operator|.
 name|StringUtils
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|mockito
-operator|.
-name|Mockito
-operator|.
-name|mock
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|mockito
-operator|.
-name|Mockito
-operator|.
-name|when
 import|;
 end_import
 

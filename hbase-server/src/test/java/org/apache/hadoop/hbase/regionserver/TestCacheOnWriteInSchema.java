@@ -1501,7 +1501,7 @@ name|StoreFile
 name|sf
 init|=
 operator|new
-name|StoreFile
+name|HStoreFile
 argument_list|(
 name|fs
 argument_list|,

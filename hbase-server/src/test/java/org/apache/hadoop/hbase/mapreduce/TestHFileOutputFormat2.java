@@ -73,18 +73,6 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|assertNull
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
 name|assertTrue
 import|;
 end_import
@@ -139,7 +127,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|Arrays
+name|ArrayList
 import|;
 end_import
 
@@ -149,7 +137,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|ArrayList
+name|Arrays
 import|;
 end_import
 
@@ -873,24 +861,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|mapreduce
-operator|.
-name|TestImportTSVWithTTLs
-operator|.
-name|TTLCheckingObserver
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|io
 operator|.
 name|hfile
@@ -1056,22 +1026,6 @@ operator|.
 name|util
 operator|.
 name|ReflectionUtils
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Threads
 import|;
 end_import
 

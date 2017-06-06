@@ -713,7 +713,7 @@ operator|.
 name|build
 argument_list|()
 decl_stmt|;
-name|TestStoreFile
+name|TestHStoreFile
 operator|.
 name|writeStoreFile
 argument_list|(
@@ -738,7 +738,7 @@ name|StoreFile
 name|sf
 init|=
 operator|new
-name|StoreFile
+name|HStoreFile
 argument_list|(
 name|fs
 argument_list|,
@@ -1012,7 +1012,7 @@ operator|.
 name|build
 argument_list|()
 decl_stmt|;
-name|TestStoreFile
+name|TestHStoreFile
 operator|.
 name|writeStoreFile
 argument_list|(
@@ -1037,7 +1037,7 @@ name|StoreFile
 name|sf
 init|=
 operator|new
-name|StoreFile
+name|HStoreFile
 argument_list|(
 name|fs
 argument_list|,

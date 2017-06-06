@@ -55,6 +55,20 @@ end_import
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|collect
+operator|.
+name|Lists
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -649,20 +663,6 @@ name|TestName
 import|;
 end_import
 
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|collect
-operator|.
-name|Lists
-import|;
-end_import
-
 begin_comment
 comment|/**  * Test cases against ReversibleKeyValueScanner  */
 end_comment
@@ -1013,7 +1013,7 @@ name|StoreFile
 name|sf
 init|=
 operator|new
-name|StoreFile
+name|HStoreFile
 argument_list|(
 name|fs
 argument_list|,
@@ -1390,7 +1390,7 @@ name|StoreFile
 name|sf1
 init|=
 operator|new
-name|StoreFile
+name|HStoreFile
 argument_list|(
 name|fs
 argument_list|,
@@ -1417,7 +1417,7 @@ name|StoreFile
 name|sf2
 init|=
 operator|new
-name|StoreFile
+name|HStoreFile
 argument_list|(
 name|fs
 argument_list|,
@@ -1996,7 +1996,7 @@ name|StoreFile
 name|sf1
 init|=
 operator|new
-name|StoreFile
+name|HStoreFile
 argument_list|(
 name|fs
 argument_list|,
@@ -2023,7 +2023,7 @@ name|StoreFile
 name|sf2
 init|=
 operator|new
-name|StoreFile
+name|HStoreFile
 argument_list|(
 name|fs
 argument_list|,

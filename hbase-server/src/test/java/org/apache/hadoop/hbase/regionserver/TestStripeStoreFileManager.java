@@ -43,6 +43,18 @@ name|junit
 operator|.
 name|Assert
 operator|.
+name|assertArrayEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
 name|assertEquals
 import|;
 end_import
@@ -1391,9 +1403,10 @@ name|splitPoint
 operator|=
 operator|new
 name|byte
-index|[
+index|[]
+block|{
 literal|1
-index|]
+block|}
 expr_stmt|;
 name|manager
 operator|.
@@ -1420,7 +1433,7 @@ argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|assertEquals
+name|assertArrayEquals
 argument_list|(
 name|sf5
 operator|.
@@ -1455,7 +1468,7 @@ argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|assertEquals
+name|assertArrayEquals
 argument_list|(
 name|sf5
 operator|.
@@ -1488,9 +1501,10 @@ name|splitPoint
 operator|=
 operator|new
 name|byte
-index|[
-literal|1
-index|]
+index|[]
+block|{
+literal|2
+block|}
 expr_stmt|;
 name|manager
 operator|.
@@ -1505,7 +1519,7 @@ name|sf6
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|assertEquals
+name|assertArrayEquals
 argument_list|(
 name|sf6
 operator|.
@@ -4900,7 +4914,7 @@ decl_stmt|;
 name|Path
 name|testFilePath
 init|=
-name|StoreFile
+name|StoreFileWriter
 operator|.
 name|getUniqueFile
 argument_list|(

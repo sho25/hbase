@@ -404,9 +404,7 @@ name|DefaultStoreFileManager
 argument_list|(
 name|kvComparator
 argument_list|,
-name|StoreFile
-operator|.
-name|Comparators
+name|StoreFileComparators
 operator|.
 name|SEQ_ID
 argument_list|,

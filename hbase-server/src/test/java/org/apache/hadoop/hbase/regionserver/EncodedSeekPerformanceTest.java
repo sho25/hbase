@@ -342,7 +342,7 @@ name|StoreFile
 name|storeFile
 init|=
 operator|new
-name|StoreFile
+name|HStoreFile
 argument_list|(
 name|testingUtility
 operator|.
@@ -523,7 +523,7 @@ name|StoreFile
 name|storeFile
 init|=
 operator|new
-name|StoreFile
+name|HStoreFile
 argument_list|(
 name|testingUtility
 operator|.

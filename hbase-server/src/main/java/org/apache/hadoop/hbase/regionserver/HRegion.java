@@ -7498,7 +7498,7 @@ operator|.
 name|isLoadingCfsOnDemandDefault
 return|;
 block|}
-comment|/**    * Close down this HRegion.  Flush the cache, shut down each HStore, don't    * service any more calls.    *    *<p>This method could take some time to execute, so don't call it from a    * time-sensitive thread.    *    * @return Vector of all the storage files that the HRegion's component    * HStores make use of.  It's a list of all HStoreFile objects. Returns empty    * vector if already closed and null if judged that it should not close.    *    * @throws IOException e    * @throws DroppedSnapshotException Thrown when replay of wal is required    * because a Snapshot was not properly persisted. The region is put in closing mode, and the    * caller MUST abort after this.    */
+comment|/**    * Close down this HRegion.  Flush the cache, shut down each HStore, don't    * service any more calls.    *    *<p>This method could take some time to execute, so don't call it from a    * time-sensitive thread.    *    * @return Vector of all the storage files that the HRegion's component    * HStores make use of.  It's a list of all StoreFile objects. Returns empty    * vector if already closed and null if judged that it should not close.    *    * @throws IOException e    * @throws DroppedSnapshotException Thrown when replay of wal is required    * because a Snapshot was not properly persisted. The region is put in closing mode, and the    * caller MUST abort after this.    */
 specifier|public
 name|Map
 argument_list|<
@@ -7587,7 +7587,7 @@ init|=
 literal|1000000000
 decl_stmt|;
 comment|// 1G
-comment|/**    * Close down this HRegion.  Flush the cache unless abort parameter is true,    * Shut down each HStore, don't service any more calls.    *    * This method could take some time to execute, so don't call it from a    * time-sensitive thread.    *    * @param abort true if server is aborting (only during testing)    * @return Vector of all the storage files that the HRegion's component    * HStores make use of.  It's a list of HStoreFile objects.  Can be null if    * we are not to close at this time or we are already closed.    *    * @throws IOException e    * @throws DroppedSnapshotException Thrown when replay of wal is required    * because a Snapshot was not properly persisted. The region is put in closing mode, and the    * caller MUST abort after this.    */
+comment|/**    * Close down this HRegion.  Flush the cache unless abort parameter is true,    * Shut down each HStore, don't service any more calls.    *    * This method could take some time to execute, so don't call it from a    * time-sensitive thread.    *    * @param abort true if server is aborting (only during testing)    * @return Vector of all the storage files that the HRegion's component    * HStores make use of.  It's a list of StoreFile objects.  Can be null if    * we are not to close at this time or we are already closed.    *    * @throws IOException e    * @throws DroppedSnapshotException Thrown when replay of wal is required    * because a Snapshot was not properly persisted. The region is put in closing mode, and the    * caller MUST abort after this.    */
 specifier|public
 name|Map
 argument_list|<
@@ -20684,7 +20684,7 @@ operator|.
 name|add
 argument_list|(
 operator|new
-name|StoreFile
+name|HStoreFile
 argument_list|(
 name|getRegionFileSystem
 argument_list|()

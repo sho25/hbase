@@ -153,6 +153,18 @@ end_import
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ByteString
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -778,18 +790,6 @@ operator|.
 name|rules
 operator|.
 name|TestName
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|ByteString
 import|;
 end_import
 

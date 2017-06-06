@@ -1605,7 +1605,7 @@ literal|300000
 argument_list|)
 specifier|public
 name|void
-name|testRefreshStoreFiles
+name|testRefresStoreFiles
 parameter_list|()
 throws|throws
 name|Exception

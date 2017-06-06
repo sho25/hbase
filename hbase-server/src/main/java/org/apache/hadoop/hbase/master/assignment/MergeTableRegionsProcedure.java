@@ -563,7 +563,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
+name|HStoreFile
 import|;
 end_import
 
@@ -3365,7 +3365,7 @@ argument_list|,
 name|family
 argument_list|,
 operator|new
-name|StoreFile
+name|HStoreFile
 argument_list|(
 name|mfs
 operator|.
@@ -3382,6 +3382,8 @@ name|hcd
 operator|.
 name|getBloomFilterType
 argument_list|()
+argument_list|,
+literal|true
 argument_list|)
 argument_list|,
 name|mergedDir

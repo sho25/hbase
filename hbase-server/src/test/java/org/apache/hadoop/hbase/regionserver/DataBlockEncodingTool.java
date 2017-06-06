@@ -3279,7 +3279,7 @@ name|StoreFile
 name|hsf
 init|=
 operator|new
-name|StoreFile
+name|HStoreFile
 argument_list|(
 name|fs
 argument_list|,

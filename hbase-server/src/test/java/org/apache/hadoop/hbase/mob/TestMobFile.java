@@ -237,7 +237,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
+name|HStoreFile
 import|;
 end_import
 
@@ -480,7 +480,7 @@ operator|new
 name|MobFile
 argument_list|(
 operator|new
-name|StoreFile
+name|HStoreFile
 argument_list|(
 name|fs
 argument_list|,
@@ -940,7 +940,7 @@ operator|new
 name|MobFile
 argument_list|(
 operator|new
-name|StoreFile
+name|HStoreFile
 argument_list|(
 name|fs
 argument_list|,

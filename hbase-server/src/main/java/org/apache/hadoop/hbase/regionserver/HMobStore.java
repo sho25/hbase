@@ -1638,7 +1638,7 @@ block|{
 name|storeFile
 operator|=
 operator|new
-name|StoreFile
+name|HStoreFile
 argument_list|(
 name|region
 operator|.
