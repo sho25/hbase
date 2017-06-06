@@ -1824,6 +1824,11 @@ name|boolean
 name|prefetchComplete
 parameter_list|()
 function_decl|;
+comment|/**      * To close the stream's socket. Note: This can be concurrently called from multiple threads and      * implementation should take care of thread safety.      */
+name|void
+name|unbufferStream
+parameter_list|()
+function_decl|;
 block|}
 comment|/**    * Method returns the reader given the specified arguments.    * TODO This is a bad abstraction.  See HBASE-6635.    *    * @param path hfile's path    * @param fsdis stream of path's file    * @param size max size of the trailer.    * @param cacheConf Cache configuation values, cannot be null.    * @param hfs    * @param primaryReplicaReader true if this is a reader for primary replica    * @return an appropriate instance of HFileReader    * @throws IOException If file is invalid, will throw CorruptHFileException flavored IOException    */
 annotation|@
@@ -1850,7 +1855,7 @@ argument_list|)
 specifier|private
 specifier|static
 name|Reader
-name|pickReaderVersion
+name|openReader
 parameter_list|(
 name|Path
 name|path
@@ -1995,8 +2000,16 @@ name|t
 argument_list|)
 throw|;
 block|}
+finally|finally
+block|{
+name|fsdis
+operator|.
+name|unbuffer
+argument_list|()
+expr_stmt|;
 block|}
-comment|/**    * @param fs A file system    * @param path Path to HFile    * @param fsdis a stream of path's file    * @param size max size of the trailer.    * @param cacheConf Cache configuration for hfile's contents    * @param primaryReplicaReader true if this is a reader for primary replica    * @param conf Configuration    * @return A version specific Hfile Reader    * @throws IOException If file is invalid, will throw CorruptHFileException flavored IOException    */
+block|}
+comment|/**    * The sockets and the file descriptors held by the method parameter    * {@code FSDataInputStreamWrapper} passed will be freed after its usage so caller needs to ensure    * that no other threads have access to the same passed reference.    * @param fs A file system    * @param path Path to HFile    * @param fsdis a stream of path's file    * @param size max size of the trailer.    * @param cacheConf Cache configuration for hfile's contents    * @param primaryReplicaReader true if this is a reader for primary replica    * @param conf Configuration    * @return A version specific Hfile Reader    * @throws IOException If file is invalid, will throw CorruptHFileException flavored IOException    */
 specifier|public
 specifier|static
 name|Reader
@@ -2065,7 +2078,7 @@ name|fs
 expr_stmt|;
 block|}
 return|return
-name|pickReaderVersion
+name|openReader
 argument_list|(
 name|path
 argument_list|,
@@ -2165,7 +2178,7 @@ name|path
 argument_list|)
 decl_stmt|;
 return|return
-name|pickReaderVersion
+name|openReader
 argument_list|(
 name|path
 argument_list|,
@@ -2194,7 +2207,7 @@ name|conf
 argument_list|)
 return|;
 block|}
-comment|/**    * This factory method is used only by unit tests    */
+comment|/**    * This factory method is used only by unit tests.<br/>    * The sockets and the file descriptors held by the method parameter    * {@code FSDataInputStreamWrapper} passed will be freed after its usage so caller needs to ensure    * that no other threads have access to the same passed reference.    */
 annotation|@
 name|VisibleForTesting
 specifier|static
@@ -2229,7 +2242,7 @@ name|fsdis
 argument_list|)
 decl_stmt|;
 return|return
-name|pickReaderVersion
+name|openReader
 argument_list|(
 name|path
 argument_list|,
