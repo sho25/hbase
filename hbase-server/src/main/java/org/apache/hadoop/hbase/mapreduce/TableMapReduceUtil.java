@@ -3003,6 +3003,21 @@ name|hbase
 operator|.
 name|mapreduce
 operator|.
+name|JobUtil
+operator|.
+name|class
+argument_list|,
+comment|// hbase-hadoop2-compat
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|mapreduce
+operator|.
 name|TableMapper
 operator|.
 name|class
