@@ -671,6 +671,16 @@ argument_list|>
 argument_list|>
 argument_list|()
 decl_stmt|;
+name|boolean
+name|deleteSessionStarted
+init|=
+literal|false
+decl_stmt|;
+name|boolean
+name|snapshotDone
+init|=
+literal|false
+decl_stmt|;
 try|try
 init|(
 specifier|final
@@ -683,6 +693,126 @@ argument_list|(
 name|conn
 argument_list|)
 init|)
+block|{
+comment|// Step 1: Make sure there is no active session
+comment|// is running by using startBackupSession API
+comment|// If there is an active session in progress, exception will be thrown
+try|try
+block|{
+name|sysTable
+operator|.
+name|startBackupSession
+argument_list|()
+expr_stmt|;
+name|deleteSessionStarted
+operator|=
+literal|true
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"You can not run delete command while active backup session is in progress. \n"
+operator|+
+literal|"If there is no active backup session running, run backup repair utility to restore \n"
+operator|+
+literal|"backup system integrity."
+argument_list|)
+expr_stmt|;
+return|return
+operator|-
+literal|1
+return|;
+block|}
+comment|// Step 2: Make sure there is no failed session
+name|List
+argument_list|<
+name|BackupInfo
+argument_list|>
+name|list
+init|=
+name|sysTable
+operator|.
+name|getBackupInfos
+argument_list|(
+name|BackupState
+operator|.
+name|RUNNING
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|list
+operator|.
+name|size
+argument_list|()
+operator|!=
+literal|0
+condition|)
+block|{
+comment|// ailed sessions found
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Failed backup session found. Run backup repair tool first."
+argument_list|)
+expr_stmt|;
+return|return
+operator|-
+literal|1
+return|;
+block|}
+comment|// Step 3: Record delete session
+name|sysTable
+operator|.
+name|startDeleteOperation
+argument_list|(
+name|backupIds
+argument_list|)
+expr_stmt|;
+comment|// Step 4: Snapshot backup system table
+if|if
+condition|(
+operator|!
+name|BackupSystemTable
+operator|.
+name|snapshotExists
+argument_list|(
+name|conn
+argument_list|)
+condition|)
+block|{
+name|BackupSystemTable
+operator|.
+name|snapshot
+argument_list|(
+name|conn
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Backup system table snapshot exists"
+argument_list|)
+expr_stmt|;
+block|}
+name|snapshotDone
+operator|=
+literal|true
+expr_stmt|;
+try|try
 block|{
 for|for
 control|(
@@ -799,6 +929,103 @@ argument_list|,
 name|sysTable
 argument_list|)
 expr_stmt|;
+comment|// Finish
+name|sysTable
+operator|.
+name|finishDeleteOperation
+argument_list|()
+expr_stmt|;
+comment|// delete snapshot
+name|BackupSystemTable
+operator|.
+name|deleteSnapshot
+argument_list|(
+name|conn
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+comment|// Fail delete operation
+comment|// Step 1
+if|if
+condition|(
+name|snapshotDone
+condition|)
+block|{
+if|if
+condition|(
+name|BackupSystemTable
+operator|.
+name|snapshotExists
+argument_list|(
+name|conn
+argument_list|)
+condition|)
+block|{
+name|BackupSystemTable
+operator|.
+name|restoreFromSnapshot
+argument_list|(
+name|conn
+argument_list|)
+expr_stmt|;
+comment|// delete snapshot
+name|BackupSystemTable
+operator|.
+name|deleteSnapshot
+argument_list|(
+name|conn
+argument_list|)
+expr_stmt|;
+comment|// We still have record with unfinished delete operation
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Delete operation failed, please run backup repair utility to restore "
+operator|+
+literal|"backup system integrity"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+throw|throw
+name|e
+throw|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Delete operation succeeded, there were some errors: "
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+block|}
+finally|finally
+block|{
+if|if
+condition|(
+name|deleteSessionStarted
+condition|)
+block|{
+name|sysTable
+operator|.
+name|finishBackupSession
+argument_list|()
+expr_stmt|;
+block|}
+block|}
 block|}
 return|return
 name|totalDeleted
@@ -996,6 +1223,7 @@ operator|+
 literal|" ..."
 argument_list|)
 expr_stmt|;
+comment|// Step 1: clean up data for backup session (idempotent)
 name|BackupUtils
 operator|.
 name|cleanupBackupData
@@ -1062,7 +1290,7 @@ name|BackupInfo
 argument_list|>
 name|affectedBackups
 init|=
-name|getAffectedBackupInfos
+name|getAffectedBackupSessions
 argument_list|(
 name|backupInfo
 argument_list|,
@@ -1132,7 +1360,7 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 name|boolean
-name|succ
+name|success
 init|=
 literal|true
 decl_stmt|;
@@ -1209,7 +1437,7 @@ operator|+
 literal|" was not deleted"
 argument_list|)
 expr_stmt|;
-name|succ
+name|success
 operator|=
 literal|false
 expr_stmt|;
@@ -1239,7 +1467,7 @@ argument_list|,
 name|ioe
 argument_list|)
 expr_stmt|;
-name|succ
+name|success
 operator|=
 literal|false
 expr_stmt|;
@@ -1272,7 +1500,7 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-name|succ
+name|success
 condition|)
 block|{
 name|sysTable
@@ -1424,6 +1652,7 @@ name|getBackupId
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// Idempotent operation
 name|BackupUtils
 operator|.
 name|cleanupBackupData
@@ -1453,7 +1682,7 @@ argument_list|(
 name|info
 argument_list|)
 expr_stmt|;
-comment|// Now, clean up directory for table
+comment|// Now, clean up directory for table (idempotent)
 name|cleanupBackupDir
 argument_list|(
 name|info
@@ -1474,7 +1703,7 @@ name|List
 argument_list|<
 name|BackupInfo
 argument_list|>
-name|getAffectedBackupInfos
+name|getAffectedBackupSessions
 parameter_list|(
 name|BackupInfo
 name|backupInfo

@@ -152,8 +152,8 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/**    * Verify that a single table is restored to a new table    * @throws Exception    */
-comment|//@Test - Disabled until we get resolution on system table snapshots
+comment|/**    * Verify backup system table snapshot    * @throws Exception    */
+comment|// @Test
 specifier|public
 name|void
 name|_testBackupRestoreSystemTable

@@ -315,7 +315,7 @@ annotation|@
 name|Test
 specifier|public
 name|void
-name|TestIncBackupDeleteTable
+name|testIncBackupDeleteTable
 parameter_list|()
 throws|throws
 name|Exception

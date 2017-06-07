@@ -530,7 +530,7 @@ annotation|@
 name|Test
 specifier|public
 name|void
-name|TestIncBackupRestore
+name|testIncBackupRestore
 parameter_list|()
 throws|throws
 name|Exception

@@ -174,6 +174,25 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+annotation|@
+name|Override
+specifier|public
+name|void
+name|setUp
+parameter_list|()
+throws|throws
+name|Exception
+block|{
+name|useSecondCluster
+operator|=
+literal|true
+expr_stmt|;
+name|super
+operator|.
+name|setUp
+argument_list|()
+expr_stmt|;
+block|}
 comment|/**    * Verify that a remote restore on a single table is successful.    * @throws Exception    */
 annotation|@
 name|Test
