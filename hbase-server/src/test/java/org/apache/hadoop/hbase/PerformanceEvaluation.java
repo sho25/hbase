@@ -1209,6 +1209,20 @@ name|Configured
 implements|implements
 name|Tool
 block|{
+specifier|static
+specifier|final
+name|String
+name|RANDOM_SEEK_SCAN
+init|=
+literal|"randomSeekScan"
+decl_stmt|;
+specifier|static
+specifier|final
+name|String
+name|RANDOM_READ
+init|=
+literal|"randomRead"
+decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
@@ -1438,7 +1452,7 @@ name|RandomReadTest
 operator|.
 name|class
 argument_list|,
-literal|"randomRead"
+name|RANDOM_READ
 argument_list|,
 literal|"Run random read test"
 argument_list|)
@@ -1449,7 +1463,7 @@ name|RandomSeekScanTest
 operator|.
 name|class
 argument_list|,
-literal|"randomSeekScan"
+name|RANDOM_SEEK_SCAN
 argument_list|,
 literal|"Run random seek and scan 100 test"
 argument_list|)
@@ -9968,6 +9982,29 @@ block|{
 return|return
 name|format
 argument_list|(
+name|generateRandomRow
+argument_list|(
+name|random
+argument_list|,
+name|totalRows
+argument_list|)
+argument_list|)
+return|;
+block|}
+specifier|static
+name|int
+name|generateRandomRow
+parameter_list|(
+specifier|final
+name|Random
+name|random
+parameter_list|,
+specifier|final
+name|int
+name|totalRows
+parameter_list|)
+block|{
+return|return
 name|random
 operator|.
 name|nextInt
@@ -9978,7 +10015,6 @@ name|MAX_VALUE
 argument_list|)
 operator|%
 name|totalRows
-argument_list|)
 return|;
 block|}
 specifier|static
@@ -10687,6 +10723,12 @@ name|DEFAULT_OPTS
 operator|.
 name|getPerClientRunRows
 argument_list|()
+operator|+
+literal|".  In case of randomReads and randomSeekScans this could"
+operator|+
+literal|" be specified along with --size to specify the number of rows to be scanned within"
+operator|+
+literal|" the total range specified by the size."
 argument_list|)
 expr_stmt|;
 name|System
@@ -10695,7 +10737,13 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|" size            Total size in GiB. Mutually exclusive with --rows. "
+literal|" size            Total size in GiB. Mutually exclusive with --rows for writes and scans"
+operator|+
+literal|". But for randomReads and randomSeekScans when you use size with --rows you could"
+operator|+
+literal|" use size to specify the end range and --rows"
+operator|+
+literal|" specifies the number of rows within that range. "
 operator|+
 literal|"Default: 1.0."
 argument_list|)
@@ -12624,39 +12672,6 @@ name|e
 argument_list|)
 throw|;
 block|}
-if|if
-condition|(
-name|opts
-operator|.
-name|size
-operator|!=
-name|DEFAULT_OPTS
-operator|.
-name|size
-operator|&&
-name|opts
-operator|.
-name|perClientRunRows
-operator|!=
-name|DEFAULT_OPTS
-operator|.
-name|perClientRunRows
-condition|)
-block|{
-throw|throw
-operator|new
-name|IllegalArgumentException
-argument_list|(
-name|rows
-operator|+
-literal|" and "
-operator|+
-name|size
-operator|+
-literal|" are mutually exclusive options"
-argument_list|)
-throw|;
-block|}
 name|opts
 operator|=
 name|calculateRowsAndSize
@@ -12721,6 +12736,71 @@ argument_list|(
 name|opts
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+operator|(
+name|opts
+operator|.
+name|getCmdName
+argument_list|()
+operator|!=
+literal|null
+operator|&&
+operator|(
+name|opts
+operator|.
+name|getCmdName
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+name|RANDOM_READ
+argument_list|)
+operator|||
+name|opts
+operator|.
+name|getCmdName
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+name|RANDOM_SEEK_SCAN
+argument_list|)
+operator|)
+operator|)
+operator|&&
+name|opts
+operator|.
+name|size
+operator|!=
+name|DEFAULT_OPTS
+operator|.
+name|size
+operator|&&
+name|opts
+operator|.
+name|perClientRunRows
+operator|!=
+name|DEFAULT_OPTS
+operator|.
+name|perClientRunRows
+condition|)
+block|{
+name|opts
+operator|.
+name|totalRows
+operator|=
+operator|(
+name|int
+operator|)
+name|opts
+operator|.
+name|size
+operator|*
+name|rowsPerGB
+expr_stmt|;
+block|}
+elseif|else
 if|if
 condition|(
 name|opts
