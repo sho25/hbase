@@ -437,6 +437,9 @@ name|long
 name|getMemStoreFlushSize
 parameter_list|()
 function_decl|;
+comment|// TODO: Currently this is used RPC scheduling only. Make it more generic than this; allow it
+comment|// to also be priority when scheduling procedures that pertain to this table scheduling first
+comment|// those tables with the highest priority (From Yi Liang over on HBASE-18109).
 name|int
 name|getPriority
 parameter_list|()
