@@ -14981,7 +14981,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"STARTING service '"
+literal|"STARTING service "
 operator|+
 name|HRegionServer
 operator|.
