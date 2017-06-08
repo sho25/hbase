@@ -3380,6 +3380,19 @@ name|values
 argument_list|()
 control|)
 block|{
+if|if
+condition|(
+name|node
+operator|.
+name|getTable
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+name|tableName
+argument_list|)
+condition|)
+block|{
 name|tableRegions
 operator|.
 name|get
@@ -3398,6 +3411,7 @@ name|getRegionInfo
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 return|return
 name|tableRegions
