@@ -35,6 +35,22 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|ColumnFamilyDescriptor
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -2996,12 +3012,12 @@ argument_list|()
 control|)
 block|{
 specifier|final
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|hcd
 init|=
 name|htd
 operator|.
-name|getFamily
+name|getColumnFamily
 argument_list|(
 name|family
 operator|.

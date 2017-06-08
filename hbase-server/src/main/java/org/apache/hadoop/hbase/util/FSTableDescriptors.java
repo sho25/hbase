@@ -728,7 +728,7 @@ operator|.
 name|META_TABLE_NAME
 argument_list|)
 operator|.
-name|addFamily
+name|addColumnFamily
 argument_list|(
 operator|new
 name|HColumnDescriptor
@@ -798,7 +798,7 @@ literal|true
 argument_list|)
 argument_list|)
 operator|.
-name|addFamily
+name|addColumnFamily
 argument_list|(
 operator|new
 name|HColumnDescriptor
@@ -868,7 +868,7 @@ literal|true
 argument_list|)
 argument_list|)
 operator|.
-name|addFamily
+name|addColumnFamily
 argument_list|(
 operator|new
 name|HColumnDescriptor
@@ -938,7 +938,7 @@ literal|true
 argument_list|)
 argument_list|)
 operator|.
-name|addFamily
+name|addColumnFamily
 argument_list|(
 operator|new
 name|HColumnDescriptor
@@ -1008,7 +1008,7 @@ literal|true
 argument_list|)
 argument_list|)
 operator|.
-name|addFamily
+name|addColumnFamily
 argument_list|(
 operator|new
 name|HColumnDescriptor

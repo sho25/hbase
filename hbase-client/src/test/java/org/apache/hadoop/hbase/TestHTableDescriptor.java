@@ -283,6 +283,8 @@ operator|.
 name|class
 block|}
 argument_list|)
+annotation|@
+name|Deprecated
 specifier|public
 class|class
 name|TestHTableDescriptor

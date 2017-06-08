@@ -6499,12 +6499,12 @@ operator|.
 name|get
 argument_list|()
 decl_stmt|;
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|hcfd
 init|=
 name|htd
 operator|.
-name|getFamily
+name|getColumnFamily
 argument_list|(
 name|FAMILY_0
 argument_list|)

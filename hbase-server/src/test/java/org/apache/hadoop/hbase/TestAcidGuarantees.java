@@ -790,6 +790,9 @@ block|{
 name|HTableDescriptor
 name|htd
 init|=
+operator|new
+name|HTableDescriptor
+argument_list|(
 name|util
 operator|.
 name|getAdmin
@@ -798,6 +801,7 @@ operator|.
 name|getTableDescriptor
 argument_list|(
 name|TABLE_NAME
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|HColumnDescriptor

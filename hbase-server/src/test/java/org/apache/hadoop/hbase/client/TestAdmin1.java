@@ -3493,6 +3493,9 @@ expr_stmt|;
 name|HTableDescriptor
 name|modifiedHtd
 init|=
+operator|new
+name|HTableDescriptor
+argument_list|(
 name|this
 operator|.
 name|admin
@@ -3500,6 +3503,7 @@ operator|.
 name|getTableDescriptor
 argument_list|(
 name|tableName
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|assertFalse
