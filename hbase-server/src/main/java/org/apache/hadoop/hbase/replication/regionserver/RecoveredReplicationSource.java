@@ -1008,7 +1008,7 @@ argument_list|)
 expr_stmt|;
 comment|// wait a short while for other worker thread to fully exit
 name|boolean
-name|allOtherTaskDone
+name|allTasksDone
 init|=
 literal|true
 decl_stmt|;
@@ -1025,13 +1025,14 @@ control|)
 block|{
 if|if
 condition|(
+operator|!
 name|worker
 operator|.
-name|isActive
+name|isFinished
 argument_list|()
 condition|)
 block|{
-name|allOtherTaskDone
+name|allTasksDone
 operator|=
 literal|false
 expr_stmt|;
@@ -1040,7 +1041,7 @@ block|}
 block|}
 if|if
 condition|(
-name|allOtherTaskDone
+name|allTasksDone
 condition|)
 block|{
 name|manager

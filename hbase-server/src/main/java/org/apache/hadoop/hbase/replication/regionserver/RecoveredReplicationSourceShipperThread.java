@@ -274,6 +274,13 @@ name|void
 name|run
 parameter_list|()
 block|{
+name|setWorkerState
+argument_list|(
+name|WorkerState
+operator|.
+name|RUNNING
+argument_list|)
+expr_stmt|;
 comment|// Loop until we close down
 while|while
 condition|(
@@ -396,9 +403,11 @@ operator|.
 name|incrCompletedRecoveryQueue
 argument_list|()
 expr_stmt|;
-name|setWorkerRunning
+name|setWorkerState
 argument_list|(
-literal|false
+name|WorkerState
+operator|.
+name|FINISHED
 argument_list|)
 expr_stmt|;
 continue|continue;
@@ -434,6 +443,22 @@ operator|.
 name|tryFinish
 argument_list|()
 expr_stmt|;
+comment|// If the worker exits run loop without finishing its task, mark it as stopped.
+if|if
+condition|(
+operator|!
+name|isFinished
+argument_list|()
+condition|)
+block|{
+name|setWorkerState
+argument_list|(
+name|WorkerState
+operator|.
+name|STOPPED
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Override
