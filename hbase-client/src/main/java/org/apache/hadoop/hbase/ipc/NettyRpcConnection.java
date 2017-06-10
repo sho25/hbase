@@ -1762,6 +1762,74 @@ name|channel
 argument_list|()
 expr_stmt|;
 block|}
+specifier|private
+name|void
+name|write
+parameter_list|(
+name|Channel
+name|ch
+parameter_list|,
+specifier|final
+name|Call
+name|call
+parameter_list|)
+block|{
+name|ch
+operator|.
+name|writeAndFlush
+argument_list|(
+name|call
+argument_list|)
+operator|.
+name|addListener
+argument_list|(
+operator|new
+name|ChannelFutureListener
+argument_list|()
+block|{
+annotation|@
+name|Override
+specifier|public
+name|void
+name|operationComplete
+parameter_list|(
+name|ChannelFuture
+name|future
+parameter_list|)
+throws|throws
+name|Exception
+block|{
+comment|// Fail the call if we failed to write it out. This usually because the channel is
+comment|// closed. This is needed because we may shutdown the channel inside event loop and
+comment|// there may still be some pending calls in the event loop queue after us.
+if|if
+condition|(
+operator|!
+name|future
+operator|.
+name|isSuccess
+argument_list|()
+condition|)
+block|{
+name|call
+operator|.
+name|setException
+argument_list|(
+name|toIOE
+argument_list|(
+name|future
+operator|.
+name|cause
+argument_list|()
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+block|}
+argument_list|)
+expr_stmt|;
+block|}
 annotation|@
 name|Override
 specifier|public
@@ -1896,61 +1964,74 @@ argument_list|(
 name|call
 argument_list|)
 expr_stmt|;
+specifier|final
+name|Channel
+name|ch
+init|=
 name|channel
+decl_stmt|;
+comment|// We must move the whole writeAndFlush call inside event loop otherwise there will be a
+comment|// race condition.
+comment|// In netty's DefaultChannelPipeline, it will find the first outbound handler in the
+comment|// current thread and then schedule a task to event loop which will start the process from
+comment|// that outbound handler. It is possible that the first handler is
+comment|// BufferCallBeforeInitHandler when we call writeAndFlush here, but the connection is set
+comment|// up at the same time so in the event loop thread we remove the
+comment|// BufferCallBeforeInitHandler, and then our writeAndFlush task comes, still calls the
+comment|// write method of BufferCallBeforeInitHandler.
+comment|// This may be considered as a bug of netty, but anyway there is a work around so let's
+comment|// fix it by ourselves first.
+if|if
+condition|(
+name|ch
 operator|.
-name|writeAndFlush
+name|eventLoop
+argument_list|()
+operator|.
+name|inEventLoop
+argument_list|()
+condition|)
+block|{
+name|write
 argument_list|(
+name|ch
+argument_list|,
 name|call
 argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|ch
 operator|.
-name|addListener
+name|eventLoop
+argument_list|()
+operator|.
+name|execute
 argument_list|(
 operator|new
-name|ChannelFutureListener
+name|Runnable
 argument_list|()
 block|{
 annotation|@
 name|Override
 specifier|public
 name|void
-name|operationComplete
-parameter_list|(
-name|ChannelFuture
-name|future
-parameter_list|)
-throws|throws
-name|Exception
+name|run
+parameter_list|()
 block|{
-comment|// Fail the call if we failed to write it out. This usually because the channel is
-comment|// closed. This is needed because we may shutdown the channel inside event loop and
-comment|// there may still be some pending calls in the event loop queue after us.
-if|if
-condition|(
-operator|!
-name|future
-operator|.
-name|isSuccess
-argument_list|()
-condition|)
-block|{
+name|write
+argument_list|(
+name|ch
+argument_list|,
 name|call
-operator|.
-name|setException
-argument_list|(
-name|toIOE
-argument_list|(
-name|future
-operator|.
-name|cause
-argument_list|()
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
 block|}
-block|}
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}
