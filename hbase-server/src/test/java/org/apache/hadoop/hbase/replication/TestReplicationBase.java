@@ -634,6 +634,15 @@ argument_list|,
 literal|1.0f
 argument_list|)
 expr_stmt|;
+name|conf1
+operator|.
+name|setBoolean
+argument_list|(
+literal|"replication.source.eof.autorecovery"
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
 name|utility1
 operator|=
 operator|new

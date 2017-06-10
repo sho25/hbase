@@ -1745,7 +1745,10 @@ block|{
 return|return
 name|this
 operator|.
-name|currentPath
+name|entryReader
+operator|.
+name|getCurrentPath
+argument_list|()
 return|;
 block|}
 specifier|public
