@@ -409,6 +409,8 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+try|try
+block|{
 if|if
 condition|(
 name|this
@@ -426,6 +428,9 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+block|}
+finally|finally
+block|{
 if|if
 condition|(
 name|conn
@@ -440,6 +445,7 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 block|}
 specifier|public
