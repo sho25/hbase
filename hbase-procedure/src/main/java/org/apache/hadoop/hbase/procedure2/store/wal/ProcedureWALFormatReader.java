@@ -1865,7 +1865,7 @@ name|current
 operator|.
 name|getStackIdCount
 argument_list|()
-operator|<
+operator|<=
 name|candidate
 operator|.
 name|getStackIdCount
