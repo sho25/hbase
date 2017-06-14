@@ -1659,7 +1659,7 @@ name|setInt
 argument_list|(
 name|HConstants
 operator|.
-name|HBASE_CLIENT_MEAT_REPLICA_SCAN_TIMEOUT
+name|HBASE_CLIENT_META_REPLICA_SCAN_TIMEOUT
 argument_list|,
 name|META_SCAN_TIMEOUT_IN_MILLISEC
 operator|*

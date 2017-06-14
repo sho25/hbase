@@ -318,11 +318,11 @@ name|getInt
 argument_list|(
 name|HConstants
 operator|.
-name|HBASE_CLIENT_MEAT_REPLICA_SCAN_TIMEOUT
+name|HBASE_CLIENT_META_REPLICA_SCAN_TIMEOUT
 argument_list|,
 name|HConstants
 operator|.
-name|HBASE_CLIENT_MEAT_REPLICA_SCAN_TIMEOUT_DEFAULT
+name|HBASE_CLIENT_META_REPLICA_SCAN_TIMEOUT_DEFAULT
 argument_list|)
 expr_stmt|;
 name|this
@@ -505,7 +505,7 @@ name|metaReplicaCallTimeoutMicroSecondScan
 operator|=
 name|HConstants
 operator|.
-name|HBASE_CLIENT_MEAT_REPLICA_SCAN_TIMEOUT_DEFAULT
+name|HBASE_CLIENT_META_REPLICA_SCAN_TIMEOUT_DEFAULT
 expr_stmt|;
 name|this
 operator|.

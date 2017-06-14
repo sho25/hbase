@@ -918,7 +918,7 @@ specifier|public
 specifier|static
 specifier|final
 name|String
-name|HBASE_CLIENT_MEAT_REPLICA_SCAN_TIMEOUT
+name|HBASE_CLIENT_META_REPLICA_SCAN_TIMEOUT
 init|=
 literal|"hbase.client.meta.replica.scan.timeout"
 decl_stmt|;
@@ -927,7 +927,7 @@ specifier|public
 specifier|static
 specifier|final
 name|int
-name|HBASE_CLIENT_MEAT_REPLICA_SCAN_TIMEOUT_DEFAULT
+name|HBASE_CLIENT_META_REPLICA_SCAN_TIMEOUT_DEFAULT
 init|=
 literal|1000000
 decl_stmt|;
