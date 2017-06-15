@@ -528,9 +528,9 @@ specifier|final
 name|int
 name|RS_VERSION_WITH_EXEC_PROCS
 init|=
-literal|0x0201000
+literal|0x0200000
 decl_stmt|;
-comment|// 2.1
+comment|// 2.0
 specifier|protected
 specifier|final
 name|MasterServices
@@ -1499,6 +1499,27 @@ operator|.
 name|newBuilder
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Building request with operations count="
+operator|+
+name|operations
+operator|.
+name|size
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 name|splitAndResolveOperation
 argument_list|(
 name|getServerName
