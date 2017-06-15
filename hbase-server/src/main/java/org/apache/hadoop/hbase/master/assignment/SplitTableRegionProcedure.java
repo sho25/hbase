@@ -3112,12 +3112,12 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 specifier|final
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|hcd
 init|=
 name|htd
 operator|.
-name|getFamily
+name|getColumnFamily
 argument_list|(
 name|familyName
 argument_list|)
@@ -3176,10 +3176,7 @@ name|StoreFileSplitter
 argument_list|(
 name|regionFs
 argument_list|,
-name|family
-operator|.
-name|getBytes
-argument_list|()
+name|familyName
 argument_list|,
 operator|new
 name|HStoreFile
