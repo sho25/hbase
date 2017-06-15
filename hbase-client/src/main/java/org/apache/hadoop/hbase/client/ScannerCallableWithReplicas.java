@@ -420,6 +420,12 @@ init|=
 literal|false
 decl_stmt|;
 comment|//required for testing purposes only
+specifier|private
+name|int
+name|regionReplication
+init|=
+literal|0
+decl_stmt|;
 specifier|public
 name|ScannerCallableWithReplicas
 parameter_list|(
@@ -704,6 +710,15 @@ comment|//   replica
 comment|//2. We should close the "losing" scanners (scanners other than the ones we hear back
 comment|//   from first)
 comment|//
+comment|// Since RegionReplication is a table attribute, it wont change as long as table is enabled,
+comment|// it just needs to be set once.
+if|if
+condition|(
+name|regionReplication
+operator|<=
+literal|0
+condition|)
+block|{
 name|RegionLocations
 name|rl
 init|=
@@ -790,6 +805,14 @@ name|e
 throw|;
 block|}
 block|}
+name|regionReplication
+operator|=
+name|rl
+operator|.
+name|size
+argument_list|()
+expr_stmt|;
+block|}
 comment|// allocate a boundedcompletion pool of some multiple of number of replicas.
 comment|// We want to accomodate some RPCs for redundant replica scans (but are still in progress)
 name|ResultBoundedCompletionService
@@ -821,10 +844,7 @@ argument_list|)
 argument_list|,
 name|pool
 argument_list|,
-name|rl
-operator|.
-name|size
-argument_list|()
+name|regionReplication
 operator|*
 literal|5
 argument_list|)
@@ -849,8 +869,6 @@ comment|// submit call for the primary replica.
 name|addCallsForCurrentReplica
 argument_list|(
 name|cs
-argument_list|,
-name|rl
 argument_list|)
 expr_stmt|;
 name|int
@@ -987,10 +1005,7 @@ comment|// out the exception from the primary replica
 if|if
 condition|(
 operator|(
-name|rl
-operator|.
-name|size
-argument_list|()
+name|regionReplication
 operator|==
 literal|1
 operator|)
@@ -1061,10 +1076,7 @@ comment|// submit call for the all of the secondaries at once
 name|int
 name|endIndex
 init|=
-name|rl
-operator|.
-name|size
-argument_list|()
+name|regionReplication
 decl_stmt|;
 if|if
 condition|(
@@ -1091,14 +1103,9 @@ name|addCallsForOtherReplicas
 argument_list|(
 name|cs
 argument_list|,
-name|rl
-argument_list|,
 literal|0
 argument_list|,
-name|rl
-operator|.
-name|size
-argument_list|()
+name|regionReplication
 operator|-
 literal|1
 argument_list|)
@@ -1575,9 +1582,6 @@ name|ScannerCallable
 argument_list|>
 argument_list|>
 name|cs
-parameter_list|,
-name|RegionLocations
-name|rl
 parameter_list|)
 block|{
 name|RetryingRPC
@@ -1625,9 +1629,6 @@ name|ScannerCallable
 argument_list|>
 argument_list|>
 name|cs
-parameter_list|,
-name|RegionLocations
-name|rl
 parameter_list|,
 name|int
 name|min
