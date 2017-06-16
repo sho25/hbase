@@ -235,7 +235,7 @@ name|replication
 operator|.
 name|regionserver
 operator|.
-name|ReplicationSourceWALReaderThread
+name|ReplicationSourceWALReader
 operator|.
 name|WALEntryBatch
 import|;
@@ -404,7 +404,7 @@ operator|.
 name|Private
 specifier|public
 class|class
-name|ReplicationSourceShipperThread
+name|ReplicationSourceShipper
 extends|extends
 name|Thread
 block|{
@@ -418,7 +418,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|ReplicationSourceShipperThread
+name|ReplicationSourceShipper
 operator|.
 name|class
 argument_list|)
@@ -479,7 +479,7 @@ name|WorkerState
 name|state
 decl_stmt|;
 specifier|protected
-name|ReplicationSourceWALReaderThread
+name|ReplicationSourceWALReader
 name|entryReader
 decl_stmt|;
 comment|// How long should we sleep for each retry
@@ -550,7 +550,7 @@ block|}
 argument_list|)
 decl_stmt|;
 specifier|public
-name|ReplicationSourceShipperThread
+name|ReplicationSourceShipper
 parameter_list|(
 name|Configuration
 name|conf
@@ -1766,7 +1766,7 @@ specifier|public
 name|void
 name|setWALReader
 parameter_list|(
-name|ReplicationSourceWALReaderThread
+name|ReplicationSourceWALReader
 name|entryReader
 parameter_list|)
 block|{

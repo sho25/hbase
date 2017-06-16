@@ -159,7 +159,7 @@ name|replication
 operator|.
 name|regionserver
 operator|.
-name|ReplicationSourceWALReaderThread
+name|ReplicationSourceWALReader
 operator|.
 name|WALEntryBatch
 import|;
@@ -192,9 +192,9 @@ operator|.
 name|Private
 specifier|public
 class|class
-name|RecoveredReplicationSourceShipperThread
+name|RecoveredReplicationSourceShipper
 extends|extends
-name|ReplicationSourceShipperThread
+name|ReplicationSourceShipper
 block|{
 specifier|private
 specifier|static
@@ -206,7 +206,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|RecoveredReplicationSourceShipperThread
+name|RecoveredReplicationSourceShipper
 operator|.
 name|class
 argument_list|)
@@ -222,7 +222,7 @@ name|ReplicationQueues
 name|replicationQueues
 decl_stmt|;
 specifier|public
-name|RecoveredReplicationSourceShipperThread
+name|RecoveredReplicationSourceShipper
 parameter_list|(
 name|Configuration
 name|conf
