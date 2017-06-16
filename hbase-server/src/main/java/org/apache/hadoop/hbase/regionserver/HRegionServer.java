@@ -3804,6 +3804,15 @@ expr_stmt|;
 comment|// thread name
 name|this
 operator|.
+name|startcode
+operator|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
 name|fsOk
 operator|=
 literal|true
@@ -4088,15 +4097,6 @@ expr_stmt|;
 name|rpcServices
 operator|=
 name|createRpcServices
-argument_list|()
-expr_stmt|;
-name|this
-operator|.
-name|startcode
-operator|=
-name|System
-operator|.
-name|currentTimeMillis
 argument_list|()
 expr_stmt|;
 if|if

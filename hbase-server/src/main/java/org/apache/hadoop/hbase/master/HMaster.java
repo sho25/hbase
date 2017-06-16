@@ -3414,6 +3414,11 @@ specifier|private
 name|long
 name|masterActiveTime
 decl_stmt|;
+comment|// Time stamp for when HMaster finishes becoming Active Master
+specifier|private
+name|long
+name|masterFinishedInitializationTime
+decl_stmt|;
 comment|//should we check the compression codec type at master side, default true, HBASE-6370
 specifier|private
 specifier|final
@@ -5607,6 +5612,15 @@ operator|/
 literal|1000.0f
 argument_list|)
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|masterFinishedInitializationTime
+operator|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
 expr_stmt|;
 name|configurationManager
 operator|.
@@ -13611,6 +13625,16 @@ parameter_list|()
 block|{
 return|return
 name|masterActiveTime
+return|;
+block|}
+comment|/**    * @return timestamp in millis when HMaster finished becoming the active master    */
+specifier|public
+name|long
+name|getMasterFinishedInitializationTime
+parameter_list|()
+block|{
+return|return
+name|masterFinishedInitializationTime
 return|;
 block|}
 specifier|public

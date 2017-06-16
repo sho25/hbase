@@ -154,6 +154,11 @@ argument_list|>
 name|getNamespaceSpaceUtilization
 parameter_list|()
 function_decl|;
+comment|/**    * Get the time in Millis when the master finished initializing/becoming the active master    */
+name|long
+name|getMasterInitializationTime
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

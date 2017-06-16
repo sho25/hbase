@@ -98,6 +98,11 @@ init|=
 literal|"masterStartTime"
 decl_stmt|;
 name|String
+name|MASTER_FINISHED_INITIALIZATION_TIME_NAME
+init|=
+literal|"masterFinishedInitializationTime"
+decl_stmt|;
+name|String
 name|AVERAGE_LOAD_NAME
 init|=
 literal|"averageLoad"
@@ -166,6 +171,11 @@ name|String
 name|MASTER_START_TIME_DESC
 init|=
 literal|"Master Start Time"
+decl_stmt|;
+name|String
+name|MASTER_FINISHED_INITIALIZATION_TIME_DESC
+init|=
+literal|"Timestamp when Master has finished initializing"
 decl_stmt|;
 name|String
 name|AVERAGE_LOAD_DESC
