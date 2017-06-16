@@ -232,6 +232,17 @@ name|class
 argument_list|)
 decl_stmt|;
 specifier|private
+specifier|static
+specifier|final
+name|boolean
+name|isLogTraceEnabled
+init|=
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+decl_stmt|;
+specifier|private
 specifier|final
 name|HFileSystem
 name|hfs
@@ -1135,9 +1146,14 @@ name|SecurityException
 name|e
 parameter_list|)
 block|{
+if|if
+condition|(
+name|isLogTraceEnabled
+condition|)
+block|{
 name|LOG
 operator|.
-name|warn
+name|trace
 argument_list|(
 literal|"Failed to find 'unbuffer' method in class "
 operator|+
@@ -1150,6 +1166,7 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
+block|}
 return|return;
 block|}
 name|this
@@ -1191,9 +1208,14 @@ name|InvocationTargetException
 name|e
 parameter_list|)
 block|{
+if|if
+condition|(
+name|isLogTraceEnabled
+condition|)
+block|{
 name|LOG
 operator|.
-name|warn
+name|trace
 argument_list|(
 literal|"Failed to invoke 'unbuffer' method in class "
 operator|+
@@ -1206,11 +1228,17 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+block|}
 else|else
+block|{
+if|if
+condition|(
+name|isLogTraceEnabled
+condition|)
 block|{
 name|LOG
 operator|.
-name|warn
+name|trace
 argument_list|(
 literal|"Failed to find 'unbuffer' method in class "
 operator|+
@@ -1223,6 +1251,7 @@ operator|+
 literal|"https://issues.apache.org/jira/browse/HBASE-9393"
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}
