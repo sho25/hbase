@@ -17318,7 +17318,7 @@ literal|": regionName="
 operator|+
 name|hri
 operator|.
-name|getRegionName
+name|getRegionNameAsString
 argument_list|()
 operator|+
 literal|", scannerRegionName="
