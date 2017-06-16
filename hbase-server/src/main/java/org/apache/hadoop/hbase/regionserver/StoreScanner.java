@@ -839,6 +839,9 @@ name|readPt
 parameter_list|,
 name|boolean
 name|cacheBlocks
+parameter_list|,
+name|ScanType
+name|scanType
 parameter_list|)
 block|{
 name|this
@@ -1032,6 +1035,23 @@ expr_stmt|;
 block|}
 comment|// Always start with pread unless user specific stream. Will change to stream later if
 comment|// readType is default if the scan keeps running for a long time.
+if|if
+condition|(
+name|scanType
+operator|!=
+name|ScanType
+operator|.
+name|COMPACT_DROP_DELETES
+operator|&&
+name|scanType
+operator|!=
+name|ScanType
+operator|.
+name|COMPACT_RETAIN_DELETES
+condition|)
+block|{
+comment|// For compaction scanners never use Pread as already we have stream based scanners on the
+comment|// store files to be compacted
 name|this
 operator|.
 name|scanUsePread
@@ -1046,6 +1066,7 @@ name|ReadType
 operator|.
 name|STREAM
 expr_stmt|;
+block|}
 block|}
 name|this
 operator|.
@@ -1196,6 +1217,10 @@ name|scan
 operator|.
 name|getCacheBlocks
 argument_list|()
+argument_list|,
+name|ScanType
+operator|.
+name|USER_SCAN
 argument_list|)
 expr_stmt|;
 if|if
@@ -1525,6 +1550,8 @@ name|READ_COMMITTED
 argument_list|)
 argument_list|,
 literal|false
+argument_list|,
+name|scanType
 argument_list|)
 expr_stmt|;
 if|if
@@ -1860,6 +1887,8 @@ name|getCacheBlocks
 argument_list|()
 else|:
 literal|false
+argument_list|,
+name|scanType
 argument_list|)
 expr_stmt|;
 if|if
@@ -2104,6 +2133,18 @@ operator|.
 name|readPt
 argument_list|)
 argument_list|)
+return|;
+block|}
+annotation|@
+name|VisibleForTesting
+name|boolean
+name|isScanUsePread
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|scanUsePread
 return|;
 block|}
 comment|/**    * Seek the specified scanners with the given key    * @param scanners    * @param seekKey    * @param isLazy true if using lazy seek    * @param isParallelSeek true if using parallel seek    * @throws IOException    */
