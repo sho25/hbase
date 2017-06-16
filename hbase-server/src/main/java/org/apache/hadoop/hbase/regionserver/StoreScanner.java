@@ -983,6 +983,35 @@ operator|=
 literal|true
 expr_stmt|;
 block|}
+elseif|else
+if|if
+condition|(
+name|scanType
+operator|!=
+name|scanType
+operator|.
+name|USER_SCAN
+condition|)
+block|{
+comment|// For compaction scanners never use Pread as already we have stream based scanners on the
+comment|// store files to be compacted
+name|this
+operator|.
+name|readType
+operator|=
+name|Scan
+operator|.
+name|ReadType
+operator|.
+name|STREAM
+expr_stmt|;
+name|this
+operator|.
+name|scanUsePread
+operator|=
+literal|false
+expr_stmt|;
+block|}
 else|else
 block|{
 if|if
@@ -1035,23 +1064,6 @@ expr_stmt|;
 block|}
 comment|// Always start with pread unless user specific stream. Will change to stream later if
 comment|// readType is default if the scan keeps running for a long time.
-if|if
-condition|(
-name|scanType
-operator|!=
-name|ScanType
-operator|.
-name|COMPACT_DROP_DELETES
-operator|&&
-name|scanType
-operator|!=
-name|ScanType
-operator|.
-name|COMPACT_RETAIN_DELETES
-condition|)
-block|{
-comment|// For compaction scanners never use Pread as already we have stream based scanners on the
-comment|// store files to be compacted
 name|this
 operator|.
 name|scanUsePread
@@ -1066,7 +1078,6 @@ name|ReadType
 operator|.
 name|STREAM
 expr_stmt|;
-block|}
 block|}
 name|this
 operator|.
