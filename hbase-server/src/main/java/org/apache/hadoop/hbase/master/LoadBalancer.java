@@ -217,6 +217,7 @@ extends|,
 name|ConfigurationObserver
 block|{
 comment|// Used to signal to the caller that the region(s) cannot be assigned
+comment|// We deliberately use 'localhost' so the operation will fail fast
 name|ServerName
 name|BOGUS_SERVER_NAME
 init|=
@@ -224,7 +225,7 @@ name|ServerName
 operator|.
 name|valueOf
 argument_list|(
-literal|"bogus.example.com,1,1"
+literal|"localhost,1,1"
 argument_list|)
 decl_stmt|;
 comment|/**    * Set the current cluster status.  This allows a LoadBalancer to map host name to a server    * @param st    */
