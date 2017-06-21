@@ -617,9 +617,6 @@ name|timeout
 operator|=
 literal|60000
 argument_list|)
-annotation|@
-name|Ignore
-comment|// Fix for AMv2
 specifier|public
 name|void
 name|testRecoveryAndDoubleExecutionOnRsWithoutMeta

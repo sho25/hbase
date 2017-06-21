@@ -718,7 +718,7 @@ operator|.
 name|getAssignmentManager
 argument_list|()
 operator|.
-name|waitMetaInitialized
+name|waitMetaLoaded
 argument_list|(
 name|this
 argument_list|)
