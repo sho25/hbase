@@ -3572,6 +3572,15 @@ name|MASTER_HOSTNAME_KEY
 init|=
 literal|"hbase.master.hostname"
 decl_stmt|;
+comment|// HBASE-18226: This config and hbase.regionserver.hostname are mutually exclusive.
+comment|// Exception will be thrown if both are used.
+specifier|final
+specifier|static
+name|String
+name|RS_HOSTNAME_DISABLE_MASTER_REVERSEDNS_KEY
+init|=
+literal|"hbase.regionserver.hostname.disable.master.reversedns"
+decl_stmt|;
 comment|/**    * This servers startcode.    */
 specifier|protected
 specifier|final
@@ -3979,6 +3988,64 @@ argument_list|(
 name|RS_HOSTNAME_KEY
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+name|RS_HOSTNAME_DISABLE_MASTER_REVERSEDNS_KEY
+argument_list|,
+literal|false
+argument_list|)
+condition|)
+block|{
+if|if
+condition|(
+name|shouldUseThisHostnameInstead
+argument_list|()
+condition|)
+block|{
+name|String
+name|msg
+init|=
+name|RS_HOSTNAME_DISABLE_MASTER_REVERSEDNS_KEY
+operator|+
+literal|" and "
+operator|+
+name|RS_HOSTNAME_KEY
+operator|+
+literal|" are mutually exclusive. Do not set "
+operator|+
+name|RS_HOSTNAME_DISABLE_MASTER_REVERSEDNS_KEY
+operator|+
+literal|" to true while "
+operator|+
+name|RS_HOSTNAME_KEY
+operator|+
+literal|" is used"
+decl_stmt|;
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+name|msg
+argument_list|)
+throw|;
+block|}
+else|else
+block|{
+name|useThisHostnameInstead
+operator|=
+name|rpcServices
+operator|.
+name|isa
+operator|.
+name|getHostName
+argument_list|()
+expr_stmt|;
+block|}
+block|}
 block|}
 name|String
 name|hostName
