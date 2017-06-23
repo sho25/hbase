@@ -517,6 +517,18 @@ name|Service
 import|;
 end_import
 
+begin_import
+import|import static
+name|org
+operator|.
+name|mockito
+operator|.
+name|Mockito
+operator|.
+name|mock
+import|;
+end_import
+
 begin_class
 specifier|public
 class|class
@@ -1347,7 +1359,12 @@ name|getTableStateManager
 parameter_list|()
 block|{
 return|return
-literal|null
+name|mock
+argument_list|(
+name|TableStateManager
+operator|.
+name|class
+argument_list|)
 return|;
 block|}
 annotation|@
@@ -1678,6 +1695,19 @@ name|void
 name|checkIfShouldMoveSystemRegionAsync
 parameter_list|()
 block|{   }
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|recoverMeta
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+return|return
+literal|false
+return|;
+block|}
 annotation|@
 name|Override
 specifier|public

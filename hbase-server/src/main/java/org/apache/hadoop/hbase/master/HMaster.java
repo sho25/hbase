@@ -1557,6 +1557,24 @@ name|master
 operator|.
 name|procedure
 operator|.
+name|RecoverMetaProcedure
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
+name|procedure
+operator|.
 name|TruncateTableProcedure
 import|;
 end_import
@@ -3472,14 +3490,6 @@ specifier|private
 name|long
 name|mergePlanCount
 decl_stmt|;
-comment|/** flag used in test cases in order to simulate RS failures during master initialization */
-specifier|private
-specifier|volatile
-name|boolean
-name|initializationBeforeMetaAssignment
-init|=
-literal|false
-decl_stmt|;
 comment|/* Handle favored nodes information */
 specifier|private
 name|FavoredNodesManager
@@ -5202,30 +5212,6 @@ argument_list|(
 name|status
 argument_list|)
 expr_stmt|;
-comment|// get a list for previously failed RS which need log splitting work
-comment|// we recover hbase:meta region servers inside master initialization and
-comment|// handle other failed servers in SSH in order to start up master node ASAP
-name|MasterMetaBootstrap
-name|metaBootstrap
-init|=
-name|createMetaBootstrap
-argument_list|(
-name|this
-argument_list|,
-name|status
-argument_list|)
-decl_stmt|;
-name|metaBootstrap
-operator|.
-name|splitMetaLogsBeforeAssignment
-argument_list|()
-expr_stmt|;
-name|this
-operator|.
-name|initializationBeforeMetaAssignment
-operator|=
-literal|true
-expr_stmt|;
 if|if
 condition|(
 name|this
@@ -5299,12 +5285,24 @@ name|status
 operator|.
 name|setStatus
 argument_list|(
-literal|"Assigning Meta Region"
+literal|"Recovering  Meta Region"
 argument_list|)
 expr_stmt|;
+comment|// we recover hbase:meta region servers inside master initialization and
+comment|// handle other failed servers in SSH in order to start up master node ASAP
+name|MasterMetaBootstrap
+name|metaBootstrap
+init|=
+name|createMetaBootstrap
+argument_list|(
+name|this
+argument_list|,
+name|status
+argument_list|)
+decl_stmt|;
 name|metaBootstrap
 operator|.
-name|assignMeta
+name|recoverMeta
 argument_list|()
 expr_stmt|;
 comment|// check if master is shutting down because above assignMeta could return even hbase:meta isn't
@@ -14268,18 +14266,6 @@ return|return
 name|serverCrashProcessingEnabled
 return|;
 block|}
-comment|/**    * Report whether this master has started initialization and is about to do meta region assignment    * @return true if master is in initialization&amp; about to assign hbase:meta regions    */
-specifier|public
-name|boolean
-name|isInitializationStartsMetaRegionAssignment
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|initializationBeforeMetaAssignment
-return|;
-block|}
 comment|/**    * Compute the average load across all region servers.    * Currently, this uses a very naive computation - just uses the number of    * regions being served, ignoring stats about number of requests.    * @return the average load    */
 specifier|public
 name|double
@@ -17380,6 +17366,82 @@ parameter_list|()
 block|{
 return|return
 name|lockManager
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|recoverMeta
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+name|ProcedurePrepareLatch
+name|latch
+init|=
+name|ProcedurePrepareLatch
+operator|.
+name|createLatch
+argument_list|(
+literal|2
+argument_list|,
+literal|0
+argument_list|)
+decl_stmt|;
+name|long
+name|procId
+init|=
+name|procedureExecutor
+operator|.
+name|submitProcedure
+argument_list|(
+operator|new
+name|RecoverMetaProcedure
+argument_list|(
+literal|null
+argument_list|,
+literal|true
+argument_list|,
+name|latch
+argument_list|)
+argument_list|)
+decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Waiting on RecoverMetaProcedure submitted with procId="
+operator|+
+name|procId
+argument_list|)
+expr_stmt|;
+name|latch
+operator|.
+name|await
+argument_list|()
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Default replica of hbase:meta, location="
+operator|+
+name|getMetaTableLocator
+argument_list|()
+operator|.
+name|getMetaRegionLocation
+argument_list|(
+name|getZooKeeper
+argument_list|()
+argument_list|)
+argument_list|)
+expr_stmt|;
+return|return
+name|assignmentManager
+operator|.
+name|isMetaInitialized
+argument_list|()
 return|;
 block|}
 specifier|public

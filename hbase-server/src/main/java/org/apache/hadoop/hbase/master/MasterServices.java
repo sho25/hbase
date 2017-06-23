@@ -1154,6 +1154,13 @@ name|void
 name|checkIfShouldMoveSystemRegionAsync
 parameter_list|()
 function_decl|;
+comment|/**    * Recover meta table. Will result in no-op is meta is already initialized. Any code that has    * access to master and requires to access meta during process initialization can call this    * method to make sure meta is initialized.    */
+name|boolean
+name|recoverMeta
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
 block|}
 end_interface
 

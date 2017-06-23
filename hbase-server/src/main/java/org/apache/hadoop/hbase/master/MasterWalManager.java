@@ -747,6 +747,7 @@ name|fsOk
 return|;
 block|}
 comment|/**    * Inspect the log directory to find dead servers which need recovery work    * @return A set of ServerNames which aren't running but still have WAL files left in file system    */
+specifier|public
 name|Set
 argument_list|<
 name|ServerName

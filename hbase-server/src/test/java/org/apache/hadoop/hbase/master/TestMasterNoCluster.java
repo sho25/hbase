@@ -1774,12 +1774,6 @@ specifier|protected
 name|void
 name|assignMeta
 parameter_list|(
-name|Set
-argument_list|<
-name|ServerName
-argument_list|>
-name|previouslyFailedMeatRSs
-parameter_list|,
 name|int
 name|replicaId
 parameter_list|)

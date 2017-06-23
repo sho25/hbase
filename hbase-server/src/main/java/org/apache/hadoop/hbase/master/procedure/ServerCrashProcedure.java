@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -56,16 +56,6 @@ operator|.
 name|util
 operator|.
 name|ArrayList
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Collection
 import|;
 end_import
 
@@ -470,18 +460,6 @@ specifier|private
 name|boolean
 name|shouldSplitWal
 decl_stmt|;
-comment|/**    * Cycles on same state. Good for figuring if we are stuck.    */
-specifier|private
-name|int
-name|cycles
-init|=
-literal|0
-decl_stmt|;
-comment|/**    * Ordinal of the previous state. So we can tell if we are progressing or not. TODO: if useful,    * move this back up into StateMachineProcedure    */
-specifier|private
-name|int
-name|previousState
-decl_stmt|;
 comment|/**    * Call this constructor queuing up a Procedure.    * @param serverName Name of the crashed server.    * @param shouldSplitWal True if we should split WALs as part of crashed server processing.    * @param carryingMeta True if carrying hbase:meta table region.    */
 specifier|public
 name|ServerCrashProcedure
@@ -558,69 +536,6 @@ name|ProcedureSuspendedException
 throws|,
 name|ProcedureYieldException
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|trace
-argument_list|(
-name|state
-operator|+
-literal|" "
-operator|+
-name|this
-operator|+
-literal|"; cycles="
-operator|+
-name|this
-operator|.
-name|cycles
-argument_list|)
-expr_stmt|;
-block|}
-comment|// Keep running count of cycles
-if|if
-condition|(
-name|state
-operator|.
-name|ordinal
-argument_list|()
-operator|!=
-name|this
-operator|.
-name|previousState
-condition|)
-block|{
-name|this
-operator|.
-name|previousState
-operator|=
-name|state
-operator|.
-name|ordinal
-argument_list|()
-expr_stmt|;
-name|this
-operator|.
-name|cycles
-operator|=
-literal|0
-expr_stmt|;
-block|}
-else|else
-block|{
-name|this
-operator|.
-name|cycles
-operator|++
-expr_stmt|;
-block|}
 specifier|final
 name|MasterServices
 name|services
@@ -844,9 +759,8 @@ name|this
 operator|+
 literal|"; cycles="
 operator|+
-name|this
-operator|.
-name|cycles
+name|getCycles
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -944,9 +858,8 @@ name|this
 operator|+
 literal|"; cycles="
 operator|+
-name|this
-operator|.
-name|cycles
+name|getCycles
+argument_list|()
 argument_list|,
 name|e
 argument_list|)
@@ -958,7 +871,7 @@ operator|.
 name|HAS_MORE_STATE
 return|;
 block|}
-comment|/**    * @param env    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * @param env    * @throws IOException    */
 specifier|private
 name|void
 name|processMeta
@@ -981,35 +894,15 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Processing hbase:meta that was on "
+name|this
+operator|+
+literal|"; Processing hbase:meta that was on "
 operator|+
 name|this
 operator|.
 name|serverName
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|this
-operator|.
-name|shouldSplitWal
-condition|)
-block|{
-comment|// TODO: Matteo. We BLOCK here but most important thing to be doing at this moment.
-name|env
-operator|.
-name|getMasterServices
-argument_list|()
-operator|.
-name|getMasterWalManager
-argument_list|()
-operator|.
-name|splitMetaLog
-argument_list|(
-name|serverName
-argument_list|)
-expr_stmt|;
-block|}
 comment|// Assign meta if still carrying it. Check again: region may be assigned because of RIT timeout
 specifier|final
 name|AssignmentManager
@@ -1057,13 +950,14 @@ argument_list|)
 expr_stmt|;
 name|addChildProcedure
 argument_list|(
-name|am
-operator|.
-name|createAssignProcedure
+operator|new
+name|RecoverMetaProcedure
 argument_list|(
-name|hri
+name|serverName
 argument_list|,
-literal|true
+name|this
+operator|.
+name|shouldSplitWal
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1090,50 +984,15 @@ condition|)
 return|return
 literal|false
 return|;
-specifier|final
-name|Iterator
-argument_list|<
-name|HRegionInfo
-argument_list|>
-name|it
-init|=
 name|regions
 operator|.
-name|iterator
-argument_list|()
-decl_stmt|;
-while|while
-condition|(
-name|it
-operator|.
-name|hasNext
-argument_list|()
-condition|)
-block|{
-specifier|final
-name|HRegionInfo
-name|hri
-init|=
-name|it
-operator|.
-name|next
-argument_list|()
-decl_stmt|;
-if|if
-condition|(
-name|isDefaultMetaRegion
+name|removeIf
 argument_list|(
-name|hri
+name|this
+operator|::
+name|isDefaultMetaRegion
 argument_list|)
-condition|)
-block|{
-name|it
-operator|.
-name|remove
-argument_list|()
 expr_stmt|;
-block|}
-block|}
 return|return
 operator|!
 name|regions
@@ -1265,31 +1124,6 @@ name|serverName
 argument_list|)
 expr_stmt|;
 block|}
-specifier|static
-name|int
-name|size
-parameter_list|(
-specifier|final
-name|Collection
-argument_list|<
-name|HRegionInfo
-argument_list|>
-name|hris
-parameter_list|)
-block|{
-return|return
-name|hris
-operator|==
-literal|null
-condition|?
-literal|0
-else|:
-name|hris
-operator|.
-name|size
-argument_list|()
-return|;
-block|}
 annotation|@
 name|Override
 specifier|protected
@@ -1329,7 +1163,7 @@ block|{
 return|return
 name|ServerCrashState
 operator|.
-name|valueOf
+name|forNumber
 argument_list|(
 name|stateId
 argument_list|)
@@ -1839,7 +1673,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * Handle any outstanding RIT that are up against this.serverName, the crashed server.    * Notify them of crash. Remove assign entries from the passed in<code>regions</code>    * otherwise we have two assigns going on and they will fight over who has lock.    * Notify Unassigns also.    * @param crashedServer Server that crashed.    * @param regions Regions that were on crashed server    * @return Subset of<code>regions</code> that were RIT against<code>crashedServer</code>    */
+comment|/**    * Handle any outstanding RIT that are up against this.serverName, the crashed server.    * Notify them of crash. Remove assign entries from the passed in<code>regions</code>    * otherwise we have two assigns going on and they will fight over who has lock.    * Notify Unassigns also.    * @param env    * @param regions Regions that were on crashed server    */
 specifier|private
 name|void
 name|handleRIT

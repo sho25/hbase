@@ -780,11 +780,6 @@ operator|.
 name|start
 argument_list|()
 expr_stmt|;
-if|if
-condition|(
-literal|true
-condition|)
-block|{
 name|MasterMetaBootstrap
 name|metaBootstrap
 init|=
@@ -806,12 +801,7 @@ argument_list|)
 decl_stmt|;
 name|metaBootstrap
 operator|.
-name|splitMetaLogsBeforeAssignment
-argument_list|()
-expr_stmt|;
-name|metaBootstrap
-operator|.
-name|assignMeta
+name|recoverMeta
 argument_list|()
 expr_stmt|;
 name|metaBootstrap
@@ -819,7 +809,6 @@ operator|.
 name|processDeadServers
 argument_list|()
 expr_stmt|;
-block|}
 name|am
 operator|.
 name|joinCluster
