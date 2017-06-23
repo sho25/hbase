@@ -231,6 +231,11 @@ name|int
 name|getStorefileCount
 parameter_list|()
 function_decl|;
+comment|/**    * Returns the number of compacted files.    * @return The number of files.    */
+name|int
+name|getCompactedFilesCount
+parameter_list|()
+function_decl|;
 comment|/**    * Gets the store files to scan for a Scan or Get request.    * @param startRow Start row of the request.    * @param stopRow Stop row of the request.    * @return The list of files that are to be read for this request.    */
 name|Collection
 argument_list|<

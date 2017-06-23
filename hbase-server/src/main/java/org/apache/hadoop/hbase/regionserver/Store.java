@@ -434,6 +434,13 @@ argument_list|>
 name|getStorefiles
 parameter_list|()
 function_decl|;
+name|Collection
+argument_list|<
+name|StoreFile
+argument_list|>
+name|getCompactedFiles
+parameter_list|()
+function_decl|;
 comment|/**    * Close all the readers We don't need to worry about subsequent requests because the Region    * holds a write lock that will prevent any more reads or writes.    * @return the {@link StoreFile StoreFiles} that were previously being used.    * @throws IOException on failure    */
 name|Collection
 argument_list|<
@@ -560,6 +567,54 @@ name|includeStopRow
 parameter_list|,
 name|long
 name|readPt
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Recreates the scanners on the current list of active store file scanners    * @param currentFileScanners the current set of active store file scanners    * @param cacheBlocks cache the blocks or not    * @param usePread use pread or not    * @param isCompaction is the scanner for compaction    * @param matcher the scan query matcher    * @param startRow the scan's start row    * @param includeStartRow should the scan include the start row    * @param stopRow the scan's stop row    * @param includeStopRow should the scan include the stop row    * @param readPt the read point of the current scane    * @param includeMemstoreScanner whether the current scanner should include memstorescanner    * @return list of scanners recreated on the current Scanners    * @throws IOException    */
+name|List
+argument_list|<
+name|KeyValueScanner
+argument_list|>
+name|recreateScanners
+parameter_list|(
+name|List
+argument_list|<
+name|KeyValueScanner
+argument_list|>
+name|currentFileScanners
+parameter_list|,
+name|boolean
+name|cacheBlocks
+parameter_list|,
+name|boolean
+name|usePread
+parameter_list|,
+name|boolean
+name|isCompaction
+parameter_list|,
+name|ScanQueryMatcher
+name|matcher
+parameter_list|,
+name|byte
+index|[]
+name|startRow
+parameter_list|,
+name|boolean
+name|includeStartRow
+parameter_list|,
+name|byte
+index|[]
+name|stopRow
+parameter_list|,
+name|boolean
+name|includeStopRow
+parameter_list|,
+name|long
+name|readPt
+parameter_list|,
+name|boolean
+name|includeMemstoreScanner
 parameter_list|)
 throws|throws
 name|IOException
@@ -985,6 +1040,11 @@ function_decl|;
 comment|/**    * @return Count of store files    */
 name|int
 name|getStorefilesCount
+parameter_list|()
+function_decl|;
+comment|/**    * @return Count of compacted store files    */
+name|int
+name|getCompactedFilesCount
 parameter_list|()
 function_decl|;
 comment|/**    * @return Max age of store files in this store    */
