@@ -1711,7 +1711,7 @@ comment|/** Returns an HRI parsed from this regionName. Not all the fields of th
 end_comment
 
 begin_function
-specifier|protected
+specifier|public
 specifier|static
 name|HRegionInfo
 name|parseRegionInfoFromRegionName

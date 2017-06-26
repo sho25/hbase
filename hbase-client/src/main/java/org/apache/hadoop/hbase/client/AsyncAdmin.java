@@ -53,6 +53,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Optional
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|concurrent
 operator|.
 name|CompletableFuture
@@ -263,7 +273,7 @@ begin_interface
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Private
+name|Public
 specifier|public
 interface|interface
 name|AsyncAdmin
@@ -280,89 +290,94 @@ name|Boolean
 argument_list|>
 name|tableExists
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|)
 function_decl|;
-comment|/**    * List all the userspace tables.    * @return - returns an array of TableDescriptors wrapped by a {@link CompletableFuture}.    * @see #listTables(Pattern, boolean)    */
+comment|/**    * List all the userspace tables.    * @return - returns a list of TableDescriptors wrapped by a {@link CompletableFuture}.    * @see #listTables(Optional, boolean)    */
+specifier|default
 name|CompletableFuture
 argument_list|<
+name|List
+argument_list|<
 name|TableDescriptor
-index|[]
+argument_list|>
 argument_list|>
 name|listTables
 parameter_list|()
-function_decl|;
-comment|/**    * List all the tables matching the given pattern.    * @param regex The regular expression to match against    * @param includeSysTables False to match only against userspace tables    * @return - returns an array of TableDescriptors wrapped by a {@link CompletableFuture}.    * @see #listTables(Pattern, boolean)    */
+block|{
+return|return
+name|listTables
+argument_list|(
+name|Optional
+operator|.
+name|empty
+argument_list|()
+argument_list|,
+literal|false
+argument_list|)
+return|;
+block|}
+comment|/**    * List all the tables matching the given pattern.    * @param pattern The compiled regular expression to match against    * @param includeSysTables False to match only against userspace tables    * @return - returns a list of TableDescriptors wrapped by a {@link CompletableFuture}.    */
 name|CompletableFuture
 argument_list|<
+name|List
+argument_list|<
 name|TableDescriptor
-index|[]
+argument_list|>
 argument_list|>
 name|listTables
 parameter_list|(
-name|String
-name|regex
-parameter_list|,
-name|boolean
-name|includeSysTables
-parameter_list|)
-function_decl|;
-comment|/**    * List all the tables matching the given pattern.    * @param pattern The compiled regular expression to match against    * @param includeSysTables False to match only against userspace tables    * @return - returns an array of TableDescriptors wrapped by a {@link CompletableFuture}.    */
-name|CompletableFuture
+name|Optional
 argument_list|<
-name|TableDescriptor
-index|[]
-argument_list|>
-name|listTables
-parameter_list|(
 name|Pattern
+argument_list|>
 name|pattern
 parameter_list|,
 name|boolean
 name|includeSysTables
 parameter_list|)
 function_decl|;
-comment|/**    * List all of the names of userspace tables.    * @return TableName[] an array of table names wrapped by a {@link CompletableFuture}.    * @see #listTableNames(Pattern, boolean)    */
+comment|/**    * List all of the names of userspace tables.    * @return a list of table names wrapped by a {@link CompletableFuture}.    * @see #listTableNames(Optional, boolean)    */
+specifier|default
 name|CompletableFuture
 argument_list|<
+name|List
+argument_list|<
 name|TableName
-index|[]
+argument_list|>
 argument_list|>
 name|listTableNames
 parameter_list|()
-function_decl|;
-comment|/**    * List all of the names of userspace tables.    * @param regex The regular expression to match against    * @param includeSysTables False to match only against userspace tables    * @return TableName[] an array of table names wrapped by a {@link CompletableFuture}.    * @see #listTableNames(Pattern, boolean)    */
+block|{
+return|return
+name|listTableNames
+argument_list|(
+name|Optional
+operator|.
+name|empty
+argument_list|()
+argument_list|,
+literal|false
+argument_list|)
+return|;
+block|}
+comment|/**    * List all of the names of userspace tables.    * @param pattern The regular expression to match against    * @param includeSysTables False to match only against userspace tables    * @return a list of table names wrapped by a {@link CompletableFuture}.    */
 name|CompletableFuture
 argument_list|<
+name|List
+argument_list|<
 name|TableName
-index|[]
+argument_list|>
 argument_list|>
 name|listTableNames
 parameter_list|(
-specifier|final
-name|String
-name|regex
-parameter_list|,
-specifier|final
-name|boolean
-name|includeSysTables
-parameter_list|)
-function_decl|;
-comment|/**    * List all of the names of userspace tables.    * @param pattern The regular expression to match against    * @param includeSysTables False to match only against userspace tables    * @return TableName[] an array of table names wrapped by a {@link CompletableFuture}.    */
-name|CompletableFuture
+name|Optional
 argument_list|<
-name|TableName
-index|[]
-argument_list|>
-name|listTableNames
-parameter_list|(
-specifier|final
 name|Pattern
+argument_list|>
 name|pattern
 parameter_list|,
-specifier|final
 name|boolean
 name|includeSysTables
 parameter_list|)
@@ -374,7 +389,6 @@ name|TableDescriptor
 argument_list|>
 name|getTableDescriptor
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|)
@@ -419,7 +433,6 @@ name|Void
 argument_list|>
 name|createTable
 parameter_list|(
-specifier|final
 name|TableDescriptor
 name|desc
 parameter_list|,
@@ -436,28 +449,17 @@ name|Void
 argument_list|>
 name|deleteTable
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|)
 function_decl|;
-comment|/**    * Deletes tables matching the passed in pattern and wait on completion. Warning: Use this method    * carefully, there is no prompting and the effect is immediate. Consider using    * {@link #listTables(String, boolean)} and    * {@link #deleteTable(org.apache.hadoop.hbase.TableName)}    * @param regex The regular expression to match table names against    * @return Table descriptors for tables that couldn't be deleted. The return value will be wrapped    *         by a {@link CompletableFuture}. The return HTDs are read-only.    */
+comment|/**    * Delete tables matching the passed in pattern and wait on completion. Warning: Use this method    * carefully, there is no prompting and the effect is immediate. Consider using    * {@link #listTableNames(Optional, boolean) } and    * {@link #deleteTable(org.apache.hadoop.hbase.TableName)}    * @param pattern The pattern to match table names against    * @return Table descriptors for tables that couldn't be deleted. The return value will be wrapped    *         by a {@link CompletableFuture}. The return HTDs are read-only.    */
 name|CompletableFuture
 argument_list|<
+name|List
+argument_list|<
 name|TableDescriptor
-index|[]
 argument_list|>
-name|deleteTables
-parameter_list|(
-name|String
-name|regex
-parameter_list|)
-function_decl|;
-comment|/**    * Delete tables matching the passed in pattern and wait on completion. Warning: Use this method    * carefully, there is no prompting and the effect is immediate. Consider using    * {@link #listTables(Pattern, boolean) } and    * {@link #deleteTable(org.apache.hadoop.hbase.TableName)}    * @param pattern The pattern to match table names against    * @return Table descriptors for tables that couldn't be deleted. The return value will be wrapped    *         by a {@link CompletableFuture}. The return HTDs are read-only.    */
-name|CompletableFuture
-argument_list|<
-name|TableDescriptor
-index|[]
 argument_list|>
 name|deleteTables
 parameter_list|(
@@ -472,11 +474,9 @@ name|Void
 argument_list|>
 name|truncateTable
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|,
-specifier|final
 name|boolean
 name|preserveSplits
 parameter_list|)
@@ -488,28 +488,17 @@ name|Void
 argument_list|>
 name|enableTable
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|)
 function_decl|;
-comment|/**    * Enable tables matching the passed in pattern. Warning: Use this method carefully, there is no    * prompting and the effect is immediate. Consider using {@link #listTables(Pattern, boolean)} and    * {@link #enableTable(TableName)}    * @param regex The regular expression to match table names against    * @return Table descriptors for tables that couldn't be enabled. The return value will be wrapped    *         by a {@link CompletableFuture}. The return HTDs are read-only.    */
+comment|/**    * Enable tables matching the passed in pattern. Warning: Use this method carefully, there is no    * prompting and the effect is immediate. Consider using {@link #listTables(Optional, boolean)} and    * {@link #enableTable(TableName)}    * @param pattern The pattern to match table names against    * @return Table descriptors for tables that couldn't be enabled. The return value will be wrapped    *         by a {@link CompletableFuture}. The return HTDs are read-only.    */
 name|CompletableFuture
 argument_list|<
+name|List
+argument_list|<
 name|TableDescriptor
-index|[]
 argument_list|>
-name|enableTables
-parameter_list|(
-name|String
-name|regex
-parameter_list|)
-function_decl|;
-comment|/**    * Enable tables matching the passed in pattern. Warning: Use this method carefully, there is no    * prompting and the effect is immediate. Consider using {@link #listTables(Pattern, boolean)} and    * {@link #enableTable(TableName)}    * @param pattern The pattern to match table names against    * @return Table descriptors for tables that couldn't be enabled. The return value will be wrapped    *         by a {@link CompletableFuture}. The return HTDs are read-only.    */
-name|CompletableFuture
-argument_list|<
-name|TableDescriptor
-index|[]
 argument_list|>
 name|enableTables
 parameter_list|(
@@ -524,28 +513,17 @@ name|Void
 argument_list|>
 name|disableTable
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|)
 function_decl|;
-comment|/**    * Disable tables matching the passed in pattern. Warning: Use this method carefully, there is no    * prompting and the effect is immediate. Consider using {@link #listTables(Pattern, boolean)} and    * {@link #disableTable(TableName)}    * @param regex The regular expression to match table names against    * @return Table descriptors for tables that couldn't be disabled. The return value will be wrapped by a    *         {@link CompletableFuture}. The return HTDs are read-only.    */
+comment|/**    * Disable tables matching the passed in pattern. Warning: Use this method carefully, there is no    * prompting and the effect is immediate. Consider using {@link #listTables(Optional, boolean)} and    * {@link #disableTable(TableName)}    * @param pattern The pattern to match table names against    * @return Table descriptors for tables that couldn't be disabled. The return value will be wrapped by a    *         {@link CompletableFuture}. The return HTDs are read-only.    */
 name|CompletableFuture
 argument_list|<
+name|List
+argument_list|<
 name|TableDescriptor
-index|[]
 argument_list|>
-name|disableTables
-parameter_list|(
-name|String
-name|regex
-parameter_list|)
-function_decl|;
-comment|/**    * Disable tables matching the passed in pattern. Warning: Use this method carefully, there is no    * prompting and the effect is immediate. Consider using {@link #listTables(Pattern, boolean)} and    * {@link #disableTable(TableName)}    * @param pattern The pattern to match table names against    * @return Table descriptors for tables that couldn't be disabled. The return value will be wrapped by a    *         {@link CompletableFuture}. The return HTDs are read-only.    */
-name|CompletableFuture
-argument_list|<
-name|TableDescriptor
-index|[]
 argument_list|>
 name|disableTables
 parameter_list|(
@@ -603,7 +581,6 @@ argument_list|>
 argument_list|>
 name|getAlterStatus
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|)
@@ -615,11 +592,9 @@ name|Void
 argument_list|>
 name|addColumnFamily
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|,
-specifier|final
 name|ColumnFamilyDescriptor
 name|columnFamily
 parameter_list|)
@@ -631,11 +606,9 @@ name|Void
 argument_list|>
 name|deleteColumnFamily
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|,
-specifier|final
 name|byte
 index|[]
 name|columnFamily
@@ -648,11 +621,9 @@ name|Void
 argument_list|>
 name|modifyColumnFamily
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|,
-specifier|final
 name|ColumnFamilyDescriptor
 name|columnFamily
 parameter_list|)
@@ -664,7 +635,6 @@ name|Void
 argument_list|>
 name|createNamespace
 parameter_list|(
-specifier|final
 name|NamespaceDescriptor
 name|descriptor
 parameter_list|)
@@ -676,7 +646,6 @@ name|Void
 argument_list|>
 name|modifyNamespace
 parameter_list|(
-specifier|final
 name|NamespaceDescriptor
 name|descriptor
 parameter_list|)
@@ -688,7 +657,6 @@ name|Void
 argument_list|>
 name|deleteNamespace
 parameter_list|(
-specifier|final
 name|String
 name|name
 parameter_list|)
@@ -700,7 +668,6 @@ name|NamespaceDescriptor
 argument_list|>
 name|getNamespaceDescriptor
 parameter_list|(
-specifier|final
 name|String
 name|name
 parameter_list|)
@@ -708,8 +675,10 @@ function_decl|;
 comment|/**    * List available namespace descriptors    * @return List of descriptors wrapped by a {@link CompletableFuture}.    */
 name|CompletableFuture
 argument_list|<
+name|List
+argument_list|<
 name|NamespaceDescriptor
-index|[]
+argument_list|>
 argument_list|>
 name|listNamespaceDescriptors
 parameter_list|()
@@ -730,95 +699,63 @@ name|CompletableFuture
 argument_list|<
 name|Boolean
 argument_list|>
-name|setBalancerRunning
+name|setBalancerOn
 parameter_list|(
-specifier|final
 name|boolean
 name|on
 parameter_list|)
 function_decl|;
 comment|/**    * Invoke the balancer. Will run the balancer and if regions to move, it will go ahead and do the    * reassignments. Can NOT run for various reasons. Check logs.    * @return True if balancer ran, false otherwise. The return value will be wrapped by a    *         {@link CompletableFuture}.    */
+specifier|default
 name|CompletableFuture
 argument_list|<
 name|Boolean
 argument_list|>
-name|balancer
+name|balance
 parameter_list|()
-function_decl|;
-comment|/**    * Invoke the balancer. Will run the balancer and if regions to move, it will go ahead and do the    * reassignments. If there is region in transition, force parameter of true would still run    * balancer. Can *not* run for other reasons. Check logs.    * @param force whether we should force balance even if there is region in transition.    * @return True if balancer ran, false otherwise. The return value will be wrapped by a    *         {@link CompletableFuture}.    */
+block|{
+return|return
+name|balance
+argument_list|(
+literal|false
+argument_list|)
+return|;
+block|}
+comment|/**    * Invoke the balancer. Will run the balancer and if regions to move, it will go ahead and do the    * reassignments. If there is region in transition, force parameter of true would still run    * balancer. Can *not* run for other reasons. Check logs.    * @param forcible whether we should force balance even if there is region in transition.    * @return True if balancer ran, false otherwise. The return value will be wrapped by a    *         {@link CompletableFuture}.    */
 name|CompletableFuture
 argument_list|<
 name|Boolean
 argument_list|>
-name|balancer
+name|balance
 parameter_list|(
 name|boolean
-name|force
+name|forcible
 parameter_list|)
 function_decl|;
-comment|/**    * Query the current state of the balancer.    * @return true if the balancer is enabled, false otherwise.    *         The return value will be wrapped by a {@link CompletableFuture}.    */
+comment|/**    * Query the current state of the balancer.    * @return true if the balance switch is on, false otherwise The return value will be wrapped by a    *         {@link CompletableFuture}.    */
 name|CompletableFuture
 argument_list|<
 name|Boolean
 argument_list|>
-name|isBalancerEnabled
+name|isBalancerOn
 parameter_list|()
 function_decl|;
-comment|/**    * Close a region. For expert-admins.  Runs close on the regionserver.  The master will not be    * informed of the close.    *    * @param regionname region name to close    * @param serverName If supplied, we'll use this location rather than the one currently in    *<code>hbase:meta</code>    */
+comment|/**    * Close a region. For expert-admins Runs close on the regionserver. The master will not be    * informed of the close.    * @param regionName region name to close    * @param serverName The servername of the regionserver. If not present, we will use servername    *          found in the hbase:meta table. A server name is made of host, port and startcode. Here    *          is an example:<code> host187.example.com,60020,1289493121758</code>    * @return true if the region was closed, false if not. The return value will be wrapped by a    *         {@link CompletableFuture}.    */
 name|CompletableFuture
 argument_list|<
-name|Void
-argument_list|>
-name|closeRegion
-parameter_list|(
-name|String
-name|regionname
-parameter_list|,
-name|String
-name|serverName
-parameter_list|)
-function_decl|;
-comment|/**    * Close a region.  For expert-admins  Runs close on the regionserver.  The master will not be    * informed of the close.    *    * @param regionname region name to close    * @param serverName The servername of the regionserver.  If passed null we will use servername    * found in the hbase:meta table. A server name is made of host, port and startcode.  Here is an    * example:<code> host187.example.com,60020,1289493121758</code>    */
-name|CompletableFuture
-argument_list|<
-name|Void
+name|Boolean
 argument_list|>
 name|closeRegion
 parameter_list|(
 name|byte
 index|[]
-name|regionname
+name|regionName
 parameter_list|,
-name|String
-name|serverName
-parameter_list|)
-function_decl|;
-comment|/**    * For expert-admins. Runs close on the regionserver. Closes a region based on the encoded region    * name. The region server name is mandatory. If the servername is provided then based on the    * online regions in the specified regionserver the specified region will be closed. The master    * will not be informed of the close. Note that the regionname is the encoded regionname.    *    * @param encodedRegionName The encoded region name; i.e. the hash that makes up the region name    * suffix: e.g. if regionname is    *<code>TestTable,0094429456,1289497600452.527db22f95c8a9e0116f0cc13c680396.</code>,    * then the encoded region name is:<code>527db22f95c8a9e0116f0cc13c680396</code>.    * @param serverName The servername of the regionserver. A server name is made of host, port and    * startcode. This is mandatory. Here is an example:    *<code> host187.example.com,60020,1289493121758</code>    * @return true if the region was closed, false if not. The return value will be wrapped by a    * {@link CompletableFuture}.    */
-name|CompletableFuture
+name|Optional
 argument_list|<
-name|Boolean
-argument_list|>
-name|closeRegionWithEncodedRegionName
-parameter_list|(
-name|String
-name|encodedRegionName
-parameter_list|,
-name|String
-name|serverName
-parameter_list|)
-function_decl|;
-comment|/**    * Close a region.  For expert-admins  Runs close on the regionserver.  The master will not be    * informed of the close.    *    * @param sn    * @param hri    */
-name|CompletableFuture
-argument_list|<
-name|Void
-argument_list|>
-name|closeRegion
-parameter_list|(
 name|ServerName
-name|sn
-parameter_list|,
-name|HRegionInfo
-name|hri
+argument_list|>
+name|serverName
 parameter_list|)
 function_decl|;
 comment|/**    * Get all the online regions on a region server.    */
@@ -858,7 +795,8 @@ index|[]
 name|regionName
 parameter_list|)
 function_decl|;
-comment|/**    * Compact a table. Asynchronous operation even if CompletableFuture.get().    * @param tableName table to compact    */
+comment|/**    * Compact a table. When the returned CompletableFuture is done, it only means the compact request    * was sent to HBase and may need some time to finish the compact operation.    * @param tableName table to compact    */
+specifier|default
 name|CompletableFuture
 argument_list|<
 name|Void
@@ -868,8 +806,20 @@ parameter_list|(
 name|TableName
 name|tableName
 parameter_list|)
-function_decl|;
-comment|/**    * Compact a column family within a table. Asynchronous operation even if CompletableFuture.get().    * @param tableName table to compact    * @param columnFamily column family within a table    */
+block|{
+return|return
+name|compact
+argument_list|(
+name|tableName
+argument_list|,
+name|Optional
+operator|.
+name|empty
+argument_list|()
+argument_list|)
+return|;
+block|}
+comment|/**    * Compact a column family within a table. When the returned CompletableFuture is done, it only    * means the compact request was sent to HBase and may need some time to finish the compact    * operation.    * @param tableName table to compact    * @param columnFamily column family within a table. If not present, compact the table's all    *          column families.    */
 name|CompletableFuture
 argument_list|<
 name|Void
@@ -879,12 +829,16 @@ parameter_list|(
 name|TableName
 name|tableName
 parameter_list|,
+name|Optional
+argument_list|<
 name|byte
 index|[]
+argument_list|>
 name|columnFamily
 parameter_list|)
 function_decl|;
-comment|/**    * Compact an individual region. Asynchronous operation even if CompletableFuture.get().    * @param regionName region to compact    */
+comment|/**    * Compact an individual region. When the returned CompletableFuture is done, it only means the    * compact request was sent to HBase and may need some time to finish the compact operation.    * @param regionName region to compact    */
+specifier|default
 name|CompletableFuture
 argument_list|<
 name|Void
@@ -895,8 +849,20 @@ name|byte
 index|[]
 name|regionName
 parameter_list|)
-function_decl|;
-comment|/**    * Compact a column family within a region. Asynchronous operation even if    * CompletableFuture.get().    * @param regionName region to compact    * @param columnFamily column family within a region    */
+block|{
+return|return
+name|compactRegion
+argument_list|(
+name|regionName
+argument_list|,
+name|Optional
+operator|.
+name|empty
+argument_list|()
+argument_list|)
+return|;
+block|}
+comment|/**    * Compact a column family within a region. When the returned CompletableFuture is done, it only    * means the compact request was sent to HBase and may need some time to finish the compact    * operation.    * @param regionName region to compact    * @param columnFamily column family within a region. If not present, compact the region's all    *          column families.    */
 name|CompletableFuture
 argument_list|<
 name|Void
@@ -907,12 +873,16 @@ name|byte
 index|[]
 name|regionName
 parameter_list|,
+name|Optional
+argument_list|<
 name|byte
 index|[]
+argument_list|>
 name|columnFamily
 parameter_list|)
 function_decl|;
-comment|/**    * Major compact a table. Asynchronous operation even if CompletableFuture.get().    * @param tableName table to major compact    */
+comment|/**    * Major compact a table. When the returned CompletableFuture is done, it only means the compact    * request was sent to HBase and may need some time to finish the compact operation.    * @param tableName table to major compact    */
+specifier|default
 name|CompletableFuture
 argument_list|<
 name|Void
@@ -922,8 +892,20 @@ parameter_list|(
 name|TableName
 name|tableName
 parameter_list|)
-function_decl|;
-comment|/**    * Major compact a column family within a table. Asynchronous operation even if    * CompletableFuture.get().    * @param tableName table to major compact    * @param columnFamily column family within a table    */
+block|{
+return|return
+name|majorCompact
+argument_list|(
+name|tableName
+argument_list|,
+name|Optional
+operator|.
+name|empty
+argument_list|()
+argument_list|)
+return|;
+block|}
+comment|/**    * Major compact a column family within a table. When the returned CompletableFuture is done, it    * only means the compact request was sent to HBase and may need some time to finish the compact    * operation.    * @param tableName table to major compact    * @param columnFamily column family within a table. If not present, major compact the table's all    *          column families.    */
 name|CompletableFuture
 argument_list|<
 name|Void
@@ -933,12 +915,16 @@ parameter_list|(
 name|TableName
 name|tableName
 parameter_list|,
+name|Optional
+argument_list|<
 name|byte
 index|[]
+argument_list|>
 name|columnFamily
 parameter_list|)
 function_decl|;
-comment|/**    * Major compact a table or an individual region. Asynchronous operation even if    * CompletableFuture.get().    * @param regionName region to major compact    */
+comment|/**    * Major compact a region. When the returned CompletableFuture is done, it only means the compact    * request was sent to HBase and may need some time to finish the compact operation.    * @param regionName region to major compact    */
+specifier|default
 name|CompletableFuture
 argument_list|<
 name|Void
@@ -949,8 +935,20 @@ name|byte
 index|[]
 name|regionName
 parameter_list|)
-function_decl|;
-comment|/**    * Major compact a column family within region. Asynchronous operation even if    * CompletableFuture.get().    * @param regionName egion to major compact    * @param columnFamily column family within a region    */
+block|{
+return|return
+name|majorCompactRegion
+argument_list|(
+name|regionName
+argument_list|,
+name|Optional
+operator|.
+name|empty
+argument_list|()
+argument_list|)
+return|;
+block|}
+comment|/**    * Major compact a column family within region. When the returned CompletableFuture is done, it    * only means the compact request was sent to HBase and may need some time to finish the compact    * operation.    * @param regionName region to major compact    * @param columnFamily column family within a region. If not present, major compact the region's    *          all column families.    */
 name|CompletableFuture
 argument_list|<
 name|Void
@@ -961,8 +959,11 @@ name|byte
 index|[]
 name|regionName
 parameter_list|,
+name|Optional
+argument_list|<
 name|byte
 index|[]
+argument_list|>
 name|columnFamily
 parameter_list|)
 function_decl|;
@@ -995,17 +996,14 @@ name|Void
 argument_list|>
 name|mergeRegions
 parameter_list|(
-specifier|final
 name|byte
 index|[]
 name|nameOfRegionA
 parameter_list|,
-specifier|final
 name|byte
 index|[]
 name|nameOfRegionB
 parameter_list|,
-specifier|final
 name|boolean
 name|forcible
 parameter_list|)
@@ -1017,24 +1015,35 @@ name|Void
 argument_list|>
 name|split
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|)
 function_decl|;
 comment|/**    * Split an individual region.    * @param regionName region to split    */
+specifier|default
 name|CompletableFuture
 argument_list|<
 name|Void
 argument_list|>
 name|splitRegion
 parameter_list|(
-specifier|final
 name|byte
 index|[]
 name|regionName
 parameter_list|)
-function_decl|;
+block|{
+return|return
+name|splitRegion
+argument_list|(
+name|regionName
+argument_list|,
+name|Optional
+operator|.
+name|empty
+argument_list|()
+argument_list|)
+return|;
+block|}
 comment|/**    * Split a table.    * @param tableName table to split    * @param splitPoint the explicit position to split on    */
 name|CompletableFuture
 argument_list|<
@@ -1042,31 +1051,30 @@ name|Void
 argument_list|>
 name|split
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|,
-specifier|final
 name|byte
 index|[]
 name|splitPoint
 parameter_list|)
 function_decl|;
-comment|/**    * Split an individual region.    * @param regionName region to split    * @param splitPoint the explicit position to split on    */
+comment|/**    * Split an individual region.    * @param regionName region to split    * @param splitPoint the explicit position to split on. If not present, it will decide by region    *          server.    */
 name|CompletableFuture
 argument_list|<
 name|Void
 argument_list|>
 name|splitRegion
 parameter_list|(
-specifier|final
 name|byte
 index|[]
 name|regionName
 parameter_list|,
-specifier|final
+name|Optional
+argument_list|<
 name|byte
 index|[]
+argument_list|>
 name|splitPoint
 parameter_list|)
 function_decl|;
@@ -1077,27 +1085,24 @@ name|Void
 argument_list|>
 name|assign
 parameter_list|(
-specifier|final
 name|byte
 index|[]
 name|regionName
 parameter_list|)
 function_decl|;
-comment|/**    * Unassign a region from current hosting regionserver. Region will then be assigned to a    * regionserver chosen at random. Region could be reassigned back to the same server. Use    * {@link #move(byte[], byte[])} if you want to control the region movement.    * @param regionName Encoded or full name of region to unassign. Will clear any existing    *          RegionPlan if one found.    * @param force If true, force unassign (Will remove region from regions-in-transition too if    *          present. If results in double assignment use hbck -fix to resolve. To be used by    *          experts).    */
+comment|/**    * Unassign a region from current hosting regionserver. Region will then be assigned to a    * regionserver chosen at random. Region could be reassigned back to the same server. Use    * {@link #move(byte[], Optional)} if you want to control the region movement.    * @param regionName Encoded or full name of region to unassign. Will clear any existing    *          RegionPlan if one found.    * @param forcible If true, force unassign (Will remove region from regions-in-transition too if    *          present. If results in double assignment use hbck -fix to resolve. To be used by    *          experts).    */
 name|CompletableFuture
 argument_list|<
 name|Void
 argument_list|>
 name|unassign
 parameter_list|(
-specifier|final
 name|byte
 index|[]
 name|regionName
 parameter_list|,
-specifier|final
 name|boolean
-name|force
+name|forcible
 parameter_list|)
 function_decl|;
 comment|/**    * Offline specified region from master's in-memory state. It will not attempt to reassign the    * region as in unassign. This API can be used when a region not served by any region server and    * still online as per Master's in memory state. If this API is incorrectly used on active region    * then master will loose track of that region. This is a special method that should be used by    * experts or hbck.    * @param regionName Encoded or full name of region to offline    */
@@ -1107,27 +1112,26 @@ name|Void
 argument_list|>
 name|offline
 parameter_list|(
-specifier|final
 name|byte
 index|[]
 name|regionName
 parameter_list|)
 function_decl|;
-comment|/**    * Move the region<code>r</code> to<code>dest</code>.    * @param regionName Encoded or full name of region to move.    * @param destServerName The servername of the destination regionserver. If passed the empty byte    *          array we'll assign to a random server. A server name is made of host, port and    *          startcode. Here is an example:<code> host187.example.com,60020,1289493121758</code>    */
+comment|/**    * Move the region<code>r</code> to<code>dest</code>.    * @param regionName Encoded or full name of region to move.    * @param destServerName The servername of the destination regionserver. If not present, we'll    *          assign to a random server. A server name is made of host, port and startcode. Here is    *          an example:<code> host187.example.com,60020,1289493121758</code>    */
 name|CompletableFuture
 argument_list|<
 name|Void
 argument_list|>
 name|move
 parameter_list|(
-specifier|final
 name|byte
 index|[]
 name|regionName
 parameter_list|,
-specifier|final
-name|byte
-index|[]
+name|Optional
+argument_list|<
+name|ServerName
+argument_list|>
 name|destServerName
 parameter_list|)
 function_decl|;
@@ -1138,7 +1142,6 @@ name|Void
 argument_list|>
 name|setQuota
 parameter_list|(
-specifier|final
 name|QuotaSettings
 name|quota
 parameter_list|)
@@ -1164,11 +1167,9 @@ name|Void
 argument_list|>
 name|addReplicationPeer
 parameter_list|(
-specifier|final
 name|String
 name|peerId
 parameter_list|,
-specifier|final
 name|ReplicationPeerConfig
 name|peerConfig
 parameter_list|)
@@ -1180,7 +1181,6 @@ name|Void
 argument_list|>
 name|removeReplicationPeer
 parameter_list|(
-specifier|final
 name|String
 name|peerId
 parameter_list|)
@@ -1192,7 +1192,6 @@ name|Void
 argument_list|>
 name|enableReplicationPeer
 parameter_list|(
-specifier|final
 name|String
 name|peerId
 parameter_list|)
@@ -1204,7 +1203,6 @@ name|Void
 argument_list|>
 name|disableReplicationPeer
 parameter_list|(
-specifier|final
 name|String
 name|peerId
 parameter_list|)
@@ -1216,7 +1214,6 @@ name|ReplicationPeerConfig
 argument_list|>
 name|getReplicationPeerConfig
 parameter_list|(
-specifier|final
 name|String
 name|peerId
 parameter_list|)
@@ -1228,11 +1225,9 @@ name|Void
 argument_list|>
 name|updateReplicationPeerConfig
 parameter_list|(
-specifier|final
 name|String
 name|peerId
 parameter_list|,
-specifier|final
 name|ReplicationPeerConfig
 name|peerConfig
 parameter_list|)
@@ -1286,6 +1281,7 @@ name|tableCfs
 parameter_list|)
 function_decl|;
 comment|/**    * Return a list of replication peers.    * @return a list of replication peers description. The return value will be wrapped by a    *         {@link CompletableFuture}.    */
+specifier|default
 name|CompletableFuture
 argument_list|<
 name|List
@@ -1295,21 +1291,17 @@ argument_list|>
 argument_list|>
 name|listReplicationPeers
 parameter_list|()
-function_decl|;
-comment|/**    * Return a list of replication peers.    * @param regex The regular expression to match peer id    * @return a list of replication peers description. The return value will be wrapped by a    *         {@link CompletableFuture}.    */
-name|CompletableFuture
-argument_list|<
-name|List
-argument_list|<
-name|ReplicationPeerDescription
-argument_list|>
-argument_list|>
+block|{
+return|return
 name|listReplicationPeers
-parameter_list|(
-name|String
-name|regex
-parameter_list|)
-function_decl|;
+argument_list|(
+name|Optional
+operator|.
+name|empty
+argument_list|()
+argument_list|)
+return|;
+block|}
 comment|/**    * Return a list of replication peers.    * @param pattern The compiled regular expression to match peer id    * @return a list of replication peers description. The return value will be wrapped by a    *         {@link CompletableFuture}.    */
 name|CompletableFuture
 argument_list|<
@@ -1320,7 +1312,10 @@ argument_list|>
 argument_list|>
 name|listReplicationPeers
 parameter_list|(
+name|Optional
+argument_list|<
 name|Pattern
+argument_list|>
 name|pattern
 parameter_list|)
 function_decl|;
@@ -1356,11 +1351,9 @@ name|Void
 argument_list|>
 name|snapshot
 parameter_list|(
-specifier|final
 name|String
 name|snapshotName
 parameter_list|,
-specifier|final
 name|TableName
 name|tableName
 parameter_list|,
@@ -1386,7 +1379,6 @@ name|Boolean
 argument_list|>
 name|isSnapshotFinished
 parameter_list|(
-specifier|final
 name|SnapshotDescription
 name|snapshot
 parameter_list|)
@@ -1423,11 +1415,9 @@ name|Void
 argument_list|>
 name|cloneSnapshot
 parameter_list|(
-specifier|final
 name|String
 name|snapshotName
 parameter_list|,
-specifier|final
 name|TableName
 name|tableName
 parameter_list|)
@@ -1443,20 +1433,6 @@ argument_list|>
 name|listSnapshots
 parameter_list|()
 function_decl|;
-comment|/**    * List all the completed snapshots matching the given regular expression.    * @param regex The regular expression to match against    * @return - returns a List of SnapshotDescription wrapped by a {@link CompletableFuture}    */
-name|CompletableFuture
-argument_list|<
-name|List
-argument_list|<
-name|SnapshotDescription
-argument_list|>
-argument_list|>
-name|listSnapshots
-parameter_list|(
-name|String
-name|regex
-parameter_list|)
-function_decl|;
 comment|/**    * List all the completed snapshots matching the given pattern.    * @param pattern The compiled regular expression to match against    * @return - returns a List of SnapshotDescription wrapped by a {@link CompletableFuture}    */
 name|CompletableFuture
 argument_list|<
@@ -1469,23 +1445,6 @@ name|listSnapshots
 parameter_list|(
 name|Pattern
 name|pattern
-parameter_list|)
-function_decl|;
-comment|/**    * List all the completed snapshots matching the given table name regular expression and snapshot    * name regular expression.    * @param tableNameRegex The table name regular expression to match against    * @param snapshotNameRegex The snapshot name regular expression to match against    * @return - returns a List of completed SnapshotDescription wrapped by a    *         {@link CompletableFuture}    */
-name|CompletableFuture
-argument_list|<
-name|List
-argument_list|<
-name|SnapshotDescription
-argument_list|>
-argument_list|>
-name|listTableSnapshots
-parameter_list|(
-name|String
-name|tableNameRegex
-parameter_list|,
-name|String
-name|snapshotNameRegex
 parameter_list|)
 function_decl|;
 comment|/**    * List all the completed snapshots matching the given table name regular expression and snapshot    * name regular expression.    * @param tableNamePattern The compiled table name regular expression to match against    * @param snapshotNamePattern The compiled snapshot name regular expression to match against    * @return - returns a List of completed SnapshotDescription wrapped by a    *         {@link CompletableFuture}    */
@@ -1516,17 +1475,6 @@ name|String
 name|snapshotName
 parameter_list|)
 function_decl|;
-comment|/**    * Delete existing snapshots whose names match the pattern passed.    * @param regex The regular expression to match against    */
-name|CompletableFuture
-argument_list|<
-name|Void
-argument_list|>
-name|deleteSnapshots
-parameter_list|(
-name|String
-name|regex
-parameter_list|)
-function_decl|;
 comment|/**    * Delete existing snapshots whose names match the pattern passed.    * @param pattern pattern for names of the snapshot to match    */
 name|CompletableFuture
 argument_list|<
@@ -1536,20 +1484,6 @@ name|deleteSnapshots
 parameter_list|(
 name|Pattern
 name|pattern
-parameter_list|)
-function_decl|;
-comment|/**    * Delete all existing snapshots matching the given table name regular expression and snapshot    * name regular expression.    * @param tableNameRegex The table name regular expression to match against    * @param snapshotNameRegex The snapshot name regular expression to match against    */
-name|CompletableFuture
-argument_list|<
-name|Void
-argument_list|>
-name|deleteTableSnapshots
-parameter_list|(
-name|String
-name|tableNameRegex
-parameter_list|,
-name|String
-name|snapshotNameRegex
 parameter_list|)
 function_decl|;
 comment|/**    * Delete all existing snapshots matching the given table name regular expression and snapshot    * name regular expression.    * @param tableNamePattern The compiled table name regular expression to match against    * @param snapshotNamePattern The compiled snapshot name regular expression to match against    */
@@ -1611,7 +1545,7 @@ argument_list|>
 name|props
 parameter_list|)
 function_decl|;
-comment|/**    * Check the current state of the specified procedure. There are three possible states:    *<ol>    *<li>running - returns<tt>false</tt></li>    *<li>finished - returns<tt>true</tt></li>    *<li>finished with error - throws the exception that caused the procedure to fail</li>    *</ol>    * @param signature The signature that uniquely identifies a procedure    * @param instance The instance name of the procedure    * @param props Property/Value pairs of properties passing to the procedure    * @return true if the specified procedure is finished successfully, false if it is still running.    *         The value is vrapped by {@link CompletableFuture}    */
+comment|/**    * Check the current state of the specified procedure. There are three possible states:    *<ol>    *<li>running - returns<tt>false</tt></li>    *<li>finished - returns<tt>true</tt></li>    *<li>finished with error - throws the exception that caused the procedure to fail</li>    *</ol>    * @param signature The signature that uniquely identifies a procedure    * @param instance The instance name of the procedure    * @param props Property/Value pairs of properties passing to the procedure    * @return true if the specified procedure is finished successfully, false if it is still running.    *         The value is wrapped by {@link CompletableFuture}    */
 name|CompletableFuture
 argument_list|<
 name|Boolean
@@ -1650,8 +1584,10 @@ function_decl|;
 comment|/**    * List procedures    * @return procedure list wrapped by {@link CompletableFuture}    */
 name|CompletableFuture
 argument_list|<
+name|List
+argument_list|<
 name|ProcedureInfo
-index|[]
+argument_list|>
 argument_list|>
 name|listProcedures
 parameter_list|()

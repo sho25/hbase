@@ -119,7 +119,7 @@ name|initialState
 init|=
 name|admin
 operator|.
-name|isBalancerEnabled
+name|isBalancerOn
 argument_list|()
 operator|.
 name|get
@@ -131,7 +131,7 @@ name|prevState
 init|=
 name|admin
 operator|.
-name|setBalancerRunning
+name|setBalancerOn
 argument_list|(
 operator|!
 name|initialState
@@ -156,7 +156,7 @@ name|initialState
 argument_list|,
 name|admin
 operator|.
-name|isBalancerEnabled
+name|isBalancerOn
 argument_list|()
 operator|.
 name|get
@@ -168,7 +168,7 @@ name|prevState
 operator|=
 name|admin
 operator|.
-name|setBalancerRunning
+name|setBalancerOn
 argument_list|(
 name|initialState
 argument_list|)
@@ -192,7 +192,7 @@ name|initialState
 argument_list|,
 name|admin
 operator|.
-name|isBalancerEnabled
+name|isBalancerOn
 argument_list|()
 operator|.
 name|get
