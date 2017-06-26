@@ -731,6 +731,13 @@ argument_list|()
 expr_stmt|;
 name|master
 operator|.
+name|setServerCrashProcessingEnabled
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
+name|master
+operator|.
 name|setInitialized
 argument_list|(
 literal|false
