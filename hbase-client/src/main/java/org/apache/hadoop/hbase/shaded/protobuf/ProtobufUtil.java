@@ -3065,22 +3065,6 @@ name|RemoteException
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|mapreduce
-operator|.
-name|tools
-operator|.
-name|CLI
-import|;
-end_import
-
 begin_comment
 comment|/**  * Protobufs utility.  * Be aware that a class named org.apache.hadoop.hbase.protobuf.ProtobufUtil (i.e. no 'shaded' in  * the package name) carries a COPY of a subset of this class for non-shaded  * users; e.g. Coprocessor Endpoints. If you make change in here, be sure to make change in  * the companion class too (not the end of the world, especially if you are adding new functionality  * but something to be aware of.  * @see ProtobufUtil  */
 end_comment
