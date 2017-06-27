@@ -1012,7 +1012,7 @@ block|}
 block|}
 block|}
 return|return
-literal|null
+name|entries
 return|;
 block|}
 specifier|protected

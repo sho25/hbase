@@ -817,6 +817,27 @@ literal|"Idle-Rpc-Conn-Sweeper"
 argument_list|)
 argument_list|)
 decl_stmt|;
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"MS_MUTABLE_COLLECTION_PKGPROTECT"
+argument_list|,
+name|justification
+operator|=
+literal|"the rest of the system which live in the different package can use"
+argument_list|)
 specifier|protected
 specifier|final
 specifier|static

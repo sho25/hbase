@@ -19649,13 +19649,6 @@ name|serverName
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|status
-operator|.
-name|getLoad
-argument_list|(
-name|serverName
-argument_list|)
-expr_stmt|;
 name|lsi
 operator|.
 name|setServerLoad
