@@ -1858,19 +1858,14 @@ name|Procedure
 name|candidate
 parameter_list|)
 block|{
+comment|// Check that the procedures we see are 'increasing'. We used to compare
+comment|// procedure id first and then update time but it can legitimately go backwards if the
+comment|// procedure is failed or rolled back so that was unreliable. Was going to compare
+comment|// state but lets see if comparing update time enough (unfortunately this issue only
+comment|// seen under load...)
 name|boolean
 name|increasing
 init|=
-name|current
-operator|.
-name|getStackIdCount
-argument_list|()
-operator|<=
-name|candidate
-operator|.
-name|getStackIdCount
-argument_list|()
-operator|&&
 name|current
 operator|.
 name|getLastUpdate
