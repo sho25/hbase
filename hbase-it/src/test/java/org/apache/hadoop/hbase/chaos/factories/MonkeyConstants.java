@@ -125,6 +125,11 @@ init|=
 literal|"unbalance.action.wait.after.period"
 decl_stmt|;
 name|String
+name|UNBALANCE_KILL_META_RS
+init|=
+literal|"unbalance.action.kill.meta.rs"
+decl_stmt|;
+name|String
 name|DECREASE_HFILE_SIZE_SLEEP_TIME
 init|=
 literal|"decrease.hfile.size.sleep.time"
@@ -248,6 +253,11 @@ init|=
 literal|5
 operator|*
 literal|1000
+decl_stmt|;
+name|boolean
+name|DEFAULT_UNBALANCE_KILL_META_RS
+init|=
+literal|true
 decl_stmt|;
 name|long
 name|DEFAULT_DECREASE_HFILE_SIZE_SLEEP_TIME
