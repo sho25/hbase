@@ -1721,7 +1721,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Split an individual region. Asynchronous operation.    *    * @param regionName region to split    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Split an individual region. Asynchronous operation.    *    * @param regionName region to split    * @throws IOException if a remote or network exception occurs    * @deprecated Since 2.0. Will be removed in 3.0. Use    *     {@link #splitRegionAsync(byte[], byte[])} instead.    */
 name|void
 name|splitRegion
 parameter_list|(
@@ -1749,7 +1749,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Split an individual region. Asynchronous operation.    *    * @param regionName region to split    * @param splitPoint the explicit position to split on    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Split an individual region. Asynchronous operation.    *    * @param regionName region to split    * @param splitPoint the explicit position to split on    * @throws IOException if a remote or network exception occurs    * @deprecated Since 2.0. Will be removed in 3.0. Use    *     {@link #splitRegionAsync(byte[], byte[])} instead.    */
 name|void
 name|splitRegion
 parameter_list|(
@@ -1759,6 +1759,24 @@ index|[]
 name|regionName
 parameter_list|,
 specifier|final
+name|byte
+index|[]
+name|splitPoint
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Split an individual region. Asynchronous operation.    * @param regionName region to split    * @param splitPoint the explicit position to split on    * @throws IOException if a remote or network exception occurs    */
+name|Future
+argument_list|<
+name|Void
+argument_list|>
+name|splitRegionAsync
+parameter_list|(
+name|byte
+index|[]
+name|regionName
+parameter_list|,
 name|byte
 index|[]
 name|splitPoint
