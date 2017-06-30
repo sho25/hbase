@@ -9214,9 +9214,32 @@ name|info
 argument_list|(
 literal|"Deleted "
 operator|+
-name|regionsInfo
+name|regionInfos
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|" regions from META"
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Deleted regions: "
+operator|+
+name|regionInfos
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 end_function
 
@@ -9452,8 +9475,31 @@ argument_list|(
 literal|"Overwritten "
 operator|+
 name|regionInfos
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|" regions to Meta"
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Overwritten regions: "
+operator|+
+name|regionInfos
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 end_function
 
