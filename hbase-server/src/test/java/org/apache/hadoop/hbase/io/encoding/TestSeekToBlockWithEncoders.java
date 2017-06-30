@@ -133,7 +133,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HBaseTestingUtility
+name|HBaseCommonTestingUtility
 import|;
 end_import
 
@@ -402,7 +402,7 @@ name|parameters
 parameter_list|()
 block|{
 return|return
-name|HBaseTestingUtility
+name|HBaseCommonTestingUtility
 operator|.
 name|BOOLEAN_PARAMETERIZED
 return|;
