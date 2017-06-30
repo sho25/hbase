@@ -2197,6 +2197,19 @@ argument_list|(
 name|useMob
 argument_list|)
 expr_stmt|;
+comment|// set the max threads to avoid java.lang.OutOfMemoryError: unable to create new native thread
+name|util
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.hconnection.threads.max"
+argument_list|,
+literal|40
+argument_list|)
+expr_stmt|;
 name|TestContext
 name|ctx
 init|=
