@@ -9214,7 +9214,7 @@ name|info
 argument_list|(
 literal|"Deleted "
 operator|+
-name|regionInfos
+name|regionsInfo
 operator|.
 name|size
 argument_list|()
@@ -9236,7 +9236,7 @@ name|debug
 argument_list|(
 literal|"Deleted regions: "
 operator|+
-name|regionInfos
+name|regionsInfo
 argument_list|)
 expr_stmt|;
 block|}
