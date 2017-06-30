@@ -190,16 +190,6 @@ name|boolean
 name|getCompactionState
 parameter_list|()
 function_decl|;
-comment|/**      *<code>optional bool best_split_row = 3;</code>      */
-name|boolean
-name|hasBestSplitRow
-parameter_list|()
-function_decl|;
-comment|/**      *<code>optional bool best_split_row = 3;</code>      */
-name|boolean
-name|getBestSplitRow
-parameter_list|()
-function_decl|;
 block|}
 comment|/**    * Protobuf type {@code hbase.pb.GetRegionInfoRequest}    */
 specifier|public
@@ -269,10 +259,6 @@ name|GetRegionInfoRequest
 parameter_list|()
 block|{
 name|compactionState_
-operator|=
-literal|false
-expr_stmt|;
-name|bestSplitRow_
 operator|=
 literal|false
 expr_stmt|;
@@ -593,23 +579,6 @@ operator||=
 literal|0x00000002
 expr_stmt|;
 name|compactionState_
-operator|=
-name|input
-operator|.
-name|readBool
-argument_list|()
-expr_stmt|;
-break|break;
-block|}
-case|case
-literal|24
-case|:
-block|{
-name|bitField0_
-operator||=
-literal|0x00000004
-expr_stmt|;
-name|bestSplitRow_
 operator|=
 name|input
 operator|.
@@ -1032,46 +1001,6 @@ return|return
 name|compactionState_
 return|;
 block|}
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|BEST_SPLIT_ROW_FIELD_NUMBER
-init|=
-literal|3
-decl_stmt|;
-specifier|private
-name|boolean
-name|bestSplitRow_
-decl_stmt|;
-comment|/**      *<code>optional bool best_split_row = 3;</code>      */
-specifier|public
-name|boolean
-name|hasBestSplitRow
-parameter_list|()
-block|{
-return|return
-operator|(
-operator|(
-name|bitField0_
-operator|&
-literal|0x00000004
-operator|)
-operator|==
-literal|0x00000004
-operator|)
-return|;
-block|}
-comment|/**      *<code>optional bool best_split_row = 3;</code>      */
-specifier|public
-name|boolean
-name|getBestSplitRow
-parameter_list|()
-block|{
-return|return
-name|bestSplitRow_
-return|;
-block|}
 specifier|private
 name|byte
 name|memoizedIsInitialized
@@ -1226,29 +1155,6 @@ name|compactionState_
 argument_list|)
 expr_stmt|;
 block|}
-if|if
-condition|(
-operator|(
-operator|(
-name|bitField0_
-operator|&
-literal|0x00000004
-operator|)
-operator|==
-literal|0x00000004
-operator|)
-condition|)
-block|{
-name|output
-operator|.
-name|writeBool
-argument_list|(
-literal|3
-argument_list|,
-name|bestSplitRow_
-argument_list|)
-expr_stmt|;
-block|}
 name|unknownFields
 operator|.
 name|writeTo
@@ -1361,47 +1267,6 @@ argument_list|(
 literal|2
 argument_list|,
 name|compactionState_
-argument_list|)
-expr_stmt|;
-block|}
-if|if
-condition|(
-operator|(
-operator|(
-name|bitField0_
-operator|&
-literal|0x00000004
-operator|)
-operator|==
-literal|0x00000004
-operator|)
-condition|)
-block|{
-name|size
-operator|+=
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|CodedOutputStream
-operator|.
-name|computeBoolSize
-argument_list|(
-literal|3
-argument_list|,
-name|bestSplitRow_
 argument_list|)
 expr_stmt|;
 block|}
@@ -1613,41 +1478,6 @@ name|result
 operator|=
 name|result
 operator|&&
-operator|(
-name|hasBestSplitRow
-argument_list|()
-operator|==
-name|other
-operator|.
-name|hasBestSplitRow
-argument_list|()
-operator|)
-expr_stmt|;
-if|if
-condition|(
-name|hasBestSplitRow
-argument_list|()
-condition|)
-block|{
-name|result
-operator|=
-name|result
-operator|&&
-operator|(
-name|getBestSplitRow
-argument_list|()
-operator|==
-name|other
-operator|.
-name|getBestSplitRow
-argument_list|()
-operator|)
-expr_stmt|;
-block|}
-name|result
-operator|=
-name|result
-operator|&&
 name|unknownFields
 operator|.
 name|equals
@@ -1778,55 +1608,6 @@ operator|.
 name|hashBoolean
 argument_list|(
 name|getCompactionState
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-if|if
-condition|(
-name|hasBestSplitRow
-argument_list|()
-condition|)
-block|{
-name|hash
-operator|=
-operator|(
-literal|37
-operator|*
-name|hash
-operator|)
-operator|+
-name|BEST_SPLIT_ROW_FIELD_NUMBER
-expr_stmt|;
-name|hash
-operator|=
-operator|(
-literal|53
-operator|*
-name|hash
-operator|)
-operator|+
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|Internal
-operator|.
-name|hashBoolean
-argument_list|(
-name|getBestSplitRow
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3034,19 +2815,6 @@ operator|~
 literal|0x00000002
 operator|)
 expr_stmt|;
-name|bestSplitRow_
-operator|=
-literal|false
-expr_stmt|;
-name|bitField0_
-operator|=
-operator|(
-name|bitField0_
-operator|&
-operator|~
-literal|0x00000004
-operator|)
-expr_stmt|;
 return|return
 name|this
 return|;
@@ -3340,30 +3108,6 @@ operator|.
 name|compactionState_
 operator|=
 name|compactionState_
-expr_stmt|;
-if|if
-condition|(
-operator|(
-operator|(
-name|from_bitField0_
-operator|&
-literal|0x00000004
-operator|)
-operator|==
-literal|0x00000004
-operator|)
-condition|)
-block|{
-name|to_bitField0_
-operator||=
-literal|0x00000004
-expr_stmt|;
-block|}
-name|result
-operator|.
-name|bestSplitRow_
-operator|=
-name|bestSplitRow_
 expr_stmt|;
 name|result
 operator|.
@@ -3772,23 +3516,6 @@ argument_list|(
 name|other
 operator|.
 name|getCompactionState
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-if|if
-condition|(
-name|other
-operator|.
-name|hasBestSplitRow
-argument_list|()
-condition|)
-block|{
-name|setBestSplitRow
-argument_list|(
-name|other
-operator|.
-name|getBestSplitRow
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -4878,88 +4605,6 @@ return|return
 name|this
 return|;
 block|}
-specifier|private
-name|boolean
-name|bestSplitRow_
-decl_stmt|;
-comment|/**        *<code>optional bool best_split_row = 3;</code>        */
-specifier|public
-name|boolean
-name|hasBestSplitRow
-parameter_list|()
-block|{
-return|return
-operator|(
-operator|(
-name|bitField0_
-operator|&
-literal|0x00000004
-operator|)
-operator|==
-literal|0x00000004
-operator|)
-return|;
-block|}
-comment|/**        *<code>optional bool best_split_row = 3;</code>        */
-specifier|public
-name|boolean
-name|getBestSplitRow
-parameter_list|()
-block|{
-return|return
-name|bestSplitRow_
-return|;
-block|}
-comment|/**        *<code>optional bool best_split_row = 3;</code>        */
-specifier|public
-name|Builder
-name|setBestSplitRow
-parameter_list|(
-name|boolean
-name|value
-parameter_list|)
-block|{
-name|bitField0_
-operator||=
-literal|0x00000004
-expr_stmt|;
-name|bestSplitRow_
-operator|=
-name|value
-expr_stmt|;
-name|onChanged
-argument_list|()
-expr_stmt|;
-return|return
-name|this
-return|;
-block|}
-comment|/**        *<code>optional bool best_split_row = 3;</code>        */
-specifier|public
-name|Builder
-name|clearBestSplitRow
-parameter_list|()
-block|{
-name|bitField0_
-operator|=
-operator|(
-name|bitField0_
-operator|&
-operator|~
-literal|0x00000004
-operator|)
-expr_stmt|;
-name|bestSplitRow_
-operator|=
-literal|false
-expr_stmt|;
-name|onChanged
-argument_list|()
-expr_stmt|;
-return|return
-name|this
-return|;
-block|}
 specifier|public
 specifier|final
 name|Builder
@@ -5450,32 +5095,6 @@ name|boolean
 name|getMergeable
 parameter_list|()
 function_decl|;
-comment|/**      *<pre>      * Get bestSplitRow      *</pre>      *      *<code>optional bytes best_split_row = 6;</code>      */
-name|boolean
-name|hasBestSplitRow
-parameter_list|()
-function_decl|;
-comment|/**      *<pre>      * Get bestSplitRow      *</pre>      *      *<code>optional bytes best_split_row = 6;</code>      */
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|ByteString
-name|getBestSplitRow
-parameter_list|()
-function_decl|;
 block|}
 comment|/**    * Protobuf type {@code hbase.pb.GetRegionInfoResponse}    */
 specifier|public
@@ -5559,28 +5178,6 @@ expr_stmt|;
 name|mergeable_
 operator|=
 literal|false
-expr_stmt|;
-name|bestSplitRow_
-operator|=
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|ByteString
-operator|.
-name|EMPTY
 expr_stmt|;
 block|}
 annotation|@
@@ -6025,23 +5622,6 @@ operator|=
 name|input
 operator|.
 name|readBool
-argument_list|()
-expr_stmt|;
-break|break;
-block|}
-case|case
-literal|50
-case|:
-block|{
-name|bitField0_
-operator||=
-literal|0x00000020
-expr_stmt|;
-name|bestSplitRow_
-operator|=
-name|input
-operator|.
-name|readBytes
 argument_list|()
 expr_stmt|;
 break|break;
@@ -7146,78 +6726,6 @@ return|return
 name|mergeable_
 return|;
 block|}
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|BEST_SPLIT_ROW_FIELD_NUMBER
-init|=
-literal|6
-decl_stmt|;
-specifier|private
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|ByteString
-name|bestSplitRow_
-decl_stmt|;
-comment|/**      *<pre>      * Get bestSplitRow      *</pre>      *      *<code>optional bytes best_split_row = 6;</code>      */
-specifier|public
-name|boolean
-name|hasBestSplitRow
-parameter_list|()
-block|{
-return|return
-operator|(
-operator|(
-name|bitField0_
-operator|&
-literal|0x00000020
-operator|)
-operator|==
-literal|0x00000020
-operator|)
-return|;
-block|}
-comment|/**      *<pre>      * Get bestSplitRow      *</pre>      *      *<code>optional bytes best_split_row = 6;</code>      */
-specifier|public
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|ByteString
-name|getBestSplitRow
-parameter_list|()
-block|{
-return|return
-name|bestSplitRow_
-return|;
-block|}
 specifier|private
 name|byte
 name|memoizedIsInitialized
@@ -7438,29 +6946,6 @@ argument_list|(
 literal|5
 argument_list|,
 name|mergeable_
-argument_list|)
-expr_stmt|;
-block|}
-if|if
-condition|(
-operator|(
-operator|(
-name|bitField0_
-operator|&
-literal|0x00000020
-operator|)
-operator|==
-literal|0x00000020
-operator|)
-condition|)
-block|{
-name|output
-operator|.
-name|writeBytes
-argument_list|(
-literal|6
-argument_list|,
-name|bestSplitRow_
 argument_list|)
 expr_stmt|;
 block|}
@@ -7699,47 +7184,6 @@ argument_list|(
 literal|5
 argument_list|,
 name|mergeable_
-argument_list|)
-expr_stmt|;
-block|}
-if|if
-condition|(
-operator|(
-operator|(
-name|bitField0_
-operator|&
-literal|0x00000020
-operator|)
-operator|==
-literal|0x00000020
-operator|)
-condition|)
-block|{
-name|size
-operator|+=
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|CodedOutputStream
-operator|.
-name|computeBytesSize
-argument_list|(
-literal|6
-argument_list|,
-name|bestSplitRow_
 argument_list|)
 expr_stmt|;
 block|}
@@ -8052,42 +7496,6 @@ name|result
 operator|=
 name|result
 operator|&&
-operator|(
-name|hasBestSplitRow
-argument_list|()
-operator|==
-name|other
-operator|.
-name|hasBestSplitRow
-argument_list|()
-operator|)
-expr_stmt|;
-if|if
-condition|(
-name|hasBestSplitRow
-argument_list|()
-condition|)
-block|{
-name|result
-operator|=
-name|result
-operator|&&
-name|getBestSplitRow
-argument_list|()
-operator|.
-name|equals
-argument_list|(
-name|other
-operator|.
-name|getBestSplitRow
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-name|result
-operator|=
-name|result
-operator|&&
 name|unknownFields
 operator|.
 name|equals
@@ -8345,37 +7753,6 @@ argument_list|(
 name|getMergeable
 argument_list|()
 argument_list|)
-expr_stmt|;
-block|}
-if|if
-condition|(
-name|hasBestSplitRow
-argument_list|()
-condition|)
-block|{
-name|hash
-operator|=
-operator|(
-literal|37
-operator|*
-name|hash
-operator|)
-operator|+
-name|BEST_SPLIT_ROW_FIELD_NUMBER
-expr_stmt|;
-name|hash
-operator|=
-operator|(
-literal|53
-operator|*
-name|hash
-operator|)
-operator|+
-name|getBestSplitRow
-argument_list|()
-operator|.
-name|hashCode
-argument_list|()
 expr_stmt|;
 block|}
 name|hash
@@ -9620,37 +8997,6 @@ operator|~
 literal|0x00000010
 operator|)
 expr_stmt|;
-name|bestSplitRow_
-operator|=
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|ByteString
-operator|.
-name|EMPTY
-expr_stmt|;
-name|bitField0_
-operator|=
-operator|(
-name|bitField0_
-operator|&
-operator|~
-literal|0x00000020
-operator|)
-expr_stmt|;
 return|return
 name|this
 return|;
@@ -10016,30 +9362,6 @@ operator|.
 name|mergeable_
 operator|=
 name|mergeable_
-expr_stmt|;
-if|if
-condition|(
-operator|(
-operator|(
-name|from_bitField0_
-operator|&
-literal|0x00000020
-operator|)
-operator|==
-literal|0x00000020
-operator|)
-condition|)
-block|{
-name|to_bitField0_
-operator||=
-literal|0x00000020
-expr_stmt|;
-block|}
-name|result
-operator|.
-name|bestSplitRow_
-operator|=
-name|bestSplitRow_
 expr_stmt|;
 name|result
 operator|.
@@ -10499,23 +9821,6 @@ argument_list|(
 name|other
 operator|.
 name|getMergeable
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-if|if
-condition|(
-name|other
-operator|.
-name|hasBestSplitRow
-argument_list|()
-condition|)
-block|{
-name|setBestSplitRow
-argument_list|(
-name|other
-operator|.
-name|getBestSplitRow
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -11969,173 +11274,6 @@ expr_stmt|;
 name|mergeable_
 operator|=
 literal|false
-expr_stmt|;
-name|onChanged
-argument_list|()
-expr_stmt|;
-return|return
-name|this
-return|;
-block|}
-specifier|private
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|ByteString
-name|bestSplitRow_
-init|=
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|ByteString
-operator|.
-name|EMPTY
-decl_stmt|;
-comment|/**        *<pre>        * Get bestSplitRow        *</pre>        *        *<code>optional bytes best_split_row = 6;</code>        */
-specifier|public
-name|boolean
-name|hasBestSplitRow
-parameter_list|()
-block|{
-return|return
-operator|(
-operator|(
-name|bitField0_
-operator|&
-literal|0x00000020
-operator|)
-operator|==
-literal|0x00000020
-operator|)
-return|;
-block|}
-comment|/**        *<pre>        * Get bestSplitRow        *</pre>        *        *<code>optional bytes best_split_row = 6;</code>        */
-specifier|public
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|ByteString
-name|getBestSplitRow
-parameter_list|()
-block|{
-return|return
-name|bestSplitRow_
-return|;
-block|}
-comment|/**        *<pre>        * Get bestSplitRow        *</pre>        *        *<code>optional bytes best_split_row = 6;</code>        */
-specifier|public
-name|Builder
-name|setBestSplitRow
-parameter_list|(
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|ByteString
-name|value
-parameter_list|)
-block|{
-if|if
-condition|(
-name|value
-operator|==
-literal|null
-condition|)
-block|{
-throw|throw
-operator|new
-name|NullPointerException
-argument_list|()
-throw|;
-block|}
-name|bitField0_
-operator||=
-literal|0x00000020
-expr_stmt|;
-name|bestSplitRow_
-operator|=
-name|value
-expr_stmt|;
-name|onChanged
-argument_list|()
-expr_stmt|;
-return|return
-name|this
-return|;
-block|}
-comment|/**        *<pre>        * Get bestSplitRow        *</pre>        *        *<code>optional bytes best_split_row = 6;</code>        */
-specifier|public
-name|Builder
-name|clearBestSplitRow
-parameter_list|()
-block|{
-name|bitField0_
-operator|=
-operator|(
-name|bitField0_
-operator|&
-operator|~
-literal|0x00000020
-operator|)
-expr_stmt|;
-name|bestSplitRow_
-operator|=
-name|getDefaultInstance
-argument_list|()
-operator|.
-name|getBestSplitRow
-argument_list|()
 expr_stmt|;
 name|onChanged
 argument_list|()
@@ -223154,275 +222292,273 @@ literal|"\n\013Admin.proto\022\010hbase.pb\032\023ClusterStatus.p"
 operator|+
 literal|"roto\032\013HBase.proto\032\tWAL.proto\032\013Quota.prot"
 operator|+
-literal|"o\"s\n\024GetRegionInfoRequest\022)\n\006region\030\001 \002("
+literal|"o\"[\n\024GetRegionInfoRequest\022)\n\006region\030\001 \002("
 operator|+
 literal|"\0132\031.hbase.pb.RegionSpecifier\022\030\n\020compacti"
 operator|+
-literal|"on_state\030\002 \001(\010\022\026\n\016best_split_row\030\003 \001(\010\"\252"
+literal|"on_state\030\002 \001(\010\"\222\002\n\025GetRegionInfoResponse"
 operator|+
-literal|"\002\n\025GetRegionInfoResponse\022)\n\013region_info\030"
+literal|"\022)\n\013region_info\030\001 \002(\0132\024.hbase.pb.RegionI"
 operator|+
-literal|"\001 \002(\0132\024.hbase.pb.RegionInfo\022I\n\020compactio"
+literal|"nfo\022I\n\020compaction_state\030\002 \001(\0162/.hbase.pb"
 operator|+
-literal|"n_state\030\002 \001(\0162/.hbase.pb.GetRegionInfoRe"
+literal|".GetRegionInfoResponse.CompactionState\022\024"
 operator|+
-literal|"sponse.CompactionState\022\024\n\014isRecovering\030\003"
+literal|"\n\014isRecovering\030\003 \001(\010\022\022\n\nsplittable\030\004 \001(\010"
 operator|+
-literal|" \001(\010\022\022\n\nsplittable\030\004 \001(\010\022\021\n\tmergeable\030\005 "
+literal|"\022\021\n\tmergeable\030\005 \001(\010\"F\n\017CompactionState\022\010"
 block|,
-literal|"\001(\010\022\026\n\016best_split_row\030\006 \001(\014\"F\n\017Compactio"
+literal|"\n\004NONE\020\000\022\t\n\005MINOR\020\001\022\t\n\005MAJOR\020\002\022\023\n\017MAJOR_"
 operator|+
-literal|"nState\022\010\n\004NONE\020\000\022\t\n\005MINOR\020\001\022\t\n\005MAJOR\020\002\022\023"
+literal|"AND_MINOR\020\003\"P\n\023GetStoreFileRequest\022)\n\006re"
 operator|+
-literal|"\n\017MAJOR_AND_MINOR\020\003\"P\n\023GetStoreFileReque"
+literal|"gion\030\001 \002(\0132\031.hbase.pb.RegionSpecifier\022\016\n"
 operator|+
-literal|"st\022)\n\006region\030\001 \002(\0132\031.hbase.pb.RegionSpec"
+literal|"\006family\030\002 \003(\014\"*\n\024GetStoreFileResponse\022\022\n"
 operator|+
-literal|"ifier\022\016\n\006family\030\002 \003(\014\"*\n\024GetStoreFileRes"
+literal|"\nstore_file\030\001 \003(\t\"\030\n\026GetOnlineRegionRequ"
 operator|+
-literal|"ponse\022\022\n\nstore_file\030\001 \003(\t\"\030\n\026GetOnlineRe"
+literal|"est\"D\n\027GetOnlineRegionResponse\022)\n\013region"
 operator|+
-literal|"gionRequest\"D\n\027GetOnlineRegionResponse\022)"
+literal|"_info\030\001 \003(\0132\024.hbase.pb.RegionInfo\"\263\002\n\021Op"
 operator|+
-literal|"\n\013region_info\030\001 \003(\0132\024.hbase.pb.RegionInf"
+literal|"enRegionRequest\022=\n\topen_info\030\001 \003(\0132*.hba"
 operator|+
-literal|"o\"\263\002\n\021OpenRegionRequest\022=\n\topen_info\030\001 \003"
+literal|"se.pb.OpenRegionRequest.RegionOpenInfo\022\027"
 operator|+
-literal|"(\0132*.hbase.pb.OpenRegionRequest.RegionOp"
+literal|"\n\017serverStartCode\030\002 \001(\004\022\032\n\022master_system"
 block|,
-literal|"enInfo\022\027\n\017serverStartCode\030\002 \001(\004\022\032\n\022maste"
+literal|"_time\030\005 \001(\004\032\251\001\n\016RegionOpenInfo\022$\n\006region"
 operator|+
-literal|"r_system_time\030\005 \001(\004\032\251\001\n\016RegionOpenInfo\022$"
+literal|"\030\001 \002(\0132\024.hbase.pb.RegionInfo\022\037\n\027version_"
 operator|+
-literal|"\n\006region\030\001 \002(\0132\024.hbase.pb.RegionInfo\022\037\n\027"
+literal|"of_offline_node\030\002 \001(\r\022+\n\rfavored_nodes\030\003"
 operator|+
-literal|"version_of_offline_node\030\002 \001(\r\022+\n\rfavored"
+literal|" \003(\0132\024.hbase.pb.ServerName\022#\n\033openForDis"
 operator|+
-literal|"_nodes\030\003 \003(\0132\024.hbase.pb.ServerName\022#\n\033op"
+literal|"tributedLogReplay\030\004 \001(\010\"\246\001\n\022OpenRegionRe"
 operator|+
-literal|"enForDistributedLogReplay\030\004 \001(\010\"\246\001\n\022Open"
+literal|"sponse\022F\n\ropening_state\030\001 \003(\0162/.hbase.pb"
 operator|+
-literal|"RegionResponse\022F\n\ropening_state\030\001 \003(\0162/."
+literal|".OpenRegionResponse.RegionOpeningState\"H"
 operator|+
-literal|"hbase.pb.OpenRegionResponse.RegionOpenin"
+literal|"\n\022RegionOpeningState\022\n\n\006OPENED\020\000\022\022\n\016ALRE"
 operator|+
-literal|"gState\"H\n\022RegionOpeningState\022\n\n\006OPENED\020\000"
+literal|"ADY_OPENED\020\001\022\022\n\016FAILED_OPENING\020\002\"?\n\023Warm"
 operator|+
-literal|"\022\022\n\016ALREADY_OPENED\020\001\022\022\n\016FAILED_OPENING\020\002"
+literal|"upRegionRequest\022(\n\nregionInfo\030\001 \002(\0132\024.hb"
 block|,
-literal|"\"?\n\023WarmupRegionRequest\022(\n\nregionInfo\030\001 "
+literal|"ase.pb.RegionInfo\"\026\n\024WarmupRegionRespons"
 operator|+
-literal|"\002(\0132\024.hbase.pb.RegionInfo\"\026\n\024WarmupRegio"
+literal|"e\"\313\001\n\022CloseRegionRequest\022)\n\006region\030\001 \002(\013"
 operator|+
-literal|"nResponse\"\313\001\n\022CloseRegionRequest\022)\n\006regi"
+literal|"2\031.hbase.pb.RegionSpecifier\022\037\n\027version_o"
 operator|+
-literal|"on\030\001 \002(\0132\031.hbase.pb.RegionSpecifier\022\037\n\027v"
+literal|"f_closing_node\030\002 \001(\r\022\036\n\020transition_in_ZK"
 operator|+
-literal|"ersion_of_closing_node\030\002 \001(\r\022\036\n\020transiti"
+literal|"\030\003 \001(\010:\004true\0220\n\022destination_server\030\004 \001(\013"
 operator|+
-literal|"on_in_ZK\030\003 \001(\010:\004true\0220\n\022destination_serv"
+literal|"2\024.hbase.pb.ServerName\022\027\n\017serverStartCod"
 operator|+
-literal|"er\030\004 \001(\0132\024.hbase.pb.ServerName\022\027\n\017server"
+literal|"e\030\005 \001(\004\"%\n\023CloseRegionResponse\022\016\n\006closed"
 operator|+
-literal|"StartCode\030\005 \001(\004\"%\n\023CloseRegionResponse\022\016"
+literal|"\030\001 \002(\010\"y\n\022FlushRegionRequest\022)\n\006region\030\001"
 operator|+
-literal|"\n\006closed\030\001 \002(\010\"y\n\022FlushRegionRequest\022)\n\006"
+literal|" \002(\0132\031.hbase.pb.RegionSpecifier\022\030\n\020if_ol"
 operator|+
-literal|"region\030\001 \002(\0132\031.hbase.pb.RegionSpecifier\022"
+literal|"der_than_ts\030\002 \001(\004\022\036\n\026write_flush_wal_mar"
 block|,
-literal|"\030\n\020if_older_than_ts\030\002 \001(\004\022\036\n\026write_flush"
+literal|"ker\030\003 \001(\010\"_\n\023FlushRegionResponse\022\027\n\017last"
 operator|+
-literal|"_wal_marker\030\003 \001(\010\"_\n\023FlushRegionResponse"
+literal|"_flush_time\030\001 \002(\004\022\017\n\007flushed\030\002 \001(\010\022\036\n\026wr"
 operator|+
-literal|"\022\027\n\017last_flush_time\030\001 \002(\004\022\017\n\007flushed\030\002 \001"
+literal|"ote_flush_wal_marker\030\003 \001(\010\"T\n\022SplitRegio"
 operator|+
-literal|"(\010\022\036\n\026wrote_flush_wal_marker\030\003 \001(\010\"T\n\022Sp"
+literal|"nRequest\022)\n\006region\030\001 \002(\0132\031.hbase.pb.Regi"
 operator|+
-literal|"litRegionRequest\022)\n\006region\030\001 \002(\0132\031.hbase"
+literal|"onSpecifier\022\023\n\013split_point\030\002 \001(\014\"\025\n\023Spli"
 operator|+
-literal|".pb.RegionSpecifier\022\023\n\013split_point\030\002 \001(\014"
+literal|"tRegionResponse\"`\n\024CompactRegionRequest\022"
 operator|+
-literal|"\"\025\n\023SplitRegionResponse\"`\n\024CompactRegion"
+literal|")\n\006region\030\001 \002(\0132\031.hbase.pb.RegionSpecifi"
 operator|+
-literal|"Request\022)\n\006region\030\001 \002(\0132\031.hbase.pb.Regio"
+literal|"er\022\r\n\005major\030\002 \001(\010\022\016\n\006family\030\003 \001(\014\"\027\n\025Com"
 operator|+
-literal|"nSpecifier\022\r\n\005major\030\002 \001(\010\022\016\n\006family\030\003 \001("
+literal|"pactRegionResponse\"\315\001\n\031UpdateFavoredNode"
 operator|+
-literal|"\014\"\027\n\025CompactRegionResponse\"\315\001\n\031UpdateFav"
+literal|"sRequest\022I\n\013update_info\030\001 \003(\01324.hbase.pb"
 block|,
-literal|"oredNodesRequest\022I\n\013update_info\030\001 \003(\01324."
+literal|".UpdateFavoredNodesRequest.RegionUpdateI"
 operator|+
-literal|"hbase.pb.UpdateFavoredNodesRequest.Regio"
+literal|"nfo\032e\n\020RegionUpdateInfo\022$\n\006region\030\001 \002(\0132"
 operator|+
-literal|"nUpdateInfo\032e\n\020RegionUpdateInfo\022$\n\006regio"
+literal|"\024.hbase.pb.RegionInfo\022+\n\rfavored_nodes\030\002"
 operator|+
-literal|"n\030\001 \002(\0132\024.hbase.pb.RegionInfo\022+\n\rfavored"
+literal|" \003(\0132\024.hbase.pb.ServerName\".\n\032UpdateFavo"
 operator|+
-literal|"_nodes\030\002 \003(\0132\024.hbase.pb.ServerName\".\n\032Up"
+literal|"redNodesResponse\022\020\n\010response\030\001 \001(\r\"a\n\010WA"
 operator|+
-literal|"dateFavoredNodesResponse\022\020\n\010response\030\001 \001"
+literal|"LEntry\022\035\n\003key\030\001 \002(\0132\020.hbase.pb.WALKey\022\027\n"
 operator|+
-literal|"(\r\"a\n\010WALEntry\022\035\n\003key\030\001 \002(\0132\020.hbase.pb.W"
+literal|"\017key_value_bytes\030\002 \003(\014\022\035\n\025associated_cel"
 operator|+
-literal|"ALKey\022\027\n\017key_value_bytes\030\002 \003(\014\022\035\n\025associ"
+literal|"l_count\030\003 \001(\005\"\242\001\n\030ReplicateWALEntryReque"
 operator|+
-literal|"ated_cell_count\030\003 \001(\005\"\242\001\n\030ReplicateWALEn"
+literal|"st\022!\n\005entry\030\001 \003(\0132\022.hbase.pb.WALEntry\022\034\n"
 operator|+
-literal|"tryRequest\022!\n\005entry\030\001 \003(\0132\022.hbase.pb.WAL"
+literal|"\024replicationClusterId\030\002 \001(\t\022\"\n\032sourceBas"
 block|,
-literal|"Entry\022\034\n\024replicationClusterId\030\002 \001(\t\022\"\n\032s"
+literal|"eNamespaceDirPath\030\003 \001(\t\022!\n\031sourceHFileAr"
 operator|+
-literal|"ourceBaseNamespaceDirPath\030\003 \001(\t\022!\n\031sourc"
+literal|"chiveDirPath\030\004 \001(\t\"\033\n\031ReplicateWALEntryR"
 operator|+
-literal|"eHFileArchiveDirPath\030\004 \001(\t\"\033\n\031ReplicateW"
+literal|"esponse\"\026\n\024RollWALWriterRequest\"0\n\025RollW"
 operator|+
-literal|"ALEntryResponse\"\026\n\024RollWALWriterRequest\""
+literal|"ALWriterResponse\022\027\n\017region_to_flush\030\001 \003("
 operator|+
-literal|"0\n\025RollWALWriterResponse\022\027\n\017region_to_fl"
+literal|"\014\"#\n\021StopServerRequest\022\016\n\006reason\030\001 \002(\t\"\024"
 operator|+
-literal|"ush\030\001 \003(\014\"#\n\021StopServerRequest\022\016\n\006reason"
+literal|"\n\022StopServerResponse\"\026\n\024GetServerInfoReq"
 operator|+
-literal|"\030\001 \002(\t\"\024\n\022StopServerResponse\"\026\n\024GetServe"
+literal|"uest\"K\n\nServerInfo\022)\n\013server_name\030\001 \002(\0132"
 operator|+
-literal|"rInfoRequest\"K\n\nServerInfo\022)\n\013server_nam"
+literal|"\024.hbase.pb.ServerName\022\022\n\nwebui_port\030\002 \001("
 operator|+
-literal|"e\030\001 \002(\0132\024.hbase.pb.ServerName\022\022\n\nwebui_p"
+literal|"\r\"B\n\025GetServerInfoResponse\022)\n\013server_inf"
 operator|+
-literal|"ort\030\002 \001(\r\"B\n\025GetServerInfoResponse\022)\n\013se"
+literal|"o\030\001 \002(\0132\024.hbase.pb.ServerInfo\"\034\n\032UpdateC"
 block|,
-literal|"rver_info\030\001 \002(\0132\024.hbase.pb.ServerInfo\"\034\n"
+literal|"onfigurationRequest\"\035\n\033UpdateConfigurati"
 operator|+
-literal|"\032UpdateConfigurationRequest\"\035\n\033UpdateCon"
+literal|"onResponse\"?\n\024GetRegionLoadRequest\022\'\n\nta"
 operator|+
-literal|"figurationResponse\"?\n\024GetRegionLoadReque"
+literal|"ble_name\030\001 \001(\0132\023.hbase.pb.TableName\"C\n\025G"
 operator|+
-literal|"st\022\'\n\ntable_name\030\001 \001(\0132\023.hbase.pb.TableN"
+literal|"etRegionLoadResponse\022*\n\014region_loads\030\001 \003"
 operator|+
-literal|"ame\"C\n\025GetRegionLoadResponse\022*\n\014region_l"
+literal|"(\0132\024.hbase.pb.RegionLoad\"2\n\034ClearCompact"
 operator|+
-literal|"oads\030\001 \003(\0132\024.hbase.pb.RegionLoad\"2\n\034Clea"
+literal|"ionQueuesRequest\022\022\n\nqueue_name\030\001 \003(\t\"\037\n\035"
 operator|+
-literal|"rCompactionQueuesRequest\022\022\n\nqueue_name\030\001"
+literal|"ClearCompactionQueuesResponse\"\200\001\n\030Execut"
 operator|+
-literal|" \003(\t\"\037\n\035ClearCompactionQueuesResponse\"\200\001"
+literal|"eProceduresRequest\0220\n\013open_region\030\001 \003(\0132"
 operator|+
-literal|"\n\030ExecuteProceduresRequest\0220\n\013open_regio"
+literal|"\033.hbase.pb.OpenRegionRequest\0222\n\014close_re"
 operator|+
-literal|"n\030\001 \003(\0132\033.hbase.pb.OpenRegionRequest\0222\n\014"
+literal|"gion\030\002 \003(\0132\034.hbase.pb.CloseRegionRequest"
 block|,
-literal|"close_region\030\002 \003(\0132\034.hbase.pb.CloseRegio"
+literal|"\"\203\001\n\031ExecuteProceduresResponse\0221\n\013open_r"
 operator|+
-literal|"nRequest\"\203\001\n\031ExecuteProceduresResponse\0221"
+literal|"egion\030\001 \003(\0132\034.hbase.pb.OpenRegionRespons"
 operator|+
-literal|"\n\013open_region\030\001 \003(\0132\034.hbase.pb.OpenRegio"
+literal|"e\0223\n\014close_region\030\002 \003(\0132\035.hbase.pb.Close"
 operator|+
-literal|"nResponse\0223\n\014close_region\030\002 \003(\0132\035.hbase."
+literal|"RegionResponse\"\244\001\n\023MergeRegionsRequest\022+"
 operator|+
-literal|"pb.CloseRegionResponse\"\244\001\n\023MergeRegionsR"
+literal|"\n\010region_a\030\001 \002(\0132\031.hbase.pb.RegionSpecif"
 operator|+
-literal|"equest\022+\n\010region_a\030\001 \002(\0132\031.hbase.pb.Regi"
+literal|"ier\022+\n\010region_b\030\002 \002(\0132\031.hbase.pb.RegionS"
 operator|+
-literal|"onSpecifier\022+\n\010region_b\030\002 \002(\0132\031.hbase.pb"
+literal|"pecifier\022\027\n\010forcible\030\003 \001(\010:\005false\022\032\n\022mas"
 operator|+
-literal|".RegionSpecifier\022\027\n\010forcible\030\003 \001(\010:\005fals"
+literal|"ter_system_time\030\004 \001(\004\"\026\n\024MergeRegionsRes"
 operator|+
-literal|"e\022\032\n\022master_system_time\030\004 \001(\004\"\026\n\024MergeRe"
+literal|"ponse2\216\016\n\014AdminService\022P\n\rGetRegionInfo\022"
 operator|+
-literal|"gionsResponse2\216\016\n\014AdminService\022P\n\rGetReg"
+literal|"\036.hbase.pb.GetRegionInfoRequest\032\037.hbase."
 block|,
-literal|"ionInfo\022\036.hbase.pb.GetRegionInfoRequest\032"
+literal|"pb.GetRegionInfoResponse\022M\n\014GetStoreFile"
 operator|+
-literal|"\037.hbase.pb.GetRegionInfoResponse\022M\n\014GetS"
+literal|"\022\035.hbase.pb.GetStoreFileRequest\032\036.hbase."
 operator|+
-literal|"toreFile\022\035.hbase.pb.GetStoreFileRequest\032"
+literal|"pb.GetStoreFileResponse\022V\n\017GetOnlineRegi"
 operator|+
-literal|"\036.hbase.pb.GetStoreFileResponse\022V\n\017GetOn"
+literal|"on\022 .hbase.pb.GetOnlineRegionRequest\032!.h"
 operator|+
-literal|"lineRegion\022 .hbase.pb.GetOnlineRegionReq"
+literal|"base.pb.GetOnlineRegionResponse\022G\n\nOpenR"
 operator|+
-literal|"uest\032!.hbase.pb.GetOnlineRegionResponse\022"
+literal|"egion\022\033.hbase.pb.OpenRegionRequest\032\034.hba"
 operator|+
-literal|"G\n\nOpenRegion\022\033.hbase.pb.OpenRegionReque"
+literal|"se.pb.OpenRegionResponse\022M\n\014WarmupRegion"
 operator|+
-literal|"st\032\034.hbase.pb.OpenRegionResponse\022M\n\014Warm"
+literal|"\022\035.hbase.pb.WarmupRegionRequest\032\036.hbase."
 operator|+
-literal|"upRegion\022\035.hbase.pb.WarmupRegionRequest\032"
+literal|"pb.WarmupRegionResponse\022J\n\013CloseRegion\022\034"
 operator|+
-literal|"\036.hbase.pb.WarmupRegionResponse\022J\n\013Close"
+literal|".hbase.pb.CloseRegionRequest\032\035.hbase.pb."
 block|,
-literal|"Region\022\034.hbase.pb.CloseRegionRequest\032\035.h"
+literal|"CloseRegionResponse\022J\n\013FlushRegion\022\034.hba"
 operator|+
-literal|"base.pb.CloseRegionResponse\022J\n\013FlushRegi"
+literal|"se.pb.FlushRegionRequest\032\035.hbase.pb.Flus"
 operator|+
-literal|"on\022\034.hbase.pb.FlushRegionRequest\032\035.hbase"
+literal|"hRegionResponse\022J\n\013SplitRegion\022\034.hbase.p"
 operator|+
-literal|".pb.FlushRegionResponse\022J\n\013SplitRegion\022\034"
+literal|"b.SplitRegionRequest\032\035.hbase.pb.SplitReg"
 operator|+
-literal|".hbase.pb.SplitRegionRequest\032\035.hbase.pb."
+literal|"ionResponse\022P\n\rCompactRegion\022\036.hbase.pb."
 operator|+
-literal|"SplitRegionResponse\022P\n\rCompactRegion\022\036.h"
+literal|"CompactRegionRequest\032\037.hbase.pb.CompactR"
 operator|+
-literal|"base.pb.CompactRegionRequest\032\037.hbase.pb."
+literal|"egionResponse\022\\\n\021ReplicateWALEntry\022\".hba"
 operator|+
-literal|"CompactRegionResponse\022\\\n\021ReplicateWALEnt"
+literal|"se.pb.ReplicateWALEntryRequest\032#.hbase.p"
 operator|+
-literal|"ry\022\".hbase.pb.ReplicateWALEntryRequest\032#"
+literal|"b.ReplicateWALEntryResponse\022Q\n\006Replay\022\"."
 operator|+
-literal|".hbase.pb.ReplicateWALEntryResponse\022Q\n\006R"
+literal|"hbase.pb.ReplicateWALEntryRequest\032#.hbas"
 block|,
-literal|"eplay\022\".hbase.pb.ReplicateWALEntryReques"
+literal|"e.pb.ReplicateWALEntryResponse\022P\n\rRollWA"
 operator|+
-literal|"t\032#.hbase.pb.ReplicateWALEntryResponse\022P"
+literal|"LWriter\022\036.hbase.pb.RollWALWriterRequest\032"
 operator|+
-literal|"\n\rRollWALWriter\022\036.hbase.pb.RollWALWriter"
+literal|"\037.hbase.pb.RollWALWriterResponse\022P\n\rGetS"
 operator|+
-literal|"Request\032\037.hbase.pb.RollWALWriterResponse"
+literal|"erverInfo\022\036.hbase.pb.GetServerInfoReques"
 operator|+
-literal|"\022P\n\rGetServerInfo\022\036.hbase.pb.GetServerIn"
+literal|"t\032\037.hbase.pb.GetServerInfoResponse\022G\n\nSt"
 operator|+
-literal|"foRequest\032\037.hbase.pb.GetServerInfoRespon"
+literal|"opServer\022\033.hbase.pb.StopServerRequest\032\034."
 operator|+
-literal|"se\022G\n\nStopServer\022\033.hbase.pb.StopServerRe"
+literal|"hbase.pb.StopServerResponse\022_\n\022UpdateFav"
 operator|+
-literal|"quest\032\034.hbase.pb.StopServerResponse\022_\n\022U"
+literal|"oredNodes\022#.hbase.pb.UpdateFavoredNodesR"
 operator|+
-literal|"pdateFavoredNodes\022#.hbase.pb.UpdateFavor"
+literal|"equest\032$.hbase.pb.UpdateFavoredNodesResp"
 operator|+
-literal|"edNodesRequest\032$.hbase.pb.UpdateFavoredN"
+literal|"onse\022b\n\023UpdateConfiguration\022$.hbase.pb.U"
 block|,
-literal|"odesResponse\022b\n\023UpdateConfiguration\022$.hb"
+literal|"pdateConfigurationRequest\032%.hbase.pb.Upd"
 operator|+
-literal|"ase.pb.UpdateConfigurationRequest\032%.hbas"
+literal|"ateConfigurationResponse\022P\n\rGetRegionLoa"
 operator|+
-literal|"e.pb.UpdateConfigurationResponse\022P\n\rGetR"
+literal|"d\022\036.hbase.pb.GetRegionLoadRequest\032\037.hbas"
 operator|+
-literal|"egionLoad\022\036.hbase.pb.GetRegionLoadReques"
+literal|"e.pb.GetRegionLoadResponse\022h\n\025ClearCompa"
 operator|+
-literal|"t\032\037.hbase.pb.GetRegionLoadResponse\022h\n\025Cl"
+literal|"ctionQueues\022&.hbase.pb.ClearCompactionQu"
 operator|+
-literal|"earCompactionQueues\022&.hbase.pb.ClearComp"
+literal|"euesRequest\032\'.hbase.pb.ClearCompactionQu"
 operator|+
-literal|"actionQueuesRequest\032\'.hbase.pb.ClearComp"
+literal|"euesResponse\022k\n\026GetSpaceQuotaSnapshots\022\'"
 operator|+
-literal|"actionQueuesResponse\022k\n\026GetSpaceQuotaSna"
+literal|".hbase.pb.GetSpaceQuotaSnapshotsRequest\032"
 operator|+
-literal|"pshots\022\'.hbase.pb.GetSpaceQuotaSnapshots"
+literal|"(.hbase.pb.GetSpaceQuotaSnapshotsRespons"
 operator|+
-literal|"Request\032(.hbase.pb.GetSpaceQuotaSnapshot"
+literal|"e\022\\\n\021ExecuteProcedures\022\".hbase.pb.Execut"
 block|,
-literal|"sResponse\022\\\n\021ExecuteProcedures\022\".hbase.p"
+literal|"eProceduresRequest\032#.hbase.pb.ExecutePro"
 operator|+
-literal|"b.ExecuteProceduresRequest\032#.hbase.pb.Ex"
+literal|"ceduresResponse\022M\n\014MergeRegions\022\035.hbase."
 operator|+
-literal|"ecuteProceduresResponse\022M\n\014MergeRegions\022"
+literal|"pb.MergeRegionsRequest\032\036.hbase.pb.MergeR"
 operator|+
-literal|"\035.hbase.pb.MergeRegionsRequest\032\036.hbase.p"
+literal|"egionsResponseBH\n1org.apache.hadoop.hbas"
 operator|+
-literal|"b.MergeRegionsResponseBH\n1org.apache.had"
+literal|"e.shaded.protobuf.generatedB\013AdminProtos"
 operator|+
-literal|"oop.hbase.shaded.protobuf.generatedB\013Adm"
-operator|+
-literal|"inProtosH\001\210\001\001\240\001\001"
+literal|"H\001\210\001\001\240\001\001"
 block|}
 decl_stmt|;
 name|org
@@ -223699,8 +222835,6 @@ block|{
 literal|"Region"
 block|,
 literal|"CompactionState"
-block|,
-literal|"BestSplitRow"
 block|, }
 argument_list|)
 expr_stmt|;
@@ -223759,8 +222893,6 @@ block|,
 literal|"Splittable"
 block|,
 literal|"Mergeable"
-block|,
-literal|"BestSplitRow"
 block|, }
 argument_list|)
 expr_stmt|;
