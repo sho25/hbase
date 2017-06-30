@@ -87,6 +87,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ClockType
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -395,6 +409,11 @@ function_decl|;
 comment|/**    * Returns the durability setting for the table.    *    * @return durability setting for the table.    */
 name|Durability
 name|getDurability
+parameter_list|()
+function_decl|;
+comment|/**    * Returns the clock type setting for the table.    *    * @return clock type setting for the table.    */
+name|ClockType
+name|getClockType
 parameter_list|()
 function_decl|;
 comment|/**    * Returns an unmodifiable collection of all the {@link ColumnFamilyDescriptor} of    * all the column families of the table.    *    * @return An array of {@link ColumnFamilyDescriptor} of all the column    * families.    */

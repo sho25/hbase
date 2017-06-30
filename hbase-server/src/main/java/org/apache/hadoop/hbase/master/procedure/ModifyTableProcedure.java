@@ -1311,6 +1311,28 @@ argument_list|)
 throw|;
 block|}
 block|}
+comment|// do not allow changing of clock type.
+if|if
+condition|(
+name|modifiedHTableDescriptor
+operator|.
+name|getClockType
+argument_list|()
+operator|!=
+name|unmodifiedHTableDescriptor
+operator|.
+name|getClockType
+argument_list|()
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Clock Type change is not supported for tables"
+argument_list|)
+throw|;
+block|}
 comment|// Find out whether all column families in unmodifiedHTableDescriptor also exists in
 comment|// the modifiedHTableDescriptor. This is to determine whether we are safe to rollback.
 specifier|final

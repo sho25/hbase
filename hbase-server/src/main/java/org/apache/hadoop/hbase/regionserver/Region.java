@@ -95,6 +95,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|Clock
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|CellComparator
 import|;
 end_import
@@ -563,6 +577,11 @@ function_decl|;
 comment|/** @return table descriptor for this region */
 name|HTableDescriptor
 name|getTableDesc
+parameter_list|()
+function_decl|;
+comment|/** @return clock of the Region Server corresponding the clock type used by the    *  table contained in this region.    */
+name|Clock
+name|getClock
 parameter_list|()
 function_decl|;
 comment|/** @return true if region is available (not closed and not closing) */

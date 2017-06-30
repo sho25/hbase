@@ -151,6 +151,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|Clock
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -994,6 +1008,11 @@ function_decl|;
 comment|/**    * @return The amount of memory we could flush from this memstore; usually this is equal to    * {@link #getSizeOfMemStore()} unless we are carrying snapshots and then it will be the size of    * outstanding snapshots.    */
 name|MemstoreSize
 name|getSizeToFlush
+parameter_list|()
+function_decl|;
+comment|/**    * @return clock of the Region Server corresponding the clock type used by the    *  table referred to by this store.    */
+name|Clock
+name|getClock
 parameter_list|()
 function_decl|;
 comment|/**    * Returns the memstore snapshot size    * @return size of the memstore snapshot    * @deprecated Since 2.0 and will be removed in 3.0. Use {@link #getSizeOfSnapshot()} instead.    *<p>    * Note: When using off heap MSLAB feature, this will not account the cell data bytes size which    * is in off heap MSLAB area.    */

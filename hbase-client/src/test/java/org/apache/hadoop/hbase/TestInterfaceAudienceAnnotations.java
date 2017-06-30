@@ -347,6 +347,8 @@ name|SmallTests
 operator|.
 name|class
 argument_list|)
+annotation|@
+name|Ignore
 specifier|public
 class|class
 name|TestInterfaceAudienceAnnotations
