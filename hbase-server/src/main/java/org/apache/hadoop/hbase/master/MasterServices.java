@@ -1157,6 +1157,20 @@ name|LockManager
 name|getLockManager
 parameter_list|()
 function_decl|;
+specifier|public
+name|String
+name|getRegionServerVersion
+parameter_list|(
+specifier|final
+name|ServerName
+name|sn
+parameter_list|)
+function_decl|;
+specifier|public
+name|void
+name|checkIfShouldMoveSystemRegionAsync
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

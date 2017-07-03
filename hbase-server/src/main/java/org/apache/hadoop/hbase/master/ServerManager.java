@@ -5636,7 +5636,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Creates a list of possible destinations for a region. It contains the online servers, but not    *  the draining or dying servers.    *  @param serverToExclude can be null if there is no server to exclude    */
+comment|/**    * Creates a list of possible destinations for a region. It contains the online servers, but not    *  the draining or dying servers.    *  @param serversToExclude can be null if there is no server to exclude    */
 specifier|public
 name|List
 argument_list|<
@@ -5645,8 +5645,11 @@ argument_list|>
 name|createDestinationServersList
 parameter_list|(
 specifier|final
+name|List
+argument_list|<
 name|ServerName
-name|serverToExclude
+argument_list|>
+name|serversToExclude
 parameter_list|)
 block|{
 specifier|final
@@ -5661,16 +5664,16 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|serverToExclude
+name|serversToExclude
 operator|!=
 literal|null
 condition|)
 block|{
 name|destServers
 operator|.
-name|remove
+name|removeAll
 argument_list|(
-name|serverToExclude
+name|serversToExclude
 argument_list|)
 expr_stmt|;
 block|}

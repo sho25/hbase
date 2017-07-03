@@ -1660,6 +1660,27 @@ block|}
 annotation|@
 name|Override
 specifier|public
+name|String
+name|getRegionServerVersion
+parameter_list|(
+name|ServerName
+name|sn
+parameter_list|)
+block|{
+return|return
+literal|null
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|checkIfShouldMoveSystemRegionAsync
+parameter_list|()
+block|{   }
+annotation|@
+name|Override
+specifier|public
 name|long
 name|dispatchMergingRegions
 parameter_list|(
