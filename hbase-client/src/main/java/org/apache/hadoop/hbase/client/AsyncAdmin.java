@@ -278,11 +278,6 @@ specifier|public
 interface|interface
 name|AsyncAdmin
 block|{
-comment|/**    * @return Async Connection used by this object.    */
-name|AsyncConnectionImpl
-name|getConnection
-parameter_list|()
-function_decl|;
 comment|/**    * @param tableName Table to check.    * @return True if table exists already. The return value will be wrapped by a    *         {@link CompletableFuture}.    */
 name|CompletableFuture
 argument_list|<
@@ -394,6 +389,7 @@ name|tableName
 parameter_list|)
 function_decl|;
 comment|/**    * Creates a new table.    * @param desc table descriptor for table    */
+specifier|default
 name|CompletableFuture
 argument_list|<
 name|Void
@@ -403,7 +399,19 @@ parameter_list|(
 name|TableDescriptor
 name|desc
 parameter_list|)
-function_decl|;
+block|{
+return|return
+name|createTable
+argument_list|(
+name|desc
+argument_list|,
+name|Optional
+operator|.
+name|empty
+argument_list|()
+argument_list|)
+return|;
+block|}
 comment|/**    * Creates a new table with the specified number of regions. The start key specified will become    * the end key of the first region of the table, and the end key specified will become the start    * key of the last region of the table (the first region has a null start key and the last region    * has a null end key). BigInteger math will be used to divide the key range specified into enough    * segments to make the required number of total regions.    * @param desc table descriptor for table    * @param startKey beginning of key range    * @param endKey end of key range    * @param numRegions the total number of regions to create    */
 name|CompletableFuture
 argument_list|<
@@ -436,9 +444,12 @@ parameter_list|(
 name|TableDescriptor
 name|desc
 parameter_list|,
+name|Optional
+argument_list|<
 name|byte
 index|[]
 index|[]
+argument_list|>
 name|splitKeys
 parameter_list|)
 function_decl|;
@@ -531,6 +542,17 @@ name|Pattern
 name|pattern
 parameter_list|)
 function_decl|;
+comment|/**    * @param tableName name of table to check    * @return true if table is on-line. The return value will be wrapped by a    *         {@link CompletableFuture}.    */
+name|CompletableFuture
+argument_list|<
+name|Boolean
+argument_list|>
+name|isTableEnabled
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|)
+function_decl|;
 comment|/**    * @param tableName name of table to check    * @return true if table is off-line. The return value will be wrapped by a    *         {@link CompletableFuture}.    */
 name|CompletableFuture
 argument_list|<
@@ -543,6 +565,7 @@ name|tableName
 parameter_list|)
 function_decl|;
 comment|/**    * @param tableName name of table to check    * @return true if all regions of the table are available. The return value will be wrapped by a    *         {@link CompletableFuture}.    */
+specifier|default
 name|CompletableFuture
 argument_list|<
 name|Boolean
@@ -552,7 +575,16 @@ parameter_list|(
 name|TableName
 name|tableName
 parameter_list|)
-function_decl|;
+block|{
+return|return
+name|isTableAvailable
+argument_list|(
+name|tableName
+argument_list|,
+literal|null
+argument_list|)
+return|;
+block|}
 comment|/**    * Use this api to check if the table has been created with the specified number of splitkeys    * which was used while creating the given table. Note : If this api is used after a table's    * region gets splitted, the api may return false. The return value will be wrapped by a    * {@link CompletableFuture}.    * @param tableName name of table to check    * @param splitKeys keys to check if the table has been created with all split keys    */
 name|CompletableFuture
 argument_list|<
@@ -683,17 +715,6 @@ argument_list|>
 name|listNamespaceDescriptors
 parameter_list|()
 function_decl|;
-comment|/**    * @param tableName name of table to check    * @return true if table is on-line. The return value will be wrapped by a    *         {@link CompletableFuture}.    */
-name|CompletableFuture
-argument_list|<
-name|Boolean
-argument_list|>
-name|isTableEnabled
-parameter_list|(
-name|TableName
-name|tableName
-parameter_list|)
-function_decl|;
 comment|/**    * Turn the load balancer on or off.    * @param on    * @return Previous balancer value wrapped by a {@link CompletableFuture}.    */
 name|CompletableFuture
 argument_list|<
@@ -769,7 +790,7 @@ argument_list|>
 name|getOnlineRegions
 parameter_list|(
 name|ServerName
-name|sn
+name|serverName
 parameter_list|)
 function_decl|;
 comment|/**    * Flush a table.    * @param tableName table to flush    */
@@ -967,7 +988,7 @@ argument_list|>
 name|columnFamily
 parameter_list|)
 function_decl|;
-comment|/**    * Compact all regions on the region server.    * @param sn the region server name    */
+comment|/**    * Compact all regions on the region server.    * @param serverName the region server name    */
 name|CompletableFuture
 argument_list|<
 name|Void
@@ -975,10 +996,10 @@ argument_list|>
 name|compactRegionServer
 parameter_list|(
 name|ServerName
-name|sn
+name|serverName
 parameter_list|)
 function_decl|;
-comment|/**    * Compact all regions on the region server.    * @param sn the region server name    */
+comment|/**    * Compact all regions on the region server.    * @param serverName the region server name    */
 name|CompletableFuture
 argument_list|<
 name|Void
@@ -986,7 +1007,7 @@ argument_list|>
 name|majorCompactRegionServer
 parameter_list|(
 name|ServerName
-name|sn
+name|serverName
 parameter_list|)
 function_decl|;
 comment|/**    * Merge two regions.    * @param nameOfRegionA encoded or full name of region a    * @param nameOfRegionB encoded or full name of region b    * @param forcible true if do a compulsory merge, otherwise we will only merge two adjacent    *          regions    */
@@ -1232,7 +1253,7 @@ name|ReplicationPeerConfig
 name|peerConfig
 parameter_list|)
 function_decl|;
-comment|/**    * Append the replicable table-cf config of the specified peer    * @param id a short that identifies the cluster    * @param tableCfs A map from tableName to column family names    */
+comment|/**    * Append the replicable table-cf config of the specified peer    * @param peerId a short that identifies the cluster    * @param tableCfs A map from tableName to column family names    */
 name|CompletableFuture
 argument_list|<
 name|Void
@@ -1240,7 +1261,7 @@ argument_list|>
 name|appendReplicationPeerTableCFs
 parameter_list|(
 name|String
-name|id
+name|peerId
 parameter_list|,
 name|Map
 argument_list|<
@@ -1256,7 +1277,7 @@ argument_list|>
 name|tableCfs
 parameter_list|)
 function_decl|;
-comment|/**    * Remove some table-cfs from config of the specified peer    * @param id a short name that identifies the cluster    * @param tableCfs A map from tableName to column family names    */
+comment|/**    * Remove some table-cfs from config of the specified peer    * @param peerId a short name that identifies the cluster    * @param tableCfs A map from tableName to column family names    */
 name|CompletableFuture
 argument_list|<
 name|Void
@@ -1264,7 +1285,7 @@ argument_list|>
 name|removeReplicationPeerTableCFs
 parameter_list|(
 name|String
-name|id
+name|peerId
 parameter_list|,
 name|Map
 argument_list|<
@@ -1331,6 +1352,7 @@ name|listReplicatedTableCFs
 parameter_list|()
 function_decl|;
 comment|/**    * Take a snapshot for the given table. If the table is enabled, a FLUSH-type snapshot will be    * taken. If the table is disabled, an offline snapshot is taken. Snapshots are considered unique    * based on<b>the name of the snapshot</b>. Attempts to take a snapshot with the same name (even    * a different type or with different parameters) will fail with a    * {@link org.apache.hadoop.hbase.snapshot.SnapshotCreationException} indicating the duplicate    * naming. Snapshot names follow the same naming constraints as tables in HBase. See    * {@link org.apache.hadoop.hbase.TableName#isLegalFullyQualifiedTableName(byte[])}.    * @param snapshotName name of the snapshot to be created    * @param tableName name of the table for which snapshot is created    */
+specifier|default
 name|CompletableFuture
 argument_list|<
 name|Void
@@ -1343,8 +1365,22 @@ parameter_list|,
 name|TableName
 name|tableName
 parameter_list|)
-function_decl|;
+block|{
+return|return
+name|snapshot
+argument_list|(
+name|snapshotName
+argument_list|,
+name|tableName
+argument_list|,
+name|SnapshotType
+operator|.
+name|FLUSH
+argument_list|)
+return|;
+block|}
 comment|/**    * Create typed snapshot of the table. Snapshots are considered unique based on<b>the name of the    * snapshot</b>. Attempts to take a snapshot with the same name (even a different type or with    * different parameters) will fail with a    * {@link org.apache.hadoop.hbase.snapshot.SnapshotCreationException} indicating the duplicate    * naming. Snapshot names follow the same naming constraints as tables in HBase. See    * {@link org.apache.hadoop.hbase.TableName#isLegalFullyQualifiedTableName(byte[])}.    * @param snapshotName name to give the snapshot on the filesystem. Must be unique from all other    *          snapshots stored on the cluster    * @param tableName name of the table to snapshot    * @param type type of snapshot to take    */
+specifier|default
 name|CompletableFuture
 argument_list|<
 name|Void
@@ -1360,7 +1396,22 @@ parameter_list|,
 name|SnapshotType
 name|type
 parameter_list|)
-function_decl|;
+block|{
+return|return
+name|snapshot
+argument_list|(
+operator|new
+name|SnapshotDescription
+argument_list|(
+name|snapshotName
+argument_list|,
+name|tableName
+argument_list|,
+name|type
+argument_list|)
+argument_list|)
+return|;
+block|}
 comment|/**    * Take a snapshot and wait for the server to complete that snapshot asynchronously. Only a single    * snapshot should be taken at a time for an instance of HBase, or results may be undefined (you    * can tell multiple HBase clusters to snapshot at the same time, but only one at a time for a    * single cluster). Snapshots are considered unique based on<b>the name of the snapshot</b>.    * Attempts to take a snapshot with the same name (even a different type or with different    * parameters) will fail with a {@link org.apache.hadoop.hbase.snapshot.SnapshotCreationException}    * indicating the duplicate naming. Snapshot names follow the same naming constraints as tables in    * HBase. See {@link org.apache.hadoop.hbase.TableName#isLegalFullyQualifiedTableName(byte[])}.    * You should probably use {@link #snapshot(String, org.apache.hadoop.hbase.TableName)} unless you    * are sure about the type of snapshot that you want to take.    * @param snapshot snapshot to take    */
 name|CompletableFuture
 argument_list|<
@@ -1423,6 +1474,7 @@ name|tableName
 parameter_list|)
 function_decl|;
 comment|/**    * List completed snapshots.    * @return a list of snapshot descriptors for completed snapshots wrapped by a    *         {@link CompletableFuture}    */
+specifier|default
 name|CompletableFuture
 argument_list|<
 name|List
@@ -1432,7 +1484,17 @@ argument_list|>
 argument_list|>
 name|listSnapshots
 parameter_list|()
-function_decl|;
+block|{
+return|return
+name|listSnapshots
+argument_list|(
+name|Optional
+operator|.
+name|empty
+argument_list|()
+argument_list|)
+return|;
+block|}
 comment|/**    * List all the completed snapshots matching the given pattern.    * @param pattern The compiled regular expression to match against    * @return - returns a List of SnapshotDescription wrapped by a {@link CompletableFuture}    */
 name|CompletableFuture
 argument_list|<
@@ -1443,7 +1505,10 @@ argument_list|>
 argument_list|>
 name|listSnapshots
 parameter_list|(
+name|Optional
+argument_list|<
 name|Pattern
+argument_list|>
 name|pattern
 parameter_list|)
 function_decl|;
@@ -1476,6 +1541,7 @@ name|snapshotName
 parameter_list|)
 function_decl|;
 comment|/**    * Delete existing snapshots whose names match the pattern passed.    * @param pattern pattern for names of the snapshot to match    */
+specifier|default
 name|CompletableFuture
 argument_list|<
 name|Void
@@ -1485,7 +1551,16 @@ parameter_list|(
 name|Pattern
 name|pattern
 parameter_list|)
-function_decl|;
+block|{
+return|return
+name|deleteTableSnapshots
+argument_list|(
+literal|null
+argument_list|,
+name|pattern
+argument_list|)
+return|;
+block|}
 comment|/**    * Delete all existing snapshots matching the given table name regular expression and snapshot    * name regular expression.    * @param tableNamePattern The compiled table name regular expression to match against    * @param snapshotNamePattern The compiled snapshot name regular expression to match against    */
 name|CompletableFuture
 argument_list|<

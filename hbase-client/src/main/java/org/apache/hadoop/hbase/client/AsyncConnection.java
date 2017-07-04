@@ -179,10 +179,18 @@ name|ExecutorService
 name|pool
 parameter_list|)
 function_decl|;
-comment|/**    * Retrieve an AsyncAdmin implementation to administer an HBase cluster. The returned AsyncAdmin    * is not guaranteed to be thread-safe. A new instance should be created for each using thread.    * This is a lightweight operation. Pooling or caching of the returned AsyncAdmin is not    * recommended.    * @return an AsyncAdmin instance for cluster administration    */
+comment|/**    * Retrieve an AsyncAdmin implementation to administer an HBase cluster. The returned    * {@code CompletableFuture} will be finished directly in the rpc framework's callback thread, so    * typically you should not do any time consuming work inside these methods.    * @return an AsyncAdmin instance for cluster administration    */
 name|AsyncAdmin
 name|getAdmin
 parameter_list|()
+function_decl|;
+comment|/**    * Retrieve an AsyncAdmin implementation to administer an HBase cluster.    * @param pool the thread pool to use for executing callback    * @return an AsyncAdmin instance for cluster administration    */
+name|AsyncAdmin
+name|getAdmin
+parameter_list|(
+name|ExecutorService
+name|pool
+parameter_list|)
 function_decl|;
 block|}
 end_interface

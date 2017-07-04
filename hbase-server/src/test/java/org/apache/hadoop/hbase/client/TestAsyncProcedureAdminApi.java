@@ -483,15 +483,10 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|TableName
-name|tableName
+name|String
+name|snapshotString
 init|=
-name|TableName
-operator|.
-name|valueOf
-argument_list|(
-literal|"testExecProcedure"
-argument_list|)
+literal|"offlineTableSnapshot"
 decl_stmt|;
 try|try
 block|{
@@ -569,11 +564,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// take a snapshot of the enabled table
-name|String
-name|snapshotString
-init|=
-literal|"offlineTableSnapshot"
-decl_stmt|;
 name|Map
 argument_list|<
 name|String
@@ -625,6 +615,16 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
+name|admin
+operator|.
+name|deleteSnapshot
+argument_list|(
+name|snapshotString
+argument_list|)
+operator|.
+name|join
+argument_list|()
+expr_stmt|;
 name|TEST_UTIL
 operator|.
 name|deleteTable
