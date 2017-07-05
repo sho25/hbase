@@ -536,6 +536,27 @@ block|}
 block|}
 block|}
 block|}
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"NP_NONNULL_PARAM_VIOLATION"
+argument_list|,
+name|justification
+operator|=
+literal|"it is valid to pass NULL to CompletableFuture#completedFuture"
+argument_list|)
 specifier|private
 name|CompletableFuture
 argument_list|<
@@ -944,8 +965,6 @@ argument_list|(
 literal|"get failed for "
 operator|+
 name|i
-argument_list|,
-name|putErr
 argument_list|)
 expr_stmt|;
 name|latch
