@@ -179,14 +179,53 @@ name|ExecutorService
 name|pool
 parameter_list|)
 function_decl|;
-comment|/**    * Retrieve an AsyncAdmin implementation to administer an HBase cluster. The returned    * {@code CompletableFuture} will be finished directly in the rpc framework's callback thread, so    * typically you should not do any time consuming work inside these methods.    * @return an AsyncAdmin instance for cluster administration    */
+comment|/**    * Retrieve an {@link AsyncAdmin} implementation to administer an HBase cluster.    *<p>    * The returned instance will use default configs. Use {@link #getAdminBuilder()} if you want to    * customize some configs.    *<p>    * The admin operation's returned {@code CompletableFuture} will be finished directly in the rpc    * framework's callback thread, so typically you should not do any time consuming work inside    * these methods.    * @return an {@link AsyncAdmin} instance for cluster administration    */
+specifier|default
 name|AsyncAdmin
 name|getAdmin
 parameter_list|()
+block|{
+return|return
+name|getAdminBuilder
+argument_list|()
+operator|.
+name|build
+argument_list|()
+return|;
+block|}
+comment|/**    * Returns an {@link AsyncAdminBuilder} for creating {@link AsyncAdmin}.    *<p>    * The admin operation's returned {@code CompletableFuture} will be finished directly in the rpc    * framework's callback thread, so typically you should not do any time consuming work inside    * these methods.    */
+name|AsyncAdminBuilder
+argument_list|<
+name|RawAsyncHBaseAdmin
+argument_list|>
+name|getAdminBuilder
+parameter_list|()
 function_decl|;
-comment|/**    * Retrieve an AsyncAdmin implementation to administer an HBase cluster.    * @param pool the thread pool to use for executing callback    * @return an AsyncAdmin instance for cluster administration    */
+comment|/**    * Retrieve an {@link AsyncAdmin} implementation to administer an HBase cluster.    *<p>    * The returned instance will use default configs. Use {@link #getAdminBuilder(ExecutorService)}    * if you want to customize some configs.    * @param pool the thread pool to use for executing callback    * @return an {@link AsyncAdmin} instance for cluster administration    */
+specifier|default
 name|AsyncAdmin
 name|getAdmin
+parameter_list|(
+name|ExecutorService
+name|pool
+parameter_list|)
+block|{
+return|return
+name|getAdminBuilder
+argument_list|(
+name|pool
+argument_list|)
+operator|.
+name|build
+argument_list|()
+return|;
+block|}
+comment|/**    * Returns an {@link AsyncAdminBuilder} for creating {@link AsyncAdmin}.    * @param pool the thread pool to use for executing callback    */
+name|AsyncAdminBuilder
+argument_list|<
+name|AsyncHBaseAdmin
+argument_list|>
+name|getAdminBuilder
 parameter_list|(
 name|ExecutorService
 name|pool
