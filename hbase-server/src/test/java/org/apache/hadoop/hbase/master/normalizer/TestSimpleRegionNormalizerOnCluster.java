@@ -1198,15 +1198,12 @@ argument_list|)
 expr_stmt|;
 block|}
 annotation|@
-name|Ignore
-annotation|@
 name|Test
 argument_list|(
 name|timeout
 operator|=
 literal|60000
 argument_list|)
-comment|// TODO: FIX!
 annotation|@
 name|SuppressWarnings
 argument_list|(
