@@ -263,6 +263,27 @@ specifier|final
 name|int
 name|CONCURRENT_SKIPLISTMAP_ENTRY
 decl_stmt|;
+comment|/** Overhead for CellFlatMap */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|CELL_FLAT_MAP
+decl_stmt|;
+comment|/** Overhead for CellChunkMap */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|CELL_CHUNK_MAP
+decl_stmt|;
+comment|/** Overhead for Cell Chunk Map Entry */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|CELL_CHUNK_MAP_ENTRY
+decl_stmt|;
 comment|/** Overhead for CellArrayMap */
 specifier|public
 specifier|static
@@ -956,15 +977,10 @@ argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
-comment|// CELL_ARRAY_MAP is the size of an instance of CellArrayMap class, which extends
-comment|// CellFlatMap class. CellArrayMap object containing a ref to an Array, so
-comment|// OBJECT + REFERENCE + ARRAY
 comment|// CellFlatMap object contains two integers, one boolean and one reference to object, so
 comment|// 2*INT + BOOLEAN + REFERENCE
-name|CELL_ARRAY_MAP
+name|CELL_FLAT_MAP
 operator|=
-name|align
-argument_list|(
 name|OBJECT
 operator|+
 literal|2
@@ -977,11 +993,32 @@ name|Bytes
 operator|.
 name|SIZEOF_BOOLEAN
 operator|+
-name|ARRAY
-operator|+
-literal|2
-operator|*
 name|REFERENCE
+expr_stmt|;
+comment|// CELL_ARRAY_MAP is the size of an instance of CellArrayMap class, which extends
+comment|// CellFlatMap class. CellArrayMap object containing a ref to an Array of Cells
+name|CELL_ARRAY_MAP
+operator|=
+name|align
+argument_list|(
+name|CELL_FLAT_MAP
+operator|+
+name|REFERENCE
+operator|+
+name|ARRAY
+argument_list|)
+expr_stmt|;
+comment|// CELL_CHUNK_MAP is the size of an instance of CellChunkMap class, which extends
+comment|// CellFlatMap class. CellChunkMap object containing a ref to an Array of Chunks
+name|CELL_CHUNK_MAP
+operator|=
+name|align
+argument_list|(
+name|CELL_FLAT_MAP
+operator|+
+name|REFERENCE
+operator|+
+name|ARRAY
 argument_list|)
 expr_stmt|;
 name|CONCURRENT_SKIPLISTMAP_ENTRY
@@ -1024,6 +1061,22 @@ name|align
 argument_list|(
 name|REFERENCE
 argument_list|)
+expr_stmt|;
+comment|// The Cell Representation in the CellChunkMap, the Cell object size shouldn't be counted
+comment|// in KeyValue.heapSize()
+comment|// each cell-representation requires three integers for chunkID (reference to the ByteBuffer),
+comment|// offset and length, and one long for seqID
+name|CELL_CHUNK_MAP_ENTRY
+operator|=
+literal|3
+operator|*
+name|Bytes
+operator|.
+name|SIZEOF_INT
+operator|+
+name|Bytes
+operator|.
+name|SIZEOF_LONG
 expr_stmt|;
 name|REENTRANT_LOCK
 operator|=

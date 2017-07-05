@@ -4947,14 +4947,16 @@ condition|(
 name|droppableMemstore
 condition|)
 block|{
+comment|// assert that the memstore is dropped
 name|assertTrue
 argument_list|(
 name|newFlushableSize
 operator|==
-literal|0
+name|MutableSegment
+operator|.
+name|DEEP_OVERHEAD
 argument_list|)
 expr_stmt|;
-comment|// assert that the memstore is dropped
 block|}
 else|else
 block|{
@@ -5402,7 +5404,9 @@ name|assertTrue
 argument_list|(
 name|newFlushableSize
 operator|==
-literal|0
+name|MutableSegment
+operator|.
+name|DEEP_OVERHEAD
 argument_list|)
 expr_stmt|;
 comment|// assert that the region memstore is empty

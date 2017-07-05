@@ -175,6 +175,11 @@ name|void
 name|decScannerCount
 parameter_list|()
 function_decl|;
+comment|/**    * Return a new empty chunk without considering this chunk as current    * The space on this chunk will be allocated externally    */
+name|Chunk
+name|getNewExternalChunk
+parameter_list|()
+function_decl|;
 specifier|public
 specifier|static
 name|MemStoreLAB

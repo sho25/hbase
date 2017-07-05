@@ -304,6 +304,31 @@ operator|.
 name|BASIC
 argument_list|)
 decl_stmt|;
+comment|// The external setting of the compacting MemStore behaviour
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|COMPACTING_MEMSTORE_INDEX_KEY
+init|=
+literal|"hbase.hregion.compacting.memstore.index"
+decl_stmt|;
+comment|// usage of CellArrayMap is default, later it will be decided how to use CellChunkMap
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|COMPACTING_MEMSTORE_INDEX_DEFAULT
+init|=
+name|String
+operator|.
+name|valueOf
+argument_list|(
+name|IndexType
+operator|.
+name|ARRAY_MAP
+argument_list|)
+decl_stmt|;
 comment|// Default fraction of in-memory-flush size w.r.t. flush-to-disk size
 specifier|public
 specifier|static
@@ -394,6 +419,29 @@ name|compositeSnapshot
 init|=
 literal|true
 decl_stmt|;
+comment|/**    * Types of indexes (part of immutable segments) to be used after flattening,    * compaction, or merge are applied.    */
+specifier|public
+enum|enum
+name|IndexType
+block|{
+name|CSLM_MAP
+block|,
+comment|// ConcurrentSkipLisMap
+name|ARRAY_MAP
+block|,
+comment|// CellArrayMap
+name|CHUNK_MAP
+comment|// CellChunkMap
+block|}
+specifier|private
+name|IndexType
+name|indexType
+init|=
+name|IndexType
+operator|.
+name|ARRAY_MAP
+decl_stmt|;
+comment|// default implementation
 specifier|public
 specifier|static
 specifier|final
@@ -408,13 +456,14 @@ name|AbstractMemStore
 operator|.
 name|DEEP_OVERHEAD
 operator|+
-literal|6
+literal|7
 operator|*
 name|ClassSize
 operator|.
 name|REFERENCE
 comment|// Store, RegionServicesForStores, CompactionPipeline,
-comment|// MemStoreCompactor, inMemoryFlushInProgress, allowCompaction
+comment|// MemStoreCompactor, inMemoryFlushInProgress, allowCompaction,
+comment|// indexType
 operator|+
 name|Bytes
 operator|.
@@ -507,6 +556,26 @@ expr_stmt|;
 name|initInmemoryFlushSize
 argument_list|(
 name|conf
+argument_list|)
+expr_stmt|;
+name|indexType
+operator|=
+name|IndexType
+operator|.
+name|valueOf
+argument_list|(
+name|conf
+operator|.
+name|get
+argument_list|(
+name|CompactingMemStore
+operator|.
+name|COMPACTING_MEMSTORE_INDEX_KEY
+argument_list|,
+name|CompactingMemStore
+operator|.
+name|COMPACTING_MEMSTORE_INDEX_DEFAULT
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -1265,11 +1334,52 @@ parameter_list|)
 block|{
 name|pipeline
 operator|.
-name|flattenYoungestSegment
+name|flattenOneSegment
 argument_list|(
 name|requesterVersion
+argument_list|,
+name|indexType
 argument_list|)
 expr_stmt|;
+block|}
+comment|// setter is used only for testability
+annotation|@
+name|VisibleForTesting
+specifier|public
+name|void
+name|setIndexType
+parameter_list|()
+block|{
+name|indexType
+operator|=
+name|IndexType
+operator|.
+name|valueOf
+argument_list|(
+name|getConfiguration
+argument_list|()
+operator|.
+name|get
+argument_list|(
+name|CompactingMemStore
+operator|.
+name|COMPACTING_MEMSTORE_INDEX_KEY
+argument_list|,
+name|CompactingMemStore
+operator|.
+name|COMPACTING_MEMSTORE_INDEX_DEFAULT
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+specifier|public
+name|IndexType
+name|getIndexType
+parameter_list|()
+block|{
+return|return
+name|indexType
+return|;
 block|}
 specifier|public
 name|boolean

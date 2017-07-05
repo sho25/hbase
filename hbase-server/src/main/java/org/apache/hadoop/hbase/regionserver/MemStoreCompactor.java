@@ -277,7 +277,7 @@ name|int
 name|compactionKVMax
 decl_stmt|;
 comment|/**    * Types of actions to be done on the pipeline upon MemStoreCompaction invocation.    * Note that every value covers the previous ones, i.e. if MERGE is the action it implies    * that the youngest segment is going to be flatten anyway.    */
-specifier|private
+specifier|public
 enum|enum
 name|Action
 block|{
@@ -512,7 +512,14 @@ operator|.
 name|getFamilyName
 argument_list|()
 operator|+
-literal|" is going to be compacted, number of"
+literal|" is going to be compacted to the "
+operator|+
+name|compactingMemStore
+operator|.
+name|getIndexType
+argument_list|()
+operator|+
+literal|". Number of"
 operator|+
 literal|" cells before compaction is "
 operator|+
@@ -556,7 +563,14 @@ operator|.
 name|getFamilyName
 argument_list|()
 operator|+
-literal|" is going to be merged, as there are "
+literal|" is going to be merged to the "
+operator|+
+name|compactingMemStore
+operator|.
+name|getIndexType
+argument_list|()
+operator|+
+literal|", as there are "
 operator|+
 name|numOfSegments
 operator|+
@@ -582,7 +596,12 @@ operator|.
 name|getFamilyName
 argument_list|()
 operator|+
-literal|" is going to be flattened"
+literal|" is going to be flattened to the "
+operator|+
+name|compactingMemStore
+operator|.
+name|getIndexType
+argument_list|()
 argument_list|)
 expr_stmt|;
 return|return
@@ -856,11 +875,10 @@ operator|.
 name|getNumOfCells
 argument_list|()
 argument_list|,
-name|ImmutableSegment
+name|compactingMemStore
 operator|.
-name|Type
-operator|.
-name|ARRAY_MAP_BASED
+name|getIndexType
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|iterator
@@ -916,15 +934,14 @@ operator|.
 name|getNumOfCells
 argument_list|()
 argument_list|,
-name|ImmutableSegment
-operator|.
-name|Type
-operator|.
-name|ARRAY_MAP_BASED
-argument_list|,
 name|versionedList
 operator|.
 name|getStoreSegments
+argument_list|()
+argument_list|,
+name|compactingMemStore
+operator|.
+name|getIndexType
 argument_list|()
 argument_list|)
 expr_stmt|;

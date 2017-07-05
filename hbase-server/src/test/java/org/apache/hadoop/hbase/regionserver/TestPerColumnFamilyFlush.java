@@ -1513,7 +1513,9 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|0
+name|MutableSegment
+operator|.
+name|DEEP_OVERHEAD
 argument_list|,
 name|cf1MemstoreSize
 operator|.
@@ -1710,7 +1712,9 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|0
+name|MutableSegment
+operator|.
+name|DEEP_OVERHEAD
 argument_list|,
 name|cf1MemstoreSize
 operator|.
@@ -1730,7 +1734,9 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|0
+name|MutableSegment
+operator|.
+name|DEEP_OVERHEAD
 argument_list|,
 name|cf2MemstoreSize
 operator|.
@@ -2196,7 +2202,9 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|0
+name|MutableSegment
+operator|.
+name|DEEP_OVERHEAD
 argument_list|,
 name|cf1MemstoreSize
 operator|.
@@ -2216,7 +2224,9 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|0
+name|MutableSegment
+operator|.
+name|DEEP_OVERHEAD
 argument_list|,
 name|cf2MemstoreSize
 operator|.
@@ -2236,7 +2246,9 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|0
+name|MutableSegment
+operator|.
+name|DEEP_OVERHEAD
 argument_list|,
 name|cf3MemstoreSize
 operator|.
@@ -3412,7 +3424,9 @@ expr_stmt|;
 comment|// Individual families should have been flushed.
 name|assertEquals
 argument_list|(
-literal|0
+name|MutableSegment
+operator|.
+name|DEEP_OVERHEAD
 argument_list|,
 name|desiredRegion
 operator|.
@@ -3427,7 +3441,9 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|0
+name|MutableSegment
+operator|.
+name|DEEP_OVERHEAD
 argument_list|,
 name|desiredRegion
 operator|.
@@ -3442,7 +3458,9 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|0
+name|MutableSegment
+operator|.
+name|DEEP_OVERHEAD
 argument_list|,
 name|desiredRegion
 operator|.

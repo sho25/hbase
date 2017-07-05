@@ -105,6 +105,22 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|ClassSize
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|util
@@ -135,29 +151,31 @@ index|[]
 name|chunks
 decl_stmt|;
 comment|// the array of chunks, on which the index is based
-specifier|private
-specifier|final
-name|int
-name|numOfCellsInsideChunk
-decl_stmt|;
 comment|// constant number of cell-representations in a chunk
-comment|// each cell-representation requires three integers for chunkID (reference to the ByteBuffer),
-comment|// offset and length, and one long for seqID
+comment|// each chunk starts with its own ID following the cells data
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|SIZEOF_CELL_REP
+name|NUM_OF_CELL_REPS_IN_CHUNK
 init|=
-literal|3
-operator|*
-name|Bytes
+operator|(
+name|ChunkCreator
 operator|.
-name|SIZEOF_INT
-operator|+
-name|Bytes
+name|getInstance
+argument_list|()
 operator|.
-name|SIZEOF_LONG
+name|getChunkSize
+argument_list|()
+operator|-
+name|ChunkCreator
+operator|.
+name|SIZEOF_CHUNK_HEADER
+operator|)
+operator|/
+name|ClassSize
+operator|.
+name|CELL_CHUNK_MAP_ENTRY
 decl_stmt|;
 comment|/**    * C-tor for creating CellChunkMap from existing Chunk array, which must be ordered    * (decreasingly or increasingly according to parameter "descending")    * @param comparator a tool for comparing cells    * @param chunks ordered array of index chunk with cell representations    * @param min the index of the first cell (usually 0)    * @param max number of Cells or the index of the cell after the maximal cell    * @param descending the order of the given array    */
 specifier|public
@@ -201,27 +219,6 @@ operator|.
 name|chunks
 operator|=
 name|chunks
-expr_stmt|;
-name|this
-operator|.
-name|numOfCellsInsideChunk
-operator|=
-comment|// each chunk starts with its own ID following the cells data
-operator|(
-name|ChunkCreator
-operator|.
-name|getInstance
-argument_list|()
-operator|.
-name|getChunkSize
-argument_list|()
-operator|-
-name|Bytes
-operator|.
-name|SIZEOF_INT
-operator|)
-operator|/
-name|SIZEOF_CELL_REP
 expr_stmt|;
 block|}
 comment|/* To be used by base (CellFlatMap) class only to create a sub-CellFlatMap   * Should be used only to create only CellChunkMap from CellChunkMap */
@@ -279,7 +276,7 @@ init|=
 operator|(
 name|i
 operator|/
-name|numOfCellsInsideChunk
+name|NUM_OF_CELL_REPS_IN_CHUNK
 operator|)
 decl_stmt|;
 name|ByteBuffer
@@ -301,20 +298,22 @@ name|i
 operator|-
 name|chunkIndex
 operator|*
-name|numOfCellsInsideChunk
+name|NUM_OF_CELL_REPS_IN_CHUNK
 decl_stmt|;
 comment|// get the index of the cell-representation
 comment|// find inside the offset inside the chunk holding the index, skip bytes for chunk id
 name|int
 name|offsetInBytes
 init|=
-name|Bytes
+name|ChunkCreator
 operator|.
-name|SIZEOF_INT
+name|SIZEOF_CHUNK_HEADER
 operator|+
 name|j
 operator|*
-name|SIZEOF_CELL_REP
+name|ClassSize
+operator|.
+name|CELL_CHUNK_MAP_ENTRY
 decl_stmt|;
 comment|// find the chunk holding the data of the cell, the chunkID is stored first
 name|int
@@ -349,10 +348,18 @@ operator|==
 literal|null
 condition|)
 block|{
-comment|// this should not happen, putting an assertion here at least for the testing period
-assert|assert
-literal|false
-assert|;
+comment|// this should not happen
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"In CellChunkMap, cell must be associated with chunk."
+operator|+
+literal|". We were looking for a cell at index "
+operator|+
+name|i
+argument_list|)
+throw|;
 block|}
 comment|// find the offset of the data of the cell, skip integer for chunkID, offset is stored second
 name|int
@@ -427,10 +434,36 @@ operator|==
 literal|null
 condition|)
 block|{
-comment|// this should not happen, putting an assertion here at least for the testing period
-assert|assert
-literal|false
-assert|;
+comment|// this should not happen
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"In CellChunkMap, chunk must be associated with ByteBuffer."
+operator|+
+literal|" Chunk: "
+operator|+
+name|chunk
+operator|+
+literal|" Chunk ID: "
+operator|+
+name|chunk
+operator|.
+name|getId
+argument_list|()
+operator|+
+literal|", is from pool: "
+operator|+
+name|chunk
+operator|.
+name|isFromPool
+argument_list|()
+operator|+
+literal|". We were looking for a cell at index "
+operator|+
+name|i
+argument_list|)
+throw|;
 block|}
 return|return
 operator|new

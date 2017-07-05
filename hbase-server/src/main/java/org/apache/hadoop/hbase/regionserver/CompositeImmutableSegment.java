@@ -642,6 +642,32 @@ literal|"Not supported by CompositeImmutableScanner"
 argument_list|)
 throw|;
 block|}
+annotation|@
+name|Override
+specifier|protected
+name|long
+name|indexEntrySize
+parameter_list|()
+block|{
+throw|throw
+operator|new
+name|IllegalStateException
+argument_list|(
+literal|"Not supported by CompositeImmutableScanner"
+argument_list|)
+throw|;
+block|}
+annotation|@
+name|Override
+specifier|protected
+name|boolean
+name|canBeFlattened
+parameter_list|()
+block|{
+return|return
+literal|false
+return|;
+block|}
 comment|/**    * @return Sum of all cell sizes.    */
 annotation|@
 name|Override

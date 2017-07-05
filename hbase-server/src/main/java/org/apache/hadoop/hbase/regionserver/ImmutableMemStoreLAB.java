@@ -147,6 +147,35 @@ throw|;
 block|}
 annotation|@
 name|Override
+comment|// returning a new chunk, without replacing current chunk,
+comment|// the space on this chunk will be allocated externally
+comment|// use the first MemStoreLABImpl in the list
+specifier|public
+name|Chunk
+name|getNewExternalChunk
+parameter_list|()
+block|{
+name|MemStoreLAB
+name|mslab
+init|=
+name|this
+operator|.
+name|mslabs
+operator|.
+name|get
+argument_list|(
+literal|0
+argument_list|)
+decl_stmt|;
+return|return
+name|mslab
+operator|.
+name|getNewExternalChunk
+argument_list|()
+return|;
+block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|close

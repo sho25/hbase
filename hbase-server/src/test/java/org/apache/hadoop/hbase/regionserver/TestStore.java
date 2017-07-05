@@ -2163,6 +2163,18 @@ argument_list|,
 name|kvSize
 argument_list|)
 expr_stmt|;
+comment|// add the heap size of active (mutable) segment
+name|kvSize
+operator|.
+name|incMemstoreSize
+argument_list|(
+literal|0
+argument_list|,
+name|MutableSegment
+operator|.
+name|DEEP_OVERHEAD
+argument_list|)
+expr_stmt|;
 name|size
 operator|=
 name|store
@@ -2229,6 +2241,22 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+comment|// due to snapshot, change mutable to immutable segment
+name|kvSize
+operator|.
+name|incMemstoreSize
+argument_list|(
+literal|0
+argument_list|,
+name|CSLMImmutableSegment
+operator|.
+name|DEEP_OVERHEAD_CSLM
+operator|-
+name|MutableSegment
+operator|.
+name|DEEP_OVERHEAD
+argument_list|)
+expr_stmt|;
 name|size
 operator|=
 name|store
@@ -2277,6 +2305,17 @@ literal|null
 argument_list|)
 argument_list|,
 name|kvSize2
+argument_list|)
+expr_stmt|;
+name|kvSize2
+operator|.
+name|incMemstoreSize
+argument_list|(
+literal|0
+argument_list|,
+name|MutableSegment
+operator|.
+name|DEEP_OVERHEAD
 argument_list|)
 expr_stmt|;
 comment|// Even though we add a new kv, we expect the flushable size to be 'same' since we have
@@ -2355,7 +2394,9 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|0
+name|MutableSegment
+operator|.
+name|DEEP_OVERHEAD
 argument_list|,
 name|size
 operator|.

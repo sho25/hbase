@@ -25,7 +25,7 @@ name|lang
 operator|.
 name|ref
 operator|.
-name|SoftReference
+name|WeakReference
 import|;
 end_import
 
@@ -229,6 +229,22 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Bytes
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|util
 operator|.
 name|StringUtils
@@ -306,28 +322,68 @@ argument_list|)
 decl_stmt|;
 comment|// maps the chunk against the monotonically increasing chunk id. We need to preserve the
 comment|// natural ordering of the key
-comment|// CellChunkMap creation should convert the soft ref to hard reference
+comment|// CellChunkMap creation should convert the weak ref to hard reference
+comment|// chunk id of each chunk is the first integer written on each chunk,
+comment|// the header size need to be changed in case chunk id size is changed
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|SIZEOF_CHUNK_HEADER
+init|=
+name|Bytes
+operator|.
+name|SIZEOF_INT
+decl_stmt|;
+comment|// An object pointed by a weak reference can be garbage collected, in opposite to an object
+comment|// referenced by a strong (regular) reference. Every chunk created via ChunkCreator is referenced
+comment|// from either weakChunkIdMap or strongChunkIdMap.
+comment|// Upon chunk C creation, C's ID is mapped into weak reference to C, in order not to disturb C's
+comment|// GC in case all other reference to C are going to be removed.
+comment|// When chunk C is referenced from CellChunkMap (via C's ID) it is possible to GC the chunk C.
+comment|// To avoid that upon inserting C into CellChunkMap, C's ID is mapped into strong (regular)
+comment|// reference to C.
+comment|// map that doesn't influence GC
 specifier|private
 name|Map
 argument_list|<
 name|Integer
 argument_list|,
-name|SoftReference
+name|WeakReference
 argument_list|<
 name|Chunk
 argument_list|>
 argument_list|>
-name|chunkIdMap
+name|weakChunkIdMap
 init|=
 operator|new
 name|ConcurrentHashMap
 argument_list|<
 name|Integer
 argument_list|,
-name|SoftReference
+name|WeakReference
 argument_list|<
 name|Chunk
 argument_list|>
+argument_list|>
+argument_list|()
+decl_stmt|;
+comment|// map that keeps chunks from garbage collection
+specifier|private
+name|Map
+argument_list|<
+name|Integer
+argument_list|,
+name|Chunk
+argument_list|>
+name|strongChunkIdMap
+init|=
+operator|new
+name|ConcurrentHashMap
+argument_list|<
+name|Integer
+argument_list|,
+name|Chunk
 argument_list|>
 argument_list|()
 decl_stmt|;
@@ -595,10 +651,10 @@ name|createChunk
 argument_list|()
 expr_stmt|;
 block|}
-comment|// put this chunk into the chunkIdMap
+comment|// put this chunk initially into the weakChunkIdMap
 name|this
 operator|.
-name|chunkIdMap
+name|weakChunkIdMap
 operator|.
 name|put
 argument_list|(
@@ -608,7 +664,7 @@ name|getId
 argument_list|()
 argument_list|,
 operator|new
-name|SoftReference
+name|WeakReference
 argument_list|<>
 argument_list|(
 name|chunk
@@ -699,7 +755,7 @@ block|}
 block|}
 annotation|@
 name|VisibleForTesting
-comment|// TODO : To be used by CellChunkMap
+comment|// Used to translate the ChunkID into a chunk ref
 name|Chunk
 name|getChunk
 parameter_list|(
@@ -707,13 +763,13 @@ name|int
 name|id
 parameter_list|)
 block|{
-name|SoftReference
+name|WeakReference
 argument_list|<
 name|Chunk
 argument_list|>
 name|ref
 init|=
-name|chunkIdMap
+name|weakChunkIdMap
 operator|.
 name|get
 argument_list|(
@@ -734,6 +790,110 @@ name|get
 argument_list|()
 return|;
 block|}
+comment|// check also the strong mapping
+return|return
+name|strongChunkIdMap
+operator|.
+name|get
+argument_list|(
+name|id
+argument_list|)
+return|;
+block|}
+comment|// transfer the weak pointer to be a strong chunk pointer
+name|Chunk
+name|saveChunkFromGC
+parameter_list|(
+name|int
+name|chunkID
+parameter_list|)
+block|{
+name|Chunk
+name|c
+init|=
+name|strongChunkIdMap
+operator|.
+name|get
+argument_list|(
+name|chunkID
+argument_list|)
+decl_stmt|;
+comment|// check whether the chunk is already protected
+if|if
+condition|(
+name|c
+operator|!=
+literal|null
+condition|)
+comment|// with strong pointer
+return|return
+name|c
+return|;
+name|WeakReference
+argument_list|<
+name|Chunk
+argument_list|>
+name|ref
+init|=
+name|weakChunkIdMap
+operator|.
+name|get
+argument_list|(
+name|chunkID
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|ref
+operator|!=
+literal|null
+condition|)
+block|{
+name|c
+operator|=
+name|ref
+operator|.
+name|get
+argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|c
+operator|!=
+literal|null
+condition|)
+block|{
+comment|// put this strong reference to chunk into the strongChunkIdMap
+comment|// the read of the weakMap is always happening before the read of the strongMap
+comment|// so no synchronization issues here
+name|this
+operator|.
+name|strongChunkIdMap
+operator|.
+name|put
+argument_list|(
+name|chunkID
+argument_list|,
+name|c
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|weakChunkIdMap
+operator|.
+name|remove
+argument_list|(
+name|chunkID
+argument_list|)
+expr_stmt|;
+return|return
+name|c
+return|;
+block|}
+comment|// we should actually never return null as someone should not ask to save from GC a chunk,
+comment|// which is already released. However, we are not asserting it here and we let the caller
+comment|// to deal with the return value an assert if needed
 return|return
 literal|null
 return|;
@@ -771,7 +931,19 @@ parameter_list|)
 block|{
 name|this
 operator|.
-name|chunkIdMap
+name|weakChunkIdMap
+operator|.
+name|keySet
+argument_list|()
+operator|.
+name|removeAll
+argument_list|(
+name|chunkIDs
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|strongChunkIdMap
 operator|.
 name|keySet
 argument_list|()
@@ -789,15 +961,27 @@ name|int
 name|chunkId
 parameter_list|)
 block|{
-name|SoftReference
+name|WeakReference
 argument_list|<
 name|Chunk
 argument_list|>
-name|ref
+name|weak
 init|=
 name|this
 operator|.
-name|chunkIdMap
+name|weakChunkIdMap
+operator|.
+name|remove
+argument_list|(
+name|chunkId
+argument_list|)
+decl_stmt|;
+name|Chunk
+name|strong
+init|=
+name|this
+operator|.
+name|strongChunkIdMap
 operator|.
 name|remove
 argument_list|(
@@ -806,24 +990,26 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|ref
+name|weak
 operator|!=
 literal|null
 condition|)
 block|{
 return|return
-name|ref
+name|weak
 operator|.
 name|get
 argument_list|()
 return|;
 block|}
 return|return
-literal|null
+name|strong
 return|;
 block|}
 annotation|@
 name|VisibleForTesting
+comment|// the chunks in the weakChunkIdMap may already be released so we shouldn't relay
+comment|// on this counting for strong correctness. This method is used only in testing.
 name|int
 name|size
 parameter_list|()
@@ -831,7 +1017,14 @@ block|{
 return|return
 name|this
 operator|.
-name|chunkIdMap
+name|weakChunkIdMap
+operator|.
+name|size
+argument_list|()
+operator|+
+name|this
+operator|.
+name|strongChunkIdMap
 operator|.
 name|size
 argument_list|()
@@ -845,7 +1038,14 @@ parameter_list|()
 block|{
 name|this
 operator|.
-name|chunkIdMap
+name|strongChunkIdMap
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|weakChunkIdMap
 operator|.
 name|clear
 argument_list|()

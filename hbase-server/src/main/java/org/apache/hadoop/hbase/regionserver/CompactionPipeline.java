@@ -134,7 +134,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The compaction pipeline of a {@link CompactingMemStore}, is a FIFO queue of segments.  * It supports pushing a segment at the head of the pipeline and removing a segment from the  * tail when it is flushed to disk.  * It also supports swap method to allow the in-memory compaction swap a subset of the segments  * at the tail of the pipeline with a new (compacted) one. This swap succeeds only if the version  * number passed with the list of segments to swap is the same as the current version of the  * pipeline.  * Essentially, there are two methods which can change the structure of the pipeline: pushHead()  * and swap(), the later is used both by a flush to disk and by an in-memory compaction.  * The pipeline version is updated by swap(); it allows to identify conflicting operations at the  * suffix of the pipeline.  *  * The synchronization model is copy-on-write. Methods which change the structure of the  * pipeline (pushHead() and swap()) apply their changes in the context of a lock. They also make  * a read-only copy of the pipeline's list. Read methods read from a read-only copy. If a read  * method accesses the read-only copy more than once it makes a local copy of it  * to ensure it accesses the same copy.  *  * The methods getVersionedList(), getVersionedTail(), and flattenYoungestSegment() are also  * protected by a lock since they need to have a consistent (atomic) view of the pipeline list  * and version number.  */
+comment|/**  * The compaction pipeline of a {@link CompactingMemStore}, is a FIFO queue of segments.  * It supports pushing a segment at the head of the pipeline and removing a segment from the  * tail when it is flushed to disk.  * It also supports swap method to allow the in-memory compaction swap a subset of the segments  * at the tail of the pipeline with a new (compacted) one. This swap succeeds only if the version  * number passed with the list of segments to swap is the same as the current version of the  * pipeline.  * Essentially, there are two methods which can change the structure of the pipeline: pushHead()  * and swap(), the later is used both by a flush to disk and by an in-memory compaction.  * The pipeline version is updated by swap(); it allows to identify conflicting operations at the  * suffix of the pipeline.  *  * The synchronization model is copy-on-write. Methods which change the structure of the  * pipeline (pushHead() and swap()) apply their changes in the context of a lock. They also make  * a read-only copy of the pipeline's list. Read methods read from a read-only copy. If a read  * method accesses the read-only copy more than once it makes a local copy of it  * to ensure it accesses the same copy.  *  * The methods getVersionedList(), getVersionedTail(), and flattenOneSegment() are also  * protected by a lock since they need to have a consistent (atomic) view of the pipeline list  * and version number.  */
 end_comment
 
 begin_class
@@ -745,10 +745,15 @@ block|}
 comment|/**    * If the caller holds the current version, go over the the pipeline and try to flatten each    * segment. Flattening is replacing the ConcurrentSkipListMap based CellSet to CellArrayMap based.    * Flattening of the segment that initially is not based on ConcurrentSkipListMap has no effect.    * Return after one segment is successfully flatten.    *    * @return true iff a segment was successfully flattened    */
 specifier|public
 name|boolean
-name|flattenYoungestSegment
+name|flattenOneSegment
 parameter_list|(
 name|long
 name|requesterVersion
+parameter_list|,
+name|CompactingMemStore
+operator|.
+name|IndexType
+name|idxType
 parameter_list|)
 block|{
 if|if
@@ -798,6 +803,11 @@ return|return
 literal|false
 return|;
 block|}
+name|int
+name|i
+init|=
+literal|0
+decl_stmt|;
 for|for
 control|(
 name|ImmutableSegment
@@ -806,24 +816,49 @@ range|:
 name|pipeline
 control|)
 block|{
-comment|// remember the old size in case this segment is going to be flatten
+if|if
+condition|(
+name|s
+operator|.
+name|canBeFlattened
+argument_list|()
+condition|)
+block|{
 name|MemstoreSize
-name|memstoreSize
+name|newMemstoreSize
 init|=
 operator|new
 name|MemstoreSize
 argument_list|()
 decl_stmt|;
-if|if
-condition|(
-name|s
+comment|// the size to be updated
+name|ImmutableSegment
+name|newS
+init|=
+name|SegmentFactory
 operator|.
-name|flatten
+name|instance
+argument_list|()
+operator|.
+name|createImmutableSegmentByFlattening
 argument_list|(
-name|memstoreSize
+operator|(
+name|CSLMImmutableSegment
+operator|)
+name|s
+argument_list|,
+name|idxType
+argument_list|,
+name|newMemstoreSize
 argument_list|)
-condition|)
-block|{
+decl_stmt|;
+name|replaceAtIndex
+argument_list|(
+name|i
+argument_list|,
+name|newS
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|region
@@ -831,11 +866,22 @@ operator|!=
 literal|null
 condition|)
 block|{
+comment|// update the global memstore size counter
+comment|// upon flattening there is no change in the data size
 name|region
 operator|.
 name|addMemstoreSize
 argument_list|(
-name|memstoreSize
+operator|new
+name|MemstoreSize
+argument_list|(
+literal|0
+argument_list|,
+name|newMemstoreSize
+operator|.
+name|getHeapSize
+argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -854,6 +900,9 @@ return|return
 literal|true
 return|;
 block|}
+name|i
+operator|++
+expr_stmt|;
 block|}
 block|}
 comment|// do not update the global memstore size counter and do not increase the version,
@@ -1132,6 +1181,38 @@ operator|.
 name|addLast
 argument_list|(
 name|segment
+argument_list|)
+expr_stmt|;
+block|}
+comment|// replacing one segment in the pipeline with a new one exactly at the same index
+comment|// need to be called only within synchronized block
+specifier|private
+name|void
+name|replaceAtIndex
+parameter_list|(
+name|int
+name|idx
+parameter_list|,
+name|ImmutableSegment
+name|newSegment
+parameter_list|)
+block|{
+name|pipeline
+operator|.
+name|set
+argument_list|(
+name|idx
+argument_list|,
+name|newSegment
+argument_list|)
+expr_stmt|;
+name|readOnlyCopy
+operator|=
+operator|new
+name|LinkedList
+argument_list|<>
+argument_list|(
+name|pipeline
 argument_list|)
 expr_stmt|;
 block|}

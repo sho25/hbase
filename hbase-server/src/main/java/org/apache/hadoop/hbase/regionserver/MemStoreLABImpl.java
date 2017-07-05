@@ -923,6 +923,41 @@ return|return
 literal|null
 return|;
 block|}
+comment|// Returning a new chunk, without replacing current chunk,
+comment|// meaning MSLABImpl does not make the returned chunk as CurChunk.
+comment|// The space on this chunk will be allocated externally
+comment|// The interface is only for external callers
+annotation|@
+name|Override
+specifier|public
+name|Chunk
+name|getNewExternalChunk
+parameter_list|()
+block|{
+name|Chunk
+name|c
+init|=
+name|this
+operator|.
+name|chunkCreator
+operator|.
+name|getChunk
+argument_list|()
+decl_stmt|;
+name|chunks
+operator|.
+name|add
+argument_list|(
+name|c
+operator|.
+name|getId
+argument_list|()
+argument_list|)
+expr_stmt|;
+return|return
+name|c
+return|;
+block|}
 annotation|@
 name|VisibleForTesting
 name|Chunk

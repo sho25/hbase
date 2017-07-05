@@ -220,6 +220,14 @@ argument_list|,
 name|memStoreLAB
 argument_list|)
 expr_stmt|;
+name|incSize
+argument_list|(
+literal|0
+argument_list|,
+name|DEEP_OVERHEAD
+argument_list|)
+expr_stmt|;
+comment|// update the mutable segment metadata
 block|}
 comment|/**    * Adds the given cell into the segment    * @param cell the cell to add    * @param mslabUsed whether using MSLAB    * @param memstoreSize    */
 specifier|public
@@ -540,6 +548,19 @@ name|timeRangeTracker
 operator|.
 name|getMin
 argument_list|()
+return|;
+block|}
+annotation|@
+name|Override
+specifier|protected
+name|long
+name|indexEntrySize
+parameter_list|()
+block|{
+return|return
+name|ClassSize
+operator|.
+name|CONCURRENT_SKIPLISTMAP_ENTRY
 return|;
 block|}
 block|}

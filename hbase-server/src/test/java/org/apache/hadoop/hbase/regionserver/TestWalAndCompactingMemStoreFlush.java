@@ -1679,7 +1679,9 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|0
+name|MutableSegment
+operator|.
+name|DEEP_OVERHEAD
 argument_list|,
 name|cf2MemstoreSizePhaseII
 operator|.
@@ -1986,7 +1988,9 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|0
+name|MutableSegment
+operator|.
+name|DEEP_OVERHEAD
 argument_list|,
 name|cf2MemstoreSizePhaseIV
 operator|.
@@ -2101,7 +2105,9 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|0
+name|MutableSegment
+operator|.
+name|DEEP_OVERHEAD
 argument_list|,
 name|cf1MemstoreSizePhaseV
 operator|.
@@ -2121,7 +2127,9 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|0
+name|MutableSegment
+operator|.
+name|DEEP_OVERHEAD
 argument_list|,
 name|cf2MemstoreSizePhaseV
 operator|.
@@ -2141,7 +2149,9 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|0
+name|MutableSegment
+operator|.
+name|DEEP_OVERHEAD
 argument_list|,
 name|cf3MemstoreSizePhaseV
 operator|.
@@ -2935,7 +2945,9 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|0
+name|MutableSegment
+operator|.
+name|DEEP_OVERHEAD
 argument_list|,
 name|cf2MemstoreSizePhaseII
 operator|.
@@ -3234,7 +3246,9 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|0
+name|MutableSegment
+operator|.
+name|DEEP_OVERHEAD
 argument_list|,
 name|cf2MemstoreSizePhaseIV
 operator|.
@@ -3362,7 +3376,9 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|0
+name|MutableSegment
+operator|.
+name|DEEP_OVERHEAD
 argument_list|,
 name|cf1MemstoreSizePhaseV
 operator|.
@@ -3382,7 +3398,9 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|0
+name|MutableSegment
+operator|.
+name|DEEP_OVERHEAD
 argument_list|,
 name|cf2MemstoreSizePhaseV
 operator|.
@@ -3402,7 +3420,9 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|0
+name|MutableSegment
+operator|.
+name|DEEP_OVERHEAD
 argument_list|,
 name|cf3MemstoreSizePhaseV
 operator|.
@@ -4178,7 +4198,9 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|0
+name|MutableSegment
+operator|.
+name|DEEP_OVERHEAD
 argument_list|,
 name|cf2MemstoreSizePhaseII
 operator|.
@@ -5332,6 +5354,9 @@ name|getDataSize
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// the decrease in the heap size due to usage of CellArrayMap instead of CSLM
+comment|// should be the same in flattening and in merge (first and second in-memory-flush)
+comment|// but in phase 1 we do not yet have immutable segment
 name|assertEquals
 argument_list|(
 name|cf1MemstoreSizePhaseI
@@ -5353,6 +5378,10 @@ name|cf1MemstoreSizePhaseIV
 operator|.
 name|getHeapSize
 argument_list|()
+operator|-
+name|CellArrayImmutableSegment
+operator|.
+name|DEEP_OVERHEAD_CAM
 argument_list|)
 expr_stmt|;
 name|assertEquals

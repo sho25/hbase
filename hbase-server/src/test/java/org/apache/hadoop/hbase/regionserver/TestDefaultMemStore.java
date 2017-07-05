@@ -6794,6 +6794,7 @@ argument_list|()
 argument_list|)
 argument_list|)
 decl_stmt|;
+comment|// parameterized tests add [#] suffix get rid of [ and ].
 name|HRegionInfo
 name|hri
 init|=
@@ -6808,6 +6809,13 @@ name|name
 operator|.
 name|getMethodName
 argument_list|()
+operator|.
+name|replaceAll
+argument_list|(
+literal|"[\\[\\]]"
+argument_list|,
+literal|"_"
+argument_list|)
 argument_list|)
 argument_list|,
 name|Bytes
@@ -6839,6 +6847,13 @@ name|name
 operator|.
 name|getMethodName
 argument_list|()
+operator|.
+name|replaceAll
+argument_list|(
+literal|"[\\[\\]]"
+argument_list|,
+literal|"_"
+argument_list|)
 argument_list|)
 argument_list|)
 decl_stmt|;
