@@ -5698,7 +5698,9 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * Create a protocol buffer GetRegionLoadRequest for all regions/regions of a table.    *    * @param tableName the table for which regionLoad should be obtained from RS    * @return a protocol buffer GetRegionLoadRequest    */
+comment|/**    * Create a protocol buffer GetRegionLoadRequest for all regions/regions of a table.    * @param tableName the table for which regionLoad should be obtained from RS    * @return a protocol buffer GetRegionLoadRequest    * @deprecated use {@link #buildGetRegionLoadRequest(Optional)} instead.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 name|GetRegionLoadRequest
@@ -5706,6 +5708,31 @@ name|buildGetRegionLoadRequest
 parameter_list|(
 specifier|final
 name|TableName
+name|tableName
+parameter_list|)
+block|{
+return|return
+name|buildGetRegionLoadRequest
+argument_list|(
+name|Optional
+operator|.
+name|ofNullable
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|)
+return|;
+block|}
+comment|/**    * Create a protocol buffer GetRegionLoadRequest for all regions/regions of a table.    * @param tableName the table for which regionLoad should be obtained from RS    * @return a protocol buffer GetRegionLoadRequest    */
+specifier|public
+specifier|static
+name|GetRegionLoadRequest
+name|buildGetRegionLoadRequest
+parameter_list|(
+name|Optional
+argument_list|<
+name|TableName
+argument_list|>
 name|tableName
 parameter_list|)
 block|{
@@ -5719,13 +5746,12 @@ operator|.
 name|newBuilder
 argument_list|()
 decl_stmt|;
-if|if
-condition|(
 name|tableName
-operator|!=
-literal|null
-condition|)
-block|{
+operator|.
+name|ifPresent
+argument_list|(
+name|table
+lambda|->
 name|builder
 operator|.
 name|setTableName
@@ -5734,11 +5760,11 @@ name|ProtobufUtil
 operator|.
 name|toProtoTableName
 argument_list|(
-name|tableName
+name|table
+argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
-block|}
 return|return
 name|builder
 operator|.
