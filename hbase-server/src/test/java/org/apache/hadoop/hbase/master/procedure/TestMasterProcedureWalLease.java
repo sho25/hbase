@@ -397,6 +397,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|experimental
 operator|.
 name|categories
@@ -453,6 +463,8 @@ operator|.
 name|class
 block|}
 argument_list|)
+annotation|@
+name|Ignore
 specifier|public
 class|class
 name|TestMasterProcedureWalLease
