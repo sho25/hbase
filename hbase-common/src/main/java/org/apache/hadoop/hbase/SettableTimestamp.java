@@ -47,9 +47,6 @@ end_comment
 
 begin_interface
 annotation|@
-name|Deprecated
-comment|// Co Processors SHOULD NOT use this if the clock type of the tables is HLC
-annotation|@
 name|InterfaceAudience
 operator|.
 name|LimitedPrivate
@@ -58,6 +55,8 @@ name|HBaseInterfaceAudience
 operator|.
 name|COPROC
 argument_list|)
+annotation|@
+name|Deprecated
 specifier|public
 interface|interface
 name|SettableTimestamp

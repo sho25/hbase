@@ -1085,34 +1085,6 @@ end_import
 
 begin_import
 import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|TimestampType
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|Clock
-import|;
-end_import
-
-begin_import
-import|import
 name|com
 operator|.
 name|google
@@ -2227,7 +2199,7 @@ name|comparator
 argument_list|)
 return|;
 block|}
-comment|/**    * @param family    * @return TTL in milli seconds of the specified family    */
+comment|/**    * @param family    * @return TTL in seconds of the specified family    */
 specifier|public
 specifier|static
 name|long
@@ -2238,7 +2210,7 @@ name|HColumnDescriptor
 name|family
 parameter_list|)
 block|{
-comment|// HColumnDescriptor.getTimeToLive returns ttl in seconds.  Convert to milliseconds.
+comment|// HCD.getTimeToLive returns ttl in seconds.  Convert to milliseconds.
 name|long
 name|ttl
 init|=
@@ -2436,18 +2408,6 @@ operator|.
 name|memstore
 operator|.
 name|getFlushableSize
-argument_list|()
-return|;
-block|}
-specifier|public
-name|Clock
-name|getClock
-parameter_list|()
-block|{
-return|return
-name|region
-operator|.
-name|getClock
 argument_list|()
 return|;
 block|}
