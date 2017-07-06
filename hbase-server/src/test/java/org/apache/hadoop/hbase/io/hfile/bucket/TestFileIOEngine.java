@@ -392,6 +392,8 @@ name|FileIOEngine
 argument_list|(
 name|totalCapacity
 argument_list|,
+literal|false
+argument_list|,
 name|filePaths
 argument_list|)
 decl_stmt|;

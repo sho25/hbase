@@ -1332,6 +1332,8 @@ argument_list|(
 name|ioEngineName
 argument_list|,
 name|capacity
+argument_list|,
+name|persistencePath
 argument_list|)
 expr_stmt|;
 name|this
@@ -1739,7 +1741,7 @@ name|toString
 argument_list|()
 return|;
 block|}
-comment|/**    * Get the IOEngine from the IO engine name    * @param ioEngineName    * @param capacity    * @return the IOEngine    * @throws IOException    */
+comment|/**    * Get the IOEngine from the IO engine name    * @param ioEngineName    * @param capacity    * @param persistencePath    * @return the IOEngine    * @throws IOException    */
 specifier|private
 name|IOEngine
 name|getIOEngineFromName
@@ -1749,6 +1751,9 @@ name|ioEngineName
 parameter_list|,
 name|long
 name|capacity
+parameter_list|,
+name|String
+name|persistencePath
 parameter_list|)
 throws|throws
 name|IOException
@@ -1803,6 +1808,10 @@ operator|new
 name|FileIOEngine
 argument_list|(
 name|capacity
+argument_list|,
+name|persistencePath
+operator|!=
+literal|null
 argument_list|,
 name|filePaths
 argument_list|)
