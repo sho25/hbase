@@ -753,52 +753,6 @@ argument_list|>
 name|listNamespaceDescriptors
 parameter_list|()
 function_decl|;
-comment|/**    * Turn the load balancer on or off.    * @param on    * @return Previous balancer value wrapped by a {@link CompletableFuture}.    */
-name|CompletableFuture
-argument_list|<
-name|Boolean
-argument_list|>
-name|setBalancerOn
-parameter_list|(
-name|boolean
-name|on
-parameter_list|)
-function_decl|;
-comment|/**    * Invoke the balancer. Will run the balancer and if regions to move, it will go ahead and do the    * reassignments. Can NOT run for various reasons. Check logs.    * @return True if balancer ran, false otherwise. The return value will be wrapped by a    *         {@link CompletableFuture}.    */
-specifier|default
-name|CompletableFuture
-argument_list|<
-name|Boolean
-argument_list|>
-name|balance
-parameter_list|()
-block|{
-return|return
-name|balance
-argument_list|(
-literal|false
-argument_list|)
-return|;
-block|}
-comment|/**    * Invoke the balancer. Will run the balancer and if regions to move, it will go ahead and do the    * reassignments. If there is region in transition, force parameter of true would still run    * balancer. Can *not* run for other reasons. Check logs.    * @param forcible whether we should force balance even if there is region in transition.    * @return True if balancer ran, false otherwise. The return value will be wrapped by a    *         {@link CompletableFuture}.    */
-name|CompletableFuture
-argument_list|<
-name|Boolean
-argument_list|>
-name|balance
-parameter_list|(
-name|boolean
-name|forcible
-parameter_list|)
-function_decl|;
-comment|/**    * Query the current state of the balancer.    * @return true if the balance switch is on, false otherwise The return value will be wrapped by a    *         {@link CompletableFuture}.    */
-name|CompletableFuture
-argument_list|<
-name|Boolean
-argument_list|>
-name|isBalancerOn
-parameter_list|()
-function_decl|;
 comment|/**    * Close a region. For expert-admins Runs close on the regionserver. The master will not be    * informed of the close.    * @param regionName region name to close    * @param serverName The servername of the regionserver. If not present, we will use servername    *          found in the hbase:meta table. A server name is made of host, port and startcode. Here    *          is an example:<code> host187.example.com,60020,1289493121758</code>    * @return true if the region was closed, false if not. The return value will be wrapped by a    *         {@link CompletableFuture}.    */
 name|CompletableFuture
 argument_list|<
@@ -1902,6 +1856,133 @@ name|byte
 index|[]
 name|regionName
 parameter_list|)
+function_decl|;
+comment|/**    * Turn the load balancer on or off.    * @param on    * @return Previous balancer value wrapped by a {@link CompletableFuture}.    */
+name|CompletableFuture
+argument_list|<
+name|Boolean
+argument_list|>
+name|setBalancerOn
+parameter_list|(
+name|boolean
+name|on
+parameter_list|)
+function_decl|;
+comment|/**    * Invoke the balancer. Will run the balancer and if regions to move, it will go ahead and do the    * reassignments. Can NOT run for various reasons. Check logs.    * @return True if balancer ran, false otherwise. The return value will be wrapped by a    *         {@link CompletableFuture}.    */
+specifier|default
+name|CompletableFuture
+argument_list|<
+name|Boolean
+argument_list|>
+name|balance
+parameter_list|()
+block|{
+return|return
+name|balance
+argument_list|(
+literal|false
+argument_list|)
+return|;
+block|}
+comment|/**    * Invoke the balancer. Will run the balancer and if regions to move, it will go ahead and do the    * reassignments. If there is region in transition, force parameter of true would still run    * balancer. Can *not* run for other reasons. Check logs.    * @param forcible whether we should force balance even if there is region in transition.    * @return True if balancer ran, false otherwise. The return value will be wrapped by a    *         {@link CompletableFuture}.    */
+name|CompletableFuture
+argument_list|<
+name|Boolean
+argument_list|>
+name|balance
+parameter_list|(
+name|boolean
+name|forcible
+parameter_list|)
+function_decl|;
+comment|/**    * Query the current state of the balancer.    * @return true if the balance switch is on, false otherwise. The return value will be wrapped by a    *         {@link CompletableFuture}.    */
+name|CompletableFuture
+argument_list|<
+name|Boolean
+argument_list|>
+name|isBalancerOn
+parameter_list|()
+function_decl|;
+comment|/**    * Set region normalizer on/off.    * @param on whether normalizer should be on or off    * @return Previous normalizer value wrapped by a {@link CompletableFuture}    */
+name|CompletableFuture
+argument_list|<
+name|Boolean
+argument_list|>
+name|setNormalizerOn
+parameter_list|(
+name|boolean
+name|on
+parameter_list|)
+function_decl|;
+comment|/**    * Query the current state of the region normalizer    * @return true if region normalizer is on, false otherwise. The return value will be wrapped by a    *         {@link CompletableFuture}    */
+name|CompletableFuture
+argument_list|<
+name|Boolean
+argument_list|>
+name|isNormalizerOn
+parameter_list|()
+function_decl|;
+comment|/**    * Invoke region normalizer. Can NOT run for various reasons. Check logs.    * @return true if region normalizer ran, false otherwise. The return value will be wrapped by a    *         {@link CompletableFuture}    */
+name|CompletableFuture
+argument_list|<
+name|Boolean
+argument_list|>
+name|normalize
+parameter_list|()
+function_decl|;
+comment|/**    * Turn the cleaner chore on/off.    * @param on    * @return Previous cleaner state wrapped by a {@link CompletableFuture}    */
+name|CompletableFuture
+argument_list|<
+name|Boolean
+argument_list|>
+name|setCleanerChoreOn
+parameter_list|(
+name|boolean
+name|on
+parameter_list|)
+function_decl|;
+comment|/**    * Query the current state of the cleaner chore.    * @return true if cleaner chore is on, false otherwise. The return value will be wrapped by    *         a {@link CompletableFuture}    */
+name|CompletableFuture
+argument_list|<
+name|Boolean
+argument_list|>
+name|isCleanerChoreOn
+parameter_list|()
+function_decl|;
+comment|/**    * Ask for cleaner chore to run.    * @return true if cleaner chore ran, false otherwise. The return value will be wrapped by a    *         {@link CompletableFuture}    */
+name|CompletableFuture
+argument_list|<
+name|Boolean
+argument_list|>
+name|runCleanerChore
+parameter_list|()
+function_decl|;
+comment|/**    * Turn the catalog janitor on/off.    * @param on    * @return the previous state wrapped by a {@link CompletableFuture}    */
+name|CompletableFuture
+argument_list|<
+name|Boolean
+argument_list|>
+name|setCatalogJanitorOn
+parameter_list|(
+name|boolean
+name|on
+parameter_list|)
+function_decl|;
+comment|/**    * Query on the catalog janitor state.    * @return true if the catalog janitor is on, false otherwise. The return value will be    *         wrapped by a {@link CompletableFuture}    */
+name|CompletableFuture
+argument_list|<
+name|Boolean
+argument_list|>
+name|isCatalogJanitorOn
+parameter_list|()
+function_decl|;
+comment|/**    * Ask for a scan of the catalog table.    * @return the number of entries cleaned. The return value will be wrapped by a    *         {@link CompletableFuture}    */
+name|CompletableFuture
+argument_list|<
+name|Integer
+argument_list|>
+name|runCatalogJanitor
+parameter_list|()
 function_decl|;
 block|}
 end_interface
