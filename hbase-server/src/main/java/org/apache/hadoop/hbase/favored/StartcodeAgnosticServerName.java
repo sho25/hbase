@@ -19,6 +19,16 @@ end_package
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
 name|com
 operator|.
 name|google
@@ -199,7 +209,7 @@ name|StartcodeAgnosticServerName
 argument_list|(
 name|hostnameAndPort
 operator|.
-name|getHostText
+name|getHost
 argument_list|()
 argument_list|,
 name|hostnameAndPort

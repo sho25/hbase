@@ -240,6 +240,16 @@ comment|//find the first occurrence of delimiter in split point
 name|int
 name|index
 init|=
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
 name|com
 operator|.
 name|google

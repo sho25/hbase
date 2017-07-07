@@ -787,6 +787,16 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
 name|com
 operator|.
 name|google
@@ -1865,7 +1875,7 @@ argument_list|)
 expr_stmt|;
 name|replicator
 operator|.
-name|start
+name|startAsync
 argument_list|()
 expr_stmt|;
 comment|//load some data to primary
@@ -2146,7 +2156,7 @@ argument_list|)
 expr_stmt|;
 name|replicator
 operator|.
-name|start
+name|startAsync
 argument_list|()
 expr_stmt|;
 comment|// test the filter for the RE, not actual replication

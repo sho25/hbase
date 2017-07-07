@@ -53,6 +53,16 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
 name|com
 operator|.
 name|google
@@ -67,6 +77,16 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
 name|com
 operator|.
 name|google
@@ -81,6 +101,16 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
 name|com
 operator|.
 name|google
@@ -95,6 +125,16 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
 name|com
 operator|.
 name|google
@@ -837,17 +877,13 @@ end_import
 
 begin_import
 import|import
-name|org
+name|com
 operator|.
-name|apache
+name|google
 operator|.
-name|hadoop
+name|protobuf
 operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|ByteStringer
+name|ByteString
 import|;
 end_import
 
@@ -2410,13 +2446,15 @@ operator|!=
 literal|null
 condition|)
 block|{
+comment|// Was ByteStringer; fix w/o using ByteStringer. Its in hbase-protocol
+comment|// and we want to keep that out of hbase-server.
 name|builder
 operator|.
 name|setPayload
 argument_list|(
-name|ByteStringer
+name|ByteString
 operator|.
-name|wrap
+name|copyFrom
 argument_list|(
 name|payload
 argument_list|)

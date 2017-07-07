@@ -21,6 +21,16 @@ end_package
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
 name|com
 operator|.
 name|google
@@ -2293,24 +2303,6 @@ block|}
 name|notifyStopped
 argument_list|()
 expr_stmt|;
-block|}
-comment|// is this needed? Nobody else will call doStop() otherwise
-annotation|@
-name|Override
-specifier|public
-name|State
-name|stopAndWait
-parameter_list|()
-block|{
-name|doStop
-argument_list|()
-expr_stmt|;
-return|return
-name|super
-operator|.
-name|stopAndWait
-argument_list|()
-return|;
 block|}
 annotation|@
 name|VisibleForTesting

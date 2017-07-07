@@ -1522,6 +1522,8 @@ return|;
 block|}
 catch|catch
 parameter_list|(
+name|NoClassDefFoundError
+decl||
 name|ClassNotFoundException
 name|classNotFoundEx
 parameter_list|)

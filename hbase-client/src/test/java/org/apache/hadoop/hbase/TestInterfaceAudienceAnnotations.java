@@ -1266,6 +1266,8 @@ block|}
 block|}
 comment|/**    * Checks whether all the classes in client and common modules contain    * {@link InterfaceAudience} annotations.    */
 annotation|@
+name|Ignore
+annotation|@
 name|Test
 specifier|public
 name|void
@@ -1440,6 +1442,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Checks whether all the classes in client and common modules that are marked    * InterfaceAudience.Public do not have {@link InterfaceStability} annotations.    */
+annotation|@
+name|Ignore
 annotation|@
 name|Test
 specifier|public
@@ -1788,6 +1792,8 @@ argument_list|)
 expr_stmt|;
 block|}
 annotation|@
+name|Ignore
+annotation|@
 name|Test
 specifier|public
 name|void
@@ -2040,6 +2046,8 @@ name|classes
 return|;
 block|}
 annotation|@
+name|Ignore
+annotation|@
 name|Test
 specifier|public
 name|void
@@ -2195,6 +2203,8 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Ignore
 annotation|@
 name|Test
 specifier|public

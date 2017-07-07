@@ -509,6 +509,16 @@ name|byte
 index|[]
 name|array
 init|=
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
 name|com
 operator|.
 name|google

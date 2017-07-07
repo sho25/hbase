@@ -625,17 +625,13 @@ end_import
 
 begin_import
 import|import
-name|org
+name|com
 operator|.
-name|apache
+name|google
 operator|.
-name|hadoop
+name|protobuf
 operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|ByteRange
+name|ByteString
 import|;
 end_import
 
@@ -651,7 +647,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|ByteStringer
+name|ByteRange
 import|;
 end_import
 
@@ -847,9 +843,9 @@ name|visLabBuilder
 operator|.
 name|setLabel
 argument_list|(
-name|ByteStringer
+name|ByteString
 operator|.
-name|wrap
+name|copyFrom
 argument_list|(
 name|Bytes
 operator|.
@@ -961,9 +957,9 @@ name|userAuthsBuilder
 operator|.
 name|setUser
 argument_list|(
-name|ByteStringer
+name|ByteString
 operator|.
-name|wrap
+name|copyFrom
 argument_list|(
 name|Bytes
 operator|.

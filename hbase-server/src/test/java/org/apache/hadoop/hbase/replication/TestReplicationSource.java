@@ -1122,7 +1122,7 @@ block|}
 decl_stmt|;
 name|replicationEndpoint
 operator|.
-name|start
+name|startAsync
 argument_list|()
 expr_stmt|;
 name|ReplicationPeers

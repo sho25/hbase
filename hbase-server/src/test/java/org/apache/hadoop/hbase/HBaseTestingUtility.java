@@ -8513,7 +8513,7 @@ name|families
 argument_list|)
 return|;
 block|}
-comment|/**    * @param tableName    * @param startKey    * @param stopKey    * @param callingMethod    * @param conf    * @param isReadOnly    * @param families    * @return A region on which you must call    * {@link HBaseTestingUtility#closeRegionAndWAL(HRegion)} when done.    * @throws IOException    */
+comment|/**    * @param tableName    * @param startKey    * @param stopKey    * @param isReadOnly    * @param families    * @return A region on which you must call    * {@link HBaseTestingUtility#closeRegionAndWAL(HRegion)} when done.    * @throws IOException    */
 specifier|public
 name|HRegion
 name|createLocalHRegion
@@ -15680,7 +15680,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Uses directly the assignment manager to assign the region.    * and waits until the specified region has completed assignment.    * @param tableName the table name    * @throws IOException    * @throw InterruptedException    * @return true if the region is assigned false otherwise.    */
+comment|/**    * Uses directly the assignment manager to assign the region.    * and waits until the specified region has completed assignment.    * @throws IOException    * @throw InterruptedException    * @return true if the region is assigned false otherwise.    */
 end_comment
 
 begin_function

@@ -423,6 +423,16 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
 name|com
 operator|.
 name|google
@@ -715,15 +725,17 @@ comment|// read the file from start to finish
 name|Stopwatch
 name|fileOpenTimer
 init|=
-operator|new
 name|Stopwatch
+operator|.
+name|createUnstarted
 argument_list|()
 decl_stmt|;
 name|Stopwatch
 name|streamTimer
 init|=
-operator|new
 name|Stopwatch
+operator|.
+name|createUnstarted
 argument_list|()
 decl_stmt|;
 name|fileOpenTimer
@@ -800,7 +812,7 @@ name|totalBytes
 operator|/
 name|streamTimer
 operator|.
-name|elapsedTime
+name|elapsed
 argument_list|(
 name|TimeUnit
 operator|.
@@ -826,8 +838,12 @@ literal|"total time to open: "
 operator|+
 name|fileOpenTimer
 operator|.
-name|elapsedMillis
-argument_list|()
+name|elapsed
+argument_list|(
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+argument_list|)
 operator|+
 literal|" ms"
 argument_list|)
@@ -842,8 +858,12 @@ literal|"total time to read: "
 operator|+
 name|streamTimer
 operator|.
-name|elapsedMillis
-argument_list|()
+name|elapsed
+argument_list|(
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+argument_list|)
 operator|+
 literal|" ms"
 argument_list|)
@@ -960,22 +980,25 @@ block|{
 name|Stopwatch
 name|tableOpenTimer
 init|=
-operator|new
 name|Stopwatch
+operator|.
+name|createUnstarted
 argument_list|()
 decl_stmt|;
 name|Stopwatch
 name|scanOpenTimer
 init|=
-operator|new
 name|Stopwatch
+operator|.
+name|createUnstarted
 argument_list|()
 decl_stmt|;
 name|Stopwatch
 name|scanTimer
 init|=
-operator|new
 name|Stopwatch
+operator|.
+name|createUnstarted
 argument_list|()
 decl_stmt|;
 name|tableOpenTimer
@@ -1138,7 +1161,7 @@ name|totalBytes
 operator|/
 name|scanTimer
 operator|.
-name|elapsedTime
+name|elapsed
 argument_list|(
 name|TimeUnit
 operator|.
@@ -1155,7 +1178,7 @@ name|numRows
 operator|/
 name|scanTimer
 operator|.
-name|elapsedTime
+name|elapsed
 argument_list|(
 name|TimeUnit
 operator|.
@@ -1172,7 +1195,7 @@ name|numCells
 operator|/
 name|scanTimer
 operator|.
-name|elapsedTime
+name|elapsed
 argument_list|(
 name|TimeUnit
 operator|.
@@ -1198,8 +1221,12 @@ literal|"total time to open table: "
 operator|+
 name|tableOpenTimer
 operator|.
-name|elapsedMillis
-argument_list|()
+name|elapsed
+argument_list|(
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+argument_list|)
 operator|+
 literal|" ms"
 argument_list|)
@@ -1214,8 +1241,12 @@ literal|"total time to open scanner: "
 operator|+
 name|scanOpenTimer
 operator|.
-name|elapsedMillis
-argument_list|()
+name|elapsed
+argument_list|(
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+argument_list|)
 operator|+
 literal|" ms"
 argument_list|)
@@ -1230,8 +1261,12 @@ literal|"total time to scan: "
 operator|+
 name|scanTimer
 operator|.
-name|elapsedMillis
-argument_list|()
+name|elapsed
+argument_list|(
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+argument_list|)
 operator|+
 literal|" ms"
 argument_list|)
@@ -1368,22 +1403,25 @@ block|{
 name|Stopwatch
 name|snapshotRestoreTimer
 init|=
-operator|new
 name|Stopwatch
+operator|.
+name|createUnstarted
 argument_list|()
 decl_stmt|;
 name|Stopwatch
 name|scanOpenTimer
 init|=
-operator|new
 name|Stopwatch
+operator|.
+name|createUnstarted
 argument_list|()
 decl_stmt|;
 name|Stopwatch
 name|scanTimer
 init|=
-operator|new
 name|Stopwatch
+operator|.
+name|createUnstarted
 argument_list|()
 decl_stmt|;
 name|Path
@@ -1540,7 +1578,7 @@ name|totalBytes
 operator|/
 name|scanTimer
 operator|.
-name|elapsedTime
+name|elapsed
 argument_list|(
 name|TimeUnit
 operator|.
@@ -1557,7 +1595,7 @@ name|numRows
 operator|/
 name|scanTimer
 operator|.
-name|elapsedTime
+name|elapsed
 argument_list|(
 name|TimeUnit
 operator|.
@@ -1574,7 +1612,7 @@ name|numCells
 operator|/
 name|scanTimer
 operator|.
-name|elapsedTime
+name|elapsed
 argument_list|(
 name|TimeUnit
 operator|.
@@ -1600,8 +1638,12 @@ literal|"total time to restore snapshot: "
 operator|+
 name|snapshotRestoreTimer
 operator|.
-name|elapsedMillis
-argument_list|()
+name|elapsed
+argument_list|(
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+argument_list|)
 operator|+
 literal|" ms"
 argument_list|)
@@ -1616,8 +1658,12 @@ literal|"total time to open scanner: "
 operator|+
 name|scanOpenTimer
 operator|.
-name|elapsedMillis
-argument_list|()
+name|elapsed
+argument_list|(
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+argument_list|)
 operator|+
 literal|" ms"
 argument_list|)
@@ -1632,8 +1678,12 @@ literal|"total time to scan: "
 operator|+
 name|scanTimer
 operator|.
-name|elapsedMillis
-argument_list|()
+name|elapsed
+argument_list|(
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+argument_list|)
 operator|+
 literal|" ms"
 argument_list|)
@@ -1855,15 +1905,17 @@ block|{
 name|Stopwatch
 name|scanOpenTimer
 init|=
-operator|new
 name|Stopwatch
+operator|.
+name|createUnstarted
 argument_list|()
 decl_stmt|;
 name|Stopwatch
 name|scanTimer
 init|=
-operator|new
 name|Stopwatch
+operator|.
+name|createUnstarted
 argument_list|()
 decl_stmt|;
 name|Scan
@@ -2040,7 +2092,7 @@ name|totalBytes
 operator|/
 name|scanTimer
 operator|.
-name|elapsedTime
+name|elapsed
 argument_list|(
 name|TimeUnit
 operator|.
@@ -2057,7 +2109,7 @@ name|numRows
 operator|/
 name|scanTimer
 operator|.
-name|elapsedTime
+name|elapsed
 argument_list|(
 name|TimeUnit
 operator|.
@@ -2074,7 +2126,7 @@ name|numCells
 operator|/
 name|scanTimer
 operator|.
-name|elapsedTime
+name|elapsed
 argument_list|(
 name|TimeUnit
 operator|.
@@ -2100,8 +2152,12 @@ literal|"total time to open scanner: "
 operator|+
 name|scanOpenTimer
 operator|.
-name|elapsedMillis
-argument_list|()
+name|elapsed
+argument_list|(
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+argument_list|)
 operator|+
 literal|" ms"
 argument_list|)
@@ -2116,8 +2172,12 @@ literal|"total time to scan: "
 operator|+
 name|scanTimer
 operator|.
-name|elapsedMillis
-argument_list|()
+name|elapsed
+argument_list|(
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+argument_list|)
 operator|+
 literal|" ms"
 argument_list|)
@@ -2244,15 +2304,17 @@ block|{
 name|Stopwatch
 name|scanOpenTimer
 init|=
-operator|new
 name|Stopwatch
+operator|.
+name|createUnstarted
 argument_list|()
 decl_stmt|;
 name|Stopwatch
 name|scanTimer
 init|=
-operator|new
 name|Stopwatch
+operator|.
+name|createUnstarted
 argument_list|()
 decl_stmt|;
 name|Scan
@@ -2437,7 +2499,7 @@ name|totalBytes
 operator|/
 name|scanTimer
 operator|.
-name|elapsedTime
+name|elapsed
 argument_list|(
 name|TimeUnit
 operator|.
@@ -2454,7 +2516,7 @@ name|numRows
 operator|/
 name|scanTimer
 operator|.
-name|elapsedTime
+name|elapsed
 argument_list|(
 name|TimeUnit
 operator|.
@@ -2471,7 +2533,7 @@ name|numCells
 operator|/
 name|scanTimer
 operator|.
-name|elapsedTime
+name|elapsed
 argument_list|(
 name|TimeUnit
 operator|.
@@ -2497,8 +2559,12 @@ literal|"total time to open scanner: "
 operator|+
 name|scanOpenTimer
 operator|.
-name|elapsedMillis
-argument_list|()
+name|elapsed
+argument_list|(
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+argument_list|)
 operator|+
 literal|" ms"
 argument_list|)
@@ -2513,8 +2579,12 @@ literal|"total time to scan: "
 operator|+
 name|scanTimer
 operator|.
-name|elapsedMillis
-argument_list|()
+name|elapsed
+argument_list|(
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+argument_list|)
 operator|+
 literal|" ms"
 argument_list|)
