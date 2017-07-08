@@ -15279,7 +15279,7 @@ name|add
 argument_list|(
 name|region
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|getTableName
@@ -16031,7 +16031,7 @@ if|if
 condition|(
 name|regionToClose
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|hasSerialReplicationScope
@@ -16111,7 +16111,7 @@ name|seq
 argument_list|,
 name|regionToClose
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|getTableName

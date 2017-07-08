@@ -1890,7 +1890,7 @@ name|when
 argument_list|(
 name|store
 operator|.
-name|getFamily
+name|getColumnFamilyDescriptor
 argument_list|()
 argument_list|)
 operator|.

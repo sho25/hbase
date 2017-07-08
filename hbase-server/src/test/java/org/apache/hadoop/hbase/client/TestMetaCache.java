@@ -1612,7 +1612,7 @@ argument_list|(
 name|regionSpec
 argument_list|)
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|getTableName

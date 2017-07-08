@@ -177,7 +177,7 @@ name|NAME_DELIMITER
 operator|+
 name|store
 operator|.
-name|getFamily
+name|getColumnFamilyDescriptor
 argument_list|()
 operator|.
 name|getNameAsString

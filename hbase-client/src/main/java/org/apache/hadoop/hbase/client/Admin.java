@@ -640,7 +640,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List all the userspace tables.    *    * @return - returns an array of read-only HTableDescriptors    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * List all the userspace tables.    *    * @return - returns an array of read-only HTableDescriptors    * @throws IOException if a remote or network exception occurs    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #listTableDescriptors()}    */
+annotation|@
+name|Deprecated
 name|HTableDescriptor
 index|[]
 name|listTables
@@ -648,7 +650,19 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List all the userspace tables matching the given pattern.    *    * @param pattern The compiled regular expression to match against    * @return - returns an array of read-only HTableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTables()    */
+comment|/**    * List all the userspace tables.    *    * @return - returns a list of TableDescriptors    * @throws IOException if a remote or network exception occurs    */
+name|List
+argument_list|<
+name|TableDescriptor
+argument_list|>
+name|listTableDescriptors
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * List all the userspace tables matching the given pattern.    *    * @param pattern The compiled regular expression to match against    * @return - returns an array of read-only HTableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTables()    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #listTableDescriptors(java.util.regex.Pattern)}    */
+annotation|@
+name|Deprecated
 name|HTableDescriptor
 index|[]
 name|listTables
@@ -659,7 +673,22 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List all the userspace tables matching the given regular expression.    *    * @param regex The regular expression to match against    * @return - returns an array of HTableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTables(java.util.regex.Pattern)    */
+comment|/**    * List all the userspace tables matching the given pattern.    *    * @param pattern The compiled regular expression to match against    * @return - returns a list of TableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTables()    */
+name|List
+argument_list|<
+name|TableDescriptor
+argument_list|>
+name|listTableDescriptors
+parameter_list|(
+name|Pattern
+name|pattern
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * List all the userspace tables matching the given regular expression.    *    * @param regex The regular expression to match against    * @return - returns an array of read-only HTableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTables(java.util.regex.Pattern)    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #listTableDescriptors(java.lang.String)}    */
+annotation|@
+name|Deprecated
 name|HTableDescriptor
 index|[]
 name|listTables
@@ -670,7 +699,22 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List all the tables matching the given pattern.    *    * @param pattern The compiled regular expression to match against    * @param includeSysTables False to match only against userspace tables    * @return - returns an array of read-only HTableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTables()    */
+comment|/**    * List all the userspace tables matching the given regular expression.    *    * @param regex The regular expression to match against    * @return - returns a list of TableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTables(java.util.regex.Pattern)    */
+name|List
+argument_list|<
+name|TableDescriptor
+argument_list|>
+name|listTableDescriptors
+parameter_list|(
+name|String
+name|regex
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * List all the tables matching the given pattern.    *    * @param pattern The compiled regular expression to match against    * @param includeSysTables False to match only against userspace tables    * @return - returns an array of read-only HTableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTables()    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #listTableDescriptors(java.util.regex.Pattern, boolean)}    */
+annotation|@
+name|Deprecated
 name|HTableDescriptor
 index|[]
 name|listTables
@@ -684,10 +728,44 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List all the tables matching the given pattern.    *    * @param regex The regular expression to match against    * @param includeSysTables False to match only against userspace tables    * @return - returns an array of read-only HTableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTables(java.util.regex.Pattern, boolean)    */
+comment|/**    * List all the tables matching the given pattern.    *    * @param pattern The compiled regular expression to match against    * @param includeSysTables False to match only against userspace tables    * @return - returns a list of TableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTables()    */
+name|List
+argument_list|<
+name|TableDescriptor
+argument_list|>
+name|listTableDescriptors
+parameter_list|(
+name|Pattern
+name|pattern
+parameter_list|,
+name|boolean
+name|includeSysTables
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * List all the tables matching the given pattern.    *    * @param regex The regular expression to match against    * @param includeSysTables False to match only against userspace tables    * @return - returns an array of read-only HTableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTables(java.util.regex.Pattern, boolean)    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #listTableDescriptors(java.lang.String, boolean)}    */
+annotation|@
+name|Deprecated
 name|HTableDescriptor
 index|[]
 name|listTables
+parameter_list|(
+name|String
+name|regex
+parameter_list|,
+name|boolean
+name|includeSysTables
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * List all the tables matching the given pattern.    *    * @param regex The regular expression to match against    * @param includeSysTables False to match only against userspace tables    * @return - returns a list of TableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTables(java.util.regex.Pattern, boolean)    */
+name|List
+argument_list|<
+name|TableDescriptor
+argument_list|>
+name|listTableDescriptors
 parameter_list|(
 name|String
 name|regex
@@ -760,7 +838,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Method for getting the tableDescriptor    *    * @param tableName as a {@link TableName}    * @return the read-only tableDescriptor    * @throws org.apache.hadoop.hbase.TableNotFoundException    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Method for getting the tableDescriptor    *    * @param tableName as a {@link TableName}    * @return the read-only tableDescriptor    * @throws org.apache.hadoop.hbase.TableNotFoundException    * @throws IOException if a remote or network exception occurs    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #listTableDescriptor(TableName)}    */
+annotation|@
+name|Deprecated
 name|HTableDescriptor
 name|getTableDescriptor
 parameter_list|(
@@ -773,7 +853,23 @@ name|TableNotFoundException
 throws|,
 name|IOException
 function_decl|;
-comment|/**    * Creates a new table. Synchronous operation.    *    * @param desc table descriptor for table    * @throws IllegalArgumentException if the table name is reserved    * @throws org.apache.hadoop.hbase.MasterNotRunningException if master is not running    * @throws org.apache.hadoop.hbase.TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence and attempt-at-creation).    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Method for getting the tableDescriptor    *    * @param tableName as a {@link TableName}    * @return the tableDescriptor    * @throws org.apache.hadoop.hbase.TableNotFoundException    * @throws IOException if a remote or network exception occurs    */
+name|TableDescriptor
+name|listTableDescriptor
+parameter_list|(
+specifier|final
+name|TableName
+name|tableName
+parameter_list|)
+throws|throws
+name|TableNotFoundException
+throws|,
+name|IOException
+function_decl|;
+comment|/**    * Creates a new table. Synchronous operation.    *    * @param desc table descriptor for table    * @throws IllegalArgumentException if the table name is reserved    * @throws org.apache.hadoop.hbase.MasterNotRunningException if master is not running    * @throws org.apache.hadoop.hbase.TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence and attempt-at-creation).    * @throws IOException if a remote or network exception occurs    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #createTable(TableDescriptor)}    */
+annotation|@
+name|Deprecated
+specifier|default
 name|void
 name|createTable
 parameter_list|(
@@ -782,8 +878,30 @@ name|desc
 parameter_list|)
 throws|throws
 name|IOException
+block|{
+name|createTable
+argument_list|(
+operator|(
+name|TableDescriptor
+operator|)
+name|desc
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Creates a new table. Synchronous operation.    *    * @param desc table descriptor for table    * @throws IllegalArgumentException if the table name is reserved    * @throws org.apache.hadoop.hbase.MasterNotRunningException if master is not running    * @throws org.apache.hadoop.hbase.TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence and attempt-at-creation).    * @throws IOException if a remote or network exception occurs    */
+name|void
+name|createTable
+parameter_list|(
+name|TableDescriptor
+name|desc
+parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
-comment|/**    * Creates a new table with the specified number of regions.  The start key specified will become    * the end key of the first region of the table, and the end key specified will become the start    * key of the last region of the table (the first region has a null start key and the last region    * has a null end key). BigInteger math will be used to divide the key range specified into enough    * segments to make the required number of total regions. Synchronous operation.    *    * @param desc table descriptor for table    * @param startKey beginning of key range    * @param endKey end of key range    * @param numRegions the total number of regions to create    * @throws IllegalArgumentException if the table name is reserved    * @throws org.apache.hadoop.hbase.MasterNotRunningException if master is not running    * @throws org.apache.hadoop.hbase.TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence and attempt-at-creation).    * @throws IOException    */
+comment|/**    * Creates a new table with the specified number of regions.  The start key specified will become    * the end key of the first region of the table, and the end key specified will become the start    * key of the last region of the table (the first region has a null start key and the last region    * has a null end key). BigInteger math will be used to divide the key range specified into enough    * segments to make the required number of total regions. Synchronous operation.    *    * @param desc table descriptor for table    * @param startKey beginning of key range    * @param endKey end of key range    * @param numRegions the total number of regions to create    * @throws IllegalArgumentException if the table name is reserved    * @throws org.apache.hadoop.hbase.MasterNotRunningException if master is not running    * @throws org.apache.hadoop.hbase.TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence and attempt-at-creation).    * @throws IOException    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #createTable(TableDescriptor, byte[], byte[], int)}    */
+annotation|@
+name|Deprecated
+specifier|default
 name|void
 name|createTable
 parameter_list|(
@@ -803,8 +921,47 @@ name|numRegions
 parameter_list|)
 throws|throws
 name|IOException
+block|{
+name|createTable
+argument_list|(
+operator|(
+name|TableDescriptor
+operator|)
+name|desc
+argument_list|,
+name|startKey
+argument_list|,
+name|endKey
+argument_list|,
+name|numRegions
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Creates a new table with the specified number of regions.  The start key specified will become    * the end key of the first region of the table, and the end key specified will become the start    * key of the last region of the table (the first region has a null start key and the last region    * has a null end key). BigInteger math will be used to divide the key range specified into enough    * segments to make the required number of total regions. Synchronous operation.    *    * @param desc table descriptor for table    * @param startKey beginning of key range    * @param endKey end of key range    * @param numRegions the total number of regions to create    * @throws IllegalArgumentException if the table name is reserved    * @throws org.apache.hadoop.hbase.MasterNotRunningException if master is not running    * @throws org.apache.hadoop.hbase.TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence and attempt-at-creation).    * @throws IOException    */
+name|void
+name|createTable
+parameter_list|(
+name|TableDescriptor
+name|desc
+parameter_list|,
+name|byte
+index|[]
+name|startKey
+parameter_list|,
+name|byte
+index|[]
+name|endKey
+parameter_list|,
+name|int
+name|numRegions
+parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
-comment|/**    * Creates a new table with an initial set of empty regions defined by the specified split keys.    * The total number of regions created will be the number of split keys plus one. Synchronous    * operation. Note : Avoid passing empty split key.    *    * @param desc table descriptor for table    * @param splitKeys array of split keys for the initial regions of the table    * @throws IllegalArgumentException if the table name is reserved, if the split keys are repeated    * and if the split key has empty byte array.    * @throws org.apache.hadoop.hbase.MasterNotRunningException if master is not running    * @throws org.apache.hadoop.hbase.TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence and attempt-at-creation).    * @throws IOException    */
+comment|/**    * Creates a new table with an initial set of empty regions defined by the specified split keys.    * The total number of regions created will be the number of split keys plus one. Synchronous    * operation. Note : Avoid passing empty split key.    *    * @param desc table descriptor for table    * @param splitKeys array of split keys for the initial regions of the table    * @throws IllegalArgumentException if the table name is reserved, if the split keys are repeated    * and if the split key has empty byte array.    * @throws org.apache.hadoop.hbase.MasterNotRunningException if master is not running    * @throws org.apache.hadoop.hbase.TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence and attempt-at-creation).    * @throws IOException    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #createTable(TableDescriptor, byte[][])}    */
+annotation|@
+name|Deprecated
+specifier|default
 name|void
 name|createTable
 parameter_list|(
@@ -819,8 +976,38 @@ name|splitKeys
 parameter_list|)
 throws|throws
 name|IOException
+block|{
+name|createTable
+argument_list|(
+operator|(
+name|TableDescriptor
+operator|)
+name|desc
+argument_list|,
+name|splitKeys
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Creates a new table with an initial set of empty regions defined by the specified split keys.    * The total number of regions created will be the number of split keys plus one. Synchronous    * operation. Note : Avoid passing empty split key.    *    * @param desc table descriptor for table    * @param splitKeys array of split keys for the initial regions of the table    * @throws IllegalArgumentException if the table name is reserved, if the split keys are repeated    * and if the split key has empty byte array.    * @throws org.apache.hadoop.hbase.MasterNotRunningException if master is not running    * @throws org.apache.hadoop.hbase.TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence and attempt-at-creation).    * @throws IOException    */
+name|void
+name|createTable
+parameter_list|(
+specifier|final
+name|TableDescriptor
+name|desc
+parameter_list|,
+name|byte
+index|[]
+index|[]
+name|splitKeys
+parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
-comment|/**    * Creates a new table but does not block and wait for it to come online.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    * Throws IllegalArgumentException Bad table name, if the split keys    *    are repeated and if the split key has empty byte array.    *    * @param desc table descriptor for table    * @param splitKeys keys to check if the table has been created with all split keys    * @throws IOException if a remote or network exception occurs    * @return the result of the async creation. You can use Future.get(long, TimeUnit)    *    to wait on the operation to complete.    */
+comment|/**    * Creates a new table but does not block and wait for it to come online.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    * Throws IllegalArgumentException Bad table name, if the split keys    *    are repeated and if the split key has empty byte array.    *    * @param desc table descriptor for table    * @param splitKeys keys to check if the table has been created with all split keys    * @throws IOException if a remote or network exception occurs    * @return the result of the async creation. You can use Future.get(long, TimeUnit)    *    to wait on the operation to complete.    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #createTableAsync(TableDescriptor, byte[][])}    */
+annotation|@
+name|Deprecated
+specifier|default
 name|Future
 argument_list|<
 name|Void
@@ -829,6 +1016,38 @@ name|createTableAsync
 parameter_list|(
 specifier|final
 name|HTableDescriptor
+name|desc
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+index|[]
+name|splitKeys
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|createTableAsync
+argument_list|(
+operator|(
+name|TableDescriptor
+operator|)
+name|desc
+argument_list|,
+name|splitKeys
+argument_list|)
+return|;
+block|}
+comment|/**    * Creates a new table but does not block and wait for it to come online.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    * Throws IllegalArgumentException Bad table name, if the split keys    *    are repeated and if the split key has empty byte array.    *    * @param desc table descriptor for table    * @param splitKeys keys to check if the table has been created with all split keys    * @throws IOException if a remote or network exception occurs    * @return the result of the async creation. You can use Future.get(long, TimeUnit)    *    to wait on the operation to complete.    */
+name|Future
+argument_list|<
+name|Void
+argument_list|>
+name|createTableAsync
+parameter_list|(
+specifier|final
+name|TableDescriptor
 name|desc
 parameter_list|,
 specifier|final
@@ -864,7 +1083,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Deletes tables matching the passed in pattern and wait on completion. Warning: Use this method    * carefully, there is no prompting and the effect is immediate. Consider using {@link    * #listTables(java.lang.String)} and {@link #deleteTable(org.apache.hadoop.hbase.TableName)}    *    * @param regex The regular expression to match table names against    * @return Table descriptors for tables that couldn't be deleted.    *         The return htds are read-only    * @throws IOException    * @see #deleteTables(java.util.regex.Pattern)    * @see #deleteTable(org.apache.hadoop.hbase.TableName)    */
+comment|/**    * Deletes tables matching the passed in pattern and wait on completion. Warning: Use this method    * carefully, there is no prompting and the effect is immediate. Consider using {@link    * #listTableDescriptors(java.lang.String)}    * and {@link #deleteTable(org.apache.hadoop.hbase.TableName)}    *    * @param regex The regular expression to match table names against    * @return Table descriptors for tables that couldn't be deleted.    *         The return htds are read-only    * @throws IOException    * @see #deleteTables(java.util.regex.Pattern)    * @see #deleteTable(org.apache.hadoop.hbase.TableName)    * @deprecated since 2.0 version and will be removed in 3.0 version    *             This is just a trivial helper method without any magic.    *             Consider using {@link #listTableDescriptors(java.lang.String)}    *             and {@link #enableTable(org.apache.hadoop.hbase.TableName)}    */
+annotation|@
+name|Deprecated
 name|HTableDescriptor
 index|[]
 name|deleteTables
@@ -875,7 +1096,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Delete tables matching the passed in pattern and wait on completion. Warning: Use this method    * carefully, there is no prompting and the effect is immediate. Consider using {@link    * #listTables(java.util.regex.Pattern) } and    * {@link #deleteTable(org.apache.hadoop.hbase.TableName)}    *    * @param pattern The pattern to match table names against    * @return Table descriptors for tables that couldn't be deleted    *         The return htds are read-only    * @throws IOException    */
+comment|/**    * Delete tables matching the passed in pattern and wait on completion. Warning: Use this method    * carefully, there is no prompting and the effect is immediate. Consider using {@link    * #listTableDescriptors(java.util.regex.Pattern)} and    * {@link #deleteTable(org.apache.hadoop.hbase.TableName)}    *    * @param pattern The pattern to match table names against    * @return Table descriptors for tables that couldn't be deleted    *         The return htds are read-only    * @throws IOException    * @deprecated since 2.0 version and will be removed in 3.0 version    *             This is just a trivial helper method without any magic.    *             Consider using {@link #listTableDescriptors(java.util.regex.Pattern)}    *             and {@link #enableTable(org.apache.hadoop.hbase.TableName)}    */
+annotation|@
+name|Deprecated
 name|HTableDescriptor
 index|[]
 name|deleteTables
@@ -945,7 +1168,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Enable tables matching the passed in pattern and wait on completion. Warning: Use this method    * carefully, there is no prompting and the effect is immediate. Consider using {@link    * #listTables(java.lang.String)} and {@link #enableTable(org.apache.hadoop.hbase.TableName)}    *    * @param regex The regular expression to match table names against    * @throws IOException    * @return Table descriptors for tables that couldn't be enabled.    *         The return HTDs are read-only.    * @see #enableTables(java.util.regex.Pattern)    * @see #enableTable(org.apache.hadoop.hbase.TableName)    */
+comment|/**    * Enable tables matching the passed in pattern and wait on completion. Warning: Use this method    * carefully, there is no prompting and the effect is immediate. Consider using {@link    * #listTableDescriptors(java.lang.String)} and {@link #enableTable(org.apache.hadoop.hbase.TableName)}    *    * @param regex The regular expression to match table names against    * @throws IOException    * @return Table descriptors for tables that couldn't be enabled.    *         The return HTDs are read-only.    * @see #enableTables(java.util.regex.Pattern)    * @see #enableTable(org.apache.hadoop.hbase.TableName)    * @deprecated since 2.0 version and will be removed in 3.0 version    *             This is just a trivial helper method without any magic.    *             Consider using {@link #listTableDescriptors(java.lang.String)}    *             and {@link #enableTable(org.apache.hadoop.hbase.TableName)}    */
+annotation|@
+name|Deprecated
 name|HTableDescriptor
 index|[]
 name|enableTables
@@ -956,7 +1181,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Enable tables matching the passed in pattern and wait on completion. Warning: Use this method    * carefully, there is no prompting and the effect is immediate. Consider using {@link    * #listTables(java.util.regex.Pattern) } and    * {@link #enableTable(org.apache.hadoop.hbase.TableName)}    *    * @param pattern The pattern to match table names against    * @throws IOException    * @return Table descriptors for tables that couldn't be enabled.    *         The return HTDs are read-only.    */
+comment|/**    * Enable tables matching the passed in pattern and wait on completion. Warning: Use this method    * carefully, there is no prompting and the effect is immediate. Consider using {@link    * #listTableDescriptors(java.util.regex.Pattern)} and    * {@link #enableTable(org.apache.hadoop.hbase.TableName)}    *    * @param pattern The pattern to match table names against    * @throws IOException    * @return Table descriptors for tables that couldn't be enabled.    *         The return HTDs are read-only.    * @deprecated since 2.0 version and will be removed in 3.0 version    *             This is just a trivial helper method without any magic.    *             Consider using {@link #listTableDescriptors(java.util.regex.Pattern)}    *             and {@link #enableTable(org.apache.hadoop.hbase.TableName)}    */
+annotation|@
+name|Deprecated
 name|HTableDescriptor
 index|[]
 name|enableTables
@@ -992,7 +1219,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Disable tables matching the passed in pattern and wait on completion. Warning: Use this method    * carefully, there is no prompting and the effect is immediate. Consider using {@link    * #listTables(java.lang.String)} and {@link #disableTable(org.apache.hadoop.hbase.TableName)}    *    * @param regex The regular expression to match table names against    * @return Table descriptors for tables that couldn't be disabled    *         The return htds are read-only    * @throws IOException    * @see #disableTables(java.util.regex.Pattern)    * @see #disableTable(org.apache.hadoop.hbase.TableName)    */
+comment|/**    * Disable tables matching the passed in pattern and wait on completion. Warning: Use this method    * carefully, there is no prompting and the effect is immediate. Consider using {@link    * #listTableDescriptors(java.lang.String)}    * and {@link #disableTable(org.apache.hadoop.hbase.TableName)}    *    * @param regex The regular expression to match table names against    * @return Table descriptors for tables that couldn't be disabled    *         The return htds are read-only    * @throws IOException    * @see #disableTables(java.util.regex.Pattern)    * @see #disableTable(org.apache.hadoop.hbase.TableName)    * @deprecated since 2.0 version and will be removed in 3.0 version    *             This is just a trivial helper method without any magic.    *             Consider using {@link #listTableDescriptors(java.lang.String)}    *             and {@link #disableTable(org.apache.hadoop.hbase.TableName)}    */
+annotation|@
+name|Deprecated
 name|HTableDescriptor
 index|[]
 name|disableTables
@@ -1003,7 +1232,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Disable tables matching the passed in pattern and wait on completion. Warning: Use this method    * carefully, there is no prompting and the effect is immediate. Consider using {@link    * #listTables(java.util.regex.Pattern) } and    * {@link #disableTable(org.apache.hadoop.hbase.TableName)}    *    * @param pattern The pattern to match table names against    * @return Table descriptors for tables that couldn't be disabled    *         The return htds are read-only    * @throws IOException    */
+comment|/**    * Disable tables matching the passed in pattern and wait on completion. Warning: Use this method    * carefully, there is no prompting and the effect is immediate. Consider using {@link    * #listTableDescriptors(java.util.regex.Pattern)} and    * {@link #disableTable(org.apache.hadoop.hbase.TableName)}    *    * @param pattern The pattern to match table names against    * @return Table descriptors for tables that couldn't be disabled    *         The return htds are read-only    * @throws IOException    * @deprecated since 2.0 version and will be removed in 3.0 version    *             This is just a trivial helper method without any magic.    *             Consider using {@link #listTableDescriptors(java.util.regex.Pattern)}    *             and {@link #disableTable(org.apache.hadoop.hbase.TableName)}    */
+annotation|@
+name|Deprecated
 name|HTableDescriptor
 index|[]
 name|disableTables
@@ -1766,7 +1997,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Modify an existing table, more IRB friendly version.    *    * @param tableName name of table.    * @param htd modified description of the table    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Modify an existing table, more IRB friendly version.    *    * @param tableName name of table.    * @param htd modified description of the table    * @throws IOException if a remote or network exception occurs    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #modifyTable(TableDescriptor)}    */
+annotation|@
+name|Deprecated
 name|void
 name|modifyTable
 parameter_list|(
@@ -1781,7 +2014,20 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Modify an existing table, more IRB friendly version. Asynchronous operation.  This means that    * it may be a while before your schema change is updated across all of the table.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param tableName name of table.    * @param htd modified description of the table    * @throws IOException if a remote or network exception occurs    * @return the result of the async modify. You can use Future.get(long, TimeUnit) to wait on the    *     operation to complete    */
+comment|/**    * Modify an existing table, more IRB friendly version.    *    * @param td modified description of the table    * @throws IOException if a remote or network exception occurs    */
+name|void
+name|modifyTable
+parameter_list|(
+specifier|final
+name|TableDescriptor
+name|td
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Modify an existing table, more IRB friendly version. Asynchronous operation.  This means that    * it may be a while before your schema change is updated across all of the table.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param tableName name of table.    * @param htd modified description of the table    * @throws IOException if a remote or network exception occurs    * @return the result of the async modify. You can use Future.get(long, TimeUnit) to wait on the    *     operation to complete    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #modifyTableAsync(TableDescriptor)}    */
+annotation|@
+name|Deprecated
 name|Future
 argument_list|<
 name|Void
@@ -1795,6 +2041,19 @@ parameter_list|,
 specifier|final
 name|HTableDescriptor
 name|htd
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Modify an existing table, more IRB friendly version. Asynchronous operation.  This means that    * it may be a while before your schema change is updated across all of the table.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param td description of the table    * @throws IOException if a remote or network exception occurs    * @return the result of the async modify. You can use Future.get(long, TimeUnit) to wait on the    *     operation to complete    */
+name|Future
+argument_list|<
+name|Void
+argument_list|>
+name|modifyTableAsync
+parameter_list|(
+name|TableDescriptor
+name|td
 parameter_list|)
 throws|throws
 name|IOException
@@ -1974,13 +2233,30 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get list of table descriptors by namespace    *    * @param name namespace name    * @return HTD[] the read-only tableDescriptors    * @throws IOException    */
+comment|/**    * Get list of table descriptors by namespace    *    * @param name namespace name    * @return HTD[] the read-only tableDescriptors    * @throws IOException    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #listTableDescriptorsByNamespace(byte[])}    */
+annotation|@
+name|Deprecated
 name|HTableDescriptor
 index|[]
 name|listTableDescriptorsByNamespace
 parameter_list|(
 specifier|final
 name|String
+name|name
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Get list of table descriptors by namespace    *    * @param name namespace name    * @return returns a list of TableDescriptors    * @throws IOException    */
+name|List
+argument_list|<
+name|TableDescriptor
+argument_list|>
+name|listTableDescriptorsByNamespace
+parameter_list|(
+specifier|final
+name|byte
+index|[]
 name|name
 parameter_list|)
 throws|throws
@@ -2020,7 +2296,9 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get tableDescriptors    *    * @param tableNames List of table names    * @return HTD[] the read-only tableDescriptors    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Get tableDescriptors    *    * @param tableNames List of table names    * @return HTD[] the read-only tableDescriptors    * @throws IOException if a remote or network exception occurs    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #listTableDescriptors(List)}    */
+annotation|@
+name|Deprecated
 name|HTableDescriptor
 index|[]
 name|getTableDescriptorsByTableName
@@ -2034,7 +2312,25 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get tableDescriptors    *    * @param names List of table names    * @return HTD[] the read-only tableDescriptors    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Get tableDescriptors    *    * @param tableNames List of table names    * @return returns a list of TableDescriptors    * @throws IOException if a remote or network exception occurs    */
+name|List
+argument_list|<
+name|TableDescriptor
+argument_list|>
+name|listTableDescriptors
+parameter_list|(
+name|List
+argument_list|<
+name|TableName
+argument_list|>
+name|tableNames
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Get tableDescriptors    *    * @param names List of table names    * @return HTD[] the read-only tableDescriptors    * @throws IOException if a remote or network exception occurs    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #listTableDescriptors(List)}    */
+annotation|@
+name|Deprecated
 name|HTableDescriptor
 index|[]
 name|getTableDescriptors

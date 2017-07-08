@@ -3828,7 +3828,7 @@ name|createConnection
 argument_list|(
 name|conf
 argument_list|)
-init|;            Table table = conn.getTable(tableName)
+init|;           Table table = conn.getTable(tableName)
 empty_stmt|;
 name|RegionLocator
 name|regionLocator
@@ -3849,7 +3849,7 @@ name|job
 argument_list|,
 name|table
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|()
 argument_list|,
 name|regionLocator
@@ -4112,7 +4112,7 @@ name|job
 argument_list|,
 name|table
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|()
 argument_list|,
 name|regionLocator

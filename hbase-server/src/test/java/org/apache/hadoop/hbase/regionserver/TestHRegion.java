@@ -1225,6 +1225,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|TableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|exceptions
 operator|.
 name|FailedSanityCheckException
@@ -6538,10 +6554,10 @@ name|columns
 init|=
 name|region
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
-name|getFamiliesKeys
+name|getColumnFamilyNames
 argument_list|()
 operator|.
 name|toArray
@@ -7560,7 +7576,7 @@ expr_stmt|;
 comment|// close the region now, and reopen again
 name|region
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 expr_stmt|;
 name|region
@@ -28664,7 +28680,7 @@ argument_list|()
 argument_list|,
 name|firstRegion
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 argument_list|,
 name|firstRegion
@@ -41396,7 +41412,7 @@ name|HRegionInfo
 name|regionInfo
 parameter_list|,
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 parameter_list|,
 specifier|final

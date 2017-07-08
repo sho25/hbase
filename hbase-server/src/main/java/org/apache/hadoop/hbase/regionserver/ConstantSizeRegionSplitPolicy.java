@@ -113,6 +113,22 @@ name|InterfaceAudience
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|TableDescriptor
+import|;
+end_import
+
 begin_comment
 comment|/**  * A {@link RegionSplitPolicy} implementation which splits a region  * as soon as any of its store files exceeds a maximum configurable  * size.  *<p>  * This is the default split policy. From 0.94.0 on the default split policy has  * changed to {@link IncreasingToUpperBoundRegionSplitPolicy}  *</p>  */
 end_comment
@@ -174,12 +190,12 @@ init|=
 name|getConf
 argument_list|()
 decl_stmt|;
-name|HTableDescriptor
+name|TableDescriptor
 name|desc
 init|=
 name|region
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 decl_stmt|;
 if|if

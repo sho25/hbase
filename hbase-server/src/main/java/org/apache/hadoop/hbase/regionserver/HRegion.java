@@ -863,20 +863,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HColumnDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HConstants
 import|;
 end_import
@@ -922,20 +908,6 @@ operator|.
 name|hbase
 operator|.
 name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HTableDescriptor
 import|;
 end_import
 
@@ -1094,6 +1066,22 @@ operator|.
 name|client
 operator|.
 name|Append
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|ColumnFamilyDescriptor
 import|;
 end_import
 
@@ -1286,6 +1274,38 @@ operator|.
 name|client
 operator|.
 name|Scan
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|TableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|TableDescriptorBuilder
 import|;
 end_import
 
@@ -4006,7 +4026,7 @@ name|RegionCoprocessorHost
 name|coprocessorHost
 decl_stmt|;
 specifier|private
-name|HTableDescriptor
+name|TableDescriptor
 name|htableDescriptor
 init|=
 literal|null
@@ -4096,7 +4116,7 @@ name|HRegionInfo
 name|regionInfo
 parameter_list|,
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 parameter_list|,
 specifier|final
@@ -4145,7 +4165,7 @@ name|Configuration
 name|confParam
 parameter_list|,
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 parameter_list|,
 specifier|final
@@ -4321,7 +4341,7 @@ name|this
 operator|.
 name|htableDescriptor
 operator|.
-name|getFamiliesKeys
+name|getColumnFamilyNames
 argument_list|()
 decl_stmt|;
 for|for
@@ -4349,7 +4369,7 @@ name|scope
 init|=
 name|htd
 operator|.
-name|getFamily
+name|getColumnFamily
 argument_list|(
 name|family
 argument_list|)
@@ -4835,7 +4855,7 @@ name|HConstants
 operator|.
 name|HREGION_MEMSTORE_FLUSH_SIZE
 argument_list|,
-name|HTableDescriptor
+name|TableDescriptorBuilder
 operator|.
 name|DEFAULT_MEMSTORE_FLUSH_SIZE
 argument_list|)
@@ -4916,6 +4936,9 @@ argument_list|(
 literal|"Table "
 operator|+
 name|htableDescriptor
+operator|.
+name|getTableName
+argument_list|()
 operator|.
 name|getNameAsString
 argument_list|()
@@ -5485,14 +5508,12 @@ literal|1
 decl_stmt|;
 if|if
 condition|(
-operator|!
 name|htableDescriptor
 operator|.
-name|getFamilies
+name|getColumnFamilyCount
 argument_list|()
-operator|.
-name|isEmpty
-argument_list|()
+operator|!=
+literal|0
 condition|)
 block|{
 comment|// initialize the thread pool for opening stores in parallel.
@@ -5529,12 +5550,12 @@ comment|// initialize each store in parallel
 for|for
 control|(
 specifier|final
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|family
 range|:
 name|htableDescriptor
 operator|.
-name|getFamilies
+name|getColumnFamilies
 argument_list|()
 control|)
 block|{
@@ -5601,10 +5622,7 @@ name|i
 operator|<
 name|htableDescriptor
 operator|.
-name|getFamilies
-argument_list|()
-operator|.
-name|size
+name|getColumnFamilyCount
 argument_list|()
 condition|;
 name|i
@@ -5638,7 +5656,7 @@ name|put
 argument_list|(
 name|store
 operator|.
-name|getFamily
+name|getColumnFamilyDescriptor
 argument_list|()
 operator|.
 name|getName
@@ -5731,6 +5749,13 @@ name|hasSloppyStores
 condition|)
 block|{
 name|htableDescriptor
+operator|=
+name|TableDescriptorBuilder
+operator|.
+name|newBuilder
+argument_list|(
+name|htableDescriptor
+argument_list|)
 operator|.
 name|setFlushPolicyClassName
 argument_list|(
@@ -5741,6 +5766,9 @@ operator|.
 name|getName
 argument_list|()
 argument_list|)
+operator|.
+name|build
+argument_list|()
 expr_stmt|;
 name|LOG
 operator|.
@@ -6022,7 +6050,7 @@ name|put
 argument_list|(
 name|store
 operator|.
-name|getFamily
+name|getColumnFamilyDescriptor
 argument_list|()
 operator|.
 name|getName
@@ -6380,7 +6408,7 @@ return|return
 name|hdfsBlocksDistribution
 return|;
 block|}
-comment|/**    * This is a helper function to compute HDFS block distribution on demand    * @param conf configuration    * @param tableDescriptor HTableDescriptor of the table    * @param regionInfo encoded name of the region    * @return The HDFS blocks distribution for the given region.    * @throws IOException    */
+comment|/**    * This is a helper function to compute HDFS block distribution on demand    * @param conf configuration    * @param tableDescriptor TableDescriptor of the table    * @param regionInfo encoded name of the region    * @return The HDFS blocks distribution for the given region.    * @throws IOException    */
 specifier|public
 specifier|static
 name|HDFSBlocksDistribution
@@ -6391,7 +6419,7 @@ name|Configuration
 name|conf
 parameter_list|,
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|tableDescriptor
 parameter_list|,
 specifier|final
@@ -6434,7 +6462,7 @@ name|tablePath
 argument_list|)
 return|;
 block|}
-comment|/**    * This is a helper function to compute HDFS block distribution on demand    * @param conf configuration    * @param tableDescriptor HTableDescriptor of the table    * @param regionInfo encoded name of the region    * @param tablePath the table directory    * @return The HDFS blocks distribution for the given region.    * @throws IOException    */
+comment|/**    * This is a helper function to compute HDFS block distribution on demand    * @param conf configuration    * @param tableDescriptor TableDescriptor of the table    * @param regionInfo encoded name of the region    * @param tablePath the table directory    * @return The HDFS blocks distribution for the given region.    * @throws IOException    */
 specifier|public
 specifier|static
 name|HDFSBlocksDistribution
@@ -6445,7 +6473,7 @@ name|Configuration
 name|conf
 parameter_list|,
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|tableDescriptor
 parameter_list|,
 specifier|final
@@ -6492,12 +6520,12 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|family
 range|:
 name|tableDescriptor
 operator|.
-name|getFamilies
+name|getColumnFamilies
 argument_list|()
 control|)
 block|{
@@ -7098,7 +7126,7 @@ comment|// force a flush only if region replication is set up for this region. O
 name|boolean
 name|forceFlush
 init|=
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|getRegionReplication
@@ -8461,7 +8489,7 @@ argument_list|<>
 argument_list|(
 name|store
 operator|.
-name|getFamily
+name|getColumnFamilyDescriptor
 argument_list|()
 operator|.
 name|getName
@@ -9153,10 +9181,7 @@ name|this
 operator|.
 name|htableDescriptor
 operator|.
-name|getFamilies
-argument_list|()
-operator|.
-name|size
+name|getColumnFamilyCount
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -9214,10 +9239,7 @@ name|this
 operator|.
 name|htableDescriptor
 operator|.
-name|getFamilies
-argument_list|()
-operator|.
-name|size
+name|getColumnFamilyCount
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -9355,8 +9377,8 @@ comment|////////////////////////////////////////////////////////////////////////
 annotation|@
 name|Override
 specifier|public
-name|HTableDescriptor
-name|getTableDesc
+name|TableDescriptor
+name|getTableDescriptor
 parameter_list|()
 block|{
 return|return
@@ -9364,6 +9386,20 @@ name|this
 operator|.
 name|htableDescriptor
 return|;
+block|}
+annotation|@
+name|VisibleForTesting
+name|void
+name|setTableDescriptor
+parameter_list|(
+name|TableDescriptor
+name|desc
+parameter_list|)
+block|{
+name|htableDescriptor
+operator|=
+name|desc
+expr_stmt|;
 block|}
 comment|/** @return WAL in use for this region */
 specifier|public
@@ -10896,7 +10932,7 @@ argument_list|()
 argument_list|,
 name|store
 operator|.
-name|getFamily
+name|getColumnFamilyDescriptor
 argument_list|()
 operator|.
 name|getName
@@ -11716,7 +11752,7 @@ name|put
 argument_list|(
 name|store
 operator|.
-name|getFamily
+name|getColumnFamilyDescriptor
 argument_list|()
 operator|.
 name|getName
@@ -11959,7 +11995,7 @@ name|put
 argument_list|(
 name|s
 operator|.
-name|getFamily
+name|getColumnFamilyDescriptor
 argument_list|()
 operator|.
 name|getName
@@ -11979,7 +12015,7 @@ name|put
 argument_list|(
 name|s
 operator|.
-name|getFamily
+name|getColumnFamilyDescriptor
 argument_list|()
 operator|.
 name|getName
@@ -11995,7 +12031,7 @@ name|put
 argument_list|(
 name|s
 operator|.
-name|getFamily
+name|getColumnFamilyDescriptor
 argument_list|()
 operator|.
 name|getName
@@ -12854,7 +12890,7 @@ operator|.
 name|next
 argument_list|()
 operator|.
-name|getFamily
+name|getColumnFamilyDescriptor
 argument_list|()
 operator|.
 name|getName
@@ -13537,7 +13573,7 @@ name|this
 operator|.
 name|htableDescriptor
 operator|.
-name|getFamiliesKeys
+name|getColumnFamilyNames
 argument_list|()
 control|)
 block|{
@@ -13744,7 +13780,7 @@ name|this
 operator|.
 name|htableDescriptor
 operator|.
-name|getFamiliesKeys
+name|getColumnFamilyNames
 argument_list|()
 control|)
 block|{
@@ -17999,7 +18035,7 @@ name|this
 operator|.
 name|htableDescriptor
 operator|.
-name|hasFamily
+name|hasColumnFamily
 argument_list|(
 name|family
 argument_list|)
@@ -19781,7 +19817,7 @@ name|delta
 operator|&&
 name|store
 operator|.
-name|getFamily
+name|getColumnFamilyDescriptor
 argument_list|()
 operator|.
 name|getMaxVersions
@@ -21467,7 +21503,7 @@ name|cell
 argument_list|,
 name|store
 operator|.
-name|getFamily
+name|getColumnFamilyDescriptor
 argument_list|()
 operator|.
 name|getName
@@ -21565,7 +21601,7 @@ name|get
 argument_list|(
 name|store
 operator|.
-name|getFamily
+name|getColumnFamilyDescriptor
 argument_list|()
 operator|.
 name|getName
@@ -25172,7 +25208,7 @@ name|get
 argument_list|(
 name|store
 operator|.
-name|getFamily
+name|getColumnFamilyDescriptor
 argument_list|()
 operator|.
 name|getName
@@ -25216,7 +25252,7 @@ name|remove
 argument_list|(
 name|store
 operator|.
-name|getFamily
+name|getColumnFamilyDescriptor
 argument_list|()
 operator|.
 name|getName
@@ -25639,7 +25675,7 @@ name|HStore
 name|instantiateHStore
 parameter_list|(
 specifier|final
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|family
 parameter_list|)
 throws|throws
@@ -31396,7 +31432,7 @@ name|HRegionInfo
 name|regionInfo
 parameter_list|,
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 parameter_list|,
 name|RegionServerServices
@@ -31471,7 +31507,7 @@ name|HRegionInfo
 operator|.
 name|class
 argument_list|,
-name|HTableDescriptor
+name|TableDescriptor
 operator|.
 name|class
 argument_list|,
@@ -31538,7 +31574,7 @@ name|Configuration
 name|conf
 parameter_list|,
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|hTableDescriptor
 parameter_list|,
 specifier|final
@@ -31678,7 +31714,7 @@ name|Configuration
 name|conf
 parameter_list|,
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|hTableDescriptor
 parameter_list|,
 specifier|final
@@ -31716,7 +31752,7 @@ name|HRegionInfo
 name|info
 parameter_list|,
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 parameter_list|,
 specifier|final
@@ -31758,7 +31794,7 @@ name|HRegionInfo
 name|info
 parameter_list|,
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 parameter_list|,
 specifier|final
@@ -31818,7 +31854,7 @@ name|HRegionInfo
 name|info
 parameter_list|,
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 parameter_list|,
 specifier|final
@@ -31866,7 +31902,7 @@ name|HRegionInfo
 name|info
 parameter_list|,
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 parameter_list|,
 specifier|final
@@ -31969,7 +32005,7 @@ name|HRegionInfo
 name|info
 parameter_list|,
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 parameter_list|,
 specifier|final
@@ -32023,7 +32059,7 @@ name|HRegionInfo
 name|info
 parameter_list|,
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 parameter_list|,
 specifier|final
@@ -32106,7 +32142,7 @@ name|HRegionInfo
 name|info
 parameter_list|,
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 parameter_list|,
 specifier|final
@@ -32261,7 +32297,7 @@ argument_list|()
 argument_list|,
 name|other
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 argument_list|,
 literal|null
@@ -32392,7 +32428,7 @@ name|HRegionInfo
 name|info
 parameter_list|,
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 parameter_list|,
 specifier|final
@@ -32546,7 +32582,7 @@ name|IOException
 block|{
 for|for
 control|(
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|fam
 range|:
 name|this
@@ -32588,7 +32624,7 @@ name|IOException
 block|{
 for|for
 control|(
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|fam
 range|:
 name|this
@@ -32702,7 +32738,7 @@ name|hri
 argument_list|,
 name|this
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 argument_list|,
 name|rsServices
@@ -32802,7 +32838,7 @@ name|mergedRegionInfo
 argument_list|,
 name|this
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 argument_list|,
 name|this
@@ -33390,7 +33426,7 @@ name|this
 operator|.
 name|htableDescriptor
 operator|.
-name|getFamiliesKeys
+name|getColumnFamilyNames
 argument_list|()
 control|)
 block|{
@@ -36050,7 +36086,7 @@ name|columnFamily
 init|=
 name|store
 operator|.
-name|getFamily
+name|getColumnFamilyDescriptor
 argument_list|()
 operator|.
 name|getName
@@ -37114,7 +37150,7 @@ name|addColumn
 argument_list|(
 name|store
 operator|.
-name|getFamily
+name|getColumnFamilyDescriptor
 argument_list|()
 operator|.
 name|getName
@@ -37219,7 +37255,7 @@ name|this
 operator|.
 name|htableDescriptor
 operator|.
-name|hasFamily
+name|hasColumnFamily
 argument_list|(
 name|family
 argument_list|)
@@ -39607,7 +39643,7 @@ name|append
 argument_list|(
 name|s
 operator|.
-name|getFamily
+name|getColumnFamilyDescriptor
 argument_list|()
 operator|.
 name|getNameAsString

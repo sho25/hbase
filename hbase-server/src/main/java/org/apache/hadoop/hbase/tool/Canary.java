@@ -653,6 +653,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|ColumnFamilyDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Connection
 import|;
 end_import
@@ -766,6 +782,22 @@ operator|.
 name|client
 operator|.
 name|Table
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|TableDescriptor
 import|;
 end_import
 
@@ -1066,7 +1098,7 @@ parameter_list|,
 name|HRegionInfo
 name|region
 parameter_list|,
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|column
 parameter_list|,
 name|Exception
@@ -1104,7 +1136,7 @@ parameter_list|,
 name|HRegionInfo
 name|region
 parameter_list|,
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|column
 parameter_list|,
 name|long
@@ -1140,7 +1172,7 @@ parameter_list|,
 name|HRegionInfo
 name|region
 parameter_list|,
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|column
 parameter_list|,
 name|Exception
@@ -1157,7 +1189,7 @@ parameter_list|,
 name|HRegionInfo
 name|region
 parameter_list|,
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|column
 parameter_list|,
 name|long
@@ -1358,7 +1390,7 @@ parameter_list|,
 name|HRegionInfo
 name|region
 parameter_list|,
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|column
 parameter_list|,
 name|Exception
@@ -1435,7 +1467,7 @@ parameter_list|,
 name|HRegionInfo
 name|region
 parameter_list|,
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|column
 parameter_list|,
 name|long
@@ -1570,7 +1602,7 @@ parameter_list|,
 name|HRegionInfo
 name|region
 parameter_list|,
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|column
 parameter_list|,
 name|Exception
@@ -1621,7 +1653,7 @@ parameter_list|,
 name|HRegionInfo
 name|region
 parameter_list|,
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|column
 parameter_list|,
 name|long
@@ -2305,7 +2337,7 @@ name|table
 init|=
 literal|null
 decl_stmt|;
-name|HTableDescriptor
+name|TableDescriptor
 name|tableDesc
 init|=
 literal|null
@@ -2354,7 +2386,7 @@ name|tableDesc
 operator|=
 name|table
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|()
 expr_stmt|;
 block|}
@@ -2450,7 +2482,7 @@ argument_list|()
 decl_stmt|;
 for|for
 control|(
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|column
 range|:
 name|tableDesc
@@ -2819,7 +2851,7 @@ name|table
 init|=
 literal|null
 decl_stmt|;
-name|HTableDescriptor
+name|TableDescriptor
 name|tableDesc
 init|=
 literal|null
@@ -2842,7 +2874,7 @@ name|tableDesc
 operator|=
 name|table
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|()
 expr_stmt|;
 name|byte
@@ -2892,7 +2924,7 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|column
 range|:
 name|tableDesc

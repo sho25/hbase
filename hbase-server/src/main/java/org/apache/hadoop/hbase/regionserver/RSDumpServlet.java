@@ -639,7 +639,7 @@ name|append
 argument_list|(
 name|hRegion
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|getTableName

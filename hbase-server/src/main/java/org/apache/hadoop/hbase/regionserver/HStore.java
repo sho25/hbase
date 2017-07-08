@@ -1167,6 +1167,22 @@ name|Sets
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|ColumnFamilyDescriptor
+import|;
+end_import
+
 begin_comment
 comment|/**  * A Store holds a column family in a Region.  Its a memstore and a set of zero  * or more StoreFiles, which stretch backwards over time.  *  *<p>There's no reason to consider append-logging at this level; all logging  * and locking is handled at the HRegion level.  Store just provides  * services to manage sets of StoreFiles.  One of the most important of those  * services is compaction services where files are aggregated once they pass  * a configurable threshold.  *  *<p>Locking and transactions are handled at a higher level.  This API should  * not be called directly but by an HRegion manager.  */
 end_comment
@@ -1267,7 +1283,7 @@ name|region
 decl_stmt|;
 specifier|private
 specifier|final
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|family
 decl_stmt|;
 specifier|private
@@ -1525,7 +1541,7 @@ name|HRegion
 name|region
 parameter_list|,
 specifier|final
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|family
 parameter_list|,
 specifier|final
@@ -1587,7 +1603,7 @@ name|addStringMap
 argument_list|(
 name|region
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|getConfiguration
@@ -2143,7 +2159,7 @@ name|void
 name|createCacheConf
 parameter_list|(
 specifier|final
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|family
 parameter_list|)
 block|{
@@ -2206,7 +2222,7 @@ name|long
 name|determineTTLFromFamily
 parameter_list|(
 specifier|final
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|family
 parameter_list|)
 block|{
@@ -2561,8 +2577,8 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|HColumnDescriptor
-name|getFamily
+name|ColumnFamilyDescriptor
+name|getColumnFamilyDescriptor
 parameter_list|()
 block|{
 return|return
@@ -7127,7 +7143,7 @@ name|fs
 operator|.
 name|getStoreDir
 argument_list|(
-name|getFamily
+name|getColumnFamilyDescriptor
 argument_list|()
 operator|.
 name|getNameAsString
@@ -8909,7 +8925,7 @@ condition|)
 return|return;
 if|if
 condition|(
-name|getFamily
+name|getColumnFamilyDescriptor
 argument_list|()
 operator|.
 name|getMinVersions
@@ -8924,7 +8940,7 @@ name|debug
 argument_list|(
 literal|"Skipping expired store file removal due to min version being "
 operator|+
-name|getFamily
+name|getColumnFamilyDescriptor
 argument_list|()
 operator|.
 name|getMinVersions
@@ -12541,7 +12557,7 @@ name|removeStoreFiles
 argument_list|(
 name|this
 operator|.
-name|getFamily
+name|getColumnFamilyDescriptor
 argument_list|()
 operator|.
 name|getNameAsString

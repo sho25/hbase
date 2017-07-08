@@ -2707,7 +2707,7 @@ condition|(
 operator|!
 name|region
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|isCompactionEnabled

@@ -152,7 +152,7 @@ name|prefixLengthString
 init|=
 name|region
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|getValue
@@ -172,7 +172,7 @@ name|prefixLengthString
 operator|=
 name|region
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|getValue
@@ -197,7 +197,7 @@ literal|" not specified for table "
 operator|+
 name|region
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|getTableName
@@ -240,7 +240,7 @@ literal|" for table "
 operator|+
 name|region
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|getTableName
@@ -276,7 +276,7 @@ literal|" for table "
 operator|+
 name|region
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|getTableName

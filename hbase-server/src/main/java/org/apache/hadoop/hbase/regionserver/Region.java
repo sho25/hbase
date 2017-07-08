@@ -357,6 +357,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|TableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|conf
 operator|.
 name|ConfigurationObserver
@@ -561,8 +577,8 @@ name|getRegionInfo
 parameter_list|()
 function_decl|;
 comment|/** @return table descriptor for this region */
-name|HTableDescriptor
-name|getTableDesc
+name|TableDescriptor
+name|getTableDescriptor
 parameter_list|()
 function_decl|;
 comment|/** @return true if region is available (not closed and not closing) */

@@ -634,7 +634,7 @@ name|kvCount
 argument_list|,
 name|store
 operator|.
-name|getFamily
+name|getColumnFamilyDescriptor
 argument_list|()
 operator|.
 name|getCompressionType

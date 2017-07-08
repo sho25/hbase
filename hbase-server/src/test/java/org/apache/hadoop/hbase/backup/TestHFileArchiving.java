@@ -1538,10 +1538,10 @@ name|columns
 init|=
 name|region
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
-name|getFamiliesKeys
+name|getColumnFamilyNames
 argument_list|()
 operator|.
 name|toArray
@@ -1983,10 +1983,10 @@ name|columns
 init|=
 name|region
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
-name|getFamiliesKeys
+name|getColumnFamilyNames
 argument_list|()
 operator|.
 name|toArray

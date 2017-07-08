@@ -483,6 +483,14 @@ index|[]
 name|key
 parameter_list|)
 function_decl|;
+comment|/**    * Getter for accessing the metadata associated with the key.    *    * @param key The key.    * @return Null if no mapping for the key    */
+name|String
+name|getValue
+parameter_list|(
+name|String
+name|key
+parameter_list|)
+function_decl|;
 comment|/**    * @return Getter for fetching an unmodifiable map.    */
 name|Map
 argument_list|<

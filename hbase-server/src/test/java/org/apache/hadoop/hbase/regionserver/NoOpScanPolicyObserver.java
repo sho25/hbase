@@ -212,7 +212,7 @@ argument_list|()
 argument_list|,
 name|store
 operator|.
-name|getFamily
+name|getColumnFamilyDescriptor
 argument_list|()
 argument_list|,
 name|oldSI
@@ -334,7 +334,7 @@ argument_list|()
 argument_list|,
 name|store
 operator|.
-name|getFamily
+name|getColumnFamilyDescriptor
 argument_list|()
 argument_list|,
 name|oldSI

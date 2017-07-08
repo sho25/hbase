@@ -159,13 +159,10 @@ name|familyNumber
 init|=
 name|region
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
-name|getFamilies
-argument_list|()
-operator|.
-name|size
+name|getColumnFamilyCount
 argument_list|()
 decl_stmt|;
 comment|// For multiple families, lower bound is the "average flush size" by default
@@ -211,7 +208,7 @@ name|flushedSizeLowerBoundString
 init|=
 name|region
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|getValue
@@ -246,7 +243,7 @@ literal|" set in description of table "
 operator|+
 name|region
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|getTableName
@@ -294,7 +291,7 @@ literal|" for table "
 operator|+
 name|region
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|getTableName

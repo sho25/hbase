@@ -423,7 +423,7 @@ argument_list|(
 name|mockRegion
 argument_list|)
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 expr_stmt|;
 name|Mockito
@@ -1601,7 +1601,7 @@ argument_list|(
 name|myMockRegion
 argument_list|)
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 expr_stmt|;
 name|Mockito
@@ -2297,7 +2297,7 @@ argument_list|(
 name|myMockRegion
 argument_list|)
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 expr_stmt|;
 name|Mockito

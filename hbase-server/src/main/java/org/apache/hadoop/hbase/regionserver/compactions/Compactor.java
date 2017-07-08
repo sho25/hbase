@@ -770,7 +770,7 @@ name|this
 operator|.
 name|store
 operator|.
-name|getFamily
+name|getColumnFamilyDescriptor
 argument_list|()
 operator|==
 literal|null
@@ -786,7 +786,7 @@ name|this
 operator|.
 name|store
 operator|.
-name|getFamily
+name|getColumnFamilyDescriptor
 argument_list|()
 operator|.
 name|getCompactionCompressionType
@@ -2327,7 +2327,7 @@ name|this
 operator|.
 name|store
 operator|.
-name|getFamily
+name|getColumnFamilyDescriptor
 argument_list|()
 operator|.
 name|getBlocksize
@@ -2764,7 +2764,7 @@ name|setMaxVersions
 argument_list|(
 name|store
 operator|.
-name|getFamily
+name|getColumnFamilyDescriptor
 argument_list|()
 operator|.
 name|getMaxVersions
@@ -2838,7 +2838,7 @@ name|setMaxVersions
 argument_list|(
 name|store
 operator|.
-name|getFamily
+name|getColumnFamilyDescriptor
 argument_list|()
 operator|.
 name|getMaxVersions

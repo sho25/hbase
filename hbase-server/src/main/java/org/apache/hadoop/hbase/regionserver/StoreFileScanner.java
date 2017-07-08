@@ -1970,7 +1970,7 @@ name|cf
 init|=
 name|store
 operator|.
-name|getFamily
+name|getColumnFamilyDescriptor
 argument_list|()
 operator|.
 name|getName

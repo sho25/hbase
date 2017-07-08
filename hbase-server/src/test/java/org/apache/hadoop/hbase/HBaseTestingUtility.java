@@ -761,6 +761,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|TableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|TableState
 import|;
 end_import
@@ -1714,6 +1730,54 @@ operator|.
 name|annotations
 operator|.
 name|Nullable
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|ColumnFamilyDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|ColumnFamilyDescriptorBuilder
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|TableDescriptorBuilder
 import|;
 end_import
 
@@ -6093,7 +6157,7 @@ name|major
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create a table.    * @param tableName    * @param family    * @return An HTable instance for the created table.    * @throws IOException    */
+comment|/**    * Create a table.    * @param tableName    * @param family    * @return A Table instance for the created table.    * @throws IOException    */
 specifier|public
 name|Table
 name|createTable
@@ -6121,7 +6185,7 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a table.    * @param tableName    * @param families    * @return An HTable instance for the created table.    * @throws IOException    */
+comment|/**    * Create a table.    * @param tableName    * @param families    * @return A Table instance for the created table.    * @throws IOException    */
 specifier|public
 name|Table
 name|createTable
@@ -6192,7 +6256,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a table.    * @param tableName    * @param family    * @return An HTable instance for the created table.    * @throws IOException    */
+comment|/**    * Create a table.    * @param tableName    * @param family    * @return A Table instance for the created table.    * @throws IOException    */
 specifier|public
 name|Table
 name|createTable
@@ -6222,7 +6286,7 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a table with multiple regions.    * @param tableName    * @param family    * @param numRegions    * @return An HTable instance for the created table.    * @throws IOException    */
+comment|/**    * Create a table with multiple regions.    * @param tableName    * @param family    * @param numRegions    * @return A Table instance for the created table.    * @throws IOException    */
 specifier|public
 name|Table
 name|createMultiRegionTable
@@ -6310,7 +6374,7 @@ name|splitKeys
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a table.    * @param tableName    * @param families    * @return An HTable instance for the created table.    * @throws IOException    */
+comment|/**    * Create a table.    * @param tableName    * @param families    * @return A Table instance for the created table.    * @throws IOException    */
 specifier|public
 name|Table
 name|createTable
@@ -6342,7 +6406,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a table with multiple regions.    * @param tableName    * @param families    * @return An HTable instance for the created table.    * @throws IOException    */
+comment|/**    * Create a table with multiple regions.    * @param tableName    * @param families    * @return A Table instance for the created table.    * @throws IOException    */
 specifier|public
 name|Table
 name|createMultiRegionTable
@@ -6369,7 +6433,7 @@ name|KEYS_FOR_HBA_CREATE_TABLE
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a table.    * @param tableName    * @param families    * @param splitKeys    * @return An HTable instance for the created table.    * @throws IOException    */
+comment|/**    * Create a table.    * @param tableName    * @param families    * @param splitKeys    * @return A Table instance for the created table.    * @throws IOException    */
 specifier|public
 name|Table
 name|createTable
@@ -6480,12 +6544,47 @@ name|tableName
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a table.    * @param htd    * @param families    * @param c Configuration to use    * @return An HTable instance for the created table.    * @throws IOException    */
+comment|/**    * Create a table.    * @param htd    * @param families    * @param c Configuration to use    * @return A Table instance for the created table.    * @throws IOException    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #createTable(TableDescriptor, byte[][], Configuration)}    */
+annotation|@
+name|Deprecated
 specifier|public
 name|Table
 name|createTable
 parameter_list|(
 name|HTableDescriptor
+name|htd
+parameter_list|,
+name|byte
+index|[]
+index|[]
+name|families
+parameter_list|,
+name|Configuration
+name|c
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|createTable
+argument_list|(
+operator|(
+name|TableDescriptor
+operator|)
+name|htd
+argument_list|,
+name|families
+argument_list|,
+name|c
+argument_list|)
+return|;
+block|}
+comment|/**    * Create a table.    * @param htd    * @param families    * @param c Configuration to use    * @return A Table instance for the created table.    * @throws IOException    */
+specifier|public
+name|Table
+name|createTable
+parameter_list|(
+name|TableDescriptor
 name|htd
 parameter_list|,
 name|byte
@@ -6512,7 +6611,9 @@ name|c
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a table.    * @param htd    * @param families    * @param splitKeys    * @param c Configuration to use    * @return An HTable instance for the created table.    * @throws IOException    */
+comment|/**    * Create a table.    * @param htd    * @param families    * @param splitKeys    * @param c Configuration to use    * @return A Table instance for the created table.    * @throws IOException    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #createTable(TableDescriptor, byte[][], byte[][], Configuration)}    */
+annotation|@
+name|Deprecated
 specifier|public
 name|Table
 name|createTable
@@ -6536,6 +6637,56 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+return|return
+name|createTable
+argument_list|(
+operator|(
+name|TableDescriptor
+operator|)
+name|htd
+argument_list|,
+name|families
+argument_list|,
+name|splitKeys
+argument_list|,
+name|c
+argument_list|)
+return|;
+block|}
+comment|/**    * Create a table.    * @param htd    * @param families    * @param splitKeys    * @param c Configuration to use    * @return A Table instance for the created table.    * @throws IOException    */
+specifier|public
+name|Table
+name|createTable
+parameter_list|(
+name|TableDescriptor
+name|htd
+parameter_list|,
+name|byte
+index|[]
+index|[]
+name|families
+parameter_list|,
+name|byte
+index|[]
+index|[]
+name|splitKeys
+parameter_list|,
+name|Configuration
+name|c
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|TableDescriptorBuilder
+name|builder
+init|=
+name|TableDescriptorBuilder
+operator|.
+name|newBuilder
+argument_list|(
+name|htd
+argument_list|)
+decl_stmt|;
 for|for
 control|(
 name|byte
@@ -6545,19 +6696,19 @@ range|:
 name|families
 control|)
 block|{
-name|HColumnDescriptor
-name|hcd
-init|=
-operator|new
-name|HColumnDescriptor
-argument_list|(
-name|family
-argument_list|)
-decl_stmt|;
 comment|// Disable blooms (they are on by default as of 0.95) but we disable them here because
 comment|// tests have hard coded counts of what to expect in block cache, etc., and blooms being
 comment|// on is interfering.
-name|hcd
+name|builder
+operator|.
+name|addColumnFamily
+argument_list|(
+name|ColumnFamilyDescriptorBuilder
+operator|.
+name|newBuilder
+argument_list|(
+name|family
+argument_list|)
 operator|.
 name|setBloomFilterType
 argument_list|(
@@ -6565,21 +6716,26 @@ name|BloomType
 operator|.
 name|NONE
 argument_list|)
-expr_stmt|;
-name|htd
 operator|.
-name|addFamily
-argument_list|(
-name|hcd
+name|build
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+name|TableDescriptor
+name|td
+init|=
+name|builder
+operator|.
+name|build
+argument_list|()
+decl_stmt|;
 name|getAdmin
 argument_list|()
 operator|.
 name|createTable
 argument_list|(
-name|htd
+name|td
 argument_list|,
 name|splitKeys
 argument_list|)
@@ -6588,7 +6744,7 @@ comment|// HBaseAdmin only waits for regions to appear in hbase:meta
 comment|// we should wait until they are assigned
 name|waitUntilAllRegionsAssigned
 argument_list|(
-name|htd
+name|td
 operator|.
 name|getTableName
 argument_list|()
@@ -6600,19 +6756,49 @@ argument_list|()
 operator|.
 name|getTable
 argument_list|(
-name|htd
+name|td
 operator|.
 name|getTableName
 argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a table.    * @param htd    * @param splitRows    * @return An HTable instance for the created table.    * @throws IOException    */
+comment|/**    * Create a table.    * @param htd    * @param splitRows    * @return A Table instance for the created table.    * @throws IOException    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #createTable(TableDescriptor, byte[][])}    */
+annotation|@
+name|Deprecated
 specifier|public
 name|Table
 name|createTable
 parameter_list|(
 name|HTableDescriptor
+name|htd
+parameter_list|,
+name|byte
+index|[]
+index|[]
+name|splitRows
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|createTable
+argument_list|(
+operator|(
+name|TableDescriptor
+operator|)
+name|htd
+argument_list|,
+name|splitRows
+argument_list|)
+return|;
+block|}
+comment|/**    * Create a table.    * @param htd    * @param splitRows    * @return A Table instance for the created table.    * @throws IOException    */
+specifier|public
+name|Table
+name|createTable
+parameter_list|(
+name|TableDescriptor
 name|htd
 parameter_list|,
 name|byte
@@ -6656,7 +6842,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a table.    * @param tableName    * @param families    * @param splitKeys    * @param c Configuration to use    * @return An HTable instance for the created table.    * @throws IOException    */
+comment|/**    * Create a table.    * @param tableName    * @param families    * @param splitKeys    * @param c Configuration to use    * @return A Table instance for the created table.    * @throws IOException    */
 specifier|public
 name|Table
 name|createTable
@@ -6698,7 +6884,7 @@ name|c
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a table.    * @param tableName    * @param family    * @param numVersions    * @return An HTable instance for the created table.    * @throws IOException    */
+comment|/**    * Create a table.    * @param tableName    * @param family    * @param numVersions    * @return A Table instance for the created table.    * @throws IOException    */
 specifier|public
 name|Table
 name|createTable
@@ -6733,7 +6919,7 @@ name|numVersions
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a table.    * @param tableName    * @param families    * @param numVersions    * @return An HTable instance for the created table.    * @throws IOException    */
+comment|/**    * Create a table.    * @param tableName    * @param families    * @param numVersions    * @return A Table instance for the created table.    * @throws IOException    */
 specifier|public
 name|Table
 name|createTable
@@ -6770,7 +6956,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a table.    * @param tableName    * @param families    * @param numVersions    * @param splitKeys    * @return An HTable instance for the created table.    * @throws IOException    */
+comment|/**    * Create a table.    * @param tableName    * @param families    * @param numVersions    * @param splitKeys    * @return A Table instance for the created table.    * @throws IOException    */
 specifier|public
 name|Table
 name|createTable
@@ -6861,7 +7047,7 @@ name|tableName
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a table with multiple regions.    * @param tableName    * @param families    * @param numVersions    * @return An HTable instance for the created table.    * @throws IOException    */
+comment|/**    * Create a table with multiple regions.    * @param tableName    * @param families    * @param numVersions    * @return A Table instance for the created table.    * @throws IOException    */
 specifier|public
 name|Table
 name|createMultiRegionTable
@@ -6893,7 +7079,7 @@ name|KEYS_FOR_HBA_CREATE_TABLE
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a table.    * @param tableName    * @param families    * @param numVersions    * @param blockSize    * @return An HTable instance for the created table.    * @throws IOException    */
+comment|/**    * Create a table.    * @param tableName    * @param families    * @param numVersions    * @param blockSize    * @return A Table instance for the created table.    * @throws IOException    */
 specifier|public
 name|Table
 name|createTable
@@ -7094,7 +7280,7 @@ name|tableName
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a table.    * @param tableName    * @param families    * @param numVersions    * @return An HTable instance for the created table.    * @throws IOException    */
+comment|/**    * Create a table.    * @param tableName    * @param families    * @param numVersions    * @return A Table instance for the created table.    * @throws IOException    */
 specifier|public
 name|Table
 name|createTable
@@ -7190,7 +7376,7 @@ name|tableName
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a table.    * @param tableName    * @param family    * @param splitRows    * @return An HTable instance for the created table.    * @throws IOException    */
+comment|/**    * Create a table.    * @param tableName    * @param family    * @param splitRows    * @return A Table instance for the created table.    * @throws IOException    */
 specifier|public
 name|Table
 name|createTable
@@ -7262,7 +7448,7 @@ name|tableName
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a table with multiple regions.    * @param tableName    * @param family    * @return An HTable instance for the created table.    * @throws IOException    */
+comment|/**    * Create a table with multiple regions.    * @param tableName    * @param family    * @return A Table instance for the created table.    * @throws IOException    */
 specifier|public
 name|Table
 name|createMultiRegionTable
@@ -7288,7 +7474,9 @@ name|KEYS_FOR_HBA_CREATE_TABLE
 argument_list|)
 return|;
 block|}
-comment|/**    * Modify a table, synchronous. Waiting logic similar to that of {@code admin.rb#alter_status}.    */
+comment|/**    * Modify a table, synchronous. Waiting logic similar to that of {@code admin.rb#alter_status}.    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #modifyTableSync(Admin, TableDescriptor)}    */
+annotation|@
+name|Deprecated
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -7310,15 +7498,43 @@ name|IOException
 throws|,
 name|InterruptedException
 block|{
+name|modifyTableSync
+argument_list|(
+name|admin
+argument_list|,
+operator|(
+name|TableDescriptor
+operator|)
+name|desc
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Modify a table, synchronous. Waiting logic similar to that of {@code admin.rb#alter_status}.    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"serial"
+argument_list|)
+specifier|public
+specifier|static
+name|void
+name|modifyTableSync
+parameter_list|(
+name|Admin
+name|admin
+parameter_list|,
+name|TableDescriptor
+name|desc
+parameter_list|)
+throws|throws
+name|IOException
+throws|,
+name|InterruptedException
+block|{
 name|admin
 operator|.
 name|modifyTable
 argument_list|(
-name|desc
-operator|.
-name|getTableName
-argument_list|()
-argument_list|,
 name|desc
 argument_list|)
 expr_stmt|;
@@ -8024,12 +8240,47 @@ return|return
 name|desc
 return|;
 block|}
-comment|/**    * Create an HRegion that writes to the local tmp dirs    * @param desc    * @param startKey    * @param endKey    * @return    * @throws IOException    */
+comment|/**    * Create an HRegion that writes to the local tmp dirs    * @param desc    * @param startKey    * @param endKey    * @return    * @throws IOException    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #createLocalHRegion(TableDescriptor, byte[], byte[])}    */
+annotation|@
+name|Deprecated
 specifier|public
 name|HRegion
 name|createLocalHRegion
 parameter_list|(
 name|HTableDescriptor
+name|desc
+parameter_list|,
+name|byte
+index|[]
+name|startKey
+parameter_list|,
+name|byte
+index|[]
+name|endKey
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|createLocalHRegion
+argument_list|(
+operator|(
+name|TableDescriptor
+operator|)
+name|desc
+argument_list|,
+name|startKey
+argument_list|,
+name|endKey
+argument_list|)
+return|;
+block|}
+comment|/**    * Create an HRegion that writes to the local tmp dirs    * @param desc    * @param startKey    * @param endKey    * @return    * @throws IOException    */
+specifier|public
+name|HRegion
+name|createLocalHRegion
+parameter_list|(
+name|TableDescriptor
 name|desc
 parameter_list|,
 name|byte
@@ -8068,7 +8319,9 @@ name|desc
 argument_list|)
 return|;
 block|}
-comment|/**    * Create an HRegion that writes to the local tmp dirs. Creates the WAL for you. Be sure to call    * {@link HBaseTestingUtility#closeRegionAndWAL(HRegion)} when you're finished with it.    */
+comment|/**    * Create an HRegion that writes to the local tmp dirs. Creates the WAL for you. Be sure to call    * {@link HBaseTestingUtility#closeRegionAndWAL(HRegion)} when you're finished with it.    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #createLocalHRegion(HRegionInfo, TableDescriptor)}    */
+annotation|@
+name|Deprecated
 specifier|public
 name|HRegion
 name|createLocalHRegion
@@ -8077,6 +8330,32 @@ name|HRegionInfo
 name|info
 parameter_list|,
 name|HTableDescriptor
+name|desc
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|createLocalHRegion
+argument_list|(
+name|info
+argument_list|,
+operator|(
+name|TableDescriptor
+operator|)
+name|desc
+argument_list|)
+return|;
+block|}
+comment|/**    * Create an HRegion that writes to the local tmp dirs. Creates the WAL for you. Be sure to call    * {@link HBaseTestingUtility#closeRegionAndWAL(HRegion)} when you're finished with it.    */
+specifier|public
+name|HRegion
+name|createLocalHRegion
+parameter_list|(
+name|HRegionInfo
+name|info
+parameter_list|,
+name|TableDescriptor
 name|desc
 parameter_list|)
 throws|throws
@@ -8097,7 +8376,9 @@ name|desc
 argument_list|)
 return|;
 block|}
-comment|/**    * Create an HRegion that writes to the local tmp dirs with specified wal    * @param info regioninfo    * @param desc table descriptor    * @param wal wal for this region.    * @return created hregion    * @throws IOException    */
+comment|/**    * Create an HRegion that writes to the local tmp dirs with specified wal    * @param info regioninfo    * @param desc table descriptor    * @param wal wal for this region.    * @return created hregion    * @throws IOException    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #createLocalHRegion(HRegionInfo, TableDescriptor, WAL)}    */
+annotation|@
+name|Deprecated
 specifier|public
 name|HRegion
 name|createLocalHRegion
@@ -8106,6 +8387,37 @@ name|HRegionInfo
 name|info
 parameter_list|,
 name|HTableDescriptor
+name|desc
+parameter_list|,
+name|WAL
+name|wal
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|createLocalHRegion
+argument_list|(
+name|info
+argument_list|,
+operator|(
+name|TableDescriptor
+operator|)
+name|desc
+argument_list|,
+name|wal
+argument_list|)
+return|;
+block|}
+comment|/**    * Create an HRegion that writes to the local tmp dirs with specified wal    * @param info regioninfo    * @param desc table descriptor    * @param wal wal for this region.    * @return created hregion    * @throws IOException    */
+specifier|public
+name|HRegion
+name|createLocalHRegion
+parameter_list|(
+name|HRegionInfo
+name|info
+parameter_list|,
+name|TableDescriptor
 name|desc
 parameter_list|,
 name|WAL
@@ -11179,6 +11491,52 @@ decl_stmt|;
 end_decl_stmt
 
 begin_comment
+comment|/**    * Create rows in hbase:meta for regions of the specified table with the specified    * start keys.  The first startKey should be a 0 length byte array if you    * want to form a proper range of regions.    * @param conf    * @param htd    * @param startKeys    * @return list of region info for regions added to meta    * @throws IOException    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #createMultiRegionsInMeta(Configuration, TableDescriptor, byte[][])}    */
+end_comment
+
+begin_function
+annotation|@
+name|Deprecated
+specifier|public
+name|List
+argument_list|<
+name|HRegionInfo
+argument_list|>
+name|createMultiRegionsInMeta
+parameter_list|(
+specifier|final
+name|Configuration
+name|conf
+parameter_list|,
+specifier|final
+name|HTableDescriptor
+name|htd
+parameter_list|,
+name|byte
+index|[]
+index|[]
+name|startKeys
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|createMultiRegionsInMeta
+argument_list|(
+name|conf
+argument_list|,
+operator|(
+name|TableDescriptor
+operator|)
+name|htd
+argument_list|,
+name|startKeys
+argument_list|)
+return|;
+block|}
+end_function
+
+begin_comment
 comment|/**    * Create rows in hbase:meta for regions of the specified table with the specified    * start keys.  The first startKey should be a 0 length byte array if you    * want to form a proper range of regions.    * @param conf    * @param htd    * @param startKeys    * @return list of region info for regions added to meta    * @throws IOException    */
 end_comment
 
@@ -11195,7 +11553,7 @@ name|Configuration
 name|conf
 parameter_list|,
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 parameter_list|,
 name|byte
@@ -11445,10 +11803,12 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Create a region with it's own WAL. Be sure to call    * {@link HBaseTestingUtility#closeRegionAndWAL(HRegion)} to clean up all resources.    */
+comment|/**    * Create a region with it's own WAL. Be sure to call    * {@link HBaseTestingUtility#closeRegionAndWAL(HRegion)} to clean up all resources.    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #createRegionAndWAL(HRegionInfo, Path, Configuration, TableDescriptor)}    */
 end_comment
 
 begin_function
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 name|HRegion
@@ -11482,9 +11842,10 @@ name|rootDir
 argument_list|,
 name|conf
 argument_list|,
+operator|(
+name|TableDescriptor
+operator|)
 name|htd
-argument_list|,
-literal|true
 argument_list|)
 return|;
 block|}
@@ -11513,7 +11874,107 @@ name|Configuration
 name|conf
 parameter_list|,
 specifier|final
+name|TableDescriptor
+name|htd
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|createRegionAndWAL
+argument_list|(
+name|info
+argument_list|,
+name|rootDir
+argument_list|,
+name|conf
+argument_list|,
+name|htd
+argument_list|,
+literal|true
+argument_list|)
+return|;
+block|}
+end_function
+
+begin_comment
+comment|/**    * Create a region with it's own WAL. Be sure to call    * {@link HBaseTestingUtility#closeRegionAndWAL(HRegion)} to clean up all resources.    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #createRegionAndWAL(HRegionInfo, Path, Configuration, TableDescriptor, boolean)}    */
+end_comment
+
+begin_function
+annotation|@
+name|Deprecated
+specifier|public
+specifier|static
+name|HRegion
+name|createRegionAndWAL
+parameter_list|(
+specifier|final
+name|HRegionInfo
+name|info
+parameter_list|,
+specifier|final
+name|Path
+name|rootDir
+parameter_list|,
+specifier|final
+name|Configuration
+name|conf
+parameter_list|,
+specifier|final
 name|HTableDescriptor
+name|htd
+parameter_list|,
+name|boolean
+name|initialize
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|createRegionAndWAL
+argument_list|(
+name|info
+argument_list|,
+name|rootDir
+argument_list|,
+name|conf
+argument_list|,
+operator|(
+name|TableDescriptor
+operator|)
+name|htd
+argument_list|,
+name|initialize
+argument_list|)
+return|;
+block|}
+end_function
+
+begin_comment
+comment|/**    * Create a region with it's own WAL. Be sure to call    * {@link HBaseTestingUtility#closeRegionAndWAL(HRegion)} to clean up all resources.    */
+end_comment
+
+begin_function
+specifier|public
+specifier|static
+name|HRegion
+name|createRegionAndWAL
+parameter_list|(
+specifier|final
+name|HRegionInfo
+name|info
+parameter_list|,
+specifier|final
+name|Path
+name|rootDir
+parameter_list|,
+specifier|final
+name|Configuration
+name|conf
+parameter_list|,
+specifier|final
+name|TableDescriptor
 name|htd
 parameter_list|,
 name|boolean
@@ -13004,7 +13465,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Expire a ZooKeeper session as recommended in ZooKeeper documentation    * http://hbase.apache.org/book.html#trouble.zookeeper    * There are issues when doing this:    * [1] http://www.mail-archive.com/dev@zookeeper.apache.org/msg01942.html    * [2] https://issues.apache.org/jira/browse/ZOOKEEPER-1105    *    * @param nodeZK - the ZK watcher to expire    * @param checkStatus - true to check if we can create an HTable with the    *                    current configuration.    */
+comment|/**    * Expire a ZooKeeper session as recommended in ZooKeeper documentation    * http://hbase.apache.org/book.html#trouble.zookeeper    * There are issues when doing this:    * [1] http://www.mail-archive.com/dev@zookeeper.apache.org/msg01942.html    * [2] https://issues.apache.org/jira/browse/ZOOKEEPER-1105    *    * @param nodeZK - the ZK watcher to expire    * @param checkStatus - true to check if we can create a Table with the    *                    current configuration.    */
 end_comment
 
 begin_function
@@ -15818,7 +16279,7 @@ name|get
 argument_list|(
 name|store
 operator|.
-name|getFamily
+name|getColumnFamilyDescriptor
 argument_list|()
 operator|.
 name|getName
@@ -16061,7 +16522,7 @@ name|put
 argument_list|(
 name|store
 operator|.
-name|getFamily
+name|getColumnFamilyDescriptor
 argument_list|()
 operator|.
 name|getName
@@ -17773,10 +18234,12 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Creates a pre-split table for load testing. If the table already exists,    * logs a warning and continues.    * @return the number of regions the table was split into    */
+comment|/**    * Creates a pre-split table for load testing. If the table already exists,    * logs a warning and continues.    * @return the number of regions the table was split into    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #createPreSplitLoadTestTable(Configuration,    *                 TableDescriptor, ColumnFamilyDescriptor)}    */
 end_comment
 
 begin_function
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 name|int
@@ -17789,6 +18252,47 @@ name|HTableDescriptor
 name|desc
 parameter_list|,
 name|HColumnDescriptor
+name|hcd
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|createPreSplitLoadTestTable
+argument_list|(
+name|conf
+argument_list|,
+operator|(
+name|TableDescriptor
+operator|)
+name|desc
+argument_list|,
+operator|(
+name|ColumnFamilyDescriptor
+operator|)
+name|hcd
+argument_list|)
+return|;
+block|}
+end_function
+
+begin_comment
+comment|/**    * Creates a pre-split table for load testing. If the table already exists,    * logs a warning and continues.    * @return the number of regions the table was split into    */
+end_comment
+
+begin_function
+specifier|public
+specifier|static
+name|int
+name|createPreSplitLoadTestTable
+parameter_list|(
+name|Configuration
+name|conf
+parameter_list|,
+name|TableDescriptor
+name|desc
+parameter_list|,
+name|ColumnFamilyDescriptor
 name|hcd
 parameter_list|)
 throws|throws
@@ -17810,10 +18314,12 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Creates a pre-split table for load testing. If the table already exists,    * logs a warning and continues.    * @return the number of regions the table was split into    */
+comment|/**    * Creates a pre-split table for load testing. If the table already exists,    * logs a warning and continues.    * @return the number of regions the table was split into    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #createPreSplitLoadTestTable(Configuration,    *                 TableDescriptor, ColumnFamilyDescriptor, int)}    */
 end_comment
 
 begin_function
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 name|int
@@ -17839,14 +18345,15 @@ name|createPreSplitLoadTestTable
 argument_list|(
 name|conf
 argument_list|,
+operator|(
+name|TableDescriptor
+operator|)
 name|desc
 argument_list|,
-operator|new
-name|HColumnDescriptor
-index|[]
-block|{
+operator|(
+name|ColumnFamilyDescriptor
+operator|)
 name|hcd
-block|}
 argument_list|,
 name|numRegionsPerServer
 argument_list|)
@@ -17867,10 +18374,105 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
+name|TableDescriptor
+name|desc
+parameter_list|,
+name|ColumnFamilyDescriptor
+name|hcd
+parameter_list|,
+name|int
+name|numRegionsPerServer
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|createPreSplitLoadTestTable
+argument_list|(
+name|conf
+argument_list|,
+name|desc
+argument_list|,
+operator|new
+name|ColumnFamilyDescriptor
+index|[]
+block|{
+name|hcd
+block|}
+argument_list|,
+name|numRegionsPerServer
+argument_list|)
+return|;
+block|}
+end_function
+
+begin_comment
+comment|/**    * Creates a pre-split table for load testing. If the table already exists,    * logs a warning and continues.    * @return the number of regions the table was split into    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #createPreSplitLoadTestTable(Configuration,    *                 TableDescriptor, ColumnFamilyDescriptor[], int)}    */
+end_comment
+
+begin_function
+annotation|@
+name|Deprecated
+specifier|public
+specifier|static
+name|int
+name|createPreSplitLoadTestTable
+parameter_list|(
+name|Configuration
+name|conf
+parameter_list|,
 name|HTableDescriptor
 name|desc
 parameter_list|,
 name|HColumnDescriptor
+index|[]
+name|hcds
+parameter_list|,
+name|int
+name|numRegionsPerServer
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|createPreSplitLoadTestTable
+argument_list|(
+name|conf
+argument_list|,
+operator|(
+name|TableDescriptor
+operator|)
+name|desc
+argument_list|,
+operator|(
+name|ColumnFamilyDescriptor
+index|[]
+operator|)
+name|hcds
+argument_list|,
+name|numRegionsPerServer
+argument_list|)
+return|;
+block|}
+end_function
+
+begin_comment
+comment|/**    * Creates a pre-split table for load testing. If the table already exists,    * logs a warning and continues.    * @return the number of regions the table was split into    */
+end_comment
+
+begin_function
+specifier|public
+specifier|static
+name|int
+name|createPreSplitLoadTestTable
+parameter_list|(
+name|Configuration
+name|conf
+parameter_list|,
+name|TableDescriptor
+name|desc
+parameter_list|,
+name|ColumnFamilyDescriptor
 index|[]
 name|hcds
 parameter_list|,
@@ -17914,12 +18516,12 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|HTableDescriptor
-name|desc
+name|TableDescriptor
+name|td
 parameter_list|,
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 index|[]
-name|hcds
+name|cds
 parameter_list|,
 name|SplitAlgorithm
 name|splitter
@@ -17930,37 +18532,54 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|TableDescriptorBuilder
+name|builder
+init|=
+name|TableDescriptorBuilder
+operator|.
+name|newBuilder
+argument_list|(
+name|td
+argument_list|)
+decl_stmt|;
 for|for
 control|(
-name|HColumnDescriptor
-name|hcd
+name|ColumnFamilyDescriptor
+name|cd
 range|:
-name|hcds
+name|cds
 control|)
 block|{
 if|if
 condition|(
 operator|!
-name|desc
+name|td
 operator|.
-name|hasFamily
+name|hasColumnFamily
 argument_list|(
-name|hcd
+name|cd
 operator|.
 name|getName
 argument_list|()
 argument_list|)
 condition|)
 block|{
-name|desc
+name|builder
 operator|.
-name|addFamily
+name|addColumnFamily
 argument_list|(
-name|hcd
+name|cd
 argument_list|)
 expr_stmt|;
 block|}
 block|}
+name|td
+operator|=
+name|builder
+operator|.
+name|build
+argument_list|()
+expr_stmt|;
 name|int
 name|totalNumberOfRegions
 init|=
@@ -18063,7 +18682,7 @@ name|admin
 operator|.
 name|createTable
 argument_list|(
-name|desc
+name|td
 argument_list|,
 name|splits
 argument_list|)
@@ -18104,7 +18723,7 @@ name|warn
 argument_list|(
 literal|"Table "
 operator|+
-name|desc
+name|td
 operator|.
 name|getTableName
 argument_list|()
@@ -18478,7 +19097,13 @@ expr_stmt|;
 block|}
 end_function
 
+begin_comment
+comment|/**    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #createTestRegion(String, ColumnFamilyDescriptor)}    */
+end_comment
+
 begin_function
+annotation|@
+name|Deprecated
 specifier|public
 name|HRegion
 name|createTestRegion
@@ -18487,16 +19112,45 @@ name|String
 name|tableName
 parameter_list|,
 name|HColumnDescriptor
-name|hcd
+name|cd
 parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HTableDescriptor
-name|htd
+return|return
+name|createTestRegion
+argument_list|(
+name|tableName
+argument_list|,
+operator|(
+name|ColumnFamilyDescriptor
+operator|)
+name|cd
+argument_list|)
+return|;
+block|}
+end_function
+
+begin_function
+specifier|public
+name|HRegion
+name|createTestRegion
+parameter_list|(
+name|String
+name|tableName
+parameter_list|,
+name|ColumnFamilyDescriptor
+name|cd
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|TableDescriptor
+name|td
 init|=
-operator|new
-name|HTableDescriptor
+name|TableDescriptorBuilder
+operator|.
+name|newBuilder
 argument_list|(
 name|TableName
 operator|.
@@ -18505,14 +19159,15 @@ argument_list|(
 name|tableName
 argument_list|)
 argument_list|)
-decl_stmt|;
-name|htd
 operator|.
-name|addFamily
+name|addColumnFamily
 argument_list|(
-name|hcd
+name|cd
 argument_list|)
-expr_stmt|;
+operator|.
+name|build
+argument_list|()
+decl_stmt|;
 name|HRegionInfo
 name|info
 init|=
@@ -18544,7 +19199,7 @@ argument_list|,
 name|getConfiguration
 argument_list|()
 argument_list|,
-name|htd
+name|td
 argument_list|)
 return|;
 block|}
@@ -19061,12 +19716,12 @@ name|tableName
 argument_list|)
 init|)
 block|{
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 init|=
 name|table
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|()
 decl_stmt|;
 for|for
@@ -19136,7 +19791,7 @@ name|family
 range|:
 name|htd
 operator|.
-name|getFamiliesKeys
+name|getColumnFamilyNames
 argument_list|()
 control|)
 block|{

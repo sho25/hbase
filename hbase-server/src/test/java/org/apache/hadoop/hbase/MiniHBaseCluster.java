@@ -2596,7 +2596,7 @@ if|if
 condition|(
 name|r
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|getTableName
@@ -2716,7 +2716,7 @@ if|if
 condition|(
 name|r
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|getTableName
@@ -2928,7 +2928,7 @@ if|if
 condition|(
 name|region
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|getTableName
@@ -3319,7 +3319,7 @@ if|if
 condition|(
 name|region
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|getTableName

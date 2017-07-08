@@ -69,20 +69,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HTableDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -101,7 +87,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|RegionLocator
+name|TableDescriptor
 import|;
 end_import
 
@@ -303,7 +289,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Analogous to    * {@link HFileOutputFormat2#configureIncrementalLoad(Job, HTableDescriptor, RegionLocator)},    * this function will configure the requisite number of reducers to write HFiles for multple    * tables simultaneously    *    * @param job                   See {@link org.apache.hadoop.mapreduce.Job}    * @param multiTableDescriptors Table descriptor and region locator pairs    * @throws IOException    */
+comment|/**    * Analogous to    * {@link HFileOutputFormat2#configureIncrementalLoad(Job, TableDescriptor, RegionLocator)},    * this function will configure the requisite number of reducers to write HFiles for multple    * tables simultaneously    *    * @param job                   See {@link org.apache.hadoop.mapreduce.Job}    * @param multiTableDescriptors Table descriptor and region locator pairs    * @throws IOException    */
 specifier|public
 specifier|static
 name|void

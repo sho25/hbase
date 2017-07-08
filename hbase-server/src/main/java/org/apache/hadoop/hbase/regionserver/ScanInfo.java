@@ -71,7 +71,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HColumnDescriptor
+name|client
+operator|.
+name|ColumnFamilyDescriptor
 import|;
 end_import
 
@@ -274,7 +276,7 @@ name|SIZEOF_BOOLEAN
 operator|)
 argument_list|)
 decl_stmt|;
-comment|/**    * @param conf    * @param family {@link HColumnDescriptor} describing the column family    * @param ttl Store's TTL (in ms)    * @param timeToPurgeDeletes duration in ms after which a delete marker can be purged during a    *          major compaction.    * @param comparator The store's comparator    */
+comment|/**    * @param conf    * @param family {@link ColumnFamilyDescriptor} describing the column family    * @param ttl Store's TTL (in ms)    * @param timeToPurgeDeletes duration in ms after which a delete marker can be purged during a    *          major compaction.    * @param comparator The store's comparator    */
 specifier|public
 name|ScanInfo
 parameter_list|(
@@ -283,7 +285,7 @@ name|Configuration
 name|conf
 parameter_list|,
 specifier|final
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|family
 parameter_list|,
 specifier|final

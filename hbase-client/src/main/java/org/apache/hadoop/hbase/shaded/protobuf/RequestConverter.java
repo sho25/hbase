@@ -7633,7 +7633,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * Creates a protocol buffer ModifyTableRequest    *    * @param tableName    * @param hTableDesc    * @return a ModifyTableRequest    */
+comment|/**    * Creates a protocol buffer ModifyTableRequest    *    * @param tableName    * @param tableDesc    * @return a ModifyTableRequest    */
 specifier|public
 specifier|static
 name|ModifyTableRequest
@@ -7644,8 +7644,8 @@ name|TableName
 name|tableName
 parameter_list|,
 specifier|final
-name|HTableDescriptor
-name|hTableDesc
+name|TableDescriptor
+name|tableDesc
 parameter_list|,
 specifier|final
 name|long
@@ -7688,7 +7688,7 @@ name|ProtobufUtil
 operator|.
 name|convertToTableSchema
 argument_list|(
-name|hTableDesc
+name|tableDesc
 argument_list|)
 argument_list|)
 expr_stmt|;

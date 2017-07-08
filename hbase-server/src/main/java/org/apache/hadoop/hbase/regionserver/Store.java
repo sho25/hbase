@@ -109,20 +109,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HColumnDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HRegionInfo
 import|;
 end_import
@@ -170,6 +156,22 @@ operator|.
 name|classification
 operator|.
 name|InterfaceStability
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|ColumnFamilyDescriptor
 import|;
 end_import
 
@@ -1008,8 +1010,8 @@ name|MemstoreSize
 name|getSizeOfSnapshot
 parameter_list|()
 function_decl|;
-name|HColumnDescriptor
-name|getFamily
+name|ColumnFamilyDescriptor
+name|getColumnFamilyDescriptor
 parameter_list|()
 function_decl|;
 comment|/**    * @return The maximum sequence id in all store files.    */

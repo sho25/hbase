@@ -1745,6 +1745,22 @@ name|Service
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|ColumnFamilyDescriptor
+import|;
+end_import
+
 begin_comment
 comment|/**  * Provides basic authorization checks for data access and administrative  * operations.  *  *<p>  * {@code AccessController} performs authorization checks for HBase operations  * based on:  *</p>  *<ul>  *<li>the identity of the user performing the operation</li>  *<li>the scope over which the operation is performed, in increasing  *   specificity: global, table, column family, or qualifier</li>  *<li>the type of action being performed (as mapped to  *   {@link Permission.Action} values)</li>  *</ul>  *<p>  * If the authorization check fails, an {@link AccessDeniedException}  * will be thrown for the operation.  *</p>  *  *<p>  * To perform authorization checks, {@code AccessController} relies on the  * RpcServerEngine being loaded to provide  * the user identities for remote requests.  *</p>  *  *<p>  * The access control lists used for authorization can be manipulated via the  * exposed {@link AccessControlService} Interface implementation, and the associated  * {@code grant}, {@code revoke}, and {@code user_permission} HBase shell  * commands.  *</p>  */
 end_comment
@@ -5928,7 +5944,7 @@ operator|.
 name|getRegion
 argument_list|()
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|getConfiguration
@@ -9354,15 +9370,15 @@ argument_list|()
 decl_stmt|;
 for|for
 control|(
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|hcd
 range|:
 name|region
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
-name|getFamilies
+name|getColumnFamilies
 argument_list|()
 control|)
 block|{
@@ -13009,7 +13025,7 @@ operator|.
 name|getRegion
 argument_list|()
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|getTableName
@@ -13065,7 +13081,7 @@ operator|.
 name|getRegion
 argument_list|()
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|getTableName
@@ -13113,7 +13129,7 @@ operator|.
 name|getRegion
 argument_list|()
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|getTableName
@@ -14336,7 +14352,7 @@ operator|.
 name|getRegion
 argument_list|()
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|getTableName
@@ -15428,7 +15444,7 @@ literal|"mergeRegions"
 argument_list|,
 name|regionA
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|getTableName

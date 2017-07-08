@@ -2013,7 +2013,7 @@ name|get
 argument_list|(
 name|store
 operator|.
-name|getFamily
+name|getColumnFamilyDescriptor
 argument_list|()
 operator|.
 name|getName
@@ -2333,7 +2333,7 @@ name|get
 argument_list|(
 name|store
 operator|.
-name|getFamily
+name|getColumnFamilyDescriptor
 argument_list|()
 operator|.
 name|getName
@@ -2670,7 +2670,7 @@ name|get
 argument_list|(
 name|store
 operator|.
-name|getFamily
+name|getColumnFamilyDescriptor
 argument_list|()
 operator|.
 name|getName
@@ -2986,7 +2986,7 @@ name|get
 argument_list|(
 name|store
 operator|.
-name|getFamily
+name|getColumnFamilyDescriptor
 argument_list|()
 operator|.
 name|getName
@@ -3357,7 +3357,7 @@ name|get
 argument_list|(
 name|store
 operator|.
-name|getFamily
+name|getColumnFamilyDescriptor
 argument_list|()
 operator|.
 name|getName
@@ -3485,7 +3485,7 @@ literal|100
 argument_list|,
 name|store
 operator|.
-name|getFamily
+name|getColumnFamilyDescriptor
 argument_list|()
 operator|.
 name|getMobThreshold
@@ -4283,7 +4283,7 @@ name|get
 argument_list|(
 name|store
 operator|.
-name|getFamily
+name|getColumnFamilyDescriptor
 argument_list|()
 operator|.
 name|getName

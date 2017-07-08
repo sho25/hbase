@@ -5431,7 +5431,7 @@ name|when
 argument_list|(
 name|region_a
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 argument_list|)
 operator|.
@@ -5454,7 +5454,7 @@ name|when
 argument_list|(
 name|region_b
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 argument_list|)
 operator|.

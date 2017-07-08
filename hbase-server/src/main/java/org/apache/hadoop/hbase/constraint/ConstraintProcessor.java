@@ -175,6 +175,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|TableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|coprocessor
 operator|.
 name|ObserverContext
@@ -349,7 +365,7 @@ name|RegionCoprocessorEnvironment
 operator|)
 name|environment
 decl_stmt|;
-name|HTableDescriptor
+name|TableDescriptor
 name|desc
 init|=
 name|env
@@ -357,7 +373,7 @@ operator|.
 name|getRegion
 argument_list|()
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 decl_stmt|;
 comment|// load all the constraints from the HTD

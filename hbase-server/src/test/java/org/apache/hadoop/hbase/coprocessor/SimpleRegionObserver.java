@@ -2368,7 +2368,7 @@ operator|.
 name|getRegion
 argument_list|()
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|getTableName
@@ -2563,7 +2563,7 @@ operator|.
 name|getRegion
 argument_list|()
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|getTableName
@@ -2892,7 +2892,7 @@ operator|.
 name|getRegion
 argument_list|()
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|getTableName
@@ -4039,7 +4039,7 @@ operator|.
 name|getRegion
 argument_list|()
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|getTableName
@@ -4211,7 +4211,7 @@ operator|.
 name|getRegion
 argument_list|()
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|getTableName

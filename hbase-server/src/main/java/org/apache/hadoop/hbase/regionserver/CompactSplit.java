@@ -2130,7 +2130,7 @@ operator|||
 operator|(
 name|r
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|!=
 literal|null
@@ -2138,7 +2138,7 @@ operator|&&
 operator|!
 name|r
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|isCompactionEnabled
@@ -2209,7 +2209,7 @@ name|areCompactionsDisabled
 argument_list|(
 name|r
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|getTableName
@@ -3389,7 +3389,7 @@ operator|||
 operator|(
 name|region
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|!=
 literal|null
@@ -3397,7 +3397,7 @@ operator|&&
 operator|!
 name|region
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|isCompactionEnabled

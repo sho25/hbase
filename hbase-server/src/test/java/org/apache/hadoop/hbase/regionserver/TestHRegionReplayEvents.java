@@ -6724,7 +6724,7 @@ name|unsafeWrap
 argument_list|(
 name|primaryRegion
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|getTableName
@@ -8844,7 +8844,7 @@ name|unsafeWrap
 argument_list|(
 name|primaryRegion
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|getTableName
@@ -8961,7 +8961,7 @@ name|unsafeWrap
 argument_list|(
 name|primaryRegion
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|getTableName
@@ -9073,7 +9073,7 @@ name|unsafeWrap
 argument_list|(
 name|primaryRegion
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|getTableName
@@ -9216,7 +9216,7 @@ name|toProtoTableName
 argument_list|(
 name|primaryRegion
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|getTableName

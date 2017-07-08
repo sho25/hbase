@@ -165,7 +165,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HTableDescriptor
+name|client
+operator|.
+name|TableDescriptor
 import|;
 end_import
 
@@ -359,14 +361,14 @@ name|String
 name|getTableName
 parameter_list|()
 block|{
-name|HTableDescriptor
+name|TableDescriptor
 name|tableDesc
 init|=
 name|this
 operator|.
 name|region
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 decl_stmt|;
 if|if
@@ -397,14 +399,14 @@ name|String
 name|getNamespace
 parameter_list|()
 block|{
-name|HTableDescriptor
+name|TableDescriptor
 name|tableDesc
 init|=
 name|this
 operator|.
 name|region
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 decl_stmt|;
 if|if

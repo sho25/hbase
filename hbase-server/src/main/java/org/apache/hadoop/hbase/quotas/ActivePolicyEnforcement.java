@@ -310,7 +310,7 @@ argument_list|(
 name|r
 argument_list|)
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|getTableName

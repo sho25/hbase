@@ -451,6 +451,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|TableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|favored
 operator|.
 name|FavoredNodeAssignmentHelper
@@ -2781,12 +2797,12 @@ operator|==
 literal|null
 condition|)
 block|{
-name|HTableDescriptor
+name|TableDescriptor
 name|desc
 init|=
 name|region
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 decl_stmt|;
 comment|// Verify they are ROOT and hbase:meta regions since no favored nodes
@@ -2801,7 +2817,7 @@ literal|"User region "
 operator|+
 name|region
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|getTableName
@@ -2809,17 +2825,10 @@ argument_list|()
 operator|+
 literal|" should have favored nodes"
 argument_list|,
-operator|(
-name|desc
-operator|.
-name|isRootRegion
-argument_list|()
-operator|||
 name|desc
 operator|.
 name|isMetaRegion
 argument_list|()
-operator|)
 argument_list|)
 expr_stmt|;
 block|}

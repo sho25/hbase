@@ -3771,7 +3771,7 @@ name|this
 operator|.
 name|store
 operator|.
-name|getFamily
+name|getColumnFamilyDescriptor
 argument_list|()
 argument_list|,
 name|c

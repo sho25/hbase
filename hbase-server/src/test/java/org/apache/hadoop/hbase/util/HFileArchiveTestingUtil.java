@@ -1199,7 +1199,7 @@ argument_list|)
 argument_list|,
 name|region
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|getTableName
@@ -1255,7 +1255,7 @@ argument_list|()
 argument_list|,
 name|store
 operator|.
-name|getFamily
+name|getColumnFamilyDescriptor
 argument_list|()
 operator|.
 name|getName

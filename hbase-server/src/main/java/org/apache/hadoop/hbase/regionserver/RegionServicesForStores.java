@@ -311,7 +311,7 @@ block|{
 return|return
 name|region
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|getColumnFamilyCount

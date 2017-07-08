@@ -10203,7 +10203,7 @@ name|areCompactionsDisabled
 argument_list|(
 name|region
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
 name|getTableName
@@ -11564,10 +11564,10 @@ name|columnFamilies
 operator|=
 name|region
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
-name|getFamiliesKeys
+name|getColumnFamilyNames
 argument_list|()
 expr_stmt|;
 block|}
@@ -17706,10 +17706,10 @@ name|family
 range|:
 name|region
 operator|.
-name|getTableDesc
+name|getTableDescriptor
 argument_list|()
 operator|.
-name|getFamiliesKeys
+name|getColumnFamilyNames
 argument_list|()
 control|)
 block|{
