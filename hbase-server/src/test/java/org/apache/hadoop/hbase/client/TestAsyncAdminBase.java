@@ -653,12 +653,14 @@ specifier|public
 name|void
 name|setUp
 parameter_list|()
+throws|throws
+name|Exception
 block|{
 name|admin
 operator|=
-name|ASYNC_CONN
-operator|.
 name|getAdmin
+operator|.
+name|get
 argument_list|()
 expr_stmt|;
 name|String
@@ -700,6 +702,8 @@ specifier|public
 name|void
 name|tearDown
 parameter_list|()
+throws|throws
+name|Exception
 block|{
 name|admin
 operator|.

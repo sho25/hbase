@@ -219,6 +219,30 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|runner
+operator|.
+name|RunWith
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|runners
+operator|.
+name|Parameterized
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|util
@@ -316,6 +340,13 @@ comment|/**  * Class to test asynchronous procedure admin operations.  */
 end_comment
 
 begin_class
+annotation|@
+name|RunWith
+argument_list|(
+name|Parameterized
+operator|.
+name|class
+argument_list|)
 annotation|@
 name|Category
 argument_list|(

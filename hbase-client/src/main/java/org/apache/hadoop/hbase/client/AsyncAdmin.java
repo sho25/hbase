@@ -1806,6 +1806,52 @@ argument_list|()
 argument_list|)
 return|;
 block|}
+comment|/**    * Shuts down the HBase cluster.    */
+name|CompletableFuture
+argument_list|<
+name|Void
+argument_list|>
+name|shutdown
+parameter_list|()
+function_decl|;
+comment|/**    * Shuts down the current HBase master only.    */
+name|CompletableFuture
+argument_list|<
+name|Void
+argument_list|>
+name|stopMaster
+parameter_list|()
+function_decl|;
+comment|/**    * Stop the designated regionserver.    * @param serverName    */
+name|CompletableFuture
+argument_list|<
+name|Void
+argument_list|>
+name|stopRegionServer
+parameter_list|(
+name|ServerName
+name|serverName
+parameter_list|)
+function_decl|;
+comment|/**    * Update the configuration and trigger an online config change on the regionserver.    * @param serverName : The server whose config needs to be updated.    */
+name|CompletableFuture
+argument_list|<
+name|Void
+argument_list|>
+name|updateConfiguration
+parameter_list|(
+name|ServerName
+name|serverName
+parameter_list|)
+function_decl|;
+comment|/**    * Update the configuration and trigger an online config change on all the masters and    * regionservers.    */
+name|CompletableFuture
+argument_list|<
+name|Void
+argument_list|>
+name|updateConfiguration
+parameter_list|()
+function_decl|;
 comment|/**    * Get a list of {@link RegionLoad} of all regions hosted on a region seerver for a table.    * @param serverName    * @param tableName    * @return a list of {@link RegionLoad} wrapped by {@link CompletableFuture}    */
 name|CompletableFuture
 argument_list|<
