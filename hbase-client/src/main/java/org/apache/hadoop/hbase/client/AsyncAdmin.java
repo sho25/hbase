@@ -21,16 +21,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|List
@@ -1672,6 +1662,45 @@ argument_list|>
 argument_list|>
 name|listProcedures
 parameter_list|()
+function_decl|;
+comment|/**    * Mark a region server as draining to prevent additional regions from getting assigned to it.    * @param servers    */
+name|CompletableFuture
+argument_list|<
+name|Void
+argument_list|>
+name|drainRegionServers
+parameter_list|(
+name|List
+argument_list|<
+name|ServerName
+argument_list|>
+name|servers
+parameter_list|)
+function_decl|;
+comment|/**    * List region servers marked as draining to not get additional regions assigned to them.    * @return List of draining region servers wrapped by {@link CompletableFuture}    */
+name|CompletableFuture
+argument_list|<
+name|List
+argument_list|<
+name|ServerName
+argument_list|>
+argument_list|>
+name|listDrainingRegionServers
+parameter_list|()
+function_decl|;
+comment|/**    * Remove drain from a region server to allow additional regions assignments.    * @param servers List of region servers to remove drain from.    */
+name|CompletableFuture
+argument_list|<
+name|Void
+argument_list|>
+name|removeDrainFromRegionServers
+parameter_list|(
+name|List
+argument_list|<
+name|ServerName
+argument_list|>
+name|servers
+parameter_list|)
 function_decl|;
 comment|/**    * @return cluster status wrapped by {@link CompletableFuture}    */
 name|CompletableFuture
