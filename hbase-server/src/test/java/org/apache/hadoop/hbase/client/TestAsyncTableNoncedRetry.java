@@ -561,7 +561,7 @@ argument_list|(
 name|row
 argument_list|)
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -600,7 +600,7 @@ argument_list|(
 name|row
 argument_list|)
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILY
 argument_list|,

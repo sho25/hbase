@@ -3167,7 +3167,7 @@ argument_list|)
 decl_stmt|;
 name|a
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|BYTES_FAMILY
 argument_list|,
@@ -3183,7 +3183,7 @@ argument_list|)
 expr_stmt|;
 name|a
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|BYTES_FAMILY
 argument_list|,

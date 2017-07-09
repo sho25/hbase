@@ -1012,7 +1012,7 @@ argument_list|)
 expr_stmt|;
 name|app
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|cf
 argument_list|,
@@ -1567,7 +1567,7 @@ argument_list|)
 expr_stmt|;
 name|app
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|cf
 argument_list|,
@@ -1579,7 +1579,7 @@ expr_stmt|;
 block|}
 name|app
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|cf
 argument_list|,

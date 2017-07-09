@@ -1295,7 +1295,7 @@ argument_list|)
 decl_stmt|;
 name|append
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|famAndQf
 index|[

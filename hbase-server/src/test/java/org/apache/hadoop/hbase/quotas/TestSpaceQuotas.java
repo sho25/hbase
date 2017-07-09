@@ -1057,7 +1057,7 @@ argument_list|)
 decl_stmt|;
 name|a
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|Bytes
 operator|.
@@ -1312,7 +1312,7 @@ argument_list|)
 decl_stmt|;
 name|a
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|Bytes
 operator|.

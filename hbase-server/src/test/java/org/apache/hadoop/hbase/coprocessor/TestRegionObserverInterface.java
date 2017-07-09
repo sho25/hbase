@@ -2567,7 +2567,7 @@ argument_list|)
 decl_stmt|;
 name|app
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|A
 argument_list|,

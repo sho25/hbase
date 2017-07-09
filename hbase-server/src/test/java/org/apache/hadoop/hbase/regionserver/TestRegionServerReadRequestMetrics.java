@@ -1938,7 +1938,7 @@ argument_list|)
 expr_stmt|;
 name|append
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|CF1
 argument_list|,

@@ -1865,7 +1865,7 @@ argument_list|)
 decl_stmt|;
 name|append
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|TEST_UTIL
 operator|.
@@ -10561,7 +10561,7 @@ argument_list|)
 decl_stmt|;
 name|append
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -38346,7 +38346,7 @@ argument_list|)
 expr_stmt|;
 name|append1
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -38388,7 +38388,7 @@ argument_list|)
 expr_stmt|;
 name|append2
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -38598,7 +38598,7 @@ argument_list|)
 decl_stmt|;
 name|a
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -38612,7 +38612,7 @@ argument_list|)
 expr_stmt|;
 name|a
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -38651,7 +38651,7 @@ argument_list|)
 expr_stmt|;
 name|a
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -38665,7 +38665,7 @@ argument_list|)
 expr_stmt|;
 name|a
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -38679,7 +38679,7 @@ argument_list|)
 expr_stmt|;
 name|a
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -38981,7 +38981,7 @@ argument_list|)
 decl_stmt|;
 name|append_0
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -39006,7 +39006,7 @@ argument_list|)
 decl_stmt|;
 name|append_1
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -39031,7 +39031,7 @@ argument_list|)
 decl_stmt|;
 name|append_2
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -39072,7 +39072,7 @@ argument_list|)
 decl_stmt|;
 name|append_3
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -52276,7 +52276,7 @@ argument_list|(
 name|ROW
 argument_list|)
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|FAMILY
 argument_list|,

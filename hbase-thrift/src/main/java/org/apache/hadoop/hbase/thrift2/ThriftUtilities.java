@@ -2916,7 +2916,7 @@ control|)
 block|{
 name|out
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|column
 operator|.

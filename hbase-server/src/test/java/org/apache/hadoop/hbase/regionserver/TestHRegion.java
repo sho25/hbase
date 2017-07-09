@@ -10396,7 +10396,7 @@ argument_list|)
 expr_stmt|;
 name|append
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|Bytes
 operator|.
@@ -29854,7 +29854,7 @@ argument_list|)
 decl_stmt|;
 name|app
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|family
 argument_list|,
@@ -44400,7 +44400,7 @@ argument_list|)
 expr_stmt|;
 name|a
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|fam1
 argument_list|,

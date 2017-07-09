@@ -1382,7 +1382,7 @@ argument_list|(
 name|qualifierCol1
 argument_list|)
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|TEST_FAMILY
 argument_list|,

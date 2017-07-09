@@ -178,7 +178,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Performs Append operations on a single row.  *<p>  * Note that this operation does not appear atomic to readers. Appends are done  * under a single row lock, so write operations to a row are synchronized, but  * readers do not take row locks so get and scan operations can see this  * operation partially completed.  *<p>  * To append to a set of columns of a row, instantiate an Append object with the  * row to append to. At least one column to append must be specified using the  * {@link #add(byte[], byte[], byte[])} method.  */
+comment|/**  * Performs Append operations on a single row.  *<p>  * Note that this operation does not appear atomic to readers. Appends are done  * under a single row lock, so write operations to a row are synchronized, but  * readers do not take row locks so get and scan operations can see this  * operation partially completed.  *<p>  * To append to a set of columns of a row, instantiate an Append object with the  * row to append to. At least one column to append must be specified using the  * {@link #addColumn(byte[], byte[], byte[])} method.  */
 end_comment
 
 begin_class
@@ -367,10 +367,43 @@ name|rowLength
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Add the specified column and value to this Append operation.    * @param family family name    * @param qualifier column qualifier    * @param value value to append to specified column    * @return this    */
+comment|/**    * Add the specified column and value to this Append operation.    * @param family family name    * @param qualifier column qualifier    * @param value value to append to specified column    * @return this    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    *             Use {@link #addColumn(byte[], byte[], byte[])} instead    */
+annotation|@
+name|Deprecated
 specifier|public
 name|Append
 name|add
+parameter_list|(
+name|byte
+index|[]
+name|family
+parameter_list|,
+name|byte
+index|[]
+name|qualifier
+parameter_list|,
+name|byte
+index|[]
+name|value
+parameter_list|)
+block|{
+return|return
+name|this
+operator|.
+name|addColumn
+argument_list|(
+name|family
+argument_list|,
+name|qualifier
+argument_list|,
+name|value
+argument_list|)
+return|;
+block|}
+comment|/**    * Add the specified column and value to this Append operation.    * @param family family name    * @param qualifier column qualifier    * @param value value to append to specified column    * @return this    */
+specifier|public
+name|Append
+name|addColumn
 parameter_list|(
 name|byte
 index|[]
