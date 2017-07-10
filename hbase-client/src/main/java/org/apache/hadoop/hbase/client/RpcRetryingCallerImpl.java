@@ -622,6 +622,29 @@ argument_list|(
 name|t
 argument_list|)
 expr_stmt|;
+name|Throwable
+name|cause
+init|=
+name|t
+operator|.
+name|getCause
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|cause
+operator|instanceof
+name|DoNotRetryIOException
+condition|)
+block|{
+comment|// Fail fast
+throw|throw
+operator|(
+name|DoNotRetryIOException
+operator|)
+name|cause
+throw|;
+block|}
 comment|// translateException throws exception when should not retry: i.e. when request is bad.
 name|interceptor
 operator|.

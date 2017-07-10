@@ -5670,12 +5670,16 @@ throw|throw
 operator|new
 name|ServiceException
 argument_list|(
+operator|new
+name|DoNotRetryIOException
+argument_list|(
 literal|"The procedure is not registered: "
 operator|+
 name|desc
 operator|.
 name|getSignature
 argument_list|()
+argument_list|)
 argument_list|)
 throw|;
 block|}
