@@ -39,6 +39,18 @@ begin_import
 import|import static
 name|org
 operator|.
+name|hamcrest
+operator|.
+name|CoreMatchers
+operator|.
+name|instanceOf
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
 name|junit
 operator|.
 name|Assert
@@ -67,7 +79,7 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|assertTrue
+name|assertThat
 import|;
 end_import
 
@@ -80,6 +92,18 @@ operator|.
 name|Assert
 operator|.
 name|fail
+import|;
+end_import
+
+begin_import
+import|import
+name|io
+operator|.
+name|netty
+operator|.
+name|channel
+operator|.
+name|Channel
 import|;
 end_import
 
@@ -118,6 +142,22 @@ operator|.
 name|nio
 operator|.
 name|NioEventLoopGroup
+import|;
+end_import
+
+begin_import
+import|import
+name|io
+operator|.
+name|netty
+operator|.
+name|channel
+operator|.
+name|socket
+operator|.
+name|nio
+operator|.
+name|NioSocketChannel
 import|;
 end_import
 
@@ -484,6 +524,16 @@ name|EVENT_LOOP_GROUP
 decl_stmt|;
 specifier|private
 specifier|static
+name|Class
+argument_list|<
+name|?
+extends|extends
+name|Channel
+argument_list|>
+name|CHANNEL_CLASS
+decl_stmt|;
+specifier|private
+specifier|static
 name|int
 name|READ_TIMEOUT_MS
 init|=
@@ -543,6 +593,12 @@ operator|=
 operator|new
 name|NioEventLoopGroup
 argument_list|()
+expr_stmt|;
+name|CHANNEL_CLASS
+operator|=
+name|NioSocketChannel
+operator|.
+name|class
 expr_stmt|;
 block|}
 annotation|@
@@ -630,6 +686,8 @@ name|EVENT_LOOP_GROUP
 operator|.
 name|next
 argument_list|()
+argument_list|,
+name|CHANNEL_CLASS
 argument_list|)
 decl_stmt|;
 name|out
@@ -831,7 +889,6 @@ operator|.
 name|next
 argument_list|()
 decl_stmt|;
-specifier|final
 name|FanOutOneBlockAsyncDFSOutput
 name|out
 init|=
@@ -858,6 +915,8 @@ name|getDefaultBlockSize
 argument_list|()
 argument_list|,
 name|eventLoop
+argument_list|,
+name|CHANNEL_CLASS
 argument_list|)
 decl_stmt|;
 name|writeAndVerify
@@ -903,7 +962,6 @@ operator|.
 name|next
 argument_list|()
 decl_stmt|;
-specifier|final
 name|FanOutOneBlockAsyncDFSOutput
 name|out
 init|=
@@ -930,6 +988,8 @@ name|getDefaultBlockSize
 argument_list|()
 argument_list|,
 name|eventLoop
+argument_list|,
+name|CHANNEL_CLASS
 argument_list|)
 decl_stmt|;
 name|out
@@ -1043,7 +1103,6 @@ operator|.
 name|next
 argument_list|()
 decl_stmt|;
-specifier|final
 name|FanOutOneBlockAsyncDFSOutput
 name|out
 init|=
@@ -1070,9 +1129,10 @@ name|getDefaultBlockSize
 argument_list|()
 argument_list|,
 name|eventLoop
+argument_list|,
+name|CHANNEL_CLASS
 argument_list|)
 decl_stmt|;
-specifier|final
 name|byte
 index|[]
 name|b
@@ -1284,7 +1344,6 @@ operator|.
 name|next
 argument_list|()
 decl_stmt|;
-specifier|final
 name|FanOutOneBlockAsyncDFSOutput
 name|out
 init|=
@@ -1311,6 +1370,8 @@ name|getDefaultBlockSize
 argument_list|()
 argument_list|,
 name|eventLoop
+argument_list|,
+name|CHANNEL_CLASS
 argument_list|)
 decl_stmt|;
 name|Thread
@@ -1394,6 +1455,8 @@ name|getDefaultBlockSize
 argument_list|()
 argument_list|,
 name|eventLoop
+argument_list|,
+name|CHANNEL_CLASS
 argument_list|)
 expr_stmt|;
 name|fail
@@ -1417,14 +1480,19 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertThat
 argument_list|(
 name|e
 operator|.
 name|unwrapRemoteException
 argument_list|()
-operator|instanceof
+argument_list|,
+name|instanceOf
+argument_list|(
 name|FileNotFoundException
+operator|.
+name|class
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -1562,6 +1630,8 @@ name|getDefaultBlockSize
 argument_list|()
 argument_list|,
 name|eventLoop
+argument_list|,
+name|CHANNEL_CLASS
 argument_list|)
 expr_stmt|;
 name|fail
@@ -1682,7 +1752,6 @@ operator|.
 name|next
 argument_list|()
 decl_stmt|;
-specifier|final
 name|FanOutOneBlockAsyncDFSOutput
 name|out
 init|=
@@ -1710,6 +1779,8 @@ operator|*
 literal|1024
 argument_list|,
 name|eventLoop
+argument_list|,
+name|CHANNEL_CLASS
 argument_list|)
 decl_stmt|;
 name|byte

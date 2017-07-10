@@ -169,6 +169,20 @@ end_import
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
+begin_import
+import|import
 name|io
 operator|.
 name|netty
@@ -310,6 +324,20 @@ operator|.
 name|timeout
 operator|.
 name|IdleStateHandler
+import|;
+end_import
+
+begin_import
+import|import
+name|io
+operator|.
+name|netty
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|Future
 import|;
 end_import
 
@@ -740,20 +768,6 @@ operator|.
 name|util
 operator|.
 name|DataChecksum
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|annotations
-operator|.
-name|VisibleForTesting
 import|;
 end_import
 
@@ -2842,6 +2856,12 @@ name|combiner
 operator|.
 name|add
 argument_list|(
+operator|(
+name|Future
+argument_list|<
+name|Void
+argument_list|>
+operator|)
 name|flushBuffer
 argument_list|(
 name|buf
