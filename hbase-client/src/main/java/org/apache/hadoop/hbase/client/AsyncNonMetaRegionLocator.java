@@ -2614,6 +2614,9 @@ name|row
 parameter_list|,
 name|RegionLocateType
 name|locateType
+parameter_list|,
+name|boolean
+name|reload
 parameter_list|)
 block|{
 comment|// AFTER should be convert to CURRENT before calling this method
@@ -2636,6 +2639,12 @@ argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+operator|!
+name|reload
+condition|)
+block|{
 name|HRegionLocation
 name|loc
 init|=
@@ -2666,6 +2675,7 @@ name|loc
 argument_list|)
 return|;
 block|}
+block|}
 name|CompletableFuture
 argument_list|<
 name|HRegionLocation
@@ -2686,8 +2696,15 @@ name|tableCache
 init|)
 block|{
 comment|// check again
+if|if
+condition|(
+operator|!
+name|reload
+condition|)
+block|{
+name|HRegionLocation
 name|loc
-operator|=
+init|=
 name|locateInCache
 argument_list|(
 name|tableCache
@@ -2698,7 +2715,7 @@ name|row
 argument_list|,
 name|locateType
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 if|if
 condition|(
 name|loc
@@ -2714,6 +2731,7 @@ argument_list|(
 name|loc
 argument_list|)
 return|;
+block|}
 block|}
 name|req
 operator|=
@@ -2825,6 +2843,9 @@ name|row
 parameter_list|,
 name|RegionLocateType
 name|locateType
+parameter_list|,
+name|boolean
+name|reload
 parameter_list|)
 block|{
 if|if
@@ -2847,6 +2868,8 @@ argument_list|,
 name|row
 argument_list|,
 name|locateType
+argument_list|,
+name|reload
 argument_list|)
 return|;
 block|}
@@ -2884,6 +2907,8 @@ argument_list|,
 name|RegionLocateType
 operator|.
 name|CURRENT
+argument_list|,
+name|reload
 argument_list|)
 return|;
 block|}

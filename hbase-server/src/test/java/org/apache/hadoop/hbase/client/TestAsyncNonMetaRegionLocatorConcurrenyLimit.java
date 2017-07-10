@@ -1130,6 +1130,8 @@ argument_list|,
 name|RegionLocateType
 operator|.
 name|CURRENT
+argument_list|,
+literal|false
 argument_list|)
 argument_list|)
 operator|.

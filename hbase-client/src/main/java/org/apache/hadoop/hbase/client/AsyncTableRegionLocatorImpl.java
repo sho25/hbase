@@ -161,6 +161,8 @@ name|RegionLocateType
 operator|.
 name|CURRENT
 argument_list|,
+name|reload
+argument_list|,
 operator|-
 literal|1L
 argument_list|)
