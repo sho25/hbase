@@ -63,6 +63,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Set
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|concurrent
 operator|.
 name|CompletableFuture
@@ -205,6 +215,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|procedure2
+operator|.
+name|LockInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|quotas
 operator|.
 name|QuotaFilter
@@ -242,6 +268,24 @@ operator|.
 name|replication
 operator|.
 name|TableCFs
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|security
+operator|.
+name|SecurityCapability
 import|;
 end_import
 
@@ -1006,6 +1050,44 @@ name|ServerName
 name|serverName
 parameter_list|)
 function_decl|;
+comment|/**    * Turn the Merge switch on or off.    * @param on    * @return Previous switch value wrapped by a {@link CompletableFuture}    */
+name|CompletableFuture
+argument_list|<
+name|Boolean
+argument_list|>
+name|setMergeOn
+parameter_list|(
+name|boolean
+name|on
+parameter_list|)
+function_decl|;
+comment|/**    * Query the current state of the Merge switch.    * @return true if the switch is on, false otherwise. The return value will be wrapped by a    *         {@link CompletableFuture}    */
+name|CompletableFuture
+argument_list|<
+name|Boolean
+argument_list|>
+name|isMergeOn
+parameter_list|()
+function_decl|;
+comment|/**    * Turn the Split switch on or off.    * @param on    * @return Previous switch value wrapped by a {@link CompletableFuture}    */
+name|CompletableFuture
+argument_list|<
+name|Boolean
+argument_list|>
+name|setSplitOn
+parameter_list|(
+name|boolean
+name|on
+parameter_list|)
+function_decl|;
+comment|/**    * Query the current state of the Split switch.    * @return true if the switch is on, false otherwise. The return value will be wrapped by a    *         {@link CompletableFuture}    */
+name|CompletableFuture
+argument_list|<
+name|Boolean
+argument_list|>
+name|isSplitOn
+parameter_list|()
+function_decl|;
 comment|/**    * Merge two regions.    * @param nameOfRegionA encoded or full name of region a    * @param nameOfRegionB encoded or full name of region b    * @param forcible true if do a compulsory merge, otherwise we will only merge two adjacent    *          regions    */
 name|CompletableFuture
 argument_list|<
@@ -1663,6 +1745,17 @@ argument_list|>
 name|listProcedures
 parameter_list|()
 function_decl|;
+comment|/**    * List procedure locks.    * @return lock list wrapped by {@link CompletableFuture}    */
+name|CompletableFuture
+argument_list|<
+name|List
+argument_list|<
+name|LockInfo
+argument_list|>
+argument_list|>
+name|listProcedureLocks
+parameter_list|()
+function_decl|;
 comment|/**    * Mark a region server as draining to prevent additional regions from getting assigned to it.    * @param servers    */
 name|CompletableFuture
 argument_list|<
@@ -1852,6 +1945,34 @@ argument_list|>
 name|updateConfiguration
 parameter_list|()
 function_decl|;
+comment|/**    * Roll the log writer. I.e. for filesystem based write ahead logs, start writing to a new file.    *<p>    * When the returned CompletableFuture is done, it only means the rollWALWriter request was sent    * to the region server and may need some time to finish the rollWALWriter operation. As a side    * effect of this call, the named region server may schedule store flushes at the request of the    * wal.    * @param serverName The servername of the region server.    */
+name|CompletableFuture
+argument_list|<
+name|Void
+argument_list|>
+name|rollWALWriter
+parameter_list|(
+name|ServerName
+name|serverName
+parameter_list|)
+function_decl|;
+comment|/**    * Clear compacting queues on a region server.    * @param serverName    * @param queues the set of queue name    */
+name|CompletableFuture
+argument_list|<
+name|Void
+argument_list|>
+name|clearCompactionQueues
+parameter_list|(
+name|ServerName
+name|serverName
+parameter_list|,
+name|Set
+argument_list|<
+name|String
+argument_list|>
+name|queues
+parameter_list|)
+function_decl|;
 comment|/**    * Get a list of {@link RegionLoad} of all regions hosted on a region seerver for a table.    * @param serverName    * @param tableName    * @return a list of {@link RegionLoad} wrapped by {@link CompletableFuture}    */
 name|CompletableFuture
 argument_list|<
@@ -1931,6 +2052,17 @@ name|byte
 index|[]
 name|regionName
 parameter_list|)
+function_decl|;
+comment|/**    * @return the list of supported security capabilities. The return value will be wrapped by a    *         {@link CompletableFuture}.    */
+name|CompletableFuture
+argument_list|<
+name|List
+argument_list|<
+name|SecurityCapability
+argument_list|>
+argument_list|>
+name|getSecurityCapabilities
+parameter_list|()
 function_decl|;
 comment|/**    * Turn the load balancer on or off.    * @param on    * @return Previous balancer value wrapped by a {@link CompletableFuture}.    */
 name|CompletableFuture
