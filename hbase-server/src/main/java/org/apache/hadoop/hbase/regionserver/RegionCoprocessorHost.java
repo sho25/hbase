@@ -5883,7 +5883,7 @@ return|;
 block|}
 comment|/**    * @param append Append object    * @param result the result returned by the append    * @throws IOException if an error occurred on the coprocessor    */
 specifier|public
-name|void
+name|Result
 name|postAppend
 parameter_list|(
 specifier|final
@@ -5897,8 +5897,11 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|execOperation
+return|return
+name|execOperationWithResult
 argument_list|(
+name|result
+argument_list|,
 name|coprocessors
 operator|.
 name|isEmpty
@@ -5907,7 +5910,10 @@ condition|?
 literal|null
 else|:
 operator|new
-name|RegionOperation
+name|RegionOperationWithResult
+argument_list|<
+name|Result
+argument_list|>
 argument_list|()
 block|{
 annotation|@
@@ -5928,6 +5934,8 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|setResult
+argument_list|(
 name|oserver
 operator|.
 name|postAppend
@@ -5938,11 +5946,12 @@ name|append
 argument_list|,
 name|result
 argument_list|)
+argument_list|)
 expr_stmt|;
 block|}
 block|}
 argument_list|)
-expr_stmt|;
+return|;
 block|}
 comment|/**    * @param increment increment object    * @param result the result returned by postIncrement    * @throws IOException if an error occurred on the coprocessor    */
 specifier|public
