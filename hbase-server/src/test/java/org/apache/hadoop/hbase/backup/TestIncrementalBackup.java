@@ -33,6 +33,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|ArrayList
@@ -868,6 +878,8 @@ operator|.
 name|currentTime
 argument_list|()
 decl_stmt|;
+try|try
+block|{
 name|admin
 operator|.
 name|splitRegion
@@ -875,6 +887,27 @@ argument_list|(
 name|name
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+comment|//although split fail, this may not affect following check
+comment|//In old split without AM2, if region's best split key is not found,
+comment|//there are not exception thrown. But in current API, exception
+comment|//will be thrown.
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"region is not splittable, because "
+operator|+
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 while|while
 condition|(
 operator|!
