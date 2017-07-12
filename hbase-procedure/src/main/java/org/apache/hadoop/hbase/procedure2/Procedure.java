@@ -526,7 +526,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * The user should override this method if they need a lock on an Entity.    * A lock can be anything, and it is up to the implementor. The Procedure    * Framework will call this method just before it invokes {@link #execute(Object)}.    * It calls {@link #releaseLock(Object)} after the call to execute.    *     *<p>If you need to hold the lock for the life of the Procdure -- i.e. you do not    * want any other Procedure interfering while this Procedure is running, see    * {@link #holdLock(Object)}.    *    *<p>Example: in our Master we can execute request in parallel for different tables.    * We can create t1 and create t2 and these creates can be executed at the same time.    * Anything else on t1/t2 is queued waiting that specific table create to happen.    *    *<p>There are 3 LockState:    *<ul><li>LOCK_ACQUIRED should be returned when the proc has the lock and the proc is    * ready to execute.</li>    *<li>LOCK_YIELD_WAIT should be returned when the proc has not the lock and the framework    * should take care of readding the procedure back to the runnable set for retry</li>    *<li>LOCK_EVENT_WAIT should be returned when the proc has not the lock and someone will    * take care of readding the procedure back to the runnable set when the lock is available.    *</li></ul>    * @return the lock state as described above.    */
+comment|/**    * The user should override this method if they need a lock on an Entity.    * A lock can be anything, and it is up to the implementor. The Procedure    * Framework will call this method just before it invokes {@link #execute(Object)}.    * It calls {@link #releaseLock(Object)} after the call to execute.    *    *<p>If you need to hold the lock for the life of the Procdure -- i.e. you do not    * want any other Procedure interfering while this Procedure is running, see    * {@link #holdLock(Object)}.    *    *<p>Example: in our Master we can execute request in parallel for different tables.    * We can create t1 and create t2 and these creates can be executed at the same time.    * Anything else on t1/t2 is queued waiting that specific table create to happen.    *    *<p>There are 3 LockState:    *<ul><li>LOCK_ACQUIRED should be returned when the proc has the lock and the proc is    * ready to execute.</li>    *<li>LOCK_YIELD_WAIT should be returned when the proc has not the lock and the framework    * should take care of readding the procedure back to the runnable set for retry</li>    *<li>LOCK_EVENT_WAIT should be returned when the proc has not the lock and someone will    * take care of readding the procedure back to the runnable set when the lock is available.    *</li></ul>    * @return the lock state as described above.    */
 specifier|protected
 name|LockState
 name|acquireLock
@@ -1112,6 +1112,16 @@ name|rootProcId
 return|;
 block|}
 specifier|public
+name|String
+name|getProcName
+parameter_list|()
+block|{
+return|return
+name|toStringClass
+argument_list|()
+return|;
+block|}
+specifier|public
 name|NonceKey
 name|getNonceKey
 parameter_list|()
@@ -1493,7 +1503,7 @@ comment|//  update its own state. but no concurrent updates. we use synchronized
 comment|//  just because the procedure can get scheduled on different executor threads on each step.
 comment|// ==============================================================================================
 comment|/**    * @return true if the procedure is in a RUNNABLE state.    */
-specifier|protected
+specifier|public
 specifier|synchronized
 name|boolean
 name|isRunnable
@@ -1637,7 +1647,7 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
-specifier|protected
+specifier|public
 specifier|synchronized
 name|ProcedureState
 name|getState

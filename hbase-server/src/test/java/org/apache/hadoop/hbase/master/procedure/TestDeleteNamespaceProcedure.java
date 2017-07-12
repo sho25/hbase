@@ -173,20 +173,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ProcedureInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|TableName
 import|;
 end_import
@@ -204,6 +190,22 @@ operator|.
 name|constraint
 operator|.
 name|ConstraintException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|procedure2
+operator|.
+name|Procedure
 import|;
 end_import
 
@@ -713,7 +715,10 @@ name|procId
 argument_list|)
 expr_stmt|;
 comment|// Expect fail with NamespaceNotFoundException
-name|ProcedureInfo
+name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|result
 init|=
 name|procExec
@@ -739,7 +744,7 @@ literal|"Delete namespace failed with exception: "
 operator|+
 name|result
 operator|.
-name|getExceptionFullMessage
+name|getException
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -820,7 +825,10 @@ argument_list|,
 name|procId
 argument_list|)
 expr_stmt|;
-name|ProcedureInfo
+name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|result
 init|=
 name|procExec
@@ -846,7 +854,7 @@ literal|"Delete namespace failed with exception: "
 operator|+
 name|result
 operator|.
-name|getExceptionFullMessage
+name|getException
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -958,7 +966,10 @@ argument_list|,
 name|procId
 argument_list|)
 expr_stmt|;
-name|ProcedureInfo
+name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|result
 init|=
 name|procExec
@@ -984,7 +995,7 @@ literal|"Delete namespace failed with exception: "
 operator|+
 name|result
 operator|.
-name|getExceptionFullMessage
+name|getException
 argument_list|()
 argument_list|)
 expr_stmt|;

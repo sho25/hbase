@@ -20,6 +20,18 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
 import|import
 name|org
 operator|.
@@ -85,20 +97,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ProcedureInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|TableName
 import|;
 end_import
@@ -128,6 +126,22 @@ operator|.
 name|hbase
 operator|.
 name|TableNotFoundException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|procedure2
+operator|.
+name|Procedure
 import|;
 end_import
 
@@ -266,18 +280,6 @@ operator|.
 name|rules
 operator|.
 name|TestRule
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertTrue
 import|;
 end_import
 
@@ -676,7 +678,10 @@ name|tableName
 argument_list|)
 expr_stmt|;
 comment|// Second delete should fail with TableNotFound
-name|ProcedureInfo
+name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|result
 init|=
 name|procExec
@@ -702,7 +707,7 @@ literal|"Delete failed with exception: "
 operator|+
 name|result
 operator|.
-name|getExceptionFullMessage
+name|getException
 argument_list|()
 argument_list|)
 expr_stmt|;

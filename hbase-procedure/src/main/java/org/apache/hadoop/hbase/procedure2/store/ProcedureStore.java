@@ -39,20 +39,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ProcedureInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -151,15 +137,10 @@ parameter_list|()
 function_decl|;
 comment|/**      * Returns the next procedure in the iteration.      * @throws IOException if there was an error fetching/deserializing the procedure      * @return the next procedure in the iteration.      */
 name|Procedure
-name|nextAsProcedure
+name|next
 parameter_list|()
 throws|throws
 name|IOException
-function_decl|;
-comment|/**      * @return the next procedure in the iteration as ProcedureInfo.      */
-name|ProcedureInfo
-name|nextAsProcedureInfo
-parameter_list|()
 function_decl|;
 block|}
 comment|/**    * Interface passed to the ProcedureStore.load() method to handle the store-load events.    */

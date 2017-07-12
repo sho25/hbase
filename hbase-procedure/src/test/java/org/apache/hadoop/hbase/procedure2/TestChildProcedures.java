@@ -107,20 +107,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ProcedureInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|procedure2
 operator|.
 name|store
@@ -214,18 +200,6 @@ operator|.
 name|Assert
 operator|.
 name|assertEquals
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertFalse
 import|;
 end_import
 
@@ -807,7 +781,10 @@ name|procId
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|ProcedureInfo
+name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|result
 init|=
 name|procExecutor
@@ -855,6 +832,8 @@ specifier|public
 name|TestRootProcedure
 parameter_list|()
 block|{}
+annotation|@
+name|Override
 specifier|public
 name|Procedure
 index|[]
@@ -894,6 +873,8 @@ argument_list|()
 block|}
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|rollback
@@ -931,6 +912,8 @@ specifier|public
 name|TestChildProcedure
 parameter_list|()
 block|{}
+annotation|@
+name|Override
 specifier|public
 name|Procedure
 index|[]
@@ -978,6 +961,8 @@ return|return
 literal|null
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|rollback

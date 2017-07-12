@@ -135,7 +135,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ProcedureInfo
+name|TableName
 import|;
 end_import
 
@@ -149,7 +149,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
+name|procedure2
+operator|.
+name|Procedure
 import|;
 end_import
 
@@ -1280,7 +1282,10 @@ argument_list|)
 argument_list|)
 decl_stmt|;
 specifier|final
-name|ProcedureInfo
+name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|result
 init|=
 name|procExec

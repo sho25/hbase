@@ -111,7 +111,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ProcedureInfo
+name|TableName
 import|;
 end_import
 
@@ -125,7 +125,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
+name|procedure2
+operator|.
+name|Procedure
 import|;
 end_import
 
@@ -677,7 +679,10 @@ name|procId2
 argument_list|)
 expr_stmt|;
 comment|// Second add should fail with InvalidFamilyOperationException
-name|ProcedureInfo
+name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|result
 init|=
 name|procExec
@@ -703,7 +708,7 @@ literal|"Add failed with exception: "
 operator|+
 name|result
 operator|.
-name|getExceptionFullMessage
+name|getException
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -787,7 +792,7 @@ literal|"Add failed with exception: "
 operator|+
 name|result
 operator|.
-name|getExceptionFullMessage
+name|getException
 argument_list|()
 argument_list|)
 expr_stmt|;

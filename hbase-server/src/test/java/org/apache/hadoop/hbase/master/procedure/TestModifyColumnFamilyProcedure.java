@@ -97,7 +97,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ProcedureInfo
+name|TableName
 import|;
 end_import
 
@@ -111,7 +111,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
+name|procedure2
+operator|.
+name|Procedure
 import|;
 end_import
 
@@ -622,7 +624,10 @@ argument_list|,
 name|procId1
 argument_list|)
 expr_stmt|;
-name|ProcedureInfo
+name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|result
 init|=
 name|procExec
@@ -648,7 +653,7 @@ literal|"Modify failed with exception: "
 operator|+
 name|result
 operator|.
-name|getExceptionFullMessage
+name|getException
 argument_list|()
 argument_list|)
 expr_stmt|;

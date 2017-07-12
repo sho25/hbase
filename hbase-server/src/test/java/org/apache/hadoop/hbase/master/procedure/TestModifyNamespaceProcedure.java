@@ -27,7 +27,31 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|*
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertNull
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
 import|;
 end_import
 
@@ -139,7 +163,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ProcedureInfo
+name|constraint
+operator|.
+name|ConstraintException
 import|;
 end_import
 
@@ -153,9 +179,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|constraint
+name|procedure2
 operator|.
-name|ConstraintException
+name|Procedure
 import|;
 end_import
 
@@ -822,7 +848,10 @@ name|procId
 argument_list|)
 expr_stmt|;
 comment|// Expect fail with NamespaceNotFoundException
-name|ProcedureInfo
+name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|result
 init|=
 name|procExec
@@ -848,7 +877,7 @@ literal|"modify namespace failed with exception: "
 operator|+
 name|result
 operator|.
-name|getExceptionFullMessage
+name|getException
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -959,7 +988,10 @@ argument_list|,
 name|procId
 argument_list|)
 expr_stmt|;
-name|ProcedureInfo
+name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|result
 init|=
 name|procExec
@@ -985,7 +1017,7 @@ literal|"Modify namespace failed with exception: "
 operator|+
 name|result
 operator|.
-name|getExceptionFullMessage
+name|getException
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1096,7 +1128,10 @@ argument_list|,
 name|procId
 argument_list|)
 expr_stmt|;
-name|ProcedureInfo
+name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|result
 init|=
 name|procExec
@@ -1122,7 +1157,7 @@ literal|"Modify namespace failed with exception: "
 operator|+
 name|result
 operator|.
-name|getExceptionFullMessage
+name|getException
 argument_list|()
 argument_list|)
 expr_stmt|;

@@ -173,7 +173,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ProcedureInfo
+name|constraint
+operator|.
+name|ConstraintException
 import|;
 end_import
 
@@ -187,9 +189,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|constraint
+name|procedure2
 operator|.
-name|ConstraintException
+name|Procedure
 import|;
 end_import
 
@@ -675,7 +677,10 @@ name|procId2
 argument_list|)
 expr_stmt|;
 comment|// Second create should fail with NamespaceExistException
-name|ProcedureInfo
+name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|result
 init|=
 name|procExec
@@ -701,7 +706,7 @@ literal|"Create namespace failed with exception: "
 operator|+
 name|result
 operator|.
-name|getExceptionFullMessage
+name|getException
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -790,7 +795,10 @@ argument_list|,
 name|procId
 argument_list|)
 expr_stmt|;
-name|ProcedureInfo
+name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|result
 init|=
 name|procExec
@@ -816,7 +824,7 @@ literal|"Create namespace failed with exception: "
 operator|+
 name|result
 operator|.
-name|getExceptionFullMessage
+name|getException
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -921,7 +929,10 @@ argument_list|,
 name|procId
 argument_list|)
 expr_stmt|;
-name|ProcedureInfo
+name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|result
 init|=
 name|procExec
@@ -947,7 +958,7 @@ literal|"Create namespace failed with exception: "
 operator|+
 name|result
 operator|.
-name|getExceptionFullMessage
+name|getException
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1052,7 +1063,10 @@ argument_list|,
 name|procId
 argument_list|)
 expr_stmt|;
-name|ProcedureInfo
+name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|result
 init|=
 name|procExec
@@ -1078,7 +1092,7 @@ literal|"Create namespace failed with exception: "
 operator|+
 name|result
 operator|.
-name|getExceptionFullMessage
+name|getException
 argument_list|()
 argument_list|)
 expr_stmt|;
