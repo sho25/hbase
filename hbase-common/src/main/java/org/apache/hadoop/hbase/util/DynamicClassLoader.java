@@ -680,9 +680,24 @@ name|loadNewJars
 parameter_list|()
 block|{
 comment|// Refresh local jar file lists
+name|File
+index|[]
+name|files
+init|=
+name|localDir
+operator|==
+literal|null
+condition|?
+literal|null
+else|:
+name|localDir
+operator|.
+name|listFiles
+argument_list|()
+decl_stmt|;
 if|if
 condition|(
-name|localDir
+name|files
 operator|!=
 literal|null
 condition|)
@@ -692,10 +707,7 @@ control|(
 name|File
 name|file
 range|:
-name|localDir
-operator|.
-name|listFiles
-argument_list|()
+name|files
 control|)
 block|{
 name|String

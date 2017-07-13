@@ -1333,10 +1333,6 @@ return|;
 if|if
 condition|(
 name|a0
-operator|>=
-literal|241
-operator|&&
-name|a0
 operator|<=
 literal|248
 condition|)
