@@ -2865,6 +2865,15 @@ specifier|public
 specifier|static
 specifier|final
 name|int
+name|PRIORITY_UNSET
+init|=
+operator|-
+literal|1
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
 name|NORMAL_QOS
 init|=
 literal|0

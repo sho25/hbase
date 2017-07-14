@@ -3214,6 +3214,18 @@ operator|.
 name|TREEMAP
 argument_list|)
 expr_stmt|;
+name|expected
+operator|+=
+name|ClassSize
+operator|.
+name|align
+argument_list|(
+name|ClassSize
+operator|.
+name|INTEGER
+argument_list|)
+expr_stmt|;
+comment|// priority
 if|if
 condition|(
 name|expected
@@ -3282,6 +3294,18 @@ operator|.
 name|TREEMAP
 argument_list|)
 expr_stmt|;
+name|expected
+operator|+=
+name|ClassSize
+operator|.
+name|align
+argument_list|(
+name|ClassSize
+operator|.
+name|INTEGER
+argument_list|)
+expr_stmt|;
+comment|// priority
 if|if
 condition|(
 name|expected

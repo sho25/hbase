@@ -160,14 +160,6 @@ name|RpcController
 extends|,
 name|CellScannable
 block|{
-specifier|static
-specifier|final
-name|int
-name|PRIORITY_UNSET
-init|=
-operator|-
-literal|1
-decl_stmt|;
 comment|/**    * Only used to send cells to rpc server, the returned cells should be set by    * {@link #setDone(CellScanner)}.    */
 name|void
 name|setCellScanner

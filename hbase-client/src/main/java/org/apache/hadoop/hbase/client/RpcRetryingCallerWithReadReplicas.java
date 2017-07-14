@@ -119,18 +119,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|TimeoutException
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -358,6 +346,22 @@ operator|.
 name|util
 operator|.
 name|EnvironmentEdgeManager
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HConstants
+operator|.
+name|PRIORITY_UNSET
 import|;
 end_import
 
@@ -602,6 +606,8 @@ argument_list|,
 operator|new
 name|RetryingTimeTracker
 argument_list|()
+argument_list|,
+name|PRIORITY_UNSET
 argument_list|)
 expr_stmt|;
 name|this

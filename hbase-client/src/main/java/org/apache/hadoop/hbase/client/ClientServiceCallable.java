@@ -156,6 +156,9 @@ name|row
 parameter_list|,
 name|RpcController
 name|rpcController
+parameter_list|,
+name|int
+name|priority
 parameter_list|)
 block|{
 name|super
@@ -167,6 +170,8 @@ argument_list|,
 name|row
 argument_list|,
 name|rpcController
+argument_list|,
+name|priority
 argument_list|)
 expr_stmt|;
 block|}

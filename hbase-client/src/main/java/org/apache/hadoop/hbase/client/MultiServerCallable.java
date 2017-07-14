@@ -424,6 +424,9 @@ name|rpcTimeout
 parameter_list|,
 name|RetryingTimeTracker
 name|tracker
+parameter_list|,
+name|int
+name|priority
 parameter_list|)
 block|{
 name|super
@@ -439,6 +442,8 @@ argument_list|,
 name|rpcTimeout
 argument_list|,
 name|tracker
+argument_list|,
+name|priority
 argument_list|)
 expr_stmt|;
 name|this

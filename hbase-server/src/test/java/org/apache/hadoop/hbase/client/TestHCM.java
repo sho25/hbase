@@ -4509,6 +4509,10 @@ argument_list|)
 operator|.
 name|newController
 argument_list|()
+argument_list|,
+name|HConstants
+operator|.
+name|PRIORITY_UNSET
 argument_list|)
 block|{
 annotation|@

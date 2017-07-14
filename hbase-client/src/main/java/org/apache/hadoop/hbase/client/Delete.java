@@ -434,6 +434,16 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+name|super
+operator|.
+name|setPriority
+argument_list|(
+name|d
+operator|.
+name|getPriority
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * Advanced use only.    * Add an existing delete marker to this Delete object.    * @param kv An existing KeyValue of type "delete".    * @return this for invocation chaining    * @throws IOException    */
 annotation|@
@@ -1388,6 +1398,28 @@ argument_list|(
 literal|"Setting TTLs on Deletes is not supported"
 argument_list|)
 throw|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|Delete
+name|setPriority
+parameter_list|(
+name|int
+name|priority
+parameter_list|)
+block|{
+return|return
+operator|(
+name|Delete
+operator|)
+name|super
+operator|.
+name|setPriority
+argument_list|(
+name|priority
+argument_list|)
+return|;
 block|}
 block|}
 end_class

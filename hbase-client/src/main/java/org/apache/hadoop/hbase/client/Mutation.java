@@ -614,6 +614,11 @@ comment|// familyMap
 name|ClassSize
 operator|.
 name|TREEMAP
+operator|+
+comment|// priority
+name|ClassSize
+operator|.
+name|INTEGER
 argument_list|)
 decl_stmt|;
 comment|/**    * The attribute for storing the list of clusters that have consumed the change.    */

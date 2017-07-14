@@ -212,6 +212,8 @@ specifier|private
 name|int
 name|priority
 init|=
+name|HConstants
+operator|.
 name|PRIORITY_UNSET
 decl_stmt|;
 comment|/**    * They are optionally set on construction, cleared after we make the call, and then optionally    * set on response with the result. We use this lowest common denominator access to Cells because    * sometimes the scanner is backed by a List of Cells and other times, it is backed by an encoded    * block that implements CellScanner.    */
@@ -341,7 +343,16 @@ name|this
 operator|.
 name|priority
 operator|=
+name|Math
+operator|.
+name|max
+argument_list|(
+name|this
+operator|.
 name|priority
+argument_list|,
+name|priority
+argument_list|)
 expr_stmt|;
 block|}
 annotation|@
@@ -384,6 +395,14 @@ name|getPriority
 parameter_list|()
 block|{
 return|return
+name|priority
+operator|<
+literal|0
+condition|?
+name|HConstants
+operator|.
+name|NORMAL_QOS
+else|:
 name|priority
 return|;
 block|}

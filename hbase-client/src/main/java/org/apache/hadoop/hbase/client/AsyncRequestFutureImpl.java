@@ -6808,6 +6808,11 @@ argument_list|,
 name|rpcTimeout
 argument_list|,
 name|tracker
+argument_list|,
+name|multi
+operator|.
+name|getPriority
+argument_list|()
 argument_list|)
 return|;
 block|}

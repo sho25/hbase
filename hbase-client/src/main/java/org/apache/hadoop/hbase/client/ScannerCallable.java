@@ -703,6 +703,11 @@ name|rpcControllerFactory
 operator|.
 name|newController
 argument_list|()
+argument_list|,
+name|scan
+operator|.
+name|getPriority
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|this

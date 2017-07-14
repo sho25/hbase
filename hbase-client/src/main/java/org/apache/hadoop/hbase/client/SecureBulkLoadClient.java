@@ -59,20 +59,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|fs
-operator|.
-name|Path
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
 name|HConstants
@@ -357,6 +343,22 @@ name|Token
 import|;
 end_import
 
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HConstants
+operator|.
+name|PRIORITY_UNSET
+import|;
+end_import
+
 begin_comment
 comment|/**  * Client proxy for SecureBulkLoadProtocol  */
 end_comment
@@ -449,6 +451,8 @@ name|rpcControllerFactory
 operator|.
 name|newController
 argument_list|()
+argument_list|,
+name|PRIORITY_UNSET
 argument_list|)
 block|{
 annotation|@
@@ -628,6 +632,8 @@ name|rpcControllerFactory
 operator|.
 name|newController
 argument_list|()
+argument_list|,
+name|PRIORITY_UNSET
 argument_list|)
 block|{
 annotation|@
