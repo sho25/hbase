@@ -321,6 +321,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|experimental
 operator|.
 name|categories
@@ -577,6 +587,9 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{   }
+annotation|@
+name|Ignore
+comment|// HBASE-18366... To be enabled again.
 annotation|@
 name|Test
 argument_list|(
