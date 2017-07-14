@@ -768,7 +768,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Test Bulk Load and Spark on a distributed cluster.  * It starts an Spark job that creates linked chains.  * This test mimic {@link IntegrationTestBulkLoad} in mapreduce.  *  * Usage on cluster:  *   spark-submit --class org.apache.hadoop.hbase.spark.IntegrationTestSparkBulkLoad  *                HBASE_HOME/lib/hbase-it-XXX-tests.jar -m slowDeterministic -Dhbase.spark.bulkload.chainlength=300  */
+comment|/**  * Test Bulk Load and Spark on a distributed cluster.  * It starts an Spark job that creates linked chains.  * This test mimic {@link IntegrationTestBulkLoad} in mapreduce.  *  * Usage on cluster:  *   First add hbase related jars and hbase-spark.jar into spark classpath.  *  *   spark-submit --class org.apache.hadoop.hbase.spark.IntegrationTestSparkBulkLoad  *                HBASE_HOME/lib/hbase-spark-it-XXX-tests.jar -m slowDeterministic -Dhbase.spark.bulkload.chainlength=300  */
 end_comment
 
 begin_class
