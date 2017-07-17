@@ -822,33 +822,6 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Merge two regions. The real implementation is on the regionserver, master    * just move the regions together and send MERGE RPC to regionserver    * @param region_a region to merge    * @param region_b region to merge    * @param forcible true if do a compulsory merge, otherwise we will only merge    *          two adjacent regions    * @return procedure Id    * @throws IOException    */
-name|long
-name|dispatchMergingRegions
-parameter_list|(
-specifier|final
-name|HRegionInfo
-name|region_a
-parameter_list|,
-specifier|final
-name|HRegionInfo
-name|region_b
-parameter_list|,
-specifier|final
-name|boolean
-name|forcible
-parameter_list|,
-specifier|final
-name|long
-name|nonceGroup
-parameter_list|,
-specifier|final
-name|long
-name|nonce
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
 comment|/**    * Merge regions in a table.    * @param regionsToMerge daughter regions to merge    * @param forcible whether to force to merge even two regions are not adjacent    * @param nonceGroup used to detect duplicate    * @param nonce used to detect duplicate    * @return  procedure Id    * @throws IOException    */
 name|long
 name|mergeRegions
