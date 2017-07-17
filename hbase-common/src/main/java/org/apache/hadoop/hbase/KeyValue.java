@@ -11400,10 +11400,8 @@ literal|0
 condition|?
 name|ClassSize
 operator|.
-name|sizeOf
+name|sizeOfByteArray
 argument_list|(
-name|bytes
-argument_list|,
 name|length
 argument_list|)
 comment|// count both length and object overhead

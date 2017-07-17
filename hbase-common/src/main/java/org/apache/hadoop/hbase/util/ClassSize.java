@@ -458,12 +458,8 @@ literal|3
 return|;
 block|}
 name|long
-name|sizeOf
+name|sizeOfByteArray
 parameter_list|(
-name|byte
-index|[]
-name|b
-parameter_list|,
 name|int
 name|len
 parameter_list|)
@@ -608,12 +604,8 @@ argument_list|(
 literal|"static-access"
 argument_list|)
 name|long
-name|sizeOf
+name|sizeOfByteArray
 parameter_list|(
-name|byte
-index|[]
-name|b
-parameter_list|,
 name|int
 name|len
 parameter_list|)
@@ -1814,6 +1806,7 @@ literal|"32"
 argument_list|)
 return|;
 block|}
+comment|/**    * Calculate the memory consumption (in byte) of a byte array,    * including the array header and the whole backing byte array.    *    * If the whole byte array is occupied (not shared with other objects), please use this function.    * If not, please use {@link #sizeOfByteArray(int)} instead.    *    * @param b the byte array    * @return the memory consumption (in byte) of the whole byte array    */
 specifier|public
 specifier|static
 name|long
@@ -1822,7 +1815,25 @@ parameter_list|(
 name|byte
 index|[]
 name|b
-parameter_list|,
+parameter_list|)
+block|{
+return|return
+name|memoryLayout
+operator|.
+name|sizeOfByteArray
+argument_list|(
+name|b
+operator|.
+name|length
+argument_list|)
+return|;
+block|}
+comment|/**    * Calculate the memory consumption (in byte) of a part of a byte array,    * including the array header and the part of the backing byte array.    *    * This function is used when the byte array backs multiple objects.    * For example, in {@link org.apache.hadoop.hbase.KeyValue},    * multiple KeyValue objects share a same backing byte array ({@link org.apache.hadoop.hbase.KeyValue#bytes}).    * Also see {@link org.apache.hadoop.hbase.KeyValue#heapSize()}.    *    * @param len the length (in byte) used partially in the backing byte array    * @return the memory consumption (in byte) of the part of the byte array    */
+specifier|public
+specifier|static
+name|long
+name|sizeOfByteArray
+parameter_list|(
 name|int
 name|len
 parameter_list|)
@@ -1830,10 +1841,8 @@ block|{
 return|return
 name|memoryLayout
 operator|.
-name|sizeOf
+name|sizeOfByteArray
 argument_list|(
-name|b
-argument_list|,
 name|len
 argument_list|)
 return|;
