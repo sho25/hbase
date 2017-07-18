@@ -675,11 +675,6 @@ operator|+
 name|this
 argument_list|)
 expr_stmt|;
-name|start
-argument_list|(
-name|env
-argument_list|)
-expr_stmt|;
 comment|// If carrying meta, process it first. Else, get list of regions on crashed server.
 if|if
 condition|(
@@ -963,18 +958,6 @@ operator|.
 name|HAS_MORE_STATE
 return|;
 block|}
-comment|/**    * Start processing of crashed server. In here we'll just set configs. and return.    * @param env    * @throws IOException    */
-specifier|private
-name|void
-name|start
-parameter_list|(
-specifier|final
-name|MasterProcedureEnv
-name|env
-parameter_list|)
-throws|throws
-name|IOException
-block|{}
 comment|/**    * @param env    * @throws IOException    * @throws InterruptedException    */
 specifier|private
 name|void
