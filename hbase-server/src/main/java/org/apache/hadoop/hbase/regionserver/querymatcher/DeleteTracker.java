@@ -144,6 +144,10 @@ name|VERSION_DELETED
 block|,
 comment|// The KeyValue is deleted by a version delete.
 name|NOT_DELETED
+block|,
+name|VERSION_MASKED
+comment|// The KeyValue is masked by max number of versions which is considered as
+comment|// deleted in strong semantics of versions(See MvccTracker)
 block|}
 block|}
 end_interface

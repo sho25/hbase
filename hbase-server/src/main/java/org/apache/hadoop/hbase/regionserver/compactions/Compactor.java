@@ -1869,8 +1869,18 @@ operator|.
 name|minSeqIdToKeep
 operator|>
 literal|0
+operator|&&
+operator|!
+name|store
+operator|.
+name|getColumnFamilyDescriptor
+argument_list|()
+operator|.
+name|isNewVersionBehavior
+argument_list|()
 condition|)
 block|{
+comment|// For mvcc-sensitive family, we never set mvcc to 0.
 name|smallestReadPoint
 operator|=
 name|Math

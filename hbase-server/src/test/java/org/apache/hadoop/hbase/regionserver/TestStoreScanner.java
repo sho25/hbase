@@ -635,6 +635,8 @@ argument_list|,
 name|CellComparator
 operator|.
 name|COMPARATOR
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 specifier|private
@@ -6979,6 +6981,8 @@ argument_list|,
 name|CellComparator
 operator|.
 name|COMPARATOR
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 name|ScanType
@@ -7519,6 +7523,8 @@ argument_list|,
 name|CellComparator
 operator|.
 name|COMPARATOR
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 name|ScanType
@@ -8152,6 +8158,8 @@ comment|/* timeToPurgeDeletes */
 name|CellComparator
 operator|.
 name|COMPARATOR
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 try|try
@@ -8487,6 +8495,8 @@ argument_list|,
 name|CellComparator
 operator|.
 name|COMPARATOR
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 name|StoreScanner

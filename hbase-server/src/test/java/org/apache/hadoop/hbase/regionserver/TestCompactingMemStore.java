@@ -1280,6 +1280,8 @@ name|memstore
 operator|.
 name|getComparator
 argument_list|()
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 name|ScanType

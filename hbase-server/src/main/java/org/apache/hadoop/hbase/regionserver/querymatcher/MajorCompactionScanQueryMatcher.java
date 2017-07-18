@@ -113,6 +113,9 @@ parameter_list|,
 name|DeleteTracker
 name|deletes
 parameter_list|,
+name|ColumnTracker
+name|columns
+parameter_list|,
 name|long
 name|readPointToUse
 parameter_list|,
@@ -131,6 +134,8 @@ argument_list|(
 name|scanInfo
 argument_list|,
 name|deletes
+argument_list|,
+name|columns
 argument_list|,
 name|readPointToUse
 argument_list|,

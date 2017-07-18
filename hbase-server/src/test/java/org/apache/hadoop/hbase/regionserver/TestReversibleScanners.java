@@ -2099,6 +2099,8 @@ argument_list|,
 name|CellComparator
 operator|.
 name|COMPARATOR
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 comment|// Case 1.Test a full reversed scan

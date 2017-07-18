@@ -1987,6 +1987,11 @@ name|old
 operator|.
 name|getComparator
 argument_list|()
+argument_list|,
+name|old
+operator|.
+name|isNewVersionBehavior
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|store

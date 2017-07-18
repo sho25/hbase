@@ -1935,6 +1935,11 @@ name|oldSI
 operator|.
 name|getComparator
 argument_list|()
+argument_list|,
+name|family
+operator|.
+name|isNewVersionBehavior
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|Scan
@@ -2126,6 +2131,11 @@ argument_list|,
 name|oldSI
 operator|.
 name|getComparator
+argument_list|()
+argument_list|,
+name|family
+operator|.
+name|isNewVersionBehavior
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -2332,6 +2342,11 @@ argument_list|,
 name|oldSI
 operator|.
 name|getComparator
+argument_list|()
+argument_list|,
+name|family
+operator|.
+name|isNewVersionBehavior
 argument_list|()
 argument_list|)
 decl_stmt|;

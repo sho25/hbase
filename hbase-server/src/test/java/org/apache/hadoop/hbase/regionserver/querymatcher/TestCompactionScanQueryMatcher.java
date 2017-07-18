@@ -714,6 +714,8 @@ operator|-
 literal|1L
 argument_list|,
 name|rowComparator
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 name|CompactionScanQueryMatcher

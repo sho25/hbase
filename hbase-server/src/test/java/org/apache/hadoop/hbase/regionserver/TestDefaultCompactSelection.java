@@ -1235,6 +1235,11 @@ name|oldScanInfo
 operator|.
 name|getComparator
 argument_list|()
+argument_list|,
+name|oldScanInfo
+operator|.
+name|isNewVersionBehavior
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|store
