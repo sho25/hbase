@@ -13866,11 +13866,6 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
-name|delete
-operator|.
-name|getRow
-argument_list|()
-expr_stmt|;
 comment|// All edits for the given row (across all column families) must happen atomically.
 name|doBatchMutate
 argument_list|(
@@ -15423,32 +15418,6 @@ block|}
 block|}
 block|}
 comment|/**    * Called to do a piece of the batch that came in to {@link #batchMutate(Mutation[], long, long)}    * In here we also handle replay of edits on region recover.    * @return Change in size brought about by applying<code>batchOp</code>    */
-annotation|@
-name|edu
-operator|.
-name|umd
-operator|.
-name|cs
-operator|.
-name|findbugs
-operator|.
-name|annotations
-operator|.
-name|SuppressWarnings
-argument_list|(
-name|value
-operator|=
-literal|"UL_UNRELEASED_LOCK"
-argument_list|,
-name|justification
-operator|=
-literal|"Findbugs seems to be confused on this."
-argument_list|)
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unchecked"
-argument_list|)
 comment|// TODO: This needs a rewrite. Doesn't have to be this long. St.Ack 20160120
 specifier|private
 name|void

@@ -520,29 +520,6 @@ assert|;
 if|if
 condition|(
 name|numProcessing
-operator|<
-literal|0
-condition|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Number of dead servers in processing = "
-operator|+
-name|numProcessing
-operator|+
-literal|". Something went wrong, this should always be non-negative."
-argument_list|)
-expr_stmt|;
-name|numProcessing
-operator|=
-literal|0
-expr_stmt|;
-block|}
-if|if
-condition|(
-name|numProcessing
 operator|==
 literal|0
 condition|)

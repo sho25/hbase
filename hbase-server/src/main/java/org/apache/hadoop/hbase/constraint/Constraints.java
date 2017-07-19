@@ -1954,7 +1954,7 @@ comment|// compare the priorities of the constraints stored in their configurati
 return|return
 name|Long
 operator|.
-name|valueOf
+name|compare
 argument_list|(
 name|c1
 operator|.
@@ -1967,10 +1967,7 @@ name|PRIORITY_KEY
 argument_list|,
 name|DEFAULT_PRIORITY
 argument_list|)
-argument_list|)
-operator|.
-name|compareTo
-argument_list|(
+argument_list|,
 name|c2
 operator|.
 name|getConf

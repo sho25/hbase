@@ -464,6 +464,15 @@ operator|.
 name|list
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|dirList
+operator|==
+literal|null
+condition|)
+block|{
+return|return;
+block|}
 for|for
 control|(
 name|String
