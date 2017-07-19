@@ -554,6 +554,11 @@ condition|(
 name|rss
 operator|==
 literal|null
+operator|||
+name|rss
+operator|.
+name|isEmpty
+argument_list|()
 condition|)
 block|{
 name|LOG
