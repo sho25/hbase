@@ -1814,7 +1814,8 @@ name|GLOBAL_L1_CACHE_INSTANCE
 return|;
 block|}
 comment|/**    * @param c Configuration to use.    * @return Returns L2 block cache instance (for now it is BucketCache BlockCache all the time)    * or null if not supposed to be a L2.    */
-specifier|private
+annotation|@
+name|VisibleForTesting
 specifier|static
 name|BlockCache
 name|getL2
@@ -2191,11 +2192,9 @@ name|i
 operator|++
 control|)
 block|{
-name|bucketSizes
-index|[
-name|i
-index|]
-operator|=
+name|int
+name|bucketSize
+init|=
 name|Integer
 operator|.
 name|parseInt
@@ -2208,6 +2207,43 @@ operator|.
 name|trim
 argument_list|()
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|bucketSize
+operator|%
+literal|256
+operator|!=
+literal|0
+condition|)
+block|{
+comment|// We need all the bucket sizes to be multiples of 256. Having all the configured bucket
+comment|// sizes to be multiples of 256 will ensure that the block offsets within buckets,
+comment|// that are calculated, will also be multiples of 256.
+comment|// See BucketEntry where offset to each block is represented using 5 bytes (instead of 8
+comment|// bytes long). We would like to save heap overhead as less as possible.
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Illegal value: "
+operator|+
+name|bucketSize
+operator|+
+literal|" configured for '"
+operator|+
+name|BUCKET_CACHE_BUCKETS_KEY
+operator|+
+literal|"'. All bucket sizes to be multiples of 256"
+argument_list|)
+throw|;
+block|}
+name|bucketSizes
+index|[
+name|i
+index|]
+operator|=
+name|bucketSize
 expr_stmt|;
 block|}
 block|}
