@@ -1325,7 +1325,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Add a column family to an existing table. Asynchronous operation.    *    * @param tableName name of the table to add column family to    * @param columnFamily column family descriptor of column family to be added    * @throws IOException if a remote or network exception occurs    * @deprecated As of release 2.0.0.    *             (<a href="https://issues.apache.org/jira/browse/HBASE-1989">HBASE-1989</a>).    *             This will be removed in HBase 3.0.0.    *             Use {@link #addColumnFamily(TableName, HColumnDescriptor)}.    */
+comment|/**    * Add a column family to an existing table. Asynchronous operation.    *    * @param tableName name of the table to add column family to    * @param columnFamily column family descriptor of column family to be added    * @throws IOException if a remote or network exception occurs    * @deprecated As of release 2.0.0.    *             (<a href="https://issues.apache.org/jira/browse/HBASE-1989">HBASE-1989</a>).    *             This will be removed in HBase 3.0.0.    *             Use {@link #addColumnFamily(TableName, ColumnFamilyDescriptor)}.    */
 annotation|@
 name|Deprecated
 name|void
@@ -1351,7 +1351,7 @@ name|TableName
 name|tableName
 parameter_list|,
 specifier|final
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|columnFamily
 parameter_list|)
 throws|throws
@@ -1369,7 +1369,7 @@ name|TableName
 name|tableName
 parameter_list|,
 specifier|final
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|columnFamily
 parameter_list|)
 throws|throws
@@ -1428,7 +1428,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Modify an existing column family on a table.    *    * @param tableName name of table    * @param columnFamily new column family descriptor to use    * @throws IOException if a remote or network exception occurs    * @deprecated As of release 2.0.0.    *             (<a href="https://issues.apache.org/jira/browse/HBASE-1989">HBASE-1989</a>).    *             This will be removed in HBase 3.0.0.    *             Use {@link #modifyColumnFamily(TableName, HColumnDescriptor)}.    */
+comment|/**    * Modify an existing column family on a table.    *    * @param tableName name of table    * @param columnFamily new column family descriptor to use    * @throws IOException if a remote or network exception occurs    * @deprecated As of release 2.0.0.    *             (<a href="https://issues.apache.org/jira/browse/HBASE-1989">HBASE-1989</a>).    *             This will be removed in HBase 3.0.0.    *             Use {@link #modifyColumnFamily(TableName, ColumnFamilyDescriptor)}.    */
 annotation|@
 name|Deprecated
 name|void
@@ -1454,7 +1454,7 @@ name|TableName
 name|tableName
 parameter_list|,
 specifier|final
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|columnFamily
 parameter_list|)
 throws|throws
@@ -1470,7 +1470,7 @@ parameter_list|(
 name|TableName
 name|tableName
 parameter_list|,
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|columnFamily
 parameter_list|)
 throws|throws

@@ -7640,7 +7640,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * {@inheritDoc}    * @deprecated Since 2.0. Will be removed in 3.0. Use    *     {@link #addColumnFamily(TableName, HColumnDescriptor)} instead.    */
+comment|/**    * {@inheritDoc}    * @deprecated Since 2.0. Will be removed in 3.0. Use    *     {@link #addColumnFamily(TableName, ColumnFamilyDescriptor)} instead.    */
 annotation|@
 name|Override
 annotation|@
@@ -7679,7 +7679,7 @@ name|TableName
 name|tableName
 parameter_list|,
 specifier|final
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|columnFamily
 parameter_list|)
 throws|throws
@@ -7716,7 +7716,7 @@ name|TableName
 name|tableName
 parameter_list|,
 specifier|final
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|columnFamily
 parameter_list|)
 throws|throws
@@ -8091,7 +8091,7 @@ literal|"DELETE_COLUMN_FAMILY"
 return|;
 block|}
 block|}
-comment|/**    * {@inheritDoc}    * @deprecated As of 2.0. Will be removed in 3.0. Use    *     {@link #modifyColumnFamily(TableName, HColumnDescriptor)} instead.    */
+comment|/**    * {@inheritDoc}    * @deprecated As of 2.0. Will be removed in 3.0. Use    *     {@link #modifyColumnFamily(TableName, ColumnFamilyDescriptor)} instead.    */
 annotation|@
 name|Override
 annotation|@
@@ -8130,7 +8130,7 @@ name|TableName
 name|tableName
 parameter_list|,
 specifier|final
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|columnFamily
 parameter_list|)
 throws|throws
@@ -8167,7 +8167,7 @@ name|TableName
 name|tableName
 parameter_list|,
 specifier|final
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|columnFamily
 parameter_list|)
 throws|throws
