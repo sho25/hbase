@@ -5129,6 +5129,22 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|// Write HRI to a file in case we need to recover hbase:meta
+comment|// Only the primary replica should write .regioninfo
+if|if
+condition|(
+name|this
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getReplicaId
+argument_list|()
+operator|==
+name|HRegionInfo
+operator|.
+name|DEFAULT_REPLICA_ID
+condition|)
+block|{
 name|status
 operator|.
 name|setStatus
@@ -5141,6 +5157,31 @@ operator|.
 name|checkRegionInfoOnFilesystem
 argument_list|()
 expr_stmt|;
+block|}
+else|else
+block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Skipping creation of .regioninfo file for "
+operator|+
+name|this
+operator|.
+name|getRegionInfo
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 comment|// Initialize all the HStores
 name|status
 operator|.

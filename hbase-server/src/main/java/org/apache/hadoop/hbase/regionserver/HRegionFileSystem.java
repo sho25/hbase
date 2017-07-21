@@ -3747,6 +3747,52 @@ argument_list|(
 name|regionInfoForFs
 argument_list|)
 decl_stmt|;
+comment|// Verify if the region directory exists before opening a region. We need to do this since if
+comment|// the region directory doesn't exist we will re-create the region directory and a new HRI
+comment|// when HRegion.openHRegion() is called.
+try|try
+block|{
+name|FileStatus
+name|status
+init|=
+name|fs
+operator|.
+name|getFileStatus
+argument_list|(
+name|getRegionDir
+argument_list|()
+argument_list|)
+decl_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|FileNotFoundException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|getRegionDir
+argument_list|()
+operator|+
+literal|" doesn't exist for region: "
+operator|+
+name|regionInfoForFs
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" on table "
+operator|+
+name|regionInfo
+operator|.
+name|getTable
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 try|try
 block|{
 name|Path
@@ -4141,6 +4187,19 @@ argument_list|)
 throw|;
 block|}
 comment|// Write HRI to a file in case we need to recover hbase:meta
+comment|// Only primary replicas should write region info
+if|if
+condition|(
+name|regionInfo
+operator|.
+name|getReplicaId
+argument_list|()
+operator|==
+name|HRegionInfo
+operator|.
+name|DEFAULT_REPLICA_ID
+condition|)
+block|{
 name|regionFs
 operator|.
 name|writeRegionInfoOnFilesystem
@@ -4148,6 +4207,26 @@ argument_list|(
 literal|false
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Skipping creation of .regioninfo file for "
+operator|+
+name|regionInfo
+argument_list|)
+expr_stmt|;
+block|}
 return|return
 name|regionFs
 return|;
@@ -4255,12 +4334,47 @@ operator|.
 name|cleanupMergesDir
 argument_list|()
 expr_stmt|;
-comment|// if it doesn't exists, Write HRI to a file, in case we need to recover hbase:meta
+comment|// If it doesn't exists, Write HRI to a file, in case we need to recover hbase:meta
+comment|// Only create HRI if we are the default replica
+if|if
+condition|(
+name|regionInfo
+operator|.
+name|getReplicaId
+argument_list|()
+operator|==
+name|HRegionInfo
+operator|.
+name|DEFAULT_REPLICA_ID
+condition|)
+block|{
 name|regionFs
 operator|.
 name|checkRegionInfoOnFilesystem
 argument_list|()
 expr_stmt|;
+block|}
+else|else
+block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Skipping creation of .regioninfo file for "
+operator|+
+name|regionInfo
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 block|}
 return|return
 name|regionFs

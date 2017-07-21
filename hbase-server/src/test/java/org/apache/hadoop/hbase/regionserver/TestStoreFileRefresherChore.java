@@ -1336,6 +1336,13 @@ argument_list|,
 name|families
 argument_list|)
 decl_stmt|;
+name|htd
+operator|.
+name|setRegionReplication
+argument_list|(
+literal|2
+argument_list|)
+expr_stmt|;
 name|Region
 name|primary
 init|=
