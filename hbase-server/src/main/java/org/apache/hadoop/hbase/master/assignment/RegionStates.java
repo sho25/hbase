@@ -1956,6 +1956,45 @@ name|clear
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|VisibleForTesting
+specifier|public
+name|boolean
+name|isRegionInRegionStates
+parameter_list|(
+specifier|final
+name|HRegionInfo
+name|hri
+parameter_list|)
+block|{
+return|return
+operator|(
+name|regionsMap
+operator|.
+name|containsKey
+argument_list|(
+name|hri
+operator|.
+name|getRegionName
+argument_list|()
+argument_list|)
+operator|||
+name|regionInTransition
+operator|.
+name|containsKey
+argument_list|(
+name|hri
+argument_list|)
+operator|||
+name|regionOffline
+operator|.
+name|containsKey
+argument_list|(
+name|hri
+argument_list|)
+operator|)
+return|;
+block|}
 comment|// ==========================================================================
 comment|//  RegionStateNode helpers
 comment|// ==========================================================================
