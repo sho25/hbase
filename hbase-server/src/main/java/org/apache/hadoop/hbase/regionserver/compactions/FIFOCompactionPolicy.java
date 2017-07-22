@@ -475,7 +475,7 @@ name|files
 control|)
 block|{
 comment|// Check MIN_VERSIONS is in HStore removeUnneededFiles
-name|Long
+name|long
 name|maxTs
 init|=
 name|sf
@@ -496,10 +496,6 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|maxTs
-operator|==
-literal|null
-operator|||
 name|maxTtl
 operator|==
 name|Long
@@ -576,7 +572,7 @@ name|files
 control|)
 block|{
 comment|// Check MIN_VERSIONS is in HStore removeUnneededFiles
-name|Long
+name|long
 name|maxTs
 init|=
 name|sf
@@ -597,10 +593,6 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|maxTs
-operator|==
-literal|null
-operator|||
 name|maxTtl
 operator|==
 name|Long

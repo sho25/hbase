@@ -669,6 +669,8 @@ argument_list|(
 name|totalSize
 argument_list|)
 expr_stmt|;
+try|try
+init|(
 name|ByteBufOutputStream
 name|bbos
 init|=
@@ -677,7 +679,8 @@ name|ByteBufOutputStream
 argument_list|(
 name|buf
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|requestHeader
 operator|.
 name|writeDelimitedTo
@@ -780,6 +783,7 @@ argument_list|,
 name|promise
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 annotation|@

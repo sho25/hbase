@@ -8515,7 +8515,7 @@ operator|.
 name|checkInitialized
 argument_list|()
 expr_stmt|;
-name|Boolean
+name|boolean
 name|result
 init|=
 name|master

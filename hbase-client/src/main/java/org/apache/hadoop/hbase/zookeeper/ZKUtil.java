@@ -8175,6 +8175,8 @@ argument_list|(
 name|timeout
 argument_list|)
 expr_stmt|;
+try|try
+init|(
 name|PrintWriter
 name|out
 init|=
@@ -8188,10 +8190,10 @@ argument_list|()
 argument_list|,
 literal|true
 argument_list|)
-decl_stmt|;
+init|;
 name|BufferedReader
 name|in
-init|=
+operator|=
 operator|new
 name|BufferedReader
 argument_list|(
@@ -8204,7 +8206,8 @@ name|getInputStream
 argument_list|()
 argument_list|)
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|out
 operator|.
 name|println
@@ -8276,6 +8279,7 @@ argument_list|()
 index|]
 argument_list|)
 return|;
+block|}
 block|}
 block|}
 specifier|private

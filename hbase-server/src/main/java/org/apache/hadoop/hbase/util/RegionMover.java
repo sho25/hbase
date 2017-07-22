@@ -2249,7 +2249,7 @@ operator|.
 name|getConfiguration
 argument_list|()
 operator|.
-name|getInt
+name|getLong
 argument_list|(
 name|MOVE_WAIT_MAX_KEY
 argument_list|,
@@ -2773,7 +2773,7 @@ operator|.
 name|getConfiguration
 argument_list|()
 operator|.
-name|getInt
+name|getLong
 argument_list|(
 name|MOVE_WAIT_MAX_KEY
 argument_list|,

@@ -357,6 +357,8 @@ operator|.
 name|getOutputStream
 argument_list|()
 decl_stmt|;
+try|try
+init|(
 name|PrintWriter
 name|out
 init|=
@@ -365,7 +367,8 @@ name|PrintWriter
 argument_list|(
 name|os
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|out
 operator|.
 name|println
@@ -673,6 +676,7 @@ operator|.
 name|flush
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 specifier|private
 name|void

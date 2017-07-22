@@ -1669,6 +1669,9 @@ name|bucketCapacity
 operator|=
 name|FEWEST_ITEMS_IN_BUCKET
 operator|*
+operator|(
+name|long
+operator|)
 name|bigItemSize
 expr_stmt|;
 name|buckets

@@ -4488,7 +4488,7 @@ argument_list|()
 decl_stmt|;
 try|try
 block|{
-name|Long
+name|long
 name|tmpSeqId
 init|=
 name|Long
