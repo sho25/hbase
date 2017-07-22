@@ -1914,13 +1914,10 @@ name|addColumnFamily
 argument_list|(
 name|ColumnFamilyDescriptorBuilder
 operator|.
-name|newBuilder
+name|of
 argument_list|(
 name|TEST_FAM
 argument_list|)
-operator|.
-name|build
-argument_list|()
 argument_list|)
 operator|.
 name|setCompactionEnabled

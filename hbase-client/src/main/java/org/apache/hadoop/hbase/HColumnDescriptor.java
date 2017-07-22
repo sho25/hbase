@@ -810,7 +810,7 @@ specifier|final
 name|ModifyableColumnFamilyDescriptor
 name|delegatee
 decl_stmt|;
-comment|/**    * Construct a column descriptor specifying only the family name    * The other attributes are defaulted.    *    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and may not contain a<code>:</code>    */
+comment|/**    * Construct a column descriptor specifying only the family name    * The other attributes are defaulted.    *    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and may not contain a<code>:</code>    * @deprecated use {@link ColumnFamilyDescriptorBuilder#of(String)}    */
 specifier|public
 name|HColumnDescriptor
 parameter_list|(
@@ -830,7 +830,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Construct a column descriptor specifying only the family name    * The other attributes are defaulted.    *    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and may not contain a<code>:</code>    */
+comment|/**    * Construct a column descriptor specifying only the family name    * The other attributes are defaulted.    *    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and may not contain a<code>:</code>    * @deprecated use {@link ColumnFamilyDescriptorBuilder#of(byte[])}    */
 specifier|public
 name|HColumnDescriptor
 parameter_list|(
@@ -850,7 +850,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor.    * Makes a deep copy of the supplied descriptor.    * Can make a modifiable descriptor from an UnmodifyableHColumnDescriptor.    * @param desc The descriptor.    */
+comment|/**    * Constructor.    * Makes a deep copy of the supplied descriptor.    * Can make a modifiable descriptor from an UnmodifyableHColumnDescriptor.    * @param desc The descriptor.    * @deprecated use {@link ColumnFamilyDescriptorBuilder#copy(ColumnFamilyDescriptor)}    */
 specifier|public
 name|HColumnDescriptor
 parameter_list|(

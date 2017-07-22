@@ -792,16 +792,10 @@ try|try
 block|{
 name|ColumnFamilyDescriptorBuilder
 operator|.
-name|newBuilder
+name|of
 argument_list|(
 literal|""
-operator|.
-name|getBytes
-argument_list|()
 argument_list|)
-operator|.
-name|build
-argument_list|()
 expr_stmt|;
 block|}
 catch|catch
