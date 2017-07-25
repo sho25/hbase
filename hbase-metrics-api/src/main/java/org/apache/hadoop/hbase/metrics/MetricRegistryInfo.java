@@ -255,7 +255,7 @@ argument_list|(
 name|metricsJmxContext
 argument_list|)
 operator|.
-name|hashCode
+name|toHashCode
 argument_list|()
 return|;
 block|}
