@@ -5883,6 +5883,10 @@ condition|(
 name|r
 operator|==
 literal|null
+operator|||
+operator|!
+name|isRandomValueSize
+argument_list|()
 condition|)
 return|return;
 name|int
@@ -5932,6 +5936,13 @@ name|int
 name|valueSize
 parameter_list|)
 block|{
+if|if
+condition|(
+operator|!
+name|isRandomValueSize
+argument_list|()
+condition|)
+return|return;
 name|this
 operator|.
 name|valueSizeHistogram
