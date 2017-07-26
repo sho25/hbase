@@ -65,16 +65,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|Comparator
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|HashMap
 import|;
 end_import
@@ -701,26 +691,6 @@ name|master
 operator|.
 name|normalizer
 operator|.
-name|NormalizationPlan
-operator|.
-name|PlanType
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|master
-operator|.
-name|normalizer
-operator|.
 name|RegionNormalizer
 import|;
 end_import
@@ -876,22 +846,6 @@ operator|.
 name|util
 operator|.
 name|StringUtils
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|quotas
-operator|.
-name|QuotaExceededException
 import|;
 end_import
 
@@ -4819,10 +4773,6 @@ name|HRegionInfo
 name|hriB
 parameter_list|)
 throws|throws
-name|PleaseHoldException
-throws|,
-name|UnexpectedStateException
-throws|,
 name|IOException
 block|{
 name|checkFailoverCleanupCompleted
@@ -6035,7 +5985,7 @@ return|return
 name|m
 operator|!=
 literal|null
-condition|?
+operator|&&
 name|m
 operator|.
 name|containsKey
@@ -6045,8 +5995,6 @@ operator|.
 name|getEncodedName
 argument_list|()
 argument_list|)
-else|:
-literal|false
 return|;
 block|}
 specifier|public
@@ -7194,8 +7142,6 @@ specifier|final
 name|HRegionInfo
 name|regionInfo
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 comment|// TODO used by MasterRpcServices ServerCrashProcedure
 specifier|final
@@ -7281,8 +7227,6 @@ parameter_list|(
 name|TableName
 name|tableName
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 if|if
 condition|(
@@ -8070,8 +8014,6 @@ specifier|final
 name|RegionStateNode
 name|regionNode
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 comment|// TODO: Metrics. Do opposite of metrics.incrementOperationCounter();
 comment|// There is nothing to undo?
