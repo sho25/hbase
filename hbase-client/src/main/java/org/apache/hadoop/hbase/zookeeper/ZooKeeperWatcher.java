@@ -995,9 +995,11 @@ name|InterruptedException
 name|ie
 parameter_list|)
 block|{
-name|interruptedException
+name|interruptedExceptionNoThrow
 argument_list|(
 name|ie
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 block|}
@@ -2351,13 +2353,43 @@ throw|throw
 name|ke
 throw|;
 block|}
-comment|/**    * Handles InterruptedExceptions in client calls.    *<p>    * This may be temporary but for now this gives one place to deal with these.    *<p>    * TODO: Currently, this method does nothing.    *       Is this ever expected to happen?  Do we abort or can we let it run?    *       Maybe this should be logged as WARN?  It shouldn't happen?    *<p>    * @param ie    */
+comment|/**    * Handles InterruptedExceptions in client calls.    * @param ie the InterruptedException instance thrown    * @throws KeeperException the exception to throw, transformed from the InterruptedException    */
 specifier|public
 name|void
 name|interruptedException
 parameter_list|(
 name|InterruptedException
 name|ie
+parameter_list|)
+throws|throws
+name|KeeperException
+block|{
+name|interruptedExceptionNoThrow
+argument_list|(
+name|ie
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
+comment|// Throw a system error exception to let upper level handle it
+throw|throw
+operator|new
+name|KeeperException
+operator|.
+name|SystemErrorException
+argument_list|()
+throw|;
+block|}
+comment|/**    * Log the InterruptedException and interrupt current thread    * @param ie The IterruptedException to log    * @param throwLater Whether we will throw the exception latter    */
+specifier|public
+name|void
+name|interruptedExceptionNoThrow
+parameter_list|(
+name|InterruptedException
+name|ie
+parameter_list|,
+name|boolean
+name|throwLater
 parameter_list|)
 block|{
 name|LOG
@@ -2366,13 +2398,21 @@ name|debug
 argument_list|(
 name|prefix
 argument_list|(
-literal|"Received InterruptedException, doing nothing here"
+literal|"Received InterruptedException, will interrupt current thread"
+operator|+
+operator|(
+name|throwLater
+condition|?
+literal|" and rethrow a SystemErrorException"
+else|:
+literal|""
+operator|)
 argument_list|)
 argument_list|,
 name|ie
 argument_list|)
 expr_stmt|;
-comment|// At least preserver interrupt.
+comment|// At least preserve interrupt.
 name|Thread
 operator|.
 name|currentThread
@@ -2381,7 +2421,6 @@ operator|.
 name|interrupt
 argument_list|()
 expr_stmt|;
-comment|// no-op
 block|}
 comment|/**    * Close the connection to ZooKeeper.    *    */
 annotation|@
