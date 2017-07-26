@@ -190,6 +190,14 @@ name|Configuration
 argument_list|()
 argument_list|)
 decl_stmt|;
+name|Throwable
+name|testThrowable
+init|=
+operator|new
+name|Throwable
+argument_list|()
+decl_stmt|;
+comment|//throwable already tested in TestFailedServers.java
 name|InetSocketAddress
 name|ia
 init|=
@@ -256,6 +264,8 @@ operator|.
 name|addToFailedServers
 argument_list|(
 name|ia
+argument_list|,
+name|testThrowable
 argument_list|)
 expr_stmt|;
 name|Assert
@@ -353,6 +363,8 @@ operator|.
 name|addToFailedServers
 argument_list|(
 name|ia
+argument_list|,
+name|testThrowable
 argument_list|)
 expr_stmt|;
 name|fs
@@ -360,6 +372,8 @@ operator|.
 name|addToFailedServers
 argument_list|(
 name|ia3
+argument_list|,
+name|testThrowable
 argument_list|)
 expr_stmt|;
 name|fs
@@ -367,6 +381,8 @@ operator|.
 name|addToFailedServers
 argument_list|(
 name|ia4
+argument_list|,
+name|testThrowable
 argument_list|)
 expr_stmt|;
 name|Assert
@@ -481,6 +497,8 @@ operator|.
 name|addToFailedServers
 argument_list|(
 name|ia3
+argument_list|,
+name|testThrowable
 argument_list|)
 expr_stmt|;
 name|Assert
