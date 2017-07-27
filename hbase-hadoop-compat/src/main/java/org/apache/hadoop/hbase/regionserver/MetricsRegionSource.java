@@ -57,6 +57,16 @@ init|=
 literal|"lastMajorCompactionAge"
 decl_stmt|;
 name|String
+name|COMPACTIONS_QUEUED_COUNT
+init|=
+literal|"compactionsQueuedCount"
+decl_stmt|;
+name|String
+name|MAX_COMPACTION_QUEUE_SIZE
+init|=
+literal|"maxCompactionQueueSize"
+decl_stmt|;
+name|String
 name|NUM_BYTES_COMPACTED_COUNT
 init|=
 literal|"numBytesCompactedCount"
@@ -65,6 +75,16 @@ name|String
 name|NUM_FILES_COMPACTED_COUNT
 init|=
 literal|"numFilesCompactedCount"
+decl_stmt|;
+name|String
+name|FLUSHES_QUEUED_COUNT
+init|=
+literal|"flushesQueuedCount"
+decl_stmt|;
+name|String
+name|MAX_FLUSH_QUEUE_SIZE
+init|=
+literal|"maxFlushQueueSize"
 decl_stmt|;
 name|String
 name|COMPACTIONS_COMPLETED_DESC
@@ -80,6 +100,26 @@ name|String
 name|LAST_MAJOR_COMPACTION_DESC
 init|=
 literal|"Age of the last major compaction in milliseconds."
+decl_stmt|;
+name|String
+name|COMPACTIONS_QUEUED_DESC
+init|=
+literal|"Number of compactions that are queued/running for this region"
+decl_stmt|;
+name|String
+name|MAX_COMPACTION_QUEUE_DESC
+init|=
+literal|"Max number of compactions queued for this region"
+decl_stmt|;
+name|String
+name|FLUSHES_QUEUED_DESC
+init|=
+literal|"Number flushes requested/queued for this region"
+decl_stmt|;
+name|String
+name|MAX_FLUSH_QUEUE_DESC
+init|=
+literal|"Max number of flushes queued for this region"
 decl_stmt|;
 name|String
 name|NUM_BYTES_COMPACTED_DESC

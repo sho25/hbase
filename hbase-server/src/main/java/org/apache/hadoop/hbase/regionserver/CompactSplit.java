@@ -2201,6 +2201,16 @@ name|user
 argument_list|)
 argument_list|)
 expr_stmt|;
+operator|(
+operator|(
+name|HRegion
+operator|)
+name|r
+operator|)
+operator|.
+name|incrementCompactionsQueuedCount
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|LOG
@@ -2945,6 +2955,11 @@ operator|.
 name|checkFileSystem
 argument_list|()
 expr_stmt|;
+name|region
+operator|.
+name|decrementCompactionsQueuedCount
+argument_list|()
+expr_stmt|;
 return|return;
 block|}
 if|if
@@ -2955,8 +2970,15 @@ name|compaction
 operator|==
 literal|null
 condition|)
+block|{
+name|region
+operator|.
+name|decrementCompactionsQueuedCount
+argument_list|()
+expr_stmt|;
 return|return;
 comment|// nothing to do
+block|}
 comment|// Now see if we are in correct pool for the size; if not, go to the correct one.
 comment|// We might end up waiting for a while, so cancel the selection.
 assert|assert
@@ -3255,6 +3277,11 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
+name|region
+operator|.
+name|decrementCompactionsQueuedCount
+argument_list|()
+expr_stmt|;
 name|LOG
 operator|.
 name|debug
@@ -3318,6 +3345,11 @@ argument_list|()
 operator|)
 condition|)
 block|{
+name|region
+operator|.
+name|decrementCompactionsQueuedCount
+argument_list|()
+expr_stmt|;
 return|return;
 block|}
 name|doCompaction

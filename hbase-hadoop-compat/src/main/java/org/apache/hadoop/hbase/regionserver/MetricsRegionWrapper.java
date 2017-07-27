@@ -118,6 +118,26 @@ name|long
 name|getNumCompactionsFailed
 parameter_list|()
 function_decl|;
+comment|/**    * @return the total number of compactions that are currently queued(or being executed) at point in    *  time    */
+name|long
+name|getNumCompactionsQueued
+parameter_list|()
+function_decl|;
+comment|/**    * @return the total number of flushes currently queued(being executed) for this region at point in    *  time    */
+name|long
+name|getNumFlushesQueued
+parameter_list|()
+function_decl|;
+comment|/**    * @return the max number of compactions queued for this region    * Note that this metric is updated periodically and hence might miss some data points    */
+name|long
+name|getMaxCompactionQueueSize
+parameter_list|()
+function_decl|;
+comment|/**    * @return the max number of flushes queued for this region    * Note that this metric is updated periodically and hence might miss some data points    */
+name|long
+name|getMaxFlushQueueSize
+parameter_list|()
+function_decl|;
 name|int
 name|getRegionHashCode
 parameter_list|()
