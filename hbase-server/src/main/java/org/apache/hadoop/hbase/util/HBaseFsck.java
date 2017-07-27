@@ -13466,6 +13466,42 @@ expr_stmt|;
 return|return;
 block|}
 block|}
+comment|// For Replica region, we need to do a similar check. If replica is not split successfully,
+comment|// error is going to be reported against primary daughter region.
+if|if
+condition|(
+name|hbi
+operator|.
+name|getReplicaId
+argument_list|()
+operator|!=
+name|HRegionInfo
+operator|.
+name|DEFAULT_REPLICA_ID
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Region "
+operator|+
+name|descriptiveName
+operator|+
+literal|" is a split parent in META, in HDFS, "
+operator|+
+literal|"and not deployed on any region server. This may be transient."
+argument_list|)
+expr_stmt|;
+name|hbi
+operator|.
+name|setSkipChecks
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 name|errors
 operator|.
 name|reportError
