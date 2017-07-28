@@ -1875,7 +1875,7 @@ argument_list|)
 expr_stmt|;
 name|assertRegionMetrics
 argument_list|(
-literal|"mutateCount"
+literal|"putCount"
 argument_list|,
 literal|31
 argument_list|)

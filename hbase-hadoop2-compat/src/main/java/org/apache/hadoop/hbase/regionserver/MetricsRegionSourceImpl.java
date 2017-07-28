@@ -351,7 +351,7 @@ name|regionNamePrefix
 operator|+
 name|MetricsRegionServerSource
 operator|.
-name|MUTATE_KEY
+name|PUT_KEY
 operator|+
 name|suffix
 expr_stmt|;

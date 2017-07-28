@@ -96,9 +96,41 @@ name|long
 name|t
 parameter_list|)
 function_decl|;
+comment|/**    * Update the PutBatch time histogram if a batch contains a Put op    * @param t    */
+name|void
+name|updatePutBatch
+parameter_list|(
+name|long
+name|t
+parameter_list|)
+function_decl|;
 comment|/**    * Update the Delete time histogram    *    * @param t time it took    */
 name|void
 name|updateDelete
+parameter_list|(
+name|long
+name|t
+parameter_list|)
+function_decl|;
+comment|/**    * Update the Delete time histogram if a batch contains a delete op    * @param t time it took    */
+name|void
+name|updateDeleteBatch
+parameter_list|(
+name|long
+name|t
+parameter_list|)
+function_decl|;
+comment|/**    * Update checkAndDelete histogram    * @param t time it took    */
+name|void
+name|updateCheckAndDelete
+parameter_list|(
+name|long
+name|t
+parameter_list|)
+function_decl|;
+comment|/**    * Update checkAndPut histogram    * @param t time it took    */
+name|void
+name|updateCheckAndPut
 parameter_list|(
 name|long
 name|t
@@ -859,6 +891,21 @@ init|=
 literal|"delete"
 decl_stmt|;
 name|String
+name|CHECK_AND_DELETE_KEY
+init|=
+literal|"checkAndDelete"
+decl_stmt|;
+name|String
+name|CHECK_AND_PUT_KEY
+init|=
+literal|"checkAndPut"
+decl_stmt|;
+name|String
+name|DELETE_BATCH_KEY
+init|=
+literal|"deleteBatch"
+decl_stmt|;
+name|String
 name|GET_SIZE_KEY
 init|=
 literal|"getSize"
@@ -874,9 +921,14 @@ init|=
 literal|"increment"
 decl_stmt|;
 name|String
-name|MUTATE_KEY
+name|PUT_KEY
 init|=
-literal|"mutate"
+literal|"put"
+decl_stmt|;
+name|String
+name|PUT_BATCH_KEY
+init|=
+literal|"putBatch"
 decl_stmt|;
 name|String
 name|APPEND_KEY
@@ -904,7 +956,7 @@ init|=
 literal|"scanTime"
 decl_stmt|;
 name|String
-name|SLOW_MUTATE_KEY
+name|SLOW_PUT_KEY
 init|=
 literal|"slowPutCount"
 decl_stmt|;
@@ -929,14 +981,14 @@ init|=
 literal|"slowAppendCount"
 decl_stmt|;
 name|String
-name|SLOW_MUTATE_DESC
+name|SLOW_PUT_DESC
 init|=
-literal|"The number of Multis that took over 1000ms to complete"
+literal|"The number of batches containing puts that took over 1000ms to complete"
 decl_stmt|;
 name|String
 name|SLOW_DELETE_DESC
 init|=
-literal|"The number of Deletes that took over 1000ms to complete"
+literal|"The number of batches containing delete(s) that took over 1000ms to complete"
 decl_stmt|;
 name|String
 name|SLOW_GET_DESC

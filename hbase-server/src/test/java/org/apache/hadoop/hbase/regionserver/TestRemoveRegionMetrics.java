@@ -767,7 +767,7 @@ name|assertCounter
 argument_list|(
 name|prefix
 operator|+
-literal|"_mutateCount"
+literal|"_putCount"
 argument_list|,
 literal|1
 argument_list|,
@@ -837,7 +837,7 @@ name|assertCounter
 argument_list|(
 name|prefix
 operator|+
-literal|"_mutateCount"
+literal|"_putCount"
 argument_list|,
 literal|0
 argument_list|,
