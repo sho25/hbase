@@ -1578,19 +1578,17 @@ name|table
 argument_list|)
 condition|)
 block|{
-comment|// splitRegion doesn't work if startkey/endkey are null
-name|ProtobufUtil
+name|util
 operator|.
-name|split
-argument_list|(
-literal|null
-argument_list|,
-name|hrs
-operator|.
-name|getRSRpcServices
+name|getAdmin
 argument_list|()
-argument_list|,
+operator|.
+name|splitRegionAsync
+argument_list|(
 name|hri
+operator|.
+name|getRegionName
+argument_list|()
 argument_list|,
 name|rowkey
 argument_list|(
@@ -1600,6 +1598,7 @@ literal|2
 argument_list|)
 argument_list|)
 expr_stmt|;
+comment|//ProtobufUtil.split(null, hrs.getRSRpcServices(), hri, rowkey(ROWCOUNT / 2));
 block|}
 block|}
 comment|// verify that split completed.
