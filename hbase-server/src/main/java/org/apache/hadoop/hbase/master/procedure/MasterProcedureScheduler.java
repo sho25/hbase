@@ -1054,6 +1054,17 @@ operator|.
 name|peek
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|pollResult
+operator|==
+literal|null
+condition|)
+block|{
+return|return
+literal|null
+return|;
+block|}
 specifier|final
 name|boolean
 name|xlockReq
@@ -2939,6 +2950,7 @@ block|}
 comment|// ============================================================================
 comment|//  Table Locking Helpers
 comment|// ============================================================================
+comment|/**    * @param proc must not be null    */
 specifier|private
 specifier|static
 name|boolean
@@ -4714,6 +4726,7 @@ name|TKey
 argument_list|>
 argument_list|>
 block|{
+comment|/**      * @param proc must not be null      */
 specifier|abstract
 name|boolean
 name|requireExclusiveLock
