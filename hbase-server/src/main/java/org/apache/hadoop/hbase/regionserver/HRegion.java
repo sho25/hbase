@@ -26308,6 +26308,11 @@ operator|)
 argument_list|)
 expr_stmt|;
 block|}
+name|boolean
+name|success
+init|=
+literal|false
+decl_stmt|;
 try|try
 block|{
 comment|// Keep trying until we have a lock or error out.
@@ -26477,12 +26482,6 @@ name|result
 operator|=
 literal|null
 expr_stmt|;
-comment|// Clean up the counts just in case this was the thing keeping the context alive.
-name|rowLockContext
-operator|.
-name|cleanUp
-argument_list|()
-expr_stmt|;
 name|String
 name|message
 init|=
@@ -26535,6 +26534,10 @@ operator|.
 name|getName
 argument_list|()
 argument_list|)
+expr_stmt|;
+name|success
+operator|=
+literal|true
 expr_stmt|;
 return|return
 name|result
@@ -26601,6 +26604,23 @@ throw|;
 block|}
 finally|finally
 block|{
+comment|// Clean up the counts just in case this was the thing keeping the context alive.
+if|if
+condition|(
+operator|!
+name|success
+operator|&&
+name|rowLockContext
+operator|!=
+literal|null
+condition|)
+block|{
+name|rowLockContext
+operator|.
+name|cleanUp
+argument_list|()
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|traceScope
@@ -26879,8 +26899,14 @@ name|get
 argument_list|()
 operator|<=
 literal|0
+operator|&&
+name|usable
+operator|.
+name|get
+argument_list|()
 condition|)
 block|{
+comment|// Don't attempt to remove row if already removed
 name|usable
 operator|.
 name|set
