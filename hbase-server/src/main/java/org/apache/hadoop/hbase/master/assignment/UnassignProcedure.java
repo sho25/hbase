@@ -898,7 +898,8 @@ return|return
 literal|false
 return|;
 block|}
-comment|// if the server is down, mark the operation as complete
+comment|// if the server is down, mark the operation as failed. region cannot be unassigned
+comment|// if server is down
 if|if
 condition|(
 name|serverCrashed
@@ -917,7 +918,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|info
+name|warn
 argument_list|(
 literal|"Server already down: "
 operator|+
@@ -929,6 +930,23 @@ name|regionNode
 operator|.
 name|toShortString
 argument_list|()
+argument_list|)
+expr_stmt|;
+name|setFailure
+argument_list|(
+literal|"source region server not online"
+argument_list|,
+operator|new
+name|ServerCrashException
+argument_list|(
+name|getProcId
+argument_list|()
+argument_list|,
+name|regionNode
+operator|.
+name|getRegionLocation
+argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 return|return

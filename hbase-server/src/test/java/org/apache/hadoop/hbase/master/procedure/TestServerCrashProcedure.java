@@ -596,9 +596,6 @@ argument_list|)
 expr_stmt|;
 block|}
 annotation|@
-name|Ignore
-comment|// HBASE-18366... To be enabled again.
-annotation|@
 name|Test
 argument_list|(
 name|timeout
