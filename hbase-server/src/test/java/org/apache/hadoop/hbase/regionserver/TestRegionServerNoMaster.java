@@ -1199,7 +1199,7 @@ argument_list|()
 argument_list|,
 name|hri
 operator|.
-name|getEncodedName
+name|getRegionName
 argument_list|()
 argument_list|)
 decl_stmt|;

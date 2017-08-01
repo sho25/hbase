@@ -1345,7 +1345,7 @@ name|Optional
 argument_list|<
 name|ServerName
 argument_list|>
-name|serverName
+name|unused
 parameter_list|)
 block|{
 return|return
@@ -1357,7 +1357,7 @@ name|closeRegion
 argument_list|(
 name|regionName
 argument_list|,
-name|serverName
+name|unused
 argument_list|)
 argument_list|)
 return|;

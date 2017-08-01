@@ -1222,22 +1222,14 @@ argument_list|)
 decl_stmt|;
 name|admin
 operator|.
-name|closeRegion
+name|unassign
 argument_list|(
-name|TEST_UTIL
+name|hri
 operator|.
-name|getMiniHBaseCluster
-argument_list|()
-operator|.
-name|getRegionServer
-argument_list|(
-literal|0
-argument_list|)
-operator|.
-name|getServerName
+name|getRegionName
 argument_list|()
 argument_list|,
-name|hri
+literal|true
 argument_list|)
 expr_stmt|;
 comment|// We should see this table move out of violation after the report expires.

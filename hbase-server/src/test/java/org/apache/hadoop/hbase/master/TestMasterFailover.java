@@ -611,9 +611,7 @@ operator|.
 name|class
 block|}
 argument_list|)
-annotation|@
-name|Ignore
-comment|// Needs to be rewritten for AMv2. Uses tricks not ordained when up on AMv2.
+comment|//@Ignore // Needs to be rewritten for AMv2. Uses tricks not ordained when up on AMv2.
 specifier|public
 class|class
 name|TestMasterFailover
@@ -2746,7 +2744,7 @@ name|HRegionInfo
 operator|.
 name|FIRST_META_REGIONINFO
 operator|.
-name|getEncodedName
+name|getRegionName
 argument_list|()
 argument_list|)
 argument_list|)

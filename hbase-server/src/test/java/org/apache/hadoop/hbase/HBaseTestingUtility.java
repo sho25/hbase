@@ -13947,13 +13947,13 @@ decl_stmt|;
 end_decl_stmt
 
 begin_comment
-comment|/**    * Closes the named region.    *    * @param regionName  The region to close.    * @throws IOException    */
+comment|/**    * Unassign the named region.    *    * @param regionName  The region to unassign.    */
 end_comment
 
 begin_function
 specifier|public
 name|void
-name|closeRegion
+name|unassignRegion
 parameter_list|(
 name|String
 name|regionName
@@ -13961,7 +13961,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|closeRegion
+name|unassignRegion
 argument_list|(
 name|Bytes
 operator|.
@@ -13975,13 +13975,13 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Closes the named region.    *    * @param regionName  The region to close.    * @throws IOException    */
+comment|/**    * Unassign the named region.    *    * @param regionName  The region to unassign.    */
 end_comment
 
 begin_function
 specifier|public
 name|void
-name|closeRegion
+name|unassignRegion
 parameter_list|(
 name|byte
 index|[]
@@ -13993,24 +13993,24 @@ block|{
 name|getAdmin
 argument_list|()
 operator|.
-name|closeRegion
+name|unassign
 argument_list|(
 name|regionName
 argument_list|,
-literal|null
+literal|true
 argument_list|)
 expr_stmt|;
 block|}
 end_function
 
 begin_comment
-comment|/**    * Closes the region containing the given row.    *    * @param row  The row to find the containing region.    * @param table  The table to find the region.    * @throws IOException    */
+comment|/**    * Closes the region containing the given row.    *    * @param row  The row to find the containing region.    * @param table  The table to find the region.    */
 end_comment
 
 begin_function
 specifier|public
 name|void
-name|closeRegionByRow
+name|unassignRegionByRow
 parameter_list|(
 name|String
 name|row
@@ -14021,7 +14021,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|closeRegionByRow
+name|unassignRegionByRow
 argument_list|(
 name|Bytes
 operator|.
@@ -14043,7 +14043,7 @@ end_comment
 begin_function
 specifier|public
 name|void
-name|closeRegionByRow
+name|unassignRegionByRow
 parameter_list|(
 name|byte
 index|[]
@@ -14065,7 +14065,7 @@ argument_list|(
 name|row
 argument_list|)
 decl_stmt|;
-name|closeRegion
+name|unassignRegion
 argument_list|(
 name|hrl
 operator|.
