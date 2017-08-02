@@ -4937,6 +4937,13 @@ index|]
 condition|)
 block|{
 comment|//recompute maxRegionsPerTable since the previous value was coming from the old server
+name|numMaxRegionsPerTable
+index|[
+name|tableIndex
+index|]
+operator|=
+literal|0
+expr_stmt|;
 for|for
 control|(
 name|int
