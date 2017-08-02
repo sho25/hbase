@@ -2299,6 +2299,8 @@ argument_list|,
 name|persistentPath
 argument_list|,
 name|ioErrorsTolerationDuration
+argument_list|,
+name|c
 argument_list|)
 expr_stmt|;
 block|}
