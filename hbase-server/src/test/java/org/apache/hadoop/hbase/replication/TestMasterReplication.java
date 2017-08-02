@@ -3827,13 +3827,6 @@ argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
-name|htable
-operator|.
-name|setWriteBufferSize
-argument_list|(
-literal|1024
-argument_list|)
-expr_stmt|;
 name|htables
 index|[
 name|i

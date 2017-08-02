@@ -78,14 +78,6 @@ name|int
 name|timeout
 parameter_list|)
 function_decl|;
-comment|/**    * Set the write buffer size which by default is specified by the    * {@code hbase.client.write.buffer} setting.    */
-name|TableBuilder
-name|setWriteBufferSize
-parameter_list|(
-name|long
-name|writeBufferSize
-parameter_list|)
-function_decl|;
 comment|/**    * Create the {@link Table} instance.    */
 name|Table
 name|build

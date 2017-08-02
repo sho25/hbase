@@ -2968,7 +2968,7 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|RetriesExhaustedWithDetailsException
+name|SocketTimeoutException
 name|e
 parameter_list|)
 block|{

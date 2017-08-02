@@ -815,13 +815,6 @@ argument_list|(
 name|t1_su
 argument_list|)
 expr_stmt|;
-name|ht1Source
-operator|.
-name|setWriteBufferSize
-argument_list|(
-literal|1024
-argument_list|)
-expr_stmt|;
 name|ht2Source
 operator|=
 name|connection1
@@ -829,13 +822,6 @@ operator|.
 name|getTable
 argument_list|(
 name|t2_su
-argument_list|)
-expr_stmt|;
-name|ht1Source
-operator|.
-name|setWriteBufferSize
-argument_list|(
-literal|1024
 argument_list|)
 expr_stmt|;
 comment|// Get HTable from Peer1
@@ -848,13 +834,6 @@ argument_list|(
 name|t1_su
 argument_list|)
 expr_stmt|;
-name|ht1TargetAtPeer1
-operator|.
-name|setWriteBufferSize
-argument_list|(
-literal|1024
-argument_list|)
-expr_stmt|;
 name|ht2TargetAtPeer1
 operator|=
 name|connection2
@@ -862,13 +841,6 @@ operator|.
 name|getTable
 argument_list|(
 name|t2_su
-argument_list|)
-expr_stmt|;
-name|ht2TargetAtPeer1
-operator|.
-name|setWriteBufferSize
-argument_list|(
-literal|1024
 argument_list|)
 expr_stmt|;
 comment|/**      * set M-S : Master: utility1 Slave1: utility2      */

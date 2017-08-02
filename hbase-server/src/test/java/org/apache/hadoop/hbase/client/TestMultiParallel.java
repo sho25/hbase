@@ -1778,17 +1778,6 @@ argument_list|(
 name|TEST_TABLE
 argument_list|)
 decl_stmt|;
-name|table
-operator|.
-name|setWriteBufferSize
-argument_list|(
-literal|10
-operator|*
-literal|1024
-operator|*
-literal|1024
-argument_list|)
-expr_stmt|;
 name|LOG
 operator|.
 name|info

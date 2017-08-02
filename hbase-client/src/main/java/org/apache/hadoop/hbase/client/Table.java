@@ -406,7 +406,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Puts some data in the table, in batch.    *<p>    * This can be used for group commit, or for submitting user defined    * batches.  The writeBuffer will be periodically inspected while the List    * is processed, so depending on the List size the writeBuffer may flush    * not at all, or more than once.    * @param puts The list of mutations to apply. The batch put is done by    * aggregating the iteration of the Puts over the write buffer    * at the client-side for a single RPC call.    * @throws IOException if a remote or network exception occurs.    * @since 0.20.0    */
+comment|/**    * Puts some data in the table, in batch.    *<p>    * This can be used for group commit, or for submitting user defined batches.    * @param puts The list of mutations to apply.    * @throws IOException if a remote or network exception occurs.    * @since 0.20.0    */
 name|void
 name|put
 parameter_list|(
@@ -752,25 +752,6 @@ throws|throws
 name|ServiceException
 throws|,
 name|Throwable
-function_decl|;
-comment|/**    * Returns the maximum size in bytes of the write buffer for this HTable.    *<p>    * The default value comes from the configuration parameter    * {@code hbase.client.write.buffer}.    * @return The size of the write buffer in bytes.     * @deprecated as of 1.0.1 (should not have been in 1.0.0). Replaced by {@link BufferedMutator#getWriteBufferSize()}    */
-annotation|@
-name|Deprecated
-name|long
-name|getWriteBufferSize
-parameter_list|()
-function_decl|;
-comment|/**    * Sets the size of the buffer in bytes.    *<p>    * If the new size is less than the current amount of data in the    * write buffer, the buffer gets flushed.    * @param writeBufferSize The new write buffer size, in bytes.    * @throws IOException if a remote or network exception occurs.    * @deprecated as of 1.0.1 (should not have been in 1.0.0). Replaced by {@link BufferedMutator} and    * {@link BufferedMutatorParams#writeBufferSize(long)}    */
-annotation|@
-name|Deprecated
-name|void
-name|setWriteBufferSize
-parameter_list|(
-name|long
-name|writeBufferSize
-parameter_list|)
-throws|throws
-name|IOException
 function_decl|;
 comment|/**    * Creates an instance of the given {@link com.google.protobuf.Service} subclass for each table    * region spanning the range from the {@code startKey} row to {@code endKey} row (inclusive), all    * the invocations to the same region server will be batched into one call. The coprocessor    * service is invoked according to the service instance, method name and parameters.    *    * @param methodDescriptor    *          the descriptor for the protobuf service method to call.    * @param request    *          the method call parameters    * @param startKey    *          start region selection with region containing this row. If {@code null}, the    *          selection will start with the first table region.    * @param endKey    *          select regions up to and including the region containing this row. If {@code null},    *          selection will continue through the last table region.    * @param responsePrototype    *          the proto type of the response of the method in Service.    * @param<R>    *          the response type for the coprocessor Service method    * @throws ServiceException    * @throws Throwable    * @return a map of result values keyed by region name    */
 parameter_list|<

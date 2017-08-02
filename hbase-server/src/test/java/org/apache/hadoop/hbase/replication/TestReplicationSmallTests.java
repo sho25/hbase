@@ -2817,13 +2817,6 @@ name|put
 argument_list|)
 expr_stmt|;
 block|}
-name|htable1
-operator|.
-name|setWriteBufferSize
-argument_list|(
-literal|1024
-argument_list|)
-expr_stmt|;
 comment|// The puts will be iterated through and flushed only when the buffer
 comment|// size is reached.
 name|htable1

@@ -1105,6 +1105,20 @@ expr_stmt|;
 comment|// TODO: other table perms
 name|UTIL
 operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|setInt
+argument_list|(
+name|HConstants
+operator|.
+name|HBASE_CLIENT_RETRIES_NUMBER
+argument_list|,
+literal|2
+argument_list|)
+expr_stmt|;
+name|UTIL
+operator|.
 name|startMiniCluster
 argument_list|()
 expr_stmt|;
