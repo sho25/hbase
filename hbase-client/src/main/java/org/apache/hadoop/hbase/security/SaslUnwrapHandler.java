@@ -19,6 +19,16 @@ end_package
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
 name|io
 operator|.
 name|netty
@@ -31,6 +41,16 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
 name|io
 operator|.
 name|netty
@@ -43,6 +63,16 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
 name|io
 operator|.
 name|netty
@@ -55,6 +85,16 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
 name|io
 operator|.
 name|netty
@@ -94,7 +134,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Unwrap sasl messages. Should be placed after a  * {@link io.netty.handler.codec.LengthFieldBasedFrameDecoder}  */
+comment|/**  * Unwrap sasl messages. Should be placed after a  * io.netty.handler.codec.LengthFieldBasedFrameDecoder  */
 end_comment
 
 begin_class
