@@ -465,6 +465,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|master
+operator|.
+name|LoadBalancer
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|shaded
 operator|.
 name|protobuf
@@ -3999,11 +4015,22 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+name|boolean
+name|tablesOnMaster
+init|=
+name|LoadBalancer
+operator|.
+name|isTablesOnMaster
+argument_list|(
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
+decl_stmt|;
 if|if
 condition|(
-name|numRS
-operator|>=
-literal|2
+name|tablesOnMaster
 condition|)
 block|{
 comment|// Ignore the master region server,
@@ -4064,6 +4091,29 @@ control|)
 block|{
 name|assertTrue
 argument_list|(
+literal|"numRS="
+operator|+
+name|numRS
+operator|+
+literal|", min="
+operator|+
+name|min
+operator|+
+literal|", max="
+operator|+
+name|max
+operator|+
+literal|", size="
+operator|+
+name|regionList
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|", tablesOnMaster="
+operator|+
+name|tablesOnMaster
+argument_list|,
 name|regionList
 operator|.
 name|size

@@ -281,6 +281,22 @@ name|hbase
 operator|.
 name|master
 operator|.
+name|LoadBalancer
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
 name|ServerListener
 import|;
 end_import
@@ -298,6 +314,24 @@ operator|.
 name|master
 operator|.
 name|ServerManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
+name|balancer
+operator|.
+name|BaseLoadBalancer
 import|;
 end_import
 
@@ -584,7 +618,7 @@ name|NUM_RS
 init|=
 literal|2
 decl_stmt|;
-comment|/**    * Test verifies whether a region server is removing from online servers list in master if it went    * down after registering with master. Test will TIMEOUT if an error!!!!    * @throws Exception    */
+comment|/**    * Test verifies whether a region server is removed from online servers list in master if it went    * down after registering with master. Test will TIMEOUT if an error!!!!    * @throws Exception    */
 annotation|@
 name|Test
 specifier|public
@@ -713,8 +747,25 @@ name|start
 argument_list|()
 expr_stmt|;
 block|}
-comment|// Now wait on master to see NUM_RS + 1 servers as being online, thats NUM_RS plus
-comment|// the Master itself (because Master hosts hbase:meta and checks in as though it a RS).
+comment|// Expected total regionservers depends on whether Master can host regions or not.
+name|int
+name|expectedTotalRegionServers
+init|=
+name|NUM_RS
+operator|+
+operator|(
+name|LoadBalancer
+operator|.
+name|isTablesOnMaster
+argument_list|(
+name|conf
+argument_list|)
+condition|?
+literal|1
+else|:
+literal|0
+operator|)
+decl_stmt|;
 name|List
 argument_list|<
 name|ServerName
@@ -746,11 +797,7 @@ operator|.
 name|size
 argument_list|()
 operator|<
-operator|(
-name|NUM_RS
-operator|+
-literal|1
-operator|)
+name|expectedTotalRegionServers
 condition|)
 do|;
 comment|// Wait until killedRS is set. Means RegionServer is starting to go down.
@@ -782,8 +829,8 @@ argument_list|()
 operator|.
 name|size
 argument_list|()
-operator|>
-name|NUM_RS
+operator|>=
+name|expectedTotalRegionServers
 condition|)
 block|{
 name|Threads
@@ -928,9 +975,7 @@ comment|// Try moving region to the killed server. It will fail. As by-product, 
 comment|// remove the RS from Master online list because no corresponding znode.
 name|assertEquals
 argument_list|(
-name|NUM_RS
-operator|+
-literal|1
+name|expectedTotalRegionServers
 argument_list|,
 name|master
 operator|.

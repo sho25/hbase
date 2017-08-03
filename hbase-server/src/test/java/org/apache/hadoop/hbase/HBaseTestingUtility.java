@@ -333,6 +333,22 @@ end_import
 
 begin_import
 import|import
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|Nullable
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -1714,22 +1730,6 @@ operator|.
 name|ZooKeeper
 operator|.
 name|States
-import|;
-end_import
-
-begin_import
-import|import
-name|edu
-operator|.
-name|umd
-operator|.
-name|cs
-operator|.
-name|findbugs
-operator|.
-name|annotations
-operator|.
-name|Nullable
 import|;
 end_import
 

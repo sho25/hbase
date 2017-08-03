@@ -201,6 +201,20 @@ name|java
 operator|.
 name|util
 operator|.
+name|concurrent
+operator|.
+name|atomic
+operator|.
+name|AtomicBoolean
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|function
 operator|.
 name|Predicate
@@ -779,11 +793,14 @@ argument_list|)
 decl_stmt|;
 comment|// Set if we are to shutdown the cluster.
 specifier|private
-specifier|volatile
-name|boolean
+name|AtomicBoolean
 name|clusterShutdown
 init|=
+operator|new
+name|AtomicBoolean
+argument_list|(
 literal|false
+argument_list|)
 decl_stmt|;
 comment|/**    * The last flushed sequence id for a region.    */
 specifier|private
@@ -2054,7 +2071,7 @@ return|return
 literal|null
 return|;
 block|}
-comment|/**    * Adds the onlineServers list. onlineServers should be locked.    * @param serverName The remote servers name.    * @param sl    */
+comment|/**    * Adds the onlineServers list. onlineServers should be locked.    * @param serverName The remote servers name.    */
 annotation|@
 name|VisibleForTesting
 name|void
@@ -2797,6 +2814,9 @@ condition|(
 name|this
 operator|.
 name|clusterShutdown
+operator|.
+name|get
+argument_list|()
 condition|)
 block|{
 name|LOG
@@ -2837,6 +2857,24 @@ expr_stmt|;
 block|}
 return|return;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Processing expiration of "
+operator|+
+name|serverName
+operator|+
+literal|" on "
+operator|+
+name|this
+operator|.
+name|master
+operator|.
+name|getServerName
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|master
 operator|.
 name|getAssignmentManager
@@ -3699,9 +3737,9 @@ literal|1
 decl_stmt|;
 if|if
 condition|(
-name|BaseLoadBalancer
+name|LoadBalancer
 operator|.
-name|tablesOnMaster
+name|isTablesOnMaster
 argument_list|(
 name|master
 operator|.
@@ -3712,10 +3750,9 @@ condition|)
 block|{
 if|if
 condition|(
-operator|!
-name|BaseLoadBalancer
+name|LoadBalancer
 operator|.
-name|userTablesOnMaster
+name|isSystemTablesOnlyOnMaster
 argument_list|(
 name|master
 operator|.
@@ -3724,12 +3761,14 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
-comment|// If Master is carrying regions but NOT user-space regions (the current default),
-comment|// since the Master shows as a 'server', we need at least one more server to check
-comment|// in before we can start up so up defaultMinToStart to 2.
+comment|// If Master is carrying regions but NOT user-space regions, it
+comment|// still shows as a 'server'. We need at least one more server to check
+comment|// in before we can start up so set defaultMinToStart to 2.
 name|requiredMinToStart
 operator|=
-literal|2
+name|requiredMinToStart
+operator|+
+literal|1
 expr_stmt|;
 block|}
 block|}
@@ -4381,11 +4420,33 @@ name|void
 name|shutdownCluster
 parameter_list|()
 block|{
+name|String
+name|statusStr
+init|=
+literal|"Cluster shutdown requested of master="
+operator|+
+name|this
+operator|.
+name|master
+operator|.
+name|getServerName
+argument_list|()
+decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|statusStr
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|clusterShutdown
-operator|=
+operator|.
+name|set
+argument_list|(
 literal|true
+argument_list|)
 expr_stmt|;
 name|this
 operator|.
@@ -4393,7 +4454,7 @@ name|master
 operator|.
 name|stop
 argument_list|(
-literal|"Cluster shutdown requested"
+name|statusStr
 argument_list|)
 expr_stmt|;
 block|}
@@ -4406,6 +4467,9 @@ return|return
 name|this
 operator|.
 name|clusterShutdown
+operator|.
+name|get
+argument_list|()
 return|;
 block|}
 comment|/**    * Stop the ServerManager.  Currently closes the connection to the master.    */

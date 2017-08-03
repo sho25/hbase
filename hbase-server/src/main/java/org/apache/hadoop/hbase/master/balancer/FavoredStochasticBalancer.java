@@ -373,6 +373,22 @@ name|hbase
 operator|.
 name|master
 operator|.
+name|LoadBalancer
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
 name|MasterServices
 import|;
 end_import
@@ -657,7 +673,7 @@ argument_list|>
 argument_list|>
 name|assignmentMap
 init|=
-name|assignMasterRegions
+name|assignMasterSystemRegions
 argument_list|(
 name|regions
 argument_list|,
@@ -1746,6 +1762,19 @@ return|return
 name|masterServerName
 return|;
 block|}
+if|if
+condition|(
+operator|!
+name|LoadBalancer
+operator|.
+name|isTablesOnMaster
+argument_list|(
+name|getConf
+argument_list|()
+argument_list|)
+condition|)
+block|{
+comment|// Guarantee we do not put any regions on master
 name|servers
 operator|=
 operator|new
@@ -1755,7 +1784,6 @@ argument_list|(
 name|servers
 argument_list|)
 expr_stmt|;
-comment|// Guarantee not to put other regions on master
 name|servers
 operator|.
 name|remove
@@ -1763,6 +1791,7 @@ argument_list|(
 name|masterServerName
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 name|ServerName
 name|destination

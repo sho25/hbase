@@ -2739,7 +2739,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * @return List of region server threads.    */
+comment|/**    * @return List of region server threads. Does not return the master even though it is also    * a region server.    */
 specifier|public
 name|List
 argument_list|<

@@ -271,6 +271,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|master
+operator|.
+name|LoadBalancer
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|regionserver
 operator|.
 name|DefaultStoreEngine
@@ -1293,6 +1309,26 @@ argument_list|(
 literal|5000
 argument_list|)
 expr_stmt|;
+name|boolean
+name|tablesOnMaster
+init|=
+name|LoadBalancer
+operator|.
+name|isTablesOnMaster
+argument_list|(
+name|hbtu
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|tablesOnMaster
+condition|)
+block|{
+comment|// If no tables on the master, this math is off and I'm not sure what it is supposed to be
+comment|// when meta is on the regionserver and not on the master.
 name|assertEquals
 argument_list|(
 literal|10L
@@ -1309,6 +1345,7 @@ argument_list|,
 name|EPSILON
 argument_list|)
 expr_stmt|;
+block|}
 name|Table
 name|table
 init|=

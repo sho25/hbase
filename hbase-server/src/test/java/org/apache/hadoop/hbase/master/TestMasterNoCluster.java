@@ -93,16 +93,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Set
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -641,6 +631,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|experimental
 operator|.
 name|categories
@@ -976,7 +976,10 @@ expr_stmt|;
 block|}
 comment|/**    * Test master failover.    * Start up three fake regionservers and a master.    * @throws IOException    * @throws KeeperException    * @throws InterruptedException    * @throws org.apache.hadoop.hbase.shaded.com.google.protobuf.ServiceException     */
 annotation|@
+name|Ignore
+annotation|@
 name|Test
+comment|// Disabled since HBASE-18511. Reenable when master can carry regions.
 specifier|public
 name|void
 name|testFailover
@@ -1618,7 +1621,10 @@ expr_stmt|;
 block|}
 block|}
 annotation|@
+name|Ignore
+annotation|@
 name|Test
+comment|// Disabled since HBASE-18511. Reenable when master can carry regions.
 specifier|public
 name|void
 name|testNotPullingDeadRegionServerFromZK

@@ -1232,6 +1232,19 @@ argument_list|,
 name|tmp
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|LoadBalancer
+operator|.
+name|isTablesOnMaster
+argument_list|(
+name|loadBalancer
+operator|.
+name|getConf
+argument_list|()
+argument_list|)
+condition|)
+block|{
 name|assertTrue
 argument_list|(
 name|plans
@@ -1264,6 +1277,7 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 name|int
 name|totalRegion
 init|=

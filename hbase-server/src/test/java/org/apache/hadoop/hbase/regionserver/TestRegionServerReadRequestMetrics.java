@@ -379,6 +379,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|master
+operator|.
+name|LoadBalancer
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|testclassification
 operator|.
 name|MediumTests
@@ -766,6 +782,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+comment|// Default starts one regionserver only.
 name|TEST_UTIL
 operator|.
 name|startMiniCluster
@@ -978,6 +995,29 @@ name|REGION_READ
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|boolean
+name|tablesOnMaster
+init|=
+name|LoadBalancer
+operator|.
+name|isTablesOnMaster
+argument_list|(
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|tablesOnMaster
+condition|)
+block|{
+comment|// If NO tables on master, then the single regionserver in this test carries user-space
+comment|// tables and the meta table. The first time through, the read will be inflated by meta
+comment|// lookups. We don't know which test will be first through since junit randomizes. This
+comment|// method is used by a bunch of tests. Just do this check if master is hosting (system)
+comment|// regions only.
 name|assertEquals
 argument_list|(
 name|expectedReadRequests
@@ -1001,6 +1041,7 @@ name|SERVER_READ
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 name|assertEquals
 argument_list|(
 name|expectedFilteredReadRequests

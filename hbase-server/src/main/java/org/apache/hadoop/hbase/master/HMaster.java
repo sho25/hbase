@@ -4075,6 +4075,33 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+comment|// Main run loop. Calls through to the regionserver run loop.
+annotation|@
+name|Override
+specifier|public
+name|void
+name|run
+parameter_list|()
+block|{
+try|try
+block|{
+name|super
+operator|.
+name|run
+argument_list|()
+expr_stmt|;
+block|}
+finally|finally
+block|{
+comment|// If on way out, then we are no longer active master.
+name|this
+operator|.
+name|activeMaster
+operator|=
+literal|false
+expr_stmt|;
+block|}
+block|}
 comment|// return the actual infoPort, -1 means disable info server.
 specifier|private
 name|int
@@ -4421,9 +4448,9 @@ block|{
 name|boolean
 name|tablesOnMaster
 init|=
-name|BaseLoadBalancer
+name|LoadBalancer
 operator|.
-name|tablesOnMaster
+name|isTablesOnMaster
 argument_list|(
 name|conf
 argument_list|)
@@ -4573,9 +4600,9 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|BaseLoadBalancer
+name|LoadBalancer
 operator|.
-name|tablesOnMaster
+name|isTablesOnMaster
 argument_list|(
 name|conf
 argument_list|)
@@ -5237,11 +5264,23 @@ name|skipSleepCycle
 argument_list|()
 expr_stmt|;
 comment|// Wait for region servers to report in
+name|String
+name|statusStr
+init|=
+literal|"Wait for region servers to report in"
+decl_stmt|;
 name|status
 operator|.
 name|setStatus
 argument_list|(
-literal|"Wait for region servers to report in"
+name|statusStr
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|status
 argument_list|)
 expr_stmt|;
 name|waitForRegionServers
@@ -5270,9 +5309,9 @@ block|}
 comment|// Wait for regionserver to finish initialization.
 if|if
 condition|(
-name|BaseLoadBalancer
+name|LoadBalancer
 operator|.
-name|tablesOnMaster
+name|isTablesOnMaster
 argument_list|(
 name|conf
 argument_list|)
@@ -9473,6 +9512,7 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
+comment|// TODO: What is this? I don't get it.
 if|if
 condition|(
 name|dest
@@ -9501,8 +9541,7 @@ argument_list|)
 condition|)
 block|{
 comment|// To avoid unnecessary region moving later by balancer. Don't put user
-comment|// regions on master. Regions on master could be put on other region
-comment|// server intentionally by test however.
+comment|// regions on master.
 name|LOG
 operator|.
 name|debug

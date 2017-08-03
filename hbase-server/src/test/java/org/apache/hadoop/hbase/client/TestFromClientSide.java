@@ -1069,6 +1069,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|master
+operator|.
+name|LoadBalancer
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|protobuf
 operator|.
 name|ProtobufUtil
@@ -36079,6 +36095,19 @@ argument_list|)
 expr_stmt|;
 comment|// test that the same unmanaged connection works with a new
 comment|// Admin and can connect to the new master;
+name|boolean
+name|tablesOnMaster
+init|=
+name|LoadBalancer
+operator|.
+name|isTablesOnMaster
+argument_list|(
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
+decl_stmt|;
 try|try
 init|(
 name|Admin
@@ -36112,7 +36141,13 @@ argument_list|()
 operator|==
 name|SLAVES
 operator|+
+operator|(
+name|tablesOnMaster
+condition|?
 literal|1
+else|:
+literal|0
+operator|)
 argument_list|)
 expr_stmt|;
 block|}
