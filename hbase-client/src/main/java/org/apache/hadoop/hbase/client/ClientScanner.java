@@ -529,7 +529,7 @@ specifier|final
 name|ClusterConnection
 name|connection
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|final
 name|TableName
 name|tableName
@@ -1750,6 +1750,10 @@ name|moveToNextRegion
 argument_list|()
 condition|)
 block|{
+name|closed
+operator|=
+literal|true
+expr_stmt|;
 return|return;
 block|}
 block|}
@@ -2026,6 +2030,13 @@ expr_stmt|;
 block|}
 if|if
 condition|(
+name|scan
+operator|.
+name|getLimit
+argument_list|()
+operator|==
+literal|0
+operator|||
 name|scanExhausted
 argument_list|(
 name|values
@@ -2245,6 +2256,10 @@ name|moveToNextRegion
 argument_list|()
 condition|)
 block|{
+name|closed
+operator|=
+literal|true
+expr_stmt|;
 break|break;
 block|}
 block|}
