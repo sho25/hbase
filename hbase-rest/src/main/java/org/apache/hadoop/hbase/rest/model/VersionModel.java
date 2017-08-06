@@ -165,15 +165,11 @@ end_import
 
 begin_import
 import|import
-name|com
+name|org
 operator|.
-name|sun
+name|glassfish
 operator|.
 name|jersey
-operator|.
-name|spi
-operator|.
-name|container
 operator|.
 name|servlet
 operator|.
@@ -318,6 +314,9 @@ operator|=
 name|ServletContainer
 operator|.
 name|class
+operator|.
+name|getClass
+argument_list|()
 operator|.
 name|getPackage
 argument_list|()

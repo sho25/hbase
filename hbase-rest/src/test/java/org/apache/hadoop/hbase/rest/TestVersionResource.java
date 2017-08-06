@@ -242,6 +242,20 @@ import|;
 end_import
 
 begin_import
+import|import
+name|org
+operator|.
+name|glassfish
+operator|.
+name|jersey
+operator|.
+name|servlet
+operator|.
+name|ServletContainer
+import|;
+end_import
+
+begin_import
 import|import static
 name|org
 operator|.
@@ -280,24 +294,6 @@ operator|.
 name|junit
 operator|.
 name|Test
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|sun
-operator|.
-name|jersey
-operator|.
-name|spi
-operator|.
-name|container
-operator|.
-name|servlet
-operator|.
-name|ServletContainer
 import|;
 end_import
 
@@ -639,6 +635,9 @@ name|ServletContainer
 operator|.
 name|class
 operator|.
+name|getClass
+argument_list|()
+operator|.
 name|getPackage
 argument_list|()
 operator|.
@@ -828,6 +827,9 @@ argument_list|(
 name|ServletContainer
 operator|.
 name|class
+operator|.
+name|getClass
+argument_list|()
 operator|.
 name|getPackage
 argument_list|()
