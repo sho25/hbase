@@ -1371,7 +1371,7 @@ argument_list|>
 name|ctx
 parameter_list|,
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|desc
 parameter_list|,
 specifier|final

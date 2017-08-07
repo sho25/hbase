@@ -349,6 +349,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|TableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|TableState
 import|;
 end_import
@@ -6320,7 +6336,7 @@ block|}
 block|}
 name|List
 argument_list|<
-name|HTableDescriptor
+name|TableDescriptor
 argument_list|>
 name|descriptors
 init|=
@@ -6367,7 +6383,7 @@ block|{
 comment|// Add the table descriptors to the response
 for|for
 control|(
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 range|:
 name|descriptors
@@ -7612,7 +7628,7 @@ argument_list|()
 decl_stmt|;
 for|for
 control|(
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 range|:
 name|master

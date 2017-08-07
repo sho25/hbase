@@ -95,7 +95,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HTableDescriptor
+name|TableName
 import|;
 end_import
 
@@ -109,7 +109,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
+name|client
+operator|.
+name|TableDescriptor
 import|;
 end_import
 
@@ -313,7 +315,7 @@ name|MasterCoprocessorEnvironment
 argument_list|>
 name|ctx
 parameter_list|,
-name|HTableDescriptor
+name|TableDescriptor
 name|desc
 parameter_list|,
 name|HRegionInfo
@@ -347,7 +349,7 @@ name|MasterCoprocessorEnvironment
 argument_list|>
 name|ctx
 parameter_list|,
-name|HTableDescriptor
+name|TableDescriptor
 name|desc
 parameter_list|,
 name|HRegionInfo

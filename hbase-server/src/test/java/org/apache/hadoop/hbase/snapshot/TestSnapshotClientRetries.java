@@ -105,7 +105,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HTableDescriptor
+name|TableName
 import|;
 end_import
 
@@ -119,7 +119,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
+name|client
+operator|.
+name|TableDescriptor
 import|;
 end_import
 
@@ -533,7 +535,7 @@ name|SnapshotDescription
 name|snapshot
 parameter_list|,
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|hTableDescriptor
 parameter_list|)
 throws|throws
@@ -571,7 +573,7 @@ name|SnapshotDescription
 name|snapshot
 parameter_list|,
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|hTableDescriptor
 parameter_list|)
 throws|throws

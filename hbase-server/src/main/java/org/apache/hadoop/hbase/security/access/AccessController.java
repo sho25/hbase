@@ -315,20 +315,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HColumnDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HConstants
 import|;
 end_import
@@ -344,20 +330,6 @@ operator|.
 name|hbase
 operator|.
 name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HTableDescriptor
 import|;
 end_import
 
@@ -504,6 +476,22 @@ operator|.
 name|client
 operator|.
 name|Append
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|ColumnFamilyDescriptor
 import|;
 end_import
 
@@ -680,6 +668,22 @@ operator|.
 name|client
 operator|.
 name|Table
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|TableDescriptor
 import|;
 end_import
 
@@ -1812,22 +1816,6 @@ operator|.
 name|protobuf
 operator|.
 name|Service
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|ColumnFamilyDescriptor
 import|;
 end_import
 
@@ -6170,7 +6158,7 @@ name|MasterCoprocessorEnvironment
 argument_list|>
 name|c
 parameter_list|,
-name|HTableDescriptor
+name|TableDescriptor
 name|desc
 parameter_list|,
 name|HRegionInfo
@@ -6189,7 +6177,7 @@ name|families
 init|=
 name|desc
 operator|.
-name|getFamiliesKeys
+name|getColumnFamilyNames
 argument_list|()
 decl_stmt|;
 name|Map
@@ -6277,7 +6265,7 @@ argument_list|>
 name|c
 parameter_list|,
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|desc
 parameter_list|,
 specifier|final
@@ -6868,7 +6856,7 @@ parameter_list|,
 name|TableName
 name|tableName
 parameter_list|,
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 parameter_list|)
 throws|throws
@@ -6915,7 +6903,7 @@ name|TableName
 name|tableName
 parameter_list|,
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 parameter_list|)
 throws|throws
@@ -7050,7 +7038,7 @@ parameter_list|,
 name|TableName
 name|tableName
 parameter_list|,
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|columnFamily
 parameter_list|)
 throws|throws
@@ -7099,7 +7087,7 @@ parameter_list|,
 name|TableName
 name|tableName
 parameter_list|,
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|columnFamily
 parameter_list|)
 throws|throws
@@ -8044,7 +8032,7 @@ name|SnapshotDescription
 name|snapshot
 parameter_list|,
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|hTableDescriptor
 parameter_list|)
 throws|throws
@@ -8190,7 +8178,7 @@ name|SnapshotDescription
 name|snapshot
 parameter_list|,
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|hTableDescriptor
 parameter_list|)
 throws|throws
@@ -8216,6 +8204,9 @@ name|user
 argument_list|)
 operator|&&
 name|hTableDescriptor
+operator|.
+name|getTableName
+argument_list|()
 operator|.
 name|getNameAsString
 argument_list|()
@@ -8302,7 +8293,7 @@ name|SnapshotDescription
 name|snapshot
 parameter_list|,
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|hTableDescriptor
 parameter_list|)
 throws|throws
@@ -15132,7 +15123,7 @@ name|tableNamesList
 parameter_list|,
 name|List
 argument_list|<
-name|HTableDescriptor
+name|TableDescriptor
 argument_list|>
 name|descriptors
 parameter_list|,
@@ -15244,7 +15235,7 @@ name|tableNamesList
 parameter_list|,
 name|List
 argument_list|<
-name|HTableDescriptor
+name|TableDescriptor
 argument_list|>
 name|descriptors
 parameter_list|,
@@ -15278,7 +15269,7 @@ comment|// Retains only those which passes authorization checks, as the checks w
 comment|// of preGetTableDescriptors.
 name|Iterator
 argument_list|<
-name|HTableDescriptor
+name|TableDescriptor
 argument_list|>
 name|itr
 init|=
@@ -15295,7 +15286,7 @@ name|hasNext
 argument_list|()
 condition|)
 block|{
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 init|=
 name|itr
@@ -15361,7 +15352,7 @@ name|ctx
 parameter_list|,
 name|List
 argument_list|<
-name|HTableDescriptor
+name|TableDescriptor
 argument_list|>
 name|descriptors
 parameter_list|,
@@ -15374,7 +15365,7 @@ block|{
 comment|// Retains only those which passes authorization checks.
 name|Iterator
 argument_list|<
-name|HTableDescriptor
+name|TableDescriptor
 argument_list|>
 name|itr
 init|=
@@ -15391,7 +15382,7 @@ name|hasNext
 argument_list|()
 condition|)
 block|{
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 init|=
 name|itr

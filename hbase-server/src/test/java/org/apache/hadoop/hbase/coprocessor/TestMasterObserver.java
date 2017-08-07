@@ -351,6 +351,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|ColumnFamilyDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Connection
 import|;
 end_import
@@ -432,6 +448,22 @@ operator|.
 name|client
 operator|.
 name|Table
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|TableDescriptor
 import|;
 end_import
 
@@ -1798,7 +1830,7 @@ name|MasterCoprocessorEnvironment
 argument_list|>
 name|env
 parameter_list|,
-name|HTableDescriptor
+name|TableDescriptor
 name|desc
 parameter_list|,
 name|HRegionInfo
@@ -1836,7 +1868,7 @@ name|MasterCoprocessorEnvironment
 argument_list|>
 name|env
 parameter_list|,
-name|HTableDescriptor
+name|TableDescriptor
 name|desc
 parameter_list|,
 name|HRegionInfo
@@ -2101,7 +2133,7 @@ parameter_list|,
 name|TableName
 name|tableName
 parameter_list|,
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 parameter_list|)
 throws|throws
@@ -2146,7 +2178,7 @@ parameter_list|,
 name|TableName
 name|tableName
 parameter_list|,
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 parameter_list|)
 throws|throws
@@ -2601,7 +2633,7 @@ parameter_list|,
 name|TableName
 name|tableName
 parameter_list|,
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|columnFamily
 parameter_list|)
 throws|throws
@@ -2669,7 +2701,7 @@ parameter_list|,
 name|TableName
 name|tableName
 parameter_list|,
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|columnFamily
 parameter_list|)
 throws|throws
@@ -2741,7 +2773,7 @@ parameter_list|,
 name|TableName
 name|tableName
 parameter_list|,
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|columnFamily
 parameter_list|)
 throws|throws
@@ -2801,7 +2833,7 @@ parameter_list|,
 name|TableName
 name|tableName
 parameter_list|,
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|columnFamily
 parameter_list|)
 throws|throws
@@ -4030,7 +4062,7 @@ name|SnapshotDescription
 name|snapshot
 parameter_list|,
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|hTableDescriptor
 parameter_list|)
 throws|throws
@@ -4059,7 +4091,7 @@ name|SnapshotDescription
 name|snapshot
 parameter_list|,
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|hTableDescriptor
 parameter_list|)
 throws|throws
@@ -4160,7 +4192,7 @@ name|SnapshotDescription
 name|snapshot
 parameter_list|,
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|hTableDescriptor
 parameter_list|)
 throws|throws
@@ -4189,7 +4221,7 @@ name|SnapshotDescription
 name|snapshot
 parameter_list|,
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|hTableDescriptor
 parameter_list|)
 throws|throws
@@ -4229,7 +4261,7 @@ name|SnapshotDescription
 name|snapshot
 parameter_list|,
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|hTableDescriptor
 parameter_list|)
 throws|throws
@@ -4258,7 +4290,7 @@ name|SnapshotDescription
 name|snapshot
 parameter_list|,
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|hTableDescriptor
 parameter_list|)
 throws|throws
@@ -4379,7 +4411,7 @@ argument_list|>
 name|env
 parameter_list|,
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|desc
 parameter_list|,
 specifier|final
@@ -4444,7 +4476,7 @@ argument_list|>
 name|ctx
 parameter_list|,
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|desc
 parameter_list|,
 specifier|final
@@ -4814,7 +4846,7 @@ name|TableName
 name|tableName
 parameter_list|,
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 parameter_list|)
 throws|throws
@@ -4854,7 +4886,7 @@ name|TableName
 name|tableName
 parameter_list|,
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 parameter_list|)
 throws|throws
@@ -4929,7 +4961,7 @@ name|TableName
 name|tableName
 parameter_list|,
 specifier|final
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|columnFamily
 parameter_list|)
 throws|throws
@@ -4992,7 +5024,7 @@ name|TableName
 name|tableName
 parameter_list|,
 specifier|final
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|columnFamily
 parameter_list|)
 throws|throws
@@ -5067,7 +5099,7 @@ name|TableName
 name|tableName
 parameter_list|,
 specifier|final
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|columnFamily
 parameter_list|)
 throws|throws
@@ -5127,7 +5159,7 @@ parameter_list|,
 name|TableName
 name|tableName
 parameter_list|,
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|columnFamily
 parameter_list|)
 throws|throws
@@ -5567,7 +5599,7 @@ name|tableNamesList
 parameter_list|,
 name|List
 argument_list|<
-name|HTableDescriptor
+name|TableDescriptor
 argument_list|>
 name|descriptors
 parameter_list|,
@@ -5602,7 +5634,7 @@ name|tableNamesList
 parameter_list|,
 name|List
 argument_list|<
-name|HTableDescriptor
+name|TableDescriptor
 argument_list|>
 name|descriptors
 parameter_list|,
@@ -5642,7 +5674,7 @@ name|ctx
 parameter_list|,
 name|List
 argument_list|<
-name|HTableDescriptor
+name|TableDescriptor
 argument_list|>
 name|descriptors
 parameter_list|,
@@ -5671,7 +5703,7 @@ name|ctx
 parameter_list|,
 name|List
 argument_list|<
-name|HTableDescriptor
+name|TableDescriptor
 argument_list|>
 name|descriptors
 parameter_list|,
