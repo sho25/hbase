@@ -445,12 +445,14 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Advanced use only.    * Add an existing delete marker to this Delete object.    * @param kv An existing KeyValue of type "delete".    * @return this for invocation chaining    * @throws IOException    */
+comment|/**    * Advanced use only. Add an existing delete marker to this Delete object.    * @param kv An existing KeyValue of type "delete".    * @return this for invocation chaining    * @throws IOException    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0. Use {@link #add(Cell)}    *             instead    */
 annotation|@
 name|SuppressWarnings
 argument_list|(
 literal|"unchecked"
 argument_list|)
+annotation|@
+name|Deprecated
 specifier|public
 name|Delete
 name|addDeleteMarker
@@ -461,7 +463,26 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// TODO: Deprecate and rename 'add' so it matches how we add KVs to Puts.
+return|return
+name|this
+operator|.
+name|add
+argument_list|(
+name|kv
+argument_list|)
+return|;
+block|}
+comment|/**    * Add an existing delete marker to this Delete object.    * @param kv An existing KeyValue of type "delete".    * @return this for invocation chaining    * @throws IOException    */
+specifier|public
+name|Delete
+name|add
+parameter_list|(
+name|Cell
+name|kv
+parameter_list|)
+throws|throws
+name|IOException
+block|{
 if|if
 condition|(
 operator|!

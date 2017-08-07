@@ -3579,7 +3579,7 @@ argument_list|)
 decl_stmt|;
 name|d
 operator|.
-name|addDeleteMarker
+name|add
 argument_list|(
 name|kvDelete
 argument_list|)

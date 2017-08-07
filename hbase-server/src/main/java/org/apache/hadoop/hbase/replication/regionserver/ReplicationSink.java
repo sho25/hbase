@@ -1217,7 +1217,7 @@ operator|)
 name|m
 operator|)
 operator|.
-name|addDeleteMarker
+name|add
 argument_list|(
 name|cell
 argument_list|)

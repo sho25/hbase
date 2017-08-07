@@ -1125,7 +1125,7 @@ condition|)
 block|{
 name|del
 operator|.
-name|addDeleteMarker
+name|add
 argument_list|(
 name|cell
 argument_list|)

@@ -2313,7 +2313,7 @@ argument_list|)
 decl_stmt|;
 name|deleteFamily
 operator|.
-name|addDeleteMarker
+name|add
 argument_list|(
 name|kv
 argument_list|)
@@ -2382,7 +2382,7 @@ expr_stmt|;
 block|}
 name|delete
 operator|.
-name|addDeleteMarker
+name|add
 argument_list|(
 name|kv
 argument_list|)
