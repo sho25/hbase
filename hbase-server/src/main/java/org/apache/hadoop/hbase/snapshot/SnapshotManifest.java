@@ -409,6 +409,30 @@ name|com
 operator|.
 name|google
 operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|com
+operator|.
+name|google
+operator|.
 name|protobuf
 operator|.
 name|CodedInputStream
@@ -1017,7 +1041,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// 0. Get the ManifestBuilder/RegionVisitor
+comment|// Get the ManifestBuilder/RegionVisitor
 name|RegionVisitor
 name|visitor
 init|=
@@ -1026,6 +1050,30 @@ argument_list|(
 name|desc
 argument_list|)
 decl_stmt|;
+comment|// Visit the region and add it to the manifest
+name|addMobRegion
+argument_list|(
+name|regionInfo
+argument_list|,
+name|visitor
+argument_list|)
+expr_stmt|;
+block|}
+annotation|@
+name|VisibleForTesting
+specifier|protected
+name|void
+name|addMobRegion
+parameter_list|(
+name|HRegionInfo
+name|regionInfo
+parameter_list|,
+name|RegionVisitor
+name|visitor
+parameter_list|)
+throws|throws
+name|IOException
+block|{
 comment|// 1. dump region meta info into the snapshot directory
 name|LOG
 operator|.
@@ -1218,7 +1266,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// 0. Get the ManifestBuilder/RegionVisitor
+comment|// Get the ManifestBuilder/RegionVisitor
 name|RegionVisitor
 name|visitor
 init|=
@@ -1227,6 +1275,31 @@ argument_list|(
 name|desc
 argument_list|)
 decl_stmt|;
+comment|// Visit the region and add it to the manifest
+name|addRegion
+argument_list|(
+name|region
+argument_list|,
+name|visitor
+argument_list|)
+expr_stmt|;
+block|}
+annotation|@
+name|VisibleForTesting
+specifier|protected
+name|void
+name|addRegion
+parameter_list|(
+specifier|final
+name|HRegion
+name|region
+parameter_list|,
+name|RegionVisitor
+name|visitor
+parameter_list|)
+throws|throws
+name|IOException
+block|{
 comment|// 1. dump region meta info into the snapshot directory
 name|LOG
 operator|.
@@ -1448,7 +1521,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// 0. Get the ManifestBuilder/RegionVisitor
+comment|// Get the ManifestBuilder/RegionVisitor
 name|RegionVisitor
 name|visitor
 init|=
@@ -1457,6 +1530,37 @@ argument_list|(
 name|desc
 argument_list|)
 decl_stmt|;
+comment|// Visit the region and add it to the manifest
+name|addRegion
+argument_list|(
+name|tableDir
+argument_list|,
+name|regionInfo
+argument_list|,
+name|visitor
+argument_list|)
+expr_stmt|;
+block|}
+annotation|@
+name|VisibleForTesting
+specifier|protected
+name|void
+name|addRegion
+parameter_list|(
+specifier|final
+name|Path
+name|tableDir
+parameter_list|,
+specifier|final
+name|HRegionInfo
+name|regionInfo
+parameter_list|,
+name|RegionVisitor
+name|visitor
+parameter_list|)
+throws|throws
+name|IOException
+block|{
 name|boolean
 name|isMobRegion
 init|=

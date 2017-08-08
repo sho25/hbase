@@ -847,6 +847,8 @@ block|,
 name|COMPACT_REGION
 block|,
 name|REPLAY_EVENT
+block|,
+name|SNAPSHOT
 block|}
 comment|/**    * This method needs to be called before any public call that reads or    * modifies data.    * Acquires a read lock and checks if the region is closing or closed.    *<p>{@link #closeRegionOperation} MUST then always be called after    * the operation has completed, whether it succeeded or failed.    * @throws IOException    */
 name|void
@@ -869,6 +871,16 @@ comment|/**    * Closes the region operation lock.    * @throws IOException    *
 name|void
 name|closeRegionOperation
 parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Closes the region operation lock. This needs to be called in the finally block corresponding    * to the try block of {@link #startRegionOperation(Operation)}    * @throws IOException    */
+name|void
+name|closeRegionOperation
+parameter_list|(
+name|Operation
+name|op
+parameter_list|)
 throws|throws
 name|IOException
 function_decl|;

@@ -12258,6 +12258,30 @@ operator|.
 name|DEFAULT_REPLICA_ID
 return|;
 block|}
+comment|/**    * Sets the store up for a region level snapshot operation.    * @see #postSnapshotOperation()    */
+specifier|public
+name|void
+name|preSnapshotOperation
+parameter_list|()
+block|{
+name|archiveLock
+operator|.
+name|lock
+argument_list|()
+expr_stmt|;
+block|}
+comment|/**    * Perform tasks needed after the completion of snapshot operation.    * @see #preSnapshotOperation()    */
+specifier|public
+name|void
+name|postSnapshotOperation
+parameter_list|()
+block|{
+name|archiveLock
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
+block|}
 annotation|@
 name|Override
 specifier|public
