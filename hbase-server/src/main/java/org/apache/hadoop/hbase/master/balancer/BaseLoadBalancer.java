@@ -6652,7 +6652,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|// Master carries no regions by default.
+comment|// Regions of these tables are put on the master by default.
 specifier|private
 specifier|static
 specifier|final
@@ -6663,7 +6663,28 @@ init|=
 operator|new
 name|String
 index|[]
-block|{}
+block|{
+name|AccessControlLists
+operator|.
+name|ACL_TABLE_NAME
+operator|.
+name|getNameAsString
+argument_list|()
+block|,
+name|TableName
+operator|.
+name|NAMESPACE_TABLE_NAME
+operator|.
+name|getNameAsString
+argument_list|()
+block|,
+name|TableName
+operator|.
+name|META_TABLE_NAME
+operator|.
+name|getNameAsString
+argument_list|()
+block|}
 decl_stmt|;
 specifier|public
 specifier|static
@@ -6706,7 +6727,7 @@ specifier|protected
 name|MasterServices
 name|services
 decl_stmt|;
-comment|/**    * By default, master carries no regions. This method returns null.    * If you want master to carry system tables say, then set    * TABLES_ON_MASTER to AccessControlLists.ACL_TABLE_NAME.getNameAsString(),    * TableName.NAMESPACE_TABLE_NAME.getNameAsString(),    * TableName.META_TABLE_NAME.getNameAsString()    */
+comment|/**    * By default, regions of some small system tables such as meta,    * namespace, and acl are assigned to the active master. If you don't    * want to assign any region to the active master, you need to    * configure "hbase.balancer.tablesOnMaster" to "none".    */
 specifier|protected
 specifier|static
 name|String
@@ -6738,19 +6759,21 @@ return|return
 name|DEFAULT_TABLES_ON_MASTER
 return|;
 block|}
-if|if
-condition|(
 name|valueString
-operator|==
-literal|null
-operator|||
+operator|=
 name|valueString
 operator|.
 name|trim
 argument_list|()
+expr_stmt|;
+if|if
+condition|(
+name|valueString
 operator|.
-name|isEmpty
-argument_list|()
+name|equalsIgnoreCase
+argument_list|(
+literal|"none"
+argument_list|)
 condition|)
 block|{
 return|return
