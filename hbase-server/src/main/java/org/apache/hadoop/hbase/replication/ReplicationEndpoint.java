@@ -49,6 +49,30 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|TimeUnit
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|TimeoutException
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -169,32 +193,6 @@ name|MetricsSource
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|Service
-import|;
-end_import
-
 begin_comment
 comment|/**  * ReplicationEndpoint is a plugin which implements replication  * to other HBase clusters, or other systems. ReplicationEndpoint implementation  * can be specified at the peer creation time by specifying it  * in the {@link ReplicationPeerConfig}. A ReplicationEndpoint is run in a thread  * in each region server in the same process.  *<p>  * ReplicationEndpoint is closely tied to ReplicationSource in a producer-consumer  * relation. ReplicationSource is an HBase-private class which tails the logs and manages  * the queue of logs plus management and persistence of all the state for replication.  * ReplicationEndpoint on the other hand is responsible for doing the actual shipping  * and persisting of the WAL entries in the other cluster.  */
 end_comment
@@ -213,10 +211,10 @@ specifier|public
 interface|interface
 name|ReplicationEndpoint
 extends|extends
-name|Service
-extends|,
 name|ReplicationPeerConfigListener
 block|{
+comment|// TODO: This class needs doc. Has a Context and a ReplicationContext. Then has #start, #stop.
+comment|// How they relate? Do we #start before #init(Context)? We fail fast if you don't?
 annotation|@
 name|InterfaceAudience
 operator|.
@@ -597,6 +595,72 @@ parameter_list|(
 name|ReplicateContext
 name|replicateContext
 parameter_list|)
+function_decl|;
+comment|// The below methods are inspired by Guava Service. See
+comment|// https://github.com/google/guava/wiki/ServiceExplained for overview of Guava Service.
+comment|// Below we implement a subset only with different names on some methods so we can implement
+comment|// the below internally using Guava (without exposing our implementation to
+comment|// ReplicationEndpoint implementors.
+comment|/**    * Returns {@code true} if this service is RUNNING.    */
+name|boolean
+name|isRunning
+parameter_list|()
+function_decl|;
+comment|/**    * @return Return {@code true} is this service is STARTING (but not yet RUNNING).    */
+name|boolean
+name|isStarting
+parameter_list|()
+function_decl|;
+comment|/**    * Initiates service startup and returns immediately. A stopped service may not be restarted.    * Equivalent of startAsync call in Guava Service.    * @throws IllegalStateException if the service is not new, if it has been run already.    */
+name|void
+name|start
+parameter_list|()
+function_decl|;
+comment|/**    * Waits for the {@link ReplicationEndpoint} to be up and running.    *    * @throws IllegalStateException if the service reaches a state from which it is not possible to    *     enter the (internal) running state. e.g. if the state is terminated when this method is    *     called then this will throw an IllegalStateException.    */
+name|void
+name|awaitRunning
+parameter_list|()
+function_decl|;
+comment|/**    * Waits for the {@link ReplicationEndpoint} to to be up and running for no more    * than the given time.    *    * @param timeout the maximum time to wait    * @param unit the time unit of the timeout argument    * @throws TimeoutException if the service has not reached the given state within the deadline    * @throws IllegalStateException if the service reaches a state from which it is not possible to    *     enter the (internal) running state. e.g. if the state is terminated when this method is    *     called then this will throw an IllegalStateException.    */
+name|void
+name|awaitRunning
+parameter_list|(
+name|long
+name|timeout
+parameter_list|,
+name|TimeUnit
+name|unit
+parameter_list|)
+throws|throws
+name|TimeoutException
+function_decl|;
+comment|/**    * If the service is starting or running, this initiates service shutdown and returns immediately.    * If the service has already been stopped, this method returns immediately without taking action.    * Equivalent of stopAsync call in Guava Service.    */
+name|void
+name|stop
+parameter_list|()
+function_decl|;
+comment|/**    * Waits for the {@link ReplicationEndpoint} to reach the terminated (internal) state.    *    * @throws IllegalStateException if the service FAILED.    */
+name|void
+name|awaitTerminated
+parameter_list|()
+function_decl|;
+comment|/**    * Waits for the {@link ReplicationEndpoint} to reach a terminal state for no    * more than the given time.    *    * @param timeout the maximum time to wait    * @param unit the time unit of the timeout argument    * @throws TimeoutException if the service has not reached the given state within the deadline    * @throws IllegalStateException if the service FAILED.    */
+name|void
+name|awaitTerminated
+parameter_list|(
+name|long
+name|timeout
+parameter_list|,
+name|TimeUnit
+name|unit
+parameter_list|)
+throws|throws
+name|TimeoutException
+function_decl|;
+comment|/**    * Returns the {@link Throwable} that caused this service to fail.    *    * @throws IllegalStateException if this service's state isn't FAILED.    */
+name|Throwable
+name|failureCause
+parameter_list|()
 function_decl|;
 block|}
 end_interface

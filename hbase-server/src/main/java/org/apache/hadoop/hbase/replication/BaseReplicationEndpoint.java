@@ -91,20 +91,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HBaseInterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|shaded
 operator|.
 name|com
@@ -146,19 +132,22 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A Base implementation for {@link ReplicationEndpoint}s. Users should consider extending this  * class rather than implementing {@link ReplicationEndpoint} directly for better backwards  * compatibility.  */
+comment|/**  * A Base implementation for {@link ReplicationEndpoint}s. For internal use. Uses our internal  * Guava.  */
+end_comment
+
+begin_comment
+comment|// This class has been made InterfaceAudience.Private in 2.0.0. It used to be
+end_comment
+
+begin_comment
+comment|// LimitedPrivate. See HBASE-15982.
 end_comment
 
 begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|LimitedPrivate
-argument_list|(
-name|HBaseInterfaceAudience
-operator|.
-name|REPLICATION
-argument_list|)
+name|Private
 specifier|public
 specifier|abstract
 class|class
@@ -505,6 +494,22 @@ parameter_list|()
 block|{
 return|return
 literal|false
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|isStarting
+parameter_list|()
+block|{
+return|return
+name|state
+argument_list|()
+operator|==
+name|State
+operator|.
+name|STARTING
 return|;
 block|}
 block|}
