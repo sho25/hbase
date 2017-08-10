@@ -64,7 +64,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Passed as Exception by {@link ServerCrashProcedure}  * notifying on-going RIT that server has failed.  */
+comment|/**  * Passed as Exception by {@link ServerCrashProcedure}  * notifying on-going RIT that server has failed. This exception is less an error-condition than  * it is a signal to waiting procedures that they can now proceed.  */
 end_comment
 
 begin_class

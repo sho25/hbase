@@ -53,6 +53,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|net
+operator|.
+name|ConnectException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|concurrent
@@ -442,7 +452,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Procedure that describe the unassignment of a single region.  * There can only be one RegionTransitionProcedure per region running at the time,  * since each procedure takes a lock on the region.  *  *<p>The Unassign starts by placing a "close region" request in the Remote Dispatcher  * queue, and the procedure will then go into a "waiting state".  * The Remote Dispatcher will batch the various requests for that server and  * they will be sent to the RS for execution.  * The RS will complete the open operation by calling master.reportRegionStateTransition().  * The AM will intercept the transition report, and notify the procedure.  * The procedure will finish the unassign by publishing its new state on meta  * or it will retry the unassign.  */
+comment|/**  * Procedure that describes the unassignment of a single region.  * There can only be one RegionTransitionProcedure -- i.e. an assign or an unassign -- per region  * running at a time, since each procedure takes a lock on the region.  *  *<p>The Unassign starts by placing a "close region" request in the Remote Dispatcher  * queue, and the procedure will then go into a "waiting state" (suspend).  * The Remote Dispatcher will batch the various requests for that server and  * they will be sent to the RS for execution.  * The RS will complete the open operation by calling master.reportRegionStateTransition().  * The AM will intercept the transition report, and notify this procedure.  * The procedure will wakeup and finish the unassign by publishing its new state on meta.  *<p>If we are unable to contact the remote regionserver whether because of ConnectException  * or socket timeout, we will call expire on the server we were trying to contact. We will remain  * in suspended state waiting for a wake up from the ServerCrashProcedure that is processing the  * failed server. The basic idea is that if we notice a crashed server, then we have a  * responsibility; i.e. we should not let go of the region until we are sure the server that was  * hosting has had its crash processed. If we let go of the region before then, an assign might  * run before the logs have been split which would make for data loss.  *  *<p>TODO: Rather than this tricky coordination between SCP and this Procedure, instead, work on  * returning a SCP as our subprocedure; probably needs work on the framework to do this,  * especially if the SCP already created.  */
 end_comment
 
 begin_class
@@ -482,17 +492,6 @@ specifier|protected
 specifier|volatile
 name|ServerName
 name|destinationServer
-decl_stmt|;
-specifier|protected
-specifier|final
-name|AtomicBoolean
-name|serverCrashed
-init|=
-operator|new
-name|AtomicBoolean
-argument_list|(
-literal|false
-argument_list|)
 decl_stmt|;
 comment|// TODO: should this be in a reassign procedure?
 comment|//       ...and keep unassign for 'disable' case?
@@ -898,61 +897,6 @@ return|return
 literal|false
 return|;
 block|}
-comment|// if the server is down, mark the operation as failed. region cannot be unassigned
-comment|// if server is down
-if|if
-condition|(
-name|serverCrashed
-operator|.
-name|get
-argument_list|()
-operator|||
-operator|!
-name|isServerOnline
-argument_list|(
-name|env
-argument_list|,
-name|regionNode
-argument_list|)
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Server already down: "
-operator|+
-name|this
-operator|+
-literal|"; "
-operator|+
-name|regionNode
-operator|.
-name|toShortString
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|setFailure
-argument_list|(
-literal|"source region server not online"
-argument_list|,
-operator|new
-name|ServerCrashException
-argument_list|(
-name|getProcId
-argument_list|()
-argument_list|,
-name|regionNode
-operator|.
-name|getRegionLocation
-argument_list|()
-argument_list|)
-argument_list|)
-expr_stmt|;
-return|return
-literal|false
-return|;
-block|}
 comment|// if we haven't started the operation yet, we can abort
 if|if
 condition|(
@@ -1012,12 +956,9 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
-comment|// If addToRemoteDispatcher fails, it calls #remoteCallFailed which
-comment|// does all cleanup.
+comment|// If addToRemoteDispatcher fails, it calls the callback #remoteCallFailed.
 block|}
-comment|// We always return true, even if we fail dispatch because addToRemoteDispatcher
-comment|// failure processing sets state back to REGION_TRANSITION_QUEUE so we try again;
-comment|// i.e. return true to keep the Procedure running; it has been reset to startover.
+comment|// Return true to keep the procedure running.
 return|return
 literal|true
 return|;
@@ -1165,7 +1106,7 @@ block|}
 annotation|@
 name|Override
 specifier|protected
-name|void
+name|boolean
 name|remoteCallFailed
 parameter_list|(
 specifier|final
@@ -1190,8 +1131,10 @@ name|ServerCrashException
 condition|)
 block|{
 comment|// This exception comes from ServerCrashProcedure after log splitting.
-comment|// It is ok to let this procedure go on to complete close now.
-comment|// This will release lock on this region so the subsequent assign can succeed.
+comment|// SCP found this region as a RIT. Its call into here says it is ok to let this procedure go
+comment|// on to a complete close now. This will release lock on this region so subsequent action on
+comment|// region can succeed; e.g. the assign that follows this unassign when a move (w/o wait on SCP
+comment|// the assign could run w/o logs being split so data loss).
 try|try
 block|{
 name|reportTransition
@@ -1245,6 +1188,7 @@ block|{
 comment|// TODO
 comment|// RS is aborting, we cannot offline the region since the region may need to do WAL
 comment|// recovery. Until we see the RS expiration, we should retry.
+comment|// TODO: This should be suspend like the below where we call expire on server?
 name|LOG
 operator|.
 name|info
@@ -1254,7 +1198,6 @@ argument_list|,
 name|exception
 argument_list|)
 expr_stmt|;
-comment|// serverCrashed.set(true);
 block|}
 elseif|else
 if|if
@@ -1285,12 +1228,11 @@ expr_stmt|;
 block|}
 else|else
 block|{
-comment|// TODO: kill the server in case we get an exception we are not able to handle
 name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Killing server; unexpected exception; "
+literal|"Expiring server "
 operator|+
 name|this
 operator|+
@@ -1301,7 +1243,7 @@ operator|.
 name|toShortString
 argument_list|()
 operator|+
-literal|" exception="
+literal|", exception="
 operator|+
 name|exception
 argument_list|)
@@ -1322,14 +1264,16 @@ name|getRegionLocation
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|serverCrashed
-operator|.
-name|set
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
+comment|// Return false so this procedure stays in suspended state. It will be woken up by a
+comment|// ServerCrashProcedure when it notices this RIT.
+comment|// TODO: Add a SCP as a new subprocedure that we now come to depend on.
+return|return
+literal|false
+return|;
 block|}
+return|return
+literal|true
+return|;
 block|}
 annotation|@
 name|Override

@@ -7068,7 +7068,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Checking to see if procedure is done procId="
+literal|"Checking to see if procedure is done pid="
 operator|+
 name|request
 operator|.

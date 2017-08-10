@@ -577,7 +577,7 @@ throw|throw
 operator|new
 name|UnsupportedOperationException
 argument_list|(
-literal|"unhandled state="
+literal|"Unhandled state="
 operator|+
 name|state
 argument_list|)
@@ -676,7 +676,7 @@ throw|throw
 operator|new
 name|UnsupportedOperationException
 argument_list|(
-literal|"unhandled state="
+literal|"Unhandled state="
 operator|+
 name|state
 argument_list|)

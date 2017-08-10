@@ -316,7 +316,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Base class for the Assign and Unassign Procedure.  * There can only be one RegionTransitionProcedure per region running at a time  * since each procedure takes a lock on the region (see MasterProcedureScheduler).  *  *<p>This procedure is asynchronous and responds to external events.  * The AssignmentManager will notify this procedure when the RS completes  * the operation and reports the transitioned state  * (see the Assign and Unassign class for more detail).  *<p>Procedures move from the REGION_TRANSITION_QUEUE state when they are  * first submitted, to the REGION_TRANSITION_DISPATCH state when the request  * to remote server is sent and the Procedure is suspended waiting on external  * event to be woken again. Once the external event is triggered, Procedure  * moves to the REGION_TRANSITION_FINISH state.  *  *<p>NOTE: {@link AssignProcedure} and {@link UnassignProcedure} should not be thought of  * as being asymmetric, at least currently.  *<ul>  *<li>{@link AssignProcedure} moves through all the above described states and implements methods  * associated with each while {@link UnassignProcedure} starts at state  * REGION_TRANSITION_DISPATCH and state REGION_TRANSITION_QUEUE is not supported.</li>  *  *<li>When any step in {@link AssignProcedure} fails, failure handler  * AssignProcedure#handleFailure(MasterProcedureEnv, RegionStateNode) re-attempts the  * assignment by setting the procedure state to REGION_TRANSITION_QUEUE and forces  * assignment to a different target server by setting {@link AssignProcedure#forceNewPlan}. When  * the number of attempts reach hreshold configuration 'hbase.assignment.maximum.attempts',  * the procedure is aborted. For {@link UnassignProcedure}, similar re-attempts are  * intentionally not implemented. It is a 'one shot' procedure.  *</li>  *</ul>  *  *<p>TODO: Considering it is a priority doing all we can to get make a region available as soon as possible,  * re-attempting with any target makes sense if specified target fails in case of  * {@link AssignProcedure}. For {@link UnassignProcedure}, if communication with RS fails,  * similar re-attempt makes little sense (what should be different from previous attempt?). Also it  * could be complex with current implementation of  * {@link RegionTransitionProcedure#execute(MasterProcedureEnv)} and {@link UnassignProcedure}.  * We have made a choice of keeping {@link UnassignProcedure} simple, where the procedure either  * succeeds or fails depending on communication with RS. As parent will have broader context, parent  * can better handle the failed instance of {@link UnassignProcedure}. Similar simplicity for  * {@link AssignProcedure} is desired and should be explored/ discussed further.  */
+comment|/**  * Base class for the Assign and Unassign Procedure.  * There can only be one RegionTransitionProcedure per region running at a time  * since each procedure takes a lock on the region (see MasterProcedureScheduler).  *  *<p>This procedure is asynchronous and responds to external events.  * The AssignmentManager will notify this procedure when the RS completes  * the operation and reports the transitioned state  * (see the Assign and Unassign class for more detail).  *  *<p>Procedures move from the REGION_TRANSITION_QUEUE state when they are  * first submitted, to the REGION_TRANSITION_DISPATCH state when the request  * to remote server is sent and the Procedure is suspended waiting on external  * event to be woken again. Once the external event is triggered, Procedure  * moves to the REGION_TRANSITION_FINISH state.  *  *<p>NOTE: {@link AssignProcedure} and {@link UnassignProcedure} should not be thought of  * as being asymmetric, at least currently.  *<ul>  *<li>{@link AssignProcedure} moves through all the above described states and implements methods  * associated with each while {@link UnassignProcedure} starts at state  * REGION_TRANSITION_DISPATCH and state REGION_TRANSITION_QUEUE is not supported.</li>  *  *<li>When any step in {@link AssignProcedure} fails, failure handler  * AssignProcedure#handleFailure(MasterProcedureEnv, RegionStateNode) re-attempts the  * assignment by setting the procedure state to REGION_TRANSITION_QUEUE and forces  * assignment to a different target server by setting {@link AssignProcedure#forceNewPlan}. When  * the number of attempts reach hreshold configuration 'hbase.assignment.maximum.attempts',  * the procedure is aborted. For {@link UnassignProcedure}, similar re-attempts are  * intentionally not implemented. It is a 'one shot' procedure. See its class doc for how it  * handles failure.  *</li>  *</ul>  *  *<p>TODO: Considering it is a priority doing all we can to get make a region available as soon as possible,  * re-attempting with any target makes sense if specified target fails in case of  * {@link AssignProcedure}. For {@link UnassignProcedure}, our concern is preventing data loss  * on failed unassign. See class doc for explanation.  */
 end_comment
 
 begin_class
@@ -673,9 +673,10 @@ name|ServerName
 name|serverName
 parameter_list|)
 function_decl|;
+comment|/**    * @return True if processing of fail is complete; the procedure will be woken from its suspend    * and we'll go back to running through procedure steps:    * otherwise if false we leave the procedure in suspended state.    */
 specifier|protected
 specifier|abstract
-name|void
+name|boolean
 name|remoteCallFailed
 parameter_list|(
 name|MasterProcedureEnv
@@ -775,7 +776,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed "
+literal|"Remote call failed "
 operator|+
 name|this
 operator|+
@@ -791,6 +792,8 @@ operator|+
 name|msg
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
 name|remoteCallFailed
 argument_list|(
 name|env
@@ -799,7 +802,8 @@ name|regionNode
 argument_list|,
 name|exception
 argument_list|)
-expr_stmt|;
+condition|)
+block|{
 comment|// NOTE: This call to wakeEvent puts this Procedure back on the scheduler.
 comment|// Thereafter, another Worker can be in here so DO NOT MESS WITH STATE beyond
 comment|// this method. Just get out of this current processing quickly.
@@ -816,6 +820,8 @@ name|getProcedureEvent
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+comment|// else leave the procedure in suspended state; it is waiting on another call to this callback
 block|}
 comment|/**    * Be careful! At the end of this method, the procedure has either succeeded    * and this procedure has been set into a suspended state OR, we failed and    * this procedure has been put back on the scheduler ready for another worker    * to pick it up. In both cases, we need to exit the current Worker processing    * toute de suite!    * @return True if we successfully dispatched the call and false if we failed;    * if failed, we need to roll back any setup done for the dispatch.    */
 specifier|protected
@@ -897,9 +903,10 @@ name|getProcedureEvent
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// Tricky because this can fail. If it fails need to backtrack on stuff like
-comment|// the 'suspend' done above -- tricky as the 'wake' requeues us -- and ditto
-comment|// up in the caller; it needs to undo state changes.
+comment|// Tricky because the below call to addOperationToNode can fail. If it fails, we need to
+comment|// backtrack on stuff like the 'suspend' done above -- tricky as the 'wake' requeues us -- and
+comment|// ditto up in the caller; it needs to undo state changes. Inside in remoteCallFailed, it does
+comment|// wake to undo the above suspend.
 if|if
 condition|(
 operator|!
