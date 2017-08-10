@@ -2597,6 +2597,7 @@ operator|-
 literal|2
 argument_list|)
 expr_stmt|;
+comment|// Sholud only get T2, versions is 2, so T1 is gone from user view.
 name|Get
 name|g
 init|=
@@ -2648,10 +2649,9 @@ argument_list|,
 name|c1
 argument_list|,
 name|T2
-argument_list|,
-name|T1
 argument_list|)
 expr_stmt|;
+comment|// Sholud only get T2, versions is 2, so T1 is gone from user view.
 name|g
 operator|=
 operator|new
@@ -2701,8 +2701,6 @@ argument_list|,
 name|c0
 argument_list|,
 name|T2
-argument_list|,
-name|T1
 argument_list|)
 expr_stmt|;
 comment|// now flush/compact
@@ -2720,6 +2718,7 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
+comment|// After flush/compact, the result should be consistent with previous result
 name|g
 operator|=
 operator|new
@@ -2771,6 +2770,7 @@ argument_list|,
 name|T2
 argument_list|)
 expr_stmt|;
+comment|// After flush/compact, the result should be consistent with previous result
 name|g
 operator|=
 operator|new

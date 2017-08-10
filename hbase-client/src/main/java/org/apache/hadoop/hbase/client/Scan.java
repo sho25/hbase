@@ -1931,10 +1931,41 @@ return|return
 name|newStopRow
 return|;
 block|}
-comment|/**    * Get all available versions.    * @return this    */
+comment|/**    * Get all available versions.    * @return this    * @deprecated It is easy to misunderstand with column family's max versions, so use    *             {@link #readAllVersions()} instead.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|Scan
 name|setMaxVersions
+parameter_list|()
+block|{
+return|return
+name|readAllVersions
+argument_list|()
+return|;
+block|}
+comment|/**    * Get up to the specified number of versions of each column.    * @param maxVersions maximum versions for each column    * @return this    * @deprecated It is easy to misunderstand with column family's max versions, so use    *             {@link #readVersions(int)} instead.    */
+annotation|@
+name|Deprecated
+specifier|public
+name|Scan
+name|setMaxVersions
+parameter_list|(
+name|int
+name|maxVersions
+parameter_list|)
+block|{
+return|return
+name|readVersions
+argument_list|(
+name|maxVersions
+argument_list|)
+return|;
+block|}
+comment|/**    * Get all available versions.    * @return this    */
+specifier|public
+name|Scan
+name|readAllVersions
 parameter_list|()
 block|{
 name|this
@@ -1949,20 +1980,20 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Get up to the specified number of versions of each column.    * @param maxVersions maximum versions for each column    * @return this    */
+comment|/**    * Get up to the specified number of versions of each column.    * @param versions specified number of versions for each column    * @return this    */
 specifier|public
 name|Scan
-name|setMaxVersions
+name|readVersions
 parameter_list|(
 name|int
-name|maxVersions
+name|versions
 parameter_list|)
 block|{
 name|this
 operator|.
 name|maxVersions
 operator|=
-name|maxVersions
+name|versions
 expr_stmt|;
 return|return
 name|this

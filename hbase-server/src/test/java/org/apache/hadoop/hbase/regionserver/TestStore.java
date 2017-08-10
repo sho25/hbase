@@ -7743,6 +7743,12 @@ argument_list|(
 literal|false
 argument_list|)
 decl_stmt|;
+specifier|final
+name|int
+name|expectedSize
+init|=
+literal|3
+decl_stmt|;
 name|testFlushBeforeCompletingScan
 argument_list|(
 operator|new
@@ -7763,7 +7769,9 @@ if|if
 condition|(
 name|currentSize
 operator|==
-literal|2
+name|expectedSize
+operator|-
+literal|1
 condition|)
 block|{
 try|try
@@ -7827,6 +7835,8 @@ name|INCLUDE
 return|;
 block|}
 block|}
+argument_list|,
+name|expectedSize
 argument_list|)
 expr_stmt|;
 block|}
@@ -7851,6 +7861,12 @@ argument_list|(
 literal|false
 argument_list|)
 decl_stmt|;
+specifier|final
+name|int
+name|expectedSize
+init|=
+literal|2
+decl_stmt|;
 name|testFlushBeforeCompletingScan
 argument_list|(
 operator|new
@@ -7871,7 +7887,9 @@ if|if
 condition|(
 name|currentSize
 operator|==
-literal|2
+name|expectedSize
+operator|-
+literal|1
 condition|)
 block|{
 try|try
@@ -7959,6 +7977,8 @@ return|;
 block|}
 block|}
 block|}
+argument_list|,
+name|expectedSize
 argument_list|)
 expr_stmt|;
 block|}
@@ -7983,6 +8003,12 @@ argument_list|(
 literal|false
 argument_list|)
 decl_stmt|;
+specifier|final
+name|int
+name|expectedSize
+init|=
+literal|2
+decl_stmt|;
 name|testFlushBeforeCompletingScan
 argument_list|(
 operator|new
@@ -8003,7 +8029,9 @@ if|if
 condition|(
 name|currentSize
 operator|==
-literal|2
+name|expectedSize
+operator|-
+literal|1
 condition|)
 block|{
 try|try
@@ -8111,6 +8139,8 @@ name|currentCell
 return|;
 block|}
 block|}
+argument_list|,
+name|expectedSize
 argument_list|)
 expr_stmt|;
 block|}
@@ -8123,6 +8153,9 @@ name|hook
 parameter_list|,
 name|Filter
 name|filter
+parameter_list|,
+name|int
+name|expectedSize
 parameter_list|)
 throws|throws
 name|IOException
@@ -8623,7 +8656,7 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|3
+name|expectedSize
 argument_list|,
 name|myList
 operator|.

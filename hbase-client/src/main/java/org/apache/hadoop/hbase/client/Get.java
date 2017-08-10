@@ -1105,10 +1105,43 @@ name|tr
 argument_list|)
 return|;
 block|}
-comment|/**    * Get all available versions.    * @return this for invocation chaining    */
+comment|/**    * Get all available versions.    * @return this for invocation chaining    * @deprecated It is easy to misunderstand with column family's max versions, so use    *             {@link #readAllVersions()} instead.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|Get
 name|setMaxVersions
+parameter_list|()
+block|{
+return|return
+name|readAllVersions
+argument_list|()
+return|;
+block|}
+comment|/**    * Get up to the specified number of versions of each column.    * @param maxVersions maximum versions for each column    * @throws IOException if invalid number of versions    * @return this for invocation chaining    * @deprecated It is easy to misunderstand with column family's max versions, so use    *             {@link #readVersions(int)} instead.    */
+annotation|@
+name|Deprecated
+specifier|public
+name|Get
+name|setMaxVersions
+parameter_list|(
+name|int
+name|maxVersions
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|readVersions
+argument_list|(
+name|maxVersions
+argument_list|)
+return|;
+block|}
+comment|/**    * Get all available versions.    * @return this for invocation chaining    */
+specifier|public
+name|Get
+name|readAllVersions
 parameter_list|()
 block|{
 name|this
@@ -1123,20 +1156,20 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Get up to the specified number of versions of each column.    * @param maxVersions maximum versions for each column    * @throws IOException if invalid number of versions    * @return this for invocation chaining    */
+comment|/**    * Get up to the specified number of versions of each column.    * @param versions specified number of versions for each column    * @throws IOException if invalid number of versions    * @return this for invocation chaining    */
 specifier|public
 name|Get
-name|setMaxVersions
+name|readVersions
 parameter_list|(
 name|int
-name|maxVersions
+name|versions
 parameter_list|)
 throws|throws
 name|IOException
 block|{
 if|if
 condition|(
-name|maxVersions
+name|versions
 operator|<=
 literal|0
 condition|)
@@ -1145,7 +1178,7 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"maxVersions must be positive"
+literal|"versions must be positive"
 argument_list|)
 throw|;
 block|}
@@ -1153,7 +1186,7 @@ name|this
 operator|.
 name|maxVersions
 operator|=
-name|maxVersions
+name|versions
 expr_stmt|;
 return|return
 name|this

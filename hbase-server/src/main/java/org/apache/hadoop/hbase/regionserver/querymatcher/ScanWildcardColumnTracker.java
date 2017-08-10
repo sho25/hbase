@@ -179,10 +179,12 @@ init|=
 literal|0
 decl_stmt|;
 specifier|private
+specifier|final
 name|int
 name|maxVersions
 decl_stmt|;
 specifier|private
+specifier|final
 name|int
 name|minVersions
 decl_stmt|;
