@@ -611,7 +611,9 @@ operator|.
 name|class
 block|}
 argument_list|)
-comment|//@Ignore // Needs to be rewritten for AMv2. Uses tricks not ordained when up on AMv2.
+annotation|@
+name|Ignore
+comment|// Needs to be rewritten for AMv2. Uses tricks not ordained when up on AMv2.
 specifier|public
 class|class
 name|TestMasterFailover
