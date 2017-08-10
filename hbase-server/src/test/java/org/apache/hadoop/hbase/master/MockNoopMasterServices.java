@@ -1701,7 +1701,7 @@ name|sn
 parameter_list|)
 block|{
 return|return
-literal|null
+literal|"0.0.0"
 return|;
 block|}
 annotation|@
