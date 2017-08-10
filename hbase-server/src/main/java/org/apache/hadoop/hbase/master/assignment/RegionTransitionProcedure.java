@@ -673,9 +673,10 @@ name|ServerName
 name|serverName
 parameter_list|)
 function_decl|;
+comment|/**    * @return True if processing of fail is complete; the procedure will be woken from its suspend    * and we'll go back to running through procedure steps:    * otherwise if false we leave the procedure in suspended state.    */
 specifier|protected
 specifier|abstract
-name|void
+name|boolean
 name|remoteCallFailed
 parameter_list|(
 name|MasterProcedureEnv
@@ -775,7 +776,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed "
+literal|"Remote call failed "
 operator|+
 name|this
 operator|+
@@ -791,6 +792,8 @@ operator|+
 name|msg
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
 name|remoteCallFailed
 argument_list|(
 name|env
@@ -799,7 +802,8 @@ name|regionNode
 argument_list|,
 name|exception
 argument_list|)
-expr_stmt|;
+condition|)
+block|{
 comment|// NOTE: This call to wakeEvent puts this Procedure back on the scheduler.
 comment|// Thereafter, another Worker can be in here so DO NOT MESS WITH STATE beyond
 comment|// this method. Just get out of this current processing quickly.
@@ -816,6 +820,8 @@ name|getProcedureEvent
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+comment|// else leave the procedure in suspended state; it is waiting on another call to this callback
 block|}
 comment|/**    * Be careful! At the end of this method, the procedure has either succeeded    * and this procedure has been set into a suspended state OR, we failed and    * this procedure has been put back on the scheduler ready for another worker    * to pick it up. In both cases, we need to exit the current Worker processing    * toute de suite!    * @return True if we successfully dispatched the call and false if we failed;    * if failed, we need to roll back any setup done for the dispatch.    */
 specifier|protected
@@ -897,9 +903,10 @@ name|getProcedureEvent
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// Tricky because this can fail. If it fails need to backtrack on stuff like
-comment|// the 'suspend' done above -- tricky as the 'wake' requeues us -- and ditto
-comment|// up in the caller; it needs to undo state changes.
+comment|// Tricky because this the below call to addOperationToNode can fail. If it fails, we need to
+comment|// backtrack on stuff like the 'suspend' done above -- tricky as the 'wake' requeues us -- and
+comment|// ditto up in the caller; it needs to undo state changes. Inside in remoteCallFailed, it does
+comment|// wake to undo the above suspend.
 if|if
 condition|(
 operator|!

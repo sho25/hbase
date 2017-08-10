@@ -1481,7 +1481,7 @@ throw|throw
 operator|new
 name|TimeoutIOException
 argument_list|(
-literal|"Procedure "
+literal|"Procedure pid="
 operator|+
 name|procId
 operator|+

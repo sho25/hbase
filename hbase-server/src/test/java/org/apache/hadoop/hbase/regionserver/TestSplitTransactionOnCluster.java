@@ -3065,6 +3065,39 @@ name|d
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|daughters
+operator|.
+name|size
+argument_list|()
+operator|!=
+name|regions
+operator|.
+name|size
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Daughters="
+operator|+
+name|daughters
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|", regions="
+operator|+
+name|regions
+operator|.
+name|size
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 name|assertEquals
 argument_list|(
 name|daughters
@@ -3093,6 +3126,15 @@ argument_list|(
 literal|"Regions post crash "
 operator|+
 name|r
+operator|+
+literal|", contains="
+operator|+
+name|daughters
+operator|.
+name|contains
+argument_list|(
+name|r
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|assertTrue
@@ -3113,6 +3155,13 @@ block|}
 block|}
 finally|finally
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"EXITING"
+argument_list|)
+expr_stmt|;
 name|admin
 operator|.
 name|setBalancerRunning
@@ -5951,7 +6000,14 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Waiting on region to split"
+literal|"Waiting on region "
+operator|+
+name|hri
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|" to split"
 argument_list|)
 expr_stmt|;
 name|Thread
@@ -6032,8 +6088,10 @@ name|metaRegionServer
 init|=
 name|cluster
 operator|.
-name|getMaster
-argument_list|()
+name|getRegionServer
+argument_list|(
+name|metaServerIndex
+argument_list|)
 decl_stmt|;
 name|int
 name|tableRegionIndex
@@ -6066,6 +6124,25 @@ argument_list|(
 name|tableRegionIndex
 argument_list|)
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"MetaRegionServer="
+operator|+
+name|metaRegionServer
+operator|.
+name|getServerName
+argument_list|()
+operator|+
+literal|", other="
+operator|+
+name|tableRegionServer
+operator|.
+name|getServerName
+argument_list|()
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|metaRegionServer
@@ -6219,7 +6296,9 @@ expr_stmt|;
 block|}
 name|assertTrue
 argument_list|(
-literal|"Region not moved off hbase:meta server"
+literal|"Region not moved off hbase:meta server, tableRegionIndex="
+operator|+
+name|tableRegionIndex
 argument_list|,
 name|tableRegionIndex
 operator|!=
