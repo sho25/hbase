@@ -19,6 +19,16 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Optional
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -94,7 +104,7 @@ name|resume
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * Used to suspend or stop a scan.    *<p>    * Notice that, you should only call the methods below inside onNext or onHeartbeat method. A    * IllegalStateException will be thrown if you call them at other places.    *<p>    * You can only call one of the methods below, i.e., call suspend or terminate(of course you are    * free to not call them both), and the methods are not reentrant. A IllegalStateException will be    * thrown if you have already called one of the methods.    */
+comment|/**    * Used to suspend or stop a scan, or get a scan cursor if available.    *<p>    * Notice that, you should only call the {@link #suspend()} or {@link #terminate()} inside onNext    * or onHeartbeat method. A IllegalStateException will be thrown if you call them at other places.    *<p>    * You can only call one of the {@link #suspend()} and {@link #terminate()} methods(of course you    * are free to not call them both), and the methods are not reentrant. An IllegalStateException    * will be thrown if you have already called one of the methods.    */
 annotation|@
 name|InterfaceAudience
 operator|.
@@ -110,6 +120,14 @@ function_decl|;
 comment|/**      * Terminate the scan.      *<p>      * This is useful when you have got enough results and want to stop the scan in onNext method,      * or you want to stop the scan in onHeartbeat method because it has spent too many time.      */
 name|void
 name|terminate
+parameter_list|()
+function_decl|;
+comment|/**      * Get the scan cursor if available.      * @return The scan cursor.      */
+name|Optional
+argument_list|<
+name|Cursor
+argument_list|>
+name|cursor
 parameter_list|()
 function_decl|;
 block|}
