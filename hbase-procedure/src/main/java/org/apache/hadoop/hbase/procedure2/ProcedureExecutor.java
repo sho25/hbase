@@ -1772,7 +1772,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Load max pid="
+literal|"Load maxProcId="
 operator|+
 name|maxProcId
 argument_list|)
@@ -3492,7 +3492,7 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Waiting for pid="
+literal|"Waiting for procId="
 operator|+
 name|oldProcId
 operator|.
@@ -4589,7 +4589,7 @@ argument_list|(
 name|procId
 argument_list|)
 operator|:
-literal|"pid="
+literal|"procId="
 operator|+
 name|procId
 operator|+
@@ -4607,7 +4607,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"pid="
+literal|"procId="
 operator|+
 name|procId
 operator|+
@@ -6105,7 +6105,7 @@ name|LOG
 operator|.
 name|fatal
 argument_list|(
-literal|"CODE-BUG: Uncaught runtime exception for "
+literal|"CODE-BUG: Uncaught runtime exception fo "
 operator|+
 name|proc
 argument_list|,

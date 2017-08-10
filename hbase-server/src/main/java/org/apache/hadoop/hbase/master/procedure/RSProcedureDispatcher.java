@@ -1181,7 +1181,7 @@ name|String
 operator|.
 name|format
 argument_list|(
-literal|"Failed dispatch to server=%s try=%d"
+literal|"the request should be tried elsewhere instead; server=%s try=%d"
 argument_list|,
 name|serverName
 argument_list|,

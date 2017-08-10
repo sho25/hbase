@@ -304,7 +304,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This is a helper class used to manage table states.  * States persisted in tableinfo and cached internally.  * TODO: Cache state. Cut down on meta looksups.  */
+comment|/**  * This is a helper class used to manage table states.  * States persisted in tableinfo and cached internally.  */
 end_comment
 
 begin_class
