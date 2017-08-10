@@ -2969,12 +2969,12 @@ decl_stmt|;
 return|return
 name|response
 operator|.
-name|hasSplittable
+name|hasMergeable
 argument_list|()
 operator|&&
 name|response
 operator|.
-name|getSplittable
+name|getMergeable
 argument_list|()
 return|;
 block|}
