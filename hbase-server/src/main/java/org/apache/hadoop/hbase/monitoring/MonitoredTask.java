@@ -103,6 +103,10 @@ name|long
 name|getCompletionTimestamp
 parameter_list|()
 function_decl|;
+name|long
+name|getWarnTime
+parameter_list|()
+function_decl|;
 name|void
 name|markComplete
 parameter_list|(
@@ -147,6 +151,14 @@ name|setDescription
 parameter_list|(
 name|String
 name|description
+parameter_list|)
+function_decl|;
+name|void
+name|setWarnTime
+parameter_list|(
+specifier|final
+name|long
+name|t
 parameter_list|)
 function_decl|;
 comment|/**    * Explicitly mark this status as able to be cleaned up,    * even though it might not be complete.    */

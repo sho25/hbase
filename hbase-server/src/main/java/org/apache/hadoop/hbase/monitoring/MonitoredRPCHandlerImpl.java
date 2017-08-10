@@ -885,6 +885,29 @@ operator|.
 name|toString
 argument_list|()
 operator|+
+literal|", queuetimems="
+operator|+
+name|getRPCQueueTime
+argument_list|()
+operator|+
+literal|", starttimems="
+operator|+
+name|getRPCStartTime
+argument_list|()
+operator|+
+literal|", clientaddress="
+operator|+
+name|clientAddress
+operator|+
+literal|", remoteport="
+operator|+
+name|remotePort
+operator|+
+literal|", packetlength="
+operator|+
+name|getRPCPacketLength
+argument_list|()
+operator|+
 literal|", rpcMethod="
 operator|+
 name|getRPC
