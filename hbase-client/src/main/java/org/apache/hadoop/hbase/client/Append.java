@@ -520,15 +520,6 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-block|}
-comment|// find where the new entry should be placed in the List
-name|list
-operator|.
-name|add
-argument_list|(
-name|cell
-argument_list|)
-expr_stmt|;
 name|this
 operator|.
 name|familyMap
@@ -538,6 +529,15 @@ argument_list|(
 name|family
 argument_list|,
 name|list
+argument_list|)
+expr_stmt|;
+block|}
+comment|// find where the new entry should be placed in the List
+name|list
+operator|.
+name|add
+argument_list|(
+name|cell
 argument_list|)
 expr_stmt|;
 return|return
