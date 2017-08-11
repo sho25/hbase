@@ -3722,9 +3722,20 @@ init|=
 literal|5000
 decl_stmt|;
 comment|// Request counter. (Includes requests that are not serviced by regions.)
+comment|// Count only once for requests with multiple actions like multi/caching-scan/replayBatch
 specifier|final
 name|LongAdder
 name|requestCount
+init|=
+operator|new
+name|LongAdder
+argument_list|()
+decl_stmt|;
+comment|// Request counter. (Excludes requests that are not serviced by regions.)
+comment|// Count rows for requests with multiple actions like multi/caching-scan/replayBatch
+specifier|final
+name|LongAdder
+name|requestRowActionCount
 init|=
 operator|new
 name|LongAdder
@@ -7886,6 +7897,11 @@ expr_stmt|;
 block|}
 block|}
 name|requestCount
+operator|.
+name|increment
+argument_list|()
+expr_stmt|;
+name|requestRowActionCount
 operator|.
 name|add
 argument_list|(
@@ -14755,6 +14771,11 @@ operator|.
 name|increment
 argument_list|()
 expr_stmt|;
+name|requestRowActionCount
+operator|.
+name|increment
+argument_list|()
+expr_stmt|;
 name|rpcGetRequestCount
 operator|.
 name|increment
@@ -15653,6 +15674,13 @@ operator|.
 name|increment
 argument_list|()
 expr_stmt|;
+name|this
+operator|.
+name|requestCount
+operator|.
+name|increment
+argument_list|()
+expr_stmt|;
 name|Map
 argument_list|<
 name|RegionSpecifier
@@ -15695,7 +15723,7 @@ control|)
 block|{
 name|this
 operator|.
-name|requestCount
+name|requestRowActionCount
 operator|.
 name|add
 argument_list|(
@@ -16417,6 +16445,11 @@ name|checkOpen
 argument_list|()
 expr_stmt|;
 name|requestCount
+operator|.
+name|increment
+argument_list|()
+expr_stmt|;
+name|requestRowActionCount
 operator|.
 name|increment
 argument_list|()
@@ -18947,6 +18980,13 @@ block|}
 name|region
 operator|.
 name|updateReadRequestsCount
+argument_list|(
+name|numOfResults
+argument_list|)
+expr_stmt|;
+name|requestRowActionCount
+operator|.
+name|add
 argument_list|(
 name|numOfResults
 argument_list|)

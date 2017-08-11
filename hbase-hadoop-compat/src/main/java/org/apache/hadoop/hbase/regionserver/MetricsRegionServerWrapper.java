@@ -494,6 +494,10 @@ name|long
 name|getTrailerHitCount
 parameter_list|()
 function_decl|;
+name|long
+name|getTotalRowActionRequestCount
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

@@ -428,6 +428,16 @@ init|=
 literal|"Total number of requests this RegionServer has answered."
 decl_stmt|;
 name|String
+name|TOTAL_ROW_ACTION_REQUEST_COUNT
+init|=
+literal|"totalRowActionRequestCount"
+decl_stmt|;
+name|String
+name|TOTAL_ROW_ACTION_REQUEST_COUNT_DESC
+init|=
+literal|"Total number of region requests this RegionServer has answered, count by row-level action"
+decl_stmt|;
+name|String
 name|READ_REQUEST_COUNT
 init|=
 literal|"readRequestCount"
