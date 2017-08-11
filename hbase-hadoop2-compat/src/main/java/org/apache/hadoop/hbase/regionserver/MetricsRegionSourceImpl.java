@@ -282,6 +282,13 @@ name|agg
 operator|=
 name|aggregate
 expr_stmt|;
+name|hashCode
+operator|=
+name|regionWrapper
+operator|.
+name|getRegionHashCode
+argument_list|()
+expr_stmt|;
 name|agg
 operator|.
 name|register
@@ -470,13 +477,6 @@ name|regionScanKey
 argument_list|,
 literal|0L
 argument_list|)
-expr_stmt|;
-name|hashCode
-operator|=
-name|regionWrapper
-operator|.
-name|getRegionHashCode
-argument_list|()
 expr_stmt|;
 block|}
 annotation|@
