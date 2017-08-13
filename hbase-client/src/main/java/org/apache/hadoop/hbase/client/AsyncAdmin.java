@@ -127,6 +127,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ClusterStatus
+operator|.
+name|Options
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HRegionInfo
 import|;
 end_import
@@ -1844,6 +1860,17 @@ name|ClusterStatus
 argument_list|>
 name|getClusterStatus
 parameter_list|()
+function_decl|;
+comment|/**    * @return cluster status wrapped by {@link CompletableFuture}    */
+name|CompletableFuture
+argument_list|<
+name|ClusterStatus
+argument_list|>
+name|getClusterStatus
+parameter_list|(
+name|Options
+name|options
+parameter_list|)
 function_decl|;
 comment|/**    * @return current master server name wrapped by {@link CompletableFuture}    */
 specifier|default

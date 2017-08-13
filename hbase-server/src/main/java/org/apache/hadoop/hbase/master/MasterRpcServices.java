@@ -5939,7 +5939,17 @@ argument_list|(
 name|master
 operator|.
 name|getClusterStatus
+argument_list|(
+name|ProtobufUtil
+operator|.
+name|toOptions
+argument_list|(
+name|req
+operator|.
+name|getClusterOptions
 argument_list|()
+argument_list|)
+argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
