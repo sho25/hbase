@@ -585,6 +585,9 @@ return|return
 name|storeUncompressedSizeMB
 return|;
 block|}
+comment|/**    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    * Use {@link #getStorefileSizeMB()} instead.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|int
 name|getStorefileSizeInMB
@@ -596,6 +599,18 @@ return|;
 block|}
 specifier|public
 name|int
+name|getStorefileSizeMB
+parameter_list|()
+block|{
+return|return
+name|storefileSizeMB
+return|;
+block|}
+comment|/**    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    * Use {@link #getMemstoreSizeMB()} instead.    */
+annotation|@
+name|Deprecated
+specifier|public
+name|int
 name|getMemstoreSizeInMB
 parameter_list|()
 block|{
@@ -605,7 +620,28 @@ return|;
 block|}
 specifier|public
 name|int
+name|getMemstoreSizeMB
+parameter_list|()
+block|{
+return|return
+name|memstoreSizeMB
+return|;
+block|}
+comment|/**    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    * Use {@link #getStorefileIndexSizeMB()} instead.    */
+annotation|@
+name|Deprecated
+specifier|public
+name|int
 name|getStorefileIndexSizeInMB
+parameter_list|()
+block|{
+return|return
+name|storefileIndexSizeMB
+return|;
+block|}
+specifier|public
+name|int
+name|getStorefileIndexSizeMB
 parameter_list|()
 block|{
 return|return
