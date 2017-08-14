@@ -1789,7 +1789,7 @@ return|return
 name|clusterIds
 return|;
 block|}
-comment|/**    * Sets the visibility expression associated with cells in this Mutation.    * It is illegal to set<code>CellVisibility</code> on<code>Delete</code> mutation.    * @param expression    */
+comment|/**    * Sets the visibility expression associated with cells in this Mutation.    * @param expression    */
 specifier|public
 name|Mutation
 name|setCellVisibility
