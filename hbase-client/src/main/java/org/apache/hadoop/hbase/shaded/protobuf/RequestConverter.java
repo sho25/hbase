@@ -5119,13 +5119,8 @@ operator|instanceof
 name|RowMutations
 condition|)
 block|{
-throw|throw
-operator|new
-name|UnsupportedOperationException
-argument_list|(
-literal|"No RowMutations in multi calls; use mutateRow"
-argument_list|)
-throw|;
+comment|// Skip RowMutations, which has been separately converted to RegionAction
+continue|continue;
 block|}
 else|else
 block|{
@@ -5689,13 +5684,8 @@ operator|instanceof
 name|RowMutations
 condition|)
 block|{
-throw|throw
-operator|new
-name|UnsupportedOperationException
-argument_list|(
-literal|"No RowMutations in multi calls; use mutateRow"
-argument_list|)
-throw|;
+comment|// Skip RowMutations, which has been separately converted to RegionAction
+continue|continue;
 block|}
 else|else
 block|{

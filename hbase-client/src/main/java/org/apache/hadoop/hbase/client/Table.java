@@ -278,7 +278,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Method that does a batch call on Deletes, Gets, Puts, Increments and Appends.    * The ordering of execution of the actions is not defined. Meaning if you do a Put and a    * Get in the same {@link #batch} call, you will not necessarily be    * guaranteed that the Get returns what the Put had put.    *    * @param actions list of Get, Put, Delete, Increment, Append objects    * @param results Empty Object[], same size as actions. Provides access to partial    *                results, in case an exception is thrown. A null in the result array means that    *                the call for that action failed, even after retries. The order of the objects    *                in the results array corresponds to the order of actions in the request list.    * @throws IOException    * @since 0.90.0    */
+comment|/**    * Method that does a batch call on Deletes, Gets, Puts, Increments, Appends, RowMutations.    * The ordering of execution of the actions is not defined. Meaning if you do a Put and a    * Get in the same {@link #batch} call, you will not necessarily be    * guaranteed that the Get returns what the Put had put.    *    * @param actions list of Get, Put, Delete, Increment, Append, RowMutations.    * @param results Empty Object[], same size as actions. Provides access to partial    *                results, in case an exception is thrown. A null in the result array means that    *                the call for that action failed, even after retries. The order of the objects    *                in the results array corresponds to the order of actions in the request list.    * @throws IOException    * @since 0.90.0    */
 name|void
 name|batch
 parameter_list|(
