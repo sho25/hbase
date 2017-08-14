@@ -110,7 +110,7 @@ name|BackupAdmin
 extends|extends
 name|Closeable
 block|{
-comment|/**    * Backup given list of tables fully. This is a synchronous operation.    * It returns backup id on success or throw exception on failure.    * @param userRequest BackupRequest instance    * @return the backup Id    */
+comment|/**    * Backup given list of tables fully. This is a synchronous operation. It returns backup id on    * success or throw exception on failure.    * @param userRequest BackupRequest instance    * @return the backup Id    */
 name|String
 name|backupTables
 parameter_list|(
@@ -141,9 +141,20 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Delete backup image command    * @param backupIds backup id list    * @return total number of deleted sessions    * @throws IOException exception    */
+comment|/**    * Delete backup image command    * @param backupIds array of backup ids    * @return total number of deleted sessions    * @throws IOException exception    */
 name|int
 name|deleteBackups
+parameter_list|(
+name|String
+index|[]
+name|backupIds
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Merge backup images command    * @param backupIds array of backup ids of images to be merged    *        The resulting backup image will have the same backup id as the most    *        recent image from a list of images to be merged    * @throws IOException exception    */
+name|void
+name|mergeBackups
 parameter_list|(
 name|String
 index|[]
@@ -214,7 +225,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Add tables to backup set command    * @param name name of backup set.    * @param tables list of tables to be added to this set.    * @throws IOException exception    */
+comment|/**    * Add tables to backup set command    * @param name name of backup set.    * @param tables array of tables to be added to this set.    * @throws IOException exception    */
 name|void
 name|addToBackupSet
 parameter_list|(
@@ -228,7 +239,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Remove tables from backup set    * @param name name of backup set.    * @param tables list of tables to be removed from this set.    * @throws IOException exception    */
+comment|/**    * Remove tables from backup set    * @param name name of backup set.    * @param tables array of tables to be removed from this set.    * @throws IOException exception    */
 name|void
 name|removeFromBackupSet
 parameter_list|(

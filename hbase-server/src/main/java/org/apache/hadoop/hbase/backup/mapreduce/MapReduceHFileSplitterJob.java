@@ -464,7 +464,7 @@ operator|.
 name|Private
 specifier|public
 class|class
-name|HFileSplitterJob
+name|MapReduceHFileSplitterJob
 extends|extends
 name|Configured
 implements|implements
@@ -480,7 +480,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|HFileSplitterJob
+name|MapReduceHFileSplitterJob
 operator|.
 name|class
 argument_list|)
@@ -525,11 +525,11 @@ init|=
 literal|"mapreduce.job.name"
 decl_stmt|;
 specifier|public
-name|HFileSplitterJob
+name|MapReduceHFileSplitterJob
 parameter_list|()
 block|{   }
 specifier|protected
-name|HFileSplitterJob
+name|MapReduceHFileSplitterJob
 parameter_list|(
 specifier|final
 name|Configuration
@@ -795,7 +795,7 @@ name|job
 operator|.
 name|setJarByClass
 argument_list|(
-name|HFileSplitterJob
+name|MapReduceHFileSplitterJob
 operator|.
 name|class
 argument_list|)
@@ -1142,7 +1142,7 @@ operator|.
 name|run
 argument_list|(
 operator|new
-name|HFileSplitterJob
+name|MapReduceHFileSplitterJob
 argument_list|(
 name|HBaseConfiguration
 operator|.

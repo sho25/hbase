@@ -508,7 +508,7 @@ expr_stmt|;
 comment|// Start backup session
 name|table
 operator|.
-name|startBackupSession
+name|startBackupExclusiveOperation
 argument_list|()
 expr_stmt|;
 comment|// Start delete operation

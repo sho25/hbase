@@ -1525,7 +1525,7 @@ name|logBackupPath
 init|=
 name|HBackupFileSystem
 operator|.
-name|getLogBackupPath
+name|getBackupPath
 argument_list|(
 name|backup
 operator|.
@@ -1744,7 +1744,7 @@ name|IOException
 block|{
 name|systemTable
 operator|.
-name|startBackupSession
+name|startBackupExclusiveOperation
 argument_list|()
 expr_stmt|;
 block|}
@@ -1758,7 +1758,7 @@ name|IOException
 block|{
 name|systemTable
 operator|.
-name|finishBackupSession
+name|finishBackupExclusiveOperation
 argument_list|()
 expr_stmt|;
 block|}

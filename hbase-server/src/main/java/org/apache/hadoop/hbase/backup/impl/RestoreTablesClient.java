@@ -283,9 +283,9 @@ name|hbase
 operator|.
 name|backup
 operator|.
-name|mapreduce
+name|util
 operator|.
-name|MapReduceRestoreJob
+name|BackupUtils
 import|;
 end_import
 
@@ -428,10 +428,6 @@ decl_stmt|;
 specifier|private
 name|String
 name|backupId
-decl_stmt|;
-specifier|private
-name|String
-name|fullBackupId
 decl_stmt|;
 specifier|private
 name|TableName
@@ -849,8 +845,6 @@ name|HBackupFileSystem
 operator|.
 name|getManifest
 argument_list|(
-name|sTable
-argument_list|,
 name|conf
 argument_list|,
 name|backupRoot
@@ -870,16 +864,6 @@ operator|.
 name|FULL
 condition|)
 block|{
-name|fullBackupId
-operator|=
-name|manifest
-operator|.
-name|getBackupImage
-argument_list|()
-operator|.
-name|getBackupId
-argument_list|()
-expr_stmt|;
 name|LOG
 operator|.
 name|info
@@ -993,7 +977,7 @@ name|fileBackupDir
 init|=
 name|HBackupFileSystem
 operator|.
-name|getTableBackupDir
+name|getTableBackupDataDir
 argument_list|(
 name|im
 operator|.
@@ -1007,12 +991,6 @@ argument_list|()
 argument_list|,
 name|sTable
 argument_list|)
-operator|+
-name|Path
-operator|.
-name|SEPARATOR
-operator|+
-literal|"data"
 decl_stmt|;
 name|dirList
 operator|.
@@ -1491,7 +1469,7 @@ expr_stmt|;
 name|LoadIncrementalHFiles
 name|loader
 init|=
-name|MapReduceRestoreJob
+name|BackupUtils
 operator|.
 name|createLoader
 argument_list|(
