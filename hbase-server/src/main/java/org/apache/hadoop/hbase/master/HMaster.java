@@ -8774,6 +8774,7 @@ literal|true
 return|;
 block|}
 comment|/**    * @return Client info for use as prefix on an audit log string; who did an action    */
+specifier|public
 name|String
 name|getClientIdAuditPrefix
 parameter_list|()

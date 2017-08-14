@@ -1727,6 +1727,17 @@ block|}
 annotation|@
 name|Override
 specifier|public
+name|String
+name|getClientIdAuditPrefix
+parameter_list|()
+block|{
+return|return
+literal|null
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
 name|ProcedureEvent
 name|getInitializedEvent
 parameter_list|()

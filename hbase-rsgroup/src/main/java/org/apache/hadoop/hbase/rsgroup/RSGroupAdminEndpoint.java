@@ -1076,6 +1076,20 @@ operator|.
 name|getRSGroupName
 argument_list|()
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|master
+operator|.
+name|getClientIdAuditPrefix
+argument_list|()
+operator|+
+literal|" initiates rsgroup info retrieval, group="
+operator|+
+name|groupName
+argument_list|)
+expr_stmt|;
 try|try
 block|{
 name|RSGroupInfo
@@ -1180,6 +1194,20 @@ name|getTableName
 argument_list|()
 argument_list|)
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|master
+operator|.
+name|getClientIdAuditPrefix
+argument_list|()
+operator|+
+literal|" initiates rsgroup info retrieval, table="
+operator|+
+name|tableName
+argument_list|)
+expr_stmt|;
 name|RSGroupInfo
 name|RSGroupInfo
 init|=
@@ -1314,6 +1342,27 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|master
+operator|.
+name|getClientIdAuditPrefix
+argument_list|()
+operator|+
+literal|" move servers "
+operator|+
+name|hostPorts
+operator|+
+literal|" to rsgroup "
+operator|+
+name|request
+operator|.
+name|getTargetGroup
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|groupAdminServer
 operator|.
 name|moveServers
@@ -1430,6 +1479,27 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|master
+operator|.
+name|getClientIdAuditPrefix
+argument_list|()
+operator|+
+literal|" move tables "
+operator|+
+name|tables
+operator|+
+literal|" to rsgroup "
+operator|+
+name|request
+operator|.
+name|getTargetGroup
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|groupAdminServer
 operator|.
 name|moveTables
@@ -1499,6 +1569,23 @@ operator|.
 name|newBuilder
 argument_list|()
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|master
+operator|.
+name|getClientIdAuditPrefix
+argument_list|()
+operator|+
+literal|" add rsgroup "
+operator|+
+name|request
+operator|.
+name|getRSGroupName
+argument_list|()
+argument_list|)
+expr_stmt|;
 try|try
 block|{
 name|groupAdminServer
@@ -1568,6 +1655,23 @@ operator|.
 name|newBuilder
 argument_list|()
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|master
+operator|.
+name|getClientIdAuditPrefix
+argument_list|()
+operator|+
+literal|" remove rsgroup "
+operator|+
+name|request
+operator|.
+name|getRSGroupName
+argument_list|()
+argument_list|)
+expr_stmt|;
 try|try
 block|{
 name|groupAdminServer
@@ -1637,6 +1741,23 @@ operator|.
 name|newBuilder
 argument_list|()
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|master
+operator|.
+name|getClientIdAuditPrefix
+argument_list|()
+operator|+
+literal|" balance rsgroup, group="
+operator|+
+name|request
+operator|.
+name|getRSGroupName
+argument_list|()
+argument_list|)
+expr_stmt|;
 try|try
 block|{
 name|builder
@@ -1718,6 +1839,18 @@ operator|.
 name|newBuilder
 argument_list|()
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|master
+operator|.
+name|getClientIdAuditPrefix
+argument_list|()
+operator|+
+literal|" list rsgroup"
+argument_list|)
+expr_stmt|;
 try|try
 block|{
 for|for
@@ -1827,6 +1960,20 @@ name|getPort
 argument_list|()
 argument_list|)
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|master
+operator|.
+name|getClientIdAuditPrefix
+argument_list|()
+operator|+
+literal|" initiates rsgroup info retrieval, server="
+operator|+
+name|hp
+argument_list|)
+expr_stmt|;
 name|RSGroupInfo
 name|RSGroupInfo
 init|=
@@ -2006,6 +2153,31 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|master
+operator|.
+name|getClientIdAuditPrefix
+argument_list|()
+operator|+
+literal|" move servers "
+operator|+
+name|hostPorts
+operator|+
+literal|" and tables "
+operator|+
+name|tables
+operator|+
+literal|" to rsgroup"
+operator|+
+name|request
+operator|.
+name|getTargetGroup
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|groupAdminServer
 operator|.
 name|moveServersAndTables
