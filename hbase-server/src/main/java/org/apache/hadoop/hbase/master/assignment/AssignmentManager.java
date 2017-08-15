@@ -2567,6 +2567,27 @@ name|getExcludedServersForSystemTable
 argument_list|()
 control|)
 block|{
+if|if
+condition|(
+name|master
+operator|.
+name|getServerManager
+argument_list|()
+operator|.
+name|isServerDead
+argument_list|(
+name|server
+argument_list|)
+condition|)
+block|{
+comment|// TODO: See HBASE-18494 and HBASE-18495. Though getExcludedServersForSystemTable()
+comment|// considers only online servers, the server could be queued for dead server
+comment|// processing. As region assignments for crashed server is handled by
+comment|// ServerCrashProcedure, do NOT handle them here. The goal is to handle this through
+comment|// regular flow of LoadBalancer as a favored node and not to have this special
+comment|// handling.
+continue|continue;
+block|}
 name|List
 argument_list|<
 name|HRegionInfo
