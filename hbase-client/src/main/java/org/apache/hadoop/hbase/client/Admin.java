@@ -1492,7 +1492,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Uses {@link #unassign(byte[], boolean)} to unassign the region. For expert-admins.    *    * @param regionname region name to close    * @param serverName Deprecated. Not used.    * @throws IOException if a remote or network exception occurs    * @deprecated Since 2.0. Will be removed in 3.0. Use {@link #unassign(byte[], boolean)} instead.    */
+comment|/**    * Uses {@link #unassign(byte[], boolean)} to unassign the region. For expert-admins.    *    * @param regionname region name to close    * @param serverName Deprecated. Not used.    * @throws IOException if a remote or network exception occurs    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-18231">HBASE-18231</a>).    *             Use {@link #unassign(byte[], boolean)}.    */
+annotation|@
+name|Deprecated
 name|void
 name|closeRegion
 parameter_list|(
@@ -1507,7 +1509,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Uses {@link #unassign(byte[], boolean)} to unassign the region. For expert-admins.    *    * @param regionname region name to close    * @param serverName Deprecated. Not used.    * @throws IOException if a remote or network exception occurs    * @deprecated Since 2.0. Will be removed in 3.0. Use {@link #unassign(byte[], boolean)} instead.    */
+comment|/**    * Uses {@link #unassign(byte[], boolean)} to unassign the region. For expert-admins.    *    * @param regionname region name to close    * @param serverName Deprecated. Not used.    * @throws IOException if a remote or network exception occurs    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-18231">HBASE-18231</a>).    *             Use {@link #unassign(byte[], boolean)}.    */
+annotation|@
+name|Deprecated
 name|void
 name|closeRegion
 parameter_list|(
@@ -1523,7 +1527,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Uses {@link #unassign(byte[], boolean)} to unassign the region. For expert-admins.    *    * @param encodedRegionName The encoded region name; i.e. the hash that makes up the region name    * suffix: e.g. if regionname is    *<code>TestTable,0094429456,1289497600452.527db22f95c8a9e0116f0cc13c680396.</code>,    * then the encoded region name is:<code>527db22f95c8a9e0116f0cc13c680396</code>.    * @param serverName Deprecated. Not used.    * @return Deprecated. Returns true always.    * @throws IOException if a remote or network exception occurs    * @deprecated Since 2.0. Will be removed in 3.0. Use {@link #unassign(byte[], boolean)} instead.    */
+comment|/**    * Uses {@link #unassign(byte[], boolean)} to unassign the region. For expert-admins.    *    * @param encodedRegionName The encoded region name; i.e. the hash that makes up the region name    * suffix: e.g. if regionname is    *<code>TestTable,0094429456,1289497600452.527db22f95c8a9e0116f0cc13c680396.</code>,    * then the encoded region name is:<code>527db22f95c8a9e0116f0cc13c680396</code>.    * @param serverName Deprecated. Not used.    * @return Deprecated. Returns true always.    * @throws IOException if a remote or network exception occurs    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-18231">HBASE-18231</a>).    *             Use {@link #unassign(byte[], boolean)}.    */
+annotation|@
+name|Deprecated
 name|boolean
 name|closeRegionWithEncodedRegionName
 parameter_list|(
@@ -1538,7 +1544,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Used {@link #unassign(byte[], boolean)} to unassign the region. For expert-admins.    *    * @param sn Deprecated. Not used.    * @deprecated Since 2.0. Will be removed in 3.0. Use {@link #unassign(byte[], boolean)} instead.    */
+comment|/**    * Used {@link #unassign(byte[], boolean)} to unassign the region. For expert-admins.    *    * @param sn Deprecated. Not used.    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-18231">HBASE-18231</a>).    *             Use {@link #unassign(byte[], boolean)}.    */
+annotation|@
+name|Deprecated
 name|void
 name|closeRegion
 parameter_list|(
@@ -1968,7 +1976,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Split an individual region. Asynchronous operation.    *    * @param regionName region to split    * @throws IOException if a remote or network exception occurs    * @deprecated Since 2.0. Will be removed in 3.0. Use    *     {@link #splitRegionAsync(byte[], byte[])} instead.    */
+comment|/**    * Split an individual region. Asynchronous operation.    *    * @param regionName region to split    * @throws IOException if a remote or network exception occurs    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-18229">HBASE-18229</a>).    *             Use {@link #splitRegionAsync(byte[], byte[])}.    */
+annotation|@
+name|Deprecated
 name|void
 name|splitRegion
 parameter_list|(
@@ -1996,7 +2006,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Split an individual region. Asynchronous operation.    *    * @param regionName region to split    * @param splitPoint the explicit position to split on    * @throws IOException if a remote or network exception occurs    * @deprecated Since 2.0. Will be removed in 3.0. Use    *     {@link #splitRegionAsync(byte[], byte[])} instead.    */
+comment|/**    * Split an individual region. Asynchronous operation.    *    * @param regionName region to split    * @param splitPoint the explicit position to split on    * @throws IOException if a remote or network exception occurs    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-18229">HBASE-18229</a>).    *             Use {@link #splitRegionAsync(byte[], byte[])}.    */
+annotation|@
+name|Deprecated
 name|void
 name|splitRegion
 parameter_list|(

@@ -268,7 +268,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * HTableDescriptor contains the details about an HBase table  such as the descriptors of  * all the column families, is the table a catalog table,<code> hbase:meta</code>,  * if the table is read only, the maximum size of the memstore,  * when the region split should occur, coprocessors associated with it etc...  * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.  *             use {@link TableDescriptorBuilder} to build {@link HTableDescriptor}.  */
+comment|/**  * HTableDescriptor contains the details about an HBase table  such as the descriptors of  * all the column families, is the table a catalog table,<code> hbase:meta</code>,  * if the table is read only, the maximum size of the memstore,  * when the region split should occur, coprocessors associated with it etc...  * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.  *             Use {@link TableDescriptorBuilder} to build {@link HTableDescriptor}.  */
 end_comment
 
 begin_class
@@ -1530,7 +1530,9 @@ name|getPriority
 argument_list|()
 return|;
 block|}
-comment|/**    * Returns all the column family names of the current table. The map of    * HTableDescriptor contains mapping of family name to HColumnDescriptors.    * This returns all the keys of the family map which represents the column    * family names of the table.    * @return Immutable sorted set of the keys of the families.    * @deprecated Use {@link #getColumnFamilyNames()}.    */
+comment|/**    * Returns all the column family names of the current table. The map of    * HTableDescriptor contains mapping of family name to HColumnDescriptors.    * This returns all the keys of the family map which represents the column    * family names of the table.    *    * @return Immutable sorted set of the keys of the families.    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-18008">HBASE-18008</a>).    *             Use {@link #getColumnFamilyNames()}.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|Set
 argument_list|<
