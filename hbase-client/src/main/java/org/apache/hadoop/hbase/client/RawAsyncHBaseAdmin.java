@@ -4603,9 +4603,6 @@ name|AsyncConnectionImpl
 name|connection
 parameter_list|,
 name|AsyncAdminBuilderBase
-argument_list|<
-name|?
-argument_list|>
 name|builder
 parameter_list|)
 block|{

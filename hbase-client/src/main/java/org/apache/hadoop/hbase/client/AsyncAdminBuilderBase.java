@@ -57,16 +57,8 @@ name|Private
 specifier|abstract
 class|class
 name|AsyncAdminBuilderBase
-parameter_list|<
-name|T
-extends|extends
-name|AsyncAdmin
-parameter_list|>
 implements|implements
 name|AsyncAdminBuilder
-argument_list|<
-name|T
-argument_list|>
 block|{
 specifier|protected
 name|long
@@ -144,9 +136,6 @@ annotation|@
 name|Override
 specifier|public
 name|AsyncAdminBuilder
-argument_list|<
-name|T
-argument_list|>
 name|setOperationTimeout
 parameter_list|(
 name|long
@@ -175,9 +164,6 @@ annotation|@
 name|Override
 specifier|public
 name|AsyncAdminBuilder
-argument_list|<
-name|T
-argument_list|>
 name|setRpcTimeout
 parameter_list|(
 name|long
@@ -206,9 +192,6 @@ annotation|@
 name|Override
 specifier|public
 name|AsyncAdminBuilder
-argument_list|<
-name|T
-argument_list|>
 name|setRetryPause
 parameter_list|(
 name|long
@@ -237,9 +220,6 @@ annotation|@
 name|Override
 specifier|public
 name|AsyncAdminBuilder
-argument_list|<
-name|T
-argument_list|>
 name|setMaxAttempts
 parameter_list|(
 name|int
@@ -260,9 +240,6 @@ annotation|@
 name|Override
 specifier|public
 name|AsyncAdminBuilder
-argument_list|<
-name|T
-argument_list|>
 name|setStartLogErrorsCnt
 parameter_list|(
 name|int

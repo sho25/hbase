@@ -195,9 +195,6 @@ return|;
 block|}
 comment|/**    * Returns an {@link AsyncAdminBuilder} for creating {@link AsyncAdmin}.    *<p>    * The admin operation's returned {@code CompletableFuture} will be finished directly in the rpc    * framework's callback thread, so typically you should not do any time consuming work inside    * these methods.    */
 name|AsyncAdminBuilder
-argument_list|<
-name|RawAsyncHBaseAdmin
-argument_list|>
 name|getAdminBuilder
 parameter_list|()
 function_decl|;
@@ -222,9 +219,6 @@ return|;
 block|}
 comment|/**    * Returns an {@link AsyncAdminBuilder} for creating {@link AsyncAdmin}.    * @param pool the thread pool to use for executing callback    */
 name|AsyncAdminBuilder
-argument_list|<
-name|AsyncHBaseAdmin
-argument_list|>
 name|getAdminBuilder
 parameter_list|(
 name|ExecutorService

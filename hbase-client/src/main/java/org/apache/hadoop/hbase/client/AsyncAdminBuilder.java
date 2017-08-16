@@ -75,17 +75,9 @@ name|Public
 specifier|public
 interface|interface
 name|AsyncAdminBuilder
-parameter_list|<
-name|T
-extends|extends
-name|AsyncAdmin
-parameter_list|>
 block|{
 comment|/**    * Set timeout for a whole admin operation. Operation timeout and max attempt times(or max retry    * times) are both limitations for retrying, we will stop retrying when we reach any of the    * limitations.    * @param timeout    * @param unit    * @return this for invocation chaining    */
 name|AsyncAdminBuilder
-argument_list|<
-name|T
-argument_list|>
 name|setOperationTimeout
 parameter_list|(
 name|long
@@ -97,9 +89,6 @@ parameter_list|)
 function_decl|;
 comment|/**    * Set timeout for each rpc request.    * @param timeout    * @param unit    * @return this for invocation chaining    */
 name|AsyncAdminBuilder
-argument_list|<
-name|T
-argument_list|>
 name|setRpcTimeout
 parameter_list|(
 name|long
@@ -111,9 +100,6 @@ parameter_list|)
 function_decl|;
 comment|/**    * Set the base pause time for retrying. We use an exponential policy to generate sleep time when    * retrying.    * @param timeout    * @param unit    * @return this for invocation chaining    */
 name|AsyncAdminBuilder
-argument_list|<
-name|T
-argument_list|>
 name|setRetryPause
 parameter_list|(
 name|long
@@ -126,9 +112,6 @@ function_decl|;
 comment|/**    * Set the max retry times for an admin operation. Usually it is the max attempt times minus 1.    * Operation timeout and max attempt times(or max retry times) are both limitations for retrying,    * we will stop retrying when we reach any of the limitations.    * @param maxRetries    * @return this for invocation chaining    */
 specifier|default
 name|AsyncAdminBuilder
-argument_list|<
-name|T
-argument_list|>
 name|setMaxRetries
 parameter_list|(
 name|int
@@ -147,9 +130,6 @@ return|;
 block|}
 comment|/**    * Set the max attempt times for an admin operation. Usually it is the max retry times plus 1.    * Operation timeout and max attempt times(or max retry times) are both limitations for retrying,    * we will stop retrying when we reach any of the limitations.    * @param maxAttempts    * @return this for invocation chaining    */
 name|AsyncAdminBuilder
-argument_list|<
-name|T
-argument_list|>
 name|setMaxAttempts
 parameter_list|(
 name|int
@@ -158,9 +138,6 @@ parameter_list|)
 function_decl|;
 comment|/**    * Set the number of retries that are allowed before we start to log.    * @param startLogErrorsCnt    * @return this for invocation chaining    */
 name|AsyncAdminBuilder
-argument_list|<
-name|T
-argument_list|>
 name|setStartLogErrorsCnt
 parameter_list|(
 name|int
@@ -168,7 +145,7 @@ name|startLogErrorsCnt
 parameter_list|)
 function_decl|;
 comment|/**    * Create a {@link AsyncAdmin} instance.    * @return a {@link AsyncAdmin} instance    */
-name|T
+name|AsyncAdmin
 name|build
 parameter_list|()
 function_decl|;

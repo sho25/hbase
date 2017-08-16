@@ -1760,18 +1760,12 @@ annotation|@
 name|Override
 specifier|public
 name|AsyncAdminBuilder
-argument_list|<
-name|RawAsyncHBaseAdmin
-argument_list|>
 name|getAdminBuilder
 parameter_list|()
 block|{
 return|return
 operator|new
 name|AsyncAdminBuilderBase
-argument_list|<
-name|RawAsyncHBaseAdmin
-argument_list|>
 argument_list|(
 name|connConf
 argument_list|)
@@ -1779,7 +1773,7 @@ block|{
 annotation|@
 name|Override
 specifier|public
-name|RawAsyncHBaseAdmin
+name|AsyncAdmin
 name|build
 parameter_list|()
 block|{
@@ -1802,9 +1796,6 @@ annotation|@
 name|Override
 specifier|public
 name|AsyncAdminBuilder
-argument_list|<
-name|AsyncHBaseAdmin
-argument_list|>
 name|getAdminBuilder
 parameter_list|(
 name|ExecutorService
@@ -1814,9 +1805,6 @@ block|{
 return|return
 operator|new
 name|AsyncAdminBuilderBase
-argument_list|<
-name|AsyncHBaseAdmin
-argument_list|>
 argument_list|(
 name|connConf
 argument_list|)
@@ -1824,7 +1812,7 @@ block|{
 annotation|@
 name|Override
 specifier|public
-name|AsyncHBaseAdmin
+name|AsyncAdmin
 name|build
 parameter_list|()
 block|{
