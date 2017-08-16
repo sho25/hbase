@@ -565,9 +565,6 @@ literal|"Not implemented"
 argument_list|)
 throw|;
 block|}
-comment|// TODO: why do we have a double traversing through map? Recall we have Cell to Cell mapping...
-comment|// First for first/last key, which actually returns Cell and then get for the same Cell?
-comment|// TODO: Consider just return the first/lastKey(), should be twice more effective...
 specifier|public
 name|Cell
 name|first
@@ -578,15 +575,11 @@ name|this
 operator|.
 name|delegatee
 operator|.
-name|get
-argument_list|(
-name|this
-operator|.
-name|delegatee
-operator|.
-name|firstKey
+name|firstEntry
 argument_list|()
-argument_list|)
+operator|.
+name|getValue
+argument_list|()
 return|;
 block|}
 specifier|public
@@ -599,15 +592,11 @@ name|this
 operator|.
 name|delegatee
 operator|.
-name|get
-argument_list|(
-name|this
-operator|.
-name|delegatee
-operator|.
-name|lastKey
+name|lastEntry
 argument_list|()
-argument_list|)
+operator|.
+name|getValue
+argument_list|()
 return|;
 block|}
 specifier|public
