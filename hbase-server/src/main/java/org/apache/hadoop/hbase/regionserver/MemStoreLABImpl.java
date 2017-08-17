@@ -358,6 +358,14 @@ specifier|final
 name|ChunkCreator
 name|chunkCreator
 decl_stmt|;
+specifier|private
+specifier|final
+name|CompactingMemStore
+operator|.
+name|IndexType
+name|idxType
+decl_stmt|;
+comment|// what index is used for corresponding segment
 comment|// This flag is for closing this instance, its set when clearing snapshot of
 comment|// memstore
 specifier|private
@@ -454,6 +462,28 @@ operator|+
 literal|" must be less than "
 operator|+
 name|CHUNK_SIZE_KEY
+argument_list|)
+expr_stmt|;
+name|idxType
+operator|=
+name|CompactingMemStore
+operator|.
+name|IndexType
+operator|.
+name|valueOf
+argument_list|(
+name|conf
+operator|.
+name|get
+argument_list|(
+name|CompactingMemStore
+operator|.
+name|COMPACTING_MEMSTORE_INDEX_KEY
+argument_list|,
+name|CompactingMemStore
+operator|.
+name|COMPACTING_MEMSTORE_INDEX_DEFAULT
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -898,7 +928,9 @@ operator|.
 name|chunkCreator
 operator|.
 name|getChunk
-argument_list|()
+argument_list|(
+name|idxType
+argument_list|)
 expr_stmt|;
 if|if
 condition|(
@@ -943,10 +975,7 @@ return|return
 literal|null
 return|;
 block|}
-comment|// Returning a new chunk, without replacing current chunk,
-comment|// meaning MSLABImpl does not make the returned chunk as CurChunk.
-comment|// The space on this chunk will be allocated externally
-comment|// The interface is only for external callers
+comment|/* Creating chunk to be used as index chunk in CellChunkMap, part of the chunks array.   ** Returning a new chunk, without replacing current chunk,   ** meaning MSLABImpl does not make the returned chunk as CurChunk.   ** The space on this chunk will be allocated externally.   ** The interface is only for external callers   */
 annotation|@
 name|Override
 specifier|public
@@ -954,6 +983,7 @@ name|Chunk
 name|getNewExternalChunk
 parameter_list|()
 block|{
+comment|// the new chunk is going to be part of the chunk array and will always be referenced
 name|Chunk
 name|c
 init|=
@@ -1056,6 +1086,46 @@ block|}
 block|}
 return|return
 name|pooledChunks
+return|;
+block|}
+annotation|@
+name|VisibleForTesting
+name|Integer
+name|getNumOfChunksReturnedToPool
+parameter_list|()
+block|{
+name|int
+name|i
+init|=
+literal|0
+decl_stmt|;
+for|for
+control|(
+name|Integer
+name|id
+range|:
+name|this
+operator|.
+name|chunks
+control|)
+block|{
+if|if
+condition|(
+name|chunkCreator
+operator|.
+name|isChunkInPool
+argument_list|(
+name|id
+argument_list|)
+condition|)
+block|{
+name|i
+operator|++
+expr_stmt|;
+block|}
+block|}
+return|return
+name|i
 return|;
 block|}
 block|}

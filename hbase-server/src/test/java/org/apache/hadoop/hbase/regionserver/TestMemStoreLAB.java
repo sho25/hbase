@@ -1628,21 +1628,14 @@ name|ChunkCreator
 operator|.
 name|INSTANCE
 operator|.
-name|size
+name|numberOfMappedChunks
 argument_list|()
 operator|!=
 literal|0
 argument_list|)
 expr_stmt|;
-comment|// close the mslab
-name|mslab
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-comment|// make sure all chunks reclaimed or removed from chunk queue
 name|int
-name|queueLength
+name|pooledChunksNum
 init|=
 name|mslab
 operator|.
@@ -1652,14 +1645,35 @@ operator|.
 name|size
 argument_list|()
 decl_stmt|;
+comment|// close the mslab
+name|mslab
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+comment|// make sure all chunks where reclaimed back to pool
+name|int
+name|queueLength
+init|=
+name|mslab
+operator|.
+name|getNumOfChunksReturnedToPool
+argument_list|()
+decl_stmt|;
 name|assertTrue
 argument_list|(
 literal|"All chunks in chunk queue should be reclaimed or removed"
 operator|+
 literal|" after mslab closed but actually: "
 operator|+
+operator|(
+name|pooledChunksNum
+operator|-
 name|queueLength
+operator|)
 argument_list|,
+name|pooledChunksNum
+operator|-
 name|queueLength
 operator|==
 literal|0

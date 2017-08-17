@@ -134,7 +134,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The compaction pipeline of a {@link CompactingMemStore}, is a FIFO queue of segments.  * It supports pushing a segment at the head of the pipeline and removing a segment from the  * tail when it is flushed to disk.  * It also supports swap method to allow the in-memory compaction swap a subset of the segments  * at the tail of the pipeline with a new (compacted) one. This swap succeeds only if the version  * number passed with the list of segments to swap is the same as the current version of the  * pipeline.  * Essentially, there are two methods which can change the structure of the pipeline: pushHead()  * and swap(), the later is used both by a flush to disk and by an in-memory compaction.  * The pipeline version is updated by swap(); it allows to identify conflicting operations at the  * suffix of the pipeline.  *  * The synchronization model is copy-on-write. Methods which change the structure of the  * pipeline (pushHead() and swap()) apply their changes in the context of a lock. They also make  * a read-only copy of the pipeline's list. Read methods read from a read-only copy. If a read  * method accesses the read-only copy more than once it makes a local copy of it  * to ensure it accesses the same copy.  *  * The methods getVersionedList(), getVersionedTail(), and flattenOneSegment() are also  * protected by a lock since they need to have a consistent (atomic) view of the pipeline list  * and version number.  */
+comment|/**  * The compaction pipeline of a {@link CompactingMemStore}, is a FIFO queue of segments.  * It supports pushing a segment at the head of the pipeline and removing a segment from the  * tail when it is flushed to disk.  * It also supports swap method to allow the in-memory compaction swap a subset of the segments  * at the tail of the pipeline with a new (compacted) one. This swap succeeds only if the version  * number passed with the list of segments to swap is the same as the current version of the  * pipeline.  * Essentially, there are two methods which can change the structure of the pipeline: pushHead()  * and swap(), the later is used both by a flush to disk and by an in-memory compaction.  * The pipeline version is updated by swap(); it allows to identify conflicting operations at the  * suffix of the pipeline.  *  * The synchronization model is copy-on-write. Methods which change the structure of the  * pipeline (pushHead(), flattenOneSegment() and swap()) apply their changes in the context of a  * lock. They also make a read-only copy of the pipeline's list. Read methods read from a  * read-only copy. If a read method accesses the read-only copy more than once it makes a local  * copy of it to ensure it accesses the same copy.  *  * The methods getVersionedList(), getVersionedTail(), and flattenOneSegment() are also  * protected by a lock since they need to have a consistent (atomic) view of the pipeline list  * and version number.  */
 end_comment
 
 begin_class
@@ -1137,6 +1137,26 @@ name|boolean
 name|closeSegmentsInSuffix
 parameter_list|)
 block|{
+name|pipeline
+operator|.
+name|removeAll
+argument_list|(
+name|suffix
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|segment
+operator|!=
+literal|null
+condition|)
+name|pipeline
+operator|.
+name|addLast
+argument_list|(
+name|segment
+argument_list|)
+expr_stmt|;
 comment|// During index merge we won't be closing the segments undergoing the merge. Segment#close()
 comment|// will release the MSLAB chunks to pool. But in case of index merge there wont be any data copy
 comment|// from old MSLABs. So the new cells in new segment also refers to same chunks. In case of data
@@ -1163,29 +1183,30 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-name|pipeline
-operator|.
-name|removeAll
-argument_list|(
-name|suffix
-argument_list|)
-expr_stmt|;
-if|if
-condition|(
-name|segment
-operator|!=
-literal|null
-condition|)
-name|pipeline
-operator|.
-name|addLast
-argument_list|(
-name|segment
-argument_list|)
-expr_stmt|;
 block|}
 comment|// replacing one segment in the pipeline with a new one exactly at the same index
 comment|// need to be called only within synchronized block
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"VO_VOLATILE_INCREMENT"
+argument_list|,
+name|justification
+operator|=
+literal|"replaceAtIndex is invoked under a synchronize block so safe"
+argument_list|)
 specifier|private
 name|void
 name|replaceAtIndex
@@ -1214,6 +1235,13 @@ argument_list|<>
 argument_list|(
 name|pipeline
 argument_list|)
+expr_stmt|;
+comment|// the version increment is indeed needed, because the swap uses removeAll() method of the
+comment|// linked-list that compares the objects to find what to remove.
+comment|// The flattening changes the segment object completely (creation pattern) and so
+comment|// swap will not proceed correctly after concurrent flattening.
+name|version
+operator|++
 expr_stmt|;
 block|}
 specifier|public

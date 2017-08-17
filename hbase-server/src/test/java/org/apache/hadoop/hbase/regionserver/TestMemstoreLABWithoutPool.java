@@ -861,7 +861,7 @@ name|ChunkCreator
 operator|.
 name|INSTANCE
 operator|.
-name|size
+name|numberOfMappedChunks
 argument_list|()
 operator|==
 literal|0

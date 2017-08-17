@@ -860,28 +860,6 @@ operator|.
 name|getChunkId
 argument_list|()
 decl_stmt|;
-comment|// ensure strong pointer to data chunk, as index is no longer directly points to it
-name|Chunk
-name|c
-init|=
-name|ChunkCreator
-operator|.
-name|getInstance
-argument_list|()
-operator|.
-name|saveChunkFromGC
-argument_list|(
-name|dataChunkID
-argument_list|)
-decl_stmt|;
-comment|// if c is null, it means that this cell chunks was already released shouldn't happen
-assert|assert
-operator|(
-name|c
-operator|!=
-literal|null
-operator|)
-assert|;
 name|offset
 operator|=
 name|ByteBufferUtils
