@@ -305,7 +305,7 @@ block|}
 argument_list|)
 specifier|public
 class|class
-name|TestZKPermissionsWatcher
+name|TestZKPermissionWatcher
 block|{
 specifier|private
 specifier|static
@@ -317,7 +317,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|TestZKPermissionsWatcher
+name|TestZKPermissionWatcher
 operator|.
 name|class
 argument_list|)
