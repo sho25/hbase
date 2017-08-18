@@ -964,6 +964,45 @@ name|Cell
 name|cell
 parameter_list|)
 block|{
+comment|// We aren't sure whether any DeleteFamily cells exist, so we can't skip to next column.
+comment|// TODO: Current way disable us to seek to next column quickly. Is there any better solution?
+comment|// see HBASE-18471 for more details
+comment|// see TestFromClientSide3#testScanAfterDeletingSpecifiedRow
+comment|// see TestFromClientSide3#testScanAfterDeletingSpecifiedRowV2
+if|if
+condition|(
+name|cell
+operator|.
+name|getQualifierLength
+argument_list|()
+operator|==
+literal|0
+condition|)
+block|{
+name|Cell
+name|nextKey
+init|=
+name|CellUtil
+operator|.
+name|createNextOnRowCol
+argument_list|(
+name|cell
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|nextKey
+operator|!=
+name|cell
+condition|)
+block|{
+return|return
+name|nextKey
+return|;
+block|}
+comment|// The cell is at the end of row/family/qualifier, so it is impossible to find any DeleteFamily cells.
+comment|// Let us seek to next column.
+block|}
 name|ColumnCount
 name|nextColumn
 init|=
