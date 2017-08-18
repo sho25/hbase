@@ -903,9 +903,24 @@ name|getBlockCaches
 argument_list|()
 control|)
 block|{
-name|bucketCacheReport
+name|LOG
+operator|.
+name|info
 argument_list|(
+name|bc
+operator|.
+name|getClass
+argument_list|()
+operator|.
+name|getSimpleName
+argument_list|()
+operator|+
+literal|": "
+operator|+
 name|sbc
+operator|.
+name|getStats
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
