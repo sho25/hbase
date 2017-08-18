@@ -145,22 +145,6 @@ name|AbstractService
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|zookeeper
-operator|.
-name|ZooKeeperListener
-import|;
-end_import
-
 begin_comment
 comment|/**  * A Base implementation for {@link ReplicationEndpoint}s. Users should consider extending this  * class rather than implementing {@link ReplicationEndpoint} directly for better backwards  * compatibility.  */
 end_comment
