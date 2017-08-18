@@ -2764,6 +2764,24 @@ argument_list|>
 name|deleteVisTags
 parameter_list|)
 block|{
+comment|// Early out if there are no tags in both of cell and delete
+if|if
+condition|(
+name|putVisTags
+operator|.
+name|isEmpty
+argument_list|()
+operator|&&
+name|deleteVisTags
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
+return|return
+literal|true
+return|;
+block|}
 name|boolean
 name|matchFound
 init|=

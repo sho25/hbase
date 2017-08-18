@@ -6779,6 +6779,26 @@ argument_list|,
 name|putVisTags
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|putVisTags
+operator|.
+name|isEmpty
+argument_list|()
+operator|&&
+name|deleteCellVisTags
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
+comment|// Early out if there are no tags in the cell
+return|return
+name|ReturnCode
+operator|.
+name|INCLUDE
+return|;
+block|}
 name|boolean
 name|matchFound
 init|=
