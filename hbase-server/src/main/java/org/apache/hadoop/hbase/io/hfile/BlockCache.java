@@ -169,9 +169,19 @@ name|long
 name|getCurrentSize
 parameter_list|()
 function_decl|;
+comment|/**    * Returns the occupied size of data blocks, in bytes.    * @return occupied space in cache, in bytes    */
+name|long
+name|getCurrentDataSize
+parameter_list|()
+function_decl|;
 comment|/**    * Returns the number of blocks currently cached in the block cache.    * @return number of blocks in the cache    */
 name|long
 name|getBlockCount
+parameter_list|()
+function_decl|;
+comment|/**   * Returns the number of data blocks currently cached in the block cache.   * @return number of blocks in the cache   */
+name|long
+name|getDataBlockCount
 parameter_list|()
 function_decl|;
 comment|/**    * @return Iterator over the blocks in the cache.    */
