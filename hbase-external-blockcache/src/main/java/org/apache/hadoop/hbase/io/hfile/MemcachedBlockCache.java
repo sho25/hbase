@@ -143,6 +143,20 @@ name|org
 operator|.
 name|apache
 operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -315,27 +329,11 @@ begin_comment
 comment|/**  * Class to store blocks into memcached.  * This should only be used on a cluster of Memcached daemons that are tuned well and have a  * good network connection to the HBase regionservers. Any other use will likely slow down HBase  * greatly.  */
 end_comment
 
-begin_comment
-comment|// @InterfaceAudience.Private
-end_comment
-
-begin_comment
-comment|// This class has NO InterfaceAudience. It is commented out. We do not want to import
-end_comment
-
-begin_comment
-comment|// InterfaceAudience. This would be only class in this module with the IA import and we do not want
-end_comment
-
-begin_comment
-comment|// to have this module depend annotations module just for one class.
-end_comment
-
-begin_comment
-comment|// NO InterfaceAudience defaults to mean InterfaceAudience.Private!
-end_comment
-
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 class|class
 name|MemcachedBlockCache

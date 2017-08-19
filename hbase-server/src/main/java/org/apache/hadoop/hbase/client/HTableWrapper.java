@@ -195,11 +195,9 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|yetus
 operator|.
-name|hbase
-operator|.
-name|classification
+name|audience
 operator|.
 name|InterfaceAudience
 import|;
@@ -211,11 +209,9 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|yetus
 operator|.
-name|hbase
-operator|.
-name|classification
+name|audience
 operator|.
 name|InterfaceStability
 import|;

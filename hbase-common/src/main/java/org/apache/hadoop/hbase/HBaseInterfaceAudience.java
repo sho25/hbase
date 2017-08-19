@@ -21,15 +21,17 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|yetus
 operator|.
-name|hbase
-operator|.
-name|classification
+name|audience
 operator|.
 name|InterfaceAudience
 import|;
 end_import
+
+begin_comment
+comment|// TODO move this to hbase-annotations non-test-jar
+end_comment
 
 begin_comment
 comment|/**  * This class defines constants for different classes of hbase limited private apis  */

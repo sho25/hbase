@@ -17,6 +17,20 @@ end_package
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -51,11 +65,9 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|yetus
 operator|.
-name|hbase
-operator|.
-name|classification
+name|audience
 operator|.
 name|InterfaceAudience
 import|;

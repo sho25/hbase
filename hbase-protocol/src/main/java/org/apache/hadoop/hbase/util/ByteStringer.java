@@ -47,6 +47,20 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
 name|com
 operator|.
 name|google
@@ -73,27 +87,11 @@ begin_comment
 comment|/**  * Hack to workaround HBASE-10304 issue that keeps bubbling up when a mapreduce context.  */
 end_comment
 
-begin_comment
-comment|// @InterfaceAudience.Private
-end_comment
-
-begin_comment
-comment|// This class has NO InterfaceAudience. It is commented out. We do not want to import
-end_comment
-
-begin_comment
-comment|// InterfaceAudience. This would be only class in this module with the IA import and we do not want
-end_comment
-
-begin_comment
-comment|// to have this module depend annotations module just for one class.
-end_comment
-
-begin_comment
-comment|// NO InterfaceAudience defaults to mean InterfaceAudience.Private!
-end_comment
-
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 class|class
 name|ByteStringer
