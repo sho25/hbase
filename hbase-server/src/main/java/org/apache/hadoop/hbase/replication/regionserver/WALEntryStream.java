@@ -961,9 +961,17 @@ argument_list|()
 operator|-
 name|currentPosition
 decl_stmt|;
+if|if
+condition|(
 name|LOG
 operator|.
-name|info
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
 argument_list|(
 literal|"Reached the end of WAL file '"
 operator|+
@@ -973,9 +981,10 @@ literal|"'. It was not closed cleanly, so we did not parse "
 operator|+
 name|skippedBytes
 operator|+
-literal|" bytes of data."
+literal|" bytes of data. This is normally ok."
 argument_list|)
 expr_stmt|;
+block|}
 name|metrics
 operator|.
 name|incrUncleanlyClosedWALs
