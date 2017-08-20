@@ -1559,7 +1559,7 @@ throws|throws
 name|IOException
 function_decl|;
 block|}
-comment|/**    *  This class works as the InputSplit of Performance Evaluation    *  MapReduce InputFormat, and the Record Value of RecordReader.     *  Each map task will only read one record from a PeInputSplit,     *  the record value is the PeInputSplit itself.    */
+comment|/**    *  This class works as the InputSplit of Performance Evaluation    *  MapReduce InputFormat, and the Record Value of RecordReader.    *  Each map task will only read one record from a PeInputSplit,    *  the record value is the PeInputSplit itself.    */
 specifier|public
 specifier|static
 class|class

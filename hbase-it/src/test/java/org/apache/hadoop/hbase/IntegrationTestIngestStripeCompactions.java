@@ -115,7 +115,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|LoadTestTool
+name|HFileTestUtil
 import|;
 end_import
 
@@ -218,7 +218,7 @@ init|=
 operator|new
 name|HColumnDescriptor
 argument_list|(
-name|LoadTestTool
+name|HFileTestUtil
 operator|.
 name|DEFAULT_COLUMN_FAMILY
 argument_list|)

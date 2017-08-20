@@ -452,7 +452,7 @@ name|minColsPerKey
 argument_list|,
 name|maxColsPerKey
 argument_list|,
-name|LoadTestTool
+name|HFileTestUtil
 operator|.
 name|DEFAULT_COLUMN_FAMILY
 argument_list|)
@@ -554,7 +554,7 @@ name|conf
 argument_list|,
 name|TABLE_NAME
 argument_list|,
-name|LoadTestTool
+name|HFileTestUtil
 operator|.
 name|DEFAULT_COLUMN_FAMILY
 argument_list|,
@@ -782,11 +782,11 @@ argument_list|)
 expr_stmt|;
 name|addOptWithArg
 argument_list|(
-name|LoadTestTool
+name|HFileTestUtil
 operator|.
 name|OPT_DATA_BLOCK_ENCODING
 argument_list|,
-name|LoadTestTool
+name|HFileTestUtil
 operator|.
 name|OPT_DATA_BLOCK_ENCODING_USAGE
 argument_list|)

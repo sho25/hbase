@@ -209,6 +209,24 @@ name|DefaultDataGenerator
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|test
+operator|.
+name|LoadTestDataGenerator
+import|;
+end_import
+
 begin_class
 annotation|@
 name|InterfaceAudience
@@ -472,7 +490,7 @@ name|byte
 index|[]
 name|tag
 init|=
-name|LoadTestTool
+name|LoadTestDataGenerator
 operator|.
 name|generateData
 argument_list|(

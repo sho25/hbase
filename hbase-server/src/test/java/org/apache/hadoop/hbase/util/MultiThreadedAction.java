@@ -414,7 +414,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Common base class for reader and writer parts of multi-thread HBase load  * test ({@link LoadTestTool}).  */
+comment|/**  * Common base class for reader and writer parts of multi-thread HBase load  * test (See LoadTestTool).  */
 end_comment
 
 begin_class

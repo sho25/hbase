@@ -572,6 +572,14 @@ literal|""
 operator|+
 literal|3
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|FAMILY_NAME
+init|=
+literal|"info"
+decl_stmt|;
 comment|/** Extract a descriptive statistic from a {@link com.codahale.metrics.Histogram}. */
 specifier|private
 enum|enum
@@ -1383,14 +1391,7 @@ name|Sets
 operator|.
 name|newHashSet
 argument_list|(
-name|Bytes
-operator|.
-name|toString
-argument_list|(
-name|PerformanceEvaluation
-operator|.
 name|FAMILY_NAME
-argument_list|)
 argument_list|)
 return|;
 block|}
