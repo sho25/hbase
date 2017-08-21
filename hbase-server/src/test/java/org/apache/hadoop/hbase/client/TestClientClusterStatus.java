@@ -458,9 +458,10 @@ argument_list|)
 expr_stmt|;
 while|while
 condition|(
-name|rst
+operator|!
+name|DEAD
 operator|.
-name|isAlive
+name|isStopped
 argument_list|()
 condition|)
 block|{
@@ -1125,15 +1126,11 @@ operator|.
 name|assertEquals
 argument_list|(
 name|SLAVES
-operator|-
-literal|1
 argument_list|,
 name|numRs
 argument_list|)
 expr_stmt|;
-comment|// live servers = nums of regionservers
-comment|// By default, HMaster don't carry any regions so it won't report its load.
-comment|// Hence, it won't be in the server list.
+comment|// live servers = primary master + nums of regionservers
 name|Assert
 operator|.
 name|assertEquals
@@ -1145,6 +1142,9 @@ argument_list|()
 operator|.
 name|size
 argument_list|()
+operator|+
+literal|1
+comment|/*Master*/
 argument_list|,
 name|numRs
 argument_list|)
