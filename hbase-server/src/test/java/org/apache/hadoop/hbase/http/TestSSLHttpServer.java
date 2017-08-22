@@ -404,7 +404,9 @@ name|HttpServer
 operator|.
 name|HTTP_MAX_THREADS
 argument_list|,
-literal|10
+name|TestHttpServer
+operator|.
+name|MAX_THREADS
 argument_list|)
 expr_stmt|;
 name|File

@@ -634,7 +634,7 @@ argument_list|()
 operator|.
 name|equals
 argument_list|(
-literal|"HTTP Response code: 413"
+literal|"HTTP Response code: 431"
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -653,7 +653,7 @@ name|exception
 operator|.
 name|expectMessage
 argument_list|(
-literal|"HTTP Response code: 413"
+literal|"HTTP Response code: 431"
 argument_list|)
 expr_stmt|;
 name|runThriftServer

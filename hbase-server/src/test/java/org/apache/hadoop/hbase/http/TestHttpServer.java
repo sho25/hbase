@@ -654,13 +654,13 @@ specifier|static
 name|URL
 name|baseUrl
 decl_stmt|;
-specifier|private
+comment|// jetty 9.4.x needs this many threads to start, even in the small.
 specifier|static
 specifier|final
 name|int
 name|MAX_THREADS
 init|=
-literal|10
+literal|16
 decl_stmt|;
 annotation|@
 name|SuppressWarnings
@@ -1101,7 +1101,7 @@ name|HttpServer
 operator|.
 name|HTTP_MAX_THREADS
 argument_list|,
-literal|10
+name|MAX_THREADS
 argument_list|)
 expr_stmt|;
 name|server

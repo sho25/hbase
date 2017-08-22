@@ -609,19 +609,7 @@ return|return
 name|plans
 return|;
 block|}
-name|Map
-argument_list|<
-name|ServerName
-argument_list|,
-name|ServerName
-argument_list|>
-name|serverNameToServerNameWithoutCode
-init|=
-operator|new
-name|HashMap
-argument_list|<>
-argument_list|()
-decl_stmt|;
+comment|// This is not used? Findbugs says so: Map<ServerName, ServerName> serverNameToServerNameWithoutCode = new HashMap<>();
 name|Map
 argument_list|<
 name|ServerName
@@ -678,15 +666,7 @@ operator|.
 name|NON_STARTCODE
 argument_list|)
 decl_stmt|;
-name|serverNameToServerNameWithoutCode
-operator|.
-name|put
-argument_list|(
-name|sn
-argument_list|,
-name|s
-argument_list|)
-expr_stmt|;
+comment|// FindBugs complains about useless store! serverNameToServerNameWithoutCode.put(sn, s);
 name|serverNameWithoutCodeToServerName
 operator|.
 name|put
