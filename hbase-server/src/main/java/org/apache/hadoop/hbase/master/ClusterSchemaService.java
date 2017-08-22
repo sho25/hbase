@@ -27,7 +27,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Service
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -41,9 +43,19 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|classification
+name|shaded
 operator|.
-name|InterfaceAudience
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|Service
 import|;
 end_import
 
