@@ -733,7 +733,7 @@ name|assertTrue
 argument_list|(
 name|ServerName
 operator|.
-name|isSameHostnameAndPort
+name|isSameAddress
 argument_list|(
 name|serverBefore
 operator|.
@@ -838,7 +838,7 @@ name|assertTrue
 argument_list|(
 name|ServerName
 operator|.
-name|isSameHostnameAndPort
+name|isSameAddress
 argument_list|(
 name|serverAfter
 operator|.
@@ -858,7 +858,7 @@ argument_list|)
 operator|||
 name|ServerName
 operator|.
-name|isSameHostnameAndPort
+name|isSameAddress
 argument_list|(
 name|serverAfter
 operator|.
@@ -1186,7 +1186,7 @@ name|assertTrue
 argument_list|(
 name|ServerName
 operator|.
-name|isSameHostnameAndPort
+name|isSameAddress
 argument_list|(
 name|serverBefore
 argument_list|,
@@ -1269,7 +1269,7 @@ name|assertTrue
 argument_list|(
 name|ServerName
 operator|.
-name|isSameHostnameAndPort
+name|isSameAddress
 argument_list|(
 name|serverAfter
 argument_list|,
@@ -1283,7 +1283,7 @@ argument_list|)
 operator|||
 name|ServerName
 operator|.
-name|isSameHostnameAndPort
+name|isSameAddress
 argument_list|(
 name|serverAfter
 argument_list|,
@@ -1483,7 +1483,7 @@ if|if
 condition|(
 name|ServerName
 operator|.
-name|isSameHostnameAndPort
+name|isSameAddress
 argument_list|(
 name|s
 argument_list|,

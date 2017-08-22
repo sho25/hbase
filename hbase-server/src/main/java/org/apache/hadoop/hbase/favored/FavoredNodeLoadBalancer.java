@@ -1769,7 +1769,7 @@ if|if
 condition|(
 name|ServerName
 operator|.
-name|isSameHostnameAndPort
+name|isSameAddress
 argument_list|(
 name|favoredNode
 argument_list|,

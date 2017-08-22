@@ -1847,7 +1847,7 @@ condition|(
 operator|!
 name|ServerName
 operator|.
-name|isSameHostnameAndPort
+name|isSameAddress
 argument_list|(
 name|initMaster
 argument_list|,
@@ -1953,7 +1953,7 @@ condition|(
 operator|!
 name|ServerName
 operator|.
-name|isSameHostnameAndPort
+name|isSameAddress
 argument_list|(
 name|currentBackup
 argument_list|,

@@ -1501,7 +1501,7 @@ do|while
 condition|(
 name|ServerName
 operator|.
-name|isSameHostnameAndPort
+name|isSameAddress
 argument_list|(
 name|metaServer
 argument_list|,
@@ -1588,7 +1588,7 @@ if|if
 condition|(
 name|ServerName
 operator|.
-name|isSameHostnameAndPort
+name|isSameAddress
 argument_list|(
 name|s
 argument_list|,
@@ -1876,7 +1876,7 @@ operator|!
 operator|(
 name|ServerName
 operator|.
-name|isSameHostnameAndPort
+name|isSameAddress
 argument_list|(
 name|newDestination
 argument_list|,
@@ -1888,7 +1888,7 @@ argument_list|)
 operator|||
 name|ServerName
 operator|.
-name|isSameHostnameAndPort
+name|isSameAddress
 argument_list|(
 name|newDestination
 argument_list|,

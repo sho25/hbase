@@ -167,7 +167,7 @@ name|assertTrue
 argument_list|(
 name|ServerName
 operator|.
-name|isSameHostnameAndPort
+name|isSameAddress
 argument_list|(
 name|sn
 argument_list|,
@@ -226,7 +226,7 @@ name|assertTrue
 argument_list|(
 name|ServerName
 operator|.
-name|isSameHostnameAndPort
+name|isSameAddress
 argument_list|(
 name|snStartCodeFNPort
 argument_list|,

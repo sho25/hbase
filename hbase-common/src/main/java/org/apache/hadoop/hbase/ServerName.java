@@ -1287,7 +1287,7 @@ comment|/**    * @param left    * @param right    * @return True if<code>other</
 specifier|public
 specifier|static
 name|boolean
-name|isSameHostnameAndPort
+name|isSameAddress
 parameter_list|(
 specifier|final
 name|ServerName

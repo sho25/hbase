@@ -806,7 +806,7 @@ name|assertTrue
 argument_list|(
 name|ServerName
 operator|.
-name|isSameHostnameAndPort
+name|isSameAddress
 argument_list|(
 name|lower
 argument_list|,

@@ -824,7 +824,7 @@ if|if
 condition|(
 name|ServerName
 operator|.
-name|isSameHostnameAndPort
+name|isSameAddress
 argument_list|(
 name|currentMaster
 argument_list|,

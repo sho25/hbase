@@ -1087,7 +1087,7 @@ condition|(
 operator|!
 name|ServerName
 operator|.
-name|isSameHostnameAndPort
+name|isSameAddress
 argument_list|(
 name|sn
 argument_list|,
@@ -1607,7 +1607,7 @@ if|if
 condition|(
 name|ServerName
 operator|.
-name|isSameHostnameAndPort
+name|isSameAddress
 argument_list|(
 name|sn
 argument_list|,

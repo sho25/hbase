@@ -779,6 +779,8 @@ operator|.
 name|getAssignmentManager
 argument_list|()
 decl_stmt|;
+comment|// forceNewPlan is set to false. Balancer is expected to find most suitable target
+comment|// server if retention is not possible.
 name|addChildProcedure
 argument_list|(
 name|am
@@ -792,7 +794,7 @@ argument_list|(
 name|regionsOnCrashedServer
 argument_list|)
 argument_list|,
-literal|true
+literal|false
 argument_list|)
 argument_list|)
 expr_stmt|;
