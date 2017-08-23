@@ -723,6 +723,11 @@ name|logBatchWarning
 argument_list|(
 name|Mockito
 operator|.
+name|anyString
+argument_list|()
+argument_list|,
+name|Mockito
+operator|.
 name|anyInt
 argument_list|()
 argument_list|,
@@ -765,6 +770,11 @@ argument_list|)
 operator|.
 name|logBatchWarning
 argument_list|(
+name|Mockito
+operator|.
+name|anyString
+argument_list|()
+argument_list|,
 name|Mockito
 operator|.
 name|anyInt
@@ -815,6 +825,11 @@ name|logBatchWarning
 argument_list|(
 name|Mockito
 operator|.
+name|anyString
+argument_list|()
+argument_list|,
+name|Mockito
+operator|.
 name|anyInt
 argument_list|()
 argument_list|,
@@ -857,6 +872,11 @@ argument_list|)
 operator|.
 name|logBatchWarning
 argument_list|(
+name|Mockito
+operator|.
+name|anyString
+argument_list|()
+argument_list|,
 name|Mockito
 operator|.
 name|anyInt
