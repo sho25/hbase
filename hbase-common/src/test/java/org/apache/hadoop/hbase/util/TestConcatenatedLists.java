@@ -351,7 +351,7 @@ name|asList
 argument_list|(
 literal|0L
 argument_list|,
-literal|1L
+literal|2L
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -661,6 +661,11 @@ literal|7
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"ModifyingCollectionWithItself"
+argument_list|)
 specifier|private
 name|void
 name|verify
@@ -702,6 +707,7 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// This check is O(n^2), test with care
 name|assertTrue
 argument_list|(
 name|c

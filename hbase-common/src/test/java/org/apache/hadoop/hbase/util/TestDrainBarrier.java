@@ -206,11 +206,13 @@ operator|.
 name|endOp
 argument_list|()
 expr_stmt|;
-name|fail
+throw|throw
+operator|new
+name|Error
 argument_list|(
 literal|"Should have asserted"
 argument_list|)
-expr_stmt|;
+throw|;
 block|}
 catch|catch
 parameter_list|(
@@ -245,11 +247,13 @@ operator|.
 name|endOp
 argument_list|()
 expr_stmt|;
-name|fail
+throw|throw
+operator|new
+name|Error
 argument_list|(
 literal|"Should have asserted"
 argument_list|)
-expr_stmt|;
+throw|;
 block|}
 catch|catch
 parameter_list|(
@@ -456,11 +460,13 @@ operator|.
 name|stopAndDrainOpsOnce
 argument_list|()
 expr_stmt|;
-name|fail
+throw|throw
+operator|new
+name|Error
 argument_list|(
 literal|"Should have asserted"
 argument_list|)
-expr_stmt|;
+throw|;
 block|}
 catch|catch
 parameter_list|(
