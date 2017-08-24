@@ -275,6 +275,18 @@ name|java
 operator|.
 name|util
 operator|.
+name|function
+operator|.
+name|Function
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|regex
 operator|.
 name|Pattern
@@ -507,20 +519,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HColumnDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HConstants
 import|;
 end_import
@@ -536,20 +534,6 @@ operator|.
 name|hbase
 operator|.
 name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HTableDescriptor
 import|;
 end_import
 
@@ -749,6 +733,38 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|ColumnFamilyDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|ColumnFamilyDescriptorBuilder
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|MasterSwitchType
 import|;
 end_import
@@ -782,6 +798,22 @@ operator|.
 name|client
 operator|.
 name|TableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|TableDescriptorBuilder
 import|;
 end_import
 
@@ -4374,20 +4406,36 @@ name|getLocalPort
 argument_list|()
 return|;
 block|}
-annotation|@
-name|Override
 specifier|protected
-name|TableDescriptors
-name|getFsTableDescriptors
+name|Function
+argument_list|<
+name|TableDescriptorBuilder
+argument_list|,
+name|TableDescriptorBuilder
+argument_list|>
+name|getMetaTableObserver
 parameter_list|()
-throws|throws
-name|IOException
 block|{
 return|return
-name|super
+name|builder
+lambda|->
+name|builder
 operator|.
-name|getFsTableDescriptors
-argument_list|()
+name|setRegionReplication
+argument_list|(
+name|conf
+operator|.
+name|getInt
+argument_list|(
+name|HConstants
+operator|.
+name|META_REPLICAS_NUM
+argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_META_REPLICA_NUM
+argument_list|)
+argument_list|)
 return|;
 block|}
 comment|/**    * For compatibility, if failed with regionserver credentials, try the master one    */
@@ -5069,34 +5117,6 @@ name|tableDescriptors
 operator|.
 name|setCacheOn
 argument_list|()
-expr_stmt|;
-comment|// set the META's descriptor to the correct replication
-name|this
-operator|.
-name|tableDescriptors
-operator|.
-name|get
-argument_list|(
-name|TableName
-operator|.
-name|META_TABLE_NAME
-argument_list|)
-operator|.
-name|setRegionReplication
-argument_list|(
-name|conf
-operator|.
-name|getInt
-argument_list|(
-name|HConstants
-operator|.
-name|META_REPLICAS_NUM
-argument_list|,
-name|HConstants
-operator|.
-name|DEFAULT_META_REPLICA_NUM
-argument_list|)
-argument_list|)
 expr_stmt|;
 comment|// warm-up HTDs cache on master initialization
 if|if
@@ -8683,7 +8703,7 @@ return|return
 literal|false
 return|;
 block|}
-name|HTableDescriptor
+name|TableDescriptor
 name|tblDesc
 init|=
 name|getTableDescriptors
@@ -9817,8 +9837,8 @@ name|long
 name|createTable
 parameter_list|(
 specifier|final
-name|HTableDescriptor
-name|hTableDescriptor
+name|TableDescriptor
+name|tableDescriptor
 parameter_list|,
 specifier|final
 name|byte
@@ -9843,7 +9863,7 @@ expr_stmt|;
 name|String
 name|namespace
 init|=
-name|hTableDescriptor
+name|tableDescriptor
 operator|.
 name|getTableName
 argument_list|()
@@ -9868,14 +9888,14 @@ name|ModifyRegionUtils
 operator|.
 name|createHRegionInfos
 argument_list|(
-name|hTableDescriptor
+name|tableDescriptor
 argument_list|,
 name|splitKeys
 argument_list|)
 decl_stmt|;
 name|sanityCheckTableDescriptor
 argument_list|(
-name|hTableDescriptor
+name|tableDescriptor
 argument_list|)
 expr_stmt|;
 return|return
@@ -9912,7 +9932,7 @@ argument_list|()
 operator|.
 name|preCreateTable
 argument_list|(
-name|hTableDescriptor
+name|tableDescriptor
 argument_list|,
 name|newRegions
 argument_list|)
@@ -9926,7 +9946,7 @@ argument_list|()
 operator|+
 literal|" create "
 operator|+
-name|hTableDescriptor
+name|tableDescriptor
 argument_list|)
 expr_stmt|;
 comment|// TODO: We can handle/merge duplicate requests, and differentiate the case of
@@ -9949,7 +9969,7 @@ operator|.
 name|getEnvironment
 argument_list|()
 argument_list|,
-name|hTableDescriptor
+name|tableDescriptor
 argument_list|,
 name|newRegions
 argument_list|,
@@ -9970,7 +9990,7 @@ argument_list|()
 operator|.
 name|postCreateTable
 argument_list|(
-name|hTableDescriptor
+name|tableDescriptor
 argument_list|,
 name|newRegions
 argument_list|)
@@ -9998,8 +10018,8 @@ name|long
 name|createSystemTable
 parameter_list|(
 specifier|final
-name|HTableDescriptor
-name|hTableDescriptor
+name|TableDescriptor
+name|tableDescriptor
 parameter_list|)
 throws|throws
 name|IOException
@@ -10019,7 +10039,7 @@ block|}
 name|TableName
 name|tableName
 init|=
-name|hTableDescriptor
+name|tableDescriptor
 operator|.
 name|getTableName
 argument_list|()
@@ -10051,7 +10071,7 @@ name|ModifyRegionUtils
 operator|.
 name|createHRegionInfos
 argument_list|(
-name|hTableDescriptor
+name|tableDescriptor
 argument_list|,
 literal|null
 argument_list|)
@@ -10065,7 +10085,7 @@ argument_list|()
 operator|+
 literal|" create "
 operator|+
-name|hTableDescriptor
+name|tableDescriptor
 argument_list|)
 expr_stmt|;
 comment|// This special create table is called locally to master.  Therefore, no RPC means no need
@@ -10087,7 +10107,7 @@ operator|.
 name|getEnvironment
 argument_list|()
 argument_list|,
-name|hTableDescriptor
+name|tableDescriptor
 argument_list|,
 name|newRegions
 argument_list|)
@@ -10103,7 +10123,7 @@ name|void
 name|sanityCheckTableDescriptor
 parameter_list|(
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 parameter_list|)
 throws|throws
@@ -10480,7 +10500,7 @@ expr_stmt|;
 block|}
 for|for
 control|(
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|hcd
 range|:
 name|htd
@@ -10605,7 +10625,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// max versions already being checked
-comment|// HBASE-13776 Setting illegal versions for HColumnDescriptor
+comment|// HBASE-13776 Setting illegal versions for ColumnFamilyDescriptor
 comment|//  does not throw IllegalArgumentException
 comment|// check minVersions<= maxVerions
 if|if
@@ -10694,7 +10714,7 @@ specifier|private
 name|void
 name|checkReplicationScope
 parameter_list|(
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|hcd
 parameter_list|)
 throws|throws
@@ -10767,7 +10787,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 parameter_list|)
 throws|throws
@@ -10867,7 +10887,7 @@ expr_stmt|;
 block|}
 for|for
 control|(
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|hcd
 range|:
 name|htd
@@ -10932,7 +10952,7 @@ operator|.
 name|getTimeToLive
 argument_list|()
 operator|==
-name|HColumnDescriptor
+name|ColumnFamilyDescriptorBuilder
 operator|.
 name|DEFAULT_TTL
 condition|)
@@ -11405,7 +11425,7 @@ name|void
 name|checkCompression
 parameter_list|(
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 parameter_list|)
 throws|throws
@@ -11421,7 +11441,7 @@ condition|)
 return|return;
 for|for
 control|(
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|hcd
 range|:
 name|htd
@@ -11442,7 +11462,7 @@ name|void
 name|checkCompression
 parameter_list|(
 specifier|final
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|hcd
 parameter_list|)
 throws|throws
@@ -11486,7 +11506,7 @@ name|Configuration
 name|conf
 parameter_list|,
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 parameter_list|)
 throws|throws
@@ -11502,7 +11522,7 @@ condition|)
 return|return;
 for|for
 control|(
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|hcd
 range|:
 name|htd
@@ -11529,7 +11549,7 @@ name|Configuration
 name|conf
 parameter_list|,
 specifier|final
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|hcd
 parameter_list|)
 throws|throws
@@ -11570,7 +11590,7 @@ name|Configuration
 name|conf
 parameter_list|,
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 parameter_list|)
 throws|throws
@@ -11896,7 +11916,7 @@ name|TableName
 name|tableName
 parameter_list|,
 specifier|final
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|columnDescriptor
 parameter_list|,
 specifier|final
@@ -12050,7 +12070,7 @@ name|TableName
 name|tableName
 parameter_list|,
 specifier|final
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|descriptor
 parameter_list|,
 specifier|final
@@ -12927,7 +12947,7 @@ name|TableName
 name|tableName
 parameter_list|,
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|descriptor
 parameter_list|,
 specifier|final
@@ -15999,7 +16019,7 @@ block|{
 comment|// request for all TableDescriptors
 name|Collection
 argument_list|<
-name|HTableDescriptor
+name|TableDescriptor
 argument_list|>
 name|allHtds
 decl_stmt|;
@@ -16055,7 +16075,7 @@ expr_stmt|;
 block|}
 for|for
 control|(
-name|HTableDescriptor
+name|TableDescriptor
 name|desc
 range|:
 name|allHtds
@@ -16117,7 +16137,7 @@ name|s
 argument_list|)
 condition|)
 block|{
-name|HTableDescriptor
+name|TableDescriptor
 name|desc
 init|=
 name|tableDescriptors
@@ -16581,7 +16601,7 @@ name|tableName
 parameter_list|,
 name|List
 argument_list|<
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 argument_list|>
 name|columns
 parameter_list|,

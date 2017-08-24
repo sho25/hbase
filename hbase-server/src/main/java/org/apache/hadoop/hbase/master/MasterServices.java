@@ -47,35 +47,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HColumnDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HTableDescriptor
 import|;
 end_import
 
@@ -190,6 +162,22 @@ operator|.
 name|classification
 operator|.
 name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|ColumnFamilyDescriptor
 import|;
 end_import
 
@@ -633,7 +621,7 @@ name|long
 name|createTable
 parameter_list|(
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|desc
 parameter_list|,
 specifier|final
@@ -653,13 +641,13 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Create a system table using the given table definition.    * @param hTableDescriptor The system table definition    *     a single region is created.    */
+comment|/**    * Create a system table using the given table definition.    * @param tableDescriptor The system table definition    *     a single region is created.    */
 name|long
 name|createSystemTable
 parameter_list|(
 specifier|final
-name|HTableDescriptor
-name|hTableDescriptor
+name|TableDescriptor
+name|tableDescriptor
 parameter_list|)
 throws|throws
 name|IOException
@@ -716,7 +704,7 @@ name|TableName
 name|tableName
 parameter_list|,
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|descriptor
 parameter_list|,
 specifier|final
@@ -777,7 +765,7 @@ name|TableName
 name|tableName
 parameter_list|,
 specifier|final
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|column
 parameter_list|,
 specifier|final
@@ -800,7 +788,7 @@ name|TableName
 name|tableName
 parameter_list|,
 specifier|final
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|descriptor
 parameter_list|,
 specifier|final

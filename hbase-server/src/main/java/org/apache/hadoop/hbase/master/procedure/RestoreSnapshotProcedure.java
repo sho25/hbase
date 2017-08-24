@@ -193,20 +193,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HTableDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|MetaTableAccessor
 import|;
 end_import
@@ -268,6 +254,22 @@ operator|.
 name|client
 operator|.
 name|Connection
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|TableDescriptor
 import|;
 end_import
 
@@ -579,8 +581,8 @@ name|class
 argument_list|)
 decl_stmt|;
 specifier|private
-name|HTableDescriptor
-name|modifiedHTableDescriptor
+name|TableDescriptor
+name|modifiedTableDescriptor
 decl_stmt|;
 specifier|private
 name|List
@@ -662,8 +664,8 @@ name|MasterProcedureEnv
 name|env
 parameter_list|,
 specifier|final
-name|HTableDescriptor
-name|hTableDescriptor
+name|TableDescriptor
+name|tableDescriptor
 parameter_list|,
 specifier|final
 name|SnapshotDescription
@@ -674,7 +676,7 @@ name|this
 argument_list|(
 name|env
 argument_list|,
-name|hTableDescriptor
+name|tableDescriptor
 argument_list|,
 name|snapshot
 argument_list|,
@@ -682,7 +684,7 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor    * @param env MasterProcedureEnv    * @param hTableDescriptor the table to operate on    * @param snapshot snapshot to restore from    * @throws IOException    */
+comment|/**    * Constructor    * @param env MasterProcedureEnv    * @param tableDescriptor the table to operate on    * @param snapshot snapshot to restore from    * @throws IOException    */
 specifier|public
 name|RestoreSnapshotProcedure
 parameter_list|(
@@ -691,8 +693,8 @@ name|MasterProcedureEnv
 name|env
 parameter_list|,
 specifier|final
-name|HTableDescriptor
-name|hTableDescriptor
+name|TableDescriptor
+name|tableDescriptor
 parameter_list|,
 specifier|final
 name|SnapshotDescription
@@ -711,9 +713,9 @@ expr_stmt|;
 comment|// This is the new schema we are going to write out as this modification.
 name|this
 operator|.
-name|modifiedHTableDescriptor
+name|modifiedTableDescriptor
 operator|=
-name|hTableDescriptor
+name|tableDescriptor
 expr_stmt|;
 comment|// Snapshot information
 name|this
@@ -1093,7 +1095,7 @@ name|getTableName
 parameter_list|()
 block|{
 return|return
-name|modifiedHTableDescriptor
+name|modifiedTableDescriptor
 operator|.
 name|getTableName
 argument_list|()
@@ -1243,9 +1245,9 @@ name|setModifiedTableSchema
 argument_list|(
 name|ProtobufUtil
 operator|.
-name|convertToTableSchema
+name|toTableSchema
 argument_list|(
-name|modifiedHTableDescriptor
+name|modifiedTableDescriptor
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -1519,11 +1521,11 @@ operator|.
 name|getSnapshot
 argument_list|()
 expr_stmt|;
-name|modifiedHTableDescriptor
+name|modifiedTableDescriptor
 operator|=
 name|ProtobufUtil
 operator|.
-name|convertToHTableDesc
+name|toTableDescriptor
 argument_list|(
 name|restoreSnapshotMsg
 operator|.
@@ -1811,7 +1813,7 @@ expr_stmt|;
 comment|// Check that we have at least 1 CF
 if|if
 condition|(
-name|modifiedHTableDescriptor
+name|modifiedTableDescriptor
 operator|.
 name|getColumnFamilyCount
 argument_list|()
@@ -1966,7 +1968,7 @@ argument_list|()
 operator|.
 name|add
 argument_list|(
-name|modifiedHTableDescriptor
+name|modifiedTableDescriptor
 argument_list|)
 expr_stmt|;
 block|}
@@ -2085,7 +2087,7 @@ name|fs
 argument_list|,
 name|manifest
 argument_list|,
-name|modifiedHTableDescriptor
+name|modifiedTableDescriptor
 argument_list|,
 name|rootDir
 argument_list|,
@@ -2276,7 +2278,7 @@ name|conn
 argument_list|,
 name|regionsToAdd
 argument_list|,
-name|modifiedHTableDescriptor
+name|modifiedTableDescriptor
 operator|.
 name|getRegionReplication
 argument_list|()
@@ -2298,7 +2300,7 @@ name|conn
 argument_list|,
 name|regionsToRestore
 argument_list|,
-name|modifiedHTableDescriptor
+name|modifiedTableDescriptor
 operator|.
 name|getRegionReplication
 argument_list|()
@@ -2315,7 +2317,7 @@ name|RestoreSnapshotHelper
 operator|.
 name|RestoreMetaChanges
 argument_list|(
-name|modifiedHTableDescriptor
+name|modifiedTableDescriptor
 argument_list|,
 name|parentsToChildrenPairMap
 argument_list|)

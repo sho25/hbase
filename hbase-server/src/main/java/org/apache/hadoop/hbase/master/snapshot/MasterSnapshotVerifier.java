@@ -185,20 +185,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HTableDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|client
 operator|.
 name|RegionReplicaUtil
@@ -216,6 +202,22 @@ operator|.
 name|hbase
 operator|.
 name|MetaTableAccessor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|TableDescriptor
 import|;
 end_import
 
@@ -650,7 +652,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 init|=
 name|manifest
@@ -685,6 +687,9 @@ condition|(
 operator|!
 name|htd
 operator|.
+name|getTableName
+argument_list|()
+operator|.
 name|getNameAsString
 argument_list|()
 operator|.
@@ -711,6 +716,9 @@ operator|+
 literal|" name, got "
 operator|+
 name|htd
+operator|.
+name|getTableName
+argument_list|()
 operator|.
 name|getNameAsString
 argument_list|()
