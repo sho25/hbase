@@ -117,7 +117,7 @@ name|apache
 operator|.
 name|commons
 operator|.
-name|lang
+name|lang3
 operator|.
 name|ArrayUtils
 import|;
@@ -3612,6 +3612,14 @@ name|String
 name|DEFAULT_SNAPSHOT_RESTORE_FAILSAFE_NAME
 init|=
 literal|"hbase-failsafe-{snapshot.name}-{restore.timestamp}"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|NOT_IMPLEMENTED
+init|=
+literal|"Not implemented"
 decl_stmt|;
 specifier|private
 name|HConstants
