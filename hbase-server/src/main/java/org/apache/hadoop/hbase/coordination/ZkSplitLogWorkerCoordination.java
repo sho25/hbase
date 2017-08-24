@@ -93,9 +93,7 @@ name|apache
 operator|.
 name|commons
 operator|.
-name|lang
-operator|.
-name|math
+name|lang3
 operator|.
 name|RandomUtils
 import|;
@@ -109,7 +107,7 @@ name|apache
 operator|.
 name|commons
 operator|.
-name|lang
+name|lang3
 operator|.
 name|mutable
 operator|.
@@ -1528,6 +1526,8 @@ name|RandomUtils
 operator|.
 name|nextInt
 argument_list|(
+literal|0
+argument_list|,
 literal|500
 argument_list|)
 operator|+

@@ -107,9 +107,7 @@ name|apache
 operator|.
 name|commons
 operator|.
-name|lang
-operator|.
-name|math
+name|lang3
 operator|.
 name|RandomUtils
 import|;

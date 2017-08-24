@@ -57,9 +57,7 @@ name|apache
 operator|.
 name|commons
 operator|.
-name|lang
-operator|.
-name|math
+name|lang3
 operator|.
 name|RandomUtils
 import|;
@@ -291,6 +289,8 @@ name|RandomUtils
 operator|.
 name|nextInt
 argument_list|(
+literal|0
+argument_list|,
 name|items
 operator|.
 name|length
@@ -352,6 +352,8 @@ name|RandomUtils
 operator|.
 name|nextInt
 argument_list|(
+literal|0
+argument_list|,
 name|totalWeight
 argument_list|)
 decl_stmt|;
