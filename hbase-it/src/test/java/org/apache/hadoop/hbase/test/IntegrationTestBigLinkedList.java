@@ -4678,6 +4678,26 @@ decl_stmt|;
 if|if
 condition|(
 name|counters
+operator|==
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Counters object was null, Generator verification cannot be performed."
+operator|+
+literal|" This is commonly a result of insufficient YARN configuration."
+argument_list|)
+expr_stmt|;
+return|return
+literal|false
+return|;
+block|}
+if|if
+condition|(
+name|counters
 operator|.
 name|findCounter
 argument_list|(
@@ -7987,7 +8007,9 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Counters were null, cannot verify Job completion"
+literal|"Counters were null, cannot verify Job completion."
+operator|+
+literal|" This is commonly a result of insufficient YARN configuration."
 argument_list|)
 expr_stmt|;
 comment|// We don't have access to the counters to know if we have "bad" counts
@@ -8048,6 +8070,26 @@ operator|.
 name|getCounters
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|counters
+operator|==
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Counters object was null, write verification cannot be performed."
+operator|+
+literal|" This is commonly a result of insufficient YARN configuration."
+argument_list|)
+expr_stmt|;
+return|return
+literal|false
+return|;
+block|}
 comment|// Run through each check, even if we fail one early
 name|boolean
 name|success
