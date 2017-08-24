@@ -27,6 +27,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|TableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|shaded
 operator|.
 name|com
@@ -166,20 +182,6 @@ operator|.
 name|hbase
 operator|.
 name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HTableDescriptor
 import|;
 end_import
 
@@ -636,7 +638,7 @@ implements|implements
 name|Writable
 block|{
 specifier|private
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 decl_stmt|;
 specifier|private
@@ -664,7 +666,7 @@ block|{}
 specifier|public
 name|InputSplit
 parameter_list|(
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 parameter_list|,
 name|HRegionInfo
@@ -786,7 +788,7 @@ argument_list|()
 expr_stmt|;
 block|}
 specifier|public
-name|HTableDescriptor
+name|TableDescriptor
 name|getHtd
 parameter_list|()
 block|{
@@ -833,7 +835,7 @@ name|locations
 return|;
 block|}
 specifier|public
-name|HTableDescriptor
+name|TableDescriptor
 name|getTableDescriptor
 parameter_list|()
 block|{
@@ -878,7 +880,7 @@ name|setTable
 argument_list|(
 name|ProtobufUtil
 operator|.
-name|convertToTableSchema
+name|toTableSchema
 argument_list|(
 name|htd
 argument_list|)
@@ -1046,7 +1048,7 @@ name|htd
 operator|=
 name|ProtobufUtil
 operator|.
-name|convertToHTableDesc
+name|toTableDescriptor
 argument_list|(
 name|split
 operator|.
@@ -1203,7 +1205,7 @@ name|split
 operator|=
 name|split
 expr_stmt|;
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 init|=
 name|split
@@ -1843,7 +1845,7 @@ throws|throws
 name|IOException
 block|{
 comment|// load table descriptor
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 init|=
 name|manifest

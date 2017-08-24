@@ -331,20 +331,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HTableDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|RegionLocations
 import|;
 end_import
@@ -500,6 +486,22 @@ operator|.
 name|client
 operator|.
 name|RpcRetryingCallerFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|TableDescriptor
 import|;
 end_import
 
@@ -2163,7 +2165,7 @@ condition|)
 block|{
 comment|// check if the table requires memstore replication
 comment|// some unit-test drop the table, so we should do a bypass check and always replicate.
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 init|=
 name|tableDescriptors

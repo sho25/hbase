@@ -27,6 +27,70 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|ColumnFamilyDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|ColumnFamilyDescriptorBuilder
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|TableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|TableDescriptorBuilder
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|shaded
 operator|.
 name|com
@@ -887,20 +951,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HColumnDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HConstants
 import|;
 end_import
@@ -930,20 +980,6 @@ operator|.
 name|hbase
 operator|.
 name|HRegionLocation
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HTableDescriptor
 import|;
 end_import
 
@@ -5296,7 +5332,7 @@ operator|+
 literal|"' not present!"
 argument_list|)
 expr_stmt|;
-name|HTableDescriptor
+name|TableDescriptor
 name|template
 init|=
 name|tableInfo
@@ -6654,7 +6690,7 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
-name|HTableDescriptor
+name|TableDescriptor
 index|[]
 name|allTables
 init|=
@@ -6704,7 +6740,7 @@ expr_stmt|;
 block|}
 for|for
 control|(
-name|HTableDescriptor
+name|TableDescriptor
 name|td
 range|:
 name|allTables
@@ -6753,10 +6789,7 @@ literal|" families: "
 operator|+
 name|td
 operator|.
-name|getFamilies
-argument_list|()
-operator|.
-name|size
+name|getColumnFamilyCount
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -7213,7 +7246,7 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 init|=
 name|FSTableDescriptors
@@ -7432,7 +7465,7 @@ return|return
 name|columns
 return|;
 block|}
-comment|/**    * To fabricate a .tableinfo file with following contents<br>    * 1. the correct tablename<br>    * 2. the correct colfamily list<br>    * 3. the default properties for both {@link HTableDescriptor} and {@link HColumnDescriptor}<br>    * @throws IOException    */
+comment|/**    * To fabricate a .tableinfo file with following contents<br>    * 1. the correct tablename<br>    * 2. the correct colfamily list<br>    * 3. the default properties for both {@link TableDescriptor} and {@link ColumnFamilyDescriptor}<br>    * @throws IOException    */
 specifier|private
 name|boolean
 name|fabricateTableInfo
@@ -7466,11 +7499,12 @@ condition|)
 return|return
 literal|false
 return|;
-name|HTableDescriptor
-name|htd
+name|TableDescriptorBuilder
+name|builder
 init|=
-operator|new
-name|HTableDescriptor
+name|TableDescriptorBuilder
+operator|.
+name|newBuilder
 argument_list|(
 name|tableName
 argument_list|)
@@ -7483,12 +7517,13 @@ range|:
 name|columns
 control|)
 block|{
-name|htd
+name|builder
 operator|.
-name|addFamily
+name|addColumnFamily
 argument_list|(
-operator|new
-name|HColumnDescriptor
+name|ColumnFamilyDescriptorBuilder
+operator|.
+name|of
 argument_list|(
 name|columnfamimly
 argument_list|)
@@ -7499,7 +7534,10 @@ name|fstd
 operator|.
 name|createTableDescriptor
 argument_list|(
-name|htd
+name|builder
+operator|.
+name|build
+argument_list|()
 argument_list|,
 literal|true
 argument_list|)
@@ -7571,7 +7609,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * To fix orphan table by creating a .tableinfo file under tableDir<br>    * 1. if TableInfo is cached, to recover the .tableinfo accordingly<br>    * 2. else create a default .tableinfo file with following items<br>    *&nbsp;2.1 the correct tablename<br>    *&nbsp;2.2 the correct colfamily list<br>    *&nbsp;2.3 the default properties for both {@link HTableDescriptor} and {@link HColumnDescriptor}<br>    * @throws IOException    */
+comment|/**    * To fix orphan table by creating a .tableinfo file under tableDir<br>    * 1. if TableInfo is cached, to recover the .tableinfo accordingly<br>    * 2. else create a default .tableinfo file with following items<br>    *&nbsp;2.1 the correct tablename<br>    *&nbsp;2.2 the correct colfamily list<br>    *&nbsp;2.3 the default properties for both {@link TableDescriptor} and {@link ColumnFamilyDescriptor}<br>    * @throws IOException    */
 specifier|public
 name|void
 name|fixOrphanTables
@@ -7620,11 +7658,11 @@ name|keySet
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|HTableDescriptor
+name|TableDescriptor
 index|[]
 name|htds
 init|=
-name|getHTableDescriptors
+name|getTableDescriptors
 argument_list|(
 name|tmpList
 argument_list|)
@@ -7737,7 +7775,7 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 init|=
 name|htds
@@ -7807,7 +7845,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Strongly recommend to modify the HTableDescriptor if necessary for: "
+literal|"Strongly recommend to modify the TableDescriptor if necessary for: "
 operator|+
 name|tableName
 argument_list|)
@@ -7928,7 +7966,7 @@ operator|.
 name|FIRST_META_REGIONINFO
 argument_list|)
 decl_stmt|;
-name|HTableDescriptor
+name|TableDescriptor
 name|metaDescriptor
 init|=
 operator|new
@@ -14300,7 +14338,7 @@ name|Map
 argument_list|<
 name|String
 argument_list|,
-name|HTableDescriptor
+name|TableDescriptor
 argument_list|>
 name|allTables
 init|=
@@ -14316,7 +14354,7 @@ argument_list|()
 decl_stmt|;
 for|for
 control|(
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 range|:
 name|allTables
@@ -14892,11 +14930,11 @@ argument_list|(
 name|cmp
 argument_list|)
 decl_stmt|;
-comment|// Histogram of different HTableDescriptors found.  Ideally there is only one!
+comment|// Histogram of different TableDescriptors found.  Ideally there is only one!
 specifier|final
 name|Set
 argument_list|<
-name|HTableDescriptor
+name|TableDescriptor
 argument_list|>
 name|htds
 init|=
@@ -14959,7 +14997,7 @@ expr_stmt|;
 block|}
 comment|/**      * @return descriptor common to all regions.  null if are none or multiple!      */
 specifier|private
-name|HTableDescriptor
+name|TableDescriptor
 name|getHTD
 parameter_list|()
 block|{
@@ -14975,7 +15013,7 @@ condition|)
 block|{
 return|return
 operator|(
-name|HTableDescriptor
+name|TableDescriptor
 operator|)
 name|htds
 operator|.
@@ -15724,7 +15762,7 @@ argument_list|,
 name|next
 argument_list|)
 expr_stmt|;
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 init|=
 name|getTableInfo
@@ -15816,7 +15854,7 @@ name|getTableInfo
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 init|=
 name|getTableInfo
@@ -15924,7 +15962,7 @@ operator|+
 literal|"dir in hdfs to plug the hole."
 argument_list|)
 expr_stmt|;
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 init|=
 name|getTableInfo
@@ -17095,7 +17133,7 @@ expr_stmt|;
 block|}
 block|}
 comment|// create new empty container region.
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 init|=
 name|getTableInfo
@@ -18739,7 +18777,7 @@ name|overlapGroups
 return|;
 block|}
 comment|/**    * Return a list of user-space table names whose metadata have not been    * modified in the last few milliseconds specified by timelag    * if any of the REGIONINFO_QUALIFIER, SERVER_QUALIFIER, STARTCODE_QUALIFIER,    * SPLITA_QUALIFIER, SPLITB_QUALIFIER have not changed in the last    * milliseconds specified by timelag, then the table is a candidate to be returned.    * @return tables that have not been modified recently    * @throws IOException if an error is encountered    */
-name|HTableDescriptor
+name|TableDescriptor
 index|[]
 name|getTables
 parameter_list|(
@@ -18842,15 +18880,15 @@ block|}
 block|}
 block|}
 return|return
-name|getHTableDescriptors
+name|getTableDescriptors
 argument_list|(
 name|tableNames
 argument_list|)
 return|;
 block|}
-name|HTableDescriptor
+name|TableDescriptor
 index|[]
-name|getHTableDescriptors
+name|getTableDescriptors
 parameter_list|(
 name|List
 argument_list|<
@@ -18859,21 +18897,11 @@ argument_list|>
 name|tableNames
 parameter_list|)
 block|{
-name|HTableDescriptor
-index|[]
-name|htd
-init|=
-operator|new
-name|HTableDescriptor
-index|[
-literal|0
-index|]
-decl_stmt|;
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"getHTableDescriptors == tableNames => "
+literal|"getTableDescriptors == tableNames => "
 operator|+
 name|tableNames
 argument_list|)
@@ -18900,15 +18928,34 @@ name|getAdmin
 argument_list|()
 init|)
 block|{
-name|htd
-operator|=
+name|List
+argument_list|<
+name|TableDescriptor
+argument_list|>
+name|tds
+init|=
 name|admin
 operator|.
-name|getTableDescriptorsByTableName
+name|listTableDescriptors
 argument_list|(
 name|tableNames
 argument_list|)
-expr_stmt|;
+decl_stmt|;
+return|return
+name|tds
+operator|.
+name|toArray
+argument_list|(
+operator|new
+name|TableDescriptor
+index|[
+name|tds
+operator|.
+name|size
+argument_list|()
+index|]
+argument_list|)
+return|;
 block|}
 catch|catch
 parameter_list|(
@@ -18927,7 +18974,11 @@ argument_list|)
 expr_stmt|;
 block|}
 return|return
-name|htd
+operator|new
+name|TableDescriptor
+index|[
+literal|0
+index|]
 return|;
 block|}
 comment|/**    * Gets the entry in regionInfo corresponding to the the given encoded    * region name. If the region has not been seen yet, a new entry is added    * and returned.    */

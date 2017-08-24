@@ -319,6 +319,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|TableDescriptorBuilder
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|testclassification
 operator|.
 name|MediumTests
@@ -663,9 +679,12 @@ name|getDataTestDirOnTestFS
 argument_list|()
 decl_stmt|;
 comment|// Up flush size else we bind up when we use default catalog flush of 16k.
+name|TableDescriptorBuilder
+name|metaBuilder
+init|=
 name|UTIL
 operator|.
-name|getMetaTableDescriptor
+name|getMetaTableDescriptorBuilder
 argument_list|()
 operator|.
 name|setMemStoreFlushSize
@@ -676,7 +695,7 @@ literal|1024
 operator|*
 literal|1024
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 name|Region
 name|mr
 init|=
@@ -694,9 +713,9 @@ name|this
 operator|.
 name|conf
 argument_list|,
-name|UTIL
+name|metaBuilder
 operator|.
-name|getMetaTableDescriptor
+name|build
 argument_list|()
 argument_list|)
 decl_stmt|;

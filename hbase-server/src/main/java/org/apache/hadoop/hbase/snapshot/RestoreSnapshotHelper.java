@@ -181,6 +181,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|TableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|shaded
 operator|.
 name|com
@@ -306,20 +322,6 @@ operator|.
 name|hbase
 operator|.
 name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HTableDescriptor
 import|;
 end_import
 
@@ -815,7 +817,7 @@ name|snapshotTable
 decl_stmt|;
 specifier|private
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|tableDesc
 decl_stmt|;
 specifier|private
@@ -859,7 +861,7 @@ name|SnapshotManifest
 name|manifest
 parameter_list|,
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|tableDescriptor
 parameter_list|,
 specifier|final
@@ -911,7 +913,7 @@ name|SnapshotManifest
 name|manifest
 parameter_list|,
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|tableDescriptor
 parameter_list|,
 specifier|final
@@ -1546,7 +1548,7 @@ name|parentsMap
 decl_stmt|;
 specifier|private
 specifier|final
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 decl_stmt|;
 specifier|private
@@ -1579,7 +1581,7 @@ decl_stmt|;
 specifier|public
 name|RestoreMetaChanges
 parameter_list|(
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 parameter_list|,
 name|Map
@@ -1610,7 +1612,7 @@ name|htd
 expr_stmt|;
 block|}
 specifier|public
-name|HTableDescriptor
+name|TableDescriptor
 name|getTableDescriptor
 parameter_list|()
 block|{
