@@ -251,18 +251,6 @@ end_import
 
 begin_import
 import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|ServiceException
-import|;
-end_import
-
-begin_import
-import|import
 name|java
 operator|.
 name|io
@@ -4296,8 +4284,6 @@ throws|,
 name|KeeperException
 throws|,
 name|InterruptedException
-throws|,
-name|ServiceException
 block|{
 comment|// print hbase server version
 name|errors
@@ -24809,8 +24795,6 @@ throws|throws
 name|KeeperException
 throws|,
 name|IOException
-throws|,
-name|ServiceException
 throws|,
 name|InterruptedException
 block|{
