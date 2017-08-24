@@ -221,6 +221,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HTableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|ServerName
 import|;
 end_import
@@ -252,22 +266,6 @@ operator|.
 name|classification
 operator|.
 name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|TableDescriptor
 import|;
 end_import
 
@@ -1093,7 +1091,7 @@ parameter_list|)
 block|{
 try|try
 block|{
-name|TableDescriptor
+name|HTableDescriptor
 name|tableDescriptor
 init|=
 name|getTableDescriptor
@@ -1158,9 +1156,9 @@ return|return
 name|EMPTY_BLOCK_DISTRIBUTION
 return|;
 block|}
-comment|/**    * return TableDescriptor for a given tableName    *    * @param tableName the table name    * @return TableDescriptor    * @throws IOException    */
+comment|/**    * return HTableDescriptor for a given tableName    *    * @param tableName the table name    * @return HTableDescriptor    * @throws IOException    */
 specifier|protected
-name|TableDescriptor
+name|HTableDescriptor
 name|getTableDescriptor
 parameter_list|(
 name|TableName
@@ -1169,7 +1167,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|TableDescriptor
+name|HTableDescriptor
 name|tableDescriptor
 init|=
 literal|null

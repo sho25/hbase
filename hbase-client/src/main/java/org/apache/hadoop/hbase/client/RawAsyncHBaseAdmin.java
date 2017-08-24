@@ -5856,7 +5856,7 @@ name|complete
 argument_list|(
 name|ProtobufUtil
 operator|.
-name|toTableDescriptor
+name|convertToTableDesc
 argument_list|(
 name|tableSchemas
 operator|.

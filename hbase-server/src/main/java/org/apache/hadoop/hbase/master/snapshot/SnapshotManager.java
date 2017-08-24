@@ -267,6 +267,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HTableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|MetaTableAccessor
 import|;
 end_import
@@ -328,38 +342,6 @@ operator|.
 name|classification
 operator|.
 name|InterfaceStability
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|TableDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|TableDescriptorBuilder
 import|;
 end_import
 
@@ -2789,7 +2771,7 @@ name|cleanupSentinels
 argument_list|()
 expr_stmt|;
 comment|// check to see if the table exists
-name|TableDescriptor
+name|HTableDescriptor
 name|desc
 init|=
 literal|null
@@ -3327,7 +3309,7 @@ name|SnapshotDescription
 name|snapshot
 parameter_list|,
 specifier|final
-name|TableDescriptor
+name|HTableDescriptor
 name|snapshotTableDesc
 parameter_list|,
 specifier|final
@@ -3349,12 +3331,11 @@ operator|.
 name|getMasterCoprocessorHost
 argument_list|()
 decl_stmt|;
-name|TableDescriptor
+name|HTableDescriptor
 name|htd
 init|=
-name|TableDescriptorBuilder
-operator|.
-name|copy
+operator|new
+name|HTableDescriptor
 argument_list|(
 name|tableName
 argument_list|,
@@ -3465,7 +3446,7 @@ return|return
 name|procId
 return|;
 block|}
-comment|/**    * Clone the specified snapshot into a new table.    * The operation will fail if the destination table has a snapshot or restore in progress.    *    * @param snapshot Snapshot Descriptor    * @param tableDescriptor Table Descriptor of the table to create    * @param nonceKey unique identifier to prevent duplicated RPC    * @return procId the ID of the clone snapshot procedure    */
+comment|/**    * Clone the specified snapshot into a new table.    * The operation will fail if the destination table has a snapshot or restore in progress.    *    * @param snapshot Snapshot Descriptor    * @param hTableDescriptor Table Descriptor of the table to create    * @param nonceKey unique identifier to prevent duplicated RPC    * @return procId the ID of the clone snapshot procedure    */
 specifier|synchronized
 name|long
 name|cloneSnapshot
@@ -3475,8 +3456,8 @@ name|SnapshotDescription
 name|snapshot
 parameter_list|,
 specifier|final
-name|TableDescriptor
-name|tableDescriptor
+name|HTableDescriptor
+name|hTableDescriptor
 parameter_list|,
 specifier|final
 name|NonceKey
@@ -3492,7 +3473,7 @@ block|{
 name|TableName
 name|tableName
 init|=
-name|tableDescriptor
+name|hTableDescriptor
 operator|.
 name|getTableName
 argument_list|()
@@ -3558,7 +3539,7 @@ operator|.
 name|getEnvironment
 argument_list|()
 argument_list|,
-name|tableDescriptor
+name|hTableDescriptor
 argument_list|,
 name|snapshot
 argument_list|,
@@ -3741,7 +3722,7 @@ argument_list|,
 name|snapshot
 argument_list|)
 decl_stmt|;
-name|TableDescriptor
+name|HTableDescriptor
 name|snapshotTableDesc
 init|=
 name|manifest
@@ -3860,7 +3841,7 @@ name|SnapshotDescription
 name|snapshot
 parameter_list|,
 specifier|final
-name|TableDescriptor
+name|HTableDescriptor
 name|snapshotTableDesc
 parameter_list|,
 specifier|final
@@ -4036,7 +4017,7 @@ return|return
 name|procId
 return|;
 block|}
-comment|/**    * Restore the specified snapshot. The restore will fail if the destination table has a snapshot    * or restore in progress.    * @param snapshot Snapshot Descriptor    * @param tableDescriptor Table Descriptor    * @param nonceKey unique identifier to prevent duplicated RPC    * @param restoreAcl true to restore acl of snapshot    * @return procId the ID of the restore snapshot procedure    */
+comment|/**    * Restore the specified snapshot. The restore will fail if the destination table has a snapshot    * or restore in progress.    * @param snapshot Snapshot Descriptor    * @param hTableDescriptor Table Descriptor    * @param nonceKey unique identifier to prevent duplicated RPC    * @param restoreAcl true to restore acl of snapshot    * @return procId the ID of the restore snapshot procedure    */
 specifier|private
 specifier|synchronized
 name|long
@@ -4047,8 +4028,8 @@ name|SnapshotDescription
 name|snapshot
 parameter_list|,
 specifier|final
-name|TableDescriptor
-name|tableDescriptor
+name|HTableDescriptor
+name|hTableDescriptor
 parameter_list|,
 specifier|final
 name|NonceKey
@@ -4065,7 +4046,7 @@ specifier|final
 name|TableName
 name|tableName
 init|=
-name|tableDescriptor
+name|hTableDescriptor
 operator|.
 name|getTableName
 argument_list|()
@@ -4131,7 +4112,7 @@ operator|.
 name|getEnvironment
 argument_list|()
 argument_list|,
-name|tableDescriptor
+name|hTableDescriptor
 argument_list|,
 name|snapshot
 argument_list|,

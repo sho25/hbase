@@ -51,22 +51,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|TableDescriptor
-import|;
-end_import
-
 begin_comment
 comment|/**  * Get, remove and modify table descriptors.  * Used by servers to host descriptors.  */
 end_comment
@@ -81,7 +65,7 @@ interface|interface
 name|TableDescriptors
 block|{
 comment|/**    * @param tableName    * @return TableDescriptor for tablename    * @throws IOException    */
-name|TableDescriptor
+name|HTableDescriptor
 name|get
 parameter_list|(
 specifier|final
@@ -96,7 +80,7 @@ name|Map
 argument_list|<
 name|String
 argument_list|,
-name|TableDescriptor
+name|HTableDescriptor
 argument_list|>
 name|getByNamespace
 parameter_list|(
@@ -106,12 +90,12 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get Map of all TableDescriptors. Populates the descriptor cache as a    * side effect.    * @return Map of all descriptors.    * @throws IOException    */
+comment|/**    * Get Map of all HTableDescriptors. Populates the descriptor cache as a    * side effect.    * @return Map of all descriptors.    * @throws IOException    */
 name|Map
 argument_list|<
 name|String
 argument_list|,
-name|TableDescriptor
+name|HTableDescriptor
 argument_list|>
 name|getAll
 parameter_list|()
@@ -123,7 +107,7 @@ name|Map
 argument_list|<
 name|String
 argument_list|,
-name|TableDescriptor
+name|HTableDescriptor
 argument_list|>
 name|getAllDescriptors
 parameter_list|()
@@ -135,14 +119,14 @@ name|void
 name|add
 parameter_list|(
 specifier|final
-name|TableDescriptor
+name|HTableDescriptor
 name|htd
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
 comment|/**    * @param tablename    * @return Instance of table descriptor or null if none found.    * @throws IOException    */
-name|TableDescriptor
+name|HTableDescriptor
 name|remove
 parameter_list|(
 specifier|final

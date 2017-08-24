@@ -163,6 +163,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HTableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|MetaTableAccessor
 import|;
 end_import
@@ -224,22 +238,6 @@ operator|.
 name|client
 operator|.
 name|RegionReplicaUtil
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|TableDescriptor
 import|;
 end_import
 
@@ -489,8 +487,8 @@ name|class
 argument_list|)
 decl_stmt|;
 specifier|private
-name|TableDescriptor
-name|tableDescriptor
+name|HTableDescriptor
+name|hTableDescriptor
 decl_stmt|;
 specifier|private
 name|List
@@ -516,8 +514,8 @@ name|MasterProcedureEnv
 name|env
 parameter_list|,
 specifier|final
-name|TableDescriptor
-name|tableDescriptor
+name|HTableDescriptor
+name|hTableDescriptor
 parameter_list|,
 specifier|final
 name|HRegionInfo
@@ -529,7 +527,7 @@ name|this
 argument_list|(
 name|env
 argument_list|,
-name|tableDescriptor
+name|hTableDescriptor
 argument_list|,
 name|newRegions
 argument_list|,
@@ -545,8 +543,8 @@ name|MasterProcedureEnv
 name|env
 parameter_list|,
 specifier|final
-name|TableDescriptor
-name|tableDescriptor
+name|HTableDescriptor
+name|hTableDescriptor
 parameter_list|,
 specifier|final
 name|HRegionInfo
@@ -567,9 +565,9 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|tableDescriptor
+name|hTableDescriptor
 operator|=
-name|tableDescriptor
+name|hTableDescriptor
 expr_stmt|;
 name|this
 operator|.
@@ -688,7 +686,7 @@ name|createFsLayout
 argument_list|(
 name|env
 argument_list|,
-name|tableDescriptor
+name|hTableDescriptor
 argument_list|,
 name|newRegions
 argument_list|)
@@ -710,7 +708,7 @@ name|addTableToMeta
 argument_list|(
 name|env
 argument_list|,
-name|tableDescriptor
+name|hTableDescriptor
 argument_list|,
 name|newRegions
 argument_list|)
@@ -997,7 +995,7 @@ name|getTableName
 parameter_list|()
 block|{
 return|return
-name|tableDescriptor
+name|hTableDescriptor
 operator|.
 name|getTableName
 argument_list|()
@@ -1065,9 +1063,9 @@ name|setTableSchema
 argument_list|(
 name|ProtobufUtil
 operator|.
-name|toTableSchema
+name|convertToTableSchema
 argument_list|(
-name|tableDescriptor
+name|hTableDescriptor
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -1158,11 +1156,11 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|tableDescriptor
+name|hTableDescriptor
 operator|=
 name|ProtobufUtil
 operator|.
-name|toTableDescriptor
+name|convertToHTableDesc
 argument_list|(
 name|state
 operator|.
@@ -1344,7 +1342,7 @@ block|}
 comment|// check that we have at least 1 CF
 if|if
 condition|(
-name|tableDescriptor
+name|hTableDescriptor
 operator|.
 name|getColumnFamilyCount
 argument_list|()
@@ -1474,7 +1472,7 @@ name|cpHost
 operator|.
 name|preCreateTableAction
 argument_list|(
-name|tableDescriptor
+name|hTableDescriptor
 argument_list|,
 name|regions
 argument_list|,
@@ -1544,7 +1542,7 @@ name|cpHost
 operator|.
 name|postCompletedCreateTableAction
 argument_list|(
-name|tableDescriptor
+name|hTableDescriptor
 argument_list|,
 name|regions
 argument_list|,
@@ -1600,8 +1598,8 @@ name|MasterProcedureEnv
 name|env
 parameter_list|,
 specifier|final
-name|TableDescriptor
-name|tableDescriptor
+name|HTableDescriptor
+name|hTableDescriptor
 parameter_list|,
 specifier|final
 name|List
@@ -1618,7 +1616,7 @@ name|createFsLayout
 argument_list|(
 name|env
 argument_list|,
-name|tableDescriptor
+name|hTableDescriptor
 argument_list|,
 name|newRegions
 argument_list|,
@@ -1693,7 +1691,7 @@ argument_list|()
 argument_list|,
 name|tableRootDir
 argument_list|,
-name|tableDescriptor
+name|hTableDescriptor
 argument_list|,
 name|regions
 argument_list|,
@@ -1718,8 +1716,8 @@ name|MasterProcedureEnv
 name|env
 parameter_list|,
 specifier|final
-name|TableDescriptor
-name|tableDescriptor
+name|HTableDescriptor
+name|hTableDescriptor
 parameter_list|,
 name|List
 argument_list|<
@@ -1767,7 +1765,7 @@ name|getTableDir
 argument_list|(
 name|tempdir
 argument_list|,
-name|tableDescriptor
+name|hTableDescriptor
 operator|.
 name|getTableName
 argument_list|()
@@ -1792,7 +1790,7 @@ name|createTableDescriptorForTableDirectory
 argument_list|(
 name|tempTableDir
 argument_list|,
-name|tableDescriptor
+name|hTableDescriptor
 argument_list|,
 literal|false
 argument_list|)
@@ -1808,7 +1806,7 @@ name|env
 argument_list|,
 name|tempdir
 argument_list|,
-name|tableDescriptor
+name|hTableDescriptor
 operator|.
 name|getTableName
 argument_list|()
@@ -1821,7 +1819,7 @@ name|moveTempDirectoryToHBaseRoot
 argument_list|(
 name|env
 argument_list|,
-name|tableDescriptor
+name|hTableDescriptor
 argument_list|,
 name|tempTableDir
 argument_list|)
@@ -1840,8 +1838,8 @@ name|MasterProcedureEnv
 name|env
 parameter_list|,
 specifier|final
-name|TableDescriptor
-name|tableDescriptor
+name|HTableDescriptor
+name|hTableDescriptor
 parameter_list|,
 specifier|final
 name|Path
@@ -1875,7 +1873,7 @@ operator|.
 name|getRootDir
 argument_list|()
 argument_list|,
-name|tableDescriptor
+name|hTableDescriptor
 operator|.
 name|getTableName
 argument_list|()
@@ -1960,8 +1958,8 @@ name|MasterProcedureEnv
 name|env
 parameter_list|,
 specifier|final
-name|TableDescriptor
-name|tableDescriptor
+name|HTableDescriptor
+name|hTableDescriptor
 parameter_list|,
 specifier|final
 name|List
@@ -2009,7 +2007,7 @@ name|addReplicas
 argument_list|(
 name|env
 argument_list|,
-name|tableDescriptor
+name|hTableDescriptor
 argument_list|,
 name|regions
 argument_list|)
@@ -2019,7 +2017,7 @@ name|addRegionsToMeta
 argument_list|(
 name|env
 argument_list|,
-name|tableDescriptor
+name|hTableDescriptor
 argument_list|,
 name|newRegions
 argument_list|)
@@ -2027,7 +2025,7 @@ expr_stmt|;
 comment|// Setup replication for region replicas if needed
 if|if
 condition|(
-name|tableDescriptor
+name|hTableDescriptor
 operator|.
 name|getRegionReplication
 argument_list|()
@@ -2050,7 +2048,7 @@ return|return
 name|newRegions
 return|;
 block|}
-comment|/**    * Create any replicas for the regions (the default replicas that was    * already created is passed to the method)    * @param tableDescriptor descriptor to use    * @param regions default replicas    * @return the combined list of default and non-default replicas    */
+comment|/**    * Create any replicas for the regions (the default replicas that was    * already created is passed to the method)    * @param hTableDescriptor descriptor to use    * @param regions default replicas    * @return the combined list of default and non-default replicas    */
 specifier|private
 specifier|static
 name|List
@@ -2064,8 +2062,8 @@ name|MasterProcedureEnv
 name|env
 parameter_list|,
 specifier|final
-name|TableDescriptor
-name|tableDescriptor
+name|HTableDescriptor
+name|hTableDescriptor
 parameter_list|,
 specifier|final
 name|List
@@ -2078,7 +2076,7 @@ block|{
 name|int
 name|numRegionReplicas
 init|=
-name|tableDescriptor
+name|hTableDescriptor
 operator|.
 name|getRegionReplication
 argument_list|()
@@ -2268,8 +2266,8 @@ name|MasterProcedureEnv
 name|env
 parameter_list|,
 specifier|final
-name|TableDescriptor
-name|tableDescriptor
+name|HTableDescriptor
+name|hTableDescriptor
 parameter_list|,
 specifier|final
 name|List
@@ -2295,7 +2293,7 @@ argument_list|()
 argument_list|,
 name|regionInfos
 argument_list|,
-name|tableDescriptor
+name|hTableDescriptor
 operator|.
 name|getRegionReplication
 argument_list|()

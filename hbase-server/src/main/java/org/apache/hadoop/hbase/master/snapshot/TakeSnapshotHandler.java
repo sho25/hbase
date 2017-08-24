@@ -219,6 +219,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HTableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|ServerName
 import|;
 end_import
@@ -234,22 +248,6 @@ operator|.
 name|hbase
 operator|.
 name|MetaTableAccessor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|TableDescriptor
 import|;
 end_import
 
@@ -718,7 +716,7 @@ name|SnapshotManager
 name|snapshotManager
 decl_stmt|;
 specifier|protected
-name|TableDescriptor
+name|HTableDescriptor
 name|htd
 decl_stmt|;
 comment|/**    * @param snapshot descriptor of the snapshot to take    * @param masterServices master services provider    */
@@ -965,7 +963,7 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|private
-name|TableDescriptor
+name|HTableDescriptor
 name|loadTableDescriptor
 parameter_list|()
 throws|throws
@@ -973,7 +971,7 @@ name|FileNotFoundException
 throws|,
 name|IOException
 block|{
-name|TableDescriptor
+name|HTableDescriptor
 name|htd
 init|=
 name|this
@@ -999,7 +997,7 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"TableDescriptor missing for "
+literal|"HTableDescriptor missing for "
 operator|+
 name|snapshotTable
 argument_list|)

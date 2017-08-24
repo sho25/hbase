@@ -169,9 +169,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
-operator|.
-name|TableDescriptor
+name|HTableDescriptor
 import|;
 end_import
 
@@ -678,7 +676,7 @@ operator|.
 name|commit
 argument_list|()
 decl_stmt|;
-name|TableDescriptor
+name|HTableDescriptor
 name|htd
 init|=
 name|builder
@@ -695,7 +693,7 @@ name|getSnapshotDescription
 argument_list|()
 decl_stmt|;
 comment|// Test clone a snapshot
-name|TableDescriptor
+name|HTableDescriptor
 name|htdClone
 init|=
 name|snapshotMock
@@ -760,7 +758,7 @@ name|getTableName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|TableDescriptor
+name|HTableDescriptor
 name|htdClone2
 init|=
 name|snapshotMock
@@ -798,11 +796,11 @@ name|Path
 name|rootDir
 parameter_list|,
 specifier|final
-name|TableDescriptor
+name|HTableDescriptor
 name|sourceHtd
 parameter_list|,
 specifier|final
-name|TableDescriptor
+name|HTableDescriptor
 name|htdClone
 parameter_list|)
 throws|throws
@@ -994,7 +992,7 @@ name|SnapshotDescription
 name|sd
 parameter_list|,
 specifier|final
-name|TableDescriptor
+name|HTableDescriptor
 name|htdClone
 parameter_list|)
 throws|throws
@@ -1103,7 +1101,7 @@ name|SnapshotDescription
 name|sd
 parameter_list|,
 specifier|final
-name|TableDescriptor
+name|HTableDescriptor
 name|htdClone
 parameter_list|)
 throws|throws

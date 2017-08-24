@@ -233,7 +233,35 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HColumnDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HRegionInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HTableDescriptor
 import|;
 end_import
 
@@ -250,38 +278,6 @@ operator|.
 name|classification
 operator|.
 name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|ColumnFamilyDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|TableDescriptor
 import|;
 end_import
 
@@ -670,7 +666,7 @@ name|SnapshotDescription
 name|desc
 decl_stmt|;
 specifier|private
-name|TableDescriptor
+name|HTableDescriptor
 name|htd
 decl_stmt|;
 specifier|private
@@ -812,7 +808,7 @@ name|monitor
 argument_list|)
 return|;
 block|}
-comment|/**    * Return a SnapshotManifest instance with the information already loaded in-memory.    *    SnapshotManifest manifest = SnapshotManifest.open(...)    *    TableDescriptor htd = manifest.getTableDescriptor()    *    for (SnapshotRegionManifest regionManifest: manifest.getRegionManifests())    *      hri = regionManifest.getRegionInfo()    *      for (regionManifest.getFamilyFiles())    *        ...    */
+comment|/**    * Return a SnapshotManifest instance with the information already loaded in-memory.    *    SnapshotManifest manifest = SnapshotManifest.open(...)    *    HTableDescriptor htd = manifest.getTableDescriptor()    *    for (SnapshotRegionManifest regionManifest: manifest.getRegionManifests())    *      hri = regionManifest.getRegionInfo()    *      for (regionManifest.getFamilyFiles())    *        ...    */
 specifier|public
 specifier|static
 name|SnapshotManifest
@@ -869,7 +865,7 @@ name|void
 name|addTableDescriptor
 parameter_list|(
 specifier|final
-name|TableDescriptor
+name|HTableDescriptor
 name|htd
 parameter_list|)
 throws|throws
@@ -1130,7 +1126,7 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|ColumnFamilyDescriptor
+name|HColumnDescriptor
 name|hcd
 range|:
 name|htd
@@ -2120,7 +2116,7 @@ name|htd
 operator|=
 name|ProtobufUtil
 operator|.
-name|toTableDescriptor
+name|convertToHTableDesc
 argument_list|(
 name|dataManifest
 operator|.
@@ -2339,7 +2335,7 @@ return|;
 block|}
 comment|/**    * Get the table descriptor from the Snapshot    */
 specifier|public
-name|TableDescriptor
+name|HTableDescriptor
 name|getTableDescriptor
 parameter_list|()
 block|{
@@ -2596,7 +2592,7 @@ name|setTableSchema
 argument_list|(
 name|ProtobufUtil
 operator|.
-name|toTableSchema
+name|convertToTableSchema
 argument_list|(
 name|htd
 argument_list|)

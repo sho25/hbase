@@ -171,7 +171,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
+name|HTableDescriptor
 import|;
 end_import
 
@@ -185,9 +185,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
-operator|.
-name|TableDescriptor
+name|TableName
 import|;
 end_import
 
@@ -886,7 +884,7 @@ name|recoverLease
 argument_list|()
 expr_stmt|;
 comment|// Try to trigger a command on the master (WAL lease expired on the active one)
-name|TableDescriptor
+name|HTableDescriptor
 name|htd
 init|=
 name|MasterProcedureTestingUtility

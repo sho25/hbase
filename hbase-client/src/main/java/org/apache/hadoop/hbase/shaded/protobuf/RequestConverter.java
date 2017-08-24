@@ -6798,7 +6798,7 @@ name|setColumnFamilies
 argument_list|(
 name|ProtobufUtil
 operator|.
-name|toColumnFamilySchema
+name|convertToColumnFamilySchema
 argument_list|(
 name|column
 argument_list|)
@@ -6959,7 +6959,7 @@ name|setColumnFamilies
 argument_list|(
 name|ProtobufUtil
 operator|.
-name|toColumnFamilySchema
+name|convertToColumnFamilySchema
 argument_list|(
 name|column
 argument_list|)
@@ -7723,7 +7723,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * Creates a protocol buffer CreateTableRequest    *    * @param tableDescriptor    * @param splitKeys    * @return a CreateTableRequest    */
+comment|/**    * Creates a protocol buffer CreateTableRequest    *    * @param hTableDesc    * @param splitKeys    * @return a CreateTableRequest    */
 specifier|public
 specifier|static
 name|CreateTableRequest
@@ -7731,7 +7731,7 @@ name|buildCreateTableRequest
 parameter_list|(
 specifier|final
 name|TableDescriptor
-name|tableDescriptor
+name|hTableDesc
 parameter_list|,
 specifier|final
 name|byte
@@ -7751,7 +7751,7 @@ block|{
 return|return
 name|buildCreateTableRequest
 argument_list|(
-name|tableDescriptor
+name|hTableDesc
 argument_list|,
 name|Optional
 operator|.
@@ -7766,14 +7766,14 @@ name|nonce
 argument_list|)
 return|;
 block|}
-comment|/**    * Creates a protocol buffer CreateTableRequest    * @param tableDescriptor    * @param splitKeys    * @return a CreateTableRequest    */
+comment|/**    * Creates a protocol buffer CreateTableRequest    * @param hTableDesc    * @param splitKeys    * @return a CreateTableRequest    */
 specifier|public
 specifier|static
 name|CreateTableRequest
 name|buildCreateTableRequest
 parameter_list|(
 name|TableDescriptor
-name|tableDescriptor
+name|hTableDesc
 parameter_list|,
 name|Optional
 argument_list|<
@@ -7806,9 +7806,9 @@ name|setTableSchema
 argument_list|(
 name|ProtobufUtil
 operator|.
-name|toTableSchema
+name|convertToTableSchema
 argument_list|(
-name|tableDescriptor
+name|hTableDesc
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -7917,7 +7917,7 @@ name|setTableSchema
 argument_list|(
 name|ProtobufUtil
 operator|.
-name|toTableSchema
+name|convertToTableSchema
 argument_list|(
 name|tableDesc
 argument_list|)

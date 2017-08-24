@@ -43,6 +43,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HTableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|Server
 import|;
 end_import
@@ -73,9 +87,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
+name|executor
 operator|.
-name|TableDescriptor
+name|EventType
 import|;
 end_import
 
@@ -89,9 +103,11 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|executor
+name|regionserver
 operator|.
-name|EventType
+name|handler
+operator|.
+name|OpenRegionHandler
 import|;
 end_import
 
@@ -138,7 +154,7 @@ parameter_list|,
 name|HRegionInfo
 name|regionInfo
 parameter_list|,
-name|TableDescriptor
+name|HTableDescriptor
 name|htd
 parameter_list|,
 name|long

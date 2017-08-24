@@ -261,9 +261,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
-operator|.
-name|TableDescriptor
+name|HTableDescriptor
 import|;
 end_import
 
@@ -280,6 +278,24 @@ operator|.
 name|regionserver
 operator|.
 name|HRegion
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
+name|assignment
+operator|.
+name|AssignmentManager
 import|;
 end_import
 
@@ -352,8 +368,8 @@ name|HRegionInfo
 index|[]
 name|createHRegionInfos
 parameter_list|(
-name|TableDescriptor
-name|tableDescriptor
+name|HTableDescriptor
+name|hTableDescriptor
 parameter_list|,
 name|byte
 index|[]
@@ -397,7 +413,7 @@ block|{
 operator|new
 name|HRegionInfo
 argument_list|(
-name|tableDescriptor
+name|hTableDescriptor
 operator|.
 name|getTableName
 argument_list|()
@@ -484,7 +500,7 @@ operator|=
 operator|new
 name|HRegionInfo
 argument_list|(
-name|tableDescriptor
+name|hTableDescriptor
 operator|.
 name|getTableName
 argument_list|()
@@ -508,7 +524,7 @@ return|return
 name|hRegionInfos
 return|;
 block|}
-comment|/**    * Create new set of regions on the specified file-system.    * NOTE: that you should add the regions to hbase:meta after this operation.    *    * @param conf {@link Configuration}    * @param rootDir Root directory for HBase instance    * @param tableDescriptor description of the table    * @param newRegions {@link HRegionInfo} that describes the regions to create    * @param task {@link RegionFillTask} custom code to populate region after creation    * @throws IOException    */
+comment|/**    * Create new set of regions on the specified file-system.    * NOTE: that you should add the regions to hbase:meta after this operation.    *    * @param conf {@link Configuration}    * @param rootDir Root directory for HBase instance    * @param hTableDescriptor description of the table    * @param newRegions {@link HRegionInfo} that describes the regions to create    * @param task {@link RegionFillTask} custom code to populate region after creation    * @throws IOException    */
 specifier|public
 specifier|static
 name|List
@@ -526,8 +542,8 @@ name|Path
 name|rootDir
 parameter_list|,
 specifier|final
-name|TableDescriptor
-name|tableDescriptor
+name|HTableDescriptor
+name|hTableDescriptor
 parameter_list|,
 specifier|final
 name|HRegionInfo
@@ -566,7 +582,7 @@ name|conf
 argument_list|,
 literal|"RegionOpenAndInitThread-"
 operator|+
-name|tableDescriptor
+name|hTableDescriptor
 operator|.
 name|getTableName
 argument_list|()
@@ -585,7 +601,7 @@ name|conf
 argument_list|,
 name|rootDir
 argument_list|,
-name|tableDescriptor
+name|hTableDescriptor
 argument_list|,
 name|newRegions
 argument_list|,
@@ -602,7 +618,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Create new set of regions on the specified file-system.    * NOTE: that you should add the regions to hbase:meta after this operation.    *    * @param exec Thread Pool Executor    * @param conf {@link Configuration}    * @param rootDir Root directory for HBase instance    * @param tableDescriptor description of the table    * @param newRegions {@link HRegionInfo} that describes the regions to create    * @param task {@link RegionFillTask} custom code to populate region after creation    * @throws IOException    */
+comment|/**    * Create new set of regions on the specified file-system.    * NOTE: that you should add the regions to hbase:meta after this operation.    *    * @param exec Thread Pool Executor    * @param conf {@link Configuration}    * @param rootDir Root directory for HBase instance    * @param hTableDescriptor description of the table    * @param newRegions {@link HRegionInfo} that describes the regions to create    * @param task {@link RegionFillTask} custom code to populate region after creation    * @throws IOException    */
 specifier|public
 specifier|static
 name|List
@@ -624,8 +640,8 @@ name|Path
 name|rootDir
 parameter_list|,
 specifier|final
-name|TableDescriptor
-name|tableDescriptor
+name|HTableDescriptor
+name|hTableDescriptor
 parameter_list|,
 specifier|final
 name|HRegionInfo
@@ -715,7 +731,7 @@ name|conf
 argument_list|,
 name|rootDir
 argument_list|,
-name|tableDescriptor
+name|hTableDescriptor
 argument_list|,
 name|newRegion
 argument_list|,
@@ -806,7 +822,7 @@ return|return
 name|regionInfos
 return|;
 block|}
-comment|/**    * Create new set of regions on the specified file-system.    * @param conf {@link Configuration}    * @param rootDir Root directory for HBase instance    * @param tableDescriptor description of the table    * @param newRegion {@link HRegionInfo} that describes the region to create    * @param task {@link RegionFillTask} custom code to populate region after creation    * @throws IOException    */
+comment|/**    * Create new set of regions on the specified file-system.    * @param conf {@link Configuration}    * @param rootDir Root directory for HBase instance    * @param hTableDescriptor description of the table    * @param newRegion {@link HRegionInfo} that describes the region to create    * @param task {@link RegionFillTask} custom code to populate region after creation    * @throws IOException    */
 specifier|public
 specifier|static
 name|HRegionInfo
@@ -821,8 +837,8 @@ name|Path
 name|rootDir
 parameter_list|,
 specifier|final
-name|TableDescriptor
-name|tableDescriptor
+name|HTableDescriptor
+name|hTableDescriptor
 parameter_list|,
 specifier|final
 name|HRegionInfo
@@ -874,7 +890,7 @@ name|rootDir
 argument_list|,
 name|conf
 argument_list|,
-name|tableDescriptor
+name|hTableDescriptor
 argument_list|,
 literal|null
 argument_list|,

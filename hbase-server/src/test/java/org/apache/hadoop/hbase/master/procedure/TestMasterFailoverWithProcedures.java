@@ -139,7 +139,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
+name|HTableDescriptor
 import|;
 end_import
 
@@ -153,9 +153,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
-operator|.
-name|TableDescriptor
+name|TableName
 import|;
 end_import
 
@@ -786,7 +784,7 @@ name|splitKeys
 init|=
 literal|null
 decl_stmt|;
-name|TableDescriptor
+name|HTableDescriptor
 name|htd
 init|=
 name|MasterProcedureTestingUtility

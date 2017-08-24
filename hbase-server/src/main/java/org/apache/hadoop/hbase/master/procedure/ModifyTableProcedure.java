@@ -159,6 +159,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HTableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|MetaTableAccessor
 import|;
 end_import
@@ -284,22 +298,6 @@ operator|.
 name|client
 operator|.
 name|Table
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|TableDescriptor
 import|;
 end_import
 
@@ -441,14 +439,14 @@ name|class
 argument_list|)
 decl_stmt|;
 specifier|private
-name|TableDescriptor
-name|unmodifiedTableDescriptor
+name|HTableDescriptor
+name|unmodifiedHTableDescriptor
 init|=
 literal|null
 decl_stmt|;
 specifier|private
-name|TableDescriptor
-name|modifiedTableDescriptor
+name|HTableDescriptor
+name|modifiedHTableDescriptor
 decl_stmt|;
 specifier|private
 name|boolean
@@ -486,7 +484,7 @@ name|MasterProcedureEnv
 name|env
 parameter_list|,
 specifier|final
-name|TableDescriptor
+name|HTableDescriptor
 name|htd
 parameter_list|)
 block|{
@@ -508,7 +506,7 @@ name|MasterProcedureEnv
 name|env
 parameter_list|,
 specifier|final
-name|TableDescriptor
+name|HTableDescriptor
 name|htd
 parameter_list|,
 specifier|final
@@ -528,7 +526,7 @@ argument_list|()
 expr_stmt|;
 name|this
 operator|.
-name|modifiedTableDescriptor
+name|modifiedHTableDescriptor
 operator|=
 name|htd
 expr_stmt|;
@@ -540,7 +538,7 @@ parameter_list|()
 block|{
 name|this
 operator|.
-name|unmodifiedTableDescriptor
+name|unmodifiedHTableDescriptor
 operator|=
 literal|null
 expr_stmt|;
@@ -662,9 +660,9 @@ name|updateReplicaColumnsIfNeeded
 argument_list|(
 name|env
 argument_list|,
-name|unmodifiedTableDescriptor
+name|unmodifiedHTableDescriptor
 argument_list|,
-name|modifiedTableDescriptor
+name|modifiedHTableDescriptor
 argument_list|)
 expr_stmt|;
 if|if
@@ -698,9 +696,9 @@ name|deleteFromFs
 argument_list|(
 name|env
 argument_list|,
-name|unmodifiedTableDescriptor
+name|unmodifiedHTableDescriptor
 argument_list|,
-name|modifiedTableDescriptor
+name|modifiedHTableDescriptor
 argument_list|)
 expr_stmt|;
 name|setNextState
@@ -1023,9 +1021,9 @@ name|setModifiedTableSchema
 argument_list|(
 name|ProtobufUtil
 operator|.
-name|toTableSchema
+name|convertToTableSchema
 argument_list|(
-name|modifiedTableDescriptor
+name|modifiedHTableDescriptor
 argument_list|)
 argument_list|)
 operator|.
@@ -1036,7 +1034,7 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|unmodifiedTableDescriptor
+name|unmodifiedHTableDescriptor
 operator|!=
 literal|null
 condition|)
@@ -1047,9 +1045,9 @@ name|setUnmodifiedTableSchema
 argument_list|(
 name|ProtobufUtil
 operator|.
-name|toTableSchema
+name|convertToTableSchema
 argument_list|(
-name|unmodifiedTableDescriptor
+name|unmodifiedHTableDescriptor
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1112,11 +1110,11 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|modifiedTableDescriptor
+name|modifiedHTableDescriptor
 operator|=
 name|ProtobufUtil
 operator|.
-name|toTableDescriptor
+name|convertToHTableDesc
 argument_list|(
 name|modifyTableMsg
 operator|.
@@ -1139,11 +1137,11 @@ name|hasUnmodifiedTableSchema
 argument_list|()
 condition|)
 block|{
-name|unmodifiedTableDescriptor
+name|unmodifiedHTableDescriptor
 operator|=
 name|ProtobufUtil
 operator|.
-name|toTableDescriptor
+name|convertToHTableDesc
 argument_list|(
 name|modifyTableMsg
 operator|.
@@ -1161,7 +1159,7 @@ name|getTableName
 parameter_list|()
 block|{
 return|return
-name|modifiedTableDescriptor
+name|modifiedHTableDescriptor
 operator|.
 name|getTableName
 argument_list|()
@@ -1225,7 +1223,7 @@ block|}
 comment|// check that we have at least 1 CF
 if|if
 condition|(
-name|modifiedTableDescriptor
+name|modifiedHTableDescriptor
 operator|.
 name|getColumnFamilyCount
 argument_list|()
@@ -1252,7 +1250,7 @@ block|}
 comment|// In order to update the descriptor, we need to retrieve the old descriptor for comparison.
 name|this
 operator|.
-name|unmodifiedTableDescriptor
+name|unmodifiedHTableDescriptor
 operator|=
 name|env
 operator|.
@@ -1293,12 +1291,12 @@ condition|)
 block|{
 if|if
 condition|(
-name|modifiedTableDescriptor
+name|modifiedHTableDescriptor
 operator|.
 name|getRegionReplication
 argument_list|()
 operator|!=
-name|unmodifiedTableDescriptor
+name|unmodifiedHTableDescriptor
 operator|.
 name|getRegionReplication
 argument_list|()
@@ -1313,8 +1311,8 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|// Find out whether all column families in unmodifiedTableDescriptor also exists in
-comment|// the modifiedTableDescriptor. This is to determine whether we are safe to rollback.
+comment|// Find out whether all column families in unmodifiedHTableDescriptor also exists in
+comment|// the modifiedHTableDescriptor. This is to determine whether we are safe to rollback.
 specifier|final
 name|Set
 argument_list|<
@@ -1323,9 +1321,9 @@ index|[]
 argument_list|>
 name|oldFamilies
 init|=
-name|unmodifiedTableDescriptor
+name|unmodifiedHTableDescriptor
 operator|.
-name|getColumnFamilyNames
+name|getFamiliesKeys
 argument_list|()
 decl_stmt|;
 specifier|final
@@ -1336,9 +1334,9 @@ index|[]
 argument_list|>
 name|newFamilies
 init|=
-name|modifiedTableDescriptor
+name|modifiedHTableDescriptor
 operator|.
-name|getColumnFamilyNames
+name|getFamiliesKeys
 argument_list|()
 decl_stmt|;
 for|for
@@ -1419,7 +1417,7 @@ argument_list|()
 operator|.
 name|add
 argument_list|(
-name|modifiedTableDescriptor
+name|modifiedHTableDescriptor
 argument_list|)
 expr_stmt|;
 block|}
@@ -1445,17 +1443,17 @@ argument_list|()
 operator|.
 name|add
 argument_list|(
-name|unmodifiedTableDescriptor
+name|unmodifiedHTableDescriptor
 argument_list|)
 expr_stmt|;
-comment|// delete any new column families from the modifiedTableDescriptor.
+comment|// delete any new column families from the modifiedHTableDescriptor.
 name|deleteFromFs
 argument_list|(
 name|env
 argument_list|,
-name|modifiedTableDescriptor
+name|modifiedHTableDescriptor
 argument_list|,
-name|unmodifiedTableDescriptor
+name|unmodifiedHTableDescriptor
 argument_list|)
 expr_stmt|;
 comment|// Make sure regions are opened after table descriptor is updated.
@@ -1472,12 +1470,12 @@ name|MasterProcedureEnv
 name|env
 parameter_list|,
 specifier|final
-name|TableDescriptor
-name|oldTableDescriptor
+name|HTableDescriptor
+name|oldHTableDescriptor
 parameter_list|,
 specifier|final
-name|TableDescriptor
-name|newTableDescriptor
+name|HTableDescriptor
+name|newHTableDescriptor
 parameter_list|)
 throws|throws
 name|IOException
@@ -1490,9 +1488,9 @@ index|[]
 argument_list|>
 name|oldFamilies
 init|=
-name|oldTableDescriptor
+name|oldHTableDescriptor
 operator|.
-name|getColumnFamilyNames
+name|getFamiliesKeys
 argument_list|()
 decl_stmt|;
 specifier|final
@@ -1503,9 +1501,9 @@ index|[]
 argument_list|>
 name|newFamilies
 init|=
-name|newTableDescriptor
+name|newHTableDescriptor
 operator|.
-name|getColumnFamilyNames
+name|getFamiliesKeys
 argument_list|()
 decl_stmt|;
 for|for
@@ -1544,9 +1542,9 @@ argument_list|)
 argument_list|,
 name|familyName
 argument_list|,
-name|oldTableDescriptor
+name|oldHTableDescriptor
 operator|.
-name|getColumnFamily
+name|getFamily
 argument_list|(
 name|familyName
 argument_list|)
@@ -1568,12 +1566,12 @@ name|MasterProcedureEnv
 name|env
 parameter_list|,
 specifier|final
-name|TableDescriptor
-name|oldTableDescriptor
+name|HTableDescriptor
+name|oldHTableDescriptor
 parameter_list|,
 specifier|final
-name|TableDescriptor
-name|newTableDescriptor
+name|HTableDescriptor
+name|newHTableDescriptor
 parameter_list|)
 throws|throws
 name|IOException
@@ -1582,7 +1580,7 @@ specifier|final
 name|int
 name|oldReplicaCount
 init|=
-name|oldTableDescriptor
+name|oldHTableDescriptor
 operator|.
 name|getRegionReplication
 argument_list|()
@@ -1591,7 +1589,7 @@ specifier|final
 name|int
 name|newReplicaCount
 init|=
-name|newTableDescriptor
+name|newHTableDescriptor
 operator|.
 name|getRegionReplication
 argument_list|()
@@ -1837,7 +1835,7 @@ argument_list|(
 name|getTableName
 argument_list|()
 argument_list|,
-name|modifiedTableDescriptor
+name|modifiedHTableDescriptor
 argument_list|,
 name|getUser
 argument_list|()
@@ -1854,7 +1852,7 @@ argument_list|(
 name|getTableName
 argument_list|()
 argument_list|,
-name|modifiedTableDescriptor
+name|modifiedHTableDescriptor
 argument_list|,
 name|getUser
 argument_list|()

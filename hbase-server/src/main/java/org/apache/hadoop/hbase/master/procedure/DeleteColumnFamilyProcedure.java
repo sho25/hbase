@@ -111,6 +111,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HTableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|InvalidFamilyOperationException
 import|;
 end_import
@@ -142,38 +156,6 @@ operator|.
 name|classification
 operator|.
 name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|TableDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|TableDescriptorBuilder
 import|;
 end_import
 
@@ -325,8 +307,8 @@ name|class
 argument_list|)
 decl_stmt|;
 specifier|private
-name|TableDescriptor
-name|unmodifiedTableDescriptor
+name|HTableDescriptor
+name|unmodifiedHTableDescriptor
 decl_stmt|;
 specifier|private
 name|TableName
@@ -361,7 +343,7 @@ argument_list|()
 expr_stmt|;
 name|this
 operator|.
-name|unmodifiedTableDescriptor
+name|unmodifiedHTableDescriptor
 operator|=
 literal|null
 expr_stmt|;
@@ -449,7 +431,7 @@ name|familyName
 expr_stmt|;
 name|this
 operator|.
-name|unmodifiedTableDescriptor
+name|unmodifiedHTableDescriptor
 operator|=
 literal|null
 expr_stmt|;
@@ -910,7 +892,7 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|unmodifiedTableDescriptor
+name|unmodifiedHTableDescriptor
 operator|!=
 literal|null
 condition|)
@@ -921,9 +903,9 @@ name|setUnmodifiedTableSchema
 argument_list|(
 name|ProtobufUtil
 operator|.
-name|toTableSchema
+name|convertToTableSchema
 argument_list|(
-name|unmodifiedTableDescriptor
+name|unmodifiedHTableDescriptor
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1016,11 +998,11 @@ name|hasUnmodifiedTableSchema
 argument_list|()
 condition|)
 block|{
-name|unmodifiedTableDescriptor
+name|unmodifiedHTableDescriptor
 operator|=
 name|ProtobufUtil
 operator|.
-name|toTableDescriptor
+name|convertToHTableDesc
 argument_list|(
 name|deleteCFMsg
 operator|.
@@ -1149,7 +1131,7 @@ name|env
 argument_list|)
 expr_stmt|;
 comment|// In order to update the descriptor, we need to retrieve the old descriptor for comparison.
-name|unmodifiedTableDescriptor
+name|unmodifiedHTableDescriptor
 operator|=
 name|env
 operator|.
@@ -1166,7 +1148,7 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|unmodifiedTableDescriptor
+name|unmodifiedHTableDescriptor
 operator|==
 literal|null
 condition|)
@@ -1175,7 +1157,7 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"TableDescriptor missing for "
+literal|"HTableDescriptor missing for "
 operator|+
 name|tableName
 argument_list|)
@@ -1184,9 +1166,9 @@ block|}
 if|if
 condition|(
 operator|!
-name|unmodifiedTableDescriptor
+name|unmodifiedHTableDescriptor
 operator|.
-name|hasColumnFamily
+name|hasFamily
 argument_list|(
 name|familyName
 argument_list|)
@@ -1207,7 +1189,7 @@ throw|;
 block|}
 if|if
 condition|(
-name|unmodifiedTableDescriptor
+name|unmodifiedHTableDescriptor
 operator|.
 name|getColumnFamilyCount
 argument_list|()
@@ -1231,9 +1213,9 @@ block|}
 comment|// whether mob family
 name|hasMob
 operator|=
-name|unmodifiedTableDescriptor
+name|unmodifiedHTableDescriptor
 operator|.
-name|getColumnFamily
+name|getFamily
 argument_list|(
 name|familyName
 argument_list|)
@@ -1295,7 +1277,7 @@ name|getColumnFamilyName
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|TableDescriptor
+name|HTableDescriptor
 name|htd
 init|=
 name|env
@@ -1316,7 +1298,7 @@ condition|(
 operator|!
 name|htd
 operator|.
-name|hasColumnFamily
+name|hasFamily
 argument_list|(
 name|familyName
 argument_list|)
@@ -1327,6 +1309,13 @@ comment|// from table descriptor, but the master failover happens before we comp
 comment|// We should be able to handle running this function multiple times without causing problem.
 return|return;
 block|}
+name|htd
+operator|.
+name|removeFamily
+argument_list|(
+name|familyName
+argument_list|)
+expr_stmt|;
 name|env
 operator|.
 name|getMasterServices
@@ -1337,20 +1326,7 @@ argument_list|()
 operator|.
 name|add
 argument_list|(
-name|TableDescriptorBuilder
-operator|.
-name|newBuilder
-argument_list|(
 name|htd
-argument_list|)
-operator|.
-name|removeColumnFamily
-argument_list|(
-name|familyName
-argument_list|)
-operator|.
-name|build
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -1376,7 +1352,7 @@ argument_list|()
 operator|.
 name|add
 argument_list|(
-name|unmodifiedTableDescriptor
+name|unmodifiedHTableDescriptor
 argument_list|)
 expr_stmt|;
 comment|// Make sure regions are opened after table descriptor is updated.

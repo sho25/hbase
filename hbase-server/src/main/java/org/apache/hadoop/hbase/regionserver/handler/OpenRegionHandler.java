@@ -111,7 +111,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Server
+name|HTableDescriptor
 import|;
 end_import
 
@@ -125,9 +125,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
-operator|.
-name|TableDescriptor
+name|Server
 import|;
 end_import
 
@@ -327,7 +325,7 @@ name|regionInfo
 decl_stmt|;
 specifier|private
 specifier|final
-name|TableDescriptor
+name|HTableDescriptor
 name|htd
 decl_stmt|;
 specifier|private
@@ -349,7 +347,7 @@ parameter_list|,
 name|HRegionInfo
 name|regionInfo
 parameter_list|,
-name|TableDescriptor
+name|HTableDescriptor
 name|htd
 parameter_list|,
 name|long
@@ -390,7 +388,7 @@ name|HRegionInfo
 name|regionInfo
 parameter_list|,
 specifier|final
-name|TableDescriptor
+name|HTableDescriptor
 name|htd
 parameter_list|,
 name|long

@@ -255,9 +255,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|classification
-operator|.
-name|InterfaceAudience
+name|HTableDescriptor
 import|;
 end_import
 
@@ -271,9 +269,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
+name|classification
 operator|.
-name|TableDescriptor
+name|InterfaceAudience
 import|;
 end_import
 
@@ -824,7 +822,7 @@ operator|.
 name|getParent
 argument_list|()
 decl_stmt|;
-name|TableDescriptor
+name|HTableDescriptor
 name|htd
 init|=
 name|FSTableDescriptors
@@ -886,7 +884,7 @@ operator|.
 name|getParent
 argument_list|()
 decl_stmt|;
-name|TableDescriptor
+name|HTableDescriptor
 name|htd
 init|=
 name|FSTableDescriptors
@@ -965,7 +963,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|TableDescriptor
+name|HTableDescriptor
 name|htd
 init|=
 name|FSTableDescriptors
@@ -1016,7 +1014,7 @@ name|Path
 name|tableDir
 parameter_list|,
 specifier|final
-name|TableDescriptor
+name|HTableDescriptor
 name|htd
 parameter_list|,
 specifier|final
@@ -1091,7 +1089,7 @@ name|Path
 name|tableDir
 parameter_list|,
 specifier|final
-name|TableDescriptor
+name|HTableDescriptor
 name|htd
 parameter_list|,
 specifier|final
@@ -1282,7 +1280,7 @@ name|Path
 name|tableDir
 parameter_list|,
 specifier|final
-name|TableDescriptor
+name|HTableDescriptor
 name|htd
 parameter_list|,
 specifier|final
@@ -1353,7 +1351,7 @@ name|region
 argument_list|,
 name|htd
 operator|.
-name|getColumnFamily
+name|getFamily
 argument_list|(
 name|Bytes
 operator|.

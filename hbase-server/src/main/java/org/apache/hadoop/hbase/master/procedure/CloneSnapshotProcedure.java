@@ -193,6 +193,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HTableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|MetaTableAccessor
 import|;
 end_import
@@ -238,38 +252,6 @@ operator|.
 name|classification
 operator|.
 name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|TableDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|TableDescriptorBuilder
 import|;
 end_import
 
@@ -689,8 +671,8 @@ name|class
 argument_list|)
 decl_stmt|;
 specifier|private
-name|TableDescriptor
-name|tableDescriptor
+name|HTableDescriptor
+name|hTableDescriptor
 decl_stmt|;
 specifier|private
 name|SnapshotDescription
@@ -754,8 +736,8 @@ name|MasterProcedureEnv
 name|env
 parameter_list|,
 specifier|final
-name|TableDescriptor
-name|tableDescriptor
+name|HTableDescriptor
+name|hTableDescriptor
 parameter_list|,
 specifier|final
 name|SnapshotDescription
@@ -766,7 +748,7 @@ name|this
 argument_list|(
 name|env
 argument_list|,
-name|tableDescriptor
+name|hTableDescriptor
 argument_list|,
 name|snapshot
 argument_list|,
@@ -774,7 +756,7 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor    * @param env MasterProcedureEnv    * @param tableDescriptor the table to operate on    * @param snapshot snapshot to clone from    */
+comment|/**    * Constructor    * @param env MasterProcedureEnv    * @param hTableDescriptor the table to operate on    * @param snapshot snapshot to clone from    */
 specifier|public
 name|CloneSnapshotProcedure
 parameter_list|(
@@ -783,8 +765,8 @@ name|MasterProcedureEnv
 name|env
 parameter_list|,
 specifier|final
-name|TableDescriptor
-name|tableDescriptor
+name|HTableDescriptor
+name|hTableDescriptor
 parameter_list|,
 specifier|final
 name|SnapshotDescription
@@ -802,9 +784,9 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|tableDescriptor
+name|hTableDescriptor
 operator|=
-name|tableDescriptor
+name|hTableDescriptor
 expr_stmt|;
 name|this
 operator|.
@@ -913,7 +895,7 @@ name|restoreSnapshotAcl
 argument_list|(
 name|snapshot
 argument_list|,
-name|tableDescriptor
+name|hTableDescriptor
 operator|.
 name|getTableName
 argument_list|()
@@ -996,7 +978,7 @@ name|createFilesystemLayout
 argument_list|(
 name|env
 argument_list|,
-name|tableDescriptor
+name|hTableDescriptor
 argument_list|,
 name|newRegions
 argument_list|)
@@ -1362,7 +1344,7 @@ name|getTableName
 parameter_list|()
 block|{
 return|return
-name|tableDescriptor
+name|hTableDescriptor
 operator|.
 name|getTableName
 argument_list|()
@@ -1496,9 +1478,9 @@ name|setTableSchema
 argument_list|(
 name|ProtobufUtil
 operator|.
-name|toTableSchema
+name|convertToTableSchema
 argument_list|(
-name|tableDescriptor
+name|hTableDescriptor
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -1714,11 +1696,11 @@ operator|.
 name|getSnapshot
 argument_list|()
 expr_stmt|;
-name|tableDescriptor
+name|hTableDescriptor
 operator|=
 name|ProtobufUtil
 operator|.
-name|toTableDescriptor
+name|convertToHTableDesc
 argument_list|(
 name|cloneSnapshotMsg
 operator|.
@@ -2002,7 +1984,7 @@ name|cpHost
 operator|.
 name|preCreateTableAction
 argument_list|(
-name|tableDescriptor
+name|hTableDescriptor
 argument_list|,
 literal|null
 argument_list|,
@@ -2073,7 +2055,7 @@ name|cpHost
 operator|.
 name|postCompletedCreateTableAction
 argument_list|(
-name|tableDescriptor
+name|hTableDescriptor
 argument_list|,
 name|regions
 argument_list|,
@@ -2096,8 +2078,8 @@ name|MasterProcedureEnv
 name|env
 parameter_list|,
 specifier|final
-name|TableDescriptor
-name|tableDescriptor
+name|HTableDescriptor
+name|hTableDescriptor
 parameter_list|,
 specifier|final
 name|List
@@ -2114,7 +2096,7 @@ name|createFsLayout
 argument_list|(
 name|env
 argument_list|,
-name|tableDescriptor
+name|hTableDescriptor
 argument_list|,
 name|newRegions
 argument_list|,
@@ -2253,7 +2235,7 @@ name|fs
 argument_list|,
 name|manifest
 argument_list|,
-name|tableDescriptor
+name|hTableDescriptor
 argument_list|,
 name|tableRootDir
 argument_list|,
@@ -2428,8 +2410,8 @@ name|MasterProcedureEnv
 name|env
 parameter_list|,
 specifier|final
-name|TableDescriptor
-name|tableDescriptor
+name|HTableDescriptor
+name|hTableDescriptor
 parameter_list|,
 name|List
 argument_list|<
@@ -2467,6 +2449,15 @@ argument_list|()
 decl_stmt|;
 comment|// 1. Create Table Descriptor
 comment|// using a copy of descriptor, table will be created enabling first
+name|HTableDescriptor
+name|underConstruction
+init|=
+operator|new
+name|HTableDescriptor
+argument_list|(
+name|hTableDescriptor
+argument_list|)
+decl_stmt|;
 specifier|final
 name|Path
 name|tempTableDir
@@ -2477,7 +2468,7 @@ name|getTableDir
 argument_list|(
 name|tempdir
 argument_list|,
-name|tableDescriptor
+name|hTableDescriptor
 operator|.
 name|getTableName
 argument_list|()
@@ -2502,15 +2493,7 @@ name|createTableDescriptorForTableDirectory
 argument_list|(
 name|tempTableDir
 argument_list|,
-name|TableDescriptorBuilder
-operator|.
-name|newBuilder
-argument_list|(
-name|tableDescriptor
-argument_list|)
-operator|.
-name|build
-argument_list|()
+name|underConstruction
 argument_list|,
 literal|false
 argument_list|)
@@ -2526,7 +2509,7 @@ name|env
 argument_list|,
 name|tempdir
 argument_list|,
-name|tableDescriptor
+name|hTableDescriptor
 operator|.
 name|getTableName
 argument_list|()
@@ -2541,7 +2524,7 @@ name|moveTempDirectoryToHBaseRoot
 argument_list|(
 name|env
 argument_list|,
-name|tableDescriptor
+name|hTableDescriptor
 argument_list|,
 name|tempTableDir
 argument_list|)
@@ -2570,7 +2553,7 @@ name|addTableToMeta
 argument_list|(
 name|env
 argument_list|,
-name|tableDescriptor
+name|hTableDescriptor
 argument_list|,
 name|newRegions
 argument_list|)
@@ -2585,7 +2568,7 @@ name|RestoreSnapshotHelper
 operator|.
 name|RestoreMetaChanges
 argument_list|(
-name|tableDescriptor
+name|hTableDescriptor
 argument_list|,
 name|parentsToChildrenPairMap
 argument_list|)
