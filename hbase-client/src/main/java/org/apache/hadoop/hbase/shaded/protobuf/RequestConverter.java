@@ -2734,6 +2734,15 @@ name|qualifier
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|valueBuilder
+operator|.
+name|setTimestamp
+argument_list|(
+name|HConstants
+operator|.
+name|LATEST_TIMESTAMP
+argument_list|)
+expr_stmt|;
 name|columnBuilder
 operator|.
 name|addQualifierValue
@@ -3493,6 +3502,8 @@ specifier|final
 name|long
 name|nonce
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|MutateRequest
 operator|.
@@ -3554,6 +3565,10 @@ name|ProtobufUtil
 operator|.
 name|toMutation
 argument_list|(
+name|MutationType
+operator|.
+name|INCREMENT
+argument_list|,
 name|increment
 argument_list|,
 name|MutationProto
@@ -4949,6 +4964,10 @@ name|ProtobufUtil
 operator|.
 name|toMutation
 argument_list|(
+name|MutationType
+operator|.
+name|INCREMENT
+argument_list|,
 operator|(
 name|Increment
 operator|)
