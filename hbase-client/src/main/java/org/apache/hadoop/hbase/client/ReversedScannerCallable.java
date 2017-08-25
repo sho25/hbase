@@ -396,6 +396,7 @@ name|RpcRetryingCallerWithReadReplicas
 operator|.
 name|getRegionLocations
 argument_list|(
+operator|!
 name|reload
 argument_list|,
 name|id
@@ -694,6 +695,7 @@ name|RpcRetryingCallerWithReadReplicas
 operator|.
 name|getRegionLocations
 argument_list|(
+operator|!
 name|reload
 argument_list|,
 name|id
