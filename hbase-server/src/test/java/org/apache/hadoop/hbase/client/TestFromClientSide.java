@@ -4515,6 +4515,9 @@ name|KeyValueScanner
 argument_list|>
 name|selectScannersFrom
 parameter_list|(
+name|Store
+name|store
+parameter_list|,
 name|List
 argument_list|<
 name|?
@@ -4534,6 +4537,8 @@ name|super
 operator|.
 name|selectScannersFrom
 argument_list|(
+name|store
+argument_list|,
 name|allScanners
 argument_list|)
 decl_stmt|;

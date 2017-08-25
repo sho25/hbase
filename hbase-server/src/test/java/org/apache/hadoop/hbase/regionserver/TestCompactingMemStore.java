@@ -1284,13 +1284,8 @@ argument_list|,
 literal|false
 argument_list|)
 decl_stmt|;
-name|ScanType
-name|scanType
-init|=
-name|ScanType
-operator|.
-name|USER_SCAN
-decl_stmt|;
+try|try
+init|(
 name|InternalScanner
 name|scanner
 init|=
@@ -1299,6 +1294,9 @@ name|StoreScanner
 argument_list|(
 operator|new
 name|Scan
+argument_list|()
+operator|.
+name|withStartRow
 argument_list|(
 name|Bytes
 operator|.
@@ -1310,8 +1308,6 @@ argument_list|)
 argument_list|,
 name|scanInfo
 argument_list|,
-name|scanType
-argument_list|,
 literal|null
 argument_list|,
 name|memstore
@@ -1321,7 +1317,8 @@ argument_list|(
 literal|0
 argument_list|)
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|List
 argument_list|<
 name|Cell
@@ -1449,12 +1446,13 @@ argument_list|,
 name|row
 argument_list|)
 expr_stmt|;
-comment|// Clear out set.  Otherwise row results accumulate.
+comment|// Clear out set. Otherwise row results accumulate.
 name|results
 operator|.
 name|clear
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}

@@ -193,17 +193,12 @@ block|}
 comment|/** Constructor for testing. */
 name|ReversedStoreScanner
 parameter_list|(
-specifier|final
 name|Scan
 name|scan
 parameter_list|,
 name|ScanInfo
 name|scanInfo
 parameter_list|,
-name|ScanType
-name|scanType
-parameter_list|,
-specifier|final
 name|NavigableSet
 argument_list|<
 name|byte
@@ -211,7 +206,6 @@ index|[]
 argument_list|>
 name|columns
 parameter_list|,
-specifier|final
 name|List
 argument_list|<
 name|?
@@ -229,15 +223,9 @@ name|scan
 argument_list|,
 name|scanInfo
 argument_list|,
-name|scanType
-argument_list|,
 name|columns
 argument_list|,
 name|scanners
-argument_list|,
-name|HConstants
-operator|.
-name|LATEST_TIMESTAMP
 argument_list|)
 expr_stmt|;
 block|}

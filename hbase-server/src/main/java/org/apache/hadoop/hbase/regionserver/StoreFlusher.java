@@ -53,7 +53,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|Collections
+name|List
 import|;
 end_import
 
@@ -63,7 +63,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|List
+name|OptionalInt
 import|;
 end_import
 
@@ -150,22 +150,6 @@ operator|.
 name|classification
 operator|.
 name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|Scan
 import|;
 end_import
 
@@ -401,26 +385,6 @@ operator|==
 literal|null
 condition|)
 block|{
-name|Scan
-name|scan
-init|=
-operator|new
-name|Scan
-argument_list|()
-decl_stmt|;
-name|scan
-operator|.
-name|setMaxVersions
-argument_list|(
-name|store
-operator|.
-name|getScanInfo
-argument_list|()
-operator|.
-name|getMaxVersions
-argument_list|()
-argument_list|)
-expr_stmt|;
 name|scanner
 operator|=
 operator|new
@@ -433,7 +397,10 @@ operator|.
 name|getScanInfo
 argument_list|()
 argument_list|,
-name|scan
+name|OptionalInt
+operator|.
+name|empty
+argument_list|()
 argument_list|,
 name|snapshotScanners
 argument_list|,

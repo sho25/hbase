@@ -27,6 +27,38 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CellUtil
+operator|.
+name|createCell
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|KeyValueTestUtil
+operator|.
+name|create
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|regionserver
 operator|.
 name|KeyValueScanFixture
@@ -43,7 +75,43 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|*
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertFalse
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertNull
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
 import|;
 end_import
 
@@ -104,6 +172,16 @@ operator|.
 name|util
 operator|.
 name|NavigableSet
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|OptionalInt
 import|;
 end_import
 
@@ -295,20 +373,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValueTestUtil
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|client
 operator|.
 name|Get
@@ -424,16 +488,6 @@ operator|.
 name|util
 operator|.
 name|EnvironmentEdgeManagerTestHelper
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
 import|;
 end_import
 
@@ -639,14 +693,6 @@ argument_list|,
 literal|false
 argument_list|)
 decl_stmt|;
-specifier|private
-name|ScanType
-name|scanType
-init|=
-name|ScanType
-operator|.
-name|USER_SCAN
-decl_stmt|;
 comment|/**    * From here on down, we have a bunch of defines and specific CELL_GRID of Cells. The    * CELL_GRID then has a Scanner that can fake out 'block' transitions. All this elaborate    * setup is for tests that ensure we don't overread, and that the    * {@link StoreScanner#optimize(org.apache.hadoop.hbase.regionserver.querymatcher.ScanQueryMatcher.MatchCode,    * Cell)} is not overly enthusiastic.    */
 specifier|private
 specifier|static
@@ -826,8 +872,6 @@ operator|new
 name|Cell
 index|[]
 block|{
-name|CellUtil
-operator|.
 name|createCell
 argument_list|(
 name|ONE
@@ -850,8 +894,6 @@ argument_list|,
 name|VALUE
 argument_list|)
 block|,
-name|CellUtil
-operator|.
 name|createCell
 argument_list|(
 name|ONE
@@ -874,8 +916,6 @@ argument_list|,
 name|VALUE
 argument_list|)
 block|,
-name|CellUtil
-operator|.
 name|createCell
 argument_list|(
 name|ONE
@@ -898,8 +938,6 @@ argument_list|,
 name|VALUE
 argument_list|)
 block|,
-name|CellUtil
-operator|.
 name|createCell
 argument_list|(
 name|ONE
@@ -923,8 +961,6 @@ name|VALUE
 argument_list|)
 block|,
 comment|// Offset 4 CELL_GRID_BLOCK2_BOUNDARY
-name|CellUtil
-operator|.
 name|createCell
 argument_list|(
 name|TWO
@@ -947,8 +983,6 @@ argument_list|,
 name|VALUE
 argument_list|)
 block|,
-name|CellUtil
-operator|.
 name|createCell
 argument_list|(
 name|TWO
@@ -971,8 +1005,6 @@ argument_list|,
 name|VALUE
 argument_list|)
 block|,
-name|CellUtil
-operator|.
 name|createCell
 argument_list|(
 name|TWO
@@ -995,8 +1027,6 @@ argument_list|,
 name|VALUE
 argument_list|)
 block|,
-name|CellUtil
-operator|.
 name|createCell
 argument_list|(
 name|TWO
@@ -1019,8 +1049,6 @@ argument_list|,
 name|VALUE
 argument_list|)
 block|,
-name|CellUtil
-operator|.
 name|createCell
 argument_list|(
 name|TWO_POINT_TWO
@@ -1043,8 +1071,6 @@ argument_list|,
 name|VALUE
 argument_list|)
 block|,
-name|CellUtil
-operator|.
 name|createCell
 argument_list|(
 name|TWO_POINT_TWO
@@ -1067,8 +1093,6 @@ argument_list|,
 name|VALUE
 argument_list|)
 block|,
-name|CellUtil
-operator|.
 name|createCell
 argument_list|(
 name|TWO_POINT_TWO
@@ -1092,8 +1116,6 @@ name|VALUE
 argument_list|)
 block|,
 comment|// Offset 11! CELL_GRID_BLOCK3_BOUNDARY
-name|CellUtil
-operator|.
 name|createCell
 argument_list|(
 name|THREE
@@ -1116,8 +1138,6 @@ argument_list|,
 name|VALUE
 argument_list|)
 block|,
-name|CellUtil
-operator|.
 name|createCell
 argument_list|(
 name|THREE
@@ -1140,8 +1160,6 @@ argument_list|,
 name|VALUE
 argument_list|)
 block|,
-name|CellUtil
-operator|.
 name|createCell
 argument_list|(
 name|THREE
@@ -1164,8 +1182,6 @@ argument_list|,
 name|VALUE
 argument_list|)
 block|,
-name|CellUtil
-operator|.
 name|createCell
 argument_list|(
 name|THREE
@@ -1189,8 +1205,6 @@ name|VALUE
 argument_list|)
 block|,
 comment|// Offset 15 CELL_GRID_BLOCK4_BOUNDARY
-name|CellUtil
-operator|.
 name|createCell
 argument_list|(
 name|FOUR
@@ -1213,8 +1227,6 @@ argument_list|,
 name|VALUE
 argument_list|)
 block|,
-name|CellUtil
-operator|.
 name|createCell
 argument_list|(
 name|FOUR
@@ -1237,8 +1249,6 @@ argument_list|,
 name|VALUE
 argument_list|)
 block|,
-name|CellUtil
-operator|.
 name|createCell
 argument_list|(
 name|FOUR
@@ -1261,8 +1271,6 @@ argument_list|,
 name|VALUE
 argument_list|)
 block|,
-name|CellUtil
-operator|.
 name|createCell
 argument_list|(
 name|FOUR
@@ -1286,8 +1294,6 @@ name|VALUE
 argument_list|)
 block|,
 comment|// Offset 19 CELL_GRID_BLOCK5_BOUNDARY
-name|CellUtil
-operator|.
 name|createCell
 argument_list|(
 name|FOUR
@@ -1310,8 +1316,6 @@ argument_list|,
 name|VALUE
 argument_list|)
 block|,
-name|CellUtil
-operator|.
 name|createCell
 argument_list|(
 name|FIVE
@@ -1432,9 +1436,6 @@ name|scan
 parameter_list|,
 name|ScanInfo
 name|scanInfo
-parameter_list|,
-name|ScanType
-name|scanType
 parameter_list|)
 throws|throws
 name|IOException
@@ -1444,8 +1445,6 @@ argument_list|(
 name|scan
 argument_list|,
 name|scanInfo
-argument_list|,
-name|scanType
 argument_list|,
 name|scan
 operator|.
@@ -1741,8 +1740,6 @@ operator|new
 name|Cell
 index|[]
 block|{
-name|CellUtil
-operator|.
 name|createCell
 argument_list|(
 name|ONE
@@ -1765,8 +1762,6 @@ argument_list|,
 name|VALUE
 argument_list|)
 block|,
-name|CellUtil
-operator|.
 name|createCell
 argument_list|(
 name|ONE
@@ -1789,8 +1784,6 @@ argument_list|,
 name|VALUE
 argument_list|)
 block|,
-name|CellUtil
-operator|.
 name|createCell
 argument_list|(
 name|ONE
@@ -1813,8 +1806,6 @@ argument_list|,
 name|VALUE
 argument_list|)
 block|,
-name|CellUtil
-operator|.
 name|createCell
 argument_list|(
 name|ONE
@@ -1838,8 +1829,6 @@ name|VALUE
 argument_list|)
 block|,
 comment|// Offset 4 CELL_WITH_VERSIONS_BLOCK2_BOUNDARY
-name|CellUtil
-operator|.
 name|createCell
 argument_list|(
 name|TWO
@@ -1862,8 +1851,6 @@ argument_list|,
 name|VALUE
 argument_list|)
 block|,
-name|CellUtil
-operator|.
 name|createCell
 argument_list|(
 name|TWO
@@ -1913,9 +1900,6 @@ name|scan
 parameter_list|,
 name|ScanInfo
 name|scanInfo
-parameter_list|,
-name|ScanType
-name|scanType
 parameter_list|)
 throws|throws
 name|IOException
@@ -1925,8 +1909,6 @@ argument_list|(
 name|scan
 argument_list|,
 name|scanInfo
-argument_list|,
-name|scanType
 argument_list|,
 name|scan
 operator|.
@@ -2065,15 +2047,11 @@ argument_list|)
 decl_stmt|;
 name|CellWithVersionsNoOptimizeStoreScanner
 parameter_list|(
-specifier|final
 name|Scan
 name|scan
 parameter_list|,
 name|ScanInfo
 name|scanInfo
-parameter_list|,
-name|ScanType
-name|scanType
 parameter_list|)
 throws|throws
 name|IOException
@@ -2083,8 +2061,6 @@ argument_list|(
 name|scan
 argument_list|,
 name|scanInfo
-argument_list|,
-name|scanType
 argument_list|,
 name|scan
 operator|.
@@ -2214,7 +2190,7 @@ argument_list|)
 decl_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readAllVersions
 argument_list|()
 expr_stmt|;
 name|get
@@ -2235,6 +2211,8 @@ literal|2
 argument_list|)
 argument_list|)
 expr_stmt|;
+try|try
+init|(
 name|CellWithVersionsNoOptimizeStoreScanner
 name|scannerNoOptimize
 init|=
@@ -2250,13 +2228,8 @@ argument_list|,
 name|this
 operator|.
 name|scanInfo
-argument_list|,
-name|this
-operator|.
-name|scanType
 argument_list|)
-decl_stmt|;
-try|try
+init|)
 block|{
 name|List
 argument_list|<
@@ -2281,8 +2254,6 @@ condition|)
 block|{
 continue|continue;
 block|}
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|2
@@ -2293,8 +2264,6 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 name|CellUtil
@@ -2315,8 +2284,6 @@ index|]
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 name|CellUtil
@@ -2337,8 +2304,6 @@ index|]
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 literal|"Optimize should do some optimizations"
@@ -2354,14 +2319,6 @@ literal|0
 argument_list|)
 expr_stmt|;
 block|}
-finally|finally
-block|{
-name|scannerNoOptimize
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-block|}
 name|get
 operator|.
 name|setFilter
@@ -2373,6 +2330,8 @@ literal|2
 argument_list|)
 argument_list|)
 expr_stmt|;
+try|try
+init|(
 name|CellWithVersionsStoreScanner
 name|scanner
 init|=
@@ -2388,13 +2347,8 @@ argument_list|,
 name|this
 operator|.
 name|scanInfo
-argument_list|,
-name|this
-operator|.
-name|scanType
 argument_list|)
-decl_stmt|;
-try|try
+init|)
 block|{
 name|List
 argument_list|<
@@ -2419,8 +2373,6 @@ condition|)
 block|{
 continue|continue;
 block|}
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|2
@@ -2431,8 +2383,6 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 name|CellUtil
@@ -2453,8 +2403,6 @@ index|]
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 name|CellUtil
@@ -2475,8 +2423,6 @@ index|]
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 literal|"Optimize should do some optimizations"
@@ -2490,14 +2436,6 @@ argument_list|()
 operator|>
 literal|0
 argument_list|)
-expr_stmt|;
-block|}
-finally|finally
-block|{
-name|scanner
-operator|.
-name|close
-argument_list|()
 expr_stmt|;
 block|}
 block|}
@@ -2590,6 +2528,8 @@ argument_list|(
 name|get
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|CellGridStoreScanner
 name|scanner
 init|=
@@ -2601,13 +2541,8 @@ argument_list|,
 name|this
 operator|.
 name|scanInfo
-argument_list|,
-name|this
-operator|.
-name|scanType
 argument_list|)
-decl_stmt|;
-try|try
+init|)
 block|{
 name|List
 argument_list|<
@@ -2634,8 +2569,6 @@ continue|continue;
 block|}
 comment|// Should be four results of column 1 (though there are 5 rows in the CELL_GRID -- the
 comment|// TWO_POINT_TWO row does not have a a column ONE.
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|4
@@ -2648,8 +2581,6 @@ argument_list|)
 expr_stmt|;
 comment|// We should have gone the optimize route 5 times totally... an INCLUDE for the four cells
 comment|// in the row plus the DONE on the end.
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|5
@@ -2663,8 +2594,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// For a full row Get, there should be no opportunity for scanner optimization.
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|0
@@ -2676,14 +2605,6 @@ operator|.
 name|get
 argument_list|()
 argument_list|)
-expr_stmt|;
-block|}
-finally|finally
-block|{
-name|scanner
-operator|.
-name|close
-argument_list|()
 expr_stmt|;
 block|}
 block|}
@@ -2715,6 +2636,8 @@ argument_list|(
 name|get
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|CellGridStoreScanner
 name|scanner
 init|=
@@ -2726,13 +2649,8 @@ argument_list|,
 name|this
 operator|.
 name|scanInfo
-argument_list|,
-name|this
-operator|.
-name|scanType
 argument_list|)
-decl_stmt|;
-try|try
+init|)
 block|{
 name|List
 argument_list|<
@@ -2759,8 +2677,6 @@ continue|continue;
 block|}
 comment|// Should be four results of column 1 (though there are 5 rows in the CELL_GRID -- the
 comment|// TWO_POINT_TWO row does not have a a column ONE.
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|5
@@ -2773,8 +2689,6 @@ argument_list|)
 expr_stmt|;
 comment|// We should have gone the optimize route 6 times totally... an INCLUDE for the five cells
 comment|// in the row plus the DONE on the end.
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|6
@@ -2788,8 +2702,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// For a full row Get, there should be no opportunity for scanner optimization.
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|0
@@ -2801,14 +2713,6 @@ operator|.
 name|get
 argument_list|()
 argument_list|)
-expr_stmt|;
-block|}
-finally|finally
-block|{
-name|scanner
-operator|.
-name|close
-argument_list|()
 expr_stmt|;
 block|}
 block|}
@@ -2839,6 +2743,8 @@ argument_list|,
 name|ONE
 argument_list|)
 expr_stmt|;
+try|try
+init|(
 name|CellGridStoreScanner
 name|scanner
 init|=
@@ -2850,13 +2756,8 @@ argument_list|,
 name|this
 operator|.
 name|scanInfo
-argument_list|,
-name|this
-operator|.
-name|scanType
 argument_list|)
-decl_stmt|;
-try|try
+init|)
 block|{
 name|List
 argument_list|<
@@ -2883,8 +2784,6 @@ continue|continue;
 block|}
 comment|// Should be four results of column 1 (though there are 5 rows in the CELL_GRID -- the
 comment|// TWO_POINT_TWO row does not have a a column ONE.
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|4
@@ -2935,8 +2834,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 literal|"Optimize should do some optimizations"
@@ -2950,14 +2847,6 @@ argument_list|()
 operator|>
 literal|0
 argument_list|)
-expr_stmt|;
-block|}
-finally|finally
-block|{
-name|scanner
-operator|.
-name|close
-argument_list|()
 expr_stmt|;
 block|}
 block|}
@@ -3009,6 +2898,8 @@ argument_list|(
 name|get
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|CellGridStoreScanner
 name|scanner
 init|=
@@ -3020,13 +2911,8 @@ argument_list|,
 name|this
 operator|.
 name|scanInfo
-argument_list|,
-name|this
-operator|.
-name|scanType
 argument_list|)
-decl_stmt|;
-try|try
+init|)
 block|{
 name|List
 argument_list|<
@@ -3040,8 +2926,6 @@ argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// For a Get there should be no more next's after the first call.
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|false
@@ -3055,8 +2939,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Should be one result only.
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|2
@@ -3068,8 +2950,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// And we should have gone through optimize twice only.
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|"First qcode is SEEK_NEXT_COL and second INCLUDE_AND_SEEK_NEXT_ROW"
@@ -3083,14 +2963,6 @@ operator|.
 name|get
 argument_list|()
 argument_list|)
-expr_stmt|;
-block|}
-finally|finally
-block|{
-name|scanner
-operator|.
-name|close
-argument_list|()
 expr_stmt|;
 block|}
 block|}
@@ -3133,6 +3005,8 @@ argument_list|(
 name|get
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|CellGridStoreScanner
 name|scanner
 init|=
@@ -3144,13 +3018,8 @@ argument_list|,
 name|this
 operator|.
 name|scanInfo
-argument_list|,
-name|this
-operator|.
-name|scanType
 argument_list|)
-decl_stmt|;
-try|try
+init|)
 block|{
 name|List
 argument_list|<
@@ -3164,8 +3033,6 @@ argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// For a Get there should be no more next's after the first call.
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|false
@@ -3179,8 +3046,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Should be one result only.
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|1
@@ -3192,8 +3057,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// And we should have gone through optimize twice only.
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|"First qcode is SEEK_NEXT_COL and second INCLUDE_AND_SEEK_NEXT_ROW"
@@ -3207,14 +3070,6 @@ operator|.
 name|get
 argument_list|()
 argument_list|)
-expr_stmt|;
-block|}
-finally|finally
-block|{
-name|scanner
-operator|.
-name|close
-argument_list|()
 expr_stmt|;
 block|}
 block|}
@@ -3241,8 +3096,6 @@ operator|new
 name|KeyValue
 index|[]
 block|{
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 name|r1
@@ -3262,8 +3115,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 name|r1
@@ -3283,8 +3134,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 name|r1
@@ -3304,8 +3153,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 name|r1
@@ -3325,8 +3172,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 name|r1
@@ -3381,6 +3226,9 @@ name|scanSpec
 init|=
 operator|new
 name|Scan
+argument_list|()
+operator|.
+name|withStartRow
 argument_list|(
 name|Bytes
 operator|.
@@ -3401,7 +3249,7 @@ argument_list|)
 expr_stmt|;
 name|scanSpec
 operator|.
-name|setMaxVersions
+name|readAllVersions
 argument_list|()
 expr_stmt|;
 name|List
@@ -3424,8 +3272,6 @@ name|scanSpec
 argument_list|,
 name|scanInfo
 argument_list|,
-name|scanType
-argument_list|,
 name|getCols
 argument_list|(
 literal|"a"
@@ -3442,8 +3288,6 @@ name|ArrayList
 argument_list|<>
 argument_list|()
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|true
@@ -3456,8 +3300,6 @@ name|results
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|5
@@ -3468,8 +3310,6 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -3495,6 +3335,9 @@ name|scanSpec
 operator|=
 operator|new
 name|Scan
+argument_list|()
+operator|.
+name|withStartRow
 argument_list|(
 name|Bytes
 operator|.
@@ -3515,7 +3358,7 @@ argument_list|)
 expr_stmt|;
 name|scanSpec
 operator|.
-name|setMaxVersions
+name|readAllVersions
 argument_list|()
 expr_stmt|;
 try|try
@@ -3529,8 +3372,6 @@ argument_list|(
 name|scanSpec
 argument_list|,
 name|scanInfo
-argument_list|,
-name|scanType
 argument_list|,
 name|getCols
 argument_list|(
@@ -3548,8 +3389,6 @@ name|ArrayList
 argument_list|<>
 argument_list|()
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|true
@@ -3562,8 +3401,6 @@ name|results
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|2
@@ -3580,6 +3417,9 @@ name|scanSpec
 operator|=
 operator|new
 name|Scan
+argument_list|()
+operator|.
+name|withStartRow
 argument_list|(
 name|Bytes
 operator|.
@@ -3600,7 +3440,7 @@ argument_list|)
 expr_stmt|;
 name|scanSpec
 operator|.
-name|setMaxVersions
+name|readAllVersions
 argument_list|()
 expr_stmt|;
 try|try
@@ -3614,8 +3454,6 @@ argument_list|(
 name|scanSpec
 argument_list|,
 name|scanInfo
-argument_list|,
-name|scanType
 argument_list|,
 name|getCols
 argument_list|(
@@ -3633,8 +3471,6 @@ name|ArrayList
 argument_list|<>
 argument_list|()
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|true
@@ -3647,8 +3483,6 @@ name|results
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|1
@@ -3666,6 +3500,9 @@ name|scanSpec
 operator|=
 operator|new
 name|Scan
+argument_list|()
+operator|.
+name|withStartRow
 argument_list|(
 name|Bytes
 operator|.
@@ -3686,7 +3523,7 @@ argument_list|)
 expr_stmt|;
 name|scanSpec
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 literal|3
 argument_list|)
@@ -3702,8 +3539,6 @@ argument_list|(
 name|scanSpec
 argument_list|,
 name|scanInfo
-argument_list|,
-name|scanType
 argument_list|,
 name|getCols
 argument_list|(
@@ -3721,8 +3556,6 @@ name|ArrayList
 argument_list|<>
 argument_list|()
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|true
@@ -3735,8 +3568,6 @@ name|results
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|3
@@ -3767,8 +3598,6 @@ operator|new
 name|KeyValue
 index|[]
 block|{
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -3788,8 +3617,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -3841,6 +3668,9 @@ name|scanSpec
 init|=
 operator|new
 name|Scan
+argument_list|()
+operator|.
+name|withStartRow
 argument_list|(
 name|Bytes
 operator|.
@@ -3863,8 +3693,6 @@ name|scanSpec
 argument_list|,
 name|scanInfo
 argument_list|,
-name|scanType
-argument_list|,
 name|getCols
 argument_list|(
 literal|"a"
@@ -3885,8 +3713,6 @@ name|ArrayList
 argument_list|<>
 argument_list|()
 decl_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|true
@@ -3899,8 +3725,6 @@ name|results
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|1
@@ -3911,8 +3735,6 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -3949,8 +3771,6 @@ operator|new
 name|KeyValue
 index|[]
 block|{
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -3970,8 +3790,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -3991,8 +3809,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R2"
@@ -4029,6 +3845,9 @@ name|scanSpec
 init|=
 operator|new
 name|Scan
+argument_list|()
+operator|.
+name|withStartRow
 argument_list|(
 name|Bytes
 operator|.
@@ -4050,8 +3869,6 @@ argument_list|(
 name|scanSpec
 argument_list|,
 name|scanInfo
-argument_list|,
-name|scanType
 argument_list|,
 name|getCols
 argument_list|(
@@ -4080,8 +3897,6 @@ argument_list|(
 name|results
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|1
@@ -4092,8 +3907,6 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -4123,8 +3936,6 @@ argument_list|(
 name|results
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|1
@@ -4135,8 +3946,6 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -4164,8 +3973,6 @@ argument_list|(
 name|results
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|0
@@ -4195,8 +4002,6 @@ operator|new
 name|KeyValue
 index|[]
 block|{
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -4216,8 +4021,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -4254,6 +4057,9 @@ name|scanSpec
 init|=
 operator|new
 name|Scan
+argument_list|()
+operator|.
+name|withStartRow
 argument_list|(
 name|Bytes
 operator|.
@@ -4275,8 +4081,6 @@ name|scanSpec
 argument_list|,
 name|scanInfo
 argument_list|,
-name|scanType
-argument_list|,
 name|getCols
 argument_list|(
 literal|"a"
@@ -4297,8 +4101,6 @@ name|ArrayList
 argument_list|<>
 argument_list|()
 decl_stmt|;
-name|Assert
-operator|.
 name|assertFalse
 argument_list|(
 name|scan
@@ -4309,8 +4111,6 @@ name|results
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|0
@@ -4341,8 +4141,6 @@ operator|new
 name|KeyValue
 index|[]
 block|{
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -4362,8 +4160,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -4383,8 +4179,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R2"
@@ -4421,6 +4215,9 @@ name|scanSpec
 init|=
 operator|new
 name|Scan
+argument_list|()
+operator|.
+name|withStartRow
 argument_list|(
 name|Bytes
 operator|.
@@ -4442,8 +4239,6 @@ name|scanSpec
 argument_list|,
 name|scanInfo
 argument_list|,
-name|scanType
-argument_list|,
 name|getCols
 argument_list|(
 literal|"a"
@@ -4464,8 +4259,6 @@ name|ArrayList
 argument_list|<>
 argument_list|()
 decl_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|true
@@ -4478,8 +4271,6 @@ name|results
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|0
@@ -4490,8 +4281,6 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|true
@@ -4504,8 +4293,6 @@ name|results
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|1
@@ -4516,8 +4303,6 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -4533,8 +4318,6 @@ literal|0
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|false
@@ -4572,8 +4355,6 @@ operator|new
 name|KeyValue
 index|[]
 block|{
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -4593,8 +4374,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -4623,8 +4402,6 @@ operator|new
 name|KeyValue
 index|[]
 block|{
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -4646,8 +4423,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -4669,8 +4444,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -4714,6 +4487,9 @@ name|StoreScanner
 argument_list|(
 operator|new
 name|Scan
+argument_list|()
+operator|.
+name|withStartRow
 argument_list|(
 name|Bytes
 operator|.
@@ -4724,8 +4500,6 @@ argument_list|)
 argument_list|)
 argument_list|,
 name|scanInfo
-argument_list|,
-name|scanType
 argument_list|,
 name|getCols
 argument_list|(
@@ -4750,8 +4524,6 @@ decl_stmt|;
 comment|// the two put at ts=now will be masked by the 1 delete, and
 comment|// since the scan default returns 1 version we'll return the newest
 comment|// key, which is kvs[2], now-100.
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|true
@@ -4764,8 +4536,6 @@ name|results
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|1
@@ -4776,8 +4546,6 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|kvs2
@@ -4818,8 +4586,6 @@ operator|new
 name|KeyValue
 index|[]
 block|{
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -4839,8 +4605,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -4869,8 +4633,6 @@ operator|new
 name|KeyValue
 index|[]
 block|{
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -4892,8 +4654,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -4915,8 +4675,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -4936,8 +4694,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R2"
@@ -4976,6 +4732,9 @@ name|scanSpec
 init|=
 operator|new
 name|Scan
+argument_list|()
+operator|.
+name|withStartRow
 argument_list|(
 name|Bytes
 operator|.
@@ -4985,7 +4744,7 @@ literal|"R1"
 argument_list|)
 argument_list|)
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 literal|2
 argument_list|)
@@ -5001,8 +4760,6 @@ argument_list|(
 name|scanSpec
 argument_list|,
 name|scanInfo
-argument_list|,
-name|scanType
 argument_list|,
 name|getCols
 argument_list|(
@@ -5024,8 +4781,6 @@ name|ArrayList
 argument_list|<>
 argument_list|()
 decl_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|true
@@ -5038,8 +4793,6 @@ name|results
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|2
@@ -5050,8 +4803,6 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|kvs2
@@ -5067,8 +4818,6 @@ literal|0
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|kvs2
@@ -5103,8 +4852,6 @@ operator|new
 name|KeyValue
 index|[]
 block|{
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -5124,8 +4871,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -5145,8 +4890,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -5188,6 +4931,9 @@ name|StoreScanner
 argument_list|(
 operator|new
 name|Scan
+argument_list|()
+operator|.
+name|withStartRow
 argument_list|(
 name|Bytes
 operator|.
@@ -5198,8 +4944,6 @@ argument_list|)
 argument_list|)
 argument_list|,
 name|scanInfo
-argument_list|,
-name|scanType
 argument_list|,
 literal|null
 argument_list|,
@@ -5218,8 +4962,6 @@ name|ArrayList
 argument_list|<>
 argument_list|()
 decl_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|true
@@ -5232,8 +4974,6 @@ name|results
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|2
@@ -5244,8 +4984,6 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -5261,8 +4999,6 @@ literal|0
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -5297,8 +5033,6 @@ operator|new
 name|KeyValue
 index|[]
 block|{
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -5320,8 +5054,6 @@ argument_list|)
 block|,
 comment|// inc
 comment|// orphaned delete column.
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -5342,8 +5074,6 @@ literal|"dont-care"
 argument_list|)
 block|,
 comment|// column b
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -5364,8 +5094,6 @@ literal|"dont-care"
 argument_list|)
 block|,
 comment|// inc
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -5387,8 +5115,6 @@ argument_list|)
 block|,
 comment|// inc
 comment|// column c
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -5408,8 +5134,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -5430,8 +5154,6 @@ literal|"dont-care"
 argument_list|)
 block|,
 comment|// no
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -5453,8 +5175,6 @@ argument_list|)
 block|,
 comment|// inc
 comment|// column d
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -5475,8 +5195,6 @@ literal|"dont-care"
 argument_list|)
 block|,
 comment|// inc
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -5496,8 +5214,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -5518,8 +5234,6 @@ literal|"dont-care"
 argument_list|)
 block|,
 comment|// no
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -5565,14 +5279,12 @@ operator|new
 name|Scan
 argument_list|()
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 literal|2
 argument_list|)
 argument_list|,
 name|scanInfo
-argument_list|,
-name|scanType
 argument_list|,
 literal|null
 argument_list|,
@@ -5591,8 +5303,6 @@ name|ArrayList
 argument_list|<>
 argument_list|()
 decl_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|true
@@ -5605,8 +5315,6 @@ name|results
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|5
@@ -5617,8 +5325,6 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -5634,8 +5340,6 @@ literal|0
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -5651,8 +5355,6 @@ literal|1
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -5668,8 +5370,6 @@ literal|2
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -5685,8 +5385,6 @@ literal|3
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -5721,8 +5419,6 @@ operator|new
 name|KeyValue
 index|[]
 block|{
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -5742,8 +5438,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -5763,8 +5457,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -5784,8 +5476,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -5805,8 +5495,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -5826,8 +5514,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -5847,8 +5533,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -5868,8 +5552,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -5889,8 +5571,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -5910,8 +5590,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -5931,8 +5609,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -5952,8 +5628,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R2"
@@ -5997,16 +5671,10 @@ operator|new
 name|Scan
 argument_list|()
 operator|.
-name|setMaxVersions
-argument_list|(
-name|Integer
-operator|.
-name|MAX_VALUE
-argument_list|)
+name|readAllVersions
+argument_list|()
 argument_list|,
 name|scanInfo
-argument_list|,
-name|scanType
 argument_list|,
 literal|null
 argument_list|,
@@ -6025,8 +5693,6 @@ name|ArrayList
 argument_list|<>
 argument_list|()
 decl_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|true
@@ -6039,8 +5705,6 @@ name|results
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|0
@@ -6051,8 +5715,6 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|true
@@ -6065,8 +5727,6 @@ name|results
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|1
@@ -6077,8 +5737,6 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -6098,8 +5756,6 @@ literal|0
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|false
@@ -6131,8 +5787,6 @@ operator|new
 name|KeyValue
 index|[]
 block|{
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -6152,8 +5806,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -6173,8 +5825,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -6194,8 +5844,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -6241,8 +5889,6 @@ argument_list|()
 argument_list|,
 name|scanInfo
 argument_list|,
-name|scanType
-argument_list|,
 literal|null
 argument_list|,
 name|scanners
@@ -6260,8 +5906,6 @@ name|ArrayList
 argument_list|<>
 argument_list|()
 decl_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|true
@@ -6274,8 +5918,6 @@ name|results
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|1
@@ -6286,8 +5928,6 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -6316,8 +5956,6 @@ operator|new
 name|KeyValue
 index|[]
 block|{
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -6337,8 +5975,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -6358,8 +5994,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -6379,8 +6013,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -6400,8 +6032,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -6421,8 +6051,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -6442,8 +6070,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -6463,8 +6089,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -6484,8 +6108,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -6505,8 +6127,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R2"
@@ -6561,8 +6181,6 @@ argument_list|()
 argument_list|,
 name|scanInfo
 argument_list|,
-name|scanType
-argument_list|,
 name|getCols
 argument_list|(
 literal|"a"
@@ -6585,8 +6203,6 @@ name|ArrayList
 argument_list|<>
 argument_list|()
 decl_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|true
@@ -6599,8 +6215,6 @@ name|results
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|2
@@ -6611,8 +6225,6 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -6628,8 +6240,6 @@ literal|0
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -6650,8 +6260,6 @@ operator|.
 name|clear
 argument_list|()
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|true
@@ -6664,8 +6272,6 @@ name|results
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|1
@@ -6676,8 +6282,6 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -6702,8 +6306,6 @@ operator|.
 name|clear
 argument_list|()
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|false
@@ -6744,8 +6346,6 @@ operator|new
 name|KeyValue
 index|[]
 block|{
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -6767,8 +6367,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -6790,8 +6388,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -6813,8 +6409,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -6836,8 +6430,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R2"
@@ -6857,8 +6449,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R2"
@@ -6880,8 +6470,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R2"
@@ -6903,8 +6491,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R2"
@@ -6947,7 +6533,7 @@ argument_list|()
 decl_stmt|;
 name|scan
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 literal|1
 argument_list|)
@@ -6985,13 +6571,6 @@ argument_list|,
 literal|false
 argument_list|)
 decl_stmt|;
-name|ScanType
-name|scanType
-init|=
-name|ScanType
-operator|.
-name|USER_SCAN
-decl_stmt|;
 try|try
 init|(
 name|StoreScanner
@@ -7003,8 +6582,6 @@ argument_list|(
 name|scan
 argument_list|,
 name|scanInfo
-argument_list|,
-name|scanType
 argument_list|,
 literal|null
 argument_list|,
@@ -7023,8 +6600,6 @@ name|ArrayList
 argument_list|<>
 argument_list|()
 decl_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|true
@@ -7037,8 +6612,6 @@ name|results
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|2
@@ -7049,8 +6622,6 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -7066,8 +6637,6 @@ literal|0
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -7088,8 +6657,6 @@ operator|.
 name|clear
 argument_list|()
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|true
@@ -7102,8 +6669,6 @@ name|results
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|3
@@ -7114,8 +6679,6 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -7131,8 +6694,6 @@ literal|0
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -7148,8 +6709,6 @@ literal|1
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -7170,8 +6729,6 @@ operator|.
 name|clear
 argument_list|()
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|false
@@ -7220,8 +6777,6 @@ argument_list|()
 argument_list|,
 name|scanInfo
 argument_list|,
-name|scanType
-argument_list|,
 name|getCols
 argument_list|(
 literal|"a"
@@ -7233,8 +6788,8 @@ name|scanners
 argument_list|)
 init|)
 block|{
-comment|// Previously a updateReaders twice in a row would cause an NPE.  In test this would also
-comment|// normally cause an NPE because scan.store is null.  So as long as we get through these
+comment|// Previously a updateReaders twice in a row would cause an NPE. In test this would also
+comment|// normally cause an NPE because scan.store is null. So as long as we get through these
 comment|// two calls we are good and the bug was quashed.
 name|scan
 operator|.
@@ -7242,11 +6797,13 @@ name|updateReaders
 argument_list|(
 name|Collections
 operator|.
-name|EMPTY_LIST
+name|emptyList
+argument_list|()
 argument_list|,
 name|Collections
 operator|.
-name|EMPTY_LIST
+name|emptyList
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|scan
@@ -7255,11 +6812,13 @@ name|updateReaders
 argument_list|(
 name|Collections
 operator|.
-name|EMPTY_LIST
+name|emptyList
+argument_list|()
 argument_list|,
 name|Collections
 operator|.
-name|EMPTY_LIST
+name|emptyList
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|scan
@@ -7285,8 +6844,6 @@ operator|new
 name|KeyValue
 index|[]
 block|{
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -7306,8 +6863,6 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -7344,6 +6899,9 @@ name|scanSpec
 init|=
 operator|new
 name|Scan
+argument_list|()
+operator|.
+name|withStartRow
 argument_list|(
 name|Bytes
 operator|.
@@ -7365,8 +6923,6 @@ name|scanSpec
 argument_list|,
 name|scanInfo
 argument_list|,
-name|scanType
-argument_list|,
 name|getCols
 argument_list|(
 literal|"a"
@@ -7376,8 +6932,6 @@ name|scanners
 argument_list|)
 init|)
 block|{
-name|Assert
-operator|.
 name|assertNull
 argument_list|(
 name|scan
@@ -7444,8 +6998,6 @@ operator|.
 name|DeleteFamily
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -7488,7 +7040,7 @@ argument_list|()
 decl_stmt|;
 name|scan
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 literal|1
 argument_list|)
@@ -7527,13 +7079,6 @@ argument_list|,
 literal|false
 argument_list|)
 decl_stmt|;
-name|ScanType
-name|scanType
-init|=
-name|ScanType
-operator|.
-name|USER_SCAN
-decl_stmt|;
 try|try
 init|(
 name|StoreScanner
@@ -7545,8 +7090,6 @@ argument_list|(
 name|scan
 argument_list|,
 name|scanInfo
-argument_list|,
-name|scanType
 argument_list|,
 literal|null
 argument_list|,
@@ -7565,8 +7108,6 @@ name|ArrayList
 argument_list|<>
 argument_list|()
 decl_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|true
@@ -7579,8 +7120,6 @@ name|results
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|1
@@ -7591,8 +7130,6 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -7613,8 +7150,6 @@ operator|.
 name|clear
 argument_list|()
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|false
@@ -7742,8 +7277,6 @@ argument_list|)
 block|,
 comment|// expired
 comment|/*2*/
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -7767,8 +7300,6 @@ argument_list|)
 block|,
 comment|// live
 comment|/*3*/
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -7792,8 +7323,6 @@ argument_list|)
 block|,
 comment|// live
 comment|/*4*/
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -7817,8 +7346,6 @@ argument_list|)
 block|,
 comment|// deleted
 comment|/*5*/
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -7842,8 +7369,6 @@ argument_list|)
 block|,
 comment|// live
 comment|/*6*/
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -7867,8 +7392,6 @@ argument_list|)
 block|,
 comment|// max-version reached
 comment|/*7*/
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -7892,8 +7415,6 @@ argument_list|)
 block|,
 comment|// max-version
 comment|/*8*/
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -7917,8 +7438,6 @@ argument_list|)
 block|,
 comment|//expired
 comment|/*9*/
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -7942,8 +7461,6 @@ argument_list|)
 block|,
 comment|//live
 comment|/*10*/
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -7967,8 +7484,6 @@ argument_list|)
 block|,
 comment|//expired
 comment|/*11*/
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -7992,8 +7507,6 @@ argument_list|)
 block|,
 comment|//expired
 comment|/*12*/
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -8017,8 +7530,6 @@ argument_list|)
 block|,
 comment|//expired
 comment|/*13*/
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -8042,8 +7553,6 @@ argument_list|)
 block|,
 comment|//expired
 comment|/*14*/
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -8067,8 +7576,6 @@ argument_list|)
 block|,
 comment|//live
 comment|/*15*/
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -8104,20 +7611,6 @@ argument_list|(
 name|kvs
 argument_list|)
 decl_stmt|;
-name|Scan
-name|scan
-init|=
-operator|new
-name|Scan
-argument_list|()
-decl_stmt|;
-name|scan
-operator|.
-name|setMaxVersions
-argument_list|(
-literal|2
-argument_list|)
-expr_stmt|;
 name|ScanInfo
 name|scanInfo
 init|=
@@ -8170,21 +7663,20 @@ init|=
 operator|new
 name|StoreScanner
 argument_list|(
-name|scan
-argument_list|,
 name|scanInfo
+argument_list|,
+name|OptionalInt
+operator|.
+name|of
+argument_list|(
+literal|2
+argument_list|)
 argument_list|,
 name|ScanType
 operator|.
 name|COMPACT_DROP_DELETES
 argument_list|,
-literal|null
-argument_list|,
 name|scanners
-argument_list|,
-name|HConstants
-operator|.
-name|OLDEST_TIMESTAMP
 argument_list|)
 init|)
 block|{
@@ -8206,8 +7698,6 @@ name|ArrayList
 argument_list|<>
 argument_list|()
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|true
@@ -8220,8 +7710,6 @@ name|results
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -8237,8 +7725,6 @@ literal|0
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -8254,8 +7740,6 @@ literal|1
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -8271,8 +7755,6 @@ literal|2
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -8288,8 +7770,6 @@ literal|3
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -8305,8 +7785,6 @@ literal|4
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -8322,8 +7800,6 @@ literal|5
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|kvs
@@ -8339,8 +7815,6 @@ literal|6
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|7
@@ -8371,13 +7845,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|ScanType
-name|scanType
-init|=
-name|ScanType
-operator|.
-name|COMPACT_RETAIN_DELETES
-decl_stmt|;
 name|long
 name|now
 init|=
@@ -8424,8 +7891,6 @@ operator|.
 name|DeleteFamily
 argument_list|)
 block|,
-name|KeyValueTestUtil
-operator|.
 name|create
 argument_list|(
 literal|"R1"
@@ -8458,13 +7923,6 @@ name|scanFixture
 argument_list|(
 name|kvs
 argument_list|)
-decl_stmt|;
-name|Scan
-name|scan
-init|=
-operator|new
-name|Scan
-argument_list|()
 decl_stmt|;
 name|ScanInfo
 name|scanInfo
@@ -8499,23 +7957,29 @@ argument_list|,
 literal|false
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|StoreScanner
 name|storeScanner
 init|=
 operator|new
 name|StoreScanner
 argument_list|(
-name|scan
-argument_list|,
 name|scanInfo
 argument_list|,
-name|scanType
+name|OptionalInt
+operator|.
+name|empty
+argument_list|()
 argument_list|,
-literal|null
+name|ScanType
+operator|.
+name|COMPACT_RETAIN_DELETES
 argument_list|,
 name|scanners
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|assertFalse
 argument_list|(
 name|storeScanner
@@ -8524,6 +7988,7 @@ name|isScanUsePread
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 end_class
