@@ -264,6 +264,54 @@ name|long
 name|getBlockCacheFailedInsertions
 parameter_list|()
 function_decl|;
+comment|/**    * Hit count of L1 cache.    */
+specifier|public
+name|long
+name|getL1CacheHitCount
+parameter_list|()
+function_decl|;
+comment|/**    * Miss count of L1 cache.    */
+specifier|public
+name|long
+name|getL1CacheMissCount
+parameter_list|()
+function_decl|;
+comment|/**    * Hit ratio of L1 cache.    */
+specifier|public
+name|double
+name|getL1CacheHitRatio
+parameter_list|()
+function_decl|;
+comment|/**    * Miss ratio of L1 cache.    */
+specifier|public
+name|double
+name|getL1CacheMissRatio
+parameter_list|()
+function_decl|;
+comment|/**    * Hit count of L2 cache.    */
+specifier|public
+name|long
+name|getL2CacheHitCount
+parameter_list|()
+function_decl|;
+comment|/**    * Miss count of L2 cache.    */
+specifier|public
+name|long
+name|getL2CacheMissCount
+parameter_list|()
+function_decl|;
+comment|/**    * Hit ratio of L2 cache.    */
+specifier|public
+name|double
+name|getL2CacheHitRatio
+parameter_list|()
+function_decl|;
+comment|/**    * Miss ratio of L2 cache.    */
+specifier|public
+name|double
+name|getL2CacheMissRatio
+parameter_list|()
+function_decl|;
 comment|/**    * Force a re-computation of the metrics.    */
 name|void
 name|forceRecompute

@@ -846,6 +846,86 @@ init|=
 literal|"blockCacheTrailerHitCount"
 decl_stmt|;
 name|String
+name|L1_CACHE_HIT_COUNT
+init|=
+literal|"l1CacheHitCount"
+decl_stmt|;
+name|String
+name|L1_CACHE_HIT_COUNT_DESC
+init|=
+literal|"L1 cache hit count."
+decl_stmt|;
+name|String
+name|L1_CACHE_MISS_COUNT
+init|=
+literal|"l1CacheMissCount"
+decl_stmt|;
+name|String
+name|L1_CACHE_MISS_COUNT_DESC
+init|=
+literal|"L1 cache miss count."
+decl_stmt|;
+name|String
+name|L1_CACHE_HIT_RATIO
+init|=
+literal|"l1CacheHitRatio"
+decl_stmt|;
+name|String
+name|L1_CACHE_HIT_RATIO_DESC
+init|=
+literal|"L1 cache hit ratio."
+decl_stmt|;
+name|String
+name|L1_CACHE_MISS_RATIO
+init|=
+literal|"l1CacheMissRatio"
+decl_stmt|;
+name|String
+name|L1_CACHE_MISS_RATIO_DESC
+init|=
+literal|"L1 cache miss ratio."
+decl_stmt|;
+name|String
+name|L2_CACHE_HIT_COUNT
+init|=
+literal|"l2CacheHitCount"
+decl_stmt|;
+name|String
+name|L2_CACHE_HIT_COUNT_DESC
+init|=
+literal|"L2 cache hit count."
+decl_stmt|;
+name|String
+name|L2_CACHE_MISS_COUNT
+init|=
+literal|"l2CacheMissCount"
+decl_stmt|;
+name|String
+name|L2_CACHE_MISS_COUNT_DESC
+init|=
+literal|"L2 cache miss count."
+decl_stmt|;
+name|String
+name|L2_CACHE_HIT_RATIO
+init|=
+literal|"l2CacheHitRatio"
+decl_stmt|;
+name|String
+name|L2_CACHE_HIT_RATIO_DESC
+init|=
+literal|"L2 cache hit ratio."
+decl_stmt|;
+name|String
+name|L2_CACHE_MISS_RATIO
+init|=
+literal|"l2CacheMissRatio"
+decl_stmt|;
+name|String
+name|L2_CACHE_MISS_RATIO_DESC
+init|=
+literal|"L2 cache miss ratio."
+decl_stmt|;
+name|String
 name|RS_START_TIME_NAME
 init|=
 literal|"regionServerStartTime"
