@@ -287,6 +287,10 @@ name|ServiceException
 import|;
 end_import
 
+begin_comment
+comment|/**  * @since 2.0.0  */
+end_comment
+
 begin_class
 annotation|@
 name|InterfaceAudience

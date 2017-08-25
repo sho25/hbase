@@ -152,7 +152,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A binary comparator which lexicographically compares against the specified  * byte array using {@link org.apache.hadoop.hbase.util.Bytes#compareTo(byte[], byte[])}.  */
+comment|/**  * A binary comparator which lexicographically compares against the specified  * byte array using {@link org.apache.hadoop.hbase.util.Bytes#compareTo(byte[], byte[])}.  * @since 2.0.0  */
 end_comment
 
 begin_class
