@@ -84,7 +84,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The asynchronous version of Connection.  */
+comment|/**  * The asynchronous version of Connection.  * @since 2.0.0  */
 end_comment
 
 begin_interface

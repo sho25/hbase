@@ -34,7 +34,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The asynchronous table for normal users.  *<p>  * The implementation is required to be thread safe.  *<p>  * The implementation should make sure that user can do everything they want to the returned  * {@code CompletableFuture} without breaking anything. Usually the implementation will require user  * to provide a {@code ExecutorService}.  */
+comment|/**  * The asynchronous table for normal users.  *<p>  * The implementation is required to be thread safe.  *<p>  * The implementation should make sure that user can do everything they want to the returned  * {@code CompletableFuture} without breaking anything. Usually the implementation will require user  * to provide a {@code ExecutorService}.  * @since 2.0.0  */
 end_comment
 
 begin_interface

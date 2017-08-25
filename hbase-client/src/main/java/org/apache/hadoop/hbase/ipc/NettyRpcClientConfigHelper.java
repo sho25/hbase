@@ -166,7 +166,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Helper class for passing config to {@link NettyRpcClient}.  *<p>  * As hadoop Configuration can not pass an Object directly, we need to find a way to pass the  * EventLoopGroup to {@code AsyncRpcClient} if we want to use a single {@code EventLoopGroup} for  * the whole process.  */
+comment|/**  * Helper class for passing config to {@link NettyRpcClient}.  *<p>  * As hadoop Configuration can not pass an Object directly, we need to find a way to pass the  * EventLoopGroup to {@code AsyncRpcClient} if we want to use a single {@code EventLoopGroup} for  * the whole process.  * @since 2.0.0  */
 end_comment
 
 begin_class

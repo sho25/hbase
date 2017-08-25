@@ -74,7 +74,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The asynchronous version of RegionLocator.  *<p>  * Usually the implementations will not throw any exception directly, you need to get the exception  * from the returned {@link CompletableFuture}.  */
+comment|/**  * The asynchronous version of RegionLocator.  *<p>  * Usually the implementations will not throw any exception directly, you need to get the exception  * from the returned {@link CompletableFuture}.  * @since 2.0.0  */
 end_comment
 
 begin_interface

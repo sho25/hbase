@@ -78,7 +78,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Receives {@link Result} for an asynchronous scan.  *<p>  * Notice that, the {@link #onNext(Result[], ScanController)} method will be called in the thread  * which we send request to HBase service. So if you want the asynchronous scanner fetch data from  * HBase in background while you process the returned data, you need to move the processing work to  * another thread to make the {@code onNext} call return immediately. And please do NOT do any time  * consuming tasks in all methods below unless you know what you are doing.  */
+comment|/**  * Receives {@link Result} for an asynchronous scan.  *<p>  * Notice that, the {@link #onNext(Result[], ScanController)} method will be called in the thread  * which we send request to HBase service. So if you want the asynchronous scanner fetch data from  * HBase in background while you process the returned data, you need to move the processing work to  * another thread to make the {@code onNext} call return immediately. And please do NOT do any time  * consuming tasks in all methods below unless you know what you are doing.  * @since 2.0.0  */
 end_comment
 
 begin_interface

@@ -472,7 +472,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The asynchronous meta table accessor. Used to read/write region and assignment information store  * in<code>hbase:meta</code>.  */
+comment|/**  * The asynchronous meta table accessor. Used to read/write region and assignment information store  * in<code>hbase:meta</code>.  * @since 2.0.0  */
 end_comment
 
 begin_class

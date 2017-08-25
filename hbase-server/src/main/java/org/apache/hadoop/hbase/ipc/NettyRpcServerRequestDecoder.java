@@ -124,7 +124,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Decoder for rpc request.  */
+comment|/**  * Decoder for rpc request.  * @since 2.0.0  */
 end_comment
 
 begin_class

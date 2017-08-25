@@ -140,7 +140,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Helper class for passing netty event loop config to {@link AsyncFSWALProvider}.  */
+comment|/**  * Helper class for passing netty event loop config to {@link AsyncFSWALProvider}.  * @since 2.0.0  */
 end_comment
 
 begin_class

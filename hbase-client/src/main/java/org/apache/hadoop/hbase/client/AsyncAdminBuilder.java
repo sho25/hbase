@@ -64,7 +64,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * For creating {@link AsyncAdmin}. The implementation should have default configurations set before  * returning the builder to user. So users are free to only set the configs they care about to  * create a new AsyncAdmin instance.  */
+comment|/**  * For creating {@link AsyncAdmin}. The implementation should have default configurations set before  * returning the builder to user. So users are free to only set the configs they care about to  * create a new AsyncAdmin instance.  * @since 2.0.0  */
 end_comment
 
 begin_interface

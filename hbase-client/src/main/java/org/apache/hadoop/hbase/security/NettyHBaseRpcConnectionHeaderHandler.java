@@ -224,7 +224,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Implement logic to deal with the rpc connection header.  */
+comment|/**  * Implement logic to deal with the rpc connection header.  * @since 2.0.0  */
 end_comment
 
 begin_class

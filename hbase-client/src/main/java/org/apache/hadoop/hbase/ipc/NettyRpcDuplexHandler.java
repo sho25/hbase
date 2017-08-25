@@ -488,7 +488,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The netty rpc handler.  */
+comment|/**  * The netty rpc handler.  * @since 2.0.0  */
 end_comment
 
 begin_class

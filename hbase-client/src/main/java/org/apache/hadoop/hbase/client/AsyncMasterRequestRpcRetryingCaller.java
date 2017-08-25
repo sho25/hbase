@@ -106,7 +106,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Retry caller for a request call to master.  */
+comment|/**  * Retry caller for a request call to master.  * @since 2.0.0  */
 end_comment
 
 begin_class

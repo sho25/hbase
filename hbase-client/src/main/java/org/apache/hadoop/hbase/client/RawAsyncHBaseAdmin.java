@@ -4520,7 +4520,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The implementation of AsyncAdmin.  */
+comment|/**  * The implementation of AsyncAdmin.  * @since 2.0.0  */
 end_comment
 
 begin_class

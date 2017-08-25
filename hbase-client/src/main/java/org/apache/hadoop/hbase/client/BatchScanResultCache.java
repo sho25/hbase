@@ -146,7 +146,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A scan result cache for batched scan, i.e,  * {@code scan.getBatch()> 0&& !scan.getAllowPartialResults()}.  *<p>  * If user setBatch(5) and rpc returns 3+5+5+5+3 cells, we should return 5+5+5+5+1 to user. setBatch  * doesn't mean setAllowPartialResult(true).  */
+comment|/**  * A scan result cache for batched scan, i.e,  * {@code scan.getBatch()> 0&& !scan.getAllowPartialResults()}.  *<p>  * If user setBatch(5) and rpc returns 3+5+5+5+3 cells, we should return 5+5+5+5+1 to user. setBatch  * doesn't mean setAllowPartialResult(true).  * @since 2.0.0  */
 end_comment
 
 begin_class

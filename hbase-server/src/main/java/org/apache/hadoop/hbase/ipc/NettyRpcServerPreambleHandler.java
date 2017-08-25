@@ -132,7 +132,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Handle connection preamble.  */
+comment|/**  * Handle connection preamble.  * @since 2.0.0`  */
 end_comment
 
 begin_class

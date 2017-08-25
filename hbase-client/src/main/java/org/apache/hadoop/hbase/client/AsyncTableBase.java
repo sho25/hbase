@@ -204,7 +204,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The base interface for asynchronous version of Table. Obtain an instance from a  * {@link AsyncConnection}.  *<p>  * The implementation is required to be thread safe.  *<p>  * Usually the implementation will not throw any exception directly. You need to get the exception  * from the returned {@link CompletableFuture}.  */
+comment|/**  * The base interface for asynchronous version of Table. Obtain an instance from a  * {@link AsyncConnection}.  *<p>  * The implementation is required to be thread safe.  *<p>  * Usually the implementation will not throw any exception directly. You need to get the exception  * from the returned {@link CompletableFuture}.  * @since 2.0.0  */
 end_comment
 
 begin_interface

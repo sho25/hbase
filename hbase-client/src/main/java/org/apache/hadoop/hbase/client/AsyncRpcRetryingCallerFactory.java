@@ -280,7 +280,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Factory to create an AsyncRpcRetryCaller.  */
+comment|/**  * Factory to create an AsyncRpcRetryCaller.  * @since 2.0.0  */
 end_comment
 
 begin_class

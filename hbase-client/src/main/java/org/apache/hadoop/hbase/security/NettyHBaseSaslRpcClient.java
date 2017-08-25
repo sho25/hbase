@@ -162,7 +162,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Implement SASL logic for netty rpc client.  */
+comment|/**  * Implement SASL logic for netty rpc client.  * @since 2.0.0  */
 end_comment
 
 begin_class

@@ -122,7 +122,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Encoder for {@link RpcResponse}.  */
+comment|/**  * Encoder for {@link RpcResponse}.  * @since 2.0.0  */
 end_comment
 
 begin_class

@@ -150,7 +150,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * An ColumnFamilyDescriptor contains information about a column family such as the  * number of versions, compression settings, etc.  *  * It is used as input when creating a table or adding a column.  *  * To construct a new instance, use the {@link ColumnFamilyDescriptorBuilder} methods  */
+comment|/**  * An ColumnFamilyDescriptor contains information about a column family such as the  * number of versions, compression settings, etc.  *  * It is used as input when creating a table or adding a column.  *  * To construct a new instance, use the {@link ColumnFamilyDescriptorBuilder} methods  * @since 2.0.0  */
 end_comment
 
 begin_interface

@@ -284,7 +284,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * RpcConnection implementation for netty rpc server.  */
+comment|/**  * RpcConnection implementation for netty rpc server.  * @since 2.0.0  */
 end_comment
 
 begin_class

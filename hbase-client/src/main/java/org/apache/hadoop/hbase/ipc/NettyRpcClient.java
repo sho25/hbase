@@ -246,7 +246,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Netty client for the requests and responses.  */
+comment|/**  * Netty client for the requests and responses.  * @since 2.0.0  */
 end_comment
 
 begin_class
