@@ -127,6 +127,26 @@ name|FAILED_SCAN_KEY
 init|=
 literal|"failedScanCount"
 decl_stmt|;
+name|String
+name|SUCCESSFUL_APPEND_KEY
+init|=
+literal|"successfulAppendCount"
+decl_stmt|;
+name|String
+name|FAILED_APPEND_KEY
+init|=
+literal|"failedAppendCount"
+decl_stmt|;
+name|String
+name|SUCCESSFUL_INCREMENT_KEY
+init|=
+literal|"successfulIncrementCount"
+decl_stmt|;
+name|String
+name|FAILED_INCREMENT_KEY
+init|=
+literal|"failedIncrementCount"
+decl_stmt|;
 comment|/**    * Increment the number of requests    *    * @param inc Ammount to increment by    */
 name|void
 name|incrementRequests
@@ -192,9 +212,45 @@ name|int
 name|inc
 parameter_list|)
 function_decl|;
-comment|/**    * Increment the number failed scan requests.    *    * @param inc the inc    */
+comment|/**    * Increment the number failed scan requests.    *    * @param inc Number of failed scan requests.    */
 name|void
 name|incrementFailedScanRequests
+parameter_list|(
+specifier|final
+name|int
+name|inc
+parameter_list|)
+function_decl|;
+comment|/**    * Increment the number of successful append requests.    *    * @param inc Number of successful append requests.    */
+name|void
+name|incrementSucessfulAppendRequests
+parameter_list|(
+specifier|final
+name|int
+name|inc
+parameter_list|)
+function_decl|;
+comment|/**    * Increment the number failed append requests.    *    * @param inc Number of failed append requests.    */
+name|void
+name|incrementFailedAppendRequests
+parameter_list|(
+specifier|final
+name|int
+name|inc
+parameter_list|)
+function_decl|;
+comment|/**    * Increment the number of successful increment requests.    *    * @param inc Number of successful increment requests.    */
+name|void
+name|incrementSucessfulIncrementRequests
+parameter_list|(
+specifier|final
+name|int
+name|inc
+parameter_list|)
+function_decl|;
+comment|/**    * Increment the number failed increment requests.    *    * @param inc Number of failed increment requests.    */
+name|void
+name|incrementFailedIncrementRequests
 parameter_list|(
 specifier|final
 name|int
