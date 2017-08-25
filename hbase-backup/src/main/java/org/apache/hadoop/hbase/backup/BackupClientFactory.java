@@ -112,10 +112,6 @@ import|;
 end_import
 
 begin_class
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Private
 specifier|public
 class|class
 name|BackupClientFactory

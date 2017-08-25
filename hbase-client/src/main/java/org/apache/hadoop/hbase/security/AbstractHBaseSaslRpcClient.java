@@ -268,7 +268,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A utility class that encapsulates SASL logic for RPC client. Copied from  *<code>org.apache.hadoop.security</code>  * @since 2.0.0  */
+comment|/**  * A utility class that encapsulates SASL logic for RPC client. Copied from  *<code>org.apache.hadoop.security</code>  */
 end_comment
 
 begin_class
