@@ -97,6 +97,22 @@ name|Mutation
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|LoadTestKVGenerator
+import|;
+end_import
+
 begin_comment
 comment|/**  * A generator of random data (keys/cfs/columns/values) for load testing.  * Contains LoadTestKVGenerator as a matter of convenience...  */
 end_comment

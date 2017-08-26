@@ -369,8 +369,6 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|test
-operator|.
 name|LoadTestKVGenerator
 import|;
 end_import
@@ -392,16 +390,6 @@ operator|.
 name|junit
 operator|.
 name|BeforeClass
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
-name|Ignore
 import|;
 end_import
 

@@ -493,8 +493,6 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|test
-operator|.
 name|RedundantKVGenerator
 import|;
 end_import

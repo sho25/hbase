@@ -383,8 +383,6 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|test
-operator|.
 name|LoadTestKVGenerator
 import|;
 end_import
