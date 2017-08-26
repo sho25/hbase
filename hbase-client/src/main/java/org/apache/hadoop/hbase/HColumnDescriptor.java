@@ -1096,7 +1096,7 @@ return|;
 block|}
 comment|/**    * @param key Key whose key and value we're to remove from HCD parameters.    */
 specifier|public
-name|HColumnDescriptor
+name|void
 name|remove
 parameter_list|(
 specifier|final
@@ -1117,9 +1117,6 @@ name|key
 argument_list|)
 argument_list|)
 expr_stmt|;
-return|return
-name|this
-return|;
 block|}
 comment|/**    * @param key The key.    * @param value The value.    * @return this (for chained invocation)    */
 specifier|public
@@ -2298,7 +2295,7 @@ return|;
 block|}
 comment|/**    * Remove a configuration setting represented by the key.    */
 specifier|public
-name|HColumnDescriptor
+name|void
 name|removeConfiguration
 parameter_list|(
 specifier|final
@@ -2314,9 +2311,6 @@ argument_list|(
 name|key
 argument_list|)
 expr_stmt|;
-return|return
-name|this
-return|;
 block|}
 annotation|@
 name|Override
