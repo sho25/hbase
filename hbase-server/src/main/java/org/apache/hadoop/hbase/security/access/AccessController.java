@@ -2774,17 +2774,17 @@ operator|instanceof
 name|List
 condition|)
 block|{
-comment|// List<KeyValue>
+comment|// List<Cell>
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
-name|kvList
+name|cellList
 init|=
 operator|(
 name|List
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 operator|)
 name|family
@@ -2794,10 +2794,10 @@ argument_list|()
 decl_stmt|;
 for|for
 control|(
-name|KeyValue
-name|kv
+name|Cell
+name|cell
 range|:
-name|kvList
+name|cellList
 control|)
 block|{
 if|if
@@ -2820,7 +2820,7 @@ name|CellUtil
 operator|.
 name|cloneQualifier
 argument_list|(
-name|kv
+name|cell
 argument_list|)
 argument_list|,
 name|permRequest
@@ -2853,7 +2853,7 @@ name|CellUtil
 operator|.
 name|cloneQualifier
 argument_list|(
-name|kv
+name|cell
 argument_list|)
 argument_list|)
 argument_list|)
