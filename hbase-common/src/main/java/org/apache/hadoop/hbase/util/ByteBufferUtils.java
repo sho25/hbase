@@ -1800,7 +1800,7 @@ block|}
 comment|/**    * Copy from one buffer to another from given offset. This will be absolute positional copying and    * won't affect the position of any of the buffers.    * @param in    * @param out    * @param sourceOffset    * @param destinationOffset    * @param length    */
 specifier|public
 specifier|static
-name|int
+name|void
 name|copyFromBufferToBuffer
 parameter_list|(
 name|ByteBuffer
@@ -1933,11 +1933,7 @@ name|inDup
 argument_list|)
 expr_stmt|;
 block|}
-return|return
-name|destinationOffset
-operator|+
-name|length
-return|;
+comment|// We used to return a result but disabled; return destinationOffset + length;
 block|}
 comment|/**    * Copy from one buffer to another from given offset.    *<p>    * Note : This will advance the position marker of {@code out} but not change the position maker    * for {@code in}    * @param in source buffer    * @param out destination buffer    * @param sourceOffset offset in the source buffer    * @param length how many bytes to copy    */
 specifier|public
