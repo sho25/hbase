@@ -249,8 +249,8 @@ init|=
 literal|0
 decl_stmt|;
 specifier|private
-name|int
-name|storefileIndexSizeMB
+name|long
+name|storefileIndexSizeKB
 init|=
 literal|0
 decl_stmt|;
@@ -369,11 +369,11 @@ operator|.
 name|getMemstoreSizeMB
 argument_list|()
 expr_stmt|;
-name|storefileIndexSizeMB
+name|storefileIndexSizeKB
 operator|+=
 name|rl
 operator|.
-name|getStorefileIndexSizeMB
+name|getStorefileIndexSizeKB
 argument_list|()
 expr_stmt|;
 name|readRequestsCount
@@ -627,7 +627,7 @@ return|return
 name|memstoreSizeMB
 return|;
 block|}
-comment|/**    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    * Use {@link #getStorefileIndexSizeMB()} instead.    */
+comment|/**    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    * Use {@link #getStorefileIndexSizeKB()} instead.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -635,17 +635,26 @@ name|int
 name|getStorefileIndexSizeInMB
 parameter_list|()
 block|{
+comment|// Return value divided by 1024
 return|return
-name|storefileIndexSizeMB
+call|(
+name|int
+call|)
+argument_list|(
+name|getStorefileIndexSizeKB
+argument_list|()
+operator|>>
+literal|10
+argument_list|)
 return|;
 block|}
 specifier|public
-name|int
-name|getStorefileIndexSizeMB
+name|long
+name|getStorefileIndexSizeKB
 parameter_list|()
 block|{
 return|return
-name|storefileIndexSizeMB
+name|storefileIndexSizeKB
 return|;
 block|}
 specifier|public
@@ -1251,15 +1260,15 @@ name|appendKeyValue
 argument_list|(
 name|sb
 argument_list|,
-literal|"storefileIndexSizeMB"
+literal|"storefileIndexSizeKB"
 argument_list|,
-name|Integer
+name|Long
 operator|.
 name|valueOf
 argument_list|(
 name|this
 operator|.
-name|storefileIndexSizeMB
+name|storefileIndexSizeKB
 argument_list|)
 argument_list|)
 expr_stmt|;

@@ -242,16 +242,38 @@ name|getMemstoreSizeMB
 argument_list|()
 return|;
 block|}
-comment|/**    * @return the approximate size of storefile indexes on the heap, in MB    */
+comment|/**    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             ((<a href="https://issues.apache.org/jira/browse/HBASE-3935">HBASE-3935</a>)).    *             Use {@link #getStorefileIndexSizeKB()} instead.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|int
 name|getStorefileIndexSizeMB
 parameter_list|()
 block|{
+comment|// Return value divided by 1024
+return|return
+call|(
+name|int
+call|)
+argument_list|(
+name|regionLoadPB
+operator|.
+name|getStorefileIndexSizeKB
+argument_list|()
+operator|>>
+literal|10
+argument_list|)
+return|;
+block|}
+specifier|public
+name|long
+name|getStorefileIndexSizeKB
+parameter_list|()
+block|{
 return|return
 name|regionLoadPB
 operator|.
-name|getStorefileIndexSizeMB
+name|getStorefileIndexSizeKB
 argument_list|()
 return|;
 block|}
@@ -613,11 +635,11 @@ name|appendKeyValue
 argument_list|(
 name|sb
 argument_list|,
-literal|"storefileIndexSizeMB"
+literal|"storefileIndexSizeKB"
 argument_list|,
 name|this
 operator|.
-name|getStorefileIndexSizeMB
+name|getStorefileIndexSizeKB
 argument_list|()
 argument_list|)
 expr_stmt|;

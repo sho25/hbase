@@ -304,8 +304,8 @@ name|int
 name|memstoreSizeMB
 decl_stmt|;
 specifier|private
-name|int
-name|storefileIndexSizeMB
+name|long
+name|storefileIndexSizeKB
 decl_stmt|;
 specifier|private
 name|long
@@ -356,7 +356,7 @@ operator|=
 name|name
 expr_stmt|;
 block|}
-comment|/**        * Constructor        * @param name the region name        * @param stores the number of stores        * @param storefiles the number of store files        * @param storefileSizeMB total size of store files, in MB        * @param memstoreSizeMB total size of memstore, in MB        * @param storefileIndexSizeMB total size of store file indexes, in MB        */
+comment|/**        * Constructor        * @param name the region name        * @param stores the number of stores        * @param storefiles the number of store files        * @param storefileSizeMB total size of store files, in MB        * @param memstoreSizeMB total size of memstore, in MB        * @param storefileIndexSizeKB total size of store file indexes, in KB        */
 specifier|public
 name|Region
 parameter_list|(
@@ -376,8 +376,8 @@ parameter_list|,
 name|int
 name|memstoreSizeMB
 parameter_list|,
-name|int
-name|storefileIndexSizeMB
+name|long
+name|storefileIndexSizeKB
 parameter_list|,
 name|long
 name|readRequestsCount
@@ -433,9 +433,9 @@ name|memstoreSizeMB
 expr_stmt|;
 name|this
 operator|.
-name|storefileIndexSizeMB
+name|storefileIndexSizeKB
 operator|=
-name|storefileIndexSizeMB
+name|storefileIndexSizeKB
 expr_stmt|;
 name|this
 operator|.
@@ -541,16 +541,16 @@ return|return
 name|memstoreSizeMB
 return|;
 block|}
-comment|/**        * @return the total size of store file indexes, in MB        */
+comment|/**        * @return the total size of store file indexes, in KB        */
 annotation|@
 name|XmlAttribute
 specifier|public
-name|int
-name|getStorefileIndexSizeMB
+name|long
+name|getStorefileIndexSizeKB
 parameter_list|()
 block|{
 return|return
-name|storefileIndexSizeMB
+name|storefileIndexSizeKB
 return|;
 block|}
 comment|/**        * @return the current total read requests made to region        */
@@ -830,20 +830,20 @@ operator|=
 name|memstoreSizeMB
 expr_stmt|;
 block|}
-comment|/**        * @param storefileIndexSizeMB total size of store file indexes, in MB        */
+comment|/**        * @param storefileIndexSizeKB total size of store file indexes, in KB        */
 specifier|public
 name|void
-name|setStorefileIndexSizeMB
+name|setStorefileIndexSizeKB
 parameter_list|(
-name|int
-name|storefileIndexSizeMB
+name|long
+name|storefileIndexSizeKB
 parameter_list|)
 block|{
 name|this
 operator|.
-name|storefileIndexSizeMB
+name|storefileIndexSizeKB
 operator|=
-name|storefileIndexSizeMB
+name|storefileIndexSizeKB
 expr_stmt|;
 block|}
 block|}
@@ -900,8 +900,8 @@ parameter_list|,
 name|int
 name|memstoreSizeMB
 parameter_list|,
-name|int
-name|storefileIndexSizeMB
+name|long
+name|storefileIndexSizeKB
 parameter_list|,
 name|long
 name|readRequestsCount
@@ -942,7 +942,7 @@ name|storefileSizeMB
 argument_list|,
 name|memstoreSizeMB
 argument_list|,
-name|storefileIndexSizeMB
+name|storefileIndexSizeKB
 argument_list|,
 name|readRequestsCount
 argument_list|,
@@ -1794,7 +1794,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|"\n            storefileIndexSizeMB="
+literal|"\n            storefileIndexSizeKB="
 argument_list|)
 expr_stmt|;
 name|sb
@@ -1803,7 +1803,7 @@ name|append
 argument_list|(
 name|region
 operator|.
-name|storefileIndexSizeMB
+name|storefileIndexSizeKB
 argument_list|)
 expr_stmt|;
 name|sb
@@ -2190,11 +2190,11 @@ argument_list|)
 expr_stmt|;
 name|regionBuilder
 operator|.
-name|setStorefileIndexSizeMB
+name|setStorefileIndexSizeKB
 argument_list|(
 name|region
 operator|.
-name|storefileIndexSizeMB
+name|storefileIndexSizeKB
 argument_list|)
 expr_stmt|;
 name|regionBuilder
@@ -2505,7 +2505,7 @@ argument_list|()
 argument_list|,
 name|region
 operator|.
-name|getStorefileIndexSizeMB
+name|getStorefileIndexSizeKB
 argument_list|()
 argument_list|,
 name|region

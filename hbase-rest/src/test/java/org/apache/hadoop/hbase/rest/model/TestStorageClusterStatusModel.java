@@ -153,7 +153,7 @@ literal|"<Node heapSizeMB=\"128\" maxHeapSizeMB=\"1024\" name=\"test1\" requests
 operator|+
 literal|"<Region currentCompactedKVs=\"1\" memstoreSizeMB=\"0\" name=\"aGJhc2U6cm9vdCwsMA==\" readRequestsCount=\"1\" "
 operator|+
-literal|"rootIndexSizeKB=\"1\" storefileIndexSizeMB=\"0\" storefileSizeMB=\"0\" storefiles=\"1\" stores=\"1\" "
+literal|"rootIndexSizeKB=\"1\" storefileIndexSizeKB=\"0\" storefileSizeMB=\"0\" storefiles=\"1\" stores=\"1\" "
 operator|+
 literal|"totalCompactingKVs=\"1\" totalStaticBloomSizeKB=\"1\" totalStaticIndexSizeKB=\"1\" writeRequestsCount=\"2\"/>"
 operator|+
@@ -163,7 +163,7 @@ literal|"<Node heapSizeMB=\"512\" maxHeapSizeMB=\"1024\" name=\"test2\" requests
 operator|+
 literal|"<Region currentCompactedKVs=\"1\" memstoreSizeMB=\"0\" name=\"aGJhc2U6bWV0YSwsMTI0NjAwMDA0MzcyNA==\" "
 operator|+
-literal|"readRequestsCount=\"1\" rootIndexSizeKB=\"1\" storefileIndexSizeMB=\"0\" storefileSizeMB=\"0\" "
+literal|"readRequestsCount=\"1\" rootIndexSizeKB=\"1\" storefileIndexSizeKB=\"0\" storefileSizeMB=\"0\" "
 operator|+
 literal|"storefiles=\"1\" stores=\"1\" totalCompactingKVs=\"1\" totalStaticBloomSizeKB=\"1\" "
 operator|+
@@ -186,7 +186,7 @@ literal|"{\"regions\":2,\"requests\":0,\"averageLoad\":1.0,\"LiveNodes\":[{\"nam
 operator|+
 literal|"\"Region\":[{\"name\":\"aGJhc2U6cm9vdCwsMA==\",\"stores\":1,\"storefiles\":1,"
 operator|+
-literal|"\"storefileSizeMB\":0,\"memstoreSizeMB\":0,\"storefileIndexSizeMB\":0,"
+literal|"\"storefileSizeMB\":0,\"memstoreSizeMB\":0,\"storefileIndexSizeKB\":0,"
 operator|+
 literal|"\"readRequestsCount\":1,\"writeRequestsCount\":2,\"rootIndexSizeKB\":1,"
 operator|+
@@ -198,7 +198,7 @@ literal|"\"heapSizeMB\":128,\"maxHeapSizeMB\":1024},{\"name\":\"test2\","
 operator|+
 literal|"\"Region\":[{\"name\":\"aGJhc2U6bWV0YSwsMTI0NjAwMDA0MzcyNA==\",\"stores\":1,"
 operator|+
-literal|"\"storefiles\":1,\"storefileSizeMB\":0,\"memstoreSizeMB\":0,\"storefileIndexSizeMB\":0,"
+literal|"\"storefiles\":1,\"storefileSizeMB\":0,\"memstoreSizeMB\":0,\"storefileIndexSizeKB\":0,"
 operator|+
 literal|"\"readRequestsCount\":1,\"writeRequestsCount\":2,\"rootIndexSizeKB\":1,"
 operator|+
@@ -540,7 +540,7 @@ name|assertEquals
 argument_list|(
 name|region
 operator|.
-name|getStorefileIndexSizeMB
+name|getStorefileIndexSizeKB
 argument_list|()
 argument_list|,
 literal|0
@@ -751,7 +751,7 @@ name|assertEquals
 argument_list|(
 name|region
 operator|.
-name|getStorefileIndexSizeMB
+name|getStorefileIndexSizeKB
 argument_list|()
 argument_list|,
 literal|0

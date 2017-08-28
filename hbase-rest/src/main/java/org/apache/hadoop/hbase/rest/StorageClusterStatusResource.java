@@ -532,7 +532,7 @@ argument_list|()
 argument_list|,
 name|region
 operator|.
-name|getStorefileIndexSizeMB
+name|getStorefileIndexSizeKB
 argument_list|()
 argument_list|,
 name|region

@@ -236,7 +236,7 @@ literal|82
 argument_list|,
 name|sl
 operator|.
-name|getStorefileIndexSizeMB
+name|getStorefileIndexSizeKB
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -539,7 +539,7 @@ argument_list|(
 literal|100
 argument_list|)
 operator|.
-name|setStorefileIndexSizeMB
+name|setStorefileIndexSizeKB
 argument_list|(
 literal|42
 argument_list|)
@@ -608,7 +608,7 @@ argument_list|(
 literal|200
 argument_list|)
 operator|.
-name|setStorefileIndexSizeMB
+name|setStorefileIndexSizeKB
 argument_list|(
 literal|40
 argument_list|)
