@@ -223,11 +223,11 @@ name|apache
 operator|.
 name|commons
 operator|.
-name|collections
+name|collections4
 operator|.
-name|buffer
+name|queue
 operator|.
-name|CircularFifoBuffer
+name|CircularFifoQueue
 import|;
 end_import
 
@@ -1056,8 +1056,8 @@ name|syncWaitMsec
 decl_stmt|;
 comment|// Variables used for UI display
 specifier|private
-name|CircularFifoBuffer
-name|syncMetricsBuffer
+name|CircularFifoQueue
+name|syncMetricsQueue
 decl_stmt|;
 specifier|public
 specifier|static
@@ -1393,10 +1393,10 @@ name|DEFAULT_USE_HSYNC
 argument_list|)
 expr_stmt|;
 comment|// WebUI
-name|syncMetricsBuffer
+name|syncMetricsQueue
 operator|=
 operator|new
-name|CircularFifoBuffer
+name|CircularFifoQueue
 argument_list|(
 name|conf
 operator|.
@@ -4011,7 +4011,7 @@ name|syncedPerSec
 operator|=
 name|syncedPerSec
 expr_stmt|;
-name|syncMetricsBuffer
+name|syncMetricsQueue
 operator|.
 name|add
 argument_list|(
@@ -4159,7 +4159,7 @@ operator|new
 name|ArrayList
 argument_list|<>
 argument_list|(
-name|syncMetricsBuffer
+name|syncMetricsQueue
 argument_list|)
 return|;
 block|}

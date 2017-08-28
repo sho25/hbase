@@ -93,7 +93,7 @@ name|apache
 operator|.
 name|commons
 operator|.
-name|collections
+name|collections4
 operator|.
 name|MapUtils
 import|;
@@ -552,24 +552,6 @@ operator|.
 name|generated
 operator|.
 name|TDelete
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|thrift2
-operator|.
-name|generated
-operator|.
-name|TDeleteType
 import|;
 end_import
 

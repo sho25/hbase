@@ -113,11 +113,11 @@ name|apache
 operator|.
 name|commons
 operator|.
-name|collections
+name|collections4
 operator|.
-name|buffer
+name|queue
 operator|.
-name|CircularFifoBuffer
+name|CircularFifoQueue
 import|;
 end_import
 
@@ -367,7 +367,7 @@ name|expirationTime
 decl_stmt|;
 specifier|private
 specifier|final
-name|CircularFifoBuffer
+name|CircularFifoQueue
 name|tasks
 decl_stmt|;
 specifier|private
@@ -429,7 +429,7 @@ expr_stmt|;
 name|tasks
 operator|=
 operator|new
-name|CircularFifoBuffer
+name|CircularFifoQueue
 argument_list|(
 name|maxTasks
 argument_list|)
@@ -1734,7 +1734,7 @@ name|boolean
 name|filter
 parameter_list|(
 name|MonitoredTask
-name|t
+name|task
 parameter_list|)
 function_decl|;
 block|}

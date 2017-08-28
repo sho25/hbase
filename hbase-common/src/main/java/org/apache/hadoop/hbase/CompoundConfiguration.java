@@ -103,7 +103,7 @@ name|apache
 operator|.
 name|commons
 operator|.
-name|collections
+name|collections4
 operator|.
 name|iterators
 operator|.
@@ -1511,7 +1511,7 @@ block|}
 return|return
 name|UnmodifiableIterator
 operator|.
-name|decorate
+name|unmodifiableIterator
 argument_list|(
 name|ret
 operator|.
@@ -1622,10 +1622,6 @@ throw|;
 block|}
 block|}
 end_class
-
-begin_empty_stmt
-empty_stmt|;
-end_empty_stmt
 
 end_unit
 
