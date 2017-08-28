@@ -10263,7 +10263,7 @@ name|tableVal
 init|=
 name|htd
 operator|.
-name|getConfigurationValue
+name|getValue
 argument_list|(
 name|CONF_KEY
 argument_list|)
@@ -10900,7 +10900,7 @@ name|className
 init|=
 name|htd
 operator|.
-name|getConfigurationValue
+name|getValue
 argument_list|(
 name|DefaultStoreEngine
 operator|.
@@ -10945,7 +10945,7 @@ name|sv
 init|=
 name|htd
 operator|.
-name|getConfigurationValue
+name|getValue
 argument_list|(
 name|HStore
 operator|.

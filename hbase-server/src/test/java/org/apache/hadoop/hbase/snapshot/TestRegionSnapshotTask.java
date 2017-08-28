@@ -1224,7 +1224,7 @@ operator|*
 literal|1024
 argument_list|)
 operator|.
-name|setConfiguration
+name|setValue
 argument_list|(
 literal|"hbase.hstore.compactionThreshold"
 argument_list|,

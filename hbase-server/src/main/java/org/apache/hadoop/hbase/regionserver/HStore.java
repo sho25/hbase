@@ -1659,14 +1659,14 @@ argument_list|(
 name|confParam
 argument_list|)
 operator|.
-name|addStringMap
+name|addBytesMap
 argument_list|(
 name|region
 operator|.
 name|getTableDescriptor
 argument_list|()
 operator|.
-name|getConfiguration
+name|getValues
 argument_list|()
 argument_list|)
 operator|.

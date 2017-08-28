@@ -618,7 +618,7 @@ decl_stmt|;
 comment|// disable sanity check
 name|builder
 operator|.
-name|setConfiguration
+name|setValue
 argument_list|(
 literal|"hbase.table.sanity.checks"
 argument_list|,

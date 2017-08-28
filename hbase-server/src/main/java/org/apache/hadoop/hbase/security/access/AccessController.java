@@ -5995,7 +5995,7 @@ name|env
 expr_stmt|;
 name|conf
 operator|.
-name|addStringMap
+name|addBytesMap
 argument_list|(
 name|regionEnv
 operator|.
@@ -6005,7 +6005,7 @@ operator|.
 name|getTableDescriptor
 argument_list|()
 operator|.
-name|getConfiguration
+name|getValues
 argument_list|()
 argument_list|)
 expr_stmt|;

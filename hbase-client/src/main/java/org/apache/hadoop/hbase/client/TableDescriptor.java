@@ -303,8 +303,7 @@ return|;
 block|}
 block|}
 comment|// punt on comparison for ordering, just calculate difference
-name|result
-operator|=
+return|return
 name|Integer
 operator|.
 name|compare
@@ -320,39 +319,6 @@ argument_list|,
 name|rhs
 operator|.
 name|getValues
-argument_list|()
-operator|.
-name|hashCode
-argument_list|()
-argument_list|)
-expr_stmt|;
-if|if
-condition|(
-name|result
-operator|!=
-literal|0
-condition|)
-block|{
-return|return
-name|result
-return|;
-block|}
-return|return
-name|Integer
-operator|.
-name|compare
-argument_list|(
-name|lhs
-operator|.
-name|getConfiguration
-argument_list|()
-operator|.
-name|hashCode
-argument_list|()
-argument_list|,
-name|rhs
-operator|.
-name|getConfiguration
 argument_list|()
 operator|.
 name|hashCode
@@ -365,24 +331,6 @@ comment|/**    * Returns the count of the column families of the table.    *    
 name|int
 name|getColumnFamilyCount
 parameter_list|()
-function_decl|;
-comment|/**    * Getter for fetching an unmodifiable map.    *    * @return an unmodifiable map    */
-name|Map
-argument_list|<
-name|String
-argument_list|,
-name|String
-argument_list|>
-name|getConfiguration
-parameter_list|()
-function_decl|;
-comment|/**    * Getter for accessing the configuration value by key    *    * @param key the key whose associated value is to be returned    * @return the value to which the specified key is mapped, or {@code null} if    * this map contains no mapping for the key    */
-name|String
-name|getConfigurationValue
-parameter_list|(
-name|String
-name|key
-parameter_list|)
 function_decl|;
 comment|/**    * Return the list of attached co-processor represented by their name    * className    *    * @return The list of co-processors classNames    */
 name|Collection
