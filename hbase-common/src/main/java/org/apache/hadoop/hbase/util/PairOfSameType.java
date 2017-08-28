@@ -35,23 +35,9 @@ name|apache
 operator|.
 name|commons
 operator|.
-name|lang3
+name|lang
 operator|.
 name|NotImplementedException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HConstants
 import|;
 end_import
 
@@ -407,11 +393,7 @@ block|{
 throw|throw
 operator|new
 name|NotImplementedException
-argument_list|(
-name|HConstants
-operator|.
-name|NOT_IMPLEMENTED
-argument_list|)
+argument_list|()
 throw|;
 block|}
 block|}

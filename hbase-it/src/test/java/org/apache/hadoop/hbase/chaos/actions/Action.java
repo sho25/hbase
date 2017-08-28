@@ -101,7 +101,9 @@ name|apache
 operator|.
 name|commons
 operator|.
-name|lang3
+name|lang
+operator|.
+name|math
 operator|.
 name|RandomUtils
 import|;
@@ -1491,8 +1493,6 @@ name|RandomUtils
 operator|.
 name|nextInt
 argument_list|(
-literal|0
-argument_list|,
 name|regions
 operator|.
 name|size
@@ -1597,8 +1597,6 @@ name|RandomUtils
 operator|.
 name|nextInt
 argument_list|(
-literal|0
-argument_list|,
 name|toServers
 operator|.
 name|size

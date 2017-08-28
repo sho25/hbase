@@ -149,7 +149,7 @@ name|apache
 operator|.
 name|commons
 operator|.
-name|lang3
+name|lang
 operator|.
 name|NotImplementedException
 import|;
@@ -1914,11 +1914,7 @@ block|{
 throw|throw
 operator|new
 name|NotImplementedException
-argument_list|(
-name|HConstants
-operator|.
-name|NOT_IMPLEMENTED
-argument_list|)
+argument_list|()
 throw|;
 block|}
 if|if

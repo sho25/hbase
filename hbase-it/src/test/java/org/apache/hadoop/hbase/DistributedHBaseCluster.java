@@ -1706,9 +1706,7 @@ throw|throw
 operator|new
 name|RuntimeException
 argument_list|(
-name|HConstants
-operator|.
-name|NOT_IMPLEMENTED
+literal|"Not implemented yet"
 argument_list|)
 throw|;
 block|}
@@ -1726,9 +1724,7 @@ throw|throw
 operator|new
 name|RuntimeException
 argument_list|(
-name|HConstants
-operator|.
-name|NOT_IMPLEMENTED
+literal|"Not implemented yet"
 argument_list|)
 throw|;
 block|}
