@@ -272,11 +272,11 @@ name|class
 argument_list|,
 literal|"Compare"
 operator|+
-literal|" the data from tables in two different clusters. WARNING: It"
+literal|" data from tables in two different clusters. It"
 operator|+
-literal|" doesn't work for incrementColumnValues'd cells since the"
+literal|" doesn't work for incrementColumnValues'd cells since"
 operator|+
-literal|" timestamp is changed after being appended to the log."
+literal|" timestamp is changed after appending to WAL."
 argument_list|)
 expr_stmt|;
 name|pgd

@@ -1561,8 +1561,6 @@ name|addDependencyJarsForClasses
 argument_list|(
 name|job
 argument_list|,
-comment|// when making changes here, consider also mapreduce.TableMapReduceUtil
-comment|// pull job classes
 name|job
 operator|.
 name|getMapOutputKeyClass
