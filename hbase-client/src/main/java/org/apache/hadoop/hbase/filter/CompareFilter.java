@@ -75,6 +75,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CompareOperator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -217,7 +231,7 @@ name|CompareFilter
 extends|extends
 name|FilterBase
 block|{
-comment|/** Comparison operators. */
+comment|/**    * Comparison operators. For filters only!    * Use {@link CompareOperator} otherwise.    * It (intentionally) has at least the below enums with same names.    * TODO: Replace with generic {@link CompareOperator}    */
 annotation|@
 name|InterfaceAudience
 operator|.

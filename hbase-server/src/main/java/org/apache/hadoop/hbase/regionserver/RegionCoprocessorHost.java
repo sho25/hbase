@@ -239,6 +239,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CompareOperator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|Cell
 import|;
 end_import
@@ -648,24 +662,6 @@ operator|.
 name|filter
 operator|.
 name|ByteArrayComparable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|filter
-operator|.
-name|CompareFilter
-operator|.
-name|CompareOp
 import|;
 end_import
 
@@ -4993,7 +4989,7 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param compareOp the comparison operation    * @param comparator the comparator    * @param put data to put if check succeeds    * @return true or false to return to client if default processing should    * be bypassed, or null otherwise    * @throws IOException e    */
+comment|/**    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param op the comparison operation    * @param comparator the comparator    * @param put data to put if check succeeds    * @return true or false to return to client if default processing should    * be bypassed, or null otherwise    * @throws IOException e    */
 specifier|public
 name|Boolean
 name|preCheckAndPut
@@ -5014,8 +5010,8 @@ index|[]
 name|qualifier
 parameter_list|,
 specifier|final
-name|CompareOp
-name|compareOp
+name|CompareOperator
+name|op
 parameter_list|,
 specifier|final
 name|ByteArrayComparable
@@ -5081,7 +5077,7 @@ name|family
 argument_list|,
 name|qualifier
 argument_list|,
-name|compareOp
+name|op
 argument_list|,
 name|comparator
 argument_list|,
@@ -5097,7 +5093,7 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param compareOp the comparison operation    * @param comparator the comparator    * @param put data to put if check succeeds    * @return true or false to return to client if default processing should    * be bypassed, or null otherwise    * @throws IOException e    */
+comment|/**    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param op the comparison operation    * @param comparator the comparator    * @param put data to put if check succeeds    * @return true or false to return to client if default processing should    * be bypassed, or null otherwise    * @throws IOException e    */
 specifier|public
 name|Boolean
 name|preCheckAndPutAfterRowLock
@@ -5118,8 +5114,8 @@ index|[]
 name|qualifier
 parameter_list|,
 specifier|final
-name|CompareOp
-name|compareOp
+name|CompareOperator
+name|op
 parameter_list|,
 specifier|final
 name|ByteArrayComparable
@@ -5185,7 +5181,7 @@ name|family
 argument_list|,
 name|qualifier
 argument_list|,
-name|compareOp
+name|op
 argument_list|,
 name|comparator
 argument_list|,
@@ -5201,7 +5197,7 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param compareOp the comparison operation    * @param comparator the comparator    * @param put data to put if check succeeds    * @throws IOException e    */
+comment|/**    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param op the comparison operation    * @param comparator the comparator    * @param put data to put if check succeeds    * @throws IOException e    */
 specifier|public
 name|boolean
 name|postCheckAndPut
@@ -5222,8 +5218,8 @@ index|[]
 name|qualifier
 parameter_list|,
 specifier|final
-name|CompareOp
-name|compareOp
+name|CompareOperator
+name|op
 parameter_list|,
 specifier|final
 name|ByteArrayComparable
@@ -5290,7 +5286,7 @@ name|family
 argument_list|,
 name|qualifier
 argument_list|,
-name|compareOp
+name|op
 argument_list|,
 name|comparator
 argument_list|,
@@ -5306,7 +5302,7 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param compareOp the comparison operation    * @param comparator the comparator    * @param delete delete to commit if check succeeds    * @return true or false to return to client if default processing should    * be bypassed, or null otherwise    * @throws IOException e    */
+comment|/**    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param op the comparison operation    * @param comparator the comparator    * @param delete delete to commit if check succeeds    * @return true or false to return to client if default processing should    * be bypassed, or null otherwise    * @throws IOException e    */
 specifier|public
 name|Boolean
 name|preCheckAndDelete
@@ -5327,8 +5323,8 @@ index|[]
 name|qualifier
 parameter_list|,
 specifier|final
-name|CompareOp
-name|compareOp
+name|CompareOperator
+name|op
 parameter_list|,
 specifier|final
 name|ByteArrayComparable
@@ -5394,7 +5390,7 @@ name|family
 argument_list|,
 name|qualifier
 argument_list|,
-name|compareOp
+name|op
 argument_list|,
 name|comparator
 argument_list|,
@@ -5410,7 +5406,7 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param compareOp the comparison operation    * @param comparator the comparator    * @param delete delete to commit if check succeeds    * @return true or false to return to client if default processing should    * be bypassed, or null otherwise    * @throws IOException e    */
+comment|/**    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param op the comparison operation    * @param comparator the comparator    * @param delete delete to commit if check succeeds    * @return true or false to return to client if default processing should    * be bypassed, or null otherwise    * @throws IOException e    */
 specifier|public
 name|Boolean
 name|preCheckAndDeleteAfterRowLock
@@ -5431,8 +5427,8 @@ index|[]
 name|qualifier
 parameter_list|,
 specifier|final
-name|CompareOp
-name|compareOp
+name|CompareOperator
+name|op
 parameter_list|,
 specifier|final
 name|ByteArrayComparable
@@ -5498,7 +5494,7 @@ name|family
 argument_list|,
 name|qualifier
 argument_list|,
-name|compareOp
+name|op
 argument_list|,
 name|comparator
 argument_list|,
@@ -5514,7 +5510,7 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param compareOp the comparison operation    * @param comparator the comparator    * @param delete delete to commit if check succeeds    * @throws IOException e    */
+comment|/**    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param op the comparison operation    * @param comparator the comparator    * @param delete delete to commit if check succeeds    * @throws IOException e    */
 specifier|public
 name|boolean
 name|postCheckAndDelete
@@ -5535,8 +5531,8 @@ index|[]
 name|qualifier
 parameter_list|,
 specifier|final
-name|CompareOp
-name|compareOp
+name|CompareOperator
+name|op
 parameter_list|,
 specifier|final
 name|ByteArrayComparable
@@ -5603,7 +5599,7 @@ name|family
 argument_list|,
 name|qualifier
 argument_list|,
-name|compareOp
+name|op
 argument_list|,
 name|comparator
 argument_list|,

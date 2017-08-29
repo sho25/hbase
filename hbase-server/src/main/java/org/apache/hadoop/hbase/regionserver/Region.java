@@ -81,7 +81,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Cell
+name|*
 import|;
 end_import
 
@@ -95,63 +95,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellComparator
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HBaseInterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HDFSBlocksDistribution
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HTableDescriptor
+name|CompareOperator
 import|;
 end_import
 
@@ -408,24 +352,6 @@ operator|.
 name|filter
 operator|.
 name|ByteArrayComparable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|filter
-operator|.
-name|CompareFilter
-operator|.
-name|CompareOp
 import|;
 end_import
 
@@ -972,7 +898,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Atomically checks if a row/family/qualifier value matches the expected value and if it does,    * it performs the mutation. If the passed value is null, the lack of column value    * (ie: non-existence) is used. See checkAndRowMutate to do many checkAndPuts at a time on a    * single row.    * @param row to check    * @param family column family to check    * @param qualifier column qualifier to check    * @param compareOp the comparison operator    * @param comparator    * @param mutation    * @param writeToWAL    * @return true if mutation was applied, false otherwise    * @throws IOException    */
+comment|/**    * Atomically checks if a row/family/qualifier value matches the expected value and if it does,    * it performs the mutation. If the passed value is null, the lack of column value    * (ie: non-existence) is used. See checkAndRowMutate to do many checkAndPuts at a time on a    * single row.    * @param row to check    * @param family column family to check    * @param qualifier column qualifier to check    * @param op the comparison operator    * @param comparator    * @param mutation    * @param writeToWAL    * @return true if mutation was applied, false otherwise    * @throws IOException    */
 name|boolean
 name|checkAndMutate
 parameter_list|(
@@ -988,8 +914,8 @@ name|byte
 index|[]
 name|qualifier
 parameter_list|,
-name|CompareOp
-name|compareOp
+name|CompareOperator
+name|op
 parameter_list|,
 name|ByteArrayComparable
 name|comparator
@@ -1003,7 +929,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Atomically checks if a row/family/qualifier value matches the expected values and if it does,    * it performs the row mutations. If the passed value is null, the lack of column value    * (ie: non-existence) is used. Use to do many mutations on a single row. Use checkAndMutate    * to do one checkAndMutate at a time.    * @param row to check    * @param family column family to check    * @param qualifier column qualifier to check    * @param compareOp the comparison operator    * @param comparator    * @param mutations    * @param writeToWAL    * @return true if mutations were applied, false otherwise    * @throws IOException    */
+comment|/**    * Atomically checks if a row/family/qualifier value matches the expected values and if it does,    * it performs the row mutations. If the passed value is null, the lack of column value    * (ie: non-existence) is used. Use to do many mutations on a single row. Use checkAndMutate    * to do one checkAndMutate at a time.    * @param row to check    * @param family column family to check    * @param qualifier column qualifier to check    * @param op the comparison operator    * @param comparator    * @param mutations    * @param writeToWAL    * @return true if mutations were applied, false otherwise    * @throws IOException    */
 name|boolean
 name|checkAndRowMutate
 parameter_list|(
@@ -1019,8 +945,8 @@ name|byte
 index|[]
 name|qualifier
 parameter_list|,
-name|CompareOp
-name|compareOp
+name|CompareOperator
+name|op
 parameter_list|,
 name|ByteArrayComparable
 name|comparator

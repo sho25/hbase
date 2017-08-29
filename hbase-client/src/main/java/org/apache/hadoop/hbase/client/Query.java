@@ -287,6 +287,10 @@ name|Bytes
 import|;
 end_import
 
+begin_comment
+comment|/**  * Base class for HBase read operations; e.g. Scan and Get.  */
+end_comment
+
 begin_class
 annotation|@
 name|InterfaceAudience

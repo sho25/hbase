@@ -81,6 +81,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CompareOperator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HTableDescriptor
 import|;
 end_import
@@ -445,7 +459,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Atomically checks if a row/family/qualifier value matches the expected    * value. If it does, it adds the put.  If the passed value is null, the check    * is for the lack of column (ie: non-existence)    *    * The expected value argument of this call is on the left and the current    * value of the cell is on the right side of the comparison operator.    *    * Ie. eg. GREATER operator means expected value> existing<=> add the put.    *    * @param row to check    * @param family column family to check    * @param qualifier column qualifier to check    * @param compareOp comparison operator to use    * @param value the expected value    * @param put data to put if check succeeds    * @throws IOException e    * @return true if the new put was executed, false otherwise    */
+comment|/**    * Atomically checks if a row/family/qualifier value matches the expected    * value. If it does, it adds the put.  If the passed value is null, the check    * is for the lack of column (ie: non-existence)    *    * The expected value argument of this call is on the left and the current    * value of the cell is on the right side of the comparison operator.    *    * Ie. eg. GREATER operator means expected value> existing<=> add the put.    *    * @param row to check    * @param family column family to check    * @param qualifier column qualifier to check    * @param compareOp comparison operator to use    * @param value the expected value    * @param put data to put if check succeeds    * @throws IOException e    * @return true if the new put was executed, false otherwise    * @deprecated Since 2.0.0. Will be removed in 3.0.0. Use    *  {@link #checkAndPut(byte[], byte[], byte[], CompareOperator, byte[], Put)}}    */
+annotation|@
+name|Deprecated
 name|boolean
 name|checkAndPut
 parameter_list|(
@@ -465,6 +481,35 @@ name|CompareFilter
 operator|.
 name|CompareOp
 name|compareOp
+parameter_list|,
+name|byte
+index|[]
+name|value
+parameter_list|,
+name|Put
+name|put
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Atomically checks if a row/family/qualifier value matches the expected    * value. If it does, it adds the put.  If the passed value is null, the check    * is for the lack of column (ie: non-existence)    *    * The expected value argument of this call is on the left and the current    * value of the cell is on the right side of the comparison operator.    *    * Ie. eg. GREATER operator means expected value> existing<=> add the put.    *    * @param row to check    * @param family column family to check    * @param qualifier column qualifier to check    * @param op comparison operator to use    * @param value the expected value    * @param put data to put if check succeeds    * @throws IOException e    * @return true if the new put was executed, false otherwise    */
+name|boolean
+name|checkAndPut
+parameter_list|(
+name|byte
+index|[]
+name|row
+parameter_list|,
+name|byte
+index|[]
+name|family
+parameter_list|,
+name|byte
+index|[]
+name|qualifier
+parameter_list|,
+name|CompareOperator
+name|op
 parameter_list|,
 name|byte
 index|[]
@@ -525,7 +570,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Atomically checks if a row/family/qualifier value matches the expected    * value. If it does, it adds the delete.  If the passed value is null, the    * check is for the lack of column (ie: non-existence)    *    * The expected value argument of this call is on the left and the current    * value of the cell is on the right side of the comparison operator.    *    * Ie. eg. GREATER operator means expected value> existing<=> add the delete.    *    * @param row to check    * @param family column family to check    * @param qualifier column qualifier to check    * @param compareOp comparison operator to use    * @param value the expected value    * @param delete data to delete if check succeeds    * @throws IOException e    * @return true if the new delete was executed, false otherwise    */
+comment|/**    * Atomically checks if a row/family/qualifier value matches the expected    * value. If it does, it adds the delete.  If the passed value is null, the    * check is for the lack of column (ie: non-existence)    *    * The expected value argument of this call is on the left and the current    * value of the cell is on the right side of the comparison operator.    *    * Ie. eg. GREATER operator means expected value> existing<=> add the delete.    *    * @param row to check    * @param family column family to check    * @param qualifier column qualifier to check    * @param compareOp comparison operator to use    * @param value the expected value    * @param delete data to delete if check succeeds    * @throws IOException e    * @return true if the new delete was executed, false otherwise    * @deprecated Since 2.0.0. Will be removed in 3.0.0. Use    *  {@link #checkAndDelete(byte[], byte[], byte[], byte[], Delete)}    */
+annotation|@
+name|Deprecated
 name|boolean
 name|checkAndDelete
 parameter_list|(
@@ -545,6 +592,35 @@ name|CompareFilter
 operator|.
 name|CompareOp
 name|compareOp
+parameter_list|,
+name|byte
+index|[]
+name|value
+parameter_list|,
+name|Delete
+name|delete
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Atomically checks if a row/family/qualifier value matches the expected    * value. If it does, it adds the delete.  If the passed value is null, the    * check is for the lack of column (ie: non-existence)    *    * The expected value argument of this call is on the left and the current    * value of the cell is on the right side of the comparison operator.    *    * Ie. eg. GREATER operator means expected value> existing<=> add the delete.    *    * @param row to check    * @param family column family to check    * @param qualifier column qualifier to check    * @param op comparison operator to use    * @param value the expected value    * @param delete data to delete if check succeeds    * @throws IOException e    * @return true if the new delete was executed, false otherwise    */
+name|boolean
+name|checkAndDelete
+parameter_list|(
+name|byte
+index|[]
+name|row
+parameter_list|,
+name|byte
+index|[]
+name|family
+parameter_list|,
+name|byte
+index|[]
+name|qualifier
+parameter_list|,
+name|CompareOperator
+name|op
 parameter_list|,
 name|byte
 index|[]
@@ -833,7 +909,9 @@ name|ServiceException
 throws|,
 name|Throwable
 function_decl|;
-comment|/**    * Atomically checks if a row/family/qualifier value matches the expected value.    * If it does, it performs the row mutations.  If the passed value is null, the check    * is for the lack of column (ie: non-existence)    *    * The expected value argument of this call is on the left and the current    * value of the cell is on the right side of the comparison operator.    *    * Ie. eg. GREATER operator means expected value> existing<=> perform row mutations.    *    * @param row to check    * @param family column family to check    * @param qualifier column qualifier to check    * @param compareOp the comparison operator    * @param value the expected value    * @param mutation  mutations to perform if check succeeds    * @throws IOException e    * @return true if the new put was executed, false otherwise    */
+comment|/**    * Atomically checks if a row/family/qualifier value matches the expected value.    * If it does, it performs the row mutations.  If the passed value is null, the check    * is for the lack of column (ie: non-existence)    *    * The expected value argument of this call is on the left and the current    * value of the cell is on the right side of the comparison operator.    *    * Ie. eg. GREATER operator means expected value> existing<=> perform row mutations.    *    * @param row to check    * @param family column family to check    * @param qualifier column qualifier to check    * @param compareOp the comparison operator    * @param value the expected value    * @param mutation  mutations to perform if check succeeds    * @throws IOException e    * @return true if the new put was executed, false otherwise    * @deprecated Since 2.0.0. Will be removed in 3.0.0. Use    * {@link #checkAndMutate(byte[], byte[], byte[], CompareOperator, byte[], RowMutations)}    */
+annotation|@
+name|Deprecated
 name|boolean
 name|checkAndMutate
 parameter_list|(
@@ -853,6 +931,35 @@ name|CompareFilter
 operator|.
 name|CompareOp
 name|compareOp
+parameter_list|,
+name|byte
+index|[]
+name|value
+parameter_list|,
+name|RowMutations
+name|mutation
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Atomically checks if a row/family/qualifier value matches the expected value.    * If it does, it performs the row mutations.  If the passed value is null, the check    * is for the lack of column (ie: non-existence)    *    * The expected value argument of this call is on the left and the current    * value of the cell is on the right side of the comparison operator.    *    * Ie. eg. GREATER operator means expected value> existing<=> perform row mutations.    *    * @param row to check    * @param family column family to check    * @param qualifier column qualifier to check    * @param op the comparison operator    * @param value the expected value    * @param mutation  mutations to perform if check succeeds    * @throws IOException e    * @return true if the new put was executed, false otherwise    */
+name|boolean
+name|checkAndMutate
+parameter_list|(
+name|byte
+index|[]
+name|row
+parameter_list|,
+name|byte
+index|[]
+name|family
+parameter_list|,
+name|byte
+index|[]
+name|qualifier
+parameter_list|,
+name|CompareOperator
+name|op
 parameter_list|,
 name|byte
 index|[]
