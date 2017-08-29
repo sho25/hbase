@@ -571,9 +571,7 @@ parameter_list|)
 block|{
 try|try
 block|{
-name|this
-operator|.
-name|stream
+name|in
 operator|.
 name|setDropBehind
 argument_list|(
@@ -598,9 +596,7 @@ condition|)
 block|{
 try|try
 block|{
-name|this
-operator|.
-name|stream
+name|in
 operator|.
 name|setReadahead
 argument_list|(
