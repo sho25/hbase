@@ -1350,8 +1350,7 @@ block|}
 block|}
 block|}
 comment|/**    * An AccessTestAction performs an action that will be examined to confirm    * the results conform to expected access rights.    *<p>    * To indicate an action was allowed, return null or a non empty list of    * KeyValues.    *<p>    * To indicate the action was not allowed, either throw an AccessDeniedException    * or return an empty list of KeyValues.    */
-specifier|protected
-specifier|static
+specifier|public
 interface|interface
 name|AccessTestAction
 extends|extends
