@@ -344,6 +344,30 @@ specifier|public
 specifier|static
 specifier|final
 name|String
+name|OPTION_YARN_QUEUE_NAME
+init|=
+literal|"q"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|OPTION_YARN_QUEUE_NAME_DESC
+init|=
+literal|"Yarn queue name to run backup create command on"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|OPTION_YARN_QUEUE_NAME_RESTORE_DESC
+init|=
+literal|"Yarn queue name to run backup restore command on"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
 name|BACKUP_CONFIG_STRING
 init|=
 name|BackupRestoreConstants
