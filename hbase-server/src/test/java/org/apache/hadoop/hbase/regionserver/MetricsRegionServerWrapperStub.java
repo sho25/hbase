@@ -439,6 +439,17 @@ annotation|@
 name|Override
 specifier|public
 name|long
+name|getMemstoreLimit
+parameter_list|()
+block|{
+return|return
+literal|419
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|long
 name|getBlockCacheFreeSize
 parameter_list|()
 block|{

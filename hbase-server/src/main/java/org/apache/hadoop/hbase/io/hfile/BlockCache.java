@@ -159,6 +159,11 @@ name|long
 name|size
 parameter_list|()
 function_decl|;
+comment|/**    * Returns the Max size of the block cache, in bytes.    * @return size of cache, in bytes    */
+name|long
+name|getMaxSize
+parameter_list|()
+function_decl|;
 comment|/**    * Returns the free size of the block cache, in bytes.    * @return free space in cache, in bytes    */
 name|long
 name|getFreeSize

@@ -2115,6 +2115,8 @@ operator|.
 name|cacheEnabled
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|long
 name|getMaxSize

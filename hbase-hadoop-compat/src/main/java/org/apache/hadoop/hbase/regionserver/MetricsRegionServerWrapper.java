@@ -204,6 +204,11 @@ name|int
 name|getFlushQueueSize
 parameter_list|()
 function_decl|;
+specifier|public
+name|long
+name|getMemstoreLimit
+parameter_list|()
+function_decl|;
 comment|/**    * Get the size (in bytes) of the block cache that is free.    */
 name|long
 name|getBlockCacheFreeSize

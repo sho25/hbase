@@ -3733,6 +3733,8 @@ return|;
 block|}
 block|}
 comment|/**    * Get the maximum size of this cache.    *    * @return max size in bytes    */
+annotation|@
+name|Override
 specifier|public
 name|long
 name|getMaxSize
