@@ -996,7 +996,9 @@ name|HConstants
 operator|.
 name|ZOOKEEPER_MAX_CLIENT_CNXNS
 argument_list|,
-literal|1000
+name|HConstants
+operator|.
+name|DEFAULT_ZOOKEPER_MAX_CLIENT_CNXNS
 argument_list|)
 argument_list|)
 expr_stmt|;

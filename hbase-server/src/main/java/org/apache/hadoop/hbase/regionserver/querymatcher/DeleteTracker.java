@@ -111,22 +111,6 @@ name|void
 name|reset
 parameter_list|()
 function_decl|;
-comment|/**    * Return codes for comparison of two Deletes.    *<p>    * The codes tell the merging function what to do.    *<p>    * INCLUDE means add the specified Delete to the merged list. NEXT means move to the next element    * in the specified list(s).    */
-enum|enum
-name|DeleteCompare
-block|{
-name|INCLUDE_OLD_NEXT_OLD
-block|,
-name|INCLUDE_OLD_NEXT_BOTH
-block|,
-name|INCLUDE_NEW_NEXT_NEW
-block|,
-name|INCLUDE_NEW_NEXT_BOTH
-block|,
-name|NEXT_OLD
-block|,
-name|NEXT_NEW
-block|}
 comment|/**    * Returns codes for delete result. The codes tell the ScanQueryMatcher whether the kv is deleted    * and why. Based on the delete result, the ScanQueryMatcher will decide the next operation    */
 enum|enum
 name|DeleteResult

@@ -961,22 +961,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
-name|RegionOpeningState
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|shaded
 operator|.
 name|protobuf
@@ -1450,17 +1434,9 @@ name|code
 operator|++
 argument_list|)
 expr_stmt|;
-name|addToMap
-argument_list|(
-name|HConstants
-operator|.
-name|Modify
-operator|.
-name|class
-argument_list|,
+comment|// HConstants.Modify no longer exists; increase code so other classes stay the same.
 name|code
 operator|++
-argument_list|)
 expr_stmt|;
 comment|// We used to have a class named HMsg but its been removed.  Rather than
 comment|// just axe it, use following random Integer class -- we just chose any
@@ -1999,15 +1975,9 @@ name|code
 operator|++
 expr_stmt|;
 comment|//addToMap(HServerLoad.class, code++);
-name|addToMap
-argument_list|(
-name|RegionOpeningState
-operator|.
-name|class
-argument_list|,
+comment|// RegionOpeningState no longer exists; increase code so other classes stay the same.
 name|code
 operator|++
-argument_list|)
 expr_stmt|;
 name|addToMap
 argument_list|(

@@ -2651,37 +2651,6 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Comparator that compares row component only of a Cell    */
-specifier|public
-specifier|static
-class|class
-name|RowComparator
-extends|extends
-name|CellComparator
-block|{
-annotation|@
-name|Override
-specifier|public
-name|int
-name|compare
-parameter_list|(
-name|Cell
-name|a
-parameter_list|,
-name|Cell
-name|b
-parameter_list|)
-block|{
-return|return
-name|compareRows
-argument_list|(
-name|a
-argument_list|,
-name|b
-argument_list|)
-return|;
-block|}
-block|}
 comment|/**    * A {@link CellComparator} for<code>hbase:meta</code> catalog table    * {@link KeyValue}s.    */
 specifier|public
 specifier|static

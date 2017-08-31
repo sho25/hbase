@@ -2746,23 +2746,6 @@ name|LOAD_CFS_ON_DEMAND_CONFIG_KEY
 init|=
 literal|"hbase.hregion.scan.loadColumnFamiliesOnDemand"
 decl_stmt|;
-comment|/** Config key for using mvcc pre-assign feature for put */
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|HREGION_MVCC_PRE_ASSIGN
-init|=
-literal|"hbase.hregion.mvcc.preassign"
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|boolean
-name|DEFAULT_HREGION_MVCC_PRE_ASSIGN
-init|=
-literal|true
-decl_stmt|;
 specifier|public
 specifier|static
 specifier|final

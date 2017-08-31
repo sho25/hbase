@@ -3141,23 +3141,6 @@ name|INIT_PAUSE_TIME_MS
 init|=
 literal|1000
 decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|REGION_LOCK_AWAIT_TIME_SEC
-init|=
-literal|"hbase.regionserver.region.lock.await.time.sec"
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|DEFAULT_REGION_LOCK_AWAIT_TIME_SEC
-init|=
-literal|300
-decl_stmt|;
-comment|// 5 min
 specifier|private
 specifier|static
 specifier|final

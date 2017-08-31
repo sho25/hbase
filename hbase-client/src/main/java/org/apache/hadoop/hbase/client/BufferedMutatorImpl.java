@@ -302,15 +302,6 @@ name|BufferedMutatorImpl
 implements|implements
 name|BufferedMutator
 block|{
-comment|/**    * Key to use setting non-default BufferedMutator implementation    * classname via Configuration.    */
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|HBASE_BUFFEREDMUTATOR_CLASSNAME_KEY
-init|=
-literal|"hbase.client.bufferedmutator.classname"
-decl_stmt|;
 specifier|private
 specifier|static
 specifier|final

@@ -803,16 +803,6 @@ name|topChanged
 init|=
 literal|false
 decl_stmt|;
-comment|// used by the injection framework to test race between StoreScanner construction and compaction
-enum|enum
-name|StoreScannerCompactionRace
-block|{
-name|BEFORE_SEEK
-block|,
-name|AFTER_SEEK
-block|,
-name|COMPACT_COMPLETE
-block|}
 comment|/** An internal constructor. */
 specifier|private
 name|StoreScanner

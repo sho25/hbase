@@ -135,19 +135,6 @@ parameter_list|<
 name|T
 parameter_list|>
 block|{
-comment|/**    * The current state of a table with respect to the policy set forth by a quota.    */
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Private
-specifier|public
-enum|enum
-name|ViolationState
-block|{
-name|IN_VIOLATION
-block|,
-name|IN_OBSERVANCE
-block|,   }
 comment|/**    * Singleton to represent a table without a quota defined. It is never in violation.    */
 specifier|public
 specifier|static

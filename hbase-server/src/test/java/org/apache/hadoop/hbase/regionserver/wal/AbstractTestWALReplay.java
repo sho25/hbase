@@ -1483,7 +1483,9 @@ name|HConstants
 operator|.
 name|DISTRIBUTED_LOG_REPLAY_KEY
 argument_list|,
-literal|false
+name|HConstants
+operator|.
+name|DEFAULT_DISTRIBUTED_LOG_REPLAY_CONFIG
 argument_list|)
 condition|?
 name|RecoveryMode

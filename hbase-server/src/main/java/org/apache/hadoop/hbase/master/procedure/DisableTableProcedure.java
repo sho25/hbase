@@ -316,15 +316,6 @@ name|traceEnabled
 init|=
 literal|null
 decl_stmt|;
-enum|enum
-name|MarkRegionOfflineOpResult
-block|{
-name|MARK_ALL_REGIONS_OFFLINE_SUCCESSFUL
-block|,
-name|BULK_ASSIGN_REGIONS_FAILED
-block|,
-name|MARK_ALL_REGIONS_OFFLINE_INTERRUPTED
-block|,   }
 specifier|public
 name|DisableTableProcedure
 parameter_list|()

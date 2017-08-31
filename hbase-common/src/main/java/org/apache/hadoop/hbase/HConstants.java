@@ -485,15 +485,6 @@ name|CLUSTER_IS_LOCAL
 init|=
 literal|false
 decl_stmt|;
-comment|/** Cluster is fully-distributed */
-specifier|public
-specifier|static
-specifier|final
-name|boolean
-name|CLUSTER_IS_DISTRIBUTED
-init|=
-literal|true
-decl_stmt|;
 comment|/** Default value for cluster distributed mode */
 specifier|public
 specifier|static
@@ -623,24 +614,6 @@ name|int
 name|DEFAULT_ZOOKEPER_CLIENT_PORT
 init|=
 literal|2181
-decl_stmt|;
-comment|/**    * Parameter name for the wait time for the recoverable zookeeper    */
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|ZOOKEEPER_RECOVERABLE_WAITTIME
-init|=
-literal|"hbase.zookeeper.recoverable.waittime"
-decl_stmt|;
-comment|/** Default wait time for the recoverable zookeeper */
-specifier|public
-specifier|static
-specifier|final
-name|long
-name|DEFAULT_ZOOKEPER_RECOVERABLE_WAITIME
-init|=
-literal|10000
 decl_stmt|;
 comment|/** Parameter name for the root dir in ZK for this cluster */
 specifier|public
@@ -785,15 +758,6 @@ name|String
 name|MASTER_IMPL
 init|=
 literal|"hbase.master.impl"
-decl_stmt|;
-comment|/** Parameter name for what hbase client implementation to use. */
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|HBASECLIENT_IMPL
-init|=
-literal|"hbase.hbaseclient.impl"
 decl_stmt|;
 comment|/** Parameter name for how often threads should wake up */
 specifier|public
@@ -992,15 +956,6 @@ name|String
 name|MIGRATION_NAME
 init|=
 literal|".migration"
-decl_stmt|;
-comment|/**    * The directory from which co-processor/custom filter jars can be loaded    * dynamically by the region servers. This value can be overridden by the    * hbase.dynamic.jars.dir config.    */
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|LIB_DIR
-init|=
-literal|"lib"
 decl_stmt|;
 comment|/** Used to construct the name of the compaction directory during compaction */
 specifier|public
@@ -1775,19 +1730,6 @@ name|Integer
 operator|.
 name|MAX_VALUE
 decl_stmt|;
-comment|/**    * Seconds in a week    */
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|WEEK_IN_SECONDS
-init|=
-literal|7
-operator|*
-literal|24
-operator|*
-literal|3600
-decl_stmt|;
 comment|/**    * Seconds in a day, hour and minute    */
 specifier|public
 specifier|static
@@ -1907,28 +1849,6 @@ name|REGION_IMPL
 init|=
 literal|"hbase.hregion.impl"
 decl_stmt|;
-comment|/** modifyTable op for replacing the table descriptor */
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Private
-specifier|public
-specifier|static
-enum|enum
-name|Modify
-block|{
-name|CLOSE_REGION
-block|,
-name|TABLE_COMPACT
-block|,
-name|TABLE_FLUSH
-block|,
-name|TABLE_MAJOR_COMPACT
-block|,
-name|TABLE_SET_HTD
-block|,
-name|TABLE_SPLIT
-block|}
 comment|/**    * Scope tag for locally scoped data.    * This data will not be replicated.    */
 specifier|public
 specifier|static
@@ -2435,15 +2355,6 @@ name|BULKLOAD_MAX_RETRIES_NUMBER
 init|=
 literal|"hbase.bulkload.retries.number"
 decl_stmt|;
-comment|/** HBCK special code name used as server name when manipulating ZK nodes */
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|HBCK_CODE_NAME
-init|=
-literal|"HBCKServerName"
-decl_stmt|;
 specifier|public
 specifier|static
 specifier|final
@@ -2712,31 +2623,6 @@ name|int
 name|DEFAULT_REGION_SERVER_REPLICATION_HANDLER_COUNT
 init|=
 literal|3
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|MASTER_HANDLER_COUNT
-init|=
-literal|"hbase.master.handler.count"
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|DEFAULT_MASTER_HANLDER_COUNT
-init|=
-literal|25
-decl_stmt|;
-comment|/** Conf key that specifies timeout value to wait for a region ready */
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|LOG_REPLAY_WAIT_REGION_TIMEOUT
-init|=
-literal|"hbase.master.log.replay.wait.region.timeout"
 decl_stmt|;
 comment|/** Conf key for enabling meta replication */
 specifier|public
