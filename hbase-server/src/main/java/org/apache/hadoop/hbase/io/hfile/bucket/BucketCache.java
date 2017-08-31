@@ -6742,8 +6742,9 @@ operator|)
 name|offsetBase
 operator|)
 operator|&
-literal|0xFFFFFFFF
+literal|0xFFFFFFFFL
 decl_stmt|;
+comment|//This needs the L cast otherwise it will be sign extended as a negative number.
 name|o
 operator|+=
 operator|(
@@ -6761,6 +6762,7 @@ operator|)
 operator|<<
 literal|32
 expr_stmt|;
+comment|//The 0xFF here does not need the L cast because it is treated as a positive int.
 return|return
 name|o
 operator|<<
