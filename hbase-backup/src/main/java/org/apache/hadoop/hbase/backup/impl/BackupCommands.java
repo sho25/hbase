@@ -1851,7 +1851,7 @@ argument_list|)
 condition|)
 block|{
 name|String
-name|poolName
+name|queueName
 init|=
 name|cmdline
 operator|.
@@ -1867,7 +1867,7 @@ name|setProperty
 argument_list|(
 literal|"mapreduce.job.queuename"
 argument_list|,
-name|poolName
+name|queueName
 argument_list|)
 expr_stmt|;
 block|}
