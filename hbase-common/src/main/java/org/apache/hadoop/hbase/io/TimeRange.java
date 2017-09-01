@@ -50,7 +50,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Represents an interval of version timestamps. Presumes timestamps between  * {@link #INITIAL_MIN_TIMESTAMP} and {@link #INITIAL_MAX_TIMESTAMP} only. Gets freaked out if  * passed a timestamp that is< {@link #INITIAL_MIN_TIMESTAMP},  *<p>  * Evaluated according to minStamp&lt;= timestamp&lt; maxStamp  * or [minStamp,maxStamp) in interval notation.  *<p>  * Only used internally; should not be accessed directly by clients.  *<p>Immutable. Thread-safe.  */
+comment|/**  * Represents an interval of version timestamps. Presumes timestamps between  * {@link #INITIAL_MIN_TIMESTAMP} and {@link #INITIAL_MAX_TIMESTAMP} only. Gets freaked out if  * passed a timestamp that is< {@link #INITIAL_MIN_TIMESTAMP},  *<p>  * Evaluated according to minStamp&lt;= timestamp&lt; maxStamp  * or [minStamp,maxStamp) in interval notation.  *<p>  * Can be returned and read by clients.  Should not be directly created by clients.  * Thus, all constructors are purposely @InterfaceAudience.Private.  *<p>Immutable. Thread-safe.  */
 end_comment
 
 begin_class
@@ -95,9 +95,13 @@ specifier|final
 name|boolean
 name|allTime
 decl_stmt|;
-comment|/**    * Default constructor.    * Represents interval [0, Long.MAX_VALUE) (allTime)    * @deprecated This is made @InterfaceAudience.Private in the 2.0 line and above    */
+comment|/**    * Default constructor.    * Represents interval [0, Long.MAX_VALUE) (allTime)    * @deprecated This is made @InterfaceAudience.Private in the 2.0 line and above and may be    * changed to private or removed in 3.0.    */
 annotation|@
 name|Deprecated
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 name|TimeRange
 parameter_list|()
@@ -110,9 +114,13 @@ name|INITIAL_MAX_TIMESTAMP
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Represents interval [minStamp, Long.MAX_VALUE)    * @param minStamp the minimum timestamp value, inclusive    * @deprecated This is made @InterfaceAudience.Private in the 2.0 line and above    */
+comment|/**    * Represents interval [minStamp, Long.MAX_VALUE)    * @param minStamp the minimum timestamp value, inclusive    * @deprecated This is made @InterfaceAudience.Private in the 2.0 line and above and may be    * changed to private or removed in 3.0.    */
 annotation|@
 name|Deprecated
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 name|TimeRange
 parameter_list|(
@@ -128,9 +136,13 @@ name|INITIAL_MAX_TIMESTAMP
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Represents interval [minStamp, Long.MAX_VALUE)    * @param minStamp the minimum timestamp value, inclusive    * @deprecated This is made @InterfaceAudience.Private in the 2.0 line and above    */
+comment|/**    * Represents interval [minStamp, Long.MAX_VALUE)    * @param minStamp the minimum timestamp value, inclusive    * @deprecated This is made @InterfaceAudience.Private in the 2.0 line and above and may be    * changed to private or removed in 3.0.    */
 annotation|@
 name|Deprecated
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 name|TimeRange
 parameter_list|(
@@ -150,9 +162,13 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Represents interval [minStamp, maxStamp)    * @param minStamp the minimum timestamp, inclusive    * @param maxStamp the maximum timestamp, exclusive    * @deprecated This is made @InterfaceAudience.Private in the 2.0 line and above    */
+comment|/**    * Represents interval [minStamp, maxStamp)    * @param minStamp the minimum timestamp, inclusive    * @param maxStamp the maximum timestamp, exclusive    * @deprecated This is made @InterfaceAudience.Private in the 2.0 line and above and may be    * changed to private or removed in 3.0.    */
 annotation|@
 name|Deprecated
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 name|TimeRange
 parameter_list|(
@@ -183,9 +199,13 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Represents interval [minStamp, maxStamp)    * @param minStamp the minimum timestamp, inclusive    * @param maxStamp the maximum timestamp, exclusive    * @throws IllegalArgumentException if either<0,    * @deprecated This is made @InterfaceAudience.Private in the 2.0 line and above    */
+comment|/**    * Represents interval [minStamp, maxStamp)    * @param minStamp the minimum timestamp, inclusive    * @param maxStamp the maximum timestamp, exclusive    * @throws IllegalArgumentException if either<0,    * @deprecated This is made @InterfaceAudience.Private in the 2.0 line and above and may be    * changed to private or removed in 3.0.    */
 annotation|@
 name|Deprecated
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 name|TimeRange
 parameter_list|(
