@@ -13,7 +13,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|mapreduce
+name|tool
 package|;
 end_package
 
@@ -229,35 +229,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HColumnDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HConstants
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HTableDescriptor
 import|;
 end_import
 
@@ -315,7 +287,71 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|ColumnFamilyDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|ColumnFamilyDescriptorBuilder
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Table
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|TableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|TableDescriptorBuilder
 import|;
 end_import
 
@@ -433,24 +469,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|mapreduce
-operator|.
-name|LoadIncrementalHFiles
-operator|.
-name|LoadQueueItem
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|regionserver
 operator|.
 name|BloomType
@@ -485,7 +503,25 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|MapReduceTests
+name|MiscTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|tool
+operator|.
+name|LoadIncrementalHFiles
+operator|.
+name|LoadQueueItem
 import|;
 end_import
 
@@ -604,7 +640,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Test cases for the "load" half of the HFileOutputFormat bulk load  * functionality. These tests run faster than the full MR cluster  * tests in TestHFileOutputFormat  */
+comment|/**  * Test cases for the "load" half of the HFileOutputFormat bulk load functionality. These tests run  * faster than the full MR cluster tests in TestHFileOutputFormat  */
 end_comment
 
 begin_class
@@ -612,7 +648,7 @@ annotation|@
 name|Category
 argument_list|(
 block|{
-name|MapReduceTests
+name|MiscTests
 operator|.
 name|class
 block|,
@@ -898,13 +934,13 @@ argument_list|(
 literal|"ooo"
 argument_list|)
 block|}
-block|,     }
+block|, }
 argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test case that creates some regions and loads    * HFiles that fit snugly inside those regions    */
+comment|/**    * Test case that creates some regions and loads HFiles that fit snugly inside those regions    */
 annotation|@
 name|Test
 argument_list|(
@@ -972,7 +1008,7 @@ argument_list|(
 literal|"ooo"
 argument_list|)
 block|}
-block|,     }
+block|, }
 argument_list|)
 expr_stmt|;
 block|}
@@ -1083,7 +1119,7 @@ argument_list|(
 literal|"ooo"
 argument_list|)
 block|}
-block|,     }
+block|, }
 argument_list|,
 literal|false
 argument_list|,
@@ -1091,7 +1127,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test case that creates some regions and loads    * HFiles that cross the boundaries of those regions    */
+comment|/**    * Test case that creates some regions and loads HFiles that cross the boundaries of those regions    */
 annotation|@
 name|Test
 argument_list|(
@@ -1159,7 +1195,7 @@ argument_list|(
 literal|"zzz"
 argument_list|)
 block|}
-block|,     }
+block|, }
 argument_list|)
 expr_stmt|;
 block|}
@@ -1231,7 +1267,7 @@ argument_list|(
 literal|"zzz"
 argument_list|)
 block|}
-block|,     }
+block|, }
 argument_list|)
 expr_stmt|;
 block|}
@@ -1303,11 +1339,11 @@ argument_list|(
 literal|"zzz"
 argument_list|)
 block|}
-block|,     }
+block|, }
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test case that creates some regions and loads HFiles that have    * different region boundaries than the table pre-split.    */
+comment|/**    * Test case that creates some regions and loads HFiles that have different region boundaries than    * the table pre-split.    */
 annotation|@
 name|Test
 argument_list|(
@@ -1376,7 +1412,7 @@ name|toBytes
 argument_list|(
 literal|"zzz"
 argument_list|)
-block|,         }
+block|, }
 argument_list|,
 operator|new
 name|byte
@@ -1423,11 +1459,11 @@ argument_list|(
 literal|"zzz"
 argument_list|)
 block|}
-block|,         }
+block|, }
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test case that creates some regions and loads HFiles that cross the boundaries    * and have different region boundaries than the table pre-split.    */
+comment|/**    * Test case that creates some regions and loads HFiles that cross the boundaries and have    * different region boundaries than the table pre-split.    */
 annotation|@
 name|Test
 argument_list|(
@@ -1450,7 +1486,7 @@ name|NONE
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test case that creates some regions and loads HFiles that cross the boundaries    * have a ROW bloom filter and a different region boundaries than the table pre-split.    */
+comment|/**    * Test case that creates some regions and loads HFiles that cross the boundaries have a ROW bloom    * filter and a different region boundaries than the table pre-split.    */
 annotation|@
 name|Test
 argument_list|(
@@ -1473,7 +1509,7 @@ name|ROW
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test case that creates some regions and loads HFiles that cross the boundaries    * have a ROWCOL bloom filter and a different region boundaries than the table pre-split.    */
+comment|/**    * Test case that creates some regions and loads HFiles that cross the boundaries have a ROWCOL    * bloom filter and a different region boundaries than the table pre-split.    */
 annotation|@
 name|Test
 argument_list|(
@@ -1664,7 +1700,7 @@ name|toBytes
 argument_list|(
 literal|"zzz"
 argument_list|)
-block|,       }
+block|, }
 argument_list|,
 operator|new
 name|byte
@@ -1691,7 +1727,7 @@ argument_list|(
 literal|"zzz"
 argument_list|)
 block|}
-block|,       }
+block|, }
 argument_list|)
 expr_stmt|;
 block|}
@@ -1761,7 +1797,7 @@ name|toBytes
 argument_list|(
 literal|"zzz"
 argument_list|)
-block|,         }
+block|, }
 argument_list|,
 operator|new
 name|byte
@@ -1808,12 +1844,12 @@ argument_list|(
 literal|"zzz"
 argument_list|)
 block|}
-block|,         }
+block|, }
 argument_list|)
 expr_stmt|;
 block|}
 specifier|private
-name|HTableDescriptor
+name|TableDescriptor
 name|buildHTD
 parameter_list|(
 name|TableName
@@ -1823,40 +1859,34 @@ name|BloomType
 name|bloomType
 parameter_list|)
 block|{
-name|HTableDescriptor
-name|htd
-init|=
-operator|new
-name|HTableDescriptor
+return|return
+name|TableDescriptorBuilder
+operator|.
+name|newBuilder
 argument_list|(
 name|tableName
 argument_list|)
-decl_stmt|;
-name|HColumnDescriptor
-name|familyDesc
-init|=
-operator|new
-name|HColumnDescriptor
+operator|.
+name|addColumnFamily
+argument_list|(
+name|ColumnFamilyDescriptorBuilder
+operator|.
+name|newBuilder
 argument_list|(
 name|FAMILY
 argument_list|)
-decl_stmt|;
-name|familyDesc
 operator|.
 name|setBloomFilterType
 argument_list|(
 name|bloomType
 argument_list|)
-expr_stmt|;
-name|htd
 operator|.
-name|addFamily
-argument_list|(
-name|familyDesc
+name|build
+argument_list|()
 argument_list|)
-expr_stmt|;
-return|return
-name|htd
+operator|.
+name|build
+argument_list|()
 return|;
 block|}
 specifier|private
@@ -2112,7 +2142,7 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 init|=
 name|buildHTD
@@ -2150,7 +2180,7 @@ parameter_list|(
 name|String
 name|testName
 parameter_list|,
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 parameter_list|,
 name|HBaseTestingUtility
@@ -2221,6 +2251,14 @@ operator|.
 name|makeQualified
 argument_list|(
 name|fs
+operator|.
+name|getUri
+argument_list|()
+argument_list|,
+name|fs
+operator|.
+name|getWorkingDirectory
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|Path
@@ -2403,7 +2441,6 @@ name|hfileIdx
 operator|*
 name|factor
 decl_stmt|;
-specifier|final
 name|TableName
 name|tableName
 init|=
@@ -2417,7 +2454,7 @@ condition|(
 operator|!
 name|util
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|tableExists
@@ -2506,13 +2543,17 @@ if|if
 condition|(
 name|deleteFile
 condition|)
+block|{
 name|fs
 operator|.
 name|delete
 argument_list|(
 name|last
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
+block|}
 name|Map
 argument_list|<
 name|LoadQueueItem
@@ -2525,8 +2566,6 @@ name|loader
 operator|.
 name|run
 argument_list|(
-literal|null
-argument_list|,
 name|map
 argument_list|,
 name|tableName
@@ -2556,7 +2595,8 @@ if|if
 condition|(
 name|item
 operator|.
-name|hfilePath
+name|getFilePath
+argument_list|()
 operator|.
 name|getName
 argument_list|()
@@ -2669,7 +2709,7 @@ parameter_list|(
 name|String
 name|testName
 parameter_list|,
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 parameter_list|,
 name|BloomType
@@ -2827,7 +2867,7 @@ name|tableName
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test that tags survive through a bulk load that needs to split hfiles.    *    * This test depends on the "hbase.client.rpc.codec" =  KeyValueCodecWithTags so that the client    * can get tags in the responses.    */
+comment|/**    * Test that tags survive through a bulk load that needs to split hfiles. This test depends on the    * "hbase.client.rpc.codec" = KeyValueCodecWithTags so that the client can get tags in the    * responses.    */
 annotation|@
 name|Test
 argument_list|(
@@ -2870,6 +2910,14 @@ operator|.
 name|makeQualified
 argument_list|(
 name|fs
+operator|.
+name|getUri
+argument_list|()
+argument_list|,
+name|fs
+operator|.
+name|getWorkingDirectory
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|Path
@@ -2940,7 +2988,7 @@ name|toBytes
 argument_list|(
 literal|"zzz"
 argument_list|)
-block|,     }
+block|, }
 decl_stmt|;
 comment|// creating an hfile that has values that span the split points.
 name|byte
@@ -3018,7 +3066,7 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 init|=
 name|buildHTD
@@ -3202,9 +3250,8 @@ argument_list|(
 literal|"ooo"
 argument_list|)
 block|}
-block|,     }
+block|, }
 decl_stmt|;
-specifier|final
 name|byte
 index|[]
 name|TABLE
@@ -3218,11 +3265,14 @@ operator|+
 name|testName
 argument_list|)
 decl_stmt|;
-name|HTableDescriptor
+comment|// set real family name to upper case in purpose to simulate the case that
+comment|// family name in HFiles is invalid
+name|TableDescriptor
 name|htd
 init|=
-operator|new
-name|HTableDescriptor
+name|TableDescriptorBuilder
+operator|.
+name|newBuilder
 argument_list|(
 name|TableName
 operator|.
@@ -3231,14 +3281,12 @@ argument_list|(
 name|TABLE
 argument_list|)
 argument_list|)
-decl_stmt|;
-comment|// set real family name to upper case in purpose to simulate the case that
-comment|// family name in HFiles is invalid
-name|HColumnDescriptor
-name|family
-init|=
-operator|new
-name|HColumnDescriptor
+operator|.
+name|addColumnFamily
+argument_list|(
+name|ColumnFamilyDescriptorBuilder
+operator|.
+name|of
 argument_list|(
 name|Bytes
 operator|.
@@ -3258,14 +3306,11 @@ name|ROOT
 argument_list|)
 argument_list|)
 argument_list|)
-decl_stmt|;
-name|htd
-operator|.
-name|addFamily
-argument_list|(
-name|family
 argument_list|)
-expr_stmt|;
+operator|.
+name|build
+argument_list|()
+decl_stmt|;
 try|try
 block|{
 name|runTest
@@ -3387,7 +3432,7 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Write a random data file and a non-file in a dir with a valid family name    * but not part of the table families. we should we able to bulkload without    * getting the unmatched family exception. HBASE-13037/HBASE-13227    */
+comment|/**    * Write a random data file and a non-file in a dir with a valid family name but not part of the    * table families. we should we able to bulkload without getting the unmatched family exception.    * HBASE-13037/HBASE-13227    */
 specifier|private
 name|void
 name|testNonHfileFolder
@@ -3426,6 +3471,14 @@ operator|.
 name|makeQualified
 argument_list|(
 name|fs
+operator|.
+name|getUri
+argument_list|()
+argument_list|,
+name|fs
+operator|.
+name|getWorkingDirectory
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|Path
@@ -3843,11 +3896,12 @@ argument_list|,
 literal|"testhfile"
 argument_list|)
 decl_stmt|;
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|familyDesc
 init|=
-operator|new
-name|HColumnDescriptor
+name|ColumnFamilyDescriptorBuilder
+operator|.
+name|of
 argument_list|(
 name|FAMILY
 argument_list|)
@@ -4082,22 +4136,24 @@ argument_list|,
 literal|"testhfile"
 argument_list|)
 decl_stmt|;
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|familyDesc
 init|=
-operator|new
-name|HColumnDescriptor
+name|ColumnFamilyDescriptorBuilder
+operator|.
+name|newBuilder
 argument_list|(
 name|FAMILY
 argument_list|)
-decl_stmt|;
-name|familyDesc
 operator|.
 name|setDataBlockEncoding
 argument_list|(
 name|cfEncoding
 argument_list|)
-expr_stmt|;
+operator|.
+name|build
+argument_list|()
+decl_stmt|;
 name|HFileTestUtil
 operator|.
 name|createHFileWithDataBlockEncoding
@@ -4420,7 +4476,7 @@ operator|.
 name|BYTES_COMPARATOR
 argument_list|)
 decl_stmt|;
-comment|/* Toy example      *     c---------i            o------p          s---------t     v------x      * a------e    g-----k   m-------------q   r----s            u----w      *      * Should be inferred as:      * a-----------------k   m-------------q   r--------------t  u---------x      *      * The output should be (m,r,u)      */
+comment|/*      * Toy example c---------i o------p s---------t v------x a------e g-----k m-------------q r----s      * u----w Should be inferred as: a-----------------k m-------------q r--------------t      * u---------x The output should be (m,r,u)      */
 name|String
 name|first
 decl_stmt|;
@@ -4768,6 +4824,14 @@ operator|.
 name|makeQualified
 argument_list|(
 name|fs
+operator|.
+name|getUri
+argument_list|()
+argument_list|,
+name|fs
+operator|.
+name|getWorkingDirectory
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|Path

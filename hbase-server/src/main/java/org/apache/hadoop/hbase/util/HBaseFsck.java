@@ -18715,7 +18715,7 @@ name|print
 argument_list|(
 literal|"Bulk load command looks like: "
 operator|+
-literal|"hbase org.apache.hadoop.hbase.mapreduce.LoadIncrementalHFiles "
+literal|"hbase org.apache.hadoop.hbase.tool.LoadIncrementalHFiles "
 operator|+
 name|path
 operator|.

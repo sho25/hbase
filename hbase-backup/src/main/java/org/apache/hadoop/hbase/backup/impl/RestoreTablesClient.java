@@ -365,7 +365,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|mapreduce
+name|tool
 operator|.
 name|LoadIncrementalHFiles
 import|;
@@ -381,7 +381,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|mapreduce
+name|tool
 operator|.
 name|LoadIncrementalHFiles
 operator|.
@@ -1519,8 +1519,6 @@ name|loader
 operator|.
 name|run
 argument_list|(
-literal|null
-argument_list|,
 name|mapForSrc
 index|[
 name|i

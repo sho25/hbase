@@ -59,7 +59,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|mapreduce
+name|security
 operator|.
 name|HadoopSecurityEnabledUserProviderForTesting
 import|;

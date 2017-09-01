@@ -411,7 +411,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|mapreduce
+name|tool
 operator|.
 name|LoadIncrementalHFiles
 import|;

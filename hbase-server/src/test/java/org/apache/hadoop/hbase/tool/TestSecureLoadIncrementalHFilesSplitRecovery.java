@@ -13,7 +13,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|mapreduce
+name|tool
 package|;
 end_package
 
@@ -41,25 +41,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|testclassification
+name|security
 operator|.
-name|LargeTests
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|testclassification
-operator|.
-name|MapReduceTests
+name|HadoopSecurityEnabledUserProviderForTesting
 import|;
 end_import
 
@@ -119,6 +103,38 @@ begin_import
 import|import
 name|org
 operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|testclassification
+operator|.
+name|LargeTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|testclassification
+operator|.
+name|MiscTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
 name|junit
 operator|.
 name|BeforeClass
@@ -150,7 +166,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Reruns TestSecureLoadIncrementalHFilesSplitRecovery  * using LoadIncrementalHFiles in secure mode.  * This suite is unable to verify the security handoff/turnove  * as miniCluster is running as system user thus has root privileges  * and delegation tokens don't seem to work on miniDFS.  *  * Thus SecureBulkload can only be completely verified by running  * integration tests against a secure cluster. This suite is still  * invaluable as it verifies the other mechanisms that need to be  * supported as part of a LoadIncrementalFiles call.  */
+comment|/**  * Reruns TestSecureLoadIncrementalHFilesSplitRecovery using LoadIncrementalHFiles in secure mode.  * This suite is unable to verify the security handoff/turnove as miniCluster is running as system  * user thus has root privileges and delegation tokens don't seem to work on miniDFS.  *<p>  * Thus SecureBulkload can only be completely verified by running integration tests against a secure  * cluster. This suite is still invaluable as it verifies the other mechanisms that need to be  * supported as part of a LoadIncrementalFiles call.  */
 end_comment
 
 begin_class
@@ -158,7 +174,7 @@ annotation|@
 name|Category
 argument_list|(
 block|{
-name|MapReduceTests
+name|MiscTests
 operator|.
 name|class
 block|,
@@ -173,8 +189,8 @@ name|TestSecureLoadIncrementalHFilesSplitRecovery
 extends|extends
 name|TestLoadIncrementalHFilesSplitRecovery
 block|{
-comment|//This "overrides" the parent static method
-comment|//make sure they are in sync
+comment|// This "overrides" the parent static method
+comment|// make sure they are in sync
 annotation|@
 name|BeforeClass
 specifier|public
@@ -233,7 +249,7 @@ name|ACL_TABLE_NAME
 argument_list|)
 expr_stmt|;
 block|}
-comment|//Disabling this test as it does not work in secure mode
+comment|// Disabling this test as it does not work in secure mode
 annotation|@
 name|Test
 argument_list|(
