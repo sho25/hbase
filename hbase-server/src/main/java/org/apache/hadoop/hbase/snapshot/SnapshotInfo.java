@@ -2250,7 +2250,7 @@ name|println
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Dump the {@link org.apache.hadoop.hbase.HTableDescriptor}    */
+comment|/**    * Dump the {@link org.apache.hadoop.hbase.client.TableDescriptor}    */
 specifier|private
 name|void
 name|printSchema

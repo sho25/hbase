@@ -179,20 +179,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HColumnDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HRegionInfo
 import|;
 end_import
@@ -882,28 +868,6 @@ name|TableNotFoundException
 throws|,
 name|IOException
 function_decl|;
-comment|/**    * Creates a new table. Synchronous operation.    *    * @param desc table descriptor for table    * @throws IllegalArgumentException if the table name is reserved    * @throws org.apache.hadoop.hbase.MasterNotRunningException if master is not running    * @throws org.apache.hadoop.hbase.TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence and attempt-at-creation).    * @throws IOException if a remote or network exception occurs    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #createTable(TableDescriptor)}    */
-annotation|@
-name|Deprecated
-specifier|default
-name|void
-name|createTable
-parameter_list|(
-name|HTableDescriptor
-name|desc
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|createTable
-argument_list|(
-operator|(
-name|TableDescriptor
-operator|)
-name|desc
-argument_list|)
-expr_stmt|;
-block|}
 comment|/**    * Creates a new table. Synchronous operation.    *    * @param desc table descriptor for table    * @throws IllegalArgumentException if the table name is reserved    * @throws org.apache.hadoop.hbase.MasterNotRunningException if master is not running    * @throws org.apache.hadoop.hbase.TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence and attempt-at-creation).    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|createTable
@@ -914,45 +878,6 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Creates a new table with the specified number of regions.  The start key specified will become    * the end key of the first region of the table, and the end key specified will become the start    * key of the last region of the table (the first region has a null start key and the last region    * has a null end key). BigInteger math will be used to divide the key range specified into enough    * segments to make the required number of total regions. Synchronous operation.    *    * @param desc table descriptor for table    * @param startKey beginning of key range    * @param endKey end of key range    * @param numRegions the total number of regions to create    * @throws IllegalArgumentException if the table name is reserved    * @throws org.apache.hadoop.hbase.MasterNotRunningException if master is not running    * @throws org.apache.hadoop.hbase.TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence and attempt-at-creation).    * @throws IOException    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #createTable(TableDescriptor, byte[], byte[], int)}    */
-annotation|@
-name|Deprecated
-specifier|default
-name|void
-name|createTable
-parameter_list|(
-name|HTableDescriptor
-name|desc
-parameter_list|,
-name|byte
-index|[]
-name|startKey
-parameter_list|,
-name|byte
-index|[]
-name|endKey
-parameter_list|,
-name|int
-name|numRegions
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|createTable
-argument_list|(
-operator|(
-name|TableDescriptor
-operator|)
-name|desc
-argument_list|,
-name|startKey
-argument_list|,
-name|endKey
-argument_list|,
-name|numRegions
-argument_list|)
-expr_stmt|;
-block|}
 comment|/**    * Creates a new table with the specified number of regions.  The start key specified will become    * the end key of the first region of the table, and the end key specified will become the start    * key of the last region of the table (the first region has a null start key and the last region    * has a null end key). BigInteger math will be used to divide the key range specified into enough    * segments to make the required number of total regions. Synchronous operation.    *    * @param desc table descriptor for table    * @param startKey beginning of key range    * @param endKey end of key range    * @param numRegions the total number of regions to create    * @throws IllegalArgumentException if the table name is reserved    * @throws org.apache.hadoop.hbase.MasterNotRunningException if master is not running    * @throws org.apache.hadoop.hbase.TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence and attempt-at-creation).    * @throws IOException    */
 name|void
 name|createTable
@@ -974,36 +899,6 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Creates a new table with an initial set of empty regions defined by the specified split keys.    * The total number of regions created will be the number of split keys plus one. Synchronous    * operation. Note : Avoid passing empty split key.    *    * @param desc table descriptor for table    * @param splitKeys array of split keys for the initial regions of the table    * @throws IllegalArgumentException if the table name is reserved, if the split keys are repeated    * and if the split key has empty byte array.    * @throws org.apache.hadoop.hbase.MasterNotRunningException if master is not running    * @throws org.apache.hadoop.hbase.TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence and attempt-at-creation).    * @throws IOException    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #createTable(TableDescriptor, byte[][])}    */
-annotation|@
-name|Deprecated
-specifier|default
-name|void
-name|createTable
-parameter_list|(
-specifier|final
-name|HTableDescriptor
-name|desc
-parameter_list|,
-name|byte
-index|[]
-index|[]
-name|splitKeys
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|createTable
-argument_list|(
-operator|(
-name|TableDescriptor
-operator|)
-name|desc
-argument_list|,
-name|splitKeys
-argument_list|)
-expr_stmt|;
-block|}
 comment|/**    * Creates a new table with an initial set of empty regions defined by the specified split keys.    * The total number of regions created will be the number of split keys plus one. Synchronous    * operation. Note : Avoid passing empty split key.    *    * @param desc table descriptor for table    * @param splitKeys array of split keys for the initial regions of the table    * @throws IllegalArgumentException if the table name is reserved, if the split keys are repeated    * and if the split key has empty byte array.    * @throws org.apache.hadoop.hbase.MasterNotRunningException if master is not running    * @throws org.apache.hadoop.hbase.TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence and attempt-at-creation).    * @throws IOException    */
 name|void
 name|createTable
@@ -1020,41 +915,6 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Creates a new table but does not block and wait for it to come online.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    * Throws IllegalArgumentException Bad table name, if the split keys    *    are repeated and if the split key has empty byte array.    *    * @param desc table descriptor for table    * @param splitKeys keys to check if the table has been created with all split keys    * @throws IOException if a remote or network exception occurs    * @return the result of the async creation. You can use Future.get(long, TimeUnit)    *    to wait on the operation to complete.    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #createTableAsync(TableDescriptor, byte[][])}    */
-annotation|@
-name|Deprecated
-specifier|default
-name|Future
-argument_list|<
-name|Void
-argument_list|>
-name|createTableAsync
-parameter_list|(
-specifier|final
-name|HTableDescriptor
-name|desc
-parameter_list|,
-specifier|final
-name|byte
-index|[]
-index|[]
-name|splitKeys
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-return|return
-name|createTableAsync
-argument_list|(
-operator|(
-name|TableDescriptor
-operator|)
-name|desc
-argument_list|,
-name|splitKeys
-argument_list|)
-return|;
-block|}
 comment|/**    * Creates a new table but does not block and wait for it to come online.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    * Throws IllegalArgumentException Bad table name, if the split keys    *    are repeated and if the split key has empty byte array.    *    * @param desc table descriptor for table    * @param splitKeys keys to check if the table has been created with all split keys    * @throws IOException if a remote or network exception occurs    * @return the result of the async creation. You can use Future.get(long, TimeUnit)    *    to wait on the operation to complete.    */
 name|Future
 argument_list|<
@@ -1344,6 +1204,7 @@ function_decl|;
 comment|/**    * Add a column family to an existing table. Asynchronous operation.    *    * @param tableName name of the table to add column family to    * @param columnFamily column family descriptor of column family to be added    * @throws IOException if a remote or network exception occurs    * @deprecated As of release 2.0.0.    *             (<a href="https://issues.apache.org/jira/browse/HBASE-1989">HBASE-1989</a>).    *             This will be removed in HBase 3.0.0.    *             Use {@link #addColumnFamily(TableName, ColumnFamilyDescriptor)}.    */
 annotation|@
 name|Deprecated
+specifier|default
 name|void
 name|addColumn
 parameter_list|(
@@ -1352,12 +1213,20 @@ name|TableName
 name|tableName
 parameter_list|,
 specifier|final
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|columnFamily
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+name|addColumnFamily
+argument_list|(
+name|tableName
+argument_list|,
+name|columnFamily
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Add a column family to an existing table.    *    * @param tableName name of the table to add column family to    * @param columnFamily column family descriptor of column family to be added    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|addColumnFamily
@@ -1447,6 +1316,7 @@ function_decl|;
 comment|/**    * Modify an existing column family on a table.    *    * @param tableName name of table    * @param columnFamily new column family descriptor to use    * @throws IOException if a remote or network exception occurs    * @deprecated As of release 2.0.0.    *             (<a href="https://issues.apache.org/jira/browse/HBASE-1989">HBASE-1989</a>).    *             This will be removed in HBase 3.0.0.    *             Use {@link #modifyColumnFamily(TableName, ColumnFamilyDescriptor)}.    */
 annotation|@
 name|Deprecated
+specifier|default
 name|void
 name|modifyColumn
 parameter_list|(
@@ -1455,12 +1325,20 @@ name|TableName
 name|tableName
 parameter_list|,
 specifier|final
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|columnFamily
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+name|modifyColumnFamily
+argument_list|(
+name|tableName
+argument_list|,
+name|columnFamily
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Modify an existing column family on a table.    *    * @param tableName name of table    * @param columnFamily new column family descriptor to use    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|modifyColumnFamily
@@ -2043,7 +1921,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Modify an existing table, more IRB friendly version.    *    * @param tableName name of table.    * @param htd modified description of the table    * @throws IOException if a remote or network exception occurs    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #modifyTable(TableDescriptor)}    */
+comment|/**    * Modify an existing table, more IRB friendly version.    *    * @param tableName name of table.    * @param td modified description of the table    * @throws IOException if a remote or network exception occurs    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #modifyTable(TableDescriptor)}    */
 annotation|@
 name|Deprecated
 name|void
@@ -2054,8 +1932,8 @@ name|TableName
 name|tableName
 parameter_list|,
 specifier|final
-name|HTableDescriptor
-name|htd
+name|TableDescriptor
+name|td
 parameter_list|)
 throws|throws
 name|IOException
@@ -2071,7 +1949,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Modify an existing table, more IRB friendly version. Asynchronous operation.  This means that    * it may be a while before your schema change is updated across all of the table.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param tableName name of table.    * @param htd modified description of the table    * @throws IOException if a remote or network exception occurs    * @return the result of the async modify. You can use Future.get(long, TimeUnit) to wait on the    *     operation to complete    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #modifyTableAsync(TableDescriptor)}    */
+comment|/**    * Modify an existing table, more IRB friendly version. Asynchronous operation.  This means that    * it may be a while before your schema change is updated across all of the table.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param tableName name of table.    * @param td modified description of the table    * @throws IOException if a remote or network exception occurs    * @return the result of the async modify. You can use Future.get(long, TimeUnit) to wait on the    *     operation to complete    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #modifyTableAsync(TableDescriptor)}    */
 annotation|@
 name|Deprecated
 name|Future
@@ -2085,8 +1963,8 @@ name|TableName
 name|tableName
 parameter_list|,
 specifier|final
-name|HTableDescriptor
-name|htd
+name|TableDescriptor
+name|td
 parameter_list|)
 throws|throws
 name|IOException
