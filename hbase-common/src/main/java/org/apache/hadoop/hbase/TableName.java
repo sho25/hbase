@@ -1663,7 +1663,7 @@ name|equals
 argument_list|(
 name|tn
 operator|.
-name|getNameAsString
+name|getNamespaceAsString
 argument_list|()
 argument_list|)
 condition|)
