@@ -5486,13 +5486,17 @@ literal|true
 argument_list|)
 condition|)
 block|{
-comment|// TODO: Replace the fixed string with job.getStatus().getFailureInfo()
-comment|// when it will be available on all the supported versions.
 throw|throw
 operator|new
 name|ExportSnapshotException
 argument_list|(
-literal|"Copy Files Map-Reduce Job failed"
+name|job
+operator|.
+name|getStatus
+argument_list|()
+operator|.
+name|getFailureInfo
+argument_list|()
 argument_list|)
 throw|;
 block|}
