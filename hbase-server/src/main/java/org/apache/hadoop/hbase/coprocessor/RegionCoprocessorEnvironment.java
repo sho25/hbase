@@ -168,6 +168,9 @@ interface|interface
 name|RegionCoprocessorEnvironment
 extends|extends
 name|CoprocessorEnvironment
+argument_list|<
+name|RegionCoprocessor
+argument_list|>
 block|{
 comment|/** @return the region associated with this coprocessor */
 name|Region

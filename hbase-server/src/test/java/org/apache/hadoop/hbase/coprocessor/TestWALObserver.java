@@ -960,7 +960,7 @@ name|CoprocessorHost
 operator|.
 name|WAL_COPROCESSOR_CONF_KEY
 argument_list|,
-name|SampleRegionWALObserver
+name|SampleRegionWALCoprocessor
 operator|.
 name|class
 operator|.
@@ -976,7 +976,7 @@ name|CoprocessorHost
 operator|.
 name|REGION_COPROCESSOR_CONF_KEY
 argument_list|,
-name|SampleRegionWALObserver
+name|SampleRegionWALCoprocessor
 operator|.
 name|class
 operator|.
@@ -1399,7 +1399,7 @@ name|getCoprocessor
 argument_list|(
 name|log
 argument_list|,
-name|SampleRegionWALObserver
+name|SampleRegionWALCoprocessor
 operator|.
 name|class
 argument_list|)
@@ -1417,7 +1417,7 @@ name|WAL
 name|log
 parameter_list|,
 specifier|final
-name|SampleRegionWALObserver
+name|SampleRegionWALCoprocessor
 name|cp
 parameter_list|,
 specifier|final
@@ -2084,14 +2084,14 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
-name|SampleRegionWALObserver
+name|SampleRegionWALCoprocessor
 name|cp
 init|=
 name|getCoprocessor
 argument_list|(
 name|log
 argument_list|,
-name|SampleRegionWALObserver
+name|SampleRegionWALCoprocessor
 operator|.
 name|class
 argument_list|)
@@ -2624,12 +2624,9 @@ operator|.
 name|getOpenSeqNum
 argument_list|()
 decl_stmt|;
-name|SampleRegionWALObserver
+name|SampleRegionWALCoprocessor
 name|cp2
 init|=
-operator|(
-name|SampleRegionWALObserver
-operator|)
 name|region
 operator|.
 name|getCoprocessorHost
@@ -2637,12 +2634,9 @@ argument_list|()
 operator|.
 name|findCoprocessor
 argument_list|(
-name|SampleRegionWALObserver
+name|SampleRegionWALCoprocessor
 operator|.
 name|class
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// TODO: asserting here is problematic.
@@ -2713,7 +2707,7 @@ name|getCoprocessor
 argument_list|(
 name|log
 argument_list|,
-name|SampleRegionWALObserver
+name|SampleRegionWALCoprocessor
 operator|.
 name|class
 argument_list|)
@@ -2743,14 +2737,14 @@ literal|null
 argument_list|)
 decl_stmt|;
 specifier|final
-name|SampleRegionWALObserver
+name|SampleRegionWALCoprocessor
 name|cp
 init|=
 name|getCoprocessor
 argument_list|(
 name|wal
 argument_list|,
-name|SampleRegionWALObserver
+name|SampleRegionWALCoprocessor
 operator|.
 name|class
 argument_list|)
@@ -2817,7 +2811,7 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|private
-name|SampleRegionWALObserver
+name|SampleRegionWALCoprocessor
 name|getCoprocessor
 parameter_list|(
 name|WAL
@@ -2827,7 +2821,7 @@ name|Class
 argument_list|<
 name|?
 extends|extends
-name|SampleRegionWALObserver
+name|SampleRegionWALCoprocessor
 argument_list|>
 name|clazz
 parameter_list|)
@@ -2857,7 +2851,7 @@ argument_list|)
 decl_stmt|;
 return|return
 operator|(
-name|SampleRegionWALObserver
+name|SampleRegionWALCoprocessor
 operator|)
 name|c
 return|;

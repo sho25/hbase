@@ -149,6 +149,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Optional
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -186,20 +196,6 @@ operator|.
 name|hbase
 operator|.
 name|Cell
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|Coprocessor
 import|;
 end_import
 
@@ -403,9 +399,7 @@ parameter_list|>
 extends|extends
 name|AggregateService
 implements|implements
-name|CoprocessorService
-implements|,
-name|Coprocessor
+name|RegionCoprocessor
 block|{
 specifier|protected
 specifier|static
@@ -2602,7 +2596,7 @@ name|response
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Gives a List containing sum of values and sum of weights.    * It is computed for the combination of column    * family and column qualifier(s) in the given row range as defined in the    * Scan object. In its current implementation, it takes one column family and    * two column qualifiers. The first qualifier is for values column and     * the second qualifier (optional) is for weight column.    */
+comment|/**    * Gives a List containing sum of values and sum of weights.    * It is computed for the combination of column    * family and column qualifier(s) in the given row range as defined in the    * Scan object. In its current implementation, it takes one column family and    * two column qualifiers. The first qualifier is for values column and    * the second qualifier (optional) is for weight column.    */
 annotation|@
 name|Override
 specifier|public
@@ -3222,12 +3216,20 @@ block|}
 annotation|@
 name|Override
 specifier|public
+name|Optional
+argument_list|<
 name|Service
+argument_list|>
 name|getService
 parameter_list|()
 block|{
 return|return
+name|Optional
+operator|.
+name|of
+argument_list|(
 name|this
+argument_list|)
 return|;
 block|}
 comment|/**    * Stores a reference to the coprocessor environment provided by the    * {@link org.apache.hadoop.hbase.regionserver.RegionCoprocessorHost} from the region where this    * coprocessor is loaded.  Since this is a coprocessor endpoint, it always expects to be loaded    * on a table region, so always expects this to be an instance of    * {@link RegionCoprocessorEnvironment}.    * @param env the environment provided by the coprocessor host    * @throws IOException if the provided environment is not an instance of    * {@code RegionCoprocessorEnvironment}    */

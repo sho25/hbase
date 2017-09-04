@@ -120,8 +120,6 @@ name|Evolving
 specifier|public
 interface|interface
 name|RegionServerObserver
-extends|extends
-name|Coprocessor
 block|{
 comment|/**    * Called before stopping region server.    * @param ctx the environment to interact with the framework and region server.    */
 specifier|default

@@ -124,6 +124,9 @@ interface|interface
 name|MasterCoprocessorEnvironment
 extends|extends
 name|CoprocessorEnvironment
+argument_list|<
+name|MasterCoprocessor
+argument_list|>
 block|{
 comment|/** @return reference to the HMaster services */
 name|MasterServices

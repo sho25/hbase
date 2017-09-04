@@ -2376,8 +2376,6 @@ name|S
 argument_list|,
 name|T
 argument_list|>
-implements|implements
-name|CoprocessorService
 block|{
 specifier|public
 specifier|static

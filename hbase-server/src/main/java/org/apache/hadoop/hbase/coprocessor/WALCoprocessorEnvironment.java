@@ -124,6 +124,9 @@ interface|interface
 name|WALCoprocessorEnvironment
 extends|extends
 name|CoprocessorEnvironment
+argument_list|<
+name|WALCoprocessor
+argument_list|>
 block|{
 comment|/** @return reference to the region server's WAL */
 name|WAL

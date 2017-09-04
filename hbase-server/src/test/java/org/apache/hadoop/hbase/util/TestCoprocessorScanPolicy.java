@@ -103,6 +103,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Optional
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|OptionalInt
 import|;
 end_import
@@ -402,6 +412,22 @@ operator|.
 name|coprocessor
 operator|.
 name|ObserverContext
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|coprocessor
+operator|.
+name|RegionCoprocessor
 import|;
 end_import
 
@@ -1594,6 +1620,8 @@ specifier|static
 class|class
 name|ScanObserver
 implements|implements
+name|RegionCoprocessor
+implements|,
 name|RegionObserver
 block|{
 specifier|private
@@ -1624,6 +1652,25 @@ name|HashMap
 argument_list|<>
 argument_list|()
 decl_stmt|;
+annotation|@
+name|Override
+specifier|public
+name|Optional
+argument_list|<
+name|RegionObserver
+argument_list|>
+name|getRegionObserver
+parameter_list|()
+block|{
+return|return
+name|Optional
+operator|.
+name|of
+argument_list|(
+name|this
+argument_list|)
+return|;
+block|}
 comment|// lame way to communicate with the coprocessor,
 comment|// since it is loaded by a different class loader
 annotation|@

@@ -55,6 +55,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Optional
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|OptionalInt
 import|;
 end_import
@@ -160,6 +170,22 @@ operator|.
 name|coprocessor
 operator|.
 name|ObserverContext
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|coprocessor
+operator|.
+name|RegionCoprocessor
 import|;
 end_import
 
@@ -406,7 +432,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This is an example showing how a RegionObserver could configured  * via ZooKeeper in order to control a Region compaction, flush, and scan policy.  *  * This also demonstrated the use of shared   * {@link org.apache.hadoop.hbase.coprocessor.RegionObserver} state.  * See {@link RegionCoprocessorEnvironment#getSharedData()}.  *  * This would be useful for an incremental backup tool, which would indicate the last  * time of a successful backup via ZK and instruct HBase to not delete data that was  * inserted since (based on wall clock time).   *  * This implements org.apache.zookeeper.Watcher directly instead of using  * {@link org.apache.hadoop.hbase.zookeeper.ZooKeeperWatcher},   * because RegionObservers come and go and currently  * listeners registered with ZooKeeperWatcher cannot be removed.  */
+comment|/**  * This is an example showing how a RegionObserver could configured  * via ZooKeeper in order to control a Region compaction, flush, and scan policy.  *  * This also demonstrated the use of shared  * {@link org.apache.hadoop.hbase.coprocessor.RegionObserver} state.  * See {@link RegionCoprocessorEnvironment#getSharedData()}.  *  * This would be useful for an incremental backup tool, which would indicate the last  * time of a successful backup via ZK and instruct HBase to not delete data that was  * inserted since (based on wall clock time).  *  * This implements org.apache.zookeeper.Watcher directly instead of using  * {@link org.apache.hadoop.hbase.zookeeper.ZooKeeperWatcher},  * because RegionObservers come and go and currently  * listeners registered with ZooKeeperWatcher cannot be removed.  */
 end_comment
 
 begin_class
@@ -414,8 +440,29 @@ specifier|public
 class|class
 name|ZooKeeperScanPolicyObserver
 implements|implements
+name|RegionCoprocessor
+implements|,
 name|RegionObserver
 block|{
+annotation|@
+name|Override
+specifier|public
+name|Optional
+argument_list|<
+name|RegionObserver
+argument_list|>
+name|getRegionObserver
+parameter_list|()
+block|{
+return|return
+name|Optional
+operator|.
+name|of
+argument_list|(
+name|this
+argument_list|)
+return|;
+block|}
 comment|// The zk ensemble info is put in hbase config xml with given custom key.
 specifier|public
 specifier|static

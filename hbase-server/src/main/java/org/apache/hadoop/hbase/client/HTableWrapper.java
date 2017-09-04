@@ -267,9 +267,7 @@ name|hbase
 operator|.
 name|coprocessor
 operator|.
-name|CoprocessorHost
-operator|.
-name|Environment
+name|BaseEnvironment
 import|;
 end_import
 
@@ -379,7 +377,7 @@ parameter_list|,
 name|TableName
 name|tableName
 parameter_list|,
-name|Environment
+name|BaseEnvironment
 name|env
 parameter_list|,
 name|ExecutorService

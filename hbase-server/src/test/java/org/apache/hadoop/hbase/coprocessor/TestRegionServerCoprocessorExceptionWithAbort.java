@@ -807,8 +807,8 @@ specifier|public
 specifier|static
 class|class
 name|FailedInitializationObserver
-extends|extends
-name|SimpleRegionObserver
+implements|implements
+name|RegionServerCoprocessor
 block|{
 annotation|@
 name|SuppressWarnings

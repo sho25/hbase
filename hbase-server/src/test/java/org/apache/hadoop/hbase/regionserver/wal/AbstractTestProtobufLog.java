@@ -295,7 +295,7 @@ name|hbase
 operator|.
 name|coprocessor
 operator|.
-name|SampleRegionWALObserver
+name|SampleRegionWALCoprocessor
 import|;
 end_import
 
@@ -715,7 +715,7 @@ name|CoprocessorHost
 operator|.
 name|WAL_COPROCESSOR_CONF_KEY
 argument_list|,
-name|SampleRegionWALObserver
+name|SampleRegionWALCoprocessor
 operator|.
 name|class
 operator|.

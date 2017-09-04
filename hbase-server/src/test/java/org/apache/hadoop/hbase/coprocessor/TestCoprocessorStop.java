@@ -276,7 +276,9 @@ specifier|static
 class|class
 name|FooCoprocessor
 implements|implements
-name|Coprocessor
+name|MasterCoprocessor
+implements|,
+name|RegionServerCoprocessor
 block|{
 annotation|@
 name|Override

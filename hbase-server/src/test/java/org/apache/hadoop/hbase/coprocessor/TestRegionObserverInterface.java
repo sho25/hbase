@@ -109,6 +109,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Optional
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -3382,6 +3392,8 @@ specifier|static
 class|class
 name|EvenOnlyCompactor
 implements|implements
+name|RegionCoprocessor
+implements|,
 name|RegionObserver
 block|{
 name|long
@@ -3390,6 +3402,25 @@ decl_stmt|;
 name|long
 name|lastFlush
 decl_stmt|;
+annotation|@
+name|Override
+specifier|public
+name|Optional
+argument_list|<
+name|RegionObserver
+argument_list|>
+name|getRegionObserver
+parameter_list|()
+block|{
+return|return
+name|Optional
+operator|.
+name|of
+argument_list|(
+name|this
+argument_list|)
+return|;
+block|}
 annotation|@
 name|Override
 specifier|public
@@ -3842,9 +3873,6 @@ argument_list|(
 name|EvenOnlyCompactor
 operator|.
 name|class
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 decl_stmt|;
 name|assertNotNull
@@ -5096,7 +5124,7 @@ name|Class
 argument_list|<
 name|?
 argument_list|>
-name|c
+name|coprocessor
 parameter_list|,
 name|String
 name|methodName
@@ -5215,7 +5243,7 @@ name|cph
 operator|.
 name|findCoprocessor
 argument_list|(
-name|c
+name|coprocessor
 operator|.
 name|getName
 argument_list|()
@@ -5246,7 +5274,7 @@ block|{
 name|Method
 name|m
 init|=
-name|c
+name|coprocessor
 operator|.
 name|getMethod
 argument_list|(
@@ -5270,7 +5298,7 @@ name|assertTrue
 argument_list|(
 literal|"Result of "
 operator|+
-name|c
+name|coprocessor
 operator|.
 name|getName
 argument_list|()

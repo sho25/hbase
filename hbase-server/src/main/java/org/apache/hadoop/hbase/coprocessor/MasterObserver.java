@@ -440,8 +440,6 @@ name|Evolving
 specifier|public
 interface|interface
 name|MasterObserver
-extends|extends
-name|Coprocessor
 block|{
 comment|/**    * Called before a new table is created by    * {@link org.apache.hadoop.hbase.master.HMaster}.  Called as part of create    * table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param desc the TableDescriptor for the table    * @param regions the initial regions created for the table    */
 specifier|default

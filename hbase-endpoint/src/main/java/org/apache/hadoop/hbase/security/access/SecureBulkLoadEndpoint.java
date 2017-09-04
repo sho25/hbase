@@ -51,6 +51,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Optional
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -101,35 +111,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Coprocessor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|CoprocessorEnvironment
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
 import|;
 end_import
 
@@ -145,7 +127,7 @@ name|hbase
 operator|.
 name|coprocessor
 operator|.
-name|CoprocessorService
+name|RegionCoprocessor
 import|;
 end_import
 
@@ -467,6 +449,20 @@ name|Service
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * Coprocessor service for bulk loads in secure mode.  * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0  */
 end_comment
@@ -484,9 +480,7 @@ name|SecureBulkLoadEndpoint
 extends|extends
 name|SecureBulkLoadService
 implements|implements
-name|CoprocessorService
-implements|,
-name|Coprocessor
+name|RegionCoprocessor
 block|{
 specifier|public
 specifier|static
@@ -1300,12 +1294,20 @@ block|}
 annotation|@
 name|Override
 specifier|public
+name|Optional
+argument_list|<
 name|Service
+argument_list|>
 name|getService
 parameter_list|()
 block|{
 return|return
+name|Optional
+operator|.
+name|of
+argument_list|(
 name|this
+argument_list|)
 return|;
 block|}
 block|}

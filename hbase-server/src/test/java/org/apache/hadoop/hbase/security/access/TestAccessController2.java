@@ -3381,9 +3381,6 @@ expr_stmt|;
 name|AccessController
 name|ACCESS_CONTROLLER
 init|=
-operator|(
-name|AccessController
-operator|)
 name|cpHost
 operator|.
 name|findCoprocessor
@@ -3391,9 +3388,6 @@ argument_list|(
 name|MyAccessController
 operator|.
 name|class
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 decl_stmt|;
 name|MasterCoprocessorEnvironment
@@ -3403,10 +3397,6 @@ name|cpHost
 operator|.
 name|createEnvironment
 argument_list|(
-name|MyAccessController
-operator|.
-name|class
-argument_list|,
 name|ACCESS_CONTROLLER
 argument_list|,
 name|Coprocessor
@@ -3441,10 +3431,6 @@ name|rsHost
 operator|.
 name|createEnvironment
 argument_list|(
-name|MyAccessController
-operator|.
-name|class
-argument_list|,
 name|ACCESS_CONTROLLER
 argument_list|,
 name|Coprocessor

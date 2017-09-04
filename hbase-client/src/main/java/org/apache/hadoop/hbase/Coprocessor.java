@@ -27,6 +27,28 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Optional
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|Service
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -130,7 +152,7 @@ name|STOPPING
 block|,
 name|STOPPED
 block|}
-comment|// Interface
+comment|/**    * Called by the {@link CoprocessorEnvironment} during it's own startup to initialize the    * coprocessor.    */
 specifier|default
 name|void
 name|start
@@ -141,6 +163,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
+comment|/**    * Called by the {@link CoprocessorEnvironment} during it's own shutdown to stop the    * coprocessor.    */
 specifier|default
 name|void
 name|stop
@@ -151,6 +174,22 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
+comment|/**    * Coprocessor endpoints providing protobuf services should implement this interface.    */
+specifier|default
+name|Optional
+argument_list|<
+name|Service
+argument_list|>
+name|getService
+parameter_list|()
+block|{
+return|return
+name|Optional
+operator|.
+name|empty
+argument_list|()
+return|;
+block|}
 block|}
 end_interface
 

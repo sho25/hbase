@@ -1175,9 +1175,6 @@ control|)
 block|{
 name|ACCESS_CONTROLLER
 operator|=
-operator|(
-name|AccessController
-operator|)
 name|rst
 operator|.
 name|getRegionServer
@@ -1191,9 +1188,6 @@ argument_list|(
 name|AccessController
 operator|.
 name|class
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 if|if

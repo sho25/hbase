@@ -274,29 +274,29 @@ return|return
 name|caller
 return|;
 block|}
-comment|/**    * Instantiates a new ObserverContext instance if the passed reference is    *<code>null</code> and sets the environment in the new or existing instance.    * This allows deferring the instantiation of a ObserverContext until it is    * actually needed.    *    * @param env The coprocessor environment to set    * @param context An existing ObserverContext instance to use, or<code>null</code>    *     to create a new instance    * @param<T> The environment type for the context    * @return An instance of<code>ObserverContext</code> with the environment set    */
+comment|/**    * Instantiates a new ObserverContext instance if the passed reference is    *<code>null</code> and sets the environment in the new or existing instance.    * This allows deferring the instantiation of a ObserverContext until it is    * actually needed.    *    * @param env The coprocessor environment to set    * @param context An existing ObserverContext instance to use, or<code>null</code>    *     to create a new instance    * @param<E> The environment type for the context    * @return An instance of<code>ObserverContext</code> with the environment set    */
 annotation|@
 name|Deprecated
 comment|// TODO: Remove this method, ObserverContext should not depend on RpcServer
 specifier|public
 specifier|static
 parameter_list|<
-name|T
+name|E
 extends|extends
 name|CoprocessorEnvironment
 parameter_list|>
 name|ObserverContext
 argument_list|<
-name|T
+name|E
 argument_list|>
 name|createAndPrepare
 parameter_list|(
-name|T
+name|E
 name|env
 parameter_list|,
 name|ObserverContext
 argument_list|<
-name|T
+name|E
 argument_list|>
 name|context
 parameter_list|)
@@ -332,26 +332,26 @@ return|return
 name|context
 return|;
 block|}
-comment|/**    * Instantiates a new ObserverContext instance if the passed reference is    *<code>null</code> and sets the environment in the new or existing instance.    * This allows deferring the instantiation of a ObserverContext until it is    * actually needed.    *    * @param env The coprocessor environment to set    * @param context An existing ObserverContext instance to use, or<code>null</code>    *     to create a new instance    * @param user The requesting caller for the execution context    * @param<T> The environment type for the context    * @return An instance of<code>ObserverContext</code> with the environment set    */
+comment|/**    * Instantiates a new ObserverContext instance if the passed reference is    *<code>null</code> and sets the environment in the new or existing instance.    * This allows deferring the instantiation of a ObserverContext until it is    * actually needed.    *    * @param env The coprocessor environment to set    * @param context An existing ObserverContext instance to use, or<code>null</code>    *     to create a new instance    * @param user The requesting caller for the execution context    * @param<E> The environment type for the context    * @return An instance of<code>ObserverContext</code> with the environment set    */
 specifier|public
 specifier|static
 parameter_list|<
-name|T
+name|E
 extends|extends
 name|CoprocessorEnvironment
 parameter_list|>
 name|ObserverContext
 argument_list|<
-name|T
+name|E
 argument_list|>
 name|createAndPrepare
 parameter_list|(
-name|T
+name|E
 name|env
 parameter_list|,
 name|ObserverContext
 argument_list|<
-name|T
+name|E
 argument_list|>
 name|context
 parameter_list|,

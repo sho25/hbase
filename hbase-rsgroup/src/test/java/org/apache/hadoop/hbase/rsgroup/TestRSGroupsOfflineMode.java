@@ -1162,16 +1162,11 @@ operator|.
 name|getMasterCoprocessorHost
 argument_list|()
 operator|.
-name|findCoprocessors
+name|findCoprocessor
 argument_list|(
 name|RSGroupAdminEndpoint
 operator|.
 name|class
-argument_list|)
-operator|.
-name|get
-argument_list|(
-literal|0
 argument_list|)
 operator|.
 name|getGroupInfoManager

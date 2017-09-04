@@ -128,8 +128,6 @@ name|Evolving
 specifier|public
 interface|interface
 name|EndpointObserver
-extends|extends
-name|Coprocessor
 block|{
 comment|/**    * Called before an Endpoint service method is invoked.    * The request message can be altered by returning a new instance. Throwing an    * exception will abort the invocation.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param ctx the environment provided by the region server    * @param service the endpoint service    * @param request  Request message expected by given {@code Service}'s method (by the name    *   {@code methodName}).    * @param methodName the invoked service method    * @return the possibly modified message    */
 specifier|default

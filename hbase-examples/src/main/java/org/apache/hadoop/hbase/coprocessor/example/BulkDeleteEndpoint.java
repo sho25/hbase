@@ -65,6 +65,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Optional
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Set
 import|;
 end_import
@@ -132,20 +142,6 @@ operator|.
 name|hbase
 operator|.
 name|CellUtil
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|Coprocessor
 import|;
 end_import
 
@@ -269,7 +265,7 @@ name|hbase
 operator|.
 name|coprocessor
 operator|.
-name|CoprocessorService
+name|RegionCoprocessor
 import|;
 end_import
 
@@ -552,7 +548,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Defines a protocol to delete data in bulk based on a scan. The scan can be range scan or with  * conditions(filters) etc.This can be used to delete rows, column family(s), column qualifier(s)   * or version(s) of columns.When delete type is FAMILY or COLUMN, which all family(s) or column(s)  * getting deleted will be determined by the Scan. Scan need to select all the families/qualifiers  * which need to be deleted.When delete type is VERSION, Which column(s) and version(s) to be  * deleted will be determined by the Scan. Scan need to select all the qualifiers and its versions  * which needs to be deleted.When a timestamp is passed only one version at that timestamp will be  * deleted(even if Scan fetches many versions). When timestamp passed as null, all the versions  * which the Scan selects will get deleted.  *   *<br> Example:<pre><code>  * Scan scan = new Scan();  * // set scan properties(rowkey range, filters, timerange etc).  * HTable ht = ...;  * long noOfDeletedRows = 0L;  * Batch.Call&lt;BulkDeleteService, BulkDeleteResponse&gt; callable =   *     new Batch.Call&lt;BulkDeleteService, BulkDeleteResponse&gt;() {  *   ServerRpcController controller = new ServerRpcController();  *   BlockingRpcCallback&lt;BulkDeleteResponse&gt; rpcCallback =   *     new BlockingRpcCallback&lt;BulkDeleteResponse&gt;();  *  *   public BulkDeleteResponse call(BulkDeleteService service) throws IOException {  *     Builder builder = BulkDeleteRequest.newBuilder();  *     builder.setScan(ProtobufUtil.toScan(scan));  *     builder.setDeleteType(DeleteType.VERSION);  *     builder.setRowBatchSize(rowBatchSize);  *     // Set optional timestamp if needed  *     builder.setTimestamp(timeStamp);  *     service.delete(controller, builder.build(), rpcCallback);  *     return rpcCallback.get();  *   }  * };  * Map&lt;byte[], BulkDeleteResponse&gt; result = ht.coprocessorService(BulkDeleteService.class, scan  *     .getStartRow(), scan.getStopRow(), callable);  * for (BulkDeleteResponse response : result.values()) {  *   noOfDeletedRows += response.getRowsDeleted();  * }  *</code></pre>  */
+comment|/**  * Defines a protocol to delete data in bulk based on a scan. The scan can be range scan or with  * conditions(filters) etc.This can be used to delete rows, column family(s), column qualifier(s)  * or version(s) of columns.When delete type is FAMILY or COLUMN, which all family(s) or column(s)  * getting deleted will be determined by the Scan. Scan need to select all the families/qualifiers  * which need to be deleted.When delete type is VERSION, Which column(s) and version(s) to be  * deleted will be determined by the Scan. Scan need to select all the qualifiers and its versions  * which needs to be deleted.When a timestamp is passed only one version at that timestamp will be  * deleted(even if Scan fetches many versions). When timestamp passed as null, all the versions  * which the Scan selects will get deleted.  *  *<br> Example:<pre><code>  * Scan scan = new Scan();  * // set scan properties(rowkey range, filters, timerange etc).  * HTable ht = ...;  * long noOfDeletedRows = 0L;  * Batch.Call&lt;BulkDeleteService, BulkDeleteResponse&gt; callable =  *     new Batch.Call&lt;BulkDeleteService, BulkDeleteResponse&gt;() {  *   ServerRpcController controller = new ServerRpcController();  *   BlockingRpcCallback&lt;BulkDeleteResponse&gt; rpcCallback =  *     new BlockingRpcCallback&lt;BulkDeleteResponse&gt;();  *  *   public BulkDeleteResponse call(BulkDeleteService service) throws IOException {  *     Builder builder = BulkDeleteRequest.newBuilder();  *     builder.setScan(ProtobufUtil.toScan(scan));  *     builder.setDeleteType(DeleteType.VERSION);  *     builder.setRowBatchSize(rowBatchSize);  *     // Set optional timestamp if needed  *     builder.setTimestamp(timeStamp);  *     service.delete(controller, builder.build(), rpcCallback);  *     return rpcCallback.get();  *   }  * };  * Map&lt;byte[], BulkDeleteResponse&gt; result = ht.coprocessorService(BulkDeleteService.class, scan  *     .getStartRow(), scan.getStopRow(), callable);  * for (BulkDeleteResponse response : result.values()) {  *   noOfDeletedRows += response.getRowsDeleted();  * }  *</code></pre>  */
 end_comment
 
 begin_class
@@ -562,9 +558,7 @@ name|BulkDeleteEndpoint
 extends|extends
 name|BulkDeleteService
 implements|implements
-name|CoprocessorService
-implements|,
-name|Coprocessor
+name|RegionCoprocessor
 block|{
 specifier|private
 specifier|static
@@ -596,12 +590,20 @@ decl_stmt|;
 annotation|@
 name|Override
 specifier|public
+name|Optional
+argument_list|<
 name|Service
+argument_list|>
 name|getService
 parameter_list|()
 block|{
 return|return
+name|Optional
+operator|.
+name|of
+argument_list|(
 name|this
+argument_list|)
 return|;
 block|}
 annotation|@

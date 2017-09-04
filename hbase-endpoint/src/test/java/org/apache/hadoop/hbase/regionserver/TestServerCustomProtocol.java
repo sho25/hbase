@@ -75,6 +75,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Optional
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -98,20 +108,6 @@ operator|.
 name|logging
 operator|.
 name|LogFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|Coprocessor
 import|;
 end_import
 
@@ -281,7 +277,7 @@ name|hbase
 operator|.
 name|coprocessor
 operator|.
-name|CoprocessorService
+name|RegionCoprocessor
 import|;
 end_import
 
@@ -781,9 +777,7 @@ name|PingProtos
 operator|.
 name|PingService
 implements|implements
-name|Coprocessor
-implements|,
-name|CoprocessorService
+name|RegionCoprocessor
 block|{
 specifier|private
 name|int
@@ -1096,12 +1090,20 @@ block|}
 annotation|@
 name|Override
 specifier|public
+name|Optional
+argument_list|<
 name|Service
+argument_list|>
 name|getService
 parameter_list|()
 block|{
 return|return
+name|Optional
+operator|.
+name|of
+argument_list|(
 name|this
+argument_list|)
 return|;
 block|}
 block|}

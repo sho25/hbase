@@ -166,8 +166,6 @@ name|Evolving
 specifier|public
 interface|interface
 name|WALObserver
-extends|extends
-name|Coprocessor
 block|{
 comment|/**    * Called before a {@link WALEdit}    * is writen to WAL.    *    * @return true if default behavior should be bypassed, false otherwise    */
 comment|// TODO: return value is not used

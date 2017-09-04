@@ -809,10 +809,6 @@ name|cpHost
 operator|.
 name|createEnvironment
 argument_list|(
-name|AccessController
-operator|.
-name|class
-argument_list|,
 name|ac
 argument_list|,
 name|Coprocessor
@@ -844,10 +840,6 @@ name|rsHost
 operator|.
 name|createEnvironment
 argument_list|(
-name|AccessController
-operator|.
-name|class
-argument_list|,
 name|ac
 argument_list|,
 name|Coprocessor

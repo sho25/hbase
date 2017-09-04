@@ -124,6 +124,9 @@ interface|interface
 name|RegionServerCoprocessorEnvironment
 extends|extends
 name|CoprocessorEnvironment
+argument_list|<
+name|RegionServerCoprocessor
+argument_list|>
 block|{
 comment|/**    * Gets the region server services.    *    * @return the region server services    */
 name|CoprocessorRegionServerServices

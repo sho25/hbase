@@ -594,7 +594,7 @@ name|CoprocessorHost
 operator|.
 name|MASTER_COPROCESSOR_CONF_KEY
 argument_list|,
-name|MasterSyncObserver
+name|MasterSyncCoprocessor
 operator|.
 name|class
 operator|.

@@ -433,7 +433,7 @@ name|hbase
 operator|.
 name|coprocessor
 operator|.
-name|SampleRegionWALObserver
+name|SampleRegionWALCoprocessor
 import|;
 end_import
 
@@ -1075,7 +1075,7 @@ name|CoprocessorHost
 operator|.
 name|WAL_COPROCESSOR_CONF_KEY
 argument_list|,
-name|SampleRegionWALObserver
+name|SampleRegionWALCoprocessor
 operator|.
 name|class
 operator|.
@@ -5046,12 +5046,9 @@ name|host
 operator|.
 name|findCoprocessor
 argument_list|(
-name|SampleRegionWALObserver
+name|SampleRegionWALCoprocessor
 operator|.
 name|class
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 decl_stmt|;
 name|assertNotNull

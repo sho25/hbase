@@ -53,6 +53,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Optional
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -92,20 +102,6 @@ operator|.
 name|ipc
 operator|.
 name|CoprocessorRpcUtils
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|Coprocessor
 import|;
 end_import
 
@@ -337,15 +333,13 @@ parameter_list|>
 extends|extends
 name|RowProcessorService
 implements|implements
-name|CoprocessorService
-implements|,
-name|Coprocessor
+name|RegionCoprocessor
 block|{
 specifier|private
 name|RegionCoprocessorEnvironment
 name|env
 decl_stmt|;
-comment|/**    * Pass a processor to region to process multiple rows atomically.    *     * The RowProcessor implementations should be the inner classes of your    * RowProcessorEndpoint. This way the RowProcessor can be class-loaded with    * the Coprocessor endpoint together.    *    * See {@code TestRowProcessorEndpoint} for example.    *    * The request contains information for constructing processor     * (see {@link #constructRowProcessorFromRequest}. The processor object defines    * the read-modify-write procedure.    */
+comment|/**    * Pass a processor to region to process multiple rows atomically.    *    * The RowProcessor implementations should be the inner classes of your    * RowProcessorEndpoint. This way the RowProcessor can be class-loaded with    * the Coprocessor endpoint together.    *    * See {@code TestRowProcessorEndpoint} for example.    *    * The request contains information for constructing processor    * (see {@link #constructRowProcessorFromRequest}. The processor object defines    * the read-modify-write procedure.    */
 annotation|@
 name|Override
 specifier|public
@@ -505,12 +499,20 @@ block|}
 annotation|@
 name|Override
 specifier|public
+name|Optional
+argument_list|<
 name|Service
+argument_list|>
 name|getService
 parameter_list|()
 block|{
 return|return
+name|Optional
+operator|.
+name|of
+argument_list|(
 name|this
+argument_list|)
 return|;
 block|}
 comment|/**    * Stores a reference to the coprocessor environment provided by the    * {@link org.apache.hadoop.hbase.regionserver.RegionCoprocessorHost} from the region where this    * coprocessor is loaded.  Since this is a coprocessor endpoint, it always expects to be loaded    * on a table region, so always expects this to be an instance of    * {@link RegionCoprocessorEnvironment}.    * @param env the environment provided by the coprocessor host    * @throws IOException if the provided environment is not an instance of    * {@code RegionCoprocessorEnvironment}    */

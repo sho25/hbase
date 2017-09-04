@@ -705,8 +705,6 @@ comment|// so we can use additional environment state that isn't exposed to copr
 specifier|public
 interface|interface
 name|RegionObserver
-extends|extends
-name|Coprocessor
 block|{
 comment|/** Mutation type for postMutationBeforeWAL hook */
 enum|enum

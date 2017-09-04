@@ -982,10 +982,6 @@ name|cpHost
 operator|.
 name|createEnvironment
 argument_list|(
-name|AccessController
-operator|.
-name|class
-argument_list|,
 name|ACCESS_CONTROLLER
 argument_list|,
 name|Coprocessor
@@ -1031,10 +1027,6 @@ name|rsHost
 operator|.
 name|createEnvironment
 argument_list|(
-name|AccessController
-operator|.
-name|class
-argument_list|,
 name|ACCESS_CONTROLLER
 argument_list|,
 name|Coprocessor
@@ -1432,10 +1424,6 @@ name|rcpHost
 operator|.
 name|createEnvironment
 argument_list|(
-name|AccessController
-operator|.
-name|class
-argument_list|,
 name|ACCESS_CONTROLLER
 argument_list|,
 name|Coprocessor

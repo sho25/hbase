@@ -93,6 +93,11 @@ name|Private
 specifier|public
 interface|interface
 name|CoprocessorEnvironment
+parameter_list|<
+name|C
+extends|extends
+name|Coprocessor
+parameter_list|>
 block|{
 comment|/** @return the Coprocessor interface version */
 name|int
@@ -105,7 +110,7 @@ name|getHBaseVersion
 parameter_list|()
 function_decl|;
 comment|/** @return the loaded coprocessor instance */
-name|Coprocessor
+name|C
 name|getInstance
 parameter_list|()
 function_decl|;
@@ -150,6 +155,18 @@ function_decl|;
 comment|/**    * @return the classloader for the loaded coprocessor instance    */
 name|ClassLoader
 name|getClassLoader
+parameter_list|()
+function_decl|;
+comment|/**    * After a coprocessor has been loaded in an encapsulation of an environment, CoprocessorHost    * calls this function to initialize the environment.    */
+name|void
+name|startup
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
+comment|/** Clean up the environment. Called by CoprocessorHost when it itself is shutting down. */
+name|void
+name|shutdown
 parameter_list|()
 function_decl|;
 block|}

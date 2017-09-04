@@ -43,6 +43,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Optional
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Set
 import|;
 end_import
@@ -243,7 +253,7 @@ name|hbase
 operator|.
 name|coprocessor
 operator|.
-name|CoprocessorService
+name|MasterCoprocessor
 import|;
 end_import
 
@@ -853,6 +863,10 @@ name|InterfaceAudience
 import|;
 end_import
 
+begin_comment
+comment|// TODO: Encapsulate MasterObserver functions into separate subclass.
+end_comment
+
 begin_class
 annotation|@
 name|InterfaceAudience
@@ -862,9 +876,9 @@ specifier|public
 class|class
 name|RSGroupAdminEndpoint
 implements|implements
-name|MasterObserver
+name|MasterCoprocessor
 implements|,
-name|CoprocessorService
+name|MasterObserver
 block|{
 specifier|private
 specifier|static
@@ -994,12 +1008,39 @@ block|}
 annotation|@
 name|Override
 specifier|public
+name|Optional
+argument_list|<
 name|Service
+argument_list|>
 name|getService
 parameter_list|()
 block|{
 return|return
+name|Optional
+operator|.
+name|of
+argument_list|(
 name|groupAdminService
+argument_list|)
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|Optional
+argument_list|<
+name|MasterObserver
+argument_list|>
+name|getMasterObserver
+parameter_list|()
+block|{
+return|return
+name|Optional
+operator|.
+name|of
+argument_list|(
+name|this
+argument_list|)
 return|;
 block|}
 name|RSGroupInfoManager
@@ -1010,7 +1051,7 @@ return|return
 name|groupInfoManager
 return|;
 block|}
-comment|/**    * Implementation of RSGroupAdminService defined in RSGroupAdmin.proto.    * This class calls {@link RSGroupAdminServer} for actual work, converts result to protocol    * buffer response, handles exceptions if any occurred and then calls the {@code RpcCallback} with    * the response.    * Since our CoprocessorHost asks the Coprocessor for a Service    * ({@link CoprocessorService#getService()}) instead of doing "coproc instanceOf Service"    * and requiring Coprocessor itself to be Service (something we do with our observers),    * we can use composition instead of inheritance here. That makes it easy to manage    * functionalities in concise classes (sometimes inner classes) instead of single class doing    * many different things.    */
+comment|/**    * Implementation of RSGroupAdminService defined in RSGroupAdmin.proto.    * This class calls {@link RSGroupAdminServer} for actual work, converts result to protocol    * buffer response, handles exceptions if any occurred and then calls the {@code RpcCallback} with    * the response.    */
 specifier|private
 class|class
 name|RSGroupAdminServiceImpl

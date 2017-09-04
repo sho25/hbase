@@ -72,10 +72,12 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Coprocessor endpoints providing protobuf services should implement this  * interface and return the {@link Service} instance via {@link #getService()}.  */
+comment|/**  * Coprocessor endpoints providing protobuf services should implement this  * interface and return the {@link Service} instance via {@link #getService()}.  * @deprecated Since 2.0. Will be removed in 3.0  */
 end_comment
 
 begin_interface
+annotation|@
+name|Deprecated
 annotation|@
 name|InterfaceAudience
 operator|.

@@ -1713,7 +1713,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * Add a table coprocessor to this table. The coprocessor    * type must be org.apache.hadoop.hbase.coprocessor.RegionObserver    * or Endpoint.    * It won't check if the class can be loaded or not.    * Whether a coprocessor is loadable or not will be determined when    * a region is opened.    * @param className Full class name.    * @throws IOException    */
+comment|/**    * Add a table coprocessor to this table. The coprocessor    * type must be org.apache.hadoop.hbase.coprocessor.RegionCoprocessor.    * It won't check if the class can be loaded or not.    * Whether a coprocessor is loadable or not will be determined when    * a region is opened.    * @param className Full class name.    * @throws IOException    */
 specifier|public
 name|HTableDescriptor
 name|addCoprocessor
@@ -1736,7 +1736,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Add a table coprocessor to this table. The coprocessor    * type must be org.apache.hadoop.hbase.coprocessor.RegionObserver    * or Endpoint.    * It won't check if the class can be loaded or not.    * Whether a coprocessor is loadable or not will be determined when    * a region is opened.    * @param jarFilePath Path of the jar file. If it's null, the class will be    * loaded from default classloader.    * @param className Full class name.    * @param priority Priority    * @param kvs Arbitrary key-value parameter pairs passed into the coprocessor.    * @throws IOException    */
+comment|/**    * Add a table coprocessor to this table. The coprocessor    * type must be org.apache.hadoop.hbase.coprocessor.RegionCoprocessor.    * It won't check if the class can be loaded or not.    * Whether a coprocessor is loadable or not will be determined when    * a region is opened.    * @param jarFilePath Path of the jar file. If it's null, the class will be    * loaded from default classloader.    * @param className Full class name.    * @param priority Priority    * @param kvs Arbitrary key-value parameter pairs passed into the coprocessor.    * @throws IOException    */
 specifier|public
 name|HTableDescriptor
 name|addCoprocessor
@@ -1780,7 +1780,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Add a table coprocessor to this table. The coprocessor    * type must be org.apache.hadoop.hbase.coprocessor.RegionObserver    * or Endpoint.    * It won't check if the class can be loaded or not.    * Whether a coprocessor is loadable or not will be determined when    * a region is opened.    * @param specStr The Coprocessor specification all in in one String formatted so matches    * {@link HConstants#CP_HTD_ATTR_VALUE_PATTERN}    * @throws IOException    */
+comment|/**    * Add a table coprocessor to this table. The coprocessor    * type must be org.apache.hadoop.hbase.coprocessor.RegionCoprocessor.    * It won't check if the class can be loaded or not.    * Whether a coprocessor is loadable or not will be determined when    * a region is opened.    * @param specStr The Coprocessor specification all in in one String formatted so matches    * {@link HConstants#CP_HTD_ATTR_VALUE_PATTERN}    * @throws IOException    */
 specifier|public
 name|HTableDescriptor
 name|addCoprocessorWithSpec

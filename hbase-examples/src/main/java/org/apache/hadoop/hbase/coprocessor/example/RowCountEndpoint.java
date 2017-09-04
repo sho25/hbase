@@ -51,6 +51,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Optional
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -74,20 +84,6 @@ operator|.
 name|hbase
 operator|.
 name|CellUtil
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|Coprocessor
 import|;
 end_import
 
@@ -149,7 +145,7 @@ name|hbase
 operator|.
 name|coprocessor
 operator|.
-name|CoprocessorService
+name|RegionCoprocessor
 import|;
 end_import
 
@@ -302,9 +298,7 @@ name|ExampleProtos
 operator|.
 name|RowCountService
 implements|implements
-name|Coprocessor
-implements|,
-name|CoprocessorService
+name|RegionCoprocessor
 block|{
 specifier|private
 name|RegionCoprocessorEnvironment
@@ -318,12 +312,20 @@ comment|/**    * Just returns a reference to this object, which implements the R
 annotation|@
 name|Override
 specifier|public
+name|Optional
+argument_list|<
 name|Service
+argument_list|>
 name|getService
 parameter_list|()
 block|{
 return|return
+name|Optional
+operator|.
+name|of
+argument_list|(
 name|this
+argument_list|)
 return|;
 block|}
 comment|/**    * Returns a count of the rows in the region where this coprocessor is loaded.    */
