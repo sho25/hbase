@@ -195,9 +195,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
+name|io
 operator|.
-name|Scan
+name|TimeRange
 import|;
 end_import
 
@@ -831,8 +831,8 @@ specifier|abstract
 name|boolean
 name|shouldSeek
 parameter_list|(
-name|Scan
-name|scan
+name|TimeRange
+name|tr
 parameter_list|,
 name|long
 name|oldestUnexpiredTS

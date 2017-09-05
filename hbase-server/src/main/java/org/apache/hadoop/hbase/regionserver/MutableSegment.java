@@ -133,9 +133,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
+name|io
 operator|.
-name|Scan
+name|TimeRange
 import|;
 end_import
 
@@ -510,8 +510,8 @@ specifier|public
 name|boolean
 name|shouldSeek
 parameter_list|(
-name|Scan
-name|scan
+name|TimeRange
+name|tr
 parameter_list|,
 name|long
 name|oldestUnexpiredTS
@@ -525,10 +525,7 @@ name|timeRangeTracker
 operator|.
 name|includesTimeRange
 argument_list|(
-name|scan
-operator|.
-name|getTimeRange
-argument_list|()
+name|tr
 argument_list|)
 operator|&&
 operator|(

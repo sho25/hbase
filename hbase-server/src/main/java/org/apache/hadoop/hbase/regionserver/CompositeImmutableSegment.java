@@ -23,21 +23,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|commons
 operator|.
-name|hbase
+name|logging
 operator|.
-name|shaded
-operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|annotations
-operator|.
-name|VisibleForTesting
+name|Log
 import|;
 end_import
 
@@ -47,11 +37,13 @@ name|org
 operator|.
 name|apache
 operator|.
-name|commons
+name|hadoop
 operator|.
-name|logging
+name|hbase
 operator|.
-name|Log
+name|classification
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -93,9 +85,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|classification
+name|io
 operator|.
-name|InterfaceAudience
+name|TimeRange
 import|;
 end_import
 
@@ -109,9 +101,17 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
+name|shaded
 operator|.
-name|Scan
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
 import|;
 end_import
 
@@ -450,8 +450,8 @@ specifier|public
 name|boolean
 name|shouldSeek
 parameter_list|(
-name|Scan
-name|scan
+name|TimeRange
+name|tr
 parameter_list|,
 name|long
 name|oldestUnexpiredTS
