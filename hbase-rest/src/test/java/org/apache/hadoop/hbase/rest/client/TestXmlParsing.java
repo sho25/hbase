@@ -222,7 +222,7 @@ name|xml
 init|=
 literal|"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>"
 operator|+
-literal|"<ClusterVersion>2.0.0</ClusterVersion>"
+literal|"<ClusterVersion Version=\"2.0.0\"/>"
 decl_stmt|;
 name|Client
 name|client

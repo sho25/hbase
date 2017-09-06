@@ -53,6 +53,20 @@ name|bind
 operator|.
 name|annotation
 operator|.
+name|XmlAttribute
+import|;
+end_import
+
+begin_import
+import|import
+name|javax
+operator|.
+name|xml
+operator|.
+name|bind
+operator|.
+name|annotation
+operator|.
 name|XmlRootElement
 import|;
 end_import
@@ -123,7 +137,12 @@ name|version
 decl_stmt|;
 comment|/**    * @return the storage cluster version    */
 annotation|@
-name|XmlValue
+name|XmlAttribute
+argument_list|(
+name|name
+operator|=
+literal|"Version"
+argument_list|)
 specifier|public
 name|String
 name|getVersion
@@ -150,8 +169,6 @@ name|version
 expr_stmt|;
 block|}
 comment|/* (non-Javadoc)    * @see java.lang.Object#toString()    */
-annotation|@
-name|JsonValue
 annotation|@
 name|Override
 specifier|public

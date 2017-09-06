@@ -113,15 +113,15 @@ name|AS_XML
 operator|=
 literal|"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>"
 operator|+
-literal|"<ClusterVersion>"
+literal|"<ClusterVersion Version=\""
 operator|+
 name|VERSION
 operator|+
-literal|"</ClusterVersion>"
+literal|"\"/>"
 expr_stmt|;
 name|AS_JSON
 operator|=
-literal|"\"0.0.1-testing\""
+literal|"{\"Version\": \"0.0.1-testing\"}"
 expr_stmt|;
 block|}
 specifier|protected
