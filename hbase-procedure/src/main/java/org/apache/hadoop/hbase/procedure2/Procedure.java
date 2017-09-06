@@ -31,26 +31,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|io
-operator|.
-name|InputStream
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|OutputStream
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|Arrays
@@ -500,33 +480,33 @@ name|TEnvironment
 name|env
 parameter_list|)
 function_decl|;
-comment|/**    * The user-level code of the procedure may have some state to    * persist (e.g. input arguments or current position in the processing state) to    * be able to resume on failure.    * @param stream the stream that will contain the user serialized data    */
+comment|/**    * The user-level code of the procedure may have some state to    * persist (e.g. input arguments or current position in the processing state) to    * be able to resume on failure.    * @param serializer stores the serializable state    */
 specifier|protected
 specifier|abstract
 name|void
 name|serializeStateData
 parameter_list|(
 specifier|final
-name|OutputStream
-name|stream
+name|ProcedureStateSerializer
+name|serializer
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called on store load to allow the user to decode the previously serialized    * state.    * @param stream the stream that contains the user serialized data    */
+comment|/**    * Called on store load to allow the user to decode the previously serialized    * state.    * @param serializer contains the serialized state    */
 specifier|protected
 specifier|abstract
 name|void
 name|deserializeStateData
 parameter_list|(
 specifier|final
-name|InputStream
-name|stream
+name|ProcedureStateSerializer
+name|serializer
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * The user should override this method if they need a lock on an Entity.    * A lock can be anything, and it is up to the implementor. The Procedure    * Framework will call this method just before it invokes {@link #execute(Object)}.    * It calls {@link #releaseLock(Object)} after the call to execute.    *    *<p>If you need to hold the lock for the life of the Procdure -- i.e. you do not    * want any other Procedure interfering while this Procedure is running, see    * {@link #holdLock(Object)}.    *    *<p>Example: in our Master we can execute request in parallel for different tables.    * We can create t1 and create t2 and these creates can be executed at the same time.    * Anything else on t1/t2 is queued waiting that specific table create to happen.    *    *<p>There are 3 LockState:    *<ul><li>LOCK_ACQUIRED should be returned when the proc has the lock and the proc is    * ready to execute.</li>    *<li>LOCK_YIELD_WAIT should be returned when the proc has not the lock and the framework    * should take care of readding the procedure back to the runnable set for retry</li>    *<li>LOCK_EVENT_WAIT should be returned when the proc has not the lock and someone will    * take care of readding the procedure back to the runnable set when the lock is available.    *</li></ul>    * @return the lock state as described above.    */
+comment|/**    * The user should override this method if they need a lock on an Entity.    * A lock can be anything, and it is up to the implementor. The Procedure    * Framework will call this method just before it invokes {@link #execute(Object)}.    * It calls {@link #releaseLock(Object)} after the call to execute.    *    *<p>If you need to hold the lock for the life of the Procedure -- i.e. you do not    * want any other Procedure interfering while this Procedure is running, see    * {@link #holdLock(Object)}.    *    *<p>Example: in our Master we can execute request in parallel for different tables.    * We can create t1 and create t2 and these creates can be executed at the same time.    * Anything else on t1/t2 is queued waiting that specific table create to happen.    *    *<p>There are 3 LockState:    *<ul><li>LOCK_ACQUIRED should be returned when the proc has the lock and the proc is    * ready to execute.</li>    *<li>LOCK_YIELD_WAIT should be returned when the proc has not the lock and the framework    * should take care of readding the procedure back to the runnable set for retry</li>    *<li>LOCK_EVENT_WAIT should be returned when the proc has not the lock and someone will    * take care of readding the procedure back to the runnable set when the lock is available.    *</li></ul>    * @return the lock state as described above.    */
 specifier|protected
 name|LockState
 name|acquireLock

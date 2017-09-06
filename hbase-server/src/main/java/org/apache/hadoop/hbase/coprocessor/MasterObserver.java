@@ -155,20 +155,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ProcedureInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|ServerName
 import|;
 end_import
@@ -363,7 +349,39 @@ name|hbase
 operator|.
 name|procedure2
 operator|.
-name|LockInfo
+name|LockType
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|procedure2
+operator|.
+name|LockedResource
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|procedure2
+operator|.
+name|Procedure
 import|;
 end_import
 
@@ -1808,10 +1826,10 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called before a listProcedures request has been processed.    * @param ctx the environment to interact with the framework and master    */
+comment|/**    * Called before a getProcedures request has been processed.    * @param ctx the environment to interact with the framework and master    */
 specifier|default
 name|void
-name|preListProcedures
+name|preGetProcedures
 parameter_list|(
 name|ObserverContext
 argument_list|<
@@ -1822,10 +1840,10 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called after a listProcedures request has been processed.    * @param ctx the environment to interact with the framework and master    * @param procInfoList the list of procedures about to be returned    */
+comment|/**    * Called after a getProcedures request has been processed.    * @param ctx the environment to interact with the framework and master    * @param procList the list of procedures about to be returned    */
 specifier|default
 name|void
-name|postListProcedures
+name|postGetProcedures
 parameter_list|(
 name|ObserverContext
 argument_list|<
@@ -1835,17 +1853,20 @@ name|ctx
 parameter_list|,
 name|List
 argument_list|<
-name|ProcedureInfo
+name|Procedure
+argument_list|<
+name|?
 argument_list|>
-name|procInfoList
+argument_list|>
+name|procList
 parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called before a listLocks request has been processed.    * @param ctx the environment to interact with the framework and master    * @throws IOException if something went wrong    */
+comment|/**    * Called before a getLocks request has been processed.    * @param ctx the environment to interact with the framework and master    * @throws IOException if something went wrong    */
 specifier|default
 name|void
-name|preListLocks
+name|preGetLocks
 parameter_list|(
 name|ObserverContext
 argument_list|<
@@ -1856,10 +1877,10 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called after a listLocks request has been processed.    * @param ctx the environment to interact with the framework and master    * @param lockInfoList the list of locks about to be returned    * @throws IOException if something went wrong    */
+comment|/**    * Called after a getLocks request has been processed.    * @param ctx the environment to interact with the framework and master    * @param lockedResources the list of locks about to be returned    * @throws IOException if something went wrong    */
 specifier|default
 name|void
-name|postListLocks
+name|postGetLocks
 parameter_list|(
 name|ObserverContext
 argument_list|<
@@ -1869,9 +1890,9 @@ name|ctx
 parameter_list|,
 name|List
 argument_list|<
-name|LockInfo
+name|LockedResource
 argument_list|>
-name|lockInfoList
+name|lockedResources
 parameter_list|)
 throws|throws
 name|IOException
@@ -3912,8 +3933,6 @@ name|HRegionInfo
 index|[]
 name|regionInfos
 parameter_list|,
-name|LockProcedure
-operator|.
 name|LockType
 name|type
 parameter_list|,
@@ -3944,8 +3963,6 @@ name|HRegionInfo
 index|[]
 name|regionInfos
 parameter_list|,
-name|LockProcedure
-operator|.
 name|LockType
 name|type
 parameter_list|,

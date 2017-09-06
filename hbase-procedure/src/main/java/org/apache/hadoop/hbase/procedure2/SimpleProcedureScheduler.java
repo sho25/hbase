@@ -263,9 +263,9 @@ name|Override
 specifier|public
 name|List
 argument_list|<
-name|LockInfo
+name|LockedResource
 argument_list|>
-name|listLocks
+name|getLocks
 parameter_list|()
 block|{
 return|return
@@ -278,12 +278,10 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|LockInfo
-name|getLockInfoForResource
+name|LockedResource
+name|getLockResource
 parameter_list|(
-name|LockInfo
-operator|.
-name|ResourceType
+name|LockedResourceType
 name|resourceType
 parameter_list|,
 name|String

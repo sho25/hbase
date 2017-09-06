@@ -235,20 +235,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ProcedureInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|RegionLoad
 import|;
 end_import
@@ -374,22 +360,6 @@ operator|.
 name|ipc
 operator|.
 name|CoprocessorRpcChannel
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|procedure2
-operator|.
-name|LockInfo
 import|;
 end_import
 
@@ -2311,18 +2281,16 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List procedures    * @return procedure list    * @throws IOException    */
-name|ProcedureInfo
-index|[]
-name|listProcedures
+comment|/**    * Get procedures.    * @return procedure list in JSON    * @throws IOException    */
+name|String
+name|getProcedures
 parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List locks.    * @return lock list    * @throws IOException if a remote or network exception occurs    */
-name|LockInfo
-index|[]
-name|listLocks
+comment|/**    * Get locks.    * @return lock list in JSON    * @throws IOException if a remote or network exception occurs    */
+name|String
+name|getLocks
 parameter_list|()
 throws|throws
 name|IOException

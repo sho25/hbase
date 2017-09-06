@@ -61,20 +61,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ProcedureInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|Server
 import|;
 end_import
@@ -363,7 +349,23 @@ name|hbase
 operator|.
 name|procedure2
 operator|.
-name|LockInfo
+name|LockedResource
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|procedure2
+operator|.
+name|Procedure
 import|;
 end_import
 
@@ -923,24 +925,27 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List procedures    * @return procedure list    * @throws IOException    */
+comment|/**    * Get procedures    * @return procedure list    * @throws IOException    */
 specifier|public
 name|List
 argument_list|<
-name|ProcedureInfo
+name|Procedure
+argument_list|<
+name|?
 argument_list|>
-name|listProcedures
+argument_list|>
+name|getProcedures
 parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List locks    * @return lock list    * @throws IOException    */
+comment|/**    * Get locks    * @return lock list    * @throws IOException    */
 specifier|public
 name|List
 argument_list|<
-name|LockInfo
+name|LockedResource
 argument_list|>
-name|listLocks
+name|getLocks
 parameter_list|()
 throws|throws
 name|IOException

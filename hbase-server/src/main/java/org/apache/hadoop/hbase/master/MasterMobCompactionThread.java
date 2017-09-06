@@ -239,11 +239,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|master
+name|mob
 operator|.
-name|locking
-operator|.
-name|LockProcedure
+name|MobUtils
 import|;
 end_import
 
@@ -257,9 +255,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|mob
+name|procedure2
 operator|.
-name|MobUtils
+name|LockType
 import|;
 end_import
 
@@ -684,8 +682,6 @@ argument_list|(
 name|tableName
 argument_list|)
 argument_list|,
-name|LockProcedure
-operator|.
 name|LockType
 operator|.
 name|EXCLUSIVE

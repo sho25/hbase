@@ -157,20 +157,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ProcedureInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|RegionLoad
 import|;
 end_import
@@ -230,22 +216,6 @@ operator|.
 name|classification
 operator|.
 name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|procedure2
-operator|.
-name|LockInfo
 import|;
 end_import
 
@@ -1794,26 +1764,20 @@ name|boolean
 name|mayInterruptIfRunning
 parameter_list|)
 function_decl|;
-comment|/**    * List procedures    * @return procedure list wrapped by {@link CompletableFuture}    */
+comment|/**    * List procedures    * @return procedure list JSON wrapped by {@link CompletableFuture}    */
 name|CompletableFuture
 argument_list|<
-name|List
-argument_list|<
-name|ProcedureInfo
+name|String
 argument_list|>
-argument_list|>
-name|listProcedures
+name|getProcedures
 parameter_list|()
 function_decl|;
-comment|/**    * List procedure locks.    * @return lock list wrapped by {@link CompletableFuture}    */
+comment|/**    * List locks.    * @return lock list JSON wrapped by {@link CompletableFuture}    */
 name|CompletableFuture
 argument_list|<
-name|List
-argument_list|<
-name|LockInfo
+name|String
 argument_list|>
-argument_list|>
-name|listProcedureLocks
+name|getLocks
 parameter_list|()
 function_decl|;
 comment|/**    * Mark a region server as draining to prevent additional regions from getting assigned to it.    * @param servers    */

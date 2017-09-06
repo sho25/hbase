@@ -200,21 +200,18 @@ name|procedure
 parameter_list|)
 function_decl|;
 comment|/**    * List lock queues.    * @return the locks    */
-comment|// TODO: This seems to be the wrong place to hang this method.
 name|List
 argument_list|<
-name|LockInfo
+name|LockedResource
 argument_list|>
-name|listLocks
+name|getLocks
 parameter_list|()
 function_decl|;
-comment|/**    * @return {@link LockInfo} for resource of specified type& name. null if resource is not locked.    */
-name|LockInfo
-name|getLockInfoForResource
+comment|/**    * @return {@link LockedResource} for resource of specified type& name. null if resource is not locked.    */
+name|LockedResource
+name|getLockResource
 parameter_list|(
-name|LockInfo
-operator|.
-name|ResourceType
+name|LockedResourceType
 name|resourceType
 parameter_list|,
 name|String
