@@ -363,8 +363,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
-operator|.
 name|TestTableName
 import|;
 end_import

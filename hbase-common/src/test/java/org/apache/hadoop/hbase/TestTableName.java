@@ -12,8 +12,6 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
-operator|.
-name|util
 package|;
 end_package
 
@@ -138,6 +136,22 @@ operator|.
 name|hbase
 operator|.
 name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Bytes
 import|;
 end_import
 
