@@ -1294,7 +1294,7 @@ init|=
 operator|new
 name|RowFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -1353,7 +1353,7 @@ index|[
 literal|0
 index|]
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -1404,7 +1404,7 @@ index|[
 literal|0
 index|]
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|NOT_EQUAL
 argument_list|,
@@ -1554,7 +1554,7 @@ init|=
 operator|new
 name|RowFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -1657,7 +1657,7 @@ index|[
 literal|0
 index|]
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -1689,7 +1689,7 @@ index|[
 literal|0
 index|]
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|NOT_EQUAL
 argument_list|,
@@ -1725,7 +1725,7 @@ argument_list|(
 operator|new
 name|RowFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -1747,7 +1747,7 @@ argument_list|(
 operator|new
 name|RowFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -1854,7 +1854,7 @@ index|[
 name|qualifier
 index|]
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,

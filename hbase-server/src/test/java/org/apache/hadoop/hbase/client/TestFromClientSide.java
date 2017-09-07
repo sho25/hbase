@@ -415,6 +415,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CompareOperator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|DoNotRetryIOException
 import|;
 end_import
@@ -3677,7 +3691,7 @@ argument_list|(
 literal|"qual2"
 argument_list|)
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -4317,9 +4331,7 @@ name|key
 argument_list|,
 literal|null
 argument_list|,
-name|CompareFilter
-operator|.
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|)
@@ -4347,9 +4359,7 @@ name|endKey
 argument_list|,
 literal|null
 argument_list|,
-name|CompareFilter
-operator|.
-name|CompareOp
+name|CompareOperator
 operator|.
 name|GREATER_OR_EQUAL
 argument_list|)
@@ -4377,9 +4387,7 @@ name|endKey
 argument_list|,
 name|endKey
 argument_list|,
-name|CompareFilter
-operator|.
-name|CompareOp
+name|CompareOperator
 operator|.
 name|GREATER_OR_EQUAL
 argument_list|)
@@ -5264,9 +5272,7 @@ name|key
 argument_list|,
 literal|null
 argument_list|,
-name|CompareFilter
-operator|.
-name|CompareOp
+name|CompareOperator
 operator|.
 name|LESS
 argument_list|)
@@ -5287,9 +5293,7 @@ name|byte
 index|[]
 name|startRow
 parameter_list|,
-name|CompareFilter
-operator|.
-name|CompareOp
+name|CompareOperator
 name|op
 parameter_list|)
 block|{
@@ -6139,7 +6143,7 @@ init|=
 operator|new
 name|QualifierFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -6435,7 +6439,7 @@ name|FAMILY
 argument_list|,
 name|QUALIFIER
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|GREATER
 argument_list|,
@@ -10732,7 +10736,7 @@ name|FAMILY
 argument_list|,
 literal|null
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -40732,7 +40736,7 @@ name|FAMILY
 argument_list|,
 name|QUALIFIER
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|GREATER
 argument_list|,
@@ -40760,7 +40764,7 @@ name|FAMILY
 argument_list|,
 name|QUALIFIER
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -40788,7 +40792,7 @@ name|FAMILY
 argument_list|,
 name|QUALIFIER
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|GREATER_OR_EQUAL
 argument_list|,
@@ -40816,7 +40820,7 @@ name|FAMILY
 argument_list|,
 name|QUALIFIER
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|LESS
 argument_list|,
@@ -40844,7 +40848,7 @@ name|FAMILY
 argument_list|,
 name|QUALIFIER
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|LESS_OR_EQUAL
 argument_list|,
@@ -40872,7 +40876,7 @@ name|FAMILY
 argument_list|,
 name|QUALIFIER
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|NOT_EQUAL
 argument_list|,
@@ -40902,7 +40906,7 @@ name|FAMILY
 argument_list|,
 name|QUALIFIER
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|LESS
 argument_list|,
@@ -40930,7 +40934,7 @@ name|FAMILY
 argument_list|,
 name|QUALIFIER
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|LESS_OR_EQUAL
 argument_list|,
@@ -40958,7 +40962,7 @@ name|FAMILY
 argument_list|,
 name|QUALIFIER
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -40986,7 +40990,7 @@ name|FAMILY
 argument_list|,
 name|QUALIFIER
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|GREATER
 argument_list|,
@@ -41014,7 +41018,7 @@ name|FAMILY
 argument_list|,
 name|QUALIFIER
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|GREATER_OR_EQUAL
 argument_list|,
@@ -41042,7 +41046,7 @@ name|FAMILY
 argument_list|,
 name|QUALIFIER
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|NOT_EQUAL
 argument_list|,
@@ -41072,7 +41076,7 @@ name|FAMILY
 argument_list|,
 name|QUALIFIER
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|GREATER
 argument_list|,
@@ -41100,7 +41104,7 @@ name|FAMILY
 argument_list|,
 name|QUALIFIER
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|NOT_EQUAL
 argument_list|,
@@ -41128,7 +41132,7 @@ name|FAMILY
 argument_list|,
 name|QUALIFIER
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|LESS
 argument_list|,
@@ -41156,7 +41160,7 @@ name|FAMILY
 argument_list|,
 name|QUALIFIER
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|GREATER_OR_EQUAL
 argument_list|,
@@ -41184,7 +41188,7 @@ name|FAMILY
 argument_list|,
 name|QUALIFIER
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|LESS_OR_EQUAL
 argument_list|,
@@ -41212,7 +41216,7 @@ name|FAMILY
 argument_list|,
 name|QUALIFIER
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -41498,7 +41502,7 @@ name|FAMILY
 argument_list|,
 name|QUALIFIER
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|GREATER
 argument_list|,
@@ -41526,7 +41530,7 @@ name|FAMILY
 argument_list|,
 name|QUALIFIER
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -41554,7 +41558,7 @@ name|FAMILY
 argument_list|,
 name|QUALIFIER
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|GREATER_OR_EQUAL
 argument_list|,
@@ -41582,7 +41586,7 @@ name|FAMILY
 argument_list|,
 name|QUALIFIER
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|LESS
 argument_list|,
@@ -41617,7 +41621,7 @@ name|FAMILY
 argument_list|,
 name|QUALIFIER
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|LESS_OR_EQUAL
 argument_list|,
@@ -41652,7 +41656,7 @@ name|FAMILY
 argument_list|,
 name|QUALIFIER
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|NOT_EQUAL
 argument_list|,
@@ -41689,7 +41693,7 @@ name|FAMILY
 argument_list|,
 name|QUALIFIER
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|LESS
 argument_list|,
@@ -41717,7 +41721,7 @@ name|FAMILY
 argument_list|,
 name|QUALIFIER
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|LESS_OR_EQUAL
 argument_list|,
@@ -41745,7 +41749,7 @@ name|FAMILY
 argument_list|,
 name|QUALIFIER
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -41773,7 +41777,7 @@ name|FAMILY
 argument_list|,
 name|QUALIFIER
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|GREATER
 argument_list|,
@@ -41808,7 +41812,7 @@ name|FAMILY
 argument_list|,
 name|QUALIFIER
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|GREATER_OR_EQUAL
 argument_list|,
@@ -41843,7 +41847,7 @@ name|FAMILY
 argument_list|,
 name|QUALIFIER
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|NOT_EQUAL
 argument_list|,
@@ -41880,7 +41884,7 @@ name|FAMILY
 argument_list|,
 name|QUALIFIER
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|GREATER
 argument_list|,
@@ -41908,7 +41912,7 @@ name|FAMILY
 argument_list|,
 name|QUALIFIER
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|NOT_EQUAL
 argument_list|,
@@ -41936,7 +41940,7 @@ name|FAMILY
 argument_list|,
 name|QUALIFIER
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|LESS
 argument_list|,
@@ -41964,7 +41968,7 @@ name|FAMILY
 argument_list|,
 name|QUALIFIER
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|GREATER_OR_EQUAL
 argument_list|,
@@ -41999,7 +42003,7 @@ name|FAMILY
 argument_list|,
 name|QUALIFIER
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|LESS_OR_EQUAL
 argument_list|,
@@ -42034,7 +42038,7 @@ name|FAMILY
 argument_list|,
 name|QUALIFIER
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -44721,9 +44725,7 @@ argument_list|(
 operator|new
 name|RowFilter
 argument_list|(
-name|CompareFilter
-operator|.
-name|CompareOp
+name|CompareOperator
 operator|.
 name|NOT_EQUAL
 argument_list|,
@@ -46942,7 +46944,7 @@ init|=
 operator|new
 name|QualifierFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -53400,7 +53402,7 @@ argument_list|(
 operator|new
 name|ValueFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -53483,7 +53485,7 @@ argument_list|(
 operator|new
 name|ValueFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -53555,7 +53557,7 @@ argument_list|(
 operator|new
 name|ValueFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -53636,7 +53638,7 @@ argument_list|(
 operator|new
 name|ValueFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -53708,7 +53710,7 @@ argument_list|(
 operator|new
 name|ValueFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -53789,7 +53791,7 @@ argument_list|(
 operator|new
 name|ValueFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,

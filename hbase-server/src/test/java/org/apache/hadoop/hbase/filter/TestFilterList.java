@@ -27,6 +27,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CompareOperator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|shaded
 operator|.
 name|com
@@ -3377,7 +3391,7 @@ argument_list|(
 operator|new
 name|FamilyFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -3396,7 +3410,7 @@ argument_list|,
 operator|new
 name|QualifierFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -3435,7 +3449,7 @@ argument_list|(
 operator|new
 name|FamilyFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -3454,7 +3468,7 @@ argument_list|,
 operator|new
 name|QualifierFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,

@@ -111,6 +111,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CompareOperator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|KeyValue
 import|;
 end_import
@@ -465,7 +479,7 @@ name|COLUMN_FAMILY
 argument_list|,
 name|COLUMN_QUALIFIER
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|GREATER_OR_EQUAL
 argument_list|,
@@ -486,7 +500,7 @@ name|COLUMN_FAMILY
 argument_list|,
 name|COLUMN_QUALIFIER
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|NOT_EQUAL
 argument_list|,
@@ -509,7 +523,7 @@ name|COLUMN_FAMILY
 argument_list|,
 name|COLUMN_QUALIFIER
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -534,7 +548,7 @@ name|COLUMN_FAMILY
 argument_list|,
 name|COLUMN_QUALIFIER
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -562,7 +576,7 @@ name|COLUMN_FAMILY
 argument_list|,
 name|COLUMN_QUALIFIER
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -601,7 +615,7 @@ name|COLUMN_FAMILY
 argument_list|,
 name|COLUMN_QUALIFIER
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|GREATER
 argument_list|,

@@ -1181,9 +1181,7 @@ name|ESSENTIAL_CF
 argument_list|,
 name|FILTER_COLUMN
 argument_list|,
-name|CompareFilter
-operator|.
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,

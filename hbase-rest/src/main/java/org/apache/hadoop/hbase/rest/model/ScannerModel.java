@@ -145,6 +145,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CompareOperator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HConstants
 import|;
 end_import
@@ -2424,7 +2438,7 @@ literal|null
 argument_list|,
 name|dropDependentColumn
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|valueOf
 argument_list|(
@@ -2446,7 +2460,7 @@ operator|=
 operator|new
 name|FamilyFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|valueOf
 argument_list|(
@@ -2676,7 +2690,7 @@ operator|=
 operator|new
 name|QualifierFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|valueOf
 argument_list|(
@@ -2710,7 +2724,7 @@ operator|=
 operator|new
 name|RowFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|valueOf
 argument_list|(
@@ -2752,7 +2766,7 @@ argument_list|)
 else|:
 literal|null
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|valueOf
 argument_list|(
@@ -2834,7 +2848,7 @@ argument_list|)
 else|:
 literal|null
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|valueOf
 argument_list|(
@@ -2928,7 +2942,7 @@ operator|=
 operator|new
 name|ValueFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|valueOf
 argument_list|(

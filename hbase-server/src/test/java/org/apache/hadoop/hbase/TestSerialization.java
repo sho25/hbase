@@ -1003,7 +1003,7 @@ init|=
 operator|new
 name|RowFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,

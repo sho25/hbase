@@ -201,6 +201,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CompareOperator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseTestingUtility
 import|;
 end_import
@@ -4324,7 +4338,7 @@ init|=
 operator|new
 name|QualifierFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -4380,7 +4394,7 @@ operator|=
 operator|new
 name|QualifierFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|LESS
 argument_list|,
@@ -4435,7 +4449,7 @@ operator|=
 operator|new
 name|QualifierFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|LESS_OR_EQUAL
 argument_list|,
@@ -4491,7 +4505,7 @@ operator|=
 operator|new
 name|QualifierFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|NOT_EQUAL
 argument_list|,
@@ -4558,7 +4572,7 @@ operator|=
 operator|new
 name|QualifierFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|GREATER_OR_EQUAL
 argument_list|,
@@ -4625,7 +4639,7 @@ operator|=
 operator|new
 name|QualifierFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|GREATER
 argument_list|,
@@ -4683,7 +4697,7 @@ operator|=
 operator|new
 name|QualifierFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|NOT_EQUAL
 argument_list|,
@@ -5457,7 +5471,7 @@ operator|=
 operator|new
 name|QualifierFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|NOT_EQUAL
 argument_list|,
@@ -6104,7 +6118,7 @@ init|=
 operator|new
 name|RowFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -6157,7 +6171,7 @@ operator|=
 operator|new
 name|RowFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -6205,7 +6219,7 @@ operator|=
 operator|new
 name|RowFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|LESS
 argument_list|,
@@ -6258,7 +6272,7 @@ operator|=
 operator|new
 name|RowFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|LESS_OR_EQUAL
 argument_list|,
@@ -6313,7 +6327,7 @@ operator|=
 operator|new
 name|RowFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|NOT_EQUAL
 argument_list|,
@@ -6368,7 +6382,7 @@ operator|=
 operator|new
 name|RowFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|GREATER_OR_EQUAL
 argument_list|,
@@ -6423,7 +6437,7 @@ operator|=
 operator|new
 name|RowFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|GREATER
 argument_list|,
@@ -6469,7 +6483,7 @@ operator|=
 operator|new
 name|RowFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|NOT_EQUAL
 argument_list|,
@@ -7244,7 +7258,7 @@ operator|=
 operator|new
 name|RowFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -7601,7 +7615,7 @@ init|=
 operator|new
 name|ValueFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -7656,7 +7670,7 @@ operator|=
 operator|new
 name|ValueFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -7708,7 +7722,7 @@ operator|=
 operator|new
 name|ValueFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -7758,7 +7772,7 @@ operator|=
 operator|new
 name|ValueFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|LESS
 argument_list|,
@@ -7811,7 +7825,7 @@ operator|=
 operator|new
 name|ValueFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|LESS_OR_EQUAL
 argument_list|,
@@ -7866,7 +7880,7 @@ operator|=
 operator|new
 name|ValueFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|LESS_OR_EQUAL
 argument_list|,
@@ -7921,7 +7935,7 @@ operator|=
 operator|new
 name|ValueFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|NOT_EQUAL
 argument_list|,
@@ -7974,7 +7988,7 @@ operator|=
 operator|new
 name|ValueFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|GREATER_OR_EQUAL
 argument_list|,
@@ -8029,7 +8043,7 @@ operator|=
 operator|new
 name|ValueFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|GREATER
 argument_list|,
@@ -8075,7 +8089,7 @@ operator|=
 operator|new
 name|ValueFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|NOT_EQUAL
 argument_list|,
@@ -8573,7 +8587,7 @@ argument_list|(
 operator|new
 name|QualifierFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|NOT_EQUAL
 argument_list|,
@@ -9085,7 +9099,7 @@ argument_list|(
 operator|new
 name|RowFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -9104,7 +9118,7 @@ argument_list|(
 operator|new
 name|QualifierFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -9123,7 +9137,7 @@ argument_list|(
 operator|new
 name|ValueFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -9223,7 +9237,7 @@ argument_list|(
 operator|new
 name|RowFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -9242,7 +9256,7 @@ argument_list|(
 operator|new
 name|QualifierFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -9261,7 +9275,7 @@ argument_list|(
 operator|new
 name|ValueFilter
 argument_list|(
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,

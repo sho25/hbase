@@ -926,9 +926,7 @@ argument_list|(
 literal|"A"
 argument_list|)
 argument_list|,
-name|CompareFilter
-operator|.
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -976,9 +974,7 @@ argument_list|(
 literal|"A"
 argument_list|)
 argument_list|,
-name|CompareFilter
-operator|.
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,

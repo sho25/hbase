@@ -109,6 +109,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CompareOperator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HRegionInfo
 import|;
 end_import
@@ -3385,7 +3399,7 @@ block|}
 block|}
 specifier|public
 specifier|static
-name|CompareOp
+name|CompareOperator
 name|compareOpFromThrift
 parameter_list|(
 name|TCompareOp
@@ -3404,7 +3418,7 @@ case|case
 literal|0
 case|:
 return|return
-name|CompareOp
+name|CompareOperator
 operator|.
 name|LESS
 return|;
@@ -3412,7 +3426,7 @@ case|case
 literal|1
 case|:
 return|return
-name|CompareOp
+name|CompareOperator
 operator|.
 name|LESS_OR_EQUAL
 return|;
@@ -3420,7 +3434,7 @@ case|case
 literal|2
 case|:
 return|return
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 return|;
@@ -3428,7 +3442,7 @@ case|case
 literal|3
 case|:
 return|return
-name|CompareOp
+name|CompareOperator
 operator|.
 name|NOT_EQUAL
 return|;
@@ -3436,7 +3450,7 @@ case|case
 literal|4
 case|:
 return|return
-name|CompareOp
+name|CompareOperator
 operator|.
 name|GREATER_OR_EQUAL
 return|;
@@ -3444,7 +3458,7 @@ case|case
 literal|5
 case|:
 return|return
-name|CompareOp
+name|CompareOperator
 operator|.
 name|GREATER
 return|;
@@ -3452,7 +3466,7 @@ case|case
 literal|6
 case|:
 return|return
-name|CompareOp
+name|CompareOperator
 operator|.
 name|NO_OP
 return|;

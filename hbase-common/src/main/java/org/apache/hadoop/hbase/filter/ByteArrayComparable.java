@@ -100,7 +100,7 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Public
-comment|// TODO Now we are deviating a lot from the actual Comparable<byte[]> what this implements, by
+comment|// TODO Now we are deviating a lot from the actual Comparable<byte[]> that this implements, by
 comment|// adding special compareTo methods. We have to clean it. Deprecate this class and replace it
 comment|// with a more generic one which says it compares bytes (not necessary a byte array only)
 comment|// BytesComparable implements Comparable<Byte> will work?

@@ -2422,9 +2422,7 @@ name|CF_QUEUE
 argument_list|,
 name|COL_QUEUE_OWNER
 argument_list|,
-name|CompareFilter
-operator|.
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,

@@ -61,6 +61,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CompareOperator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|classification
 operator|.
 name|InterfaceAudience
@@ -158,12 +172,35 @@ name|QualifierFilter
 extends|extends
 name|CompareFilter
 block|{
-comment|/**    * Constructor.    * @param op the compare op for column qualifier matching    * @param qualifierComparator the comparator for column qualifier matching    */
+comment|/**    * Constructor.    * @param op the compare op for column qualifier matching    * @param qualifierComparator the comparator for column qualifier matching    * @deprecated Since 2.0.0. Will be removed in 3.0.0.    * Use {@link #QualifierFilter(CompareOperator, ByteArrayComparable)} instead.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|QualifierFilter
 parameter_list|(
 specifier|final
 name|CompareOp
+name|op
+parameter_list|,
+specifier|final
+name|ByteArrayComparable
+name|qualifierComparator
+parameter_list|)
+block|{
+name|super
+argument_list|(
+name|op
+argument_list|,
+name|qualifierComparator
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Constructor.    * @param op the compare op for column qualifier matching    * @param qualifierComparator the comparator for column qualifier matching    */
+specifier|public
+name|QualifierFilter
+parameter_list|(
+specifier|final
+name|CompareOperator
 name|op
 parameter_list|,
 specifier|final
@@ -208,9 +245,8 @@ if|if
 condition|(
 name|compareQualifier
 argument_list|(
-name|this
-operator|.
-name|compareOp
+name|getCompareOperator
+argument_list|()
 argument_list|,
 name|this
 operator|.
@@ -259,11 +295,11 @@ argument_list|(
 name|filterArguments
 argument_list|)
 decl_stmt|;
-name|CompareOp
+name|CompareOperator
 name|compareOp
 init|=
 operator|(
-name|CompareOp
+name|CompareOperator
 operator|)
 name|arguments
 operator|.
@@ -384,10 +420,10 @@ argument_list|)
 throw|;
 block|}
 specifier|final
-name|CompareOp
+name|CompareOperator
 name|valueCompareOp
 init|=
-name|CompareOp
+name|CompareOperator
 operator|.
 name|valueOf
 argument_list|(
@@ -462,7 +498,7 @@ name|valueComparator
 argument_list|)
 return|;
 block|}
-comment|/**    * @param other    * @return true if and only if the fields of the filter that are serialized    * are equal to the corresponding fields in other.  Used for testing.    */
+comment|/**    * @return true if and only if the fields of the filter that are serialized    * are equal to the corresponding fields in other.  Used for testing.    */
 name|boolean
 name|areSerializedFieldsEqual
 parameter_list|(

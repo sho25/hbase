@@ -10666,7 +10666,7 @@ argument_list|,
 name|getQualifier
 argument_list|()
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -10770,7 +10770,7 @@ argument_list|,
 name|getQualifier
 argument_list|()
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -10896,7 +10896,7 @@ argument_list|,
 name|getQualifier
 argument_list|()
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -11462,9 +11462,7 @@ name|FAMILY_NAME
 argument_list|,
 name|COLUMN_ZERO
 argument_list|,
-name|CompareFilter
-operator|.
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,

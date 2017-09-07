@@ -159,6 +159,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CompareOperator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseTestingUtility
 import|;
 end_import
@@ -1506,7 +1520,7 @@ name|QUALIFIER
 argument_list|,
 literal|false
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -1564,7 +1578,7 @@ name|QUALIFIER
 argument_list|,
 literal|true
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -1850,7 +1864,7 @@ name|QUALIFIER
 argument_list|,
 literal|true
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -1903,7 +1917,7 @@ name|QUALIFIER
 argument_list|,
 literal|true
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,

@@ -65,6 +65,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CompareOperator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HConstants
 import|;
 end_import
@@ -612,7 +626,7 @@ literal|":"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**      * Maps the data.      *      * @param row     The current table row key.      * @param values  The columns.      * @param context The current context.      * @throws IOException When something is broken with the data.      * @see org.apache.hadoop.mapreduce.Mapper#map(KEYIN, VALUEIN,      *      org.apache.hadoop.mapreduce.Mapper.Context)      */
+comment|/**      * Maps the data.      *      * @param row     The current table row key.      * @param values  The columns.      * @param context The current context.      * @throws IOException When something is broken with the data.      */
 annotation|@
 name|Override
 annotation|@
@@ -1505,9 +1519,7 @@ operator|=
 operator|new
 name|RowFilter
 argument_list|(
-name|CompareFilter
-operator|.
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
