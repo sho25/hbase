@@ -8298,7 +8298,7 @@ name|toOptions
 argument_list|(
 name|req
 operator|.
-name|getClusterOptions
+name|getOptionsList
 argument_list|()
 argument_list|)
 argument_list|)

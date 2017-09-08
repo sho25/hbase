@@ -55,6 +55,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|EnumSet
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|List
 import|;
 end_import
@@ -117,7 +127,7 @@ name|hbase
 operator|.
 name|ClusterStatus
 operator|.
-name|Options
+name|Option
 import|;
 end_import
 
@@ -8399,8 +8409,11 @@ specifier|static
 name|GetClusterStatusRequest
 name|buildGetClusterStatusRequest
 parameter_list|(
-name|Options
-name|opt
+name|EnumSet
+argument_list|<
+name|Option
+argument_list|>
+name|options
 parameter_list|)
 block|{
 return|return
@@ -8409,13 +8422,13 @@ operator|.
 name|newBuilder
 argument_list|()
 operator|.
-name|setClusterOptions
+name|addAllOptions
 argument_list|(
 name|ProtobufUtil
 operator|.
 name|toOptions
 argument_list|(
-name|opt
+name|options
 argument_list|)
 argument_list|)
 operator|.

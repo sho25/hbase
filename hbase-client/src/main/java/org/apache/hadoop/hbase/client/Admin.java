@@ -63,6 +63,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|EnumSet
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|List
 import|;
 end_import
@@ -165,7 +175,7 @@ name|hbase
 operator|.
 name|ClusterStatus
 operator|.
-name|Options
+name|Option
 import|;
 end_import
 
@@ -1984,18 +1994,21 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * @return cluster status    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Get whole cluster status, containing status about:    *<pre>    * hbase version    * cluster id    * primary/backup master(s)    * master's coprocessors    * live/dead regionservers    * balancer    * regions in transition    *</pre>    * @return cluster status    * @throws IOException if a remote or network exception occurs    */
 name|ClusterStatus
 name|getClusterStatus
 parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get cluster status with options to filter out unwanted status.    * @return cluster status    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Get cluster status with a set of {@link Option} to get desired status.    * @return cluster status    * @throws IOException if a remote or network exception occurs    */
 name|ClusterStatus
 name|getClusterStatus
 parameter_list|(
-name|Options
+name|EnumSet
+argument_list|<
+name|Option
+argument_list|>
 name|options
 parameter_list|)
 throws|throws

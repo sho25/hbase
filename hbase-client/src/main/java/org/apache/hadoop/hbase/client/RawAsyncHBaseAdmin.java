@@ -89,6 +89,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|EnumSet
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|HashMap
 import|;
 end_import
@@ -323,7 +333,7 @@ name|hbase
 operator|.
 name|ClusterStatus
 operator|.
-name|Options
+name|Option
 import|;
 end_import
 
@@ -18703,10 +18713,14 @@ block|{
 return|return
 name|getClusterStatus
 argument_list|(
-name|Options
+name|EnumSet
 operator|.
-name|getDefaultOptions
-argument_list|()
+name|allOf
+argument_list|(
+name|Option
+operator|.
+name|class
+argument_list|)
 argument_list|)
 return|;
 block|}
@@ -18722,7 +18736,10 @@ name|ClusterStatus
 argument_list|>
 name|getClusterStatus
 parameter_list|(
-name|Options
+name|EnumSet
+argument_list|<
+name|Option
+argument_list|>
 name|options
 parameter_list|)
 block|{

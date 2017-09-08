@@ -43,6 +43,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|EnumSet
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Map
 import|;
 end_import
@@ -129,7 +139,7 @@ name|hbase
 operator|.
 name|ClusterStatus
 operator|.
-name|Options
+name|Option
 import|;
 end_import
 
@@ -1834,7 +1844,10 @@ name|ClusterStatus
 argument_list|>
 name|getClusterStatus
 parameter_list|(
-name|Options
+name|EnumSet
+argument_list|<
+name|Option
+argument_list|>
 name|options
 parameter_list|)
 function_decl|;
