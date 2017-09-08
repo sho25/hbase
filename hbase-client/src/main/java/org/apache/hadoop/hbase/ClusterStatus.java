@@ -99,20 +99,6 @@ end_import
 
 begin_import
 import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|VersionedWritable
-import|;
-end_import
-
-begin_import
-import|import
 name|com
 operator|.
 name|google
@@ -137,10 +123,8 @@ name|Public
 specifier|public
 class|class
 name|ClusterStatus
-extends|extends
-name|VersionedWritable
 block|{
-comment|/**    * Version for object serialization.  Incremented for changes in serialized    * representation.    *<dl>    *<dt>0</dt><dd>Initial version</dd>    *<dt>1</dt><dd>Added cluster ID</dd>    *<dt>2</dt><dd>Added Map of ServerName to ServerLoad</dd>    *<dt>3</dt><dd>Added master and backupMasters</dd>    *</dl>    */
+comment|// TODO: remove this in 3.0
 specifier|private
 specifier|static
 specifier|final
@@ -610,16 +594,6 @@ name|o
 decl_stmt|;
 comment|//TODO Override the equals() methods in ServerLoad.
 return|return
-operator|(
-name|getVersion
-argument_list|()
-operator|==
-name|other
-operator|.
-name|getVersion
-argument_list|()
-operator|)
-operator|&&
 name|Objects
 operator|.
 name|equal
@@ -702,8 +676,6 @@ name|hashCode
 parameter_list|()
 block|{
 return|return
-name|VERSION
-operator|+
 name|Objects
 operator|.
 name|hashCode
@@ -720,7 +692,9 @@ name|backupMasters
 argument_list|)
 return|;
 block|}
-comment|/** @return the object version number */
+comment|/**    *    * @return the object version number    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    */
+annotation|@
+name|Deprecated
 specifier|public
 name|byte
 name|getVersion
@@ -1332,6 +1306,10 @@ argument_list|()
 return|;
 block|}
 comment|/**    * Builder for construct a ClusterStatus.    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 specifier|static
 class|class
