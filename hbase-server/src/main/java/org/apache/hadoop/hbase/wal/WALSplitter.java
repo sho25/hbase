@@ -12241,7 +12241,7 @@ init|=
 operator|(
 name|entry
 operator|.
-name|getKey
+name|getEdit
 argument_list|()
 operator|.
 name|hasOrigSequenceNumber
@@ -12250,7 +12250,7 @@ operator|)
 condition|?
 name|entry
 operator|.
-name|getKey
+name|getEdit
 argument_list|()
 operator|.
 name|getOrigSequenceNumber
@@ -12258,7 +12258,7 @@ argument_list|()
 else|:
 name|entry
 operator|.
-name|getKey
+name|getEdit
 argument_list|()
 operator|.
 name|getLogSequenceNumber
@@ -12493,7 +12493,7 @@ name|nonceGroup
 init|=
 name|entry
 operator|.
-name|getKey
+name|getEdit
 argument_list|()
 operator|.
 name|hasNonceGroup
@@ -12501,7 +12501,7 @@ argument_list|()
 condition|?
 name|entry
 operator|.
-name|getKey
+name|getEdit
 argument_list|()
 operator|.
 name|getNonceGroup
@@ -12516,7 +12516,7 @@ name|nonce
 init|=
 name|entry
 operator|.
-name|getKey
+name|getEdit
 argument_list|()
 operator|.
 name|hasNonce
@@ -12524,7 +12524,7 @@ argument_list|()
 condition|?
 name|entry
 operator|.
-name|getKey
+name|getEdit
 argument_list|()
 operator|.
 name|getNonce
@@ -12629,12 +12629,12 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|WALKey
+name|WALEdit
 name|walKeyProto
 init|=
 name|entry
 operator|.
-name|getKey
+name|getEdit
 argument_list|()
 decl_stmt|;
 name|List
@@ -12662,7 +12662,7 @@ name|uuid
 range|:
 name|entry
 operator|.
-name|getKey
+name|getEdit
 argument_list|()
 operator|.
 name|getClusterIdsList

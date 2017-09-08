@@ -956,7 +956,7 @@ name|valueOf
 argument_list|(
 name|entry
 operator|.
-name|getKey
+name|getEdit
 argument_list|()
 operator|.
 name|getTableName
@@ -1144,7 +1144,7 @@ argument_list|<>
 argument_list|(
 name|entry
 operator|.
-name|getKey
+name|getEdit
 argument_list|()
 operator|.
 name|getClusterIdsList
@@ -1163,7 +1163,7 @@ name|clusterId
 range|:
 name|entry
 operator|.
-name|getKey
+name|getEdit
 argument_list|()
 operator|.
 name|getClusterIdsList
@@ -1404,7 +1404,7 @@ operator|-
 literal|1
 argument_list|)
 operator|.
-name|getKey
+name|getEdit
 argument_list|()
 operator|.
 name|getWriteTime

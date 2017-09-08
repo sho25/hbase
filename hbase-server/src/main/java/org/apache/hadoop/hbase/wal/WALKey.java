@@ -2042,7 +2042,7 @@ block|}
 specifier|public
 name|WALProtos
 operator|.
-name|WALKey
+name|WALEdit
 operator|.
 name|Builder
 name|getBuilder
@@ -2057,14 +2057,14 @@ name|IOException
 block|{
 name|WALProtos
 operator|.
-name|WALKey
+name|WALEdit
 operator|.
 name|Builder
 name|builder
 init|=
 name|WALProtos
 operator|.
-name|WALKey
+name|WALEdit
 operator|.
 name|newBuilder
 argument_list|()
@@ -2374,8 +2374,8 @@ name|readFieldsFromPb
 parameter_list|(
 name|WALProtos
 operator|.
-name|WALKey
-name|walKey
+name|WALEdit
+name|walEdit
 parameter_list|,
 name|WALCellCodec
 operator|.
@@ -2402,7 +2402,7 @@ name|uncompressor
 operator|.
 name|uncompress
 argument_list|(
-name|walKey
+name|walEdit
 operator|.
 name|getEncodedRegionName
 argument_list|()
@@ -2420,7 +2420,7 @@ name|uncompressor
 operator|.
 name|uncompress
 argument_list|(
-name|walKey
+name|walEdit
 operator|.
 name|getTableName
 argument_list|()
@@ -2448,7 +2448,7 @@ name|this
 operator|.
 name|encodedRegionName
 operator|=
-name|walKey
+name|walEdit
 operator|.
 name|getEncodedRegionName
 argument_list|()
@@ -2464,7 +2464,7 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-name|walKey
+name|walEdit
 operator|.
 name|getTableName
 argument_list|()
@@ -2486,7 +2486,7 @@ operator|.
 name|UUID
 name|clusterId
 range|:
-name|walKey
+name|walEdit
 operator|.
 name|getClusterIdsList
 argument_list|()
@@ -2514,7 +2514,7 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-name|walKey
+name|walEdit
 operator|.
 name|hasNonceGroup
 argument_list|()
@@ -2524,7 +2524,7 @@ name|this
 operator|.
 name|nonceGroup
 operator|=
-name|walKey
+name|walEdit
 operator|.
 name|getNonceGroup
 argument_list|()
@@ -2532,7 +2532,7 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-name|walKey
+name|walEdit
 operator|.
 name|hasNonce
 argument_list|()
@@ -2542,7 +2542,7 @@ name|this
 operator|.
 name|nonce
 operator|=
-name|walKey
+name|walEdit
 operator|.
 name|getNonce
 argument_list|()
@@ -2556,7 +2556,7 @@ literal|null
 expr_stmt|;
 if|if
 condition|(
-name|walKey
+name|walEdit
 operator|.
 name|getScopesCount
 argument_list|()
@@ -2582,7 +2582,7 @@ control|(
 name|FamilyScope
 name|scope
 range|:
-name|walKey
+name|walEdit
 operator|.
 name|getScopesList
 argument_list|()
@@ -2641,7 +2641,7 @@ block|}
 block|}
 name|setSequenceId
 argument_list|(
-name|walKey
+name|walEdit
 operator|.
 name|getLogSequenceNumber
 argument_list|()
@@ -2651,14 +2651,14 @@ name|this
 operator|.
 name|writeTime
 operator|=
-name|walKey
+name|walEdit
 operator|.
 name|getWriteTime
 argument_list|()
 expr_stmt|;
 if|if
 condition|(
-name|walKey
+name|walEdit
 operator|.
 name|hasOrigSequenceNumber
 argument_list|()
@@ -2668,7 +2668,7 @@ name|this
 operator|.
 name|origLogSeqNum
 operator|=
-name|walKey
+name|walEdit
 operator|.
 name|getOrigSequenceNumber
 argument_list|()

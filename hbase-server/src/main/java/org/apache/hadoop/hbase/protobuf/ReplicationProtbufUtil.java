@@ -677,14 +677,14 @@ expr_stmt|;
 comment|// TODO: this duplicates a lot in WALKey#getBuilder
 name|WALProtos
 operator|.
-name|WALKey
+name|WALEdit
 operator|.
 name|Builder
 name|keyBuilder
 init|=
 name|entryBuilder
 operator|.
-name|getKeyBuilder
+name|getEditBuilder
 argument_list|()
 decl_stmt|;
 name|WALKey
