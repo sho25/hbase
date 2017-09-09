@@ -3100,6 +3100,7 @@ throw|;
 block|}
 finally|finally
 block|{
+comment|// TODO: to be consistent with batch put(), do not modify input list
 comment|// mutate list so that it is empty for complete success, or contains only failed records
 comment|// results are returned in the same order as the requests in list walk the list backwards,
 comment|// so we can remove from list without impacting the indexes of earlier members
