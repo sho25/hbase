@@ -164,7 +164,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A split policy determines when a region should be split.  * @see SteppingSplitPolicy Default split policy since 2.0.0  * @see IncreasingToUpperBoundRegionSplitPolicy Default split policy since  *      0.94.0  * @see ConstantSizeRegionSplitPolicy Default split policy before 0.94.0  */
+comment|/**  * A split policy determines when a region should be split.  * @see IncreasingToUpperBoundRegionSplitPolicy Default split policy since  *      0.94.0  * @see ConstantSizeRegionSplitPolicy Default split policy before 0.94.0  */
 end_comment
 
 begin_class
@@ -195,7 +195,7 @@ name|RegionSplitPolicy
 argument_list|>
 name|DEFAULT_SPLIT_POLICY_CLASS
 init|=
-name|SteppingSplitPolicy
+name|IncreasingToUpperBoundRegionSplitPolicy
 operator|.
 name|class
 decl_stmt|;

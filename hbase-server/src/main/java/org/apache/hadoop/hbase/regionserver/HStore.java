@@ -1313,7 +1313,7 @@ specifier|final
 name|int
 name|DEFAULT_BLOCKING_STOREFILE_COUNT
 init|=
-literal|10
+literal|7
 decl_stmt|;
 specifier|private
 specifier|static

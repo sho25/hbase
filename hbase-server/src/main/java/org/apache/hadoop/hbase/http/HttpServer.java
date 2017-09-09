@@ -2596,17 +2596,19 @@ name|getInt
 argument_list|(
 name|HTTP_MAX_THREADS
 argument_list|,
-literal|16
+operator|-
+literal|1
 argument_list|)
 decl_stmt|;
-comment|// If HTTP_MAX_THREADS is less than or equal to 0, QueueThreadPool() will use the
-comment|// default value (currently 200).
+comment|// If HTTP_MAX_THREADS is not configured, QueueThreadPool() will use the
+comment|// default value (currently 250).
 name|QueuedThreadPool
 name|threadPool
 init|=
 name|maxThreads
-operator|<=
-literal|0
+operator|==
+operator|-
+literal|1
 condition|?
 operator|new
 name|QueuedThreadPool

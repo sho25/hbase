@@ -1003,7 +1003,7 @@ name|getInt
 argument_list|(
 literal|"hbase.regionserver.logroll.errors.tolerated"
 argument_list|,
-literal|2
+literal|0
 argument_list|)
 expr_stmt|;
 comment|// rollWriter sets this.hdfs_out if it can.
