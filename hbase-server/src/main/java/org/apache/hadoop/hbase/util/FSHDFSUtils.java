@@ -967,7 +967,7 @@ literal|4000
 argument_list|)
 decl_stmt|;
 comment|// This should be set to how long it'll take for us to timeout against primary datanode if it
-comment|// is dead.  We set it to 61 seconds, 1 second than the default READ_TIMEOUT in HDFS, the
+comment|// is dead.  We set it to 64 seconds, 4 second than the default READ_TIMEOUT in HDFS, the
 comment|// default value for DFS_CLIENT_SOCKET_TIMEOUT_KEY. If recovery is still failing after this
 comment|// timeout, then further recovery will take liner backoff with this base, to avoid endless
 comment|// preemptions when this value is not properly configured.
@@ -980,7 +980,7 @@ name|getLong
 argument_list|(
 literal|"hbase.lease.recovery.dfs.timeout"
 argument_list|,
-literal|61
+literal|64
 operator|*
 literal|1000
 argument_list|)

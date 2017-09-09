@@ -165,7 +165,7 @@ name|getInt
 argument_list|(
 literal|"hbase.normalizer.period"
 argument_list|,
-literal|300000
+literal|1800000
 argument_list|)
 argument_list|)
 expr_stmt|;
