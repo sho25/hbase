@@ -690,7 +690,7 @@ specifier|final
 name|int
 name|DEFAULT_ZK_SESSION_TIMEOUT
 init|=
-literal|180
+literal|90
 operator|*
 literal|1000
 decl_stmt|;
@@ -2070,7 +2070,7 @@ specifier|final
 name|int
 name|DEFAULT_HBASE_CLIENT_RETRIES_NUMBER
 init|=
-literal|31
+literal|35
 decl_stmt|;
 comment|/**    * Parameter name to set the default scanner caching for all clients.    */
 specifier|public
@@ -3481,7 +3481,7 @@ specifier|final
 name|boolean
 name|DEFAULT_SNAPSHOT_RESTORE_TAKE_FAILSAFE_SNAPSHOT
 init|=
-literal|false
+literal|true
 decl_stmt|;
 specifier|public
 specifier|static

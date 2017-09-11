@@ -693,7 +693,7 @@ name|getFloat
 argument_list|(
 name|CALL_QUEUE_HANDLER_FACTOR_CONF_KEY
 argument_list|,
-literal|0
+literal|0.1f
 argument_list|)
 decl_stmt|;
 name|this

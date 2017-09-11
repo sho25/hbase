@@ -128,8 +128,7 @@ specifier|final
 name|int
 name|MAX_KEYVALUE_SIZE_DEFAULT
 init|=
-operator|-
-literal|1
+literal|10485760
 decl_stmt|;
 specifier|private
 specifier|final
