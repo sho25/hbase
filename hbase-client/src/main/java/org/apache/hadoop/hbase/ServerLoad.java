@@ -300,6 +300,12 @@ name|currentCompactedKVs
 init|=
 literal|0
 decl_stmt|;
+specifier|private
+name|long
+name|reportTime
+init|=
+literal|0
+decl_stmt|;
 annotation|@
 name|InterfaceAudience
 operator|.
@@ -318,6 +324,15 @@ operator|.
 name|serverLoad
 operator|=
 name|serverLoad
+expr_stmt|;
+name|this
+operator|.
+name|reportTime
+operator|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
 expr_stmt|;
 for|for
 control|(
@@ -1538,6 +1553,15 @@ name|build
 argument_list|()
 argument_list|)
 decl_stmt|;
+specifier|public
+name|long
+name|getReportTime
+parameter_list|()
+block|{
+return|return
+name|reportTime
+return|;
+block|}
 block|}
 end_class
 
