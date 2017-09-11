@@ -125,8 +125,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
 name|WALEdit
@@ -173,7 +171,7 @@ name|WALObserver
 extends|extends
 name|Coprocessor
 block|{
-comment|/**    * Called before a {@link org.apache.hadoop.hbase.regionserver.wal.WALEdit}    * is writen to WAL.    *    * @return true if default behavior should be bypassed, false otherwise    */
+comment|/**    * Called before a {@link WALEdit}    * is writen to WAL.    *    * @return true if default behavior should be bypassed, false otherwise    */
 comment|// TODO: return value is not used
 specifier|default
 name|boolean
@@ -203,7 +201,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * Called after a {@link org.apache.hadoop.hbase.regionserver.wal.WALEdit}    * is writen to WAL.    */
+comment|/**    * Called after a {@link WALEdit}    * is writen to WAL.    */
 specifier|default
 name|void
 name|postWALWrite

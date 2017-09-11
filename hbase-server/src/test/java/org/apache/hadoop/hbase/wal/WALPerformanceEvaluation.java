@@ -736,24 +736,6 @@ import|;
 end_import
 
 begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|wal
-operator|.
-name|WALEdit
-import|;
-end_import
-
-begin_import
 import|import static
 name|com
 operator|.

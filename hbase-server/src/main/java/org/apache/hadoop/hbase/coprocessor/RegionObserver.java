@@ -581,8 +581,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|wal
 operator|.
 name|WALEdit
@@ -2889,7 +2887,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called before a {@link org.apache.hadoop.hbase.regionserver.wal.WALEdit}    * replayed for this region.    * @param ctx the environment provided by the region server    */
+comment|/**    * Called before a {@link WALEdit}    * replayed for this region.    * @param ctx the environment provided by the region server    */
 specifier|default
 name|void
 name|preWALRestore
@@ -2915,7 +2913,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called after a {@link org.apache.hadoop.hbase.regionserver.wal.WALEdit}    * replayed for this region.    * @param ctx the environment provided by the region server    */
+comment|/**    * Called after a {@link WALEdit}    * replayed for this region.    * @param ctx the environment provided by the region server    */
 specifier|default
 name|void
 name|postWALRestore

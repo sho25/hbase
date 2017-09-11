@@ -217,24 +217,6 @@ name|WALCoprocessorHost
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|wal
-operator|.
-name|WALEdit
-import|;
-end_import
-
 begin_comment
 comment|/**  * A Write Ahead Log (WAL) provides service for reading, writing waledits. This interface provides  * APIs for WAL users (such as RegionServer) to use the WAL (do append, sync, etc).  *  * Note that some internals, such as log rolling and performance evaluation tools, will use  * WAL.equals to determine if they have already seen a given WAL.  */
 end_comment
