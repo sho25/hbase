@@ -4012,6 +4012,62 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
+comment|/**    * Called before list dead region servers.    */
+specifier|default
+name|void
+name|preListDeadServers
+parameter_list|(
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|)
+throws|throws
+name|IOException
+block|{}
+comment|/**    * Called after list dead region servers.    */
+specifier|default
+name|void
+name|postListDeadServers
+parameter_list|(
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|)
+throws|throws
+name|IOException
+block|{}
+comment|/**    * Called before clear dead region servers.    */
+specifier|default
+name|void
+name|preClearDeadServers
+parameter_list|(
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|)
+throws|throws
+name|IOException
+block|{}
+comment|/**    * Called after clear dead region servers.    */
+specifier|default
+name|void
+name|postClearDeadServers
+parameter_list|(
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|)
+throws|throws
+name|IOException
+block|{}
 block|}
 end_interface
 

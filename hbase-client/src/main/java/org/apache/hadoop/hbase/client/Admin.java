@@ -3336,6 +3336,33 @@ name|IOException
 throws|,
 name|InterruptedException
 function_decl|;
+comment|/**    * List dead region servers.    * @return List of dead region servers.    */
+name|List
+argument_list|<
+name|ServerName
+argument_list|>
+name|listDeadServers
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Clear dead region servers from master.    * @param servers list of dead region servers.    * @throws IOException if a remote or network exception occurs    * @return List of servers that are not cleared    */
+name|List
+argument_list|<
+name|ServerName
+argument_list|>
+name|clearDeadServers
+parameter_list|(
+specifier|final
+name|List
+argument_list|<
+name|ServerName
+argument_list|>
+name|servers
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 block|}
 end_interface
 

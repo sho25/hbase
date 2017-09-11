@@ -876,6 +876,37 @@ return|;
 block|}
 block|}
 decl_stmt|;
+comment|/**    * remove the specified dead server    * @param deadServerName the dead server name    * @return true if this server was removed    */
+specifier|public
+specifier|synchronized
+name|boolean
+name|removeDeadServer
+parameter_list|(
+specifier|final
+name|ServerName
+name|deadServerName
+parameter_list|)
+block|{
+if|if
+condition|(
+name|deadServers
+operator|.
+name|remove
+argument_list|(
+name|deadServerName
+argument_list|)
+operator|==
+literal|null
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
+return|return
+literal|true
+return|;
+block|}
 block|}
 end_class
 

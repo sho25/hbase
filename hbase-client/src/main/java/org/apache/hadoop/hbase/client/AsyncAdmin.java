@@ -2300,6 +2300,35 @@ name|ServerName
 name|serverName
 parameter_list|)
 function_decl|;
+comment|/**    * List all the dead region servers.    * @return - returns a list of dead region servers wrapped by a {@link CompletableFuture}.    */
+name|CompletableFuture
+argument_list|<
+name|List
+argument_list|<
+name|ServerName
+argument_list|>
+argument_list|>
+name|listDeadServers
+parameter_list|()
+function_decl|;
+comment|/**    * Clear dead region servers from master.    * @param servers list of dead region servers.    * @return - returns a list of servers that not cleared wrapped by a {@link CompletableFuture}.    */
+name|CompletableFuture
+argument_list|<
+name|List
+argument_list|<
+name|ServerName
+argument_list|>
+argument_list|>
+name|clearDeadServers
+parameter_list|(
+specifier|final
+name|List
+argument_list|<
+name|ServerName
+argument_list|>
+name|servers
+parameter_list|)
+function_decl|;
 block|}
 end_interface
 
