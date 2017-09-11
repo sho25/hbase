@@ -585,7 +585,7 @@ name|regionserver
 operator|.
 name|compactions
 operator|.
-name|CompactionRequest
+name|CompactionLifeCycleTracker
 import|;
 end_import
 
@@ -858,7 +858,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called prior to selecting the {@link StoreFile StoreFiles} to compact from the list of    * available candidates. To alter the files used for compaction, you may mutate the passed in list    * of candidates.    * @param c the environment provided by the region server    * @param store the store where compaction is being requested    * @param candidates the store files currently available for compaction    * @param request custom compaction request    */
+comment|/**    * Called prior to selecting the {@link StoreFile StoreFiles} to compact from the list of    * available candidates. To alter the files used for compaction, you may mutate the passed in list    * of candidates.    * @param c the environment provided by the region server    * @param store the store where compaction is being requested    * @param candidates the store files currently available for compaction    * @param tracker tracker used to track the life cycle of a compaction    */
 specifier|default
 name|void
 name|preCompactSelection
@@ -878,13 +878,13 @@ name|StoreFile
 argument_list|>
 name|candidates
 parameter_list|,
-name|CompactionRequest
-name|request
+name|CompactionLifeCycleTracker
+name|tracker
 parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called after the {@link StoreFile}s to compact have been selected from the available    * candidates.    * @param c the environment provided by the region server    * @param store the store being compacted    * @param selected the store files selected to compact    * @param request custom compaction request    */
+comment|/**    * Called after the {@link StoreFile}s to compact have been selected from the available    * candidates.    * @param c the environment provided by the region server    * @param store the store being compacted    * @param selected the store files selected to compact    * @param tracker tracker used to track the life cycle of a compaction    */
 specifier|default
 name|void
 name|postCompactSelection
@@ -904,11 +904,11 @@ name|StoreFile
 argument_list|>
 name|selected
 parameter_list|,
-name|CompactionRequest
-name|request
+name|CompactionLifeCycleTracker
+name|tracker
 parameter_list|)
 block|{}
-comment|/**    * Called prior to writing the {@link StoreFile}s selected for compaction into a new    * {@code StoreFile}. To override or modify the compaction process, implementing classes have two    * options:    *<ul>    *<li>Wrap the provided {@link InternalScanner} with a custom implementation that is returned    * from this method. The custom scanner can then inspect    *  {@link org.apache.hadoop.hbase.KeyValue}s from the wrapped scanner, applying its own    *   policy to what gets written.</li>    *<li>Call {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} and provide a    * custom implementation for writing of new {@link StoreFile}s.<strong>Note: any implementations    * bypassing core compaction using this approach must write out new store files themselves or the    * existing data will no longer be available after compaction.</strong></li>    *</ul>    * @param c the environment provided by the region server    * @param store the store being compacted    * @param scanner the scanner over existing data used in the store file rewriting    * @param scanType type of Scan    * @param request the requested compaction    * @return the scanner to use during compaction. Should not be {@code null} unless the    *         implementation is writing new store files on its own.    */
+comment|/**    * Called prior to writing the {@link StoreFile}s selected for compaction into a new    * {@code StoreFile}. To override or modify the compaction process, implementing classes have two    * options:    *<ul>    *<li>Wrap the provided {@link InternalScanner} with a custom implementation that is returned    * from this method. The custom scanner can then inspect    *  {@link org.apache.hadoop.hbase.KeyValue}s from the wrapped scanner, applying its own    *   policy to what gets written.</li>    *<li>Call {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} and provide a    * custom implementation for writing of new {@link StoreFile}s.<strong>Note: any implementations    * bypassing core compaction using this approach must write out new store files themselves or the    * existing data will no longer be available after compaction.</strong></li>    *</ul>    * @param c the environment provided by the region server    * @param store the store being compacted    * @param scanner the scanner over existing data used in the store file rewriting    * @param scanType type of Scan    * @param tracker tracker used to track the life cycle of a compaction    * @return the scanner to use during compaction. Should not be {@code null} unless the    *         implementation is writing new store files on its own.    */
 specifier|default
 name|InternalScanner
 name|preCompact
@@ -928,8 +928,8 @@ parameter_list|,
 name|ScanType
 name|scanType
 parameter_list|,
-name|CompactionRequest
-name|request
+name|CompactionLifeCycleTracker
+name|tracker
 parameter_list|)
 throws|throws
 name|IOException
@@ -938,7 +938,7 @@ return|return
 name|scanner
 return|;
 block|}
-comment|/**    * Called prior to writing the {@link StoreFile}s selected for compaction into a new    * {@code StoreFile} and prior to creating the scanner used to read the input files. To override    * or modify the compaction process, implementing classes can return a new scanner to provide the    * KeyValues to be stored into the new {@code StoreFile} or null to perform the default    * processing. Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param c the environment provided by the region server    * @param store the store being compacted    * @param scanners the list {@link org.apache.hadoop.hbase.regionserver.StoreFileScanner}s    *  to be read from    * @param scanType the {@link ScanType} indicating whether this is a major or minor compaction    * @param earliestPutTs timestamp of the earliest put that was found in any of the involved store    *          files    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @param request compaction request    * @param readPoint the readpoint to create scanner    * @return the scanner to use during compaction. {@code null} if the default implementation is to    *          be used.    */
+comment|/**    * Called prior to writing the {@link StoreFile}s selected for compaction into a new    * {@code StoreFile} and prior to creating the scanner used to read the input files. To override    * or modify the compaction process, implementing classes can return a new scanner to provide the    * KeyValues to be stored into the new {@code StoreFile} or null to perform the default    * processing. Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param c the environment provided by the region server    * @param store the store being compacted    * @param scanners the list {@link org.apache.hadoop.hbase.regionserver.StoreFileScanner}s    *  to be read from    * @param scanType the {@link ScanType} indicating whether this is a major or minor compaction    * @param earliestPutTs timestamp of the earliest put that was found in any of the involved store    *          files    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @param tracker used to track the life cycle of a compaction    * @param readPoint the readpoint to create scanner    * @return the scanner to use during compaction. {@code null} if the default implementation is to    *          be used.    */
 specifier|default
 name|InternalScanner
 name|preCompactScannerOpen
@@ -969,8 +969,8 @@ parameter_list|,
 name|InternalScanner
 name|s
 parameter_list|,
-name|CompactionRequest
-name|request
+name|CompactionLifeCycleTracker
+name|tracker
 parameter_list|,
 name|long
 name|readPoint
@@ -982,7 +982,7 @@ return|return
 name|s
 return|;
 block|}
-comment|/**    * Called after compaction has completed and the new store file has been moved in to place.    * @param c the environment provided by the region server    * @param store the store being compacted    * @param resultFile the new store file written out during compaction    * @param request the requested compaction    */
+comment|/**    * Called after compaction has completed and the new store file has been moved in to place.    * @param c the environment provided by the region server    * @param store the store being compacted    * @param resultFile the new store file written out during compaction    * @param tracker used to track the life cycle of a compaction    */
 specifier|default
 name|void
 name|postCompact
@@ -999,8 +999,8 @@ parameter_list|,
 name|StoreFile
 name|resultFile
 parameter_list|,
-name|CompactionRequest
-name|request
+name|CompactionLifeCycleTracker
+name|tracker
 parameter_list|)
 throws|throws
 name|IOException
@@ -1755,7 +1755,7 @@ return|return
 name|s
 return|;
 block|}
-comment|/**    * Called before a store opens a new scanner.    * This hook is called when a "user" scanner is opened.    *<p>    * See {@link #preFlushScannerOpen(ObserverContext, Store, List, InternalScanner, long)} and {@link #preCompactScannerOpen(ObserverContext,    *  Store, List, ScanType, long, InternalScanner, CompactionRequest, long)}    * to override scanners created for flushes or compactions, resp.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    *<p>    * Note: Do not retain references to any Cells returned by scanner, beyond the life of this    * invocation. If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param store the store being scanned    * @param scan the Scan specification    * @param targetCols columns to be used in the scanner    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @param readPt the read point    * @return a KeyValueScanner instance to use or {@code null} to use the default implementation    */
+comment|/**    * Called before a store opens a new scanner.    * This hook is called when a "user" scanner is opened.    *<p>    * See {@link #preFlushScannerOpen(ObserverContext, Store, List, InternalScanner, long)}    * and {@link #preCompactScannerOpen(ObserverContext, Store, List, ScanType, long,    * InternalScanner, CompactionLifeCycleTracker, long)} to override scanners created for flushes    * or compactions, resp.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained coprocessors.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    *<p>    * Note: Do not retain references to any Cells returned by scanner, beyond the life of this    * invocation. If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param store the store being scanned    * @param scan the Scan specification    * @param targetCols columns to be used in the scanner    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @param readPt the read point    * @return a KeyValueScanner instance to use or {@code null} to use the default implementation    */
 specifier|default
 name|KeyValueScanner
 name|preStoreScannerOpen

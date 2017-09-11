@@ -382,11 +382,6 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * @return Implementation of {@link CompactionRequestor} or null.    */
-name|CompactionRequestor
-name|getCompactionRequester
-parameter_list|()
-function_decl|;
 comment|/**    * @return Implementation of {@link FlushRequester} or null.    */
 name|FlushRequester
 name|getFlushRequester

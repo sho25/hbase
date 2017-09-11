@@ -924,7 +924,7 @@ operator|.
 expr|<
 name|Collection
 argument_list|<
-name|Store
+name|HStore
 argument_list|>
 operator|>
 name|any

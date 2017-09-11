@@ -822,7 +822,7 @@ parameter_list|(
 name|CompactionContext
 name|compaction
 parameter_list|,
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|ThroughputController
@@ -862,7 +862,7 @@ parameter_list|(
 name|CompactionContext
 name|compaction
 parameter_list|,
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|ThroughputController

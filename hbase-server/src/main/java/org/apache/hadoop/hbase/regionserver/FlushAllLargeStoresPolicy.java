@@ -192,7 +192,7 @@ name|Override
 specifier|public
 name|Collection
 argument_list|<
-name|Store
+name|HStore
 argument_list|>
 name|selectStoresToFlush
 parameter_list|()
@@ -223,7 +223,7 @@ block|}
 comment|// start selection
 name|Collection
 argument_list|<
-name|Store
+name|HStore
 argument_list|>
 name|stores
 init|=
@@ -236,7 +236,7 @@ argument_list|()
 decl_stmt|;
 name|Set
 argument_list|<
-name|Store
+name|HStore
 argument_list|>
 name|specificStoresToFlush
 init|=
@@ -247,7 +247,7 @@ argument_list|()
 decl_stmt|;
 for|for
 control|(
-name|Store
+name|HStore
 name|store
 range|:
 name|stores
@@ -278,9 +278,11 @@ operator|.
 name|isEmpty
 argument_list|()
 condition|)
+block|{
 return|return
 name|specificStoresToFlush
 return|;
+block|}
 comment|// Didn't find any CFs which were above the threshold for selection.
 if|if
 condition|(
@@ -308,12 +310,11 @@ specifier|protected
 name|boolean
 name|shouldFlush
 parameter_list|(
-name|Store
+name|HStore
 name|store
 parameter_list|)
 block|{
 return|return
-operator|(
 name|super
 operator|.
 name|shouldFlush
@@ -327,7 +328,6 @@ name|shouldFlushStore
 argument_list|(
 name|store
 argument_list|)
-operator|)
 return|;
 block|}
 block|}

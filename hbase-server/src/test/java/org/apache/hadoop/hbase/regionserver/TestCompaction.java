@@ -197,7 +197,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|Collections
+name|List
 import|;
 end_import
 
@@ -207,7 +207,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|List
+name|Optional
 import|;
 end_import
 
@@ -517,6 +517,24 @@ name|regionserver
 operator|.
 name|compactions
 operator|.
+name|CompactionLifeCycleTracker
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|compactions
+operator|.
 name|CompactionRequest
 import|;
 end_import
@@ -654,22 +672,6 @@ operator|.
 name|util
 operator|.
 name|Bytes
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Pair
 import|;
 end_import
 
@@ -2181,7 +2183,7 @@ name|thread
 argument_list|)
 expr_stmt|;
 comment|// setup a region/store with some files
-name|Store
+name|HStore
 name|store
 init|=
 name|r
@@ -2228,11 +2230,11 @@ argument_list|(
 literal|1
 argument_list|)
 decl_stmt|;
-name|TrackableCompactionRequest
-name|request
+name|Tracker
+name|tracker
 init|=
 operator|new
-name|TrackableCompactionRequest
+name|Tracker
 argument_list|(
 name|latch
 argument_list|)
@@ -2251,7 +2253,7 @@ name|Store
 operator|.
 name|PRIORITY_USER
 argument_list|,
-name|request
+name|tracker
 argument_list|,
 literal|null
 argument_list|)
@@ -2333,7 +2335,7 @@ name|thread
 argument_list|)
 expr_stmt|;
 comment|// setup a region/store with some files
-name|Store
+name|HStore
 name|store
 init|=
 name|r
@@ -2434,11 +2436,11 @@ argument_list|(
 literal|1
 argument_list|)
 decl_stmt|;
-name|TrackableCompactionRequest
-name|request
+name|Tracker
+name|tracker
 init|=
 operator|new
-name|TrackableCompactionRequest
+name|Tracker
 argument_list|(
 name|latch
 argument_list|)
@@ -2457,7 +2459,7 @@ name|Store
 operator|.
 name|PRIORITY_USER
 argument_list|,
-name|request
+name|tracker
 argument_list|,
 literal|null
 argument_list|)
@@ -2603,24 +2605,6 @@ operator|.
 name|size
 argument_list|()
 decl_stmt|;
-name|List
-argument_list|<
-name|Pair
-argument_list|<
-name|CompactionRequest
-argument_list|,
-name|Store
-argument_list|>
-argument_list|>
-name|requests
-init|=
-operator|new
-name|ArrayList
-argument_list|<>
-argument_list|(
-name|numStores
-argument_list|)
-decl_stmt|;
 name|CountDownLatch
 name|latch
 init|=
@@ -2630,11 +2614,20 @@ argument_list|(
 name|numStores
 argument_list|)
 decl_stmt|;
+name|Tracker
+name|tracker
+init|=
+operator|new
+name|Tracker
+argument_list|(
+name|latch
+argument_list|)
+decl_stmt|;
 comment|// create some store files and setup requests for each store on which we want to do a
 comment|// compaction
 for|for
 control|(
-name|Store
+name|HStore
 name|store
 range|:
 name|r
@@ -2673,30 +2666,13 @@ name|getColumnFamilyName
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|requests
-operator|.
-name|add
-argument_list|(
-operator|new
-name|Pair
-argument_list|<>
-argument_list|(
-operator|new
-name|TrackableCompactionRequest
-argument_list|(
-name|latch
-argument_list|)
-argument_list|,
-name|store
-argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
 name|thread
 operator|.
 name|requestCompaction
 argument_list|(
 name|r
+argument_list|,
+name|store
 argument_list|,
 literal|"test mulitple custom comapctions"
 argument_list|,
@@ -2704,16 +2680,12 @@ name|Store
 operator|.
 name|PRIORITY_USER
 argument_list|,
-name|Collections
-operator|.
-name|unmodifiableList
-argument_list|(
-name|requests
-argument_list|)
+name|tracker
 argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
+block|}
 comment|// wait for the latch to complete.
 name|latch
 operator|.
@@ -2921,7 +2893,10 @@ annotation|@
 name|Override
 specifier|public
 specifier|synchronized
+name|Optional
+argument_list|<
 name|CompactionContext
+argument_list|>
 name|selectCompaction
 parameter_list|()
 block|{
@@ -2980,7 +2955,12 @@ argument_list|)
 expr_stmt|;
 block|}
 return|return
+name|Optional
+operator|.
+name|of
+argument_list|(
 name|ctx
+argument_list|)
 return|;
 block|}
 annotation|@
@@ -3253,7 +3233,10 @@ block|}
 annotation|@
 name|Override
 specifier|public
+name|Optional
+argument_list|<
 name|CompactionContext
+argument_list|>
 name|selectCompaction
 parameter_list|()
 block|{
@@ -3296,9 +3279,12 @@ argument_list|)
 expr_stmt|;
 block|}
 return|return
-name|this
+name|Optional
 operator|.
+name|of
+argument_list|(
 name|blocked
+argument_list|)
 return|;
 block|}
 annotation|@
@@ -3374,7 +3360,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|Store
+name|HStore
 name|createStoreMock
 parameter_list|(
 name|String
@@ -3395,7 +3381,7 @@ argument_list|)
 return|;
 block|}
 specifier|public
-name|Store
+name|HStore
 name|createStoreMock
 parameter_list|(
 name|int
@@ -3408,7 +3394,7 @@ throws|throws
 name|Exception
 block|{
 comment|// Override the mock to always return the specified priority.
-name|Store
+name|HStore
 name|s
 init|=
 name|super
@@ -3563,7 +3549,7 @@ argument_list|)
 argument_list|,
 name|any
 argument_list|(
-name|Store
+name|HStore
 operator|.
 name|class
 argument_list|)
@@ -3668,7 +3654,7 @@ argument_list|(
 name|results
 argument_list|)
 decl_stmt|;
-name|Store
+name|HStore
 name|store
 init|=
 name|sm
@@ -4301,34 +4287,31 @@ return|return
 name|sf
 return|;
 block|}
-comment|/**    * Simple {@link CompactionRequest} on which you can wait until the requested compaction finishes.    */
+comment|/**    * Simple {@link CompactionLifeCycleTracker} on which you can wait until the requested compaction    * finishes.    */
 specifier|public
 specifier|static
 class|class
-name|TrackableCompactionRequest
-extends|extends
-name|CompactionRequest
+name|Tracker
+implements|implements
+name|CompactionLifeCycleTracker
 block|{
 specifier|private
+specifier|final
 name|CountDownLatch
 name|done
 decl_stmt|;
-comment|/**      * Constructor for a custom compaction. Uses the setXXX methods to update the state of the      * compaction before being used.      */
 specifier|public
-name|TrackableCompactionRequest
+name|Tracker
 parameter_list|(
 name|CountDownLatch
-name|finished
+name|done
 parameter_list|)
 block|{
-name|super
-argument_list|()
-expr_stmt|;
 name|this
 operator|.
 name|done
 operator|=
-name|finished
+name|done
 expr_stmt|;
 block|}
 annotation|@
@@ -4336,15 +4319,11 @@ name|Override
 specifier|public
 name|void
 name|afterExecute
-parameter_list|()
+parameter_list|(
+name|Store
+name|store
+parameter_list|)
 block|{
-name|super
-operator|.
-name|afterExecute
-argument_list|()
-expr_stmt|;
-name|this
-operator|.
 name|done
 operator|.
 name|countDown

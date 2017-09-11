@@ -5695,7 +5695,7 @@ block|{
 annotation|@
 name|Override
 specifier|protected
-name|FlushResult
+name|FlushResultImpl
 name|internalFlushcache
 parameter_list|(
 specifier|final
@@ -5709,7 +5709,7 @@ parameter_list|,
 specifier|final
 name|Collection
 argument_list|<
-name|Store
+name|HStore
 argument_list|>
 name|storesToFlush
 parameter_list|,
@@ -5729,7 +5729,7 @@ argument_list|(
 literal|"InternalFlushCache Invoked"
 argument_list|)
 expr_stmt|;
-name|FlushResult
+name|FlushResultImpl
 name|fs
 init|=
 name|super

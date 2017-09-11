@@ -511,7 +511,7 @@ name|regionserver
 operator|.
 name|compactions
 operator|.
-name|CompactionRequest
+name|CompactionLifeCycleTracker
 import|;
 end_import
 
@@ -1928,7 +1928,7 @@ parameter_list|,
 name|InternalScanner
 name|s
 parameter_list|,
-name|CompactionRequest
+name|CompactionLifeCycleTracker
 name|request
 parameter_list|,
 name|long

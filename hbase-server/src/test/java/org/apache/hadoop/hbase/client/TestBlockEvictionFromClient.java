@@ -5457,6 +5457,8 @@ parameter_list|)
 block|{
 name|Iterator
 argument_list|<
+name|?
+extends|extends
 name|Store
 argument_list|>
 name|strItr

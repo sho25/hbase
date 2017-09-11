@@ -14,16 +14,22 @@ operator|.
 name|hbase
 operator|.
 name|regionserver
+operator|.
+name|compactions
 package|;
 end_package
 
 begin_import
 import|import
-name|java
+name|org
 operator|.
-name|util
+name|apache
 operator|.
-name|Collection
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseInterfaceAudience
 import|;
 end_import
 
@@ -35,9 +41,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|conf
+name|hbase
 operator|.
-name|Configured
+name|regionserver
+operator|.
+name|Store
 import|;
 end_import
 
@@ -55,55 +63,71 @@ name|InterfaceAudience
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceStability
+import|;
+end_import
+
 begin_comment
-comment|/**  * A flush policy determines the stores that need to be flushed when flushing a region.  */
+comment|/**  * Used to track compaction execution.  */
 end_comment
 
-begin_class
+begin_interface
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Private
-specifier|public
-specifier|abstract
-class|class
-name|FlushPolicy
-extends|extends
-name|Configured
-block|{
-comment|/**    * The region configured for this flush policy.    */
-specifier|protected
-name|HRegion
-name|region
-decl_stmt|;
-comment|/**    * Upon construction, this method will be called with the region to be governed. It will be called    * once and only once.    */
-specifier|protected
-name|void
-name|configureForRegion
-parameter_list|(
-name|HRegion
-name|region
-parameter_list|)
-block|{
-name|this
+name|LimitedPrivate
+argument_list|(
+name|HBaseInterfaceAudience
 operator|.
-name|region
-operator|=
-name|region
-expr_stmt|;
-block|}
-comment|/**    * @return the stores need to be flushed.    */
+name|COPROC
+argument_list|)
+annotation|@
+name|InterfaceStability
+operator|.
+name|Evolving
 specifier|public
-specifier|abstract
-name|Collection
-argument_list|<
-name|HStore
-argument_list|>
-name|selectStoresToFlush
-parameter_list|()
-function_decl|;
+interface|interface
+name|CompactionLifeCycleTracker
+block|{
+specifier|static
+name|CompactionLifeCycleTracker
+name|DUMMY
+init|=
+operator|new
+name|CompactionLifeCycleTracker
+argument_list|()
+block|{   }
+decl_stmt|;
+comment|/**    * Called before compaction is executed by CompactSplitThread.    *<p>    * Requesting compaction on a region can lead to multiple compactions on different stores, so we    * will pass the {@link Store} in to tell you the store we operate on.    */
+specifier|default
+name|void
+name|beforeExecute
+parameter_list|(
+name|Store
+name|store
+parameter_list|)
+block|{   }
+comment|/**    * Called after compaction is executed by CompactSplitThread.    *<p>    * Requesting compaction on a region can lead to multiple compactions on different stores, so we    * will pass the {@link Store} in to tell you the store we operate on.    */
+specifier|default
+name|void
+name|afterExecute
+parameter_list|(
+name|Store
+name|store
+parameter_list|)
+block|{   }
 block|}
-end_class
+end_interface
 
 end_unit
 

@@ -769,7 +769,7 @@ name|regionserver
 operator|.
 name|compactions
 operator|.
-name|CompactionRequest
+name|CompactionLifeCycleTracker
 import|;
 end_import
 
@@ -3405,16 +3405,14 @@ parameter_list|,
 name|Store
 name|store
 parameter_list|,
-specifier|final
 name|InternalScanner
 name|scanner
 parameter_list|,
-specifier|final
 name|ScanType
 name|scanType
 parameter_list|,
-name|CompactionRequest
-name|request
+name|CompactionLifeCycleTracker
+name|tracker
 parameter_list|)
 block|{
 return|return
@@ -3605,8 +3603,8 @@ parameter_list|,
 name|StoreFile
 name|resultFile
 parameter_list|,
-name|CompactionRequest
-name|request
+name|CompactionLifeCycleTracker
+name|tracker
 parameter_list|)
 block|{
 name|lastCompaction

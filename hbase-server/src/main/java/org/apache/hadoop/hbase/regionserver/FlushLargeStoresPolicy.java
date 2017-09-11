@@ -320,7 +320,7 @@ specifier|protected
 name|boolean
 name|shouldFlush
 parameter_list|(
-name|Store
+name|HStore
 name|store
 parameter_list|)
 block|{

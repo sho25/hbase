@@ -967,7 +967,7 @@ name|regionserver
 operator|.
 name|compactions
 operator|.
-name|CompactionRequest
+name|CompactionLifeCycleTracker
 import|;
 end_import
 
@@ -5511,7 +5511,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * This copro overwrites the default compaction policy. It always chooses two latest    * hfiles and compacts them into a new one.    */
+comment|/**    * This copro overwrites the default compaction policy. It always chooses two latest hfiles and    * compacts them into a new one.    */
 specifier|public
 specifier|static
 class|class
@@ -5525,27 +5525,23 @@ specifier|public
 name|void
 name|preCompactSelection
 parameter_list|(
-specifier|final
 name|ObserverContext
 argument_list|<
 name|RegionCoprocessorEnvironment
 argument_list|>
 name|c
 parameter_list|,
-specifier|final
 name|Store
 name|store
 parameter_list|,
-specifier|final
 name|List
 argument_list|<
 name|StoreFile
 argument_list|>
 name|candidates
 parameter_list|,
-specifier|final
-name|CompactionRequest
-name|request
+name|CompactionLifeCycleTracker
+name|tracker
 parameter_list|)
 throws|throws
 name|IOException

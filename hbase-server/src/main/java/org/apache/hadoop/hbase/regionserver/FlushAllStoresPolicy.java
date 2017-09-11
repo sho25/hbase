@@ -61,7 +61,7 @@ name|Override
 specifier|public
 name|Collection
 argument_list|<
-name|Store
+name|HStore
 argument_list|>
 name|selectStoresToFlush
 parameter_list|()
