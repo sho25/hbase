@@ -151,6 +151,24 @@ name|RegionObserver
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|compactions
+operator|.
+name|CompactionRequest
+import|;
+end_import
+
 begin_comment
 comment|/**  * RegionObserver that just reimplements the default behavior,  * in order to validate that all the necessary APIs for this are public  * This observer is also used in {@link TestFromClientSideWithCoprocessor} and  * {@link TestCompactionWithCoprocessor} to make sure that a wide range  * of functionality still behaves as expected.  */
 end_comment
@@ -187,6 +205,9 @@ name|scanners
 parameter_list|,
 name|InternalScanner
 name|s
+parameter_list|,
+name|long
+name|readPoint
 parameter_list|)
 throws|throws
 name|IOException
@@ -294,6 +315,12 @@ name|earliestPutTs
 parameter_list|,
 name|InternalScanner
 name|s
+parameter_list|,
+name|CompactionRequest
+name|request
+parameter_list|,
+name|long
+name|readPoint
 parameter_list|)
 throws|throws
 name|IOException
@@ -371,7 +398,6 @@ specifier|public
 name|KeyValueScanner
 name|preStoreScannerOpen
 parameter_list|(
-specifier|final
 name|ObserverContext
 argument_list|<
 name|RegionCoprocessorEnvironment
@@ -381,11 +407,9 @@ parameter_list|,
 name|Store
 name|store
 parameter_list|,
-specifier|final
 name|Scan
 name|scan
 parameter_list|,
-specifier|final
 name|NavigableSet
 argument_list|<
 name|byte
@@ -395,6 +419,9 @@ name|targetCols
 parameter_list|,
 name|KeyValueScanner
 name|s
+parameter_list|,
+name|long
+name|readPoint
 parameter_list|)
 throws|throws
 name|IOException
