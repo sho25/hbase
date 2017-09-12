@@ -6639,6 +6639,24 @@ name|getStorefilesCount
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// Test refreshing store files when no store files are there
+name|store
+operator|.
+name|refreshStoreFiles
+argument_list|()
+expr_stmt|;
+name|assertEquals
+argument_list|(
+literal|0
+argument_list|,
+name|this
+operator|.
+name|store
+operator|.
+name|getStorefilesCount
+argument_list|()
+argument_list|)
+expr_stmt|;
 comment|// add some data, flush
 name|this
 operator|.
