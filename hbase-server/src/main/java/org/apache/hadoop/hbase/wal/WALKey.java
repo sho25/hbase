@@ -447,12 +447,7 @@ begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|LimitedPrivate
-argument_list|(
-name|HBaseInterfaceAudience
-operator|.
-name|REPLICATION
-argument_list|)
+name|Private
 specifier|public
 class|class
 name|WALKey
