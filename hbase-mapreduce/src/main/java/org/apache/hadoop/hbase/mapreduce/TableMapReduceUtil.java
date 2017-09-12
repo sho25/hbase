@@ -3035,7 +3035,7 @@ name|TableMapper
 operator|.
 name|class
 argument_list|,
-comment|// hbase-server
+comment|// hbase-mapreduce
 name|org
 operator|.
 name|apache
@@ -3171,6 +3171,18 @@ operator|.
 name|metrics
 operator|.
 name|MetricRegistry
+operator|.
+name|class
+argument_list|,
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|lang3
+operator|.
+name|ArrayUtils
 operator|.
 name|class
 argument_list|)
