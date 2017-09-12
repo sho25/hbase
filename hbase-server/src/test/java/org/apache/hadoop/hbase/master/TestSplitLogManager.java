@@ -317,6 +317,20 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|atomic
+operator|.
+name|LongAdder
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -1307,7 +1321,7 @@ name|void
 name|waitForCounter
 parameter_list|(
 specifier|final
-name|AtomicLong
+name|LongAdder
 name|ctr
 parameter_list|,
 name|long
@@ -1339,7 +1353,7 @@ block|{
 return|return
 name|ctr
 operator|.
-name|get
+name|sum
 argument_list|()
 return|;
 block|}
@@ -1463,7 +1477,7 @@ name|SplitLogCounters
 operator|.
 name|tot_mgr_orphan_task_acquired
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 return|return
@@ -1565,7 +1579,7 @@ literal|1L
 argument_list|,
 name|tot_mgr_node_create_queued
 operator|.
-name|get
+name|sum
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2081,7 +2095,7 @@ literal|1L
 argument_list|,
 name|tot_mgr_resubmit
 operator|.
-name|get
+name|sum
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2466,12 +2480,12 @@ literal|2L
 argument_list|,
 name|tot_mgr_resubmit
 operator|.
-name|get
+name|sum
 argument_list|()
 operator|-
 name|tot_mgr_resubmit_force
 operator|.
-name|get
+name|sum
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2606,12 +2620,12 @@ return|return
 operator|(
 name|tot_mgr_resubmit
 operator|.
-name|get
+name|sum
 argument_list|()
 operator|+
 name|tot_mgr_resubmit_failed
 operator|.
-name|get
+name|sum
 argument_list|()
 operator|)
 return|;
@@ -2638,7 +2652,7 @@ literal|0
 argument_list|,
 name|tot_mgr_resubmit_failed
 operator|.
-name|get
+name|sum
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3035,7 +3049,7 @@ name|assertEquals
 argument_list|(
 name|tot_mgr_resubmit
 operator|.
-name|get
+name|sum
 argument_list|()
 argument_list|,
 literal|0
@@ -3055,7 +3069,7 @@ name|assertEquals
 argument_list|(
 name|tot_mgr_resubmit
 operator|.
-name|get
+name|sum
 argument_list|()
 argument_list|,
 literal|0
@@ -3082,7 +3096,7 @@ name|assertEquals
 argument_list|(
 name|tot_mgr_resubmit
 operator|.
-name|get
+name|sum
 argument_list|()
 argument_list|,
 literal|0
@@ -3103,7 +3117,7 @@ name|assertEquals
 argument_list|(
 name|tot_mgr_resubmit
 operator|.
-name|get
+name|sum
 argument_list|()
 argument_list|,
 literal|0
@@ -3128,7 +3142,7 @@ name|assertEquals
 argument_list|(
 name|tot_mgr_resubmit
 operator|.
-name|get
+name|sum
 argument_list|()
 argument_list|,
 literal|0
@@ -3162,7 +3176,7 @@ if|if
 condition|(
 name|tot_mgr_resubmit
 operator|.
-name|get
+name|sum
 argument_list|()
 operator|==
 literal|0
@@ -3186,7 +3200,7 @@ name|assertEquals
 argument_list|(
 name|tot_mgr_resubmit
 operator|.
-name|get
+name|sum
 argument_list|()
 argument_list|,
 literal|1
@@ -3576,7 +3590,7 @@ if|if
 condition|(
 name|tot_mgr_heartbeat
 operator|.
-name|get
+name|sum
 argument_list|()
 operator|==
 literal|0
@@ -3605,7 +3619,7 @@ if|if
 condition|(
 name|tot_mgr_resubmit
 operator|.
-name|get
+name|sum
 argument_list|()
 operator|==
 literal|0
@@ -3629,7 +3643,7 @@ if|if
 condition|(
 name|tot_mgr_resubmit_dead_server_task
 operator|.
-name|get
+name|sum
 argument_list|()
 operator|==
 literal|0
@@ -3792,7 +3806,7 @@ if|if
 condition|(
 name|tot_mgr_heartbeat
 operator|.
-name|get
+name|sum
 argument_list|()
 operator|==
 literal|0
@@ -3819,7 +3833,7 @@ literal|0
 argument_list|,
 name|tot_mgr_resubmit
 operator|.
-name|get
+name|sum
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3858,7 +3872,7 @@ literal|1
 argument_list|,
 name|tot_mgr_resubmit
 operator|.
-name|get
+name|sum
 argument_list|()
 argument_list|)
 expr_stmt|;

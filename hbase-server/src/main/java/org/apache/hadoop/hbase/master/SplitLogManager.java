@@ -1380,7 +1380,7 @@ name|SplitLogCounters
 operator|.
 name|tot_mgr_log_split_batch_start
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 name|LOG
@@ -1548,7 +1548,7 @@ name|SplitLogCounters
 operator|.
 name|tot_mgr_log_split_batch_err
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 name|LOG
@@ -1731,7 +1731,7 @@ name|SplitLogCounters
 operator|.
 name|tot_mgr_log_split_batch_success
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 block|}
@@ -2520,7 +2520,7 @@ name|SplitLogCounters
 operator|.
 name|tot_mgr_wait_for_zk_delete
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 try|try
@@ -3364,7 +3364,7 @@ name|SplitLogCounters
 operator|.
 name|tot_mgr_resubmit_dead_server_task
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 if|if
@@ -3608,7 +3608,7 @@ name|SplitLogCounters
 operator|.
 name|tot_mgr_resubmit_unassigned
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 name|LOG

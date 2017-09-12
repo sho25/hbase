@@ -608,7 +608,7 @@ name|region
 operator|.
 name|compactionNumFilesCompacted
 operator|.
-name|get
+name|sum
 argument_list|()
 return|;
 block|}
@@ -626,7 +626,7 @@ name|region
 operator|.
 name|compactionNumBytesCompacted
 operator|.
-name|get
+name|sum
 argument_list|()
 return|;
 block|}
@@ -644,7 +644,7 @@ name|region
 operator|.
 name|compactionsFinished
 operator|.
-name|get
+name|sum
 argument_list|()
 return|;
 block|}
@@ -718,7 +718,7 @@ name|region
 operator|.
 name|compactionsFailed
 operator|.
-name|get
+name|sum
 argument_list|()
 return|;
 block|}
@@ -736,7 +736,7 @@ name|region
 operator|.
 name|compactionsQueued
 operator|.
-name|get
+name|sum
 argument_list|()
 return|;
 block|}
@@ -754,7 +754,7 @@ name|region
 operator|.
 name|flushesQueued
 operator|.
-name|get
+name|sum
 argument_list|()
 return|;
 block|}

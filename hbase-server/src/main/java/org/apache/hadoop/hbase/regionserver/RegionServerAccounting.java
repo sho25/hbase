@@ -63,7 +63,7 @@ name|concurrent
 operator|.
 name|atomic
 operator|.
-name|AtomicLong
+name|LongAdder
 import|;
 end_import
 
@@ -163,28 +163,24 @@ block|{
 comment|// memstore data size
 specifier|private
 specifier|final
-name|AtomicLong
+name|LongAdder
 name|globalMemstoreDataSize
 init|=
 operator|new
-name|AtomicLong
-argument_list|(
-literal|0
-argument_list|)
+name|LongAdder
+argument_list|()
 decl_stmt|;
 comment|// memstore heap size. When off heap MSLAB in place, this will be only heap overhead of the Cell
 comment|// POJOs and entry overhead of them onto memstore. When on heap MSLAB, this will be include heap
 comment|// overhead as well as the cell data size. Ya cell data is in on heap area only then.
 specifier|private
 specifier|final
-name|AtomicLong
+name|LongAdder
 name|globalMemstoreHeapSize
 init|=
 operator|new
-name|AtomicLong
-argument_list|(
-literal|0
-argument_list|)
+name|LongAdder
+argument_list|()
 decl_stmt|;
 comment|// Store the edits size during replaying WAL. Use this to roll back the
 comment|// global memstore size once a region opening failed.
@@ -481,7 +477,7 @@ block|{
 return|return
 name|globalMemstoreDataSize
 operator|.
-name|get
+name|sum
 argument_list|()
 return|;
 block|}
@@ -496,7 +492,7 @@ name|this
 operator|.
 name|globalMemstoreHeapSize
 operator|.
-name|get
+name|sum
 argument_list|()
 return|;
 block|}
@@ -511,7 +507,7 @@ parameter_list|)
 block|{
 name|globalMemstoreDataSize
 operator|.
-name|addAndGet
+name|add
 argument_list|(
 name|memStoreSize
 operator|.
@@ -521,7 +517,7 @@ argument_list|)
 expr_stmt|;
 name|globalMemstoreHeapSize
 operator|.
-name|addAndGet
+name|add
 argument_list|(
 name|memStoreSize
 operator|.
@@ -540,7 +536,7 @@ parameter_list|)
 block|{
 name|globalMemstoreDataSize
 operator|.
-name|addAndGet
+name|add
 argument_list|(
 operator|-
 name|memStoreSize
@@ -551,7 +547,7 @@ argument_list|)
 expr_stmt|;
 name|globalMemstoreHeapSize
 operator|.
-name|addAndGet
+name|add
 argument_list|(
 operator|-
 name|memStoreSize

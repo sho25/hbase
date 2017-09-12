@@ -109,7 +109,7 @@ name|concurrent
 operator|.
 name|atomic
 operator|.
-name|AtomicLong
+name|LongAdder
 import|;
 end_import
 
@@ -178,11 +178,11 @@ name|maxCapacity
 decl_stmt|;
 comment|// metrics (shared across all queues)
 specifier|private
-name|AtomicLong
+name|LongAdder
 name|numGeneralCallsDropped
 decl_stmt|;
 specifier|private
-name|AtomicLong
+name|LongAdder
 name|numLifoModeSwitches
 decl_stmt|;
 comment|// Both are in milliseconds
@@ -257,10 +257,10 @@ parameter_list|,
 name|double
 name|lifoThreshold
 parameter_list|,
-name|AtomicLong
+name|LongAdder
 name|numGeneralCallsDropped
 parameter_list|,
-name|AtomicLong
+name|LongAdder
 name|numLifoModeSwitches
 parameter_list|)
 block|{
@@ -385,7 +385,7 @@ condition|)
 block|{
 name|numLifoModeSwitches
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 name|cr
@@ -416,7 +416,7 @@ condition|)
 block|{
 name|numGeneralCallsDropped
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 name|cr
@@ -485,7 +485,7 @@ literal|true
 expr_stmt|;
 name|numLifoModeSwitches
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 block|}
@@ -532,7 +532,7 @@ condition|)
 block|{
 name|numGeneralCallsDropped
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 name|cr

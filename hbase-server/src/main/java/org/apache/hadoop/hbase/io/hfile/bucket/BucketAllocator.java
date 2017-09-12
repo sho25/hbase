@@ -101,7 +101,7 @@ name|concurrent
 operator|.
 name|atomic
 operator|.
-name|AtomicLong
+name|LongAdder
 import|;
 end_import
 
@@ -1907,7 +1907,7 @@ name|BucketEntry
 argument_list|>
 name|map
 parameter_list|,
-name|AtomicLong
+name|LongAdder
 name|realCacheSize
 parameter_list|)
 throws|throws
@@ -2212,7 +2212,7 @@ expr_stmt|;
 block|}
 name|realCacheSize
 operator|.
-name|addAndGet
+name|add
 argument_list|(
 name|foundLen
 argument_list|)

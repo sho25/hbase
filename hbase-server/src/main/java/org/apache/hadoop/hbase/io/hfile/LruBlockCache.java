@@ -35,16 +35,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|nio
-operator|.
-name|ByteBuffer
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|EnumMap
@@ -170,6 +160,20 @@ operator|.
 name|atomic
 operator|.
 name|AtomicLong
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|atomic
+operator|.
+name|LongAdder
 import|;
 end_import
 
@@ -770,7 +774,7 @@ decl_stmt|;
 comment|/** Current size of data blocks */
 specifier|private
 specifier|final
-name|AtomicLong
+name|LongAdder
 name|dataBlockSize
 decl_stmt|;
 comment|/** Current number of cached elements */
@@ -782,7 +786,7 @@ decl_stmt|;
 comment|/** Current number of cached data block elements */
 specifier|private
 specifier|final
-name|AtomicLong
+name|LongAdder
 name|dataBlockElements
 decl_stmt|;
 comment|/** Cache access count (sequential ID) */
@@ -1296,20 +1300,16 @@ operator|.
 name|dataBlockElements
 operator|=
 operator|new
-name|AtomicLong
-argument_list|(
-literal|0
-argument_list|)
+name|LongAdder
+argument_list|()
 expr_stmt|;
 name|this
 operator|.
 name|dataBlockSize
 operator|=
 operator|new
-name|AtomicLong
-argument_list|(
-literal|0
-argument_list|)
+name|LongAdder
+argument_list|()
 expr_stmt|;
 name|this
 operator|.
@@ -1746,7 +1746,7 @@ condition|)
 block|{
 name|dataBlockElements
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 block|}
@@ -1962,7 +1962,7 @@ condition|)
 block|{
 name|dataBlockSize
 operator|.
-name|addAndGet
+name|add
 argument_list|(
 name|heapsize
 argument_list|)
@@ -2387,7 +2387,7 @@ condition|)
 block|{
 name|dataBlockElements
 operator|.
-name|decrementAndGet
+name|decrement
 argument_list|()
 expr_stmt|;
 block|}
@@ -3690,7 +3690,7 @@ name|this
 operator|.
 name|dataBlockSize
 operator|.
-name|get
+name|sum
 argument_list|()
 return|;
 block|}
@@ -3749,7 +3749,7 @@ name|this
 operator|.
 name|dataBlockElements
 operator|.
-name|get
+name|sum
 argument_list|()
 return|;
 block|}

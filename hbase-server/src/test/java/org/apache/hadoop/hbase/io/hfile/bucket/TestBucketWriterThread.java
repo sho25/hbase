@@ -268,6 +268,20 @@ import|;
 end_import
 
 begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|atomic
+operator|.
+name|LongAdder
+import|;
+end_import
+
+begin_import
 import|import static
 name|org
 operator|.
@@ -829,7 +843,7 @@ name|any
 argument_list|()
 argument_list|,
 operator|(
-name|AtomicLong
+name|LongAdder
 operator|)
 name|Mockito
 operator|.
@@ -985,7 +999,7 @@ name|any
 argument_list|()
 argument_list|,
 operator|(
-name|AtomicLong
+name|LongAdder
 operator|)
 name|Mockito
 operator|.

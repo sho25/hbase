@@ -505,7 +505,7 @@ name|SplitLogCounters
 operator|.
 name|tot_wkr_preempt_task
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 name|LOG

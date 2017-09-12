@@ -81,7 +81,7 @@ name|concurrent
 operator|.
 name|atomic
 operator|.
-name|AtomicLong
+name|LongAdder
 import|;
 end_import
 
@@ -999,7 +999,7 @@ name|SplitLogCounters
 operator|.
 name|tot_wkr_get_data_retry
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 name|getDataSetWatchAsync
@@ -1044,7 +1044,7 @@ name|SplitLogCounters
 operator|.
 name|tot_wkr_get_data_queued
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 block|}
@@ -1275,7 +1275,7 @@ name|SplitLogCounters
 operator|.
 name|tot_wkr_failed_to_grab_task_no_data
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 return|return;
@@ -1302,7 +1302,7 @@ name|SplitLogCounters
 operator|.
 name|tot_wkr_failed_to_grab_task_exception
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 return|return;
@@ -1343,7 +1343,7 @@ name|SplitLogCounters
 operator|.
 name|tot_wkr_failed_to_grab_task_exception
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 return|return;
@@ -1361,7 +1361,7 @@ name|SplitLogCounters
 operator|.
 name|tot_wkr_failed_to_grab_task_owned
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 return|return;
@@ -1403,7 +1403,7 @@ name|SplitLogCounters
 operator|.
 name|tot_wkr_failed_to_grab_task_lost_race
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 return|return;
@@ -1496,7 +1496,7 @@ name|SplitLogCounters
 operator|.
 name|tot_wkr_task_acquired
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 name|getDataSetWatchAsync
@@ -1993,7 +1993,7 @@ name|SplitLogCounters
 operator|.
 name|tot_wkr_task_heartbeat_failed
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 return|return
@@ -2011,7 +2011,7 @@ name|SplitLogCounters
 operator|.
 name|tot_wkr_task_heartbeat
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 return|return
@@ -2142,7 +2142,7 @@ name|SplitLogCounters
 operator|.
 name|tot_wkr_task_heartbeat_failed
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 return|return
@@ -2381,7 +2381,7 @@ name|SplitLogCounters
 operator|.
 name|tot_wkr_task_grabing
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 synchronized|synchronized
@@ -2957,7 +2957,7 @@ name|SplitLogCounters
 operator|.
 name|tot_wkr_get_data_result
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 if|if
@@ -3023,7 +3023,7 @@ parameter_list|(
 name|SplitLogTask
 name|slt
 parameter_list|,
-name|AtomicLong
+name|LongAdder
 name|ctr
 parameter_list|,
 name|SplitTaskDetails
@@ -3093,7 +3093,7 @@ argument_list|)
 expr_stmt|;
 name|ctr
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 return|return;
@@ -3192,7 +3192,7 @@ name|SplitLogCounters
 operator|.
 name|tot_wkr_final_transition_failed
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 block|}

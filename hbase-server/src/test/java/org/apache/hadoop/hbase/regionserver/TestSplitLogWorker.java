@@ -121,7 +121,7 @@ name|concurrent
 operator|.
 name|atomic
 operator|.
-name|AtomicLong
+name|LongAdder
 import|;
 end_import
 
@@ -894,7 +894,7 @@ specifier|private
 name|void
 name|waitForCounter
 parameter_list|(
-name|AtomicLong
+name|LongAdder
 name|ctr
 parameter_list|,
 name|long
@@ -915,7 +915,7 @@ literal|"ctr="
 operator|+
 name|ctr
 operator|.
-name|get
+name|sum
 argument_list|()
 operator|+
 literal|", oldval="
@@ -944,7 +944,7 @@ name|boolean
 name|waitForCounterBoolean
 parameter_list|(
 specifier|final
-name|AtomicLong
+name|LongAdder
 name|ctr
 parameter_list|,
 specifier|final
@@ -980,7 +980,7 @@ name|boolean
 name|waitForCounterBoolean
 parameter_list|(
 specifier|final
-name|AtomicLong
+name|LongAdder
 name|ctr
 parameter_list|,
 specifier|final
@@ -1035,7 +1035,7 @@ return|return
 operator|(
 name|ctr
 operator|.
-name|get
+name|sum
 argument_list|()
 operator|>=
 name|newval
@@ -1059,7 +1059,7 @@ name|newval
 argument_list|,
 name|ctr
 operator|.
-name|get
+name|sum
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1853,7 +1853,7 @@ name|SplitLogCounters
 operator|.
 name|tot_wkr_failed_to_grab_task_lost_race
 operator|.
-name|get
+name|sum
 argument_list|()
 operator|==
 literal|1

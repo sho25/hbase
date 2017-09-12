@@ -165,7 +165,7 @@ name|concurrent
 operator|.
 name|atomic
 operator|.
-name|AtomicLong
+name|LongAdder
 import|;
 end_import
 
@@ -856,29 +856,29 @@ block|}
 block|}
 specifier|private
 specifier|final
-name|AtomicLong
+name|LongAdder
 name|failedIncrements
 init|=
 operator|new
-name|AtomicLong
+name|LongAdder
 argument_list|()
 decl_stmt|;
 specifier|private
 specifier|final
-name|AtomicLong
+name|LongAdder
 name|successfulCoalescings
 init|=
 operator|new
-name|AtomicLong
+name|LongAdder
 argument_list|()
 decl_stmt|;
 specifier|private
 specifier|final
-name|AtomicLong
+name|LongAdder
 name|totalIncrements
 init|=
 operator|new
-name|AtomicLong
+name|LongAdder
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -1026,7 +1026,7 @@ condition|)
 block|{
 name|failedIncrements
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 return|return
@@ -1062,7 +1062,7 @@ condition|)
 block|{
 name|failedIncrements
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 return|return
@@ -1195,7 +1195,7 @@ argument_list|)
 expr_stmt|;
 name|totalIncrements
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 name|FullyQualifiedRow
@@ -1260,7 +1260,7 @@ name|currentAmount
 expr_stmt|;
 name|successfulCoalescings
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 block|}
@@ -1834,7 +1834,7 @@ block|{
 return|return
 name|failedIncrements
 operator|.
-name|get
+name|sum
 argument_list|()
 return|;
 block|}
@@ -1846,7 +1846,7 @@ block|{
 return|return
 name|successfulCoalescings
 operator|.
-name|get
+name|sum
 argument_list|()
 return|;
 block|}
@@ -1858,7 +1858,7 @@ block|{
 return|return
 name|totalIncrements
 operator|.
-name|get
+name|sum
 argument_list|()
 return|;
 block|}

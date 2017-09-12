@@ -1366,7 +1366,7 @@ name|SplitLogCounters
 operator|.
 name|tot_mgr_resubmit_threshold_reached
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 name|LOG
@@ -1403,7 +1403,7 @@ name|SplitLogCounters
 operator|.
 name|tot_mgr_resubmit_force
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 name|version
@@ -1497,7 +1497,7 @@ name|SplitLogCounters
 operator|.
 name|tot_mgr_resubmit
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 return|return
@@ -1665,7 +1665,7 @@ name|SplitLogCounters
 operator|.
 name|tot_mgr_get_data_queued
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 block|}
@@ -2149,7 +2149,7 @@ name|SplitLogCounters
 operator|.
 name|tot_mgr_node_delete_queued
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 comment|// Once a task znode is ready for delete, that is it is in the TASK_DONE
@@ -2233,7 +2233,7 @@ name|SplitLogCounters
 operator|.
 name|tot_mgr_rescan_deleted
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 block|}
@@ -2241,7 +2241,7 @@ name|SplitLogCounters
 operator|.
 name|tot_mgr_missing_state_in_delete
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 name|LOG
@@ -2276,7 +2276,7 @@ name|SplitLogCounters
 operator|.
 name|tot_mgr_task_deleted
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 block|}
@@ -2313,7 +2313,7 @@ name|SplitLogCounters
 operator|.
 name|tot_mgr_rescan
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 name|getDataSetWatch
@@ -2436,7 +2436,7 @@ name|SplitLogCounters
 operator|.
 name|tot_mgr_node_create_queued
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 return|return;
@@ -2532,7 +2532,7 @@ name|SplitLogCounters
 operator|.
 name|tot_mgr_get_data_queued
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 block|}
@@ -2583,7 +2583,7 @@ name|SplitLogCounters
 operator|.
 name|tot_mgr_null_data
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 name|LOG
@@ -2971,7 +2971,7 @@ name|SplitLogCounters
 operator|.
 name|tot_mgr_unacquired_orphan_done
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 name|LOG
@@ -3012,7 +3012,7 @@ name|SplitLogCounters
 operator|.
 name|tot_mgr_log_split_success
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 name|LOG
@@ -3031,7 +3031,7 @@ name|SplitLogCounters
 operator|.
 name|tot_mgr_log_split_err
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 name|LOG
@@ -3155,7 +3155,7 @@ name|SplitLogCounters
 operator|.
 name|tot_mgr_orphan_task_acquired
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 block|}
@@ -3233,7 +3233,7 @@ name|SplitLogCounters
 operator|.
 name|tot_mgr_heartbeat
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 block|}
@@ -5017,7 +5017,7 @@ name|SplitLogCounters
 operator|.
 name|tot_mgr_resubmit_failed
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 name|LOG
@@ -5121,7 +5121,7 @@ name|SplitLogCounters
 operator|.
 name|tot_mgr_node_create_result
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 if|if
@@ -5183,7 +5183,7 @@ name|SplitLogCounters
 operator|.
 name|tot_mgr_node_already_exists
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 block|}
@@ -5232,7 +5232,7 @@ name|SplitLogCounters
 operator|.
 name|tot_mgr_node_create_err
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 name|createNodeFailure
@@ -5247,7 +5247,7 @@ name|SplitLogCounters
 operator|.
 name|tot_mgr_node_create_retry
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 name|createNode
@@ -5326,7 +5326,7 @@ name|SplitLogCounters
 operator|.
 name|tot_mgr_get_data_result
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 if|if
@@ -5368,7 +5368,7 @@ name|SplitLogCounters
 operator|.
 name|tot_mgr_get_data_nonode
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 name|LOG
@@ -5461,7 +5461,7 @@ name|SplitLogCounters
 operator|.
 name|tot_mgr_get_data_err
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 name|getDataSetWatchFailure
@@ -5476,7 +5476,7 @@ name|SplitLogCounters
 operator|.
 name|tot_mgr_get_data_retry
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 name|getDataSetWatch
@@ -5574,7 +5574,7 @@ name|SplitLogCounters
 operator|.
 name|tot_mgr_node_delete_result
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 if|if
@@ -5626,7 +5626,7 @@ name|SplitLogCounters
 operator|.
 name|tot_mgr_node_delete_err
 operator|.
-name|incrementAndGet
+name|increment
 argument_list|()
 expr_stmt|;
 name|Long
