@@ -953,7 +953,7 @@ name|job
 argument_list|,
 name|admin
 operator|.
-name|listTableDescriptor
+name|getDescriptor
 argument_list|(
 operator|(
 name|TableName

@@ -808,7 +808,7 @@ name|htd
 init|=
 name|admin
 operator|.
-name|listTableDescriptor
+name|getDescriptor
 argument_list|(
 name|tableName
 argument_list|)

@@ -566,7 +566,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The administrative API for HBase. Obtain an instance from an {@link Connection#getAdmin()} and  * call {@link #close()} afterwards.  *<p>Admin can be used to create, drop, list, enable and disable tables, add and drop table  * column families and other administrative operations.  *  * @see ConnectionFactory  * @see Connection  * @see Table  * @since 0.99.0  */
+comment|/**  * The administrative API for HBase. Obtain an instance from {@link Connection#getAdmin()} and  * call {@link #close()} when done.  *<p>Admin can be used to create, drop, list, enable and disable and otherwise modify tables,  * as well as perform other administrative operations.  *  * @see ConnectionFactory  * @see Connection  * @see Table  * @since 0.99.0  */
 end_comment
 
 begin_interface
@@ -609,18 +609,17 @@ name|Connection
 name|getConnection
 parameter_list|()
 function_decl|;
-comment|/**    * @param tableName Table to check.    * @return True if table exists already.    * @throws IOException    */
+comment|/**    * @param tableName Table to check.    * @return<code>true</code> if table exists already.    * @throws IOException    */
 name|boolean
 name|tableExists
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List all the userspace tables.    *    * @return - returns an array of read-only HTableDescriptors    * @throws IOException if a remote or network exception occurs    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #listTableDescriptors()}    */
+comment|/**    * List all the userspace tables.    *    * @return an array of read-only HTableDescriptors    * @throws IOException if a remote or network exception occurs    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             Use {@link #listTableDescriptors()}.    * @see #listTableDescriptors()    */
 annotation|@
 name|Deprecated
 name|HTableDescriptor
@@ -630,7 +629,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List all the userspace tables.    *    * @return - returns a list of TableDescriptors    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * List all the userspace tables.    *    * @return a list of TableDescriptors    * @throws IOException if a remote or network exception occurs    */
 name|List
 argument_list|<
 name|TableDescriptor
@@ -640,7 +639,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List all the userspace tables matching the given pattern.    *    * @param pattern The compiled regular expression to match against    * @return - returns an array of read-only HTableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTables()    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #listTableDescriptors(java.util.regex.Pattern)}    */
+comment|/**    * List all the userspace tables that match the given pattern.    *    * @param pattern The compiled regular expression to match against    * @return an array of read-only HTableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTables()    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             Use {@link #listTableDescriptors(java.util.regex.Pattern)}.    * @see #listTableDescriptors(Pattern)    */
 annotation|@
 name|Deprecated
 name|HTableDescriptor
@@ -653,7 +652,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List all the userspace tables matching the given pattern.    *    * @param pattern The compiled regular expression to match against    * @return - returns a list of TableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTables()    */
+comment|/**    * List all the userspace tables that match the given pattern.    *    * @param pattern The compiled regular expression to match against    * @return a list of TableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTables()    */
 name|List
 argument_list|<
 name|TableDescriptor
@@ -666,7 +665,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List all the userspace tables matching the given regular expression.    *    * @param regex The regular expression to match against    * @return - returns an array of read-only HTableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTables(java.util.regex.Pattern)    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #listTableDescriptors(java.lang.String)}    */
+comment|/**    * List all the userspace tables matching the given regular expression.    *    * @param regex The regular expression to match against    * @return a list of read-only HTableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTableDescriptors(java.lang.String)    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             Use {@link #listTableDescriptors(java.lang.String)}.    */
 annotation|@
 name|Deprecated
 name|HTableDescriptor
@@ -679,7 +678,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List all the userspace tables matching the given regular expression.    *    * @param regex The regular expression to match against    * @return - returns a list of TableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTables(java.util.regex.Pattern)    */
+comment|/**    * List all the userspace tables matching the given regular expression.    *    * @param regex The regular expression to match against.    * @return a list of TableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTables(java.util.regex.Pattern)    */
 name|List
 argument_list|<
 name|TableDescriptor
@@ -692,7 +691,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List all the tables matching the given pattern.    *    * @param pattern The compiled regular expression to match against    * @param includeSysTables False to match only against userspace tables    * @return - returns an array of read-only HTableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTables()    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #listTableDescriptors(java.util.regex.Pattern, boolean)}    */
+comment|/**    * List all the tables matching the given pattern.    *    * @param pattern The compiled regular expression to match against    * @param includeSysTables<code>false</code> to match only against userspace tables    * @return an array of read-only HTableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTables()    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             Use {@link #listTableDescriptors(java.util.regex.Pattern, boolean)}.    * @see #listTableDescriptors(java.util.regex.Pattern, boolean)    */
 annotation|@
 name|Deprecated
 name|HTableDescriptor
@@ -708,7 +707,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List all the tables matching the given pattern.    *    * @param pattern The compiled regular expression to match against    * @param includeSysTables False to match only against userspace tables    * @return - returns a list of TableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTables()    */
+comment|/**    * List all the tables matching the given pattern.    *    * @param pattern The compiled regular expression to match against    * @param includeSysTables<code>false</code> to match only against userspace tables    * @return a list of TableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTables()    */
 name|List
 argument_list|<
 name|TableDescriptor
@@ -724,7 +723,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List all the tables matching the given pattern.    *    * @param regex The regular expression to match against    * @param includeSysTables False to match only against userspace tables    * @return - returns an array of read-only HTableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTables(java.util.regex.Pattern, boolean)    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #listTableDescriptors(java.lang.String, boolean)}    */
+comment|/**    * List all the tables matching the given pattern.    *    * @param regex The regular expression to match against    * @param includeSysTables<code>false</code> to match only against userspace tables    * @return an array of read-only HTableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTables(java.util.regex.Pattern, boolean)    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             Use {@link #listTableDescriptors(java.lang.String, boolean)}.    */
 annotation|@
 name|Deprecated
 name|HTableDescriptor
@@ -740,7 +739,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List all the tables matching the given pattern.    *    * @param regex The regular expression to match against    * @param includeSysTables False to match only against userspace tables    * @return - returns a list of TableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTables(java.util.regex.Pattern, boolean)    */
+comment|/**    * List all the tables matching the given pattern.    *    * @param regex The regular expression to match against    * @param includeSysTables<code>false</code> to match only against userspace tables    * @return a list of TableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTables(java.util.regex.Pattern, boolean)    */
 name|List
 argument_list|<
 name|TableDescriptor
@@ -764,7 +763,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List all of the names of userspace tables.    * @param pattern The regular expression to match against    * @return TableName[] table names    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * List all of the names of userspace tables.    * @param pattern The regular expression to match against    * @return array of table names    * @throws IOException if a remote or network exception occurs    */
 name|TableName
 index|[]
 name|listTableNames
@@ -786,45 +785,40 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List all of the names of userspace tables.    * @param pattern The regular expression to match against    * @param includeSysTables False to match only against userspace tables    * @return TableName[] table names    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * List all of the names of userspace tables.    * @param pattern The regular expression to match against    * @param includeSysTables<code>false</code> to match only against userspace tables    * @return TableName[] table names    * @throws IOException if a remote or network exception occurs    */
 name|TableName
 index|[]
 name|listTableNames
 parameter_list|(
-specifier|final
 name|Pattern
 name|pattern
 parameter_list|,
-specifier|final
 name|boolean
 name|includeSysTables
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List all of the names of userspace tables.    * @param regex The regular expression to match against    * @param includeSysTables False to match only against userspace tables    * @return TableName[] table names    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * List all of the names of userspace tables.    * @param regex The regular expression to match against    * @param includeSysTables<code>false</code> to match only against userspace tables    * @return TableName[] table names    * @throws IOException if a remote or network exception occurs    */
 name|TableName
 index|[]
 name|listTableNames
 parameter_list|(
-specifier|final
 name|String
 name|regex
 parameter_list|,
-specifier|final
 name|boolean
 name|includeSysTables
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Method for getting the tableDescriptor    *    * @param tableName as a {@link TableName}    * @return the read-only tableDescriptor    * @throws org.apache.hadoop.hbase.TableNotFoundException    * @throws IOException if a remote or network exception occurs    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #listTableDescriptor(TableName)}    */
+comment|/**    * Get a table descriptor.    *    * @param tableName as a {@link TableName}    * @return the read-only tableDescriptor    * @throws org.apache.hadoop.hbase.TableNotFoundException    * @throws IOException if a remote or network exception occurs    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             Use {@link #getDescriptor(TableName)}.    */
 annotation|@
 name|Deprecated
 name|HTableDescriptor
 name|getTableDescriptor
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|)
@@ -833,11 +827,10 @@ name|TableNotFoundException
 throws|,
 name|IOException
 function_decl|;
-comment|/**    * Method for getting the tableDescriptor    *    * @param tableName as a {@link TableName}    * @return the tableDescriptor    * @throws org.apache.hadoop.hbase.TableNotFoundException    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Get a table descriptor.    *    * @param tableName as a {@link TableName}    * @return the tableDescriptor    * @throws org.apache.hadoop.hbase.TableNotFoundException    * @throws IOException if a remote or network exception occurs    */
 name|TableDescriptor
-name|listTableDescriptor
+name|getDescriptor
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|)
@@ -881,7 +874,6 @@ comment|/**    * Creates a new table with an initial set of empty regions define
 name|void
 name|createTable
 parameter_list|(
-specifier|final
 name|TableDescriptor
 name|desc
 parameter_list|,
@@ -900,11 +892,9 @@ name|Void
 argument_list|>
 name|createTableAsync
 parameter_list|(
-specifier|final
 name|TableDescriptor
 name|desc
 parameter_list|,
-specifier|final
 name|byte
 index|[]
 index|[]
@@ -917,14 +907,13 @@ comment|/**    * Deletes a table. Synchronous operation.    *    * @param tableN
 name|void
 name|deleteTable
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Deletes the table but does not block and wait for it be completely removed.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param tableName name of table to delete    * @throws IOException if a remote or network exception occurs    * @return the result of the async delete. You can use Future.get(long, TimeUnit)    *    to wait on the operation to complete.    */
+comment|/**    * Deletes the table but does not block and wait for it to be completely removed.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param tableName name of table to delete    * @throws IOException if a remote or network exception occurs    * @return the result of the async delete. You can use Future.get(long, TimeUnit)    *    to wait on the operation to complete.    */
 name|Future
 argument_list|<
 name|Void
@@ -963,34 +952,29 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Truncate a table.    * Synchronous operation.    *    * @param tableName name of table to truncate    * @param preserveSplits True if the splits should be preserved    * @throws IOException if a remote or network exception occurs    */
-specifier|public
+comment|/**    * Truncate a table.    * Synchronous operation.    *    * @param tableName name of table to truncate    * @param preserveSplits<code>true</code> if the splits should be preserved    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|truncateTable
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|,
-specifier|final
 name|boolean
 name|preserveSplits
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Truncate the table but does not block and wait for it be completely enabled. You can use    * Future.get(long, TimeUnit) to wait on the operation to complete. It may throw    * ExecutionException if there was an error while executing the operation or TimeoutException in    * case the wait timeout was not long enough to allow the operation to complete.    * @param tableName name of table to delete    * @param preserveSplits true if the splits should be preserved    * @throws IOException if a remote or network exception occurs    * @return the result of the async truncate. You can use Future.get(long, TimeUnit) to wait on the    *         operation to complete.    */
+comment|/**    * Truncate the table but does not block and wait for it to be completely enabled. You can use    * Future.get(long, TimeUnit) to wait on the operation to complete. It may throw    * ExecutionException if there was an error while executing the operation or TimeoutException in    * case the wait timeout was not long enough to allow the operation to complete.    * @param tableName name of table to delete    * @param preserveSplits<code>true</code> if the splits should be preserved    * @throws IOException if a remote or network exception occurs    * @return the result of the async truncate. You can use Future.get(long, TimeUnit) to wait on the    *         operation to complete.    */
 name|Future
 argument_list|<
 name|Void
 argument_list|>
 name|truncateTableAsync
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|,
-specifier|final
 name|boolean
 name|preserveSplits
 parameter_list|)
@@ -1001,21 +985,19 @@ comment|/**    * Enable a table.  May timeout.  Use {@link #enableTableAsync(org
 name|void
 name|enableTable
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Enable the table but does not block and wait for it be completely enabled.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param tableName name of table to delete    * @throws IOException if a remote or network exception occurs    * @return the result of the async enable. You can use Future.get(long, TimeUnit)    *    to wait on the operation to complete.    */
+comment|/**    * Enable the table but does not block and wait for it to be completely enabled.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param tableName name of table to delete    * @throws IOException if a remote or network exception occurs    * @return the result of the async enable. You can use Future.get(long, TimeUnit)    *    to wait on the operation to complete.    */
 name|Future
 argument_list|<
 name|Void
 argument_list|>
 name|enableTableAsync
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|)
@@ -1048,14 +1030,13 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Disable the table but does not block and wait for it be completely disabled.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param tableName name of table to delete    * @throws IOException if a remote or network exception occurs    * @return the result of the async disable. You can use Future.get(long, TimeUnit)    *    to wait on the operation to complete.    */
+comment|/**    * Disable the table but does not block and wait for it to be completely disabled.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param tableName name of table to delete    * @throws IOException if a remote or network exception occurs    * @return the result of the async disable. You can use Future.get(long, TimeUnit)    *    to wait on the operation to complete.    */
 name|Future
 argument_list|<
 name|Void
 argument_list|>
 name|disableTableAsync
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|)
@@ -1066,7 +1047,6 @@ comment|/**    * Disable table and wait on completion.  May timeout eventually. 
 name|void
 name|disableTable
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|)
@@ -1099,7 +1079,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * @param tableName name of table to check    * @return true if table is on-line    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * @param tableName name of table to check    * @return<code>true</code> if table is on-line    * @throws IOException if a remote or network exception occurs    */
 name|boolean
 name|isTableEnabled
 parameter_list|(
@@ -1109,7 +1089,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * @param tableName name of table to check    * @return true if table is off-line    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * @param tableName name of table to check    * @return<code>true</code> if table is off-line    * @throws IOException if a remote or network exception occurs    */
 name|boolean
 name|isTableDisabled
 parameter_list|(
@@ -1119,7 +1099,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * @param tableName name of table to check    * @return true if all regions of the table are available    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * @param tableName name of table to check    * @return<code>true</code> if all regions of the table are available    * @throws IOException if a remote or network exception occurs    */
 name|boolean
 name|isTableAvailable
 parameter_list|(
@@ -1129,7 +1109,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Use this api to check if the table has been created with the specified number of splitkeys    * which was used while creating the given table. Note : If this api is used after a table's    * region gets splitted, the api may return false.    *    * @param tableName name of table to check    * @param splitKeys keys to check if the table has been created with all split keys    * @throws IOException if a remote or network excpetion occurs    */
+comment|/**    * Use this api to check if the table has been created with the specified number of splitkeys    * which was used while creating the given table. Note : If this api is used after a table's    * region gets splitted, the api may return<code>false</code>.    *    * @param tableName name of table to check    * @param splitKeys keys to check if the table has been created with all split keys    * @throws IOException if a remote or network excpetion occurs    * @deprecated Since 2.0.0. Will be removed in 3.0.0. Use {@link #isTableAvailable(TableName)}    */
+annotation|@
+name|Deprecated
 name|boolean
 name|isTableAvailable
 parameter_list|(
@@ -1144,23 +1126,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get the status of alter command - indicates how many regions have received the updated schema    * Asynchronous operation.    *    * @param tableName TableName instance    * @return Pair indicating the number of regions updated Pair.getFirst() is the regions that are    * yet to be updated Pair.getSecond() is the total number of regions of the table    * @throws IOException if a remote or network exception occurs    */
-name|Pair
-argument_list|<
-name|Integer
-argument_list|,
-name|Integer
-argument_list|>
-name|getAlterStatus
-parameter_list|(
-specifier|final
-name|TableName
-name|tableName
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-comment|/**    * Get the status of alter command - indicates how many regions have received the updated schema    * Asynchronous operation.    *    * @param tableName name of the table to get the status of    * @return Pair indicating the number of regions updated Pair.getFirst() is the regions that are    * yet to be updated Pair.getSecond() is the total number of regions of the table    * @throws IOException if a remote or network exception occurs    * @deprecated Since 2.0.0. Will be removed in 3.0.0. Use {@link #getAlterStatus(TableName)}    *     instead.    */
+comment|/**    * Get the status of an<code>alter</code> (a.k.a<code>modify</code>) command - indicates how    * many regions have received the updated schema Asynchronous operation.    *    * @param tableName TableName instance    * @return Pair indicating the number of regions updated Pair.getFirst() is the regions that are    * yet to be updated Pair.getSecond() is the total number of regions of the table    * @throws IOException if a remote or network exception occurs    * @deprecated Since 2.0.0. Will be removed in 3.0.0. No longer needed now you get a Future    * on an operation.    */
 annotation|@
 name|Deprecated
 name|Pair
@@ -1171,7 +1137,23 @@ name|Integer
 argument_list|>
 name|getAlterStatus
 parameter_list|(
-specifier|final
+name|TableName
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Get the status of<code>alter</code> (a.k.a<code>modify</code>) command - indicates how many    * regions have received the updated schema Asynchronous operation.    *    * @param tableName name of the table to get the status of    * @return Pair indicating the number of regions updated Pair.getFirst() is the regions that are    * yet to be updated Pair.getSecond() is the total number of regions of the table    * @throws IOException if a remote or network exception occurs    * @deprecated Since 2.0.0. Will be removed in 3.0.0. No longer needed now you get a Future    * on an operation.    */
+annotation|@
+name|Deprecated
+name|Pair
+argument_list|<
+name|Integer
+argument_list|,
+name|Integer
+argument_list|>
+name|getAlterStatus
+parameter_list|(
 name|byte
 index|[]
 name|tableName
@@ -1179,18 +1161,16 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Add a column family to an existing table. Asynchronous operation.    *    * @param tableName name of the table to add column family to    * @param columnFamily column family descriptor of column family to be added    * @throws IOException if a remote or network exception occurs    * @deprecated As of release 2.0.0.    *             (<a href="https://issues.apache.org/jira/browse/HBASE-1989">HBASE-1989</a>).    *             This will be removed in HBase 3.0.0.    *             Use {@link #addColumnFamily(TableName, ColumnFamilyDescriptor)}.    */
+comment|/**    * Add a column family to an existing table. Synchronous operation.    * Use {@link #addColumnFamilyAsync(TableName, ColumnFamilyDescriptor)} instead because it    * returns a {@link Future} from which you can learn whether success or failure.    *    * @param tableName name of the table to add column family to    * @param columnFamily column family descriptor of column family to be added    * @throws IOException if a remote or network exception occurs    * @deprecated As of release 2.0.0.    *             This will be removed in HBase 3.0.0.    *             Use {@link #addColumnFamily(TableName, ColumnFamilyDescriptor)}.    */
 annotation|@
 name|Deprecated
 specifier|default
 name|void
 name|addColumn
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|,
-specifier|final
 name|ColumnFamilyDescriptor
 name|columnFamily
 parameter_list|)
@@ -1205,15 +1185,13 @@ name|columnFamily
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Add a column family to an existing table.    *    * @param tableName name of the table to add column family to    * @param columnFamily column family descriptor of column family to be added    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Add a column family to an existing table. Synchronous operation.    * Use {@link #addColumnFamilyAsync(TableName, ColumnFamilyDescriptor)} instead because it    * returns a {@link Future} from which you can learn whether success or failure.    *    * @param tableName name of the table to add column family to    * @param columnFamily column family descriptor of column family to be added    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|addColumnFamily
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|,
-specifier|final
 name|ColumnFamilyDescriptor
 name|columnFamily
 parameter_list|)
@@ -1227,28 +1205,24 @@ name|Void
 argument_list|>
 name|addColumnFamilyAsync
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|,
-specifier|final
 name|ColumnFamilyDescriptor
 name|columnFamily
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Delete a column family from a table. Asynchronous operation.    *    * @param tableName name of table    * @param columnFamily name of column family to be deleted    * @throws IOException if a remote or network exception occurs    * @deprecated As of release 2.0.0.    *             (<a href="https://issues.apache.org/jira/browse/HBASE-1989">HBASE-1989</a>).    *             This will be removed in HBase 3.0.0.    *             Use {@link #deleteColumnFamily(TableName, byte[])}}.    */
+comment|/**    * Delete a column family from a table. Synchronous operation.    *  Use {@link #deleteColumnFamily(TableName, byte[])} instead because it    * returns a {@link Future} from which you can learn whether success or failure.    *    * @param tableName name of table    * @param columnFamily name of column family to be deleted    * @throws IOException if a remote or network exception occurs    * @deprecated As of release 2.0.0.    *             This will be removed in HBase 3.0.0.    *             Use {@link #deleteColumnFamily(TableName, byte[])}}.    */
 annotation|@
 name|Deprecated
 name|void
 name|deleteColumn
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|,
-specifier|final
 name|byte
 index|[]
 name|columnFamily
@@ -1256,15 +1230,13 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Delete a column family from a table. Asynchronous operation.    *    * @param tableName name of table    * @param columnFamily name of column family to be deleted    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Delete a column family from a table. Synchronous operation.    * Use {@link #deleteColumnFamily(TableName, byte[])} instead because it    * returns a {@link Future} from which you can learn whether success or failure.    * @param tableName name of table    * @param columnFamily name of column family to be deleted    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|deleteColumnFamily
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|,
-specifier|final
 name|byte
 index|[]
 name|columnFamily
@@ -1279,11 +1251,9 @@ name|Void
 argument_list|>
 name|deleteColumnFamilyAsync
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|,
-specifier|final
 name|byte
 index|[]
 name|columnFamily
@@ -1291,18 +1261,16 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Modify an existing column family on a table.    *    * @param tableName name of table    * @param columnFamily new column family descriptor to use    * @throws IOException if a remote or network exception occurs    * @deprecated As of release 2.0.0.    *             (<a href="https://issues.apache.org/jira/browse/HBASE-1989">HBASE-1989</a>).    *             This will be removed in HBase 3.0.0.    *             Use {@link #modifyColumnFamily(TableName, ColumnFamilyDescriptor)}.    */
+comment|/**    * Modify an existing column family on a table. Synchronous operation.    * Use {@link #modifyColumnFamilyAsync(TableName, ColumnFamilyDescriptor)} instead because it    * returns a {@link Future} from which you can learn whether success or failure.    * @param tableName name of table    * @param columnFamily new column family descriptor to use    * @throws IOException if a remote or network exception occurs    * @deprecated As of release 2.0.0.    *             This will be removed in HBase 3.0.0.    *             Use {@link #modifyColumnFamily(TableName, ColumnFamilyDescriptor)}.    */
 annotation|@
 name|Deprecated
 specifier|default
 name|void
 name|modifyColumn
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|,
-specifier|final
 name|ColumnFamilyDescriptor
 name|columnFamily
 parameter_list|)
@@ -1317,15 +1285,13 @@ name|columnFamily
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Modify an existing column family on a table.    *    * @param tableName name of table    * @param columnFamily new column family descriptor to use    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Modify an existing column family on a table. Synchronous operation.    * Use {@link #modifyColumnFamilyAsync(TableName, ColumnFamilyDescriptor)} instead because it    * returns a {@link Future} from which you can learn whether success or failure.    * @param tableName name of table    * @param columnFamily new column family descriptor to use    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|modifyColumnFamily
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|,
-specifier|final
 name|ColumnFamilyDescriptor
 name|columnFamily
 parameter_list|)
@@ -1348,52 +1314,46 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Uses {@link #unassign(byte[], boolean)} to unassign the region. For expert-admins.    *    * @param regionname region name to close    * @param serverName Deprecated. Not used.    * @throws IOException if a remote or network exception occurs    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-18231">HBASE-18231</a>).    *             Use {@link #unassign(byte[], boolean)}.    */
+comment|/**    * Uses {@link #unassign(byte[], boolean)} to unassign the region. For expert-admins.    *    * @param regionname region name to close    * @param serverName Deprecated. Not used.    * @throws IOException if a remote or network exception occurs    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    *             Use {@link #unassign(byte[], boolean)}.    */
 annotation|@
 name|Deprecated
 name|void
 name|closeRegion
 parameter_list|(
-specifier|final
 name|String
 name|regionname
 parameter_list|,
-specifier|final
 name|String
 name|serverName
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Uses {@link #unassign(byte[], boolean)} to unassign the region. For expert-admins.    *    * @param regionname region name to close    * @param serverName Deprecated. Not used.    * @throws IOException if a remote or network exception occurs    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-18231">HBASE-18231</a>).    *             Use {@link #unassign(byte[], boolean)}.    */
+comment|/**    * Uses {@link #unassign(byte[], boolean)} to unassign the region. For expert-admins.    *    * @param regionname region name to close    * @param serverName Deprecated. Not used.    * @throws IOException if a remote or network exception occurs    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    *             Use {@link #unassign(byte[], boolean)}.    */
 annotation|@
 name|Deprecated
 name|void
 name|closeRegion
 parameter_list|(
-specifier|final
 name|byte
 index|[]
 name|regionname
 parameter_list|,
-specifier|final
 name|String
 name|serverName
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Uses {@link #unassign(byte[], boolean)} to unassign the region. For expert-admins.    *    * @param encodedRegionName The encoded region name; i.e. the hash that makes up the region name    * suffix: e.g. if regionname is    *<code>TestTable,0094429456,1289497600452.527db22f95c8a9e0116f0cc13c680396.</code>,    * then the encoded region name is:<code>527db22f95c8a9e0116f0cc13c680396</code>.    * @param serverName Deprecated. Not used.    * @return Deprecated. Returns true always.    * @throws IOException if a remote or network exception occurs    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-18231">HBASE-18231</a>).    *             Use {@link #unassign(byte[], boolean)}.    */
+comment|/**    * Uses {@link #unassign(byte[], boolean)} to unassign the region. For expert-admins.    *    * @param encodedRegionName The encoded region name; i.e. the hash that makes up the region name    * suffix: e.g. if regionname is    *<code>TestTable,0094429456,1289497600452.527db22f95c8a9e0116f0cc13c680396.</code>,    * then the encoded region name is:<code>527db22f95c8a9e0116f0cc13c680396</code>.    * @param serverName Deprecated. Not used.    * @return Deprecated. Returns<code>true</code> always.    * @throws IOException if a remote or network exception occurs    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    *             Use {@link #unassign(byte[], boolean)}.    */
 annotation|@
 name|Deprecated
 name|boolean
 name|closeRegionWithEncodedRegionName
 parameter_list|(
-specifier|final
 name|String
 name|encodedRegionName
 parameter_list|,
-specifier|final
 name|String
 name|serverName
 parameter_list|)
@@ -1424,7 +1384,6 @@ name|HRegionInfo
 argument_list|>
 name|getOnlineRegions
 parameter_list|(
-specifier|final
 name|ServerName
 name|sn
 parameter_list|)
@@ -1435,7 +1394,6 @@ comment|/**    * Flush a table. Synchronous operation.    *    * @param tableNam
 name|void
 name|flush
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|)
@@ -1446,7 +1404,6 @@ comment|/**    * Flush an individual region. Synchronous operation.    *    * @p
 name|void
 name|flushRegion
 parameter_list|(
-specifier|final
 name|byte
 index|[]
 name|regionName
@@ -1454,22 +1411,20 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Compact a table. Asynchronous operation.    *    * @param tableName table to compact    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Compact a table. Asynchronous operation in that this method requests that a    * Compaction run and then it returns. It does not wait on the completion of Compaction    * (it can take a while).    *    * @param tableName table to compact    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|compact
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Compact an individual region. Asynchronous operation.    *    * @param regionName region to compact    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Compact an individual region. Asynchronous operation in that this method requests that a    * Compaction run and then it returns. It does not wait on the completion of Compaction    * (it can take a while).    *    * @param regionName region to compact    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|compactRegion
 parameter_list|(
-specifier|final
 name|byte
 index|[]
 name|regionName
@@ -1477,15 +1432,13 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Compact a column family within a table. Asynchronous operation.    *    * @param tableName table to compact    * @param columnFamily column family within a table    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Compact a column family within a table. Asynchronous operation in that this method requests    * that a Compaction run and then it returns. It does not wait on the completion of Compaction    * (it can take a while).    *    * @param tableName table to compact    * @param columnFamily column family within a table    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|compact
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|,
-specifier|final
 name|byte
 index|[]
 name|columnFamily
@@ -1493,16 +1446,14 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Compact a column family within a region. Asynchronous operation.    *    * @param regionName region to compact    * @param columnFamily column family within a region    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Compact a column family within a region. Asynchronous operation in that this method requests    * that a Compaction run and then it returns. It does not wait on the completion of Compaction    * (it can take a while).    *    * @param regionName region to compact    * @param columnFamily column family within a region    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|compactRegion
 parameter_list|(
-specifier|final
 name|byte
 index|[]
 name|regionName
 parameter_list|,
-specifier|final
 name|byte
 index|[]
 name|columnFamily
@@ -1510,7 +1461,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Major compact a table. Asynchronous operation.    *    * @param tableName table to major compact    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Major compact a table. Asynchronous operation in that this method requests    * that a Compaction run and then it returns. It does not wait on the completion of Compaction    * (it can take a while).    *    * @param tableName table to major compact    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|majorCompact
 parameter_list|(
@@ -1520,11 +1471,10 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Major compact a table or an individual region. Asynchronous operation.    *    * @param regionName region to major compact    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Major compact a table or an individual region. Asynchronous operation in that this method requests    * that a Compaction run and then it returns. It does not wait on the completion of Compaction    * (it can take a while).    *    * @param regionName region to major compact    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|majorCompactRegion
 parameter_list|(
-specifier|final
 name|byte
 index|[]
 name|regionName
@@ -1532,14 +1482,13 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Major compact a column family within a table. Asynchronous operation.    *    * @param tableName table to major compact    * @param columnFamily column family within a table    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Major compact a column family within a table. Asynchronous operation in that this method requests    * that a Compaction run and then it returns. It does not wait on the completion of Compaction    * (it can take a while).    *    * @param tableName table to major compact    * @param columnFamily column family within a table    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|majorCompact
 parameter_list|(
 name|TableName
 name|tableName
 parameter_list|,
-specifier|final
 name|byte
 index|[]
 name|columnFamily
@@ -1547,16 +1496,14 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Major compact a column family within region. Asynchronous operation.    *    * @param regionName egion to major compact    * @param columnFamily column family within a region    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Major compact a column family within region. Asynchronous operation in that this method requests    * that a Compaction run and then it returns. It does not wait on the completion of Compaction    * (it can take a while).    *    * @param regionName egion to major compact    * @param columnFamily column family within a region    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|majorCompactRegion
 parameter_list|(
-specifier|final
 name|byte
 index|[]
 name|regionName
 parameter_list|,
-specifier|final
 name|byte
 index|[]
 name|columnFamily
@@ -1564,12 +1511,10 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Compact all regions on the region server    * @param sn the region server name    * @param major if it's major compaction    * @throws IOException    * @throws InterruptedException    */
-specifier|public
+comment|/**    * Compact all regions on the region server. Asynchronous operation in that this method requests    * that a Compaction run and then it returns. It does not wait on the completion of Compaction    * (it can take a while).    * @param sn the region server name    * @param major if it's major compaction    * @throws IOException    * @throws InterruptedException    */
 name|void
 name|compactRegionServer
 parameter_list|(
-specifier|final
 name|ServerName
 name|sn
 parameter_list|,
@@ -1585,12 +1530,10 @@ comment|/**    * Move the region<code>r</code> to<code>dest</code>.    *    * @p
 name|void
 name|move
 parameter_list|(
-specifier|final
 name|byte
 index|[]
 name|encodedRegionName
 parameter_list|,
-specifier|final
 name|byte
 index|[]
 name|destServerName
@@ -1598,11 +1541,10 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * @param regionName Region name to assign.    */
+comment|/**    * Assign a Region.    * @param regionName Region name to assign.    */
 name|void
 name|assign
 parameter_list|(
-specifier|final
 name|byte
 index|[]
 name|regionName
@@ -1610,16 +1552,14 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Unassign a region from current hosting regionserver.  Region will then be assigned to a    * regionserver chosen at random.  Region could be reassigned back to the same server.  Use {@link    * #move(byte[], byte[])} if you want to control the region movement.    *    * @param regionName Region to unassign. Will clear any existing RegionPlan if one found.    * @param force If true, force unassign (Will remove region from regions-in-transition too if    * present. If results in double assignment use hbck -fix to resolve. To be used by experts).    */
+comment|/**    * Unassign a region from current hosting regionserver.  Region will then be assigned to a    * regionserver chosen at random.  Region could be reassigned back to the same server.  Use {@link    * #move(byte[], byte[])} if you want to control the region movement.    *    * @param regionName Region to unassign. Will clear any existing RegionPlan if one found.    * @param force If<code>true</code>, force unassign (Will remove region from regions-in-transition too if    * present. If results in double assignment use hbck -fix to resolve. To be used by experts).    */
 name|void
 name|unassign
 parameter_list|(
-specifier|final
 name|byte
 index|[]
 name|regionName
 parameter_list|,
-specifier|final
 name|boolean
 name|force
 parameter_list|)
@@ -1630,7 +1570,6 @@ comment|/**    * Offline specified region from master's in-memory state. It will
 name|void
 name|offline
 parameter_list|(
-specifier|final
 name|byte
 index|[]
 name|regionName
@@ -1638,29 +1577,70 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Turn the load balancer on or off.    *    * @param synchronous If true, it waits until current balance() call, if outstanding, to return.    * @return Previous balancer value    */
+comment|/**    * Turn the load balancer on or off.    *    * @param synchronous If<code>true</code>, it waits until current balance() call, if    * outstanding, to return.    * @return Previous balancer value    * @deprecated Since 2.0.0. Will be removed in 3.0.0.    * Use {@link #balancerSwitch(boolean, boolean)} instead.    */
+annotation|@
+name|Deprecated
+specifier|default
 name|boolean
 name|setBalancerRunning
 parameter_list|(
-specifier|final
 name|boolean
 name|on
 parameter_list|,
-specifier|final
+name|boolean
+name|synchronous
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|balancerSwitch
+argument_list|(
+name|on
+argument_list|,
+name|synchronous
+argument_list|)
+return|;
+block|}
+comment|/**    * Turn the load balancer on or off.    * @param onOrOff Set to<code>true</code> to enable,<code>false</code> to disable.    * @param synchronous If<code>true</code>, it waits until current balance() call, if    * outstanding, to return.    * @return Previous balancer value    */
+name|boolean
+name|balancerSwitch
+parameter_list|(
+name|boolean
+name|onOrOff
+parameter_list|,
 name|boolean
 name|synchronous
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Invoke the balancer.  Will run the balancer and if regions to move, it will go ahead and do the    * reassignments.  Can NOT run for various reasons.  Check logs.    *    * @return True if balancer ran, false otherwise.    */
+comment|/**    * Invoke the balancer.  Will run the balancer and if regions to move, it will go ahead and do the    * reassignments.  Can NOT run for various reasons.  Check logs.    *    * @return<code>true</code> if balancer ran,<code>false</code> otherwise.    * @deprecated Since 2.0.0. Will be removed in 3.0.0.    * Use {@link #balance()} instead.    */
+annotation|@
+name|Deprecated
+specifier|default
 name|boolean
 name|balancer
 parameter_list|()
 throws|throws
 name|IOException
+block|{
+return|return
+name|balance
+argument_list|()
+return|;
+block|}
+comment|/**    * Invoke the balancer.  Will run the balancer and if regions to move, it will go ahead and do the    * reassignments.  Can NOT run for various reasons.  Check logs.    *    * @return<code>true</code> if balancer ran,<code>false</code> otherwise.    */
+name|boolean
+name|balance
+parameter_list|()
+throws|throws
+name|IOException
 function_decl|;
-comment|/**    * Invoke the balancer.  Will run the balancer and if regions to move, it will    * go ahead and do the reassignments. If there is region in transition, force parameter of true    * would still run balancer. Can *not* run for other reasons.  Check    * logs.    * @param force whether we should force balance even if there is region in transition    * @return True if balancer ran, false otherwise.    */
+comment|/**    * Invoke the balancer.  Will run the balancer and if regions to move, it will    * go ahead and do the reassignments. If there is region in transition, force parameter of true    * would still run balancer. Can *not* run for other reasons.  Check    * logs.    * @param force whether we should force balance even if there is region in transition    * @return<code>true</code> if balancer ran,<code>false</code> otherwise.    * @deprecated Since 2.0.0. Will be removed in 3.0.0.    * Use {@link #balance(boolean)} instead.    */
+annotation|@
+name|Deprecated
+specifier|default
 name|boolean
 name|balancer
 parameter_list|(
@@ -1669,40 +1649,79 @@ name|force
 parameter_list|)
 throws|throws
 name|IOException
+block|{
+return|return
+name|balance
+argument_list|(
+name|force
+argument_list|)
+return|;
+block|}
+comment|/**    * Invoke the balancer.  Will run the balancer and if regions to move, it will    * go ahead and do the reassignments. If there is region in transition, force parameter of true    * would still run balancer. Can *not* run for other reasons.  Check    * logs.    * @param force whether we should force balance even if there is region in transition    * @return<code>true</code> if balancer ran,<code>false</code> otherwise.    */
+name|boolean
+name|balance
+parameter_list|(
+name|boolean
+name|force
+parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
-comment|/**    * Query the current state of the balancer    *    * @return true if the balancer is enabled, false otherwise.    */
+comment|/**    * Query the current state of the balancer.    *    * @return<code>true</code> if the balancer is enabled,<code>false</code> otherwise.    */
 name|boolean
 name|isBalancerEnabled
 parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Invoke region normalizer. Can NOT run for various reasons.  Check logs.    *    * @return True if region normalizer ran, false otherwise.    */
+comment|/**    * Invoke region normalizer. Can NOT run for various reasons.  Check logs.    *    * @return<code>true</code> if region normalizer ran,<code>false</code> otherwise.    */
 name|boolean
 name|normalize
 parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Query the current state of the region normalizer    *    * @return true if region normalizer is enabled, false otherwise.    */
+comment|/**    * Query the current state of the region normalizer.    *    * @return<code>true</code> if region normalizer is enabled,<code>false</code> otherwise.    */
 name|boolean
 name|isNormalizerEnabled
 parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Turn region normalizer on or off.    *    * @return Previous normalizer value    */
+comment|/**    * Turn region normalizer on or off.    *    * @return Previous normalizer value    * @deprecated Since 2.0.0. Will be removed in 3.0.0. Use {@link #normalizerSwitch(boolean)}}    * instead.    */
+annotation|@
+name|Deprecated
+specifier|default
 name|boolean
 name|setNormalizerRunning
 parameter_list|(
-specifier|final
+name|boolean
+name|on
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|normalizerSwitch
+argument_list|(
+name|on
+argument_list|)
+return|;
+block|}
+comment|/**    * Turn region normalizer on or off.    *    * @return Previous normalizer value    */
+name|boolean
+name|normalizerSwitch
+parameter_list|(
 name|boolean
 name|on
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Enable/Disable the catalog janitor    *    * @param enable if true enables the catalog janitor    * @return the previous state    */
+comment|/**    * Enable/Disable the catalog janitor.    *    * @param enable if<code>true</code> enables the catalog janitor    * @return the previous state    * @deprecated Since 2.0.0. Will be removed in 3.0.0. Use {@link #catalogJanitorSwitch(boolean)}}    * instead.    */
+annotation|@
+name|Deprecated
+specifier|default
 name|boolean
 name|enableCatalogJanitor
 parameter_list|(
@@ -1711,134 +1730,172 @@ name|enable
 parameter_list|)
 throws|throws
 name|IOException
+block|{
+return|return
+name|catalogJanitorSwitch
+argument_list|(
+name|enable
+argument_list|)
+return|;
+block|}
+comment|/**    * Enable/Disable the catalog janitor/    *    * @param onOrOff if<code>true</code> enables the catalog janitor    * @return the previous state    */
+name|boolean
+name|catalogJanitorSwitch
+parameter_list|(
+name|boolean
+name|onOrOff
+parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
-comment|/**    * Ask for a scan of the catalog table    *    * @return the number of entries cleaned    */
+comment|/**    * Ask for a scan of the catalog table.    *    * @return the number of entries cleaned    * @deprecated Since 2.0.0. Will be removed in 3.0.0. Use {@link #runCatalogJanitor()}}    * instead.    */
+annotation|@
+name|Deprecated
+specifier|default
 name|int
 name|runCatalogScan
 parameter_list|()
 throws|throws
 name|IOException
+block|{
+return|return
+name|runCatalogJanitor
+argument_list|()
+return|;
+block|}
+comment|/**    * Ask for a scan of the catalog table.    *    * @return the number of entries cleaned    */
+name|int
+name|runCatalogJanitor
+parameter_list|()
+throws|throws
+name|IOException
 function_decl|;
-comment|/**    * Query on the catalog janitor state (Enabled/Disabled?)    *    */
+comment|/**    * Query on the catalog janitor state (Enabled/Disabled?).    *    */
 name|boolean
 name|isCatalogJanitorEnabled
 parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Enable/Disable the cleaner chore    *    * @param on if true enables the cleaner chore    * @return the previous state    * @throws IOException    */
-specifier|public
+comment|/**    * Enable/Disable the cleaner chore.    *    * @param on if<code>true</code> enables the cleaner chore    * @return the previous state    * @throws IOException    * @deprecated Since 2.0.0. Will be removed in 3.0.0. Use {@link #cleanerChoreSwitch(boolean)}}    * instead.    */
+annotation|@
+name|Deprecated
+specifier|default
 name|boolean
 name|setCleanerChoreRunning
 parameter_list|(
-specifier|final
 name|boolean
 name|on
 parameter_list|)
 throws|throws
 name|IOException
+block|{
+return|return
+name|cleanerChoreSwitch
+argument_list|(
+name|on
+argument_list|)
+return|;
+block|}
+comment|/**    * Enable/Disable the cleaner chore.    *    * @param onOrOff if<code>true</code> enables the cleaner chore    * @return the previous state    * @throws IOException    */
+name|boolean
+name|cleanerChoreSwitch
+parameter_list|(
+name|boolean
+name|onOrOff
+parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
-comment|/**    * Ask for cleaner chore to run    *    * @return True if cleaner chore ran, false otherwise    * @throws IOException    */
-specifier|public
+comment|/**    * Ask for cleaner chore to run.    *    * @return<code>true</code> if cleaner chore ran,<code>false</code> otherwise    * @throws IOException    */
 name|boolean
 name|runCleanerChore
 parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Query on the cleaner chore state (Enabled/Disabled?)    *    * @throws IOException    */
-specifier|public
+comment|/**    * Query on the cleaner chore state (Enabled/Disabled?).    *    * @throws IOException    */
 name|boolean
 name|isCleanerChoreEnabled
 parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Merge two regions. Asynchronous operation.    *    * @param nameOfRegionA encoded or full name of region a    * @param nameOfRegionB encoded or full name of region b    * @param forcible true if do a compulsory merge, otherwise we will only merge two adjacent    * regions    * @throws IOException    * @deprecated Since 2.0. Will be removed in 3.0. Use    *     {@link #mergeRegionsAsync(byte[], byte[], boolean)} instead.    */
+comment|/**    * Merge two regions. Asynchronous operation.    *    * @param nameOfRegionA encoded or full name of region a    * @param nameOfRegionB encoded or full name of region b    * @param forcible<code>true</code> if do a compulsory merge, otherwise we will only merge two    * adjacent regions    * @throws IOException    * @deprecated Since 2.0. Will be removed in 3.0. Use    *     {@link #mergeRegionsAsync(byte[], byte[], boolean)} instead.    */
 annotation|@
 name|Deprecated
 name|void
 name|mergeRegions
 parameter_list|(
-specifier|final
 name|byte
 index|[]
 name|nameOfRegionA
 parameter_list|,
-specifier|final
 name|byte
 index|[]
 name|nameOfRegionB
 parameter_list|,
-specifier|final
 name|boolean
 name|forcible
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Merge two regions. Asynchronous operation.    *    * @param nameOfRegionA encoded or full name of region a    * @param nameOfRegionB encoded or full name of region b    * @param forcible true if do a compulsory merge, otherwise we will only merge    *          two adjacent regions    * @throws IOException    */
+comment|/**    * Merge two regions. Asynchronous operation.    *    * @param nameOfRegionA encoded or full name of region a    * @param nameOfRegionB encoded or full name of region b    * @param forcible<code>true</code> if do a compulsory merge, otherwise we will only merge    *          two adjacent regions    * @throws IOException    */
 name|Future
 argument_list|<
 name|Void
 argument_list|>
 name|mergeRegionsAsync
 parameter_list|(
-specifier|final
 name|byte
 index|[]
 name|nameOfRegionA
 parameter_list|,
-specifier|final
 name|byte
 index|[]
 name|nameOfRegionB
 parameter_list|,
-specifier|final
 name|boolean
 name|forcible
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Merge regions. Asynchronous operation.    *    * @param nameofRegionsToMerge encoded or full name of daughter regions    * @param forcible true if do a compulsory merge, otherwise we will only merge    *          adjacent regions    * @throws IOException    */
+comment|/**    * Merge regions. Asynchronous operation.    *    * @param nameofRegionsToMerge encoded or full name of daughter regions    * @param forcible<code>true</code> if do a compulsory merge, otherwise we will only merge    *          adjacent regions    * @throws IOException    */
 name|Future
 argument_list|<
 name|Void
 argument_list|>
 name|mergeRegionsAsync
 parameter_list|(
-specifier|final
 name|byte
 index|[]
 index|[]
 name|nameofRegionsToMerge
 parameter_list|,
-specifier|final
 name|boolean
 name|forcible
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Split a table. Asynchronous operation.    *    * @param tableName table to split    * @throws IOException if a remote or network exception occurs    */
+comment|/**    + Split a table. The method will execute split action for each region in table.    + Asynchronous operation.    * @param tableName table to split    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|split
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Split an individual region. Asynchronous operation.    *    * @param regionName region to split    * @throws IOException if a remote or network exception occurs    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-18229">HBASE-18229</a>).    *             Use {@link #splitRegionAsync(byte[], byte[])}.    */
+comment|/**    * Split an individual region. Asynchronous operation.    *    * @param regionName region to split    * @throws IOException if a remote or network exception occurs    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    *             Use {@link #splitRegionAsync(byte[], byte[])}.    */
 annotation|@
 name|Deprecated
 name|void
 name|splitRegion
 parameter_list|(
-specifier|final
 name|byte
 index|[]
 name|regionName
@@ -1850,11 +1907,9 @@ comment|/**    * Split a table. Asynchronous operation.    *    * @param tableNa
 name|void
 name|split
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|,
-specifier|final
 name|byte
 index|[]
 name|splitPoint
@@ -1862,18 +1917,16 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Split an individual region. Asynchronous operation.    *    * @param regionName region to split    * @param splitPoint the explicit position to split on    * @throws IOException if a remote or network exception occurs    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-18229">HBASE-18229</a>).    *             Use {@link #splitRegionAsync(byte[], byte[])}.    */
+comment|/**    * Split an individual region. Asynchronous operation.    *    * @param regionName region to split    * @param splitPoint the explicit position to split on    * @throws IOException if a remote or network exception occurs    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    *             Use {@link #splitRegionAsync(byte[], byte[])}.    */
 annotation|@
 name|Deprecated
 name|void
 name|splitRegion
 parameter_list|(
-specifier|final
 name|byte
 index|[]
 name|regionName
 parameter_list|,
-specifier|final
 name|byte
 index|[]
 name|splitPoint
@@ -1905,22 +1958,19 @@ name|Deprecated
 name|void
 name|modifyTable
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|,
-specifier|final
 name|TableDescriptor
 name|td
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Modify an existing table, more IRB friendly version.    *    * @param td modified description of the table    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Modify an existing table, more IRB friendly version.    * @param td modified description of the table    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|modifyTable
 parameter_list|(
-specifier|final
 name|TableDescriptor
 name|td
 parameter_list|)
@@ -1936,18 +1986,16 @@ name|Void
 argument_list|>
 name|modifyTableAsync
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|,
-specifier|final
 name|TableDescriptor
 name|td
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Modify an existing table, more IRB friendly version. Asynchronous operation.  This means that    * it may be a while before your schema change is updated across all of the table.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param td description of the table    * @throws IOException if a remote or network exception occurs    * @return the result of the async modify. You can use Future.get(long, TimeUnit) to wait on the    *     operation to complete    */
+comment|/**    * Modify an existing table, more IRB (ruby) friendly version. Asynchronous operation. This means that    * it may be a while before your schema change is updated across all of the table.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param td description of the table    * @throws IOException if a remote or network exception occurs    * @return the result of the async modify. You can use Future.get(long, TimeUnit) to wait on the    *     operation to complete    */
 name|Future
 argument_list|<
 name|Void
@@ -1960,7 +2008,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Shuts down the HBase cluster    *    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Shuts down the HBase cluster.    *    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|shutdown
 parameter_list|()
@@ -1974,18 +2022,17 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Check whether Master is in maintenance mode    *    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Check whether Master is in maintenance mode.    *    * @throws IOException if a remote or network exception occurs    */
 name|boolean
 name|isMasterInMaintenanceMode
 parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Stop the designated regionserver    *    * @param hostnamePort Hostname and port delimited by a<code>:</code> as in    *<code>example.org:1234</code>    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Stop the designated regionserver.    *    * @param hostnamePort Hostname and port delimited by a<code>:</code> as in    *<code>example.org:1234</code>    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|stopRegionServer
 parameter_list|(
-specifier|final
 name|String
 name|hostnamePort
 parameter_list|)
@@ -2012,7 +2059,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get {@link RegionLoad} of all regions hosted on a regionserver.    *    * @param sn region server from which regionload is required.    * @return region load map of all regions hosted on a region server    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Get {@link RegionLoad} of all regions hosted on a regionserver.    *    * @param serverName region server from which regionload is required.    * @return region load map of all regions hosted on a region server    * @throws IOException if a remote or network exception occurs    */
 name|Map
 argument_list|<
 name|byte
@@ -2023,12 +2070,12 @@ argument_list|>
 name|getRegionLoad
 parameter_list|(
 name|ServerName
-name|sn
+name|serverName
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get {@link RegionLoad} of all regions hosted on a regionserver for a table.    *    * @param sn region server from which regionload is required.    * @param tableName get region load of regions belonging to the table    * @return region load map of all regions of a table hosted on a region server    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Get {@link RegionLoad} of all regions hosted on a regionserver for a table.    *    * @param serverName region server from which regionload is required.    * @param tableName get region load of regions belonging to the table    * @return region load map of all regions of a table hosted on a region server    * @throws IOException if a remote or network exception occurs    */
 name|Map
 argument_list|<
 name|byte
@@ -2039,7 +2086,7 @@ argument_list|>
 name|getRegionLoad
 parameter_list|(
 name|ServerName
-name|sn
+name|serverName
 parameter_list|,
 name|TableName
 name|tableName
@@ -2052,25 +2099,23 @@ name|Configuration
 name|getConfiguration
 parameter_list|()
 function_decl|;
-comment|/**    * Create a new namespace. Blocks until namespace has been successfully created or an exception    * is thrown.    *    * @param descriptor descriptor which describes the new namespace    */
+comment|/**    * Create a new namespace. Blocks until namespace has been successfully created or an exception    * is thrown.    *    * @param descriptor descriptor which describes the new namespace.    */
 name|void
 name|createNamespace
 parameter_list|(
-specifier|final
 name|NamespaceDescriptor
 name|descriptor
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Create a new namespace    *    * @param descriptor descriptor which describes the new namespace    * @return the result of the async create namespace operation. Use Future.get(long, TimeUnit) to    *  wait on the operation to complete.    */
+comment|/**    * Create a new namespace.    *    * @param descriptor descriptor which describes the new namespace    * @return the result of the async create namespace operation. Use Future.get(long, TimeUnit) to    *  wait on the operation to complete.    */
 name|Future
 argument_list|<
 name|Void
 argument_list|>
 name|createNamespaceAsync
 parameter_list|(
-specifier|final
 name|NamespaceDescriptor
 name|descriptor
 parameter_list|)
@@ -2081,21 +2126,19 @@ comment|/**    * Modify an existing namespace.  Blocks until namespace has been 
 name|void
 name|modifyNamespace
 parameter_list|(
-specifier|final
 name|NamespaceDescriptor
 name|descriptor
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Modify an existing namespace    *    * @param descriptor descriptor which describes the new namespace    * @return the result of the async modify namespace operation. Use Future.get(long, TimeUnit) to    *  wait on the operation to complete.    */
+comment|/**    * Modify an existing namespace.    *    * @param descriptor descriptor which describes the new namespace    * @return the result of the async modify namespace operation. Use Future.get(long, TimeUnit) to    *  wait on the operation to complete.    */
 name|Future
 argument_list|<
 name|Void
 argument_list|>
 name|modifyNamespaceAsync
 parameter_list|(
-specifier|final
 name|NamespaceDescriptor
 name|descriptor
 parameter_list|)
@@ -2106,7 +2149,6 @@ comment|/**    * Delete an existing namespace. Only empty namespaces (no tables)
 name|void
 name|deleteNamespace
 parameter_list|(
-specifier|final
 name|String
 name|name
 parameter_list|)
@@ -2120,18 +2162,16 @@ name|Void
 argument_list|>
 name|deleteNamespaceAsync
 parameter_list|(
-specifier|final
 name|String
 name|name
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get a namespace descriptor by name    *    * @param name name of namespace descriptor    * @return A descriptor    * @throws org.apache.hadoop.hbase.NamespaceNotFoundException    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Get a namespace descriptor by name.    *    * @param name name of namespace descriptor    * @return A descriptor    * @throws org.apache.hadoop.hbase.NamespaceNotFoundException    * @throws IOException if a remote or network exception occurs    */
 name|NamespaceDescriptor
 name|getNamespaceDescriptor
 parameter_list|(
-specifier|final
 name|String
 name|name
 parameter_list|)
@@ -2140,7 +2180,7 @@ name|NamespaceNotFoundException
 throws|,
 name|IOException
 function_decl|;
-comment|/**    * List available namespace descriptors    *    * @return List of descriptors    */
+comment|/**    * List available namespace descriptors.    *    * @return List of descriptors    */
 name|NamespaceDescriptor
 index|[]
 name|listNamespaceDescriptors
@@ -2148,28 +2188,26 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get list of table descriptors by namespace    *    * @param name namespace name    * @return HTD[] the read-only tableDescriptors    * @throws IOException    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #listTableDescriptorsByNamespace(byte[])}    */
+comment|/**    * Get list of table descriptors by namespace.    *    * @param name namespace name    * @return HTD[] the read-only tableDescriptors    * @throws IOException    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #listTableDescriptorsByNamespace(byte[])}    */
 annotation|@
 name|Deprecated
 name|HTableDescriptor
 index|[]
 name|listTableDescriptorsByNamespace
 parameter_list|(
-specifier|final
 name|String
 name|name
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get list of table descriptors by namespace    *    * @param name namespace name    * @return returns a list of TableDescriptors    * @throws IOException    */
+comment|/**    * Get list of table descriptors by namespace.    *    * @param name namespace name    * @return returns a list of TableDescriptors    * @throws IOException    */
 name|List
 argument_list|<
 name|TableDescriptor
 argument_list|>
 name|listTableDescriptorsByNamespace
 parameter_list|(
-specifier|final
 name|byte
 index|[]
 name|name
@@ -2177,12 +2215,11 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get list of table names by namespace    *    * @param name namespace name    * @return The list of table names in the namespace    * @throws IOException    */
+comment|/**    * Get list of table names by namespace.    *    * @param name namespace name    * @return The list of table names in the namespace    * @throws IOException    */
 name|TableName
 index|[]
 name|listTableNamesByNamespace
 parameter_list|(
-specifier|final
 name|String
 name|name
 parameter_list|)
@@ -2196,7 +2233,6 @@ name|HRegionInfo
 argument_list|>
 name|getTableRegions
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|)
@@ -2211,7 +2247,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get tableDescriptors    *    * @param tableNames List of table names    * @return HTD[] the read-only tableDescriptors    * @throws IOException if a remote or network exception occurs    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #listTableDescriptors(List)}    */
+comment|/**    * Get tableDescriptors.    *    * @param tableNames List of table names    * @return HTD[] the read-only tableDescriptors    * @throws IOException if a remote or network exception occurs    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #listTableDescriptors(List)}    */
 annotation|@
 name|Deprecated
 name|HTableDescriptor
@@ -2227,7 +2263,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get tableDescriptors    *    * @param tableNames List of table names    * @return returns a list of TableDescriptors    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Get tableDescriptors.    *    * @param tableNames List of table names    * @return returns a list of TableDescriptors    * @throws IOException if a remote or network exception occurs    */
 name|List
 argument_list|<
 name|TableDescriptor
@@ -2243,7 +2279,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get tableDescriptors    *    * @param names List of table names    * @return HTD[] the read-only tableDescriptors    * @throws IOException if a remote or network exception occurs    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #listTableDescriptors(List)}    */
+comment|/**    * Get tableDescriptors.    *    * @param names List of table names    * @return HTD[] the read-only tableDescriptors    * @throws IOException if a remote or network exception occurs    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #listTableDescriptors(List)}    */
 annotation|@
 name|Deprecated
 name|HTableDescriptor
@@ -2259,33 +2295,29 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * abort a procedure    * @param procId ID of the procedure to abort    * @param mayInterruptIfRunning if the proc completed at least one step, should it be aborted?    * @return true if aborted, false if procedure already completed or does not exist    * @throws IOException    */
+comment|/**    * Abort a procedure.    * @param procId ID of the procedure to abort    * @param mayInterruptIfRunning if the proc completed at least one step, should it be aborted?    * @return<code>true</code> if aborted,<code>false</code> if procedure already completed or does not exist    * @throws IOException    */
 name|boolean
 name|abortProcedure
 parameter_list|(
-specifier|final
 name|long
 name|procId
 parameter_list|,
-specifier|final
 name|boolean
 name|mayInterruptIfRunning
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Abort a procedure but does not block and wait for it be completely removed.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param procId ID of the procedure to abort    * @param mayInterruptIfRunning if the proc completed at least one step, should it be aborted?    * @return true if aborted, false if procedure already completed or does not exist    * @throws IOException    */
+comment|/**    * Abort a procedure but does not block and wait for completion.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param procId ID of the procedure to abort    * @param mayInterruptIfRunning if the proc completed at least one step, should it be aborted?    * @return<code>true</code> if aborted,<code>false</code> if procedure already completed or does not exist    * @throws IOException    */
 name|Future
 argument_list|<
 name|Boolean
 argument_list|>
 name|abortProcedureAsync
 parameter_list|(
-specifier|final
 name|long
 name|procId
 parameter_list|,
-specifier|final
 name|boolean
 name|mayInterruptIfRunning
 parameter_list|)
@@ -2318,7 +2350,7 @@ name|IOException
 throws|,
 name|FailedLogCloseException
 function_decl|;
-comment|/**    * Helper delegage to getClusterStatus().getMasterCoprocessors().    * @return an array of master coprocessors    * @see org.apache.hadoop.hbase.ClusterStatus#getMasterCoprocessors()    */
+comment|/**    * Helper that delegates to getClusterStatus().getMasterCoprocessors().    * @return an array of master coprocessors    * @see org.apache.hadoop.hbase.ClusterStatus#getMasterCoprocessors()    */
 name|String
 index|[]
 name|getMasterCoprocessors
@@ -2330,7 +2362,6 @@ comment|/**    * Get the current compaction state of a table. It could be in a m
 name|CompactionState
 name|getCompactionState
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|)
@@ -2341,7 +2372,6 @@ comment|/**    * Get the current compaction state of region. It could be in a ma
 name|CompactionState
 name|getCompactionStateForRegion
 parameter_list|(
-specifier|final
 name|byte
 index|[]
 name|regionName
@@ -2353,7 +2383,6 @@ comment|/**    * Get the timestamp of the last major compaction for the passed t
 name|long
 name|getLastMajorCompactionTimestamp
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|)
@@ -2364,7 +2393,6 @@ comment|/**    * Get the timestamp of the last major compaction for the passed r
 name|long
 name|getLastMajorCompactionTimestampForRegion
 parameter_list|(
-specifier|final
 name|byte
 index|[]
 name|regionName
@@ -2376,11 +2404,9 @@ comment|/**    * Take a snapshot for the given table. If the table is enabled, a
 name|void
 name|snapshot
 parameter_list|(
-specifier|final
 name|String
 name|snapshotName
 parameter_list|,
-specifier|final
 name|TableName
 name|tableName
 parameter_list|)
@@ -2395,12 +2421,10 @@ comment|/**    * Create a timestamp consistent snapshot for the given table. Sna
 name|void
 name|snapshot
 parameter_list|(
-specifier|final
 name|byte
 index|[]
 name|snapshotName
 parameter_list|,
-specifier|final
 name|TableName
 name|tableName
 parameter_list|)
@@ -2415,11 +2439,9 @@ comment|/**    * Create typed snapshot of the table. Snapshots are considered un
 name|void
 name|snapshot
 parameter_list|(
-specifier|final
 name|String
 name|snapshotName
 parameter_list|,
-specifier|final
 name|TableName
 name|tableName
 parameter_list|,
@@ -2447,9 +2469,30 @@ name|SnapshotCreationException
 throws|,
 name|IllegalArgumentException
 function_decl|;
-comment|/**    * Take a snapshot without waiting for the server to complete that snapshot (asynchronous) Only a    * single snapshot should be taken at a time, or results may be undefined.    *    * @param snapshot snapshot to take    * @throws IOException if the snapshot did not succeed or we lose contact with the master.    * @throws SnapshotCreationException if snapshot creation failed    * @throws IllegalArgumentException if the snapshot request is formatted incorrectly    */
+comment|/**    * Take a snapshot without waiting for the server to complete that snapshot (asynchronous) Only a    * single snapshot should be taken at a time, or results may be undefined.    *    * @param snapshot snapshot to take    * @throws IOException if the snapshot did not succeed or we lose contact with the master.    * @throws SnapshotCreationException if snapshot creation failed    * @throws IllegalArgumentException if the snapshot request is formatted incorrectly    * @deprecated Since 2.0.0. Will be removed in 3.0.0. Use    * {@link #snapshotAsync(SnapshotDescription)} instead.    */
+annotation|@
+name|Deprecated
+specifier|default
 name|void
 name|takeSnapshotAsync
+parameter_list|(
+name|SnapshotDescription
+name|snapshot
+parameter_list|)
+throws|throws
+name|IOException
+throws|,
+name|SnapshotCreationException
+block|{
+name|snapshotAsync
+argument_list|(
+name|snapshot
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Take a snapshot without waiting for the server to complete that snapshot (asynchronous) Only a    * single snapshot should be taken at a time, or results may be undefined.    *    * @param snapshot snapshot to take    * @throws IOException if the snapshot did not succeed or we lose contact with the master.    * @throws SnapshotCreationException if snapshot creation failed    * @throws IllegalArgumentException if the snapshot request is formatted incorrectly    */
+name|void
+name|snapshotAsync
 parameter_list|(
 name|SnapshotDescription
 name|snapshot
@@ -2463,7 +2506,6 @@ comment|/**    * Check the current state of the passed snapshot. There are three
 name|boolean
 name|isSnapshotFinished
 parameter_list|(
-specifier|final
 name|SnapshotDescription
 name|snapshot
 parameter_list|)
@@ -2474,11 +2516,10 @@ name|HBaseSnapshotException
 throws|,
 name|UnknownSnapshotException
 function_decl|;
-comment|/**    * Restore the specified snapshot on the original table. (The table must be disabled) If the    * "hbase.snapshot.restore.take.failsafe.snapshot" configuration property is set to true, a    * snapshot of the current table is taken before executing the restore operation. In case of    * restore failure, the failsafe snapshot will be restored. If the restore completes without    * problem the failsafe snapshot is deleted.    *    * @param snapshotName name of the snapshot to restore    * @throws IOException if a remote or network exception occurs    * @throws org.apache.hadoop.hbase.snapshot.RestoreSnapshotException if snapshot failed to be    * restored    * @throws IllegalArgumentException if the restore request is formatted incorrectly    */
+comment|/**    * Restore the specified snapshot on the original table. (The table must be disabled) If the    * "hbase.snapshot.restore.take.failsafe.snapshot" configuration property is set to<code>true</code>, a    * snapshot of the current table is taken before executing the restore operation. In case of    * restore failure, the failsafe snapshot will be restored. If the restore completes without    * problem the failsafe snapshot is deleted.    *    * @param snapshotName name of the snapshot to restore    * @throws IOException if a remote or network exception occurs    * @throws org.apache.hadoop.hbase.snapshot.RestoreSnapshotException if snapshot failed to be    * restored    * @throws IllegalArgumentException if the restore request is formatted incorrectly    */
 name|void
 name|restoreSnapshot
 parameter_list|(
-specifier|final
 name|byte
 index|[]
 name|snapshotName
@@ -2488,11 +2529,10 @@ name|IOException
 throws|,
 name|RestoreSnapshotException
 function_decl|;
-comment|/**    * Restore the specified snapshot on the original table. (The table must be disabled) If the    * "hbase.snapshot.restore.take.failsafe.snapshot" configuration property is set to true, a    * snapshot of the current table is taken before executing the restore operation. In case of    * restore failure, the failsafe snapshot will be restored. If the restore completes without    * problem the failsafe snapshot is deleted.    *    * @param snapshotName name of the snapshot to restore    * @throws IOException if a remote or network exception occurs    * @throws RestoreSnapshotException if snapshot failed to be restored    * @throws IllegalArgumentException if the restore request is formatted incorrectly    */
+comment|/**    * Restore the specified snapshot on the original table. (The table must be disabled) If the    * "hbase.snapshot.restore.take.failsafe.snapshot" configuration property is set to<code>true</code>, a    * snapshot of the current table is taken before executing the restore operation. In case of    * restore failure, the failsafe snapshot will be restored. If the restore completes without    * problem the failsafe snapshot is deleted.    *    * @param snapshotName name of the snapshot to restore    * @throws IOException if a remote or network exception occurs    * @throws RestoreSnapshotException if snapshot failed to be restored    * @throws IllegalArgumentException if the restore request is formatted incorrectly    */
 name|void
 name|restoreSnapshot
 parameter_list|(
-specifier|final
 name|String
 name|snapshotName
 parameter_list|)
@@ -2501,14 +2541,13 @@ name|IOException
 throws|,
 name|RestoreSnapshotException
 function_decl|;
-comment|/**    * Restore the specified snapshot on the original table. (The table must be disabled) If the    * "hbase.snapshot.restore.take.failsafe.snapshot" configuration property is set to true, a    * snapshot of the current table is taken before executing the restore operation. In case of    * restore failure, the failsafe snapshot will be restored. If the restore completes without    * problem the failsafe snapshot is deleted.    *    * @param snapshotName name of the snapshot to restore    * @throws IOException if a remote or network exception occurs    * @throws RestoreSnapshotException if snapshot failed to be restored    * @return the result of the async restore snapshot. You can use Future.get(long, TimeUnit)    *    to wait on the operation to complete.    */
+comment|/**    * Restore the specified snapshot on the original table. (The table must be disabled) If the    * "hbase.snapshot.restore.take.failsafe.snapshot" configuration property is set to<code>true</code>, a    * snapshot of the current table is taken before executing the restore operation. In case of    * restore failure, the failsafe snapshot will be restored. If the restore completes without    * problem the failsafe snapshot is deleted.    *    * @param snapshotName name of the snapshot to restore    * @throws IOException if a remote or network exception occurs    * @throws RestoreSnapshotException if snapshot failed to be restored    * @return the result of the async restore snapshot. You can use Future.get(long, TimeUnit)    *    to wait on the operation to complete.    */
 name|Future
 argument_list|<
 name|Void
 argument_list|>
 name|restoreSnapshotAsync
 parameter_list|(
-specifier|final
 name|String
 name|snapshotName
 parameter_list|)
@@ -2517,16 +2556,14 @@ name|IOException
 throws|,
 name|RestoreSnapshotException
 function_decl|;
-comment|/**    * Restore the specified snapshot on the original table. (The table must be disabled) If    * 'takeFailSafeSnapshot' is set to true, a snapshot of the current table is taken before    * executing the restore operation. In case of restore failure, the failsafe snapshot will be    * restored. If the restore completes without problem the failsafe snapshot is deleted. The    * failsafe snapshot name is configurable by using the property    * "hbase.snapshot.restore.failsafe.name".    *    * @param snapshotName name of the snapshot to restore    * @param takeFailSafeSnapshot true if the failsafe snapshot should be taken    * @throws IOException if a remote or network exception occurs    * @throws RestoreSnapshotException if snapshot failed to be restored    * @throws IllegalArgumentException if the restore request is formatted incorrectly    */
+comment|/**    * Restore the specified snapshot on the original table. (The table must be disabled) If    * 'takeFailSafeSnapshot' is set to<code>true</code>, a snapshot of the current table is taken before    * executing the restore operation. In case of restore failure, the failsafe snapshot will be    * restored. If the restore completes without problem the failsafe snapshot is deleted. The    * failsafe snapshot name is configurable by using the property    * "hbase.snapshot.restore.failsafe.name".    *    * @param snapshotName name of the snapshot to restore    * @param takeFailSafeSnapshot<code>true</code> if the failsafe snapshot should be taken    * @throws IOException if a remote or network exception occurs    * @throws RestoreSnapshotException if snapshot failed to be restored    * @throws IllegalArgumentException if the restore request is formatted incorrectly    */
 name|void
 name|restoreSnapshot
 parameter_list|(
-specifier|final
 name|byte
 index|[]
 name|snapshotName
 parameter_list|,
-specifier|final
 name|boolean
 name|takeFailSafeSnapshot
 parameter_list|)
@@ -2535,15 +2572,13 @@ name|IOException
 throws|,
 name|RestoreSnapshotException
 function_decl|;
-comment|/**    * Restore the specified snapshot on the original table. (The table must be disabled) If    * 'takeFailSafeSnapshot' is set to true, a snapshot of the current table is taken before    * executing the restore operation. In case of restore failure, the failsafe snapshot will be    * restored. If the restore completes without problem the failsafe snapshot is deleted. The    * failsafe snapshot name is configurable by using the property    * "hbase.snapshot.restore.failsafe.name".    *    * @param snapshotName name of the snapshot to restore    * @param takeFailSafeSnapshot true if the failsafe snapshot should be taken    * @throws IOException if a remote or network exception occurs    * @throws RestoreSnapshotException if snapshot failed to be restored    * @throws IllegalArgumentException if the restore request is formatted incorrectly    */
+comment|/**    * Restore the specified snapshot on the original table. (The table must be disabled) If    * 'takeFailSafeSnapshot' is set to<code>true</code>, a snapshot of the current table is taken before    * executing the restore operation. In case of restore failure, the failsafe snapshot will be    * restored. If the restore completes without problem the failsafe snapshot is deleted. The    * failsafe snapshot name is configurable by using the property    * "hbase.snapshot.restore.failsafe.name".    *    * @param snapshotName name of the snapshot to restore    * @param takeFailSafeSnapshot<code>true</code> if the failsafe snapshot should be taken    * @throws IOException if a remote or network exception occurs    * @throws RestoreSnapshotException if snapshot failed to be restored    * @throws IllegalArgumentException if the restore request is formatted incorrectly    */
 name|void
 name|restoreSnapshot
 parameter_list|(
-specifier|final
 name|String
 name|snapshotName
 parameter_list|,
-specifier|final
 name|boolean
 name|takeFailSafeSnapshot
 parameter_list|)
@@ -2552,19 +2587,16 @@ name|IOException
 throws|,
 name|RestoreSnapshotException
 function_decl|;
-comment|/**    * Restore the specified snapshot on the original table. (The table must be disabled) If    * 'takeFailSafeSnapshot' is set to true, a snapshot of the current table is taken before    * executing the restore operation. In case of restore failure, the failsafe snapshot will be    * restored. If the restore completes without problem the failsafe snapshot is deleted. The    * failsafe snapshot name is configurable by using the property    * "hbase.snapshot.restore.failsafe.name".    * @param snapshotName name of the snapshot to restore    * @param takeFailSafeSnapshot true if the failsafe snapshot should be taken    * @param restoreAcl true to restore acl of snapshot    * @throws IOException if a remote or network exception occurs    * @throws RestoreSnapshotException if snapshot failed to be restored    * @throws IllegalArgumentException if the restore request is formatted incorrectly    */
+comment|/**    * Restore the specified snapshot on the original table. (The table must be disabled) If    * 'takeFailSafeSnapshot' is set to<code>true</code>, a snapshot of the current table is taken before    * executing the restore operation. In case of restore failure, the failsafe snapshot will be    * restored. If the restore completes without problem the failsafe snapshot is deleted. The    * failsafe snapshot name is configurable by using the property    * "hbase.snapshot.restore.failsafe.name".    * @param snapshotName name of the snapshot to restore    * @param takeFailSafeSnapshot<code>true</code> if the failsafe snapshot should be taken    * @param restoreAcl<code>true</code> to restore acl of snapshot    * @throws IOException if a remote or network exception occurs    * @throws RestoreSnapshotException if snapshot failed to be restored    * @throws IllegalArgumentException if the restore request is formatted incorrectly    */
 name|void
 name|restoreSnapshot
 parameter_list|(
-specifier|final
 name|String
 name|snapshotName
 parameter_list|,
-specifier|final
 name|boolean
 name|takeFailSafeSnapshot
 parameter_list|,
-specifier|final
 name|boolean
 name|restoreAcl
 parameter_list|)
@@ -2577,12 +2609,10 @@ comment|/**    * Create a new table by cloning the snapshot content.    *    * @
 name|void
 name|cloneSnapshot
 parameter_list|(
-specifier|final
 name|byte
 index|[]
 name|snapshotName
 parameter_list|,
-specifier|final
 name|TableName
 name|tableName
 parameter_list|)
@@ -2593,19 +2623,16 @@ name|TableExistsException
 throws|,
 name|RestoreSnapshotException
 function_decl|;
-comment|/**    * Create a new table by cloning the snapshot content.    * @param snapshotName name of the snapshot to be cloned    * @param tableName name of the table where the snapshot will be restored    * @param restoreAcl true to clone acl into newly created table    * @throws IOException if a remote or network exception occurs    * @throws TableExistsException if table to be created already exists    * @throws RestoreSnapshotException if snapshot failed to be cloned    * @throws IllegalArgumentException if the specified table has not a valid name    */
+comment|/**    * Create a new table by cloning the snapshot content.    * @param snapshotName name of the snapshot to be cloned    * @param tableName name of the table where the snapshot will be restored    * @param restoreAcl<code>true</code> to clone acl into newly created table    * @throws IOException if a remote or network exception occurs    * @throws TableExistsException if table to be created already exists    * @throws RestoreSnapshotException if snapshot failed to be cloned    * @throws IllegalArgumentException if the specified table has not a valid name    */
 name|void
 name|cloneSnapshot
 parameter_list|(
-specifier|final
 name|String
 name|snapshotName
 parameter_list|,
-specifier|final
 name|TableName
 name|tableName
 parameter_list|,
-specifier|final
 name|boolean
 name|restoreAcl
 parameter_list|)
@@ -2620,11 +2647,9 @@ comment|/**    * Create a new table by cloning the snapshot content.    *    * @
 name|void
 name|cloneSnapshot
 parameter_list|(
-specifier|final
 name|String
 name|snapshotName
 parameter_list|,
-specifier|final
 name|TableName
 name|tableName
 parameter_list|)
@@ -2635,18 +2660,16 @@ name|TableExistsException
 throws|,
 name|RestoreSnapshotException
 function_decl|;
-comment|/**    * Create a new table by cloning the snapshot content, but does not block    * and wait for it be completely cloned.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param snapshotName name of the snapshot to be cloned    * @param tableName name of the table where the snapshot will be restored    * @throws IOException if a remote or network exception occurs    * @throws TableExistsException if table to be cloned already exists    * @return the result of the async clone snapshot. You can use Future.get(long, TimeUnit)    *    to wait on the operation to complete.    */
+comment|/**    * Create a new table by cloning the snapshot content, but does not block    * and wait for it to be completely cloned.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param snapshotName name of the snapshot to be cloned    * @param tableName name of the table where the snapshot will be restored    * @throws IOException if a remote or network exception occurs    * @throws TableExistsException if table to be cloned already exists    * @return the result of the async clone snapshot. You can use Future.get(long, TimeUnit)    *    to wait on the operation to complete.    */
 name|Future
 argument_list|<
 name|Void
 argument_list|>
 name|cloneSnapshotAsync
 parameter_list|(
-specifier|final
 name|String
 name|snapshotName
 parameter_list|,
-specifier|final
 name|TableName
 name|tableName
 parameter_list|)
@@ -2676,7 +2699,10 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Execute a distributed procedure on a cluster.    *    * @param signature A distributed procedure is uniquely identified by its signature (default the    * root ZK node name of the procedure).    * @param instance The instance name of the procedure. For some procedures, this parameter is    * optional.    * @param props Property/Value pairs of properties passing to the procedure    * @return data returned after procedure execution. null if no return data.    * @throws IOException    */
+comment|/**    * Execute a distributed procedure on a cluster.    *    * @param signature A distributed procedure is uniquely identified by its signature (default the    * root ZK node name of the procedure).    * @param instance The instance name of the procedure. For some procedures, this parameter is    * optional.    * @param props Property/Value pairs of properties passing to the procedure    * @return data returned after procedure execution. null if no return data.    * @throws IOException    * @deprecated Since 2.0.0. Will be removed in 3.0.0. Use    * {@link #execProcedureWithReturn(String, String, Map)} } instead.    */
+annotation|@
+name|Deprecated
+specifier|default
 name|byte
 index|[]
 name|execProcedureWithRet
@@ -2697,8 +2723,41 @@ name|props
 parameter_list|)
 throws|throws
 name|IOException
+block|{
+return|return
+name|execProcedureWithReturn
+argument_list|(
+name|signature
+argument_list|,
+name|instance
+argument_list|,
+name|props
+argument_list|)
+return|;
+block|}
+comment|/**    * Execute a distributed procedure on a cluster.    *    * @param signature A distributed procedure is uniquely identified by its signature (default the    * root ZK node name of the procedure).    * @param instance The instance name of the procedure. For some procedures, this parameter is    * optional.    * @param props Property/Value pairs of properties passing to the procedure    * @return data returned after procedure execution. null if no return data.    * @throws IOException    */
+name|byte
+index|[]
+name|execProcedureWithReturn
+parameter_list|(
+name|String
+name|signature
+parameter_list|,
+name|String
+name|instance
+parameter_list|,
+name|Map
+argument_list|<
+name|String
+argument_list|,
+name|String
+argument_list|>
+name|props
+parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
-comment|/**    * Check the current state of the specified procedure. There are three possible states:<ol>    *<li>running - returns<tt>false</tt></li><li>finished - returns<tt>true</tt></li>    *<li>finished with error - throws the exception that caused the procedure to fail</li></ol>    *    * @param signature The signature that uniquely identifies a procedure    * @param instance The instance name of the procedure    * @param props Property/Value pairs of properties passing to the procedure    * @return true if the specified procedure is finished successfully, false if it is still running    * @throws IOException if the specified procedure finished with error    */
+comment|/**    * Check the current state of the specified procedure. There are three possible states:<ol>    *<li>running - returns<tt>false</tt></li><li>finished - returns<tt>true</tt></li>    *<li>finished with error - throws the exception that caused the procedure to fail</li></ol>    *    * @param signature The signature that uniquely identifies a procedure    * @param instance The instance name of the procedure    * @param props Property/Value pairs of properties passing to the procedure    * @return<code>true</code> if the specified procedure is finished successfully,<code>false</code> if it is still running    * @throws IOException if the specified procedure finished with error    */
 name|boolean
 name|isProcedureFinished
 parameter_list|(
@@ -2729,7 +2788,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List all the completed snapshots matching the given regular expression.    *    * @param regex The regular expression to match against    * @return - returns a List of SnapshotDescription    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * List all the completed snapshots matching the given regular expression.    *    * @param regex The regular expression to match against    * @return list of SnapshotDescription    * @throws IOException if a remote or network exception occurs    */
 name|List
 argument_list|<
 name|SnapshotDescription
@@ -2742,7 +2801,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List all the completed snapshots matching the given pattern.    *    * @param pattern The compiled regular expression to match against    * @return - returns a List of SnapshotDescription    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * List all the completed snapshots matching the given pattern.    *    * @param pattern The compiled regular expression to match against    * @return list of SnapshotDescription    * @throws IOException if a remote or network exception occurs    */
 name|List
 argument_list|<
 name|SnapshotDescription
@@ -2755,7 +2814,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List all the completed snapshots matching the given table name regular expression and snapshot    * name regular expression.    * @param tableNameRegex The table name regular expression to match against    * @param snapshotNameRegex The snapshot name regular expression to match against    * @return - returns a List of completed SnapshotDescription    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * List all the completed snapshots matching the given table name regular expression and snapshot    * name regular expression.    * @param tableNameRegex The table name regular expression to match against    * @param snapshotNameRegex The snapshot name regular expression to match against    * @return list of completed SnapshotDescription    * @throws IOException if a remote or network exception occurs    */
 name|List
 argument_list|<
 name|SnapshotDescription
@@ -2771,7 +2830,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List all the completed snapshots matching the given table name regular expression and snapshot    * name regular expression.    * @param tableNamePattern The compiled table name regular expression to match against    * @param snapshotNamePattern The compiled snapshot name regular expression to match against    * @return - returns a List of completed SnapshotDescription    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * List all the completed snapshots matching the given table name regular expression and snapshot    * name regular expression.    * @param tableNamePattern The compiled table name regular expression to match against    * @param snapshotNamePattern The compiled snapshot name regular expression to match against    * @return list of completed SnapshotDescription    * @throws IOException if a remote or network exception occurs    */
 name|List
 argument_list|<
 name|SnapshotDescription
@@ -2791,7 +2850,6 @@ comment|/**    * Delete an existing snapshot.    *    * @param snapshotName name
 name|void
 name|deleteSnapshot
 parameter_list|(
-specifier|final
 name|byte
 index|[]
 name|snapshotName
@@ -2803,7 +2861,6 @@ comment|/**    * Delete an existing snapshot.    *    * @param snapshotName name
 name|void
 name|deleteSnapshot
 parameter_list|(
-specifier|final
 name|String
 name|snapshotName
 parameter_list|)
@@ -2814,7 +2871,6 @@ comment|/**    * Delete existing snapshots whose names match the pattern passed.
 name|void
 name|deleteSnapshots
 parameter_list|(
-specifier|final
 name|String
 name|regex
 parameter_list|)
@@ -2825,7 +2881,6 @@ comment|/**    * Delete existing snapshots whose names match the pattern passed.
 name|void
 name|deleteSnapshots
 parameter_list|(
-specifier|final
 name|Pattern
 name|pattern
 parameter_list|)
@@ -2862,7 +2917,6 @@ comment|/**    * Apply the new quota settings.    *    * @param quota the quota 
 name|void
 name|setQuota
 parameter_list|(
-specifier|final
 name|QuotaSettings
 name|quota
 parameter_list|)
@@ -2873,7 +2927,6 @@ comment|/**    * Return a QuotaRetriever to list the quotas based on the filter.
 name|QuotaRetriever
 name|getQuotaRetriever
 parameter_list|(
-specifier|final
 name|QuotaFilter
 name|filter
 parameter_list|)
@@ -2885,15 +2938,15 @@ name|CoprocessorRpcChannel
 name|coprocessorService
 parameter_list|()
 function_decl|;
-comment|/**    * Creates and returns a {@link com.google.protobuf.RpcChannel} instance    * connected to the passed region server.    *    *<p>    * The obtained {@link com.google.protobuf.RpcChannel} instance can be used to access a published    * coprocessor {@link com.google.protobuf.Service} using standard protobuf service invocations:    *</p>    *    *<div style="background-color: #cccccc; padding: 2px">    *<blockquote><pre>    * CoprocessorRpcChannel channel = myAdmin.coprocessorService(serverName);    * MyService.BlockingInterface service = MyService.newBlockingStub(channel);    * MyCallRequest request = MyCallRequest.newBuilder()    *     ...    *     .build();    * MyCallResponse response = service.myCall(null, request);    *</pre></blockquote></div>    *    * @param sn the server name to which the endpoint call is made    * @return A RegionServerCoprocessorRpcChannel instance    */
+comment|/**    * Creates and returns a {@link com.google.protobuf.RpcChannel} instance    * connected to the passed region server.    *    *<p>    * The obtained {@link com.google.protobuf.RpcChannel} instance can be used to access a published    * coprocessor {@link com.google.protobuf.Service} using standard protobuf service invocations:    *</p>    *    *<div style="background-color: #cccccc; padding: 2px">    *<blockquote><pre>    * CoprocessorRpcChannel channel = myAdmin.coprocessorService(serverName);    * MyService.BlockingInterface service = MyService.newBlockingStub(channel);    * MyCallRequest request = MyCallRequest.newBuilder()    *     ...    *     .build();    * MyCallResponse response = service.myCall(null, request);    *</pre></blockquote></div>    *    * @param serverName the server name to which the endpoint call is made    * @return A RegionServerCoprocessorRpcChannel instance    */
 name|CoprocessorRpcChannel
 name|coprocessorService
 parameter_list|(
 name|ServerName
-name|sn
+name|serverName
 parameter_list|)
 function_decl|;
-comment|/**    * Update the configuration and trigger an online config change    * on the regionserver    * @param server : The server whose config needs to be updated.    * @throws IOException    */
+comment|/**    * Update the configuration and trigger an online config change    * on the regionserver.    * @param server : The server whose config needs to be updated.    * @throws IOException    */
 name|void
 name|updateConfiguration
 parameter_list|(
@@ -2903,7 +2956,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Update the configuration and trigger an online config change    * on all the regionservers    * @throws IOException    */
+comment|/**    * Update the configuration and trigger an online config change    * on all the regionservers.    * @throws IOException    */
 name|void
 name|updateConfiguration
 parameter_list|()
@@ -2911,18 +2964,16 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Get the info port of the current master if one is available.    * @return master info port    * @throws IOException    */
-specifier|public
 name|int
 name|getMasterInfoPort
 parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Compact a table. Asynchronous operation.    *    * @param tableName table to compact    * @param compactType {@link org.apache.hadoop.hbase.client.CompactType}    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * Compact a table.  Asynchronous operation in that this method requests that a    * Compaction run and then it returns. It does not wait on the completion of Compaction    * (it can take a while).    *    * @param tableName table to compact    * @param compactType {@link org.apache.hadoop.hbase.client.CompactType}    * @throws IOException    * @throws InterruptedException    */
 name|void
 name|compact
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|,
@@ -2934,15 +2985,13 @@ name|IOException
 throws|,
 name|InterruptedException
 function_decl|;
-comment|/**    * Compact a column family within a table. Asynchronous operation.    *    * @param tableName table to compact    * @param columnFamily column family within a table    * @param compactType {@link org.apache.hadoop.hbase.client.CompactType}    * @throws IOException if not a mob column family or if a remote or network exception occurs    * @throws InterruptedException    */
+comment|/**    * Compact a column family within a table.  Asynchronous operation in that this method requests that a    * Compaction run and then it returns. It does not wait on the completion of Compaction    * (it can take a while).    *    * @param tableName table to compact    * @param columnFamily column family within a table    * @param compactType {@link org.apache.hadoop.hbase.client.CompactType}    * @throws IOException if not a mob column family or if a remote or network exception occurs    * @throws InterruptedException    */
 name|void
 name|compact
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|,
-specifier|final
 name|byte
 index|[]
 name|columnFamily
@@ -2955,11 +3004,10 @@ name|IOException
 throws|,
 name|InterruptedException
 function_decl|;
-comment|/**    * Major compact a table. Asynchronous operation.    *    * @param tableName table to compact    * @param compactType {@link org.apache.hadoop.hbase.client.CompactType}    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * Major compact a table.  Asynchronous operation in that this method requests that a    * Compaction run and then it returns. It does not wait on the completion of Compaction    * (it can take a while).    *    * @param tableName table to compact    * @param compactType {@link org.apache.hadoop.hbase.client.CompactType}    * @throws IOException    * @throws InterruptedException    */
 name|void
 name|majorCompact
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|,
@@ -2971,15 +3019,13 @@ name|IOException
 throws|,
 name|InterruptedException
 function_decl|;
-comment|/**    * Major compact a column family within a table. Asynchronous operation.    *    * @param tableName table to compact    * @param columnFamily column family within a table    * @param compactType {@link org.apache.hadoop.hbase.client.CompactType}    * @throws IOException if not a mob column family or if a remote or network exception occurs    * @throws InterruptedException    */
+comment|/**    * Major compact a column family within a table.  Asynchronous operation in that this method requests that a    * Compaction run and then it returns. It does not wait on the completion of Compaction    * (it can take a while).    *    * @param tableName table to compact    * @param columnFamily column family within a table    * @param compactType {@link org.apache.hadoop.hbase.client.CompactType}    * @throws IOException if not a mob column family or if a remote or network exception occurs    * @throws InterruptedException    */
 name|void
 name|majorCompact
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|,
-specifier|final
 name|byte
 index|[]
 name|columnFamily
@@ -2996,7 +3042,6 @@ comment|/**    * Get the current compaction state of a table. It could be in a c
 name|CompactionState
 name|getCompactionState
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|,
@@ -3016,20 +3061,49 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Turn the Split or Merge switches on or off.    *    * @param enabled enabled or not    * @param synchronous If true, it waits until current split() call, if outstanding, to return.    * @param switchTypes switchType list {@link MasterSwitchType}    * @return Previous switch value array    */
+comment|/**    * Turn the Split or Merge switches on or off.    *    * @param enabled enabled or not    * @param synchronous If<code>true</code>, it waits until current split() call, if outstanding, to return.    * @param switchTypes switchType list {@link MasterSwitchType}    * @return Previous switch value array    * @deprecated Since 2.0.0. Will be removed in 3.0.0. Use    * {@link #splitOrMergeEnabledSwitch(boolean, boolean, MasterSwitchType...)}.    */
+annotation|@
+name|Deprecated
+specifier|default
 name|boolean
 index|[]
 name|setSplitOrMergeEnabled
 parameter_list|(
-specifier|final
 name|boolean
 name|enabled
 parameter_list|,
-specifier|final
 name|boolean
 name|synchronous
 parameter_list|,
-specifier|final
+name|MasterSwitchType
+modifier|...
+name|switchTypes
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|splitOrMergeEnabledSwitch
+argument_list|(
+name|enabled
+argument_list|,
+name|synchronous
+argument_list|,
+name|switchTypes
+argument_list|)
+return|;
+block|}
+comment|/**    * Turn the Split or Merge switches on or off.    *    * @param enabled enabled or not    * @param synchronous If<code>true</code>, it waits until current split() call, if outstanding, to return.    * @param switchTypes switchType list {@link MasterSwitchType}    * @return Previous switch value array    */
+name|boolean
+index|[]
+name|splitOrMergeEnabledSwitch
+parameter_list|(
+name|boolean
+name|enabled
+parameter_list|,
+name|boolean
+name|synchronous
+parameter_list|,
 name|MasterSwitchType
 modifier|...
 name|switchTypes
@@ -3037,75 +3111,88 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Query the current state of the switch    *    * @return true if the switch is enabled, false otherwise.    */
+comment|/**    * Query the current state of the switch.    *    * @return<code>true</code> if the switch is enabled,<code>false</code> otherwise.    * @deprecated Since 2.0.0. Will be removed in 3.0.0. Use    * {@link #splitOrMergeEnabledSwitch(MasterSwitchType)}} instead.    */
+annotation|@
+name|Deprecated
+specifier|default
 name|boolean
 name|isSplitOrMergeEnabled
 parameter_list|(
-specifier|final
+name|MasterSwitchType
+name|switchType
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|splitOrMergeEnabledSwitch
+argument_list|(
+name|switchType
+argument_list|)
+return|;
+block|}
+comment|/**    * Query the current state of the switch.    *    * @return<code>true</code> if the switch is enabled,<code>false</code> otherwise.    */
+name|boolean
+name|splitOrMergeEnabledSwitch
+parameter_list|(
 name|MasterSwitchType
 name|switchType
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Add a new replication peer for replicating data to slave cluster    * @param peerId a short name that identifies the peer    * @param peerConfig configuration for the replication slave cluster    * @throws IOException    */
+comment|/**    * Add a new replication peer for replicating data to slave cluster.    * @param peerId a short name that identifies the peer    * @param peerConfig configuration for the replication slave cluster    * @throws IOException    */
 specifier|default
 name|void
 name|addReplicationPeer
 parameter_list|(
-specifier|final
 name|String
 name|peerId
 parameter_list|,
-specifier|final
 name|ReplicationPeerConfig
 name|peerConfig
 parameter_list|)
 throws|throws
 name|IOException
 block|{   }
-comment|/**    * Remove a peer and stop the replication    * @param peerId a short name that identifies the peer    * @throws IOException    */
+comment|/**    * Remove a peer and stop the replication.    * @param peerId a short name that identifies the peer    * @throws IOException    */
 specifier|default
 name|void
 name|removeReplicationPeer
 parameter_list|(
-specifier|final
 name|String
 name|peerId
 parameter_list|)
 throws|throws
 name|IOException
 block|{   }
-comment|/**    * Restart the replication stream to the specified peer    * @param peerId a short name that identifies the peer    * @throws IOException    */
+comment|/**    * Restart the replication stream to the specified peer.    * @param peerId a short name that identifies the peer    * @throws IOException    */
 specifier|default
 name|void
 name|enableReplicationPeer
 parameter_list|(
-specifier|final
 name|String
 name|peerId
 parameter_list|)
 throws|throws
 name|IOException
 block|{   }
-comment|/**    * Stop the replication stream to the specified peer    * @param peerId a short name that identifies the peer    * @throws IOException    */
+comment|/**    * Stop the replication stream to the specified peer.    * @param peerId a short name that identifies the peer    * @throws IOException    */
 specifier|default
 name|void
 name|disableReplicationPeer
 parameter_list|(
-specifier|final
 name|String
 name|peerId
 parameter_list|)
 throws|throws
 name|IOException
 block|{   }
-comment|/**    * Returns the configured ReplicationPeerConfig for the specified peer    * @param peerId a short name that identifies the peer    * @return ReplicationPeerConfig for the peer    * @throws IOException    */
+comment|/**    * Returns the configured ReplicationPeerConfig for the specified peer.    * @param peerId a short name that identifies the peer    * @return ReplicationPeerConfig for the peer    * @throws IOException    */
 specifier|default
 name|ReplicationPeerConfig
 name|getReplicationPeerConfig
 parameter_list|(
-specifier|final
 name|String
 name|peerId
 parameter_list|)
@@ -3118,23 +3205,21 @@ name|ReplicationPeerConfig
 argument_list|()
 return|;
 block|}
-comment|/**    * Update the peerConfig for the specified peer    * @param peerId a short name that identifies the peer    * @param peerConfig new config for the peer    * @throws IOException    */
+comment|/**    * Update the peerConfig for the specified peer.    * @param peerId a short name that identifies the peer    * @param peerConfig new config for the peer    * @throws IOException    */
 specifier|default
 name|void
 name|updateReplicationPeerConfig
 parameter_list|(
-specifier|final
 name|String
 name|peerId
 parameter_list|,
-specifier|final
 name|ReplicationPeerConfig
 name|peerConfig
 parameter_list|)
 throws|throws
 name|IOException
 block|{   }
-comment|/**    * Append the replicable table-cf config of the specified peer    * @param id a short that identifies the cluster    * @param tableCfs A map from tableName to column family names    * @throws ReplicationException    * @throws IOException    */
+comment|/**    * Append the replicable table column family config from the specified peer.    * @param id a short that identifies the cluster    * @param tableCfs A map from tableName to column family names    * @throws ReplicationException    * @throws IOException    */
 specifier|default
 name|void
 name|appendReplicationPeerTableCFs
@@ -3160,7 +3245,7 @@ name|ReplicationException
 throws|,
 name|IOException
 block|{   }
-comment|/**    * Remove some table-cfs from config of the specified peer    * @param id a short name that identifies the cluster    * @param tableCfs A map from tableName to column family names    * @throws ReplicationException    * @throws IOException    */
+comment|/**    * Remove some table-cfs from config of the specified peer.    * @param id a short name that identifies the cluster    * @param tableCfs A map from tableName to column family names    * @throws ReplicationException    * @throws IOException    */
 specifier|default
 name|void
 name|removeReplicationPeerTableCFs
@@ -3296,7 +3381,6 @@ comment|/**    * Enable a table's replication switch.    * @param tableName name
 name|void
 name|enableTableReplication
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|)
@@ -3307,22 +3391,19 @@ comment|/**    * Disable a table's replication switch.    * @param tableName nam
 name|void
 name|disableTableReplication
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Clear compacting queues on a regionserver.    * @param sn the region server name    * @param queues the set of queue name    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
+comment|/**    * Clear compacting queues on a regionserver.    * @param serverName the region server name    * @param queues the set of queue name    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
 name|void
 name|clearCompactionQueues
 parameter_list|(
-specifier|final
 name|ServerName
-name|sn
+name|serverName
 parameter_list|,
-specifier|final
 name|Set
 argument_list|<
 name|String

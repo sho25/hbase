@@ -4002,7 +4002,7 @@ annotation|@
 name|Override
 specifier|public
 name|TableDescriptor
-name|listTableDescriptor
+name|getDescriptor
 parameter_list|(
 name|TableName
 name|tableName
@@ -9674,7 +9674,7 @@ annotation|@
 name|Override
 specifier|public
 name|boolean
-name|setBalancerRunning
+name|balancerSwitch
 parameter_list|(
 specifier|final
 name|boolean
@@ -9747,7 +9747,7 @@ annotation|@
 name|Override
 specifier|public
 name|boolean
-name|balancer
+name|balance
 parameter_list|()
 throws|throws
 name|IOException
@@ -9805,7 +9805,7 @@ annotation|@
 name|Override
 specifier|public
 name|boolean
-name|balancer
+name|balance
 parameter_list|(
 specifier|final
 name|boolean
@@ -10035,7 +10035,7 @@ annotation|@
 name|Override
 specifier|public
 name|boolean
-name|setNormalizerRunning
+name|normalizerSwitch
 parameter_list|(
 specifier|final
 name|boolean
@@ -10102,7 +10102,7 @@ annotation|@
 name|Override
 specifier|public
 name|boolean
-name|enableCatalogJanitor
+name|catalogJanitorSwitch
 parameter_list|(
 specifier|final
 name|boolean
@@ -10164,7 +10164,7 @@ annotation|@
 name|Override
 specifier|public
 name|int
-name|runCatalogScan
+name|runCatalogJanitor
 parameter_list|()
 throws|throws
 name|IOException
@@ -10276,7 +10276,7 @@ annotation|@
 name|Override
 specifier|public
 name|boolean
-name|setCleanerChoreRunning
+name|cleanerChoreSwitch
 parameter_list|(
 specifier|final
 name|boolean
@@ -15455,7 +15455,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|takeSnapshotAsync
+name|snapshotAsync
 parameter_list|(
 name|SnapshotDescription
 name|snapshotDesc
@@ -16422,7 +16422,7 @@ name|Override
 specifier|public
 name|byte
 index|[]
-name|execProcedureWithRet
+name|execProcedureWithReturn
 parameter_list|(
 name|String
 name|signature
@@ -20745,7 +20745,7 @@ return|return
 name|getAdmin
 argument_list|()
 operator|.
-name|listTableDescriptor
+name|getDescriptor
 argument_list|(
 name|getTableName
 argument_list|()
@@ -21728,7 +21728,7 @@ name|Override
 specifier|public
 name|boolean
 index|[]
-name|setSplitOrMergeEnabled
+name|splitOrMergeEnabledSwitch
 parameter_list|(
 specifier|final
 name|boolean
@@ -21846,7 +21846,7 @@ annotation|@
 name|Override
 specifier|public
 name|boolean
-name|isSplitOrMergeEnabled
+name|splitOrMergeEnabledSwitch
 parameter_list|(
 specifier|final
 name|MasterSwitchType

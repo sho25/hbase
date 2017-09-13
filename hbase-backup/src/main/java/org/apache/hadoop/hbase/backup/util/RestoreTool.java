@@ -1125,7 +1125,7 @@ name|newTableDescriptor
 init|=
 name|admin
 operator|.
-name|listTableDescriptor
+name|getDescriptor
 argument_list|(
 name|newTableName
 argument_list|)

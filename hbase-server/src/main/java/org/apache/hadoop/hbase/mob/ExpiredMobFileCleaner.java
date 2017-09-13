@@ -652,7 +652,7 @@ name|htd
 init|=
 name|admin
 operator|.
-name|listTableDescriptor
+name|getDescriptor
 argument_list|(
 name|tn
 argument_list|)

@@ -2087,7 +2087,7 @@ operator|.
 name|getAdmin
 argument_list|()
 operator|.
-name|listTableDescriptor
+name|getDescriptor
 argument_list|(
 name|td
 operator|.
@@ -2161,7 +2161,7 @@ operator|.
 name|getAdmin
 argument_list|()
 operator|.
-name|listTableDescriptor
+name|getDescriptor
 argument_list|(
 name|td
 operator|.
@@ -2337,7 +2337,7 @@ name|nHdt
 operator|=
 name|admin
 operator|.
-name|listTableDescriptor
+name|getDescriptor
 argument_list|(
 name|td
 operator|.
