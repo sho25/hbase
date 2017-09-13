@@ -15337,7 +15337,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|preDispatchMerge
+name|preMergeRegions
 parameter_list|(
 specifier|final
 name|ObserverContext
@@ -15346,11 +15346,10 @@ name|MasterCoprocessorEnvironment
 argument_list|>
 name|ctx
 parameter_list|,
+specifier|final
 name|HRegionInfo
-name|regionA
-parameter_list|,
-name|HRegionInfo
-name|regionB
+index|[]
+name|regionsToMerge
 parameter_list|)
 throws|throws
 name|IOException
@@ -15364,7 +15363,10 @@ argument_list|)
 argument_list|,
 literal|"mergeRegions"
 argument_list|,
-name|regionA
+name|regionsToMerge
+index|[
+literal|0
+index|]
 operator|.
 name|getTable
 argument_list|()
