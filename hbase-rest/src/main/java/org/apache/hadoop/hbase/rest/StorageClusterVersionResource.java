@@ -29,6 +29,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|EnumSet
+import|;
+end_import
+
+begin_import
+import|import
 name|javax
 operator|.
 name|ws
@@ -162,6 +172,22 @@ operator|.
 name|audience
 operator|.
 name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ClusterStatus
+operator|.
+name|Option
 import|;
 end_import
 
@@ -321,7 +347,16 @@ name|getAdmin
 argument_list|()
 operator|.
 name|getClusterStatus
-argument_list|()
+argument_list|(
+name|EnumSet
+operator|.
+name|of
+argument_list|(
+name|Option
+operator|.
+name|HBASE_VERSION
+argument_list|)
+argument_list|)
 operator|.
 name|getHBaseVersion
 argument_list|()
