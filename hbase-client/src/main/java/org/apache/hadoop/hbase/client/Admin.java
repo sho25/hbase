@@ -1377,7 +1377,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get all the online regions on a region server.    */
+comment|/**    * Get all the online regions on a region server.    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-17980">HBASE-17980</a>).    *             Use {@link #getRegions(ServerName sn)}.    */
+annotation|@
+name|Deprecated
 name|List
 argument_list|<
 name|HRegionInfo
@@ -1386,6 +1388,19 @@ name|getOnlineRegions
 parameter_list|(
 name|ServerName
 name|sn
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Get all the online regions on a region server.    *    * @return List of {@link RegionInfo}    * @throws java.io.IOException    */
+name|List
+argument_list|<
+name|RegionInfo
+argument_list|>
+name|getRegions
+parameter_list|(
+name|ServerName
+name|serverName
 parameter_list|)
 throws|throws
 name|IOException
@@ -2226,12 +2241,27 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get the regions of a given table.    *    * @param tableName the name of the table    * @return List of {@link HRegionInfo}.    * @throws IOException    */
+comment|/**    * Get the regions of a given table.    *    * @param tableName the name of the table    * @return List of {@link HRegionInfo}.    * @throws IOException    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-17980">HBASE-17980</a>).    *             Use {@link #getRegions(TableName)}.    */
+annotation|@
+name|Deprecated
 name|List
 argument_list|<
 name|HRegionInfo
 argument_list|>
 name|getTableRegions
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Get the regions of a given table.    *    * @param tableName the name of the table    * @return List of {@link RegionInfo}.    * @throws IOException    */
+name|List
+argument_list|<
+name|RegionInfo
+argument_list|>
+name|getRegions
 parameter_list|(
 name|TableName
 name|tableName

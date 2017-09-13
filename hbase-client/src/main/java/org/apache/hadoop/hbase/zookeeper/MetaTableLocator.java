@@ -1963,7 +1963,11 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Setting hbase:meta region location in ZooKeeper as "
+literal|"Setting hbase:meta (replicaId="
+operator|+
+name|replicaId
+operator|+
+literal|") location in ZooKeeper as "
 operator|+
 name|serverName
 argument_list|)
@@ -2072,7 +2076,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"META region location doesn't exist for replicaId "
+literal|"META region location doesn't exist for replicaId="
 operator|+
 name|replicaId
 operator|+

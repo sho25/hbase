@@ -45,30 +45,38 @@ name|InterfaceAudience
 import|;
 end_import
 
+begin_comment
+comment|/**  * Read-only Region info.  */
+end_comment
+
 begin_class
+annotation|@
+name|Deprecated
+comment|// deprecated for hbase 2.0, remove for hbase 3.0. see HRegionInfo.
 annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
+specifier|public
 class|class
-name|UnmodifyableHRegionInfo
+name|ImmutableHRegionInfo
 extends|extends
 name|HRegionInfo
 block|{
-comment|/*    * Creates an unmodifyable copy of an HRegionInfo    *    * @param info    */
-name|UnmodifyableHRegionInfo
+comment|/*    * Creates an immutable copy of an HRegionInfo.    *    * @param other    */
+specifier|public
+name|ImmutableHRegionInfo
 parameter_list|(
 name|HRegionInfo
-name|info
+name|other
 parameter_list|)
 block|{
 name|super
 argument_list|(
-name|info
+name|other
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param split set split status    */
 annotation|@
 name|Override
 specifier|public
@@ -87,7 +95,6 @@ literal|"HRegionInfo is read-only"
 argument_list|)
 throw|;
 block|}
-comment|/**    * @param offLine set online - offline status    */
 annotation|@
 name|Override
 specifier|public
@@ -95,7 +102,7 @@ name|void
 name|setOffline
 parameter_list|(
 name|boolean
-name|offLine
+name|offline
 parameter_list|)
 block|{
 throw|throw
