@@ -711,16 +711,6 @@ name|org
 operator|.
 name|junit
 operator|.
-name|Ignore
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
 name|Rule
 import|;
 end_import
@@ -3239,8 +3229,6 @@ comment|// BEFORE we updated: i.e. "RpcServer.CodelBQ.default.handler". But same
 comment|// fastpath thread to: new FastPathBalancedQueueRpcExecutor("CodelFPBQ.default", handlerCount, numCallQueues...
 comment|// Codel is hard to test. This test is going to be flakey given it all timer-based. Disabling for now till chat
 comment|// with authors.
-annotation|@
-name|Ignore
 annotation|@
 name|Test
 specifier|public

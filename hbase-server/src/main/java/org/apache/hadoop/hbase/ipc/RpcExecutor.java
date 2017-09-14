@@ -117,7 +117,7 @@ name|concurrent
 operator|.
 name|atomic
 operator|.
-name|AtomicLong
+name|LongAdder
 import|;
 end_import
 
@@ -460,19 +460,19 @@ init|=
 literal|0.8
 decl_stmt|;
 specifier|private
-name|AtomicLong
+name|LongAdder
 name|numGeneralCallsDropped
 init|=
 operator|new
-name|AtomicLong
+name|LongAdder
 argument_list|()
 decl_stmt|;
 specifier|private
-name|AtomicLong
+name|LongAdder
 name|numLifoModeSwitches
 init|=
 operator|new
-name|AtomicLong
+name|LongAdder
 argument_list|()
 decl_stmt|;
 specifier|protected
@@ -2084,7 +2084,7 @@ block|{
 return|return
 name|numGeneralCallsDropped
 operator|.
-name|get
+name|longValue
 argument_list|()
 return|;
 block|}
@@ -2096,7 +2096,7 @@ block|{
 return|return
 name|numLifoModeSwitches
 operator|.
-name|get
+name|longValue
 argument_list|()
 return|;
 block|}
