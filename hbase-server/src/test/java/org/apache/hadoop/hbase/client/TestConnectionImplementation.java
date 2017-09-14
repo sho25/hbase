@@ -305,7 +305,7 @@ name|ServerName
 operator|.
 name|valueOf
 argument_list|(
-literal|"unknownhost.example.com:"
+literal|"unknownhost.invalid:"
 operator|+
 name|HConstants
 operator|.
@@ -394,7 +394,7 @@ name|ServerName
 operator|.
 name|valueOf
 argument_list|(
-literal|"unknownhost.example.com:"
+literal|"unknownhost.invalid:"
 operator|+
 name|HConstants
 operator|.
