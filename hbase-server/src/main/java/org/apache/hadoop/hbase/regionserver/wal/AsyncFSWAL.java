@@ -3430,6 +3430,15 @@ block|{
 name|waitForSafePoint
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|writer
+operator|!=
+literal|null
+condition|)
+block|{
 name|this
 operator|.
 name|writer
@@ -3443,6 +3452,7 @@ name|writer
 operator|=
 literal|null
 expr_stmt|;
+block|}
 name|closeExecutor
 operator|.
 name|shutdown

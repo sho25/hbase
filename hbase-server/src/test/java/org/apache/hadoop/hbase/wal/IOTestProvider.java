@@ -488,8 +488,6 @@ name|WAL
 argument_list|>
 name|getWALs
 parameter_list|()
-throws|throws
-name|IOException
 block|{
 name|List
 argument_list|<

@@ -171,8 +171,6 @@ name|WAL
 argument_list|>
 name|getWALs
 parameter_list|()
-throws|throws
-name|IOException
 function_decl|;
 comment|/**    * persist outstanding WALs to storage and stop accepting new appends.    * This method serves as shorthand for sending a sync to every WAL provided by a given    * implementation. Those WALs will also stop accepting new writes.    */
 name|void
@@ -188,12 +186,22 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
+interface|interface
+name|WriterBase
+extends|extends
+name|Closeable
+block|{
+name|long
+name|getLength
+parameter_list|()
+function_decl|;
+block|}
 comment|// Writers are used internally. Users outside of the WAL should be relying on the
 comment|// interface provided by WAL.
 interface|interface
 name|Writer
 extends|extends
-name|Closeable
+name|WriterBase
 block|{
 name|void
 name|sync
@@ -212,15 +220,11 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-name|long
-name|getLength
-parameter_list|()
-function_decl|;
 block|}
 interface|interface
 name|AsyncWriter
 extends|extends
-name|Closeable
+name|WriterBase
 block|{
 name|CompletableFuture
 argument_list|<
@@ -237,10 +241,6 @@ operator|.
 name|Entry
 name|entry
 parameter_list|)
-function_decl|;
-name|long
-name|getLength
-parameter_list|()
 function_decl|;
 block|}
 comment|/**    * Get number of the log files this provider is managing    */

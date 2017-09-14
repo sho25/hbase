@@ -316,11 +316,15 @@ decl_stmt|;
 comment|/**    * Utility method that sets name, daemon status and starts passed thread.    * @param t thread to run    * @return Returns the passed Thread<code>t</code>.    */
 specifier|public
 specifier|static
+parameter_list|<
+name|T
+extends|extends
 name|Thread
+parameter_list|>
+name|T
 name|setDaemonThreadRunning
 parameter_list|(
-specifier|final
-name|Thread
+name|T
 name|t
 parameter_list|)
 block|{
@@ -339,14 +343,17 @@ block|}
 comment|/**    * Utility method that sets name, daemon status and starts passed thread.    * @param t thread to frob    * @param name new name    * @return Returns the passed Thread<code>t</code>.    */
 specifier|public
 specifier|static
+parameter_list|<
+name|T
+extends|extends
 name|Thread
+parameter_list|>
+name|T
 name|setDaemonThreadRunning
 parameter_list|(
-specifier|final
-name|Thread
+name|T
 name|t
 parameter_list|,
-specifier|final
 name|String
 name|name
 parameter_list|)
@@ -362,21 +369,23 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * Utility method that sets name, daemon status and starts passed thread.    * @param t thread to frob    * @param name new name    * @param handler A handler to set on the thread.  Pass null if want to    * use default handler.    * @return Returns the passed Thread<code>t</code>.    */
+comment|/**    * Utility method that sets name, daemon status and starts passed thread.    * @param t thread to frob    * @param name new name    * @param handler A handler to set on the thread. Pass null if want to use default handler.    * @return Returns the passed Thread<code>t</code>.    */
 specifier|public
 specifier|static
+parameter_list|<
+name|T
+extends|extends
 name|Thread
+parameter_list|>
+name|T
 name|setDaemonThreadRunning
 parameter_list|(
-specifier|final
-name|Thread
+name|T
 name|t
 parameter_list|,
-specifier|final
 name|String
 name|name
 parameter_list|,
-specifier|final
 name|UncaughtExceptionHandler
 name|handler
 parameter_list|)

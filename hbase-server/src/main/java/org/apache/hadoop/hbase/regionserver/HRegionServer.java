@@ -8844,10 +8844,6 @@ name|getMyEphemeralNodePath
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|walFactory
-operator|=
 name|setupWALAndReplication
 argument_list|()
 expr_stmt|;
@@ -10304,16 +10300,15 @@ name|get
 argument_list|()
 return|;
 block|}
-comment|/**    * Setup WAL log and replication if enabled.    * Replication setup is done in here because it wants to be hooked up to WAL.    * @return A WAL instance.    * @throws IOException    */
+comment|/**    * Setup WAL log and replication if enabled.    * Replication setup is done in here because it wants to be hooked up to WAL.    * @throws IOException    */
 specifier|private
-name|WALFactory
+name|void
 name|setupWALAndReplication
 parameter_list|()
 throws|throws
 name|IOException
 block|{
 comment|// TODO Replication make assumptions here based on the default filesystem impl
-specifier|final
 name|Path
 name|oldLogDir
 init|=
@@ -10327,7 +10322,6 @@ operator|.
 name|HREGION_OLDLOGDIR_NAME
 argument_list|)
 decl_stmt|;
-specifier|final
 name|String
 name|logName
 init|=
@@ -10417,7 +10411,6 @@ name|oldLogDir
 argument_list|)
 expr_stmt|;
 comment|// listeners the wal factory will add to wals it creates.
-specifier|final
 name|List
 argument_list|<
 name|WALActionsListener
@@ -10470,7 +10463,15 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-return|return
+comment|// There is a cyclic dependency between ReplicationSourceHandler and WALFactory.
+comment|// We use WALActionsListener to get the newly rolled WALs, so we need to get the
+comment|// WALActionsListeners from ReplicationSourceHandler before constructing WALFactory. And then
+comment|// ReplicationSourceHandler need to use WALFactory get the length of the wal file being written.
+comment|// So we here we need to construct WALFactory first, and then pass it to the initialize method
+comment|// of ReplicationSourceHandler.
+name|WALFactory
+name|factory
+init|=
 operator|new
 name|WALFactory
 argument_list|(
@@ -10483,7 +10484,75 @@ operator|.
 name|toString
 argument_list|()
 argument_list|)
-return|;
+decl_stmt|;
+name|this
+operator|.
+name|walFactory
+operator|=
+name|factory
+expr_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|replicationSourceHandler
+operator|!=
+literal|null
+condition|)
+block|{
+name|this
+operator|.
+name|replicationSourceHandler
+operator|.
+name|initialize
+argument_list|(
+name|this
+argument_list|,
+name|walFs
+argument_list|,
+name|logDir
+argument_list|,
+name|oldLogDir
+argument_list|,
+name|factory
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|this
+operator|.
+name|replicationSinkHandler
+operator|!=
+literal|null
+operator|&&
+name|this
+operator|.
+name|replicationSinkHandler
+operator|!=
+name|this
+operator|.
+name|replicationSourceHandler
+condition|)
+block|{
+name|this
+operator|.
+name|replicationSinkHandler
+operator|.
+name|initialize
+argument_list|(
+name|this
+argument_list|,
+name|walFs
+argument_list|,
+name|logDir
+argument_list|,
+name|oldLogDir
+argument_list|,
+name|factory
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 specifier|public
 name|MetricsRegionServer
@@ -14831,8 +14900,8 @@ comment|//
 comment|// Main program and support routines
 comment|//
 comment|/**    * Load the replication service objects, if any    */
-specifier|static
 specifier|private
+specifier|static
 name|void
 name|createNewReplicationInstance
 parameter_list|(
@@ -15010,8 +15079,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-specifier|static
 specifier|private
+specifier|static
 name|ReplicationService
 name|newReplicationInstance
 parameter_list|(
@@ -15039,6 +15108,8 @@ block|{
 name|Class
 argument_list|<
 name|?
+extends|extends
+name|ReplicationService
 argument_list|>
 name|clazz
 init|=
@@ -15069,6 +15140,13 @@ literal|true
 argument_list|,
 name|classLoader
 argument_list|)
+operator|.
+name|asSubclass
+argument_list|(
+name|ReplicationService
+operator|.
+name|class
+argument_list|)
 expr_stmt|;
 block|}
 catch|catch
@@ -15091,13 +15169,9 @@ name|classname
 argument_list|)
 throw|;
 block|}
-comment|// create an instance of the replication object.
-name|ReplicationService
-name|service
-init|=
-operator|(
-name|ReplicationService
-operator|)
+comment|// create an instance of the replication object, but do not initialize it here as we need to use
+comment|// WALFactory when initializing.
+return|return
 name|ReflectionUtils
 operator|.
 name|newInstance
@@ -15106,22 +15180,6 @@ name|clazz
 argument_list|,
 name|conf
 argument_list|)
-decl_stmt|;
-name|service
-operator|.
-name|initialize
-argument_list|(
-name|server
-argument_list|,
-name|walFs
-argument_list|,
-name|logDir
-argument_list|,
-name|oldLogDir
-argument_list|)
-expr_stmt|;
-return|return
-name|service
 return|;
 block|}
 comment|/**    * Utility for constructing an instance of the passed HRegionServer class.    *    * @param regionServerClass    * @param conf2    * @return HRegionServer instance.    */

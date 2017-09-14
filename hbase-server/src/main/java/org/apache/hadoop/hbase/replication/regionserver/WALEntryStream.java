@@ -55,7 +55,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|Iterator
+name|NoSuchElementException
 import|;
 end_import
 
@@ -65,7 +65,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|NoSuchElementException
+name|OptionalLong
 import|;
 end_import
 
@@ -352,21 +352,10 @@ annotation|@
 name|InterfaceStability
 operator|.
 name|Evolving
-specifier|public
 class|class
 name|WALEntryStream
 implements|implements
-name|Iterator
-argument_list|<
-name|Entry
-argument_list|>
-implements|,
 name|Closeable
-implements|,
-name|Iterable
-argument_list|<
-name|Entry
-argument_list|>
 block|{
 specifier|private
 specifier|static
@@ -404,6 +393,7 @@ init|=
 literal|0
 decl_stmt|;
 specifier|private
+specifier|final
 name|PriorityBlockingQueue
 argument_list|<
 name|Path
@@ -411,53 +401,25 @@ argument_list|>
 name|logQueue
 decl_stmt|;
 specifier|private
+specifier|final
 name|FileSystem
 name|fs
 decl_stmt|;
 specifier|private
+specifier|final
 name|Configuration
 name|conf
 decl_stmt|;
 specifier|private
+specifier|final
+name|WALFileLengthProvider
+name|walFileLengthProvider
+decl_stmt|;
+specifier|private
+specifier|final
 name|MetricsSource
 name|metrics
 decl_stmt|;
-comment|/**    * Create an entry stream over the given queue    * @param logQueue the queue of WAL paths    * @param fs {@link FileSystem} to use to create {@link Reader} for this stream    * @param conf {@link Configuration} to use to create {@link Reader} for this stream    * @param metrics replication metrics    * @throws IOException    */
-specifier|public
-name|WALEntryStream
-parameter_list|(
-name|PriorityBlockingQueue
-argument_list|<
-name|Path
-argument_list|>
-name|logQueue
-parameter_list|,
-name|FileSystem
-name|fs
-parameter_list|,
-name|Configuration
-name|conf
-parameter_list|,
-name|MetricsSource
-name|metrics
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|this
-argument_list|(
-name|logQueue
-argument_list|,
-name|fs
-argument_list|,
-name|conf
-argument_list|,
-literal|0
-argument_list|,
-name|metrics
-argument_list|)
-expr_stmt|;
-block|}
 comment|/**    * Create an entry stream over the given queue at the given start position    * @param logQueue the queue of WAL paths    * @param fs {@link FileSystem} to use to create {@link Reader} for this stream    * @param conf {@link Configuration} to use to create {@link Reader} for this stream    * @param startPosition the position in the first WAL to start reading at    * @param metrics replication metrics    * @throws IOException    */
 specifier|public
 name|WALEntryStream
@@ -476,6 +438,9 @@ name|conf
 parameter_list|,
 name|long
 name|startPosition
+parameter_list|,
+name|WALFileLengthProvider
+name|walFileLengthProvider
 parameter_list|,
 name|MetricsSource
 name|metrics
@@ -509,18 +474,24 @@ name|startPosition
 expr_stmt|;
 name|this
 operator|.
+name|walFileLengthProvider
+operator|=
+name|walFileLengthProvider
+expr_stmt|;
+name|this
+operator|.
 name|metrics
 operator|=
 name|metrics
 expr_stmt|;
 block|}
-comment|/**    * @return true if there is another WAL {@link Entry}    * @throws WALEntryStreamRuntimeException if there was an Exception while reading    */
-annotation|@
-name|Override
+comment|/**    * @return true if there is another WAL {@link Entry}    */
 specifier|public
 name|boolean
 name|hasNext
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 if|if
 condition|(
@@ -529,26 +500,9 @@ operator|==
 literal|null
 condition|)
 block|{
-try|try
-block|{
 name|tryAdvanceEntry
 argument_list|()
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|Exception
-name|e
-parameter_list|)
-block|{
-throw|throw
-operator|new
-name|WALEntryStreamRuntimeException
-argument_list|(
-name|e
-argument_list|)
-throw|;
-block|}
 block|}
 return|return
 name|currentEntry
@@ -556,13 +510,13 @@ operator|!=
 literal|null
 return|;
 block|}
-comment|/**    * @return the next WAL entry in this stream    * @throws WALEntryStreamRuntimeException if there was an IOException    * @throws NoSuchElementException if no more entries in the stream.    */
-annotation|@
-name|Override
+comment|/**    * @return the next WAL entry in this stream    * @throws IOException    * @throws NoSuchElementException if no more entries in the stream.    */
 specifier|public
 name|Entry
 name|next
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 if|if
 condition|(
@@ -570,11 +524,13 @@ operator|!
 name|hasNext
 argument_list|()
 condition|)
+block|{
 throw|throw
 operator|new
 name|NoSuchElementException
 argument_list|()
 throw|;
+block|}
 name|Entry
 name|save
 init|=
@@ -589,20 +545,6 @@ return|return
 name|save
 return|;
 block|}
-comment|/**    * Not supported.    */
-annotation|@
-name|Override
-specifier|public
-name|void
-name|remove
-parameter_list|()
-block|{
-throw|throw
-operator|new
-name|UnsupportedOperationException
-argument_list|()
-throw|;
-block|}
 comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
@@ -616,21 +558,6 @@ block|{
 name|closeReader
 argument_list|()
 expr_stmt|;
-block|}
-comment|/**    * @return the iterator over WAL entries in the queue.    */
-annotation|@
-name|Override
-specifier|public
-name|Iterator
-argument_list|<
-name|Entry
-argument_list|>
-name|iterator
-parameter_list|()
-block|{
-return|return
-name|this
-return|;
 block|}
 comment|/**    * @return the position of the last Entry returned by next()    */
 specifier|public
@@ -781,31 +708,26 @@ name|checkReader
 argument_list|()
 condition|)
 block|{
+name|boolean
+name|beingWritten
+init|=
 name|readNextEntryAndSetPosition
 argument_list|()
-expr_stmt|;
+decl_stmt|;
 if|if
 condition|(
 name|currentEntry
 operator|==
 literal|null
+operator|&&
+operator|!
+name|beingWritten
 condition|)
 block|{
-comment|// no more entries in this log file - see if log was rolled
-if|if
-condition|(
-name|logQueue
-operator|.
-name|size
-argument_list|()
-operator|>
-literal|1
-condition|)
-block|{
-comment|// log was rolled
+comment|// no more entries in this log file, and the file is already closed, i.e, rolled
 comment|// Before dequeueing, we should always get one more attempt at reading.
-comment|// This is in case more entries came in after we opened the reader,
-comment|// and a new log was enqueued while we were reading. See HBASE-6758
+comment|// This is in case more entries came in after we opened the reader, and the log is rolled
+comment|// while we were reading. See HBASE-6758
 name|resetReader
 argument_list|()
 expr_stmt|;
@@ -842,8 +764,10 @@ block|}
 block|}
 block|}
 block|}
-comment|// no other logs, we've simply hit the end of the current open log. Do nothing
-block|}
+comment|// if currentEntry != null then just return
+comment|// if currentEntry == null but the file is still being written, then we should not switch to
+comment|// the next log either, just return here and try next time to see if there are more entries in
+comment|// the current file
 block|}
 comment|// do nothing if we don't have a WAL Reader (e.g. if there's no logs in queue)
 block|}
@@ -1146,8 +1070,9 @@ name|decrSizeOfLogQueue
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * Returns whether the file is opened for writing.    */
 specifier|private
-name|void
+name|boolean
 name|readNextEntryAndSetPosition
 parameter_list|()
 throws|throws
@@ -1169,6 +1094,69 @@ operator|.
 name|getPosition
 argument_list|()
 decl_stmt|;
+name|OptionalLong
+name|fileLength
+init|=
+name|walFileLengthProvider
+operator|.
+name|getLogFileSizeIfBeingWritten
+argument_list|(
+name|currentPath
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|fileLength
+operator|.
+name|isPresent
+argument_list|()
+operator|&&
+name|readerPos
+operator|>
+name|fileLength
+operator|.
+name|getAsLong
+argument_list|()
+condition|)
+block|{
+comment|// see HBASE-14004, for AsyncFSWAL which uses fan-out, it is possible that we read uncommitted
+comment|// data, so we need to make sure that we do not read beyond the committed file length.
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"The provider tells us the valid length for "
+operator|+
+name|currentPath
+operator|+
+literal|" is "
+operator|+
+name|fileLength
+operator|.
+name|getAsLong
+argument_list|()
+operator|+
+literal|", but we have advanced to "
+operator|+
+name|readerPos
+argument_list|)
+expr_stmt|;
+block|}
+name|resetReader
+argument_list|()
+expr_stmt|;
+return|return
+literal|true
+return|;
+block|}
 if|if
 condition|(
 name|readEntry
@@ -1201,6 +1189,12 @@ argument_list|(
 name|readerPos
 argument_list|)
 expr_stmt|;
+return|return
+name|fileLength
+operator|.
+name|isPresent
+argument_list|()
+return|;
 block|}
 specifier|private
 name|void
@@ -1285,9 +1279,11 @@ name|reader
 operator|!=
 literal|null
 condition|)
+block|{
 return|return
 literal|true
 return|;
+block|}
 block|}
 return|return
 literal|false
@@ -1829,40 +1825,6 @@ block|}
 return|return
 name|size
 return|;
-block|}
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Private
-specifier|public
-specifier|static
-class|class
-name|WALEntryStreamRuntimeException
-extends|extends
-name|RuntimeException
-block|{
-specifier|private
-specifier|static
-specifier|final
-name|long
-name|serialVersionUID
-init|=
-operator|-
-literal|6298201811259982568L
-decl_stmt|;
-specifier|public
-name|WALEntryStreamRuntimeException
-parameter_list|(
-name|Exception
-name|e
-parameter_list|)
-block|{
-name|super
-argument_list|(
-name|e
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 block|}
 end_class

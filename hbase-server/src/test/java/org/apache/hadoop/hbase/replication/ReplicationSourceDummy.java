@@ -181,6 +181,24 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|replication
+operator|.
+name|regionserver
+operator|.
+name|WALFileLengthProvider
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Pair
@@ -228,6 +246,9 @@ decl_stmt|;
 name|MetricsSource
 name|metrics
 decl_stmt|;
+name|WALFileLengthProvider
+name|walFileLengthProvider
+decl_stmt|;
 annotation|@
 name|Override
 specifier|public
@@ -261,6 +282,9 @@ parameter_list|,
 name|ReplicationEndpoint
 name|replicationEndpoint
 parameter_list|,
+name|WALFileLengthProvider
+name|walFileLengthProvider
+parameter_list|,
 name|MetricsSource
 name|metrics
 parameter_list|)
@@ -284,6 +308,12 @@ operator|.
 name|metrics
 operator|=
 name|metrics
+expr_stmt|;
+name|this
+operator|.
+name|walFileLengthProvider
+operator|=
+name|walFileLengthProvider
 expr_stmt|;
 block|}
 annotation|@
@@ -520,6 +550,17 @@ name|int
 name|batchSize
 parameter_list|)
 block|{   }
+annotation|@
+name|Override
+specifier|public
+name|WALFileLengthProvider
+name|getWALFileLengthProvider
+parameter_list|()
+block|{
+return|return
+name|walFileLengthProvider
+return|;
+block|}
 block|}
 end_class
 

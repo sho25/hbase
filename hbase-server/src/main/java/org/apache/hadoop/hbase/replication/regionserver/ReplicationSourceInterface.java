@@ -245,46 +245,39 @@ interface|interface
 name|ReplicationSourceInterface
 block|{
 comment|/**    * Initializer for the source    * @param conf the configuration to use    * @param fs the file system to use    * @param manager the manager to use    * @param replicationQueues    * @param replicationPeers    * @param stopper the stopper object for this region server    * @param peerClusterZnode    * @param clusterId    * @throws IOException    */
-specifier|public
 name|void
 name|init
 parameter_list|(
-specifier|final
 name|Configuration
 name|conf
 parameter_list|,
-specifier|final
 name|FileSystem
 name|fs
 parameter_list|,
-specifier|final
 name|ReplicationSourceManager
 name|manager
 parameter_list|,
-specifier|final
 name|ReplicationQueues
 name|replicationQueues
 parameter_list|,
-specifier|final
 name|ReplicationPeers
 name|replicationPeers
 parameter_list|,
-specifier|final
 name|Stoppable
 name|stopper
 parameter_list|,
-specifier|final
 name|String
 name|peerClusterZnode
 parameter_list|,
-specifier|final
 name|UUID
 name|clusterId
 parameter_list|,
 name|ReplicationEndpoint
 name|replicationEndpoint
 parameter_list|,
-specifier|final
+name|WALFileLengthProvider
+name|walFileLengthProvider
+parameter_list|,
 name|MetricsSource
 name|metrics
 parameter_list|)
@@ -391,6 +384,11 @@ function_decl|;
 comment|/**    * @return the replication source manager    */
 name|ReplicationSourceManager
 name|getSourceManager
+parameter_list|()
+function_decl|;
+comment|/**    * @return the wal file length provider    */
+name|WALFileLengthProvider
+name|getWALFileLengthProvider
 parameter_list|()
 function_decl|;
 comment|/**    * Try to throttle when the peer config with a bandwidth    * @param batchSize entries size will be pushed    * @throws InterruptedException    */
