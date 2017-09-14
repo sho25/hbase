@@ -466,6 +466,15 @@ argument_list|(
 name|resultSize
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|scanMetrics
+operator|.
+name|countOfRowsScanned
+operator|.
+name|incrementAndGet
+argument_list|()
+expr_stmt|;
 block|}
 return|return
 name|result
