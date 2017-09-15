@@ -45,11 +45,17 @@ name|InterfaceAudience
 import|;
 end_import
 
+begin_comment
+comment|/**  * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.  */
+end_comment
+
 begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Private
+name|Public
+annotation|@
+name|Deprecated
 class|class
 name|UnmodifyableHRegionInfo
 extends|extends
