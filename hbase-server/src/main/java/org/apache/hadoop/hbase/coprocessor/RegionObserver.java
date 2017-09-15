@@ -938,7 +938,7 @@ return|return
 name|scanner
 return|;
 block|}
-comment|/**    * Called prior to writing the {@link StoreFile}s selected for compaction into a new    * {@code StoreFile} and prior to creating the scanner used to read the input files. To override    * or modify the compaction process, implementing classes can return a new scanner to provide the    * KeyValues to be stored into the new {@code StoreFile} or null to perform the default    * processing. Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param c the environment provided by the region server    * @param store the store being compacted    * @param scanners the list {@link org.apache.hadoop.hbase.regionserver.StoreFileScanner}s    *  to be read from    * @param scanType the {@link ScanType} indicating whether this is a major or minor compaction    * @param earliestPutTs timestamp of the earliest put that was found in any of the involved store    *          files    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @param tracker used to track the life cycle of a compaction    * @param readPoint the readpoint to create scanner    * @return the scanner to use during compaction. {@code null} if the default implementation is to    *          be used.    */
+comment|/**    * Called prior to writing the {@link StoreFile}s selected for compaction into a new    * {@code StoreFile} and prior to creating the scanner used to read the input files. To override    * or modify the compaction process, implementing classes can return a new scanner to provide the    * KeyValues to be stored into the new {@code StoreFile} or null to perform the default    * processing. Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param c the environment provided by the region server    * @param store the store being compacted    * @param scanners the list of store file scanners to be read from    * @param scanType the {@link ScanType} indicating whether this is a major or minor compaction    * @param earliestPutTs timestamp of the earliest put that was found in any of the involved store    *          files    * @param s the base scanner, if not {@code null}, from previous RegionObserver in the chain    * @param tracker used to track the life cycle of a compaction    * @param readPoint the readpoint to create scanner    * @return the scanner to use during compaction. {@code null} if the default implementation is to    *          be used.    */
 specifier|default
 name|InternalScanner
 name|preCompactScannerOpen
@@ -2161,7 +2161,9 @@ return|return
 name|hasLoaded
 return|;
 block|}
-comment|/**    * Called before creation of Reader for a store file.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    *    * @param ctx the environment provided by the region server    * @param fs fileystem to read from    * @param p path to the file    * @param in {@link FSDataInputStreamWrapper}    * @param size Full size of the file    * @param cacheConf    * @param r original reference file. This will be not null only when reading a split file.    * @param reader the base reader, if not {@code null}, from previous RegionObserver in the chain    * @return a Reader instance to use instead of the base reader if overriding    * default behavior, null otherwise    */
+comment|/**    * Called before creation of Reader for a store file.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    *    * @param ctx the environment provided by the region server    * @param fs fileystem to read from    * @param p path to the file    * @param in {@link FSDataInputStreamWrapper}    * @param size Full size of the file    * @param cacheConf    * @param r original reference file. This will be not null only when reading a split file.    * @param reader the base reader, if not {@code null}, from previous RegionObserver in the chain    * @return a Reader instance to use instead of the base reader if overriding    * default behavior, null otherwise    * @deprecated For Phoenix only, StoreFileReader is not a stable interface.    */
+annotation|@
+name|Deprecated
 specifier|default
 name|StoreFileReader
 name|preStoreFileReaderOpen
@@ -2200,7 +2202,9 @@ return|return
 name|reader
 return|;
 block|}
-comment|/**    * Called after the creation of Reader for a store file.    *    * @param ctx the environment provided by the region server    * @param fs fileystem to read from    * @param p path to the file    * @param in {@link FSDataInputStreamWrapper}    * @param size Full size of the file    * @param cacheConf    * @param r original reference file. This will be not null only when reading a split file.    * @param reader the base reader instance    * @return The reader to use    */
+comment|/**    * Called after the creation of Reader for a store file.    *    * @param ctx the environment provided by the region server    * @param fs fileystem to read from    * @param p path to the file    * @param in {@link FSDataInputStreamWrapper}    * @param size Full size of the file    * @param cacheConf    * @param r original reference file. This will be not null only when reading a split file.    * @param reader the base reader instance    * @return The reader to use    * @deprecated For Phoenix only, StoreFileReader is not a stable interface.    */
+annotation|@
+name|Deprecated
 specifier|default
 name|StoreFileReader
 name|postStoreFileReaderOpen
