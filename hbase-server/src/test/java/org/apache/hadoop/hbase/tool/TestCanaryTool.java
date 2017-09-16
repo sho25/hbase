@@ -630,6 +630,10 @@ block|,
 literal|"-zookeeper"
 block|}
 decl_stmt|;
+name|assertEquals
+argument_list|(
+literal|0
+argument_list|,
 name|ToolRunner
 operator|.
 name|run
@@ -642,6 +646,7 @@ argument_list|,
 name|canary
 argument_list|,
 name|args
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|String
@@ -837,6 +842,10 @@ name|getMethodName
 argument_list|()
 block|}
 decl_stmt|;
+name|assertEquals
+argument_list|(
+literal|0
+argument_list|,
 name|ToolRunner
 operator|.
 name|run
@@ -849,6 +858,7 @@ argument_list|,
 name|canary
 argument_list|,
 name|args
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1158,6 +1168,10 @@ operator|+
 literal|"2"
 block|}
 decl_stmt|;
+name|assertEquals
+argument_list|(
+literal|0
+argument_list|,
 name|ToolRunner
 operator|.
 name|run
@@ -1170,6 +1184,7 @@ argument_list|,
 name|canary
 argument_list|,
 name|args
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|verify
@@ -1429,6 +1444,10 @@ name|MAX_VALUE
 argument_list|)
 block|}
 decl_stmt|;
+name|assertEquals
+argument_list|(
+literal|0
+argument_list|,
 name|ToolRunner
 operator|.
 name|run
@@ -1441,6 +1460,7 @@ argument_list|,
 name|canary
 argument_list|,
 name|args
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|assertNotEquals
@@ -1858,6 +1878,10 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
+name|assertEquals
+argument_list|(
+literal|0
+argument_list|,
 name|ToolRunner
 operator|.
 name|run
@@ -1867,6 +1891,7 @@ argument_list|,
 name|canary
 argument_list|,
 name|args
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|verify
@@ -1963,6 +1988,10 @@ block|,
 literal|"-regionserver"
 block|}
 decl_stmt|;
+name|assertEquals
+argument_list|(
+literal|0
+argument_list|,
 name|ToolRunner
 operator|.
 name|run
@@ -1975,6 +2004,7 @@ argument_list|,
 name|canary
 argument_list|,
 name|args
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|assertEquals
