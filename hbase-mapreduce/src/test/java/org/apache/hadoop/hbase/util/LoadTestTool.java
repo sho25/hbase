@@ -105,16 +105,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|Random
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|concurrent
 operator|.
 name|atomic
@@ -243,20 +233,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HColumnDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HConstants
 import|;
 end_import
@@ -272,6 +248,38 @@ operator|.
 name|hbase
 operator|.
 name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|ColumnFamilyDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|ColumnFamilyDescriptorBuilder
 import|;
 end_import
 
@@ -1490,7 +1498,7 @@ name|tableDesc
 init|=
 name|admin
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|(
 name|tableName
 argument_list|)
@@ -1520,12 +1528,9 @@ range|:
 name|columnFamilies
 control|)
 block|{
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|columnDesc
 init|=
-operator|(
-name|HColumnDescriptor
-operator|)
 name|tableDesc
 operator|.
 name|getColumnFamily
@@ -1540,20 +1545,25 @@ name|columnDesc
 operator|==
 literal|null
 decl_stmt|;
-if|if
-condition|(
+name|ColumnFamilyDescriptorBuilder
+name|columnDescBuilder
+init|=
 name|isNewCf
-condition|)
-block|{
-name|columnDesc
-operator|=
-operator|new
-name|HColumnDescriptor
+condition|?
+name|ColumnFamilyDescriptorBuilder
+operator|.
+name|newBuilder
 argument_list|(
 name|cf
 argument_list|)
-expr_stmt|;
-block|}
+else|:
+name|ColumnFamilyDescriptorBuilder
+operator|.
+name|newBuilder
+argument_list|(
+name|columnDesc
+argument_list|)
+decl_stmt|;
 if|if
 condition|(
 name|bloomType
@@ -1561,7 +1571,7 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|columnDesc
+name|columnDescBuilder
 operator|.
 name|setBloomFilterType
 argument_list|(
@@ -1576,7 +1586,7 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|columnDesc
+name|columnDescBuilder
 operator|.
 name|setCompressionType
 argument_list|(
@@ -1591,7 +1601,7 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|columnDesc
+name|columnDescBuilder
 operator|.
 name|setDataBlockEncoding
 argument_list|(
@@ -1604,7 +1614,7 @@ condition|(
 name|inMemoryCF
 condition|)
 block|{
-name|columnDesc
+name|columnDescBuilder
 operator|.
 name|setInMemory
 argument_list|(
@@ -1641,7 +1651,7 @@ argument_list|(
 name|keyBytes
 argument_list|)
 expr_stmt|;
-name|columnDesc
+name|columnDescBuilder
 operator|.
 name|setEncryptionType
 argument_list|(
@@ -1651,7 +1661,7 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|columnDesc
+name|columnDescBuilder
 operator|.
 name|setEncryptionKey
 argument_list|(
@@ -1690,14 +1700,14 @@ operator|>=
 literal|0
 condition|)
 block|{
-name|columnDesc
+name|columnDescBuilder
 operator|.
 name|setMobEnabled
 argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
-name|columnDesc
+name|columnDescBuilder
 operator|.
 name|setMobThreshold
 argument_list|(
@@ -1716,7 +1726,10 @@ name|addColumnFamily
 argument_list|(
 name|tableName
 argument_list|,
-name|columnDesc
+name|columnDescBuilder
+operator|.
+name|build
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -1728,7 +1741,10 @@ name|modifyColumnFamily
 argument_list|(
 name|tableName
 argument_list|,
-name|columnDesc
+name|columnDescBuilder
+operator|.
+name|build
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -1968,7 +1984,7 @@ name|addOptWithArg
 argument_list|(
 name|NUM_TABLES
 argument_list|,
-literal|"A positive integer number. When a number n is speicfied, load test "
+literal|"A positive integer number. When a number n is specified, load test "
 operator|+
 literal|"tool  will load n table parallely. -tn parameter value becomes "
 operator|+
@@ -4167,7 +4183,7 @@ literal|"Starting to mutate data..."
 argument_list|)
 expr_stmt|;
 comment|// TODO : currently append and increment operations not tested with tags
-comment|// Will update this aftet it is done
+comment|// Will update this after it is done
 name|updaterThreads
 operator|.
 name|start
@@ -5195,6 +5211,7 @@ name|users
 init|=
 operator|new
 name|ArrayList
+argument_list|<>
 argument_list|(
 name|Arrays
 operator|.
