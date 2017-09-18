@@ -85,20 +85,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|MetaMutationAnnotation
 import|;
 end_import
@@ -151,34 +137,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -218,6 +176,22 @@ operator|.
 name|client
 operator|.
 name|Mutation
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -429,6 +403,34 @@ name|SnapshotDescription
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceStability
+import|;
+end_import
+
 begin_comment
 comment|/**  * Defines coprocessor hooks for interacting with operations on the  * {@link org.apache.hadoop.hbase.master.HMaster} process.  *<br><br>  *  * Since most implementations will be interested in only a subset of hooks, this class uses  * 'default' functions to avoid having to add unnecessary overrides. When the functions are  * non-empty, it's simply to satisfy the compiler by returning value of expected (non-void) type.  * It is done in a way that these default definitions act as no-op. So our suggestion to  * implementation would be to not call these 'default' methods from overrides.  *<br><br>  *  *<h3>Exception Handling</h3>  * For all functions, exception handling is done as follows:  *<ul>  *<li>Exceptions of type {@link IOException} are reported back to client.</li>  *<li>For any other kind of exception:  *<ul>  *<li>If the configuration {@link CoprocessorHost#ABORT_ON_ERROR_KEY} is set to true, then  *         the server aborts.</li>  *<li>Otherwise, coprocessor is removed from the server and  *         {@link org.apache.hadoop.hbase.DoNotRetryIOException} is returned to the client.</li>  *</ul>  *</li>  *</ul>  */
 end_comment
@@ -468,7 +470,7 @@ parameter_list|,
 name|TableDescriptor
 name|desc
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regions
 parameter_list|)
@@ -490,7 +492,7 @@ parameter_list|,
 name|TableDescriptor
 name|desc
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regions
 parameter_list|)
@@ -514,7 +516,7 @@ name|TableDescriptor
 name|desc
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regions
 parameter_list|)
@@ -538,7 +540,7 @@ name|TableDescriptor
 name|desc
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regions
 parameter_list|)
@@ -1317,7 +1319,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called prior to moving a given region from one region server to another.    * @param ctx the environment to interact with the framework and master    * @param region the HRegionInfo    * @param srcServer the source ServerName    * @param destServer the destination ServerName    */
+comment|/**    * Called prior to moving a given region from one region server to another.    * @param ctx the environment to interact with the framework and master    * @param region the RegionInfo    * @param srcServer the source ServerName    * @param destServer the destination ServerName    */
 specifier|default
 name|void
 name|preMove
@@ -1330,7 +1332,7 @@ argument_list|>
 name|ctx
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|region
 parameter_list|,
 specifier|final
@@ -1344,7 +1346,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called after the region move has been requested.    * @param ctx the environment to interact with the framework and master    * @param region the HRegionInfo    * @param srcServer the source ServerName    * @param destServer the destination ServerName    */
+comment|/**    * Called after the region move has been requested.    * @param ctx the environment to interact with the framework and master    * @param region the RegionInfo    * @param srcServer the source ServerName    * @param destServer the destination ServerName    */
 specifier|default
 name|void
 name|postMove
@@ -1357,7 +1359,7 @@ argument_list|>
 name|ctx
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|region
 parameter_list|,
 specifier|final
@@ -1384,7 +1386,7 @@ argument_list|>
 name|ctx
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|)
 throws|throws
@@ -1403,7 +1405,7 @@ argument_list|>
 name|ctx
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|)
 throws|throws
@@ -1422,7 +1424,7 @@ argument_list|>
 name|ctx
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|,
 specifier|final
@@ -1445,7 +1447,7 @@ argument_list|>
 name|ctx
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|,
 specifier|final
@@ -1468,7 +1470,7 @@ argument_list|>
 name|ctx
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|)
 throws|throws
@@ -1487,7 +1489,7 @@ argument_list|>
 name|ctx
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|)
 throws|throws
@@ -1640,11 +1642,11 @@ argument_list|>
 name|c
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|regionInfoA
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|regionInfoB
 parameter_list|)
 throws|throws
@@ -1720,7 +1722,7 @@ argument_list|>
 name|ctx
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regionsToMerge
 parameter_list|)
@@ -1740,12 +1742,12 @@ argument_list|>
 name|ctx
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regionsToMerge
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|mergedRegion
 parameter_list|)
 throws|throws
@@ -1764,7 +1766,7 @@ argument_list|>
 name|ctx
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regionsToMerge
 parameter_list|,
@@ -1792,12 +1794,12 @@ argument_list|>
 name|ctx
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regionsToMerge
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|mergedRegion
 parameter_list|)
 throws|throws
@@ -1816,7 +1818,7 @@ argument_list|>
 name|ctx
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regionsToMerge
 parameter_list|)
@@ -2726,7 +2728,7 @@ argument_list|>
 name|ctx
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regionsToMerge
 parameter_list|)
@@ -2746,7 +2748,7 @@ argument_list|>
 name|c
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regionsToMerge
 parameter_list|)
@@ -3301,7 +3303,7 @@ parameter_list|,
 name|TableName
 name|tableName
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regionInfos
 parameter_list|,
@@ -3331,7 +3333,7 @@ parameter_list|,
 name|TableName
 name|tableName
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regionInfos
 parameter_list|,

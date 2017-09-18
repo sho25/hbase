@@ -81,7 +81,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
+name|TableName
 import|;
 end_import
 
@@ -95,7 +95,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -127,7 +129,7 @@ name|hbase
 operator|.
 name|coprocessor
 operator|.
-name|MasterObserver
+name|MasterCoprocessorEnvironment
 import|;
 end_import
 
@@ -143,7 +145,7 @@ name|hbase
 operator|.
 name|coprocessor
 operator|.
-name|MasterCoprocessorEnvironment
+name|MasterObserver
 import|;
 end_import
 
@@ -318,7 +320,7 @@ parameter_list|,
 name|TableDescriptor
 name|desc
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regions
 parameter_list|)
@@ -352,7 +354,7 @@ parameter_list|,
 name|TableDescriptor
 name|desc
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regions
 parameter_list|)

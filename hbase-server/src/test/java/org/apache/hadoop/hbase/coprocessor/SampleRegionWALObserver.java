@@ -127,20 +127,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|KeyValue
 import|;
 end_import
@@ -155,9 +141,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|wal
+name|client
 operator|.
-name|WALEdit
+name|RegionInfo
 import|;
 end_import
 
@@ -174,6 +160,22 @@ operator|.
 name|util
 operator|.
 name|Bytes
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|wal
+operator|.
+name|WALEdit
 import|;
 end_import
 
@@ -422,7 +424,7 @@ name|WALCoprocessorEnvironment
 argument_list|>
 name|env
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|info
 parameter_list|,
 name|WALKey
@@ -453,7 +455,7 @@ name|WALCoprocessorEnvironment
 argument_list|>
 name|env
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|info
 parameter_list|,
 name|WALKey
@@ -689,7 +691,7 @@ name|RegionCoprocessorEnvironment
 argument_list|>
 name|env
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|info
 parameter_list|,
 name|WALKey
@@ -777,7 +779,7 @@ name|RegionCoprocessorEnvironment
 argument_list|>
 name|env
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|info
 parameter_list|,
 name|WALKey

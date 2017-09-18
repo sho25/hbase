@@ -18,18 +18,6 @@ package|;
 end_package
 
 begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|*
-import|;
-end_import
-
-begin_import
 import|import
 name|java
 operator|.
@@ -167,20 +155,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HTableDescriptor
 import|;
 end_import
@@ -244,6 +218,22 @@ operator|.
 name|client
 operator|.
 name|Put
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -337,9 +327,17 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|wal
+name|shaded
 operator|.
-name|WALEdit
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|collect
+operator|.
+name|Lists
 import|;
 end_import
 
@@ -372,6 +370,22 @@ operator|.
 name|util
 operator|.
 name|Bytes
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|wal
+operator|.
+name|WALEdit
 import|;
 end_import
 
@@ -468,26 +482,26 @@ import|;
 end_import
 
 begin_import
-import|import
+import|import static
 name|org
 operator|.
-name|apache
+name|junit
 operator|.
-name|hadoop
+name|Assert
 operator|.
-name|hbase
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
 operator|.
-name|shaded
+name|junit
 operator|.
-name|com
+name|Assert
 operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|collect
-operator|.
-name|Lists
+name|assertNotNull
 import|;
 end_import
 
@@ -1937,7 +1951,7 @@ name|WALCoprocessorEnvironment
 argument_list|>
 name|ctx
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|info
 parameter_list|,
 name|WALKey

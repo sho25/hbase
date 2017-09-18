@@ -18,54 +18,6 @@ package|;
 end_package
 
 begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertFalse
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertNotNull
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertNull
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertTrue
-import|;
-end_import
-
-begin_import
 import|import
 name|java
 operator|.
@@ -402,6 +354,22 @@ operator|.
 name|client
 operator|.
 name|Mutation
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -900,6 +868,54 @@ operator|.
 name|rules
 operator|.
 name|TestName
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertFalse
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertNotNull
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertNull
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
 import|;
 end_import
 
@@ -1714,7 +1730,7 @@ argument_list|>
 name|ctx
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regionsToMerge
 parameter_list|)
@@ -1740,7 +1756,7 @@ argument_list|>
 name|ctx
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regionsToMerge
 parameter_list|)
@@ -1778,7 +1794,7 @@ parameter_list|,
 name|TableDescriptor
 name|desc
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regions
 parameter_list|)
@@ -1816,7 +1832,7 @@ parameter_list|,
 name|TableDescriptor
 name|desc
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regions
 parameter_list|)
@@ -3195,7 +3211,7 @@ name|MasterCoprocessorEnvironment
 argument_list|>
 name|env
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|region
 parameter_list|,
 name|ServerName
@@ -3235,7 +3251,7 @@ name|MasterCoprocessorEnvironment
 argument_list|>
 name|env
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|region
 parameter_list|,
 name|ServerName
@@ -3288,7 +3304,7 @@ argument_list|>
 name|env
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|)
 throws|throws
@@ -3323,7 +3339,7 @@ argument_list|>
 name|env
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|)
 throws|throws
@@ -3370,7 +3386,7 @@ argument_list|>
 name|env
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|,
 specifier|final
@@ -3409,7 +3425,7 @@ argument_list|>
 name|env
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|,
 specifier|final
@@ -3460,7 +3476,7 @@ argument_list|>
 name|env
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|)
 throws|throws
@@ -3484,7 +3500,7 @@ argument_list|>
 name|env
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|)
 throws|throws
@@ -4199,7 +4215,7 @@ name|TableDescriptor
 name|desc
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regions
 parameter_list|)
@@ -4240,7 +4256,7 @@ name|TableDescriptor
 name|desc
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regions
 parameter_list|)
@@ -5724,7 +5740,7 @@ parameter_list|,
 name|TableName
 name|tableName
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regionInfos
 parameter_list|,
@@ -5760,7 +5776,7 @@ parameter_list|,
 name|TableName
 name|tableName
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regionInfos
 parameter_list|,
@@ -5909,11 +5925,11 @@ argument_list|>
 name|c
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|regionInfoA
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|regionInfoB
 parameter_list|)
 throws|throws
@@ -5993,7 +6009,7 @@ argument_list|>
 name|ctx
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regionsToMerge
 parameter_list|)
@@ -6014,12 +6030,12 @@ argument_list|>
 name|c
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regionsToMerge
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|mergedRegion
 parameter_list|)
 throws|throws
@@ -6039,7 +6055,7 @@ argument_list|>
 name|ctx
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regionsToMerge
 parameter_list|,
@@ -6067,12 +6083,12 @@ argument_list|>
 name|ctx
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regionsToMerge
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|mergedRegion
 parameter_list|)
 throws|throws
@@ -6092,7 +6108,7 @@ argument_list|>
 name|ctx
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regionsToMerge
 parameter_list|)

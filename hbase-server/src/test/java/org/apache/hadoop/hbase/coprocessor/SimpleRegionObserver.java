@@ -18,54 +18,6 @@ package|;
 end_package
 
 begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertArrayEquals
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertEquals
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertNotNull
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertTrue
-import|;
-end_import
-
-begin_import
 import|import
 name|java
 operator|.
@@ -227,20 +179,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|client
 operator|.
 name|Append
@@ -340,6 +278,22 @@ operator|.
 name|client
 operator|.
 name|Put
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -631,11 +585,17 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
+name|shaded
 operator|.
-name|compactions
+name|com
 operator|.
-name|CompactionRequest
+name|google
+operator|.
+name|common
+operator|.
+name|collect
+operator|.
+name|ImmutableList
 import|;
 end_import
 
@@ -704,26 +664,50 @@ import|;
 end_import
 
 begin_import
-import|import
+import|import static
 name|org
 operator|.
-name|apache
+name|junit
 operator|.
-name|hadoop
+name|Assert
 operator|.
-name|hbase
+name|assertArrayEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
 operator|.
-name|shaded
+name|junit
 operator|.
-name|com
+name|Assert
 operator|.
-name|google
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
 operator|.
-name|common
+name|junit
 operator|.
-name|collect
+name|Assert
 operator|.
-name|ImmutableList
+name|assertNotNull
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
 import|;
 end_import
 
@@ -4204,7 +4188,7 @@ name|RegionCoprocessorEnvironment
 argument_list|>
 name|env
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|info
 parameter_list|,
 name|Path
@@ -4233,7 +4217,7 @@ name|RegionCoprocessorEnvironment
 argument_list|>
 name|env
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|info
 parameter_list|,
 name|Path
@@ -4262,7 +4246,7 @@ name|RegionCoprocessorEnvironment
 argument_list|>
 name|env
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|info
 parameter_list|,
 name|WALKey
@@ -4323,7 +4307,7 @@ name|RegionCoprocessorEnvironment
 argument_list|>
 name|env
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|info
 parameter_list|,
 name|WALKey
