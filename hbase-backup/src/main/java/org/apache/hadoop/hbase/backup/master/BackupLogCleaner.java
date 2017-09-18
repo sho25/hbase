@@ -488,9 +488,17 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
+if|if
+condition|(
 name|LOG
 operator|.
-name|warn
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
 argument_list|(
 literal|"Backup is not enabled. Check your "
 operator|+
@@ -501,6 +509,7 @@ operator|+
 literal|" setting"
 argument_list|)
 expr_stmt|;
+block|}
 return|return
 name|files
 return|;
@@ -691,6 +700,13 @@ name|config
 parameter_list|)
 block|{
 comment|// If backup is disabled, keep all members null
+name|super
+operator|.
+name|setConf
+argument_list|(
+name|config
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 operator|!
@@ -715,15 +731,7 @@ argument_list|(
 literal|"Backup is disabled - allowing all wals to be deleted"
 argument_list|)
 expr_stmt|;
-return|return;
 block|}
-name|super
-operator|.
-name|setConf
-argument_list|(
-name|config
-argument_list|)
-expr_stmt|;
 block|}
 annotation|@
 name|Override
