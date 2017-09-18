@@ -2497,7 +2497,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|Cell
+name|ExtendedCell
 name|deepClone
 parameter_list|()
 block|{
@@ -3441,7 +3441,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|Cell
+name|ExtendedCell
 name|deepClone
 parameter_list|()
 block|{
