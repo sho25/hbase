@@ -1584,7 +1584,7 @@ name|Short
 operator|.
 name|MAX_VALUE
 decl_stmt|;
-comment|/**    * Timestamp to use when we want to refer to the latest cell.    * This is the timestamp sent by clients when no timestamp is specified on    * commit.    */
+comment|/**    * Timestamp to use when we want to refer to the latest cell.    *    * On client side, this is the timestamp set by default when no timestamp is specified, to refer to the latest.    * On server side, this acts as a notation.    * (1) For a cell of Put, which has this notation,    *     its timestamp will be replaced with server's current time.    * (2) For a cell of Delete, which has this notation,    *     A. If the cell is of {@link KeyValue.Type#Delete}, HBase issues a Get operation firstly.    *        a. When the count of cell it gets is less than the count of cell to delete,    *           the timestamp of Delete cell will be replaced with server's current time.    *        b. When the count of cell it gets is equal to the count of cell to delete,    *           the timestamp of Delete cell will be replaced with the latest timestamp of cell it gets.    *       (c. It is invalid and an exception will be thrown,    *           if the count of cell it gets is greater than the count of cell to delete,    *           as the max version of Get is set to the count of cell to delete.)    *     B. If the cell is of other Delete types, like {@link KeyValue.Type#DeleteFamilyVersion},    *        {@link KeyValue.Type#DeleteColumn}, or {@link KeyValue.Type#DeleteFamily},    *        the timestamp of Delete cell will be replaced with server's current time.    *    * So that is why it is named as "latest" but assigned as the max value of Long.    */
 specifier|public
 specifier|static
 specifier|final
