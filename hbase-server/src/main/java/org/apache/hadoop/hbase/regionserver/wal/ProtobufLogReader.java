@@ -303,7 +303,7 @@ name|generated
 operator|.
 name|WALProtos
 operator|.
-name|WALEdit
+name|WALKey
 import|;
 end_import
 
@@ -1746,12 +1746,12 @@ return|return
 literal|false
 return|;
 block|}
-name|WALEdit
+name|WALKey
 operator|.
 name|Builder
 name|builder
 init|=
-name|WALEdit
+name|WALKey
 operator|.
 name|newBuilder
 argument_list|()
@@ -1957,7 +1957,7 @@ argument_list|()
 argument_list|)
 throw|;
 block|}
-name|WALEdit
+name|WALKey
 name|walKey
 init|=
 name|builder

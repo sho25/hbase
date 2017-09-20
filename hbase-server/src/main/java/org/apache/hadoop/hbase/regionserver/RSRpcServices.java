@@ -5171,7 +5171,7 @@ name|rm
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Mutate a list of rows atomically.    *    * @param region    * @param actions    * @param cellScanner if non-null, the mutation data -- the Cell content.    * @param row    * @param family    * @param qualifier    * @param op    * @param comparator @throws IOException    */
+comment|/**    * Mutate a list of rows atomically.    *    * @param region    * @param actions    * @param cellScanner if non-null, the mutation data -- the Cell content.    * @param row    * @param family    * @param qualifier    * @param compareOp    * @param comparator @throws IOException    */
 specifier|private
 name|boolean
 name|checkAndRowMutate
@@ -5489,7 +5489,7 @@ name|TRUE
 argument_list|)
 return|;
 block|}
-comment|/**    * Execute an append mutation.    * @return result to return to client if default operation should be    * bypassed as indicated by RegionObserver, null otherwise    * @throws IOException    */
+comment|/**    * Execute an append mutation.    *    * @param region    * @param m    * @param cellScanner    * @return result to return to client if default operation should be    * bypassed as indicated by RegionObserver, null otherwise    * @throws IOException    */
 specifier|private
 name|Result
 name|append
@@ -13015,7 +13015,7 @@ argument_list|(
 literal|0
 argument_list|)
 operator|.
-name|getEdit
+name|getKey
 argument_list|()
 operator|.
 name|getEncodedRegionName
@@ -13115,7 +13115,7 @@ name|equals
 argument_list|(
 name|entry
 operator|.
-name|getEdit
+name|getKey
 argument_list|()
 operator|.
 name|getEncodedRegionName
@@ -13140,7 +13140,7 @@ literal|" , other region:"
 operator|+
 name|entry
 operator|.
-name|getEdit
+name|getKey
 argument_list|()
 operator|.
 name|getEncodedRegionName
@@ -13164,7 +13164,7 @@ name|nonceGroup
 init|=
 name|entry
 operator|.
-name|getEdit
+name|getKey
 argument_list|()
 operator|.
 name|hasNonceGroup
@@ -13172,7 +13172,7 @@ argument_list|()
 condition|?
 name|entry
 operator|.
-name|getEdit
+name|getKey
 argument_list|()
 operator|.
 name|getNonceGroup
@@ -13187,7 +13187,7 @@ name|nonce
 init|=
 name|entry
 operator|.
-name|getEdit
+name|getKey
 argument_list|()
 operator|.
 name|hasNonce
@@ -13195,7 +13195,7 @@ argument_list|()
 condition|?
 name|entry
 operator|.
-name|getEdit
+name|getKey
 argument_list|()
 operator|.
 name|getNonce
@@ -13217,7 +13217,7 @@ name|nonce
 argument_list|,
 name|entry
 operator|.
-name|getEdit
+name|getKey
 argument_list|()
 operator|.
 name|getWriteTime
@@ -13338,7 +13338,7 @@ init|=
 operator|(
 name|entry
 operator|.
-name|getEdit
+name|getKey
 argument_list|()
 operator|.
 name|hasOrigSequenceNumber
@@ -13347,7 +13347,7 @@ operator|)
 condition|?
 name|entry
 operator|.
-name|getEdit
+name|getKey
 argument_list|()
 operator|.
 name|getOrigSequenceNumber
@@ -13355,7 +13355,7 @@ argument_list|()
 else|:
 name|entry
 operator|.
-name|getEdit
+name|getKey
 argument_list|()
 operator|.
 name|getLogSequenceNumber
