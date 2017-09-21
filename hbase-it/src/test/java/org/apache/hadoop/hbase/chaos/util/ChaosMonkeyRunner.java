@@ -353,13 +353,6 @@ name|familyName
 init|=
 literal|"ChaosMonkeyRunner.familyName"
 decl_stmt|;
-specifier|private
-specifier|volatile
-name|boolean
-name|stop
-init|=
-literal|false
-decl_stmt|;
 annotation|@
 name|Override
 specifier|public
@@ -573,18 +566,48 @@ expr_stmt|;
 while|while
 condition|(
 operator|!
-name|stop
+name|monkey
+operator|.
+name|isStopped
+argument_list|()
 condition|)
 block|{
 comment|// loop here until got killed
+try|try
+block|{
+comment|// TODO: make sleep time configurable
 name|Thread
 operator|.
 name|sleep
 argument_list|(
-literal|10000
+literal|5000
 argument_list|)
 expr_stmt|;
+comment|// 5 seconds
 block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|ite
+parameter_list|)
+block|{
+comment|// Chaos monkeys got interrupted.
+comment|// It is ok to stop monkeys and exit.
+name|monkey
+operator|.
+name|stop
+argument_list|(
+literal|"Interruption occurred."
+argument_list|)
+expr_stmt|;
+break|break;
+block|}
+block|}
+name|monkey
+operator|.
+name|waitForStop
+argument_list|()
+expr_stmt|;
 return|return
 literal|0
 return|;
@@ -594,10 +617,21 @@ name|void
 name|stopRunner
 parameter_list|()
 block|{
+if|if
+condition|(
+name|monkey
+operator|!=
+literal|null
+condition|)
+block|{
+name|monkey
+operator|.
 name|stop
-operator|=
-literal|true
+argument_list|(
+literal|"Program Control"
+argument_list|)
 expr_stmt|;
+block|}
 block|}
 specifier|public
 name|void
