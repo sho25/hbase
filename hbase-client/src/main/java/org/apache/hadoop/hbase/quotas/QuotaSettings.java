@@ -191,6 +191,10 @@ name|namespace
 return|;
 block|}
 comment|/**    * Convert a QuotaSettings to a protocol buffer SetQuotaRequest.    * This is used internally by the Admin client to serialize the quota settings    * and send them to the master.    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 specifier|static
 name|SetQuotaRequest
@@ -294,6 +298,10 @@ argument_list|()
 return|;
 block|}
 comment|/**    * Called by toSetQuotaRequestProto()    * the subclass should implement this method to set the specific SetQuotaRequest    * properties.    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|protected
 specifier|abstract
 name|void
