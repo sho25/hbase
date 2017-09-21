@@ -837,6 +837,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Convert from CPEP protobuf 2.5 to internal protobuf 3.3.    * @throws org.apache.hadoop.hbase.shaded.com.google.protobuf.InvalidProtocolBufferException    */
 name|org
 operator|.
 name|apache

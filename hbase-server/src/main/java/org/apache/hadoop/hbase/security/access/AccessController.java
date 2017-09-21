@@ -12980,7 +12980,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Authorization check for    * SecureBulkLoadProtocol.prepareBulkLoad()    * @param ctx the context    * @param request the request    * @throws IOException    */
+comment|/**    * Authorization check for    * SecureBulkLoadProtocol.prepareBulkLoad()    * @param ctx the context    * @throws IOException    */
 annotation|@
 name|Override
 specifier|public
@@ -12992,9 +12992,6 @@ argument_list|<
 name|RegionCoprocessorEnvironment
 argument_list|>
 name|ctx
-parameter_list|,
-name|PrepareBulkLoadRequest
-name|request
 parameter_list|)
 throws|throws
 name|IOException
@@ -13028,7 +13025,7 @@ name|CREATE
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Authorization security check for    * SecureBulkLoadProtocol.cleanupBulkLoad()    * @param ctx the context    * @param request the request    * @throws IOException    */
+comment|/**    * Authorization security check for    * SecureBulkLoadProtocol.cleanupBulkLoad()    * @param ctx the context    * @throws IOException    */
 annotation|@
 name|Override
 specifier|public
@@ -13040,9 +13037,6 @@ argument_list|<
 name|RegionCoprocessorEnvironment
 argument_list|>
 name|ctx
-parameter_list|,
-name|CleanupBulkLoadRequest
-name|request
 parameter_list|)
 throws|throws
 name|IOException
