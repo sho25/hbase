@@ -4974,11 +4974,6 @@ operator|.
 name|CATALOG_FAMILY
 argument_list|)
 expr_stmt|;
-name|s
-operator|.
-name|setOneRowLimit
-argument_list|()
-expr_stmt|;
 if|if
 condition|(
 name|this
@@ -5123,6 +5118,11 @@ decl_stmt|;
 name|s
 operator|.
 name|resetMvccReadPoint
+argument_list|()
+expr_stmt|;
+name|s
+operator|.
+name|setOneRowLimit
 argument_list|()
 expr_stmt|;
 try|try
