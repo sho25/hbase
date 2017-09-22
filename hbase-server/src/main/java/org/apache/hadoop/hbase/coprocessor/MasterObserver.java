@@ -353,9 +353,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|replication
+name|quotas
 operator|.
-name|ReplicationPeerConfig
+name|GlobalQuotaSettings
 import|;
 end_import
 
@@ -369,15 +369,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|shaded
+name|replication
 operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|QuotaProtos
-operator|.
-name|Quotas
+name|ReplicationPeerConfig
 import|;
 end_import
 
@@ -2469,7 +2463,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called before the quota for the user is stored.    * @param ctx the environment to interact with the framework and master    * @param userName the name of user    * @param quotas the quota settings    */
+comment|/**    * Called before the quota for the user is stored.    * @param ctx the environment to interact with the framework and master    * @param userName the name of user    * @param quotas the current quota for the user    */
 specifier|default
 name|void
 name|preSetUserQuota
@@ -2486,13 +2480,13 @@ name|String
 name|userName
 parameter_list|,
 specifier|final
-name|Quotas
+name|GlobalQuotaSettings
 name|quotas
 parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called after the quota for the user is stored.    * @param ctx the environment to interact with the framework and master    * @param userName the name of user    * @param quotas the quota settings    */
+comment|/**    * Called after the quota for the user is stored.    * @param ctx the environment to interact with the framework and master    * @param userName the name of user    * @param quotas the resulting quota for the user    */
 specifier|default
 name|void
 name|postSetUserQuota
@@ -2509,13 +2503,13 @@ name|String
 name|userName
 parameter_list|,
 specifier|final
-name|Quotas
+name|GlobalQuotaSettings
 name|quotas
 parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called before the quota for the user on the specified table is stored.    * @param ctx the environment to interact with the framework and master    * @param userName the name of user    * @param tableName the name of the table    * @param quotas the quota settings    */
+comment|/**    * Called before the quota for the user on the specified table is stored.    * @param ctx the environment to interact with the framework and master    * @param userName the name of user    * @param tableName the name of the table    * @param quotas the current quota for the user on the table    */
 specifier|default
 name|void
 name|preSetUserQuota
@@ -2536,13 +2530,13 @@ name|TableName
 name|tableName
 parameter_list|,
 specifier|final
-name|Quotas
+name|GlobalQuotaSettings
 name|quotas
 parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called after the quota for the user on the specified table is stored.    * @param ctx the environment to interact with the framework and master    * @param userName the name of user    * @param tableName the name of the table    * @param quotas the quota settings    */
+comment|/**    * Called after the quota for the user on the specified table is stored.    * @param ctx the environment to interact with the framework and master    * @param userName the name of user    * @param tableName the name of the table    * @param quotas the resulting quota for the user on the table    */
 specifier|default
 name|void
 name|postSetUserQuota
@@ -2563,13 +2557,13 @@ name|TableName
 name|tableName
 parameter_list|,
 specifier|final
-name|Quotas
+name|GlobalQuotaSettings
 name|quotas
 parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called before the quota for the user on the specified namespace is stored.    * @param ctx the environment to interact with the framework and master    * @param userName the name of user    * @param namespace the name of the namespace    * @param quotas the quota settings    */
+comment|/**    * Called before the quota for the user on the specified namespace is stored.    * @param ctx the environment to interact with the framework and master    * @param userName the name of user    * @param namespace the name of the namespace    * @param quotas the current quota for the user on the namespace    */
 specifier|default
 name|void
 name|preSetUserQuota
@@ -2590,13 +2584,13 @@ name|String
 name|namespace
 parameter_list|,
 specifier|final
-name|Quotas
+name|GlobalQuotaSettings
 name|quotas
 parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called after the quota for the user on the specified namespace is stored.    * @param ctx the environment to interact with the framework and master    * @param userName the name of user    * @param namespace the name of the namespace    * @param quotas the quota settings    */
+comment|/**    * Called after the quota for the user on the specified namespace is stored.    * @param ctx the environment to interact with the framework and master    * @param userName the name of user    * @param namespace the name of the namespace    * @param quotas the resulting quota for the user on the namespace    */
 specifier|default
 name|void
 name|postSetUserQuota
@@ -2617,13 +2611,13 @@ name|String
 name|namespace
 parameter_list|,
 specifier|final
-name|Quotas
+name|GlobalQuotaSettings
 name|quotas
 parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called before the quota for the table is stored.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param quotas the quota settings    */
+comment|/**    * Called before the quota for the table is stored.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param quotas the current quota for the table    */
 specifier|default
 name|void
 name|preSetTableQuota
@@ -2640,13 +2634,13 @@ name|TableName
 name|tableName
 parameter_list|,
 specifier|final
-name|Quotas
+name|GlobalQuotaSettings
 name|quotas
 parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called after the quota for the table is stored.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param quotas the quota settings    */
+comment|/**    * Called after the quota for the table is stored.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param quotas the resulting quota for the table    */
 specifier|default
 name|void
 name|postSetTableQuota
@@ -2663,13 +2657,13 @@ name|TableName
 name|tableName
 parameter_list|,
 specifier|final
-name|Quotas
+name|GlobalQuotaSettings
 name|quotas
 parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called before the quota for the namespace is stored.    * @param ctx the environment to interact with the framework and master    * @param namespace the name of the namespace    * @param quotas the quota settings    */
+comment|/**    * Called before the quota for the namespace is stored.    * @param ctx the environment to interact with the framework and master    * @param namespace the name of the namespace    * @param quotas the current quota for the namespace    */
 specifier|default
 name|void
 name|preSetNamespaceQuota
@@ -2686,13 +2680,13 @@ name|String
 name|namespace
 parameter_list|,
 specifier|final
-name|Quotas
+name|GlobalQuotaSettings
 name|quotas
 parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called after the quota for the namespace is stored.    * @param ctx the environment to interact with the framework and master    * @param namespace the name of the namespace    * @param quotas the quota settings    */
+comment|/**    * Called after the quota for the namespace is stored.    * @param ctx the environment to interact with the framework and master    * @param namespace the name of the namespace    * @param quotas the resulting quota for the namespace    */
 specifier|default
 name|void
 name|postSetNamespaceQuota
@@ -2709,7 +2703,7 @@ name|String
 name|namespace
 parameter_list|,
 specifier|final
-name|Quotas
+name|GlobalQuotaSettings
 name|quotas
 parameter_list|)
 throws|throws
