@@ -1019,7 +1019,7 @@ argument_list|(
 name|writer
 argument_list|)
 expr_stmt|;
-name|StoreFile
+name|HStoreFile
 name|sf
 init|=
 operator|new
@@ -1396,7 +1396,7 @@ name|writer2
 block|}
 argument_list|)
 expr_stmt|;
-name|StoreFile
+name|HStoreFile
 name|sf1
 init|=
 operator|new
@@ -1423,7 +1423,7 @@ argument_list|,
 literal|true
 argument_list|)
 decl_stmt|;
-name|StoreFile
+name|HStoreFile
 name|sf2
 init|=
 operator|new
@@ -2002,7 +2002,7 @@ name|writer2
 block|}
 argument_list|)
 expr_stmt|;
-name|StoreFile
+name|HStoreFile
 name|sf1
 init|=
 operator|new
@@ -2029,7 +2029,7 @@ argument_list|,
 literal|true
 argument_list|)
 decl_stmt|;
-name|StoreFile
+name|HStoreFile
 name|sf2
 init|=
 operator|new
@@ -3169,10 +3169,10 @@ parameter_list|(
 name|MemStore
 name|memstore
 parameter_list|,
-name|StoreFile
+name|HStoreFile
 name|sf1
 parameter_list|,
-name|StoreFile
+name|HStoreFile
 name|sf2
 parameter_list|,
 name|Scan
@@ -3617,10 +3617,10 @@ parameter_list|(
 name|MemStore
 name|memstore
 parameter_list|,
-name|StoreFile
+name|HStoreFile
 name|sf1
 parameter_list|,
-name|StoreFile
+name|HStoreFile
 name|sf2
 parameter_list|,
 name|byte
@@ -3681,10 +3681,10 @@ parameter_list|(
 name|MemStore
 name|memstore
 parameter_list|,
-name|StoreFile
+name|HStoreFile
 name|sf1
 parameter_list|,
-name|StoreFile
+name|HStoreFile
 name|sf2
 parameter_list|,
 name|byte

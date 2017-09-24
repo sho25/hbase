@@ -53,6 +53,42 @@ begin_import
 import|import static
 name|org
 operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|HStoreFile
+operator|.
+name|BULKLOAD_TIME_KEY
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|HStoreFile
+operator|.
+name|MOB_CELLS_COUNT
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
 name|junit
 operator|.
 name|Assert
@@ -2341,7 +2377,7 @@ range|:
 name|files
 control|)
 block|{
-name|StoreFile
+name|HStoreFile
 name|sf
 init|=
 operator|new
@@ -2396,8 +2432,6 @@ name|fileInfo
 operator|.
 name|get
 argument_list|(
-name|StoreFile
-operator|.
 name|MOB_CELLS_COUNT
 argument_list|)
 decl_stmt|;
@@ -2606,8 +2640,6 @@ name|writer
 operator|.
 name|appendFileInfo
 argument_list|(
-name|StoreFile
-operator|.
 name|BULKLOAD_TIME_KEY
 argument_list|,
 name|Bytes
@@ -3060,7 +3092,7 @@ argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|sfs
 init|=
@@ -3102,7 +3134,7 @@ name|mobDirPath
 argument_list|)
 control|)
 block|{
-name|StoreFile
+name|HStoreFile
 name|sf
 init|=
 operator|new

@@ -182,7 +182,7 @@ parameter_list|,
 name|int
 name|compactionKVMax
 parameter_list|,
-name|Store
+name|HStore
 name|store
 parameter_list|)
 throws|throws
@@ -405,7 +405,7 @@ specifier|private
 name|StoreScanner
 name|createScanner
 parameter_list|(
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|List

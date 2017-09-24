@@ -867,9 +867,6 @@ block|}
 name|HStore
 name|store
 init|=
-operator|(
-name|HStore
-operator|)
 name|region
 operator|.
 name|getStore
@@ -889,7 +886,7 @@ argument_list|)
 expr_stmt|;
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|storefiles
 init|=
@@ -901,7 +898,7 @@ decl_stmt|;
 comment|// None of the files should be in compacted state.
 for|for
 control|(
-name|StoreFile
+name|HStoreFile
 name|file
 range|:
 name|storefiles
@@ -929,7 +926,7 @@ argument_list|()
 decl_stmt|;
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|initialCompactedFiles
 init|=
@@ -961,7 +958,7 @@ expr_stmt|;
 comment|// all prior store files should now be compacted
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|compactedFilesPreClean
 init|=
@@ -1036,11 +1033,11 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
-name|StoreFile
+name|HStoreFile
 name|errStoreFile
 init|=
 operator|new
-name|MockStoreFile
+name|MockHStoreFile
 argument_list|(
 name|testUtil
 argument_list|,
@@ -1068,9 +1065,6 @@ argument_list|)
 argument_list|,
 name|ImmutableList
 operator|.
-expr|<
-name|StoreFile
-operator|>
 name|of
 argument_list|()
 argument_list|)
@@ -1084,7 +1078,7 @@ expr_stmt|;
 comment|// make sure the compacted files are cleared
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|compactedFilesPostClean
 init|=
@@ -1105,7 +1099,7 @@ argument_list|)
 expr_stmt|;
 for|for
 control|(
-name|StoreFile
+name|HStoreFile
 name|origFile
 range|:
 name|compactedFilesPreClean

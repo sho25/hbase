@@ -155,11 +155,13 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|regionserver
+operator|.
+name|HStoreFile
 import|;
 end_import
 
@@ -192,22 +194,6 @@ operator|.
 name|regionserver
 operator|.
 name|StoreConfigInformation
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|StoreFile
 import|;
 end_import
 
@@ -272,6 +258,20 @@ operator|.
 name|util
 operator|.
 name|ReflectionUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -583,24 +583,22 @@ specifier|public
 name|boolean
 name|needsCompaction
 parameter_list|(
-specifier|final
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|storeFiles
 parameter_list|,
-specifier|final
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|filesCompacting
 parameter_list|)
 block|{
 name|ArrayList
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|candidates
 init|=
@@ -655,10 +653,9 @@ specifier|public
 name|boolean
 name|shouldPerformMajorCompaction
 parameter_list|(
-specifier|final
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|filesToCompact
 parameter_list|)
@@ -823,7 +820,7 @@ index|]
 decl_stmt|;
 for|for
 control|(
-name|StoreFile
+name|HStoreFile
 name|file
 range|:
 name|filesToCompact
@@ -1153,7 +1150,7 @@ name|createCompactionRequest
 parameter_list|(
 name|ArrayList
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|candidateSelection
 parameter_list|,
@@ -1216,7 +1213,7 @@ name|selectMajorCompaction
 parameter_list|(
 name|ArrayList
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|candidateSelection
 parameter_list|)
@@ -1253,7 +1250,7 @@ name|selectMinorCompaction
 parameter_list|(
 name|ArrayList
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|candidateSelection
 parameter_list|,
@@ -1291,7 +1288,7 @@ name|List
 argument_list|<
 name|Pair
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|,
 name|Long
 argument_list|>
@@ -1317,7 +1314,7 @@ name|MIN_VALUE
 decl_stmt|;
 for|for
 control|(
-name|StoreFile
+name|HStoreFile
 name|storeFile
 range|:
 name|candidateSelection
@@ -1388,7 +1385,7 @@ name|PeekingIterator
 argument_list|<
 name|Pair
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|,
 name|Long
 argument_list|>
@@ -1471,7 +1468,7 @@ block|{
 comment|// The file is within the target window
 name|ArrayList
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|fileList
 init|=
@@ -1588,9 +1585,6 @@ name|CompactionRequest
 argument_list|(
 name|Collections
 operator|.
-expr|<
-name|StoreFile
-operator|>
 name|emptyList
 argument_list|()
 argument_list|)
@@ -1602,7 +1596,7 @@ name|generateCompactionRequest
 parameter_list|(
 name|ArrayList
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|storeFiles
 parameter_list|,
@@ -1640,7 +1634,7 @@ argument_list|)
 expr_stmt|;
 name|ArrayList
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|storeFileSelection
 init|=
@@ -1734,7 +1728,7 @@ name|getCompactBoundariesForMajor
 parameter_list|(
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|filesToCompact
 parameter_list|,

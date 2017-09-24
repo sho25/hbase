@@ -109,20 +109,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -179,7 +165,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
+name|StoreFileScanner
 import|;
 end_import
 
@@ -189,13 +175,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|yetus
 operator|.
-name|hbase
+name|audience
 operator|.
-name|regionserver
-operator|.
-name|StoreFileScanner
+name|InterfaceAudience
 import|;
 end_import
 
@@ -213,7 +197,7 @@ class|class
 name|MobFile
 block|{
 specifier|private
-name|StoreFile
+name|HStoreFile
 name|sf
 decl_stmt|;
 comment|// internal use only for sub classes
@@ -224,7 +208,7 @@ block|{   }
 specifier|protected
 name|MobFile
 parameter_list|(
-name|StoreFile
+name|HStoreFile
 name|sf
 parameter_list|)
 block|{
@@ -245,7 +229,7 @@ name|IOException
 block|{
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|sfs
 init|=
@@ -353,7 +337,7 @@ literal|null
 decl_stmt|;
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|sfs
 init|=
@@ -499,7 +483,7 @@ condition|)
 block|{
 name|sf
 operator|.
-name|closeReader
+name|closeStoreFile
 argument_list|(
 literal|false
 argument_list|)
@@ -533,7 +517,7 @@ name|IOException
 block|{
 comment|// XXX: primaryReplica is only used for constructing the key of block cache so it is not a
 comment|// critical problem if we pass the wrong value, so here we always pass true. Need to fix later.
-name|StoreFile
+name|HStoreFile
 name|sf
 init|=
 operator|new

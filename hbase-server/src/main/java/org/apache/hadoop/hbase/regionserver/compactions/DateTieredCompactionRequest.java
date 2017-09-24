@@ -61,7 +61,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
+name|HStoreFile
 import|;
 end_import
 
@@ -105,7 +105,7 @@ name|DateTieredCompactionRequest
 parameter_list|(
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|files
 parameter_list|,

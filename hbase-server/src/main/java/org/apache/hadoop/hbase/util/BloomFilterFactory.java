@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/*  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -90,20 +90,6 @@ operator|.
 name|hbase
 operator|.
 name|CellComparator
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
 import|;
 end_import
 
@@ -213,8 +199,22 @@ name|BloomType
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
-comment|/**  * Handles Bloom filter initialization based on configuration and serialized  * metadata in the reader and writer of {@link org.apache.hadoop.hbase.regionserver.StoreFile}.  */
+comment|/**  * Handles Bloom filter initialization based on configuration and serialized metadata in the reader  * and writer of {@link org.apache.hadoop.hbase.regionserver.HStoreFile}.  */
 end_comment
 
 begin_class
@@ -506,7 +506,7 @@ literal|1000
 argument_list|)
 return|;
 block|}
-comment|/**    * Creates a new general (Row or RowCol) Bloom filter at the time of    * {@link org.apache.hadoop.hbase.regionserver.StoreFile} writing.    *    * @param conf    * @param cacheConf    * @param bloomType    * @param maxKeys an estimate of the number of keys we expect to insert.    *        Irrelevant if compound Bloom filters are enabled.    * @param writer the HFile writer    * @return the new Bloom filter, or null in case Bloom filters are disabled    *         or when failed to create one.    */
+comment|/**    * Creates a new general (Row or RowCol) Bloom filter at the time of    * {@link org.apache.hadoop.hbase.regionserver.HStoreFile} writing.    *    * @param conf    * @param cacheConf    * @param bloomType    * @param maxKeys an estimate of the number of keys we expect to insert.    *        Irrelevant if compound Bloom filters are enabled.    * @param writer the HFile writer    * @return the new Bloom filter, or null in case Bloom filters are disabled    *         or when failed to create one.    */
 specifier|public
 specifier|static
 name|BloomFilterWriter
@@ -693,7 +693,7 @@ return|return
 name|bloomWriter
 return|;
 block|}
-comment|/**    * Creates a new Delete Family Bloom filter at the time of    * {@link org.apache.hadoop.hbase.regionserver.StoreFile} writing.    * @param conf    * @param cacheConf    * @param maxKeys an estimate of the number of keys we expect to insert.    *        Irrelevant if compound Bloom filters are enabled.    * @param writer the HFile writer    * @return the new Bloom filter, or null in case Bloom filters are disabled    *         or when failed to create one.    */
+comment|/**    * Creates a new Delete Family Bloom filter at the time of    * {@link org.apache.hadoop.hbase.regionserver.HStoreFile} writing.    * @param conf    * @param cacheConf    * @param maxKeys an estimate of the number of keys we expect to insert.    *        Irrelevant if compound Bloom filters are enabled.    * @param writer the HFile writer    * @return the new Bloom filter, or null in case Bloom filters are disabled    *         or when failed to create one.    */
 specifier|public
 specifier|static
 name|BloomFilterWriter

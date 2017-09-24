@@ -1301,6 +1301,9 @@ name|reader
 operator|.
 name|getFirstKey
 argument_list|()
+operator|.
+name|get
+argument_list|()
 operator|)
 operator|.
 name|getKey
@@ -1313,6 +1316,9 @@ operator|)
 name|reader
 operator|.
 name|getLastKey
+argument_list|()
+operator|.
+name|get
 argument_list|()
 operator|)
 operator|.

@@ -105,20 +105,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -159,7 +145,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|InternalScanner
+name|HStore
 import|;
 end_import
 
@@ -175,7 +161,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|Store
+name|InternalScanner
 import|;
 end_import
 
@@ -208,6 +194,20 @@ operator|.
 name|regionserver
 operator|.
 name|StoreScanner
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -256,7 +256,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|Store
+name|HStore
 name|store
 parameter_list|)
 block|{

@@ -21,6 +21,24 @@ begin_import
 import|import static
 name|org
 operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|HStoreFile
+operator|.
+name|BLOOM_FILTER_TYPE_KEY
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
 name|junit
 operator|.
 name|Assert
@@ -928,22 +946,6 @@ operator|.
 name|regionserver
 operator|.
 name|Store
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|StoreFile
 import|;
 end_import
 
@@ -7787,8 +7789,6 @@ name|fileInfo
 operator|.
 name|get
 argument_list|(
-name|StoreFile
-operator|.
 name|BLOOM_FILTER_TYPE_KEY
 argument_list|)
 decl_stmt|;

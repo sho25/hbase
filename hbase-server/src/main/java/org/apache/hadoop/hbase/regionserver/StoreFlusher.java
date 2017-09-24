@@ -143,20 +143,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -203,6 +189,20 @@ name|ThroughputController
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * Store flusher interface. Turns a snapshot of memstore into a set of store files (usually one).  * Custom implementation can be provided.  */
 end_comment
@@ -221,7 +221,7 @@ name|Configuration
 name|conf
 decl_stmt|;
 specifier|protected
-name|Store
+name|HStore
 name|store
 decl_stmt|;
 specifier|public
@@ -230,7 +230,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|Store
+name|HStore
 name|store
 parameter_list|)
 block|{

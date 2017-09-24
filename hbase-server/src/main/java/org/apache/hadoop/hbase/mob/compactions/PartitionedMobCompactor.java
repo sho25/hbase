@@ -20,6 +20,60 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|HStoreFile
+operator|.
+name|BULKLOAD_TIME_KEY
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|HStoreFile
+operator|.
+name|MOB_CELLS_COUNT
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|HStoreFile
+operator|.
+name|SKIP_RESET_SEQ_ID
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -390,20 +444,6 @@ operator|.
 name|hbase
 operator|.
 name|TagUtil
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
 import|;
 end_import
 
@@ -833,22 +873,6 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
 name|StoreFileInfo
 import|;
 end_import
@@ -978,6 +1002,20 @@ operator|.
 name|util
 operator|.
 name|Pair
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -1794,6 +1832,9 @@ name|reader
 operator|.
 name|getFirstRowKey
 argument_list|()
+operator|.
+name|get
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|delId
@@ -1803,6 +1844,9 @@ argument_list|(
 name|reader
 operator|.
 name|getLastRowKey
+argument_list|()
+operator|.
+name|get
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2074,6 +2118,9 @@ name|reader
 operator|.
 name|getFirstRowKey
 argument_list|()
+operator|.
+name|get
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|compactionPartition
@@ -2083,6 +2130,9 @@ argument_list|(
 name|reader
 operator|.
 name|getLastRowKey
+argument_list|()
+operator|.
+name|get
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2400,7 +2450,7 @@ name|listDelFiles
 argument_list|()
 control|)
 block|{
-name|StoreFile
+name|HStoreFile
 name|sf
 init|=
 operator|new
@@ -2724,7 +2774,7 @@ annotation|@
 name|VisibleForTesting
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|getListOfDelFilesForPartition
 parameter_list|(
@@ -2743,7 +2793,7 @@ block|{
 comment|// Binary search for startKey and endKey
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|result
 init|=
@@ -3130,7 +3180,7 @@ comment|// One optimization can do is that if there is no del file, we do not ne
 comment|// come up with startKey/endKey.
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|delFiles
 init|=
@@ -3362,7 +3412,7 @@ name|partition
 parameter_list|,
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|delFiles
 parameter_list|,
@@ -3549,7 +3599,7 @@ expr_stmt|;
 comment|// add the selected mob files and del files into filesToCompact
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|filesToCompact
 init|=
@@ -3575,7 +3625,7 @@ name|i
 operator|++
 control|)
 block|{
-name|StoreFile
+name|HStoreFile
 name|sf
 init|=
 operator|new
@@ -3677,14 +3727,14 @@ name|closeStoreFileReaders
 parameter_list|(
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|storeFiles
 parameter_list|)
 block|{
 for|for
 control|(
-name|StoreFile
+name|HStoreFile
 name|storeFile
 range|:
 name|storeFiles
@@ -3694,7 +3744,7 @@ try|try
 block|{
 name|storeFile
 operator|.
-name|closeReader
+name|closeStoreFile
 argument_list|(
 literal|true
 argument_list|)
@@ -3742,7 +3792,7 @@ name|table
 parameter_list|,
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|filesToCompact
 parameter_list|,
@@ -3780,7 +3830,7 @@ decl_stmt|;
 comment|// the mob files to be compacted, not include the del files.
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|mobFilesToCompact
 init|=
@@ -4373,7 +4423,7 @@ expr_stmt|;
 block|}
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|batchedDelFiles
 init|=
@@ -4491,7 +4541,7 @@ name|request
 parameter_list|,
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|delFiles
 parameter_list|)
@@ -4760,7 +4810,7 @@ name|createScanner
 parameter_list|(
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|filesToCompact
 parameter_list|,
@@ -5011,8 +5061,6 @@ name|writer
 operator|.
 name|appendFileInfo
 argument_list|(
-name|StoreFile
-operator|.
 name|BULKLOAD_TIME_KEY
 argument_list|,
 name|Bytes
@@ -5027,8 +5075,6 @@ name|writer
 operator|.
 name|appendFileInfo
 argument_list|(
-name|StoreFile
-operator|.
 name|SKIP_RESET_SEQ_ID
 argument_list|,
 name|Bytes
@@ -5082,7 +5128,7 @@ name|getFileInfo
 parameter_list|(
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|storeFiles
 parameter_list|)
@@ -5101,7 +5147,7 @@ literal|0
 decl_stmt|;
 for|for
 control|(
-name|StoreFile
+name|HStoreFile
 name|sf
 range|:
 name|storeFiles
@@ -5141,8 +5187,6 @@ argument_list|()
 operator|.
 name|get
 argument_list|(
-name|StoreFile
-operator|.
 name|MOB_CELLS_COUNT
 argument_list|)
 decl_stmt|;

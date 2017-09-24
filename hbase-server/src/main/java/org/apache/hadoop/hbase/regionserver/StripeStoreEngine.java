@@ -331,7 +331,7 @@ name|needsCompaction
 parameter_list|(
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|filesCompacting
 parameter_list|)
@@ -373,7 +373,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|CellComparator
@@ -477,13 +477,13 @@ name|Override
 specifier|public
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|preSelect
 parameter_list|(
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|filesCompacting
 parameter_list|)
@@ -507,7 +507,7 @@ name|select
 parameter_list|(
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|filesCompacting
 parameter_list|,

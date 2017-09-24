@@ -370,7 +370,7 @@ name|class
 argument_list|)
 decl_stmt|;
 specifier|private
-name|Store
+name|HStore
 name|store
 decl_stmt|;
 specifier|private
@@ -1427,7 +1427,7 @@ argument_list|()
 return|;
 block|}
 specifier|public
-name|Store
+name|HStore
 name|getStore
 parameter_list|()
 block|{

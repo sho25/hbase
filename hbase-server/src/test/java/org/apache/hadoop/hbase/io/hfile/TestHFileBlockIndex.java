@@ -3563,7 +3563,7 @@ block|{
 comment|// get the mid-key.
 name|reader
 operator|.
-name|midkey
+name|midKey
 argument_list|()
 expr_stmt|;
 block|}
@@ -4022,6 +4022,9 @@ name|reader
 operator|.
 name|getFirstKey
 argument_list|()
+operator|.
+name|get
+argument_list|()
 operator|)
 operator|.
 name|getKey
@@ -4049,6 +4052,9 @@ operator|)
 name|reader
 operator|.
 name|getLastKey
+argument_list|()
+operator|.
+name|get
 argument_list|()
 operator|)
 operator|.
@@ -4511,7 +4517,7 @@ argument_list|)
 argument_list|,
 name|reader
 operator|.
-name|midkey
+name|midKey
 argument_list|()
 argument_list|)
 expr_stmt|;

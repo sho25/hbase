@@ -205,20 +205,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -241,7 +227,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
+name|HStoreFile
 import|;
 end_import
 
@@ -320,6 +306,20 @@ operator|.
 name|io
 operator|.
 name|MultipleIOException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -420,7 +420,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Utility class to handle the removal of HFiles (or the respective {@link StoreFile StoreFiles})  * for a HRegion from the {@link FileSystem}. The hfiles will be archived or deleted, depending on  * the state of the system.  */
+comment|/**  * Utility class to handle the removal of HFiles (or the respective {@link HStoreFile StoreFiles})  * for a HRegion from the {@link FileSystem}. The hfiles will be archived or deleted, depending on  * the state of the system.  */
 end_comment
 
 begin_class
@@ -1232,7 +1232,7 @@ name|family
 parameter_list|,
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|compactedFiles
 parameter_list|)
@@ -2360,7 +2360,7 @@ name|deleteStoreFilesWithoutArchiving
 parameter_list|(
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|compactedFiles
 parameter_list|)
@@ -2389,7 +2389,7 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|StoreFile
+name|HStoreFile
 name|hsf
 range|:
 name|compactedFiles
@@ -2399,7 +2399,7 @@ try|try
 block|{
 name|hsf
 operator|.
-name|deleteReader
+name|deleteStoreFile
 argument_list|()
 expr_stmt|;
 block|}
@@ -2535,7 +2535,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * Convert the {@link StoreFile} into something we can manage in the archive    * methods    */
+comment|/**    * Convert the {@link HStoreFile} into something we can manage in the archive    * methods    */
 specifier|private
 specifier|static
 class|class
@@ -2543,7 +2543,7 @@ name|StoreToFile
 extends|extends
 name|FileConverter
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 block|{
 specifier|public
@@ -2565,7 +2565,7 @@ specifier|public
 name|File
 name|apply
 parameter_list|(
-name|StoreFile
+name|HStoreFile
 name|input
 parameter_list|)
 block|{
@@ -2910,7 +2910,7 @@ name|file
 return|;
 block|}
 block|}
-comment|/**    * {@link File} adapter for a {@link StoreFile} living on a {@link FileSystem}    * .    */
+comment|/**    * {@link File} adapter for a {@link HStoreFile} living on a {@link FileSystem}    * .    */
 specifier|private
 specifier|static
 class|class
@@ -2918,7 +2918,7 @@ name|FileableStoreFile
 extends|extends
 name|File
 block|{
-name|StoreFile
+name|HStoreFile
 name|file
 decl_stmt|;
 specifier|public
@@ -2927,7 +2927,7 @@ parameter_list|(
 name|FileSystem
 name|fs
 parameter_list|,
-name|StoreFile
+name|HStoreFile
 name|store
 parameter_list|)
 block|{
@@ -2954,7 +2954,7 @@ name|IOException
 block|{
 name|file
 operator|.
-name|deleteReader
+name|deleteStoreFile
 argument_list|()
 expr_stmt|;
 block|}
@@ -3017,7 +3017,7 @@ name|IOException
 block|{
 name|file
 operator|.
-name|closeReader
+name|closeStoreFile
 argument_list|(
 literal|true
 argument_list|)

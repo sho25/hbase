@@ -101,11 +101,13 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|regionserver
+operator|.
+name|HStore
 import|;
 end_import
 
@@ -138,22 +140,6 @@ operator|.
 name|regionserver
 operator|.
 name|ScanType
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|Store
 import|;
 end_import
 
@@ -239,6 +225,20 @@ name|Bytes
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * This is the placeholder for stripe compactor. The implementation, as well as the proper javadoc,  * will be added in HBASE-7967.  */
 end_comment
@@ -278,7 +278,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|Store
+name|HStore
 name|store
 parameter_list|)
 block|{

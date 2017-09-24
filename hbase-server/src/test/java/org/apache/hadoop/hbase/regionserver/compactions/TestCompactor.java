@@ -337,6 +337,22 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|HStoreFile
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|InternalScanner
 import|;
 end_import
@@ -354,22 +370,6 @@ operator|.
 name|regionserver
 operator|.
 name|ScannerContext
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|StoreFile
 import|;
 end_import
 
@@ -484,7 +484,7 @@ name|TestCompactor
 block|{
 specifier|public
 specifier|static
-name|StoreFile
+name|HStoreFile
 name|createDummyStoreFile
 parameter_list|(
 name|long
@@ -495,12 +495,12 @@ name|Exception
 block|{
 comment|// "Files" are totally unused, it's Scanner class below that gives compactor fake KVs.
 comment|// But compaction depends on everything under the sun, so stub everything with dummies.
-name|StoreFile
+name|HStoreFile
 name|sf
 init|=
 name|mock
 argument_list|(
-name|StoreFile
+name|HStoreFile
 operator|.
 name|class
 argument_list|)

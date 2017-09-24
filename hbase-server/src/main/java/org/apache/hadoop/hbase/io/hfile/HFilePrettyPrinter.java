@@ -3699,17 +3699,17 @@ name|println
 argument_list|(
 literal|"Mid-key: "
 operator|+
-operator|(
-name|CellUtil
-operator|.
-name|getCellKeyAsString
-argument_list|(
 name|reader
 operator|.
-name|midkey
+name|midKey
 argument_list|()
+operator|.
+name|map
+argument_list|(
+name|CellUtil
+operator|::
+name|getCellKeyAsString
 argument_list|)
-operator|)
 argument_list|)
 expr_stmt|;
 block|}

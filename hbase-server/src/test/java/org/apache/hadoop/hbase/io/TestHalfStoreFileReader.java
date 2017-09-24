@@ -625,7 +625,10 @@ name|midKV
 init|=
 name|r
 operator|.
-name|midkey
+name|midKey
+argument_list|()
+operator|.
+name|get
 argument_list|()
 decl_stmt|;
 name|byte
@@ -1015,7 +1018,10 @@ name|midKV
 init|=
 name|r
 operator|.
-name|midkey
+name|midKey
+argument_list|()
+operator|.
+name|get
 argument_list|()
 decl_stmt|;
 name|byte

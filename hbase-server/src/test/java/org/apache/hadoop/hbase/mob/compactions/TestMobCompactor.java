@@ -5536,6 +5536,8 @@ name|store
 parameter_list|,
 name|List
 argument_list|<
+name|?
+extends|extends
 name|StoreFile
 argument_list|>
 name|candidates
@@ -6018,7 +6020,7 @@ argument_list|(
 name|conf
 argument_list|)
 decl_stmt|;
-name|StoreFile
+name|HStoreFile
 name|sf
 init|=
 operator|new

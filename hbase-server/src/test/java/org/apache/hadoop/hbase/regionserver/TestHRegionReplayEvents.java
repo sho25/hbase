@@ -2030,7 +2030,7 @@ index|[]
 argument_list|,
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 argument_list|>
 name|files
@@ -2047,7 +2047,7 @@ for|for
 control|(
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|f
 range|:
@@ -8743,7 +8743,7 @@ block|}
 comment|// assert that the bulk loaded files are picked
 for|for
 control|(
-name|Store
+name|HStore
 name|s
 range|:
 name|secondaryRegion
@@ -8754,7 +8754,7 @@ control|)
 block|{
 for|for
 control|(
-name|StoreFile
+name|HStoreFile
 name|sf
 range|:
 name|s

@@ -43,6 +43,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Optional
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|OptionalLong
 import|;
 end_import
@@ -131,42 +141,8 @@ name|InterfaceStability
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|hfile
-operator|.
-name|CacheConfig
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Bytes
-import|;
-end_import
-
 begin_comment
-comment|/**  * An interface to describe a store data file.  */
+comment|/**  * An interface to describe a store data file.  *<p>  *<strong>NOTICE:</strong>this interface is mainly designed for coprocessor, so it will not expose  * all the internal APIs for a 'store file'. If you are implementing something inside HBase, i.e,  * not a coprocessor hook, usually you should use {@link HStoreFile} directly as it is the only  * implementation of this interface.  */
 end_comment
 
 begin_interface
@@ -187,193 +163,23 @@ specifier|public
 interface|interface
 name|StoreFile
 block|{
-specifier|static
-specifier|final
-name|String
-name|STORE_FILE_READER_NO_READAHEAD
-init|=
-literal|"hbase.store.reader.no-readahead"
-decl_stmt|;
-comment|// Keys for fileinfo values in HFile
-comment|/** Max Sequence ID in FileInfo */
-specifier|static
-specifier|final
-name|byte
-index|[]
-name|MAX_SEQ_ID_KEY
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"MAX_SEQ_ID_KEY"
-argument_list|)
-decl_stmt|;
-comment|/** Major compaction flag in FileInfo */
-specifier|static
-specifier|final
-name|byte
-index|[]
-name|MAJOR_COMPACTION_KEY
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"MAJOR_COMPACTION_KEY"
-argument_list|)
-decl_stmt|;
-comment|/** Minor compaction flag in FileInfo */
-specifier|static
-specifier|final
-name|byte
-index|[]
-name|EXCLUDE_FROM_MINOR_COMPACTION_KEY
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"EXCLUDE_FROM_MINOR_COMPACTION"
-argument_list|)
-decl_stmt|;
-comment|/** Bloom filter Type in FileInfo */
-specifier|static
-specifier|final
-name|byte
-index|[]
-name|BLOOM_FILTER_TYPE_KEY
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"BLOOM_FILTER_TYPE"
-argument_list|)
-decl_stmt|;
-comment|/** Delete Family Count in FileInfo */
-specifier|static
-specifier|final
-name|byte
-index|[]
-name|DELETE_FAMILY_COUNT
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"DELETE_FAMILY_COUNT"
-argument_list|)
-decl_stmt|;
-comment|/** Last Bloom filter key in FileInfo */
-specifier|static
-specifier|final
-name|byte
-index|[]
-name|LAST_BLOOM_KEY
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"LAST_BLOOM_KEY"
-argument_list|)
-decl_stmt|;
-comment|/** Key for Timerange information in metadata */
-specifier|static
-specifier|final
-name|byte
-index|[]
-name|TIMERANGE_KEY
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"TIMERANGE"
-argument_list|)
-decl_stmt|;
-comment|/** Key for timestamp of earliest-put in metadata */
-specifier|static
-specifier|final
-name|byte
-index|[]
-name|EARLIEST_PUT_TS
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"EARLIEST_PUT_TS"
-argument_list|)
-decl_stmt|;
-comment|/** Key for the number of mob cells in metadata */
-specifier|static
-specifier|final
-name|byte
-index|[]
-name|MOB_CELLS_COUNT
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"MOB_CELLS_COUNT"
-argument_list|)
-decl_stmt|;
-comment|/** Meta key set when store file is a result of a bulk load */
-specifier|static
-specifier|final
-name|byte
-index|[]
-name|BULKLOAD_TASK_KEY
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"BULKLOAD_SOURCE_TASK"
-argument_list|)
-decl_stmt|;
-specifier|static
-specifier|final
-name|byte
-index|[]
-name|BULKLOAD_TIME_KEY
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"BULKLOAD_TIMESTAMP"
-argument_list|)
-decl_stmt|;
-comment|/**    * Key for skipping resetting sequence id in metadata. For bulk loaded hfiles, the scanner resets    * the cell seqId with the latest one, if this metadata is set as true, the reset is skipped.    */
-specifier|static
-specifier|final
-name|byte
-index|[]
-name|SKIP_RESET_SEQ_ID
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"SKIP_RESET_SEQ_ID"
-argument_list|)
-decl_stmt|;
-name|CacheConfig
-name|getCacheConf
-parameter_list|()
-function_decl|;
+comment|/**    * Get the first key in this store file.    */
+name|Optional
+argument_list|<
 name|Cell
+argument_list|>
 name|getFirstKey
 parameter_list|()
 function_decl|;
+comment|/**    * Get the last key in this store file.    */
+name|Optional
+argument_list|<
 name|Cell
+argument_list|>
 name|getLastKey
 parameter_list|()
 function_decl|;
+comment|/**    * Get the comparator for comparing two cells.    */
 name|Comparator
 argument_list|<
 name|Cell
@@ -381,13 +187,9 @@ argument_list|>
 name|getComparator
 parameter_list|()
 function_decl|;
+comment|/**    * Get max of the MemstoreTS in the KV's in this store file.    */
 name|long
 name|getMaxMemstoreTS
-parameter_list|()
-function_decl|;
-comment|/**    * @return the StoreFile object associated to this StoreFile. null if the StoreFile is not a    *         reference.    */
-name|StoreFileInfo
-name|getFileInfo
 parameter_list|()
 function_decl|;
 comment|/**    * @return Path or null if this StoreFile was made with a Stream.    */
@@ -425,34 +227,16 @@ name|long
 name|getMaxSequenceId
 parameter_list|()
 function_decl|;
+comment|/**    * Get the modification time of this store file. Usually will access the file system so throws    * IOException.    */
 name|long
 name|getModificationTimeStamp
 parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Only used by the Striped Compaction Policy    * @param key    * @return value associated with the metadata key    */
-name|byte
-index|[]
-name|getMetadataValue
-parameter_list|(
-name|byte
-index|[]
-name|key
-parameter_list|)
-function_decl|;
 comment|/**    * Check if this storefile was created by bulk load. When a hfile is bulk loaded into HBase, we    * append {@code '_SeqId_<id-when-loaded>'} to the hfile name, unless    * "hbase.mapreduce.bulkload.assign.sequenceNumbers" is explicitly turned off. If    * "hbase.mapreduce.bulkload.assign.sequenceNumbers" is turned off, fall back to    * BULKLOAD_TIME_KEY.    * @return true if this storefile was created by bulk load.    */
 name|boolean
 name|isBulkLoadResult
-parameter_list|()
-function_decl|;
-name|boolean
-name|isCompactedAway
-parameter_list|()
-function_decl|;
-comment|/**    * @return true if the file is still used in reads    */
-name|boolean
-name|isReferencedInReads
 parameter_list|()
 function_decl|;
 comment|/**    * Return the timestamp at which this bulk load file was generated.    */
@@ -465,90 +249,17 @@ name|HDFSBlocksDistribution
 name|getHDFSBlockDistribution
 parameter_list|()
 function_decl|;
-comment|/**    * Initialize the reader used for pread.    */
-name|void
-name|initReader
-parameter_list|()
-throws|throws
-name|IOException
-function_decl|;
-comment|/**    * Must be called after initReader.    */
-name|StoreFileScanner
-name|getPreadScanner
-parameter_list|(
-name|boolean
-name|cacheBlocks
-parameter_list|,
-name|long
-name|readPt
-parameter_list|,
-name|long
-name|scannerOrder
-parameter_list|,
-name|boolean
-name|canOptimizeForNonNullColumn
-parameter_list|)
-function_decl|;
-name|StoreFileScanner
-name|getStreamScanner
-parameter_list|(
-name|boolean
-name|canUseDropBehind
-parameter_list|,
-name|boolean
-name|cacheBlocks
-parameter_list|,
-name|boolean
-name|isCompaction
-parameter_list|,
-name|long
-name|readPt
-parameter_list|,
-name|long
-name|scannerOrder
-parameter_list|,
-name|boolean
-name|canOptimizeForNonNullColumn
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-comment|/**    * @return Current reader. Must call initReader first else returns null.    * @see #initReader()    */
-name|StoreFileReader
-name|getReader
-parameter_list|()
-function_decl|;
-comment|/**    * @param evictOnClose whether to evict blocks belonging to this file    * @throws IOException    */
-name|void
-name|closeReader
-parameter_list|(
-name|boolean
-name|evictOnClose
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-comment|/**    * Marks the status of the file as compactedAway.    */
-name|void
-name|markCompactedAway
-parameter_list|()
-function_decl|;
-comment|/**    * Delete this file    * @throws IOException    */
-name|void
-name|deleteReader
-parameter_list|()
-throws|throws
-name|IOException
-function_decl|;
 comment|/**    * @return a length description of this StoreFile, suitable for debug output    */
 name|String
 name|toStringDetailed
 parameter_list|()
 function_decl|;
+comment|/**    * Get the min timestamp of all the cells in the store file.    */
 name|OptionalLong
 name|getMinimumTimestamp
 parameter_list|()
 function_decl|;
+comment|/**    * Get the max timestamp of all the cells in the store file.    */
 name|OptionalLong
 name|getMaximumTimestamp
 parameter_list|()

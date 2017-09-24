@@ -99,20 +99,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -229,6 +215,20 @@ name|ReflectionUtils
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * Default StoreEngine creates the default compactor, policy, and store file manager, or  * their derivatives.  */
 end_comment
@@ -335,7 +335,7 @@ name|needsCompaction
 parameter_list|(
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|filesCompacting
 parameter_list|)
@@ -365,7 +365,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|CellComparator
@@ -422,7 +422,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|Store
+name|HStore
 name|store
 parameter_list|)
 throws|throws
@@ -461,7 +461,7 @@ name|Configuration
 operator|.
 name|class
 block|,
-name|Store
+name|HStore
 operator|.
 name|class
 block|}
@@ -505,7 +505,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|Store
+name|HStore
 name|store
 parameter_list|)
 throws|throws
@@ -588,7 +588,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|Store
+name|HStore
 name|store
 parameter_list|)
 throws|throws
@@ -627,7 +627,7 @@ name|Configuration
 operator|.
 name|class
 block|,
-name|Store
+name|HStore
 operator|.
 name|class
 block|}
@@ -691,7 +691,7 @@ name|select
 parameter_list|(
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|filesCompacting
 parameter_list|,
@@ -769,13 +769,13 @@ name|Override
 specifier|public
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|preSelect
 parameter_list|(
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|filesCompacting
 parameter_list|)

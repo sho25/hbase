@@ -456,10 +456,15 @@ control|)
 block|{
 for|for
 control|(
-name|Store
+name|HStore
 name|store
 range|:
+operator|(
+operator|(
+name|HRegion
+operator|)
 name|region
+operator|)
 operator|.
 name|getStores
 argument_list|()
@@ -467,7 +472,7 @@ control|)
 block|{
 for|for
 control|(
-name|StoreFile
+name|HStoreFile
 name|storefile
 range|:
 name|store

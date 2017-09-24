@@ -101,20 +101,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -137,7 +123,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|InternalScanner
+name|HStore
 import|;
 end_import
 
@@ -153,7 +139,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|Store
+name|InternalScanner
 import|;
 end_import
 
@@ -207,6 +193,20 @@ name|User
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * This compactor will generate StoreFile for different time ranges.  */
 end_comment
@@ -246,7 +246,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|Store
+name|HStore
 name|store
 parameter_list|)
 block|{

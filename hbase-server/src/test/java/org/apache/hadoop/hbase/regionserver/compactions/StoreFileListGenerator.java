@@ -41,7 +41,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
+name|HStoreFile
 import|;
 end_import
 
@@ -57,7 +57,7 @@ name|Iterable
 argument_list|<
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 argument_list|>
 block|{
@@ -79,8 +79,10 @@ literal|1000
 decl_stmt|;
 name|StoreFileListGenerator
 parameter_list|(
-specifier|final
 name|Class
+argument_list|<
+name|?
+argument_list|>
 name|klass
 parameter_list|)
 block|{

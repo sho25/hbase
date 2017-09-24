@@ -787,7 +787,7 @@ name|getConfiguration
 argument_list|()
 decl_stmt|;
 specifier|private
-name|Region
+name|HRegion
 name|r
 init|=
 literal|null
@@ -2179,7 +2179,7 @@ argument_list|()
 decl_stmt|;
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|storeFiles
 init|=
@@ -2360,7 +2360,7 @@ literal|0
 decl_stmt|;
 for|for
 control|(
-name|StoreFile
+name|HStoreFile
 name|f
 range|:
 name|r
@@ -2482,7 +2482,7 @@ literal|0
 decl_stmt|;
 for|for
 control|(
-name|StoreFile
+name|HStoreFile
 name|f
 range|:
 name|r

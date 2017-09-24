@@ -89,34 +89,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|Log
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|LogFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|conf
@@ -167,7 +139,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreConfigInformation
+name|HStoreFile
 import|;
 end_import
 
@@ -183,7 +155,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
+name|StoreConfigInformation
 import|;
 end_import
 
@@ -311,21 +283,6 @@ extends|extends
 name|MockStoreFileGenerator
 block|{
 specifier|private
-specifier|static
-specifier|final
-name|Log
-name|LOG
-init|=
-name|LogFactory
-operator|.
-name|getLog
-argument_list|(
-name|PerfTestCompactionPolicies
-operator|.
-name|class
-argument_list|)
-decl_stmt|;
-specifier|private
 specifier|final
 name|RatioBasedCompactionPolicy
 name|cp
@@ -385,6 +342,9 @@ name|data
 parameter_list|()
 block|{
 name|Class
+argument_list|<
+name|?
+argument_list|>
 index|[]
 name|policyClasses
 init|=
@@ -406,6 +366,9 @@ name|class
 block|,     }
 decl_stmt|;
 name|Class
+argument_list|<
+name|?
+argument_list|>
 index|[]
 name|fileListGenClasses
 init|=
@@ -502,6 +465,9 @@ decl_stmt|;
 for|for
 control|(
 name|Class
+argument_list|<
+name|?
+argument_list|>
 name|policyClass
 range|:
 name|policyClasses
@@ -510,6 +476,9 @@ block|{
 for|for
 control|(
 name|Class
+argument_list|<
+name|?
+argument_list|>
 name|genClass
 range|:
 name|fileListGenClasses
@@ -828,7 +797,7 @@ for|for
 control|(
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|storeFileList
 range|:
@@ -837,7 +806,7 @@ control|)
 block|{
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|currentFiles
 init|=
@@ -850,7 +819,7 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|StoreFile
+name|HStoreFile
 name|file
 range|:
 name|storeFileList
@@ -933,13 +902,13 @@ block|}
 specifier|private
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|runIteration
 parameter_list|(
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|startingStoreFiles
 parameter_list|)
@@ -948,7 +917,7 @@ name|IOException
 block|{
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|storeFiles
 init|=
@@ -987,7 +956,7 @@ literal|0
 decl_stmt|;
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|filesToCompact
 init|=
@@ -1023,7 +992,7 @@ argument_list|)
 expr_stmt|;
 for|for
 control|(
-name|StoreFile
+name|HStoreFile
 name|storeFile
 range|:
 name|filesToCompact

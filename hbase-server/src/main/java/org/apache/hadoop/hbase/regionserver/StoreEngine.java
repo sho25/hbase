@@ -43,20 +43,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|conf
@@ -146,6 +132,20 @@ operator|.
 name|util
 operator|.
 name|ReflectionUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -285,7 +285,7 @@ name|needsCompaction
 parameter_list|(
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|filesCompacting
 parameter_list|)
@@ -308,11 +308,11 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|CellComparator
-name|kvComparator
+name|cellComparator
 parameter_list|)
 throws|throws
 name|IOException
@@ -324,11 +324,11 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|CellComparator
-name|kvComparator
+name|cellComparator
 parameter_list|)
 throws|throws
 name|IOException
@@ -356,7 +356,7 @@ name|conf
 argument_list|,
 name|store
 argument_list|,
-name|kvComparator
+name|cellComparator
 argument_list|)
 expr_stmt|;
 assert|assert
@@ -377,7 +377,7 @@ operator|!=
 literal|null
 assert|;
 block|}
-comment|/**    * Create the StoreEngine configured for the given Store.    * @param store The store. An unfortunate dependency needed due to it    *              being passed to coprocessors via the compactor.    * @param conf Store configuration.    * @param kvComparator KVComparator for storeFileManager.    * @return StoreEngine to use.    */
+comment|/**    * Create the StoreEngine configured for the given Store.    * @param store The store. An unfortunate dependency needed due to it    *              being passed to coprocessors via the compactor.    * @param conf Store configuration.    * @param cellComparator CellComparator for storeFileManager.    * @return StoreEngine to use.    */
 specifier|public
 specifier|static
 name|StoreEngine
@@ -392,14 +392,14 @@ name|?
 argument_list|>
 name|create
 parameter_list|(
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|Configuration
 name|conf
 parameter_list|,
 name|CellComparator
-name|kvComparator
+name|cellComparator
 parameter_list|)
 throws|throws
 name|IOException
@@ -458,7 +458,7 @@ name|conf
 argument_list|,
 name|store
 argument_list|,
-name|kvComparator
+name|cellComparator
 argument_list|)
 expr_stmt|;
 return|return

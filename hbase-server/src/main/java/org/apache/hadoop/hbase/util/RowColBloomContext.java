@@ -18,6 +18,24 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|HStoreFile
+operator|.
+name|LAST_BLOOM_KEY
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -75,20 +93,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -109,13 +113,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|yetus
 operator|.
-name|hbase
+name|audience
 operator|.
-name|regionserver
-operator|.
-name|StoreFile
+name|InterfaceAudience
 import|;
 end_import
 
@@ -203,8 +205,6 @@ name|writer
 operator|.
 name|appendFileInfo
 argument_list|(
-name|StoreFile
-operator|.
 name|LAST_BLOOM_KEY
 argument_list|,
 name|key

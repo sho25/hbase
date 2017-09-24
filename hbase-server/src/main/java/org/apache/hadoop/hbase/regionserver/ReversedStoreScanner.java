@@ -53,20 +53,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -133,6 +119,20 @@ name|Scan
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * ReversedStoreScanner extends from StoreScanner, and is used to support  * reversed scanning.  */
 end_comment
@@ -152,7 +152,7 @@ block|{
 comment|/**    * Opens a scanner across memstore, snapshot, and all StoreFiles. Assumes we    * are not in a compaction.    *     * @param store who we scan    * @param scanInfo    * @param scan the spec    * @param columns which columns we are scanning    * @throws IOException    */
 name|ReversedStoreScanner
 parameter_list|(
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|ScanInfo

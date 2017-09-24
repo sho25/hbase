@@ -3275,7 +3275,7 @@ argument_list|(
 name|conf
 argument_list|)
 decl_stmt|;
-name|StoreFile
+name|HStoreFile
 name|hsf
 init|=
 operator|new

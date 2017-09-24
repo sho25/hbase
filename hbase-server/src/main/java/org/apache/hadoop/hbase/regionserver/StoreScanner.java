@@ -245,20 +245,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -463,6 +449,20 @@ name|org
 operator|.
 name|apache
 operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -522,7 +522,7 @@ specifier|protected
 specifier|final
 name|Optional
 argument_list|<
-name|Store
+name|HStore
 argument_list|>
 name|store
 decl_stmt|;
@@ -738,7 +738,7 @@ specifier|private
 specifier|final
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|flushedStoreFiles
 init|=
@@ -807,7 +807,7 @@ name|StoreScanner
 parameter_list|(
 name|Optional
 argument_list|<
-name|Store
+name|HStore
 argument_list|>
 name|store
 parameter_list|,
@@ -1165,7 +1165,7 @@ comment|/**    * Opens a scanner across memstore, snapshot, and all StoreFiles. 
 specifier|public
 name|StoreScanner
 parameter_list|(
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|ScanInfo
@@ -1415,7 +1415,7 @@ comment|/**    * Used for compactions.    *<p>    * Opens a scanner across speci
 specifier|public
 name|StoreScanner
 parameter_list|(
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|ScanInfo
@@ -1470,7 +1470,7 @@ comment|/**    * Used for compactions that drop deletes from a limited range of 
 specifier|public
 name|StoreScanner
 parameter_list|(
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|ScanInfo
@@ -1531,7 +1531,7 @@ block|}
 specifier|private
 name|StoreScanner
 parameter_list|(
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|ScanInfo
@@ -1600,12 +1600,7 @@ name|scanInfo
 argument_list|,
 literal|0
 argument_list|,
-operator|(
-operator|(
-name|HStore
-operator|)
 name|store
-operator|)
 operator|.
 name|getHRegion
 argument_list|()
@@ -3924,7 +3919,7 @@ name|updateReaders
 parameter_list|(
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|sfs
 parameter_list|,
@@ -4019,7 +4014,7 @@ throws|throws
 name|IOException
 block|{
 comment|// here we can make sure that we have a Store instance.
-name|Store
+name|HStore
 name|store
 init|=
 name|this
@@ -4662,7 +4657,7 @@ name|KeyValueHeap
 name|newHeap
 decl_stmt|;
 comment|// We must have a store instance here
-name|Store
+name|HStore
 name|store
 init|=
 name|this

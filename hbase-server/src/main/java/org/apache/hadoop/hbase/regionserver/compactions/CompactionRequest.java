@@ -53,7 +53,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|Store
+name|HStoreFile
 import|;
 end_import
 
@@ -69,7 +69,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
+name|Store
 import|;
 end_import
 
@@ -192,7 +192,7 @@ decl_stmt|;
 specifier|private
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|filesToCompact
 decl_stmt|;
@@ -238,7 +238,7 @@ name|CompactionRequest
 parameter_list|(
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|files
 parameter_list|)
@@ -284,7 +284,7 @@ name|updateFiles
 parameter_list|(
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|files
 parameter_list|)
@@ -309,7 +309,7 @@ block|}
 specifier|public
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|getFiles
 parameter_list|()
@@ -667,7 +667,7 @@ argument_list|()
 operator|.
 name|map
 argument_list|(
-name|StoreFile
+name|HStoreFile
 operator|::
 name|getReader
 argument_list|)

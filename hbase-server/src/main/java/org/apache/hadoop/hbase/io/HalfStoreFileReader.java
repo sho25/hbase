@@ -43,6 +43,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Optional
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|concurrent
 operator|.
 name|atomic
@@ -262,7 +272,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A facade for a {@link org.apache.hadoop.hbase.io.hfile.HFile.Reader} that serves up  * either the top or bottom half of a HFile where 'bottom' is the first half  * of the file containing the keys that sort lowest and 'top' is the second half  * of the file with keys that sort greater than those of the bottom half.  * The top includes the split files midkey, of the key that follows if it does  * not exist in the file.  *  *<p>This type works in tandem with the {@link Reference} type.  This class  * is used reading while Reference is used writing.  *  *<p>This file is not splitable.  Calls to {@link #midkey()} return null.  */
+comment|/**  * A facade for a {@link org.apache.hadoop.hbase.io.hfile.HFile.Reader} that serves up  * either the top or bottom half of a HFile where 'bottom' is the first half  * of the file containing the keys that sort lowest and 'top' is the second half  * of the file with keys that sort greater than those of the bottom half.  * The top includes the split files midkey, of the key that follows if it does  * not exist in the file.  *  *<p>This type works in tandem with the {@link Reference} type.  This class  * is used reading while Reference is used writing.  *  *<p>This file is not splitable.  Calls to {@link #midKey()} return null.  */
 end_comment
 
 begin_class
@@ -309,7 +319,10 @@ name|Cell
 name|splitCell
 decl_stmt|;
 specifier|private
+name|Optional
+argument_list|<
 name|Cell
+argument_list|>
 name|firstKey
 init|=
 literal|null
@@ -1146,7 +1159,10 @@ condition|(
 name|top
 condition|)
 block|{
+name|Optional
+argument_list|<
 name|Cell
+argument_list|>
 name|fk
 init|=
 name|getFirstKey
@@ -1162,6 +1178,9 @@ argument_list|(
 name|key
 argument_list|,
 name|fk
+operator|.
+name|get
+argument_list|()
 argument_list|)
 operator|<=
 literal|0
@@ -1307,7 +1326,10 @@ block|}
 annotation|@
 name|Override
 specifier|public
+name|Optional
+argument_list|<
 name|Cell
+argument_list|>
 name|getLastKey
 parameter_list|()
 block|{
@@ -1349,10 +1371,15 @@ argument_list|)
 condition|)
 block|{
 return|return
+name|Optional
+operator|.
+name|ofNullable
+argument_list|(
 name|scanner
 operator|.
 name|getKey
 argument_list|()
+argument_list|)
 return|;
 block|}
 block|}
@@ -1398,27 +1425,39 @@ expr_stmt|;
 block|}
 block|}
 return|return
-literal|null
+name|Optional
+operator|.
+name|empty
+argument_list|()
 return|;
 block|}
 annotation|@
 name|Override
 specifier|public
+name|Optional
+argument_list|<
 name|Cell
-name|midkey
+argument_list|>
+name|midKey
 parameter_list|()
 throws|throws
 name|IOException
 block|{
 comment|// Returns null to indicate file is not splitable.
 return|return
-literal|null
+name|Optional
+operator|.
+name|empty
+argument_list|()
 return|;
 block|}
 annotation|@
 name|Override
 specifier|public
+name|Optional
+argument_list|<
 name|Cell
+argument_list|>
 name|getFirstKey
 parameter_list|()
 block|{
@@ -1454,10 +1493,15 @@ name|this
 operator|.
 name|firstKey
 operator|=
+name|Optional
+operator|.
+name|ofNullable
+argument_list|(
 name|scanner
 operator|.
 name|getKey
 argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 name|firstKeySeeked

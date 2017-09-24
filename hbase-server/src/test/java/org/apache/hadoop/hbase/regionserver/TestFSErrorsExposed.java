@@ -734,7 +734,7 @@ literal|"qual"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|StoreFile
+name|HStoreFile
 name|sf
 init|=
 operator|new
@@ -1033,7 +1033,7 @@ literal|"qual"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|StoreFile
+name|HStoreFile
 name|sf
 init|=
 operator|new
@@ -1085,7 +1085,7 @@ literal|false
 argument_list|,
 literal|false
 argument_list|,
-comment|// 0 is passed as readpoint because this test operates on StoreFile directly
+comment|// 0 is passed as readpoint because this test operates on HStoreFile directly
 literal|0
 argument_list|)
 decl_stmt|;

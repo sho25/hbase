@@ -697,7 +697,7 @@ comment|// period(1ms).
 comment|// trigger an aged major compaction
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|candidates
 init|=
@@ -1252,7 +1252,7 @@ expr_stmt|;
 comment|// Do not compact empty store file
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|candidates
 init|=
@@ -1263,7 +1263,7 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|StoreFile
+name|HStoreFile
 name|file
 range|:
 name|candidates
@@ -1273,14 +1273,14 @@ if|if
 condition|(
 name|file
 operator|instanceof
-name|MockStoreFile
+name|MockHStoreFile
 condition|)
 block|{
-name|MockStoreFile
+name|MockHStoreFile
 name|mockFile
 init|=
 operator|(
-name|MockStoreFile
+name|MockHStoreFile
 operator|)
 name|file
 decl_stmt|;

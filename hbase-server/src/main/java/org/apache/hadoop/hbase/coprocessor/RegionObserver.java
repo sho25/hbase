@@ -876,6 +876,8 @@ name|store
 parameter_list|,
 name|List
 argument_list|<
+name|?
+extends|extends
 name|StoreFile
 argument_list|>
 name|candidates
@@ -902,6 +904,8 @@ name|store
 parameter_list|,
 name|ImmutableList
 argument_list|<
+name|?
+extends|extends
 name|StoreFile
 argument_list|>
 name|selected

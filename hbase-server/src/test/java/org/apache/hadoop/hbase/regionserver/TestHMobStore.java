@@ -4264,7 +4264,7 @@ argument_list|)
 expr_stmt|;
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|storefiles
 init|=
@@ -4492,12 +4492,12 @@ name|checkMobHFileEncrytption
 parameter_list|(
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|storefiles
 parameter_list|)
 block|{
-name|StoreFile
+name|HStoreFile
 name|storeFile
 init|=
 name|storefiles

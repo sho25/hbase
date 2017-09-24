@@ -89,20 +89,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -153,13 +139,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|yetus
 operator|.
-name|hbase
+name|audience
 operator|.
-name|regionserver
-operator|.
-name|StoreFile
+name|InterfaceAudience
 import|;
 end_import
 
@@ -200,7 +184,7 @@ decl_stmt|;
 specifier|public
 name|CachedMobFile
 parameter_list|(
-name|StoreFile
+name|HStoreFile
 name|sf
 parameter_list|)
 block|{
@@ -232,7 +216,7 @@ name|IOException
 block|{
 comment|// XXX: primaryReplica is only used for constructing the key of block cache so it is not a
 comment|// critical problem if we pass the wrong value, so here we always pass true. Need to fix later.
-name|StoreFile
+name|HStoreFile
 name|sf
 init|=
 operator|new

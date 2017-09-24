@@ -79,18 +79,6 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|assertNull
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
 name|assertTrue
 import|;
 end_import
@@ -673,7 +661,7 @@ init|=
 name|createManager
 argument_list|()
 decl_stmt|;
-name|MockStoreFile
+name|MockHStoreFile
 name|sf
 init|=
 name|createFile
@@ -701,7 +689,7 @@ argument_list|)
 expr_stmt|;
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|filesForGet
 init|=
@@ -881,7 +869,7 @@ argument_list|)
 expr_stmt|;
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|allFiles
 init|=
@@ -928,20 +916,20 @@ specifier|private
 specifier|static
 name|ArrayList
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|dumpIterator
 parameter_list|(
 name|Iterator
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|iter
 parameter_list|)
 block|{
 name|ArrayList
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|result
 init|=
@@ -988,7 +976,7 @@ init|=
 name|createManager
 argument_list|()
 decl_stmt|;
-name|StoreFile
+name|HStoreFile
 name|l0File
 init|=
 name|createFile
@@ -1022,7 +1010,7 @@ expr_stmt|;
 comment|// Get candidate files.
 name|Iterator
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|sfs
 init|=
@@ -1066,7 +1054,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Now add some stripes (remove L0 file too)
-name|MockStoreFile
+name|MockHStoreFile
 name|stripe0a
 init|=
 name|createFile
@@ -1119,7 +1107,7 @@ expr_stmt|;
 comment|// If we want a key<= KEY_A, we should get everything except stripe1.
 name|ArrayList
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|sfsDump
 init|=
@@ -1275,7 +1263,7 @@ expr_stmt|;
 comment|// Add one more, later, file to stripe0, remove the last annoying L0 file.
 comment|// This file should be returned in preference to older L0 file; also, after we get
 comment|// a candidate from the first file, the old one should not be removed.
-name|StoreFile
+name|HStoreFile
 name|stripe0b
 init|=
 name|createFile
@@ -1378,16 +1366,19 @@ name|createManager
 argument_list|()
 decl_stmt|;
 comment|// No files => no split.
-name|assertNull
+name|assertFalse
 argument_list|(
 name|manager
 operator|.
 name|getSplitPoint
 argument_list|()
+operator|.
+name|isPresent
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// If there are no stripes, should pick midpoint from the biggest file in L0.
-name|MockStoreFile
+name|MockHStoreFile
 name|sf5
 init|=
 name|createFile
@@ -1443,6 +1434,9 @@ name|manager
 operator|.
 name|getSplitPoint
 argument_list|()
+operator|.
+name|get
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Same if there's one stripe but the biggest file is still in L0.
@@ -1478,10 +1472,13 @@ name|manager
 operator|.
 name|getSplitPoint
 argument_list|()
+operator|.
+name|get
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// If the biggest file is in the stripe, should get from it.
-name|MockStoreFile
+name|MockHStoreFile
 name|sf6
 init|=
 name|createFile
@@ -1528,6 +1525,9 @@ argument_list|,
 name|manager
 operator|.
 name|getSplitPoint
+argument_list|()
+operator|.
+name|get
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1877,7 +1877,7 @@ argument_list|)
 expr_stmt|;
 name|ArrayList
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|sfs
 init|=
@@ -1947,7 +1947,7 @@ argument_list|(
 name|sizeIx
 argument_list|)
 decl_stmt|;
-name|MockStoreFile
+name|MockHStoreFile
 name|sf
 init|=
 name|createFile
@@ -2044,6 +2044,9 @@ name|manager
 operator|.
 name|getSplitPoint
 argument_list|()
+operator|.
+name|get
+argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// Either end key and thus positive index, or "middle" of the file and thus negative index.
@@ -2124,7 +2127,7 @@ name|KEY_C
 argument_list|)
 expr_stmt|;
 comment|// Populate one L0 file.
-name|MockStoreFile
+name|MockHStoreFile
 name|sf0
 init|=
 name|createFile
@@ -2185,7 +2188,7 @@ name|sf0
 argument_list|)
 expr_stmt|;
 comment|// Populate a bunch of files for stripes, keep L0.
-name|MockStoreFile
+name|MockHStoreFile
 name|sfA
 init|=
 name|createFile
@@ -2195,7 +2198,7 @@ argument_list|,
 name|KEY_A
 argument_list|)
 decl_stmt|;
-name|MockStoreFile
+name|MockHStoreFile
 name|sfB
 init|=
 name|createFile
@@ -2205,7 +2208,7 @@ argument_list|,
 name|KEY_B
 argument_list|)
 decl_stmt|;
-name|MockStoreFile
+name|MockHStoreFile
 name|sfC
 init|=
 name|createFile
@@ -2215,7 +2218,7 @@ argument_list|,
 name|KEY_C
 argument_list|)
 decl_stmt|;
-name|MockStoreFile
+name|MockHStoreFile
 name|sfD
 init|=
 name|createFile
@@ -2225,7 +2228,7 @@ argument_list|,
 name|KEY_D
 argument_list|)
 decl_stmt|;
-name|MockStoreFile
+name|MockHStoreFile
 name|sfE
 init|=
 name|createFile
@@ -2441,7 +2444,7 @@ name|byte
 index|[]
 name|end
 parameter_list|,
-name|StoreFile
+name|HStoreFile
 modifier|...
 name|results
 parameter_list|)
@@ -2479,7 +2482,7 @@ comment|// files that overlap valid stripes in various ways). Note that the 4th 
 comment|// stripes will cause the structure to be mostly scraped, and is tested separately.
 name|ArrayList
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|validStripeFiles
 init|=
@@ -2516,7 +2519,7 @@ argument_list|)
 decl_stmt|;
 name|ArrayList
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|filesToGoToL0
 init|=
@@ -2576,7 +2579,7 @@ argument_list|)
 decl_stmt|;
 name|ArrayList
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|allFilesToGo
 init|=
@@ -2604,7 +2607,7 @@ argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|l0Files
 init|=
@@ -2628,7 +2631,7 @@ argument_list|)
 expr_stmt|;
 for|for
 control|(
-name|StoreFile
+name|HStoreFile
 name|sf
 range|:
 name|filesToGoToL0
@@ -2666,7 +2669,7 @@ comment|// Current "algorithm" will see the after-B key before C key, add it as 
 comment|// and then fail all other stripes. So everything would end up in L0.
 name|ArrayList
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|allFilesToGo
 init|=
@@ -2832,7 +2835,7 @@ throws|throws
 name|Exception
 block|{
 comment|// If stripes are good but have non-open ends, they must be treated as open ends.
-name|MockStoreFile
+name|MockHStoreFile
 name|sf
 init|=
 name|createFile
@@ -3059,7 +3062,7 @@ name|createManager
 argument_list|()
 decl_stmt|;
 comment|// First, add some L0 files and "compact" one with new stripe creation.
-name|StoreFile
+name|HStoreFile
 name|sf_L0_0a
 init|=
 name|createFile
@@ -3198,7 +3201,7 @@ argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|StoreFile
+name|HStoreFile
 name|sf_i2B_0
 init|=
 name|createFile
@@ -3208,7 +3211,7 @@ argument_list|,
 name|KEY_B
 argument_list|)
 decl_stmt|;
-name|StoreFile
+name|HStoreFile
 name|sf_B2C_0
 init|=
 name|createFile
@@ -3218,7 +3221,7 @@ argument_list|,
 name|KEY_C
 argument_list|)
 decl_stmt|;
-name|StoreFile
+name|HStoreFile
 name|sf_C2i_0
 init|=
 name|createFile
@@ -3274,13 +3277,13 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Add another l0 file, "compact" both L0 into two stripes
-name|StoreFile
+name|HStoreFile
 name|sf_L0_1
 init|=
 name|createFile
 argument_list|()
 decl_stmt|;
-name|StoreFile
+name|HStoreFile
 name|sf_i2B_1
 init|=
 name|createFile
@@ -3290,7 +3293,7 @@ argument_list|,
 name|KEY_B
 argument_list|)
 decl_stmt|;
-name|StoreFile
+name|HStoreFile
 name|sf_B2C_1
 init|=
 name|createFile
@@ -3360,7 +3363,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Try compacting with invalid file (no metadata) - should add files to L0.
-name|StoreFile
+name|HStoreFile
 name|sf_L0_2
 init|=
 name|createFile
@@ -3436,7 +3439,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Do regular compaction in the first stripe.
-name|StoreFile
+name|HStoreFile
 name|sf_i2B_3
 init|=
 name|createFile
@@ -3492,7 +3495,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Rebalance two stripes.
-name|StoreFile
+name|HStoreFile
 name|sf_B2D_4
 init|=
 name|createFile
@@ -3502,7 +3505,7 @@ argument_list|,
 name|KEY_D
 argument_list|)
 decl_stmt|;
-name|StoreFile
+name|HStoreFile
 name|sf_D2i_4
 init|=
 name|createFile
@@ -3562,7 +3565,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Split the first stripe.
-name|StoreFile
+name|HStoreFile
 name|sf_i2A_5
 init|=
 name|createFile
@@ -3572,7 +3575,7 @@ argument_list|,
 name|KEY_A
 argument_list|)
 decl_stmt|;
-name|StoreFile
+name|HStoreFile
 name|sf_A2B_5
 init|=
 name|createFile
@@ -3626,7 +3629,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Split the middle stripe.
-name|StoreFile
+name|HStoreFile
 name|sf_B2C_6
 init|=
 name|createFile
@@ -3636,7 +3639,7 @@ argument_list|,
 name|KEY_C
 argument_list|)
 decl_stmt|;
-name|StoreFile
+name|HStoreFile
 name|sf_C2D_6
 init|=
 name|createFile
@@ -3692,7 +3695,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Merge two different middle stripes.
-name|StoreFile
+name|HStoreFile
 name|sf_A2C_7
 init|=
 name|createFile
@@ -3748,7 +3751,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Merge lower half.
-name|StoreFile
+name|HStoreFile
 name|sf_i2C_8
 init|=
 name|createFile
@@ -3802,7 +3805,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Merge all.
-name|StoreFile
+name|HStoreFile
 name|sf_i2i_9
 init|=
 name|createFile
@@ -3882,7 +3885,7 @@ name|getStripeCount
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|StoreFile
+name|HStoreFile
 name|sf_i2c
 init|=
 name|createFile
@@ -3924,7 +3927,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Now try to add conflicting flush - should throw.
-name|StoreFile
+name|HStoreFile
 name|sf_i2d
 init|=
 name|createFile
@@ -4036,7 +4039,7 @@ argument_list|)
 expr_stmt|;
 comment|// Add another file to stripe; then "rebalance" stripes w/o it - the file, which was
 comment|// presumably flushed during compaction, should go to L0.
-name|StoreFile
+name|HStoreFile
 name|sf_i2c_2
 init|=
 name|createFile
@@ -4130,13 +4133,13 @@ init|=
 name|createManager
 argument_list|()
 decl_stmt|;
-name|StoreFile
+name|HStoreFile
 name|sf0a
 init|=
 name|createFile
 argument_list|()
 decl_stmt|;
-name|StoreFile
+name|HStoreFile
 name|sf0b
 init|=
 name|createFile
@@ -4164,7 +4167,7 @@ argument_list|)
 expr_stmt|;
 name|ArrayList
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|compacted
 init|=
@@ -4217,7 +4220,7 @@ expr_stmt|;
 comment|// Next L0 compaction only produces file for the first and last stripe.
 name|ArrayList
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|compacted2
 init|=
@@ -4561,7 +4564,7 @@ control|)
 block|{
 name|ArrayList
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|stripe
 init|=
@@ -4655,13 +4658,13 @@ name|manager
 parameter_list|,
 name|ArrayList
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|filesToCompact
 parameter_list|,
 name|ArrayList
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|filesToInsert
 parameter_list|)
@@ -4670,7 +4673,7 @@ name|Exception
 block|{
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|allFiles
 init|=
@@ -4728,7 +4731,7 @@ name|byte
 index|[]
 name|end
 parameter_list|,
-name|StoreFile
+name|HStoreFile
 modifier|...
 name|results
 parameter_list|)
@@ -4769,7 +4772,7 @@ name|end
 parameter_list|,
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|results
 parameter_list|)
@@ -4802,7 +4805,7 @@ name|EMPTY_END_ROW
 expr_stmt|;
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|sfs
 init|=
@@ -4834,7 +4837,7 @@ argument_list|)
 expr_stmt|;
 for|for
 control|(
-name|StoreFile
+name|HStoreFile
 name|result
 range|:
 name|results
@@ -4861,7 +4864,7 @@ name|manager
 parameter_list|,
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|results
 parameter_list|)
@@ -4883,7 +4886,7 @@ block|}
 comment|// TODO: replace with Mockito?
 specifier|private
 specifier|static
-name|MockStoreFile
+name|MockHStoreFile
 name|createFile
 parameter_list|(
 name|long
@@ -4933,11 +4936,11 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
-name|MockStoreFile
+name|MockHStoreFile
 name|sf
 init|=
 operator|new
-name|MockStoreFile
+name|MockHStoreFile
 argument_list|(
 name|TEST_UTIL
 argument_list|,
@@ -4996,7 +4999,7 @@ return|;
 block|}
 specifier|private
 specifier|static
-name|MockStoreFile
+name|MockHStoreFile
 name|createFile
 parameter_list|(
 name|long
@@ -5023,7 +5026,7 @@ return|;
 block|}
 specifier|private
 specifier|static
-name|MockStoreFile
+name|MockHStoreFile
 name|createFile
 parameter_list|(
 name|byte
@@ -5052,7 +5055,7 @@ return|;
 block|}
 specifier|private
 specifier|static
-name|MockStoreFile
+name|MockHStoreFile
 name|createFile
 parameter_list|()
 throws|throws
@@ -5092,7 +5095,7 @@ name|createManager
 parameter_list|(
 name|ArrayList
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|sfs
 parameter_list|)
@@ -5118,7 +5121,7 @@ name|createManager
 parameter_list|(
 name|ArrayList
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|sfs
 parameter_list|,
@@ -5176,11 +5179,11 @@ specifier|private
 specifier|static
 name|ArrayList
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|al
 parameter_list|(
-name|StoreFile
+name|HStoreFile
 modifier|...
 name|sfs
 parameter_list|)
@@ -5203,13 +5206,13 @@ specifier|private
 specifier|static
 name|ArrayList
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|flattenLists
 parameter_list|(
 name|ArrayList
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 modifier|...
 name|sfls
@@ -5217,7 +5220,7 @@ parameter_list|)
 block|{
 name|ArrayList
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|result
 init|=
@@ -5230,7 +5233,7 @@ for|for
 control|(
 name|ArrayList
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|sfl
 range|:

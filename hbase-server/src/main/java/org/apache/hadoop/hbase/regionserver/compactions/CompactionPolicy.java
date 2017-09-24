@@ -45,11 +45,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|conf
 operator|.
-name|InterfaceAudience
+name|Configuration
 import|;
 end_import
 
@@ -61,9 +61,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|conf
+name|hbase
 operator|.
-name|Configuration
+name|regionserver
+operator|.
+name|HStoreFile
 import|;
 end_import
 
@@ -89,13 +91,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|yetus
 operator|.
-name|hbase
+name|audience
 operator|.
-name|regionserver
-operator|.
-name|StoreFile
+name|InterfaceAudience
 import|;
 end_import
 
@@ -158,10 +158,9 @@ specifier|abstract
 name|boolean
 name|shouldPerformMajorCompaction
 parameter_list|(
-specifier|final
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|filesToCompact
 parameter_list|)

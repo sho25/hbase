@@ -411,38 +411,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
-name|Store
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|StoreFile
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|testclassification
 operator|.
 name|MediumTests
@@ -553,7 +521,7 @@ name|HBaseTestingUtility
 argument_list|()
 decl_stmt|;
 specifier|private
-name|Region
+name|HRegion
 name|region
 decl_stmt|;
 specifier|private
@@ -1015,7 +983,7 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
-name|Store
+name|HStore
 name|store
 init|=
 name|region
@@ -1037,7 +1005,7 @@ argument_list|)
 expr_stmt|;
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|storefiles
 init|=
@@ -1048,16 +1016,11 @@ argument_list|()
 decl_stmt|;
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|compactedfiles
 init|=
-operator|(
-operator|(
-name|HStore
-operator|)
 name|store
-operator|)
 operator|.
 name|getStoreEngine
 argument_list|()
@@ -1071,7 +1034,7 @@ decl_stmt|;
 comment|// None of the files should be in compacted state.
 for|for
 control|(
-name|StoreFile
+name|HStoreFile
 name|file
 range|:
 name|storefiles
@@ -1102,7 +1065,7 @@ expr_stmt|;
 comment|// None of the files should be in compacted state.
 for|for
 control|(
-name|StoreFile
+name|HStoreFile
 name|file
 range|:
 name|storefiles
@@ -1186,7 +1149,7 @@ argument_list|()
 expr_stmt|;
 for|for
 control|(
-name|StoreFile
+name|HStoreFile
 name|file
 range|:
 name|storefiles
@@ -1432,7 +1395,7 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
-name|Store
+name|HStore
 name|store
 init|=
 name|region
@@ -1454,7 +1417,7 @@ argument_list|)
 expr_stmt|;
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|storefiles
 init|=
@@ -1465,16 +1428,11 @@ argument_list|()
 decl_stmt|;
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|compactedfiles
 init|=
-operator|(
-operator|(
-name|HStore
-operator|)
 name|store
-operator|)
 operator|.
 name|getStoreEngine
 argument_list|()
@@ -1488,7 +1446,7 @@ decl_stmt|;
 comment|// None of the files should be in compacted state.
 for|for
 control|(
-name|StoreFile
+name|HStoreFile
 name|file
 range|:
 name|storefiles
@@ -1533,7 +1491,7 @@ literal|0
 decl_stmt|;
 for|for
 control|(
-name|StoreFile
+name|HStoreFile
 name|file
 range|:
 name|storefiles
@@ -1579,7 +1537,7 @@ argument_list|()
 expr_stmt|;
 for|for
 control|(
-name|StoreFile
+name|HStoreFile
 name|file
 range|:
 name|compactedfiles
@@ -1653,7 +1611,7 @@ argument_list|()
 expr_stmt|;
 for|for
 control|(
-name|StoreFile
+name|HStoreFile
 name|file
 range|:
 name|storefiles
@@ -1899,7 +1857,7 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
-name|Store
+name|HStore
 name|store
 init|=
 name|region
@@ -1921,7 +1879,7 @@ argument_list|)
 expr_stmt|;
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|storefiles
 init|=
@@ -1932,16 +1890,11 @@ argument_list|()
 decl_stmt|;
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|compactedfiles
 init|=
-operator|(
-operator|(
-name|HStore
-operator|)
 name|store
-operator|)
 operator|.
 name|getStoreEngine
 argument_list|()
@@ -1955,7 +1908,7 @@ decl_stmt|;
 comment|// None of the files should be in compacted state.
 for|for
 control|(
-name|StoreFile
+name|HStoreFile
 name|file
 range|:
 name|storefiles
@@ -2000,7 +1953,7 @@ literal|0
 decl_stmt|;
 for|for
 control|(
-name|StoreFile
+name|HStoreFile
 name|file
 range|:
 name|storefiles
@@ -2008,12 +1961,7 @@ control|)
 block|{
 if|if
 condition|(
-operator|(
-operator|(
-name|HStoreFile
-operator|)
 name|file
-operator|)
 operator|.
 name|getRefCount
 argument_list|()
@@ -2028,12 +1976,7 @@ block|}
 block|}
 name|compactedfiles
 operator|=
-operator|(
-operator|(
-name|HStore
-operator|)
 name|store
-operator|)
 operator|.
 name|getStoreEngine
 argument_list|()
@@ -2046,7 +1989,7 @@ argument_list|()
 expr_stmt|;
 for|for
 control|(
-name|StoreFile
+name|HStoreFile
 name|file
 range|:
 name|compactedfiles
@@ -2198,7 +2141,7 @@ literal|0
 expr_stmt|;
 for|for
 control|(
-name|StoreFile
+name|HStoreFile
 name|file
 range|:
 name|storefiles
@@ -2206,12 +2149,7 @@ control|)
 block|{
 if|if
 condition|(
-operator|(
-operator|(
-name|HStoreFile
-operator|)
 name|file
-operator|)
 operator|.
 name|getRefCount
 argument_list|()
@@ -2244,7 +2182,7 @@ argument_list|()
 expr_stmt|;
 for|for
 control|(
-name|StoreFile
+name|HStoreFile
 name|file
 range|:
 name|compactedfiles
@@ -2256,12 +2194,7 @@ literal|"Refcount should be 0"
 argument_list|,
 literal|0
 argument_list|,
-operator|(
-operator|(
-name|HStoreFile
-operator|)
 name|file
-operator|)
 operator|.
 name|getRefCount
 argument_list|()
@@ -2337,7 +2270,7 @@ argument_list|()
 expr_stmt|;
 for|for
 control|(
-name|StoreFile
+name|HStoreFile
 name|file
 range|:
 name|storefiles

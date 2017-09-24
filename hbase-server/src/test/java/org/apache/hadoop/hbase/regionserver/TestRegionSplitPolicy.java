@@ -97,15 +97,11 @@ end_import
 
 begin_import
 import|import
-name|org
+name|java
 operator|.
-name|apache
+name|util
 operator|.
-name|hadoop
-operator|.
-name|conf
-operator|.
-name|Configuration
+name|Optional
 import|;
 end_import
 
@@ -117,9 +113,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
+name|conf
 operator|.
-name|TableName
+name|Configuration
 import|;
 end_import
 
@@ -176,6 +172,20 @@ operator|.
 name|hbase
 operator|.
 name|HTableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|TableName
 import|;
 end_import
 
@@ -1665,11 +1675,16 @@ name|Mockito
 operator|.
 name|doReturn
 argument_list|(
+name|Optional
+operator|.
+name|of
+argument_list|(
 name|Bytes
 operator|.
 name|toBytes
 argument_list|(
 literal|"abcd"
+argument_list|)
 argument_list|)
 argument_list|)
 operator|.
@@ -2096,11 +2111,16 @@ name|Mockito
 operator|.
 name|doReturn
 argument_list|(
+name|Optional
+operator|.
+name|of
+argument_list|(
 name|Bytes
 operator|.
 name|toBytes
 argument_list|(
 literal|"store 1 split"
+argument_list|)
 argument_list|)
 argument_list|)
 operator|.
@@ -2181,11 +2201,16 @@ name|Mockito
 operator|.
 name|doReturn
 argument_list|(
+name|Optional
+operator|.
+name|of
+argument_list|(
 name|Bytes
 operator|.
 name|toBytes
 argument_list|(
 literal|"store 2 split"
+argument_list|)
 argument_list|)
 argument_list|)
 operator|.
@@ -2361,11 +2386,16 @@ name|Mockito
 operator|.
 name|doReturn
 argument_list|(
+name|Optional
+operator|.
+name|of
+argument_list|(
 name|Bytes
 operator|.
 name|toBytes
 argument_list|(
 literal|"ab,cd"
+argument_list|)
 argument_list|)
 argument_list|)
 operator|.

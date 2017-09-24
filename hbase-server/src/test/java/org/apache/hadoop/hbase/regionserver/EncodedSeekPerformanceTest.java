@@ -338,7 +338,7 @@ argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// read all of the key values
-name|StoreFile
+name|HStoreFile
 name|storeFile
 init|=
 operator|new
@@ -431,7 +431,7 @@ expr_stmt|;
 block|}
 name|storeFile
 operator|.
-name|closeReader
+name|closeStoreFile
 argument_list|(
 name|cacheConf
 operator|.
@@ -519,7 +519,7 @@ throws|throws
 name|IOException
 block|{
 comment|// read all of the key values
-name|StoreFile
+name|HStoreFile
 name|storeFile
 init|=
 operator|new
@@ -815,7 +815,7 @@ operator|)
 decl_stmt|;
 name|storeFile
 operator|.
-name|closeReader
+name|closeStoreFile
 argument_list|(
 name|cacheConf
 operator|.

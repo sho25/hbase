@@ -1497,7 +1497,7 @@ operator|.
 name|getBlockCache
 argument_list|()
 decl_stmt|;
-name|StoreFile
+name|HStoreFile
 name|sf
 init|=
 operator|new

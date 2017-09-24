@@ -65,7 +65,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreConfigInformation
+name|HStoreFile
 import|;
 end_import
 
@@ -81,7 +81,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
+name|StoreConfigInformation
 import|;
 end_import
 
@@ -100,11 +100,9 @@ comment|/**    * Constructor.    *    * @param conf            The Conf.    * @p
 specifier|public
 name|EverythingPolicy
 parameter_list|(
-specifier|final
 name|Configuration
 name|conf
 parameter_list|,
-specifier|final
 name|StoreConfigInformation
 name|storeConfigInfo
 parameter_list|)
@@ -123,22 +121,19 @@ specifier|protected
 specifier|final
 name|ArrayList
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|applyCompactionPolicy
 parameter_list|(
-specifier|final
 name|ArrayList
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|candidates
 parameter_list|,
-specifier|final
 name|boolean
 name|mayUseOffPeak
 parameter_list|,
-specifier|final
 name|boolean
 name|mayBeStuck
 parameter_list|)

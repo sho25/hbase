@@ -1394,14 +1394,6 @@ decl_stmt|;
 comment|// Split on a row, not in middle of row.  Midkey returned by reader
 comment|// may be in middle of row.  Create new one with empty column and
 comment|// timestamp.
-name|Cell
-name|kv
-init|=
-name|reader
-operator|.
-name|midkey
-argument_list|()
-decl_stmt|;
 name|byte
 index|[]
 name|midRow
@@ -1410,16 +1402,15 @@ name|CellUtil
 operator|.
 name|cloneRow
 argument_list|(
-name|kv
-argument_list|)
-decl_stmt|;
-name|kv
-operator|=
 name|reader
 operator|.
-name|getLastKey
+name|midKey
 argument_list|()
-expr_stmt|;
+operator|.
+name|get
+argument_list|()
+argument_list|)
+decl_stmt|;
 name|byte
 index|[]
 name|finalRow
@@ -1428,12 +1419,18 @@ name|CellUtil
 operator|.
 name|cloneRow
 argument_list|(
-name|kv
+name|reader
+operator|.
+name|getLastKey
+argument_list|()
+operator|.
+name|get
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|hsf
 operator|.
-name|closeReader
+name|closeStoreFile
 argument_list|(
 literal|true
 argument_list|)
@@ -1517,6 +1514,11 @@ literal|false
 argument_list|,
 literal|false
 argument_list|)
+decl_stmt|;
+name|Cell
+name|kv
+init|=
+literal|null
 decl_stmt|;
 for|for
 control|(
@@ -2435,7 +2437,7 @@ decl_stmt|;
 comment|// bottom
 name|f
 operator|.
-name|closeReader
+name|closeStoreFile
 argument_list|(
 literal|true
 argument_list|)
@@ -2646,7 +2648,10 @@ operator|.
 name|getReader
 argument_list|()
 operator|.
-name|midkey
+name|midKey
+argument_list|()
+operator|.
+name|get
 argument_list|()
 decl_stmt|;
 name|KeyValue

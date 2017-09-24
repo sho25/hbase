@@ -49,7 +49,31 @@ name|junit
 operator|.
 name|Assert
 operator|.
+name|assertNull
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
 name|assertTrue
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|fail
 import|;
 end_import
 
@@ -923,30 +947,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|shaded
-operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|collect
-operator|.
-name|Lists
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|testclassification
 operator|.
 name|MediumTests
@@ -1111,16 +1111,6 @@ name|org
 operator|.
 name|junit
 operator|.
-name|Assert
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
 name|Before
 import|;
 end_import
@@ -1181,6 +1171,30 @@ name|Mockito
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|collect
+operator|.
+name|Lists
+import|;
+end_import
+
 begin_comment
 comment|/**  * Test class for the Store  */
 end_comment
@@ -1201,7 +1215,7 @@ block|}
 argument_list|)
 specifier|public
 class|class
-name|TestStore
+name|TestHStore
 block|{
 specifier|private
 specifier|static
@@ -1213,7 +1227,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|TestStore
+name|TestHStore
 operator|.
 name|class
 argument_list|)
@@ -1577,7 +1591,7 @@ argument_list|)
 return|;
 block|}
 specifier|private
-name|Store
+name|HStore
 name|init
 parameter_list|(
 name|String
@@ -1620,7 +1634,7 @@ argument_list|)
 return|;
 block|}
 specifier|private
-name|Store
+name|HStore
 name|init
 parameter_list|(
 name|String
@@ -1659,7 +1673,7 @@ argument_list|(
 literal|"deprecation"
 argument_list|)
 specifier|private
-name|Store
+name|HStore
 name|init
 parameter_list|(
 name|String
@@ -1703,7 +1717,7 @@ argument_list|(
 literal|"deprecation"
 argument_list|)
 specifier|private
-name|Store
+name|HStore
 name|init
 parameter_list|(
 name|String
@@ -2087,8 +2101,6 @@ argument_list|(
 name|conf
 argument_list|)
 decl_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|FaultyFileSystem
@@ -2130,8 +2142,6 @@ operator|.
 name|getFlushableSize
 argument_list|()
 decl_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|0
@@ -2202,8 +2212,6 @@ operator|.
 name|getFlushableSize
 argument_list|()
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|kvSize
@@ -2229,8 +2237,6 @@ name|id
 operator|++
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|fail
 argument_list|(
 literal|"Didn't bubble up IOE!"
@@ -2243,8 +2249,6 @@ name|IOException
 name|ioe
 parameter_list|)
 block|{
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 name|ioe
@@ -2284,8 +2288,6 @@ operator|.
 name|getFlushableSize
 argument_list|()
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|kvSize
@@ -2338,8 +2340,6 @@ argument_list|)
 expr_stmt|;
 comment|// Even though we add a new kv, we expect the flushable size to be 'same' since we have
 comment|// not yet cleared the snapshot -- the above flush failed.
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|kvSize
@@ -2374,8 +2374,6 @@ name|getFlushableSize
 argument_list|()
 expr_stmt|;
 comment|// Size should be the foreground kv size.
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|kvSize2
@@ -2647,8 +2645,6 @@ argument_list|,
 name|conf
 argument_list|)
 decl_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|hcd
@@ -2662,8 +2658,6 @@ name|getCompressionAlgorithm
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|hcd
@@ -2958,8 +2952,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// Verify the total number of store files
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|storeFileNum
@@ -3010,7 +3002,7 @@ argument_list|)
 expr_stmt|;
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|sfs
 init|=
@@ -3044,7 +3036,7 @@ expr_stmt|;
 comment|// Ensure only non-expired files remain.
 for|for
 control|(
-name|StoreFile
+name|HStoreFile
 name|sf
 range|:
 name|sfs
@@ -3109,7 +3101,7 @@ argument_list|)
 expr_stmt|;
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|sfs
 init|=
@@ -3172,7 +3164,7 @@ argument_list|)
 expr_stmt|;
 for|for
 control|(
-name|StoreFile
+name|HStoreFile
 name|sf
 range|:
 name|sfs
@@ -3180,7 +3172,7 @@ control|)
 block|{
 name|sf
 operator|.
-name|closeReader
+name|closeStoreFile
 argument_list|(
 literal|true
 argument_list|)
@@ -3368,8 +3360,6 @@ name|getStorefiles
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|lowestTimeStampFromManager
@@ -3421,8 +3411,6 @@ name|getStorefiles
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|lowestTimeStampFromManager
@@ -3442,7 +3430,7 @@ parameter_list|,
 specifier|final
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|candidates
 parameter_list|)
@@ -3488,7 +3476,7 @@ literal|0
 decl_stmt|;
 for|for
 control|(
-name|StoreFile
+name|HStoreFile
 name|sf
 range|:
 name|candidates
@@ -3656,7 +3644,7 @@ argument_list|)
 expr_stmt|;
 comment|// Now put in place an empty store file.  Its a little tricky.  Have to
 comment|// do manually with hacked in sequence id.
-name|StoreFile
+name|HStoreFile
 name|f
 init|=
 name|this
@@ -3804,8 +3792,6 @@ argument_list|,
 name|c
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|2
@@ -3834,8 +3820,6 @@ argument_list|,
 name|qualifiers
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|1
@@ -4546,8 +4530,6 @@ name|id
 operator|++
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|storeFilessize
@@ -4563,8 +4545,6 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|0
@@ -4593,8 +4573,6 @@ name|void
 name|assertCheck
 parameter_list|()
 block|{
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|expected
@@ -4626,8 +4604,6 @@ name|i
 operator|++
 control|)
 block|{
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|expected
@@ -4753,8 +4729,6 @@ argument_list|(
 name|conf
 argument_list|)
 decl_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|FaultyFileSystem
@@ -4886,8 +4860,6 @@ name|getColumnFamilyName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|0
@@ -4919,8 +4891,6 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|fail
 argument_list|(
 literal|"Didn't bubble up IOE!"
@@ -4933,8 +4903,6 @@ name|IOException
 name|ioe
 parameter_list|)
 block|{
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 name|ioe
@@ -4971,8 +4939,6 @@ name|getColumnFamilyName
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|0
@@ -5687,8 +5653,6 @@ argument_list|,
 name|get
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 name|result
@@ -5719,8 +5683,6 @@ argument_list|,
 name|get
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 name|result
@@ -5751,8 +5713,6 @@ argument_list|,
 name|get
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 name|result
@@ -5783,8 +5743,6 @@ argument_list|,
 name|get
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 name|result
@@ -5815,8 +5773,6 @@ argument_list|,
 name|get
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 name|result
@@ -5847,8 +5803,6 @@ argument_list|,
 name|get
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 name|result
@@ -5880,13 +5834,14 @@ name|getMethodName
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
-name|assertNull
+name|assertFalse
 argument_list|(
 name|store
 operator|.
 name|getSplitPoint
+argument_list|()
+operator|.
+name|isPresent
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -5900,13 +5855,14 @@ argument_list|(
 literal|null
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
-name|assertNull
+name|assertFalse
 argument_list|(
 name|store
 operator|.
 name|getSplitPoint
+argument_list|()
+operator|.
+name|isPresent
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -5971,8 +5927,6 @@ argument_list|,
 name|conf
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 name|store
@@ -5985,8 +5939,6 @@ literal|1
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertFalse
 argument_list|(
 name|store
@@ -6054,8 +6006,6 @@ argument_list|,
 name|hcd
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 name|store
@@ -6068,8 +6018,6 @@ literal|1
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertFalse
 argument_list|(
 name|store
@@ -6114,8 +6062,6 @@ argument_list|,
 name|hcd
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 name|store
@@ -6128,8 +6074,6 @@ literal|1
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertFalse
 argument_list|(
 name|store
@@ -6164,7 +6108,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|CellComparator
@@ -6237,8 +6181,6 @@ argument_list|,
 name|conf
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|DummyStoreEngine
@@ -6263,7 +6205,7 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|StoreFile
+name|HStoreFile
 name|f
 init|=
 name|this
@@ -6406,7 +6348,7 @@ name|IOException
 block|{
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|files
 init|=
@@ -6417,14 +6359,14 @@ operator|.
 name|getStorefiles
 argument_list|()
 decl_stmt|;
-name|StoreFile
+name|HStoreFile
 name|sf
 init|=
 literal|null
 decl_stmt|;
 name|Iterator
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|it
 init|=
@@ -6489,7 +6431,7 @@ name|IOException
 block|{
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|files
 init|=
@@ -6506,14 +6448,14 @@ operator|.
 name|getCompactedfiles
 argument_list|()
 decl_stmt|;
-name|StoreFile
+name|HStoreFile
 name|sf
 init|=
 literal|null
 decl_stmt|;
 name|Iterator
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|it
 init|=
@@ -6547,7 +6489,7 @@ expr_stmt|;
 block|}
 name|sf
 operator|.
-name|closeReader
+name|closeStoreFile
 argument_list|(
 literal|true
 argument_list|)
@@ -10662,7 +10604,7 @@ name|getScanners
 parameter_list|(
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|files
 parameter_list|,
@@ -11096,7 +11038,7 @@ argument_list|)
 expr_stmt|;
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|storefiles2
 init|=
@@ -11107,7 +11049,7 @@ argument_list|()
 decl_stmt|;
 name|ArrayList
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|actualStorefiles
 init|=
@@ -11277,7 +11219,7 @@ argument_list|()
 expr_stmt|;
 name|ArrayList
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|actualStorefiles1
 init|=

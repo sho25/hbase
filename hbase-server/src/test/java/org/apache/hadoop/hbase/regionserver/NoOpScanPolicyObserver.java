@@ -169,24 +169,6 @@ name|CompactionLifeCycleTracker
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|compactions
-operator|.
-name|CompactionRequest
-import|;
-end_import
-
 begin_comment
 comment|/**  * RegionObserver that just reimplements the default behavior,  * in order to validate that all the necessary APIs for this are public  * This observer is also used in {@link TestFromClientSideWithCoprocessor} and  * {@link TestCompactionWithCoprocessor} to make sure that a wide range  * of functionality still behaves as expected.  */
 end_comment
@@ -274,6 +256,9 @@ return|return
 operator|new
 name|StoreScanner
 argument_list|(
+operator|(
+name|HStore
+operator|)
 name|store
 argument_list|,
 name|scanInfo
@@ -388,6 +373,9 @@ return|return
 operator|new
 name|StoreScanner
 argument_list|(
+operator|(
+name|HStore
+operator|)
 name|store
 argument_list|,
 name|scanInfo
@@ -464,6 +452,9 @@ condition|?
 operator|new
 name|ReversedStoreScanner
 argument_list|(
+operator|(
+name|HStore
+operator|)
 name|store
 argument_list|,
 name|store
@@ -489,6 +480,9 @@ else|:
 operator|new
 name|StoreScanner
 argument_list|(
+operator|(
+name|HStore
+operator|)
 name|store
 argument_list|,
 name|store

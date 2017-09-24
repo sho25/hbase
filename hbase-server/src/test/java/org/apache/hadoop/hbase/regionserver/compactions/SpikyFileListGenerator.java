@@ -61,7 +61,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
+name|HStoreFile
 import|;
 end_import
 
@@ -89,7 +89,7 @@ name|Iterator
 argument_list|<
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 argument_list|>
 name|iterator
@@ -101,7 +101,7 @@ name|Iterator
 argument_list|<
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 argument_list|>
 argument_list|()
@@ -132,7 +132,7 @@ name|Override
 specifier|public
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|next
 parameter_list|()
@@ -143,7 +143,7 @@ literal|1
 expr_stmt|;
 name|ArrayList
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|files
 init|=

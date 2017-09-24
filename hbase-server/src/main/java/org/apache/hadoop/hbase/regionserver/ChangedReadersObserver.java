@@ -75,7 +75,7 @@ name|updateReaders
 parameter_list|(
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|sfs
 parameter_list|,

@@ -114,7 +114,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Useful comparators for comparing StoreFiles.  */
+comment|/**  * Useful comparators for comparing store files.  */
 end_comment
 
 begin_class
@@ -126,13 +126,13 @@ specifier|final
 class|class
 name|StoreFileComparators
 block|{
-comment|/**    * Comparator that compares based on the Sequence Ids of the the StoreFiles. Bulk loads that did    * not request a seq ID are given a seq id of -1; thus, they are placed before all non- bulk    * loads, and bulk loads with sequence Id. Among these files, the size is used to determine the    * ordering, then bulkLoadTime. If there are ties, the path name is used as a tie-breaker.    */
+comment|/**    * Comparator that compares based on the Sequence Ids of the the store files. Bulk loads that did    * not request a seq ID are given a seq id of -1; thus, they are placed before all non- bulk    * loads, and bulk loads with sequence Id. Among these files, the size is used to determine the    * ordering, then bulkLoadTime. If there are ties, the path name is used as a tie-breaker.    */
 specifier|public
 specifier|static
 specifier|final
 name|Comparator
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|SEQ_ID
 init|=
@@ -203,7 +203,7 @@ specifier|static
 specifier|final
 name|Comparator
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|SEQ_ID_MAX_TIMESTAMP
 init|=
@@ -287,7 +287,7 @@ name|GetSeqId
 implements|implements
 name|Function
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|,
 name|Long
 argument_list|>
@@ -298,7 +298,7 @@ specifier|public
 name|Long
 name|apply
 parameter_list|(
-name|StoreFile
+name|HStoreFile
 name|sf
 parameter_list|)
 block|{
@@ -317,7 +317,7 @@ name|GetFileSize
 implements|implements
 name|Function
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|,
 name|Long
 argument_list|>
@@ -328,7 +328,7 @@ specifier|public
 name|Long
 name|apply
 parameter_list|(
-name|StoreFile
+name|HStoreFile
 name|sf
 parameter_list|)
 block|{
@@ -370,7 +370,7 @@ name|GetBulkTime
 implements|implements
 name|Function
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|,
 name|Long
 argument_list|>
@@ -381,7 +381,7 @@ specifier|public
 name|Long
 name|apply
 parameter_list|(
-name|StoreFile
+name|HStoreFile
 name|sf
 parameter_list|)
 block|{
@@ -407,7 +407,7 @@ name|GetPathName
 implements|implements
 name|Function
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|,
 name|String
 argument_list|>
@@ -418,7 +418,7 @@ specifier|public
 name|String
 name|apply
 parameter_list|(
-name|StoreFile
+name|HStoreFile
 name|sf
 parameter_list|)
 block|{
@@ -440,7 +440,7 @@ name|GetMaxTimestamp
 implements|implements
 name|Function
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|,
 name|Long
 argument_list|>
@@ -451,7 +451,7 @@ specifier|public
 name|Long
 name|apply
 parameter_list|(
-name|StoreFile
+name|HStoreFile
 name|sf
 parameter_list|)
 block|{

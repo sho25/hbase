@@ -315,20 +315,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -518,6 +504,20 @@ operator|.
 name|util
 operator|.
 name|EnvironmentEdgeManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -5928,7 +5928,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * Compute a cost of a potential cluster configuration based upon where    * {@link org.apache.hadoop.hbase.regionserver.StoreFile}s are located.    */
+comment|/**    * Compute a cost of a potential cluster configuration based upon where    * {@link org.apache.hadoop.hbase.regionserver.HStoreFile}s are located.    */
 specifier|static
 specifier|abstract
 class|class

@@ -69,25 +69,11 @@ end_import
 
 begin_import
 import|import
-name|org
+name|java
 operator|.
-name|apache
+name|util
 operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|collect
-operator|.
-name|ImmutableCollection
+name|Optional
 import|;
 end_import
 
@@ -133,6 +119,30 @@ name|InterfaceAudience
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|collect
+operator|.
+name|ImmutableCollection
+import|;
+end_import
+
 begin_comment
 comment|/**  * Manages the store files and basic metadata about that that determines the logical structure  * (e.g. what files to return for scan, how to determine split point, and such).  * Does NOT affect the physical structure of files in HDFS.  * Example alternative structures - the default list of files by seqNum; levelDB one sorted  * by level and seqNum.  *  * Implementations are assumed to be not thread safe.  */
 end_comment
@@ -152,7 +162,7 @@ name|loadFiles
 parameter_list|(
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|storeFiles
 parameter_list|)
@@ -163,7 +173,7 @@ name|insertNewFiles
 parameter_list|(
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|sfs
 parameter_list|)
@@ -176,13 +186,13 @@ name|addCompactionResults
 parameter_list|(
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|compactedFiles
 parameter_list|,
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|results
 parameter_list|)
@@ -195,7 +205,7 @@ name|removeCompactedFiles
 parameter_list|(
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|compactedFiles
 parameter_list|)
@@ -205,7 +215,7 @@ function_decl|;
 comment|/**    * Clears all the files currently in use and returns them.    * @return The files previously in use.    */
 name|ImmutableCollection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|clearFiles
 parameter_list|()
@@ -213,7 +223,7 @@ function_decl|;
 comment|/**    * Clears all the compacted files and returns them. This method is expected to be    * accessed single threaded.    * @return The files compacted previously.    */
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|clearCompactedFiles
 parameter_list|()
@@ -221,7 +231,7 @@ function_decl|;
 comment|/**    * Gets the snapshot of the store files currently in use. Can be used for things like metrics    * and checks; should not assume anything about relations between store files in the list.    * @return The list of StoreFiles.    */
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|getStorefiles
 parameter_list|()
@@ -229,7 +239,7 @@ function_decl|;
 comment|/**    * List of compacted files inside this store that needs to be excluded in reads    * because further new reads will be using only the newly created files out of compaction.    * These compacted files will be deleted/cleared once all the existing readers on these    * compacted files are done.    * @return the list of compacted files    */
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|getCompactedfiles
 parameter_list|()
@@ -247,7 +257,7 @@ function_decl|;
 comment|/**    * Gets the store files to scan for a Scan or Get request.    * @param startRow Start row of the request.    * @param stopRow Stop row of the request.    * @return The list of files that are to be read for this request.    */
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|getFilesForScan
 parameter_list|(
@@ -269,7 +279,7 @@ function_decl|;
 comment|/**    * Gets initial, full list of candidate store files to check for row-key-before.    * @param targetKey The key that is the basis of the search.    * @return The files that may have the key less than or equal to targetKey, in reverse    *         order of new-ness, and preference for target key.    */
 name|Iterator
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|getCandidateFilesForRowKeyBefore
 parameter_list|(
@@ -280,13 +290,13 @@ function_decl|;
 comment|/**    * Updates the candidate list for finding row key before. Based on the list of candidates    * remaining to check from getCandidateFilesForRowKeyBefore, targetKey and current candidate,    * may trim and reorder the list to remove the files where a better candidate cannot be found.    * @param candidateFiles The candidate files not yet checked for better candidates - return    *                       value from {@link #getCandidateFilesForRowKeyBefore(KeyValue)},    *                       with some files already removed.    * @param targetKey The key to search for.    * @param candidate The current best candidate found.    * @return The list to replace candidateFiles.    */
 name|Iterator
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|updateCandidateFilesForRowKeyBefore
 parameter_list|(
 name|Iterator
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|candidateFiles
 parameter_list|,
@@ -297,9 +307,12 @@ name|Cell
 name|candidate
 parameter_list|)
 function_decl|;
-comment|/**    * Gets the split point for the split of this set of store files (approx. middle).    * @return The mid-point, or null if no split is possible.    * @throws IOException    */
+comment|/**    * Gets the split point for the split of this set of store files (approx. middle).    * @return The mid-point if possible.    * @throws IOException    */
+name|Optional
+argument_list|<
 name|byte
 index|[]
+argument_list|>
 name|getSplitPoint
 parameter_list|()
 throws|throws
@@ -313,7 +326,7 @@ function_decl|;
 comment|/**    * @param maxTs Maximum expired timestamp.    * @param filesCompacting Files that are currently compacting.    * @return The files which don't have any necessary data according to TTL and other criteria.    */
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|getUnneededFiles
 parameter_list|(
@@ -322,7 +335,7 @@ name|maxTs
 parameter_list|,
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|filesCompacting
 parameter_list|)
@@ -332,10 +345,10 @@ name|double
 name|getCompactionPressure
 parameter_list|()
 function_decl|;
-comment|/**    * @return the comparator used to sort storefiles. Usually, the    *         {@link StoreFile#getMaxSequenceId()} is the first priority.    */
+comment|/**    * @return the comparator used to sort storefiles. Usually, the    *         {@link HStoreFile#getMaxSequenceId()} is the first priority.    */
 name|Comparator
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|getStoreFileComparator
 parameter_list|()

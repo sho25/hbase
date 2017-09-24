@@ -27,6 +27,18 @@ name|junit
 operator|.
 name|Assert
 operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
 name|assertTrue
 import|;
 end_import
@@ -737,22 +749,6 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
 name|StoreFileScanner
 import|;
 end_import
@@ -874,16 +870,6 @@ operator|.
 name|junit
 operator|.
 name|AfterClass
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
 import|;
 end_import
 
@@ -3497,8 +3483,6 @@ name|isForceAllFiles
 argument_list|)
 decl_stmt|;
 comment|// Make sure that there is no del Partitions
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 name|request
@@ -3524,8 +3508,6 @@ name|getCompactionPartitions
 argument_list|()
 control|)
 block|{
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 name|p
@@ -3536,8 +3518,6 @@ operator|==
 literal|null
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 name|p
@@ -3697,8 +3677,6 @@ argument_list|,
 name|isForceAllFiles
 argument_list|)
 decl_stmt|;
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 name|request
@@ -3736,8 +3714,6 @@ name|getCompactionPartitions
 argument_list|()
 control|)
 block|{
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 name|p
@@ -3748,8 +3724,6 @@ operator|!=
 literal|null
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 name|p
@@ -3786,7 +3760,7 @@ name|listDelFiles
 argument_list|()
 control|)
 block|{
-name|StoreFile
+name|HStoreFile
 name|sf
 init|=
 operator|new
@@ -3842,8 +3816,6 @@ name|getDelPartitions
 argument_list|()
 control|)
 block|{
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 name|Bytes
@@ -3877,8 +3849,6 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 name|Bytes
@@ -3927,7 +3897,7 @@ control|)
 block|{
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|delFiles
 init|=
@@ -4037,8 +4007,6 @@ operator|>
 literal|0
 condition|)
 block|{
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 name|delFiles
@@ -4056,8 +4024,6 @@ operator|.
 name|size
 argument_list|()
 expr_stmt|;
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 name|Bytes
@@ -4082,14 +4048,15 @@ argument_list|)
 operator|.
 name|getLastKey
 argument_list|()
+operator|.
+name|get
+argument_list|()
 argument_list|)
 argument_list|)
 operator|<=
 literal|0
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 name|Bytes
@@ -4119,6 +4086,9 @@ argument_list|)
 operator|.
 name|getFirstKey
 argument_list|()
+operator|.
+name|get
+argument_list|()
 argument_list|)
 argument_list|)
 operator|>=
@@ -4130,8 +4100,6 @@ block|}
 block|}
 block|}
 comment|// The del file is only included in one partition
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 name|affectedPartitions
@@ -4155,7 +4123,7 @@ control|)
 block|{
 for|for
 control|(
-name|StoreFile
+name|HStoreFile
 name|storeFile
 range|:
 name|delPartition
@@ -4168,7 +4136,7 @@ try|try
 block|{
 name|storeFile
 operator|.
-name|closeReader
+name|closeStoreFile
 argument_list|(
 literal|true
 argument_list|)
@@ -4592,8 +4560,6 @@ name|getCompactionPartitions
 argument_list|()
 control|)
 block|{
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 name|p
@@ -4604,8 +4570,6 @@ operator|==
 literal|null
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 name|p
@@ -4635,8 +4599,6 @@ name|getDelPartitions
 argument_list|()
 control|)
 block|{
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 name|Bytes
@@ -4670,8 +4632,6 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 name|Bytes
@@ -4715,7 +4675,7 @@ control|)
 block|{
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|delFiles
 init|=
@@ -4825,8 +4785,6 @@ operator|>
 literal|0
 condition|)
 block|{
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 name|Bytes
@@ -4848,6 +4806,9 @@ operator|.
 name|getFirstKey
 argument_list|()
 operator|.
+name|get
+argument_list|()
+operator|.
 name|getRowArray
 argument_list|()
 argument_list|)
@@ -4855,8 +4816,6 @@ operator|>=
 literal|0
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 name|Bytes
@@ -4883,6 +4842,9 @@ operator|.
 name|getLastKey
 argument_list|()
 operator|.
+name|get
+argument_list|()
+operator|.
 name|getRowArray
 argument_list|()
 argument_list|)
@@ -4895,8 +4857,6 @@ block|}
 block|}
 block|}
 comment|// assert the compaction type
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|type
@@ -5056,8 +5016,6 @@ name|delFilePaths
 argument_list|)
 decl_stmt|;
 comment|// assert the del files are merged.
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|expectedFileCount
@@ -5068,8 +5026,6 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|expectedCellCount
@@ -5228,8 +5184,6 @@ argument_list|(
 name|actualKeys
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|expected
@@ -5261,8 +5215,6 @@ name|i
 operator|++
 control|)
 block|{
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|expected
@@ -5345,8 +5297,6 @@ range|:
 name|delFiles
 control|)
 block|{
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 name|delMap
@@ -5784,7 +5734,7 @@ name|IOException
 block|{
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|sfs
 init|=
@@ -5806,7 +5756,7 @@ range|:
 name|paths
 control|)
 block|{
-name|StoreFile
+name|HStoreFile
 name|sf
 init|=
 operator|new

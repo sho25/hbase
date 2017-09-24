@@ -335,24 +335,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
-name|compactions
-operator|.
-name|CompactionRequest
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|util
 operator|.
 name|Bytes
@@ -745,7 +727,7 @@ parameter_list|(
 name|InterruptedException
 name|ix
 parameter_list|)
-block|{       }
+block|{           }
 catch|catch
 parameter_list|(
 name|KeeperException
@@ -783,7 +765,7 @@ parameter_list|(
 name|InterruptedException
 name|ix
 parameter_list|)
-block|{       }
+block|{           }
 catch|catch
 parameter_list|(
 name|KeeperException
@@ -1047,6 +1029,9 @@ return|return
 operator|new
 name|StoreScanner
 argument_list|(
+operator|(
+name|HStore
+operator|)
 name|store
 argument_list|,
 name|scanInfo
@@ -1143,6 +1128,9 @@ return|return
 operator|new
 name|StoreScanner
 argument_list|(
+operator|(
+name|HStore
+operator|)
 name|store
 argument_list|,
 name|scanInfo
@@ -1228,6 +1216,9 @@ return|return
 operator|new
 name|StoreScanner
 argument_list|(
+operator|(
+name|HStore
+operator|)
 name|store
 argument_list|,
 name|scanInfo

@@ -2884,7 +2884,7 @@ specifier|public
 name|InternalScanner
 name|preCompactScannerOpen
 parameter_list|(
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|List
@@ -2980,17 +2980,17 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * Called prior to selecting the {@link StoreFile}s for compaction from the list of currently    * available candidates.    * @param store The store where compaction is being requested    * @param candidates The currently available store files    * @param tracker used to track the life cycle of a compaction    * @return If {@code true}, skip the normal selection process and use the current list    * @throws IOException    */
+comment|/**    * Called prior to selecting the {@link HStoreFile}s for compaction from the list of currently    * available candidates.    * @param store The store where compaction is being requested    * @param candidates The currently available store files    * @param tracker used to track the life cycle of a compaction    * @return If {@code true}, skip the normal selection process and use the current list    * @throws IOException    */
 specifier|public
 name|boolean
 name|preCompactSelection
 parameter_list|(
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|candidates
 parameter_list|,
@@ -3055,17 +3055,17 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * Called after the {@link StoreFile}s to be compacted have been selected from the available    * candidates.    * @param store The store where compaction is being requested    * @param selected The store files selected to compact    * @param tracker used to track the life cycle of a compaction    */
+comment|/**    * Called after the {@link HStoreFile}s to be compacted have been selected from the available    * candidates.    * @param store The store where compaction is being requested    * @param selected The store files selected to compact    * @param tracker used to track the life cycle of a compaction    */
 specifier|public
 name|void
 name|postCompactSelection
 parameter_list|(
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|ImmutableList
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|selected
 parameter_list|,
@@ -3134,7 +3134,7 @@ specifier|public
 name|InternalScanner
 name|preCompact
 parameter_list|(
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|InternalScanner
@@ -3222,10 +3222,10 @@ specifier|public
 name|void
 name|postCompact
 parameter_list|(
-name|Store
+name|HStore
 name|store
 parameter_list|,
-name|StoreFile
+name|HStoreFile
 name|resultFile
 parameter_list|,
 name|CompactionLifeCycleTracker
@@ -3293,8 +3293,7 @@ specifier|public
 name|InternalScanner
 name|preFlush
 parameter_list|(
-specifier|final
-name|Store
+name|HStore
 name|store
 parameter_list|,
 specifier|final
@@ -3419,18 +3418,15 @@ specifier|public
 name|InternalScanner
 name|preFlushScannerOpen
 parameter_list|(
-specifier|final
-name|Store
+name|HStore
 name|store
 parameter_list|,
-specifier|final
 name|List
 argument_list|<
 name|KeyValueScanner
 argument_list|>
 name|scanners
 parameter_list|,
-specifier|final
 name|long
 name|readPoint
 parameter_list|)
@@ -3554,12 +3550,10 @@ specifier|public
 name|void
 name|postFlush
 parameter_list|(
-specifier|final
-name|Store
+name|HStore
 name|store
 parameter_list|,
-specifier|final
-name|StoreFile
+name|HStoreFile
 name|storeFile
 parameter_list|)
 throws|throws
@@ -5548,15 +5542,12 @@ specifier|public
 name|KeyValueScanner
 name|preStoreScannerOpen
 parameter_list|(
-specifier|final
-name|Store
+name|HStore
 name|store
 parameter_list|,
-specifier|final
 name|Scan
 name|scan
 parameter_list|,
-specifier|final
 name|NavigableSet
 argument_list|<
 name|byte
@@ -5564,7 +5555,6 @@ index|[]
 argument_list|>
 name|targetCols
 parameter_list|,
-specifier|final
 name|long
 name|readPt
 parameter_list|)

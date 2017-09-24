@@ -1330,7 +1330,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|StoreFile
+name|HStoreFile
 name|sf
 init|=
 operator|new

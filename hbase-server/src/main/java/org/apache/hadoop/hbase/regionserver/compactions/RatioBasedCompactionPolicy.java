@@ -131,11 +131,13 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|regionserver
+operator|.
+name|HStore
 import|;
 end_import
 
@@ -151,7 +153,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HStore
+name|HStoreFile
 import|;
 end_import
 
@@ -199,22 +201,6 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
 name|StoreUtils
 import|;
 end_import
@@ -232,6 +218,20 @@ operator|.
 name|util
 operator|.
 name|EnvironmentEdgeManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -290,10 +290,9 @@ specifier|public
 name|boolean
 name|shouldPerformMajorCompaction
 parameter_list|(
-specifier|final
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|filesToCompact
 parameter_list|)
@@ -451,7 +450,7 @@ literal|1
 condition|)
 block|{
 comment|// Single file
-name|StoreFile
+name|HStoreFile
 name|sf
 init|=
 name|filesToCompact
@@ -680,7 +679,7 @@ name|createCompactionRequest
 parameter_list|(
 name|ArrayList
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|candidateSelection
 parameter_list|,
@@ -745,13 +744,13 @@ comment|/**     * -- Default minor compaction selection algorithm:     * choose 
 specifier|protected
 name|ArrayList
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|applyCompactionPolicy
 parameter_list|(
 name|ArrayList
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|candidates
 parameter_list|,
@@ -859,7 +858,7 @@ operator|--
 name|i
 control|)
 block|{
-name|StoreFile
+name|HStoreFile
 name|file
 init|=
 name|candidates
@@ -1066,17 +1065,15 @@ specifier|public
 name|boolean
 name|needsCompaction
 parameter_list|(
-specifier|final
 name|Collection
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|storeFiles
 parameter_list|,
-specifier|final
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|filesCompacting
 parameter_list|)

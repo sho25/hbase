@@ -18,6 +18,54 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertArrayEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertNotNull
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -585,30 +633,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|shaded
-operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|collect
-operator|.
-name|ImmutableList
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|util
 operator|.
 name|Bytes
@@ -664,50 +688,26 @@ import|;
 end_import
 
 begin_import
-import|import static
+import|import
 name|org
 operator|.
-name|junit
+name|apache
 operator|.
-name|Assert
+name|hadoop
 operator|.
-name|assertArrayEquals
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
+name|hbase
 operator|.
-name|junit
+name|shaded
 operator|.
-name|Assert
+name|com
 operator|.
-name|assertEquals
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
+name|google
 operator|.
-name|junit
+name|common
 operator|.
-name|Assert
+name|collect
 operator|.
-name|assertNotNull
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertTrue
+name|ImmutableList
 import|;
 end_import
 
@@ -1629,6 +1629,8 @@ name|store
 parameter_list|,
 name|List
 argument_list|<
+name|?
+extends|extends
 name|StoreFile
 argument_list|>
 name|candidates
@@ -1662,6 +1664,8 @@ name|store
 parameter_list|,
 name|ImmutableList
 argument_list|<
+name|?
+extends|extends
 name|StoreFile
 argument_list|>
 name|selected

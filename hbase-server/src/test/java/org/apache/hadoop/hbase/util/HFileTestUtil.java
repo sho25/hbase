@@ -21,6 +21,24 @@ begin_import
 import|import static
 name|org
 operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|HStoreFile
+operator|.
+name|BULKLOAD_TIME_KEY
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
 name|junit
 operator|.
 name|Assert
@@ -392,22 +410,6 @@ operator|.
 name|mob
 operator|.
 name|MobUtils
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|StoreFile
 import|;
 end_import
 
@@ -905,8 +907,6 @@ name|writer
 operator|.
 name|appendFileInfo
 argument_list|(
-name|StoreFile
-operator|.
 name|BULKLOAD_TIME_KEY
 argument_list|,
 name|Bytes

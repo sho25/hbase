@@ -45,30 +45,6 @@ end_import
 
 begin_import
 import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|base
-operator|.
-name|MoreObjects
-import|;
-end_import
-
-begin_import
-import|import
 name|java
 operator|.
 name|util
@@ -137,7 +113,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|StoreFile
+name|HStoreFile
 import|;
 end_import
 
@@ -171,6 +147,30 @@ name|StringUtils
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|base
+operator|.
+name|MoreObjects
+import|;
+end_import
+
 begin_comment
 comment|/**  * Base class of objects that can create mock store files with a given size.  */
 end_comment
@@ -196,6 +196,9 @@ decl_stmt|;
 name|MockStoreFileGenerator
 parameter_list|(
 name|Class
+argument_list|<
+name|?
+argument_list|>
 name|klass
 parameter_list|)
 block|{
@@ -217,7 +220,7 @@ block|}
 specifier|protected
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|createStoreFileList
 parameter_list|(
@@ -229,7 +232,7 @@ parameter_list|)
 block|{
 name|List
 argument_list|<
-name|StoreFile
+name|HStoreFile
 argument_list|>
 name|storeFiles
 init|=
@@ -262,7 +265,7 @@ name|storeFiles
 return|;
 block|}
 specifier|protected
-name|StoreFile
+name|HStoreFile
 name|createMockStoreFile
 parameter_list|(
 specifier|final
@@ -285,7 +288,7 @@ argument_list|)
 return|;
 block|}
 specifier|protected
-name|StoreFile
+name|HStoreFile
 name|createMockStoreFileBytes
 parameter_list|(
 specifier|final
@@ -304,7 +307,7 @@ argument_list|)
 return|;
 block|}
 specifier|protected
-name|StoreFile
+name|HStoreFile
 name|createMockStoreFile
 parameter_list|(
 specifier|final
@@ -316,12 +319,12 @@ name|long
 name|seqId
 parameter_list|)
 block|{
-name|StoreFile
+name|HStoreFile
 name|mockSf
 init|=
 name|mock
 argument_list|(
-name|StoreFile
+name|HStoreFile
 operator|.
 name|class
 argument_list|)
