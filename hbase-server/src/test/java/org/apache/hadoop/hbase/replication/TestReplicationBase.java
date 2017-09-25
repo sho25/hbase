@@ -373,7 +373,7 @@ specifier|static
 name|ReplicationAdmin
 name|admin
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|static
 name|Admin
 name|hbaseAdmin
