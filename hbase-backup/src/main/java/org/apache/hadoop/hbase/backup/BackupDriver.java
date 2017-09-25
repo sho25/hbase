@@ -270,6 +270,42 @@ import|;
 end_import
 
 begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|backup
+operator|.
+name|BackupRestoreConstants
+operator|.
+name|OPTION_YARN_QUEUE_NAME
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|backup
+operator|.
+name|BackupRestoreConstants
+operator|.
+name|OPTION_YARN_QUEUE_NAME_DESC
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -1136,6 +1172,13 @@ argument_list|(
 name|OPTION_PATH
 argument_list|,
 name|OPTION_PATH_DESC
+argument_list|)
+expr_stmt|;
+name|addOptWithArg
+argument_list|(
+name|OPTION_YARN_QUEUE_NAME
+argument_list|,
+name|OPTION_YARN_QUEUE_NAME_DESC
 argument_list|)
 expr_stmt|;
 block|}
