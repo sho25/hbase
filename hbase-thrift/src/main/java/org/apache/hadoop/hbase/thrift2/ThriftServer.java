@@ -1272,6 +1272,19 @@ operator|+
 literal|"only applies to TBoundedThreadPoolServer"
 argument_list|)
 expr_stmt|;
+name|options
+operator|.
+name|addOption
+argument_list|(
+literal|"ro"
+argument_list|,
+literal|"readonly"
+argument_list|,
+literal|false
+argument_list|,
+literal|"Respond only to read method requests [default: false]"
+argument_list|)
+expr_stmt|;
 name|OptionGroup
 name|servers
 init|=
@@ -2701,6 +2714,43 @@ argument_list|(
 literal|"hbase.thrift.info.bindAddress"
 argument_list|)
 expr_stmt|;
+block|}
+comment|// check if server should only process read requests, if so override the conf
+if|if
+condition|(
+name|cmd
+operator|.
+name|hasOption
+argument_list|(
+literal|"readonly"
+argument_list|)
+condition|)
+block|{
+name|conf
+operator|.
+name|setBoolean
+argument_list|(
+literal|"hbase.thrift.readonly"
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|log
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|log
+operator|.
+name|debug
+argument_list|(
+literal|"readonly set to true"
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|// Get read timeout
 name|int
