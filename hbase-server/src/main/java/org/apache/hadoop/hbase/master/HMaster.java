@@ -14161,6 +14161,7 @@ name|t
 operator|!=
 literal|null
 condition|)
+block|{
 name|LOG
 operator|.
 name|fatal
@@ -14170,6 +14171,17 @@ argument_list|,
 name|t
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|fatal
+argument_list|(
+name|msg
+argument_list|)
+expr_stmt|;
+block|}
 try|try
 block|{
 name|stopMaster
