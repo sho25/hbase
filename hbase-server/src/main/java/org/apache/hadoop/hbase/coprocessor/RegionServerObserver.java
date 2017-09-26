@@ -29,30 +29,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|List
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|CellScanner
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -85,6 +61,22 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|replication
+operator|.
+name|ReplicationEndpoint
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -104,44 +96,6 @@ operator|.
 name|audience
 operator|.
 name|InterfaceStability
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|AdminProtos
-operator|.
-name|WALEntry
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|replication
-operator|.
-name|ReplicationEndpoint
 import|;
 end_import
 
@@ -233,7 +187,10 @@ return|return
 name|endpoint
 return|;
 block|}
-comment|/**    * This will be called before executing replication request to shipping log entries.    * @param ctx the environment to interact with the framework and region server.    * @param entries list of WALEntries to replicate    * @param cells Cells that the WALEntries refer to (if cells is non-null)    */
+comment|// TODO remove below 2 hooks when we implement AC as a core impl than a CP impl.
+comment|/**    * This will be called before executing replication request to shipping log entries.    * @param ctx the environment to interact with the framework and region server.    * @deprecated As of release 2.0.0 with out any replacement. This is maintained for internal    * usage by AccessController. Do not use these hooks in custom co-processors.    */
+annotation|@
+name|Deprecated
 specifier|default
 name|void
 name|preReplicateLogEntries
@@ -244,20 +201,13 @@ argument_list|<
 name|RegionServerCoprocessorEnvironment
 argument_list|>
 name|ctx
-parameter_list|,
-name|List
-argument_list|<
-name|WALEntry
-argument_list|>
-name|entries
-parameter_list|,
-name|CellScanner
-name|cells
 parameter_list|)
 throws|throws
 name|IOException
-block|{}
-comment|/**    * This will be called after executing replication request to shipping log entries.    * @param ctx the environment to interact with the framework and region server.    * @param entries list of WALEntries to replicate    * @param cells Cells that the WALEntries refer to (if cells is non-null)    */
+block|{   }
+comment|/**    * This will be called after executing replication request to shipping log entries.    * @param ctx the environment to interact with the framework and region server.    * @deprecated As of release 2.0.0 with out any replacement. This is maintained for internal    * usage by AccessController. Do not use these hooks in custom co-processors.    */
+annotation|@
+name|Deprecated
 specifier|default
 name|void
 name|postReplicateLogEntries
@@ -268,19 +218,10 @@ argument_list|<
 name|RegionServerCoprocessorEnvironment
 argument_list|>
 name|ctx
-parameter_list|,
-name|List
-argument_list|<
-name|WALEntry
-argument_list|>
-name|entries
-parameter_list|,
-name|CellScanner
-name|cells
 parameter_list|)
 throws|throws
 name|IOException
-block|{}
+block|{   }
 comment|/**    * This will be called before clearing compaction queues    * @param ctx the environment to interact with the framework and region server.    */
 specifier|default
 name|void

@@ -13636,11 +13636,7 @@ name|getRegionServerCoprocessorHost
 argument_list|()
 operator|.
 name|preReplicateLogEntries
-argument_list|(
-name|entries
-argument_list|,
-name|cellScanner
-argument_list|)
+argument_list|()
 expr_stmt|;
 name|regionServer
 operator|.
@@ -13674,11 +13670,7 @@ name|getRegionServerCoprocessorHost
 argument_list|()
 operator|.
 name|postReplicateLogEntries
-argument_list|(
-name|entries
-argument_list|,
-name|cellScanner
-argument_list|)
+argument_list|()
 expr_stmt|;
 return|return
 name|ReplicateWALEntryResponse
