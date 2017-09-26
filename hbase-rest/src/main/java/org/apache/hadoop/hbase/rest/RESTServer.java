@@ -2461,6 +2461,8 @@ name|start
 argument_list|()
 expr_stmt|;
 block|}
+try|try
+block|{
 comment|// start server
 name|server
 operator|.
@@ -2472,6 +2474,30 @@ operator|.
 name|join
 argument_list|()
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|fatal
+argument_list|(
+literal|"Failed to start server"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|exit
+argument_list|(
+literal|1
+argument_list|)
+expr_stmt|;
+block|}
 name|LOG
 operator|.
 name|info
