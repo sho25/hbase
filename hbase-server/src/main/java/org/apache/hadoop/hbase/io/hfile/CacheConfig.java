@@ -2552,6 +2552,10 @@ name|GLOBAL_L1_CACHE_INSTANCE
 operator|=
 literal|null
 expr_stmt|;
+name|GLOBAL_L2_CACHE_INSTANCE
+operator|=
+literal|null
+expr_stmt|;
 name|GLOBAL_BLOCK_CACHE_INSTANCE
 operator|=
 literal|null
