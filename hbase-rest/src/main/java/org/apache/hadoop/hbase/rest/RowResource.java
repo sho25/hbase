@@ -313,20 +313,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|client
 operator|.
 name|Append
@@ -1695,7 +1681,7 @@ index|[]
 index|[]
 name|parts
 init|=
-name|KeyValue
+name|CellUtil
 operator|.
 name|parseColumn
 argument_list|(
@@ -2197,7 +2183,7 @@ name|parts
 index|[]
 index|[]
 init|=
-name|KeyValue
+name|CellUtil
 operator|.
 name|parseColumn
 argument_list|(
@@ -2788,7 +2774,7 @@ index|[]
 index|[]
 name|split
 init|=
-name|KeyValue
+name|CellUtil
 operator|.
 name|parseColumn
 argument_list|(
@@ -3316,7 +3302,7 @@ index|[]
 index|[]
 name|valueToPutParts
 init|=
-name|KeyValue
+name|CellUtil
 operator|.
 name|parseColumn
 argument_list|(
@@ -3438,7 +3424,7 @@ index|[]
 index|[]
 name|parts
 init|=
-name|KeyValue
+name|CellUtil
 operator|.
 name|parseColumn
 argument_list|(
@@ -4180,7 +4166,7 @@ return|;
 block|}
 name|parts
 operator|=
-name|KeyValue
+name|CellUtil
 operator|.
 name|parseColumn
 argument_list|(
@@ -4288,7 +4274,7 @@ block|}
 block|}
 name|parts
 operator|=
-name|KeyValue
+name|CellUtil
 operator|.
 name|parseColumn
 argument_list|(
@@ -4910,7 +4896,7 @@ index|[]
 index|[]
 name|parts
 init|=
-name|KeyValue
+name|CellUtil
 operator|.
 name|parseColumn
 argument_list|(
@@ -5533,7 +5519,7 @@ index|[]
 index|[]
 name|parts
 init|=
-name|KeyValue
+name|CellUtil
 operator|.
 name|parseColumn
 argument_list|(

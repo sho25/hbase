@@ -207,7 +207,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|CellUtil
 import|;
 end_import
 
@@ -1102,7 +1102,7 @@ index|[]
 index|[]
 name|famAndQf
 init|=
-name|KeyValue
+name|CellUtil
 operator|.
 name|parseColumn
 argument_list|(

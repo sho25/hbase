@@ -462,7 +462,7 @@ name|byte
 index|[]
 name|parsedName
 init|=
-name|KeyValue
+name|CellUtil
 operator|.
 name|parseColumn
 argument_list|(
@@ -928,7 +928,7 @@ name|ByteBuffer
 operator|.
 name|wrap
 argument_list|(
-name|KeyValue
+name|CellUtil
 operator|.
 name|makeColumn
 argument_list|(
@@ -1005,7 +1005,7 @@ name|ByteBuffer
 operator|.
 name|wrap
 argument_list|(
-name|KeyValue
+name|CellUtil
 operator|.
 name|makeColumn
 argument_list|(
@@ -1138,7 +1138,7 @@ index|[]
 index|[]
 name|famAndQf
 init|=
-name|KeyValue
+name|CellUtil
 operator|.
 name|parseColumn
 argument_list|(
@@ -1276,7 +1276,7 @@ index|[]
 index|[]
 name|famAndQf
 init|=
-name|KeyValue
+name|CellUtil
 operator|.
 name|parseColumn
 argument_list|(

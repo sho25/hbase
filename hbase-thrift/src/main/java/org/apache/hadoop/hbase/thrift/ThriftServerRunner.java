@@ -481,6 +481,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CellUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|MetaTableAccessor
 import|;
 end_import
@@ -5750,7 +5764,7 @@ index|[]
 index|[]
 name|famAndQf
 init|=
-name|KeyValue
+name|CellUtil
 operator|.
 name|parseColumn
 argument_list|(
@@ -6011,7 +6025,7 @@ index|[]
 index|[]
 name|famAndQf
 init|=
-name|KeyValue
+name|CellUtil
 operator|.
 name|parseColumn
 argument_list|(
@@ -6289,7 +6303,7 @@ index|[]
 index|[]
 name|famAndQf
 init|=
-name|KeyValue
+name|CellUtil
 operator|.
 name|parseColumn
 argument_list|(
@@ -6814,7 +6828,7 @@ index|[]
 index|[]
 name|famAndQf
 init|=
-name|KeyValue
+name|CellUtil
 operator|.
 name|parseColumn
 argument_list|(
@@ -7203,7 +7217,7 @@ index|[]
 index|[]
 name|famAndQf
 init|=
-name|KeyValue
+name|CellUtil
 operator|.
 name|parseColumn
 argument_list|(
@@ -7433,7 +7447,7 @@ index|[]
 index|[]
 name|famAndQf
 init|=
-name|KeyValue
+name|CellUtil
 operator|.
 name|parseColumn
 argument_list|(
@@ -8102,7 +8116,7 @@ index|[]
 index|[]
 name|famAndQf
 init|=
-name|KeyValue
+name|CellUtil
 operator|.
 name|parseColumn
 argument_list|(
@@ -8527,7 +8541,7 @@ index|[]
 index|[]
 name|famAndQf
 init|=
-name|KeyValue
+name|CellUtil
 operator|.
 name|parseColumn
 argument_list|(
@@ -8870,7 +8884,7 @@ index|[]
 index|[]
 name|famAndQf
 init|=
-name|KeyValue
+name|CellUtil
 operator|.
 name|parseColumn
 argument_list|(
@@ -9442,7 +9456,7 @@ index|[]
 index|[]
 name|famQf
 init|=
-name|KeyValue
+name|CellUtil
 operator|.
 name|parseColumn
 argument_list|(
@@ -9700,7 +9714,7 @@ index|[]
 index|[]
 name|famQf
 init|=
-name|KeyValue
+name|CellUtil
 operator|.
 name|parseColumn
 argument_list|(
@@ -9897,7 +9911,7 @@ index|[]
 index|[]
 name|famQf
 init|=
-name|KeyValue
+name|CellUtil
 operator|.
 name|parseColumn
 argument_list|(
@@ -10109,7 +10123,7 @@ index|[]
 index|[]
 name|famQf
 init|=
-name|KeyValue
+name|CellUtil
 operator|.
 name|parseColumn
 argument_list|(
@@ -10310,7 +10324,7 @@ index|[]
 index|[]
 name|famQf
 init|=
-name|KeyValue
+name|CellUtil
 operator|.
 name|parseColumn
 argument_list|(
@@ -10519,7 +10533,7 @@ index|[]
 index|[]
 name|famQf
 init|=
-name|KeyValue
+name|CellUtil
 operator|.
 name|parseColumn
 argument_list|(
@@ -11532,7 +11546,7 @@ index|[]
 index|[]
 name|famAndQf
 init|=
-name|KeyValue
+name|CellUtil
 operator|.
 name|parseColumn
 argument_list|(
@@ -11644,7 +11658,7 @@ index|[]
 index|[]
 name|famAndQf
 init|=
-name|KeyValue
+name|CellUtil
 operator|.
 name|parseColumn
 argument_list|(

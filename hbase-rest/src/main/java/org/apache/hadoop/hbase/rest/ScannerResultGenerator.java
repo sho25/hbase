@@ -89,7 +89,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|CellUtil
 import|;
 end_import
 
@@ -529,7 +529,7 @@ index|[]
 index|[]
 name|split
 init|=
-name|KeyValue
+name|CellUtil
 operator|.
 name|parseColumn
 argument_list|(
