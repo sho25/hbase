@@ -1260,21 +1260,6 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"distcp "
-operator|+
-name|job
-operator|==
-literal|null
-condition|?
-literal|""
-else|:
-name|job
-operator|.
-name|getJobID
-argument_list|()
-operator|+
-literal|" encountered error"
-argument_list|,
 name|t
 argument_list|)
 expr_stmt|;
