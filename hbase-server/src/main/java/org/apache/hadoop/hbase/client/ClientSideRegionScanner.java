@@ -289,6 +289,23 @@ operator|.
 name|READ_UNCOMMITTED
 argument_list|)
 expr_stmt|;
+name|htd
+operator|=
+name|TableDescriptorBuilder
+operator|.
+name|newBuilder
+argument_list|(
+name|htd
+argument_list|)
+operator|.
+name|setReadOnly
+argument_list|(
+literal|true
+argument_list|)
+operator|.
+name|build
+argument_list|()
+expr_stmt|;
 comment|// open region from the snapshot directory
 name|this
 operator|.
