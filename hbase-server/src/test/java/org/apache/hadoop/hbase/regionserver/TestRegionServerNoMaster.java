@@ -1703,7 +1703,7 @@ decl_stmt|;
 name|getRS
 argument_list|()
 operator|.
-name|service
+name|executorService
 operator|.
 name|submit
 argument_list|(

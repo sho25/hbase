@@ -3860,6 +3860,23 @@ argument_list|(
 literal|false
 argument_list|)
 decl_stmt|;
+comment|/**    * Services launched in RSRpcServices. By default they are on but you can use the below    * booleans to selectively enable/disable either Admin or Client Service (Rare is the case    * where you would ever turn off one or the other).    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|REGIONSERVER_ADMIN_SERVICE_CONFIG
+init|=
+literal|"hbase.regionserver.admin.executorService"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|REGIONSERVER_CLIENT_SERVICE_CONFIG
+init|=
+literal|"hbase.regionserver.client.executorService"
+decl_stmt|;
 comment|/**    * An Rpc callback for closing a RegionScanner.    */
 specifier|private
 specifier|static
@@ -5151,7 +5168,7 @@ name|rm
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Mutate a list of rows atomically.    *    * @param region    * @param actions    * @param cellScanner if non-null, the mutation data -- the Cell content.    * @param row    * @param family    * @param qualifier    * @param compareOp    * @param comparator @throws IOException    */
+comment|/**    * Mutate a list of rows atomically.    *    * @param cellScanner if non-null, the mutation data -- the Cell content.    * @param comparator @throws IOException    */
 specifier|private
 name|boolean
 name|checkAndRowMutate
@@ -5469,7 +5486,7 @@ name|TRUE
 argument_list|)
 return|;
 block|}
-comment|/**    * Execute an append mutation.    *    * @param region    * @param m    * @param cellScanner    * @return result to return to client if default operation should be    * bypassed as indicated by RegionObserver, null otherwise    * @throws IOException    */
+comment|/**    * Execute an append mutation.    *    * @return result to return to client if default operation should be    * bypassed as indicated by RegionObserver, null otherwise    */
 specifier|private
 name|Result
 name|append
@@ -9566,7 +9583,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * @return list of blocking services and their security info classes that this server supports    */
+comment|/**    * By default, put up an Admin and a Client Service.    * Set booleans<code>hbase.regionserver.admin.executorService</code> and    *<code>hbase.regionserver.client.executorService</code> if you want to enable/disable services.    * Default is that both are enabled.    * @return immutable list of blocking services and the security info classes that this server    * supports    */
 specifier|protected
 name|List
 argument_list|<
@@ -9575,6 +9592,32 @@ argument_list|>
 name|getServices
 parameter_list|()
 block|{
+name|boolean
+name|admin
+init|=
+name|getConfiguration
+argument_list|()
+operator|.
+name|getBoolean
+argument_list|(
+name|REGIONSERVER_ADMIN_SERVICE_CONFIG
+argument_list|,
+literal|true
+argument_list|)
+decl_stmt|;
+name|boolean
+name|client
+init|=
+name|getConfiguration
+argument_list|()
+operator|.
+name|getBoolean
+argument_list|(
+name|REGIONSERVER_CLIENT_SERVICE_CONFIG
+argument_list|,
+literal|true
+argument_list|)
+decl_stmt|;
 name|List
 argument_list|<
 name|BlockingServiceAndInterface
@@ -9584,10 +9627,13 @@ init|=
 operator|new
 name|ArrayList
 argument_list|<>
-argument_list|(
-literal|2
-argument_list|)
+argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|client
+condition|)
+block|{
 name|bssi
 operator|.
 name|add
@@ -9610,6 +9656,12 @@ name|class
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
+if|if
+condition|(
+name|admin
+condition|)
+block|{
 name|bssi
 operator|.
 name|add
@@ -9632,8 +9684,42 @@ name|class
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 return|return
+operator|new
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|collect
+operator|.
+name|ImmutableList
+operator|.
+name|Builder
+argument_list|<
+name|BlockingServiceAndInterface
+argument_list|>
+argument_list|()
+operator|.
+name|addAll
+argument_list|(
 name|bssi
+argument_list|)
+operator|.
+name|build
+argument_list|()
 return|;
 block|}
 specifier|public
@@ -12372,6 +12458,25 @@ comment|// If there is no action in progress, we can submit a specific handler.
 comment|// Need to pass the expected version in the constructor.
 if|if
 condition|(
+name|regionServer
+operator|.
+name|executorService
+operator|==
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"No executor executorService; skipping open request"
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+if|if
+condition|(
 name|region
 operator|.
 name|isMetaRegion
@@ -12380,7 +12485,7 @@ condition|)
 block|{
 name|regionServer
 operator|.
-name|service
+name|executorService
 operator|.
 name|submit
 argument_list|(
@@ -12450,7 +12555,7 @@ condition|)
 block|{
 name|regionServer
 operator|.
-name|service
+name|executorService
 operator|.
 name|submit
 argument_list|(
@@ -12474,7 +12579,7 @@ else|else
 block|{
 name|regionServer
 operator|.
-name|service
+name|executorService
 operator|.
 name|submit
 argument_list|(
@@ -12493,6 +12598,7 @@ name|masterSystemTime
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}

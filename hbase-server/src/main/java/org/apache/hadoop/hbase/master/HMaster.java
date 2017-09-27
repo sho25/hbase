@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -1106,26 +1106,6 @@ operator|.
 name|RegionStates
 operator|.
 name|RegionStateNode
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|master
-operator|.
-name|assignment
-operator|.
-name|RegionStates
-operator|.
-name|ServerStateNode
 import|;
 end_import
 
@@ -3756,6 +3736,8 @@ argument_list|,
 name|csm
 argument_list|)
 expr_stmt|;
+try|try
+block|{
 name|this
 operator|.
 name|rsFatals
@@ -4095,6 +4077,28 @@ name|activeMasterManager
 operator|=
 literal|null
 expr_stmt|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|Throwable
+name|t
+parameter_list|)
+block|{
+comment|// Make sure we log the exception. HMaster is often started via reflection and the
+comment|// cause of failed startup is lost.
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Failed construction of Master"
+argument_list|,
+name|t
+argument_list|)
+expr_stmt|;
+throw|throw
+name|t
+throw|;
 block|}
 block|}
 comment|// Main run loop. Calls through to the regionserver run loop.
@@ -6552,7 +6556,7 @@ block|{
 comment|// Start the executor service pools
 name|this
 operator|.
-name|service
+name|executorService
 operator|.
 name|startExecutorService
 argument_list|(
@@ -6572,7 +6576,7 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|service
+name|executorService
 operator|.
 name|startExecutorService
 argument_list|(
@@ -6592,7 +6596,7 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|service
+name|executorService
 operator|.
 name|startExecutorService
 argument_list|(
@@ -6612,7 +6616,7 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|service
+name|executorService
 operator|.
 name|startExecutorService
 argument_list|(
@@ -6632,7 +6636,7 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|service
+name|executorService
 operator|.
 name|startExecutorService
 argument_list|(
@@ -6657,7 +6661,7 @@ comment|// Any time changing this maxThreads to> 1, pls see the comment at
 comment|// AccessController#postCompletedCreateTableAction
 name|this
 operator|.
-name|service
+name|executorService
 operator|.
 name|startExecutorService
 argument_list|(
