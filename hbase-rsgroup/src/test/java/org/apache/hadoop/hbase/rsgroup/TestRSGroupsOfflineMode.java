@@ -1268,7 +1268,7 @@ block|{
 return|return
 name|failoverRS
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|(
 name|failoverTable
 argument_list|)
@@ -1290,7 +1290,7 @@ literal|0
 argument_list|,
 name|failoverRS
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|(
 name|RSGroupInfoManager
 operator|.

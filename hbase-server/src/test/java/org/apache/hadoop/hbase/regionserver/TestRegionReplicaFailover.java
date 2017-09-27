@@ -1247,7 +1247,7 @@ operator|.
 name|getRegionServer
 argument_list|()
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|(
 name|htd
 operator|.
@@ -1593,7 +1593,7 @@ operator|.
 name|getRegionServer
 argument_list|()
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|(
 name|htd
 operator|.
@@ -1941,7 +1941,7 @@ operator|.
 name|getRegionServer
 argument_list|()
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|(
 name|htd
 operator|.

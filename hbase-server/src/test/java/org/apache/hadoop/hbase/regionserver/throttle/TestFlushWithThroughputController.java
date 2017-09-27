@@ -716,7 +716,7 @@ name|region
 range|:
 name|hrs
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|(
 name|tableName
 argument_list|)
@@ -1278,7 +1278,7 @@ name|region
 range|:
 name|regionServer
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|()
 control|)
 block|{

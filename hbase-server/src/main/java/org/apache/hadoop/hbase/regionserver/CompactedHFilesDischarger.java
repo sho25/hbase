@@ -367,7 +367,7 @@ name|onlineRegions
 init|=
 name|regionServerServices
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|()
 decl_stmt|;
 if|if

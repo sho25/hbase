@@ -587,7 +587,7 @@ name|region
 range|:
 name|hrs
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|()
 control|)
 block|{

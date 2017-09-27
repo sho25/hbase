@@ -898,7 +898,7 @@ block|{
 return|return
 name|rss
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|(
 name|TableName
 operator|.

@@ -2505,7 +2505,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|addToOnlineRegions
+name|addRegion
 parameter_list|(
 name|Region
 name|r
@@ -2517,7 +2517,7 @@ annotation|@
 name|Override
 specifier|public
 name|boolean
-name|removeFromOnlineRegions
+name|removeRegion
 parameter_list|(
 name|Region
 name|r
@@ -2535,7 +2535,7 @@ annotation|@
 name|Override
 specifier|public
 name|HRegion
-name|getFromOnlineRegions
+name|getRegion
 parameter_list|(
 name|String
 name|encodedRegionName
@@ -3260,7 +3260,7 @@ name|List
 argument_list|<
 name|Region
 argument_list|>
-name|getOnlineRegions
+name|getRegions
 parameter_list|()
 block|{
 return|return
@@ -3454,7 +3454,7 @@ name|List
 argument_list|<
 name|Region
 argument_list|>
-name|getOnlineRegions
+name|getRegions
 parameter_list|(
 name|TableName
 name|tableName

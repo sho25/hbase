@@ -1385,7 +1385,7 @@ name|meta
 init|=
 name|rs
 operator|.
-name|getFromOnlineRegions
+name|getRegion
 argument_list|(
 name|HRegionInfo
 operator|.
@@ -1397,7 +1397,7 @@ argument_list|)
 decl_stmt|;
 name|rs
 operator|.
-name|removeFromOnlineRegions
+name|removeRegion
 argument_list|(
 name|meta
 argument_list|,

@@ -428,7 +428,7 @@ operator|.
 name|getEnvironment
 argument_list|()
 operator|.
-name|getRegionServerServices
+name|getCoprocessorRegionServerServices
 argument_list|()
 operator|.
 name|getServerName

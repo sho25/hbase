@@ -521,7 +521,7 @@ argument_list|<>
 argument_list|(
 name|rs
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|()
 argument_list|)
 decl_stmt|;

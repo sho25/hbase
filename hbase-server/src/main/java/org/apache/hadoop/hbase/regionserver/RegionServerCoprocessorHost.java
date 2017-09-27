@@ -1678,8 +1678,8 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|RegionServerServices
-name|getRegionServerServices
+name|CoprocessorRegionServerServices
+name|getCoprocessorRegionServerServices
 parameter_list|()
 block|{
 return|return

@@ -5149,7 +5149,7 @@ operator|.
 name|getRegionServer
 argument_list|()
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|(
 name|importTable
 operator|.
@@ -5303,7 +5303,7 @@ operator|.
 name|getRegionServer
 argument_list|()
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|(
 name|importTable
 operator|.

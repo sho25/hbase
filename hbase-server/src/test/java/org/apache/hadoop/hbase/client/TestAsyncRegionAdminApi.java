@@ -2081,7 +2081,7 @@ argument_list|()
 argument_list|,
 name|rs
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|()
 operator|.
 name|size
@@ -3876,7 +3876,7 @@ name|addAll
 argument_list|(
 name|rs
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|(
 name|tableName
 argument_list|)
@@ -4223,7 +4223,7 @@ operator|.
 name|getRegionServer
 argument_list|()
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|(
 name|tableName
 argument_list|)

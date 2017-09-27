@@ -2688,7 +2688,7 @@ operator|.
 name|getRegionServer
 argument_list|()
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|(
 name|LABELS_TABLE_NAME
 argument_list|)
@@ -2872,7 +2872,7 @@ operator|.
 name|getRegionServer
 argument_list|()
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|(
 name|LABELS_TABLE_NAME
 argument_list|)
@@ -3184,7 +3184,7 @@ while|while
 condition|(
 name|regionServer
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|(
 name|LABELS_TABLE_NAME
 argument_list|)
@@ -3215,7 +3215,7 @@ name|labelsTableRegion
 init|=
 name|regionServer
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|(
 name|LABELS_TABLE_NAME
 argument_list|)

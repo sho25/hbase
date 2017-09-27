@@ -772,7 +772,7 @@ annotation|@
 name|Override
 specifier|public
 name|boolean
-name|removeFromOnlineRegions
+name|removeRegion
 parameter_list|(
 name|Region
 name|r
@@ -804,7 +804,7 @@ annotation|@
 name|Override
 specifier|public
 name|Region
-name|getFromOnlineRegions
+name|getRegion
 parameter_list|(
 name|String
 name|encodedRegionName
@@ -828,7 +828,7 @@ name|List
 argument_list|<
 name|Region
 argument_list|>
-name|getOnlineRegions
+name|getRegions
 parameter_list|(
 name|TableName
 name|tableName
@@ -861,7 +861,7 @@ name|List
 argument_list|<
 name|Region
 argument_list|>
-name|getOnlineRegions
+name|getRegions
 parameter_list|()
 block|{
 return|return
@@ -872,7 +872,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|addToOnlineRegions
+name|addRegion
 parameter_list|(
 name|Region
 name|r
@@ -910,7 +910,7 @@ name|KeeperException
 throws|,
 name|IOException
 block|{
-name|addToOnlineRegions
+name|addRegion
 argument_list|(
 name|r
 argument_list|)
@@ -930,7 +930,7 @@ name|KeeperException
 throws|,
 name|IOException
 block|{
-name|addToOnlineRegions
+name|addRegion
 argument_list|(
 name|context
 operator|.

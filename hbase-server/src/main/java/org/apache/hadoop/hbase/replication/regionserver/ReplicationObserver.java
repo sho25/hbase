@@ -346,7 +346,7 @@ name|HRegionServer
 operator|)
 name|env
 operator|.
-name|getRegionServerServices
+name|getCoprocessorRegionServerServices
 argument_list|()
 decl_stmt|;
 name|Replication

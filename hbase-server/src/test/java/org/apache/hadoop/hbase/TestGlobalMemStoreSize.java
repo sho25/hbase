@@ -589,7 +589,7 @@ name|globalMemStoreSize
 operator|+=
 name|server
 operator|.
-name|getFromOnlineRegions
+name|getRegion
 argument_list|(
 name|regionInfo
 operator|.
@@ -675,7 +675,7 @@ name|r
 init|=
 name|server
 operator|.
-name|getFromOnlineRegions
+name|getRegion
 argument_list|(
 name|regionInfo
 operator|.
@@ -789,7 +789,7 @@ name|r
 init|=
 name|server
 operator|.
-name|getFromOnlineRegions
+name|getRegion
 argument_list|(
 name|regionInfo
 operator|.

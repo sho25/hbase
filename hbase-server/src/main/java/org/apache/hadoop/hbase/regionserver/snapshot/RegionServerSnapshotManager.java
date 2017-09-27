@@ -1120,7 +1120,7 @@ name|onlineRegions
 init|=
 name|rss
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|(
 name|TableName
 operator|.

@@ -101,7 +101,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|Region
+name|CoprocessorRegionServerServices
 import|;
 end_import
 
@@ -117,7 +117,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|RegionServerServices
+name|Region
 import|;
 end_import
 
@@ -180,8 +180,8 @@ name|getRegionInfo
 parameter_list|()
 function_decl|;
 comment|/** @return reference to the region server services */
-name|RegionServerServices
-name|getRegionServerServices
+name|CoprocessorRegionServerServices
+name|getCoprocessorRegionServerServices
 parameter_list|()
 function_decl|;
 comment|/** @return shared data between all instances of this coprocessor */

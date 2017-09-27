@@ -1264,7 +1264,7 @@ name|when
 argument_list|(
 name|rss
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|()
 argument_list|)
 operator|.
@@ -1597,7 +1597,7 @@ name|when
 argument_list|(
 name|rss
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|()
 argument_list|)
 operator|.
@@ -1673,7 +1673,7 @@ name|when
 argument_list|(
 name|rss
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|()
 argument_list|)
 operator|.

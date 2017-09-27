@@ -125,7 +125,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegionServer
+name|CoprocessorRegionServerServices
 import|;
 end_import
 
@@ -141,7 +141,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|RegionServerServices
+name|HRegionServer
 import|;
 end_import
 
@@ -208,12 +208,12 @@ name|RegionCoprocessorEnvironment
 operator|)
 name|env
 decl_stmt|;
-name|RegionServerServices
+name|CoprocessorRegionServerServices
 name|services
 init|=
 name|e
 operator|.
-name|getRegionServerServices
+name|getCoprocessorRegionServerServices
 argument_list|()
 decl_stmt|;
 if|if

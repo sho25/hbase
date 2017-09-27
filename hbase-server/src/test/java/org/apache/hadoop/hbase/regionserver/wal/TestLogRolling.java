@@ -1103,7 +1103,7 @@ name|region
 init|=
 name|server
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|(
 name|desc
 operator|.
@@ -1773,7 +1773,7 @@ name|region
 init|=
 name|server
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|(
 name|desc
 operator|.

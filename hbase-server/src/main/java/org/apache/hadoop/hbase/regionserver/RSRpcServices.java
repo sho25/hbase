@@ -11150,7 +11150,7 @@ name|regions
 operator|=
 name|regionServer
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|(
 name|tableName
 argument_list|)
@@ -11162,7 +11162,7 @@ name|regions
 operator|=
 name|regionServer
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|()
 expr_stmt|;
 block|}
@@ -12133,7 +12133,7 @@ name|onlineRegion
 init|=
 name|regionServer
 operator|.
-name|getFromOnlineRegions
+name|getRegion
 argument_list|(
 name|encodedName
 argument_list|)
@@ -12223,7 +12223,7 @@ if|if
 condition|(
 name|regionServer
 operator|.
-name|getFromOnlineRegions
+name|getRegion
 argument_list|(
 name|encodedName
 argument_list|)
@@ -12774,7 +12774,7 @@ name|onlineRegion
 init|=
 name|regionServer
 operator|.
-name|getFromOnlineRegions
+name|getRegion
 argument_list|(
 name|encodedName
 argument_list|)

@@ -1272,7 +1272,7 @@ lambda|->
 block|{
 name|rs
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|(
 name|TABLE_NAME
 argument_list|)
@@ -2148,7 +2148,7 @@ name|rs
 lambda|->
 name|rs
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|(
 name|TABLE_NAME
 argument_list|)

@@ -577,7 +577,7 @@ if|if
 condition|(
 name|regionServer
 operator|.
-name|getFromOnlineRegions
+name|getRegion
 argument_list|(
 name|encodedName
 argument_list|)

@@ -1383,7 +1383,7 @@ name|region
 init|=
 name|rs0
 operator|.
-name|getFromOnlineRegions
+name|getRegion
 argument_list|(
 name|hriSecondary
 operator|.
@@ -1669,7 +1669,7 @@ name|region
 init|=
 name|rs0
 operator|.
-name|getFromOnlineRegions
+name|getRegion
 argument_list|(
 name|hriSecondary
 operator|.
@@ -1735,7 +1735,7 @@ name|region
 operator|=
 name|rs1
 operator|.
-name|getFromOnlineRegions
+name|getRegion
 argument_list|(
 name|hriSecondary
 operator|.
@@ -1954,7 +1954,7 @@ name|region
 init|=
 name|rs0
 operator|.
-name|getFromOnlineRegions
+name|getRegion
 argument_list|(
 name|hriSecondary
 operator|.

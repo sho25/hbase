@@ -29,20 +29,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
 begin_comment
 comment|/**  * Interface to support the aborting of a given server or client.  *<p>  * This is used primarily for ZooKeeper usage when we could get an unexpected  * and fatal exception, requiring an abort.  *<p>  * Implemented by the Master, RegionServer, and TableServers (client).  */
 end_comment
@@ -51,22 +37,7 @@ begin_interface
 annotation|@
 name|InterfaceAudience
 operator|.
-name|LimitedPrivate
-argument_list|(
-block|{
-name|HBaseInterfaceAudience
-operator|.
-name|COPROC
-block|,
-name|HBaseInterfaceAudience
-operator|.
-name|PHOENIX
-block|}
-argument_list|)
-annotation|@
-name|InterfaceStability
-operator|.
-name|Evolving
+name|Private
 specifier|public
 interface|interface
 name|Abortable

@@ -1024,7 +1024,7 @@ name|r
 range|:
 name|hrs
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|(
 name|TABLE_NAME
 argument_list|)

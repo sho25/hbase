@@ -1125,7 +1125,7 @@ name|region
 init|=
 name|server
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|(
 name|TableName
 operator|.
@@ -1452,7 +1452,7 @@ name|region
 init|=
 name|server
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|(
 name|table
 operator|.

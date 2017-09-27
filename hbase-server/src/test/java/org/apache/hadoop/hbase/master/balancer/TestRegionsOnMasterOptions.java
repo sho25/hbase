@@ -810,7 +810,7 @@ operator|.
 name|getMaster
 argument_list|()
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|()
 decl_stmt|;
 name|int
@@ -875,7 +875,7 @@ operator|.
 name|getRegionServer
 argument_list|()
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|()
 expr_stmt|;
 name|int
@@ -993,7 +993,7 @@ operator|.
 name|getMaster
 argument_list|()
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|()
 expr_stmt|;
 name|int

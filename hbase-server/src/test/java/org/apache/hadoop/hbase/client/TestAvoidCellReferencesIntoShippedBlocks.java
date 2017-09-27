@@ -1170,7 +1170,7 @@ argument_list|(
 name|tableName
 argument_list|)
 operator|.
-name|getFromOnlineRegions
+name|getRegion
 argument_list|(
 name|regionName
 argument_list|)
@@ -2260,7 +2260,7 @@ argument_list|(
 name|tableName
 argument_list|)
 operator|.
-name|getFromOnlineRegions
+name|getRegion
 argument_list|(
 name|regionName
 argument_list|)

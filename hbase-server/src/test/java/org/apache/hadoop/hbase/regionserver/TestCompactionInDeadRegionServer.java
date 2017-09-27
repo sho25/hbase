@@ -927,7 +927,7 @@ name|HRegion
 operator|)
 name|rsToSuspend
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|(
 name|TABLE_NAME
 argument_list|)
@@ -1033,7 +1033,7 @@ return|return
 operator|!
 name|rs
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|(
 name|TABLE_NAME
 argument_list|)

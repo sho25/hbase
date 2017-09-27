@@ -839,7 +839,7 @@ name|regions
 init|=
 name|rs
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|(
 name|table
 argument_list|)

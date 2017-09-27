@@ -13702,7 +13702,7 @@ while|while
 condition|(
 name|newRs
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|(
 name|TEST_TABLE2
 argument_list|)
@@ -16176,7 +16176,7 @@ name|region
 range|:
 name|rs
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|(
 name|TEST_TABLE
 argument_list|)

@@ -3000,7 +3000,7 @@ argument_list|)
 decl_stmt|;
 name|hrs
 operator|.
-name|addToOnlineRegions
+name|addRegion
 argument_list|(
 name|r
 argument_list|)

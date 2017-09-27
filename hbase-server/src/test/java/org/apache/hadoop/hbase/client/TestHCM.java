@@ -8651,7 +8651,7 @@ name|regions
 init|=
 name|curServer
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|(
 name|TABLE_NAME3
 argument_list|)

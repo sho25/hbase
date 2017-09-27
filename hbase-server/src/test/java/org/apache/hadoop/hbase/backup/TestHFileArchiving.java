@@ -1476,7 +1476,7 @@ name|regions
 init|=
 name|hrs
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|(
 name|tableName
 argument_list|)
@@ -1921,7 +1921,7 @@ name|regions
 init|=
 name|hrs
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|(
 name|tableName
 argument_list|)

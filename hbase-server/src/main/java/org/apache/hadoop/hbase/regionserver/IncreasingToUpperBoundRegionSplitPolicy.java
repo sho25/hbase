@@ -476,7 +476,7 @@ name|hri
 init|=
 name|rss
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|(
 name|tablename
 argument_list|)

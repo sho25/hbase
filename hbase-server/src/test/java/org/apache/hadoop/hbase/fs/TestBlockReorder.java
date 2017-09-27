@@ -2050,7 +2050,7 @@ name|regions
 init|=
 name|targetRs
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|(
 name|h
 operator|.

@@ -1138,7 +1138,7 @@ name|this
 operator|.
 name|services
 operator|.
-name|getFromOnlineRegions
+name|getRegion
 argument_list|(
 name|Bytes
 operator|.

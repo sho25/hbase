@@ -739,7 +739,7 @@ name|when
 argument_list|(
 name|rss
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|(
 name|TABLENAME
 argument_list|)
@@ -1100,7 +1100,7 @@ name|when
 argument_list|(
 name|rss
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|(
 name|TABLENAME
 argument_list|)

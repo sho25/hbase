@@ -1184,8 +1184,8 @@ comment|/** @return reference to the region server services */
 annotation|@
 name|Override
 specifier|public
-name|RegionServerServices
-name|getRegionServerServices
+name|CoprocessorRegionServerServices
+name|getCoprocessorRegionServerServices
 parameter_list|()
 block|{
 return|return

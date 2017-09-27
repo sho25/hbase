@@ -413,7 +413,7 @@ name|HRegion
 operator|)
 name|rsServices
 operator|.
-name|getFromOnlineRegions
+name|getRegion
 argument_list|(
 name|encodedRegionName
 argument_list|)
@@ -505,7 +505,7 @@ name|this
 operator|.
 name|rsServices
 operator|.
-name|removeFromOnlineRegions
+name|removeRegion
 argument_list|(
 name|region
 argument_list|,

@@ -14494,7 +14494,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|addToOnlineRegions
+name|addRegion
 parameter_list|(
 name|Region
 name|region
@@ -15356,7 +15356,7 @@ name|List
 argument_list|<
 name|Region
 argument_list|>
-name|getOnlineRegions
+name|getRegions
 parameter_list|(
 name|TableName
 name|tableName
@@ -15435,7 +15435,7 @@ name|List
 argument_list|<
 name|Region
 argument_list|>
-name|getOnlineRegions
+name|getRegions
 parameter_list|()
 block|{
 name|List
@@ -15797,7 +15797,7 @@ name|actualRegion
 init|=
 name|this
 operator|.
-name|getFromOnlineRegions
+name|getRegion
 argument_list|(
 name|encodedName
 argument_list|)
@@ -15950,7 +15950,7 @@ name|actualRegion
 operator|=
 name|this
 operator|.
-name|getFromOnlineRegions
+name|getRegion
 argument_list|(
 name|encodedName
 argument_list|)
@@ -16156,7 +16156,7 @@ name|regionToClose
 init|=
 name|this
 operator|.
-name|getFromOnlineRegions
+name|getRegion
 argument_list|(
 name|regionEncodedName
 operator|.
@@ -16376,7 +16376,7 @@ block|}
 comment|// Offline the region
 name|this
 operator|.
-name|removeFromOnlineRegions
+name|removeRegion
 argument_list|(
 name|regionToClose
 argument_list|,
@@ -16446,7 +16446,7 @@ annotation|@
 name|Override
 specifier|public
 name|Region
-name|getFromOnlineRegions
+name|getRegion
 parameter_list|(
 specifier|final
 name|String
@@ -16468,7 +16468,7 @@ annotation|@
 name|Override
 specifier|public
 name|boolean
-name|removeFromOnlineRegions
+name|removeRegion
 parameter_list|(
 specifier|final
 name|Region
