@@ -31,7 +31,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|Optional
+name|Collections
 import|;
 end_import
 
@@ -76,7 +76,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Coprocessor interface.  */
+comment|/**  * Base interface for the 4 coprocessors - MasterCoprocessor, RegionCoprocessor,  * RegionServerCoprocessor, and WALCoprocessor.  * Do NOT implement this interface directly. Unless an implementation implements one (or more) of  * the above mentioned 4 coprocessors, it'll fail to be loaded by any coprocessor host.  *  * Example:  * Building a coprocessor to observer Master operations.  *<pre>  * class MyMasterCoprocessor implements MasterCoprocessor {  *&#64;Override  *   public Optional&lt;MasterObserver> getMasterObserver() {  *     return new MyMasterObserver();  *   }  * }  *  * class MyMasterObserver implements MasterObserver {  *   ....  * }  *</pre>  *  * Building a Service which can be loaded by both Master and RegionServer  *<pre>  * class MyCoprocessorService implements MasterCoprocessor, RegionServerCoprocessor {  *&#64;Override  *   public Optional&lt;Service> getServices() {  *     return new ...;  *   }  * }  *</pre>  */
 end_comment
 
 begin_interface
@@ -176,18 +176,17 @@ name|IOException
 block|{}
 comment|/**    * Coprocessor endpoints providing protobuf services should implement this interface.    */
 specifier|default
-name|Optional
+name|Iterable
 argument_list|<
 name|Service
 argument_list|>
-name|getService
+name|getServices
 parameter_list|()
 block|{
 return|return
-name|Optional
+name|Collections
 operator|.
-name|empty
-argument_list|()
+name|EMPTY_SET
 return|;
 block|}
 block|}

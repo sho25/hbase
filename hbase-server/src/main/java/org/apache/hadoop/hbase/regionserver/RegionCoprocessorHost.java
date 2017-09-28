@@ -2486,20 +2486,26 @@ name|Configuration
 name|conf
 parameter_list|)
 block|{
-comment|// Due to current dynamic protocol design, Endpoint uses a different way to be registered and
-comment|// executed. It uses a visitor pattern to invoke registered Endpoint method.
+comment|// If coprocessor exposes any services, register them.
+for|for
+control|(
+name|Service
+name|service
+range|:
 name|instance
 operator|.
-name|getService
+name|getServices
 argument_list|()
-operator|.
-name|ifPresent
-argument_list|(
+control|)
+block|{
 name|region
-operator|::
+operator|.
 name|registerService
+argument_list|(
+name|service
 argument_list|)
 expr_stmt|;
+block|}
 name|ConcurrentMap
 argument_list|<
 name|String

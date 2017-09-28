@@ -57,7 +57,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|Optional
+name|Collections
 import|;
 end_import
 
@@ -499,17 +499,17 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|Optional
+name|Iterable
 argument_list|<
 name|Service
 argument_list|>
-name|getService
+name|getServices
 parameter_list|()
 block|{
 return|return
-name|Optional
+name|Collections
 operator|.
-name|of
+name|singleton
 argument_list|(
 name|this
 argument_list|)

@@ -84,7 +84,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * WALCoprocessor don't support loading services using {@link #getService()}.  */
+comment|/**  * WALCoprocessor don't support loading services using {@link #getServices()}.  */
 end_comment
 
 begin_interface
