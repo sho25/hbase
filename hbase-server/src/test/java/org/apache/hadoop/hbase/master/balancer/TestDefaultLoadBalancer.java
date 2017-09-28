@@ -20,6 +20,18 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -135,7 +147,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
+name|ServerName
 import|;
 end_import
 
@@ -163,7 +175,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ServerName
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -209,38 +223,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
-operator|.
-name|Bytes
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Pair
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|testclassification
 operator|.
 name|MasterTests
@@ -260,6 +242,22 @@ operator|.
 name|testclassification
 operator|.
 name|MediumTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Pair
 import|;
 end_import
 
@@ -330,30 +328,6 @@ operator|.
 name|rules
 operator|.
 name|TestName
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertFalse
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertTrue
 import|;
 end_import
 
@@ -1253,7 +1227,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 argument_list|>
@@ -1279,7 +1253,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|clusterServers
@@ -1329,7 +1303,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 argument_list|>
@@ -1382,7 +1356,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|servers
@@ -1491,7 +1465,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|entry
@@ -1578,7 +1552,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 argument_list|>
@@ -1595,7 +1569,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|clusterServers
@@ -1644,7 +1618,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 argument_list|>
@@ -1706,7 +1680,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|servers
@@ -1815,7 +1789,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|entry

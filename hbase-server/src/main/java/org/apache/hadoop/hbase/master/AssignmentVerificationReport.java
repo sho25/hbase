@@ -121,11 +121,41 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|ServerName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -167,39 +197,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|yetus
 operator|.
-name|hbase
+name|audience
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|ServerName
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|TableName
+name|InterfaceAudience
 import|;
 end_import
 
@@ -268,7 +270,7 @@ comment|// for unassigned regions
 specifier|private
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|unAssignedRegionsList
 init|=
@@ -281,7 +283,7 @@ comment|// For regions without valid favored nodes
 specifier|private
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regionsWithoutValidFavoredNodes
 init|=
@@ -294,7 +296,7 @@ comment|// For regions not running on the favored nodes
 specifier|private
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|nonFavoredAssignedRegionList
 init|=
@@ -509,7 +511,7 @@ expr_stmt|;
 comment|// Get all the regions for this table
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regionInfoList
 init|=
@@ -545,7 +547,7 @@ decl_stmt|;
 comment|// Get the region to region server mapping
 name|Map
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|ServerName
 argument_list|>
@@ -603,7 +605,7 @@ comment|// Check the favored nodes and its locality information
 comment|// Also keep tracker of the most loaded and least loaded region servers
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|region
 range|:
 name|regionInfoList
@@ -1674,7 +1676,7 @@ expr_stmt|;
 comment|// Get all the regions for this table
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regionInfoList
 init|=
@@ -1759,7 +1761,7 @@ comment|// Check the favored nodes and its locality information
 comment|// Also keep tracker of the most loaded and least loaded region servers
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|region
 range|:
 name|regionInfoList
@@ -2487,7 +2489,7 @@ condition|)
 block|{
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|region
 range|:
 name|unAssignedRegionsList
@@ -2530,7 +2532,7 @@ condition|)
 block|{
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|region
 range|:
 name|nonFavoredAssignedRegionList
@@ -2573,7 +2575,7 @@ condition|)
 block|{
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|region
 range|:
 name|regionsWithoutValidFavoredNodes
@@ -3006,7 +3008,7 @@ block|}
 comment|/**    * Return the unassigned regions    * @return unassigned regions    */
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|getUnassignedRegions
 parameter_list|()
@@ -3018,7 +3020,7 @@ block|}
 comment|/**    * Return the regions without favored nodes    * @return regions without favored nodes    */
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|getRegionsWithoutValidFavoredNodes
 parameter_list|()
@@ -3030,7 +3032,7 @@ block|}
 comment|/**    * Return the regions not assigned to its favored nodes    * @return regions not assigned to its favored nodes    */
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|getNonFavoredAssignedRegions
 parameter_list|()

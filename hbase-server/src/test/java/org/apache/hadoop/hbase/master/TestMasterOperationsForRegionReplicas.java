@@ -30,18 +30,6 @@ import|;
 end_import
 
 begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertTrue
-import|;
-end_import
-
-begin_import
 import|import
 name|java
 operator|.
@@ -57,27 +45,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|Collection
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|EnumSet
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|HashMap
 import|;
 end_import
 
@@ -245,20 +213,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HRegionLocation
 import|;
 end_import
@@ -274,6 +228,36 @@ operator|.
 name|hbase
 operator|.
 name|HTableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|MetaTableAccessor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|MetaTableAccessor
+operator|.
+name|Visitor
 import|;
 end_import
 
@@ -316,36 +300,6 @@ operator|.
 name|hbase
 operator|.
 name|TableName
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|MetaTableAccessor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|MetaTableAccessor
-operator|.
-name|Visitor
 import|;
 end_import
 
@@ -410,6 +364,22 @@ operator|.
 name|client
 operator|.
 name|Delete
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -883,7 +853,7 @@ argument_list|)
 expr_stmt|;
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|hris
 init|=
@@ -1038,7 +1008,7 @@ argument_list|)
 expr_stmt|;
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|hris
 init|=
@@ -1097,7 +1067,7 @@ name|j
 operator|++
 control|)
 block|{
-name|HRegionInfo
+name|RegionInfo
 name|replica
 init|=
 name|RegionReplicaUtil
@@ -1184,7 +1154,7 @@ argument_list|(
 name|result
 argument_list|)
 decl_stmt|;
-name|HRegionInfo
+name|RegionInfo
 name|hri
 init|=
 name|locations
@@ -1368,7 +1338,7 @@ name|j
 operator|++
 control|)
 block|{
-name|HRegionInfo
+name|RegionInfo
 name|replica
 init|=
 name|RegionReplicaUtil
@@ -1432,7 +1402,7 @@ name|getConnection
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|/* DISABLED!!!!! FOR NOW!!!!       // Now shut the whole cluster down, and verify the assignments are kept so that the       // availability constraints are met.       TEST_UTIL.getConfiguration().setBoolean("hbase.master.startup.retainassign", true);       TEST_UTIL.shutdownMiniHBaseCluster();       TEST_UTIL.startMiniHBaseCluster(1, numSlaves);       TEST_UTIL.waitTableEnabled(tableName);       validateFromSnapshotFromMeta(TEST_UTIL, tableName, numRegions, numReplica,         ADMIN.getConnection());        // Now shut the whole cluster down, and verify regions are assigned even if there is only       // one server running       TEST_UTIL.shutdownMiniHBaseCluster();       TEST_UTIL.startMiniHBaseCluster(1, 1);       TEST_UTIL.waitTableEnabled(tableName);       validateSingleRegionServerAssignment(ADMIN.getConnection(), numRegions, numReplica);       for (int i = 1; i< numSlaves; i++) { //restore the cluster         TEST_UTIL.getMiniHBaseCluster().startRegionServer();       }        // Check on alter table       ADMIN.disableTable(tableName);       assert(ADMIN.isTableDisabled(tableName));       //increase the replica       desc.setRegionReplication(numReplica + 1);       ADMIN.modifyTable(tableName, desc);       ADMIN.enableTable(tableName);       LOG.info(ADMIN.getTableDescriptor(tableName).toString());       assert(ADMIN.isTableEnabled(tableName));       List<HRegionInfo> regions = TEST_UTIL.getMiniHBaseCluster().getMaster()           .getAssignmentManager().getRegionStates().getRegionsOfTable(tableName);       assertTrue("regions.size=" + regions.size() + ", numRegions=" + numRegions + ", numReplica=" + numReplica,           regions.size() == numRegions * (numReplica + 1));        //decrease the replica(earlier, table was modified to have a replica count of numReplica + 1)       ADMIN.disableTable(tableName);       desc.setRegionReplication(numReplica);       ADMIN.modifyTable(tableName, desc);       ADMIN.enableTable(tableName);       assert(ADMIN.isTableEnabled(tableName));       regions = TEST_UTIL.getMiniHBaseCluster().getMaster()           .getAssignmentManager().getRegionStates().getRegionsOfTable(tableName);       assert(regions.size() == numRegions * numReplica);       //also make sure the meta table has the replica locations removed       hris = MetaTableAccessor.getTableRegions(ADMIN.getConnection(), tableName);       assert(hris.size() == numRegions * numReplica);       //just check that the number of default replica regions in the meta table are the same       //as the number of regions the table was created with, and the count of the       //replicas is numReplica for each region       Map<HRegionInfo, Integer> defaultReplicas = new HashMap<>();       for (HRegionInfo hri : hris) {         Integer i;         HRegionInfo regionReplica0 = RegionReplicaUtil.getRegionInfoForDefaultReplica(hri);         defaultReplicas.put(regionReplica0,             (i = defaultReplicas.get(regionReplica0)) == null ? 1 : i + 1);       }       assert(defaultReplicas.size() == numRegions);       Collection<Integer> counts = new HashSet<>(defaultReplicas.values());       assert(counts.size() == 1&& counts.contains(new Integer(numReplica)));       */
+comment|/* DISABLED!!!!! FOR NOW!!!!       // Now shut the whole cluster down, and verify the assignments are kept so that the       // availability constraints are met.       TEST_UTIL.getConfiguration().setBoolean("hbase.master.startup.retainassign", true);       TEST_UTIL.shutdownMiniHBaseCluster();       TEST_UTIL.startMiniHBaseCluster(1, numSlaves);       TEST_UTIL.waitTableEnabled(tableName);       validateFromSnapshotFromMeta(TEST_UTIL, tableName, numRegions, numReplica,         ADMIN.getConnection());        // Now shut the whole cluster down, and verify regions are assigned even if there is only       // one server running       TEST_UTIL.shutdownMiniHBaseCluster();       TEST_UTIL.startMiniHBaseCluster(1, 1);       TEST_UTIL.waitTableEnabled(tableName);       validateSingleRegionServerAssignment(ADMIN.getConnection(), numRegions, numReplica);       for (int i = 1; i< numSlaves; i++) { //restore the cluster         TEST_UTIL.getMiniHBaseCluster().startRegionServer();       }        // Check on alter table       ADMIN.disableTable(tableName);       assert(ADMIN.isTableDisabled(tableName));       //increase the replica       desc.setRegionReplication(numReplica + 1);       ADMIN.modifyTable(tableName, desc);       ADMIN.enableTable(tableName);       LOG.info(ADMIN.getTableDescriptor(tableName).toString());       assert(ADMIN.isTableEnabled(tableName));       List<RegionInfo> regions = TEST_UTIL.getMiniHBaseCluster().getMaster()           .getAssignmentManager().getRegionStates().getRegionsOfTable(tableName);       assertTrue("regions.size=" + regions.size() + ", numRegions=" + numRegions + ", numReplica=" + numReplica,           regions.size() == numRegions * (numReplica + 1));        //decrease the replica(earlier, table was modified to have a replica count of numReplica + 1)       ADMIN.disableTable(tableName);       desc.setRegionReplication(numReplica);       ADMIN.modifyTable(tableName, desc);       ADMIN.enableTable(tableName);       assert(ADMIN.isTableEnabled(tableName));       regions = TEST_UTIL.getMiniHBaseCluster().getMaster()           .getAssignmentManager().getRegionStates().getRegionsOfTable(tableName);       assert(regions.size() == numRegions * numReplica);       //also make sure the meta table has the replica locations removed       hris = MetaTableAccessor.getTableRegions(ADMIN.getConnection(), tableName);       assert(hris.size() == numRegions * numReplica);       //just check that the number of default replica regions in the meta table are the same       //as the number of regions the table was created with, and the count of the       //replicas is numReplica for each region       Map<RegionInfo, Integer> defaultReplicas = new HashMap<>();       for (RegionInfo hri : hris) {         Integer i;         RegionInfo regionReplica0 = RegionReplicaUtil.getRegionInfoForDefaultReplica(hri);         defaultReplicas.put(regionReplica0,             (i = defaultReplicas.get(regionReplica0)) == null ? 1 : i + 1);       }       assert(defaultReplicas.size() == numRegions);       Collection<Integer> counts = new HashSet<>(defaultReplicas.values());       assert(counts.size() == 1&& counts.contains(new Integer(numReplica)));       */
 block|}
 finally|finally
 block|{
@@ -1561,7 +1531,7 @@ argument_list|()
 decl_stmt|;
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|hris
 init|=
@@ -1579,7 +1549,7 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|hri
 range|:
 name|hris
@@ -1720,7 +1690,7 @@ operator|)
 assert|;
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regions
 init|=
@@ -1780,7 +1750,7 @@ name|printRegions
 parameter_list|(
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regions
 parameter_list|)
@@ -1794,7 +1764,7 @@ argument_list|()
 decl_stmt|;
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|r
 range|:
 name|regions
@@ -1878,7 +1848,7 @@ if|if
 condition|(
 name|MetaTableAccessor
 operator|.
-name|getHRegionInfo
+name|getRegionInfo
 argument_list|(
 name|r
 argument_list|)
@@ -1960,7 +1930,7 @@ argument_list|()
 expr_stmt|;
 name|Map
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|ServerName
 argument_list|>
@@ -1992,7 +1962,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|serverToRegionMap
@@ -2012,7 +1982,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|entry
@@ -2049,7 +2019,7 @@ continue|continue;
 block|}
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regions
 init|=
@@ -2072,7 +2042,7 @@ argument_list|()
 decl_stmt|;
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|region
 range|:
 name|regions
@@ -2171,7 +2141,7 @@ argument_list|()
 expr_stmt|;
 name|Map
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|ServerName
 argument_list|>
@@ -2203,7 +2173,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|serverToRegionMap
@@ -2237,7 +2207,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|entry

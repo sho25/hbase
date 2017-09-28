@@ -193,7 +193,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
+name|NamespaceDescriptor
 import|;
 end_import
 
@@ -235,35 +235,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|NamespaceDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|TableName
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
 import|;
 end_import
 
@@ -398,6 +370,20 @@ operator|.
 name|util
 operator|.
 name|Pair
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -1303,7 +1289,7 @@ name|CompletableFuture
 argument_list|<
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|getOnlineRegions
@@ -1331,7 +1317,7 @@ name|CompletableFuture
 argument_list|<
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|getTableRegions

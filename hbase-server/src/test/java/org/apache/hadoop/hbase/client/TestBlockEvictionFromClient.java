@@ -277,20 +277,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|TableName
 import|;
 end_import
@@ -4261,7 +4247,7 @@ argument_list|)
 expr_stmt|;
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|tableRegions
 init|=
@@ -4270,7 +4256,7 @@ operator|.
 name|getAdmin
 argument_list|()
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|tableName
 argument_list|)
@@ -4293,7 +4279,7 @@ operator|.
 name|getAdmin
 argument_list|()
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|tableName
 argument_list|)
@@ -10097,7 +10083,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|HRegionInfo
+name|RegionInfo
 name|getRegionInfo
 parameter_list|()
 block|{

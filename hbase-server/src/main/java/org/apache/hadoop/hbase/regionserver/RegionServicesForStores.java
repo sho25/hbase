@@ -75,21 +75,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
+name|client
 operator|.
-name|apache
-operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
+name|RegionInfo
 import|;
 end_import
 
@@ -106,6 +94,20 @@ operator|.
 name|wal
 operator|.
 name|WAL
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -257,7 +259,7 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|public
-name|HRegionInfo
+name|RegionInfo
 name|getRegionInfo
 parameter_list|()
 block|{

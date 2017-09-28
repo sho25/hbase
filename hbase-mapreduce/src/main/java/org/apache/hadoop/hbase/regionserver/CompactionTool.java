@@ -269,7 +269,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -880,7 +882,7 @@ argument_list|,
 name|tableDir
 argument_list|)
 decl_stmt|;
-name|HRegionInfo
+name|RegionInfo
 name|hri
 init|=
 name|HRegionFileSystem
@@ -1078,7 +1080,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HRegionInfo
+name|RegionInfo
 name|hri
 init|=
 name|HRegionFileSystem
@@ -1139,7 +1141,7 @@ name|TableDescriptor
 name|htd
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|hri
 parameter_list|,
 specifier|final
@@ -1344,7 +1346,7 @@ name|TableDescriptor
 name|htd
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|hri
 parameter_list|,
 specifier|final

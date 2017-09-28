@@ -75,7 +75,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -134,7 +136,7 @@ extends|,
 name|Shipper
 block|{
 comment|/**    * @return The RegionInfo for this scanner.    */
-name|HRegionInfo
+name|RegionInfo
 name|getRegionInfo
 parameter_list|()
 function_decl|;
@@ -156,7 +158,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * @return The preferred max buffersize. See     * {@link org.apache.hadoop.hbase.client.Scan#setMaxResultSize(long)}    */
+comment|/**    * @return The preferred max buffersize. See    * {@link org.apache.hadoop.hbase.client.Scan#setMaxResultSize(long)}    */
 name|long
 name|getMaxResultSize
 parameter_list|()

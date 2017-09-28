@@ -91,7 +91,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
+name|TableName
 import|;
 end_import
 
@@ -105,21 +105,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
-import|;
-end_import
-
-begin_import
-import|import
-name|org
+name|client
 operator|.
-name|apache
-operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
+name|RegionInfo
 import|;
 end_import
 
@@ -165,17 +153,23 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|shaded
+name|util
 operator|.
-name|com
+name|NonceKey
+import|;
+end_import
+
+begin_import
+import|import
+name|org
 operator|.
-name|google
+name|apache
 operator|.
-name|common
+name|yetus
 operator|.
-name|annotations
+name|audience
 operator|.
-name|VisibleForTesting
+name|InterfaceAudience
 import|;
 end_import
 
@@ -189,9 +183,17 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
+name|shaded
 operator|.
-name|NonceKey
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
 import|;
 end_import
 
@@ -328,7 +330,7 @@ name|MasterLock
 name|createMasterLock
 parameter_list|(
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regionInfos
 parameter_list|,
@@ -406,7 +408,7 @@ name|tableName
 decl_stmt|;
 specifier|private
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regionInfos
 decl_stmt|;
@@ -524,7 +526,7 @@ specifier|public
 name|MasterLock
 parameter_list|(
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regionInfos
 parameter_list|,
@@ -1118,7 +1120,7 @@ name|long
 name|requestRegionsLock
 parameter_list|(
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regionInfos
 parameter_list|,

@@ -199,20 +199,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|ServerName
 import|;
 end_import
@@ -237,11 +223,13 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -274,6 +262,20 @@ operator|.
 name|util
 operator|.
 name|Pair
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -398,7 +400,7 @@ decl_stmt|;
 specifier|private
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|hriList
 decl_stmt|;
@@ -413,7 +415,7 @@ name|numRegionsAdded
 parameter_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|hriList
 parameter_list|)
@@ -469,7 +471,7 @@ expr_stmt|;
 block|}
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|getHriList
 parameter_list|()
@@ -507,7 +509,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 argument_list|>
@@ -540,7 +542,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 argument_list|>
@@ -562,7 +564,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|entry
@@ -883,7 +885,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|clusterMap
@@ -1038,7 +1040,7 @@ name|ServerAndLoad
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|serversByLoad
@@ -1205,7 +1207,7 @@ name|ServerAndLoad
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|server
@@ -1272,7 +1274,7 @@ operator|++
 expr_stmt|;
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regions
 init|=
@@ -1327,7 +1329,7 @@ name|numToOffload
 condition|;
 control|)
 block|{
-name|HRegionInfo
+name|RegionInfo
 name|hri
 init|=
 name|regions
@@ -1489,7 +1491,7 @@ name|ServerAndLoad
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|server
@@ -1789,7 +1791,7 @@ name|ServerAndLoad
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|server
@@ -1846,7 +1848,7 @@ name|size
 argument_list|()
 condition|)
 break|break;
-name|HRegionInfo
+name|RegionInfo
 name|region
 init|=
 name|server
@@ -1942,7 +1944,7 @@ name|ServerAndLoad
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|server
@@ -2142,7 +2144,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|e
@@ -2457,7 +2459,7 @@ operator|==
 name|max
 condition|)
 block|{
-name|HRegionInfo
+name|RegionInfo
 name|hriToPlan
 decl_stmt|;
 if|if
@@ -2482,7 +2484,7 @@ operator|.
 name|getServerName
 argument_list|()
 operator|+
-literal|" has no HRegionInfo, no operation needed"
+literal|" has no RegionInfo, no operation needed"
 argument_list|)
 expr_stmt|;
 continue|continue;
@@ -3207,7 +3209,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|clusterState

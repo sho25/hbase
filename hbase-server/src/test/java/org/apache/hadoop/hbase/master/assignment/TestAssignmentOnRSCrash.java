@@ -20,6 +20,42 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertNotEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -95,7 +131,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
+name|ServerName
 import|;
 end_import
 
@@ -110,20 +146,6 @@ operator|.
 name|hbase
 operator|.
 name|TableName
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|ServerName
 import|;
 end_import
 
@@ -171,6 +193,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|RegionInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Result
 import|;
 end_import
@@ -201,9 +239,11 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|testclassification
+name|master
 operator|.
-name|MasterTests
+name|procedure
+operator|.
+name|MasterProcedureConstants
 import|;
 end_import
 
@@ -233,11 +273,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|master
+name|testclassification
 operator|.
-name|procedure
-operator|.
-name|MasterProcedureConstants
+name|MasterTests
 import|;
 end_import
 
@@ -298,42 +336,6 @@ operator|.
 name|categories
 operator|.
 name|Category
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertEquals
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertNotEquals
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertTrue
 import|;
 end_import
 
@@ -658,7 +660,7 @@ literal|0
 decl_stmt|;
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|hri
 range|:
 name|UTIL
@@ -851,7 +853,7 @@ literal|0
 decl_stmt|;
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|hri
 range|:
 name|AssignmentTestingUtil
@@ -943,7 +945,7 @@ name|void
 name|testInsert
 parameter_list|(
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|hri
 parameter_list|,
 specifier|final
@@ -1042,7 +1044,7 @@ name|int
 name|testGet
 parameter_list|(
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|hri
 parameter_list|,
 specifier|final

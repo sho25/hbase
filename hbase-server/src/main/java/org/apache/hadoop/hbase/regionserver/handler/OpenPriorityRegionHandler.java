@@ -29,7 +29,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
+name|Server
 import|;
 end_import
 
@@ -43,21 +43,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Server
-import|;
-end_import
-
-begin_import
-import|import
-name|org
+name|client
 operator|.
-name|apache
-operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
+name|RegionInfo
 import|;
 end_import
 
@@ -109,6 +97,20 @@ name|RegionServerServices
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * Handles opening of a high priority region on a region server.  *<p>  * This is executed after receiving an OPEN RPC from the master or client.  */
 end_comment
@@ -133,7 +135,7 @@ parameter_list|,
 name|RegionServerServices
 name|rsServices
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|,
 name|TableDescriptor

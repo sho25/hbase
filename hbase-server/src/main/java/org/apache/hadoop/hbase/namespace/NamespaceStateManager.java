@@ -99,20 +99,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|MetaTableAccessor
 import|;
 end_import
@@ -151,11 +137,13 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -220,6 +208,20 @@ operator|.
 name|util
 operator|.
 name|Bytes
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -326,7 +328,7 @@ name|name
 argument_list|)
 return|;
 block|}
-comment|/**    * Check if adding a region violates namespace quota, if not update namespace cache.    *    * @param TableName    * @param regionName    * @param incr    * @return true, if region can be added to table.    * @throws IOException Signals that an I/O exception has occurred.    */
+comment|/**    * Check if adding a region violates namespace quota, if not update namespace cache.    *    * @param name    * @param regionName    * @param incr    * @return true, if region can be added to table.    * @throws IOException Signals that an I/O exception has occurred.    */
 specifier|synchronized
 name|boolean
 name|checkAndUpdateNamespaceRegionCount
@@ -474,7 +476,7 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * Check and update region count for an existing table. To handle scenarios like restore snapshot    * @param TableName name of the table for region count needs to be checked and updated    * @param incr count of regions    * @throws QuotaExceededException if quota exceeds for the number of regions allowed in a    *           namespace    * @throws IOException Signals that an I/O exception has occurred.    */
+comment|/**    * Check and update region count for an existing table. To handle scenarios like restore snapshot    * @param name name of the table for region count needs to be checked and updated    * @param incr count of regions    * @throws QuotaExceededException if quota exceeds for the number of regions allowed in a    *           namespace    * @throws IOException Signals that an I/O exception has occurred.    */
 specifier|synchronized
 name|void
 name|checkAndUpdateNamespaceRegionCount
@@ -1046,7 +1048,7 @@ continue|continue;
 block|}
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regions
 init|=
@@ -1110,7 +1112,7 @@ specifier|synchronized
 name|void
 name|removeRegionFromTable
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|hri
 parameter_list|)
 throws|throws

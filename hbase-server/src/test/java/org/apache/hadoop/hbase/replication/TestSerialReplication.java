@@ -18,6 +18,18 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -179,20 +191,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HTableDescriptor
 import|;
 end_import
@@ -266,6 +264,22 @@ operator|.
 name|client
 operator|.
 name|Put
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -558,18 +572,6 @@ operator|.
 name|rules
 operator|.
 name|TestName
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertEquals
 import|;
 end_import
 
@@ -2184,7 +2186,7 @@ name|List
 argument_list|<
 name|Pair
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|ServerName
 argument_list|>
@@ -2667,7 +2669,7 @@ name|List
 argument_list|<
 name|Pair
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|ServerName
 argument_list|>
@@ -2699,7 +2701,7 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 init|=
 name|regions
@@ -2816,7 +2818,7 @@ name|List
 argument_list|<
 name|Pair
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|ServerName
 argument_list|>
@@ -2848,7 +2850,7 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo1
 init|=
 name|regions
@@ -2877,7 +2879,7 @@ operator|.
 name|getServerName
 argument_list|()
 decl_stmt|;
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo2
 init|=
 name|regions
@@ -3040,7 +3042,7 @@ name|List
 argument_list|<
 name|Pair
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|ServerName
 argument_list|>

@@ -193,20 +193,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -225,13 +211,11 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
-
-begin_comment
-comment|// imports for things that haven't moved from regionserver.wal yet.
-end_comment
 
 begin_import
 import|import
@@ -284,6 +268,24 @@ operator|.
 name|FSUtils
 import|;
 end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_comment
+comment|// imports for things that haven't moved from regionserver.wal yet.
+end_comment
 
 begin_comment
 comment|/**  * No-op implementation of {@link WALProvider} used when the WAL is disabled.  *  * Should only be used when severe data loss is acceptable.  *  */
@@ -817,7 +819,7 @@ specifier|public
 name|long
 name|append
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|info
 parameter_list|,
 name|WALKey

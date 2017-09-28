@@ -27,6 +27,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ServerName
+operator|.
+name|NON_STARTCODE
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|favored
 operator|.
 name|FavoredNodeAssignmentHelper
@@ -92,22 +108,6 @@ operator|.
 name|Position
 operator|.
 name|TERTIARY
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|ServerName
-operator|.
-name|NON_STARTCODE
 import|;
 end_import
 
@@ -215,20 +215,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|conf
@@ -261,7 +247,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
+name|ServerName
 import|;
 end_import
 
@@ -275,7 +261,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ServerName
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -366,6 +354,20 @@ operator|.
 name|net
 operator|.
 name|NetUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -480,7 +482,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|primaryRSToRegionMap
@@ -492,7 +494,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|secondaryRSToRegionMap
@@ -504,7 +506,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|teritiaryRSToRegionMap
@@ -695,7 +697,7 @@ name|ServerName
 argument_list|>
 name|getFavoredNodes
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|)
 block|{
@@ -716,7 +718,7 @@ specifier|static
 name|boolean
 name|isFavoredNodeApplicable
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|)
 block|{
@@ -733,20 +735,20 @@ specifier|public
 specifier|static
 name|Set
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|filterNonFNApplicableRegions
 parameter_list|(
 name|Collection
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regions
 parameter_list|)
 block|{
 name|Set
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|fnRegions
 init|=
@@ -757,7 +759,7 @@ argument_list|()
 decl_stmt|;
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 range|:
 name|regions
@@ -794,7 +796,7 @@ name|ServerName
 argument_list|>
 name|getFavoredNodesWithDNPort
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|)
 block|{
@@ -865,7 +867,7 @@ name|updateFavoredNodes
 parameter_list|(
 name|Map
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|List
 argument_list|<
@@ -879,7 +881,7 @@ name|IOException
 block|{
 name|Map
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|List
 argument_list|<
@@ -899,7 +901,7 @@ name|Map
 operator|.
 name|Entry
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|List
 argument_list|<
@@ -914,7 +916,7 @@ name|entrySet
 argument_list|()
 control|)
 block|{
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 init|=
 name|entry
@@ -1119,7 +1121,7 @@ name|Map
 operator|.
 name|Entry
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|List
 argument_list|<
@@ -1134,7 +1136,7 @@ name|entrySet
 argument_list|()
 control|)
 block|{
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 init|=
 name|entry
@@ -1176,7 +1178,7 @@ specifier|synchronized
 name|void
 name|addToReplicaLoad
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|hri
 parameter_list|,
 name|List
@@ -1211,7 +1213,7 @@ argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regionList
 init|=
@@ -1578,14 +1580,14 @@ name|deleteFavoredNodesForRegions
 parameter_list|(
 name|Collection
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regionInfoList
 parameter_list|)
 block|{
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|hri
 range|:
 name|regionInfoList

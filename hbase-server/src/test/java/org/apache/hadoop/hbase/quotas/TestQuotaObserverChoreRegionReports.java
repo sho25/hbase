@@ -183,20 +183,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HTableDescriptor
 import|;
 end_import
@@ -274,6 +260,22 @@ operator|.
 name|client
 operator|.
 name|Put
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -1189,13 +1191,13 @@ expr_stmt|;
 comment|// Close the region, prevent the server from sending new status reports.
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regions
 init|=
 name|admin
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|tn
 argument_list|)
@@ -1210,7 +1212,7 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|HRegionInfo
+name|RegionInfo
 name|hri
 init|=
 name|regions
@@ -1482,7 +1484,7 @@ name|getRegionReportsForTable
 parameter_list|(
 name|Map
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|Long
 argument_list|>
@@ -1501,7 +1503,7 @@ for|for
 control|(
 name|Entry
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|Long
 argument_list|>

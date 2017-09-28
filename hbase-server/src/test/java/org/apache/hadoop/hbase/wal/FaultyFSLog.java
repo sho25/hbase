@@ -33,20 +33,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|conf
@@ -93,13 +79,11 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
-
-begin_comment
-comment|// imports for things that haven't moved yet
-end_comment
 
 begin_import
 import|import
@@ -118,6 +102,24 @@ operator|.
 name|FSHLog
 import|;
 end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_comment
+comment|// imports for things that haven't moved yet
+end_comment
 
 begin_comment
 comment|/**  * This is a utility class, used by tests, which fails operation specified by FailureType enum  */
@@ -241,7 +243,7 @@ specifier|public
 name|long
 name|append
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|info
 parameter_list|,
 name|WALKey

@@ -83,20 +83,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|InvalidFamilyOperationException
 import|;
 end_import
@@ -112,6 +98,22 @@ operator|.
 name|hbase
 operator|.
 name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -1240,7 +1242,7 @@ name|getMasterProcedureExecutor
 argument_list|()
 decl_stmt|;
 comment|// create the table
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regions
 init|=

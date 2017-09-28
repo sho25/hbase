@@ -21,20 +21,6 @@ end_package
 
 begin_import
 import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|annotations
-operator|.
-name|VisibleForTesting
-import|;
-end_import
-
-begin_import
-import|import
 name|java
 operator|.
 name|util
@@ -249,20 +235,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|RegionLoad
 import|;
 end_import
@@ -306,6 +278,22 @@ operator|.
 name|hbase
 operator|.
 name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -566,6 +554,20 @@ operator|.
 name|collect
 operator|.
 name|Lists
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
 import|;
 end_import
 
@@ -1679,7 +1681,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|clusterState
@@ -1748,7 +1750,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|clusterState
@@ -2635,7 +2637,7 @@ operator|!=
 name|newServerIndex
 condition|)
 block|{
-name|HRegionInfo
+name|RegionInfo
 name|region
 init|=
 name|cluster
@@ -3162,7 +3164,7 @@ name|Cluster
 name|cluster
 parameter_list|)
 function_decl|;
-comment|/**      * From a list of regions pick a random one. Null can be returned which      * {@link StochasticLoadBalancer#balanceCluster(Map)} recognize as signal to try a region move      * rather than swap.      *      * @param cluster        The state of the cluster      * @param server         index of the server      * @param chanceOfNoSwap Chance that this will decide to try a move rather      *                       than a swap.      * @return a random {@link HRegionInfo} or null if an asymmetrical move is      *         suggested.      */
+comment|/**      * From a list of regions pick a random one. Null can be returned which      * {@link StochasticLoadBalancer#balanceCluster(Map)} recognize as signal to try a region move      * rather than swap.      *      * @param cluster        The state of the cluster      * @param server         index of the server      * @param chanceOfNoSwap Chance that this will decide to try a move rather      *                       than a swap.      * @return a random {@link RegionInfo} or null if an asymmetrical move is      *         suggested.      */
 specifier|protected
 name|int
 name|pickRandomRegion

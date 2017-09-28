@@ -20,26 +20,16 @@ package|;
 end_package
 
 begin_import
-import|import
-name|org
+import|import static
+name|java
 operator|.
-name|apache
+name|util
 operator|.
-name|hadoop
+name|stream
 operator|.
-name|hbase
+name|Collectors
 operator|.
-name|shaded
-operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|annotations
-operator|.
-name|VisibleForTesting
+name|toCollection
 import|;
 end_import
 
@@ -90,20 +80,6 @@ operator|.
 name|util
 operator|.
 name|TreeSet
-import|;
-end_import
-
-begin_import
-import|import static
-name|java
-operator|.
-name|util
-operator|.
-name|stream
-operator|.
-name|Collectors
-operator|.
-name|toCollection
 import|;
 end_import
 
@@ -159,21 +135,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
+name|client
 operator|.
-name|apache
-operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
+name|RegionInfo
 import|;
 end_import
 
@@ -287,6 +251,44 @@ name|Span
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
 begin_comment
 comment|/**  * A WAL Entry for {@link AbstractFSWAL} implementation.  Immutable.  * A subclass of {@link Entry} that carries extra info across the ring buffer such as  * region sequence id (we want to use this later, just before we write the WAL to ensure region  * edits maintain order).  The extra info added here is not 'serialized' as part of the WALEdit  * hence marked 'transient' to underline this fact.  It also adds mechanism so we can wait on  * the assign of the region sequence id.  See #stampRegionSequenceId().  */
 end_comment
@@ -318,8 +320,8 @@ decl_stmt|;
 specifier|private
 specifier|final
 specifier|transient
-name|HRegionInfo
-name|hri
+name|RegionInfo
+name|regionInfo
 decl_stmt|;
 specifier|private
 specifier|final
@@ -352,8 +354,8 @@ name|WALEdit
 name|edit
 parameter_list|,
 specifier|final
-name|HRegionInfo
-name|hri
+name|RegionInfo
+name|regionInfo
 parameter_list|,
 specifier|final
 name|boolean
@@ -375,9 +377,9 @@ name|inMemstore
 expr_stmt|;
 name|this
 operator|.
-name|hri
+name|regionInfo
 operator|=
-name|hri
+name|regionInfo
 expr_stmt|;
 name|this
 operator|.
@@ -561,14 +563,14 @@ operator|.
 name|inMemstore
 return|;
 block|}
-name|HRegionInfo
-name|getHRegionInfo
+name|RegionInfo
+name|getRegionInfo
 parameter_list|()
 block|{
 return|return
 name|this
 operator|.
-name|hri
+name|regionInfo
 return|;
 block|}
 comment|/**    * @return The transaction id of this edit.    */

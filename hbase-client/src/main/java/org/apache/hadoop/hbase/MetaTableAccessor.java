@@ -71,6 +71,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Collections
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|HashMap
 import|;
 end_import
@@ -217,20 +227,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -334,6 +330,38 @@ operator|.
 name|client
 operator|.
 name|Put
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|RegionInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|RegionInfoBuilder
 import|;
 end_import
 
@@ -717,6 +745,20 @@ name|org
 operator|.
 name|apache
 operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -866,7 +908,7 @@ comment|// FIRST_META_REGIONINFO == 'hbase:meta,,1'.  META_REGION_PREFIX == 'hba
 name|int
 name|len
 init|=
-name|HRegionInfo
+name|RegionInfoBuilder
 operator|.
 name|FIRST_META_REGIONINFO
 operator|.
@@ -889,7 +931,7 @@ name|System
 operator|.
 name|arraycopy
 argument_list|(
-name|HRegionInfo
+name|RegionInfoBuilder
 operator|.
 name|FIRST_META_REGIONINFO
 operator|.
@@ -913,7 +955,7 @@ specifier|public
 specifier|static
 name|NavigableMap
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|ServerName
 argument_list|>
@@ -932,7 +974,7 @@ block|{
 specifier|final
 name|NavigableMap
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|ServerName
 argument_list|>
@@ -999,7 +1041,7 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 init|=
 name|loc
@@ -1427,7 +1469,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Gets the region info and assignment for the specified region.    * @param connection connection we're using    * @param regionName Region to lookup.    * @return Location and HRegionInfo for<code>regionName</code>    * @throws IOException    * @deprecated use {@link #getRegionLocation(Connection, byte[])} instead    */
+comment|/**    * Gets the region info and assignment for the specified region.    * @param connection connection we're using    * @param regionName Region to lookup.    * @return Location and RegionInfo for<code>regionName</code>    * @throws IOException    * @deprecated use {@link #getRegionLocation(Connection, byte[])} instead    */
 end_comment
 
 begin_function
@@ -1437,7 +1479,7 @@ specifier|public
 specifier|static
 name|Pair
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|ServerName
 argument_list|>
@@ -1514,7 +1556,7 @@ name|row
 init|=
 name|regionName
 decl_stmt|;
-name|HRegionInfo
+name|RegionInfo
 name|parsedInfo
 init|=
 literal|null
@@ -1623,7 +1665,7 @@ parameter_list|(
 name|Connection
 name|connection
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|)
 throws|throws
@@ -1696,7 +1738,7 @@ name|byte
 index|[]
 name|getMetaKeyForRegion
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|)
 block|{
@@ -1721,7 +1763,7 @@ end_comment
 begin_function
 specifier|public
 specifier|static
-name|HRegionInfo
+name|RegionInfo
 name|parseRegionInfoFromRegionName
 parameter_list|(
 name|byte
@@ -1736,7 +1778,7 @@ index|[]
 index|[]
 name|fields
 init|=
-name|HRegionInfo
+name|RegionInfo
 operator|.
 name|parseRegionName
 argument_list|(
@@ -1790,8 +1832,9 @@ else|:
 literal|0
 decl_stmt|;
 return|return
-operator|new
-name|HRegionInfo
+name|RegionInfoBuilder
+operator|.
+name|newBuilder
 argument_list|(
 name|TableName
 operator|.
@@ -1802,23 +1845,41 @@ index|[
 literal|0
 index|]
 argument_list|)
-argument_list|,
+argument_list|)
+operator|.
+name|setStartKey
+argument_list|(
 name|fields
 index|[
 literal|1
 index|]
-argument_list|,
+argument_list|)
+operator|.
+name|setEndKey
+argument_list|(
 name|fields
 index|[
-literal|1
+literal|2
 index|]
-argument_list|,
+argument_list|)
+operator|.
+name|setSplit
+argument_list|(
 literal|false
-argument_list|,
+argument_list|)
+operator|.
+name|setRegionId
+argument_list|(
 name|regionId
-argument_list|,
+argument_list|)
+operator|.
+name|setReplicaId
+argument_list|(
 name|replicaId
 argument_list|)
+operator|.
+name|build
+argument_list|()
 return|;
 block|}
 end_function
@@ -1886,9 +1947,9 @@ specifier|public
 specifier|static
 name|Pair
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|getRegionsFromMergeQualifier
 parameter_list|(
@@ -1912,10 +1973,10 @@ argument_list|,
 name|regionName
 argument_list|)
 decl_stmt|;
-name|HRegionInfo
+name|RegionInfo
 name|mergeA
 init|=
-name|getHRegionInfo
+name|getRegionInfo
 argument_list|(
 name|result
 argument_list|,
@@ -1924,10 +1985,10 @@ operator|.
 name|MERGEA_QUALIFIER
 argument_list|)
 decl_stmt|;
-name|HRegionInfo
+name|RegionInfo
 name|mergeB
 init|=
-name|getHRegionInfo
+name|getRegionInfo
 argument_list|(
 name|result
 argument_list|,
@@ -2018,7 +2079,7 @@ specifier|public
 specifier|static
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|getAllRegions
 parameter_list|(
@@ -2035,7 +2096,7 @@ name|List
 argument_list|<
 name|Pair
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|ServerName
 argument_list|>
@@ -2054,7 +2115,7 @@ name|excludeOfflinedSplitParents
 argument_list|)
 expr_stmt|;
 return|return
-name|getListOfHRegionInfos
+name|getListOfRegionInfos
 argument_list|(
 name|result
 argument_list|)
@@ -2063,7 +2124,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Gets all of the regions of the specified table. Do not use this method    * to get meta table regions, use methods in MetaTableLocator instead.    * @param connection connection we're using    * @param tableName table we're looking for    * @return Ordered list of {@link HRegionInfo}.    * @throws IOException    */
+comment|/**    * Gets all of the regions of the specified table. Do not use this method    * to get meta table regions, use methods in MetaTableLocator instead.    * @param connection connection we're using    * @param tableName table we're looking for    * @return Ordered list of {@link RegionInfo}.    * @throws IOException    */
 end_comment
 
 begin_function
@@ -2071,7 +2132,7 @@ specifier|public
 specifier|static
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|getTableRegions
 parameter_list|(
@@ -2098,7 +2159,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Gets all of the regions of the specified table. Do not use this method    * to get meta table regions, use methods in MetaTableLocator instead.    * @param connection connection we're using    * @param tableName table we're looking for    * @param excludeOfflinedSplitParents If true, do not include offlined split    * parents in the return.    * @return Ordered list of {@link HRegionInfo}.    * @throws IOException    */
+comment|/**    * Gets all of the regions of the specified table. Do not use this method    * to get meta table regions, use methods in MetaTableLocator instead.    * @param connection connection we're using    * @param tableName table we're looking for    * @param excludeOfflinedSplitParents If true, do not include offlined split    * parents in the return.    * @return Ordered list of {@link RegionInfo}.    * @throws IOException    */
 end_comment
 
 begin_function
@@ -2106,7 +2167,7 @@ specifier|public
 specifier|static
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|getTableRegions
 parameter_list|(
@@ -2127,7 +2188,7 @@ name|List
 argument_list|<
 name|Pair
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|ServerName
 argument_list|>
@@ -2144,7 +2205,7 @@ name|excludeOfflinedSplitParents
 argument_list|)
 decl_stmt|;
 return|return
-name|getListOfHRegionInfos
+name|getListOfRegionInfos
 argument_list|(
 name|result
 argument_list|)
@@ -2153,21 +2214,19 @@ block|}
 end_function
 
 begin_function
-annotation|@
-name|Nullable
 specifier|static
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
-name|getListOfHRegionInfos
+name|getListOfRegionInfos
 parameter_list|(
 specifier|final
 name|List
 argument_list|<
 name|Pair
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|ServerName
 argument_list|>
@@ -2187,11 +2246,13 @@ name|isEmpty
 argument_list|()
 condition|)
 return|return
-literal|null
+name|Collections
+operator|.
+name|EMPTY_LIST
 return|;
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|result
 init|=
@@ -2209,7 +2270,7 @@ for|for
 control|(
 name|Pair
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|ServerName
 argument_list|>
@@ -2245,7 +2306,7 @@ name|boolean
 name|isInsideTable
 parameter_list|(
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|current
 parameter_list|,
 specifier|final
@@ -2768,7 +2829,7 @@ name|List
 argument_list|<
 name|Pair
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|ServerName
 argument_list|>
@@ -2808,7 +2869,7 @@ name|List
 argument_list|<
 name|Pair
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|ServerName
 argument_list|>
@@ -2857,12 +2918,12 @@ literal|" use MetaTableLocator instead"
 argument_list|)
 throw|;
 block|}
-comment|// Make a version of CollectingVisitor that collects HRegionInfo and ServerAddress
+comment|// Make a version of CollectingVisitor that collects RegionInfo and ServerAddress
 name|CollectingVisitor
 argument_list|<
 name|Pair
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|ServerName
 argument_list|>
@@ -2874,7 +2935,7 @@ name|CollectingVisitor
 argument_list|<
 name|Pair
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|ServerName
 argument_list|>
@@ -2927,7 +2988,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"No serialized HRegionInfo in "
+literal|"No serialized RegionInfo in "
 operator|+
 name|r
 argument_list|)
@@ -2936,7 +2997,7 @@ return|return
 literal|true
 return|;
 block|}
-name|HRegionInfo
+name|RegionInfo
 name|hri
 init|=
 name|current
@@ -3079,7 +3140,7 @@ specifier|public
 specifier|static
 name|NavigableMap
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|Result
 argument_list|>
@@ -3098,7 +3159,7 @@ block|{
 specifier|final
 name|NavigableMap
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|Result
 argument_list|>
@@ -3606,7 +3667,7 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|HRegionInfo
+name|RegionInfo
 name|closestRi
 init|=
 name|getClosestRegionInfo
@@ -3620,7 +3681,7 @@ argument_list|)
 decl_stmt|;
 name|startRow
 operator|=
-name|HRegionInfo
+name|RegionInfo
 operator|.
 name|createRegionName
 argument_list|(
@@ -3962,7 +4023,7 @@ annotation|@
 name|NonNull
 specifier|public
 specifier|static
-name|HRegionInfo
+name|RegionInfo
 name|getClosestRegionInfo
 parameter_list|(
 name|Connection
@@ -3988,7 +4049,7 @@ name|byte
 index|[]
 name|searchRow
 init|=
-name|HRegionInfo
+name|RegionInfo
 operator|.
 name|createRegionName
 argument_list|(
@@ -4079,10 +4140,10 @@ argument_list|)
 argument_list|)
 throw|;
 block|}
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 init|=
-name|getHRegionInfo
+name|getRegionInfo
 argument_list|(
 name|result
 argument_list|)
@@ -4098,7 +4159,7 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"HRegionInfo was null or empty in Meta for "
+literal|"RegionInfo was null or empty in Meta for "
 operator|+
 name|tableName
 operator|+
@@ -4240,7 +4301,7 @@ name|String
 operator|.
 name|format
 argument_list|(
-name|HRegionInfo
+name|RegionInfo
 operator|.
 name|REPLICA_ID_FORMAT
 argument_list|,
@@ -4291,7 +4352,7 @@ name|String
 operator|.
 name|format
 argument_list|(
-name|HRegionInfo
+name|RegionInfo
 operator|.
 name|REPLICA_ID_FORMAT
 argument_list|,
@@ -4342,7 +4403,7 @@ name|String
 operator|.
 name|format
 argument_list|(
-name|HRegionInfo
+name|RegionInfo
 operator|.
 name|REPLICA_ID_FORMAT
 argument_list|,
@@ -4744,10 +4805,10 @@ condition|)
 return|return
 literal|null
 return|;
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 init|=
-name|getHRegionInfo
+name|getRegionInfo
 argument_list|(
 name|r
 argument_list|,
@@ -5006,7 +5067,7 @@ name|Result
 name|r
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|,
 specifier|final
@@ -5034,7 +5095,7 @@ argument_list|,
 name|replicaId
 argument_list|)
 decl_stmt|;
-name|HRegionInfo
+name|RegionInfo
 name|replicaInfo
 init|=
 name|RegionReplicaUtil
@@ -5061,21 +5122,21 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Returns HRegionInfo object from the column    * HConstants.CATALOG_FAMILY:HConstants.REGIONINFO_QUALIFIER of the catalog    * table Result.    * @param data a Result object from the catalog table scan    * @return HRegionInfo or null    */
+comment|/**    * Returns RegionInfo object from the column    * HConstants.CATALOG_FAMILY:HConstants.REGIONINFO_QUALIFIER of the catalog    * table Result.    * @param data a Result object from the catalog table scan    * @return RegionInfo or null    */
 end_comment
 
 begin_function
 specifier|public
 specifier|static
-name|HRegionInfo
-name|getHRegionInfo
+name|RegionInfo
+name|getRegionInfo
 parameter_list|(
 name|Result
 name|data
 parameter_list|)
 block|{
 return|return
-name|getHRegionInfo
+name|getRegionInfo
 argument_list|(
 name|data
 argument_list|,
@@ -5088,7 +5149,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Returns the HRegionInfo object from the column {@link HConstants#CATALOG_FAMILY} and    *<code>qualifier</code> of the catalog table result.    * @param r a Result object from the catalog table scan    * @param qualifier Column family qualifier    * @return An HRegionInfo instance or null.    */
+comment|/**    * Returns the RegionInfo object from the column {@link HConstants#CATALOG_FAMILY} and    *<code>qualifier</code> of the catalog table result.    * @param r a Result object from the catalog table scan    * @param qualifier Column family qualifier    * @return An RegionInfo instance or null.    */
 end_comment
 
 begin_function
@@ -5096,8 +5157,8 @@ annotation|@
 name|Nullable
 specifier|private
 specifier|static
-name|HRegionInfo
-name|getHRegionInfo
+name|RegionInfo
+name|getRegionInfo
 parameter_list|(
 specifier|final
 name|Result
@@ -5131,7 +5192,7 @@ return|return
 literal|null
 return|;
 return|return
-name|HRegionInfo
+name|RegionInfo
 operator|.
 name|parseFromOrNull
 argument_list|(
@@ -5155,7 +5216,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Returns the daughter regions by reading the corresponding columns of the catalog table    * Result.    * @param data a Result object from the catalog table scan    * @return a pair of HRegionInfo or PairOfSameType(null, null) if the region is not a split    * parent    */
+comment|/**    * Returns the daughter regions by reading the corresponding columns of the catalog table    * Result.    * @param data a Result object from the catalog table scan    * @return a pair of RegionInfo or PairOfSameType(null, null) if the region is not a split    * parent    */
 end_comment
 
 begin_function
@@ -5163,7 +5224,7 @@ specifier|public
 specifier|static
 name|PairOfSameType
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|getDaughterRegions
 parameter_list|(
@@ -5171,10 +5232,10 @@ name|Result
 name|data
 parameter_list|)
 block|{
-name|HRegionInfo
+name|RegionInfo
 name|splitA
 init|=
-name|getHRegionInfo
+name|getRegionInfo
 argument_list|(
 name|data
 argument_list|,
@@ -5183,10 +5244,10 @@ operator|.
 name|SPLITA_QUALIFIER
 argument_list|)
 decl_stmt|;
-name|HRegionInfo
+name|RegionInfo
 name|splitB
 init|=
-name|getHRegionInfo
+name|getRegionInfo
 argument_list|(
 name|data
 argument_list|,
@@ -5209,7 +5270,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Returns the merge regions by reading the corresponding columns of the catalog table    * Result.    * @param data a Result object from the catalog table scan    * @return a pair of HRegionInfo or PairOfSameType(null, null) if the region is not a split    * parent    */
+comment|/**    * Returns the merge regions by reading the corresponding columns of the catalog table    * Result.    * @param data a Result object from the catalog table scan    * @return a pair of RegionInfo or PairOfSameType(null, null) if the region is not a split    * parent    */
 end_comment
 
 begin_function
@@ -5217,7 +5278,7 @@ specifier|public
 specifier|static
 name|PairOfSameType
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|getMergeRegions
 parameter_list|(
@@ -5225,10 +5286,10 @@ name|Result
 name|data
 parameter_list|)
 block|{
-name|HRegionInfo
+name|RegionInfo
 name|mergeA
 init|=
-name|getHRegionInfo
+name|getRegionInfo
 argument_list|(
 name|data
 argument_list|,
@@ -5237,10 +5298,10 @@ operator|.
 name|MERGEA_QUALIFIER
 argument_list|)
 decl_stmt|;
-name|HRegionInfo
+name|RegionInfo
 name|mergeB
 init|=
-name|getHRegionInfo
+name|getRegionInfo
 argument_list|(
 name|data
 argument_list|,
@@ -5794,10 +5855,10 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HRegionInfo
+name|RegionInfo
 name|info
 init|=
-name|getHRegionInfo
+name|getRegionInfo
 argument_list|(
 name|rowResult
 argument_list|)
@@ -5891,10 +5952,10 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HRegionInfo
+name|RegionInfo
 name|info
 init|=
-name|getHRegionInfo
+name|getRegionInfo
 argument_list|(
 name|rowResult
 argument_list|)
@@ -6071,7 +6132,7 @@ specifier|static
 name|Put
 name|makePutFromRegionInfo
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|)
 throws|throws
@@ -6101,7 +6162,7 @@ specifier|static
 name|Put
 name|makePutFromRegionInfo
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|,
 name|long
@@ -6147,7 +6208,7 @@ specifier|static
 name|Delete
 name|makeDeleteFromRegionInfo
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|)
 block|{
@@ -6180,7 +6241,7 @@ specifier|static
 name|Delete
 name|makeDeleteFromRegionInfo
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|,
 name|long
@@ -6376,10 +6437,10 @@ parameter_list|(
 name|Put
 name|put
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|splitA
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|splitB
 parameter_list|)
 block|{
@@ -6402,10 +6463,12 @@ name|HConstants
 operator|.
 name|SPLITA_QUALIFIER
 argument_list|,
-name|splitA
+name|RegionInfo
 operator|.
 name|toByteArray
-argument_list|()
+argument_list|(
+name|splitA
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -6428,10 +6491,12 @@ name|HConstants
 operator|.
 name|SPLITB_QUALIFIER
 argument_list|,
-name|splitB
+name|RegionInfo
 operator|.
 name|toByteArray
-argument_list|()
+argument_list|(
+name|splitB
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -6989,7 +7054,7 @@ parameter_list|(
 name|Connection
 name|connection
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|)
 throws|throws
@@ -7033,7 +7098,7 @@ parameter_list|(
 name|Table
 name|meta
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|)
 throws|throws
@@ -7054,7 +7119,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Adds a (single) hbase:meta row for the specified new region and its daughters. Note that this    * does not add its daughter's as different rows, but adds information about the daughters    * in the same row as the parent. Use    * {@link #splitRegion(Connection, HRegionInfo, HRegionInfo, HRegionInfo, ServerName,int,boolean)}    * if you want to do that.    * @param meta the Table for META    * @param regionInfo region information    * @param splitA first split daughter of the parent regionInfo    * @param splitB second split daughter of the parent regionInfo    * @throws IOException if problem connecting or updating meta    */
+comment|/**    * Adds a (single) hbase:meta row for the specified new region and its daughters. Note that this    * does not add its daughter's as different rows, but adds information about the daughters    * in the same row as the parent. Use    * {@link #splitRegion(Connection, RegionInfo, RegionInfo, RegionInfo, ServerName,int,boolean)}    * if you want to do that.    * @param meta the Table for META    * @param regionInfo region information    * @param splitA first split daughter of the parent regionInfo    * @param splitB second split daughter of the parent regionInfo    * @throws IOException if problem connecting or updating meta    */
 end_comment
 
 begin_function
@@ -7066,13 +7131,13 @@ parameter_list|(
 name|Table
 name|meta
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|splitA
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|splitB
 parameter_list|)
 throws|throws
@@ -7146,7 +7211,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Adds a (single) hbase:meta row for the specified new region and its daughters. Note that this    * does not add its daughter's as different rows, but adds information about the daughters    * in the same row as the parent. Use    * {@link #splitRegion(Connection, HRegionInfo, HRegionInfo, HRegionInfo, ServerName,int,boolean)}    * if you want to do that.    * @param connection connection we're using    * @param regionInfo region information    * @param splitA first split daughter of the parent regionInfo    * @param splitB second split daughter of the parent regionInfo    * @throws IOException if problem connecting or updating meta    */
+comment|/**    * Adds a (single) hbase:meta row for the specified new region and its daughters. Note that this    * does not add its daughter's as different rows, but adds information about the daughters    * in the same row as the parent. Use    * {@link #splitRegion(Connection, RegionInfo, RegionInfo, RegionInfo, ServerName,int,boolean)}    * if you want to do that.    * @param connection connection we're using    * @param regionInfo region information    * @param splitA first split daughter of the parent regionInfo    * @param splitB second split daughter of the parent regionInfo    * @throws IOException if problem connecting or updating meta    */
 end_comment
 
 begin_function
@@ -7158,13 +7223,13 @@ parameter_list|(
 name|Connection
 name|connection
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|splitA
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|splitB
 parameter_list|)
 throws|throws
@@ -7218,7 +7283,7 @@ name|connection
 parameter_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regionInfos
 parameter_list|,
@@ -7259,7 +7324,7 @@ name|connection
 parameter_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regionInfos
 parameter_list|,
@@ -7285,7 +7350,7 @@ argument_list|()
 decl_stmt|;
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 range|:
 name|regionInfos
@@ -7382,7 +7447,7 @@ name|Connection
 name|connection
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|,
 specifier|final
@@ -7503,13 +7568,13 @@ specifier|final
 name|Connection
 name|connection
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|mergedRegion
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|regionA
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|regionB
 parameter_list|,
 name|ServerName
@@ -7537,15 +7602,6 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
-name|HRegionInfo
-name|copyOfMerged
-init|=
-operator|new
-name|HRegionInfo
-argument_list|(
-name|mergedRegion
-argument_list|)
-decl_stmt|;
 comment|// use the maximum of what master passed us vs local time.
 name|long
 name|time
@@ -7568,7 +7624,7 @@ name|putOfMerged
 init|=
 name|makePutFromRegionInfo
 argument_list|(
-name|copyOfMerged
+name|mergedRegion
 argument_list|,
 name|time
 argument_list|)
@@ -7585,10 +7641,12 @@ name|HConstants
 operator|.
 name|MERGEA_QUALIFIER
 argument_list|,
-name|regionA
+name|RegionInfo
 operator|.
 name|toByteArray
-argument_list|()
+argument_list|(
+name|regionA
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|putOfMerged
@@ -7603,10 +7661,12 @@ name|HConstants
 operator|.
 name|MERGEB_QUALIFIER
 argument_list|,
-name|regionB
+name|RegionInfo
 operator|.
 name|toByteArray
-argument_list|()
+argument_list|(
+name|regionB
+argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Deletes for merging regions
@@ -7842,13 +7902,13 @@ specifier|final
 name|Connection
 name|connection
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|parent
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|splitA
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|splitB
 parameter_list|,
 name|ServerName
@@ -7873,36 +7933,31 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
-name|HRegionInfo
-name|copyOfParent
-init|=
-operator|new
-name|HRegionInfo
-argument_list|(
-name|parent
-argument_list|)
-decl_stmt|;
-name|copyOfParent
-operator|.
-name|setOffline
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
-name|copyOfParent
-operator|.
-name|setSplit
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
 comment|//Put for parent
 name|Put
 name|putParent
 init|=
 name|makePutFromRegionInfo
 argument_list|(
-name|copyOfParent
+name|RegionInfoBuilder
+operator|.
+name|newBuilder
+argument_list|(
+name|parent
+argument_list|)
+operator|.
+name|setOffline
+argument_list|(
+literal|true
+argument_list|)
+operator|.
+name|setSplit
+argument_list|(
+literal|true
+argument_list|)
+operator|.
+name|build
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|addDaughtersToPut
@@ -8740,7 +8795,7 @@ parameter_list|(
 name|Connection
 name|connection
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|,
 name|ServerName
@@ -8923,7 +8978,7 @@ specifier|final
 name|Connection
 name|connection
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|,
 name|ServerName
@@ -9031,7 +9086,7 @@ parameter_list|(
 name|Connection
 name|connection
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|)
 throws|throws
@@ -9104,7 +9159,7 @@ name|connection
 parameter_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regionsInfo
 parameter_list|)
@@ -9141,7 +9196,7 @@ name|connection
 parameter_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regionsInfo
 parameter_list|,
@@ -9169,7 +9224,7 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|hri
 range|:
 name|regionsInfo
@@ -9263,14 +9318,14 @@ parameter_list|,
 specifier|final
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regionsToRemove
 parameter_list|,
 specifier|final
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regionsToAdd
 parameter_list|)
@@ -9297,7 +9352,7 @@ condition|)
 block|{
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|hri
 range|:
 name|regionsToRemove
@@ -9324,7 +9379,7 @@ condition|)
 block|{
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|hri
 range|:
 name|regionsToAdd
@@ -9369,7 +9424,7 @@ name|debug
 argument_list|(
 literal|"Deleted "
 operator|+
-name|HRegionInfo
+name|RegionInfo
 operator|.
 name|getShortNameToLog
 argument_list|(
@@ -9398,7 +9453,7 @@ name|debug
 argument_list|(
 literal|"Added "
 operator|+
-name|HRegionInfo
+name|RegionInfo
 operator|.
 name|getShortNameToLog
 argument_list|(
@@ -9425,7 +9480,7 @@ name|connection
 parameter_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regionInfos
 parameter_list|,
@@ -9521,7 +9576,7 @@ name|Connection
 name|connection
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|mergedRegion
 parameter_list|)
 throws|throws
@@ -9630,7 +9685,7 @@ name|Put
 name|p
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|hri
 parameter_list|)
 throws|throws
@@ -9647,10 +9702,12 @@ name|HConstants
 operator|.
 name|REGIONINFO_QUALIFIER
 argument_list|,
-name|hri
+name|RegionInfo
 operator|.
 name|toByteArray
-argument_list|()
+argument_list|(
+name|hri
+argument_list|)
 argument_list|)
 expr_stmt|;
 return|return

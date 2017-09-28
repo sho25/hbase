@@ -263,20 +263,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|RegionLoad
 import|;
 end_import
@@ -306,6 +292,22 @@ operator|.
 name|hbase
 operator|.
 name|ServerName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -1256,7 +1258,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|servers
@@ -1367,7 +1369,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|servers
@@ -1480,7 +1482,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|entry
@@ -2777,7 +2779,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|serverMap
@@ -3053,7 +3055,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|clusterState
@@ -3109,7 +3111,7 @@ literal|0
 argument_list|)
 expr_stmt|;
 comment|// replicate the region from first server to the last server
-name|HRegionInfo
+name|RegionInfo
 name|replica1
 init|=
 name|RegionReplicaUtil
@@ -3186,7 +3188,7 @@ literal|0
 argument_list|)
 expr_stmt|;
 comment|// add a third replica to the last server
-name|HRegionInfo
+name|RegionInfo
 name|replica2
 init|=
 name|RegionReplicaUtil
@@ -3250,7 +3252,7 @@ name|costWith1ReplicaSameServer
 argument_list|)
 expr_stmt|;
 comment|// test with replication = 4 for following:
-name|HRegionInfo
+name|RegionInfo
 name|replica3
 decl_stmt|;
 name|Iterator
@@ -3261,7 +3263,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 argument_list|>
@@ -3273,7 +3275,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|entry
@@ -3303,7 +3305,7 @@ name|next
 argument_list|()
 expr_stmt|;
 comment|//first server
-name|HRegionInfo
+name|RegionInfo
 name|hri
 init|=
 name|entry
@@ -3558,7 +3560,7 @@ comment|// check for the case where there are two hosts and with one rack, and w
 comment|// both the replicas are hosted on the same server
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regions
 init|=
@@ -3601,7 +3603,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|map
@@ -3692,7 +3694,7 @@ argument_list|)
 expr_stmt|;
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regionsOnS2
 init|=
@@ -4321,7 +4323,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|serverMap
@@ -4351,7 +4353,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|newServerMap
@@ -4373,7 +4375,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|entry
@@ -4629,7 +4631,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|serverMap

@@ -37,7 +37,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
+name|ServerName
 import|;
 end_import
 
@@ -51,7 +51,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ServerName
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -80,6 +82,24 @@ operator|.
 name|audience
 operator|.
 name|InterfaceStability
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|protobuf
+operator|.
+name|ProtobufUtil
 import|;
 end_import
 
@@ -543,7 +563,7 @@ name|stamp
 decl_stmt|;
 specifier|private
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|hri
 decl_stmt|;
 specifier|private
@@ -564,7 +584,7 @@ decl_stmt|;
 specifier|public
 name|RegionState
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|region
 parameter_list|,
 name|State
@@ -589,7 +609,7 @@ block|}
 specifier|public
 name|RegionState
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|region
 parameter_list|,
 name|State
@@ -617,7 +637,7 @@ block|}
 specifier|public
 name|RegionState
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|region
 parameter_list|,
 name|State
@@ -647,7 +667,7 @@ block|}
 specifier|public
 name|RegionState
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|region
 parameter_list|,
 name|State
@@ -713,7 +733,7 @@ name|stamp
 return|;
 block|}
 specifier|public
-name|HRegionInfo
+name|RegionInfo
 name|getRegion
 parameter_list|()
 block|{
@@ -1418,9 +1438,9 @@ name|regionState
 operator|.
 name|setRegionInfo
 argument_list|(
-name|HRegionInfo
+name|ProtobufUtil
 operator|.
-name|convert
+name|toRegionInfo
 argument_list|(
 name|hri
 argument_list|)
@@ -1467,9 +1487,9 @@ return|return
 operator|new
 name|RegionState
 argument_list|(
-name|HRegionInfo
+name|ProtobufUtil
 operator|.
-name|convert
+name|toRegionInfo
 argument_list|(
 name|proto
 operator|.
@@ -1544,14 +1564,20 @@ operator|)
 name|obj
 decl_stmt|;
 return|return
+name|RegionInfo
+operator|.
+name|COMPARATOR
+operator|.
+name|compare
+argument_list|(
 name|tmp
 operator|.
 name|hri
-operator|.
-name|equals
-argument_list|(
+argument_list|,
 name|hri
 argument_list|)
+operator|==
+literal|0
 operator|&&
 name|tmp
 operator|.

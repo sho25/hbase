@@ -65,20 +65,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HConstants
 import|;
 end_import
@@ -93,7 +79,23 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -206,7 +208,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|region
 parameter_list|,
 name|Path
@@ -239,7 +241,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|region
 parameter_list|,
 name|byte
@@ -430,7 +432,7 @@ name|tableName
 argument_list|)
 return|;
 block|}
-comment|/**    * Get the full path to the archive directory on the configured     * {@link org.apache.hadoop.hbase.master.MasterFileSystem}    * @param conf to look for archive directory name and root directory. Cannot be null. Notes for    *          testing: requires a FileSystem root directory to be specified.    * @return the full {@link Path} to the archive directory, as defined by the configuration    * @throws IOException if an unexpected error occurs    */
+comment|/**    * Get the full path to the archive directory on the configured    * {@link org.apache.hadoop.hbase.master.MasterFileSystem}    * @param conf to look for archive directory name and root directory. Cannot be null. Notes for    *          testing: requires a FileSystem root directory to be specified.    * @return the full {@link Path} to the archive directory, as defined by the configuration    * @throws IOException if an unexpected error occurs    */
 specifier|public
 specifier|static
 name|Path
@@ -454,7 +456,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Get the full path to the archive directory on the configured     * {@link org.apache.hadoop.hbase.master.MasterFileSystem}    * @param rootdir {@link Path} to the root directory where hbase files are stored (for building    *          the archive path)    * @return the full {@link Path} to the archive directory, as defined by the configuration    */
+comment|/**    * Get the full path to the archive directory on the configured    * {@link org.apache.hadoop.hbase.master.MasterFileSystem}    * @param rootdir {@link Path} to the root directory where hbase files are stored (for building    *          the archive path)    * @return the full {@link Path} to the archive directory, as defined by the configuration    */
 specifier|private
 specifier|static
 name|Path

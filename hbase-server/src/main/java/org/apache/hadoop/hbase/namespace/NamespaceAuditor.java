@@ -79,20 +79,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|MetaTableAccessor
 import|;
 end_import
@@ -145,11 +131,13 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -182,6 +170,20 @@ operator|.
 name|quotas
 operator|.
 name|QuotaExceededException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -477,7 +479,7 @@ specifier|public
 name|void
 name|checkQuotaToSplitRegion
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|hri
 parameter_list|)
 throws|throws
@@ -542,7 +544,7 @@ specifier|public
 name|void
 name|updateQuotaForRegionMerge
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|mergedRegion
 parameter_list|)
 throws|throws
@@ -665,7 +667,7 @@ specifier|public
 name|void
 name|removeRegionFromNamespaceUsage
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|hri
 parameter_list|)
 throws|throws

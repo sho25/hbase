@@ -251,20 +251,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -335,6 +321,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|RegionInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|RegionReplicaUtil
 import|;
 end_import
@@ -383,7 +385,9 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|TableState
+name|Scan
+operator|.
+name|ReadType
 import|;
 end_import
 
@@ -399,9 +403,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Scan
-operator|.
-name|ReadType
+name|TableState
 import|;
 end_import
 
@@ -466,6 +468,20 @@ operator|.
 name|util
 operator|.
 name|Pair
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -759,7 +775,7 @@ argument_list|()
 decl_stmt|;
 try|try
 block|{
-name|HRegionInfo
+name|RegionInfo
 name|parsedRegionInfo
 init|=
 name|MetaTableAccessor
@@ -992,7 +1008,7 @@ name|result
 lambda|->
 name|MetaTableAccessor
 operator|.
-name|getHRegionInfo
+name|getRegionInfo
 argument_list|(
 name|result
 argument_list|)
@@ -1031,7 +1047,7 @@ name|equals
 argument_list|(
 name|location
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getEncodedName
@@ -1370,7 +1386,7 @@ name|List
 argument_list|<
 name|Pair
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|ServerName
 argument_list|>
@@ -1399,7 +1415,7 @@ name|List
 argument_list|<
 name|Pair
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|ServerName
 argument_list|>
@@ -1453,7 +1469,7 @@ block|}
 end_function
 
 begin_comment
-comment|// Make a version of CollectingVisitor that collects HRegionInfo and ServerAddress
+comment|// Make a version of CollectingVisitor that collects RegionInfo and ServerAddress
 end_comment
 
 begin_decl_stmt
@@ -1461,7 +1477,7 @@ name|CollectingVisitor
 argument_list|<
 name|Pair
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|ServerName
 argument_list|>
@@ -1473,7 +1489,7 @@ name|CollectingVisitor
 argument_list|<
 name|Pair
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|ServerName
 argument_list|>
@@ -1524,7 +1540,7 @@ operator|.
 name|getRegionLocation
 argument_list|()
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|==
 literal|null
@@ -1534,7 +1550,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"No serialized HRegionInfo in "
+literal|"No serialized RegionInfo in "
 operator|+
 name|r
 argument_list|)
@@ -1543,7 +1559,7 @@ return|return
 literal|true
 return|;
 block|}
-name|HRegionInfo
+name|RegionInfo
 name|hri
 init|=
 name|current
@@ -1554,7 +1570,7 @@ operator|.
 name|getRegionLocation
 argument_list|()
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 decl_stmt|;
 if|if
@@ -1629,7 +1645,7 @@ argument_list|(
 operator|new
 name|Pair
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|ServerName
 argument_list|>
@@ -2309,7 +2325,7 @@ argument_list|()
 return|;
 name|Optional
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regionInfo
 init|=
@@ -2600,7 +2616,7 @@ name|Result
 name|r
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|,
 specifier|final
@@ -2631,7 +2647,7 @@ argument_list|,
 name|replicaId
 argument_list|)
 decl_stmt|;
-name|HRegionInfo
+name|RegionInfo
 name|replicaInfo
 init|=
 name|RegionReplicaUtil
@@ -3254,7 +3270,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Returns the HRegionInfo object from the column {@link HConstants#CATALOG_FAMILY} and    *<code>qualifier</code> of the catalog table result.    * @param r a Result object from the catalog table scan    * @param qualifier Column family qualifier    * @return An HRegionInfo instance.    */
+comment|/**    * Returns the RegionInfo object from the column {@link HConstants#CATALOG_FAMILY} and    *<code>qualifier</code> of the catalog table result.    * @param r a Result object from the catalog table scan    * @param qualifier Column family qualifier    * @return An RegionInfo instance.    */
 end_comment
 
 begin_function
@@ -3262,7 +3278,7 @@ specifier|private
 specifier|static
 name|Optional
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|getHRegionInfo
 parameter_list|(
@@ -3305,7 +3321,7 @@ name|Optional
 operator|.
 name|ofNullable
 argument_list|(
-name|HRegionInfo
+name|RegionInfo
 operator|.
 name|parseFromOrNull
 argument_list|(
@@ -3447,7 +3463,7 @@ name|String
 operator|.
 name|format
 argument_list|(
-name|HRegionInfo
+name|RegionInfo
 operator|.
 name|REPLICA_ID_FORMAT
 argument_list|,
@@ -3496,7 +3512,7 @@ name|String
 operator|.
 name|format
 argument_list|(
-name|HRegionInfo
+name|RegionInfo
 operator|.
 name|REPLICA_ID_FORMAT
 argument_list|,
@@ -3545,7 +3561,7 @@ name|String
 operator|.
 name|format
 argument_list|(
-name|HRegionInfo
+name|RegionInfo
 operator|.
 name|REPLICA_ID_FORMAT
 argument_list|,

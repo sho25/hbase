@@ -81,41 +81,11 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
-begin_comment
-comment|// imports we use from yet-to-be-moved regionsever.wal
-end_comment
 
 begin_import
 import|import
@@ -213,6 +183,34 @@ name|org
 operator|.
 name|apache
 operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceStability
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -230,6 +228,10 @@ operator|.
 name|VisibleForTesting
 import|;
 end_import
+
+begin_comment
+comment|// imports we use from yet-to-be-moved regionsever.wal
+end_comment
 
 begin_comment
 comment|/**  * A Write Ahead Log (WAL) provides service for reading, writing waledits. This interface provides  * APIs for WAL users (such as RegionServer) to use the WAL (do append, sync, etc).  *  * Note that some internals, such as log rolling and performance evaluation tools, will use  * WAL.equals to determine if they have already seen a given WAL.  */
@@ -270,7 +272,7 @@ name|WALActionsListener
 name|listener
 parameter_list|)
 function_decl|;
-comment|/**    * Roll the log writer. That is, start writing log messages to a new file.    *    *<p>    * The implementation is synchronized in order to make sure there's one rollWriter    * running at any given time.    *    * @return If lots of logs, flush the returned regions so next time through we    *         can clean logs. Returns null if nothing to flush. Names are actual    *         region names as returned by {@link HRegionInfo#getEncodedName()}    */
+comment|/**    * Roll the log writer. That is, start writing log messages to a new file.    *    *<p>    * The implementation is synchronized in order to make sure there's one rollWriter    * running at any given time.    *    * @return If lots of logs, flush the returned regions so next time through we    *         can clean logs. Returns null if nothing to flush. Names are actual    *         region names as returned by {@link RegionInfo#getEncodedName()}    */
 name|byte
 index|[]
 index|[]
@@ -281,7 +283,7 @@ name|FailedLogCloseException
 throws|,
 name|IOException
 function_decl|;
-comment|/**    * Roll the log writer. That is, start writing log messages to a new file.    *    *<p>    * The implementation is synchronized in order to make sure there's one rollWriter    * running at any given time.    *    * @param force    *          If true, force creation of a new writer even if no entries have    *          been written to the current writer    * @return If lots of logs, flush the returned regions so next time through we    *         can clean logs. Returns null if nothing to flush. Names are actual    *         region names as returned by {@link HRegionInfo#getEncodedName()}    */
+comment|/**    * Roll the log writer. That is, start writing log messages to a new file.    *    *<p>    * The implementation is synchronized in order to make sure there's one rollWriter    * running at any given time.    *    * @param force    *          If true, force creation of a new writer even if no entries have    *          been written to the current writer    * @return If lots of logs, flush the returned regions so next time through we    *         can clean logs. Returns null if nothing to flush. Names are actual    *         region names as returned by {@link RegionInfo#getEncodedName()}    */
 name|byte
 index|[]
 index|[]
@@ -313,7 +315,7 @@ comment|/**    * Append a set of edits to the WAL. The WAL is not flushed/sync'd
 name|long
 name|append
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|info
 parameter_list|,
 name|WALKey

@@ -18,6 +18,18 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|mockito
+operator|.
+name|Mockito
+operator|.
+name|mock
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -76,20 +88,6 @@ operator|.
 name|hbase
 operator|.
 name|CoordinatedStateManager
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HRegionInfo
 import|;
 end_import
 
@@ -194,6 +192,22 @@ operator|.
 name|client
 operator|.
 name|MasterSwitchType
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -520,18 +534,6 @@ operator|.
 name|protobuf
 operator|.
 name|Service
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|mockito
-operator|.
-name|Mockito
-operator|.
-name|mock
 import|;
 end_import
 
@@ -1305,7 +1307,7 @@ name|long
 name|mergeRegions
 parameter_list|(
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regionsToMerge
 parameter_list|,
@@ -1336,7 +1338,7 @@ name|long
 name|splitRegion
 parameter_list|(
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|,
 specifier|final

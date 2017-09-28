@@ -396,7 +396,7 @@ return|return
 name|connection
 return|;
 block|}
-comment|/**    * Calls {@link #getMockedConnection(Configuration)} and then mocks a few    * more of the popular {@link ClusterConnection} methods so they do 'normal'    * operation (see return doc below for list). Be sure to shutdown the    * connection when done by calling {@link Connection#close()} else it will stick around;    * this is probably not what you want.    *    * @param conf Configuration to use    * @param admin An AdminProtocol; can be null but is usually    * itself a mock.    * @param client A ClientProtocol; can be null but is usually    * itself a mock.    * @param sn ServerName to include in the region location returned by this    *<code>connection</code>    * @param hri HRegionInfo to include in the location returned when    * getRegionLocator is called on the mocked connection    * @return Mock up a connection that returns a {@link Configuration} when    * {@link ClusterConnection#getConfiguration()} is called, a 'location' when    * {@link ClusterConnection#getRegionLocation(org.apache.hadoop.hbase.TableName, byte[], boolean)}    * is called,    * and that returns the passed {@link AdminProtos.AdminService.BlockingInterface} instance when    * {@link ClusterConnection#getAdmin(ServerName)} is called, returns the passed    * {@link ClientProtos.ClientService.BlockingInterface} instance when    * {@link ClusterConnection#getClient(ServerName)} is called (Be sure to call    * {@link Connection#close()} when done with this mocked Connection.    * @throws IOException    */
+comment|/**    * Calls {@link #getMockedConnection(Configuration)} and then mocks a few    * more of the popular {@link ClusterConnection} methods so they do 'normal'    * operation (see return doc below for list). Be sure to shutdown the    * connection when done by calling {@link Connection#close()} else it will stick around;    * this is probably not what you want.    *    * @param conf Configuration to use    * @param admin An AdminProtocol; can be null but is usually    * itself a mock.    * @param client A ClientProtocol; can be null but is usually    * itself a mock.    * @param sn ServerName to include in the region location returned by this    *<code>connection</code>    * @param hri RegionInfo to include in the location returned when    * getRegionLocator is called on the mocked connection    * @return Mock up a connection that returns a {@link Configuration} when    * {@link ClusterConnection#getConfiguration()} is called, a 'location' when    * {@link ClusterConnection#getRegionLocation(org.apache.hadoop.hbase.TableName, byte[], boolean)}    * is called,    * and that returns the passed {@link AdminProtos.AdminService.BlockingInterface} instance when    * {@link ClusterConnection#getAdmin(ServerName)} is called, returns the passed    * {@link ClientProtos.ClientService.BlockingInterface} instance when    * {@link ClusterConnection#getClient(ServerName)} is called (Be sure to call    * {@link Connection#close()} when done with this mocked Connection.    * @throws IOException    */
 specifier|public
 specifier|static
 name|ClusterConnection
@@ -427,7 +427,7 @@ name|ServerName
 name|sn
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|hri
 parameter_list|)
 throws|throws

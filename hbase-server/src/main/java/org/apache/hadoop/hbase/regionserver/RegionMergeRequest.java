@@ -65,7 +65,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
+name|TableName
 import|;
 end_import
 
@@ -79,7 +79,41 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
+name|client
+operator|.
+name|RegionInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|RegionInfoBuilder
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|security
+operator|.
+name|User
 import|;
 end_import
 
@@ -107,9 +141,17 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|security
+name|shaded
 operator|.
-name|User
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|base
+operator|.
+name|Preconditions
 import|;
 end_import
 
@@ -137,36 +179,12 @@ name|TransitionCode
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|base
-operator|.
-name|Preconditions
-import|;
-end_import
-
 begin_comment
 comment|/**  * Handles processing region merges. Put in a queue, owned by HRegionServer.  */
 end_comment
 
 begin_comment
-comment|// UNUSED: REMOVE!!!
+comment|// TODO:UNUSED: REMOVE!!!
 end_comment
 
 begin_class
@@ -196,12 +214,12 @@ argument_list|)
 decl_stmt|;
 specifier|private
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|region_a
 decl_stmt|;
 specifier|private
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|region_b
 decl_stmt|;
 specifier|private
@@ -414,14 +432,18 @@ return|return;
 block|}
 comment|// TODO: fake merged region for compat with the report protocol
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|merged
 init|=
-operator|new
-name|HRegionInfo
+name|RegionInfoBuilder
+operator|.
+name|newBuilder
 argument_list|(
 name|table
 argument_list|)
+operator|.
+name|build
+argument_list|()
 decl_stmt|;
 comment|// Send the split request to the master. the master will do the validation on the split-key.
 comment|// The parent region will be unassigned and the two new regions will be assigned.

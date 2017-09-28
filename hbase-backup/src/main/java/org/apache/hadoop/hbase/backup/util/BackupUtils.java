@@ -321,20 +321,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|MetaTableAccessor
 import|;
 end_import
@@ -475,11 +461,13 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|client
+operator|.
+name|Connection
 import|;
 end_import
 
@@ -495,7 +483,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Connection
+name|RegionInfo
 import|;
 end_import
 
@@ -525,9 +513,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|tool
+name|regionserver
 operator|.
-name|LoadIncrementalHFiles
+name|HRegion
 import|;
 end_import
 
@@ -541,9 +529,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
+name|tool
 operator|.
-name|HRegion
+name|LoadIncrementalHFiles
 import|;
 end_import
 
@@ -608,6 +596,20 @@ operator|.
 name|wal
 operator|.
 name|AbstractFSWALProvider
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -1112,7 +1114,7 @@ argument_list|)
 expr_stmt|;
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regions
 init|=
@@ -1141,7 +1143,7 @@ argument_list|)
 expr_stmt|;
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 range|:
 name|regions
@@ -1227,7 +1229,7 @@ specifier|final
 name|Path
 name|regionInfoDir
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|)
 throws|throws
@@ -1238,10 +1240,12 @@ name|byte
 index|[]
 name|content
 init|=
-name|regionInfo
+name|RegionInfo
 operator|.
 name|toDelimitedByteArray
-argument_list|()
+argument_list|(
+name|regionInfo
+argument_list|)
 decl_stmt|;
 name|Path
 name|regionInfoFile

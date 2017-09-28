@@ -195,7 +195,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -527,7 +529,7 @@ parameter_list|,
 name|FileSystem
 name|fs
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|info
 parameter_list|)
 throws|throws
@@ -564,7 +566,7 @@ name|regionDir
 argument_list|)
 return|;
 block|}
-comment|/**    * Cleans up all the files for a HRegion by archiving the HFiles to the    * archive directory    * @param conf the configuration to use    * @param fs the file system object    * @param info HRegionInfo for region to be deleted    * @throws IOException    */
+comment|/**    * Cleans up all the files for a HRegion by archiving the HFiles to the    * archive directory    * @param conf the configuration to use    * @param fs the file system object    * @param info RegionInfo for region to be deleted    * @throws IOException    */
 specifier|public
 specifier|static
 name|void
@@ -576,7 +578,7 @@ parameter_list|,
 name|FileSystem
 name|fs
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|info
 parameter_list|)
 throws|throws
@@ -972,7 +974,7 @@ parameter_list|,
 name|Configuration
 name|conf
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|parent
 parameter_list|,
 name|Path
@@ -1036,7 +1038,7 @@ parameter_list|,
 name|Configuration
 name|conf
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|parent
 parameter_list|,
 name|Path
@@ -1208,7 +1210,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Remove the store files, either by archiving them or outright deletion    * @param conf {@link Configuration} to examine to determine the archive directory    * @param fs the filesystem where the store files live    * @param regionInfo {@link HRegionInfo} of the region hosting the store files    * @param family the family hosting the store files    * @param compactedFiles files to be disposed of. No further reading of these files should be    *          attempted; otherwise likely to cause an {@link IOException}    * @throws IOException if the files could not be correctly disposed.    */
+comment|/**    * Remove the store files, either by archiving them or outright deletion    * @param conf {@link Configuration} to examine to determine the archive directory    * @param fs the filesystem where the store files live    * @param regionInfo {@link RegionInfo} of the region hosting the store files    * @param family the family hosting the store files    * @param compactedFiles files to be disposed of. No further reading of these files should be    *          attempted; otherwise likely to cause an {@link IOException}    * @throws IOException if the files could not be correctly disposed.    */
 specifier|public
 specifier|static
 name|void
@@ -1220,7 +1222,7 @@ parameter_list|,
 name|FileSystem
 name|fs
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|,
 name|Path
@@ -1492,7 +1494,7 @@ parameter_list|,
 name|FileSystem
 name|fs
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|,
 name|Path

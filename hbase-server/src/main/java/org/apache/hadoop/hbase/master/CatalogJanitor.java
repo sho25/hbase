@@ -185,20 +185,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|MetaTableAccessor
 import|;
 end_import
@@ -237,20 +223,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -274,6 +246,22 @@ operator|.
 name|client
 operator|.
 name|Connection
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -515,21 +503,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|yetus
 operator|.
-name|hbase
+name|audience
 operator|.
-name|shaded
-operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|annotations
-operator|.
-name|VisibleForTesting
+name|InterfaceAudience
 import|;
 end_import
 
@@ -899,14 +877,14 @@ name|Integer
 argument_list|,
 name|Map
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|Result
 argument_list|>
 argument_list|,
 name|Map
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|Result
 argument_list|>
@@ -930,14 +908,14 @@ name|Integer
 argument_list|,
 name|Map
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|Result
 argument_list|>
 argument_list|,
 name|Map
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|Result
 argument_list|>
@@ -977,7 +955,7 @@ comment|// Use a comparator that has split parents come before its daughters.
 specifier|final
 name|Map
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|Result
 argument_list|>
@@ -995,7 +973,7 @@ decl_stmt|;
 specifier|final
 name|Map
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|Result
 argument_list|>
@@ -1004,7 +982,11 @@ init|=
 operator|new
 name|TreeMap
 argument_list|<>
-argument_list|()
+argument_list|(
+name|RegionInfo
+operator|.
+name|COMPARATOR
+argument_list|)
 decl_stmt|;
 comment|// This visitor collects split parents and counts rows in the hbase:meta table
 name|MetaTableAccessor
@@ -1049,12 +1031,12 @@ operator|.
 name|incrementAndGet
 argument_list|()
 expr_stmt|;
-name|HRegionInfo
+name|RegionInfo
 name|info
 init|=
 name|MetaTableAccessor
 operator|.
-name|getHRegionInfo
+name|getRegionInfo
 argument_list|(
 name|r
 argument_list|)
@@ -1201,15 +1183,15 @@ name|boolean
 name|cleanMergeRegion
 parameter_list|(
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|mergedRegion
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|regionA
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|regionB
 parameter_list|)
 throws|throws
@@ -1492,14 +1474,14 @@ name|Integer
 argument_list|,
 name|Map
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|Result
 argument_list|>
 argument_list|,
 name|Map
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|Result
 argument_list|>
@@ -1512,7 +1494,7 @@ decl_stmt|;
 comment|/**        * clean merge regions first        */
 name|Map
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|Result
 argument_list|>
@@ -1529,7 +1511,7 @@ name|Map
 operator|.
 name|Entry
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|Result
 argument_list|>
@@ -1556,7 +1538,7 @@ break|break;
 block|}
 name|PairOfSameType
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|p
 init|=
@@ -1570,7 +1552,7 @@ name|getValue
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HRegionInfo
+name|RegionInfo
 name|regionA
 init|=
 name|p
@@ -1578,7 +1560,7 @@ operator|.
 name|getFirst
 argument_list|()
 decl_stmt|;
-name|HRegionInfo
+name|RegionInfo
 name|regionB
 init|=
 name|p
@@ -1669,7 +1651,7 @@ block|}
 comment|/**        * clean split parents        */
 name|Map
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|Result
 argument_list|>
@@ -1699,7 +1681,7 @@ name|Map
 operator|.
 name|Entry
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|Result
 argument_list|>
@@ -1764,7 +1746,7 @@ comment|// We could not clean the parent, so it's daughters should not be
 comment|// cleaned either (HBASE-6160)
 name|PairOfSameType
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|daughters
 init|=
@@ -1828,7 +1810,7 @@ name|SplitParentFirstComparator
 implements|implements
 name|Comparator
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 block|{
 name|Comparator
@@ -1850,14 +1832,14 @@ specifier|public
 name|int
 name|compare
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|left
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|right
 parameter_list|)
 block|{
-comment|// This comparator differs from the one HRegionInfo in that it sorts
+comment|// This comparator differs from the one RegionInfo in that it sorts
 comment|// parent before daughters.
 if|if
 condition|(
@@ -1954,12 +1936,12 @@ name|result
 return|;
 block|}
 block|}
-comment|/**    * If daughters no longer hold reference to the parents, delete the parent.    * @param parent HRegionInfo of split offlined parent    * @param rowContent Content of<code>parent</code> row in    *<code>metaRegionName</code>    * @return True if we removed<code>parent</code> from meta table and from    * the filesystem.    * @throws IOException    */
+comment|/**    * If daughters no longer hold reference to the parents, delete the parent.    * @param parent RegionInfo of split offlined parent    * @param rowContent Content of<code>parent</code> row in    *<code>metaRegionName</code>    * @return True if we removed<code>parent</code> from meta table and from    * the filesystem.    * @throws IOException    */
 name|boolean
 name|cleanParent
 parameter_list|(
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|parent
 parameter_list|,
 name|Result
@@ -1997,7 +1979,7 @@ block|}
 comment|// Run checks on each daughter split.
 name|PairOfSameType
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|daughters
 init|=
@@ -2223,11 +2205,11 @@ argument_list|>
 name|checkDaughterInFs
 parameter_list|(
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|parent
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|daughter
 parameter_list|)
 throws|throws
@@ -2545,7 +2527,7 @@ name|boolean
 name|cleanMergeQualifier
 parameter_list|(
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|region
 parameter_list|)
 throws|throws
@@ -2555,9 +2537,9 @@ comment|// Get merge regions if it is a merged region and already has merge
 comment|// qualifier
 name|Pair
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|mergeRegions
 init|=

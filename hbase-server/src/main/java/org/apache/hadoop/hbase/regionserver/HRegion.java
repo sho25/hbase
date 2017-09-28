@@ -915,20 +915,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|KeyValue
 import|;
 end_import
@@ -1202,6 +1188,22 @@ operator|.
 name|client
 operator|.
 name|Put
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -4196,7 +4198,7 @@ operator|.
 name|BYTES_COMPARATOR
 argument_list|)
 decl_stmt|;
-comment|/**    * HRegion constructor. This constructor should only be used for testing and    * extensions.  Instances of HRegion should be instantiated with the    * {@link HRegion#createHRegion} or {@link HRegion#openHRegion} method.    *    * @param tableDir qualified path of directory where region should be located,    * usually the table directory.    * @param wal The WAL is the outbound log for any updates to the HRegion    * The wal file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate wal info for this HRegion. If there is a previous wal file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param fs is the filesystem.    * @param confParam is global configuration settings.    * @param regionInfo - HRegionInfo that describes the region    * is new), then read them from the supplied path.    * @param htd the table descriptor    * @param rsServices reference to {@link RegionServerServices} or null    * @deprecated Use other constructors.    */
+comment|/**    * HRegion constructor. This constructor should only be used for testing and    * extensions.  Instances of HRegion should be instantiated with the    * {@link HRegion#createHRegion} or {@link HRegion#openHRegion} method.    *    * @param tableDir qualified path of directory where region should be located,    * usually the table directory.    * @param wal The WAL is the outbound log for any updates to the HRegion    * The wal file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate wal info for this HRegion. If there is a previous wal file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param fs is the filesystem.    * @param confParam is global configuration settings.    * @param regionInfo - RegionInfo that describes the region    * is new), then read them from the supplied path.    * @param htd the table descriptor    * @param rsServices reference to {@link RegionServerServices} or null    * @deprecated Use other constructors.    */
 annotation|@
 name|Deprecated
 annotation|@
@@ -4221,7 +4223,7 @@ name|Configuration
 name|confParam
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|,
 specifier|final
@@ -5119,7 +5121,7 @@ operator|.
 name|getReplicaId
 argument_list|()
 operator|==
-name|HRegionInfo
+name|RegionInfo
 operator|.
 name|DEFAULT_REPLICA_ID
 condition|)
@@ -6486,7 +6488,7 @@ parameter_list|,
 name|TableDescriptor
 name|tableDescriptor
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|)
 throws|throws
@@ -6537,7 +6539,7 @@ parameter_list|,
 name|TableDescriptor
 name|tableDescriptor
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|,
 name|Path
@@ -6886,7 +6888,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|HRegionInfo
+name|RegionInfo
 name|getRegionInfo
 parameter_list|()
 block|{
@@ -11256,7 +11258,7 @@ operator|.
 name|getReplicaId
 argument_list|()
 operator|==
-name|HRegionInfo
+name|RegionInfo
 operator|.
 name|DEFAULT_REPLICA_ID
 condition|)
@@ -12552,7 +12554,7 @@ name|WAL
 name|wal
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|hri
 parameter_list|)
 throws|throws
@@ -28518,7 +28520,7 @@ decl_stmt|;
 annotation|@
 name|Override
 specifier|public
-name|HRegionInfo
+name|RegionInfo
 name|getRegionInfo
 parameter_list|()
 block|{
@@ -31306,7 +31308,7 @@ expr_stmt|;
 block|}
 block|}
 comment|// Utility methods
-comment|/**    * A utility method to create new instances of HRegion based on the    * {@link HConstants#REGION_IMPL} configuration property.    * @param tableDir qualified path of directory where region should be located,    * usually the table directory.    * @param wal The WAL is the outbound log for any updates to the HRegion    * The wal file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate wal info for this HRegion. If there is a previous file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param fs is the filesystem.    * @param conf is global configuration settings.    * @param regionInfo - HRegionInfo that describes the region    * is new), then read them from the supplied path.    * @param htd the table descriptor    * @return the new instance    */
+comment|/**    * A utility method to create new instances of HRegion based on the    * {@link HConstants#REGION_IMPL} configuration property.    * @param tableDir qualified path of directory where region should be located,    * usually the table directory.    * @param wal The WAL is the outbound log for any updates to the HRegion    * The wal file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate wal info for this HRegion. If there is a previous file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param fs is the filesystem.    * @param conf is global configuration settings.    * @param regionInfo - RegionInfo that describes the region    * is new), then read them from the supplied path.    * @param htd the table descriptor    * @return the new instance    */
 specifier|static
 name|HRegion
 name|newHRegion
@@ -31323,7 +31325,7 @@ parameter_list|,
 name|Configuration
 name|conf
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|,
 specifier|final
@@ -31398,7 +31400,7 @@ name|Configuration
 operator|.
 name|class
 argument_list|,
-name|HRegionInfo
+name|RegionInfo
 operator|.
 name|class
 argument_list|,
@@ -31457,7 +31459,7 @@ name|HRegion
 name|createHRegion
 parameter_list|(
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|info
 parameter_list|,
 specifier|final
@@ -31597,7 +31599,7 @@ name|HRegion
 name|createHRegion
 parameter_list|(
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|info
 parameter_list|,
 specifier|final
@@ -31643,7 +31645,7 @@ name|HRegion
 name|openHRegion
 parameter_list|(
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|info
 parameter_list|,
 specifier|final
@@ -31685,7 +31687,7 @@ name|HRegion
 name|openHRegion
 parameter_list|(
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|info
 parameter_list|,
 specifier|final
@@ -31745,7 +31747,7 @@ name|Path
 name|rootDir
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|info
 parameter_list|,
 specifier|final
@@ -31793,7 +31795,7 @@ name|Path
 name|rootDir
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|info
 parameter_list|,
 specifier|final
@@ -31896,7 +31898,7 @@ name|Path
 name|rootDir
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|info
 parameter_list|,
 specifier|final
@@ -31950,7 +31952,7 @@ name|Path
 name|rootDir
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|info
 parameter_list|,
 specifier|final
@@ -32033,7 +32035,7 @@ name|Path
 name|tableDir
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|info
 parameter_list|,
 specifier|final
@@ -32319,7 +32321,7 @@ name|void
 name|warmupHRegion
 parameter_list|(
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|info
 parameter_list|,
 specifier|final
@@ -32585,7 +32587,7 @@ name|HRegion
 name|createDaughterRegionFromSplits
 parameter_list|(
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|hri
 parameter_list|)
 throws|throws
@@ -32690,7 +32692,7 @@ name|HRegion
 name|createMergedRegionFromMerges
 parameter_list|(
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|mergedRegionInfo
 parameter_list|,
 specifier|final
@@ -32832,7 +32834,7 @@ name|name
 argument_list|)
 return|;
 block|}
-comment|/**    * Computes the Path of the HRegion    *    * @param rootdir qualified path of HBase root directory    * @param info HRegionInfo for the region    * @return qualified path of region directory    * @deprecated For tests only; to be removed.    */
+comment|/**    * Computes the Path of the HRegion    *    * @param rootdir qualified path of HBase root directory    * @param info RegionInfo for the region    * @return qualified path of region directory    * @deprecated For tests only; to be removed.    */
 annotation|@
 name|Deprecated
 annotation|@
@@ -32847,7 +32849,7 @@ name|Path
 name|rootdir
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|info
 parameter_list|)
 block|{
@@ -32874,13 +32876,13 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Determines if the specified row is within the row range specified by the    * specified HRegionInfo    *    * @param info HRegionInfo that specifies the row range    * @param row row to be checked    * @return true if the row is within the range specified by the HRegionInfo    */
+comment|/**    * Determines if the specified row is within the row range specified by the    * specified RegionInfo    *    * @param info RegionInfo that specifies the row range    * @param row row to be checked    * @return true if the row is within the range specified by the RegionInfo    */
 specifier|public
 specifier|static
 name|boolean
 name|rowIsInRange
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|info
 parameter_list|,
 specifier|final
@@ -32954,7 +32956,7 @@ specifier|static
 name|boolean
 name|rowIsInRange
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|info
 parameter_list|,
 specifier|final

@@ -39,7 +39,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -53,7 +55,7 @@ name|RegionInfoComparator
 implements|implements
 name|Comparator
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 block|{
 annotation|@
@@ -62,10 +64,10 @@ specifier|public
 name|int
 name|compare
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|l
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|r
 parameter_list|)
 block|{

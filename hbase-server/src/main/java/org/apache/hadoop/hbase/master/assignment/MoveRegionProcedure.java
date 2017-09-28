@@ -67,20 +67,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|ServerName
 import|;
 end_import
@@ -105,11 +91,13 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -178,6 +166,20 @@ operator|.
 name|procedure2
 operator|.
 name|ProcedureStateSerializer
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -636,7 +638,7 @@ name|MoveRegionStateData
 operator|.
 name|newBuilder
 argument_list|()
-comment|// No need to serialize the HRegionInfo. The super class has the region.
+comment|// No need to serialize the RegionInfo. The super class has the region.
 operator|.
 name|setSourceServer
 argument_list|(
@@ -721,7 +723,7 @@ name|class
 argument_list|)
 decl_stmt|;
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 init|=
 name|getRegion

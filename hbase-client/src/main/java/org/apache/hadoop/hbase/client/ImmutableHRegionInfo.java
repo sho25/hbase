@@ -67,7 +67,7 @@ comment|/*    * Creates an immutable copy of an HRegionInfo.    *    * @param ot
 specifier|public
 name|ImmutableHRegionInfo
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|other
 parameter_list|)
 block|{

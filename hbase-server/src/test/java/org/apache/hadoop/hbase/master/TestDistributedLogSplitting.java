@@ -533,20 +533,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HTableDescriptor
 import|;
 end_import
@@ -805,6 +791,38 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|RegionInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|RegionInfoBuilder
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|RegionLocator
 import|;
 end_import
@@ -933,9 +951,9 @@ name|hbase
 operator|.
 name|master
 operator|.
-name|assignment
+name|SplitLogManager
 operator|.
-name|RegionStates
+name|TaskBatch
 import|;
 end_import
 
@@ -951,9 +969,9 @@ name|hbase
 operator|.
 name|master
 operator|.
-name|SplitLogManager
+name|assignment
 operator|.
-name|TaskBatch
+name|RegionStates
 import|;
 end_import
 
@@ -1002,40 +1020,6 @@ operator|.
 name|regionserver
 operator|.
 name|Region
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|wal
-operator|.
-name|WALEdit
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|protobuf
-operator|.
-name|ProtobufUtil
 import|;
 end_import
 
@@ -1200,6 +1184,22 @@ operator|.
 name|wal
 operator|.
 name|WAL
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|wal
+operator|.
+name|WALEdit
 import|;
 end_import
 
@@ -1416,6 +1416,24 @@ operator|.
 name|rules
 operator|.
 name|TestName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|protobuf
+operator|.
+name|ProtobufUtil
 import|;
 end_import
 
@@ -2025,7 +2043,7 @@ argument_list|()
 decl_stmt|;
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regions
 init|=
@@ -2082,7 +2100,7 @@ argument_list|)
 expr_stmt|;
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|region
 range|:
 name|regions
@@ -2154,7 +2172,7 @@ argument_list|)
 expr_stmt|;
 name|Iterator
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|it
 init|=
@@ -2171,7 +2189,7 @@ name|hasNext
 argument_list|()
 condition|)
 block|{
-name|HRegionInfo
+name|RegionInfo
 name|region
 init|=
 name|it
@@ -2233,7 +2251,7 @@ literal|0
 decl_stmt|;
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|hri
 range|:
 name|regions
@@ -2547,7 +2565,7 @@ argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regions
 init|=
@@ -2884,7 +2902,7 @@ argument_list|()
 decl_stmt|;
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|hris
 init|=
@@ -2900,7 +2918,7 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|hri
 range|:
 name|hris
@@ -3230,7 +3248,7 @@ argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regions
 init|=
@@ -3676,7 +3694,7 @@ argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regions
 init|=
@@ -4027,7 +4045,7 @@ argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regions
 init|=
@@ -4400,7 +4418,7 @@ try|try
 block|{
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regions
 init|=
@@ -4910,7 +4928,7 @@ argument_list|()
 decl_stmt|;
 name|Set
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regionSet
 init|=
@@ -4919,7 +4937,7 @@ name|HashSet
 argument_list|<>
 argument_list|()
 decl_stmt|;
-name|HRegionInfo
+name|RegionInfo
 name|region
 init|=
 literal|null
@@ -4968,7 +4986,7 @@ argument_list|()
 expr_stmt|;
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regions
 init|=
@@ -5268,7 +5286,7 @@ try|try
 block|{
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regions
 init|=
@@ -5325,7 +5343,7 @@ argument_list|)
 expr_stmt|;
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|region
 range|:
 name|regions
@@ -5568,7 +5586,7 @@ argument_list|)
 expr_stmt|;
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regions
 init|=
@@ -5643,7 +5661,7 @@ argument_list|)
 expr_stmt|;
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|region
 range|:
 name|regions
@@ -5751,7 +5769,7 @@ argument_list|)
 expr_stmt|;
 name|Iterator
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|it
 init|=
@@ -5768,7 +5786,7 @@ name|hasNext
 argument_list|()
 condition|)
 block|{
-name|HRegionInfo
+name|RegionInfo
 name|region
 init|=
 name|it
@@ -6111,7 +6129,7 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|hri
 range|:
 name|regions
@@ -6289,7 +6307,7 @@ expr_stmt|;
 comment|// clean up
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|hri
 range|:
 name|regions
@@ -6491,7 +6509,7 @@ argument_list|()
 decl_stmt|;
 name|Set
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regionSet
 init|=
@@ -6500,7 +6518,7 @@ name|HashSet
 argument_list|<>
 argument_list|()
 decl_stmt|;
-name|HRegionInfo
+name|RegionInfo
 name|region
 init|=
 literal|null
@@ -6544,7 +6562,7 @@ argument_list|()
 expr_stmt|;
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regions
 init|=
@@ -6616,7 +6634,7 @@ argument_list|)
 expr_stmt|;
 comment|// move region in order for the region opened in recovering state
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|hri
 init|=
 name|region
@@ -8090,7 +8108,7 @@ argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regions
 init|=
@@ -8118,7 +8136,7 @@ argument_list|)
 expr_stmt|;
 name|Set
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|tmpRegions
 init|=
@@ -8131,7 +8149,7 @@ name|tmpRegions
 operator|.
 name|add
 argument_list|(
-name|HRegionInfo
+name|RegionInfoBuilder
 operator|.
 name|FIRST_META_REGIONINFO
 argument_list|)
@@ -8153,7 +8171,7 @@ argument_list|)
 expr_stmt|;
 name|Set
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|userRegionSet
 init|=
@@ -8225,7 +8243,7 @@ name|curEncodedRegionName
 operator|.
 name|equals
 argument_list|(
-name|HRegionInfo
+name|RegionInfoBuilder
 operator|.
 name|FIRST_META_REGIONINFO
 operator|.
@@ -8295,7 +8313,7 @@ name|curEncodedRegionName
 operator|.
 name|equals
 argument_list|(
-name|HRegionInfo
+name|RegionInfoBuilder
 operator|.
 name|FIRST_META_REGIONINFO
 operator|.
@@ -8453,7 +8471,7 @@ try|try
 block|{
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regions
 init|=
@@ -8510,7 +8528,7 @@ argument_list|)
 expr_stmt|;
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|region
 range|:
 name|regions
@@ -8554,7 +8572,7 @@ argument_list|)
 expr_stmt|;
 name|Iterator
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|it
 init|=
@@ -8571,7 +8589,7 @@ name|hasNext
 argument_list|()
 condition|)
 block|{
-name|HRegionInfo
+name|RegionInfo
 name|region
 init|=
 name|it
@@ -8593,7 +8611,7 @@ argument_list|()
 operator|.
 name|equals
 argument_list|(
-name|HRegionInfo
+name|RegionInfoBuilder
 operator|.
 name|FIRST_META_REGIONINFO
 operator|.
@@ -8617,7 +8635,7 @@ name|isEmpty
 argument_list|()
 condition|)
 return|return;
-name|HRegionInfo
+name|RegionInfo
 name|curRegionInfo
 init|=
 name|regions
@@ -9150,7 +9168,7 @@ try|try
 block|{
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regions
 init|=
@@ -9207,7 +9225,7 @@ argument_list|)
 expr_stmt|;
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|region
 range|:
 name|regions
@@ -9251,7 +9269,7 @@ argument_list|)
 expr_stmt|;
 name|Iterator
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|it
 init|=
@@ -9268,7 +9286,7 @@ name|hasNext
 argument_list|()
 condition|)
 block|{
-name|HRegionInfo
+name|RegionInfo
 name|region
 init|=
 name|it
@@ -9290,7 +9308,7 @@ argument_list|()
 operator|.
 name|equals
 argument_list|(
-name|HRegionInfo
+name|RegionInfoBuilder
 operator|.
 name|FIRST_META_REGIONINFO
 operator|.
@@ -9314,7 +9332,7 @@ name|isEmpty
 argument_list|()
 condition|)
 return|return;
-name|HRegionInfo
+name|RegionInfo
 name|curRegionInfo
 init|=
 name|regions
@@ -10429,7 +10447,7 @@ argument_list|()
 decl_stmt|;
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|hris
 init|=
@@ -10445,7 +10463,7 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|hri
 range|:
 name|hris
@@ -10547,7 +10565,7 @@ argument_list|()
 decl_stmt|;
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|hris
 decl_stmt|;
@@ -10577,7 +10595,7 @@ continue|continue;
 block|}
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|hri
 range|:
 name|hris
@@ -10668,7 +10686,7 @@ name|hrs
 parameter_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regions
 parameter_list|,
@@ -10714,7 +10732,7 @@ name|hrs
 parameter_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regions
 parameter_list|,
@@ -10751,7 +10769,7 @@ name|regions
 operator|.
 name|remove
 argument_list|(
-name|HRegionInfo
+name|RegionInfoBuilder
 operator|.
 name|FIRST_META_REGIONINFO
 argument_list|)
@@ -10771,7 +10789,7 @@ for|for
 control|(
 name|Iterator
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|iter
 init|=
@@ -10787,7 +10805,7 @@ argument_list|()
 condition|;
 control|)
 block|{
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 init|=
 name|iter
@@ -10856,7 +10874,7 @@ index|]
 decl_stmt|;
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|hris
 init|=
@@ -10867,7 +10885,7 @@ argument_list|()
 decl_stmt|;
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|region
 range|:
 name|regions
@@ -11007,7 +11025,7 @@ operator|new
 name|WALEdit
 argument_list|()
 decl_stmt|;
-name|HRegionInfo
+name|RegionInfo
 name|curRegionInfo
 init|=
 name|hris
@@ -11201,7 +11219,7 @@ comment|// done as two passes because the regions might share logs. shutdown is 
 comment|// will cause errors if done after.
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|info
 range|:
 name|hris
@@ -11231,7 +11249,7 @@ condition|)
 block|{
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|info
 range|:
 name|hris
@@ -11917,7 +11935,7 @@ argument_list|()
 decl_stmt|;
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regions
 init|=
@@ -12000,7 +12018,7 @@ argument_list|)
 expr_stmt|;
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|region
 range|:
 name|regions
@@ -12082,7 +12100,7 @@ decl_stmt|;
 comment|// the RS doesn't have regions of the specified table so we need move one to this RS
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|tableRegions
 init|=
@@ -12091,7 +12109,7 @@ operator|.
 name|getAdmin
 argument_list|()
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|TableName
 operator|.
@@ -12102,7 +12120,7 @@ argument_list|)
 argument_list|)
 decl_stmt|;
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|hri
 init|=
 name|tableRegions

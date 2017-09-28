@@ -157,7 +157,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
+name|TableName
 import|;
 end_import
 
@@ -171,7 +171,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -379,6 +381,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Rule
 import|;
 end_import
@@ -390,16 +402,6 @@ operator|.
 name|junit
 operator|.
 name|Test
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
-name|Ignore
 import|;
 end_import
 
@@ -906,13 +908,13 @@ argument_list|,
 literal|"f"
 argument_list|)
 decl_stmt|;
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regions
 init|=
 name|ModifyRegionUtils
 operator|.
-name|createHRegionInfos
+name|createRegionInfos
 argument_list|(
 name|htd
 argument_list|,

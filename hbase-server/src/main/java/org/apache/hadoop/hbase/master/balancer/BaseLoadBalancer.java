@@ -321,20 +321,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|ServerLoad
 import|;
 end_import
@@ -364,6 +350,22 @@ operator|.
 name|hbase
 operator|.
 name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -623,7 +625,7 @@ specifier|static
 specifier|final
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|EMPTY_REGION_LIST
 init|=
@@ -784,7 +786,7 @@ name|String
 argument_list|>
 name|tables
 decl_stmt|;
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regions
 decl_stmt|;
@@ -942,7 +944,7 @@ name|tablesToIndex
 decl_stmt|;
 name|Map
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|Integer
 argument_list|>
@@ -979,7 +981,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|clusterState
@@ -1012,7 +1014,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|clusterState
@@ -1059,7 +1061,7 @@ name|Cluster
 parameter_list|(
 name|Collection
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|unassignedRegions
 parameter_list|,
@@ -1069,7 +1071,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|clusterState
@@ -1436,7 +1438,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|entry
@@ -1503,7 +1505,7 @@ expr_stmt|;
 name|regions
 operator|=
 operator|new
-name|HRegionInfo
+name|RegionInfo
 index|[
 name|numRegions
 index|]
@@ -1672,7 +1674,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|entry
@@ -1934,7 +1936,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|entry
@@ -2017,7 +2019,7 @@ name|rackIndex
 expr_stmt|;
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|region
 range|:
 name|entry
@@ -2057,7 +2059,7 @@ block|}
 block|}
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|region
 range|:
 name|unassignedRegions
@@ -2436,7 +2438,7 @@ name|i
 operator|++
 control|)
 block|{
-name|HRegionInfo
+name|RegionInfo
 name|info
 init|=
 name|regions
@@ -2468,7 +2470,7 @@ name|hasRegionReplicas
 operator|=
 literal|true
 expr_stmt|;
-name|HRegionInfo
+name|RegionInfo
 name|primaryInfo
 init|=
 name|RegionReplicaUtil
@@ -3029,7 +3031,7 @@ specifier|private
 name|void
 name|registerRegion
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|region
 parameter_list|,
 name|int
@@ -4455,7 +4457,7 @@ comment|/**      * Return true if the placement of region on server would lower 
 name|boolean
 name|wouldLowerAvailability
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|,
 name|ServerName
@@ -4734,7 +4736,7 @@ block|}
 name|void
 name|doAssignRegion
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|,
 name|ServerName
@@ -6393,7 +6395,7 @@ specifier|public
 name|boolean
 name|shouldBeOnMaster
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|region
 parameter_list|)
 block|{
@@ -6422,7 +6424,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|clusterMap
@@ -6458,7 +6460,7 @@ literal|null
 decl_stmt|;
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regions
 init|=
@@ -6486,7 +6488,7 @@ literal|null
 decl_stmt|;
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|region
 range|:
 name|regions
@@ -6619,7 +6621,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|server
@@ -6645,7 +6647,7 @@ condition|)
 continue|continue;
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|region
 range|:
 name|server
@@ -6716,14 +6718,14 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|assignMasterSystemRegions
 parameter_list|(
 name|Collection
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regions
 parameter_list|,
@@ -6760,7 +6762,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|assignments
@@ -6805,7 +6807,7 @@ argument_list|)
 expr_stmt|;
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|region
 range|:
 name|regions
@@ -6899,7 +6901,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 argument_list|>
@@ -7101,7 +7103,7 @@ name|ServerAndLoad
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|serversByLoad
@@ -7197,14 +7199,14 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|roundRobinAssignment
 parameter_list|(
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regions
 parameter_list|,
@@ -7228,7 +7230,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|assignments
@@ -7272,7 +7274,7 @@ argument_list|)
 expr_stmt|;
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|masterRegions
 init|=
@@ -7412,7 +7414,7 @@ argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|unassignedRegions
 init|=
@@ -7436,7 +7438,7 @@ argument_list|)
 expr_stmt|;
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|lastFewRegions
 init|=
@@ -7458,7 +7460,7 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|region
 range|:
 name|unassignedRegions
@@ -7516,7 +7518,7 @@ condition|)
 block|{
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|serverRegions
 init|=
@@ -7589,7 +7591,7 @@ comment|// just sprinkle the rest of the regions on random regionservers. The ba
 comment|// make it optimal later. we can end up with this if numReplicas> numServers.
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|region
 range|:
 name|lastFewRegions
@@ -7617,7 +7619,7 @@ argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|serverRegions
 init|=
@@ -7668,7 +7670,7 @@ name|servers
 parameter_list|,
 name|Collection
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regions
 parameter_list|,
@@ -7701,7 +7703,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|clusterState
@@ -7796,7 +7798,7 @@ specifier|public
 name|ServerName
 name|randomAssignment
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|,
 name|List
@@ -7967,7 +7969,7 @@ name|idleServers
 decl_stmt|;
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regions
 init|=
@@ -8011,14 +8013,14 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|retainAssignment
 parameter_list|(
 name|Map
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|ServerName
 argument_list|>
@@ -8045,7 +8047,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|assignments
@@ -8092,7 +8094,7 @@ argument_list|)
 expr_stmt|;
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|masterRegions
 init|=
@@ -8329,7 +8331,7 @@ name|Map
 operator|.
 name|Entry
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|ServerName
 argument_list|>
@@ -8341,7 +8343,7 @@ name|entrySet
 argument_list|()
 control|)
 block|{
-name|HRegionInfo
+name|RegionInfo
 name|region
 init|=
 name|entry
@@ -8670,7 +8672,7 @@ specifier|public
 name|void
 name|regionOnline
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|,
 name|ServerName
@@ -8683,7 +8685,7 @@ specifier|public
 name|void
 name|regionOffline
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|)
 block|{   }
@@ -8730,7 +8732,7 @@ parameter_list|(
 name|Cluster
 name|cluster
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|,
 name|List
@@ -8829,13 +8831,13 @@ name|cluster
 parameter_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regions
 parameter_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|unassignedRegions
 parameter_list|,
@@ -8851,7 +8853,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|assignments
@@ -8951,7 +8953,7 @@ argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|serverRegions
 init|=
@@ -8978,7 +8980,7 @@ operator|+=
 name|numServers
 control|)
 block|{
-name|HRegionInfo
+name|RegionInfo
 name|region
 init|=
 name|regions
@@ -9051,14 +9053,14 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|getRegionAssignmentsByServer
 parameter_list|(
 name|Collection
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regions
 parameter_list|)

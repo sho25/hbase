@@ -501,20 +501,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|MemoryCompactionPolicy
 import|;
 end_import
@@ -562,6 +548,22 @@ operator|.
 name|client
 operator|.
 name|ColumnFamilyDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -2747,7 +2749,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * @param tabledir {@link Path} to where the table is being stored    * @param hri {@link HRegionInfo} for the region.    * @param family {@link ColumnFamilyDescriptor} describing the column family    * @return Path to family/Store home directory.    */
+comment|/**    * @param tabledir {@link Path} to where the table is being stored    * @param hri {@link RegionInfo} for the region.    * @param family {@link ColumnFamilyDescriptor} describing the column family    * @return Path to family/Store home directory.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -2760,7 +2762,7 @@ name|Path
 name|tabledir
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|hri
 parameter_list|,
 specifier|final
@@ -7318,7 +7320,7 @@ name|toList
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HRegionInfo
+name|RegionInfo
 name|info
 init|=
 name|this
@@ -10826,7 +10828,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|HRegionInfo
+name|RegionInfo
 name|getRegionInfo
 parameter_list|()
 block|{
@@ -12055,7 +12057,7 @@ operator|.
 name|getReplicaId
 argument_list|()
 operator|==
-name|HRegionInfo
+name|RegionInfo
 operator|.
 name|DEFAULT_REPLICA_ID
 return|;

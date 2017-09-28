@@ -233,7 +233,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
+name|client
+operator|.
+name|ColumnFamilyDescriptor
 import|;
 end_import
 
@@ -249,7 +251,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|ColumnFamilyDescriptor
+name|RegionInfo
 import|;
 end_import
 
@@ -892,7 +894,7 @@ name|TRegion
 name|regionOpen
 parameter_list|(
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|)
 throws|throws
@@ -1037,7 +1039,7 @@ specifier|public
 name|void
 name|addMobRegion
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|)
 throws|throws
@@ -1067,7 +1069,7 @@ specifier|protected
 name|void
 name|addMobRegion
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|,
 name|RegionVisitor
@@ -1517,7 +1519,7 @@ name|Path
 name|tableDir
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|)
 throws|throws
@@ -1554,7 +1556,7 @@ name|Path
 name|tableDir
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|,
 name|RegionVisitor
@@ -2975,7 +2977,7 @@ name|byte
 index|[]
 name|regionName
 init|=
-name|HRegionInfo
+name|RegionInfo
 operator|.
 name|createRegionName
 argument_list|(
@@ -3015,7 +3017,7 @@ literal|true
 argument_list|)
 decl_stmt|;
 return|return
-name|HRegionInfo
+name|RegionInfo
 operator|.
 name|encodeRegionName
 argument_list|(

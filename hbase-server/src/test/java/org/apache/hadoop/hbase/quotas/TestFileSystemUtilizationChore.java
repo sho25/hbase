@@ -209,7 +209,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -226,22 +228,6 @@ operator|.
 name|regionserver
 operator|.
 name|HRegionServer
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|HStore
 import|;
 end_import
 
@@ -430,7 +416,7 @@ argument_list|(
 operator|(
 name|Map
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|Long
 argument_list|>
@@ -551,7 +537,7 @@ argument_list|(
 operator|(
 name|Map
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|Long
 argument_list|>
@@ -744,7 +730,7 @@ argument_list|(
 operator|(
 name|Map
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|Long
 argument_list|>
@@ -1171,7 +1157,7 @@ argument_list|(
 operator|(
 name|Map
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|Long
 argument_list|>
@@ -1415,7 +1401,7 @@ argument_list|(
 operator|(
 name|Map
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|Long
 argument_list|>
@@ -1617,7 +1603,7 @@ argument_list|(
 operator|(
 name|Map
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|Long
 argument_list|>
@@ -1773,7 +1759,7 @@ argument_list|(
 operator|(
 name|Map
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|Long
 argument_list|>
@@ -1980,7 +1966,7 @@ argument_list|(
 operator|(
 name|Map
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|Long
 argument_list|>
@@ -2167,12 +2153,12 @@ name|class
 argument_list|)
 decl_stmt|;
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|info
 init|=
 name|mock
 argument_list|(
-name|HRegionInfo
+name|RegionInfo
 operator|.
 name|class
 argument_list|)
@@ -2290,12 +2276,12 @@ name|class
 argument_list|)
 decl_stmt|;
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|info
 init|=
 name|mock
 argument_list|(
-name|HRegionInfo
+name|RegionInfo
 operator|.
 name|class
 argument_list|)
@@ -2479,7 +2465,7 @@ name|storeSizes
 argument_list|)
 decl_stmt|;
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|info
 init|=
 name|r
@@ -2526,7 +2512,7 @@ name|storeSizes
 argument_list|)
 decl_stmt|;
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|info
 init|=
 name|r
@@ -2618,7 +2604,7 @@ literal|"unchecked"
 argument_list|)
 name|Map
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|Long
 argument_list|>
@@ -2627,7 +2613,7 @@ init|=
 operator|(
 name|Map
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|Long
 argument_list|>

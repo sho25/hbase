@@ -305,20 +305,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|backup
 operator|.
 name|HFileArchiver
@@ -338,6 +324,22 @@ operator|.
 name|client
 operator|.
 name|ColumnFamilyDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -589,13 +591,13 @@ literal|".tmp"
 decl_stmt|;
 specifier|private
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 decl_stmt|;
 comment|//regionInfo for interacting with FS (getting encodedName, etc)
 specifier|private
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|regionInfoForFs
 decl_stmt|;
 specifier|private
@@ -640,7 +642,7 @@ name|DEFAULT_BASE_SLEEP_BEFORE_RETRIES
 init|=
 literal|1000
 decl_stmt|;
-comment|/**    * Create a view to the on-disk region    * @param conf the {@link Configuration} to use    * @param fs {@link FileSystem} that contains the region    * @param tableDir {@link Path} to where the table is being stored    * @param regionInfo {@link HRegionInfo} for region    */
+comment|/**    * Create a view to the on-disk region    * @param conf the {@link Configuration} to use    * @param fs {@link FileSystem} that contains the region    * @param tableDir {@link Path} to where the table is being stored    * @param regionInfo {@link RegionInfo} for region    */
 name|HRegionFileSystem
 parameter_list|(
 specifier|final
@@ -656,7 +658,7 @@ name|Path
 name|tableDir
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|)
 block|{
@@ -734,9 +736,9 @@ operator|.
 name|fs
 return|;
 block|}
-comment|/** @return the {@link HRegionInfo} that describe this on-disk region view */
+comment|/** @return the {@link RegionInfo} that describe this on-disk region view */
 specifier|public
-name|HRegionInfo
+name|RegionInfo
 name|getRegionInfo
 parameter_list|()
 block|{
@@ -747,7 +749,7 @@ name|regionInfo
 return|;
 block|}
 specifier|public
-name|HRegionInfo
+name|RegionInfo
 name|getRegionInfoForFS
 parameter_list|()
 block|{
@@ -2320,7 +2322,7 @@ name|Path
 name|getSplitsDir
 parameter_list|(
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|hri
 parameter_list|)
 block|{
@@ -2480,12 +2482,12 @@ name|splitdir
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Remove daughter region    * @param regionInfo daughter {@link HRegionInfo}    * @throws IOException    */
+comment|/**    * Remove daughter region    * @param regionInfo daughter {@link RegionInfo}    * @throws IOException    */
 name|void
 name|cleanupDaughterRegion
 parameter_list|(
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|)
 throws|throws
@@ -2536,13 +2538,13 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Commit a daughter region, moving it from the split temporary directory    * to the proper location in the filesystem.    *    * @param regionInfo                 daughter {@link org.apache.hadoop.hbase.HRegionInfo}    * @throws IOException    */
+comment|/**    * Commit a daughter region, moving it from the split temporary directory    * to the proper location in the filesystem.    *    * @param regionInfo daughter {@link org.apache.hadoop.hbase.client.RegionInfo}    * @throws IOException    */
 specifier|public
 name|Path
 name|commitDaughterRegion
 parameter_list|(
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|)
 throws|throws
@@ -2725,12 +2727,12 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Write out a split reference. Package local so it doesnt leak out of    * regionserver.    * @param hri {@link HRegionInfo} of the destination    * @param familyName Column Family Name    * @param f File to split.    * @param splitRow Split Row    * @param top True if we are referring to the top half of the hfile.    * @param splitPolicy    * @return Path to created reference.    * @throws IOException    */
+comment|/**    * Write out a split reference. Package local so it doesnt leak out of    * regionserver.    * @param hri {@link RegionInfo} of the destination    * @param familyName Column Family Name    * @param f File to split.    * @param splitRow Split Row    * @param top True if we are referring to the top half of the hfile.    * @param splitPolicy    * @return Path to created reference.    * @throws IOException    */
 specifier|public
 name|Path
 name|splitStoreFile
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|hri
 parameter_list|,
 name|String
@@ -3036,7 +3038,7 @@ name|Path
 name|getMergesDir
 parameter_list|(
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|hri
 parameter_list|)
 block|{
@@ -3068,13 +3070,13 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Remove merged region    * @param mergedRegion {@link HRegionInfo}    * @throws IOException    */
+comment|/**    * Remove merged region    * @param mergedRegion {@link RegionInfo}    * @throws IOException    */
 specifier|public
 name|void
 name|cleanupMergedRegion
 parameter_list|(
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|mergedRegion
 parameter_list|)
 throws|throws
@@ -3288,12 +3290,12 @@ name|mergesdir
 argument_list|)
 throw|;
 block|}
-comment|/**    * Write out a merge reference under the given merges directory. Package local    * so it doesnt leak out of regionserver.    * @param mergedRegion {@link HRegionInfo} of the merged region    * @param familyName Column Family Name    * @param f File to create reference.    * @param mergedDir    * @return Path to created reference.    * @throws IOException    */
+comment|/**    * Write out a merge reference under the given merges directory. Package local    * so it doesnt leak out of regionserver.    * @param mergedRegion {@link RegionInfo} of the merged region    * @param familyName Column Family Name    * @param f File to create reference.    * @param mergedDir    * @return Path to created reference.    * @throws IOException    */
 specifier|public
 name|Path
 name|mergeStoreFile
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|mergedRegion
 parameter_list|,
 name|String
@@ -3388,13 +3390,13 @@ name|p
 argument_list|)
 return|;
 block|}
-comment|/**    * Commit a merged region, moving it from the merges temporary directory to    * the proper location in the filesystem.    * @param mergedRegionInfo merged region {@link HRegionInfo}    * @throws IOException    */
+comment|/**    * Commit a merged region, moving it from the merges temporary directory to    * the proper location in the filesystem.    * @param mergedRegionInfo merged region {@link RegionInfo}    * @throws IOException    */
 specifier|public
 name|void
 name|commitMergedRegion
 parameter_list|(
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|mergedRegionInfo
 parameter_list|)
 throws|throws
@@ -3507,23 +3509,25 @@ index|[]
 name|getRegionInfoFileContent
 parameter_list|(
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|hri
 parameter_list|)
 throws|throws
 name|IOException
 block|{
 return|return
-name|hri
+name|RegionInfo
 operator|.
 name|toDelimitedByteArray
-argument_list|()
+argument_list|(
+name|hri
+argument_list|)
 return|;
 block|}
-comment|/**    * Create a {@link HRegionInfo} from the serialized version on-disk.    * @param fs {@link FileSystem} that contains the Region Info file    * @param regionDir {@link Path} to the Region Directory that contains the Info file    * @return An {@link HRegionInfo} instance gotten from the Region Info file.    * @throws IOException if an error occurred during file open/read operation.    */
+comment|/**    * Create a {@link RegionInfo} from the serialized version on-disk.    * @param fs {@link FileSystem} that contains the Region Info file    * @param regionDir {@link Path} to the Region Directory that contains the Info file    * @return An {@link RegionInfo} instance gotten from the Region Info file.    * @throws IOException if an error occurred during file open/read operation.    */
 specifier|public
 specifier|static
-name|HRegionInfo
+name|RegionInfo
 name|loadRegionInfoFileContent
 parameter_list|(
 specifier|final
@@ -3556,7 +3560,7 @@ decl_stmt|;
 try|try
 block|{
 return|return
-name|HRegionInfo
+name|RegionInfo
 operator|.
 name|parseFrom
 argument_list|(
@@ -3863,7 +3867,7 @@ name|useTempDir
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Write out an info file under the region directory. Useful recovering mangled regions.    * @param regionInfoContent serialized version of the {@link HRegionInfo}    * @param useTempDir indicate whether or not using the region .tmp dir for a safer file creation.    */
+comment|/**    * Write out an info file under the region directory. Useful recovering mangled regions.    * @param regionInfoContent serialized version of the {@link RegionInfo}    * @param useTempDir indicate whether or not using the region .tmp dir for a safer file creation.    */
 specifier|private
 name|void
 name|writeRegionInfoOnFilesystem
@@ -4004,7 +4008,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Create a new Region on file-system.    * @param conf the {@link Configuration} to use    * @param fs {@link FileSystem} from which to add the region    * @param tableDir {@link Path} to where the table is being stored    * @param regionInfo {@link HRegionInfo} for region to be added    * @throws IOException if the region creation fails due to a FileSystem exception.    */
+comment|/**    * Create a new Region on file-system.    * @param conf the {@link Configuration} to use    * @param fs {@link FileSystem} from which to add the region    * @param tableDir {@link Path} to where the table is being stored    * @param regionInfo {@link RegionInfo} for region to be added    * @throws IOException if the region creation fails due to a FileSystem exception.    */
 specifier|public
 specifier|static
 name|HRegionFileSystem
@@ -4023,7 +4027,7 @@ name|Path
 name|tableDir
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|)
 throws|throws
@@ -4123,7 +4127,7 @@ operator|.
 name|getReplicaId
 argument_list|()
 operator|==
-name|HRegionInfo
+name|RegionInfo
 operator|.
 name|DEFAULT_REPLICA_ID
 condition|)
@@ -4159,7 +4163,7 @@ return|return
 name|regionFs
 return|;
 block|}
-comment|/**    * Open Region from file-system.    * @param conf the {@link Configuration} to use    * @param fs {@link FileSystem} from which to add the region    * @param tableDir {@link Path} to where the table is being stored    * @param regionInfo {@link HRegionInfo} for region to be added    * @param readOnly True if you don't want to edit the region data    * @throws IOException if the region creation fails due to a FileSystem exception.    */
+comment|/**    * Open Region from file-system.    * @param conf the {@link Configuration} to use    * @param fs {@link FileSystem} from which to add the region    * @param tableDir {@link Path} to where the table is being stored    * @param regionInfo {@link RegionInfo} for region to be added    * @param readOnly True if you don't want to edit the region data    * @throws IOException if the region creation fails due to a FileSystem exception.    */
 specifier|public
 specifier|static
 name|HRegionFileSystem
@@ -4178,7 +4182,7 @@ name|Path
 name|tableDir
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|,
 name|boolean
@@ -4271,7 +4275,7 @@ operator|.
 name|getReplicaId
 argument_list|()
 operator|==
-name|HRegionInfo
+name|RegionInfo
 operator|.
 name|DEFAULT_REPLICA_ID
 condition|)
@@ -4308,7 +4312,7 @@ return|return
 name|regionFs
 return|;
 block|}
-comment|/**    * Remove the region from the table directory, archiving the region's hfiles.    * @param conf the {@link Configuration} to use    * @param fs {@link FileSystem} from which to remove the region    * @param tableDir {@link Path} to where the table is being stored    * @param regionInfo {@link HRegionInfo} for region to be deleted    * @throws IOException if the request cannot be completed    */
+comment|/**    * Remove the region from the table directory, archiving the region's hfiles.    * @param conf the {@link Configuration} to use    * @param fs {@link FileSystem} from which to remove the region    * @param tableDir {@link Path} to where the table is being stored    * @param regionInfo {@link RegionInfo} for region to be deleted    * @throws IOException if the request cannot be completed    */
 specifier|public
 specifier|static
 name|void
@@ -4327,7 +4331,7 @@ name|Path
 name|tableDir
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|)
 throws|throws

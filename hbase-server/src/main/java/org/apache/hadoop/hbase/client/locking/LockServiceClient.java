@@ -21,30 +21,6 @@ end_package
 
 begin_import
 import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|annotations
-operator|.
-name|VisibleForTesting
-import|;
-end_import
-
-begin_import
-import|import
 name|java
 operator|.
 name|util
@@ -105,7 +81,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
+name|TableName
 import|;
 end_import
 
@@ -119,7 +95,25 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
+name|client
+operator|.
+name|NonceGenerator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -161,9 +155,17 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
+name|shaded
 operator|.
-name|NonceGenerator
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
 import|;
 end_import
 
@@ -225,7 +227,7 @@ name|generated
 operator|.
 name|LockServiceProtos
 operator|.
-name|LockType
+name|LockService
 import|;
 end_import
 
@@ -247,7 +249,7 @@ name|generated
 operator|.
 name|LockServiceProtos
 operator|.
-name|LockService
+name|LockType
 import|;
 end_import
 
@@ -464,7 +466,7 @@ name|regionLock
 parameter_list|(
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regionInfos
 parameter_list|,
@@ -539,7 +541,7 @@ parameter_list|,
 specifier|final
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regionInfos
 parameter_list|,
@@ -591,7 +593,7 @@ condition|)
 block|{
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|hri
 range|:
 name|regionInfos
@@ -601,9 +603,9 @@ name|builder
 operator|.
 name|addRegionInfo
 argument_list|(
-name|HRegionInfo
+name|ProtobufUtil
 operator|.
-name|convert
+name|toRegionInfo
 argument_list|(
 name|hri
 argument_list|)

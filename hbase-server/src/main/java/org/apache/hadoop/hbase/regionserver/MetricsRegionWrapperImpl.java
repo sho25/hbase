@@ -155,7 +155,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -463,7 +465,7 @@ name|String
 name|getRegionName
 parameter_list|()
 block|{
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 init|=
 name|this

@@ -21,11 +21,29 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|client
+operator|.
+name|ImmutableHRegionInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -45,8 +63,22 @@ name|Addressing
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
-comment|/**  * Data structure to hold HRegionInfo and the address for the hosting  * HRegionServer.  Immutable.  Comparable, but we compare the 'location' only:  * i.e. the hostname and port, and *not* the regioninfo.  This means two  * instances are the same if they refer to the same 'location' (the same  * hostname and port), though they may be carrying different regions.  *  * On a big cluster, each client will have thousands of instances of this object, often  *  100 000 of them if not million. It's important to keep the object size as small  *  as possible.  *  *<br>This interface has been marked InterfaceAudience.Public in 0.96 and 0.98.  */
+comment|/**  * Data structure to hold RegionInfo and the address for the hosting  * HRegionServer.  Immutable.  Comparable, but we compare the 'location' only:  * i.e. the hostname and port, and *not* the regioninfo.  This means two  * instances are the same if they refer to the same 'location' (the same  * hostname and port), though they may be carrying different regions.  *  * On a big cluster, each client will have thousands of instances of this object, often  *  100 000 of them if not million. It's important to keep the object size as small  *  as possible.  *  *<br>This interface has been marked InterfaceAudience.Public in 0.96 and 0.98.  */
 end_comment
 
 begin_class
@@ -65,7 +97,7 @@ argument_list|>
 block|{
 specifier|private
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 decl_stmt|;
 specifier|private
@@ -81,7 +113,7 @@ decl_stmt|;
 specifier|public
 name|HRegionLocation
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|,
 name|ServerName
@@ -103,7 +135,7 @@ block|}
 specifier|public
 name|HRegionLocation
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|,
 name|ServerName
@@ -249,10 +281,32 @@ name|hashCode
 argument_list|()
 return|;
 block|}
-comment|/** @return HRegionInfo */
+comment|/**    *    * @return Immutable HRegionInfo    * @deprecated Since 2.0.0. Will remove in 3.0.0. Use {@link #getRegion()}} instead.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|HRegionInfo
 name|getRegionInfo
+parameter_list|()
+block|{
+return|return
+name|regionInfo
+operator|==
+literal|null
+condition|?
+literal|null
+else|:
+operator|new
+name|ImmutableHRegionInfo
+argument_list|(
+name|regionInfo
+argument_list|)
+return|;
+block|}
+comment|/**    * @return regionInfo    */
+specifier|public
+name|RegionInfo
+name|getRegion
 parameter_list|()
 block|{
 return|return

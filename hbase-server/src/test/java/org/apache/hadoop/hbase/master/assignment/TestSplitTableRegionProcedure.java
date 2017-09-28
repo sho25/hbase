@@ -211,20 +211,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HTableDescriptor
 import|;
 end_import
@@ -333,6 +319,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|RegionInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Result
 import|;
 end_import
@@ -367,7 +369,7 @@ name|master
 operator|.
 name|procedure
 operator|.
-name|MasterProcedureEnv
+name|MasterProcedureConstants
 import|;
 end_import
 
@@ -385,7 +387,7 @@ name|master
 operator|.
 name|procedure
 operator|.
-name|MasterProcedureConstants
+name|MasterProcedureEnv
 import|;
 end_import
 
@@ -1046,7 +1048,7 @@ init|=
 name|getMasterProcedureExecutor
 argument_list|()
 decl_stmt|;
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regions
 init|=
@@ -1285,7 +1287,7 @@ init|=
 name|getMasterProcedureExecutor
 argument_list|()
 decl_stmt|;
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regions
 init|=
@@ -1486,7 +1488,7 @@ init|=
 name|getMasterProcedureExecutor
 argument_list|()
 decl_stmt|;
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regions
 init|=
@@ -1670,7 +1672,7 @@ init|=
 name|getMasterProcedureExecutor
 argument_list|()
 decl_stmt|;
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regions
 init|=
@@ -1915,7 +1917,7 @@ init|=
 name|getMasterProcedureExecutor
 argument_list|()
 decl_stmt|;
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regions
 init|=
@@ -2227,7 +2229,7 @@ init|=
 name|getMasterProcedureExecutor
 argument_list|()
 decl_stmt|;
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regions
 init|=
@@ -2396,7 +2398,7 @@ init|=
 name|getMasterProcedureExecutor
 argument_list|()
 decl_stmt|;
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regions
 init|=
@@ -2664,7 +2666,7 @@ init|=
 name|getMasterProcedureExecutor
 argument_list|()
 decl_stmt|;
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regions
 init|=

@@ -91,7 +91,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
+name|TableName
 import|;
 end_import
 
@@ -105,21 +105,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
-import|;
-end_import
-
-begin_import
-import|import
-name|org
+name|client
 operator|.
-name|apache
-operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
+name|RegionInfo
 import|;
 end_import
 
@@ -187,6 +175,20 @@ name|Bytes
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * Helper class for schema change procedures  */
 end_comment
@@ -237,7 +239,7 @@ parameter_list|,
 specifier|final
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regionInfoList
 parameter_list|,
@@ -294,7 +296,7 @@ expr_stmt|;
 block|}
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|hri
 range|:
 name|regionInfoList
@@ -333,7 +335,7 @@ operator|.
 name|MOB_DIR_NAME
 argument_list|)
 decl_stmt|;
-name|HRegionInfo
+name|RegionInfo
 name|mobRegionInfo
 init|=
 name|MobUtils

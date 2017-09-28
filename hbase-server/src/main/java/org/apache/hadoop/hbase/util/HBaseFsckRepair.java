@@ -133,7 +133,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
+name|ClusterStatus
+operator|.
+name|Option
 import|;
 end_import
 
@@ -190,36 +192,6 @@ operator|.
 name|hbase
 operator|.
 name|ZooKeeperConnectionException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|ClusterStatus
-operator|.
-name|Option
 import|;
 end_import
 
@@ -315,6 +287,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|RegionInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Table
 import|;
 end_import
@@ -389,6 +377,20 @@ name|org
 operator|.
 name|apache
 operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|zookeeper
 operator|.
 name|KeeperException
@@ -432,7 +434,7 @@ parameter_list|(
 name|Connection
 name|connection
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|region
 parameter_list|,
 name|List
@@ -448,15 +450,6 @@ name|KeeperException
 throws|,
 name|InterruptedException
 block|{
-name|HRegionInfo
-name|actualRegion
-init|=
-operator|new
-name|HRegionInfo
-argument_list|(
-name|region
-argument_list|)
-decl_stmt|;
 comment|// Close region on the servers silently
 for|for
 control|(
@@ -472,7 +465,7 @@ name|connection
 argument_list|,
 name|server
 argument_list|,
-name|actualRegion
+name|region
 argument_list|)
 expr_stmt|;
 block|}
@@ -484,7 +477,7 @@ operator|.
 name|getAdmin
 argument_list|()
 argument_list|,
-name|actualRegion
+name|region
 argument_list|)
 expr_stmt|;
 block|}
@@ -497,7 +490,7 @@ parameter_list|(
 name|Admin
 name|admin
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|region
 parameter_list|)
 throws|throws
@@ -507,25 +500,16 @@ name|KeeperException
 throws|,
 name|InterruptedException
 block|{
-name|HRegionInfo
-name|actualRegion
-init|=
-operator|new
-name|HRegionInfo
-argument_list|(
-name|region
-argument_list|)
-decl_stmt|;
 comment|// Force ZK node to OFFLINE so master assigns
 name|forceOfflineInZK
 argument_list|(
 name|admin
 argument_list|,
-name|actualRegion
+name|region
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * In 0.90, this forces an HRI offline by setting the RegionTransitionData    * in ZK to have HBCK_CODE_NAME as the server.  This is a special case in    * the AssignmentManager that attempts an assign call by the master.    *    * @see org.apache.hadoop.hbase.master.AssignementManager#handleHBCK    *    * This doesn't seem to work properly in the updated version of 0.92+'s hbck    * so we use assign to force the region into transition.  This has the    * side-effect of requiring a HRegionInfo that considers regionId (timestamp)    * in comparators that is addressed by HBASE-5563.    */
+comment|/**    * In 0.90, this forces an HRI offline by setting the RegionTransitionData    * in ZK to have HBCK_CODE_NAME as the server.  This is a special case in    * the AssignmentManager that attempts an assign call by the master.    *    * This doesn't seem to work properly in the updated version of 0.92+'s hbck    * so we use assign to force the region into transition.  This has the    * side-effect of requiring a RegionInfo that considers regionId (timestamp)    * in comparators that is addressed by HBASE-5563.    */
 specifier|private
 specifier|static
 name|void
@@ -535,7 +519,7 @@ name|Admin
 name|admin
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|region
 parameter_list|)
 throws|throws
@@ -567,7 +551,7 @@ parameter_list|(
 name|Admin
 name|admin
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|region
 parameter_list|)
 throws|throws
@@ -642,15 +626,21 @@ control|)
 block|{
 if|if
 condition|(
+name|RegionInfo
+operator|.
+name|COMPARATOR
+operator|.
+name|compare
+argument_list|(
 name|rs
 operator|.
 name|getRegion
 argument_list|()
-operator|.
-name|equals
-argument_list|(
+argument_list|,
 name|region
 argument_list|)
+operator|==
+literal|0
 condition|)
 block|{
 name|inTransition
@@ -743,7 +733,7 @@ parameter_list|,
 name|ServerName
 name|server
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|region
 parameter_list|)
 throws|throws
@@ -783,7 +773,7 @@ name|timeout
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Puts the specified HRegionInfo into META with replica related columns    */
+comment|/**    * Puts the specified RegionInfo into META with replica related columns    */
 specifier|public
 specifier|static
 name|void
@@ -792,7 +782,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|hri
 parameter_list|,
 name|Collection
@@ -953,7 +943,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|hri
 parameter_list|,
 name|TableDescriptor
@@ -1010,7 +1000,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|hri
 parameter_list|)
 throws|throws

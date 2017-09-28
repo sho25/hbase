@@ -77,20 +77,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|InvalidFamilyOperationException
 import|;
 end_import
@@ -115,11 +101,13 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|client
+operator|.
+name|ColumnFamilyDescriptor
 import|;
 end_import
 
@@ -135,7 +123,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|ColumnFamilyDescriptor
+name|RegionInfo
 import|;
 end_import
 
@@ -200,6 +188,20 @@ operator|.
 name|procedure2
 operator|.
 name|ProcedureStateSerializer
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -311,7 +313,7 @@ decl_stmt|;
 specifier|private
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regionInfoList
 decl_stmt|;
@@ -1519,7 +1521,7 @@ block|}
 specifier|private
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|getRegionInfoList
 parameter_list|(

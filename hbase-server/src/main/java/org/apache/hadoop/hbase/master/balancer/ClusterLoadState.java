@@ -69,7 +69,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
+name|ServerName
 import|;
 end_import
 
@@ -83,7 +83,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ServerName
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -104,7 +106,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|clusterState
@@ -117,7 +119,7 @@ name|ServerAndLoad
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|serversByLoad
@@ -149,7 +151,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|clusterState
@@ -194,7 +196,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|server
@@ -207,7 +209,7 @@ control|)
 block|{
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regions
 init|=
@@ -264,7 +266,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|getClusterState
@@ -280,7 +282,7 @@ name|ServerAndLoad
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|getServersByLoad

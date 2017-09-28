@@ -191,20 +191,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HRegionLocation
 import|;
 end_import
@@ -276,20 +262,6 @@ operator|.
 name|hbase
 operator|.
 name|TableName
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
 import|;
 end_import
 
@@ -386,6 +358,22 @@ operator|.
 name|client
 operator|.
 name|Put
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -644,6 +632,20 @@ operator|.
 name|util
 operator|.
 name|ModifyRegionUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -1090,7 +1092,7 @@ return|;
 block|}
 specifier|public
 specifier|static
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|createTable
 parameter_list|(
@@ -1128,13 +1130,13 @@ argument_list|,
 name|family
 argument_list|)
 decl_stmt|;
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regions
 init|=
 name|ModifyRegionUtils
 operator|.
-name|createHRegionInfos
+name|createRegionInfos
 argument_list|(
 name|htd
 argument_list|,
@@ -1194,7 +1196,7 @@ name|TableName
 name|tableName
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regions
 parameter_list|,
@@ -1233,7 +1235,7 @@ name|TableName
 name|tableName
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 index|[]
 name|regions
 parameter_list|,
@@ -1804,7 +1806,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"No serialized HRegionInfo in "
+literal|"No serialized RegionInfo in "
 operator|+
 name|rowResult
 argument_list|)

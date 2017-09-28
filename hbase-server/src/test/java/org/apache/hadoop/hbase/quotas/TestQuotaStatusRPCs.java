@@ -181,20 +181,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|TableName
 import|;
 end_import
@@ -242,6 +228,22 @@ operator|.
 name|client
 operator|.
 name|Connection
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -660,7 +662,7 @@ name|Exception
 block|{
 name|Map
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|Long
 argument_list|>
@@ -1786,7 +1788,7 @@ name|tn
 parameter_list|,
 name|Map
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|Long
 argument_list|>
@@ -1800,7 +1802,7 @@ literal|0
 decl_stmt|;
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 range|:
 name|regionSizes
@@ -1840,7 +1842,7 @@ name|tn
 parameter_list|,
 name|Map
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|Long
 argument_list|>
@@ -1856,7 +1858,7 @@ for|for
 control|(
 name|Entry
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|Long
 argument_list|>
@@ -1868,7 +1870,7 @@ name|entrySet
 argument_list|()
 control|)
 block|{
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 init|=
 name|entry

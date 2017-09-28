@@ -39,7 +39,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
+name|ServerName
 import|;
 end_import
 
@@ -53,21 +53,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ServerName
-import|;
-end_import
-
-begin_import
-import|import
-name|org
+name|client
 operator|.
-name|apache
-operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
+name|RegionInfo
 import|;
 end_import
 
@@ -102,6 +90,20 @@ operator|.
 name|procedure
 operator|.
 name|MasterProcedureEnv
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -259,7 +261,7 @@ name|ServerName
 name|regionLocation
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|hri
 parameter_list|)
 throws|throws
@@ -291,7 +293,7 @@ name|ServerName
 name|regionLocation
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|hri
 parameter_list|,
 name|boolean

@@ -31,6 +31,22 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|RegionInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -54,21 +70,21 @@ name|RegionStateListener
 block|{
 comment|// TODO: Get rid of this!!!! Ain't there a better way to watch region
 comment|// state than introduce a whole new listening mechanism? St.Ack
-comment|/**    * Process region split event.    *    * @param hri An instance of HRegionInfo    * @throws IOException    */
+comment|/**    * Process region split event.    *    * @param hri An instance of RegionInfo    * @throws IOException    */
 name|void
 name|onRegionSplit
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|hri
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Process region split reverted event.    *    * @param hri An instance of HRegionInfo    * @throws IOException Signals that an I/O exception has occurred.    */
+comment|/**    * Process region split reverted event.    *    * @param hri An instance of RegionInfo    * @throws IOException Signals that an I/O exception has occurred.    */
 name|void
 name|onRegionSplitReverted
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|hri
 parameter_list|)
 throws|throws
@@ -78,7 +94,7 @@ comment|/**    * Process region merge event.    * @throws IOException    */
 name|void
 name|onRegionMerged
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|mergedRegion
 parameter_list|)
 throws|throws

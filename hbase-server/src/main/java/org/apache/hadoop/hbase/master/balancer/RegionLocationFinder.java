@@ -207,20 +207,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|ServerName
 import|;
 end_import
@@ -245,11 +231,13 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -281,9 +269,7 @@ name|hbase
 operator|.
 name|master
 operator|.
-name|assignment
-operator|.
-name|AssignmentManager
+name|MasterServices
 import|;
 end_import
 
@@ -299,7 +285,9 @@ name|hbase
 operator|.
 name|master
 operator|.
-name|MasterServices
+name|assignment
+operator|.
+name|AssignmentManager
 import|;
 end_import
 
@@ -332,6 +320,20 @@ operator|.
 name|util
 operator|.
 name|EnvironmentEdgeManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -641,7 +643,7 @@ decl_stmt|;
 specifier|private
 name|CacheLoader
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|HDFSBlocksDistribution
 argument_list|>
@@ -650,7 +652,7 @@ init|=
 operator|new
 name|CacheLoader
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|HDFSBlocksDistribution
 argument_list|>
@@ -664,7 +666,7 @@ argument_list|>
 name|reload
 parameter_list|(
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|hri
 parameter_list|,
 name|HDFSBlocksDistribution
@@ -711,7 +713,7 @@ specifier|public
 name|HDFSBlocksDistribution
 name|load
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|key
 parameter_list|)
 throws|throws
@@ -730,7 +732,7 @@ comment|// The cache for where regions are located.
 specifier|private
 name|LoadingCache
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|HDFSBlocksDistribution
 argument_list|>
@@ -784,7 +786,7 @@ comment|/**    * Create a cache for region to list of servers    * @param time t
 specifier|private
 name|LoadingCache
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|HDFSBlocksDistribution
 argument_list|>
@@ -945,7 +947,7 @@ decl_stmt|;
 for|for
 control|(
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|hri
 range|:
 name|am
@@ -983,7 +985,7 @@ name|ServerName
 argument_list|>
 name|getTopBlockLocations
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|region
 parameter_list|)
 block|{
@@ -1016,7 +1018,7 @@ name|ServerName
 argument_list|>
 name|getTopBlockLocations
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|region
 parameter_list|,
 name|String
@@ -1085,7 +1087,7 @@ specifier|protected
 name|HDFSBlocksDistribution
 name|internalGetTopBlockLocation
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|region
 parameter_list|)
 block|{
@@ -1433,7 +1435,7 @@ specifier|public
 name|HDFSBlocksDistribution
 name|getBlockDistribution
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|hri
 parameter_list|)
 block|{
@@ -1548,7 +1550,7 @@ name|HDFSBlocksDistribution
 argument_list|>
 name|asyncGetBlockDistribution
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|hri
 parameter_list|)
 block|{
@@ -1587,7 +1589,7 @@ name|refreshAndWait
 parameter_list|(
 name|Collection
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|hris
 parameter_list|)
@@ -1613,7 +1615,7 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|hregionInfo
 range|:
 name|hris
@@ -1637,7 +1639,7 @@ literal|0
 decl_stmt|;
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|hregionInfo
 range|:
 name|hris
@@ -1715,7 +1717,7 @@ block|}
 comment|// For test
 name|LoadingCache
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|HDFSBlocksDistribution
 argument_list|>

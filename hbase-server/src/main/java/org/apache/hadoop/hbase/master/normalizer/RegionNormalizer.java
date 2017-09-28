@@ -53,7 +53,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
+name|TableName
 import|;
 end_import
 
@@ -67,21 +67,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
-import|;
-end_import
-
-begin_import
-import|import
-name|org
+name|client
 operator|.
-name|apache
-operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
+name|RegionInfo
 import|;
 end_import
 
@@ -137,6 +125,20 @@ name|PlanType
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * Performs "normalization" of regions on the cluster, making sure that suboptimal  * choice of split keys doesn't leave cluster in a situation when some regions are  * substantially larger than others for considerable amount of time.  *  * Users who want to use this feature could either use default {@link SimpleRegionNormalizer}  * or plug in their own implementation. Please note that overly aggressive normalization rules  * (attempting to make all regions perfectly equal in size) could potentially lead to  * "split/merge storms".  */
 end_comment
@@ -183,7 +185,7 @@ comment|/**    * Notification for the case where plan couldn't be executed due t
 name|void
 name|planSkipped
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|hri
 parameter_list|,
 name|PlanType

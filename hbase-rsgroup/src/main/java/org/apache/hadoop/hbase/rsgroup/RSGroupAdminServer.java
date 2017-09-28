@@ -169,20 +169,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|NamespaceDescriptor
 import|;
 end_import
@@ -221,11 +207,13 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -426,6 +414,20 @@ operator|.
 name|procedure2
 operator|.
 name|LockType
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -750,7 +752,7 @@ comment|/**    * @return List of Regions associated with this<code>server</code>
 specifier|private
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|getRegions
 parameter_list|(
@@ -761,7 +763,7 @@ parameter_list|)
 block|{
 name|LinkedList
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regions
 init|=
@@ -776,7 +778,7 @@ name|Map
 operator|.
 name|Entry
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|ServerName
 argument_list|>
@@ -888,11 +890,11 @@ parameter_list|(
 specifier|final
 name|LinkedList
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regions
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|hri
 parameter_list|)
 block|{
@@ -1272,7 +1274,7 @@ decl_stmt|;
 comment|// Get regions that are associated with this server and filter regions by tables.
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regions
 init|=
@@ -1283,7 +1285,7 @@ argument_list|()
 decl_stmt|;
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|region
 range|:
 name|getRegions
@@ -1346,7 +1348,7 @@ condition|)
 block|{
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|region
 range|:
 name|regions
@@ -1562,7 +1564,7 @@ throw|;
 block|}
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|region
 range|:
 name|master
@@ -2001,7 +2003,7 @@ decl_stmt|;
 comment|// Get regions that are associated with this server.
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regions
 init|=
@@ -2047,7 +2049,7 @@ block|{
 comment|// TODO bulk unassign or throttled unassign?
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|region
 range|:
 name|regions
@@ -2494,7 +2496,7 @@ throw|;
 block|}
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|region
 range|:
 name|master
@@ -3040,7 +3042,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 argument_list|>
@@ -3535,7 +3537,7 @@ control|)
 block|{
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 range|:
 name|am
@@ -3599,7 +3601,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 argument_list|>
@@ -3621,7 +3623,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 argument_list|>
@@ -3650,7 +3652,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 argument_list|>
@@ -3667,7 +3669,7 @@ name|Map
 operator|.
 name|Entry
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|ServerName
 argument_list|>
@@ -3707,7 +3709,7 @@ operator|.
 name|getValue
 argument_list|()
 decl_stmt|;
-name|HRegionInfo
+name|RegionInfo
 name|currRegion
 init|=
 name|entry
@@ -3782,7 +3784,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|serverMap

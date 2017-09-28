@@ -61,7 +61,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -103,13 +105,13 @@ name|ServerName
 argument_list|>
 name|servers
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|parent
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|hriA
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|hriB
 parameter_list|)
 throws|throws
@@ -118,13 +120,13 @@ function_decl|;
 name|void
 name|generateFavoredNodesForMergedRegion
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|merged
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|hriA
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|hriB
 parameter_list|)
 throws|throws

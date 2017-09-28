@@ -111,20 +111,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|RegionLoad
 import|;
 end_import
@@ -163,11 +149,13 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|client
+operator|.
+name|MasterSwitchType
 import|;
 end_import
 
@@ -183,7 +171,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|MasterSwitchType
+name|RegionInfo
 import|;
 end_import
 
@@ -236,6 +224,20 @@ operator|.
 name|NormalizationPlan
 operator|.
 name|PlanType
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -363,7 +365,7 @@ specifier|public
 name|void
 name|planSkipped
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|hri
 parameter_list|,
 name|PlanType
@@ -515,7 +517,7 @@ argument_list|()
 decl_stmt|;
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|tableRegions
 init|=
@@ -630,7 +632,7 @@ name|i
 operator|++
 control|)
 block|{
-name|HRegionInfo
+name|RegionInfo
 name|hri
 init|=
 name|tableRegions
@@ -842,7 +844,7 @@ name|size
 argument_list|()
 condition|)
 block|{
-name|HRegionInfo
+name|RegionInfo
 name|hri
 init|=
 name|tableRegions
@@ -934,7 +936,7 @@ condition|(
 name|mergeEnabled
 condition|)
 block|{
-name|HRegionInfo
+name|RegionInfo
 name|hri2
 init|=
 name|tableRegions
@@ -1055,7 +1057,7 @@ specifier|private
 name|long
 name|getRegionSize
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|hri
 parameter_list|)
 block|{

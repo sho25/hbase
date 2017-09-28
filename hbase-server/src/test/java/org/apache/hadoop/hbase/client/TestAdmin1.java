@@ -243,20 +243,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HRegionLocation
 import|;
 end_import
@@ -3941,7 +3927,7 @@ name|ServerName
 argument_list|,
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|>
 name|server2Regions
@@ -3969,7 +3955,7 @@ argument_list|()
 decl_stmt|;
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regs
 init|=
@@ -4079,7 +4065,7 @@ for|for
 control|(
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regionList
 range|:
@@ -4789,7 +4775,7 @@ name|HRegionLocation
 argument_list|>
 name|hris
 decl_stmt|;
-name|HRegionInfo
+name|RegionInfo
 name|hri
 decl_stmt|;
 name|ClusterConnection
@@ -8872,7 +8858,7 @@ name|List
 argument_list|<
 name|Pair
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|ServerName
 argument_list|>
@@ -10178,14 +10164,14 @@ argument_list|)
 expr_stmt|;
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|tableRegions
 decl_stmt|;
-name|HRegionInfo
+name|RegionInfo
 name|regionA
 decl_stmt|;
-name|HRegionInfo
+name|RegionInfo
 name|regionB
 decl_stmt|;
 comment|// merge with full name
@@ -10193,7 +10179,7 @@ name|tableRegions
 operator|=
 name|admin
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|tableName
 argument_list|)
@@ -10278,7 +10264,7 @@ name|tableRegions
 operator|=
 name|admin
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|tableName
 argument_list|)

@@ -59,21 +59,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
+name|client
 operator|.
-name|apache
-operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
+name|RegionInfo
 import|;
 end_import
 
@@ -92,6 +80,20 @@ operator|.
 name|SpaceQuotaSnapshot
 operator|.
 name|SpaceQuotaStatus
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -191,7 +193,7 @@ name|Iterable
 argument_list|<
 name|Entry
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|Long
 argument_list|>
@@ -213,13 +215,13 @@ name|SpaceQuotaSnapshot
 name|state
 parameter_list|)
 function_decl|;
-comment|/**    * Updates {@code this} with the latest snapshot of filesystem use by region.    *    * @param regionUsage A map of {@code HRegionInfo} objects to their filesystem usage in bytes    */
+comment|/**    * Updates {@code this} with the latest snapshot of filesystem use by region.    *    * @param regionUsage A map of {@code RegionInfo} objects to their filesystem usage in bytes    */
 name|void
 name|setRegionUsage
 parameter_list|(
 name|Map
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|,
 name|Long
 argument_list|>

@@ -557,6 +557,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|RegionInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Result
 import|;
 end_import
@@ -4029,7 +4045,7 @@ name|family
 init|=
 literal|"f1"
 decl_stmt|;
-comment|/**    * Test written as a verifier for HBASE-7051, CheckAndPut should properly read    * MVCC.     *     * Moved into TestAtomicOperation from its original location, TestHBase7051    */
+comment|/**    * Test written as a verifier for HBASE-7051, CheckAndPut should properly read    * MVCC.    *    * Moved into TestAtomicOperation from its original location, TestHBase7051    */
 annotation|@
 name|Test
 specifier|public
@@ -4635,7 +4651,7 @@ name|Configuration
 name|conf
 parameter_list|,
 specifier|final
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|,
 specifier|final

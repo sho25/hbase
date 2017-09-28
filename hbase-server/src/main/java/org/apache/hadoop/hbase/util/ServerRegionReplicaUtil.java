@@ -107,20 +107,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|ReplicationPeerNotFoundException
 import|;
 end_import
@@ -169,7 +155,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|RegionReplicaUtil
+name|RegionInfo
 import|;
 end_import
 
@@ -185,9 +171,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|replication
-operator|.
-name|ReplicationAdmin
+name|RegionReplicaUtil
 import|;
 end_import
 
@@ -233,22 +217,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|quotas
-operator|.
-name|MasterQuotaManager
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|regionserver
 operator|.
 name|HRegion
@@ -268,22 +236,6 @@ operator|.
 name|regionserver
 operator|.
 name|StoreFileInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|replication
-operator|.
-name|ReplicationException
 import|;
 end_import
 
@@ -422,13 +374,13 @@ name|DEFAULT_REGION_REPLICA_STORE_FILE_REFRESH_MEMSTORE_MULTIPLIER
 init|=
 literal|4
 decl_stmt|;
-comment|/**    * Returns the regionInfo object to use for interacting with the file system.    * @return An HRegionInfo object to interact with the filesystem    */
+comment|/**    * Returns the regionInfo object to use for interacting with the file system.    * @return An RegionInfo object to interact with the filesystem    */
 specifier|public
 specifier|static
-name|HRegionInfo
+name|RegionInfo
 name|getRegionInfoForFs
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|)
 block|{
@@ -513,10 +465,10 @@ parameter_list|,
 name|FileSystem
 name|fs
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|regionInfoForFs
 parameter_list|,
 name|String
@@ -531,12 +483,18 @@ block|{
 comment|// if this is a primary region, just return the StoreFileInfo constructed from path
 if|if
 condition|(
-name|regionInfo
+name|RegionInfo
 operator|.
-name|equals
+name|COMPARATOR
+operator|.
+name|compare
 argument_list|(
+name|regionInfo
+argument_list|,
 name|regionInfoForFs
 argument_list|)
+operator|==
+literal|0
 condition|)
 block|{
 return|return

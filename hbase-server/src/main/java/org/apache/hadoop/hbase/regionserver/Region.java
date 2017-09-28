@@ -151,20 +151,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|client
 operator|.
 name|Append
@@ -264,6 +250,22 @@ operator|.
 name|client
 operator|.
 name|Put
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -594,7 +596,7 @@ block|{
 comment|///////////////////////////////////////////////////////////////////////////
 comment|// Region state
 comment|/** @return region information for this region */
-name|HRegionInfo
+name|RegionInfo
 name|getRegionInfo
 parameter_list|()
 function_decl|;
@@ -910,7 +912,7 @@ name|release
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    *    * Get a row lock for the specified row. All locks are reentrant.    *    * Before calling this function make sure that a region operation has already been    * started (the calling thread has already acquired the region-close-guard lock).    *     * NOTE: the boolean passed here has changed. It used to be a boolean that    * stated whether or not to wait on the lock. Now it is whether it an exclusive    * lock is requested.    *     * @param row The row actions will be performed against    * @param readLock is the lock reader or writer. True indicates that a non-exclusive    * lock is requested    * @see #startRegionOperation()    * @see #startRegionOperation(Operation)    */
+comment|/**    *    * Get a row lock for the specified row. All locks are reentrant.    *    * Before calling this function make sure that a region operation has already been    * started (the calling thread has already acquired the region-close-guard lock).    *    * NOTE: the boolean passed here has changed. It used to be a boolean that    * stated whether or not to wait on the lock. Now it is whether it an exclusive    * lock is requested.    *    * @param row The row actions will be performed against    * @param readLock is the lock reader or writer. True indicates that a non-exclusive    * lock is requested    * @see #startRegionOperation()    * @see #startRegionOperation(Operation)    */
 name|RowLock
 name|getRowLock
 parameter_list|(
