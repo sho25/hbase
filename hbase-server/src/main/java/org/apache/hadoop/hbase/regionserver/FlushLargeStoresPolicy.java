@@ -328,7 +328,7 @@ if|if
 condition|(
 name|store
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 operator|.
 name|getDataSize
@@ -372,7 +372,7 @@ literal|" because memstoreSize="
 operator|+
 name|store
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 operator|.
 name|getDataSize

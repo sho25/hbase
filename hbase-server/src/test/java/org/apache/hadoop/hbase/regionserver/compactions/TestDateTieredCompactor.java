@@ -185,6 +185,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|OptionalLong
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -1023,7 +1033,7 @@ operator|.
 name|COMPARATOR
 argument_list|)
 expr_stmt|;
-name|long
+name|OptionalLong
 name|maxSequenceId
 init|=
 name|StoreUtils

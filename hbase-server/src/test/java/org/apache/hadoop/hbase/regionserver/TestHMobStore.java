@@ -18,6 +18,24 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|Store
+operator|.
+name|PRIORITY_USER
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -4428,8 +4446,6 @@ name|store
 operator|.
 name|requestCompaction
 argument_list|(
-name|Store
-operator|.
 name|PRIORITY_USER
 argument_list|,
 name|CompactionLifeCycleTracker

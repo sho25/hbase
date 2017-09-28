@@ -1264,7 +1264,7 @@ argument_list|(
 name|FAMILY1
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 name|MemstoreSize
@@ -1277,7 +1277,7 @@ argument_list|(
 name|FAMILY2
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 name|MemstoreSize
@@ -1290,7 +1290,7 @@ argument_list|(
 name|FAMILY3
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 comment|// Get the overall smallest LSN in the region's memstores.
@@ -1540,7 +1540,7 @@ argument_list|(
 name|FAMILY1
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 name|MemstoreSize
@@ -1553,7 +1553,7 @@ argument_list|(
 name|FAMILY2
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 name|MemstoreSize
@@ -1566,7 +1566,7 @@ argument_list|(
 name|FAMILY3
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 name|long
@@ -1792,7 +1792,7 @@ argument_list|(
 name|FAMILY1
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 name|long
@@ -1841,7 +1841,7 @@ argument_list|(
 name|FAMILY1
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 name|MemstoreSize
@@ -1854,7 +1854,7 @@ argument_list|(
 name|FAMILY2
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 name|MemstoreSize
@@ -1867,7 +1867,7 @@ argument_list|(
 name|FAMILY3
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 name|long
@@ -2045,7 +2045,7 @@ argument_list|(
 name|FAMILY1
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 name|MemstoreSize
@@ -2058,7 +2058,7 @@ argument_list|(
 name|FAMILY2
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 name|MemstoreSize
@@ -2071,7 +2071,7 @@ argument_list|(
 name|FAMILY3
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 name|long
@@ -2565,7 +2565,7 @@ argument_list|(
 name|FAMILY1
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 name|MemstoreSize
@@ -2578,7 +2578,7 @@ argument_list|(
 name|FAMILY2
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 name|MemstoreSize
@@ -2591,7 +2591,7 @@ argument_list|(
 name|FAMILY3
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 comment|// Get the overall smallest LSN in the region's memstores.
@@ -2836,7 +2836,7 @@ argument_list|(
 name|FAMILY1
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 name|MemstoreSize
@@ -2849,7 +2849,7 @@ argument_list|(
 name|FAMILY2
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 name|MemstoreSize
@@ -2862,7 +2862,7 @@ argument_list|(
 name|FAMILY3
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 name|long
@@ -3097,7 +3097,7 @@ argument_list|(
 name|FAMILY1
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 name|long
@@ -3159,7 +3159,7 @@ argument_list|(
 name|FAMILY1
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 name|MemstoreSize
@@ -3172,7 +3172,7 @@ argument_list|(
 name|FAMILY2
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 name|MemstoreSize
@@ -3185,7 +3185,7 @@ argument_list|(
 name|FAMILY3
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 name|long
@@ -3306,7 +3306,7 @@ argument_list|(
 name|FAMILY1
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 name|MemstoreSize
@@ -3319,7 +3319,7 @@ argument_list|(
 name|FAMILY2
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 name|MemstoreSize
@@ -3332,7 +3332,7 @@ argument_list|(
 name|FAMILY3
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 name|long
@@ -3543,7 +3543,7 @@ argument_list|(
 name|FAMILY1
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 name|MemstoreSize
@@ -3556,7 +3556,7 @@ argument_list|(
 name|FAMILY3
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 name|MemstoreSize
@@ -3572,7 +3572,7 @@ literal|4
 index|]
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 comment|/*------------------------------------------------------------------------------*/
@@ -3600,7 +3600,7 @@ argument_list|(
 name|FAMILY1
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 name|MemstoreSize
@@ -3613,7 +3613,7 @@ argument_list|(
 name|FAMILY3
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 name|MemstoreSize
@@ -3629,7 +3629,7 @@ literal|4
 index|]
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 name|assertTrue
@@ -3956,7 +3956,7 @@ argument_list|(
 name|FAMILY1
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 name|MemstoreSize
@@ -3969,7 +3969,7 @@ argument_list|(
 name|FAMILY2
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 name|MemstoreSize
@@ -3982,7 +3982,7 @@ argument_list|(
 name|FAMILY3
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 comment|// Some other sanity checks.
@@ -4133,7 +4133,7 @@ argument_list|(
 name|FAMILY2
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 name|long
@@ -4803,7 +4803,7 @@ argument_list|(
 name|FAMILY1
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 name|MemstoreSize
@@ -4816,7 +4816,7 @@ argument_list|(
 name|FAMILY2
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 name|MemstoreSize
@@ -4829,7 +4829,7 @@ argument_list|(
 name|FAMILY3
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 comment|// Some other sanity checks.
@@ -5015,7 +5015,7 @@ argument_list|(
 name|FAMILY1
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 name|MemstoreSize
@@ -5028,7 +5028,7 @@ argument_list|(
 name|FAMILY2
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 name|MemstoreSize
@@ -5041,7 +5041,7 @@ argument_list|(
 name|FAMILY3
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 comment|// CF1 should be flushed in memory and just flattened, so CF1 heap overhead should be smaller
@@ -5191,7 +5191,7 @@ argument_list|(
 name|FAMILY1
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 comment|// Flush in memory!
@@ -5323,7 +5323,7 @@ argument_list|(
 name|FAMILY1
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 name|MemstoreSize
@@ -5336,7 +5336,7 @@ argument_list|(
 name|FAMILY2
 argument_list|)
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 name|assertEquals

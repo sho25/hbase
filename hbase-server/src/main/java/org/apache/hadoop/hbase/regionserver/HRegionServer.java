@@ -9974,7 +9974,7 @@ if|if
 condition|(
 name|s
 operator|.
-name|isMajorCompaction
+name|shouldPerformMajorCompaction
 argument_list|()
 condition|)
 block|{

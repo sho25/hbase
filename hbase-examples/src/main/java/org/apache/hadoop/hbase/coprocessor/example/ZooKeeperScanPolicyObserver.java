@@ -1056,7 +1056,12 @@ block|}
 name|ScanInfo
 name|oldSI
 init|=
+operator|(
+operator|(
+name|HStore
+operator|)
 name|store
+operator|)
 operator|.
 name|getScanInfo
 argument_list|()

@@ -1158,7 +1158,7 @@ expr_stmt|;
 comment|// Archive the store files and try another compaction to see if all is good
 for|for
 control|(
-name|Store
+name|HStore
 name|store
 range|:
 name|hr1

@@ -400,7 +400,7 @@ return|;
 block|}
 for|for
 control|(
-name|Store
+name|HStore
 name|store
 range|:
 name|region

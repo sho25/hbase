@@ -43,7 +43,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|List
+name|Comparator
 import|;
 end_import
 
@@ -53,7 +53,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|NavigableSet
+name|OptionalDouble
 import|;
 end_import
 
@@ -63,7 +63,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|Optional
+name|OptionalLong
 import|;
 end_import
 
@@ -91,7 +91,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellComparator
+name|Cell
 import|;
 end_import
 
@@ -106,20 +106,6 @@ operator|.
 name|hbase
 operator|.
 name|HBaseInterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HRegionInfo
 import|;
 end_import
 
@@ -165,129 +151,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Scan
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|conf
-operator|.
-name|PropagatingConfigurationObserver
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|HeapSize
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|compress
-operator|.
-name|Compression
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|hfile
-operator|.
-name|CacheConfig
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|hfile
-operator|.
-name|HFileDataBlockEncoder
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|compactions
-operator|.
-name|CompactionContext
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|compactions
-operator|.
-name|CompactionLifeCycleTracker
+name|RegionInfo
 import|;
 end_import
 
@@ -306,40 +170,6 @@ operator|.
 name|compactions
 operator|.
 name|CompactionProgress
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|throttle
-operator|.
-name|ThroughputController
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|security
-operator|.
-name|User
 import|;
 end_import
 
@@ -392,12 +222,6 @@ name|Evolving
 specifier|public
 interface|interface
 name|Store
-extends|extends
-name|HeapSize
-extends|,
-name|StoreConfigInformation
-extends|,
-name|PropagatingConfigurationObserver
 block|{
 comment|/**    * The default priority for user-specified compaction requests.    * The user gets top priority unless we have blocking compactions. (Pri<= 0)    */
 name|int
@@ -413,7 +237,10 @@ operator|.
 name|MIN_VALUE
 decl_stmt|;
 comment|// General Accessors
-name|CellComparator
+name|Comparator
+argument_list|<
+name|Cell
+argument_list|>
 name|getComparator
 parameter_list|()
 function_decl|;
@@ -435,43 +262,6 @@ argument_list|>
 name|getCompactedFiles
 parameter_list|()
 function_decl|;
-comment|/**    * Close all the readers We don't need to worry about subsequent requests because the Region    * holds a write lock that will prevent any more reads or writes.    * @return the {@link StoreFile StoreFiles} that were previously being used.    * @throws IOException on failure    */
-name|Collection
-argument_list|<
-name|?
-extends|extends
-name|StoreFile
-argument_list|>
-name|close
-parameter_list|()
-throws|throws
-name|IOException
-function_decl|;
-comment|/**    * Return a scanner for both the memstore and the HStore files. Assumes we are not in a    * compaction.    * @param scan Scan to apply when scanning the stores    * @param targetCols columns to scan    * @return a scanner over the current key values    * @throws IOException on failure    */
-name|KeyValueScanner
-name|getScanner
-parameter_list|(
-name|Scan
-name|scan
-parameter_list|,
-specifier|final
-name|NavigableSet
-argument_list|<
-name|byte
-index|[]
-argument_list|>
-name|targetCols
-parameter_list|,
-name|long
-name|readPt
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-name|ScanInfo
-name|getScanInfo
-parameter_list|()
-function_decl|;
 comment|/**    * When was the last edit done in the memstore    */
 name|long
 name|timeOfOldestEdit
@@ -481,201 +271,19 @@ name|FileSystem
 name|getFileSystem
 parameter_list|()
 function_decl|;
-comment|/**    * @param maxKeyCount    * @param compression Compression algorithm to use    * @param isCompaction whether we are creating a new file in a compaction    * @param includeMVCCReadpoint whether we should out the MVCC readpoint    * @return Writer for a new StoreFile in the tmp dir.    */
-name|StoreFileWriter
-name|createWriterInTmp
-parameter_list|(
-name|long
-name|maxKeyCount
-parameter_list|,
-name|Compression
-operator|.
-name|Algorithm
-name|compression
-parameter_list|,
-name|boolean
-name|isCompaction
-parameter_list|,
-name|boolean
-name|includeMVCCReadpoint
-parameter_list|,
-name|boolean
-name|includesTags
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-comment|/**    * @param maxKeyCount    * @param compression Compression algorithm to use    * @param isCompaction whether we are creating a new file in a compaction    * @param includeMVCCReadpoint whether we should out the MVCC readpoint    * @param shouldDropBehind should the writer drop caches behind writes    * @return Writer for a new StoreFile in the tmp dir.    */
-name|StoreFileWriter
-name|createWriterInTmp
-parameter_list|(
-name|long
-name|maxKeyCount
-parameter_list|,
-name|Compression
-operator|.
-name|Algorithm
-name|compression
-parameter_list|,
-name|boolean
-name|isCompaction
-parameter_list|,
-name|boolean
-name|includeMVCCReadpoint
-parameter_list|,
-name|boolean
-name|includesTags
-parameter_list|,
-name|boolean
-name|shouldDropBehind
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-comment|/**    * @param maxKeyCount    * @param compression Compression algorithm to use    * @param isCompaction whether we are creating a new file in a compaction    * @param includeMVCCReadpoint whether we should out the MVCC readpoint    * @param shouldDropBehind should the writer drop caches behind writes    * @param trt Ready-made timetracker to use.    * @return Writer for a new StoreFile in the tmp dir.    */
-name|StoreFileWriter
-name|createWriterInTmp
-parameter_list|(
-name|long
-name|maxKeyCount
-parameter_list|,
-name|Compression
-operator|.
-name|Algorithm
-name|compression
-parameter_list|,
-name|boolean
-name|isCompaction
-parameter_list|,
-name|boolean
-name|includeMVCCReadpoint
-parameter_list|,
-name|boolean
-name|includesTags
-parameter_list|,
-name|boolean
-name|shouldDropBehind
-parameter_list|,
-specifier|final
-name|TimeRangeTracker
-name|trt
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-comment|// Compaction oriented methods
-name|boolean
-name|throttleCompaction
-parameter_list|(
-name|long
-name|compactionSize
-parameter_list|)
-function_decl|;
 comment|/**    * getter for CompactionProgress object    * @return CompactionProgress object; can be null    */
 name|CompactionProgress
 name|getCompactionProgress
 parameter_list|()
 function_decl|;
-specifier|default
-name|Optional
-argument_list|<
-name|CompactionContext
-argument_list|>
-name|requestCompaction
-parameter_list|()
-throws|throws
-name|IOException
-block|{
-return|return
-name|requestCompaction
-argument_list|(
-name|NO_PRIORITY
-argument_list|,
-name|CompactionLifeCycleTracker
-operator|.
-name|DUMMY
-argument_list|,
-literal|null
-argument_list|)
-return|;
-block|}
-name|Optional
-argument_list|<
-name|CompactionContext
-argument_list|>
-name|requestCompaction
-parameter_list|(
-name|int
-name|priority
-parameter_list|,
-name|CompactionLifeCycleTracker
-name|tracker
-parameter_list|,
-name|User
-name|user
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-name|void
-name|cancelRequestedCompaction
-parameter_list|(
-name|CompactionContext
-name|compaction
-parameter_list|)
-function_decl|;
-comment|/**    * @deprecated see compact(CompactionContext, ThroughputController, User)    */
-annotation|@
-name|Deprecated
-name|List
-argument_list|<
-name|?
-extends|extends
-name|StoreFile
-argument_list|>
-name|compact
-parameter_list|(
-name|CompactionContext
-name|compaction
-parameter_list|,
-name|ThroughputController
-name|throughputController
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-name|List
-argument_list|<
-name|?
-extends|extends
-name|StoreFile
-argument_list|>
-name|compact
-parameter_list|(
-name|CompactionContext
-name|compaction
-parameter_list|,
-name|ThroughputController
-name|throughputController
-parameter_list|,
-name|User
-name|user
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-comment|/**    * @return true if we should run a major compaction.    */
+comment|/**    * Tests whether we should run a major compaction. For example, if the configured major compaction    * interval is reached.    * @return true if we should run a major compaction.    */
 name|boolean
-name|isMajorCompaction
+name|shouldPerformMajorCompaction
 parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-name|void
-name|triggerMajorCompaction
-parameter_list|()
-function_decl|;
-comment|/**    * See if there's too much store files in this store    * @return true if number of store files is greater than the number defined in minFilesToCompact    */
+comment|/**    * See if there's too much store files in this store    * @return<code>true</code> if number of store files is greater than the number defined in    *         minFilesToCompact    */
 name|boolean
 name|needsCompaction
 parameter_list|()
@@ -684,68 +292,29 @@ name|int
 name|getCompactPriority
 parameter_list|()
 function_decl|;
-name|StoreFlushContext
-name|createFlushContext
-parameter_list|(
-name|long
-name|cacheFlushId
-parameter_list|)
-function_decl|;
-comment|// Split oriented methods
+comment|/**    * Returns whether this store is splittable, i.e., no reference file in this store.    */
 name|boolean
 name|canSplit
 parameter_list|()
 function_decl|;
-comment|/**    * Determines if Store should be split.    */
-name|Optional
-argument_list|<
-name|byte
-index|[]
-argument_list|>
-name|getSplitPoint
-parameter_list|()
-function_decl|;
-comment|// General accessors into the state of the store
-comment|// TODO abstract some of this out into a metrics class
-comment|/**    * @return<tt>true</tt> if the store has any underlying reference files to older HFiles    */
+comment|/**    * @return<code>true</code> if the store has any underlying reference files to older HFiles    */
 name|boolean
 name|hasReferences
 parameter_list|()
 function_decl|;
-comment|/**    * @return The size of this store's memstore, in bytes    * @deprecated Since 2.0 and will be removed in 3.0. Use {@link #getSizeOfMemStore()} instead.    *<p>    * Note: When using off heap MSLAB feature, this will not account the cell data bytes size which    * is in off heap MSLAB area.    */
-annotation|@
-name|Deprecated
-name|long
+comment|/**    * @return The size of this store's memstore.    */
+name|MemstoreSize
 name|getMemStoreSize
 parameter_list|()
 function_decl|;
-comment|/**    * @return The size of this store's memstore.    */
+comment|/**    * @return The amount of memory we could flush from this memstore; usually this is equal to    * {@link #getMemStoreSize()} unless we are carrying snapshots and then it will be the size of    * outstanding snapshots.    */
 name|MemstoreSize
-name|getSizeOfMemStore
-parameter_list|()
-function_decl|;
-comment|/**    * @return The amount of memory we could flush from this memstore; usually this is equal to    * {@link #getMemStoreSize()} unless we are carrying snapshots and then it will be the size of    * outstanding snapshots.    * @deprecated Since 2.0 and will be removed in 3.0. Use {@link #getSizeToFlush()} instead.    *<p>    * Note: When using off heap MSLAB feature, this will not account the cell data bytes size which    * is in off heap MSLAB area.    */
-annotation|@
-name|Deprecated
-name|long
 name|getFlushableSize
-parameter_list|()
-function_decl|;
-comment|/**    * @return The amount of memory we could flush from this memstore; usually this is equal to    * {@link #getSizeOfMemStore()} unless we are carrying snapshots and then it will be the size of    * outstanding snapshots.    */
-name|MemstoreSize
-name|getSizeToFlush
-parameter_list|()
-function_decl|;
-comment|/**    * Returns the memstore snapshot size    * @return size of the memstore snapshot    * @deprecated Since 2.0 and will be removed in 3.0. Use {@link #getSizeOfSnapshot()} instead.    *<p>    * Note: When using off heap MSLAB feature, this will not account the cell data bytes size which    * is in off heap MSLAB area.    */
-annotation|@
-name|Deprecated
-name|long
-name|getSnapshotSize
 parameter_list|()
 function_decl|;
 comment|/**    * @return size of the memstore snapshot    */
 name|MemstoreSize
-name|getSizeOfSnapshot
+name|getSnapshotSize
 parameter_list|()
 function_decl|;
 name|ColumnFamilyDescriptor
@@ -753,18 +322,13 @@ name|getColumnFamilyDescriptor
 parameter_list|()
 function_decl|;
 comment|/**    * @return The maximum sequence id in all store files.    */
-name|long
+name|OptionalLong
 name|getMaxSequenceId
 parameter_list|()
 function_decl|;
 comment|/**    * @return The maximum memstoreTS in all store files.    */
-name|long
+name|OptionalLong
 name|getMaxMemstoreTS
-parameter_list|()
-function_decl|;
-comment|/**    * @return the data block encoder    */
-name|HFileDataBlockEncoder
-name|getDataBlockEncoder
 parameter_list|()
 function_decl|;
 comment|/** @return aggregate size of all HStores used in the last compaction */
@@ -788,17 +352,17 @@ name|getCompactedFilesCount
 parameter_list|()
 function_decl|;
 comment|/**    * @return Max age of store files in this store    */
-name|long
+name|OptionalLong
 name|getMaxStoreFileAge
 parameter_list|()
 function_decl|;
 comment|/**    * @return Min age of store files in this store    */
-name|long
+name|OptionalLong
 name|getMinStoreFileAge
 parameter_list|()
 function_decl|;
-comment|/**    *  @return Average age of store files in this store, 0 if no store files    */
-name|long
+comment|/**    *  @return Average age of store files in this store    */
+name|OptionalDouble
 name|getAvgStoreFileAge
 parameter_list|()
 function_decl|;
@@ -842,14 +406,8 @@ name|long
 name|getTotalStaticBloomSize
 parameter_list|()
 function_decl|;
-comment|// Test-helper methods
-comment|/**    * Used for tests.    * @return cache configuration for this Store.    */
-name|CacheConfig
-name|getCacheConfig
-parameter_list|()
-function_decl|;
 comment|/**    * @return the parent region info hosting this store    */
-name|HRegionInfo
+name|RegionInfo
 name|getRegionInfo
 parameter_list|()
 function_decl|;
@@ -909,28 +467,12 @@ name|long
 name|getMajorCompactedCellsSize
 parameter_list|()
 function_decl|;
-comment|/*    * @param o Observer who wants to know about changes in set of Readers    */
-name|void
-name|addChangedReaderObserver
-parameter_list|(
-name|ChangedReadersObserver
-name|o
-parameter_list|)
-function_decl|;
-comment|/*    * @param o Observer no longer interested in changes in set of Readers.    */
-name|void
-name|deleteChangedReaderObserver
-parameter_list|(
-name|ChangedReadersObserver
-name|o
-parameter_list|)
-function_decl|;
 comment|/**    * @return Whether this store has too many store files.    */
 name|boolean
 name|hasTooManyStoreFiles
 parameter_list|()
 function_decl|;
-comment|/**    * Checks the underlying store files, and opens the files that  have not    * been opened, and removes the store file readers for store files no longer    * available. Mainly used by secondary region replicas to keep up to date with    * the primary region files.    * @throws IOException    */
+comment|/**    * Checks the underlying store files, and opens the files that have not been opened, and removes    * the store file readers for store files no longer available. Mainly used by secondary region    * replicas to keep up to date with the primary region files.    * @throws IOException    */
 name|void
 name|refreshStoreFiles
 parameter_list|()
@@ -942,29 +484,9 @@ name|double
 name|getCompactionPressure
 parameter_list|()
 function_decl|;
-comment|/**     * Replaces the store files that the store has with the given files. Mainly used by     * secondary region replicas to keep up to date with     * the primary region files.     * @throws IOException     */
-name|void
-name|refreshStoreFiles
-parameter_list|(
-name|Collection
-argument_list|<
-name|String
-argument_list|>
-name|newFiles
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
 name|boolean
 name|isPrimaryReplicaStore
 parameter_list|()
-function_decl|;
-comment|/**    * Closes and archives the compacted files under this store    */
-name|void
-name|closeAndArchiveCompactedFiles
-parameter_list|()
-throws|throws
-name|IOException
 function_decl|;
 comment|/**    * @return true if the memstore may need some extra memory space    */
 name|boolean

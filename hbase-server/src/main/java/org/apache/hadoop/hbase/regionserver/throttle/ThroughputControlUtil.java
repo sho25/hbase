@@ -39,11 +39,13 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|regionserver
+operator|.
+name|HStore
 import|;
 end_import
 
@@ -53,13 +55,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|yetus
 operator|.
-name|hbase
+name|audience
 operator|.
-name|regionserver
-operator|.
-name|Store
+name|InterfaceAudience
 import|;
 end_import
 
@@ -107,11 +107,9 @@ specifier|static
 name|String
 name|getNameForThrottling
 parameter_list|(
-specifier|final
-name|Store
+name|HStore
 name|store
 parameter_list|,
-specifier|final
 name|String
 name|opName
 parameter_list|)

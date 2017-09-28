@@ -2206,7 +2206,7 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|Store
+name|HStore
 name|store
 init|=
 name|region

@@ -669,7 +669,7 @@ operator|.
 name|TRUE
 argument_list|)
 decl_stmt|;
-name|Region
+name|HRegion
 name|region
 init|=
 name|hbu
@@ -1457,7 +1457,7 @@ operator|.
 name|FALSE
 argument_list|)
 decl_stmt|;
-name|Region
+name|HRegion
 name|region
 init|=
 name|hbu
@@ -2597,7 +2597,7 @@ operator|.
 name|TRUE
 argument_list|)
 decl_stmt|;
-name|Region
+name|HRegion
 name|region
 init|=
 name|hbu
@@ -2839,7 +2839,7 @@ operator|.
 name|TRUE
 argument_list|)
 decl_stmt|;
-name|Region
+name|HRegion
 name|region
 init|=
 name|hbu
@@ -3200,7 +3200,7 @@ operator|.
 name|TRUE
 argument_list|)
 decl_stmt|;
-name|Region
+name|HRegion
 name|region
 init|=
 name|hbu
@@ -4354,7 +4354,7 @@ operator|.
 name|TRUE
 argument_list|)
 decl_stmt|;
-name|Region
+name|HRegion
 name|region
 init|=
 name|hbu
@@ -5159,7 +5159,7 @@ operator|.
 name|TRUE
 argument_list|)
 decl_stmt|;
-name|Region
+name|HRegion
 name|region
 init|=
 name|hbu
@@ -5639,7 +5639,7 @@ operator|.
 name|TTL
 argument_list|)
 decl_stmt|;
-name|Region
+name|HRegion
 name|region
 init|=
 name|hbu
@@ -5938,7 +5938,7 @@ specifier|private
 name|int
 name|countDeleteMarkers
 parameter_list|(
-name|Region
+name|HRegion
 name|region
 parameter_list|)
 throws|throws

@@ -5766,6 +5766,11 @@ name|store
 operator|.
 name|getMaxSequenceId
 argument_list|()
+operator|.
+name|orElse
+argument_list|(
+literal|0L
+argument_list|)
 decl_stmt|;
 name|maxSeqIdInStores
 operator|.
@@ -5806,6 +5811,11 @@ name|store
 operator|.
 name|getMaxMemstoreTS
 argument_list|()
+operator|.
+name|orElse
+argument_list|(
+literal|0L
+argument_list|)
 decl_stmt|;
 if|if
 condition|(
@@ -8426,7 +8436,7 @@ name|flushableSize
 init|=
 name|store
 operator|.
-name|getSizeToFlush
+name|getFlushableSize
 argument_list|()
 decl_stmt|;
 if|if
@@ -8934,7 +8944,7 @@ name|s
 lambda|->
 name|s
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 operator|.
 name|getHeapSize
@@ -11297,7 +11307,7 @@ comment|//since we didn't flush in the recent past, flush now if certain conditi
 comment|//are met. Return true on first such memstore hit.
 for|for
 control|(
-name|Store
+name|HStore
 name|s
 range|:
 name|stores
@@ -12036,7 +12046,7 @@ name|flushableSize
 init|=
 name|s
 operator|.
-name|getSizeToFlush
+name|getFlushableSize
 argument_list|()
 decl_stmt|;
 name|totalSizeOfFlushableStores
@@ -12337,7 +12347,7 @@ name|byteDesc
 argument_list|(
 name|store
 operator|.
-name|getSizeToFlush
+name|getFlushableSize
 argument_list|()
 operator|.
 name|getDataSize
@@ -23817,7 +23827,7 @@ name|flushableSize
 init|=
 name|s
 operator|.
-name|getSizeToFlush
+name|getFlushableSize
 argument_list|()
 decl_stmt|;
 name|this
@@ -24233,6 +24243,11 @@ name|store
 operator|.
 name|getMaxSequenceId
 argument_list|()
+operator|.
+name|orElse
+argument_list|(
+literal|0L
+argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
@@ -24291,6 +24306,11 @@ name|store
 operator|.
 name|getMaxSequenceId
 argument_list|()
+operator|.
+name|orElse
+argument_list|(
+literal|0L
+argument_list|)
 operator|!=
 name|storeSeqId
 condition|)
@@ -24367,7 +24387,7 @@ name|snapshotSize
 init|=
 name|store
 operator|.
-name|getSizeToFlush
+name|getFlushableSize
 argument_list|()
 decl_stmt|;
 name|ctx
@@ -24944,7 +24964,7 @@ if|if
 condition|(
 name|store
 operator|.
-name|getSizeOfSnapshot
+name|getSnapshotSize
 argument_list|()
 operator|.
 name|getDataSize
@@ -25131,6 +25151,11 @@ name|store
 operator|.
 name|getMaxSequenceId
 argument_list|()
+operator|.
+name|orElse
+argument_list|(
+literal|0L
+argument_list|)
 decl_stmt|;
 comment|// refresh the store files. This is similar to observing a region open wal marker.
 name|store
@@ -25145,6 +25170,11 @@ name|store
 operator|.
 name|getMaxSequenceId
 argument_list|()
+operator|.
+name|orElse
+argument_list|(
+literal|0L
+argument_list|)
 decl_stmt|;
 if|if
 condition|(
@@ -25227,7 +25257,7 @@ name|snapshotSize
 init|=
 name|store
 operator|.
-name|getSizeToFlush
+name|getFlushableSize
 argument_list|()
 decl_stmt|;
 name|ctx
@@ -25306,6 +25336,11 @@ name|s
 operator|.
 name|getMaxMemstoreTS
 argument_list|()
+operator|.
+name|orElse
+argument_list|(
+literal|0L
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -39156,7 +39191,7 @@ name|append
 argument_list|(
 name|s
 operator|.
-name|getSizeOfMemStore
+name|getMemStoreSize
 argument_list|()
 operator|.
 name|getDataSize

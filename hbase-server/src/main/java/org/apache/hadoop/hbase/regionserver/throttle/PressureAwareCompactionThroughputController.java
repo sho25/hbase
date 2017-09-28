@@ -138,7 +138,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A throughput controller which uses the follow schema to limit throughput  *<ul>  *<li>If compaction pressure is greater than 1.0, no limitation.</li>  *<li>In off peak hours, use a fixed throughput limitation  * {@value #HBASE_HSTORE_COMPACTION_MAX_THROUGHPUT_OFFPEAK}</li>  *<li>In normal hours, the max throughput is tuned between  * {@value #HBASE_HSTORE_COMPACTION_MAX_THROUGHPUT_LOWER_BOUND} and  * {@value #HBASE_HSTORE_COMPACTION_MAX_THROUGHPUT_HIGHER_BOUND}, using the formula&quot;lower +  * (higer - lower) * compactionPressure&quot;, where compactionPressure is in range [0.0, 1.0]</li>  *</ul>  * @see org.apache.hadoop.hbase.regionserver.Store#getCompactionPressure()  */
+comment|/**  * A throughput controller which uses the follow schema to limit throughput  *<ul>  *<li>If compaction pressure is greater than 1.0, no limitation.</li>  *<li>In off peak hours, use a fixed throughput limitation  * {@value #HBASE_HSTORE_COMPACTION_MAX_THROUGHPUT_OFFPEAK}</li>  *<li>In normal hours, the max throughput is tuned between  * {@value #HBASE_HSTORE_COMPACTION_MAX_THROUGHPUT_LOWER_BOUND} and  * {@value #HBASE_HSTORE_COMPACTION_MAX_THROUGHPUT_HIGHER_BOUND}, using the formula&quot;lower +  * (higer - lower) * compactionPressure&quot;, where compactionPressure is in range [0.0, 1.0]</li>  *</ul>  * @see org.apache.hadoop.hbase.regionserver.HStore#getCompactionPressure()  */
 end_comment
 
 begin_class

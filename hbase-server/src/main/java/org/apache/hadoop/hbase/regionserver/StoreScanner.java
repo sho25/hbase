@@ -2223,7 +2223,7 @@ name|KeyValueScanner
 argument_list|>
 name|selectScannersFrom
 parameter_list|(
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|List

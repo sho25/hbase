@@ -356,7 +356,7 @@ literal|false
 decl_stmt|;
 for|for
 control|(
-name|Store
+name|HStore
 name|store
 range|:
 name|region

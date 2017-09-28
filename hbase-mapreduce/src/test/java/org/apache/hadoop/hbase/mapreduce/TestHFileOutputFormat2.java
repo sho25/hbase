@@ -945,7 +945,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|Store
+name|HStore
 import|;
 end_import
 
@@ -8443,7 +8443,7 @@ control|)
 block|{
 for|for
 control|(
-name|Store
+name|HStore
 name|store
 range|:
 name|region
@@ -8560,7 +8560,7 @@ control|)
 block|{
 for|for
 control|(
-name|Store
+name|HStore
 name|store
 range|:
 name|region

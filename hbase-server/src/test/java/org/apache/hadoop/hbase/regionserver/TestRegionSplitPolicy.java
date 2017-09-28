@@ -352,7 +352,7 @@ decl_stmt|;
 specifier|private
 name|List
 argument_list|<
-name|Store
+name|HStore
 argument_list|>
 name|stores
 decl_stmt|;

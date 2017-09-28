@@ -1998,7 +1998,7 @@ parameter_list|(
 name|Scan
 name|scan
 parameter_list|,
-name|Store
+name|HStore
 name|store
 parameter_list|,
 name|long

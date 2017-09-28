@@ -69,6 +69,24 @@ begin_import
 import|import static
 name|org
 operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|Store
+operator|.
+name|PRIORITY_USER
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
 name|junit
 operator|.
 name|Assert
@@ -1289,7 +1307,7 @@ name|Exception
 block|{
 name|Map
 argument_list|<
-name|Store
+name|HStore
 argument_list|,
 name|HFileDataBlockEncoder
 argument_list|>
@@ -1302,7 +1320,7 @@ argument_list|()
 decl_stmt|;
 for|for
 control|(
-name|Store
+name|HStore
 name|store
 range|:
 name|r
@@ -1373,7 +1391,7 @@ for|for
 control|(
 name|Entry
 argument_list|<
-name|Store
+name|HStore
 argument_list|,
 name|HFileDataBlockEncoder
 argument_list|>
@@ -1479,7 +1497,7 @@ argument_list|(
 name|COLUMN_FAMILY_TEXT
 argument_list|)
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 literal|100
 argument_list|)
@@ -1498,7 +1516,7 @@ expr_stmt|;
 comment|// see if CompactionProgress is in place but null
 for|for
 control|(
-name|Store
+name|HStore
 name|store
 range|:
 name|r
@@ -1538,7 +1556,7 @@ literal|0
 decl_stmt|;
 for|for
 control|(
-name|Store
+name|HStore
 name|store
 range|:
 name|r
@@ -1631,7 +1649,7 @@ argument_list|(
 name|COLUMN_FAMILY_TEXT
 argument_list|)
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 literal|100
 argument_list|)
@@ -1750,7 +1768,7 @@ argument_list|(
 name|COLUMN_FAMILY_TEXT
 argument_list|)
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 literal|100
 argument_list|)
@@ -1790,7 +1808,7 @@ argument_list|(
 name|COLUMN_FAMILY_TEXT
 argument_list|)
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 literal|100
 argument_list|)
@@ -1839,7 +1857,7 @@ argument_list|(
 name|COLUMN_FAMILY_TEXT
 argument_list|)
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 literal|100
 argument_list|)
@@ -1898,7 +1916,7 @@ argument_list|(
 name|COLUMN_FAMILY_TEXT
 argument_list|)
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 literal|100
 argument_list|)
@@ -1934,8 +1952,8 @@ literal|1000
 decl_stmt|;
 for|for
 control|(
-name|Store
-name|hstore
+name|HStore
+name|store
 range|:
 name|r
 operator|.
@@ -1943,16 +1961,6 @@ name|getStores
 argument_list|()
 control|)
 block|{
-name|HStore
-name|store
-init|=
-operator|(
-operator|(
-name|HStore
-operator|)
-name|hstore
-operator|)
-decl_stmt|;
 name|ScanInfo
 name|old
 init|=
@@ -2668,7 +2676,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|Store
+name|HStore
 name|store
 init|=
 name|r
@@ -2755,7 +2763,7 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|Store
+name|HStore
 name|store
 init|=
 name|r
@@ -2805,8 +2813,6 @@ name|store
 operator|.
 name|requestCompaction
 argument_list|(
-name|Store
-operator|.
 name|PRIORITY_USER
 argument_list|,
 name|CompactionLifeCycleTracker

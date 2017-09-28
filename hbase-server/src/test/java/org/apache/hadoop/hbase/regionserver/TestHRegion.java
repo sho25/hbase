@@ -2912,7 +2912,7 @@ argument_list|,
 name|COLUMN_FAMILY_BYTES
 argument_list|)
 decl_stmt|;
-name|Store
+name|HStore
 name|store
 init|=
 name|region
@@ -3172,7 +3172,7 @@ argument_list|,
 name|COLUMN_FAMILY_BYTES
 argument_list|)
 decl_stmt|;
-name|Store
+name|HStore
 name|store
 init|=
 name|region
@@ -3283,7 +3283,7 @@ name|sz
 init|=
 name|store
 operator|.
-name|getSizeToFlush
+name|getFlushableSize
 argument_list|()
 operator|.
 name|getDataSize
@@ -3463,7 +3463,7 @@ argument_list|,
 name|COLUMN_FAMILY_BYTES
 argument_list|)
 decl_stmt|;
-name|Store
+name|HStore
 name|store
 init|=
 name|region
@@ -3569,7 +3569,7 @@ literal|0
 argument_list|,
 name|store
 operator|.
-name|getSizeToFlush
+name|getFlushableSize
 argument_list|()
 operator|.
 name|getDataSize
@@ -3669,7 +3669,7 @@ name|onePutSize
 argument_list|,
 name|store
 operator|.
-name|getSizeToFlush
+name|getFlushableSize
 argument_list|()
 operator|.
 name|getDataSize
@@ -3711,7 +3711,7 @@ literal|0
 argument_list|,
 name|store
 operator|.
-name|getSizeToFlush
+name|getFlushableSize
 argument_list|()
 operator|.
 name|getDataSize
@@ -3798,7 +3798,7 @@ argument_list|,
 name|COLUMN_FAMILY_BYTES
 argument_list|)
 decl_stmt|;
-name|Store
+name|HStore
 name|store
 init|=
 name|region
@@ -3994,7 +3994,7 @@ name|expectedSize
 argument_list|,
 name|store
 operator|.
-name|getSizeToFlush
+name|getFlushableSize
 argument_list|()
 operator|.
 name|getDataSize
@@ -4668,7 +4668,7 @@ name|p1
 argument_list|)
 expr_stmt|;
 comment|// Manufacture an outstanding snapshot -- fake a failed flush by doing prepare step only.
-name|Store
+name|HStore
 name|store
 init|=
 name|region
@@ -5622,7 +5622,7 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|Store
+name|HStore
 name|store
 range|:
 name|region
@@ -6078,7 +6078,7 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|Store
+name|HStore
 name|store
 range|:
 name|region
@@ -6458,7 +6458,7 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|Store
+name|HStore
 name|store
 range|:
 name|region
@@ -6949,7 +6949,7 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|Store
+name|HStore
 name|store
 range|:
 name|region
@@ -26299,7 +26299,7 @@ argument_list|)
 expr_stmt|;
 for|for
 control|(
-name|Store
+name|HStore
 name|store
 range|:
 name|region
@@ -27139,7 +27139,7 @@ argument_list|)
 expr_stmt|;
 for|for
 control|(
-name|Store
+name|HStore
 name|store
 range|:
 name|region

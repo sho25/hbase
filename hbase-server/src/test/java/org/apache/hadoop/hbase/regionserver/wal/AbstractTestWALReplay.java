@@ -2086,9 +2086,12 @@ name|count
 argument_list|)
 expr_stmt|;
 comment|// flush region and make major compaction
-name|Region
+name|HRegion
 name|region
 init|=
+operator|(
+name|HRegion
+operator|)
 name|destServer
 operator|.
 name|getOnlineRegion
@@ -2112,7 +2115,7 @@ expr_stmt|;
 comment|// wait to complete major compaction
 for|for
 control|(
-name|Store
+name|HStore
 name|store
 range|:
 name|region

@@ -41,6 +41,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|OptionalLong
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -268,7 +278,9 @@ parameter_list|)
 block|{
 comment|// if we are going to compact the last N files, then we need to emit an empty file to retain the
 comment|// maxSeqId if we haven't written out anything.
-return|return
+name|OptionalLong
+name|maxSeqId
+init|=
 name|StoreUtils
 operator|.
 name|getMaxSequenceIdInList
@@ -278,10 +290,34 @@ operator|.
 name|getFiles
 argument_list|()
 argument_list|)
-operator|==
+decl_stmt|;
+name|OptionalLong
+name|storeMaxSeqId
+init|=
 name|store
 operator|.
 name|getMaxSequenceId
+argument_list|()
+decl_stmt|;
+return|return
+name|maxSeqId
+operator|.
+name|isPresent
+argument_list|()
+operator|&&
+name|storeMaxSeqId
+operator|.
+name|isPresent
+argument_list|()
+operator|&&
+name|maxSeqId
+operator|.
+name|getAsLong
+argument_list|()
+operator|==
+name|storeMaxSeqId
+operator|.
+name|getAsLong
 argument_list|()
 return|;
 block|}

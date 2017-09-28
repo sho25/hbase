@@ -59,6 +59,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|OptionalLong
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -355,10 +365,10 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Return the largest memstoreTS found across all storefiles in the given list. Store files that    * were created by a mapreduce bulk load are ignored, as they do not correspond to any specific    * put operation, and thus do not have a memstoreTS associated with them.    * @return 0 if no non-bulk-load files are provided or, this is Store that does not yet have any    *         store files.    */
+comment|/**    * Return the largest memstoreTS found across all storefiles in the given list. Store files that    * were created by a mapreduce bulk load are ignored, as they do not correspond to any specific    * put operation, and thus do not have a memstoreTS associated with them.    */
 specifier|public
 specifier|static
-name|long
+name|OptionalLong
 name|getMaxMemstoreTSInList
 parameter_list|(
 name|Collection
@@ -394,17 +404,12 @@ argument_list|)
 operator|.
 name|max
 argument_list|()
-operator|.
-name|orElse
-argument_list|(
-literal|0L
-argument_list|)
 return|;
 block|}
-comment|/**    * Return the highest sequence ID found across all storefiles in the given list.    * @param sfs    * @return 0 if no non-bulk-load files are provided or, this is Store that does not yet have any    *         store files.    */
+comment|/**    * Return the highest sequence ID found across all storefiles in the given list.    */
 specifier|public
 specifier|static
-name|long
+name|OptionalLong
 name|getMaxSequenceIdInList
 parameter_list|(
 name|Collection
@@ -429,11 +434,6 @@ argument_list|)
 operator|.
 name|max
 argument_list|()
-operator|.
-name|orElse
-argument_list|(
-literal|0L
-argument_list|)
 return|;
 block|}
 comment|/**    * Gets the approximate mid-point of the given file that is optimal for use in splitting it.    * @param file the store file    * @param comparator Comparator used to compare KVs.    * @return The split point row, or null if splitting is not possible, or reader is null.    */

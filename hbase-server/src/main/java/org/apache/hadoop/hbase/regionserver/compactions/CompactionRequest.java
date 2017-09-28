@@ -20,6 +20,24 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|Store
+operator|.
+name|NO_PRIORITY
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -54,22 +72,6 @@ operator|.
 name|regionserver
 operator|.
 name|HStoreFile
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|Store
 import|;
 end_import
 
@@ -185,8 +187,6 @@ specifier|private
 name|int
 name|priority
 init|=
-name|Store
-operator|.
 name|NO_PRIORITY
 decl_stmt|;
 specifier|private

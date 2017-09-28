@@ -69,6 +69,24 @@ begin_import
 import|import static
 name|org
 operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|Store
+operator|.
+name|PRIORITY_USER
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
 name|junit
 operator|.
 name|Assert
@@ -1430,14 +1448,12 @@ name|compactStores
 argument_list|()
 expr_stmt|;
 comment|// ensure that the compaction stopped, all old files are intact,
-name|Store
+name|HStore
 name|s
 init|=
 name|r
 operator|.
-name|stores
-operator|.
-name|get
+name|getStore
 argument_list|(
 name|COLUMN_FAMILY
 argument_list|)
@@ -1652,8 +1668,8 @@ literal|1000
 decl_stmt|;
 for|for
 control|(
-name|Store
-name|hstore
+name|HStore
+name|store
 range|:
 name|this
 operator|.
@@ -1665,14 +1681,6 @@ name|values
 argument_list|()
 control|)
 block|{
-name|HStore
-name|store
-init|=
-operator|(
-name|HStore
-operator|)
-name|hstore
-decl_stmt|;
 name|ScanInfo
 name|old
 init|=
@@ -2257,8 +2265,6 @@ name|store
 argument_list|,
 literal|"test custom comapction"
 argument_list|,
-name|Store
-operator|.
 name|PRIORITY_USER
 argument_list|,
 name|tracker
@@ -2463,8 +2469,6 @@ name|store
 argument_list|,
 literal|"test custom comapction"
 argument_list|,
-name|Store
-operator|.
 name|PRIORITY_USER
 argument_list|,
 name|tracker
@@ -2684,8 +2688,6 @@ name|store
 argument_list|,
 literal|"test mulitple custom comapctions"
 argument_list|,
-name|Store
-operator|.
 name|PRIORITY_USER
 argument_list|,
 name|tracker

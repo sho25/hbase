@@ -1578,7 +1578,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Trigger major compaction on all stores in the region.    *<p>    * Compaction will be performed asynchronously to this call by the RegionServer's    * CompactSplitThread. See also {@link Store#triggerMajorCompaction()}    * @throws IOException    */
+comment|/**    * Trigger major compaction on all stores in the region.    *<p>    * Compaction will be performed asynchronously to this call by the RegionServer's    * CompactSplitThread.    * @throws IOException    */
 name|void
 name|triggerMajorCompaction
 parameter_list|()
