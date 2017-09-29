@@ -4577,7 +4577,7 @@ argument_list|)
 expr_stmt|;
 name|SlowMeCopro
 operator|.
-name|getCdl
+name|getPrimaryCdl
 argument_list|()
 operator|.
 name|set
@@ -4628,7 +4628,7 @@ argument_list|)
 expr_stmt|;
 name|SlowMeCopro
 operator|.
-name|getCdl
+name|getPrimaryCdl
 argument_list|()
 operator|.
 name|get
@@ -4642,7 +4642,7 @@ finally|finally
 block|{
 name|SlowMeCopro
 operator|.
-name|getCdl
+name|getPrimaryCdl
 argument_list|()
 operator|.
 name|get
