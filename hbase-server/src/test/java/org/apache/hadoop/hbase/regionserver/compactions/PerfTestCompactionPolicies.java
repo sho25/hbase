@@ -928,7 +928,7 @@ argument_list|(
 name|startingStoreFiles
 argument_list|)
 decl_stmt|;
-name|CompactionRequest
+name|CompactionRequestImpl
 name|req
 init|=
 name|cp

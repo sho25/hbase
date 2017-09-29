@@ -75,7 +75,7 @@ name|regionserver
 operator|.
 name|compactions
 operator|.
-name|CompactionRequest
+name|CompactionRequestImpl
 import|;
 end_import
 
@@ -1316,7 +1316,7 @@ expr_stmt|;
 block|}
 block|}
 comment|// Test Default compactions
-name|CompactionRequest
+name|CompactionRequestImpl
 name|result
 init|=
 operator|(

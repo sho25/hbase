@@ -132,7 +132,7 @@ class|class
 name|CompactionContext
 block|{
 specifier|protected
-name|CompactionRequest
+name|CompactionRequestImpl
 name|request
 init|=
 literal|null
@@ -182,7 +182,7 @@ specifier|public
 name|void
 name|forceSelect
 parameter_list|(
-name|CompactionRequest
+name|CompactionRequestImpl
 name|request
 parameter_list|)
 block|{
@@ -211,7 +211,7 @@ throws|throws
 name|IOException
 function_decl|;
 specifier|public
-name|CompactionRequest
+name|CompactionRequestImpl
 name|getRequest
 parameter_list|()
 block|{

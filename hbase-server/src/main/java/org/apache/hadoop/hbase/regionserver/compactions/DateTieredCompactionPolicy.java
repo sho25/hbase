@@ -1145,7 +1145,7 @@ block|}
 annotation|@
 name|Override
 specifier|protected
-name|CompactionRequest
+name|CompactionRequestImpl
 name|createCompactionRequest
 parameter_list|(
 name|ArrayList
@@ -1166,7 +1166,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|CompactionRequest
+name|CompactionRequestImpl
 name|result
 init|=
 name|tryingMajor
@@ -1208,7 +1208,7 @@ name|result
 return|;
 block|}
 specifier|public
-name|CompactionRequest
+name|CompactionRequestImpl
 name|selectMajorCompaction
 parameter_list|(
 name|ArrayList
@@ -1245,7 +1245,7 @@ return|;
 block|}
 comment|/**    * We receive store files sorted in ascending order by seqId then scan the list of files. If the    * current file has a maxTimestamp older than last known maximum, treat this file as it carries    * the last known maximum. This way both seqId and timestamp are in the same order. If files carry    * the same maxTimestamps, they are ordered by seqId. We then reverse the list so they are ordered    * by seqId and maxTimestamp in descending order and build the time windows. All the out-of-order    * data into the same compaction windows, guaranteeing contiguous compaction based on sequence id.    */
 specifier|public
-name|CompactionRequest
+name|CompactionRequestImpl
 name|selectMinorCompaction
 parameter_list|(
 name|ArrayList
@@ -1581,7 +1581,7 @@ block|}
 comment|// A non-null file list is expected by HStore
 return|return
 operator|new
-name|CompactionRequest
+name|CompactionRequestImpl
 argument_list|(
 name|Collections
 operator|.

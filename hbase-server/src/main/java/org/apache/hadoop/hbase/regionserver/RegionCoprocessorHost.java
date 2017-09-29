@@ -823,6 +823,24 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|compactions
+operator|.
+name|CompactionRequest
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|querymatcher
 operator|.
 name|DeleteTracker
@@ -3042,7 +3060,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * See    * {@link RegionObserver#preCompactScannerOpen(ObserverContext, Store, List, ScanType, long,    *   InternalScanner, CompactionLifeCycleTracker, long)}    */
+comment|/**    * See    * {@link RegionObserver#preCompactScannerOpen(ObserverContext, Store, List, ScanType, long,    *   InternalScanner, CompactionLifeCycleTracker, CompactionRequest, long)}    */
 specifier|public
 name|InternalScanner
 name|preCompactScannerOpen
@@ -3069,6 +3087,10 @@ parameter_list|,
 specifier|final
 name|CompactionLifeCycleTracker
 name|tracker
+parameter_list|,
+specifier|final
+name|CompactionRequest
+name|request
 parameter_list|,
 specifier|final
 name|User
@@ -3138,6 +3160,8 @@ argument_list|()
 argument_list|,
 name|tracker
 argument_list|,
+name|request
+argument_list|,
 name|readPoint
 argument_list|)
 return|;
@@ -3146,7 +3170,7 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * Called prior to selecting the {@link HStoreFile}s for compaction from the list of currently    * available candidates.    * @param store The store where compaction is being requested    * @param candidates The currently available store files    * @param tracker used to track the life cycle of a compaction    * @return If {@code true}, skip the normal selection process and use the current list    * @throws IOException    */
+comment|/**    * Called prior to selecting the {@link HStoreFile}s for compaction from the list of currently    * available candidates.    * @param store The store where compaction is being requested    * @param candidates The currently available store files    * @param tracker used to track the life cycle of a compaction    * @param request the compaction request    * @param user the user    * @return If {@code true}, skip the normal selection process and use the current list    * @throws IOException    */
 specifier|public
 name|boolean
 name|preCompactSelection
@@ -3165,6 +3189,10 @@ parameter_list|,
 specifier|final
 name|CompactionLifeCycleTracker
 name|tracker
+parameter_list|,
+specifier|final
+name|CompactionRequest
+name|request
 parameter_list|,
 specifier|final
 name|User
@@ -3212,6 +3240,8 @@ argument_list|,
 name|candidates
 argument_list|,
 name|tracker
+argument_list|,
+name|request
 argument_list|)
 expr_stmt|;
 block|}
@@ -3219,7 +3249,7 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * Called after the {@link HStoreFile}s to be compacted have been selected from the available    * candidates.    * @param store The store where compaction is being requested    * @param selected The store files selected to compact    * @param tracker used to track the life cycle of a compaction    */
+comment|/**    * Called after the {@link HStoreFile}s to be compacted have been selected from the available    * candidates.    * @param store The store where compaction is being requested    * @param selected The store files selected to compact    * @param tracker used to track the life cycle of a compaction    * @param request the compaction request    * @param user the user    */
 specifier|public
 name|void
 name|postCompactSelection
@@ -3238,6 +3268,10 @@ parameter_list|,
 specifier|final
 name|CompactionLifeCycleTracker
 name|tracker
+parameter_list|,
+specifier|final
+name|CompactionRequest
+name|request
 parameter_list|,
 specifier|final
 name|User
@@ -3284,6 +3318,8 @@ argument_list|,
 name|selected
 argument_list|,
 name|tracker
+argument_list|,
+name|request
 argument_list|)
 expr_stmt|;
 block|}
@@ -3291,7 +3327,7 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Called prior to rewriting the store files selected for compaction    * @param store the store being compacted    * @param scanner the scanner used to read store data during compaction    * @param scanType type of Scan    * @param tracker used to track the life cycle of a compaction    * @throws IOException    */
+comment|/**    * Called prior to rewriting the store files selected for compaction    * @param store the store being compacted    * @param scanner the scanner used to read store data during compaction    * @param scanType type of Scan    * @param tracker used to track the life cycle of a compaction    * @param request the compaction request    * @param user the user    * @throws IOException    */
 specifier|public
 name|InternalScanner
 name|preCompact
@@ -3311,6 +3347,10 @@ parameter_list|,
 specifier|final
 name|CompactionLifeCycleTracker
 name|tracker
+parameter_list|,
+specifier|final
+name|CompactionRequest
+name|request
 parameter_list|,
 specifier|final
 name|User
@@ -3373,6 +3413,8 @@ argument_list|,
 name|scanType
 argument_list|,
 name|tracker
+argument_list|,
+name|request
 argument_list|)
 return|;
 block|}
@@ -3380,7 +3422,7 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * Called after the store compaction has completed.    * @param store the store being compacted    * @param resultFile the new store file written during compaction    * @param tracker used to track the life cycle of a compaction    * @throws IOException    */
+comment|/**    * Called after the store compaction has completed.    * @param store the store being compacted    * @param resultFile the new store file written during compaction    * @param tracker used to track the life cycle of a compaction    * @param request the compaction request    * @param user the user    * @throws IOException    */
 specifier|public
 name|void
 name|postCompact
@@ -3396,6 +3438,10 @@ parameter_list|,
 specifier|final
 name|CompactionLifeCycleTracker
 name|tracker
+parameter_list|,
+specifier|final
+name|CompactionRequest
+name|request
 parameter_list|,
 specifier|final
 name|User
@@ -3442,6 +3488,8 @@ argument_list|,
 name|resultFile
 argument_list|,
 name|tracker
+argument_list|,
+name|request
 argument_list|)
 expr_stmt|;
 block|}

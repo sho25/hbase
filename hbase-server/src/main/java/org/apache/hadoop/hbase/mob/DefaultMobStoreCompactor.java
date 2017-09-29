@@ -195,20 +195,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -343,22 +329,6 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|Store
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
 name|StoreFileScanner
 import|;
 end_import
@@ -409,7 +379,7 @@ name|regionserver
 operator|.
 name|compactions
 operator|.
-name|CompactionRequest
+name|CompactionRequestImpl
 import|;
 end_import
 
@@ -515,6 +485,20 @@ name|EnvironmentEdgeManager
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * Compact passed set of files in the mob-enabled column family.  */
 end_comment
@@ -568,7 +552,7 @@ specifier|public
 name|ScanType
 name|getScanType
 parameter_list|(
-name|CompactionRequest
+name|CompactionRequestImpl
 name|request
 parameter_list|)
 block|{
@@ -774,7 +758,7 @@ name|Path
 argument_list|>
 name|compact
 parameter_list|(
-name|CompactionRequest
+name|CompactionRequestImpl
 name|request
 parameter_list|,
 name|ThroughputController

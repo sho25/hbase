@@ -243,7 +243,7 @@ name|regionserver
 operator|.
 name|compactions
 operator|.
-name|CompactionRequest
+name|CompactionRequestImpl
 import|;
 end_import
 
@@ -1342,7 +1342,7 @@ operator|=
 name|forcemajor
 expr_stmt|;
 comment|// Test Default compactions
-name|CompactionRequest
+name|CompactionRequestImpl
 name|result
 init|=
 operator|(

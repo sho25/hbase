@@ -272,7 +272,7 @@ specifier|private
 name|boolean
 name|needEmptyFile
 parameter_list|(
-name|CompactionRequest
+name|CompactionRequestImpl
 name|request
 parameter_list|)
 block|{
@@ -329,7 +329,7 @@ argument_list|>
 name|compact
 parameter_list|(
 specifier|final
-name|CompactionRequest
+name|CompactionRequestImpl
 name|request
 parameter_list|,
 specifier|final
@@ -457,7 +457,7 @@ parameter_list|,
 name|FileDetails
 name|fd
 parameter_list|,
-name|CompactionRequest
+name|CompactionRequestImpl
 name|request
 parameter_list|)
 throws|throws

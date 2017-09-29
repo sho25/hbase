@@ -495,7 +495,7 @@ parameter_list|(
 name|StripeInformationProvider
 name|si
 parameter_list|,
-name|CompactionRequest
+name|CompactionRequestImpl
 name|request
 parameter_list|)
 block|{
@@ -2314,7 +2314,7 @@ class|class
 name|StripeCompactionRequest
 block|{
 specifier|protected
-name|CompactionRequest
+name|CompactionRequestImpl
 name|request
 decl_stmt|;
 specifier|protected
@@ -2379,7 +2379,7 @@ function_decl|;
 specifier|public
 name|StripeCompactionRequest
 parameter_list|(
-name|CompactionRequest
+name|CompactionRequestImpl
 name|request
 parameter_list|)
 block|{
@@ -2418,7 +2418,7 @@ name|endRow
 expr_stmt|;
 block|}
 specifier|public
-name|CompactionRequest
+name|CompactionRequestImpl
 name|getRequest
 parameter_list|()
 block|{
@@ -2432,7 +2432,7 @@ specifier|public
 name|void
 name|setRequest
 parameter_list|(
-name|CompactionRequest
+name|CompactionRequestImpl
 name|request
 parameter_list|)
 block|{
@@ -2480,7 +2480,7 @@ comment|/**      * @param request Original request.      * @param targetBoundari
 specifier|public
 name|BoundaryStripeCompactionRequest
 parameter_list|(
-name|CompactionRequest
+name|CompactionRequestImpl
 name|request
 parameter_list|,
 name|List
@@ -2523,7 +2523,7 @@ block|{
 name|this
 argument_list|(
 operator|new
-name|CompactionRequest
+name|CompactionRequestImpl
 argument_list|(
 name|files
 argument_list|)
@@ -2611,7 +2611,7 @@ comment|/**      * @param request Original request.      * @param startRow Left 
 specifier|public
 name|SplitStripeCompactionRequest
 parameter_list|(
-name|CompactionRequest
+name|CompactionRequestImpl
 name|request
 parameter_list|,
 name|byte
@@ -2723,7 +2723,7 @@ block|{
 name|this
 argument_list|(
 operator|new
-name|CompactionRequest
+name|CompactionRequestImpl
 argument_list|(
 name|files
 argument_list|)

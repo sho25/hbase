@@ -631,7 +631,7 @@ return|;
 block|}
 specifier|public
 specifier|static
-name|CompactionRequest
+name|CompactionRequestImpl
 name|createDummyRequest
 parameter_list|()
 throws|throws
@@ -639,7 +639,7 @@ name|Exception
 block|{
 return|return
 operator|new
-name|CompactionRequest
+name|CompactionRequestImpl
 argument_list|(
 name|Arrays
 operator|.

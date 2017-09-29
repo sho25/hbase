@@ -674,7 +674,7 @@ block|}
 annotation|@
 name|Override
 specifier|protected
-name|CompactionRequest
+name|CompactionRequestImpl
 name|createCompactionRequest
 parameter_list|(
 name|ArrayList
@@ -734,7 +734,7 @@ expr_stmt|;
 block|}
 return|return
 operator|new
-name|CompactionRequest
+name|CompactionRequestImpl
 argument_list|(
 name|candidateSelection
 argument_list|)

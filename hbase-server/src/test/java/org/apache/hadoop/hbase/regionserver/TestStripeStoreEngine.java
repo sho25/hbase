@@ -255,7 +255,7 @@ name|regionserver
 operator|.
 name|compactions
 operator|.
-name|CompactionRequest
+name|CompactionRequestImpl
 import|;
 end_import
 
@@ -589,7 +589,7 @@ name|compact
 argument_list|(
 name|any
 argument_list|(
-name|CompactionRequest
+name|CompactionRequestImpl
 operator|.
 name|class
 argument_list|)
@@ -738,11 +738,11 @@ argument_list|(
 name|sf
 argument_list|)
 expr_stmt|;
-name|CompactionRequest
+name|CompactionRequestImpl
 name|req
 init|=
 operator|new
-name|CompactionRequest
+name|CompactionRequestImpl
 argument_list|(
 name|compactUs
 argument_list|)

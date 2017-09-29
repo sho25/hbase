@@ -260,7 +260,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Compact passed set of files. Create an instance and then call  * {@link #compact(CompactionRequest, ThroughputController, User)}  */
+comment|/**  * Compact passed set of files. Create an instance and then call  * {@link #compact(CompactionRequestImpl, ThroughputController, User)}  */
 end_comment
 
 begin_class
@@ -377,7 +377,7 @@ argument_list|>
 name|compact
 parameter_list|(
 specifier|final
-name|CompactionRequest
+name|CompactionRequestImpl
 name|request
 parameter_list|,
 name|ThroughputController
@@ -404,7 +404,7 @@ name|user
 argument_list|)
 return|;
 block|}
-comment|/**    * Compact a list of files for testing. Creates a fake {@link CompactionRequest} to pass to    * {@link #compact(CompactionRequest, ThroughputController, User)};    * @param filesToCompact the files to compact. These are used as the compactionSelection for the    *          generated {@link CompactionRequest}.    * @param isMajor true to major compact (prune all deletes, max versions, etc)    * @return Product of compaction or an empty list if all cells expired or deleted and nothing \    *         made it through the compaction.    * @throws IOException    */
+comment|/**    * Compact a list of files for testing. Creates a fake {@link CompactionRequestImpl} to pass to    * {@link #compact(CompactionRequestImpl, ThroughputController, User)};    * @param filesToCompact the files to compact. These are used as the compactionSelection for the    *          generated {@link CompactionRequestImpl}.    * @param isMajor true to major compact (prune all deletes, max versions, etc)    * @return Product of compaction or an empty list if all cells expired or deleted and nothing \    *         made it through the compaction.    * @throws IOException    */
 specifier|public
 name|List
 argument_list|<
@@ -424,11 +424,11 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|CompactionRequest
+name|CompactionRequestImpl
 name|cr
 init|=
 operator|new
-name|CompactionRequest
+name|CompactionRequestImpl
 argument_list|(
 name|filesToCompact
 argument_list|)
@@ -470,7 +470,7 @@ parameter_list|,
 name|FileDetails
 name|fd
 parameter_list|,
-name|CompactionRequest
+name|CompactionRequestImpl
 name|request
 parameter_list|)
 throws|throws

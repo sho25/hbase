@@ -6024,6 +6024,8 @@ operator|.
 name|COMPACT_RETAIN_DELETES
 argument_list|,
 literal|null
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 return|return

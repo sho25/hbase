@@ -565,7 +565,7 @@ name|regionserver
 operator|.
 name|compactions
 operator|.
-name|CompactionRequest
+name|CompactionRequestImpl
 import|;
 end_import
 
@@ -2847,7 +2847,7 @@ operator|.
 name|request
 operator|=
 operator|new
-name|CompactionRequest
+name|CompactionRequestImpl
 argument_list|(
 name|selectedFiles
 argument_list|)
@@ -3227,7 +3227,7 @@ operator|.
 name|request
 operator|=
 operator|new
-name|CompactionRequest
+name|CompactionRequestImpl
 argument_list|(
 operator|new
 name|ArrayList

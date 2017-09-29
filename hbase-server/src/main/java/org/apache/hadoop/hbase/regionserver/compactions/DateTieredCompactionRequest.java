@@ -91,7 +91,7 @@ specifier|public
 class|class
 name|DateTieredCompactionRequest
 extends|extends
-name|CompactionRequest
+name|CompactionRequestImpl
 block|{
 specifier|private
 name|List

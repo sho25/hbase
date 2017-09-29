@@ -1213,7 +1213,7 @@ operator|.
 name|compact
 argument_list|(
 operator|new
-name|CompactionRequest
+name|CompactionRequestImpl
 argument_list|(
 name|Arrays
 operator|.
@@ -1471,7 +1471,7 @@ operator|new
 name|StoreFileWritersCapture
 argument_list|()
 decl_stmt|;
-name|CompactionRequest
+name|CompactionRequestImpl
 name|request
 init|=
 name|createDummyRequest

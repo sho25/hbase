@@ -364,7 +364,7 @@ return|;
 block|}
 comment|/**    * @param candidateFiles candidate files, ordered from oldest to newest by seqId. We rely on    *   DefaultStoreFileManager to sort the files by seqId to guarantee contiguous compaction based    *   on seqId for data consistency.    * @return subset copy of candidate list that meets compaction criteria    */
 specifier|public
-name|CompactionRequest
+name|CompactionRequestImpl
 name|selectCompaction
 parameter_list|(
 name|Collection
@@ -583,7 +583,7 @@ argument_list|(
 name|candidateSelection
 argument_list|)
 decl_stmt|;
-name|CompactionRequest
+name|CompactionRequestImpl
 name|result
 init|=
 name|createCompactionRequest
@@ -678,7 +678,7 @@ return|;
 block|}
 specifier|protected
 specifier|abstract
-name|CompactionRequest
+name|CompactionRequestImpl
 name|createCompactionRequest
 parameter_list|(
 name|ArrayList

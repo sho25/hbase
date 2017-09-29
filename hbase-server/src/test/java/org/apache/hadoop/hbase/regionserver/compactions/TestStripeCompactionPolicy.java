@@ -2330,6 +2330,8 @@ argument_list|,
 literal|false
 argument_list|)
 decl_stmt|;
+comment|// UnmodifiableCollection does not implement equals so we need to change it here to a
+comment|// collection that implements it.
 name|assertEquals
 argument_list|(
 name|si
@@ -2337,6 +2339,10 @@ operator|.
 name|getStorefiles
 argument_list|()
 argument_list|,
+operator|new
+name|ArrayList
+argument_list|<>
+argument_list|(
 name|scr
 operator|.
 name|getRequest
@@ -2344,6 +2350,7 @@ argument_list|()
 operator|.
 name|getFiles
 argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|scr

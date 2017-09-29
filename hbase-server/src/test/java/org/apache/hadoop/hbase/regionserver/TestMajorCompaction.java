@@ -531,7 +531,7 @@ name|regionserver
 operator|.
 name|compactions
 operator|.
-name|CompactionRequest
+name|CompactionRequestImpl
 import|;
 end_import
 
@@ -2719,7 +2719,7 @@ operator|.
 name|triggerMajorCompaction
 argument_list|()
 expr_stmt|;
-name|CompactionRequest
+name|CompactionRequestImpl
 name|request
 init|=
 name|store
@@ -2806,7 +2806,7 @@ operator|.
 name|triggerMajorCompaction
 argument_list|()
 expr_stmt|;
-name|CompactionRequest
+name|CompactionRequestImpl
 name|request
 init|=
 name|store

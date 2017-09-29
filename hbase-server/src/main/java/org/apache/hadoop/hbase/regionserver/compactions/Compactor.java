@@ -1494,7 +1494,7 @@ block|{
 name|ScanType
 name|getScanType
 parameter_list|(
-name|CompactionRequest
+name|CompactionRequestImpl
 name|request
 parameter_list|)
 function_decl|;
@@ -1535,7 +1535,7 @@ specifier|public
 name|ScanType
 name|getScanType
 parameter_list|(
-name|CompactionRequest
+name|CompactionRequestImpl
 name|request
 parameter_list|)
 block|{
@@ -1659,7 +1659,7 @@ argument_list|>
 name|compact
 parameter_list|(
 specifier|final
-name|CompactionRequest
+name|CompactionRequestImpl
 name|request
 parameter_list|,
 name|InternalScannerFactory
@@ -2042,7 +2042,7 @@ parameter_list|,
 name|FileDetails
 name|fd
 parameter_list|,
-name|CompactionRequest
+name|CompactionRequestImpl
 name|request
 parameter_list|)
 throws|throws
@@ -2064,7 +2064,7 @@ specifier|protected
 name|InternalScanner
 name|preCreateCoprocScanner
 parameter_list|(
-name|CompactionRequest
+name|CompactionRequestImpl
 name|request
 parameter_list|,
 name|ScanType
@@ -2123,6 +2123,8 @@ operator|.
 name|getTracker
 argument_list|()
 argument_list|,
+name|request
+argument_list|,
 name|user
 argument_list|,
 name|readPoint
@@ -2134,7 +2136,7 @@ specifier|protected
 name|InternalScanner
 name|postCreateCoprocScanner
 parameter_list|(
-name|CompactionRequest
+name|CompactionRequestImpl
 name|request
 parameter_list|,
 name|ScanType
@@ -2181,6 +2183,8 @@ name|request
 operator|.
 name|getTracker
 argument_list|()
+argument_list|,
+name|request
 argument_list|,
 name|user
 argument_list|)

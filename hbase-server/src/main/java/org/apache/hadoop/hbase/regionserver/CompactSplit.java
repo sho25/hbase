@@ -337,7 +337,7 @@ name|regionserver
 operator|.
 name|compactions
 operator|.
-name|CompactionRequest
+name|CompactionRequestImpl
 import|;
 end_import
 
@@ -2318,10 +2318,10 @@ specifier|private
 name|int
 name|compare
 parameter_list|(
-name|CompactionRequest
+name|CompactionRequestImpl
 name|r1
 parameter_list|,
-name|CompactionRequest
+name|CompactionRequestImpl
 name|r2
 parameter_list|)
 block|{
@@ -2375,12 +2375,12 @@ name|compare
 argument_list|(
 name|r1
 operator|.
-name|getSelectionNanoTime
+name|getSelectionTime
 argument_list|()
 argument_list|,
 name|r2
 operator|.
-name|getSelectionNanoTime
+name|getSelectionTime
 argument_list|()
 argument_list|)
 expr_stmt|;

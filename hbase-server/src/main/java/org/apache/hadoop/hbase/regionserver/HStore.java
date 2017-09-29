@@ -895,7 +895,7 @@ name|regionserver
 operator|.
 name|compactions
 operator|.
-name|CompactionRequest
+name|CompactionRequestImpl
 import|;
 end_import
 
@@ -6722,7 +6722,7 @@ name|sfs
 init|=
 literal|null
 decl_stmt|;
-name|CompactionRequest
+name|CompactionRequestImpl
 name|cr
 init|=
 name|compaction
@@ -6732,7 +6732,7 @@ argument_list|()
 decl_stmt|;
 try|try
 block|{
-comment|// Do all sanity checking in here if we have a valid CompactionRequest
+comment|// Do all sanity checking in here if we have a valid CompactionRequestImpl
 comment|// because we need to clean up after it on the way out in a finally
 comment|// block below
 name|long
@@ -6925,7 +6925,7 @@ block|}
 comment|// Do the steps necessary to complete the compaction.
 name|sfs
 operator|=
-name|moveCompatedFilesIntoPlace
+name|moveCompactedFilesIntoPlace
 argument_list|(
 name|cr
 argument_list|,
@@ -7101,9 +7101,9 @@ name|List
 argument_list|<
 name|HStoreFile
 argument_list|>
-name|moveCompatedFilesIntoPlace
+name|moveCompactedFilesIntoPlace
 parameter_list|(
-name|CompactionRequest
+name|CompactionRequestImpl
 name|cr
 parameter_list|,
 name|List
@@ -7178,6 +7178,8 @@ name|cr
 operator|.
 name|getTracker
 argument_list|()
+argument_list|,
+name|cr
 argument_list|,
 name|user
 argument_list|)
@@ -7473,7 +7475,7 @@ specifier|private
 name|void
 name|logCompactionEndMessage
 parameter_list|(
-name|CompactionRequest
+name|CompactionRequestImpl
 name|cr
 parameter_list|,
 name|List
@@ -8355,6 +8357,8 @@ argument_list|,
 literal|null
 argument_list|,
 literal|null
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 block|}
@@ -8581,7 +8585,7 @@ operator|.
 name|createCompaction
 argument_list|()
 decl_stmt|;
-name|CompactionRequest
+name|CompactionRequestImpl
 name|request
 init|=
 literal|null
@@ -8635,6 +8639,7 @@ name|override
 init|=
 literal|false
 decl_stmt|;
+comment|//TODO: is it correct way to get CompactionRequest?
 name|override
 operator|=
 name|getCoprocessorHost
@@ -8647,6 +8652,8 @@ argument_list|,
 name|candidatesForCoproc
 argument_list|,
 name|tracker
+argument_list|,
+literal|null
 argument_list|,
 name|user
 argument_list|)
@@ -8662,7 +8669,7 @@ operator|.
 name|forceSelect
 argument_list|(
 operator|new
-name|CompactionRequest
+name|CompactionRequestImpl
 argument_list|(
 name|candidatesForCoproc
 argument_list|)
@@ -8815,6 +8822,11 @@ argument_list|()
 argument_list|)
 argument_list|,
 name|tracker
+argument_list|,
+name|compaction
+operator|.
+name|getRequest
+argument_list|()
 argument_list|,
 name|user
 argument_list|)
@@ -9293,7 +9305,7 @@ specifier|private
 name|void
 name|finishCompactionRequest
 parameter_list|(
-name|CompactionRequest
+name|CompactionRequestImpl
 name|cr
 parameter_list|)
 block|{
