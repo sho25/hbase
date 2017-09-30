@@ -663,8 +663,6 @@ name|tableDir
 argument_list|,
 name|numRegions
 argument_list|,
-literal|1
-argument_list|,
 name|expectedNumSplits
 argument_list|,
 literal|false
@@ -722,8 +720,6 @@ argument_list|,
 name|tableDir
 argument_list|,
 name|numRegions
-argument_list|,
-literal|1
 argument_list|,
 name|expectedNumSplits
 argument_list|,
