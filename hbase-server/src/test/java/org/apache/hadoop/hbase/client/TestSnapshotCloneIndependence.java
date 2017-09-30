@@ -29,6 +29,18 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|regex
+operator|.
+name|Pattern
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -1742,6 +1754,16 @@ name|snapshotName
 argument_list|)
 expr_stmt|;
 comment|// Wait for cleaner run and DFS heartbeats so that anything that is deletable is fully deleted
+name|Pattern
+name|pattern
+init|=
+name|Pattern
+operator|.
+name|compile
+argument_list|(
+name|snapshotNameAsString
+argument_list|)
+decl_stmt|;
 do|do
 block|{
 name|Thread
@@ -1759,7 +1781,7 @@ name|admin
 operator|.
 name|listSnapshots
 argument_list|(
-name|snapshotNameAsString
+name|pattern
 argument_list|)
 operator|.
 name|isEmpty

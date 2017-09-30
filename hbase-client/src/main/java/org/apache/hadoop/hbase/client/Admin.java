@@ -665,25 +665,12 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List all the userspace tables matching the given regular expression.    *    * @param regex The regular expression to match against    * @return a list of read-only HTableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTableDescriptors(java.lang.String)    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             Use {@link #listTableDescriptors(java.lang.String)}.    */
+comment|/**    * List all the userspace tables matching the given regular expression.    *    * @param regex The regular expression to match against    * @return a list of read-only HTableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTableDescriptors(Pattern)    * @deprecated since 2.0 version and will be removed in 3.0 version. Use    *             {@link #listTableDescriptors(Pattern)} instead.    */
 annotation|@
 name|Deprecated
 name|HTableDescriptor
 index|[]
 name|listTables
-parameter_list|(
-name|String
-name|regex
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-comment|/**    * List all the userspace tables matching the given regular expression.    *    * @param regex The regular expression to match against.    * @return a list of TableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTables(java.util.regex.Pattern)    */
-name|List
-argument_list|<
-name|TableDescriptor
-argument_list|>
-name|listTableDescriptors
 parameter_list|(
 name|String
 name|regex
@@ -723,28 +710,12 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List all the tables matching the given pattern.    *    * @param regex The regular expression to match against    * @param includeSysTables<code>false</code> to match only against userspace tables    * @return an array of read-only HTableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTables(java.util.regex.Pattern, boolean)    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             Use {@link #listTableDescriptors(java.lang.String, boolean)}.    */
+comment|/**    * List all the tables matching the given pattern.    *    * @param regex The regular expression to match against    * @param includeSysTables<code>false</code> to match only against userspace tables    * @return an array of read-only HTableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTables(java.util.regex.Pattern, boolean)    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             Use {@link #listTableDescriptors(Pattern, boolean)}.    */
 annotation|@
 name|Deprecated
 name|HTableDescriptor
 index|[]
 name|listTables
-parameter_list|(
-name|String
-name|regex
-parameter_list|,
-name|boolean
-name|includeSysTables
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-comment|/**    * List all the tables matching the given pattern.    *    * @param regex The regular expression to match against    * @param includeSysTables<code>false</code> to match only against userspace tables    * @return a list of TableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTables(java.util.regex.Pattern, boolean)    */
-name|List
-argument_list|<
-name|TableDescriptor
-argument_list|>
-name|listTableDescriptors
 parameter_list|(
 name|String
 name|regex
@@ -774,7 +745,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List all of the names of userspace tables.    * @param regex The regular expression to match against    * @return TableName[] table names    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * List all of the names of userspace tables.    * @param regex The regular expression to match against    * @return TableName[] table names    * @throws IOException if a remote or network exception occurs    * @deprecated since 2.0 version and will be removed in 3.0 version. Use    *             {@link #listTableNames(Pattern)} instead.    */
+annotation|@
+name|Deprecated
 name|TableName
 index|[]
 name|listTableNames
@@ -799,7 +772,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List all of the names of userspace tables.    * @param regex The regular expression to match against    * @param includeSysTables<code>false</code> to match only against userspace tables    * @return TableName[] table names    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * List all of the names of userspace tables.    * @param regex The regular expression to match against    * @param includeSysTables<code>false</code> to match only against userspace tables    * @return TableName[] table names    * @throws IOException if a remote or network exception occurs    * @deprecated since 2.0 version and will be removed in 3.0 version. Use    *             {@link #listTableNames(Pattern, boolean)} instead.    */
+annotation|@
+name|Deprecated
 name|TableName
 index|[]
 name|listTableNames
@@ -926,7 +901,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Deletes tables matching the passed in pattern and wait on completion. Warning: Use this method    * carefully, there is no prompting and the effect is immediate. Consider using {@link    * #listTableDescriptors(java.lang.String)}    * and {@link #deleteTable(org.apache.hadoop.hbase.TableName)}    *    * @param regex The regular expression to match table names against    * @return Table descriptors for tables that couldn't be deleted.    *         The return htds are read-only    * @throws IOException    * @see #deleteTables(java.util.regex.Pattern)    * @see #deleteTable(org.apache.hadoop.hbase.TableName)    * @deprecated since 2.0 version and will be removed in 3.0 version    *             This is just a trivial helper method without any magic.    *             Consider using {@link #listTableDescriptors(java.lang.String)}    *             and {@link #enableTable(org.apache.hadoop.hbase.TableName)}    */
+comment|/**    * Deletes tables matching the passed in pattern and wait on completion. Warning: Use this method    * carefully, there is no prompting and the effect is immediate. Consider using {@link    * #listTableDescriptors(Pattern)}    * and {@link #deleteTable(org.apache.hadoop.hbase.TableName)}    *    * @param regex The regular expression to match table names against    * @return Table descriptors for tables that couldn't be deleted.    *         The return htds are read-only    * @throws IOException    * @see #deleteTables(java.util.regex.Pattern)    * @see #deleteTable(org.apache.hadoop.hbase.TableName)    * @deprecated since 2.0 version and will be removed in 3.0 version    *             This is just a trivial helper method without any magic.    *             Consider using {@link #listTableDescriptors(Pattern)}    *             and {@link #deleteTable(TableName)}    */
 annotation|@
 name|Deprecated
 name|HTableDescriptor
@@ -939,7 +914,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Delete tables matching the passed in pattern and wait on completion. Warning: Use this method    * carefully, there is no prompting and the effect is immediate. Consider using {@link    * #listTableDescriptors(java.util.regex.Pattern)} and    * {@link #deleteTable(org.apache.hadoop.hbase.TableName)}    *    * @param pattern The pattern to match table names against    * @return Table descriptors for tables that couldn't be deleted    *         The return htds are read-only    * @throws IOException    * @deprecated since 2.0 version and will be removed in 3.0 version    *             This is just a trivial helper method without any magic.    *             Consider using {@link #listTableDescriptors(java.util.regex.Pattern)}    *             and {@link #enableTable(org.apache.hadoop.hbase.TableName)}    */
+comment|/**    * Delete tables matching the passed in pattern and wait on completion. Warning: Use this method    * carefully, there is no prompting and the effect is immediate. Consider using {@link    * #listTableDescriptors(java.util.regex.Pattern)} and    * {@link #deleteTable(org.apache.hadoop.hbase.TableName)}    *    * @param pattern The pattern to match table names against    * @return Table descriptors for tables that couldn't be deleted    *         The return htds are read-only    * @throws IOException    * @deprecated since 2.0 version and will be removed in 3.0 version    *             This is just a trivial helper method without any magic.    *             Consider using {@link #listTableDescriptors(java.util.regex.Pattern)}    *             and {@link #deleteTable(TableName)}    */
 annotation|@
 name|Deprecated
 name|HTableDescriptor
@@ -1004,7 +979,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Enable tables matching the passed in pattern and wait on completion. Warning: Use this method    * carefully, there is no prompting and the effect is immediate. Consider using {@link    * #listTableDescriptors(java.lang.String)} and {@link #enableTable(org.apache.hadoop.hbase.TableName)}    *    * @param regex The regular expression to match table names against    * @throws IOException    * @return Table descriptors for tables that couldn't be enabled.    *         The return HTDs are read-only.    * @see #enableTables(java.util.regex.Pattern)    * @see #enableTable(org.apache.hadoop.hbase.TableName)    * @deprecated since 2.0 version and will be removed in 3.0 version    *             This is just a trivial helper method without any magic.    *             Consider using {@link #listTableDescriptors(java.lang.String)}    *             and {@link #enableTable(org.apache.hadoop.hbase.TableName)}    */
+comment|/**    * Enable tables matching the passed in pattern and wait on completion. Warning: Use this method    * carefully, there is no prompting and the effect is immediate. Consider using {@link    * #listTableDescriptors(Pattern)} and {@link #enableTable(org.apache.hadoop.hbase.TableName)}    *    * @param regex The regular expression to match table names against    * @throws IOException    * @return Table descriptors for tables that couldn't be enabled.    *         The return HTDs are read-only.    * @see #enableTables(java.util.regex.Pattern)    * @see #enableTable(org.apache.hadoop.hbase.TableName)    * @deprecated since 2.0 version and will be removed in 3.0 version    *             This is just a trivial helper method without any magic.    *             Consider using {@link #listTableDescriptors(Pattern)}    *             and {@link #enableTable(org.apache.hadoop.hbase.TableName)}    */
 annotation|@
 name|Deprecated
 name|HTableDescriptor
@@ -1053,7 +1028,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Disable tables matching the passed in pattern and wait on completion. Warning: Use this method    * carefully, there is no prompting and the effect is immediate. Consider using {@link    * #listTableDescriptors(java.lang.String)}    * and {@link #disableTable(org.apache.hadoop.hbase.TableName)}    *    * @param regex The regular expression to match table names against    * @return Table descriptors for tables that couldn't be disabled    *         The return htds are read-only    * @throws IOException    * @see #disableTables(java.util.regex.Pattern)    * @see #disableTable(org.apache.hadoop.hbase.TableName)    * @deprecated since 2.0 version and will be removed in 3.0 version    *             This is just a trivial helper method without any magic.    *             Consider using {@link #listTableDescriptors(java.lang.String)}    *             and {@link #disableTable(org.apache.hadoop.hbase.TableName)}    */
+comment|/**    * Disable tables matching the passed in pattern and wait on completion. Warning: Use this method    * carefully, there is no prompting and the effect is immediate. Consider using {@link    * #listTableDescriptors(Pattern)} and {@link #disableTable(org.apache.hadoop.hbase.TableName)}    *    * @param regex The regular expression to match table names against    * @return Table descriptors for tables that couldn't be disabled    *         The return htds are read-only    * @throws IOException    * @see #disableTables(java.util.regex.Pattern)    * @see #disableTable(org.apache.hadoop.hbase.TableName)    * @deprecated since 2.0 version and will be removed in 3.0 version    *             This is just a trivial helper method without any magic.    *             Consider using {@link #listTableDescriptors(Pattern)}    *             and {@link #disableTable(org.apache.hadoop.hbase.TableName)}    */
 annotation|@
 name|Deprecated
 name|HTableDescriptor
@@ -2818,7 +2793,9 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List all the completed snapshots matching the given regular expression.    *    * @param regex The regular expression to match against    * @return list of SnapshotDescription    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * List all the completed snapshots matching the given regular expression.    *    * @param regex The regular expression to match against    * @return list of SnapshotDescription    * @throws IOException if a remote or network exception occurs    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             Use {@link #listSnapshots(Pattern)} instead.    */
+annotation|@
+name|Deprecated
 name|List
 argument_list|<
 name|SnapshotDescription
@@ -2844,7 +2821,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List all the completed snapshots matching the given table name regular expression and snapshot    * name regular expression.    * @param tableNameRegex The table name regular expression to match against    * @param snapshotNameRegex The snapshot name regular expression to match against    * @return list of completed SnapshotDescription    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * List all the completed snapshots matching the given table name regular expression and snapshot    * name regular expression.    * @param tableNameRegex The table name regular expression to match against    * @param snapshotNameRegex The snapshot name regular expression to match against    * @return list of completed SnapshotDescription    * @throws IOException if a remote or network exception occurs    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             Use {@link #listTableSnapshots(Pattern, Pattern)} instead.    */
+annotation|@
+name|Deprecated
 name|List
 argument_list|<
 name|SnapshotDescription
@@ -2897,7 +2876,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Delete existing snapshots whose names match the pattern passed.    *    * @param regex The regular expression to match against    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Delete existing snapshots whose names match the pattern passed.    *    * @param regex The regular expression to match against    * @throws IOException if a remote or network exception occurs    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             Use {@link #deleteSnapshots(Pattern)} instead.    */
+annotation|@
+name|Deprecated
 name|void
 name|deleteSnapshots
 parameter_list|(
@@ -2917,7 +2898,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Delete all existing snapshots matching the given table name regular expression and snapshot    * name regular expression.    * @param tableNameRegex The table name regular expression to match against    * @param snapshotNameRegex The snapshot name regular expression to match against    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Delete all existing snapshots matching the given table name regular expression and snapshot    * name regular expression.    * @param tableNameRegex The table name regular expression to match against    * @param snapshotNameRegex The snapshot name regular expression to match against    * @throws IOException if a remote or network exception occurs    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             Use {@link #deleteTableSnapshots(Pattern, Pattern)} instead.    */
+annotation|@
+name|Deprecated
 name|void
 name|deleteTableSnapshots
 parameter_list|(
@@ -3319,7 +3302,9 @@ argument_list|<>
 argument_list|()
 return|;
 block|}
-comment|/**    * Return a list of replication peers.    * @param regex The regular expression to match peer id    * @return a list of replication peers description    * @throws IOException    */
+comment|/**    * Return a list of replication peers.    * @param regex The regular expression to match peer id    * @return a list of replication peers description    * @throws IOException    * @deprecated since 2.0 version and will be removed in 3.0 version. Use    *             {@link #listReplicationPeers(Pattern)} instead.    */
+annotation|@
+name|Deprecated
 specifier|default
 name|List
 argument_list|<
