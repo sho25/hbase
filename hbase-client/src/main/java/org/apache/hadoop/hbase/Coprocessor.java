@@ -174,7 +174,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Coprocessor endpoints providing protobuf services should implement this interface.    */
+comment|/**    * Coprocessor endpoints providing protobuf services should override this method.    * @return Iterable of {@link Service}s or empty collection. Implementations should never    * return null.    */
 specifier|default
 name|Iterable
 argument_list|<
