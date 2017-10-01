@@ -794,9 +794,16 @@ name|timeRangeTrackerSet
 condition|?
 name|trt
 else|:
-operator|new
 name|TimeRangeTracker
-argument_list|()
+operator|.
+name|create
+argument_list|(
+name|TimeRangeTracker
+operator|.
+name|Type
+operator|.
+name|NON_SYNC
+argument_list|)
 expr_stmt|;
 comment|// TODO : Change all writers to be specifically created for compaction context
 name|writer

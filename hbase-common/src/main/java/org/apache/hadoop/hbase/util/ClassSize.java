@@ -19,30 +19,6 @@ end_package
 
 begin_import
 import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|annotations
-operator|.
-name|VisibleForTesting
-import|;
-end_import
-
-begin_import
-import|import
 name|java
 operator|.
 name|lang
@@ -128,6 +104,30 @@ operator|.
 name|audience
 operator|.
 name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
 import|;
 end_import
 
@@ -362,12 +362,12 @@ specifier|final
 name|int
 name|TIMERANGE
 decl_stmt|;
-comment|/** Overhead for TimeRangeTracker */
+comment|/** Overhead for SyncTimeRangeTracker */
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|TIMERANGE_TRACKER
+name|SYNC_TIMERANGE_TRACKER
 decl_stmt|;
 comment|/** Overhead for CellSkipListSet */
 specifier|public
@@ -1176,7 +1176,7 @@ operator|.
 name|SIZEOF_BOOLEAN
 argument_list|)
 expr_stmt|;
-name|TIMERANGE_TRACKER
+name|SYNC_TIMERANGE_TRACKER
 operator|=
 name|align
 argument_list|(

@@ -331,9 +331,16 @@ name|msf
 operator|.
 name|setTimeRangeTracker
 argument_list|(
-operator|new
 name|TimeRangeTracker
+operator|.
+name|create
 argument_list|(
+name|TimeRangeTracker
+operator|.
+name|Type
+operator|.
+name|SYNC
+argument_list|,
 name|minTimestamps
 index|[
 name|i
