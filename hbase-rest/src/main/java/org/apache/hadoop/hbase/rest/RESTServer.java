@@ -103,6 +103,22 @@ end_import
 
 begin_import
 import|import
+name|com
+operator|.
+name|fasterxml
+operator|.
+name|jackson
+operator|.
+name|jaxrs
+operator|.
+name|json
+operator|.
+name|JacksonJaxbJsonProvider
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -656,20 +672,6 @@ operator|.
 name|servlet
 operator|.
 name|FilterHolder
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|glassfish
-operator|.
-name|jersey
-operator|.
-name|jackson1
-operator|.
-name|Jackson1Feature
 import|;
 end_import
 
@@ -1700,7 +1702,7 @@ argument_list|)
 operator|.
 name|register
 argument_list|(
-name|Jackson1Feature
+name|JacksonJaxbJsonProvider
 operator|.
 name|class
 argument_list|)

@@ -234,7 +234,7 @@ end_import
 begin_class
 specifier|public
 class|class
-name|ProtobufStreamingUtil
+name|ProtobufStreamingOutput
 implements|implements
 name|StreamingOutput
 block|{
@@ -248,7 +248,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|ProtobufStreamingUtil
+name|ProtobufStreamingOutput
 operator|.
 name|class
 argument_list|)
@@ -270,7 +270,7 @@ name|int
 name|fetchSize
 decl_stmt|;
 specifier|protected
-name|ProtobufStreamingUtil
+name|ProtobufStreamingOutput
 parameter_list|(
 name|ResultScanner
 name|scanner
@@ -321,7 +321,7 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Created ScanStreamingUtil with content type = "
+literal|"Created StreamingOutput with content type = "
 operator|+
 name|this
 operator|.

@@ -215,6 +215,20 @@ name|Bytes
 import|;
 end_import
 
+begin_import
+import|import
+name|com
+operator|.
+name|fasterxml
+operator|.
+name|jackson
+operator|.
+name|annotation
+operator|.
+name|JsonProperty
+import|;
+end_import
+
 begin_comment
 comment|/**  * Representation of the status of a storage cluster:  *<p>  *<ul>  *<li>regions: the total number of regions served by the cluster</li>  *<li>requests: the total number of requests per second handled by the  * cluster in the last reporting interval</li>  *<li>averageLoad: the average load of the region servers in the cluster</li>  *<li>liveNodes: detailed status of the live region servers</li>  *<li>deadNodes: the names of region servers declared dead</li>  *</ul>  *  *<pre>  *&lt;complexType name="StorageClusterStatus"&gt;  *&lt;sequence&gt;  *&lt;element name="liveNode" type="tns:Node"  *       maxOccurs="unbounded" minOccurs="0"&gt;  *&lt;/element&gt;  *&lt;element name="deadNode" type="string" maxOccurs="unbounded"  *       minOccurs="0"&gt;  *&lt;/element&gt;  *&lt;/sequence&gt;  *&lt;attribute name="regions" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="requests" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="averageLoad" type="float"&gt;&lt;/attribute&gt;  *&lt;/complexType&gt;  *  *&lt;complexType name="Node"&gt;  *&lt;sequence&gt;  *&lt;element name="region" type="tns:Region"  *       maxOccurs="unbounded" minOccurs="0"&gt;&lt;/element&gt;  *&lt;/sequence&gt;  *&lt;attribute name="name" type="string"&gt;&lt;/attribute&gt;  *&lt;attribute name="startCode" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="requests" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="heapSizeMB" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="maxHeapSizeMB" type="int"&gt;&lt;/attribute&gt;  *&lt;/complexType&gt;  *  *&lt;complexType name="Region"&gt;  *&lt;attribute name="name" type="base64Binary"&gt;&lt;/attribute&gt;  *&lt;attribute name="stores" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="storefiles" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="storefileSizeMB" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="memstoreSizeMB" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="storefileIndexSizeMB" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="readRequestsCount" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="writeRequestsCount" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="rootIndexSizeKB" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="totalStaticIndexSizeKB" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="totalStaticBloomSizeKB" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="totalCompactingKVs" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="currentCompactedKVs" type="int"&gt;&lt;/attribute&gt;  *&lt;/complexType&gt;  *</pre>  */
 end_comment
@@ -1349,6 +1363,12 @@ name|name
 operator|=
 literal|"LiveNodes"
 argument_list|)
+comment|// workaround https://github.com/FasterXML/jackson-dataformat-xml/issues/192
+annotation|@
+name|JsonProperty
+argument_list|(
+literal|"LiveNodes"
+argument_list|)
 specifier|public
 name|List
 argument_list|<
@@ -1374,6 +1394,12 @@ name|XmlElementWrapper
 argument_list|(
 name|name
 operator|=
+literal|"DeadNodes"
+argument_list|)
+comment|// workaround https://github.com/FasterXML/jackson-dataformat-xml/issues/192
+annotation|@
+name|JsonProperty
+argument_list|(
 literal|"DeadNodes"
 argument_list|)
 specifier|public
