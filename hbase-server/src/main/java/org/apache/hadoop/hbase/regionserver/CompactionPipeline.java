@@ -614,10 +614,10 @@ name|newHeapSize
 decl_stmt|;
 name|region
 operator|.
-name|addMemstoreSize
+name|addMemStoreSize
 argument_list|(
 operator|new
-name|MemstoreSize
+name|MemStoreSize
 argument_list|(
 operator|-
 name|dataSizeDelta
@@ -822,11 +822,11 @@ name|canBeFlattened
 argument_list|()
 condition|)
 block|{
-name|MemstoreSize
+name|MemStoreSize
 name|newMemstoreSize
 init|=
 operator|new
-name|MemstoreSize
+name|MemStoreSize
 argument_list|()
 decl_stmt|;
 comment|// the size to be updated
@@ -868,10 +868,10 @@ comment|// update the global memstore size counter
 comment|// upon flattening there is no change in the data size
 name|region
 operator|.
-name|addMemstoreSize
+name|addMemStoreSize
 argument_list|(
 operator|new
-name|MemstoreSize
+name|MemStoreSize
 argument_list|(
 literal|0
 argument_list|,
@@ -994,7 +994,7 @@ name|minSequenceId
 return|;
 block|}
 specifier|public
-name|MemstoreSize
+name|MemStoreSize
 name|getTailSize
 parameter_list|()
 block|{
@@ -1017,14 +1017,14 @@ argument_list|()
 condition|)
 return|return
 operator|new
-name|MemstoreSize
+name|MemStoreSize
 argument_list|(
 literal|true
 argument_list|)
 return|;
 return|return
 operator|new
-name|MemstoreSize
+name|MemStoreSize
 argument_list|(
 name|localCopy
 operator|.
@@ -1045,7 +1045,7 @@ argument_list|)
 return|;
 block|}
 specifier|public
-name|MemstoreSize
+name|MemStoreSize
 name|getPipelineSize
 parameter_list|()
 block|{
@@ -1078,7 +1078,7 @@ argument_list|()
 condition|)
 return|return
 operator|new
-name|MemstoreSize
+name|MemStoreSize
 argument_list|(
 literal|true
 argument_list|)
@@ -1108,7 +1108,7 @@ expr_stmt|;
 block|}
 return|return
 operator|new
-name|MemstoreSize
+name|MemStoreSize
 argument_list|(
 name|keySize
 argument_list|,

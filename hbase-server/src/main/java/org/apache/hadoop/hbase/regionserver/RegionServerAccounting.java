@@ -189,7 +189,7 @@ argument_list|<
 name|byte
 index|[]
 argument_list|,
-name|MemstoreSize
+name|MemStoreSize
 argument_list|>
 name|replayEditsPerRegion
 init|=
@@ -245,7 +245,7 @@ name|globalMemstoreSizePair
 init|=
 name|MemorySizeUtil
 operator|.
-name|getGlobalMemstoreSize
+name|getGlobalMemStoreSize
 argument_list|(
 name|conf
 argument_list|)
@@ -319,7 +319,7 @@ name|globalOnHeapMemstoreLimit
 operator|=
 name|MemorySizeUtil
 operator|.
-name|getOnheapGlobalMemstoreSize
+name|getOnheapGlobalMemStoreSize
 argument_list|(
 name|conf
 argument_list|)
@@ -343,7 +343,7 @@ argument_list|)
 expr_stmt|;
 block|}
 name|long
-name|getGlobalMemstoreLimit
+name|getGlobalMemStoreLimit
 parameter_list|()
 block|{
 return|return
@@ -353,7 +353,7 @@ name|globalMemStoreLimit
 return|;
 block|}
 name|long
-name|getGlobalOnHeapMemstoreLimit
+name|getGlobalOnHeapMemStoreLimit
 parameter_list|()
 block|{
 return|return
@@ -364,7 +364,7 @@ return|;
 block|}
 comment|// Called by the tuners.
 name|void
-name|setGlobalMemstoreLimits
+name|setGlobalMemStoreLimits
 parameter_list|(
 name|long
 name|newGlobalMemstoreLimit
@@ -447,7 +447,7 @@ name|NON_HEAP
 return|;
 block|}
 name|long
-name|getGlobalMemstoreLimitLowMark
+name|getGlobalMemStoreLimitLowMark
 parameter_list|()
 block|{
 return|return
@@ -457,7 +457,7 @@ name|globalMemStoreLimitLowMark
 return|;
 block|}
 name|float
-name|getGlobalMemstoreLimitLowMarkPercent
+name|getGlobalMemStoreLimitLowMarkPercent
 parameter_list|()
 block|{
 return|return
@@ -469,7 +469,7 @@ block|}
 comment|/**    * @return the global Memstore data size in the RegionServer    */
 specifier|public
 name|long
-name|getGlobalMemstoreDataSize
+name|getGlobalMemStoreDataSize
 parameter_list|()
 block|{
 return|return
@@ -482,7 +482,7 @@ block|}
 comment|/**    * @return the global memstore heap size in the RegionServer    */
 specifier|public
 name|long
-name|getGlobalMemstoreHeapSize
+name|getGlobalMemStoreHeapSize
 parameter_list|()
 block|{
 return|return
@@ -494,12 +494,12 @@ name|sum
 argument_list|()
 return|;
 block|}
-comment|/**    * @param memStoreSize the Memstore size will be added to     *        the global Memstore size     */
+comment|/**    * @param memStoreSize the Memstore size will be added to    *        the global Memstore size    */
 specifier|public
 name|void
-name|incGlobalMemstoreSize
+name|incGlobalMemStoreSize
 parameter_list|(
-name|MemstoreSize
+name|MemStoreSize
 name|memStoreSize
 parameter_list|)
 block|{
@@ -526,9 +526,9 @@ expr_stmt|;
 block|}
 specifier|public
 name|void
-name|decGlobalMemstoreSize
+name|decGlobalMemStoreSize
 parameter_list|(
-name|MemstoreSize
+name|MemStoreSize
 name|memStoreSize
 parameter_list|)
 block|{
@@ -574,7 +574,7 @@ condition|)
 block|{
 if|if
 condition|(
-name|getGlobalMemstoreHeapSize
+name|getGlobalMemStoreHeapSize
 argument_list|()
 operator|>=
 name|globalMemStoreLimit
@@ -598,7 +598,7 @@ comment|// We do this to avoid OOME incase of scenarios where the heap is occupi
 comment|// lot of onheap references to the cells in memstore
 if|if
 condition|(
-name|getGlobalMemstoreDataSize
+name|getGlobalMemStoreDataSize
 argument_list|()
 operator|>=
 name|globalMemStoreLimit
@@ -615,7 +615,7 @@ block|}
 elseif|else
 if|if
 condition|(
-name|getGlobalMemstoreHeapSize
+name|getGlobalMemStoreHeapSize
 argument_list|()
 operator|>=
 name|this
@@ -657,7 +657,7 @@ condition|)
 block|{
 if|if
 condition|(
-name|getGlobalMemstoreHeapSize
+name|getGlobalMemStoreHeapSize
 argument_list|()
 operator|>=
 name|globalMemStoreLimitLowMark
@@ -674,7 +674,7 @@ else|else
 block|{
 if|if
 condition|(
-name|getGlobalMemstoreDataSize
+name|getGlobalMemStoreDataSize
 argument_list|()
 operator|>=
 name|globalMemStoreLimitLowMark
@@ -691,7 +691,7 @@ block|}
 elseif|else
 if|if
 condition|(
-name|getGlobalMemstoreHeapSize
+name|getGlobalMemStoreHeapSize
 argument_list|()
 operator|>=
 name|globalOnHeapMemstoreLimitLowMark
@@ -729,7 +729,7 @@ condition|)
 block|{
 return|return
 operator|(
-name|getGlobalMemstoreHeapSize
+name|getGlobalMemStoreHeapSize
 argument_list|()
 operator|)
 operator|*
@@ -745,14 +745,14 @@ name|Math
 operator|.
 name|max
 argument_list|(
-name|getGlobalMemstoreDataSize
+name|getGlobalMemStoreDataSize
 argument_list|()
 operator|*
 literal|1.0
 operator|/
 name|globalMemStoreLimitLowMark
 argument_list|,
-name|getGlobalMemstoreHeapSize
+name|getGlobalMemStoreHeapSize
 argument_list|()
 operator|*
 literal|1.0
@@ -771,11 +771,11 @@ name|byte
 index|[]
 name|regionName
 parameter_list|,
-name|MemstoreSize
+name|MemStoreSize
 name|memStoreSize
 parameter_list|)
 block|{
-name|MemstoreSize
+name|MemStoreSize
 name|replayEdistsSize
 init|=
 name|replayEditsPerRegion
@@ -785,7 +785,7 @@ argument_list|(
 name|regionName
 argument_list|)
 decl_stmt|;
-comment|// All ops on the same MemstoreSize object is going to be done by single thread, sequentially
+comment|// All ops on the same MemStoreSize object is going to be done by single thread, sequentially
 comment|// only. First calls to this method to increment the per region reply edits size and then call
 comment|// to either rollbackRegionReplayEditsSize or clearRegionReplayEditsSize as per the result of
 comment|// the region open operation. No need to handle multi thread issues on one region's entry in
@@ -800,7 +800,7 @@ block|{
 name|replayEdistsSize
 operator|=
 operator|new
-name|MemstoreSize
+name|MemStoreSize
 argument_list|()
 expr_stmt|;
 name|replayEditsPerRegion
@@ -815,13 +815,13 @@ expr_stmt|;
 block|}
 name|replayEdistsSize
 operator|.
-name|incMemstoreSize
+name|incMemStoreSize
 argument_list|(
 name|memStoreSize
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Roll back the global MemStore size for a specified region when this region    * can't be opened.    *     * @param regionName the region which could not open.    */
+comment|/**    * Roll back the global MemStore size for a specified region when this region    * can't be opened.    *    * @param regionName the region which could not open.    */
 specifier|public
 name|void
 name|rollbackRegionReplayEditsSize
@@ -831,7 +831,7 @@ index|[]
 name|regionName
 parameter_list|)
 block|{
-name|MemstoreSize
+name|MemStoreSize
 name|replayEditsSize
 init|=
 name|replayEditsPerRegion
@@ -853,14 +853,14 @@ argument_list|(
 name|regionName
 argument_list|)
 expr_stmt|;
-name|decGlobalMemstoreSize
+name|decGlobalMemStoreSize
 argument_list|(
 name|replayEditsSize
 argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Clear a region from replayEditsPerRegion.    *     * @param regionName region name.    */
+comment|/**    * Clear a region from replayEditsPerRegion.    *    * @param regionName region name.    */
 specifier|public
 name|void
 name|clearRegionReplayEditsSize

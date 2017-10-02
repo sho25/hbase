@@ -1373,7 +1373,7 @@ argument_list|)
 expr_stmt|;
 name|tunerContext
 operator|.
-name|setOffheapMemstore
+name|setOffheapMemStore
 argument_list|(
 name|regionServerAccounting
 operator|.
@@ -1693,7 +1693,7 @@ name|globalMemstoreHeapSize
 init|=
 name|regionServerAccounting
 operator|.
-name|getGlobalMemstoreHeapSize
+name|getGlobalMemStoreHeapSize
 argument_list|()
 decl_stmt|;
 name|tunerContext
@@ -1781,7 +1781,7 @@ name|memstoreSize
 init|=
 name|result
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 name|float
@@ -2092,7 +2092,7 @@ comment|// Internally sets it to RegionServerAccounting
 comment|// TODO : Set directly on RSAccounting??
 name|memStoreFlusher
 operator|.
-name|setGlobalMemstoreLimit
+name|setGlobalMemStoreLimit
 argument_list|(
 name|newMemstoreSize
 argument_list|)
@@ -2424,7 +2424,7 @@ expr_stmt|;
 block|}
 specifier|public
 name|void
-name|setOffheapMemstore
+name|setOffheapMemStore
 parameter_list|(
 name|boolean
 name|offheapMemstore
@@ -2439,7 +2439,7 @@ expr_stmt|;
 block|}
 specifier|public
 name|boolean
-name|isOffheapMemstore
+name|isOffheapMemStore
 parameter_list|()
 block|{
 return|return
@@ -2485,7 +2485,7 @@ expr_stmt|;
 block|}
 specifier|public
 name|float
-name|getMemstoreSize
+name|getMemStoreSize
 parameter_list|()
 block|{
 return|return
@@ -2494,7 +2494,7 @@ return|;
 block|}
 specifier|public
 name|void
-name|setMemstoreSize
+name|setMemStoreSize
 parameter_list|(
 name|float
 name|memstoreSize

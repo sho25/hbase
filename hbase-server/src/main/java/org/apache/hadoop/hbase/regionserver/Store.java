@@ -303,17 +303,17 @@ name|hasReferences
 parameter_list|()
 function_decl|;
 comment|/**    * @return The size of this store's memstore.    */
-name|MemstoreSize
+name|MemStoreSize
 name|getMemStoreSize
 parameter_list|()
 function_decl|;
 comment|/**    * @return The amount of memory we could flush from this memstore; usually this is equal to    * {@link #getMemStoreSize()} unless we are carrying snapshots and then it will be the size of    * outstanding snapshots.    */
-name|MemstoreSize
+name|MemStoreSize
 name|getFlushableSize
 parameter_list|()
 function_decl|;
 comment|/**    * @return size of the memstore snapshot    */
-name|MemstoreSize
+name|MemStoreSize
 name|getSnapshotSize
 parameter_list|()
 function_decl|;
@@ -328,7 +328,7 @@ parameter_list|()
 function_decl|;
 comment|/**    * @return The maximum memstoreTS in all store files.    */
 name|OptionalLong
-name|getMaxMemstoreTS
+name|getMaxMemStoreTS
 parameter_list|()
 function_decl|;
 comment|/** @return aggregate size of all HStores used in the last compaction */
@@ -490,7 +490,7 @@ parameter_list|()
 function_decl|;
 comment|/**    * @return true if the memstore may need some extra memory space    */
 name|boolean
-name|isSloppyMemstore
+name|isSloppyMemStore
 parameter_list|()
 function_decl|;
 block|}

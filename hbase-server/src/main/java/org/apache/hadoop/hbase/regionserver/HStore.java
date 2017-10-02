@@ -2545,7 +2545,7 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|getMemstoreFlushSize
+name|getMemStoreFlushSize
 parameter_list|()
 block|{
 comment|// TODO: Why is this in here?  The flushsize of the region rather than the store?  St.Ack
@@ -2560,7 +2560,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|MemstoreSize
+name|MemStoreSize
 name|getFlushableSize
 parameter_list|()
 block|{
@@ -2576,7 +2576,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|MemstoreSize
+name|MemStoreSize
 name|getSnapshotSize
 parameter_list|()
 block|{
@@ -2734,13 +2734,13 @@ annotation|@
 name|Override
 specifier|public
 name|OptionalLong
-name|getMaxMemstoreTS
+name|getMaxMemStoreTS
 parameter_list|()
 block|{
 return|return
 name|StoreUtils
 operator|.
-name|getMaxMemstoreTSInList
+name|getMaxMemStoreTSInList
 argument_list|(
 name|this
 operator|.
@@ -3812,7 +3812,7 @@ specifier|final
 name|Cell
 name|cell
 parameter_list|,
-name|MemstoreSize
+name|MemStoreSize
 name|memstoreSize
 parameter_list|)
 block|{
@@ -3862,7 +3862,7 @@ name|Cell
 argument_list|>
 name|cells
 parameter_list|,
-name|MemstoreSize
+name|MemStoreSize
 name|memstoreSize
 parameter_list|)
 block|{
@@ -10726,7 +10726,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|MemstoreSize
+name|MemStoreSize
 name|getMemStoreSize
 parameter_list|()
 block|{
@@ -10887,7 +10887,7 @@ parameter_list|,
 name|long
 name|readpoint
 parameter_list|,
-name|MemstoreSize
+name|MemStoreSize
 name|memstoreSize
 parameter_list|)
 throws|throws
@@ -11764,7 +11764,7 @@ name|long
 name|heapSize
 parameter_list|()
 block|{
-name|MemstoreSize
+name|MemStoreSize
 name|memstoreSize
 init|=
 name|this
@@ -12570,7 +12570,7 @@ annotation|@
 name|Override
 specifier|public
 name|boolean
-name|isSloppyMemstore
+name|isSloppyMemStore
 parameter_list|()
 block|{
 return|return

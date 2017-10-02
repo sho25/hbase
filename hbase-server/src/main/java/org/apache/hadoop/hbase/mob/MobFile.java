@@ -267,7 +267,7 @@ literal|false
 argument_list|,
 name|sf
 operator|.
-name|getMaxMemstoreTS
+name|getMaxMemStoreTS
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -303,7 +303,7 @@ name|cacheMobBlocks
 argument_list|,
 name|sf
 operator|.
-name|getMaxMemstoreTS
+name|getMaxMemStoreTS
 argument_list|()
 argument_list|)
 return|;

@@ -2895,7 +2895,7 @@ argument_list|)
 expr_stmt|;
 name|hbr
 operator|.
-name|setIncludesMemstoreTS
+name|setIncludesMemStoreTS
 argument_list|(
 name|includesMemstoreTS
 argument_list|)

@@ -163,11 +163,11 @@ argument_list|(
 name|conf
 argument_list|)
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|memstoreSize
 init|=
 operator|new
-name|MemstoreSize
+name|MemStoreSize
 argument_list|(
 call|(
 name|long
@@ -198,7 +198,7 @@ argument_list|)
 decl_stmt|;
 name|regionServerAccounting
 operator|.
-name|incGlobalMemstoreSize
+name|incGlobalMemStoreSize
 argument_list|(
 name|memstoreSize
 argument_list|)
@@ -252,11 +252,11 @@ argument_list|(
 name|conf
 argument_list|)
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|memstoreSize
 init|=
 operator|new
-name|MemstoreSize
+name|MemStoreSize
 argument_list|(
 call|(
 name|long
@@ -287,7 +287,7 @@ argument_list|)
 decl_stmt|;
 name|regionServerAccounting
 operator|.
-name|incGlobalMemstoreSize
+name|incGlobalMemStoreSize
 argument_list|(
 name|memstoreSize
 argument_list|)
@@ -347,11 +347,11 @@ name|conf
 argument_list|)
 decl_stmt|;
 comment|// this will breach offheap limit as data size is higher and not due to heap size
-name|MemstoreSize
+name|MemStoreSize
 name|memstoreSize
 init|=
 operator|new
-name|MemstoreSize
+name|MemStoreSize
 argument_list|(
 call|(
 name|long
@@ -382,7 +382,7 @@ argument_list|)
 decl_stmt|;
 name|regionServerAccounting
 operator|.
-name|incGlobalMemstoreSize
+name|incGlobalMemStoreSize
 argument_list|(
 name|memstoreSize
 argument_list|)
@@ -453,11 +453,11 @@ name|conf
 argument_list|)
 decl_stmt|;
 comment|// this will breach higher limit as heap size is higher and not due to offheap size
-name|MemstoreSize
+name|MemStoreSize
 name|memstoreSize
 init|=
 operator|new
-name|MemstoreSize
+name|MemStoreSize
 argument_list|(
 call|(
 name|long
@@ -486,7 +486,7 @@ argument_list|)
 decl_stmt|;
 name|regionServerAccounting
 operator|.
-name|incGlobalMemstoreSize
+name|incGlobalMemStoreSize
 argument_list|(
 name|memstoreSize
 argument_list|)
@@ -546,11 +546,11 @@ name|conf
 argument_list|)
 decl_stmt|;
 comment|// this will breach offheap limit as data size is higher and not due to heap size
-name|MemstoreSize
+name|MemStoreSize
 name|memstoreSize
 init|=
 operator|new
-name|MemstoreSize
+name|MemStoreSize
 argument_list|(
 call|(
 name|long
@@ -581,7 +581,7 @@ argument_list|)
 decl_stmt|;
 name|regionServerAccounting
 operator|.
-name|incGlobalMemstoreSize
+name|incGlobalMemStoreSize
 argument_list|(
 name|memstoreSize
 argument_list|)
@@ -652,11 +652,11 @@ name|conf
 argument_list|)
 decl_stmt|;
 comment|// this will breach higher limit as heap size is higher and not due to offheap size
-name|MemstoreSize
+name|MemStoreSize
 name|memstoreSize
 init|=
 operator|new
-name|MemstoreSize
+name|MemStoreSize
 argument_list|(
 call|(
 name|long
@@ -685,7 +685,7 @@ argument_list|)
 decl_stmt|;
 name|regionServerAccounting
 operator|.
-name|incGlobalMemstoreSize
+name|incGlobalMemStoreSize
 argument_list|(
 name|memstoreSize
 argument_list|)

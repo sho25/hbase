@@ -425,13 +425,13 @@ name|WALCoprocessorHost
 name|getCoprocessorHost
 parameter_list|()
 function_decl|;
-comment|/**    * Gets the earliest unflushed sequence id in the memstore for the region.    * @param encodedRegionName The region to get the number for.    * @return The earliest/lowest/oldest sequence id if present, HConstants.NO_SEQNUM if absent.    * @deprecated Since version 1.2.0. Removing because not used and exposes subtle internal    * workings. Use {@link #getEarliestMemstoreSeqNum(byte[], byte[])}    */
+comment|/**    * Gets the earliest unflushed sequence id in the memstore for the region.    * @param encodedRegionName The region to get the number for.    * @return The earliest/lowest/oldest sequence id if present, HConstants.NO_SEQNUM if absent.    * @deprecated Since version 1.2.0. Removing because not used and exposes subtle internal    * workings. Use {@link #getEarliestMemStoreSeqNum(byte[], byte[])}    */
 annotation|@
 name|VisibleForTesting
 annotation|@
 name|Deprecated
 name|long
-name|getEarliestMemstoreSeqNum
+name|getEarliestMemStoreSeqNum
 parameter_list|(
 name|byte
 index|[]
@@ -440,7 +440,7 @@ parameter_list|)
 function_decl|;
 comment|/**    * Gets the earliest unflushed sequence id in the memstore for the store.    * @param encodedRegionName The region to get the number for.    * @param familyName The family to get the number for.    * @return The earliest/lowest/oldest sequence id if present, HConstants.NO_SEQNUM if absent.    */
 name|long
-name|getEarliestMemstoreSeqNum
+name|getEarliestMemStoreSeqNum
 parameter_list|(
 name|byte
 index|[]

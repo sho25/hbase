@@ -861,7 +861,7 @@ name|this
 operator|.
 name|regionWrapper
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 argument_list|)
 expr_stmt|;

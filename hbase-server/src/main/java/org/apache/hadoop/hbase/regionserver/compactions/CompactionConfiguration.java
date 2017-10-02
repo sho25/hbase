@@ -434,7 +434,7 @@ name|HBASE_HSTORE_COMPACTION_MIN_SIZE_KEY
 argument_list|,
 name|storeConfigInfo
 operator|.
-name|getMemstoreFlushSize
+name|getMemStoreFlushSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -511,7 +511,7 @@ name|maxFilesToCompact
 operator|*
 name|storeConfigInfo
 operator|.
-name|getMemstoreFlushSize
+name|getMemStoreFlushSize
 argument_list|()
 argument_list|)
 expr_stmt|;

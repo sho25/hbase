@@ -236,7 +236,7 @@ block|{
 return|return
 name|regionLoadPB
 operator|.
-name|getMemstoreSizeMB
+name|getMemStoreSizeMB
 argument_list|()
 return|;
 block|}

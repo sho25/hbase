@@ -516,7 +516,7 @@ name|Cell
 argument_list|>
 name|cells
 parameter_list|,
-name|MemstoreSize
+name|MemStoreSize
 name|memstoreSize
 parameter_list|)
 block|{
@@ -546,7 +546,7 @@ parameter_list|(
 name|Cell
 name|cell
 parameter_list|,
-name|MemstoreSize
+name|MemStoreSize
 name|memstoreSize
 parameter_list|)
 block|{
@@ -647,7 +647,7 @@ parameter_list|,
 name|long
 name|readpoint
 parameter_list|,
-name|MemstoreSize
+name|MemStoreSize
 name|memstoreSize
 parameter_list|)
 block|{
@@ -783,13 +783,13 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|MemstoreSize
+name|MemStoreSize
 name|getSnapshotSize
 parameter_list|()
 block|{
 return|return
 operator|new
-name|MemstoreSize
+name|MemStoreSize
 argument_list|(
 name|this
 operator|.
@@ -923,7 +923,7 @@ parameter_list|,
 name|long
 name|readpoint
 parameter_list|,
-name|MemstoreSize
+name|MemStoreSize
 name|memstoreSize
 parameter_list|)
 block|{
@@ -1124,7 +1124,7 @@ specifier|final
 name|boolean
 name|mslabUsed
 parameter_list|,
-name|MemstoreSize
+name|MemStoreSize
 name|memstoreSize
 parameter_list|)
 block|{

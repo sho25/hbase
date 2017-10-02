@@ -1453,7 +1453,7 @@ name|seqId
 init|=
 name|log
 operator|.
-name|getEarliestMemstoreSeqNum
+name|getEarliestMemStoreSeqNum
 argument_list|(
 name|hri
 operator|.

@@ -83,7 +83,7 @@ parameter_list|()
 function_decl|;
 comment|/**    * Get the size of the memstore on this region server.    */
 name|long
-name|getMemstoreSize
+name|getMemStoreSize
 parameter_list|()
 function_decl|;
 comment|/**    * Get the total size of the store files this region server is serving from.    */
@@ -206,7 +206,7 @@ parameter_list|()
 function_decl|;
 specifier|public
 name|long
-name|getMemstoreLimit
+name|getMemStoreLimit
 parameter_list|()
 function_decl|;
 comment|/**    * Get the size (in bytes) of the block cache that is free.    */

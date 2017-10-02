@@ -980,7 +980,7 @@ operator|.
 name|newBuilder
 argument_list|()
 operator|.
-name|setMemstoreLoad
+name|setMemStoreLoad
 argument_list|(
 name|load
 argument_list|)
@@ -1032,7 +1032,7 @@ operator|.
 name|newBuilder
 argument_list|()
 operator|.
-name|setMemstoreLoad
+name|setMemStoreLoad
 argument_list|(
 name|memstoreLoad
 argument_list|)

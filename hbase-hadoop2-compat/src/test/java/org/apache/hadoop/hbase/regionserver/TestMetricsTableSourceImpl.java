@@ -441,7 +441,7 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|getMemstoresSize
+name|getMemStoresSize
 parameter_list|(
 name|String
 name|table

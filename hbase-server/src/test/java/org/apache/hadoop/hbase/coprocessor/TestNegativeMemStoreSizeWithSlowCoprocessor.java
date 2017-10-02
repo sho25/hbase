@@ -187,7 +187,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|MemstoreSize
+name|MemStoreSize
 import|;
 end_import
 
@@ -307,7 +307,7 @@ name|class
 argument_list|)
 specifier|public
 class|class
-name|TestNegativeMemstoreSizeWithSlowCoprocessor
+name|TestNegativeMemStoreSizeWithSlowCoprocessor
 block|{
 specifier|static
 specifier|final
@@ -318,7 +318,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|TestNegativeMemstoreSizeWithSlowCoprocessor
+name|TestNegativeMemStoreSizeWithSlowCoprocessor
 operator|.
 name|class
 argument_list|)
@@ -725,10 +725,10 @@ name|assertTrue
 argument_list|(
 name|region
 operator|.
-name|addAndGetMemstoreSize
+name|addAndGetMemStoreSize
 argument_list|(
 operator|new
-name|MemstoreSize
+name|MemStoreSize
 argument_list|()
 argument_list|)
 operator|>=

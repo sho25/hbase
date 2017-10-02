@@ -467,7 +467,7 @@ parameter_list|)
 function_decl|;
 comment|/**    * @return true if the read-replicas memstore replication is enabled.    */
 name|boolean
-name|hasRegionMemstoreReplication
+name|hasRegionMemStoreReplication
 parameter_list|()
 function_decl|;
 comment|/**    * @return true if there are at least one cf whose replication scope is    * serial.    */

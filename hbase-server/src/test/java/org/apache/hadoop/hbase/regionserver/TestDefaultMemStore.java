@@ -1113,11 +1113,11 @@ argument_list|,
 name|bytes
 argument_list|)
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|sizeChangeForFirstCell
 init|=
 operator|new
-name|MemstoreSize
+name|MemStoreSize
 argument_list|()
 decl_stmt|;
 name|this
@@ -1131,11 +1131,11 @@ argument_list|,
 name|sizeChangeForFirstCell
 argument_list|)
 expr_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|sizeChangeForSecondCell
 init|=
 operator|new
-name|MemstoreSize
+name|MemStoreSize
 argument_list|()
 decl_stmt|;
 name|this
@@ -5991,7 +5991,7 @@ operator|.
 name|COMPARATOR
 argument_list|)
 expr_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|oldSize
 init|=
 name|memstore
@@ -6120,7 +6120,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 comment|// readpoint is 2
-name|MemstoreSize
+name|MemStoreSize
 name|newSize
 init|=
 name|this

@@ -696,7 +696,7 @@ name|Long
 argument_list|,
 name|MemoryType
 argument_list|>
-name|getGlobalMemstoreSize
+name|getGlobalMemStoreSize
 parameter_list|(
 name|Configuration
 name|conf
@@ -799,7 +799,7 @@ operator|new
 name|Pair
 argument_list|<>
 argument_list|(
-name|getOnheapGlobalMemstoreSize
+name|getOnheapGlobalMemStoreSize
 argument_list|(
 name|conf
 argument_list|)
@@ -814,7 +814,7 @@ comment|/**    * Returns the onheap global memstore limit based on the config   
 specifier|public
 specifier|static
 name|long
-name|getOnheapGlobalMemstoreSize
+name|getOnheapGlobalMemStoreSize
 parameter_list|(
 name|Configuration
 name|conf

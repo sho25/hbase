@@ -421,7 +421,7 @@ name|flushSize
 init|=
 name|sci
 operator|.
-name|getMemstoreFlushSize
+name|getMemStoreFlushSize
 argument_list|()
 decl_stmt|;
 if|if

@@ -5695,7 +5695,7 @@ operator|.
 name|periodicFlusher
 operator|=
 operator|new
-name|PeriodicMemstoreFlusher
+name|PeriodicMemStoreFlusher
 argument_list|(
 name|this
 operator|.
@@ -9042,7 +9042,7 @@ name|pair
 init|=
 name|MemorySizeUtil
 operator|.
-name|getGlobalMemstoreSize
+name|getGlobalMemStoreSize
 argument_list|(
 name|conf
 argument_list|)
@@ -9363,7 +9363,7 @@ call|)
 argument_list|(
 name|r
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 operator|/
 literal|1024
@@ -9645,7 +9645,7 @@ argument_list|(
 name|storefileSizeMB
 argument_list|)
 operator|.
-name|setMemstoreSizeMB
+name|setMemStoreSizeMB
 argument_list|(
 name|memstoreSizeMB
 argument_list|)
@@ -10119,7 +10119,7 @@ block|}
 block|}
 specifier|static
 class|class
-name|PeriodicMemstoreFlusher
+name|PeriodicMemStoreFlusher
 extends|extends
 name|ScheduledChore
 block|{
@@ -10148,7 +10148,7 @@ literal|0
 decl_stmt|;
 comment|// millisec
 specifier|public
-name|PeriodicMemstoreFlusher
+name|PeriodicMemStoreFlusher
 parameter_list|(
 name|int
 name|cacheFlushInterval
@@ -14621,7 +14621,7 @@ name|put
 argument_list|(
 name|region
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 argument_list|,
 name|region

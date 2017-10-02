@@ -189,7 +189,7 @@ parameter_list|()
 function_decl|;
 comment|/**    * Get max of the MemstoreTS in the KV's in this store file.    */
 name|long
-name|getMaxMemstoreTS
+name|getMaxMemStoreTS
 parameter_list|()
 function_decl|;
 comment|/**    * @return Path or null if this StoreFile was made with a Stream.    */

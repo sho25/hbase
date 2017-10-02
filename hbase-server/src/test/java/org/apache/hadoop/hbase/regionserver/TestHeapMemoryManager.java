@@ -5652,7 +5652,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|setGlobalMemstoreLimit
+name|setGlobalMemStoreLimit
 parameter_list|(
 name|long
 name|globalMemStoreSize
@@ -5919,7 +5919,7 @@ argument_list|)
 expr_stmt|;
 name|result
 operator|.
-name|setMemstoreSize
+name|setMemStoreSize
 argument_list|(
 name|memstoreSize
 argument_list|)
@@ -5984,7 +5984,7 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|getGlobalMemstoreDataSize
+name|getGlobalMemStoreDataSize
 parameter_list|()
 block|{
 return|return
@@ -5995,7 +5995,7 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|getGlobalMemstoreHeapSize
+name|getGlobalMemStoreHeapSize
 parameter_list|()
 block|{
 return|return

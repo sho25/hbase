@@ -756,7 +756,7 @@ operator|.
 name|getRegionServerAccounting
 argument_list|()
 operator|.
-name|getGlobalMemstoreLimit
+name|getGlobalMemStoreLimit
 argument_list|()
 argument_list|,
 literal|""
@@ -777,7 +777,7 @@ operator|.
 name|getRegionServerAccounting
 argument_list|()
 operator|.
-name|getGlobalMemstoreLimitLowMark
+name|getGlobalMemStoreLimitLowMark
 argument_list|()
 argument_list|,
 literal|""
@@ -868,7 +868,7 @@ comment|// (might be null!)
 name|Region
 name|bestFlushableRegion
 init|=
-name|getBiggestMemstoreRegion
+name|getBiggestMemStoreRegion
 argument_list|(
 name|regionsBySize
 argument_list|,
@@ -881,7 +881,7 @@ comment|// Find the biggest region, total, even if it might have too many flushe
 name|Region
 name|bestAnyRegion
 init|=
-name|getBiggestMemstoreRegion
+name|getBiggestMemStoreRegion
 argument_list|(
 name|regionsBySize
 argument_list|,
@@ -894,7 +894,7 @@ comment|// Find the biggest region that is a secondary region
 name|Region
 name|bestRegionReplica
 init|=
-name|getBiggestMemstoreOfRegionReplica
+name|getBiggestMemStoreOfRegionReplica
 argument_list|(
 name|regionsBySize
 argument_list|,
@@ -934,14 +934,14 @@ literal|null
 operator|&&
 name|bestAnyRegion
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 operator|>
 literal|2
 operator|*
 name|bestFlushableRegion
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 condition|)
 block|{
@@ -983,7 +983,7 @@ name|long2String
 argument_list|(
 name|bestAnyRegion
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 argument_list|,
 literal|""
@@ -999,7 +999,7 @@ name|long2String
 argument_list|(
 name|bestFlushableRegion
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 argument_list|,
 literal|""
@@ -1049,7 +1049,7 @@ literal|null
 operator|&&
 name|regionToFlush
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 operator|>
 literal|0
@@ -1062,7 +1062,7 @@ literal|null
 operator|&&
 name|bestRegionReplica
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 operator|>
 literal|0
@@ -1090,14 +1090,14 @@ operator|&&
 operator|(
 name|bestRegionReplica
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 operator|>
 name|secondaryMultiplier
 operator|*
 name|regionToFlush
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 operator|)
 operator|)
@@ -1122,7 +1122,7 @@ operator|.
 name|getRegionServerAccounting
 argument_list|()
 operator|.
-name|getGlobalMemstoreDataSize
+name|getGlobalMemStoreDataSize
 argument_list|()
 argument_list|)
 operator|+
@@ -1137,7 +1137,7 @@ operator|.
 name|getRegionServerAccounting
 argument_list|()
 operator|.
-name|getGlobalMemstoreHeapSize
+name|getGlobalMemStoreHeapSize
 argument_list|()
 argument_list|)
 argument_list|)
@@ -1196,7 +1196,7 @@ operator|.
 name|getRegionServerAccounting
 argument_list|()
 operator|.
-name|getGlobalMemstoreDataSize
+name|getGlobalMemStoreDataSize
 argument_list|()
 argument_list|)
 operator|+
@@ -1206,7 +1206,7 @@ name|humanReadableInt
 argument_list|(
 name|regionToFlush
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 argument_list|)
 argument_list|)
@@ -1357,7 +1357,7 @@ operator|.
 name|getRegionServerAccounting
 argument_list|()
 operator|.
-name|getGlobalMemstoreLimitLowMark
+name|getGlobalMemStoreLimitLowMark
 argument_list|()
 argument_list|,
 literal|""
@@ -1528,7 +1528,7 @@ block|}
 block|}
 specifier|private
 name|Region
-name|getBiggestMemstoreRegion
+name|getBiggestMemStoreRegion
 parameter_list|(
 name|SortedMap
 argument_list|<
@@ -1627,7 +1627,7 @@ return|;
 block|}
 specifier|private
 name|Region
-name|getBiggestMemstoreOfRegionReplica
+name|getBiggestMemStoreOfRegionReplica
 parameter_list|(
 name|SortedMap
 argument_list|<
@@ -2904,7 +2904,7 @@ operator|.
 name|getRegionServerAccounting
 argument_list|()
 operator|.
-name|getGlobalMemstoreHeapSize
+name|getGlobalMemStoreHeapSize
 argument_list|()
 argument_list|,
 name|server
@@ -2912,7 +2912,7 @@ operator|.
 name|getRegionServerAccounting
 argument_list|()
 operator|.
-name|getGlobalMemstoreLimit
+name|getGlobalMemStoreLimit
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2936,7 +2936,7 @@ operator|.
 name|getRegionServerAccounting
 argument_list|()
 operator|.
-name|getGlobalMemstoreDataSize
+name|getGlobalMemStoreDataSize
 argument_list|()
 argument_list|,
 name|server
@@ -2944,7 +2944,7 @@ operator|.
 name|getRegionServerAccounting
 argument_list|()
 operator|.
-name|getGlobalMemstoreLimit
+name|getGlobalMemStoreLimit
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2961,7 +2961,7 @@ operator|.
 name|getRegionServerAccounting
 argument_list|()
 operator|.
-name|getGlobalMemstoreHeapSize
+name|getGlobalMemStoreHeapSize
 argument_list|()
 argument_list|,
 name|server
@@ -2969,7 +2969,7 @@ operator|.
 name|getRegionServerAccounting
 argument_list|()
 operator|.
-name|getGlobalOnHeapMemstoreLimit
+name|getGlobalOnHeapMemStoreLimit
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3336,7 +3336,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|setGlobalMemstoreLimit
+name|setGlobalMemStoreLimit
 parameter_list|(
 name|long
 name|globalMemStoreSize
@@ -3349,7 +3349,7 @@ operator|.
 name|getRegionServerAccounting
 argument_list|()
 operator|.
-name|setGlobalMemstoreLimits
+name|setGlobalMemStoreLimits
 argument_list|(
 name|globalMemStoreSize
 argument_list|)

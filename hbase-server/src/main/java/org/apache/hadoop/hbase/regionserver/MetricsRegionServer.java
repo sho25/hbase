@@ -581,7 +581,7 @@ argument_list|)
 expr_stmt|;
 name|serverSource
 operator|.
-name|updateFlushMemstoreSize
+name|updateFlushMemStoreSize
 argument_list|(
 name|memstoreSize
 argument_list|)

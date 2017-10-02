@@ -1450,22 +1450,37 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * @return true if the read-replicas memstore replication is enabled.    */
+comment|/**    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    *             Use {@link #hasRegionMemStoreReplication()} instead    */
 annotation|@
-name|Override
+name|Deprecated
 specifier|public
 name|boolean
 name|hasRegionMemstoreReplication
 parameter_list|()
 block|{
 return|return
-name|delegatee
-operator|.
-name|hasRegionMemstoreReplication
+name|hasRegionMemStoreReplication
 argument_list|()
 return|;
 block|}
-comment|/**    * Enable or Disable the memstore replication from the primary region to the replicas.    * The replication will be used only for meta operations (e.g. flush, compaction, ...)    *    * @param memstoreReplication true if the new data written to the primary region    *                                 should be replicated.    *                            false if the secondaries can tollerate to have new    *                                  data only when the primary flushes the memstore.    */
+comment|/**    * @return true if the read-replicas memstore replication is enabled.    */
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|hasRegionMemStoreReplication
+parameter_list|()
+block|{
+return|return
+name|delegatee
+operator|.
+name|hasRegionMemStoreReplication
+argument_list|()
+return|;
+block|}
+comment|/**    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    *             Use {@link #setRegionMemStoreReplication(boolean)} instead    */
+annotation|@
+name|Deprecated
 specifier|public
 name|HTableDescriptor
 name|setRegionMemstoreReplication
@@ -1474,10 +1489,26 @@ name|boolean
 name|memstoreReplication
 parameter_list|)
 block|{
+return|return
+name|setRegionMemStoreReplication
+argument_list|(
+name|memstoreReplication
+argument_list|)
+return|;
+block|}
+comment|/**    * Enable or Disable the memstore replication from the primary region to the replicas.    * The replication will be used only for meta operations (e.g. flush, compaction, ...)    *    * @param memstoreReplication true if the new data written to the primary region    *                                 should be replicated.    *                            false if the secondaries can tollerate to have new    *                                  data only when the primary flushes the memstore.    */
+specifier|public
+name|HTableDescriptor
+name|setRegionMemStoreReplication
+parameter_list|(
+name|boolean
+name|memstoreReplication
+parameter_list|)
+block|{
 name|getDelegateeForModification
 argument_list|()
 operator|.
-name|setRegionMemstoreReplication
+name|setRegionMemStoreReplication
 argument_list|(
 name|memstoreReplication
 argument_list|)

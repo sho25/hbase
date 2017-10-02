@@ -4930,7 +4930,7 @@ name|getDefaultBlockDecodingContext
 parameter_list|()
 function_decl|;
 name|void
-name|setIncludesMemstoreTS
+name|setIncludesMemStoreTS
 parameter_list|(
 name|boolean
 name|includesMemstoreTS
@@ -6610,7 +6610,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|setIncludesMemstoreTS
+name|setIncludesMemStoreTS
 parameter_list|(
 name|boolean
 name|includesMemstoreTS

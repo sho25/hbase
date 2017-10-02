@@ -153,22 +153,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|AsyncProcessTask
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|backoff
 operator|.
 name|ClientBackoffPolicy
@@ -273,7 +257,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|MemstoreSize
+name|MemStoreSize
 import|;
 end_import
 
@@ -802,10 +786,10 @@ operator|)
 name|region
 operator|)
 operator|.
-name|addAndGetMemstoreSize
+name|addAndGetMemStoreSize
 argument_list|(
 operator|new
-name|MemstoreSize
+name|MemStoreSize
 argument_list|(
 literal|0
 argument_list|,
@@ -913,7 +897,7 @@ name|load
 argument_list|,
 name|regionStats
 operator|.
-name|getMemstoreLoadPercent
+name|getMemStoreLoadPercent
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1214,7 +1198,7 @@ name|double
 operator|)
 name|regionStats
 operator|.
-name|getMemstoreLoadPercent
+name|getMemStoreLoadPercent
 argument_list|()
 argument_list|,
 literal|0.1
@@ -1512,7 +1496,7 @@ name|assertTrue
 argument_list|(
 name|regionStats
 operator|.
-name|getMemstoreLoadPercent
+name|getMemStoreLoadPercent
 argument_list|()
 operator|>
 literal|0

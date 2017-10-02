@@ -537,7 +537,7 @@ name|totalCellsLen
 argument_list|,
 name|regionServicesForStores
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -611,7 +611,7 @@ name|totalCellsLen
 argument_list|,
 name|regionServicesForStores
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -678,7 +678,7 @@ argument_list|,
 name|counter
 argument_list|)
 expr_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|size
 init|=
 name|memstore
@@ -697,7 +697,7 @@ decl_stmt|;
 comment|// push keys to snapshot
 name|region
 operator|.
-name|decrMemstoreSize
+name|decrMemStoreSize
 argument_list|(
 name|size
 argument_list|)
@@ -727,7 +727,7 @@ literal|0
 argument_list|,
 name|regionServicesForStores
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -852,7 +852,7 @@ name|totalCellsLen1
 argument_list|,
 name|regionServicesForStores
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -967,7 +967,7 @@ name|totalCellsLen1
 argument_list|,
 name|regionServicesForStores
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1012,7 +1012,7 @@ name|totalCellsLen2
 argument_list|,
 name|regionServicesForStores
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1103,7 +1103,7 @@ name|totalCellsLen2
 argument_list|,
 name|regionServicesForStores
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1130,7 +1130,7 @@ name|heapSize
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|size
 init|=
 name|memstore
@@ -1149,7 +1149,7 @@ decl_stmt|;
 comment|// push keys to snapshot
 name|region
 operator|.
-name|decrMemstoreSize
+name|decrMemStoreSize
 argument_list|(
 name|size
 argument_list|)
@@ -1179,7 +1179,7 @@ literal|0
 argument_list|,
 name|regionServicesForStores
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1315,7 +1315,7 @@ name|totalCellsLen1
 argument_list|,
 name|region
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1334,7 +1334,7 @@ name|heapSize
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|size
 init|=
 name|memstore
@@ -1406,7 +1406,7 @@ name|totalCellsLen1
 argument_list|,
 name|regionServicesForStores
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1450,7 +1450,7 @@ name|totalCellsLen2
 argument_list|,
 name|regionServicesForStores
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1528,7 +1528,7 @@ name|totalCellsLen2
 argument_list|,
 name|regionServicesForStores
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1576,7 +1576,7 @@ name|totalCellsLen3
 argument_list|,
 name|regionServicesForStores
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1685,7 +1685,7 @@ name|totalCellsLen3
 argument_list|,
 name|regionServicesForStores
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1746,7 +1746,7 @@ decl_stmt|;
 comment|// push keys to snapshot
 name|region
 operator|.
-name|decrMemstoreSize
+name|decrMemStoreSize
 argument_list|(
 name|size
 argument_list|)
@@ -1776,7 +1776,7 @@ literal|0
 argument_list|,
 name|regionServicesForStores
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3465,11 +3465,11 @@ argument_list|(
 literal|"testqualifier"
 argument_list|)
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|memstoreSize
 init|=
 operator|new
-name|MemstoreSize
+name|MemStoreSize
 argument_list|()
 decl_stmt|;
 for|for
@@ -3583,7 +3583,7 @@ expr_stmt|;
 block|}
 name|regionServicesForStores
 operator|.
-name|addMemstoreSize
+name|addMemStoreSize
 argument_list|(
 name|memstoreSize
 argument_list|)

@@ -379,7 +379,7 @@ name|memstoreSizeMB
 operator|+=
 name|rl
 operator|.
-name|getMemstoreSizeMB
+name|getMemStoreSizeMB
 argument_list|()
 expr_stmt|;
 name|storefileIndexSizeKB
@@ -619,7 +619,7 @@ return|return
 name|storefileSizeMB
 return|;
 block|}
-comment|/**    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    * Use {@link #getMemstoreSizeMB()} instead.    */
+comment|/**    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    * Use {@link #getMemStoreSizeMB()} instead.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -633,7 +633,7 @@ return|;
 block|}
 specifier|public
 name|int
-name|getMemstoreSizeMB
+name|getMemStoreSizeMB
 parameter_list|()
 block|{
 return|return

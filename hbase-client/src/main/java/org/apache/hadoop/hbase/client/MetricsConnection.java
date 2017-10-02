@@ -969,7 +969,7 @@ name|update
 argument_list|(
 name|regionStatistics
 operator|.
-name|getMemstoreLoad
+name|getMemStoreLoad
 argument_list|()
 argument_list|)
 expr_stmt|;

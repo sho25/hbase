@@ -1320,7 +1320,7 @@ name|KEY_VALUE_VER_WITH_MEMSTORE
 expr_stmt|;
 name|fsBlockReader
 operator|.
-name|setIncludesMemstoreTS
+name|setIncludesMemStoreTS
 argument_list|(
 name|includesMemstoreTS
 argument_list|)
@@ -3018,7 +3018,7 @@ name|this
 operator|.
 name|reader
 operator|.
-name|shouldIncludeMemstoreTS
+name|shouldIncludeMemStoreTS
 argument_list|()
 condition|)
 return|return;
@@ -3029,7 +3029,7 @@ name|this
 operator|.
 name|reader
 operator|.
-name|isDecodeMemstoreTS
+name|isDecodeMemStoreTS
 argument_list|()
 condition|)
 block|{
@@ -3550,7 +3550,7 @@ name|this
 operator|.
 name|reader
 operator|.
-name|shouldIncludeMemstoreTS
+name|shouldIncludeMemStoreTS
 argument_list|()
 condition|)
 block|{
@@ -4387,7 +4387,7 @@ name|this
 operator|.
 name|reader
 operator|.
-name|shouldIncludeMemstoreTS
+name|shouldIncludeMemStoreTS
 argument_list|()
 condition|)
 block|{
@@ -5803,7 +5803,7 @@ literal|false
 decl_stmt|;
 specifier|public
 name|boolean
-name|isDecodeMemstoreTS
+name|isDecodeMemStoreTS
 parameter_list|()
 block|{
 return|return
@@ -5814,7 +5814,7 @@ return|;
 block|}
 specifier|public
 name|boolean
-name|shouldIncludeMemstoreTS
+name|shouldIncludeMemStoreTS
 parameter_list|()
 block|{
 return|return
@@ -7903,7 +7903,7 @@ argument_list|()
 operator|.
 name|withIncludesMvcc
 argument_list|(
-name|shouldIncludeMemstoreTS
+name|shouldIncludeMemStoreTS
 argument_list|()
 argument_list|)
 operator|.

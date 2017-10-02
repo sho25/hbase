@@ -532,7 +532,7 @@ annotation|@
 name|XmlAttribute
 specifier|public
 name|int
-name|getMemstoreSizeMB
+name|getMemStoreSizeMB
 parameter_list|()
 block|{
 return|return
@@ -815,7 +815,7 @@ block|}
 comment|/**        * @param memstoreSizeMB memstore size, in MB        */
 specifier|public
 name|void
-name|setMemstoreSizeMB
+name|setMemStoreSizeMB
 parameter_list|(
 name|int
 name|memstoreSizeMB
@@ -2179,7 +2179,7 @@ argument_list|)
 expr_stmt|;
 name|regionBuilder
 operator|.
-name|setMemstoreSizeMB
+name|setMemStoreSizeMB
 argument_list|(
 name|region
 operator|.
@@ -2498,7 +2498,7 @@ argument_list|()
 argument_list|,
 name|region
 operator|.
-name|getMemstoreSizeMB
+name|getMemStoreSizeMB
 argument_list|()
 argument_list|,
 name|region

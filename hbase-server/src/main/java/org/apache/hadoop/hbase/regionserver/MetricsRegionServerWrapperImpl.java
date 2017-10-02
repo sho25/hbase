@@ -1498,7 +1498,7 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|getMemstoreLimit
+name|getMemStoreLimit
 parameter_list|()
 block|{
 return|return
@@ -1509,7 +1509,7 @@ operator|.
 name|getRegionServerAccounting
 argument_list|()
 operator|.
-name|getGlobalMemstoreLimit
+name|getGlobalMemStoreLimit
 argument_list|()
 return|;
 block|}
@@ -2233,7 +2233,7 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|getMemstoreSize
+name|getMemStoreSize
 parameter_list|()
 block|{
 return|return

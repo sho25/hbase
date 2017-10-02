@@ -110,12 +110,12 @@ throws|throws
 name|UnexpectedStateException
 function_decl|;
 comment|/**    * On flush, how much memory we will clear.    * Flush will first clear out the data in snapshot if any (It will take a second flush    * invocation to clear the current Cell set). If snapshot is empty, current    * Cell set will be flushed.    *    * @return size of data that is going to be flushed    */
-name|MemstoreSize
+name|MemStoreSize
 name|getFlushableSize
 parameter_list|()
 function_decl|;
 comment|/**    * Return the size of the snapshot(s) if any    * @return size of the memstore snapshot    */
-name|MemstoreSize
+name|MemStoreSize
 name|getSnapshotSize
 parameter_list|()
 function_decl|;
@@ -127,7 +127,7 @@ specifier|final
 name|Cell
 name|cell
 parameter_list|,
-name|MemstoreSize
+name|MemStoreSize
 name|memstoreSize
 parameter_list|)
 function_decl|;
@@ -141,7 +141,7 @@ name|Cell
 argument_list|>
 name|cells
 parameter_list|,
-name|MemstoreSize
+name|MemStoreSize
 name|memstoreSize
 parameter_list|)
 function_decl|;
@@ -163,7 +163,7 @@ parameter_list|,
 name|long
 name|readpoint
 parameter_list|,
-name|MemstoreSize
+name|MemStoreSize
 name|memstoreSize
 parameter_list|)
 function_decl|;
@@ -181,7 +181,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * @return Total memory occupied by this MemStore. This won't include any size occupied by the    *         snapshot. We assume the snapshot will get cleared soon. This is not thread safe and    *         the memstore may be changed while computing its size. It is the responsibility of the    *         caller to make sure this doesn't happen.    */
-name|MemstoreSize
+name|MemStoreSize
 name|size
 parameter_list|()
 function_decl|;

@@ -1839,11 +1839,11 @@ name|isPrimaryReplicaReader
 parameter_list|()
 function_decl|;
 name|boolean
-name|shouldIncludeMemstoreTS
+name|shouldIncludeMemStoreTS
 parameter_list|()
 function_decl|;
 name|boolean
-name|isDecodeMemstoreTS
+name|isDecodeMemStoreTS
 parameter_list|()
 function_decl|;
 name|DataBlockEncoding

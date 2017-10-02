@@ -234,7 +234,7 @@ name|memstoreLoad
 operator|=
 name|currentStats
 operator|.
-name|getMemstoreLoad
+name|getMemStoreLoad
 argument_list|()
 expr_stmt|;
 name|this
@@ -258,7 +258,7 @@ expr_stmt|;
 block|}
 specifier|public
 name|int
-name|getMemstoreLoadPercent
+name|getMemStoreLoadPercent
 parameter_list|()
 block|{
 return|return

@@ -467,16 +467,6 @@ name|org
 operator|.
 name|junit
 operator|.
-name|Before
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
 name|Ignore
 import|;
 end_import
@@ -1258,7 +1248,7 @@ name|totalMemstoreSize
 init|=
 name|region
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 comment|// Find the smallest LSNs for edits wrt to each CF.
@@ -1293,7 +1283,7 @@ name|FAMILY3
 argument_list|)
 decl_stmt|;
 comment|// Find the sizes of the memstores of each CF.
-name|MemstoreSize
+name|MemStoreSize
 name|cf1MemstoreSize
 init|=
 name|region
@@ -1306,7 +1296,7 @@ operator|.
 name|getMemStoreSize
 argument_list|()
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|cf2MemstoreSize
 init|=
 name|region
@@ -1319,7 +1309,7 @@ operator|.
 name|getMemStoreSize
 argument_list|()
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|cf3MemstoreSize
 init|=
 name|region
@@ -1341,7 +1331,7 @@ argument_list|(
 name|region
 argument_list|)
 operator|.
-name|getEarliestMemstoreSeqNum
+name|getEarliestMemStoreSeqNum
 argument_list|(
 name|region
 operator|.
@@ -1437,12 +1427,12 @@ literal|false
 argument_list|)
 expr_stmt|;
 comment|// Will use these to check if anything changed.
-name|MemstoreSize
+name|MemStoreSize
 name|oldCF2MemstoreSize
 init|=
 name|cf2MemstoreSize
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|oldCF3MemstoreSize
 init|=
 name|cf3MemstoreSize
@@ -1488,7 +1478,7 @@ name|totalMemstoreSize
 operator|=
 name|region
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 expr_stmt|;
 name|smallestSeqInRegionCurrentMemstore
@@ -1498,7 +1488,7 @@ argument_list|(
 name|region
 argument_list|)
 operator|.
-name|getEarliestMemstoreSeqNum
+name|getEarliestMemStoreSeqNum
 argument_list|(
 name|region
 operator|.
@@ -1688,7 +1678,7 @@ name|totalMemstoreSize
 operator|=
 name|region
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 expr_stmt|;
 name|smallestSeqInRegionCurrentMemstore
@@ -1698,7 +1688,7 @@ argument_list|(
 name|region
 argument_list|)
 operator|.
-name|getEarliestMemstoreSeqNum
+name|getEarliestMemStoreSeqNum
 argument_list|(
 name|region
 operator|.
@@ -1884,7 +1874,7 @@ literal|0
 argument_list|,
 name|region
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2033,11 +2023,11 @@ name|totalMemstoreSize
 init|=
 name|region
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 comment|// Find the sizes of the memstores of each CF.
-name|MemstoreSize
+name|MemStoreSize
 name|cf1MemstoreSize
 init|=
 name|region
@@ -2050,7 +2040,7 @@ operator|.
 name|getMemStoreSize
 argument_list|()
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|cf2MemstoreSize
 init|=
 name|region
@@ -2063,7 +2053,7 @@ operator|.
 name|getMemStoreSize
 argument_list|()
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|cf3MemstoreSize
 init|=
 name|region
@@ -2177,7 +2167,7 @@ name|totalMemstoreSize
 operator|=
 name|region
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 expr_stmt|;
 name|long
@@ -2188,7 +2178,7 @@ operator|.
 name|getWAL
 argument_list|()
 operator|.
-name|getEarliestMemstoreSeqNum
+name|getEarliestMemStoreSeqNum
 argument_list|(
 name|region
 operator|.
@@ -2653,7 +2643,7 @@ name|totalMemstoreSize
 operator|=
 name|desiredRegion
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 expr_stmt|;
 comment|// Find the sizes of the memstores of each CF.
@@ -3390,7 +3380,7 @@ block|{
 return|return
 name|desiredRegion
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 operator|==
 literal|0
@@ -3410,7 +3400,7 @@ name|memstoreSize
 init|=
 name|desiredRegion
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 if|if
@@ -3717,7 +3707,7 @@ while|while
 condition|(
 name|region
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 operator|>
 name|memstoreFlushSize

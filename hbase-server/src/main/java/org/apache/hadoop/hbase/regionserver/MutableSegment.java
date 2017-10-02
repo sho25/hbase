@@ -248,7 +248,7 @@ parameter_list|,
 name|boolean
 name|mslabUsed
 parameter_list|,
-name|MemstoreSize
+name|MemStoreSize
 name|memstoreSize
 parameter_list|)
 block|{
@@ -272,7 +272,7 @@ parameter_list|,
 name|long
 name|readpoint
 parameter_list|,
-name|MemstoreSize
+name|MemStoreSize
 name|memstoreSize
 parameter_list|)
 block|{
@@ -456,7 +456,7 @@ condition|)
 block|{
 name|memstoreSize
 operator|.
-name|decMemstoreSize
+name|decMemStoreSize
 argument_list|(
 name|cellLen
 argument_list|,

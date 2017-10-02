@@ -170,7 +170,7 @@ name|flushSizeLowerBound
 init|=
 name|region
 operator|.
-name|getMemstoreFlushSize
+name|getMemStoreFlushSize
 argument_list|()
 operator|/
 name|familyNumber

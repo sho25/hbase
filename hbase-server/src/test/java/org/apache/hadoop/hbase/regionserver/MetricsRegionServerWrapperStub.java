@@ -116,7 +116,7 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|getMemstoreSize
+name|getMemStoreSize
 parameter_list|()
 block|{
 return|return
@@ -439,7 +439,7 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|getMemstoreLimit
+name|getMemStoreLimit
 parameter_list|()
 block|{
 return|return

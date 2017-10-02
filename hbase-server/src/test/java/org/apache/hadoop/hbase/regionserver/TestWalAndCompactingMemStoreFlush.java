@@ -1219,7 +1219,7 @@ name|totalMemstoreSize
 init|=
 name|region
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 comment|// Find the smallest LSNs for edits wrt to each CF.
@@ -1254,7 +1254,7 @@ name|FAMILY3
 argument_list|)
 decl_stmt|;
 comment|// Find the sizes of the memstores of each CF.
-name|MemstoreSize
+name|MemStoreSize
 name|cf1MemstoreSizePhaseI
 init|=
 name|region
@@ -1267,7 +1267,7 @@ operator|.
 name|getMemStoreSize
 argument_list|()
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|cf2MemstoreSizePhaseI
 init|=
 name|region
@@ -1280,7 +1280,7 @@ operator|.
 name|getMemStoreSize
 argument_list|()
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|cf3MemstoreSizePhaseI
 init|=
 name|region
@@ -1302,7 +1302,7 @@ argument_list|(
 name|region
 argument_list|)
 operator|.
-name|getEarliestMemstoreSeqNum
+name|getEarliestMemStoreSeqNum
 argument_list|(
 name|region
 operator|.
@@ -1331,7 +1331,7 @@ argument_list|(
 name|FAMILY1
 argument_list|)
 operator|.
-name|isSloppyMemstore
+name|isSloppyMemStore
 argument_list|()
 operator|+
 literal|". Size of CF2 is:"
@@ -1347,7 +1347,7 @@ argument_list|(
 name|FAMILY2
 argument_list|)
 operator|.
-name|isSloppyMemstore
+name|isSloppyMemStore
 argument_list|()
 operator|+
 literal|". Size of CF3 is:"
@@ -1363,7 +1363,7 @@ argument_list|(
 name|FAMILY3
 argument_list|)
 operator|.
-name|isSloppyMemstore
+name|isSloppyMemStore
 argument_list|()
 operator|+
 literal|"\n"
@@ -1530,7 +1530,7 @@ literal|false
 argument_list|)
 expr_stmt|;
 comment|// Recalculate everything
-name|MemstoreSize
+name|MemStoreSize
 name|cf1MemstoreSizePhaseII
 init|=
 name|region
@@ -1543,7 +1543,7 @@ operator|.
 name|getMemStoreSize
 argument_list|()
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|cf2MemstoreSizePhaseII
 init|=
 name|region
@@ -1556,7 +1556,7 @@ operator|.
 name|getMemStoreSize
 argument_list|()
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|cf3MemstoreSizePhaseII
 init|=
 name|region
@@ -1577,7 +1577,7 @@ argument_list|(
 name|region
 argument_list|)
 operator|.
-name|getEarliestMemstoreSeqNum
+name|getEarliestMemStoreSeqNum
 argument_list|(
 name|region
 operator|.
@@ -1782,7 +1782,7 @@ operator|+
 literal|"\n"
 expr_stmt|;
 comment|// How much does the CF1 memstore occupy? Will be used later.
-name|MemstoreSize
+name|MemStoreSize
 name|cf1MemstoreSizePhaseIII
 init|=
 name|region
@@ -1831,7 +1831,7 @@ literal|false
 argument_list|)
 expr_stmt|;
 comment|// Recalculate everything
-name|MemstoreSize
+name|MemStoreSize
 name|cf1MemstoreSizePhaseIV
 init|=
 name|region
@@ -1844,7 +1844,7 @@ operator|.
 name|getMemStoreSize
 argument_list|()
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|cf2MemstoreSizePhaseIV
 init|=
 name|region
@@ -1857,7 +1857,7 @@ operator|.
 name|getMemStoreSize
 argument_list|()
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|cf3MemstoreSizePhaseIV
 init|=
 name|region
@@ -1878,7 +1878,7 @@ argument_list|(
 name|region
 argument_list|)
 operator|.
-name|getEarliestMemstoreSeqNum
+name|getEarliestMemStoreSeqNum
 argument_list|(
 name|region
 operator|.
@@ -2035,7 +2035,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 comment|// Recalculate everything
-name|MemstoreSize
+name|MemStoreSize
 name|cf1MemstoreSizePhaseV
 init|=
 name|region
@@ -2048,7 +2048,7 @@ operator|.
 name|getMemStoreSize
 argument_list|()
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|cf2MemstoreSizePhaseV
 init|=
 name|region
@@ -2061,7 +2061,7 @@ operator|.
 name|getMemStoreSize
 argument_list|()
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|cf3MemstoreSizePhaseV
 init|=
 name|region
@@ -2082,7 +2082,7 @@ argument_list|(
 name|region
 argument_list|)
 operator|.
-name|getEarliestMemstoreSeqNum
+name|getEarliestMemStoreSeqNum
 argument_list|(
 name|region
 operator|.
@@ -2260,7 +2260,7 @@ literal|". After additional inserts and last flush, the entire region size is:"
 operator|+
 name|region
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 operator|+
 literal|"\n----------------------------------\n"
@@ -2274,7 +2274,7 @@ literal|0
 argument_list|,
 name|region
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2520,7 +2520,7 @@ name|totalMemstoreSizePhaseI
 init|=
 name|region
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 comment|// Find the smallest LSNs for edits wrt to each CF.
@@ -2555,7 +2555,7 @@ name|FAMILY3
 argument_list|)
 decl_stmt|;
 comment|// Find the sizes of the memstores of each CF.
-name|MemstoreSize
+name|MemStoreSize
 name|cf1MemstoreSizePhaseI
 init|=
 name|region
@@ -2568,7 +2568,7 @@ operator|.
 name|getMemStoreSize
 argument_list|()
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|cf2MemstoreSizePhaseI
 init|=
 name|region
@@ -2581,7 +2581,7 @@ operator|.
 name|getMemStoreSize
 argument_list|()
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|cf3MemstoreSizePhaseI
 init|=
 name|region
@@ -2603,7 +2603,7 @@ argument_list|(
 name|region
 argument_list|)
 operator|.
-name|getEarliestMemstoreSeqNum
+name|getEarliestMemStoreSeqNum
 argument_list|(
 name|region
 operator|.
@@ -2826,7 +2826,7 @@ comment|/*----------------------------------------------------------------------
 comment|/*------------------------------------------------------------------------------*/
 comment|/* PHASE II - collect sizes */
 comment|// Recalculate everything
-name|MemstoreSize
+name|MemStoreSize
 name|cf1MemstoreSizePhaseII
 init|=
 name|region
@@ -2839,7 +2839,7 @@ operator|.
 name|getMemStoreSize
 argument_list|()
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|cf2MemstoreSizePhaseII
 init|=
 name|region
@@ -2852,7 +2852,7 @@ operator|.
 name|getMemStoreSize
 argument_list|()
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|cf3MemstoreSizePhaseII
 init|=
 name|region
@@ -2873,7 +2873,7 @@ argument_list|(
 name|region
 argument_list|)
 operator|.
-name|getEarliestMemstoreSeqNum
+name|getEarliestMemStoreSeqNum
 argument_list|(
 name|region
 operator|.
@@ -2900,7 +2900,7 @@ name|totalMemstoreSizePhaseII
 init|=
 name|region
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 comment|/*------------------------------------------------------------------------------*/
@@ -3087,7 +3087,7 @@ block|}
 comment|/*------------------------------------------------------------------------------*/
 comment|/* PHASE III - collect sizes */
 comment|// How much does the CF1 memstore occupy now? Will be used later.
-name|MemstoreSize
+name|MemStoreSize
 name|cf1MemstoreSizePhaseIII
 init|=
 name|region
@@ -3105,7 +3105,7 @@ name|totalMemstoreSizePhaseIII
 init|=
 name|region
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 comment|/*------------------------------------------------------------------------------*/
@@ -3149,7 +3149,7 @@ comment|/*----------------------------------------------------------------------
 comment|/*------------------------------------------------------------------------------*/
 comment|/* PHASE IV - collect sizes */
 comment|// Recalculate everything
-name|MemstoreSize
+name|MemStoreSize
 name|cf1MemstoreSizePhaseIV
 init|=
 name|region
@@ -3162,7 +3162,7 @@ operator|.
 name|getMemStoreSize
 argument_list|()
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|cf2MemstoreSizePhaseIV
 init|=
 name|region
@@ -3175,7 +3175,7 @@ operator|.
 name|getMemStoreSize
 argument_list|()
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|cf3MemstoreSizePhaseIV
 init|=
 name|region
@@ -3196,7 +3196,7 @@ argument_list|(
 name|region
 argument_list|)
 operator|.
-name|getEarliestMemstoreSeqNum
+name|getEarliestMemStoreSeqNum
 argument_list|(
 name|region
 operator|.
@@ -3296,7 +3296,7 @@ comment|/*----------------------------------------------------------------------
 comment|/*------------------------------------------------------------------------------*/
 comment|/* PHASE V - collect sizes */
 comment|// Recalculate everything
-name|MemstoreSize
+name|MemStoreSize
 name|cf1MemstoreSizePhaseV
 init|=
 name|region
@@ -3309,7 +3309,7 @@ operator|.
 name|getMemStoreSize
 argument_list|()
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|cf2MemstoreSizePhaseV
 init|=
 name|region
@@ -3322,7 +3322,7 @@ operator|.
 name|getMemStoreSize
 argument_list|()
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|cf3MemstoreSizePhaseV
 init|=
 name|region
@@ -3343,7 +3343,7 @@ argument_list|(
 name|region
 argument_list|)
 operator|.
-name|getEarliestMemstoreSeqNum
+name|getEarliestMemStoreSeqNum
 argument_list|(
 name|region
 operator|.
@@ -3359,7 +3359,7 @@ name|totalMemstoreSizePhaseV
 init|=
 name|region
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 comment|/*------------------------------------------------------------------------------*/
@@ -3533,7 +3533,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-name|MemstoreSize
+name|MemStoreSize
 name|cf1ActiveSizePhaseVI
 init|=
 name|region
@@ -3546,7 +3546,7 @@ operator|.
 name|getMemStoreSize
 argument_list|()
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|cf3ActiveSizePhaseVI
 init|=
 name|region
@@ -3559,7 +3559,7 @@ operator|.
 name|getMemStoreSize
 argument_list|()
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|cf5ActiveSizePhaseVI
 init|=
 name|region
@@ -3590,7 +3590,7 @@ expr_stmt|;
 comment|// Since we won't find any CF above the threshold, and hence no specific
 comment|// store to flush, we should flush all the memstores
 comment|// Also compacted memstores are flushed to disk, but not entirely emptied
-name|MemstoreSize
+name|MemStoreSize
 name|cf1ActiveSizePhaseVII
 init|=
 name|region
@@ -3603,7 +3603,7 @@ operator|.
 name|getMemStoreSize
 argument_list|()
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|cf3ActiveSizePhaseVII
 init|=
 name|region
@@ -3616,7 +3616,7 @@ operator|.
 name|getMemStoreSize
 argument_list|()
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|cf5ActiveSizePhaseVII
 init|=
 name|region
@@ -3942,11 +3942,11 @@ name|totalMemstoreSize
 init|=
 name|region
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 comment|// Find the sizes of the memstores of each CF.
-name|MemstoreSize
+name|MemStoreSize
 name|cf1MemstoreSizePhaseI
 init|=
 name|region
@@ -3959,7 +3959,7 @@ operator|.
 name|getMemStoreSize
 argument_list|()
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|cf2MemstoreSizePhaseI
 init|=
 name|region
@@ -3972,7 +3972,7 @@ operator|.
 name|getMemStoreSize
 argument_list|()
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|cf3MemstoreSizePhaseI
 init|=
 name|region
@@ -4123,7 +4123,7 @@ argument_list|(
 literal|false
 argument_list|)
 expr_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|cf2MemstoreSizePhaseII
 init|=
 name|region
@@ -4144,7 +4144,7 @@ operator|.
 name|getWAL
 argument_list|()
 operator|.
-name|getEarliestMemstoreSeqNum
+name|getEarliestMemStoreSeqNum
 argument_list|(
 name|region
 operator|.
@@ -4337,7 +4337,7 @@ operator|.
 name|getWAL
 argument_list|()
 operator|.
-name|getEarliestMemstoreSeqNum
+name|getEarliestMemStoreSeqNum
 argument_list|(
 name|region
 operator|.
@@ -4466,7 +4466,7 @@ operator|.
 name|getWAL
 argument_list|()
 operator|.
-name|getEarliestMemstoreSeqNum
+name|getEarliestMemStoreSeqNum
 argument_list|(
 name|region
 operator|.
@@ -4789,11 +4789,11 @@ name|totalMemstoreSize
 init|=
 name|region
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 comment|// Find the sizes of the memstores of each CF.
-name|MemstoreSize
+name|MemStoreSize
 name|cf1MemstoreSizePhaseI
 init|=
 name|region
@@ -4806,7 +4806,7 @@ operator|.
 name|getMemStoreSize
 argument_list|()
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|cf2MemstoreSizePhaseI
 init|=
 name|region
@@ -4819,7 +4819,7 @@ operator|.
 name|getMemStoreSize
 argument_list|()
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|cf3MemstoreSizePhaseI
 init|=
 name|region
@@ -5005,7 +5005,7 @@ argument_list|(
 literal|false
 argument_list|)
 expr_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|cf1MemstoreSizePhaseII
 init|=
 name|region
@@ -5018,7 +5018,7 @@ operator|.
 name|getMemStoreSize
 argument_list|()
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|cf2MemstoreSizePhaseII
 init|=
 name|region
@@ -5031,7 +5031,7 @@ operator|.
 name|getMemStoreSize
 argument_list|()
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|cf3MemstoreSizePhaseII
 init|=
 name|region
@@ -5181,7 +5181,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-name|MemstoreSize
+name|MemStoreSize
 name|cf1MemstoreSizePhaseIII
 init|=
 name|region
@@ -5313,7 +5313,7 @@ argument_list|(
 literal|false
 argument_list|)
 expr_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|cf1MemstoreSizePhaseIV
 init|=
 name|region
@@ -5326,7 +5326,7 @@ operator|.
 name|getMemStoreSize
 argument_list|()
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|cf2MemstoreSizePhaseIV
 init|=
 name|region

@@ -2183,7 +2183,7 @@ literal|null
 operator|||
 name|htd
 operator|.
-name|hasRegionMemstoreReplication
+name|hasRegionMemStoreReplication
 argument_list|()
 expr_stmt|;
 name|memstoreReplicationEnabled

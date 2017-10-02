@@ -1556,7 +1556,7 @@ if|if
 condition|(
 name|region
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 operator|<=
 literal|0
@@ -1570,7 +1570,7 @@ literal|"memstore size="
 operator|+
 name|region
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 argument_list|)
 throw|;

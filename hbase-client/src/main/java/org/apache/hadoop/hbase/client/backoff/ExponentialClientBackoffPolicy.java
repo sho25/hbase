@@ -311,7 +311,7 @@ name|percent
 init|=
 name|regionStats
 operator|.
-name|getMemstoreLoadPercent
+name|getMemStoreLoadPercent
 argument_list|()
 operator|/
 literal|100.0

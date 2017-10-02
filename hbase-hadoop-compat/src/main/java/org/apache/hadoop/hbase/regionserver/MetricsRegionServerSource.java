@@ -237,7 +237,7 @@ parameter_list|)
 function_decl|;
 comment|/**    * Update the flush memstore size histogram    * @param bytes the number of bytes in the memstore    */
 name|void
-name|updateFlushMemstoreSize
+name|updateFlushMemStoreSize
 parameter_list|(
 name|long
 name|bytes

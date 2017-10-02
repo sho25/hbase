@@ -170,7 +170,7 @@ parameter_list|(
 name|CSLMImmutableSegment
 name|segment
 parameter_list|,
-name|MemstoreSize
+name|MemStoreSize
 name|memstoreSize
 parameter_list|)
 block|{
@@ -244,7 +244,7 @@ argument_list|)
 expr_stmt|;
 name|memstoreSize
 operator|.
-name|incMemstoreSize
+name|incMemStoreSize
 argument_list|(
 literal|0
 argument_list|,

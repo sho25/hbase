@@ -1106,7 +1106,7 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|getEarliestMemstoreSeqNum
+name|getEarliestMemStoreSeqNum
 parameter_list|(
 name|byte
 index|[]
@@ -1123,7 +1123,7 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|getEarliestMemstoreSeqNum
+name|getEarliestMemStoreSeqNum
 parameter_list|(
 name|byte
 index|[]

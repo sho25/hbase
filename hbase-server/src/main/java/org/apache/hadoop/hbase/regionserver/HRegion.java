@@ -3722,7 +3722,7 @@ argument_list|<
 name|byte
 index|[]
 argument_list|,
-name|MemstoreSize
+name|MemStoreSize
 argument_list|>
 name|storeFlushableSize
 decl_stmt|;
@@ -3739,7 +3739,7 @@ name|long
 name|flushedSeqId
 decl_stmt|;
 specifier|final
-name|MemstoreSize
+name|MemStoreSize
 name|totalFlushableSize
 decl_stmt|;
 comment|/** Constructs an early exit case */
@@ -3776,7 +3776,7 @@ argument_list|,
 literal|0
 argument_list|,
 operator|new
-name|MemstoreSize
+name|MemStoreSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3810,7 +3810,7 @@ argument_list|<
 name|byte
 index|[]
 argument_list|,
-name|MemstoreSize
+name|MemStoreSize
 argument_list|>
 name|storeFlushableSize
 parameter_list|,
@@ -3823,7 +3823,7 @@ parameter_list|,
 name|long
 name|flushedSeqId
 parameter_list|,
-name|MemstoreSize
+name|MemStoreSize
 name|totalFlushableSize
 parameter_list|)
 block|{
@@ -3879,7 +3879,7 @@ argument_list|<
 name|byte
 index|[]
 argument_list|,
-name|MemstoreSize
+name|MemStoreSize
 argument_list|>
 name|storeFlushableSize
 parameter_list|,
@@ -3892,7 +3892,7 @@ parameter_list|,
 name|long
 name|flushedSeqId
 parameter_list|,
-name|MemstoreSize
+name|MemStoreSize
 name|totalFlushableSize
 parameter_list|)
 block|{
@@ -5752,7 +5752,7 @@ if|if
 condition|(
 name|store
 operator|.
-name|isSloppyMemstore
+name|isSloppyMemStore
 argument_list|()
 condition|)
 block|{
@@ -5811,7 +5811,7 @@ name|maxStoreMemstoreTS
 init|=
 name|store
 operator|.
-name|getMaxMemstoreTS
+name|getMaxMemStoreTS
 argument_list|()
 operator|.
 name|orElse
@@ -6730,9 +6730,9 @@ block|}
 comment|/**    * Increase the size of mem store in this region and the size of global mem    * store    * @return the size of memstore in this region    */
 specifier|public
 name|long
-name|addAndGetMemstoreSize
+name|addAndGetMemStoreSize
 parameter_list|(
-name|MemstoreSize
+name|MemStoreSize
 name|memstoreSize
 parameter_list|)
 block|{
@@ -6747,7 +6747,7 @@ condition|)
 block|{
 name|rsAccounting
 operator|.
-name|incGlobalMemstoreSize
+name|incGlobalMemStoreSize
 argument_list|(
 name|memstoreSize
 argument_list|)
@@ -6768,7 +6768,7 @@ name|getDataSize
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|checkNegativeMemstoreDataSize
+name|checkNegativeMemStoreDataSize
 argument_list|(
 name|size
 argument_list|,
@@ -6784,9 +6784,9 @@ return|;
 block|}
 specifier|public
 name|void
-name|decrMemstoreSize
+name|decrMemStoreSize
 parameter_list|(
-name|MemstoreSize
+name|MemStoreSize
 name|memstoreSize
 parameter_list|)
 block|{
@@ -6801,7 +6801,7 @@ condition|)
 block|{
 name|rsAccounting
 operator|.
-name|decGlobalMemstoreSize
+name|decGlobalMemStoreSize
 argument_list|(
 name|memstoreSize
 argument_list|)
@@ -6823,7 +6823,7 @@ name|getDataSize
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|checkNegativeMemstoreDataSize
+name|checkNegativeMemStoreDataSize
 argument_list|(
 name|size
 argument_list|,
@@ -6837,7 +6837,7 @@ expr_stmt|;
 block|}
 specifier|private
 name|void
-name|checkNegativeMemstoreDataSize
+name|checkNegativeMemStoreDataSize
 parameter_list|(
 name|long
 name|memstoreDataSize
@@ -6994,7 +6994,7 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|getMemstoreSize
+name|getMemStoreSize
 parameter_list|()
 block|{
 return|return
@@ -8433,7 +8433,7 @@ name|values
 argument_list|()
 control|)
 block|{
-name|MemstoreSize
+name|MemStoreSize
 name|flushableSize
 init|=
 name|store
@@ -8491,7 +8491,7 @@ name|flushableSize
 operator|+
 literal|". Current memstoreSize="
 operator|+
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 operator|+
 literal|". Maybe a coprocessor "
@@ -8792,17 +8792,17 @@ condition|)
 block|{
 name|this
 operator|.
-name|decrMemstoreSize
+name|decrMemStoreSize
 argument_list|(
 operator|new
-name|MemstoreSize
+name|MemStoreSize
 argument_list|(
 name|memstoreDataSize
 operator|.
 name|get
 argument_list|()
 argument_list|,
-name|getMemstoreHeapSize
+name|getMemStoreHeapSize
 argument_list|()
 argument_list|)
 argument_list|)
@@ -8928,7 +8928,7 @@ block|}
 block|}
 specifier|private
 name|long
-name|getMemstoreHeapSize
+name|getMemStoreHeapSize
 parameter_list|()
 block|{
 return|return
@@ -9752,7 +9752,7 @@ name|this
 operator|.
 name|wal
 operator|.
-name|getEarliestMemstoreSeqNum
+name|getEarliestMemStoreSeqNum
 argument_list|(
 name|encodedRegionName
 argument_list|,
@@ -11005,7 +11005,7 @@ name|this
 operator|.
 name|wal
 operator|.
-name|getEarliestMemstoreSeqNum
+name|getEarliestMemStoreSeqNum
 argument_list|(
 name|getRegionInfo
 argument_list|()
@@ -11791,11 +11791,11 @@ name|getEncodedName
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|totalSizeOfFlushableStores
 init|=
 operator|new
-name|MemstoreSize
+name|MemStoreSize
 argument_list|()
 decl_stmt|;
 name|Map
@@ -11883,7 +11883,7 @@ argument_list|<
 name|byte
 index|[]
 argument_list|,
-name|MemstoreSize
+name|MemStoreSize
 argument_list|>
 name|storeFlushableSize
 init|=
@@ -12043,7 +12043,7 @@ range|:
 name|storesToFlush
 control|)
 block|{
-name|MemstoreSize
+name|MemStoreSize
 name|flushableSize
 init|=
 name|s
@@ -12053,7 +12053,7 @@ argument_list|()
 decl_stmt|;
 name|totalSizeOfFlushableStores
 operator|.
-name|incMemstoreSize
+name|incMemStoreSize
 argument_list|(
 name|flushableSize
 argument_list|)
@@ -12992,7 +12992,7 @@ name|isEmpty
 argument_list|()
 condition|)
 block|{
-name|MemstoreSize
+name|MemStoreSize
 name|storeFlushableSize
 init|=
 name|prepareResult
@@ -13008,7 +13008,7 @@ name|prepareResult
 operator|.
 name|totalFlushableSize
 operator|.
-name|decMemstoreSize
+name|decMemStoreSize
 argument_list|(
 name|storeFlushableSize
 argument_list|)
@@ -13030,7 +13030,7 @@ expr_stmt|;
 comment|// Set down the memstore size by amount of flush.
 name|this
 operator|.
-name|decrMemstoreSize
+name|decrMemStoreSize
 argument_list|(
 name|prepareResult
 operator|.
@@ -15240,7 +15240,7 @@ name|newSize
 init|=
 name|this
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 decl_stmt|;
 name|requestFlushIfNeeded
@@ -15607,11 +15607,11 @@ operator|.
 name|length
 argument_list|)
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|memstoreSize
 init|=
 operator|new
-name|MemstoreSize
+name|MemStoreSize
 argument_list|()
 decl_stmt|;
 specifier|final
@@ -16868,7 +16868,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-name|applyFamilyMapToMemstore
+name|applyFamilyMapToMemStore
 argument_list|(
 name|familyMaps
 index|[
@@ -16882,7 +16882,7 @@ block|}
 comment|// update memstore size
 name|this
 operator|.
-name|addAndGetMemstoreSize
+name|addAndGetMemStoreSize
 argument_list|(
 name|memstoreSize
 argument_list|)
@@ -19730,7 +19730,7 @@ block|}
 comment|/*    * Atomically apply the given map of family->edits to the memstore.    * This handles the consistency control on its own, but the caller    * should already have locked updatesLock.readLock(). This also does    *<b>not</b> check the families for validity.    *    * @param familyMap Map of Cells by family    * @param memstoreSize    */
 specifier|private
 name|void
-name|applyFamilyMapToMemstore
+name|applyFamilyMapToMemStore
 parameter_list|(
 name|Map
 argument_list|<
@@ -19744,7 +19744,7 @@ argument_list|>
 argument_list|>
 name|familyMap
 parameter_list|,
-name|MemstoreSize
+name|MemStoreSize
 name|memstoreSize
 parameter_list|)
 throws|throws
@@ -19797,7 +19797,7 @@ name|cells
 operator|instanceof
 name|RandomAccess
 assert|;
-name|applyToMemstore
+name|applyToMemStore
 argument_list|(
 name|getStore
 argument_list|(
@@ -19813,10 +19813,10 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * @param delta If we are doing delta changes -- e.g. increment/append -- then this flag will be    *          set; when set we will run operations that make sense in the increment/append scenario    *          but that do not make sense otherwise.    * @see #applyToMemstore(HStore, Cell, long)    */
+comment|/**    * @param delta If we are doing delta changes -- e.g. increment/append -- then this flag will be    *          set; when set we will run operations that make sense in the increment/append scenario    *          but that do not make sense otherwise.    * @see #applyToMemStore(HStore, Cell, MemStoreSize)    */
 specifier|private
 name|void
-name|applyToMemstore
+name|applyToMemStore
 parameter_list|(
 name|HStore
 name|store
@@ -19830,13 +19830,13 @@ parameter_list|,
 name|boolean
 name|delta
 parameter_list|,
-name|MemstoreSize
+name|MemStoreSize
 name|memstoreSize
 parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// Any change in how we update Store/MemStore needs to also be done in other applyToMemstore!!!!
+comment|// Any change in how we update Store/MemStore needs to also be done in other applyToMemStore!!!!
 name|boolean
 name|upsert
 init|=
@@ -19883,10 +19883,10 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * @see #applyToMemstore(HStore, List, boolean, boolean, long)    */
+comment|/**    * @see #applyToMemStore(HStore, List, boolean, MemStoreSize)    */
 specifier|private
 name|void
-name|applyToMemstore
+name|applyToMemStore
 parameter_list|(
 name|HStore
 name|store
@@ -19894,13 +19894,13 @@ parameter_list|,
 name|Cell
 name|cell
 parameter_list|,
-name|MemstoreSize
+name|MemStoreSize
 name|memstoreSize
 parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// Any change in how we update Store/MemStore needs to also be done in other applyToMemstore!!!!
+comment|// Any change in how we update Store/MemStore needs to also be done in other applyToMemStore!!!!
 if|if
 condition|(
 name|store
@@ -20197,7 +20197,7 @@ name|memstoreTotalSize
 operator|>
 name|this
 operator|.
-name|getMemstoreFlushSize
+name|getMemStoreFlushSize
 argument_list|()
 condition|)
 block|{
@@ -21417,11 +21417,11 @@ name|flush
 init|=
 literal|false
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|memstoreSize
 init|=
 operator|new
-name|MemstoreSize
+name|MemStoreSize
 argument_list|()
 decl_stmt|;
 for|for
@@ -21675,7 +21675,7 @@ name|isFlushSize
 argument_list|(
 name|this
 operator|.
-name|addAndGetMemstoreSize
+name|addAndGetMemStoreSize
 argument_list|(
 name|memstoreSize
 argument_list|)
@@ -23137,7 +23137,7 @@ expr_stmt|;
 comment|// Set down the memstore size by amount of flush.
 name|this
 operator|.
-name|decrMemstoreSize
+name|decrMemStoreSize
 argument_list|(
 name|prepareFlushResult
 operator|.
@@ -23265,7 +23265,7 @@ expr_stmt|;
 comment|// Set down the memstore size by amount of flush.
 name|this
 operator|.
-name|decrMemstoreSize
+name|decrMemStoreSize
 argument_list|(
 name|prepareFlushResult
 operator|.
@@ -23274,7 +23274,7 @@ argument_list|)
 expr_stmt|;
 comment|// Inspect the memstore contents to see whether the memstore contains only edits
 comment|// with seqId smaller than the flush seqId. If so, we can discard those edits.
-name|dropMemstoreContentsForSeqId
+name|dropMemStoreContentsForSeqId
 argument_list|(
 name|flush
 operator|.
@@ -23347,7 +23347,7 @@ argument_list|)
 expr_stmt|;
 comment|// Inspect the memstore contents to see whether the memstore contains only edits
 comment|// with seqId smaller than the flush seqId. If so, we can discard those edits.
-name|dropMemstoreContentsForSeqId
+name|dropMemStoreContentsForSeqId
 argument_list|(
 name|flush
 operator|.
@@ -23652,8 +23652,8 @@ block|}
 block|}
 comment|/**    * Drops the memstore contents after replaying a flush descriptor or region open event replay    * if the memstore edits have seqNums smaller than the given seq id    * @throws IOException    */
 specifier|private
-name|MemstoreSize
-name|dropMemstoreContentsForSeqId
+name|MemStoreSize
+name|dropMemStoreContentsForSeqId
 parameter_list|(
 name|long
 name|seqId
@@ -23664,11 +23664,11 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|MemstoreSize
+name|MemStoreSize
 name|totalFreedSize
 init|=
 operator|new
-name|MemstoreSize
+name|MemStoreSize
 argument_list|()
 decl_stmt|;
 name|this
@@ -23741,9 +23741,9 @@ control|)
 block|{
 name|totalFreedSize
 operator|.
-name|incMemstoreSize
+name|incMemStoreSize
 argument_list|(
-name|doDropStoreMemstoreContentsForSeqId
+name|doDropStoreMemStoreContentsForSeqId
 argument_list|(
 name|s
 argument_list|,
@@ -23757,9 +23757,9 @@ else|else
 block|{
 name|totalFreedSize
 operator|.
-name|incMemstoreSize
+name|incMemStoreSize
 argument_list|(
-name|doDropStoreMemstoreContentsForSeqId
+name|doDropStoreMemStoreContentsForSeqId
 argument_list|(
 name|store
 argument_list|,
@@ -23812,8 +23812,8 @@ name|totalFreedSize
 return|;
 block|}
 specifier|private
-name|MemstoreSize
-name|doDropStoreMemstoreContentsForSeqId
+name|MemStoreSize
+name|doDropStoreMemStoreContentsForSeqId
 parameter_list|(
 name|HStore
 name|s
@@ -23824,7 +23824,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|MemstoreSize
+name|MemStoreSize
 name|flushableSize
 init|=
 name|s
@@ -23834,7 +23834,7 @@ argument_list|()
 decl_stmt|;
 name|this
 operator|.
-name|decrMemstoreSize
+name|decrMemStoreSize
 argument_list|(
 name|flushableSize
 argument_list|)
@@ -24384,7 +24384,7 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|MemstoreSize
+name|MemStoreSize
 name|snapshotSize
 init|=
 name|store
@@ -24399,7 +24399,7 @@ argument_list|()
 expr_stmt|;
 name|this
 operator|.
-name|decrMemstoreSize
+name|decrMemStoreSize
 argument_list|(
 name|snapshotSize
 argument_list|)
@@ -24419,7 +24419,7 @@ block|}
 block|}
 block|}
 comment|// Drop the memstore contents if they are now smaller than the latest seen flushed file
-name|dropMemstoreContentsForSeqId
+name|dropMemStoreContentsForSeqId
 argument_list|(
 name|regionEvent
 operator|.
@@ -25254,7 +25254,7 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|MemstoreSize
+name|MemStoreSize
 name|snapshotSize
 init|=
 name|store
@@ -25269,7 +25269,7 @@ argument_list|()
 expr_stmt|;
 name|this
 operator|.
-name|decrMemstoreSize
+name|decrMemStoreSize
 argument_list|(
 name|snapshotSize
 argument_list|)
@@ -25336,7 +25336,7 @@ name|advanceTo
 argument_list|(
 name|s
 operator|.
-name|getMaxMemstoreTS
+name|getMaxMemStoreTS
 argument_list|()
 operator|.
 name|orElse
@@ -25397,7 +25397,7 @@ block|{
 comment|// Drop the memstore contents if they are now smaller than the latest seen flushed file
 name|totalFreedDataSize
 operator|+=
-name|dropMemstoreContentsForSeqId
+name|dropMemStoreContentsForSeqId
 argument_list|(
 name|entry
 operator|.
@@ -25631,7 +25631,7 @@ parameter_list|,
 name|Cell
 name|cell
 parameter_list|,
-name|MemstoreSize
+name|MemStoreSize
 name|memstoreSize
 parameter_list|)
 block|{
@@ -33618,7 +33618,7 @@ argument_list|()
 decl_stmt|;
 name|stats
 operator|.
-name|setMemstoreLoad
+name|setMemStoreLoad
 argument_list|(
 call|(
 name|int
@@ -33980,11 +33980,11 @@ name|writeEntry
 init|=
 literal|null
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|memstoreSize
 init|=
 operator|new
-name|MemstoreSize
+name|MemStoreSize
 argument_list|()
 decl_stmt|;
 try|try
@@ -34171,7 +34171,7 @@ name|mutations
 control|)
 block|{
 comment|// Handle any tag based cell features.
-comment|// TODO: Do we need to call rewriteCellTags down in applyToMemstore()? Why not before
+comment|// TODO: Do we need to call rewriteCellTags down in applyToMemStore()? Why not before
 comment|// so tags go into WAL?
 name|rewriteCellTags
 argument_list|(
@@ -34228,7 +34228,7 @@ name|sequenceId
 argument_list|)
 expr_stmt|;
 block|}
-name|applyToMemstore
+name|applyToMemStore
 argument_list|(
 name|getStore
 argument_list|(
@@ -34366,7 +34366,7 @@ name|newSize
 init|=
 name|this
 operator|.
-name|addAndGetMemstoreSize
+name|addAndGetMemStoreSize
 argument_list|(
 name|memstoreSize
 argument_list|)
@@ -34934,11 +34934,11 @@ name|rowLock
 init|=
 literal|null
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|memstoreSize
 init|=
 operator|new
-name|MemstoreSize
+name|MemStoreSize
 argument_list|()
 decl_stmt|;
 try|try
@@ -35128,7 +35128,7 @@ name|entrySet
 argument_list|()
 control|)
 block|{
-name|applyToMemstore
+name|applyToMemStore
 argument_list|(
 name|e
 operator|.
@@ -35260,7 +35260,7 @@ if|if
 condition|(
 name|isFlushSize
 argument_list|(
-name|addAndGetMemstoreSize
+name|addAndGetMemStoreSize
 argument_list|(
 name|memstoreSize
 argument_list|)
@@ -38770,7 +38770,7 @@ block|{
 return|return
 name|wal
 operator|.
-name|getEarliestMemstoreSeqNum
+name|getEarliestMemStoreSeqNum
 argument_list|(
 name|getRegionInfo
 argument_list|()
@@ -39072,7 +39072,7 @@ return|;
 block|}
 specifier|public
 name|long
-name|getMemstoreFlushSize
+name|getMemStoreFlushSize
 parameter_list|()
 block|{
 return|return
@@ -39226,7 +39226,7 @@ name|buf
 operator|.
 name|append
 argument_list|(
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 argument_list|)
 expr_stmt|;

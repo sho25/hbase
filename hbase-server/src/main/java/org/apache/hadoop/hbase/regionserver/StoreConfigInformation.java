@@ -66,7 +66,7 @@ comment|/**    * @return Gets the Memstore flush size for the region that this s
 comment|// TODO: Why is this in here?  It should be in Store and it should return the Store flush size,
 comment|// not the Regions.  St.Ack
 name|long
-name|getMemstoreFlushSize
+name|getMemStoreFlushSize
 parameter_list|()
 function_decl|;
 comment|/**    * @return Gets the cf-specific time-to-live for store files.    */

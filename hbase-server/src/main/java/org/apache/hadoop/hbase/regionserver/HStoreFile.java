@@ -713,7 +713,7 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|getMaxMemstoreTS
+name|getMaxMemStoreTS
 parameter_list|()
 block|{
 return|return

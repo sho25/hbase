@@ -598,7 +598,7 @@ argument_list|)
 argument_list|,
 name|tableWrapperAgg
 operator|.
-name|getMemstoresSize
+name|getMemStoresSize
 argument_list|(
 name|tableName
 operator|.

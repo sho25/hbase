@@ -369,7 +369,7 @@ comment|/**    * Return the largest memstoreTS found across all storefiles in th
 specifier|public
 specifier|static
 name|OptionalLong
-name|getMaxMemstoreTSInList
+name|getMaxMemStoreTSInList
 parameter_list|(
 name|Collection
 argument_list|<
@@ -399,7 +399,7 @@ name|mapToLong
 argument_list|(
 name|HStoreFile
 operator|::
-name|getMaxMemstoreTS
+name|getMaxMemStoreTS
 argument_list|)
 operator|.
 name|max

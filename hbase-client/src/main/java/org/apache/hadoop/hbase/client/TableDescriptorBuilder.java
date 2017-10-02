@@ -1743,7 +1743,7 @@ return|;
 block|}
 specifier|public
 name|TableDescriptorBuilder
-name|setRegionMemstoreReplication
+name|setRegionMemStoreReplication
 parameter_list|(
 name|boolean
 name|memstoreReplication
@@ -1751,7 +1751,7 @@ parameter_list|)
 block|{
 name|desc
 operator|.
-name|setRegionMemstoreReplication
+name|setRegionMemStoreReplication
 argument_list|(
 name|memstoreReplication
 argument_list|)
@@ -4140,7 +4140,7 @@ annotation|@
 name|Override
 specifier|public
 name|boolean
-name|hasRegionMemstoreReplication
+name|hasRegionMemStoreReplication
 parameter_list|()
 block|{
 return|return
@@ -4159,7 +4159,7 @@ block|}
 comment|/**      * Enable or Disable the memstore replication from the primary region to the      * replicas. The replication will be used only for meta operations (e.g.      * flush, compaction, ...)      *      * @param memstoreReplication true if the new data written to the primary      * region should be replicated. false if the secondaries can tollerate to      * have new data only when the primary flushes the memstore.      * @return the modifyable TD      */
 specifier|public
 name|ModifyableTableDescriptor
-name|setRegionMemstoreReplication
+name|setRegionMemStoreReplication
 parameter_list|(
 name|boolean
 name|memstoreReplication

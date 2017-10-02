@@ -42,7 +42,7 @@ operator|.
 name|Private
 specifier|public
 class|class
-name|MemstoreSize
+name|MemStoreSize
 block|{
 comment|// 'dataSize' tracks the Cell's data bytes size alone (Key bytes, value bytes). A cell's data can
 comment|// be in on heap or off heap area depending on the MSLAB and its configuration to be using on heap
@@ -63,7 +63,7 @@ name|boolean
 name|isEmpty
 decl_stmt|;
 specifier|public
-name|MemstoreSize
+name|MemStoreSize
 parameter_list|()
 block|{
 name|dataSize
@@ -80,7 +80,7 @@ literal|false
 expr_stmt|;
 block|}
 specifier|public
-name|MemstoreSize
+name|MemStoreSize
 parameter_list|(
 name|boolean
 name|isEmpty
@@ -111,7 +111,7 @@ name|isEmpty
 return|;
 block|}
 specifier|public
-name|MemstoreSize
+name|MemStoreSize
 parameter_list|(
 name|long
 name|dataSize
@@ -141,7 +141,7 @@ expr_stmt|;
 block|}
 specifier|public
 name|void
-name|incMemstoreSize
+name|incMemStoreSize
 parameter_list|(
 name|long
 name|dataSizeDelta
@@ -165,9 +165,9 @@ expr_stmt|;
 block|}
 specifier|public
 name|void
-name|incMemstoreSize
+name|incMemStoreSize
 parameter_list|(
-name|MemstoreSize
+name|MemStoreSize
 name|delta
 parameter_list|)
 block|{
@@ -190,7 +190,7 @@ expr_stmt|;
 block|}
 specifier|public
 name|void
-name|decMemstoreSize
+name|decMemStoreSize
 parameter_list|(
 name|long
 name|dataSizeDelta
@@ -214,9 +214,9 @@ expr_stmt|;
 block|}
 specifier|public
 name|void
-name|decMemstoreSize
+name|decMemStoreSize
 parameter_list|(
-name|MemstoreSize
+name|MemStoreSize
 name|delta
 parameter_list|)
 block|{
@@ -283,7 +283,7 @@ operator|!
 operator|(
 name|obj
 operator|instanceof
-name|MemstoreSize
+name|MemStoreSize
 operator|)
 condition|)
 block|{
@@ -291,11 +291,11 @@ return|return
 literal|false
 return|;
 block|}
-name|MemstoreSize
+name|MemStoreSize
 name|other
 init|=
 operator|(
-name|MemstoreSize
+name|MemStoreSize
 operator|)
 name|obj
 decl_stmt|;

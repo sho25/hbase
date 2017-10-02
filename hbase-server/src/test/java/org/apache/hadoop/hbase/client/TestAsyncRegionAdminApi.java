@@ -2301,7 +2301,7 @@ name|getRegionName
 argument_list|()
 argument_list|)
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 operator|>
 literal|0
@@ -2374,7 +2374,7 @@ name|getRegionName
 argument_list|()
 argument_list|)
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 operator|>
 literal|0
@@ -2403,7 +2403,7 @@ name|getRegionName
 argument_list|()
 argument_list|)
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 argument_list|,
 literal|0
@@ -2460,7 +2460,7 @@ name|getRegionName
 argument_list|()
 argument_list|)
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 operator|>
 literal|0
@@ -2495,7 +2495,7 @@ name|getRegionName
 argument_list|()
 argument_list|)
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 operator|>
 literal|0
@@ -2524,7 +2524,7 @@ name|getRegionName
 argument_list|()
 argument_list|)
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 argument_list|,
 literal|0

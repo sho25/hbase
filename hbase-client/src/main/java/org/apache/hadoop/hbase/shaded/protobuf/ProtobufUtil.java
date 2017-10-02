@@ -19438,7 +19438,7 @@ name|RegionLoadStats
 argument_list|(
 name|stats
 operator|.
-name|getMemstoreLoad
+name|getMemStoreLoad
 argument_list|()
 argument_list|,
 name|stats

@@ -1057,7 +1057,7 @@ name|conf
 argument_list|)
 block|,
 operator|new
-name|MemstoreSizeCostFunction
+name|MemStoreSizeCostFunction
 argument_list|(
 name|conf
 argument_list|)
@@ -7693,7 +7693,7 @@ block|}
 comment|/**    * Compute the cost of total memstore size.  The more unbalanced the higher the    * computed cost will be.  This uses a rolling average of regionload.    */
 specifier|static
 class|class
-name|MemstoreSizeCostFunction
+name|MemStoreSizeCostFunction
 extends|extends
 name|CostFromRegionLoadAsRateFunction
 block|{
@@ -7713,7 +7713,7 @@ name|DEFAULT_MEMSTORE_SIZE_COST
 init|=
 literal|5
 decl_stmt|;
-name|MemstoreSizeCostFunction
+name|MemStoreSizeCostFunction
 parameter_list|(
 name|Configuration
 name|conf

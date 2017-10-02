@@ -266,7 +266,7 @@ if|if
 condition|(
 name|store
 operator|.
-name|isSloppyMemstore
+name|isSloppyMemStore
 argument_list|()
 condition|)
 block|{

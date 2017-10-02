@@ -452,16 +452,16 @@ expr_stmt|;
 block|}
 name|metricsTable
 operator|.
-name|setMemstoresSize
+name|setMemStoresSize
 argument_list|(
 name|metricsTable
 operator|.
-name|getMemstoresSize
+name|getMemStoresSize
 argument_list|()
 operator|+
 name|r
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -483,7 +483,7 @@ name|setTableSize
 argument_list|(
 name|metricsTable
 operator|.
-name|getMemstoresSize
+name|getMemStoresSize
 argument_list|()
 operator|+
 name|metricsTable
@@ -851,7 +851,7 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|getMemstoresSize
+name|getMemStoresSize
 parameter_list|(
 name|String
 name|table
@@ -885,7 +885,7 @@ else|else
 return|return
 name|metricsTable
 operator|.
-name|getMemstoresSize
+name|getMemStoresSize
 argument_list|()
 return|;
 block|}
@@ -1093,7 +1093,7 @@ expr_stmt|;
 block|}
 specifier|public
 name|long
-name|getMemstoresSize
+name|getMemStoresSize
 parameter_list|()
 block|{
 return|return
@@ -1102,7 +1102,7 @@ return|;
 block|}
 specifier|public
 name|void
-name|setMemstoresSize
+name|setMemStoresSize
 parameter_list|(
 name|long
 name|memstoresSize

@@ -2232,7 +2232,7 @@ argument_list|,
 name|conf
 argument_list|)
 expr_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|size
 init|=
 name|store
@@ -2259,11 +2259,11 @@ argument_list|(
 literal|"Adding some data"
 argument_list|)
 expr_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|kvSize
 init|=
 operator|new
-name|MemstoreSize
+name|MemStoreSize
 argument_list|()
 decl_stmt|;
 name|store
@@ -2294,7 +2294,7 @@ expr_stmt|;
 comment|// add the heap size of active (mutable) segment
 name|kvSize
 operator|.
-name|incMemstoreSize
+name|incMemStoreSize
 argument_list|(
 literal|0
 argument_list|,
@@ -2366,7 +2366,7 @@ block|}
 comment|// due to snapshot, change mutable to immutable segment
 name|kvSize
 operator|.
-name|incMemstoreSize
+name|incMemStoreSize
 argument_list|(
 literal|0
 argument_list|,
@@ -2395,11 +2395,11 @@ argument_list|,
 name|size
 argument_list|)
 expr_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|kvSize2
 init|=
 operator|new
-name|MemstoreSize
+name|MemStoreSize
 argument_list|()
 decl_stmt|;
 name|store
@@ -2429,7 +2429,7 @@ argument_list|)
 expr_stmt|;
 name|kvSize2
 operator|.
-name|incMemstoreSize
+name|incMemStoreSize
 argument_list|(
 literal|0
 argument_list|,
@@ -8412,11 +8412,11 @@ argument_list|(
 literal|"value2"
 argument_list|)
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|memStoreSize
 init|=
 operator|new
-name|MemstoreSize
+name|MemStoreSize
 argument_list|()
 decl_stmt|;
 name|long
@@ -9044,11 +9044,11 @@ argument_list|(
 literal|"value"
 argument_list|)
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|memStoreSize
 init|=
 operator|new
-name|MemstoreSize
+name|MemStoreSize
 argument_list|()
 decl_stmt|;
 name|long
@@ -9536,11 +9536,11 @@ argument_list|(
 literal|"currentValue"
 argument_list|)
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|memStoreSize
 init|=
 operator|new
-name|MemstoreSize
+name|MemStoreSize
 argument_list|()
 decl_stmt|;
 name|long
@@ -10377,11 +10377,11 @@ argument_list|(
 literal|"thisisavarylargevalue"
 argument_list|)
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|memStoreSize
 init|=
 operator|new
-name|MemstoreSize
+name|MemStoreSize
 argument_list|()
 decl_stmt|;
 name|long
@@ -11397,11 +11397,11 @@ argument_list|()
 block|{}
 argument_list|)
 decl_stmt|;
-name|MemstoreSize
+name|MemStoreSize
 name|memStoreSize
 init|=
 operator|new
-name|MemstoreSize
+name|MemStoreSize
 argument_list|()
 decl_stmt|;
 name|long

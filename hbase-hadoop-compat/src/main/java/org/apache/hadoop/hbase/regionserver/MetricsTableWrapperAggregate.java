@@ -52,7 +52,7 @@ parameter_list|)
 function_decl|;
 comment|/**    * Get the memory store size against this table    */
 name|long
-name|getMemstoresSize
+name|getMemStoresSize
 parameter_list|(
 name|String
 name|table

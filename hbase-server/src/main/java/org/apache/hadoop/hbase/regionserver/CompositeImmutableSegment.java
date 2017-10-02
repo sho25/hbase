@@ -905,7 +905,7 @@ parameter_list|,
 name|boolean
 name|mslabUsed
 parameter_list|,
-name|MemstoreSize
+name|MemStoreSize
 name|memstoreSize
 parameter_list|)
 block|{
@@ -932,7 +932,7 @@ parameter_list|,
 name|boolean
 name|mslabUsed
 parameter_list|,
-name|MemstoreSize
+name|MemStoreSize
 name|memstoreSize
 parameter_list|)
 block|{

@@ -2545,7 +2545,7 @@ init|=
 operator|new
 name|StochasticLoadBalancer
 operator|.
-name|MemstoreSizeCostFunction
+name|MemStoreSizeCostFunction
 argument_list|(
 name|conf
 argument_list|)

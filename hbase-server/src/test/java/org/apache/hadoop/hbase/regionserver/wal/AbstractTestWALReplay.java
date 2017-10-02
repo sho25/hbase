@@ -811,7 +811,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|MemstoreSize
+name|MemStoreSize
 import|;
 end_import
 
@@ -876,22 +876,6 @@ operator|.
 name|regionserver
 operator|.
 name|RegionServerServices
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|Store
 import|;
 end_import
 
@@ -4059,7 +4043,7 @@ parameter_list|,
 name|Cell
 name|cell
 parameter_list|,
-name|MemstoreSize
+name|MemStoreSize
 name|memstoreSize
 parameter_list|)
 block|{
@@ -7830,7 +7814,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|setGlobalMemstoreLimit
+name|setGlobalMemStoreLimit
 parameter_list|(
 name|long
 name|globalMemStoreSize

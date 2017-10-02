@@ -1210,7 +1210,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|updateFlushMemstoreSize
+name|updateFlushMemStoreSize
 parameter_list|(
 name|long
 name|bytes
@@ -1586,7 +1586,7 @@ argument_list|)
 argument_list|,
 name|rsWrap
 operator|.
-name|getMemstoreSize
+name|getMemStoreSize
 argument_list|()
 argument_list|)
 operator|.

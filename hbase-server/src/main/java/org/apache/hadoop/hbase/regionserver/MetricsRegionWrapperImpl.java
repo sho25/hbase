@@ -548,7 +548,7 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|getMemstoreSize
+name|getMemStoreSize
 parameter_list|()
 block|{
 return|return

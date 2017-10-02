@@ -554,7 +554,7 @@ return|;
 block|}
 empty_stmt|;
 name|boolean
-name|isInMemstore
+name|isInMemStore
 parameter_list|()
 block|{
 return|return

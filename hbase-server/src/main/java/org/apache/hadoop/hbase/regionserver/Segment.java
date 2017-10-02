@@ -1150,7 +1150,7 @@ parameter_list|,
 name|boolean
 name|mslabUsed
 parameter_list|,
-name|MemstoreSize
+name|MemStoreSize
 name|memstoreSize
 parameter_list|)
 block|{
@@ -1190,7 +1190,7 @@ parameter_list|,
 name|boolean
 name|mslabUsed
 parameter_list|,
-name|MemstoreSize
+name|MemStoreSize
 name|memstoreSize
 parameter_list|)
 block|{
@@ -1243,7 +1243,7 @@ condition|)
 block|{
 name|memstoreSize
 operator|.
-name|incMemstoreSize
+name|incMemStoreSize
 argument_list|(
 name|cellSize
 argument_list|,
@@ -1303,7 +1303,7 @@ parameter_list|,
 name|boolean
 name|succ
 parameter_list|,
-name|MemstoreSize
+name|MemStoreSize
 name|memstoreSize
 parameter_list|)
 block|{

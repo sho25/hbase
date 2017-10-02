@@ -585,7 +585,7 @@ name|offheapMemstore
 init|=
 name|context
 operator|.
-name|isOffheapMemstore
+name|isOffheapMemStore
 argument_list|()
 decl_stmt|;
 name|float
@@ -935,7 +935,7 @@ argument_list|)
 expr_stmt|;
 name|TUNER_RESULT
 operator|.
-name|setMemstoreSize
+name|setMemStoreSize
 argument_list|(
 name|newMemstoreSize
 argument_list|)

@@ -91,7 +91,7 @@ function_decl|;
 comment|/**    * Sets the global memstore limit to a new size.    *    * @param globalMemStoreSize    */
 specifier|public
 name|void
-name|setGlobalMemstoreLimit
+name|setGlobalMemStoreLimit
 parameter_list|(
 name|long
 name|globalMemStoreSize

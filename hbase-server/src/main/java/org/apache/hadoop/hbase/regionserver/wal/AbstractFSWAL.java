@@ -1368,7 +1368,7 @@ name|globalMemstoreSize
 init|=
 name|MemorySizeUtil
 operator|.
-name|getGlobalMemstoreSize
+name|getGlobalMemStoreSize
 argument_list|(
 name|conf
 argument_list|)
@@ -2381,7 +2381,7 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|getEarliestMemstoreSeqNum
+name|getEarliestMemStoreSeqNum
 parameter_list|(
 name|byte
 index|[]
@@ -2404,7 +2404,7 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|getEarliestMemstoreSeqNum
+name|getEarliestMemStoreSeqNum
 parameter_list|(
 name|byte
 index|[]
@@ -4528,7 +4528,7 @@ name|regionSequenceId
 argument_list|,
 name|entry
 operator|.
-name|isInMemstore
+name|isInMemStore
 argument_list|()
 argument_list|)
 expr_stmt|;

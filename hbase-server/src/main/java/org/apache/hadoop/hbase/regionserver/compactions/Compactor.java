@@ -1039,7 +1039,7 @@ name|minSeqIdToKeep
 operator|<
 name|file
 operator|.
-name|getMaxMemstoreTS
+name|getMaxMemStoreTS
 argument_list|()
 condition|)
 block|{
@@ -1049,7 +1049,7 @@ name|minSeqIdToKeep
 operator|=
 name|file
 operator|.
-name|getMaxMemstoreTS
+name|getMaxMemStoreTS
 argument_list|()
 expr_stmt|;
 block|}
