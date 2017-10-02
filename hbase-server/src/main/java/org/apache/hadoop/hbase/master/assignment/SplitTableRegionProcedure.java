@@ -1334,7 +1334,9 @@ throw|throw
 operator|new
 name|DoNotRetryIOException
 argument_list|(
-literal|"Region not splittable because bestSplitPoint = null"
+literal|"Region not splittable because bestSplitPoint = null, "
+operator|+
+literal|"maybe table is too small for auto split. For force split, try specifying split row"
 argument_list|)
 throw|;
 block|}
@@ -1588,14 +1590,14 @@ name|setNextState
 argument_list|(
 name|SplitTableRegionState
 operator|.
-name|SPLIT_TABLE_REGION_PRE_OPERATION_BEFORE_PONR
+name|SPLIT_TABLE_REGION_PRE_OPERATION_BEFORE_META
 argument_list|)
 expr_stmt|;
 break|break;
 case|case
-name|SPLIT_TABLE_REGION_PRE_OPERATION_BEFORE_PONR
+name|SPLIT_TABLE_REGION_PRE_OPERATION_BEFORE_META
 case|:
-name|preSplitRegionBeforePONR
+name|preSplitRegionBeforeMETA
 argument_list|(
 name|env
 argument_list|)
@@ -1620,14 +1622,14 @@ name|setNextState
 argument_list|(
 name|SplitTableRegionState
 operator|.
-name|SPLIT_TABLE_REGION_PRE_OPERATION_AFTER_PONR
+name|SPLIT_TABLE_REGION_PRE_OPERATION_AFTER_META
 argument_list|)
 expr_stmt|;
 break|break;
 case|case
-name|SPLIT_TABLE_REGION_PRE_OPERATION_AFTER_PONR
+name|SPLIT_TABLE_REGION_PRE_OPERATION_AFTER_META
 case|:
-name|preSplitRegionAfterPONR
+name|preSplitRegionAfterMETA
 argument_list|(
 name|env
 argument_list|)
@@ -1815,7 +1817,7 @@ case|case
 name|SPLIT_TABLE_REGION_OPEN_CHILD_REGIONS
 case|:
 case|case
-name|SPLIT_TABLE_REGION_PRE_OPERATION_AFTER_PONR
+name|SPLIT_TABLE_REGION_PRE_OPERATION_AFTER_META
 case|:
 case|case
 name|SPLIT_TABLE_REGION_UPDATE_META
@@ -1833,7 +1835,7 @@ name|state
 argument_list|)
 throw|;
 case|case
-name|SPLIT_TABLE_REGION_PRE_OPERATION_BEFORE_PONR
+name|SPLIT_TABLE_REGION_PRE_OPERATION_BEFORE_META
 case|:
 break|break;
 case|case
@@ -1944,7 +1946,7 @@ case|case
 name|SPLIT_TABLE_REGION_OPEN_CHILD_REGIONS
 case|:
 case|case
-name|SPLIT_TABLE_REGION_PRE_OPERATION_AFTER_PONR
+name|SPLIT_TABLE_REGION_PRE_OPERATION_AFTER_META
 case|:
 case|case
 name|SPLIT_TABLE_REGION_UPDATE_META
@@ -4068,7 +4070,7 @@ block|}
 comment|/**    * Post split region actions before the Point-of-No-Return step    * @param env MasterProcedureEnv    **/
 specifier|private
 name|void
-name|preSplitRegionBeforePONR
+name|preSplitRegionBeforeMETA
 parameter_list|(
 specifier|final
 name|MasterProcedureEnv
@@ -4113,7 +4115,7 @@ if|if
 condition|(
 name|cpHost
 operator|.
-name|preSplitBeforePONRAction
+name|preSplitBeforeMETAAction
 argument_list|(
 name|getSplitRow
 argument_list|()
@@ -4227,7 +4229,7 @@ block|}
 comment|/**    * Pre split region actions after the Point-of-No-Return step    * @param env MasterProcedureEnv    **/
 specifier|private
 name|void
-name|preSplitRegionAfterPONR
+name|preSplitRegionAfterMETA
 parameter_list|(
 specifier|final
 name|MasterProcedureEnv
@@ -4256,7 +4258,7 @@ condition|)
 block|{
 name|cpHost
 operator|.
-name|preSplitAfterPONRAction
+name|preSplitAfterMETAAction
 argument_list|(
 name|getUser
 argument_list|()

@@ -4097,9 +4097,6 @@ case|case
 name|READY_TO_SPLIT
 case|:
 case|case
-name|SPLIT_PONR
-case|:
-case|case
 name|SPLIT
 case|:
 case|case
@@ -4182,9 +4179,6 @@ expr_stmt|;
 break|break;
 case|case
 name|READY_TO_MERGE
-case|:
-case|case
-name|MERGE_PONR
 case|:
 case|case
 name|MERGED

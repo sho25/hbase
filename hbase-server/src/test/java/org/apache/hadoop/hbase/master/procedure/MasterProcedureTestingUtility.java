@@ -2667,7 +2667,7 @@ argument_list|()
 return|;
 block|}
 comment|/**    * Run through all procedure flow states TWICE while also restarting procedure executor at each    * step; i.e force a reread of procedure store.    *    *<p>It does    *<ol><li>Execute step N - kill the executor before store update    *<li>Restart executor/store    *<li>Execute step N - and then save to store    *</ol>    *    *<p>This is a good test for finding state that needs persisting and steps that are not    * idempotent. Use this version of the test when a procedure executes all flow steps from start to    * finish.    * @see #testRecoveryAndDoubleExecution(ProcedureExecutor, long)    */
-specifier|private
+specifier|public
 specifier|static
 name|void
 name|testRecoveryAndDoubleExecution

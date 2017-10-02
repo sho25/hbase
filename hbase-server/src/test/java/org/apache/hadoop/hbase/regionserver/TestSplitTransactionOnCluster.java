@@ -2378,7 +2378,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|preSplitRegionBeforePONRAction
+name|preSplitRegionBeforeMETAAction
 parameter_list|(
 specifier|final
 name|ObserverContext

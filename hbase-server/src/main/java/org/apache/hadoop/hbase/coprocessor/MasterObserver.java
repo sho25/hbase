@@ -1638,10 +1638,10 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * This will be called before PONR step as part of split transaction. Calling    * {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} rollback the split    * @param ctx the environment to interact with the framework and master    * @param splitKey    * @param metaEntries    */
+comment|/**    * This will be called before update META step as part of split transaction. Calling    * {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} rollback the split    * @param ctx the environment to interact with the framework and master    * @param splitKey    * @param metaEntries    */
 specifier|default
 name|void
-name|preSplitRegionBeforePONRAction
+name|preSplitRegionBeforeMETAAction
 parameter_list|(
 specifier|final
 name|ObserverContext
@@ -1665,10 +1665,10 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * This will be called after PONR step as part of split transaction    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param ctx the environment to interact with the framework and master    */
+comment|/**    * This will be called after update META step as part of split transaction    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param ctx the environment to interact with the framework and master    */
 specifier|default
 name|void
-name|preSplitRegionAfterPONRAction
+name|preSplitRegionAfterMETAAction
 parameter_list|(
 specifier|final
 name|ObserverContext
@@ -1739,7 +1739,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * This will be called before PONR step as part of regions merge transaction. Calling    * {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} rollback the merge    * @param ctx the environment to interact with the framework and master    * @param metaEntries mutations to execute on hbase:meta atomically with regions merge updates.    *        Any puts or deletes to execute on hbase:meta can be added to the mutations.    */
+comment|/**    * This will be called before update META step as part of regions merge transaction. Calling    * {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} rollback the merge    * @param ctx the environment to interact with the framework and master    * @param metaEntries mutations to execute on hbase:meta atomically with regions merge updates.    *        Any puts or deletes to execute on hbase:meta can be added to the mutations.    */
 specifier|default
 name|void
 name|preMergeRegionsCommitAction
@@ -1767,7 +1767,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * This will be called after PONR step as part of regions merge transaction.    * @param ctx the environment to interact with the framework and master    */
+comment|/**    * This will be called after META step as part of regions merge transaction.    * @param ctx the environment to interact with the framework and master    */
 specifier|default
 name|void
 name|postMergeRegionsCommitAction

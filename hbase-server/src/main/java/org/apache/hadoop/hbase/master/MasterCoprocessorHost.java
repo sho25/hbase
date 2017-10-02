@@ -4848,10 +4848,10 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * This will be called before PONR step as part of split table region procedure.    * @param splitKey    * @param metaEntries    * @param user the user    * @throws IOException    */
+comment|/**    * This will be called before update META step as part of split table region procedure.    * @param splitKey    * @param metaEntries    * @param user the user    * @throws IOException    */
 specifier|public
 name|boolean
-name|preSplitBeforePONRAction
+name|preSplitBeforeMETAAction
 parameter_list|(
 specifier|final
 name|byte
@@ -4902,7 +4902,7 @@ name|IOException
 block|{
 name|observer
 operator|.
-name|preSplitRegionBeforePONRAction
+name|preSplitRegionBeforeMETAAction
 argument_list|(
 name|this
 argument_list|,
@@ -4916,10 +4916,10 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * This will be called after PONR step as part of split table region procedure.    * @param user the user    * @throws IOException    */
+comment|/**    * This will be called after update META step as part of split table region procedure.    * @param user the user    * @throws IOException    */
 specifier|public
 name|void
-name|preSplitAfterPONRAction
+name|preSplitAfterMETAAction
 parameter_list|(
 specifier|final
 name|User
@@ -4957,7 +4957,7 @@ name|IOException
 block|{
 name|observer
 operator|.
-name|preSplitRegionAfterPONRAction
+name|preSplitRegionAfterMETAAction
 argument_list|(
 name|this
 argument_list|)
