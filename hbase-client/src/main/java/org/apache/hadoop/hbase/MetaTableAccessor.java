@@ -1359,6 +1359,7 @@ comment|/**    * Callers should call close on the returned {@link Table} instanc
 end_comment
 
 begin_function
+specifier|public
 specifier|static
 name|Table
 name|getMetaHTable
