@@ -1383,11 +1383,7 @@ argument_list|(
 name|Mockito
 operator|.
 name|any
-argument_list|(
-name|FileStatus
-operator|.
-name|class
-argument_list|)
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// run the chore
@@ -1452,11 +1448,7 @@ argument_list|(
 name|Mockito
 operator|.
 name|any
-argument_list|(
-name|FileStatus
-operator|.
-name|class
-argument_list|)
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|Mockito
@@ -1737,11 +1729,7 @@ argument_list|(
 name|Mockito
 operator|.
 name|any
-argument_list|(
-name|FileStatus
-operator|.
-name|class
-argument_list|)
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// attempt to delete the directory, which
@@ -1819,11 +1807,7 @@ argument_list|(
 name|Mockito
 operator|.
 name|any
-argument_list|(
-name|FileStatus
-operator|.
-name|class
-argument_list|)
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

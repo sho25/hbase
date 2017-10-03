@@ -3887,11 +3887,7 @@ argument_list|(
 name|Mockito
 operator|.
 name|any
-argument_list|(
-name|TableName
-operator|.
-name|class
-argument_list|)
+argument_list|()
 argument_list|)
 argument_list|)
 operator|.
@@ -3923,11 +3919,10 @@ name|get
 argument_list|(
 name|invocation
 operator|.
-name|getArguments
-argument_list|()
-index|[
+name|getArgument
+argument_list|(
 literal|0
-index|]
+argument_list|)
 argument_list|)
 return|;
 block|}

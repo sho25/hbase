@@ -705,11 +705,7 @@ operator|.
 name|sendMemberAcquired
 argument_list|(
 name|any
-argument_list|(
-name|Subprocedure
-operator|.
-name|class
-argument_list|)
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -884,11 +880,7 @@ name|spy
 argument_list|)
 argument_list|,
 name|any
-argument_list|(
-name|ForeignException
-operator|.
-name|class
-argument_list|)
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -1070,11 +1062,7 @@ name|anyString
 argument_list|()
 argument_list|,
 name|any
-argument_list|(
-name|Exception
-operator|.
-name|class
-argument_list|)
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|order
@@ -1087,11 +1075,7 @@ operator|.
 name|cleanup
 argument_list|(
 name|any
-argument_list|(
-name|Exception
-operator|.
-name|class
-argument_list|)
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -1154,11 +1138,7 @@ operator|.
 name|sendMemberAcquired
 argument_list|(
 name|any
-argument_list|(
-name|Subprocedure
-operator|.
-name|class
-argument_list|)
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// run the operation
@@ -1277,11 +1257,7 @@ name|anyString
 argument_list|()
 argument_list|,
 name|any
-argument_list|(
-name|Exception
-operator|.
-name|class
-argument_list|)
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|order
@@ -1294,11 +1270,7 @@ operator|.
 name|cleanup
 argument_list|(
 name|any
-argument_list|(
-name|Exception
-operator|.
-name|class
-argument_list|)
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -1507,11 +1479,7 @@ name|anyString
 argument_list|()
 argument_list|,
 name|any
-argument_list|(
-name|Exception
-operator|.
-name|class
-argument_list|)
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|order
@@ -1524,11 +1492,7 @@ operator|.
 name|cleanup
 argument_list|(
 name|any
-argument_list|(
-name|Exception
-operator|.
-name|class
-argument_list|)
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -1704,11 +1668,7 @@ name|anyString
 argument_list|()
 argument_list|,
 name|any
-argument_list|(
-name|Exception
-operator|.
-name|class
-argument_list|)
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|order
@@ -1721,11 +1681,7 @@ operator|.
 name|cleanup
 argument_list|(
 name|any
-argument_list|(
-name|Exception
-operator|.
-name|class
-argument_list|)
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -1817,11 +1773,7 @@ operator|.
 name|sendMemberCompleted
 argument_list|(
 name|any
-argument_list|(
-name|Subprocedure
-operator|.
-name|class
-argument_list|)
+argument_list|()
 argument_list|,
 name|eq
 argument_list|(
@@ -1938,11 +1890,7 @@ name|anyString
 argument_list|()
 argument_list|,
 name|any
-argument_list|(
-name|Exception
-operator|.
-name|class
-argument_list|)
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|order
@@ -1955,11 +1903,7 @@ operator|.
 name|cleanup
 argument_list|(
 name|any
-argument_list|(
-name|Exception
-operator|.
-name|class
-argument_list|)
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -2088,11 +2032,7 @@ name|spy
 argument_list|)
 argument_list|,
 name|any
-argument_list|(
-name|ForeignException
-operator|.
-name|class
-argument_list|)
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// run the operation
@@ -2166,9 +2106,9 @@ expr_stmt|;
 comment|// TODO Need to do another refactor to get this to propagate to the coordinator.
 comment|// make sure we pass a remote exception back the controller
 comment|//    order.verify(mockMemberComms).sendMemberAborted(eq(spy),
-comment|//      any(ExternalException.class));
+comment|//      any());
 comment|//    order.verify(dispSpy).receiveError(anyString(),
-comment|//        any(ExternalException.class), any());
+comment|//        any(), any());
 block|}
 comment|/**    * Test that the cohort member correctly doesn't attempt to start a task when the builder cannot    * correctly build a new task for the requested operation    * @throws Exception on failure    */
 annotation|@
@@ -2323,7 +2263,7 @@ argument_list|)
 expr_stmt|;
 comment|// get two abort requests
 comment|// TODO Need to do another refactor to get this to propagate to the coordinator.
-comment|// verify(mockMemberComms, times(2)).sendMemberAborted(any(Subprocedure.class), any(ExternalException.class));
+comment|// verify(mockMemberComms, times(2)).sendMemberAborted(any(), any());
 block|}
 comment|/**    * Helper {@link Procedure} who's phase for each step is just empty    */
 specifier|public

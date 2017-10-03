@@ -560,7 +560,10 @@ argument_list|(
 name|argThat
 argument_list|(
 operator|new
-name|SingleCellPutMatcher
+name|SingleCellMutationMatcher
+argument_list|<
+name|Put
+argument_list|>
 argument_list|(
 name|expectedPut
 argument_list|)
@@ -568,32 +571,8 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Parameterized for Puts.    */
-specifier|private
-specifier|static
-class|class
-name|SingleCellPutMatcher
-extends|extends
-name|SingleCellMutationMatcher
-argument_list|<
-name|Put
-argument_list|>
-block|{
-specifier|private
-name|SingleCellPutMatcher
-parameter_list|(
-name|Put
-name|expected
-parameter_list|)
-block|{
-name|super
-argument_list|(
-name|expected
-argument_list|)
-expr_stmt|;
-block|}
-block|}
 comment|/**    * Quick hack to verify a Mutation with one column.    */
+specifier|final
 specifier|private
 specifier|static
 class|class
@@ -601,7 +580,7 @@ name|SingleCellMutationMatcher
 parameter_list|<
 name|T
 parameter_list|>
-extends|extends
+implements|implements
 name|ArgumentMatcher
 argument_list|<
 name|T
@@ -632,7 +611,7 @@ specifier|public
 name|boolean
 name|matches
 parameter_list|(
-name|Object
+name|T
 name|argument
 parameter_list|)
 block|{

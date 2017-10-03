@@ -6325,11 +6325,10 @@ name|Entry
 operator|)
 name|invocation
 operator|.
-name|getArguments
-argument_list|()
-index|[
+name|getArgument
+argument_list|(
 literal|0
-index|]
+argument_list|)
 decl_stmt|;
 name|WALEdit
 name|edit

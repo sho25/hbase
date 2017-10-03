@@ -1179,11 +1179,10 @@ name|HBaseRpcController
 operator|)
 name|invocation
 operator|.
-name|getArguments
-argument_list|()
-index|[
+name|getArgument
+argument_list|(
 literal|0
-index|]
+argument_list|)
 operator|)
 operator|.
 name|setCellScanner
@@ -1325,11 +1324,7 @@ argument_list|(
 name|Mockito
 operator|.
 name|any
-argument_list|(
-name|ServerName
-operator|.
-name|class
-argument_list|)
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Scan meta for user tables and verify we got back expected answer.

@@ -185,12 +185,7 @@ argument_list|(
 name|Mockito
 operator|.
 name|any
-argument_list|(
-name|String
-index|[]
-operator|.
-expr|class
-argument_list|)
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

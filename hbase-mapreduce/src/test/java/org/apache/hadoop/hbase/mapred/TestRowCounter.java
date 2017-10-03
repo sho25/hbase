@@ -59,9 +59,9 @@ name|org
 operator|.
 name|mockito
 operator|.
-name|Matchers
+name|ArgumentMatchers
 operator|.
-name|any
+name|anyLong
 import|;
 end_import
 
@@ -73,7 +73,7 @@ name|mockito
 operator|.
 name|Matchers
 operator|.
-name|anyInt
+name|any
 import|;
 end_import
 
@@ -598,13 +598,9 @@ operator|.
 name|incrCounter
 argument_list|(
 name|any
-argument_list|(
-name|Enum
-operator|.
-name|class
-argument_list|)
+argument_list|()
 argument_list|,
-name|anyInt
+name|anyLong
 argument_list|()
 argument_list|)
 expr_stmt|;

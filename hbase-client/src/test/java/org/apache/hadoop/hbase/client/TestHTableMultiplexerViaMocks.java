@@ -235,11 +235,7 @@ name|class
 argument_list|)
 argument_list|,
 name|any
-argument_list|(
-name|Put
-operator|.
-name|class
-argument_list|)
+argument_list|()
 argument_list|,
 name|anyInt
 argument_list|()

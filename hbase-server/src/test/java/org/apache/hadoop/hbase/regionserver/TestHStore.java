@@ -7349,18 +7349,10 @@ operator|.
 name|replaceStoreFiles
 argument_list|(
 name|any
-argument_list|(
-name|Collection
-operator|.
-name|class
-argument_list|)
+argument_list|()
 argument_list|,
 name|any
-argument_list|(
-name|Collection
-operator|.
-name|class
-argument_list|)
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// call second time

@@ -853,7 +853,7 @@ argument_list|)
 operator|.
 name|setText
 argument_list|(
-name|anyString
+name|any
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -865,12 +865,7 @@ operator|.
 name|setPassword
 argument_list|(
 name|any
-argument_list|(
-name|char
-index|[]
-operator|.
-expr|class
-argument_list|)
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

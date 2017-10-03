@@ -2313,11 +2313,10 @@ literal|") Wrapping call to getDeletableFiles for files: "
 operator|+
 name|invocation
 operator|.
-name|getArguments
-argument_list|()
-index|[
+name|getArgument
+argument_list|(
 literal|0
-index|]
+argument_list|)
 argument_list|)
 expr_stmt|;
 annotation|@

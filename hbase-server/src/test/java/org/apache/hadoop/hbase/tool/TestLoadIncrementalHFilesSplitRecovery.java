@@ -2831,11 +2831,7 @@ argument_list|(
 name|Mockito
 operator|.
 name|any
-argument_list|(
-name|ServerName
-operator|.
-name|class
-argument_list|)
+argument_list|()
 argument_list|)
 argument_list|)
 operator|.

@@ -1914,11 +1914,7 @@ operator|.
 name|createProcedure
 argument_list|(
 name|any
-argument_list|(
-name|ForeignExceptionDispatcher
-operator|.
-name|class
-argument_list|)
+argument_list|()
 argument_list|,
 name|eq
 argument_list|(
@@ -1997,11 +1993,7 @@ argument_list|(
 name|Mockito
 operator|.
 name|any
-argument_list|(
-name|ForeignException
-operator|.
-name|class
-argument_list|)
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// ----------------------------

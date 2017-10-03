@@ -575,11 +575,7 @@ operator|.
 name|getSpaceQuota
 argument_list|(
 name|any
-argument_list|(
-name|String
-operator|.
-name|class
-argument_list|)
+argument_list|()
 argument_list|)
 argument_list|)
 operator|.
@@ -651,11 +647,7 @@ operator|.
 name|getQuotaForNamespace
 argument_list|(
 name|any
-argument_list|(
-name|String
-operator|.
-name|class
-argument_list|)
+argument_list|()
 argument_list|)
 argument_list|)
 operator|.

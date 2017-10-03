@@ -1303,11 +1303,7 @@ operator|.
 name|getSpaceQuota
 argument_list|(
 name|any
-argument_list|(
-name|TableName
-operator|.
-name|class
-argument_list|)
+argument_list|()
 argument_list|)
 argument_list|)
 operator|.
@@ -1379,11 +1375,7 @@ operator|.
 name|getQuotaForTable
 argument_list|(
 name|any
-argument_list|(
-name|TableName
-operator|.
-name|class
-argument_list|)
+argument_list|()
 argument_list|)
 argument_list|)
 operator|.

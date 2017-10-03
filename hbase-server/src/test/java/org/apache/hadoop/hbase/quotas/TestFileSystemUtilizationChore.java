@@ -432,11 +432,7 @@ name|Long
 argument_list|>
 operator|)
 name|any
-argument_list|(
-name|Map
-operator|.
-name|class
-argument_list|)
+argument_list|()
 argument_list|)
 expr_stmt|;
 specifier|final
@@ -555,11 +551,7 @@ name|Long
 argument_list|>
 operator|)
 name|any
-argument_list|(
-name|Map
-operator|.
-name|class
-argument_list|)
+argument_list|()
 argument_list|)
 expr_stmt|;
 specifier|final
@@ -750,11 +742,7 @@ name|Long
 argument_list|>
 operator|)
 name|any
-argument_list|(
-name|Map
-operator|.
-name|class
-argument_list|)
+argument_list|()
 argument_list|)
 expr_stmt|;
 specifier|final
@@ -1179,11 +1167,7 @@ name|Long
 argument_list|>
 operator|)
 name|any
-argument_list|(
-name|Map
-operator|.
-name|class
-argument_list|)
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// We shouldn't compute all of these region sizes, just the leftovers
@@ -1425,11 +1409,7 @@ name|Long
 argument_list|>
 operator|)
 name|any
-argument_list|(
-name|Map
-operator|.
-name|class
-argument_list|)
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// We shouldn't compute all of these region sizes, just the leftovers
@@ -1629,11 +1609,7 @@ name|Long
 argument_list|>
 operator|)
 name|any
-argument_list|(
-name|Map
-operator|.
-name|class
-argument_list|)
+argument_list|()
 argument_list|)
 expr_stmt|;
 specifier|final
@@ -1787,11 +1763,7 @@ name|Long
 argument_list|>
 operator|)
 name|any
-argument_list|(
-name|Map
-operator|.
-name|class
-argument_list|)
+argument_list|()
 argument_list|)
 expr_stmt|;
 specifier|final
@@ -1996,11 +1968,7 @@ name|Long
 argument_list|>
 operator|)
 name|any
-argument_list|(
-name|Map
-operator|.
-name|class
-argument_list|)
+argument_list|()
 argument_list|)
 expr_stmt|;
 specifier|final

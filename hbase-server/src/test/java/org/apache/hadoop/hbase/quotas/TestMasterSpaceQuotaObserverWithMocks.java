@@ -315,11 +315,7 @@ operator|.
 name|updateConfigurationForSpaceQuotaObserver
 argument_list|(
 name|any
-argument_list|(
-name|Configuration
-operator|.
-name|class
-argument_list|)
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

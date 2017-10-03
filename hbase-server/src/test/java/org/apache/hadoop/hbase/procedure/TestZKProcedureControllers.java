@@ -175,22 +175,6 @@ name|hbase
 operator|.
 name|errorhandling
 operator|.
-name|ForeignException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|errorhandling
-operator|.
 name|ForeignExceptionDispatcher
 import|;
 end_import
@@ -905,16 +889,12 @@ argument_list|(
 name|Mockito
 operator|.
 name|any
-argument_list|(
-name|ForeignException
-operator|.
-name|class
-argument_list|)
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// XXX: broken due to composition.
 comment|//    verify(member, never()).getManager().controllerConnectionFailure(Mockito.anyString(),
-comment|//      Mockito.any(IOException.class));
+comment|//      Mockito.any());
 comment|// cleanup after the test
 name|ZKUtil
 operator|.
@@ -2324,11 +2304,7 @@ argument_list|(
 name|Mockito
 operator|.
 name|any
-argument_list|(
-name|Subprocedure
-operator|.
-name|class
-argument_list|)
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
