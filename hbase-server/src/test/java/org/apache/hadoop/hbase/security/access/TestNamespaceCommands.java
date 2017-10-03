@@ -1910,8 +1910,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|CP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 name|NamespaceDescriptor
@@ -2014,8 +2012,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|CP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 name|NamespaceDescriptor
@@ -2060,8 +2056,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|CP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 name|TEST_NAMESPACE2
@@ -2199,8 +2193,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|CP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 name|TEST_NAMESPACE
@@ -3493,8 +3485,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|CP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 name|htd

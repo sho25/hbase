@@ -29,6 +29,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Optional
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -102,16 +112,35 @@ name|boolean
 name|isClientCellBlockSupported
 parameter_list|()
 function_decl|;
-comment|/**    * Returns the user credentials associated with the current RPC request or    *<code>null</code> if no credentials were provided.    * @return A User    */
+comment|/**    * Returns the user credentials associated with the current RPC request or not present if no    * credentials were provided.    * @return A User    */
+name|Optional
+argument_list|<
 name|User
+argument_list|>
 name|getRequestUser
 parameter_list|()
 function_decl|;
-comment|/**    * @return Current request's user name or null if none ongoing.    */
+comment|/**    * @return Current request's user name or not present if none ongoing.    */
+specifier|default
+name|Optional
+argument_list|<
 name|String
+argument_list|>
 name|getRequestUserName
 parameter_list|()
-function_decl|;
+block|{
+return|return
+name|getRequestUser
+argument_list|()
+operator|.
+name|map
+argument_list|(
+name|User
+operator|::
+name|getShortName
+argument_list|)
+return|;
+block|}
 comment|/**    * @return Address of remote client in this call    */
 name|InetAddress
 name|getRemoteAddress

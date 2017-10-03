@@ -862,6 +862,9 @@ operator|.
 name|getRemoteAddress
 argument_list|()
 operator|.
+name|get
+argument_list|()
+operator|.
 name|getHostAddress
 argument_list|()
 argument_list|)

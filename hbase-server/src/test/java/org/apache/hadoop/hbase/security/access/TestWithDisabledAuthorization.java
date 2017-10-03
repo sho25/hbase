@@ -3250,8 +3250,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|CP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 name|htd
@@ -3341,8 +3339,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|CP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 name|TEST_TABLE
@@ -3401,8 +3397,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|CP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 name|TEST_TABLE
@@ -3459,8 +3453,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|CP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 name|TEST_TABLE
@@ -3526,8 +3518,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|CP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 name|TEST_TABLE
@@ -3595,8 +3585,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|CP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 name|TEST_TABLE
@@ -3655,8 +3643,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|CP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 name|TEST_TABLE
@@ -3715,8 +3701,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|CP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 name|TEST_TABLE
@@ -3773,8 +3757,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|CP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 name|TEST_TABLE
@@ -3871,8 +3853,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|CP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 name|region
@@ -3942,8 +3922,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|CP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 name|region
@@ -4009,8 +3987,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|CP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 name|region
@@ -4066,8 +4042,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|CP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -4119,8 +4093,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|CP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 literal|true
@@ -4195,8 +4167,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|CP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 name|snapshot
@@ -4261,8 +4231,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|CP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 name|snapshot
@@ -4337,8 +4305,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|CP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 name|snapshot
@@ -4415,8 +4381,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|CP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 name|snapshot
@@ -4481,8 +4445,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|CP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 name|snapshot
@@ -4568,8 +4530,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|CP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 name|tableNamesList
@@ -4638,8 +4598,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|CP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 name|descriptors
@@ -4708,8 +4666,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|CP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 name|ns
@@ -4763,8 +4719,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|CP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 literal|"test"
@@ -4831,8 +4785,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|CP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 name|ns
@@ -4886,8 +4838,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|CP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 literal|"test"
@@ -4952,8 +4902,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|CP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 name|descriptors
@@ -5007,8 +4955,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|CP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 name|TEST_TABLE
@@ -5072,8 +5018,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|CP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 literal|"testuser"
@@ -5129,8 +5073,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|CP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 name|TEST_TABLE
@@ -5189,8 +5131,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|CP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 literal|"test"
@@ -5257,8 +5197,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|RSCP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -5310,8 +5248,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|RSCP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -5374,8 +5310,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|RCP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -5427,8 +5361,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|RCP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -5491,8 +5423,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|RCP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 operator|new
@@ -5552,8 +5482,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|RCP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 operator|new
@@ -5613,8 +5541,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|RCP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 operator|new
@@ -5680,8 +5606,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|RCP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 operator|new
@@ -5747,8 +5671,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|RCP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 operator|new
@@ -5815,8 +5737,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|RCP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 name|TEST_ROW
@@ -5895,8 +5815,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|RCP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 name|TEST_ROW
@@ -5975,8 +5893,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|RCP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 operator|new
@@ -6034,8 +5950,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|RCP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 operator|new
@@ -6093,8 +6007,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|RCP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 operator|new
@@ -6174,8 +6086,6 @@ operator|.
 name|createAndPrepare
 argument_list|(
 name|RCP_ENV
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 name|paths
