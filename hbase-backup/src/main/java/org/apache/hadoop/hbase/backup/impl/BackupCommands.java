@@ -3361,9 +3361,13 @@ name|deleted
 operator|+
 literal|" backups. Total requested: "
 operator|+
+operator|(
 name|args
 operator|.
 name|length
+operator|-
+literal|1
+operator|)
 argument_list|)
 expr_stmt|;
 block|}
