@@ -2290,7 +2290,7 @@ name|value
 parameter_list|)
 block|{
 return|return
-name|CellBuilderFactory
+name|ExtendedCellBuilderFactory
 operator|.
 name|create
 argument_list|(
@@ -2383,7 +2383,7 @@ parameter_list|)
 block|{
 comment|// See createCell(final byte [] row, final byte [] value) for why we default Maximum type.
 return|return
-name|CellBuilderFactory
+name|ExtendedCellBuilderFactory
 operator|.
 name|create
 argument_list|(

@@ -72,14 +72,7 @@ name|qLength
 argument_list|,
 name|timestamp
 argument_list|,
-name|KeyValue
-operator|.
-name|Type
-operator|.
-name|codeToType
-argument_list|(
 name|type
-argument_list|)
 argument_list|,
 name|value
 argument_list|,

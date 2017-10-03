@@ -42,6 +42,20 @@ specifier|public
 interface|interface
 name|CellBuilder
 block|{
+comment|/**    * The valid types for user to build the cell.    * Currently, This is subset of {@link KeyValue.Type}.    */
+enum|enum
+name|DataType
+block|{
+name|Put
+block|,
+name|Delete
+block|,
+name|DeleteFamilyVersion
+block|,
+name|DeleteColumn
+block|,
+name|DeleteFamily
+block|}
 name|CellBuilder
 name|setRow
 parameter_list|(
@@ -132,7 +146,7 @@ name|CellBuilder
 name|setType
 parameter_list|(
 specifier|final
-name|byte
+name|DataType
 name|type
 parameter_list|)
 function_decl|;

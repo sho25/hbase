@@ -10693,10 +10693,10 @@ name|size
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|CellBuilder
+name|ExtendedCellBuilder
 name|builder
 init|=
-name|CellBuilderFactory
+name|ExtendedCellBuilderFactory
 operator|.
 name|create
 argument_list|(
@@ -10972,10 +10972,10 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|CellBuilder
+name|ExtendedCellBuilder
 name|builder
 init|=
-name|CellBuilderFactory
+name|ExtendedCellBuilderFactory
 operator|.
 name|create
 argument_list|(
@@ -13472,7 +13472,7 @@ specifier|static
 name|Cell
 name|toCell
 parameter_list|(
-name|CellBuilder
+name|ExtendedCellBuilder
 name|cellBuilder
 parameter_list|,
 specifier|final

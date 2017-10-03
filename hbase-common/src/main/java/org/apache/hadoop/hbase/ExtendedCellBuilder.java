@@ -150,6 +150,14 @@ name|ExtendedCellBuilder
 name|setType
 parameter_list|(
 specifier|final
+name|DataType
+name|type
+parameter_list|)
+function_decl|;
+name|ExtendedCellBuilder
+name|setType
+parameter_list|(
+specifier|final
 name|byte
 name|type
 parameter_list|)
