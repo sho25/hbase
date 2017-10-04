@@ -1700,7 +1700,13 @@ argument_list|,
 name|conf
 argument_list|)
 expr_stmt|;
-return|return;
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+name|e
+argument_list|)
+throw|;
 block|}
 comment|// case INCREMENTAL_COPY:
 try|try
@@ -1773,7 +1779,13 @@ argument_list|,
 name|conf
 argument_list|)
 expr_stmt|;
-return|return;
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+name|e
+argument_list|)
+throw|;
 block|}
 comment|// case INCR_BACKUP_COMPLETE:
 comment|// set overall backup status: complete. Here we make sure to complete the backup.
@@ -1910,6 +1922,13 @@ argument_list|,
 name|conf
 argument_list|)
 expr_stmt|;
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+name|e
+argument_list|)
+throw|;
 block|}
 block|}
 specifier|protected
