@@ -3354,7 +3354,7 @@ name|job
 operator|.
 name|setReducerClass
 argument_list|(
-name|KeyValueSortReducer
+name|CellSortReducer
 operator|.
 name|class
 argument_list|)
@@ -3405,7 +3405,7 @@ operator|.
 name|getName
 argument_list|()
 argument_list|,
-name|KeyValueSerialization
+name|CellSerialization
 operator|.
 name|class
 operator|.
@@ -5563,7 +5563,7 @@ operator|.
 name|getName
 argument_list|()
 argument_list|,
-name|KeyValueSerialization
+name|CellSerialization
 operator|.
 name|class
 operator|.

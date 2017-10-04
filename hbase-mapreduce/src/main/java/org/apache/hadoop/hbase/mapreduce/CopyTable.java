@@ -809,7 +809,7 @@ name|scan
 argument_list|,
 name|Import
 operator|.
-name|KeyValueImporter
+name|CellImporter
 operator|.
 name|class
 argument_list|,

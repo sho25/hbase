@@ -21,6 +21,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|TreeSet
@@ -33,11 +43,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|Cell
 import|;
 end_import
 
@@ -65,7 +75,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|CellUtil
 import|;
 end_import
 
@@ -82,6 +92,22 @@ operator|.
 name|io
 operator|.
 name|ImmutableBytesWritable
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|MapReduceCell
 import|;
 end_import
 
@@ -99,8 +125,22 @@ name|Reducer
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
-comment|/**  * Emits sorted KeyValues.  * Reads in all KeyValues from passed Iterator, sorts them, then emits  * KeyValues in sorted order.  If lots of columns per row, it will use lots of  * memory sorting.  * @see HFileOutputFormat2  */
+comment|/**  * Emits sorted Cells.  * Reads in all Cells from passed Iterator, sorts them, then emits  * Cells in sorted order.  If lots of columns per row, it will use lots of  * memory sorting.  * @see HFileOutputFormat2  */
 end_comment
 
 begin_class
@@ -110,17 +150,17 @@ operator|.
 name|Public
 specifier|public
 class|class
-name|KeyValueSortReducer
+name|CellSortReducer
 extends|extends
 name|Reducer
 argument_list|<
 name|ImmutableBytesWritable
 argument_list|,
-name|KeyValue
+name|Cell
 argument_list|,
 name|ImmutableBytesWritable
 argument_list|,
-name|KeyValue
+name|Cell
 argument_list|>
 block|{
 specifier|protected
@@ -132,7 +172,7 @@ name|row
 parameter_list|,
 name|Iterable
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|kvs
 parameter_list|,
@@ -140,11 +180,11 @@ name|Reducer
 argument_list|<
 name|ImmutableBytesWritable
 argument_list|,
-name|KeyValue
+name|Cell
 argument_list|,
 name|ImmutableBytesWritable
 argument_list|,
-name|KeyValue
+name|Cell
 argument_list|>
 operator|.
 name|Context
@@ -161,7 +201,7 @@ name|InterruptedException
 block|{
 name|TreeSet
 argument_list|<
-name|KeyValue
+name|Cell
 argument_list|>
 name|map
 init|=
@@ -176,7 +216,7 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|KeyValue
+name|Cell
 name|kv
 range|:
 name|kvs
@@ -188,10 +228,12 @@ name|map
 operator|.
 name|add
 argument_list|(
-name|kv
+name|CellUtil
 operator|.
-name|clone
-argument_list|()
+name|deepClone
+argument_list|(
+name|kv
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -203,10 +245,6 @@ parameter_list|)
 block|{
 throw|throw
 operator|new
-name|java
-operator|.
-name|io
-operator|.
 name|IOException
 argument_list|(
 name|e
@@ -233,7 +271,7 @@ literal|0
 decl_stmt|;
 for|for
 control|(
-name|KeyValue
+name|Cell
 name|kv
 range|:
 name|map
@@ -245,7 +283,11 @@ name|write
 argument_list|(
 name|row
 argument_list|,
+operator|new
+name|MapReduceCell
+argument_list|(
 name|kv
+argument_list|)
 argument_list|)
 expr_stmt|;
 if|if

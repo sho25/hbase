@@ -326,7 +326,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Emits Sorted KeyValues. Parse the passed text and creates KeyValues. Sorts them before emit.  * @see HFileOutputFormat2  * @see KeyValueSortReducer  * @see PutSortReducer  */
+comment|/**  * Emits Sorted KeyValues. Parse the passed text and creates KeyValues. Sorts them before emit.  * @see HFileOutputFormat2  * @see CellSortReducer  * @see PutSortReducer  */
 end_comment
 
 begin_class

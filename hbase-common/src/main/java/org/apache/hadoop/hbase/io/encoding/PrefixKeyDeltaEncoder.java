@@ -35,6 +35,16 @@ name|java
 operator|.
 name|io
 operator|.
+name|DataOutput
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
 name|DataOutputStream
 import|;
 end_import
@@ -293,6 +303,9 @@ name|writeFlatKey
 argument_list|(
 name|cell
 argument_list|,
+operator|(
+name|DataOutput
+operator|)
 name|out
 argument_list|)
 expr_stmt|;

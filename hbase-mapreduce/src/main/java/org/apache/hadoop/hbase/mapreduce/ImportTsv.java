@@ -3163,7 +3163,7 @@ operator|.
 name|getName
 argument_list|()
 argument_list|,
-name|KeyValueSerialization
+name|CellSerialization
 operator|.
 name|class
 operator|.
