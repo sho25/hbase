@@ -245,7 +245,7 @@ name|hbase
 operator|.
 name|coprocessor
 operator|.
-name|ObserverContext
+name|ObserverContextImpl
 import|;
 end_import
 
@@ -1799,7 +1799,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preCreateTable
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(

@@ -839,7 +839,7 @@ name|hbase
 operator|.
 name|coprocessor
 operator|.
-name|ObserverContext
+name|ObserverContextImpl
 import|;
 end_import
 
@@ -3290,7 +3290,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preCreateTable
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -3414,7 +3414,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preModifyTable
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -3499,7 +3499,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preDeleteTable
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -3582,7 +3582,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preTruncateTable
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -3675,7 +3675,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preAddColumnFamily
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -3777,7 +3777,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preModifyColumnFamily
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -3864,7 +3864,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preDeleteColumnFamily
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -3951,7 +3951,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preDisableTable
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -3987,7 +3987,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preDisableTable
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -4098,7 +4098,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preEnableTable
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -4465,7 +4465,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preAbortProcedure
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -4621,7 +4621,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|postGetProcedures
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -4705,7 +4705,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preGetLocks
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -4841,7 +4841,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preMove
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -4974,7 +4974,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preAssign
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -5103,7 +5103,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preUnassign
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -5234,7 +5234,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preRegionOffline
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -5317,7 +5317,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preSetSplitOrMergeEnabled
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -5404,7 +5404,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preBalance
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -5485,7 +5485,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preBalanceSwitch
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -5568,7 +5568,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preShutdown
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -5649,7 +5649,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preStopMaster
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -5792,7 +5792,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preSplitRegion
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -5877,7 +5877,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preFlush
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -5958,7 +5958,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preCompact
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -12428,7 +12428,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preStopRegionServer
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -12509,7 +12509,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preRollWALWriterRequest
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -12590,7 +12590,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preOpen
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -12671,7 +12671,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preClose
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -12790,7 +12790,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preSnapshot
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -12828,7 +12828,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preDeleteSnapshot
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -12864,7 +12864,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preRestoreSnapshot
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -12902,7 +12902,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preCloneSnapshot
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -13126,7 +13126,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preSnapshot
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -13196,7 +13196,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preDeleteSnapshot
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -13264,7 +13264,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preRestoreSnapshot
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -13334,7 +13334,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preCloneSnapshot
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -16386,7 +16386,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preSetUserQuota
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -16424,7 +16424,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preSetUserQuota
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -16464,7 +16464,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preSetUserQuota
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -16507,7 +16507,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preSetTableQuota
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -16545,7 +16545,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preSetNamespaceQuota
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -17773,7 +17773,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|prePrepareBulkLoad
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -17807,7 +17807,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preCleanupBulkLoad
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -17866,7 +17866,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preReplicateLogEntries
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -17878,7 +17878,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|postReplicateLogEntries
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -17954,7 +17954,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preMoveServers
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -18026,7 +18026,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preMoveTables
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -18098,7 +18098,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preAddRSGroup
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -18168,7 +18168,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preRemoveRSGroup
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -18238,7 +18238,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preBalanceRSGroup
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -18308,7 +18308,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preAddReplicationPeer
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -18380,7 +18380,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preRemoveReplicationPeer
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -18450,7 +18450,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preEnableReplicationPeer
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -18520,7 +18520,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preDisableReplicationPeer
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -18590,7 +18590,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preGetReplicationPeerConfig
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -18660,7 +18660,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preUpdateReplicationPeerConfig
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -18734,7 +18734,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preListReplicationPeers
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -18967,7 +18967,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preRequestLock
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -19058,7 +19058,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preRequestLock
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -19157,7 +19157,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preRequestLock
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -19247,7 +19247,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preLockHeartbeat
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(

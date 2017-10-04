@@ -339,7 +339,7 @@ name|hbase
 operator|.
 name|coprocessor
 operator|.
-name|ObserverContext
+name|ObserverContextImpl
 import|;
 end_import
 
@@ -1905,7 +1905,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preModifyNamespace
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -2007,7 +2007,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preCreateNamespace
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -2051,7 +2051,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preDeleteNamespace
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -2188,7 +2188,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preGetNamespaceDescriptor
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(
@@ -3480,7 +3480,7 @@ name|ACCESS_CONTROLLER
 operator|.
 name|preCreateTable
 argument_list|(
-name|ObserverContext
+name|ObserverContextImpl
 operator|.
 name|createAndPrepare
 argument_list|(

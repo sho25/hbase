@@ -2467,7 +2467,7 @@ parameter_list|<
 name|O
 parameter_list|>
 extends|extends
-name|ObserverContext
+name|ObserverContextImpl
 argument_list|<
 name|E
 argument_list|>
