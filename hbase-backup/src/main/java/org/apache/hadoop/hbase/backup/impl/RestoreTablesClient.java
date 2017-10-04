@@ -674,7 +674,7 @@ name|existTableList
 operator|+
 literal|") found in the restore target, please add "
 operator|+
-literal|"\"-overwrite\" option in the command if you mean"
+literal|"\"-o\" as overwrite option in the command if you mean"
 operator|+
 literal|" to restore to these existing tables"
 argument_list|)
@@ -683,9 +683,9 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Existing table found in target while no \"-overwrite\" "
+literal|"Existing table found in target while no \"-o\" "
 operator|+
-literal|"option found"
+literal|"as overwrite option found"
 argument_list|)
 throw|;
 block|}
