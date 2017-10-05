@@ -8588,8 +8588,6 @@ name|candidatesForCoproc
 argument_list|,
 name|tracker
 argument_list|,
-literal|null
-argument_list|,
 name|user
 argument_list|)
 expr_stmt|;

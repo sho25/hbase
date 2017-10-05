@@ -123,20 +123,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Coprocessor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HBaseInterfaceAudience
 import|;
 end_import
@@ -876,7 +862,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called prior to selecting the {@link StoreFile StoreFiles} to compact from the list of    * available candidates. To alter the files used for compaction, you may mutate the passed in list    * of candidates.    * @param c the environment provided by the region server    * @param store the store where compaction is being requested    * @param candidates the store files currently available for compaction    * @param tracker tracker used to track the life cycle of a compaction    * @param request the requested compaction    */
+comment|/**    * Called prior to selecting the {@link StoreFile StoreFiles} to compact from the list of    * available candidates. To alter the files used for compaction, you may mutate the passed in list    * of candidates.    * @param c the environment provided by the region server    * @param store the store where compaction is being requested    * @param candidates the store files currently available for compaction    * @param tracker tracker used to track the life cycle of a compaction    */
 specifier|default
 name|void
 name|preCompactSelection
@@ -900,9 +886,6 @@ name|candidates
 parameter_list|,
 name|CompactionLifeCycleTracker
 name|tracker
-parameter_list|,
-name|CompactionRequest
-name|request
 parameter_list|)
 throws|throws
 name|IOException

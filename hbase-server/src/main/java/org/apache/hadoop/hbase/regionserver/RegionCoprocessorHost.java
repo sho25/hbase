@@ -3170,7 +3170,7 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * Called prior to selecting the {@link HStoreFile}s for compaction from the list of currently    * available candidates.    * @param store The store where compaction is being requested    * @param candidates The currently available store files    * @param tracker used to track the life cycle of a compaction    * @param request the compaction request    * @param user the user    * @return If {@code true}, skip the normal selection process and use the current list    * @throws IOException    */
+comment|/**    * Called prior to selecting the {@link HStoreFile}s for compaction from the list of currently    * available candidates.    * @param store The store where compaction is being requested    * @param candidates The currently available store files    * @param tracker used to track the life cycle of a compaction    * @param user the user    * @return If {@code true}, skip the normal selection process and use the current list    * @throws IOException    */
 specifier|public
 name|boolean
 name|preCompactSelection
@@ -3189,10 +3189,6 @@ parameter_list|,
 specifier|final
 name|CompactionLifeCycleTracker
 name|tracker
-parameter_list|,
-specifier|final
-name|CompactionRequest
-name|request
 parameter_list|,
 specifier|final
 name|User
@@ -3240,8 +3236,6 @@ argument_list|,
 name|candidates
 argument_list|,
 name|tracker
-argument_list|,
-name|request
 argument_list|)
 expr_stmt|;
 block|}

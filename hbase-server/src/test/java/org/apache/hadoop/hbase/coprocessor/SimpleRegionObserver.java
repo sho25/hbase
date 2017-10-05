@@ -1612,9 +1612,6 @@ name|candidates
 parameter_list|,
 name|CompactionLifeCycleTracker
 name|tracker
-parameter_list|,
-name|CompactionRequest
-name|request
 parameter_list|)
 throws|throws
 name|IOException
