@@ -447,11 +447,6 @@ name|factory
 init|=
 name|createWriterFactory
 argument_list|(
-name|snapshot
-operator|.
-name|getTimeRangeTracker
-argument_list|()
-argument_list|,
 name|cellsCount
 argument_list|)
 decl_stmt|;
@@ -607,10 +602,6 @@ name|WriterFactory
 name|createWriterFactory
 parameter_list|(
 specifier|final
-name|TimeRangeTracker
-name|tracker
-parameter_list|,
-specifier|final
 name|long
 name|kvCount
 parameter_list|)
@@ -659,8 +650,6 @@ literal|true
 argument_list|,
 comment|/* shouldDropBehind = */
 literal|false
-argument_list|,
-name|tracker
 argument_list|)
 decl_stmt|;
 return|return
