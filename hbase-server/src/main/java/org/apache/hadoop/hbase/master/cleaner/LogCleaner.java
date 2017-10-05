@@ -125,6 +125,24 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
+name|procedure
+operator|.
+name|MasterProcedureUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -150,7 +168,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This Chore, every time it runs, will attempt to delete the WALs in the old logs folder. The WAL  * is only deleted if none of the cleaner delegates says otherwise.  * @see BaseLogCleanerDelegate  */
+comment|/**  * This Chore, every time it runs, will attempt to delete the WALs and Procedure WALs in the old  * logs folder. The WAL is only deleted if none of the cleaner delegates says otherwise.  * @see BaseLogCleanerDelegate  */
 end_comment
 
 begin_class
@@ -185,17 +203,17 @@ name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|/**    * @param p the period of time to sleep between each run    * @param s the stopper    * @param conf configuration to use    * @param fs handle to the FS    * @param oldLogDir the path to the archived logs    */
+comment|/**    * @param period the period of time to sleep between each run    * @param stopper the stopper    * @param conf configuration to use    * @param fs handle to the FS    * @param oldLogDir the path to the archived logs    */
 specifier|public
 name|LogCleaner
 parameter_list|(
 specifier|final
 name|int
-name|p
+name|period
 parameter_list|,
 specifier|final
 name|Stoppable
-name|s
+name|stopper
 parameter_list|,
 name|Configuration
 name|conf
@@ -211,9 +229,9 @@ name|super
 argument_list|(
 literal|"LogsCleaner"
 argument_list|,
-name|p
+name|period
 argument_list|,
-name|s
+name|stopper
 argument_list|,
 name|conf
 argument_list|,
@@ -239,6 +257,16 @@ return|return
 name|AbstractFSWALProvider
 operator|.
 name|validateWALFilename
+argument_list|(
+name|file
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+operator|||
+name|MasterProcedureUtil
+operator|.
+name|validateProcedureWALFilename
 argument_list|(
 name|file
 operator|.

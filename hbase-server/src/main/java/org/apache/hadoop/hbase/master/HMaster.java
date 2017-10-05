@@ -7217,6 +7217,17 @@ argument_list|)
 decl_stmt|;
 specifier|final
 name|Path
+name|rootDir
+init|=
+name|FSUtils
+operator|.
+name|getRootDir
+argument_list|(
+name|conf
+argument_list|)
+decl_stmt|;
+specifier|final
+name|Path
 name|walDir
 init|=
 operator|new
@@ -7236,7 +7247,6 @@ operator|.
 name|MASTER_PROCEDURE_LOGDIR
 argument_list|)
 decl_stmt|;
-comment|// TODO: No cleaner currently! Make it a subdir!
 specifier|final
 name|Path
 name|walArchiveDir
@@ -7244,9 +7254,11 @@ init|=
 operator|new
 name|Path
 argument_list|(
-name|walDir
+name|rootDir
 argument_list|,
-literal|"archive"
+name|HConstants
+operator|.
+name|HREGION_OLDLOGDIR_NAME
 argument_list|)
 decl_stmt|;
 specifier|final

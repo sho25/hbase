@@ -141,16 +141,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|Collections
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|Comparator
 import|;
 end_import
@@ -642,7 +632,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * A utility method to create new instances of LogCleanerDelegate based on the class name of the    * LogCleanerDelegate.    * @param className fully qualified class name of the LogCleanerDelegate    * @param conf    * @return the new instance    */
+comment|/**    * A utility method to create new instances of LogCleanerDelegate based on the class name of the    * LogCleanerDelegate.    * @param className fully qualified class name of the LogCleanerDelegate    * @param conf used configuration    * @return the new instance    */
 specifier|private
 name|T
 name|newFileCleaner
@@ -865,12 +855,10 @@ block|{
 comment|// no need to sort for empty or single directory
 return|return;
 block|}
-name|Collections
+name|dirs
 operator|.
 name|sort
 argument_list|(
-name|dirs
-argument_list|,
 operator|new
 name|Comparator
 argument_list|<
@@ -888,11 +876,7 @@ name|directorySpaces
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|FileStatus
-argument_list|,
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 annotation|@
@@ -925,24 +909,14 @@ name|f2
 argument_list|)
 decl_stmt|;
 return|return
-operator|(
-name|f1ConsumedSpace
-operator|>
+name|Long
+operator|.
+name|compare
+argument_list|(
 name|f2ConsumedSpace
-operator|)
-condition|?
-operator|-
-literal|1
-else|:
-operator|(
+argument_list|,
 name|f1ConsumedSpace
-operator|<
-name|f2ConsumedSpace
-condition|?
-literal|1
-else|:
-literal|0
-operator|)
+argument_list|)
 return|;
 block|}
 specifier|private

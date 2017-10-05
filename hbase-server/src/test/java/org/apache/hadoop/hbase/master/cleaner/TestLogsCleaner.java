@@ -147,6 +147,34 @@ name|org
 operator|.
 name|apache
 operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|Log
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|LogFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -423,22 +451,6 @@ name|hbase
 operator|.
 name|replication
 operator|.
-name|ReplicationQueuesClient
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|replication
-operator|.
 name|ReplicationQueuesClientZKImpl
 import|;
 end_import
@@ -658,6 +670,21 @@ class|class
 name|TestLogsCleaner
 block|{
 specifier|private
+specifier|static
+specifier|final
+name|Log
+name|LOG
+init|=
+name|LogFactory
+operator|.
+name|getLog
+argument_list|(
+name|TestLogsCleaner
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
+specifier|private
 specifier|final
 specifier|static
 name|HBaseTestingUtility
@@ -667,7 +694,6 @@ operator|new
 name|HBaseTestingUtility
 argument_list|()
 decl_stmt|;
-comment|/**    * @throws java.lang.Exception    */
 annotation|@
 name|BeforeClass
 specifier|public
@@ -684,7 +710,6 @@ name|startMiniZKCluster
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * @throws java.lang.Exception    */
 annotation|@
 name|AfterClass
 specifier|public
@@ -701,6 +726,7 @@ name|shutdownMiniZKCluster
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * This tests verifies LogCleaner works correctly with WALs and Procedure WALs located    * in the same oldWALs directory.    * Created files:    * - 2 invalid files    * - 5 old Procedure WALs    * - 30 old WALs from which 3 are in replication    * - 5 recent Procedure WALs    * - 1 recent WAL    * - 1 very new WAL (timestamp in future)    * - masterProcedureWALs subdirectory    * Files which should stay:    * - 3 replication WALs    * - 2 new WALs    * - 5 latest Procedure WALs    * - masterProcedureWALs subdirectory    */
 annotation|@
 name|Test
 specifier|public
@@ -718,11 +744,16 @@ operator|.
 name|getConfiguration
 argument_list|()
 decl_stmt|;
-comment|// set TTL
+comment|// set TTLs
 name|long
-name|ttl
+name|ttlWAL
 init|=
-literal|10000
+literal|2000
+decl_stmt|;
+name|long
+name|ttlProcedureWAL
+init|=
+literal|4000
 decl_stmt|;
 name|conf
 operator|.
@@ -730,7 +761,16 @@ name|setLong
 argument_list|(
 literal|"hbase.master.logcleaner.ttl"
 argument_list|,
-name|ttl
+name|ttlWAL
+argument_list|)
+expr_stmt|;
+name|conf
+operator|.
+name|setLong
+argument_list|(
+literal|"hbase.master.procedurewalcleaner.ttl"
+argument_list|,
+name|ttlProcedureWAL
 argument_list|)
 expr_stmt|;
 name|Replication
@@ -798,6 +838,18 @@ operator|.
 name|HREGION_OLDLOGDIR_NAME
 argument_list|)
 decl_stmt|;
+specifier|final
+name|Path
+name|oldProcedureWALDir
+init|=
+operator|new
+name|Path
+argument_list|(
+name|oldLogDir
+argument_list|,
+literal|"masterProcedureWALs"
+argument_list|)
+decl_stmt|;
 name|String
 name|fakeMachineName
 init|=
@@ -827,7 +879,6 @@ argument_list|(
 name|conf
 argument_list|)
 decl_stmt|;
-comment|// Create 2 invalid files, 1 "recent" file, 1 very new file and 30 old files
 name|long
 name|now
 init|=
@@ -883,19 +934,59 @@ literal|"a"
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// Case 2: 1 "recent" file, not even deletable for the first log cleaner
-comment|// (TimeToLiveLogCleaner), so we are not going down the chain
-name|System
-operator|.
-name|out
-operator|.
-name|println
+comment|// Case 2: 5 Procedure WALs that are old which would be deleted
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|1
+init|;
+name|i
+operator|<
+literal|6
+condition|;
+name|i
+operator|++
+control|)
+block|{
+name|Path
+name|fileName
+init|=
+operator|new
+name|Path
 argument_list|(
-literal|"Now is: "
-operator|+
-name|now
+name|oldProcedureWALDir
+argument_list|,
+name|String
+operator|.
+name|format
+argument_list|(
+literal|"pv-%020d.log"
+argument_list|,
+name|i
+argument_list|)
+argument_list|)
+decl_stmt|;
+name|fs
+operator|.
+name|createNewFile
+argument_list|(
+name|fileName
 argument_list|)
 expr_stmt|;
+block|}
+comment|// Sleep for sometime to get old procedure WALs
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+name|ttlProcedureWAL
+operator|-
+name|ttlWAL
+argument_list|)
+expr_stmt|;
+comment|// Case 3: old WALs which would be deletable
 for|for
 control|(
 name|int
@@ -911,8 +1002,6 @@ name|i
 operator|++
 control|)
 block|{
-comment|// Case 3: old files which would be deletable for the first log cleaner
-comment|// (TimeToLiveLogCleaner), and also for the second (ReplicationLogCleaner)
 name|Path
 name|fileName
 init|=
@@ -939,10 +1028,8 @@ argument_list|(
 name|fileName
 argument_list|)
 expr_stmt|;
-comment|// Case 4: put 3 old log files in ZK indicating that they are scheduled
-comment|// for replication so these files would pass the first log cleaner
-comment|// (TimeToLiveLogCleaner) but would be rejected by the second
-comment|// (ReplicationLogCleaner)
+comment|// Case 4: put 3 WALs in ZK indicating that they are scheduled for replication so these
+comment|// files would pass TimeToLiveLogCleaner but would be rejected by ReplicationLogCleaner
 if|if
 condition|(
 name|i
@@ -968,11 +1055,9 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
+name|info
 argument_list|(
 literal|"Replication log file: "
 operator|+
@@ -981,12 +1066,54 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|// sleep for sometime to get newer modifcation time
+comment|// Case 5: 5 Procedure WALs that are new, will stay
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|6
+init|;
+name|i
+operator|<
+literal|11
+condition|;
+name|i
+operator|++
+control|)
+block|{
+name|Path
+name|fileName
+init|=
+operator|new
+name|Path
+argument_list|(
+name|oldProcedureWALDir
+argument_list|,
+name|String
+operator|.
+name|format
+argument_list|(
+literal|"pv-%020d.log"
+argument_list|,
+name|i
+argument_list|)
+argument_list|)
+decl_stmt|;
+name|fs
+operator|.
+name|createNewFile
+argument_list|(
+name|fileName
+argument_list|)
+expr_stmt|;
+block|}
+comment|// Sleep for sometime to get newer modification time
 name|Thread
 operator|.
 name|sleep
 argument_list|(
-name|ttl
+name|ttlWAL
 argument_list|)
 expr_stmt|;
 name|fs
@@ -1006,8 +1133,8 @@ name|now
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// Case 2: 1 newer file, not even deletable for the first log cleaner
-comment|// (TimeToLiveLogCleaner), so we are not going down the chain
+comment|// Case 6: 1 newer WAL, not even deletable for TimeToLiveLogCleaner,
+comment|// so we are not going down the chain
 name|fs
 operator|.
 name|createNewFile
@@ -1024,7 +1151,7 @@ operator|+
 operator|(
 name|now
 operator|+
-literal|10000
+name|ttlWAL
 operator|)
 argument_list|)
 argument_list|)
@@ -1042,11 +1169,9 @@ name|oldLogDir
 argument_list|)
 control|)
 block|{
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
+name|info
 argument_list|(
 name|stat
 operator|.
@@ -1058,15 +1183,31 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+comment|// There should be 34 files and masterProcedureWALs directory
 name|assertEquals
 argument_list|(
-literal|34
+literal|35
 argument_list|,
 name|fs
 operator|.
 name|listStatus
 argument_list|(
 name|oldLogDir
+argument_list|)
+operator|.
+name|length
+argument_list|)
+expr_stmt|;
+comment|// 10 procedure WALs
+name|assertEquals
+argument_list|(
+literal|10
+argument_list|,
+name|fs
+operator|.
+name|listStatus
+argument_list|(
+name|oldProcedureWALDir
 argument_list|)
 operator|.
 name|length
@@ -1094,34 +1235,25 @@ operator|.
 name|chore
 argument_list|()
 expr_stmt|;
-comment|// We end up with the current log file, a newer one and the 3 old log
-comment|// files which are scheduled for replication
+comment|// In oldWALs we end up with the current WAL, a newer WAL, the 3 old WALs which
+comment|// are scheduled for replication and masterProcedureWALs directory
 name|TEST_UTIL
 operator|.
 name|waitFor
 argument_list|(
 literal|1000
 argument_list|,
-operator|new
+call|(
 name|Waiter
 operator|.
 name|Predicate
 argument_list|<
 name|Exception
 argument_list|>
+call|)
 argument_list|()
-block|{
-annotation|@
-name|Override
-specifier|public
-name|boolean
-name|evaluate
-parameter_list|()
-throws|throws
-name|Exception
-block|{
-return|return
-literal|5
+operator|->
+literal|6
 operator|==
 name|fs
 operator|.
@@ -1131,9 +1263,35 @@ name|oldLogDir
 argument_list|)
 operator|.
 name|length
-return|;
-block|}
-block|}
+argument_list|)
+expr_stmt|;
+comment|// In masterProcedureWALs we end up with 5 newer Procedure WALs
+name|TEST_UTIL
+operator|.
+name|waitFor
+argument_list|(
+literal|1000
+argument_list|,
+call|(
+name|Waiter
+operator|.
+name|Predicate
+argument_list|<
+name|Exception
+argument_list|>
+call|)
+argument_list|()
+operator|->
+literal|5
+operator|==
+name|fs
+operator|.
+name|listStatus
+argument_list|(
+name|oldProcedureWALDir
+argument_list|)
+operator|.
+name|length
 argument_list|)
 expr_stmt|;
 for|for
@@ -1149,13 +1307,40 @@ name|oldLogDir
 argument_list|)
 control|)
 block|{
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
+name|debug
 argument_list|(
-literal|"Kept log files: "
+literal|"Kept log file in oldWALs: "
+operator|+
+name|file
+operator|.
+name|getPath
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+for|for
+control|(
+name|FileStatus
+name|file
+range|:
+name|fs
+operator|.
+name|listStatus
+argument_list|(
+name|oldProcedureWALDir
+argument_list|)
+control|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Kept log file in masterProcedureWALs: "
 operator|+
 name|file
 operator|.
@@ -1277,7 +1462,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * ReplicationLogCleaner should be able to ride over ZooKeeper errors without    * aborting.    */
+comment|/**    * ReplicationLogCleaner should be able to ride over ZooKeeper errors without aborting.    */
 annotation|@
 name|Test
 specifier|public
@@ -1359,6 +1544,8 @@ argument_list|)
 argument_list|)
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|FaultyZooKeeperWatcher
 name|faultyZK
 init|=
@@ -1371,8 +1558,7 @@ literal|"testZooKeeperAbort-faulty"
 argument_list|,
 literal|null
 argument_list|)
-decl_stmt|;
-try|try
+init|)
 block|{
 name|faultyZK
 operator|.
@@ -1422,14 +1608,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-finally|finally
-block|{
-name|faultyZK
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-block|}
 comment|// when zk is working both files should be returned
 name|cleaner
 operator|=
@@ -1437,6 +1615,8 @@ operator|new
 name|ReplicationLogCleaner
 argument_list|()
 expr_stmt|;
+try|try
+init|(
 name|ZooKeeperWatcher
 name|zkw
 init|=
@@ -1449,8 +1629,7 @@ literal|"testZooKeeperAbort-normal"
 argument_list|,
 literal|null
 argument_list|)
-decl_stmt|;
-try|try
+init|)
 block|{
 name|cleaner
 operator|.
@@ -1542,14 +1721,6 @@ operator|.
 name|hasNext
 argument_list|()
 argument_list|)
-expr_stmt|;
-block|}
-finally|finally
-block|{
-name|zkw
-operator|.
-name|close
-argument_list|()
 expr_stmt|;
 block|}
 block|}
@@ -1723,7 +1894,6 @@ name|ClusterConnection
 name|getClusterConnection
 parameter_list|()
 block|{
-comment|// TODO Auto-generated method stub
 return|return
 literal|null
 return|;
