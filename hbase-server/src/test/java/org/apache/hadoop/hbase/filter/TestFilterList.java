@@ -3127,7 +3127,7 @@ argument_list|(
 literal|null
 argument_list|)
 argument_list|,
-name|maxKeyValue
+name|minKeyValue
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -3234,7 +3234,7 @@ argument_list|(
 literal|null
 argument_list|)
 argument_list|,
-name|maxKeyValue
+name|minKeyValue
 argument_list|)
 argument_list|)
 expr_stmt|;
