@@ -2504,7 +2504,6 @@ operator|.
 name|NEXT_ROW
 return|;
 block|}
-break|break;
 case|case
 name|SEEK_NEXT_USING_HINT
 case|:
@@ -2578,7 +2577,6 @@ operator|.
 name|SEEK_NEXT_USING_HINT
 return|;
 block|}
-break|break;
 block|}
 throw|throw
 operator|new
