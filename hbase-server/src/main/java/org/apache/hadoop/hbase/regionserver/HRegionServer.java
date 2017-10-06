@@ -15718,7 +15718,7 @@ throws|throws
 name|NotServingRegionException
 block|{
 comment|//Check for permissions to close.
-name|Region
+name|HRegion
 name|actualRegion
 init|=
 name|this
@@ -16317,7 +16317,7 @@ return|;
 block|}
 comment|/**    * @param regionName    * @return HRegion for the passed binary<code>regionName</code> or null if    *         named region is not member of the online regions.    */
 specifier|public
-name|Region
+name|HRegion
 name|getOnlineRegion
 parameter_list|(
 specifier|final

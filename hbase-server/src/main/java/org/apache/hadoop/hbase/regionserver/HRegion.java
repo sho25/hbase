@@ -37814,8 +37814,6 @@ argument_list|)
 return|;
 block|}
 comment|/** @return the coprocessor host */
-annotation|@
-name|Override
 specifier|public
 name|RegionCoprocessorHost
 name|getCoprocessorHost

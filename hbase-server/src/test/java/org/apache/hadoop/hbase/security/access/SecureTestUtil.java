@@ -623,7 +623,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|Region
+name|HRegion
 import|;
 end_import
 
@@ -2210,7 +2210,7 @@ control|)
 block|{
 for|for
 control|(
-name|Region
+name|HRegion
 name|region
 range|:
 name|t

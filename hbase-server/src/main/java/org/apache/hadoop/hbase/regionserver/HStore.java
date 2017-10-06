@@ -10754,8 +10754,6 @@ operator|.
 name|region
 return|;
 block|}
-annotation|@
-name|Override
 specifier|public
 name|RegionCoprocessorHost
 name|getCoprocessorHost

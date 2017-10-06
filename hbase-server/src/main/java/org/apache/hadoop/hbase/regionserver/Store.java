@@ -411,10 +411,6 @@ name|RegionInfo
 name|getRegionInfo
 parameter_list|()
 function_decl|;
-name|RegionCoprocessorHost
-name|getCoprocessorHost
-parameter_list|()
-function_decl|;
 name|boolean
 name|areWritesEnabled
 parameter_list|()

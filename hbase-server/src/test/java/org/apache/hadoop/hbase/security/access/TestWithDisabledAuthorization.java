@@ -611,7 +611,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|MiniBatchOperationInProgress
+name|HRegion
 import|;
 end_import
 
@@ -627,7 +627,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|Region
+name|MiniBatchOperationInProgress
 import|;
 end_import
 
@@ -1655,7 +1655,7 @@ name|getTableName
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|Region
+name|HRegion
 name|region
 init|=
 name|TEST_UTIL

@@ -309,7 +309,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegionServer
+name|HRegion
 import|;
 end_import
 
@@ -325,7 +325,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|Region
+name|HRegionServer
 import|;
 end_import
 
@@ -1378,7 +1378,7 @@ argument_list|)
 block|}
 argument_list|)
 expr_stmt|;
-name|Region
+name|HRegion
 name|region
 init|=
 name|TEST_UTIL

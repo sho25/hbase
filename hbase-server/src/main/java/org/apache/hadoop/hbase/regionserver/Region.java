@@ -1002,12 +1002,6 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/** @return the coprocessor host */
-comment|// TODO To be removed by HBASE-18954
-name|RegionCoprocessorHost
-name|getCoprocessorHost
-parameter_list|()
-function_decl|;
 comment|///////////////////////////////////////////////////////////////////////////
 comment|// Flushes, compactions, splits, etc.
 comment|// Wizards only, please

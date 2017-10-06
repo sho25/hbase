@@ -635,6 +635,9 @@ name|secureBulkLoadManager
 operator|.
 name|prepareBulkLoad
 argument_list|(
+operator|(
+name|HRegion
+operator|)
 name|this
 operator|.
 name|env
@@ -832,6 +835,9 @@ name|secureBulkLoadManager
 operator|.
 name|cleanupBulkLoad
 argument_list|(
+operator|(
+name|HRegion
+operator|)
 name|this
 operator|.
 name|env

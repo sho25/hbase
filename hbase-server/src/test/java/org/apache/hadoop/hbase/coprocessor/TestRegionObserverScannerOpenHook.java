@@ -1490,7 +1490,7 @@ operator|.
 name|create
 argument_list|()
 decl_stmt|;
-name|Region
+name|HRegion
 name|region
 init|=
 name|initHRegion

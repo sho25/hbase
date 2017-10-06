@@ -828,7 +828,7 @@ name|String
 name|prepareBulkLoad
 parameter_list|(
 specifier|final
-name|Region
+name|HRegion
 name|region
 parameter_list|,
 specifier|final
@@ -884,7 +884,7 @@ name|void
 name|cleanupBulkLoad
 parameter_list|(
 specifier|final
-name|Region
+name|HRegion
 name|region
 parameter_list|,
 specifier|final
