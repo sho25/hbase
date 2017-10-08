@@ -312,6 +312,8 @@ argument_list|,
 literal|0
 argument_list|,
 literal|5
+argument_list|,
+literal|5
 argument_list|)
 decl_stmt|;
 name|assertEquals
@@ -517,6 +519,8 @@ argument_list|,
 literal|7
 argument_list|,
 literal|10
+argument_list|,
+literal|3
 argument_list|)
 expr_stmt|;
 try|try
