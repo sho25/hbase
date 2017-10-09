@@ -315,6 +315,11 @@ argument_list|()
 expr_stmt|;
 block|}
 annotation|@
+name|Ignore
+argument_list|(
+literal|"HBASE-18410 Should not merge without this test running."
+argument_list|)
+annotation|@
 name|Test
 specifier|public
 name|void
