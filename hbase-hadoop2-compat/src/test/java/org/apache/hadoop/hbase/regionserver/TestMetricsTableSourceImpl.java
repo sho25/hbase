@@ -146,6 +146,11 @@ class|class
 name|TestMetricsTableSourceImpl
 block|{
 annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"SelfComparison"
+argument_list|)
+annotation|@
 name|Test
 specifier|public
 name|void
