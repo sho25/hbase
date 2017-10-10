@@ -377,57 +377,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|master
-operator|.
-name|locking
-operator|.
-name|LockManager
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|net
 operator|.
 name|Address
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|procedure2
-operator|.
-name|LockType
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
 import|;
 end_import
 
@@ -476,6 +428,20 @@ operator|.
 name|collect
 operator|.
 name|Maps
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -660,7 +626,7 @@ block|}
 for|for
 control|(
 name|Address
-name|el
+name|address
 range|:
 name|servers
 control|)
@@ -672,7 +638,7 @@ name|onlineServers
 operator|.
 name|contains
 argument_list|(
-name|el
+name|address
 argument_list|)
 condition|)
 block|{
@@ -682,7 +648,7 @@ name|ConstraintException
 argument_list|(
 literal|"Server "
 operator|+
-name|el
+name|address
 operator|+
 literal|" is not an online server in 'default' RSGroup."
 argument_list|)
@@ -1190,10 +1156,10 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * @param servers the servers that will move to new group    * @param targetGroupName the target group name    * @param tables The regions of tables assigned to these servers will not unassign    * @throws IOException    */
+comment|/**    * Moves every region from servers which are currently located on these servers,    * but should not be located there.    * @param servers the servers that will move to new group    * @param tables these tables will be kept on the servers, others will be moved    * @param targetGroupName the target group name    * @throws IOException    */
 specifier|private
 name|void
-name|unassignRegionFromServers
+name|moveRegionsFromServers
 parameter_list|(
 name|Set
 argument_list|<
@@ -1201,20 +1167,20 @@ name|Address
 argument_list|>
 name|servers
 parameter_list|,
-name|String
-name|targetGroupName
-parameter_list|,
 name|Set
 argument_list|<
 name|TableName
 argument_list|>
 name|tables
+parameter_list|,
+name|String
+name|targetGroupName
 parameter_list|)
 throws|throws
 name|IOException
 block|{
 name|boolean
-name|foundRegionsToUnassign
+name|foundRegionsToMove
 decl_stmt|;
 name|RSGroupInfo
 name|targetGrp
@@ -1239,7 +1205,7 @@ argument_list|)
 decl_stmt|;
 do|do
 block|{
-name|foundRegionsToUnassign
+name|foundRegionsToMove
 operator|=
 literal|false
 expr_stmt|;
@@ -1321,7 +1287,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Unassigning "
+literal|"Moving "
 operator|+
 name|regions
 operator|.
@@ -1376,7 +1342,7 @@ operator|.
 name|getAssignmentManager
 argument_list|()
 operator|.
-name|unassign
+name|move
 argument_list|(
 name|region
 argument_list|)
@@ -1402,7 +1368,7 @@ condition|)
 block|{
 continue|continue;
 block|}
-name|foundRegionsToUnassign
+name|foundRegionsToMove
 operator|=
 literal|true
 expr_stmt|;
@@ -1412,7 +1378,7 @@ block|}
 if|if
 condition|(
 operator|!
-name|foundRegionsToUnassign
+name|foundRegionsToMove
 condition|)
 block|{
 name|iter
@@ -1459,15 +1425,21 @@ block|}
 block|}
 do|while
 condition|(
-name|foundRegionsToUnassign
+name|foundRegionsToMove
 condition|)
 do|;
 block|}
-comment|/**    * @param tables the tables that will move to new group    * @param targetGroupName the target group name    * @param servers the regions of tables assigned to these servers will not unassign    * @throws IOException    */
+comment|/**    * Moves every region of tables which should be kept on the servers,    * but currently they are located on other servers.    * @param servers the regions of these servers will be kept on the servers,    * others will be moved    * @param tables the tables that will move to new group    * @param targetGroupName the target group name    * @throws IOException    */
 specifier|private
 name|void
-name|unassignRegionFromTables
+name|moveRegionsToServers
 parameter_list|(
+name|Set
+argument_list|<
+name|Address
+argument_list|>
+name|servers
+parameter_list|,
 name|Set
 argument_list|<
 name|TableName
@@ -1476,12 +1448,6 @@ name|tables
 parameter_list|,
 name|String
 name|targetGroupName
-parameter_list|,
-name|Set
-argument_list|<
-name|Address
-argument_list|>
-name|servers
 parameter_list|)
 throws|throws
 name|IOException
@@ -1498,7 +1464,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Unassigning region(s) from "
+literal|"Moving region(s) from "
 operator|+
 name|table
 operator|+
@@ -1507,61 +1473,6 @@ operator|+
 name|targetGroupName
 argument_list|)
 expr_stmt|;
-name|LockManager
-operator|.
-name|MasterLock
-name|lock
-init|=
-name|master
-operator|.
-name|getLockManager
-argument_list|()
-operator|.
-name|createMasterLock
-argument_list|(
-name|table
-argument_list|,
-name|LockType
-operator|.
-name|EXCLUSIVE
-argument_list|,
-name|this
-operator|.
-name|getClass
-argument_list|()
-operator|.
-name|getName
-argument_list|()
-operator|+
-literal|": RSGroup: table move"
-argument_list|)
-decl_stmt|;
-try|try
-block|{
-try|try
-block|{
-name|lock
-operator|.
-name|acquire
-argument_list|()
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|InterruptedException
-name|e
-parameter_list|)
-block|{
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-literal|"Interrupted when waiting for table lock"
-argument_list|,
-name|e
-argument_list|)
-throw|;
-block|}
 for|for
 control|(
 name|RegionInfo
@@ -1616,21 +1527,12 @@ operator|.
 name|getAssignmentManager
 argument_list|()
 operator|.
-name|unassign
+name|move
 argument_list|(
 name|region
 argument_list|)
 expr_stmt|;
 block|}
-block|}
-block|}
-finally|finally
-block|{
-name|lock
-operator|.
-name|release
-argument_list|()
-expr_stmt|;
 block|}
 block|}
 block|}
@@ -1964,11 +1866,11 @@ name|movedServers
 argument_list|)
 decl_stmt|;
 name|boolean
-name|foundRegionsToUnassign
+name|foundRegionsToMove
 decl_stmt|;
 do|do
 block|{
-name|foundRegionsToUnassign
+name|foundRegionsToMove
 operator|=
 literal|false
 expr_stmt|;
@@ -2012,16 +1914,11 @@ argument_list|(
 name|rs
 argument_list|)
 decl_stmt|;
-comment|// Unassign regions for a server
-comment|// TODO: This is problematic especially if hbase:meta is in the mix.
-comment|// We need to update state in hbase:meta on Master and if unassigned we hang
-comment|// around in here. There is a silly sort on linked list done above
-comment|// in getRegions putting hbase:meta last which helps but probably has holes.
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Unassigning "
+literal|"Moving "
 operator|+
 name|regions
 operator|.
@@ -2037,16 +1934,6 @@ operator|+
 name|targetGroupName
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-operator|!
-name|regions
-operator|.
-name|isEmpty
-argument_list|()
-condition|)
-block|{
-comment|// TODO bulk unassign or throttled unassign?
 for|for
 control|(
 name|RegionInfo
@@ -2058,7 +1945,6 @@ block|{
 comment|// Regions might get assigned from tables of target group so we need to filter
 if|if
 condition|(
-operator|!
 name|targetGrp
 operator|.
 name|containsTable
@@ -2070,6 +1956,20 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
+continue|continue;
+block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Moving region "
+operator|+
+name|region
+operator|.
+name|getShortNameToLog
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|master
@@ -2077,7 +1977,7 @@ operator|.
 name|getAssignmentManager
 argument_list|()
 operator|.
-name|unassign
+name|move
 argument_list|(
 name|region
 argument_list|)
@@ -2103,20 +2003,18 @@ condition|)
 block|{
 comment|// If region is in FAILED_OPEN state, it won't recover, not without
 comment|// operator intervention... in hbase-2.0.0 at least. Continue rather
-comment|// than mark region as 'foundRegionsToUnassign'.
+comment|// than mark region as 'foundRegionsToMove'.
 continue|continue;
 block|}
-name|foundRegionsToUnassign
+name|foundRegionsToMove
 operator|=
 literal|true
 expr_stmt|;
 block|}
-block|}
-block|}
 if|if
 condition|(
 operator|!
-name|foundRegionsToUnassign
+name|foundRegionsToMove
 condition|)
 block|{
 name|iter
@@ -2163,7 +2061,7 @@ block|}
 block|}
 do|while
 condition|(
-name|foundRegionsToUnassign
+name|foundRegionsToMove
 condition|)
 do|;
 if|if
@@ -2397,6 +2295,22 @@ name|table
 argument_list|)
 throw|;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Moving table "
+operator|+
+name|table
+operator|.
+name|getNameAsString
+argument_list|()
+operator|+
+literal|" to RSGroup "
+operator|+
+name|targetGroup
+argument_list|)
+expr_stmt|;
 block|}
 name|rsGroupInfoManager
 operator|.
@@ -2407,6 +2321,71 @@ argument_list|,
 name|targetGroup
 argument_list|)
 expr_stmt|;
+comment|// targetGroup is null when a table is being deleted. In this case no further
+comment|// action is required.
+if|if
+condition|(
+name|targetGroup
+operator|!=
+literal|null
+condition|)
+block|{
+for|for
+control|(
+name|TableName
+name|table
+range|:
+name|tables
+control|)
+block|{
+for|for
+control|(
+name|RegionInfo
+name|region
+range|:
+name|master
+operator|.
+name|getAssignmentManager
+argument_list|()
+operator|.
+name|getRegionStates
+argument_list|()
+operator|.
+name|getRegionsOfTable
+argument_list|(
+name|table
+argument_list|)
+control|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Moving region "
+operator|+
+name|region
+operator|.
+name|getShortNameToLog
+argument_list|()
+operator|+
+literal|" to RSGroup "
+operator|+
+name|targetGroup
+argument_list|)
+expr_stmt|;
+name|master
+operator|.
+name|getAssignmentManager
+argument_list|()
+operator|.
+name|move
+argument_list|(
+name|region
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+block|}
 if|if
 condition|(
 name|master
@@ -2428,109 +2407,6 @@ name|tables
 argument_list|,
 name|targetGroup
 argument_list|)
-expr_stmt|;
-block|}
-block|}
-for|for
-control|(
-name|TableName
-name|table
-range|:
-name|tables
-control|)
-block|{
-name|LockManager
-operator|.
-name|MasterLock
-name|lock
-init|=
-name|master
-operator|.
-name|getLockManager
-argument_list|()
-operator|.
-name|createMasterLock
-argument_list|(
-name|table
-argument_list|,
-name|LockType
-operator|.
-name|EXCLUSIVE
-argument_list|,
-name|this
-operator|.
-name|getClass
-argument_list|()
-operator|.
-name|getName
-argument_list|()
-operator|+
-literal|": RSGroup: table move"
-argument_list|)
-decl_stmt|;
-try|try
-block|{
-try|try
-block|{
-name|lock
-operator|.
-name|acquire
-argument_list|()
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|InterruptedException
-name|e
-parameter_list|)
-block|{
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-literal|"Interrupted when waiting for table lock"
-argument_list|,
-name|e
-argument_list|)
-throw|;
-block|}
-for|for
-control|(
-name|RegionInfo
-name|region
-range|:
-name|master
-operator|.
-name|getAssignmentManager
-argument_list|()
-operator|.
-name|getRegionStates
-argument_list|()
-operator|.
-name|getRegionsOfTable
-argument_list|(
-name|table
-argument_list|)
-control|)
-block|{
-name|master
-operator|.
-name|getAssignmentManager
-argument_list|()
-operator|.
-name|unassign
-argument_list|(
-name|region
-argument_list|)
-expr_stmt|;
-block|}
-block|}
-finally|finally
-block|{
-name|lock
-operator|.
-name|release
-argument_list|()
 expr_stmt|;
 block|}
 block|}
@@ -3421,24 +3297,24 @@ argument_list|,
 name|targetGroup
 argument_list|)
 expr_stmt|;
-comment|//unassign regions which not belong to these tables
-name|unassignRegionFromServers
+comment|//move regions which should not belong to these tables
+name|moveRegionsFromServers
 argument_list|(
 name|servers
 argument_list|,
-name|targetGroup
-argument_list|,
 name|tables
+argument_list|,
+name|targetGroup
 argument_list|)
 expr_stmt|;
-comment|//unassign regions which not assigned to these servers
-name|unassignRegionFromTables
+comment|//move regions which should belong to these servers
+name|moveRegionsToServers
 argument_list|(
+name|servers
+argument_list|,
 name|tables
 argument_list|,
 name|targetGroup
-argument_list|,
-name|servers
 argument_list|)
 expr_stmt|;
 if|if

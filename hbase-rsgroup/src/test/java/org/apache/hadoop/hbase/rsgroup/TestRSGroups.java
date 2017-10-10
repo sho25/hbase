@@ -467,16 +467,6 @@ name|org
 operator|.
 name|junit
 operator|.
-name|Ignore
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
 name|Test
 import|;
 end_import
@@ -520,9 +510,6 @@ import|;
 end_import
 
 begin_class
-annotation|@
-name|Ignore
-comment|// TODO: Fix after HBASE-14614 goes in.
 annotation|@
 name|Category
 argument_list|(
@@ -1019,8 +1006,6 @@ argument_list|)
 expr_stmt|;
 block|}
 annotation|@
-name|Ignore
-annotation|@
 name|Test
 specifier|public
 name|void
@@ -1081,8 +1066,6 @@ name|count
 argument_list|)
 expr_stmt|;
 block|}
-annotation|@
-name|Ignore
 annotation|@
 name|Test
 specifier|public
@@ -1290,8 +1273,6 @@ argument_list|)
 expr_stmt|;
 block|}
 annotation|@
-name|Ignore
-annotation|@
 name|Test
 specifier|public
 name|void
@@ -1422,8 +1403,6 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
-annotation|@
-name|Ignore
 annotation|@
 name|Test
 specifier|public
@@ -1602,8 +1581,6 @@ parameter_list|)
 block|{     }
 block|}
 annotation|@
-name|Ignore
-annotation|@
 name|Test
 specifier|public
 name|void
@@ -1659,8 +1636,6 @@ name|next
 argument_list|()
 expr_stmt|;
 block|}
-annotation|@
-name|Ignore
 annotation|@
 name|Test
 specifier|public
@@ -1845,8 +1820,6 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
-annotation|@
-name|Ignore
 annotation|@
 name|Test
 specifier|public
