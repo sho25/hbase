@@ -15946,7 +15946,7 @@ name|QuotaType
 operator|.
 name|SPACE
 return|;
-block|}
+default|default:
 throw|throw
 operator|new
 name|RuntimeException
@@ -15956,6 +15956,7 @@ operator|+
 name|type
 argument_list|)
 throw|;
+block|}
 block|}
 comment|/**    * Converts a protocol buffer SpaceViolationPolicy to a client SpaceViolationPolicy.    *    * @param proto The protocol buffer space violation policy.    * @return The corresponding client SpaceViolationPolicy.    */
 specifier|public
