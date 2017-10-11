@@ -2218,14 +2218,6 @@ operator|.
 name|increment
 argument_list|(
 name|inc
-argument_list|,
-name|HConstants
-operator|.
-name|NO_NONCE
-argument_list|,
-name|HConstants
-operator|.
-name|NO_NONCE
 argument_list|)
 decl_stmt|;
 if|if
@@ -3928,7 +3920,7 @@ name|Thread
 block|{
 specifier|protected
 specifier|final
-name|Region
+name|HRegion
 name|region
 decl_stmt|;
 specifier|protected
@@ -3958,7 +3950,7 @@ decl_stmt|;
 specifier|public
 name|AtomicOperation
 parameter_list|(
-name|Region
+name|HRegion
 name|region
 parameter_list|,
 name|int
@@ -4445,14 +4437,6 @@ operator|.
 name|batchMutate
 argument_list|(
 name|puts
-argument_list|,
-name|HConstants
-operator|.
-name|NO_NONCE
-argument_list|,
-name|HConstants
-operator|.
-name|NO_NONCE
 argument_list|)
 expr_stmt|;
 block|}

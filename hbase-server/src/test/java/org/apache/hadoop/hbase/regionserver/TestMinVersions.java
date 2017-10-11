@@ -499,7 +499,7 @@ operator|.
 name|FALSE
 argument_list|)
 decl_stmt|;
-name|Region
+name|HRegion
 name|region
 init|=
 name|hbu
@@ -766,7 +766,7 @@ operator|.
 name|FALSE
 argument_list|)
 decl_stmt|;
-name|Region
+name|HRegion
 name|region
 init|=
 name|hbu
@@ -1088,7 +1088,7 @@ operator|.
 name|FALSE
 argument_list|)
 decl_stmt|;
-name|Region
+name|HRegion
 name|region
 init|=
 name|hbu
@@ -1433,7 +1433,7 @@ operator|.
 name|FALSE
 argument_list|)
 decl_stmt|;
-name|Region
+name|HRegion
 name|region
 init|=
 name|hbu
@@ -1855,7 +1855,7 @@ operator|.
 name|FALSE
 argument_list|)
 decl_stmt|;
-name|Region
+name|HRegion
 name|region
 init|=
 name|hbu
@@ -2368,7 +2368,7 @@ operator|.
 name|FALSE
 argument_list|)
 decl_stmt|;
-name|Region
+name|HRegion
 name|region
 init|=
 name|hbu

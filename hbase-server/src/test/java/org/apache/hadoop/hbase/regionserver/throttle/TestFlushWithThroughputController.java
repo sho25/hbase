@@ -1294,7 +1294,7 @@ argument_list|()
 decl_stmt|;
 for|for
 control|(
-name|Region
+name|HRegion
 name|region
 range|:
 name|regionServer

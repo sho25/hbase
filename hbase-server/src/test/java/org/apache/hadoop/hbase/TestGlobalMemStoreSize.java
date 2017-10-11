@@ -171,7 +171,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegionServer
+name|HRegion
 import|;
 end_import
 
@@ -187,7 +187,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|Region
+name|HRegionServer
 import|;
 end_import
 
@@ -686,7 +686,7 @@ argument_list|()
 argument_list|)
 control|)
 block|{
-name|Region
+name|HRegion
 name|r
 init|=
 name|server
@@ -800,7 +800,7 @@ argument_list|()
 argument_list|)
 control|)
 block|{
-name|Region
+name|HRegion
 name|r
 init|=
 name|server
@@ -911,7 +911,7 @@ name|void
 name|flush
 parameter_list|(
 specifier|final
-name|Region
+name|HRegion
 name|r
 parameter_list|,
 specifier|final

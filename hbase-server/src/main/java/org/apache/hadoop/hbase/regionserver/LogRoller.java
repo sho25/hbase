@@ -1131,9 +1131,12 @@ name|scheduled
 init|=
 literal|false
 decl_stmt|;
-name|Region
+name|HRegion
 name|r
 init|=
+operator|(
+name|HRegion
+operator|)
 name|this
 operator|.
 name|services

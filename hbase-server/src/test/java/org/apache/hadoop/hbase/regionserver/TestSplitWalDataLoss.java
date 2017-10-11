@@ -379,7 +379,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|Region
+name|HRegion
 operator|.
 name|FlushResult
 import|;
@@ -945,7 +945,7 @@ name|Entry
 argument_list|<
 name|String
 argument_list|,
-name|Region
+name|HRegion
 argument_list|>
 name|entry
 range|:

@@ -1133,7 +1133,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// flush so that region replica can read
-name|Region
+name|HRegion
 name|region
 init|=
 name|getRS
@@ -1272,7 +1272,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// flush so that region replica can read
-name|Region
+name|HRegion
 name|region
 init|=
 name|getRS
@@ -1756,7 +1756,7 @@ argument_list|(
 literal|"Flushing primary region"
 argument_list|)
 expr_stmt|;
-name|Region
+name|HRegion
 name|region
 init|=
 name|getRS
@@ -2933,7 +2933,7 @@ operator|*
 literal|1000
 argument_list|)
 expr_stmt|;
-name|Region
+name|HRegion
 name|region
 init|=
 name|getRS
@@ -2955,7 +2955,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-name|Region
+name|HRegion
 name|primaryRegion
 init|=
 name|getRS

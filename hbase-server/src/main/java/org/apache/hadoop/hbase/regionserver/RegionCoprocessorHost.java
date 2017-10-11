@@ -1412,7 +1412,7 @@ name|RegionServerServices
 name|rsServices
 decl_stmt|;
 comment|/** The region */
-name|Region
+name|HRegion
 name|region
 decl_stmt|;
 comment|/**    * Constructor    * @param region the region    * @param rsServices interface to available region server functionality    * @param conf the configuration    */
@@ -1420,7 +1420,7 @@ specifier|public
 name|RegionCoprocessorHost
 parameter_list|(
 specifier|final
-name|Region
+name|HRegion
 name|region
 parameter_list|,
 specifier|final

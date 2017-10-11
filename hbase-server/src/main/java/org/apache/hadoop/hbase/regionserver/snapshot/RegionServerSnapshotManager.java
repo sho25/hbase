@@ -485,6 +485,22 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|HRegion
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|HRegionServer
 import|;
 end_import
@@ -887,7 +903,7 @@ comment|// check to see if this server is hosting any regions for the snapshots
 comment|// check to see if we have regions for the snapshot
 name|List
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|involvedRegions
 decl_stmt|;
@@ -1102,7 +1118,7 @@ comment|/**    * Determine if the snapshot should be handled on this server    *
 specifier|private
 name|List
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|getRegionsToSnapshot
 parameter_list|(
@@ -1114,10 +1130,16 @@ name|IOException
 block|{
 name|List
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|onlineRegions
 init|=
+operator|(
+name|List
+argument_list|<
+name|HRegion
+argument_list|>
+operator|)
 name|rss
 operator|.
 name|getRegions
@@ -1135,7 +1157,7 @@ argument_list|)
 decl_stmt|;
 name|Iterator
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|iterator
 init|=
@@ -1153,7 +1175,7 @@ name|hasNext
 argument_list|()
 condition|)
 block|{
-name|Region
+name|HRegion
 name|r
 init|=
 name|iterator

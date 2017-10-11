@@ -48,7 +48,7 @@ comment|/**    * Tell the listener the cache needs to be flushed.    *    * @par
 name|void
 name|requestFlush
 parameter_list|(
-name|Region
+name|HRegion
 name|region
 parameter_list|,
 name|boolean
@@ -59,7 +59,7 @@ comment|/**    * Tell the listener the cache needs to be flushed after a delay  
 name|void
 name|requestDelayedFlush
 parameter_list|(
-name|Region
+name|HRegion
 name|region
 parameter_list|,
 name|long

@@ -540,7 +540,7 @@ specifier|static
 name|BlockCache
 name|blockCache
 decl_stmt|;
-name|Region
+name|HRegion
 name|region
 init|=
 literal|null
@@ -620,7 +620,7 @@ expr_stmt|;
 block|}
 comment|/**    * Callers must afterward call {@link HBaseTestingUtility#closeRegionAndWAL(HRegion)}    * @param tableName    * @param callingMethod    * @param conf    * @param family    * @throws IOException    * @return created and initialized region.    */
 specifier|private
-name|Region
+name|HRegion
 name|initHRegion
 parameter_list|(
 name|byte
@@ -743,7 +743,7 @@ operator|+
 name|callingMethod
 argument_list|)
 decl_stmt|;
-name|Region
+name|HRegion
 name|r
 init|=
 name|HBaseTestingUtility

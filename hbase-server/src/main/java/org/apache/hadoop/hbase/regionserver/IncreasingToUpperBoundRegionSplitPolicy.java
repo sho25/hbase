@@ -470,6 +470,8 @@ try|try
 block|{
 name|List
 argument_list|<
+name|?
+extends|extends
 name|Region
 argument_list|>
 name|hri

@@ -679,6 +679,22 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|HRegion
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|HRegionServer
 import|;
 end_import
@@ -8734,7 +8750,7 @@ expr_stmt|;
 comment|//find another row in the cur server that is less than ROW_X
 name|List
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|regions
 init|=

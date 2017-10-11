@@ -834,7 +834,7 @@ specifier|private
 name|void
 name|writeTestData
 parameter_list|(
-name|Region
+name|HRegion
 name|region
 parameter_list|)
 throws|throws

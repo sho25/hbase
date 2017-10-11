@@ -409,6 +409,22 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|HRegion
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|HRegionServer
 import|;
 end_import
@@ -759,7 +775,7 @@ block|}
 comment|// check to see if this server is hosting any regions for the table
 name|List
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|involvedRegions
 decl_stmt|;
@@ -885,7 +901,7 @@ comment|/**    * Get the list of regions to flush for the table on this server  
 specifier|private
 name|List
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|getRegionsToFlush
 parameter_list|(
@@ -896,6 +912,12 @@ throws|throws
 name|IOException
 block|{
 return|return
+operator|(
+name|List
+argument_list|<
+name|HRegion
+argument_list|>
+operator|)
 name|rss
 operator|.
 name|getRegions

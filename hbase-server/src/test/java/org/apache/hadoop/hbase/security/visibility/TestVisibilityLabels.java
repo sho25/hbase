@@ -2679,7 +2679,7 @@ control|)
 block|{
 name|List
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|onlineRegions
 init|=
@@ -2863,7 +2863,7 @@ condition|)
 block|{
 name|List
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|onlineRegions
 init|=

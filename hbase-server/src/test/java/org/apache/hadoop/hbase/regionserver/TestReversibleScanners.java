@@ -2459,7 +2459,7 @@ name|FAMILYNAME2
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|Region
+name|HRegion
 name|region
 init|=
 name|TEST_UTIL
@@ -4568,7 +4568,7 @@ specifier|static
 name|void
 name|loadDataToRegion
 parameter_list|(
-name|Region
+name|HRegion
 name|region
 parameter_list|,
 name|byte

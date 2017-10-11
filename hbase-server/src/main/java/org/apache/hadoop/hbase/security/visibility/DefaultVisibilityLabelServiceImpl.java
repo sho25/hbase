@@ -2300,14 +2300,6 @@ name|size
 argument_list|()
 index|]
 argument_list|)
-argument_list|,
-name|HConstants
-operator|.
-name|NO_NONCE
-argument_list|,
-name|HConstants
-operator|.
-name|NO_NONCE
 argument_list|)
 decl_stmt|;
 name|int

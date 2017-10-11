@@ -1099,7 +1099,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Intialize the region
-name|Region
+name|HRegion
 name|region
 init|=
 name|initHRegion
@@ -2395,7 +2395,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Initialize the region
-name|Region
+name|HRegion
 name|region
 init|=
 name|initHRegion

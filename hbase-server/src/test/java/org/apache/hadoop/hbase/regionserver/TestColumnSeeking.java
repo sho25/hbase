@@ -597,7 +597,7 @@ literal|false
 argument_list|)
 decl_stmt|;
 comment|// Set this so that the archiver writes to the temp dir as well.
-name|Region
+name|HRegion
 name|region
 init|=
 name|TEST_UTIL
@@ -1355,7 +1355,7 @@ argument_list|,
 literal|false
 argument_list|)
 decl_stmt|;
-name|Region
+name|HRegion
 name|region
 init|=
 name|TEST_UTIL

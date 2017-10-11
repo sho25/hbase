@@ -893,14 +893,6 @@ operator|.
 name|batchMutate
 argument_list|(
 name|deleteArr
-argument_list|,
-name|HConstants
-operator|.
-name|NO_NONCE
-argument_list|,
-name|HConstants
-operator|.
-name|NO_NONCE
 argument_list|)
 decl_stmt|;
 for|for

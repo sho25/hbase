@@ -1164,7 +1164,7 @@ literal|1024
 argument_list|)
 expr_stmt|;
 comment|// Intialize the region
-name|Region
+name|HRegion
 name|region
 init|=
 name|initHRegion
@@ -2285,7 +2285,7 @@ specifier|private
 specifier|static
 name|Pair
 argument_list|<
-name|Region
+name|HRegion
 argument_list|,
 name|HRegionServer
 argument_list|>
@@ -2352,7 +2352,7 @@ argument_list|()
 decl_stmt|;
 for|for
 control|(
-name|Region
+name|HRegion
 name|region
 range|:
 name|hrs
@@ -2593,7 +2593,7 @@ argument_list|)
 expr_stmt|;
 name|Pair
 argument_list|<
-name|Region
+name|HRegion
 argument_list|,
 name|HRegionServer
 argument_list|>
@@ -2604,7 +2604,7 @@ argument_list|(
 name|TABLENAME
 argument_list|)
 decl_stmt|;
-name|Region
+name|HRegion
 name|desiredRegion
 init|=
 name|desiredRegionAndServer
@@ -3110,7 +3110,7 @@ expr_stmt|;
 block|}
 name|Pair
 argument_list|<
-name|Region
+name|HRegion
 argument_list|,
 name|HRegionServer
 argument_list|>
@@ -3122,7 +3122,7 @@ name|tableName
 argument_list|)
 decl_stmt|;
 specifier|final
-name|Region
+name|HRegion
 name|desiredRegion
 init|=
 name|desiredRegionAndServer

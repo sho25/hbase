@@ -609,7 +609,7 @@ argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
-name|Region
+name|HRegion
 name|region
 decl_stmt|;
 specifier|private

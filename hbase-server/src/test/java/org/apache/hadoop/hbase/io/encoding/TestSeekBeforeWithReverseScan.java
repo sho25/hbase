@@ -233,7 +233,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|Region
+name|HRegion
 import|;
 end_import
 
@@ -373,7 +373,7 @@ name|HBaseTestingUtility
 argument_list|()
 decl_stmt|;
 specifier|private
-name|Region
+name|HRegion
 name|region
 decl_stmt|;
 specifier|private

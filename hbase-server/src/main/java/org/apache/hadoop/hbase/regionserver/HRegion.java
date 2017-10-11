@@ -1075,6 +1075,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|CompactionState
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Delete
 import|;
 end_import
@@ -2347,6 +2363,28 @@ name|google
 operator|.
 name|protobuf
 operator|.
+name|Service
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
 name|TextFormat
 import|;
 end_import
@@ -2388,30 +2426,6 @@ operator|.
 name|protobuf
 operator|.
 name|ProtobufUtil
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|AdminProtos
-operator|.
-name|GetRegionInfoResponse
-operator|.
-name|CompactionState
 import|;
 end_import
 
@@ -2702,6 +2716,10 @@ operator|.
 name|StoreDescriptor
 import|;
 end_import
+
+begin_comment
+comment|/**  * Regions store data for a certain region of a table.  It stores all columns  * for each row. A given table consists of one or more Regions.  *  *<p>An Region is defined by its table and its key extent.  *  *<p>Locking at the Region level serves only one purpose: preventing the  * region from being closed (and consequently split) while other operations  * are ongoing. Each row level operation obtains both a row lock and a region  * read lock for the duration of the operation. While a scanner is being  * constructed, getScanner holds a read lock. If the scanner is successfully  * constructed, it holds a read lock until it is closed. A close takes out a  * write lock and consequently will block for ongoing operations and will block  * new operations from starting while the close is in progress.  */
+end_comment
 
 begin_class
 annotation|@
@@ -4703,7 +4721,7 @@ name|Map
 argument_list|<
 name|String
 argument_list|,
-name|Region
+name|HRegion
 argument_list|>
 name|recoveringRegions
 init|=
@@ -6395,8 +6413,6 @@ name|unlock
 argument_list|()
 expr_stmt|;
 block|}
-annotation|@
-name|Override
 specifier|public
 name|HDFSBlocksDistribution
 name|getHDFSBlocksDistribution
@@ -6910,8 +6926,7 @@ name|sum
 argument_list|()
 return|;
 block|}
-annotation|@
-name|Override
+comment|/**    * Update the read request count for this region    * @param i increment    */
 specifier|public
 name|void
 name|updateReadRequestsCount
@@ -6956,8 +6971,7 @@ name|sum
 argument_list|()
 return|;
 block|}
-annotation|@
-name|Override
+comment|/**    * Update the write request count for this region    * @param i increment    */
 specifier|public
 name|void
 name|updateWriteRequestsCount
@@ -6988,8 +7002,7 @@ name|get
 argument_list|()
 return|;
 block|}
-annotation|@
-name|Override
+comment|/** @return store services for this region, to access services required by store level needs */
 specifier|public
 name|RegionServicesForStores
 name|getRegionServicesForStores
@@ -7069,8 +7082,9 @@ name|sum
 argument_list|()
 return|;
 block|}
-annotation|@
-name|Override
+comment|// TODO Needs to check whether we should expose our metrics system to CPs. If CPs themselves doing
+comment|// the op and bypassing the core, this might be needed? Should be stop supporting the bypass
+comment|// feature?
 specifier|public
 name|MetricsRegion
 name|getMetrics
@@ -7606,25 +7620,6 @@ name|getReadPoint
 argument_list|()
 return|;
 block|}
-annotation|@
-name|Override
-specifier|public
-name|long
-name|getReadpoint
-parameter_list|(
-name|IsolationLevel
-name|isolationLevel
-parameter_list|)
-block|{
-return|return
-name|getReadPoint
-argument_list|(
-name|isolationLevel
-argument_list|)
-return|;
-block|}
-annotation|@
-name|Override
 specifier|public
 name|boolean
 name|isLoadingCfsOnDemandDefault
@@ -8941,8 +8936,9 @@ name|sum
 argument_list|()
 return|;
 block|}
-annotation|@
-name|Override
+comment|/** Wait for all current flushes and compactions of the region to complete */
+comment|// TODO HBASE-18906. Check the usage (if any) in Phoenix and expose this or give alternate way for
+comment|// Phoenix needs.
 specifier|public
 name|void
 name|waitForFlushesAndCompactions
@@ -9064,8 +9060,9 @@ block|}
 block|}
 block|}
 block|}
-annotation|@
-name|Override
+comment|/** Wait for all current flushes of the region to complete    */
+comment|// TODO HBASE-18906. Check the usage (if any) in Phoenix and expose this or give alternate way for
+comment|// Phoenix needs.
 specifier|public
 name|void
 name|waitForFlushes
@@ -9869,8 +9866,7 @@ name|triggerMajorCompaction
 argument_list|)
 expr_stmt|;
 block|}
-annotation|@
-name|Override
+comment|/**    * Synchronously compact all stores in the region.    *<p>This operation could block for a long time, so don't call it from a    * time-sensitive thread.    *<p>Note that no locks are taken to prevent possible conflicts between    * compaction and splitting activities. The regionserver does not normally compact    * and split in parallel. However by calling this method you may introduce    * unexpected and unhandled concurrency. Don't do this unless you know what    * you are doing.    *    * @param majorCompaction True to force a major compaction regardless of thresholds    * @throws IOException    */
 specifier|public
 name|void
 name|compact
@@ -10551,8 +10547,8 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-annotation|@
-name|Override
+comment|/**    * Flush the cache.    *    *<p>When this method is called the cache will be flushed unless:    *<ol>    *<li>the cache is empty</li>    *<li>the region is closed.</li>    *<li>a flush is already in progress</li>    *<li>writes are disabled</li>    *</ol>    *    *<p>This method may block for some time, so it should not be called from a    * time-sensitive thread.    * @param force whether we want to force a flush of all stores    * @return FlushResult indicating whether the flush was successful or not and if    * the region needs compacting    *    * @throws IOException general io exceptions    * because a snapshot was not properly persisted.    */
+comment|// TODO HBASE-18905. We might have to expose a requestFlush API for CPs
 specifier|public
 name|FlushResult
 name|flush
@@ -10571,6 +10567,40 @@ argument_list|,
 literal|false
 argument_list|)
 return|;
+block|}
+specifier|public
+specifier|static
+interface|interface
+name|FlushResult
+block|{
+enum|enum
+name|Result
+block|{
+name|FLUSHED_NO_COMPACTION_NEEDED
+block|,
+name|FLUSHED_COMPACTION_NEEDED
+block|,
+comment|// Special case where a flush didn't run because there's nothing in the memstores. Used when
+comment|// bulk loading to know when we can still load even if a flush didn't happen.
+name|CANNOT_FLUSH_MEMSTORE_EMPTY
+block|,
+name|CANNOT_FLUSH
+block|}
+comment|/** @return the detailed result code */
+name|Result
+name|getResult
+parameter_list|()
+function_decl|;
+comment|/** @return true if the memstores were flushed, else false */
+name|boolean
+name|isFlushSucceeded
+parameter_list|()
+function_decl|;
+comment|/** @return True if the flush requested a compaction, else false */
+name|boolean
+name|isCompactionNeeded
+parameter_list|()
+function_decl|;
 block|}
 comment|/**    * Flush the cache.    *    * When this method is called the cache will be flushed unless:    *<ol>    *<li>the cache is empty</li>    *<li>the region is closed.</li>    *<li>a flush is already in progress</li>    *<li>writes are disabled</li>    *</ol>    *    *<p>This method may block for some time, so it should not be called from a    * time-sensitive thread.    * @param forceFlushAllStores whether we want to flush all stores    * @param writeFlushRequestWalMarker whether to write the flush request marker to WAL    * @return whether the flush is success and whether the region needs compacting    *    * @throws IOException general io exceptions    * @throws DroppedSnapshotException Thrown when replay of wal is required    * because a Snapshot was not properly persisted. The region is put in closing mode, and the    * caller MUST abort after this.    */
 specifier|public
@@ -13793,8 +13823,7 @@ name|nonce
 argument_list|)
 return|;
 block|}
-annotation|@
-name|Override
+comment|/**    * Prepare a delete for a row mutation processor    * @param delete The passed delete is modified by this method. WARNING!    * @throws IOException    */
 specifier|public
 name|void
 name|prepareDelete
@@ -13997,8 +14026,7 @@ name|delete
 argument_list|)
 expr_stmt|;
 block|}
-annotation|@
-name|Override
+comment|/**    * Set up correct timestamps in the KVs in Delete object.    *<p>Caller should have the row and region locks.    * @param mutation    * @param familyMap    * @param byteNow    * @throws IOException    */
 specifier|public
 name|void
 name|prepareDeleteTimestamps
@@ -14889,8 +14917,6 @@ name|replaySeqId
 return|;
 block|}
 block|}
-annotation|@
-name|Override
 specifier|public
 name|OperationStatus
 index|[]
@@ -14928,6 +14954,8 @@ argument_list|)
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|OperationStatus
 index|[]
@@ -14955,8 +14983,6 @@ name|NO_NONCE
 argument_list|)
 return|;
 block|}
-annotation|@
-name|Override
 specifier|public
 name|OperationStatus
 index|[]
@@ -19186,8 +19212,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-annotation|@
-name|Override
+comment|/**    * Replace any cell timestamps set to {@link org.apache.hadoop.hbase.HConstants#LATEST_TIMESTAMP}    * provided current timestamp.    * @param cellItr    * @param now    */
 specifier|public
 name|void
 name|updateCellTimestamps
@@ -19914,8 +19939,7 @@ name|memstoreSize
 argument_list|)
 expr_stmt|;
 block|}
-annotation|@
-name|Override
+comment|/**    * Check the collection of families for validity.    * @param families    * @throws NoSuchColumnFamilyException    */
 specifier|public
 name|void
 name|checkFamilies
@@ -19946,8 +19970,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-annotation|@
-name|Override
+comment|/**    * Check the collection of families for valid timestamps    * @param familyMap    * @param now current timestamp    * @throws FailedSanityCheckException    */
 specifier|public
 name|void
 name|checkTimestamps
@@ -26554,9 +26577,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-annotation|@
-name|Override
-specifier|public
+specifier|private
 name|void
 name|releaseRowLocks
 parameter_list|(
@@ -27089,8 +27110,7 @@ return|return
 name|multipleFamilies
 return|;
 block|}
-annotation|@
-name|Override
+comment|/**    * Attempts to atomically load a group of hfiles.  This is critical for loading    * rows with multiple column families atomically.    *    * @param familyPaths List of Pair&lt;byte[] column family, String hfilePath&gt;    * @param bulkLoadListener Internal hooks enabling massaging/preparation of a    * file about to be bulk loaded    * @param assignSeqId    * @return Map from family to List of store file paths if successful, null if failed recoverably    * @throws IOException if failed unrecoverably.    */
 specifier|public
 name|Map
 argument_list|<
@@ -27138,8 +27158,59 @@ literal|false
 argument_list|)
 return|;
 block|}
-annotation|@
-name|Override
+comment|/**    * Listener class to enable callers of    * bulkLoadHFile() to perform any necessary    * pre/post processing of a given bulkload call    */
+specifier|public
+specifier|static
+interface|interface
+name|BulkLoadListener
+block|{
+comment|/**      * Called before an HFile is actually loaded      * @param family family being loaded to      * @param srcPath path of HFile      * @return final path to be used for actual loading      * @throws IOException      */
+name|String
+name|prepareBulkLoad
+parameter_list|(
+name|byte
+index|[]
+name|family
+parameter_list|,
+name|String
+name|srcPath
+parameter_list|,
+name|boolean
+name|copyFile
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**      * Called after a successful HFile load      * @param family family being loaded to      * @param srcPath path of HFile      * @throws IOException      */
+name|void
+name|doneBulkLoad
+parameter_list|(
+name|byte
+index|[]
+name|family
+parameter_list|,
+name|String
+name|srcPath
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**      * Called after a failed HFile load      * @param family family being loaded to      * @param srcPath path of HFile      * @throws IOException      */
+name|void
+name|failedBulkLoad
+parameter_list|(
+name|byte
+index|[]
+name|family
+parameter_list|,
+name|String
+name|srcPath
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+block|}
+comment|/**    * Attempts to atomically load a group of hfiles.  This is critical for loading    * rows with multiple column families atomically.    *    * @param familyPaths List of Pair&lt;byte[] column family, String hfilePath&gt;    * @param assignSeqId    * @param bulkLoadListener Internal hooks enabling massaging/preparation of a    * file about to be bulk loaded    * @param copyFile always copy hfiles if true    * @return Map from family to List of store file paths if successful, null if failed recoverably    * @throws IOException if failed unrecoverably.    */
 specifier|public
 name|Map
 argument_list|<
@@ -33243,8 +33314,6 @@ name|NO_NONCE
 argument_list|)
 return|;
 block|}
-annotation|@
-name|Override
 specifier|public
 name|List
 argument_list|<
@@ -34717,6 +34786,8 @@ argument_list|)
 throw|;
 block|}
 block|}
+annotation|@
+name|Override
 specifier|public
 name|Result
 name|append
@@ -34742,8 +34813,6 @@ name|NO_NONCE
 argument_list|)
 return|;
 block|}
-annotation|@
-name|Override
 specifier|public
 name|Result
 name|append
@@ -34780,6 +34849,8 @@ argument_list|()
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|Result
 name|increment
@@ -34805,8 +34876,6 @@ name|NO_NONCE
 argument_list|)
 return|;
 block|}
-annotation|@
-name|Override
 specifier|public
 name|Result
 name|increment
@@ -36948,8 +37017,7 @@ name|sum
 argument_list|()
 return|;
 block|}
-annotation|@
-name|Override
+comment|/**    * Registers a new protocol buffer {@link Service} subclass as a coprocessor endpoint to    * be available for handling Region#execService(com.google.protobuf.RpcController,    *    org.apache.hadoop.hbase.protobuf.generated.ClientProtos.CoprocessorServiceCall) calls.    *    *<p>    * Only a single instance may be registered per region for a given {@link Service} subclass (the    * instances are keyed on {@link com.google.protobuf.Descriptors.ServiceDescriptor#getFullName()}.    * After the first registration, subsequent calls with the same service name will fail with    * a return value of {@code false}.    *</p>    * @param instance the {@code Service} subclass instance to expose as a coprocessor endpoint    * @return {@code true} if the registration was successful, {@code false}    * otherwise    */
 specifier|public
 name|boolean
 name|registerService
@@ -37062,8 +37130,7 @@ return|return
 literal|true
 return|;
 block|}
-annotation|@
-name|Override
+comment|/**    * Executes a single protocol buffer coprocessor endpoint {@link Service} method using    * the registered protocol handlers.  {@link Service} implementations must be registered via the    * {@link #registerService(com.google.protobuf.Service)}    * method before they are available.    *    * @param controller an {@code RpcContoller} implementation to pass to the invoked service    * @param call a {@code CoprocessorServiceCall} instance identifying the service, method,    *     and parameters for the method invocation    * @return a protocol buffer {@code Message} instance containing the method's result    * @throws IOException if no registered service handler is found or an error    *     occurs during the invocation    * @see #registerService(com.google.protobuf.Service)    */
 specifier|public
 name|com
 operator|.
@@ -38728,8 +38795,7 @@ return|;
 block|}
 block|}
 decl_stmt|;
-annotation|@
-name|Override
+comment|/** @return the latest sequence number that was read from storage when this region was opened */
 specifier|public
 name|long
 name|getOpenSeqNum
@@ -38760,8 +38826,6 @@ operator|.
 name|maxSeqIdInStores
 return|;
 block|}
-annotation|@
-name|Override
 specifier|public
 name|long
 name|getOldestSeqIdOfStore

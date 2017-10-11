@@ -405,6 +405,22 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|HRegion
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|Region
 import|;
 end_import
@@ -2394,7 +2410,7 @@ expr_stmt|;
 comment|// flush all regions
 for|for
 control|(
-name|Region
+name|HRegion
 name|r
 range|:
 name|server

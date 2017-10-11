@@ -509,22 +509,6 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|Region
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
 name|RegionCoprocessorHost
 import|;
 end_import
@@ -1651,7 +1635,7 @@ init|=
 name|initConfig
 argument_list|()
 decl_stmt|;
-name|Region
+name|HRegion
 name|region
 init|=
 name|initHRegion
@@ -2177,7 +2161,7 @@ init|=
 name|initConfig
 argument_list|()
 decl_stmt|;
-name|Region
+name|HRegion
 name|region
 init|=
 name|initHRegion
@@ -2446,11 +2430,11 @@ expr_stmt|;
 end_expr_stmt
 
 begin_expr_stmt
-unit|}    Region
+unit|}    HRegion
 name|reopenRegion
 argument_list|(
 name|final
-name|Region
+name|HRegion
 name|closedRegion
 argument_list|,
 name|Class
@@ -2464,7 +2448,7 @@ throws|throws
 name|IOException
 block|{
 comment|//RegionInfo info = new RegionInfo(tableName, null, null, false);
-name|Region
+name|HRegion
 name|r
 operator|=
 name|HRegion
@@ -2522,12 +2506,7 @@ decl_stmt|;
 end_decl_stmt
 
 begin_expr_stmt
-operator|(
-operator|(
-name|HRegion
-operator|)
 name|r
-operator|)
 operator|.
 name|setCoprocessorHost
 argument_list|(
@@ -2619,7 +2598,7 @@ return|;
 end_return
 
 begin_expr_stmt
-unit|}    Region
+unit|}    HRegion
 name|initHRegion
 argument_list|(
 name|TableName
@@ -2749,7 +2728,7 @@ decl_stmt|;
 end_decl_stmt
 
 begin_decl_stmt
-name|Region
+name|HRegion
 name|r
 init|=
 name|HBaseTestingUtility
@@ -2788,12 +2767,7 @@ decl_stmt|;
 end_decl_stmt
 
 begin_expr_stmt
-operator|(
-operator|(
-name|HRegion
-operator|)
 name|r
-operator|)
 operator|.
 name|setCoprocessorHost
 argument_list|(

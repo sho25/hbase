@@ -1421,7 +1421,7 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|Region
+name|HRegion
 name|region
 init|=
 name|servingRegions
@@ -1470,7 +1470,7 @@ expr_stmt|;
 comment|// get the hfiles in the region
 name|List
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|regions
 init|=
@@ -1866,7 +1866,7 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|Region
+name|HRegion
 name|region
 init|=
 name|servingRegions
@@ -1915,7 +1915,7 @@ expr_stmt|;
 comment|// get the hfiles in the region
 name|List
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|regions
 init|=

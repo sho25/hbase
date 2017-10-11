@@ -2554,7 +2554,7 @@ name|void
 name|createStoreFile
 parameter_list|(
 specifier|final
-name|Region
+name|HRegion
 name|region
 parameter_list|)
 throws|throws
@@ -2578,7 +2578,7 @@ name|void
 name|createStoreFile
 parameter_list|(
 specifier|final
-name|Region
+name|HRegion
 name|region
 parameter_list|,
 name|String
@@ -2618,7 +2618,7 @@ name|void
 name|createSmallerStoreFile
 parameter_list|(
 specifier|final
-name|Region
+name|HRegion
 name|region
 parameter_list|)
 throws|throws

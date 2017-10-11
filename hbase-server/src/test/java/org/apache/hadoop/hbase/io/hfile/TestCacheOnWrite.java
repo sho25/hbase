@@ -2984,7 +2984,7 @@ name|maxVersions
 init|=
 literal|3
 decl_stmt|;
-name|Region
+name|HRegion
 name|region
 init|=
 name|TEST_UTIL

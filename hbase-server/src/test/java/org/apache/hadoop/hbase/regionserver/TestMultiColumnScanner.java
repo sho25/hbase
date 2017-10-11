@@ -896,7 +896,7 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|Region
+name|HRegion
 name|region
 init|=
 name|TEST_UTIL

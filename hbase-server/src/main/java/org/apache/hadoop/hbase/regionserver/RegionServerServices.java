@@ -353,7 +353,7 @@ name|PostOpenDeployContext
 block|{
 specifier|private
 specifier|final
-name|Region
+name|HRegion
 name|region
 decl_stmt|;
 specifier|private
@@ -368,7 +368,7 @@ name|Private
 specifier|public
 name|PostOpenDeployContext
 parameter_list|(
-name|Region
+name|HRegion
 name|region
 parameter_list|,
 name|long
@@ -389,7 +389,7 @@ name|masterSystemTime
 expr_stmt|;
 block|}
 specifier|public
-name|Region
+name|HRegion
 name|getRegion
 parameter_list|()
 block|{
@@ -414,21 +414,6 @@ parameter_list|(
 specifier|final
 name|PostOpenDeployContext
 name|context
-parameter_list|)
-throws|throws
-name|KeeperException
-throws|,
-name|IOException
-function_decl|;
-comment|/**    * Tasks to perform after region open to complete deploy of region on    * regionserver    *    * @param r Region to open.    * @throws KeeperException    * @throws IOException    * @deprecated use {@link #postOpenDeployTasks(PostOpenDeployContext)}    */
-annotation|@
-name|Deprecated
-name|void
-name|postOpenDeployTasks
-parameter_list|(
-specifier|final
-name|Region
-name|r
 parameter_list|)
 throws|throws
 name|KeeperException
@@ -552,37 +537,6 @@ name|RegionStateTransitionContext
 name|context
 parameter_list|)
 function_decl|;
-comment|/**    * Notify master that a handler requests to change a region state    * @deprecated use {@link #reportRegionStateTransition(RegionStateTransitionContext)}    */
-annotation|@
-name|Deprecated
-name|boolean
-name|reportRegionStateTransition
-parameter_list|(
-name|TransitionCode
-name|code
-parameter_list|,
-name|long
-name|openSeqNum
-parameter_list|,
-name|RegionInfo
-modifier|...
-name|hris
-parameter_list|)
-function_decl|;
-comment|/**    * Notify master that a handler requests to change a region state    * @deprecated use {@link #reportRegionStateTransition(RegionStateTransitionContext)}    */
-annotation|@
-name|Deprecated
-name|boolean
-name|reportRegionStateTransition
-parameter_list|(
-name|TransitionCode
-name|code
-parameter_list|,
-name|RegionInfo
-modifier|...
-name|hris
-parameter_list|)
-function_decl|;
 comment|/**    * Returns a reference to the region server's RPC server    */
 name|RpcServerInterface
 name|getRpcServer
@@ -614,7 +568,7 @@ name|Map
 argument_list|<
 name|String
 argument_list|,
-name|Region
+name|HRegion
 argument_list|>
 name|getRecoveringRegions
 parameter_list|()

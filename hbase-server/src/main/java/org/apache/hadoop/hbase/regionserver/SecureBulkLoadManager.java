@@ -297,7 +297,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|Region
+name|HRegion
 operator|.
 name|BulkLoadListener
 import|;
@@ -977,7 +977,7 @@ argument_list|>
 name|secureBulkLoadHFiles
 parameter_list|(
 specifier|final
-name|Region
+name|HRegion
 name|region
 parameter_list|,
 specifier|final

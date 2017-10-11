@@ -594,7 +594,7 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
-name|Region
+name|HRegion
 name|r
 init|=
 name|createNewHRegion

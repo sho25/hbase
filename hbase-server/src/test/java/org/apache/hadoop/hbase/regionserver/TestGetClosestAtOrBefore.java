@@ -696,7 +696,7 @@ operator|*
 literal|1024
 argument_list|)
 decl_stmt|;
-name|Region
+name|HRegion
 name|mr
 init|=
 name|HBaseTestingUtility
@@ -1486,7 +1486,7 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|Region
+name|HRegion
 name|region
 init|=
 literal|null
@@ -2313,7 +2313,7 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|Region
+name|HRegion
 name|region
 init|=
 literal|null

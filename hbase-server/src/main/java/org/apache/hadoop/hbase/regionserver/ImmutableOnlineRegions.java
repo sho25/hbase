@@ -126,6 +126,8 @@ function_decl|;
 comment|/**     * Get all online regions of a table in this RS.     * @param tableName     * @return List of Region     * @throws java.io.IOException     */
 name|List
 argument_list|<
+name|?
+extends|extends
 name|Region
 argument_list|>
 name|getRegions
@@ -139,6 +141,8 @@ function_decl|;
 comment|/**     * Get all online regions in this RS.     * @return List of online Region     */
 name|List
 argument_list|<
+name|?
+extends|extends
 name|Region
 argument_list|>
 name|getRegions

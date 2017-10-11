@@ -551,7 +551,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-name|Region
+name|HRegion
 name|region
 init|=
 name|HBaseTestingUtility

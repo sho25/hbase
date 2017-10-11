@@ -7391,7 +7391,7 @@ argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|regions
 init|=

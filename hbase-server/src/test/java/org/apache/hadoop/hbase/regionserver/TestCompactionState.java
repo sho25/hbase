@@ -833,7 +833,7 @@ argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|regions
 init|=
@@ -1243,7 +1243,7 @@ name|countStoreFilesInFamily
 parameter_list|(
 name|List
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|regions
 parameter_list|,
@@ -1275,7 +1275,7 @@ name|countStoreFilesInFamilies
 parameter_list|(
 name|List
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|regions
 parameter_list|,
@@ -1293,7 +1293,7 @@ literal|0
 decl_stmt|;
 for|for
 control|(
-name|Region
+name|HRegion
 name|region
 range|:
 name|regions

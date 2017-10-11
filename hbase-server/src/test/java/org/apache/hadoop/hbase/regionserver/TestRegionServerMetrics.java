@@ -3334,7 +3334,7 @@ argument_list|,
 name|conf
 argument_list|)
 decl_stmt|;
-name|Region
+name|HRegion
 name|region
 init|=
 name|rs
@@ -3491,12 +3491,7 @@ literal|100
 argument_list|)
 expr_stmt|;
 comment|// metrics are reset by the region initialization
-operator|(
-operator|(
-name|HRegion
-operator|)
 name|region
-operator|)
 operator|.
 name|initialize
 argument_list|()
@@ -3643,12 +3638,7 @@ name|close
 argument_list|()
 expr_stmt|;
 comment|// metrics are reset by the region initialization
-operator|(
-operator|(
-name|HRegion
-operator|)
 name|region
-operator|)
 operator|.
 name|initialize
 argument_list|()

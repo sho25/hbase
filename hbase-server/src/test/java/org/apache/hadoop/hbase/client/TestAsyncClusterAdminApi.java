@@ -299,7 +299,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegionServer
+name|HRegion
 import|;
 end_import
 
@@ -315,7 +315,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|Region
+name|HRegionServer
 import|;
 end_import
 
@@ -978,7 +978,7 @@ expr_stmt|;
 comment|// flush all regions
 for|for
 control|(
-name|Region
+name|HRegion
 name|r
 range|:
 name|regionServer

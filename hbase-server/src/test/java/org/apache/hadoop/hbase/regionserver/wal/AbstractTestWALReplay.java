@@ -2691,7 +2691,7 @@ argument_list|,
 name|logName
 argument_list|)
 decl_stmt|;
-name|Region
+name|HRegion
 name|region
 init|=
 name|HRegion
@@ -7734,7 +7734,7 @@ specifier|public
 name|void
 name|requestFlush
 parameter_list|(
-name|Region
+name|HRegion
 name|region
 parameter_list|,
 name|boolean
@@ -7774,7 +7774,7 @@ specifier|public
 name|void
 name|requestDelayedFlush
 parameter_list|(
-name|Region
+name|HRegion
 name|region
 parameter_list|,
 name|long

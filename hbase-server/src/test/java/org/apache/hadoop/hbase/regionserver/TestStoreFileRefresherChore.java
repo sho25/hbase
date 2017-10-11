@@ -711,7 +711,7 @@ return|;
 block|}
 block|}
 specifier|private
-name|Region
+name|HRegion
 name|initHRegion
 parameter_list|(
 name|HTableDescriptor
@@ -1280,7 +1280,7 @@ argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|regions
 init|=
@@ -1343,7 +1343,7 @@ argument_list|(
 literal|2
 argument_list|)
 expr_stmt|;
-name|Region
+name|HRegion
 name|primary
 init|=
 name|initHRegion
@@ -1361,7 +1361,7 @@ argument_list|,
 literal|0
 argument_list|)
 decl_stmt|;
-name|Region
+name|HRegion
 name|replica1
 init|=
 name|initHRegion

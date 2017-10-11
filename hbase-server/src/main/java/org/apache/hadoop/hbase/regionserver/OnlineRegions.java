@@ -65,7 +65,7 @@ name|void
 name|addRegion
 parameter_list|(
 specifier|final
-name|Region
+name|HRegion
 name|r
 parameter_list|)
 function_decl|;
@@ -74,7 +74,7 @@ name|boolean
 name|removeRegion
 parameter_list|(
 specifier|final
-name|Region
+name|HRegion
 name|r
 parameter_list|,
 name|ServerName

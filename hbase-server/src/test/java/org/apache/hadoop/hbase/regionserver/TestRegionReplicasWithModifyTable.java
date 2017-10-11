@@ -30,34 +30,12 @@ import|;
 end_import
 
 begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertTrue
-import|;
-end_import
-
-begin_import
 import|import
 name|java
 operator|.
 name|io
 operator|.
 name|IOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|ArrayList
 import|;
 end_import
 
@@ -181,22 +159,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|RegionReplicaUtil
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|Table
 import|;
 end_import
@@ -282,16 +244,6 @@ operator|.
 name|junit
 operator|.
 name|BeforeClass
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
-name|Ignore
 import|;
 end_import
 
@@ -779,7 +731,7 @@ argument_list|)
 expr_stmt|;
 name|List
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|onlineRegions
 init|=
@@ -793,7 +745,7 @@ argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|onlineRegions2
 init|=
@@ -807,7 +759,7 @@ argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|onlineRegions3
 init|=
@@ -935,7 +887,7 @@ argument_list|)
 expr_stmt|;
 name|List
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|onlineRegions
 init|=
@@ -949,7 +901,7 @@ argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|onlineRegions2
 init|=
@@ -963,7 +915,7 @@ argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|onlineRegions3
 init|=
@@ -1060,7 +1012,7 @@ argument_list|)
 expr_stmt|;
 name|List
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|onlineRegions
 init|=
@@ -1074,7 +1026,7 @@ argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|onlineRegions2
 init|=
@@ -1088,7 +1040,7 @@ argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|onlineRegions3
 init|=
@@ -1185,7 +1137,7 @@ argument_list|)
 expr_stmt|;
 name|List
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|onlineRegions
 init|=
@@ -1199,7 +1151,7 @@ argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|onlineRegions2
 init|=
@@ -1213,7 +1165,7 @@ argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|onlineRegions3
 init|=
@@ -1310,7 +1262,7 @@ argument_list|)
 expr_stmt|;
 name|List
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|onlineRegions
 init|=
@@ -1324,7 +1276,7 @@ argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|onlineRegions2
 init|=
@@ -1338,7 +1290,7 @@ argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|onlineRegions3
 init|=
@@ -1435,7 +1387,7 @@ argument_list|)
 expr_stmt|;
 name|List
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|onlineRegions
 init|=
@@ -1449,7 +1401,7 @@ argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|onlineRegions2
 init|=
@@ -1463,7 +1415,7 @@ argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|onlineRegions3
 init|=

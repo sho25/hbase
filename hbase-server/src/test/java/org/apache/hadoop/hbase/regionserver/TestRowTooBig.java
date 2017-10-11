@@ -419,7 +419,7 @@ operator|.
 name|EMPTY_END_ROW
 argument_list|)
 decl_stmt|;
-name|Region
+name|HRegion
 name|region
 init|=
 name|HBaseTestingUtility
@@ -645,7 +645,7 @@ operator|.
 name|EMPTY_END_ROW
 argument_list|)
 decl_stmt|;
-name|Region
+name|HRegion
 name|region
 init|=
 name|HBaseTestingUtility

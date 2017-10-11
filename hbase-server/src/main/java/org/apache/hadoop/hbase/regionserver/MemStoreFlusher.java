@@ -349,7 +349,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|Region
+name|HRegion
 operator|.
 name|FlushResult
 import|;
@@ -822,7 +822,7 @@ name|SortedMap
 argument_list|<
 name|Long
 argument_list|,
-name|Region
+name|HRegion
 argument_list|>
 name|regionsBySize
 init|=
@@ -833,7 +833,7 @@ argument_list|()
 decl_stmt|;
 name|Set
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|excludedRegions
 init|=
@@ -865,7 +865,7 @@ condition|)
 block|{
 comment|// Find the biggest region that doesn't have too many storefiles
 comment|// (might be null!)
-name|Region
+name|HRegion
 name|bestFlushableRegion
 init|=
 name|getBiggestMemStoreRegion
@@ -878,7 +878,7 @@ literal|true
 argument_list|)
 decl_stmt|;
 comment|// Find the biggest region, total, even if it might have too many flushes.
-name|Region
+name|HRegion
 name|bestAnyRegion
 init|=
 name|getBiggestMemStoreRegion
@@ -891,7 +891,7 @@ literal|false
 argument_list|)
 decl_stmt|;
 comment|// Find the biggest region that is a secondary region
-name|Region
+name|HRegion
 name|bestRegionReplica
 init|=
 name|getBiggestMemStoreOfRegionReplica
@@ -923,7 +923,7 @@ return|return
 literal|false
 return|;
 block|}
-name|Region
+name|HRegion
 name|regionToFlush
 decl_stmt|;
 if|if
@@ -1527,20 +1527,20 @@ expr_stmt|;
 block|}
 block|}
 specifier|private
-name|Region
+name|HRegion
 name|getBiggestMemStoreRegion
 parameter_list|(
 name|SortedMap
 argument_list|<
 name|Long
 argument_list|,
-name|Region
+name|HRegion
 argument_list|>
 name|regionsBySize
 parameter_list|,
 name|Set
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|excludedRegions
 parameter_list|,
@@ -1555,7 +1555,7 @@ init|)
 block|{
 for|for
 control|(
-name|Region
+name|HRegion
 name|region
 range|:
 name|regionsBySize
@@ -1578,24 +1578,14 @@ continue|continue;
 block|}
 if|if
 condition|(
-operator|(
-operator|(
-name|HRegion
-operator|)
 name|region
-operator|)
 operator|.
 name|writestate
 operator|.
 name|flushing
 operator|||
 operator|!
-operator|(
-operator|(
-name|HRegion
-operator|)
 name|region
-operator|)
 operator|.
 name|writestate
 operator|.
@@ -1626,20 +1616,20 @@ literal|null
 return|;
 block|}
 specifier|private
-name|Region
+name|HRegion
 name|getBiggestMemStoreOfRegionReplica
 parameter_list|(
 name|SortedMap
 argument_list|<
 name|Long
 argument_list|,
-name|Region
+name|HRegion
 argument_list|>
 name|regionsBySize
 parameter_list|,
 name|Set
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|excludedRegions
 parameter_list|)
@@ -1651,7 +1641,7 @@ init|)
 block|{
 for|for
 control|(
-name|Region
+name|HRegion
 name|region
 range|:
 name|regionsBySize
@@ -1771,19 +1761,14 @@ specifier|public
 name|void
 name|requestFlush
 parameter_list|(
-name|Region
+name|HRegion
 name|r
 parameter_list|,
 name|boolean
 name|forceFlushAllStores
 parameter_list|)
 block|{
-operator|(
-operator|(
-name|HRegion
-operator|)
 name|r
-operator|)
 operator|.
 name|incrementFlushesQueuedCount
 argument_list|()
@@ -1846,7 +1831,7 @@ specifier|public
 name|void
 name|requestDelayedFlush
 parameter_list|(
-name|Region
+name|HRegion
 name|r
 parameter_list|,
 name|long
@@ -1856,12 +1841,7 @@ name|boolean
 name|forceFlushAllStores
 parameter_list|)
 block|{
-operator|(
-operator|(
-name|HRegion
-operator|)
 name|r
-operator|)
 operator|.
 name|incrementFlushesQueuedCount
 argument_list|()
@@ -2137,7 +2117,7 @@ name|FlushRegionEntry
 name|fqe
 parameter_list|)
 block|{
-name|Region
+name|HRegion
 name|region
 init|=
 name|fqe
@@ -2378,7 +2358,7 @@ name|boolean
 name|flushRegion
 parameter_list|(
 specifier|final
-name|Region
+name|HRegion
 name|region
 parameter_list|,
 specifier|final
@@ -2468,12 +2448,7 @@ comment|// We just want to check the size
 name|boolean
 name|shouldSplit
 init|=
-operator|(
-operator|(
-name|HRegion
-operator|)
 name|region
-operator|)
 operator|.
 name|checkSplit
 argument_list|()
@@ -2509,9 +2484,6 @@ name|compactSplitThread
 operator|.
 name|requestSystemCompaction
 argument_list|(
-operator|(
-name|HRegion
-operator|)
 name|region
 argument_list|,
 name|Thread
@@ -3427,7 +3399,7 @@ name|FlushQueueEntry
 block|{
 specifier|private
 specifier|final
-name|Region
+name|HRegion
 name|region
 decl_stmt|;
 specifier|private
@@ -3452,7 +3424,7 @@ decl_stmt|;
 name|FlushRegionEntry
 parameter_list|(
 specifier|final
-name|Region
+name|HRegion
 name|r
 parameter_list|,
 name|boolean

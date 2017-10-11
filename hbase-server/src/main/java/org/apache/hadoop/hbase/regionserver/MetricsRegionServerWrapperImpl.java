@@ -1233,7 +1233,7 @@ parameter_list|()
 block|{
 name|Collection
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|onlineRegionsLocalContext
 init|=
@@ -2960,7 +2960,7 @@ literal|0
 decl_stmt|;
 for|for
 control|(
-name|Region
+name|HRegion
 name|r
 range|:
 name|regionServer

@@ -921,7 +921,7 @@ name|getRegionServerThreads
 argument_list|()
 control|)
 block|{
-name|Region
+name|HRegion
 name|region
 init|=
 name|rst

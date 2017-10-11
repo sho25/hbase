@@ -688,7 +688,7 @@ block|}
 decl_stmt|;
 comment|// Instance variables
 specifier|private
-name|Region
+name|HRegion
 name|region
 decl_stmt|;
 specifier|private

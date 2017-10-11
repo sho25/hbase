@@ -431,6 +431,16 @@ name|TestName
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|mockito
+operator|.
+name|Mockito
+import|;
+end_import
+
 begin_comment
 comment|/**  * Tests a race condition between archiving of compacted files in CompactedHFilesDischarger chore  * and HRegion.close();  */
 end_comment
@@ -645,7 +655,7 @@ argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|regions
 init|=
@@ -661,18 +671,20 @@ argument_list|(
 name|region
 argument_list|)
 expr_stmt|;
-name|when
-argument_list|(
-name|rss
+name|Mockito
 operator|.
-name|getRegions
-argument_list|()
-argument_list|)
-operator|.
-name|thenReturn
+name|doReturn
 argument_list|(
 name|regions
 argument_list|)
+operator|.
+name|when
+argument_list|(
+name|rss
+argument_list|)
+operator|.
+name|getRegions
+argument_list|()
 expr_stmt|;
 comment|// Create the cleaner object
 name|CompactedHFilesDischarger

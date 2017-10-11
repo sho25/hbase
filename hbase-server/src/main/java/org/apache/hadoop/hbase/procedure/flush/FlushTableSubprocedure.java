@@ -179,7 +179,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|Region
+name|HRegion
 import|;
 end_import
 
@@ -222,7 +222,7 @@ specifier|private
 specifier|final
 name|List
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|regions
 decl_stmt|;
@@ -248,7 +248,7 @@ name|timeout
 parameter_list|,
 name|List
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|regions
 parameter_list|,
@@ -301,12 +301,12 @@ argument_list|<
 name|Void
 argument_list|>
 block|{
-name|Region
+name|HRegion
 name|region
 decl_stmt|;
 name|RegionFlushTask
 parameter_list|(
-name|Region
+name|HRegion
 name|region
 parameter_list|)
 block|{
@@ -434,7 +434,7 @@ block|}
 comment|// Add all hfiles already existing in region.
 for|for
 control|(
-name|Region
+name|HRegion
 name|region
 range|:
 name|regions

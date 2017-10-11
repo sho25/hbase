@@ -215,23 +215,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|Region
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|Region
+name|HRegion
 operator|.
 name|FlushResult
 import|;
@@ -351,7 +335,7 @@ specifier|private
 specifier|final
 name|List
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|regions
 decl_stmt|;
@@ -396,7 +380,7 @@ name|timeout
 parameter_list|,
 name|List
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|regions
 parameter_list|,
@@ -475,7 +459,7 @@ name|Void
 argument_list|>
 block|{
 specifier|private
-name|Region
+name|HRegion
 name|region
 decl_stmt|;
 specifier|private
@@ -493,7 +477,7 @@ decl_stmt|;
 specifier|public
 name|RegionSnapshotTask
 parameter_list|(
-name|Region
+name|HRegion
 name|region
 parameter_list|,
 name|SnapshotDescription
@@ -605,7 +589,7 @@ name|readPt
 init|=
 name|region
 operator|.
-name|getReadpoint
+name|getReadPoint
 argument_list|(
 name|IsolationLevel
 operator|.
@@ -704,12 +688,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-operator|(
-operator|(
-name|HRegion
-operator|)
 name|region
-operator|)
 operator|.
 name|addRegionToSnapshot
 argument_list|(
@@ -834,7 +813,7 @@ block|}
 comment|// Add all hfiles already existing in region.
 for|for
 control|(
-name|Region
+name|HRegion
 name|region
 range|:
 name|regions

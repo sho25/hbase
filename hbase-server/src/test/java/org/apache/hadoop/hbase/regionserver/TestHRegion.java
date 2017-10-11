@@ -42472,7 +42472,7 @@ name|HashMap
 argument_list|<
 name|String
 argument_list|,
-name|Region
+name|HRegion
 argument_list|>
 name|recoveringRegions
 init|=

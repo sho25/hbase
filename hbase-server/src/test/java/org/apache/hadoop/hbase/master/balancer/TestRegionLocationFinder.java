@@ -189,7 +189,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegionServer
+name|HRegion
 import|;
 end_import
 
@@ -205,7 +205,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|Region
+name|HRegionServer
 import|;
 end_import
 
@@ -464,7 +464,7 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|Region
+name|HRegion
 name|region
 range|:
 name|server
@@ -582,7 +582,7 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|Region
+name|HRegion
 name|region
 range|:
 name|server
@@ -842,7 +842,7 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|Region
+name|HRegion
 name|region
 range|:
 name|server
@@ -1005,7 +1005,7 @@ argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|regions
 init|=
@@ -1046,7 +1046,7 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|Region
+name|HRegion
 name|region
 range|:
 name|regions

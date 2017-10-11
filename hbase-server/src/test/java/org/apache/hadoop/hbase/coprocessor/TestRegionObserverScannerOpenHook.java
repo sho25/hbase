@@ -1278,7 +1278,7 @@ name|NO_DATA
 return|;
 block|}
 block|}
-name|Region
+name|HRegion
 name|initHRegion
 parameter_list|(
 name|byte
@@ -1698,7 +1698,7 @@ operator|.
 name|create
 argument_list|()
 decl_stmt|;
-name|Region
+name|HRegion
 name|region
 init|=
 name|initHRegion
@@ -2225,7 +2225,7 @@ argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|regions
 init|=

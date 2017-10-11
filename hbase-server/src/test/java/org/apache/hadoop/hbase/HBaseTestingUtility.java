@@ -18626,7 +18626,7 @@ continue|continue;
 block|}
 name|Collection
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|hrs
 init|=
@@ -18637,7 +18637,7 @@ argument_list|()
 decl_stmt|;
 for|for
 control|(
-name|Region
+name|HRegion
 name|r
 range|:
 name|hrs

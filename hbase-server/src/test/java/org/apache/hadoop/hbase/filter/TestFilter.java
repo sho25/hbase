@@ -641,7 +641,7 @@ name|class
 argument_list|)
 decl_stmt|;
 specifier|private
-name|Region
+name|HRegion
 name|region
 decl_stmt|;
 specifier|private
@@ -13605,7 +13605,7 @@ argument_list|,
 literal|false
 argument_list|)
 decl_stmt|;
-name|Region
+name|HRegion
 name|testRegion
 init|=
 name|HBaseTestingUtility
@@ -18854,7 +18854,7 @@ argument_list|,
 literal|false
 argument_list|)
 decl_stmt|;
-name|Region
+name|HRegion
 name|testRegion
 init|=
 name|HBaseTestingUtility

@@ -4118,7 +4118,7 @@ name|s
 decl_stmt|;
 specifier|private
 specifier|final
-name|Region
+name|HRegion
 name|r
 decl_stmt|;
 specifier|private
@@ -4149,7 +4149,7 @@ parameter_list|,
 name|RegionScanner
 name|s
 parameter_list|,
-name|Region
+name|HRegion
 name|r
 parameter_list|,
 name|RpcCallback
@@ -4314,7 +4314,7 @@ name|getRegionNameAsString
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|Region
+name|HRegion
 name|region
 init|=
 literal|null
@@ -4904,7 +4904,7 @@ name|void
 name|mutateRows
 parameter_list|(
 specifier|final
-name|Region
+name|HRegion
 name|region
 parameter_list|,
 specifier|final
@@ -5157,7 +5157,7 @@ name|boolean
 name|checkAndRowMutate
 parameter_list|(
 specifier|final
-name|Region
+name|HRegion
 name|region
 parameter_list|,
 specifier|final
@@ -5475,7 +5475,7 @@ name|Result
 name|append
 parameter_list|(
 specifier|final
-name|Region
+name|HRegion
 name|region
 parameter_list|,
 specifier|final
@@ -5755,7 +5755,7 @@ name|Result
 name|increment
 parameter_list|(
 specifier|final
-name|Region
+name|HRegion
 name|region
 parameter_list|,
 specifier|final
@@ -6038,7 +6038,7 @@ argument_list|>
 name|doNonAtomicRegionMutation
 parameter_list|(
 specifier|final
-name|Region
+name|HRegion
 name|region
 parameter_list|,
 specifier|final
@@ -6939,8 +6939,8 @@ name|void
 name|checkCellSizeLimit
 parameter_list|(
 specifier|final
-name|Region
-name|region
+name|HRegion
+name|r
 parameter_list|,
 specifier|final
 name|Mutation
@@ -6949,26 +6949,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-if|if
-condition|(
-operator|!
-operator|(
-name|region
-operator|instanceof
-name|HRegion
-operator|)
-condition|)
-block|{
-return|return;
-block|}
-name|HRegion
-name|r
-init|=
-operator|(
-name|HRegion
-operator|)
-name|region
-decl_stmt|;
 if|if
 condition|(
 name|r
@@ -7070,7 +7050,7 @@ name|Builder
 name|builder
 parameter_list|,
 specifier|final
-name|Region
+name|HRegion
 name|region
 parameter_list|,
 specifier|final
@@ -7591,7 +7571,7 @@ index|[]
 name|doReplayBatchOp
 parameter_list|(
 specifier|final
-name|Region
+name|HRegion
 name|region
 parameter_list|,
 specifier|final
@@ -9198,7 +9178,7 @@ parameter_list|,
 name|RegionScanner
 name|s
 parameter_list|,
-name|Region
+name|HRegion
 name|r
 parameter_list|,
 name|boolean
@@ -9319,7 +9299,7 @@ comment|/**    * Find the HRegion based on a region specifier    *    * @param r
 annotation|@
 name|VisibleForTesting
 specifier|public
-name|Region
+name|HRegion
 name|getRegion
 parameter_list|(
 specifier|final
@@ -10750,7 +10730,7 @@ name|Map
 argument_list|<
 name|String
 argument_list|,
-name|Region
+name|HRegion
 argument_list|>
 name|onlineRegions
 init|=
@@ -10776,7 +10756,7 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|Region
+name|HRegion
 name|region
 range|:
 name|onlineRegions
@@ -10867,7 +10847,7 @@ operator|.
 name|increment
 argument_list|()
 expr_stmt|;
-name|Region
+name|HRegion
 name|region
 init|=
 name|getRegion
@@ -11005,10 +10985,15 @@ name|builder
 operator|.
 name|setCompactionState
 argument_list|(
+name|ProtobufUtil
+operator|.
+name|createCompactionState
+argument_list|(
 name|region
 operator|.
 name|getCompactionState
 argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -11120,7 +11105,7 @@ name|ServiceException
 block|{
 name|List
 argument_list|<
-name|Region
+name|HRegion
 argument_list|>
 name|regions
 decl_stmt|;
@@ -11207,7 +11192,7 @@ try|try
 block|{
 for|for
 control|(
-name|Region
+name|HRegion
 name|region
 range|:
 name|regions
@@ -11590,7 +11575,7 @@ block|{
 name|checkOpen
 argument_list|()
 expr_stmt|;
-name|Region
+name|HRegion
 name|region
 init|=
 name|getRegion
@@ -12143,7 +12128,7 @@ name|getEncodedNameAsBytes
 argument_list|()
 decl_stmt|;
 specifier|final
-name|Region
+name|HRegion
 name|onlineRegion
 init|=
 name|regionServer
@@ -12779,7 +12764,7 @@ name|getEncodedNameAsBytes
 argument_list|()
 decl_stmt|;
 specifier|final
-name|Region
+name|HRegion
 name|onlineRegion
 init|=
 name|regionServer
@@ -13031,7 +13016,7 @@ operator|.
 name|getEncodedRegionName
 argument_list|()
 decl_stmt|;
-name|Region
+name|HRegion
 name|region
 init|=
 name|regionServer
@@ -13439,10 +13424,10 @@ comment|//sync wal at the end because ASYNC_WAL is used above
 name|WAL
 name|wal
 init|=
-name|getWAL
-argument_list|(
 name|region
-argument_list|)
+operator|.
+name|getWAL
+argument_list|()
 decl_stmt|;
 if|if
 condition|(
@@ -13550,25 +13535,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-block|}
-name|WAL
-name|getWAL
-parameter_list|(
-name|Region
-name|region
-parameter_list|)
-block|{
-return|return
-operator|(
-operator|(
-name|HRegion
-operator|)
-name|region
-operator|)
-operator|.
-name|getWAL
-argument_list|()
-return|;
 block|}
 comment|/**    * Replicate WAL entries on the region server.    *    * @param controller the RPC controller    * @param request the request    * @throws ServiceException    */
 annotation|@
@@ -13999,7 +13965,7 @@ operator|.
 name|increment
 argument_list|()
 expr_stmt|;
-name|Region
+name|HRegion
 name|region
 init|=
 name|getRegion
@@ -14410,7 +14376,7 @@ operator|.
 name|increment
 argument_list|()
 expr_stmt|;
-name|Region
+name|HRegion
 name|region
 init|=
 name|getRegion
@@ -14499,7 +14465,7 @@ operator|.
 name|increment
 argument_list|()
 expr_stmt|;
-name|Region
+name|HRegion
 name|region
 init|=
 name|getRegion
@@ -14578,7 +14544,7 @@ operator|.
 name|increment
 argument_list|()
 expr_stmt|;
-name|Region
+name|HRegion
 name|region
 init|=
 name|getRegion
@@ -14723,7 +14689,7 @@ operator|.
 name|Message
 name|execServiceOnRegion
 parameter_list|(
-name|Region
+name|HRegion
 name|region
 parameter_list|,
 specifier|final
@@ -14805,7 +14771,7 @@ operator|.
 name|increment
 argument_list|()
 expr_stmt|;
-name|Region
+name|HRegion
 name|region
 init|=
 name|getRegion
@@ -15803,7 +15769,7 @@ expr_stmt|;
 name|OperationQuota
 name|quota
 decl_stmt|;
-name|Region
+name|HRegion
 name|region
 decl_stmt|;
 name|regionActionResultBuilder
@@ -16531,7 +16497,7 @@ operator|.
 name|increment
 argument_list|()
 expr_stmt|;
-name|Region
+name|HRegion
 name|region
 init|=
 name|getRegion
@@ -17668,7 +17634,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|Region
+name|HRegion
 name|region
 init|=
 name|getRegion
@@ -18233,7 +18199,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|Region
+name|HRegion
 name|region
 init|=
 name|rsh
@@ -19438,7 +19404,7 @@ name|e
 argument_list|)
 throw|;
 block|}
-name|Region
+name|HRegion
 name|region
 init|=
 name|rsh
@@ -20274,7 +20240,7 @@ specifier|private
 name|void
 name|closeScanner
 parameter_list|(
-name|Region
+name|HRegion
 name|region
 parameter_list|,
 name|RegionScanner
