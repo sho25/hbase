@@ -415,12 +415,6 @@ operator|.
 name|getSplitLogWorkerCoordination
 argument_list|()
 expr_stmt|;
-name|this
-operator|.
-name|server
-operator|=
-name|server
-expr_stmt|;
 name|coordination
 operator|.
 name|init
@@ -461,7 +455,7 @@ parameter_list|)
 block|{
 name|this
 argument_list|(
-name|server
+name|hserver
 argument_list|,
 name|conf
 argument_list|,

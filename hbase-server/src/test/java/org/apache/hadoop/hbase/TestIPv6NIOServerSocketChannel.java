@@ -551,16 +551,8 @@ operator|.
 name|assertFalse
 argument_list|(
 name|ex
-operator|.
-name|getClass
-argument_list|()
-operator|.
-name|isInstance
-argument_list|(
+operator|instanceof
 name|BindException
-operator|.
-name|class
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|Assert

@@ -890,6 +890,17 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
+argument_list|(
+name|expected
+operator|=
+name|KeeperException
+operator|.
+name|SystemErrorException
+operator|.
+name|class
+argument_list|)
 specifier|public
 name|void
 name|testInterruptedDuringAction
@@ -970,8 +981,6 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
-try|try
-block|{
 name|ZKUtil
 operator|.
 name|listChildrenNoWatch
@@ -983,25 +992,6 @@ operator|.
 name|znodePaths
 operator|.
 name|baseZNode
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|KeeperException
-operator|.
-name|SystemErrorException
-name|e
-parameter_list|)
-block|{
-comment|// expected
-return|return;
-block|}
-name|Assert
-operator|.
-name|fail
-argument_list|(
-literal|"Should have thrown KeeperException but not"
 argument_list|)
 expr_stmt|;
 block|}

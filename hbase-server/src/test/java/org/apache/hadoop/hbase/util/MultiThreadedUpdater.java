@@ -1140,10 +1140,15 @@ name|warn
 argument_list|(
 literal|"Failed to modify the get from the load generator  = ["
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|get
 operator|.
 name|getRow
 argument_list|()
+argument_list|)
 operator|+
 literal|"], column family = ["
 operator|+
@@ -1658,7 +1663,12 @@ name|debug
 argument_list|(
 literal|"Preparing increment and append for key = ["
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|rowKey
+argument_list|)
 operator|+
 literal|"], "
 operator|+
@@ -1804,10 +1814,15 @@ name|warn
 argument_list|(
 literal|"Failed to get the row for key = ["
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|get
 operator|.
 name|getRow
 argument_list|()
+argument_list|)
 operator|+
 literal|"], column family = ["
 operator|+

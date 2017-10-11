@@ -887,7 +887,7 @@ comment|// Check our node still in the map; could have been removed by #removeNo
 return|return
 name|nodeMap
 operator|.
-name|contains
+name|containsValue
 argument_list|(
 name|node
 argument_list|)

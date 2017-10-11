@@ -1016,12 +1016,11 @@ block|}
 block|}
 if|if
 condition|(
+operator|!
 name|puts
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|>=
-literal|0
 condition|)
 block|{
 name|ht

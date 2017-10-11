@@ -768,7 +768,12 @@ name|debug
 argument_list|(
 literal|"Preparing put for key = ["
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|rowKey
+argument_list|)
 operator|+
 literal|"], "
 operator|+

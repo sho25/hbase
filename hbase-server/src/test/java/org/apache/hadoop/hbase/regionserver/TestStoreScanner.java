@@ -525,6 +525,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Rule
 import|;
 end_import
@@ -4360,6 +4370,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testDeleteVersionMaskingMultiplePuts
@@ -4591,6 +4603,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testDeleteVersionsMixedAndMultipleVersionReturn
@@ -6856,10 +6870,16 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * TODO this fails, since we don't handle deletions, etc, in peek    */
+annotation|@
+name|Test
+annotation|@
+name|Ignore
+argument_list|(
+literal|"this fails, since we don't handle deletions, etc, in peek"
+argument_list|)
 specifier|public
 name|void
-name|SKIP_testPeek
+name|testPeek
 parameter_list|()
 throws|throws
 name|Exception
