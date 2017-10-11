@@ -489,6 +489,19 @@ return|return
 name|cell
 return|;
 block|}
+specifier|abstract
+name|ReturnCode
+name|internalFilterKeyValue
+parameter_list|(
+name|Cell
+name|c
+parameter_list|,
+name|Cell
+name|currentTransformedCell
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Filters that never filter by modifying the returned List of Cells can inherit this    * implementation that does nothing. {@inheritDoc}    */
 annotation|@
 name|Override
