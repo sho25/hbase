@@ -930,7 +930,7 @@ block|{
 annotation|@
 name|Override
 specifier|public
-name|GlobalQuotaSettings
+name|GlobalQuotaSettingsImpl
 name|fetch
 parameter_list|()
 throws|throws
@@ -938,7 +938,7 @@ name|IOException
 block|{
 return|return
 operator|new
-name|GlobalQuotaSettings
+name|GlobalQuotaSettingsImpl
 argument_list|(
 name|req
 operator|.
@@ -969,7 +969,7 @@ specifier|public
 name|void
 name|update
 parameter_list|(
-name|GlobalQuotaSettings
+name|GlobalQuotaSettingsImpl
 name|quotaPojo
 parameter_list|)
 throws|throws
@@ -1021,7 +1021,7 @@ specifier|public
 name|void
 name|preApply
 parameter_list|(
-name|GlobalQuotaSettings
+name|GlobalQuotaSettingsImpl
 name|quotaPojo
 parameter_list|)
 throws|throws
@@ -1046,7 +1046,7 @@ specifier|public
 name|void
 name|postApply
 parameter_list|(
-name|GlobalQuotaSettings
+name|GlobalQuotaSettingsImpl
 name|quotaPojo
 parameter_list|)
 throws|throws
@@ -1101,7 +1101,7 @@ block|{
 annotation|@
 name|Override
 specifier|public
-name|GlobalQuotaSettings
+name|GlobalQuotaSettingsImpl
 name|fetch
 parameter_list|()
 throws|throws
@@ -1109,7 +1109,7 @@ name|IOException
 block|{
 return|return
 operator|new
-name|GlobalQuotaSettings
+name|GlobalQuotaSettingsImpl
 argument_list|(
 name|userName
 argument_list|,
@@ -1139,7 +1139,7 @@ specifier|public
 name|void
 name|update
 parameter_list|(
-name|GlobalQuotaSettings
+name|GlobalQuotaSettingsImpl
 name|quotaPojo
 parameter_list|)
 throws|throws
@@ -1195,7 +1195,7 @@ specifier|public
 name|void
 name|preApply
 parameter_list|(
-name|GlobalQuotaSettings
+name|GlobalQuotaSettingsImpl
 name|quotaPojo
 parameter_list|)
 throws|throws
@@ -1222,7 +1222,7 @@ specifier|public
 name|void
 name|postApply
 parameter_list|(
-name|GlobalQuotaSettings
+name|GlobalQuotaSettingsImpl
 name|quotaPojo
 parameter_list|)
 throws|throws
@@ -1279,7 +1279,7 @@ block|{
 annotation|@
 name|Override
 specifier|public
-name|GlobalQuotaSettings
+name|GlobalQuotaSettingsImpl
 name|fetch
 parameter_list|()
 throws|throws
@@ -1287,7 +1287,7 @@ name|IOException
 block|{
 return|return
 operator|new
-name|GlobalQuotaSettings
+name|GlobalQuotaSettingsImpl
 argument_list|(
 name|userName
 argument_list|,
@@ -1317,7 +1317,7 @@ specifier|public
 name|void
 name|update
 parameter_list|(
-name|GlobalQuotaSettings
+name|GlobalQuotaSettingsImpl
 name|quotaPojo
 parameter_list|)
 throws|throws
@@ -1373,7 +1373,7 @@ specifier|public
 name|void
 name|preApply
 parameter_list|(
-name|GlobalQuotaSettings
+name|GlobalQuotaSettingsImpl
 name|quotaPojo
 parameter_list|)
 throws|throws
@@ -1400,7 +1400,7 @@ specifier|public
 name|void
 name|postApply
 parameter_list|(
-name|GlobalQuotaSettings
+name|GlobalQuotaSettingsImpl
 name|quotaPojo
 parameter_list|)
 throws|throws
@@ -1453,7 +1453,7 @@ block|{
 annotation|@
 name|Override
 specifier|public
-name|GlobalQuotaSettings
+name|GlobalQuotaSettingsImpl
 name|fetch
 parameter_list|()
 throws|throws
@@ -1461,7 +1461,7 @@ name|IOException
 block|{
 return|return
 operator|new
-name|GlobalQuotaSettings
+name|GlobalQuotaSettingsImpl
 argument_list|(
 literal|null
 argument_list|,
@@ -1489,7 +1489,7 @@ specifier|public
 name|void
 name|update
 parameter_list|(
-name|GlobalQuotaSettings
+name|GlobalQuotaSettingsImpl
 name|quotaPojo
 parameter_list|)
 throws|throws
@@ -1541,7 +1541,7 @@ specifier|public
 name|void
 name|preApply
 parameter_list|(
-name|GlobalQuotaSettings
+name|GlobalQuotaSettingsImpl
 name|quotaPojo
 parameter_list|)
 throws|throws
@@ -1566,7 +1566,7 @@ specifier|public
 name|void
 name|postApply
 parameter_list|(
-name|GlobalQuotaSettings
+name|GlobalQuotaSettingsImpl
 name|quotaPojo
 parameter_list|)
 throws|throws
@@ -1617,7 +1617,7 @@ block|{
 annotation|@
 name|Override
 specifier|public
-name|GlobalQuotaSettings
+name|GlobalQuotaSettingsImpl
 name|fetch
 parameter_list|()
 throws|throws
@@ -1625,7 +1625,7 @@ name|IOException
 block|{
 return|return
 operator|new
-name|GlobalQuotaSettings
+name|GlobalQuotaSettingsImpl
 argument_list|(
 literal|null
 argument_list|,
@@ -1653,7 +1653,7 @@ specifier|public
 name|void
 name|update
 parameter_list|(
-name|GlobalQuotaSettings
+name|GlobalQuotaSettingsImpl
 name|quotaPojo
 parameter_list|)
 throws|throws
@@ -1672,7 +1672,7 @@ name|namespace
 argument_list|,
 operator|(
 operator|(
-name|GlobalQuotaSettings
+name|GlobalQuotaSettingsImpl
 operator|)
 name|quotaPojo
 operator|)
@@ -1710,7 +1710,7 @@ specifier|public
 name|void
 name|preApply
 parameter_list|(
-name|GlobalQuotaSettings
+name|GlobalQuotaSettingsImpl
 name|quotaPojo
 parameter_list|)
 throws|throws
@@ -1735,7 +1735,7 @@ specifier|public
 name|void
 name|postApply
 parameter_list|(
-name|GlobalQuotaSettings
+name|GlobalQuotaSettingsImpl
 name|quotaPojo
 parameter_list|)
 throws|throws
@@ -1864,7 +1864,7 @@ expr_stmt|;
 return|return;
 block|}
 comment|// Apply quota changes
-name|GlobalQuotaSettings
+name|GlobalQuotaSettingsImpl
 name|currentQuota
 init|=
 name|quotaOps
@@ -1940,7 +1940,7 @@ comment|// Merge the current quota settings with the new quota settings the user
 comment|//
 comment|// NB: while SetQuotaRequest technically allows for multi types of quotas to be set in one
 comment|// message, the Java API (in Admin/AsyncAdmin) does not. Assume there is only one type.
-name|GlobalQuotaSettings
+name|GlobalQuotaSettingsImpl
 name|mergedQuota
 init|=
 name|currentQuota
@@ -2184,7 +2184,7 @@ interface|interface
 name|SetQuotaOperations
 block|{
 comment|/**      * Fetches the current quota settings for the subject.      */
-name|GlobalQuotaSettings
+name|GlobalQuotaSettingsImpl
 name|fetch
 parameter_list|()
 throws|throws
@@ -2201,27 +2201,27 @@ comment|/**      * Persist the given quota for the subject.      */
 name|void
 name|update
 parameter_list|(
-name|GlobalQuotaSettings
+name|GlobalQuotaSettingsImpl
 name|quotaPojo
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**      * Performs some action before {@link #update(GlobalQuotaSettings)} with the current quota      * for the subject.      */
+comment|/**      * Performs some action before {@link #update(GlobalQuotaSettingsImpl)} with the current      * quota for the subject.      */
 name|void
 name|preApply
 parameter_list|(
-name|GlobalQuotaSettings
+name|GlobalQuotaSettingsImpl
 name|quotaPojo
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**      * Performs some action after {@link #update(GlobalQuotaSettings)} with the resulting quota      * from the request action for the subject.      */
+comment|/**      * Performs some action after {@link #update(GlobalQuotaSettingsImpl)} with the resulting      * quota from the request action for the subject.      */
 name|void
 name|postApply
 parameter_list|(
-name|GlobalQuotaSettings
+name|GlobalQuotaSettingsImpl
 name|quotaPojo
 parameter_list|)
 throws|throws

@@ -155,7 +155,7 @@ name|class
 argument_list|)
 specifier|public
 class|class
-name|TestGlobalQuotaSettings
+name|TestGlobalQuotaSettingsImpl
 block|{
 name|QuotaProtos
 operator|.
@@ -323,11 +323,11 @@ operator|.
 name|build
 argument_list|()
 decl_stmt|;
-name|GlobalQuotaSettings
+name|GlobalQuotaSettingsImpl
 name|settings
 init|=
 operator|new
-name|GlobalQuotaSettings
+name|GlobalQuotaSettingsImpl
 argument_list|(
 literal|"joe"
 argument_list|,
@@ -338,7 +338,7 @@ argument_list|,
 name|quota
 argument_list|)
 decl_stmt|;
-name|GlobalQuotaSettings
+name|GlobalQuotaSettingsImpl
 name|merged
 init|=
 name|settings
@@ -472,11 +472,11 @@ operator|.
 name|build
 argument_list|()
 decl_stmt|;
-name|GlobalQuotaSettings
+name|GlobalQuotaSettingsImpl
 name|settings
 init|=
 operator|new
-name|GlobalQuotaSettings
+name|GlobalQuotaSettingsImpl
 argument_list|(
 literal|null
 argument_list|,
@@ -488,7 +488,7 @@ name|quota
 argument_list|)
 decl_stmt|;
 comment|// Switch the violation policy to DISABLE
-name|GlobalQuotaSettings
+name|GlobalQuotaSettingsImpl
 name|merged
 init|=
 name|settings
@@ -589,11 +589,11 @@ operator|.
 name|build
 argument_list|()
 decl_stmt|;
-name|GlobalQuotaSettings
+name|GlobalQuotaSettingsImpl
 name|settings
 init|=
 operator|new
-name|GlobalQuotaSettings
+name|GlobalQuotaSettingsImpl
 argument_list|(
 literal|null
 argument_list|,
@@ -652,7 +652,7 @@ operator|.
 name|build
 argument_list|()
 decl_stmt|;
-name|GlobalQuotaSettings
+name|GlobalQuotaSettingsImpl
 name|merged
 init|=
 name|settings
@@ -672,7 +672,7 @@ name|writeThrottle
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|GlobalQuotaSettings
+name|GlobalQuotaSettingsImpl
 name|finalQuota
 init|=
 name|merged

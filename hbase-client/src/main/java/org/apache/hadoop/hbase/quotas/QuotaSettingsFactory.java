@@ -630,7 +630,7 @@ return|return
 name|settings
 return|;
 block|}
-specifier|private
+specifier|protected
 specifier|static
 name|List
 argument_list|<
