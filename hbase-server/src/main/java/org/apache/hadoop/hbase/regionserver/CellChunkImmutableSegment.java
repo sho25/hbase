@@ -574,9 +574,8 @@ init|=
 operator|new
 name|CellChunkMap
 argument_list|(
-name|CellComparator
-operator|.
-name|COMPARATOR
+name|getComparator
+argument_list|()
 argument_list|,
 name|chunks
 argument_list|,
@@ -801,9 +800,8 @@ init|=
 operator|new
 name|CellChunkMap
 argument_list|(
-name|CellComparator
-operator|.
-name|COMPARATOR
+name|getComparator
+argument_list|()
 argument_list|,
 name|chunks
 argument_list|,

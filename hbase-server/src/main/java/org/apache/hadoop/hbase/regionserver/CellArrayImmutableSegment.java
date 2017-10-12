@@ -505,9 +505,8 @@ init|=
 operator|new
 name|CellArrayMap
 argument_list|(
-name|CellComparator
-operator|.
-name|COMPARATOR
+name|getComparator
+argument_list|()
 argument_list|,
 name|cells
 argument_list|,
