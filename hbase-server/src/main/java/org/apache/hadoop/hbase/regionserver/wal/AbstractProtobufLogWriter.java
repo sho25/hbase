@@ -435,6 +435,24 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|CommonFSUtils
+operator|.
+name|StreamLacksCapabilityException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|EncryptionTest
 import|;
 end_import
@@ -1022,6 +1040,8 @@ name|overwritable
 parameter_list|)
 throws|throws
 name|IOException
+throws|,
+name|StreamLacksCapabilityException
 block|{
 name|this
 operator|.
@@ -1540,6 +1560,8 @@ name|blockSize
 parameter_list|)
 throws|throws
 name|IOException
+throws|,
+name|StreamLacksCapabilityException
 function_decl|;
 comment|/**    * return the file length after written.    */
 specifier|protected

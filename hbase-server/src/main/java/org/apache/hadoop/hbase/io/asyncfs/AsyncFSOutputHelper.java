@@ -301,6 +301,22 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|CommonFSUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|hdfs
 operator|.
 name|DistributedFileSystem
@@ -378,6 +394,10 @@ name|channelClass
 parameter_list|)
 throws|throws
 name|IOException
+throws|,
+name|CommonFSUtils
+operator|.
+name|StreamLacksCapabilityException
 block|{
 if|if
 condition|(
@@ -481,6 +501,43 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
+block|}
+comment|// After we create the stream but before we attempt to use it at all
+comment|// ensure that we can provide the level of data safety we're configured
+comment|// to provide.
+if|if
+condition|(
+operator|!
+operator|(
+name|CommonFSUtils
+operator|.
+name|hasCapability
+argument_list|(
+name|fsOut
+argument_list|,
+literal|"hflush"
+argument_list|)
+operator|&&
+name|CommonFSUtils
+operator|.
+name|hasCapability
+argument_list|(
+name|fsOut
+argument_list|,
+literal|"hsync"
+argument_list|)
+operator|)
+condition|)
+block|{
+throw|throw
+operator|new
+name|CommonFSUtils
+operator|.
+name|StreamLacksCapabilityException
+argument_list|(
+literal|"hflush and hsync"
+argument_list|)
+throw|;
 block|}
 specifier|final
 name|ExecutorService

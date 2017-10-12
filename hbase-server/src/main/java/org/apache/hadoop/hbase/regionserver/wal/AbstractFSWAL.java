@@ -607,6 +607,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|CommonFSUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|DrainBarrier
 import|;
 end_import
@@ -624,22 +640,6 @@ operator|.
 name|util
 operator|.
 name|EnvironmentEdgeManager
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|FSUtils
 import|;
 end_import
 
@@ -1690,7 +1690,7 @@ throw|;
 block|}
 comment|// Now that it exists, set the storage policy for the entire directory of wal files related to
 comment|// this FSHLog instance
-name|FSUtils
+name|CommonFSUtils
 operator|.
 name|setStoragePolicy
 argument_list|(
@@ -1859,7 +1859,7 @@ name|FileStatus
 index|[]
 name|walFiles
 init|=
-name|FSUtils
+name|CommonFSUtils
 operator|.
 name|listStatus
 argument_list|(
@@ -1943,7 +1943,7 @@ name|getLong
 argument_list|(
 literal|"hbase.regionserver.hlog.blocksize"
 argument_list|,
-name|FSUtils
+name|CommonFSUtils
 operator|.
 name|getDefaultBlockSize
 argument_list|(
@@ -3211,7 +3211,7 @@ expr_stmt|;
 if|if
 condition|(
 operator|!
-name|FSUtils
+name|CommonFSUtils
 operator|.
 name|renameAndSetModifyTime
 argument_list|(
@@ -3336,7 +3336,7 @@ name|newPath
 condition|?
 literal|null
 else|:
-name|FSUtils
+name|CommonFSUtils
 operator|.
 name|getPath
 argument_list|(
@@ -3388,7 +3388,7 @@ name|info
 argument_list|(
 literal|"Rolled WAL "
 operator|+
-name|FSUtils
+name|CommonFSUtils
 operator|.
 name|getPath
 argument_list|(
@@ -3797,6 +3797,28 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+catch|catch
+parameter_list|(
+name|CommonFSUtils
+operator|.
+name|StreamLacksCapabilityException
+name|exception
+parameter_list|)
+block|{
+comment|// If the underlying FileSystem can't do what we ask, treat as IO failure so
+comment|// we'll abort.
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Underlying FileSystem can't meet stream requirements. See RS log "
+operator|+
+literal|"for details."
+argument_list|,
+name|exception
+argument_list|)
+throw|;
+block|}
 finally|finally
 block|{
 name|closeBarrier
@@ -3874,7 +3896,7 @@ throws|throws
 name|IOException
 block|{
 return|return
-name|FSUtils
+name|CommonFSUtils
 operator|.
 name|listStatus
 argument_list|(
@@ -4075,7 +4097,7 @@ block|}
 if|if
 condition|(
 operator|!
-name|FSUtils
+name|CommonFSUtils
 operator|.
 name|renameAndSetModifyTime
 argument_list|(
@@ -4156,7 +4178,7 @@ name|length
 operator|+
 literal|" WAL file(s) to "
 operator|+
-name|FSUtils
+name|CommonFSUtils
 operator|.
 name|getPath
 argument_list|(
@@ -5047,6 +5069,10 @@ name|path
 parameter_list|)
 throws|throws
 name|IOException
+throws|,
+name|CommonFSUtils
+operator|.
+name|StreamLacksCapabilityException
 function_decl|;
 comment|/**    * @return old wal file size    */
 specifier|protected

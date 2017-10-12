@@ -753,8 +753,6 @@ name|createWalStore
 argument_list|(
 name|conf
 argument_list|,
-name|fs
-argument_list|,
 name|logDir
 argument_list|)
 expr_stmt|;

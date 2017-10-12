@@ -279,7 +279,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|FSUtils
+name|CommonFSUtils
 import|;
 end_import
 
@@ -431,14 +431,14 @@ operator|=
 operator|new
 name|IOTestWAL
 argument_list|(
-name|FSUtils
+name|CommonFSUtils
 operator|.
 name|getWALFileSystem
 argument_list|(
 name|conf
 argument_list|)
 argument_list|,
-name|FSUtils
+name|CommonFSUtils
 operator|.
 name|getWALRootDir
 argument_list|(
@@ -759,6 +759,8 @@ operator|new
 name|IOTestWriter
 argument_list|()
 decl_stmt|;
+try|try
+block|{
 name|writer
 operator|.
 name|init
@@ -772,6 +774,27 @@ argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|CommonFSUtils
+operator|.
+name|StreamLacksCapabilityException
+name|exception
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Can't create writer instance because underlying FileSystem "
+operator|+
+literal|"doesn't support needed stream capabilities."
+argument_list|,
+name|exception
+argument_list|)
+throw|;
+block|}
 if|if
 condition|(
 operator|!
@@ -847,6 +870,10 @@ name|overwritable
 parameter_list|)
 throws|throws
 name|IOException
+throws|,
+name|CommonFSUtils
+operator|.
+name|StreamLacksCapabilityException
 block|{
 name|Collection
 argument_list|<

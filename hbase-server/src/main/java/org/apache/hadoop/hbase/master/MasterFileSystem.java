@@ -325,11 +325,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|master
+name|mob
 operator|.
-name|procedure
-operator|.
-name|MasterProcedureConstants
+name|MobConstants
 import|;
 end_import
 
@@ -343,9 +341,13 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|mob
+name|procedure2
 operator|.
-name|MobConstants
+name|store
+operator|.
+name|wal
+operator|.
+name|WALProcedureStore
 import|;
 end_import
 
@@ -812,7 +814,7 @@ name|HConstants
 operator|.
 name|CORRUPT_DIR_NAME
 block|,
-name|MasterProcedureConstants
+name|WALProcedureStore
 operator|.
 name|MASTER_PROCEDURE_LOGDIR
 block|}

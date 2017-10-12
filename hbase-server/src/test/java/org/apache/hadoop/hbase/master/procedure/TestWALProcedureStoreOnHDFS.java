@@ -528,11 +528,6 @@ operator|.
 name|getConfiguration
 argument_list|()
 argument_list|,
-name|dfs
-operator|.
-name|getFileSystem
-argument_list|()
-argument_list|,
 name|logDir
 argument_list|)
 expr_stmt|;

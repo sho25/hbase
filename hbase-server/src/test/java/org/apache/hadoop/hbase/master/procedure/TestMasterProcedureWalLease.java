@@ -790,14 +790,6 @@ operator|.
 name|getConfiguration
 argument_list|()
 argument_list|,
-name|firstMaster
-operator|.
-name|getMasterFileSystem
-argument_list|()
-operator|.
-name|getFileSystem
-argument_list|()
-argument_list|,
 operator|(
 operator|(
 name|WALProcedureStore
@@ -807,6 +799,8 @@ operator|)
 operator|.
 name|getWALDir
 argument_list|()
+argument_list|,
+literal|null
 argument_list|,
 operator|new
 name|MasterProcedureEnv
@@ -1218,14 +1212,6 @@ operator|.
 name|getConfiguration
 argument_list|()
 argument_list|,
-name|firstMaster
-operator|.
-name|getMasterFileSystem
-argument_list|()
-operator|.
-name|getFileSystem
-argument_list|()
-argument_list|,
 operator|(
 operator|(
 name|WALProcedureStore
@@ -1235,6 +1221,8 @@ operator|)
 operator|.
 name|getWALDir
 argument_list|()
+argument_list|,
+literal|null
 argument_list|,
 operator|new
 name|MasterProcedureEnv

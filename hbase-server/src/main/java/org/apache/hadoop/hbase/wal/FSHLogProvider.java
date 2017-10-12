@@ -191,7 +191,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|FSUtils
+name|CommonFSUtils
 import|;
 end_import
 
@@ -241,6 +241,7 @@ name|WALProvider
 operator|.
 name|Writer
 block|{
+comment|/**      * @throws IOException if something goes wrong initializing an output stream      * @throws StreamLacksCapabilityException if the given FileSystem can't provide streams that      *         meet the needs of the given Writer implementation.      */
 name|void
 name|init
 parameter_list|(
@@ -258,6 +259,10 @@ name|overwritable
 parameter_list|)
 throws|throws
 name|IOException
+throws|,
+name|CommonFSUtils
+operator|.
+name|StreamLacksCapabilityException
 function_decl|;
 block|}
 comment|/**    * public because of FSHLog. Should be package-private    */
@@ -346,6 +351,46 @@ name|Exception
 name|e
 parameter_list|)
 block|{
+if|if
+condition|(
+name|e
+operator|instanceof
+name|CommonFSUtils
+operator|.
+name|StreamLacksCapabilityException
+condition|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"The RegionServer write ahead log provider for FileSystem implementations "
+operator|+
+literal|"relies on the ability to call "
+operator|+
+name|e
+operator|.
+name|getMessage
+argument_list|()
+operator|+
+literal|" for proper operation during "
+operator|+
+literal|"component failures, but the current FileSystem does not support doing so. Please "
+operator|+
+literal|"check the config value of '"
+operator|+
+name|CommonFSUtils
+operator|.
+name|HBASE_WAL_DIR
+operator|+
+literal|"' and ensure "
+operator|+
+literal|"it points to a FileSystem mount that has suitable capabilities for output streams."
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
 name|LOG
 operator|.
 name|debug
@@ -355,6 +400,7 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|writer
@@ -411,14 +457,14 @@ return|return
 operator|new
 name|FSHLog
 argument_list|(
-name|FSUtils
+name|CommonFSUtils
 operator|.
 name|getWALFileSystem
 argument_list|(
 name|conf
 argument_list|)
 argument_list|,
-name|FSUtils
+name|CommonFSUtils
 operator|.
 name|getWALRootDir
 argument_list|(

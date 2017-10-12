@@ -47,15 +47,6 @@ specifier|private
 name|MasterProcedureConstants
 parameter_list|()
 block|{}
-comment|/** Used to construct the name of the log directory for master procedures */
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|MASTER_PROCEDURE_LOGDIR
-init|=
-literal|"MasterProcWALs"
-decl_stmt|;
 comment|/** Number of threads used by the procedure executor */
 specifier|public
 specifier|static

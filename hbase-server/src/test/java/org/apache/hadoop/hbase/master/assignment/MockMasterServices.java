@@ -585,6 +585,26 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|procedure2
+operator|.
+name|store
+operator|.
+name|wal
+operator|.
+name|WALProcedureStore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|security
 operator|.
 name|Superusers
@@ -1519,13 +1539,11 @@ operator|.
 name|getRootDir
 argument_list|()
 argument_list|,
-name|MasterProcedureConstants
+name|WALProcedureStore
 operator|.
 name|MASTER_PROCEDURE_LOGDIR
 argument_list|)
 decl_stmt|;
-comment|//procedureStore = new WALProcedureStore(conf, fileSystemManager.getFileSystem(), logDir,
-comment|//    new MasterProcedureEnv.WALStoreLeaseRecovery(this));
 name|this
 operator|.
 name|procedureStore

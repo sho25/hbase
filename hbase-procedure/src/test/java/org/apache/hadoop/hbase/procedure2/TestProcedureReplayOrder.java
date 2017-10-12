@@ -450,8 +450,6 @@ operator|.
 name|getConfiguration
 argument_list|()
 argument_list|,
-name|fs
-argument_list|,
 name|logDir
 argument_list|)
 expr_stmt|;

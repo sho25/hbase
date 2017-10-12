@@ -517,15 +517,6 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/** Parameter name for HBase WAL directory */
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|HBASE_WAL_DIR
-init|=
-literal|"hbase.wal.dir"
-decl_stmt|;
 specifier|private
 specifier|final
 name|FileSystem
