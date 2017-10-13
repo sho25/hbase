@@ -127,7 +127,8 @@ name|InternalScanner
 extends|extends
 name|Closeable
 block|{
-comment|/**    * Grab the next row's worth of values.    * @param results return output array    * @return true if more rows exist after this one, false if scanner is done    * @throws IOException e    */
+comment|/**    * Grab the next row's worth of values.    * @param result return output array    * @return true if more rows exist after this one, false if scanner is done    * @throws IOException e    */
+specifier|default
 name|boolean
 name|next
 parameter_list|(
@@ -135,11 +136,23 @@ name|List
 argument_list|<
 name|Cell
 argument_list|>
-name|results
+name|result
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+return|return
+name|next
+argument_list|(
+name|result
+argument_list|,
+name|NoLimitScannerContext
+operator|.
+name|getInstance
+argument_list|()
+argument_list|)
+return|;
+block|}
 comment|/**    * Grab the next row's worth of values.    * @param result return output array    * @param scannerContext    * @return true if more rows exist after this one, false if scanner is done    * @throws IOException e    */
 name|boolean
 name|next

@@ -554,34 +554,7 @@ return|return
 name|kvReturn
 return|;
 block|}
-comment|/**    * Gets the next row of keys from the top-most scanner.    *<p>    * This method takes care of updating the heap.    *<p>    * This can ONLY be called when you are using Scanners that implement InternalScanner as well as    * KeyValueScanner (a {@link StoreScanner}).    * @param result    * @return true if more rows exist after this one, false if scanner is done    */
-annotation|@
-name|Override
-specifier|public
-name|boolean
-name|next
-parameter_list|(
-name|List
-argument_list|<
-name|Cell
-argument_list|>
-name|result
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-return|return
-name|next
-argument_list|(
-name|result
-argument_list|,
-name|NoLimitScannerContext
-operator|.
-name|getInstance
-argument_list|()
-argument_list|)
-return|;
-block|}
+comment|/**    * Gets the next row of keys from the top-most scanner.    *<p>    * This method takes care of updating the heap.    *<p>    * This can ONLY be called when you are using Scanners that implement InternalScanner as well as    * KeyValueScanner (a {@link StoreScanner}).    * @return true if more rows exist after this one, false if scanner is done    */
 annotation|@
 name|Override
 specifier|public
