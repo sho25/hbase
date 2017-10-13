@@ -34567,21 +34567,20 @@ name|IOException
 name|e
 parameter_list|)
 block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"RowProcessor:"
-operator|+
+name|String
+name|row
+init|=
 name|processor
 operator|.
-name|getClass
+name|getRowsToLock
 argument_list|()
 operator|.
-name|getName
+name|isEmpty
 argument_list|()
-operator|+
-literal|" throws Exception on row(s):"
+condition|?
+literal|""
+else|:
+literal|" on row(s):"
 operator|+
 name|Bytes
 operator|.
@@ -34600,6 +34599,24 @@ argument_list|()
 argument_list|)
 operator|+
 literal|"..."
+decl_stmt|;
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"RowProcessor:"
+operator|+
+name|processor
+operator|.
+name|getClass
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+operator|+
+literal|" throws Exception"
+operator|+
+name|row
 argument_list|,
 name|e
 argument_list|)
@@ -34662,21 +34679,20 @@ name|IOException
 name|e
 parameter_list|)
 block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"RowProcessor:"
-operator|+
+name|String
+name|row
+init|=
 name|processor
 operator|.
-name|getClass
+name|getRowsToLock
 argument_list|()
 operator|.
-name|getName
+name|isEmpty
 argument_list|()
-operator|+
-literal|" throws Exception on row(s):"
+condition|?
+literal|""
+else|:
+literal|" on row(s):"
 operator|+
 name|Bytes
 operator|.
@@ -34695,6 +34711,24 @@ argument_list|()
 argument_list|)
 operator|+
 literal|"..."
+decl_stmt|;
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"RowProcessor:"
+operator|+
+name|processor
+operator|.
+name|getClass
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+operator|+
+literal|" throws Exception"
+operator|+
+name|row
 argument_list|,
 name|e
 argument_list|)
@@ -34734,15 +34768,20 @@ name|TimeoutException
 name|te
 parameter_list|)
 block|{
-name|LOG
+name|String
+name|row
+init|=
+name|processor
 operator|.
-name|error
-argument_list|(
-literal|"RowProcessor timeout:"
-operator|+
-name|timeout
-operator|+
-literal|" ms on row(s):"
+name|getRowsToLock
+argument_list|()
+operator|.
+name|isEmpty
+argument_list|()
+condition|?
+literal|""
+else|:
+literal|" on row(s):"
 operator|+
 name|Bytes
 operator|.
@@ -34761,6 +34800,18 @@ argument_list|()
 argument_list|)
 operator|+
 literal|"..."
+decl_stmt|;
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"RowProcessor timeout:"
+operator|+
+name|timeout
+operator|+
+literal|" ms"
+operator|+
+name|row
 argument_list|)
 expr_stmt|;
 throw|throw
