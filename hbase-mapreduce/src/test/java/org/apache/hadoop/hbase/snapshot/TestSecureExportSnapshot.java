@@ -193,8 +193,6 @@ end_comment
 
 begin_class
 annotation|@
-name|Ignore
-annotation|@
 name|Category
 argument_list|(
 block|{
