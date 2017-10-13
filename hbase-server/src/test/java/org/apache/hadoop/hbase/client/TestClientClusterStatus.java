@@ -606,6 +606,18 @@ name|getServersSize
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|Assert
+operator|.
+name|assertTrue
+argument_list|(
+name|origin
+operator|.
+name|equals
+argument_list|(
+name|defaults
+argument_list|)
+argument_list|)
+expr_stmt|;
 block|}
 annotation|@
 name|Test
@@ -770,7 +782,7 @@ argument_list|)
 decl_stmt|;
 name|Assert
 operator|.
-name|assertNotNull
+name|assertTrue
 argument_list|(
 name|status
 operator|.
