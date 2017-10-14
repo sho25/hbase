@@ -154,7 +154,7 @@ name|initialState
 init|=
 name|admin
 operator|.
-name|isBalancerOn
+name|isBalancerEnabled
 argument_list|()
 operator|.
 name|get
@@ -166,7 +166,7 @@ name|prevState
 init|=
 name|admin
 operator|.
-name|setBalancerOn
+name|balancerSwitch
 argument_list|(
 operator|!
 name|initialState
@@ -191,7 +191,7 @@ name|initialState
 argument_list|,
 name|admin
 operator|.
-name|isBalancerOn
+name|isBalancerEnabled
 argument_list|()
 operator|.
 name|get
@@ -203,7 +203,7 @@ name|prevState
 operator|=
 name|admin
 operator|.
-name|setBalancerOn
+name|balancerSwitch
 argument_list|(
 name|initialState
 argument_list|)
@@ -227,7 +227,7 @@ name|initialState
 argument_list|,
 name|admin
 operator|.
-name|isBalancerOn
+name|isBalancerEnabled
 argument_list|()
 operator|.
 name|get
@@ -249,7 +249,7 @@ name|initialState
 init|=
 name|admin
 operator|.
-name|isNormalizerOn
+name|isNormalizerEnabled
 argument_list|()
 operator|.
 name|get
@@ -261,7 +261,7 @@ name|prevState
 init|=
 name|admin
 operator|.
-name|setNormalizerOn
+name|normalizerSwitch
 argument_list|(
 operator|!
 name|initialState
@@ -286,7 +286,7 @@ name|initialState
 argument_list|,
 name|admin
 operator|.
-name|isNormalizerOn
+name|isNormalizerEnabled
 argument_list|()
 operator|.
 name|get
@@ -298,7 +298,7 @@ name|prevState
 operator|=
 name|admin
 operator|.
-name|setNormalizerOn
+name|normalizerSwitch
 argument_list|(
 name|initialState
 argument_list|)
@@ -322,7 +322,7 @@ name|initialState
 argument_list|,
 name|admin
 operator|.
-name|isNormalizerOn
+name|isNormalizerEnabled
 argument_list|()
 operator|.
 name|get
@@ -344,7 +344,7 @@ name|initialState
 init|=
 name|admin
 operator|.
-name|isCleanerChoreOn
+name|isCleanerChoreEnabled
 argument_list|()
 operator|.
 name|get
@@ -356,7 +356,7 @@ name|prevState
 init|=
 name|admin
 operator|.
-name|setCleanerChoreOn
+name|cleanerChoreSwitch
 argument_list|(
 operator|!
 name|initialState
@@ -381,7 +381,7 @@ name|initialState
 argument_list|,
 name|admin
 operator|.
-name|isCleanerChoreOn
+name|isCleanerChoreEnabled
 argument_list|()
 operator|.
 name|get
@@ -393,7 +393,7 @@ name|prevState
 operator|=
 name|admin
 operator|.
-name|setCleanerChoreOn
+name|cleanerChoreSwitch
 argument_list|(
 name|initialState
 argument_list|)
@@ -417,7 +417,7 @@ name|initialState
 argument_list|,
 name|admin
 operator|.
-name|isCleanerChoreOn
+name|isCleanerChoreEnabled
 argument_list|()
 operator|.
 name|get
@@ -439,7 +439,7 @@ name|initialState
 init|=
 name|admin
 operator|.
-name|isCatalogJanitorOn
+name|isCatalogJanitorEnabled
 argument_list|()
 operator|.
 name|get
@@ -451,7 +451,7 @@ name|prevState
 init|=
 name|admin
 operator|.
-name|setCatalogJanitorOn
+name|catalogJanitorSwitch
 argument_list|(
 operator|!
 name|initialState
@@ -476,7 +476,7 @@ name|initialState
 argument_list|,
 name|admin
 operator|.
-name|isCatalogJanitorOn
+name|isCatalogJanitorEnabled
 argument_list|()
 operator|.
 name|get
@@ -488,7 +488,7 @@ name|prevState
 operator|=
 name|admin
 operator|.
-name|setCatalogJanitorOn
+name|catalogJanitorSwitch
 argument_list|(
 name|initialState
 argument_list|)
@@ -512,7 +512,7 @@ name|initialState
 argument_list|,
 name|admin
 operator|.
-name|isCatalogJanitorOn
+name|isCatalogJanitorEnabled
 argument_list|()
 operator|.
 name|get

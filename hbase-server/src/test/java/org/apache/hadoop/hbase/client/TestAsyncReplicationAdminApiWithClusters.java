@@ -806,7 +806,7 @@ name|tableDesc
 init|=
 name|admin
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|(
 name|tableName
 argument_list|)
@@ -852,7 +852,7 @@ name|tableDesc
 operator|=
 name|admin
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|(
 name|tableName
 argument_list|)
@@ -969,7 +969,7 @@ name|newBuilder
 argument_list|(
 name|admin
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|(
 name|tableName
 argument_list|)
@@ -1105,7 +1105,7 @@ name|tableDesc
 init|=
 name|admin
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|(
 name|tableName
 argument_list|)

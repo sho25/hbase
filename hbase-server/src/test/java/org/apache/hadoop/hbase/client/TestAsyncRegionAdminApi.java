@@ -1172,7 +1172,7 @@ name|Exception
 block|{
 name|admin
 operator|.
-name|setBalancerOn
+name|balancerSwitch
 argument_list|(
 literal|false
 argument_list|)
@@ -1417,7 +1417,7 @@ expr_stmt|;
 block|}
 name|admin
 operator|.
-name|setBalancerOn
+name|balancerSwitch
 argument_list|(
 literal|true
 argument_list|)
@@ -1490,7 +1490,7 @@ name|assertEquals
 argument_list|(
 name|admin
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|(
 name|serverName
 argument_list|)
@@ -2011,7 +2011,7 @@ name|assertTrue
 argument_list|(
 name|admin
 operator|.
-name|setSplitOn
+name|splitSwitch
 argument_list|(
 literal|false
 argument_list|)
@@ -2055,7 +2055,7 @@ name|count
 init|=
 name|admin
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|tableName
 argument_list|)
@@ -2077,7 +2077,7 @@ name|assertFalse
 argument_list|(
 name|admin
 operator|.
-name|setSplitOn
+name|splitSwitch
 argument_list|(
 literal|true
 argument_list|)
@@ -2103,7 +2103,7 @@ name|count
 operator|=
 name|admin
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|tableName
 argument_list|)
@@ -2241,7 +2241,7 @@ name|postSplitCount
 operator|=
 name|admin
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|tableName
 argument_list|)
@@ -2284,7 +2284,7 @@ name|assertTrue
 argument_list|(
 name|admin
 operator|.
-name|setMergeOn
+name|mergeSwitch
 argument_list|(
 literal|false
 argument_list|)
@@ -2301,7 +2301,7 @@ name|regions
 init|=
 name|admin
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|tableName
 argument_list|)
@@ -2354,7 +2354,7 @@ name|count
 init|=
 name|admin
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|tableName
 argument_list|)
@@ -2385,7 +2385,7 @@ name|assertFalse
 argument_list|(
 name|admin
 operator|.
-name|setMergeOn
+name|mergeSwitch
 argument_list|(
 literal|true
 argument_list|)
@@ -2428,7 +2428,7 @@ name|count
 operator|=
 name|admin
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|tableName
 argument_list|)
@@ -2466,7 +2466,7 @@ condition|(
 operator|!
 name|admin
 operator|.
-name|isSplitOn
+name|isSplitEnabled
 argument_list|()
 operator|.
 name|get
@@ -2475,7 +2475,7 @@ condition|)
 block|{
 name|admin
 operator|.
-name|setSplitOn
+name|splitSwitch
 argument_list|(
 literal|true
 argument_list|)
@@ -2489,7 +2489,7 @@ condition|(
 operator|!
 name|admin
 operator|.
-name|isMergeOn
+name|isMergeEnabled
 argument_list|()
 operator|.
 name|get
@@ -2498,7 +2498,7 @@ condition|)
 block|{
 name|admin
 operator|.
-name|setMergeOn
+name|mergeSwitch
 argument_list|(
 literal|true
 argument_list|)
@@ -2511,7 +2511,7 @@ name|assertTrue
 argument_list|(
 name|admin
 operator|.
-name|isSplitOn
+name|isSplitEnabled
 argument_list|()
 operator|.
 name|get
@@ -2522,7 +2522,7 @@ name|assertTrue
 argument_list|(
 name|admin
 operator|.
-name|isMergeOn
+name|isMergeEnabled
 argument_list|()
 operator|.
 name|get

@@ -364,7 +364,7 @@ name|regionsOnServer
 init|=
 name|admin
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|(
 name|clusterRegionServers
 operator|.

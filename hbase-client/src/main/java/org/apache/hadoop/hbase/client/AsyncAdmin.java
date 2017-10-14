@@ -35,6 +35,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Arrays
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Collection
 import|;
 end_import
@@ -358,11 +368,11 @@ argument_list|<
 name|TableDescriptor
 argument_list|>
 argument_list|>
-name|listTables
+name|listTableDescriptors
 parameter_list|()
 block|{
 return|return
-name|listTables
+name|listTableDescriptors
 argument_list|(
 literal|false
 argument_list|)
@@ -376,7 +386,7 @@ argument_list|<
 name|TableDescriptor
 argument_list|>
 argument_list|>
-name|listTables
+name|listTableDescriptors
 parameter_list|(
 name|boolean
 name|includeSysTables
@@ -390,13 +400,27 @@ argument_list|<
 name|TableDescriptor
 argument_list|>
 argument_list|>
-name|listTables
+name|listTableDescriptors
 parameter_list|(
 name|Pattern
 name|pattern
 parameter_list|,
 name|boolean
 name|includeSysTables
+parameter_list|)
+function_decl|;
+comment|/**    * Get list of table descriptors by namespace.    * @param name namespace name    * @return returns a list of TableDescriptors wrapped by a {@link CompletableFuture}.    */
+name|CompletableFuture
+argument_list|<
+name|List
+argument_list|<
+name|TableDescriptor
+argument_list|>
+argument_list|>
+name|listTableDescriptorsByNamespace
+parameter_list|(
+name|String
+name|name
 parameter_list|)
 function_decl|;
 comment|/**    * List all of the names of userspace tables.    * @return a list of table names wrapped by a {@link CompletableFuture}.    * @see #listTableNames(Pattern, boolean)    */
@@ -449,12 +473,26 @@ name|boolean
 name|includeSysTables
 parameter_list|)
 function_decl|;
+comment|/**    * Get list of table names by namespace.    * @param name namespace name    * @return The list of table names in the namespace wrapped by a {@link CompletableFuture}.    */
+name|CompletableFuture
+argument_list|<
+name|List
+argument_list|<
+name|TableName
+argument_list|>
+argument_list|>
+name|listTableNamesByNamespace
+parameter_list|(
+name|String
+name|name
+parameter_list|)
+function_decl|;
 comment|/**    * Method for getting the tableDescriptor    * @param tableName as a {@link TableName}    * @return the read-only tableDescriptor wrapped by a {@link CompletableFuture}.    */
 name|CompletableFuture
 argument_list|<
 name|TableDescriptor
 argument_list|>
-name|getTableDescriptor
+name|getDescriptor
 parameter_list|(
 name|TableName
 name|tableName
@@ -509,7 +547,7 @@ index|[]
 name|splitKeys
 parameter_list|)
 function_decl|;
-comment|/*    * Modify an existing table, more IRB friendly version.    * @param desc modified description of the table    */
+comment|/**    * Modify an existing table, more IRB friendly version.    * @param desc modified description of the table    */
 name|CompletableFuture
 argument_list|<
 name|Void
@@ -722,7 +760,7 @@ argument_list|<
 name|RegionInfo
 argument_list|>
 argument_list|>
-name|getOnlineRegions
+name|getRegions
 parameter_list|(
 name|ServerName
 name|serverName
@@ -736,7 +774,7 @@ argument_list|<
 name|RegionInfo
 argument_list|>
 argument_list|>
-name|getTableRegions
+name|getRegions
 parameter_list|(
 name|TableName
 name|tableName
@@ -900,7 +938,7 @@ name|CompletableFuture
 argument_list|<
 name|Boolean
 argument_list|>
-name|setMergeOn
+name|mergeSwitch
 parameter_list|(
 name|boolean
 name|on
@@ -911,7 +949,7 @@ name|CompletableFuture
 argument_list|<
 name|Boolean
 argument_list|>
-name|isMergeOn
+name|isMergeEnabled
 parameter_list|()
 function_decl|;
 comment|/**    * Turn the Split switch on or off.    * @param on    * @return Previous switch value wrapped by a {@link CompletableFuture}    */
@@ -919,7 +957,7 @@ name|CompletableFuture
 argument_list|<
 name|Boolean
 argument_list|>
-name|setSplitOn
+name|splitSwitch
 parameter_list|(
 name|boolean
 name|on
@@ -930,7 +968,7 @@ name|CompletableFuture
 argument_list|<
 name|Boolean
 argument_list|>
-name|isSplitOn
+name|isSplitEnabled
 parameter_list|()
 function_decl|;
 comment|/**    * Merge two regions.    * @param nameOfRegionA encoded or full name of region a    * @param nameOfRegionB encoded or full name of region b    * @param forcible true if do a compulsory merge, otherwise we will only merge two adjacent    *          regions    */
@@ -1536,7 +1574,7 @@ argument_list|<
 name|byte
 index|[]
 argument_list|>
-name|execProcedureWithRet
+name|execProcedureWithReturn
 parameter_list|(
 name|String
 name|signature
@@ -1769,6 +1807,46 @@ name|getServers
 argument_list|)
 return|;
 block|}
+comment|/**    * @return a list of master coprocessors wrapped by {@link CompletableFuture}    */
+specifier|default
+name|CompletableFuture
+argument_list|<
+name|List
+argument_list|<
+name|String
+argument_list|>
+argument_list|>
+name|getMasterCoprocessors
+parameter_list|()
+block|{
+return|return
+name|getClusterStatus
+argument_list|(
+name|EnumSet
+operator|.
+name|of
+argument_list|(
+name|Option
+operator|.
+name|MASTER_COPROCESSORS
+argument_list|)
+argument_list|)
+operator|.
+name|thenApply
+argument_list|(
+name|ClusterStatus
+operator|::
+name|getMasterCoprocessors
+argument_list|)
+operator|.
+name|thenApply
+argument_list|(
+name|Arrays
+operator|::
+name|asList
+argument_list|)
+return|;
+block|}
 comment|/**    * Get the info port of the current master if one is available.    * @return master info port    */
 specifier|default
 name|CompletableFuture
@@ -1980,7 +2058,7 @@ name|CompletableFuture
 argument_list|<
 name|Boolean
 argument_list|>
-name|setBalancerOn
+name|balancerSwitch
 parameter_list|(
 name|boolean
 name|on
@@ -2018,7 +2096,7 @@ name|CompletableFuture
 argument_list|<
 name|Boolean
 argument_list|>
-name|isBalancerOn
+name|isBalancerEnabled
 parameter_list|()
 function_decl|;
 comment|/**    * Set region normalizer on/off.    * @param on whether normalizer should be on or off    * @return Previous normalizer value wrapped by a {@link CompletableFuture}    */
@@ -2026,7 +2104,7 @@ name|CompletableFuture
 argument_list|<
 name|Boolean
 argument_list|>
-name|setNormalizerOn
+name|normalizerSwitch
 parameter_list|(
 name|boolean
 name|on
@@ -2037,7 +2115,7 @@ name|CompletableFuture
 argument_list|<
 name|Boolean
 argument_list|>
-name|isNormalizerOn
+name|isNormalizerEnabled
 parameter_list|()
 function_decl|;
 comment|/**    * Invoke region normalizer. Can NOT run for various reasons. Check logs.    * @return true if region normalizer ran, false otherwise. The return value will be wrapped by a    *         {@link CompletableFuture}    */
@@ -2053,7 +2131,7 @@ name|CompletableFuture
 argument_list|<
 name|Boolean
 argument_list|>
-name|setCleanerChoreOn
+name|cleanerChoreSwitch
 parameter_list|(
 name|boolean
 name|on
@@ -2064,7 +2142,7 @@ name|CompletableFuture
 argument_list|<
 name|Boolean
 argument_list|>
-name|isCleanerChoreOn
+name|isCleanerChoreEnabled
 parameter_list|()
 function_decl|;
 comment|/**    * Ask for cleaner chore to run.    * @return true if cleaner chore ran, false otherwise. The return value will be wrapped by a    *         {@link CompletableFuture}    */
@@ -2080,7 +2158,7 @@ name|CompletableFuture
 argument_list|<
 name|Boolean
 argument_list|>
-name|setCatalogJanitorOn
+name|catalogJanitorSwitch
 parameter_list|(
 name|boolean
 name|on
@@ -2091,7 +2169,7 @@ name|CompletableFuture
 argument_list|<
 name|Boolean
 argument_list|>
-name|isCatalogJanitorOn
+name|isCatalogJanitorEnabled
 parameter_list|()
 function_decl|;
 comment|/**    * Ask for a scan of the catalog table.    * @return the number of entries cleaned. The return value will be wrapped by a    *         {@link CompletableFuture}    */

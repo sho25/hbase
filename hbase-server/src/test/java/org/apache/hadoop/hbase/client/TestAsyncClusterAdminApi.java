@@ -1541,7 +1541,7 @@ block|{
 comment|// Turn off the balancer
 name|admin
 operator|.
-name|setBalancerOn
+name|balancerSwitch
 argument_list|(
 literal|false
 argument_list|)
@@ -1652,7 +1652,7 @@ name|regions
 init|=
 name|admin
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|(
 name|serverName
 argument_list|)
@@ -1693,7 +1693,7 @@ name|tableRegions
 init|=
 name|admin
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|table
 argument_list|)

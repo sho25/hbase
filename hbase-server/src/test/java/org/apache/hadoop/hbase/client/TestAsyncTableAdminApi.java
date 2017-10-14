@@ -595,7 +595,7 @@ name|numTables
 init|=
 name|admin
 operator|.
-name|listTables
+name|listTableDescriptors
 argument_list|()
 operator|.
 name|get
@@ -701,7 +701,7 @@ name|tableDescs
 init|=
 name|admin
 operator|.
-name|listTables
+name|listTableDescriptors
 argument_list|()
 operator|.
 name|get
@@ -967,7 +967,7 @@ name|tableDescs
 operator|=
 name|admin
 operator|.
-name|listTables
+name|listTableDescriptors
 argument_list|(
 literal|true
 argument_list|)
@@ -1099,7 +1099,7 @@ name|confirmedHtd
 init|=
 name|admin
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|(
 name|tableName
 argument_list|)
@@ -1140,7 +1140,7 @@ name|tables
 init|=
 name|admin
 operator|.
-name|listTables
+name|listTableDescriptors
 argument_list|()
 operator|.
 name|get
@@ -1163,7 +1163,7 @@ name|tables
 operator|=
 name|admin
 operator|.
-name|listTables
+name|listTableDescriptors
 argument_list|()
 operator|.
 name|get
@@ -5839,7 +5839,7 @@ name|htd
 init|=
 name|admin
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|(
 name|tableName
 argument_list|)
@@ -6243,7 +6243,7 @@ name|htd
 init|=
 name|admin
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|(
 name|tableName
 argument_list|)
