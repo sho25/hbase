@@ -11263,6 +11263,9 @@ condition|(
 name|getRegionInfo
 argument_list|()
 operator|.
+name|getTable
+argument_list|()
+operator|.
 name|isSystemTable
 argument_list|()
 operator|&&
@@ -37634,7 +37637,7 @@ operator|.
 name|getRegionInfo
 argument_list|()
 operator|.
-name|isMetaTable
+name|isMetaRegion
 argument_list|()
 operator|||
 name|TableName
@@ -39249,21 +39252,6 @@ name|isMetaRegion
 argument_list|()
 condition|?
 literal|" meta region "
-else|:
-literal|" "
-argument_list|)
-expr_stmt|;
-name|buf
-operator|.
-name|append
-argument_list|(
-name|getRegionInfo
-argument_list|()
-operator|.
-name|isMetaTable
-argument_list|()
-condition|?
-literal|" meta table "
 else|:
 literal|" "
 argument_list|)

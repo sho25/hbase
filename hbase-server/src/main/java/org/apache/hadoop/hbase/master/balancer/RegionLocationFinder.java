@@ -970,6 +970,9 @@ operator|||
 operator|!
 name|hri
 operator|.
+name|getTable
+argument_list|()
+operator|.
 name|isSystemTable
 argument_list|()
 expr_stmt|;

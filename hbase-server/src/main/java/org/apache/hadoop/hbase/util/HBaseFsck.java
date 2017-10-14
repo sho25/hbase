@@ -22936,7 +22936,7 @@ if|if
 condition|(
 name|hri
 operator|.
-name|isMetaTable
+name|isMetaRegion
 argument_list|()
 operator|||
 operator|(

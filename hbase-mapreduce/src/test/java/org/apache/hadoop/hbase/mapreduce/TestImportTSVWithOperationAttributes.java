@@ -1803,7 +1803,7 @@ operator|.
 name|getRegionInfo
 argument_list|()
 operator|.
-name|isMetaTable
+name|isMetaRegion
 argument_list|()
 operator|&&
 operator|!

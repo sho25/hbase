@@ -1505,19 +1505,6 @@ argument_list|)
 operator|)
 return|;
 block|}
-comment|/**      * @return true if this region is from hbase:meta      */
-annotation|@
-name|Override
-specifier|public
-name|boolean
-name|isMetaTable
-parameter_list|()
-block|{
-return|return
-name|isMetaRegion
-argument_list|()
-return|;
-block|}
 comment|/** @return true if this region is a meta region */
 annotation|@
 name|Override
@@ -1536,21 +1523,6 @@ operator|.
 name|getTable
 argument_list|()
 argument_list|)
-return|;
-block|}
-comment|/**      * @return true if this region is from a system table      */
-annotation|@
-name|Override
-specifier|public
-name|boolean
-name|isSystemTable
-parameter_list|()
-block|{
-return|return
-name|tableName
-operator|.
-name|isSystemTable
-argument_list|()
 return|;
 block|}
 comment|/**      * @return True if has been split and has daughters.      */

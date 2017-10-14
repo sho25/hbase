@@ -999,6 +999,9 @@ operator|.
 name|getRegionInfo
 argument_list|()
 operator|.
+name|getTable
+argument_list|()
+operator|.
 name|isSystemTable
 argument_list|()
 decl_stmt|;

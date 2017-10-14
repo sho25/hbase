@@ -6406,6 +6406,9 @@ name|onlySystemTablesOnMaster
 operator|&&
 name|region
 operator|.
+name|getTable
+argument_list|()
+operator|.
 name|isSystemTable
 argument_list|()
 return|;

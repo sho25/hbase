@@ -7112,7 +7112,7 @@ operator|.
 name|getRegionInfo
 argument_list|()
 operator|.
-name|isMetaTable
+name|isMetaRegion
 argument_list|()
 condition|)
 block|{
@@ -11537,7 +11537,7 @@ literal|null
 operator|&&
 name|regionInfo
 operator|.
-name|isMetaTable
+name|isMetaRegion
 argument_list|()
 operator|&&
 name|regionInfo
@@ -14240,7 +14240,7 @@ operator|.
 name|getRegionInfo
 argument_list|()
 operator|.
-name|isMetaTable
+name|isMetaRegion
 argument_list|()
 operator|&&
 name|r

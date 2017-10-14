@@ -2760,9 +2760,15 @@ argument_list|)
 operator|.
 name|filter
 argument_list|(
-name|RegionInfo
-operator|::
+name|r
+lambda|->
+name|r
+operator|.
+name|getTable
+argument_list|()
+operator|.
 name|isSystemTable
+argument_list|()
 argument_list|)
 operator|.
 name|collect
@@ -3720,6 +3726,9 @@ condition|(
 name|plan
 operator|.
 name|getRegionInfo
+argument_list|()
+operator|.
+name|getTable
 argument_list|()
 operator|.
 name|isSystemTable
@@ -7386,6 +7395,9 @@ block|{
 if|if
 condition|(
 name|hri
+operator|.
+name|getTable
+argument_list|()
 operator|.
 name|isSystemTable
 argument_list|()

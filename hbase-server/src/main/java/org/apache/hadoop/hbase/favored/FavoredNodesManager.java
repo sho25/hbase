@@ -726,6 +726,9 @@ return|return
 operator|!
 name|regionInfo
 operator|.
+name|getTable
+argument_list|()
+operator|.
 name|isSystemTable
 argument_list|()
 return|;

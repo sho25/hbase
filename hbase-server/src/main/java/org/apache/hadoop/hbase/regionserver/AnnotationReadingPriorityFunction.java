@@ -1240,6 +1240,9 @@ operator|.
 name|getRegionInfo
 argument_list|()
 operator|.
+name|getTable
+argument_list|()
+operator|.
 name|isSystemTable
 argument_list|()
 condition|)
@@ -1359,6 +1362,9 @@ operator|&&
 name|scanner
 operator|.
 name|getRegionInfo
+argument_list|()
+operator|.
+name|getTable
 argument_list|()
 operator|.
 name|isSystemTable

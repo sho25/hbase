@@ -4936,7 +4936,7 @@ operator|.
 name|getRegionInfo
 argument_list|()
 operator|.
-name|isMetaTable
+name|isMetaRegion
 argument_list|()
 condition|)
 block|{
@@ -5210,7 +5210,7 @@ operator|.
 name|getRegionInfo
 argument_list|()
 operator|.
-name|isMetaTable
+name|isMetaRegion
 argument_list|()
 condition|)
 block|{
@@ -7253,7 +7253,7 @@ operator|.
 name|getRegionInfo
 argument_list|()
 operator|.
-name|isMetaTable
+name|isMetaRegion
 argument_list|()
 condition|)
 block|{
@@ -7891,7 +7891,7 @@ operator|.
 name|getRegionInfo
 argument_list|()
 operator|.
-name|isMetaTable
+name|isMetaRegion
 argument_list|()
 condition|)
 block|{
@@ -16534,7 +16534,7 @@ operator|.
 name|getRegionInfo
 argument_list|()
 operator|.
-name|isMetaTable
+name|isMetaRegion
 argument_list|()
 condition|)
 block|{

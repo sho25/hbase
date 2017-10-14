@@ -8590,7 +8590,7 @@ condition|(
 operator|!
 name|info
 operator|.
-name|isMetaTable
+name|isMetaRegion
 argument_list|()
 condition|)
 block|{

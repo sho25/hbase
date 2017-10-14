@@ -1253,7 +1253,7 @@ condition|(
 operator|!
 name|hri
 operator|.
-name|isMetaTable
+name|isMetaRegion
 argument_list|()
 condition|)
 block|{

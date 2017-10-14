@@ -1488,7 +1488,7 @@ name|RegionInfoBuilder
 operator|.
 name|FIRST_META_REGIONINFO
 operator|.
-name|isMetaTable
+name|isMetaRegion
 argument_list|()
 argument_list|)
 expr_stmt|;

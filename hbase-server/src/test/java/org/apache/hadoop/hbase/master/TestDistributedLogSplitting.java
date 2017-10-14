@@ -5798,7 +5798,7 @@ if|if
 condition|(
 name|region
 operator|.
-name|isMetaTable
+name|isMetaRegion
 argument_list|()
 condition|)
 block|{
@@ -8601,7 +8601,7 @@ if|if
 condition|(
 name|region
 operator|.
-name|isMetaTable
+name|isMetaRegion
 argument_list|()
 operator|||
 name|region
@@ -9298,7 +9298,7 @@ if|if
 condition|(
 name|region
 operator|.
-name|isMetaTable
+name|isMetaRegion
 argument_list|()
 operator|||
 name|region

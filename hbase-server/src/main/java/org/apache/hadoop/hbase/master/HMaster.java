@@ -9432,6 +9432,9 @@ name|exclude
 init|=
 name|hri
 operator|.
+name|getTable
+argument_list|()
+operator|.
 name|isSystemTable
 argument_list|()
 condition|?

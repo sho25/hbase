@@ -696,16 +696,6 @@ name|boolean
 name|isSplitParent
 parameter_list|()
 function_decl|;
-comment|/**    * @return true if this region is from hbase:meta.    */
-name|boolean
-name|isMetaTable
-parameter_list|()
-function_decl|;
-comment|/**    * @return true if this region is from a system table.    */
-name|boolean
-name|isSystemTable
-parameter_list|()
-function_decl|;
 comment|/**    * @return true if this region is a meta region.    */
 name|boolean
 name|isMetaRegion

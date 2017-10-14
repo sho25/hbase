@@ -921,10 +921,10 @@ if|if
 condition|(
 name|loc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
-name|isMetaTable
+name|isMetaRegion
 argument_list|()
 condition|)
 block|{
