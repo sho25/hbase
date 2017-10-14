@@ -7821,7 +7821,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 name|int
-name|numberOfMemScannersWhenScaning
+name|numberOfMemScannersBeforeFlush
 init|=
 name|inputCellsAfterSnapshot
 operator|.
@@ -7854,10 +7854,10 @@ name|seqId
 argument_list|)
 init|)
 block|{
-comment|// snaptshot + active (if it isn't empty)
+comment|// snapshot + active (if inputCellsAfterSnapshot isn't empty)
 name|assertEquals
 argument_list|(
-name|numberOfMemScannersWhenScaning
+name|numberOfMemScannersBeforeFlush
 argument_list|,
 name|countMemStoreScanner
 argument_list|(
@@ -7893,6 +7893,19 @@ name|class
 argument_list|)
 argument_list|)
 expr_stmt|;
+comment|// snapshot has no data after flush
+name|int
+name|numberOfMemScannersAfterFlush
+init|=
+name|inputCellsAfterSnapshot
+operator|.
+name|isEmpty
+argument_list|()
+condition|?
+literal|0
+else|:
+literal|1
+decl_stmt|;
 name|boolean
 name|more
 decl_stmt|;
@@ -7934,7 +7947,7 @@ name|assertEquals
 argument_list|(
 name|more
 condition|?
-name|numberOfMemScannersWhenScaning
+name|numberOfMemScannersAfterFlush
 else|:
 literal|0
 argument_list|,

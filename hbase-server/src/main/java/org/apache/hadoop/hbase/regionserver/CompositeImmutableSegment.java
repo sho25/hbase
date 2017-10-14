@@ -186,14 +186,6 @@ name|ImmutableSegment
 argument_list|>
 name|segments
 decl_stmt|;
-comment|// CompositeImmutableSegment is used for snapshots and snapshot should
-comment|// support getTimeRangeTracker() interface.
-comment|// Thus we hold a constant TRT build in the construction time from TRT of the given segments.
-specifier|private
-specifier|final
-name|TimeRangeTracker
-name|timeRangeTracker
-decl_stmt|;
 specifier|private
 name|long
 name|keySize
@@ -223,21 +215,6 @@ operator|.
 name|segments
 operator|=
 name|segments
-expr_stmt|;
-name|this
-operator|.
-name|timeRangeTracker
-operator|=
-name|TimeRangeTracker
-operator|.
-name|create
-argument_list|(
-name|TimeRangeTracker
-operator|.
-name|Type
-operator|.
-name|SYNC
-argument_list|)
 expr_stmt|;
 for|for
 control|(
@@ -461,21 +438,6 @@ parameter_list|,
 name|long
 name|oldestUnexpiredTS
 parameter_list|)
-block|{
-throw|throw
-operator|new
-name|IllegalStateException
-argument_list|(
-literal|"Not supported by CompositeImmutableScanner"
-argument_list|)
-throw|;
-block|}
-annotation|@
-name|Override
-specifier|public
-name|long
-name|getMinTimestamp
-parameter_list|()
 block|{
 throw|throw
 operator|new

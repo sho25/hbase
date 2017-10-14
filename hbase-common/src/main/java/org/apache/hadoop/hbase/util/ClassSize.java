@@ -369,6 +369,13 @@ specifier|final
 name|int
 name|SYNC_TIMERANGE_TRACKER
 decl_stmt|;
+comment|/** Overhead for NonSyncTimeRangeTracker */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|NON_SYNC_TIMERANGE_TRACKER
+decl_stmt|;
 comment|/** Overhead for CellSkipListSet */
 specifier|public
 specifier|static
@@ -1187,6 +1194,21 @@ operator|+
 literal|2
 operator|*
 name|REFERENCE
+argument_list|)
+expr_stmt|;
+name|NON_SYNC_TIMERANGE_TRACKER
+operator|=
+name|align
+argument_list|(
+name|ClassSize
+operator|.
+name|OBJECT
+operator|+
+literal|2
+operator|*
+name|Bytes
+operator|.
+name|SIZEOF_LONG
 argument_list|)
 expr_stmt|;
 name|CELL_SET

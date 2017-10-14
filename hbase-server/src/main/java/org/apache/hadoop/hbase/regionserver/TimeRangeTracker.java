@@ -850,7 +850,10 @@ name|max
 argument_list|)
 return|;
 block|}
-specifier|private
+annotation|@
+name|VisibleForTesting
+comment|//In order to estimate the heap size, this inner class need to be accessible to TestHeapSize.
+specifier|public
 specifier|static
 class|class
 name|NonSyncTimeRangeTracker
