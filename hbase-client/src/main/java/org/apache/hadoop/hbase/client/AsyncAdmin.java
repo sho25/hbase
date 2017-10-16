@@ -558,20 +558,6 @@ name|TableName
 name|tableName
 parameter_list|)
 function_decl|;
-comment|/**    * Delete tables matching the passed in pattern and wait on completion. Warning: Use this method    * carefully, there is no prompting and the effect is immediate. Consider using    * {@link #listTableNames(Optional, boolean) } and    * {@link #deleteTable(org.apache.hadoop.hbase.TableName)}    * @param pattern The pattern to match table names against    * @return Table descriptors for tables that couldn't be deleted. The return value will be wrapped    *         by a {@link CompletableFuture}. The return HTDs are read-only.    */
-name|CompletableFuture
-argument_list|<
-name|List
-argument_list|<
-name|TableDescriptor
-argument_list|>
-argument_list|>
-name|deleteTables
-parameter_list|(
-name|Pattern
-name|pattern
-parameter_list|)
-function_decl|;
 comment|/**    * Truncate a table.    * @param tableName name of table to truncate    * @param preserveSplits True if the splits should be preserved    */
 name|CompletableFuture
 argument_list|<
@@ -597,20 +583,6 @@ name|TableName
 name|tableName
 parameter_list|)
 function_decl|;
-comment|/**    * Enable tables matching the passed in pattern. Warning: Use this method carefully, there is no    * prompting and the effect is immediate. Consider using {@link #listTables(Optional, boolean)} and    * {@link #enableTable(TableName)}    * @param pattern The pattern to match table names against    * @return Table descriptors for tables that couldn't be enabled. The return value will be wrapped    *         by a {@link CompletableFuture}. The return HTDs are read-only.    */
-name|CompletableFuture
-argument_list|<
-name|List
-argument_list|<
-name|TableDescriptor
-argument_list|>
-argument_list|>
-name|enableTables
-parameter_list|(
-name|Pattern
-name|pattern
-parameter_list|)
-function_decl|;
 comment|/**    * Disable a table. The table has to be in enabled state for it to be disabled.    * @param tableName    */
 name|CompletableFuture
 argument_list|<
@@ -620,20 +592,6 @@ name|disableTable
 parameter_list|(
 name|TableName
 name|tableName
-parameter_list|)
-function_decl|;
-comment|/**    * Disable tables matching the passed in pattern. Warning: Use this method carefully, there is no    * prompting and the effect is immediate. Consider using {@link #listTables(Optional, boolean)} and    * {@link #disableTable(TableName)}    * @param pattern The pattern to match table names against    * @return Table descriptors for tables that couldn't be disabled. The return value will be wrapped by a    *         {@link CompletableFuture}. The return HTDs are read-only.    */
-name|CompletableFuture
-argument_list|<
-name|List
-argument_list|<
-name|TableDescriptor
-argument_list|>
-argument_list|>
-name|disableTables
-parameter_list|(
-name|Pattern
-name|pattern
 parameter_list|)
 function_decl|;
 comment|/**    * @param tableName name of table to check    * @return true if table is on-line. The return value will be wrapped by a    *         {@link CompletableFuture}.    */
@@ -693,22 +651,6 @@ name|byte
 index|[]
 index|[]
 name|splitKeys
-parameter_list|)
-function_decl|;
-comment|/**    * Get the status of alter command - indicates how many regions have received the updated schema    * Asynchronous operation.    * @param tableName TableName instance    * @return Pair indicating the number of regions updated Pair.getFirst() is the regions that are    *         yet to be updated Pair.getSecond() is the total number of regions of the table. The    *         return value will be wrapped by a {@link CompletableFuture}.    */
-name|CompletableFuture
-argument_list|<
-name|Pair
-argument_list|<
-name|Integer
-argument_list|,
-name|Integer
-argument_list|>
-argument_list|>
-name|getAlterStatus
-parameter_list|(
-name|TableName
-name|tableName
 parameter_list|)
 function_decl|;
 comment|/**    * Add a column family to an existing table.    * @param tableName name of the table to add column family to    * @param columnFamily column family descriptor of column family to be added    */
@@ -808,26 +750,6 @@ argument_list|>
 argument_list|>
 name|listNamespaceDescriptors
 parameter_list|()
-function_decl|;
-comment|/**    * Close a region. For expert-admins Runs close on the regionserver. The master will not be    * informed of the close.    * @param regionName region name to close    * @param serverName Deprecated. Not used anymore after deprecation.    * @return Deprecated. Always returns true now.    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-18231">HBASE-18231</a>).    *             Use {@link #unassign(byte[], boolean)}.    */
-annotation|@
-name|Deprecated
-name|CompletableFuture
-argument_list|<
-name|Boolean
-argument_list|>
-name|closeRegion
-parameter_list|(
-name|byte
-index|[]
-name|regionName
-parameter_list|,
-name|Optional
-argument_list|<
-name|ServerName
-argument_list|>
-name|serverName
-parameter_list|)
 function_decl|;
 comment|/**    * Get all the online regions on a region server.    */
 name|CompletableFuture
