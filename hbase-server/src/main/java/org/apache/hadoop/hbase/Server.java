@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -26,6 +26,20 @@ operator|.
 name|conf
 operator|.
 name|Configuration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|fs
+operator|.
+name|FileSystem
 import|;
 end_import
 
@@ -108,7 +122,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Defines the set of shared functions implemented by HBase servers (Masters  * and RegionServers).  */
+comment|/**  * Defines a curated set of shared functions implemented by HBase servers (Masters  * and RegionServers). For use internally only. Be judicious adding API. Changes cause ripples  * through the code base.  */
 end_comment
 
 begin_interface
@@ -162,6 +176,19 @@ function_decl|;
 comment|/**    * @return The {@link ChoreService} instance for this server    */
 name|ChoreService
 name|getChoreService
+parameter_list|()
+function_decl|;
+comment|/**    * @return Return the FileSystem object used.    */
+comment|// TODO: On Master, return Master's. On RegionServer, return RegionServers. The FileSystems
+comment|// may differ. TODO.
+name|FileSystem
+name|getFileSystem
+parameter_list|()
+function_decl|;
+comment|/**    * @return True is the server is Stopping    */
+comment|// Note: This method is not part of the Stoppable Interface.
+name|boolean
+name|isStopping
 parameter_list|()
 function_decl|;
 block|}

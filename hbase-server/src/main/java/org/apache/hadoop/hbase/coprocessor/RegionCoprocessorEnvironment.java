@@ -67,6 +67,36 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ServerName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|Connection
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|client
 operator|.
 name|RegionInfo
@@ -86,22 +116,6 @@ operator|.
 name|metrics
 operator|.
 name|MetricRegistry
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|CoprocessorRegionServerServices
 import|;
 end_import
 
@@ -182,11 +196,6 @@ name|RegionInfo
 name|getRegionInfo
 parameter_list|()
 function_decl|;
-comment|/** @return reference to the region server services */
-name|CoprocessorRegionServerServices
-name|getCoprocessorRegionServerServices
-parameter_list|()
-function_decl|;
 comment|/** @return shared data between all instances of this coprocessor */
 name|ConcurrentMap
 argument_list|<
@@ -195,6 +204,16 @@ argument_list|,
 name|Object
 argument_list|>
 name|getSharedData
+parameter_list|()
+function_decl|;
+comment|/**    * @return Hosting Server's ServerName    */
+name|ServerName
+name|getServerName
+parameter_list|()
+function_decl|;
+comment|/**    * Be careful RPC'ing from a Coprocessor context.    * RPC's will fail, stall, retry, and/or crawl because the remote side is not online, is    * struggling or it is on the other side of a network partition. Any use of Connection from    * inside a Coprocessor must be able to handle all such hiccups.    *    *<p>Using a Connection to get at a local resource -- say a Region that is on the local    * Server or using Admin Interface from a Coprocessor hosted on the Master -- will result in a    * short-circuit of the RPC framework to make a direct invocation avoiding RPC (and    * protobuf marshalling/unmarshalling).    *    * @return The host's Connection to the Cluster.    */
+name|Connection
+name|getConnection
 parameter_list|()
 function_decl|;
 comment|/**    * Returns a MetricRegistry that can be used to track metrics at the region server level. All    * metrics tracked at this level will be shared by all the coprocessor instances    * of the same class in the same region server process. Note that there will be one    * region coprocessor environment per region in the server, but all of these instances will share    * the same MetricRegistry. The metric instances (like Counter, Timer, etc) will also be shared    * among all of the region coprocessor instances.    *    *<p>See ExampleRegionObserverWithMetrics class in the hbase-examples modules to see examples of how    * metrics can be instantiated and used.</p>    * @return A MetricRegistry for the coprocessor class to track and export metrics.    */

@@ -23,6 +23,36 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ServerName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|Connection
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -70,22 +100,6 @@ operator|.
 name|hbase
 operator|.
 name|HBaseInterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|master
-operator|.
-name|MasterServices
 import|;
 end_import
 
@@ -128,9 +142,14 @@ argument_list|<
 name|MasterCoprocessor
 argument_list|>
 block|{
-comment|/** @return reference to the HMaster services */
-name|MasterServices
-name|getMasterServices
+comment|/**    * @return Hosting Server's ServerName    */
+name|ServerName
+name|getServerName
+parameter_list|()
+function_decl|;
+comment|/**    * Be careful RPC'ing from a Coprocessor context.    * RPC's will fail, stall, retry, and/or crawl because the remote side is not online, is    * struggling or it is on the other side of a network partition. Any use of Connection from    * inside a Coprocessor must be able to handle all such hiccups.    *    *<p>Using a Connection to get at a local resource -- say a Region that is on the local    * Server or using Admin Interface from a Coprocessor hosted on the Master -- will result in a    * short-circuit of the RPC framework to make a direct invocation avoiding RPC (and    * protobuf marshalling/unmarshalling).    *    * @return The host's Connection to the Cluster.    */
+name|Connection
+name|getConnection
 parameter_list|()
 function_decl|;
 comment|/**    * Returns a MetricRegistry that can be used to track metrics at the master level.    *    *<p>See ExampleMasterObserverWithMetrics class in the hbase-examples modules for examples    * of how metrics can be instantiated and used.</p>    * @return A MetricRegistry for the coprocessor class to track and export metrics.    */

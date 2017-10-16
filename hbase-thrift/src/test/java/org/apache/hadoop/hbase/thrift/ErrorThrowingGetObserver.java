@@ -143,6 +143,22 @@ name|hbase
 operator|.
 name|coprocessor
 operator|.
+name|CoreCoprocessor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|coprocessor
+operator|.
 name|ObserverContext
 import|;
 end_import
@@ -326,6 +342,8 @@ comment|/**  * Simple test coprocessor for injecting exceptions on Get requests.
 end_comment
 
 begin_class
+annotation|@
+name|CoreCoprocessor
 specifier|public
 class|class
 name|ErrorThrowingGetObserver
@@ -473,9 +491,6 @@ argument_list|(
 name|e
 operator|.
 name|getEnvironment
-argument_list|()
-operator|.
-name|getCoprocessorRegionServerServices
 argument_list|()
 operator|.
 name|getServerName

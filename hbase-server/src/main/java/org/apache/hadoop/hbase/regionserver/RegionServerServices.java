@@ -282,7 +282,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Services provided by {@link HRegionServer}  */
+comment|/**  * A curated subset of services provided by {@link HRegionServer}.  * For use internally only. Passed to Managers, Services and Chores so can pass less-than-a  * full-on HRegionServer at test-time. Be judicious adding API. Changes cause ripples through  * the code base.  */
 end_comment
 
 begin_interface
@@ -299,8 +299,6 @@ extends|,
 name|OnlineRegions
 extends|,
 name|FavoredNodesForRegion
-extends|,
-name|CoprocessorRegionServerServices
 block|{
 comment|/** @return the WAL for a particular region. Pass null for getting the    * default (common) WAL */
 name|WAL
