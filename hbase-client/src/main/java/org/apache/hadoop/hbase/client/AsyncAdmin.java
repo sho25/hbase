@@ -1860,6 +1860,36 @@ name|getServers
 argument_list|)
 return|;
 block|}
+comment|/**    * Get the info port of the current master if one is available.    * @return master info port    */
+specifier|default
+name|CompletableFuture
+argument_list|<
+name|Integer
+argument_list|>
+name|getMasterInfoPort
+parameter_list|()
+block|{
+return|return
+name|getClusterStatus
+argument_list|(
+name|EnumSet
+operator|.
+name|of
+argument_list|(
+name|Option
+operator|.
+name|MASTER_INFO_PORT
+argument_list|)
+argument_list|)
+operator|.
+name|thenApply
+argument_list|(
+name|ClusterStatus
+operator|::
+name|getMasterInfoPort
+argument_list|)
+return|;
+block|}
 comment|/**    * Get a list of {@link RegionLoad} of all regions hosted on a region seerver.    * @param serverName    * @return a list of {@link RegionLoad} wrapped by {@link CompletableFuture}    */
 specifier|default
 name|CompletableFuture

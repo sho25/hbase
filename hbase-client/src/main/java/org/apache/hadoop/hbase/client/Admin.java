@@ -2977,12 +2977,30 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Get the info port of the current master if one is available.    * @return master info port    * @throws IOException    */
+specifier|default
 name|int
 name|getMasterInfoPort
 parameter_list|()
 throws|throws
 name|IOException
-function_decl|;
+block|{
+return|return
+name|getClusterStatus
+argument_list|(
+name|EnumSet
+operator|.
+name|of
+argument_list|(
+name|Option
+operator|.
+name|MASTER_INFO_PORT
+argument_list|)
+argument_list|)
+operator|.
+name|getMasterInfoPort
+argument_list|()
+return|;
+block|}
 comment|/**    * Compact a table.  Asynchronous operation in that this method requests that a    * Compaction run and then it returns. It does not wait on the completion of Compaction    * (it can take a while).    *    * @param tableName table to compact    * @param compactType {@link org.apache.hadoop.hbase.client.CompactType}    * @throws IOException    * @throws InterruptedException    */
 name|void
 name|compact

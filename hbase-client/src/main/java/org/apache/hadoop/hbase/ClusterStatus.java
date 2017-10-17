@@ -192,6 +192,10 @@ specifier|private
 name|Boolean
 name|balancerOn
 decl_stmt|;
+specifier|private
+name|int
+name|masterInfoPort
+decl_stmt|;
 comment|/**    * Use {@link ClusterStatus.Builder} to construct a ClusterStatus instead.    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-15511">HBASE-15511</a>).    */
 annotation|@
 name|Deprecated
@@ -248,6 +252,10 @@ parameter_list|,
 specifier|final
 name|Boolean
 name|balancerOn
+parameter_list|,
+specifier|final
+name|int
+name|masterInfoPort
 parameter_list|)
 block|{
 comment|// TODO: make this constructor private
@@ -304,6 +312,12 @@ operator|.
 name|balancerOn
 operator|=
 name|balancerOn
+expr_stmt|;
+name|this
+operator|.
+name|masterInfoPort
+operator|=
+name|masterInfoPort
 expr_stmt|;
 block|}
 comment|/**    * @return the names of region servers on the dead list    */
@@ -674,6 +688,27 @@ operator|.
 name|getBackupMasters
 argument_list|()
 argument_list|)
+operator|&&
+name|Objects
+operator|.
+name|equal
+argument_list|(
+name|getClusterId
+argument_list|()
+argument_list|,
+name|other
+operator|.
+name|getClusterId
+argument_list|()
+argument_list|)
+operator|&&
+name|getMasterInfoPort
+argument_list|()
+operator|==
+name|other
+operator|.
+name|getMasterInfoPort
+argument_list|()
 return|;
 block|}
 comment|/**    * @see java.lang.Object#hashCode()    */
@@ -696,6 +731,10 @@ argument_list|,
 name|master
 argument_list|,
 name|backupMasters
+argument_list|,
+name|clusterId
+argument_list|,
+name|masterInfoPort
 argument_list|)
 return|;
 block|}
@@ -1058,6 +1097,15 @@ name|balancerOn
 return|;
 block|}
 specifier|public
+name|int
+name|getMasterInfoPort
+parameter_list|()
+block|{
+return|return
+name|masterInfoPort
+return|;
+block|}
+specifier|public
 name|String
 name|toString
 parameter_list|()
@@ -1392,6 +1440,13 @@ init|=
 literal|null
 decl_stmt|;
 specifier|private
+name|int
+name|masterInfoPort
+init|=
+operator|-
+literal|1
+decl_stmt|;
+specifier|private
 name|Builder
 parameter_list|()
 block|{}
@@ -1573,6 +1628,24 @@ name|this
 return|;
 block|}
 specifier|public
+name|Builder
+name|setMasterInfoPort
+parameter_list|(
+name|int
+name|masterInfoPort
+parameter_list|)
+block|{
+name|this
+operator|.
+name|masterInfoPort
+operator|=
+name|masterInfoPort
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+specifier|public
 name|ClusterStatus
 name|build
 parameter_list|()
@@ -1598,6 +1671,8 @@ argument_list|,
 name|masterCoprocessors
 argument_list|,
 name|balancerOn
+argument_list|,
+name|masterInfoPort
 argument_list|)
 return|;
 block|}
@@ -1632,8 +1707,11 @@ name|MASTER_COPROCESSORS
 block|,
 comment|/** status about master coprocessors */
 name|REGIONS_IN_TRANSITION
-block|;
+block|,
 comment|/** status about regions in transition */
+name|MASTER_INFO_PORT
+block|;
+comment|/** master info port **/
 block|}
 block|}
 end_class
