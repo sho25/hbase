@@ -7587,8 +7587,7 @@ return|return
 name|maxFlushedSeqId
 return|;
 block|}
-annotation|@
-name|Override
+comment|/**    * @return readpoint considering given IsolationLevel. Pass {@code null} for default    */
 specifier|public
 name|long
 name|getReadPoint

@@ -142,6 +142,7 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
+specifier|public
 class|class
 name|ReversedStoreScanner
 extends|extends
@@ -150,6 +151,7 @@ implements|implements
 name|KeyValueScanner
 block|{
 comment|/**    * Opens a scanner across memstore, snapshot, and all StoreFiles. Assumes we    * are not in a compaction.    *     * @param store who we scan    * @param scanInfo    * @param scan the spec    * @param columns which columns we are scanning    * @throws IOException    */
+specifier|public
 name|ReversedStoreScanner
 parameter_list|(
 name|HStore
@@ -189,6 +191,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/** Constructor for testing. */
+specifier|public
 name|ReversedStoreScanner
 parameter_list|(
 name|Scan

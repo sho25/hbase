@@ -1001,19 +1001,9 @@ name|targetCols
 parameter_list|,
 name|long
 name|readPt
-parameter_list|,
-name|KeyValueScanner
-name|scanner
 parameter_list|)
 throws|throws
 name|IOException
-block|{
-if|if
-condition|(
-name|scanner
-operator|==
-literal|null
-condition|)
 block|{
 if|if
 condition|(
@@ -1072,8 +1062,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-name|scanner
-operator|=
+return|return
 name|scan
 operator|.
 name|isReversed
@@ -1108,10 +1097,6 @@ name|targetCols
 argument_list|,
 name|readPt
 argument_list|)
-expr_stmt|;
-block|}
-return|return
-name|scanner
 return|;
 block|}
 comment|/**    * Creates the mob store engine.    */

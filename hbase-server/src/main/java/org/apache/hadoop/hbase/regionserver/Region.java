@@ -568,14 +568,6 @@ argument_list|>
 name|getMaxStoreSeqId
 parameter_list|()
 function_decl|;
-comment|/** @return readpoint considering given IsolationLevel; pass null for default*/
-name|long
-name|getReadPoint
-parameter_list|(
-name|IsolationLevel
-name|isolationLevel
-parameter_list|)
-function_decl|;
 comment|/**    * @return The earliest time a store in the region was flushed. All    *         other stores in the region would have been flushed either at, or    *         after this time.    */
 name|long
 name|getEarliestFlushTimeForAllStores
