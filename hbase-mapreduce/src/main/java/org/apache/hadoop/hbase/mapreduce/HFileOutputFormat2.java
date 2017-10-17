@@ -1317,7 +1317,9 @@ specifier|final
 name|String
 name|STORAGE_POLICY_PROPERTY
 init|=
-literal|"hbase.hstore.storagepolicy"
+name|HStore
+operator|.
+name|BLOCK_STORAGE_POLICY_KEY
 decl_stmt|;
 specifier|public
 specifier|static
