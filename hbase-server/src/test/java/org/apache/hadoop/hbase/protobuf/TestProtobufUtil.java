@@ -99,7 +99,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellComparator
+name|CellComparatorImpl
 import|;
 end_import
 
@@ -2460,7 +2460,7 @@ argument_list|)
 decl_stmt|;
 name|assertTrue
 argument_list|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 operator|.

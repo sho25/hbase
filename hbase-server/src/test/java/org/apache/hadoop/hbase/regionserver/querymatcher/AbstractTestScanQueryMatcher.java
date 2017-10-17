@@ -43,7 +43,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellComparator
+name|CellComparatorImpl
 import|;
 end_import
 
@@ -196,7 +196,7 @@ operator|.
 name|MAX_VALUE
 decl_stmt|;
 specifier|protected
-name|CellComparator
+name|CellComparatorImpl
 name|rowComparator
 decl_stmt|;
 specifier|protected
@@ -375,7 +375,7 @@ argument_list|)
 expr_stmt|;
 name|rowComparator
 operator|=
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 expr_stmt|;

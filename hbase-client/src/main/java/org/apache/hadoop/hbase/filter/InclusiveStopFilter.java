@@ -51,7 +51,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellComparator
+name|CellComparatorImpl
 import|;
 end_import
 
@@ -288,7 +288,7 @@ return|;
 name|int
 name|cmp
 init|=
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 operator|.

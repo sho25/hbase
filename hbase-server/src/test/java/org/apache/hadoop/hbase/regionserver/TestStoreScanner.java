@@ -303,6 +303,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CellComparatorImpl
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|CellUtil
 import|;
 end_import
@@ -686,7 +700,7 @@ name|DEFAULT_BLOCKSIZE
 argument_list|,
 literal|0
 argument_list|,
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|,
@@ -1470,7 +1484,7 @@ block|{
 operator|new
 name|KeyValueScanFixture
 argument_list|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|,
@@ -1934,7 +1948,7 @@ block|{
 operator|new
 name|KeyValueScanFixture
 argument_list|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|,
@@ -2086,7 +2100,7 @@ block|{
 operator|new
 name|KeyValueScanFixture
 argument_list|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|,
@@ -3212,7 +3226,7 @@ block|{
 operator|new
 name|KeyValueScanFixture
 argument_list|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|,
@@ -3654,7 +3668,7 @@ block|{
 operator|new
 name|KeyValueScanFixture
 argument_list|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|,
@@ -6564,7 +6578,7 @@ name|DEFAULT_BLOCKSIZE
 argument_list|,
 literal|0
 argument_list|,
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|,
@@ -7072,7 +7086,7 @@ name|DEFAULT_BLOCKSIZE
 argument_list|,
 literal|0
 argument_list|,
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|,
@@ -7648,7 +7662,7 @@ argument_list|,
 literal|200
 argument_list|,
 comment|/* timeToPurgeDeletes */
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|,
@@ -7950,7 +7964,7 @@ name|DEFAULT_BLOCKSIZE
 argument_list|,
 literal|0
 argument_list|,
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|,

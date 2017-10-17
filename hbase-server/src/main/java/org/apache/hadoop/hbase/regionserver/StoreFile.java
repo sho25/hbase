@@ -33,16 +33,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|Comparator
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|Optional
 import|;
 end_import
@@ -82,6 +72,20 @@ operator|.
 name|hbase
 operator|.
 name|Cell
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|CellComparator
 import|;
 end_import
 
@@ -180,10 +184,7 @@ name|getLastKey
 parameter_list|()
 function_decl|;
 comment|/**    * Get the comparator for comparing two cells.    */
-name|Comparator
-argument_list|<
-name|Cell
-argument_list|>
+name|CellComparator
 name|getComparator
 parameter_list|()
 function_decl|;

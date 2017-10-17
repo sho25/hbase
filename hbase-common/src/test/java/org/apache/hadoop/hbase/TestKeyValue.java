@@ -913,7 +913,7 @@ argument_list|)
 decl_stmt|;
 name|assertTrue
 argument_list|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 operator|.
@@ -929,7 +929,7 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 operator|.
@@ -946,7 +946,7 @@ expr_stmt|;
 comment|// Compare breaks if passed same ByteBuffer as both left and right arguments.
 name|assertTrue
 argument_list|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 operator|.
@@ -962,7 +962,7 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 operator|.
@@ -1011,7 +1011,7 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 operator|.
@@ -1027,7 +1027,7 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 operator|.
@@ -1043,7 +1043,7 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 operator|.
@@ -1099,7 +1099,7 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 operator|.
@@ -1115,7 +1115,7 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 operator|.
@@ -1131,7 +1131,7 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 operator|.
@@ -1197,7 +1197,7 @@ decl_stmt|;
 name|CellComparator
 name|c
 init|=
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|META_COMPARATOR
 decl_stmt|;
@@ -1353,21 +1353,21 @@ argument_list|)
 expr_stmt|;
 name|comparisons
 argument_list|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|META_COMPARATOR
 argument_list|)
 expr_stmt|;
 name|comparisons
 argument_list|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|)
 expr_stmt|;
 name|metacomparisons
 argument_list|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|META_COMPARATOR
 argument_list|)
@@ -1381,7 +1381,7 @@ block|{
 name|CellComparator
 name|c
 init|=
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|META_COMPARATOR
 decl_stmt|;
@@ -1530,7 +1530,7 @@ argument_list|)
 decl_stmt|;
 name|assertTrue
 argument_list|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|META_COMPARATOR
 operator|.
@@ -1620,7 +1620,7 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|META_COMPARATOR
 operator|.
@@ -1640,7 +1640,7 @@ name|void
 name|metacomparisons
 parameter_list|(
 specifier|final
-name|CellComparator
+name|CellComparatorImpl
 name|c
 parameter_list|)
 block|{
@@ -1818,7 +1818,7 @@ name|void
 name|comparisons
 parameter_list|(
 specifier|final
-name|CellComparator
+name|CellComparatorImpl
 name|c
 parameter_list|)
 block|{
@@ -1998,7 +1998,7 @@ operator|new
 name|TreeSet
 argument_list|<>
 argument_list|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|)
@@ -2230,7 +2230,7 @@ operator|new
 name|TreeSet
 argument_list|<>
 argument_list|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|META_COMPARATOR
 argument_list|)
@@ -2458,7 +2458,7 @@ specifier|final
 name|CellComparator
 name|c
 init|=
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 decl_stmt|;
@@ -2751,7 +2751,7 @@ specifier|final
 name|CellComparator
 name|c
 init|=
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 decl_stmt|;
@@ -4189,7 +4189,7 @@ block|{
 name|CellComparator
 name|c
 init|=
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|META_COMPARATOR
 decl_stmt|;

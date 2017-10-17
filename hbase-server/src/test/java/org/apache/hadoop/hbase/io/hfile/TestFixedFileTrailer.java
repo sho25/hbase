@@ -617,7 +617,7 @@ name|t
 operator|.
 name|setComparatorClass
 argument_list|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 operator|.
@@ -1063,7 +1063,7 @@ name|t
 operator|.
 name|setComparatorClass
 argument_list|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 operator|.
@@ -1708,7 +1708,7 @@ operator|.
 name|createComparator
 argument_list|()
 operator|instanceof
-name|CellComparator
+name|CellComparatorImpl
 argument_list|)
 expr_stmt|;
 name|assertEquals

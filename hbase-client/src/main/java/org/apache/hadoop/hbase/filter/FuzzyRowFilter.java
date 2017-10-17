@@ -91,7 +91,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellComparator
+name|CellComparatorImpl
 import|;
 end_import
 
@@ -1360,7 +1360,7 @@ block|{
 name|int
 name|compareResult
 init|=
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 operator|.

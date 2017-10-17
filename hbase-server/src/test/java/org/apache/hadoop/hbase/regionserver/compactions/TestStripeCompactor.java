@@ -221,7 +221,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellComparator
+name|CellComparatorImpl
 import|;
 end_import
 
@@ -1999,7 +1999,7 @@ name|MAX_VALUE
 argument_list|,
 literal|0
 argument_list|,
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|)
@@ -2135,7 +2135,7 @@ argument_list|)
 operator|.
 name|thenReturn
 argument_list|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|)

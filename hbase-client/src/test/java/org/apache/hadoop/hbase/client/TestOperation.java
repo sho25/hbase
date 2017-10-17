@@ -125,7 +125,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellComparator
+name|CellComparatorImpl
 import|;
 end_import
 
@@ -2801,7 +2801,7 @@ name|assertEquals
 argument_list|(
 literal|0
 argument_list|,
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 operator|.
@@ -2935,7 +2935,7 @@ name|assertEquals
 argument_list|(
 literal|0
 argument_list|,
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 operator|.
@@ -3093,7 +3093,7 @@ name|assertEquals
 argument_list|(
 literal|0
 argument_list|,
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 operator|.
@@ -3251,7 +3251,7 @@ name|assertEquals
 argument_list|(
 literal|0
 argument_list|,
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 operator|.

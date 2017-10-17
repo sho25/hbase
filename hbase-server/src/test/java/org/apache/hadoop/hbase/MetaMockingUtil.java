@@ -369,7 +369,7 @@ name|sort
 argument_list|(
 name|kvs
 argument_list|,
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|META_COMPARATOR
 argument_list|)

@@ -569,6 +569,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CellComparatorImpl
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|CellUtil
 import|;
 end_import
@@ -4590,7 +4604,7 @@ name|sort
 argument_list|(
 name|result
 argument_list|,
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|)
@@ -4821,7 +4835,7 @@ name|sort
 argument_list|(
 name|result
 argument_list|,
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|)
@@ -12284,7 +12298,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|CellComparator
+name|CellComparatorImpl
 name|c
 parameter_list|,
 name|HStore
@@ -12411,7 +12425,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|CellComparator
+name|CellComparatorImpl
 name|c
 parameter_list|,
 name|HStore

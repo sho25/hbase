@@ -43,16 +43,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|Comparator
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|OptionalDouble
 import|;
 end_import
@@ -91,7 +81,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Cell
+name|CellComparator
 import|;
 end_import
 
@@ -237,10 +227,7 @@ operator|.
 name|MIN_VALUE
 decl_stmt|;
 comment|// General Accessors
-name|Comparator
-argument_list|<
-name|Cell
-argument_list|>
+name|CellComparator
 name|getComparator
 parameter_list|()
 function_decl|;

@@ -3944,7 +3944,12 @@ comment|// but also on the visibility expression matching.
 return|return
 operator|new
 name|VisibilityScanDeleteTracker
+argument_list|(
+name|delTracker
+operator|.
+name|getCellComparator
 argument_list|()
+argument_list|)
 return|;
 block|}
 annotation|@

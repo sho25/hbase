@@ -133,6 +133,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CellComparator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|CellUtil
 import|;
 end_import
@@ -275,6 +289,10 @@ specifier|private
 name|long
 name|oldestStamp
 decl_stmt|;
+specifier|private
+name|CellComparator
+name|comparator
+decl_stmt|;
 comment|// These two maps have same structure.
 comment|// Each node is a versions deletion (DeleteFamily or DeleteColumn). Key is the mvcc of the marker,
 comment|// value is a data structure which contains infos we need that happens before this node's mvcc and
@@ -311,7 +329,7 @@ name|TreeMap
 argument_list|<>
 argument_list|()
 decl_stmt|;
-comment|/**    * Note maxVersion and minVersion must set according to cf's conf, not user's scan parameter.    *    * @param columns           columns specified user in query    * @param minVersion        The minimum number of versions to keep(used when TTL is set).    * @param maxVersion        The maximum number of versions in CF's conf    * @param resultMaxVersions maximum versions to return per column, which may be different from    *                          maxVersion    * @param oldestUnexpiredTS the oldest timestamp we are interested in, based on TTL    */
+comment|/**    * Note maxVersion and minVersion must set according to cf's conf, not user's scan parameter.    *    * @param columns           columns specified user in query    * @param comparartor       the cell comparator    * @param minVersion        The minimum number of versions to keep(used when TTL is set).    * @param maxVersion        The maximum number of versions in CF's conf    * @param resultMaxVersions maximum versions to return per column, which may be different from    *                          maxVersion    * @param oldestUnexpiredTS the oldest timestamp we are interested in, based on TTL    */
 specifier|public
 name|NewVersionBehaviorTracker
 parameter_list|(
@@ -321,6 +339,9 @@ name|byte
 index|[]
 argument_list|>
 name|columns
+parameter_list|,
+name|CellComparator
+name|comparartor
 parameter_list|,
 name|int
 name|minVersion
@@ -413,6 +434,12 @@ name|column
 expr_stmt|;
 block|}
 block|}
+name|this
+operator|.
+name|comparator
+operator|=
+name|comparartor
+expr_stmt|;
 name|reset
 argument_list|()
 expr_stmt|;
@@ -1842,6 +1869,19 @@ block|{
 comment|// We can not skip Cells with small ts.
 return|return
 literal|false
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|CellComparator
+name|getCellComparator
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|comparator
 return|;
 block|}
 block|}

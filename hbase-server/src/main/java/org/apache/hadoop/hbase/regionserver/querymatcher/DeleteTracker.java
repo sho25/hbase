@@ -57,6 +57,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CellComparator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|regionserver
 operator|.
 name|ShipperListener
@@ -131,6 +145,11 @@ name|VERSION_MASKED
 comment|// The KeyValue is masked by max number of versions which is considered as
 comment|// deleted in strong semantics of versions(See MvccTracker)
 block|}
+comment|/**    * Return the comparator passed to this delete tracker    * @return the cell comparator    */
+name|CellComparator
+name|getCellComparator
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

@@ -273,7 +273,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellComparator
+name|CellComparatorImpl
 import|;
 end_import
 
@@ -1334,7 +1334,7 @@ name|HFileBlockIndex
 operator|.
 name|CellBasedKeyBlockIndexReader
 argument_list|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|,
@@ -1463,12 +1463,14 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|CellComparator
-operator|.
-name|COMPARATOR
+name|CellUtil
 operator|.
 name|compare
 argument_list|(
+name|CellComparatorImpl
+operator|.
+name|COMPARATOR
+argument_list|,
 name|keyOnlyKey
 argument_list|,
 name|firstKeyInFile
@@ -2409,7 +2411,7 @@ name|i
 control|)
 name|assertTrue
 argument_list|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 operator|.
@@ -2753,7 +2755,7 @@ argument_list|(
 name|nonRootIndex
 argument_list|)
 argument_list|,
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|)
@@ -2855,7 +2857,7 @@ argument_list|)
 argument_list|,
 name|cell
 argument_list|,
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|)
@@ -3930,12 +3932,14 @@ block|{
 name|assertTrue
 argument_list|(
 operator|(
-name|CellComparator
-operator|.
-name|COMPARATOR
+name|CellUtil
 operator|.
 name|compare
 argument_list|(
+name|CellComparatorImpl
+operator|.
+name|COMPARATOR
+argument_list|,
 name|kv
 argument_list|,
 name|keys

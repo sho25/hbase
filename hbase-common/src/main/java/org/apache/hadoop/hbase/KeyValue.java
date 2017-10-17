@@ -109,16 +109,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|Comparator
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|HashMap
 import|;
 end_import
@@ -366,7 +356,7 @@ block|{
 name|COLUMN_FAMILY_DELIMITER
 block|}
 decl_stmt|;
-comment|/**    * Comparator for plain key/values; i.e. non-catalog table key/values. Works on Key portion    * of KeyValue only.    * @deprecated Use {@link CellComparator#COMPARATOR} instead. Deprecated for hbase 2.0, remove for hbase 3.0.    */
+comment|/**    * Comparator for plain key/values; i.e. non-catalog table key/values. Works on Key portion    * of KeyValue only.    * @deprecated Use {@link CellComparatorImpl#COMPARATOR} instead. Deprecated for hbase 2.0, remove for hbase 3.0.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -379,7 +369,7 @@ operator|new
 name|KVComparator
 argument_list|()
 decl_stmt|;
-comment|/**    * A {@link KVComparator} for<code>hbase:meta</code> catalog table    * {@link KeyValue}s.    * @deprecated Use {@link CellComparator#META_COMPARATOR} instead. Deprecated for hbase 2.0, remove for hbase 3.0.    */
+comment|/**    * A {@link KVComparator} for<code>hbase:meta</code> catalog table    * {@link KeyValue}s.    * @deprecated Use {@link CellComparatorImpl#META_COMPARATOR} instead. Deprecated for hbase 2.0, remove for hbase 3.0.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -6717,7 +6707,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * A {@link KVComparator} for<code>hbase:meta</code> catalog table    * {@link KeyValue}s.    * @deprecated : {@link CellComparator#META_COMPARATOR} to be used. Deprecated for hbase 2.0, remove for hbase 3.0.    */
+comment|/**    * A {@link KVComparator} for<code>hbase:meta</code> catalog table    * {@link KeyValue}s.    * @deprecated : {@link CellComparatorImpl#META_COMPARATOR} to be used. Deprecated for hbase 2.0, remove for hbase 3.0.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -6744,12 +6734,14 @@ name|right
 parameter_list|)
 block|{
 return|return
-name|CellComparator
-operator|.
-name|META_COMPARATOR
+name|CellUtil
 operator|.
 name|compareKeyIgnoresMvcc
 argument_list|(
+name|CellComparatorImpl
+operator|.
+name|META_COMPARATOR
+argument_list|,
 name|left
 argument_list|,
 name|right
@@ -7301,7 +7293,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * Compare KeyValues.  When we compare KeyValues, we only compare the Key    * portion.  This means two KeyValues with same Key but different Values are    * considered the same as far as this Comparator is concerned.    * @deprecated : Use {@link CellComparator}. Deprecated for hbase 2.0, remove for hbase 3.0.    */
+comment|/**    * Compare KeyValues.  When we compare KeyValues, we only compare the Key    * portion.  This means two KeyValues with same Key but different Values are    * considered the same as far as this Comparator is concerned.    * @deprecated : Use {@link CellComparatorImpl}. Deprecated for hbase 2.0, remove for hbase 3.0.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -7390,7 +7382,7 @@ name|right
 parameter_list|)
 block|{
 return|return
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 operator|.
@@ -7822,12 +7814,14 @@ name|right
 parameter_list|)
 block|{
 return|return
-name|CellComparator
-operator|.
-name|COMPARATOR
+name|CellUtil
 operator|.
 name|compareKeyIgnoresMvcc
 argument_list|(
+name|CellComparatorImpl
+operator|.
+name|COMPARATOR
+argument_list|,
 name|left
 argument_list|,
 name|right
@@ -7853,7 +7847,7 @@ block|{
 name|int
 name|compare
 init|=
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 operator|.
@@ -7882,7 +7876,9 @@ name|right
 parameter_list|)
 block|{
 return|return
-name|CellComparator
+name|CellComparatorImpl
+operator|.
+name|COMPARATOR
 operator|.
 name|compareTimestamps
 argument_list|(
@@ -8007,7 +8003,9 @@ name|rrowlength
 parameter_list|)
 block|{
 return|return
-name|CellComparator
+name|CellComparatorImpl
+operator|.
+name|COMPARATOR
 operator|.
 name|compareColumns
 argument_list|(

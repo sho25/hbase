@@ -101,7 +101,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellComparator
+name|CellComparatorImpl
 import|;
 end_import
 
@@ -2158,7 +2158,7 @@ continue|continue;
 block|}
 if|if
 condition|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 operator|.
@@ -2264,7 +2264,7 @@ continue|continue;
 block|}
 if|if
 condition|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 operator|.

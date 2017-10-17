@@ -145,7 +145,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellComparator
+name|CellComparatorImpl
 import|;
 end_import
 
@@ -456,7 +456,7 @@ name|sort
 argument_list|(
 name|cells
 argument_list|,
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|)
@@ -600,7 +600,7 @@ name|sort
 argument_list|(
 name|kvs
 argument_list|,
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|)
@@ -904,7 +904,7 @@ name|sort
 argument_list|(
 name|kvs
 argument_list|,
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|)
@@ -1054,7 +1054,7 @@ name|sort
 argument_list|(
 name|kvs
 argument_list|,
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|)
@@ -1235,7 +1235,7 @@ name|sort
 argument_list|(
 name|kvs
 argument_list|,
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|)
@@ -1347,7 +1347,7 @@ name|sort
 argument_list|(
 name|kvs
 argument_list|,
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|)
@@ -1576,7 +1576,7 @@ name|sort
 argument_list|(
 name|kvs
 argument_list|,
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|)
@@ -2071,7 +2071,7 @@ name|sort
 argument_list|(
 name|kvs
 argument_list|,
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|)

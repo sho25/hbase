@@ -185,7 +185,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellComparator
+name|CellComparatorImpl
 import|;
 end_import
 
@@ -4427,10 +4427,10 @@ argument_list|>
 block|{
 specifier|private
 specifier|final
-name|CellComparator
+name|CellComparatorImpl
 name|delegate
 init|=
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|META_COMPARATOR
 decl_stmt|;

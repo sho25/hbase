@@ -213,7 +213,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellComparator
+name|CellComparatorImpl
 import|;
 end_import
 
@@ -642,7 +642,7 @@ operator|new
 name|ConcurrentSkipListSet
 argument_list|<>
 argument_list|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|)
@@ -863,7 +863,7 @@ name|encoder
 operator|.
 name|createSeeker
 argument_list|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|,
@@ -1177,7 +1177,7 @@ name|encoder
 operator|.
 name|createSeeker
 argument_list|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|,
@@ -1261,7 +1261,7 @@ name|previousKV
 operator|!=
 literal|null
 operator|&&
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 operator|.
@@ -1447,7 +1447,7 @@ name|encoder
 operator|.
 name|createSeeker
 argument_list|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|,
@@ -1611,7 +1611,7 @@ name|encoder
 operator|.
 name|createSeeker
 argument_list|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|,
@@ -1817,7 +1817,7 @@ condition|)
 block|{
 if|if
 condition|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 operator|.

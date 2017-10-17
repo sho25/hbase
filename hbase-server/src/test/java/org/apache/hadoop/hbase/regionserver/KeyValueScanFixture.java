@@ -61,7 +61,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellComparator
+name|CellComparatorImpl
 import|;
 end_import
 
@@ -109,7 +109,7 @@ block|{
 specifier|public
 name|KeyValueScanFixture
 parameter_list|(
-name|CellComparator
+name|CellComparatorImpl
 name|comparator
 parameter_list|,
 name|Cell
@@ -166,7 +166,7 @@ argument_list|(
 operator|new
 name|KeyValueScanFixture
 argument_list|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|,

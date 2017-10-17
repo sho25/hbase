@@ -225,7 +225,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellComparator
+name|CellComparatorImpl
 import|;
 end_import
 
@@ -1498,7 +1498,7 @@ name|encoder
 operator|.
 name|createSeeker
 argument_list|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|,
@@ -2040,7 +2040,7 @@ name|encoder
 operator|.
 name|createSeeker
 argument_list|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|,
@@ -2090,12 +2090,14 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|CellComparator
-operator|.
-name|COMPARATOR
+name|CellUtil
 operator|.
 name|compareKeyIgnoresMvcc
 argument_list|(
+name|CellComparatorImpl
+operator|.
+name|COMPARATOR
+argument_list|,
 name|expectedKeyValue
 argument_list|,
 name|cell
@@ -2311,12 +2313,14 @@ if|if
 condition|(
 literal|0
 operator|!=
-name|CellComparator
-operator|.
-name|COMPARATOR
+name|CellUtil
 operator|.
 name|compareKeyIgnoresMvcc
 argument_list|(
+name|CellComparatorImpl
+operator|.
+name|COMPARATOR
+argument_list|,
 name|key
 argument_list|,
 name|firstKv

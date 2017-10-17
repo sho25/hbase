@@ -483,7 +483,7 @@ operator|.
 name|create
 argument_list|()
 argument_list|,
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|,
@@ -909,7 +909,7 @@ operator|.
 name|create
 argument_list|()
 argument_list|,
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|,
@@ -1095,7 +1095,7 @@ argument_list|)
 decl_stmt|;
 name|assertTrue
 argument_list|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 operator|.
@@ -1190,7 +1190,7 @@ else|else
 block|{
 name|assertTrue
 argument_list|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 operator|.
@@ -1380,7 +1380,7 @@ name|assertTrue
 argument_list|(
 literal|"Row name"
 argument_list|,
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 operator|.

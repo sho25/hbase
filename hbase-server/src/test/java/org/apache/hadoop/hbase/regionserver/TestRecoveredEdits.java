@@ -155,7 +155,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellComparator
+name|CellComparatorImpl
 import|;
 end_import
 
@@ -1259,7 +1259,7 @@ name|previous
 operator|!=
 literal|null
 operator|&&
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 operator|.
@@ -1333,12 +1333,14 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|CellComparator
-operator|.
-name|COMPARATOR
+name|CellUtil
 operator|.
 name|compareKeyIgnoresMvcc
 argument_list|(
+name|CellComparatorImpl
+operator|.
+name|COMPARATOR
+argument_list|,
 name|cell
 argument_list|,
 name|current

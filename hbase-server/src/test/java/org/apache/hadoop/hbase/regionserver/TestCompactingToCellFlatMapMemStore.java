@@ -416,7 +416,7 @@ name|CompactingMemStore
 argument_list|(
 name|conf
 argument_list|,
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|,
@@ -3169,7 +3169,7 @@ operator|.
 name|getStoreSegments
 argument_list|()
 argument_list|,
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|,

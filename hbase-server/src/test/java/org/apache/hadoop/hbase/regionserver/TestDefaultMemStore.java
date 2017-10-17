@@ -227,7 +227,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellComparator
+name|CellComparatorImpl
 import|;
 end_import
 
@@ -3762,7 +3762,7 @@ operator|new
 name|Configuration
 argument_list|()
 argument_list|,
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|)
@@ -4016,7 +4016,7 @@ argument_list|)
 decl_stmt|;
 name|assertTrue
 argument_list|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 operator|.
@@ -4111,7 +4111,7 @@ else|else
 block|{
 name|assertTrue
 argument_list|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 operator|.
@@ -4301,7 +4301,7 @@ name|assertTrue
 argument_list|(
 literal|"Row name"
 argument_list|,
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 operator|.
@@ -5986,7 +5986,7 @@ name|DefaultMemStore
 argument_list|(
 name|conf
 argument_list|,
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|)

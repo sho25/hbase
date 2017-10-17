@@ -241,6 +241,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CellComparatorImpl
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|CellUtil
 import|;
 end_import
@@ -283,7 +297,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|MetaCellComparator
 import|;
@@ -899,7 +913,7 @@ literal|null
 condition|?
 name|comparator
 else|:
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 expr_stmt|;
@@ -1125,10 +1139,12 @@ block|{
 name|int
 name|keyComp
 init|=
-name|comparator
+name|CellUtil
 operator|.
 name|compareKeyIgnoresMvcc
 argument_list|(
+name|comparator
+argument_list|,
 name|lastCell
 argument_list|,
 name|cell
@@ -1879,7 +1895,7 @@ block|}
 comment|// Rows are same. Compare on families.
 name|diff
 operator|=
-name|CellComparator
+name|comparator
 operator|.
 name|compareFamilies
 argument_list|(
@@ -2056,7 +2072,7 @@ block|}
 comment|// Families are same. Compare on qualifiers.
 name|diff
 operator|=
-name|CellComparator
+name|comparator
 operator|.
 name|compareQualifiers
 argument_list|(

@@ -125,7 +125,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|MetaCellComparator
 import|;

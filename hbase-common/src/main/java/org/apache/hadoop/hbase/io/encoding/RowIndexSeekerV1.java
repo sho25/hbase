@@ -1128,10 +1128,12 @@ name|comp
 decl_stmt|;
 name|comp
 operator|=
-name|comparator
+name|CellUtil
 operator|.
 name|compareKeyIgnoresMvcc
 argument_list|(
+name|comparator
+argument_list|,
 name|seekCell
 argument_list|,
 name|current
@@ -1327,10 +1329,12 @@ name|key
 parameter_list|)
 block|{
 return|return
-name|comparator
+name|CellUtil
 operator|.
 name|compareKeyIgnoresMvcc
 argument_list|(
+name|comparator
+argument_list|,
 name|key
 argument_list|,
 name|current

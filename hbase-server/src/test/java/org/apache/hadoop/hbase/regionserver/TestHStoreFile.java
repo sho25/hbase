@@ -2950,6 +2950,10 @@ expr_stmt|;
 if|if
 condition|(
 operator|(
+name|CellUtil
+operator|.
+name|compare
+argument_list|(
 name|topScanner
 operator|.
 name|getReader
@@ -2957,9 +2961,7 @@ argument_list|()
 operator|.
 name|getComparator
 argument_list|()
-operator|.
-name|compare
-argument_list|(
+argument_list|,
 name|midKV
 argument_list|,
 name|key
@@ -3401,6 +3403,10 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
+name|CellUtil
+operator|.
+name|compare
+argument_list|(
 name|topScanner
 operator|.
 name|getReader
@@ -3408,9 +3414,7 @@ argument_list|()
 operator|.
 name|getComparator
 argument_list|()
-operator|.
-name|compare
-argument_list|(
+argument_list|,
 name|keyOnlyKV
 argument_list|,
 name|badmidkey

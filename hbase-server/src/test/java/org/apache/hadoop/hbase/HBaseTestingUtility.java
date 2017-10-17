@@ -16412,7 +16412,7 @@ name|i
 operator|<
 name|minLen
 operator|&&
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 operator|.

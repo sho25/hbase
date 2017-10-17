@@ -185,6 +185,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CellComparatorImpl
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|CellScannable
 import|;
 end_import
@@ -851,7 +865,7 @@ operator|.
 name|row
 return|;
 block|}
-comment|/**    * Return the array of Cells backing this Result instance.    *    * The array is sorted from smallest -&gt; largest using the    * {@link CellComparator#COMPARATOR}.    *    * The array only contains what your Get or Scan specifies and no more.    * For example if you request column "A" 1 version you will have at most 1    * Cell in the array. If you request column "A" with 2 version you will    * have at most 2 Cells, with the first one being the newer timestamp and    * the second being the older timestamp (this is the sort order defined by    * {@link CellComparator#COMPARATOR}).  If columns don't exist, they won't be    * present in the result. Therefore if you ask for 1 version all columns,    * it is safe to iterate over this array and expect to see 1 Cell for    * each column and no more.    *    * This API is faster than using getFamilyMap() and getMap()    *    * @return array of Cells; can be null if nothing in the result    */
+comment|/**    * Return the array of Cells backing this Result instance.    *    * The array is sorted from smallest -&gt; largest using the    * {@link CellComparator}.    *    * The array only contains what your Get or Scan specifies and no more.    * For example if you request column "A" 1 version you will have at most 1    * Cell in the array. If you request column "A" with 2 version you will    * have at most 2 Cells, with the first one being the newer timestamp and    * the second being the older timestamp (this is the sort order defined by    * {@link CellComparator}).  If columns don't exist, they won't be    * present in the result. Therefore if you ask for 1 version all columns,    * it is safe to iterate over this array and expect to see 1 Cell for    * each column and no more.    *    * This API is faster than using getFamilyMap() and getMap()    *    * @return array of Cells; can be null if nothing in the result    */
 specifier|public
 name|Cell
 index|[]
@@ -886,7 +900,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Return the Cells for the specific column.  The Cells are sorted in    * the {@link CellComparator#COMPARATOR} order.  That implies the first entry in    * the list is the most recent column.  If the query (Scan or Get) only    * requested 1 version the list will contain at most 1 entry.  If the column    * did not exist in the result set (either the column does not exist    * or the column was not selected in the query) the list will be empty.    *    * Also see getColumnLatest which returns just a Cell    *    * @param family the family    * @param qualifier    * @return a list of Cells for this column or empty list if the column    * did not exist in the result set    */
+comment|/**    * Return the Cells for the specific column.  The Cells are sorted in    * the {@link CellComparator} order.  That implies the first entry in    * the list is the most recent column.  If the query (Scan or Get) only    * requested 1 version the list will contain at most 1 entry.  If the column    * did not exist in the result set (either the column does not exist    * or the column was not selected in the query) the list will be empty.    *    * Also see getColumnLatest which returns just a Cell    *    * @param family the family    * @param qualifier    * @return a list of Cells for this column or empty list if the column    * did not exist in the result set    */
 specifier|public
 name|List
 argument_list|<
@@ -1149,7 +1163,7 @@ name|kvs
 argument_list|,
 name|searchTerm
 argument_list|,
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|)
@@ -1367,7 +1381,7 @@ name|kvs
 argument_list|,
 name|searchTerm
 argument_list|,
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|)

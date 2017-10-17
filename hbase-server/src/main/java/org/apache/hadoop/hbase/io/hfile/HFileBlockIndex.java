@@ -231,6 +231,10 @@ name|CellComparator
 import|;
 end_import
 
+begin_comment
+comment|//import org.apache.hadoop.hbase.CellComparatorImpl;
+end_comment
+
 begin_import
 import|import
 name|org
@@ -2842,10 +2846,12 @@ expr_stmt|;
 name|int
 name|cmp
 init|=
-name|comparator
+name|CellUtil
 operator|.
 name|compareKeyIgnoresMvcc
 argument_list|(
+name|comparator
+argument_list|,
 name|key
 argument_list|,
 name|nonRootIndexkeyOnlyKV

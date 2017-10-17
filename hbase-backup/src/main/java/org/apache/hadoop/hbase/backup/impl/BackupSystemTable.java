@@ -245,20 +245,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellComparator
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|CellUtil
 import|;
 end_import
@@ -1602,7 +1588,7 @@ control|)
 block|{
 if|if
 condition|(
-name|CellComparator
+name|CellUtil
 operator|.
 name|compareQualifiers
 argument_list|(
@@ -1792,7 +1778,7 @@ control|)
 block|{
 if|if
 condition|(
-name|CellComparator
+name|CellUtil
 operator|.
 name|compareQualifiers
 argument_list|(
@@ -1832,7 +1818,7 @@ block|}
 elseif|else
 if|if
 condition|(
-name|CellComparator
+name|CellUtil
 operator|.
 name|compareQualifiers
 argument_list|(
@@ -1867,7 +1853,7 @@ block|}
 elseif|else
 if|if
 condition|(
-name|CellComparator
+name|CellUtil
 operator|.
 name|compareQualifiers
 argument_list|(
@@ -2794,7 +2780,7 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|CellComparator
+name|CellUtil
 operator|.
 name|compareQualifiers
 argument_list|(
@@ -2834,7 +2820,7 @@ block|}
 elseif|else
 if|if
 condition|(
-name|CellComparator
+name|CellUtil
 operator|.
 name|compareQualifiers
 argument_list|(
@@ -2874,7 +2860,7 @@ block|}
 elseif|else
 if|if
 condition|(
-name|CellComparator
+name|CellUtil
 operator|.
 name|compareQualifiers
 argument_list|(

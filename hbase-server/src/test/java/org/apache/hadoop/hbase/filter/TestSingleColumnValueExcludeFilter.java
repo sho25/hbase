@@ -41,7 +41,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellComparator
+name|CellComparatorImpl
 import|;
 end_import
 
@@ -429,7 +429,7 @@ name|assertTrue
 argument_list|(
 literal|"leftKV1"
 argument_list|,
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 operator|.
@@ -452,7 +452,7 @@ name|assertTrue
 argument_list|(
 literal|"leftKV2"
 argument_list|,
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 operator|.

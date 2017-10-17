@@ -89,7 +89,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellComparator
+name|CellComparatorImpl
 import|;
 end_import
 
@@ -673,7 +673,7 @@ name|BloomType
 operator|.
 name|ROWCOL
 condition|?
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 else|:

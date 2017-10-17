@@ -2120,7 +2120,7 @@ argument_list|)
 operator|.
 name|withComparator
 argument_list|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|)

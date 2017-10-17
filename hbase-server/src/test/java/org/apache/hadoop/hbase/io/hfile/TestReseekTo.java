@@ -99,7 +99,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellComparator
+name|CellComparatorImpl
 import|;
 end_import
 
@@ -424,7 +424,7 @@ comment|// NOTE: This test is dependent on this deprecated nonstandard comparato
 operator|.
 name|withComparator
 argument_list|(
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|)

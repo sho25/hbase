@@ -191,7 +191,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellComparator
+name|CellComparatorImpl
 import|;
 end_import
 
@@ -1905,7 +1905,7 @@ name|sort
 argument_list|(
 name|expectedKVs
 argument_list|,
-name|CellComparator
+name|CellComparatorImpl
 operator|.
 name|COMPARATOR
 argument_list|)
@@ -2783,12 +2783,14 @@ name|i
 operator|<
 name|minLen
 operator|&&
-name|CellComparator
-operator|.
-name|COMPARATOR
+name|CellUtil
 operator|.
 name|compareKeyIgnoresMvcc
 argument_list|(
+name|CellComparatorImpl
+operator|.
+name|COMPARATOR
+argument_list|,
 name|expected
 operator|.
 name|get
@@ -2809,7 +2811,7 @@ condition|;
 operator|++
 name|i
 control|)
-block|{}
+block|{     }
 if|if
 condition|(
 name|additionalMsg
