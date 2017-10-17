@@ -220,7 +220,7 @@ name|Configuration
 name|getConfiguration
 parameter_list|()
 function_decl|;
-comment|/**    * Get timeout of each rpc request in this Table instance. It will be overridden by a more    * specific rpc timeout config such as readRpcTimeout or writeRpcTimeout.    * @see #getReadRpcTimeout(TimeUnit)    * @see #getWriteRpcTimeout(TimeUnit)    */
+comment|/**    * Get timeout of each rpc request in this Table instance. It will be overridden by a more    * specific rpc timeout config such as readRpcTimeout or writeRpcTimeout.    * @see #getReadRpcTimeout(TimeUnit)    * @see #getWriteRpcTimeout(TimeUnit)    * @param unit the unit of time the timeout to be represented in    * @return rpc timeout in the specified time unit    */
 name|long
 name|getRpcTimeout
 parameter_list|(
@@ -228,7 +228,7 @@ name|TimeUnit
 name|unit
 parameter_list|)
 function_decl|;
-comment|/**    * Get timeout of each rpc read request in this Table instance.    */
+comment|/**    * Get timeout of each rpc read request in this Table instance.    * @param unit the unit of time the timeout to be represented in    * @return read rpc timeout in the specified time unit    */
 name|long
 name|getReadRpcTimeout
 parameter_list|(
@@ -236,7 +236,7 @@ name|TimeUnit
 name|unit
 parameter_list|)
 function_decl|;
-comment|/**    * Get timeout of each rpc write request in this Table instance.    */
+comment|/**    * Get timeout of each rpc write request in this Table instance.    * @param unit the unit of time the timeout to be represented in    * @return write rpc timeout in the specified time unit    */
 name|long
 name|getWriteRpcTimeout
 parameter_list|(
@@ -244,7 +244,7 @@ name|TimeUnit
 name|unit
 parameter_list|)
 function_decl|;
-comment|/**    * Get timeout of each operation in Table instance.    */
+comment|/**    * Get timeout of each operation in Table instance.    * @param unit the unit of time the timeout to be represented in    * @return operation rpc timeout in the specified time unit    */
 name|long
 name|getOperationTimeout
 parameter_list|(
@@ -252,7 +252,7 @@ name|TimeUnit
 name|unit
 parameter_list|)
 function_decl|;
-comment|/**    * Get the timeout of a single operation in a scan. It works like operation timeout for other    * operations.    */
+comment|/**    * Get the timeout of a single operation in a scan. It works like operation timeout for other    * operations.    * @param unit the unit of time the timeout to be represented in    * @return scan rpc timeout in the specified time unit    */
 name|long
 name|getScanTimeout
 parameter_list|(
