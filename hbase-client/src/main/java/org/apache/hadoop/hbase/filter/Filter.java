@@ -198,13 +198,13 @@ block|,
 comment|/**      * Skip this column. Go to the next column in this row.      */
 name|NEXT_COL
 block|,
-comment|/**      * Done with columns, skip to next row. Note that filterRow() will      * still be called.      */
+comment|/**      * Seek to next row in current family. It may still pass a cell whose family is different but      * row is the same as previous cell to {@link #filterKeyValue(Cell)} , even if we get a NEXT_ROW      * returned for previous cell. For more details see HBASE-18368.<br>      * Once reset() method was invoked, then we switch to the next row for all family, and you can      * catch the event by invoking CellUtils.matchingRows(previousCell, currentCell).<br>      * Note that filterRow() will still be called.<br>      */
 name|NEXT_ROW
 block|,
 comment|/**      * Seek to next key which is given as hint by the filter.      */
 name|SEEK_NEXT_USING_HINT
 block|,
-comment|/**      * Include KeyValue and done with row, seek to next.      */
+comment|/**      * Include KeyValue and done with row, seek to next. See NEXT_ROW.      */
 name|INCLUDE_AND_SEEK_NEXT_ROW
 block|, }
 comment|/**    * Chance to alter the list of Cells to be submitted. Modifications to the list will carry on    *     * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *     * @param kvs the list of Cells to be filtered    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    */

@@ -224,7 +224,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Tests filter Lists in ways that rely on a MiniCluster.  * Where possible, favor tests in TestFilterList and TestFilterFromRegionSide instead.  */
+comment|/**  * Tests filter Lists in ways that rely on a MiniCluster. Where possible, favor tests in  * TestFilterList and TestFilterFromRegionSide instead.  */
 end_comment
 
 begin_class
@@ -314,11 +314,6 @@ name|shutdownMiniCluster
 argument_list|()
 expr_stmt|;
 block|}
-annotation|@
-name|Ignore
-argument_list|(
-literal|"HBASE-18410 Should not merge without this test running."
-argument_list|)
 annotation|@
 name|Test
 specifier|public

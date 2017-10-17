@@ -321,7 +321,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * For MUST_PASS_ONE, we cannot make sure that when filter-A in filter list return NEXT_COL then    * the next cell passing to filterList will be the first cell in next column, because if filter-B    * in filter list return SKIP, then the filter list will return SKIP. In this case, we should pass    * the cell following the previous cell, and it's possible that the next cell has the same column    * as the previous cell even if filter-A has NEXT_COL returned for the previous cell. So we should    * save the previous cell and the return code list when checking previous cell for every filter in    * filter list, and verify if currentCell fit the previous return code, if fit then pass the    * currentCell to the corresponding filter. (HBASE-17678)    */
+comment|/**    * For MUST_PASS_ONE, we cannot make sure that when filter-A in filter list return NEXT_COL then    * the next cell passing to filterList will be the first cell in next column, because if filter-B    * in filter list return SKIP, then the filter list will return SKIP. In this case, we should pass    * the cell following the previous cell, and it's possible that the next cell has the same column    * as the previous cell even if filter-A has NEXT_COL returned for the previous cell. So we should    * save the previous cell and the return code list when checking previous cell for every filter in    * filter list, and verify if currentCell fit the previous return code, if fit then pass the    * currentCell to the corresponding filter. (HBASE-17678)<br>    * Note that: In StoreScanner level, NEXT_ROW will skip to the next row in current family, and in    * RegionScanner level, NEXT_ROW will skip to the next row in current family and switch to the    * next family for RegionScanner, INCLUDE_AND_NEXT_ROW is the same. so we should pass current cell    * to the filter, if row mismatch or row match but column family mismatch. (HBASE-18368)    * @see org.apache.hadoop.hbase.filter.Filter.ReturnCode    */
 specifier|private
 name|boolean
 name|shouldPassCurrentCellToFilter
@@ -434,6 +434,16 @@ operator|!
 name|CellUtil
 operator|.
 name|matchingRows
+argument_list|(
+name|prevCell
+argument_list|,
+name|currentCell
+argument_list|)
+operator|||
+operator|!
+name|CellUtil
+operator|.
+name|matchingFamily
 argument_list|(
 name|prevCell
 argument_list|,
