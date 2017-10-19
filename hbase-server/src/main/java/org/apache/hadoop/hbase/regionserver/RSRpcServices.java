@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -5250,7 +5250,7 @@ name|rm
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Mutate a list of rows atomically.    *    * @param cellScanner if non-null, the mutation data -- the Cell content.    * @param comparator @throws IOException    */
+comment|/**    * Mutate a list of rows atomically.    * @param cellScanner if non-null, the mutation data -- the Cell content.    */
 specifier|private
 name|boolean
 name|checkAndRowMutate
@@ -6128,7 +6128,7 @@ return|return
 name|r
 return|;
 block|}
-comment|/**    * Run through the regionMutation<code>rm</code> and per Mutation, do the work, and then when    * done, add an instance of a {@link ResultOrException} that corresponds to each Mutation.    * @param region    * @param actions    * @param cellScanner    * @param builder    * @param cellsToReturn  Could be null. May be allocated in this method.  This is what this    * method returns as a 'result'.    * @param closeCallBack the callback to be used with multigets    * @param context the current RpcCallContext    * @return Return the<code>cellScanner</code> passed    */
+comment|/**    * Run through the regionMutation<code>rm</code> and per Mutation, do the work, and then when    * done, add an instance of a {@link ResultOrException} that corresponds to each Mutation.    * @param cellsToReturn  Could be null. May be allocated in this method.  This is what this    * method returns as a 'result'.    * @param closeCallBack the callback to be used with multigets    * @param context the current RpcCallContext    * @return Return the<code>cellScanner</code> passed    */
 specifier|private
 name|List
 argument_list|<
@@ -6707,6 +6707,8 @@ argument_list|,
 name|cellScanner
 argument_list|,
 name|spaceQuotaEnforcement
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|mutations
@@ -7013,6 +7015,8 @@ name|isEmpty
 argument_list|()
 condition|)
 block|{
+try|try
+block|{
 name|doBatchOp
 argument_list|(
 name|builder
@@ -7026,8 +7030,65 @@ argument_list|,
 name|cellScanner
 argument_list|,
 name|spaceQuotaEnforcement
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|ioe
+parameter_list|)
+block|{
+name|rpcServer
+operator|.
+name|getMetrics
+argument_list|()
+operator|.
+name|exception
+argument_list|(
+name|ioe
+argument_list|)
+expr_stmt|;
+name|NameBytesPair
+name|pair
+init|=
+name|ResponseConverter
+operator|.
+name|buildException
+argument_list|(
+name|ioe
+argument_list|)
+decl_stmt|;
+name|resultOrExceptionBuilder
+operator|.
+name|setException
+argument_list|(
+name|pair
+argument_list|)
+expr_stmt|;
+name|context
+operator|.
+name|incrementResponseExceptionSize
+argument_list|(
+name|pair
+operator|.
+name|getSerializedSize
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|builder
+operator|.
+name|addResultOrException
+argument_list|(
+name|resultOrExceptionBuilder
+operator|.
+name|build
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 return|return
 name|cellsToReturn
@@ -7171,7 +7232,12 @@ name|cells
 parameter_list|,
 name|ActivePolicyEnforcement
 name|spaceQuotaEnforcement
+parameter_list|,
+name|boolean
+name|atomic
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|Mutation
 index|[]
@@ -7218,13 +7284,7 @@ name|mutationActionMap
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|Mutation
-argument_list|,
-name|ClientProtos
-operator|.
-name|Action
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|int
@@ -7382,6 +7442,8 @@ operator|.
 name|batchMutate
 argument_list|(
 name|mArray
+argument_list|,
+name|atomic
 argument_list|,
 name|HConstants
 operator|.
@@ -7570,6 +7632,15 @@ name|IOException
 name|ie
 parameter_list|)
 block|{
+if|if
+condition|(
+name|atomic
+condition|)
+block|{
+throw|throw
+name|ie
+throw|;
+block|}
 for|for
 control|(
 name|int
@@ -8145,7 +8216,6 @@ block|}
 block|}
 block|}
 comment|// Exposed for testing
-specifier|static
 interface|interface
 name|LogDelegate
 block|{
@@ -19501,7 +19571,6 @@ name|e
 argument_list|)
 throw|;
 block|}
-empty_stmt|;
 try|try
 block|{
 name|checkScanNextCallSeq

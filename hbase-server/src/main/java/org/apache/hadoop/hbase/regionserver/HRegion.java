@@ -14270,6 +14270,12 @@ specifier|protected
 name|Durability
 name|durability
 decl_stmt|;
+specifier|protected
+name|boolean
+name|atomic
+init|=
+literal|false
+decl_stmt|;
 specifier|public
 name|BatchOperation
 parameter_list|(
@@ -14742,6 +14748,14 @@ name|getClusterIds
 argument_list|()
 return|;
 block|}
+name|boolean
+name|isAtomic
+parameter_list|()
+block|{
+return|return
+name|atomic
+return|;
+block|}
 comment|/**      * Helper method that checks and prepares only one mutation. This can be used to implement      * {@link #checkAndPrepare()} for entire Batch.      * NOTE: As CP prePut()/ preDelete() hooks may modify mutations, this method should be called      * after prePut()/ preDelete() CP hooks are run for the mutation      */
 specifier|protected
 name|void
@@ -14891,7 +14905,7 @@ block|}
 catch|catch
 parameter_list|(
 name|NoSuchColumnFamilyException
-name|nscf
+name|nscfe
 parameter_list|)
 block|{
 specifier|final
@@ -14914,7 +14928,7 @@ name|warn
 argument_list|(
 name|msg
 operator|+
-name|nscf
+name|nscfe
 operator|.
 name|getMessage
 argument_list|()
@@ -14929,7 +14943,7 @@ name|warn
 argument_list|(
 name|msg
 argument_list|,
-name|nscf
+name|nscfe
 argument_list|)
 expr_stmt|;
 name|observedExceptions
@@ -14950,12 +14964,23 @@ name|OperationStatusCode
 operator|.
 name|BAD_FAMILY
 argument_list|,
-name|nscf
+name|nscfe
 operator|.
 name|getMessage
 argument_list|()
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|isAtomic
+argument_list|()
+condition|)
+block|{
+comment|// fail, atomic means all or none
+throw|throw
+name|nscfe
+throw|;
+block|}
 block|}
 catch|catch
 parameter_list|(
@@ -15025,6 +15050,16 @@ name|getMessage
 argument_list|()
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|isAtomic
+argument_list|()
+condition|)
+block|{
+throw|throw
+name|fsce
+throw|;
+block|}
 block|}
 catch|catch
 parameter_list|(
@@ -15094,6 +15129,16 @@ name|getMessage
 argument_list|()
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|isAtomic
+argument_list|()
+condition|)
+block|{
+throw|throw
+name|we
+throw|;
+block|}
 block|}
 block|}
 comment|/**      * Creates Mini-batch of all operations [nextIndexToProcess, lastIndexExclusive) for which      * a row lock can be acquired. All mutations with locked rows are considered to be      * In-progress operations and hence the name {@link MiniBatchOperationInProgress}. Mini batch      * is window over {@link BatchOperation} and contains contiguous pending operations.      *      * @param acquiredRowLocks keeps track of rowLocks acquired.      */
@@ -15162,6 +15207,7 @@ literal|null
 decl_stmt|;
 try|try
 block|{
+comment|// if atomic then get exclusive lock, else shared lock
 name|rowLock
 operator|=
 name|region
@@ -15173,7 +15219,9 @@ operator|.
 name|getRow
 argument_list|()
 argument_list|,
-literal|true
+operator|!
+name|isAtomic
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -15213,6 +15261,17 @@ argument_list|,
 name|ioe
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|isAtomic
+argument_list|()
+condition|)
+block|{
+comment|// fail, atomic means all or none
+throw|throw
+name|ioe
+throw|;
+block|}
 block|}
 if|if
 condition|(
@@ -15222,6 +15281,20 @@ literal|null
 condition|)
 block|{
 comment|// We failed to grab another lock
+if|if
+condition|(
+name|isAtomic
+argument_list|()
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Can't apply all operations atomically!"
+argument_list|)
+throw|;
+block|}
 break|break;
 comment|// Stop acquiring more rows for this batch
 block|}
@@ -15778,7 +15851,6 @@ block|}
 block|}
 block|}
 comment|/**    * Batch of mutation operations. Base class is shared with {@link ReplayBatchOperation} as most    * of the logic is same.    */
-specifier|private
 specifier|static
 class|class
 name|MutationBatchOperation
@@ -15807,6 +15879,9 @@ name|Mutation
 index|[]
 name|operations
 parameter_list|,
+name|boolean
+name|atomic
+parameter_list|,
 name|long
 name|nonceGroup
 parameter_list|,
@@ -15820,6 +15895,12 @@ name|region
 argument_list|,
 name|operations
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|atomic
+operator|=
+name|atomic
 expr_stmt|;
 name|this
 operator|.
@@ -16954,6 +17035,11 @@ block|}
 block|}
 else|else
 block|{
+name|String
+name|msg
+init|=
+literal|"Put/Delete mutations only supported in a batch"
+decl_stmt|;
 comment|// In case of passing Append mutations along with the Puts and Deletes in batchMutate
 comment|// mark the operation return code as failure so that it will not be considered in
 comment|// the doMiniBatchMutation
@@ -16969,9 +17055,24 @@ name|OperationStatusCode
 operator|.
 name|FAILURE
 argument_list|,
-literal|"Put/Delete mutations only supported in batchMutate() now"
+name|msg
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|isAtomic
+argument_list|()
+condition|)
+block|{
+comment|// fail, atomic means all or none
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+name|msg
+argument_list|)
+throw|;
+block|}
 block|}
 block|}
 specifier|private
@@ -17276,7 +17377,6 @@ block|}
 block|}
 block|}
 comment|/**    * Batch of mutations for replay. Base class is shared with {@link MutationBatchOperation} as most    * of the logic is same.    */
-specifier|private
 specifier|static
 class|class
 name|ReplayBatchOperation
@@ -17807,6 +17907,40 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+return|return
+name|batchMutate
+argument_list|(
+name|mutations
+argument_list|,
+literal|false
+argument_list|,
+name|nonceGroup
+argument_list|,
+name|nonce
+argument_list|)
+return|;
+block|}
+specifier|public
+name|OperationStatus
+index|[]
+name|batchMutate
+parameter_list|(
+name|Mutation
+index|[]
+name|mutations
+parameter_list|,
+name|boolean
+name|atomic
+parameter_list|,
+name|long
+name|nonceGroup
+parameter_list|,
+name|long
+name|nonce
+parameter_list|)
+throws|throws
+name|IOException
+block|{
 comment|// As it stands, this is used for 3 things
 comment|//  * batchMutate with single mutation - put/delete, separate or from checkAndMutate.
 comment|//  * coprocessor calls (see ex. BulkDeleteEndpoint).
@@ -17820,6 +17954,8 @@ argument_list|(
 name|this
 argument_list|,
 name|mutations
+argument_list|,
+name|atomic
 argument_list|,
 name|nonceGroup
 argument_list|,
