@@ -27,18 +27,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|ExecutorService
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -62,22 +50,6 @@ operator|.
 name|audience
 operator|.
 name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|Table
 import|;
 end_import
 
@@ -128,29 +100,6 @@ comment|/** @return the configuration */
 name|Configuration
 name|getConfiguration
 parameter_list|()
-function_decl|;
-comment|/**    * @return an interface for accessing the given table    * @throws IOException    */
-name|Table
-name|getTable
-parameter_list|(
-name|TableName
-name|tableName
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-comment|/**    * @return an interface for accessing the given table using the passed executor to run batch    *         operations    * @throws IOException    */
-name|Table
-name|getTable
-parameter_list|(
-name|TableName
-name|tableName
-parameter_list|,
-name|ExecutorService
-name|service
-parameter_list|)
-throws|throws
-name|IOException
 function_decl|;
 comment|/**    * @return the classloader for the loaded coprocessor instance    */
 name|ClassLoader
