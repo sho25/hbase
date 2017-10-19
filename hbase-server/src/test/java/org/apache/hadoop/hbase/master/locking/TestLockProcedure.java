@@ -2923,6 +2923,10 @@ argument_list|(
 literal|2
 operator|*
 name|HEARTBEAT_TIMEOUT
+operator|+
+name|HEARTBEAT_TIMEOUT
+operator|/
+literal|2
 argument_list|)
 expr_stmt|;
 name|sendHeartbeatAndCheckLocked
