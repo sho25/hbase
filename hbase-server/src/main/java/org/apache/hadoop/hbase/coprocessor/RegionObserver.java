@@ -2176,7 +2176,9 @@ return|return
 name|newCell
 return|;
 block|}
-comment|/**    * Called after the ScanQueryMatcher creates ScanDeleteTracker. Implementing    * this hook would help in creating customised DeleteTracker and returning    * the newly created DeleteTracker    *    * @param ctx the environment provided by the region server    * @param delTracker the deleteTracker that is created by the QueryMatcher    * @return the Delete Tracker    */
+comment|/**    * Called after the ScanQueryMatcher creates ScanDeleteTracker. Implementing    * this hook would help in creating customised DeleteTracker and returning    * the newly created DeleteTracker    *<p>    * Warn: This is used by internal coprocessors. Should not be implemented by user coprocessors    * @param ctx the environment provided by the region server    * @param delTracker the deleteTracker that is created by the QueryMatcher    * @return the Delete Tracker    * @deprecated Since 2.0 with out any replacement and will be removed in 3.0    */
+annotation|@
+name|Deprecated
 specifier|default
 name|DeleteTracker
 name|postInstantiateDeleteTracker
