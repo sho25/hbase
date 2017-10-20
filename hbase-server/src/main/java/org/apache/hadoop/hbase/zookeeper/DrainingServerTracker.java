@@ -172,7 +172,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Tracks the list of draining region servers via ZK.  *  *<p>This class is responsible for watching for changes to the draining  * servers list.  It handles adds/deletes in the draining RS list and  * watches each node.  *  *<p>If an RS gets deleted from draining list, we call  * {@link ServerManager#removeServerFromDrainList(ServerName)}  *  *<p>If an RS gets added to the draining list, we add a watcher to it and call  * {@link ServerManager#addServerToDrainList(ServerName)}  *  */
+comment|/**  * Tracks the list of draining region servers via ZK.  *  *<p>This class is responsible for watching for changes to the draining  * servers list.  It handles adds/deletes in the draining RS list and  * watches each node.  *  *<p>If an RS gets deleted from draining list, we call  * {@link ServerManager#removeServerFromDrainList(ServerName)}  *  *<p>If an RS gets added to the draining list, we add a watcher to it and call  * {@link ServerManager#addServerToDrainList(ServerName)}  *  *<p>This class is deprecated in 2.0 because decommission/draining API goes through  * master in 2.0. Can remove this class in 3.0.  *  */
 end_comment
 
 begin_class

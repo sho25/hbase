@@ -1696,21 +1696,24 @@ argument_list|>
 name|getLocks
 parameter_list|()
 function_decl|;
-comment|/**    * Mark a region server as draining to prevent additional regions from getting assigned to it.    * @param servers    */
+comment|/**    * Mark region server(s) as decommissioned to prevent additional regions from getting    * assigned to them. Optionally unload the regions on the servers. If there are multiple servers    * to be decommissioned, decommissioning them at the same time can prevent wasteful region    * movements. Region unloading is asynchronous.    * @param servers The list of servers to decommission.    * @param offload True to offload the regions from the decommissioned servers    */
 name|CompletableFuture
 argument_list|<
 name|Void
 argument_list|>
-name|drainRegionServers
+name|decommissionRegionServers
 parameter_list|(
 name|List
 argument_list|<
 name|ServerName
 argument_list|>
 name|servers
+parameter_list|,
+name|boolean
+name|offload
 parameter_list|)
 function_decl|;
-comment|/**    * List region servers marked as draining to not get additional regions assigned to them.    * @return List of draining region servers wrapped by {@link CompletableFuture}    */
+comment|/**    * List region servers marked as decommissioned, which can not be assigned regions.    * @return List of decommissioned region servers wrapped by {@link CompletableFuture}    */
 name|CompletableFuture
 argument_list|<
 name|List
@@ -1718,21 +1721,25 @@ argument_list|<
 name|ServerName
 argument_list|>
 argument_list|>
-name|listDrainingRegionServers
+name|listDecommissionedRegionServers
 parameter_list|()
 function_decl|;
-comment|/**    * Remove drain from a region server to allow additional regions assignments.    * @param servers List of region servers to remove drain from.    */
+comment|/**    * Remove decommission marker from a region server to allow regions assignments. Load regions onto    * the server if a list of regions is given. Region loading is asynchronous.    * @param server The server to recommission.    * @param encodedRegionNames Regions to load onto the server.    */
 name|CompletableFuture
 argument_list|<
 name|Void
 argument_list|>
-name|removeDrainFromRegionServers
+name|recommissionRegionServer
 parameter_list|(
+name|ServerName
+name|server
+parameter_list|,
 name|List
 argument_list|<
-name|ServerName
+name|byte
+index|[]
 argument_list|>
-name|servers
+name|encodedRegionNames
 parameter_list|)
 function_decl|;
 comment|/**    * @return cluster status wrapped by {@link CompletableFuture}    */

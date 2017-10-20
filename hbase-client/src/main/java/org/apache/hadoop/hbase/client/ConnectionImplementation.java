@@ -1079,7 +1079,7 @@ name|generated
 operator|.
 name|MasterProtos
 operator|.
-name|DrainRegionServersRequest
+name|DecommissionRegionServersRequest
 import|;
 end_import
 
@@ -1101,7 +1101,7 @@ name|generated
 operator|.
 name|MasterProtos
 operator|.
-name|DrainRegionServersResponse
+name|DecommissionRegionServersResponse
 import|;
 end_import
 
@@ -1211,7 +1211,7 @@ name|generated
 operator|.
 name|MasterProtos
 operator|.
-name|ListDrainingRegionServersRequest
+name|ListDecommissionedRegionServersRequest
 import|;
 end_import
 
@@ -1233,7 +1233,7 @@ name|generated
 operator|.
 name|MasterProtos
 operator|.
-name|ListDrainingRegionServersResponse
+name|ListDecommissionedRegionServersResponse
 import|;
 end_import
 
@@ -1299,7 +1299,7 @@ name|generated
 operator|.
 name|MasterProtos
 operator|.
-name|RemoveDrainFromRegionServersRequest
+name|RecommissionRegionServerRequest
 import|;
 end_import
 
@@ -1321,7 +1321,7 @@ name|generated
 operator|.
 name|MasterProtos
 operator|.
-name|RemoveDrainFromRegionServersResponse
+name|RecommissionRegionServerResponse
 import|;
 end_import
 
@@ -8971,13 +8971,13 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|ListDrainingRegionServersResponse
-name|listDrainingRegionServers
+name|ListDecommissionedRegionServersResponse
+name|listDecommissionedRegionServers
 parameter_list|(
 name|RpcController
 name|controller
 parameter_list|,
-name|ListDrainingRegionServersRequest
+name|ListDecommissionedRegionServersRequest
 name|request
 parameter_list|)
 throws|throws
@@ -8986,7 +8986,7 @@ block|{
 return|return
 name|stub
 operator|.
-name|listDrainingRegionServers
+name|listDecommissionedRegionServers
 argument_list|(
 name|controller
 argument_list|,
@@ -8997,13 +8997,13 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|DrainRegionServersResponse
-name|drainRegionServers
+name|DecommissionRegionServersResponse
+name|decommissionRegionServers
 parameter_list|(
 name|RpcController
 name|controller
 parameter_list|,
-name|DrainRegionServersRequest
+name|DecommissionRegionServersRequest
 name|request
 parameter_list|)
 throws|throws
@@ -9012,7 +9012,7 @@ block|{
 return|return
 name|stub
 operator|.
-name|drainRegionServers
+name|decommissionRegionServers
 argument_list|(
 name|controller
 argument_list|,
@@ -9023,13 +9023,13 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|RemoveDrainFromRegionServersResponse
-name|removeDrainFromRegionServers
+name|RecommissionRegionServerResponse
+name|recommissionRegionServer
 parameter_list|(
 name|RpcController
 name|controller
 parameter_list|,
-name|RemoveDrainFromRegionServersRequest
+name|RecommissionRegionServerRequest
 name|request
 parameter_list|)
 throws|throws
@@ -9038,7 +9038,7 @@ block|{
 return|return
 name|stub
 operator|.
-name|removeDrainFromRegionServers
+name|recommissionRegionServer
 argument_list|(
 name|controller
 argument_list|,
