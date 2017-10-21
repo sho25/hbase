@@ -217,8 +217,6 @@ interface|interface
 name|SplitLogManagerCoordination
 block|{
 comment|/**    * Detail class that shares data between coordination and split log manager    */
-specifier|public
-specifier|static
 class|class
 name|SplitLogManagerDetails
 block|{
@@ -419,8 +417,6 @@ name|boolean
 name|b
 parameter_list|)
 throws|throws
-name|InterruptedIOException
-throws|,
 name|IOException
 function_decl|;
 comment|/**    * Removes known stale servers    * @param knownServers set of previously failed servers    * @throws IOException in case of failure    * @throws InterruptedIOException    */

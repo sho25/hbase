@@ -824,19 +824,6 @@ block|{
 comment|// Create each regionserver with its own Configuration instance so each has
 comment|// its Connection instance rather than share (see HBASE_INSTANCES down in
 comment|// the guts of ConnectionManager).
-comment|// Also, create separate CoordinatedStateManager instance per Server.
-comment|// This is special case when we have to have more than 1 CoordinatedStateManager
-comment|// within 1 process.
-name|CoordinatedStateManager
-name|cp
-init|=
-name|CoordinatedStateManagerFactory
-operator|.
-name|getCoordinatedStateManager
-argument_list|(
-name|conf
-argument_list|)
-decl_stmt|;
 name|JVMClusterUtil
 operator|.
 name|RegionServerThread
@@ -847,8 +834,6 @@ operator|.
 name|createRegionServerThread
 argument_list|(
 name|config
-argument_list|,
-name|cp
 argument_list|,
 operator|(
 name|Class
@@ -993,19 +978,6 @@ block|{
 comment|// Create each master with its own Configuration instance so each has
 comment|// its Connection instance rather than share (see HBASE_INSTANCES down in
 comment|// the guts of ConnectionManager.
-comment|// Also, create separate CoordinatedStateManager instance per Server.
-comment|// This is special case when we have to have more than 1 CoordinatedStateManager
-comment|// within 1 process.
-name|CoordinatedStateManager
-name|cp
-init|=
-name|CoordinatedStateManagerFactory
-operator|.
-name|getCoordinatedStateManager
-argument_list|(
-name|conf
-argument_list|)
-decl_stmt|;
 name|JVMClusterUtil
 operator|.
 name|MasterThread
@@ -1016,8 +988,6 @@ operator|.
 name|createMasterThread
 argument_list|(
 name|c
-argument_list|,
-name|cp
 argument_list|,
 operator|(
 name|Class

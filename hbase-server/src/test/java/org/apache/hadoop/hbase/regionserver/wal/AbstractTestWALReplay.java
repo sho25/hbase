@@ -6267,6 +6267,8 @@ literal|null
 argument_list|,
 literal|null
 argument_list|,
+literal|null
+argument_list|,
 name|mode
 argument_list|,
 name|wals
@@ -7423,6 +7425,8 @@ literal|null
 argument_list|,
 literal|null
 argument_list|,
+literal|null
+argument_list|,
 name|RecoveryMode
 operator|.
 name|LOG_SPLITTING
@@ -7441,6 +7445,8 @@ argument_list|,
 name|fs
 argument_list|,
 name|conf
+argument_list|,
+literal|null
 argument_list|,
 literal|null
 argument_list|,

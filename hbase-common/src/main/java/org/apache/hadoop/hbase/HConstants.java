@@ -3182,15 +3182,6 @@ name|REPLICATION_SOURCE_MAXTHREADS_DEFAULT
 init|=
 literal|10
 decl_stmt|;
-comment|/** Config for pluggable consensus provider */
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|HBASE_COORDINATED_STATE_MANAGER_CLASS
-init|=
-literal|"hbase.coordinated.state.manager.class"
-decl_stmt|;
 comment|/** Configuration key for SplitLog manager timeout */
 specifier|public
 specifier|static

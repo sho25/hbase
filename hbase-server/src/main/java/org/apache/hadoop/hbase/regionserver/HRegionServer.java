@@ -563,20 +563,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CoordinatedStateManagerFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|DoNotRetryIOException
 import|;
 end_import
@@ -985,7 +971,7 @@ name|hbase
 operator|.
 name|coordination
 operator|.
-name|BaseCoordinatedStateManager
+name|SplitLogWorkerCoordination
 import|;
 end_import
 
@@ -1001,7 +987,7 @@ name|hbase
 operator|.
 name|coordination
 operator|.
-name|SplitLogWorkerCoordination
+name|ZkCoordinatedStateManager
 import|;
 end_import
 
@@ -3752,7 +3738,7 @@ name|RSRpcServices
 name|rpcServices
 decl_stmt|;
 specifier|protected
-name|BaseCoordinatedStateManager
+name|CoordinatedStateManager
 name|csm
 decl_stmt|;
 comment|/**    * Configuration manager is used to register/deregister and notify the configuration observers    * when the regionserver is notified that there was a change in the on disk configs.    */
@@ -3797,42 +3783,14 @@ name|MASTERLESS_CONFIG_NAME
 init|=
 literal|"hbase.masterless"
 decl_stmt|;
-comment|/**    * Starts a HRegionServer at the default location.    */
-specifier|public
-name|HRegionServer
-parameter_list|(
-name|Configuration
-name|conf
-parameter_list|)
-throws|throws
-name|IOException
-throws|,
-name|InterruptedException
-block|{
-name|this
-argument_list|(
-name|conf
-argument_list|,
-name|CoordinatedStateManagerFactory
-operator|.
-name|getCoordinatedStateManager
-argument_list|(
-name|conf
-argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
-comment|/**    * Starts a HRegionServer at the default location    *    * @param csm implementation of CoordinatedStateManager to be used    */
-comment|// Don't start any services or managers in here in the Consructor.
+comment|/**    * Starts a HRegionServer at the default location    */
+comment|// Don't start any services or managers in here in the Constructor.
 comment|// Defer till after we register with the Master as much as possible. See #startServices.
 specifier|public
 name|HRegionServer
 parameter_list|(
 name|Configuration
 name|conf
-parameter_list|,
-name|CoordinatedStateManager
-name|csm
 parameter_list|)
 throws|throws
 name|IOException
@@ -4446,26 +4404,11 @@ name|this
 operator|.
 name|csm
 operator|=
-operator|(
-name|BaseCoordinatedStateManager
-operator|)
-name|csm
-expr_stmt|;
-name|this
-operator|.
-name|csm
-operator|.
-name|initialize
+operator|new
+name|ZkCoordinatedStateManager
 argument_list|(
 name|this
 argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|csm
-operator|.
-name|start
-argument_list|()
 expr_stmt|;
 name|masterAddressTracker
 operator|=
@@ -15050,7 +14993,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|BaseCoordinatedStateManager
+name|CoordinatedStateManager
 name|getCoordinatedStateManager
 parameter_list|()
 block|{
@@ -15435,9 +15378,6 @@ parameter_list|,
 specifier|final
 name|Configuration
 name|conf2
-parameter_list|,
-name|CoordinatedStateManager
-name|cp
 parameter_list|)
 block|{
 try|try
@@ -15457,10 +15397,6 @@ argument_list|(
 name|Configuration
 operator|.
 name|class
-argument_list|,
-name|CoordinatedStateManager
-operator|.
-name|class
 argument_list|)
 decl_stmt|;
 return|return
@@ -15469,8 +15405,6 @@ operator|.
 name|newInstance
 argument_list|(
 name|conf2
-argument_list|,
-name|cp
 argument_list|)
 return|;
 block|}

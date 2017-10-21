@@ -281,7 +281,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Creates a {@link RegionServerThread}.    * Call 'start' on the returned thread to make it run.    * @param c Configuration to use.    * @param cp consensus provider to use    * @param hrsc Class to create.    * @param index Used distinguishing the object returned.    * @throws IOException    * @return Region server added.    */
+comment|/**    * Creates a {@link RegionServerThread}.    * Call 'start' on the returned thread to make it run.    * @param c Configuration to use.    * @param hrsc Class to create.    * @param index Used distinguishing the object returned.    * @throws IOException    * @return Region server added.    */
 specifier|public
 specifier|static
 name|JVMClusterUtil
@@ -292,9 +292,6 @@ parameter_list|(
 specifier|final
 name|Configuration
 name|c
-parameter_list|,
-name|CoordinatedStateManager
-name|cp
 parameter_list|,
 specifier|final
 name|Class
@@ -332,10 +329,6 @@ argument_list|(
 name|Configuration
 operator|.
 name|class
-argument_list|,
-name|CoordinatedStateManager
-operator|.
-name|class
 argument_list|)
 decl_stmt|;
 name|ctor
@@ -352,8 +345,6 @@ operator|.
 name|newInstance
 argument_list|(
 name|c
-argument_list|,
-name|cp
 argument_list|)
 expr_stmt|;
 block|}
@@ -507,7 +498,7 @@ name|master
 return|;
 block|}
 block|}
-comment|/**    * Creates a {@link MasterThread}.    * Call 'start' on the returned thread to make it run.    * @param c Configuration to use.    * @param cp consensus provider to use    * @param hmc Class to create.    * @param index Used distinguishing the object returned.    * @throws IOException    * @return Master added.    */
+comment|/**    * Creates a {@link MasterThread}.    * Call 'start' on the returned thread to make it run.    * @param c Configuration to use.    * @param hmc Class to create.    * @param index Used distinguishing the object returned.    * @throws IOException    * @return Master added.    */
 specifier|public
 specifier|static
 name|JVMClusterUtil
@@ -518,9 +509,6 @@ parameter_list|(
 specifier|final
 name|Configuration
 name|c
-parameter_list|,
-name|CoordinatedStateManager
-name|cp
 parameter_list|,
 specifier|final
 name|Class
@@ -552,17 +540,11 @@ argument_list|(
 name|Configuration
 operator|.
 name|class
-argument_list|,
-name|CoordinatedStateManager
-operator|.
-name|class
 argument_list|)
 operator|.
 name|newInstance
 argument_list|(
 name|c
-argument_list|,
-name|cp
 argument_list|)
 expr_stmt|;
 block|}

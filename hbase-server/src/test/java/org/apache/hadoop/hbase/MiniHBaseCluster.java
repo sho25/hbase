@@ -624,9 +624,6 @@ name|MiniHBaseClusterRegionServer
 parameter_list|(
 name|Configuration
 name|conf
-parameter_list|,
-name|CoordinatedStateManager
-name|cp
 parameter_list|)
 throws|throws
 name|IOException
@@ -636,8 +633,6 @@ block|{
 name|super
 argument_list|(
 name|conf
-argument_list|,
-name|cp
 argument_list|)
 expr_stmt|;
 name|this

@@ -3720,9 +3720,6 @@ parameter_list|(
 specifier|final
 name|Configuration
 name|conf
-parameter_list|,
-name|CoordinatedStateManager
-name|csm
 parameter_list|)
 throws|throws
 name|IOException
@@ -3732,8 +3729,6 @@ block|{
 name|super
 argument_list|(
 name|conf
-argument_list|,
-name|csm
 argument_list|)
 expr_stmt|;
 try|try
@@ -14720,10 +14715,6 @@ parameter_list|,
 specifier|final
 name|Configuration
 name|conf
-parameter_list|,
-specifier|final
-name|CoordinatedStateManager
-name|cp
 parameter_list|)
 block|{
 try|try
@@ -14743,10 +14734,6 @@ argument_list|(
 name|Configuration
 operator|.
 name|class
-argument_list|,
-name|CoordinatedStateManager
-operator|.
-name|class
 argument_list|)
 decl_stmt|;
 return|return
@@ -14755,8 +14742,6 @@ operator|.
 name|newInstance
 argument_list|(
 name|conf
-argument_list|,
-name|cp
 argument_list|)
 return|;
 block|}

@@ -93,7 +93,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CoordinatedStateManagerFactory
+name|CoordinatedStateManager
 import|;
 end_import
 
@@ -155,11 +155,13 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|coordination
+operator|.
+name|ZkCoordinatedStateManager
 import|;
 end_import
 
@@ -169,13 +171,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|yetus
 operator|.
-name|hbase
+name|audience
 operator|.
-name|coordination
-operator|.
-name|BaseCoordinatedStateManager
+name|InterfaceAudience
 import|;
 end_import
 
@@ -738,29 +738,15 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
-name|BaseCoordinatedStateManager
+name|CoordinatedStateManager
 name|coordManager
 init|=
-operator|(
-name|BaseCoordinatedStateManager
-operator|)
-name|CoordinatedStateManagerFactory
-operator|.
-name|getCoordinatedStateManager
+operator|new
+name|ZkCoordinatedStateManager
 argument_list|(
 name|rss
-operator|.
-name|getConfiguration
-argument_list|()
 argument_list|)
 decl_stmt|;
-name|coordManager
-operator|.
-name|initialize
-argument_list|(
-name|rss
-argument_list|)
-expr_stmt|;
 name|this
 operator|.
 name|memberRpcs

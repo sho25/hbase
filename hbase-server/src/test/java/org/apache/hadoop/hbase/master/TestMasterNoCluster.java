@@ -185,34 +185,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CoordinatedStateManager
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|CoordinatedStateManagerFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HBaseTestingUtility
 import|;
 end_import
@@ -376,22 +348,6 @@ operator|.
 name|monitoring
 operator|.
 name|MonitoredTask
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|replication
-operator|.
-name|ReplicationException
 import|;
 end_import
 
@@ -930,19 +886,6 @@ name|KeeperException
 throws|,
 name|InterruptedException
 block|{
-name|CoordinatedStateManager
-name|cp
-init|=
-name|CoordinatedStateManagerFactory
-operator|.
-name|getCoordinatedStateManager
-argument_list|(
-name|TESTUTIL
-operator|.
-name|getConfiguration
-argument_list|()
-argument_list|)
-decl_stmt|;
 name|HMaster
 name|master
 init|=
@@ -953,8 +896,6 @@ name|TESTUTIL
 operator|.
 name|getConfiguration
 argument_list|()
-argument_list|,
-name|cp
 argument_list|)
 decl_stmt|;
 name|master
@@ -974,7 +915,7 @@ name|join
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Test master failover.    * Start up three fake regionservers and a master.    * @throws IOException    * @throws KeeperException    * @throws InterruptedException    * @throws org.apache.hadoop.hbase.shaded.com.google.protobuf.ServiceException     */
+comment|/**    * Test master failover.    * Start up three fake regionservers and a master.    * @throws IOException    * @throws KeeperException    * @throws InterruptedException    * @throws org.apache.hadoop.hbase.shaded.com.google.protobuf.ServiceException    */
 annotation|@
 name|Ignore
 annotation|@
@@ -1253,19 +1194,6 @@ comment|// Create master.  Subclass to override a few methods so we can insert m
 comment|// and get notification on transitions.  We need to fake out any rpcs the
 comment|// master does opening/closing regions.  Also need to fake out the address
 comment|// of the 'remote' mocked up regionservers.
-name|CoordinatedStateManager
-name|cp
-init|=
-name|CoordinatedStateManagerFactory
-operator|.
-name|getCoordinatedStateManager
-argument_list|(
-name|TESTUTIL
-operator|.
-name|getConfiguration
-argument_list|()
-argument_list|)
-decl_stmt|;
 comment|// Insert a mock for the connection, use TESTUTIL.getConfiguration rather than
 comment|// the conf from the master; the conf will already have an ClusterConnection
 comment|// associate so the below mocking of a connection will fail.
@@ -1303,8 +1231,6 @@ operator|new
 name|HMaster
 argument_list|(
 name|conf
-argument_list|,
-name|cp
 argument_list|)
 block|{
 name|InetAddress
@@ -1687,19 +1613,6 @@ argument_list|,
 name|newServer
 argument_list|)
 decl_stmt|;
-name|CoordinatedStateManager
-name|cp
-init|=
-name|CoordinatedStateManagerFactory
-operator|.
-name|getCoordinatedStateManager
-argument_list|(
-name|TESTUTIL
-operator|.
-name|getConfiguration
-argument_list|()
-argument_list|)
-decl_stmt|;
 name|HMaster
 name|master
 init|=
@@ -1707,8 +1620,6 @@ operator|new
 name|HMaster
 argument_list|(
 name|conf
-argument_list|,
-name|cp
 argument_list|)
 block|{
 annotation|@

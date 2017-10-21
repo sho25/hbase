@@ -738,14 +738,14 @@ literal|0
 decl_stmt|;
 specifier|private
 specifier|final
-name|ZkCoordinatedStateManager
-name|manager
+name|ServerName
+name|serverName
 decl_stmt|;
 specifier|public
 name|ZkSplitLogWorkerCoordination
 parameter_list|(
-name|ZkCoordinatedStateManager
-name|zkCoordinatedStateManager
+name|ServerName
+name|serverName
 parameter_list|,
 name|ZooKeeperWatcher
 name|watcher
@@ -756,9 +756,11 @@ argument_list|(
 name|watcher
 argument_list|)
 expr_stmt|;
-name|manager
+name|this
+operator|.
+name|serverName
 operator|=
-name|zkCoordinatedStateManager
+name|serverName
 expr_stmt|;
 block|}
 comment|/**    * Override handler from {@link ZooKeeperListener}    */
@@ -1119,17 +1121,6 @@ name|path
 argument_list|)
 condition|)
 block|{
-name|ServerName
-name|serverName
-init|=
-name|manager
-operator|.
-name|getServer
-argument_list|()
-operator|.
-name|getServerName
-argument_list|()
-decl_stmt|;
 comment|// have to compare data. cannot compare version because then there
 comment|// will be race with attemptToOwnTask()
 comment|// cannot just check whether the node has been transitioned to

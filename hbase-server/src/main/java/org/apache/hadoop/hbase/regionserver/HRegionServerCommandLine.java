@@ -83,20 +83,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CoordinatedStateManagerFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HConstants
 import|;
 end_import
@@ -112,20 +98,6 @@ operator|.
 name|hbase
 operator|.
 name|LocalHBaseCluster
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|CoordinatedStateManager
 import|;
 end_import
 
@@ -234,16 +206,6 @@ init|=
 name|getConf
 argument_list|()
 decl_stmt|;
-name|CoordinatedStateManager
-name|cp
-init|=
-name|CoordinatedStateManagerFactory
-operator|.
-name|getCoordinatedStateManager
-argument_list|(
-name|conf
-argument_list|)
-decl_stmt|;
 try|try
 block|{
 comment|// If 'local', don't start a region server here. Defer to
@@ -290,8 +252,6 @@ argument_list|(
 name|regionServerClass
 argument_list|,
 name|conf
-argument_list|,
-name|cp
 argument_list|)
 decl_stmt|;
 name|hrs

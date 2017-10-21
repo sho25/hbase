@@ -2615,7 +2615,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * @throws IOException    * @see https://issues.apache.org/jira/browse/HBASE-3020    */
+comment|/**    * {@see https://issues.apache.org/jira/browse/HBASE-3020}    */
 annotation|@
 name|Test
 argument_list|(
@@ -5308,6 +5308,8 @@ literal|null
 argument_list|,
 literal|null
 argument_list|,
+literal|null
+argument_list|,
 name|this
 operator|.
 name|mode
@@ -5998,6 +6000,8 @@ literal|null
 argument_list|,
 literal|null
 argument_list|,
+literal|null
+argument_list|,
 name|this
 operator|.
 name|mode
@@ -6217,6 +6221,8 @@ argument_list|,
 name|HBASEDIR
 argument_list|,
 name|fs
+argument_list|,
+literal|null
 argument_list|,
 literal|null
 argument_list|,
@@ -7051,7 +7057,7 @@ name|length
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @throws IOException    * @see https://issues.apache.org/jira/browse/HBASE-4862    */
+comment|/**    * {@see https://issues.apache.org/jira/browse/HBASE-4862}    */
 annotation|@
 name|Test
 argument_list|(
@@ -7162,6 +7168,8 @@ argument_list|,
 name|HBASEDIR
 argument_list|,
 name|fs
+argument_list|,
+literal|null
 argument_list|,
 literal|null
 argument_list|,
