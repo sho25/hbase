@@ -527,20 +527,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|WritableUtils
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|yetus
 operator|.
 name|audience
@@ -1121,11 +1107,13 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+comment|// TODO: The StoreFileReader always converts the byte[] to TimeRange
+comment|// via TimeRangeTracker, so we should write the serialization data of TimeRange directly.
 name|appendFileInfo
 argument_list|(
 name|TIMERANGE_KEY
 argument_list|,
-name|WritableUtils
+name|TimeRangeTracker
 operator|.
 name|toByteArray
 argument_list|(

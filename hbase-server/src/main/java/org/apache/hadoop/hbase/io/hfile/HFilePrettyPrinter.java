@@ -3681,7 +3681,7 @@ name|timeRangeTracker
 init|=
 name|TimeRangeTracker
 operator|.
-name|getTimeRangeTracker
+name|parseFrom
 argument_list|(
 name|e
 operator|.
