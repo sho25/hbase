@@ -32,7 +32,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Initialize a javax.servlet.Filter.   */
+comment|/**  * Initialize a javax.servlet.Filter.  */
 end_comment
 
 begin_class

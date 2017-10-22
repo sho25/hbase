@@ -46,7 +46,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**   * This interface contains constants for configuration keys used  * in the hbase http server code.  */
+comment|/**  * This interface contains constants for configuration keys used  * in the hbase http server code.  */
 end_comment
 
 begin_interface

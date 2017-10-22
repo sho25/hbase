@@ -511,7 +511,7 @@ return|return
 name|value
 return|;
 block|}
-comment|/**    * Returns a subset of mbeans defined by qry.    * Modeled after {@link JSONBean#dumpRegionServerMetrics()}    * Example: String qry= "java.lang:type=Memory"    * @throws MalformedObjectNameException if json have bad format    * @throws IOException /    * @return String representation of json array.    */
+comment|/**    * Returns a subset of mbeans defined by qry.    * Modeled after DumpRegionServerMetrics#dumpMetrics.    * Example: String qry= "java.lang:type=Memory"    * @throws MalformedObjectNameException if json have bad format    * @throws IOException /    * @return String representation of json array.    */
 specifier|public
 specifier|static
 name|String

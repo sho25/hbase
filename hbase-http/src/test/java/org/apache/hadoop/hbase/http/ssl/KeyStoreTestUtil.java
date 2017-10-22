@@ -759,7 +759,7 @@ name|password
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Creates a keystore with a single key and saves it to a file.    *     * @param filename String file to save    * @param password String store password to set on keystore    * @param keyPassword String key password to set on key    * @param alias String alias to use for the key    * @param privateKey Key to save in keystore    * @param cert Certificate to use as certificate chain associated to key    * @throws GeneralSecurityException for any error with the security APIs    * @throws IOException if there is an I/O error saving the file    */
+comment|/**    * Creates a keystore with a single key and saves it to a file.    *    * @param filename String file to save    * @param password String store password to set on keystore    * @param keyPassword String key password to set on key    * @param alias String alias to use for the key    * @param privateKey Key to save in keystore    * @param cert Certificate to use as certificate chain associated to key    * @throws GeneralSecurityException for any error with the security APIs    * @throws IOException if there is an I/O error saving the file    */
 specifier|public
 specifier|static
 name|void
@@ -1042,7 +1042,7 @@ name|delete
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Performs complete setup of SSL configuration in preparation for testing an    * SSLFactory.  This includes keys, certs, keystores, truststores, the server    * SSL configuration file, the client SSL configuration file, and the master    * configuration file read by the SSLFactory.    *     * @param keystoresDir String directory to save keystores    * @param sslConfDir String directory to save SSL configuration files    * @param conf Configuration master configuration to be used by an SSLFactory,    *   which will be mutated by this method    * @param useClientCert boolean true to make the client present a cert in the    *   SSL handshake    */
+comment|/**    * Performs complete setup of SSL configuration in preparation for testing an    * SSLFactory.  This includes keys, certs, keystores, truststores, the server    * SSL configuration file, the client SSL configuration file, and the master    * configuration file read by the SSLFactory.    *    * @param keystoresDir String directory to save keystores    * @param sslConfDir String directory to save SSL configuration files    * @param conf Configuration master configuration to be used by an SSLFactory,    *   which will be mutated by this method    * @param useClientCert boolean true to make the client present a cert in the    *   SSL handshake    */
 specifier|public
 specifier|static
 name|void
@@ -1350,7 +1350,7 @@ name|useClientCert
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Creates SSL configuration for a client.    *     * @param clientKS String client keystore file    * @param password String store password, or null to avoid setting store    *   password    * @param keyPassword String key password, or null to avoid setting key    *   password    * @param trustKS String truststore file    * @return Configuration for client SSL    */
+comment|/**    * Creates SSL configuration for a client.    *    * @param clientKS String client keystore file    * @param password String store password, or null to avoid setting store    *   password    * @param keyPassword String key password, or null to avoid setting key    *   password    * @param trustKS String truststore file    * @return Configuration for client SSL    */
 specifier|public
 specifier|static
 name|Configuration
@@ -1393,7 +1393,7 @@ return|return
 name|clientSSLConf
 return|;
 block|}
-comment|/**    * Creates SSL configuration for a server.    *     * @param serverKS String server keystore file    * @param password String store password, or null to avoid setting store    *   password    * @param keyPassword String key password, or null to avoid setting key    *   password    * @param trustKS String truststore file    * @return Configuration for server SSL    */
+comment|/**    * Creates SSL configuration for a server.    *    * @param serverKS String server keystore file    * @param password String store password, or null to avoid setting store    *   password    * @param keyPassword String key password, or null to avoid setting key    *   password    * @param trustKS String truststore file    * @return Configuration for server SSL    */
 specifier|public
 specifier|static
 name|Configuration
@@ -1438,7 +1438,7 @@ return|return
 name|serverSSLConf
 return|;
 block|}
-comment|/**    * Creates SSL configuration.    *     * @param mode SSLFactory.Mode mode to configure    * @param keystore String keystore file    * @param password String store password, or null to avoid setting store    *   password    * @param keyPassword String key password, or null to avoid setting key    *   password    * @param trustKS String truststore file    * @return Configuration for SSL    */
+comment|/**    * Creates SSL configuration.    *    * @param mode SSLFactory.Mode mode to configure    * @param keystore String keystore file    * @param password String store password, or null to avoid setting store    *   password    * @param keyPassword String key password, or null to avoid setting key    *   password    * @param trustKS String truststore file    * @return Configuration for SSL    */
 specifier|private
 specifier|static
 name|Configuration
@@ -1628,7 +1628,7 @@ return|return
 name|sslConf
 return|;
 block|}
-comment|/**    * Saves configuration to a file.    *     * @param file File to save    * @param conf Configuration contents to write to file    * @throws IOException if there is an I/O error saving the file    */
+comment|/**    * Saves configuration to a file.    *    * @param file File to save    * @param conf Configuration contents to write to file    * @throws IOException if there is an I/O error saving the file    */
 specifier|public
 specifier|static
 name|void

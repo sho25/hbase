@@ -45,16 +45,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|HashSet
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|List
 import|;
 end_import
@@ -66,16 +56,6 @@ operator|.
 name|util
 operator|.
 name|Map
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Set
 import|;
 end_import
 
@@ -397,7 +377,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
+name|http
 operator|.
 name|HttpServerUtil
 import|;

@@ -115,7 +115,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
+name|http
 operator|.
 name|HttpServerUtil
 import|;

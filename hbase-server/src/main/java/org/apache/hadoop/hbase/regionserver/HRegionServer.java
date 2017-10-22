@@ -1899,22 +1899,6 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|JSONBean
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
 name|JvmPauseMonitor
 import|;
 end_import
@@ -13074,9 +13058,9 @@ name|info
 argument_list|(
 literal|"Dump of metrics as JSON on abort: "
 operator|+
-name|JSONBean
+name|DumpRegionServerMetrics
 operator|.
-name|dumpRegionServerMetrics
+name|dumpMetrics
 argument_list|()
 argument_list|)
 expr_stmt|;

@@ -13,7 +13,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
+name|http
 package|;
 end_package
 

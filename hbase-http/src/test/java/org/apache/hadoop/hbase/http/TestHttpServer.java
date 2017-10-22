@@ -1474,7 +1474,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**     *  Test that verifies headers can be up to 64K long.     *  The test adds a 63K header leaving 1K for other headers.    *  This is because the header buffer setting is for ALL headers,    *  names and values included. */
+comment|/**    *  Test that verifies headers can be up to 64K long.    *  The test adds a 63K header leaving 1K for other headers.    *  This is because the header buffer setting is for ALL headers,    *  names and values included. */
 annotation|@
 name|Test
 specifier|public
@@ -1768,7 +1768,7 @@ comment|// conn.connect();
 comment|// assertEquals(200, conn.getResponseCode());
 comment|// assertEquals("text/html; charset=utf-8", conn.getContentType());
 block|}
-comment|/**    * Dummy filter that mimics as an authentication filter. Obtains user identity    * from the request parameter user.name. Wraps around the request so that    * request.getRemoteUser() returns the user identity.    *     */
+comment|/**    * Dummy filter that mimics as an authentication filter. Obtains user identity    * from the request parameter user.name. Wraps around the request so that    * request.getRemoteUser() returns the user identity.    *    */
 specifier|public
 specifier|static
 class|class
@@ -1905,7 +1905,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Access a URL and get the corresponding return Http status code. The URL    * will be accessed as the passed user, by sending user.name request    * parameter.    *     * @param urlstring    * @param userName    * @return    * @throws IOException    */
+comment|/**    * Access a URL and get the corresponding return Http status code. The URL    * will be accessed as the passed user, by sending user.name request    * parameter.    *    * @param urlstring    * @param userName    * @return    * @throws IOException    */
 specifier|static
 name|int
 name|getHttpStatusCode
@@ -2031,7 +2031,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * Verify the access for /logs, /stacks, /conf, /logLevel and /metrics    * servlets, when authentication filters are set, but authorization is not    * enabled.    * @throws Exception     */
+comment|/**    * Verify the access for /logs, /stacks, /conf, /logLevel and /metrics    * servlets, when authentication filters are set, but authorization is not    * enabled.    * @throws Exception    */
 annotation|@
 name|Test
 annotation|@
@@ -2253,7 +2253,7 @@ name|stop
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Verify the administrator access for /logs, /stacks, /conf, /logLevel and    * /metrics servlets.    *     * @throws Exception    */
+comment|/**    * Verify the administrator access for /logs, /stacks, /conf, /logLevel and    * /metrics servlets.    *    * @throws Exception    */
 annotation|@
 name|Test
 annotation|@
