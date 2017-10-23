@@ -1260,8 +1260,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-annotation|@
-name|Override
+comment|/**    * @return the cached value of HDFS blocks distribution. The cached value is calculated when store    *         file is opened.    */
 specifier|public
 name|HDFSBlocksDistribution
 name|getHDFSBlockDistribution

@@ -109,20 +109,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HDFSBlocksDistribution
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|yetus
 operator|.
 name|audience
@@ -243,11 +229,6 @@ function_decl|;
 comment|/**    * Return the timestamp at which this bulk load file was generated.    */
 name|OptionalLong
 name|getBulkLoadTimestamp
-parameter_list|()
-function_decl|;
-comment|/**    * @return the cached value of HDFS blocks distribution. The cached value is calculated when store    *         file is opened.    */
-name|HDFSBlocksDistribution
-name|getHDFSBlockDistribution
 parameter_list|()
 function_decl|;
 comment|/**    * @return a length description of this StoreFile, suitable for debug output    */

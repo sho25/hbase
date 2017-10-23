@@ -2017,6 +2017,8 @@ block|}
 comment|/**    * Called before creation of Reader for a store file.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    *    * @param ctx the environment provided by the region server    * @param fs fileystem to read from    * @param p path to the file    * @param in {@link FSDataInputStreamWrapper}    * @param size Full size of the file    * @param cacheConf    * @param r original reference file. This will be not null only when reading a split file.    * @param reader the base reader, if not {@code null}, from previous RegionObserver in the chain    * @return a Reader instance to use instead of the base reader if overriding    * default behavior, null otherwise    * @deprecated For Phoenix only, StoreFileReader is not a stable interface.    */
 annotation|@
 name|Deprecated
+comment|// Passing InterfaceAudience.Private args FSDataInputStreamWrapper, CacheConfig and Reference.
+comment|// This is fine as the hook is deprecated any way.
 specifier|default
 name|StoreFileReader
 name|preStoreFileReaderOpen
@@ -2058,6 +2060,8 @@ block|}
 comment|/**    * Called after the creation of Reader for a store file.    *    * @param ctx the environment provided by the region server    * @param fs fileystem to read from    * @param p path to the file    * @param in {@link FSDataInputStreamWrapper}    * @param size Full size of the file    * @param cacheConf    * @param r original reference file. This will be not null only when reading a split file.    * @param reader the base reader instance    * @return The reader to use    * @deprecated For Phoenix only, StoreFileReader is not a stable interface.    */
 annotation|@
 name|Deprecated
+comment|// Passing InterfaceAudience.Private args FSDataInputStreamWrapper, CacheConfig and Reference.
+comment|// This is fine as the hook is deprecated any way.
 specifier|default
 name|StoreFileReader
 name|postStoreFileReaderOpen
