@@ -8362,8 +8362,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-annotation|@
-name|Override
+comment|/**    * getter for CompactionProgress object    * @return CompactionProgress object; can be null    */
 specifier|public
 name|CompactionProgress
 name|getCompactionProgress

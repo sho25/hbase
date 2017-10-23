@@ -151,24 +151,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|compactions
-operator|.
-name|CompactionProgress
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|yetus
 operator|.
 name|audience
@@ -256,11 +238,6 @@ parameter_list|()
 function_decl|;
 name|FileSystem
 name|getFileSystem
-parameter_list|()
-function_decl|;
-comment|/**    * getter for CompactionProgress object    * @return CompactionProgress object; can be null    */
-name|CompactionProgress
-name|getCompactionProgress
 parameter_list|()
 function_decl|;
 comment|/**    * Tests whether we should run a major compaction. For example, if the configured major compaction    * interval is reached.    * @return true if we should run a major compaction.    */

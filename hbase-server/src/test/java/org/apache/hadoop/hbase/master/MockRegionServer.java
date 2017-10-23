@@ -619,6 +619,24 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|compactions
+operator|.
+name|CompactionRequester
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|throttle
 operator|.
 name|ThroughputController
@@ -2260,7 +2278,6 @@ name|boolean
 name|isStopped
 parameter_list|()
 block|{
-comment|// TODO Auto-generated method stub
 return|return
 literal|false
 return|;
@@ -2504,9 +2521,7 @@ parameter_list|(
 name|HRegion
 name|r
 parameter_list|)
-block|{
-comment|// TODO Auto-generated method stub
-block|}
+block|{   }
 annotation|@
 name|Override
 specifier|public
@@ -2520,7 +2535,6 @@ name|ServerName
 name|destination
 parameter_list|)
 block|{
-comment|// TODO Auto-generated method stub
 return|return
 literal|false
 return|;
@@ -2535,7 +2549,6 @@ name|String
 name|encodedRegionName
 parameter_list|)
 block|{
-comment|// TODO Auto-generated method stub
 return|return
 literal|null
 return|;
@@ -2630,7 +2643,17 @@ name|FlushRequester
 name|getFlushRequester
 parameter_list|()
 block|{
-comment|// TODO Auto-generated method stub
+return|return
+literal|null
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|CompactionRequester
+name|getCompactionRequestor
+parameter_list|()
+block|{
 return|return
 literal|null
 return|;
@@ -2642,7 +2665,6 @@ name|RegionServerAccounting
 name|getRegionServerAccounting
 parameter_list|()
 block|{
-comment|// TODO Auto-generated method stub
 return|return
 literal|null
 return|;
@@ -2671,9 +2693,7 @@ throws|throws
 name|KeeperException
 throws|,
 name|IOException
-block|{
-comment|// TODO Auto-generated method stub
-block|}
+block|{   }
 annotation|@
 name|Override
 specifier|public
@@ -2681,7 +2701,6 @@ name|RpcServerInterface
 name|getRpcServer
 parameter_list|()
 block|{
-comment|// TODO Auto-generated method stub
 return|return
 literal|null
 return|;
@@ -2699,7 +2718,6 @@ argument_list|>
 name|getRegionsInTransitionInRS
 parameter_list|()
 block|{
-comment|// TODO Auto-generated method stub
 return|return
 literal|null
 return|;
@@ -2711,7 +2729,6 @@ name|FileSystem
 name|getFileSystem
 parameter_list|()
 block|{
-comment|// TODO Auto-generated method stub
 return|return
 literal|null
 return|;
@@ -2836,7 +2853,6 @@ parameter_list|)
 throws|throws
 name|ServiceException
 block|{
-comment|// TODO Auto-generated method stub
 return|return
 literal|null
 return|;
@@ -3044,7 +3060,6 @@ parameter_list|)
 throws|throws
 name|ServiceException
 block|{
-comment|// TODO Auto-generated method stub
 return|return
 literal|null
 return|;
@@ -3089,7 +3104,6 @@ parameter_list|)
 throws|throws
 name|ServiceException
 block|{
-comment|// TODO Auto-generated method stub
 return|return
 literal|null
 return|;
@@ -3206,7 +3220,6 @@ parameter_list|)
 throws|throws
 name|ServiceException
 block|{
-comment|// TODO Auto-generated method stub
 return|return
 literal|null
 return|;
@@ -3226,7 +3239,6 @@ parameter_list|)
 throws|throws
 name|ServiceException
 block|{
-comment|// TODO Auto-generated method stub
 return|return
 literal|null
 return|;
@@ -3260,7 +3272,6 @@ parameter_list|)
 throws|throws
 name|ServiceException
 block|{
-comment|// TODO Auto-generated method stub
 return|return
 literal|null
 return|;
@@ -3280,7 +3291,6 @@ parameter_list|)
 throws|throws
 name|ServiceException
 block|{
-comment|//TODO Auto-generated method stub
 return|return
 literal|null
 return|;
@@ -3300,7 +3310,6 @@ parameter_list|)
 throws|throws
 name|ServiceException
 block|{
-comment|// TODO Auto-generated method stub
 return|return
 literal|null
 return|;
@@ -3320,7 +3329,6 @@ parameter_list|)
 throws|throws
 name|ServiceException
 block|{
-comment|// TODO Auto-generated method stub
 return|return
 literal|null
 return|;
@@ -3340,7 +3348,6 @@ parameter_list|)
 throws|throws
 name|ServiceException
 block|{
-comment|// TODO Auto-generated method stub
 return|return
 literal|null
 return|;
@@ -3360,7 +3367,6 @@ parameter_list|)
 throws|throws
 name|ServiceException
 block|{
-comment|// TODO Auto-generated method stub
 return|return
 literal|null
 return|;
@@ -3380,7 +3386,6 @@ parameter_list|)
 throws|throws
 name|ServiceException
 block|{
-comment|// TODO Auto-generated method stub
 return|return
 literal|null
 return|;
@@ -3400,7 +3405,6 @@ parameter_list|)
 throws|throws
 name|ServiceException
 block|{
-comment|// TODO Auto-generated method stub
 return|return
 literal|null
 return|;
@@ -3420,7 +3424,6 @@ parameter_list|)
 throws|throws
 name|ServiceException
 block|{
-comment|// TODO Auto-generated method stub
 return|return
 literal|null
 return|;
@@ -3440,7 +3443,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// TODO Auto-generated method stub
 return|return
 literal|null
 return|;
@@ -3452,7 +3454,6 @@ name|Leases
 name|getLeases
 parameter_list|()
 block|{
-comment|// TODO Auto-generated method stub
 return|return
 literal|null
 return|;
@@ -3576,7 +3577,6 @@ parameter_list|)
 throws|throws
 name|ServiceException
 block|{
-comment|// TODO Auto-generated method stub
 return|return
 literal|null
 return|;
@@ -3593,7 +3593,6 @@ argument_list|>
 name|getRecoveringRegions
 parameter_list|()
 block|{
-comment|// TODO Auto-generated method stub
 return|return
 literal|null
 return|;
@@ -3658,7 +3657,6 @@ name|Service
 name|service
 parameter_list|)
 block|{
-comment|// TODO Auto-generated method stub
 return|return
 literal|false
 return|;
@@ -3678,7 +3676,6 @@ parameter_list|)
 throws|throws
 name|ServiceException
 block|{
-comment|// TODO Auto-generated method stub
 return|return
 literal|null
 return|;

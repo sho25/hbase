@@ -197,6 +197,24 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|compactions
+operator|.
+name|CompactionRequester
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|throttle
 operator|.
 name|ThroughputController
@@ -320,9 +338,14 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * @return Implementation of {@link FlushRequester} or null.    */
+comment|/**    * @return Implementation of {@link FlushRequester} or null. Usually it will not be null unless    *         during intialization.    */
 name|FlushRequester
 name|getFlushRequester
+parameter_list|()
+function_decl|;
+comment|/**    * @return Implementation of {@link CompactionRequester} or null. Usually it will not be null    *         unless during intialization.    */
+name|CompactionRequester
+name|getCompactionRequestor
 parameter_list|()
 function_decl|;
 comment|/**    * @return the RegionServerAccounting for this Region Server    */

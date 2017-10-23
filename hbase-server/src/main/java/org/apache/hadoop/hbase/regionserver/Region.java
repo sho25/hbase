@@ -205,22 +205,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|IsolationLevel
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|Mutation
 import|;
 end_import
@@ -384,22 +368,6 @@ operator|.
 name|compactions
 operator|.
 name|CompactionLifeCycleTracker
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|security
-operator|.
-name|User
 import|;
 end_import
 
@@ -997,13 +965,6 @@ function_decl|;
 comment|///////////////////////////////////////////////////////////////////////////
 comment|// Flushes, compactions, splits, etc.
 comment|// Wizards only, please
-comment|/**    * Trigger major compaction on all stores in the region.    *<p>    * Compaction will be performed asynchronously to this call by the RegionServer's    * CompactSplitThread.    * @throws IOException    */
-name|void
-name|triggerMajorCompaction
-parameter_list|()
-throws|throws
-name|IOException
-function_decl|;
 comment|/**    * @return if a given region is in compaction now.    */
 name|CompactionState
 name|getCompactionState
@@ -1019,11 +980,11 @@ parameter_list|,
 name|int
 name|priority
 parameter_list|,
+name|boolean
+name|major
+parameter_list|,
 name|CompactionLifeCycleTracker
 name|tracker
-parameter_list|,
-name|User
-name|user
 parameter_list|)
 throws|throws
 name|IOException
@@ -1042,11 +1003,11 @@ parameter_list|,
 name|int
 name|priority
 parameter_list|,
+name|boolean
+name|major
+parameter_list|,
 name|CompactionLifeCycleTracker
 name|tracker
-parameter_list|,
-name|User
-name|user
 parameter_list|)
 throws|throws
 name|IOException

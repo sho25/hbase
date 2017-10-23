@@ -21,15 +21,11 @@ end_package
 
 begin_import
 import|import
-name|org
+name|java
 operator|.
-name|apache
+name|io
 operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HBaseInterfaceAudience
+name|IOException
 import|;
 end_import
 
@@ -45,7 +41,39 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|Store
+name|HRegion
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|HStore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|security
+operator|.
+name|User
 import|;
 end_import
 
@@ -65,85 +93,84 @@ end_import
 
 begin_import
 import|import
-name|org
+name|edu
 operator|.
-name|apache
+name|umd
 operator|.
-name|yetus
+name|cs
 operator|.
-name|audience
+name|findbugs
 operator|.
-name|InterfaceStability
+name|annotations
+operator|.
+name|Nullable
 import|;
 end_import
 
 begin_comment
-comment|/**  * Used to track compaction execution.  */
+comment|/**  * Request a compaction.  */
 end_comment
 
 begin_interface
 annotation|@
 name|InterfaceAudience
 operator|.
-name|LimitedPrivate
-argument_list|(
-name|HBaseInterfaceAudience
-operator|.
-name|COPROC
-argument_list|)
-annotation|@
-name|InterfaceStability
-operator|.
-name|Evolving
+name|Private
 specifier|public
 interface|interface
-name|CompactionLifeCycleTracker
+name|CompactionRequester
 block|{
-specifier|static
-name|CompactionLifeCycleTracker
-name|DUMMY
-init|=
-operator|new
-name|CompactionLifeCycleTracker
-argument_list|()
-block|{   }
-decl_stmt|;
-comment|/**    * Called if the compaction request is failed for some reason.    */
-specifier|default
+comment|/**    * Request compaction on all the stores of the given region.    */
 name|void
-name|notExecuted
+name|requestCompaction
 parameter_list|(
-name|Store
+name|HRegion
+name|region
+parameter_list|,
+name|String
+name|why
+parameter_list|,
+name|int
+name|priority
+parameter_list|,
+name|CompactionLifeCycleTracker
+name|tracker
+parameter_list|,
+annotation|@
+name|Nullable
+name|User
+name|user
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Request compaction on the given store.    */
+name|void
+name|requestCompaction
+parameter_list|(
+name|HRegion
+name|region
+parameter_list|,
+name|HStore
 name|store
 parameter_list|,
 name|String
-name|reason
+name|why
+parameter_list|,
+name|int
+name|priority
+parameter_list|,
+name|CompactionLifeCycleTracker
+name|tracker
+parameter_list|,
+annotation|@
+name|Nullable
+name|User
+name|user
 parameter_list|)
-block|{   }
-comment|/**    * Called before compaction is executed by CompactSplitThread.    *<p>    * Requesting compaction on a region can lead to multiple compactions on different stores, so we    * will pass the {@link Store} in to tell you the store we operate on.    */
-specifier|default
-name|void
-name|beforeExecution
-parameter_list|(
-name|Store
-name|store
-parameter_list|)
-block|{   }
-comment|/**    * Called after compaction is executed by CompactSplitThread.    *<p>    * Requesting compaction on a region can lead to multiple compactions on different stores, so we    * will pass the {@link Store} in to tell you the store we operate on.    */
-specifier|default
-name|void
-name|afterExecution
-parameter_list|(
-name|Store
-name|store
-parameter_list|)
-block|{   }
-comment|/**    * Called after all the requested compactions are completed.    *<p>    * The compaction scheduling is per Store so if you request a compaction on a region it may lead    * to multiple compactions.    */
-specifier|default
-name|void
-name|completed
-parameter_list|()
-block|{   }
+throws|throws
+name|IOException
+function_decl|;
 block|}
 end_interface
 
