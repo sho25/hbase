@@ -45,16 +45,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|Arrays
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|Collection
 import|;
 end_import
@@ -76,16 +66,6 @@ operator|.
 name|util
 operator|.
 name|List
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Optional
 import|;
 end_import
 
@@ -5880,9 +5860,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * Create a protocol buffer GetRegionLoadRequest for all regions/regions of a table.    * @param tableName the table for which regionLoad should be obtained from RS    * @return a protocol buffer GetRegionLoadRequest    * @deprecated use {@link #buildGetRegionLoadRequest(Optional)} instead.    */
-annotation|@
-name|Deprecated
+comment|/**    * Create a protocol buffer GetRegionLoadRequest for all regions/regions of a table.    * @param tableName the table for which regionLoad should be obtained from RS    * @return a protocol buffer GetRegionLoadRequest    */
 specifier|public
 specifier|static
 name|GetRegionLoadRequest
@@ -5890,31 +5868,6 @@ name|buildGetRegionLoadRequest
 parameter_list|(
 specifier|final
 name|TableName
-name|tableName
-parameter_list|)
-block|{
-return|return
-name|buildGetRegionLoadRequest
-argument_list|(
-name|Optional
-operator|.
-name|ofNullable
-argument_list|(
-name|tableName
-argument_list|)
-argument_list|)
-return|;
-block|}
-comment|/**    * Create a protocol buffer GetRegionLoadRequest for all regions/regions of a table.    * @param tableName the table for which regionLoad should be obtained from RS    * @return a protocol buffer GetRegionLoadRequest    */
-specifier|public
-specifier|static
-name|GetRegionLoadRequest
-name|buildGetRegionLoadRequest
-parameter_list|(
-name|Optional
-argument_list|<
-name|TableName
-argument_list|>
 name|tableName
 parameter_list|)
 block|{
@@ -5928,12 +5881,13 @@ operator|.
 name|newBuilder
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
 name|tableName
-operator|.
-name|ifPresent
-argument_list|(
-name|table
-lambda|->
+operator|!=
+literal|null
+condition|)
+block|{
 name|builder
 operator|.
 name|setTableName
@@ -5942,11 +5896,11 @@ name|ProtobufUtil
 operator|.
 name|toProtoTableName
 argument_list|(
-name|table
-argument_list|)
+name|tableName
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 return|return
 name|builder
 operator|.
@@ -5954,7 +5908,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**   * Create a protocol buffer GetOnlineRegionRequest   *   * @return a protocol buffer GetOnlineRegionRequest   */
+comment|/**    * Create a protocol buffer GetOnlineRegionRequest    * @return a protocol buffer GetOnlineRegionRequest    */
 specifier|public
 specifier|static
 name|GetOnlineRegionRequest
@@ -5971,7 +5925,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**   * Create a protocol buffer FlushRegionRequest for a given region name   *   * @param regionName the name of the region to get info   * @return a protocol buffer FlushRegionRequest   */
+comment|/**    * Create a protocol buffer FlushRegionRequest for a given region name    * @param regionName the name of the region to get info    * @return a protocol buffer FlushRegionRequest    */
 specifier|public
 specifier|static
 name|FlushRegionRequest
@@ -5992,7 +5946,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**   * Create a protocol buffer FlushRegionRequest for a given region name   *   * @param regionName the name of the region to get info   * @return a protocol buffer FlushRegionRequest   */
+comment|/**    * Create a protocol buffer FlushRegionRequest for a given region name    * @param regionName the name of the region to get info    * @return a protocol buffer FlushRegionRequest    */
 specifier|public
 specifier|static
 name|FlushRegionRequest
@@ -6050,7 +6004,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**   * Create a protocol buffer OpenRegionRequest to open a list of regions   *   * @param server the serverName for the RPC   * @param regionOpenInfos info of a list of regions to open   * @param openForReplay   * @return a protocol buffer OpenRegionRequest   */
+comment|/**    * Create a protocol buffer OpenRegionRequest to open a list of regions    * @param server the serverName for the RPC    * @param regionOpenInfos info of a list of regions to open    * @param openForReplay whether open for replay    * @return a protocol buffer OpenRegionRequest    */
 specifier|public
 specifier|static
 name|OpenRegionRequest
@@ -6161,7 +6115,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**   * Create a protocol buffer OpenRegionRequest for a given region   *   * @param server the serverName for the RPC   * @param region the region to open   * @param favoredNodes   * @param openForReplay   * @return a protocol buffer OpenRegionRequest   */
+comment|/**    * Create a protocol buffer OpenRegionRequest for a given region    * @param server the serverName for the RPC    * @param region the region to open    * @param favoredNodes a list of favored nodes    * @param openForReplay whether open for replay    * @return a protocol buffer OpenRegionRequest    */
 specifier|public
 specifier|static
 name|OpenRegionRequest
@@ -6243,7 +6197,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**   * Create a protocol buffer UpdateFavoredNodesRequest to update a list of favorednode mappings   * @param updateRegionInfos   * @return a protocol buffer UpdateFavoredNodesRequest   */
+comment|/**    * Create a protocol buffer UpdateFavoredNodesRequest to update a list of favorednode mappings    * @param updateRegionInfos a list of favored node mappings    * @return a protocol buffer UpdateFavoredNodesRequest    */
 specifier|public
 specifier|static
 name|UpdateFavoredNodesRequest
@@ -6377,7 +6331,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    *  Create a WarmupRegionRequest for a given region name    *    *  @param regionInfo Region we are warming up    */
+comment|/**    * Create a WarmupRegionRequest for a given region name    * @param regionInfo Region we are warming up    */
 specifier|public
 specifier|static
 name|WarmupRegionRequest
@@ -6417,42 +6371,6 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * Create a CompactRegionRequest for a given region name    * @param regionName the name of the region to get info    * @param major indicator if it is a major compaction    * @param columnFamily    * @return a CompactRegionRequest    * @deprecated Use {@link #buildCompactRegionRequest(byte[], boolean, Optional)} instead.    */
-annotation|@
-name|Deprecated
-specifier|public
-specifier|static
-name|CompactRegionRequest
-name|buildCompactRegionRequest
-parameter_list|(
-name|byte
-index|[]
-name|regionName
-parameter_list|,
-name|boolean
-name|major
-parameter_list|,
-name|byte
-index|[]
-name|columnFamily
-parameter_list|)
-block|{
-return|return
-name|buildCompactRegionRequest
-argument_list|(
-name|regionName
-argument_list|,
-name|major
-argument_list|,
-name|Optional
-operator|.
-name|ofNullable
-argument_list|(
-name|columnFamily
-argument_list|)
-argument_list|)
-return|;
-block|}
 comment|/**    * Create a CompactRegionRequest for a given region name    * @param regionName the name of the region to get info    * @param major indicator if it is a major compaction    * @param columnFamily    * @return a CompactRegionRequest    */
 specifier|public
 specifier|static
@@ -6466,11 +6384,8 @@ parameter_list|,
 name|boolean
 name|major
 parameter_list|,
-name|Optional
-argument_list|<
 name|byte
 index|[]
-argument_list|>
 name|columnFamily
 parameter_list|)
 block|{
@@ -6510,12 +6425,13 @@ argument_list|(
 name|major
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
 name|columnFamily
-operator|.
-name|ifPresent
-argument_list|(
-name|family
-lambda|->
+operator|!=
+literal|null
+condition|)
+block|{
 name|builder
 operator|.
 name|setFamily
@@ -6524,11 +6440,11 @@ name|UnsafeByteOperations
 operator|.
 name|unsafeWrap
 argument_list|(
-name|family
-argument_list|)
+name|columnFamily
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 return|return
 name|builder
 operator|.
@@ -6536,7 +6452,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**   * @see {@link #buildRollWALWriterRequest()}   */
+comment|/**    * @see {@link #buildRollWALWriterRequest()}    */
 specifier|private
 specifier|static
 name|RollWALWriterRequest
@@ -6550,7 +6466,7 @@ operator|.
 name|build
 argument_list|()
 decl_stmt|;
-comment|/**   * Create a new RollWALWriterRequest   *   * @return a ReplicateWALEntryRequest   */
+comment|/**    * Create a new RollWALWriterRequest    * @return a ReplicateWALEntryRequest    */
 specifier|public
 specifier|static
 name|RollWALWriterRequest
@@ -6561,7 +6477,7 @@ return|return
 name|ROLL_WAL_WRITER_REQUEST
 return|;
 block|}
-comment|/**   * @see {@link #buildGetServerInfoRequest()}   */
+comment|/**    * @see {@link #buildGetServerInfoRequest()}    */
 specifier|private
 specifier|static
 name|GetServerInfoRequest
@@ -6575,7 +6491,7 @@ operator|.
 name|build
 argument_list|()
 decl_stmt|;
-comment|/**   * Create a new GetServerInfoRequest   *   * @return a GetServerInfoRequest   */
+comment|/**    * Create a new GetServerInfoRequest    * @return a GetServerInfoRequest    */
 specifier|public
 specifier|static
 name|GetServerInfoRequest
@@ -6586,7 +6502,7 @@ return|return
 name|GET_SERVER_INFO_REQUEST
 return|;
 block|}
-comment|/**   * Create a new StopServerRequest   *   * @param reason the reason to stop the server   * @return a StopServerRequest   */
+comment|/**    * Create a new StopServerRequest    * @param reason the reason to stop the server    * @return a StopServerRequest    */
 specifier|public
 specifier|static
 name|StopServerRequest
@@ -7025,26 +6941,19 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * Create a protocol buffer MoveRegionRequest    * @param encodedRegionName    * @param destServerName    * @return A MoveRegionRequest    * @throws DeserializationException    * @deprecated Use {@link #buildMoveRegionRequest(byte[], Optional)} instead.    */
-annotation|@
-name|Deprecated
+comment|/**    * Create a protocol buffer MoveRegionRequest    * @param encodedRegionName    * @param destServerName    * @return A MoveRegionRequest    */
 specifier|public
 specifier|static
 name|MoveRegionRequest
 name|buildMoveRegionRequest
 parameter_list|(
-specifier|final
 name|byte
 index|[]
 name|encodedRegionName
 parameter_list|,
-specifier|final
-name|byte
-index|[]
+name|ServerName
 name|destServerName
 parameter_list|)
-throws|throws
-name|DeserializationException
 block|{
 name|MoveRegionRequest
 operator|.
@@ -7085,88 +6994,11 @@ name|ProtobufUtil
 operator|.
 name|toServerName
 argument_list|(
-name|ServerName
-operator|.
-name|valueOf
-argument_list|(
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|destServerName
-argument_list|)
-argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-return|return
-name|builder
-operator|.
-name|build
-argument_list|()
-return|;
-block|}
-comment|/**    * Create a protocol buffer MoveRegionRequest    * @param encodedRegionName    * @param destServerName    * @return A MoveRegionRequest    */
-specifier|public
-specifier|static
-name|MoveRegionRequest
-name|buildMoveRegionRequest
-parameter_list|(
-name|byte
-index|[]
-name|encodedRegionName
-parameter_list|,
-name|Optional
-argument_list|<
-name|ServerName
-argument_list|>
-name|destServerName
-parameter_list|)
-block|{
-name|MoveRegionRequest
-operator|.
-name|Builder
-name|builder
-init|=
-name|MoveRegionRequest
-operator|.
-name|newBuilder
-argument_list|()
-decl_stmt|;
-name|builder
-operator|.
-name|setRegion
-argument_list|(
-name|buildRegionSpecifier
-argument_list|(
-name|RegionSpecifierType
-operator|.
-name|ENCODED_REGION_NAME
-argument_list|,
-name|encodedRegionName
-argument_list|)
-argument_list|)
-expr_stmt|;
-name|destServerName
-operator|.
-name|ifPresent
-argument_list|(
-name|serverName
-lambda|->
-name|builder
-operator|.
-name|setDestServerName
-argument_list|(
-name|ProtobufUtil
-operator|.
-name|toServerName
-argument_list|(
-name|serverName
-argument_list|)
-argument_list|)
-argument_list|)
-expr_stmt|;
 return|return
 name|builder
 operator|.
@@ -7787,48 +7619,6 @@ name|long
 name|nonce
 parameter_list|)
 block|{
-return|return
-name|buildCreateTableRequest
-argument_list|(
-name|tableDescriptor
-argument_list|,
-name|Optional
-operator|.
-name|ofNullable
-argument_list|(
-name|splitKeys
-argument_list|)
-argument_list|,
-name|nonceGroup
-argument_list|,
-name|nonce
-argument_list|)
-return|;
-block|}
-comment|/**    * Creates a protocol buffer CreateTableRequest    * @param tableDescriptor    * @param splitKeys    * @return a CreateTableRequest    */
-specifier|public
-specifier|static
-name|CreateTableRequest
-name|buildCreateTableRequest
-parameter_list|(
-name|TableDescriptor
-name|tableDescriptor
-parameter_list|,
-name|Optional
-argument_list|<
-name|byte
-index|[]
-index|[]
-argument_list|>
-name|splitKeys
-parameter_list|,
-name|long
-name|nonceGroup
-parameter_list|,
-name|long
-name|nonce
-parameter_list|)
-block|{
 name|CreateTableRequest
 operator|.
 name|Builder
@@ -7851,23 +7641,22 @@ name|tableDescriptor
 argument_list|)
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
 name|splitKeys
-operator|.
-name|ifPresent
-argument_list|(
-name|keys
-lambda|->
-name|Arrays
-operator|.
-name|stream
-argument_list|(
-name|keys
-argument_list|)
-operator|.
-name|forEach
-argument_list|(
+operator|!=
+literal|null
+condition|)
+block|{
+for|for
+control|(
+name|byte
+index|[]
 name|key
-lambda|->
+range|:
+name|splitKeys
+control|)
+block|{
 name|builder
 operator|.
 name|addSplitKeys
@@ -7879,9 +7668,9 @@ argument_list|(
 name|key
 argument_list|)
 argument_list|)
-argument_list|)
-argument_list|)
 expr_stmt|;
+block|}
+block|}
 name|builder
 operator|.
 name|setNonceGroup
@@ -8085,9 +7874,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * Creates a protocol buffer GetTableDescriptorsRequest    *    * @param pattern The compiled regular expression to match against    * @param includeSysTables False to match only against userspace tables    * @return a GetTableDescriptorsRequest    * @deprecated Use {@link #buildGetTableDescriptorsRequest(Optional, boolean)} instead.    */
-annotation|@
-name|Deprecated
+comment|/**    * Creates a protocol buffer GetTableDescriptorsRequest    *    * @param pattern The compiled regular expression to match against    * @param includeSysTables False to match only against userspace tables    * @return a GetTableDescriptorsRequest    */
 specifier|public
 specifier|static
 name|GetTableDescriptorsRequest
@@ -8095,36 +7882,6 @@ name|buildGetTableDescriptorsRequest
 parameter_list|(
 specifier|final
 name|Pattern
-name|pattern
-parameter_list|,
-name|boolean
-name|includeSysTables
-parameter_list|)
-block|{
-return|return
-name|buildGetTableDescriptorsRequest
-argument_list|(
-name|Optional
-operator|.
-name|ofNullable
-argument_list|(
-name|pattern
-argument_list|)
-argument_list|,
-name|includeSysTables
-argument_list|)
-return|;
-block|}
-comment|/**    * Creates a protocol buffer GetTableDescriptorsRequest    *    * @param pattern The compiled regular expression to match against    * @param includeSysTables False to match only against userspace tables    * @return a GetTableDescriptorsRequest    */
-specifier|public
-specifier|static
-name|GetTableDescriptorsRequest
-name|buildGetTableDescriptorsRequest
-parameter_list|(
-name|Optional
-argument_list|<
-name|Pattern
-argument_list|>
 name|pattern
 parameter_list|,
 name|boolean
@@ -8141,23 +7898,24 @@ operator|.
 name|newBuilder
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
 name|pattern
-operator|.
-name|ifPresent
-argument_list|(
-name|p
-lambda|->
+operator|!=
+literal|null
+condition|)
+block|{
 name|builder
 operator|.
 name|setRegex
 argument_list|(
-name|p
+name|pattern
 operator|.
 name|toString
 argument_list|()
 argument_list|)
-argument_list|)
 expr_stmt|;
+block|}
 name|builder
 operator|.
 name|setIncludeSysTables
@@ -8172,9 +7930,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * Creates a protocol buffer GetTableNamesRequest    *    * @param pattern The compiled regular expression to match against    * @param includeSysTables False to match only against userspace tables    * @return a GetTableNamesRequest    * @deprecated Use {@link #buildGetTableNamesRequest(Optional, boolean)} instead.    */
-annotation|@
-name|Deprecated
+comment|/**    * Creates a protocol buffer GetTableNamesRequest    *    * @param pattern The compiled regular expression to match against    * @param includeSysTables False to match only against userspace tables    * @return a GetTableNamesRequest    */
 specifier|public
 specifier|static
 name|GetTableNamesRequest
@@ -8182,36 +7938,6 @@ name|buildGetTableNamesRequest
 parameter_list|(
 specifier|final
 name|Pattern
-name|pattern
-parameter_list|,
-name|boolean
-name|includeSysTables
-parameter_list|)
-block|{
-return|return
-name|buildGetTableNamesRequest
-argument_list|(
-name|Optional
-operator|.
-name|ofNullable
-argument_list|(
-name|pattern
-argument_list|)
-argument_list|,
-name|includeSysTables
-argument_list|)
-return|;
-block|}
-comment|/**    * Creates a protocol buffer GetTableNamesRequest    *    * @param pattern The compiled regular expression to match against    * @param includeSysTables False to match only against userspace tables    * @return a GetTableNamesRequest    */
-specifier|public
-specifier|static
-name|GetTableNamesRequest
-name|buildGetTableNamesRequest
-parameter_list|(
-name|Optional
-argument_list|<
-name|Pattern
-argument_list|>
 name|pattern
 parameter_list|,
 name|boolean
@@ -8228,23 +7954,24 @@ operator|.
 name|newBuilder
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
 name|pattern
-operator|.
-name|ifPresent
-argument_list|(
-name|p
-lambda|->
+operator|!=
+literal|null
+condition|)
+block|{
 name|builder
 operator|.
 name|setRegex
 argument_list|(
-name|p
+name|pattern
 operator|.
 name|toString
 argument_list|()
 argument_list|)
-argument_list|)
 expr_stmt|;
+block|}
 name|builder
 operator|.
 name|setIncludeSysTables
@@ -9173,39 +8900,12 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * @deprecated Use {@link #buildListReplicationPeersRequest(Optional)} instead.    */
-annotation|@
-name|Deprecated
 specifier|public
 specifier|static
 name|ListReplicationPeersRequest
 name|buildListReplicationPeersRequest
 parameter_list|(
 name|Pattern
-name|pattern
-parameter_list|)
-block|{
-return|return
-name|buildListReplicationPeersRequest
-argument_list|(
-name|Optional
-operator|.
-name|ofNullable
-argument_list|(
-name|pattern
-argument_list|)
-argument_list|)
-return|;
-block|}
-specifier|public
-specifier|static
-name|ListReplicationPeersRequest
-name|buildListReplicationPeersRequest
-parameter_list|(
-name|Optional
-argument_list|<
-name|Pattern
-argument_list|>
 name|pattern
 parameter_list|)
 block|{
@@ -9219,23 +8919,24 @@ operator|.
 name|newBuilder
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
 name|pattern
-operator|.
-name|ifPresent
-argument_list|(
-name|p
-lambda|->
+operator|!=
+literal|null
+condition|)
+block|{
 name|builder
 operator|.
 name|setRegex
 argument_list|(
-name|p
+name|pattern
 operator|.
 name|toString
 argument_list|()
 argument_list|)
-argument_list|)
 expr_stmt|;
+block|}
 return|return
 name|builder
 operator|.

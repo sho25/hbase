@@ -2051,10 +2051,7 @@ argument_list|()
 argument_list|,
 literal|true
 argument_list|,
-name|Optional
-operator|.
-name|empty
-argument_list|()
+literal|null
 argument_list|)
 decl_stmt|;
 name|server

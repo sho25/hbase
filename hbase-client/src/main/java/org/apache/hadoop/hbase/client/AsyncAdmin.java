@@ -367,7 +367,7 @@ name|TableName
 name|tableName
 parameter_list|)
 function_decl|;
-comment|/**    * List all the userspace tables.    * @return - returns a list of TableDescriptors wrapped by a {@link CompletableFuture}.    * @see #listTables(Optional, boolean)    */
+comment|/**    * List all the userspace tables.    * @return - returns a list of TableDescriptors wrapped by a {@link CompletableFuture}.    */
 specifier|default
 name|CompletableFuture
 argument_list|<
@@ -382,15 +382,24 @@ block|{
 return|return
 name|listTables
 argument_list|(
-name|Optional
-operator|.
-name|empty
-argument_list|()
-argument_list|,
 literal|false
 argument_list|)
 return|;
 block|}
+comment|/**    * List all the tables.    * @param includeSysTables False to match only against userspace tables    * @return - returns a list of TableDescriptors wrapped by a {@link CompletableFuture}.    */
+name|CompletableFuture
+argument_list|<
+name|List
+argument_list|<
+name|TableDescriptor
+argument_list|>
+argument_list|>
+name|listTables
+parameter_list|(
+name|boolean
+name|includeSysTables
+parameter_list|)
+function_decl|;
 comment|/**    * List all the tables matching the given pattern.    * @param pattern The compiled regular expression to match against    * @param includeSysTables False to match only against userspace tables    * @return - returns a list of TableDescriptors wrapped by a {@link CompletableFuture}.    */
 name|CompletableFuture
 argument_list|<
@@ -401,17 +410,14 @@ argument_list|>
 argument_list|>
 name|listTables
 parameter_list|(
-name|Optional
-argument_list|<
 name|Pattern
-argument_list|>
 name|pattern
 parameter_list|,
 name|boolean
 name|includeSysTables
 parameter_list|)
 function_decl|;
-comment|/**    * List all of the names of userspace tables.    * @return a list of table names wrapped by a {@link CompletableFuture}.    * @see #listTableNames(Optional, boolean)    */
+comment|/**    * List all of the names of userspace tables.    * @return a list of table names wrapped by a {@link CompletableFuture}.    * @see #listTableNames(Pattern, boolean)    */
 specifier|default
 name|CompletableFuture
 argument_list|<
@@ -426,15 +432,24 @@ block|{
 return|return
 name|listTableNames
 argument_list|(
-name|Optional
-operator|.
-name|empty
-argument_list|()
-argument_list|,
 literal|false
 argument_list|)
 return|;
 block|}
+comment|/**    * List all of the names of tables.    * @param includeSysTables False to match only against userspace tables    * @return a list of table names wrapped by a {@link CompletableFuture}.    */
+name|CompletableFuture
+argument_list|<
+name|List
+argument_list|<
+name|TableName
+argument_list|>
+argument_list|>
+name|listTableNames
+parameter_list|(
+name|boolean
+name|includeSysTables
+parameter_list|)
+function_decl|;
 comment|/**    * List all of the names of userspace tables.    * @param pattern The regular expression to match against    * @param includeSysTables False to match only against userspace tables    * @return a list of table names wrapped by a {@link CompletableFuture}.    */
 name|CompletableFuture
 argument_list|<
@@ -445,10 +460,7 @@ argument_list|>
 argument_list|>
 name|listTableNames
 parameter_list|(
-name|Optional
-argument_list|<
 name|Pattern
-argument_list|>
 name|pattern
 parameter_list|,
 name|boolean
@@ -467,7 +479,6 @@ name|tableName
 parameter_list|)
 function_decl|;
 comment|/**    * Creates a new table.    * @param desc table descriptor for table    */
-specifier|default
 name|CompletableFuture
 argument_list|<
 name|Void
@@ -477,19 +488,7 @@ parameter_list|(
 name|TableDescriptor
 name|desc
 parameter_list|)
-block|{
-return|return
-name|createTable
-argument_list|(
-name|desc
-argument_list|,
-name|Optional
-operator|.
-name|empty
-argument_list|()
-argument_list|)
-return|;
-block|}
+function_decl|;
 comment|/**    * Creates a new table with the specified number of regions. The start key specified will become    * the end key of the first region of the table, and the end key specified will become the start    * key of the last region of the table (the first region has a null start key and the last region    * has a null end key). BigInteger math will be used to divide the key range specified into enough    * segments to make the required number of total regions.    * @param desc table descriptor for table    * @param startKey beginning of key range    * @param endKey end of key range    * @param numRegions the total number of regions to create    */
 name|CompletableFuture
 argument_list|<
@@ -522,12 +521,9 @@ parameter_list|(
 name|TableDescriptor
 name|desc
 parameter_list|,
-name|Optional
-argument_list|<
 name|byte
 index|[]
 index|[]
-argument_list|>
 name|splitKeys
 parameter_list|)
 function_decl|;
@@ -601,7 +597,6 @@ name|tableName
 parameter_list|)
 function_decl|;
 comment|/**    * @param tableName name of table to check    * @return true if all regions of the table are available. The return value will be wrapped by a    *         {@link CompletableFuture}.    */
-specifier|default
 name|CompletableFuture
 argument_list|<
 name|Boolean
@@ -611,16 +606,7 @@ parameter_list|(
 name|TableName
 name|tableName
 parameter_list|)
-block|{
-return|return
-name|isTableAvailable
-argument_list|(
-name|tableName
-argument_list|,
-literal|null
-argument_list|)
-return|;
-block|}
+function_decl|;
 comment|/**    * Use this api to check if the table has been created with the specified number of splitkeys    * which was used while creating the given table. Note : If this api is used after a table's    * region gets splitted, the api may return false. The return value will be wrapped by a    * {@link CompletableFuture}.    * @param tableName name of table to check    * @param splitKeys keys to check if the table has been created with all split keys    */
 name|CompletableFuture
 argument_list|<
@@ -787,7 +773,6 @@ name|regionName
 parameter_list|)
 function_decl|;
 comment|/**    * Compact a table. When the returned CompletableFuture is done, it only means the compact request    * was sent to HBase and may need some time to finish the compact operation.    * @param tableName table to compact    */
-specifier|default
 name|CompletableFuture
 argument_list|<
 name|Void
@@ -797,19 +782,7 @@ parameter_list|(
 name|TableName
 name|tableName
 parameter_list|)
-block|{
-return|return
-name|compact
-argument_list|(
-name|tableName
-argument_list|,
-name|Optional
-operator|.
-name|empty
-argument_list|()
-argument_list|)
-return|;
-block|}
+function_decl|;
 comment|/**    * Compact a column family within a table. When the returned CompletableFuture is done, it only    * means the compact request was sent to HBase and may need some time to finish the compact    * operation.    * @param tableName table to compact    * @param columnFamily column family within a table. If not present, compact the table's all    *          column families.    */
 name|CompletableFuture
 argument_list|<
@@ -820,16 +793,12 @@ parameter_list|(
 name|TableName
 name|tableName
 parameter_list|,
-name|Optional
-argument_list|<
 name|byte
 index|[]
-argument_list|>
 name|columnFamily
 parameter_list|)
 function_decl|;
 comment|/**    * Compact an individual region. When the returned CompletableFuture is done, it only means the    * compact request was sent to HBase and may need some time to finish the compact operation.    * @param regionName region to compact    */
-specifier|default
 name|CompletableFuture
 argument_list|<
 name|Void
@@ -840,19 +809,7 @@ name|byte
 index|[]
 name|regionName
 parameter_list|)
-block|{
-return|return
-name|compactRegion
-argument_list|(
-name|regionName
-argument_list|,
-name|Optional
-operator|.
-name|empty
-argument_list|()
-argument_list|)
-return|;
-block|}
+function_decl|;
 comment|/**    * Compact a column family within a region. When the returned CompletableFuture is done, it only    * means the compact request was sent to HBase and may need some time to finish the compact    * operation.    * @param regionName region to compact    * @param columnFamily column family within a region. If not present, compact the region's all    *          column families.    */
 name|CompletableFuture
 argument_list|<
@@ -864,16 +821,12 @@ name|byte
 index|[]
 name|regionName
 parameter_list|,
-name|Optional
-argument_list|<
 name|byte
 index|[]
-argument_list|>
 name|columnFamily
 parameter_list|)
 function_decl|;
 comment|/**    * Major compact a table. When the returned CompletableFuture is done, it only means the compact    * request was sent to HBase and may need some time to finish the compact operation.    * @param tableName table to major compact    */
-specifier|default
 name|CompletableFuture
 argument_list|<
 name|Void
@@ -883,19 +836,7 @@ parameter_list|(
 name|TableName
 name|tableName
 parameter_list|)
-block|{
-return|return
-name|majorCompact
-argument_list|(
-name|tableName
-argument_list|,
-name|Optional
-operator|.
-name|empty
-argument_list|()
-argument_list|)
-return|;
-block|}
+function_decl|;
 comment|/**    * Major compact a column family within a table. When the returned CompletableFuture is done, it    * only means the compact request was sent to HBase and may need some time to finish the compact    * operation.    * @param tableName table to major compact    * @param columnFamily column family within a table. If not present, major compact the table's all    *          column families.    */
 name|CompletableFuture
 argument_list|<
@@ -906,16 +847,12 @@ parameter_list|(
 name|TableName
 name|tableName
 parameter_list|,
-name|Optional
-argument_list|<
 name|byte
 index|[]
-argument_list|>
 name|columnFamily
 parameter_list|)
 function_decl|;
 comment|/**    * Major compact a region. When the returned CompletableFuture is done, it only means the compact    * request was sent to HBase and may need some time to finish the compact operation.    * @param regionName region to major compact    */
-specifier|default
 name|CompletableFuture
 argument_list|<
 name|Void
@@ -926,19 +863,7 @@ name|byte
 index|[]
 name|regionName
 parameter_list|)
-block|{
-return|return
-name|majorCompactRegion
-argument_list|(
-name|regionName
-argument_list|,
-name|Optional
-operator|.
-name|empty
-argument_list|()
-argument_list|)
-return|;
-block|}
+function_decl|;
 comment|/**    * Major compact a column family within region. When the returned CompletableFuture is done, it    * only means the compact request was sent to HBase and may need some time to finish the compact    * operation.    * @param regionName region to major compact    * @param columnFamily column family within a region. If not present, major compact the region's    *          all column families.    */
 name|CompletableFuture
 argument_list|<
@@ -950,11 +875,8 @@ name|byte
 index|[]
 name|regionName
 parameter_list|,
-name|Optional
-argument_list|<
 name|byte
 index|[]
-argument_list|>
 name|columnFamily
 parameter_list|)
 function_decl|;
@@ -1049,7 +971,6 @@ name|tableName
 parameter_list|)
 function_decl|;
 comment|/**    * Split an individual region.    * @param regionName region to split    */
-specifier|default
 name|CompletableFuture
 argument_list|<
 name|Void
@@ -1060,19 +981,7 @@ name|byte
 index|[]
 name|regionName
 parameter_list|)
-block|{
-return|return
-name|splitRegion
-argument_list|(
-name|regionName
-argument_list|,
-name|Optional
-operator|.
-name|empty
-argument_list|()
-argument_list|)
-return|;
-block|}
+function_decl|;
 comment|/**    * Split a table.    * @param tableName table to split    * @param splitPoint the explicit position to split on    */
 name|CompletableFuture
 argument_list|<
@@ -1099,11 +1008,8 @@ name|byte
 index|[]
 name|regionName
 parameter_list|,
-name|Optional
-argument_list|<
 name|byte
 index|[]
-argument_list|>
 name|splitPoint
 parameter_list|)
 function_decl|;
@@ -1119,7 +1025,7 @@ index|[]
 name|regionName
 parameter_list|)
 function_decl|;
-comment|/**    * Unassign a region from current hosting regionserver. Region will then be assigned to a    * regionserver chosen at random. Region could be reassigned back to the same server. Use    * {@link #move(byte[], Optional)} if you want to control the region movement.    * @param regionName Encoded or full name of region to unassign. Will clear any existing    *          RegionPlan if one found.    * @param forcible If true, force unassign (Will remove region from regions-in-transition too if    *          present. If results in double assignment use hbck -fix to resolve. To be used by    *          experts).    */
+comment|/**    * Unassign a region from current hosting regionserver. Region will then be assigned to a    * regionserver chosen at random. Region could be reassigned back to the same server. Use    * {@link #move(byte[], ServerName)} if you want to control the region movement.    * @param regionName Encoded or full name of region to unassign. Will clear any existing    *          RegionPlan if one found.    * @param forcible If true, force unassign (Will remove region from regions-in-transition too if    *          present. If results in double assignment use hbck -fix to resolve. To be used by    *          experts).    */
 name|CompletableFuture
 argument_list|<
 name|Void
@@ -1146,6 +1052,18 @@ index|[]
 name|regionName
 parameter_list|)
 function_decl|;
+comment|/**    * Move the region<code>r</code> to a random server.    * @param regionName Encoded or full name of region to move.    */
+name|CompletableFuture
+argument_list|<
+name|Void
+argument_list|>
+name|move
+parameter_list|(
+name|byte
+index|[]
+name|regionName
+parameter_list|)
+function_decl|;
 comment|/**    * Move the region<code>r</code> to<code>dest</code>.    * @param regionName Encoded or full name of region to move.    * @param destServerName The servername of the destination regionserver. If not present, we'll    *          assign to a random server. A server name is made of host, port and startcode. Here is    *          an example:<code> host187.example.com,60020,1289493121758</code>    */
 name|CompletableFuture
 argument_list|<
@@ -1157,10 +1075,7 @@ name|byte
 index|[]
 name|regionName
 parameter_list|,
-name|Optional
-argument_list|<
 name|ServerName
-argument_list|>
 name|destServerName
 parameter_list|)
 function_decl|;
@@ -1310,7 +1225,6 @@ name|tableCfs
 parameter_list|)
 function_decl|;
 comment|/**    * Return a list of replication peers.    * @return a list of replication peers description. The return value will be wrapped by a    *         {@link CompletableFuture}.    */
-specifier|default
 name|CompletableFuture
 argument_list|<
 name|List
@@ -1320,17 +1234,7 @@ argument_list|>
 argument_list|>
 name|listReplicationPeers
 parameter_list|()
-block|{
-return|return
-name|listReplicationPeers
-argument_list|(
-name|Optional
-operator|.
-name|empty
-argument_list|()
-argument_list|)
-return|;
-block|}
+function_decl|;
 comment|/**    * Return a list of replication peers.    * @param pattern The compiled regular expression to match peer id    * @return a list of replication peers description. The return value will be wrapped by a    *         {@link CompletableFuture}.    */
 name|CompletableFuture
 argument_list|<
@@ -1341,10 +1245,7 @@ argument_list|>
 argument_list|>
 name|listReplicationPeers
 parameter_list|(
-name|Optional
-argument_list|<
 name|Pattern
-argument_list|>
 name|pattern
 parameter_list|)
 function_decl|;
@@ -1482,7 +1383,6 @@ name|tableName
 parameter_list|)
 function_decl|;
 comment|/**    * List completed snapshots.    * @return a list of snapshot descriptors for completed snapshots wrapped by a    *         {@link CompletableFuture}    */
-specifier|default
 name|CompletableFuture
 argument_list|<
 name|List
@@ -1492,17 +1392,7 @@ argument_list|>
 argument_list|>
 name|listSnapshots
 parameter_list|()
-block|{
-return|return
-name|listSnapshots
-argument_list|(
-name|Optional
-operator|.
-name|empty
-argument_list|()
-argument_list|)
-return|;
-block|}
+function_decl|;
 comment|/**    * List all the completed snapshots matching the given pattern.    * @param pattern The compiled regular expression to match against    * @return - returns a List of SnapshotDescription wrapped by a {@link CompletableFuture}    */
 name|CompletableFuture
 argument_list|<
@@ -1513,11 +1403,22 @@ argument_list|>
 argument_list|>
 name|listSnapshots
 parameter_list|(
-name|Optional
-argument_list|<
 name|Pattern
-argument_list|>
 name|pattern
+parameter_list|)
+function_decl|;
+comment|/**    * List all the completed snapshots matching the given table name pattern.    * @param tableNamePattern The compiled table name regular expression to match against    * @return - returns a List of completed SnapshotDescription wrapped by a    *         {@link CompletableFuture}    */
+name|CompletableFuture
+argument_list|<
+name|List
+argument_list|<
+name|SnapshotDescription
+argument_list|>
+argument_list|>
+name|listTableSnapshots
+parameter_list|(
+name|Pattern
+name|tableNamePattern
 parameter_list|)
 function_decl|;
 comment|/**    * List all the completed snapshots matching the given table name regular expression and snapshot    * name regular expression.    * @param tableNamePattern The compiled table name regular expression to match against    * @param snapshotNamePattern The compiled snapshot name regular expression to match against    * @return - returns a List of completed SnapshotDescription wrapped by a    *         {@link CompletableFuture}    */
@@ -1548,8 +1449,15 @@ name|String
 name|snapshotName
 parameter_list|)
 function_decl|;
+comment|/**    * Delete all existing snapshots.    */
+name|CompletableFuture
+argument_list|<
+name|Void
+argument_list|>
+name|deleteSnapshots
+parameter_list|()
+function_decl|;
 comment|/**    * Delete existing snapshots whose names match the pattern passed.    * @param pattern pattern for names of the snapshot to match    */
-specifier|default
 name|CompletableFuture
 argument_list|<
 name|Void
@@ -1559,16 +1467,18 @@ parameter_list|(
 name|Pattern
 name|pattern
 parameter_list|)
-block|{
-return|return
+function_decl|;
+comment|/**    * Delete all existing snapshots matching the given table name pattern.    * @param tableNamePattern The compiled table name regular expression to match against    */
+name|CompletableFuture
+argument_list|<
+name|Void
+argument_list|>
 name|deleteTableSnapshots
-argument_list|(
-literal|null
-argument_list|,
-name|pattern
-argument_list|)
-return|;
-block|}
+parameter_list|(
+name|Pattern
+name|tableNamePattern
+parameter_list|)
+function_decl|;
 comment|/**    * Delete all existing snapshots matching the given table name regular expression and snapshot    * name regular expression.    * @param tableNamePattern The compiled table name regular expression to match against    * @param snapshotNamePattern The compiled snapshot name regular expression to match against    */
 name|CompletableFuture
 argument_list|<
@@ -1874,33 +1784,6 @@ name|getMasterInfoPort
 argument_list|)
 return|;
 block|}
-comment|/**    * Get a list of {@link RegionLoad} of all regions hosted on a region seerver.    * @param serverName    * @return a list of {@link RegionLoad} wrapped by {@link CompletableFuture}    */
-specifier|default
-name|CompletableFuture
-argument_list|<
-name|List
-argument_list|<
-name|RegionLoad
-argument_list|>
-argument_list|>
-name|getRegionLoads
-parameter_list|(
-name|ServerName
-name|serverName
-parameter_list|)
-block|{
-return|return
-name|getRegionLoads
-argument_list|(
-name|serverName
-argument_list|,
-name|Optional
-operator|.
-name|empty
-argument_list|()
-argument_list|)
-return|;
-block|}
 comment|/**    * Shuts down the HBase cluster.    */
 name|CompletableFuture
 argument_list|<
@@ -1975,6 +1858,20 @@ argument_list|>
 name|queues
 parameter_list|)
 function_decl|;
+comment|/**    * Get a list of {@link RegionLoad} of all regions hosted on a region seerver.    * @param serverName    * @return a list of {@link RegionLoad} wrapped by {@link CompletableFuture}    */
+name|CompletableFuture
+argument_list|<
+name|List
+argument_list|<
+name|RegionLoad
+argument_list|>
+argument_list|>
+name|getRegionLoads
+parameter_list|(
+name|ServerName
+name|serverName
+parameter_list|)
+function_decl|;
 comment|/**    * Get a list of {@link RegionLoad} of all regions hosted on a region seerver for a table.    * @param serverName    * @param tableName    * @return a list of {@link RegionLoad} wrapped by {@link CompletableFuture}    */
 name|CompletableFuture
 argument_list|<
@@ -1988,10 +1885,7 @@ parameter_list|(
 name|ServerName
 name|serverName
 parameter_list|,
-name|Optional
-argument_list|<
 name|TableName
-argument_list|>
 name|tableName
 parameter_list|)
 function_decl|;
