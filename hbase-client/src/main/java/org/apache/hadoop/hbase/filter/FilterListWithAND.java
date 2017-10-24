@@ -552,7 +552,7 @@ name|Cell
 name|c
 parameter_list|,
 name|Cell
-name|currentTransformedCell
+name|transformedCell
 parameter_list|)
 throws|throws
 name|IOException
@@ -579,7 +579,7 @@ decl_stmt|;
 name|Cell
 name|transformed
 init|=
-name|currentTransformedCell
+name|transformedCell
 decl_stmt|;
 name|this
 operator|.
@@ -760,27 +760,6 @@ return|;
 block|}
 return|return
 name|rc
-return|;
-block|}
-annotation|@
-name|Override
-specifier|public
-name|ReturnCode
-name|filterKeyValue
-parameter_list|(
-name|Cell
-name|c
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-return|return
-name|internalFilterKeyValue
-argument_list|(
-name|c
-argument_list|,
-name|c
-argument_list|)
 return|;
 block|}
 annotation|@
@@ -1014,6 +993,9 @@ name|firstRowCell
 argument_list|)
 condition|)
 block|{
+comment|// Can't just return true here, because there are some filters (such as PrefixFilter) which
+comment|// will catch the row changed event by filterRowKey(). If we return early here, those
+comment|// filters will have no chance to update their row state.
 name|retVal
 operator|=
 literal|true

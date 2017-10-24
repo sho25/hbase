@@ -489,6 +489,7 @@ return|return
 name|cell
 return|;
 block|}
+comment|/**    * Internal implementation of {@link #filterKeyValue(Cell)}    * @param c The cell in question.    * @param transformedCell The transformed cell of previous filter(s)    * @return ReturnCode of this filter operation.    * @throws IOException    * @see org.apache.hadoop.hbase.filter.FilterList#internalFilterKeyValue(Cell, Cell)    */
 specifier|abstract
 name|ReturnCode
 name|internalFilterKeyValue
@@ -497,11 +498,32 @@ name|Cell
 name|c
 parameter_list|,
 name|Cell
-name|currentTransformedCell
+name|transformedCell
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+annotation|@
+name|Override
+specifier|public
+name|ReturnCode
+name|filterKeyValue
+parameter_list|(
+name|Cell
+name|c
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|internalFilterKeyValue
+argument_list|(
+name|c
+argument_list|,
+name|c
+argument_list|)
+return|;
+block|}
 comment|/**    * Filters that never filter by modifying the returned List of Cells can inherit this    * implementation that does nothing. {@inheritDoc}    */
 annotation|@
 name|Override

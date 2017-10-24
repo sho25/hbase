@@ -2004,7 +2004,7 @@ annotation|@
 name|Test
 specifier|public
 name|void
-name|testFilterListWithInclusiveStopFilteMustPassOne
+name|testFilterListWithInclusiveStopFilterMustPassOne
 parameter_list|()
 throws|throws
 name|Exception
@@ -4567,6 +4567,11 @@ operator|.
 name|didCellPassToTheFilter
 argument_list|)
 expr_stmt|;
+name|filter
+operator|.
+name|reset
+argument_list|()
+expr_stmt|;
 name|mockFilter
 operator|.
 name|didCellPassToTheFilter
@@ -4662,6 +4667,11 @@ name|mockFilter
 operator|.
 name|didCellPassToTheFilter
 argument_list|)
+expr_stmt|;
+name|filter
+operator|.
+name|reset
+argument_list|()
 expr_stmt|;
 name|mockFilter
 operator|.
