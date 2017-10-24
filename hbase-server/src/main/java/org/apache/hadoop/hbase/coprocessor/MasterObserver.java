@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/*  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  * http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  * http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -44,20 +44,6 @@ operator|.
 name|util
 operator|.
 name|Set
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|Coprocessor
 import|;
 end_import
 
@@ -128,22 +114,6 @@ operator|.
 name|hbase
 operator|.
 name|TableName
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|ColumnFamilyDescriptor
 import|;
 end_import
 
@@ -253,109 +223,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|master
-operator|.
-name|locking
-operator|.
-name|LockProcedure
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|master
-operator|.
-name|procedure
-operator|.
-name|MasterProcedureEnv
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|net
 operator|.
 name|Address
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|procedure2
-operator|.
-name|LockType
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|procedure2
-operator|.
-name|LockedResource
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|procedure2
-operator|.
-name|Procedure
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|procedure2
-operator|.
-name|ProcedureExecutor
 import|;
 end_import
 
@@ -923,7 +793,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called before a abortProcedure request has been processed.    * @param ctx the environment to interact with the framework and master    * @param procEnv procedure executor    * @param procId the Id of the procedure    */
+comment|/**    * Called before a abortProcedure request has been processed.    * @param ctx the environment to interact with the framework and master    * @param procId the Id of the procedure    */
 specifier|default
 name|void
 name|preAbortProcedure
@@ -933,13 +803,6 @@ argument_list|<
 name|MasterCoprocessorEnvironment
 argument_list|>
 name|ctx
-parameter_list|,
-specifier|final
-name|ProcedureExecutor
-argument_list|<
-name|MasterProcedureEnv
-argument_list|>
-name|procEnv
 parameter_list|,
 specifier|final
 name|long
@@ -976,7 +839,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called after a getProcedures request has been processed.    * @param ctx the environment to interact with the framework and master    * @param procList the list of procedures about to be returned    */
+comment|/**    * Called after a getProcedures request has been processed.    * @param ctx the environment to interact with the framework and master    */
 specifier|default
 name|void
 name|postGetProcedures
@@ -986,15 +849,6 @@ argument_list|<
 name|MasterCoprocessorEnvironment
 argument_list|>
 name|ctx
-parameter_list|,
-name|List
-argument_list|<
-name|Procedure
-argument_list|<
-name|?
-argument_list|>
-argument_list|>
-name|procList
 parameter_list|)
 throws|throws
 name|IOException
@@ -1013,7 +867,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called after a getLocks request has been processed.    * @param ctx the environment to interact with the framework and master    * @param lockedResources the list of locks about to be returned    * @throws IOException if something went wrong    */
+comment|/**    * Called after a getLocks request has been processed.    * @param ctx the environment to interact with the framework and master    * @throws IOException if something went wrong    */
 specifier|default
 name|void
 name|postGetLocks
@@ -1023,12 +877,6 @@ argument_list|<
 name|MasterCoprocessorEnvironment
 argument_list|>
 name|ctx
-parameter_list|,
-name|List
-argument_list|<
-name|LockedResource
-argument_list|>
-name|lockedResources
 parameter_list|)
 throws|throws
 name|IOException
@@ -3021,9 +2869,6 @@ name|RegionInfo
 index|[]
 name|regionInfos
 parameter_list|,
-name|LockType
-name|type
-parameter_list|,
 name|String
 name|description
 parameter_list|)
@@ -3051,16 +2896,13 @@ name|RegionInfo
 index|[]
 name|regionInfos
 parameter_list|,
-name|LockType
-name|type
-parameter_list|,
 name|String
 name|description
 parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called before heartbeat to a lock.    * @param ctx the environment to interact with the framework and master    * @param keepAlive if lock should be kept alive; lock will be released if set to false.    */
+comment|/**    * Called before heartbeat to a lock.    * @param ctx the environment to interact with the framework and master    */
 specifier|default
 name|void
 name|preLockHeartbeat
@@ -3071,16 +2913,16 @@ name|MasterCoprocessorEnvironment
 argument_list|>
 name|ctx
 parameter_list|,
-name|LockProcedure
-name|proc
+name|TableName
+name|tn
 parameter_list|,
-name|boolean
-name|keepAlive
+name|String
+name|description
 parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called after heartbeat to a lock.    * @param ctx the environment to interact with the framework and master    * @param keepAlive if lock was kept alive; lock was released if set to false.    */
+comment|/**    * Called after heartbeat to a lock.    * @param ctx the environment to interact with the framework and master    */
 specifier|default
 name|void
 name|postLockHeartbeat
@@ -3090,12 +2932,6 @@ argument_list|<
 name|MasterCoprocessorEnvironment
 argument_list|>
 name|ctx
-parameter_list|,
-name|LockProcedure
-name|proc
-parameter_list|,
-name|boolean
-name|keepAlive
 parameter_list|)
 throws|throws
 name|IOException

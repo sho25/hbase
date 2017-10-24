@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/*  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  * http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  * http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -154,22 +154,6 @@ operator|.
 name|hbase
 operator|.
 name|TableName
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|ColumnFamilyDescriptor
 import|;
 end_import
 
@@ -3119,8 +3103,6 @@ name|preAbortProcedure
 argument_list|(
 name|this
 argument_list|,
-name|procEnv
-argument_list|,
 name|procId
 argument_list|)
 expr_stmt|;
@@ -3265,8 +3247,6 @@ operator|.
 name|postGetProcedures
 argument_list|(
 name|this
-argument_list|,
-name|procInfoList
 argument_list|)
 expr_stmt|;
 block|}
@@ -3363,8 +3343,6 @@ operator|.
 name|postGetLocks
 argument_list|(
 name|this
-argument_list|,
-name|lockedResources
 argument_list|)
 expr_stmt|;
 block|}
@@ -8232,8 +8210,6 @@ name|tableName
 argument_list|,
 name|regionInfos
 argument_list|,
-name|type
-argument_list|,
 name|description
 argument_list|)
 expr_stmt|;
@@ -8302,8 +8278,6 @@ name|tableName
 argument_list|,
 name|regionInfos
 argument_list|,
-name|type
-argument_list|,
 name|description
 argument_list|)
 expr_stmt|;
@@ -8357,8 +8331,14 @@ argument_list|(
 name|this
 argument_list|,
 name|proc
+operator|.
+name|getTableName
+argument_list|()
 argument_list|,
-name|keepAlive
+name|proc
+operator|.
+name|getDescription
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -8409,10 +8389,6 @@ operator|.
 name|postLockHeartbeat
 argument_list|(
 name|this
-argument_list|,
-name|proc
-argument_list|,
-name|keepAlive
 argument_list|)
 expr_stmt|;
 block|}
