@@ -3745,7 +3745,7 @@ name|long
 name|flushedSeqId
 decl_stmt|;
 specifier|final
-name|MemStoreSize
+name|MemStoreSizing
 name|totalFlushableSize
 decl_stmt|;
 comment|/** Constructs an early exit case */
@@ -3781,9 +3781,9 @@ literal|0
 argument_list|,
 literal|0
 argument_list|,
-operator|new
-name|MemStoreSize
-argument_list|()
+name|MemStoreSizing
+operator|.
+name|DUD
 argument_list|)
 expr_stmt|;
 block|}
@@ -3829,7 +3829,7 @@ parameter_list|,
 name|long
 name|flushedSeqId
 parameter_list|,
-name|MemStoreSize
+name|MemStoreSizing
 name|totalFlushableSize
 parameter_list|)
 block|{
@@ -3898,7 +3898,7 @@ parameter_list|,
 name|long
 name|flushedSeqId
 parameter_list|,
-name|MemStoreSize
+name|MemStoreSizing
 name|totalFlushableSize
 parameter_list|)
 block|{
@@ -8777,7 +8777,7 @@ operator|.
 name|decrMemStoreSize
 argument_list|(
 operator|new
-name|MemStoreSize
+name|MemStoreSizing
 argument_list|(
 name|memstoreDataSize
 operator|.
@@ -11768,11 +11768,11 @@ name|getEncodedName
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|MemStoreSize
+name|MemStoreSizing
 name|totalSizeOfFlushableStores
 init|=
 operator|new
-name|MemStoreSize
+name|MemStoreSizing
 argument_list|()
 decl_stmt|;
 name|Map
@@ -15928,11 +15928,11 @@ operator|.
 name|length
 argument_list|)
 decl_stmt|;
-name|MemStoreSize
-name|memStoreSize
+name|MemStoreSizing
+name|memStoreAccounting
 init|=
 operator|new
-name|MemStoreSize
+name|MemStoreSizing
 argument_list|()
 decl_stmt|;
 try|try
@@ -16924,7 +16924,7 @@ index|[
 name|i
 index|]
 argument_list|,
-name|memStoreSize
+name|memStoreAccounting
 argument_list|)
 expr_stmt|;
 block|}
@@ -16933,7 +16933,7 @@ name|this
 operator|.
 name|addAndGetMemStoreSize
 argument_list|(
-name|memStoreSize
+name|memStoreAccounting
 argument_list|)
 expr_stmt|;
 comment|// calling the post CP hook for batch mutation
@@ -19374,8 +19374,8 @@ argument_list|>
 argument_list|>
 name|familyMap
 parameter_list|,
-name|MemStoreSize
-name|memstoreSize
+name|MemStoreSizing
+name|memstoreAccounting
 parameter_list|)
 throws|throws
 name|IOException
@@ -19438,12 +19438,12 @@ name|cells
 argument_list|,
 literal|false
 argument_list|,
-name|memstoreSize
+name|memstoreAccounting
 argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * @param delta If we are doing delta changes -- e.g. increment/append -- then this flag will be    *          set; when set we will run operations that make sense in the increment/append scenario    *          but that do not make sense otherwise.    * @see #applyToMemStore(HStore, Cell, MemStoreSize)    */
+comment|/**    * @param delta If we are doing delta changes -- e.g. increment/append -- then this flag will be    *          set; when set we will run operations that make sense in the increment/append scenario    *          but that do not make sense otherwise.    * @see #applyToMemStore(HStore, Cell, MemStoreSizing)    */
 specifier|private
 name|void
 name|applyToMemStore
@@ -19460,8 +19460,8 @@ parameter_list|,
 name|boolean
 name|delta
 parameter_list|,
-name|MemStoreSize
-name|memstoreSize
+name|MemStoreSizing
+name|memstoreAccounting
 parameter_list|)
 throws|throws
 name|IOException
@@ -19496,7 +19496,7 @@ argument_list|,
 name|getSmallestReadPoint
 argument_list|()
 argument_list|,
-name|memstoreSize
+name|memstoreAccounting
 argument_list|)
 expr_stmt|;
 block|}
@@ -19508,12 +19508,12 @@ name|add
 argument_list|(
 name|cells
 argument_list|,
-name|memstoreSize
+name|memstoreAccounting
 argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * @see #applyToMemStore(HStore, List, boolean, MemStoreSize)    */
+comment|/**    * @see #applyToMemStore(HStore, List, boolean, MemStoreSizing)    */
 specifier|private
 name|void
 name|applyToMemStore
@@ -19524,8 +19524,8 @@ parameter_list|,
 name|Cell
 name|cell
 parameter_list|,
-name|MemStoreSize
-name|memstoreSize
+name|MemStoreSizing
+name|memstoreAccounting
 parameter_list|)
 throws|throws
 name|IOException
@@ -19556,7 +19556,7 @@ name|add
 argument_list|(
 name|cell
 argument_list|,
-name|memstoreSize
+name|memstoreAccounting
 argument_list|)
 expr_stmt|;
 block|}
@@ -21045,11 +21045,11 @@ name|flush
 init|=
 literal|false
 decl_stmt|;
-name|MemStoreSize
+name|MemStoreSizing
 name|memstoreSize
 init|=
 operator|new
-name|MemStoreSize
+name|MemStoreSizing
 argument_list|()
 decl_stmt|;
 for|for
@@ -23292,11 +23292,11 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|MemStoreSize
+name|MemStoreSizing
 name|totalFreedSize
 init|=
 operator|new
-name|MemStoreSize
+name|MemStoreSizing
 argument_list|()
 decl_stmt|;
 name|this
@@ -25246,7 +25246,7 @@ argument_list|()
 argument_list|)
 throw|;
 block|}
-comment|/**    * Used by tests    * @param s Store to add edit too.    * @param cell Cell to add.    * @param memstoreSize    */
+comment|/**    * Used by tests    * @param s Store to add edit too.    * @param cell Cell to add.    */
 annotation|@
 name|VisibleForTesting
 specifier|protected
@@ -25259,8 +25259,8 @@ parameter_list|,
 name|Cell
 name|cell
 parameter_list|,
-name|MemStoreSize
-name|memstoreSize
+name|MemStoreSizing
+name|memstoreAccounting
 parameter_list|)
 block|{
 name|s
@@ -25269,11 +25269,11 @@ name|add
 argument_list|(
 name|cell
 argument_list|,
-name|memstoreSize
+name|memstoreAccounting
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param fs    * @param p File to check.    * @return True if file was zero-length (and if so, we'll delete it in here).    * @throws IOException    */
+comment|/**    * @param p File to check.    * @return True if file was zero-length (and if so, we'll delete it in here).    * @throws IOException    */
 specifier|private
 specifier|static
 name|boolean
@@ -33674,11 +33674,11 @@ name|writeEntry
 init|=
 literal|null
 decl_stmt|;
-name|MemStoreSize
-name|memstoreSize
+name|MemStoreSizing
+name|memstoreAccounting
 init|=
 operator|new
-name|MemStoreSize
+name|MemStoreSizing
 argument_list|()
 decl_stmt|;
 try|try
@@ -33931,7 +33931,7 @@ argument_list|)
 argument_list|,
 name|cell
 argument_list|,
-name|memstoreSize
+name|memstoreAccounting
 argument_list|)
 expr_stmt|;
 block|}
@@ -34062,7 +34062,7 @@ name|this
 operator|.
 name|addAndGetMemStoreSize
 argument_list|(
-name|memstoreSize
+name|memstoreAccounting
 argument_list|)
 decl_stmt|;
 name|requestFlushIfNeeded
@@ -34679,11 +34679,11 @@ name|rowLock
 init|=
 literal|null
 decl_stmt|;
-name|MemStoreSize
-name|memstoreSize
+name|MemStoreSizing
+name|memstoreAccounting
 init|=
 operator|new
-name|MemStoreSize
+name|MemStoreSizing
 argument_list|()
 decl_stmt|;
 try|try
@@ -34887,7 +34887,7 @@ argument_list|()
 argument_list|,
 literal|true
 argument_list|,
-name|memstoreSize
+name|memstoreAccounting
 argument_list|)
 expr_stmt|;
 block|}
@@ -35007,7 +35007,7 @@ name|isFlushSize
 argument_list|(
 name|addAndGetMemStoreSize
 argument_list|(
-name|memstoreSize
+name|memstoreAccounting
 argument_list|)
 argument_list|)
 condition|)

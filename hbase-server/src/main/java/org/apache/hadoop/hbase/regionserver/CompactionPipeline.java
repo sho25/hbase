@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -617,7 +617,7 @@ operator|.
 name|addMemStoreSize
 argument_list|(
 operator|new
-name|MemStoreSize
+name|MemStoreSizing
 argument_list|(
 operator|-
 name|dataSizeDelta
@@ -822,11 +822,11 @@ name|canBeFlattened
 argument_list|()
 condition|)
 block|{
-name|MemStoreSize
-name|newMemstoreSize
+name|MemStoreSizing
+name|newMemstoreAccounting
 init|=
 operator|new
-name|MemStoreSize
+name|MemStoreSizing
 argument_list|()
 decl_stmt|;
 comment|// the size to be updated
@@ -847,7 +847,7 @@ name|s
 argument_list|,
 name|idxType
 argument_list|,
-name|newMemstoreSize
+name|newMemstoreAccounting
 argument_list|)
 decl_stmt|;
 name|replaceAtIndex
@@ -875,7 +875,7 @@ name|MemStoreSize
 argument_list|(
 literal|0
 argument_list|,
-name|newMemstoreSize
+name|newMemstoreAccounting
 operator|.
 name|getHeapSize
 argument_list|()
@@ -994,8 +994,8 @@ name|minSequenceId
 return|;
 block|}
 specifier|public
-name|MemStoreSize
-name|getTailSize
+name|MemStoreSizing
+name|getTailSizing
 parameter_list|()
 block|{
 name|LinkedList
@@ -1017,14 +1017,12 @@ argument_list|()
 condition|)
 return|return
 operator|new
-name|MemStoreSize
-argument_list|(
-literal|true
-argument_list|)
+name|MemStoreSizing
+argument_list|()
 return|;
 return|return
 operator|new
-name|MemStoreSize
+name|MemStoreSizing
 argument_list|(
 name|localCopy
 operator|.
@@ -1045,8 +1043,8 @@ argument_list|)
 return|;
 block|}
 specifier|public
-name|MemStoreSize
-name|getPipelineSize
+name|MemStoreSizing
+name|getPipelineSizing
 parameter_list|()
 block|{
 name|long
@@ -1078,10 +1076,8 @@ argument_list|()
 condition|)
 return|return
 operator|new
-name|MemStoreSize
-argument_list|(
-literal|true
-argument_list|)
+name|MemStoreSizing
+argument_list|()
 return|;
 for|for
 control|(
@@ -1108,7 +1104,7 @@ expr_stmt|;
 block|}
 return|return
 operator|new
-name|MemStoreSize
+name|MemStoreSizing
 argument_list|(
 name|keySize
 argument_list|,

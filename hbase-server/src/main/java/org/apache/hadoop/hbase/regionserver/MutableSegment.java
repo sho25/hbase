@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -131,22 +131,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
-operator|.
-name|TimeRange
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|util
 operator|.
 name|ClassSize
@@ -252,7 +236,7 @@ argument_list|)
 expr_stmt|;
 comment|// update the mutable segment metadata
 block|}
-comment|/**    * Adds the given cell into the segment    * @param cell the cell to add    * @param mslabUsed whether using MSLAB    * @param memstoreSize    */
+comment|/**    * Adds the given cell into the segment    * @param cell the cell to add    * @param mslabUsed whether using MSLAB    */
 specifier|public
 name|void
 name|add
@@ -263,8 +247,8 @@ parameter_list|,
 name|boolean
 name|mslabUsed
 parameter_list|,
-name|MemStoreSize
-name|memstoreSize
+name|MemStoreSizing
+name|memStoreSizing
 parameter_list|)
 block|{
 name|internalAdd
@@ -273,7 +257,7 @@ name|cell
 argument_list|,
 name|mslabUsed
 argument_list|,
-name|memstoreSize
+name|memStoreSizing
 argument_list|)
 expr_stmt|;
 block|}
@@ -287,8 +271,8 @@ parameter_list|,
 name|long
 name|readpoint
 parameter_list|,
-name|MemStoreSize
-name|memstoreSize
+name|MemStoreSizing
+name|memStoreSizing
 parameter_list|)
 block|{
 name|internalAdd
@@ -297,7 +281,7 @@ name|cell
 argument_list|,
 literal|false
 argument_list|,
-name|memstoreSize
+name|memStoreSizing
 argument_list|)
 expr_stmt|;
 comment|// Get the Cells for the row/family/qualifier regardless of timestamp.
@@ -464,12 +448,12 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|memstoreSize
+name|memStoreSizing
 operator|!=
 literal|null
 condition|)
 block|{
-name|memstoreSize
+name|memStoreSizing
 operator|.
 name|decMemStoreSize
 argument_list|(

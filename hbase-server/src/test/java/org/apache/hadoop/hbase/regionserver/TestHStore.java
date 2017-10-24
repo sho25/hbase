@@ -2120,7 +2120,7 @@ annotation|@
 name|Test
 specifier|public
 name|void
-name|testFlushSizeAccounting
+name|testFlushSizeSizing
 parameter_list|()
 throws|throws
 name|Exception
@@ -2287,11 +2287,11 @@ argument_list|(
 literal|"Adding some data"
 argument_list|)
 expr_stmt|;
-name|MemStoreSize
+name|MemStoreSizing
 name|kvSize
 init|=
 operator|new
-name|MemStoreSize
+name|MemStoreSizing
 argument_list|()
 decl_stmt|;
 name|store
@@ -2423,11 +2423,11 @@ argument_list|,
 name|size
 argument_list|)
 expr_stmt|;
-name|MemStoreSize
+name|MemStoreSizing
 name|kvSize2
 init|=
 operator|new
-name|MemStoreSize
+name|MemStoreSizing
 argument_list|()
 decl_stmt|;
 name|store
@@ -8656,11 +8656,11 @@ argument_list|(
 literal|"value2"
 argument_list|)
 decl_stmt|;
-name|MemStoreSize
-name|memStoreSize
+name|MemStoreSizing
+name|memStoreSizing
 init|=
 operator|new
-name|MemStoreSize
+name|MemStoreSizing
 argument_list|()
 decl_stmt|;
 name|long
@@ -8753,7 +8753,7 @@ argument_list|,
 name|value0
 argument_list|)
 argument_list|,
-name|memStoreSize
+name|memStoreSizing
 argument_list|)
 expr_stmt|;
 name|store
@@ -8773,7 +8773,7 @@ argument_list|,
 name|value0
 argument_list|)
 argument_list|,
-name|memStoreSize
+name|memStoreSizing
 argument_list|)
 expr_stmt|;
 name|store
@@ -8793,7 +8793,7 @@ argument_list|,
 name|value0
 argument_list|)
 argument_list|,
-name|memStoreSize
+name|memStoreSizing
 argument_list|)
 expr_stmt|;
 name|store
@@ -8817,7 +8817,7 @@ argument_list|,
 name|value1
 argument_list|)
 argument_list|,
-name|memStoreSize
+name|memStoreSizing
 argument_list|)
 expr_stmt|;
 name|store
@@ -8841,7 +8841,7 @@ argument_list|,
 name|value1
 argument_list|)
 argument_list|,
-name|memStoreSize
+name|memStoreSizing
 argument_list|)
 expr_stmt|;
 name|store
@@ -8865,7 +8865,7 @@ argument_list|,
 name|value1
 argument_list|)
 argument_list|,
-name|memStoreSize
+name|memStoreSizing
 argument_list|)
 expr_stmt|;
 name|store
@@ -8889,7 +8889,7 @@ argument_list|,
 name|value2
 argument_list|)
 argument_list|,
-name|memStoreSize
+name|memStoreSizing
 argument_list|)
 expr_stmt|;
 name|store
@@ -8913,7 +8913,7 @@ argument_list|,
 name|value2
 argument_list|)
 argument_list|,
-name|memStoreSize
+name|memStoreSizing
 argument_list|)
 expr_stmt|;
 name|store
@@ -8937,7 +8937,7 @@ argument_list|,
 name|value2
 argument_list|)
 argument_list|,
-name|memStoreSize
+name|memStoreSizing
 argument_list|)
 expr_stmt|;
 name|store
@@ -8961,7 +8961,7 @@ argument_list|,
 name|value1
 argument_list|)
 argument_list|,
-name|memStoreSize
+name|memStoreSizing
 argument_list|)
 expr_stmt|;
 name|store
@@ -8985,7 +8985,7 @@ argument_list|,
 name|value1
 argument_list|)
 argument_list|,
-name|memStoreSize
+name|memStoreSizing
 argument_list|)
 expr_stmt|;
 name|store
@@ -9009,7 +9009,7 @@ argument_list|,
 name|value1
 argument_list|)
 argument_list|,
-name|memStoreSize
+name|memStoreSizing
 argument_list|)
 expr_stmt|;
 name|List
@@ -9288,11 +9288,11 @@ argument_list|(
 literal|"value"
 argument_list|)
 decl_stmt|;
-name|MemStoreSize
-name|memStoreSize
+name|MemStoreSizing
+name|memStoreSizing
 init|=
 operator|new
-name|MemStoreSize
+name|MemStoreSizing
 argument_list|()
 decl_stmt|;
 name|long
@@ -9324,7 +9324,7 @@ argument_list|,
 name|value
 argument_list|)
 argument_list|,
-name|memStoreSize
+name|memStoreSizing
 argument_list|)
 expr_stmt|;
 name|store
@@ -9342,7 +9342,7 @@ argument_list|,
 name|value
 argument_list|)
 argument_list|,
-name|memStoreSize
+name|memStoreSizing
 argument_list|)
 expr_stmt|;
 name|store
@@ -9360,7 +9360,7 @@ argument_list|,
 name|value
 argument_list|)
 argument_list|,
-name|memStoreSize
+name|memStoreSizing
 argument_list|)
 expr_stmt|;
 name|TreeSet
@@ -9780,11 +9780,11 @@ argument_list|(
 literal|"currentValue"
 argument_list|)
 decl_stmt|;
-name|MemStoreSize
-name|memStoreSize
+name|MemStoreSizing
+name|memStoreSizing
 init|=
 operator|new
-name|MemStoreSize
+name|MemStoreSizing
 argument_list|()
 decl_stmt|;
 name|long
@@ -9816,7 +9816,7 @@ argument_list|,
 name|oldValue
 argument_list|)
 argument_list|,
-name|memStoreSize
+name|memStoreSizing
 argument_list|)
 expr_stmt|;
 name|myStore
@@ -9834,7 +9834,7 @@ argument_list|,
 name|oldValue
 argument_list|)
 argument_list|,
-name|memStoreSize
+name|memStoreSizing
 argument_list|)
 expr_stmt|;
 name|myStore
@@ -9852,7 +9852,7 @@ argument_list|,
 name|oldValue
 argument_list|)
 argument_list|,
-name|memStoreSize
+name|memStoreSizing
 argument_list|)
 expr_stmt|;
 name|long
@@ -9897,7 +9897,7 @@ argument_list|,
 name|currentValue
 argument_list|)
 argument_list|,
-name|memStoreSize
+name|memStoreSizing
 argument_list|)
 expr_stmt|;
 name|myStore
@@ -9919,7 +9919,7 @@ argument_list|,
 name|currentValue
 argument_list|)
 argument_list|,
-name|memStoreSize
+name|memStoreSizing
 argument_list|)
 expr_stmt|;
 name|myStore
@@ -9941,7 +9941,7 @@ argument_list|,
 name|currentValue
 argument_list|)
 argument_list|,
-name|memStoreSize
+name|memStoreSizing
 argument_list|)
 expr_stmt|;
 name|TreeSet
@@ -10621,11 +10621,11 @@ argument_list|(
 literal|"thisisavarylargevalue"
 argument_list|)
 decl_stmt|;
-name|MemStoreSize
-name|memStoreSize
+name|MemStoreSizing
+name|memStoreSizing
 init|=
 operator|new
-name|MemStoreSize
+name|MemStoreSizing
 argument_list|()
 decl_stmt|;
 name|long
@@ -10657,7 +10657,7 @@ argument_list|,
 name|value
 argument_list|)
 argument_list|,
-name|memStoreSize
+name|memStoreSizing
 argument_list|)
 expr_stmt|;
 name|store
@@ -10675,7 +10675,7 @@ argument_list|,
 name|value
 argument_list|)
 argument_list|,
-name|memStoreSize
+name|memStoreSizing
 argument_list|)
 expr_stmt|;
 name|store
@@ -10693,7 +10693,7 @@ argument_list|,
 name|value
 argument_list|)
 argument_list|,
-name|memStoreSize
+name|memStoreSizing
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -10745,7 +10745,7 @@ argument_list|,
 name|value
 argument_list|)
 argument_list|,
-name|memStoreSize
+name|memStoreSizing
 argument_list|)
 expr_stmt|;
 name|store
@@ -10767,7 +10767,7 @@ argument_list|,
 name|value
 argument_list|)
 argument_list|,
-name|memStoreSize
+name|memStoreSizing
 argument_list|)
 expr_stmt|;
 name|store
@@ -10789,7 +10789,7 @@ argument_list|,
 name|value
 argument_list|)
 argument_list|,
-name|memStoreSize
+name|memStoreSizing
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -10865,7 +10865,7 @@ argument_list|,
 name|value
 argument_list|)
 argument_list|,
-name|memStoreSize
+name|memStoreSizing
 argument_list|)
 expr_stmt|;
 name|store
@@ -10887,7 +10887,7 @@ argument_list|,
 name|value
 argument_list|)
 argument_list|,
-name|memStoreSize
+name|memStoreSizing
 argument_list|)
 expr_stmt|;
 name|store
@@ -10909,7 +10909,7 @@ argument_list|,
 name|value
 argument_list|)
 argument_list|,
-name|memStoreSize
+name|memStoreSizing
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -11641,11 +11641,11 @@ argument_list|()
 block|{}
 argument_list|)
 decl_stmt|;
-name|MemStoreSize
-name|memStoreSize
+name|MemStoreSizing
+name|memStoreSizing
 init|=
 operator|new
-name|MemStoreSize
+name|MemStoreSizing
 argument_list|()
 decl_stmt|;
 name|long
@@ -11707,7 +11707,7 @@ literal|""
 argument_list|)
 argument_list|)
 argument_list|,
-name|memStoreSize
+name|memStoreSizing
 argument_list|)
 expr_stmt|;
 block|}
@@ -11764,7 +11764,7 @@ literal|""
 argument_list|)
 argument_list|)
 argument_list|,
-name|memStoreSize
+name|memStoreSizing
 argument_list|)
 expr_stmt|;
 block|}
@@ -11821,7 +11821,7 @@ literal|""
 argument_list|)
 argument_list|)
 argument_list|,
-name|memStoreSize
+name|memStoreSizing
 argument_list|)
 expr_stmt|;
 block|}
@@ -11962,7 +11962,7 @@ literal|""
 argument_list|)
 argument_list|)
 argument_list|,
-name|memStoreSize
+name|memStoreSizing
 argument_list|)
 expr_stmt|;
 block|}
@@ -12019,7 +12019,7 @@ literal|""
 argument_list|)
 argument_list|)
 argument_list|,
-name|memStoreSize
+name|memStoreSizing
 argument_list|)
 expr_stmt|;
 block|}

@@ -3806,7 +3806,7 @@ name|stopReplayingFromWAL
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Adds a value to the memstore    * @param cell    * @param memstoreSize    */
+comment|/**    * Adds a value to the memstore    */
 specifier|public
 name|void
 name|add
@@ -3815,8 +3815,8 @@ specifier|final
 name|Cell
 name|cell
 parameter_list|,
-name|MemStoreSize
-name|memstoreSize
+name|MemStoreSizing
+name|memstoreSizing
 parameter_list|)
 block|{
 name|lock
@@ -3837,7 +3837,7 @@ name|add
 argument_list|(
 name|cell
 argument_list|,
-name|memstoreSize
+name|memstoreSizing
 argument_list|)
 expr_stmt|;
 block|}
@@ -3853,7 +3853,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Adds the specified value to the memstore    * @param cells    * @param memstoreSize    */
+comment|/**    * Adds the specified value to the memstore    */
 specifier|public
 name|void
 name|add
@@ -3865,8 +3865,8 @@ name|Cell
 argument_list|>
 name|cells
 parameter_list|,
-name|MemStoreSize
-name|memstoreSize
+name|MemStoreSizing
+name|memstoreSizing
 parameter_list|)
 block|{
 name|lock
@@ -3885,7 +3885,7 @@ name|add
 argument_list|(
 name|cells
 argument_list|,
-name|memstoreSize
+name|memstoreSizing
 argument_list|)
 expr_stmt|;
 block|}
@@ -10765,7 +10765,7 @@ name|getSmallestReadPoint
 argument_list|()
 return|;
 block|}
-comment|/**    * Adds or replaces the specified KeyValues.    *<p>    * For each KeyValue specified, if a cell with the same row, family, and qualifier exists in    * MemStore, it will be replaced. Otherwise, it will just be inserted to MemStore.    *<p>    * This operation is atomic on each KeyValue (row/family/qualifier) but not necessarily atomic    * across all of them.    * @param cells    * @param readpoint readpoint below which we can safely remove duplicate KVs    * @param memstoreSize    * @throws IOException    */
+comment|/**    * Adds or replaces the specified KeyValues.    *<p>    * For each KeyValue specified, if a cell with the same row, family, and qualifier exists in    * MemStore, it will be replaced. Otherwise, it will just be inserted to MemStore.    *<p>    * This operation is atomic on each KeyValue (row/family/qualifier) but not necessarily atomic    * across all of them.    * @param readpoint readpoint below which we can safely remove duplicate KVs    * @throws IOException    */
 specifier|public
 name|void
 name|upsert
@@ -10779,8 +10779,8 @@ parameter_list|,
 name|long
 name|readpoint
 parameter_list|,
-name|MemStoreSize
-name|memstoreSize
+name|MemStoreSizing
+name|memstoreSizing
 parameter_list|)
 throws|throws
 name|IOException
@@ -10807,7 +10807,7 @@ name|cells
 argument_list|,
 name|readpoint
 argument_list|,
-name|memstoreSize
+name|memstoreSizing
 argument_list|)
 expr_stmt|;
 block|}

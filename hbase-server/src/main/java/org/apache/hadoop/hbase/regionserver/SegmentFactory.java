@@ -375,8 +375,8 @@ operator|.
 name|IndexType
 name|idxType
 parameter_list|,
-name|MemStoreSize
-name|memstoreSize
+name|MemStoreSizing
+name|memstoreSizing
 parameter_list|)
 block|{
 name|ImmutableSegment
@@ -399,7 +399,7 @@ name|CellChunkImmutableSegment
 argument_list|(
 name|segment
 argument_list|,
-name|memstoreSize
+name|memstoreSizing
 argument_list|)
 expr_stmt|;
 break|break;
@@ -421,7 +421,7 @@ name|CellArrayImmutableSegment
 argument_list|(
 name|segment
 argument_list|,
-name|memstoreSize
+name|memstoreSizing
 argument_list|)
 expr_stmt|;
 break|break;

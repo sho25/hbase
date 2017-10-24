@@ -4144,11 +4144,11 @@ argument_list|(
 literal|"testqualifier"
 argument_list|)
 decl_stmt|;
-name|MemStoreSize
-name|memstoreSize
+name|MemStoreSizing
+name|memstoreSizing
 init|=
 operator|new
-name|MemStoreSize
+name|MemStoreSizing
 argument_list|()
 decl_stmt|;
 for|for
@@ -4237,7 +4237,7 @@ name|add
 argument_list|(
 name|kv
 argument_list|,
-name|memstoreSize
+name|memstoreSizing
 argument_list|)
 expr_stmt|;
 name|LOG
@@ -4264,11 +4264,11 @@ name|regionServicesForStores
 operator|.
 name|addMemStoreSize
 argument_list|(
-name|memstoreSize
+name|memstoreSizing
 argument_list|)
 expr_stmt|;
 return|return
-name|memstoreSize
+name|memstoreSizing
 operator|.
 name|getDataSize
 argument_list|()

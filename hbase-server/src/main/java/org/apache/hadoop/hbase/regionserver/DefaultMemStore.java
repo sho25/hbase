@@ -843,11 +843,11 @@ index|[
 literal|0
 index|]
 decl_stmt|;
-name|MemStoreSize
-name|memstoreSize
+name|MemStoreSizing
+name|memstoreSizing
 init|=
 operator|new
-name|MemStoreSize
+name|MemStoreSizing
 argument_list|()
 decl_stmt|;
 for|for
@@ -889,7 +889,7 @@ argument_list|,
 name|empty
 argument_list|)
 argument_list|,
-name|memstoreSize
+name|memstoreSizing
 argument_list|)
 expr_stmt|;
 block|}
@@ -900,12 +900,12 @@ argument_list|(
 literal|"memstore1 estimated size="
 operator|+
 operator|(
-name|memstoreSize
+name|memstoreSizing
 operator|.
 name|getDataSize
 argument_list|()
 operator|+
-name|memstoreSize
+name|memstoreSizing
 operator|.
 name|getHeapSize
 argument_list|()
@@ -950,7 +950,7 @@ argument_list|,
 name|empty
 argument_list|)
 argument_list|,
-name|memstoreSize
+name|memstoreSizing
 argument_list|)
 expr_stmt|;
 block|}
@@ -961,12 +961,12 @@ argument_list|(
 literal|"memstore1 estimated size (2nd loading of same data)="
 operator|+
 operator|(
-name|memstoreSize
+name|memstoreSizing
 operator|.
 name|getDataSize
 argument_list|()
 operator|+
-name|memstoreSize
+name|memstoreSizing
 operator|.
 name|getHeapSize
 argument_list|()
@@ -981,10 +981,10 @@ operator|new
 name|DefaultMemStore
 argument_list|()
 decl_stmt|;
-name|memstoreSize
+name|memstoreSizing
 operator|=
 operator|new
-name|MemStoreSize
+name|MemStoreSizing
 argument_list|()
 expr_stmt|;
 for|for
@@ -1029,7 +1029,7 @@ name|i
 index|]
 argument_list|)
 argument_list|,
-name|memstoreSize
+name|memstoreSizing
 argument_list|)
 expr_stmt|;
 block|}
@@ -1040,12 +1040,12 @@ argument_list|(
 literal|"memstore2 estimated size="
 operator|+
 operator|(
-name|memstoreSize
+name|memstoreSizing
 operator|.
 name|getDataSize
 argument_list|()
 operator|+
-name|memstoreSize
+name|memstoreSizing
 operator|.
 name|getHeapSize
 argument_list|()

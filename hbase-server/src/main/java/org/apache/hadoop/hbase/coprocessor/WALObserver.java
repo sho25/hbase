@@ -167,8 +167,10 @@ specifier|public
 interface|interface
 name|WALObserver
 block|{
-comment|/**    * Called before a {@link WALEdit}    * is writen to WAL.    *    * @return true if default behavior should be bypassed, false otherwise    */
+comment|/**    * Called before a {@link WALEdit}    * is writen to WAL.    *    * @return true if default behavior should be bypassed, false otherwise    * @deprecated Since hbase-2.0.0. To be replaced with an alternative that does not expose    * InterfaceAudience classes such as WALKey and WALEdit. Will be removed in hbase-3.0.0.    */
 comment|// TODO: return value is not used
+annotation|@
+name|Deprecated
 specifier|default
 name|boolean
 name|preWALWrite
@@ -197,7 +199,9 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * Called after a {@link WALEdit}    * is writen to WAL.    */
+comment|/**    * Called after a {@link WALEdit}    * is writen to WAL.    * @deprecated Since hbase-2.0.0. To be replaced with an alternative that does not expose    * InterfaceAudience classes such as WALKey and WALEdit. Will be removed in hbase-3.0.0.    */
+annotation|@
+name|Deprecated
 specifier|default
 name|void
 name|postWALWrite

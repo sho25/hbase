@@ -1113,11 +1113,11 @@ argument_list|,
 name|bytes
 argument_list|)
 decl_stmt|;
-name|MemStoreSize
+name|MemStoreSizing
 name|sizeChangeForFirstCell
 init|=
 operator|new
-name|MemStoreSize
+name|MemStoreSizing
 argument_list|()
 decl_stmt|;
 name|this
@@ -1131,11 +1131,11 @@ argument_list|,
 name|sizeChangeForFirstCell
 argument_list|)
 expr_stmt|;
-name|MemStoreSize
+name|MemStoreSizing
 name|sizeChangeForSecondCell
 init|=
 operator|new
-name|MemStoreSize
+name|MemStoreSizing
 argument_list|()
 decl_stmt|;
 name|this

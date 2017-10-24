@@ -119,7 +119,7 @@ name|MemStoreSize
 name|getSnapshotSize
 parameter_list|()
 function_decl|;
-comment|/**    * Write an update    * @param cell    * @param memstoreSize The delta in memstore size will be passed back via this.    *        This will include both data size and heap overhead delta.    */
+comment|/**    * Write an update    * @param cell    * @param memstoreSizing The delta in memstore size will be passed back via this.    *        This will include both data size and heap overhead delta.    */
 name|void
 name|add
 parameter_list|(
@@ -127,11 +127,11 @@ specifier|final
 name|Cell
 name|cell
 parameter_list|,
-name|MemStoreSize
-name|memstoreSize
+name|MemStoreSizing
+name|memstoreSizing
 parameter_list|)
 function_decl|;
-comment|/**    * Write the updates    * @param cells    * @param memstoreSize The delta in memstore size will be passed back via this.    *        This will include both data size and heap overhead delta.    */
+comment|/**    * Write the updates    * @param cells    * @param memstoreSizing The delta in memstore size will be passed back via this.    *        This will include both data size and heap overhead delta.    */
 name|void
 name|add
 parameter_list|(
@@ -141,8 +141,8 @@ name|Cell
 argument_list|>
 name|cells
 parameter_list|,
-name|MemStoreSize
-name|memstoreSize
+name|MemStoreSizing
+name|memstoreSizing
 parameter_list|)
 function_decl|;
 comment|/**    * @return Oldest timestamp of all the Cells in the MemStore    */
@@ -150,7 +150,7 @@ name|long
 name|timeOfOldestEdit
 parameter_list|()
 function_decl|;
-comment|/**    * Update or insert the specified cells.    *<p>    * For each Cell, insert into MemStore. This will atomically upsert the value for that    * row/family/qualifier. If a Cell did already exist, it will then be removed.    *<p>    * Currently the memstoreTS is kept at 0 so as each insert happens, it will be immediately    * visible. May want to change this so it is atomic across all KeyValues.    *<p>    * This is called under row lock, so Get operations will still see updates atomically. Scans will    * only see each KeyValue update as atomic.    * @param cells    * @param readpoint readpoint below which we can safely remove duplicate Cells.    * @param memstoreSize The delta in memstore size will be passed back via this.    *        This will include both data size and heap overhead delta.    */
+comment|/**    * Update or insert the specified cells.    *<p>    * For each Cell, insert into MemStore. This will atomically upsert the value for that    * row/family/qualifier. If a Cell did already exist, it will then be removed.    *<p>    * Currently the memstoreTS is kept at 0 so as each insert happens, it will be immediately    * visible. May want to change this so it is atomic across all KeyValues.    *<p>    * This is called under row lock, so Get operations will still see updates atomically. Scans will    * only see each KeyValue update as atomic.    * @param cells    * @param readpoint readpoint below which we can safely remove duplicate Cells.    * @param memstoreSizing The delta in memstore size will be passed back via this.    *        This will include both data size and heap overhead delta.    */
 name|void
 name|upsert
 parameter_list|(
@@ -163,8 +163,8 @@ parameter_list|,
 name|long
 name|readpoint
 parameter_list|,
-name|MemStoreSize
-name|memstoreSize
+name|MemStoreSizing
+name|memstoreSizing
 parameter_list|)
 function_decl|;
 comment|/**    * @return scanner over the memstore. This might include scanner over the snapshot when one is    * present.    */

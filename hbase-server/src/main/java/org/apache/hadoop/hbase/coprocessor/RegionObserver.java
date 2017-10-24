@@ -1840,7 +1840,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called before a {@link WALEdit}    * replayed for this region.    * @param ctx the environment provided by the region server    */
+comment|/**    * Called before a {@link WALEdit}    * replayed for this region.    * @param ctx the environment provided by the region server    * @deprecated Since hbase-2.0.0. No replacement. To be removed in hbase-3.0.0 and replaced    * with something that doesn't expose IntefaceAudience.Private classes.    */
+annotation|@
+name|Deprecated
 specifier|default
 name|void
 name|preWALRestore
@@ -1865,7 +1867,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called after a {@link WALEdit}    * replayed for this region.    * @param ctx the environment provided by the region server    */
+comment|/**    * Called after a {@link WALEdit}    * replayed for this region.    * @param ctx the environment provided by the region server    * @deprecated Since hbase-2.0.0. No replacement. To be removed in hbase-3.0.0 and replaced    * with something that doesn't expose IntefaceAudience.Private classes.    */
+annotation|@
+name|Deprecated
 specifier|default
 name|void
 name|postWALRestore
