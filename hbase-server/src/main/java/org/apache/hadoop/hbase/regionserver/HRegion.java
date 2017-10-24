@@ -27279,6 +27279,27 @@ operator|.
 name|flushSequenceId
 expr_stmt|;
 block|}
+elseif|else
+if|if
+condition|(
+name|fs
+operator|.
+name|getResult
+argument_list|()
+operator|==
+name|FlushResult
+operator|.
+name|Result
+operator|.
+name|CANNOT_FLUSH
+condition|)
+block|{
+comment|// CANNOT_FLUSH may mean that a flush is already on-going
+comment|// we need to wait for that flush to complete
+name|waitForFlushes
+argument_list|()
+expr_stmt|;
+block|}
 else|else
 block|{
 throw|throw
