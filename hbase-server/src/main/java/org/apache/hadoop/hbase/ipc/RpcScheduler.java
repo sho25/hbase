@@ -176,6 +176,13 @@ name|IOException
 throws|,
 name|InterruptedException
 function_decl|;
+comment|/** Get call queue information **/
+specifier|public
+specifier|abstract
+name|CallQueueInfo
+name|getCallQueueInfo
+parameter_list|()
+function_decl|;
 comment|/** Retrieves length of the general queue for metrics. */
 specifier|public
 specifier|abstract

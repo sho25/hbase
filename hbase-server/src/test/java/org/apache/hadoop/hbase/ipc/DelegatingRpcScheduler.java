@@ -269,6 +269,20 @@ return|return
 literal|0
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|CallQueueInfo
+name|getCallQueueInfo
+parameter_list|()
+block|{
+return|return
+name|delegate
+operator|.
+name|getCallQueueInfo
+argument_list|()
+return|;
+block|}
 block|}
 end_class
 
