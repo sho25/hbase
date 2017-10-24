@@ -53,6 +53,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|io
+operator|.
+name|InterruptedIOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|ArrayList
@@ -404,14 +414,10 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Test whether region re-balancing works. (HBASE-71)  */
+comment|/**  * Test whether region re-balancing works. (HBASE-71)  * The test only works for cluster wide balancing, not per table wide.  * Increase the margin a little to make StochasticLoadBalancer result acceptable.  */
 end_comment
 
 begin_class
-annotation|@
-name|Ignore
-comment|// This is broken since new RegionServers does proper average of regions
-comment|// and because Master is treated as a regionserver though it hosts two regions only.
 annotation|@
 name|Category
 argument_list|(
@@ -810,6 +816,9 @@ name|getServerName
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|waitForAllRegionsAssigned
+argument_list|()
+expr_stmt|;
 assert|assert
 operator|(
 name|UTIL
@@ -922,6 +931,9 @@ expr_stmt|;
 name|waitOnCrashProcessing
 argument_list|()
 expr_stmt|;
+name|waitForAllRegionsAssigned
+argument_list|()
+expr_stmt|;
 assert|assert
 operator|(
 name|UTIL
@@ -980,6 +992,9 @@ name|startRegionServer
 argument_list|()
 expr_stmt|;
 block|}
+name|waitForAllRegionsAssigned
+argument_list|()
+expr_stmt|;
 assert|assert
 operator|(
 name|UTIL
@@ -1134,15 +1149,17 @@ decl_stmt|;
 name|double
 name|avg
 init|=
-name|UTIL
+operator|(
+name|double
+operator|)
+name|regionCount
+operator|/
+operator|(
+name|double
+operator|)
+name|servers
 operator|.
-name|getHBaseCluster
-argument_list|()
-operator|.
-name|getMaster
-argument_list|()
-operator|.
-name|getAverageLoad
+name|size
 argument_list|()
 decl_stmt|;
 name|int
@@ -1185,6 +1202,26 @@ argument_list|)
 operator|-
 literal|1
 decl_stmt|;
+comment|// Increase the margin a little to accommodate StochasticLoadBalancer
+if|if
+condition|(
+name|this
+operator|.
+name|balancerName
+operator|.
+name|contains
+argument_list|(
+literal|"StochasticLoadBalancer"
+argument_list|)
+condition|)
+block|{
+name|avgLoadPlusSlop
+operator|++
+expr_stmt|;
+name|avgLoadMinusSlop
+operator|--
+expr_stmt|;
+block|}
 name|LOG
 operator|.
 name|debug
@@ -1476,6 +1513,28 @@ name|KEYS
 operator|.
 name|length
 decl_stmt|;
+try|try
+block|{
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|200
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|InterruptedIOException
+argument_list|()
+throw|;
+block|}
 while|while
 condition|(
 name|UTIL
@@ -1526,7 +1585,13 @@ parameter_list|(
 name|InterruptedException
 name|e
 parameter_list|)
-block|{}
+block|{
+throw|throw
+operator|new
+name|InterruptedIOException
+argument_list|()
+throw|;
+block|}
 block|}
 name|UTIL
 operator|.
