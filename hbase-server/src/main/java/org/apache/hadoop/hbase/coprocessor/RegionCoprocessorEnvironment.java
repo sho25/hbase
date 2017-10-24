@@ -131,6 +131,22 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|OnlineRegions
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|Region
 import|;
 end_import
@@ -194,6 +210,11 @@ function_decl|;
 comment|/** @return region information for the region this coprocessor is running on */
 name|RegionInfo
 name|getRegionInfo
+parameter_list|()
+function_decl|;
+comment|/**    * @return Interface to Map of regions online on this RegionServer {@link #getServerName()}}.    */
+name|OnlineRegions
+name|getOnlineRegions
 parameter_list|()
 function_decl|;
 comment|/** @return shared data between all instances of this coprocessor */

@@ -97,6 +97,22 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|OnlineRegions
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -145,6 +161,11 @@ block|{
 comment|/**    * @return Hosting Server's ServerName    */
 name|ServerName
 name|getServerName
+parameter_list|()
+function_decl|;
+comment|/**    * @return Interface to Map of regions online on this RegionServer {@link #getServerName()}}.    */
+name|OnlineRegions
+name|getOnlineRegions
 parameter_list|()
 function_decl|;
 comment|/**    * Be careful RPC'ing from a Coprocessor context.    * RPC's will fail, stall, retry, and/or crawl because the remote side is not online, is    * struggling or it is on the other side of a network partition. Any use of Connection from    * inside a Coprocessor must be able to handle all such hiccups.    *    *<p>Using a Connection to get at a local resource -- say a Region that is on the local    * Server or using Admin Interface from a Coprocessor hosted on the Master -- will result in a    * short-circuit of the RPC framework to make a direct invocation avoiding RPC (and    * protobuf marshalling/unmarshalling).    *    * @return The host's Connection to the Cluster.    */

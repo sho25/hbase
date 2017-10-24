@@ -1134,6 +1134,11 @@ specifier|final
 name|ServerName
 name|serverName
 decl_stmt|;
+specifier|private
+specifier|final
+name|OnlineRegions
+name|onlineRegions
+decl_stmt|;
 comment|/**      * Constructor      * @param impl the coprocessor instance      * @param priority chaining priority      */
 specifier|public
 name|RegionEnvironment
@@ -1228,6 +1233,12 @@ name|sharedData
 expr_stmt|;
 name|this
 operator|.
+name|onlineRegions
+operator|=
+name|services
+expr_stmt|;
+name|this
+operator|.
 name|metricRegistry
 operator|=
 name|MetricsCoprocessor
@@ -1254,6 +1265,17 @@ parameter_list|()
 block|{
 return|return
 name|region
+return|;
+block|}
+specifier|public
+name|OnlineRegions
+name|getOnlineRegions
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|onlineRegions
 return|;
 block|}
 annotation|@

@@ -638,7 +638,7 @@ condition|)
 block|{
 return|return;
 block|}
-comment|// Successful region open, and add it to OnlineRegions
+comment|// Successful region open, and add it to MutableOnlineRegions
 name|this
 operator|.
 name|rsServices

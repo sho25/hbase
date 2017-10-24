@@ -19,6 +19,26 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -27,7 +47,21 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ServerName
+name|HBaseInterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|TableName
 import|;
 end_import
 
@@ -45,41 +79,74 @@ name|InterfaceAudience
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceStability
+import|;
+end_import
+
 begin_comment
-comment|/**  * Interface to Map of online regions.  In the  Map, the key is the region's  * encoded name and the value is an {@link Region} instance.  */
+comment|/**  * Provides read-only access to the Regions presently online on the  * current RegionServer  */
 end_comment
 
 begin_interface
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Private
+name|LimitedPrivate
+argument_list|(
+name|HBaseInterfaceAudience
+operator|.
+name|COPROC
+argument_list|)
+annotation|@
+name|InterfaceStability
+operator|.
+name|Evolving
 specifier|public
 interface|interface
 name|OnlineRegions
-extends|extends
-name|ImmutableOnlineRegions
 block|{
-comment|/**    * Add to online regions.    * @param r    */
-name|void
-name|addRegion
+comment|/**    * Return {@link Region} instance.    * Only works if caller is in same context, in same JVM. Region is not    * serializable.    * @param encodedRegionName    * @return Region for the passed encoded<code>encodedRegionName</code> or    * null if named region is not member of the online regions.    */
+name|Region
+name|getRegion
 parameter_list|(
-specifier|final
-name|HRegion
-name|r
+name|String
+name|encodedRegionName
 parameter_list|)
 function_decl|;
-comment|/**    * This method removes Region corresponding to hri from the Map of onlineRegions.    *    * @param r Region to remove.    * @param destination Destination, if any, null otherwise.    * @return True if we removed a region from online list.    */
-name|boolean
-name|removeRegion
+comment|/**     * Get all online regions of a table in this RS.     * @param tableName     * @return List of Region     * @throws java.io.IOException     */
+name|List
+argument_list|<
+name|?
+extends|extends
+name|Region
+argument_list|>
+name|getRegions
 parameter_list|(
-specifier|final
-name|HRegion
-name|r
-parameter_list|,
-name|ServerName
-name|destination
+name|TableName
+name|tableName
 parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**     * Get all online regions in this RS.     * @return List of online Region     */
+name|List
+argument_list|<
+name|?
+extends|extends
+name|Region
+argument_list|>
+name|getRegions
+parameter_list|()
 function_decl|;
 block|}
 end_interface

@@ -314,7 +314,7 @@ name|RegionServerServices
 extends|extends
 name|Server
 extends|,
-name|OnlineRegions
+name|MutableOnlineRegions
 extends|,
 name|FavoredNodesForRegion
 block|{
