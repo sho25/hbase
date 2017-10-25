@@ -8959,6 +8959,11 @@ name|RpcServer
 operator|.
 name|getRequestUserName
 argument_list|()
+operator|.
+name|orElse
+argument_list|(
+literal|null
+argument_list|)
 operator|+
 literal|"/"
 operator|+
@@ -8966,6 +8971,11 @@ name|RpcServer
 operator|.
 name|getRemoteAddress
 argument_list|()
+operator|.
+name|orElse
+argument_list|(
+literal|null
+argument_list|)
 return|;
 block|}
 comment|/**    * Switch for the background CatalogJanitor thread.    * Used for testing.  The thread will continue to run.  It will just be a noop    * if disabled.    * @param b If false, the catalog janitor won't do anything.    */
