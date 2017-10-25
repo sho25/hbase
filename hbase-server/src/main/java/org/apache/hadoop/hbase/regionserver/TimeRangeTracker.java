@@ -806,6 +806,8 @@ return|;
 block|}
 else|else
 block|{
+try|try
+init|(
 name|DataInputStream
 name|in
 init|=
@@ -818,7 +820,8 @@ argument_list|(
 name|data
 argument_list|)
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 return|return
 name|TimeRangeTracker
 operator|.
@@ -837,6 +840,7 @@ name|readLong
 argument_list|()
 argument_list|)
 return|;
+block|}
 block|}
 block|}
 specifier|public
