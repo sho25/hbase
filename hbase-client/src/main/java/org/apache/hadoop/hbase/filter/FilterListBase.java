@@ -166,7 +166,7 @@ name|referenceCell
 init|=
 literal|null
 decl_stmt|;
-comment|/**    * When filtering a given Cell in {@link #filterKeyValue(Cell)}, this stores the transformed Cell    * to be returned by {@link #transformCell(Cell)}. Individual filters transformation are applied    * only when the filter includes the Cell. Transformations are composed in the order specified by    * {@link #filters}.    */
+comment|/**    * When filtering a given Cell in {@link #filterCell(Cell)}, this stores the transformed Cell    * to be returned by {@link #transformCell(Cell)}. Individual filters transformation are applied    * only when the filter includes the Cell. Transformations are composed in the order specified by    * {@link #filters}.    */
 specifier|protected
 name|Cell
 name|transformedCell
@@ -489,10 +489,10 @@ return|return
 name|cell
 return|;
 block|}
-comment|/**    * Internal implementation of {@link #filterKeyValue(Cell)}    * @param c The cell in question.    * @param transformedCell The transformed cell of previous filter(s)    * @return ReturnCode of this filter operation.    * @throws IOException    * @see org.apache.hadoop.hbase.filter.FilterList#internalFilterKeyValue(Cell, Cell)    */
+comment|/**    * Internal implementation of {@link #filterCell(Cell)}    * @param c The cell in question.    * @param transformedCell The transformed cell of previous filter(s)    * @return ReturnCode of this filter operation.    * @throws IOException    * @see org.apache.hadoop.hbase.filter.FilterList#internalFilterCell(Cell, Cell)    */
 specifier|abstract
 name|ReturnCode
-name|internalFilterKeyValue
+name|internalFilterCell
 parameter_list|(
 name|Cell
 name|c
@@ -509,6 +509,7 @@ specifier|public
 name|ReturnCode
 name|filterKeyValue
 parameter_list|(
+specifier|final
 name|Cell
 name|c
 parameter_list|)
@@ -516,7 +517,27 @@ throws|throws
 name|IOException
 block|{
 return|return
-name|internalFilterKeyValue
+name|filterCell
+argument_list|(
+name|c
+argument_list|)
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|ReturnCode
+name|filterCell
+parameter_list|(
+specifier|final
+name|Cell
+name|c
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|internalFilterCell
 argument_list|(
 name|c
 argument_list|,

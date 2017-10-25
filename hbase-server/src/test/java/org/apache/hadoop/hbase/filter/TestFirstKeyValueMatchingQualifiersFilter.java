@@ -232,7 +232,7 @@ argument_list|(
 literal|"a"
 argument_list|)
 decl_stmt|;
-comment|/**    * Test the functionality of    * {@link FirstKeyValueMatchingQualifiersFilter#filterKeyValue(org.apache.hadoop.hbase.Cell)}    *     * @throws Exception    */
+comment|/**    * Test the functionality of    * {@link FirstKeyValueMatchingQualifiersFilter#filterCell(org.apache.hadoop.hbase.Cell)}    *     * @throws Exception    */
 specifier|public
 name|void
 name|testFirstKeyMatchingQualifierFilter
@@ -281,9 +281,9 @@ argument_list|)
 decl_stmt|;
 comment|// Match in first attempt
 name|KeyValue
-name|kv
+name|cell
 decl_stmt|;
-name|kv
+name|cell
 operator|=
 operator|new
 name|KeyValue
@@ -303,9 +303,9 @@ literal|"includeAndSetFlag"
 argument_list|,
 name|filter
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
-name|kv
+name|cell
 argument_list|)
 operator|==
 name|Filter
@@ -315,7 +315,7 @@ operator|.
 name|INCLUDE
 argument_list|)
 expr_stmt|;
-name|kv
+name|cell
 operator|=
 operator|new
 name|KeyValue
@@ -335,9 +335,9 @@ literal|"flagIsSetSkipToNextRow"
 argument_list|,
 name|filter
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
-name|kv
+name|cell
 argument_list|)
 operator|==
 name|Filter
@@ -353,7 +353,7 @@ operator|.
 name|reset
 argument_list|()
 expr_stmt|;
-name|kv
+name|cell
 operator|=
 operator|new
 name|KeyValue
@@ -375,9 +375,9 @@ name|println
 argument_list|(
 name|filter
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
-name|kv
+name|cell
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -387,9 +387,9 @@ literal|"includeFlagIsUnset"
 argument_list|,
 name|filter
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
-name|kv
+name|cell
 argument_list|)
 operator|==
 name|Filter
@@ -399,7 +399,7 @@ operator|.
 name|INCLUDE
 argument_list|)
 expr_stmt|;
-name|kv
+name|cell
 operator|=
 operator|new
 name|KeyValue
@@ -419,9 +419,9 @@ literal|"includeAndSetFlag"
 argument_list|,
 name|filter
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
-name|kv
+name|cell
 argument_list|)
 operator|==
 name|Filter
@@ -431,7 +431,7 @@ operator|.
 name|INCLUDE
 argument_list|)
 expr_stmt|;
-name|kv
+name|cell
 operator|=
 operator|new
 name|KeyValue
@@ -451,9 +451,9 @@ literal|"flagIsSetSkipToNextRow"
 argument_list|,
 name|filter
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
-name|kv
+name|cell
 argument_list|)
 operator|==
 name|Filter

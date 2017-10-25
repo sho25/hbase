@@ -132,7 +132,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A wrapper filter that returns true from {@link #filterAllRemaining()} as soon  * as the wrapped filters {@link Filter#filterRowKey(byte[], int, int)},  * {@link Filter#filterKeyValue(org.apache.hadoop.hbase.Cell)},  * {@link org.apache.hadoop.hbase.filter.Filter#filterRow()} or  * {@link org.apache.hadoop.hbase.filter.Filter#filterAllRemaining()} methods  * returns true.  */
+comment|/**  * A wrapper filter that returns true from {@link #filterAllRemaining()} as soon  * as the wrapped filters {@link Filter#filterRowKey(byte[], int, int)},  * {@link Filter#filterCell(org.apache.hadoop.hbase.Cell)},  * {@link org.apache.hadoop.hbase.filter.Filter#filterRow()} or  * {@link org.apache.hadoop.hbase.filter.Filter#filterAllRemaining()} methods  * returns true.  */
 end_comment
 
 begin_class
@@ -313,30 +313,53 @@ name|value
 return|;
 block|}
 annotation|@
+name|Deprecated
+annotation|@
 name|Override
 specifier|public
 name|ReturnCode
 name|filterKeyValue
 parameter_list|(
+specifier|final
 name|Cell
-name|v
+name|c
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|filterCell
+argument_list|(
+name|c
+argument_list|)
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|ReturnCode
+name|filterCell
+parameter_list|(
+specifier|final
+name|Cell
+name|c
 parameter_list|)
 throws|throws
 name|IOException
 block|{
 name|ReturnCode
-name|c
+name|code
 init|=
 name|filter
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
-name|v
+name|c
 argument_list|)
 decl_stmt|;
 name|changeFAR
 argument_list|(
-name|c
+name|code
 operator|!=
 name|ReturnCode
 operator|.
@@ -344,7 +367,7 @@ name|INCLUDE
 argument_list|)
 expr_stmt|;
 return|return
-name|c
+name|code
 return|;
 block|}
 annotation|@
@@ -534,7 +557,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * @param other    * @return true if and only if the fields of the filter that are serialized    * are equal to the corresponding fields in other.  Used for testing.    */
+comment|/**    * @param o the other filter to compare with    * @return true if and only if the fields of the filter that are serialized    * are equal to the corresponding fields in other.  Used for testing.    */
 name|boolean
 name|areSerializedFieldsEqual
 parameter_list|(

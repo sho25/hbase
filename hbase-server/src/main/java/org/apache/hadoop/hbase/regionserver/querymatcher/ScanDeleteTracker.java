@@ -150,7 +150,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This class is responsible for the tracking and enforcement of Deletes during the course of a Scan  * operation. It only has to enforce Delete and DeleteColumn, since the DeleteFamily is handled at a  * higher level.  *<p>  * This class is utilized through three methods:  *<ul>  *<li>{@link #add} when encountering a Delete or DeleteColumn</li>  *<li>{@link #isDeleted} when checking if a Put KeyValue has been deleted</li>  *<li>{@link #update} when reaching the end of a StoreFile or row for scans</li>  *</ul>  *<p>  * This class is NOT thread-safe as queries are never multi-threaded  */
+comment|/**  * This class is responsible for the tracking and enforcement of Deletes during the course of a Scan  * operation. It only has to enforce Delete and DeleteColumn, since the DeleteFamily is handled at a  * higher level.  *<p>  * This class is utilized through three methods:  *<ul>  *<li>{@link #add} when encountering a Delete or DeleteColumn</li>  *<li>{@link #isDeleted} when checking if a Put Cell has been deleted</li>  *<li>{@link #update} when reaching the end of a StoreFile or row for scans</li>  *</ul>  *<p>  * This class is NOT thread-safe as queries are never multi-threaded  */
 end_comment
 
 begin_class
@@ -246,7 +246,7 @@ operator|=
 name|comparator
 expr_stmt|;
 block|}
-comment|/**    * Add the specified KeyValue to the list of deletes to check against for this row operation.    *<p>    * This is called when a Delete is encountered.    * @param cell - the delete cell    */
+comment|/**    * Add the specified Cell to the list of deletes to check against for this row operation.    *<p>    * This is called when a Delete is encountered.    * @param cell - the delete cell    */
 annotation|@
 name|Override
 specifier|public
@@ -374,7 +374,7 @@ expr_stmt|;
 block|}
 comment|// missing else is never called.
 block|}
-comment|/**    * Check if the specified KeyValue buffer has been deleted by a previously seen delete.    * @param cell - current cell to check if deleted by a previously seen delete    * @return deleteResult    */
+comment|/**    * Check if the specified Cell buffer has been deleted by a previously seen delete.    * @param cell - current cell to check if deleted by a previously seen delete    * @return deleteResult    */
 annotation|@
 name|Override
 specifier|public

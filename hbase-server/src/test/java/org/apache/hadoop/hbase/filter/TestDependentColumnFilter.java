@@ -1669,7 +1669,7 @@ if|if
 condition|(
 name|filter
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|val
 argument_list|)
@@ -1690,7 +1690,7 @@ block|}
 block|}
 name|assertEquals
 argument_list|(
-literal|"check all values accepted from filterKeyValue"
+literal|"check all values accepted from filterCell"
 argument_list|,
 literal|5
 argument_list|,
@@ -1752,7 +1752,7 @@ if|if
 condition|(
 name|filter
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|val
 argument_list|)

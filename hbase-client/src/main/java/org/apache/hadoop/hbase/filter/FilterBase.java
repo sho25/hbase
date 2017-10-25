@@ -235,7 +235,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * Filters that never filter by rows based on previously gathered state from    * {@link #filterKeyValue(Cell)} can inherit this implementation that    * never filters a row.    *    * {@inheritDoc}    */
+comment|/**    * Filters that never filter by rows based on previously gathered state from    * {@link #filterCell(Cell)} can inherit this implementation that    * never filters a row.    *    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public

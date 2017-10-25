@@ -142,7 +142,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This is a Filter wrapper class which is used in the server side. Some filter  * related hooks can be defined in this wrapper. The only way to create a  * FilterWrapper instance is passing a client side Filter instance through  * {@link org.apache.hadoop.hbase.client.Scan#getFilter()}.  *   */
+comment|/**  * This is a Filter wrapper class which is used in the server side. Some filter  * related hooks can be defined in this wrapper. The only way to create a  * FilterWrapper instance is passing a client side Filter instance through  * {@link org.apache.hadoop.hbase.client.Scan#getFilter()}.  *  */
 end_comment
 
 begin_class
@@ -470,13 +470,34 @@ argument_list|)
 return|;
 block|}
 annotation|@
+name|Deprecated
+annotation|@
 name|Override
 specifier|public
 name|ReturnCode
 name|filterKeyValue
 parameter_list|(
+specifier|final
 name|Cell
-name|v
+name|c
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|filterCell
+argument_list|(
+name|c
+argument_list|)
+return|;
+block|}
+specifier|public
+name|ReturnCode
+name|filterCell
+parameter_list|(
+specifier|final
+name|Cell
+name|c
 parameter_list|)
 throws|throws
 name|IOException
@@ -486,9 +507,9 @@ name|this
 operator|.
 name|filter
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
-name|v
+name|c
 argument_list|)
 return|;
 block|}
@@ -658,7 +679,7 @@ name|name
 argument_list|)
 return|;
 block|}
-comment|/**    * @param other    * @return true if and only if the fields of the filter that are serialized    * are equal to the corresponding fields in other.  Used for testing.    */
+comment|/**    * @param o the other filter to compare with    * @return true if and only if the fields of the filter that are serialized    * are equal to the corresponding fields in other.  Used for testing.    */
 name|boolean
 name|areSerializedFieldsEqual
 parameter_list|(

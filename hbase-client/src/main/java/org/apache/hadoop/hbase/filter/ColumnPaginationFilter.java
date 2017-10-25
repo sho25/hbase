@@ -395,12 +395,33 @@ return|;
 block|}
 annotation|@
 name|Override
+annotation|@
+name|Deprecated
 specifier|public
 name|ReturnCode
 name|filterKeyValue
 parameter_list|(
+specifier|final
 name|Cell
-name|v
+name|c
+parameter_list|)
+block|{
+return|return
+name|filterCell
+argument_list|(
+name|c
+argument_list|)
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|ReturnCode
+name|filterCell
+parameter_list|(
+specifier|final
+name|Cell
+name|c
 parameter_list|)
 block|{
 if|if
@@ -442,7 +463,7 @@ name|CellUtil
 operator|.
 name|compareQualifiers
 argument_list|(
-name|v
+name|c
 argument_list|,
 name|this
 operator|.
@@ -809,7 +830,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * @param other    * @return true if and only if the fields of the filter that are serialized    * are equal to the corresponding fields in other.  Used for testing.    */
+comment|/**    * @param o the other filter to compare with    * @return true if and only if the fields of the filter that are serialized    * are equal to the corresponding fields in other.  Used for testing.    */
 name|boolean
 name|areSerializedFieldsEqual
 parameter_list|(

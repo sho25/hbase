@@ -78,7 +78,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This interface is used for the tracking and enforcement of Deletes during the course of a Get or  * Scan operation.  *<p>  * This class is utilized through three methods:  *<ul>  *<li>{@link #add} when encountering a Delete</li>  *<li>{@link #isDeleted} when checking if a Put KeyValue has been deleted</li>  *<li>{@link #update} when reaching the end of a StoreFile</li>  *</ul>  */
+comment|/**  * This interface is used for the tracking and enforcement of Deletes during the course of a Get or  * Scan operation.  *<p>  * This class is utilized through three methods:  *<ul>  *<li>{@link #add} when encountering a Delete</li>  *<li>{@link #isDeleted} when checking if a Put Cell has been deleted</li>  *<li>{@link #update} when reaching the end of a StoreFile</li>  *</ul>  */
 end_comment
 
 begin_interface
@@ -100,7 +100,7 @@ name|Cell
 name|cell
 parameter_list|)
 function_decl|;
-comment|/**    * Check if the specified cell buffer has been deleted by a previously seen delete.    * @param cell - current cell to check if deleted by a previously seen delete    * @return deleteResult The result tells whether the KeyValue is deleted and why    */
+comment|/**    * Check if the specified cell buffer has been deleted by a previously seen delete.    * @param cell - current cell to check if deleted by a previously seen delete    * @return deleteResult The result tells whether the Cell is deleted and why    */
 name|DeleteResult
 name|isDeleted
 parameter_list|(
@@ -129,20 +129,20 @@ name|DeleteResult
 block|{
 name|FAMILY_DELETED
 block|,
-comment|// The KeyValue is deleted by a delete family.
+comment|// The Cell is deleted by a delete family.
 name|FAMILY_VERSION_DELETED
 block|,
-comment|// The KeyValue is deleted by a delete family version.
+comment|// The Cell is deleted by a delete family version.
 name|COLUMN_DELETED
 block|,
-comment|// The KeyValue is deleted by a delete column.
+comment|// The Cell is deleted by a delete column.
 name|VERSION_DELETED
 block|,
-comment|// The KeyValue is deleted by a version delete.
+comment|// The Cell is deleted by a version delete.
 name|NOT_DELETED
 block|,
 name|VERSION_MASKED
-comment|// The KeyValue is masked by max number of versions which is considered as
+comment|// The Cell is masked by max number of versions which is considered as
 comment|// deleted in strong semantics of versions(See MvccTracker)
 block|}
 comment|/**    * Return the comparator passed to this delete tracker    * @return the cell comparator    */

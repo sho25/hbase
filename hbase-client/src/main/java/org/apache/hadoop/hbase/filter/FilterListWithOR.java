@@ -1050,7 +1050,7 @@ block|}
 annotation|@
 name|Override
 name|ReturnCode
-name|internalFilterKeyValue
+name|internalFilterCell
 parameter_list|(
 name|Cell
 name|c
@@ -1193,7 +1193,7 @@ operator|)
 name|filter
 operator|)
 operator|.
-name|internalFilterKeyValue
+name|internalFilterCell
 argument_list|(
 name|c
 argument_list|,
@@ -1207,7 +1207,7 @@ name|localRC
 operator|=
 name|filter
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|c
 argument_list|)

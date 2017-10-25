@@ -172,7 +172,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Implementation of {@link Filter} that represents an ordered List of Filters which will be  * evaluated with a specified boolean operator {@link Operator#MUST_PASS_ALL} (<code>AND</code>) or  * {@link Operator#MUST_PASS_ONE} (<code>OR</code>). Since you can use Filter Lists as children of  * Filter Lists, you can create a hierarchy of filters to be evaluated.<br>  * {@link Operator#MUST_PASS_ALL} evaluates lazily: evaluation stops as soon as one filter does not  * include the KeyValue.<br>  * {@link Operator#MUST_PASS_ONE} evaluates non-lazily: all filters are always evaluated.<br>  * Defaults to {@link Operator#MUST_PASS_ALL}.  */
+comment|/**  * Implementation of {@link Filter} that represents an ordered List of Filters which will be  * evaluated with a specified boolean operator {@link Operator#MUST_PASS_ALL} (<code>AND</code>) or  * {@link Operator#MUST_PASS_ONE} (<code>OR</code>). Since you can use Filter Lists as children of  * Filter Lists, you can create a hierarchy of filters to be evaluated.<br>  * {@link Operator#MUST_PASS_ALL} evaluates lazily: evaluation stops as soon as one filter does not  * include the Cell.<br>  * {@link Operator#MUST_PASS_ONE} evaluates non-lazily: all filters are always evaluated.<br>  * Defaults to {@link Operator#MUST_PASS_ALL}.  */
 end_comment
 
 begin_class
@@ -558,9 +558,9 @@ name|c
 argument_list|)
 return|;
 block|}
-comment|/**    * Internal implementation of {@link #filterKeyValue(Cell)}. Compared to the    * {@link #filterKeyValue(Cell)} method, this method accepts an additional parameter named    * transformedCell. This parameter indicates the initial value of transformed cell before this    * filter operation.<br/>    * For FilterList, we can consider a filter list as a node in a tree. sub-filters of the filter    * list are children of the relative node. The logic of transforming cell of a filter list, well,    * we can consider it as the process of post-order tree traverse. For a node , Before we traverse    * the current child, we should set the traverse result (transformed cell) of previous node(s) as    * the initial value. so the additional currentTransformedCell parameter is needed (HBASE-18879).    * @param c The cell in question.    * @param transformedCell The transformed cell of previous filter(s)    * @return ReturnCode of this filter operation.    * @throws IOException    */
+comment|/**    * Internal implementation of {@link #filterCell(Cell)}. Compared to the    * {@link #filterCell(Cell)} method, this method accepts an additional parameter named    * transformedCell. This parameter indicates the initial value of transformed cell before this    * filter operation.<br/>    * For FilterList, we can consider a filter list as a node in a tree. sub-filters of the filter    * list are children of the relative node. The logic of transforming cell of a filter list, well,    * we can consider it as the process of post-order tree traverse. For a node , Before we traverse    * the current child, we should set the traverse result (transformed cell) of previous node(s) as    * the initial value. so the additional currentTransformedCell parameter is needed (HBASE-18879).    * @param c The cell in question.    * @param transformedCell The transformed cell of previous filter(s)    * @return ReturnCode of this filter operation.    * @throws IOException    */
 name|ReturnCode
-name|internalFilterKeyValue
+name|internalFilterCell
 parameter_list|(
 name|Cell
 name|c
@@ -576,7 +576,7 @@ name|this
 operator|.
 name|filterListBase
 operator|.
-name|internalFilterKeyValue
+name|internalFilterCell
 argument_list|(
 name|c
 argument_list|,
@@ -586,10 +586,33 @@ return|;
 block|}
 annotation|@
 name|Override
+annotation|@
+name|Deprecated
 specifier|public
 name|ReturnCode
 name|filterKeyValue
 parameter_list|(
+specifier|final
+name|Cell
+name|c
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|filterCell
+argument_list|(
+name|c
+argument_list|)
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|ReturnCode
+name|filterCell
+parameter_list|(
+specifier|final
 name|Cell
 name|c
 parameter_list|)
@@ -599,7 +622,7 @@ block|{
 return|return
 name|filterListBase
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|c
 argument_list|)

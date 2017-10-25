@@ -6306,8 +6306,9 @@ annotation|@
 name|Override
 specifier|public
 name|ReturnCode
-name|filterKeyValue
+name|filterCell
 parameter_list|(
+specifier|final
 name|Cell
 name|ignored
 parameter_list|)

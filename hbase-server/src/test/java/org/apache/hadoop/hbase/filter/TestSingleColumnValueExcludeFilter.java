@@ -196,7 +196,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Tests for {@link SingleColumnValueExcludeFilter}. Because this filter  * extends {@link SingleColumnValueFilter}, only the added functionality is  * tested. That is, method filterKeyValue(KeyValue).  *  */
+comment|/**  * Tests for {@link SingleColumnValueExcludeFilter}. Because this filter  * extends {@link SingleColumnValueFilter}, only the added functionality is  * tested. That is, method filterCell(Cell).  *  */
 end_comment
 
 begin_class
@@ -301,12 +301,12 @@ argument_list|(
 literal|"ab"
 argument_list|)
 decl_stmt|;
-comment|/**    * Test the overridden functionality of filterKeyValue(KeyValue)    * @throws Exception    */
+comment|/**    * Test the overridden functionality of filterCell(Cell)    * @throws Exception    */
 annotation|@
 name|Test
 specifier|public
 name|void
-name|testFilterKeyValue
+name|testFilterCell
 parameter_list|()
 throws|throws
 name|Exception
@@ -341,7 +341,7 @@ argument_list|<>
 argument_list|()
 decl_stmt|;
 name|KeyValue
-name|kv
+name|c
 init|=
 operator|new
 name|KeyValue
@@ -442,7 +442,7 @@ argument_list|(
 literal|0
 argument_list|)
 argument_list|,
-name|kv
+name|c
 argument_list|)
 operator|==
 literal|0
@@ -465,7 +465,7 @@ argument_list|(
 literal|1
 argument_list|)
 argument_list|,
-name|kv
+name|c
 argument_list|)
 operator|==
 literal|0
@@ -488,7 +488,7 @@ name|reset
 argument_list|()
 expr_stmt|;
 comment|// INCLUDE expected because test column has not yet passed
-name|kv
+name|c
 operator|=
 operator|new
 name|KeyValue
@@ -508,9 +508,9 @@ literal|"otherColumn"
 argument_list|,
 name|filter
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
-name|kv
+name|c
 argument_list|)
 operator|==
 name|Filter
@@ -521,7 +521,7 @@ name|INCLUDE
 argument_list|)
 expr_stmt|;
 comment|// Test column will pass (wont match), expect NEXT_ROW
-name|kv
+name|c
 operator|=
 operator|new
 name|KeyValue
@@ -541,9 +541,9 @@ literal|"testedMismatch"
 argument_list|,
 name|filter
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
-name|kv
+name|c
 argument_list|)
 operator|==
 name|Filter
@@ -554,7 +554,7 @@ name|NEXT_ROW
 argument_list|)
 expr_stmt|;
 comment|// After a mismatch (at least with LatestVersionOnly), subsequent columns are EXCLUDE
-name|kv
+name|c
 operator|=
 operator|new
 name|KeyValue
@@ -574,9 +574,9 @@ literal|"otherColumn"
 argument_list|,
 name|filter
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
-name|kv
+name|c
 argument_list|)
 operator|==
 name|Filter

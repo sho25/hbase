@@ -82,7 +82,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Interface for row and column filters directly applied within the regionserver.  *  * A filter can expect the following call sequence:  *<ul>  *<li> {@link #reset()} : reset the filter state before filtering a new row.</li>  *<li> {@link #filterAllRemaining()}: true means row scan is over; false means keep going.</li>  *<li> {@link #filterRowKey(Cell)}: true means drop this row; false means include.</li>  *<li> {@link #filterKeyValue(Cell)}: decides whether to include or exclude this Cell.  *        See {@link ReturnCode}.</li>  *<li> {@link #transformCell(Cell)}: if the Cell is included, let the filter transform the  *        Cell.</li>  *<li> {@link #filterRowCells(List)}: allows direct modification of the final list to be submitted  *<li> {@link #filterRow()}: last chance to drop entire row based on the sequence of  *        filter calls. Eg: filter a row if it doesn't contain a specified column.</li>  *</ul>  *  * Filter instances are created one per region/scan.  This abstract class replaces  * the old RowFilterInterface.  *  * When implementing your own filters, consider inheriting {@link FilterBase} to help  * you reduce boilerplate.  *  * @see FilterBase  */
+comment|/**  * Interface for row and column filters directly applied within the regionserver.  *  * A filter can expect the following call sequence:  *<ul>  *<li> {@link #reset()} : reset the filter state before filtering a new row.</li>  *<li> {@link #filterAllRemaining()}: true means row scan is over; false means keep going.</li>  *<li> {@link #filterRowKey(Cell)}: true means drop this row; false means include.</li>  *<li> {@link #filterCell(Cell)}: decides whether to include or exclude this Cell.  *        See {@link ReturnCode}.</li>  *<li> {@link #transformCell(Cell)}: if the Cell is included, let the filter transform the  *        Cell.</li>  *<li> {@link #filterRowCells(List)}: allows direct modification of the final list to be submitted  *<li> {@link #filterRow()}: last chance to drop entire row based on the sequence of  *        filter calls. Eg: filter a row if it doesn't contain a specified column.</li>  *</ul>  *  * Filter instances are created one per region/scan.  This abstract class replaces  * the old RowFilterInterface.  *  * When implementing your own filters, consider inheriting {@link FilterBase} to help  * you reduce boilerplate.  *  * @see FilterBase  */
 end_comment
 
 begin_class
@@ -109,7 +109,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Filters a row based on the row key. If this returns true, the entire row will be excluded. If    * false, each KeyValue in the row will be passed to {@link #filterKeyValue(Cell)} below.    *     * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *     * @param buffer buffer containing row key    * @param offset offset into buffer where row key starts    * @param length length of the row key    * @return true, remove entire row, false, include the row (maybe).    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    *             Instead use {@link #filterRowKey(Cell)}    */
+comment|/**    * Filters a row based on the row key. If this returns true, the entire row will be excluded. If    * false, each KeyValue in the row will be passed to {@link #filterCell(Cell)} below.    *     * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *     * @param buffer buffer containing row key    * @param offset offset into buffer where row key starts    * @param length length of the row key    * @return true, remove entire row, false, include the row (maybe).    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    *             Instead use {@link #filterRowKey(Cell)}    */
 annotation|@
 name|Deprecated
 specifier|abstract
@@ -130,7 +130,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Filters a row based on the row key. If this returns true, the entire row will be excluded. If    * false, each KeyValue in the row will be passed to {@link #filterKeyValue(Cell)} below.    * If {@link #filterAllRemaining()} returns true, then {@link #filterRowKey(Cell)} should    * also return true.    *    * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *    * @param firstRowCell The first cell coming in the new row    * @return true, remove entire row, false, include the row (maybe).    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    */
+comment|/**    * Filters a row based on the row key. If this returns true, the entire row will be excluded. If    * false, each KeyValue in the row will be passed to {@link #filterCell(Cell)} below.    * If {@link #filterAllRemaining()} returns true, then {@link #filterRowKey(Cell)} should    * also return true.    *    * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *    * @param firstRowCell The first cell coming in the new row    * @return true, remove entire row, false, include the row (maybe).    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    */
 specifier|abstract
 specifier|public
 name|boolean
@@ -151,19 +151,47 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * A way to filter based on the column family, column qualifier and/or the column value. Return    * code is described below. This allows filters to filter only certain number of columns, then    * terminate without matching ever column.    *     * If filterRowKey returns true, filterKeyValue needs to be consistent with it.    *     * filterKeyValue can assume that filterRowKey has already been called for the row.    *     * If your filter returns<code>ReturnCode.NEXT_ROW</code>, it should return    *<code>ReturnCode.NEXT_ROW</code> until {@link #reset()} is called just in case the caller calls    * for the next row.    *     * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *     * @param v the Cell in question    * @return code as described below    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    * @see Filter.ReturnCode    */
-specifier|abstract
+comment|/**    * A way to filter based on the column family, column qualifier and/or the column value. Return    * code is described below. This allows filters to filter only certain number of columns, then    * terminate without matching ever column.    *     * If filterRowKey returns true, filterKeyValue needs to be consistent with it.    *     * filterKeyValue can assume that filterRowKey has already been called for the row.    *     * If your filter returns<code>ReturnCode.NEXT_ROW</code>, it should return    *<code>ReturnCode.NEXT_ROW</code> until {@link #reset()} is called just in case the caller calls    * for the next row.    *    * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *     * @param c the Cell in question    * @return code as described below, Filter.ReturnCode.INCLUDE by default    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    * @see Filter.ReturnCode    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    *             Instead use filterCell(Cell)    */
+annotation|@
+name|Deprecated
 specifier|public
 name|ReturnCode
 name|filterKeyValue
 parameter_list|(
 specifier|final
 name|Cell
-name|v
+name|c
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+return|return
+name|Filter
+operator|.
+name|ReturnCode
+operator|.
+name|INCLUDE
+return|;
+block|}
+comment|/**    * A way to filter based on the column family, column qualifier and/or the column value. Return    * code is described below. This allows filters to filter only certain number of columns, then    * terminate without matching ever column.    *    * If filterRowKey returns true, filterCell needs to be consistent with it.    *    * filterCell can assume that filterRowKey has already been called for the row.    *    * If your filter returns<code>ReturnCode.NEXT_ROW</code>, it should return    *<code>ReturnCode.NEXT_ROW</code> until {@link #reset()} is called just in case the caller calls    * for the next row.    *    * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *    * @param c the Cell in question    * @return code as described below    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    * @see Filter.ReturnCode    */
+specifier|public
+name|ReturnCode
+name|filterCell
+parameter_list|(
+specifier|final
+name|Cell
+name|c
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|filterKeyValue
+argument_list|(
+name|c
+argument_list|)
+return|;
+block|}
 comment|/**    * Give the filter a chance to transform the passed KeyValue. If the Cell is changed a new    * Cell object must be returned.    *     * @see org.apache.hadoop.hbase.KeyValue#shallowCopy()    *      The transformed KeyValue is what is eventually returned to the client. Most filters will    *      return the passed KeyValue unchanged.    * @see org.apache.hadoop.hbase.filter.KeyOnlyFilter#transformCell(Cell) for an example of a    *      transformation.    *     *      Concrete implementers can signal a failure condition in their code by throwing an    *      {@link IOException}.    *     * @param v the KeyValue in question    * @return the changed KeyValue    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    */
 specifier|abstract
 specifier|public
@@ -198,7 +226,7 @@ block|,
 comment|/**      * Skip this column. Go to the next column in this row.      */
 name|NEXT_COL
 block|,
-comment|/**      * Seek to next row in current family. It may still pass a cell whose family is different but      * row is the same as previous cell to {@link #filterKeyValue(Cell)} , even if we get a NEXT_ROW      * returned for previous cell. For more details see HBASE-18368.<br>      * Once reset() method was invoked, then we switch to the next row for all family, and you can      * catch the event by invoking CellUtils.matchingRows(previousCell, currentCell).<br>      * Note that filterRow() will still be called.<br>      */
+comment|/**      * Seek to next row in current family. It may still pass a cell whose family is different but      * row is the same as previous cell to {@link #filterCell(Cell)} , even if we get a NEXT_ROW      * returned for previous cell. For more details see HBASE-18368.<br>      * Once reset() method was invoked, then we switch to the next row for all family, and you can      * catch the event by invoking CellUtils.matchingRows(previousCell, currentCell).<br>      * Note that filterRow() will still be called.<br>      */
 name|NEXT_ROW
 block|,
 comment|/**      * Seek to next key which is given as hint by the filter.      */
@@ -229,7 +257,7 @@ name|boolean
 name|hasFilterRow
 parameter_list|()
 function_decl|;
-comment|/**    * Last chance to veto row based on previous {@link #filterKeyValue(Cell)} calls. The filter    * needs to retain state then return a particular value for this call if they wish to exclude a    * row if a certain column is missing (for example).    *     * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *     * @return true to exclude row, false to include row.    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    */
+comment|/**    * Last chance to veto row based on previous {@link #filterCell(Cell)} calls. The filter    * needs to retain state then return a particular value for this call if they wish to exclude a    * row if a certain column is missing (for example).    *     * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *     * @return true to exclude row, false to include row.    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    */
 specifier|abstract
 specifier|public
 name|boolean

@@ -392,13 +392,34 @@ literal|false
 return|;
 block|}
 annotation|@
+name|Deprecated
+annotation|@
 name|Override
 specifier|public
 name|ReturnCode
 name|filterKeyValue
 parameter_list|(
+specifier|final
 name|Cell
-name|v
+name|c
+parameter_list|)
+block|{
+return|return
+name|filterCell
+argument_list|(
+name|c
+argument_list|)
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|ReturnCode
+name|filterCell
+parameter_list|(
+specifier|final
+name|Cell
+name|c
 parameter_list|)
 block|{
 if|if
@@ -409,7 +430,7 @@ name|timestamps
 operator|.
 name|contains
 argument_list|(
-name|v
+name|c
 operator|.
 name|getTimestamp
 argument_list|()
@@ -425,7 +446,7 @@ block|}
 elseif|else
 if|if
 condition|(
-name|v
+name|c
 operator|.
 name|getTimestamp
 argument_list|()
@@ -497,7 +518,7 @@ block|{
 comment|// This should only happen if the current column's
 comment|// timestamp is below the last one in the list.
 comment|//
-comment|// It should never happen as the filterKeyValue should return NEXT_COL
+comment|// It should never happen as the filterCell should return NEXT_COL
 comment|// but it's always better to be extra safe and protect against future
 comment|// behavioral changes.
 return|return
@@ -721,7 +742,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * @param other    * @return true if and only if the fields of the filter that are serialized    * are equal to the corresponding fields in other.  Used for testing.    */
+comment|/**    * @param o the other filter to compare with    * @return true if and only if the fields of the filter that are serialized    * are equal to the corresponding fields in other.  Used for testing.    */
 name|boolean
 name|areSerializedFieldsEqual
 parameter_list|(

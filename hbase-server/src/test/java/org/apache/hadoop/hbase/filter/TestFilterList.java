@@ -790,7 +790,7 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
-comment|/* Filter must do all below steps:      *<ul>      *<li>{@link #reset()}</li>      *<li>{@link #filterAllRemaining()} -> true indicates scan is over, false, keep going on.</li>      *<li>{@link #filterRowKey(byte[],int,int)} -> true to drop this row,      * if false, we will also call</li>      *<li>{@link #filterKeyValue(org.apache.hadoop.hbase.KeyValue)} -> true to drop this key/value</li>      *<li>{@link #filterRow()} -> last chance to drop entire row based on the sequence of      * filterValue() calls. Eg: filter a row if it doesn't contain a specified column.      *</li>      *</ul>     */
+comment|/* Filter must do all below steps:      *<ul>      *<li>{@link #reset()}</li>      *<li>{@link #filterAllRemaining()} -> true indicates scan is over, false, keep going on.</li>      *<li>{@link #filterRowKey(byte[],int,int)} -> true to drop this row,      * if false, we will also call</li>      *<li>{@link #filterCell(org.apache.hadoop.hbase.KeyValue)} -> true to drop this cell</li>      *<li>{@link #filterRow()} -> last chance to drop entire row based on the sequence of      * filterValue() calls. Eg: filter a row if it doesn't contain a specified column.      *</li>      *</ul>     */
 name|filterMPONE
 operator|.
 name|reset
@@ -883,7 +883,7 @@ name|INCLUDE
 operator|==
 name|filterMPONE
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv
 argument_list|)
@@ -958,7 +958,7 @@ name|INCLUDE
 operator|==
 name|filterMPONE
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv
 argument_list|)
@@ -1031,7 +1031,7 @@ name|INCLUDE
 operator|==
 name|filterMPONE
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv
 argument_list|)
@@ -1172,7 +1172,7 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
-comment|/* Filter must do all below steps:      *<ul>      *<li>{@link #reset()}</li>      *<li>{@link #filterAllRemaining()} -> true indicates scan is over, false, keep going on.</li>      *<li>{@link #filterRowKey(byte[],int,int)} -> true to drop this row,      * if false, we will also call</li>      *<li>{@link #filterKeyValue(org.apache.hadoop.hbase.KeyValue)} -> true to drop this key/value</li>      *<li>{@link #filterRow()} -> last chance to drop entire row based on the sequence of      * filterValue() calls. Eg: filter a row if it doesn't contain a specified column.      *</li>      *</ul>     */
+comment|/* Filter must do all below steps:      *<ul>      *<li>{@link #reset()}</li>      *<li>{@link #filterAllRemaining()} -> true indicates scan is over, false, keep going on.</li>      *<li>{@link #filterRowKey(byte[],int,int)} -> true to drop this row,      * if false, we will also call</li>      *<li>{@link #filterCell(org.apache.hadoop.hbase.KeyValue)} -> true to drop this cell</li>      *<li>{@link #filterRow()} -> last chance to drop entire row based on the sequence of      * filterValue() calls. Eg: filter a row if it doesn't contain a specified column.      *</li>      *</ul>     */
 name|filterMPALL
 operator|.
 name|reset
@@ -1264,7 +1264,7 @@ name|INCLUDE
 operator|==
 name|filterMPALL
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv
 argument_list|)
@@ -1326,7 +1326,7 @@ name|NEXT_ROW
 operator|==
 name|filterMPALL
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv
 argument_list|)
@@ -1422,7 +1422,7 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
-comment|/* Filter must do all below steps:      *<ul>      *<li>{@link #reset()}</li>      *<li>{@link #filterAllRemaining()} -> true indicates scan is over, false, keep going on.</li>      *<li>{@link #filterRowKey(byte[],int,int)} -> true to drop this row,      * if false, we will also call</li>      *<li>{@link #filterKeyValue(org.apache.hadoop.hbase.KeyValue)} -> true to drop this key/value</li>      *<li>{@link #filterRow()} -> last chance to drop entire row based on the sequence of      * filterValue() calls. Eg: filter a row if it doesn't contain a specified column.      *</li>      *</ul>     */
+comment|/* Filter must do all below steps:      *<ul>      *<li>{@link #reset()}</li>      *<li>{@link #filterAllRemaining()} -> true indicates scan is over, false, keep going on.</li>      *<li>{@link #filterRowKey(byte[],int,int)} -> true to drop this row,      * if false, we will also call</li>      *<li>{@link #filterCell(org.apache.hadoop.hbase.KeyValue)} -> true to drop this key/value</li>      *<li>{@link #filterRow()} -> last chance to drop entire row based on the sequence of      * filterValue() calls. Eg: filter a row if it doesn't contain a specified column.      *</li>      *</ul>     */
 name|filterMPONE
 operator|.
 name|reset
@@ -1513,7 +1513,7 @@ name|INCLUDE
 operator|==
 name|filterMPONE
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv
 argument_list|)
@@ -1603,7 +1603,7 @@ name|INCLUDE
 operator|==
 name|filterMPONE
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv
 argument_list|)
@@ -1693,7 +1693,7 @@ name|INCLUDE
 operator|==
 name|filterMPONE
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv
 argument_list|)
@@ -1796,7 +1796,7 @@ name|INCLUDE
 argument_list|,
 name|flist
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 operator|new
 name|KeyValue
@@ -1818,7 +1818,7 @@ name|INCLUDE
 argument_list|,
 name|flist
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 operator|new
 name|KeyValue
@@ -1857,7 +1857,7 @@ name|SKIP
 argument_list|,
 name|flist
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 operator|new
 name|KeyValue
@@ -1923,7 +1923,7 @@ name|INCLUDE
 argument_list|,
 name|flist
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 operator|new
 name|KeyValue
@@ -1945,7 +1945,7 @@ name|INCLUDE
 argument_list|,
 name|flist
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 operator|new
 name|KeyValue
@@ -1984,7 +1984,7 @@ name|NEXT_COL
 argument_list|,
 name|flist
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 operator|new
 name|KeyValue
@@ -2095,7 +2095,7 @@ name|INCLUDE
 argument_list|,
 name|flist
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 operator|new
 name|KeyValue
@@ -2117,7 +2117,7 @@ name|INCLUDE
 argument_list|,
 name|flist
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 operator|new
 name|KeyValue
@@ -2156,7 +2156,7 @@ name|NEXT_COL
 argument_list|,
 name|flist
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 operator|new
 name|KeyValue
@@ -2190,8 +2190,9 @@ annotation|@
 name|Override
 specifier|public
 name|ReturnCode
-name|filterKeyValue
+name|filterCell
 parameter_list|(
+specifier|final
 name|Cell
 name|v
 parameter_list|)
@@ -2360,12 +2361,12 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test filterKeyValue logic.    * @throws Exception    */
+comment|/**    * Test filterCell logic.    * @throws Exception    */
 annotation|@
 name|Test
 specifier|public
 name|void
-name|testFilterKeyValue
+name|testFilterCell
 parameter_list|()
 throws|throws
 name|Exception
@@ -2383,8 +2384,9 @@ specifier|public
 name|Filter
 operator|.
 name|ReturnCode
-name|filterKeyValue
+name|filterCell
 parameter_list|(
+specifier|final
 name|Cell
 name|v
 parameter_list|)
@@ -2417,8 +2419,9 @@ specifier|public
 name|Filter
 operator|.
 name|ReturnCode
-name|filterKeyValue
+name|filterCell
 parameter_list|(
+specifier|final
 name|Cell
 name|v
 parameter_list|)
@@ -2471,8 +2474,9 @@ specifier|public
 name|Filter
 operator|.
 name|ReturnCode
-name|filterKeyValue
+name|filterCell
 parameter_list|(
+specifier|final
 name|Cell
 name|v
 parameter_list|)
@@ -2544,7 +2548,7 @@ name|INCLUDE
 argument_list|,
 name|mpOnefilterList
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 literal|null
 argument_list|)
@@ -2561,7 +2565,7 @@ name|INCLUDE
 argument_list|,
 name|mpOnefilterList
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 literal|null
 argument_list|)
@@ -2606,7 +2610,7 @@ name|INCLUDE_AND_NEXT_COL
 argument_list|,
 name|mpAllfilterList
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 literal|null
 argument_list|)
@@ -2623,7 +2627,7 @@ name|SKIP
 argument_list|,
 name|mpAllfilterList
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 literal|null
 argument_list|)
@@ -2703,8 +2707,9 @@ annotation|@
 name|Override
 specifier|public
 name|ReturnCode
-name|filterKeyValue
+name|filterCell
 parameter_list|(
+specifier|final
 name|Cell
 name|ignored
 parameter_list|)
@@ -2730,8 +2735,9 @@ annotation|@
 name|Override
 specifier|public
 name|ReturnCode
-name|filterKeyValue
+name|filterCell
 parameter_list|(
+specifier|final
 name|Cell
 name|ignored
 parameter_list|)
@@ -2781,8 +2787,9 @@ annotation|@
 name|Override
 specifier|public
 name|ReturnCode
-name|filterKeyValue
+name|filterCell
 parameter_list|(
+specifier|final
 name|Cell
 name|ignored
 parameter_list|)
@@ -3029,7 +3036,7 @@ argument_list|)
 expr_stmt|;
 name|filterList
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 literal|null
 argument_list|)
@@ -3081,7 +3088,7 @@ argument_list|)
 expr_stmt|;
 name|filterList
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 literal|null
 argument_list|)
@@ -3136,7 +3143,7 @@ argument_list|)
 expr_stmt|;
 name|filterList
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 literal|null
 argument_list|)
@@ -3188,7 +3195,7 @@ argument_list|)
 expr_stmt|;
 name|filterList
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 literal|null
 argument_list|)
@@ -3240,7 +3247,7 @@ argument_list|)
 expr_stmt|;
 name|filterList
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 literal|null
 argument_list|)
@@ -3267,7 +3274,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Tests the behavior of transform() in a hierarchical filter.    *    * transform() only applies after a filterKeyValue() whose return-code includes the KeyValue.    * Lazy evaluation of AND    */
+comment|/**    * Tests the behavior of transform() in a hierarchical filter.    *    * transform() only applies after a filterCell() whose return-code includes the KeyValue.    * Lazy evaluation of AND    */
 annotation|@
 name|Test
 specifier|public
@@ -3531,7 +3538,7 @@ name|INCLUDE
 argument_list|,
 name|flist
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kvQual1
 argument_list|)
@@ -3574,7 +3581,7 @@ name|INCLUDE
 argument_list|,
 name|flist
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kvQual2
 argument_list|)
@@ -3632,7 +3639,7 @@ name|SKIP
 argument_list|,
 name|flist
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kvQual3
 argument_list|)
@@ -3786,7 +3793,7 @@ name|INCLUDE_AND_NEXT_COL
 argument_list|,
 name|filterList01
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv1
 argument_list|)
@@ -3800,7 +3807,7 @@ name|SKIP
 argument_list|,
 name|filterList01
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv2
 argument_list|)
@@ -3814,7 +3821,7 @@ name|SKIP
 argument_list|,
 name|filterList01
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv3
 argument_list|)
@@ -3847,7 +3854,7 @@ name|NEXT_COL
 argument_list|,
 name|filterList11
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv1
 argument_list|)
@@ -3861,7 +3868,7 @@ name|SKIP
 argument_list|,
 name|filterList11
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv2
 argument_list|)
@@ -3875,7 +3882,7 @@ name|SKIP
 argument_list|,
 name|filterList11
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv3
 argument_list|)
@@ -4077,7 +4084,7 @@ name|SEEK_NEXT_USING_HINT
 argument_list|,
 name|filterList
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv1
 argument_list|)
@@ -4091,7 +4098,7 @@ name|SKIP
 argument_list|,
 name|filterList
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv2
 argument_list|)
@@ -4105,7 +4112,7 @@ name|INCLUDE_AND_NEXT_COL
 argument_list|,
 name|filterList
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv3
 argument_list|)
@@ -4119,7 +4126,7 @@ name|SKIP
 argument_list|,
 name|filterList
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv4
 argument_list|)
@@ -4161,8 +4168,9 @@ annotation|@
 name|Override
 specifier|public
 name|ReturnCode
-name|filterKeyValue
+name|filterCell
 parameter_list|(
+specifier|final
 name|Cell
 name|v
 parameter_list|)
@@ -4363,7 +4371,7 @@ argument_list|)
 decl_stmt|;
 name|filter
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv1
 argument_list|)
@@ -4383,7 +4391,7 @@ literal|false
 expr_stmt|;
 name|filter
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv2
 argument_list|)
@@ -4403,7 +4411,7 @@ literal|false
 expr_stmt|;
 name|filter
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv3
 argument_list|)
@@ -4439,7 +4447,7 @@ argument_list|)
 expr_stmt|;
 name|filter
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv1
 argument_list|)
@@ -4459,7 +4467,7 @@ literal|false
 expr_stmt|;
 name|filter
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv2
 argument_list|)
@@ -4479,7 +4487,7 @@ literal|false
 expr_stmt|;
 name|filter
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv3
 argument_list|)
@@ -4515,7 +4523,7 @@ argument_list|)
 expr_stmt|;
 name|filter
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv1
 argument_list|)
@@ -4535,7 +4543,7 @@ literal|false
 expr_stmt|;
 name|filter
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv2
 argument_list|)
@@ -4555,7 +4563,7 @@ literal|false
 expr_stmt|;
 name|filter
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv3
 argument_list|)
@@ -4580,7 +4588,7 @@ literal|false
 expr_stmt|;
 name|filter
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv4
 argument_list|)
@@ -4616,7 +4624,7 @@ argument_list|)
 expr_stmt|;
 name|filter
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv1
 argument_list|)
@@ -4636,7 +4644,7 @@ literal|false
 expr_stmt|;
 name|filter
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv2
 argument_list|)
@@ -4656,7 +4664,7 @@ literal|false
 expr_stmt|;
 name|filter
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv3
 argument_list|)
@@ -4681,7 +4689,7 @@ literal|false
 expr_stmt|;
 name|filter
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv4
 argument_list|)
@@ -4840,7 +4848,7 @@ name|INCLUDE_AND_NEXT_COL
 argument_list|,
 name|filterList
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv1
 argument_list|)
@@ -4868,7 +4876,7 @@ name|INCLUDE_AND_SEEK_NEXT_ROW
 argument_list|,
 name|filterList
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv1
 argument_list|)
@@ -4898,7 +4906,7 @@ name|SEEK_NEXT_USING_HINT
 argument_list|,
 name|filterList
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv1
 argument_list|)
@@ -4926,7 +4934,7 @@ name|SEEK_NEXT_USING_HINT
 argument_list|,
 name|filterList
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv1
 argument_list|)
@@ -4954,7 +4962,7 @@ name|INCLUDE_AND_SEEK_NEXT_ROW
 argument_list|,
 name|filterList
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv1
 argument_list|)
@@ -4986,7 +4994,7 @@ name|NEXT_ROW
 argument_list|,
 name|filterList
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv1
 argument_list|)
@@ -5024,7 +5032,7 @@ name|NEXT_ROW
 argument_list|,
 name|filterList
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv1
 argument_list|)
@@ -5052,7 +5060,7 @@ name|NEXT_ROW
 argument_list|,
 name|filterList
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv1
 argument_list|)
@@ -5190,7 +5198,7 @@ name|assertEquals
 argument_list|(
 name|filterList
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv1
 argument_list|)
@@ -5222,7 +5230,7 @@ name|INCLUDE_AND_NEXT_COL
 argument_list|,
 name|filterList
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv1
 argument_list|)
@@ -5252,7 +5260,7 @@ name|SKIP
 argument_list|,
 name|filterList
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv1
 argument_list|)
@@ -5280,7 +5288,7 @@ name|SKIP
 argument_list|,
 name|filterList
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv1
 argument_list|)
@@ -5308,7 +5316,7 @@ name|INCLUDE
 argument_list|,
 name|filterList
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv1
 argument_list|)
@@ -5340,7 +5348,7 @@ name|INCLUDE
 argument_list|,
 name|filterList
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv1
 argument_list|)
@@ -5378,7 +5386,7 @@ name|INCLUDE_AND_NEXT_COL
 argument_list|,
 name|filterList
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv1
 argument_list|)
@@ -5416,7 +5424,7 @@ name|INCLUDE_AND_NEXT_COL
 argument_list|,
 name|filterList
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv1
 argument_list|)
@@ -5444,7 +5452,7 @@ name|SEEK_NEXT_USING_HINT
 argument_list|,
 name|filterList
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv1
 argument_list|)
@@ -5479,8 +5487,9 @@ annotation|@
 name|Override
 specifier|public
 name|ReturnCode
-name|filterKeyValue
+name|filterCell
 parameter_list|(
+specifier|final
 name|Cell
 name|v
 parameter_list|)
@@ -5729,7 +5738,7 @@ name|SEEK_NEXT_USING_HINT
 argument_list|,
 name|filterList
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv1
 argument_list|)
@@ -5797,7 +5806,7 @@ name|SEEK_NEXT_USING_HINT
 argument_list|,
 name|filterList
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv1
 argument_list|)
@@ -5923,7 +5932,7 @@ name|INCLUDE
 argument_list|,
 name|filterList
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 operator|new
 name|KeyValue
@@ -5945,7 +5954,7 @@ name|INCLUDE
 argument_list|,
 name|filterList
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 operator|new
 name|KeyValue
@@ -5984,7 +5993,7 @@ name|SKIP
 argument_list|,
 name|filterList
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 operator|new
 name|KeyValue
@@ -6080,7 +6089,7 @@ name|INCLUDE
 argument_list|,
 name|filterList
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 operator|new
 name|KeyValue
@@ -6102,7 +6111,7 @@ name|INCLUDE
 argument_list|,
 name|filterList
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 operator|new
 name|KeyValue
@@ -6141,7 +6150,7 @@ name|NEXT_COL
 argument_list|,
 name|filterList
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 operator|new
 name|KeyValue
@@ -6346,7 +6355,7 @@ name|INCLUDE
 argument_list|,
 name|keyOnlyFilterFirst
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv1
 argument_list|)
@@ -6379,7 +6388,7 @@ name|INCLUDE
 argument_list|,
 name|keyOnlyFilterFirst
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv2
 argument_list|)
@@ -6434,7 +6443,7 @@ name|INCLUDE
 argument_list|,
 name|keyOnlyFilterLast
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv1
 argument_list|)
@@ -6467,7 +6476,7 @@ name|INCLUDE
 argument_list|,
 name|keyOnlyFilterLast
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv2
 argument_list|)
@@ -6558,7 +6567,7 @@ name|INCLUDE
 argument_list|,
 name|filterList
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv
 argument_list|)
@@ -6594,7 +6603,7 @@ name|INCLUDE
 argument_list|,
 name|filterList
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv
 argument_list|)
@@ -6628,8 +6637,9 @@ literal|0
 decl_stmt|;
 specifier|public
 name|ReturnCode
-name|filterKeyValue
+name|filterCell
 parameter_list|(
+specifier|final
 name|Cell
 name|v
 parameter_list|)
@@ -6760,14 +6770,14 @@ argument_list|)
 decl_stmt|;
 name|filter
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv1
 argument_list|)
 expr_stmt|;
 name|filter
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|kv2
 argument_list|)

@@ -3064,7 +3064,7 @@ return|return
 name|quotedArgs
 return|;
 block|}
-comment|/**    * Attempt to filter out the keyvalue    * @param kv {@link KeyValue} on which to apply the filter    * @return<tt>null</tt> if the key should not be written, otherwise returns the original    *         {@link KeyValue}    */
+comment|/**    * Attempt to filter out the keyvalue    * @param c {@link Cell} on which to apply the filter    * @return<tt>null</tt> if the key should not be written, otherwise returns the original    *         {@link Cell}    */
 specifier|public
 specifier|static
 name|Cell
@@ -3074,7 +3074,7 @@ name|Filter
 name|filter
 parameter_list|,
 name|Cell
-name|kv
+name|c
 parameter_list|)
 throws|throws
 name|IOException
@@ -3094,9 +3094,9 @@ name|code
 init|=
 name|filter
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
-name|kv
+name|c
 argument_list|)
 decl_stmt|;
 if|if
@@ -3115,9 +3115,9 @@ literal|"Filter returned:"
 operator|+
 name|code
 operator|+
-literal|" for the key value:"
+literal|" for the cell:"
 operator|+
-name|kv
+name|c
 argument_list|)
 expr_stmt|;
 block|}
@@ -3156,7 +3156,7 @@ return|;
 block|}
 block|}
 return|return
-name|kv
+name|c
 return|;
 block|}
 comment|// helper: create a new KeyValue based on CF rename map
@@ -4317,7 +4317,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"If there is a large result that includes too much KeyValue "
+literal|"If there is a large result that includes too much Cell "
 operator|+
 literal|"whitch can occur OOME caused by the memery sort in reducer, pass the option:"
 argument_list|)
@@ -4386,11 +4386,11 @@ literal|" Filter#filterRowKey(byte[] buffer, int offset, int length) method to i
 operator|+
 literal|" whether the current row needs to be ignored completely for processing and "
 operator|+
-literal|" Filter#filterKeyValue(KeyValue) method to determine if the KeyValue should be added;"
+literal|" Filter#filterCell(Cell) method to determine if the Cell should be added;"
 operator|+
 literal|" Filter.ReturnCode#INCLUDE and #INCLUDE_AND_NEXT_COL will be considered as including"
 operator|+
-literal|" the KeyValue."
+literal|" the Cell."
 argument_list|)
 expr_stmt|;
 name|System

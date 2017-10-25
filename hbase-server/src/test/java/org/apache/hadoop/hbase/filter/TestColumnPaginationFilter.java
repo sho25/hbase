@@ -347,7 +347,7 @@ throws|throws
 name|Exception
 block|{
 name|KeyValue
-name|kv
+name|c
 init|=
 operator|new
 name|KeyValue
@@ -367,9 +367,9 @@ literal|"basicFilter1"
 argument_list|,
 name|filter
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
-name|kv
+name|c
 argument_list|)
 operator|==
 name|Filter

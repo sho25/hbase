@@ -5014,8 +5014,9 @@ annotation|@
 name|Override
 specifier|public
 name|ReturnCode
-name|filterKeyValue
+name|filterCell
 parameter_list|(
+specifier|final
 name|Cell
 name|ignored
 parameter_list|)
@@ -5236,12 +5237,12 @@ break|break;
 block|}
 block|}
 block|}
-comment|/**    * Tests the the {@link WhileMatchFilter} works in combination with a    * {@link Filter} that uses the {@link Filter#filterKeyValue(Cell)} method.    *    * See HBASE-2258.    *    * @throws Exception    */
+comment|/**    * Tests the the {@link WhileMatchFilter} works in combination with a    * {@link Filter} that uses the {@link Filter#filterCell(Cell)} method.    *    * See HBASE-2258.    *    * @throws Exception    */
 annotation|@
 name|Test
 specifier|public
 name|void
-name|testWhileMatchFilterWithFilterKeyValue
+name|testWhileMatchFilterWithFilterCell
 parameter_list|()
 throws|throws
 name|Exception
@@ -18713,8 +18714,9 @@ annotation|@
 name|Override
 specifier|public
 name|ReturnCode
-name|filterKeyValue
+name|filterCell
 parameter_list|(
+specifier|final
 name|Cell
 name|ignored
 parameter_list|)

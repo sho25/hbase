@@ -749,10 +749,11 @@ annotation|@
 name|Override
 specifier|public
 name|ReturnCode
-name|filterKeyValue
+name|filterCell
 parameter_list|(
+specifier|final
 name|Cell
-name|v
+name|c
 parameter_list|)
 throws|throws
 name|IOException
@@ -777,7 +778,7 @@ name|CellUtil
 operator|.
 name|cloneRow
 argument_list|(
-name|v
+name|c
 argument_list|)
 argument_list|,
 name|ROWS

@@ -200,7 +200,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * FilterList with MUST_PASS_ALL choose the maximal forward step among sub-filters in filter list.    * Let's call it: The Maximal Step Rule. So if filter-A in filter list return INCLUDE and filter-B    * in filter list return INCLUDE_AND_NEXT_COL, then the filter list should return    * INCLUDE_AND_NEXT_COL. For SEEK_NEXT_USING_HINT, it's more special, and in method    * filterKeyValueWithMustPassAll(), if any sub-filter return SEEK_NEXT_USING_HINT, then our filter    * list will return SEEK_NEXT_USING_HINT. so we don't care about the SEEK_NEXT_USING_HINT here.    *<br/>    *<br/>    * The jump step will be:    *    *<pre>    * INCLUDE&lt; SKIP&lt; INCLUDE_AND_NEXT_COL&lt; NEXT_COL&lt; INCLUDE_AND_SEEK_NEXT_ROW&lt; NEXT_ROW&lt; SEEK_NEXT_USING_HINT    *</pre>    *    * Here, we have the following map to describe The Maximal Step Rule. if current return code (for    * previous sub-filters in filter list) is<strong>ReturnCode</strong>, and current filter returns    *<strong>localRC</strong>, then we should return map[ReturnCode][localRC] for the merged result,    * according to The Maximal Step Rule.<br/>    *    *<pre>    * LocalCode\ReturnCode       INCLUDE                    INCLUDE_AND_NEXT_COL      INCLUDE_AND_SEEK_NEXT_ROW  SKIP                  NEXT_COL              NEXT_ROW              SEEK_NEXT_USING_HINT    * INCLUDE                    INCLUDE                    INCLUDE_AND_NEXT_COL      INCLUDE_AND_SEEK_NEXT_ROW  SKIP                  NEXT_COL              NEXT_ROW              SEEK_NEXT_USING_HINT    * INCLUDE_AND_NEXT_COL       INCLUDE_AND_NEXT_COL       INCLUDE_AND_NEXT_COL      INCLUDE_AND_SEEK_NEXT_ROW  NEXT_COL              NEXT_COL              NEXT_ROW              SEEK_NEXT_USING_HINT    * INCLUDE_AND_SEEK_NEXT_ROW  INCLUDE_AND_SEEK_NEXT_ROW  INCLUDE_AND_SEEK_NEXT_ROW INCLUDE_AND_SEEK_NEXT_ROW  NEXT_ROW              NEXT_ROW              NEXT_ROW              SEEK_NEXT_USING_HINT    * SKIP                       SKIP                       NEXT_COL                  NEXT_ROW                   SKIP                  NEXT_COL              NEXT_ROW              SEEK_NEXT_USING_HINT    * NEXT_COL                   NEXT_COL                   NEXT_COL                  NEXT_ROW                   NEXT_COL              NEXT_COL              NEXT_ROW              SEEK_NEXT_USING_HINT    * NEXT_ROW                   NEXT_ROW                   NEXT_ROW                  NEXT_ROW                   NEXT_ROW              NEXT_ROW              NEXT_ROW              SEEK_NEXT_USING_HINT    * SEEK_NEXT_USING_HINT       SEEK_NEXT_USING_HINT       SEEK_NEXT_USING_HINT      SEEK_NEXT_USING_HINT       SEEK_NEXT_USING_HINT  SEEK_NEXT_USING_HINT  SEEK_NEXT_USING_HINT  SEEK_NEXT_USING_HINT    *</pre>    *    * @param rc Return code which is calculated by previous sub-filter(s) in filter list.    * @param localRC Return code of the current sub-filter in filter list.    * @return Return code which is merged by the return code of previous sub-filter(s) and the return    *         code of current sub-filter.    */
+comment|/**    * FilterList with MUST_PASS_ALL choose the maximal forward step among sub-filters in filter list.    * Let's call it: The Maximal Step Rule. So if filter-A in filter list return INCLUDE and filter-B    * in filter list return INCLUDE_AND_NEXT_COL, then the filter list should return    * INCLUDE_AND_NEXT_COL. For SEEK_NEXT_USING_HINT, it's more special, and in method    * filterCellWithMustPassAll(), if any sub-filter return SEEK_NEXT_USING_HINT, then our filter    * list will return SEEK_NEXT_USING_HINT. so we don't care about the SEEK_NEXT_USING_HINT here.    *<br/>    *<br/>    * The jump step will be:    *    *<pre>    * INCLUDE&lt; SKIP&lt; INCLUDE_AND_NEXT_COL&lt; NEXT_COL&lt; INCLUDE_AND_SEEK_NEXT_ROW&lt; NEXT_ROW&lt; SEEK_NEXT_USING_HINT    *</pre>    *    * Here, we have the following map to describe The Maximal Step Rule. if current return code (for    * previous sub-filters in filter list) is<strong>ReturnCode</strong>, and current filter returns    *<strong>localRC</strong>, then we should return map[ReturnCode][localRC] for the merged result,    * according to The Maximal Step Rule.<br/>    *    *<pre>    * LocalCode\ReturnCode       INCLUDE                    INCLUDE_AND_NEXT_COL      INCLUDE_AND_SEEK_NEXT_ROW  SKIP                  NEXT_COL              NEXT_ROW              SEEK_NEXT_USING_HINT    * INCLUDE                    INCLUDE                    INCLUDE_AND_NEXT_COL      INCLUDE_AND_SEEK_NEXT_ROW  SKIP                  NEXT_COL              NEXT_ROW              SEEK_NEXT_USING_HINT    * INCLUDE_AND_NEXT_COL       INCLUDE_AND_NEXT_COL       INCLUDE_AND_NEXT_COL      INCLUDE_AND_SEEK_NEXT_ROW  NEXT_COL              NEXT_COL              NEXT_ROW              SEEK_NEXT_USING_HINT    * INCLUDE_AND_SEEK_NEXT_ROW  INCLUDE_AND_SEEK_NEXT_ROW  INCLUDE_AND_SEEK_NEXT_ROW INCLUDE_AND_SEEK_NEXT_ROW  NEXT_ROW              NEXT_ROW              NEXT_ROW              SEEK_NEXT_USING_HINT    * SKIP                       SKIP                       NEXT_COL                  NEXT_ROW                   SKIP                  NEXT_COL              NEXT_ROW              SEEK_NEXT_USING_HINT    * NEXT_COL                   NEXT_COL                   NEXT_COL                  NEXT_ROW                   NEXT_COL              NEXT_COL              NEXT_ROW              SEEK_NEXT_USING_HINT    * NEXT_ROW                   NEXT_ROW                   NEXT_ROW                  NEXT_ROW                   NEXT_ROW              NEXT_ROW              NEXT_ROW              SEEK_NEXT_USING_HINT    * SEEK_NEXT_USING_HINT       SEEK_NEXT_USING_HINT       SEEK_NEXT_USING_HINT      SEEK_NEXT_USING_HINT       SEEK_NEXT_USING_HINT  SEEK_NEXT_USING_HINT  SEEK_NEXT_USING_HINT  SEEK_NEXT_USING_HINT    *</pre>    *    * @param rc Return code which is calculated by previous sub-filter(s) in filter list.    * @param localRC Return code of the current sub-filter in filter list.    * @return Return code which is merged by the return code of previous sub-filter(s) and the return    *         code of current sub-filter.    */
 specifier|private
 name|ReturnCode
 name|mergeReturnCode
@@ -536,7 +536,7 @@ block|}
 annotation|@
 name|Override
 name|ReturnCode
-name|internalFilterKeyValue
+name|internalFilterCell
 parameter_list|(
 name|Cell
 name|c
@@ -649,7 +649,7 @@ operator|)
 name|filter
 operator|)
 operator|.
-name|internalFilterKeyValue
+name|internalFilterCell
 argument_list|(
 name|c
 argument_list|,
@@ -663,7 +663,7 @@ name|localRC
 operator|=
 name|filter
 operator|.
-name|filterKeyValue
+name|filterCell
 argument_list|(
 name|c
 argument_list|)
