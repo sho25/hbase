@@ -300,11 +300,14 @@ name|obj
 operator|==
 literal|null
 operator|||
-operator|!
 operator|(
+name|getClass
+argument_list|()
+operator|!=
 name|obj
-operator|instanceof
-name|MemStoreSizing
+operator|.
+name|getClass
+argument_list|()
 operator|)
 condition|)
 block|{
