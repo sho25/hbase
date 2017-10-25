@@ -5730,6 +5730,10 @@ operator|.
 name|createFlushContext
 argument_list|(
 name|id
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 decl_stmt|;
 name|storeFlushCtx
@@ -7811,6 +7815,10 @@ name|createFlushContext
 argument_list|(
 name|id
 operator|++
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 decl_stmt|;
 name|storeFlushCtx
@@ -9409,6 +9417,10 @@ name|createFlushContext
 argument_list|(
 name|id
 operator|++
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 decl_stmt|;
 name|MyCompactingMemStore
@@ -9870,6 +9882,10 @@ operator|.
 name|createFlushContext
 argument_list|(
 name|snapshotId
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 decl_stmt|;
 name|storeFlushCtx
@@ -10717,6 +10733,10 @@ name|createFlushContext
 argument_list|(
 name|id
 operator|++
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 decl_stmt|;
 name|storeFlushCtx

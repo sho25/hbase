@@ -18,22 +18,6 @@ package|;
 end_package
 
 begin_import
-import|import static
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|util
-operator|.
-name|StringUtils
-operator|.
-name|humanReadableInt
-import|;
-end_import
-
-begin_import
 import|import
 name|java
 operator|.
@@ -313,20 +297,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -352,30 +322,6 @@ operator|.
 name|HRegion
 operator|.
 name|FlushResult
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|base
-operator|.
-name|Preconditions
 import|;
 end_import
 
@@ -484,20 +430,6 @@ operator|.
 name|util
 operator|.
 name|StringUtils
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|util
-operator|.
-name|StringUtils
 operator|.
 name|TraditionalBinaryPrefix
 import|;
@@ -524,6 +456,44 @@ operator|.
 name|htrace
 operator|.
 name|TraceScope
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|base
+operator|.
+name|Preconditions
 import|;
 end_import
 
@@ -1113,9 +1083,9 @@ name|bestRegionReplica
 operator|+
 literal|" due to global heap pressure. Total memstore datasize="
 operator|+
-name|StringUtils
+name|TraditionalBinaryPrefix
 operator|.
-name|humanReadableInt
+name|long2String
 argument_list|(
 name|server
 operator|.
@@ -1124,13 +1094,17 @@ argument_list|()
 operator|.
 name|getGlobalMemStoreDataSize
 argument_list|()
+argument_list|,
+literal|""
+argument_list|,
+literal|1
 argument_list|)
 operator|+
 literal|" memstore heap size="
 operator|+
-name|StringUtils
+name|TraditionalBinaryPrefix
 operator|.
-name|humanReadableInt
+name|long2String
 argument_list|(
 name|server
 operator|.
@@ -1139,6 +1113,10 @@ argument_list|()
 operator|.
 name|getGlobalMemStoreHeapSize
 argument_list|()
+argument_list|,
+literal|""
+argument_list|,
+literal|1
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1189,7 +1167,9 @@ literal|" due to global heap pressure. "
 operator|+
 literal|"Total Memstore size="
 operator|+
-name|humanReadableInt
+name|TraditionalBinaryPrefix
+operator|.
+name|long2String
 argument_list|(
 name|server
 operator|.
@@ -1198,16 +1178,26 @@ argument_list|()
 operator|.
 name|getGlobalMemStoreDataSize
 argument_list|()
+argument_list|,
+literal|""
+argument_list|,
+literal|1
 argument_list|)
 operator|+
 literal|", Region memstore size="
 operator|+
-name|humanReadableInt
+name|TraditionalBinaryPrefix
+operator|.
+name|long2String
 argument_list|(
 name|regionToFlush
 operator|.
 name|getMemStoreSize
 argument_list|()
+argument_list|,
+literal|""
+argument_list|,
+literal|1
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1220,6 +1210,10 @@ argument_list|,
 literal|true
 argument_list|,
 literal|false
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 expr_stmt|;
 if|if
@@ -1766,6 +1760,9 @@ name|r
 parameter_list|,
 name|boolean
 name|forceFlushAllStores
+parameter_list|,
+name|FlushLifeCycleTracker
+name|tracker
 parameter_list|)
 block|{
 name|r
@@ -1790,7 +1787,7 @@ argument_list|)
 condition|)
 block|{
 comment|// This entry has no delay so it will be added at the top of the flush
-comment|// queue.  It'll come out near immediately.
+comment|// queue. It'll come out near immediately.
 name|FlushRegionEntry
 name|fqe
 init|=
@@ -1800,6 +1797,8 @@ argument_list|(
 name|r
 argument_list|,
 name|forceFlushAllStores
+argument_list|,
+name|tracker
 argument_list|)
 decl_stmt|;
 name|this
@@ -1820,6 +1819,18 @@ operator|.
 name|add
 argument_list|(
 name|fqe
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|tracker
+operator|.
+name|notExecuted
+argument_list|(
+literal|"Flush already requested on "
+operator|+
+name|r
 argument_list|)
 expr_stmt|;
 block|}
@@ -1872,6 +1883,10 @@ argument_list|(
 name|r
 argument_list|,
 name|forceFlushAllStores
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 decl_stmt|;
 name|fqe
@@ -2349,6 +2364,11 @@ name|fqe
 operator|.
 name|isForceFlushAllStores
 argument_list|()
+argument_list|,
+name|fqe
+operator|.
+name|getTracker
+argument_list|()
 argument_list|)
 return|;
 block|}
@@ -2357,16 +2377,17 @@ specifier|private
 name|boolean
 name|flushRegion
 parameter_list|(
-specifier|final
 name|HRegion
 name|region
 parameter_list|,
-specifier|final
 name|boolean
 name|emergencyFlush
 parameter_list|,
 name|boolean
 name|forceFlushAllStores
+parameter_list|,
+name|FlushLifeCycleTracker
+name|tracker
 parameter_list|)
 block|{
 synchronized|synchronized
@@ -2398,7 +2419,7 @@ operator|&&
 name|emergencyFlush
 condition|)
 block|{
-comment|// Need to remove from region from delay queue.  When NOT an
+comment|// Need to remove from region from delay queue. When NOT an
 comment|// emergencyFlush, then item was removed via a flushQueue.poll.
 name|flushQueue
 operator|.
@@ -2409,6 +2430,11 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+name|tracker
+operator|.
+name|beforeExecution
+argument_list|()
+expr_stmt|;
 name|lock
 operator|.
 name|readLock
@@ -2431,9 +2457,13 @@ name|flushResult
 init|=
 name|region
 operator|.
-name|flush
+name|flushcache
 argument_list|(
 name|forceFlushAllStores
+argument_list|,
+literal|false
+argument_list|,
+name|tracker
 argument_list|)
 decl_stmt|;
 name|boolean
@@ -2604,6 +2634,11 @@ name|unlock
 argument_list|()
 expr_stmt|;
 name|wakeUpIfBlocking
+argument_list|()
+expr_stmt|;
+name|tracker
+operator|.
+name|afterExecution
 argument_list|()
 expr_stmt|;
 block|}
@@ -3418,8 +3453,14 @@ init|=
 literal|0
 decl_stmt|;
 specifier|private
+specifier|final
 name|boolean
 name|forceFlushAllStores
+decl_stmt|;
+specifier|private
+specifier|final
+name|FlushLifeCycleTracker
+name|tracker
 decl_stmt|;
 name|FlushRegionEntry
 parameter_list|(
@@ -3429,6 +3470,9 @@ name|r
 parameter_list|,
 name|boolean
 name|forceFlushAllStores
+parameter_list|,
+name|FlushLifeCycleTracker
+name|tracker
 parameter_list|)
 block|{
 name|this
@@ -3459,6 +3503,12 @@ operator|.
 name|forceFlushAllStores
 operator|=
 name|forceFlushAllStores
+expr_stmt|;
+name|this
+operator|.
+name|tracker
+operator|=
+name|tracker
 expr_stmt|;
 block|}
 comment|/**      * @param maximumWait      * @return True if we have been delayed><code>maximumWait</code> milliseconds.      */
@@ -3506,6 +3556,15 @@ parameter_list|()
 block|{
 return|return
 name|forceFlushAllStores
+return|;
+block|}
+specifier|public
+name|FlushLifeCycleTracker
+name|getTracker
+parameter_list|()
+block|{
+return|return
+name|tracker
 return|;
 block|}
 comment|/**      * @param when When to expire, when to come up out of the queue.      * Specify in milliseconds.  This method adds EnvironmentEdgeManager.currentTime()      * to whatever you pass.      * @return This.      */

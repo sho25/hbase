@@ -355,6 +355,22 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|FlushLifeCycleTracker
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|InternalScanner
 import|;
 end_import
@@ -706,7 +722,7 @@ argument_list|>
 name|c
 parameter_list|)
 block|{}
-comment|/**    * Called before the memstore is flushed to disk.    * @param c the environment provided by the region server    */
+comment|/**    * Called before the memstore is flushed to disk.    * @param c the environment provided by the region server    * @param tracker tracker used to track the life cycle of a flush    */
 specifier|default
 name|void
 name|preFlush
@@ -717,11 +733,14 @@ argument_list|<
 name|RegionCoprocessorEnvironment
 argument_list|>
 name|c
+parameter_list|,
+name|FlushLifeCycleTracker
+name|tracker
 parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called before a Store's memstore is flushed to disk.    * @param c the environment provided by the region server    * @param store the store where compaction is being requested    * @param scanner the scanner over existing data used in the store file    * @return the scanner to use during compaction.  Should not be {@code null}    * unless the implementation is writing new store files on its own.    */
+comment|/**    * Called before a Store's memstore is flushed to disk.    * @param c the environment provided by the region server    * @param store the store where compaction is being requested    * @param scanner the scanner over existing data used in the store file    * @param tracker tracker used to track the life cycle of a flush    * @return the scanner to use during compaction.  Should not be {@code null}    * unless the implementation is writing new store files on its own.    */
 specifier|default
 name|InternalScanner
 name|preFlush
@@ -737,6 +756,9 @@ name|store
 parameter_list|,
 name|InternalScanner
 name|scanner
+parameter_list|,
+name|FlushLifeCycleTracker
+name|tracker
 parameter_list|)
 throws|throws
 name|IOException
@@ -745,7 +767,7 @@ return|return
 name|scanner
 return|;
 block|}
-comment|/**    * Called after the memstore is flushed to disk.    * @param c the environment provided by the region server    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called after the memstore is flushed to disk.    * @param c the environment provided by the region server    * @param tracker tracker used to track the life cycle of a flush    * @throws IOException if an error occurred on the coprocessor    */
 specifier|default
 name|void
 name|postFlush
@@ -755,11 +777,14 @@ argument_list|<
 name|RegionCoprocessorEnvironment
 argument_list|>
 name|c
+parameter_list|,
+name|FlushLifeCycleTracker
+name|tracker
 parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called after a Store's memstore is flushed to disk.    * @param c the environment provided by the region server    * @param store the store being flushed    * @param resultFile the new store file written out during compaction    */
+comment|/**    * Called after a Store's memstore is flushed to disk.    * @param c the environment provided by the region server    * @param store the store being flushed    * @param resultFile the new store file written out during compaction    * @param tracker tracker used to track the life cycle of a flush    */
 specifier|default
 name|void
 name|postFlush
@@ -775,6 +800,9 @@ name|store
 parameter_list|,
 name|StoreFile
 name|resultFile
+parameter_list|,
+name|FlushLifeCycleTracker
+name|tracker
 parameter_list|)
 throws|throws
 name|IOException

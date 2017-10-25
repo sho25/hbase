@@ -5200,6 +5200,9 @@ name|status
 parameter_list|,
 name|ThroughputController
 name|throughputController
+parameter_list|,
+name|FlushLifeCycleTracker
+name|tracker
 parameter_list|)
 throws|throws
 name|IOException
@@ -5256,6 +5259,8 @@ argument_list|,
 name|status
 argument_list|,
 name|throughputController
+argument_list|,
+name|tracker
 argument_list|)
 decl_stmt|;
 name|Path
@@ -10831,6 +10836,9 @@ name|createFlushContext
 parameter_list|(
 name|long
 name|cacheFlushId
+parameter_list|,
+name|FlushLifeCycleTracker
+name|tracker
 parameter_list|)
 block|{
 return|return
@@ -10838,6 +10846,8 @@ operator|new
 name|StoreFlusherImpl
 argument_list|(
 name|cacheFlushId
+argument_list|,
+name|tracker
 argument_list|)
 return|;
 block|}
@@ -10849,6 +10859,12 @@ implements|implements
 name|StoreFlushContext
 block|{
 specifier|private
+specifier|final
+name|FlushLifeCycleTracker
+name|tracker
+decl_stmt|;
+specifier|private
+specifier|final
 name|long
 name|cacheFlushSeqNum
 decl_stmt|;
@@ -10887,6 +10903,9 @@ name|StoreFlusherImpl
 parameter_list|(
 name|long
 name|cacheFlushSeqNum
+parameter_list|,
+name|FlushLifeCycleTracker
+name|tracker
 parameter_list|)
 block|{
 name|this
@@ -10894,6 +10913,12 @@ operator|.
 name|cacheFlushSeqNum
 operator|=
 name|cacheFlushSeqNum
+expr_stmt|;
+name|this
+operator|.
+name|tracker
+operator|=
+name|tracker
 expr_stmt|;
 block|}
 comment|/**      * This is not thread safe. The caller should have a lock on the region or the store.      * If necessary, the lock can be added with the patch provided in HBASE-10087      */
@@ -10991,6 +11016,8 @@ argument_list|,
 name|status
 argument_list|,
 name|throughputController
+argument_list|,
+name|tracker
 argument_list|)
 expr_stmt|;
 block|}
@@ -11204,6 +11231,8 @@ operator|.
 name|this
 argument_list|,
 name|sf
+argument_list|,
+name|tracker
 argument_list|)
 expr_stmt|;
 block|}

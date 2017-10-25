@@ -53,6 +53,9 @@ name|region
 parameter_list|,
 name|boolean
 name|forceFlushAllStores
+parameter_list|,
+name|FlushLifeCycleTracker
+name|tracker
 parameter_list|)
 function_decl|;
 comment|/**    * Tell the listener the cache needs to be flushed after a delay    *    * @param region the Region requesting the cache flush    * @param delay after how much time should the flush happen    * @param forceFlushAllStores whether we want to flush all stores. e.g., when request from log    *          rolling.    */

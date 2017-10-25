@@ -1083,6 +1083,10 @@ argument_list|(
 literal|null
 argument_list|,
 literal|false
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 expr_stmt|;
 name|memStoreFlusher
@@ -1092,6 +1096,10 @@ argument_list|(
 literal|null
 argument_list|,
 literal|false
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 expr_stmt|;
 name|memStoreFlusher
@@ -1101,6 +1109,10 @@ argument_list|(
 literal|null
 argument_list|,
 literal|false
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 expr_stmt|;
 name|memStoreFlusher
@@ -1118,6 +1130,10 @@ argument_list|(
 literal|null
 argument_list|,
 literal|false
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 expr_stmt|;
 comment|// Allow the tuner to run once and do necessary memory up
@@ -1405,6 +1421,10 @@ argument_list|(
 literal|null
 argument_list|,
 literal|false
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 expr_stmt|;
 name|memStoreFlusher
@@ -1414,6 +1434,10 @@ argument_list|(
 literal|null
 argument_list|,
 literal|false
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 expr_stmt|;
 name|memStoreFlusher
@@ -1423,6 +1447,10 @@ argument_list|(
 literal|null
 argument_list|,
 literal|false
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 expr_stmt|;
 name|memStoreFlusher
@@ -1432,6 +1460,10 @@ argument_list|(
 literal|null
 argument_list|,
 literal|false
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 expr_stmt|;
 comment|// Allow the tuner to run once and do necessary memory up
@@ -1787,6 +1819,10 @@ argument_list|(
 literal|null
 argument_list|,
 literal|false
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 expr_stmt|;
 name|memStoreFlusher
@@ -1796,6 +1832,10 @@ argument_list|(
 literal|null
 argument_list|,
 literal|false
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 expr_stmt|;
 name|memStoreFlusher
@@ -1805,6 +1845,10 @@ argument_list|(
 literal|null
 argument_list|,
 literal|false
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 expr_stmt|;
 name|memStoreFlusher
@@ -1814,6 +1858,10 @@ argument_list|(
 literal|null
 argument_list|,
 literal|false
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 expr_stmt|;
 comment|// Allow the tuner to run once and do necessary memory up
@@ -1881,6 +1929,10 @@ argument_list|(
 literal|null
 argument_list|,
 literal|false
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 expr_stmt|;
 name|memStoreFlusher
@@ -1890,6 +1942,10 @@ argument_list|(
 literal|null
 argument_list|,
 literal|false
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 expr_stmt|;
 name|memStoreFlusher
@@ -1899,6 +1955,10 @@ argument_list|(
 literal|null
 argument_list|,
 literal|false
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 expr_stmt|;
 name|memStoreFlusher
@@ -1908,6 +1968,10 @@ argument_list|(
 literal|null
 argument_list|,
 literal|false
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 expr_stmt|;
 comment|// Allow the tuner to run once and do necessary memory up
@@ -2397,6 +2461,10 @@ argument_list|(
 literal|null
 argument_list|,
 literal|false
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 expr_stmt|;
 name|memStoreFlusher
@@ -2406,6 +2474,10 @@ argument_list|(
 literal|null
 argument_list|,
 literal|false
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 expr_stmt|;
 name|memStoreFlusher
@@ -2415,6 +2487,10 @@ argument_list|(
 literal|null
 argument_list|,
 literal|false
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 expr_stmt|;
 name|memStoreFlusher
@@ -2424,6 +2500,10 @@ argument_list|(
 literal|null
 argument_list|,
 literal|false
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 expr_stmt|;
 comment|// Allow the tuner to run once and do necessary memory up
@@ -2493,6 +2573,10 @@ argument_list|(
 literal|null
 argument_list|,
 literal|false
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 expr_stmt|;
 name|memStoreFlusher
@@ -2502,6 +2586,10 @@ argument_list|(
 literal|null
 argument_list|,
 literal|false
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 expr_stmt|;
 comment|// Allow the tuner to run once and do necessary memory up
@@ -2759,6 +2847,10 @@ argument_list|(
 literal|null
 argument_list|,
 literal|false
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 expr_stmt|;
 name|memStoreFlusher
@@ -2768,6 +2860,10 @@ argument_list|(
 literal|null
 argument_list|,
 literal|false
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 expr_stmt|;
 name|memStoreFlusher
@@ -2777,6 +2873,10 @@ argument_list|(
 literal|null
 argument_list|,
 literal|false
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 expr_stmt|;
 name|memStoreFlusher
@@ -2786,6 +2886,10 @@ argument_list|(
 literal|null
 argument_list|,
 literal|false
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 expr_stmt|;
 comment|// Allow the tuner to run once and do necessary memory up
@@ -3459,6 +3563,10 @@ argument_list|(
 literal|null
 argument_list|,
 literal|false
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 expr_stmt|;
 name|memStoreFlusher
@@ -3468,6 +3576,10 @@ argument_list|(
 literal|null
 argument_list|,
 literal|false
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 expr_stmt|;
 name|memStoreFlusher
@@ -3477,6 +3589,10 @@ argument_list|(
 literal|null
 argument_list|,
 literal|false
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 expr_stmt|;
 name|blockCache
@@ -3529,6 +3645,10 @@ argument_list|(
 literal|null
 argument_list|,
 literal|false
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 expr_stmt|;
 name|memStoreFlusher
@@ -3538,6 +3658,10 @@ argument_list|(
 literal|null
 argument_list|,
 literal|false
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 expr_stmt|;
 name|memStoreFlusher
@@ -3547,6 +3671,10 @@ argument_list|(
 literal|null
 argument_list|,
 literal|false
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 expr_stmt|;
 comment|// Allow the tuner to run once and do necessary memory up
@@ -3819,6 +3947,10 @@ argument_list|(
 literal|null
 argument_list|,
 literal|false
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 expr_stmt|;
 name|memStoreFlusher
@@ -3828,6 +3960,10 @@ argument_list|(
 literal|null
 argument_list|,
 literal|false
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 expr_stmt|;
 name|memStoreFlusher
@@ -3837,6 +3973,10 @@ argument_list|(
 literal|null
 argument_list|,
 literal|false
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 expr_stmt|;
 name|blockCache
@@ -3896,6 +4036,10 @@ argument_list|(
 literal|null
 argument_list|,
 literal|false
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 expr_stmt|;
 name|blockCache
@@ -5601,6 +5745,9 @@ name|region
 parameter_list|,
 name|boolean
 name|forceFlushAllStores
+parameter_list|,
+name|FlushLifeCycleTracker
+name|tracker
 parameter_list|)
 block|{
 name|this

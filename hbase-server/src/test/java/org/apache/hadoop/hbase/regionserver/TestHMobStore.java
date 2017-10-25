@@ -3916,6 +3916,10 @@ operator|.
 name|createFlushContext
 argument_list|(
 name|id
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 decl_stmt|;
 name|storeFlushCtx

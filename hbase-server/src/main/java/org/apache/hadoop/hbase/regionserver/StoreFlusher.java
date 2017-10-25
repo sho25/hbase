@@ -267,6 +267,9 @@ name|status
 parameter_list|,
 name|ThroughputController
 name|throughputController
+parameter_list|,
+name|FlushLifeCycleTracker
+name|tracker
 parameter_list|)
 throws|throws
 name|IOException
@@ -329,6 +332,7 @@ expr_stmt|;
 block|}
 comment|/**    * Creates the scanner for flushing snapshot. Also calls coprocessors.    * @param snapshotScanners    * @param smallestReadPoint    * @return The scanner; null if coprocessor is canceling the flush.    */
 specifier|protected
+specifier|final
 name|InternalScanner
 name|createScanner
 parameter_list|(
@@ -340,6 +344,9 @@ name|snapshotScanners
 parameter_list|,
 name|long
 name|smallestReadPoint
+parameter_list|,
+name|FlushLifeCycleTracker
+name|tracker
 parameter_list|)
 throws|throws
 name|IOException
@@ -403,6 +410,8 @@ argument_list|(
 name|store
 argument_list|,
 name|scanner
+argument_list|,
+name|tracker
 argument_list|)
 return|;
 block|}

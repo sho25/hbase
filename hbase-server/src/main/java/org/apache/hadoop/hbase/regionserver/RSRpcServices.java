@@ -10555,6 +10555,10 @@ argument_list|(
 literal|true
 argument_list|,
 name|writeFlushWalMarker
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 decl_stmt|;
 name|boolean

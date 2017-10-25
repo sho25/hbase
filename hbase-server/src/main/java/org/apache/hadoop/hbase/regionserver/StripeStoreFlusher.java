@@ -332,6 +332,9 @@ name|status
 parameter_list|,
 name|ThroughputController
 name|throughputController
+parameter_list|,
+name|FlushLifeCycleTracker
+name|tracker
 parameter_list|)
 throws|throws
 name|IOException
@@ -384,6 +387,8 @@ name|getScanners
 argument_list|()
 argument_list|,
 name|smallestReadPoint
+argument_list|,
+name|tracker
 argument_list|)
 decl_stmt|;
 if|if

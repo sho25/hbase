@@ -7231,6 +7231,10 @@ argument_list|(
 literal|true
 argument_list|,
 literal|false
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 decl_stmt|;
 name|assertNotNull
@@ -7276,6 +7280,10 @@ argument_list|(
 literal|true
 argument_list|,
 literal|true
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 expr_stmt|;
 name|assertNotNull
@@ -7444,6 +7452,10 @@ argument_list|(
 literal|true
 argument_list|,
 literal|true
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 expr_stmt|;
 name|reader

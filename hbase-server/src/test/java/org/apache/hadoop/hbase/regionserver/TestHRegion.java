@@ -2987,6 +2987,10 @@ operator|.
 name|createFlushContext
 argument_list|(
 literal|12345
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 decl_stmt|;
 name|storeFlushCtx
@@ -3219,6 +3223,10 @@ operator|.
 name|createFlushContext
 argument_list|(
 literal|12345
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -3633,6 +3641,15 @@ operator|.
 name|isA
 argument_list|(
 name|InternalScanner
+operator|.
+name|class
+argument_list|)
+argument_list|,
+name|Mockito
+operator|.
+name|isA
+argument_list|(
+name|FlushLifeCycleTracker
 operator|.
 name|class
 argument_list|)
@@ -4702,6 +4719,10 @@ operator|.
 name|createFlushContext
 argument_list|(
 literal|12345
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 decl_stmt|;
 name|storeFlushCtx
@@ -40469,6 +40490,10 @@ argument_list|(
 literal|true
 argument_list|,
 literal|true
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 expr_stmt|;
 name|Put
@@ -40605,6 +40630,10 @@ argument_list|(
 literal|true
 argument_list|,
 literal|true
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 expr_stmt|;
 comment|// create one memstore contains many rows will be skipped
@@ -40986,6 +41015,10 @@ argument_list|(
 literal|true
 argument_list|,
 literal|true
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 expr_stmt|;
 comment|// create one memstore contains many rows will be skipped

@@ -1012,6 +1012,16 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Request flush on this region.    */
+name|void
+name|requestFlush
+parameter_list|(
+name|FlushLifeCycleTracker
+name|tracker
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 block|}
 end_interface
 

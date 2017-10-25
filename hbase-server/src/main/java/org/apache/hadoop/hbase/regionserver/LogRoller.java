@@ -1187,6 +1187,10 @@ argument_list|(
 name|r
 argument_list|,
 literal|true
+argument_list|,
+name|FlushLifeCycleTracker
+operator|.
+name|DUMMY
 argument_list|)
 expr_stmt|;
 name|scheduled

@@ -715,6 +715,22 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|FlushLifeCycleTracker
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|FlushRequestListener
 import|;
 end_import
@@ -4580,6 +4596,9 @@ name|status
 parameter_list|,
 name|ThroughputController
 name|throughputController
+parameter_list|,
+name|FlushLifeCycleTracker
+name|tracker
 parameter_list|)
 throws|throws
 name|IOException
@@ -4612,6 +4631,8 @@ argument_list|,
 name|status
 argument_list|,
 name|throughputController
+argument_list|,
+name|tracker
 argument_list|)
 return|;
 block|}
@@ -5845,6 +5866,9 @@ name|status
 parameter_list|,
 name|boolean
 name|writeFlushWalMarker
+parameter_list|,
+name|FlushLifeCycleTracker
+name|tracker
 parameter_list|)
 throws|throws
 name|IOException
@@ -5879,6 +5903,8 @@ name|class
 argument_list|)
 argument_list|,
 name|writeFlushWalMarker
+argument_list|,
+name|tracker
 argument_list|)
 decl_stmt|;
 name|flushcount
@@ -7745,6 +7771,9 @@ name|region
 parameter_list|,
 name|boolean
 name|force
+parameter_list|,
+name|FlushLifeCycleTracker
+name|tracker
 parameter_list|)
 block|{
 try|try
@@ -7789,9 +7818,7 @@ parameter_list|,
 name|boolean
 name|forceFlushAllStores
 parameter_list|)
-block|{
-comment|// TODO Auto-generated method stub
-block|}
+block|{     }
 annotation|@
 name|Override
 specifier|public
