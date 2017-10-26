@@ -3178,8 +3178,6 @@ argument_list|()
 expr_stmt|;
 return|return;
 block|}
-if|if
-condition|(
 name|region
 operator|.
 name|getCoprocessorHost
@@ -3189,10 +3187,7 @@ name|preScannerClose
 argument_list|(
 name|s
 argument_list|)
-condition|)
-block|{
-return|return;
-block|}
+expr_stmt|;
 try|try
 block|{
 name|s

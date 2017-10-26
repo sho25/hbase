@@ -3054,9 +3054,6 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|boolean
-name|ret
-init|=
 name|cpHost
 operator|.
 name|preMergeRegionsAction
@@ -3066,29 +3063,7 @@ argument_list|,
 name|getUser
 argument_list|()
 argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|ret
-condition|)
-block|{
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-literal|"Coprocessor bypassing regions "
-operator|+
-name|RegionInfo
-operator|.
-name|getShortNameToLog
-argument_list|(
-name|regionsToMerge
-argument_list|)
-operator|+
-literal|" merge."
-argument_list|)
-throw|;
-block|}
+expr_stmt|;
 block|}
 comment|// TODO: Clean up split and merge. Currently all over the place.
 try|try
@@ -4013,9 +3988,6 @@ name|Mutation
 argument_list|>
 argument_list|()
 decl_stmt|;
-name|boolean
-name|ret
-init|=
 name|cpHost
 operator|.
 name|preMergeRegionsCommit
@@ -4027,29 +3999,7 @@ argument_list|,
 name|getUser
 argument_list|()
 argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|ret
-condition|)
-block|{
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-literal|"Coprocessor bypassing regions "
-operator|+
-name|RegionInfo
-operator|.
-name|getShortNameToLog
-argument_list|(
-name|regionsToMerge
-argument_list|)
-operator|+
-literal|" merge."
-argument_list|)
-throw|;
-block|}
+expr_stmt|;
 try|try
 block|{
 for|for

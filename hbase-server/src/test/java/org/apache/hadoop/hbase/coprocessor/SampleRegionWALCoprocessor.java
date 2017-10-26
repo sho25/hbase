@@ -496,7 +496,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|boolean
+name|void
 name|preWALWrite
 parameter_list|(
 name|ObserverContext
@@ -519,11 +519,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|boolean
-name|bypass
-init|=
-literal|false
-decl_stmt|;
 comment|// check table name matches or not.
 if|if
 condition|(
@@ -546,9 +541,7 @@ name|tableName
 argument_list|)
 condition|)
 block|{
-return|return
-name|bypass
-return|;
+return|return;
 block|}
 name|preWALWriteCalled
 operator|=
@@ -724,9 +717,6 @@ name|deletedCell
 argument_list|)
 expr_stmt|;
 block|}
-return|return
-name|bypass
-return|;
 block|}
 comment|/**    * Triggered before  {@link org.apache.hadoop.hbase.regionserver.HRegion} when WAL is    * Restoreed.    */
 annotation|@

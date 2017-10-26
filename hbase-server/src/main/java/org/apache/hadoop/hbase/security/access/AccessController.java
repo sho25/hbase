@@ -7705,7 +7705,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|boolean
+name|void
 name|preSetSplitOrMergeEnabled
 parameter_list|(
 specifier|final
@@ -7740,9 +7740,6 @@ operator|.
 name|ADMIN
 argument_list|)
 expr_stmt|;
-return|return
-literal|false
-return|;
 block|}
 annotation|@
 name|Override
@@ -7801,7 +7798,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|boolean
+name|void
 name|preBalanceSwitch
 parameter_list|(
 name|ObserverContext
@@ -7830,9 +7827,6 @@ operator|.
 name|ADMIN
 argument_list|)
 expr_stmt|;
-return|return
-name|newValue
-return|;
 block|}
 annotation|@
 name|Override

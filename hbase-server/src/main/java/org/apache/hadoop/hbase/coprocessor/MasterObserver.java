@@ -311,7 +311,7 @@ specifier|public
 interface|interface
 name|MasterObserver
 block|{
-comment|/**    * Called before a new table is created by    * {@link org.apache.hadoop.hbase.master.HMaster}.  Called as part of create    * table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param desc the TableDescriptor for the table    * @param regions the initial regions created for the table    */
+comment|/**    * Called before a new table is created by    * {@link org.apache.hadoop.hbase.master.HMaster}.  Called as part of create    * table RPC call.    * @param ctx the environment to interact with the framework and master    * @param desc the TableDescriptor for the table    * @param regions the initial regions created for the table    */
 specifier|default
 name|void
 name|preCreateTable
@@ -355,7 +355,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called before a new table is created by    * {@link org.apache.hadoop.hbase.master.HMaster}.  Called as part of create    * table procedure and it is async to the create RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    *    * @param ctx the environment to interact with the framework and master    * @param desc the TableDescriptor for the table    * @param regions the initial regions created for the table    */
+comment|/**    * Called before a new table is created by    * {@link org.apache.hadoop.hbase.master.HMaster}.  Called as part of create    * table procedure and it is async to the create RPC call.    *    * @param ctx the environment to interact with the framework and master    * @param desc the TableDescriptor for the table    * @param regions the initial regions created for the table    */
 specifier|default
 name|void
 name|preCreateTableAction
@@ -403,7 +403,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called before {@link org.apache.hadoop.hbase.master.HMaster} deletes a    * table.  Called as part of delete table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
+comment|/**    * Called before {@link org.apache.hadoop.hbase.master.HMaster} deletes a    * table.  Called as part of delete table RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
 specifier|default
 name|void
 name|preDeleteTable
@@ -439,7 +439,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called before {@link org.apache.hadoop.hbase.master.HMaster} deletes a    * table.  Called as part of delete table procedure and    * it is async to the delete RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
+comment|/**    * Called before {@link org.apache.hadoop.hbase.master.HMaster} deletes a    * table.  Called as part of delete table procedure and    * it is async to the delete RPC call.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
 specifier|default
 name|void
 name|preDeleteTableAction
@@ -458,7 +458,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called after {@link org.apache.hadoop.hbase.master.HMaster} deletes a    * table.  Called as part of delete table procedure and it is async to the    * delete RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
+comment|/**    * Called after {@link org.apache.hadoop.hbase.master.HMaster} deletes a    * table.  Called as part of delete table procedure and it is async to the    * delete RPC call.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
 specifier|default
 name|void
 name|postCompletedDeleteTableAction
@@ -477,7 +477,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called before {@link org.apache.hadoop.hbase.master.HMaster} truncates a    * table.  Called as part of truncate table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
+comment|/**    * Called before {@link org.apache.hadoop.hbase.master.HMaster} truncates a    * table.  Called as part of truncate table RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
 specifier|default
 name|void
 name|preTruncateTable
@@ -513,7 +513,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called before {@link org.apache.hadoop.hbase.master.HMaster} truncates a    * table.  Called as part of truncate table procedure and it is async    * to the truncate RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
+comment|/**    * Called before {@link org.apache.hadoop.hbase.master.HMaster} truncates a    * table.  Called as part of truncate table procedure and it is async    * to the truncate RPC call.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
 specifier|default
 name|void
 name|preTruncateTableAction
@@ -532,7 +532,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called after {@link org.apache.hadoop.hbase.master.HMaster} truncates a    * table.  Called as part of truncate table procedure and it is async to the    * truncate RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
+comment|/**    * Called after {@link org.apache.hadoop.hbase.master.HMaster} truncates a    * table.  Called as part of truncate table procedure and it is async to the    * truncate RPC call.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
 specifier|default
 name|void
 name|postCompletedTruncateTableAction
@@ -551,7 +551,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called prior to modifying a table's properties.  Called as part of modify    * table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param htd the TableDescriptor    */
+comment|/**    * Called prior to modifying a table's properties.  Called as part of modify    * table RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param htd the TableDescriptor    */
 specifier|default
 name|void
 name|preModifyTable
@@ -595,7 +595,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called prior to modifying a table's properties.  Called as part of modify    * table procedure and it is async to the modify table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param htd the TableDescriptor    */
+comment|/**    * Called prior to modifying a table's properties.  Called as part of modify    * table procedure and it is async to the modify table RPC call.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param htd the TableDescriptor    */
 specifier|default
 name|void
 name|preModifyTableAction
@@ -618,7 +618,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called after to modifying a table's properties.  Called as part of modify    * table procedure and it is async to the modify table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param htd the TableDescriptor    */
+comment|/**    * Called after to modifying a table's properties.  Called as part of modify    * table procedure and it is async to the modify table RPC call.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param htd the TableDescriptor    */
 specifier|default
 name|void
 name|postCompletedModifyTableAction
@@ -641,7 +641,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called prior to enabling a table.  Called as part of enable table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
+comment|/**    * Called prior to enabling a table.  Called as part of enable table RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
 specifier|default
 name|void
 name|preEnableTable
@@ -679,7 +679,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called prior to enabling a table.  Called as part of enable table procedure    * and it is async to the enable table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
+comment|/**    * Called prior to enabling a table.  Called as part of enable table procedure    * and it is async to the enable table RPC call.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
 specifier|default
 name|void
 name|preEnableTableAction
@@ -717,7 +717,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called prior to disabling a table.  Called as part of disable table RPC    * call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
+comment|/**    * Called prior to disabling a table.  Called as part of disable table RPC    * call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
 specifier|default
 name|void
 name|preDisableTable
@@ -755,7 +755,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called prior to disabling a table.  Called as part of disable table procedure    * and it is asyn to the disable table RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
+comment|/**    * Called prior to disabling a table.  Called as part of disable table procedure    * and it is asyn to the disable table RPC call.    *    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
 specifier|default
 name|void
 name|preDisableTableAction
@@ -1019,7 +1019,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called prior to marking a given region as offline.<code>ctx.bypass()</code> will not have any    * impact on this hook.    * @param ctx the environment to interact with the framework and master    * @param regionInfo    */
+comment|/**    * Called prior to marking a given region as offline.    * @param ctx the environment to interact with the framework and master    * @param regionInfo    */
 specifier|default
 name|void
 name|preRegionOffline
@@ -1093,9 +1093,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called prior to setting split / merge switch    * @param ctx the coprocessor instance's environment    * @param newValue the new value submitted in the call    * @param switchType type of switch    */
+comment|/**    * Called prior to setting split / merge switch    * Supports Coprocessor 'bypass'.    * @param ctx the coprocessor instance's environment    * @param newValue the new value submitted in the call    * @param switchType type of switch    */
 specifier|default
-name|boolean
+name|void
 name|preSetSplitOrMergeEnabled
 parameter_list|(
 specifier|final
@@ -1115,11 +1115,7 @@ name|switchType
 parameter_list|)
 throws|throws
 name|IOException
-block|{
-return|return
-literal|false
-return|;
-block|}
+block|{}
 comment|/**    * Called after setting split / merge switch    * @param ctx the coprocessor instance's environment    * @param newValue the new value submitted in the call    * @param switchType type of switch    */
 specifier|default
 name|void
@@ -1214,7 +1210,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * This will be called before update META step as part of split transaction. Calling    * {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} rollback the split    * @param ctx the environment to interact with the framework and master    * @param splitKey    * @param metaEntries    */
+comment|/**    * This will be called before update META step as part of split transaction.    * @param ctx the environment to interact with the framework and master    * @param splitKey    * @param metaEntries    */
 specifier|default
 name|void
 name|preSplitRegionBeforeMETAAction
@@ -1241,7 +1237,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * This will be called after update META step as part of split transaction    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param ctx the environment to interact with the framework and master    */
+comment|/**    * This will be called after update META step as part of split transaction    * @param ctx the environment to interact with the framework and master    */
 specifier|default
 name|void
 name|preSplitRegionAfterMETAAction
@@ -1271,7 +1267,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called before the regions merge.    * Call {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} to skip the merge.    * @param ctx the environment to interact with the framework and master    */
+comment|/**    * Called before the regions merge.    * @param ctx the environment to interact with the framework and master    */
 specifier|default
 name|void
 name|preMergeRegionsAction
@@ -1315,7 +1311,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * This will be called before update META step as part of regions merge transaction. Calling    * {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} rollback the merge    * @param ctx the environment to interact with the framework and master    * @param metaEntries mutations to execute on hbase:meta atomically with regions merge updates.    *        Any puts or deletes to execute on hbase:meta can be added to the mutations.    */
+comment|/**    * This will be called before update META step as part of regions merge transaction.    * @param ctx the environment to interact with the framework and master    * @param metaEntries mutations to execute on hbase:meta atomically with regions merge updates.    *        Any puts or deletes to execute on hbase:meta can be added to the mutations.    */
 specifier|default
 name|void
 name|preMergeRegionsCommitAction
@@ -1387,9 +1383,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called prior to modifying the flag used to enable/disable region balancing.    * @param ctx the coprocessor instance's environment    * @param newValue the new flag value submitted in the call    */
+comment|/**    * Called prior to modifying the flag used to enable/disable region balancing.    * @param ctx the coprocessor instance's environment    */
 specifier|default
-name|boolean
+name|void
 name|preBalanceSwitch
 parameter_list|(
 specifier|final
@@ -1405,11 +1401,7 @@ name|newValue
 parameter_list|)
 throws|throws
 name|IOException
-block|{
-return|return
-name|newValue
-return|;
-block|}
+block|{}
 comment|/**    * Called after the flag to enable/disable balancing has changed.    * @param ctx the coprocessor instance's environment    * @param oldValue the previously set balanceSwitch value    * @param newValue the newly set balanceSwitch value    */
 specifier|default
 name|void
@@ -1493,7 +1485,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called before a new snapshot is taken.    * Called as part of snapshot RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param snapshot the SnapshotDescriptor for the snapshot    * @param tableDescriptor the TableDescriptor of the table to snapshot    */
+comment|/**    * Called before a new snapshot is taken.    * Called as part of snapshot RPC call.    * @param ctx the environment to interact with the framework and master    * @param snapshot the SnapshotDescriptor for the snapshot    * @param tableDescriptor the TableDescriptor of the table to snapshot    */
 specifier|default
 name|void
 name|preSnapshot
@@ -1539,7 +1531,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called before listSnapshots request has been processed.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param snapshot the SnapshotDescriptor of the snapshot to list    */
+comment|/**    * Called before listSnapshots request has been processed.    * @param ctx the environment to interact with the framework and master    * @param snapshot the SnapshotDescriptor of the snapshot to list    */
 specifier|default
 name|void
 name|preListSnapshot
@@ -1558,7 +1550,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called after listSnapshots request has been processed.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param snapshot the SnapshotDescriptor of the snapshot to list    */
+comment|/**    * Called after listSnapshots request has been processed.    * @param ctx the environment to interact with the framework and master    * @param snapshot the SnapshotDescriptor of the snapshot to list    */
 specifier|default
 name|void
 name|postListSnapshot
@@ -1577,7 +1569,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called before a snapshot is cloned.    * Called as part of restoreSnapshot RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param snapshot the SnapshotDescriptor for the snapshot    * @param tableDescriptor the TableDescriptor of the table to create    */
+comment|/**    * Called before a snapshot is cloned.    * Called as part of restoreSnapshot RPC call.    * @param ctx the environment to interact with the framework and master    * @param snapshot the SnapshotDescriptor for the snapshot    * @param tableDescriptor the TableDescriptor of the table to create    */
 specifier|default
 name|void
 name|preCloneSnapshot
@@ -1623,7 +1615,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called before a snapshot is restored.    * Called as part of restoreSnapshot RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param snapshot the SnapshotDescriptor for the snapshot    * @param tableDescriptor the TableDescriptor of the table to restore    */
+comment|/**    * Called before a snapshot is restored.    * Called as part of restoreSnapshot RPC call.    * @param ctx the environment to interact with the framework and master    * @param snapshot the SnapshotDescriptor for the snapshot    * @param tableDescriptor the TableDescriptor of the table to restore    */
 specifier|default
 name|void
 name|preRestoreSnapshot
@@ -1669,7 +1661,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called before a snapshot is deleted.    * Called as part of deleteSnapshot RPC call.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param snapshot the SnapshotDescriptor of the snapshot to delete    */
+comment|/**    * Called before a snapshot is deleted.    * Called as part of deleteSnapshot RPC call.    * @param ctx the environment to interact with the framework and master    * @param snapshot the SnapshotDescriptor of the snapshot to delete    */
 specifier|default
 name|void
 name|preDeleteSnapshot
@@ -1707,7 +1699,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called before a getTableDescriptors request has been processed.    * @param ctx the environment to interact with the framework and master    * @param tableNamesList the list of table names, or null if querying for all    * @param descriptors an empty list, can be filled with what to return if bypassing    * @param regex regular expression used for filtering the table names    */
+comment|/**    * Called before a getTableDescriptors request has been processed.    * @param ctx the environment to interact with the framework and master    * @param tableNamesList the list of table names, or null if querying for all    * @param descriptors an empty list, can be filled with what to return in coprocessor    * @param regex regular expression used for filtering the table names    */
 specifier|default
 name|void
 name|preGetTableDescriptors
@@ -1765,7 +1757,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called before a getTableNames request has been processed.    * @param ctx the environment to interact with the framework and master    * @param descriptors an empty list, can be filled with what to return if bypassing    * @param regex regular expression used for filtering the table names    */
+comment|/**    * Called before a getTableNames request has been processed.    * @param ctx the environment to interact with the framework and master    * @param descriptors an empty list, can be filled with what to return by coprocessor    * @param regex regular expression used for filtering the table names    */
 specifier|default
 name|void
 name|preGetTableNames
@@ -1811,7 +1803,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called before a new namespace is created by    * {@link org.apache.hadoop.hbase.master.HMaster}.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param ns the NamespaceDescriptor for the table    */
+comment|/**    * Called before a new namespace is created by    * {@link org.apache.hadoop.hbase.master.HMaster}.    * @param ctx the environment to interact with the framework and master    * @param ns the NamespaceDescriptor for the table    */
 specifier|default
 name|void
 name|preCreateNamespace
@@ -1847,7 +1839,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called before {@link org.apache.hadoop.hbase.master.HMaster} deletes a    * namespace    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param namespace the name of the namespace    */
+comment|/**    * Called before {@link org.apache.hadoop.hbase.master.HMaster} deletes a    * namespace    * @param ctx the environment to interact with the framework and master    * @param namespace the name of the namespace    */
 specifier|default
 name|void
 name|preDeleteNamespace
@@ -1883,7 +1875,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called prior to modifying a namespace's properties.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param ns the NamespaceDescriptor    */
+comment|/**    * Called prior to modifying a namespace's properties.    * @param ctx the environment to interact with the framework and master    * @param ns the NamespaceDescriptor    */
 specifier|default
 name|void
 name|preModifyNamespace
@@ -1953,7 +1945,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called before a listNamespaceDescriptors request has been processed.    * @param ctx the environment to interact with the framework and master    * @param descriptors an empty list, can be filled with what to return if bypassing    */
+comment|/**    * Called before a listNamespaceDescriptors request has been processed.    * @param ctx the environment to interact with the framework and master    * @param descriptors an empty list, can be filled with what to return by coprocessor    */
 specifier|default
 name|void
 name|preListNamespaceDescriptors
@@ -2277,7 +2269,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called before merge regions request.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx coprocessor environment    * @param regionsToMerge regions to be merged    */
+comment|/**    * Called before merge regions request.    * @param ctx coprocessor environment    * @param regionsToMerge regions to be merged    */
 specifier|default
 name|void
 name|preMergeRegions

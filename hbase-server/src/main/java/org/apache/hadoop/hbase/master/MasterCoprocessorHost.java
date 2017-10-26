@@ -1202,6 +1202,21 @@ block|}
 specifier|public
 name|MasterObserverOperation
 parameter_list|(
+name|boolean
+name|bypassable
+parameter_list|)
+block|{
+name|this
+argument_list|(
+literal|null
+argument_list|,
+name|bypassable
+argument_list|)
+expr_stmt|;
+block|}
+specifier|public
+name|MasterObserverOperation
+parameter_list|(
 name|User
 name|user
 parameter_list|)
@@ -1214,12 +1229,32 @@ name|user
 argument_list|)
 expr_stmt|;
 block|}
+specifier|public
+name|MasterObserverOperation
+parameter_list|(
+name|User
+name|user
+parameter_list|,
+name|boolean
+name|bypassable
+parameter_list|)
+block|{
+name|super
+argument_list|(
+name|masterObserverGetter
+argument_list|,
+name|user
+argument_list|,
+name|bypassable
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|//////////////////////////////////////////////////////////////////////////////////////////////////
 comment|// MasterObserver operations
 comment|//////////////////////////////////////////////////////////////////////////////////////////////////
 specifier|public
-name|boolean
+name|void
 name|preCreateNamespace
 parameter_list|(
 specifier|final
@@ -1229,7 +1264,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-return|return
 name|execOperation
 argument_list|(
 name|coprocEnvironments
@@ -1267,7 +1301,7 @@ expr_stmt|;
 block|}
 block|}
 argument_list|)
-return|;
+expr_stmt|;
 block|}
 specifier|public
 name|void
@@ -1320,7 +1354,7 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|public
-name|boolean
+name|void
 name|preDeleteNamespace
 parameter_list|(
 specifier|final
@@ -1330,7 +1364,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-return|return
 name|execOperation
 argument_list|(
 name|coprocEnvironments
@@ -1368,7 +1401,7 @@ expr_stmt|;
 block|}
 block|}
 argument_list|)
-return|;
+expr_stmt|;
 block|}
 specifier|public
 name|void
@@ -1421,7 +1454,7 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|public
-name|boolean
+name|void
 name|preModifyNamespace
 parameter_list|(
 specifier|final
@@ -1431,7 +1464,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-return|return
 name|execOperation
 argument_list|(
 name|coprocEnvironments
@@ -1469,7 +1501,7 @@ expr_stmt|;
 block|}
 block|}
 argument_list|)
-return|;
+expr_stmt|;
 block|}
 specifier|public
 name|void
@@ -1622,7 +1654,7 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|public
-name|boolean
+name|void
 name|preListNamespaceDescriptors
 parameter_list|(
 specifier|final
@@ -1635,7 +1667,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-return|return
 name|execOperation
 argument_list|(
 name|coprocEnvironments
@@ -1673,7 +1704,7 @@ expr_stmt|;
 block|}
 block|}
 argument_list|)
-return|;
+expr_stmt|;
 block|}
 specifier|public
 name|void
@@ -3054,7 +3085,7 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|public
-name|boolean
+name|void
 name|preAbortProcedure
 parameter_list|(
 specifier|final
@@ -3071,7 +3102,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-return|return
 name|execOperation
 argument_list|(
 name|coprocEnvironments
@@ -3109,7 +3139,7 @@ expr_stmt|;
 block|}
 block|}
 argument_list|)
-return|;
+expr_stmt|;
 block|}
 specifier|public
 name|void
@@ -3156,13 +3186,12 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|public
-name|boolean
+name|void
 name|preGetProcedures
 parameter_list|()
 throws|throws
 name|IOException
 block|{
-return|return
 name|execOperation
 argument_list|(
 name|coprocEnvironments
@@ -3198,7 +3227,7 @@ expr_stmt|;
 block|}
 block|}
 argument_list|)
-return|;
+expr_stmt|;
 block|}
 specifier|public
 name|void
@@ -3255,13 +3284,12 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|public
-name|boolean
+name|void
 name|preGetLocks
 parameter_list|()
 throws|throws
 name|IOException
 block|{
-return|return
 name|execOperation
 argument_list|(
 name|coprocEnvironments
@@ -3297,7 +3325,7 @@ expr_stmt|;
 block|}
 block|}
 argument_list|)
-return|;
+expr_stmt|;
 block|}
 specifier|public
 name|void
@@ -3351,7 +3379,7 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|public
-name|boolean
+name|void
 name|preMove
 parameter_list|(
 specifier|final
@@ -3369,7 +3397,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-return|return
 name|execOperation
 argument_list|(
 name|coprocEnvironments
@@ -3411,7 +3438,7 @@ expr_stmt|;
 block|}
 block|}
 argument_list|)
-return|;
+expr_stmt|;
 block|}
 specifier|public
 name|void
@@ -3476,7 +3503,7 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|public
-name|boolean
+name|void
 name|preAssign
 parameter_list|(
 specifier|final
@@ -3486,7 +3513,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-return|return
 name|execOperation
 argument_list|(
 name|coprocEnvironments
@@ -3524,7 +3550,7 @@ expr_stmt|;
 block|}
 block|}
 argument_list|)
-return|;
+expr_stmt|;
 block|}
 specifier|public
 name|void
@@ -3577,7 +3603,7 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|public
-name|boolean
+name|void
 name|preUnassign
 parameter_list|(
 specifier|final
@@ -3591,7 +3617,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-return|return
 name|execOperation
 argument_list|(
 name|coprocEnvironments
@@ -3631,7 +3656,7 @@ expr_stmt|;
 block|}
 block|}
 argument_list|)
-return|;
+expr_stmt|;
 block|}
 specifier|public
 name|void
@@ -3990,7 +4015,7 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|public
-name|boolean
+name|void
 name|preSetSplitOrMergeEnabled
 parameter_list|(
 specifier|final
@@ -4004,7 +4029,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-return|return
 name|execOperation
 argument_list|(
 name|coprocEnvironments
@@ -4044,7 +4068,7 @@ expr_stmt|;
 block|}
 block|}
 argument_list|)
-return|;
+expr_stmt|;
 block|}
 specifier|public
 name|void
@@ -4289,7 +4313,7 @@ expr_stmt|;
 block|}
 comment|/**    * This will be called before update META step as part of split table region procedure.    * @param splitKey    * @param metaEntries    * @param user the user    * @throws IOException    */
 specifier|public
-name|boolean
+name|void
 name|preSplitBeforeMETAAction
 parameter_list|(
 specifier|final
@@ -4311,7 +4335,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-return|return
 name|execOperation
 argument_list|(
 name|coprocEnvironments
@@ -4353,7 +4376,7 @@ expr_stmt|;
 block|}
 block|}
 argument_list|)
-return|;
+expr_stmt|;
 block|}
 comment|/**    * This will be called after update META step as part of split table region procedure.    * @param user the user    * @throws IOException    */
 specifier|public
@@ -4459,7 +4482,7 @@ expr_stmt|;
 block|}
 comment|/**    * Invoked just before a merge    * @param regionsToMerge the regions to merge    * @param user the user    * @throws IOException    */
 specifier|public
-name|boolean
+name|void
 name|preMergeRegionsAction
 parameter_list|(
 specifier|final
@@ -4474,7 +4497,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-return|return
 name|execOperation
 argument_list|(
 name|coprocEnvironments
@@ -4514,7 +4536,7 @@ expr_stmt|;
 block|}
 block|}
 argument_list|)
-return|;
+expr_stmt|;
 block|}
 comment|/**    * Invoked after completing merge regions operation    * @param regionsToMerge the regions to merge    * @param mergedRegion the new merged region    * @param user the user    * @throws IOException    */
 specifier|public
@@ -4582,7 +4604,7 @@ expr_stmt|;
 block|}
 comment|/**    * Invoked before merge regions operation writes the new region to hbase:meta    * @param regionsToMerge the regions to merge    * @param metaEntries the meta entry    * @param user the user    * @throws IOException    */
 specifier|public
-name|boolean
+name|void
 name|preMergeRegionsCommit
 parameter_list|(
 specifier|final
@@ -4606,7 +4628,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-return|return
 name|execOperation
 argument_list|(
 name|coprocEnvironments
@@ -4648,7 +4669,7 @@ expr_stmt|;
 block|}
 block|}
 argument_list|)
-return|;
+expr_stmt|;
 block|}
 comment|/**    * Invoked after merge regions operation writes the new region to hbase:meta    * @param regionsToMerge the regions to merge    * @param mergedRegion the new merged region    * @param user the user    * @throws IOException    */
 specifier|public
@@ -4772,8 +4793,9 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
+comment|// This hook allows Coprocessor change value of balance switch.
 specifier|public
-name|boolean
+name|void
 name|preBalanceSwitch
 parameter_list|(
 specifier|final
@@ -4783,33 +4805,28 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-return|return
-name|execOperationWithResult
-argument_list|(
-name|b
-argument_list|,
+if|if
+condition|(
+name|this
+operator|.
 name|coprocEnvironments
 operator|.
 name|isEmpty
 argument_list|()
-condition|?
-literal|null
-else|:
-operator|new
-name|ObserverOperationWithResult
-argument_list|<
-name|MasterObserver
-argument_list|,
-name|Boolean
-argument_list|>
+condition|)
+block|{
+return|return;
+block|}
+name|execOperation
 argument_list|(
-name|masterObserverGetter
-argument_list|)
+operator|new
+name|MasterObserverOperation
+argument_list|()
 block|{
 annotation|@
 name|Override
 specifier|public
-name|Boolean
+name|void
 name|call
 parameter_list|(
 name|MasterObserver
@@ -4818,21 +4835,19 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-return|return
 name|observer
 operator|.
 name|preBalanceSwitch
 argument_list|(
 name|this
 argument_list|,
-name|getResult
-argument_list|()
+name|b
 argument_list|)
-return|;
+expr_stmt|;
 block|}
 block|}
 argument_list|)
-return|;
+expr_stmt|;
 block|}
 specifier|public
 name|void
@@ -4899,15 +4914,18 @@ name|IOException
 block|{
 comment|// While stopping the cluster all coprocessors method should be executed first then the
 comment|// coprocessor should be cleaned up.
-name|execShutdown
-argument_list|(
+if|if
+condition|(
 name|coprocEnvironments
 operator|.
 name|isEmpty
 argument_list|()
-condition|?
-literal|null
-else|:
+condition|)
+block|{
+return|return;
+block|}
+name|execShutdown
+argument_list|(
 operator|new
 name|MasterObserverOperation
 argument_list|()
@@ -4962,15 +4980,18 @@ name|IOException
 block|{
 comment|// While stopping master all coprocessors method should be executed first then the coprocessor
 comment|// environment should be cleaned up.
-name|execShutdown
-argument_list|(
+if|if
+condition|(
 name|coprocEnvironments
 operator|.
 name|isEmpty
 argument_list|()
-condition|?
-literal|null
-else|:
+condition|)
+block|{
+return|return;
+block|}
+name|execShutdown
+argument_list|(
 operator|new
 name|MasterObserverOperation
 argument_list|()
@@ -5641,7 +5662,7 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|public
-name|boolean
+name|void
 name|preGetTableDescriptors
 parameter_list|(
 specifier|final
@@ -5665,7 +5686,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-return|return
 name|execOperation
 argument_list|(
 name|coprocEnvironments
@@ -5707,7 +5727,7 @@ expr_stmt|;
 block|}
 block|}
 argument_list|)
-return|;
+expr_stmt|;
 block|}
 specifier|public
 name|void
@@ -5778,7 +5798,7 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|public
-name|boolean
+name|void
 name|preGetTableNames
 parameter_list|(
 specifier|final
@@ -5795,7 +5815,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-return|return
 name|execOperation
 argument_list|(
 name|coprocEnvironments
@@ -5835,7 +5854,7 @@ expr_stmt|;
 block|}
 block|}
 argument_list|)
-return|;
+expr_stmt|;
 block|}
 specifier|public
 name|void

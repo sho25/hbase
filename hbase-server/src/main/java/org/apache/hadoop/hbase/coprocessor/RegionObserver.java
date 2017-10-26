@@ -846,7 +846,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called prior to selecting the {@link StoreFile StoreFiles} to compact from the list of    * available candidates. To alter the files used for compaction, you may mutate the passed in list    * of candidates. If you remove all the candidates then the compaction will be canceled.    * @param c the environment provided by the region server    * @param store the store where compaction is being requested    * @param candidates the store files currently available for compaction    * @param tracker tracker used to track the life cycle of a compaction    */
+comment|/**    * Called prior to selecting the {@link StoreFile StoreFiles} to compact from the list of    * available candidates. To alter the files used for compaction, you may mutate the passed in list    * of candidates. If you remove all the candidates then the compaction will be canceled.    *<p>Supports Coprocessor 'bypass' -- 'bypass' is how this method indicates that it changed    * the passed in<code>candidates</code>.    * @param c the environment provided by the region server    * @param store the store where compaction is being requested    * @param candidates the store files currently available for compaction    * @param tracker tracker used to track the life cycle of a compaction    */
 specifier|default
 name|void
 name|preCompactSelection
@@ -1186,7 +1186,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called before the server updates the timestamp for version delete with latest timestamp.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained coprocessors    * @param c the environment provided by the region server    * @param mutation - the parent mutation associated with this delete cell    * @param cell - The deleteColumn with latest version cell    * @param byteNow - timestamp bytes    * @param get - the get formed using the current cell's row. Note that the get does not specify    *          the family and qualifier    */
+comment|/**    * Called before the server updates the timestamp for version delete with latest timestamp.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained coprocessors    * @param c the environment provided by the region server    * @param mutation - the parent mutation associated with this delete cell    * @param cell - The deleteColumn with latest version cell    * @param byteNow - timestamp bytes    * @param get - the get formed using the current cell's row. Note that the get does not specify    *          the family and qualifier    * @deprecated Since hbase-2.0.0. No replacement. To be removed in hbase-3.0.0 and replaced    * with something that doesn't expose IntefaceAudience.Private classes.    */
+annotation|@
+name|Deprecated
 specifier|default
 name|void
 name|prePrepareTimeStampForDeleteVersion
@@ -1256,7 +1258,8 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * This will be called after applying a batch of Mutations on a region. The Mutations are added to    * memstore and WAL. The difference of this one with    * {@link #postPut(ObserverContext, Put, WALEdit, Durability) }    * and {@link #postDelete(ObserverContext, Delete, WALEdit, Durability) } is    * this hook will be executed before the mvcc transaction completion.    *<p>    * Note: Do not retain references to any Cells in Mutations beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param miniBatchOp batch of Mutations applied to region.    */
+comment|/**    * This will be called after applying a batch of Mutations on a region. The Mutations are added to    * memstore and WAL. The difference of this one with    * {@link #postPut(ObserverContext, Put, WALEdit, Durability) }    * and {@link #postDelete(ObserverContext, Delete, WALEdit, Durability) } is    * this hook will be executed before the mvcc transaction completion.    *<p>    * Note: Do not retain references to any Cells in Mutations beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param miniBatchOp batch of Mutations applied to region. Coprocessors are discouraged from    *                    manipulating its state.    */
+comment|// Coprocessors can do a form of bypass by changing state in miniBatchOp.
 specifier|default
 name|void
 name|postBatchMutate
@@ -1949,7 +1952,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called before a {@link WALEdit}    * replayed for this region.    * @param ctx the environment provided by the region server    * @deprecated Since hbase-2.0.0. No replacement. To be removed in hbase-3.0.0 and replaced    * with something that doesn't expose IntefaceAudience.Private classes.    */
+comment|/**    * Called before a {@link WALEdit}    * replayed for this region.    * Do not amend the WALKey. It is InterfaceAudience.Private. Changing the WALKey will cause    * damage.    * @param ctx the environment provided by the region server    * @deprecated Since hbase-2.0.0. No replacement. To be removed in hbase-3.0.0 and replaced    * with something that doesn't expose IntefaceAudience.Private classes.    */
 annotation|@
 name|Deprecated
 specifier|default
@@ -1976,7 +1979,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called after a {@link WALEdit}    * replayed for this region.    * @param ctx the environment provided by the region server    * @deprecated Since hbase-2.0.0. No replacement. To be removed in hbase-3.0.0 and replaced    * with something that doesn't expose IntefaceAudience.Private classes.    */
+comment|/**    * Called after a {@link WALEdit}    * replayed for this region.    * Do not amend the WALKey. It is InterfaceAudience.Private. Changing the WALKey will cause    * damage.    * @param ctx the environment provided by the region server    * @deprecated Since hbase-2.0.0. No replacement. To be removed in hbase-3.0.0 and replaced    * with something that doesn't expose IntefaceAudience.Private classes.    */
 annotation|@
 name|Deprecated
 specifier|default

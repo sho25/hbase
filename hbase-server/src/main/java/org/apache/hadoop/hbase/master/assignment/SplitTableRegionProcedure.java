@@ -4111,8 +4111,6 @@ operator|!=
 literal|null
 condition|)
 block|{
-if|if
-condition|(
 name|cpHost
 operator|.
 name|preSplitBeforeMETAAction
@@ -4125,24 +4123,7 @@ argument_list|,
 name|getUser
 argument_list|()
 argument_list|)
-condition|)
-block|{
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-literal|"Coprocessor bypassing region "
-operator|+
-name|getParentRegion
-argument_list|()
-operator|.
-name|getRegionNameAsString
-argument_list|()
-operator|+
-literal|" split."
-argument_list|)
-throw|;
-block|}
+expr_stmt|;
 try|try
 block|{
 for|for

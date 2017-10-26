@@ -3346,7 +3346,7 @@ name|region
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create a WAL outside of the usual helper in    * {@link HBaseTestingUtility#createWal(Configuration, Path, HRegionInfo)} because that method    * doesn't play nicely with FaultyFileSystem. Call this method before overriding    * {@code fs.file.impl}.    * @param callingMethod a unique component for the path, probably the name of the test method.    */
+comment|/**    * Create a WAL outside of the usual helper in    * {@link HBaseTestingUtility#createWal(Configuration, Path, RegionInfo)} because that method    * doesn't play nicely with FaultyFileSystem. Call this method before overriding    * {@code fs.file.impl}.    * @param callingMethod a unique component for the path, probably the name of the test method.    */
 specifier|private
 specifier|static
 name|WAL
@@ -17418,6 +17418,27 @@ argument_list|,
 name|CONF
 argument_list|)
 decl_stmt|;
+comment|// This chunk creation is done throughout the code base. Do we want to move it into core?
+comment|// It is missing from this test. W/o it we NPE.
+name|ChunkCreator
+operator|.
+name|initialize
+argument_list|(
+name|MemStoreLABImpl
+operator|.
+name|CHUNK_SIZE_DEFAULT
+argument_list|,
+literal|false
+argument_list|,
+literal|0
+argument_list|,
+literal|0
+argument_list|,
+literal|0
+argument_list|,
+literal|null
+argument_list|)
+expr_stmt|;
 name|HRegion
 name|region
 init|=
@@ -17774,23 +17795,20 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-name|Answer
-argument_list|<
-name|Boolean
-argument_list|>
-name|answer
-init|=
+comment|// Because the preBatchMutate returns void, we can't do usual Mockito when...then form. Must
+comment|// do below format (from Mockito doc).
+name|Mockito
+operator|.
+name|doAnswer
+argument_list|(
 operator|new
 name|Answer
-argument_list|<
-name|Boolean
-argument_list|>
 argument_list|()
 block|{
 annotation|@
 name|Override
 specifier|public
-name|Boolean
+name|Object
 name|answer
 parameter_list|(
 name|InvocationOnMock
@@ -17831,14 +17849,16 @@ block|}
 argument_list|)
 expr_stmt|;
 return|return
-literal|false
+literal|null
 return|;
 block|}
 block|}
-decl_stmt|;
+argument_list|)
+operator|.
 name|when
 argument_list|(
 name|mockedCPHost
+argument_list|)
 operator|.
 name|preBatchMutate
 argument_list|(
@@ -17850,12 +17870,6 @@ name|MiniBatchOperationInProgress
 operator|.
 name|class
 argument_list|)
-argument_list|)
-argument_list|)
-operator|.
-name|then
-argument_list|(
-name|answer
 argument_list|)
 expr_stmt|;
 name|region

@@ -645,6 +645,8 @@ argument_list|)
 condition|)
 block|{
 comment|// by pass everything
+comment|// Is this right? Bypass everything and not just this individual put?
+comment|// This class is going away in hbase2 so lets not sweat it.
 return|return;
 block|}
 block|}
@@ -689,6 +691,8 @@ argument_list|)
 condition|)
 block|{
 comment|// by pass everything
+comment|// Is this right? Bypass everything and not just this individual put?
+comment|// This class is going away in hbase2 so lets not sweat it.
 return|return;
 block|}
 block|}

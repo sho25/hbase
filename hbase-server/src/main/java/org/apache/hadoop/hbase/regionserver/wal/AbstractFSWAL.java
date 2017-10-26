@@ -4409,9 +4409,6 @@ literal|false
 return|;
 block|}
 comment|// Coprocessor hook.
-if|if
-condition|(
-operator|!
 name|coprocessorHost
 operator|.
 name|preWALWrite
@@ -4431,32 +4428,7 @@ operator|.
 name|getEdit
 argument_list|()
 argument_list|)
-condition|)
-block|{
-if|if
-condition|(
-name|entry
-operator|.
-name|getEdit
-argument_list|()
-operator|.
-name|isReplay
-argument_list|()
-condition|)
-block|{
-comment|// Set replication scope null so that this won't be replicated
-name|entry
-operator|.
-name|getKey
-argument_list|()
-operator|.
-name|serializeReplicationScope
-argument_list|(
-literal|false
-argument_list|)
 expr_stmt|;
-block|}
-block|}
 if|if
 condition|(
 operator|!

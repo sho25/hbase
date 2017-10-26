@@ -11419,7 +11419,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * Flushing all stores.    * @see #internalFlushcache(Collection, MonitoredTask, boolean)    */
+comment|/**    * Flushing all stores.    * @see #internalFlushcache(Collection, MonitoredTask, boolean, FlushLifeCycleTracker)    */
 specifier|private
 name|FlushResult
 name|internalFlushcache
@@ -11448,7 +11448,7 @@ name|DUMMY
 argument_list|)
 return|;
 block|}
-comment|/**    * Flushing given stores.    * @see #internalFlushcache(WAL, long, Collection, MonitoredTask, boolean)    */
+comment|/**    * Flushing given stores.    * @see #internalFlushcache(WAL, long, Collection, MonitoredTask, boolean, FlushLifeCycleTracker)    */
 specifier|private
 name|FlushResultImpl
 name|internalFlushcache
@@ -15726,6 +15726,15 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|coprocessorHost
+operator|==
+literal|null
+condition|)
+block|{
+return|return;
+block|}
 comment|/* Run coprocessor pre hook outside of locks to avoid deadlock */
 name|WALEdit
 name|walEdit
@@ -15734,13 +15743,16 @@ operator|new
 name|WALEdit
 argument_list|()
 decl_stmt|;
-if|if
-condition|(
-name|coprocessorHost
-operator|!=
-literal|null
-condition|)
-block|{
+name|int
+name|noOfPuts
+init|=
+literal|0
+decl_stmt|;
+name|int
+name|noOfDeletes
+init|=
+literal|0
+decl_stmt|;
 for|for
 control|(
 name|int
@@ -15799,6 +15811,9 @@ condition|)
 block|{
 comment|// pre hook says skip this Put
 comment|// mark as success and skip in doMiniBatchMutation
+name|noOfPuts
+operator|++
+expr_stmt|;
 name|batchOp
 operator|.
 name|retCodeDetails
@@ -15865,6 +15880,9 @@ condition|)
 block|{
 comment|// pre hook says skip this Delete
 comment|// mark as success and skip in doMiniBatchMutation
+name|noOfDeletes
+operator|++
+expr_stmt|;
 name|batchOp
 operator|.
 name|retCodeDetails
@@ -15926,6 +15944,59 @@ name|WALEdit
 argument_list|()
 expr_stmt|;
 block|}
+block|}
+comment|// Update metrics in same way as it is done when we go the normal processing route (we now
+comment|// update general metrics though a Coprocessor did the work).
+if|if
+condition|(
+name|noOfPuts
+operator|>
+literal|0
+condition|)
+block|{
+comment|// There were some Puts in the batch.
+if|if
+condition|(
+name|this
+operator|.
+name|metricsRegion
+operator|!=
+literal|null
+condition|)
+block|{
+name|this
+operator|.
+name|metricsRegion
+operator|.
+name|updatePut
+argument_list|()
+expr_stmt|;
+block|}
+block|}
+if|if
+condition|(
+name|noOfDeletes
+operator|>
+literal|0
+condition|)
+block|{
+comment|// There were some Deletes in the batch.
+if|if
+condition|(
+name|this
+operator|.
+name|metricsRegion
+operator|!=
+literal|null
+condition|)
+block|{
+name|this
+operator|.
+name|metricsRegion
+operator|.
+name|updateDelete
+argument_list|()
+expr_stmt|;
 block|}
 block|}
 block|}
@@ -15991,11 +16062,6 @@ name|firstIndex
 decl_stmt|;
 name|boolean
 name|success
-init|=
-literal|false
-decl_stmt|;
-name|boolean
-name|doneByCoprocessor
 init|=
 literal|false
 decl_stmt|;
@@ -16447,24 +16513,13 @@ argument_list|,
 name|lastIndexExclusive
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
 name|coprocessorHost
 operator|.
 name|preBatchMutate
 argument_list|(
 name|miniBatchOp
 argument_list|)
-condition|)
-block|{
-name|doneByCoprocessor
-operator|=
-literal|true
 expr_stmt|;
-return|return;
-block|}
-else|else
-block|{
 for|for
 control|(
 name|int
@@ -16661,7 +16716,6 @@ operator|.
 name|size
 argument_list|()
 expr_stmt|;
-block|}
 block|}
 block|}
 block|}
@@ -17209,8 +17263,6 @@ name|i
 index|]
 operator|=
 name|success
-operator|||
-name|doneByCoprocessor
 condition|?
 name|OperationStatus
 operator|.
@@ -17231,9 +17283,6 @@ operator|&&
 name|coprocessorHost
 operator|!=
 literal|null
-operator|&&
-operator|!
-name|doneByCoprocessor
 condition|)
 block|{
 for|for
@@ -33019,6 +33068,14 @@ name|ArrayList
 argument_list|<>
 argument_list|()
 decl_stmt|;
+name|long
+name|before
+init|=
+name|EnvironmentEdgeManager
+operator|.
+name|currentTime
+argument_list|()
+decl_stmt|;
 comment|// pre-get CP hook
 if|if
 condition|(
@@ -33043,19 +33100,18 @@ name|results
 argument_list|)
 condition|)
 block|{
+name|metricsUpdateForGet
+argument_list|(
+name|results
+argument_list|,
+name|before
+argument_list|)
+expr_stmt|;
 return|return
 name|results
 return|;
 block|}
 block|}
-name|long
-name|before
-init|=
-name|EnvironmentEdgeManager
-operator|.
-name|currentTime
-argument_list|()
-decl_stmt|;
 name|Scan
 name|scan
 init|=
@@ -34780,6 +34836,7 @@ operator|!=
 literal|null
 condition|)
 block|{
+comment|// Metrics updated below in the finally block.
 return|return
 name|returnResults
 condition|?

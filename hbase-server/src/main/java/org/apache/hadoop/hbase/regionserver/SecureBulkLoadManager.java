@@ -1246,11 +1246,6 @@ literal|"User token cannot be null"
 argument_list|)
 throw|;
 block|}
-name|boolean
-name|bypass
-init|=
-literal|false
-decl_stmt|;
 if|if
 condition|(
 name|region
@@ -1261,8 +1256,6 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|bypass
-operator|=
 name|region
 operator|.
 name|getCoprocessorHost
@@ -1294,12 +1287,6 @@ init|=
 literal|null
 decl_stmt|;
 try|try
-block|{
-if|if
-condition|(
-operator|!
-name|bypass
-condition|)
 block|{
 comment|// Get the target fs (HBase region server fs) delegation token
 comment|// Since we have checked the permission via 'preBulkLoadHFile', now let's give
@@ -1557,7 +1544,6 @@ name|loaded
 operator|=
 literal|true
 expr_stmt|;
-block|}
 block|}
 block|}
 finally|finally

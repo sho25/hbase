@@ -5535,6 +5535,22 @@ argument_list|(
 name|path
 argument_list|)
 expr_stmt|;
+for|for
+control|(
+name|FileStatus
+name|fileStatus
+range|:
+name|fileList
+control|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|fileStatus
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 comment|/**    * This copro overwrites the default compaction policy. It always chooses two latest hfiles and    * compacts them into a new one.    */
@@ -5638,6 +5654,11 @@ block|}
 name|c
 operator|.
 name|bypass
+argument_list|()
+expr_stmt|;
+name|c
+operator|.
+name|complete
 argument_list|()
 expr_stmt|;
 block|}

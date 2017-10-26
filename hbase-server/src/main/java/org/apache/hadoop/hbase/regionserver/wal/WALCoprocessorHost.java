@@ -619,9 +619,11 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * @param info    * @param logKey    * @param logEdit    * @return true if default behavior should be bypassed, false otherwise    * @throws IOException    */
+comment|/**    * @deprecated Since hbase-2.0.0. No replacement. To be removed in hbase-3.0.0 and replaced    * with something that doesn't expose IntefaceAudience.Private classes.    */
+annotation|@
+name|Deprecated
 specifier|public
-name|boolean
+name|void
 name|preWALWrite
 parameter_list|(
 specifier|final
@@ -639,33 +641,29 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-return|return
-name|execOperationWithResult
-argument_list|(
-literal|false
-argument_list|,
+comment|// Not bypassable.
+if|if
+condition|(
+name|this
+operator|.
 name|coprocEnvironments
 operator|.
 name|isEmpty
 argument_list|()
-condition|?
-literal|null
-else|:
-operator|new
-name|ObserverOperationWithResult
-argument_list|<
-name|WALObserver
-argument_list|,
-name|Boolean
-argument_list|>
+condition|)
+block|{
+return|return;
+block|}
+name|execOperation
 argument_list|(
-name|walObserverGetter
-argument_list|)
+operator|new
+name|WALObserverOperation
+argument_list|()
 block|{
 annotation|@
 name|Override
 specifier|public
-name|Boolean
+name|void
 name|call
 parameter_list|(
 name|WALObserver
@@ -674,7 +672,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-return|return
 name|oserver
 operator|.
 name|preWALWrite
@@ -687,13 +684,15 @@ name|logKey
 argument_list|,
 name|logEdit
 argument_list|)
-return|;
+expr_stmt|;
 block|}
 block|}
 argument_list|)
-return|;
+expr_stmt|;
 block|}
-comment|/**    * @param info    * @param logKey    * @param logEdit    * @throws IOException    */
+comment|/**    * @deprecated Since hbase-2.0.0. No replacement. To be removed in hbase-3.0.0 and replaced    * with something that doesn't expose IntefaceAudience.Private classes.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|postWALWrite

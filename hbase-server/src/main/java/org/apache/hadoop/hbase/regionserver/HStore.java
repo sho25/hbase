@@ -5176,7 +5176,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Snapshot this stores memstore. Call before running    * {@link #flushCache(long, MemStoreSnapshot, MonitoredTask, ThroughputController)}    *  so it has some work to do.    */
+comment|/**    * Snapshot this stores memstore. Call before running    * {@link #flushCache(long, MemStoreSnapshot, MonitoredTask, ThroughputController,    * FlushLifeCycleTracker)}    *  so it has some work to do.    */
 name|void
 name|snapshot
 parameter_list|()
@@ -8616,11 +8616,6 @@ decl_stmt|;
 name|boolean
 name|override
 init|=
-literal|false
-decl_stmt|;
-comment|//TODO: is it correct way to get CompactionRequest?
-name|override
-operator|=
 name|getCoprocessorHost
 argument_list|()
 operator|.
@@ -8634,7 +8629,7 @@ name|tracker
 argument_list|,
 name|user
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 if|if
 condition|(
 name|override
