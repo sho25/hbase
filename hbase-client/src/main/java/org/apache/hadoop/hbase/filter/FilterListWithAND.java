@@ -61,7 +61,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|HashSet
+name|ArrayList
 import|;
 end_import
 
@@ -72,16 +72,6 @@ operator|.
 name|util
 operator|.
 name|List
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Set
 import|;
 end_import
 
@@ -101,14 +91,14 @@ extends|extends
 name|FilterListBase
 block|{
 specifier|private
-name|Set
+name|List
 argument_list|<
 name|Filter
 argument_list|>
-name|seekHintFilter
+name|seekHintFilters
 init|=
 operator|new
-name|HashSet
+name|ArrayList
 argument_list|<>
 argument_list|()
 decl_stmt|;
@@ -589,7 +579,7 @@ name|c
 expr_stmt|;
 name|this
 operator|.
-name|seekHintFilter
+name|seekHintFilters
 operator|.
 name|clear
 argument_list|()
@@ -728,7 +718,7 @@ operator|.
 name|SEEK_NEXT_USING_HINT
 condition|)
 block|{
-name|seekHintFilter
+name|seekHintFilters
 operator|.
 name|add
 argument_list|(
@@ -746,7 +736,7 @@ expr_stmt|;
 if|if
 condition|(
 operator|!
-name|seekHintFilter
+name|seekHintFilters
 operator|.
 name|isEmpty
 argument_list|()
@@ -804,7 +794,7 @@ name|reset
 argument_list|()
 expr_stmt|;
 block|}
-name|seekHintFilter
+name|seekHintFilters
 operator|.
 name|clear
 argument_list|()
@@ -1180,7 +1170,7 @@ control|(
 name|Filter
 name|filter
 range|:
-name|seekHintFilter
+name|seekHintFilters
 control|)
 block|{
 if|if
