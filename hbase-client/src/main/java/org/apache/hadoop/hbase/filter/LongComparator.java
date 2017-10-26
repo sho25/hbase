@@ -320,7 +320,7 @@ name|toByteArray
 argument_list|()
 return|;
 block|}
-comment|/**      * @param pbBytes A pb serialized {@link BinaryComparator} instance      * @return An instance of {@link BinaryComparator} made from<code>bytes</code>      * @throws org.apache.hadoop.hbase.exceptions.DeserializationException      * @see #toByteArray      */
+comment|/**      * @param pbBytes A pb serialized {@link LongComparator} instance      * @return An instance of {@link LongComparator} made from<code>bytes</code>      * @throws org.apache.hadoop.hbase.exceptions.DeserializationException      * @see #toByteArray      */
 specifier|public
 specifier|static
 name|LongComparator
