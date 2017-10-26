@@ -291,7 +291,7 @@ function_decl|;
 comment|/**    * Test for the existence of columns in the table, as specified by the Gets.    *<p>    *    * This will return an array of booleans. Each value will be true if the related Get matches    * one or more keys, false if not.    *<p>    *    * This is a server-side call so it prevents any data from being transferred to    * the client.    *    * @param gets the Gets    * @return Array of boolean.  True if the specified Get matches one or more keys, false if not.    * @throws IOException e    */
 name|boolean
 index|[]
-name|existsAll
+name|exists
 parameter_list|(
 name|List
 argument_list|<
@@ -302,6 +302,30 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Test for the existence of columns in the table, as specified by the Gets.    * This will return an array of booleans. Each value will be true if the related Get matches    * one or more keys, false if not.    * This is a server-side call so it prevents any data from being transferred to    * the client.    *    * @param gets the Gets    * @return Array of boolean.  True if the specified Get matches one or more keys, false if not.    * @throws IOException e    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #exists(List)}    */
+annotation|@
+name|Deprecated
+specifier|default
+name|boolean
+index|[]
+name|existsAll
+parameter_list|(
+name|List
+argument_list|<
+name|Get
+argument_list|>
+name|gets
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|exists
+argument_list|(
+name|gets
+argument_list|)
+return|;
+block|}
 comment|/**    * Method that does a batch call on Deletes, Gets, Puts, Increments, Appends, RowMutations.    * The ordering of execution of the actions is not defined. Meaning if you do a Put and a    * Get in the same {@link #batch} call, you will not necessarily be    * guaranteed that the Get returns what the Put had put.    *    * @param actions list of Get, Put, Delete, Increment, Append, RowMutations.    * @param results Empty Object[], same size as actions. Provides access to partial    *                results, in case an exception is thrown. A null in the result array means that    *                the call for that action failed, even after retries. The order of the objects    *                in the results array corresponds to the order of actions in the request list.    * @throws IOException    * @since 0.90.0    */
 name|void
 name|batch

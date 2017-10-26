@@ -5495,15 +5495,13 @@ name|getExists
 argument_list|()
 return|;
 block|}
-comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
 name|boolean
 index|[]
-name|existsAll
+name|exists
 parameter_list|(
-specifier|final
 name|List
 argument_list|<
 name|Get

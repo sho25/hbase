@@ -642,7 +642,7 @@ name|Override
 specifier|public
 name|boolean
 index|[]
-name|existsAll
+name|exists
 parameter_list|(
 name|List
 argument_list|<
