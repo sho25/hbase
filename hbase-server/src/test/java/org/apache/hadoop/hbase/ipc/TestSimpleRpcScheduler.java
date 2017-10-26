@@ -3936,8 +3936,6 @@ literal|9
 argument_list|,
 literal|null
 argument_list|,
-literal|null
-argument_list|,
 name|timestamp
 argument_list|,
 literal|0

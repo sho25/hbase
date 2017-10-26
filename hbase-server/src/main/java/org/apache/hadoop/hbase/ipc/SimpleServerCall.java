@@ -189,18 +189,6 @@ name|RequestHeader
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|htrace
-operator|.
-name|TraceInfo
-import|;
-end_import
-
 begin_comment
 comment|/**  * Datastructure that holds all necessary to a method invocation and then afterward, carries the  * result.  */
 end_comment
@@ -271,9 +259,6 @@ parameter_list|,
 name|long
 name|size
 parameter_list|,
-name|TraceInfo
-name|tinfo
-parameter_list|,
 specifier|final
 name|InetAddress
 name|remoteAddress
@@ -314,8 +299,6 @@ argument_list|,
 name|connection
 argument_list|,
 name|size
-argument_list|,
-name|tinfo
 argument_list|,
 name|remoteAddress
 argument_list|,

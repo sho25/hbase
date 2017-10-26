@@ -173,18 +173,6 @@ name|RequestHeader
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|htrace
-operator|.
-name|TraceInfo
-import|;
-end_import
-
 begin_comment
 comment|/**  * Interface of all necessary to carry out a RPC method invocation on the server.  */
 end_comment
@@ -315,11 +303,6 @@ function_decl|;
 comment|/**    * @return A short string format of this call without possibly lengthy params    */
 name|String
 name|toShortString
-parameter_list|()
-function_decl|;
-comment|/**    * @return TraceInfo attached to this call.    */
-name|TraceInfo
-name|getTraceInfo
 parameter_list|()
 function_decl|;
 block|}

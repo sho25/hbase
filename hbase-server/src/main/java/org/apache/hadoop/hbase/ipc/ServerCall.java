@@ -465,18 +465,6 @@ name|StringUtils
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|htrace
-operator|.
-name|TraceInfo
-import|;
-end_import
-
 begin_comment
 comment|/**  * Datastructure that holds all necessary to a method invocation and then afterward, carries  * the result.  */
 end_comment
@@ -585,11 +573,6 @@ name|boolean
 name|isError
 decl_stmt|;
 specifier|protected
-specifier|final
-name|TraceInfo
-name|tinfo
-decl_stmt|;
-specifier|protected
 name|ByteBufferListOutputStream
 name|cellBlockStream
 init|=
@@ -686,9 +669,6 @@ parameter_list|,
 name|long
 name|size
 parameter_list|,
-name|TraceInfo
-name|tinfo
-parameter_list|,
 name|InetAddress
 name|remoteAddress
 parameter_list|,
@@ -773,12 +753,6 @@ operator|.
 name|size
 operator|=
 name|size
-expr_stmt|;
-name|this
-operator|.
-name|tinfo
-operator|=
-name|tinfo
 expr_stmt|;
 if|if
 condition|(
@@ -2590,17 +2564,6 @@ name|connection
 operator|.
 name|getRemotePort
 argument_list|()
-return|;
-block|}
-annotation|@
-name|Override
-specifier|public
-name|TraceInfo
-name|getTraceInfo
-parameter_list|()
-block|{
-return|return
-name|tinfo
 return|;
 block|}
 annotation|@

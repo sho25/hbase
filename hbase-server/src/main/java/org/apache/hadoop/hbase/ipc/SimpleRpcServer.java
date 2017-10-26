@@ -2466,8 +2466,6 @@ literal|1
 argument_list|,
 literal|null
 argument_list|,
-literal|null
-argument_list|,
 name|receiveTime
 argument_list|,
 name|timeout

@@ -269,18 +269,6 @@ name|RequestHeader
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|htrace
-operator|.
-name|TraceInfo
-import|;
-end_import
-
 begin_comment
 comment|/**  * RpcConnection implementation for netty rpc server.  * @since 2.0.0  */
 end_comment
@@ -644,9 +632,6 @@ parameter_list|,
 name|long
 name|size
 parameter_list|,
-name|TraceInfo
-name|tinfo
-parameter_list|,
 specifier|final
 name|InetAddress
 name|remoteAddress
@@ -677,8 +662,6 @@ argument_list|,
 name|this
 argument_list|,
 name|size
-argument_list|,
-name|tinfo
 argument_list|,
 name|remoteAddress
 argument_list|,

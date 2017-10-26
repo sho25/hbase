@@ -25,11 +25,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|htrace
 operator|.
-name|audience
+name|core
 operator|.
-name|InterfaceAudience
+name|Span
 import|;
 end_import
 
@@ -39,9 +39,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|htrace
+name|yetus
 operator|.
-name|Span
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 

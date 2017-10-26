@@ -261,6 +261,8 @@ name|apache
 operator|.
 name|htrace
 operator|.
+name|core
+operator|.
 name|Span
 import|;
 end_import

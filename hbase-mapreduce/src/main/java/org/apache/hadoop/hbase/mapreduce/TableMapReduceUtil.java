@@ -3233,7 +3233,9 @@ name|apache
 operator|.
 name|htrace
 operator|.
-name|Trace
+name|core
+operator|.
+name|Tracer
 operator|.
 name|class
 argument_list|,

@@ -51,6 +51,22 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|trace
+operator|.
+name|TraceUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -206,6 +222,13 @@ init|=
 name|getConf
 argument_list|()
 decl_stmt|;
+name|TraceUtil
+operator|.
+name|initTracer
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
 try|try
 block|{
 comment|// If 'local', don't start a region server here. Defer to

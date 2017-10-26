@@ -201,6 +201,8 @@ name|apache
 operator|.
 name|htrace
 operator|.
+name|core
+operator|.
 name|Span
 import|;
 end_import
@@ -213,7 +215,9 @@ name|apache
 operator|.
 name|htrace
 operator|.
-name|Trace
+name|core
+operator|.
+name|Tracer
 import|;
 end_import
 
@@ -448,9 +452,9 @@ name|this
 operator|.
 name|span
 operator|=
-name|Trace
+name|Tracer
 operator|.
-name|currentSpan
+name|getCurrentSpan
 argument_list|()
 expr_stmt|;
 block|}

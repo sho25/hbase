@@ -415,18 +415,6 @@ name|Pair
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|htrace
-operator|.
-name|TraceInfo
-import|;
-end_import
-
 begin_comment
 comment|/** Reads calls from a connection and queues them for handling. */
 end_comment
@@ -1212,8 +1200,6 @@ name|this
 argument_list|,
 literal|0
 argument_list|,
-literal|null
-argument_list|,
 name|this
 operator|.
 name|addr
@@ -1767,9 +1753,6 @@ parameter_list|,
 name|long
 name|size
 parameter_list|,
-name|TraceInfo
-name|tinfo
-parameter_list|,
 name|InetAddress
 name|remoteAddress
 parameter_list|,
@@ -1799,8 +1782,6 @@ argument_list|,
 name|this
 argument_list|,
 name|size
-argument_list|,
-name|tinfo
 argument_list|,
 name|remoteAddress
 argument_list|,
