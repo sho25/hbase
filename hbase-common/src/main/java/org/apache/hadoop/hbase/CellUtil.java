@@ -4332,6 +4332,11 @@ argument_list|)
 return|;
 block|}
 comment|/**    * @return True if a delete type, a {@link KeyValue.Type#Delete} or a    *         {KeyValue.Type#DeleteFamily} or a    *         {@link KeyValue.Type#DeleteColumn} KeyValue type.    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
+argument_list|)
 specifier|public
 specifier|static
 name|boolean
@@ -4556,6 +4561,35 @@ operator|==
 name|Type
 operator|.
 name|DeleteFamily
+operator|.
+name|getCode
+argument_list|()
+return|;
+block|}
+comment|/**    * @return True if this cell is a Put.    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
+argument_list|)
+specifier|public
+specifier|static
+name|boolean
+name|isPut
+parameter_list|(
+name|Cell
+name|cell
+parameter_list|)
+block|{
+return|return
+name|cell
+operator|.
+name|getTypeByte
+argument_list|()
+operator|==
+name|Type
+operator|.
+name|Put
 operator|.
 name|getCode
 argument_list|()
