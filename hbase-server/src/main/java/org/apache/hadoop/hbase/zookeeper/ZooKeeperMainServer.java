@@ -29,6 +29,40 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|TimeUnit
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|curator
+operator|.
+name|shaded
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|base
+operator|.
+name|Stopwatch
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -176,6 +210,64 @@ argument_list|(
 name|args
 argument_list|)
 expr_stmt|;
+comment|// Make sure we are connected before we proceed. Can take a while on some systems. If we
+comment|// run the command without being connected, we get ConnectionLoss KeeperErrorConnection...
+name|Stopwatch
+name|stopWatch
+init|=
+name|Stopwatch
+operator|.
+name|createStarted
+argument_list|()
+decl_stmt|;
+while|while
+condition|(
+operator|!
+name|this
+operator|.
+name|zk
+operator|.
+name|getState
+argument_list|()
+operator|.
+name|isConnected
+argument_list|()
+condition|)
+block|{
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|1
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|stopWatch
+operator|.
+name|elapsed
+argument_list|(
+name|TimeUnit
+operator|.
+name|SECONDS
+argument_list|)
+operator|>
+literal|10
+condition|)
+block|{
+throw|throw
+operator|new
+name|InterruptedException
+argument_list|(
+literal|"Failed connect "
+operator|+
+name|this
+operator|.
+name|zk
+argument_list|)
+throw|;
+block|}
+block|}
 block|}
 comment|/**      * Run the command-line args passed.  Calls System.exit when done.      * @throws KeeperException      * @throws IOException      * @throws InterruptedException      */
 name|void
@@ -394,6 +486,8 @@ expr_stmt|;
 block|}
 block|}
 comment|// If command-line arguments, run our hack so they are executed.
+comment|// ZOOKEEPER-1897 was committed to zookeeper-3.4.6 but elsewhere in this class we say
+comment|// 3.4.6 breaks command-processing; TODO.
 if|if
 condition|(
 name|hasCommandLineArguments
