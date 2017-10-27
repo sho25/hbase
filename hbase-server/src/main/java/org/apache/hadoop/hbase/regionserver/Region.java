@@ -1022,6 +1022,14 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Wait for all current flushes of the region to complete    *    * @param timeout The maximum time to wait in milliseconds.    * @return False when timeout elapsed but flushes are not over. True when flushes are over within    * max wait time period.    */
+name|boolean
+name|waitForFlushes
+parameter_list|(
+name|long
+name|timeout
+parameter_list|)
+function_decl|;
 block|}
 end_interface
 
