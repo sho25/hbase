@@ -369,16 +369,6 @@ name|org
 operator|.
 name|junit
 operator|.
-name|Ignore
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
 name|Test
 import|;
 end_import
@@ -415,8 +405,6 @@ operator|.
 name|class
 block|}
 argument_list|)
-annotation|@
-name|Ignore
 specifier|public
 class|class
 name|TestFlushLifeCycleTracker
@@ -441,7 +429,7 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-name|TestCompactionLifeCycleTracker
+name|TestFlushLifeCycleTracker
 operator|.
 name|class
 operator|.
@@ -696,7 +684,6 @@ operator|.
 name|countDown
 argument_list|()
 expr_stmt|;
-block|}
 try|try
 block|{
 name|BLOCK
@@ -716,6 +703,7 @@ operator|new
 name|InterruptedIOException
 argument_list|()
 throw|;
+block|}
 block|}
 block|}
 block|}
