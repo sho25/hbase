@@ -121,6 +121,16 @@ name|InterfaceAudience
 import|;
 end_import
 
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
 begin_comment
 comment|/**  * Defines a curated set of shared functions implemented by HBase servers (Masters  * and RegionServers). For use internally only. Be judicious adding API. Changes cause ripples  * through the code base.  */
 end_comment
@@ -178,19 +188,70 @@ name|ChoreService
 name|getChoreService
 parameter_list|()
 function_decl|;
-comment|/**    * @return Return the FileSystem object used.    */
+comment|/**    * @return Return the FileSystem object used (can return null!).    */
 comment|// TODO: On Master, return Master's. On RegionServer, return RegionServers. The FileSystems
 comment|// may differ. TODO.
+specifier|default
 name|FileSystem
 name|getFileSystem
 parameter_list|()
-function_decl|;
+block|{
+comment|// This default is pretty dodgy!
+name|Configuration
+name|c
+init|=
+name|getConfiguration
+argument_list|()
+decl_stmt|;
+name|FileSystem
+name|fs
+init|=
+literal|null
+decl_stmt|;
+try|try
+block|{
+if|if
+condition|(
+name|c
+operator|!=
+literal|null
+condition|)
+block|{
+name|fs
+operator|=
+name|FileSystem
+operator|.
+name|get
+argument_list|(
+name|c
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+comment|// If an exception, just return null
+block|}
+return|return
+name|fs
+return|;
+block|}
+empty_stmt|;
 comment|/**    * @return True is the server is Stopping    */
 comment|// Note: This method is not part of the Stoppable Interface.
+specifier|default
 name|boolean
 name|isStopping
 parameter_list|()
-function_decl|;
+block|{
+return|return
+literal|false
+return|;
+block|}
 block|}
 end_interface
 
