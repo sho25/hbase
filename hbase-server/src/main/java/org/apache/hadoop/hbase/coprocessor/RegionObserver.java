@@ -1649,9 +1649,9 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * Called before the client opens a new scanner.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells returned by scanner, beyond the life of this    * invocation. If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param scan the Scan specification    * @param s if not null, the base scanner    * @return an RegionScanner instance to use instead of the base scanner if    * overriding default behavior, null otherwise    */
+comment|/**    * Called before the client opens a new scanner.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells returned by scanner, beyond the life of this    * invocation. If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param scan the Scan specification    */
 specifier|default
-name|RegionScanner
+name|void
 name|preScannerOpen
 parameter_list|(
 name|ObserverContext
@@ -1662,17 +1662,10 @@ name|c
 parameter_list|,
 name|Scan
 name|scan
-parameter_list|,
-name|RegionScanner
-name|s
 parameter_list|)
 throws|throws
 name|IOException
-block|{
-return|return
-name|s
-return|;
-block|}
+block|{   }
 comment|/**    * Called after the client opens a new scanner.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    *<p>    * Note: Do not retain references to any Cells returned by scanner, beyond the life of this    * invocation. If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param scan the Scan specification    * @param s if not null, the base scanner    * @return the scanner instance to use    */
 specifier|default
 name|RegionScanner

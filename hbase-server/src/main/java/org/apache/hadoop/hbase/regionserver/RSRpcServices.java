@@ -3951,8 +3951,8 @@ name|scannerName
 decl_stmt|;
 specifier|private
 specifier|final
-name|RegionScanner
-name|scanner
+name|Shipper
+name|shipper
 decl_stmt|;
 specifier|private
 specifier|final
@@ -3965,8 +3965,8 @@ parameter_list|(
 name|String
 name|scannerName
 parameter_list|,
-name|RegionScanner
-name|scanner
+name|Shipper
+name|shipper
 parameter_list|,
 name|Lease
 name|lease
@@ -3980,9 +3980,9 @@ name|scannerName
 expr_stmt|;
 name|this
 operator|.
-name|scanner
+name|shipper
 operator|=
-name|scanner
+name|shipper
 expr_stmt|;
 name|this
 operator|.
@@ -4002,7 +4002,7 @@ name|IOException
 block|{
 name|this
 operator|.
-name|scanner
+name|shipper
 operator|.
 name|shipped
 argument_list|()
@@ -9209,6 +9209,9 @@ parameter_list|,
 name|RegionScanner
 name|s
 parameter_list|,
+name|Shipper
+name|shipper
+parameter_list|,
 name|HRegion
 name|r
 parameter_list|,
@@ -9248,7 +9251,7 @@ name|RegionScannerShippedCallBack
 argument_list|(
 name|scannerName
 argument_list|,
-name|s
+name|shipper
 argument_list|,
 name|lease
 argument_list|)
@@ -15332,7 +15335,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-name|RegionScanner
+name|RegionScannerImpl
 name|scanner
 init|=
 literal|null
@@ -15376,28 +15379,10 @@ comment|// If there is a context then the scanner can be added to the current
 comment|// RpcCallContext. The rpc callback will take care of closing the
 comment|// scanner, for eg in case
 comment|// of get()
-assert|assert
-name|scanner
-operator|instanceof
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|ipc
-operator|.
-name|RpcCallback
-assert|;
 name|context
 operator|.
 name|setCallBack
 argument_list|(
-operator|(
-name|RegionScannerImpl
-operator|)
 name|scanner
 argument_list|)
 expr_stmt|;
@@ -17734,11 +17719,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-name|RegionScanner
-name|scanner
-init|=
-literal|null
-decl_stmt|;
 if|if
 condition|(
 name|region
@@ -17749,8 +17729,8 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|scanner
-operator|=
+comment|// preScannerOpen is not allowed to return a RegionScanner. Only post hook can create a
+comment|// wrapper for the core created RegionScanner
 name|region
 operator|.
 name|getCoprocessorHost
@@ -17762,23 +17742,26 @@ name|scan
 argument_list|)
 expr_stmt|;
 block|}
-if|if
-condition|(
-name|scanner
-operator|==
-literal|null
-condition|)
-block|{
-name|scanner
-operator|=
+name|RegionScannerImpl
+name|coreScanner
+init|=
 name|region
 operator|.
 name|getScanner
 argument_list|(
 name|scan
 argument_list|)
-expr_stmt|;
-block|}
+decl_stmt|;
+name|Shipper
+name|shipper
+init|=
+name|coreScanner
+decl_stmt|;
+name|RegionScanner
+name|scanner
+init|=
+name|coreScanner
+decl_stmt|;
 if|if
 condition|(
 name|region
@@ -17852,6 +17835,8 @@ argument_list|(
 name|scannerName
 argument_list|,
 name|scanner
+argument_list|,
+name|shipper
 argument_list|,
 name|region
 argument_list|,

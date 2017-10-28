@@ -5840,13 +5840,6 @@ argument_list|,
 operator|new
 name|Scan
 argument_list|()
-argument_list|,
-name|mock
-argument_list|(
-name|RegionScanner
-operator|.
-name|class
-argument_list|)
 argument_list|)
 expr_stmt|;
 return|return

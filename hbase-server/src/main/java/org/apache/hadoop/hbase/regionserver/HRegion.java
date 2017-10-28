@@ -13616,7 +13616,7 @@ comment|////////////////////////////////////////////////////////////////////////
 annotation|@
 name|Override
 specifier|public
-name|RegionScanner
+name|RegionScannerImpl
 name|getScanner
 parameter_list|(
 name|Scan
@@ -13637,7 +13637,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|RegionScanner
+name|RegionScannerImpl
 name|getScanner
 parameter_list|(
 name|Scan
@@ -13670,7 +13670,7 @@ argument_list|)
 return|;
 block|}
 specifier|private
-name|RegionScanner
+name|RegionScannerImpl
 name|getScanner
 parameter_list|(
 name|Scan
@@ -13816,7 +13816,7 @@ argument_list|)
 return|;
 block|}
 specifier|protected
-name|RegionScanner
+name|RegionScannerImpl
 name|instantiateRegionScanner
 parameter_list|(
 name|Scan
@@ -28175,6 +28175,8 @@ class|class
 name|RegionScannerImpl
 implements|implements
 name|RegionScanner
+implements|,
+name|Shipper
 implements|,
 name|org
 operator|.

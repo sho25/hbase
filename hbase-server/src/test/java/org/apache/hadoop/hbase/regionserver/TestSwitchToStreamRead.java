@@ -663,7 +663,7 @@ name|IOException
 block|{
 try|try
 init|(
-name|RegionScanner
+name|RegionScannerImpl
 name|scanner
 init|=
 name|REGION
@@ -683,9 +683,6 @@ call|(
 name|StoreScanner
 call|)
 argument_list|(
-operator|(
-name|RegionScannerImpl
-operator|)
 name|scanner
 argument_list|)
 operator|.

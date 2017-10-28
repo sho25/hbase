@@ -12729,7 +12729,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|RegionScanner
+name|void
 name|preScannerOpen
 parameter_list|(
 specifier|final
@@ -12742,10 +12742,6 @@ parameter_list|,
 specifier|final
 name|Scan
 name|scan
-parameter_list|,
-specifier|final
-name|RegionScanner
-name|s
 parameter_list|)
 throws|throws
 name|IOException
@@ -12761,9 +12757,6 @@ operator|.
 name|SCAN
 argument_list|)
 expr_stmt|;
-return|return
-name|s
-return|;
 block|}
 annotation|@
 name|Override

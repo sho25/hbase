@@ -457,22 +457,6 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|RegionScanner
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
 name|RegionServerStoppedException
 import|;
 end_import
@@ -1133,7 +1117,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|RegionScanner
+name|void
 name|preScannerOpen
 parameter_list|(
 specifier|final
@@ -1146,10 +1130,6 @@ parameter_list|,
 specifier|final
 name|Scan
 name|scan
-parameter_list|,
-specifier|final
-name|RegionScanner
-name|s
 parameter_list|)
 throws|throws
 name|IOException
@@ -1230,9 +1210,6 @@ name|replicaId
 argument_list|)
 expr_stmt|;
 block|}
-return|return
-literal|null
-return|;
 block|}
 block|}
 comment|/**    * This copro is used to slow down the primary meta region scan a bit    */
@@ -1411,7 +1388,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|RegionScanner
+name|void
 name|preScannerOpen
 parameter_list|(
 specifier|final
@@ -1424,10 +1401,6 @@ parameter_list|,
 specifier|final
 name|Scan
 name|scan
-parameter_list|,
-specifier|final
-name|RegionScanner
-name|s
 parameter_list|)
 throws|throws
 name|IOException
@@ -1581,9 +1554,6 @@ name|replicaId
 argument_list|)
 expr_stmt|;
 block|}
-return|return
-literal|null
-return|;
 block|}
 block|}
 annotation|@

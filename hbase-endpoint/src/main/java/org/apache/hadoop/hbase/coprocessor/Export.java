@@ -3089,8 +3089,6 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|scanner
-operator|=
 name|region
 operator|.
 name|getCoprocessorHost
@@ -3101,13 +3099,6 @@ argument_list|(
 name|scan
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|scanner
-operator|==
-literal|null
-condition|)
-block|{
 name|scanner
 operator|=
 name|region
@@ -3117,7 +3108,6 @@ argument_list|(
 name|scan
 argument_list|)
 expr_stmt|;
-block|}
 name|scanner
 operator|=
 name|region

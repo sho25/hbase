@@ -5538,9 +5538,9 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * @param scan the Scan specification    * @return scanner id to return to client if default operation should be    * bypassed, null otherwise    * @exception IOException Exception    */
+comment|/**    * @param scan the Scan specification    * @exception IOException Exception    */
 specifier|public
-name|RegionScanner
+name|void
 name|preScannerOpen
 parameter_list|(
 specifier|final
@@ -5550,13 +5550,8 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-return|return
-name|execOperationWithResult
+name|execOperation
 argument_list|(
-literal|true
-argument_list|,
-literal|null
-argument_list|,
 name|coprocEnvironments
 operator|.
 name|isEmpty
@@ -5565,20 +5560,13 @@ condition|?
 literal|null
 else|:
 operator|new
-name|ObserverOperationWithResult
-argument_list|<
-name|RegionObserver
-argument_list|,
-name|RegionScanner
-argument_list|>
-argument_list|(
-name|regionObserverGetter
-argument_list|)
+name|RegionObserverOperation
+argument_list|()
 block|{
 annotation|@
 name|Override
 specifier|public
-name|RegionScanner
+name|void
 name|call
 parameter_list|(
 name|RegionObserver
@@ -5587,7 +5575,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-return|return
 name|observer
 operator|.
 name|preScannerOpen
@@ -5595,15 +5582,12 @@ argument_list|(
 name|this
 argument_list|,
 name|scan
-argument_list|,
-name|getResult
-argument_list|()
 argument_list|)
-return|;
+expr_stmt|;
 block|}
 block|}
 argument_list|)
-return|;
+expr_stmt|;
 block|}
 comment|/**    * @param scan the Scan specification    * @param s the scanner    * @return the scanner instance to use    * @exception IOException Exception    */
 specifier|public

@@ -900,9 +900,6 @@ expr_stmt|;
 name|RegionScannerImpl
 name|scanner
 init|=
-operator|(
-name|RegionScannerImpl
-operator|)
 name|region
 operator|.
 name|getScanner

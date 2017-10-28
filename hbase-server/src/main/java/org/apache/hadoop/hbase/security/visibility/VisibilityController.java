@@ -3546,7 +3546,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|RegionScanner
+name|void
 name|preScannerOpen
 parameter_list|(
 name|ObserverContext
@@ -3557,9 +3557,6 @@ name|e
 parameter_list|,
 name|Scan
 name|scan
-parameter_list|,
-name|RegionScanner
-name|s
 parameter_list|)
 throws|throws
 name|IOException
@@ -3585,9 +3582,7 @@ operator|!
 name|authorizationEnabled
 condition|)
 block|{
-return|return
-name|s
-return|;
+return|return;
 block|}
 name|Region
 name|region
@@ -3666,9 +3661,7 @@ name|LABELS_TABLE_NAME
 argument_list|)
 condition|)
 block|{
-return|return
-name|s
-return|;
+return|return;
 block|}
 block|}
 name|Filter
@@ -3730,9 +3723,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-return|return
-name|s
-return|;
 block|}
 annotation|@
 name|Override

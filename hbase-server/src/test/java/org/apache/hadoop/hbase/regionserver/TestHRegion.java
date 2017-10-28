@@ -20170,9 +20170,6 @@ argument_list|)
 expr_stmt|;
 name|is
 operator|=
-operator|(
-name|RegionScannerImpl
-operator|)
 name|region
 operator|.
 name|getScanner
@@ -20184,12 +20181,7 @@ name|assertEquals
 argument_list|(
 literal|1
 argument_list|,
-operator|(
-operator|(
-name|RegionScannerImpl
-operator|)
 name|is
-operator|)
 operator|.
 name|storeHeap
 operator|.
@@ -20208,9 +20200,6 @@ argument_list|()
 expr_stmt|;
 name|is
 operator|=
-operator|(
-name|RegionScannerImpl
-operator|)
 name|region
 operator|.
 name|getScanner
@@ -20226,12 +20215,7 @@ name|length
 operator|-
 literal|1
 argument_list|,
-operator|(
-operator|(
-name|RegionScannerImpl
-operator|)
 name|is
-operator|)
 operator|.
 name|storeHeap
 operator|.
@@ -41012,7 +40996,7 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
-name|RegionScanner
+name|RegionScannerImpl
 name|scanner
 init|=
 name|region
@@ -41140,12 +41124,7 @@ call|(
 name|StoreScanner
 call|)
 argument_list|(
-operator|(
-operator|(
-name|RegionScannerImpl
-operator|)
 name|scanner
-operator|)
 operator|.
 name|storeHeap
 argument_list|)
