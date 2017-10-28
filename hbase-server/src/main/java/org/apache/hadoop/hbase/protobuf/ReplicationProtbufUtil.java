@@ -139,7 +139,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellUtil
+name|HConstants
 import|;
 end_import
 
@@ -153,7 +153,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
+name|PrivateCellUtil
 import|;
 end_import
 
@@ -989,7 +989,7 @@ control|)
 block|{
 name|size
 operator|+=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|estimatedSerializedSizeOf
 argument_list|(

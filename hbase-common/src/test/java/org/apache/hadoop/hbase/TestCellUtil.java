@@ -67,16 +67,6 @@ name|java
 operator|.
 name|io
 operator|.
-name|DataOutputStream
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
 name|IOException
 import|;
 end_import
@@ -1160,7 +1150,7 @@ name|Assert
 operator|.
 name|assertTrue
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|overlappingKeys
 argument_list|(
@@ -1178,7 +1168,7 @@ name|Assert
 operator|.
 name|assertTrue
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|overlappingKeys
 argument_list|(
@@ -1196,7 +1186,7 @@ name|Assert
 operator|.
 name|assertTrue
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|overlappingKeys
 argument_list|(
@@ -1214,7 +1204,7 @@ name|Assert
 operator|.
 name|assertTrue
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|overlappingKeys
 argument_list|(
@@ -1232,7 +1222,7 @@ name|Assert
 operator|.
 name|assertTrue
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|overlappingKeys
 argument_list|(
@@ -1250,7 +1240,7 @@ name|Assert
 operator|.
 name|assertTrue
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|overlappingKeys
 argument_list|(
@@ -1268,7 +1258,7 @@ name|Assert
 operator|.
 name|assertTrue
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|overlappingKeys
 argument_list|(
@@ -1286,7 +1276,7 @@ name|Assert
 operator|.
 name|assertTrue
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|overlappingKeys
 argument_list|(
@@ -1304,7 +1294,7 @@ name|Assert
 operator|.
 name|assertTrue
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|overlappingKeys
 argument_list|(
@@ -1322,7 +1312,7 @@ name|Assert
 operator|.
 name|assertTrue
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|overlappingKeys
 argument_list|(
@@ -1340,7 +1330,7 @@ name|Assert
 operator|.
 name|assertTrue
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|overlappingKeys
 argument_list|(
@@ -1358,7 +1348,7 @@ name|Assert
 operator|.
 name|assertTrue
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|overlappingKeys
 argument_list|(
@@ -1376,7 +1366,7 @@ name|Assert
 operator|.
 name|assertTrue
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|overlappingKeys
 argument_list|(
@@ -1394,7 +1384,7 @@ name|Assert
 operator|.
 name|assertTrue
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|overlappingKeys
 argument_list|(
@@ -1412,7 +1402,7 @@ name|Assert
 operator|.
 name|assertTrue
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|overlappingKeys
 argument_list|(
@@ -1431,7 +1421,7 @@ name|Assert
 operator|.
 name|assertFalse
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|overlappingKeys
 argument_list|(
@@ -1449,7 +1439,7 @@ name|Assert
 operator|.
 name|assertFalse
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|overlappingKeys
 argument_list|(
@@ -1467,7 +1457,7 @@ name|Assert
 operator|.
 name|assertFalse
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|overlappingKeys
 argument_list|(
@@ -1485,7 +1475,7 @@ name|Assert
 operator|.
 name|assertFalse
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|overlappingKeys
 argument_list|(
@@ -1503,7 +1493,7 @@ name|Assert
 operator|.
 name|assertFalse
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|overlappingKeys
 argument_list|(
@@ -1521,7 +1511,7 @@ name|Assert
 operator|.
 name|assertFalse
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|overlappingKeys
 argument_list|(
@@ -1539,7 +1529,7 @@ name|Assert
 operator|.
 name|assertFalse
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|overlappingKeys
 argument_list|(
@@ -1557,7 +1547,7 @@ name|Assert
 operator|.
 name|assertFalse
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|overlappingKeys
 argument_list|(
@@ -1575,7 +1565,7 @@ name|Assert
 operator|.
 name|assertFalse
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|overlappingKeys
 argument_list|(
@@ -1593,7 +1583,7 @@ name|Assert
 operator|.
 name|assertFalse
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|overlappingKeys
 argument_list|(
@@ -1611,7 +1601,7 @@ name|Assert
 operator|.
 name|assertFalse
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|overlappingKeys
 argument_list|(
@@ -1629,7 +1619,7 @@ name|Assert
 operator|.
 name|assertFalse
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|overlappingKeys
 argument_list|(
@@ -1647,7 +1637,7 @@ name|Assert
 operator|.
 name|assertFalse
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|overlappingKeys
 argument_list|(
@@ -1665,7 +1655,7 @@ name|Assert
 operator|.
 name|assertFalse
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|overlappingKeys
 argument_list|(
@@ -1721,7 +1711,7 @@ operator|.
 name|getKeyLength
 argument_list|()
 argument_list|,
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|findCommonPrefixInFlatKey
 argument_list|(
@@ -1744,7 +1734,7 @@ operator|.
 name|getKeyLength
 argument_list|()
 argument_list|,
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|findCommonPrefixInFlatKey
 argument_list|(
@@ -1771,7 +1761,7 @@ name|KeyValue
 operator|.
 name|TIMESTAMP_TYPE_SIZE
 argument_list|,
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|findCommonPrefixInFlatKey
 argument_list|(
@@ -1816,7 +1806,7 @@ name|assertEquals
 argument_list|(
 literal|1
 argument_list|,
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|findCommonPrefixInFlatKey
 argument_list|(
@@ -1870,7 +1860,7 @@ argument_list|()
 operator|.
 name|length
 argument_list|,
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|findCommonPrefixInFlatKey
 argument_list|(
@@ -1933,7 +1923,7 @@ argument_list|()
 operator|.
 name|length
 argument_list|,
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|findCommonPrefixInFlatKey
 argument_list|(
@@ -1999,7 +1989,7 @@ operator|.
 name|getQualifierLength
 argument_list|()
 argument_list|,
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|findCommonPrefixInFlatKey
 argument_list|(
@@ -2072,7 +2062,7 @@ argument_list|()
 operator|+
 literal|7
 argument_list|,
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|findCommonPrefixInFlatKey
 argument_list|(
@@ -2136,7 +2126,7 @@ name|KeyValue
 operator|.
 name|TIMESTAMP_SIZE
 argument_list|,
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|findCommonPrefixInFlatKey
 argument_list|(
@@ -2178,7 +2168,7 @@ operator|.
 name|getQualifierLength
 argument_list|()
 argument_list|,
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|findCommonPrefixInFlatKey
 argument_list|(
@@ -2840,9 +2830,9 @@ operator|.
 name|length
 index|]
 decl_stmt|;
-name|CellUtil
+name|PrivateCellUtil
 operator|.
-name|copyTagTo
+name|copyTagsTo
 argument_list|(
 name|bbCell
 argument_list|,
@@ -3091,7 +3081,7 @@ name|assertTrue
 argument_list|(
 name|CellUtil
 operator|.
-name|matchingRow
+name|matchingRows
 argument_list|(
 name|bbCell1
 argument_list|,
@@ -3381,7 +3371,7 @@ name|assertEquals
 argument_list|(
 name|ri
 argument_list|,
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|getRowAsInt
 argument_list|(
@@ -3393,7 +3383,7 @@ name|assertEquals
 argument_list|(
 name|vl
 argument_list|,
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|getValueAsLong
 argument_list|(
@@ -3460,7 +3450,7 @@ name|assertEquals
 argument_list|(
 name|vd
 argument_list|,
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|getValueAsDouble
 argument_list|(
@@ -3533,7 +3523,7 @@ name|assertEquals
 argument_list|(
 name|bd
 argument_list|,
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|getValueAsBigDecimal
 argument_list|(
@@ -3671,7 +3661,7 @@ decl_stmt|;
 name|int
 name|writeCell
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|writeCell
 argument_list|(

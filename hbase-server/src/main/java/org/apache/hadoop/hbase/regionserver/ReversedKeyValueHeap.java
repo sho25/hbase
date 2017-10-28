@@ -428,7 +428,7 @@ condition|(
 operator|(
 name|CellUtil
 operator|.
-name|matchingRow
+name|matchingRows
 argument_list|(
 name|seekKey
 argument_list|,

@@ -107,7 +107,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellUtil
+name|PrivateCellUtil
 import|;
 end_import
 
@@ -297,7 +297,7 @@ argument_list|,
 literal|0
 argument_list|)
 expr_stmt|;
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|writeFlatKey
 argument_list|(
@@ -316,7 +316,7 @@ comment|// find a common prefix and skip it
 name|int
 name|common
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|findCommonPrefixInFlatKey
 argument_list|(
@@ -371,7 +371,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// Write the value part
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|writeValue
 argument_list|(
@@ -451,7 +451,7 @@ condition|)
 block|{
 comment|// Previous and current rows are different. Need to write the differing part followed by
 comment|// cf,q,ts and type
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|writeRowKeyExcludingCommon
 argument_list|(
@@ -479,7 +479,7 @@ argument_list|(
 name|fLen
 argument_list|)
 expr_stmt|;
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|writeFamily
 argument_list|(
@@ -490,7 +490,7 @@ argument_list|,
 name|fLen
 argument_list|)
 expr_stmt|;
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|writeQualifier
 argument_list|(
@@ -586,7 +586,7 @@ operator|>
 literal|0
 condition|)
 block|{
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|writeQualifierSkippingBytes
 argument_list|(

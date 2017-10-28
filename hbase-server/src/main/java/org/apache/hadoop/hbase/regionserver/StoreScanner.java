@@ -221,6 +221,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|PrivateCellUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|KeyValue
 import|;
 end_import
@@ -2161,7 +2175,7 @@ condition|)
 block|{
 name|totalScannersSoughtBytes
 operator|+=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|estimatedSerializedSizeOf
 argument_list|(
@@ -2880,7 +2894,7 @@ expr_stmt|;
 name|int
 name|cellSize
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|estimatedSerializedSizeOf
 argument_list|(
@@ -3059,7 +3073,7 @@ name|incrementSizeProgress
 argument_list|(
 name|cellSize
 argument_list|,
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|estimatedHeapSizeOf
 argument_list|(
@@ -4408,7 +4422,7 @@ block|{
 return|return
 name|reseek
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createLastOnRow
 argument_list|(

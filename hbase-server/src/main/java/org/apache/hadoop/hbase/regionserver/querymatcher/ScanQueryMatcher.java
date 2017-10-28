@@ -115,6 +115,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|PrivateCellUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|KeyValue
 import|;
 end_import
@@ -541,7 +555,7 @@ name|Tag
 argument_list|>
 name|i
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|tagsIterator
 argument_list|(
@@ -980,7 +994,7 @@ block|{
 name|Cell
 name|nextKey
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createNextOnRowCol
 argument_list|(
@@ -1017,7 +1031,7 @@ literal|null
 condition|)
 block|{
 return|return
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createLastOnRowCol
 argument_list|(
@@ -1028,7 +1042,7 @@ block|}
 else|else
 block|{
 return|return
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createFirstOnRowCol
 argument_list|(
@@ -1065,7 +1079,7 @@ name|currentCell
 parameter_list|)
 block|{
 return|return
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compareKeyBasedOnColHint
 argument_list|(
@@ -1126,7 +1140,7 @@ literal|null
 condition|)
 block|{
 return|return
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compareKeyBasedOnColHint
 argument_list|(
@@ -1162,7 +1176,7 @@ block|}
 else|else
 block|{
 return|return
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compareKeyBasedOnColHint
 argument_list|(
@@ -1252,7 +1266,7 @@ name|this
 operator|.
 name|currentRow
 operator|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createFirstOnRow
 argument_list|(
@@ -1295,7 +1309,7 @@ name|scanInfo
 parameter_list|)
 block|{
 return|return
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createFirstDeleteFamilyCellOnRow
 argument_list|(

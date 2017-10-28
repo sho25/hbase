@@ -65,20 +65,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -849,7 +835,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Key
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|writeFlatKey
 argument_list|(

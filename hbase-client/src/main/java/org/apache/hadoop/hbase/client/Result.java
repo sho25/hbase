@@ -255,6 +255,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|PrivateCellUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|KeyValue
 import|;
 end_import
@@ -1103,7 +1117,7 @@ decl_stmt|;
 name|Cell
 name|searchTerm
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createFirstOnRow
 argument_list|(
@@ -1602,7 +1616,7 @@ return|;
 block|}
 if|if
 condition|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|matchingColumn
 argument_list|(
@@ -3424,7 +3438,7 @@ control|)
 block|{
 name|size
 operator|+=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|estimatedHeapSizeOf
 argument_list|(

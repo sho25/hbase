@@ -554,7 +554,7 @@ decl_stmt|;
 name|assertTrue
 argument_list|(
 operator|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compare
 argument_list|(
@@ -612,7 +612,7 @@ expr_stmt|;
 name|assertTrue
 argument_list|(
 operator|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compare
 argument_list|(
@@ -674,7 +674,7 @@ expr_stmt|;
 name|assertTrue
 argument_list|(
 operator|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compare
 argument_list|(
@@ -740,7 +740,7 @@ expr_stmt|;
 name|assertTrue
 argument_list|(
 operator|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compare
 argument_list|(
@@ -806,7 +806,7 @@ expr_stmt|;
 name|assertTrue
 argument_list|(
 operator|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compare
 argument_list|(

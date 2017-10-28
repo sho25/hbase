@@ -2363,7 +2363,7 @@ if|if
 condition|(
 name|CellUtil
 operator|.
-name|matchingRow
+name|matchingRows
 argument_list|(
 name|current
 argument_list|,
@@ -2528,7 +2528,7 @@ if|if
 condition|(
 name|CellUtil
 operator|.
-name|matchingRow
+name|matchingRows
 argument_list|(
 name|current
 argument_list|,

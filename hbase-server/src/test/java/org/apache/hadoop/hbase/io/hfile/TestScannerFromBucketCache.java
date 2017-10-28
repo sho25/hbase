@@ -179,20 +179,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellUtil
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HBaseTestingUtility
 import|;
 end_import
@@ -208,6 +194,20 @@ operator|.
 name|hbase
 operator|.
 name|HRegionInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|PrivateCellUtil
 import|;
 end_import
 
@@ -919,7 +919,7 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|equalsIgnoreMvccVersion
 argument_list|(
@@ -983,7 +983,7 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|equalsIgnoreMvccVersion
 argument_list|(
@@ -1203,7 +1203,7 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|equalsIgnoreMvccVersion
 argument_list|(
@@ -1275,7 +1275,7 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|equalsIgnoreMvccVersion
 argument_list|(
@@ -1501,7 +1501,7 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|equalsIgnoreMvccVersion
 argument_list|(
@@ -1836,7 +1836,7 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|equalsIgnoreMvccVersion
 argument_list|(
@@ -1900,7 +1900,7 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|equalsIgnoreMvccVersion
 argument_list|(

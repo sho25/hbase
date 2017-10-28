@@ -499,6 +499,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|PrivateCellUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|MultiActionResultTooLarge
 import|;
 end_import
@@ -6994,7 +7008,7 @@ block|{
 name|int
 name|size
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|estimatedSerializedSizeOf
 argument_list|(
@@ -9083,7 +9097,7 @@ name|context
 operator|.
 name|incrementResponseCellSize
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|estimatedSerializedSizeOf
 argument_list|(
@@ -18558,7 +18572,7 @@ operator|&&
 operator|!
 name|CellUtil
 operator|.
-name|matchingRow
+name|matchingRows
 argument_list|(
 name|values
 operator|.
@@ -18618,7 +18632,7 @@ operator|&&
 operator|!
 name|CellUtil
 operator|.
-name|matchingRow
+name|matchingRows
 argument_list|(
 name|values
 operator|.

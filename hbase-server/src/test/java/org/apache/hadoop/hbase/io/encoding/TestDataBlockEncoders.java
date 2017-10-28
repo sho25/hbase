@@ -281,6 +281,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|PrivateCellUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|KeyValue
 import|;
 end_import
@@ -1704,7 +1718,7 @@ decl_stmt|;
 name|Cell
 name|lastMidKv
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createLastOnRowCol
 argument_list|(
@@ -2090,7 +2104,7 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compareKeyIgnoresMvcc
 argument_list|(
@@ -2109,7 +2123,7 @@ block|{
 name|int
 name|commonPrefix
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|findCommonPrefixInFlatKey
 argument_list|(
@@ -2313,7 +2327,7 @@ if|if
 condition|(
 literal|0
 operator|!=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compareKeyIgnoresMvcc
 argument_list|(
@@ -2330,7 +2344,7 @@ block|{
 name|int
 name|commonPrefix
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|findCommonPrefixInFlatKey
 argument_list|(
@@ -2445,7 +2459,7 @@ name|byte
 index|[]
 name|serializedKey
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|getCellKeySerializedAsKeyValueKey
 argument_list|(

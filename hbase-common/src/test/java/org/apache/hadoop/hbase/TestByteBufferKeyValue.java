@@ -1364,7 +1364,7 @@ expr_stmt|;
 name|Tag
 name|res
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|getTag
 argument_list|(
@@ -1395,7 +1395,7 @@ argument_list|)
 expr_stmt|;
 name|res
 operator|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|getTag
 argument_list|(

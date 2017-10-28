@@ -241,6 +241,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|PrivateCellUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|KeyValue
 import|;
 end_import
@@ -921,7 +935,7 @@ comment|// Seek before the first keyvalue;
 name|Cell
 name|seekKey
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createFirstDeleteFamilyCellOnRow
 argument_list|(
@@ -957,7 +971,7 @@ expr_stmt|;
 comment|// Seek before the middle keyvalue;
 name|seekKey
 operator|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createFirstDeleteFamilyCellOnRow
 argument_list|(
@@ -1017,7 +1031,7 @@ expr_stmt|;
 comment|// Seek before the last keyvalue;
 name|seekKey
 operator|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createFirstDeleteFamilyCellOnRow
 argument_list|(

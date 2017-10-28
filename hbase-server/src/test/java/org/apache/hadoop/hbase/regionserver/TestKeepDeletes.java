@@ -203,6 +203,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|PrivateCellUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|KeepDeletedCells
 import|;
 end_import
@@ -2145,7 +2159,7 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|isDeleteFamily
 argument_list|(
@@ -2243,7 +2257,7 @@ expr_stmt|;
 comment|// we have 3 CFs, so there are two more delete markers
 name|assertTrue
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|isDeleteFamily
 argument_list|(
@@ -2258,7 +2272,7 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|isDeleteFamily
 argument_list|(
@@ -2396,7 +2410,7 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|isDeleteFamily
 argument_list|(
@@ -2429,7 +2443,7 @@ expr_stmt|;
 comment|// we have 3 CFs
 name|assertTrue
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|isDeleteFamily
 argument_list|(
@@ -2444,7 +2458,7 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|isDeleteFamily
 argument_list|(

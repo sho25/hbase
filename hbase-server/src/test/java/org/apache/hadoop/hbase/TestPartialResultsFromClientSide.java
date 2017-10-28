@@ -2114,7 +2114,7 @@ comment|// estimated differently in case the cell is backed up by MSLAB byte[] (
 comment|// backing array). Thus below calculation is a bit brittle.
 name|CELL_HEAP_SIZE
 operator|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|estimatedHeapSizeOf
 argument_list|(

@@ -63,7 +63,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellUtil
+name|PrivateCellUtil
 import|;
 end_import
 
@@ -224,7 +224,7 @@ operator|>
 literal|0
 condition|)
 block|{
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|writeTags
 argument_list|(

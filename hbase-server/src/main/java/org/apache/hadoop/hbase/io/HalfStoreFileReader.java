@@ -197,6 +197,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|PrivateCellUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|KeyValue
 import|;
 end_import
@@ -968,7 +982,7 @@ condition|)
 block|{
 if|if
 condition|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compareKeyIgnoresMvcc
 argument_list|(
@@ -993,7 +1007,7 @@ else|else
 block|{
 if|if
 condition|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compareKeyIgnoresMvcc
 argument_list|(
@@ -1072,7 +1086,7 @@ condition|)
 block|{
 if|if
 condition|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compareKeyIgnoresMvcc
 argument_list|(
@@ -1097,7 +1111,7 @@ else|else
 block|{
 if|if
 condition|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compareKeyIgnoresMvcc
 argument_list|(
@@ -1192,7 +1206,7 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compareKeyIgnoresMvcc
 argument_list|(
@@ -1221,7 +1235,7 @@ comment|// The equals sign isn't strictly necessary just here to be consistent
 comment|// with seekTo
 if|if
 condition|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compareKeyIgnoresMvcc
 argument_list|(

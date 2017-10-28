@@ -81,7 +81,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellUtil
+name|PrivateCellUtil
 import|;
 end_import
 
@@ -522,7 +522,7 @@ comment|// It should never happen as the filterCell should return NEXT_COL
 comment|// but it's always better to be extra safe and protect against future
 comment|// behavioral changes.
 return|return
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createLastOnRowCol
 argument_list|(
@@ -539,7 +539,7 @@ init|=
 name|nextTimestampObject
 decl_stmt|;
 return|return
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createFirstOnRowColTS
 argument_list|(

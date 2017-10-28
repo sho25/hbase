@@ -12407,7 +12407,7 @@ operator|||
 operator|!
 name|CellUtil
 operator|.
-name|matchingRow
+name|matchingRows
 argument_list|(
 name|previousCell
 argument_list|,

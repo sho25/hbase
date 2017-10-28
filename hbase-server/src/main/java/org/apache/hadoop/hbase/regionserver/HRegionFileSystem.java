@@ -277,7 +277,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellUtil
+name|HConstants
 import|;
 end_import
 
@@ -291,7 +291,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
+name|PrivateCellUtil
 import|;
 end_import
 
@@ -2787,7 +2787,7 @@ comment|//check if larger than last key.
 name|Cell
 name|splitKey
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createFirstOnRow
 argument_list|(
@@ -2850,7 +2850,7 @@ comment|//check if smaller than first key
 name|Cell
 name|splitKey
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createLastOnRow
 argument_list|(

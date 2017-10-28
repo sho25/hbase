@@ -1172,7 +1172,7 @@ name|Tag
 argument_list|>
 name|itr
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|tagsIterator
 argument_list|(

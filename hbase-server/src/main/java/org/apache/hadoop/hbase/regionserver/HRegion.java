@@ -919,6 +919,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|PrivateCellUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|KeyValue
 import|;
 end_import
@@ -14221,7 +14235,7 @@ name|HConstants
 operator|.
 name|LATEST_TIMESTAMP
 operator|&&
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|isDeleteType
 argument_list|(
@@ -14374,7 +14388,7 @@ block|}
 block|}
 else|else
 block|{
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|updateLatestStamp
 argument_list|(
@@ -14432,7 +14446,7 @@ name|count
 condition|)
 block|{
 comment|// Nothing to delete
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|updateLatestStamp
 argument_list|(
@@ -14480,7 +14494,7 @@ operator|-
 literal|1
 argument_list|)
 decl_stmt|;
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|setTimestamp
 argument_list|(
@@ -18336,7 +18350,7 @@ expr_stmt|;
 name|int
 name|compareResult
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compareValue
 argument_list|(
@@ -18915,7 +18929,7 @@ range|:
 name|cells
 control|)
 block|{
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|setSequenceId
 argument_list|(
@@ -18996,7 +19010,7 @@ name|i
 operator|++
 control|)
 block|{
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|updateLatestStamp
 argument_list|(
@@ -19160,7 +19174,7 @@ name|set
 argument_list|(
 name|i
 argument_list|,
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createCell
 argument_list|(
@@ -21245,7 +21259,7 @@ operator|++
 expr_stmt|;
 continue|continue;
 block|}
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|setSequenceId
 argument_list|(
@@ -29508,7 +29522,7 @@ literal|null
 operator|&&
 name|CellUtil
 operator|.
-name|matchingRow
+name|matchingRows
 argument_list|(
 name|nextKv
 argument_list|,
@@ -30127,14 +30141,14 @@ name|scannerContext
 operator|.
 name|incrementSizeProgress
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|estimatedSerializedSizeOf
 argument_list|(
 name|cell
 argument_list|)
 argument_list|,
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|estimatedHeapSizeOf
 argument_list|(
@@ -30515,7 +30529,7 @@ literal|null
 operator|&&
 name|CellUtil
 operator|.
-name|matchingRow
+name|matchingRows
 argument_list|(
 name|nextJoinedKv
 argument_list|,
@@ -30538,7 +30552,7 @@ block|{
 name|Cell
 name|firstOnCurrentRow
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createFirstOnRow
 argument_list|(
@@ -30574,7 +30588,7 @@ literal|null
 operator|&&
 name|CellUtil
 operator|.
-name|matchingRow
+name|matchingRows
 argument_list|(
 name|joinedHeap
 operator|.
@@ -30685,7 +30699,7 @@ literal|null
 operator|&&
 name|CellUtil
 operator|.
-name|matchingRow
+name|matchingRows
 argument_list|(
 name|next
 argument_list|,
@@ -30911,7 +30925,7 @@ expr_stmt|;
 name|Cell
 name|kv
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createFirstOnRow
 argument_list|(
@@ -33946,7 +33960,7 @@ condition|)
 block|{
 comment|// If walEdit is empty, we put nothing in WAL. WAL stamps Cells with sequence id.
 comment|// If no WAL, need to stamp it here.
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|setSequenceId
 argument_list|(
@@ -36382,7 +36396,7 @@ return|;
 block|}
 else|else
 block|{
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|updateLatestStamp
 argument_list|(
@@ -36401,7 +36415,7 @@ argument_list|)
 condition|?
 name|delta
 else|:
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createCell
 argument_list|(
@@ -36456,7 +36470,7 @@ argument_list|)
 throw|;
 block|}
 return|return
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|getValueAsLong
 argument_list|(

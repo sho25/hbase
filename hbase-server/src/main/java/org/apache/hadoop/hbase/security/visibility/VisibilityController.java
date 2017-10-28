@@ -327,20 +327,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellUtil
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|CoprocessorEnvironment
 import|;
 end_import
@@ -412,6 +398,20 @@ operator|.
 name|hbase
 operator|.
 name|HTableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|PrivateCellUtil
 import|;
 end_import
 
@@ -514,22 +514,6 @@ operator|.
 name|client
 operator|.
 name|Append
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|ColumnFamilyDescriptor
 import|;
 end_import
 
@@ -2850,7 +2834,7 @@ name|Tag
 argument_list|>
 name|tags
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|getTags
 argument_list|(
@@ -2879,7 +2863,7 @@ expr_stmt|;
 name|Cell
 name|updatedCell
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createCell
 argument_list|(
@@ -3151,7 +3135,7 @@ argument_list|()
 condition|)
 block|{
 comment|// Nothing to delete
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|updateLatestStamp
 argument_list|(
@@ -3207,7 +3191,7 @@ operator|-
 literal|1
 argument_list|)
 decl_stmt|;
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|setTimestamp
 argument_list|(
@@ -3313,7 +3297,7 @@ name|Tag
 argument_list|>
 name|tagsIterator
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|tagsIterator
 argument_list|(
@@ -3379,7 +3363,7 @@ name|Tag
 argument_list|>
 name|tagsItr
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|tagsIterator
 argument_list|(
@@ -3458,7 +3442,7 @@ name|Tag
 argument_list|>
 name|tagsItr
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|tagsIterator
 argument_list|(
@@ -4539,7 +4523,7 @@ name|Tag
 argument_list|>
 name|tagsItr
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|tagsIterator
 argument_list|(
@@ -4595,7 +4579,7 @@ block|}
 name|Cell
 name|rewriteCell
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createCell
 argument_list|(

@@ -405,6 +405,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|PrivateCellUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|Tag
 import|;
 end_import
@@ -1409,7 +1423,7 @@ name|getValueLength
 argument_list|()
 argument_list|)
 argument_list|,
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|getRowAsInt
 argument_list|(
@@ -1485,7 +1499,7 @@ name|auths
 operator|.
 name|add
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|getRowAsInt
 argument_list|(
@@ -2535,7 +2549,7 @@ decl_stmt|;
 name|int
 name|ordinal
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|getRowAsInt
 argument_list|(
@@ -2781,7 +2795,7 @@ decl_stmt|;
 name|int
 name|ordinal
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|getRowAsInt
 argument_list|(
@@ -3424,7 +3438,7 @@ name|Tag
 argument_list|>
 name|tagsItr
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|tagsIterator
 argument_list|(

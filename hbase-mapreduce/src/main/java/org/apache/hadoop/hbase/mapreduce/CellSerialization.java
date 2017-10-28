@@ -91,21 +91,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellUtil
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|ExtendedCell
+name|PrivateCellUtil
 import|;
 end_import
 
@@ -440,7 +426,7 @@ name|dos
 operator|.
 name|writeInt
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|estimatedSerializedSizeOf
 argument_list|(
@@ -452,7 +438,7 @@ operator|.
 name|SIZEOF_INT
 argument_list|)
 expr_stmt|;
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|writeCell
 argument_list|(

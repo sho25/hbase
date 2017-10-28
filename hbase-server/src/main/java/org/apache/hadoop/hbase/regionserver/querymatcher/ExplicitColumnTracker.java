@@ -87,6 +87,20 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|PrivateCellUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -296,7 +310,7 @@ comment|// delete markers should never be passed to an
 comment|// *Explicit*ColumnTracker
 assert|assert
 operator|!
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|isDelete
 argument_list|(
@@ -482,7 +496,7 @@ name|IOException
 block|{
 assert|assert
 operator|!
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|isDelete
 argument_list|(

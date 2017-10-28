@@ -99,7 +99,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellUtil
+name|PrivateCellUtil
 import|;
 end_import
 
@@ -607,7 +607,7 @@ block|{
 name|Cell
 name|firstKeyOnRow
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createFirstOnRow
 argument_list|(
@@ -660,7 +660,7 @@ block|}
 name|Cell
 name|firstKeyOnPreviousRow
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createFirstOnRow
 argument_list|(
@@ -782,7 +782,7 @@ block|}
 name|Cell
 name|firstCellOnLastRow
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createFirstOnRow
 argument_list|(

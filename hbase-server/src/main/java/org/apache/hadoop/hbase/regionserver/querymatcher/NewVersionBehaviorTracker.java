@@ -161,6 +161,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|PrivateCellUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|KeyValue
 operator|.
 name|Type
@@ -801,7 +815,7 @@ block|{
 name|boolean
 name|matchCq
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|matchingQualifier
 argument_list|(
@@ -874,7 +888,7 @@ condition|(
 name|matchCq
 operator|&&
 operator|!
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|isDelete
 argument_list|(
@@ -1584,7 +1598,7 @@ name|IOException
 block|{
 assert|assert
 operator|!
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|isDelete
 argument_list|(

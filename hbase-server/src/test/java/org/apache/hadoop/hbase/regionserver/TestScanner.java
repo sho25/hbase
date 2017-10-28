@@ -1147,7 +1147,7 @@ name|assertTrue
 argument_list|(
 name|CellUtil
 operator|.
-name|matchingRow
+name|matchingRows
 argument_list|(
 name|kv
 argument_list|,
@@ -3197,7 +3197,7 @@ name|assertTrue
 argument_list|(
 name|CellUtil
 operator|.
-name|matchingRow
+name|matchingRows
 argument_list|(
 name|results
 operator|.
@@ -3256,7 +3256,7 @@ name|assertTrue
 argument_list|(
 name|CellUtil
 operator|.
-name|matchingRow
+name|matchingRows
 argument_list|(
 name|results
 operator|.

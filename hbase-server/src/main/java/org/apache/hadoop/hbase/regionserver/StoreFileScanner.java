@@ -163,20 +163,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellUtil
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HBaseInterfaceAudience
 import|;
 end_import
@@ -192,6 +178,20 @@ operator|.
 name|hbase
 operator|.
 name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|PrivateCellUtil
 import|;
 end_import
 
@@ -1338,7 +1338,7 @@ name|isSkipResetSeqId
 argument_list|()
 condition|)
 block|{
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|setSequenceId
 argument_list|(
@@ -1725,14 +1725,14 @@ name|canOptimizeForNonNullColumn
 operator|&&
 operator|(
 operator|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|isDeleteFamily
 argument_list|(
 name|kv
 argument_list|)
 operator|||
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|isDeleteFamilyVersion
 argument_list|(
@@ -1818,7 +1818,7 @@ comment|// the next point when we have to consider this file again is when we
 comment|// pass the max timestamp of this file (with the same row/column).
 name|setCurrentCell
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createFirstOnRowColTS
 argument_list|(
@@ -1854,7 +1854,7 @@ comment|// is obviously not a "real real" seek, but unlike the fake KV earlier i
 comment|// this method, we want this to be propagated to ScanQueryMatcher.
 name|setCurrentCell
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createLastOnRowCol
 argument_list|(
@@ -2112,7 +2112,7 @@ block|{
 name|Cell
 name|seekKey
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createFirstOnRow
 argument_list|(
@@ -2162,7 +2162,7 @@ decl_stmt|;
 name|Cell
 name|firstKeyOfPreviousRow
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createFirstOnRow
 argument_list|(
@@ -2358,7 +2358,7 @@ block|}
 name|Cell
 name|seekKey
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createFirstOnRow
 argument_list|(

@@ -359,6 +359,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|PrivateCellUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|KeepDeletedCells
 import|;
 end_import
@@ -1678,7 +1692,7 @@ argument_list|()
 operator|>
 name|CELL_GRID_BLOCK4_BOUNDARY
 condition|?
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createFirstOnRow
 argument_list|(
@@ -1695,7 +1709,7 @@ argument_list|()
 operator|>
 name|CELL_GRID_BLOCK3_BOUNDARY
 condition|?
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createFirstOnRow
 argument_list|(
@@ -1712,7 +1726,7 @@ argument_list|()
 operator|>
 name|CELL_GRID_BLOCK2_BOUNDARY
 condition|?
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createFirstOnRow
 argument_list|(
@@ -1722,7 +1736,7 @@ name|CELL_GRID_BLOCK3_BOUNDARY
 index|]
 argument_list|)
 else|:
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createFirstOnRow
 argument_list|(
@@ -2028,7 +2042,7 @@ parameter_list|()
 block|{
 comment|// Fake block boundaries by having index of next block change as we go through scan.
 return|return
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createFirstOnRow
 argument_list|(

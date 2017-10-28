@@ -339,6 +339,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|PrivateCellUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|TableName
 import|;
 end_import
@@ -1251,7 +1265,7 @@ block|{
 name|Tag
 name|tag
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|getTag
 argument_list|(
@@ -1293,7 +1307,7 @@ literal|0
 condition|)
 block|{
 return|return
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|getTag
 argument_list|(
@@ -2491,7 +2505,7 @@ name|fileName
 argument_list|)
 decl_stmt|;
 return|return
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createCell
 argument_list|(
@@ -3503,7 +3517,7 @@ name|cell
 parameter_list|)
 block|{
 return|return
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|getValueAsInt
 argument_list|(
@@ -4013,7 +4027,7 @@ name|cell
 parameter_list|)
 block|{
 return|return
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createCell
 argument_list|(

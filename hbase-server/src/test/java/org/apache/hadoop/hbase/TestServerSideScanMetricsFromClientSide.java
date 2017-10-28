@@ -975,7 +975,7 @@ argument_list|)
 expr_stmt|;
 name|CELL_HEAP_SIZE
 operator|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|estimatedHeapSizeOf
 argument_list|(

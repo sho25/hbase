@@ -107,7 +107,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellUtil
+name|PrivateCellUtil
 import|;
 end_import
 
@@ -1388,7 +1388,7 @@ argument_list|,
 literal|0
 argument_list|)
 expr_stmt|;
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|writeFlatKey
 argument_list|(
@@ -1401,7 +1401,7 @@ name|out
 argument_list|)
 expr_stmt|;
 comment|// Write the value part
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|writeValue
 argument_list|(
@@ -1440,7 +1440,7 @@ comment|// find a common prefix and skip it
 name|int
 name|commonPrefix
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|findCommonPrefixInFlatKey
 argument_list|(
@@ -1544,7 +1544,7 @@ name|vLength
 operator|==
 name|preValLength
 operator|&&
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|matchingValue
 argument_list|(
@@ -1642,7 +1642,7 @@ condition|)
 block|{
 comment|// Previous and current rows are different. Copy the differing part of
 comment|// the row, skip the column family, and copy the qualifier.
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|writeRowKeyExcludingCommon
 argument_list|(
@@ -1655,7 +1655,7 @@ argument_list|,
 name|out
 argument_list|)
 expr_stmt|;
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|writeQualifier
 argument_list|(
@@ -1700,7 +1700,7 @@ operator|.
 name|FAMILY_LENGTH_SIZE
 operator|)
 decl_stmt|;
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|writeQualifierSkippingBytes
 argument_list|(
@@ -1768,7 +1768,7 @@ operator|==
 literal|0
 condition|)
 block|{
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|writeValue
 argument_list|(

@@ -149,7 +149,7 @@ decl_stmt|;
 name|Cell
 name|trCell
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createCell
 argument_list|(
@@ -182,7 +182,7 @@ comment|// VisibilityController and AccessController)
 name|Cell
 name|trCell2
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createCell
 argument_list|(

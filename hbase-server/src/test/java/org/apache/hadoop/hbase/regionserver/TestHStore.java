@@ -653,6 +653,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|PrivateCellUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|KeyValue
 import|;
 end_import
@@ -7473,7 +7487,7 @@ operator|.
 name|build
 argument_list|()
 decl_stmt|;
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|setSequenceId
 argument_list|(
@@ -7546,7 +7560,7 @@ operator|.
 name|build
 argument_list|()
 decl_stmt|;
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|setSequenceId
 argument_list|(
@@ -7632,7 +7646,7 @@ operator|.
 name|build
 argument_list|()
 decl_stmt|;
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|setSequenceId
 argument_list|(
@@ -8137,7 +8151,7 @@ operator|.
 name|build
 argument_list|()
 decl_stmt|;
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|setSequenceId
 argument_list|(

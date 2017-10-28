@@ -75,7 +75,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellUtil
+name|PrivateCellUtil
 import|;
 end_import
 
@@ -228,7 +228,7 @@ name|map
 operator|.
 name|add
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|deepClone
 argument_list|(

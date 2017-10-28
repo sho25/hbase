@@ -117,7 +117,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellUtil
+name|HBaseTestingUtility
 import|;
 end_import
 
@@ -131,7 +131,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HBaseTestingUtility
+name|PrivateCellUtil
 import|;
 end_import
 
@@ -1085,7 +1085,7 @@ name|mapToLong
 argument_list|(
 name|c
 lambda|->
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|estimatedSerializedSizeOf
 argument_list|(

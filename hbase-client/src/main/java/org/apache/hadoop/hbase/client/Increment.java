@@ -458,7 +458,7 @@ condition|(
 operator|!
 name|CellUtil
 operator|.
-name|matchingRow
+name|matchingRows
 argument_list|(
 name|cell
 argument_list|,

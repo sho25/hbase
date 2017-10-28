@@ -109,6 +109,20 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|PrivateCellUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -884,7 +898,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|setSequenceId
 argument_list|(
@@ -906,7 +920,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|setTimestamp
 argument_list|(
@@ -932,7 +946,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|setTimestamp
 argument_list|(
@@ -952,7 +966,7 @@ name|heapSize
 parameter_list|()
 block|{
 return|return
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|estimatedHeapSizeOf
 argument_list|(
@@ -976,7 +990,7 @@ throws|throws
 name|IOException
 block|{
 return|return
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|writeCell
 argument_list|(
@@ -999,7 +1013,7 @@ name|withTags
 parameter_list|)
 block|{
 return|return
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|estimatedSerializedSizeOf
 argument_list|(
@@ -1024,7 +1038,7 @@ name|int
 name|offset
 parameter_list|)
 block|{
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|writeCellToBuffer
 argument_list|(
@@ -1049,7 +1063,7 @@ return|return
 operator|(
 name|ExtendedCell
 operator|)
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|deepClone
 argument_list|(

@@ -177,6 +177,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|PrivateCellUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|KeyValue
 import|;
 end_import
@@ -3627,7 +3641,7 @@ name|keyLength
 argument_list|)
 expr_stmt|;
 return|return
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compareKeyIgnoresMvcc
 argument_list|(
@@ -4985,7 +4999,7 @@ literal|null
 condition|)
 block|{
 comment|// Not passing tagsLength considering that parsing of the tagsLength is not costly
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compressTags
 argument_list|(
@@ -4999,7 +5013,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|writeTags
 argument_list|(

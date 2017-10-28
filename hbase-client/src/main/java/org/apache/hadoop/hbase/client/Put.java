@@ -1355,7 +1355,7 @@ condition|(
 operator|!
 name|CellUtil
 operator|.
-name|matchingRow
+name|matchingRows
 argument_list|(
 name|kv
 argument_list|,

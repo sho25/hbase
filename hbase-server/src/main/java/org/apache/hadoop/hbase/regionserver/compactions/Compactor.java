@@ -205,7 +205,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellUtil
+name|HConstants
 import|;
 end_import
 
@@ -219,7 +219,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
+name|PrivateCellUtil
 import|;
 end_import
 
@@ -2330,7 +2330,7 @@ operator|.
 name|getSequenceId
 argument_list|()
 expr_stmt|;
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|setSequenceId
 argument_list|(
@@ -2469,7 +2469,7 @@ block|{
 comment|// HBASE-16931, set back sequence id to avoid affecting scan order unexpectedly.
 comment|// ShipperListener will do a clone of the last cells it refer, so need to set back
 comment|// sequence id before ShipperListener.beforeShipped
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|setSequenceId
 argument_list|(
@@ -2516,7 +2516,7 @@ literal|null
 condition|)
 block|{
 comment|// HBASE-16931, set back sequence id to avoid affecting scan order unexpectedly
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|setSequenceId
 argument_list|(

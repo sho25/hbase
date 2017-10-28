@@ -6734,7 +6734,7 @@ name|right
 parameter_list|)
 block|{
 return|return
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compareKeyIgnoresMvcc
 argument_list|(
@@ -7814,7 +7814,7 @@ name|right
 parameter_list|)
 block|{
 return|return
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compareKeyIgnoresMvcc
 argument_list|(

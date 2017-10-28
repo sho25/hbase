@@ -680,7 +680,7 @@ operator|&&
 operator|!
 name|CellUtil
 operator|.
-name|matchingRow
+name|matchingRows
 argument_list|(
 name|lastCell
 argument_list|,

@@ -433,7 +433,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|PrivateCellUtil
 import|;
 end_import
 
@@ -447,7 +447,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValueUtil
+name|KeyValue
 import|;
 end_import
 
@@ -1799,7 +1799,7 @@ name|int
 name|length
 init|=
 operator|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|estimatedSerializedSizeOf
 argument_list|(
@@ -2355,7 +2355,7 @@ block|}
 block|}
 comment|// we now have the proper WAL writer. full steam ahead
 comment|// TODO : Currently in SettableTimeStamp but this will also move to ExtendedCell
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|updateLatestStamp
 argument_list|(

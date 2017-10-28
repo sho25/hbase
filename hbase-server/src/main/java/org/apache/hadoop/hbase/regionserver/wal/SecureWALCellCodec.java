@@ -145,7 +145,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellUtil
+name|PrivateCellUtil
 import|;
 end_import
 
@@ -1180,7 +1180,7 @@ argument_list|,
 name|rowLength
 argument_list|)
 expr_stmt|;
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|writeRow
 argument_list|(
@@ -1208,7 +1208,7 @@ argument_list|,
 name|familyLength
 argument_list|)
 expr_stmt|;
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|writeFamily
 argument_list|(
@@ -1236,7 +1236,7 @@ argument_list|,
 name|qualifierLength
 argument_list|)
 expr_stmt|;
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|writeQualifier
 argument_list|(
@@ -1270,7 +1270,7 @@ name|getTypeByte
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|writeValue
 argument_list|(
@@ -1291,7 +1291,7 @@ operator|>
 literal|0
 condition|)
 block|{
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|writeTags
 argument_list|(

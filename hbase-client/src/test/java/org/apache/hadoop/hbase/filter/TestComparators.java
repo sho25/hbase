@@ -103,6 +103,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|PrivateCellUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|KeyValue
 import|;
 end_import
@@ -373,7 +387,7 @@ name|assertEquals
 argument_list|(
 literal|0
 argument_list|,
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compareRow
 argument_list|(
@@ -387,7 +401,7 @@ name|assertEquals
 argument_list|(
 literal|0
 argument_list|,
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compareRow
 argument_list|(
@@ -440,7 +454,7 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compareRow
 argument_list|(
@@ -454,7 +468,7 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compareRow
 argument_list|(
@@ -509,7 +523,7 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compareRow
 argument_list|(
@@ -523,7 +537,7 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compareRow
 argument_list|(
@@ -553,7 +567,7 @@ name|assertEquals
 argument_list|(
 literal|0
 argument_list|,
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compareQualifier
 argument_list|(
@@ -567,7 +581,7 @@ name|assertEquals
 argument_list|(
 literal|0
 argument_list|,
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compareQualifier
 argument_list|(
@@ -622,7 +636,7 @@ name|assertEquals
 argument_list|(
 literal|0
 argument_list|,
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compareQualifier
 argument_list|(
@@ -636,7 +650,7 @@ name|assertEquals
 argument_list|(
 literal|0
 argument_list|,
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compareQualifier
 argument_list|(
@@ -689,7 +703,7 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compareQualifier
 argument_list|(
@@ -703,7 +717,7 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compareQualifier
 argument_list|(
@@ -728,7 +742,7 @@ name|assertEquals
 argument_list|(
 literal|0
 argument_list|,
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compareValue
 argument_list|(
@@ -742,7 +756,7 @@ name|assertEquals
 argument_list|(
 literal|0
 argument_list|,
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compareValue
 argument_list|(
@@ -795,7 +809,7 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compareValue
 argument_list|(
@@ -809,7 +823,7 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compareValue
 argument_list|(
@@ -834,7 +848,7 @@ name|assertEquals
 argument_list|(
 literal|0
 argument_list|,
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compareFamily
 argument_list|(
@@ -848,7 +862,7 @@ name|assertEquals
 argument_list|(
 literal|0
 argument_list|,
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compareFamily
 argument_list|(

@@ -283,6 +283,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|PrivateCellUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|KeyValueUtil
 import|;
 end_import
@@ -1139,7 +1153,7 @@ block|{
 name|int
 name|keyComp
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compareKeyIgnoresMvcc
 argument_list|(
@@ -1613,7 +1627,7 @@ name|dataBlockIndexWriter
 operator|.
 name|addEntry
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|getCellKeySerializedAsKeyValueKey
 argument_list|(
@@ -1884,7 +1898,7 @@ return|return
 name|right
 return|;
 return|return
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createFirstOnRow
 argument_list|(
@@ -2053,7 +2067,7 @@ name|right
 return|;
 comment|// Return new Cell where we use right row and then a mid sort family.
 return|return
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createFirstOnRowFamily
 argument_list|(
@@ -2230,7 +2244,7 @@ name|right
 return|;
 comment|// Return new Cell where we use right row and family and then a mid sort qualifier.
 return|return
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createFirstOnRowCol
 argument_list|(
@@ -3624,7 +3638,7 @@ argument_list|)
 expr_stmt|;
 name|totalKeyLength
 operator|+=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|estimatedSerializedSizeOfKey
 argument_list|(
@@ -3804,7 +3818,7 @@ name|byte
 index|[]
 name|lastKey
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|getCellKeySerializedAsKeyValueKey
 argument_list|(

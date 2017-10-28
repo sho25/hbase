@@ -75,7 +75,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellUtil
+name|PrivateCellUtil
 import|;
 end_import
 
@@ -786,7 +786,7 @@ name|cell
 parameter_list|)
 block|{
 return|return
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createFirstOnRowCol
 argument_list|(

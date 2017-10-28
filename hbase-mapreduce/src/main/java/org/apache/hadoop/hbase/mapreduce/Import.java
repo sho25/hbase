@@ -311,6 +311,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|PrivateCellUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|KeyValue
 import|;
 end_import
@@ -1087,7 +1101,7 @@ name|out
 operator|.
 name|writeInt
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|estimatedSerializedSizeOfKey
 argument_list|(
@@ -1102,7 +1116,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|writeFlatKey
 argument_list|(
@@ -1533,7 +1547,7 @@ name|filter
 operator|.
 name|filterRowKey
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createFirstOnRow
 argument_list|(
@@ -1935,7 +1949,7 @@ name|filter
 operator|.
 name|filterRowKey
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createFirstOnRow
 argument_list|(
@@ -2212,7 +2226,7 @@ name|filter
 operator|.
 name|filterRowKey
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|createFirstOnRow
 argument_list|(
@@ -2317,7 +2331,7 @@ comment|// Deletes and Puts are gathered and written when finished
 comment|/*          * If there are sequence of mutations and tombstones in an Export, and after Import the same          * sequence should be restored as it is. If we combine all Delete tombstones into single          * request then there is chance of ignoring few DeleteFamily tombstones, because if we          * submit multiple DeleteFamily tombstones in single Delete request then we are maintaining          * only newest in hbase table and ignoring other. Check - HBASE-12065          */
 if|if
 condition|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|isDeleteFamily
 argument_list|(

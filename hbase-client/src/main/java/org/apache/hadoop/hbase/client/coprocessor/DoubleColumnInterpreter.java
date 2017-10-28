@@ -53,7 +53,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellUtil
+name|HBaseInterfaceAudience
 import|;
 end_import
 
@@ -67,7 +67,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HBaseInterfaceAudience
+name|PrivateCellUtil
 import|;
 end_import
 
@@ -245,7 +245,7 @@ return|return
 literal|null
 return|;
 return|return
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|getValueAsDouble
 argument_list|(

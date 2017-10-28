@@ -97,7 +97,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellUtil
+name|PrivateCellUtil
 import|;
 end_import
 
@@ -452,7 +452,7 @@ return|;
 block|}
 comment|// Temporary hack to maintain backwards compatibility with KeyValue.equals
 return|return
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|equalsIgnoreMvccVersion
 argument_list|(

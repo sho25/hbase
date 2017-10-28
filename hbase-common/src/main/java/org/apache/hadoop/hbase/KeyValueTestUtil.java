@@ -366,7 +366,7 @@ control|)
 block|{
 if|if
 condition|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|equalsIgnoreMvccVersion
 argument_list|(

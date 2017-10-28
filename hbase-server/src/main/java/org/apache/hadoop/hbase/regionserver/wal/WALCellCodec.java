@@ -125,6 +125,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|PrivateCellUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|KeyValue
 import|;
 end_import
@@ -1130,7 +1144,7 @@ argument_list|,
 name|tagsLength
 argument_list|)
 expr_stmt|;
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compressRow
 argument_list|(
@@ -1143,7 +1157,7 @@ operator|.
 name|rowDict
 argument_list|)
 expr_stmt|;
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compressFamily
 argument_list|(
@@ -1156,7 +1170,7 @@ operator|.
 name|familyDict
 argument_list|)
 expr_stmt|;
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compressQualifier
 argument_list|(
@@ -1192,7 +1206,7 @@ name|getTypeByte
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|writeValue
 argument_list|(
@@ -1223,7 +1237,7 @@ literal|null
 condition|)
 block|{
 comment|// Write tags using Dictionary compression
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compressTags
 argument_list|(
@@ -1241,7 +1255,7 @@ else|else
 block|{
 comment|// Tag compression is disabled within the WAL compression. Just write the tags bytes as
 comment|// it is.
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|writeTags
 argument_list|(

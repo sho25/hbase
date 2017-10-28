@@ -73,6 +73,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|PrivateCellUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|codec
 operator|.
 name|prefixtree
@@ -329,7 +343,7 @@ comment|//keep hunting for the rest of the row
 name|byte
 name|searchForByte
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|getRowByte
 argument_list|(
@@ -506,7 +520,7 @@ comment|//keep hunting for the rest of the row
 name|byte
 name|searchForByte
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|getRowByte
 argument_list|(
@@ -1048,7 +1062,7 @@ block|}
 name|byte
 name|keyByte
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|getRowByte
 argument_list|(

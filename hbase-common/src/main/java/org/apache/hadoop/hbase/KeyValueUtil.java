@@ -1012,9 +1012,9 @@ argument_list|)
 expr_stmt|;
 name|pos
 operator|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
-name|copyTagTo
+name|copyTagsTo
 argument_list|(
 name|cell
 argument_list|,
@@ -1141,9 +1141,9 @@ expr_stmt|;
 comment|// Tags length
 name|offset
 operator|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
-name|copyTagTo
+name|copyTagsTo
 argument_list|(
 name|cell
 argument_list|,

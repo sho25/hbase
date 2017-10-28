@@ -267,6 +267,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|PrivateCellUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|KeyValue
 import|;
 end_import
@@ -3443,7 +3457,7 @@ expr_stmt|;
 name|int
 name|comp
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compareKeyIgnoresMvcc
 argument_list|(
@@ -3874,7 +3888,7 @@ name|KeyValueScanner
 operator|.
 name|NO_NEXT_INDEXED_KEY
 operator|||
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compareKeyIgnoresMvcc
 argument_list|(
@@ -4076,7 +4090,7 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compareKeyIgnoresMvcc
 argument_list|(
@@ -5688,7 +5702,7 @@ name|currKeyLen
 argument_list|)
 expr_stmt|;
 return|return
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|compareKeyIgnoresMvcc
 argument_list|(

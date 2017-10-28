@@ -267,6 +267,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|PrivateCellUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|Tag
 import|;
 end_import
@@ -1388,7 +1402,7 @@ name|Tag
 argument_list|>
 name|tagsIterator
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|tagsIterator
 argument_list|(
@@ -1490,7 +1504,7 @@ name|Tag
 argument_list|>
 name|tagsIterator
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|tagsIterator
 argument_list|(
@@ -1585,7 +1599,7 @@ name|Tag
 argument_list|>
 name|tagsIterator
 init|=
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|tagsIterator
 argument_list|(

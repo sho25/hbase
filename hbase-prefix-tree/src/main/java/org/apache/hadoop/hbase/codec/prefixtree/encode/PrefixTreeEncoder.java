@@ -121,6 +121,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|PrivateCellUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|KeyValueUtil
 import|;
 end_import
@@ -1191,7 +1205,7 @@ name|rowTokenizer
 operator|.
 name|addSorted
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|fillRowRange
 argument_list|(
@@ -1230,7 +1244,7 @@ name|Cell
 name|cell
 parameter_list|)
 block|{
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|fillTagRange
 argument_list|(
@@ -1461,7 +1475,7 @@ operator|==
 literal|0
 condition|)
 block|{
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|fillFamilyRange
 argument_list|(
@@ -1487,7 +1501,7 @@ name|Cell
 name|cell
 parameter_list|)
 block|{
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|fillQualifierRange
 argument_list|(
