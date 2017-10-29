@@ -59,16 +59,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|OptionalInt
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -417,7 +407,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// Get all available versions
+comment|// FIXME: This is the old comment 'Get all available versions'
+comment|// But actually if we really reset the ScanInfo to get all available versions then lots of UTs
+comment|// will fail
 return|return
 operator|new
 name|StoreScanner
@@ -428,15 +420,6 @@ name|store
 operator|.
 name|getScanInfo
 argument_list|()
-argument_list|,
-name|OptionalInt
-operator|.
-name|of
-argument_list|(
-name|Integer
-operator|.
-name|MAX_VALUE
-argument_list|)
 argument_list|,
 name|scanners
 argument_list|,

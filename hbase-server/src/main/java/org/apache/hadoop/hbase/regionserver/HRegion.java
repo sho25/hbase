@@ -37616,6 +37616,8 @@ name|coprocessorHost
 return|;
 block|}
 comment|/** @param coprocessorHost the new coprocessor host */
+annotation|@
+name|VisibleForTesting
 specifier|public
 name|void
 name|setCoprocessorHost

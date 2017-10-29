@@ -2158,6 +2158,9 @@ parameter_list|(
 name|HStore
 name|store
 parameter_list|,
+name|ScanInfo
+name|scanInfo
+parameter_list|,
 name|List
 argument_list|<
 name|StoreFileScanner
@@ -2193,6 +2196,9 @@ name|createScanner
 parameter_list|(
 name|HStore
 name|store
+parameter_list|,
+name|ScanInfo
+name|scanInfo
 parameter_list|,
 name|List
 argument_list|<

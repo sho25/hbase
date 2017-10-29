@@ -69,16 +69,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|OptionalInt
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -280,6 +270,22 @@ operator|.
 name|regionserver
 operator|.
 name|KeyValueScanner
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|ScanInfo
 import|;
 end_import
 
@@ -583,6 +589,9 @@ specifier|public
 name|InternalScanner
 name|createScanner
 parameter_list|(
+name|ScanInfo
+name|scanInfo
+parameter_list|,
 name|List
 argument_list|<
 name|StoreFileScanner
@@ -607,15 +616,7 @@ name|StoreScanner
 argument_list|(
 name|store
 argument_list|,
-name|store
-operator|.
-name|getScanInfo
-argument_list|()
-argument_list|,
-name|OptionalInt
-operator|.
-name|empty
-argument_list|()
+name|scanInfo
 argument_list|,
 name|scanners
 argument_list|,

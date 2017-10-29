@@ -888,6 +888,9 @@ parameter_list|(
 name|Scan
 name|scan
 parameter_list|,
+name|ScanInfo
+name|scanInfo
+parameter_list|,
 name|NavigableSet
 argument_list|<
 name|byte
@@ -912,8 +915,7 @@ name|ReversedStoreScanner
 argument_list|(
 name|this
 argument_list|,
-name|getScanInfo
-argument_list|()
+name|scanInfo
 argument_list|,
 name|scan
 argument_list|,
@@ -927,8 +929,7 @@ name|MyStoreScanner
 argument_list|(
 name|this
 argument_list|,
-name|getScanInfo
-argument_list|()
+name|scanInfo
 argument_list|,
 name|scan
 argument_list|,
