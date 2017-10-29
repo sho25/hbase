@@ -4070,6 +4070,15 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
+if|if
+condition|(
+name|this
+operator|.
+name|clusterSchemaService
+operator|!=
+literal|null
+condition|)
+block|{
 comment|// If on way out, then we are no longer active master.
 name|this
 operator|.
@@ -4117,6 +4126,7 @@ argument_list|,
 name|te
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 name|this
 operator|.
