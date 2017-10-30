@@ -471,6 +471,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|experimental
 operator|.
 name|categories
@@ -486,6 +496,11 @@ argument_list|(
 name|MediumTests
 operator|.
 name|class
+argument_list|)
+annotation|@
+name|Ignore
+argument_list|(
+literal|"Flaky, needs to be rewritten, see HBASE-19125"
 argument_list|)
 specifier|public
 class|class
