@@ -363,6 +363,14 @@ init|=
 literal|"Yarn queue name to run backup restore command on"
 decl_stmt|;
 specifier|public
+specifier|final
+specifier|static
+name|String
+name|JOB_NAME_CONF_KEY
+init|=
+literal|"mapreduce.job.name"
+decl_stmt|;
+specifier|public
 specifier|static
 specifier|final
 name|String
