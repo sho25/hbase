@@ -2338,6 +2338,32 @@ range|:
 name|tables
 control|)
 block|{
+if|if
+condition|(
+name|master
+operator|.
+name|getAssignmentManager
+argument_list|()
+operator|.
+name|isTableDisabled
+argument_list|(
+name|table
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Skipping move regions because the table"
+operator|+
+name|table
+operator|+
+literal|" is disabled."
+argument_list|)
+expr_stmt|;
+continue|continue;
+block|}
 for|for
 control|(
 name|RegionInfo
