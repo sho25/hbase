@@ -1642,7 +1642,7 @@ specifier|final
 name|int
 name|delta
 init|=
-literal|5
+literal|10
 decl_stmt|;
 name|ChoreService
 name|service
