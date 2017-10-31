@@ -5291,7 +5291,7 @@ name|forEach
 argument_list|(
 name|HStore
 operator|::
-name|startReplayingFromWAL
+name|stopReplayingFromWAL
 argument_list|)
 expr_stmt|;
 block|}
