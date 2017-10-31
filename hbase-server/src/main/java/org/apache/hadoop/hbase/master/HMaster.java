@@ -13308,6 +13308,28 @@ operator|.
 name|newBuilder
 argument_list|()
 decl_stmt|;
+comment|// given that hbase1 can't submit the request with Option,
+comment|// we return all information to client if the list of Option is empty.
+if|if
+condition|(
+name|options
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
+name|options
+operator|=
+name|EnumSet
+operator|.
+name|allOf
+argument_list|(
+name|Option
+operator|.
+name|class
+argument_list|)
+expr_stmt|;
+block|}
 for|for
 control|(
 name|Option
