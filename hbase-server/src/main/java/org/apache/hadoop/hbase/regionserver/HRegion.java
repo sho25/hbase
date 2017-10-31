@@ -9055,6 +9055,7 @@ name|interrupted
 operator|=
 literal|true
 expr_stmt|;
+break|break;
 block|}
 block|}
 block|}
