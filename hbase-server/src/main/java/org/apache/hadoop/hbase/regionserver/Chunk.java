@@ -268,6 +268,22 @@ operator|.
 name|fromPool
 return|;
 block|}
+name|boolean
+name|isJumbo
+parameter_list|()
+block|{
+return|return
+name|size
+operator|>
+name|ChunkCreator
+operator|.
+name|getInstance
+argument_list|()
+operator|.
+name|getChunkSize
+argument_list|()
+return|;
+block|}
 comment|/**    * Actually claim the memory for this chunk. This should only be called from the thread that    * constructed the chunk. It is thread-safe against other threads calling alloc(), who will block    * until the allocation is complete.    */
 specifier|public
 name|void

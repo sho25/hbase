@@ -566,10 +566,12 @@ operator|.
 name|IndexType
 operator|.
 name|ARRAY_MAP
+argument_list|,
+name|chunkSize
 argument_list|)
 return|;
 block|}
-comment|/**    * Creates and inits a chunk.    * @return the chunk that was initialized    * @param chunkIndexType whether the requested chunk is going to be used with CellChunkMap index    */
+comment|/**    * Creates and inits a chunk. The default implementation for specific index type.    * @return the chunk that was initialized    */
 name|Chunk
 name|getChunk
 parameter_list|(
@@ -579,16 +581,47 @@ name|IndexType
 name|chunkIndexType
 parameter_list|)
 block|{
+return|return
+name|getChunk
+argument_list|(
+name|chunkIndexType
+argument_list|,
+name|chunkSize
+argument_list|)
+return|;
+block|}
+comment|/**    * Creates and inits a chunk.    * @return the chunk that was initialized    * @param chunkIndexType whether the requested chunk is going to be used with CellChunkMap index    * @param size the size of the chunk to be allocated, in bytes    */
+name|Chunk
+name|getChunk
+parameter_list|(
+name|CompactingMemStore
+operator|.
+name|IndexType
+name|chunkIndexType
+parameter_list|,
+name|int
+name|size
+parameter_list|)
+block|{
 name|Chunk
 name|chunk
 init|=
 literal|null
 decl_stmt|;
+comment|// if we have pool and this is not jumbo chunk (when size != chunkSize this is jumbo chunk)
 if|if
 condition|(
+operator|(
 name|pool
 operator|!=
 literal|null
+operator|)
+operator|&&
+operator|(
+name|size
+operator|==
+name|chunkSize
+operator|)
 condition|)
 block|{
 comment|//  the pool creates the chunk internally. The chunk#init() call happens here
@@ -643,8 +676,8 @@ operator|==
 literal|null
 condition|)
 block|{
-comment|// the second boolean parameter means:
-comment|// if CellChunkMap index is requested, put allocated on demand chunk mapping into chunkIdMap
+comment|// the second parameter explains whether CellChunkMap index is requested,
+comment|// in that case, put allocated on demand chunk mapping into chunkIdMap
 name|chunk
 operator|=
 name|createChunk
@@ -652,6 +685,8 @@ argument_list|(
 literal|false
 argument_list|,
 name|chunkIndexType
+argument_list|,
+name|size
 argument_list|)
 expr_stmt|;
 block|}
@@ -666,7 +701,59 @@ return|return
 name|chunk
 return|;
 block|}
-comment|/**    * Creates the chunk either onheap or offheap    * @param pool indicates if the chunks have to be created which will be used by the Pool    * @param chunkIndexType    * @return the chunk    */
+comment|/**    * Creates and inits a chunk of a special size, bigger than a regular chunk size.    * Such a chunk will never come from pool and will always be on demand allocated.    * @return the chunk that was initialized    * @param chunkIndexType whether the requested chunk is going to be used with CellChunkMap index    * @param jumboSize the special size to be used    */
+name|Chunk
+name|getJumboChunk
+parameter_list|(
+name|CompactingMemStore
+operator|.
+name|IndexType
+name|chunkIndexType
+parameter_list|,
+name|int
+name|jumboSize
+parameter_list|)
+block|{
+if|if
+condition|(
+name|jumboSize
+operator|<=
+name|chunkSize
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Jumbo chunk size "
+operator|+
+name|jumboSize
+operator|+
+literal|" must be more than regular chunk size "
+operator|+
+name|chunkSize
+operator|+
+literal|". Converting to regular chunk."
+argument_list|)
+expr_stmt|;
+name|getChunk
+argument_list|(
+name|chunkIndexType
+argument_list|,
+name|chunkSize
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+name|getChunk
+argument_list|(
+name|chunkIndexType
+argument_list|,
+name|jumboSize
+argument_list|)
+return|;
+block|}
+comment|/**    * Creates the chunk either onheap or offheap    * @param pool indicates if the chunks have to be created which will be used by the Pool    * @param chunkIndexType whether the requested chunk is going to be used with CellChunkMap index    * @param size the size of the chunk to be allocated, in bytes    * @return the chunk    */
 specifier|private
 name|Chunk
 name|createChunk
@@ -678,6 +765,9 @@ name|CompactingMemStore
 operator|.
 name|IndexType
 name|chunkIndexType
+parameter_list|,
+name|int
+name|size
 parameter_list|)
 block|{
 name|Chunk
@@ -713,7 +803,7 @@ operator|=
 operator|new
 name|OffheapChunk
 argument_list|(
-name|chunkSize
+name|size
 argument_list|,
 name|id
 argument_list|,
@@ -728,7 +818,7 @@ operator|=
 operator|new
 name|OnheapChunk
 argument_list|(
-name|chunkSize
+name|size
 argument_list|,
 name|id
 argument_list|,
@@ -769,6 +859,28 @@ expr_stmt|;
 block|}
 return|return
 name|chunk
+return|;
+block|}
+comment|// Chunks from pool are created covered with strong references anyway
+comment|// TODO: change to CHUNK_MAP if it is generally defined
+specifier|private
+name|Chunk
+name|createChunkForPool
+parameter_list|()
+block|{
+return|return
+name|createChunk
+argument_list|(
+literal|true
+argument_list|,
+name|CompactingMemStore
+operator|.
+name|IndexType
+operator|.
+name|ARRAY_MAP
+argument_list|,
+name|chunkSize
+argument_list|)
 return|;
 block|}
 annotation|@
@@ -992,21 +1104,11 @@ name|i
 operator|++
 control|)
 block|{
-comment|// Chunks from pool are covered with strong references anyway
-comment|// TODO: change to CHUNK_MAP if it is generally defined
 name|Chunk
 name|chunk
 init|=
-name|createChunk
-argument_list|(
-literal|true
-argument_list|,
-name|CompactingMemStore
-operator|.
-name|IndexType
-operator|.
-name|ARRAY_MAP
-argument_list|)
+name|createChunkForPool
+argument_list|()
 decl_stmt|;
 name|chunk
 operator|.
@@ -1162,19 +1264,10 @@ literal|1
 argument_list|)
 condition|)
 block|{
-comment|// TODO: change to CHUNK_MAP if it is generally defined
 name|chunk
 operator|=
-name|createChunk
-argument_list|(
-literal|true
-argument_list|,
-name|CompactingMemStore
-operator|.
-name|IndexType
-operator|.
-name|ARRAY_MAP
-argument_list|)
+name|createChunkForPool
+argument_list|()
 expr_stmt|;
 break|break;
 block|}
@@ -1870,6 +1963,27 @@ operator|!=
 literal|null
 condition|)
 block|{
+comment|// Jumbo chunks are covered with chunkIdMap, but are not from pool, so such a chunk should
+comment|// be released here without going to pool.
+comment|// Removing them from chunkIdMap will cause their removal by the GC.
+if|if
+condition|(
+name|chunk
+operator|.
+name|isJumbo
+argument_list|()
+condition|)
+block|{
+name|this
+operator|.
+name|removeChunk
+argument_list|(
+name|chunkID
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
 name|pool
 operator|.
 name|putbackChunks
@@ -1877,6 +1991,7 @@ argument_list|(
 name|chunk
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|// if chunk is null, it was never covered by the chunkIdMap (and so wasn't in pool also),
 comment|// so we have nothing to do on its release

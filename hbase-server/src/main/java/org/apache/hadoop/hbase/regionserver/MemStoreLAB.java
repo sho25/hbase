@@ -173,10 +173,18 @@ name|void
 name|decScannerCount
 parameter_list|()
 function_decl|;
-comment|/**    * Return a new empty chunk without considering this chunk as current    * The space on this chunk will be allocated externally    */
+comment|/* Creating chunk to be used as index chunk in CellChunkMap, part of the chunks array.   ** Returning a new chunk, without replacing current chunk,   ** meaning MSLABImpl does not make the returned chunk as CurChunk.   ** The space on this chunk will be allocated externally.   ** The interface is only for external callers   */
 name|Chunk
 name|getNewExternalChunk
 parameter_list|()
+function_decl|;
+comment|/* Creating chunk to be used as data chunk in CellChunkMap.   ** This chunk is bigger the normal constant chunk size, and thus called JumboChunk it is used for   ** jumbo cells (which size is bigger than normal chunks).   ** Jumbo Chunks are needed only for CCM and thus are created only in   ** CompactingMemStore.IndexType.CHUNK_MAP type.   ** Returning a new chunk, without replacing current chunk,   ** meaning MSLABImpl does not make the returned chunk as CurChunk.   ** The space on this chunk will be allocated externally.   ** The interface is only for external callers   */
+name|Chunk
+name|getNewExternalJumboChunk
+parameter_list|(
+name|int
+name|size
+parameter_list|)
 function_decl|;
 specifier|public
 specifier|static

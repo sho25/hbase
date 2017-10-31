@@ -143,11 +143,9 @@ literal|"This is an Immutable MemStoreLAB."
 argument_list|)
 throw|;
 block|}
+comment|/* Creating chunk to be used as index chunk in CellChunkMap, part of the chunks array.   ** Returning a new chunk, without replacing current chunk,   ** meaning MSLABImpl does not make the returned chunk as CurChunk.   ** The space on this chunk will be allocated externally.   ** The interface is only for external callers   */
 annotation|@
 name|Override
-comment|// returning a new chunk, without replacing current chunk,
-comment|// the space on this chunk will be allocated externally
-comment|// use the first MemStoreLABImpl in the list
 specifier|public
 name|Chunk
 name|getNewExternalChunk
@@ -170,6 +168,38 @@ name|mslab
 operator|.
 name|getNewExternalChunk
 argument_list|()
+return|;
+block|}
+comment|/* Creating chunk to be used as data chunk in CellChunkMap.   ** This chunk is bigger the normal constant chunk size, and thus called JumboChunk it is used for   ** jumbo cells (which size is bigger than normal chunks).   ** Jumbo Chunks are needed only for CCM and thus are created only in   ** CompactingMemStore.IndexType.CHUNK_MAP type.   ** Returning a new chunk, without replacing current chunk,   ** meaning MSLABImpl does not make the returned chunk as CurChunk.   ** The space on this chunk will be allocated externally.   ** The interface is only for external callers   */
+annotation|@
+name|Override
+specifier|public
+name|Chunk
+name|getNewExternalJumboChunk
+parameter_list|(
+name|int
+name|size
+parameter_list|)
+block|{
+name|MemStoreLAB
+name|mslab
+init|=
+name|this
+operator|.
+name|mslabs
+operator|.
+name|get
+argument_list|(
+literal|0
+argument_list|)
+decl_stmt|;
+return|return
+name|mslab
+operator|.
+name|getNewExternalJumboChunk
+argument_list|(
+name|size
+argument_list|)
 return|;
 block|}
 annotation|@
