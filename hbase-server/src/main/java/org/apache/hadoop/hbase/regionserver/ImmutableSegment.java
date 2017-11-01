@@ -144,6 +144,19 @@ name|boolean
 name|canBeFlattened
 parameter_list|()
 function_decl|;
+specifier|public
+name|int
+name|getNumUniqueKeys
+parameter_list|()
+block|{
+return|return
+name|getCellSet
+argument_list|()
+operator|.
+name|getNumUniqueKeys
+argument_list|()
+return|;
+block|}
 comment|/////////////////////  CONSTRUCTORS  /////////////////////
 comment|/**------------------------------------------------------------------------    * Empty C-tor to be used only for CompositeImmutableSegment    */
 specifier|protected
@@ -255,6 +268,34 @@ name|this
 argument_list|)
 argument_list|)
 decl_stmt|;
+return|return
+name|res
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|String
+name|toString
+parameter_list|()
+block|{
+name|String
+name|res
+init|=
+name|super
+operator|.
+name|toString
+argument_list|()
+decl_stmt|;
+name|res
+operator|+=
+literal|"Num uniques "
+operator|+
+name|getNumUniqueKeys
+argument_list|()
+operator|+
+literal|"; "
+expr_stmt|;
 return|return
 name|res
 return|;

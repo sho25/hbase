@@ -1218,6 +1218,10 @@ argument_list|(
 name|OBJECT
 operator|+
 name|REFERENCE
+operator|+
+name|Bytes
+operator|.
+name|SIZEOF_INT
 argument_list|)
 expr_stmt|;
 name|STORE_SERVICES

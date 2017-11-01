@@ -4663,7 +4663,7 @@ name|conf
 operator|.
 name|setInt
 argument_list|(
-name|MemStoreCompactor
+name|MemStoreCompactionStrategy
 operator|.
 name|COMPACTING_MEMSTORE_THRESHOLD_KEY
 argument_list|,

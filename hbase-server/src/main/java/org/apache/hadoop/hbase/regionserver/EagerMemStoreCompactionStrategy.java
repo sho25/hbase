@@ -12,8 +12,24 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|regionserver
 package|;
 end_package
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|conf
+operator|.
+name|Configuration
+import|;
+end_import
 
 begin_import
 import|import
@@ -29,32 +45,64 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_comment
-comment|/**  * Enum describing all possible memory compaction policies  */
-end_comment
-
-begin_enum
+begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Public
+name|Private
 specifier|public
-enum|enum
-name|MemoryCompactionPolicy
+class|class
+name|EagerMemStoreCompactionStrategy
+extends|extends
+name|MemStoreCompactionStrategy
 block|{
-comment|/**    * No memory compaction, when size threshold is exceeded data is flushed to disk    */
-name|NONE
-block|,
-comment|/**    * Basic policy applies optimizations which modify the index to a more compacted representation.    * This is beneficial in all access patterns. The smaller the cells are the greater the    * benefit of this policy.    * This is the default policy.    */
-name|BASIC
-block|,
-comment|/**    * In addition to compacting the index representation as the basic policy, eager policy    * eliminates duplication while the data is still in memory (much like the    * on-disk compaction does after the data is flushed to disk). This policy is most useful for    * applications with high data churn or small working sets.    */
-name|EAGER
-block|,
-comment|/**    * Adaptive compaction adapts to the workload. It applies either index compaction or data    * compaction based on the ratio of duplicate cells in the data.    */
-name|ADAPTIVE
+specifier|private
+specifier|static
+specifier|final
+name|String
+name|name
+init|=
+literal|"EAGER"
+decl_stmt|;
+specifier|public
+name|EagerMemStoreCompactionStrategy
+parameter_list|(
+name|Configuration
+name|conf
+parameter_list|,
+name|String
+name|cfName
+parameter_list|)
+block|{
+name|super
+argument_list|(
+name|conf
+argument_list|,
+name|cfName
+argument_list|)
+expr_stmt|;
 block|}
-end_enum
+annotation|@
+name|Override
+specifier|public
+name|Action
+name|getAction
+parameter_list|(
+name|VersionedSegmentsList
+name|versionedList
+parameter_list|)
+block|{
+return|return
+name|compact
+argument_list|(
+name|versionedList
+argument_list|,
+name|name
+argument_list|)
+return|;
+block|}
+block|}
+end_class
 
 end_unit
 

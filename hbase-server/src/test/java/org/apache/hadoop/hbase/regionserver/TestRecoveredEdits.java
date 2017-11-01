@@ -1055,6 +1055,12 @@ operator|==
 name|MemoryCompactionPolicy
 operator|.
 name|EAGER
+operator|||
+name|policy
+operator|==
+name|MemoryCompactionPolicy
+operator|.
+name|ADAPTIVE
 condition|)
 block|{
 name|assertTrue

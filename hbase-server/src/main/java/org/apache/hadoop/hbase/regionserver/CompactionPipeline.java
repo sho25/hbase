@@ -472,26 +472,6 @@ name|isDebugEnabled
 argument_list|()
 condition|)
 block|{
-name|int
-name|count
-init|=
-literal|0
-decl_stmt|;
-if|if
-condition|(
-name|segment
-operator|!=
-literal|null
-condition|)
-block|{
-name|count
-operator|=
-name|segment
-operator|.
-name|getCellsCount
-argument_list|()
-expr_stmt|;
-block|}
 name|LOG
 operator|.
 name|debug
@@ -508,9 +488,9 @@ operator|.
 name|size
 argument_list|()
 operator|+
-literal|", and the number of cells in new segment is:"
+literal|", and the new segment is:"
 operator|+
-name|count
+name|segment
 argument_list|)
 expr_stmt|;
 block|}
@@ -752,6 +732,11 @@ name|CompactingMemStore
 operator|.
 name|IndexType
 name|idxType
+parameter_list|,
+name|MemStoreCompactionStrategy
+operator|.
+name|Action
+name|action
 parameter_list|)
 block|{
 if|if
@@ -848,6 +833,8 @@ argument_list|,
 name|idxType
 argument_list|,
 name|newMemstoreAccounting
+argument_list|,
+name|action
 argument_list|)
 decl_stmt|;
 name|replaceAtIndex
