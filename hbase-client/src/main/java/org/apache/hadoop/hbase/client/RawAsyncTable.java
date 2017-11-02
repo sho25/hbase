@@ -92,7 +92,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A low level asynchronous table.  *<p>  * The implementation is required to be thread safe.  *<p>  * The returned {@code CompletableFuture} will be finished directly in the rpc framework's callback  * thread, so typically you should not do any time consuming work inside these methods, otherwise  * you will be likely to block at least one connection to RS(even more if the rpc framework uses  * NIO).  *<p>  * So, only experts that want to build high performance service should use this interface directly,  * especially for the {@link #scan(Scan, RawScanResultConsumer)} below.  *<p>  * TODO: For now the only difference between this interface and {@link AsyncTable} is the scan  * method. The {@link RawScanResultConsumer} exposes the implementation details of a scan(heartbeat)  * so it is not suitable for a normal user. If it is still the only difference after we implement  * most features of AsyncTable, we can think about merge these two interfaces.  * @since 2.0.0  */
+comment|/**  * A low level asynchronous table.  *<p>  * The implementation is required to be thread safe.  *<p>  * The returned {@code CompletableFuture} will be finished directly in the rpc framework's callback  * thread, so typically you should not do any time consuming work inside these methods, otherwise  * you will be likely to block at least one connection to RS(even more if the rpc framework uses  * NIO).  *<p>  * So, only experts that want to build high performance service should use this interface directly,  * especially for the {@link #scan(Scan, RawScanResultConsumer)} below.  * @since 2.0.0  */
 end_comment
 
 begin_interface
@@ -183,7 +183,7 @@ index|[]
 name|row
 parameter_list|)
 function_decl|;
-comment|/**    * The callback when we want to execute a coprocessor call on a range of regions.    *<p>    * As the locating itself also takes some time, the implementation may want to send rpc calls on    * the fly, which means we do not know how many regions we have when we get the return value of    * the rpc calls, so we need an {@link #onComplete()} which is used to tell you that we have    * passed all the return values to you(through the {@link #onRegionComplete(RegionInfo, Object)}    * or {@link #onRegionError(RegionInfo, Throwable)} calls), i.e, there will be no    * {@link #onRegionComplete(RegionInfo, Object)} or    * {@link #onRegionError(RegionInfo, Throwable)} calls in the future.    *<p>    * Here is a pseudo code to describe a typical implementation of a range coprocessor service    * method to help you better understand how the {@link CoprocessorCallback} will be called. The    * {@code callback} in the pseudo code is our {@link CoprocessorCallback}. And notice that the    * {@code whenComplete} is {@code CompletableFuture.whenComplete}.    *    *<pre>    * locateThenCall(byte[] row) {    *   locate(row).whenComplete((location, locateError) -> {    *     if (locateError != null) {    *       callback.onError(locateError);    *       return;    *     }    *     incPendingCall();    *     region = location.getRegion();    *     if (region.getEndKey()> endKey) {    *       locateEnd = true;    *     } else {    *       locateThenCall(region.getEndKey());    *     }    *     sendCall().whenComplete((resp, error) -> {    *       if (error != null) {    *         callback.onRegionError(region, error);    *       } else {    *         callback.onRegionComplete(region, resp);    *       }    *       if (locateEnd&& decPendingCallAndGet() == 0) {    *         callback.onComplete();    *       }    *     });    *   });    * }    *</pre>    */
+comment|/**    * The callback when we want to execute a coprocessor call on a range of regions.    *<p>    * As the locating itself also takes some time, the implementation may want to send rpc calls on    * the fly, which means we do not know how many regions we have when we get the return value of    * the rpc calls, so we need an {@link #onComplete()} which is used to tell you that we have    * passed all the return values to you(through the {@link #onRegionComplete(RegionInfo, Object)}    * or {@link #onRegionError(RegionInfo, Throwable)} calls), i.e, there will be no    * {@link #onRegionComplete(RegionInfo, Object)} or {@link #onRegionError(RegionInfo, Throwable)}    * calls in the future.    *<p>    * Here is a pseudo code to describe a typical implementation of a range coprocessor service    * method to help you better understand how the {@link CoprocessorCallback} will be called. The    * {@code callback} in the pseudo code is our {@link CoprocessorCallback}. And notice that the    * {@code whenComplete} is {@code CompletableFuture.whenComplete}.    *    *<pre>    * locateThenCall(byte[] row) {    *   locate(row).whenComplete((location, locateError) -> {    *     if (locateError != null) {    *       callback.onError(locateError);    *       return;    *     }    *     incPendingCall();    *     region = location.getRegion();    *     if (region.getEndKey()> endKey) {    *       locateEnd = true;    *     } else {    *       locateThenCall(region.getEndKey());    *     }    *     sendCall().whenComplete((resp, error) -> {    *       if (error != null) {    *         callback.onRegionError(region, error);    *       } else {    *         callback.onRegionComplete(region, resp);    *       }    *       if (locateEnd&& decPendingCallAndGet() == 0) {    *         callback.onComplete();    *       }    *     });    *   });    * }    *</pre>    */
 annotation|@
 name|InterfaceAudience
 operator|.
@@ -230,72 +230,115 @@ name|error
 parameter_list|)
 function_decl|;
 block|}
-comment|/**    * Execute the given coprocessor call on the regions which are covered by the range from    * {@code startKey} inclusive and {@code endKey} exclusive. See the comment of    * {@link #coprocessorService(Function, CoprocessorCallable, byte[], boolean, byte[], boolean, CoprocessorCallback)}    * for more details.    * @see #coprocessorService(Function, CoprocessorCallable, byte[], boolean, byte[], boolean,    *      CoprocessorCallback)    */
-specifier|default
+comment|/**    * Helper class for sending coprocessorService request that executes a coprocessor call on regions    * which are covered by a range.    *<p>    * If {@code fromRow} is not specified the selection will start with the first table region. If    * {@code toRow} is not specified the selection will continue through the last table region.    * @param<S> the type of the protobuf Service you want to call.    * @param<R> the type of the return value.    */
+interface|interface
+name|CoprocessorServiceBuilder
 parameter_list|<
 name|S
 parameter_list|,
 name|R
 parameter_list|>
-name|void
-name|coprocessorService
-parameter_list|(
-name|Function
-argument_list|<
-name|RpcChannel
-argument_list|,
-name|S
-argument_list|>
-name|stubMaker
-parameter_list|,
-name|CoprocessorCallable
+block|{
+comment|/**      * @param startKey start region selection with region containing this row, inclusive.      */
+specifier|default
+name|CoprocessorServiceBuilder
 argument_list|<
 name|S
 argument_list|,
 name|R
 argument_list|>
-name|callable
-parameter_list|,
+name|fromRow
+parameter_list|(
 name|byte
 index|[]
 name|startKey
-parameter_list|,
-name|byte
-index|[]
-name|endKey
-parameter_list|,
-name|CoprocessorCallback
-argument_list|<
-name|R
-argument_list|>
-name|callback
 parameter_list|)
 block|{
-name|coprocessorService
+return|return
+name|fromRow
 argument_list|(
-name|stubMaker
-argument_list|,
-name|callable
-argument_list|,
 name|startKey
 argument_list|,
 literal|true
+argument_list|)
+return|;
+block|}
+comment|/**      * @param startKey start region selection with region containing this row      * @param inclusive whether to include the startKey      */
+name|CoprocessorServiceBuilder
+argument_list|<
+name|S
 argument_list|,
+name|R
+argument_list|>
+name|fromRow
+parameter_list|(
+name|byte
+index|[]
+name|startKey
+parameter_list|,
+name|boolean
+name|inclusive
+parameter_list|)
+function_decl|;
+comment|/**      * @param endKey select regions up to and including the region containing this row, exclusive.      */
+specifier|default
+name|CoprocessorServiceBuilder
+argument_list|<
+name|S
+argument_list|,
+name|R
+argument_list|>
+name|toRow
+parameter_list|(
+name|byte
+index|[]
+name|endKey
+parameter_list|)
+block|{
+return|return
+name|toRow
+argument_list|(
 name|endKey
 argument_list|,
 literal|false
-argument_list|,
-name|callback
 argument_list|)
-expr_stmt|;
+return|;
 block|}
-comment|/**    * Execute the given coprocessor call on the regions which are covered by the range from    * {@code startKey} and {@code endKey}. The inclusive of boundaries are specified by    * {@code startKeyInclusive} and {@code endKeyInclusive}. The {@code stubMaker} is just a    * delegation to the {@code xxxService.newStub} call. Usually it is only a one line lambda    * expression, like:    *    *<pre>    *<code>    * channel -> xxxService.newStub(channel)    *</code>    *</pre>    *    * @param stubMaker a delegation to the actual {@code newStub} call.    * @param callable a delegation to the actual protobuf rpc call. See the comment of    *          {@link CoprocessorCallable} for more details.    * @param startKey start region selection with region containing this row. If {@code null}, the    *          selection will start with the first table region.    * @param startKeyInclusive whether to include the startKey    * @param endKey select regions up to and including the region containing this row. If    *          {@code null}, selection will continue through the last table region.    * @param endKeyInclusive whether to include the endKey    * @param callback callback to get the response. See the comment of {@link CoprocessorCallback}    *          for more details.    * @param<S> the type of the asynchronous stub    * @param<R> the type of the return value    * @see CoprocessorCallable    * @see CoprocessorCallback    */
+comment|/**      * @param endKey select regions up to and including the region containing this row      * @param inclusive whether to include the endKey      */
+name|CoprocessorServiceBuilder
+argument_list|<
+name|S
+argument_list|,
+name|R
+argument_list|>
+name|toRow
+parameter_list|(
+name|byte
+index|[]
+name|endKey
+parameter_list|,
+name|boolean
+name|inclusive
+parameter_list|)
+function_decl|;
+comment|/**      * Execute the coprocessorService request. You can get the response through the      * {@link CoprocessorCallback}.      */
+name|void
+name|execute
+parameter_list|()
+function_decl|;
+block|}
+comment|/**    * Execute a coprocessor call on the regions which are covered by a range.    *<p>    * Use the returned {@link CoprocessorServiceBuilder} construct your request and then execute it.    *<p>    * The {@code stubMaker} is just a delegation to the {@code xxxService.newStub} call. Usually it    * is only a one line lambda expression, like:    *    *<pre>    *<code>    * channel -> xxxService.newStub(channel)    *</code>    *</pre>    *    * @param stubMaker a delegation to the actual {@code newStub} call.    * @param callable a delegation to the actual protobuf rpc call. See the comment of    *          {@link CoprocessorCallable} for more details.    * @param callback callback to get the response. See the comment of {@link CoprocessorCallback}    *          for more details.    */
 parameter_list|<
 name|S
 parameter_list|,
 name|R
 parameter_list|>
-name|void
+name|CoprocessorServiceBuilder
+argument_list|<
+name|S
+argument_list|,
+name|R
+argument_list|>
 name|coprocessorService
 parameter_list|(
 name|Function
@@ -313,20 +356,6 @@ argument_list|,
 name|R
 argument_list|>
 name|callable
-parameter_list|,
-name|byte
-index|[]
-name|startKey
-parameter_list|,
-name|boolean
-name|startKeyInclusive
-parameter_list|,
-name|byte
-index|[]
-name|endKey
-parameter_list|,
-name|boolean
-name|endKeyInclusive
 parameter_list|,
 name|CoprocessorCallback
 argument_list|<
