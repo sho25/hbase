@@ -1002,14 +1002,6 @@ specifier|protected
 specifier|static
 specifier|final
 name|String
-name|OPT_REGIONS_PER_SERVER
-init|=
-literal|"regions_per_server"
-decl_stmt|;
-specifier|protected
-specifier|static
-specifier|final
-name|String
 name|OPT_BATCHUPDATE
 init|=
 literal|"batchupdate"
@@ -1989,15 +1981,6 @@ operator|+
 literal|"tool  will load n table parallely. -tn parameter value becomes "
 operator|+
 literal|"table name prefix. Each table name is in format<tn>_1...<tn>_n"
-argument_list|)
-expr_stmt|;
-name|addOptWithArg
-argument_list|(
-name|OPT_REGIONS_PER_SERVER
-argument_list|,
-literal|"A positive integer number. When a number n is specified, load test "
-operator|+
-literal|"tool will create the test table with n regions per server"
 argument_list|)
 expr_stmt|;
 name|addOptWithArg
