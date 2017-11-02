@@ -363,7 +363,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellComparatorImpl
+name|CellComparator
 import|;
 end_import
 
@@ -2817,9 +2817,10 @@ argument_list|)
 operator|.
 name|withComparator
 argument_list|(
-name|CellComparatorImpl
+name|CellComparator
 operator|.
-name|COMPARATOR
+name|getInstance
+argument_list|()
 argument_list|)
 operator|.
 name|withFileContext
@@ -2869,9 +2870,10 @@ argument_list|)
 operator|.
 name|withComparator
 argument_list|(
-name|CellComparatorImpl
+name|CellComparator
 operator|.
-name|COMPARATOR
+name|getInstance
+argument_list|()
 argument_list|)
 operator|.
 name|withFileContext

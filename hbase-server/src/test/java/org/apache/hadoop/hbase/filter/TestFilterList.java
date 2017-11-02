@@ -155,7 +155,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellComparatorImpl
+name|CellComparator
 import|;
 end_import
 
@@ -2843,6 +2843,14 @@ return|;
 block|}
 block|}
 decl_stmt|;
+name|CellComparator
+name|comparator
+init|=
+name|CellComparator
+operator|.
+name|getInstance
+argument_list|()
+decl_stmt|;
 comment|// MUST PASS ONE
 comment|// Should take the min if given two hints
 name|FilterList
@@ -2874,9 +2882,7 @@ name|assertEquals
 argument_list|(
 literal|0
 argument_list|,
-name|CellComparatorImpl
-operator|.
-name|COMPARATOR
+name|comparator
 operator|.
 name|compare
 argument_list|(
@@ -2991,9 +2997,7 @@ name|assertEquals
 argument_list|(
 literal|0
 argument_list|,
-name|CellComparatorImpl
-operator|.
-name|COMPARATOR
+name|comparator
 operator|.
 name|compare
 argument_list|(
@@ -3045,9 +3049,7 @@ name|assertEquals
 argument_list|(
 literal|0
 argument_list|,
-name|CellComparatorImpl
-operator|.
-name|COMPARATOR
+name|comparator
 operator|.
 name|compare
 argument_list|(
@@ -3097,9 +3099,7 @@ name|assertEquals
 argument_list|(
 literal|0
 argument_list|,
-name|CellComparatorImpl
-operator|.
-name|COMPARATOR
+name|comparator
 operator|.
 name|compare
 argument_list|(
@@ -3152,9 +3152,7 @@ name|assertEquals
 argument_list|(
 literal|0
 argument_list|,
-name|CellComparatorImpl
-operator|.
-name|COMPARATOR
+name|comparator
 operator|.
 name|compare
 argument_list|(
@@ -3204,9 +3202,7 @@ name|assertEquals
 argument_list|(
 literal|0
 argument_list|,
-name|CellComparatorImpl
-operator|.
-name|COMPARATOR
+name|comparator
 operator|.
 name|compare
 argument_list|(
@@ -3256,9 +3252,7 @@ name|assertEquals
 argument_list|(
 literal|0
 argument_list|,
-name|CellComparatorImpl
-operator|.
-name|COMPARATOR
+name|comparator
 operator|.
 name|compare
 argument_list|(

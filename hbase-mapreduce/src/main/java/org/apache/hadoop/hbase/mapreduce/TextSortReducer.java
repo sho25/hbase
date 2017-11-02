@@ -129,7 +129,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellComparatorImpl
+name|CellComparator
 import|;
 end_import
 
@@ -698,9 +698,10 @@ operator|new
 name|TreeSet
 argument_list|<>
 argument_list|(
-name|CellComparatorImpl
+name|CellComparator
 operator|.
-name|COMPARATOR
+name|getInstance
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|long

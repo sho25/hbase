@@ -225,20 +225,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellComparatorImpl
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|CellUtil
 import|;
 end_import
@@ -799,9 +785,10 @@ specifier|private
 name|CellComparator
 name|comparator
 init|=
-name|CellComparatorImpl
+name|CellComparator
 operator|.
-name|COMPARATOR
+name|getInstance
+argument_list|()
 decl_stmt|;
 comment|/** Size of this file. */
 specifier|private

@@ -243,7 +243,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellComparatorImpl
+name|CellComparator
 import|;
 end_import
 
@@ -626,9 +626,10 @@ argument_list|<
 name|KeyValue
 argument_list|>
 argument_list|(
-name|CellComparatorImpl
+name|CellComparator
 operator|.
-name|COMPARATOR
+name|getInstance
+argument_list|()
 argument_list|)
 block|{
 specifier|private
@@ -1096,20 +1097,16 @@ operator|.
 name|next
 argument_list|()
 decl_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
-name|format
-argument_list|(
-literal|"Scan produced surprising result. expected:<%s>, actual: %s"
+literal|"Scan produced surprising result"
 argument_list|,
-name|expected
+literal|0
 argument_list|,
-name|actual
-argument_list|)
-argument_list|,
-name|CellComparatorImpl
+name|CellComparator
 operator|.
-name|COMPARATOR
+name|getInstance
+argument_list|()
 operator|.
 name|compare
 argument_list|(
@@ -1117,8 +1114,6 @@ name|expected
 argument_list|,
 name|actual
 argument_list|)
-operator|==
-literal|0
 argument_list|)
 expr_stmt|;
 block|}

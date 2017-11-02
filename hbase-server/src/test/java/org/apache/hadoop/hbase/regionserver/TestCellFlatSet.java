@@ -127,7 +127,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellComparatorImpl
+name|CellComparator
 import|;
 end_import
 
@@ -812,9 +812,10 @@ operator|=
 operator|new
 name|CellArrayMap
 argument_list|(
-name|CellComparatorImpl
+name|CellComparator
 operator|.
-name|COMPARATOR
+name|getInstance
+argument_list|()
 argument_list|,
 name|ascCells
 argument_list|,
@@ -845,9 +846,10 @@ operator|=
 operator|new
 name|CellArrayMap
 argument_list|(
-name|CellComparatorImpl
+name|CellComparator
 operator|.
-name|COMPARATOR
+name|getInstance
+argument_list|()
 argument_list|,
 name|descCells
 argument_list|,
@@ -2377,9 +2379,10 @@ return|return
 operator|new
 name|CellChunkMap
 argument_list|(
-name|CellComparatorImpl
+name|CellComparator
 operator|.
-name|COMPARATOR
+name|getInstance
+argument_list|()
 argument_list|,
 name|chunkArray
 argument_list|,
@@ -2690,9 +2693,10 @@ return|return
 operator|new
 name|CellChunkMap
 argument_list|(
-name|CellComparatorImpl
+name|CellComparator
 operator|.
-name|COMPARATOR
+name|getInstance
+argument_list|()
 argument_list|,
 name|chunkArray
 argument_list|,

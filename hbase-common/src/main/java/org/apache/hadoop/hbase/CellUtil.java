@@ -5771,9 +5771,10 @@ name|b
 parameter_list|)
 block|{
 return|return
-name|CellComparatorImpl
+name|CellComparator
 operator|.
-name|COMPARATOR
+name|getInstance
+argument_list|()
 operator|.
 name|compareTimestamps
 argument_list|(

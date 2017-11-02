@@ -287,7 +287,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellComparatorImpl
+name|CellComparator
 import|;
 end_import
 
@@ -1890,9 +1890,10 @@ name|rawCells
 argument_list|,
 name|keepCellsAfter
 argument_list|,
-name|CellComparatorImpl
+name|CellComparator
 operator|.
-name|COMPARATOR
+name|getInstance
+argument_list|()
 operator|::
 name|compareWithoutRow
 argument_list|)

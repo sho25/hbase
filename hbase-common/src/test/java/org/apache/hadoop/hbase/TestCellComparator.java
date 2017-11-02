@@ -156,12 +156,13 @@ class|class
 name|TestCellComparator
 block|{
 specifier|private
-name|CellComparatorImpl
+name|CellComparator
 name|comparator
 init|=
-name|CellComparatorImpl
+name|CellComparator
 operator|.
-name|COMPARATOR
+name|getInstance
+argument_list|()
 decl_stmt|;
 name|byte
 index|[]
@@ -346,9 +347,7 @@ expr_stmt|;
 name|assertTrue
 argument_list|(
 operator|(
-name|CellComparatorImpl
-operator|.
-name|COMPARATOR
+name|comparator
 operator|.
 name|compareFamilies
 argument_list|(
@@ -993,6 +992,7 @@ name|remaining
 argument_list|()
 argument_list|)
 decl_stmt|;
+comment|// compareColumns not on CellComparator so use Impl directly
 name|assertEquals
 argument_list|(
 literal|0
@@ -1071,9 +1071,7 @@ name|assertEquals
 argument_list|(
 literal|0
 argument_list|,
-name|CellComparatorImpl
-operator|.
-name|COMPARATOR
+name|comparator
 operator|.
 name|compareFamilies
 argument_list|(
@@ -1085,9 +1083,7 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|CellComparatorImpl
-operator|.
-name|COMPARATOR
+name|comparator
 operator|.
 name|compareQualifiers
 argument_list|(
@@ -1119,9 +1115,7 @@ name|assertEquals
 argument_list|(
 literal|0
 argument_list|,
-name|CellComparatorImpl
-operator|.
-name|COMPARATOR
+name|comparator
 operator|.
 name|compareRows
 argument_list|(
@@ -1133,9 +1127,7 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|CellComparatorImpl
-operator|.
-name|COMPARATOR
+name|comparator
 operator|.
 name|compareRows
 argument_list|(

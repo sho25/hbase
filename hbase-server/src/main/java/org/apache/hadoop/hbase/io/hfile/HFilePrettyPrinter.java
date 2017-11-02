@@ -429,7 +429,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellComparatorImpl
+name|CellComparator
 import|;
 end_import
 
@@ -2605,9 +2605,10 @@ block|{
 name|int
 name|result
 init|=
-name|CellComparatorImpl
+name|CellComparator
 operator|.
-name|COMPARATOR
+name|getInstance
+argument_list|()
 operator|.
 name|compareRows
 argument_list|(
@@ -2782,9 +2783,10 @@ condition|)
 block|{
 if|if
 condition|(
-name|CellComparatorImpl
+name|CellComparator
 operator|.
-name|COMPARATOR
+name|getInstance
+argument_list|()
 operator|.
 name|compareRows
 argument_list|(
@@ -2897,9 +2899,10 @@ name|pCell
 operator|!=
 literal|null
 operator|&&
-name|CellComparatorImpl
+name|CellComparator
 operator|.
-name|COMPARATOR
+name|getInstance
+argument_list|()
 operator|.
 name|compareFamilies
 argument_list|(
@@ -4291,9 +4294,10 @@ name|prevCell
 operator|!=
 literal|null
 operator|&&
-name|CellComparatorImpl
+name|CellComparator
 operator|.
-name|COMPARATOR
+name|getInstance
+argument_list|()
 operator|.
 name|compareRows
 argument_list|(

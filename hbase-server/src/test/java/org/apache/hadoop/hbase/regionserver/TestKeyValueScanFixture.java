@@ -61,7 +61,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellComparatorImpl
+name|CellComparator
 import|;
 end_import
 
@@ -274,9 +274,10 @@ init|=
 operator|new
 name|KeyValueScanFixture
 argument_list|(
-name|CellComparatorImpl
+name|CellComparator
 operator|.
-name|COMPARATOR
+name|getInstance
+argument_list|()
 argument_list|,
 name|kvs
 argument_list|)

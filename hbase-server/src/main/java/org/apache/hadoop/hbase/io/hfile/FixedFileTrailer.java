@@ -342,9 +342,10 @@ specifier|private
 name|String
 name|comparatorClassName
 init|=
-name|CellComparatorImpl
+name|CellComparator
 operator|.
-name|COMPARATOR
+name|getInstance
+argument_list|()
 operator|.
 name|getClass
 argument_list|()

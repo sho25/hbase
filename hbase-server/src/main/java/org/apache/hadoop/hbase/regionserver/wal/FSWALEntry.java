@@ -107,7 +107,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellComparatorImpl
+name|CellComparator
 import|;
 end_import
 
@@ -467,10 +467,6 @@ block|{
 return|return
 name|Collections
 operator|.
-expr|<
-name|byte
-index|[]
-operator|>
 name|emptySet
 argument_list|()
 return|;
@@ -510,9 +506,10 @@ operator|new
 name|TreeSet
 argument_list|<>
 argument_list|(
-name|CellComparatorImpl
+name|CellComparator
 operator|.
-name|COMPARATOR
+name|getInstance
+argument_list|()
 operator|::
 name|compareFamilies
 argument_list|)

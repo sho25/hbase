@@ -2120,9 +2120,10 @@ argument_list|)
 operator|.
 name|withComparator
 argument_list|(
-name|CellComparatorImpl
+name|CellComparator
 operator|.
-name|COMPARATOR
+name|getInstance
+argument_list|()
 argument_list|)
 operator|.
 name|create

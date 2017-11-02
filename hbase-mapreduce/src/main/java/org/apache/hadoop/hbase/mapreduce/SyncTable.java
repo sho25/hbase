@@ -169,7 +169,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellComparatorImpl
+name|CellComparator
 import|;
 end_import
 
@@ -3242,9 +3242,10 @@ block|}
 name|int
 name|result
 init|=
-name|CellComparatorImpl
+name|CellComparator
 operator|.
-name|COMPARATOR
+name|getInstance
+argument_list|()
 operator|.
 name|compareFamilies
 argument_list|(
@@ -3266,9 +3267,10 @@ return|;
 block|}
 name|result
 operator|=
-name|CellComparatorImpl
+name|CellComparator
 operator|.
-name|COMPARATOR
+name|getInstance
+argument_list|()
 operator|.
 name|compareQualifiers
 argument_list|(
@@ -3290,9 +3292,10 @@ return|;
 block|}
 comment|// note timestamp comparison is inverted - more recent cells first
 return|return
-name|CellComparatorImpl
+name|CellComparator
 operator|.
-name|COMPARATOR
+name|getInstance
+argument_list|()
 operator|.
 name|compareTimestamps
 argument_list|(

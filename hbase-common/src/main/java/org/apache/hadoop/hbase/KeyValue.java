@@ -356,7 +356,7 @@ block|{
 name|COLUMN_FAMILY_DELIMITER
 block|}
 decl_stmt|;
-comment|/**    * Comparator for plain key/values; i.e. non-catalog table key/values. Works on Key portion    * of KeyValue only.    * @deprecated Use {@link CellComparatorImpl#COMPARATOR} instead. Deprecated for hbase 2.0, remove for hbase 3.0.    */
+comment|/**    * Comparator for plain key/values; i.e. non-catalog table key/values. Works on Key portion    * of KeyValue only.    * @deprecated Use {@link CellComparator#getInstance()} instead. Deprecated for hbase 2.0, remove for hbase 3.0.    */
 annotation|@
 name|Deprecated
 specifier|public

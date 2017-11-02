@@ -16412,9 +16412,10 @@ name|i
 operator|<
 name|minLen
 operator|&&
-name|CellComparatorImpl
+name|CellComparator
 operator|.
-name|COMPARATOR
+name|getInstance
+argument_list|()
 operator|.
 name|compare
 argument_list|(

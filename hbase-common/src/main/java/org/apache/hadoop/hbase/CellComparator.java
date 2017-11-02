@@ -61,12 +61,7 @@ begin_interface
 annotation|@
 name|InterfaceAudience
 operator|.
-name|LimitedPrivate
-argument_list|(
-name|HBaseInterfaceAudience
-operator|.
-name|COPROC
-argument_list|)
+name|Public
 annotation|@
 name|InterfaceStability
 operator|.
@@ -80,6 +75,18 @@ argument_list|<
 name|Cell
 argument_list|>
 block|{
+comment|/**    * A comparator for ordering cells in user-space tables. Useful when writing cells in sorted    * order as necessary for bulk import (i.e. via MapReduce)    *<p>    * CAUTION: This comparator may provide inaccurate ordering for cells from system tables,    * and should not be relied upon in that case.    */
+specifier|static
+name|CellComparator
+name|getInstance
+parameter_list|()
+block|{
+return|return
+name|CellComparatorImpl
+operator|.
+name|COMPARATOR
+return|;
+block|}
 comment|/**    * Lexographically compares two cells. The key part of the cell is taken for comparison which    * includes row, family, qualifier, timestamp and type    * @param leftCell the left hand side cell    * @param rightCell the right hand side cell    * @return greater than 0 if leftCell is bigger, less than 0 if rightCell is bigger, 0 if both    *         cells are equal    */
 annotation|@
 name|Override

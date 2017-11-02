@@ -185,20 +185,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellComparatorImpl
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|CellScannable
 import|;
 end_import
@@ -1177,9 +1163,10 @@ name|kvs
 argument_list|,
 name|searchTerm
 argument_list|,
-name|CellComparatorImpl
+name|CellComparator
 operator|.
-name|COMPARATOR
+name|getInstance
+argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// never will exact match
@@ -1395,9 +1382,10 @@ name|kvs
 argument_list|,
 name|searchTerm
 argument_list|,
-name|CellComparatorImpl
+name|CellComparator
 operator|.
-name|COMPARATOR
+name|getInstance
+argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// never will exact match
