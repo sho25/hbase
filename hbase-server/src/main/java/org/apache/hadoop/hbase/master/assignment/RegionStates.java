@@ -2618,6 +2618,7 @@ name|isEmpty
 argument_list|()
 return|;
 block|}
+comment|/**    * @return Return online regions of table; does not include OFFLINE or SPLITTING regions.    */
 specifier|public
 name|List
 argument_list|<
@@ -2639,6 +2640,8 @@ literal|false
 argument_list|)
 return|;
 block|}
+comment|/**    * @return Return the regions of the table; does not include OFFLINE unless you set    *<code>offline</code> to true. Does not include regions that are in the    * {@link State#SPLIT} state.    */
+specifier|public
 name|List
 argument_list|<
 name|RegionInfo

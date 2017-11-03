@@ -259,7 +259,27 @@ throw|throw
 operator|new
 name|InterruptedException
 argument_list|(
-literal|"Failed connect "
+literal|"Failed connect after waiting "
+operator|+
+name|stopWatch
+operator|.
+name|elapsed
+argument_list|(
+name|TimeUnit
+operator|.
+name|SECONDS
+argument_list|)
+operator|+
+literal|"seconds; state="
+operator|+
+name|this
+operator|.
+name|zk
+operator|.
+name|getState
+argument_list|()
+operator|+
+literal|"; "
 operator|+
 name|this
 operator|.

@@ -1444,19 +1444,6 @@ parameter_list|)
 throws|throws
 name|KeeperException
 block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Possibly transient ZooKeeper, quorum="
-operator|+
-name|quorumServers
-operator|+
-literal|", exception="
-operator|+
-name|e
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 operator|!
@@ -1488,6 +1475,21 @@ throw|throw
 name|e
 throw|;
 block|}
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Retry, connectivity issue (JVM Pause?); quorum="
+operator|+
+name|quorumServers
+operator|+
+literal|","
+operator|+
+literal|"exception="
+operator|+
+name|e
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * getChildren is an idempotent operation. Retry before throwing exception    * @return List of children znodes    */
 specifier|public

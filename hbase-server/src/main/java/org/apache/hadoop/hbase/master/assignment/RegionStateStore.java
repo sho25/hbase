@@ -610,11 +610,24 @@ block|{
 name|long
 name|st
 init|=
+literal|0
+decl_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|st
+operator|=
 name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
-decl_stmt|;
+expr_stmt|;
+block|}
 name|visitMetaEntry
 argument_list|(
 name|visitor
@@ -622,6 +635,14 @@ argument_list|,
 name|r
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
 name|long
 name|et
 init|=
@@ -632,7 +653,7 @@ argument_list|()
 decl_stmt|;
 name|LOG
 operator|.
-name|info
+name|trace
 argument_list|(
 literal|"[T] LOAD META PERF "
 operator|+
@@ -646,6 +667,7 @@ name|st
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 elseif|else
 if|if
@@ -1920,7 +1942,7 @@ block|}
 comment|// ==========================================================================
 comment|//  Region State
 comment|// ==========================================================================
-comment|/**    * Pull the region state from a catalog table {@link Result}.    * @param r Result to pull the region state from    * @return the region state, or OPEN if there's no value written.    */
+comment|/**    * Pull the region state from a catalog table {@link Result}.    * @param r Result to pull the region state from    * @return the region state, or null if unknown.    */
 specifier|protected
 name|State
 name|getRegionState
@@ -1963,11 +1985,11 @@ argument_list|()
 operator|==
 literal|0
 condition|)
+block|{
 return|return
-name|State
-operator|.
-name|OPENING
+literal|null
 return|;
+block|}
 return|return
 name|State
 operator|.

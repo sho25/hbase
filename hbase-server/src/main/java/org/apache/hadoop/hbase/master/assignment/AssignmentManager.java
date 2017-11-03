@@ -5153,7 +5153,6 @@ name|serverNode
 argument_list|)
 expr_stmt|;
 block|}
-specifier|public
 name|void
 name|checkOnlineRegionsReportForMeta
 parameter_list|(
@@ -5265,7 +5264,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"META REPORTED but no procedure found"
+literal|"META REPORTED but no procedure found (complete?)"
 argument_list|)
 expr_stmt|;
 name|regionNode
@@ -6568,6 +6567,45 @@ argument_list|(
 name|regionInfo
 argument_list|)
 decl_stmt|;
+name|State
+name|localState
+init|=
+name|state
+decl_stmt|;
+if|if
+condition|(
+name|localState
+operator|==
+literal|null
+condition|)
+block|{
+comment|// No region state column data in hbase:meta table! Are I doing a rolling upgrade from
+comment|// hbase1 to hbase2? Am I restoring a SNAPSHOT or otherwise adding a region to hbase:meta?
+comment|// In any of these cases, state is empty. For now, presume OFFLINE but there are probably
+comment|// cases where we need to probe more to be sure this correct; TODO informed by experience.
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|regionInfo
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" state=null; presuming "
+operator|+
+name|State
+operator|.
+name|OFFLINE
+argument_list|)
+expr_stmt|;
+name|localState
+operator|=
+name|State
+operator|.
+name|OFFLINE
+expr_stmt|;
+block|}
 synchronized|synchronized
 init|(
 name|regionNode
@@ -6586,7 +6624,7 @@ name|regionNode
 operator|.
 name|setState
 argument_list|(
-name|state
+name|localState
 argument_list|)
 expr_stmt|;
 name|regionNode
@@ -6612,7 +6650,7 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|state
+name|localState
 operator|==
 name|State
 operator|.
@@ -6641,7 +6679,7 @@ block|}
 elseif|else
 if|if
 condition|(
-name|state
+name|localState
 operator|==
 name|State
 operator|.

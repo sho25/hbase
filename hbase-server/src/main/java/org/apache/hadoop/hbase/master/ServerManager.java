@@ -3145,9 +3145,9 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
-literal|"AssignmentManager hasn't finished failover cleanup; waiting"
+literal|"AssignmentManager failover cleanup not done."
 argument_list|)
 expr_stmt|;
 block|}
