@@ -450,11 +450,6 @@ name|boolean
 name|isClosing
 parameter_list|()
 function_decl|;
-comment|/** @return True if region is in recovering state */
-name|boolean
-name|isRecovering
-parameter_list|()
-function_decl|;
 comment|/** @return True if region is read only */
 name|boolean
 name|isReadOnly

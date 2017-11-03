@@ -379,7 +379,7 @@ operator|.
 name|RS_PARALLEL_SEEK
 argument_list|)
 block|,
-comment|/**    * RS wal recovery work items(either creating recover.edits or directly replay wals)    * to be executed on the RS.<br>    *    * RS_LOG_REPLAY    */
+comment|/**    * RS wal recovery work items (splitting wals) to be executed on the RS.<br>    *    * RS_LOG_REPLAY    */
 name|RS_LOG_REPLAY
 argument_list|(
 literal|81

@@ -1926,12 +1926,6 @@ return|return
 name|newRegion
 operator|!=
 literal|null
-operator|&&
-operator|!
-name|newRegion
-operator|.
-name|isRecovering
-argument_list|()
 return|;
 block|}
 block|}

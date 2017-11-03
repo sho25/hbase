@@ -31,16 +31,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|io
-operator|.
-name|InterruptedIOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|Set
@@ -70,22 +60,6 @@ operator|.
 name|hbase
 operator|.
 name|ServerName
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|RegionInfo
 import|;
 end_import
 
@@ -179,32 +153,8 @@ name|VisibleForTesting
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|ZooKeeperProtos
-operator|.
-name|SplitLogTask
-operator|.
-name|RecoveryMode
-import|;
-end_import
-
 begin_comment
-comment|/**  * Coordination for SplitLogManager. It creates and works with tasks for split log operations<BR>  * Manager prepares task by calling {@link #prepareTask} and submit it by  * {@link #submitTask(String)}. After that it periodically check the number of remaining tasks by  * {@link #remainingTasksInCoordination()} and waits until it become zero.  *<P>  * Methods required for task life circle:<BR>  * {@link #markRegionsRecovering(ServerName, Set)} mark regions for log replaying. Used by  * {@link org.apache.hadoop.hbase.master.MasterFileSystem}<BR>  * {@link #removeRecoveringRegions(Set, Boolean)} make regions cleanup that previous were marked as  * recovering. Called after all tasks processed<BR>  * {@link #removeStaleRecoveringRegions(Set)} remove stale recovering. called by  * {@link org.apache.hadoop.hbase.master.MasterFileSystem} after Active Master is initialized<BR>  * {@link #getLastRecoveryTime()} required for garbage collector and should indicate when the last  * recovery has been made<BR>  * {@link #checkTaskStillAvailable(String)} Check that task is still there<BR>  * {@link #checkTasks()} check for unassigned tasks and resubmit them  */
+comment|/**  * Coordination for SplitLogManager. It creates and works with tasks for split log operations<BR>  * Manager prepares task by calling {@link #prepareTask} and submit it by  * {@link #submitTask(String)}. After that it periodically check the number of remaining tasks by  * {@link #remainingTasksInCoordination()} and waits until it become zero.  *<P>  * Methods required for task life circle:<BR>  * {@link #checkTaskStillAvailable(String)} Check that task is still there<BR>  * {@link #checkTasks()} check for unassigned tasks and resubmit them  */
 end_comment
 
 begin_interface
@@ -356,45 +306,10 @@ name|String
 name|taskName
 parameter_list|)
 function_decl|;
-comment|/**    * Mark regions in recovering state for distributed log replay    * @param serverName server name    * @param userRegions set of regions to be marked    * @throws IOException in case of failure    * @throws InterruptedIOException    */
-name|void
-name|markRegionsRecovering
-parameter_list|(
-specifier|final
-name|ServerName
-name|serverName
-parameter_list|,
-name|Set
-argument_list|<
-name|RegionInfo
-argument_list|>
-name|userRegions
-parameter_list|)
-throws|throws
-name|IOException
-throws|,
-name|InterruptedIOException
-function_decl|;
 comment|/**    * tells Coordination that it should check for new tasks    */
 name|void
 name|checkTasks
 parameter_list|()
-function_decl|;
-comment|/**    * It removes recovering regions from Coordination    * @param serverNames servers which are just recovered    * @param isMetaRecovery whether current recovery is for the meta region on    *<code>serverNames</code>    */
-name|void
-name|removeRecoveringRegions
-parameter_list|(
-name|Set
-argument_list|<
-name|String
-argument_list|>
-name|serverNames
-parameter_list|,
-name|Boolean
-name|isMetaRecovery
-parameter_list|)
-throws|throws
-name|IOException
 function_decl|;
 comment|/**    * Return the number of remaining tasks    */
 name|int
@@ -408,31 +323,6 @@ parameter_list|(
 name|String
 name|task
 parameter_list|)
-function_decl|;
-comment|/**    * Change the recovery mode.    * @param b the recovery mode state    * @throws InterruptedIOException    * @throws IOException in case of failure    */
-name|void
-name|setRecoveryMode
-parameter_list|(
-name|boolean
-name|b
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-comment|/**    * Removes known stale servers    * @param knownServers set of previously failed servers    * @throws IOException in case of failure    * @throws InterruptedIOException    */
-name|void
-name|removeStaleRecoveringRegions
-parameter_list|(
-name|Set
-argument_list|<
-name|String
-argument_list|>
-name|knownServers
-parameter_list|)
-throws|throws
-name|IOException
-throws|,
-name|InterruptedIOException
 function_decl|;
 comment|/**    * Resubmit the task in case if found unassigned or failed    * @param taskName path related to task    * @param task to resubmit    * @param force whether it should be forced    * @return whether it was successful    */
 name|boolean
@@ -463,26 +353,6 @@ parameter_list|(
 name|String
 name|taskName
 parameter_list|)
-function_decl|;
-comment|/**    * @return shows whether the log recovery mode is in replaying state    */
-name|boolean
-name|isReplaying
-parameter_list|()
-function_decl|;
-comment|/**    * @return shows whether the log recovery mode is in splitting state    */
-name|boolean
-name|isSplitting
-parameter_list|()
-function_decl|;
-comment|/**    * @return the time of last attempt to recover    */
-name|long
-name|getLastRecoveryTime
-parameter_list|()
-function_decl|;
-comment|/**    * Temporary function, mostly for UTs. In the regular code isReplaying or isSplitting should be    * used.    * @return the current log recovery mode.    */
-name|RecoveryMode
-name|getRecoveryMode
-parameter_list|()
 function_decl|;
 comment|/**    * Support method to init constants such as timeout. Mostly required for UTs.    * @throws IOException    */
 annotation|@

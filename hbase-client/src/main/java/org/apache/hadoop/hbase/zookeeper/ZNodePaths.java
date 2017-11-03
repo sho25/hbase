@@ -319,12 +319,6 @@ specifier|final
 name|String
 name|tableLockZNode
 decl_stmt|;
-comment|// znode containing the state of recovering regions
-specifier|public
-specifier|final
-name|String
-name|recoveringRegionsZNode
-decl_stmt|;
 comment|// znode containing namespace descriptors
 specifier|public
 specifier|final
@@ -688,24 +682,6 @@ literal|"table-lock"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|recoveringRegionsZNode
-operator|=
-name|ZKUtil
-operator|.
-name|joinZNode
-argument_list|(
-name|baseZNode
-argument_list|,
-name|conf
-operator|.
-name|get
-argument_list|(
-literal|"zookeeper.znode.recovering.regions"
-argument_list|,
-literal|"recovering-regions"
-argument_list|)
-argument_list|)
-expr_stmt|;
 name|namespaceZNode
 operator|=
 name|ZKUtil
@@ -878,10 +854,6 @@ operator|+
 literal|", tableLockZNode="
 operator|+
 name|tableLockZNode
-operator|+
-literal|", recoveringRegionsZNode="
-operator|+
-name|recoveringRegionsZNode
 operator|+
 literal|", namespaceZNode="
 operator|+

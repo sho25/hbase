@@ -1330,23 +1330,6 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|Map
-argument_list|<
-name|String
-argument_list|,
-name|HRegion
-argument_list|>
-name|getRecoveringRegions
-parameter_list|()
-block|{
-comment|// TODO Auto-generated method stub
-return|return
-literal|null
-return|;
-block|}
-annotation|@
-name|Override
-specifier|public
 name|ServerNonceManager
 name|getNonceManager
 parameter_list|()

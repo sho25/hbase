@@ -742,18 +742,6 @@ argument_list|>
 name|c
 parameter_list|)
 block|{}
-comment|/**    * Called after the log replay on the region is over.    * @param c the environment provided by the region server    */
-specifier|default
-name|void
-name|postLogReplay
-parameter_list|(
-name|ObserverContext
-argument_list|<
-name|RegionCoprocessorEnvironment
-argument_list|>
-name|c
-parameter_list|)
-block|{}
 comment|/**    * Called before the memstore is flushed to disk.    * @param c the environment provided by the region server    * @param tracker tracker used to track the life cycle of a flush    */
 specifier|default
 name|void
@@ -2005,6 +1993,7 @@ throws|throws
 name|IOException
 block|{}
 comment|/**    * Called before replaying WALs for this region.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param ctx the environment provided by the region server    * @param info the RegionInfo for this region    * @param edits the file of recovered edits    */
+comment|// todo: what about these?
 specifier|default
 name|void
 name|preReplayWALs

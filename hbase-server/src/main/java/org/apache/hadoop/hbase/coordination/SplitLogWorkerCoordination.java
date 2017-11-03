@@ -21,16 +21,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|concurrent
@@ -121,28 +111,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|shaded
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|ClusterStatusProtos
-operator|.
-name|RegionStoreSequenceIds
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|regionserver
 operator|.
 name|RegionServerServices
@@ -208,7 +176,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Coordinated operations for {@link SplitLogWorker} and   * {@link org.apache.hadoop.hbase.regionserver.handler.WALSplitterHandler} Important  * methods for SplitLogWorker:<BR>  * {@link #isReady()} called from {@link SplitLogWorker#run()} to check whether the coordination is  * ready to supply the tasks<BR>  * {@link #taskLoop()} loop for new tasks until the worker is stopped<BR>  * {@link #isStop()} a flag indicates whether worker should finish<BR>  * {@link #registerListener()} called from {@link SplitLogWorker#run()} and could register listener  * for external changes in coordination (if required)<BR>  * {@link #endTask(SplitLogTask, LongAdder, SplitTaskDetails)} notify coordination engine that  *<p>  * Important methods for WALSplitterHandler:<BR>  * splitting task has completed.  */
+comment|/**  * Coordinated operations for {@link SplitLogWorker} and  * {@link org.apache.hadoop.hbase.regionserver.handler.WALSplitterHandler} Important  * methods for SplitLogWorker:<BR>  * {@link #isReady()} called from {@link SplitLogWorker#run()} to check whether the coordination is  * ready to supply the tasks<BR>  * {@link #taskLoop()} loop for new tasks until the worker is stopped<BR>  * {@link #isStop()} a flag indicates whether worker should finish<BR>  * {@link #registerListener()} called from {@link SplitLogWorker#run()} and could register listener  * for external changes in coordination (if required)<BR>  * {@link #endTask(SplitLogTask, LongAdder, SplitTaskDetails)} notify coordination engine that  *<p>  * Important methods for WALSplitterHandler:<BR>  * splitting task has completed.  */
 end_comment
 
 begin_interface
@@ -221,9 +189,6 @@ interface|interface
 name|SplitLogWorkerCoordination
 block|{
 comment|/* SplitLogWorker part */
-specifier|public
-specifier|static
-specifier|final
 name|int
 name|DEFAULT_MAX_SPLITTERS
 init|=
@@ -317,7 +282,6 @@ name|splitTaskDetails
 parameter_list|)
 function_decl|;
 comment|/**    * Interface for log-split tasks Used to carry implementation details in encapsulated way through    * Handlers to the coordination API.    */
-specifier|static
 interface|interface
 name|SplitTaskDetails
 block|{
@@ -327,18 +291,6 @@ name|getWALFile
 parameter_list|()
 function_decl|;
 block|}
-name|RegionStoreSequenceIds
-name|getRegionFlushedSequenceId
-parameter_list|(
-name|String
-name|failedServerName
-parameter_list|,
-name|String
-name|key
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
 block|}
 end_interface
 

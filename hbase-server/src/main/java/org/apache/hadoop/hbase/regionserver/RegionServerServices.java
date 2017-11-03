@@ -43,16 +43,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|Map
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|concurrent
 operator|.
 name|ConcurrentMap
@@ -584,18 +574,7 @@ name|ExecutorService
 name|getExecutorService
 parameter_list|()
 function_decl|;
-comment|/**    * @return set of recovering regions on the hosting region server    */
-name|Map
-argument_list|<
-name|String
-argument_list|,
-name|HRegion
-argument_list|>
-name|getRecoveringRegions
-parameter_list|()
-function_decl|;
 comment|/**    * Only required for "old" log replay; if it's removed, remove this.    * @return The RegionServer's NonceManager    */
-specifier|public
 name|ServerNonceManager
 name|getNonceManager
 parameter_list|()

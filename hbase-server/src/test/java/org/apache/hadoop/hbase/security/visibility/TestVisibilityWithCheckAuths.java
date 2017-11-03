@@ -556,17 +556,6 @@ operator|.
 name|getConfiguration
 argument_list|()
 expr_stmt|;
-name|conf
-operator|.
-name|setBoolean
-argument_list|(
-name|HConstants
-operator|.
-name|DISTRIBUTED_LOG_REPLAY_KEY
-argument_list|,
-literal|false
-argument_list|)
-expr_stmt|;
 name|VisibilityTestUtil
 operator|.
 name|enableVisiblityLabels

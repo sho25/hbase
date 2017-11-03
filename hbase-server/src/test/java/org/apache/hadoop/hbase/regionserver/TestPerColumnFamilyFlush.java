@@ -467,16 +467,6 @@ name|org
 operator|.
 name|junit
 operator|.
-name|Ignore
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
 name|Test
 import|;
 end_import
@@ -2816,47 +2806,6 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|// Test Log Replay with Distributed Replay on.
-comment|// In distributed log replay, the log splitters ask the master for the
-comment|// last flushed sequence id for a region. This test would ensure that we
-comment|// are doing the book-keeping correctly.
-annotation|@
-name|Ignore
-argument_list|(
-literal|"DLR is broken by HBASE-12751"
-argument_list|)
-annotation|@
-name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|180000
-argument_list|)
-specifier|public
-name|void
-name|testLogReplayWithDistributedReplay
-parameter_list|()
-throws|throws
-name|Exception
-block|{
-name|TEST_UTIL
-operator|.
-name|getConfiguration
-argument_list|()
-operator|.
-name|setBoolean
-argument_list|(
-name|HConstants
-operator|.
-name|DISTRIBUTED_LOG_REPLAY_KEY
-argument_list|,
-literal|true
-argument_list|)
-expr_stmt|;
-name|doTestLogReplay
-argument_list|()
-expr_stmt|;
-block|}
 comment|// Test Log Replay with Distributed log split on.
 annotation|@
 name|Test
@@ -2872,20 +2821,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|TEST_UTIL
-operator|.
-name|getConfiguration
-argument_list|()
-operator|.
-name|setBoolean
-argument_list|(
-name|HConstants
-operator|.
-name|DISTRIBUTED_LOG_REPLAY_KEY
-argument_list|,
-literal|false
-argument_list|)
-expr_stmt|;
 name|doTestLogReplay
 argument_list|()
 expr_stmt|;
