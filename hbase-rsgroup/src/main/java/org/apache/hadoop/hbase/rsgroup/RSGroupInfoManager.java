@@ -134,6 +134,18 @@ specifier|public
 interface|interface
 name|RSGroupInfoManager
 block|{
+name|String
+name|REASSIGN_WAIT_INTERVAL_KEY
+init|=
+literal|"hbase.rsgroup.reassign.wait"
+decl_stmt|;
+name|long
+name|DEFAULT_REASSIGN_WAIT_INTERVAL
+init|=
+literal|30
+operator|*
+literal|1000L
+decl_stmt|;
 comment|//Assigned before user tables
 name|TableName
 name|RSGROUP_TABLE_NAME
