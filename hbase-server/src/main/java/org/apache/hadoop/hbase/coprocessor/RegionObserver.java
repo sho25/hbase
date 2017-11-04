@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *   http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing,  * software distributed under the License is distributed on an  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY  * KIND, either express or implied.  See the License for the  * specific language governing permissions and limitations  * under the License.  */
+comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *   http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing,  * software distributed under the License is distributed on an  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY  * KIND, either express or implied.  See the License for the  * specific language governing permissions and limitations  * under the License.  */
 end_comment
 
 begin_package
@@ -16,6 +16,22 @@ operator|.
 name|coprocessor
 package|;
 end_package
+
+begin_import
+import|import
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|NonNull
+import|;
+end_import
 
 begin_import
 import|import
@@ -779,7 +795,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called before a Store's memstore is flushed to disk.    * @param c the environment provided by the region server    * @param store the store where flush is being requested    * @param scanner the scanner over existing data used in the store file    * @param tracker tracker used to track the life cycle of a flush    * @return the scanner to use during compaction.  Should not be {@code null}    * unless the implementation is writing new store files on its own.    */
+comment|/**    * Called before a Store's memstore is flushed to disk.    * @param c the environment provided by the region server    * @param store the store where flush is being requested    * @param scanner the scanner over existing data used in the memstore    * @param tracker tracker used to track the life cycle of a flush    * @return the scanner to use during flush. Should not be {@code null} unless the implementation    *         is writing new store files on its own.    */
 specifier|default
 name|InternalScanner
 name|preFlush
@@ -842,6 +858,86 @@ name|resultFile
 parameter_list|,
 name|FlushLifeCycleTracker
 name|tracker
+parameter_list|)
+throws|throws
+name|IOException
+block|{}
+comment|/**    * Called before in memory compaction started.    * @param c the environment provided by the region server    * @param store the store where in memory compaction is being requested    */
+specifier|default
+name|void
+name|preMemStoreCompaction
+parameter_list|(
+name|ObserverContext
+argument_list|<
+name|RegionCoprocessorEnvironment
+argument_list|>
+name|c
+parameter_list|,
+name|Store
+name|store
+parameter_list|)
+throws|throws
+name|IOException
+block|{}
+comment|/**    * Called before we open store scanner for in memory compaction. You can use the {@code options}    * to change max versions and TTL for the scanner being opened. Notice that this method will only    * be called when you use {@code eager} mode. For {@code basic} mode we will not drop any cells    * thus we do not open a store scanner.    * @param c the environment provided by the region server    * @param store the store where in memory compaction is being requested    * @param options used to change max versions and TTL for the scanner being opened    */
+specifier|default
+name|void
+name|preMemStoreCompactionCompactScannerOpen
+parameter_list|(
+name|ObserverContext
+argument_list|<
+name|RegionCoprocessorEnvironment
+argument_list|>
+name|c
+parameter_list|,
+name|Store
+name|store
+parameter_list|,
+name|ScanOptions
+name|options
+parameter_list|)
+throws|throws
+name|IOException
+block|{}
+comment|/**    * Called before we do in memory compaction. Notice that this method will only be called when you    * use {@code eager} mode. For {@code basic} mode we will not drop any cells thus there is no    * {@link InternalScanner}.    * @param c the environment provided by the region server    * @param store the store where in memory compaction is being executed    * @param scanner the scanner over existing data used in the memstore segments being compact    * @return the scanner to use during in memory compaction. Must be non-null.    */
+annotation|@
+name|NonNull
+specifier|default
+name|InternalScanner
+name|preMemStoreCompactionCompact
+parameter_list|(
+name|ObserverContext
+argument_list|<
+name|RegionCoprocessorEnvironment
+argument_list|>
+name|c
+parameter_list|,
+name|Store
+name|store
+parameter_list|,
+name|InternalScanner
+name|scanner
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|scanner
+return|;
+block|}
+comment|/**    * Called after the in memory compaction is finished.    * @param c the environment provided by the region server    * @param store the store where in memory compaction is being executed    */
+specifier|default
+name|void
+name|postMemStoreCompaction
+parameter_list|(
+name|ObserverContext
+argument_list|<
+name|RegionCoprocessorEnvironment
+argument_list|>
+name|c
+parameter_list|,
+name|Store
+name|store
 parameter_list|)
 throws|throws
 name|IOException

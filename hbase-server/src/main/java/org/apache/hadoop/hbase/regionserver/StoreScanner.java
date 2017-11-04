@@ -1431,7 +1431,7 @@ operator|new
 name|Scan
 argument_list|()
 decl_stmt|;
-comment|/**    * Used for compactions.    *<p>    * Opens a scanner across specified StoreFiles.    * @param store who we scan    * @param scanners ancillary scanners    * @param smallestReadPoint the readPoint that we should use for tracking versions    */
+comment|/**    * Used for store file compaction and memstore compaction.    *<p>    * Opens a scanner across specified StoreFiles/MemStoreSegments.    * @param store who we scan    * @param scanners ancillary scanners    * @param smallestReadPoint the readPoint that we should use for tracking versions    */
 specifier|public
 name|StoreScanner
 parameter_list|(
