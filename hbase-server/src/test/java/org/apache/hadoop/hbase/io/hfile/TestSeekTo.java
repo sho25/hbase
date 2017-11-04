@@ -2639,29 +2639,6 @@ argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|encoding
-operator|==
-name|DataBlockEncoding
-operator|.
-name|PREFIX_TREE
-condition|)
-block|{
-comment|// TODO : Fix this
-name|assertEquals
-argument_list|(
-literal|null
-argument_list|,
-name|scanner
-operator|.
-name|getCell
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-else|else
-block|{
 name|assertEquals
 argument_list|(
 literal|"k"
@@ -2675,7 +2652,6 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
-block|}
 name|reader
 operator|.
 name|close

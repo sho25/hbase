@@ -114,13 +114,7 @@ argument_list|)
 block|,
 comment|// id 5 is reserved for the COPY_KEY algorithm for benchmarking
 comment|// COPY_KEY(5, "org.apache.hadoop.hbase.io.encoding.CopyKeyDataBlockEncoder"),
-name|PREFIX_TREE
-argument_list|(
-literal|6
-argument_list|,
-literal|"org.apache.hadoop.hbase.codec.prefixtree.PrefixTreeCodec"
-argument_list|)
-block|,
+comment|// PREFIX_TREE(6, "org.apache.hadoop.hbase.codec.prefixtree.PrefixTreeCodec"),
 name|ROW_INDEX_V1
 argument_list|(
 literal|7

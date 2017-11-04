@@ -2801,12 +2801,6 @@ name|getEncoder
 argument_list|()
 operator|==
 literal|null
-operator|||
-name|encoding
-operator|==
-name|DataBlockEncoding
-operator|.
-name|PREFIX_TREE
 condition|)
 block|{
 continue|continue;

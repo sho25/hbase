@@ -931,14 +931,13 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
-comment|// colDesc.setDataBlockEncoding(DataBlockEncoding.NONE);
 name|colDesc
 operator|.
 name|setDataBlockEncoding
 argument_list|(
 name|DataBlockEncoding
 operator|.
-name|PREFIX_TREE
+name|NONE
 argument_list|)
 expr_stmt|;
 name|desc
@@ -1377,15 +1376,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 comment|// colDesc.setDataBlockEncoding(DataBlockEncoding.NONE);
-name|colDesc
-operator|.
-name|setDataBlockEncoding
-argument_list|(
-name|DataBlockEncoding
-operator|.
-name|PREFIX_TREE
-argument_list|)
-expr_stmt|;
+comment|// colDesc.setDataBlockEncoding(DataBlockEncoding.PREFIX_TREE);
 name|desc
 operator|.
 name|addFamily

@@ -905,21 +905,6 @@ throws|throws
 name|IOException
 block|{
 comment|// usually we have just block without headers, but don't complicate that
-if|if
-condition|(
-name|blockEncoder
-operator|.
-name|getDataBlockEncoding
-argument_list|()
-operator|==
-name|DataBlockEncoding
-operator|.
-name|PREFIX_TREE
-condition|)
-block|{
-comment|// This is a TODO: Only after PrefixTree is fixed we can remove this check
-return|return;
-block|}
 try|try
 block|{
 name|List

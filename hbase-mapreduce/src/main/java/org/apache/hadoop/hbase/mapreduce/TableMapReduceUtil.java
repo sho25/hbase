@@ -2986,44 +2986,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// PrefixTreeCodec is part of the hbase-prefix-tree module. If not included in MR jobs jar
-comment|// dependencies, MR jobs that write encoded hfiles will fail.
-comment|// We used reflection here so to prevent a circular module dependency.
-comment|// TODO - if we extract the MR into a module, make it depend on hbase-prefix-tree.
-name|Class
-name|prefixTreeCodecClass
-init|=
-literal|null
-decl_stmt|;
-try|try
-block|{
-name|prefixTreeCodecClass
-operator|=
-name|Class
-operator|.
-name|forName
-argument_list|(
-literal|"org.apache.hadoop.hbase.codec.prefixtree.PrefixTreeCodec"
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|ClassNotFoundException
-name|e
-parameter_list|)
-block|{
-comment|// this will show up in unit tests but should not show in real deployments
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"The hbase-prefix-tree module jar containing PrefixTreeCodec is not present."
-operator|+
-literal|"  Continuing without it."
-argument_list|)
-expr_stmt|;
-block|}
 name|addDependencyJarsForClasses
 argument_list|(
 name|conf
@@ -3183,10 +3145,6 @@ operator|.
 name|class
 argument_list|,
 comment|// hbase-metrics-api
-name|prefixTreeCodecClass
-argument_list|,
-comment|//  hbase-prefix-tree (if null will be skipped)
-comment|// pull necessary dependencies
 name|org
 operator|.
 name|apache
