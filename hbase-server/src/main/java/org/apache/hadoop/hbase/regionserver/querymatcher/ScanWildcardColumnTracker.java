@@ -53,7 +53,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellComparatorImpl
+name|CellComparator
 import|;
 end_import
 
@@ -213,7 +213,12 @@ specifier|private
 name|long
 name|oldestStamp
 decl_stmt|;
-comment|/**    * Return maxVersions of every row.    * @param minVersion Minimum number of versions to keep    * @param maxVersion Maximum number of versions to return    * @param oldestUnexpiredTS oldest timestamp that has not expired according to the TTL.    */
+specifier|private
+specifier|final
+name|CellComparator
+name|comparator
+decl_stmt|;
+comment|/**    * Return maxVersions of every row.    * @param minVersion Minimum number of versions to keep    * @param maxVersion Maximum number of versions to return    * @param oldestUnexpiredTS oldest timestamp that has not expired according to the TTL.    * @param comparator used to compare the qualifier of cell    */
 specifier|public
 name|ScanWildcardColumnTracker
 parameter_list|(
@@ -225,6 +230,9 @@ name|maxVersion
 parameter_list|,
 name|long
 name|oldestUnexpiredTS
+parameter_list|,
+name|CellComparator
+name|comparator
 parameter_list|)
 block|{
 name|this
@@ -244,6 +252,12 @@ operator|.
 name|oldestStamp
 operator|=
 name|oldestUnexpiredTS
+expr_stmt|;
+name|this
+operator|.
+name|comparator
+operator|=
+name|comparator
 expr_stmt|;
 block|}
 comment|/**    * {@inheritDoc} This receives puts *and* deletes.    */
@@ -331,9 +345,7 @@ block|}
 name|int
 name|cmp
 init|=
-name|CellComparatorImpl
-operator|.
-name|COMPARATOR
+name|comparator
 operator|.
 name|compareQualifiers
 argument_list|(

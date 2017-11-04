@@ -1593,6 +1593,11 @@ argument_list|,
 name|maxVersionToCheck
 argument_list|,
 name|oldestUnexpiredTS
+argument_list|,
+name|scanInfo
+operator|.
+name|getComparator
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

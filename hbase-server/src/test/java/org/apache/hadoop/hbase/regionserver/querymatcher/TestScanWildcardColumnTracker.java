@@ -83,6 +83,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CellComparatorImpl
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|KeyValue
 import|;
 end_import
@@ -226,6 +240,10 @@ argument_list|,
 name|Long
 operator|.
 name|MIN_VALUE
+argument_list|,
+name|CellComparatorImpl
+operator|.
+name|COMPARATOR
 argument_list|)
 decl_stmt|;
 comment|// Create list of qualifiers
@@ -477,6 +495,10 @@ argument_list|,
 name|Long
 operator|.
 name|MIN_VALUE
+argument_list|,
+name|CellComparatorImpl
+operator|.
+name|COMPARATOR
 argument_list|)
 decl_stmt|;
 comment|// Create list of qualifiers
@@ -730,6 +752,10 @@ argument_list|,
 name|Long
 operator|.
 name|MIN_VALUE
+argument_list|,
+name|CellComparatorImpl
+operator|.
+name|COMPARATOR
 argument_list|)
 decl_stmt|;
 comment|// Create list of qualifiers
