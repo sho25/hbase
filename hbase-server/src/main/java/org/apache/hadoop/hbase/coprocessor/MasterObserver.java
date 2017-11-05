@@ -57,6 +57,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ClusterStatus
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseInterfaceAudience
 import|;
 end_import
@@ -2928,10 +2942,10 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called before list dead region servers.    */
+comment|/**    * Called before get cluster status.    */
 specifier|default
 name|void
-name|preListDeadServers
+name|preGetClusterStatus
 parameter_list|(
 name|ObserverContext
 argument_list|<
@@ -2942,16 +2956,19 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called after list dead region servers.    */
+comment|/**    * Called after get cluster status.    */
 specifier|default
 name|void
-name|postListDeadServers
+name|postGetClusterStatus
 parameter_list|(
 name|ObserverContext
 argument_list|<
 name|MasterCoprocessorEnvironment
 argument_list|>
 name|ctx
+parameter_list|,
+name|ClusterStatus
+name|status
 parameter_list|)
 throws|throws
 name|IOException

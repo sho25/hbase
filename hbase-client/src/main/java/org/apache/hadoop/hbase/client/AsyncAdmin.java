@@ -323,22 +323,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Pair
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|yetus
 operator|.
 name|audience
@@ -2270,7 +2254,8 @@ name|ServerName
 name|serverName
 parameter_list|)
 function_decl|;
-comment|/**    * List all the dead region servers.    * @return - returns a list of dead region servers wrapped by a {@link CompletableFuture}.    */
+comment|/**    * List all the dead region servers.    */
+specifier|default
 name|CompletableFuture
 argument_list|<
 name|List
@@ -2280,7 +2265,30 @@ argument_list|>
 argument_list|>
 name|listDeadServers
 parameter_list|()
-function_decl|;
+block|{
+return|return
+name|this
+operator|.
+name|getClusterStatus
+argument_list|(
+name|EnumSet
+operator|.
+name|of
+argument_list|(
+name|Option
+operator|.
+name|DEAD_SERVERS
+argument_list|)
+argument_list|)
+operator|.
+name|thenApply
+argument_list|(
+name|ClusterStatus
+operator|::
+name|getDeadServerNames
+argument_list|)
+return|;
+block|}
 comment|/**    * Clear dead region servers from master.    * @param servers list of dead region servers.    * @return - returns a list of servers that not cleared wrapped by a {@link CompletableFuture}.    */
 name|CompletableFuture
 argument_list|<

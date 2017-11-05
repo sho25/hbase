@@ -219,7 +219,7 @@ name|setClusterStatus
 argument_list|(
 name|master
 operator|.
-name|getClusterStatus
+name|getClusterStatusWithoutCoprocessor
 argument_list|()
 argument_list|)
 expr_stmt|;

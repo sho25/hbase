@@ -3456,6 +3456,7 @@ throws|,
 name|InterruptedException
 function_decl|;
 comment|/**    * List dead region servers.    * @return List of dead region servers.    */
+specifier|default
 name|List
 argument_list|<
 name|ServerName
@@ -3464,7 +3465,24 @@ name|listDeadServers
 parameter_list|()
 throws|throws
 name|IOException
-function_decl|;
+block|{
+return|return
+name|getClusterStatus
+argument_list|(
+name|EnumSet
+operator|.
+name|of
+argument_list|(
+name|Option
+operator|.
+name|DEAD_SERVERS
+argument_list|)
+argument_list|)
+operator|.
+name|getDeadServerNames
+argument_list|()
+return|;
+block|}
 comment|/**    * Clear dead region servers from master.    * @param servers list of dead region servers.    * @throws IOException if a remote or network exception occurs    * @return List of servers that are not cleared    */
 name|List
 argument_list|<
