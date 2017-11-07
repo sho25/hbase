@@ -219,12 +219,6 @@ operator|==
 name|ReturnCode
 operator|.
 name|SEEK_NEXT_USING_HINT
-operator|||
-name|localRC
-operator|==
-name|ReturnCode
-operator|.
-name|SEEK_NEXT_USING_HINT
 condition|)
 block|{
 return|return
@@ -238,6 +232,14 @@ condition|(
 name|localRC
 condition|)
 block|{
+case|case
+name|SEEK_NEXT_USING_HINT
+case|:
+return|return
+name|ReturnCode
+operator|.
+name|SEEK_NEXT_USING_HINT
+return|;
 case|case
 name|INCLUDE
 case|:

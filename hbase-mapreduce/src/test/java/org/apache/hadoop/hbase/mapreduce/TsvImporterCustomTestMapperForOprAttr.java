@@ -29,6 +29,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Arrays
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -286,9 +296,10 @@ throw|throw
 operator|new
 name|BadTsvLineException
 argument_list|(
-literal|"Invalid attributes seperator specified"
-operator|+
+name|msg
+argument_list|(
 name|attributes
+argument_list|)
 argument_list|)
 throw|;
 block|}
@@ -321,9 +332,10 @@ throw|throw
 operator|new
 name|BadTsvLineException
 argument_list|(
-literal|"Invalid attributes seperator specified"
-operator|+
+name|msg
+argument_list|(
 name|attributes
+argument_list|)
 argument_list|)
 throw|;
 block|}
@@ -357,6 +369,26 @@ argument_list|(
 name|kv
 argument_list|)
 expr_stmt|;
+block|}
+specifier|private
+name|String
+name|msg
+parameter_list|(
+name|Object
+index|[]
+name|attributes
+parameter_list|)
+block|{
+return|return
+literal|"Invalid attributes separator specified: "
+operator|+
+name|Arrays
+operator|.
+name|toString
+argument_list|(
+name|attributes
+argument_list|)
+return|;
 block|}
 block|}
 end_class

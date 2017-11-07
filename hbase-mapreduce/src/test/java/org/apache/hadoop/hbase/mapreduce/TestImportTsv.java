@@ -69,6 +69,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Arrays
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|HashMap
 import|;
 end_import
@@ -2832,7 +2842,12 @@ name|debug
 argument_list|(
 literal|"Running ImportTsv with arguments: "
 operator|+
+name|Arrays
+operator|.
+name|toString
+argument_list|(
 name|argsArray
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|assertEquals

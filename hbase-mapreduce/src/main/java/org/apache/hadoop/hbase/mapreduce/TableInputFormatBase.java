@@ -1125,8 +1125,6 @@ name|MAPREDUCE_INPUT_AUTOBALANCE
 argument_list|,
 literal|false
 argument_list|)
-operator|!=
-literal|false
 condition|)
 block|{
 name|long
@@ -1137,15 +1135,16 @@ operator|.
 name|getConfiguration
 argument_list|()
 operator|.
-name|getInt
+name|getLong
 argument_list|(
 name|MAX_AVERAGE_REGION_SIZE
 argument_list|,
-literal|8
+literal|8L
 operator|*
 literal|1073741824
 argument_list|)
 decl_stmt|;
+comment|//8GB
 return|return
 name|calculateAutoBalancedSplits
 argument_list|(

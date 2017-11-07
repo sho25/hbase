@@ -823,6 +823,7 @@ literal|3
 decl_stmt|;
 specifier|private
 specifier|static
+specifier|final
 name|byte
 index|[]
 name|ROW
@@ -850,6 +851,7 @@ argument_list|)
 decl_stmt|;
 specifier|private
 specifier|static
+specifier|final
 name|byte
 index|[]
 name|QUALIFIER
@@ -863,6 +865,7 @@ argument_list|)
 decl_stmt|;
 specifier|private
 specifier|static
+specifier|final
 name|byte
 index|[]
 name|VALUE
@@ -875,8 +878,8 @@ literal|"testValue"
 argument_list|)
 decl_stmt|;
 specifier|private
-specifier|final
 specifier|static
+specifier|final
 name|byte
 index|[]
 name|COL_QUAL
@@ -889,8 +892,8 @@ literal|"f1"
 argument_list|)
 decl_stmt|;
 specifier|private
-specifier|final
 specifier|static
+specifier|final
 name|byte
 index|[]
 name|VAL_BYTES
@@ -903,8 +906,8 @@ literal|"v1"
 argument_list|)
 decl_stmt|;
 specifier|private
-specifier|final
 specifier|static
+specifier|final
 name|byte
 index|[]
 name|ROW_BYTES
@@ -2902,7 +2905,12 @@ name|debug
 argument_list|(
 literal|"Waiting for region to come online: "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|regionName
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -3694,6 +3702,8 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testHTableExistsMethodSingleRegionMultipleGets
@@ -3780,13 +3790,6 @@ name|gets
 operator|.
 name|add
 argument_list|(
-literal|null
-argument_list|)
-expr_stmt|;
-name|gets
-operator|.
-name|add
-argument_list|(
 operator|new
 name|Get
 argument_list|(
@@ -3800,39 +3803,25 @@ name|results
 init|=
 name|table
 operator|.
-name|existsAll
+name|exists
 argument_list|(
 name|gets
 argument_list|)
 decl_stmt|;
-name|assertEquals
+name|assertTrue
 argument_list|(
 name|results
 index|[
 literal|0
 index|]
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
-name|assertEquals
+name|assertFalse
 argument_list|(
 name|results
 index|[
 literal|1
 index|]
-argument_list|,
-literal|false
-argument_list|)
-expr_stmt|;
-name|assertEquals
-argument_list|(
-name|results
-index|[
-literal|2
-index|]
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 block|}
@@ -5806,7 +5795,7 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|Throwable
+name|Exception
 name|ex
 parameter_list|)
 block|{         }
@@ -6244,6 +6233,9 @@ argument_list|(
 parameter_list|()
 lambda|->
 block|{
+name|boolean
+name|threw
+decl_stmt|;
 name|Put
 name|put1
 init|=
@@ -6458,10 +6450,9 @@ return|;
 block|}
 argument_list|)
 expr_stmt|;
-name|fail
-argument_list|(
-literal|"This cp should fail because the target lock is blocked by previous put"
-argument_list|)
+name|threw
+operator|=
+literal|false
 expr_stmt|;
 block|}
 catch|catch
@@ -6470,8 +6461,23 @@ name|Throwable
 name|ex
 parameter_list|)
 block|{
-comment|// TODO!!!! Is this right? It catches everything including the above fail
-comment|// if it happens (which it seems too....)
+name|threw
+operator|=
+literal|true
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|!
+name|threw
+condition|)
+block|{
+comment|// Can't call fail() earlier because the catch would eat it.
+name|fail
+argument_list|(
+literal|"This cp should fail because the target lock is blocked by previous put"
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 argument_list|)
