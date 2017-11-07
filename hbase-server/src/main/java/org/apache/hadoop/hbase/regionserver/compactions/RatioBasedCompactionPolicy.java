@@ -661,11 +661,11 @@ operator|+
 literal|"ms"
 argument_list|)
 expr_stmt|;
-block|}
 name|result
 operator|=
 literal|true
 expr_stmt|;
+block|}
 block|}
 return|return
 name|result
