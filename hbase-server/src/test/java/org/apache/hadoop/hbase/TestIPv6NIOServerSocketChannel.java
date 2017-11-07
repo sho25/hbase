@@ -332,6 +332,21 @@ name|ex
 parameter_list|)
 block|{
 comment|//continue
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Failed on "
+operator|+
+name|addr
+operator|+
+literal|", inedAddr="
+operator|+
+name|inetAddr
+argument_list|,
+name|ex
+argument_list|)
+expr_stmt|;
 block|}
 finally|finally
 block|{
@@ -664,12 +679,12 @@ name|InetAddress
 index|[]
 name|addrs
 init|=
+block|{
 name|InetAddress
 operator|.
-name|getAllByName
-argument_list|(
-literal|"localhost"
-argument_list|)
+name|getLocalHost
+argument_list|()
+block|}
 decl_stmt|;
 for|for
 control|(
@@ -683,7 +698,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"resolved localhost as:"
+literal|"Resolved localhost as: "
 operator|+
 name|addr
 argument_list|)
