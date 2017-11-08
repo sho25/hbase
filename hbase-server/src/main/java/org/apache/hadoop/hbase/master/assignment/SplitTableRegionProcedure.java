@@ -307,6 +307,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|UnknownRegionException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|client
 operator|.
 name|ColumnFamilyDescriptor
@@ -2400,25 +2414,33 @@ name|getParentRegion
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|RegionInfo
-name|parentHRI
-init|=
-literal|null
-decl_stmt|;
 if|if
 condition|(
 name|node
-operator|!=
+operator|==
 literal|null
 condition|)
 block|{
+throw|throw
+operator|new
+name|UnknownRegionException
+argument_list|(
+name|getParentRegion
+argument_list|()
+operator|.
+name|getRegionNameAsString
+argument_list|()
+argument_list|)
+throw|;
+block|}
+name|RegionInfo
 name|parentHRI
-operator|=
+init|=
 name|node
 operator|.
 name|getRegionInfo
 argument_list|()
-expr_stmt|;
+decl_stmt|;
 comment|// Lookup the parent HRI state from the AM, which has the latest updated info.
 comment|// Protect against the case where concurrent SPLIT requests came in and succeeded
 comment|// just before us.
@@ -2524,7 +2546,6 @@ return|return
 literal|false
 return|;
 block|}
-block|}
 comment|// Since we have the lock and the master is coordinating the operation
 comment|// we are always able to split the region
 if|if
@@ -2585,6 +2606,16 @@ return|return
 literal|false
 return|;
 block|}
+comment|// set node state as SPLITTING
+name|node
+operator|.
+name|setState
+argument_list|(
+name|State
+operator|.
+name|SPLITTING
+argument_list|)
+expr_stmt|;
 return|return
 literal|true
 return|;

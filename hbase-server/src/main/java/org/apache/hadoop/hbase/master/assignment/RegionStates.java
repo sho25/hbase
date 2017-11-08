@@ -482,6 +482,10 @@ name|State
 operator|.
 name|SPLIT
 block|,
+name|State
+operator|.
+name|MERGING
+block|,
 comment|// ServerCrashProcedure
 name|State
 operator|.
