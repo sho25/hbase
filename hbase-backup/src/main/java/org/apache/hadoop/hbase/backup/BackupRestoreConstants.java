@@ -394,7 +394,9 @@ literal|"hbase.procedure.regionserver.classes=YOUR_CLASSES,"
 operator|+
 literal|"org.apache.hadoop.hbase.backup.regionserver.LogRollRegionServerProcedureManager\n"
 operator|+
-literal|"and restart the cluster"
+literal|"hbase.coprocessor.region.classes=YOUR_CLASSES,org.apache.hadoop.hbase.backup.BackupObserver\n"
+operator|+
+literal|"and restart the cluster\n"
 decl_stmt|;
 specifier|public
 specifier|static
