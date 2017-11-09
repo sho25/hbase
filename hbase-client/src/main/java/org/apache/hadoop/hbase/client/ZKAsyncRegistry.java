@@ -605,7 +605,7 @@ name|getInt
 argument_list|(
 literal|"zookeeper.recovery.retry"
 argument_list|,
-literal|3
+literal|30
 argument_list|)
 decl_stmt|;
 name|int
