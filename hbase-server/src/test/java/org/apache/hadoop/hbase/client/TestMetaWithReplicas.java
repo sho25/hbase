@@ -2839,10 +2839,7 @@ argument_list|)
 expr_stmt|;
 block|}
 annotation|@
-name|Ignore
-annotation|@
 name|Test
-comment|// Disabled. Currently can't move hbase:meta in AMv2.
 specifier|public
 name|void
 name|testMetaAddressChange
