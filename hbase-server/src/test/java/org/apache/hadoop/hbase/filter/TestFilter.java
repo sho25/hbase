@@ -505,6 +505,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Rule
 import|;
 end_import
@@ -5001,7 +5011,7 @@ annotation|@
 name|Test
 specifier|public
 name|void
-name|tes94FilterRowCompatibility
+name|test94FilterRowCompatibility
 parameter_list|()
 throws|throws
 name|Exception
@@ -18758,7 +18768,13 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|// TODO: intentionally disabled?
+annotation|@
+name|Test
+annotation|@
+name|Ignore
+argument_list|(
+literal|"TODO: intentionally disabled?"
+argument_list|)
 specifier|public
 name|void
 name|testNestedFilterListWithSCVF

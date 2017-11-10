@@ -2988,7 +2988,12 @@ name|info
 argument_list|(
 literal|"Replicated "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|row
+argument_list|)
 operator|+
 literal|", count="
 operator|+

@@ -4793,6 +4793,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Verify scenarios with multiple CFs and columns    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testWithMixedCFs

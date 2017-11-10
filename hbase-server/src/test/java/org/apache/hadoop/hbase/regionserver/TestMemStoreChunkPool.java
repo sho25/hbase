@@ -161,7 +161,7 @@ name|org
 operator|.
 name|junit
 operator|.
-name|AfterClass
+name|After
 import|;
 end_import
 
@@ -171,7 +171,7 @@ name|org
 operator|.
 name|junit
 operator|.
-name|Before
+name|AfterClass
 import|;
 end_import
 
@@ -448,7 +448,7 @@ name|chunkPoolDisabledBeforeTest
 expr_stmt|;
 block|}
 annotation|@
-name|Before
+name|After
 specifier|public
 name|void
 name|tearDown

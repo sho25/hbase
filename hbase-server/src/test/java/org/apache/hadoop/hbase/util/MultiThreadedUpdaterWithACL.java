@@ -808,10 +808,15 @@ name|warn
 argument_list|(
 literal|"Failed to get the row for key = ["
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|get
 operator|.
 name|getRow
 argument_list|()
+argument_list|)
 operator|+
 literal|"], column family = ["
 operator|+
@@ -989,10 +994,15 @@ name|warn
 argument_list|(
 literal|"Failed to get the row for key = ["
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|get
 operator|.
 name|getRow
 argument_list|()
+argument_list|)
 operator|+
 literal|"], column family = ["
 operator|+

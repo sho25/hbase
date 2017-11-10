@@ -2787,6 +2787,17 @@ name|getEncodedName
 argument_list|()
 argument_list|)
 decl_stmt|;
+name|String
+name|regionName
+init|=
+name|region
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getRegionNameAsString
+argument_list|()
+decl_stmt|;
 name|List
 argument_list|<
 name|ServerName
@@ -2800,10 +2811,7 @@ argument_list|()
 operator|.
 name|get
 argument_list|(
-name|region
-operator|.
-name|getRegionInfo
-argument_list|()
+name|regionName
 argument_list|)
 decl_stmt|;
 comment|// All regions are supposed to have favored nodes,

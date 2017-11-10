@@ -1357,7 +1357,12 @@ name|assertTrue
 argument_list|(
 literal|"Permission should be for family "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|TEST_FAMILY
+argument_list|)
 argument_list|,
 name|Bytes
 operator|.
@@ -1376,7 +1381,12 @@ name|assertTrue
 argument_list|(
 literal|"Permission should be for qualifier "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|TEST_QUALIFIER
+argument_list|)
 argument_list|,
 name|Bytes
 operator|.

@@ -2481,6 +2481,11 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"MockitoCast"
+argument_list|)
 specifier|protected
 name|void
 name|setupMocksForNormalizer
@@ -2649,8 +2654,14 @@ name|getValue
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// this is possibly broken with jdk9, unclear if false positive or not
+comment|// suppress it for now, fix it when we get to running tests on 9
+comment|// see: http://errorprone.info/bugpattern/MockitoCast
 name|when
 argument_list|(
+operator|(
+name|Object
+operator|)
 name|masterServices
 operator|.
 name|getServerManager

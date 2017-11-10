@@ -1162,19 +1162,14 @@ name|get
 argument_list|()
 condition|)
 block|{
-switch|switch
+if|if
 condition|(
 name|random
 operator|.
-name|nextInt
+name|nextBoolean
 argument_list|()
-operator|%
-literal|2
 condition|)
 block|{
-case|case
-literal|0
-case|:
 comment|//start a server
 try|try
 block|{
@@ -1207,10 +1202,9 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
-break|break;
-case|case
-literal|1
-case|:
+block|}
+else|else
+block|{
 comment|// stop a server
 try|try
 block|{
@@ -1243,7 +1237,6 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
-default|default:
 block|}
 name|Threads
 operator|.

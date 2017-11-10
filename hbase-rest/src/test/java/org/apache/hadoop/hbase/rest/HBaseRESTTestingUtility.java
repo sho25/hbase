@@ -263,6 +263,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Arrays
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|EnumSet
 import|;
 end_import
@@ -534,7 +544,12 @@ name|info
 argument_list|(
 literal|"Loaded filter classes :"
 operator|+
+name|Arrays
+operator|.
+name|toString
+argument_list|(
 name|filterClasses
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|conf

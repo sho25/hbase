@@ -313,14 +313,22 @@ name|ServletContainer
 operator|.
 name|class
 operator|.
-name|getClass
-argument_list|()
-operator|.
 name|getPackage
 argument_list|()
 operator|.
 name|getImplementationVersion
 argument_list|()
+expr_stmt|;
+comment|// Currently, this will always be null because the manifest doesn't have any useful information
+if|if
+condition|(
+name|jerseyVersion
+operator|==
+literal|null
+condition|)
+name|jerseyVersion
+operator|=
+literal|""
 expr_stmt|;
 block|}
 comment|/**    * @return the REST gateway version    */

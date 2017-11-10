@@ -2388,7 +2388,12 @@ name|result
 operator|+
 literal|", regionName="
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|regionName
+argument_list|)
 operator|+
 literal|", region="
 operator|+

@@ -818,11 +818,13 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
-name|fail
+throw|throw
+operator|new
+name|Error
 argument_list|(
 literal|"Should have thrown"
 argument_list|)
-expr_stmt|;
+throw|;
 block|}
 catch|catch
 parameter_list|(

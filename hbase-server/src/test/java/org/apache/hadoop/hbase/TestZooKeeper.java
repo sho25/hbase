@@ -699,6 +699,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Rule
 import|;
 end_import
@@ -1001,8 +1011,13 @@ argument_list|)
 return|;
 block|}
 comment|/**    * See HBASE-1232 and http://hbase.apache.org/book.html#trouble.zookeeper.    * @throws IOException    * @throws InterruptedException    */
-comment|// fails frequently, disabled for now, see HBASE-6406
-comment|//@Test
+annotation|@
+name|Ignore
+argument_list|(
+literal|"fails frequently, disabled for now, see HBASE-6406"
+argument_list|)
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testClientSessionExpired
