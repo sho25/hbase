@@ -115,7 +115,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZKUtil
+name|ZNodePaths
 import|;
 end_import
 
@@ -400,7 +400,7 @@ name|zooKeeper
 parameter_list|)
 block|{
 return|return
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(

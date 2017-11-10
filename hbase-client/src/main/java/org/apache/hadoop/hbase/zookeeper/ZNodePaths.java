@@ -107,33 +107,11 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
+name|client
+operator|.
+name|RegionInfo
 operator|.
 name|DEFAULT_REPLICA_ID
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|collect
-operator|.
-name|ImmutableMap
 import|;
 end_import
 
@@ -183,7 +161,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -201,6 +181,30 @@ name|InterfaceAudience
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|collect
+operator|.
+name|ImmutableMap
+import|;
+end_import
+
 begin_comment
 comment|/**  * Class that hold all the paths of znode for HBase.  */
 end_comment
@@ -214,6 +218,15 @@ specifier|public
 class|class
 name|ZNodePaths
 block|{
+comment|// TODO: Replace this with ZooKeeper constant when ZOOKEEPER-277 is resolved.
+specifier|public
+specifier|static
+specifier|final
+name|char
+name|ZNODE_PATH_SEPARATOR
+init|=
+literal|'/'
+decl_stmt|;
 specifier|public
 specifier|final
 specifier|static
@@ -402,7 +415,7 @@ expr_stmt|;
 name|String
 name|defaultMetaReplicaZNode
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -468,8 +481,6 @@ argument_list|()
 expr_stmt|;
 name|rsZNode
 operator|=
-name|ZKUtil
-operator|.
 name|joinZNode
 argument_list|(
 name|baseZNode
@@ -486,8 +497,6 @@ argument_list|)
 expr_stmt|;
 name|drainingZNode
 operator|=
-name|ZKUtil
-operator|.
 name|joinZNode
 argument_list|(
 name|baseZNode
@@ -504,8 +513,6 @@ argument_list|)
 expr_stmt|;
 name|masterAddressZNode
 operator|=
-name|ZKUtil
-operator|.
 name|joinZNode
 argument_list|(
 name|baseZNode
@@ -522,8 +529,6 @@ argument_list|)
 expr_stmt|;
 name|backupMasterAddressesZNode
 operator|=
-name|ZKUtil
-operator|.
 name|joinZNode
 argument_list|(
 name|baseZNode
@@ -540,8 +545,6 @@ argument_list|)
 expr_stmt|;
 name|clusterStateZNode
 operator|=
-name|ZKUtil
-operator|.
 name|joinZNode
 argument_list|(
 name|baseZNode
@@ -558,8 +561,6 @@ argument_list|)
 expr_stmt|;
 name|tableZNode
 operator|=
-name|ZKUtil
-operator|.
 name|joinZNode
 argument_list|(
 name|baseZNode
@@ -576,8 +577,6 @@ argument_list|)
 expr_stmt|;
 name|clusterIdZNode
 operator|=
-name|ZKUtil
-operator|.
 name|joinZNode
 argument_list|(
 name|baseZNode
@@ -594,8 +593,6 @@ argument_list|)
 expr_stmt|;
 name|splitLogZNode
 operator|=
-name|ZKUtil
-operator|.
 name|joinZNode
 argument_list|(
 name|baseZNode
@@ -612,8 +609,6 @@ argument_list|)
 expr_stmt|;
 name|balancerZNode
 operator|=
-name|ZKUtil
-operator|.
 name|joinZNode
 argument_list|(
 name|baseZNode
@@ -630,8 +625,6 @@ argument_list|)
 expr_stmt|;
 name|regionNormalizerZNode
 operator|=
-name|ZKUtil
-operator|.
 name|joinZNode
 argument_list|(
 name|baseZNode
@@ -648,8 +641,6 @@ argument_list|)
 expr_stmt|;
 name|switchZNode
 operator|=
-name|ZKUtil
-operator|.
 name|joinZNode
 argument_list|(
 name|baseZNode
@@ -666,8 +657,6 @@ argument_list|)
 expr_stmt|;
 name|tableLockZNode
 operator|=
-name|ZKUtil
-operator|.
 name|joinZNode
 argument_list|(
 name|baseZNode
@@ -684,8 +673,6 @@ argument_list|)
 expr_stmt|;
 name|namespaceZNode
 operator|=
-name|ZKUtil
-operator|.
 name|joinZNode
 argument_list|(
 name|baseZNode
@@ -702,8 +689,6 @@ argument_list|)
 expr_stmt|;
 name|masterMaintZNode
 operator|=
-name|ZKUtil
-operator|.
 name|joinZNode
 argument_list|(
 name|baseZNode
@@ -720,8 +705,6 @@ argument_list|)
 expr_stmt|;
 name|replicationZNode
 operator|=
-name|ZKUtil
-operator|.
 name|joinZNode
 argument_list|(
 name|baseZNode
@@ -738,8 +721,6 @@ argument_list|)
 expr_stmt|;
 name|peersZNode
 operator|=
-name|ZKUtil
-operator|.
 name|joinZNode
 argument_list|(
 name|replicationZNode
@@ -756,8 +737,6 @@ argument_list|)
 expr_stmt|;
 name|queuesZNode
 operator|=
-name|ZKUtil
-operator|.
 name|joinZNode
 argument_list|(
 name|replicationZNode
@@ -774,8 +753,6 @@ argument_list|)
 expr_stmt|;
 name|hfileRefsZNode
 operator|=
-name|ZKUtil
-operator|.
 name|joinZNode
 argument_list|(
 name|replicationZNode
@@ -971,7 +948,7 @@ argument_list|)
 condition|)
 block|{
 return|return
-name|HRegionInfo
+name|RegionInfo
 operator|.
 name|DEFAULT_REPLICA_ID
 return|;
@@ -1016,6 +993,29 @@ name|equals
 argument_list|(
 name|znode
 argument_list|)
+return|;
+block|}
+comment|/**    * Join the prefix znode name with the suffix znode name to generate a proper    * full znode name.    *    * Assumes prefix does not end with slash and suffix does not begin with it.    *    * @param prefix beginning of znode name    * @param suffix ending of znode name    * @return result of properly joining prefix with suffix    */
+specifier|public
+specifier|static
+name|String
+name|joinZNode
+parameter_list|(
+name|String
+name|prefix
+parameter_list|,
+name|String
+name|suffix
+parameter_list|)
+block|{
+return|return
+name|prefix
+operator|+
+name|ZNodePaths
+operator|.
+name|ZNODE_PATH_SEPARATOR
+operator|+
+name|suffix
 return|;
 block|}
 block|}

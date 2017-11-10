@@ -217,6 +217,22 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
+name|ZNodePaths
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
 name|ZooKeeperWatcher
 import|;
 end_import
@@ -479,7 +495,7 @@ name|this
 operator|.
 name|replicationZNode
 operator|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -498,7 +514,7 @@ name|this
 operator|.
 name|peersZNode
 operator|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -511,7 +527,7 @@ name|this
 operator|.
 name|queuesZNode
 operator|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -524,7 +540,7 @@ name|this
 operator|.
 name|hfileRefsZNode
 operator|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -713,7 +729,7 @@ name|this
 operator|.
 name|zookeeper
 argument_list|,
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -770,7 +786,7 @@ name|id
 parameter_list|)
 block|{
 return|return
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -778,7 +794,7 @@ name|this
 operator|.
 name|peersZNode
 argument_list|,
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -802,7 +818,7 @@ name|id
 parameter_list|)
 block|{
 return|return
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -810,7 +826,7 @@ name|this
 operator|.
 name|peersZNode
 argument_list|,
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -834,7 +850,7 @@ name|id
 parameter_list|)
 block|{
 return|return
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(

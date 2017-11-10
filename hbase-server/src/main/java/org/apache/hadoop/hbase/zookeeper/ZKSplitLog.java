@@ -183,7 +183,7 @@ name|filename
 parameter_list|)
 block|{
 return|return
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -315,7 +315,7 @@ name|zkw
 parameter_list|)
 block|{
 return|return
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(

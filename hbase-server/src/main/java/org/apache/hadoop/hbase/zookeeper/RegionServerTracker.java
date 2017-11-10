@@ -420,7 +420,7 @@ block|{
 name|String
 name|nodePath
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(

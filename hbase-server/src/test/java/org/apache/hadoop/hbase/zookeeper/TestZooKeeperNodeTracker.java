@@ -610,7 +610,7 @@ specifier|final
 name|String
 name|node
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(

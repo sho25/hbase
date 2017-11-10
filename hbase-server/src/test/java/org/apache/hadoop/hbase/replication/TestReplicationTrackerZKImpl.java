@@ -349,6 +349,22 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
+name|ZNodePaths
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
 name|ZooKeeperWatcher
 import|;
 end_import
@@ -567,7 +583,7 @@ expr_stmt|;
 name|String
 name|fakeRs1
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -733,7 +749,7 @@ name|createWithParents
 argument_list|(
 name|zkw
 argument_list|,
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -767,7 +783,7 @@ name|createWithParents
 argument_list|(
 name|zkw
 argument_list|,
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -801,7 +817,7 @@ name|deleteNode
 argument_list|(
 name|zkw
 argument_list|,
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -835,7 +851,7 @@ name|deleteNode
 argument_list|(
 name|zkw
 argument_list|,
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -883,7 +899,7 @@ name|createAndWatch
 argument_list|(
 name|zkw
 argument_list|,
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -917,7 +933,7 @@ name|deleteNode
 argument_list|(
 name|zkw
 argument_list|,
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(

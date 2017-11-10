@@ -497,7 +497,7 @@ comment|// single create
 name|String
 name|path
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -700,7 +700,7 @@ block|{
 name|String
 name|path1
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -716,7 +716,7 @@ decl_stmt|;
 name|String
 name|path2
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -732,7 +732,7 @@ decl_stmt|;
 name|String
 name|path3
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -748,7 +748,7 @@ decl_stmt|;
 name|String
 name|path4
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -764,7 +764,7 @@ decl_stmt|;
 name|String
 name|path5
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -780,7 +780,7 @@ decl_stmt|;
 name|String
 name|path6
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -1312,7 +1312,7 @@ decl_stmt|;
 name|String
 name|path
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -1537,7 +1537,7 @@ comment|// try a multi where all but one operation succeeds
 name|String
 name|pathA
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -1553,7 +1553,7 @@ decl_stmt|;
 name|String
 name|pathB
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -1569,7 +1569,7 @@ decl_stmt|;
 name|String
 name|pathC
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -1744,7 +1744,7 @@ block|{
 name|String
 name|pathX
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -1760,7 +1760,7 @@ decl_stmt|;
 name|String
 name|pathY
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -1776,7 +1776,7 @@ decl_stmt|;
 name|String
 name|pathZ
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -1835,7 +1835,7 @@ comment|// fail one of each create ,setData, delete
 name|String
 name|pathV
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -1851,7 +1851,7 @@ decl_stmt|;
 name|String
 name|pathW
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -2258,7 +2258,7 @@ block|{
 name|String
 name|path1
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -2274,7 +2274,7 @@ decl_stmt|;
 name|String
 name|path2
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -2290,7 +2290,7 @@ decl_stmt|;
 name|String
 name|path3
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -2306,7 +2306,7 @@ decl_stmt|;
 name|String
 name|path4
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(

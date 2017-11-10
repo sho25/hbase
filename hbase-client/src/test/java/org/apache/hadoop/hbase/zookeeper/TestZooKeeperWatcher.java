@@ -225,7 +225,7 @@ name|watcher
 operator|.
 name|isClientReadable
 argument_list|(
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(

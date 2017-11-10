@@ -262,7 +262,7 @@ throw|;
 block|}
 name|splitZnode
 operator|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -284,7 +284,7 @@ argument_list|)
 expr_stmt|;
 name|mergeZnode
 operator|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(

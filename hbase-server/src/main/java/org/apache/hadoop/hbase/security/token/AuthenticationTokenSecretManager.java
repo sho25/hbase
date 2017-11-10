@@ -231,7 +231,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZKUtil
+name|ZNodePaths
 import|;
 end_import
 
@@ -1470,7 +1470,7 @@ name|ZKLeaderManager
 argument_list|(
 name|watcher
 argument_list|,
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(

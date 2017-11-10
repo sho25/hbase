@@ -287,6 +287,22 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
+name|ZNodePaths
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
 name|ZooKeeperWatcher
 import|;
 end_import
@@ -406,7 +422,7 @@ name|this
 operator|.
 name|myQueuesZnode
 operator|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -557,7 +573,7 @@ name|this
 operator|.
 name|zookeeper
 argument_list|,
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -611,7 +627,7 @@ block|{
 name|String
 name|znode
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -624,7 +640,7 @@ argument_list|)
 decl_stmt|;
 name|znode
 operator|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -686,7 +702,7 @@ block|{
 name|String
 name|znode
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -699,7 +715,7 @@ argument_list|)
 decl_stmt|;
 name|znode
 operator|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -768,7 +784,7 @@ block|{
 name|String
 name|znode
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -781,7 +797,7 @@ argument_list|)
 decl_stmt|;
 name|znode
 operator|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -855,7 +871,7 @@ block|{
 name|String
 name|clusterZnode
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -869,7 +885,7 @@ decl_stmt|;
 name|String
 name|znode
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -990,7 +1006,7 @@ name|regionserver
 parameter_list|)
 block|{
 return|return
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -1037,7 +1053,7 @@ block|}
 name|String
 name|rsZnodePath
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -1154,7 +1170,7 @@ block|{
 name|String
 name|rsPath
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -1300,7 +1316,7 @@ block|{
 name|String
 name|znode
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -1456,7 +1472,7 @@ comment|// hbase/replication/rs/deadrs
 name|String
 name|deadRSZnodePath
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -1499,7 +1515,7 @@ decl_stmt|;
 name|String
 name|newPeerZnode
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -1514,7 +1530,7 @@ comment|// check the logs queue for the old peer cluster
 name|String
 name|oldClusterZnode
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -1577,7 +1593,7 @@ block|{
 name|String
 name|oldWalZnode
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -1700,7 +1716,7 @@ block|{
 name|String
 name|oldWalZnode
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -1745,7 +1761,7 @@ expr_stmt|;
 name|String
 name|newLogZnode
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -1931,7 +1947,7 @@ block|{
 name|String
 name|peerZnode
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -2013,7 +2029,7 @@ name|ZKUtilOp
 operator|.
 name|createAndFailSilent
 argument_list|(
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -2119,7 +2135,7 @@ block|{
 name|String
 name|peerZnode
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -2201,7 +2217,7 @@ name|ZKUtilOp
 operator|.
 name|deleteNodeFailSilent
 argument_list|(
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -2293,7 +2309,7 @@ block|{
 name|String
 name|peerZnode
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -2382,7 +2398,7 @@ specifier|final
 name|String
 name|peerZnode
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(

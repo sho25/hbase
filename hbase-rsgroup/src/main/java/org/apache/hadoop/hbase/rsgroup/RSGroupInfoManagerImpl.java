@@ -853,6 +853,22 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
+name|ZNodePaths
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
 name|ZooKeeperWatcher
 import|;
 end_import
@@ -2222,7 +2238,7 @@ block|{
 name|String
 name|groupBasePath
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -2289,7 +2305,7 @@ name|getData
 argument_list|(
 name|watcher
 argument_list|,
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -3098,7 +3114,7 @@ block|{
 name|String
 name|groupBasePath
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -3164,7 +3180,7 @@ block|{
 name|String
 name|znode
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -3203,7 +3219,7 @@ block|{
 name|String
 name|znode
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(

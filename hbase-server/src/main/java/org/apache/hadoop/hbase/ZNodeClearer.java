@@ -189,6 +189,22 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
+name|ZNodePaths
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
 name|ZooKeeperWatcher
 import|;
 end_import
@@ -724,14 +740,14 @@ name|conf
 argument_list|)
 condition|)
 block|{
-comment|//In case of master crash also remove rsZnode since master is also regionserver
+comment|// In case of master crash also remove rsZnode since master is also regionserver
 name|ZKUtil
 operator|.
 name|deleteNodeFailSilent
 argument_list|(
 name|zkw
 argument_list|,
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(

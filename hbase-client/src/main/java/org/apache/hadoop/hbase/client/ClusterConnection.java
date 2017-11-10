@@ -536,6 +536,15 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Get the admin service for master.    */
+name|AdminService
+operator|.
+name|BlockingInterface
+name|getAdminForMaster
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Establishes a connection to the region server at the specified address.    * @param serverName    * @return proxy for HRegionServer    * @throws IOException if a remote or network exception occurs    */
 name|AdminService
 operator|.

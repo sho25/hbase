@@ -773,15 +773,6 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|// TODO: Replace this with ZooKeeper constant when ZOOKEEPER-277 is resolved.
-specifier|public
-specifier|static
-specifier|final
-name|char
-name|ZNODE_PATH_SEPARATOR
-init|=
-literal|'/'
-decl_stmt|;
 specifier|private
 specifier|static
 name|int
@@ -1653,27 +1644,6 @@ block|}
 comment|//
 comment|// Helper methods
 comment|//
-comment|/**    * Join the prefix znode name with the suffix znode name to generate a proper    * full znode name.    *    * Assumes prefix does not end with slash and suffix does not begin with it.    *    * @param prefix beginning of znode name    * @param suffix ending of znode name    * @return result of properly joining prefix with suffix    */
-specifier|public
-specifier|static
-name|String
-name|joinZNode
-parameter_list|(
-name|String
-name|prefix
-parameter_list|,
-name|String
-name|suffix
-parameter_list|)
-block|{
-return|return
-name|prefix
-operator|+
-name|ZNODE_PATH_SEPARATOR
-operator|+
-name|suffix
-return|;
-block|}
 comment|/**    * Returns the full path of the immediate parent of the specified node.    * @param node path to get parent of    * @return parent of path, null if passed the root node or an invalid node    */
 specifier|public
 specifier|static
@@ -1691,6 +1661,8 @@ name|node
 operator|.
 name|lastIndexOf
 argument_list|(
+name|ZNodePaths
+operator|.
 name|ZNODE_PATH_SEPARATOR
 argument_list|)
 decl_stmt|;
@@ -2289,6 +2261,8 @@ name|watchAndCheckExists
 argument_list|(
 name|zkw
 argument_list|,
+name|ZNodePaths
+operator|.
 name|joinZNode
 argument_list|(
 name|znode
@@ -3241,7 +3215,7 @@ block|{
 name|String
 name|nodePath
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -7073,6 +7047,8 @@ block|{
 name|String
 name|znode
 init|=
+name|ZNodePaths
+operator|.
 name|joinZNode
 argument_list|(
 name|replicationZnode
@@ -7208,7 +7184,7 @@ block|{
 name|String
 name|znodeToProcess
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -7525,7 +7501,7 @@ name|stack
 operator|.
 name|add
 argument_list|(
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -7608,7 +7584,7 @@ block|{
 name|String
 name|znodeToProcess
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -7816,7 +7792,7 @@ continue|continue;
 name|String
 name|peerStateZnode
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -8690,7 +8666,7 @@ expr_stmt|;
 name|String
 name|node
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(

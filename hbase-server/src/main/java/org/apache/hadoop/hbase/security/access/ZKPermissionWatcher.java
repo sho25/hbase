@@ -147,6 +147,22 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
+name|ZNodePaths
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
 name|ZooKeeperListener
 import|;
 end_import
@@ -420,7 +436,7 @@ name|this
 operator|.
 name|aclZNode
 operator|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -1386,7 +1402,7 @@ decl_stmt|;
 name|String
 name|zkNode
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -1401,7 +1417,7 @@ argument_list|)
 decl_stmt|;
 name|zkNode
 operator|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -1483,7 +1499,7 @@ block|{
 name|String
 name|zkNode
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -1498,7 +1514,7 @@ argument_list|)
 decl_stmt|;
 name|zkNode
 operator|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -1587,7 +1603,7 @@ block|{
 name|String
 name|zkNode
 init|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
@@ -1602,7 +1618,7 @@ argument_list|)
 decl_stmt|;
 name|zkNode
 operator|=
-name|ZKUtil
+name|ZNodePaths
 operator|.
 name|joinZNode
 argument_list|(
