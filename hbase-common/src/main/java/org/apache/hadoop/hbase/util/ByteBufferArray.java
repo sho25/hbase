@@ -294,15 +294,12 @@ name|VisibleForTesting
 name|int
 name|bufferCount
 decl_stmt|;
-comment|/**    * We allocate a number of byte buffers as the capacity. In order not to out    * of the array bounds for the last byte(see {@link ByteBufferArray#multiple}),    * we will allocate one additional buffer with capacity 0;    * @param capacity total size of the byte buffer array    * @param directByteBuffer true if we allocate direct buffer    * @param allocator the ByteBufferAllocator that will create the buffers    * @throws IOException throws IOException if there is an exception thrown by the allocator    */
+comment|/**    * We allocate a number of byte buffers as the capacity. In order not to out    * of the array bounds for the last byte(see {@link ByteBufferArray#multiple}),    * we will allocate one additional buffer with capacity 0;    * @param capacity total size of the byte buffer array    * @param allocator the ByteBufferAllocator that will create the buffers    * @throws IOException throws IOException if there is an exception thrown by the allocator    */
 specifier|public
 name|ByteBufferArray
 parameter_list|(
 name|long
 name|capacity
-parameter_list|,
-name|boolean
-name|directByteBuffer
 parameter_list|,
 name|ByteBufferAllocator
 name|allocator
@@ -387,10 +384,6 @@ operator|+
 literal|", count="
 operator|+
 name|bufferCount
-operator|+
-literal|", direct="
-operator|+
-name|directByteBuffer
 argument_list|)
 expr_stmt|;
 name|buffers
@@ -405,8 +398,6 @@ index|]
 expr_stmt|;
 name|createBuffers
 argument_list|(
-name|directByteBuffer
-argument_list|,
 name|allocator
 argument_list|)
 expr_stmt|;
@@ -416,9 +407,6 @@ name|VisibleForTesting
 name|void
 name|createBuffers
 parameter_list|(
-name|boolean
-name|directByteBuffer
-parameter_list|,
 name|ByteBufferAllocator
 name|allocator
 parameter_list|)
@@ -550,8 +538,6 @@ operator|new
 name|BufferCreatorCallable
 argument_list|(
 name|bufferSize
-argument_list|,
-name|directByteBuffer
 argument_list|,
 name|buffersToCreate
 argument_list|,
@@ -694,11 +680,6 @@ name|bufferCapacity
 decl_stmt|;
 specifier|private
 specifier|final
-name|boolean
-name|directByteBuffer
-decl_stmt|;
-specifier|private
-specifier|final
 name|int
 name|bufferCount
 decl_stmt|;
@@ -712,9 +693,6 @@ parameter_list|(
 name|int
 name|bufferCapacity
 parameter_list|,
-name|boolean
-name|directByteBuffer
-parameter_list|,
 name|int
 name|bufferCount
 parameter_list|,
@@ -727,12 +705,6 @@ operator|.
 name|bufferCapacity
 operator|=
 name|bufferCapacity
-expr_stmt|;
-name|this
-operator|.
-name|directByteBuffer
-operator|=
-name|directByteBuffer
 expr_stmt|;
 name|this
 operator|.
@@ -798,10 +770,6 @@ argument_list|(
 name|this
 operator|.
 name|bufferCapacity
-argument_list|,
-name|this
-operator|.
-name|directByteBuffer
 argument_list|)
 expr_stmt|;
 block|}

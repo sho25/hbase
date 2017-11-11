@@ -429,10 +429,6 @@ name|blockCachePercentMaxRange
 decl_stmt|;
 specifier|private
 name|float
-name|l2BlockCachePercent
-decl_stmt|;
-specifier|private
-name|float
 name|heapOccupancyPercent
 decl_stmt|;
 specifier|private
@@ -989,17 +985,6 @@ operator|*
 name|CONVERT_TO_PERCENTAGE
 argument_list|)
 decl_stmt|;
-name|this
-operator|.
-name|l2BlockCachePercent
-operator|=
-name|MemorySizeUtil
-operator|.
-name|getL2BlockCacheHeapPercent
-argument_list|(
-name|conf
-argument_list|)
-expr_stmt|;
 name|int
 name|bcul
 init|=
@@ -1009,8 +994,6 @@ call|)
 argument_list|(
 operator|(
 name|blockCachePercentMinRange
-operator|+
-name|l2BlockCachePercent
 operator|)
 operator|*
 name|CONVERT_TO_PERCENTAGE
@@ -1082,8 +1065,6 @@ call|)
 argument_list|(
 operator|(
 name|blockCachePercentMaxRange
-operator|+
-name|l2BlockCachePercent
 operator|)
 operator|*
 name|CONVERT_TO_PERCENTAGE
@@ -1936,8 +1917,6 @@ call|)
 argument_list|(
 operator|(
 name|blockCacheSize
-operator|+
-name|l2BlockCachePercent
 operator|)
 operator|*
 name|CONVERT_TO_PERCENTAGE

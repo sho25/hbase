@@ -241,8 +241,6 @@ operator|new
 name|ByteBufferIOEngine
 argument_list|(
 name|capacity
-argument_list|,
-literal|false
 argument_list|)
 decl_stmt|;
 name|int
@@ -619,8 +617,6 @@ operator|new
 name|ByteBufferIOEngine
 argument_list|(
 name|capacity
-argument_list|,
-literal|false
 argument_list|)
 decl_stmt|;
 name|int

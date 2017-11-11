@@ -53,18 +53,6 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|assertThat
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
 name|assertTrue
 import|;
 end_import
@@ -106,16 +94,6 @@ operator|.
 name|util
 operator|.
 name|Arrays
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Collection
 import|;
 end_import
 
@@ -691,7 +669,7 @@ decl_stmt|;
 name|String
 name|ioEngineName
 init|=
-literal|"heap"
+literal|"offheap"
 decl_stmt|;
 name|String
 name|persistencePath

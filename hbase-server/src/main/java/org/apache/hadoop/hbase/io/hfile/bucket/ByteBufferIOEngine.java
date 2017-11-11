@@ -183,20 +183,12 @@ specifier|final
 name|long
 name|capacity
 decl_stmt|;
-specifier|private
-specifier|final
-name|boolean
-name|direct
-decl_stmt|;
-comment|/**    * Construct the ByteBufferIOEngine with the given capacity    * @param capacity    * @param direct true if allocate direct buffer    * @throws IOException ideally here no exception to be thrown from the allocator    */
+comment|/**    * Construct the ByteBufferIOEngine with the given capacity    * @param capacity    * @throws IOException ideally here no exception to be thrown from the allocator    */
 specifier|public
 name|ByteBufferIOEngine
 parameter_list|(
 name|long
 name|capacity
-parameter_list|,
-name|boolean
-name|direct
 parameter_list|)
 throws|throws
 name|IOException
@@ -206,12 +198,6 @@ operator|.
 name|capacity
 operator|=
 name|capacity
-expr_stmt|;
-name|this
-operator|.
-name|direct
-operator|=
-name|direct
 expr_stmt|;
 name|ByteBufferAllocator
 name|allocator
@@ -228,17 +214,9 @@ name|allocate
 parameter_list|(
 name|long
 name|size
-parameter_list|,
-name|boolean
-name|directByteBuffer
 parameter_list|)
 throws|throws
 name|IOException
-block|{
-if|if
-condition|(
-name|directByteBuffer
-condition|)
 block|{
 return|return
 name|ByteBuffer
@@ -252,21 +230,6 @@ name|size
 argument_list|)
 return|;
 block|}
-else|else
-block|{
-return|return
-name|ByteBuffer
-operator|.
-name|allocate
-argument_list|(
-operator|(
-name|int
-operator|)
-name|size
-argument_list|)
-return|;
-block|}
-block|}
 block|}
 decl_stmt|;
 name|bufferArray
@@ -275,8 +238,6 @@ operator|new
 name|ByteBufferArray
 argument_list|(
 name|capacity
-argument_list|,
-name|direct
 argument_list|,
 name|allocator
 argument_list|)
@@ -312,12 +273,6 @@ name|this
 operator|.
 name|capacity
 argument_list|)
-operator|+
-literal|", direct="
-operator|+
-name|this
-operator|.
-name|direct
 return|;
 block|}
 comment|/**    * Memory IO engine is always unable to support persistent storage for the    * cache    * @return false    */

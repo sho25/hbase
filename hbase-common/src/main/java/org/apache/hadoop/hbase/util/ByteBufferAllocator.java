@@ -64,15 +64,12 @@ specifier|public
 interface|interface
 name|ByteBufferAllocator
 block|{
-comment|/**    * Allocates a bytebuffer    * @param size the size of the bytebuffer    * @param directByteBuffer indicator to create a direct bytebuffer    * @return the bytebuffer that is created    * @throws IOException exception thrown if there is an error while creating the ByteBuffer    */
+comment|/**    * Allocates a bytebuffer    * @param size the size of the bytebuffer    * @return the bytebuffer that is created    * @throws IOException exception thrown if there is an error while creating the ByteBuffer    */
 name|ByteBuffer
 name|allocate
 parameter_list|(
 name|long
 name|size
-parameter_list|,
-name|boolean
-name|directByteBuffer
 parameter_list|)
 throws|throws
 name|IOException

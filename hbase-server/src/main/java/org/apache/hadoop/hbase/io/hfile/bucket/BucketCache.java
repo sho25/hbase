@@ -2236,29 +2236,6 @@ operator|new
 name|ByteBufferIOEngine
 argument_list|(
 name|capacity
-argument_list|,
-literal|true
-argument_list|)
-return|;
-block|}
-elseif|else
-if|if
-condition|(
-name|ioEngineName
-operator|.
-name|startsWith
-argument_list|(
-literal|"heap"
-argument_list|)
-condition|)
-block|{
-return|return
-operator|new
-name|ByteBufferIOEngine
-argument_list|(
-name|capacity
-argument_list|,
-literal|false
 argument_list|)
 return|;
 block|}
@@ -2294,7 +2271,7 @@ throw|throw
 operator|new
 name|IllegalArgumentException
 argument_list|(
-literal|"Don't understand io engine name for cache - prefix with file:, heap or offheap"
+literal|"Don't understand io engine name for cache- prefix with file:, files:, mmap: or offheap"
 argument_list|)
 throw|;
 block|}

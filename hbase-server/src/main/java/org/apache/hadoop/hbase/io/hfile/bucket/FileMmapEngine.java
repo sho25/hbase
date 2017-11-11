@@ -451,9 +451,6 @@ name|allocate
 parameter_list|(
 name|long
 name|size
-parameter_list|,
-name|boolean
-name|directByteBuffer
 parameter_list|)
 throws|throws
 name|IOException
@@ -461,15 +458,6 @@ block|{
 name|ByteBuffer
 name|buffer
 init|=
-literal|null
-decl_stmt|;
-if|if
-condition|(
-name|directByteBuffer
-condition|)
-block|{
-name|buffer
-operator|=
 name|fileChannel
 operator|.
 name|map
@@ -492,18 +480,7 @@ name|size
 argument_list|,
 name|size
 argument_list|)
-expr_stmt|;
-block|}
-else|else
-block|{
-throw|throw
-operator|new
-name|IllegalArgumentException
-argument_list|(
-literal|"Only Direct Bytebuffers allowed with FileMMap engine"
-argument_list|)
-throw|;
-block|}
+decl_stmt|;
 name|pos
 operator|++
 expr_stmt|;
@@ -519,8 +496,6 @@ operator|new
 name|ByteBufferArray
 argument_list|(
 name|fileSize
-argument_list|,
-literal|true
 argument_list|,
 name|allocator
 argument_list|)

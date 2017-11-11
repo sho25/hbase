@@ -1034,7 +1034,9 @@ name|conf
 operator|.
 name|setStrings
 argument_list|(
-literal|"hbase.bucketcache.ioengine"
+name|HConstants
+operator|.
+name|BUCKET_CACHE_IOENGINE_KEY
 argument_list|,
 literal|"offheap"
 argument_list|)
