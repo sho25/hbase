@@ -1286,14 +1286,9 @@ name|getTotalRowActionRequestCount
 parameter_list|()
 block|{
 return|return
-name|regionServer
-operator|.
-name|rpcServices
-operator|.
-name|requestRowActionCount
-operator|.
-name|sum
-argument_list|()
+name|readRequestsCount
+operator|+
+name|writeRequestsCount
 return|;
 block|}
 annotation|@

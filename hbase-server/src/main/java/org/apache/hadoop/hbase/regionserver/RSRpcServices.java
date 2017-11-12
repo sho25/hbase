@@ -3805,16 +3805,6 @@ operator|new
 name|LongAdder
 argument_list|()
 decl_stmt|;
-comment|// Request counter. (Excludes requests that are not serviced by regions.)
-comment|// Count rows for requests with multiple actions like multi/caching-scan/replayBatch
-specifier|final
-name|LongAdder
-name|requestRowActionCount
-init|=
-operator|new
-name|LongAdder
-argument_list|()
-decl_stmt|;
 comment|// Request counter for rpc get
 specifier|final
 name|LongAdder
@@ -8042,16 +8032,6 @@ name|requestCount
 operator|.
 name|increment
 argument_list|()
-expr_stmt|;
-name|requestRowActionCount
-operator|.
-name|add
-argument_list|(
-name|mutations
-operator|.
-name|size
-argument_list|()
-argument_list|)
 expr_stmt|;
 if|if
 condition|(
@@ -14796,11 +14776,6 @@ operator|.
 name|increment
 argument_list|()
 expr_stmt|;
-name|requestRowActionCount
-operator|.
-name|increment
-argument_list|()
-expr_stmt|;
 name|rpcGetRequestCount
 operator|.
 name|increment
@@ -15781,18 +15756,6 @@ name|getRegionActionList
 argument_list|()
 control|)
 block|{
-name|this
-operator|.
-name|requestRowActionCount
-operator|.
-name|add
-argument_list|(
-name|regionAction
-operator|.
-name|getActionCount
-argument_list|()
-argument_list|)
-expr_stmt|;
 name|OperationQuota
 name|quota
 decl_stmt|;
@@ -16510,11 +16473,6 @@ name|checkOpen
 argument_list|()
 expr_stmt|;
 name|requestCount
-operator|.
-name|increment
-argument_list|()
-expr_stmt|;
-name|requestRowActionCount
 operator|.
 name|increment
 argument_list|()
@@ -19042,20 +19000,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-name|region
-operator|.
-name|updateReadRequestsCount
-argument_list|(
-name|numOfResults
-argument_list|)
-expr_stmt|;
-name|requestRowActionCount
-operator|.
-name|add
-argument_list|(
-name|numOfResults
-argument_list|)
-expr_stmt|;
 name|long
 name|end
 init|=

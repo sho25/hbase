@@ -3011,6 +3011,7 @@ name|LongAdder
 argument_list|()
 decl_stmt|;
 comment|// Number of requests
+comment|// Count rows for scan
 specifier|final
 name|LongAdder
 name|readRequestsCount
@@ -3027,6 +3028,7 @@ operator|new
 name|LongAdder
 argument_list|()
 decl_stmt|;
+comment|// Count rows for multi row mutations
 specifier|final
 name|LongAdder
 name|writeRequestsCount
@@ -6842,23 +6844,6 @@ operator|.
 name|sum
 argument_list|()
 return|;
-block|}
-comment|/**    * Update the read request count for this region    * @param i increment    */
-specifier|public
-name|void
-name|updateReadRequestsCount
-parameter_list|(
-name|long
-name|i
-parameter_list|)
-block|{
-name|readRequestsCount
-operator|.
-name|add
-argument_list|(
-name|i
-argument_list|)
-expr_stmt|;
 block|}
 annotation|@
 name|Override
@@ -29622,11 +29607,6 @@ operator|.
 name|SCAN
 argument_list|)
 expr_stmt|;
-name|readRequestsCount
-operator|.
-name|increment
-argument_list|()
-expr_stmt|;
 try|try
 block|{
 return|return
@@ -29761,6 +29741,21 @@ name|addAll
 argument_list|(
 name|tmpList
 argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|!
+name|outResults
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
+name|readRequestsCount
+operator|.
+name|increment
+argument_list|()
 expr_stmt|;
 block|}
 comment|// If the size limit was reached it means a partial Result is being returned. Returning a
@@ -33643,16 +33638,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|writeRequestsCount
-operator|.
-name|add
-argument_list|(
-name|mutations
-operator|.
-name|size
-argument_list|()
-argument_list|)
-expr_stmt|;
 name|MultiRowMutationProcessor
 name|proc
 init|=
@@ -34186,6 +34171,16 @@ name|isEmpty
 argument_list|()
 condition|)
 block|{
+name|writeRequestsCount
+operator|.
+name|add
+argument_list|(
+name|mutations
+operator|.
+name|size
+argument_list|()
+argument_list|)
+expr_stmt|;
 comment|// STEP 5. Call the preBatchMutate hook
 name|processor
 operator|.
