@@ -153,20 +153,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -175,7 +161,7 @@ name|client
 operator|.
 name|replication
 operator|.
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 import|;
 end_import
 
@@ -278,6 +264,20 @@ operator|.
 name|zookeeper
 operator|.
 name|ZooKeeperWatcher
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -594,7 +594,7 @@ name|this
 operator|.
 name|peerConfig
 operator|=
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|parsePeerFrom
 argument_list|(

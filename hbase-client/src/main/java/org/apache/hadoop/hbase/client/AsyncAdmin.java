@@ -527,6 +527,17 @@ index|[]
 name|splitKeys
 parameter_list|)
 function_decl|;
+comment|/*    * Modify an existing table, more IRB friendly version.    * @param desc modified description of the table    */
+name|CompletableFuture
+argument_list|<
+name|Void
+argument_list|>
+name|modifyTable
+parameter_list|(
+name|TableDescriptor
+name|desc
+parameter_list|)
+function_decl|;
 comment|/**    * Deletes a table.    * @param tableName name of table to delete    */
 name|CompletableFuture
 argument_list|<
@@ -1259,6 +1270,28 @@ argument_list|>
 argument_list|>
 name|listReplicatedTableCFs
 parameter_list|()
+function_decl|;
+comment|/**    * Enable a table's replication switch.    * @param tableName name of the table    */
+name|CompletableFuture
+argument_list|<
+name|Void
+argument_list|>
+name|enableTableReplication
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|)
+function_decl|;
+comment|/**    * Disable a table's replication switch.    * @param tableName name of the table    */
+name|CompletableFuture
+argument_list|<
+name|Void
+argument_list|>
+name|disableTableReplication
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|)
 function_decl|;
 comment|/**    * Take a snapshot for the given table. If the table is enabled, a FLUSH-type snapshot will be    * taken. If the table is disabled, an offline snapshot is taken. Snapshots are considered unique    * based on<b>the name of the snapshot</b>. Attempts to take a snapshot with the same name (even    * a different type or with different parameters) will fail with a    * {@link org.apache.hadoop.hbase.snapshot.SnapshotCreationException} indicating the duplicate    * naming. Snapshot names follow the same naming constraints as tables in HBase. See    * {@link org.apache.hadoop.hbase.TableName#isLegalFullyQualifiedTableName(byte[])}.    * @param snapshotName name of the snapshot to be created    * @param tableName name of the table for which snapshot is created    */
 specifier|default

@@ -117,7 +117,7 @@ name|client
 operator|.
 name|replication
 operator|.
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 import|;
 end_import
 
@@ -648,7 +648,7 @@ name|zkw
 argument_list|,
 name|peerNode
 argument_list|,
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|toByteArray
 argument_list|(
@@ -709,7 +709,7 @@ expr_stmt|;
 name|ReplicationPeerConfig
 name|actualRpc
 init|=
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|parsePeerFrom
 argument_list|(
@@ -803,7 +803,7 @@ name|zkw
 argument_list|,
 name|peerNode
 argument_list|,
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|toByteArray
 argument_list|(
@@ -859,7 +859,7 @@ argument_list|)
 expr_stmt|;
 name|actualRpc
 operator|=
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|parsePeerFrom
 argument_list|(
@@ -952,7 +952,7 @@ name|zkw
 argument_list|,
 name|peerNode
 argument_list|,
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|toByteArray
 argument_list|(
@@ -1002,7 +1002,7 @@ argument_list|)
 expr_stmt|;
 name|actualRpc
 operator|=
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|parsePeerFrom
 argument_list|(
@@ -1095,7 +1095,7 @@ name|zkw
 argument_list|,
 name|peerNode
 argument_list|,
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|toByteArray
 argument_list|(
@@ -1112,7 +1112,7 @@ argument_list|)
 expr_stmt|;
 name|actualRpc
 operator|=
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|parsePeerFrom
 argument_list|(
@@ -1184,7 +1184,7 @@ argument_list|)
 expr_stmt|;
 name|actualRpc
 operator|=
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|parsePeerFrom
 argument_list|(
@@ -1371,7 +1371,7 @@ argument_list|)
 expr_stmt|;
 name|actualRpc
 operator|=
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|parsePeerFrom
 argument_list|(
@@ -1529,7 +1529,7 @@ argument_list|)
 expr_stmt|;
 name|actualRpc
 operator|=
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|parsePeerFrom
 argument_list|(
@@ -1581,7 +1581,7 @@ argument_list|)
 expr_stmt|;
 name|actualRpc
 operator|=
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|parsePeerFrom
 argument_list|(

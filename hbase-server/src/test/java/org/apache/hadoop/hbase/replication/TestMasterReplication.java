@@ -557,7 +557,7 @@ name|client
 operator|.
 name|replication
 operator|.
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 import|;
 end_import
 
@@ -3692,7 +3692,7 @@ argument_list|)
 operator|.
 name|setTableCFsMap
 argument_list|(
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(

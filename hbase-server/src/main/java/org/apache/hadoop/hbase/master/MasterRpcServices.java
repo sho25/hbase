@@ -387,7 +387,7 @@ name|client
 operator|.
 name|replication
 operator|.
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 import|;
 end_import
 
@@ -13220,7 +13220,7 @@ operator|.
 name|getPeerId
 argument_list|()
 argument_list|,
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|convert
 argument_list|(
@@ -13476,7 +13476,7 @@ name|response
 operator|.
 name|setPeerConfig
 argument_list|(
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|convert
 argument_list|(
@@ -13534,7 +13534,7 @@ operator|.
 name|getPeerId
 argument_list|()
 argument_list|,
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|convert
 argument_list|(
@@ -13634,7 +13634,7 @@ name|response
 operator|.
 name|addPeerDesc
 argument_list|(
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|toProtoReplicationPeerDescription
 argument_list|(

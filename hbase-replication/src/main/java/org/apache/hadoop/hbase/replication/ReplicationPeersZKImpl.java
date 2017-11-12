@@ -215,20 +215,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -237,7 +223,7 @@ name|client
 operator|.
 name|replication
 operator|.
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 import|;
 end_import
 
@@ -390,6 +376,20 @@ operator|.
 name|zookeeper
 operator|.
 name|ZooKeeperWatcher
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -711,7 +711,7 @@ argument_list|(
 name|id
 argument_list|)
 argument_list|,
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|toByteArray
 argument_list|(
@@ -1142,7 +1142,7 @@ argument_list|(
 name|id
 argument_list|)
 argument_list|,
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|toByteArray
 argument_list|(
@@ -1160,7 +1160,7 @@ name|id
 operator|+
 literal|" is now "
 operator|+
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|convertToString
 argument_list|(
@@ -1654,7 +1654,7 @@ block|}
 try|try
 block|{
 return|return
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|parsePeerFrom
 argument_list|(
@@ -2067,7 +2067,7 @@ argument_list|(
 name|id
 argument_list|)
 argument_list|,
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|toByteArray
 argument_list|(

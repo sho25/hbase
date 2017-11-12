@@ -621,7 +621,7 @@ name|tableCFsConfig
 parameter_list|)
 block|{
 return|return
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(
@@ -863,7 +863,7 @@ name|id
 argument_list|)
 decl_stmt|;
 return|return
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|convertToString
 argument_list|(
@@ -896,7 +896,7 @@ name|appendPeerTableCFs
 argument_list|(
 name|id
 argument_list|,
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(
@@ -1192,7 +1192,7 @@ name|removePeerTableCFs
 argument_list|(
 name|id
 argument_list|,
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(

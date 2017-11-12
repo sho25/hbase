@@ -461,7 +461,7 @@ name|client
 operator|.
 name|replication
 operator|.
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 import|;
 end_import
 
@@ -8761,7 +8761,7 @@ name|builder
 operator|.
 name|setPeerConfig
 argument_list|(
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|convert
 argument_list|(
@@ -8947,7 +8947,7 @@ name|builder
 operator|.
 name|setPeerConfig
 argument_list|(
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|convert
 argument_list|(

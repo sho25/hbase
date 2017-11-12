@@ -1475,7 +1475,7 @@ argument_list|>
 argument_list|>
 name|result
 init|=
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(
@@ -1545,7 +1545,7 @@ argument_list|)
 expr_stmt|;
 name|result
 operator|=
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(
@@ -1652,7 +1652,7 @@ argument_list|)
 expr_stmt|;
 name|result
 operator|=
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(
@@ -1814,7 +1814,7 @@ argument_list|)
 expr_stmt|;
 name|result
 operator|=
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(
@@ -2052,7 +2052,7 @@ argument_list|)
 expr_stmt|;
 name|result
 operator|=
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(
@@ -2164,7 +2164,7 @@ argument_list|)
 expr_stmt|;
 name|result
 operator|=
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(
@@ -2469,7 +2469,7 @@ argument_list|>
 argument_list|>
 name|result
 init|=
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(
@@ -2634,7 +2634,7 @@ argument_list|)
 expr_stmt|;
 name|result
 operator|=
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(

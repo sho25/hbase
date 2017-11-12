@@ -353,7 +353,7 @@ name|client
 operator|.
 name|replication
 operator|.
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 import|;
 end_import
 
@@ -1401,7 +1401,7 @@ decl_stmt|;
 comment|// 1. null or empty string, result should be null
 name|tabCFsMap
 operator|=
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(
@@ -1417,7 +1417,7 @@ argument_list|)
 expr_stmt|;
 name|tabCFsMap
 operator|=
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(
@@ -1433,7 +1433,7 @@ argument_list|)
 expr_stmt|;
 name|tabCFsMap
 operator|=
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(
@@ -1498,7 +1498,7 @@ decl_stmt|;
 comment|// 2. single table: "tableName1" / "tableName2:cf1" / "tableName3:cf1,cf3"
 name|tabCFsMap
 operator|=
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(
@@ -1556,7 +1556,7 @@ expr_stmt|;
 comment|// null cf-list,
 name|tabCFsMap
 operator|=
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(
@@ -1634,7 +1634,7 @@ expr_stmt|;
 comment|// the only cf is "cf1"
 name|tabCFsMap
 operator|=
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(
@@ -1727,7 +1727,7 @@ comment|// contains "cf3"
 comment|// 3. multiple tables: "tableName1 ; tableName2:cf1 ; tableName3:cf1,cf3"
 name|tabCFsMap
 operator|=
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(
@@ -1881,7 +1881,7 @@ comment|// 4. contiguous or additional ";"(table delimiter) or ","(cf delimiter)
 comment|// still use the example of multiple tables: "tableName1 ; tableName2:cf1 ; tableName3:cf1,cf3"
 name|tabCFsMap
 operator|=
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(
@@ -2035,7 +2035,7 @@ comment|// 5. invalid format "tableName1:tt:cf1 ; tableName2::cf1 ; tableName3:c
 comment|//    "tableName1:tt:cf1" and "tableName2::cf1" are invalid and will be ignored totally
 name|tabCFsMap
 operator|=
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|parseTableCFsFromConfig
 argument_list|(
@@ -2172,7 +2172,7 @@ decl_stmt|;
 comment|// 1. null or empty string, result should be null
 name|assertNull
 argument_list|(
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|convert
 argument_list|(
@@ -2189,7 +2189,7 @@ argument_list|()
 expr_stmt|;
 name|tableCFs
 operator|=
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|convert
 argument_list|(
@@ -2270,7 +2270,7 @@ argument_list|)
 expr_stmt|;
 name|tableCFs
 operator|=
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|convert
 argument_list|(
@@ -2353,7 +2353,7 @@ argument_list|)
 expr_stmt|;
 name|tableCFs
 operator|=
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|convert
 argument_list|(
@@ -2466,7 +2466,7 @@ argument_list|)
 expr_stmt|;
 name|tableCFs
 operator|=
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|convert
 argument_list|(
@@ -2629,7 +2629,7 @@ argument_list|)
 expr_stmt|;
 name|tableCFs
 operator|=
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|convert
 argument_list|(
@@ -2647,7 +2647,7 @@ argument_list|)
 expr_stmt|;
 name|assertNotNull
 argument_list|(
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|getTableCF
 argument_list|(
@@ -2662,7 +2662,7 @@ argument_list|)
 expr_stmt|;
 name|assertNotNull
 argument_list|(
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|getTableCF
 argument_list|(
@@ -2677,7 +2677,7 @@ argument_list|)
 expr_stmt|;
 name|assertNotNull
 argument_list|(
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|getTableCF
 argument_list|(
@@ -2694,7 +2694,7 @@ name|assertEquals
 argument_list|(
 literal|0
 argument_list|,
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|getTableCF
 argument_list|(
@@ -2714,7 +2714,7 @@ name|assertEquals
 argument_list|(
 literal|1
 argument_list|,
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|getTableCF
 argument_list|(
@@ -2734,7 +2734,7 @@ name|assertEquals
 argument_list|(
 literal|"cf1"
 argument_list|,
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|getTableCF
 argument_list|(
@@ -2759,7 +2759,7 @@ name|assertEquals
 argument_list|(
 literal|2
 argument_list|,
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|getTableCF
 argument_list|(
@@ -2779,7 +2779,7 @@ name|assertEquals
 argument_list|(
 literal|"cf1"
 argument_list|,
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|getTableCF
 argument_list|(
@@ -2804,7 +2804,7 @@ name|assertEquals
 argument_list|(
 literal|"cf3"
 argument_list|,
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|getTableCF
 argument_list|(
@@ -2827,7 +2827,7 @@ argument_list|)
 expr_stmt|;
 name|tabCFsMap
 operator|=
-name|ReplicationSerDeHelper
+name|ReplicationPeerConfigUtil
 operator|.
 name|convert2Map
 argument_list|(

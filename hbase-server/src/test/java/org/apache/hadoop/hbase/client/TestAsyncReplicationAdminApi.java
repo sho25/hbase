@@ -303,16 +303,6 @@ name|org
 operator|.
 name|junit
 operator|.
-name|Rule
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
 name|Test
 import|;
 end_import
@@ -328,18 +318,6 @@ operator|.
 name|categories
 operator|.
 name|Category
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
-name|rules
-operator|.
-name|TestName
 import|;
 end_import
 
