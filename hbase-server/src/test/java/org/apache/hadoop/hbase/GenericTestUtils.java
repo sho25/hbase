@@ -374,7 +374,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Test provides some very generic helpers which might be used across the tests  * *** for running UTs in hbase-server  */
+comment|/**  * Test provides some very generic helpers which might be used across the tests  */
 end_comment
 
 begin_class

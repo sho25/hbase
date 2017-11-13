@@ -344,7 +344,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The asynchronous administrative API for HBase.  *<p>  * This feature is still under development, so marked as IA.Private. Will change to public when  * done. Use it with caution.  * @since 2.0.0  */
+comment|/**  * The asynchronous administrative API for HBase.  * @since 2.0.0  */
 end_comment
 
 begin_interface

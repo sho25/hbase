@@ -19,6 +19,18 @@ end_package
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|RpcChannel
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|util
@@ -122,34 +134,6 @@ operator|.
 name|regex
 operator|.
 name|Pattern
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|Log
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|LogFactory
 import|;
 end_import
 
@@ -371,20 +355,8 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|RpcChannel
-import|;
-end_import
-
 begin_comment
-comment|/**  * The implementation of AsyncAdmin.  * @since 2.0.0  */
+comment|/**  * Just a wrapper of {@link RawAsyncHBaseAdmin}. The difference is that users need to provide a  * thread pool when constructing this class, and the callback methods registered to the returned  * {@link CompletableFuture} will be executed in this thread pool. So usually it is safe for users  * to do anything they want in the callbacks without breaking the rpc framework.  * @since 2.0.0  * @see RawAsyncHBaseAdmin  * @see AsyncConnection#getAdmin(ExecutorService)  * @see AsyncConnection#getAdminBuilder(ExecutorService)  */
 end_comment
 
 begin_class
@@ -398,21 +370,6 @@ name|AsyncHBaseAdmin
 implements|implements
 name|AsyncAdmin
 block|{
-specifier|private
-specifier|static
-specifier|final
-name|Log
-name|LOG
-init|=
-name|LogFactory
-operator|.
-name|getLog
-argument_list|(
-name|AsyncHBaseAdmin
-operator|.
-name|class
-argument_list|)
-decl_stmt|;
 specifier|private
 specifier|final
 name|RawAsyncHBaseAdmin
