@@ -103,7 +103,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZKWatcher
 import|;
 end_import
 
@@ -227,7 +227,7 @@ name|utility
 decl_stmt|;
 specifier|private
 specifier|static
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 decl_stmt|;
 specifier|private

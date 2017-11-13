@@ -101,7 +101,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZKWatcher
 import|;
 end_import
 
@@ -224,7 +224,7 @@ name|ReplicationPeers
 name|getReplicationPeers
 parameter_list|(
 specifier|final
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zk
 parameter_list|,
 name|Configuration
@@ -253,7 +253,7 @@ name|ReplicationPeers
 name|getReplicationPeers
 parameter_list|(
 specifier|final
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zk
 parameter_list|,
 name|Configuration
@@ -286,7 +286,7 @@ specifier|static
 name|ReplicationTracker
 name|getReplicationTracker
 parameter_list|(
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zookeeper
 parameter_list|,
 specifier|final

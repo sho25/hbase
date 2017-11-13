@@ -105,20 +105,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -211,7 +197,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZNodePaths
+name|ZKWatcher
 import|;
 end_import
 
@@ -227,7 +213,21 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZNodePaths
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -286,7 +286,7 @@ name|State
 argument_list|>
 name|queryForTableStates
 parameter_list|(
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 parameter_list|)
 throws|throws
@@ -457,7 +457,7 @@ return|return
 name|rv
 return|;
 block|}
-comment|/**    * Gets table state from ZK.    * @param zkw ZooKeeperWatcher instance to use    * @param tableName table we're checking    * @return Null or {@link ZooKeeperProtos.DeprecatedTableState.State} found in znode.    * @throws KeeperException    */
+comment|/**    * Gets table state from ZK.    * @param zkw ZKWatcher instance to use    * @param tableName table we're checking    * @return Null or {@link ZooKeeperProtos.DeprecatedTableState.State} found in znode.    * @throws KeeperException    */
 annotation|@
 name|Deprecated
 specifier|private
@@ -470,7 +470,7 @@ name|State
 name|getTableState
 parameter_list|(
 specifier|final
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 parameter_list|,
 specifier|final

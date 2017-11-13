@@ -249,7 +249,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZKWatcher
 import|;
 end_import
 
@@ -641,7 +641,7 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 init|=
 name|TEST_UTIL
@@ -1056,7 +1056,7 @@ operator|)
 decl_stmt|;
 try|try
 init|(
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 init|=
 name|TEST_UTIL

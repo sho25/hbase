@@ -359,7 +359,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZNodePaths
+name|ZKWatcher
 import|;
 end_import
 
@@ -375,7 +375,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZNodePaths
 import|;
 end_import
 
@@ -460,7 +460,7 @@ specifier|public
 name|ReplicationPeersZKImpl
 parameter_list|(
 specifier|final
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zk
 parameter_list|,
 specifier|final

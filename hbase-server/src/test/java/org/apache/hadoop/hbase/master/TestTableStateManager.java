@@ -169,7 +169,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZNodePaths
+name|ZKWatcher
 import|;
 end_import
 
@@ -185,7 +185,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZNodePaths
 import|;
 end_import
 
@@ -365,7 +365,7 @@ operator|.
 name|shutdownMiniHBaseCluster
 argument_list|()
 expr_stmt|;
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|watcher
 init|=
 name|TEST_UTIL
@@ -432,7 +432,7 @@ specifier|private
 name|void
 name|setTableStateInZK
 parameter_list|(
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|watcher
 parameter_list|,
 specifier|final

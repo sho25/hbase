@@ -167,6 +167,22 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
+name|ZKWatcher
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -303,22 +319,6 @@ name|ReplicationQueuesClientArguments
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|zookeeper
-operator|.
-name|ZooKeeperWatcher
-import|;
-end_import
-
 begin_comment
 comment|/**  * Manages and performs all replication admin operations.  * Used to add/remove a replication peer.  */
 end_comment
@@ -339,7 +339,7 @@ name|conf
 decl_stmt|;
 specifier|private
 specifier|final
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 decl_stmt|;
 specifier|private
@@ -358,7 +358,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 parameter_list|,
 name|Abortable

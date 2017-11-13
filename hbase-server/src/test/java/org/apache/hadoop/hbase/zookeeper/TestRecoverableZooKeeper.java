@@ -390,11 +390,11 @@ operator|.
 name|getConfiguration
 argument_list|()
 decl_stmt|;
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 init|=
 operator|new
-name|ZooKeeperWatcher
+name|ZKWatcher
 argument_list|(
 name|conf
 argument_list|,

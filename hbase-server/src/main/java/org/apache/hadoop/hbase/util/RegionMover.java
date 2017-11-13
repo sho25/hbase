@@ -569,7 +569,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZKWatcher
 import|;
 end_import
 
@@ -4752,11 +4752,11 @@ name|isMetaRegion
 argument_list|()
 condition|)
 block|{
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 init|=
 operator|new
-name|ZooKeeperWatcher
+name|ZKWatcher
 argument_list|(
 name|admin
 operator|.

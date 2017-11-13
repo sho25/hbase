@@ -351,7 +351,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZKWatcher
 import|;
 end_import
 
@@ -852,11 +852,11 @@ throws|,
 name|ServiceException
 block|{
 comment|// Need a zk watcher.
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 init|=
 operator|new
-name|ZooKeeperWatcher
+name|ZKWatcher
 argument_list|(
 name|UTIL
 operator|.

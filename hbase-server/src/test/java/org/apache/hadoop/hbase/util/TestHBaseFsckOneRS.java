@@ -985,7 +985,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZKWatcher
 import|;
 end_import
 
@@ -8993,11 +8993,11 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// create replicator
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 init|=
 operator|new
-name|ZooKeeperWatcher
+name|ZKWatcher
 argument_list|(
 name|conf
 argument_list|,

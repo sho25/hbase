@@ -189,7 +189,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZNodePaths
+name|ZKWatcher
 import|;
 end_import
 
@@ -205,7 +205,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZNodePaths
 import|;
 end_import
 
@@ -575,7 +575,7 @@ return|return
 name|masterServerName
 return|;
 block|}
-comment|/**    *     * @return true if cluster is configured with master-rs collocation     */
+comment|/**    *    * @return true if cluster is configured with master-rs collocation    */
 specifier|private
 specifier|static
 name|boolean
@@ -653,7 +653,7 @@ argument_list|,
 literal|0
 argument_list|)
 expr_stmt|;
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 decl_stmt|;
 try|try
@@ -661,7 +661,7 @@ block|{
 name|zkw
 operator|=
 operator|new
-name|ZooKeeperWatcher
+name|ZKWatcher
 argument_list|(
 name|tempConf
 argument_list|,

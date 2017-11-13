@@ -409,7 +409,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZKWatcher
 import|;
 end_import
 
@@ -773,7 +773,7 @@ operator|.
 name|getRegionServer
 argument_list|()
 decl_stmt|;
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 init|=
 name|hrs

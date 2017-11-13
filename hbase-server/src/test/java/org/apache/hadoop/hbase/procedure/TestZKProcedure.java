@@ -373,7 +373,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZKWatcher
 import|;
 end_import
 
@@ -665,7 +665,7 @@ expr_stmt|;
 block|}
 specifier|private
 specifier|static
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|newZooKeeperWatcher
 parameter_list|()
 throws|throws
@@ -673,7 +673,7 @@ name|IOException
 block|{
 return|return
 operator|new
-name|ZooKeeperWatcher
+name|ZKWatcher
 argument_list|(
 name|UTIL
 operator|.
@@ -817,7 +817,7 @@ name|members
 argument_list|)
 decl_stmt|;
 comment|// setup the constants
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|coordZkw
 init|=
 name|newZooKeeperWatcher
@@ -961,7 +961,7 @@ range|:
 name|members
 control|)
 block|{
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|watcher
 init|=
 name|newZooKeeperWatcher
@@ -1344,7 +1344,7 @@ literal|1
 argument_list|)
 decl_stmt|;
 comment|// start running the coordinator and its controller
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|coordinatorWatcher
 init|=
 name|newZooKeeperWatcher
@@ -1433,7 +1433,7 @@ range|:
 name|expected
 control|)
 block|{
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|watcher
 init|=
 name|newZooKeeperWatcher

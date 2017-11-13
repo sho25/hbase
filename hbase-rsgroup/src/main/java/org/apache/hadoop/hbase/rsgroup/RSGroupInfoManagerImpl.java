@@ -853,7 +853,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZNodePaths
+name|ZKWatcher
 import|;
 end_import
 
@@ -869,7 +869,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZNodePaths
 import|;
 end_import
 
@@ -1176,7 +1176,7 @@ name|conn
 decl_stmt|;
 specifier|private
 specifier|final
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|watcher
 decl_stmt|;
 specifier|private

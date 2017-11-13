@@ -51,11 +51,13 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|zookeeper
+operator|.
+name|ZKWatcher
 import|;
 end_import
 
@@ -65,13 +67,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|yetus
 operator|.
-name|hbase
+name|audience
 operator|.
-name|zookeeper
-operator|.
-name|ZooKeeperWatcher
+name|InterfaceAudience
 import|;
 end_import
 
@@ -99,7 +99,7 @@ parameter_list|,
 name|Abortable
 name|abort
 parameter_list|,
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zk
 parameter_list|)
 block|{

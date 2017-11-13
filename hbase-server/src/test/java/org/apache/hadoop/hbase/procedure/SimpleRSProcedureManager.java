@@ -239,7 +239,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZKWatcher
 import|;
 end_import
 
@@ -339,7 +339,7 @@ name|rss
 operator|=
 name|rss
 expr_stmt|;
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 init|=
 name|rss

@@ -119,6 +119,22 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
+name|ZKWatcher
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -232,22 +248,6 @@ operator|.
 name|zookeeper
 operator|.
 name|ZNodePaths
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|zookeeper
-operator|.
-name|ZooKeeperWatcher
 import|;
 end_import
 
@@ -415,7 +415,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zk
 parameter_list|,
 name|String
@@ -714,7 +714,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"ZooKeeperWatcher is abort"
+literal|"ZKWatcher is abort"
 argument_list|)
 expr_stmt|;
 throw|throw
@@ -723,7 +723,7 @@ name|InvalidToken
 argument_list|(
 literal|"Token keys could not be sync from zookeeper"
 operator|+
-literal|" because of ZooKeeperWatcher abort"
+literal|" because of ZKWatcher abort"
 argument_list|)
 throw|;
 block|}
@@ -1446,7 +1446,7 @@ decl_stmt|;
 specifier|public
 name|LeaderElector
 parameter_list|(
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|watcher
 parameter_list|,
 name|String

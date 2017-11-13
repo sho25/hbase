@@ -567,7 +567,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZKWatcher
 import|;
 end_import
 
@@ -1622,11 +1622,11 @@ argument_list|()
 expr_stmt|;
 try|try
 init|(
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 init|=
 operator|new
-name|ZooKeeperWatcher
+name|ZKWatcher
 argument_list|(
 name|conf
 argument_list|,
@@ -1757,7 +1757,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|getZooKeeper
 parameter_list|()
 block|{
@@ -1765,7 +1765,7 @@ try|try
 block|{
 return|return
 operator|new
-name|ZooKeeperWatcher
+name|ZKWatcher
 argument_list|(
 name|getConfiguration
 argument_list|()
@@ -1935,7 +1935,7 @@ specifier|static
 class|class
 name|FaultyZooKeeperWatcher
 extends|extends
-name|ZooKeeperWatcher
+name|ZKWatcher
 block|{
 specifier|private
 name|RecoverableZooKeeper

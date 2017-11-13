@@ -303,7 +303,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperNodeTracker
+name|ZKNodeTracker
 import|;
 end_import
 
@@ -319,7 +319,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZKWatcher
 import|;
 end_import
 
@@ -442,7 +442,7 @@ specifier|static
 class|class
 name|MasterTracker
 extends|extends
-name|ZooKeeperNodeTracker
+name|ZKNodeTracker
 block|{
 specifier|public
 name|boolean
@@ -453,7 +453,7 @@ decl_stmt|;
 specifier|public
 name|MasterTracker
 parameter_list|(
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 parameter_list|,
 name|String
@@ -930,11 +930,11 @@ argument_list|)
 expr_stmt|;
 comment|// set a watch on the zookeeper /hbase/master node. If the master dies,
 comment|// the node will be deleted.
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 init|=
 operator|new
-name|ZooKeeperWatcher
+name|ZKWatcher
 argument_list|(
 name|UTIL
 operator|.

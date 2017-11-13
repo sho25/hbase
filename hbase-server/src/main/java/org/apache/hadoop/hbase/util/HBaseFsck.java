@@ -1579,7 +1579,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZNodePaths
+name|ZKWatcher
 import|;
 end_import
 
@@ -1595,7 +1595,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZNodePaths
 import|;
 end_import
 
@@ -2509,7 +2509,7 @@ argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|private
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 init|=
 literal|null
@@ -10340,7 +10340,7 @@ literal|true
 return|;
 block|}
 specifier|private
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|createZooKeeperWatcher
 parameter_list|()
 throws|throws
@@ -10348,7 +10348,7 @@ name|IOException
 block|{
 return|return
 operator|new
-name|ZooKeeperWatcher
+name|ZKWatcher
 argument_list|(
 name|getConf
 argument_list|()

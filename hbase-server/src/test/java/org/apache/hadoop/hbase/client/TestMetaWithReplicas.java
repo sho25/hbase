@@ -549,7 +549,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZNodePaths
+name|ZKWatcher
 import|;
 end_import
 
@@ -565,7 +565,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZNodePaths
 import|;
 end_import
 
@@ -1010,7 +1010,7 @@ throws|throws
 name|Exception
 block|{
 comment|// Checks all the znodes exist when meta's replicas are enabled
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 init|=
 name|TEST_UTIL
@@ -1197,7 +1197,7 @@ comment|// This test creates a table, flushes the meta (with 3 replicas), kills 
 comment|// server holding the primary meta replica. Then it does a put/get into/from
 comment|// the test table. The put/get operations would use the replicas to locate the
 comment|// location of the test table's region
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 init|=
 name|util
@@ -2670,7 +2670,7 @@ name|getRegionInfo
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 init|=
 name|TEST_UTIL
@@ -2874,7 +2874,7 @@ operator|.
 name|getConfiguration
 argument_list|()
 decl_stmt|;
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 init|=
 name|TEST_UTIL

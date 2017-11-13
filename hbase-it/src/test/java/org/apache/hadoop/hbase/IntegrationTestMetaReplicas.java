@@ -159,7 +159,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZNodePaths
+name|ZKWatcher
 import|;
 end_import
 
@@ -175,7 +175,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZNodePaths
 import|;
 end_import
 
@@ -224,7 +224,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * An integration test that starts the cluster with three replicas for the meta  * It then creates a table, flushes the meta, kills the server holding the primary.  * After that a client issues put/get requests on the created table - the other   * replicas of the meta would be used to get the location of the region of the created  * table.  */
+comment|/**  * An integration test that starts the cluster with three replicas for the meta  * It then creates a table, flushes the meta, kills the server holding the primary.  * After that a client issues put/get requests on the created table - the other  * replicas of the meta would be used to get the location of the region of the created  * table.  */
 end_comment
 
 begin_class
@@ -321,7 +321,7 @@ argument_list|(
 literal|3
 argument_list|)
 expr_stmt|;
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 init|=
 name|util

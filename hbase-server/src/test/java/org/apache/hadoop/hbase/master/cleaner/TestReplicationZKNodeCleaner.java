@@ -199,7 +199,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZKWatcher
 import|;
 end_import
 
@@ -310,7 +310,7 @@ name|conf
 decl_stmt|;
 specifier|private
 specifier|final
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 decl_stmt|;
 specifier|private
@@ -334,7 +334,7 @@ expr_stmt|;
 name|zkw
 operator|=
 operator|new
-name|ZooKeeperWatcher
+name|ZKWatcher
 argument_list|(
 name|conf
 argument_list|,

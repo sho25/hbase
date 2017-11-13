@@ -101,6 +101,22 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
+name|ZKListener
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -181,23 +197,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperListener
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|zookeeper
-operator|.
-name|ZooKeeperWatcher
+name|ZKWatcher
 import|;
 end_import
 
@@ -310,7 +310,7 @@ name|class
 argument_list|)
 decl_stmt|;
 specifier|private
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 init|=
 literal|null
@@ -537,7 +537,7 @@ return|;
 block|}
 comment|/**    * Get the ZK connection to this peer    * @return zk connection    */
 specifier|protected
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|getZkw
 parameter_list|()
 block|{
@@ -566,7 +566,7 @@ expr_stmt|;
 name|zkw
 operator|=
 operator|new
-name|ZooKeeperWatcher
+name|ZKWatcher
 argument_list|(
 name|ctx
 operator|.
@@ -649,7 +649,7 @@ name|ServerName
 argument_list|>
 name|fetchSlavesAddresses
 parameter_list|(
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 parameter_list|)
 throws|throws
@@ -834,7 +834,7 @@ specifier|static
 class|class
 name|PeerRegionServerListener
 extends|extends
-name|ZooKeeperListener
+name|ZKListener
 block|{
 specifier|private
 specifier|final

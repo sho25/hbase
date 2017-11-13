@@ -283,20 +283,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|ZooKeeperConnectionException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|yetus
 operator|.
 name|audience
@@ -401,7 +387,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZKWatcher
 import|;
 end_import
 
@@ -453,7 +439,7 @@ name|class
 argument_list|)
 decl_stmt|;
 specifier|private
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 decl_stmt|;
 specifier|private
@@ -857,7 +843,7 @@ argument_list|(
 name|conf
 argument_list|,
 operator|new
-name|ZooKeeperWatcher
+name|ZKWatcher
 argument_list|(
 name|conf
 argument_list|,
@@ -902,7 +888,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zk
 parameter_list|)
 block|{
@@ -955,7 +941,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zk
 parameter_list|)
 throws|throws

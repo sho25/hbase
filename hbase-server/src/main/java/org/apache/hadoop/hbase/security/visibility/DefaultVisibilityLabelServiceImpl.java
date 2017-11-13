@@ -473,6 +473,22 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
+name|ZKWatcher
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -707,22 +723,6 @@ name|Pair
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|zookeeper
-operator|.
-name|ZooKeeperWatcher
-import|;
-end_import
-
 begin_class
 annotation|@
 name|InterfaceAudience
@@ -919,7 +919,7 @@ comment|/* So, presumption that the RegionCE has a ZK Connection is too much. Wh
 comment|// This is a CoreCoprocessor. On creation, we should have gotten an environment that
 comment|// implements HasRegionServerServices so we can get at RSS. FIX!!!! Integrate this CP as
 comment|// native service.
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zk
 init|=
 operator|(

@@ -287,7 +287,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZKWatcher
 import|;
 end_import
 
@@ -444,7 +444,7 @@ decl_stmt|;
 specifier|private
 name|VisibilityLabelsCache
 parameter_list|(
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|watcher
 parameter_list|,
 name|Configuration
@@ -504,7 +504,7 @@ specifier|static
 name|VisibilityLabelsCache
 name|createAndGet
 parameter_list|(
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|watcher
 parameter_list|,
 name|Configuration
@@ -550,7 +550,7 @@ return|return
 name|instance
 return|;
 block|}
-comment|/**    * @return Singleton instance of VisibilityLabelsCache    * @throws IllegalStateException    *           when this is called before calling    *           {@link #createAndGet(ZooKeeperWatcher, Configuration)}    */
+comment|/**    * @return Singleton instance of VisibilityLabelsCache    * @throws IllegalStateException    *           when this is called before calling    *           {@link #createAndGet(ZKWatcher, Configuration)}    */
 specifier|public
 specifier|static
 name|VisibilityLabelsCache

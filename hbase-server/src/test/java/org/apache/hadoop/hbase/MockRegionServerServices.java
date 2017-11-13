@@ -81,16 +81,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|Set
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|concurrent
 operator|.
 name|ConcurrentSkipListMap
@@ -553,7 +543,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZKWatcher
 import|;
 end_import
 
@@ -674,7 +664,7 @@ name|Configuration
 name|conf
 decl_stmt|;
 specifier|private
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 init|=
 literal|null
@@ -716,7 +706,7 @@ argument_list|)
 decl_stmt|;
 name|MockRegionServerServices
 parameter_list|(
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 parameter_list|)
 block|{
@@ -730,7 +720,7 @@ expr_stmt|;
 block|}
 name|MockRegionServerServices
 parameter_list|(
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 parameter_list|,
 name|ServerName
@@ -1034,7 +1024,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|getZooKeeper
 parameter_list|()
 block|{

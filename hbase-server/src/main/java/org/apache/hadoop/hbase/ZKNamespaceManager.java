@@ -179,7 +179,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperListener
+name|ZKListener
 import|;
 end_import
 
@@ -195,7 +195,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZKWatcher
 import|;
 end_import
 
@@ -276,7 +276,7 @@ specifier|public
 class|class
 name|ZKNamespaceManager
 extends|extends
-name|ZooKeeperListener
+name|ZKListener
 block|{
 specifier|private
 specifier|static
@@ -311,7 +311,7 @@ decl_stmt|;
 specifier|public
 name|ZKNamespaceManager
 parameter_list|(
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 parameter_list|)
 throws|throws

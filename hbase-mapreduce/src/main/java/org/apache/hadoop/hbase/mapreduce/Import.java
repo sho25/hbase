@@ -377,6 +377,22 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
+name|ZKWatcher
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -622,22 +638,6 @@ operator|.
 name|zookeeper
 operator|.
 name|ZKClusterId
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|zookeeper
-operator|.
-name|ZooKeeperWatcher
 import|;
 end_import
 
@@ -2631,7 +2631,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// TODO: This is kind of ugly doing setup of ZKW just to read the clusterid.
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 init|=
 literal|null
@@ -2646,7 +2646,7 @@ block|{
 name|zkw
 operator|=
 operator|new
-name|ZooKeeperWatcher
+name|ZKWatcher
 argument_list|(
 name|conf
 argument_list|,

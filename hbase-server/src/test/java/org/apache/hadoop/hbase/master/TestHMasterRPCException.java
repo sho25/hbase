@@ -307,7 +307,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZKWatcher
 import|;
 end_import
 
@@ -506,7 +506,7 @@ operator|.
 name|startMiniZKCluster
 argument_list|()
 expr_stmt|;
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|watcher
 init|=
 name|testUtil

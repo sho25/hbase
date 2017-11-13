@@ -293,7 +293,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZNodePaths
+name|ZKWatcher
 import|;
 end_import
 
@@ -309,7 +309,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZNodePaths
 import|;
 end_import
 
@@ -855,11 +855,11 @@ name|KeeperException
 throws|,
 name|InterruptedException
 block|{
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|watcher
 init|=
 operator|new
-name|ZooKeeperWatcher
+name|ZKWatcher
 argument_list|(
 name|conf
 argument_list|,
@@ -949,7 +949,7 @@ specifier|private
 name|void
 name|checkZnodePermsRecursive
 parameter_list|(
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|watcher
 parameter_list|,
 name|RecoverableZooKeeper
@@ -1217,7 +1217,7 @@ name|superUsers
 operator|!=
 literal|null
 operator|&&
-name|ZooKeeperWatcher
+name|ZKWatcher
 operator|.
 name|isSuperUserId
 argument_list|(

@@ -441,22 +441,6 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|Region
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
 name|RegionServerServices
 import|;
 end_import
@@ -473,7 +457,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZKWatcher
 import|;
 end_import
 
@@ -1527,7 +1511,7 @@ name|rss
 operator|=
 name|rss
 expr_stmt|;
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 init|=
 name|rss

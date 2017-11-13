@@ -609,7 +609,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZKWatcher
 import|;
 end_import
 
@@ -2178,7 +2178,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|localZKW
 init|=
 literal|null
@@ -2193,7 +2193,7 @@ block|{
 name|localZKW
 operator|=
 operator|new
-name|ZooKeeperWatcher
+name|ZKWatcher
 argument_list|(
 name|conf
 argument_list|,

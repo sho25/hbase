@@ -337,7 +337,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZKWatcher
 import|;
 end_import
 
@@ -802,14 +802,14 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Fake ZKW
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 init|=
 name|Mockito
 operator|.
 name|mock
 argument_list|(
-name|ZooKeeperWatcher
+name|ZKWatcher
 operator|.
 name|class
 argument_list|)

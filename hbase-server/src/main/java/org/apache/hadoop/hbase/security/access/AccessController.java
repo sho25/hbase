@@ -1665,7 +1665,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZKWatcher
 import|;
 end_import
 
@@ -5972,7 +5972,7 @@ literal|" accordingly."
 argument_list|)
 expr_stmt|;
 block|}
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zk
 init|=
 literal|null

@@ -235,7 +235,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZKWatcher
 import|;
 end_import
 
@@ -418,7 +418,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zk
 parameter_list|,
 name|String
@@ -518,7 +518,7 @@ operator|.
 name|getConfiguration
 argument_list|()
 decl_stmt|;
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zk
 init|=
 name|newZK
@@ -1014,7 +1014,7 @@ operator|.
 name|getConfiguration
 argument_list|()
 decl_stmt|;
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zk
 init|=
 name|newZK
@@ -1314,7 +1314,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// add another slave
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zk3
 init|=
 name|newZK
@@ -1538,7 +1538,7 @@ expr_stmt|;
 block|}
 specifier|private
 specifier|static
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|newZK
 parameter_list|(
 name|Configuration
@@ -1563,11 +1563,11 @@ argument_list|(
 name|conf
 argument_list|)
 decl_stmt|;
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zk
 init|=
 operator|new
-name|ZooKeeperWatcher
+name|ZKWatcher
 argument_list|(
 name|copy
 argument_list|,

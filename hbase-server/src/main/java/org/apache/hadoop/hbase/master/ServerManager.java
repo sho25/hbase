@@ -287,20 +287,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HBaseIOException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HConstants
 import|;
 end_import
@@ -545,7 +531,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZKWatcher
 import|;
 end_import
 
@@ -2420,7 +2406,7 @@ operator|.
 name|getServerName
 argument_list|()
 decl_stmt|;
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 init|=
 name|master
@@ -2674,7 +2660,7 @@ argument_list|>
 name|getRegionServersInZK
 parameter_list|(
 specifier|final
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 parameter_list|)
 throws|throws

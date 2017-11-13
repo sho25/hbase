@@ -95,20 +95,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CoordinatedStateManager
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HBaseTestingUtility
 import|;
 end_import
@@ -361,7 +347,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZNodePaths
+name|ZKWatcher
 import|;
 end_import
 
@@ -377,7 +363,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZNodePaths
 import|;
 end_import
 
@@ -917,7 +903,7 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|watcher
 init|=
 name|UTIL

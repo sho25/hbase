@@ -553,7 +553,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZKWatcher
 import|;
 end_import
 
@@ -822,7 +822,7 @@ name|CONNECTION
 argument_list|)
 expr_stmt|;
 comment|// make hfile archiving node so we can archive files
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|watcher
 init|=
 name|UTIL

@@ -332,7 +332,7 @@ argument_list|()
 decl_stmt|;
 specifier|private
 specifier|static
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 decl_stmt|;
 specifier|private
@@ -470,7 +470,7 @@ block|}
 name|zkw
 operator|=
 operator|new
-name|ZooKeeperWatcher
+name|ZKWatcher
 argument_list|(
 operator|new
 name|Configuration
@@ -543,7 +543,7 @@ literal|2
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create a node and check its ACL. When authentication is enabled on     * ZooKeeper, all nodes (except /hbase/root-region-server, /hbase/master    * and /hbase/hbaseid) should be created so that only the hbase server user    * (master or region server user) that created them can access them, and    * this user should have all permissions on this node. For    * /hbase/root-region-server, /hbase/master, and /hbase/hbaseid the    * permissions should be as above, but should also be world-readable. First    * we check the general case of /hbase nodes in the following test, and    * then check the subset of world-readable nodes in the three tests after    * that.    */
+comment|/**    * Create a node and check its ACL. When authentication is enabled on    * ZooKeeper, all nodes (except /hbase/root-region-server, /hbase/master    * and /hbase/hbaseid) should be created so that only the hbase server user    * (master or region server user) that created them can access them, and    * this user should have all permissions on this node. For    * /hbase/root-region-server, /hbase/master, and /hbase/hbaseid the    * permissions should be as above, but should also be world-readable. First    * we check the general case of /hbase nodes in the following test, and    * then check the subset of world-readable nodes in the three tests after    * that.    */
 annotation|@
 name|Test
 argument_list|(

@@ -51,11 +51,13 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|zookeeper
+operator|.
+name|ZKWatcher
 import|;
 end_import
 
@@ -65,13 +67,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|yetus
 operator|.
-name|hbase
+name|audience
 operator|.
-name|zookeeper
-operator|.
-name|ZooKeeperWatcher
+name|InterfaceAudience
 import|;
 end_import
 
@@ -89,7 +89,7 @@ class|class
 name|ReplicationQueuesArguments
 block|{
 specifier|private
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zk
 decl_stmt|;
 specifier|private
@@ -132,7 +132,7 @@ parameter_list|,
 name|Abortable
 name|abort
 parameter_list|,
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zk
 parameter_list|)
 block|{
@@ -150,7 +150,7 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|public
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|getZk
 parameter_list|()
 block|{
@@ -162,7 +162,7 @@ specifier|public
 name|void
 name|setZk
 parameter_list|(
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zk
 parameter_list|)
 block|{

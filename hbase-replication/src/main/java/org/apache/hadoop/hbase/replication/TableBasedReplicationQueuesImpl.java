@@ -283,22 +283,6 @@ name|hbase
 operator|.
 name|filter
 operator|.
-name|CompareFilter
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|filter
-operator|.
 name|SingleColumnValueFilter
 import|;
 end_import
@@ -347,7 +331,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZKWatcher
 import|;
 end_import
 
@@ -550,7 +534,7 @@ parameter_list|,
 name|Abortable
 name|abort
 parameter_list|,
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 parameter_list|)
 throws|throws

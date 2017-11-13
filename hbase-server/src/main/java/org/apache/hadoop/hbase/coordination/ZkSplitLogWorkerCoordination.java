@@ -355,6 +355,22 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
+name|ZKListener
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
 name|ZKMetadata
 import|;
 end_import
@@ -403,39 +419,23 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
+name|ZKWatcher
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
 name|ZNodePaths
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|zookeeper
-operator|.
-name|ZooKeeperListener
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|zookeeper
-operator|.
-name|ZooKeeperWatcher
 import|;
 end_import
 
@@ -518,7 +518,7 @@ specifier|public
 class|class
 name|ZkSplitLogWorkerCoordination
 extends|extends
-name|ZooKeeperListener
+name|ZKListener
 implements|implements
 name|SplitLogWorkerCoordination
 block|{
@@ -644,7 +644,7 @@ parameter_list|(
 name|ServerName
 name|serverName
 parameter_list|,
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|watcher
 parameter_list|)
 block|{
@@ -660,7 +660,7 @@ operator|=
 name|serverName
 expr_stmt|;
 block|}
-comment|/**    * Override handler from {@link ZooKeeperListener}    */
+comment|/**    * Override handler from {@link ZKListener}    */
 annotation|@
 name|Override
 specifier|public
@@ -723,7 +723,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Override handler from {@link ZooKeeperListener}    */
+comment|/**    * Override handler from {@link ZKListener}    */
 annotation|@
 name|Override
 specifier|public
@@ -1782,7 +1782,7 @@ parameter_list|(
 name|boolean
 name|isFirstTime
 parameter_list|,
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 parameter_list|,
 name|ServerName

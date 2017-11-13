@@ -617,6 +617,22 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
+name|ZKWatcher
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -1676,22 +1692,6 @@ operator|.
 name|zookeeper
 operator|.
 name|ZKConfig
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|zookeeper
-operator|.
-name|ZooKeeperWatcher
 import|;
 end_import
 
@@ -13187,7 +13187,7 @@ specifier|public
 name|void
 name|expireSession
 parameter_list|(
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|nodeZK
 parameter_list|)
 throws|throws
@@ -13212,7 +13212,7 @@ specifier|public
 name|void
 name|expireSession
 parameter_list|(
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|nodeZK
 parameter_list|,
 name|boolean
@@ -13600,13 +13600,13 @@ decl_stmt|;
 end_decl_stmt
 
 begin_comment
-comment|/**    * Returns a ZooKeeperWatcher instance.    * This instance is shared between HBaseTestingUtility instance users.    * Don't close it, it will be closed automatically when the    * cluster shutdowns    *    * @return The ZooKeeperWatcher instance.    * @throws IOException    */
+comment|/**    * Returns a ZKWatcher instance.    * This instance is shared between HBaseTestingUtility instance users.    * Don't close it, it will be closed automatically when the    * cluster shutdowns    *    * @return The ZKWatcher instance.    * @throws IOException    */
 end_comment
 
 begin_function
 specifier|public
 specifier|synchronized
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|getZooKeeperWatcher
 parameter_list|()
 throws|throws
@@ -13622,7 +13622,7 @@ block|{
 name|zooKeeperWatcher
 operator|=
 operator|new
-name|ZooKeeperWatcher
+name|ZKWatcher
 argument_list|(
 name|conf
 argument_list|,
@@ -13680,7 +13680,7 @@ end_function
 
 begin_decl_stmt
 specifier|private
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zooKeeperWatcher
 decl_stmt|;
 end_decl_stmt
@@ -16282,13 +16282,13 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Gets a ZooKeeperWatcher.    * @param TEST_UTIL    */
+comment|/**    * Gets a ZKWatcher.    * @param TEST_UTIL    */
 end_comment
 
 begin_function
 specifier|public
 specifier|static
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|getZooKeeperWatcher
 parameter_list|(
 name|HBaseTestingUtility
@@ -16299,11 +16299,11 @@ name|ZooKeeperConnectionException
 throws|,
 name|IOException
 block|{
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 init|=
 operator|new
-name|ZooKeeperWatcher
+name|ZKWatcher
 argument_list|(
 name|TEST_UTIL
 operator|.

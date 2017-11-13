@@ -477,7 +477,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZKWatcher
 import|;
 end_import
 
@@ -1191,11 +1191,11 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 init|=
 operator|new
-name|ZooKeeperWatcher
+name|ZKWatcher
 argument_list|(
 operator|new
 name|Configuration
@@ -1330,11 +1330,11 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 init|=
 operator|new
-name|ZooKeeperWatcher
+name|ZKWatcher
 argument_list|(
 operator|new
 name|Configuration
@@ -1534,11 +1534,11 @@ argument_list|)
 expr_stmt|;
 comment|// Assumes the  root of the ZooKeeper space is writable as it creates a node
 comment|// wherever the cluster home is defined.
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zk2
 init|=
 operator|new
-name|ZooKeeperWatcher
+name|ZKWatcher
 argument_list|(
 name|TEST_UTIL
 operator|.
@@ -1867,11 +1867,11 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 init|=
 operator|new
-name|ZooKeeperWatcher
+name|ZKWatcher
 argument_list|(
 name|TEST_UTIL
 operator|.
@@ -1940,7 +1940,7 @@ name|getMaster
 argument_list|()
 decl_stmt|;
 specifier|final
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 init|=
 name|m
@@ -2184,7 +2184,7 @@ specifier|private
 name|int
 name|countPermanentListeners
 parameter_list|(
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|watcher
 parameter_list|)
 block|{
@@ -2204,7 +2204,7 @@ specifier|private
 name|int
 name|countListeners
 parameter_list|(
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|watcher
 parameter_list|,
 name|Class

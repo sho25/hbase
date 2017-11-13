@@ -375,7 +375,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZKWatcher
 import|;
 end_import
 
@@ -1385,7 +1385,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|getZooKeeper
 parameter_list|()
 block|{
@@ -1393,7 +1393,7 @@ try|try
 block|{
 return|return
 operator|new
-name|ZooKeeperWatcher
+name|ZKWatcher
 argument_list|(
 name|getConfiguration
 argument_list|()

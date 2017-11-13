@@ -635,7 +635,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZKWatcher
 import|;
 end_import
 
@@ -830,7 +830,7 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|private
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 decl_stmt|;
 specifier|private
@@ -860,7 +860,7 @@ extends|extends
 name|MockNoopMasterServices
 block|{
 specifier|private
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 decl_stmt|;
 specifier|private
@@ -870,7 +870,7 @@ decl_stmt|;
 specifier|public
 name|DummyMasterServices
 parameter_list|(
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 parameter_list|,
 name|Configuration
@@ -900,7 +900,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|getZooKeeper
 parameter_list|()
 block|{
@@ -962,7 +962,7 @@ comment|// Use a different ZK wrapper instance for each tests.
 name|zkw
 operator|=
 operator|new
-name|ZooKeeperWatcher
+name|ZKWatcher
 argument_list|(
 name|conf
 argument_list|,

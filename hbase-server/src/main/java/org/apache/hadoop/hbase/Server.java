@@ -103,7 +103,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZKWatcher
 import|;
 end_import
 
@@ -154,7 +154,7 @@ name|getConfiguration
 parameter_list|()
 function_decl|;
 comment|/**    * Gets the ZooKeeper instance for this server.    */
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|getZooKeeper
 parameter_list|()
 function_decl|;

@@ -349,7 +349,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZNodePaths
+name|ZKWatcher
 import|;
 end_import
 
@@ -365,7 +365,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZNodePaths
 import|;
 end_import
 
@@ -472,7 +472,7 @@ name|utility
 decl_stmt|;
 comment|// Each one of the below variables are reinitialized before every test case
 specifier|private
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 decl_stmt|;
 specifier|private
@@ -538,7 +538,7 @@ operator|.
 name|getConfiguration
 argument_list|()
 expr_stmt|;
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zk
 init|=
 name|HBaseTestingUtility
@@ -1487,7 +1487,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|getZooKeeper
 parameter_list|()
 block|{

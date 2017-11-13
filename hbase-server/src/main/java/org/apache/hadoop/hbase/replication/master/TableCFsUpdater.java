@@ -203,7 +203,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZKWatcher
 import|;
 end_import
 
@@ -304,7 +304,7 @@ decl_stmt|;
 specifier|public
 name|TableCFsUpdater
 parameter_list|(
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zookeeper
 parameter_list|,
 name|Configuration
@@ -849,11 +849,11 @@ operator|.
 name|create
 argument_list|()
 decl_stmt|;
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 init|=
 operator|new
-name|ZooKeeperWatcher
+name|ZKWatcher
 argument_list|(
 name|conf
 argument_list|,

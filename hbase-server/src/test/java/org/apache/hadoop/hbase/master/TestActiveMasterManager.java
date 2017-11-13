@@ -325,6 +325,22 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
+name|ZKListener
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
 name|ZKUtil
 import|;
 end_import
@@ -341,23 +357,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperListener
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|zookeeper
-operator|.
-name|ZooKeeperWatcher
+name|ZKWatcher
 import|;
 end_import
 
@@ -517,11 +517,11 @@ name|IOException
 throws|,
 name|KeeperException
 block|{
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zk
 init|=
 operator|new
-name|ZooKeeperWatcher
+name|ZKWatcher
 argument_list|(
 name|TEST_UTIL
 operator|.
@@ -739,11 +739,11 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zk
 init|=
 operator|new
-name|ZooKeeperWatcher
+name|ZKWatcher
 argument_list|(
 name|TEST_UTIL
 operator|.
@@ -1140,12 +1140,12 @@ name|masterAddressZNode
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Assert there is an active master and that it has the specified address.    * @param zk    * @param thisMasterAddress    * @throws KeeperException    * @throws IOException     */
+comment|/**    * Assert there is an active master and that it has the specified address.    * @param zk    * @param thisMasterAddress    * @throws KeeperException    * @throws IOException    */
 specifier|private
 name|void
 name|assertMaster
 parameter_list|(
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zk
 parameter_list|,
 name|ServerName
@@ -1201,7 +1201,7 @@ decl_stmt|;
 specifier|public
 name|WaitToBeMasterThread
 parameter_list|(
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zk
 parameter_list|,
 name|ServerName
@@ -1277,7 +1277,7 @@ specifier|static
 class|class
 name|NodeDeletionListener
 extends|extends
-name|ZooKeeperListener
+name|ZKListener
 block|{
 specifier|private
 specifier|static
@@ -1305,7 +1305,7 @@ decl_stmt|;
 specifier|public
 name|NodeDeletionListener
 parameter_list|(
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|watcher
 parameter_list|,
 name|String
@@ -1408,7 +1408,7 @@ decl_stmt|;
 specifier|public
 name|DummyMaster
 parameter_list|(
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zk
 parameter_list|,
 name|ServerName
@@ -1494,7 +1494,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|getZooKeeper
 parameter_list|()
 block|{

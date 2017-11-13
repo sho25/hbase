@@ -499,7 +499,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZKWatcher
 import|;
 end_import
 
@@ -799,11 +799,11 @@ throws|,
 name|IOException
 block|{
 comment|// Make sure zk is clean before we run the next test.
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 init|=
 operator|new
-name|ZooKeeperWatcher
+name|ZKWatcher
 argument_list|(
 name|TESTUTIL
 operator|.

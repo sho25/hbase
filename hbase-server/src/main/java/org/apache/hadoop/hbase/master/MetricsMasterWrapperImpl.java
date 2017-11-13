@@ -171,7 +171,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZKWatcher
 import|;
 end_import
 
@@ -287,7 +287,7 @@ name|String
 name|getZookeeperQuorum
 parameter_list|()
 block|{
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zk
 init|=
 name|master

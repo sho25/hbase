@@ -259,7 +259,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZKWatcher
 import|;
 end_import
 
@@ -492,7 +492,7 @@ name|numMetaReplicasConfigured
 parameter_list|)
 block|{
 specifier|final
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zooKeeper
 init|=
 name|master

@@ -289,7 +289,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperNodeTracker
+name|ZKNodeTracker
 import|;
 end_import
 
@@ -305,7 +305,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZKWatcher
 import|;
 end_import
 
@@ -416,7 +416,7 @@ specifier|static
 class|class
 name|MasterTracker
 extends|extends
-name|ZooKeeperNodeTracker
+name|ZKNodeTracker
 block|{
 specifier|public
 name|boolean
@@ -427,7 +427,7 @@ decl_stmt|;
 specifier|public
 name|MasterTracker
 parameter_list|(
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 parameter_list|,
 name|String
@@ -826,11 +826,11 @@ comment|// Master should *NOT* die:
 comment|// we are testing that the default setting of hbase.coprocessor.abortonerror
 comment|// =false
 comment|// is respected.
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 init|=
 operator|new
-name|ZooKeeperWatcher
+name|ZKWatcher
 argument_list|(
 name|UTIL
 operator|.

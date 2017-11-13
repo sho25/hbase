@@ -111,6 +111,22 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
+name|ZKWatcher
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -203,22 +219,6 @@ name|ErrorReporter
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|zookeeper
-operator|.
-name|ZooKeeperWatcher
-import|;
-end_import
-
 begin_comment
 comment|/*  * Check and fix undeleted replication queues for removed peerId.  */
 end_comment
@@ -279,7 +279,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 parameter_list|,
 name|ClusterConnection

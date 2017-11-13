@@ -350,7 +350,7 @@ argument_list|()
 decl_stmt|;
 specifier|private
 specifier|static
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zkw
 init|=
 literal|null
@@ -424,7 +424,7 @@ decl_stmt|;
 name|zkw
 operator|=
 operator|new
-name|ZooKeeperWatcher
+name|ZKWatcher
 argument_list|(
 name|conf
 argument_list|,

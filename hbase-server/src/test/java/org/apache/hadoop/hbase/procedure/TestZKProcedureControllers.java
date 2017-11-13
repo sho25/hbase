@@ -273,7 +273,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZKWatcher
 import|;
 end_import
 
@@ -529,7 +529,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|watcher
 init|=
 name|UTIL
@@ -1148,7 +1148,7 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|watcher
 init|=
 name|UTIL
@@ -1580,7 +1580,7 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|watcher
 init|=
 name|UTIL
@@ -2167,7 +2167,7 @@ parameter_list|(
 name|String
 name|operationName
 parameter_list|,
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|watcher
 parameter_list|,
 name|ZKProcedureUtil
@@ -2386,7 +2386,7 @@ argument_list|>
 argument_list|>
 name|start
 parameter_list|(
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|watcher
 parameter_list|,
 name|String
@@ -2434,7 +2434,7 @@ argument_list|>
 argument_list|>
 name|start
 parameter_list|(
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|watcher
 parameter_list|,
 name|String
@@ -2564,7 +2564,7 @@ argument_list|>
 argument_list|>
 name|start
 parameter_list|(
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|watcher
 parameter_list|,
 name|String

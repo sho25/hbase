@@ -885,7 +885,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZKWatcher
 import|;
 end_import
 
@@ -1256,7 +1256,7 @@ name|InetSocketAddress
 name|isa
 decl_stmt|;
 specifier|private
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zookeeper
 decl_stmt|;
 specifier|private
@@ -1764,7 +1764,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|getZooKeeper
 parameter_list|()
 block|{
@@ -1919,7 +1919,7 @@ operator|.
 name|zookeeper
 operator|=
 operator|new
-name|ZooKeeperWatcher
+name|ZKWatcher
 argument_list|(
 name|zkConf
 argument_list|,

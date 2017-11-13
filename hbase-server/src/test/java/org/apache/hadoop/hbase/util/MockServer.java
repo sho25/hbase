@@ -211,7 +211,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeperWatcher
+name|ZKWatcher
 import|;
 end_import
 
@@ -265,7 +265,7 @@ name|boolean
 name|aborted
 decl_stmt|;
 specifier|final
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zk
 decl_stmt|;
 specifier|final
@@ -342,7 +342,7 @@ operator|=
 name|zkw
 condition|?
 operator|new
-name|ZooKeeperWatcher
+name|ZKWatcher
 argument_list|(
 name|htu
 operator|.
@@ -456,7 +456,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|getZooKeeper
 parameter_list|()
 block|{

@@ -316,7 +316,7 @@ name|boolean
 name|stopped
 decl_stmt|;
 specifier|private
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|watcher
 decl_stmt|;
 specifier|private
@@ -340,7 +340,7 @@ decl_stmt|;
 specifier|public
 name|MockLeader
 parameter_list|(
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|watcher
 parameter_list|,
 name|int
@@ -415,7 +415,7 @@ name|index
 return|;
 block|}
 specifier|public
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|getWatcher
 parameter_list|()
 block|{
@@ -605,7 +605,7 @@ name|i
 operator|++
 control|)
 block|{
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|watcher
 init|=
 name|newZK
@@ -1111,7 +1111,7 @@ return|;
 block|}
 specifier|private
 specifier|static
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|newZK
 parameter_list|(
 name|Configuration
@@ -1136,11 +1136,11 @@ argument_list|(
 name|conf
 argument_list|)
 decl_stmt|;
-name|ZooKeeperWatcher
+name|ZKWatcher
 name|zk
 init|=
 operator|new
-name|ZooKeeperWatcher
+name|ZKWatcher
 argument_list|(
 name|copy
 argument_list|,
