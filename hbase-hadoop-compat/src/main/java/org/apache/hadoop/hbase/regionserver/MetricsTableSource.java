@@ -39,7 +39,7 @@ decl_stmt|;
 name|String
 name|READ_REQUEST_COUNT_DESC
 init|=
-literal|"Number fo read requests"
+literal|"Number of read requests"
 decl_stmt|;
 name|String
 name|WRITE_REQUEST_COUNT
@@ -49,7 +49,7 @@ decl_stmt|;
 name|String
 name|WRITE_REQUEST_COUNT_DESC
 init|=
-literal|"Number fo write requests"
+literal|"Number of write requests"
 decl_stmt|;
 name|String
 name|TOTAL_REQUEST_COUNT
@@ -59,7 +59,7 @@ decl_stmt|;
 name|String
 name|TOTAL_REQUEST_COUNT_DESC
 init|=
-literal|"Number fo total requests"
+literal|"Number of total requests"
 decl_stmt|;
 name|String
 name|MEMSTORE_SIZE
