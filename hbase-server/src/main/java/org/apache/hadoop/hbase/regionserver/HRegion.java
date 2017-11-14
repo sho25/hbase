@@ -18503,7 +18503,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|// STEP 6. Complete mvcc for all but last writeEntry (for replay case)
+comment|// Complete mvcc for all but last writeEntry (for replay case)
 if|if
 condition|(
 name|it

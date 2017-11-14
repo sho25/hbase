@@ -883,7 +883,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Performs atomic multiple reads and writes on a given row.    *    * @param processor The object defines the reads and writes to a row.    */
+comment|/**    * Performs atomic multiple reads and writes on a given row.    *    * @param processor The object defines the reads and writes to a row.    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0. For customization, use    * Coprocessors instead.    */
+annotation|@
+name|Deprecated
 name|void
 name|processRowsWithLocks
 parameter_list|(
@@ -898,9 +900,11 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Performs atomic multiple reads and writes on a given row.    *    * @param processor The object defines the reads and writes to a row.    * @param nonceGroup Optional nonce group of the operation (client Id)    * @param nonce Optional nonce of the operation (unique random id to ensure "more idempotence")    */
+comment|/**    * Performs atomic multiple reads and writes on a given row.    *    * @param processor The object defines the reads and writes to a row.    * @param nonceGroup Optional nonce group of the operation (client Id)    * @param nonce Optional nonce of the operation (unique random id to ensure "more idempotence")    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0. For customization, use    * Coprocessors instead.    */
 comment|// TODO Should not be exposing with params nonceGroup, nonce. Change when doing the jira for
 comment|// Changing processRowsWithLocks and RowProcessor
+annotation|@
+name|Deprecated
 name|void
 name|processRowsWithLocks
 parameter_list|(
@@ -921,9 +925,11 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Performs atomic multiple reads and writes on a given row.    *    * @param processor The object defines the reads and writes to a row.    * @param timeout The timeout of the processor.process() execution    *                Use a negative number to switch off the time bound    * @param nonceGroup Optional nonce group of the operation (client Id)    * @param nonce Optional nonce of the operation (unique random id to ensure "more idempotence")    */
+comment|/**    * Performs atomic multiple reads and writes on a given row.    *    * @param processor The object defines the reads and writes to a row.    * @param timeout The timeout of the processor.process() execution    *                Use a negative number to switch off the time bound    * @param nonceGroup Optional nonce group of the operation (client Id)    * @param nonce Optional nonce of the operation (unique random id to ensure "more idempotence")    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0. For customization, use    * Coprocessors instead.    */
 comment|// TODO Should not be exposing with params nonceGroup, nonce. Change when doing the jira for
 comment|// Changing processRowsWithLocks and RowProcessor
+annotation|@
+name|Deprecated
 name|void
 name|processRowsWithLocks
 parameter_list|(
