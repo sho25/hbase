@@ -272,8 +272,6 @@ name|conf
 expr_stmt|;
 block|}
 comment|/** Initialize the environment */
-annotation|@
-name|Override
 specifier|public
 name|void
 name|startup
@@ -392,8 +390,6 @@ expr_stmt|;
 block|}
 block|}
 comment|/** Clean up the environment */
-annotation|@
-name|Override
 specifier|public
 name|void
 name|shutdown

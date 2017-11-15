@@ -17,16 +17,6 @@ end_package
 
 begin_import
 import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -53,6 +43,20 @@ name|InterfaceAudience
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceStability
+import|;
+end_import
+
 begin_comment
 comment|/**  * Coprocessor environment state.  */
 end_comment
@@ -61,7 +65,16 @@ begin_interface
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Private
+name|LimitedPrivate
+argument_list|(
+name|HBaseInterfaceAudience
+operator|.
+name|COPROC
+argument_list|)
+annotation|@
+name|InterfaceStability
+operator|.
+name|Evolving
 specifier|public
 interface|interface
 name|CoprocessorEnvironment
@@ -104,18 +117,6 @@ function_decl|;
 comment|/**    * @return the classloader for the loaded coprocessor instance    */
 name|ClassLoader
 name|getClassLoader
-parameter_list|()
-function_decl|;
-comment|/**    * After a coprocessor has been loaded in an encapsulation of an environment, CoprocessorHost    * calls this function to initialize the environment.    */
-name|void
-name|startup
-parameter_list|()
-throws|throws
-name|IOException
-function_decl|;
-comment|/** Clean up the environment. Called by CoprocessorHost when it itself is shutting down. */
-name|void
-name|shutdown
 parameter_list|()
 function_decl|;
 block|}
