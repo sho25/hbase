@@ -2662,6 +2662,8 @@ name|ReplicationEndpoint
 operator|.
 name|Context
 argument_list|(
+name|conf
+argument_list|,
 name|replicationPeer
 operator|.
 name|getConfiguration

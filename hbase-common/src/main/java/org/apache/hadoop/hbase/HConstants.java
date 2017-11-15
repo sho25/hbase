@@ -3141,6 +3141,16 @@ name|REPLICATION_SOURCE_MAXTHREADS_KEY
 init|=
 literal|"hbase.replication.source.maxthreads"
 decl_stmt|;
+comment|/** Drop edits for tables that been deleted from the replication source and target */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|REPLICATION_DROP_ON_DELETED_TABLE_KEY
+init|=
+literal|"hbase.replication.drop.on.deleted.table"
+decl_stmt|;
+comment|/** Maximum number of threads used by the replication source for shipping edits to the sinks */
 specifier|public
 specifier|static
 specifier|final

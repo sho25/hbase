@@ -502,7 +502,7 @@ block|{
 throw|throw
 name|ProtobufUtil
 operator|.
-name|handleRemoteException
+name|getServiceException
 argument_list|(
 name|e
 argument_list|)
