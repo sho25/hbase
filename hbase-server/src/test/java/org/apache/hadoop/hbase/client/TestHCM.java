@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/*  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -1668,117 +1668,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-specifier|public
-specifier|static
-class|class
-name|SleepLongerAtFirstCoprocessor
-implements|implements
-name|RegionCoprocessor
-implements|,
-name|RegionObserver
-block|{
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|SLEEP_TIME
-init|=
-literal|2000
-decl_stmt|;
-specifier|static
-specifier|final
-name|AtomicLong
-name|ct
-init|=
-operator|new
-name|AtomicLong
-argument_list|(
-literal|0
-argument_list|)
-decl_stmt|;
-annotation|@
-name|Override
-specifier|public
-name|Optional
-argument_list|<
-name|RegionObserver
-argument_list|>
-name|getRegionObserver
-parameter_list|()
-block|{
-return|return
-name|Optional
-operator|.
-name|of
-argument_list|(
-name|this
-argument_list|)
-return|;
-block|}
-annotation|@
-name|Override
-specifier|public
-name|void
-name|preGetOp
-parameter_list|(
-specifier|final
-name|ObserverContext
-argument_list|<
-name|RegionCoprocessorEnvironment
-argument_list|>
-name|e
-parameter_list|,
-specifier|final
-name|Get
-name|get
-parameter_list|,
-specifier|final
-name|List
-argument_list|<
-name|Cell
-argument_list|>
-name|results
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-comment|// After first sleep, all requests are timeout except the last retry. If we handle
-comment|// all the following requests, finally the last request is also timeout. If we drop all
-comment|// timeout requests, we can handle the last request immediately and it will not timeout.
-if|if
-condition|(
-name|ct
-operator|.
-name|incrementAndGet
-argument_list|()
-operator|<=
-literal|1
-condition|)
-block|{
-name|Threads
-operator|.
-name|sleep
-argument_list|(
-name|SLEEP_TIME
-operator|*
-name|RPC_RETRY
-operator|*
-literal|2
-argument_list|)
-expr_stmt|;
-block|}
-else|else
-block|{
-name|Threads
-operator|.
-name|sleep
-argument_list|(
-name|SLEEP_TIME
-argument_list|)
-expr_stmt|;
-block|}
-block|}
-block|}
 annotation|@
 name|BeforeClass
 specifier|public
@@ -1832,7 +1721,6 @@ argument_list|,
 name|RPC_RETRY
 argument_list|)
 expr_stmt|;
-comment|// simulate queue blocking in testDropTimeoutRequest
 name|TEST_UTIL
 operator|.
 name|getConfiguration
@@ -1844,7 +1732,7 @@ name|HConstants
 operator|.
 name|REGION_SERVER_HANDLER_COUNT
 argument_list|,
-literal|1
+literal|3
 argument_list|)
 expr_stmt|;
 name|TEST_UTIL
@@ -1871,8 +1759,6 @@ name|shutdownMiniCluster
 argument_list|()
 expr_stmt|;
 block|}
-annotation|@
-name|Test
 specifier|public
 name|void
 name|testClusterConnection
@@ -2315,6 +2201,7 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|// Fails too often!  Needs work.  HBASE-12558
+comment|// May only fail on non-linux machines? E.g. macosx.
 annotation|@
 name|Ignore
 annotation|@
@@ -2326,6 +2213,9 @@ name|RegionServerStoppedException
 operator|.
 name|class
 argument_list|)
+comment|// Depends on mulitcast messaging facility that seems broken in hbase2
+comment|// See  HBASE-19261 "ClusterStatusPublisher where Master could optionally broadcast notice of
+comment|// dead servers is broke"
 specifier|public
 name|void
 name|testClusterStatus
@@ -4189,108 +4079,6 @@ parameter_list|)
 block|{
 comment|// expected
 block|}
-block|}
-block|}
-annotation|@
-name|Test
-specifier|public
-name|void
-name|testDropTimeoutRequest
-parameter_list|()
-throws|throws
-name|Exception
-block|{
-comment|// Simulate the situation that the server is slow and client retries for several times because
-comment|// of timeout. When a request can be handled after waiting in the queue, we will drop it if
-comment|// it has been considered as timeout at client. If we don't drop it, the server will waste time
-comment|// on handling timeout requests and finally all requests timeout and client throws exception.
-name|HTableDescriptor
-name|hdt
-init|=
-name|TEST_UTIL
-operator|.
-name|createTableDescriptor
-argument_list|(
-name|TableName
-operator|.
-name|valueOf
-argument_list|(
-name|name
-operator|.
-name|getMethodName
-argument_list|()
-argument_list|)
-argument_list|)
-decl_stmt|;
-name|hdt
-operator|.
-name|addCoprocessor
-argument_list|(
-name|SleepLongerAtFirstCoprocessor
-operator|.
-name|class
-operator|.
-name|getName
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|Configuration
-name|c
-init|=
-operator|new
-name|Configuration
-argument_list|(
-name|TEST_UTIL
-operator|.
-name|getConfiguration
-argument_list|()
-argument_list|)
-decl_stmt|;
-try|try
-init|(
-name|Table
-name|t
-init|=
-name|TEST_UTIL
-operator|.
-name|createTable
-argument_list|(
-name|hdt
-argument_list|,
-operator|new
-name|byte
-index|[]
-index|[]
-block|{
-name|FAM_NAM
-block|}
-argument_list|,
-name|c
-argument_list|)
-init|)
-block|{
-name|t
-operator|.
-name|setRpcTimeout
-argument_list|(
-name|SleepLongerAtFirstCoprocessor
-operator|.
-name|SLEEP_TIME
-operator|*
-literal|2
-argument_list|)
-expr_stmt|;
-name|t
-operator|.
-name|get
-argument_list|(
-operator|new
-name|Get
-argument_list|(
-name|FAM_NAM
-argument_list|)
-argument_list|)
-expr_stmt|;
 block|}
 block|}
 comment|/**    * Test starting from 0 index when RpcRetryingCaller calculate the backoff time.    */
@@ -6343,8 +6131,6 @@ block|}
 block|}
 comment|/**    * Test that when we delete a location using the first row of a region    * that we really delete it.    * @throws Exception    */
 annotation|@
-name|Ignore
-annotation|@
 name|Test
 specifier|public
 name|void
@@ -6467,27 +6253,8 @@ name|ROW
 argument_list|)
 argument_list|)
 expr_stmt|;
-specifier|final
-name|int
-name|nextPort
-init|=
-name|conn
-operator|.
-name|getCachedLocation
-argument_list|(
-name|TABLE_NAME
-argument_list|,
-name|ROW
-argument_list|)
-operator|.
-name|getRegionLocation
-argument_list|()
-operator|.
-name|getPort
-argument_list|()
-operator|+
-literal|1
-decl_stmt|;
+comment|// Here we mess with the cached location making it so the region at TABLE_NAME, ROW is at
+comment|// a location where the port is current port number +1 -- i.e. a non-existent location.
 name|HRegionLocation
 name|loc
 init|=
@@ -6502,6 +6269,17 @@ argument_list|)
 operator|.
 name|getRegionLocation
 argument_list|()
+decl_stmt|;
+specifier|final
+name|int
+name|nextPort
+init|=
+name|loc
+operator|.
+name|getPort
+argument_list|()
+operator|+
+literal|1
 decl_stmt|;
 name|conn
 operator|.
@@ -6761,7 +6539,6 @@ decl_stmt|;
 name|int
 name|destServerId
 init|=
-operator|(
 name|curServerId
 operator|==
 literal|0
@@ -6769,7 +6546,6 @@ condition|?
 literal|1
 else|:
 literal|0
-operator|)
 decl_stmt|;
 name|HRegionServer
 name|curServer
@@ -6892,7 +6668,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Moving. It's possible that we don't have all the regions online at this point, so
-comment|//  the test must depends only on the region we're looking at.
+comment|//  the test must depend only on the region we're looking at.
 name|LOG
 operator|.
 name|info
@@ -7199,6 +6975,56 @@ name|getCause
 argument_list|(
 literal|0
 argument_list|)
+argument_list|)
+decl_stmt|;
+name|Assert
+operator|.
+name|assertNotNull
+argument_list|(
+name|cause
+argument_list|)
+expr_stmt|;
+name|Assert
+operator|.
+name|assertTrue
+argument_list|(
+name|cause
+operator|instanceof
+name|RegionMovedException
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|RetriesExhaustedException
+name|ree
+parameter_list|)
+block|{
+comment|// hbase2 throws RetriesExhaustedException instead of RetriesExhaustedWithDetailsException
+comment|// as hbase1 used to do. Keep an eye on this to see if this changed behavior is an issue.
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Put done, exception caught: "
+operator|+
+name|ree
+operator|.
+name|getClass
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|Throwable
+name|cause
+init|=
+name|ClientExceptionsUtil
+operator|.
+name|findException
+argument_list|(
+name|ree
+operator|.
+name|getCause
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|Assert
@@ -8511,8 +8337,6 @@ name|prevNumRetriesVal
 return|;
 block|}
 annotation|@
-name|Ignore
-annotation|@
 name|Test
 specifier|public
 name|void
@@ -8737,17 +8561,6 @@ operator|.
 name|getServerHoldingMeta
 argument_list|()
 decl_stmt|;
-name|assertTrue
-argument_list|(
-operator|!
-name|destServerName
-operator|.
-name|equals
-argument_list|(
-name|metaServerName
-argument_list|)
-argument_list|)
-expr_stmt|;
 comment|//find another row in the cur server that is less than ROW_X
 name|List
 argument_list|<
