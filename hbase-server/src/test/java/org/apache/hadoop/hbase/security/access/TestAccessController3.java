@@ -195,6 +195,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableNotFoundException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|client
 operator|.
 name|Connection
@@ -1294,7 +1308,9 @@ name|getRegionServer
 argument_list|()
 expr_stmt|;
 block|}
-comment|// cleanUp();
+name|cleanUp
+argument_list|()
+expr_stmt|;
 name|TEST_UTIL
 operator|.
 name|shutdownMiniCluster
@@ -1702,7 +1718,33 @@ comment|// Clean the _acl_ table
 comment|// TODO: Skipping delete because of access issues w/ AMv2.
 comment|// AMv1 seems to crash servers on exit too for same lack of
 comment|// auth perms but it gets hung up.
-comment|/*     try {       deleteTable(TEST_UTIL, TEST_TABLE);     } catch (TableNotFoundException ex) {       // Test deleted the table, no problem       LOG.info("Test deleted table " + TEST_TABLE);     }*/
+try|try
+block|{
+name|deleteTable
+argument_list|(
+name|TEST_UTIL
+argument_list|,
+name|TEST_TABLE
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|TableNotFoundException
+name|ex
+parameter_list|)
+block|{
+comment|// Test deleted the table, no problem
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Test deleted table "
+operator|+
+name|TEST_TABLE
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Verify all table/namespace permissions are erased
 name|assertEquals
 argument_list|(
