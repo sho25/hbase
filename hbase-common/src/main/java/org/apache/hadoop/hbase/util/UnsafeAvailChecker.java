@@ -268,6 +268,13 @@ name|equals
 argument_list|(
 name|arch
 argument_list|)
+operator|||
+literal|"aarch64"
+operator|.
+name|equals
+argument_list|(
+name|arch
+argument_list|)
 condition|)
 block|{
 comment|// java.nio.Bits.unaligned() wrongly returns false on ppc (JDK-8165231),
