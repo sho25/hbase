@@ -121,20 +121,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -269,24 +255,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
-name|wal
-operator|.
-name|FSHLog
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|util
 operator|.
 name|EnvironmentEdgeManager
@@ -306,6 +274,20 @@ operator|.
 name|wal
 operator|.
 name|WAL
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -348,10 +330,6 @@ specifier|private
 specifier|final
 name|LogRollBackupSubprocedurePool
 name|taskManager
-decl_stmt|;
-specifier|private
-name|FSHLog
-name|hlog
 decl_stmt|;
 specifier|private
 name|String
@@ -434,7 +412,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Callable task. TODO. We don't need a thread pool to execute roll log. This can be simplified    * with no use of subprocedurepool.    */
+comment|/**    * Callable task. TODO. We don't need a thread pool to execute roll log. This can be simplified    * with no use of sub-procedure pool.    */
 class|class
 name|RSRollLogTask
 implements|implements
@@ -467,7 +445,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"++ DRPC started: "
+literal|"DRPC started: "
 operator|+
 name|rss
 operator|.
@@ -476,10 +454,17 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-name|hlog
-operator|=
+name|AbstractFSWAL
+argument_list|<
+name|?
+argument_list|>
+name|fsWAL
+init|=
 operator|(
-name|FSHLog
+name|AbstractFSWAL
+argument_list|<
+name|?
+argument_list|>
 operator|)
 name|rss
 operator|.
@@ -487,11 +472,11 @@ name|getWAL
 argument_list|(
 literal|null
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 name|long
 name|filenum
 init|=
-name|hlog
+name|fsWAL
 operator|.
 name|getFilenum
 argument_list|()
@@ -533,6 +518,9 @@ condition|(
 operator|(
 operator|(
 name|AbstractFSWAL
+argument_list|<
+name|?
+argument_list|>
 operator|)
 name|wal
 operator|)
@@ -548,6 +536,9 @@ operator|=
 operator|(
 operator|(
 name|AbstractFSWAL
+argument_list|<
+name|?
+argument_list|>
 operator|)
 name|wal
 operator|)
@@ -645,7 +636,7 @@ name|info
 argument_list|(
 literal|"After roll log in backup subprocedure, current log number: "
 operator|+
-name|hlog
+name|fsWAL
 operator|.
 name|getFilenum
 argument_list|()
