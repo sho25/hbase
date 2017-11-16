@@ -136,7 +136,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The implementation of {@link AsyncBufferedMutator}. Simply wrap an {@link AsyncTableBase}.  */
+comment|/**  * The implementation of {@link AsyncBufferedMutator}. Simply wrap an {@link AsyncTable}.  */
 end_comment
 
 begin_class
@@ -151,7 +151,10 @@ name|AsyncBufferedMutator
 block|{
 specifier|private
 specifier|final
-name|AsyncTableBase
+name|AsyncTable
+argument_list|<
+name|?
+argument_list|>
 name|table
 decl_stmt|;
 specifier|private
@@ -196,7 +199,10 @@ name|closed
 decl_stmt|;
 name|AsyncBufferedMutatorImpl
 parameter_list|(
-name|AsyncTableBase
+name|AsyncTable
+argument_list|<
+name|?
+argument_list|>
 name|table
 parameter_list|,
 name|long

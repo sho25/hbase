@@ -197,7 +197,7 @@ name|AsyncTableResultScanner
 implements|implements
 name|ResultScanner
 implements|,
-name|RawScanResultConsumer
+name|AdvancedScanResultConsumer
 block|{
 specifier|private
 specifier|static
@@ -216,7 +216,10 @@ argument_list|)
 decl_stmt|;
 specifier|private
 specifier|final
-name|RawAsyncTable
+name|AsyncTable
+argument_list|<
+name|AdvancedScanResultConsumer
+argument_list|>
 name|rawTable
 decl_stmt|;
 specifier|private
@@ -267,7 +270,10 @@ decl_stmt|;
 specifier|public
 name|AsyncTableResultScanner
 parameter_list|(
-name|RawAsyncTable
+name|AsyncTable
+argument_list|<
+name|AdvancedScanResultConsumer
+argument_list|>
 name|table
 parameter_list|,
 name|Scan

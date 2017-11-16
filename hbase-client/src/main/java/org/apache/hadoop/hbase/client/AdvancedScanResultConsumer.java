@@ -41,42 +41,8 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|Result
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|metrics
-operator|.
-name|ScanMetrics
-import|;
-end_import
-
 begin_comment
-comment|/**  * Receives {@link Result} for an asynchronous scan.  *<p>  * Notice that, the {@link #onNext(Result[], ScanController)} method will be called in the thread  * which we send request to HBase service. So if you want the asynchronous scanner fetch data from  * HBase in background while you process the returned data, you need to move the processing work to  * another thread to make the {@code onNext} call return immediately. And please do NOT do any time  * consuming tasks in all methods below unless you know what you are doing.  * @since 2.0.0  */
+comment|/**  * This is the low level API for asynchronous scan.  *<p>  * All results that match the given scan object will be passed to this class by calling  * {@link #onNext(Result[], ScanController)}. {@link #onComplete()} means the scan is finished, and  * {@link #onError(Throwable)} means we hit an unrecoverable error and the scan is terminated.  * {@link #onHeartbeat(ScanController)} means the RS is still working but we can not get a valid  * result to call {@link #onNext(Result[], ScanController)}. This is usually because the matched  * results are too sparse, for example, a filter which almost filters out everything is specified.  *<p>  * Notice that, all the methods here will be called directly in the thread which we send request to  * HBase service. So if you want the asynchronous scanner fetch data from HBase in background while  * you process the returned data, you need to move the processing work to another thread to make the  * {@link #onNext(Result[], ScanController)} call return immediately. And please do NOT do any time  * consuming tasks in these methods unless you know what you are doing.  * @since 2.0.0  */
 end_comment
 
 begin_interface
@@ -86,7 +52,9 @@ operator|.
 name|Public
 specifier|public
 interface|interface
-name|RawScanResultConsumer
+name|AdvancedScanResultConsumer
+extends|extends
+name|ScanResultConsumerBase
 block|{
 comment|/**    * Used to resume a scan.    */
 annotation|@
@@ -148,28 +116,6 @@ name|onHeartbeat
 parameter_list|(
 name|ScanController
 name|controller
-parameter_list|)
-block|{   }
-comment|/**    * Indicate that we hit an unrecoverable error and the scan operation is terminated.    *<p>    * We will not call {@link #onComplete()} after calling {@link #onError(Throwable)}.    */
-name|void
-name|onError
-parameter_list|(
-name|Throwable
-name|error
-parameter_list|)
-function_decl|;
-comment|/**    * Indicate that the scan operation is completed normally.    */
-name|void
-name|onComplete
-parameter_list|()
-function_decl|;
-comment|/**    * If {@code scan.isScanMetricsEnabled()} returns true, then this method will be called prior to    * all other methods in this interface to give you the {@link ScanMetrics} instance for this scan    * operation. The {@link ScanMetrics} instance will be updated on-the-fly during the scan, you can    * store it somewhere to get the metrics at any time if you want.    */
-specifier|default
-name|void
-name|onScanMetricsCreated
-parameter_list|(
-name|ScanMetrics
-name|scanMetrics
 parameter_list|)
 block|{   }
 block|}

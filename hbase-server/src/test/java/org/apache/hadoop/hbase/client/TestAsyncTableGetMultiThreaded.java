@@ -45,9 +45,7 @@ name|hbase
 operator|.
 name|master
 operator|.
-name|balancer
-operator|.
-name|BaseLoadBalancer
+name|LoadBalancer
 operator|.
 name|TABLES_ON_MASTER
 import|;
@@ -248,20 +246,6 @@ operator|.
 name|hbase
 operator|.
 name|HBaseTestingUtility
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HRegionInfo
 import|;
 end_import
 
@@ -547,7 +531,10 @@ name|CONN
 decl_stmt|;
 specifier|private
 specifier|static
-name|RawAsyncTable
+name|AsyncTable
+argument_list|<
+name|?
+argument_list|>
 name|TABLE
 decl_stmt|;
 specifier|private
@@ -734,7 +721,7 @@ name|TABLE
 operator|=
 name|CONN
 operator|.
-name|getRawTableBuilder
+name|getTableBuilder
 argument_list|(
 name|TABLE_NAME
 argument_list|)
@@ -1106,7 +1093,7 @@ argument_list|)
 expr_stmt|;
 name|admin
 operator|.
-name|balancer
+name|balance
 argument_list|(
 literal|true
 argument_list|)
@@ -1179,7 +1166,7 @@ name|admin
 operator|.
 name|move
 argument_list|(
-name|HRegionInfo
+name|RegionInfoBuilder
 operator|.
 name|FIRST_META_REGIONINFO
 operator|.

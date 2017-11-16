@@ -89,11 +89,15 @@ name|ScanMetrics
 import|;
 end_import
 
+begin_comment
+comment|/**  * A scan result consumer which buffers all the data in memory and you can call the {@link #take()}  * method below to get the result one by one. Should only be used by tests, do not write production  * code like this as the buffer is unlimited and may cause OOM.  */
+end_comment
+
 begin_class
 class|class
-name|SimpleRawScanResultConsumer
+name|BufferingScanResultConsumer
 implements|implements
-name|RawScanResultConsumer
+name|AdvancedScanResultConsumer
 block|{
 specifier|private
 name|ScanMetrics

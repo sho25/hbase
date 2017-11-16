@@ -1647,9 +1647,9 @@ name|Override
 specifier|public
 name|AsyncTableBuilder
 argument_list|<
-name|RawAsyncTable
+name|AdvancedScanResultConsumer
 argument_list|>
-name|getRawTableBuilder
+name|getTableBuilder
 parameter_list|(
 name|TableName
 name|tableName
@@ -1659,7 +1659,7 @@ return|return
 operator|new
 name|AsyncTableBuilderBase
 argument_list|<
-name|RawAsyncTable
+name|AdvancedScanResultConsumer
 argument_list|>
 argument_list|(
 name|tableName
@@ -1670,7 +1670,10 @@ block|{
 annotation|@
 name|Override
 specifier|public
-name|RawAsyncTable
+name|AsyncTable
+argument_list|<
+name|AdvancedScanResultConsumer
+argument_list|>
 name|build
 parameter_list|()
 block|{
@@ -1694,7 +1697,7 @@ name|Override
 specifier|public
 name|AsyncTableBuilder
 argument_list|<
-name|AsyncTable
+name|ScanResultConsumer
 argument_list|>
 name|getTableBuilder
 parameter_list|(
@@ -1709,7 +1712,7 @@ return|return
 operator|new
 name|AsyncTableBuilderBase
 argument_list|<
-name|AsyncTable
+name|ScanResultConsumer
 argument_list|>
 argument_list|(
 name|tableName
@@ -1721,6 +1724,9 @@ annotation|@
 name|Override
 specifier|public
 name|AsyncTable
+argument_list|<
+name|ScanResultConsumer
+argument_list|>
 name|build
 parameter_list|()
 block|{
@@ -1860,7 +1866,7 @@ name|AsyncBufferedMutatorBuilderImpl
 argument_list|(
 name|connConf
 argument_list|,
-name|getRawTableBuilder
+name|getTableBuilder
 argument_list|(
 name|tableName
 argument_list|)

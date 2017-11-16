@@ -372,7 +372,7 @@ literal|"' in "
 operator|+
 name|loc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getEncodedName
@@ -457,7 +457,7 @@ literal|"' in "
 operator|+
 name|loc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getEncodedName

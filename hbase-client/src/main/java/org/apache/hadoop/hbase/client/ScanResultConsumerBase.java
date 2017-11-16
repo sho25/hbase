@@ -23,6 +23,24 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|metrics
+operator|.
+name|ScanMetrics
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -32,7 +50,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Receives {@link Result} for an asynchronous scan.  *<p>  * All results that match the given scan object will be passed to this class by calling  * {@link #onNext(Result)}. {@link #onComplete()} means the scan is finished, and  * {@link #onError(Throwable)} means we hit an unrecoverable error and the scan is terminated.  */
+comment|/**  * The base interface for scan result consumer.  */
 end_comment
 
 begin_interface
@@ -42,18 +60,30 @@ operator|.
 name|Public
 specifier|public
 interface|interface
-name|ScanResultConsumer
-extends|extends
 name|ScanResultConsumerBase
 block|{
-comment|/**    * @param result the data fetched from HBase service.    * @return {@code false} if you want to terminate the scan process. Otherwise {@code true}    */
-name|boolean
-name|onNext
+comment|/**    * Indicate that we hit an unrecoverable error and the scan operation is terminated.    *<p>    * We will not call {@link #onComplete()} after calling {@link #onError(Throwable)}.    */
+name|void
+name|onError
 parameter_list|(
-name|Result
-name|result
+name|Throwable
+name|error
 parameter_list|)
 function_decl|;
+comment|/**    * Indicate that the scan operation is completed normally.    */
+name|void
+name|onComplete
+parameter_list|()
+function_decl|;
+comment|/**    * If {@code scan.isScanMetricsEnabled()} returns true, then this method will be called prior to    * all other methods in this interface to give you the {@link ScanMetrics} instance for this scan    * operation. The {@link ScanMetrics} instance will be updated on-the-fly during the scan, you can    * store it somewhere to get the metrics at any time if you want.    */
+specifier|default
+name|void
+name|onScanMetricsCreated
+parameter_list|(
+name|ScanMetrics
+name|scanMetrics
+parameter_list|)
+block|{   }
 block|}
 end_interface
 

@@ -88,14 +88,14 @@ specifier|abstract
 class|class
 name|AsyncTableBuilderBase
 parameter_list|<
-name|T
+name|C
 extends|extends
-name|AsyncTableBase
+name|ScanResultConsumerBase
 parameter_list|>
 implements|implements
 name|AsyncTableBuilder
 argument_list|<
-name|T
+name|C
 argument_list|>
 block|{
 specifier|protected
@@ -240,7 +240,7 @@ name|Override
 specifier|public
 name|AsyncTableBuilderBase
 argument_list|<
-name|T
+name|C
 argument_list|>
 name|setOperationTimeout
 parameter_list|(
@@ -271,7 +271,7 @@ name|Override
 specifier|public
 name|AsyncTableBuilderBase
 argument_list|<
-name|T
+name|C
 argument_list|>
 name|setScanTimeout
 parameter_list|(
@@ -302,7 +302,7 @@ name|Override
 specifier|public
 name|AsyncTableBuilderBase
 argument_list|<
-name|T
+name|C
 argument_list|>
 name|setRpcTimeout
 parameter_list|(
@@ -333,7 +333,7 @@ name|Override
 specifier|public
 name|AsyncTableBuilderBase
 argument_list|<
-name|T
+name|C
 argument_list|>
 name|setReadRpcTimeout
 parameter_list|(
@@ -364,7 +364,7 @@ name|Override
 specifier|public
 name|AsyncTableBuilderBase
 argument_list|<
-name|T
+name|C
 argument_list|>
 name|setWriteRpcTimeout
 parameter_list|(
@@ -395,7 +395,7 @@ name|Override
 specifier|public
 name|AsyncTableBuilderBase
 argument_list|<
-name|T
+name|C
 argument_list|>
 name|setRetryPause
 parameter_list|(
@@ -426,7 +426,7 @@ name|Override
 specifier|public
 name|AsyncTableBuilderBase
 argument_list|<
-name|T
+name|C
 argument_list|>
 name|setMaxAttempts
 parameter_list|(
@@ -449,7 +449,7 @@ name|Override
 specifier|public
 name|AsyncTableBuilderBase
 argument_list|<
-name|T
+name|C
 argument_list|>
 name|setStartLogErrorsCnt
 parameter_list|(

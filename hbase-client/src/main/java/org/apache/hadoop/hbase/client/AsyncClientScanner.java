@@ -311,7 +311,7 @@ name|scanMetrics
 decl_stmt|;
 specifier|private
 specifier|final
-name|RawScanResultConsumer
+name|AdvancedScanResultConsumer
 name|consumer
 decl_stmt|;
 specifier|private
@@ -360,7 +360,7 @@ parameter_list|(
 name|Scan
 name|scan
 parameter_list|,
-name|RawScanResultConsumer
+name|AdvancedScanResultConsumer
 name|consumer
 parameter_list|,
 name|TableName

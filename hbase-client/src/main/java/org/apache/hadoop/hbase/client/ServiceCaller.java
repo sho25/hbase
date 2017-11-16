@@ -19,6 +19,30 @@ end_package
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|RpcCallback
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|RpcController
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -32,7 +56,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Receives {@link Result} for an asynchronous scan.  *<p>  * All results that match the given scan object will be passed to this class by calling  * {@link #onNext(Result)}. {@link #onComplete()} means the scan is finished, and  * {@link #onError(Throwable)} means we hit an unrecoverable error and the scan is terminated.  */
+comment|/**  * Delegate to a protobuf rpc call.  *<p>  * Usually, it is just a simple lambda expression, like:  *  *<pre>  *<code>  * (stub, controller, rpcCallback) -> {  *   XXXRequest request = ...; // prepare the request  *   stub.xxx(controller, request, rpcCallback);  * }  *</code>  *</pre>  *  * And if already have the {@code request}, the lambda expression will be:  *  *<pre>  *<code>  * (stub, controller, rpcCallback) -> stub.xxx(controller, request, rpcCallback)  *</code>  *</pre>  *  * @param<S> the type of the protobuf Service you want to call.  * @param<R> the type of the return value.  */
 end_comment
 
 begin_interface
@@ -40,18 +64,32 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Public
+annotation|@
+name|FunctionalInterface
 specifier|public
 interface|interface
-name|ScanResultConsumer
-extends|extends
-name|ScanResultConsumerBase
+name|ServiceCaller
+parameter_list|<
+name|S
+parameter_list|,
+name|R
+parameter_list|>
 block|{
-comment|/**    * @param result the data fetched from HBase service.    * @return {@code false} if you want to terminate the scan process. Otherwise {@code true}    */
-name|boolean
-name|onNext
+comment|/**    * Represent the actual protobuf rpc call.    * @param stub the asynchronous stub    * @param controller the rpc controller, has already been prepared for you    * @param rpcCallback the rpc callback, has already been prepared for you    */
+name|void
+name|call
 parameter_list|(
-name|Result
-name|result
+name|S
+name|stub
+parameter_list|,
+name|RpcController
+name|controller
+parameter_list|,
+name|RpcCallback
+argument_list|<
+name|R
+argument_list|>
+name|rpcCallback
 parameter_list|)
 function_decl|;
 block|}

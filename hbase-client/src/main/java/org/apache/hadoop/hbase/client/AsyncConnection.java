@@ -109,17 +109,20 @@ name|TableName
 name|tableName
 parameter_list|)
 function_decl|;
-comment|/**    * Retrieve an {@link RawAsyncTable} implementation for accessing a table.    *<p>    * The returned instance will use default configs. Use {@link #getRawTableBuilder(TableName)} if you    * want to customize some configs.    *<p>    * This method no longer checks table existence. An exception will be thrown if the table does not    * exist only when the first operation is attempted.    * @param tableName the name of the table    * @return an RawAsyncTable to use for interactions with this table    * @see #getRawTableBuilder(TableName)    */
+comment|/**    * Retrieve an {@link AsyncTable} implementation for accessing a table.    *<p>    * The returned instance will use default configs. Use {@link #getTableBuilder(TableName)} if    * you want to customize some configs.    *<p>    * This method no longer checks table existence. An exception will be thrown if the table does not    * exist only when the first operation is attempted.    *<p>    * The returned {@code CompletableFuture} will be finished directly in the rpc framework's    * callback thread, so typically you should not do any time consuming work inside these methods.    * And also the observer style scan API will use {@link AdvancedScanResultConsumer} which is    * designed for experts only. Only use it when you know what you are doing.    * @param tableName the name of the table    * @return an AsyncTable to use for interactions with this table    * @see #getTableBuilder(TableName)    */
 specifier|default
-name|RawAsyncTable
-name|getRawTable
+name|AsyncTable
+argument_list|<
+name|AdvancedScanResultConsumer
+argument_list|>
+name|getTable
 parameter_list|(
 name|TableName
 name|tableName
 parameter_list|)
 block|{
 return|return
-name|getRawTableBuilder
+name|getTableBuilder
 argument_list|(
 name|tableName
 argument_list|)
@@ -128,20 +131,23 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * Returns an {@link AsyncTableBuilder} for creating {@link RawAsyncTable}.    *<p>    * This method no longer checks table existence. An exception will be thrown if the table does not    * exist only when the first operation is attempted.    * @param tableName the name of the table    */
+comment|/**    * Returns an {@link AsyncTableBuilder} for creating {@link AsyncTable}.    *<p>    * This method no longer checks table existence. An exception will be thrown if the table does not    * exist only when the first operation is attempted.    * @param tableName the name of the table    */
 name|AsyncTableBuilder
 argument_list|<
-name|RawAsyncTable
+name|AdvancedScanResultConsumer
 argument_list|>
-name|getRawTableBuilder
+name|getTableBuilder
 parameter_list|(
 name|TableName
 name|tableName
 parameter_list|)
 function_decl|;
-comment|/**    * Retrieve an AsyncTable implementation for accessing a table.    *<p>    * This method no longer checks table existence. An exception will be thrown if the table does not    * exist only when the first operation is attempted.    * @param tableName the name of the table    * @param pool the thread pool to use for executing callback    * @return an AsyncTable to use for interactions with this table    */
+comment|/**    * Retrieve an {@link AsyncTable} implementation for accessing a table.    *<p>    * This method no longer checks table existence. An exception will be thrown if the table does not    * exist only when the first operation is attempted.    * @param tableName the name of the table    * @param pool the thread pool to use for executing callback    * @return an AsyncTable to use for interactions with this table    */
 specifier|default
 name|AsyncTable
+argument_list|<
+name|ScanResultConsumer
+argument_list|>
 name|getTable
 parameter_list|(
 name|TableName
@@ -166,7 +172,7 @@ block|}
 comment|/**    * Returns an {@link AsyncTableBuilder} for creating {@link AsyncTable}.    *<p>    * This method no longer checks table existence. An exception will be thrown if the table does not    * exist only when the first operation is attempted.    * @param tableName the name of the table    * @param pool the thread pool to use for executing callback    */
 name|AsyncTableBuilder
 argument_list|<
-name|AsyncTable
+name|ScanResultConsumer
 argument_list|>
 name|getTableBuilder
 parameter_list|(

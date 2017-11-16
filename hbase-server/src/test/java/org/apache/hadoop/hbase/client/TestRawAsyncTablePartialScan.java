@@ -296,7 +296,10 @@ name|CONN
 decl_stmt|;
 specifier|private
 specifier|static
-name|RawAsyncTable
+name|AsyncTable
+argument_list|<
+name|?
+argument_list|>
 name|TABLE
 decl_stmt|;
 annotation|@
@@ -351,7 +354,7 @@ name|TABLE
 operator|=
 name|CONN
 operator|.
-name|getRawTable
+name|getTable
 argument_list|(
 name|TABLE_NAME
 argument_list|)

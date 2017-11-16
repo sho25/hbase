@@ -75,22 +75,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-operator|.
-name|createRegionName
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|TableName
 operator|.
 name|META_TABLE_NAME
@@ -130,6 +114,24 @@ operator|.
 name|ConnectionUtils
 operator|.
 name|isEmptyStopRow
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|RegionInfo
+operator|.
+name|createRegionName
 import|;
 end_import
 
@@ -371,20 +373,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HRegionLocation
 import|;
 end_import
@@ -451,11 +439,13 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|util
+operator|.
+name|Bytes
 import|;
 end_import
 
@@ -465,13 +455,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|yetus
 operator|.
-name|hbase
+name|audience
 operator|.
-name|util
-operator|.
-name|Bytes
+name|InterfaceAudience
 import|;
 end_import
 
@@ -960,10 +948,11 @@ name|BEFORE
 argument_list|)
 condition|)
 block|{
-comment|// for locating the row before current row, the common case is to find the previous region in
-comment|// reverse scan, so we check the endKey first. In general, the condition should be startKey<
-comment|// req.row and endKey>= req.row. Here we split it to endKey == req.row || (endKey> req.row
-comment|//&& startKey< req.row). The two conditions are equal since startKey< endKey.
+comment|// for locating the row before current row, the common case is to find the previous region
+comment|// in reverse scan, so we check the endKey first. In general, the condition should be
+comment|// startKey< req.row and endKey>= req.row. Here we split it to endKey == req.row ||
+comment|// (endKey> req.row&& startKey< req.row). The two conditions are equal since startKey<
+comment|// endKey.
 name|int
 name|c
 init|=
@@ -973,7 +962,7 @@ name|compareTo
 argument_list|(
 name|loc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getEndKey
@@ -1001,7 +990,7 @@ name|compareTo
 argument_list|(
 name|loc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getStartKey
@@ -1022,7 +1011,7 @@ name|completed
 operator|=
 name|loc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|containsRow
@@ -1124,7 +1113,7 @@ name|get
 argument_list|(
 name|loc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getTable
@@ -1148,7 +1137,7 @@ name|computeIfPresent
 argument_list|(
 name|loc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getStartKey
@@ -1237,7 +1226,7 @@ name|startKey
 init|=
 name|loc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getStartKey
@@ -1429,7 +1418,7 @@ name|getTableCache
 argument_list|(
 name|loc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getTable
@@ -1897,12 +1886,12 @@ operator|.
 name|getDefaultRegionLocation
 argument_list|()
 decl_stmt|;
-name|HRegionInfo
+name|RegionInfo
 name|info
 init|=
 name|loc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 decl_stmt|;
 if|if
@@ -2181,7 +2170,7 @@ name|endKey
 init|=
 name|loc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getEndKey
@@ -2326,7 +2315,7 @@ name|isEmptyStopRow
 argument_list|(
 name|loc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getEndKey
@@ -2339,7 +2328,7 @@ name|compareTo
 argument_list|(
 name|loc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getEndKey
@@ -2539,7 +2528,7 @@ expr_stmt|;
 block|}
 name|conn
 operator|.
-name|getRawTable
+name|getTable
 argument_list|(
 name|META_TABLE_NAME
 argument_list|)
@@ -2985,7 +2974,7 @@ name|get
 argument_list|(
 name|l
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getTable
@@ -3012,7 +3001,7 @@ name|get
 argument_list|(
 name|l
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getStartKey

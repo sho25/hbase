@@ -19,6 +19,18 @@ end_package
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|RpcChannel
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|util
@@ -211,24 +223,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|RawAsyncTable
-operator|.
-name|CoprocessorCallable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|replication
 operator|.
 name|TableCFs
@@ -328,18 +322,6 @@ operator|.
 name|audience
 operator|.
 name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|RpcChannel
 import|;
 end_import
 
@@ -2120,7 +2102,7 @@ argument_list|>
 name|runCatalogJanitor
 parameter_list|()
 function_decl|;
-comment|/**    * Execute the given coprocessor call on the master.    *<p>    * The {@code stubMaker} is just a delegation to the {@code newStub} call. Usually it is only a    * one line lambda expression, like:    *    *<pre>    *<code>    * channel -> xxxService.newStub(channel)    *</code>    *</pre>    * @param stubMaker a delegation to the actual {@code newStub} call.    * @param callable a delegation to the actual protobuf rpc call. See the comment of    *          {@link CoprocessorCallable} for more details.    * @param<S> the type of the asynchronous stub    * @param<R> the type of the return value    * @return the return value of the protobuf rpc call, wrapped by a {@link CompletableFuture}.    * @see CoprocessorCallable    */
+comment|/**    * Execute the given coprocessor call on the master.    *<p>    * The {@code stubMaker} is just a delegation to the {@code newStub} call. Usually it is only a    * one line lambda expression, like:    *    *<pre>    *<code>    * channel -> xxxService.newStub(channel)    *</code>    *</pre>    * @param stubMaker a delegation to the actual {@code newStub} call.    * @param callable a delegation to the actual protobuf rpc call. See the comment of    *          {@link ServiceCaller} for more details.    * @param<S> the type of the asynchronous stub    * @param<R> the type of the return value    * @return the return value of the protobuf rpc call, wrapped by a {@link CompletableFuture}.    * @see ServiceCaller    */
 parameter_list|<
 name|S
 parameter_list|,
@@ -2140,7 +2122,7 @@ name|S
 argument_list|>
 name|stubMaker
 parameter_list|,
-name|CoprocessorCallable
+name|ServiceCaller
 argument_list|<
 name|S
 argument_list|,
@@ -2149,7 +2131,7 @@ argument_list|>
 name|callable
 parameter_list|)
 function_decl|;
-comment|/**    * Execute the given coprocessor call on the given region server.    *<p>    * The {@code stubMaker} is just a delegation to the {@code newStub} call. Usually it is only a    * one line lambda expression, like:    *    *<pre>    *<code>    * channel -> xxxService.newStub(channel)    *</code>    *</pre>    * @param stubMaker a delegation to the actual {@code newStub} call.    * @param callable a delegation to the actual protobuf rpc call. See the comment of    *          {@link CoprocessorCallable} for more details.    * @param serverName the given region server    * @param<S> the type of the asynchronous stub    * @param<R> the type of the return value    * @return the return value of the protobuf rpc call, wrapped by a {@link CompletableFuture}.    * @see CoprocessorCallable    */
+comment|/**    * Execute the given coprocessor call on the given region server.    *<p>    * The {@code stubMaker} is just a delegation to the {@code newStub} call. Usually it is only a    * one line lambda expression, like:    *    *<pre>    *<code>    * channel -> xxxService.newStub(channel)    *</code>    *</pre>    * @param stubMaker a delegation to the actual {@code newStub} call.    * @param callable a delegation to the actual protobuf rpc call. See the comment of    *          {@link ServiceCaller} for more details.    * @param serverName the given region server    * @param<S> the type of the asynchronous stub    * @param<R> the type of the return value    * @return the return value of the protobuf rpc call, wrapped by a {@link CompletableFuture}.    * @see ServiceCaller    */
 parameter_list|<
 name|S
 parameter_list|,
@@ -2169,7 +2151,7 @@ name|S
 argument_list|>
 name|stubMaker
 parameter_list|,
-name|CoprocessorCallable
+name|ServiceCaller
 argument_list|<
 name|S
 argument_list|,

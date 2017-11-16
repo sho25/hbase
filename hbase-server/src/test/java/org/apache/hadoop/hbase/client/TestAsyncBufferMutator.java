@@ -689,12 +689,15 @@ name|join
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|RawAsyncTable
+name|AsyncTable
+argument_list|<
+name|?
+argument_list|>
 name|table
 init|=
 name|CONN
 operator|.
-name|getRawTable
+name|getTable
 argument_list|(
 name|TABLE_NAME
 argument_list|)

@@ -275,6 +275,9 @@ decl_stmt|;
 specifier|private
 specifier|static
 name|AsyncTable
+argument_list|<
+name|?
+argument_list|>
 name|TABLE
 decl_stmt|;
 annotation|@

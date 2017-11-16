@@ -296,7 +296,10 @@ name|CONN
 decl_stmt|;
 specifier|private
 specifier|static
-name|RawAsyncTable
+name|AsyncTable
+argument_list|<
+name|AdvancedScanResultConsumer
+argument_list|>
 name|TABLE
 decl_stmt|;
 specifier|private
@@ -365,7 +368,7 @@ name|TABLE
 operator|=
 name|CONN
 operator|.
-name|getRawTable
+name|getTable
 argument_list|(
 name|TABLE_NAME
 argument_list|)
@@ -460,7 +463,7 @@ specifier|final
 class|class
 name|RenewLeaseConsumer
 implements|implements
-name|RawScanResultConsumer
+name|AdvancedScanResultConsumer
 block|{
 specifier|private
 specifier|final

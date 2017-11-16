@@ -844,6 +844,9 @@ expr_stmt|;
 return|return;
 block|}
 name|AsyncTable
+argument_list|<
+name|?
+argument_list|>
 name|table
 init|=
 name|conn

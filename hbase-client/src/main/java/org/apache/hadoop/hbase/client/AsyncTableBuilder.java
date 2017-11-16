@@ -62,7 +62,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * For creating {@link AsyncTable} or {@link RawAsyncTable}.  *<p>  * The implementation should have default configurations set before returning the builder to user.  * So users are free to only set the configs they care about to create a new  * AsyncTable/RawAsyncTable instance.  * @since 2.0.0  */
+comment|/**  * For creating {@link AsyncTable}.  *<p>  * The implementation should have default configurations set before returning the builder to user.  * So users are free to only set the configs they care about to create a new  * AsyncTable/RawAsyncTable instance.  * @since 2.0.0  */
 end_comment
 
 begin_interface
@@ -74,15 +74,15 @@ specifier|public
 interface|interface
 name|AsyncTableBuilder
 parameter_list|<
-name|T
+name|C
 extends|extends
-name|AsyncTableBase
+name|ScanResultConsumerBase
 parameter_list|>
 block|{
 comment|/**    * Set timeout for a whole operation such as get, put or delete. Notice that scan will not be    * effected by this value, see scanTimeoutNs.    *<p>    * Operation timeout and max attempt times(or max retry times) are both limitations for retrying,    * we will stop retrying when we reach any of the limitations.    * @see #setMaxAttempts(int)    * @see #setMaxRetries(int)    * @see #setScanTimeout(long, TimeUnit)    */
 name|AsyncTableBuilder
 argument_list|<
-name|T
+name|C
 argument_list|>
 name|setOperationTimeout
 parameter_list|(
@@ -96,7 +96,7 @@ function_decl|;
 comment|/**    * As now we have heartbeat support for scan, ideally a scan will never timeout unless the RS is    * crash. The RS will always return something before the rpc timed out or scan timed out to tell    * the client that it is still alive. The scan timeout is used as operation timeout for every    * operation in a scan, such as openScanner or next.    * @see #setScanTimeout(long, TimeUnit)    */
 name|AsyncTableBuilder
 argument_list|<
-name|T
+name|C
 argument_list|>
 name|setScanTimeout
 parameter_list|(
@@ -110,7 +110,7 @@ function_decl|;
 comment|/**    * Set timeout for each rpc request.    *<p>    * Notice that this will<strong>NOT</strong> change the rpc timeout for read(get, scan) request    * and write request(put, delete).    */
 name|AsyncTableBuilder
 argument_list|<
-name|T
+name|C
 argument_list|>
 name|setRpcTimeout
 parameter_list|(
@@ -124,7 +124,7 @@ function_decl|;
 comment|/**    * Set timeout for each read(get, scan) rpc request.    */
 name|AsyncTableBuilder
 argument_list|<
-name|T
+name|C
 argument_list|>
 name|setReadRpcTimeout
 parameter_list|(
@@ -138,7 +138,7 @@ function_decl|;
 comment|/**    * Set timeout for each write(put, delete) rpc request.    */
 name|AsyncTableBuilder
 argument_list|<
-name|T
+name|C
 argument_list|>
 name|setWriteRpcTimeout
 parameter_list|(
@@ -152,7 +152,7 @@ function_decl|;
 comment|/**    * Set the base pause time for retrying. We use an exponential policy to generate sleep time when    * retrying.    */
 name|AsyncTableBuilder
 argument_list|<
-name|T
+name|C
 argument_list|>
 name|setRetryPause
 parameter_list|(
@@ -167,7 +167,7 @@ comment|/**    * Set the max retry times for an operation. Usually it is the max
 specifier|default
 name|AsyncTableBuilder
 argument_list|<
-name|T
+name|C
 argument_list|>
 name|setMaxRetries
 parameter_list|(
@@ -188,7 +188,7 @@ block|}
 comment|/**    * Set the max attempt times for an operation. Usually it is the max retry times plus 1. Operation    * timeout and max attempt times(or max retry times) are both limitations for retrying, we will    * stop retrying when we reach any of the limitations.    * @see #setMaxRetries(int)    * @see #setOperationTimeout(long, TimeUnit)    */
 name|AsyncTableBuilder
 argument_list|<
-name|T
+name|C
 argument_list|>
 name|setMaxAttempts
 parameter_list|(
@@ -199,7 +199,7 @@ function_decl|;
 comment|/**    * Set the number of retries that are allowed before we start to log.    */
 name|AsyncTableBuilder
 argument_list|<
-name|T
+name|C
 argument_list|>
 name|setStartLogErrorsCnt
 parameter_list|(
@@ -207,8 +207,11 @@ name|int
 name|startLogErrorsCnt
 parameter_list|)
 function_decl|;
-comment|/**    * Create the {@link AsyncTable} or {@link RawAsyncTable} instance.    */
-name|T
+comment|/**    * Create the {@link AsyncTable} instance.    */
+name|AsyncTable
+argument_list|<
+name|C
+argument_list|>
 name|build
 parameter_list|()
 function_decl|;

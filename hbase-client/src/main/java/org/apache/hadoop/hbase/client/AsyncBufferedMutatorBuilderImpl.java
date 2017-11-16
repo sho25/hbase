@@ -76,8 +76,6 @@ specifier|final
 name|AsyncTableBuilder
 argument_list|<
 name|?
-extends|extends
-name|AsyncTableBase
 argument_list|>
 name|tableBuilder
 decl_stmt|;
@@ -94,8 +92,6 @@ parameter_list|,
 name|AsyncTableBuilder
 argument_list|<
 name|?
-extends|extends
-name|AsyncTableBase
 argument_list|>
 name|tableBuilder
 parameter_list|)
