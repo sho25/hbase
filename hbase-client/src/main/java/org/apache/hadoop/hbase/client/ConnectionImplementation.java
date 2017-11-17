@@ -361,6 +361,20 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|locks
+operator|.
+name|ReentrantLock
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -2064,6 +2078,16 @@ specifier|private
 specifier|final
 name|String
 name|alternateBufferedMutatorClassName
+decl_stmt|;
+comment|/** lock guards against multiple threads trying to query the meta region at the same time */
+specifier|private
+specifier|final
+name|ReentrantLock
+name|userRegionLock
+init|=
+operator|new
+name|ReentrantLock
+argument_list|()
 decl_stmt|;
 comment|/**    * constructor    * @param conf Configuration object    */
 name|ConnectionImplementation
@@ -5026,8 +5050,50 @@ name|this
 operator|.
 name|pause
 decl_stmt|;
+name|userRegionLock
+operator|.
+name|lock
+argument_list|()
+expr_stmt|;
 try|try
 block|{
+if|if
+condition|(
+name|useCache
+condition|)
+block|{
+comment|// re-check cache after get lock
+name|RegionLocations
+name|locations
+init|=
+name|getCachedLocation
+argument_list|(
+name|tableName
+argument_list|,
+name|row
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|locations
+operator|!=
+literal|null
+operator|&&
+name|locations
+operator|.
+name|getRegionLocation
+argument_list|(
+name|replicaId
+argument_list|)
+operator|!=
+literal|null
+condition|)
+block|{
+return|return
+name|locations
+return|;
+block|}
+block|}
 name|Result
 name|regionInfoRow
 init|=
@@ -5229,9 +5295,7 @@ throw|throw
 operator|new
 name|RegionOfflineException
 argument_list|(
-literal|"the only available region for"
-operator|+
-literal|" the required row is a split parent,"
+literal|"the only available region for the required row is a split parent,"
 operator|+
 literal|" the daughters should be online soon: "
 operator|+
@@ -5289,9 +5353,7 @@ throw|throw
 operator|new
 name|NoServerForRegionException
 argument_list|(
-literal|"No server address listed "
-operator|+
-literal|"in "
+literal|"No server address listed in "
 operator|+
 name|TableName
 operator|.
@@ -5506,6 +5568,14 @@ name|replicaId
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+finally|finally
+block|{
+name|userRegionLock
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
 block|}
 try|try
 block|{
