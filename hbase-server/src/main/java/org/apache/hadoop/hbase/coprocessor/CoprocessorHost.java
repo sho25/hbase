@@ -2572,9 +2572,6 @@ literal|null
 argument_list|)
 argument_list|,
 name|bypassable
-argument_list|,
-name|bypassable
-comment|/*'completable': make completable same as bypassable*/
 argument_list|)
 expr_stmt|;
 name|this
@@ -3161,17 +3158,6 @@ operator|.
 name|shouldBypass
 argument_list|()
 expr_stmt|;
-comment|// Internal to shouldComplete, it checks if obeserverOperation#isCompletable().
-if|if
-condition|(
-name|observerOperation
-operator|.
-name|shouldComplete
-argument_list|()
-condition|)
-block|{
-break|break;
-block|}
 name|observerOperation
 operator|.
 name|postEnvCall
@@ -3312,16 +3298,6 @@ operator|.
 name|shouldBypass
 argument_list|()
 expr_stmt|;
-if|if
-condition|(
-name|observerOperation
-operator|.
-name|shouldComplete
-argument_list|()
-condition|)
-block|{
-break|break;
-block|}
 block|}
 comment|// Iterate the coprocessors and execute ObserverOperation's postEnvCall()
 for|for

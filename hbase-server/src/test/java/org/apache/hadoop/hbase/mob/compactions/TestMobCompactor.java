@@ -5656,11 +5656,6 @@ operator|.
 name|bypass
 argument_list|()
 expr_stmt|;
-name|c
-operator|.
-name|complete
-argument_list|()
-expr_stmt|;
 block|}
 block|}
 block|}
