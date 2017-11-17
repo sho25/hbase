@@ -246,6 +246,12 @@ operator|new
 name|MetricsRegionServer
 argument_list|(
 name|wrapper
+argument_list|,
+operator|new
+name|Configuration
+argument_list|(
+literal|false
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|serverSource
@@ -873,6 +879,8 @@ name|rsm
 operator|.
 name|updateAppend
 argument_list|(
+literal|null
+argument_list|,
 literal|12
 argument_list|)
 expr_stmt|;
@@ -880,6 +888,8 @@ name|rsm
 operator|.
 name|updateAppend
 argument_list|(
+literal|null
+argument_list|,
 literal|1002
 argument_list|)
 expr_stmt|;
@@ -903,6 +913,8 @@ name|rsm
 operator|.
 name|updateDeleteBatch
 argument_list|(
+literal|null
+argument_list|,
 literal|13
 argument_list|)
 expr_stmt|;
@@ -910,6 +922,8 @@ name|rsm
 operator|.
 name|updateDeleteBatch
 argument_list|(
+literal|null
+argument_list|,
 literal|1003
 argument_list|)
 expr_stmt|;
@@ -933,6 +947,8 @@ name|rsm
 operator|.
 name|updateGet
 argument_list|(
+literal|null
+argument_list|,
 literal|14
 argument_list|)
 expr_stmt|;
@@ -940,6 +956,8 @@ name|rsm
 operator|.
 name|updateGet
 argument_list|(
+literal|null
+argument_list|,
 literal|1004
 argument_list|)
 expr_stmt|;
@@ -963,6 +981,8 @@ name|rsm
 operator|.
 name|updateIncrement
 argument_list|(
+literal|null
+argument_list|,
 literal|15
 argument_list|)
 expr_stmt|;
@@ -970,6 +990,8 @@ name|rsm
 operator|.
 name|updateIncrement
 argument_list|(
+literal|null
+argument_list|,
 literal|1005
 argument_list|)
 expr_stmt|;
@@ -993,6 +1015,8 @@ name|rsm
 operator|.
 name|updatePutBatch
 argument_list|(
+literal|null
+argument_list|,
 literal|16
 argument_list|)
 expr_stmt|;
@@ -1000,6 +1024,8 @@ name|rsm
 operator|.
 name|updatePutBatch
 argument_list|(
+literal|null
+argument_list|,
 literal|1006
 argument_list|)
 expr_stmt|;
@@ -1023,6 +1049,8 @@ name|rsm
 operator|.
 name|updatePut
 argument_list|(
+literal|null
+argument_list|,
 literal|17
 argument_list|)
 expr_stmt|;
@@ -1030,6 +1058,8 @@ name|rsm
 operator|.
 name|updateDelete
 argument_list|(
+literal|null
+argument_list|,
 literal|17
 argument_list|)
 expr_stmt|;

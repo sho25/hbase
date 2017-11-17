@@ -231,6 +231,14 @@ name|BaseSource
 name|source
 parameter_list|)
 function_decl|;
+comment|/**    * Generates a representation of all metrics exported by the given {@code source}.    * @param source The {@link BaseSource} that will provide the metrics.    * @return A representation of the metrics as a String.    */
+name|String
+name|toDebugString
+parameter_list|(
+name|BaseSource
+name|source
+parameter_list|)
+function_decl|;
 block|}
 end_interface
 
