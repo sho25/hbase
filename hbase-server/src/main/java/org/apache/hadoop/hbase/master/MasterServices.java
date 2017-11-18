@@ -1034,7 +1034,7 @@ name|FavoredNodesManager
 name|getFavoredNodesManager
 parameter_list|()
 function_decl|;
-comment|/**    * Add a new replication peer for replicating data to slave cluster    * @param peerId a short name that identifies the peer    * @param peerConfig configuration for the replication slave cluster    */
+comment|/**    * Add a new replication peer for replicating data to slave cluster    * @param peerId a short name that identifies the peer    * @param peerConfig configuration for the replication slave cluster    * @param enabled peer state, true if ENABLED and false if DISABLED    */
 name|void
 name|addReplicationPeer
 parameter_list|(
@@ -1043,6 +1043,9 @@ name|peerId
 parameter_list|,
 name|ReplicationPeerConfig
 name|peerConfig
+parameter_list|,
+name|boolean
+name|enabled
 parameter_list|)
 throws|throws
 name|ReplicationException

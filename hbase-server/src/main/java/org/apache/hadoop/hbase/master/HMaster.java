@@ -16705,6 +16705,9 @@ name|peerId
 parameter_list|,
 name|ReplicationPeerConfig
 name|peerConfig
+parameter_list|,
+name|boolean
+name|enabled
 parameter_list|)
 throws|throws
 name|ReplicationException
@@ -16742,6 +16745,16 @@ operator|+
 literal|", config="
 operator|+
 name|peerConfig
+operator|+
+literal|", state="
+operator|+
+operator|(
+name|enabled
+condition|?
+literal|"ENABLED"
+else|:
+literal|"DISABLED"
+operator|)
 argument_list|)
 expr_stmt|;
 name|this
@@ -16753,6 +16766,8 @@ argument_list|(
 name|peerId
 argument_list|,
 name|peerConfig
+argument_list|,
+name|enabled
 argument_list|)
 expr_stmt|;
 if|if

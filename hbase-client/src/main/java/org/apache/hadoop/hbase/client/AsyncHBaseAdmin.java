@@ -2067,6 +2067,9 @@ name|peerId
 parameter_list|,
 name|ReplicationPeerConfig
 name|peerConfig
+parameter_list|,
+name|boolean
+name|enabled
 parameter_list|)
 block|{
 return|return
@@ -2079,6 +2082,8 @@ argument_list|(
 name|peerId
 argument_list|,
 name|peerConfig
+argument_list|,
+name|enabled
 argument_list|)
 argument_list|)
 return|;

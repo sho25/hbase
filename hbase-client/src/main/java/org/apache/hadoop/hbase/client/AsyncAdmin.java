@@ -1136,6 +1136,7 @@ name|filter
 parameter_list|)
 function_decl|;
 comment|/**    * Add a new replication peer for replicating data to slave cluster    * @param peerId a short name that identifies the peer    * @param peerConfig configuration for the replication slave cluster    */
+specifier|default
 name|CompletableFuture
 argument_list|<
 name|Void
@@ -1147,6 +1148,34 @@ name|peerId
 parameter_list|,
 name|ReplicationPeerConfig
 name|peerConfig
+parameter_list|)
+block|{
+return|return
+name|addReplicationPeer
+argument_list|(
+name|peerId
+argument_list|,
+name|peerConfig
+argument_list|,
+literal|true
+argument_list|)
+return|;
+block|}
+comment|/**    * Add a new replication peer for replicating data to slave cluster    * @param peerId a short name that identifies the peer    * @param peerConfig configuration for the replication slave cluster    * @param enabled peer state, true if ENABLED and false if DISABLED    */
+name|CompletableFuture
+argument_list|<
+name|Void
+argument_list|>
+name|addReplicationPeer
+parameter_list|(
+name|String
+name|peerId
+parameter_list|,
+name|ReplicationPeerConfig
+name|peerConfig
+parameter_list|,
+name|boolean
+name|enabled
 parameter_list|)
 function_decl|;
 comment|/**    * Remove a peer and stop the replication    * @param peerId a short name that identifies the peer    */

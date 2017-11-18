@@ -1550,6 +1550,9 @@ name|peerId
 parameter_list|,
 name|ReplicationPeerConfig
 name|peerConfig
+parameter_list|,
+name|boolean
+name|enabled
 parameter_list|)
 throws|throws
 name|ReplicationException

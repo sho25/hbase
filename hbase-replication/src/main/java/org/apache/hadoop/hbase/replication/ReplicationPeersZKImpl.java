@@ -581,6 +581,9 @@ name|id
 parameter_list|,
 name|ReplicationPeerConfig
 name|peerConfig
+parameter_list|,
+name|boolean
+name|enabled
 parameter_list|)
 throws|throws
 name|ReplicationException
@@ -719,9 +722,6 @@ name|peerConfig
 argument_list|)
 argument_list|)
 decl_stmt|;
-comment|// b/w PeerWatcher and ReplicationZookeeper#add method to create the
-comment|// peer-state znode. This happens while adding a peer
-comment|// The peer state data is set as "ENABLED" by default.
 name|ZKUtilOp
 name|op2
 init|=
@@ -734,7 +734,11 @@ argument_list|(
 name|id
 argument_list|)
 argument_list|,
+name|enabled
+condition|?
 name|ENABLED_ZNODE_BYTES
+else|:
+name|DISABLED_ZNODE_BYTES
 argument_list|)
 decl_stmt|;
 name|listOfOps
@@ -764,7 +768,6 @@ argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
-comment|// A peer is enabled by default
 block|}
 catch|catch
 parameter_list|(
@@ -783,6 +786,16 @@ operator|+
 literal|", peerConfif=>"
 operator|+
 name|peerConfig
+operator|+
+literal|", state="
+operator|+
+operator|(
+name|enabled
+condition|?
+literal|"ENABLED"
+else|:
+literal|"DISABLED"
+operator|)
 argument_list|,
 name|e
 argument_list|)

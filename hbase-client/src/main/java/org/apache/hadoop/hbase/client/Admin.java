@@ -43,16 +43,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|ArrayList
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|Collection
 import|;
 end_import
@@ -3586,7 +3576,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Add a new replication peer for replicating data to slave cluster.    * @param peerId a short name that identifies the peer    * @param peerConfig configuration for the replication slave cluster    * @throws IOException    */
+comment|/**    * Add a new replication peer for replicating data to slave cluster.    * @param peerId a short name that identifies the peer    * @param peerConfig configuration for the replication slave cluster    * @throws IOException if a remote or network exception occurs    */
 specifier|default
 name|void
 name|addReplicationPeer
@@ -3599,9 +3589,34 @@ name|peerConfig
 parameter_list|)
 throws|throws
 name|IOException
-block|{   }
-comment|/**    * Remove a peer and stop the replication.    * @param peerId a short name that identifies the peer    * @throws IOException    */
-specifier|default
+block|{
+name|addReplicationPeer
+argument_list|(
+name|peerId
+argument_list|,
+name|peerConfig
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Add a new replication peer for replicating data to slave cluster.    * @param peerId a short name that identifies the peer    * @param peerConfig configuration for the replication slave cluster    * @param enabled peer state, true if ENABLED and false if DISABLED    * @throws IOException if a remote or network exception occurs    */
+name|void
+name|addReplicationPeer
+parameter_list|(
+name|String
+name|peerId
+parameter_list|,
+name|ReplicationPeerConfig
+name|peerConfig
+parameter_list|,
+name|boolean
+name|enabled
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Remove a peer and stop the replication.    * @param peerId a short name that identifies the peer    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|removeReplicationPeer
 parameter_list|(
@@ -3610,9 +3625,8 @@ name|peerId
 parameter_list|)
 throws|throws
 name|IOException
-block|{   }
-comment|/**    * Restart the replication stream to the specified peer.    * @param peerId a short name that identifies the peer    * @throws IOException    */
-specifier|default
+function_decl|;
+comment|/**    * Restart the replication stream to the specified peer.    * @param peerId a short name that identifies the peer    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|enableReplicationPeer
 parameter_list|(
@@ -3621,9 +3635,8 @@ name|peerId
 parameter_list|)
 throws|throws
 name|IOException
-block|{   }
-comment|/**    * Stop the replication stream to the specified peer.    * @param peerId a short name that identifies the peer    * @throws IOException    */
-specifier|default
+function_decl|;
+comment|/**    * Stop the replication stream to the specified peer.    * @param peerId a short name that identifies the peer    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|disableReplicationPeer
 parameter_list|(
@@ -3632,9 +3645,8 @@ name|peerId
 parameter_list|)
 throws|throws
 name|IOException
-block|{   }
-comment|/**    * Returns the configured ReplicationPeerConfig for the specified peer.    * @param peerId a short name that identifies the peer    * @return ReplicationPeerConfig for the peer    * @throws IOException    */
-specifier|default
+function_decl|;
+comment|/**    * Returns the configured ReplicationPeerConfig for the specified peer.    * @param peerId a short name that identifies the peer    * @return ReplicationPeerConfig for the peer    * @throws IOException if a remote or network exception occurs    */
 name|ReplicationPeerConfig
 name|getReplicationPeerConfig
 parameter_list|(
@@ -3643,15 +3655,8 @@ name|peerId
 parameter_list|)
 throws|throws
 name|IOException
-block|{
-return|return
-operator|new
-name|ReplicationPeerConfig
-argument_list|()
-return|;
-block|}
-comment|/**    * Update the peerConfig for the specified peer.    * @param peerId a short name that identifies the peer    * @param peerConfig new config for the peer    * @throws IOException    */
-specifier|default
+function_decl|;
+comment|/**    * Update the peerConfig for the specified peer.    * @param peerId a short name that identifies the peer    * @param peerConfig new config for the peer    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|updateReplicationPeerConfig
 parameter_list|(
@@ -3663,9 +3668,8 @@ name|peerConfig
 parameter_list|)
 throws|throws
 name|IOException
-block|{   }
-comment|/**    * Append the replicable table column family config from the specified peer.    * @param id a short that identifies the cluster    * @param tableCfs A map from tableName to column family names    * @throws ReplicationException    * @throws IOException    */
-specifier|default
+function_decl|;
+comment|/**    * Append the replicable table column family config from the specified peer.    * @param id a short that identifies the cluster    * @param tableCfs A map from tableName to column family names    * @throws ReplicationException if tableCfs has conflict with existing config    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|appendReplicationPeerTableCFs
 parameter_list|(
@@ -3689,9 +3693,8 @@ throws|throws
 name|ReplicationException
 throws|,
 name|IOException
-block|{   }
-comment|/**    * Remove some table-cfs from config of the specified peer.    * @param id a short name that identifies the cluster    * @param tableCfs A map from tableName to column family names    * @throws ReplicationException    * @throws IOException    */
-specifier|default
+function_decl|;
+comment|/**    * Remove some table-cfs from config of the specified peer.    * @param id a short name that identifies the cluster    * @param tableCfs A map from tableName to column family names    * @throws ReplicationException if tableCfs has conflict with existing config    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|removeReplicationPeerTableCFs
 parameter_list|(
@@ -3715,9 +3718,8 @@ throws|throws
 name|ReplicationException
 throws|,
 name|IOException
-block|{   }
-comment|/**    * Return a list of replication peers.    * @return a list of replication peers description    * @throws IOException    */
-specifier|default
+function_decl|;
+comment|/**    * Return a list of replication peers.    * @return a list of replication peers description    * @throws IOException if a remote or network exception occurs    */
 name|List
 argument_list|<
 name|ReplicationPeerDescription
@@ -3726,39 +3728,8 @@ name|listReplicationPeers
 parameter_list|()
 throws|throws
 name|IOException
-block|{
-return|return
-operator|new
-name|ArrayList
-argument_list|<>
-argument_list|()
-return|;
-block|}
-comment|/**    * Return a list of replication peers.    * @param regex The regular expression to match peer id    * @return a list of replication peers description    * @throws IOException    * @deprecated since 2.0 version and will be removed in 3.0 version. Use    *             {@link #listReplicationPeers(Pattern)} instead.    */
-annotation|@
-name|Deprecated
-specifier|default
-name|List
-argument_list|<
-name|ReplicationPeerDescription
-argument_list|>
-name|listReplicationPeers
-parameter_list|(
-name|String
-name|regex
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-return|return
-operator|new
-name|ArrayList
-argument_list|<>
-argument_list|()
-return|;
-block|}
-comment|/**    * Return a list of replication peers.    * @param pattern The compiled regular expression to match peer id    * @return a list of replication peers description    * @throws IOException    */
-specifier|default
+function_decl|;
+comment|/**    * Return a list of replication peers.    * @param pattern The compiled regular expression to match peer id    * @return a list of replication peers description    * @throws IOException if a remote or network exception occurs    */
 name|List
 argument_list|<
 name|ReplicationPeerDescription
@@ -3770,14 +3741,7 @@ name|pattern
 parameter_list|)
 throws|throws
 name|IOException
-block|{
-return|return
-operator|new
-name|ArrayList
-argument_list|<>
-argument_list|()
-return|;
-block|}
+function_decl|;
 comment|/**    * Mark region server(s) as decommissioned to prevent additional regions from getting    * assigned to them. Optionally unload the regions on the servers. If there are multiple servers    * to be decommissioned, decommissioning them at the same time can prevent wasteful region    * movements. Region unloading is asynchronous.    * @param servers The list of servers to decommission.    * @param offload True to offload the regions from the decommissioned servers    */
 name|void
 name|decommissionRegionServers

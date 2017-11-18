@@ -136,6 +136,7 @@ throws|throws
 name|ReplicationException
 function_decl|;
 comment|/**    * Add a new remote slave cluster for replication.    * @param peerId a short that identifies the cluster    * @param peerConfig configuration for the replication slave cluster    */
+specifier|default
 name|void
 name|registerPeer
 parameter_list|(
@@ -144,6 +145,32 @@ name|peerId
 parameter_list|,
 name|ReplicationPeerConfig
 name|peerConfig
+parameter_list|)
+throws|throws
+name|ReplicationException
+block|{
+name|registerPeer
+argument_list|(
+name|peerId
+argument_list|,
+name|peerConfig
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Add a new remote slave cluster for replication.    * @param peerId a short that identifies the cluster    * @param peerConfig configuration for the replication slave cluster    * @param enabled peer state, true if ENABLED and false if DISABLED    */
+name|void
+name|registerPeer
+parameter_list|(
+name|String
+name|peerId
+parameter_list|,
+name|ReplicationPeerConfig
+name|peerConfig
+parameter_list|,
+name|boolean
+name|enabled
 parameter_list|)
 throws|throws
 name|ReplicationException
