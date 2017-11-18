@@ -2361,7 +2361,7 @@ init|=
 operator|new
 name|AtomicInteger
 argument_list|(
-literal|1
+literal|0
 argument_list|)
 decl_stmt|;
 specifier|final
@@ -2456,7 +2456,7 @@ if|if
 condition|(
 name|calls
 operator|.
-name|getAndIncrement
+name|get
 argument_list|()
 operator|<
 name|util
@@ -2474,8 +2474,6 @@ name|HConstants
 operator|.
 name|DEFAULT_HBASE_CLIENT_RETRIES_NUMBER
 argument_list|)
-operator|-
-literal|1
 condition|)
 block|{
 name|ClientServiceCallable
@@ -2535,6 +2533,11 @@ throw|;
 block|}
 block|}
 decl_stmt|;
+name|calls
+operator|.
+name|getAndIncrement
+argument_list|()
+expr_stmt|;
 return|return
 name|super
 operator|.
@@ -2613,6 +2616,16 @@ name|getRegionLocator
 argument_list|(
 name|table
 argument_list|)
+argument_list|)
+expr_stmt|;
+name|assertEquals
+argument_list|(
+name|calls
+operator|.
+name|get
+argument_list|()
+argument_list|,
+literal|2
 argument_list|)
 expr_stmt|;
 name|util
