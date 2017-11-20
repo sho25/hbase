@@ -1790,6 +1790,22 @@ argument_list|(
 literal|false
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"IN-MEMORY FLUSH: end"
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 specifier|private
