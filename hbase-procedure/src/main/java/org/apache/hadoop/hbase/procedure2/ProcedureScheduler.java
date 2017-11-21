@@ -19,16 +19,6 @@ end_package
 
 begin_import
 import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
 name|com
 operator|.
 name|google
@@ -38,6 +28,16 @@ operator|.
 name|annotations
 operator|.
 name|VisibleForTesting
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Iterator
 import|;
 end_import
 
@@ -113,6 +113,17 @@ name|Procedure
 name|proc
 parameter_list|)
 function_decl|;
+comment|/**    * Inserts all elements in the iterator at the front of this queue.    */
+name|void
+name|addFront
+parameter_list|(
+name|Iterator
+argument_list|<
+name|Procedure
+argument_list|>
+name|procedureIterator
+parameter_list|)
+function_decl|;
 comment|/**    * Inserts the specified element at the end of this queue.    * @param proc the Procedure to add    */
 name|void
 name|addBack
@@ -156,45 +167,6 @@ name|timeout
 parameter_list|,
 name|TimeUnit
 name|unit
-parameter_list|)
-function_decl|;
-comment|/**    * Mark the event as not ready.    * Procedures calling waitEvent() will be suspended.    * @param event the event to mark as suspended/not ready    */
-name|void
-name|suspendEvent
-parameter_list|(
-name|ProcedureEvent
-name|event
-parameter_list|)
-function_decl|;
-comment|/**    * Wake every procedure waiting for the specified event    * (By design each event has only one "wake" caller)    * @param event the event to wait    */
-name|void
-name|wakeEvent
-parameter_list|(
-name|ProcedureEvent
-name|event
-parameter_list|)
-function_decl|;
-comment|/**    * Wake every procedure waiting for the specified events.    * (By design each event has only one "wake" caller)    * @param count the number of events in the array to wake    * @param events the list of events to wake    */
-name|void
-name|wakeEvents
-parameter_list|(
-name|int
-name|count
-parameter_list|,
-name|ProcedureEvent
-modifier|...
-name|events
-parameter_list|)
-function_decl|;
-comment|/**    * Suspend the procedure if the event is not ready yet.    * @param event the event to wait on    * @param procedure the procedure waiting on the event    * @return true if the procedure has to wait for the event to be ready, false otherwise.    */
-name|boolean
-name|waitEvent
-parameter_list|(
-name|ProcedureEvent
-name|event
-parameter_list|,
-name|Procedure
-name|procedure
 parameter_list|)
 function_decl|;
 comment|/**    * List lock queues.    * @return the locks    */

@@ -3713,12 +3713,10 @@ name|assertEquals
 argument_list|(
 literal|true
 argument_list|,
-name|queue
-operator|.
-name|waitEvent
-argument_list|(
 name|event
-argument_list|,
+operator|.
+name|suspendIfNotReady
+argument_list|(
 name|proc
 argument_list|)
 argument_list|)
@@ -3753,11 +3751,11 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// resume
-name|queue
-operator|.
-name|wakeEvent
-argument_list|(
 name|event
+operator|.
+name|wake
+argument_list|(
+name|queue
 argument_list|)
 expr_stmt|;
 name|proc

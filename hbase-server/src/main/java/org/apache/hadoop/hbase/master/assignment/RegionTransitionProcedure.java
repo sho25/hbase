@@ -807,16 +807,16 @@ block|{
 comment|// NOTE: This call to wakeEvent puts this Procedure back on the scheduler.
 comment|// Thereafter, another Worker can be in here so DO NOT MESS WITH STATE beyond
 comment|// this method. Just get out of this current processing quickly.
-name|env
-operator|.
-name|getProcedureScheduler
-argument_list|()
-operator|.
-name|wakeEvent
-argument_list|(
 name|regionNode
 operator|.
 name|getProcedureEvent
+argument_list|()
+operator|.
+name|wake
+argument_list|(
+name|env
+operator|.
+name|getProcedureScheduler
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -887,13 +887,6 @@ argument_list|)
 expr_stmt|;
 comment|// Put this procedure into suspended mode to wait on report of state change
 comment|// from remote regionserver. Means Procedure associated ProcedureEvent is marked not 'ready'.
-name|env
-operator|.
-name|getProcedureScheduler
-argument_list|()
-operator|.
-name|suspendEvent
-argument_list|(
 name|getRegionState
 argument_list|(
 name|env
@@ -901,7 +894,9 @@ argument_list|)
 operator|.
 name|getProcedureEvent
 argument_list|()
-argument_list|)
+operator|.
+name|suspend
+argument_list|()
 expr_stmt|;
 comment|// Tricky because the below call to addOperationToNode can fail. If it fails, we need to
 comment|// backtrack on stuff like the 'suspend' done above -- tricky as the 'wake' requeues us -- and
@@ -1096,16 +1091,16 @@ comment|// This makes it so this procedure can run again. Another worker will ta
 comment|// processing to the next stage. At an extreme, the other worker may run in
 comment|// parallel so DO  NOT CHANGE any state hereafter! This should be last thing
 comment|// done in this processing step.
-name|env
-operator|.
-name|getProcedureScheduler
-argument_list|()
-operator|.
-name|wakeEvent
-argument_list|(
 name|regionNode
 operator|.
 name|getProcedureEvent
+argument_list|()
+operator|.
+name|wake
+argument_list|(
+name|env
+operator|.
+name|getProcedureScheduler
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1363,18 +1358,13 @@ name|REGION_TRANSITION_DISPATCH
 expr_stmt|;
 if|if
 condition|(
-name|env
-operator|.
-name|getProcedureScheduler
-argument_list|()
-operator|.
-name|waitEvent
-argument_list|(
 name|regionNode
 operator|.
 name|getProcedureEvent
 argument_list|()
-argument_list|,
+operator|.
+name|suspendIfNotReady
+argument_list|(
 name|this
 argument_list|)
 condition|)
@@ -1433,18 +1423,13 @@ break|break;
 block|}
 if|if
 condition|(
-name|env
-operator|.
-name|getProcedureScheduler
-argument_list|()
-operator|.
-name|waitEvent
-argument_list|(
 name|regionNode
 operator|.
 name|getProcedureEvent
 argument_list|()
-argument_list|,
+operator|.
+name|suspendIfNotReady
+argument_list|(
 name|this
 argument_list|)
 condition|)

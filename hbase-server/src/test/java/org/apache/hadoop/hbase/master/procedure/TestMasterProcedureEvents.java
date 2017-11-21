@@ -1158,11 +1158,11 @@ operator|+
 name|event
 argument_list|)
 expr_stmt|;
-name|procSched
-operator|.
-name|wakeEvent
-argument_list|(
 name|event
+operator|.
+name|wake
+argument_list|(
+name|procSched
 argument_list|)
 expr_stmt|;
 name|assertEquals
