@@ -2007,21 +2007,6 @@ argument_list|,
 name|user
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|scanner
-operator|==
-literal|null
-condition|)
-block|{
-comment|// NULL scanner returned from coprocessor hooks means skip normal processing.
-return|return
-operator|new
-name|ArrayList
-argument_list|<>
-argument_list|()
-return|;
-block|}
 name|boolean
 name|cleanSeqId
 init|=

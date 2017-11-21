@@ -391,18 +391,6 @@ argument_list|,
 name|tracker
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
-name|scanner
-operator|==
-literal|null
-condition|)
-block|{
-return|return
-name|result
-return|;
-comment|// NULL scanner returned from coprocessor hooks means skip normal processing
-block|}
 comment|// Let policy select flush method.
 name|StripeFlushRequest
 name|req

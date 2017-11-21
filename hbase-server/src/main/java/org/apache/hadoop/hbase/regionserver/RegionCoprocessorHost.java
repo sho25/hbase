@@ -549,6 +549,22 @@ name|hbase
 operator|.
 name|coprocessor
 operator|.
+name|CoprocessorException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|coprocessor
+operator|.
 name|CoprocessorHost
 import|;
 end_import
@@ -3485,8 +3501,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * Called prior to rewriting the store files selected for compaction    * @param store the store being compacted    * @param scanner the scanner used to read store data during compaction    * @param scanType type of Scan    * @param tracker used to track the life cycle of a compaction    * @param request the compaction request    * @param user the user    * @throws IOException    */
-comment|// A Coprocessor can return null to cancel Compact. Leaving for now but this is form of 'bypass'.
+comment|/**    * Called prior to rewriting the store files selected for compaction    * @param store the store being compacted    * @param scanner the scanner used to read store data during compaction    * @param scanType type of Scan    * @param tracker used to track the life cycle of a compaction    * @param request the compaction request    * @param user the user    * @return Scanner to use (cannot be null!)    * @throws IOException    */
 specifier|public
 name|InternalScanner
 name|preCompact
@@ -3565,7 +3580,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-return|return
+name|InternalScanner
+name|scanner
+init|=
 name|observer
 operator|.
 name|preCompact
@@ -3583,6 +3600,24 @@ name|tracker
 argument_list|,
 name|request
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|scanner
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|CoprocessorException
+argument_list|(
+literal|"Null Scanner return disallowed!"
+argument_list|)
+throw|;
+block|}
+return|return
+name|scanner
 return|;
 block|}
 block|}
@@ -3747,8 +3782,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * Invoked before a memstore flush    * @throws IOException    */
-comment|// A Coprocessor can return null to cancel Flush. Leaving for now but this is a form of 'bypass'.
+comment|/**    * Invoked before a memstore flush    * @return Scanner to use (cannot be null!)    * @throws IOException    */
 specifier|public
 name|InternalScanner
 name|preFlush
@@ -3805,7 +3839,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-return|return
+name|InternalScanner
+name|scanner
+init|=
 name|observer
 operator|.
 name|preFlush
@@ -3819,6 +3855,24 @@ argument_list|()
 argument_list|,
 name|tracker
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|scanner
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|CoprocessorException
+argument_list|(
+literal|"Null Scanner return disallowed!"
+argument_list|)
+throw|;
+block|}
+return|return
+name|scanner
 return|;
 block|}
 block|}
