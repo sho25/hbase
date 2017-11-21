@@ -12250,6 +12250,16 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+comment|// Set a very high max-disk-utilization percentage to avoid the NodeManagers from failing.
+name|conf
+operator|.
+name|setIfUnset
+argument_list|(
+literal|"yarn.nodemanager.disk-health-checker.max-disk-utilization-per-disk-percentage"
+argument_list|,
+literal|"99.0"
+argument_list|)
+expr_stmt|;
 name|startMiniMapReduceCluster
 argument_list|(
 literal|2
