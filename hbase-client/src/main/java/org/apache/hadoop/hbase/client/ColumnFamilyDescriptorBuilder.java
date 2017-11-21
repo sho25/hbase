@@ -4109,7 +4109,7 @@ name|KEEP_DELETED_CELLS_BYTES
 argument_list|,
 name|KeepDeletedCells
 operator|::
-name|valueOf
+name|getValue
 argument_list|,
 name|DEFAULT_KEEP_DELETED
 argument_list|)

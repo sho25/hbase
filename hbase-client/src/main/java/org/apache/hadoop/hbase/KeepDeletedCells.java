@@ -54,7 +54,27 @@ name|TRUE
 block|,
 comment|/**    * Deleted Cells are retained until the delete marker expires due to TTL.    * This is useful when TTL is combined with MIN_VERSIONS and one    * wants to keep a minimum number of versions around but at the same    * time remove deleted cells after the TTL.    */
 name|TTL
-block|; }
+block|;
+specifier|public
+specifier|static
+name|KeepDeletedCells
+name|getValue
+parameter_list|(
+name|String
+name|val
+parameter_list|)
+block|{
+return|return
+name|valueOf
+argument_list|(
+name|val
+operator|.
+name|toUpperCase
+argument_list|()
+argument_list|)
+return|;
+block|}
+block|}
 end_enum
 
 end_unit
