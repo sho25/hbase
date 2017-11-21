@@ -163,6 +163,15 @@ name|Connection
 name|getConnection
 parameter_list|()
 function_decl|;
+name|Connection
+name|createConnection
+parameter_list|(
+name|Configuration
+name|conf
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Returns a reference to the servers' cluster connection. Prefer {@link #getConnection()}.    *    * Important note: this method returns a reference to Connection which is managed    * by Server itself, so callers must NOT attempt to close connection obtained.    */
 name|ClusterConnection
 name|getClusterConnection

@@ -860,6 +860,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * A ClusterConnection that will short-circuit RPC making direct invocations against the    * localhost if the invocation target is 'this' server; save on network and protobuf    * invocations.    */
+comment|// TODO This has to still do PB marshalling/unmarshalling stuff. Check how/whether we can avoid.
 annotation|@
 name|VisibleForTesting
 comment|// Class is visible so can assert we are short-circuiting when expected.
