@@ -711,6 +711,25 @@ operator|.
 name|start
 argument_list|()
 expr_stmt|;
+comment|// TODO: temporary workaround for HBASE-19312, must be removed before 2.0.0 release!
+try|try
+block|{
+name|this
+operator|.
+name|zk
+operator|.
+name|blockUntilConnected
+argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+return|return;
+block|}
 block|}
 specifier|private
 interface|interface
