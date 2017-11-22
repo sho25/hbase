@@ -2592,7 +2592,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|int
+name|long
 name|size
 init|=
 literal|0
