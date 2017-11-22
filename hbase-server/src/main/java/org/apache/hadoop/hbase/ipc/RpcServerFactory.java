@@ -254,7 +254,7 @@ name|get
 argument_list|(
 name|CUSTOM_RPC_SERVER_IMPL_CONF_KEY
 argument_list|,
-name|SimpleRpcServer
+name|NettyRpcServer
 operator|.
 name|class
 operator|.
