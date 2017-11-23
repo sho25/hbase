@@ -361,6 +361,16 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Keeping track of killed servers and being able to check if a particular server was killed makes    * it possible to do fault tolerance testing for dead servers in a deterministic way. A concrete    * example of such case is - killing servers and waiting for all regions of a particular table    * to be assigned. We can check for server column in META table and that its value is not one    * of the killed servers.    */
+specifier|public
+specifier|abstract
+name|boolean
+name|isKilledRS
+parameter_list|(
+name|ServerName
+name|serverName
+parameter_list|)
+function_decl|;
 comment|/**    * Stops the given region server, by attempting a gradual stop.    * @return whether the operation finished with success    * @throws IOException if something goes wrong    */
 specifier|public
 specifier|abstract

@@ -425,6 +425,30 @@ name|google
 operator|.
 name|common
 operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
 name|base
 operator|.
 name|Preconditions
@@ -1943,7 +1967,10 @@ comment|// =====================================================================
 comment|//  Region State
 comment|// ==========================================================================
 comment|/**    * Pull the region state from a catalog table {@link Result}.    * @param r Result to pull the region state from    * @return the region state, or null if unknown.    */
-specifier|protected
+annotation|@
+name|VisibleForTesting
+specifier|public
+specifier|static
 name|State
 name|getRegionState
 parameter_list|(
