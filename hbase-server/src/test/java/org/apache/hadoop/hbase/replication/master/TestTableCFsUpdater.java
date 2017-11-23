@@ -385,7 +385,7 @@ specifier|public
 class|class
 name|TestTableCFsUpdater
 extends|extends
-name|TableCFsUpdater
+name|ReplicationPeerConfigUpgrader
 block|{
 specifier|private
 specifier|static
@@ -1168,7 +1168,7 @@ argument_list|(
 name|actualTableCfs
 argument_list|)
 expr_stmt|;
-name|update
+name|copyTableCFs
 argument_list|()
 expr_stmt|;
 name|peerId

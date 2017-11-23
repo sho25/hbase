@@ -2065,6 +2065,16 @@ name|getBandwidth
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|existingConfig
+operator|.
+name|setReplicateAllUserTables
+argument_list|(
+name|newConfig
+operator|.
+name|replicateAllUserTables
+argument_list|()
+argument_list|)
+expr_stmt|;
 try|try
 block|{
 name|ZKUtil

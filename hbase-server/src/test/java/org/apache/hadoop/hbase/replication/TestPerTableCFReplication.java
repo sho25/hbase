@@ -3224,6 +3224,13 @@ name|getClusterKey
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|rpc2
+operator|.
+name|setReplicateAllUserTables
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
 name|Map
 argument_list|<
 name|TableName
@@ -3311,6 +3318,13 @@ name|utility3
 operator|.
 name|getClusterKey
 argument_list|()
+argument_list|)
+expr_stmt|;
+name|rpc3
+operator|.
+name|setReplicateAllUserTables
+argument_list|(
+literal|false
 argument_list|)
 expr_stmt|;
 name|tableCFs

@@ -3690,6 +3690,11 @@ name|getClusterKey
 argument_list|()
 argument_list|)
 operator|.
+name|setReplicateAllUserTables
+argument_list|(
+literal|false
+argument_list|)
+operator|.
 name|setTableCFsMap
 argument_list|(
 name|ReplicationPeerConfigUtil

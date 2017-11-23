@@ -966,7 +966,6 @@ argument_list|(
 name|tabBName
 argument_list|)
 decl_stmt|;
-comment|// add ns1 to peer config which replicate to cluster2
 name|ReplicationPeerConfig
 name|rpc
 init|=
@@ -977,6 +976,32 @@ argument_list|(
 literal|"2"
 argument_list|)
 decl_stmt|;
+name|rpc
+operator|.
+name|setReplicateAllUserTables
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
+name|admin
+operator|.
+name|updatePeerConfig
+argument_list|(
+literal|"2"
+argument_list|,
+name|rpc
+argument_list|)
+expr_stmt|;
+comment|// add ns1 to peer config which replicate to cluster2
+name|rpc
+operator|=
+name|admin
+operator|.
+name|getPeerConfig
+argument_list|(
+literal|"2"
+argument_list|)
+expr_stmt|;
 name|Set
 argument_list|<
 name|String

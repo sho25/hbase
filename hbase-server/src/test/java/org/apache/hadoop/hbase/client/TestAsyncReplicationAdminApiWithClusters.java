@@ -1406,6 +1406,13 @@ argument_list|()
 decl_stmt|;
 name|rpc
 operator|.
+name|setReplicateAllUserTables
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
+name|rpc
+operator|.
 name|setTableCFsMap
 argument_list|(
 name|tableCfs
@@ -1515,6 +1522,13 @@ operator|.
 name|setTableCFsMap
 argument_list|(
 literal|null
+argument_list|)
+expr_stmt|;
+name|rpc
+operator|.
+name|setReplicateAllUserTables
+argument_list|(
+literal|true
 argument_list|)
 expr_stmt|;
 name|admin

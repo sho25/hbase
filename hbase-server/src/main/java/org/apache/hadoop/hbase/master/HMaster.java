@@ -2109,7 +2109,7 @@ name|replication
 operator|.
 name|master
 operator|.
-name|TableCFsUpdater
+name|ReplicationPeerConfigUpgrader
 import|;
 end_import
 
@@ -5199,11 +5199,11 @@ argument_list|(
 literal|"Update TableCFs node in ZNode"
 argument_list|)
 expr_stmt|;
-name|TableCFsUpdater
+name|ReplicationPeerConfigUpgrader
 name|tableCFsUpdater
 init|=
 operator|new
-name|TableCFsUpdater
+name|ReplicationPeerConfigUpgrader
 argument_list|(
 name|zooKeeper
 argument_list|,
@@ -5216,7 +5216,7 @@ argument_list|)
 decl_stmt|;
 name|tableCFsUpdater
 operator|.
-name|update
+name|copyTableCFs
 argument_list|()
 expr_stmt|;
 comment|// Add the Observer to delete space quotas on table deletion before starting all CPs by
