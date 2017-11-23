@@ -5724,6 +5724,15 @@ operator|.
 name|hfileCleaner
 argument_list|)
 expr_stmt|;
+name|configurationManager
+operator|.
+name|registerObserver
+argument_list|(
+name|this
+operator|.
+name|logCleaner
+argument_list|)
+expr_stmt|;
 comment|// Set master as 'initialized'.
 name|setInitialized
 argument_list|(
