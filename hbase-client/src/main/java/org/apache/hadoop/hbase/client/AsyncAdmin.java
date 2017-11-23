@@ -804,6 +804,7 @@ name|regionName
 parameter_list|)
 function_decl|;
 comment|/**    * Compact a table. When the returned CompletableFuture is done, it only means the compact request    * was sent to HBase and may need some time to finish the compact operation.    * @param tableName table to compact    */
+specifier|default
 name|CompletableFuture
 argument_list|<
 name|Void
@@ -813,8 +814,20 @@ parameter_list|(
 name|TableName
 name|tableName
 parameter_list|)
-function_decl|;
+block|{
+return|return
+name|compact
+argument_list|(
+name|tableName
+argument_list|,
+name|CompactType
+operator|.
+name|NORMAL
+argument_list|)
+return|;
+block|}
 comment|/**    * Compact a column family within a table. When the returned CompletableFuture is done, it only    * means the compact request was sent to HBase and may need some time to finish the compact    * operation.    * @param tableName table to compact    * @param columnFamily column family within a table. If not present, compact the table's all    *          column families.    */
+specifier|default
 name|CompletableFuture
 argument_list|<
 name|Void
@@ -827,6 +840,51 @@ parameter_list|,
 name|byte
 index|[]
 name|columnFamily
+parameter_list|)
+block|{
+return|return
+name|compact
+argument_list|(
+name|tableName
+argument_list|,
+name|columnFamily
+argument_list|,
+name|CompactType
+operator|.
+name|NORMAL
+argument_list|)
+return|;
+block|}
+comment|/**    * Compact a table. When the returned CompletableFuture is done, it only means the compact request    * was sent to HBase and may need some time to finish the compact operation.    * @param tableName table to compact    * @param compactType {@link org.apache.hadoop.hbase.client.CompactType}    */
+name|CompletableFuture
+argument_list|<
+name|Void
+argument_list|>
+name|compact
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|,
+name|CompactType
+name|compactType
+parameter_list|)
+function_decl|;
+comment|/**    * Compact a column family within a table. When the returned CompletableFuture is done, it only    * means the compact request was sent to HBase and may need some time to finish the compact    * operation.    * @param tableName table to compact    * @param columnFamily column family within a table    * @param compactType {@link org.apache.hadoop.hbase.client.CompactType}    */
+name|CompletableFuture
+argument_list|<
+name|Void
+argument_list|>
+name|compact
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|,
+name|byte
+index|[]
+name|columnFamily
+parameter_list|,
+name|CompactType
+name|compactType
 parameter_list|)
 function_decl|;
 comment|/**    * Compact an individual region. When the returned CompletableFuture is done, it only means the    * compact request was sent to HBase and may need some time to finish the compact operation.    * @param regionName region to compact    */
@@ -858,6 +916,7 @@ name|columnFamily
 parameter_list|)
 function_decl|;
 comment|/**    * Major compact a table. When the returned CompletableFuture is done, it only means the compact    * request was sent to HBase and may need some time to finish the compact operation.    * @param tableName table to major compact    */
+specifier|default
 name|CompletableFuture
 argument_list|<
 name|Void
@@ -867,8 +926,20 @@ parameter_list|(
 name|TableName
 name|tableName
 parameter_list|)
-function_decl|;
+block|{
+return|return
+name|majorCompact
+argument_list|(
+name|tableName
+argument_list|,
+name|CompactType
+operator|.
+name|NORMAL
+argument_list|)
+return|;
+block|}
 comment|/**    * Major compact a column family within a table. When the returned CompletableFuture is done, it    * only means the compact request was sent to HBase and may need some time to finish the compact    * operation.    * @param tableName table to major compact    * @param columnFamily column family within a table. If not present, major compact the table's all    *          column families.    */
+specifier|default
 name|CompletableFuture
 argument_list|<
 name|Void
@@ -881,6 +952,51 @@ parameter_list|,
 name|byte
 index|[]
 name|columnFamily
+parameter_list|)
+block|{
+return|return
+name|majorCompact
+argument_list|(
+name|tableName
+argument_list|,
+name|columnFamily
+argument_list|,
+name|CompactType
+operator|.
+name|NORMAL
+argument_list|)
+return|;
+block|}
+comment|/**    * Major compact a table. When the returned CompletableFuture is done, it only means the compact    * request was sent to HBase and may need some time to finish the compact operation.    * @param tableName table to major compact    * @param compactType {@link org.apache.hadoop.hbase.client.CompactType}    */
+name|CompletableFuture
+argument_list|<
+name|Void
+argument_list|>
+name|majorCompact
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|,
+name|CompactType
+name|compactType
+parameter_list|)
+function_decl|;
+comment|/**    * Major compact a column family within a table. When the returned CompletableFuture is done, it    * only means the compact request was sent to HBase and may need some time to finish the compact    * operation.    * @param tableName table to major compact    * @param columnFamily column family within a table. If not present, major compact the table's all    *          column families.    * @param compactType {@link org.apache.hadoop.hbase.client.CompactType}    */
+name|CompletableFuture
+argument_list|<
+name|Void
+argument_list|>
+name|majorCompact
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|,
+name|byte
+index|[]
+name|columnFamily
+parameter_list|,
+name|CompactType
+name|compactType
 parameter_list|)
 function_decl|;
 comment|/**    * Major compact a region. When the returned CompletableFuture is done, it only means the compact    * request was sent to HBase and may need some time to finish the compact operation.    * @param regionName region to major compact    */
@@ -2020,6 +2136,7 @@ name|isMasterInMaintenanceMode
 parameter_list|()
 function_decl|;
 comment|/**    * Get the current compaction state of a table. It could be in a major compaction, a minor    * compaction, both, or none.    * @param tableName table to examine    * @return the current compaction state wrapped by a {@link CompletableFuture}    */
+specifier|default
 name|CompletableFuture
 argument_list|<
 name|CompactionState
@@ -2028,6 +2145,31 @@ name|getCompactionState
 parameter_list|(
 name|TableName
 name|tableName
+parameter_list|)
+block|{
+return|return
+name|getCompactionState
+argument_list|(
+name|tableName
+argument_list|,
+name|CompactType
+operator|.
+name|NORMAL
+argument_list|)
+return|;
+block|}
+comment|/**    * Get the current compaction state of a table. It could be in a major compaction, a minor    * compaction, both, or none.    * @param tableName table to examine    * @param compactType {@link org.apache.hadoop.hbase.client.CompactType}    * @return the current compaction state wrapped by a {@link CompletableFuture}    */
+name|CompletableFuture
+argument_list|<
+name|CompactionState
+argument_list|>
+name|getCompactionState
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|,
+name|CompactType
+name|compactType
 parameter_list|)
 function_decl|;
 comment|/**    * Get the current compaction state of region. It could be in a major compaction, a minor    * compaction, both, or none.    * @param regionName region to examine    * @return the current compaction state wrapped by a {@link CompletableFuture}    */

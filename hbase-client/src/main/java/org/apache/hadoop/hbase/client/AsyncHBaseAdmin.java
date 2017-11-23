@@ -1352,6 +1352,9 @@ name|compact
 parameter_list|(
 name|TableName
 name|tableName
+parameter_list|,
+name|CompactType
+name|compactType
 parameter_list|)
 block|{
 return|return
@@ -1362,6 +1365,8 @@ operator|.
 name|compact
 argument_list|(
 name|tableName
+argument_list|,
+name|compactType
 argument_list|)
 argument_list|)
 return|;
@@ -1381,6 +1386,9 @@ parameter_list|,
 name|byte
 index|[]
 name|columnFamily
+parameter_list|,
+name|CompactType
+name|compactType
 parameter_list|)
 block|{
 return|return
@@ -1393,6 +1401,8 @@ argument_list|(
 name|tableName
 argument_list|,
 name|columnFamily
+argument_list|,
+name|compactType
 argument_list|)
 argument_list|)
 return|;
@@ -1466,6 +1476,9 @@ name|majorCompact
 parameter_list|(
 name|TableName
 name|tableName
+parameter_list|,
+name|CompactType
+name|compactType
 parameter_list|)
 block|{
 return|return
@@ -1476,6 +1489,8 @@ operator|.
 name|majorCompact
 argument_list|(
 name|tableName
+argument_list|,
+name|compactType
 argument_list|)
 argument_list|)
 return|;
@@ -1495,6 +1510,9 @@ parameter_list|,
 name|byte
 index|[]
 name|columnFamily
+parameter_list|,
+name|CompactType
+name|compactType
 parameter_list|)
 block|{
 return|return
@@ -1507,6 +1525,8 @@ argument_list|(
 name|tableName
 argument_list|,
 name|columnFamily
+argument_list|,
+name|compactType
 argument_list|)
 argument_list|)
 return|;
@@ -3410,6 +3430,9 @@ name|getCompactionState
 parameter_list|(
 name|TableName
 name|tableName
+parameter_list|,
+name|CompactType
+name|compactType
 parameter_list|)
 block|{
 return|return
@@ -3420,6 +3443,8 @@ operator|.
 name|getCompactionState
 argument_list|(
 name|tableName
+argument_list|,
+name|compactType
 argument_list|)
 argument_list|)
 return|;
