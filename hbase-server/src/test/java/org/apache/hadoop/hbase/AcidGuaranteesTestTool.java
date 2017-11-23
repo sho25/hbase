@@ -550,7 +550,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|TestAcidGuarantees
+name|AcidGuaranteesTestTool
 operator|.
 name|class
 argument_list|)
