@@ -77,6 +77,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ExtendedCellBuilder
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseInterfaceAudience
 import|;
 end_import
@@ -277,6 +291,11 @@ comment|// so we do not want to allow coprocessors to export metrics at the regi
 comment|// getMetricRegistryForTable() to allow coprocessors to track metrics per-table, per-regionserver.
 name|MetricRegistry
 name|getMetricRegistryForRegionServer
+parameter_list|()
+function_decl|;
+comment|/**    * Returns a CellBuilder so that coprocessors can build cells. These cells can also include tags.    * Note that this builder does not support updating seqId of the cells    * @return the ExtendedCellBuilder    */
+name|ExtendedCellBuilder
+name|getCellBuilder
 parameter_list|()
 function_decl|;
 block|}

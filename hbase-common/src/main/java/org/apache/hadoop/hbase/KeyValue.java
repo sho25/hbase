@@ -167,11 +167,21 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|shaded
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
 import|;
 end_import
 
@@ -243,21 +253,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|yetus
 operator|.
-name|hbase
+name|audience
 operator|.
-name|shaded
-operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|annotations
-operator|.
-name|VisibleForTesting
+name|InterfaceAudience
 import|;
 end_import
 
@@ -2866,7 +2866,7 @@ name|MAX_VALUE
 argument_list|)
 throw|;
 block|}
-name|TagUtil
+name|RawCell
 operator|.
 name|checkForTagsLength
 argument_list|(
@@ -3429,7 +3429,7 @@ name|INFRASTRUCTURE_SIZE
 expr_stmt|;
 block|}
 block|}
-name|TagUtil
+name|RawCell
 operator|.
 name|checkForTagsLength
 argument_list|(
@@ -3770,7 +3770,7 @@ name|getType
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|TagUtil
+name|Tag
 operator|.
 name|copyValueTo
 argument_list|(
@@ -3881,7 +3881,7 @@ argument_list|,
 name|vlength
 argument_list|)
 expr_stmt|;
-name|TagUtil
+name|RawCell
 operator|.
 name|checkForTagsLength
 argument_list|(
@@ -4294,7 +4294,7 @@ name|INFRASTRUCTURE_SIZE
 expr_stmt|;
 block|}
 block|}
-name|TagUtil
+name|RawCell
 operator|.
 name|checkForTagsLength
 argument_list|(
@@ -4666,7 +4666,7 @@ name|getType
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|TagUtil
+name|Tag
 operator|.
 name|copyValueTo
 argument_list|(

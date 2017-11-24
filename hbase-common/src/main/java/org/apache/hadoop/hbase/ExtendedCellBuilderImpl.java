@@ -174,6 +174,27 @@ name|tagsLength
 init|=
 literal|0
 decl_stmt|;
+comment|// Will go away once we do with RawCellBuilder
+specifier|protected
+name|boolean
+name|allowSeqIdUpdate
+init|=
+literal|false
+decl_stmt|;
+specifier|public
+name|ExtendedCellBuilderImpl
+parameter_list|(
+name|boolean
+name|allowSeqIdUpdate
+parameter_list|)
+block|{
+name|this
+operator|.
+name|allowSeqIdUpdate
+operator|=
+name|allowSeqIdUpdate
+expr_stmt|;
+block|}
 annotation|@
 name|Override
 specifier|public
@@ -598,6 +619,11 @@ name|long
 name|seqId
 parameter_list|)
 block|{
+if|if
+condition|(
+name|allowSeqIdUpdate
+condition|)
+block|{
 name|this
 operator|.
 name|seqId
@@ -607,6 +633,14 @@ expr_stmt|;
 return|return
 name|this
 return|;
+block|}
+throw|throw
+operator|new
+name|UnsupportedOperationException
+argument_list|(
+literal|"SeqId cannot be set on this cell"
+argument_list|)
+throw|;
 block|}
 specifier|private
 name|void

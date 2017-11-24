@@ -48,6 +48,28 @@ name|CellBuilderType
 name|type
 parameter_list|)
 block|{
+return|return
+name|create
+argument_list|(
+name|type
+argument_list|,
+literal|true
+argument_list|)
+return|;
+block|}
+comment|/**    * Allows creating a cell with the given CellBuilderType.    * @param type the type of CellBuilder(DEEP_COPY or SHALLOW_COPY).    * @param allowSeqIdUpdate if seqId can be updated. CPs are not allowed to update    *        the seqId    * @return the cell that is created    */
+specifier|public
+specifier|static
+name|ExtendedCellBuilder
+name|create
+parameter_list|(
+name|CellBuilderType
+name|type
+parameter_list|,
+name|boolean
+name|allowSeqIdUpdate
+parameter_list|)
+block|{
 switch|switch
 condition|(
 name|type
@@ -56,6 +78,8 @@ block|{
 case|case
 name|SHALLOW_COPY
 case|:
+comment|// CPs are not allowed to update seqID and they always use DEEP_COPY. So we have not
+comment|// passing 'allowSeqIdUpdate' to IndividualBytesFieldCellBuilder
 return|return
 operator|new
 name|IndividualBytesFieldCellBuilder
@@ -67,7 +91,9 @@ case|:
 return|return
 operator|new
 name|KeyValueBuilder
-argument_list|()
+argument_list|(
+name|allowSeqIdUpdate
+argument_list|)
 return|;
 default|default:
 throw|throw

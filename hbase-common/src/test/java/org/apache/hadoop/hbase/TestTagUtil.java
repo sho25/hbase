@@ -179,7 +179,7 @@ name|assertEquals
 argument_list|(
 name|ttl
 argument_list|,
-name|TagUtil
+name|Tag
 operator|.
 name|getValueAsLong
 argument_list|(
@@ -241,7 +241,7 @@ name|assertEquals
 argument_list|(
 name|ttl2
 argument_list|,
-name|TagUtil
+name|Tag
 operator|.
 name|getValueAsLong
 argument_list|(

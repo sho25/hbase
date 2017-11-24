@@ -3879,7 +3879,7 @@ name|Bytes
 operator|.
 name|equals
 argument_list|(
-name|TagUtil
+name|Tag
 operator|.
 name|cloneValue
 argument_list|(
@@ -3904,7 +3904,7 @@ name|Bytes
 operator|.
 name|equals
 argument_list|(
-name|TagUtil
+name|Tag
 operator|.
 name|cloneValue
 argument_list|(
@@ -3989,7 +3989,7 @@ name|Bytes
 operator|.
 name|equals
 argument_list|(
-name|TagUtil
+name|Tag
 operator|.
 name|cloneValue
 argument_list|(
@@ -4041,7 +4041,7 @@ name|Bytes
 operator|.
 name|equals
 argument_list|(
-name|TagUtil
+name|Tag
 operator|.
 name|cloneValue
 argument_list|(
@@ -4110,7 +4110,7 @@ name|Bytes
 operator|.
 name|equals
 argument_list|(
-name|TagUtil
+name|Tag
 operator|.
 name|cloneValue
 argument_list|(
@@ -4162,7 +4162,7 @@ name|Bytes
 operator|.
 name|equals
 argument_list|(
-name|TagUtil
+name|Tag
 operator|.
 name|cloneValue
 argument_list|(

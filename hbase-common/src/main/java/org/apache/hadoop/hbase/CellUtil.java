@@ -25,9 +25,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Tag
+name|KeyValue
 operator|.
-name|TAG_LENGTH_SIZE
+name|COLUMN_FAMILY_DELIMITER
 import|;
 end_import
 
@@ -43,7 +43,7 @@ name|hbase
 operator|.
 name|KeyValue
 operator|.
-name|COLUMN_FAMILY_DELIMITER
+name|COLUMN_FAMILY_DELIM_ARRAY
 import|;
 end_import
 
@@ -73,9 +73,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|Tag
 operator|.
-name|COLUMN_FAMILY_DELIM_ARRAY
+name|TAG_LENGTH_SIZE
 import|;
 end_import
 
@@ -183,6 +183,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Optional
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -203,41 +213,13 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
+name|io
 operator|.
-name|apache
-operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-operator|.
-name|Private
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|annotations
-operator|.
-name|VisibleForTesting
+name|HeapSize
 import|;
 end_import
 
@@ -251,9 +233,17 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
+name|shaded
 operator|.
-name|HeapSize
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
 import|;
 end_import
 
@@ -302,6 +292,36 @@ operator|.
 name|util
 operator|.
 name|Bytes
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+operator|.
+name|Private
 import|;
 end_import
 
@@ -600,7 +620,7 @@ return|return
 name|output
 return|;
 block|}
-comment|/**    * @deprecated As of HBase-2.0. Will be removed in HBase-3.0.    */
+comment|/**    * @deprecated As of HBase-2.0. Will be removed in HBase-3.0.    *             Use {@link RawCell#cloneTags()}    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -638,7 +658,7 @@ block|{
 return|return
 name|PrivateCellUtil
 operator|.
-name|getTagsArray
+name|cloneTags
 argument_list|(
 name|cell
 argument_list|)
@@ -2438,7 +2458,9 @@ name|EMPTY_BYTE_ARRAY
 argument_list|)
 return|;
 block|}
-comment|/**    * @return A new cell which is having the extra tags also added to it.    */
+comment|/**    * Note : Now only CPs can create cell with tags using the CP environment    * @return A new cell which is having the extra tags also added to it.    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    *             Use CP environment to build Cell using {@link ExtendedCellBuilder}    *            */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 name|Cell
@@ -2459,7 +2481,7 @@ name|createCell
 argument_list|(
 name|cell
 argument_list|,
-name|TagUtil
+name|Tag
 operator|.
 name|fromList
 argument_list|(
@@ -2468,7 +2490,9 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * @return A new cell which is having the extra tags also added to it.    */
+comment|/**    * Now only CPs can create cell with tags using the CP environment    * @return A new cell which is having the extra tags also added to it.    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    *            Use CP environment to build Cell using {@link ExtendedCellBuilder}    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 name|Cell
@@ -2516,6 +2540,9 @@ name|tags
 argument_list|)
 return|;
 block|}
+comment|/**    * Now only CPs can create cell with tags using the CP environment    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    *             Use CP environment to build Cell using {@link ExtendedCellBuilder}    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 name|Cell
@@ -4806,7 +4833,7 @@ block|}
 block|}
 return|;
 block|}
-comment|/**    * @param cell The Cell    * @return Tags in the given Cell as a List    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    */
+comment|/**    * @param cell The Cell    * @return Tags in the given Cell as a List    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    *             Use {@link RawCell#getTags()}    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -4830,7 +4857,7 @@ name|cell
 argument_list|)
 return|;
 block|}
-comment|/**    * Retrieve Cell's first tag, matching the passed in type    *    * @param cell The Cell    * @param type Type of the Tag to retrieve    * @return null if there is no tag of the passed in tag type    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    */
+comment|/**    * Retrieve Cell's first tag, matching the passed in type    *    * @param cell The Cell    * @param type Type of the Tag to retrieve    * @return null if there is no tag of the passed in tag type    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    *             Use {@link RawCell#getTag(byte)}    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -4845,7 +4872,12 @@ name|byte
 name|type
 parameter_list|)
 block|{
-return|return
+name|Optional
+argument_list|<
+name|Tag
+argument_list|>
+name|tag
+init|=
 name|PrivateCellUtil
 operator|.
 name|getTag
@@ -4854,7 +4886,28 @@ name|cell
 argument_list|,
 name|type
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|tag
+operator|.
+name|isPresent
+argument_list|()
+condition|)
+block|{
+return|return
+name|tag
+operator|.
+name|get
+argument_list|()
 return|;
+block|}
+else|else
+block|{
+return|return
+literal|null
+return|;
+block|}
 block|}
 comment|/**    * Returns true if the first range start1...end1 overlaps with the second range    * start2...end2, assuming the byte arrays represent row keys    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    */
 annotation|@

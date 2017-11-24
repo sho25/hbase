@@ -521,7 +521,7 @@ argument_list|)
 throw|;
 block|}
 comment|// Check tags
-name|TagUtil
+name|RawCell
 operator|.
 name|checkForTagsLength
 argument_list|(

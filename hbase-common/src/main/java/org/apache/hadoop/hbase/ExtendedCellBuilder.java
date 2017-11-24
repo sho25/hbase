@@ -37,7 +37,12 @@ begin_interface
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Private
+name|LimitedPrivate
+argument_list|(
+name|HBaseInterfaceAudience
+operator|.
+name|COPROC
+argument_list|)
 specifier|public
 interface|interface
 name|ExtendedCellBuilder
@@ -204,6 +209,7 @@ name|ExtendedCellBuilder
 name|clear
 parameter_list|()
 function_decl|;
+comment|// TODO : While creating RawCellBuilder allow 'Tag' to be passed instead of byte[]
 name|ExtendedCellBuilder
 name|setTags
 parameter_list|(
@@ -213,6 +219,7 @@ index|[]
 name|tags
 parameter_list|)
 function_decl|;
+comment|// TODO : While creating RawCellBuilder allow 'Tag' to be passed instead of byte[]
 name|ExtendedCellBuilder
 name|setTags
 parameter_list|(
@@ -228,6 +235,7 @@ name|int
 name|tagsLength
 parameter_list|)
 function_decl|;
+comment|/**    * Internal usage. Be careful before you use this while building a cell    * @param seqId set the seqId    * @return the current ExternalCellBuilder    */
 name|ExtendedCellBuilder
 name|setSequenceId
 parameter_list|(

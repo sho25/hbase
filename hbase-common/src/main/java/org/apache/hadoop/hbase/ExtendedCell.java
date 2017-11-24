@@ -51,11 +51,13 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|io
+operator|.
+name|HeapSize
 import|;
 end_import
 
@@ -65,13 +67,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|yetus
 operator|.
-name|hbase
+name|audience
 operator|.
-name|io
-operator|.
-name|HeapSize
+name|InterfaceAudience
 import|;
 end_import
 
@@ -83,17 +83,12 @@ begin_interface
 annotation|@
 name|InterfaceAudience
 operator|.
-name|LimitedPrivate
-argument_list|(
-name|HBaseInterfaceAudience
-operator|.
-name|COPROC
-argument_list|)
+name|Private
 specifier|public
 interface|interface
 name|ExtendedCell
 extends|extends
-name|Cell
+name|RawCell
 extends|,
 name|SettableSequenceId
 extends|,

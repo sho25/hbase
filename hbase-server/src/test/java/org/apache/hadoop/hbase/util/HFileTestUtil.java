@@ -91,6 +91,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Optional
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -169,20 +179,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellUtil
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HColumnDescriptor
 import|;
 end_import
@@ -197,7 +193,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|PrivateCellUtil
+name|KeyValue
 import|;
 end_import
 
@@ -211,7 +207,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|PrivateCellUtil
 import|;
 end_import
 
@@ -240,20 +236,6 @@ operator|.
 name|hbase
 operator|.
 name|TagType
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|TagUtil
 import|;
 end_import
 
@@ -871,8 +853,11 @@ name|tableNameTag
 argument_list|)
 expr_stmt|;
 comment|// verify that the kv has the tag.
+name|Optional
+argument_list|<
 name|Tag
-name|t
+argument_list|>
+name|tag
 init|=
 name|PrivateCellUtil
 operator|.
@@ -887,9 +872,11 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|t
-operator|==
-literal|null
+operator|!
+name|tag
+operator|.
+name|isPresent
+argument_list|()
 condition|)
 block|{
 throw|throw
@@ -984,8 +971,11 @@ name|listCells
 argument_list|()
 control|)
 block|{
+name|Optional
+argument_list|<
 name|Tag
-name|t
+argument_list|>
+name|tag
 init|=
 name|PrivateCellUtil
 operator|.
@@ -1000,9 +990,11 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|t
-operator|==
-literal|null
+operator|!
+name|tag
+operator|.
+name|isPresent
+argument_list|()
 condition|)
 block|{
 name|fail
@@ -1017,11 +1009,19 @@ argument_list|)
 expr_stmt|;
 continue|continue;
 block|}
+name|Tag
+name|t
+init|=
+name|tag
+operator|.
+name|get
+argument_list|()
+decl_stmt|;
 name|byte
 index|[]
 name|tval
 init|=
-name|TagUtil
+name|Tag
 operator|.
 name|cloneValue
 argument_list|(

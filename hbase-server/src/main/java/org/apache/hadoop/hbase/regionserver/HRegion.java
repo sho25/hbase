@@ -36828,7 +36828,7 @@ argument_list|)
 operator|.
 name|setTags
 argument_list|(
-name|TagUtil
+name|Tag
 operator|.
 name|fromList
 argument_list|(
