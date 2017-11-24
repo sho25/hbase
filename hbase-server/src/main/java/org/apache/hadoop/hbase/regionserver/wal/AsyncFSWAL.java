@@ -2250,33 +2250,10 @@ expr_stmt|;
 block|}
 return|return;
 block|}
-comment|// we have some unsynced data but haven't reached the batch size yet
-if|if
-condition|(
-operator|!
-name|syncFutures
-operator|.
-name|isEmpty
-argument_list|()
-operator|&&
-name|syncFutures
-operator|.
-name|last
-argument_list|()
-operator|.
-name|getTxid
-argument_list|()
-operator|>
-name|highestProcessedAppendTxidAtLastSync
-condition|)
-block|{
-comment|// we have at least one sync request
-name|sync
-argument_list|(
-name|writer
-argument_list|)
-expr_stmt|;
-block|}
+comment|// reach here means that we have some unsynced data but haven't reached the batch size yet
+comment|// but we will not issue a sync directly here even if there are sync requests because we may
+comment|// have some new data in the ringbuffer, so let's just return here and delay the decision of
+comment|// whether to issue a sync in the caller method.
 block|}
 specifier|private
 name|void
@@ -2521,6 +2498,40 @@ name|getCursor
 argument_list|()
 condition|)
 block|{
+comment|// we will give up consuming so if there are some unsynced data we need to issue a sync.
+if|if
+condition|(
+name|writer
+operator|.
+name|getLength
+argument_list|()
+operator|>
+name|fileLengthAtLastSync
+operator|&&
+operator|!
+name|syncFutures
+operator|.
+name|isEmpty
+argument_list|()
+operator|&&
+name|syncFutures
+operator|.
+name|last
+argument_list|()
+operator|.
+name|getTxid
+argument_list|()
+operator|>
+name|highestProcessedAppendTxidAtLastSync
+condition|)
+block|{
+comment|// no new data in the ringbuffer and we have at least one sync request
+name|sync
+argument_list|(
+name|writer
+argument_list|)
+expr_stmt|;
+block|}
 return|return;
 block|}
 else|else
