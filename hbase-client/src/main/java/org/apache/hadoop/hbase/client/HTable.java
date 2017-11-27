@@ -1350,6 +1350,8 @@ block|}
 comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
+annotation|@
+name|Deprecated
 specifier|public
 name|HTableDescriptor
 name|getTableDescriptor
@@ -4237,7 +4239,7 @@ name|family
 argument_list|,
 name|qualifier
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -4416,6 +4418,8 @@ block|}
 comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
+annotation|@
+name|Deprecated
 specifier|public
 name|boolean
 name|checkAndPut
@@ -4574,7 +4578,7 @@ name|family
 argument_list|,
 name|qualifier
 argument_list|,
-name|CompareOp
+name|CompareOperator
 operator|.
 name|EQUAL
 argument_list|,
@@ -4874,6 +4878,8 @@ block|}
 comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
+annotation|@
+name|Deprecated
 specifier|public
 name|boolean
 name|checkAndDelete
@@ -5343,6 +5349,8 @@ block|}
 comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
+annotation|@
+name|Deprecated
 specifier|public
 name|boolean
 name|checkAndMutate

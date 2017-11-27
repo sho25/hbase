@@ -565,6 +565,8 @@ throw|;
 block|}
 annotation|@
 name|Override
+annotation|@
+name|Deprecated
 specifier|public
 name|HTableDescriptor
 name|getTableDescriptor
@@ -1237,6 +1239,8 @@ throw|;
 block|}
 annotation|@
 name|Override
+annotation|@
+name|Deprecated
 specifier|public
 name|boolean
 name|checkAndPut
@@ -1395,6 +1399,8 @@ throw|;
 block|}
 annotation|@
 name|Override
+annotation|@
+name|Deprecated
 specifier|public
 name|boolean
 name|checkAndDelete
@@ -1817,6 +1823,8 @@ throw|;
 block|}
 annotation|@
 name|Override
+annotation|@
+name|Deprecated
 specifier|public
 name|boolean
 name|checkAndMutate
@@ -1891,6 +1899,8 @@ throw|;
 block|}
 annotation|@
 name|Override
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|setOperationTimeout
@@ -1956,6 +1966,8 @@ throw|;
 block|}
 annotation|@
 name|Override
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|setWriteRpcTimeout
@@ -1988,6 +2000,8 @@ throw|;
 block|}
 annotation|@
 name|Override
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|setReadRpcTimeout
