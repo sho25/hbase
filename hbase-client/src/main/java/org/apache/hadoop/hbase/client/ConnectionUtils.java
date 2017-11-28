@@ -824,9 +824,13 @@ name|c
 operator|.
 name|getInt
 argument_list|(
-literal|"hbase.client.serverside.retries.multiplier"
+name|HConstants
+operator|.
+name|HBASE_CLIENT_SERVERSIDE_RETRIES_MULTIPLIER
 argument_list|,
-literal|10
+name|HConstants
+operator|.
+name|DEFAULT_HBASE_CLIENT_SERVERSIDE_RETRIES_MULTIPLIER
 argument_list|)
 decl_stmt|;
 name|int

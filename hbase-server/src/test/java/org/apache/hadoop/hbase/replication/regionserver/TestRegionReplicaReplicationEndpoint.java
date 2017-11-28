@@ -891,7 +891,9 @@ name|conf
 operator|.
 name|setInt
 argument_list|(
-literal|"hbase.client.serverside.retries.multiplier"
+name|HConstants
+operator|.
+name|HBASE_CLIENT_SERVERSIDE_RETRIES_MULTIPLIER
 argument_list|,
 literal|1
 argument_list|)

@@ -2050,7 +2050,23 @@ specifier|final
 name|int
 name|DEFAULT_HBASE_CLIENT_RETRIES_NUMBER
 init|=
-literal|35
+literal|10
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_CLIENT_SERVERSIDE_RETRIES_MULTIPLIER
+init|=
+literal|"hbase.client.serverside.retries.multiplier"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_HBASE_CLIENT_SERVERSIDE_RETRIES_MULTIPLIER
+init|=
+literal|3
 decl_stmt|;
 comment|/**    * Parameter name to set the default scanner caching for all clients.    */
 specifier|public
