@@ -18,38 +18,6 @@ package|;
 end_package
 
 begin_import
-import|import static
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HConstants
-operator|.
-name|DEFAULT_ZK_SESSION_TIMEOUT
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HConstants
-operator|.
-name|ZK_SESSION_TIMEOUT
-import|;
-end_import
-
-begin_import
 import|import
 name|java
 operator|.
