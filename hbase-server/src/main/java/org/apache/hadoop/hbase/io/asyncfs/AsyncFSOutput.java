@@ -108,7 +108,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Interface for asynchronous filesystem output stream.  */
+comment|/**  * Interface for asynchronous filesystem output stream.  *<p>  * The implementation is not required to be thread safe.  */
 end_comment
 
 begin_interface
