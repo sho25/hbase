@@ -291,6 +291,50 @@ name|google
 operator|.
 name|protobuf
 operator|.
+name|RpcCallback
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|RpcController
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
 name|ServiceException
 import|;
 end_import
@@ -548,10 +592,14 @@ specifier|final
 name|MasterServices
 name|master
 decl_stmt|;
-specifier|protected
+specifier|private
 specifier|final
 name|long
 name|rsStartupWaitTime
+decl_stmt|;
+specifier|private
+name|MasterProcedureEnv
+name|procedureEnv
 decl_stmt|;
 specifier|public
 name|RSProcedureDispatcher
@@ -621,6 +669,16 @@ name|registerListener
 argument_list|(
 name|this
 argument_list|)
+expr_stmt|;
+name|procedureEnv
+operator|=
+name|master
+operator|.
+name|getMasterProcedureExecutor
+argument_list|()
+operator|.
+name|getEnvironment
+argument_list|()
 expr_stmt|;
 for|for
 control|(
@@ -695,7 +753,7 @@ name|Set
 argument_list|<
 name|RemoteProcedure
 argument_list|>
-name|operations
+name|remoteProcedures
 parameter_list|)
 block|{
 specifier|final
@@ -742,7 +800,7 @@ name|ExecuteProceduresRemoteCall
 argument_list|(
 name|serverName
 argument_list|,
-name|operations
+name|remoteProcedures
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -772,7 +830,7 @@ name|CompatRemoteProcedureResolver
 argument_list|(
 name|serverName
 argument_list|,
-name|operations
+name|remoteProcedures
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -807,18 +865,6 @@ operator|+
 name|serverName
 argument_list|)
 decl_stmt|;
-specifier|final
-name|MasterProcedureEnv
-name|env
-init|=
-name|master
-operator|.
-name|getMasterProcedureExecutor
-argument_list|()
-operator|.
-name|getEnvironment
-argument_list|()
-decl_stmt|;
 for|for
 control|(
 name|RemoteProcedure
@@ -831,7 +877,7 @@ name|proc
 operator|.
 name|remoteCallFailed
 argument_list|(
-name|env
+name|procedureEnv
 argument_list|,
 name|serverName
 argument_list|,
@@ -881,6 +927,12 @@ argument_list|<
 name|Void
 argument_list|>
 block|{
+specifier|public
+specifier|abstract
+name|Void
+name|call
+parameter_list|()
+function_decl|;
 specifier|private
 specifier|final
 name|ServerName
@@ -914,12 +966,6 @@ operator|=
 name|serverName
 expr_stmt|;
 block|}
-specifier|public
-specifier|abstract
-name|Void
-name|call
-parameter_list|()
-function_decl|;
 specifier|protected
 name|AdminService
 operator|.
@@ -1294,6 +1340,7 @@ name|operations
 parameter_list|)
 function_decl|;
 block|}
+comment|/**    * Fetches {@link org.apache.hadoop.hbase.procedure2.RemoteProcedureDispatcher.RemoteOperation}s    * from the given {@code remoteProcedures} and groups them by class of the returned operation.    * Then {@code resolver} is used to dispatch {@link RegionOpenOperation}s and    * {@link RegionCloseOperation}s.    * @param serverName RegionServer to which the remote operations are sent    * @param remoteProcedures Remote procedures which are dispatched to the given server    * @param resolver Used to dispatch remote procedures to given server.    */
 specifier|public
 name|void
 name|splitAndResolveOperation
@@ -1307,25 +1354,13 @@ name|Set
 argument_list|<
 name|RemoteProcedure
 argument_list|>
-name|operations
+name|remoteProcedures
 parameter_list|,
 specifier|final
 name|RemoteProcedureResolver
 name|resolver
 parameter_list|)
 block|{
-specifier|final
-name|MasterProcedureEnv
-name|env
-init|=
-name|master
-operator|.
-name|getMasterProcedureExecutor
-argument_list|()
-operator|.
-name|getEnvironment
-argument_list|()
-decl_stmt|;
 specifier|final
 name|ArrayListMultimap
 argument_list|<
@@ -1340,11 +1375,11 @@ name|reqsByType
 init|=
 name|buildAndGroupRequestByType
 argument_list|(
-name|env
+name|procedureEnv
 argument_list|,
 name|serverName
 argument_list|,
-name|operations
+name|remoteProcedures
 argument_list|)
 decl_stmt|;
 specifier|final
@@ -1371,15 +1406,17 @@ operator|.
 name|isEmpty
 argument_list|()
 condition|)
+block|{
 name|resolver
 operator|.
 name|dispatchOpenRequests
 argument_list|(
-name|env
+name|procedureEnv
 argument_list|,
 name|openOps
 argument_list|)
 expr_stmt|;
+block|}
 specifier|final
 name|List
 argument_list|<
@@ -1404,15 +1441,17 @@ operator|.
 name|isEmpty
 argument_list|()
 condition|)
+block|{
 name|resolver
 operator|.
 name|dispatchCloseRequests
 argument_list|(
-name|env
+name|procedureEnv
 argument_list|,
 name|closeOps
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 operator|!
@@ -1450,7 +1489,7 @@ name|Set
 argument_list|<
 name|RemoteProcedure
 argument_list|>
-name|operations
+name|remoteProcedures
 decl_stmt|;
 specifier|private
 name|ExecuteProceduresRequest
@@ -1472,7 +1511,7 @@ name|Set
 argument_list|<
 name|RemoteProcedure
 argument_list|>
-name|operations
+name|remoteProcedures
 parameter_list|)
 block|{
 name|super
@@ -1482,9 +1521,9 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|operations
+name|remoteProcedures
 operator|=
-name|operations
+name|remoteProcedures
 expr_stmt|;
 block|}
 specifier|public
@@ -1492,18 +1531,6 @@ name|Void
 name|call
 parameter_list|()
 block|{
-specifier|final
-name|MasterProcedureEnv
-name|env
-init|=
-name|master
-operator|.
-name|getMasterProcedureExecutor
-argument_list|()
-operator|.
-name|getEnvironment
-argument_list|()
-decl_stmt|;
 name|request
 operator|=
 name|ExecuteProceduresRequest
@@ -1525,7 +1552,7 @@ name|trace
 argument_list|(
 literal|"Building request with operations count="
 operator|+
-name|operations
+name|remoteProcedures
 operator|.
 name|size
 argument_list|()
@@ -1537,7 +1564,7 @@ argument_list|(
 name|getServerName
 argument_list|()
 argument_list|,
-name|operations
+name|remoteProcedures
 argument_list|,
 name|this
 argument_list|)
@@ -1561,7 +1588,7 @@ argument_list|)
 decl_stmt|;
 name|remoteCallCompleted
 argument_list|(
-name|env
+name|procedureEnv
 argument_list|,
 name|response
 argument_list|)
@@ -1593,7 +1620,7 @@ condition|)
 block|{
 name|remoteCallFailed
 argument_list|(
-name|env
+name|procedureEnv
 argument_list|,
 name|e
 argument_list|)
@@ -1753,7 +1780,7 @@ control|(
 name|RemoteProcedure
 name|proc
 range|:
-name|operations
+name|remoteProcedures
 control|)
 block|{
 name|proc
@@ -1771,11 +1798,6 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|// ==========================================================================
-comment|//  Compatibility calls
-comment|//  Since we don't have a "batch proc-exec" request on the target RS
-comment|//  we have to chunk the requests by type and dispatch the specific request.
-comment|// ==========================================================================
 specifier|private
 specifier|static
 name|OpenRegionRequest
@@ -1856,6 +1878,12 @@ name|build
 argument_list|()
 return|;
 block|}
+comment|// ==========================================================================
+comment|//  Compatibility calls
+comment|//  Since we don't have a "batch proc-exec" request on the target RS
+comment|//  we have to chunk the requests by type and dispatch the specific request.
+comment|// ==========================================================================
+comment|/**    * Compatibility class used by {@link CompatRemoteProcedureResolver} to open regions using old    * {@link AdminService#openRegion(RpcController, OpenRegionRequest, RpcCallback)} rpc.    */
 specifier|private
 specifier|final
 class|class
@@ -1906,24 +1934,12 @@ name|call
 parameter_list|()
 block|{
 specifier|final
-name|MasterProcedureEnv
-name|env
-init|=
-name|master
-operator|.
-name|getMasterProcedureExecutor
-argument_list|()
-operator|.
-name|getEnvironment
-argument_list|()
-decl_stmt|;
-specifier|final
 name|OpenRegionRequest
 name|request
 init|=
 name|buildOpenRegionRequest
 argument_list|(
-name|env
+name|procedureEnv
 argument_list|,
 name|getServerName
 argument_list|()
@@ -1946,7 +1962,7 @@ argument_list|)
 decl_stmt|;
 name|remoteCallCompleted
 argument_list|(
-name|env
+name|procedureEnv
 argument_list|,
 name|response
 argument_list|)
@@ -1978,7 +1994,7 @@ condition|)
 block|{
 name|remoteCallFailed
 argument_list|(
-name|env
+name|procedureEnv
 argument_list|,
 name|e
 argument_list|)
@@ -2142,6 +2158,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
+comment|/**    * Compatibility class used by {@link CompatRemoteProcedureResolver} to close regions using old    * {@link AdminService#closeRegion(RpcController, CloseRegionRequest, RpcCallback)} rpc.    */
 specifier|private
 specifier|final
 class|class
@@ -2186,18 +2203,6 @@ name|call
 parameter_list|()
 block|{
 specifier|final
-name|MasterProcedureEnv
-name|env
-init|=
-name|master
-operator|.
-name|getMasterProcedureExecutor
-argument_list|()
-operator|.
-name|getEnvironment
-argument_list|()
-decl_stmt|;
-specifier|final
 name|CloseRegionRequest
 name|request
 init|=
@@ -2224,7 +2229,7 @@ argument_list|)
 decl_stmt|;
 name|remoteCallCompleted
 argument_list|(
-name|env
+name|procedureEnv
 argument_list|,
 name|response
 argument_list|)
@@ -2256,7 +2261,7 @@ condition|)
 block|{
 name|remoteCallFailed
 argument_list|(
-name|env
+name|procedureEnv
 argument_list|,
 name|e
 argument_list|)
@@ -2381,6 +2386,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/**    * Compatibility class to open and close regions using old endpoints (openRegion/closeRegion) in    * {@link AdminService}.    */
 specifier|protected
 class|class
 name|CompatRemoteProcedureResolver
@@ -2521,32 +2527,10 @@ block|}
 block|}
 comment|// ==========================================================================
 comment|//  RPC Messages
-comment|//  - ServerOperation: refreshConfig, grant, revoke, ...
+comment|//  - ServerOperation: refreshConfig, grant, revoke, ... (TODO)
 comment|//  - RegionOperation: open, close, flush, snapshot, ...
 comment|// ==========================================================================
-specifier|public
-specifier|static
-specifier|abstract
-class|class
-name|ServerOperation
-extends|extends
-name|RemoteOperation
-block|{
-specifier|protected
-name|ServerOperation
-parameter_list|(
-specifier|final
-name|RemoteProcedure
-name|remoteProcedure
-parameter_list|)
-block|{
-name|super
-argument_list|(
-name|remoteProcedure
-argument_list|)
-expr_stmt|;
-block|}
-block|}
+comment|/* Currently unused   public static abstract class ServerOperation extends RemoteOperation {     protected ServerOperation(final RemoteProcedure remoteProcedure) {       super(remoteProcedure);     }   }   */
 specifier|public
 specifier|static
 specifier|abstract

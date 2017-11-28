@@ -2612,7 +2612,7 @@ operator|.
 name|getRegionStates
 argument_list|()
 operator|.
-name|getRegionNode
+name|getRegionStateNode
 argument_list|(
 name|hri
 argument_list|)
@@ -5073,7 +5073,7 @@ name|Set
 argument_list|<
 name|RemoteProcedure
 argument_list|>
-name|operations
+name|remoteProcedures
 parameter_list|)
 block|{
 name|submitTask
@@ -5083,7 +5083,7 @@ name|MockRemoteCall
 argument_list|(
 name|serverName
 argument_list|,
-name|operations
+name|remoteProcedures
 argument_list|)
 argument_list|)
 expr_stmt|;

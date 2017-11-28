@@ -919,7 +919,7 @@ block|{
 return|return
 name|stateMap
 operator|.
-name|getOrCreateRegionNode
+name|getOrCreateRegionStateNode
 argument_list|(
 name|RegionInfoBuilder
 operator|.
@@ -989,7 +989,7 @@ block|{
 return|return
 name|stateMap
 operator|.
-name|getOrCreateRegionNode
+name|getOrCreateRegionStateNode
 argument_list|(
 name|createRegionInfo
 argument_list|(
@@ -1152,7 +1152,7 @@ decl_stmt|;
 return|return
 name|stateMap
 operator|.
-name|getOrCreateRegionNode
+name|getOrCreateRegionStateNode
 argument_list|(
 name|hri
 argument_list|)
@@ -1393,7 +1393,7 @@ control|)
 block|{
 name|stateMap
 operator|.
-name|createRegionNode
+name|createRegionStateNode
 argument_list|(
 name|createRegionInfo
 argument_list|(

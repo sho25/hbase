@@ -243,8 +243,9 @@ block|{
 name|RegionState
 name|state1
 init|=
-operator|new
 name|RegionState
+operator|.
+name|createForTesting
 argument_list|(
 operator|new
 name|HRegionInfo

@@ -2642,8 +2642,9 @@ expr_stmt|;
 name|RegionState
 name|state
 init|=
-operator|new
 name|RegionState
+operator|.
+name|createForTesting
 argument_list|(
 name|h
 argument_list|,

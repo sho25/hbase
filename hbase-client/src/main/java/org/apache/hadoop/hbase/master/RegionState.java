@@ -19,6 +19,20 @@ end_package
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|util
@@ -581,8 +595,12 @@ specifier|private
 name|long
 name|ritDuration
 decl_stmt|;
+annotation|@
+name|VisibleForTesting
 specifier|public
+specifier|static
 name|RegionState
+name|createForTesting
 parameter_list|(
 name|RegionInfo
 name|region
@@ -591,7 +609,9 @@ name|State
 name|state
 parameter_list|)
 block|{
-name|this
+return|return
+operator|new
+name|RegionState
 argument_list|(
 name|region
 argument_list|,
@@ -604,7 +624,7 @@ argument_list|()
 argument_list|,
 literal|null
 argument_list|)
-expr_stmt|;
+return|;
 block|}
 specifier|public
 name|RegionState

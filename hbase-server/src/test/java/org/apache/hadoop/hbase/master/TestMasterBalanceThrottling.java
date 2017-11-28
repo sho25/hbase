@@ -769,10 +769,7 @@ operator|.
 name|getRegionStates
 argument_list|()
 operator|.
-name|getRegionsInTransition
-argument_list|()
-operator|.
-name|size
+name|getRegionsInTransitionCount
 argument_list|()
 argument_list|)
 argument_list|)
@@ -844,10 +841,7 @@ operator|.
 name|getRegionStates
 argument_list|()
 operator|.
-name|getRegionsInTransition
-argument_list|()
-operator|.
-name|size
+name|getRegionsInTransitionCount
 argument_list|()
 operator|>
 literal|0
@@ -924,10 +918,7 @@ operator|.
 name|getRegionStates
 argument_list|()
 operator|.
-name|getRegionsInTransition
-argument_list|()
-operator|.
-name|size
+name|getRegionsInTransitionCount
 argument_list|()
 operator|>
 literal|0

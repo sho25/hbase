@@ -1845,7 +1845,7 @@ operator|.
 name|getRegionStates
 argument_list|()
 operator|.
-name|getRegionNode
+name|getRegionStateNode
 argument_list|(
 name|this
 operator|.

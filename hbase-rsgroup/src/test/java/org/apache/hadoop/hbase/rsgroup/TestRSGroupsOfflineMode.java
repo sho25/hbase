@@ -955,10 +955,7 @@ operator|.
 name|getRegionStates
 argument_list|()
 operator|.
-name|getRegionsInTransition
-argument_list|()
-operator|.
-name|size
+name|getRegionsInTransitionCount
 argument_list|()
 operator|<
 literal|1

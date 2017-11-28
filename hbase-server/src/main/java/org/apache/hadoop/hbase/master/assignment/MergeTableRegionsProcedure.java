@@ -3176,7 +3176,7 @@ argument_list|()
 decl_stmt|;
 name|regionStates
 operator|.
-name|getRegionNode
+name|getRegionStateNode
 argument_list|(
 name|regionsToMerge
 index|[
@@ -3193,7 +3193,7 @@ argument_list|)
 expr_stmt|;
 name|regionStates
 operator|.
-name|getRegionNode
+name|getRegionStateNode
 argument_list|(
 name|regionsToMerge
 index|[
@@ -3235,7 +3235,7 @@ argument_list|()
 decl_stmt|;
 name|regionStates
 operator|.
-name|getRegionNode
+name|getRegionStateNode
 argument_list|(
 name|regionsToMerge
 index|[
@@ -3252,7 +3252,7 @@ argument_list|)
 expr_stmt|;
 name|regionStates
 operator|.
-name|getRegionNode
+name|getRegionStateNode
 argument_list|(
 name|regionsToMerge
 index|[
@@ -3416,7 +3416,7 @@ operator|.
 name|getRegionStates
 argument_list|()
 operator|.
-name|getOrCreateRegionNode
+name|getOrCreateRegionStateNode
 argument_list|(
 name|mergedRegion
 argument_list|)

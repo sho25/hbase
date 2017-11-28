@@ -1141,7 +1141,7 @@ operator|.
 name|getRegionStates
 argument_list|()
 operator|.
-name|getRegionNode
+name|getRegionStateNode
 argument_list|(
 name|getParentRegion
 argument_list|()
@@ -2408,7 +2408,7 @@ operator|.
 name|getRegionStates
 argument_list|()
 operator|.
-name|getRegionNode
+name|getRegionStateNode
 argument_list|(
 name|getParentRegion
 argument_list|()

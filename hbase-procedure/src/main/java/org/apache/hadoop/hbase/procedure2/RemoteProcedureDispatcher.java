@@ -1180,7 +1180,7 @@ name|Set
 argument_list|<
 name|RemoteProcedure
 argument_list|>
-name|operations
+name|remoteProcedures
 parameter_list|)
 block|{
 specifier|final
@@ -1205,7 +1205,7 @@ control|(
 name|RemoteProcedure
 name|proc
 range|:
-name|operations
+name|remoteProcedures
 control|)
 block|{
 name|RemoteOperation
