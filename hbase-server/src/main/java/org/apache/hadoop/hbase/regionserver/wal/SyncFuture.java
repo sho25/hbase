@@ -49,20 +49,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -79,11 +65,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|htrace
+name|yetus
 operator|.
-name|core
+name|audience
 operator|.
-name|Span
+name|InterfaceAudience
 import|;
 end_import
 
@@ -130,22 +116,13 @@ specifier|private
 name|Thread
 name|t
 decl_stmt|;
-comment|/**    * Optionally carry a disconnected scope to the SyncRunner.    */
-specifier|private
-name|Span
-name|span
-decl_stmt|;
 comment|/**    * Call this method to clear old usage and get it ready for new deploy.    * @param txid the new transaction id    * @param span current span, detached from caller. Don't forget to attach it when resuming after a    *          call to {@link #get(long)}.    * @return this    */
 specifier|synchronized
 name|SyncFuture
 name|reset
 parameter_list|(
-specifier|final
 name|long
 name|txid
-parameter_list|,
-name|Span
-name|span
 parameter_list|)
 block|{
 if|if
@@ -213,12 +190,6 @@ name|txid
 expr_stmt|;
 name|this
 operator|.
-name|span
-operator|=
-name|span
-expr_stmt|;
-name|this
-operator|.
 name|throwable
 operator|=
 literal|null
@@ -258,34 +229,6 @@ name|this
 operator|.
 name|txid
 return|;
-block|}
-comment|/**    * Retrieve the {@code span} instance from this Future. EventHandler calls this method to continue    * the span. Thread waiting on this Future musn't call this method until AFTER calling    * {@link #get(long)} and the future has been released back to the originating thread.    */
-specifier|synchronized
-name|Span
-name|getSpan
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|span
-return|;
-block|}
-comment|/**    * Used to re-attach a {@code span} to the Future. Called by the EventHandler after a it has    * completed processing and detached the span from its scope.    */
-specifier|synchronized
-name|void
-name|setSpan
-parameter_list|(
-name|Span
-name|span
-parameter_list|)
-block|{
-name|this
-operator|.
-name|span
-operator|=
-name|span
-expr_stmt|;
 block|}
 comment|/**    * @param txid the transaction id at which this future 'completed'.    * @param t Can be null. Set if we are 'completing' on error (and this 't' is the error).    * @return True if we successfully marked this outstanding future as completed/done. Returns false    *         if this future is already 'done' when this method called.    */
 specifier|synchronized

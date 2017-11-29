@@ -157,8 +157,6 @@ operator|.
 name|reset
 argument_list|(
 name|txid
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 name|syncFulture
@@ -187,8 +185,6 @@ operator|.
 name|reset
 argument_list|(
 name|txid
-argument_list|,
-literal|null
 argument_list|)
 operator|.
 name|get
