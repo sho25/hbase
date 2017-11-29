@@ -23,6 +23,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Collections
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|List
 import|;
 end_import
@@ -1091,9 +1101,9 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * try to grab a 'lock' on the task zk node to own and execute the task.    *<p>    * @param path zk node for the task    */
+comment|/**    * try to grab a 'lock' on the task zk node to own and execute the task.    *<p>    * @param path zk node for the task    * @return boolean value when grab a task success return true otherwise false    */
 specifier|private
-name|void
+name|boolean
 name|grabTask
 parameter_list|(
 name|String
@@ -1132,7 +1142,9 @@ name|interrupted
 argument_list|()
 condition|)
 block|{
-return|return;
+return|return
+literal|false
+return|;
 block|}
 block|}
 try|try
@@ -1166,7 +1178,9 @@ operator|.
 name|increment
 argument_list|()
 expr_stmt|;
-return|return;
+return|return
+literal|false
+return|;
 block|}
 block|}
 catch|catch
@@ -1193,7 +1207,9 @@ operator|.
 name|increment
 argument_list|()
 expr_stmt|;
-return|return;
+return|return
+literal|false
+return|;
 block|}
 name|SplitLogTask
 name|slt
@@ -1234,7 +1250,9 @@ operator|.
 name|increment
 argument_list|()
 expr_stmt|;
-return|return;
+return|return
+literal|false
+return|;
 block|}
 if|if
 condition|(
@@ -1252,7 +1270,9 @@ operator|.
 name|increment
 argument_list|()
 expr_stmt|;
-return|return;
+return|return
+literal|false
+return|;
 block|}
 name|currentVersion
 operator|=
@@ -1289,7 +1309,9 @@ operator|.
 name|increment
 argument_list|()
 expr_stmt|;
-return|return;
+return|return
+literal|false
+return|;
 block|}
 if|if
 condition|(
@@ -1352,7 +1374,9 @@ argument_list|,
 name|splitTaskDetails
 argument_list|)
 expr_stmt|;
-return|return;
+return|return
+literal|false
+return|;
 block|}
 name|LOG
 operator|.
@@ -1438,6 +1462,9 @@ name|interrupt
 argument_list|()
 expr_stmt|;
 block|}
+return|return
+literal|true
+return|;
 block|}
 finally|finally
 block|{
@@ -1643,10 +1670,10 @@ name|hsh
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * This function calculates how many splitters it could create based on expected average tasks per    * RS and the hard limit upper bound(maxConcurrentTasks) set by configuration.<br>    * At any given time, a RS allows spawn MIN(Expected Tasks/RS, Hard Upper Bound)    * @param numTasks current total number of available tasks    */
+comment|/**    * This function calculates how many splitters this RS should create based on expected average    * tasks per RS and the hard limit upper bound(maxConcurrentTasks) set by configuration.<br>    * At any given time, a RS allows spawn MIN(Expected Tasks/RS, Hard Upper Bound)    * @param numTasks total number of split tasks available    * @return number of tasks this RS can grab    */
 specifier|private
 name|int
-name|calculateAvailableSplitters
+name|getNumExpectedTasksPerRS
 parameter_list|(
 name|int
 name|numTasks
@@ -1742,8 +1769,7 @@ else|:
 literal|1
 operator|)
 decl_stmt|;
-name|expectedTasksPerRS
-operator|=
+return|return
 name|Math
 operator|.
 name|max
@@ -1752,10 +1778,20 @@ literal|1
 argument_list|,
 name|expectedTasksPerRS
 argument_list|)
-expr_stmt|;
+return|;
 comment|// at least be one
-comment|// calculate how many more splitters we could spawn
+block|}
+comment|/**    * @param expectedTasksPerRS Average number of tasks to be handled by each RS    * @return true if more splitters are available, otherwise false.    */
+specifier|private
+name|boolean
+name|areSplittersAvailable
+parameter_list|(
+name|int
+name|expectedTasksPerRS
+parameter_list|)
+block|{
 return|return
+operator|(
 name|Math
 operator|.
 name|min
@@ -1771,6 +1807,9 @@ name|tasksInProgress
 operator|.
 name|get
 argument_list|()
+operator|)
+operator|>
+literal|0
 return|;
 block|}
 comment|/**    * Try to own the task by transitioning the zk node data from UNASSIGNED to OWNED.    *<p>    * This method is also used to periodically heartbeat the task progress by transitioning the node    * from OWNED to OWNED.    *<p>    * @param isFirstTime shows whther it's the first attempt.    * @param zkw zk wathcer    * @param server name    * @param task to own    * @param taskZKVersion version of the task in zk    * @return non-negative integer value when task can be owned by current region server otherwise -1    */
@@ -2068,24 +2107,20 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
+comment|// shuffle the paths to prevent different split log worker start from the same log file after
+comment|// meta log (if any)
+name|Collections
+operator|.
+name|shuffle
+argument_list|(
+name|paths
+argument_list|)
+expr_stmt|;
 comment|// pick meta wal firstly
 name|int
 name|offset
 init|=
-call|(
-name|int
-call|)
-argument_list|(
-name|Math
-operator|.
-name|random
-argument_list|()
-operator|*
-name|paths
-operator|.
-name|size
-argument_list|()
-argument_list|)
+literal|0
 decl_stmt|;
 for|for
 control|(
@@ -2135,6 +2170,19 @@ operator|.
 name|size
 argument_list|()
 decl_stmt|;
+name|int
+name|expectedTasksPerRS
+init|=
+name|getNumExpectedTasksPerRS
+argument_list|(
+name|numTasks
+argument_list|)
+decl_stmt|;
+name|boolean
+name|taskGrabbed
+init|=
+literal|false
+decl_stmt|;
 for|for
 control|(
 name|int
@@ -2150,6 +2198,36 @@ name|i
 operator|++
 control|)
 block|{
+while|while
+condition|(
+operator|!
+name|shouldStop
+condition|)
+block|{
+if|if
+condition|(
+name|this
+operator|.
+name|areSplittersAvailable
+argument_list|(
+name|expectedTasksPerRS
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Current region server "
+operator|+
+name|server
+operator|.
+name|getServerName
+argument_list|()
+operator|+
+literal|" is ready to take more tasks, will get task list and try grab tasks again."
+argument_list|)
+expr_stmt|;
 name|int
 name|idx
 init|=
@@ -2166,18 +2244,8 @@ argument_list|()
 decl_stmt|;
 comment|// don't call ZKSplitLog.getNodeName() because that will lead to
 comment|// double encoding of the path name
-if|if
-condition|(
-name|this
-operator|.
-name|calculateAvailableSplitters
-argument_list|(
-name|numTasks
-argument_list|)
-operator|>
-literal|0
-condition|)
-block|{
+name|taskGrabbed
+operator||=
 name|grabTask
 argument_list|(
 name|ZNodePaths
@@ -2199,6 +2267,7 @@ argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
+break|break;
 block|}
 else|else
 block|{
@@ -2225,7 +2294,14 @@ operator|+
 literal|" tasks in progress and can't take more."
 argument_list|)
 expr_stmt|;
-break|break;
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|100
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 if|if
 condition|(
@@ -2234,6 +2310,24 @@ condition|)
 block|{
 return|return;
 block|}
+block|}
+if|if
+condition|(
+operator|!
+name|taskGrabbed
+operator|&&
+operator|!
+name|shouldStop
+condition|)
+block|{
+comment|// do not grab any tasks, sleep a little bit to reduce zk request.
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|1000
+argument_list|)
+expr_stmt|;
 block|}
 name|SplitLogCounters
 operator|.
