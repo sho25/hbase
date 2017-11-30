@@ -25,20 +25,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|htrace
-operator|.
-name|core
-operator|.
-name|Span
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|yetus
 operator|.
 name|audience
@@ -87,24 +73,14 @@ specifier|private
 name|FSWALEntry
 name|entry
 decl_stmt|;
-comment|/**    * Load the truck with a {@link FSWALEntry} and associated {@link Span}.    */
+comment|/**    * Load the truck with a {@link FSWALEntry}.    */
 name|void
 name|load
 parameter_list|(
 name|FSWALEntry
 name|entry
-parameter_list|,
-name|Span
-name|span
 parameter_list|)
 block|{
-name|entry
-operator|.
-name|attachSpan
-argument_list|(
-name|span
-argument_list|)
-expr_stmt|;
 name|this
 operator|.
 name|entry

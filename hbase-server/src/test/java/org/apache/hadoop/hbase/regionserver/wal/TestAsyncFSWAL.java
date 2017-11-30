@@ -419,9 +419,6 @@ argument_list|,
 name|suffix
 argument_list|,
 name|GROUP
-operator|.
-name|next
-argument_list|()
 argument_list|,
 name|CHANNEL_CLASS
 argument_list|)
@@ -496,9 +493,6 @@ argument_list|,
 name|suffix
 argument_list|,
 name|GROUP
-operator|.
-name|next
-argument_list|()
 argument_list|,
 name|CHANNEL_CLASS
 argument_list|)
