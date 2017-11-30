@@ -628,6 +628,8 @@ operator|.
 name|startMiniCluster
 argument_list|(
 name|NUM_SLAVES_BASE
+operator|-
+literal|1
 argument_list|)
 expr_stmt|;
 name|TEST_UTIL
@@ -635,15 +637,15 @@ operator|.
 name|getConfiguration
 argument_list|()
 operator|.
-name|set
+name|setInt
 argument_list|(
 name|ServerManager
 operator|.
 name|WAIT_ON_REGIONSERVERS_MINTOSTART
 argument_list|,
-literal|""
-operator|+
 name|NUM_SLAVES_BASE
+operator|-
+literal|1
 argument_list|)
 expr_stmt|;
 name|TEST_UTIL

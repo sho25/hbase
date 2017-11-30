@@ -331,6 +331,19 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Remove decommissioned servers from rsgroup    * @param servers set of servers to remove    */
+name|void
+name|removeServers
+parameter_list|(
+name|Set
+argument_list|<
+name|Address
+argument_list|>
+name|servers
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 block|}
 end_interface
 

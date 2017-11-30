@@ -228,6 +228,19 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Remove decommissioned servers from rsgroup.    * 1. Sometimes we may find the server aborted due to some hardware failure and we must offline    * the server for repairing. Or we need to move some servers to join other clusters.    * So we need to remove these servers from the rsgroup.    * 2. Dead/recovering/live servers will be disallowed.    * @param servers set of servers to remove    */
+name|void
+name|removeServers
+parameter_list|(
+name|Set
+argument_list|<
+name|Address
+argument_list|>
+name|servers
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 block|}
 end_interface
 
