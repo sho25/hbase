@@ -57,11 +57,13 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|monitoring
+operator|.
+name|MonitoredTask
 import|;
 end_import
 
@@ -71,13 +73,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|yetus
 operator|.
-name|hbase
+name|audience
 operator|.
-name|monitoring
-operator|.
-name|MonitoredTask
+name|InterfaceAudience
 import|;
 end_import
 
@@ -93,8 +93,8 @@ name|Private
 interface|interface
 name|StoreFlushContext
 block|{
-comment|/**    * Prepare for a store flush (create snapshot)    *    * Requires pausing writes.    *    * A very short operation.    */
-name|void
+comment|/**    * Prepare for a store flush (create snapshot)    * Requires pausing writes.    * A very short operation.    * @return The size of snapshot to flush    */
+name|MemStoreSize
 name|prepare
 parameter_list|()
 function_decl|;
