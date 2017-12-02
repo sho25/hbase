@@ -37,7 +37,7 @@ begin_interface
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Private
+name|Public
 specifier|public
 interface|interface
 name|CellScannable

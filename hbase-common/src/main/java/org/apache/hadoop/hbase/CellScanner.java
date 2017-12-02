@@ -61,11 +61,7 @@ begin_interface
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Private
-annotation|@
-name|InterfaceStability
-operator|.
-name|Unstable
+name|Public
 specifier|public
 interface|interface
 name|CellScanner
