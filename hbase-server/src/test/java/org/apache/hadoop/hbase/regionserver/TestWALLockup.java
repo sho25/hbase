@@ -2971,10 +2971,8 @@ block|}
 specifier|static
 class|class
 name|DummyWALActionsListener
-extends|extends
+implements|implements
 name|WALActionsListener
-operator|.
-name|Base
 block|{
 annotation|@
 name|Override

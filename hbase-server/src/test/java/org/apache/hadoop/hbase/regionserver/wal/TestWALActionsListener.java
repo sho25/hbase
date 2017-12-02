@@ -963,10 +963,8 @@ specifier|public
 specifier|static
 class|class
 name|DummyWALActionsListener
-extends|extends
+implements|implements
 name|WALActionsListener
-operator|.
-name|Base
 block|{
 specifier|public
 name|int

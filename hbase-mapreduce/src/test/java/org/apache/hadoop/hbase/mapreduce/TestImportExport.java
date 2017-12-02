@@ -5421,10 +5421,8 @@ specifier|private
 specifier|static
 class|class
 name|TableWALActionListener
-extends|extends
+implements|implements
 name|WALActionsListener
-operator|.
-name|Base
 block|{
 specifier|private
 name|RegionInfo

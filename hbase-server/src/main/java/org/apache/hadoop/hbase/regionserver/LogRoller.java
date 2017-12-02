@@ -442,8 +442,6 @@ name|registerWALActionsListener
 argument_list|(
 operator|new
 name|WALActionsListener
-operator|.
-name|Base
 argument_list|()
 block|{
 annotation|@

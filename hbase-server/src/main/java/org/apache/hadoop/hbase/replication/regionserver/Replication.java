@@ -661,14 +661,12 @@ name|Private
 specifier|public
 class|class
 name|Replication
-extends|extends
-name|WALActionsListener
-operator|.
-name|Base
 implements|implements
 name|ReplicationSourceService
 implements|,
 name|ReplicationSinkService
+implements|,
+name|WALActionsListener
 block|{
 specifier|private
 specifier|static

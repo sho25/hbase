@@ -167,10 +167,8 @@ name|Private
 specifier|public
 class|class
 name|MetricsWAL
-extends|extends
+implements|implements
 name|WALActionsListener
-operator|.
-name|Base
 block|{
 specifier|private
 specifier|static

@@ -2660,10 +2660,8 @@ return|;
 block|}
 class|class
 name|PathWatcher
-extends|extends
+implements|implements
 name|WALActionsListener
-operator|.
-name|Base
 block|{
 name|Path
 name|currentPath
