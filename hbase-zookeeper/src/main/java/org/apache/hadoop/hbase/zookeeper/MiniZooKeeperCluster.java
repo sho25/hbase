@@ -2007,6 +2007,17 @@ name|activeZKServerIndex
 argument_list|)
 return|;
 block|}
+name|List
+argument_list|<
+name|ZooKeeperServer
+argument_list|>
+name|getZooKeeperServers
+parameter_list|()
+block|{
+return|return
+name|zooKeeperServers
+return|;
+block|}
 block|}
 end_class
 
