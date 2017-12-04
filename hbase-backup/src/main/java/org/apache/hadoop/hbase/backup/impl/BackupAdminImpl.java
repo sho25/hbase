@@ -3353,6 +3353,13 @@ literal|" exists already."
 argument_list|)
 throw|;
 block|}
+name|outputFs
+operator|.
+name|mkdirs
+argument_list|(
+name|targetTableBackupDirPath
+argument_list|)
+expr_stmt|;
 block|}
 name|ArrayList
 argument_list|<
