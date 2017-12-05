@@ -700,7 +700,7 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Wrap a FileSystem object within a HFileSystem. The noChecksumFs and    * writefs are both set to be the same specified fs.     * Do not verify hbase-checksums while reading data from filesystem.    * @param fs Set the noChecksumFs and writeFs to this specified filesystem.    */
+comment|/**    * Wrap a FileSystem object within a HFileSystem. The noChecksumFs and    * writefs are both set to be the same specified fs.    * Do not verify hbase-checksums while reading data from filesystem.    * @param fs Set the noChecksumFs and writeFs to this specified filesystem.    */
 specifier|public
 name|HFileSystem
 parameter_list|(
