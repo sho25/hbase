@@ -905,6 +905,10 @@ operator|.
 name|write
 argument_list|(
 name|tags
+argument_list|,
+name|tagsOffset
+argument_list|,
+name|tagsLength
 argument_list|)
 expr_stmt|;
 block|}
