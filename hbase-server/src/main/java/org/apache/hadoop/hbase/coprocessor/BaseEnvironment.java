@@ -268,7 +268,11 @@ name|this
 operator|.
 name|conf
 operator|=
+operator|new
+name|ReadOnlyConfiguration
+argument_list|(
 name|conf
+argument_list|)
 expr_stmt|;
 block|}
 comment|/** Initialize the environment */

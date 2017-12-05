@@ -109,7 +109,7 @@ name|int
 name|getLoadSequence
 parameter_list|()
 function_decl|;
-comment|/** @return the configuration */
+comment|/**    * @return a Read-only Configuration; throws {@link UnsupportedOperationException} if you try    *   to set a configuration.    */
 name|Configuration
 name|getConfiguration
 parameter_list|()
