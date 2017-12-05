@@ -553,6 +553,20 @@ expr_stmt|;
 comment|// TODO Be sure to add a check for hsync if this branch includes HBASE-19024
 if|if
 condition|(
+name|fs
+operator|.
+name|getConf
+argument_list|()
+operator|.
+name|getBoolean
+argument_list|(
+name|CommonFSUtils
+operator|.
+name|UNSAFE_STREAM_CAPABILITY_ENFORCE
+argument_list|,
+literal|true
+argument_list|)
+operator|&&
 operator|!
 operator|(
 name|CommonFSUtils

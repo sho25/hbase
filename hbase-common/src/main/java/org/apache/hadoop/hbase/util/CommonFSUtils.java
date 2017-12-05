@@ -433,6 +433,15 @@ name|HBASE_WAL_DIR
 init|=
 literal|"hbase.wal.dir"
 decl_stmt|;
+comment|/** Parameter to disable stream capability enforcement checks */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|UNSAFE_STREAM_CAPABILITY_ENFORCE
+init|=
+literal|"hbase.unsafe.stream.capability.enforce"
+decl_stmt|;
 comment|/** Full access permissions (starting point for a umask) */
 specifier|public
 specifier|static

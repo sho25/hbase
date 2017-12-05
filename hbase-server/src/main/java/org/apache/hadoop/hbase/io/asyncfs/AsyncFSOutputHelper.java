@@ -507,6 +507,20 @@ comment|// ensure that we can provide the level of data safety we're configured
 comment|// to provide.
 if|if
 condition|(
+name|fs
+operator|.
+name|getConf
+argument_list|()
+operator|.
+name|getBoolean
+argument_list|(
+name|CommonFSUtils
+operator|.
+name|UNSAFE_STREAM_CAPABILITY_ENFORCE
+argument_list|,
+literal|true
+argument_list|)
+operator|&&
 operator|!
 operator|(
 name|CommonFSUtils

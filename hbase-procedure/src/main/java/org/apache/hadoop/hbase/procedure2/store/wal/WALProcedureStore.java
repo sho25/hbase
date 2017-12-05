@@ -930,6 +930,11 @@ name|walArchiveDir
 decl_stmt|;
 specifier|private
 specifier|final
+name|boolean
+name|enforceStreamCapability
+decl_stmt|;
+specifier|private
+specifier|final
 name|AtomicReference
 argument_list|<
 name|Throwable
@@ -1272,6 +1277,21 @@ operator|.
 name|getFileSystem
 argument_list|(
 name|conf
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|enforceStreamCapability
+operator|=
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+name|CommonFSUtils
+operator|.
+name|UNSAFE_STREAM_CAPABILITY_ENFORCE
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 comment|// Create the log directory for the procedure store
@@ -5159,6 +5179,8 @@ literal|"hflush"
 decl_stmt|;
 if|if
 condition|(
+name|enforceStreamCapability
+operator|&&
 operator|!
 operator|(
 name|CommonFSUtils
