@@ -3163,6 +3163,15 @@ operator|.
 name|postEnvCall
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|bypass
+condition|)
+block|{
+comment|// If CP says bypass, skip out w/o calling any following CPs; they might ruin our response.
+comment|// In hbase1, this used to be called 'complete'. In hbase2, we unite bypass and 'complete'.
+break|break;
+block|}
 block|}
 return|return
 name|bypass

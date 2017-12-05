@@ -930,7 +930,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called prior to selecting the {@link StoreFile StoreFiles} to compact from the list of    * available candidates. To alter the files used for compaction, you may mutate the passed in list    * of candidates. If you remove all the candidates then the compaction will be canceled.    *<p>Supports Coprocessor 'bypass' -- 'bypass' is how this method indicates that it changed    * the passed in<code>candidates</code>.    * @param c the environment provided by the region server    * @param store the store where compaction is being requested    * @param candidates the store files currently available for compaction    * @param tracker tracker used to track the life cycle of a compaction    */
+comment|/**    * Called prior to selecting the {@link StoreFile StoreFiles} to compact from the list of    * available candidates. To alter the files used for compaction, you may mutate the passed in list    * of candidates. If you remove all the candidates then the compaction will be canceled.    *<p>Supports Coprocessor 'bypass' -- 'bypass' is how this method indicates that it changed    * the passed in<code>candidates</code>.    * If 'bypass' is set, we skip out on calling any subsequent chained coprocessors.    * @param c the environment provided by the region server    * @param store the store where compaction is being requested    * @param candidates the store files currently available for compaction    * @param tracker tracker used to track the life cycle of a compaction    */
 specifier|default
 name|void
 name|preCompactSelection
@@ -1107,7 +1107,7 @@ name|boolean
 name|abortRequested
 parameter_list|)
 block|{}
-comment|/**    * Called before the client performs a Get    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    * @param c the environment provided by the region server    * @param get the Get request    * @param result The result to return to the client if default processing    * is bypassed. Can be modified. Will not be used if default processing    * is not bypassed.    */
+comment|/**    * Called before the client performs a Get    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions.    * If 'bypass' is set, we skip out on calling any subsequent chained coprocessors.    * @param c the environment provided by the region server    * @param get the Get request    * @param result The result to return to the client if default processing    * is bypassed. Can be modified. Will not be used if default processing    * is not bypassed.    */
 specifier|default
 name|void
 name|preGetOp
@@ -1153,7 +1153,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called before the client tests for existence using a Get.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    * @param c the environment provided by the region server    * @param get the Get request    * @param exists the result returned by the region server    * @return the value to return to the client if bypassing default processing    */
+comment|/**    * Called before the client tests for existence using a Get.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions.    * If 'bypass' is set, we skip out on calling any subsequent chained coprocessors.    * @param c the environment provided by the region server    * @param get the Get request    * @param exists the result returned by the region server    * @return the value to return to the client if bypassing default processing    */
 specifier|default
 name|boolean
 name|preExists
@@ -1201,7 +1201,7 @@ return|return
 name|exists
 return|;
 block|}
-comment|/**    * Called before the client stores a value.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Note: Do not retain references to any Cells in 'put' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param put The Put object    * @param edit The WALEdit object that will be written to the wal    * @param durability Persistence guarantee for this Put    */
+comment|/**    * Called before the client stores a value.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions.    * If 'bypass' is set, we skip out on calling any subsequent chained coprocessors.    *<p>    * Note: Do not retain references to any Cells in 'put' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param put The Put object    * @param edit The WALEdit object that will be written to the wal    * @param durability Persistence guarantee for this Put    */
 specifier|default
 name|void
 name|prePut
@@ -1247,7 +1247,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called before the client deletes a value.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Note: Do not retain references to any Cells in 'delete' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param delete The Delete object    * @param edit The WALEdit object for the wal    * @param durability Persistence guarantee for this Delete    */
+comment|/**    * Called before the client deletes a value.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions.    * If 'bypass' is set, we skip out on calling any subsequent chained coprocessors.    *<p>    * Note: Do not retain references to any Cells in 'delete' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param delete The Delete object    * @param edit The WALEdit object for the wal    * @param durability Persistence guarantee for this Delete    */
 specifier|default
 name|void
 name|preDelete
@@ -1270,7 +1270,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called before the server updates the timestamp for version delete with latest timestamp.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    * @param c the environment provided by the region server    * @param mutation - the parent mutation associated with this delete cell    * @param cell - The deleteColumn with latest version cell    * @param byteNow - timestamp bytes    * @param get - the get formed using the current cell's row. Note that the get does not specify    *          the family and qualifier    * @deprecated Since hbase-2.0.0. No replacement. To be removed in hbase-3.0.0 and replaced    * with something that doesn't expose IntefaceAudience.Private classes.    */
+comment|/**    * Called before the server updates the timestamp for version delete with latest timestamp.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions.    * If 'bypass' is set, we skip out on calling any subsequent chained coprocessors.    * @param c the environment provided by the region server    * @param mutation - the parent mutation associated with this delete cell    * @param cell - The deleteColumn with latest version cell    * @param byteNow - timestamp bytes    * @param get - the get formed using the current cell's row. Note that the get does not specify    *          the family and qualifier    * @deprecated Since hbase-2.0.0. No replacement. To be removed in hbase-3.0.0 and replaced    * with something that doesn't expose IntefaceAudience.Private classes.    */
 annotation|@
 name|Deprecated
 specifier|default
@@ -1420,7 +1420,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called before checkAndPut.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Note: Do not retain references to any Cells in 'put' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param op the comparison operation    * @param comparator the comparator    * @param put data to put if check succeeds    * @param result    * @return the return value to return to client if bypassing default    * processing    */
+comment|/**    * Called before checkAndPut.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions.    * If 'bypass' is set, we skip out on calling any subsequent chained coprocessors.    *<p>    * Note: Do not retain references to any Cells in 'put' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param op the comparison operation    * @param comparator the comparator    * @param put data to put if check succeeds    * @param result    * @return the return value to return to client if bypassing default    * processing    */
 specifier|default
 name|boolean
 name|preCheckAndPut
@@ -1462,7 +1462,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * Called before checkAndPut but after acquiring rowlock.    *<p>    *<b>Note:</b> Caution to be taken for not doing any long time operation in this hook.    * Row will be locked for longer time. Trying to acquire lock on another row, within this,    * can lead to potential deadlock.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Note: Do not retain references to any Cells in 'put' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param op the comparison operation    * @param comparator the comparator    * @param put data to put if check succeeds    * @param result    * @return the return value to return to client if bypassing default    * processing    */
+comment|/**    * Called before checkAndPut but after acquiring rowlock.    *<p>    *<b>Note:</b> Caution to be taken for not doing any long time operation in this hook.    * Row will be locked for longer time. Trying to acquire lock on another row, within this,    * can lead to potential deadlock.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions.    * If 'bypass' is set, we skip out on calling any subsequent chained coprocessors.    *<p>    * Note: Do not retain references to any Cells in 'put' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param op the comparison operation    * @param comparator the comparator    * @param put data to put if check succeeds    * @param result    * @return the return value to return to client if bypassing default    * processing    */
 specifier|default
 name|boolean
 name|preCheckAndPutAfterRowLock
@@ -1546,7 +1546,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * Called before checkAndDelete.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Note: Do not retain references to any Cells in 'delete' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param op the comparison operation    * @param comparator the comparator    * @param delete delete to commit if check succeeds    * @param result    * @return the value to return to client if bypassing default processing    */
+comment|/**    * Called before checkAndDelete.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions.    * If 'bypass' is set, we skip out on calling any subsequent chained coprocessors.    *<p>    * Note: Do not retain references to any Cells in 'delete' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param op the comparison operation    * @param comparator the comparator    * @param delete delete to commit if check succeeds    * @param result    * @return the value to return to client if bypassing default processing    */
 specifier|default
 name|boolean
 name|preCheckAndDelete
@@ -1588,7 +1588,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * Called before checkAndDelete but after acquiring rowock.    *<p>    *<b>Note:</b> Caution to be taken for not doing any long time operation in this hook.    * Row will be locked for longer time. Trying to acquire lock on another row, within this,    * can lead to potential deadlock.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Note: Do not retain references to any Cells in 'delete' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param op the comparison operation    * @param comparator the comparator    * @param delete delete to commit if check succeeds    * @param result    * @return the value to return to client if bypassing default processing    */
+comment|/**    * Called before checkAndDelete but after acquiring rowock.    *<p>    *<b>Note:</b> Caution to be taken for not doing any long time operation in this hook.    * Row will be locked for longer time. Trying to acquire lock on another row, within this,    * can lead to potential deadlock.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions.    * If 'bypass' is set, we skip out on calling any subsequent chained coprocessors.    *<p>    * Note: Do not retain references to any Cells in 'delete' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param op the comparison operation    * @param comparator the comparator    * @param delete delete to commit if check succeeds    * @param result    * @return the value to return to client if bypassing default processing    */
 specifier|default
 name|boolean
 name|preCheckAndDeleteAfterRowLock
@@ -1672,7 +1672,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * Called before Append.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Note: Do not retain references to any Cells in 'append' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param append Append object    * @return result to return to the client if bypassing default processing    */
+comment|/**    * Called before Append.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions.    * If 'bypass' is set, we skip out on calling any subsequent chained coprocessors.    *<p>    * Note: Do not retain references to any Cells in 'append' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param append Append object    * @return result to return to the client if bypassing default processing    */
 specifier|default
 name|Result
 name|preAppend
@@ -1693,7 +1693,7 @@ return|return
 literal|null
 return|;
 block|}
-comment|/**    * Called before Append but after acquiring rowlock.    *<p>    *<b>Note:</b> Caution to be taken for not doing any long time operation in this hook.    * Row will be locked for longer time. Trying to acquire lock on another row, within this,    * can lead to potential deadlock.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Note: Do not retain references to any Cells in 'append' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param append Append object    * @return result to return to the client if bypassing default processing    */
+comment|/**    * Called before Append but after acquiring rowlock.    *<p>    *<b>Note:</b> Caution to be taken for not doing any long time operation in this hook.    * Row will be locked for longer time. Trying to acquire lock on another row, within this,    * can lead to potential deadlock.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions.    * If 'bypass' is set, we skip out on calling any subsequent chained coprocessors.    *<p>    * Note: Do not retain references to any Cells in 'append' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param append Append object    * @return result to return to the client if bypassing default processing    */
 specifier|default
 name|Result
 name|preAppendAfterRowLock
@@ -1738,7 +1738,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * Called before Increment.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Note: Do not retain references to any Cells in 'increment' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param increment increment object    * @return result to return to the client if bypassing default processing    */
+comment|/**    * Called before Increment.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions.    * If 'bypass' is set, we skip out on calling any subsequent chained coprocessors.    *<p>    * Note: Do not retain references to any Cells in 'increment' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param increment increment object    * @return result to return to the client if bypassing default processing    */
 specifier|default
 name|Result
 name|preIncrement
@@ -1759,7 +1759,7 @@ return|return
 literal|null
 return|;
 block|}
-comment|/**    * Called before Increment but after acquiring rowlock.    *<p>    *<b>Note:</b> Caution to be taken for not doing any long time operation in this hook.    * Row will be locked for longer time. Trying to acquire lock on another row, within this,    * can lead to potential deadlock.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Note: Do not retain references to any Cells in 'increment' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    *    * @param c    *          the environment provided by the region server    * @param increment    *          increment object    * @return result to return to the client if bypassing default processing    *           if an error occurred on the coprocessor    */
+comment|/**    * Called before Increment but after acquiring rowlock.    *<p>    *<b>Note:</b> Caution to be taken for not doing any long time operation in this hook.    * Row will be locked for longer time. Trying to acquire lock on another row, within this,    * can lead to potential deadlock.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions.    * If 'bypass' is set, we skip out on calling any subsequent chained coprocessors.    *<p>    * Note: Do not retain references to any Cells in 'increment' beyond the life of this invocation.    * If need a Cell reference for later use, copy the cell and use that.    *    * @param c    *          the environment provided by the region server    * @param increment    *          increment object    * @return result to return to the client if bypassing default processing    *           if an error occurred on the coprocessor    */
 specifier|default
 name|Result
 name|preIncrementAfterRowLock
@@ -1845,7 +1845,7 @@ return|return
 name|s
 return|;
 block|}
-comment|/**    * Called before the client asks for the next row on a scanner.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Note: Do not retain references to any Cells returned by scanner, beyond the life of this    * invocation. If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param s the scanner    * @param result The result to return to the client if default processing    * is bypassed. Can be modified. Will not be returned if default processing    * is not bypassed.    * @param limit the maximum number of results to return    * @param hasNext the 'has more' indication    * @return 'has more' indication that should be sent to client    */
+comment|/**    * Called before the client asks for the next row on a scanner.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions.    * If 'bypass' is set, we skip out on calling any subsequent chained coprocessors.    *<p>    * Note: Do not retain references to any Cells returned by scanner, beyond the life of this    * invocation. If need a Cell reference for later use, copy the cell and use that.    * @param c the environment provided by the region server    * @param s the scanner    * @param result The result to return to the client if default processing    * is bypassed. Can be modified. Will not be returned if default processing    * is not bypassed.    * @param limit the maximum number of results to return    * @param hasNext the 'has more' indication    * @return 'has more' indication that should be sent to client    */
 specifier|default
 name|boolean
 name|preScannerNext
@@ -1938,7 +1938,7 @@ return|return
 name|hasMore
 return|;
 block|}
-comment|/**    * Called before the client closes a scanner.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    * @param c the environment provided by the region server    * @param s the scanner    */
+comment|/**    * Called before the client closes a scanner.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions.    * If 'bypass' is set, we skip out on calling any subsequent chained coprocessors.    * @param c the environment provided by the region server    * @param s the scanner    */
 specifier|default
 name|void
 name|preScannerClose
