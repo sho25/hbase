@@ -1780,7 +1780,9 @@ literal|null
 condition|)
 block|{
 name|rollWriters
-argument_list|()
+argument_list|(
+literal|null
+argument_list|)
 expr_stmt|;
 return|return;
 block|}
@@ -2000,8 +2002,6 @@ name|writerPath
 argument_list|)
 expr_stmt|;
 block|}
-comment|// If any of the HFiles for the column families has reached
-comment|// maxsize, we need to roll all the writers
 if|if
 condition|(
 name|wl
@@ -2044,7 +2044,9 @@ literal|0
 condition|)
 block|{
 name|rollWriters
-argument_list|()
+argument_list|(
+name|wl
+argument_list|)
 expr_stmt|;
 block|}
 comment|// create a new WAL writer, if necessary
@@ -2392,9 +2394,27 @@ block|}
 specifier|private
 name|void
 name|rollWriters
-parameter_list|()
+parameter_list|(
+name|WriterLength
+name|writerLength
+parameter_list|)
 throws|throws
 name|IOException
+block|{
+if|if
+condition|(
+name|writerLength
+operator|!=
+literal|null
+condition|)
+block|{
+name|closeWriter
+argument_list|(
+name|writerLength
+argument_list|)
+expr_stmt|;
+block|}
+else|else
 block|{
 for|for
 control|(
@@ -2408,6 +2428,30 @@ operator|.
 name|values
 argument_list|()
 control|)
+block|{
+name|closeWriter
+argument_list|(
+name|wl
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+name|this
+operator|.
+name|rollRequested
+operator|=
+literal|false
+expr_stmt|;
+block|}
+specifier|private
+name|void
+name|closeWriter
+parameter_list|(
+name|WriterLength
+name|wl
+parameter_list|)
+throws|throws
+name|IOException
 block|{
 if|if
 condition|(
@@ -2469,13 +2513,6 @@ operator|.
 name|written
 operator|=
 literal|0
-expr_stmt|;
-block|}
-name|this
-operator|.
-name|rollRequested
-operator|=
-literal|false
 expr_stmt|;
 block|}
 comment|/*        * Create a new StoreFile.Writer.        * @param family        * @return A WriterLength, containing a new StoreFile.Writer.        * @throws IOException        */
