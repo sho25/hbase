@@ -886,13 +886,6 @@ name|BloomType
 operator|.
 name|NONE
 argument_list|)
-comment|// Enable cache of data blocks in L1 if more than one caching tier deployed:
-comment|// e.g. if using CombinedBlockCache (BucketCache).
-operator|.
-name|setCacheDataInL1
-argument_list|(
-literal|true
-argument_list|)
 operator|.
 name|build
 argument_list|()
@@ -959,13 +952,6 @@ argument_list|(
 name|BloomType
 operator|.
 name|NONE
-argument_list|)
-comment|// Enable cache of data blocks in L1 if more than one caching tier deployed:
-comment|// e.g. if using CombinedBlockCache (BucketCache).
-operator|.
-name|setCacheDataInL1
-argument_list|(
-literal|true
 argument_list|)
 operator|.
 name|build
@@ -1034,13 +1020,6 @@ name|BloomType
 operator|.
 name|NONE
 argument_list|)
-comment|// Enable cache of data blocks in L1 if more than one caching tier deployed:
-comment|// e.g. if using CombinedBlockCache (BucketCache).
-operator|.
-name|setCacheDataInL1
-argument_list|(
-literal|true
-argument_list|)
 operator|.
 name|build
 argument_list|()
@@ -1108,13 +1087,6 @@ name|BloomType
 operator|.
 name|NONE
 argument_list|)
-comment|// Enable cache of data blocks in L1 if more than one caching tier deployed:
-comment|// e.g. if using CombinedBlockCache (BucketCache).
-operator|.
-name|setCacheDataInL1
-argument_list|(
-literal|true
-argument_list|)
 operator|.
 name|build
 argument_list|()
@@ -1162,13 +1134,6 @@ argument_list|(
 name|BloomType
 operator|.
 name|NONE
-argument_list|)
-comment|// Enable cache of data blocks in L1 if more than one caching tier deployed:
-comment|// e.g. if using CombinedBlockCache (BucketCache).
-operator|.
-name|setCacheDataInL1
-argument_list|(
-literal|true
 argument_list|)
 operator|.
 name|build

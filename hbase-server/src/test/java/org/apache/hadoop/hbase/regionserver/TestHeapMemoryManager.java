@@ -5084,9 +5084,6 @@ name|buf
 parameter_list|,
 name|boolean
 name|inMemory
-parameter_list|,
-name|boolean
-name|cacheDataInL1
 parameter_list|)
 block|{      }
 annotation|@

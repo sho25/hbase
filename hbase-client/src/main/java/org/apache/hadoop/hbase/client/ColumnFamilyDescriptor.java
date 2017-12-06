@@ -598,11 +598,6 @@ name|boolean
 name|isCacheBloomsOnWrite
 parameter_list|()
 function_decl|;
-comment|/**    * @return true if we should cache data blocks in the L1 cache (if block cache deploy has more    *         than one tier; e.g. we are using CombinedBlockCache).    */
-name|boolean
-name|isCacheDataInL1
-parameter_list|()
-function_decl|;
 comment|/**    * @return true if we should cache data blocks on write    */
 name|boolean
 name|isCacheDataOnWrite

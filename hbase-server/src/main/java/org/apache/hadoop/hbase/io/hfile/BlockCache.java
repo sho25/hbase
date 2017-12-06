@@ -81,7 +81,7 @@ argument_list|<
 name|CachedBlock
 argument_list|>
 block|{
-comment|/**    * Add block to cache.    * @param cacheKey The block's cache key.    * @param buf The block contents wrapped in a ByteBuffer.    * @param inMemory Whether block should be treated as in-memory    * @param cacheDataInL1 If multi-tier block cache deploy -- i.e. has an L1 and L2 tier -- then    * if this flag is true, cache data blocks up in the L1 tier (meta blocks are probably being    * cached in L1 already).    */
+comment|/**    * Add block to cache.    * @param cacheKey The block's cache key.    * @param buf The block contents wrapped in a ByteBuffer.    * @param inMemory Whether block should be treated as in-memory    */
 name|void
 name|cacheBlock
 parameter_list|(
@@ -93,9 +93,6 @@ name|buf
 parameter_list|,
 name|boolean
 name|inMemory
-parameter_list|,
-name|boolean
-name|cacheDataInL1
 parameter_list|)
 function_decl|;
 comment|/**    * Add block to cache (defaults to not in-memory).    * @param cacheKey The block's cache key.    * @param buf The object to cache.    */
@@ -202,6 +199,7 @@ name|getBlockCaches
 parameter_list|()
 function_decl|;
 comment|/**    * Called when the scanner using the block decides to return the block once its usage    * is over.    * This API should be called after the block is used, failing to do so may have adverse effects    * by preventing the blocks from being evicted because of which it will prevent new hot blocks    * from getting added to the block cache.  The implementation of the BlockCache will decide    * on what to be done with the block based on the memory type of the block's {@link MemoryType}.    * @param cacheKey the cache key of the block    * @param block the hfileblock to be returned    */
+specifier|default
 name|void
 name|returnBlock
 parameter_list|(
@@ -211,7 +209,8 @@ parameter_list|,
 name|Cacheable
 name|block
 parameter_list|)
-function_decl|;
+block|{}
+empty_stmt|;
 block|}
 end_interface
 
