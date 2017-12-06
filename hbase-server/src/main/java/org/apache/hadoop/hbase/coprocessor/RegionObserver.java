@@ -2170,9 +2170,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called after bulkLoadHFile.    *    * @param ctx the environment provided by the region server    * @param stagingFamilyPaths pairs of { CF, HFile path } submitted for bulk load    * @param finalPaths Map of CF to List of file paths for the loaded files    * @param hasLoaded whether the bulkLoad was successful    * @return the new value of hasLoaded    */
+comment|/**    * Called after bulkLoadHFile.    *    * @param ctx the environment provided by the region server    * @param stagingFamilyPaths pairs of { CF, HFile path } submitted for bulk load    * @param finalPaths Map of CF to List of file paths for the loaded files    *   if the Map is not null, the bulkLoad was successful. Otherwise the bulk load failed.    *   bulkload is done by the time this hook is called.    */
 specifier|default
-name|boolean
+name|void
 name|postBulkLoadHFile
 parameter_list|(
 name|ObserverContext
@@ -2204,17 +2204,10 @@ name|Path
 argument_list|>
 argument_list|>
 name|finalPaths
-parameter_list|,
-name|boolean
-name|hasLoaded
 parameter_list|)
 throws|throws
 name|IOException
-block|{
-return|return
-name|hasLoaded
-return|;
-block|}
+block|{   }
 comment|/**    * Called before creation of Reader for a store file.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    *    * @param ctx the environment provided by the region server    * @param fs fileystem to read from    * @param p path to the file    * @param in {@link FSDataInputStreamWrapper}    * @param size Full size of the file    * @param cacheConf    * @param r original reference file. This will be not null only when reading a split file.    * @param reader the base reader, if not {@code null}, from previous RegionObserver in the chain    * @return a Reader instance to use instead of the base reader if overriding    * default behavior, null otherwise    * @deprecated For Phoenix only, StoreFileReader is not a stable interface.    */
 annotation|@
 name|Deprecated

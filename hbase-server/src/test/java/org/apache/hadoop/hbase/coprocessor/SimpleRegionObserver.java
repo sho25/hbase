@@ -3793,7 +3793,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|boolean
+name|void
 name|postBulkLoadHFile
 parameter_list|(
 name|ObserverContext
@@ -3825,9 +3825,6 @@ name|Path
 argument_list|>
 argument_list|>
 name|map
-parameter_list|,
-name|boolean
-name|hasLoaded
 parameter_list|)
 throws|throws
 name|IOException
@@ -3961,9 +3958,6 @@ operator|.
 name|incrementAndGet
 argument_list|()
 expr_stmt|;
-return|return
-name|hasLoaded
-return|;
 block|}
 annotation|@
 name|Override

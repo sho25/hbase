@@ -378,7 +378,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|boolean
+name|void
 name|postBulkLoadHFile
 parameter_list|(
 name|ObserverContext
@@ -410,9 +410,6 @@ name|Path
 argument_list|>
 argument_list|>
 name|finalPaths
-parameter_list|,
-name|boolean
-name|hasLoaded
 parameter_list|)
 throws|throws
 name|IOException
@@ -430,21 +427,16 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-operator|!
-name|hasLoaded
-condition|)
-block|{
-comment|// there is no need to record state
-return|return
-name|hasLoaded
-return|;
-block|}
-if|if
-condition|(
 name|finalPaths
 operator|==
 literal|null
-operator|||
+condition|)
+block|{
+comment|// there is no need to record state
+return|return;
+block|}
+if|if
+condition|(
 operator|!
 name|BackupManager
 operator|.
@@ -461,9 +453,7 @@ argument_list|(
 literal|"skipping recording bulk load in postBulkLoadHFile since backup is disabled"
 argument_list|)
 expr_stmt|;
-return|return
-name|hasLoaded
-return|;
+return|return;
 block|}
 try|try
 init|(
@@ -550,9 +540,7 @@ literal|" has not gone thru full backup"
 argument_list|)
 expr_stmt|;
 block|}
-return|return
-name|hasLoaded
-return|;
+return|return;
 block|}
 name|tbl
 operator|.
@@ -568,9 +556,6 @@ argument_list|,
 name|finalPaths
 argument_list|)
 expr_stmt|;
-return|return
-name|hasLoaded
-return|;
 block|}
 catch|catch
 parameter_list|(
@@ -587,9 +572,6 @@ argument_list|,
 name|ioe
 argument_list|)
 expr_stmt|;
-return|return
-literal|false
-return|;
 block|}
 block|}
 annotation|@
