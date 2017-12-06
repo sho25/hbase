@@ -628,6 +628,9 @@ name|numSplitsPerRegion
 parameter_list|,
 name|int
 name|expectedNumSplits
+parameter_list|,
+name|boolean
+name|setLocalityEnabledTo
 parameter_list|)
 throws|throws
 name|Exception
@@ -698,6 +701,8 @@ argument_list|,
 literal|1
 argument_list|,
 literal|1
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 block|}
@@ -721,6 +726,8 @@ argument_list|,
 literal|1
 argument_list|,
 literal|8
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 block|}
