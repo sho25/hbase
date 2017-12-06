@@ -255,7 +255,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|MediumTests
+name|ClientTests
 import|;
 end_import
 
@@ -271,7 +271,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|ZKTests
+name|MediumTests
 import|;
 end_import
 
@@ -344,7 +344,7 @@ name|MediumTests
 operator|.
 name|class
 block|,
-name|ZKTests
+name|ClientTests
 operator|.
 name|class
 block|}

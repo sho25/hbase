@@ -93,7 +93,9 @@ name|java
 operator|.
 name|util
 operator|.
-name|Random
+name|concurrent
+operator|.
+name|Semaphore
 import|;
 end_import
 
@@ -105,17 +107,7 @@ name|util
 operator|.
 name|concurrent
 operator|.
-name|Semaphore
-import|;
-end_import
-
-begin_import
-import|import
-name|junit
-operator|.
-name|framework
-operator|.
-name|Assert
+name|ThreadLocalRandom
 import|;
 end_import
 
@@ -157,7 +149,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|*
+name|Abortable
 import|;
 end_import
 
@@ -171,11 +163,35 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|master
+name|HBaseZKTestingUtility
+import|;
+end_import
+
+begin_import
+import|import
+name|org
 operator|.
-name|TestActiveMasterManager
+name|apache
 operator|.
-name|NodeDeletionListener
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ServerName
 import|;
 end_import
 
@@ -207,7 +223,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|MiscTests
+name|ZKTests
 import|;
 end_import
 
@@ -252,30 +268,6 @@ operator|.
 name|zookeeper
 operator|.
 name|CreateMode
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|zookeeper
-operator|.
-name|WatchedEvent
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|zookeeper
-operator|.
-name|Watcher
 import|;
 end_import
 
@@ -354,7 +346,7 @@ annotation|@
 name|Category
 argument_list|(
 block|{
-name|MiscTests
+name|ZKTests
 operator|.
 name|class
 block|,
@@ -385,21 +377,11 @@ decl_stmt|;
 specifier|private
 specifier|final
 specifier|static
-name|HBaseTestingUtility
+name|HBaseZKTestingUtility
 name|TEST_UTIL
 init|=
 operator|new
-name|HBaseTestingUtility
-argument_list|()
-decl_stmt|;
-specifier|private
-specifier|final
-specifier|static
-name|Random
-name|rand
-init|=
-operator|new
-name|Random
+name|HBaseZKTestingUtility
 argument_list|()
 decl_stmt|;
 annotation|@
@@ -434,7 +416,7 @@ name|shutdownMiniZKCluster
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Test that we can interrupt a node that is blocked on a wait.    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * Test that we can interrupt a node that is blocked on a wait.    */
 annotation|@
 name|Test
 specifier|public
@@ -542,6 +524,7 @@ operator|.
 name|isAlive
 argument_list|()
 condition|)
+block|{
 name|Threads
 operator|.
 name|sleep
@@ -549,6 +532,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
+block|}
 name|tracker
 operator|.
 name|stop
@@ -620,17 +604,18 @@ name|znodePaths
 operator|.
 name|baseZNode
 argument_list|,
-operator|new
 name|Long
+operator|.
+name|toString
 argument_list|(
-name|rand
+name|ThreadLocalRandom
+operator|.
+name|current
+argument_list|()
 operator|.
 name|nextLong
 argument_list|()
 argument_list|)
-operator|.
-name|toString
-argument_list|()
 argument_list|)
 decl_stmt|;
 specifier|final
@@ -797,9 +782,9 @@ argument_list|)
 argument_list|,
 literal|60000
 argument_list|,
-operator|new
-name|StubWatcher
-argument_list|()
+name|e
+lambda|->
+block|{         }
 argument_list|)
 decl_stmt|;
 comment|// Add the node with data one
@@ -1447,7 +1432,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|NodeDeletionListener
+name|TestingZKListener
 operator|.
 name|class
 argument_list|)
@@ -1702,24 +1687,6 @@ literal|false
 return|;
 block|}
 block|}
-specifier|public
-specifier|static
-class|class
-name|StubWatcher
-implements|implements
-name|Watcher
-block|{
-annotation|@
-name|Override
-specifier|public
-name|void
-name|process
-parameter_list|(
-name|WatchedEvent
-name|event
-parameter_list|)
-block|{}
-block|}
 annotation|@
 name|Test
 specifier|public
@@ -1817,9 +1784,7 @@ name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
-name|assertFalse
+name|assertNotNull
 argument_list|(
 name|ZKUtil
 operator|.
@@ -1829,8 +1794,6 @@ name|zkw
 argument_list|,
 name|nodeName
 argument_list|)
-operator|==
-literal|null
 argument_list|)
 expr_stmt|;
 comment|// Check that we don't delete if we're not supposed to
@@ -1871,9 +1834,7 @@ name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
-name|assertFalse
+name|assertNotNull
 argument_list|(
 name|ZKUtil
 operator|.
@@ -1883,8 +1844,6 @@ name|zkw
 argument_list|,
 name|nodeName
 argument_list|)
-operator|==
-literal|null
 argument_list|)
 expr_stmt|;
 comment|// Check that we delete when we're supposed to
@@ -1918,9 +1877,7 @@ name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
-name|assertTrue
+name|assertNull
 argument_list|(
 name|ZKUtil
 operator|.
@@ -1930,8 +1887,6 @@ name|zkw
 argument_list|,
 name|nodeName
 argument_list|)
-operator|==
-literal|null
 argument_list|)
 expr_stmt|;
 comment|// Check that we support the case when the znode does not exist

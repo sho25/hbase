@@ -17,6 +17,10 @@ name|testclassification
 package|;
 end_package
 
+begin_comment
+comment|/**  * For tests which test the general logic of zookeeper related tools, such as  * {@code RecoverableZooKeeper}, not for tests which depend on zookeeper.  */
+end_comment
+
 begin_interface
 specifier|public
 interface|interface

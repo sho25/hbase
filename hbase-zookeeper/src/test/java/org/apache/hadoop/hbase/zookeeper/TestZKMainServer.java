@@ -75,7 +75,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|*
+name|HBaseConfiguration
 import|;
 end_import
 
@@ -89,9 +89,21 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|testclassification
+name|HBaseZKTestingUtility
+import|;
+end_import
+
+begin_import
+import|import
+name|org
 operator|.
-name|MiscTests
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HConstants
 import|;
 end_import
 
@@ -108,6 +120,22 @@ operator|.
 name|testclassification
 operator|.
 name|SmallTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|testclassification
+operator|.
+name|ZKTests
 import|;
 end_import
 
@@ -140,7 +168,7 @@ annotation|@
 name|Category
 argument_list|(
 block|{
-name|MiscTests
+name|ZKTests
 operator|.
 name|class
 block|,
@@ -255,7 +283,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * We need delete of a znode to work at least.    * @throws Exception    */
+comment|/**    * We need delete of a znode to work at least.    */
 annotation|@
 name|Test
 specifier|public
@@ -274,11 +302,11 @@ name|NoExitSecurityManager
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|HBaseTestingUtility
+name|HBaseZKTestingUtility
 name|htu
 init|=
 operator|new
-name|HBaseTestingUtility
+name|HBaseZKTestingUtility
 argument_list|()
 decl_stmt|;
 name|htu

@@ -137,7 +137,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HBaseTestingUtility
+name|HBaseZKTestingUtility
 import|;
 end_import
 
@@ -169,7 +169,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|MiscTests
+name|ZKTests
 import|;
 end_import
 
@@ -310,7 +310,7 @@ annotation|@
 name|Category
 argument_list|(
 block|{
-name|MiscTests
+name|ZKTests
 operator|.
 name|class
 block|,
@@ -341,11 +341,11 @@ decl_stmt|;
 specifier|private
 specifier|final
 specifier|static
-name|HBaseTestingUtility
+name|HBaseZKTestingUtility
 name|TEST_UTIL
 init|=
 operator|new
-name|HBaseTestingUtility
+name|HBaseZKTestingUtility
 argument_list|()
 decl_stmt|;
 specifier|private

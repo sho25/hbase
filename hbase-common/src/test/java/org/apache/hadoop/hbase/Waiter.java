@@ -707,6 +707,9 @@ name|String
 name|getExplanation
 parameter_list|(
 name|Predicate
+argument_list|<
+name|?
+argument_list|>
 name|explain
 parameter_list|)
 block|{
@@ -725,6 +728,9 @@ operator|+
 operator|(
 operator|(
 name|ExplainingPredicate
+argument_list|<
+name|?
+argument_list|>
 operator|)
 name|explain
 operator|)
