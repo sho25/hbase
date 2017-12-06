@@ -3154,6 +3154,11 @@ name|?
 argument_list|>
 name|helperClass
 decl_stmt|;
+name|String
+name|clazzName
+init|=
+literal|"org.apache.hadoop.hdfs.protocolPB.PBHelperClient"
+decl_stmt|;
 try|try
 block|{
 name|helperClass
@@ -3162,7 +3167,7 @@ name|Class
 operator|.
 name|forName
 argument_list|(
-literal|"org.apache.hadoop.hdfs.protocolPB.PBHelperClient"
+name|clazzName
 argument_list|)
 expr_stmt|;
 block|}
@@ -3172,15 +3177,6 @@ name|ClassNotFoundException
 name|e
 parameter_list|)
 block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"No PBHelperClient class found, should be hadoop 2.7-"
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
 name|helperClass
 operator|=
 name|org
@@ -3196,6 +3192,24 @@ operator|.
 name|PBHelper
 operator|.
 name|class
+expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|""
+operator|+
+name|clazzName
+operator|+
+literal|" not found (Hadoop is pre-2.8.0?); using "
+operator|+
+name|helperClass
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|" instead."
+argument_list|)
 expr_stmt|;
 block|}
 name|Method
