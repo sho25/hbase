@@ -571,6 +571,8 @@ argument_list|,
 name|block
 argument_list|,
 name|inMemory
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 block|}
@@ -2021,6 +2023,8 @@ name|i
 index|]
 argument_list|,
 literal|true
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|expectedCacheSize
@@ -2234,6 +2238,8 @@ literal|3
 index|]
 argument_list|,
 literal|true
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 comment|// Three evictions, three evicted.
@@ -2569,6 +2575,8 @@ literal|2
 index|]
 argument_list|,
 literal|true
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 comment|// Six evictions, twelve evicted (3 new)
@@ -2963,6 +2971,8 @@ literal|0
 index|]
 argument_list|,
 literal|true
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 comment|// Single eviction, one block evicted
@@ -3034,6 +3044,8 @@ literal|1
 index|]
 argument_list|,
 literal|true
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 comment|// Two evictions, two evicted.
@@ -3105,6 +3117,8 @@ literal|2
 index|]
 argument_list|,
 literal|true
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|cache
@@ -3124,6 +3138,8 @@ literal|3
 index|]
 argument_list|,
 literal|true
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|cache
@@ -3143,6 +3159,8 @@ literal|4
 index|]
 argument_list|,
 literal|true
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|cache
@@ -3162,6 +3180,8 @@ literal|5
 index|]
 argument_list|,
 literal|true
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 comment|// Three evictions, three evicted.
@@ -3303,6 +3323,8 @@ literal|6
 index|]
 argument_list|,
 literal|true
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|cache
@@ -3322,6 +3344,8 @@ literal|7
 index|]
 argument_list|,
 literal|true
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|cache
@@ -3341,6 +3365,8 @@ literal|8
 index|]
 argument_list|,
 literal|true
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 comment|// Three evictions, three evicted.
@@ -3459,6 +3485,8 @@ literal|9
 index|]
 argument_list|,
 literal|true
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 comment|// one eviction, one evicted.
@@ -4404,6 +4432,8 @@ name|i
 index|]
 argument_list|,
 literal|true
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 block|}

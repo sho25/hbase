@@ -6369,6 +6369,13 @@ name|cacheConf
 operator|.
 name|isInMemory
 argument_list|()
+argument_list|,
+name|this
+operator|.
+name|cacheConf
+operator|.
+name|isCacheDataInL1
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -6798,6 +6805,13 @@ argument_list|,
 name|cacheConf
 operator|.
 name|isInMemory
+argument_list|()
+argument_list|,
+name|this
+operator|.
+name|cacheConf
+operator|.
+name|isCacheDataInL1
 argument_list|()
 argument_list|)
 expr_stmt|;

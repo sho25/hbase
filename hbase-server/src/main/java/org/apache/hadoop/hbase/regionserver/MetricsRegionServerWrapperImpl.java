@@ -990,14 +990,14 @@ name|l1Stats
 operator|=
 name|cacheConfig
 operator|.
-name|getOnHeapCacheStats
+name|getL1Stats
 argument_list|()
 expr_stmt|;
 name|l2Stats
 operator|=
 name|cacheConfig
 operator|.
-name|getL2CacheStats
+name|getL2Stats
 argument_list|()
 expr_stmt|;
 if|if

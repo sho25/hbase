@@ -2297,10 +2297,12 @@ argument_list|,
 name|buf
 argument_list|,
 literal|false
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Cache the block with the specified name and buffer.    * @param cacheKey block's cache key    * @param cachedItem block buffer    * @param inMemory if block is in-memory    */
+comment|/**    * Cache the block with the specified name and buffer.    * @param cacheKey block's cache key    * @param cachedItem block buffer    * @param inMemory if block is in-memory    * @param cacheDataInL1    */
 annotation|@
 name|Override
 specifier|public
@@ -2315,6 +2317,10 @@ name|cachedItem
 parameter_list|,
 name|boolean
 name|inMemory
+parameter_list|,
+specifier|final
+name|boolean
+name|cacheDataInL1
 parameter_list|)
 block|{
 name|cacheBlockWithWait
@@ -2324,6 +2330,8 @@ argument_list|,
 name|cachedItem
 argument_list|,
 name|inMemory
+argument_list|,
+name|cacheDataInL1
 argument_list|,
 name|wait_when_cache
 argument_list|)
@@ -2342,6 +2350,9 @@ name|cachedItem
 parameter_list|,
 name|boolean
 name|inMemory
+parameter_list|,
+name|boolean
+name|cacheDataInL1
 parameter_list|,
 name|boolean
 name|wait
@@ -2385,6 +2396,13 @@ name|cacheKey
 argument_list|)
 condition|)
 block|{
+comment|/*        * Compare already cached block only if lruBlockCache is not used to cache data blocks        */
+if|if
+condition|(
+operator|!
+name|cacheDataInL1
+condition|)
+block|{
 name|Cacheable
 name|existingBlock
 init|=
@@ -2424,6 +2442,7 @@ operator|+
 name|cacheKey
 argument_list|)
 throw|;
+block|}
 block|}
 name|String
 name|msg

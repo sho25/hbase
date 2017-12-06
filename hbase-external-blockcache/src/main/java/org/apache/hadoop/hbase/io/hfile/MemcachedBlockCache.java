@@ -655,6 +655,9 @@ name|buf
 parameter_list|,
 name|boolean
 name|inMemory
+parameter_list|,
+name|boolean
+name|cacheDataInL1
 parameter_list|)
 block|{
 name|cacheBlock
@@ -1312,6 +1315,21 @@ return|return
 name|MAX_SIZE
 return|;
 block|}
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|returnBlock
+parameter_list|(
+name|BlockCacheKey
+name|cacheKey
+parameter_list|,
+name|Cacheable
+name|block
+parameter_list|)
+block|{
+comment|// Not doing reference counting. All blocks here are EXCLUSIVE
 block|}
 block|}
 end_class

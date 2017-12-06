@@ -358,6 +358,11 @@ name|BloomType
 operator|.
 name|NONE
 argument_list|)
+operator|.
+name|setCacheDataInL1
+argument_list|(
+literal|true
+argument_list|)
 decl_stmt|;
 specifier|final
 name|int

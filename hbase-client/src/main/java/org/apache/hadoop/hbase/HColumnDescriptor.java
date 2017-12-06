@@ -350,7 +350,9 @@ specifier|final
 name|String
 name|CACHE_DATA_IN_L1
 init|=
-literal|"CACHE_DATA_IN_L1"
+name|ColumnFamilyDescriptorBuilder
+operator|.
+name|CACHE_DATA_IN_L1
 decl_stmt|;
 specifier|public
 specifier|static
@@ -704,7 +706,9 @@ specifier|final
 name|boolean
 name|DEFAULT_CACHE_DATA_IN_L1
 init|=
-literal|false
+name|ColumnFamilyDescriptorBuilder
+operator|.
+name|DEFAULT_CACHE_DATA_IN_L1
 decl_stmt|;
 specifier|public
 specifier|static
@@ -1824,9 +1828,21 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * This is a noop call from HBase 2.0 onwards    *    * @return this (for chained invocation)    * @deprecated Since 2.0 and will be removed in 3.0 with out any replacement. Caching data in on    *             heap Cache, when there are both on heap LRU Cache and Bucket Cache will no longer    *             be supported from 2.0.    */
 annotation|@
-name|Deprecated
+name|Override
+specifier|public
+name|boolean
+name|isCacheDataInL1
+parameter_list|()
+block|{
+return|return
+name|delegatee
+operator|.
+name|isCacheDataInL1
+argument_list|()
+return|;
+block|}
+comment|/**    * @param value true if we should cache data blocks in the L1 cache (if block cache deploy    * has more than one tier; e.g. we are using CombinedBlockCache).    * @return this (for chained invocation)    */
 specifier|public
 name|HColumnDescriptor
 name|setCacheDataInL1
@@ -1835,6 +1851,14 @@ name|boolean
 name|value
 parameter_list|)
 block|{
+name|getDelegateeForModification
+argument_list|()
+operator|.
+name|setCacheDataInL1
+argument_list|(
+name|value
+argument_list|)
+expr_stmt|;
 return|return
 name|this
 return|;
