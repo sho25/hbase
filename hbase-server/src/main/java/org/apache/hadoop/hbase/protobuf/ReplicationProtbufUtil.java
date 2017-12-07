@@ -163,6 +163,22 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|wal
+operator|.
+name|WALKeyImpl
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -670,7 +686,7 @@ operator|.
 name|clear
 argument_list|()
 expr_stmt|;
-comment|// TODO: this duplicates a lot in WALKey#getBuilder
+comment|// TODO: this duplicates a lot in WALKeyImpl#getBuilder
 name|WALProtos
 operator|.
 name|WALKey
@@ -683,7 +699,7 @@ operator|.
 name|getKeyBuilder
 argument_list|()
 decl_stmt|;
-name|WALKey
+name|WALKeyImpl
 name|key
 init|=
 name|entry
@@ -730,14 +746,19 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|long
+name|sequenceId
+init|=
+name|key
+operator|.
+name|getSequenceId
+argument_list|()
+decl_stmt|;
 name|keyBuilder
 operator|.
 name|setLogSequenceNumber
 argument_list|(
-name|key
-operator|.
-name|getLogSeqNum
-argument_list|()
+name|sequenceId
 argument_list|)
 expr_stmt|;
 name|keyBuilder

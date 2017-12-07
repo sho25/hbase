@@ -359,6 +359,10 @@ begin_comment
 comment|/**  * WALEdit: Used in HBase's transaction log (WAL) to represent  * the collection of edits (KeyValue objects) corresponding to a  * single transaction.  *  * All the edits for a given transaction are written out as a single record, in PB format followed  * by Cells written via the WALCellEncoder.  */
 end_comment
 
+begin_comment
+comment|// TODO: Do not expose this class to Coprocessors. It has set methods. A CP might meddle.
+end_comment
+
 begin_class
 annotation|@
 name|InterfaceAudience
@@ -657,6 +661,10 @@ operator|.
 name|isReplay
 return|;
 block|}
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 name|WALEdit
 name|add

@@ -589,7 +589,7 @@ name|hbase
 operator|.
 name|wal
 operator|.
-name|WALKey
+name|WALKeyImpl
 import|;
 end_import
 
@@ -1004,7 +1004,7 @@ name|InvocationOnMock
 name|invocation
 parameter_list|)
 block|{
-name|WALKey
+name|WALKeyImpl
 name|walKey
 init|=
 name|invocation
@@ -1160,7 +1160,7 @@ name|InvocationOnMock
 name|invocation
 parameter_list|)
 block|{
-name|WALKey
+name|WALKeyImpl
 name|walKey
 init|=
 name|invocation
@@ -1290,7 +1290,7 @@ name|InvocationOnMock
 name|invocation
 parameter_list|)
 block|{
-name|WALKey
+name|WALKeyImpl
 name|walKey
 init|=
 name|invocation
@@ -1424,7 +1424,7 @@ name|InvocationOnMock
 name|invocation
 parameter_list|)
 block|{
-name|WALKey
+name|WALKeyImpl
 name|walKey
 init|=
 name|invocation

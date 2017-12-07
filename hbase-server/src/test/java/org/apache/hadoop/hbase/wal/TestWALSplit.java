@@ -2640,7 +2640,7 @@ operator|new
 name|Entry
 argument_list|(
 operator|new
-name|WALKey
+name|WALKeyImpl
 argument_list|(
 name|encoded
 argument_list|,
@@ -2783,7 +2783,7 @@ operator|new
 name|Entry
 argument_list|(
 operator|new
-name|WALKey
+name|WALKeyImpl
 argument_list|(
 name|encoded
 argument_list|,
@@ -8434,11 +8434,11 @@ name|build
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|WALKey
+name|WALKeyImpl
 name|key
 init|=
 operator|new
-name|WALKey
+name|WALKeyImpl
 argument_list|(
 name|hri
 operator|.
@@ -8596,11 +8596,11 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 specifier|final
-name|WALKey
+name|WALKeyImpl
 name|walKey
 init|=
 operator|new
-name|WALKey
+name|WALKeyImpl
 argument_list|(
 name|region
 operator|.
@@ -8834,7 +8834,7 @@ operator|new
 name|Entry
 argument_list|(
 operator|new
-name|WALKey
+name|WALKeyImpl
 argument_list|(
 name|region
 argument_list|,

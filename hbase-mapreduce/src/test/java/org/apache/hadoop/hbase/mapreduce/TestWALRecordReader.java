@@ -407,7 +407,7 @@ name|hbase
 operator|.
 name|wal
 operator|.
-name|WALKey
+name|WALKeyImpl
 import|;
 end_import
 
@@ -1017,7 +1017,7 @@ name|append
 argument_list|(
 name|info
 argument_list|,
-name|getWalKey
+name|getWalKeyImpl
 argument_list|(
 name|ts
 argument_list|,
@@ -1067,7 +1067,7 @@ name|append
 argument_list|(
 name|info
 argument_list|,
-name|getWalKey
+name|getWalKeyImpl
 argument_list|(
 name|ts
 operator|+
@@ -1168,7 +1168,7 @@ name|append
 argument_list|(
 name|info
 argument_list|,
-name|getWalKey
+name|getWalKeyImpl
 argument_list|(
 name|ts1
 operator|+
@@ -1220,7 +1220,7 @@ name|append
 argument_list|(
 name|info
 argument_list|,
-name|getWalKey
+name|getWalKeyImpl
 argument_list|(
 name|ts1
 operator|+
@@ -1544,7 +1544,7 @@ name|append
 argument_list|(
 name|info
 argument_list|,
-name|getWalKey
+name|getWalKeyImpl
 argument_list|(
 name|System
 operator|.
@@ -1628,7 +1628,7 @@ name|append
 argument_list|(
 name|info
 argument_list|,
-name|getWalKey
+name|getWalKeyImpl
 argument_list|(
 name|System
 operator|.
@@ -1891,8 +1891,8 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|protected
-name|WALKey
-name|getWalKey
+name|WALKeyImpl
+name|getWalKeyImpl
 parameter_list|(
 specifier|final
 name|long
@@ -1910,7 +1910,7 @@ parameter_list|)
 block|{
 return|return
 operator|new
-name|WALKey
+name|WALKeyImpl
 argument_list|(
 name|info
 operator|.

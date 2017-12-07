@@ -97,7 +97,7 @@ name|hbase
 operator|.
 name|wal
 operator|.
-name|WALKey
+name|WALKeyImpl
 import|;
 end_import
 
@@ -229,9 +229,12 @@ operator|.
 name|getEdit
 argument_list|()
 decl_stmt|;
-name|WALKey
+name|WALKeyImpl
 name|logKey
 init|=
+operator|(
+name|WALKeyImpl
+operator|)
 name|entry
 operator|.
 name|getKey

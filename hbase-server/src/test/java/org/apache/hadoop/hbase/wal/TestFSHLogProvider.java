@@ -1151,7 +1151,7 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * used by TestDefaultWALProviderWithHLogKey    * @param scopes    */
-name|WALKey
+name|WALKeyImpl
 name|getWalKey
 parameter_list|(
 specifier|final
@@ -1179,7 +1179,7 @@ parameter_list|)
 block|{
 return|return
 operator|new
-name|WALKey
+name|WALKeyImpl
 argument_list|(
 name|info
 argument_list|,

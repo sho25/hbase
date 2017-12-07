@@ -619,9 +619,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * @deprecated Since hbase-2.0.0. No replacement. To be removed in hbase-3.0.0 and replaced    * with something that doesn't expose IntefaceAudience.Private classes.    */
-annotation|@
-name|Deprecated
 specifier|public
 name|void
 name|preWALWrite
@@ -690,9 +687,6 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @deprecated Since hbase-2.0.0. No replacement. To be removed in hbase-3.0.0 and replaced    * with something that doesn't expose IntefaceAudience.Private classes.    */
-annotation|@
-name|Deprecated
 specifier|public
 name|void
 name|postWALWrite

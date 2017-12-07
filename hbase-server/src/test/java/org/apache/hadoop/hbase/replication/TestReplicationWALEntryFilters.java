@@ -315,7 +315,7 @@ name|hbase
 operator|.
 name|wal
 operator|.
-name|WALKey
+name|WALKeyImpl
 import|;
 end_import
 
@@ -434,11 +434,11 @@ name|SystemTableWALEntryFilter
 argument_list|()
 decl_stmt|;
 comment|// meta
-name|WALKey
+name|WALKeyImpl
 name|key1
 init|=
 operator|new
-name|WALKey
+name|WALKeyImpl
 argument_list|(
 name|HRegionInfo
 operator|.
@@ -479,11 +479,11 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// ns table
-name|WALKey
+name|WALKeyImpl
 name|key2
 init|=
 operator|new
-name|WALKey
+name|WALKeyImpl
 argument_list|(
 operator|new
 name|byte
@@ -523,11 +523,11 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// user table
-name|WALKey
+name|WALKeyImpl
 name|key3
 init|=
 operator|new
-name|WALKey
+name|WALKeyImpl
 argument_list|(
 operator|new
 name|byte
@@ -2712,11 +2712,11 @@ modifier|...
 name|kvs
 parameter_list|)
 block|{
-name|WALKey
+name|WALKeyImpl
 name|key1
 init|=
 operator|new
-name|WALKey
+name|WALKeyImpl
 argument_list|(
 operator|new
 name|byte

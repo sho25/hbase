@@ -1985,6 +1985,22 @@ name|hbase
 operator|.
 name|wal
 operator|.
+name|WALKeyImpl
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|wal
+operator|.
 name|WALProvider
 import|;
 end_import
@@ -5317,7 +5333,7 @@ operator|.
 name|Entry
 argument_list|(
 operator|new
-name|WALKey
+name|WALKeyImpl
 argument_list|(
 name|regionName
 argument_list|,
@@ -5768,7 +5784,7 @@ operator|.
 name|Entry
 argument_list|(
 operator|new
-name|WALKey
+name|WALKeyImpl
 argument_list|(
 name|regionName
 argument_list|,
@@ -6639,7 +6655,7 @@ operator|.
 name|Entry
 argument_list|(
 operator|new
-name|WALKey
+name|WALKeyImpl
 argument_list|(
 name|regionName
 argument_list|,
@@ -7356,7 +7372,7 @@ operator|.
 name|Entry
 argument_list|(
 operator|new
-name|WALKey
+name|WALKeyImpl
 argument_list|(
 name|regionName
 argument_list|,
@@ -32572,7 +32588,7 @@ name|any
 argument_list|()
 argument_list|,
 operator|(
-name|WALKey
+name|WALKeyImpl
 operator|)
 name|any
 argument_list|()
@@ -41939,7 +41955,7 @@ name|any
 argument_list|()
 argument_list|,
 operator|(
-name|WALKey
+name|WALKeyImpl
 operator|)
 name|any
 argument_list|()
@@ -42506,7 +42522,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Utility method to setup a WAL mock.    * Needs to do the bit where we close latch on the WALKey on append else test hangs.    * @return    * @throws IOException    */
+comment|/**    * Utility method to setup a WAL mock.    * Needs to do the bit where we close latch on the WALKeyImpl on append else test hangs.    * @return    * @throws IOException    */
 specifier|private
 name|WAL
 name|mockWAL
@@ -42541,7 +42557,7 @@ name|any
 argument_list|()
 argument_list|,
 operator|(
-name|WALKey
+name|WALKeyImpl
 operator|)
 name|Mockito
 operator|.
@@ -42584,7 +42600,7 @@ parameter_list|)
 throws|throws
 name|Throwable
 block|{
-name|WALKey
+name|WALKeyImpl
 name|key
 init|=
 name|invocation
@@ -42871,7 +42887,7 @@ name|any
 argument_list|()
 argument_list|,
 operator|(
-name|WALKey
+name|WALKeyImpl
 operator|)
 name|any
 argument_list|()

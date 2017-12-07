@@ -189,7 +189,7 @@ name|void
 name|logCloseRequested
 parameter_list|()
 block|{}
-comment|/**   * Called before each write.   * @param info   * @param logKey   * @param logEdit   */
+comment|/**   * Called before each write.   */
 specifier|default
 name|void
 name|visitLogEntryBeforeWrite

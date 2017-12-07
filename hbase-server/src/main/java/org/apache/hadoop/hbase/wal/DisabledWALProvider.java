@@ -822,7 +822,7 @@ parameter_list|(
 name|RegionInfo
 name|info
 parameter_list|,
-name|WALKey
+name|WALKeyImpl
 name|key
 parameter_list|,
 name|WALEdit

@@ -897,7 +897,7 @@ name|hbase
 operator|.
 name|wal
 operator|.
-name|WALKey
+name|WALKeyImpl
 import|;
 end_import
 
@@ -2167,7 +2167,7 @@ argument_list|(
 name|hri
 argument_list|,
 operator|new
-name|WALKey
+name|WALKeyImpl
 argument_list|(
 name|hri
 operator|.
@@ -2253,7 +2253,7 @@ argument_list|(
 name|hri
 argument_list|,
 operator|new
-name|WALKey
+name|WALKeyImpl
 argument_list|(
 name|hri
 operator|.
@@ -2373,7 +2373,7 @@ argument_list|(
 name|hri
 argument_list|,
 operator|new
-name|WALKey
+name|WALKeyImpl
 argument_list|(
 name|hri
 operator|.
@@ -3140,11 +3140,11 @@ name|scope
 argument_list|)
 decl_stmt|;
 comment|// 2. Create wal key
-name|WALKey
+name|WALKeyImpl
 name|logKey
 init|=
 operator|new
-name|WALKey
+name|WALKeyImpl
 argument_list|(
 name|scope
 argument_list|)
@@ -3212,11 +3212,11 @@ name|scope
 argument_list|)
 decl_stmt|;
 comment|// 2. Create wal key
-name|WALKey
+name|WALKeyImpl
 name|logKey
 init|=
 operator|new
-name|WALKey
+name|WALKeyImpl
 argument_list|(
 name|scope
 argument_list|)

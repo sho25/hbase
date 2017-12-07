@@ -351,7 +351,7 @@ name|hbase
 operator|.
 name|wal
 operator|.
-name|WALKey
+name|WALKeyImpl
 import|;
 end_import
 
@@ -843,7 +843,7 @@ argument_list|(
 name|hri
 argument_list|,
 operator|new
-name|WALKey
+name|WALKeyImpl
 argument_list|(
 name|hri
 operator|.

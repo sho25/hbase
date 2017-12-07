@@ -19,16 +19,6 @@ end_package
 
 begin_import
 import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -54,13 +44,22 @@ specifier|public
 interface|interface
 name|SequenceId
 block|{
-specifier|public
+comment|/**    * Used to represent when a particular wal key doesn't know/care about the sequence ordering.    */
+name|long
+name|NO_SEQUENCE_ID
+init|=
+operator|-
+literal|1
+decl_stmt|;
+specifier|default
 name|long
 name|getSequenceId
 parameter_list|()
-throws|throws
-name|IOException
-function_decl|;
+block|{
+return|return
+name|NO_SEQUENCE_ID
+return|;
+block|}
 block|}
 end_interface
 

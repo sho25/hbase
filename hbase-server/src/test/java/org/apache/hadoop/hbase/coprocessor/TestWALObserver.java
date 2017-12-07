@@ -627,7 +627,7 @@ name|hbase
 operator|.
 name|wal
 operator|.
-name|WALKey
+name|WALKeyImpl
 import|;
 end_import
 
@@ -1789,7 +1789,7 @@ operator|.
 name|currentTime
 argument_list|()
 decl_stmt|;
-comment|// we use HLogKey here instead of WALKey directly to support legacy coprocessors.
+comment|// we use HLogKey here instead of WALKeyImpl directly to support legacy coprocessors.
 name|long
 name|txid
 init|=
@@ -1800,7 +1800,7 @@ argument_list|(
 name|hri
 argument_list|,
 operator|new
-name|WALKey
+name|WALKeyImpl
 argument_list|(
 name|hri
 operator|.
@@ -2152,7 +2152,7 @@ argument_list|(
 name|hri
 argument_list|,
 operator|new
-name|WALKey
+name|WALKeyImpl
 argument_list|(
 name|hri
 operator|.
@@ -2447,7 +2447,7 @@ argument_list|(
 name|hri
 argument_list|,
 operator|new
-name|WALKey
+name|WALKeyImpl
 argument_list|(
 name|hri
 operator|.
@@ -3350,7 +3350,7 @@ name|columnBytes
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// uses WALKey instead of HLogKey on purpose. will only work for tests where we don't care
+comment|// uses WALKeyImpl instead of HLogKey on purpose. will only work for tests where we don't care
 comment|// about legacy coprocessors
 name|txid
 operator|=
@@ -3361,7 +3361,7 @@ argument_list|(
 name|hri
 argument_list|,
 operator|new
-name|WALKey
+name|WALKeyImpl
 argument_list|(
 name|hri
 operator|.

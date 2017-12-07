@@ -449,7 +449,7 @@ name|hbase
 operator|.
 name|wal
 operator|.
-name|WALKey
+name|WALKeyImpl
 import|;
 end_import
 
@@ -2644,7 +2644,7 @@ operator|new
 name|Entry
 argument_list|(
 operator|new
-name|WALKey
+name|WALKeyImpl
 argument_list|(
 name|encodedRegionName
 argument_list|,

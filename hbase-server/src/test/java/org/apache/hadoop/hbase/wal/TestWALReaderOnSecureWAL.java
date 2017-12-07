@@ -1144,7 +1144,7 @@ argument_list|(
 name|regioninfo
 argument_list|,
 operator|new
-name|WALKey
+name|WALKeyImpl
 argument_list|(
 name|regioninfo
 operator|.

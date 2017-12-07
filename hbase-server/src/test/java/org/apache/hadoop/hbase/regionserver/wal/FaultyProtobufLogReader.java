@@ -95,7 +95,7 @@ name|hbase
 operator|.
 name|wal
 operator|.
-name|WALKey
+name|WALKeyImpl
 import|;
 end_import
 
@@ -186,15 +186,7 @@ name|e
 init|=
 operator|new
 name|Entry
-argument_list|(
-operator|new
-name|WALKey
 argument_list|()
-argument_list|,
-operator|new
-name|WALEdit
-argument_list|()
-argument_list|)
 decl_stmt|;
 if|if
 condition|(

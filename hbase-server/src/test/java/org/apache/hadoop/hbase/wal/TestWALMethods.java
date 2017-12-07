@@ -1229,11 +1229,11 @@ literal|"val"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|WALKey
+name|WALKeyImpl
 name|key
 init|=
 operator|new
-name|WALKey
+name|WALKeyImpl
 argument_list|(
 name|TEST_REGION
 argument_list|,

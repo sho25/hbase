@@ -551,6 +551,22 @@ name|hbase
 operator|.
 name|wal
 operator|.
+name|WALKeyImpl
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|wal
+operator|.
 name|WALPrettyPrinter
 import|;
 end_import
@@ -2004,7 +2020,7 @@ name|RegionInfo
 name|hri
 parameter_list|,
 specifier|final
-name|WALKey
+name|WALKeyImpl
 name|key
 parameter_list|,
 specifier|final
@@ -2064,7 +2080,6 @@ name|takeSyncFuture
 init|=
 literal|null
 decl_stmt|;
-comment|/**      * UPDATE!      * @param syncs the batch of calls to sync that arrived as this thread was starting; when done,      *          we will put the result of the actual hdfs sync call as the result.      * @param sequence The sequence number on the ring buffer when this thread was set running. If      *          this actual writer sync completes then all appends up this point have been      *          flushed/synced/pushed to datanodes. If we fail, then the passed in      *<code>syncs</code> futures will return the exception to their clients; some of the      *          edits may have made it out to data nodes but we will report all that were part of      *          this session as failed.      */
 name|SyncRunner
 parameter_list|(
 specifier|final

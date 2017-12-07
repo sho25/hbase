@@ -2663,6 +2663,22 @@ name|hbase
 operator|.
 name|wal
 operator|.
+name|WALKeyImpl
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|wal
+operator|.
 name|WALSplitter
 import|;
 end_import
@@ -15966,7 +15982,7 @@ name|getOrigLogSeqNum
 parameter_list|()
 block|{
 return|return
-name|WALKey
+name|SequenceId
 operator|.
 name|NO_SEQUENCE_ID
 return|;
@@ -21522,7 +21538,7 @@ name|firstSeqIdInLog
 operator|=
 name|key
 operator|.
-name|getLogSeqNum
+name|getSequenceId
 argument_list|()
 expr_stmt|;
 block|}
@@ -21532,7 +21548,7 @@ name|currentEditSeqId
 operator|>
 name|key
 operator|.
-name|getLogSeqNum
+name|getSequenceId
 argument_list|()
 condition|)
 block|{
@@ -21570,7 +21586,7 @@ name|currentEditSeqId
 operator|=
 name|key
 operator|.
-name|getLogSeqNum
+name|getSequenceId
 argument_list|()
 expr_stmt|;
 block|}
@@ -21852,7 +21868,7 @@ if|if
 condition|(
 name|key
 operator|.
-name|getLogSeqNum
+name|getSequenceId
 argument_list|()
 operator|<=
 name|maxSeqIdInStores
@@ -35749,7 +35765,7 @@ name|nonceGroup
 argument_list|,
 name|nonce
 argument_list|,
-name|WALKey
+name|SequenceId
 operator|.
 name|NO_SEQUENCE_ID
 argument_list|)
@@ -35816,7 +35832,7 @@ argument_list|()
 operator|||
 name|origLogSeqNum
 operator|!=
-name|WALKey
+name|SequenceId
 operator|.
 name|NO_SEQUENCE_ID
 argument_list|,
@@ -35825,8 +35841,8 @@ argument_list|)
 expr_stmt|;
 comment|// Using default cluster id, as this can only happen in the originating cluster.
 comment|// A slave cluster receives the final value (not the delta) as a Put. We use HLogKey
-comment|// here instead of WALKey directly to support legacy coprocessors.
-name|WALKey
+comment|// here instead of WALKeyImpl directly to support legacy coprocessors.
+name|WALKeyImpl
 name|walKey
 init|=
 name|walEdit
@@ -35835,7 +35851,7 @@ name|isReplay
 argument_list|()
 condition|?
 operator|new
-name|WALKey
+name|WALKeyImpl
 argument_list|(
 name|this
 operator|.
@@ -35852,7 +35868,7 @@ operator|.
 name|getTableName
 argument_list|()
 argument_list|,
-name|WALKey
+name|SequenceId
 operator|.
 name|NO_SEQUENCE_ID
 argument_list|,
@@ -35868,7 +35884,7 @@ name|mvcc
 argument_list|)
 else|:
 operator|new
-name|WALKey
+name|WALKeyImpl
 argument_list|(
 name|this
 operator|.
@@ -35885,7 +35901,7 @@ operator|.
 name|getTableName
 argument_list|()
 argument_list|,
-name|WALKey
+name|SequenceId
 operator|.
 name|NO_SEQUENCE_ID
 argument_list|,
