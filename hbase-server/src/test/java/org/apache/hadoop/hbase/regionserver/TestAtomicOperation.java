@@ -4677,6 +4677,10 @@ name|row
 parameter_list|,
 name|boolean
 name|readLock
+parameter_list|,
+specifier|final
+name|RowLock
+name|prevRowlock
 parameter_list|)
 throws|throws
 name|IOException
@@ -4707,6 +4711,8 @@ argument_list|(
 name|row
 argument_list|,
 name|readLock
+argument_list|,
+literal|null
 argument_list|)
 argument_list|)
 return|;

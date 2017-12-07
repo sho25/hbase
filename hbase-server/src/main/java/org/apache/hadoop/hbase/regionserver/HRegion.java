@@ -2820,6 +2820,22 @@ name|DEFAULT_MAX_CELL_SIZE
 init|=
 literal|10485760
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_REGIONSERVER_MINIBATCH_SIZE
+init|=
+literal|"hbase.regionserver.minibatch.size"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_HBASE_REGIONSERVER_MINIBATCH_SIZE
+init|=
+literal|20000
+decl_stmt|;
 comment|/**    * This is the global default value for durability. All tables/mutations not    * defining a durability or using USE_DEFAULT will default to this value.    */
 specifier|private
 specifier|static
@@ -3165,6 +3181,12 @@ comment|// in bytes
 specifier|final
 name|long
 name|maxCellSize
+decl_stmt|;
+comment|// Number of mutations for minibatch processing.
+specifier|private
+specifier|final
+name|int
+name|miniBatchSize
 decl_stmt|;
 comment|// negative number indicates infinite timeout
 specifier|static
@@ -4811,6 +4833,19 @@ argument_list|(
 name|HBASE_MAX_CELL_SIZE_KEY
 argument_list|,
 name|DEFAULT_MAX_CELL_SIZE
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|miniBatchSize
+operator|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+name|HBASE_REGIONSERVER_MINIBATCH_SIZE
+argument_list|,
+name|DEFAULT_HBASE_REGIONSERVER_MINIBATCH_SIZE
 argument_list|)
 expr_stmt|;
 block|}
@@ -15062,6 +15097,11 @@ name|lastIndexExclusive
 init|=
 literal|0
 decl_stmt|;
+name|RowLock
+name|prevRowLock
+init|=
+literal|null
+decl_stmt|;
 for|for
 control|(
 init|;
@@ -15074,6 +15114,25 @@ name|lastIndexExclusive
 operator|++
 control|)
 block|{
+comment|// It reaches the miniBatchSize, stop here and process the miniBatch
+comment|// This only applies to non-atomic batch operations.
+if|if
+condition|(
+operator|!
+name|isAtomic
+argument_list|()
+operator|&&
+operator|(
+name|readyToWriteCount
+operator|==
+name|region
+operator|.
+name|miniBatchSize
+operator|)
+condition|)
+block|{
+break|break;
+block|}
 if|if
 condition|(
 operator|!
@@ -15116,6 +15175,8 @@ argument_list|,
 operator|!
 name|isAtomic
 argument_list|()
+argument_list|,
+name|prevRowLock
 argument_list|)
 expr_stmt|;
 block|}
@@ -15194,6 +15255,15 @@ comment|// Stop acquiring more rows for this batch
 block|}
 else|else
 block|{
+if|if
+condition|(
+name|rowLock
+operator|!=
+name|prevRowLock
+condition|)
+block|{
+comment|// It is a different row now, add this to the acquiredRowLocks and
+comment|// set prevRowLock to the new returned rowLock
 name|acquiredRowLocks
 operator|.
 name|add
@@ -15201,6 +15271,11 @@ argument_list|(
 name|rowLock
 argument_list|)
 expr_stmt|;
+name|prevRowLock
+operator|=
+name|rowLock
+expr_stmt|;
+block|}
 block|}
 name|readyToWriteCount
 operator|++
@@ -17079,6 +17154,8 @@ name|getRow
 argument_list|()
 argument_list|,
 literal|true
+argument_list|,
+literal|null
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -18814,6 +18891,8 @@ name|getRow
 argument_list|()
 argument_list|,
 literal|false
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 try|try
@@ -26337,6 +26416,8 @@ argument_list|(
 name|row
 argument_list|,
 name|readLock
+argument_list|,
+literal|null
 argument_list|)
 return|;
 block|}
@@ -26350,6 +26431,10 @@ name|row
 parameter_list|,
 name|boolean
 name|readLock
+parameter_list|,
+specifier|final
+name|RowLock
+name|prevRowLock
 parameter_list|)
 throws|throws
 name|IOException
@@ -26440,6 +26525,47 @@ condition|(
 name|readLock
 condition|)
 block|{
+comment|// For read lock, if the caller has locked the same row previously, it will not try
+comment|// to acquire the same read lock. It simply returns the previous row lock.
+name|RowLockImpl
+name|prevRowLockImpl
+init|=
+operator|(
+name|RowLockImpl
+operator|)
+name|prevRowLock
+decl_stmt|;
+if|if
+condition|(
+operator|(
+name|prevRowLockImpl
+operator|!=
+literal|null
+operator|)
+operator|&&
+operator|(
+name|prevRowLockImpl
+operator|.
+name|getLock
+argument_list|()
+operator|==
+name|rowLockContext
+operator|.
+name|readWriteLock
+operator|.
+name|readLock
+argument_list|()
+operator|)
+condition|)
+block|{
+name|success
+operator|=
+literal|true
+expr_stmt|;
+return|return
+name|prevRowLock
+return|;
+block|}
 name|result
 operator|=
 name|rowLockContext
@@ -26572,10 +26698,6 @@ argument_list|(
 literal|"Failed to get row lock"
 argument_list|)
 expr_stmt|;
-name|result
-operator|=
-literal|null
-expr_stmt|;
 name|String
 name|message
 init|=
@@ -26683,6 +26805,58 @@ argument_list|()
 expr_stmt|;
 throw|throw
 name|iie
+throw|;
+block|}
+catch|catch
+parameter_list|(
+name|Error
+name|error
+parameter_list|)
+block|{
+comment|// The maximum lock count for read lock is 64K (hardcoded), when this maximum count
+comment|// is reached, it will throw out an Error. This Error needs to be caught so it can
+comment|// go ahead to process the minibatch with lock acquired.
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Error to get row lock for "
+operator|+
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
+name|row
+argument_list|)
+operator|+
+literal|", cause: "
+operator|+
+name|error
+argument_list|)
+expr_stmt|;
+name|IOException
+name|ioe
+init|=
+operator|new
+name|IOException
+argument_list|()
+decl_stmt|;
+name|ioe
+operator|.
+name|initCause
+argument_list|(
+name|error
+argument_list|)
+expr_stmt|;
+name|TraceUtil
+operator|.
+name|addTimelineAnnotation
+argument_list|(
+literal|"Error getting row lock"
+argument_list|)
+expr_stmt|;
+throw|throw
+name|ioe
 throw|;
 block|}
 finally|finally
@@ -33577,6 +33751,11 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|RowLock
+name|prevRowLock
+init|=
+literal|null
+decl_stmt|;
 for|for
 control|(
 name|byte
@@ -33598,9 +33777,18 @@ argument_list|(
 name|row
 argument_list|,
 literal|false
+argument_list|,
+name|prevRowLock
 argument_list|)
 decl_stmt|;
 comment|// write lock
+if|if
+condition|(
+name|rowLock
+operator|!=
+name|prevRowLock
+condition|)
+block|{
 name|acquiredRowLocks
 operator|.
 name|add
@@ -33608,6 +33796,11 @@ argument_list|(
 name|rowLock
 argument_list|)
 expr_stmt|;
+name|prevRowLock
+operator|=
+name|rowLock
+expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
@@ -34075,6 +34268,11 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|RowLock
+name|prevRowLock
+init|=
+literal|null
+decl_stmt|;
 for|for
 control|(
 name|byte
@@ -34086,18 +34284,37 @@ control|)
 block|{
 comment|// Attempt to lock all involved rows, throw if any lock times out
 comment|// use a writer lock for mixed reads and writes
-name|acquiredRowLocks
-operator|.
-name|add
-argument_list|(
+name|RowLock
+name|rowLock
+init|=
 name|getRowLockInternal
 argument_list|(
 name|row
 argument_list|,
 literal|false
+argument_list|,
+name|prevRowLock
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|rowLock
+operator|!=
+name|prevRowLock
+condition|)
+block|{
+name|acquiredRowLocks
+operator|.
+name|add
+argument_list|(
+name|rowLock
 argument_list|)
 expr_stmt|;
+name|prevRowLock
+operator|=
+name|rowLock
+expr_stmt|;
+block|}
 block|}
 comment|// STEP 3. Region lock
 name|lock
@@ -35080,6 +35297,8 @@ name|getRow
 argument_list|()
 argument_list|,
 literal|false
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|lock
@@ -37064,7 +37283,7 @@ name|ClassSize
 operator|.
 name|REFERENCE
 operator|+
-literal|2
+literal|3
 operator|*
 name|Bytes
 operator|.
