@@ -3714,7 +3714,7 @@ literal|"Number of requests: "
 operator|+
 name|status
 operator|.
-name|getRequestsCount
+name|getRequestCount
 argument_list|()
 argument_list|)
 expr_stmt|;

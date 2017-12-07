@@ -1509,7 +1509,7 @@ specifier|public
 name|void
 name|setRequests
 parameter_list|(
-name|int
+name|long
 name|requests
 parameter_list|)
 block|{

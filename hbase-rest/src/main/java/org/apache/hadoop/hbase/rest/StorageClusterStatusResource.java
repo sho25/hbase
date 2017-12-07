@@ -437,7 +437,7 @@ name|setRequests
 argument_list|(
 name|status
 operator|.
-name|getRequestsCount
+name|getRequestCount
 argument_list|()
 argument_list|)
 expr_stmt|;

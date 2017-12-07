@@ -7396,9 +7396,6 @@ name|serverLoad
 operator|.
 name|setTotalNumberOfRequests
 argument_list|(
-operator|(
-name|int
-operator|)
 name|regionServerWrapper
 operator|.
 name|getTotalRequestCount
