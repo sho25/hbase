@@ -4154,7 +4154,7 @@ init|=
 literal|0
 decl_stmt|;
 comment|// Calculate free byte for each bucketSizeinfo
-name|StringBuffer
+name|StringBuilder
 name|msgBuffer
 init|=
 name|LOG
@@ -4163,7 +4163,7 @@ name|isDebugEnabled
 argument_list|()
 condition|?
 operator|new
-name|StringBuffer
+name|StringBuilder
 argument_list|()
 else|:
 literal|null

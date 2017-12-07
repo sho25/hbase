@@ -10803,7 +10803,7 @@ name|boolean
 name|shouldFlush
 parameter_list|(
 specifier|final
-name|StringBuffer
+name|StringBuilder
 name|whyFlush
 parameter_list|)
 block|{
@@ -39244,11 +39244,11 @@ name|String
 name|regionName
 parameter_list|)
 block|{
-name|StringBuffer
+name|StringBuilder
 name|buf
 init|=
 operator|new
-name|StringBuffer
+name|StringBuilder
 argument_list|()
 decl_stmt|;
 name|buf

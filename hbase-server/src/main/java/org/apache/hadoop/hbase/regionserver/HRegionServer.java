@@ -9848,11 +9848,11 @@ name|chore
 parameter_list|()
 block|{
 specifier|final
-name|StringBuffer
+name|StringBuilder
 name|whyFlush
 init|=
 operator|new
-name|StringBuffer
+name|StringBuilder
 argument_list|()
 decl_stmt|;
 for|for
