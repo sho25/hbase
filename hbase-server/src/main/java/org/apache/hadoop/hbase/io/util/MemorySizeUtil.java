@@ -907,7 +907,7 @@ comment|/**    * @param conf used to read cache configs    * @return the number 
 specifier|public
 specifier|static
 name|long
-name|getLruCacheSize
+name|getOnHeapCacheSize
 parameter_list|(
 specifier|final
 name|Configuration

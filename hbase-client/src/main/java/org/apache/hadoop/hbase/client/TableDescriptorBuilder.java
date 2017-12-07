@@ -1091,6 +1091,9 @@ literal|"d"
 argument_list|)
 decl_stmt|;
 comment|/**    * Table descriptor for namespace table    */
+comment|// TODO We used to set CacheDataInL1 for NS table. When we have BucketCache in file mode, now the
+comment|// NS data goes to File mode BC only. Test how that affect the system. If too much, we have to
+comment|// rethink about adding back the setCacheDataInL1 for NS table.
 specifier|public
 specifier|static
 specifier|final
@@ -1138,13 +1141,6 @@ argument_list|(
 name|HConstants
 operator|.
 name|REPLICATION_SCOPE_LOCAL
-argument_list|)
-comment|// Enable cache of data blocks in L1 if more than one caching tier deployed:
-comment|// e.g. if using CombinedBlockCache (BucketCache).
-operator|.
-name|setCacheDataInL1
-argument_list|(
-literal|true
 argument_list|)
 operator|.
 name|build

@@ -25,20 +25,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HBaseInterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|yetus
 operator|.
 name|audience
@@ -51,19 +37,12 @@ begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|LimitedPrivate
-argument_list|(
-name|HBaseInterfaceAudience
-operator|.
-name|CONFIG
-argument_list|)
+name|Private
 specifier|public
 class|class
 name|InclusiveCombinedBlockCache
 extends|extends
 name|CombinedBlockCache
-implements|implements
-name|BlockCache
 block|{
 specifier|public
 name|InclusiveCombinedBlockCache
@@ -79,6 +58,13 @@ name|super
 argument_list|(
 name|l1
 argument_list|,
+name|l2
+argument_list|)
+expr_stmt|;
+name|l1
+operator|.
+name|setVictimCache
+argument_list|(
 name|l2
 argument_list|)
 expr_stmt|;
@@ -106,7 +92,7 @@ comment|// On all external cache set ups the lru should have the l2 cache set as
 comment|// Because of that all requests that miss inside of the lru block cache will be
 comment|// tried in the l2 block cache.
 return|return
-name|lruCache
+name|onHeapCache
 operator|.
 name|getBlock
 argument_list|(
@@ -120,7 +106,7 @@ name|updateCacheMetrics
 argument_list|)
 return|;
 block|}
-comment|/**    *    * @param cacheKey The block's cache key.    * @param buf The block contents wrapped in a ByteBuffer.    * @param inMemory Whether block should be treated as in-memory. This parameter is only useful for    *                 the L1 lru cache.    * @param cacheDataInL1 This is totally ignored.    */
+comment|/**    *    * @param cacheKey The block's cache key.    * @param buf The block contents wrapped in a ByteBuffer.    * @param inMemory Whether block should be treated as in-memory. This parameter is only useful for    *                 the L1 lru cache.    */
 annotation|@
 name|Override
 specifier|public
@@ -135,15 +121,11 @@ name|buf
 parameter_list|,
 name|boolean
 name|inMemory
-parameter_list|,
-specifier|final
-name|boolean
-name|cacheDataInL1
 parameter_list|)
 block|{
 comment|// This is the inclusive part of the combined block cache.
 comment|// Every block is placed into both block caches.
-name|lruCache
+name|onHeapCache
 operator|.
 name|cacheBlock
 argument_list|(
@@ -152,8 +134,6 @@ argument_list|,
 name|buf
 argument_list|,
 name|inMemory
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 comment|// This assumes that insertion into the L2 block cache is either async or very fast.
@@ -166,10 +146,48 @@ argument_list|,
 name|buf
 argument_list|,
 name|inMemory
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|evictBlock
+parameter_list|(
+name|BlockCacheKey
+name|cacheKey
+parameter_list|)
+block|{
+name|boolean
+name|l1Result
+init|=
+name|this
+operator|.
+name|onHeapCache
+operator|.
+name|evictBlock
+argument_list|(
+name|cacheKey
+argument_list|)
+decl_stmt|;
+name|boolean
+name|l2Result
+init|=
+name|this
+operator|.
+name|l2Cache
+operator|.
+name|evictBlock
+argument_list|(
+name|cacheKey
+argument_list|)
+decl_stmt|;
+return|return
+name|l1Result
+operator|||
+name|l2Result
+return|;
 block|}
 block|}
 end_class
