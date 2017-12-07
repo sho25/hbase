@@ -37,11 +37,29 @@ name|MasterProtos
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * A KeepAlive connection is not physically closed immediately after the close,  *  but rather kept alive for a few minutes. It makes sense only if it is shared.  *  *<p>This interface is implemented on a stub. It allows to have a #close function in a master  * client.  *  *<p>This class is intended to be used internally by HBase classes that need to make invocations  * against the master on the MasterProtos.MasterService.BlockingInterface; but not by  * final user code. Hence it's package protected.  */
 end_comment
 
 begin_interface
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 interface|interface
 name|MasterKeepAliveConnection
 extends|extends

@@ -131,11 +131,29 @@ name|Bytes
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * A RetryingCallable for Master RPC operations.  * Implement the #rpcCall method. It will be retried on error. See its javadoc and the javadoc of  * #call(int). See {@link HBaseAdmin} for examples of how this is used. To get at the  * rpcController that has been created and configured to make this rpc call, use getRpcController().  * We are trying to contain all protobuf references including references to rpcController so we  * don't pollute codebase with protobuf references; keep the protobuf references contained and only  * present in a few classes rather than all about the code base.  *<p>Like {@link RegionServerCallable} only in here, we can safely be PayloadCarryingRpcController  * all the time. This is not possible in the similar {@link RegionServerCallable} Callable because  * it has to deal with Coprocessor Endpoints.  * @param<V> return type  */
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|abstract
 class|class
 name|MasterCallable
