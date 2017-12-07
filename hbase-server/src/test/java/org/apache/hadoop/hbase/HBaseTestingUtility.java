@@ -15157,6 +15157,21 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Waiting until all regions of table "
+operator|+
+name|tableName
+operator|+
+literal|" get assigned. Timeout = "
+operator|+
+name|timeout
+operator|+
+literal|"ms"
+argument_list|)
+expr_stmt|;
 name|waitFor
 argument_list|(
 name|timeout
@@ -15197,11 +15212,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|boolean
-name|allRegionsAssigned
-init|=
-literal|true
-decl_stmt|;
 name|Scan
 name|scan
 init|=
@@ -15425,7 +15435,7 @@ argument_list|()
 expr_stmt|;
 block|}
 return|return
-name|allRegionsAssigned
+literal|true
 return|;
 block|}
 block|}
@@ -15440,6 +15450,17 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"All regions for table "
+operator|+
+name|tableName
+operator|+
+literal|" assigned to meta. Checking AM states."
+argument_list|)
+expr_stmt|;
 comment|// check from the master state if we are using a mini cluster
 if|if
 condition|(
@@ -15452,7 +15473,7 @@ argument_list|()
 condition|)
 block|{
 comment|// So, all regions are in the meta table but make sure master knows of the assignments before
-comment|// returing -- sometimes this can lag.
+comment|// returning -- sometimes this can lag.
 name|HMaster
 name|master
 init|=
@@ -15541,6 +15562,17 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"All regions for table "
+operator|+
+name|tableName
+operator|+
+literal|" assigned."
+argument_list|)
+expr_stmt|;
 block|}
 end_function
 
