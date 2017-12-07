@@ -13491,22 +13491,6 @@ argument_list|(
 name|options
 argument_list|)
 decl_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-name|getClientIdAuditPrefix
-argument_list|()
-operator|+
-literal|" get ClusterStatus, status="
-operator|+
-name|status
-operator|+
-literal|", options="
-operator|+
-name|options
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 name|cpHost
