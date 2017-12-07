@@ -67,6 +67,22 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|ByteBufferUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -76,7 +92,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Extension to {@link Cell} with server side required functions. Server side Cell implementations  * must implement this.  * @see SettableSequenceId  * @see SettableTimestamp  */
+comment|/**  * Extension to {@link Cell} with server side required functions. Server side Cell implementations  * must implement this.  */
 end_comment
 
 begin_interface
@@ -90,16 +106,10 @@ name|ExtendedCell
 extends|extends
 name|RawCell
 extends|,
-name|SettableSequenceId
-extends|,
-name|SettableTimestamp
-extends|,
 name|HeapSize
 extends|,
 name|Cloneable
 block|{
-specifier|public
-specifier|static
 name|int
 name|CELL_NOT_BASED_ON_CHUNK
 init|=
@@ -108,6 +118,7 @@ literal|1
 decl_stmt|;
 comment|/**    * Write this cell to an OutputStream in a {@link KeyValue} format.    *<br> KeyValue format<br>    *<code>&lt;4 bytes keylength&gt;&lt;4 bytes valuelength&gt;&lt;2 bytes rowlength&gt;    *&lt;row&gt;&lt;1 byte columnfamilylength&gt;&lt;columnfamily&gt;&lt;columnqualifier&gt;    *&lt;8 bytes timestamp&gt;&lt;1 byte keytype&gt;&lt;value&gt;&lt;2 bytes tagslength&gt;    *&lt;tags&gt;</code>    * @param out Stream to which cell has to be written    * @param withTags Whether to write tags.    * @return how many bytes are written.    * @throws IOException    */
 comment|// TODO remove the boolean param once HBASE-16706 is done.
+specifier|default
 name|int
 name|write
 parameter_list|(
@@ -119,17 +130,156 @@ name|withTags
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+comment|// Key length and then value length
+name|ByteBufferUtils
+operator|.
+name|putInt
+argument_list|(
+name|out
+argument_list|,
+name|KeyValueUtil
+operator|.
+name|keyLength
+argument_list|(
+name|this
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|ByteBufferUtils
+operator|.
+name|putInt
+argument_list|(
+name|out
+argument_list|,
+name|getValueLength
+argument_list|()
+argument_list|)
+expr_stmt|;
+comment|// Key
+name|PrivateCellUtil
+operator|.
+name|writeFlatKey
+argument_list|(
+name|this
+argument_list|,
+name|out
+argument_list|)
+expr_stmt|;
+comment|// Value
+name|out
+operator|.
+name|write
+argument_list|(
+name|getValueArray
+argument_list|()
+argument_list|)
+expr_stmt|;
+comment|// Tags length and tags byte array
+if|if
+condition|(
+name|withTags
+operator|&&
+name|getTagsLength
+argument_list|()
+operator|>
+literal|0
+condition|)
+block|{
+comment|// Tags length
+name|out
+operator|.
+name|write
+argument_list|(
+call|(
+name|byte
+call|)
+argument_list|(
+literal|0xff
+operator|&
+operator|(
+name|getTagsLength
+argument_list|()
+operator|>>
+literal|8
+operator|)
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|write
+argument_list|(
+call|(
+name|byte
+call|)
+argument_list|(
+literal|0xff
+operator|&
+name|getTagsLength
+argument_list|()
+argument_list|)
+argument_list|)
+expr_stmt|;
+comment|// Tags byte array
+name|out
+operator|.
+name|write
+argument_list|(
+name|getTagsArray
+argument_list|()
+argument_list|,
+name|getTagsOffset
+argument_list|()
+argument_list|,
+name|getTagsLength
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+name|getSerializedSize
+argument_list|(
+name|withTags
+argument_list|)
+return|;
+block|}
 comment|/**    * @param withTags Whether to write tags.    * @return Bytes count required to serialize this Cell in a {@link KeyValue} format.    *<br> KeyValue format<br>    *<code>&lt;4 bytes keylength&gt;&lt;4 bytes valuelength&gt;&lt;2 bytes rowlength&gt;    *&lt;row&gt;&lt;1 byte columnfamilylength&gt;&lt;columnfamily&gt;&lt;columnqualifier&gt;    *&lt;8 bytes timestamp&gt;&lt;1 byte keytype&gt;&lt;value&gt;&lt;2 bytes tagslength&gt;    *&lt;tags&gt;</code>    */
 comment|// TODO remove the boolean param once HBASE-16706 is done.
+specifier|default
 name|int
 name|getSerializedSize
 parameter_list|(
 name|boolean
 name|withTags
 parameter_list|)
-function_decl|;
+block|{
+return|return
+name|KeyValueUtil
+operator|.
+name|length
+argument_list|(
+name|getRowLength
+argument_list|()
+argument_list|,
+name|getFamilyLength
+argument_list|()
+argument_list|,
+name|getQualifierLength
+argument_list|()
+argument_list|,
+name|getValueLength
+argument_list|()
+argument_list|,
+name|getTagsLength
+argument_list|()
+argument_list|,
+name|withTags
+argument_list|)
+return|;
+block|}
 comment|/**    * Write this Cell into the given buf's offset in a {@link KeyValue} format.    * @param buf The buffer where to write the Cell.    * @param offset The offset within buffer, to write the Cell.    */
+specifier|default
 name|void
 name|write
 parameter_list|(
@@ -139,12 +289,36 @@ parameter_list|,
 name|int
 name|offset
 parameter_list|)
-function_decl|;
+block|{
+name|KeyValueUtil
+operator|.
+name|appendTo
+argument_list|(
+name|this
+argument_list|,
+name|buf
+argument_list|,
+name|offset
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Does a deep copy of the contents to a new memory area and returns it as a new cell.    * @return The deep cloned cell    */
+specifier|default
 name|ExtendedCell
 name|deepClone
 parameter_list|()
-function_decl|;
+block|{
+comment|// When being added to the memstore, deepClone() is called and KeyValue has less heap overhead.
+return|return
+operator|new
+name|KeyValue
+argument_list|(
+name|this
+argument_list|)
+return|;
+block|}
 comment|/**    * Extracts the id of the backing bytebuffer of this cell if it was obtained from fixed sized    * chunks as in case of MemstoreLAB    * @return the chunk id if the cell is backed by fixed sized Chunks, else return -1    */
 specifier|default
 name|int
@@ -155,6 +329,37 @@ return|return
 name|CELL_NOT_BASED_ON_CHUNK
 return|;
 block|}
+comment|/**    * Sets with the given seqId.    * @param seqId sequence ID    */
+name|void
+name|setSequenceId
+parameter_list|(
+name|long
+name|seqId
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Sets with the given timestamp.    * @param ts timestamp    */
+name|void
+name|setTimestamp
+parameter_list|(
+name|long
+name|ts
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Sets with the given timestamp.    * @param ts buffer containing the timestamp value    */
+name|void
+name|setTimestamp
+parameter_list|(
+name|byte
+index|[]
+name|ts
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 block|}
 end_interface
 

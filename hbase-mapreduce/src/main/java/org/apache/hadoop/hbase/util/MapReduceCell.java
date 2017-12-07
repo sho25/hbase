@@ -939,9 +939,6 @@ parameter_list|(
 name|byte
 index|[]
 name|ts
-parameter_list|,
-name|int
-name|tsOffset
 parameter_list|)
 throws|throws
 name|IOException
@@ -953,8 +950,6 @@ argument_list|(
 name|cell
 argument_list|,
 name|ts
-argument_list|,
-name|tsOffset
 argument_list|)
 expr_stmt|;
 block|}

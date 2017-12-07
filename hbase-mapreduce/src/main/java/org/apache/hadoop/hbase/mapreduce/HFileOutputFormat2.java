@@ -2356,7 +2356,6 @@ expr_stmt|;
 block|}
 block|}
 comment|// we now have the proper WAL writer. full steam ahead
-comment|// TODO : Currently in SettableTimeStamp but this will also move to ExtendedCell
 name|PrivateCellUtil
 operator|.
 name|updateLatestStamp

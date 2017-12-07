@@ -16,6 +16,42 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertArrayEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -130,42 +166,6 @@ operator|.
 name|categories
 operator|.
 name|Category
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertArrayEquals
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertEquals
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertTrue
 import|;
 end_import
 
@@ -1075,35 +1075,19 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Verify if SettableSequenceId interface is implemented
+comment|// Verify if ExtendedCell interface is implemented
 annotation|@
 name|Test
 specifier|public
 name|void
-name|testIfSettableSequenceIdImplemented
+name|testIfExtendedCellImplemented
 parameter_list|()
 block|{
 name|assertTrue
 argument_list|(
 name|ic0
 operator|instanceof
-name|SettableSequenceId
-argument_list|)
-expr_stmt|;
-block|}
-comment|// Verify if SettableTimestamp interface is implemented
-annotation|@
-name|Test
-specifier|public
-name|void
-name|testIfSettableTimestampImplemented
-parameter_list|()
-block|{
-name|assertTrue
-argument_list|(
-name|ic0
-operator|instanceof
-name|SettableTimestamp
+name|ExtendedCell
 argument_list|)
 expr_stmt|;
 block|}

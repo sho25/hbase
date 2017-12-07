@@ -13942,8 +13942,6 @@ argument_list|(
 name|cell
 argument_list|,
 name|byteNow
-argument_list|,
-literal|0
 argument_list|)
 expr_stmt|;
 block|}
@@ -14000,8 +13998,6 @@ argument_list|(
 name|cell
 argument_list|,
 name|byteNow
-argument_list|,
-literal|0
 argument_list|)
 expr_stmt|;
 return|return;
@@ -19731,8 +19727,6 @@ name|i
 argument_list|)
 argument_list|,
 name|now
-argument_list|,
-literal|0
 argument_list|)
 expr_stmt|;
 block|}

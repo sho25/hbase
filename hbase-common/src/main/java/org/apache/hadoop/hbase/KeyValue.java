@@ -6137,9 +6137,6 @@ parameter_list|(
 name|byte
 index|[]
 name|ts
-parameter_list|,
-name|int
-name|tsOffset
 parameter_list|)
 block|{
 name|Bytes
@@ -6157,7 +6154,7 @@ argument_list|()
 argument_list|,
 name|ts
 argument_list|,
-name|tsOffset
+literal|0
 argument_list|,
 name|Bytes
 operator|.

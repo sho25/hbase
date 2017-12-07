@@ -233,30 +233,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|shaded
-operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|annotations
-operator|.
-name|VisibleForTesting
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|util
 operator|.
 name|ByteBufferUtils
@@ -322,6 +298,30 @@ operator|.
 name|InterfaceAudience
 operator|.
 name|Private
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
 import|;
 end_import
 
@@ -2458,7 +2458,7 @@ name|EMPTY_BYTE_ARRAY
 argument_list|)
 return|;
 block|}
-comment|/**    * Note : Now only CPs can create cell with tags using the CP environment    * @return A new cell which is having the extra tags also added to it.    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    *             Use CP environment to build Cell using {@link ExtendedCellBuilder}    *            */
+comment|/**    * Note : Now only CPs can create cell with tags using the CP environment    * @return A new cell which is having the extra tags also added to it.    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    *             Use CP environment to build Cell using {@link ExtendedCellBuilder}    *    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -4445,7 +4445,7 @@ name|getCode
 argument_list|()
 return|;
 block|}
-comment|/**    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.     */
+comment|/**    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -4472,7 +4472,7 @@ name|getCode
 argument_list|()
 return|;
 block|}
-comment|/**    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.     */
+comment|/**    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -4499,7 +4499,7 @@ name|getCode
 argument_list|()
 return|;
 block|}
-comment|/**    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.     */
+comment|/**    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -4526,7 +4526,7 @@ name|getCode
 argument_list|()
 return|;
 block|}
-comment|/**    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.     */
+comment|/**    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -4953,7 +4953,7 @@ name|end2
 argument_list|)
 return|;
 block|}
-comment|/**    * Sets the given seqId to the cell.    * Marked as audience Private as of 1.2.0.    * Setting a Cell sequenceid is an internal implementation detail not for general public use.    * @param cell    * @param seqId    * @throws IOException when the passed cell is not of type {@link SettableSequenceId}    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    */
+comment|/**    * Sets the given seqId to the cell.    * Marked as audience Private as of 1.2.0.    * Setting a Cell sequenceid is an internal implementation detail not for general public use.    * @param cell    * @param seqId    * @throws IOException when the passed cell is not of type {@link ExtendedCell}    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -4980,7 +4980,7 @@ name|seqId
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Sets the given timestamp to the cell.    * @param cell    * @param ts    * @throws IOException when the passed cell is not of type {@link SettableTimestamp}    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    */
+comment|/**    * Sets the given timestamp to the cell.    * @param cell    * @param ts    * @throws IOException when the passed cell is not of type {@link ExtendedCell}    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -5007,7 +5007,7 @@ name|ts
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Sets the given timestamp to the cell.    * @param cell    * @param ts buffer containing the timestamp value    * @param tsOffset offset to the new timestamp    * @throws IOException when the passed cell is not of type {@link SettableTimestamp}    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    */
+comment|/**    * Sets the given timestamp to the cell.    * @param cell    * @param ts buffer containing the timestamp value    * @param tsOffset offset to the new timestamp    * @throws IOException when the passed cell is not of type {@link ExtendedCell}    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -5034,13 +5034,18 @@ name|setTimestamp
 argument_list|(
 name|cell
 argument_list|,
+name|Bytes
+operator|.
+name|toLong
+argument_list|(
 name|ts
 argument_list|,
 name|tsOffset
 argument_list|)
+argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Sets the given timestamp to the cell iff current timestamp is    * {@link HConstants#LATEST_TIMESTAMP}.    * @param cell    * @param ts    * @return True if cell timestamp is modified.    * @throws IOException when the passed cell is not of type {@link SettableTimestamp}    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    */
+comment|/**    * Sets the given timestamp to the cell iff current timestamp is    * {@link HConstants#LATEST_TIMESTAMP}.    * @param cell    * @param ts    * @return True if cell timestamp is modified.    * @throws IOException when the passed cell is not of type {@link ExtendedCell}    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -5068,7 +5073,7 @@ name|ts
 argument_list|)
 return|;
 block|}
-comment|/**    * Sets the given timestamp to the cell iff current timestamp is    * {@link HConstants#LATEST_TIMESTAMP}.    * @param cell    * @param ts buffer containing the timestamp value    * @param tsOffset offset to the new timestamp    * @return True if cell timestamp is modified.    * @throws IOException when the passed cell is not of type {@link SettableTimestamp}    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    */
+comment|/**    * Sets the given timestamp to the cell iff current timestamp is    * {@link HConstants#LATEST_TIMESTAMP}.    * @param cell    * @param ts buffer containing the timestamp value    * @param tsOffset offset to the new timestamp    * @return True if cell timestamp is modified.    * @throws IOException when the passed cell is not of type {@link ExtendedCell}    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -5096,9 +5101,14 @@ name|updateLatestStamp
 argument_list|(
 name|cell
 argument_list|,
+name|Bytes
+operator|.
+name|toLong
+argument_list|(
 name|ts
 argument_list|,
 name|tsOffset
+argument_list|)
 argument_list|)
 return|;
 block|}

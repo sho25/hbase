@@ -163,20 +163,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|PrivateCellUtil
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|KeyValue
 import|;
 end_import
@@ -217,11 +203,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|PrivateCellUtil
 import|;
 end_import
 
@@ -368,6 +354,20 @@ operator|.
 name|io
 operator|.
 name|WritableUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -1717,7 +1717,7 @@ block|}
 block|}
 comment|/**    * Copies only the key part of the keybuffer by doing a deep copy and passes the    * seeker state members for taking a clone.    * Note that the value byte[] part is still pointing to the currentBuffer and    * represented by the valueOffset and valueLength    */
 comment|// We return this as a Cell to the upper layers of read flow and might try setting a new SeqId
-comment|// there. So this has to be an instance of SettableSequenceId.
+comment|// there. So this has to be an instance of ExtendedCell.
 specifier|protected
 specifier|static
 class|class
@@ -2494,9 +2494,6 @@ parameter_list|(
 name|byte
 index|[]
 name|ts
-parameter_list|,
-name|int
-name|tsOffset
 parameter_list|)
 throws|throws
 name|IOException
@@ -3418,9 +3415,6 @@ parameter_list|(
 name|byte
 index|[]
 name|ts
-parameter_list|,
-name|int
-name|tsOffset
 parameter_list|)
 throws|throws
 name|IOException
