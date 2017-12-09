@@ -385,10 +385,15 @@ name|InterfaceAudience
 operator|.
 name|Private
 specifier|public
+specifier|final
 class|class
 name|ThriftUtilities
 block|{
-comment|/**    * This utility method creates a new Hbase HColumnDescriptor object based on a    * Thrift ColumnDescriptor "struct".    *    * @param in    *          Thrift ColumnDescriptor object    * @return HColumnDescriptor    * @throws IllegalArgument    */
+specifier|private
+name|ThriftUtilities
+parameter_list|()
+block|{   }
+comment|/**    * This utility method creates a new Hbase HColumnDescriptor object based on a    * Thrift ColumnDescriptor "struct".    *    * @param in Thrift ColumnDescriptor object    * @return HColumnDescriptor    * @throws IllegalArgument if the column name is empty    */
 specifier|static
 specifier|public
 name|HColumnDescriptor
@@ -1156,9 +1161,11 @@ name|length
 operator|!=
 literal|2
 condition|)
+block|{
 return|return
 literal|null
 return|;
+block|}
 name|inc
 operator|.
 name|addColumn

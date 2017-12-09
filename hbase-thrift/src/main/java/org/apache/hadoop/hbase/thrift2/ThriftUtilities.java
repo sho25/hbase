@@ -847,6 +847,7 @@ name|InterfaceAudience
 operator|.
 name|Private
 specifier|public
+specifier|final
 class|class
 name|ThriftUtilities
 block|{
@@ -1973,6 +1974,14 @@ argument_list|)
 throw|;
 block|}
 break|break;
+default|default:
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"DeleteType is required for TDelete"
+argument_list|)
+throw|;
 block|}
 block|}
 else|else
@@ -2491,6 +2500,7 @@ operator|.
 name|isSetStartRow
 argument_list|()
 condition|)
+block|{
 name|out
 operator|.
 name|setStartRow
@@ -2501,6 +2511,7 @@ name|getStartRow
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|in
@@ -2508,6 +2519,7 @@ operator|.
 name|isSetStopRow
 argument_list|()
 condition|)
+block|{
 name|out
 operator|.
 name|setStopRow
@@ -2518,6 +2530,7 @@ name|getStopRow
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|in
@@ -2525,6 +2538,7 @@ operator|.
 name|isSetCaching
 argument_list|()
 condition|)
+block|{
 name|out
 operator|.
 name|setCaching
@@ -2535,6 +2549,7 @@ name|getCaching
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|in

@@ -939,7 +939,7 @@ name|valueEname
 init|=
 name|asByteBuffer
 argument_list|(
-literal|100l
+literal|100L
 argument_list|)
 decl_stmt|;
 annotation|@
@@ -1022,7 +1022,7 @@ name|shutdownMiniCluster
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Runs all of the tests under a single JUnit test method.  We    * consolidate all testing to one method because HBaseClusterTestCase    * is prone to OutOfMemoryExceptions when there are three or more    * JUnit test methods.    *    * @throws Exception    */
+comment|/**    * Runs all of the tests under a single JUnit test method.  We    * consolidate all testing to one method because HBaseClusterTestCase    * is prone to OutOfMemoryExceptions when there are three or more    * JUnit test methods.    */
 annotation|@
 name|Test
 specifier|public
@@ -1067,7 +1067,7 @@ name|doTestCheckAndPut
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Tests for creating, enabling, disabling, and deleting tables.  Also    * tests that creating a table with an invalid column name yields an    * IllegalArgument exception.    *    * @throws Exception    */
+comment|/**    * Tests for creating, enabling, disabling, and deleting tables.  Also    * tests that creating a table with an invalid column name yields an    * IllegalArgument exception.    */
 specifier|public
 name|void
 name|doTestTableCreateDrop
@@ -1194,7 +1194,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**    * TODO: These counts are supposed to be zero but sometimes they are not, they are equal to the    * passed in maybe.  Investigate why.  My guess is they are set by the test that runs just    * previous to this one.  Sometimes they are cleared.  Sometimes not.    * @param name    * @param maybe    * @param metrics    * @return    */
+comment|/**    * TODO: These counts are supposed to be zero but sometimes they are not, they are equal to the    * passed in maybe.  Investigate why.  My guess is they are set by the test that runs just    * previous to this one.  Sometimes they are cleared.  Sometimes not.    */
 specifier|private
 name|int
 name|getCurrentCount
@@ -2034,6 +2034,7 @@ argument_list|()
 operator|!=
 literal|0
 condition|)
+block|{
 name|Threads
 operator|.
 name|sleep
@@ -2041,6 +2042,7 @@ argument_list|(
 literal|10
 argument_list|)
 expr_stmt|;
+block|}
 name|assertEquals
 argument_list|(
 operator|(
@@ -2111,7 +2113,7 @@ literal|0
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Tests adding a series of Mutations and BatchMutations, including a    * delete mutation.  Also tests data retrieval, and getting back multiple    * versions.    *    * @throws Exception    */
+comment|/**    * Tests adding a series of Mutations and BatchMutations, including a    * delete mutation.  Also tests data retrieval, and getting back multiple    * versions.    */
 specifier|public
 name|void
 name|doTestTableMutations
@@ -2629,7 +2631,7 @@ name|tableAname
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Similar to testTableMutations(), except Mutations are applied with    * specific timestamps and data retrieval uses these timestamps to    * extract specific versions of data.    *    * @throws Exception    */
+comment|/**    * Similar to testTableMutations(), except Mutations are applied with    * specific timestamps and data retrieval uses these timestamps to    * extract specific versions of data.    */
 specifier|public
 name|void
 name|doTestTableTimestampsAndColumns
@@ -3165,7 +3167,7 @@ name|tableAname
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Tests the four different scanner-opening methods (with and without    * a stoprow, with and without a timestamp).    *    * @throws Exception    */
+comment|/**    * Tests the four different scanner-opening methods (with and without    * a stoprow, with and without a timestamp).    */
 specifier|public
 name|void
 name|doTestTableScanners
@@ -4062,7 +4064,7 @@ name|tableAname
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * For HBASE-2556    * Tests for GetTableRegions    *    * @throws Exception    */
+comment|/**    * For HBASE-2556    * Tests for GetTableRegions    */
 specifier|public
 name|void
 name|doTestGetTableRegions
@@ -4462,7 +4464,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Appends the value to a cell and checks that the cell value is updated properly.    *    * @throws Exception    */
+comment|/**    * Appends the value to a cell and checks that the cell value is updated properly.    */
 specifier|public
 specifier|static
 name|void
@@ -4693,7 +4695,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Check that checkAndPut fails if the cell does not exist, then put in the cell, then check that    * the checkAndPut succeeds.    *    * @throws Exception    */
+comment|/**    * Check that checkAndPut fails if the cell does not exist, then put in the cell, then check that    * the checkAndPut succeeds.    */
 specifier|public
 specifier|static
 name|void
@@ -5476,7 +5478,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    *    * @return a List of ColumnDescriptors for use in creating a table.  Has one    * default ColumnDescriptor and one ColumnDescriptor with fewer versions    */
+comment|/**    * @return a List of ColumnDescriptors for use in creating a table.  Has one    *         default ColumnDescriptor and one ColumnDescriptor with fewer versions    */
 specifier|private
 specifier|static
 name|List
@@ -5588,6 +5590,7 @@ if|if
 condition|(
 name|includeA
 condition|)
+block|{
 name|columnList
 operator|.
 name|add
@@ -5595,10 +5598,12 @@ argument_list|(
 name|columnAname
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|includeB
 condition|)
+block|{
 name|columnList
 operator|.
 name|add
@@ -5606,11 +5611,12 @@ argument_list|(
 name|columnBname
 argument_list|)
 expr_stmt|;
+block|}
 return|return
 name|columnList
 return|;
 block|}
-comment|/**    *    * @return a List of Mutations for a row, with columnA having valueA    * and columnB having valueB    */
+comment|/**    * @return a List of Mutations for a row, with columnA having valueA    *         and columnB having valueB    */
 specifier|private
 specifier|static
 name|List
@@ -5671,7 +5677,7 @@ return|return
 name|mutations
 return|;
 block|}
-comment|/**    *    * @return a List of BatchMutations with the following effects:    * (rowA, columnA): delete    * (rowA, columnB): place valueC    * (rowB, columnA): place valueC    * (rowB, columnB): place valueD    */
+comment|/**    * @return a List of BatchMutations with the following effects:    *         (rowA, columnA): delete    *         (rowA, columnB): place valueC    *         (rowB, columnA): place valueC    *         (rowB, columnB): place valueD    */
 specifier|private
 specifier|static
 name|List
@@ -5842,7 +5848,7 @@ return|return
 name|batchMutations
 return|;
 block|}
-comment|/**    * Asserts that the passed scanner is exhausted, and then closes    * the scanner.    *    * @param scannerId the scanner to close    * @param handler the HBaseHandler interfacing to HBase    * @throws Exception    */
+comment|/**    * Asserts that the passed scanner is exhausted, and then closes    * the scanner.    *    * @param scannerId the scanner to close    * @param handler the HBaseHandler interfacing to HBase    */
 specifier|private
 name|void
 name|closeScanner

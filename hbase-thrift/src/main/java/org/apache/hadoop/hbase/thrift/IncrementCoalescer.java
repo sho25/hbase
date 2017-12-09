@@ -593,18 +593,22 @@ name|this
 operator|==
 name|obj
 condition|)
+block|{
 return|return
 literal|true
 return|;
+block|}
 if|if
 condition|(
 name|obj
 operator|==
 literal|null
 condition|)
+block|{
 return|return
 literal|false
 return|;
+block|}
 if|if
 condition|(
 name|getClass
@@ -615,9 +619,11 @@ operator|.
 name|getClass
 argument_list|()
 condition|)
+block|{
 return|return
 literal|false
 return|;
+block|}
 name|FullyQualifiedRow
 name|other
 init|=
@@ -640,9 +646,11 @@ operator|.
 name|family
 argument_list|)
 condition|)
+block|{
 return|return
 literal|false
 return|;
+block|}
 if|if
 condition|(
 operator|!
@@ -657,9 +665,11 @@ operator|.
 name|qualifier
 argument_list|)
 condition|)
+block|{
 return|return
 literal|false
 return|;
+block|}
 if|if
 condition|(
 operator|!
@@ -674,9 +684,11 @@ operator|.
 name|rowKey
 argument_list|)
 condition|)
+block|{
 return|return
 literal|false
 return|;
+block|}
 if|if
 condition|(
 operator|!
@@ -691,9 +703,11 @@ operator|.
 name|table
 argument_list|)
 condition|)
+block|{
 return|return
 literal|false
 return|;
+block|}
 return|return
 literal|true
 return|;
@@ -814,6 +828,7 @@ operator|.
 name|isDaemon
 argument_list|()
 condition|)
+block|{
 name|t
 operator|.
 name|setDaemon
@@ -821,6 +836,7 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|t
@@ -832,6 +848,7 @@ name|Thread
 operator|.
 name|NORM_PRIORITY
 condition|)
+block|{
 name|t
 operator|.
 name|setPriority
@@ -841,6 +858,7 @@ operator|.
 name|NORM_PRIORITY
 argument_list|)
 expr_stmt|;
+block|}
 return|return
 name|t
 return|;
@@ -1112,9 +1130,11 @@ name|length
 operator|!=
 literal|2
 condition|)
+block|{
 return|return
 literal|false
 return|;
+block|}
 return|return
 name|internalQueueIncrement
 argument_list|(
@@ -1557,7 +1577,7 @@ block|}
 block|}
 return|;
 block|}
-comment|/**    * This method samples the incoming requests and, if selected, will check if    * the corePoolSize should be changed.    * @param countersMapSize    */
+comment|/**    * This method samples the incoming requests and, if selected, will check if    * the corePoolSize should be changed.    * @param countersMapSize the size of the counters map    */
 specifier|private
 name|void
 name|dynamicallySetCoreSize
@@ -1594,8 +1614,6 @@ name|maxQueueSize
 decl_stmt|;
 name|int
 name|newValue
-init|=
-literal|1
 decl_stmt|;
 if|if
 condition|(
@@ -1604,7 +1622,10 @@ operator|<
 literal|0.1
 condition|)
 block|{
-comment|// it's 1
+name|newValue
+operator|=
+literal|1
+expr_stmt|;
 block|}
 elseif|else
 if|if

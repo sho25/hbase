@@ -449,7 +449,7 @@ literal|""
 argument_list|)
 throw|;
 block|}
-comment|/**    * Start up or shuts down the Thrift server, depending on the arguments.    * @param args    */
+comment|/**    * Start up or shuts down the Thrift server, depending on the arguments.    * @param args the arguments to pass in when starting the Thrift server    */
 name|void
 name|doMain
 parameter_list|(
@@ -1292,7 +1292,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * @param args    * @throws Exception    */
 specifier|public
 specifier|static
 name|void

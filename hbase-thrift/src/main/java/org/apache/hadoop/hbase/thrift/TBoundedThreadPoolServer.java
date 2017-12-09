@@ -1056,6 +1056,7 @@ argument_list|()
 expr_stmt|;
 block|}
 specifier|private
+specifier|final
 class|class
 name|ClientConnnection
 implements|implements

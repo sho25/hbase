@@ -4958,7 +4958,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * check that checkAndPut fails if the cell does not exist, then put in the cell, then check    * that the checkAndPut succeeds.    *    * @throws Exception    */
+comment|/**    * check that checkAndPut fails if the cell does not exist, then put in the cell, then check    * that the checkAndPut succeeds.    */
 annotation|@
 name|Test
 specifier|public
@@ -5291,7 +5291,7 @@ name|returnedColumnValues
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * check that checkAndDelete fails if the cell does not exist, then put in the cell, then    * check that the checkAndDelete succeeds.    *    * @throws Exception    */
+comment|/**    * check that checkAndDelete fails if the cell does not exist, then put in the cell, then    * check that the checkAndDelete succeeds.    */
 annotation|@
 name|Test
 specifier|public
@@ -5938,7 +5938,7 @@ name|e
 parameter_list|)
 block|{     }
 block|}
-comment|/**    * Tests keeping a HBase scanner alive for long periods of time. Each call to getScannerRow()    * should reset the ConnectionCache timeout for the scanner's connection    * @throws Exception    */
+comment|/**    * Tests keeping a HBase scanner alive for long periods of time. Each call to getScannerRow()    * should reset the ConnectionCache timeout for the scanner's connection.    */
 annotation|@
 name|Test
 specifier|public
@@ -7981,12 +7981,14 @@ argument_list|()
 operator|<
 name|pad
 condition|)
+block|{
 name|res
 operator|=
 literal|"0"
 operator|+
 name|res
 expr_stmt|;
+block|}
 return|return
 name|res
 return|;
@@ -10445,7 +10447,7 @@ name|attributeValue
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Put valueA to a row, make sure put has happened, then create a mutation object to put valueB    * and delete ValueA, then check that the row value is only valueB.    *    * @throws Exception    */
+comment|/**    * Put valueA to a row, make sure put has happened, then create a mutation object to put valueB    * and delete ValueA, then check that the row value is only valueB.    */
 annotation|@
 name|Test
 specifier|public
@@ -10865,7 +10867,7 @@ name|returnedColumnValues
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create TPut, TDelete , TIncrement objects, set durability then call ThriftUtility    * functions to get Put , Delete and Increment respectively. Use getDurability to make sure    * the returned objects have the appropriate durability setting.    *    * @throws Exception    */
+comment|/**    * Create TPut, TDelete , TIncrement objects, set durability then call ThriftUtility    * functions to get Put , Delete and Increment respectively. Use getDurability to make sure    * the returned objects have the appropriate durability setting.    */
 annotation|@
 name|Test
 specifier|public

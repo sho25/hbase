@@ -2821,7 +2821,9 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Fail to enable the doAs feature. hbase.regionserver.thrift.http is not configured "
+literal|"Fail to enable the doAs feature. hbase.regionserver.thrift.http is not "
+operator|+
+literal|"configured "
 argument_list|)
 expr_stmt|;
 block|}
@@ -3632,53 +3634,10 @@ block|{
 comment|// Construct correct ProtocolFactory
 name|TProtocolFactory
 name|protocolFactory
+init|=
+name|getProtocolFactory
+argument_list|()
 decl_stmt|;
-if|if
-condition|(
-name|conf
-operator|.
-name|getBoolean
-argument_list|(
-name|COMPACT_CONF_KEY
-argument_list|,
-literal|false
-argument_list|)
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Using compact protocol"
-argument_list|)
-expr_stmt|;
-name|protocolFactory
-operator|=
-operator|new
-name|TCompactProtocol
-operator|.
-name|Factory
-argument_list|()
-expr_stmt|;
-block|}
-else|else
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Using binary protocol"
-argument_list|)
-expr_stmt|;
-name|protocolFactory
-operator|=
-operator|new
-name|TBinaryProtocol
-operator|.
-name|Factory
-argument_list|()
-expr_stmt|;
-block|}
 specifier|final
 name|TProcessor
 name|p
@@ -4545,9 +4504,10 @@ operator|+
 name|serverArgs
 argument_list|)
 expr_stmt|;
-name|TBoundedThreadPoolServer
+name|this
+operator|.
 name|tserver
-init|=
+operator|=
 operator|new
 name|TBoundedThreadPoolServer
 argument_list|(
@@ -4555,12 +4515,6 @@ name|serverArgs
 argument_list|,
 name|metrics
 argument_list|)
-decl_stmt|;
-name|this
-operator|.
-name|tserver
-operator|=
-name|tserver
 expr_stmt|;
 block|}
 else|else
@@ -4621,6 +4575,64 @@ argument_list|(
 name|conf
 argument_list|)
 expr_stmt|;
+block|}
+specifier|private
+name|TProtocolFactory
+name|getProtocolFactory
+parameter_list|()
+block|{
+name|TProtocolFactory
+name|protocolFactory
+decl_stmt|;
+if|if
+condition|(
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+name|COMPACT_CONF_KEY
+argument_list|,
+literal|false
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Using compact protocol"
+argument_list|)
+expr_stmt|;
+name|protocolFactory
+operator|=
+operator|new
+name|TCompactProtocol
+operator|.
+name|Factory
+argument_list|()
+expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Using binary protocol"
+argument_list|)
+expr_stmt|;
+name|protocolFactory
+operator|=
+operator|new
+name|TBinaryProtocol
+operator|.
+name|Factory
+argument_list|()
+expr_stmt|;
+block|}
+return|return
+name|protocolFactory
+return|;
 block|}
 name|ExecutorService
 name|createExecutor
@@ -4941,7 +4953,7 @@ return|return
 name|columns
 return|;
 block|}
-comment|/**      * Creates and returns a Table instance from a given table name.      *      * @param tableName      *          name of table      * @return Table object      * @throws IOException      */
+comment|/**      * Creates and returns a Table instance from a given table name.      *      * @param tableName      *          name of table      * @return Table object      * @throws IOException if getting the table fails      */
 specifier|public
 name|Table
 name|getTable
@@ -4994,7 +5006,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**      * Assigns a unique ID to the scanner and adds the mapping to an internal      * hash-map.      *      * @param scanner      * @return integer scanner id      */
+comment|/**      * Assigns a unique ID to the scanner and adds the mapping to an internal      * hash-map.      *      * @param scanner the {@link ResultScanner} to add      * @return integer scanner id      */
 specifier|protected
 specifier|synchronized
 name|int
@@ -5037,7 +5049,7 @@ return|return
 name|id
 return|;
 block|}
-comment|/**      * Returns the scanner associated with the specified ID.      *      * @param id      * @return a Scanner, or null if ID was invalid.      */
+comment|/**      * Returns the scanner associated with the specified ID.      *      * @param id the ID of the scanner to get      * @return a Scanner, or null if ID was invalid.      */
 specifier|protected
 specifier|synchronized
 name|ResultScannerWrapper
@@ -5056,7 +5068,7 @@ name|id
 argument_list|)
 return|;
 block|}
-comment|/**      * Removes the scanner associated with the specified ID from the internal      * id-&gt;scanner hash-map.      *      * @param id      * @return a Scanner, or null if ID was invalid.      */
+comment|/**      * Removes the scanner associated with the specified ID from the internal      * id-&gt;scanner hash-map.      *      * @param id the ID of the scanner to remove      * @return a Scanner, or null if ID was invalid.      */
 specifier|protected
 specifier|synchronized
 name|ResultScannerWrapper
@@ -8445,6 +8457,7 @@ operator|.
 name|isEmpty
 argument_list|()
 condition|)
+block|{
 name|table
 operator|.
 name|delete
@@ -8452,6 +8465,7 @@ argument_list|(
 name|delete
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 operator|!
@@ -8460,6 +8474,7 @@ operator|.
 name|isEmpty
 argument_list|()
 condition|)
+block|{
 name|table
 operator|.
 name|put
@@ -8467,6 +8482,7 @@ argument_list|(
 name|put
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
@@ -8957,6 +8973,7 @@ operator|.
 name|isEmpty
 argument_list|()
 condition|)
+block|{
 name|deletes
 operator|.
 name|add
@@ -8964,6 +8981,7 @@ argument_list|(
 name|delete
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 operator|!
@@ -8972,6 +8990,7 @@ operator|.
 name|isEmpty
 argument_list|()
 condition|)
+block|{
 name|puts
 operator|.
 name|add
@@ -8979,6 +8998,7 @@ argument_list|(
 name|put
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 name|Table
 name|table
@@ -9002,6 +9022,7 @@ operator|.
 name|isEmpty
 argument_list|()
 condition|)
+block|{
 name|table
 operator|.
 name|put
@@ -9009,6 +9030,7 @@ argument_list|(
 name|puts
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 operator|!
@@ -9017,6 +9039,7 @@ operator|.
 name|isEmpty
 argument_list|()
 condition|)
+block|{
 name|table
 operator|.
 name|delete
@@ -9024,6 +9047,7 @@ argument_list|(
 name|deletes
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
