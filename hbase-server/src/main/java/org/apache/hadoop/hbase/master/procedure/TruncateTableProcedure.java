@@ -655,6 +655,12 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
+comment|// NOTE: It's very important that we create new HRegions before next state, so that
+comment|// they get persisted in procedure state before we start using them for anything.
+comment|// Otherwise, if we create them in next step and master crashes after creating fs
+comment|// layout but before saving state, region re-created after recovery will have different
+comment|// regionId(s) and encoded names. That will lead to unwanted regions in FS layout
+comment|// (which were created before the crash).
 if|if
 condition|(
 operator|!

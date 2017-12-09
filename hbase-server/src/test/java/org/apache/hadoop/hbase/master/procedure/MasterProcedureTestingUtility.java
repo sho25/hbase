@@ -1306,7 +1306,7 @@ name|List
 argument_list|<
 name|Path
 argument_list|>
-name|allRegionDirs
+name|unwantedRegionDirs
 init|=
 name|FSUtils
 operator|.
@@ -1370,7 +1370,7 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|allRegionDirs
+name|unwantedRegionDirs
 operator|.
 name|remove
 argument_list|(
@@ -1511,12 +1511,19 @@ name|assertTrue
 argument_list|(
 literal|"found extraneous regions: "
 operator|+
-name|allRegionDirs
+name|unwantedRegionDirs
 argument_list|,
-name|allRegionDirs
+name|unwantedRegionDirs
 operator|.
 name|isEmpty
 argument_list|()
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Table directory layout is as expected."
 argument_list|)
 expr_stmt|;
 comment|// check meta

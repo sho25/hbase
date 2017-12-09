@@ -372,11 +372,6 @@ argument_list|()
 decl_stmt|;
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testTruncateNotExistentTable
@@ -480,11 +475,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testTruncateNotDisabledTable
@@ -601,11 +591,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testSimpleTruncatePreserveSplits
@@ -637,11 +622,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testSimpleTruncateNoPreserveSplits
@@ -836,6 +816,8 @@ argument_list|,
 name|procId
 argument_list|)
 expr_stmt|;
+comment|// If truncate procedure completed successfully, it means all regions were assigned correctly
+comment|// and table is enabled now.
 name|UTIL
 operator|.
 name|waitUntilAllRegionsAssigned
@@ -962,11 +944,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testRecoveryAndDoubleExecutionPreserveSplits
@@ -998,11 +975,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testRecoveryAndDoubleExecutionNoPreserveSplits

@@ -3101,7 +3101,9 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Current file system:"
+literal|"File system contents for path "
+operator|+
+name|root
 argument_list|)
 expr_stmt|;
 name|logFSTree

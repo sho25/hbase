@@ -4471,7 +4471,7 @@ name|String
 operator|.
 name|format
 argument_list|(
-literal|"Update region transition serverName=%s region=%s state=%s"
+literal|"Update region transition serverName=%s region=%s regionState=%s"
 argument_list|,
 name|serverName
 argument_list|,
@@ -4654,7 +4654,7 @@ throw|throw
 operator|new
 name|UnexpectedStateException
 argument_list|(
-literal|"unsupported split state="
+literal|"unsupported split regionState="
 operator|+
 name|state
 operator|+
@@ -4845,7 +4845,7 @@ throw|throw
 operator|new
 name|UnexpectedStateException
 argument_list|(
-literal|"Unsupported merge state="
+literal|"Unsupported merge regionState="
 operator|+
 name|state
 operator|+
@@ -4927,7 +4927,7 @@ name|String
 operator|.
 name|format
 argument_list|(
-literal|"Merge not handled yet: state=%s merged=%s hriA=%s hriB=%s"
+literal|"Merge not handled yet: regionState=%s merged=%s hriA=%s hriB=%s"
 argument_list|,
 name|state
 argument_list|,
@@ -6437,7 +6437,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"RS joined "
+literal|"RS joined. Num RS = "
 operator|+
 name|master
 operator|.
@@ -6577,7 +6577,7 @@ operator|.
 name|getEncodedName
 argument_list|()
 operator|+
-literal|" state=null; presuming "
+literal|" regionState=null; presuming "
 operator|+
 name|State
 operator|.
