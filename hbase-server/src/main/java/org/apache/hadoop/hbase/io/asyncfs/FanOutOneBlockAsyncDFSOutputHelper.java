@@ -1894,8 +1894,8 @@ block|{
 name|DataChecksum
 name|createChecksum
 parameter_list|(
-name|Object
-name|conf
+name|DFSClient
+name|client
 parameter_list|)
 function_decl|;
 block|}
@@ -2676,9 +2676,16 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Can not get expected methods, should be hadoop 2.6-"
-argument_list|,
+literal|"Can not get expected method "
+operator|+
 name|e
+operator|.
+name|getMessage
+argument_list|()
+operator|+
+literal|", this usually because your Hadoop is pre 2.7.0, "
+operator|+
+literal|"try the methods in Hadoop 2.6.x instead."
 argument_list|)
 expr_stmt|;
 block|}
@@ -3342,6 +3349,9 @@ specifier|static
 name|ChecksumCreater
 name|createChecksumCreater28
 parameter_list|(
+name|Method
+name|getConfMethod
+parameter_list|,
 name|Class
 argument_list|<
 name|?
@@ -3391,8 +3401,8 @@ specifier|public
 name|DataChecksum
 name|createChecksum
 parameter_list|(
-name|Object
-name|conf
+name|DFSClient
+name|client
 parameter_list|)
 block|{
 try|try
@@ -3405,7 +3415,12 @@ name|createChecksumMethod
 operator|.
 name|invoke
 argument_list|(
-name|conf
+name|getConfMethod
+operator|.
+name|invoke
+argument_list|(
+name|client
+argument_list|)
 argument_list|,
 operator|(
 name|Object
@@ -3448,6 +3463,9 @@ specifier|static
 name|ChecksumCreater
 name|createChecksumCreater27
 parameter_list|(
+name|Method
+name|getConfMethod
+parameter_list|,
 name|Class
 argument_list|<
 name|?
@@ -3485,8 +3503,8 @@ specifier|public
 name|DataChecksum
 name|createChecksum
 parameter_list|(
-name|Object
-name|conf
+name|DFSClient
+name|client
 parameter_list|)
 block|{
 try|try
@@ -3499,7 +3517,12 @@ name|createChecksumMethod
 operator|.
 name|invoke
 argument_list|(
-name|conf
+name|getConfMethod
+operator|.
+name|invoke
+argument_list|(
+name|client
+argument_list|)
 argument_list|)
 return|;
 block|}
@@ -3533,11 +3556,25 @@ name|NoSuchMethodException
 throws|,
 name|ClassNotFoundException
 block|{
+name|Method
+name|getConfMethod
+init|=
+name|DFSClient
+operator|.
+name|class
+operator|.
+name|getMethod
+argument_list|(
+literal|"getConf"
+argument_list|)
+decl_stmt|;
 try|try
 block|{
 return|return
 name|createChecksumCreater28
 argument_list|(
+name|getConfMethod
+argument_list|,
 name|Class
 operator|.
 name|forName
@@ -3566,6 +3603,8 @@ block|}
 return|return
 name|createChecksumCreater27
 argument_list|(
+name|getConfMethod
+argument_list|,
 name|Class
 operator|.
 name|forName
@@ -4005,9 +4044,6 @@ operator|.
 name|createChecksum
 argument_list|(
 name|client
-operator|.
-name|getConf
-argument_list|()
 argument_list|)
 return|;
 block|}
