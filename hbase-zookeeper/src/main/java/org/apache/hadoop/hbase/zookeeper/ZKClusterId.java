@@ -61,11 +61,13 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|exceptions
+operator|.
+name|DeserializationException
 import|;
 end_import
 
@@ -75,13 +77,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|yetus
 operator|.
-name|hbase
+name|audience
 operator|.
-name|exceptions
-operator|.
-name|DeserializationException
+name|InterfaceAudience
 import|;
 end_import
 
@@ -345,7 +345,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Get the UUID for the provided ZK watcher. Doesn't handle any ZK exceptions    * @param zkw watcher connected to an ensemble    * @return the UUID read from zookeeper    * @throws KeeperException    */
+comment|/**    * Get the UUID for the provided ZK watcher. Doesn't handle any ZK exceptions    * @param zkw watcher connected to an ensemble    * @return the UUID read from zookeeper    * @throws KeeperException if a ZooKeeper operation fails    */
 specifier|public
 specifier|static
 name|UUID

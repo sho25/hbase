@@ -318,7 +318,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * @param args    * @return True if argument strings have a '-server' in them.    */
+comment|/**    * @param args the arguments to check    * @return True if argument strings have a '-server' in them.    */
 specifier|private
 specifier|static
 name|boolean
@@ -326,8 +326,8 @@ name|hasServer
 parameter_list|(
 specifier|final
 name|String
-name|args
 index|[]
+name|args
 parameter_list|)
 block|{
 return|return
@@ -348,7 +348,7 @@ name|SERVER_ARG
 argument_list|)
 return|;
 block|}
-comment|/**    * @param args    * @return True if command-line arguments were passed.    */
+comment|/**    * @param args the arguments to check for command-line arguments    * @return True if command-line arguments were passed.    */
 specifier|private
 specifier|static
 name|boolean
@@ -356,8 +356,8 @@ name|hasCommandLineArguments
 parameter_list|(
 specifier|final
 name|String
-name|args
 index|[]
+name|args
 parameter_list|)
 block|{
 if|if
@@ -376,6 +376,7 @@ name|length
 operator|<
 literal|2
 condition|)
+block|{
 throw|throw
 operator|new
 name|IllegalStateException
@@ -383,6 +384,7 @@ argument_list|(
 literal|"-server param but no value"
 argument_list|)
 throw|;
+block|}
 return|return
 name|args
 operator|.
@@ -406,8 +408,8 @@ name|void
 name|main
 parameter_list|(
 name|String
-name|args
 index|[]
+name|args
 parameter_list|)
 throws|throws
 name|Exception

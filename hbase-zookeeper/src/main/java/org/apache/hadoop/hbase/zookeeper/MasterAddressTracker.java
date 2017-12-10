@@ -85,6 +85,22 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|exceptions
+operator|.
+name|DeserializationException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -99,13 +115,45 @@ name|org
 operator|.
 name|apache
 operator|.
+name|zookeeper
+operator|.
+name|KeeperException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|zookeeper
+operator|.
+name|data
+operator|.
+name|Stat
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|hadoop
 operator|.
 name|hbase
 operator|.
-name|exceptions
+name|shaded
 operator|.
-name|DeserializationException
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|InvalidProtocolBufferException
 import|;
 end_import
 
@@ -164,54 +212,6 @@ operator|.
 name|generated
 operator|.
 name|ZooKeeperProtos
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|zookeeper
-operator|.
-name|KeeperException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|zookeeper
-operator|.
-name|data
-operator|.
-name|Stat
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|InvalidProtocolBufferException
 import|;
 end_import
 
@@ -473,7 +473,7 @@ literal|null
 return|;
 block|}
 block|}
-comment|/**    * Get master address.    * Use this instead of {@link #getMasterAddress()} if you do not have an    * instance of this tracker in your context.    * @param zkw ZKWatcher to use    * @return ServerName stored in the the master address znode or null if no    * znode present.    * @throws KeeperException    * @throws IOException    */
+comment|/**    * Get master address.    * Use this instead of {@link #getMasterAddress()} if you do not have an    * instance of this tracker in your context.    * @param zkw ZKWatcher to use    * @return ServerName stored in the the master address znode or null if no    *         znode present.    * @throws KeeperException if a ZooKeeper operation fails    * @throws IOException if the address of the ZooKeeper master cannot be retrieved    */
 specifier|public
 specifier|static
 name|ServerName
@@ -576,7 +576,7 @@ name|ke
 throw|;
 block|}
 block|}
-comment|/**    * Get master info port.    * Use this instead of {@link #getMasterInfoPort()} if you do not have an    * instance of this tracker in your context.    * @param zkw ZKWatcher to use    * @return master info port in the the master address znode or null if no    * znode present.    * // TODO can't return null for 'int' return type. non-static verison returns 0    * @throws KeeperException    * @throws IOException    */
+comment|/**    * Get master info port.    * Use this instead of {@link #getMasterInfoPort()} if you do not have an    * instance of this tracker in your context.    * @param zkw ZKWatcher to use    * @return master info port in the the master address znode or null if no    *         znode present.    *         // TODO can't return null for 'int' return type. non-static verison returns 0    * @throws KeeperException if a ZooKeeper operation fails    * @throws IOException if the address of the ZooKeeper master cannot be retrieved    */
 specifier|public
 specifier|static
 name|int
@@ -680,7 +680,7 @@ name|ke
 throw|;
 block|}
 block|}
-comment|/**    * Set master address into the<code>master</code> znode or into the backup    * subdirectory of backup masters; switch off the passed in<code>znode</code>    * path.    * @param zkw The ZKWatcher to use.    * @param znode Where to create the znode; could be at the top level or it    * could be under backup masters    * @param master ServerName of the current master must not be null.    * @return true if node created, false if not; a watch is set in both cases    * @throws KeeperException    */
+comment|/**    * Set master address into the<code>master</code> znode or into the backup    * subdirectory of backup masters; switch off the passed in<code>znode</code>    * path.    * @param zkw The ZKWatcher to use.    * @param znode Where to create the znode; could be at the top level or it    *              could be under backup masters    * @param master ServerName of the current master must not be null.    * @return true if node created, false if not; a watch is set in both cases    * @throws KeeperException if a ZooKeeper operation fails    */
 specifier|public
 specifier|static
 name|boolean
@@ -739,7 +739,7 @@ operator|!=
 literal|null
 return|;
 block|}
-comment|/**    * @param sn must not be null    * @return Content of the master znode as a serialized pb with the pb    * magic as prefix.    */
+comment|/**    * @param sn must not be null    * @return Content of the master znode as a serialized pb with the pb    *         magic as prefix.    */
 specifier|static
 name|byte
 index|[]
@@ -852,7 +852,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * @param data zookeeper data. may be null    * @return pb object of master, null if no active master    * @throws DeserializationException    */
+comment|/**    * @param data zookeeper data. may be null    * @return pb object of master, null if no active master    * @throws DeserializationException if the parsing fails    */
 specifier|public
 specifier|static
 name|ZooKeeperProtos

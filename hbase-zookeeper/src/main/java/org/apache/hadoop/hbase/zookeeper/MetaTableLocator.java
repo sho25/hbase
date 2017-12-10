@@ -685,7 +685,7 @@ name|DEFAULT_REPLICA_ID
 argument_list|)
 return|;
 block|}
-comment|/**    *    * @param zkw    * @param replicaId    * @return meta table regions and their locations.    */
+comment|/**    * Gets the meta regions and their locations for the given path and replica ID.    *    * @param zkw reference to the {@link ZKWatcher} which also contains configuration and operation    * @param replicaId the ID of the replica    * @return meta table regions and their locations.    */
 specifier|public
 name|List
 argument_list|<
@@ -760,7 +760,7 @@ return|return
 name|list
 return|;
 block|}
-comment|/**    * @param zkw ZooKeeper watcher to be used    * @return List of meta regions    */
+comment|/**    * Gets the meta regions for the given path with the default replica ID.    *    * @param zkw ZooKeeper watcher to be used    * @return List of meta regions    */
 specifier|public
 name|List
 argument_list|<
@@ -783,7 +783,7 @@ name|DEFAULT_REPLICA_ID
 argument_list|)
 return|;
 block|}
-comment|/**    *    * @param zkw    * @param replicaId    * @return List of meta regions    */
+comment|/**    * Gets the meta regions for the given path and replica ID.    *    * @param zkw reference to the {@link ZKWatcher} which also contains configuration and operation    * @param replicaId the ID of the replica    * @return List of meta regions    */
 specifier|public
 name|List
 argument_list|<
@@ -856,11 +856,13 @@ operator|.
 name|isEmpty
 argument_list|()
 condition|)
+block|{
 return|return
 name|Collections
 operator|.
 name|EMPTY_LIST
 return|;
+block|}
 name|List
 argument_list|<
 name|RegionInfo
@@ -950,7 +952,7 @@ literal|null
 return|;
 block|}
 block|}
-comment|/**    * Gets the meta region location, if available.  Does not block.    * @param zkw    * @param replicaId    * @return server name    */
+comment|/**    * Gets the meta region location, if available.  Does not block.    * @param zkw reference to the {@link ZKWatcher} which also contains configuration and operation    * @param replicaId the ID of the replica    * @return server name    */
 specifier|public
 name|ServerName
 name|getMetaRegionLocation
@@ -1000,7 +1002,7 @@ literal|null
 return|;
 block|}
 block|}
-comment|/**    * Gets the meta region location, if available, and waits for up to the    * specified timeout if not immediately available.    * Given the zookeeper notification could be delayed, we will try to    * get the latest data.    * @param zkw    * @param timeout maximum time to wait, in millis    * @return server name for server hosting meta region formatted as per    * {@link ServerName}, or null if none available    * @throws InterruptedException if interrupted while waiting    * @throws NotAllMetaRegionsOnlineException    */
+comment|/**    * Gets the meta region location, if available, and waits for up to the    * specified timeout if not immediately available.    * Given the zookeeper notification could be delayed, we will try to    * get the latest data.    *    * @param zkw reference to the {@link ZKWatcher} which also contains configuration and operation    * @param timeout maximum time to wait, in millis    * @return server name for server hosting meta region formatted as per    * {@link ServerName}, or null if none available    * @throws InterruptedException if interrupted while waiting    * @throws NotAllMetaRegionsOnlineException if a meta or root region is not online    */
 specifier|public
 name|ServerName
 name|waitMetaRegionLocation
@@ -1029,7 +1031,7 @@ name|timeout
 argument_list|)
 return|;
 block|}
-comment|/**    * Gets the meta region location, if available, and waits for up to the    * specified timeout if not immediately available.    * Given the zookeeper notification could be delayed, we will try to    * get the latest data.    * @param zkw    * @param replicaId    * @param timeout maximum time to wait, in millis    * @return server name for server hosting meta region formatted as per    * {@link ServerName}, or null if none available    * @throws InterruptedException    * @throws NotAllMetaRegionsOnlineException    */
+comment|/**    * Gets the meta region location, if available, and waits for up to the specified timeout if not    * immediately available. Given the zookeeper notification could be delayed, we will try to    * get the latest data.    *    * @param zkw reference to the {@link ZKWatcher} which also contains configuration and operation    * @param replicaId the ID of the replica    * @param timeout maximum time to wait, in millis    * @return server name for server hosting meta region formatted as per    * {@link ServerName}, or null if none available    * @throws InterruptedException if waiting for the socket operation fails    * @throws NotAllMetaRegionsOnlineException if a meta or root region is not online    */
 specifier|public
 name|ServerName
 name|waitMetaRegionLocation
@@ -1181,7 +1183,9 @@ argument_list|)
 operator|!=
 literal|null
 condition|)
+block|{
 break|break;
+block|}
 name|long
 name|sleepTime
 init|=
@@ -1251,7 +1255,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * Verify<code>hbase:meta</code> is deployed and accessible.    * @param hConnection    * @param zkw    * @param timeout How long to wait on zk for meta address (passed through to    * the internal call to {@link #getMetaServerConnection}.    * @return True if the<code>hbase:meta</code> location is healthy.    * @throws java.io.IOException    * @throws InterruptedException    */
+comment|/**    * Verify<code>hbase:meta</code> is deployed and accessible.    *    * @param hConnection the connection to use    * @param zkw reference to the {@link ZKWatcher} which also contains configuration and operation    * @param timeout How long to wait on zk for meta address (passed through to    *                the internal call to {@link #getMetaServerConnection}.    * @return True if the<code>hbase:meta</code> location is healthy.    * @throws IOException if the number of retries for getting the connection is exceeded    * @throws InterruptedException if waiting for the socket operation fails    */
 specifier|public
 name|boolean
 name|verifyMetaRegionLocation
@@ -1286,7 +1290,7 @@ name|DEFAULT_REPLICA_ID
 argument_list|)
 return|;
 block|}
-comment|/**    * Verify<code>hbase:meta</code> is deployed and accessible.    * @param connection    * @param zkw    * @param timeout How long to wait on zk for meta address (passed through to    * @param replicaId    * @return True if the<code>hbase:meta</code> location is healthy.    * @throws InterruptedException    * @throws IOException    */
+comment|/**    * Verify<code>hbase:meta</code> is deployed and accessible.    *    * @param connection the connection to use    * @param zkw reference to the {@link ZKWatcher} which also contains configuration and operation    * @param timeout How long to wait on zk for meta address (passed through to    * @param replicaId the ID of the replica    * @return True if the<code>hbase:meta</code> location is healthy.    * @throws InterruptedException if waiting for the socket operation fails    * @throws IOException if the number of retries for getting the connection is exceeded    */
 specifier|public
 name|boolean
 name|verifyMetaRegionLocation
@@ -1402,7 +1406,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Verify we can connect to<code>hostingServer</code> and that its carrying    *<code>regionName</code>.    * @param hostingServer Interface to the server hosting<code>regionName</code>    * @param address The servername that goes with the<code>metaServer</code>    * Interface.  Used logging.    * @param regionName The regionname we are interested in.    * @return True if we were able to verify the region located at other side of    * the Interface.    * @throws IOException    */
+comment|/**    * Verify we can connect to<code>hostingServer</code> and that its carrying    *<code>regionName</code>.    * @param hostingServer Interface to the server hosting<code>regionName</code>    * @param address The servername that goes with the<code>metaServer</code> interface.    *                Used logging.    * @param regionName The regionname we are interested in.    * @return True if we were able to verify the region located at other side of the interface.    */
 comment|// TODO: We should be able to get the ServerName from the AdminProtocol
 comment|// rather than have to pass it in.  Its made awkward by the fact that the
 comment|// HRI is likely a proxy against remote server so the getServerName needs
@@ -1429,8 +1433,6 @@ name|byte
 index|[]
 name|regionName
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 if|if
 condition|(
@@ -1620,7 +1622,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * Gets a connection to the server hosting meta, as reported by ZooKeeper,    * waiting up to the specified timeout for availability.    *<p>WARNING: Does not retry.  Use an {@link org.apache.hadoop.hbase.client.HTable} instead.    * @param connection    * @param zkw    * @param timeout How long to wait on meta location    * @param replicaId    * @return connection to server hosting meta    * @throws InterruptedException    * @throws NotAllMetaRegionsOnlineException if timed out waiting    * @throws IOException    */
+comment|/**    * Gets a connection to the server hosting meta, as reported by ZooKeeper, waiting up to the    * specified timeout for availability.    *    *<p>WARNING: Does not retry.  Use an {@link org.apache.hadoop.hbase.client.HTable} instead.    *    * @param connection the connection to use    * @param zkw reference to the {@link ZKWatcher} which also contains configuration and operation    * @param timeout How long to wait on meta location    * @param replicaId the ID of the replica    * @return connection to server hosting meta    * @throws InterruptedException if waiting for the socket operation fails    * @throws IOException if the number of retries for getting the connection is exceeded    */
 specifier|private
 name|AdminService
 operator|.
@@ -1642,8 +1644,6 @@ parameter_list|)
 throws|throws
 name|InterruptedException
 throws|,
-name|NotAllMetaRegionsOnlineException
-throws|,
 name|IOException
 block|{
 return|return
@@ -1662,7 +1662,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * @param sn ServerName to get a connection against.    * @return The AdminProtocol we got when we connected to<code>sn</code>    * May have come from cache, may not be good, may have been setup by this    * invocation, or may be null.    * @throws IOException    */
+comment|/**    * @param sn ServerName to get a connection against.    * @return The AdminProtocol we got when we connected to<code>sn</code>    *         May have come from cache, may not be good, may have been setup by this invocation, or    *         may be null.    * @throws IOException if the number of retries for getting the connection is exceeded    */
 specifier|private
 specifier|static
 name|AdminService
@@ -1950,7 +1950,7 @@ name|state
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Sets the location of<code>hbase:meta</code> in ZooKeeper to the    * specified server address.    * @param zookeeper    * @param serverName    * @param replicaId    * @param state    * @throws KeeperException    */
+comment|/**    * Sets the location of<code>hbase:meta</code> in ZooKeeper to the specified server address.    * @param zookeeper reference to the {@link ZKWatcher} which also contains configuration and    *                  operation    * @param serverName the name of the server    * @param replicaId the ID of the replica    * @param state the state of the region    * @throws KeeperException if a ZooKeeper operation fails    */
 specifier|public
 specifier|static
 name|void
@@ -2157,7 +2157,7 @@ name|DEFAULT_REPLICA_ID
 argument_list|)
 return|;
 block|}
-comment|/**    * Load the meta region state from the meta server ZNode.    * @param zkw    * @param replicaId    * @return regionstate    * @throws KeeperException    */
+comment|/**    * Load the meta region state from the meta server ZNode.    *    * @param zkw reference to the {@link ZKWatcher} which also contains configuration and operation    * @param replicaId the ID of the replica    * @return regionstate    * @throws KeeperException if a ZooKeeper operation fails    */
 specifier|public
 specifier|static
 name|RegionState
@@ -2512,7 +2512,7 @@ block|{
 comment|// Has already been deleted
 block|}
 block|}
-comment|/**    * Wait until the primary meta region is available. Get the secondary    * locations as well but don't block for those.    * @param zkw    * @param timeout    * @param conf    * @return ServerName or null if we timed out.    * @throws InterruptedException    */
+comment|/**    * Wait until the primary meta region is available. Get the secondary locations as well but don't    * block for those.    *    * @param zkw reference to the {@link ZKWatcher} which also contains configuration and operation    * @param timeout maximum time to wait in millis    * @param conf the {@link Configuration} to use    * @return ServerName or null if we timed out.    * @throws InterruptedException if waiting for the socket operation fails    */
 specifier|public
 name|List
 argument_list|<
@@ -2568,9 +2568,11 @@ name|server
 operator|==
 literal|null
 condition|)
+block|{
 return|return
 literal|null
 return|;
+block|}
 name|servers
 operator|.
 name|add
@@ -2648,7 +2650,7 @@ return|return
 name|servers
 return|;
 block|}
-comment|/**    * Wait until the meta region is available and is not in transition.    * @param zkw zookeeper connection to use    * @param timeout maximum time to wait, in millis    * @return ServerName or null if we timed out.    * @throws InterruptedException    */
+comment|/**    * Wait until the meta region is available and is not in transition.    * @param zkw zookeeper connection to use    * @param timeout maximum time to wait, in millis    * @return ServerName or null if we timed out.    * @throws InterruptedException if waiting for the socket operation fails    */
 specifier|public
 name|ServerName
 name|blockUntilAvailable
@@ -2677,7 +2679,7 @@ name|timeout
 argument_list|)
 return|;
 block|}
-comment|/**    * Wait until the meta region is available and is not in transition.    * @param zkw    * @param replicaId    * @param timeout    * @return ServerName or null if we timed out.    * @throws InterruptedException    */
+comment|/**    * Wait until the meta region is available and is not in transition.    *    * @param zkw reference to the {@link ZKWatcher} which also contains configuration and constants    * @param replicaId the ID of the replica    * @param timeout maximum time to wait in millis    * @return ServerName or null if we timed out.    * @throws InterruptedException if waiting for the socket operation fails    */
 specifier|public
 name|ServerName
 name|blockUntilAvailable
@@ -2702,22 +2704,26 @@ name|timeout
 operator|<
 literal|0
 condition|)
+block|{
 throw|throw
 operator|new
 name|IllegalArgumentException
 argument_list|()
 throw|;
+block|}
 if|if
 condition|(
 name|zkw
 operator|==
 literal|null
 condition|)
+block|{
 throw|throw
 operator|new
 name|IllegalArgumentException
 argument_list|()
 throw|;
+block|}
 name|long
 name|startTime
 init|=

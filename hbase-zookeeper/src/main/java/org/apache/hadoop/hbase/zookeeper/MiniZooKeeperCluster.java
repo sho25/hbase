@@ -43,16 +43,6 @@ name|java
 operator|.
 name|io
 operator|.
-name|InterruptedIOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
 name|IOException
 import|;
 end_import
@@ -64,6 +54,16 @@ operator|.
 name|io
 operator|.
 name|InputStreamReader
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|InterruptedIOException
 import|;
 end_import
 
@@ -181,20 +181,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|conf
@@ -214,6 +200,20 @@ operator|.
 name|hbase
 operator|.
 name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -777,7 +777,7 @@ name|numZooKeeperServers
 argument_list|)
 return|;
 block|}
-comment|/**    * @param baseDir    * @param numZooKeeperServers    * @return ClientPort server bound to, -1 if there was a    *         binding problem and we couldn't pick another port.    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * @param baseDir the base directory to use    * @param numZooKeeperServers the number of ZooKeeper servers    * @return ClientPort server bound to, -1 if there was a binding problem and we couldn't pick    *         another port.    * @throws IOException if an operation fails during the startup    * @throws InterruptedException if the startup fails    */
 specifier|public
 name|int
 name|startup
@@ -799,10 +799,12 @@ name|numZooKeeperServers
 operator|<=
 literal|0
 condition|)
+block|{
 return|return
 operator|-
 literal|1
 return|;
+block|}
 name|setupTestEnv
 argument_list|()
 expr_stmt|;
@@ -1223,7 +1225,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * @throws IOException    */
+comment|/**    * @throws IOException if waiting for the shutdown of a server fails    */
 specifier|public
 name|void
 name|shutdown
@@ -1351,7 +1353,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**@return clientPort return clientPort if there is another ZK backup can run    *         when killing the current active; return -1, if there is no backups.    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * @return clientPort return clientPort if there is another ZK backup can run    *         when killing the current active; return -1, if there is no backups.    * @throws IOException if waiting for the shutdown of a server fails    */
 specifier|public
 name|int
 name|killCurrentActiveZooKeeperServer
@@ -1506,7 +1508,7 @@ return|return
 name|clientPort
 return|;
 block|}
-comment|/**    * Kill one back up ZK servers    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * Kill one back up ZK servers.    *    * @throws IOException if waiting for the shutdown of a server fails    */
 specifier|public
 name|void
 name|killOneBackupZooKeeperServer

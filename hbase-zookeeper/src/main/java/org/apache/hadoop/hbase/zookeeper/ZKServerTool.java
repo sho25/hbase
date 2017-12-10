@@ -19,6 +19,26 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|LinkedList
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -101,26 +121,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|LinkedList
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|List
-import|;
-end_import
-
 begin_comment
 comment|/**  * Tool for reading ZooKeeper servers from HBase XML configuration and producing  * a line-by-line list for use by bash scripts.  */
 end_comment
@@ -136,9 +136,14 @@ operator|.
 name|TOOLS
 argument_list|)
 specifier|public
+specifier|final
 class|class
 name|ZKServerTool
 block|{
+specifier|private
+name|ZKServerTool
+parameter_list|()
+block|{   }
 specifier|public
 specifier|static
 name|ServerName
@@ -284,8 +289,8 @@ name|void
 name|main
 parameter_list|(
 name|String
-name|args
 index|[]
+name|args
 parameter_list|)
 block|{
 for|for

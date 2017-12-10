@@ -313,20 +313,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -350,66 +336,6 @@ operator|.
 name|security
 operator|.
 name|Superusers
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|InvalidProtocolBufferException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|protobuf
-operator|.
-name|ProtobufUtil
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|ReplicationProtos
 import|;
 end_import
 
@@ -548,6 +474,20 @@ operator|.
 name|util
 operator|.
 name|KerberosUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -777,6 +717,66 @@ name|ZooKeeperSaslServer
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|InvalidProtocolBufferException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|protobuf
+operator|.
+name|ProtobufUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ReplicationProtos
+import|;
+end_import
+
 begin_comment
 comment|/**  * Internal HBase utility class for ZooKeeper.  *  *<p>Contains only static methods and constants.  *  *<p>Methods all throw {@link KeeperException} if there is an unexpected  * zookeeper exception, so callers of these methods must handle appropriately.  * If ZK is required for the operation, the server will need to be aborted.  */
 end_comment
@@ -787,6 +787,7 @@ name|InterfaceAudience
 operator|.
 name|Private
 specifier|public
+specifier|final
 class|class
 name|ZKUtil
 block|{
@@ -810,6 +811,10 @@ specifier|static
 name|int
 name|zkDumpConnectionTimeOut
 decl_stmt|;
+specifier|private
+name|ZKUtil
+parameter_list|()
+block|{   }
 comment|/**    * Creates a new connection to ZooKeeper, pulling settings and ensemble config    * from the specified configuration object using methods from {@link ZKConfig}.    *    * Sets the connection status monitoring watcher to the specified watcher.    *    * @param conf configuration to pull ensemble and other settings from    * @param watcher watcher to monitor connection changes    * @return connection to zookeeper    * @throws IOException if unable to connect to zk or config problem    */
 specifier|public
 specifier|static
@@ -1132,7 +1137,9 @@ argument_list|(
 name|conf
 argument_list|)
 condition|)
+block|{
 return|return;
+block|}
 comment|// User has specified a jaas.conf, keep this one as the good one.
 comment|// HBASE_OPTS="-Djava.security.auth.login.config=jaas.conf"
 if|if
@@ -1146,7 +1153,9 @@ argument_list|)
 operator|!=
 literal|null
 condition|)
+block|{
 return|return;
+block|}
 comment|// No keytab specified, no auth
 name|String
 name|keytabFilename
@@ -1658,6 +1667,7 @@ name|baseConfig
 operator|!=
 literal|null
 condition|)
+block|{
 return|return
 name|baseConfig
 operator|.
@@ -1666,6 +1676,7 @@ argument_list|(
 name|appName
 argument_list|)
 return|;
+block|}
 return|return
 operator|(
 literal|null
@@ -2239,7 +2250,7 @@ literal|null
 return|;
 block|}
 block|}
-comment|/**    * List all the children of the specified znode, setting a watch for children    * changes and also setting a watch on every individual child in order to get    * the NodeCreated and NodeDeleted events.    * @param zkw zookeeper reference    * @param znode node to get children of and watch    * @return list of znode names, null if the node doesn't exist    * @throws KeeperException    */
+comment|/**    * List all the children of the specified znode, setting a watch for children    * changes and also setting a watch on every individual child in order to get    * the NodeCreated and NodeDeleted events.    * @param zkw zookeeper reference    * @param znode node to get children of and watch    * @return list of znode names, null if the node doesn't exist    * @throws KeeperException if a ZooKeeper operation fails    */
 specifier|public
 specifier|static
 name|List
@@ -2528,9 +2539,7 @@ literal|"Unable to list children of znode "
 operator|+
 name|znode
 operator|+
-literal|" "
-operator|+
-literal|"because node does not exist (not an error)"
+literal|" because node does not exist (not an error)"
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2699,7 +2708,7 @@ block|}
 comment|//
 comment|// Data retrieval
 comment|//
-comment|/**    * Get znode data. Does not set a watcher.    * @return ZNode data, null if the node does not exist or if there is an    *  error.    */
+comment|/**    * Get znode data. Does not set a watcher.    *    * @return ZNode data, null if the node does not exist or if there is an error.    */
 specifier|public
 specifier|static
 name|byte
@@ -3291,7 +3300,7 @@ return|return
 literal|null
 return|;
 block|}
-comment|/**    * Update the data of an existing node with the expected version to have the    * specified data.    *    * Throws an exception if there is a version mismatch or some other problem.    *    * Sets no watches under any conditions.    *    * @param zkw zk reference    * @param znode    * @param data    * @param expectedVersion    * @throws KeeperException if unexpected zookeeper exception    * @throws KeeperException.BadVersionException if version mismatch    * @deprecated Unused    */
+comment|/**    * Update the data of an existing node with the expected version to have the    * specified data.    *    * Throws an exception if there is a version mismatch or some other problem.    *    * Sets no watches under any conditions.    *    * @param zkw zk reference    * @param znode the path to the ZNode    * @param data the data to store in ZooKeeper    * @param expectedVersion the expected version    * @throws KeeperException if unexpected zookeeper exception    * @throws KeeperException.BadVersionException if version mismatch    * @deprecated Unused    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -3414,7 +3423,7 @@ literal|false
 return|;
 block|}
 block|}
-comment|/**    * Set data into node creating node if it doesn't yet exist.    * Does not set watch.    *    * @param zkw zk reference    * @param znode path of node    * @param data data to set for node    * @throws KeeperException    */
+comment|/**    * Set data into node creating node if it doesn't yet exist.    * Does not set watch.    *    * @param zkw zk reference    * @param znode path of node    * @param data data to set for node    * @throws KeeperException if a ZooKeeper operation fails    */
 specifier|public
 specifier|static
 name|void
@@ -4428,7 +4437,7 @@ literal|1
 return|;
 block|}
 block|}
-comment|/**    * Async creates the specified node with the specified data.    *    *<p>Throws an exception if the node already exists.    *    *<p>The node created is persistent and open access.    *    * @param zkw zk reference    * @param znode path of node to create    * @param data data of node to create    * @param cb    * @param ctx    */
+comment|/**    * Async creates the specified node with the specified data.    *    *<p>Throws an exception if the node already exists.    *    *<p>The node created is persistent and open access.    *    * @param zkw zk reference    * @param znode path of node to create    * @param data data of node to create    * @param cb the callback to use for the creation    * @param ctx the context to use for the creation    */
 specifier|public
 specifier|static
 name|void
@@ -4947,7 +4956,7 @@ literal|false
 return|;
 block|}
 block|}
-comment|/**    * Deletes the specified node.  Fails silent if the node does not exist.    * @param zkw    * @param node    * @throws KeeperException    */
+comment|/**    * Deletes the specified node.  Fails silent if the node does not exist.    *    * @param zkw reference to the {@link ZKWatcher} which also contains configuration and operation    * @param node the node to delete    * @throws KeeperException if a ZooKeeper operation fails    */
 specifier|public
 specifier|static
 name|void
@@ -5077,7 +5086,7 @@ name|node
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Delete all the children of the specified node but not the node itself.    *    * Sets no watches.  Throws all exceptions besides dealing with deletion of    * children.    *    * @throws KeeperException    */
+comment|/**    * Delete all the children of the specified node but not the node itself.    *    * Sets no watches.  Throws all exceptions besides dealing with deletion of    * children.    *    * @throws KeeperException if a ZooKeeper operation fails    */
 specifier|public
 specifier|static
 name|void
@@ -5787,6 +5796,7 @@ block|}
 comment|/**      * ZKUtilOp representing createAndFailSilent in ZooKeeper      * (attempt to create node, ignore error if already exists)      */
 specifier|public
 specifier|static
+specifier|final
 class|class
 name|CreateAndFailSilent
 extends|extends
@@ -5846,9 +5856,11 @@ name|this
 operator|==
 name|o
 condition|)
+block|{
 return|return
 literal|true
 return|;
+block|}
 if|if
 condition|(
 operator|!
@@ -5858,9 +5870,11 @@ operator|instanceof
 name|CreateAndFailSilent
 operator|)
 condition|)
+block|{
 return|return
 literal|false
 return|;
+block|}
 name|CreateAndFailSilent
 name|op
 init|=
@@ -5930,6 +5944,7 @@ block|}
 comment|/**      * ZKUtilOp representing deleteNodeFailSilent in ZooKeeper      * (attempt to delete node, ignore error if node doesn't exist)      */
 specifier|public
 specifier|static
+specifier|final
 class|class
 name|DeleteNodeFailSilent
 extends|extends
@@ -5964,9 +5979,11 @@ name|this
 operator|==
 name|o
 condition|)
+block|{
 return|return
 literal|true
 return|;
+block|}
 if|if
 condition|(
 operator|!
@@ -5976,9 +5993,11 @@ operator|instanceof
 name|DeleteNodeFailSilent
 operator|)
 condition|)
+block|{
 return|return
 literal|false
 return|;
+block|}
 return|return
 name|super
 operator|.
@@ -6007,6 +6026,7 @@ block|}
 comment|/**      * ZKUtilOp representing setData in ZooKeeper      */
 specifier|public
 specifier|static
+specifier|final
 class|class
 name|SetData
 extends|extends
@@ -6066,9 +6086,11 @@ name|this
 operator|==
 name|o
 condition|)
+block|{
 return|return
 literal|true
 return|;
+block|}
 if|if
 condition|(
 operator|!
@@ -6078,9 +6100,11 @@ operator|instanceof
 name|SetData
 operator|)
 condition|)
+block|{
 return|return
 literal|false
 return|;
+block|}
 name|SetData
 name|op
 init|=
@@ -6165,9 +6189,11 @@ name|op
 operator|==
 literal|null
 condition|)
+block|{
 return|return
 literal|null
 return|;
+block|}
 if|if
 condition|(
 name|op
@@ -6300,7 +6326,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Use ZooKeeper's multi-update functionality.    *    * If all of the following are true:    * - runSequentialOnMultiFailure is true    * - on calling multi, we get a ZooKeeper exception that can be handled by a sequential call(*)    * Then:    * - we retry the operations one-by-one (sequentially)    *    * Note *: an example is receiving a NodeExistsException from a "create" call.  Without multi,    * a user could call "createAndFailSilent" to ensure that a node exists if they don't care who    * actually created the node (i.e. the NodeExistsException from ZooKeeper is caught).    * This will cause all operations in the multi to fail, however, because    * the NodeExistsException that zk.create throws will fail the multi transaction.    * In this case, if the previous conditions hold, the commands are run sequentially, which should    * result in the correct final state, but means that the operations will not run atomically.    *    * @throws KeeperException    */
+comment|/**    * Use ZooKeeper's multi-update functionality.    *    * If all of the following are true:    * - runSequentialOnMultiFailure is true    * - on calling multi, we get a ZooKeeper exception that can be handled by a sequential call(*)    * Then:    * - we retry the operations one-by-one (sequentially)    *    * Note *: an example is receiving a NodeExistsException from a "create" call.  Without multi,    * a user could call "createAndFailSilent" to ensure that a node exists if they don't care who    * actually created the node (i.e. the NodeExistsException from ZooKeeper is caught).    * This will cause all operations in the multi to fail, however, because    * the NodeExistsException that zk.create throws will fail the multi transaction.    * In this case, if the previous conditions hold, the commands are run sequentially, which should    * result in the correct final state, but means that the operations will not run atomically.    *    * @throws KeeperException if a ZooKeeper operation fails    */
 specifier|public
 specifier|static
 name|void
@@ -6350,7 +6376,9 @@ name|ops
 operator|==
 literal|null
 condition|)
+block|{
 return|return;
+block|}
 name|List
 argument_list|<
 name|Op
@@ -6996,7 +7024,7 @@ name|toString
 argument_list|()
 return|;
 block|}
-comment|/**    * Appends replication znodes to the passed StringBuilder.    * @param zkw    * @param sb    * @throws KeeperException    */
+comment|/**    * Appends replication znodes to the passed StringBuilder.    *    * @param zkw reference to the {@link ZKWatcher} which also contains configuration and operation    * @param sb the {@link StringBuilder} to append to    * @throws KeeperException if a ZooKeeper operation fails    */
 specifier|private
 specifier|static
 name|void
@@ -7034,7 +7062,9 @@ operator|==
 operator|-
 literal|1
 condition|)
+block|{
 return|return;
+block|}
 comment|// do a ls -r on this znode
 name|sb
 operator|.
@@ -7312,7 +7342,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * Returns a string with replication znodes and position of the replication log    * @param zkw    * @return aq string of replication znodes and log positions    */
+comment|/**    * Returns a string with replication znodes and position of the replication log    * @param zkw reference to the {@link ZKWatcher} which also contains configuration and operation    * @return aq string of replication znodes and log positions    */
 specifier|public
 specifier|static
 name|String
@@ -7820,7 +7850,9 @@ argument_list|(
 name|peerState
 argument_list|)
 condition|)
+block|{
 continue|continue;
+block|}
 name|String
 name|peerStateZnode
 init|=
@@ -8213,7 +8245,9 @@ operator|.
 name|isTraceEnabled
 argument_list|()
 condition|)
+block|{
 return|return;
+block|}
 name|LOG
 operator|.
 name|trace
@@ -8605,7 +8639,9 @@ operator|.
 name|isDebugEnabled
 argument_list|()
 condition|)
+block|{
 return|return;
+block|}
 name|LOG
 operator|.
 name|debug
@@ -8693,7 +8729,9 @@ name|children
 operator|==
 literal|null
 condition|)
+block|{
 return|return;
+block|}
 for|for
 control|(
 name|String
@@ -8745,7 +8783,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * @param position    * @return Serialized protobuf of<code>position</code> with pb magic prefix prepended suitable    *         for use as content of an wal position in a replication queue.    */
+comment|/**    * @param position the position to serialize    * @return Serialized protobuf of<code>position</code> with pb magic prefix prepended suitable    *         for use as content of an wal position in a replication queue.    */
 specifier|public
 specifier|static
 name|byte
@@ -8788,7 +8826,7 @@ name|bytes
 argument_list|)
 return|;
 block|}
-comment|/**    * @param bytes - Content of a WAL position znode.    * @return long - The current WAL position.    * @throws DeserializationException    */
+comment|/**    * @param bytes - Content of a WAL position znode.    * @return long - The current WAL position.    * @throws DeserializationException if the WAL position cannot be parsed    */
 specifier|public
 specifier|static
 name|long

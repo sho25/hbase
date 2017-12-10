@@ -51,6 +51,20 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|Abortable
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -65,11 +79,9 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|zookeeper
 operator|.
-name|hbase
-operator|.
-name|Abortable
+name|KeeperException
 import|;
 end_import
 
@@ -111,18 +123,6 @@ name|ZooKeeperProtos
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|zookeeper
-operator|.
-name|KeeperException
-import|;
-end_import
-
 begin_comment
 comment|/**  * Tracker on cluster settings up in zookeeper.  * This is not related to {@link org.apache.hadoop.hbase.ClusterStatus}. That class  * is a data structure that holds snapshot of current view on cluster. This class  * is about tracking cluster attributes up in zookeeper.  *  */
 end_comment
@@ -153,7 +153,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/**    * Creates a cluster status tracker.    *    *<p>After construction, use {@link #start} to kick off tracking.    *    * @param watcher    * @param abortable    */
+comment|/**    * Creates a cluster status tracker.    *    *<p>After construction, use {@link #start} to kick off tracking.    *    * @param watcher reference to the {@link ZKWatcher} which also contains configuration and    *                constants    * @param abortable used to abort if a fatal error occurs    */
 specifier|public
 name|ClusterStatusTracker
 parameter_list|(
@@ -178,7 +178,7 @@ name|abortable
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Checks if cluster is up.    * @return true if the cluster up ('shutdown' is its name up in zk) znode    * exists with data, false if not    */
+comment|/**    * Checks if cluster is up.    * @return true if the cluster up ('shutdown' is its name up in zk) znode    *         exists with data, false if not    */
 specifier|public
 name|boolean
 name|isClusterUp
@@ -304,7 +304,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * @return Content of the clusterup znode as a serialized pb with the pb    * magic as prefix.    */
+comment|/**    * @return Content of the clusterup znode as a serialized pb with the pb    *         magic as prefix.    */
 specifier|static
 name|byte
 index|[]

@@ -195,20 +195,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -230,6 +216,20 @@ operator|.
 name|security
 operator|.
 name|UserGroupInformation
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -456,7 +456,7 @@ argument_list|(
 literal|"([^/@]*)(/([^/@]*))?@([^/@]*)"
 argument_list|)
 decl_stmt|;
-comment|/**    * Instantiate a ZooKeeper connection and watcher.    * @param identifier string that is passed to RecoverableZookeeper to be used as    * identifier for this instance. Use null for default.    * @throws IOException    * @throws ZooKeeperConnectionException    */
+comment|/**    * Instantiate a ZooKeeper connection and watcher.    * @param identifier string that is passed to RecoverableZookeeper to be used as    *                   identifier for this instance. Use null for default.    * @throws IOException if the connection to ZooKeeper fails    * @throws ZooKeeperConnectionException    */
 specifier|public
 name|ZKWatcher
 parameter_list|(
@@ -486,7 +486,7 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Instantiate a ZooKeeper connection and watcher.    * @param conf    * @param identifier string that is passed to RecoverableZookeeper to be used as identifier for    *          this instance. Use null for default.    * @param abortable Can be null if there is on error there is no host to abort: e.g. client    *          context.    * @param canCreateBaseZNode    * @throws IOException    * @throws ZooKeeperConnectionException    */
+comment|/**    * Instantiate a ZooKeeper connection and watcher.    * @param conf the configuration to use    * @param identifier string that is passed to RecoverableZookeeper to be used as identifier for    *          this instance. Use null for default.    * @param abortable Can be null if there is on error there is no host to abort: e.g. client    *          context.    * @param canCreateBaseZNode true if a base ZNode can be created    * @throws IOException if the connection to ZooKeeper fails    * @throws ZooKeeperConnectionException    */
 specifier|public
 name|ZKWatcher
 parameter_list|(
@@ -961,7 +961,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Set the znode perms recursively. This will do post-order recursion, so that baseZnode ACLs    * will be set last in case the master fails in between.    * @param znode    */
+comment|/**    * Set the znode perms recursively. This will do post-order recursion, so that baseZnode ACLs    * will be set last in case the master fails in between.    * @param znode the ZNode to set the permissions for    */
 specifier|private
 name|void
 name|setZnodeAclsRecursive
@@ -1053,7 +1053,7 @@ literal|1
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Checks whether the ACLs returned from the base znode (/hbase) is set for secure setup.    * @param acls acls from zookeeper    * @return whether ACLs are set for the base znode    * @throws IOException    */
+comment|/**    * Checks whether the ACLs returned from the base znode (/hbase) is set for secure setup.    * @param acls acls from zookeeper    * @return whether ACLs are set for the base znode    * @throws IOException if getting the current user fails    */
 specifier|private
 name|boolean
 name|isBaseZnodeAclSetup
@@ -1677,7 +1677,7 @@ operator|.
 name|baseZNode
 return|;
 block|}
-comment|/**    * Adds this instance's identifier as a prefix to the passed<code>str</code>    * @param str String to amend.    * @return A new string with this instance's identifier as prefix: e.g.    * if passed 'hello world', the returned string could be    */
+comment|/**    * Adds this instance's identifier as a prefix to the passed<code>str</code>    * @param str String to amend.    * @return A new string with this instance's identifier as prefix: e.g.    *         if passed 'hello world', the returned string could be    */
 specifier|public
 name|String
 name|prefix
@@ -1698,7 +1698,7 @@ operator|+
 name|str
 return|;
 block|}
-comment|/**    * Get the znodes corresponding to the meta replicas from ZK    * @return list of znodes    * @throws KeeperException    */
+comment|/**    * Get the znodes corresponding to the meta replicas from ZK    * @return list of znodes    * @throws KeeperException if a ZooKeeper operation fails    */
 specifier|public
 name|List
 argument_list|<
@@ -1775,6 +1775,7 @@ argument_list|(
 name|pattern
 argument_list|)
 condition|)
+block|{
 name|metaReplicaNodes
 operator|.
 name|add
@@ -1784,11 +1785,12 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+block|}
 return|return
 name|metaReplicaNodes
 return|;
 block|}
-comment|/**    * Register the specified listener to receive ZooKeeper events.    * @param listener    */
+comment|/**    * Register the specified listener to receive ZooKeeper events.    * @param listener the listener to register    */
 specifier|public
 name|void
 name|registerListener
@@ -1805,7 +1807,7 @@ name|listener
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Register the specified listener to receive ZooKeeper events and add it as    * the first in the list of current listeners.    * @param listener    */
+comment|/**    * Register the specified listener to receive ZooKeeper events and add it as    * the first in the list of current listeners.    * @param listener the listener to register    */
 specifier|public
 name|void
 name|registerListenerFirst
@@ -2100,7 +2102,7 @@ block|}
 block|}
 block|}
 comment|// Connection management
-comment|/**    * Called when there is a connection-related event via the Watcher callback.    *<p>    * If Disconnected or Expired, this should shutdown the cluster. But, since    * we send a KeeperException.SessionExpiredException along with the abort    * call, it's possible for the Abortable to catch it and try to create a new    * session with ZooKeeper. This is what the client does in HCM.    *<p>    * @param event    */
+comment|/**    * Called when there is a connection-related event via the Watcher callback.    *<p>    * If Disconnected or Expired, this should shutdown the cluster. But, since    * we send a KeeperException.SessionExpiredException along with the abort    * call, it's possible for the Abortable to catch it and try to create a new    * session with ZooKeeper. This is what the client does in HCM.    *<p>    * @param event the connection-related event    */
 specifier|private
 name|void
 name|connectionEvent
@@ -2265,7 +2267,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Handles KeeperExceptions in client calls.    *<p>    * This may be temporary but for now this gives one place to deal with these.    *<p>    * TODO: Currently this method rethrows the exception to let the caller handle    *<p>    * @param ke    * @throws KeeperException    */
+comment|/**    * Handles KeeperExceptions in client calls.    *<p>    * This may be temporary but for now this gives one place to deal with these.    *<p>    * TODO: Currently this method rethrows the exception to let the caller handle    *<p>    * @param ke the exception to rethrow    * @throws KeeperException if a ZooKeeper operation fails    */
 specifier|public
 name|void
 name|keeperException
@@ -2423,6 +2425,7 @@ name|abortable
 operator|!=
 literal|null
 condition|)
+block|{
 name|this
 operator|.
 name|abortable
@@ -2434,13 +2437,16 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
+block|}
 else|else
+block|{
 name|this
 operator|.
 name|aborted
 operator|=
 literal|true
 expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Override

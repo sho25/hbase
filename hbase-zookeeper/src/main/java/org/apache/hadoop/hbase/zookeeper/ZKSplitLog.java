@@ -142,7 +142,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Common methods and attributes used by SplitLogManager and SplitLogWorker running distributed splitting of WAL logs.  */
+comment|/**  * Common methods and attributes used by SplitLogManager and SplitLogWorker running distributed  * splitting of WAL logs.  */
 end_comment
 
 begin_class
@@ -151,6 +151,7 @@ name|InterfaceAudience
 operator|.
 name|Private
 specifier|public
+specifier|final
 class|class
 name|ZKSplitLog
 block|{
@@ -169,6 +170,10 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+specifier|private
+name|ZKSplitLog
+parameter_list|()
+block|{   }
 comment|/**    * Gets the full path node name for the log file being split.    * This method will url encode the filename.    * @param zkw zk reference    * @param filename log file name (only the basename)    */
 specifier|public
 specifier|static
@@ -348,7 +353,7 @@ literal|"RESCAN"
 argument_list|)
 return|;
 block|}
-comment|/**    * @param zkw    * @param path the absolute path, starts with '/'    * @return whether the path represents a rescan node    */
+comment|/**    * Checks if the given path represents a rescan node.    *    * @param zkw reference to the {@link ZKWatcher} which also contains configuration and constants    * @param path the absolute path, starts with '/'    * @return whether the path represents a rescan node    */
 specifier|public
 specifier|static
 name|boolean

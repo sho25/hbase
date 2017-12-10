@@ -141,7 +141,7 @@ name|stopped
 init|=
 literal|false
 decl_stmt|;
-comment|/**    * Constructs a new ZK node tracker.    *    *<p>After construction, use {@link #start} to kick off tracking.    *    * @param watcher    * @param node    * @param abortable    */
+comment|/**    * Constructs a new ZK node tracker.    *    *<p>After construction, use {@link #start} to kick off tracking.    *    * @param watcher reference to the {@link ZKWatcher} which also contains configuration and    *                constants    * @param node path of the node being tracked    * @param abortable used to abort if a fatal error occurs    */
 specifier|public
 name|ZKNodeTracker
 parameter_list|(
@@ -306,7 +306,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Gets the data of the node, blocking until the node is available or the    * specified timeout has elapsed.    *    * @param timeout maximum time to wait for the node data to be available,    * n milliseconds.  Pass 0 for no timeout.    * @return data of the node    * @throws InterruptedException if the waiting thread is interrupted    */
+comment|/**    * Gets the data of the node, blocking until the node is available or the    * specified timeout has elapsed.    *    * @param timeout maximum time to wait for the node data to be available, n milliseconds. Pass 0    *                for no timeout.    * @return data of the node    * @throws InterruptedException if the waiting thread is interrupted    */
 specifier|public
 specifier|synchronized
 name|byte
@@ -328,11 +328,13 @@ name|timeout
 operator|<
 literal|0
 condition|)
+block|{
 throw|throw
 operator|new
 name|IllegalArgumentException
 argument_list|()
 throw|;
+block|}
 name|boolean
 name|notimeout
 init|=
@@ -659,7 +661,9 @@ argument_list|(
 name|node
 argument_list|)
 condition|)
+block|{
 return|return;
+block|}
 try|try
 block|{
 name|byte
