@@ -173,6 +173,12 @@ name|write
 argument_list|(
 name|getValueArray
 argument_list|()
+argument_list|,
+name|getValueOffset
+argument_list|()
+argument_list|,
+name|getValueLength
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Tags length and tags byte array
