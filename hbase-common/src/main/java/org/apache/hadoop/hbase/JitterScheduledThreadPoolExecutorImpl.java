@@ -17,20 +17,6 @@ end_package
 
 begin_import
 import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
 name|java
 operator|.
 name|util
@@ -137,6 +123,20 @@ name|TimeoutException
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * ScheduledThreadPoolExecutor that will add some jitter to the RunnableScheduledFuture.getDelay.  *  * This will spread out things on a distributed cluster.  */
 end_comment
@@ -185,6 +185,8 @@ operator|=
 name|spread
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 parameter_list|<
 name|V
@@ -226,6 +228,8 @@ name|task
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 parameter_list|<
 name|V

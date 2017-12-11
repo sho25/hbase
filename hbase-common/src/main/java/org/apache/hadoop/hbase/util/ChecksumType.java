@@ -23,11 +23,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|util
 operator|.
-name|InterfaceAudience
+name|DataChecksum
 import|;
 end_import
 
@@ -37,11 +37,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|yetus
 operator|.
-name|util
+name|audience
 operator|.
-name|DataChecksum
+name|InterfaceAudience
 import|;
 end_import
 

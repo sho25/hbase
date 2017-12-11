@@ -23,20 +23,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -92,6 +78,20 @@ operator|.
 name|util
 operator|.
 name|SimplePositionedMutableByteRange
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -157,6 +157,7 @@ name|length
 operator|==
 literal|0
 condition|)
+block|{
 throw|throw
 operator|new
 name|IllegalArgumentException
@@ -164,6 +165,7 @@ argument_list|(
 literal|"terminator must be non-null and non-empty."
 argument_list|)
 throw|;
+block|}
 name|this
 operator|.
 name|wrapped
@@ -373,7 +375,9 @@ index|[
 literal|0
 index|]
 condition|)
+block|{
 continue|continue;
+block|}
 name|int
 name|j
 decl_stmt|;
@@ -418,9 +422,11 @@ index|[
 name|j
 index|]
 condition|)
+block|{
 continue|continue
 name|SKIP
 continue|;
+block|}
 block|}
 if|if
 condition|(
@@ -430,10 +436,12 @@ name|term
 operator|.
 name|length
 condition|)
+block|{
 return|return
 name|i
 return|;
 comment|// success
+block|}
 block|}
 return|return
 operator|-
@@ -518,6 +526,7 @@ literal|1
 operator|==
 name|skipped
 condition|)
+block|{
 throw|throw
 operator|new
 name|IllegalArgumentException
@@ -525,6 +534,7 @@ argument_list|(
 literal|"Terminator sequence not found."
 argument_list|)
 throw|;
+block|}
 name|skipped
 operator|+=
 name|term
@@ -609,6 +619,7 @@ literal|1
 operator|==
 name|term
 condition|)
+block|{
 throw|throw
 operator|new
 name|IllegalArgumentException
@@ -616,6 +627,7 @@ argument_list|(
 literal|"Terminator sequence not found."
 argument_list|)
 throw|;
+block|}
 name|byte
 index|[]
 name|b

@@ -19,34 +19,6 @@ end_package
 
 begin_import
 import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
-begin_import
-import|import
 name|java
 operator|.
 name|util
@@ -144,6 +116,34 @@ operator|.
 name|concurrent
 operator|.
 name|ConcurrentNavigableMap
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceStability
 import|;
 end_import
 
@@ -3257,6 +3257,7 @@ return|;
 block|}
 block|}
 specifier|private
+specifier|static
 specifier|final
 class|class
 name|ArrayKeyIterator
@@ -3361,6 +3362,7 @@ throw|;
 block|}
 block|}
 specifier|private
+specifier|static
 specifier|final
 class|class
 name|ArrayValueIterator
@@ -3465,6 +3467,7 @@ throw|;
 block|}
 block|}
 specifier|private
+specifier|static
 specifier|final
 class|class
 name|ArrayEntryIterator
@@ -3970,7 +3973,7 @@ operator|-
 name|startIndex
 return|;
 block|}
-comment|/**      * Binary search for a given key      * @param needle The key to look for in all of the entries      * @return Same return value as Arrays.binarySearch.      * Positive numbers mean the index.      * Otherwise (-1 * insertion point) - 1      */
+comment|/**      * Binary search for a given key      * @param needle The key to look for in all of the entries      * @return Same return value as Arrays.binarySearch.      *         Positive numbers mean the index. Otherwise (-1 * insertion point) - 1      */
 name|int
 name|find
 parameter_list|(

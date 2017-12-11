@@ -23,20 +23,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -76,6 +62,20 @@ operator|.
 name|util
 operator|.
 name|PositionedByteRange
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -217,6 +217,7 @@ literal|null
 operator|==
 name|val
 condition|)
+block|{
 throw|throw
 operator|new
 name|IllegalArgumentException
@@ -224,6 +225,7 @@ argument_list|(
 literal|"Null values not supported."
 argument_list|)
 throw|;
+block|}
 return|return
 name|OrderedBytes
 operator|.

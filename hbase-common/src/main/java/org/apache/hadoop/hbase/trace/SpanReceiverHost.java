@@ -177,6 +177,7 @@ name|SingletonHolder
 block|{
 name|INSTANCE
 block|;
+specifier|final
 specifier|transient
 name|Object
 name|lock

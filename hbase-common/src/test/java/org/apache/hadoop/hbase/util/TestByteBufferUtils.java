@@ -1972,7 +1972,7 @@ name|ByteBufferUtils
 operator|.
 name|longFitsIn
 argument_list|(
-literal|1l
+literal|1L
 operator|<<
 literal|16
 argument_list|)
@@ -1986,7 +1986,7 @@ name|ByteBufferUtils
 operator|.
 name|longFitsIn
 argument_list|(
-literal|1l
+literal|1L
 operator|<<
 literal|32
 argument_list|)

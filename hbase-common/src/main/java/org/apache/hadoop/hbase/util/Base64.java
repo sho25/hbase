@@ -181,6 +181,18 @@ begin_import
 import|import
 name|java
 operator|.
+name|nio
+operator|.
+name|charset
+operator|.
+name|StandardCharsets
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|zip
@@ -3184,6 +3196,10 @@ name|baos
 operator|.
 name|toByteArray
 argument_list|()
+argument_list|,
+name|StandardCharsets
+operator|.
+name|UTF_8
 argument_list|)
 return|;
 block|}
@@ -3498,6 +3514,10 @@ name|baos
 operator|.
 name|toByteArray
 argument_list|()
+argument_list|,
+name|StandardCharsets
+operator|.
+name|UTF_8
 argument_list|)
 return|;
 block|}
@@ -3798,6 +3818,10 @@ argument_list|,
 literal|0
 argument_list|,
 name|e
+argument_list|,
+name|StandardCharsets
+operator|.
+name|UTF_8
 argument_list|)
 return|;
 block|}
@@ -4559,7 +4583,11 @@ operator|=
 name|s
 operator|.
 name|getBytes
-argument_list|()
+argument_list|(
+name|StandardCharsets
+operator|.
+name|UTF_8
+argument_list|)
 expr_stmt|;
 block|}
 comment|// end catch

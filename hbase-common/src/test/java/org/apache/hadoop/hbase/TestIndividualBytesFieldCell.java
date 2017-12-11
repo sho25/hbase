@@ -693,7 +693,7 @@ argument_list|)
 expr_stmt|;
 comment|// without tags
 block|}
-comment|/**    * @param ic An instance of IndividualBytesFieldCell to compare.    * @param kv An instance of KeyValue to compare.    * @param withTags Whether to write tags.    * @throws IOException    */
+comment|/**    * @param ic An instance of IndividualBytesFieldCell to compare.    * @param kv An instance of KeyValue to compare.    * @param withTags Whether to write tags.    */
 specifier|private
 name|void
 name|testWriteIntoOutputStream
@@ -738,6 +738,7 @@ name|withTags
 argument_list|)
 argument_list|)
 decl_stmt|;
+comment|// compare the number of bytes written
 name|assertEquals
 argument_list|(
 name|kv
@@ -759,7 +760,7 @@ name|withTags
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// compare the number of bytes written
+comment|// compare the underlying byte array
 name|assertArrayEquals
 argument_list|(
 name|outKV
@@ -773,7 +774,6 @@ name|getBuffer
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// compare the underlying byte array
 block|}
 comment|/**    * Verify getXXXArray() and getXXXLength() when family/qualifier/value/tags are null.    * Should have the same behaviors as {@link KeyValue}.    */
 annotation|@
@@ -980,7 +980,8 @@ name|getTagsLength
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|// getXXXArray() for family, qualifier, value and tags are supposed to return empty byte array, rather than null.
+comment|// getXXXArray() for family, qualifier, value and tags are supposed to return empty byte array,
+comment|// rather than null.
 name|assertArrayEquals
 argument_list|(
 name|familyArrayInKV

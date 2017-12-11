@@ -141,20 +141,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|io
@@ -318,6 +304,20 @@ operator|.
 name|util
 operator|.
 name|ReflectionUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -556,6 +556,7 @@ name|CompressionCodec
 name|lzoCodec
 decl_stmt|;
 specifier|private
+specifier|final
 specifier|transient
 name|Object
 name|lock
@@ -677,6 +678,7 @@ name|GzipCodec
 name|codec
 decl_stmt|;
 specifier|private
+specifier|final
 specifier|transient
 name|Object
 name|lock
@@ -872,6 +874,7 @@ name|CompressionCodec
 name|snappyCodec
 decl_stmt|;
 specifier|private
+specifier|final
 specifier|transient
 name|Object
 name|lock
@@ -990,6 +993,7 @@ name|CompressionCodec
 name|lz4Codec
 decl_stmt|;
 specifier|private
+specifier|final
 specifier|transient
 name|Object
 name|lock
@@ -1108,6 +1112,7 @@ name|CompressionCodec
 name|bzipCodec
 decl_stmt|;
 specifier|private
+specifier|final
 specifier|transient
 name|Object
 name|lock
@@ -1226,6 +1231,7 @@ name|CompressionCodec
 name|zStandardCodec
 decl_stmt|;
 specifier|private
+specifier|final
 specifier|transient
 name|Object
 name|lock

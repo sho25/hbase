@@ -43,6 +43,16 @@ name|java
 operator|.
 name|io
 operator|.
+name|OutputStreamWriter
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
 name|PrintWriter
 import|;
 end_import
@@ -68,6 +78,18 @@ operator|.
 name|reflect
 operator|.
 name|Array
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|nio
+operator|.
+name|charset
+operator|.
+name|StandardCharsets
 import|;
 end_import
 
@@ -271,7 +293,7 @@ name|jackson
 operator|.
 name|core
 operator|.
-name|JsonGenerator
+name|JsonGenerationException
 import|;
 end_import
 
@@ -285,7 +307,7 @@ name|jackson
 operator|.
 name|core
 operator|.
-name|JsonGenerationException
+name|JsonGenerator
 import|;
 end_import
 
@@ -1936,9 +1958,17 @@ init|=
 operator|new
 name|PrintWriter
 argument_list|(
+operator|new
+name|OutputStreamWriter
+argument_list|(
 name|System
 operator|.
 name|out
+argument_list|,
+name|StandardCharsets
+operator|.
+name|UTF_8
+argument_list|)
 argument_list|)
 init|)
 block|{

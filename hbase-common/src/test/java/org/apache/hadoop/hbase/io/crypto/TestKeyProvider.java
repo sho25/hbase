@@ -279,17 +279,21 @@ name|assertEquals
 argument_list|(
 literal|"Test provider did not create a key for AES"
 argument_list|,
+literal|"AES"
+argument_list|,
 name|key
 operator|.
 name|getAlgorithm
 argument_list|()
-argument_list|,
-literal|"AES"
 argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
 literal|"Test provider did not create a key of adequate length"
+argument_list|,
+name|AES
+operator|.
+name|KEY_LENGTH
 argument_list|,
 name|key
 operator|.
@@ -297,10 +301,6 @@ name|getEncoded
 argument_list|()
 operator|.
 name|length
-argument_list|,
-name|AES
-operator|.
-name|KEY_LENGTH
 argument_list|)
 expr_stmt|;
 block|}

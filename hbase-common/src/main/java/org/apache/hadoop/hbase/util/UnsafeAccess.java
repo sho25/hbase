@@ -1259,6 +1259,9 @@ block|}
 name|long
 name|srcAddress
 init|=
+operator|(
+name|long
+operator|)
 name|srcOffset
 operator|+
 name|BYTE_ARRAY_BASE_OFFSET
@@ -1427,6 +1430,9 @@ block|}
 name|long
 name|destAddress
 init|=
+operator|(
+name|long
+operator|)
 name|destOffset
 operator|+
 name|BYTE_ARRAY_BASE_OFFSET
@@ -1508,6 +1514,9 @@ else|else
 block|{
 name|srcAddress
 operator|=
+operator|(
+name|long
+operator|)
 name|srcOffset
 operator|+
 name|src
@@ -1552,6 +1561,9 @@ else|else
 block|{
 name|destAddress
 operator|=
+operator|(
+name|long
+operator|)
 name|destOffset
 operator|+
 name|BYTE_ARRAY_BASE_OFFSET

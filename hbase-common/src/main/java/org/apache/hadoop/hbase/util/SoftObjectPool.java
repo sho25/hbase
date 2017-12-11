@@ -55,26 +55,8 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|ObjectPool
-operator|.
-name|ObjectFactory
-import|;
-end_import
-
 begin_comment
-comment|/**  * A {@code SoftReference} based shared object pool.  * The objects are kept in soft references and  * associated with keys which are identified by the {@code equals} method.  * The objects are created by {@link ObjectFactory} on demand.  * The object creation is expected to be lightweight,  * and the objects may be excessively created and discarded.  * Thread safe.  */
+comment|/**  * A {@code SoftReference} based shared object pool.  * The objects are kept in soft references and  * associated with keys which are identified by the {@code equals} method.  * The objects are created by ObjectFactory on demand.  * The object creation is expected to be lightweight,  * and the objects may be excessively created and discarded.  * Thread safe.  */
 end_comment
 
 begin_class

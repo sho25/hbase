@@ -399,7 +399,7 @@ name|fam1
 argument_list|,
 name|qual1
 argument_list|,
-literal|0l
+literal|0L
 argument_list|,
 name|Type
 operator|.
@@ -724,7 +724,7 @@ name|fam2
 argument_list|,
 name|qual2
 argument_list|,
-literal|0l
+literal|0L
 argument_list|,
 name|Type
 operator|.
@@ -782,7 +782,7 @@ operator|.
 name|capacity
 argument_list|()
 argument_list|,
-literal|0l
+literal|0L
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -914,7 +914,7 @@ operator|.
 name|capacity
 argument_list|()
 argument_list|,
-literal|0l
+literal|0L
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1064,7 +1064,7 @@ name|fam1
 argument_list|,
 name|qual1
 argument_list|,
-literal|0l
+literal|0L
 argument_list|,
 name|Type
 operator|.
@@ -1126,7 +1126,7 @@ operator|.
 name|capacity
 argument_list|()
 argument_list|,
-literal|0l
+literal|0L
 argument_list|)
 decl_stmt|;
 name|assertEquals
@@ -1421,7 +1421,7 @@ name|fam1
 argument_list|,
 name|qual1
 argument_list|,
-literal|0l
+literal|0L
 argument_list|,
 name|Type
 operator|.

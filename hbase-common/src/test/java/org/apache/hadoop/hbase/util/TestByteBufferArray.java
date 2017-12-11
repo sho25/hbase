@@ -377,6 +377,8 @@ condition|)
 block|{
 name|assertEquals
 argument_list|(
+literal|0
+argument_list|,
 name|array
 operator|.
 name|buffers
@@ -386,8 +388,6 @@ index|]
 operator|.
 name|capacity
 argument_list|()
-argument_list|,
-literal|0
 argument_list|)
 expr_stmt|;
 block|}
@@ -395,6 +395,10 @@ else|else
 block|{
 name|assertEquals
 argument_list|(
+name|ByteBufferArray
+operator|.
+name|DEFAULT_BUFFER_SIZE
+argument_list|,
 name|array
 operator|.
 name|buffers
@@ -404,10 +408,6 @@ index|]
 operator|.
 name|capacity
 argument_list|()
-argument_list|,
-name|ByteBufferArray
-operator|.
-name|DEFAULT_BUFFER_SIZE
 argument_list|)
 expr_stmt|;
 block|}
@@ -532,6 +532,8 @@ condition|)
 block|{
 name|assertEquals
 argument_list|(
+literal|0
+argument_list|,
 name|array
 operator|.
 name|buffers
@@ -541,8 +543,6 @@ index|]
 operator|.
 name|capacity
 argument_list|()
-argument_list|,
-literal|0
 argument_list|)
 expr_stmt|;
 block|}
@@ -550,6 +550,8 @@ else|else
 block|{
 name|assertEquals
 argument_list|(
+literal|458752
+argument_list|,
 name|array
 operator|.
 name|buffers
@@ -559,8 +561,6 @@ index|]
 operator|.
 name|capacity
 argument_list|()
-argument_list|,
-literal|458752
 argument_list|)
 expr_stmt|;
 block|}

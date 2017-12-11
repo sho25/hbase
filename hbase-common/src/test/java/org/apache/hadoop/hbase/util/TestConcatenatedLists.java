@@ -666,6 +666,27 @@ name|SuppressWarnings
 argument_list|(
 literal|"ModifyingCollectionWithItself"
 argument_list|)
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"DMI_VACUOUS_SELF_COLLECTION_CALL"
+argument_list|,
+name|justification
+operator|=
+literal|"Intended vacuous containsAll call on 'c'"
+argument_list|)
 specifier|private
 name|void
 name|verify

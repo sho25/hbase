@@ -145,7 +145,7 @@ name|org
 operator|.
 name|junit
 operator|.
-name|Test
+name|Before
 import|;
 end_import
 
@@ -155,7 +155,7 @@ name|org
 operator|.
 name|junit
 operator|.
-name|Before
+name|Test
 import|;
 end_import
 

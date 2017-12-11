@@ -1587,6 +1587,7 @@ literal|null
 return|;
 block|}
 specifier|private
+specifier|static
 class|class
 name|FileFilterWithName
 implements|implements

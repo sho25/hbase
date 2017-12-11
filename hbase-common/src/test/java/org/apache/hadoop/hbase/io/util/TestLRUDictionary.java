@@ -402,6 +402,9 @@ expr_stmt|;
 comment|// Verify that our randomly generated array doesn't exist in the dictionary
 name|assertEquals
 argument_list|(
+operator|-
+literal|1
+argument_list|,
 name|testee
 operator|.
 name|findEntry
@@ -414,9 +417,6 @@ name|testBytes
 operator|.
 name|length
 argument_list|)
-argument_list|,
-operator|-
-literal|1
 argument_list|)
 expr_stmt|;
 comment|// now since we looked up an entry, we should have added it to the

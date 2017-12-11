@@ -16,6 +16,42 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertNull
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|fail
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -32,16 +68,6 @@ operator|.
 name|util
 operator|.
 name|Map
-import|;
-end_import
-
-begin_import
-import|import
-name|junit
-operator|.
-name|framework
-operator|.
-name|TestCase
 import|;
 end_import
 
@@ -113,6 +139,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Before
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -148,8 +184,6 @@ argument_list|)
 specifier|public
 class|class
 name|TestCompoundConfiguration
-extends|extends
-name|TestCase
 block|{
 specifier|private
 name|Configuration
@@ -160,8 +194,8 @@ name|int
 name|baseConfSize
 decl_stmt|;
 annotation|@
-name|Override
-specifier|protected
+name|Before
+specifier|public
 name|void
 name|setUp
 parameter_list|()
@@ -671,6 +705,7 @@ argument_list|(
 literal|"B"
 argument_list|)
 condition|)
+block|{
 name|assertEquals
 argument_list|(
 literal|"2b"
@@ -681,6 +716,7 @@ name|getValue
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 elseif|else
 if|if
 condition|(
@@ -694,16 +730,16 @@ argument_list|(
 literal|"G"
 argument_list|)
 condition|)
-name|assertEquals
+block|{
+name|assertNull
 argument_list|(
-literal|null
-argument_list|,
 name|entry
 operator|.
 name|getValue
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|// verify that entries from ImmutableConfigMap's are merged in the iterator's view
 name|assertEquals
@@ -965,6 +1001,7 @@ argument_list|(
 literal|"B"
 argument_list|)
 condition|)
+block|{
 name|assertEquals
 argument_list|(
 literal|"2b"
@@ -975,6 +1012,7 @@ name|getValue
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 elseif|else
 if|if
 condition|(
@@ -988,16 +1026,16 @@ argument_list|(
 literal|"G"
 argument_list|)
 condition|)
-name|assertEquals
+block|{
+name|assertNull
 argument_list|(
-literal|null
-argument_list|,
 name|entry
 operator|.
 name|getValue
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|// verify that entries from ImmutableConfigMap's are merged in the iterator's view
 name|assertEquals
@@ -1270,6 +1308,7 @@ argument_list|(
 literal|"B"
 argument_list|)
 condition|)
+block|{
 name|assertEquals
 argument_list|(
 literal|"2b"
@@ -1280,6 +1319,7 @@ name|getValue
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 elseif|else
 if|if
 condition|(
@@ -1293,16 +1333,16 @@ argument_list|(
 literal|"G"
 argument_list|)
 condition|)
-name|assertEquals
+block|{
+name|assertNull
 argument_list|(
-literal|null
-argument_list|,
 name|entry
 operator|.
 name|getValue
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|// verify that entries from ImmutableConfigMap's are merged in the iterator's view
 name|assertEquals
@@ -1580,6 +1620,7 @@ argument_list|(
 literal|"A"
 argument_list|)
 condition|)
+block|{
 name|assertEquals
 argument_list|(
 name|newValueForA
@@ -1590,6 +1631,7 @@ name|getValue
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 elseif|else
 if|if
 condition|(
@@ -1603,6 +1645,7 @@ argument_list|(
 literal|"B"
 argument_list|)
 condition|)
+block|{
 name|assertEquals
 argument_list|(
 name|newValueForB
@@ -1613,6 +1656,7 @@ name|getValue
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|// verify that entries from ImmutableConfigMap's are merged in the iterator's view
 name|assertEquals

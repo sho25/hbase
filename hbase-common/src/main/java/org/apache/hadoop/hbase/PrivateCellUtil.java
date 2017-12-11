@@ -832,7 +832,7 @@ decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
-name|long
+name|int
 name|HEAP_SIZE_OVERHEAD
 init|=
 name|ClassSize
@@ -1593,7 +1593,7 @@ decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
-name|long
+name|int
 name|HEAP_SIZE_OVERHEAD
 init|=
 name|ClassSize
@@ -7036,7 +7036,7 @@ block|{
 specifier|private
 specifier|static
 specifier|final
-name|long
+name|int
 name|FIXED_HEAPSIZE
 init|=
 name|ClassSize
@@ -8427,7 +8427,7 @@ block|{
 specifier|private
 specifier|static
 specifier|final
-name|long
+name|int
 name|FIXED_OVERHEAD
 init|=
 name|ClassSize

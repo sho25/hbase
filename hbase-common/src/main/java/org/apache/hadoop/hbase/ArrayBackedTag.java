@@ -31,6 +31,22 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Bytes
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -50,22 +66,6 @@ operator|.
 name|audience
 operator|.
 name|InterfaceStability
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Bytes
 import|;
 end_import
 
@@ -357,6 +357,8 @@ index|]
 expr_stmt|;
 block|}
 comment|/**    * @return The byte array backing this Tag.    */
+annotation|@
+name|Override
 specifier|public
 name|byte
 index|[]
@@ -370,6 +372,8 @@ name|bytes
 return|;
 block|}
 comment|/**    * @return the tag type    */
+annotation|@
+name|Override
 specifier|public
 name|byte
 name|getType
@@ -382,6 +386,8 @@ name|type
 return|;
 block|}
 comment|/**    * @return Length of actual tag bytes within the backed buffer    */
+annotation|@
+name|Override
 specifier|public
 name|int
 name|getValueLength
@@ -396,6 +402,8 @@ name|INFRASTRUCTURE_SIZE
 return|;
 block|}
 comment|/**    * @return Offset of actual tag bytes within the backed buffer    */
+annotation|@
+name|Override
 specifier|public
 name|int
 name|getValueOffset

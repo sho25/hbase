@@ -484,7 +484,7 @@ argument_list|)
 argument_list|)
 decl_stmt|;
 specifier|final
-name|long
+name|int
 name|length
 init|=
 name|kv
@@ -761,7 +761,7 @@ argument_list|)
 argument_list|)
 decl_stmt|;
 specifier|final
-name|long
+name|int
 name|length
 init|=
 name|kv1

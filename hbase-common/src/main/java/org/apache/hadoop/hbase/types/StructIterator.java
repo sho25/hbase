@@ -43,11 +43,13 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|util
+operator|.
+name|PositionedByteRange
 import|;
 end_import
 
@@ -57,13 +59,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|yetus
 operator|.
-name|hbase
+name|audience
 operator|.
-name|util
-operator|.
-name|PositionedByteRange
+name|InterfaceAudience
 import|;
 end_import
 
@@ -190,11 +190,13 @@ operator|!
 name|hasNext
 argument_list|()
 condition|)
+block|{
 throw|throw
 operator|new
 name|NoSuchElementException
 argument_list|()
 throw|;
+block|}
 name|DataType
 argument_list|<
 name|?
@@ -224,9 +226,11 @@ operator|.
 name|isNullable
 argument_list|()
 condition|)
+block|{
 return|return
 literal|null
 return|;
+block|}
 return|return
 name|t
 operator|.
@@ -248,11 +252,13 @@ operator|!
 name|hasNext
 argument_list|()
 condition|)
+block|{
 throw|throw
 operator|new
 name|NoSuchElementException
 argument_list|()
 throw|;
+block|}
 name|DataType
 argument_list|<
 name|?
@@ -282,9 +288,11 @@ operator|.
 name|isNullable
 argument_list|()
 condition|)
+block|{
 return|return
 literal|0
 return|;
+block|}
 return|return
 name|t
 operator|.

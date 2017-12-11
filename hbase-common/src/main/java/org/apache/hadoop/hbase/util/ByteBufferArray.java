@@ -123,6 +123,20 @@ end_import
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -146,20 +160,6 @@ operator|.
 name|logging
 operator|.
 name|LogFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
 import|;
 end_import
 
@@ -227,15 +227,15 @@ end_import
 
 begin_import
 import|import
-name|com
+name|org
 operator|.
-name|google
+name|apache
 operator|.
-name|common
+name|yetus
 operator|.
-name|annotations
+name|audience
 operator|.
-name|VisibleForTesting
+name|InterfaceAudience
 import|;
 end_import
 
@@ -1157,6 +1157,7 @@ operator|<
 name|bufferCount
 assert|;
 assert|assert
+operator|(
 name|endBuffer
 operator|>=
 literal|0
@@ -1164,6 +1165,7 @@ operator|&&
 name|endBuffer
 operator|<
 name|bufferCount
+operator|)
 operator|||
 operator|(
 name|endBuffer
@@ -1433,6 +1435,7 @@ operator|<
 name|bufferCount
 assert|;
 assert|assert
+operator|(
 name|endBuffer
 operator|>=
 literal|0
@@ -1440,6 +1443,7 @@ operator|&&
 name|endBuffer
 operator|<
 name|bufferCount
+operator|)
 operator|||
 operator|(
 name|endBuffer

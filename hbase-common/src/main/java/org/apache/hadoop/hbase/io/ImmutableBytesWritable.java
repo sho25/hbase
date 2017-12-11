@@ -73,20 +73,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|io
@@ -120,6 +106,20 @@ operator|.
 name|io
 operator|.
 name|WritableComparator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -439,6 +439,8 @@ operator|.
 name|offset
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|readFields
@@ -493,6 +495,8 @@ operator|=
 literal|0
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|write
@@ -581,6 +585,8 @@ name|hash
 return|;
 block|}
 comment|/**    * Define the sort order of the BytesWritable.    * @param that The other bytes writable    * @return Positive if left is bigger than right, 0 if they are equal, and    *         negative if left is smaller than right.    */
+annotation|@
+name|Override
 specifier|public
 name|int
 name|compareTo

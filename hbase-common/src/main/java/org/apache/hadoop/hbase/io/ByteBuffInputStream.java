@@ -33,11 +33,13 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|nio
+operator|.
+name|ByteBuff
 import|;
 end_import
 
@@ -47,13 +49,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|yetus
 operator|.
-name|hbase
+name|audience
 operator|.
-name|nio
-operator|.
-name|ByteBuff
+name|InterfaceAudience
 import|;
 end_import
 
@@ -91,6 +91,8 @@ name|buf
 expr_stmt|;
 block|}
 comment|/**    * Reads the next byte of data from this input stream. The value byte is returned as an    *<code>int</code> in the range<code>0</code> to<code>255</code>. If no byte is available    * because the end of the stream has been reached, the value<code>-1</code> is returned.    * @return the next byte of data, or<code>-1</code> if the end of the stream has been reached.    */
+annotation|@
+name|Override
 specifier|public
 name|int
 name|read
@@ -125,6 +127,8 @@ literal|1
 return|;
 block|}
 comment|/**    * Reads up to next<code>len</code> bytes of data from buffer into passed array(starting from    * given offset).    * @param b the array into which the data is read.    * @param off the start offset in the destination array<code>b</code>    * @param len the maximum number of bytes to read.    * @return the total number of bytes actually read into the buffer, or<code>-1</code> if not even    *         1 byte can be read because the end of the stream has been reached.    */
+annotation|@
+name|Override
 specifier|public
 name|int
 name|read
@@ -199,6 +203,8 @@ name|len
 return|;
 block|}
 comment|/**    * Skips<code>n</code> bytes of input from this input stream. Fewer bytes might be skipped if the    * end of the input stream is reached. The actual number<code>k</code> of bytes to be skipped is    * equal to the smaller of<code>n</code> and remaining bytes in the stream.    * @param n the number of bytes to be skipped.    * @return the actual number of bytes skipped.    */
+annotation|@
+name|Override
 specifier|public
 name|long
 name|skip
@@ -248,6 +254,8 @@ name|k
 return|;
 block|}
 comment|/**    * @return  the number of remaining bytes that can be read (or skipped    *          over) from this input stream.    */
+annotation|@
+name|Override
 specifier|public
 name|int
 name|available

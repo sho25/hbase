@@ -133,20 +133,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -173,8 +159,22 @@ name|ByteBufferUtils
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
-comment|/**  * Codec that does KeyValue version 1 serialization.  *   *<p>Encodes Cell as serialized in KeyValue with total length prefix.  * This is how KVs were serialized in Puts, Deletes and Results pre-0.96.  Its what would  * happen if you called the Writable#write KeyValue implementation.  This encoder will fail  * if the passed Cell is not an old-school pre-0.96 KeyValue.  Does not copy bytes writing.  * It just writes them direct to the passed stream.  *  *<p>If you wrote two KeyValues to this encoder, it would look like this in the stream:  *<pre>  * length-of-KeyValue1 // A java int with the length of KeyValue1 backing array  * KeyValue1 backing array filled with a KeyValue serialized in its particular format  * length-of-KeyValue2  * KeyValue2 backing array  *</pre>  */
+comment|/**  * Codec that does KeyValue version 1 serialization.  *  *<p>Encodes Cell as serialized in KeyValue with total length prefix.  * This is how KVs were serialized in Puts, Deletes and Results pre-0.96.  Its what would  * happen if you called the Writable#write KeyValue implementation.  This encoder will fail  * if the passed Cell is not an old-school pre-0.96 KeyValue.  Does not copy bytes writing.  * It just writes them direct to the passed stream.  *  *<p>If you wrote two KeyValues to this encoder, it would look like this in the stream:  *<pre>  * length-of-KeyValue1 // A java int with the length of KeyValue1 backing array  * KeyValue1 backing array filled with a KeyValue serialized in its particular format  * length-of-KeyValue2  * KeyValue2 backing array  *</pre>  */
 end_comment
 
 begin_class
@@ -282,6 +282,8 @@ name|in
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|Cell
 name|parseCell

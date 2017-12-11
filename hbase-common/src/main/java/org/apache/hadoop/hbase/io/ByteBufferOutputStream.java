@@ -97,20 +97,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -134,6 +120,20 @@ operator|.
 name|util
 operator|.
 name|Bytes
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -566,6 +566,8 @@ name|len
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|write
@@ -602,6 +604,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Writes an<code>int</code> to the underlying output stream as four    * bytes, high byte first.    * @param i the<code>int</code> to write    * @throws IOException if an I/O error occurs.    */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|writeInt

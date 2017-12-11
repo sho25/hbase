@@ -838,9 +838,7 @@ literal|30
 condition|)
 do|;
 return|return
-name|ntries
-operator|<
-literal|30
+literal|false
 return|;
 block|}
 comment|/**    * Wrapper method for {@link Waiter#waitFor(Configuration, long, Predicate)}.    */

@@ -16,6 +16,18 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertNotEquals
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -198,18 +210,6 @@ operator|.
 name|util
 operator|.
 name|Bytes
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertNotEquals
 import|;
 end_import
 
@@ -5033,6 +5033,7 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|private
+specifier|static
 class|class
 name|MockKeyValue
 implements|implements

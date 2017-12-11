@@ -37,7 +37,7 @@ name|org
 operator|.
 name|junit
 operator|.
-name|Rule
+name|Ignore
 import|;
 end_import
 
@@ -47,7 +47,7 @@ name|org
 operator|.
 name|junit
 operator|.
-name|Ignore
+name|Rule
 import|;
 end_import
 
