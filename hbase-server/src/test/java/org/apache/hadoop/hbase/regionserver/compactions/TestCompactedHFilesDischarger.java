@@ -2532,10 +2532,11 @@ parameter_list|)
 block|{         }
 while|while
 condition|(
-operator|!
 name|next
 condition|)
 block|{
+name|next
+operator|=
 name|resScanner
 operator|.
 name|next
