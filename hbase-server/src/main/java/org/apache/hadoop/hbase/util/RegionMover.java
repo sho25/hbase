@@ -844,6 +844,9 @@ name|splitHostname
 init|=
 name|hostname
 operator|.
+name|toLowerCase
+argument_list|()
+operator|.
 name|split
 argument_list|(
 literal|":"
@@ -2170,7 +2173,7 @@ operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
-literal|"already on target server="
+literal|" is already on target server="
 operator|+
 name|server
 argument_list|)
@@ -4354,7 +4357,7 @@ index|[
 literal|0
 index|]
 operator|.
-name|equals
+name|equalsIgnoreCase
 argument_list|(
 name|hostname
 argument_list|)
@@ -4488,6 +4491,9 @@ argument_list|(
 name|server
 operator|.
 name|getServerName
+argument_list|()
+operator|.
+name|toLowerCase
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -4807,8 +4813,6 @@ argument_list|)
 operator|.
 name|toString
 argument_list|()
-operator|+
-literal|","
 expr_stmt|;
 block|}
 catch|catch
@@ -4974,6 +4978,9 @@ literal|":"
 argument_list|,
 literal|","
 argument_list|)
+operator|.
+name|toLowerCase
+argument_list|()
 operator|+
 literal|","
 operator|+
