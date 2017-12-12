@@ -728,6 +728,7 @@ return|return
 name|peers
 return|;
 block|}
+comment|/**    * If replicate_all flag is true, it means all user tables will be replicated to peer cluster.    * Then allow config exclude namespaces or exclude table-cfs which can't be replicated to    * peer cluster.    *    * If replicate_all flag is false, it means all user tables can't be replicated to peer cluster.    * Then allow to config namespaces or table-cfs which will be replicated to peer cluster.    */
 specifier|private
 name|void
 name|checkPeerConfig
@@ -791,13 +792,77 @@ throw|throw
 operator|new
 name|ReplicationException
 argument_list|(
-literal|"Need clean namespaces or table-cfs config fisrtly when you want replicate all cluster"
+literal|"Need clean namespaces or table-cfs config firstly"
+operator|+
+literal|" when replicate_all flag is true"
 argument_list|)
 throw|;
 block|}
+name|checkNamespacesAndTableCfsConfigConflict
+argument_list|(
+name|peerConfig
+operator|.
+name|getExcludeNamespaces
+argument_list|()
+argument_list|,
+name|peerConfig
+operator|.
+name|getExcludeTableCFsMap
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 else|else
 block|{
+if|if
+condition|(
+operator|(
+name|peerConfig
+operator|.
+name|getExcludeNamespaces
+argument_list|()
+operator|!=
+literal|null
+operator|&&
+operator|!
+name|peerConfig
+operator|.
+name|getNamespaces
+argument_list|()
+operator|.
+name|isEmpty
+argument_list|()
+operator|)
+operator|||
+operator|(
+name|peerConfig
+operator|.
+name|getExcludeTableCFsMap
+argument_list|()
+operator|!=
+literal|null
+operator|&&
+operator|!
+name|peerConfig
+operator|.
+name|getTableCFsMap
+argument_list|()
+operator|.
+name|isEmpty
+argument_list|()
+operator|)
+condition|)
+block|{
+throw|throw
+operator|new
+name|ReplicationException
+argument_list|(
+literal|"Need clean exclude-namespaces or exclude-table-cfs config firstly"
+operator|+
+literal|" when replicate_all flag is false"
+argument_list|)
+throw|;
+block|}
 name|checkNamespacesAndTableCfsConfigConflict
 argument_list|(
 name|peerConfig
@@ -818,7 +883,7 @@ name|peerConfig
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Set a namespace in the peer config means that all tables in this namespace    * will be replicated to the peer cluster.    *    * 1. If you already have set a namespace in the peer config, then you can't set any table    *    of this namespace to the peer config.    * 2. If you already have set a table in the peer config, then you can't set this table's    *    namespace to the peer config.    *    * @param namespaces    * @param tableCfs    * @throws ReplicationException    */
+comment|/**    * Set a namespace in the peer config means that all tables in this namespace will be replicated    * to the peer cluster.    * 1. If peer config already has a namespace, then not allow set any table of this namespace    *    to the peer config.    * 2. If peer config already has a table, then not allow set this table's namespace to the peer    *    config.    *    * Set a exclude namespace in the peer config means that all tables in this namespace can't be    * replicated to the peer cluster.    * 1. If peer config already has a exclude namespace, then not allow set any exclude table of    *    this namespace to the peer config.    * 2. If peer config already has a exclude table, then not allow set this table's namespace    *    as a exclude namespace.    */
 specifier|private
 name|void
 name|checkNamespacesAndTableCfsConfigConflict
@@ -921,7 +986,18 @@ throw|throw
 operator|new
 name|ReplicationException
 argument_list|(
-literal|"Table-cfs config conflict with namespaces config in peer"
+literal|"Table-cfs "
+operator|+
+name|table
+operator|+
+literal|" is conflict with namespaces "
+operator|+
+name|table
+operator|.
+name|getNamespaceAsString
+argument_list|()
+operator|+
+literal|" in peer config"
 argument_list|)
 throw|;
 block|}
