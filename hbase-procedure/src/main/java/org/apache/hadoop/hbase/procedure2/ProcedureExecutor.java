@@ -4070,6 +4070,21 @@ argument_list|,
 literal|"executor not running"
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|procs
+operator|==
+literal|null
+operator|||
+name|procs
+operator|.
+name|length
+operator|<=
+literal|0
+condition|)
+block|{
+return|return;
+block|}
 comment|// Prepare procedure
 for|for
 control|(

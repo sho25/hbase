@@ -261,11 +261,21 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|shaded
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
 import|;
 end_import
 
@@ -312,6 +322,20 @@ operator|.
 name|RegionStateTransition
 operator|.
 name|TransitionCode
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -408,7 +432,9 @@ operator|=
 name|regionInfo
 expr_stmt|;
 block|}
-specifier|protected
+annotation|@
+name|VisibleForTesting
+specifier|public
 name|RegionInfo
 name|getRegionInfo
 parameter_list|()

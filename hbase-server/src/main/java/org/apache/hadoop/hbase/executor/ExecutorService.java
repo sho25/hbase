@@ -956,6 +956,7 @@ operator|+
 literal|"-%d"
 argument_list|)
 expr_stmt|;
+comment|// TODO: Should these executors be daemon threads?
 name|this
 operator|.
 name|threadPoolExecutor

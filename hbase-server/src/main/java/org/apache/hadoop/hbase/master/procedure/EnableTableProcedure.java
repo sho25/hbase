@@ -979,7 +979,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|// Assign all the table regions. (including region replicas if added)
+comment|// Assign all the table regions. (including region replicas if added).
+comment|// createAssignProcedure will try to retain old assignments if possible.
 name|addChildProcedure
 argument_list|(
 name|env

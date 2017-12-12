@@ -5061,7 +5061,7 @@ operator|.
 name|start
 argument_list|()
 expr_stmt|;
-comment|/*      * We are active master now... go initialize components we need to run.      * Note, there may be dross in zk from previous runs; it'll get addressed      * below after we determine if cluster startup or failover.      */
+comment|/*      * We are active master now... go initialize components we need to run.      */
 name|status
 operator|.
 name|setStatus
@@ -6917,36 +6917,6 @@ expr_stmt|;
 name|stopChores
 argument_list|()
 expr_stmt|;
-comment|// Wait for all the remaining region servers to report in IFF we were
-comment|// running a cluster shutdown AND we were NOT aborting.
-if|if
-condition|(
-operator|!
-name|isAborted
-argument_list|()
-operator|&&
-name|this
-operator|.
-name|serverManager
-operator|!=
-literal|null
-operator|&&
-name|this
-operator|.
-name|serverManager
-operator|.
-name|isClusterShutdown
-argument_list|()
-condition|)
-block|{
-name|this
-operator|.
-name|serverManager
-operator|.
-name|letRegionServersShutdown
-argument_list|()
-expr_stmt|;
-block|}
 if|if
 condition|(
 name|LOG
@@ -17766,6 +17736,13 @@ argument_list|,
 literal|0
 argument_list|)
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Running RecoverMetaProcedure to ensure proper hbase:meta deploy."
+argument_list|)
+expr_stmt|;
 name|long
 name|procId
 init|=
@@ -17784,15 +17761,6 @@ name|latch
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Waiting on RecoverMetaProcedure submitted with procId="
-operator|+
-name|procId
-argument_list|)
-expr_stmt|;
 name|latch
 operator|.
 name|await
@@ -17802,7 +17770,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Default replica of hbase:meta, location="
+literal|"hbase:meta (default replica) deployed at="
 operator|+
 name|getMetaTableLocator
 argument_list|()

@@ -6655,8 +6655,6 @@ operator|.
 name|assign
 argument_list|(
 name|regionInfo
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 if|if

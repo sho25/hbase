@@ -3142,13 +3142,22 @@ name|isFailoverCleanupDone
 argument_list|()
 condition|)
 block|{
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"AssignmentManager failover cleanup not done."
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 for|for
 control|(
@@ -3987,6 +3996,10 @@ operator|.
 name|isStopped
 argument_list|()
 operator|&&
+operator|!
+name|isClusterShutdown
+argument_list|()
+operator|&&
 name|count
 operator|<
 name|maxToStart
@@ -4129,6 +4142,23 @@ operator|=
 name|now
 expr_stmt|;
 block|}
+block|}
+comment|// Did we exit the loop because cluster is going down?
+if|if
+condition|(
+name|isClusterShutdown
+argument_list|()
+condition|)
+block|{
+name|this
+operator|.
+name|master
+operator|.
+name|stop
+argument_list|(
+literal|"Cluster shutdown"
+argument_list|)
+expr_stmt|;
 block|}
 name|LOG
 operator|.
@@ -4447,15 +4477,6 @@ operator|.
 name|set
 argument_list|(
 literal|true
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|master
-operator|.
-name|stop
-argument_list|(
-name|statusStr
 argument_list|)
 expr_stmt|;
 block|}

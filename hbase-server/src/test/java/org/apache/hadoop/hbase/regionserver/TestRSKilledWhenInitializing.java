@@ -407,6 +407,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Rule
 import|;
 end_import
@@ -498,6 +508,11 @@ name|MediumTests
 operator|.
 name|class
 block|}
+argument_list|)
+annotation|@
+name|Ignore
+argument_list|(
+literal|"See HBASE-19515"
 argument_list|)
 specifier|public
 class|class
@@ -1021,6 +1036,8 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
+comment|// TODO: This test could do more to verify fix. It could create a table
+comment|// and do round-robin assign. It should fail if zombie RS. HBASE-19515.
 comment|// Wait until the RS no longer shows as registered in Master.
 while|while
 condition|(

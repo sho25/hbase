@@ -1041,7 +1041,7 @@ operator|.
 name|getAssignmentManager
 argument_list|()
 operator|.
-name|createAssignProcedures
+name|createRoundRobinAssignProcedures
 argument_list|(
 name|newRegions
 argument_list|)

@@ -12504,9 +12504,23 @@ name|pauseTime
 init|=
 name|INIT_PAUSE_TIME_MS
 decl_stmt|;
+comment|// Keep looping till we get an error. We want to send reports even though server is going down.
+comment|// Only go down if clusterConnection is null. It is set to null almost as last thing as the
+comment|// HRegionServer does down.
 while|while
 condition|(
-name|keepLooping
+name|this
+operator|.
+name|clusterConnection
+operator|!=
+literal|null
+operator|&&
+operator|!
+name|this
+operator|.
+name|clusterConnection
+operator|.
+name|isClosed
 argument_list|()
 condition|)
 block|{
@@ -12567,10 +12581,7 @@ name|getErrorMessage
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// NOTE: Return mid-method!!!
-return|return
-literal|false
-return|;
+break|break;
 block|}
 comment|// Log if we had to retry else don't log unless TRACE. We want to
 comment|// know if were successful after an attempt showed in logs as failed.
@@ -12716,15 +12727,6 @@ expr_stmt|;
 block|}
 block|}
 block|}
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"TRANSITION NOT REPORTED "
-operator|+
-name|request
-argument_list|)
-expr_stmt|;
 return|return
 literal|false
 return|;
