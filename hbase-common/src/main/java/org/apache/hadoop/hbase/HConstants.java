@@ -129,11 +129,13 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|util
+operator|.
+name|Bytes
 import|;
 end_import
 
@@ -143,13 +145,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|yetus
 operator|.
-name|hbase
+name|audience
 operator|.
-name|util
-operator|.
-name|Bytes
+name|InterfaceAudience
 import|;
 end_import
 
@@ -1584,7 +1584,7 @@ name|Short
 operator|.
 name|MAX_VALUE
 decl_stmt|;
-comment|/**    * Timestamp to use when we want to refer to the latest cell.    *    * On client side, this is the timestamp set by default when no timestamp is specified, to refer to the latest.    * On server side, this acts as a notation.    * (1) For a cell of Put, which has this notation,    *     its timestamp will be replaced with server's current time.    * (2) For a cell of Delete, which has this notation,    *     A. If the cell is of {@link KeyValue.Type#Delete}, HBase issues a Get operation firstly.    *        a. When the count of cell it gets is less than the count of cell to delete,    *           the timestamp of Delete cell will be replaced with server's current time.    *        b. When the count of cell it gets is equal to the count of cell to delete,    *           the timestamp of Delete cell will be replaced with the latest timestamp of cell it gets.    *       (c. It is invalid and an exception will be thrown,    *           if the count of cell it gets is greater than the count of cell to delete,    *           as the max version of Get is set to the count of cell to delete.)    *     B. If the cell is of other Delete types, like {@link KeyValue.Type#DeleteFamilyVersion},    *        {@link KeyValue.Type#DeleteColumn}, or {@link KeyValue.Type#DeleteFamily},    *        the timestamp of Delete cell will be replaced with server's current time.    *    * So that is why it is named as "latest" but assigned as the max value of Long.    */
+comment|/**    * Timestamp to use when we want to refer to the latest cell.    *    * On client side, this is the timestamp set by default when no timestamp is specified,    * to refer to the latest.    * On server side, this acts as a notation.    * (1) For a cell of Put, which has this notation,    *     its timestamp will be replaced with server's current time.    * (2) For a cell of Delete, which has this notation,    *     A. If the cell is of {@link KeyValue.Type#Delete}, HBase issues a Get operation firstly.    *        a. When the count of cell it gets is less than the count of cell to delete,    *           the timestamp of Delete cell will be replaced with server's current time.    *        b. When the count of cell it gets is equal to the count of cell to delete,    *           the timestamp of Delete cell will be replaced with the latest timestamp of cell it    *           gets.    *       (c. It is invalid and an exception will be thrown,    *           if the count of cell it gets is greater than the count of cell to delete,    *           as the max version of Get is set to the count of cell to delete.)    *     B. If the cell is of other Delete types, like {@link KeyValue.Type#DeleteFamilyVersion},    *        {@link KeyValue.Type#DeleteColumn}, or {@link KeyValue.Type#DeleteFamily},    *        the timestamp of Delete cell will be replaced with server's current time.    *    * So that is why it is named as "latest" but assigned as the max value of Long.    */
 specifier|public
 specifier|static
 specifier|final
@@ -1595,7 +1595,7 @@ name|Long
 operator|.
 name|MAX_VALUE
 decl_stmt|;
-comment|/**    * Timestamp to use when we want to refer to the oldest cell.    * Special! Used in fake Cells only. Should never be the timestamp on an actual Cell returned to    * a client.    * @deprecated Should not be public since hbase-1.3.0. For internal use only. Move internal to    * Scanners flagged as special timestamp value never to be returned as timestamp on a Cell.    */
+comment|/**    * Timestamp to use when we want to refer to the oldest cell.    * Special! Used in fake Cells only. Should never be the timestamp on an actual Cell returned to    * a client.    * @deprecated Should not be public since hbase-1.3.0. For internal use only. Move internal to    *   Scanners flagged as special timestamp value never to be returned as timestamp on a Cell.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -3022,6 +3022,32 @@ name|int
 name|DEFAULT_STATUS_MULTICAST_PORT
 init|=
 literal|16100
+decl_stmt|;
+comment|/**    * The network interface name to use for the multicast messages.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|STATUS_MULTICAST_NI_NAME
+init|=
+literal|"hbase.status.multicast.ni.name"
+decl_stmt|;
+comment|/**    * The address to use for binding the local socket for sending multicast. Defaults to 0.0.0.0.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|STATUS_MULTICAST_PUBLISHER_BIND_ADDRESS
+init|=
+literal|"hbase.status.multicast.publisher.bind.address.ip"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|DEFAULT_STATUS_MULTICAST_PUBLISHER_BIND_ADDRESS
+init|=
+literal|"0.0.0.0"
 decl_stmt|;
 specifier|public
 specifier|static
