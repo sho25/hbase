@@ -463,7 +463,7 @@ name|time
 init|=
 name|pauseTime
 operator|*
-literal|3
+literal|3L
 operator|+
 operator|(
 operator|(
@@ -475,7 +475,7 @@ operator|*
 literal|3
 operator|)
 operator|+
-literal|300
+literal|300L
 decl_stmt|;
 name|assertTrue
 argument_list|(

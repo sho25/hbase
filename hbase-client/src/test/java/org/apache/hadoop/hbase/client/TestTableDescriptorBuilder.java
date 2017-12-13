@@ -585,12 +585,12 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
+literal|2
+argument_list|,
 name|deserializedHtd
 operator|.
 name|getRegionReplication
 argument_list|()
-argument_list|,
-literal|2
 argument_list|)
 expr_stmt|;
 block|}

@@ -250,6 +250,8 @@ literal|false
 return|;
 block|}
 comment|/**    * Filters that are not sure which key must be next seeked to, can inherit    * this implementation that, by default, returns a null Cell.    *    * {@inheritDoc}    */
+annotation|@
+name|Override
 specifier|public
 name|Cell
 name|getNextCellHint
@@ -265,6 +267,8 @@ literal|null
 return|;
 block|}
 comment|/**    * By default, we require all scan's column families to be present. Our    * subclasses may be more precise.    *    * {@inheritDoc}    */
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isFamilyEssential
@@ -303,6 +307,8 @@ argument_list|)
 throw|;
 block|}
 comment|/**    * Return filter's info for debugging and logging purpose.    */
+annotation|@
+name|Override
 specifier|public
 name|String
 name|toString
@@ -319,6 +325,8 @@ argument_list|()
 return|;
 block|}
 comment|/**    * Return length 0 byte array for Filters that don't require special serialization    */
+annotation|@
+name|Override
 specifier|public
 name|byte
 index|[]
@@ -336,6 +344,8 @@ index|]
 return|;
 block|}
 comment|/**    * Default implementation so that writers of custom filters aren't forced to implement.    *    * @param other    * @return true if and only if the fields of the filter that are serialized    * are equal to the corresponding fields in other.  Used for testing.    */
+annotation|@
+name|Override
 name|boolean
 name|areSerializedFieldsEqual
 parameter_list|(

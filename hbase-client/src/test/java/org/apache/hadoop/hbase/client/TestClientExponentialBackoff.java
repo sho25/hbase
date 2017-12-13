@@ -807,11 +807,11 @@ name|assertEquals
 argument_list|(
 literal|"We should be using max backoff when at high watermark"
 argument_list|,
-name|backoffTime
-argument_list|,
 name|ExponentialClientBackoffPolicy
 operator|.
 name|DEFAULT_MAX_BACKOFF
+argument_list|,
+name|backoffTime
 argument_list|)
 expr_stmt|;
 block|}
@@ -949,11 +949,11 @@ name|assertEquals
 argument_list|(
 literal|"under heavy compaction pressure"
 argument_list|,
-name|backoffTime
-argument_list|,
 name|ExponentialClientBackoffPolicy
 operator|.
 name|DEFAULT_MAX_BACKOFF
+argument_list|,
+name|backoffTime
 argument_list|)
 expr_stmt|;
 block|}

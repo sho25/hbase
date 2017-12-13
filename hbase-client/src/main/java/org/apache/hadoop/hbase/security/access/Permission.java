@@ -222,6 +222,7 @@ literal|'A'
 argument_list|)
 block|;
 specifier|private
+specifier|final
 name|byte
 name|code
 decl_stmt|;

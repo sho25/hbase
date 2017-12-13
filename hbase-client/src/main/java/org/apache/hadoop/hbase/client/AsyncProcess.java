@@ -565,7 +565,7 @@ name|numTries
 decl_stmt|;
 annotation|@
 name|VisibleForTesting
-name|int
+name|long
 name|serverTrackerTimeout
 decl_stmt|;
 specifier|final
@@ -817,7 +817,7 @@ name|this
 operator|.
 name|serverTrackerTimeout
 operator|=
-literal|0
+literal|0L
 expr_stmt|;
 for|for
 control|(
@@ -837,7 +837,9 @@ name|i
 control|)
 block|{
 name|serverTrackerTimeout
-operator|+=
+operator|=
+name|serverTrackerTimeout
+operator|+
 name|ConnectionUtils
 operator|.
 name|getPauseTime

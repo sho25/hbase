@@ -73,6 +73,7 @@ literal|4
 argument_list|)
 block|;
 specifier|private
+specifier|final
 name|int
 name|value
 decl_stmt|;

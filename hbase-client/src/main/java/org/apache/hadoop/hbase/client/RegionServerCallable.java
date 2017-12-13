@@ -406,6 +406,8 @@ name|stub
 return|;
 block|}
 comment|/**    * Override that changes call Exception from {@link Exception} to {@link IOException}.    * Also does set up of the rpcController.    */
+annotation|@
+name|Override
 specifier|public
 name|T
 name|call
@@ -660,6 +662,8 @@ operator|.
 name|priority
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|throwable
@@ -705,6 +709,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Override
 specifier|public
 name|String
 name|getExceptionMessageAdditionalDetail
@@ -729,6 +735,8 @@ operator|+
 name|location
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|long
 name|sleep
@@ -779,6 +787,8 @@ name|getRegionInfo
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|prepare

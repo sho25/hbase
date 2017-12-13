@@ -435,6 +435,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**      * Called when a new node has been created.      * @param path full path of the new node      */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|nodeCreated
@@ -450,6 +452,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**      * Called when a node has been deleted      * @param path full path of the deleted node      */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|nodeDeleted
@@ -514,6 +518,8 @@ expr_stmt|;
 block|}
 block|}
 comment|/**      * Called when an existing node has a child node added or removed.      * @param path full path of the node whose children have changed      */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|nodeChildrenChanged
@@ -595,6 +601,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**      * Called when a node has been deleted      * @param path full path of the deleted node      */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|nodeDeleted
@@ -667,6 +675,8 @@ block|}
 block|}
 block|}
 comment|/**      * Called when an existing node has a child node added or removed.      * @param path full path of the node whose children have changed      */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|nodeChildrenChanged

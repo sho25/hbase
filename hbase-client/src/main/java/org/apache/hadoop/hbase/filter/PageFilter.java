@@ -57,20 +57,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -87,17 +73,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|yetus
 operator|.
-name|hbase
+name|audience
 operator|.
-name|shaded
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|FilterProtos
+name|InterfaceAudience
 import|;
 end_import
 
@@ -144,6 +124,26 @@ operator|.
 name|protobuf
 operator|.
 name|InvalidProtocolBufferException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|FilterProtos
 import|;
 end_import
 
@@ -280,6 +280,8 @@ operator|.
 name|INCLUDE
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|filterAllRemaining
@@ -295,6 +297,8 @@ operator|.
 name|pageSize
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|filterRow
@@ -315,6 +319,8 @@ operator|.
 name|pageSize
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|hasFilterRow
@@ -380,6 +386,8 @@ argument_list|)
 return|;
 block|}
 comment|/**    * @return The filter serialized using pb    */
+annotation|@
+name|Override
 specifier|public
 name|byte
 index|[]
@@ -477,7 +485,9 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * @param other    * @return true if and only if the fields of the filter that are serialized    * are equal to the corresponding fields in other.  Used for testing.    */
+comment|/**    * @param o other Filter to compare with    * @return true if and only if the fields of the filter that are serialized are equal to the    *         corresponding fields in other.  Used for testing.    */
+annotation|@
+name|Override
 name|boolean
 name|areSerializedFieldsEqual
 parameter_list|(
@@ -491,9 +501,11 @@ name|o
 operator|==
 name|this
 condition|)
+block|{
 return|return
 literal|true
 return|;
+block|}
 if|if
 condition|(
 operator|!
@@ -503,9 +515,11 @@ operator|instanceof
 name|PageFilter
 operator|)
 condition|)
+block|{
 return|return
 literal|false
 return|;
+block|}
 name|PageFilter
 name|other
 init|=

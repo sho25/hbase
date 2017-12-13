@@ -1016,6 +1016,8 @@ throw|;
 block|}
 block|}
 comment|/**    * @return The filter serialized using pb    */
+annotation|@
+name|Override
 specifier|public
 name|byte
 index|[]
@@ -1292,6 +1294,8 @@ name|value
 operator|=
 literal|"RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE"
 argument_list|)
+annotation|@
+name|Override
 name|boolean
 name|areSerializedFieldsEqual
 parameter_list|(

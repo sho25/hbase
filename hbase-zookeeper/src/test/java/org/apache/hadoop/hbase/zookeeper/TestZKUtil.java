@@ -342,12 +342,12 @@ name|Assert
 operator|.
 name|assertEquals
 argument_list|(
+literal|1
+argument_list|,
 name|aclList
 operator|.
 name|size
 argument_list|()
-argument_list|,
-literal|1
 argument_list|)
 expr_stmt|;
 name|Assert
@@ -442,12 +442,12 @@ name|Assert
 operator|.
 name|assertEquals
 argument_list|(
+literal|2
+argument_list|,
 name|aclList
 operator|.
 name|size
 argument_list|()
-argument_list|,
-literal|2
 argument_list|)
 expr_stmt|;
 comment|// 1+1, since ACL will be set for the creator by default
@@ -569,12 +569,12 @@ name|Assert
 operator|.
 name|assertEquals
 argument_list|(
+literal|4
+argument_list|,
 name|aclList
 operator|.
 name|size
 argument_list|()
-argument_list|,
-literal|4
 argument_list|)
 expr_stmt|;
 comment|// 3+1, since ACL will be set for the creator by default
@@ -792,12 +792,12 @@ name|Assert
 operator|.
 name|assertEquals
 argument_list|(
+literal|3
+argument_list|,
 name|aclList
 operator|.
 name|size
 argument_list|()
-argument_list|,
-literal|3
 argument_list|)
 expr_stmt|;
 comment|// 3, since service user the same as one of superuser

@@ -402,6 +402,8 @@ name|justification
 operator|=
 literal|"The clone below is complete"
 argument_list|)
+annotation|@
+name|Override
 specifier|public
 name|BufferedMutatorParams
 name|clone

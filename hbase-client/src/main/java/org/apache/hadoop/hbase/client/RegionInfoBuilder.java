@@ -668,8 +668,15 @@ name|regionName
 argument_list|)
 decl_stmt|;
 name|result
-operator|^=
+operator|=
+call|(
+name|int
+call|)
+argument_list|(
+name|result
+operator|^
 name|regionId
+argument_list|)
 expr_stmt|;
 name|result
 operator|^=

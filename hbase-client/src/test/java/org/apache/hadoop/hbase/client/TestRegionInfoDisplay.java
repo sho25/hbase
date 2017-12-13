@@ -19,6 +19,28 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|nio
+operator|.
+name|charset
+operator|.
+name|StandardCharsets
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -202,16 +224,6 @@ operator|.
 name|rules
 operator|.
 name|TestRule
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
 import|;
 end_import
 
@@ -599,6 +611,10 @@ argument_list|(
 name|RegionInfoDisplay
 operator|.
 name|HIDDEN_START_KEY
+argument_list|,
+name|StandardCharsets
+operator|.
+name|UTF_8
 argument_list|)
 argument_list|)
 argument_list|)
@@ -620,6 +636,10 @@ argument_list|(
 name|RegionInfoDisplay
 operator|.
 name|HIDDEN_START_KEY
+argument_list|,
+name|StandardCharsets
+operator|.
+name|UTF_8
 argument_list|)
 argument_list|)
 operator|+

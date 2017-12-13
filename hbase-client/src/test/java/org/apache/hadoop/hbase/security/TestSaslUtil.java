@@ -184,6 +184,8 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
+literal|"auth-int"
+argument_list|,
 name|props
 operator|.
 name|get
@@ -192,8 +194,6 @@ name|Sasl
 operator|.
 name|QOP
 argument_list|)
-argument_list|,
-literal|"auth-int"
 argument_list|)
 expr_stmt|;
 name|props
@@ -207,6 +207,8 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
+literal|"auth-conf,auth"
+argument_list|,
 name|props
 operator|.
 name|get
@@ -215,8 +217,6 @@ name|Sasl
 operator|.
 name|QOP
 argument_list|)
-argument_list|,
-literal|"auth-conf,auth"
 argument_list|)
 expr_stmt|;
 name|props
@@ -230,6 +230,8 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
+literal|"auth-int,auth,auth-conf"
+argument_list|,
 name|props
 operator|.
 name|get
@@ -238,8 +240,6 @@ name|Sasl
 operator|.
 name|QOP
 argument_list|)
-argument_list|,
-literal|"auth-int,auth,auth-conf"
 argument_list|)
 expr_stmt|;
 name|exception
@@ -262,6 +262,8 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
+literal|"auth"
+argument_list|,
 name|props
 operator|.
 name|get
@@ -270,8 +272,6 @@ name|Sasl
 operator|.
 name|QOP
 argument_list|)
-argument_list|,
-literal|"auth"
 argument_list|)
 expr_stmt|;
 name|exception
@@ -294,6 +294,8 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
+literal|"auth"
+argument_list|,
 name|props
 operator|.
 name|get
@@ -302,8 +304,6 @@ name|Sasl
 operator|.
 name|QOP
 argument_list|)
-argument_list|,
-literal|"auth"
 argument_list|)
 expr_stmt|;
 block|}

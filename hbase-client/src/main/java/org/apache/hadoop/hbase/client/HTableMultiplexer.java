@@ -2209,6 +2209,9 @@ name|getTotalBufferedCount
 parameter_list|()
 block|{
 return|return
+operator|(
+name|long
+operator|)
 name|queue
 operator|.
 name|size

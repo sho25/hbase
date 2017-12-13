@@ -354,6 +354,8 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 name|CompletableFuture
 argument_list|<
 name|T

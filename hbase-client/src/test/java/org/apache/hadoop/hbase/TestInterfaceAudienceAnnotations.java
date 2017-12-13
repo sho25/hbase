@@ -371,6 +371,7 @@ name|class
 argument_list|)
 decl_stmt|;
 comment|/** Selects classes with generated in their package name */
+specifier|static
 class|class
 name|GeneratedClassFilter
 implements|implements
@@ -407,6 +408,7 @@ argument_list|)
 return|;
 block|}
 block|}
+specifier|static
 class|class
 name|ShadedProtobufClassFilter
 implements|implements
@@ -1107,6 +1109,7 @@ literal|false
 return|;
 block|}
 comment|/** Selects classes that are declared public */
+specifier|static
 class|class
 name|PublicClassFilter
 implements|implements
@@ -1146,6 +1149,7 @@ return|;
 block|}
 block|}
 comment|/** Selects paths (jars and class dirs) only from the main code, not test classes */
+specifier|static
 class|class
 name|MainCodeResourcePathFilter
 implements|implements
@@ -1186,6 +1190,7 @@ return|;
 block|}
 block|}
 comment|/**    * Selects classes that appear to be source instrumentation from Clover.    * Clover generates instrumented code in order to calculate coverage. Part of the    * generated source is a static inner class on each source class.    *    * - has an enclosing class    * - enclosing class is not an interface    * - name starts with "__CLR"    */
+specifier|static
 class|class
 name|CloverInstrumentationFilter
 implements|implements

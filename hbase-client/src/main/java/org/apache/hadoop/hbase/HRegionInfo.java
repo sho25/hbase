@@ -378,6 +378,8 @@ argument_list|)
 return|;
 block|}
 comment|/**    * @return Return a short, printable name for this region (usually encoded name) for us logging.    */
+annotation|@
+name|Override
 specifier|public
 name|String
 name|getShortNameToLog
@@ -642,10 +644,17 @@ name|regionName
 argument_list|)
 decl_stmt|;
 name|result
-operator|^=
+operator|=
+call|(
+name|int
+call|)
+argument_list|(
+name|result
+operator|^
 name|this
 operator|.
 name|regionId
+argument_list|)
 expr_stmt|;
 name|result
 operator|^=
@@ -1582,6 +1591,8 @@ argument_list|)
 return|;
 block|}
 comment|/** @return the regionId */
+annotation|@
+name|Override
 specifier|public
 name|long
 name|getRegionId
@@ -1592,6 +1603,8 @@ name|regionId
 return|;
 block|}
 comment|/**    * @return the regionName as an array of bytes.    * @see #getRegionNameAsString()    */
+annotation|@
+name|Override
 specifier|public
 name|byte
 index|[]
@@ -1603,6 +1616,8 @@ name|regionName
 return|;
 block|}
 comment|/**    * @return Region name as a String for use in logging, etc.    */
+annotation|@
+name|Override
 specifier|public
 name|String
 name|getRegionNameAsString
@@ -1653,7 +1668,9 @@ name|getEncodedName
 argument_list|()
 return|;
 block|}
-comment|/** @return the encoded region name */
+comment|/**    * @return the encoded region name    */
+annotation|@
+name|Override
 specifier|public
 specifier|synchronized
 name|String
@@ -1689,6 +1706,8 @@ operator|.
 name|encodedName
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 specifier|synchronized
 name|byte
@@ -1724,7 +1743,9 @@ operator|.
 name|encodedNameAsBytes
 return|;
 block|}
-comment|/** @return the startKey */
+comment|/**    * @return the startKey    */
+annotation|@
+name|Override
 specifier|public
 name|byte
 index|[]
@@ -1735,7 +1756,9 @@ return|return
 name|startKey
 return|;
 block|}
-comment|/** @return the endKey */
+comment|/**    * @return the endKey    */
+annotation|@
+name|Override
 specifier|public
 name|byte
 index|[]
@@ -1747,6 +1770,8 @@ name|endKey
 return|;
 block|}
 comment|/**    * Get current table name of the region    * @return TableName    */
+annotation|@
+name|Override
 specifier|public
 name|TableName
 name|getTable
@@ -1787,6 +1812,8 @@ name|tableName
 return|;
 block|}
 comment|/**    * Returns true if the given inclusive range of rows is fully contained    * by this region. For example, if the region is foo,a,g and this is    * passed ["b","c"] or ["a","c"] it will return true, but if this is passed    * ["b","z"] it will return false.    * @throws IllegalArgumentException if the range passed is invalid (ie. end&lt; start)    */
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|containsRange
@@ -1883,7 +1910,9 @@ operator|&&
 name|lastKeyInRange
 return|;
 block|}
-comment|/**    * Return true if the given row falls in this region.    */
+comment|/**    * @return true if the given row falls in this region.    */
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|containsRow
@@ -1941,7 +1970,9 @@ name|isMetaRegion
 argument_list|()
 return|;
 block|}
-comment|/** @return true if this region is a meta region */
+comment|/**    * @return true if this region is a meta region    */
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isMetaRegion
@@ -1974,7 +2005,9 @@ name|isSystemTable
 argument_list|()
 return|;
 block|}
-comment|/**    * @return True if has been split and has daughters.    */
+comment|/**    * @return true if has been split and has daughters.    */
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isSplit
@@ -2002,7 +2035,9 @@ operator|=
 name|split
 expr_stmt|;
 block|}
-comment|/**    * @return True if this region is offline.    */
+comment|/**    * @return true if this region is offline.    */
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isOffline
@@ -2030,7 +2065,9 @@ operator|=
 name|offLine
 expr_stmt|;
 block|}
-comment|/**    * @return True if this is a split parent region.    */
+comment|/**    * @return true if this is a split parent region.    */
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isSplitParent
@@ -2068,6 +2105,8 @@ literal|true
 return|;
 block|}
 comment|/**    * Returns the region replica id    * @return returns region replica id    */
+annotation|@
+name|Override
 specifier|public
 name|int
 name|getReplicaId

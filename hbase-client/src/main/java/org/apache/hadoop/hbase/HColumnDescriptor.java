@@ -1558,6 +1558,8 @@ name|this
 return|;
 block|}
 comment|/**    * By default, HBase only consider timestamp in versions. So a previous Delete with higher ts    * will mask a later Put with lower ts. Set this to true to enable new semantics of versions.    * We will also consider mvcc in versions. See HBASE-15968 for details.    */
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isNewVersionBehavior

@@ -2476,6 +2476,8 @@ return|return
 name|allowPartialResults
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|Scan
 name|setLoadColumnFamiliesOnDemand

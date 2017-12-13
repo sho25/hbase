@@ -639,6 +639,8 @@ argument_list|)
 return|;
 block|}
 comment|/**    * @return The filter serialized using pb    */
+annotation|@
+name|Override
 specifier|public
 name|byte
 index|[]
@@ -804,6 +806,8 @@ argument_list|)
 return|;
 block|}
 comment|/**    * @param o the other filter to compare with    * @return true if and only if the fields of the filter that are serialized    * are equal to the corresponding fields in other.  Used for testing.    */
+annotation|@
+name|Override
 name|boolean
 name|areSerializedFieldsEqual
 parameter_list|(

@@ -1316,6 +1316,7 @@ argument_list|(
 literal|"serial"
 argument_list|)
 specifier|public
+specifier|static
 class|class
 name|ReusablePool
 parameter_list|<
@@ -1413,6 +1414,7 @@ name|SuppressWarnings
 argument_list|(
 literal|"serial"
 argument_list|)
+specifier|static
 class|class
 name|RoundRobinPool
 parameter_list|<

@@ -1508,6 +1508,8 @@ name|done
 return|;
 block|}
 comment|/**    * @return The filter serialized using pb    */
+annotation|@
+name|Override
 specifier|public
 name|byte
 index|[]
@@ -2656,6 +2658,8 @@ name|Order
 block|{
 name|ASC
 block|{
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|lt
@@ -2673,6 +2677,8 @@ operator|<
 name|rhs
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|gt
@@ -2690,6 +2696,8 @@ operator|>
 name|rhs
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|byte
 name|inc
@@ -2710,6 +2718,8 @@ literal|1
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isMax
@@ -2727,6 +2737,8 @@ operator|)
 literal|0xff
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|byte
 name|min
@@ -2740,6 +2752,8 @@ block|}
 block|,
 name|DESC
 block|{
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|lt
@@ -2757,6 +2771,8 @@ operator|>
 name|rhs
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|gt
@@ -2774,6 +2790,8 @@ operator|<
 name|rhs
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|byte
 name|inc
@@ -2794,6 +2812,8 @@ literal|1
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isMax
@@ -2808,6 +2828,8 @@ operator|==
 literal|0
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|byte
 name|min
@@ -3383,6 +3405,8 @@ name|retValue
 return|;
 block|}
 comment|/**    * @return true if and only if the fields of the filter that are serialized are equal to the    *         corresponding fields in other. Used for testing.    */
+annotation|@
+name|Override
 name|boolean
 name|areSerializedFieldsEqual
 parameter_list|(

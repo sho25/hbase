@@ -240,7 +240,7 @@ block|{
 specifier|private
 specifier|static
 specifier|final
-name|long
+name|int
 name|HEAP_OVERHEAD
 init|=
 name|ClassSize
@@ -635,6 +635,8 @@ name|this
 return|;
 block|}
 comment|/**    * @param returnResults True (default) if the increment operation should return the results. A    *          client that is not interested in the result can save network bandwidth setting this    *          to false.    */
+annotation|@
+name|Override
 specifier|public
 name|Increment
 name|setReturnResults
@@ -656,6 +658,8 @@ return|;
 block|}
 comment|/**    * @return current setting for returnResults    */
 comment|// This method makes public the superclasses's protected method.
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isReturnResults

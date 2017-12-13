@@ -231,6 +231,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Creates a connection. Can be overridden by a subclass for testing.    * @param remoteId - the ConnectionId to use for the connection creation.    */
+annotation|@
+name|Override
 specifier|protected
 name|BlockingRpcConnection
 name|createConnection

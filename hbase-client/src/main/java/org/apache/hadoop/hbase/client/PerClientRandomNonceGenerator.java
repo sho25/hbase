@@ -144,6 +144,8 @@ name|nextInt
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|long
 name|getNonceGroup
@@ -155,6 +157,8 @@ operator|.
 name|clientId
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|long
 name|newNonce

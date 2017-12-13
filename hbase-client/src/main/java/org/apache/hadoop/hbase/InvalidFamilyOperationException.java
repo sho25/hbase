@@ -50,9 +50,11 @@ specifier|final
 name|long
 name|serialVersionUID
 init|=
+operator|(
 literal|1L
 operator|<<
 literal|22
+operator|)
 operator|-
 literal|1L
 decl_stmt|;

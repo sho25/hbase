@@ -2313,13 +2313,6 @@ name|response
 operator|.
 name|hasScanMetrics
 argument_list|()
-operator|||
-name|response
-operator|.
-name|getScanMetrics
-argument_list|()
-operator|==
-literal|null
 condition|)
 block|{
 return|return

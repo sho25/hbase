@@ -624,7 +624,9 @@ argument_list|()
 control|)
 block|{
 name|count
-operator|+=
+operator|=
+name|count
+operator|+
 name|e
 operator|.
 name|getValue
@@ -701,7 +703,8 @@ return|return
 name|hbaseVersion
 return|;
 block|}
-comment|/**    * @see java.lang.Object#equals(java.lang.Object)    */
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|equals
@@ -840,7 +843,8 @@ name|getMasterInfoPort
 argument_list|()
 return|;
 block|}
-comment|/**    * @see java.lang.Object#hashCode()    */
+annotation|@
+name|Override
 specifier|public
 name|int
 name|hashCode
@@ -867,7 +871,7 @@ name|masterInfoPort
 argument_list|)
 return|;
 block|}
-comment|/**    *    * @return the object version number    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    */
+comment|/**    * @return the object version number    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -1245,6 +1249,8 @@ return|return
 name|masterInfoPort
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|String
 name|toString

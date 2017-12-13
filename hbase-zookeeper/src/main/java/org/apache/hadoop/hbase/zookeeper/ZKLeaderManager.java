@@ -149,6 +149,15 @@ argument_list|)
 decl_stmt|;
 specifier|private
 specifier|final
+name|Object
+name|lock
+init|=
+operator|new
+name|Object
+argument_list|()
+decl_stmt|;
+specifier|private
+specifier|final
 name|AtomicBoolean
 name|leaderExists
 init|=
@@ -359,7 +368,7 @@ try|try
 block|{
 synchronized|synchronized
 init|(
-name|leaderExists
+name|lock
 init|)
 block|{
 if|if
@@ -407,7 +416,7 @@ argument_list|(
 literal|false
 argument_list|)
 expr_stmt|;
-name|leaderExists
+name|lock
 operator|.
 name|notifyAll
 argument_list|()
@@ -631,7 +640,7 @@ block|}
 comment|// wait for next chance
 synchronized|synchronized
 init|(
-name|leaderExists
+name|lock
 init|)
 block|{
 while|while
@@ -650,7 +659,7 @@ condition|)
 block|{
 try|try
 block|{
-name|leaderExists
+name|lock
 operator|.
 name|wait
 argument_list|()
@@ -686,7 +695,7 @@ try|try
 block|{
 synchronized|synchronized
 init|(
-name|leaderExists
+name|lock
 init|)
 block|{
 if|if

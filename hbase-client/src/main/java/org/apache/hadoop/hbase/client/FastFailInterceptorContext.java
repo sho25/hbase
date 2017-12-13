@@ -297,6 +297,8 @@ operator|=
 name|tries
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|clear
@@ -337,6 +339,8 @@ operator|=
 literal|0
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|FastFailInterceptorContext
 name|prepare
@@ -357,6 +361,8 @@ literal|0
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|FastFailInterceptorContext
 name|prepare

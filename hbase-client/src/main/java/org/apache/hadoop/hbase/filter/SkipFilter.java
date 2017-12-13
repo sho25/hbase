@@ -309,6 +309,8 @@ name|v
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|filterRow
@@ -318,6 +320,8 @@ return|return
 name|filterRow
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|hasFilterRow
@@ -328,6 +332,8 @@ literal|true
 return|;
 block|}
 comment|/**    * @return The filter serialized using pb    */
+annotation|@
+name|Override
 specifier|public
 name|byte
 index|[]
@@ -455,6 +461,8 @@ throw|;
 block|}
 block|}
 comment|/**    * @param o the other filter to compare with    * @return true if and only if the fields of the filter that are serialized    * are equal to the corresponding fields in other.  Used for testing.    */
+annotation|@
+name|Override
 name|boolean
 name|areSerializedFieldsEqual
 parameter_list|(
@@ -504,6 +512,8 @@ argument_list|()
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isFamilyEssential

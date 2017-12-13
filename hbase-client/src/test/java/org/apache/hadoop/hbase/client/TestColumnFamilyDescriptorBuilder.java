@@ -18,6 +18,30 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
 import|import
 name|org
 operator|.
@@ -254,26 +278,12 @@ import|;
 end_import
 
 begin_import
-import|import static
+import|import
 name|org
 operator|.
 name|junit
 operator|.
-name|Assert
-operator|.
-name|assertEquals
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertTrue
+name|Rule
 import|;
 end_import
 
@@ -301,6 +311,18 @@ name|Category
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|rules
+operator|.
+name|ExpectedException
+import|;
+end_import
+
 begin_class
 annotation|@
 name|Category
@@ -319,6 +341,17 @@ specifier|public
 class|class
 name|TestColumnFamilyDescriptorBuilder
 block|{
+annotation|@
+name|Rule
+specifier|public
+name|ExpectedException
+name|expectedEx
+init|=
+name|ExpectedException
+operator|.
+name|none
+argument_list|()
+decl_stmt|;
 annotation|@
 name|Test
 specifier|public
@@ -773,18 +806,32 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Tests HColumnDescriptor with empty familyName    */
 annotation|@
 name|Test
-comment|/** Tests HColumnDescriptor with empty familyName*/
 specifier|public
 name|void
-name|testHColumnDescriptorShouldThrowIAEWhenFamiliyNameEmpty
+name|testHColumnDescriptorShouldThrowIAEWhenFamilyNameEmpty
 parameter_list|()
 throws|throws
 name|Exception
 block|{
-try|try
-block|{
+name|expectedEx
+operator|.
+name|expect
+argument_list|(
+name|IllegalArgumentException
+operator|.
+name|class
+argument_list|)
+expr_stmt|;
+name|expectedEx
+operator|.
+name|expectMessage
+argument_list|(
+literal|"Column Family name can not be empty"
+argument_list|)
+expr_stmt|;
 name|ColumnFamilyDescriptorBuilder
 operator|.
 name|of
@@ -792,24 +839,6 @@ argument_list|(
 literal|""
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IllegalArgumentException
-name|e
-parameter_list|)
-block|{
-name|assertEquals
-argument_list|(
-literal|"Column Family name can not be empty"
-argument_list|,
-name|e
-operator|.
-name|getLocalizedMessage
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 comment|/**    * Test that we add and remove strings from configuration properly.    */
 annotation|@

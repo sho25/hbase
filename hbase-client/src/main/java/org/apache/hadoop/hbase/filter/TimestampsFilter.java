@@ -475,6 +475,8 @@ name|SKIP
 return|;
 block|}
 comment|/**    * Pick the next cell that the scanner should seek to. Since this can skip any number of cells    * any of which can be a delete this can resurect old data.    *    * The method will only be used if canHint was set to true while creating the filter.    *    * @throws IOException This will never happen.    */
+annotation|@
+name|Override
 specifier|public
 name|Cell
 name|getNextCellHint
@@ -628,6 +630,8 @@ argument_list|)
 return|;
 block|}
 comment|/**    * @return The filter serialized using pb    */
+annotation|@
+name|Override
 specifier|public
 name|byte
 index|[]
@@ -743,6 +747,8 @@ argument_list|)
 return|;
 block|}
 comment|/**    * @param o the other filter to compare with    * @return true if and only if the fields of the filter that are serialized    * are equal to the corresponding fields in other.  Used for testing.    */
+annotation|@
+name|Override
 name|boolean
 name|areSerializedFieldsEqual
 parameter_list|(

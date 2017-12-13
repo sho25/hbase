@@ -206,6 +206,8 @@ argument_list|,
 name|LongMsg
 argument_list|>
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Long
 name|getValue

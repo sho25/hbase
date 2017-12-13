@@ -284,6 +284,8 @@ name|HEAP_OVERHEAD
 return|;
 block|}
 comment|/**    * @param returnResults    *          True (default) if the append operation should return the results.    *          A client that is not interested in the result can save network    *          bandwidth setting this to false.    */
+annotation|@
+name|Override
 specifier|public
 name|Append
 name|setReturnResults
@@ -305,6 +307,8 @@ return|;
 block|}
 comment|/**    * @return current setting for returnResults    */
 comment|// This method makes public the superclasses's protected method.
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isReturnResults

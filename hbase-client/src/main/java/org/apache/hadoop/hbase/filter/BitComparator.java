@@ -189,6 +189,8 @@ name|bitOperator
 return|;
 block|}
 comment|/**    * @return The comparator serialized using pb    */
+annotation|@
+name|Override
 specifier|public
 name|byte
 index|[]
@@ -344,6 +346,8 @@ argument_list|)
 return|;
 block|}
 comment|/**    * @param other    * @return true if and only if the fields of the comparator that are serialized    * are equal to the corresponding fields in other.  Used for testing.    */
+annotation|@
+name|Override
 name|boolean
 name|areSerializedFieldsEqual
 parameter_list|(
