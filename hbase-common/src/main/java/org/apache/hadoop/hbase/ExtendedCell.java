@@ -166,6 +166,14 @@ argument_list|,
 name|out
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|getValueLength
+argument_list|()
+operator|>
+literal|0
+condition|)
+block|{
 comment|// Value
 name|out
 operator|.
@@ -181,6 +189,7 @@ name|getValueLength
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 comment|// Tags length and tags byte array
 if|if
 condition|(
