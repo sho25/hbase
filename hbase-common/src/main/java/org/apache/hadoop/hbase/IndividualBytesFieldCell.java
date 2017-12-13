@@ -21,11 +21,9 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|commons
 operator|.
-name|hbase
-operator|.
-name|util
+name|lang3
 operator|.
 name|ArrayUtils
 import|;
@@ -312,7 +310,7 @@ literal|0
 argument_list|,
 name|ArrayUtils
 operator|.
-name|length
+name|getLength
 argument_list|(
 name|row
 argument_list|)
@@ -323,7 +321,7 @@ literal|0
 argument_list|,
 name|ArrayUtils
 operator|.
-name|length
+name|getLength
 argument_list|(
 name|family
 argument_list|)
@@ -334,7 +332,7 @@ literal|0
 argument_list|,
 name|ArrayUtils
 operator|.
-name|length
+name|getLength
 argument_list|(
 name|qualifier
 argument_list|)
@@ -351,7 +349,7 @@ literal|0
 argument_list|,
 name|ArrayUtils
 operator|.
-name|length
+name|getLength
 argument_list|(
 name|value
 argument_list|)
@@ -362,7 +360,7 @@ literal|0
 argument_list|,
 name|ArrayUtils
 operator|.
-name|length
+name|getLength
 argument_list|(
 name|tags
 argument_list|)

@@ -21,11 +21,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|commons
 operator|.
-name|audience
+name|lang3
 operator|.
-name|InterfaceAudience
+name|ArrayUtils
 import|;
 end_import
 
@@ -35,13 +35,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|yetus
 operator|.
-name|hbase
+name|audience
 operator|.
-name|util
-operator|.
-name|ArrayUtils
+name|InterfaceAudience
 import|;
 end_import
 
@@ -216,7 +214,7 @@ literal|0
 argument_list|,
 name|ArrayUtils
 operator|.
-name|length
+name|getLength
 argument_list|(
 name|row
 argument_list|)
@@ -284,7 +282,7 @@ literal|0
 argument_list|,
 name|ArrayUtils
 operator|.
-name|length
+name|getLength
 argument_list|(
 name|family
 argument_list|)
@@ -352,7 +350,7 @@ literal|0
 argument_list|,
 name|ArrayUtils
 operator|.
-name|length
+name|getLength
 argument_list|(
 name|qualifier
 argument_list|)
@@ -493,7 +491,7 @@ literal|0
 argument_list|,
 name|ArrayUtils
 operator|.
-name|length
+name|getLength
 argument_list|(
 name|value
 argument_list|)
@@ -561,7 +559,7 @@ literal|0
 argument_list|,
 name|ArrayUtils
 operator|.
-name|length
+name|getLength
 argument_list|(
 name|tags
 argument_list|)

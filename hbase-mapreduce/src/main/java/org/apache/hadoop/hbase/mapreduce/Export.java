@@ -33,11 +33,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|commons
 operator|.
-name|audience
+name|lang3
 operator|.
-name|InterfaceAudience
+name|ArrayUtils
 import|;
 end_import
 
@@ -171,22 +171,6 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|ArrayUtils
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
 name|Triple
 import|;
 end_import
@@ -266,6 +250,20 @@ operator|.
 name|util
 operator|.
 name|ToolRunner
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -502,7 +500,7 @@ literal|"Wrong number of arguments: "
 operator|+
 name|ArrayUtils
 operator|.
-name|length
+name|getLength
 argument_list|(
 name|args
 argument_list|)
