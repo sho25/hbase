@@ -11899,9 +11899,13 @@ operator|.
 name|getFamilyCellMap
 argument_list|()
 argument_list|,
-name|HConstants
+name|append
 operator|.
-name|LATEST_TIMESTAMP
+name|getTimeRange
+argument_list|()
+operator|.
+name|getMax
+argument_list|()
 argument_list|,
 name|Action
 operator|.
