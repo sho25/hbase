@@ -399,13 +399,17 @@ name|void
 name|reloadConfiguration
 parameter_list|()
 block|{
-throw|throw
-operator|new
-name|UnsupportedOperationException
-argument_list|(
-literal|"Read-only Configuration"
-argument_list|)
-throw|;
+comment|// This is a write operation. We need to allow it though because if any Configuration in
+comment|// current JVM context calls addDefaultResource, this forces a reload of all Configurations
+comment|// (all Configurations are 'registered' by the default constructor. Rather than turn
+comment|// somersaults, let this 'write' operation through.
+name|this
+operator|.
+name|conf
+operator|.
+name|reloadConfiguration
+argument_list|()
+expr_stmt|;
 block|}
 annotation|@
 name|Override
