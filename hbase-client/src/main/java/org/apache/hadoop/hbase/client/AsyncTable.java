@@ -537,6 +537,7 @@ name|CheckAndMutateBuilder
 name|ifNotExists
 parameter_list|()
 function_decl|;
+comment|/**      * Check for equality.      * @param value the expected value      */
 specifier|default
 name|CheckAndMutateBuilder
 name|ifEquals
