@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -1325,20 +1325,6 @@ name|thrift
 operator|.
 name|protocol
 operator|.
-name|TProtocol
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|thrift
-operator|.
-name|protocol
-operator|.
 name|TProtocolFactory
 import|;
 end_import
@@ -1959,72 +1945,121 @@ decl_stmt|;
 specifier|static
 specifier|final
 name|String
-name|HTTP_MIN_THREADS
+name|HTTP_MIN_THREADS_KEY
 init|=
 literal|"hbase.thrift.http_threads.min"
 decl_stmt|;
 specifier|static
 specifier|final
 name|String
-name|HTTP_MAX_THREADS
+name|HTTP_MAX_THREADS_KEY
 init|=
 literal|"hbase.thrift.http_threads.max"
 decl_stmt|;
 specifier|static
 specifier|final
 name|String
-name|THRIFT_SSL_ENABLED
+name|THRIFT_SSL_ENABLED_KEY
 init|=
 literal|"hbase.thrift.ssl.enabled"
 decl_stmt|;
 specifier|static
 specifier|final
 name|String
-name|THRIFT_SSL_KEYSTORE_STORE
+name|THRIFT_SSL_KEYSTORE_STORE_KEY
 init|=
 literal|"hbase.thrift.ssl.keystore.store"
 decl_stmt|;
 specifier|static
 specifier|final
 name|String
-name|THRIFT_SSL_KEYSTORE_PASSWORD
+name|THRIFT_SSL_KEYSTORE_PASSWORD_KEY
 init|=
 literal|"hbase.thrift.ssl.keystore.password"
 decl_stmt|;
 specifier|static
 specifier|final
 name|String
-name|THRIFT_SSL_KEYSTORE_KEYPASSWORD
+name|THRIFT_SSL_KEYSTORE_KEYPASSWORD_KEY
 init|=
 literal|"hbase.thrift.ssl.keystore.keypassword"
 decl_stmt|;
 specifier|static
 specifier|final
 name|String
-name|THRIFT_SSL_EXCLUDE_CIPHER_SUITES
+name|THRIFT_SSL_EXCLUDE_CIPHER_SUITES_KEY
 init|=
 literal|"hbase.thrift.ssl.exclude.cipher.suites"
 decl_stmt|;
 specifier|static
 specifier|final
 name|String
-name|THRIFT_SSL_INCLUDE_CIPHER_SUITES
+name|THRIFT_SSL_INCLUDE_CIPHER_SUITES_KEY
 init|=
 literal|"hbase.thrift.ssl.include.cipher.suites"
 decl_stmt|;
 specifier|static
 specifier|final
 name|String
-name|THRIFT_SSL_EXCLUDE_PROTOCOLS
+name|THRIFT_SSL_EXCLUDE_PROTOCOLS_KEY
 init|=
 literal|"hbase.thrift.ssl.exclude.protocols"
 decl_stmt|;
 specifier|static
 specifier|final
 name|String
-name|THRIFT_SSL_INCLUDE_PROTOCOLS
+name|THRIFT_SSL_INCLUDE_PROTOCOLS_KEY
 init|=
 literal|"hbase.thrift.ssl.include.protocols"
+decl_stmt|;
+specifier|static
+specifier|final
+name|String
+name|THRIFT_SUPPORT_PROXYUSER_KEY
+init|=
+literal|"hbase.thrift.support.proxyuser"
+decl_stmt|;
+specifier|static
+specifier|final
+name|String
+name|THRIFT_DNS_INTERFACE_KEY
+init|=
+literal|"hbase.thrift.dns.interface"
+decl_stmt|;
+specifier|static
+specifier|final
+name|String
+name|THRIFT_DNS_NAMESERVER_KEY
+init|=
+literal|"hbase.thrift.dns.nameserver"
+decl_stmt|;
+specifier|static
+specifier|final
+name|String
+name|THRIFT_KERBEROS_PRINCIPAL_KEY
+init|=
+literal|"hbase.thrift.kerberos.principal"
+decl_stmt|;
+specifier|static
+specifier|final
+name|String
+name|THRIFT_KEYTAB_FILE_KEY
+init|=
+literal|"hbase.thrift.keytab.file"
+decl_stmt|;
+specifier|static
+specifier|final
+name|String
+name|THRIFT_SPNEGO_PRINCIPAL_KEY
+init|=
+literal|"hbase.thrift.spnego.principal"
+decl_stmt|;
+specifier|static
+specifier|final
+name|String
+name|THRIFT_SPNEGO_KEYTAB_FILE_KEY
+init|=
+literal|"hbase.thrift.spnego.keytab.file"
 decl_stmt|;
 comment|/**    * Amount of time in milliseconds before a server thread will timeout    * waiting for client to send data on a connected socket. Currently,    * applies only to TBoundedThreadPoolServer    */
 specifier|public
@@ -2082,13 +2117,6 @@ name|HREGION_VERSION
 init|=
 literal|1
 decl_stmt|;
-specifier|static
-specifier|final
-name|String
-name|THRIFT_SUPPORT_PROXYUSER
-init|=
-literal|"hbase.thrift.support.proxyuser"
-decl_stmt|;
 specifier|private
 specifier|final
 name|int
@@ -2126,7 +2154,7 @@ decl_stmt|;
 specifier|private
 specifier|final
 name|UserGroupInformation
-name|realUser
+name|serviceUGI
 decl_stmt|;
 specifier|private
 name|SaslUtil
@@ -2298,7 +2326,7 @@ operator|=
 name|canSpecifyBindIP
 expr_stmt|;
 block|}
-comment|/**      * @return<code>-option</code> so we can get the list of options from      *         {@link #values()}      */
+comment|/**      * @return<code>-option</code>      */
 annotation|@
 name|Override
 specifier|public
@@ -2681,6 +2709,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// login the server principal (if using secure Hadoop)
 name|UserProvider
 name|userProvider
 init|=
@@ -2691,7 +2720,6 @@ argument_list|(
 name|conf
 argument_list|)
 decl_stmt|;
-comment|// login the server principal (if using secure Hadoop)
 name|securityEnabled
 operator|=
 name|userProvider
@@ -2723,7 +2751,7 @@ name|conf
 operator|.
 name|get
 argument_list|(
-literal|"hbase.thrift.dns.interface"
+name|THRIFT_DNS_INTERFACE_KEY
 argument_list|,
 literal|"default"
 argument_list|)
@@ -2732,7 +2760,7 @@ name|conf
 operator|.
 name|get
 argument_list|(
-literal|"hbase.thrift.dns.nameserver"
+name|THRIFT_DNS_NAMESERVER_KEY
 argument_list|,
 literal|"default"
 argument_list|)
@@ -2743,14 +2771,26 @@ name|userProvider
 operator|.
 name|login
 argument_list|(
-literal|"hbase.thrift.keytab.file"
+name|THRIFT_KEYTAB_FILE_KEY
 argument_list|,
-literal|"hbase.thrift.kerberos.principal"
+name|THRIFT_KERBEROS_PRINCIPAL_KEY
 argument_list|,
 name|host
 argument_list|)
 expr_stmt|;
 block|}
+name|this
+operator|.
+name|serviceUGI
+operator|=
+name|userProvider
+operator|.
+name|getCurrent
+argument_list|()
+operator|.
+name|getUGI
+argument_list|()
+expr_stmt|;
 name|this
 operator|.
 name|conf
@@ -2844,18 +2884,49 @@ argument_list|,
 name|conf
 argument_list|)
 expr_stmt|;
-name|this
+name|boolean
+name|httpEnabled
+init|=
+name|conf
 operator|.
-name|realUser
+name|getBoolean
+argument_list|(
+name|USE_HTTP_CONF_KEY
+argument_list|,
+literal|false
+argument_list|)
+decl_stmt|;
+name|doAsEnabled
 operator|=
-name|userProvider
+name|conf
 operator|.
-name|getCurrent
-argument_list|()
-operator|.
-name|getUGI
-argument_list|()
+name|getBoolean
+argument_list|(
+name|THRIFT_SUPPORT_PROXYUSER_KEY
+argument_list|,
+literal|false
+argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|doAsEnabled
+operator|&&
+operator|!
+name|httpEnabled
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Fail to enable the doAs feature. "
+operator|+
+name|USE_HTTP_CONF_KEY
+operator|+
+literal|" is not configured"
+argument_list|)
+expr_stmt|;
+block|}
 name|String
 name|strQop
 init|=
@@ -2884,46 +2955,6 @@ argument_list|(
 name|strQop
 argument_list|)
 expr_stmt|;
-block|}
-name|doAsEnabled
-operator|=
-name|conf
-operator|.
-name|getBoolean
-argument_list|(
-name|THRIFT_SUPPORT_PROXYUSER
-argument_list|,
-literal|false
-argument_list|)
-expr_stmt|;
-if|if
-condition|(
-name|doAsEnabled
-condition|)
-block|{
-if|if
-condition|(
-operator|!
-name|conf
-operator|.
-name|getBoolean
-argument_list|(
-name|USE_HTTP_CONF_KEY
-argument_list|,
-literal|false
-argument_list|)
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Fail to enable the doAs feature. hbase.regionserver.thrift.http is not "
-operator|+
-literal|"configured "
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 if|if
 condition|(
@@ -2961,7 +2992,7 @@ name|String
 operator|.
 name|format
 argument_list|(
-literal|"Invalide %s: It must be one of %s, %s, or %s."
+literal|"Invalid %s: It must be one of %s, %s, or %s."
 argument_list|,
 name|THRIFT_QOP_KEY
 argument_list|,
@@ -3006,9 +3037,7 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Thrift server must"
-operator|+
-literal|" run in secure mode to support authentication"
+literal|"Thrift server must run in secure mode to support authentication"
 argument_list|)
 throw|;
 block|}
@@ -3047,7 +3076,7 @@ name|conf
 operator|.
 name|getBoolean
 argument_list|(
-name|THRIFT_SSL_ENABLED
+name|THRIFT_SSL_ENABLED_KEY
 argument_list|,
 literal|false
 argument_list|)
@@ -3059,7 +3088,7 @@ name|IllegalArgumentException
 argument_list|(
 literal|"Thrift HTTP Server's QoP is privacy, but "
 operator|+
-name|THRIFT_SSL_ENABLED
+name|THRIFT_SSL_ENABLED_KEY
 operator|+
 literal|" is false"
 argument_list|)
@@ -3074,7 +3103,7 @@ name|void
 name|run
 parameter_list|()
 block|{
-name|realUser
+name|serviceUGI
 operator|.
 name|doAs
 argument_list|(
@@ -3238,12 +3267,9 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Problem encountered in shutting down HTTP server "
-operator|+
+literal|"Problem encountered in shutting down HTTP server"
+argument_list|,
 name|e
-operator|.
-name|getCause
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -3291,7 +3317,7 @@ name|processor
 argument_list|,
 name|protocolFactory
 argument_list|,
-name|realUser
+name|serviceUGI
 argument_list|,
 name|conf
 argument_list|,
@@ -3314,7 +3340,7 @@ name|conf
 operator|.
 name|getInt
 argument_list|(
-name|HTTP_MIN_THREADS
+name|HTTP_MIN_THREADS_KEY
 argument_list|,
 literal|2
 argument_list|)
@@ -3326,7 +3352,7 @@ name|conf
 operator|.
 name|getInt
 argument_list|(
-name|HTTP_MAX_THREADS
+name|HTTP_MAX_THREADS_KEY
 argument_list|,
 literal|100
 argument_list|)
@@ -3466,7 +3492,7 @@ name|conf
 operator|.
 name|getBoolean
 argument_list|(
-name|THRIFT_SSL_ENABLED
+name|THRIFT_SSL_ENABLED_KEY
 argument_list|,
 literal|false
 argument_list|)
@@ -3504,7 +3530,7 @@ name|conf
 operator|.
 name|get
 argument_list|(
-name|THRIFT_SSL_KEYSTORE_STORE
+name|THRIFT_SSL_KEYSTORE_STORE_KEY
 argument_list|)
 decl_stmt|;
 name|String
@@ -3516,7 +3542,7 @@ name|getPassword
 argument_list|(
 name|conf
 argument_list|,
-name|THRIFT_SSL_KEYSTORE_PASSWORD
+name|THRIFT_SSL_KEYSTORE_PASSWORD_KEY
 argument_list|,
 literal|null
 argument_list|)
@@ -3530,7 +3556,7 @@ name|getPassword
 argument_list|(
 name|conf
 argument_list|,
-name|THRIFT_SSL_KEYSTORE_KEYPASSWORD
+name|THRIFT_SSL_KEYSTORE_KEYPASSWORD_KEY
 argument_list|,
 name|password
 argument_list|)
@@ -3564,7 +3590,7 @@ name|conf
 operator|.
 name|getStrings
 argument_list|(
-name|THRIFT_SSL_EXCLUDE_CIPHER_SUITES
+name|THRIFT_SSL_EXCLUDE_CIPHER_SUITES_KEY
 argument_list|,
 name|ArrayUtils
 operator|.
@@ -3596,7 +3622,7 @@ name|conf
 operator|.
 name|getStrings
 argument_list|(
-name|THRIFT_SSL_INCLUDE_CIPHER_SUITES
+name|THRIFT_SSL_INCLUDE_CIPHER_SUITES_KEY
 argument_list|,
 name|ArrayUtils
 operator|.
@@ -3629,7 +3655,7 @@ name|conf
 operator|.
 name|getStrings
 argument_list|(
-name|THRIFT_SSL_EXCLUDE_PROTOCOLS
+name|THRIFT_SSL_EXCLUDE_PROTOCOLS_KEY
 argument_list|,
 literal|"SSLv3"
 argument_list|)
@@ -3659,7 +3685,7 @@ name|conf
 operator|.
 name|getStrings
 argument_list|(
-name|THRIFT_SSL_INCLUDE_PROTOCOLS
+name|THRIFT_SSL_INCLUDE_PROTOCOLS_KEY
 argument_list|,
 name|ArrayUtils
 operator|.
@@ -3735,9 +3761,10 @@ argument_list|(
 name|listenPort
 argument_list|)
 expr_stmt|;
-name|String
-name|host
-init|=
+name|serverConnector
+operator|.
+name|setHost
+argument_list|(
 name|getBindAddress
 argument_list|(
 name|conf
@@ -3745,12 +3772,6 @@ argument_list|)
 operator|.
 name|getHostAddress
 argument_list|()
-decl_stmt|;
-name|serverConnector
-operator|.
-name|setHost
-argument_list|(
-name|host
 argument_list|)
 expr_stmt|;
 name|httpServer
@@ -3784,8 +3805,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Starting Thrift HTTP Server on "
-operator|+
+literal|"Starting Thrift HTTP Server on {}"
+argument_list|,
 name|Integer
 operator|.
 name|toString
@@ -3923,18 +3944,40 @@ else|else
 block|{
 comment|// Extract the name from the principal
 name|String
+name|thriftKerberosPrincipal
+init|=
+name|conf
+operator|.
+name|get
+argument_list|(
+name|THRIFT_KERBEROS_PRINCIPAL_KEY
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|thriftKerberosPrincipal
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+name|THRIFT_KERBEROS_PRINCIPAL_KEY
+operator|+
+literal|" cannot be null"
+argument_list|)
+throw|;
+block|}
+name|String
 name|name
 init|=
 name|SecurityUtil
 operator|.
 name|getUserFromPrincipal
 argument_list|(
-name|conf
-operator|.
-name|get
-argument_list|(
-literal|"hbase.thrift.kerberos.principal"
-argument_list|)
+name|thriftKerberosPrincipal
 argument_list|)
 decl_stmt|;
 name|Map
@@ -4101,8 +4144,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Effective user: "
-operator|+
+literal|"Effective user: {}"
+argument_list|,
 name|userName
 argument_list|)
 expr_stmt|;
@@ -4126,24 +4169,12 @@ expr_stmt|;
 comment|// Create a processor wrapper, to get the caller
 name|processor
 operator|=
-operator|new
-name|TProcessor
-argument_list|()
-block|{
-annotation|@
-name|Override
-specifier|public
-name|boolean
-name|process
 parameter_list|(
-name|TProtocol
 name|inProt
 parameter_list|,
-name|TProtocol
 name|outProt
 parameter_list|)
-throws|throws
-name|TException
+lambda|->
 block|{
 name|TSaslServerTransport
 name|saslServerTransport
@@ -4190,7 +4221,6 @@ name|outProt
 argument_list|)
 return|;
 block|}
-block|}
 expr_stmt|;
 block|}
 if|if
@@ -4214,8 +4244,10 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Server types "
+literal|"Server types {} don't support IP address binding at the moment. See "
 operator|+
+literal|"https://issues.apache.org/jira/browse/HBASE-2155 for details."
+argument_list|,
 name|Joiner
 operator|.
 name|on
@@ -4230,12 +4262,6 @@ operator|.
 name|serversThatCannotSpecifyBindIP
 argument_list|()
 argument_list|)
-operator|+
-literal|" don't support IP "
-operator|+
-literal|"address binding at the moment. See "
-operator|+
-literal|"https://issues.apache.org/jira/browse/HBASE-2155 for details."
 argument_list|)
 expr_stmt|;
 throw|throw
@@ -4526,15 +4552,13 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"starting HBase "
-operator|+
+literal|"starting HBase {} server on {}"
+argument_list|,
 name|implType
 operator|.
 name|simpleClassName
 argument_list|()
-operator|+
-literal|" server on "
-operator|+
+argument_list|,
 name|Integer
 operator|.
 name|toString
@@ -5010,8 +5034,6 @@ argument_list|,
 name|ResultScannerWrapper
 argument_list|>
 name|scannerMap
-init|=
-literal|null
 decl_stmt|;
 specifier|private
 name|ThriftMetrics
@@ -5026,8 +5048,6 @@ name|connectionCache
 decl_stmt|;
 name|IncrementCoalescer
 name|coalescer
-init|=
-literal|null
 decl_stmt|;
 specifier|static
 specifier|final
@@ -5737,19 +5757,10 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|int
-name|i
-init|=
-literal|0
-init|;
-name|i
-operator|<
+name|TableName
+name|tableName
+range|:
 name|tableNames
-operator|.
-name|length
-condition|;
-name|i
-operator|++
 control|)
 block|{
 name|list
@@ -5760,10 +5771,7 @@ name|ByteBuffer
 operator|.
 name|wrap
 argument_list|(
-name|tableNames
-index|[
-name|i
-index|]
+name|tableName
 operator|.
 name|getName
 argument_list|()
@@ -8185,8 +8193,8 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"deleteTable: table="
-operator|+
+literal|"deleteTable: table={}"
+argument_list|,
 name|tableName
 argument_list|)
 expr_stmt|;
@@ -9488,8 +9496,8 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"scannerClose: id="
-operator|+
+literal|"scannerClose: id={}"
+argument_list|,
 name|id
 argument_list|)
 expr_stmt|;
@@ -9508,16 +9516,11 @@ operator|==
 literal|null
 condition|)
 block|{
-name|String
-name|message
-init|=
-literal|"scanner ID is invalid"
-decl_stmt|;
 name|LOG
 operator|.
 name|warn
 argument_list|(
-name|message
+literal|"scanner ID is invalid"
 argument_list|)
 expr_stmt|;
 throw|throw
@@ -9566,8 +9569,8 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"scannerGetList: id="
-operator|+
+literal|"scannerGetList: id={}"
+argument_list|,
 name|id
 argument_list|)
 expr_stmt|;
@@ -9609,8 +9612,6 @@ block|}
 name|Result
 index|[]
 name|results
-init|=
-literal|null
 decl_stmt|;
 try|try
 block|{
@@ -9861,15 +9862,14 @@ operator|.
 name|isSetColumns
 argument_list|()
 operator|&&
+operator|!
 name|tScan
 operator|.
 name|getColumns
 argument_list|()
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|!=
-literal|0
 condition|)
 block|{
 for|for
@@ -10125,12 +10125,11 @@ name|columns
 operator|!=
 literal|null
 operator|&&
+operator|!
 name|columns
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|!=
-literal|0
 condition|)
 block|{
 for|for
@@ -10322,12 +10321,11 @@ name|columns
 operator|!=
 literal|null
 operator|&&
+operator|!
 name|columns
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|!=
-literal|0
 condition|)
 block|{
 for|for
@@ -10534,12 +10532,11 @@ name|columns
 operator|!=
 literal|null
 operator|&&
+operator|!
 name|columns
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|!=
-literal|0
 condition|)
 block|{
 for|for
@@ -10735,12 +10732,11 @@ name|columns
 operator|!=
 literal|null
 operator|&&
+operator|!
 name|columns
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|!=
-literal|0
 condition|)
 block|{
 for|for
@@ -10944,12 +10940,11 @@ name|columns
 operator|!=
 literal|null
 operator|&&
+operator|!
 name|columns
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|!=
-literal|0
 condition|)
 block|{
 for|for
@@ -11531,6 +11526,8 @@ argument_list|(
 name|row
 argument_list|)
 expr_stmt|;
+try|try
+init|(
 name|Table
 name|table
 init|=
@@ -11538,12 +11535,10 @@ name|getTable
 argument_list|(
 name|tableName
 argument_list|)
-decl_stmt|;
-try|try
-init|(
+init|;
 name|ResultScanner
 name|scanner
-init|=
+operator|=
 name|table
 operator|.
 name|getScanner
@@ -11558,22 +11553,6 @@ operator|.
 name|next
 argument_list|()
 return|;
-block|}
-finally|finally
-block|{
-if|if
-condition|(
-name|table
-operator|!=
-literal|null
-condition|)
-block|{
-name|table
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-block|}
 block|}
 block|}
 specifier|private
@@ -12515,6 +12494,7 @@ extends|extends
 name|IOError
 block|{
 specifier|private
+specifier|final
 name|Throwable
 name|cause
 decl_stmt|;

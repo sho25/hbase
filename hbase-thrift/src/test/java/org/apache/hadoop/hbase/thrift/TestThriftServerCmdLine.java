@@ -1003,7 +1003,11 @@ name|args
 operator|.
 name|add
 argument_list|(
-literal|"-infoport"
+literal|"-"
+operator|+
+name|ThriftServer
+operator|.
+name|INFOPORT_OPTION
 argument_list|)
 expr_stmt|;
 name|int

@@ -362,6 +362,13 @@ name|PORT_OPTION
 init|=
 literal|"port"
 decl_stmt|;
+specifier|static
+specifier|final
+name|String
+name|INFOPORT_OPTION
+init|=
+literal|"infoport"
+decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
@@ -678,7 +685,7 @@ name|addOption
 argument_list|(
 literal|null
 argument_list|,
-literal|"infoport"
+name|INFOPORT_OPTION
 argument_list|,
 literal|true
 argument_list|,
@@ -903,7 +910,7 @@ name|cmd
 operator|.
 name|hasOption
 argument_list|(
-literal|"infoport"
+name|INFOPORT_OPTION
 argument_list|)
 condition|)
 block|{
@@ -914,7 +921,7 @@ name|cmd
 operator|.
 name|getOptionValue
 argument_list|(
-literal|"infoport"
+name|INFOPORT_OPTION
 argument_list|)
 decl_stmt|;
 name|conf
@@ -952,7 +959,11 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Could not parse the value provided for the infoport option"
+literal|"Could not parse the value provided for the "
+operator|+
+name|INFOPORT_OPTION
+operator|+
+literal|" option"
 argument_list|,
 name|e
 argument_list|)
