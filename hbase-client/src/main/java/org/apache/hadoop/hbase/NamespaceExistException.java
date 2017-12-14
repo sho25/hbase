@@ -66,7 +66,11 @@ parameter_list|)
 block|{
 name|super
 argument_list|(
+literal|"Namespace "
+operator|+
 name|namespace
+operator|+
+literal|" already exists"
 argument_list|)
 expr_stmt|;
 block|}
