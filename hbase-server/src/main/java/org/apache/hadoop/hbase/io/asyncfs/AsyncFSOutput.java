@@ -167,6 +167,11 @@ name|int
 name|buffered
 parameter_list|()
 function_decl|;
+comment|/**    * Whether the stream is broken.    */
+name|boolean
+name|isBroken
+parameter_list|()
+function_decl|;
 comment|/**    * Return current pipeline. Empty array if no pipeline.    */
 name|DatanodeInfo
 index|[]

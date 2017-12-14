@@ -3748,12 +3748,8 @@ literal|null
 operator|&&
 name|output
 operator|.
-name|getPipeline
+name|isBroken
 argument_list|()
-operator|.
-name|length
-operator|==
-literal|0
 return|;
 block|}
 block|}

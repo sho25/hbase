@@ -1867,8 +1867,6 @@ name|TestFanOutOneBlockAsyncDFSOutput
 operator|.
 name|writeAndVerify
 argument_list|(
-name|eventLoop
-argument_list|,
 name|FS
 argument_list|,
 name|file

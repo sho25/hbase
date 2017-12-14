@@ -269,6 +269,20 @@ name|hadoop
 operator|.
 name|fs
 operator|.
+name|FileSystem
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|fs
+operator|.
 name|Path
 import|;
 end_import
@@ -806,17 +820,13 @@ specifier|static
 name|void
 name|writeAndVerify
 parameter_list|(
-name|EventLoop
-name|eventLoop
-parameter_list|,
-name|DistributedFileSystem
-name|dfs
+name|FileSystem
+name|fs
 parameter_list|,
 name|Path
 name|f
 parameter_list|,
-specifier|final
-name|FanOutOneBlockAsyncDFSOutput
+name|AsyncFSOutput
 name|out
 parameter_list|)
 throws|throws
@@ -1001,7 +1011,7 @@ name|length
 operator|*
 literal|10
 argument_list|,
-name|dfs
+name|fs
 operator|.
 name|getFileStatus
 argument_list|(
@@ -1036,7 +1046,7 @@ init|(
 name|FSDataInputStream
 name|in
 init|=
-name|dfs
+name|fs
 operator|.
 name|open
 argument_list|(
@@ -1161,8 +1171,6 @@ argument_list|)
 decl_stmt|;
 name|writeAndVerify
 argument_list|(
-name|eventLoop
-argument_list|,
 name|FS
 argument_list|,
 name|f
@@ -1489,8 +1497,6 @@ expr_stmt|;
 comment|// the connection to datanode should still alive.
 name|writeAndVerify
 argument_list|(
-name|eventLoop
-argument_list|,
 name|FS
 argument_list|,
 name|f
