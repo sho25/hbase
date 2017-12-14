@@ -79,6 +79,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Collection
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Iterator
 import|;
 end_import
@@ -264,6 +274,20 @@ operator|.
 name|hbase
 operator|.
 name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ServerName
 import|;
 end_import
 
@@ -652,16 +676,6 @@ operator|.
 name|junit
 operator|.
 name|BeforeClass
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
-name|Ignore
 import|;
 end_import
 
@@ -1539,15 +1553,6 @@ argument_list|)
 expr_stmt|;
 comment|// data was in memstore so don't expect any changes
 comment|// flush the data
-name|System
-operator|.
-name|out
-operator|.
-name|println
-argument_list|(
-literal|"Flushing cache in problematic area"
-argument_list|)
-expr_stmt|;
 comment|// Should create one Hfile with 2 blocks
 name|region
 operator|.
@@ -4247,11 +4252,50 @@ argument_list|,
 name|ROW1
 argument_list|)
 expr_stmt|;
+comment|// Wait for splits
+name|Collection
+argument_list|<
+name|ServerName
+argument_list|>
+name|regionServers
+init|=
+name|TEST_UTIL
+operator|.
+name|getAdmin
+argument_list|()
+operator|.
+name|getRegionServers
+argument_list|()
+decl_stmt|;
+name|Iterator
+argument_list|<
+name|ServerName
+argument_list|>
+name|serverItr
+init|=
+name|regionServers
+operator|.
+name|iterator
+argument_list|()
+decl_stmt|;
+name|serverItr
+operator|.
+name|hasNext
+argument_list|()
+expr_stmt|;
+name|ServerName
+name|rs
+init|=
+name|serverItr
+operator|.
+name|next
+argument_list|()
+decl_stmt|;
 name|List
 argument_list|<
 name|RegionInfo
 argument_list|>
-name|tableRegions
+name|onlineRegions
 init|=
 name|TEST_UTIL
 operator|.
@@ -4260,13 +4304,12 @@ argument_list|()
 operator|.
 name|getRegions
 argument_list|(
-name|tableName
+name|rs
 argument_list|)
 decl_stmt|;
-comment|// Wait for splits
 while|while
 condition|(
-name|tableRegions
+name|onlineRegions
 operator|.
 name|size
 argument_list|()
@@ -4274,7 +4317,7 @@ operator|!=
 literal|2
 condition|)
 block|{
-name|tableRegions
+name|onlineRegions
 operator|=
 name|TEST_UTIL
 operator|.
@@ -4283,7 +4326,7 @@ argument_list|()
 operator|.
 name|getRegions
 argument_list|(
-name|tableName
+name|rs
 argument_list|)
 expr_stmt|;
 name|Thread
@@ -5905,8 +5948,6 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
-annotation|@
-name|Ignore
 annotation|@
 name|Test
 specifier|public

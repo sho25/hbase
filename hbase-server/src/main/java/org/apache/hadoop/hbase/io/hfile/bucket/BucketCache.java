@@ -2399,6 +2399,8 @@ argument_list|,
 literal|false
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 if|if
 condition|(
 name|BlockCacheUtil
@@ -2443,6 +2445,18 @@ argument_list|(
 name|msg
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
+comment|// return the block since we need to decrement the count
+name|returnBlock
+argument_list|(
+name|cacheKey
+argument_list|,
+name|existingBlock
+argument_list|)
+expr_stmt|;
+block|}
 return|return;
 block|}
 comment|/*      * Stuff the entry into the RAM cache so it can get drained to the persistent store      */
