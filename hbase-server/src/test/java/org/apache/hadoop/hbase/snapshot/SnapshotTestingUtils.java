@@ -1613,6 +1613,30 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
+for|for
+control|(
+name|byte
+index|[]
+name|b
+range|:
+name|snapshotFamilies
+control|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"[CHIA] "
+operator|+
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
+name|b
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Verify that there are store files in the specified families
 if|if
 condition|(
