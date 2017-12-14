@@ -2751,19 +2751,6 @@ operator|+
 name|serverName
 argument_list|)
 expr_stmt|;
-comment|// Even we delay expire this server, we still need to handle Meta's RIT
-comment|// that are against the crashed server; since when we do RecoverMetaProcedure,
-comment|// the SCP is not enable yet and Meta's RIT may be suspend forever. See HBase-19287
-name|master
-operator|.
-name|getAssignmentManager
-argument_list|()
-operator|.
-name|handleMetaRITOnCrashedServer
-argument_list|(
-name|serverName
-argument_list|)
-expr_stmt|;
 name|this
 operator|.
 name|queuedDeadServers
