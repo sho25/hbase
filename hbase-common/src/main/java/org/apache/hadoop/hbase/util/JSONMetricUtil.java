@@ -287,20 +287,6 @@ name|LogFactory
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|codehaus
-operator|.
-name|jettison
-operator|.
-name|json
-operator|.
-name|JSONException
-import|;
-end_import
-
 begin_class
 specifier|public
 specifier|final
@@ -968,8 +954,6 @@ throws|throws
 name|MalformedObjectNameException
 throws|,
 name|IOException
-throws|,
-name|JSONException
 block|{
 name|RuntimeMXBean
 name|runtimeBean
