@@ -2642,7 +2642,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|preCreateTable
+name|postCreateTable
 parameter_list|(
 name|ObserverContext
 argument_list|<
