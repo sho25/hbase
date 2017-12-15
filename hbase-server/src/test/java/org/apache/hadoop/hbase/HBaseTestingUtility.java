@@ -15384,6 +15384,13 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
+operator|!
+name|getHBaseClusterInterface
+argument_list|()
+operator|.
+name|isDistributedCluster
+argument_list|()
+operator|&&
 name|getHBaseCluster
 argument_list|()
 operator|.
