@@ -700,6 +700,8 @@ argument_list|,
 name|conf
 argument_list|,
 name|scheduler
+argument_list|,
+literal|true
 argument_list|)
 return|;
 block|}
@@ -848,6 +850,8 @@ argument_list|,
 name|conf
 argument_list|,
 name|scheduler
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 block|}

@@ -309,6 +309,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HBaseInterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HConstants
 import|;
 end_import
@@ -338,20 +352,6 @@ operator|.
 name|audience
 operator|.
 name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceStability
 import|;
 end_import
 
@@ -551,11 +551,14 @@ begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Private
-annotation|@
-name|InterfaceStability
+name|LimitedPrivate
+argument_list|(
+block|{
+name|HBaseInterfaceAudience
 operator|.
-name|Evolving
+name|CONFIG
+block|}
+argument_list|)
 specifier|public
 class|class
 name|SimpleRpcServer
@@ -1965,7 +1968,7 @@ index|]
 return|;
 block|}
 block|}
-comment|/**    * Constructs a server listening on the named port and address.    * @param server hosting instance of {@link Server}. We will do authentications if an    * instance else pass null for no authentication check.    * @param name Used keying this rpc servers' metrics and for naming the Listener thread.    * @param services A list of services.    * @param bindAddress Where to listen    * @param conf    * @param scheduler    */
+comment|/**    * Constructs a server listening on the named port and address.    * @param server hosting instance of {@link Server}. We will do authentications if an    * instance else pass null for no authentication check.    * @param name Used keying this rpc servers' metrics and for naming the Listener thread.    * @param services A list of services.    * @param bindAddress Where to listen    * @param conf    * @param scheduler    * @param reservoirEnabled Enable ByteBufferPool or not.    */
 specifier|public
 name|SimpleRpcServer
 parameter_list|(
@@ -1993,6 +1996,9 @@ name|conf
 parameter_list|,
 name|RpcScheduler
 name|scheduler
+parameter_list|,
+name|boolean
+name|reservoirEnabled
 parameter_list|)
 throws|throws
 name|IOException
@@ -2010,6 +2016,8 @@ argument_list|,
 name|conf
 argument_list|,
 name|scheduler
+argument_list|,
+name|reservoirEnabled
 argument_list|)
 expr_stmt|;
 name|this
