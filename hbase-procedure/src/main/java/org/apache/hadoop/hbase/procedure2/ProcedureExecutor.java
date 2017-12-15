@@ -7758,6 +7758,11 @@ name|incrementAndGet
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|setDaemon
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
 block|}
 annotation|@
 name|Override
@@ -8159,6 +8164,11 @@ argument_list|(
 name|group
 argument_list|,
 literal|"ProcExecTimeout"
+argument_list|)
+expr_stmt|;
+name|setDaemon
+argument_list|(
+literal|true
 argument_list|)
 expr_stmt|;
 block|}
