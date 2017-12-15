@@ -386,7 +386,7 @@ name|Providers
 block|{
 name|defaultProvider
 parameter_list|(
-name|FSHLogProvider
+name|AsyncFSWALProvider
 operator|.
 name|class
 parameter_list|)

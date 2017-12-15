@@ -873,7 +873,7 @@ specifier|final
 name|boolean
 name|DEFAULT_ASYNC_WAL_USE_SHARED_EVENT_LOOP
 init|=
-literal|true
+literal|false
 decl_stmt|;
 specifier|private
 specifier|final
