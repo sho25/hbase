@@ -32,7 +32,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * List of all HBase event handler types.  Event types are named by a  * convention: event type names specify the component from which the event  * originated and then where its destined -- e.g. RS2ZK_ prefix means the  * event came from a regionserver destined for zookeeper -- and then what  * the even is; e.g. REGION_OPENING.  *  *<p>We give the enums indices so we can add types later and keep them  * grouped together rather than have to add them always to the end as we  * would have to if we used raw enum ordinals.  */
+comment|/**  * List of all HBase event handler types.  *<p>  * Event types are named by a convention: event type names specify the component from which the  * event originated and then where its destined -- e.g. RS_ZK_ prefix means the event came from a  * regionserver destined for zookeeper -- and then what the even is; e.g. REGION_OPENING.  *<p>  * We give the enums indices so we can add types later and keep them grouped together rather than  * have to add them always to the end as we would have to if we used raw enum ordinals.  */
 end_comment
 
 begin_enum
@@ -407,6 +407,16 @@ argument_list|,
 name|ExecutorType
 operator|.
 name|RS_COMPACTED_FILES_DISCHARGER
+argument_list|)
+block|,
+comment|/**    * RS refresh peer.<br>    *    * RS_REFRESH_PEER    */
+name|RS_REFRESH_PEER
+argument_list|(
+literal|84
+argument_list|,
+name|ExecutorType
+operator|.
+name|RS_REFRESH_PEER
 argument_list|)
 block|;
 specifier|private

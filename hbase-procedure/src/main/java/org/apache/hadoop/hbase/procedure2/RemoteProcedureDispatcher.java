@@ -1080,7 +1080,7 @@ name|remoteProcedure
 return|;
 block|}
 block|}
-comment|/**    * Remote procedure reference.    * @param<TEnv>    * @param<TRemote>    */
+comment|/**    * Remote procedure reference.    */
 specifier|public
 interface|interface
 name|RemoteProcedure
@@ -1090,6 +1090,7 @@ parameter_list|,
 name|TRemote
 parameter_list|>
 block|{
+comment|/**      * For building the remote operation.      */
 name|RemoteOperation
 name|remoteCallBuild
 parameter_list|(
@@ -1100,19 +1101,7 @@ name|TRemote
 name|remote
 parameter_list|)
 function_decl|;
-name|void
-name|remoteCallCompleted
-parameter_list|(
-name|TEnv
-name|env
-parameter_list|,
-name|TRemote
-name|remote
-parameter_list|,
-name|RemoteOperation
-name|response
-parameter_list|)
-function_decl|;
+comment|/**      * Called when the executeProcedure call is failed.      */
 name|void
 name|remoteCallFailed
 parameter_list|(
@@ -1124,6 +1113,25 @@ name|remote
 parameter_list|,
 name|IOException
 name|exception
+parameter_list|)
+function_decl|;
+comment|/**      * Called when RS tells the remote procedure is succeeded through the      * {@code reportProcedureDone} method.      */
+name|void
+name|remoteOperationCompleted
+parameter_list|(
+name|TEnv
+name|env
+parameter_list|)
+function_decl|;
+comment|/**      * Called when RS tells the remote procedure is failed through the {@code reportProcedureDone}      * method.      * @param error the error message      */
+name|void
+name|remoteOperationFailed
+parameter_list|(
+name|TEnv
+name|env
+parameter_list|,
+name|String
+name|error
 parameter_list|)
 function_decl|;
 block|}

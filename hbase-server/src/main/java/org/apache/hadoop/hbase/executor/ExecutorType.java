@@ -135,6 +135,11 @@ name|RS_OPEN_PRIORITY_REGION
 argument_list|(
 literal|30
 argument_list|)
+block|,
+name|RS_REFRESH_PEER
+argument_list|(
+literal|31
+argument_list|)
 block|;
 name|ExecutorType
 parameter_list|(
