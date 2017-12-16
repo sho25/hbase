@@ -807,6 +807,17 @@ index|[]
 name|regionName
 parameter_list|)
 function_decl|;
+comment|/**    * Flush all region on the region server.    * @param serverName server to flush    */
+name|CompletableFuture
+argument_list|<
+name|Void
+argument_list|>
+name|flushRegionServer
+parameter_list|(
+name|ServerName
+name|serverName
+parameter_list|)
+function_decl|;
 comment|/**    * Compact a table. When the returned CompletableFuture is done, it only means the compact request    * was sent to HBase and may need some time to finish the compact operation.    * @param tableName table to compact    */
 specifier|default
 name|CompletableFuture

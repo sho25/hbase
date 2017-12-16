@@ -1419,6 +1419,16 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Flush all regions on the region server. Synchronous operation.    * @param serverName the region server name to flush    * @throws IOException if a remote or network exception occurs    */
+name|void
+name|flushRegionServer
+parameter_list|(
+name|ServerName
+name|serverName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Compact a table. Asynchronous operation in that this method requests that a    * Compaction run and then it returns. It does not wait on the completion of Compaction    * (it can take a while).    *    * @param tableName table to compact    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|compact
