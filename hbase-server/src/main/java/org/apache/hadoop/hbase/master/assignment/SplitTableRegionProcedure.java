@@ -3538,7 +3538,9 @@ operator|.
 name|shutdown
 argument_list|()
 expr_stmt|;
-comment|// Wait for all the tasks to finish
+comment|// Wait for all the tasks to finish.
+comment|// When splits ran on the RegionServer, how-long-to-wait-configuration was named
+comment|// hbase.regionserver.fileSplitTimeout. If set, use its value.
 name|long
 name|fileSplitTimeout
 init|=
@@ -3548,7 +3550,14 @@ name|getLong
 argument_list|(
 literal|"hbase.master.fileSplitTimeout"
 argument_list|,
-literal|30000
+name|conf
+operator|.
+name|getLong
+argument_list|(
+literal|"hbase.regionserver.fileSplitTimeout"
+argument_list|,
+literal|600000
+argument_list|)
 argument_list|)
 decl_stmt|;
 try|try

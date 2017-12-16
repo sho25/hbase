@@ -2017,8 +2017,14 @@ argument_list|,
 name|conf
 argument_list|)
 expr_stmt|;
-comment|// Get size to roll log at. Roll at 95% of HDFS block size so we avoid crossing HDFS blocks
-comment|// (it costs a little x'ing bocks)
+comment|// Schedule a WAL roll when the WAL is 50% of the HDFS block size. Scheduling at 50% of block
+comment|// size should make it so WAL rolls before we get to the end-of-block (Block transitions cost
+comment|// some latency). In hbase-1 we did this differently. We scheduled a roll when we hit 95% of
+comment|// the block size but experience from the field has it that this was not enough time for the
+comment|// roll to happen before end-of-block. So the new accounting makes WALs of about the same
+comment|// size as those made in hbase-1 (to prevent surprise), we now have default block size as
+comment|// 2 times the DFS default: i.e. 2 * DFS default block size rolling at 50% full will generally
+comment|// make similar size logs to 1 * DFS default block size rolling at 95% full. See HBASE-19148.
 specifier|final
 name|long
 name|blocksize
@@ -2043,6 +2049,8 @@ name|this
 operator|.
 name|walDir
 argument_list|)
+operator|*
+literal|2
 argument_list|)
 decl_stmt|;
 name|this
@@ -2061,7 +2069,7 @@ name|getFloat
 argument_list|(
 literal|"hbase.regionserver.logroll.multiplier"
 argument_list|,
-literal|0.95f
+literal|0.5f
 argument_list|)
 argument_list|)
 expr_stmt|;
