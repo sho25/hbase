@@ -149,7 +149,6 @@ argument_list|,
 literal|"AES"
 argument_list|)
 expr_stmt|;
-empty_stmt|;
 block|}
 return|return
 name|result

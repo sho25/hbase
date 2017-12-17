@@ -483,7 +483,6 @@ argument_list|,
 name|tagDict
 argument_list|)
 expr_stmt|;
-empty_stmt|;
 name|pos
 operator|+=
 name|tagLen

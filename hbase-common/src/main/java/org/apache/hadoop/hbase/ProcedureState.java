@@ -55,7 +55,7 @@ block|,
 name|SUCCESS
 block|,
 name|FAILED
-block|; }
+block|}
 end_enum
 
 end_unit

@@ -361,9 +361,7 @@ specifier|public
 name|void
 name|reset
 parameter_list|()
-block|{
-empty_stmt|;
-block|}
+block|{   }
 block|}
 end_class
 

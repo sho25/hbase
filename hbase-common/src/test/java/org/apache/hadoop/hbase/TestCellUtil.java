@@ -304,7 +304,6 @@ argument_list|)
 return|;
 block|}
 block|}
-empty_stmt|;
 comment|/**    * CellScanner used in test.    */
 specifier|private
 specifier|static
@@ -679,7 +678,6 @@ argument_list|)
 return|;
 block|}
 block|}
-empty_stmt|;
 comment|/**    * Was overflowing if 100k or so lists of cellscanners to return.    */
 annotation|@
 name|Test

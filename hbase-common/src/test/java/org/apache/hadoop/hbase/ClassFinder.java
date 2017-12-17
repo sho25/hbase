@@ -253,7 +253,6 @@ name|isJar
 parameter_list|)
 function_decl|;
 block|}
-empty_stmt|;
 specifier|public
 interface|interface
 name|FileNameFilter
@@ -269,7 +268,6 @@ name|absFilePath
 parameter_list|)
 function_decl|;
 block|}
-empty_stmt|;
 specifier|public
 interface|interface
 name|ClassFilter
@@ -285,7 +283,6 @@ name|c
 parameter_list|)
 function_decl|;
 block|}
-empty_stmt|;
 specifier|public
 specifier|static
 class|class
@@ -1662,13 +1659,8 @@ operator|)
 return|;
 block|}
 block|}
-empty_stmt|;
 block|}
 end_class
-
-begin_empty_stmt
-empty_stmt|;
-end_empty_stmt
 
 end_unit
 

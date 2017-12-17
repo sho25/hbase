@@ -326,7 +326,7 @@ block|,
 name|SANITY_CHECK_FAILURE
 block|,
 name|FAILURE
-block|;   }
+block|}
 comment|/** long constant for zero */
 specifier|public
 specifier|static

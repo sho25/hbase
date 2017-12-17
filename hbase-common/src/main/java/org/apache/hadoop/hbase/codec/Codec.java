@@ -148,7 +148,6 @@ name|Decoder
 extends|extends
 name|CellScanner
 block|{}
-empty_stmt|;
 name|Decoder
 name|getDecoder
 parameter_list|(

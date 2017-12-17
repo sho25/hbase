@@ -294,7 +294,6 @@ argument_list|()
 return|;
 block|}
 block|}
-empty_stmt|;
 comment|/*   * A class is considered as a test class if:    *  - it's not Abstract AND    *  - one or more of its methods is annotated with org.junit.Test OR    *  - the class is annotated with Suite.SuiteClasses   * */
 specifier|public
 specifier|static
@@ -506,13 +505,8 @@ literal|false
 return|;
 block|}
 block|}
-empty_stmt|;
 block|}
 end_class
-
-begin_empty_stmt
-empty_stmt|;
-end_empty_stmt
 
 end_unit
 
