@@ -232,7 +232,6 @@ name|t
 argument_list|)
 expr_stmt|;
 block|}
-empty_stmt|;
 annotation|@
 name|Override
 specifier|public
@@ -251,7 +250,6 @@ name|t
 argument_list|)
 expr_stmt|;
 block|}
-empty_stmt|;
 annotation|@
 name|Override
 specifier|public

@@ -3387,7 +3387,6 @@ name|UPDATE
 block|,
 name|DELETE
 block|}
-empty_stmt|;
 specifier|private
 name|long
 name|pushData

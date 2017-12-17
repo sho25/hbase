@@ -6600,7 +6600,6 @@ name|createTrace
 argument_list|(
 literal|"test row"
 argument_list|)
-init|;
 init|)
 block|{
 name|testRow

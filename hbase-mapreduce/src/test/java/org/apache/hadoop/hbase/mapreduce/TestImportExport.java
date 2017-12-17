@@ -1477,7 +1477,6 @@ name|FAMILYA
 argument_list|,
 literal|3
 argument_list|)
-init|;
 init|)
 block|{
 name|Put
@@ -1732,7 +1731,6 @@ name|FAMILYB
 argument_list|,
 literal|3
 argument_list|)
-init|;
 init|)
 block|{
 name|args
@@ -2059,7 +2057,6 @@ argument_list|)
 argument_list|,
 literal|3
 argument_list|)
-init|;
 init|)
 block|{
 name|String
@@ -2176,7 +2173,6 @@ operator|.
 name|getTableName
 argument_list|()
 argument_list|)
-init|;
 init|)
 block|{
 name|Put
@@ -2413,7 +2409,6 @@ operator|.
 name|getTableName
 argument_list|()
 argument_list|)
-init|;
 init|)
 block|{
 name|Put
@@ -2670,7 +2665,6 @@ operator|.
 name|getTableName
 argument_list|()
 argument_list|)
-init|;
 init|)
 block|{
 name|args
@@ -4976,7 +4970,6 @@ name|FAMILYA
 argument_list|,
 literal|3
 argument_list|)
-init|;
 init|)
 block|{
 comment|// Insert some data

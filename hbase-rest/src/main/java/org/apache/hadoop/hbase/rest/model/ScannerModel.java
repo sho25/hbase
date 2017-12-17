@@ -944,7 +944,6 @@ name|HConstants
 operator|.
 name|EMPTY_END_ROW
 decl_stmt|;
-empty_stmt|;
 specifier|private
 name|List
 argument_list|<

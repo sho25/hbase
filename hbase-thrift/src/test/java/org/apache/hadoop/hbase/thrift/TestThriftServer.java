@@ -1360,7 +1360,6 @@ argument_list|(
 name|handler
 argument_list|)
 expr_stmt|;
-empty_stmt|;
 name|metricsHelper
 operator|.
 name|assertCounter

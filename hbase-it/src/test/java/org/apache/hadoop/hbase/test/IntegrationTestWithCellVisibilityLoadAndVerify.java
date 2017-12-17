@@ -891,7 +891,7 @@ block|,
 name|ROWS_VIS_EXP_3
 block|,
 name|ROWS_VIS_EXP_4
-block|;   }
+block|}
 annotation|@
 name|Override
 specifier|public

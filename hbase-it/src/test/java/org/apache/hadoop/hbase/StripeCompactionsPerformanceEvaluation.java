@@ -2236,7 +2236,6 @@ literal|true
 return|;
 block|}
 block|}
-empty_stmt|;
 block|}
 end_class
 

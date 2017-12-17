@@ -1191,7 +1191,6 @@ name|BackupAdminImpl
 argument_list|(
 name|conn
 argument_list|)
-init|;
 init|)
 block|{
 comment|// #0- insert some data to table TABLE_NAME1, TABLE_NAME2

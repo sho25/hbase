@@ -1449,7 +1449,6 @@ name|getTable
 argument_list|()
 argument_list|)
 decl_stmt|;
-empty_stmt|;
 name|RSGroupInfo
 name|info
 init|=

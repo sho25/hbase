@@ -979,7 +979,6 @@ name|STEP_1
 block|,
 name|STEP_2
 block|}
-empty_stmt|;
 specifier|public
 specifier|static
 class|class

@@ -614,7 +614,6 @@ name|tableName2
 argument_list|,
 name|FAMILY
 argument_list|)
-init|;
 init|)
 block|{
 comment|// put rows into the first table

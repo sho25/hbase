@@ -162,7 +162,6 @@ specifier|static
 class|class
 name|BasicProcedureEnv
 block|{}
-empty_stmt|;
 comment|/**    * A do-nothing basic procedure just for testing toString.    */
 specifier|static
 class|class
