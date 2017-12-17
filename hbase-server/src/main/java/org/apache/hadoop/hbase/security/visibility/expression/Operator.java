@@ -93,7 +93,7 @@ name|rep
 argument_list|)
 return|;
 block|}
-block|; }
+block|}
 end_enum
 
 end_unit

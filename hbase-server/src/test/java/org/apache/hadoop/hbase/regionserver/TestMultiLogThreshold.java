@@ -487,7 +487,7 @@ block|{
 name|REGION_ACTIONS
 block|,
 name|ACTIONS
-block|;   }
+block|}
 comment|/**    * Sends a multi request with a certain amount of rows, will populate Multi command with either    * "rows" number of RegionActions with one Action each or one RegionAction with "rows" number of    * Actions    */
 specifier|private
 name|void

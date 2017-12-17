@@ -15046,7 +15046,6 @@ literal|null
 return|;
 block|}
 block|}
-empty_stmt|;
 comment|/**    * Maintain information about a particular table.    */
 specifier|public
 class|class
@@ -15851,7 +15850,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-empty_stmt|;
 comment|/**      * This handler fixes integrity errors from hdfs information.  There are      * basically three classes of integrity problems 1) holes, 2) overlaps, and      * 3) invalid regions.      *      * This class overrides methods that fix holes and the overlap group case.      * Individual cases of particular overlaps are handled by the general      * overlap group merge repair case.      *      * If hbase is online, this forces regions offline before doing merge      * operations.      */
 specifier|private
 class|class
@@ -23535,7 +23533,6 @@ argument_list|)
 expr_stmt|;
 comment|// Shouldn't happen, we already logged/caught any exceptions in the Runnable
 block|}
-empty_stmt|;
 block|}
 block|}
 catch|catch
@@ -23799,7 +23796,6 @@ literal|null
 return|;
 block|}
 block|}
-empty_stmt|;
 comment|/**    * Display the full report from fsck. This displays all live and dead region    * servers, and all known regions.    */
 specifier|public
 specifier|static
@@ -25008,7 +25004,6 @@ argument_list|()
 return|;
 block|}
 block|}
-empty_stmt|;
 specifier|public
 name|HBaseFsck
 name|exec

@@ -576,7 +576,6 @@ specifier|public
 name|MasterFlushTableProcedureManager
 parameter_list|()
 block|{}
-empty_stmt|;
 annotation|@
 name|Override
 specifier|public

@@ -3077,7 +3077,6 @@ literal|")"
 argument_list|,
 name|PRIVATE
 argument_list|)
-init|;
 init|)
 block|{
 name|Scan
@@ -3383,7 +3382,6 @@ name|getTable
 argument_list|(
 name|LABELS_TABLE_NAME
 argument_list|)
-init|;
 init|)
 block|{
 name|Scan
@@ -4920,7 +4918,6 @@ name|tableName
 argument_list|,
 name|fam
 argument_list|)
-init|;
 init|)
 block|{
 name|byte

@@ -1345,7 +1345,6 @@ name|files
 return|;
 block|}
 block|}
-empty_stmt|;
 specifier|private
 name|SnapshotMock
 operator|.

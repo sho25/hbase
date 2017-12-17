@@ -768,7 +768,6 @@ name|e
 parameter_list|)
 block|{         }
 block|}
-empty_stmt|;
 block|}
 decl_stmt|;
 name|shutdownThread

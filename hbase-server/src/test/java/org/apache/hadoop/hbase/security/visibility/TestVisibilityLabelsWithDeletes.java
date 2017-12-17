@@ -1394,7 +1394,6 @@ literal|"|"
 operator|+
 name|TOPSECRET
 argument_list|)
-init|;
 init|)
 block|{
 name|PrivilegedExceptionAction
@@ -1973,7 +1972,6 @@ name|TOPSECRET
 argument_list|,
 name|SECRET
 argument_list|)
-init|;
 init|)
 block|{
 name|PrivilegedExceptionAction
@@ -16800,7 +16798,6 @@ name|doPuts
 argument_list|(
 name|tableName
 argument_list|)
-init|;
 init|)
 block|{
 name|PrivilegedExceptionAction

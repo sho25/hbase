@@ -214,7 +214,6 @@ block|,
 comment|/** Cell permissions can override table or CF permissions */
 name|CHECK_CELL_DEFAULT
 block|,   }
-empty_stmt|;
 specifier|private
 name|TableAuthManager
 name|authManager

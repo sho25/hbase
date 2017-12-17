@@ -3196,7 +3196,6 @@ argument_list|,
 name|entry
 argument_list|)
 expr_stmt|;
-empty_stmt|;
 block|}
 block|}
 name|assertEquals

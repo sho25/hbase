@@ -4034,7 +4034,6 @@ block|}
 block|}
 block|}
 block|}
-empty_stmt|;
 block|}
 operator|.
 name|start

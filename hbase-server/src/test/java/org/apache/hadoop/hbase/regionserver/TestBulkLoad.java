@@ -1051,7 +1051,6 @@ return|return
 literal|01L
 return|;
 block|}
-empty_stmt|;
 block|}
 argument_list|)
 expr_stmt|;
@@ -1207,7 +1206,6 @@ return|return
 literal|01L
 return|;
 block|}
-empty_stmt|;
 block|}
 argument_list|)
 expr_stmt|;
@@ -1337,7 +1335,6 @@ return|return
 literal|01L
 return|;
 block|}
-empty_stmt|;
 block|}
 argument_list|)
 expr_stmt|;
@@ -1471,7 +1468,6 @@ return|return
 literal|01L
 return|;
 block|}
-empty_stmt|;
 block|}
 argument_list|)
 expr_stmt|;

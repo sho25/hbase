@@ -745,7 +745,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-empty_stmt|;
 comment|/**    * Test that we deal with ServerCrashProcedure zero'ing out the targetServer in the    * RegionStateNode in the midst of our doing an assign. The trickery is done above in    * TargetServerBeingNulledOnUsAssignProcedure. We skip a bunch of logic to get at the guts    * where the problem happens (We also skip-out the failure handling because it'd take a bunch    * of mocking to get it to run). Fix is inside in RemoteProcedureDispatch#addOperationToNode.    * It now notices empty targetServer and just returns false so we fall into failure processing    * and we'll reassign elsewhere instead of NPE'ing. The fake of ServerCrashProcedure nulling out    * the targetServer happens inside in updateTransition just after it was called but before it    * gets to the near the end when addToRemoteDispatcher is called. See the    * TargetServerBeingNulledOnUsAssignProcedure class above. See HBASE-19218.    * Before fix, this test would fail w/ a NullPointerException.    */
 annotation|@
 name|Test

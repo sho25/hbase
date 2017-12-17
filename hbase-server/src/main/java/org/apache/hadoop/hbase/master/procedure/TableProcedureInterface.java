@@ -109,7 +109,6 @@ block|,
 name|MERGED_REGIONS_GC
 comment|/* region operations */
 block|}
-empty_stmt|;
 comment|/**    * @return the name of the table the procedure is operating on    */
 name|TableName
 name|getTableName

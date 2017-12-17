@@ -589,7 +589,6 @@ literal|null
 return|;
 block|}
 block|}
-empty_stmt|;
 specifier|static
 class|class
 name|AccessWriteAction

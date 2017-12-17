@@ -608,7 +608,6 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-empty_stmt|;
 block|}
 name|count
 operator|=
@@ -751,7 +750,6 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-empty_stmt|;
 block|}
 name|assertTrue
 argument_list|(

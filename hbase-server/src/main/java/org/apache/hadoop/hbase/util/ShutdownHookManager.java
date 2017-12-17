@@ -217,7 +217,6 @@ argument_list|)
 return|;
 block|}
 block|}
-empty_stmt|;
 specifier|private
 specifier|static
 class|class
@@ -375,7 +374,6 @@ throw|;
 block|}
 block|}
 block|}
-empty_stmt|;
 block|}
 end_class
 

@@ -1945,7 +1945,6 @@ literal|"&"
 operator|+
 name|SECRET
 argument_list|)
-init|;
 init|)
 block|{
 name|Scan
@@ -2232,7 +2231,6 @@ name|getTable
 argument_list|(
 name|TABLE_NAME
 argument_list|)
-init|;
 init|)
 block|{
 name|s

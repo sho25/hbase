@@ -210,7 +210,6 @@ name|Cacheable
 name|block
 parameter_list|)
 block|{}
-empty_stmt|;
 block|}
 end_interface
 

@@ -295,7 +295,6 @@ literal|10
 argument_list|)
 expr_stmt|;
 block|}
-empty_stmt|;
 specifier|private
 name|FSHDFSUtils
 name|fsHDFSUtils

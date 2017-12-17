@@ -1397,7 +1397,6 @@ name|MAX_VALUE
 argument_list|)
 expr_stmt|;
 block|}
-empty_stmt|;
 comment|/**    * signal the workers that a task was resubmitted by creating the RESCAN node.    */
 specifier|private
 name|void
@@ -3142,7 +3141,6 @@ operator|,
 comment|/**        * task completed with error        */
 constructor|ERR(
 block|)
-enum|;
 block|}
 comment|/**      * finish the partially done task. workername provides clue to where the partial results of the      * partially done tasks are present. taskname is the name of the task that was put up in      * zookeeper.      *<p>      * @param workerName      * @param taskname      * @return DONE if task completed successfully, ERR otherwise      */
 name|Status

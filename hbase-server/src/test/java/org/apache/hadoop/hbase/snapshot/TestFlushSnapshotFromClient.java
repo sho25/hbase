@@ -2592,7 +2592,6 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-empty_stmt|;
 comment|// build descriptions
 name|SnapshotDescription
 index|[]

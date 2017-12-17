@@ -2487,7 +2487,6 @@ name|familyName
 init|=
 literal|"cf"
 decl_stmt|;
-empty_stmt|;
 name|RegionInfo
 name|hri
 init|=

@@ -2466,7 +2466,6 @@ return|return
 literal|true
 return|;
 block|}
-empty_stmt|;
 annotation|@
 name|Override
 specifier|public

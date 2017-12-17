@@ -1957,7 +1957,6 @@ throw|;
 block|}
 block|}
 block|}
-empty_stmt|;
 name|Object
 name|createObject
 parameter_list|(

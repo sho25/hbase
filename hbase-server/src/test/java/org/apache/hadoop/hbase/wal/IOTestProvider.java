@@ -344,7 +344,7 @@ block|,
 name|fileroll
 block|,
 name|none
-block|;   }
+block|}
 specifier|private
 name|FSHLog
 name|log

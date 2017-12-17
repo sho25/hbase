@@ -417,7 +417,6 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-empty_stmt|;
 comment|/**    * With a single member, verify ordered execution.  The Coordinator side is run in a separate    * thread so we can only trigger from members and wait for particular state latches.    */
 annotation|@
 name|Test

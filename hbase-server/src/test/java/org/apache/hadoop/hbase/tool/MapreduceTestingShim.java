@@ -589,7 +589,6 @@ literal|"mapred.output.dir"
 return|;
 block|}
 block|}
-empty_stmt|;
 specifier|private
 specifier|static
 class|class
@@ -763,7 +762,6 @@ literal|"mapreduce.output.fileoutputformat.outputdir"
 return|;
 block|}
 block|}
-empty_stmt|;
 block|}
 end_class
 

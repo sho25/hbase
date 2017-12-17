@@ -1713,7 +1713,6 @@ literal|")"
 argument_list|,
 name|PRIVATE
 argument_list|)
-init|;
 init|)
 block|{
 name|List

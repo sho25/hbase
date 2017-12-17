@@ -1355,7 +1355,6 @@ operator|.
 name|getConfiguration
 argument_list|()
 argument_list|)
-init|;
 init|)
 block|{
 try|try
@@ -1371,7 +1370,6 @@ name|TABLE
 argument_list|,
 name|FAMILIES
 argument_list|)
-init|;
 init|)
 block|{
 name|util
@@ -1655,7 +1653,6 @@ name|getTable
 argument_list|(
 name|TABLE
 argument_list|)
-init|;
 init|)
 block|{
 name|Put
@@ -1809,7 +1806,6 @@ name|getTable
 argument_list|(
 name|TABLE
 argument_list|)
-init|;
 init|)
 block|{
 name|r
@@ -1927,7 +1923,6 @@ name|tableName
 argument_list|,
 name|FAMILIES
 argument_list|)
-init|;
 init|)
 block|{
 name|byte
@@ -3201,7 +3196,6 @@ operator|.
 name|getConfiguration
 argument_list|()
 argument_list|)
-init|;
 init|)
 block|{
 name|RegionLocations

@@ -1811,7 +1811,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-empty_stmt|;
 block|}
 decl_stmt|;
 name|aborter

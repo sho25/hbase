@@ -84,7 +84,6 @@ name|ServerOperationType
 block|{
 name|CRASH_HANDLER
 block|}
-empty_stmt|;
 comment|/**    * @return Name of this server instance.    */
 name|ServerName
 name|getServerName

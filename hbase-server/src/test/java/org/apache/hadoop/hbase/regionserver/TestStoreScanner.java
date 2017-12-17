@@ -1738,7 +1738,6 @@ argument_list|)
 return|;
 block|}
 block|}
-empty_stmt|;
 specifier|private
 specifier|static
 specifier|final
@@ -2045,7 +2044,6 @@ argument_list|)
 return|;
 block|}
 block|}
-empty_stmt|;
 specifier|private
 specifier|static
 class|class
@@ -2189,7 +2187,6 @@ literal|null
 return|;
 block|}
 block|}
-empty_stmt|;
 annotation|@
 name|Test
 specifier|public

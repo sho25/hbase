@@ -2786,7 +2786,6 @@ literal|true
 return|;
 block|}
 block|}
-empty_stmt|;
 specifier|public
 specifier|static
 class|class

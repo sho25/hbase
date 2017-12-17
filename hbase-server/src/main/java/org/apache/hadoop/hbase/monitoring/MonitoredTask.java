@@ -72,7 +72,7 @@ block|,
 name|COMPLETE
 block|,
 name|ABORTED
-block|;   }
+block|}
 name|long
 name|getStartTime
 parameter_list|()

@@ -2179,7 +2179,6 @@ operator|+
 literal|1
 argument_list|)
 decl_stmt|;
-empty_stmt|;
 name|Put
 name|put1
 init|=
@@ -2756,7 +2755,6 @@ operator|+
 literal|1
 argument_list|)
 decl_stmt|;
-empty_stmt|;
 comment|// Put some data
 name|Put
 name|put1

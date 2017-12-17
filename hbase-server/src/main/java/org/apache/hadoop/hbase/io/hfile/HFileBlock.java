@@ -3225,7 +3225,6 @@ name|WRITING
 block|,
 name|BLOCK_READY
 block|}
-empty_stmt|;
 comment|/** Writer state. Used to ensure the correct usage protocol. */
 specifier|private
 name|State

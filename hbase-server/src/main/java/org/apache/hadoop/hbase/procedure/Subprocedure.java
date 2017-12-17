@@ -1033,7 +1033,6 @@ name|e
 parameter_list|)
 block|{}
 block|}
-empty_stmt|;
 block|}
 end_class
 

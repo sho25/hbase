@@ -17404,7 +17404,6 @@ name|server
 argument_list|)
 expr_stmt|;
 block|}
-empty_stmt|;
 block|}
 comment|// Move the regions off the decommissioned servers.
 if|if

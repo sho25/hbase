@@ -249,7 +249,6 @@ return|return
 name|fs
 return|;
 block|}
-empty_stmt|;
 comment|/**    * @return True is the server is Stopping    */
 comment|// Note: This method is not part of the Stoppable Interface.
 specifier|default

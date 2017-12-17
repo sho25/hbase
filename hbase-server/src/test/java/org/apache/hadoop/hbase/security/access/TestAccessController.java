@@ -6128,7 +6128,6 @@ name|getTable
 argument_list|(
 name|TEST_TABLE
 argument_list|)
-init|;
 init|)
 block|{
 name|t
@@ -6219,7 +6218,6 @@ name|getTable
 argument_list|(
 name|TEST_TABLE
 argument_list|)
-init|;
 init|)
 block|{
 name|t
@@ -7563,7 +7561,6 @@ name|AccessControlLists
 operator|.
 name|ACL_TABLE_NAME
 argument_list|)
-init|;
 init|)
 block|{
 name|BlockingRpcChannel
@@ -8019,7 +8016,6 @@ name|getTable
 argument_list|(
 name|tableName
 argument_list|)
-init|;
 init|)
 block|{
 name|t
@@ -8186,7 +8182,6 @@ name|getTable
 argument_list|(
 name|tableName
 argument_list|)
-init|;
 init|)
 block|{
 name|t
@@ -8263,7 +8258,6 @@ name|getTable
 argument_list|(
 name|tableName
 argument_list|)
-init|;
 init|)
 block|{
 name|t
@@ -13501,7 +13495,6 @@ name|conn
 operator|.
 name|getAdmin
 argument_list|()
-init|;
 init|)
 block|{
 return|return
@@ -14012,7 +14005,6 @@ name|getTable
 argument_list|(
 name|TEST_TABLE
 argument_list|)
-init|;
 init|)
 block|{
 return|return
@@ -14163,7 +14155,6 @@ name|getTable
 argument_list|(
 name|TEST_TABLE
 argument_list|)
-init|;
 init|)
 block|{
 return|return
@@ -15260,7 +15251,6 @@ name|getTable
 argument_list|(
 name|TEST_TABLE
 argument_list|)
-init|;
 init|)
 block|{
 return|return
@@ -15821,7 +15811,6 @@ name|getTable
 argument_list|(
 name|TEST_TABLE
 argument_list|)
-init|;
 init|)
 block|{
 name|BlockingRpcChannel
@@ -16699,7 +16688,6 @@ name|createConnection
 argument_list|(
 name|conf
 argument_list|)
-init|;
 init|)
 block|{
 return|return

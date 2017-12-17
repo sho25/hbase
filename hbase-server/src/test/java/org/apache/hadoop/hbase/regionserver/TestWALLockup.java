@@ -1633,7 +1633,6 @@ literal|"Exiting"
 argument_list|)
 expr_stmt|;
 block|}
-empty_stmt|;
 block|}
 decl_stmt|;
 name|t
@@ -2540,7 +2539,6 @@ literal|"Sync exiting"
 argument_list|)
 expr_stmt|;
 block|}
-empty_stmt|;
 block|}
 decl_stmt|;
 name|t

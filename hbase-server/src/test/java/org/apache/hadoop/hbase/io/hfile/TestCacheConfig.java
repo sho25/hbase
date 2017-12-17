@@ -587,7 +587,6 @@ name|cacheable
 return|;
 block|}
 block|}
-empty_stmt|;
 specifier|static
 class|class
 name|IndexCacheEntry
@@ -702,7 +701,6 @@ name|getBlockType
 argument_list|()
 return|;
 block|}
-empty_stmt|;
 annotation|@
 name|Override
 specifier|public
@@ -792,7 +790,6 @@ name|EXCLUSIVE
 return|;
 block|}
 block|}
-empty_stmt|;
 specifier|static
 class|class
 name|MetaCacheEntry

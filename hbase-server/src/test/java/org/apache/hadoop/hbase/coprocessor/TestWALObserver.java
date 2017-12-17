@@ -2570,7 +2570,6 @@ argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
-empty_stmt|;
 name|HRegion
 name|region
 init|=

@@ -1267,7 +1267,6 @@ name|void
 name|beforeWaitOnSafePoint
 parameter_list|()
 block|{   }
-empty_stmt|;
 annotation|@
 name|Override
 specifier|protected

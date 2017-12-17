@@ -105,7 +105,7 @@ name|PART_FILES
 block|,
 comment|/**      * All of mob files are selected.      */
 name|ALL_FILES
-block|;   }
+block|}
 block|}
 end_class
 

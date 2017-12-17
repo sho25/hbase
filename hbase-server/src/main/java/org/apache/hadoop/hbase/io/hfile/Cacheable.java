@@ -114,7 +114,7 @@ block|{
 name|SHARED
 block|,
 name|EXCLUSIVE
-block|;   }
+block|}
 block|}
 end_interface
 

@@ -405,7 +405,6 @@ argument_list|(
 literal|"test_region"
 argument_list|)
 decl_stmt|;
-empty_stmt|;
 specifier|private
 specifier|static
 specifier|final

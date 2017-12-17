@@ -2008,7 +2008,6 @@ name|zkw
 argument_list|,
 name|numRegionsToCreate
 argument_list|)
-init|;
 init|)
 block|{
 name|HRegionServer

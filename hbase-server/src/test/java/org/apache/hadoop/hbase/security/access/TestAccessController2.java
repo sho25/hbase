@@ -2624,7 +2624,6 @@ name|getTable
 argument_list|(
 name|tableName
 argument_list|)
-init|;
 init|)
 block|{
 name|Scan
@@ -2645,7 +2644,6 @@ name|getScanner
 argument_list|(
 name|s1
 argument_list|)
-init|;
 init|)
 block|{
 name|Result
@@ -2717,7 +2715,6 @@ name|getTable
 argument_list|(
 name|tableName
 argument_list|)
-init|;
 init|)
 block|{
 name|Scan
@@ -2738,7 +2735,6 @@ name|getScanner
 argument_list|(
 name|s1
 argument_list|)
-init|;
 init|)
 block|{
 name|Result
@@ -2810,7 +2806,6 @@ name|getTable
 argument_list|(
 name|tableName
 argument_list|)
-init|;
 init|)
 block|{
 name|Scan
@@ -2838,7 +2833,6 @@ name|getScanner
 argument_list|(
 name|s1
 argument_list|)
-init|;
 init|)
 block|{
 name|scanner1
@@ -2891,7 +2885,6 @@ name|getTable
 argument_list|(
 name|tableName
 argument_list|)
-init|;
 init|)
 block|{
 name|Scan
@@ -2912,7 +2905,6 @@ name|getScanner
 argument_list|(
 name|s1
 argument_list|)
-init|;
 init|)
 block|{
 name|Result
@@ -2984,7 +2976,6 @@ name|getTable
 argument_list|(
 name|tableName
 argument_list|)
-init|;
 init|)
 block|{
 name|Scan
@@ -3012,7 +3003,6 @@ name|getScanner
 argument_list|(
 name|s1
 argument_list|)
-init|;
 init|)
 block|{
 name|scanner1
@@ -3065,7 +3055,6 @@ name|getTable
 argument_list|(
 name|tableName
 argument_list|)
-init|;
 init|)
 block|{
 name|Scan
@@ -3095,7 +3084,6 @@ name|getScanner
 argument_list|(
 name|s1
 argument_list|)
-init|;
 init|)
 block|{
 name|scanner1

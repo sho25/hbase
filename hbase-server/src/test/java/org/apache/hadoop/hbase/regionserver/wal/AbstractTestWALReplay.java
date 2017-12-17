@@ -4604,7 +4604,6 @@ argument_list|)
 return|;
 block|}
 block|}
-empty_stmt|;
 comment|/**    * Test that we could recover the data correctly after aborting flush. In the    * test, first we abort flush after writing some data, then writing more data    * and flush again, at last verify the data.    * @throws IOException    */
 annotation|@
 name|Test

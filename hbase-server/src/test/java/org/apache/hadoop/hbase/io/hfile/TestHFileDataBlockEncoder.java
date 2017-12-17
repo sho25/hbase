@@ -608,7 +608,6 @@ name|HFileBlock
 operator|)
 name|heapSize
 decl_stmt|;
-empty_stmt|;
 if|if
 condition|(
 name|blockEncoder

@@ -224,7 +224,6 @@ operator|.
 name|bypassable
 return|;
 block|}
-empty_stmt|;
 specifier|public
 name|void
 name|bypass

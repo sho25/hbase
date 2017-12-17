@@ -1433,7 +1433,6 @@ operator|.
 name|newBuilder
 argument_list|()
 decl_stmt|;
-empty_stmt|;
 name|ServerName
 name|sn
 init|=

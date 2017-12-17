@@ -55,8 +55,7 @@ name|ABOVE_OFFHEAP_LOWER_MARK
 block|,
 comment|/* happens due to lower mark breach of offheap memstore settings*/
 name|ABOVE_OFFHEAP_HIGHER_MARK
-block|;
-comment|/*/* happens due to higer mark breach of offheap memstore settings*/
+comment|/* happens due to higer mark breach of offheap memstore settings*/
 block|}
 end_enum
 

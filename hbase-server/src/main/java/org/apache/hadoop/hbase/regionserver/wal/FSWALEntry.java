@@ -545,7 +545,6 @@ name|toString
 argument_list|()
 return|;
 block|}
-empty_stmt|;
 name|boolean
 name|isInMemStore
 parameter_list|()

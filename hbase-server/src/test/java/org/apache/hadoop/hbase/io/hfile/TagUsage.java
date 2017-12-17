@@ -54,7 +54,7 @@ name|ONLY_TAG
 block|,
 comment|// kvs with and without tags
 name|PARTIAL_TAG
-block|;  }
+block|}
 end_enum
 
 end_unit

@@ -64,7 +64,6 @@ name|void
 name|waiting
 parameter_list|()
 block|{}
-empty_stmt|;
 comment|/**    * The server has joined the cluster.    * @param serverName The remote servers name.    */
 specifier|default
 name|void
@@ -75,7 +74,6 @@ name|ServerName
 name|serverName
 parameter_list|)
 block|{}
-empty_stmt|;
 comment|/**    * The server was removed from the cluster.    * @param serverName The remote servers name.    */
 specifier|default
 name|void
@@ -86,7 +84,6 @@ name|ServerName
 name|serverName
 parameter_list|)
 block|{}
-empty_stmt|;
 block|}
 end_interface
 
