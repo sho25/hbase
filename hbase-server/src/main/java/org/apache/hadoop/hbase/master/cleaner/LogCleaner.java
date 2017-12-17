@@ -865,6 +865,13 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
+if|if
+condition|(
+name|context
+operator|!=
+literal|null
+condition|)
+block|{
 name|context
 operator|.
 name|setResult
@@ -872,6 +879,7 @@ argument_list|(
 name|succeed
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|interrupted
