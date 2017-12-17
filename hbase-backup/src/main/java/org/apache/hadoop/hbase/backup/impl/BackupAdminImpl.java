@@ -2691,7 +2691,6 @@ name|conn
 operator|.
 name|getAdmin
 argument_list|()
-init|;
 init|)
 block|{
 for|for
@@ -3378,7 +3377,7 @@ name|conn
 operator|.
 name|getAdmin
 argument_list|()
-init|;)
+init|)
 block|{
 for|for
 control|(
@@ -3644,7 +3643,6 @@ name|BackupSystemTable
 argument_list|(
 name|conn
 argument_list|)
-init|;
 init|)
 block|{
 name|checkIfValidForMerge

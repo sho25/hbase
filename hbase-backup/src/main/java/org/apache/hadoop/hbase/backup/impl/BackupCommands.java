@@ -1033,7 +1033,7 @@ name|BackupSystemTable
 argument_list|(
 name|conn
 argument_list|)
-init|;)
+init|)
 block|{
 name|List
 argument_list|<
@@ -1128,7 +1128,7 @@ name|BackupSystemTable
 argument_list|(
 name|conn
 argument_list|)
-init|;)
+init|)
 block|{
 name|String
 index|[]
@@ -1924,7 +1924,6 @@ name|BackupAdminImpl
 argument_list|(
 name|conn
 argument_list|)
-init|;
 init|)
 block|{
 name|BackupRequest
@@ -2782,7 +2781,6 @@ name|BackupSystemTable
 argument_list|(
 name|conn
 argument_list|)
-init|;
 init|)
 block|{
 name|BackupInfo
@@ -3020,7 +3018,6 @@ name|BackupSystemTable
 argument_list|(
 name|conn
 argument_list|)
-init|;
 init|)
 block|{
 name|BackupInfo
@@ -3336,7 +3333,6 @@ name|BackupAdminImpl
 argument_list|(
 name|conn
 argument_list|)
-init|;
 init|)
 block|{
 name|int
@@ -3541,7 +3537,6 @@ name|BackupSystemTable
 argument_list|(
 name|conn
 argument_list|)
-init|;
 init|)
 block|{
 comment|// Failed backup
@@ -3831,7 +3826,6 @@ name|BackupAdminImpl
 argument_list|(
 name|conn
 argument_list|)
-init|;
 init|)
 block|{
 name|admin
@@ -3968,7 +3962,6 @@ name|BackupAdminImpl
 argument_list|(
 name|conn
 argument_list|)
-init|;
 init|)
 block|{
 name|admin
@@ -4225,7 +4218,6 @@ name|BackupAdminImpl
 argument_list|(
 name|conn
 argument_list|)
-init|;
 init|)
 block|{
 name|admin
@@ -4459,7 +4451,7 @@ name|BackupSystemTable
 argument_list|(
 name|conn
 argument_list|)
-init|;)
+init|)
 block|{
 name|history
 operator|=
@@ -5078,7 +5070,6 @@ name|BackupAdminImpl
 argument_list|(
 name|conn
 argument_list|)
-init|;
 init|)
 block|{
 name|List
@@ -5171,7 +5162,6 @@ name|BackupSystemTable
 argument_list|(
 name|conn
 argument_list|)
-init|;
 init|)
 block|{
 name|List
@@ -5298,7 +5288,6 @@ name|BackupAdminImpl
 argument_list|(
 name|conn
 argument_list|)
-init|;
 init|)
 block|{
 name|boolean
@@ -5430,7 +5419,6 @@ name|BackupAdminImpl
 argument_list|(
 name|conn
 argument_list|)
-init|;
 init|)
 block|{
 name|admin
@@ -5621,7 +5609,6 @@ name|BackupAdminImpl
 argument_list|(
 name|conn
 argument_list|)
-init|;
 init|)
 block|{
 name|admin

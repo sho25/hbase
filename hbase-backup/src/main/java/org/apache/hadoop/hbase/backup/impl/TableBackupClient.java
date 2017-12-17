@@ -887,7 +887,6 @@ name|conn
 operator|.
 name|getAdmin
 argument_list|()
-init|;
 init|)
 block|{
 name|admin

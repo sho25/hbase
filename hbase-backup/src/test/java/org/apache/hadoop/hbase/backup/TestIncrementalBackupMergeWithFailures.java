@@ -1607,7 +1607,6 @@ name|BackupAdminImpl
 argument_list|(
 name|conn
 argument_list|)
-init|;
 init|)
 block|{
 name|String
@@ -1801,7 +1800,6 @@ name|BackupAdminImpl
 argument_list|(
 name|conn
 argument_list|)
-init|;
 init|)
 block|{
 name|String

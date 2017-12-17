@@ -1194,7 +1194,6 @@ name|connection
 operator|.
 name|getAdmin
 argument_list|()
-init|;
 init|)
 block|{
 name|verifyNamespaceExists
@@ -2075,7 +2074,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-empty_stmt|;
 return|return
 name|mapForSrc
 return|;
@@ -8596,7 +8594,6 @@ name|conn
 operator|.
 name|getAdmin
 argument_list|()
-init|;
 init|)
 block|{
 name|Configuration
@@ -8672,7 +8669,6 @@ name|conn
 operator|.
 name|getAdmin
 argument_list|()
-init|;
 init|)
 block|{
 name|String
@@ -8881,7 +8877,6 @@ name|conn
 operator|.
 name|getAdmin
 argument_list|()
-init|;
 init|)
 block|{
 name|String

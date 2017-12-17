@@ -1325,7 +1325,6 @@ name|BackupSystemTable
 argument_list|(
 name|conn
 argument_list|)
-init|;
 init|)
 block|{
 for|for
@@ -1670,7 +1669,6 @@ name|BackupSystemTable
 argument_list|(
 name|conn
 argument_list|)
-init|;
 init|)
 block|{
 for|for

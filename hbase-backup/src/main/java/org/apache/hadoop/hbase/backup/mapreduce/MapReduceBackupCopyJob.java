@@ -1511,7 +1511,6 @@ name|getWriter
 argument_list|(
 name|fileListingPath
 argument_list|)
-init|;
 init|)
 block|{
 name|List

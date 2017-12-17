@@ -1020,7 +1020,6 @@ name|BackupAdminImpl
 argument_list|(
 name|conn
 argument_list|)
-init|;
 init|)
 block|{
 comment|// Check backup set

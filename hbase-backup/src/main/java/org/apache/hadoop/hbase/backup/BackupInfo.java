@@ -346,7 +346,7 @@ block|,
 name|FAILED
 block|,
 name|ANY
-block|;   }
+block|}
 comment|/**    * BackupPhase - phases of an ACTIVE backup session (running), when state of a backup session is    * BackupState.RUNNING    */
 specifier|public
 specifier|static
@@ -364,7 +364,7 @@ block|,
 name|INCREMENTAL_COPY
 block|,
 name|STORE_MANIFEST
-block|;   }
+block|}
 comment|/**    * Backup id    */
 specifier|private
 name|String

@@ -338,7 +338,6 @@ name|getTable
 argument_list|(
 name|table1
 argument_list|)
-init|;
 init|)
 block|{
 name|Delete

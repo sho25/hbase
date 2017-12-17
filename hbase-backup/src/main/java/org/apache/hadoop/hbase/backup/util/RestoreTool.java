@@ -870,7 +870,6 @@ name|conn
 operator|.
 name|getAdmin
 argument_list|()
-init|;
 init|)
 block|{
 name|admin
@@ -993,7 +992,6 @@ name|conn
 operator|.
 name|getAdmin
 argument_list|()
-init|;
 init|)
 block|{
 if|if
@@ -2683,7 +2681,6 @@ name|conn
 operator|.
 name|getAdmin
 argument_list|()
-init|;
 init|)
 block|{
 name|boolean

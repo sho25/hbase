@@ -2647,7 +2647,6 @@ name|manifestFilePath
 argument_list|,
 literal|true
 argument_list|)
-init|;
 init|)
 block|{
 name|out
