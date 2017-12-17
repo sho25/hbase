@@ -4291,7 +4291,6 @@ name|bufferParam
 argument_list|,
 name|ap
 argument_list|)
-init|;
 init|)
 block|{
 name|mutator

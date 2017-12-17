@@ -1860,7 +1860,6 @@ name|REGIONS_IN_TRANSITION
 block|,
 comment|/** status about regions in transition */
 name|MASTER_INFO_PORT
-block|;
 comment|/** master info port **/
 block|}
 block|}

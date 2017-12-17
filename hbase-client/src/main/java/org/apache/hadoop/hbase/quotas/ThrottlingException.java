@@ -222,7 +222,6 @@ index|[
 name|i
 index|]
 expr_stmt|;
-empty_stmt|;
 name|waitInterval
 operator|=
 name|timeFromString

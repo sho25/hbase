@@ -55,7 +55,7 @@ name|NO_WRITES
 block|,
 comment|/**    * Disallows any updates (but allows deletes and compactions) on the table(s).    */
 name|NO_INSERTS
-block|; }
+block|}
 end_enum
 
 end_unit

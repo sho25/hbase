@@ -18264,7 +18264,6 @@ argument_list|)
 return|;
 block|}
 block|}
-init|;
 init|)
 block|{
 comment|// TODO: Are we retrying here? Does not seem so. We should use RetryingRpcCaller
@@ -20591,7 +20590,6 @@ name|getNameWithNamespaceInclAsString
 argument_list|()
 return|;
 block|}
-empty_stmt|;
 specifier|protected
 specifier|abstract
 class|class

@@ -49,7 +49,7 @@ block|,
 name|FLUSH
 block|,
 name|SKIPFLUSH
-block|; }
+block|}
 end_enum
 
 end_unit

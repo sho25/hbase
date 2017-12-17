@@ -1617,7 +1617,6 @@ name|Exception
 name|parseEx
 parameter_list|)
 block|{
-empty_stmt|;
 comment|// Ignore. This is used with tableName passed as regionName.
 block|}
 name|Get

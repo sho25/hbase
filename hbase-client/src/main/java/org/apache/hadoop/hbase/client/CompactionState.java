@@ -51,7 +51,7 @@ block|,
 name|MAJOR
 block|,
 name|MAJOR_AND_MINOR
-block|; }
+block|}
 end_enum
 
 end_unit
