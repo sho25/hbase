@@ -100,7 +100,7 @@ name|getTimestamp
 parameter_list|()
 function_decl|;
 comment|//5) Type
-comment|/**    * @return The byte representation of the KeyValue.TYPE of this cell: one of Put, Delete, etc    * @deprecated since 2.0.0, use appropriate {@link CellUtil#isDelete} or    *    {@link CellUtil#isPut(Cell)} methods instead. This will be removed in 3.0.0.    */
+comment|/**    * @return The byte representation of the KeyValue.TYPE of this cell: one of Put, Delete, etc    * @deprecated As of HBase-2.0. Will be removed in HBase-3.0. Use {@link #getType()}.    */
 annotation|@
 name|Deprecated
 name|byte
@@ -108,7 +108,9 @@ name|getTypeByte
 parameter_list|()
 function_decl|;
 comment|//6) SequenceId
-comment|/**    * A region-specific unique monotonically increasing sequence ID given to each Cell. It always    * exists for cells in the memstore but is not retained forever. It will be kept for    * {@link HConstants#KEEP_SEQID_PERIOD} days, but generally becomes irrelevant after the cell's    * row is no longer involved in any operations that require strict consistency.    * @return seqId (always&gt; 0 if exists), or 0 if it no longer exists    */
+comment|/**    * A region-specific unique monotonically increasing sequence ID given to each Cell. It always    * exists for cells in the memstore but is not retained forever. It will be kept for    * {@link HConstants#KEEP_SEQID_PERIOD} days, but generally becomes irrelevant after the cell's    * row is no longer involved in any operations that require strict consistency.    * @return seqId (always&gt; 0 if exists), or 0 if it no longer exists    * @deprecated As of HBase-2.0. Will be removed in HBase-3.0.    */
+annotation|@
+name|Deprecated
 name|long
 name|getSequenceId
 parameter_list|()
@@ -130,22 +132,109 @@ name|int
 name|getValueLength
 parameter_list|()
 function_decl|;
-comment|/**    * Contiguous raw bytes representing tags that may start at any index in the containing array.    * @return the tags byte array    */
+comment|/**    * Contiguous raw bytes representing tags that may start at any index in the containing array.    * @return the tags byte array    * @deprecated As of HBase-2.0. Will be removed in HBase-3.0. Tags are are now internal.    */
+annotation|@
+name|Deprecated
 name|byte
 index|[]
 name|getTagsArray
 parameter_list|()
 function_decl|;
-comment|/**    * @return the first offset where the tags start in the Cell    */
+comment|/**    * @return the first offset where the tags start in the Cell    * @deprecated As of HBase-2.0. Will be removed in HBase-3.0. Tags are are now internal.    */
+annotation|@
+name|Deprecated
 name|int
 name|getTagsOffset
 parameter_list|()
 function_decl|;
-comment|/**    * HBase internally uses 2 bytes to store tags length in Cell.    * As the tags length is always a non-negative number, to make good use of the sign bit,    * the max of tags length is defined 2 * Short.MAX_VALUE + 1 = 65535.    * As a result, the return type is int, because a short is not capable of handling that.    * Please note that even if the return type is int, the max tags length is far    * less than Integer.MAX_VALUE.    *    * @return the total length of the tags in the Cell.    */
+comment|/**    * HBase internally uses 2 bytes to store tags length in Cell.    * As the tags length is always a non-negative number, to make good use of the sign bit,    * the max of tags length is defined 2 * Short.MAX_VALUE + 1 = 65535.    * As a result, the return type is int, because a short is not capable of handling that.    * Please note that even if the return type is int, the max tags length is far    * less than Integer.MAX_VALUE.    *    * @return the total length of the tags in the Cell.    * @deprecated As of HBase-2.0. Will be removed in HBase-3.0. Tags are are now internal.    */
+annotation|@
+name|Deprecated
 name|int
 name|getTagsLength
 parameter_list|()
 function_decl|;
+comment|/**    * Returns the type of cell in a human readable format using {@link DataType}    * @return The data type this cell: one of Put, Delete, etc    */
+name|DataType
+name|getType
+parameter_list|()
+function_decl|;
+comment|/**    * The valid types for user to build the cell. Currently, This is subset of {@link KeyValue.Type}.    */
+specifier|public
+enum|enum
+name|DataType
+block|{
+name|Put
+argument_list|(
+operator|(
+name|byte
+operator|)
+literal|4
+argument_list|)
+block|,
+name|Delete
+argument_list|(
+operator|(
+name|byte
+operator|)
+literal|8
+argument_list|)
+block|,
+name|DeleteFamilyVersion
+argument_list|(
+operator|(
+name|byte
+operator|)
+literal|10
+argument_list|)
+block|,
+name|DeleteColumn
+argument_list|(
+operator|(
+name|byte
+operator|)
+literal|12
+argument_list|)
+block|,
+name|DeleteFamily
+argument_list|(
+operator|(
+name|byte
+operator|)
+literal|14
+argument_list|)
+block|;
+specifier|private
+specifier|final
+name|byte
+name|code
+decl_stmt|;
+name|DataType
+parameter_list|(
+specifier|final
+name|byte
+name|c
+parameter_list|)
+block|{
+name|this
+operator|.
+name|code
+operator|=
+name|c
+expr_stmt|;
+block|}
+specifier|public
+name|byte
+name|getCode
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|code
+return|;
+block|}
+block|}
 block|}
 end_interface
 

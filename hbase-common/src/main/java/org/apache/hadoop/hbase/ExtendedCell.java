@@ -375,6 +375,50 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * A region-specific unique monotonically increasing sequence ID given to each Cell. It always    * exists for cells in the memstore but is not retained forever. It will be kept for    * {@link HConstants#KEEP_SEQID_PERIOD} days, but generally becomes irrelevant after the cell's    * row is no longer involved in any operations that require strict consistency.    * @return seqId (always&gt; 0 if exists), or 0 if it no longer exists    */
+name|long
+name|getSequenceId
+parameter_list|()
+function_decl|;
+comment|/**    * Contiguous raw bytes representing tags that may start at any index in the containing array.    * @return the tags byte array    */
+name|byte
+index|[]
+name|getTagsArray
+parameter_list|()
+function_decl|;
+comment|/**    * @return the first offset where the tags start in the Cell    */
+name|int
+name|getTagsOffset
+parameter_list|()
+function_decl|;
+comment|/**    * HBase internally uses 2 bytes to store tags length in Cell. As the tags length is always a    * non-negative number, to make good use of the sign bit, the max of tags length is defined 2 *    * Short.MAX_VALUE + 1 = 65535. As a result, the return type is int, because a short is not    * capable of handling that. Please note that even if the return type is int, the max tags length    * is far less than Integer.MAX_VALUE.    * @return the total length of the tags in the Cell.    */
+name|int
+name|getTagsLength
+parameter_list|()
+function_decl|;
+comment|/**    * {@inheritDoc}    *<p>    * Note : This does not expose the internal types of Cells like {@link KeyValue.Type#Maximum} and    * {@link KeyValue.Type#Minimum}    */
+annotation|@
+name|Override
+specifier|default
+name|DataType
+name|getType
+parameter_list|()
+block|{
+return|return
+name|PrivateCellUtil
+operator|.
+name|toDataType
+argument_list|(
+name|getTypeByte
+argument_list|()
+argument_list|)
+return|;
+block|}
+comment|/**    * @return The byte representation of the KeyValue.TYPE of this cell: one of Put, Delete, etc    */
+name|byte
+name|getTypeByte
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

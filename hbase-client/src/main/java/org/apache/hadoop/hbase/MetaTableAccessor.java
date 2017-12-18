@@ -231,6 +231,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|Cell
+operator|.
+name|DataType
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|client
 operator|.
 name|Connection
@@ -6411,8 +6427,6 @@ argument_list|)
 operator|.
 name|setType
 argument_list|(
-name|CellBuilder
-operator|.
 name|DataType
 operator|.
 name|Put
@@ -6468,8 +6482,6 @@ argument_list|)
 operator|.
 name|setType
 argument_list|(
-name|CellBuilder
-operator|.
 name|DataType
 operator|.
 name|Put
@@ -6559,8 +6571,6 @@ argument_list|)
 operator|.
 name|setType
 argument_list|(
-name|CellBuilder
-operator|.
 name|DataType
 operator|.
 name|Put
@@ -6650,8 +6660,6 @@ argument_list|)
 operator|.
 name|setType
 argument_list|(
-name|CellBuilder
-operator|.
 name|DataType
 operator|.
 name|Put
@@ -6746,8 +6754,6 @@ argument_list|)
 operator|.
 name|setType
 argument_list|(
-name|CellBuilder
-operator|.
 name|DataType
 operator|.
 name|Put
@@ -6820,8 +6826,6 @@ argument_list|)
 operator|.
 name|setType
 argument_list|(
-name|CellBuilder
-operator|.
 name|DataType
 operator|.
 name|Put
@@ -8115,8 +8119,6 @@ argument_list|)
 operator|.
 name|setType
 argument_list|(
-name|CellBuilder
-operator|.
 name|DataType
 operator|.
 name|Put
@@ -8179,8 +8181,6 @@ argument_list|)
 operator|.
 name|setType
 argument_list|(
-name|CellBuilder
-operator|.
 name|DataType
 operator|.
 name|Put
@@ -9486,8 +9486,6 @@ argument_list|)
 operator|.
 name|setType
 argument_list|(
-name|CellBuilder
-operator|.
 name|DataType
 operator|.
 name|Put
@@ -10307,8 +10305,6 @@ argument_list|)
 operator|.
 name|setType
 argument_list|(
-name|CellBuilder
-operator|.
 name|DataType
 operator|.
 name|Put
@@ -10426,8 +10422,6 @@ argument_list|)
 operator|.
 name|setType
 argument_list|(
-name|CellBuilder
-operator|.
 name|DataType
 operator|.
 name|Put
@@ -10489,8 +10483,6 @@ argument_list|)
 operator|.
 name|setType
 argument_list|(
-name|CellBuilder
-operator|.
 name|DataType
 operator|.
 name|Put
@@ -10549,8 +10541,6 @@ argument_list|)
 operator|.
 name|setType
 argument_list|(
-name|CellBuilder
-operator|.
 name|DataType
 operator|.
 name|Put
@@ -10648,8 +10638,6 @@ argument_list|)
 operator|.
 name|setType
 argument_list|(
-name|CellBuilder
-operator|.
 name|DataType
 operator|.
 name|Put
@@ -10695,8 +10683,6 @@ argument_list|)
 operator|.
 name|setType
 argument_list|(
-name|CellBuilder
-operator|.
 name|DataType
 operator|.
 name|Put
@@ -10742,8 +10728,6 @@ argument_list|)
 operator|.
 name|setType
 argument_list|(
-name|CellBuilder
-operator|.
 name|DataType
 operator|.
 name|Put
@@ -10932,8 +10916,6 @@ argument_list|)
 operator|.
 name|setType
 argument_list|(
-name|CellBuilder
-operator|.
 name|DataType
 operator|.
 name|Put

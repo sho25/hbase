@@ -77,7 +77,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ExtendedCellBuilder
+name|HBaseInterfaceAudience
 import|;
 end_import
 
@@ -91,7 +91,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HBaseInterfaceAudience
+name|RawCellBuilder
 import|;
 end_import
 
@@ -293,8 +293,8 @@ name|MetricRegistry
 name|getMetricRegistryForRegionServer
 parameter_list|()
 function_decl|;
-comment|/**    * Returns a CellBuilder so that coprocessors can build cells. These cells can also include tags.    * Note that this builder does not support updating seqId of the cells    * @return the ExtendedCellBuilder    */
-name|ExtendedCellBuilder
+comment|/**    * Returns a CellBuilder so that coprocessors can build cells. These cells can also include tags.    * Note that this builder does not support updating seqId of the cells    * @return the RawCellBuilder    */
+name|RawCellBuilder
 name|getCellBuilder
 parameter_list|()
 function_decl|;

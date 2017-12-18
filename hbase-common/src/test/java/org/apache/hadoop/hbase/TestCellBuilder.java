@@ -197,7 +197,7 @@ argument_list|)
 operator|.
 name|setType
 argument_list|(
-name|CellBuilder
+name|Cell
 operator|.
 name|DataType
 operator|.
@@ -385,7 +385,7 @@ argument_list|)
 operator|.
 name|setType
 argument_list|(
-name|CellBuilder
+name|Cell
 operator|.
 name|DataType
 operator|.

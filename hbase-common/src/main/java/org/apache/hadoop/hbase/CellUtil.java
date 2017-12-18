@@ -2458,7 +2458,7 @@ name|EMPTY_BYTE_ARRAY
 argument_list|)
 return|;
 block|}
-comment|/**    * Note : Now only CPs can create cell with tags using the CP environment    * @return A new cell which is having the extra tags also added to it.    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    *             Use CP environment to build Cell using {@link ExtendedCellBuilder}    *    */
+comment|/**    * Note : Now only CPs can create cell with tags using the CP environment    * @return A new cell which is having the extra tags also added to it.    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    *    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -2477,20 +2477,17 @@ name|tags
 parameter_list|)
 block|{
 return|return
+name|PrivateCellUtil
+operator|.
 name|createCell
 argument_list|(
 name|cell
 argument_list|,
-name|Tag
-operator|.
-name|fromList
-argument_list|(
 name|tags
-argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Now only CPs can create cell with tags using the CP environment    * @return A new cell which is having the extra tags also added to it.    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    *            Use CP environment to build Cell using {@link ExtendedCellBuilder}    */
+comment|/**    * Now only CPs can create cell with tags using the CP environment    * @return A new cell which is having the extra tags also added to it.    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -2506,33 +2503,10 @@ index|[]
 name|tags
 parameter_list|)
 block|{
-if|if
-condition|(
-name|cell
-operator|instanceof
-name|ByteBufferCell
-condition|)
-block|{
 return|return
-operator|new
 name|PrivateCellUtil
 operator|.
-name|TagRewriteByteBufferCell
-argument_list|(
-operator|(
-name|ByteBufferCell
-operator|)
-name|cell
-argument_list|,
-name|tags
-argument_list|)
-return|;
-block|}
-return|return
-operator|new
-name|PrivateCellUtil
-operator|.
-name|TagRewriteCell
+name|createCell
 argument_list|(
 name|cell
 argument_list|,
@@ -2540,7 +2514,7 @@ name|tags
 argument_list|)
 return|;
 block|}
-comment|/**    * Now only CPs can create cell with tags using the CP environment    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    *             Use CP environment to build Cell using {@link ExtendedCellBuilder}    */
+comment|/**    * Now only CPs can create cell with tags using the CP environment    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -2560,35 +2534,10 @@ index|[]
 name|tags
 parameter_list|)
 block|{
-if|if
-condition|(
-name|cell
-operator|instanceof
-name|ByteBufferCell
-condition|)
-block|{
 return|return
-operator|new
 name|PrivateCellUtil
 operator|.
-name|ValueAndTagRewriteByteBufferCell
-argument_list|(
-operator|(
-name|ByteBufferCell
-operator|)
-name|cell
-argument_list|,
-name|value
-argument_list|,
-name|tags
-argument_list|)
-return|;
-block|}
-return|return
-operator|new
-name|PrivateCellUtil
-operator|.
-name|ValueAndTagRewriteCell
+name|createCell
 argument_list|(
 name|cell
 argument_list|,

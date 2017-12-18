@@ -127,7 +127,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellBuilder
+name|Cell
+operator|.
+name|DataType
 import|;
 end_import
 
@@ -1070,8 +1072,6 @@ argument_list|)
 operator|.
 name|setType
 argument_list|(
-name|CellBuilder
-operator|.
 name|DataType
 operator|.
 name|Put
@@ -1174,8 +1174,6 @@ argument_list|)
 operator|.
 name|setType
 argument_list|(
-name|CellBuilder
-operator|.
 name|DataType
 operator|.
 name|Put

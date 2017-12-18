@@ -990,7 +990,7 @@ argument_list|)
 expr_stmt|;
 name|REF_DELETE_MARKER_TAG_BYTES
 operator|=
-name|Tag
+name|TagUtil
 operator|.
 name|fromList
 argument_list|(
@@ -2483,7 +2483,7 @@ name|cell
 argument_list|,
 name|fileName
 argument_list|,
-name|Tag
+name|TagUtil
 operator|.
 name|fromList
 argument_list|(

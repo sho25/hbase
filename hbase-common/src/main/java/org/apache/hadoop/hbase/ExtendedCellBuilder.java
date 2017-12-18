@@ -17,6 +17,16 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -37,17 +47,12 @@ begin_interface
 annotation|@
 name|InterfaceAudience
 operator|.
-name|LimitedPrivate
-argument_list|(
-name|HBaseInterfaceAudience
-operator|.
-name|COPROC
-argument_list|)
+name|Private
 specifier|public
 interface|interface
 name|ExtendedCellBuilder
 extends|extends
-name|CellBuilder
+name|RawCellBuilder
 block|{
 annotation|@
 name|Override
@@ -155,6 +160,8 @@ name|ExtendedCellBuilder
 name|setType
 parameter_list|(
 specifier|final
+name|Cell
+operator|.
 name|DataType
 name|type
 parameter_list|)
@@ -209,7 +216,9 @@ name|ExtendedCellBuilder
 name|clear
 parameter_list|()
 function_decl|;
-comment|// TODO : While creating RawCellBuilder allow 'Tag' to be passed instead of byte[]
+comment|// we have this method for performance reasons so that if one could create a cell directly from
+comment|// the tag byte[] of the cell without having to convert to a list of Tag(s) and again adding it
+comment|// back.
 name|ExtendedCellBuilder
 name|setTags
 parameter_list|(
@@ -219,7 +228,9 @@ index|[]
 name|tags
 parameter_list|)
 function_decl|;
-comment|// TODO : While creating RawCellBuilder allow 'Tag' to be passed instead of byte[]
+comment|// we have this method for performance reasons so that if one could create a cell directly from
+comment|// the tag byte[] of the cell without having to convert to a list of Tag(s) and again adding it
+comment|// back.
 name|ExtendedCellBuilder
 name|setTags
 parameter_list|(
@@ -233,6 +244,18 @@ name|tagsOffset
 parameter_list|,
 name|int
 name|tagsLength
+parameter_list|)
+function_decl|;
+annotation|@
+name|Override
+name|ExtendedCellBuilder
+name|setTags
+parameter_list|(
+name|List
+argument_list|<
+name|Tag
+argument_list|>
+name|tags
 parameter_list|)
 function_decl|;
 comment|/**    * Internal usage. Be careful before you use this while building a cell    * @param seqId set the seqId    * @return the current ExternalCellBuilder    */

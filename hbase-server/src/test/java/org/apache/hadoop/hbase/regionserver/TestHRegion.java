@@ -171,7 +171,7 @@ name|org
 operator|.
 name|mockito
 operator|.
-name|Matchers
+name|ArgumentMatchers
 operator|.
 name|any
 import|;
@@ -183,7 +183,7 @@ name|org
 operator|.
 name|mockito
 operator|.
-name|Matchers
+name|ArgumentMatchers
 operator|.
 name|anyBoolean
 import|;
@@ -195,7 +195,7 @@ name|org
 operator|.
 name|mockito
 operator|.
-name|Matchers
+name|ArgumentMatchers
 operator|.
 name|anyLong
 import|;
@@ -693,7 +693,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellBuilder
+name|Cell
+operator|.
+name|DataType
 import|;
 end_import
 
@@ -905,20 +907,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|PrivateCellUtil
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|KeyValue
 import|;
 end_import
@@ -1008,6 +996,20 @@ operator|.
 name|hbase
 operator|.
 name|NotServingRegionException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|PrivateCellUtil
 import|;
 end_import
 
@@ -1996,22 +1998,6 @@ operator|.
 name|wal
 operator|.
 name|WALFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|wal
-operator|.
-name|WALKey
 import|;
 end_import
 
@@ -45247,8 +45233,6 @@ argument_list|)
 operator|.
 name|setType
 argument_list|(
-name|CellBuilder
-operator|.
 name|DataType
 operator|.
 name|Put
@@ -45295,8 +45279,6 @@ argument_list|)
 operator|.
 name|setType
 argument_list|(
-name|CellBuilder
-operator|.
 name|DataType
 operator|.
 name|Put
@@ -45342,8 +45324,6 @@ argument_list|)
 operator|.
 name|setType
 argument_list|(
-name|CellBuilder
-operator|.
 name|DataType
 operator|.
 name|Put
@@ -45593,8 +45573,6 @@ argument_list|)
 operator|.
 name|setType
 argument_list|(
-name|CellBuilder
-operator|.
 name|DataType
 operator|.
 name|Put
@@ -45640,8 +45618,6 @@ argument_list|)
 operator|.
 name|setType
 argument_list|(
-name|CellBuilder
-operator|.
 name|DataType
 operator|.
 name|Put
