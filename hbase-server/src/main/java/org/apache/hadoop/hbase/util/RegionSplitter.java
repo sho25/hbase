@@ -235,34 +235,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|Log
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|LogFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|conf
@@ -498,6 +470,26 @@ operator|.
 name|audience
 operator|.
 name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|Logger
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|LoggerFactory
 import|;
 end_import
 
@@ -773,12 +765,12 @@ block|{
 specifier|private
 specifier|static
 specifier|final
-name|Log
+name|Logger
 name|LOG
 init|=
-name|LogFactory
+name|LoggerFactory
 operator|.
-name|getLog
+name|getLogger
 argument_list|(
 name|RegionSplitter
 operator|.
@@ -1748,7 +1740,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Alternative getCurrentNrHRS which is no longer available.    * @param connection    * @return Rough count of regionservers out on cluster.    * @throws IOException     */
+comment|/**    * Alternative getCurrentNrHRS which is no longer available.    * @param connection    * @return Rough count of regionservers out on cluster.    * @throws IOException    */
 specifier|private
 specifier|static
 name|int
@@ -3714,6 +3706,11 @@ operator|.
 name|info
 argument_list|(
 name|nsfre
+operator|.
+name|toString
+argument_list|()
+argument_list|,
+name|nsfre
 argument_list|)
 expr_stmt|;
 name|logicalSplitting
@@ -3987,7 +3984,7 @@ name|finished
 return|;
 block|}
 block|}
-comment|/**    * @param conf    * @param tableName    * @return A Pair where first item is table dir and second is the split file.    * @throws IOException     */
+comment|/**    * @param conf    * @param tableName    * @return A Pair where first item is table dir and second is the split file.    * @throws IOException    */
 specifier|private
 specifier|static
 name|Pair
@@ -5039,6 +5036,8 @@ name|length
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|byte
 index|[]
@@ -5096,6 +5095,8 @@ argument_list|)
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|byte
 index|[]
@@ -5490,6 +5491,8 @@ argument_list|)
 return|;
 block|}
 block|}
+annotation|@
+name|Override
 specifier|public
 name|byte
 index|[]
@@ -5503,6 +5506,8 @@ name|firstRowInt
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|byte
 index|[]
@@ -5516,6 +5521,8 @@ name|lastRowInt
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|setFirstRow
@@ -5539,6 +5546,8 @@ name|radix
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|setLastRow
@@ -5570,6 +5579,8 @@ name|length
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|byte
 index|[]
@@ -5592,6 +5603,8 @@ argument_list|)
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|String
 name|rowToStr
@@ -5610,6 +5623,8 @@ name|row
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|String
 name|separator
@@ -5944,6 +5959,8 @@ block|,
 name|xFF
 block|}
 decl_stmt|;
+annotation|@
+name|Override
 specifier|public
 name|byte
 index|[]

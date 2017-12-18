@@ -29,6 +29,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|log
+operator|.
+name|HBaseMarkers
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|shaded
 operator|.
 name|com
@@ -60,34 +76,6 @@ operator|.
 name|util
 operator|.
 name|List
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|Log
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|LogFactory
 import|;
 end_import
 
@@ -211,6 +199,26 @@ name|KeeperException
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|Logger
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|LoggerFactory
+import|;
+end_import
+
 begin_comment
 comment|/**  * Synchronizes token encryption keys across cluster nodes.  */
 end_comment
@@ -245,12 +253,12 @@ decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
-name|Log
+name|Logger
 name|LOG
 init|=
-name|LogFactory
+name|LoggerFactory
 operator|.
-name|getLog
+name|getLogger
 argument_list|(
 name|ZKSecretWatcher
 operator|.
@@ -449,8 +457,12 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|fatal
+name|error
 argument_list|(
+name|HBaseMarkers
+operator|.
+name|FATAL
+argument_list|,
 literal|"Error reading data from zookeeper"
 argument_list|,
 name|ke
@@ -644,8 +656,12 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|fatal
+name|error
 argument_list|(
+name|HBaseMarkers
+operator|.
+name|FATAL
+argument_list|,
 literal|"Error reading data from zookeeper"
 argument_list|,
 name|ke
@@ -671,8 +687,12 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|fatal
+name|error
 argument_list|(
+name|HBaseMarkers
+operator|.
+name|FATAL
+argument_list|,
 literal|"Error reading key writables"
 argument_list|,
 name|ioe
@@ -746,8 +766,12 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|fatal
+name|error
 argument_list|(
+name|HBaseMarkers
+operator|.
+name|FATAL
+argument_list|,
 literal|"Error reading data from zookeeper"
 argument_list|,
 name|ke
@@ -883,8 +907,12 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|fatal
+name|error
 argument_list|(
+name|HBaseMarkers
+operator|.
+name|FATAL
+argument_list|,
 literal|"Failed reading new secret key for id '"
 operator|+
 name|keyId
@@ -998,8 +1026,12 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|fatal
+name|error
 argument_list|(
+name|HBaseMarkers
+operator|.
+name|FATAL
+argument_list|,
 literal|"Failed removing znode "
 operator|+
 name|keyZNode
@@ -1087,8 +1119,12 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|fatal
+name|error
 argument_list|(
+name|HBaseMarkers
+operator|.
+name|FATAL
+argument_list|,
 literal|"Unable to synchronize master key "
 operator|+
 name|key
@@ -1222,8 +1258,12 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|fatal
+name|error
 argument_list|(
+name|HBaseMarkers
+operator|.
+name|FATAL
+argument_list|,
 literal|"Unable to update master key "
 operator|+
 name|key
@@ -1315,8 +1355,12 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|fatal
+name|error
 argument_list|(
+name|HBaseMarkers
+operator|.
+name|FATAL
+argument_list|,
 literal|"Error reading data from zookeeper"
 argument_list|,
 name|ke

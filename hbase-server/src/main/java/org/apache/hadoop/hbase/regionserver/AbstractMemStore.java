@@ -87,20 +87,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|Log
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|conf
@@ -162,6 +148,16 @@ operator|.
 name|audience
 operator|.
 name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|Logger
 import|;
 end_import
 
@@ -902,7 +898,7 @@ specifier|protected
 name|void
 name|dump
 parameter_list|(
-name|Log
+name|Logger
 name|log
 parameter_list|)
 block|{

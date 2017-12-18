@@ -23,20 +23,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|Log
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|yetus
 operator|.
 name|audience
@@ -54,6 +40,18 @@ operator|.
 name|log4j
 operator|.
 name|Level
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|log4j
+operator|.
+name|LogManager
 import|;
 end_import
 
@@ -86,20 +84,17 @@ specifier|private
 name|LogUtils
 parameter_list|()
 block|{   }
-comment|/**    * Disables Zk- and HBase client logging    * @param log    */
+comment|/**    * Disables Zk- and HBase client logging    */
 specifier|static
 name|void
 name|disableZkAndClientLoggers
-parameter_list|(
-name|Log
-name|log
-parameter_list|)
+parameter_list|()
 block|{
 comment|// disable zookeeper log to avoid it mess up command output
 name|Logger
 name|zkLogger
 init|=
-name|Logger
+name|LogManager
 operator|.
 name|getLogger
 argument_list|(
@@ -119,7 +114,7 @@ comment|// disable hbase zookeeper tool log to avoid it mess up command output
 name|Logger
 name|hbaseZkLogger
 init|=
-name|Logger
+name|LogManager
 operator|.
 name|getLogger
 argument_list|(
@@ -139,7 +134,7 @@ comment|// disable hbase client log to avoid it mess up command output
 name|Logger
 name|hbaseClientLogger
 init|=
-name|Logger
+name|LogManager
 operator|.
 name|getLogger
 argument_list|(

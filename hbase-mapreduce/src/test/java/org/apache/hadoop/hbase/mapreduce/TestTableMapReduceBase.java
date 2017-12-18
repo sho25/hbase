@@ -87,20 +87,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|Log
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|conf
@@ -357,6 +343,16 @@ name|TestRule
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|Logger
+import|;
+end_import
+
 begin_comment
 comment|/**  * A base class for a test Map/Reduce job over HBase tables. The map/reduce process we're testing  * on our tables is simple - take every row in the table, reverse the value of a particular cell,  * and write it back to the table. Implements common components between mapred and mapreduce  * implementations.  */
 end_comment
@@ -480,7 +476,7 @@ decl_stmt|;
 comment|/**    * Retrieve my logger instance.    */
 specifier|protected
 specifier|abstract
-name|Log
+name|Logger
 name|getLog
 parameter_list|()
 function_decl|;

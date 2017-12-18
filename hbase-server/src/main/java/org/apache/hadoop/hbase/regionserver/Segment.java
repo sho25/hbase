@@ -53,6 +53,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Objects
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|SortedSet
 import|;
 end_import
@@ -82,20 +92,6 @@ operator|.
 name|atomic
 operator|.
 name|AtomicReference
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|Log
 import|;
 end_import
 
@@ -228,6 +224,16 @@ operator|.
 name|audience
 operator|.
 name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|Logger
 import|;
 end_import
 
@@ -1409,7 +1415,7 @@ comment|/**    * Dumps all cells of the segment into the given log    */
 name|void
 name|dump
 parameter_list|(
-name|Log
+name|Logger
 name|log
 parameter_list|)
 block|{
@@ -1426,7 +1432,12 @@ name|log
 operator|.
 name|debug
 argument_list|(
+name|Objects
+operator|.
+name|toString
+argument_list|(
 name|cell
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

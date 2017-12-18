@@ -235,6 +235,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Objects
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Optional
 import|;
 end_import
@@ -486,34 +496,6 @@ operator|.
 name|lang3
 operator|.
 name|StringUtils
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|Log
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|LogFactory
 import|;
 end_import
 
@@ -1239,6 +1221,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|log
+operator|.
+name|HBaseMarkers
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|master
 operator|.
 name|MasterFileSystem
@@ -1729,6 +1727,26 @@ begin_import
 import|import
 name|org
 operator|.
+name|slf4j
+operator|.
+name|Logger
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|LoggerFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
 name|apache
 operator|.
 name|hadoop
@@ -2095,12 +2113,12 @@ comment|/**********************    * Internal resources    *********************
 specifier|private
 specifier|static
 specifier|final
-name|Log
+name|Logger
 name|LOG
 init|=
-name|LogFactory
+name|LoggerFactory
 operator|.
-name|getLog
+name|getLogger
 argument_list|(
 name|HBaseFsck
 operator|.
@@ -4570,6 +4588,11 @@ operator|.
 name|warn
 argument_list|(
 name|io
+operator|.
+name|toString
+argument_list|()
+argument_list|,
+name|io
 argument_list|)
 expr_stmt|;
 block|}
@@ -5280,7 +5303,12 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
+name|Objects
+operator|.
+name|toString
+argument_list|(
 name|currentRegionBoundariesInformation
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -5296,6 +5324,11 @@ name|LOG
 operator|.
 name|error
 argument_list|(
+name|e
+operator|.
+name|toString
+argument_list|()
+argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
@@ -8703,11 +8736,15 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|fatal
+name|error
 argument_list|(
-literal|"Problem encountered when creating new hbase:meta entries.  "
+name|HBaseMarkers
+operator|.
+name|FATAL
+argument_list|,
+literal|"Problem encountered when creating new hbase:meta "
 operator|+
-literal|"You may need to restore the previously sidelined hbase:meta"
+literal|"entries. You may need to restore the previously sidelined hbase:meta"
 argument_list|)
 expr_stmt|;
 return|return
@@ -9732,11 +9769,15 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|fatal
+name|error
 argument_list|(
-literal|"... failed to sideline meta. Currently in inconsistent state.  To restore "
+name|HBaseMarkers
+operator|.
+name|FATAL
+argument_list|,
+literal|"... failed to sideline meta. Currently in "
 operator|+
-literal|"try to rename hbase:meta in "
+literal|"inconsistent state.  To restore try to rename hbase:meta in "
 operator|+
 name|backupDir
 operator|.
@@ -10127,12 +10168,7 @@ block|{
 name|RegionLocations
 name|rl
 init|=
-operator|(
-operator|(
-name|ClusterConnection
-operator|)
 name|connection
-operator|)
 operator|.
 name|locateRegion
 argument_list|(

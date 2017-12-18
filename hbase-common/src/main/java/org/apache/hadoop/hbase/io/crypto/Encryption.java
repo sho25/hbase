@@ -187,34 +187,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|Log
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|LogFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|conf
@@ -311,6 +283,26 @@ name|InterfaceAudience
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|Logger
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|LoggerFactory
+import|;
+end_import
+
 begin_comment
 comment|/**  * A facade for encryption algorithms and related support.  */
 end_comment
@@ -328,12 +320,12 @@ block|{
 specifier|private
 specifier|static
 specifier|final
-name|Log
+name|Logger
 name|LOG
 init|=
-name|LogFactory
+name|LoggerFactory
 operator|.
-name|getLog
+name|getLogger
 argument_list|(
 name|Encryption
 operator|.
@@ -969,7 +961,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Return a 128 bit key derived from the concatenation of the supplied    * arguments using PBKDF2WithHmacSHA1 at 10,000 iterations.    *     */
+comment|/**    * Return a 128 bit key derived from the concatenation of the supplied    * arguments using PBKDF2WithHmacSHA1 at 10,000 iterations.    *    */
 specifier|public
 specifier|static
 name|byte
@@ -1090,7 +1082,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Return a 128 bit key derived from the concatenation of the supplied    * arguments using PBKDF2WithHmacSHA1 at 10,000 iterations.    *     */
+comment|/**    * Return a 128 bit key derived from the concatenation of the supplied    * arguments using PBKDF2WithHmacSHA1 at 10,000 iterations.    *    */
 specifier|public
 specifier|static
 name|byte
@@ -1810,9 +1802,6 @@ block|{
 name|KeyProvider
 name|provider
 init|=
-operator|(
-name|KeyProvider
-operator|)
 name|getKeyProvider
 argument_list|(
 name|conf

@@ -1105,6 +1105,11 @@ operator|.
 name|error
 argument_list|(
 name|e
+operator|.
+name|toString
+argument_list|()
+argument_list|,
+name|e
 argument_list|)
 expr_stmt|;
 block|}
@@ -1288,6 +1293,11 @@ operator|.
 name|error
 argument_list|(
 name|e
+operator|.
+name|toString
+argument_list|()
+argument_list|,
+name|e
 argument_list|)
 expr_stmt|;
 block|}
@@ -1372,6 +1382,11 @@ name|LOG
 operator|.
 name|error
 argument_list|(
+name|e
+operator|.
+name|toString
+argument_list|()
+argument_list|,
 name|e
 argument_list|)
 expr_stmt|;

@@ -91,29 +91,11 @@ end_import
 
 begin_import
 import|import
-name|org
+name|java
 operator|.
-name|apache
+name|util
 operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|Log
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|LogFactory
+name|Objects
 import|;
 end_import
 
@@ -743,6 +725,26 @@ name|Before
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|Logger
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|LoggerFactory
+import|;
+end_import
+
 begin_comment
 comment|/**  * This class is only a base for other integration-level backup tests. Do not add tests here.  * TestBackupSmallTests is where tests that don't require bring machines up/down should go All other  * tests should have their own classes and extend this one  */
 end_comment
@@ -755,12 +757,12 @@ block|{
 specifier|private
 specifier|static
 specifier|final
-name|Log
+name|Logger
 name|LOG
 init|=
-name|LogFactory
+name|LoggerFactory
 operator|.
-name|getLog
+name|getLogger
 argument_list|(
 name|TestBackupBase
 operator|.
@@ -3136,6 +3138,10 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
+name|Objects
+operator|.
+name|toString
+argument_list|(
 name|it
 operator|.
 name|next
@@ -3143,6 +3149,7 @@ argument_list|()
 operator|.
 name|getPath
 argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

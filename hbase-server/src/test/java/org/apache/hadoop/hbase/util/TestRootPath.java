@@ -43,25 +43,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|commons
+name|hadoop
 operator|.
-name|logging
+name|fs
 operator|.
-name|Log
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|LogFactory
+name|Path
 import|;
 end_import
 
@@ -73,9 +59,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|fs
+name|hbase
 operator|.
-name|Path
+name|log
+operator|.
+name|HBaseMarkers
 import|;
 end_import
 
@@ -125,6 +113,26 @@ name|Category
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|Logger
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|LoggerFactory
+import|;
+end_import
+
 begin_comment
 comment|/**  * Test requirement that root directory must be a URI  */
 end_comment
@@ -152,12 +160,12 @@ block|{
 specifier|private
 specifier|static
 specifier|final
-name|Log
+name|Logger
 name|LOG
 init|=
-name|LogFactory
+name|LoggerFactory
 operator|.
-name|getLog
+name|getLogger
 argument_list|(
 name|TestRootPath
 operator|.
@@ -193,8 +201,12 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|fatal
+name|error
 argument_list|(
+name|HBaseMarkers
+operator|.
+name|FATAL
+argument_list|,
 literal|"Unexpected exception checking valid path:"
 argument_list|,
 name|e
@@ -227,8 +239,12 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|fatal
+name|error
 argument_list|(
+name|HBaseMarkers
+operator|.
+name|FATAL
+argument_list|,
 literal|"Unexpected exception checking valid path:"
 argument_list|,
 name|e

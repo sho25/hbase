@@ -237,34 +237,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|Log
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|LogFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|conf
@@ -368,6 +340,22 @@ operator|.
 name|hbase
 operator|.
 name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|log
+operator|.
+name|HBaseMarkers
 import|;
 end_import
 
@@ -579,6 +567,26 @@ name|InterfaceStability
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|Logger
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|LoggerFactory
+import|;
+end_import
+
 begin_comment
 comment|/**  * WAL implementation of the ProcedureStore.  */
 end_comment
@@ -601,12 +609,12 @@ block|{
 specifier|private
 specifier|static
 specifier|final
-name|Log
+name|Logger
 name|LOG
 init|=
-name|LogFactory
+name|LoggerFactory
 operator|.
-name|getLog
+name|getLogger
 argument_list|(
 name|WALProcedureStore
 operator|.
@@ -2578,8 +2586,12 @@ comment|// We are not able to serialize the procedure.
 comment|// this is a code error, and we are not able to go on.
 name|LOG
 operator|.
-name|fatal
+name|error
 argument_list|(
+name|HBaseMarkers
+operator|.
+name|FATAL
+argument_list|,
 literal|"Unable to serialize one of the procedure: proc="
 operator|+
 name|proc
@@ -2749,8 +2761,12 @@ comment|// We are not able to serialize the procedure.
 comment|// this is a code error, and we are not able to go on.
 name|LOG
 operator|.
-name|fatal
+name|error
 argument_list|(
+name|HBaseMarkers
+operator|.
+name|FATAL
+argument_list|,
 literal|"Unable to serialize one of the procedure: "
 operator|+
 name|Arrays
@@ -2855,8 +2871,12 @@ comment|// We are not able to serialize the procedure.
 comment|// this is a code error, and we are not able to go on.
 name|LOG
 operator|.
-name|fatal
+name|error
 argument_list|(
+name|HBaseMarkers
+operator|.
+name|FATAL
+argument_list|,
 literal|"Unable to serialize the procedure: "
 operator|+
 name|proc
@@ -2953,8 +2973,12 @@ comment|// We are not able to serialize the procedure.
 comment|// this is a code error, and we are not able to go on.
 name|LOG
 operator|.
-name|fatal
+name|error
 argument_list|(
+name|HBaseMarkers
+operator|.
+name|FATAL
+argument_list|,
 literal|"Unable to serialize the procedure: "
 operator|+
 name|procId
@@ -3090,8 +3114,12 @@ comment|// We are not able to serialize the procedure.
 comment|// this is a code error, and we are not able to go on.
 name|LOG
 operator|.
-name|fatal
+name|error
 argument_list|(
+name|HBaseMarkers
+operator|.
+name|FATAL
+argument_list|,
 literal|"Unable to serialize the procedure: "
 operator|+
 name|proc
@@ -3299,7 +3327,7 @@ comment|// We are not able to serialize the procedure.
 comment|// this is a code error, and we are not able to go on.
 name|LOG
 operator|.
-name|fatal
+name|error
 argument_list|(
 literal|"Unable to serialize the procedures: "
 operator|+
@@ -4641,8 +4669,12 @@ block|}
 block|}
 name|LOG
 operator|.
-name|fatal
+name|error
 argument_list|(
+name|HBaseMarkers
+operator|.
+name|FATAL
+argument_list|,
 literal|"Unable to roll the log"
 argument_list|)
 expr_stmt|;

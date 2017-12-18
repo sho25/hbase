@@ -129,34 +129,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|Log
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|LogFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|HadoopIllegalArgumentException
@@ -351,6 +323,26 @@ begin_import
 import|import
 name|org
 operator|.
+name|slf4j
+operator|.
+name|Logger
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|LoggerFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
 name|apache
 operator|.
 name|hadoop
@@ -412,12 +404,12 @@ block|{
 specifier|private
 specifier|static
 specifier|final
-name|Log
+name|Logger
 name|LOG
 init|=
-name|LogFactory
+name|LoggerFactory
 operator|.
-name|getLog
+name|getLogger
 argument_list|(
 name|CommonFSUtils
 operator|.
@@ -3148,7 +3140,7 @@ specifier|final
 name|Path
 name|root
 parameter_list|,
-name|Log
+name|Logger
 name|LOG
 parameter_list|)
 throws|throws
@@ -3178,7 +3170,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Recursive helper to log the state of the FS    *    * @see #logFileSystemState(FileSystem, Path, Log)    */
+comment|/**    * Recursive helper to log the state of the FS    *    * @see #logFileSystemState(FileSystem, Path, Logger)    */
 end_comment
 
 begin_function
@@ -3187,7 +3179,7 @@ specifier|static
 name|void
 name|logFSTree
 parameter_list|(
-name|Log
+name|Logger
 name|LOG
 parameter_list|,
 specifier|final

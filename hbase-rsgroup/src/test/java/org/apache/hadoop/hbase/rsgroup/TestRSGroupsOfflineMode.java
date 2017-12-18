@@ -18,54 +18,26 @@ package|;
 end_package
 
 begin_import
-import|import
+import|import static
 name|org
 operator|.
-name|apache
+name|junit
 operator|.
-name|hadoop
+name|Assert
 operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|collect
-operator|.
-name|Sets
+name|assertEquals
 import|;
 end_import
 
 begin_import
-import|import
+import|import static
 name|org
 operator|.
-name|apache
+name|junit
 operator|.
-name|commons
+name|Assert
 operator|.
-name|logging
-operator|.
-name|Log
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|LogFactory
+name|assertFalse
 import|;
 end_import
 
@@ -356,26 +328,46 @@ import|;
 end_import
 
 begin_import
-import|import static
+import|import
 name|org
 operator|.
-name|junit
+name|slf4j
 operator|.
-name|Assert
-operator|.
-name|assertEquals
+name|Logger
 import|;
 end_import
 
 begin_import
-import|import static
+import|import
 name|org
 operator|.
-name|junit
+name|slf4j
 operator|.
-name|Assert
+name|LoggerFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
 operator|.
-name|assertFalse
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|collect
+operator|.
+name|Sets
 import|;
 end_import
 
@@ -422,12 +414,12 @@ block|{
 specifier|private
 specifier|static
 specifier|final
-name|Log
+name|Logger
 name|LOG
 init|=
-name|LogFactory
+name|LoggerFactory
 operator|.
-name|getLog
+name|getLogger
 argument_list|(
 name|TestRSGroupsOfflineMode
 operator|.
