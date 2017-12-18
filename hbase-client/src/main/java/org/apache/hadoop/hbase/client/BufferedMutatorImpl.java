@@ -365,7 +365,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 specifier|private
-specifier|volatile
+specifier|final
 name|long
 name|writeBufferSize
 decl_stmt|;

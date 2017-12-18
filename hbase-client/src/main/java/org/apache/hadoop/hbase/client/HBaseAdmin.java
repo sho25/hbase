@@ -3400,7 +3400,7 @@ name|ClusterConnection
 name|connection
 decl_stmt|;
 specifier|private
-specifier|volatile
+specifier|final
 name|Configuration
 name|conf
 decl_stmt|;

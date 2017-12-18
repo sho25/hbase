@@ -299,7 +299,7 @@ name|String
 name|nsZNode
 decl_stmt|;
 specifier|private
-specifier|volatile
+specifier|final
 name|NavigableMap
 argument_list|<
 name|String
