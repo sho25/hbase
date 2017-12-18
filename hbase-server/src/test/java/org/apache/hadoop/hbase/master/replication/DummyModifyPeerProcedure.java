@@ -21,11 +21,19 @@ end_package
 
 begin_import
 import|import
-name|java
+name|org
 operator|.
-name|io
+name|apache
 operator|.
-name|IOException
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
+name|procedure
+operator|.
+name|MasterProcedureEnv
 import|;
 end_import
 
@@ -69,16 +77,33 @@ block|}
 annotation|@
 name|Override
 specifier|protected
-name|boolean
+name|void
+name|prePeerModification
+parameter_list|(
+name|MasterProcedureEnv
+name|env
+parameter_list|)
+block|{   }
+annotation|@
+name|Override
+specifier|protected
+name|void
 name|updatePeerStorage
-parameter_list|()
-throws|throws
-name|IOException
-block|{
-return|return
-literal|true
-return|;
-block|}
+parameter_list|(
+name|MasterProcedureEnv
+name|env
+parameter_list|)
+block|{   }
+annotation|@
+name|Override
+specifier|protected
+name|void
+name|postPeerModification
+parameter_list|(
+name|MasterProcedureEnv
+name|env
+parameter_list|)
+block|{   }
 block|}
 end_class
 

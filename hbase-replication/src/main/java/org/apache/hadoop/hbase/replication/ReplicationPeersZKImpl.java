@@ -2869,7 +2869,7 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|ReplicationException
+name|IllegalArgumentException
 argument_list|(
 literal|"undeleted queue for peerId: "
 operator|+
@@ -2915,7 +2915,7 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|ReplicationException
+name|IllegalArgumentException
 argument_list|(
 literal|"Undeleted queue for peerId: "
 operator|+

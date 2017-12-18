@@ -226,7 +226,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-specifier|protected
+specifier|public
 specifier|static
 name|void
 name|releaseLatch

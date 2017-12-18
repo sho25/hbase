@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/*  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -19,6 +19,18 @@ end_package
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|Service
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -34,20 +46,6 @@ operator|.
 name|util
 operator|.
 name|List
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HBaseIOException
 import|;
 end_import
 
@@ -315,6 +313,24 @@ name|hbase
 operator|.
 name|master
 operator|.
+name|replication
+operator|.
+name|ReplicationManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
 name|snapshot
 operator|.
 name|SnapshotManager
@@ -501,18 +517,6 @@ name|VisibleForTesting
 import|;
 end_import
 
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|Service
-import|;
-end_import
-
 begin_comment
 comment|/**  * A curated subset of services provided by {@link HMaster}.  * For use internally only. Passed to Managers, Services and Chores so can pass less-than-a  * full-on HMaster at test-time. Be judicious adding API. Changes cause ripples through  * the code base.  */
 end_comment
@@ -606,6 +610,9 @@ annotation|@
 name|VisibleForTesting
 specifier|public
 name|ProcedureEvent
+argument_list|<
+name|?
+argument_list|>
 name|getInitializedEvent
 parameter_list|()
 function_decl|;
@@ -1033,7 +1040,7 @@ name|getFavoredNodesManager
 parameter_list|()
 function_decl|;
 comment|/**    * Add a new replication peer for replicating data to slave cluster    * @param peerId a short name that identifies the peer    * @param peerConfig configuration for the replication slave cluster    * @param enabled peer state, true if ENABLED and false if DISABLED    */
-name|void
+name|long
 name|addReplicationPeer
 parameter_list|(
 name|String
@@ -1051,7 +1058,7 @@ throws|,
 name|IOException
 function_decl|;
 comment|/**    * Removes a peer and stops the replication    * @param peerId a short name that identifies the peer    */
-name|void
+name|long
 name|removeReplicationPeer
 parameter_list|(
 name|String
@@ -1063,7 +1070,7 @@ throws|,
 name|IOException
 function_decl|;
 comment|/**    * Restart the replication stream to the specified peer    * @param peerId a short name that identifies the peer    */
-name|void
+name|long
 name|enableReplicationPeer
 parameter_list|(
 name|String
@@ -1075,7 +1082,7 @@ throws|,
 name|IOException
 function_decl|;
 comment|/**    * Stop the replication stream to the specified peer    * @param peerId a short name that identifies the peer    */
-name|void
+name|long
 name|disableReplicationPeer
 parameter_list|(
 name|String
@@ -1098,8 +1105,13 @@ name|ReplicationException
 throws|,
 name|IOException
 function_decl|;
+comment|/**    * Returns the {@link ReplicationManager}.    */
+name|ReplicationManager
+name|getReplicationManager
+parameter_list|()
+function_decl|;
 comment|/**    * Update the peerConfig for the specified peer    * @param peerId a short name that identifies the peer    * @param peerConfig new config for the peer    */
-name|void
+name|long
 name|updateReplicationPeerConfig
 parameter_list|(
 name|String

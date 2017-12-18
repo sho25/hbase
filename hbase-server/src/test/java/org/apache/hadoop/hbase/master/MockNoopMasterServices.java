@@ -373,6 +373,24 @@ name|hbase
 operator|.
 name|master
 operator|.
+name|replication
+operator|.
+name|ReplicationManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
 name|snapshot
 operator|.
 name|SnapshotManager
@@ -1511,7 +1529,6 @@ name|ClusterConnection
 name|getClusterConnection
 parameter_list|()
 block|{
-comment|// TODO Auto-generated method stub
 return|return
 literal|null
 return|;
@@ -1577,7 +1594,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|void
+name|long
 name|addReplicationPeer
 parameter_list|(
 name|String
@@ -1591,11 +1608,15 @@ name|enabled
 parameter_list|)
 throws|throws
 name|ReplicationException
-block|{   }
+block|{
+return|return
+literal|0
+return|;
+block|}
 annotation|@
 name|Override
 specifier|public
-name|void
+name|long
 name|removeReplicationPeer
 parameter_list|(
 name|String
@@ -1603,11 +1624,15 @@ name|peerId
 parameter_list|)
 throws|throws
 name|ReplicationException
-block|{   }
+block|{
+return|return
+literal|0
+return|;
+block|}
 annotation|@
 name|Override
 specifier|public
-name|void
+name|long
 name|enableReplicationPeer
 parameter_list|(
 name|String
@@ -1617,11 +1642,15 @@ throws|throws
 name|ReplicationException
 throws|,
 name|IOException
-block|{   }
+block|{
+return|return
+literal|0
+return|;
+block|}
 annotation|@
 name|Override
 specifier|public
-name|void
+name|long
 name|disableReplicationPeer
 parameter_list|(
 name|String
@@ -1631,7 +1660,11 @@ throws|throws
 name|ReplicationException
 throws|,
 name|IOException
-block|{   }
+block|{
+return|return
+literal|0
+return|;
+block|}
 annotation|@
 name|Override
 specifier|public
@@ -1653,7 +1686,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|void
+name|long
 name|updateReplicationPeerConfig
 parameter_list|(
 name|String
@@ -1666,7 +1699,11 @@ throws|throws
 name|ReplicationException
 throws|,
 name|IOException
-block|{   }
+block|{
+return|return
+literal|0
+return|;
+block|}
 annotation|@
 name|Override
 specifier|public
@@ -1751,7 +1788,6 @@ name|ProcedureEvent
 name|getInitializedEvent
 parameter_list|()
 block|{
-comment|// TODO Auto-generated method stub
 return|return
 literal|null
 return|;
@@ -1778,6 +1814,17 @@ name|conf
 parameter_list|)
 throws|throws
 name|IOException
+block|{
+return|return
+literal|null
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|ReplicationManager
+name|getReplicationManager
+parameter_list|()
 block|{
 return|return
 literal|null

@@ -129,20 +129,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|DoNotRetryIOException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|ReplicationPeerNotFoundException
 import|;
 end_import
@@ -158,22 +144,6 @@ operator|.
 name|hbase
 operator|.
 name|TableName
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|zookeeper
-operator|.
-name|ZKWatcher
 import|;
 end_import
 
@@ -311,6 +281,22 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
+name|ZKWatcher
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -320,7 +306,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Manages and performs all replication admin operations.  * Used to add/remove a replication peer.  */
+comment|/**  * Manages and performs all replication admin operations.  *<p>  * Used to add/remove a replication peer.  */
 end_comment
 
 begin_class
@@ -332,16 +318,6 @@ specifier|public
 class|class
 name|ReplicationManager
 block|{
-specifier|private
-specifier|final
-name|Configuration
-name|conf
-decl_stmt|;
-specifier|private
-specifier|final
-name|ZKWatcher
-name|zkw
-decl_stmt|;
 specifier|private
 specifier|final
 name|ReplicationQueuesClient
@@ -367,18 +343,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|this
-operator|.
-name|conf
-operator|=
-name|conf
-expr_stmt|;
-name|this
-operator|.
-name|zkw
-operator|=
-name|zkw
-expr_stmt|;
 try|try
 block|{
 name|this
@@ -466,8 +430,6 @@ name|enabled
 parameter_list|)
 throws|throws
 name|ReplicationException
-throws|,
-name|IOException
 block|{
 name|checkPeerConfig
 argument_list|(
@@ -736,10 +698,6 @@ parameter_list|(
 name|ReplicationPeerConfig
 name|peerConfig
 parameter_list|)
-throws|throws
-name|ReplicationException
-throws|,
-name|IOException
 block|{
 if|if
 condition|(
@@ -790,11 +748,11 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|ReplicationException
+name|IllegalArgumentException
 argument_list|(
-literal|"Need clean namespaces or table-cfs config firstly"
+literal|"Need clean namespaces or table-cfs config firstly "
 operator|+
-literal|" when replicate_all flag is true"
+literal|"when you want replicate all cluster"
 argument_list|)
 throw|;
 block|}
@@ -855,7 +813,7 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|ReplicationException
+name|IllegalArgumentException
 argument_list|(
 literal|"Need clean exclude-namespaces or exclude-table-cfs config firstly"
 operator|+
@@ -883,7 +841,7 @@ name|peerConfig
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Set a namespace in the peer config means that all tables in this namespace will be replicated    * to the peer cluster.    * 1. If peer config already has a namespace, then not allow set any table of this namespace    *    to the peer config.    * 2. If peer config already has a table, then not allow set this table's namespace to the peer    *    config.    *    * Set a exclude namespace in the peer config means that all tables in this namespace can't be    * replicated to the peer cluster.    * 1. If peer config already has a exclude namespace, then not allow set any exclude table of    *    this namespace to the peer config.    * 2. If peer config already has a exclude table, then not allow set this table's namespace    *    as a exclude namespace.    */
+comment|/**    * Set a namespace in the peer config means that all tables in this namespace will be replicated    * to the peer cluster.    *<ol>    *<li>If peer config already has a namespace, then not allow set any table of this namespace to    * the peer config.</li>    *<li>If peer config already has a table, then not allow set this table's namespace to the peer    * config.</li>    *</ol>    *<p>    * Set a exclude namespace in the peer config means that all tables in this namespace can't be    * replicated to the peer cluster.    *<ol>    *<li>If peer config already has a exclude namespace, then not allow set any exclude table of    * this namespace to the peer config.</li>    *<li>If peer config already has a exclude table, then not allow set this table's namespace as a    * exclude namespace.</li>    *</ol>    */
 specifier|private
 name|void
 name|checkNamespacesAndTableCfsConfigConflict
@@ -907,8 +865,6 @@ argument_list|>
 argument_list|>
 name|tableCfs
 parameter_list|)
-throws|throws
-name|ReplicationException
 block|{
 if|if
 condition|(
@@ -984,7 +940,7 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|ReplicationException
+name|IllegalArgumentException
 argument_list|(
 literal|"Table-cfs "
 operator|+
@@ -1010,8 +966,6 @@ parameter_list|(
 name|ReplicationPeerConfig
 name|peerConfig
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|String
 name|filterCSV
@@ -1063,23 +1017,15 @@ block|{
 try|try
 block|{
 name|Class
-name|clazz
-init|=
-name|Class
 operator|.
 name|forName
 argument_list|(
 name|filter
 argument_list|)
-decl_stmt|;
-name|Object
-name|o
-init|=
-name|clazz
 operator|.
 name|newInstance
 argument_list|()
-decl_stmt|;
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -1089,7 +1035,7 @@ parameter_list|)
 block|{
 throw|throw
 operator|new
-name|DoNotRetryIOException
+name|IllegalArgumentException
 argument_list|(
 literal|"Configured WALEntryFilter "
 operator|+

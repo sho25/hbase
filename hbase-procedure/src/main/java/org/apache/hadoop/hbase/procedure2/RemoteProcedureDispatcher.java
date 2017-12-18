@@ -1123,14 +1123,14 @@ name|TEnv
 name|env
 parameter_list|)
 function_decl|;
-comment|/**      * Called when RS tells the remote procedure is failed through the {@code reportProcedureDone}      * method.      * @param error the error message      */
+comment|/**      * Called when RS tells the remote procedure is failed through the {@code reportProcedureDone}      * method.      */
 name|void
 name|remoteOperationFailed
 parameter_list|(
 name|TEnv
 name|env
 parameter_list|,
-name|String
+name|RemoteProcedureException
 name|error
 parameter_list|)
 function_decl|;
