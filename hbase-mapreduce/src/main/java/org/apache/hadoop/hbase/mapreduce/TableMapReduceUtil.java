@@ -3881,6 +3881,14 @@ operator|.
 name|makeQualified
 argument_list|(
 name|fs
+operator|.
+name|getUri
+argument_list|()
+argument_list|,
+name|fs
+operator|.
+name|getWorkingDirectory
+argument_list|()
 argument_list|)
 return|;
 block|}
