@@ -7525,8 +7525,6 @@ argument_list|)
 operator|.
 name|setType
 argument_list|(
-name|CellBuilder
-operator|.
 name|DataType
 operator|.
 name|Put
