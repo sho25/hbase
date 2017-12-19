@@ -1955,7 +1955,7 @@ block|}
 elseif|else
 if|if
 condition|(
-name|left
+name|right
 operator|.
 name|getRegionInfo
 argument_list|()
@@ -2024,7 +2024,7 @@ block|}
 elseif|else
 if|if
 condition|(
-name|left
+name|right
 operator|.
 name|getRegionInfo
 argument_list|()
