@@ -3547,7 +3547,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Add a new replication peer for replicating data to slave cluster.    * @param peerId a short name that identifies the peer    * @param peerConfig configuration for the replication slave cluster    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Add a new replication peer for replicating data to slave cluster.    * @param peerId a short name that identifies the peer    * @param peerConfig configuration for the replication peer    * @throws IOException if a remote or network exception occurs    */
 specifier|default
 name|void
 name|addReplicationPeer
@@ -3571,9 +3571,56 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Add a new replication peer for replicating data to slave cluster.    * @param peerId a short name that identifies the peer    * @param peerConfig configuration for the replication slave cluster    * @param enabled peer state, true if ENABLED and false if DISABLED    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Add a new replication peer for replicating data to slave cluster.    * @param peerId a short name that identifies the peer    * @param peerConfig configuration for the replication peer    * @param enabled peer state, true if ENABLED and false if DISABLED    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|addReplicationPeer
+parameter_list|(
+name|String
+name|peerId
+parameter_list|,
+name|ReplicationPeerConfig
+name|peerConfig
+parameter_list|,
+name|boolean
+name|enabled
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Add a new replication peer but does not block and wait for it.    *<p>    * You can use Future.get(long, TimeUnit) to wait on the operation to complete. It may throw    * ExecutionException if there was an error while executing the operation or TimeoutException in    * case the wait timeout was not long enough to allow the operation to complete.    * @param peerId a short name that identifies the peer    * @param peerConfig configuration for the replication peer    * @return the result of the async operation    * @throws IOException IOException if a remote or network exception occurs    */
+specifier|default
+name|Future
+argument_list|<
+name|Void
+argument_list|>
+name|addReplicationPeerAsync
+parameter_list|(
+name|String
+name|peerId
+parameter_list|,
+name|ReplicationPeerConfig
+name|peerConfig
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|addReplicationPeerAsync
+argument_list|(
+name|peerId
+argument_list|,
+name|peerConfig
+argument_list|,
+literal|true
+argument_list|)
+return|;
+block|}
+comment|/**    * Add a new replication peer but does not block and wait for it.    *<p>    * You can use Future.get(long, TimeUnit) to wait on the operation to complete. It may throw    * ExecutionException if there was an error while executing the operation or TimeoutException in    * case the wait timeout was not long enough to allow the operation to complete.    * @param peerId a short name that identifies the peer    * @param peerConfig configuration for the replication peer    * @param enabled peer state, true if ENABLED and false if DISABLED    * @return the result of the async operation    * @throws IOException IOException if a remote or network exception occurs    */
+name|Future
+argument_list|<
+name|Void
+argument_list|>
+name|addReplicationPeerAsync
 parameter_list|(
 name|String
 name|peerId
@@ -3597,9 +3644,35 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Remove a replication peer but does not block and wait for it.    *<p>    * You can use Future.get(long, TimeUnit) to wait on the operation to complete. It may throw    * ExecutionException if there was an error while executing the operation or TimeoutException in    * case the wait timeout was not long enough to allow the operation to complete.    * @param peerId a short name that identifies the peer    * @return the result of the async operation    * @throws IOException IOException if a remote or network exception occurs    */
+name|Future
+argument_list|<
+name|Void
+argument_list|>
+name|removeReplicationPeerAsync
+parameter_list|(
+name|String
+name|peerId
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Restart the replication stream to the specified peer.    * @param peerId a short name that identifies the peer    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|enableReplicationPeer
+parameter_list|(
+name|String
+name|peerId
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Enable a replication peer but does not block and wait for it.    *<p>    * You can use Future.get(long, TimeUnit) to wait on the operation to complete. It may throw    * ExecutionException if there was an error while executing the operation or TimeoutException in    * case the wait timeout was not long enough to allow the operation to complete.    * @param peerId a short name that identifies the peer    * @return the result of the async operation    * @throws IOException IOException if a remote or network exception occurs    */
+name|Future
+argument_list|<
+name|Void
+argument_list|>
+name|enableReplicationPeerAsync
 parameter_list|(
 name|String
 name|peerId
@@ -3617,6 +3690,19 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Disable a replication peer but does not block and wait for it.    *<p>    * You can use Future.get(long, TimeUnit) to wait on the operation to complete. It may throw    * ExecutionException if there was an error while executing the operation or TimeoutException in    * case the wait timeout was not long enough to allow the operation to complete.    * @param peerId a short name that identifies the peer    * @return the result of the async operation    * @throws IOException IOException if a remote or network exception occurs    */
+name|Future
+argument_list|<
+name|Void
+argument_list|>
+name|disableReplicationPeerAsync
+parameter_list|(
+name|String
+name|peerId
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Returns the configured ReplicationPeerConfig for the specified peer.    * @param peerId a short name that identifies the peer    * @return ReplicationPeerConfig for the peer    * @throws IOException if a remote or network exception occurs    */
 name|ReplicationPeerConfig
 name|getReplicationPeerConfig
@@ -3627,9 +3713,25 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Update the peerConfig for the specified peer.    * @param peerId a short name that identifies the peer    * @param peerConfig new config for the peer    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Update the peerConfig for the specified peer.    * @param peerId a short name that identifies the peer    * @param peerConfig new config for the replication peer    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|updateReplicationPeerConfig
+parameter_list|(
+name|String
+name|peerId
+parameter_list|,
+name|ReplicationPeerConfig
+name|peerConfig
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Update the peerConfig for the specified peer but does not block and wait for it.    *<p>    * You can use Future.get(long, TimeUnit) to wait on the operation to complete. It may throw    * ExecutionException if there was an error while executing the operation or TimeoutException in    * case the wait timeout was not long enough to allow the operation to complete.    * @param peerId a short name that identifies the peer    * @param peerConfig new config for the replication peer    * @return the result of the async operation    * @throws IOException IOException if a remote or network exception occurs    */
+name|Future
+argument_list|<
+name|Void
+argument_list|>
+name|updateReplicationPeerConfigAsync
 parameter_list|(
 name|String
 name|peerId
