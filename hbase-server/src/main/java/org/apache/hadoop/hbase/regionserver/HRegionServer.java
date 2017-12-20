@@ -18255,14 +18255,6 @@ argument_list|(
 name|evictedBlocks
 argument_list|)
 operator|.
-name|withMaxCacheSize
-argument_list|(
-name|blockCache
-operator|.
-name|getMaxSize
-argument_list|()
-argument_list|)
-operator|.
 name|build
 argument_list|()
 return|;
