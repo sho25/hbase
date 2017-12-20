@@ -4588,13 +4588,11 @@ parameter_list|)
 block|{
 name|bytes
 operator|=
-name|s
+name|Bytes
 operator|.
-name|getBytes
+name|toBytes
 argument_list|(
-name|StandardCharsets
-operator|.
-name|UTF_8
+name|s
 argument_list|)
 expr_stmt|;
 block|}

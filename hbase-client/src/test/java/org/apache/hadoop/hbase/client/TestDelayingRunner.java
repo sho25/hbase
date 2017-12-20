@@ -25,19 +25,19 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|*
+name|assertFalse
 import|;
 end_import
 
 begin_import
-import|import
-name|java
+import|import static
+name|org
 operator|.
-name|nio
+name|junit
 operator|.
-name|charset
+name|Assert
 operator|.
-name|StandardCharsets
+name|assertTrue
 import|;
 end_import
 
@@ -96,6 +96,22 @@ operator|.
 name|testclassification
 operator|.
 name|SmallTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Bytes
 import|;
 end_import
 
@@ -171,13 +187,11 @@ name|byte
 index|[]
 name|DUMMY_BYTES_1
 init|=
-literal|"DUMMY_BYTES_1"
+name|Bytes
 operator|.
-name|getBytes
+name|toBytes
 argument_list|(
-name|StandardCharsets
-operator|.
-name|UTF_8
+literal|"DUMMY_BYTES_1"
 argument_list|)
 decl_stmt|;
 specifier|private
@@ -187,13 +201,11 @@ name|byte
 index|[]
 name|DUMMY_BYTES_2
 init|=
-literal|"DUMMY_BYTES_2"
+name|Bytes
 operator|.
-name|getBytes
+name|toBytes
 argument_list|(
-name|StandardCharsets
-operator|.
-name|UTF_8
+literal|"DUMMY_BYTES_2"
 argument_list|)
 decl_stmt|;
 specifier|private

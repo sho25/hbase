@@ -143,18 +143,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|nio
-operator|.
-name|charset
-operator|.
-name|StandardCharsets
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|ArrayList
@@ -405,7 +393,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|PrivateCellUtil
+name|KeyValue
 import|;
 end_import
 
@@ -419,7 +407,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|PrivateCellUtil
 import|;
 end_import
 
@@ -1191,13 +1179,11 @@ name|byte
 index|[]
 name|tableSeparator
 init|=
-literal|";"
+name|Bytes
 operator|.
-name|getBytes
+name|toBytes
 argument_list|(
-name|StandardCharsets
-operator|.
-name|UTF_8
+literal|";"
 argument_list|)
 decl_stmt|;
 specifier|protected
@@ -1879,13 +1865,11 @@ else|else
 block|{
 name|tableNameBytes
 operator|=
-name|writeTableNames
+name|Bytes
 operator|.
-name|getBytes
+name|toBytes
 argument_list|(
-name|StandardCharsets
-operator|.
-name|UTF_8
+name|writeTableNames
 argument_list|)
 expr_stmt|;
 block|}
@@ -4874,6 +4858,10 @@ name|confValMap
 operator|.
 name|put
 argument_list|(
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
 name|URLDecoder
 operator|.
 name|decode
@@ -4885,12 +4873,6 @@ index|]
 argument_list|,
 literal|"UTF-8"
 argument_list|)
-operator|.
-name|getBytes
-argument_list|(
-name|StandardCharsets
-operator|.
-name|UTF_8
 argument_list|)
 argument_list|,
 name|URLDecoder
