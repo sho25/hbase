@@ -2314,7 +2314,7 @@ name|comparatorClassName
 operator|.
 name|equals
 argument_list|(
-literal|"org.apache.hadoop.hbase.KeyValue.RawBytesComparator"
+literal|"org.apache.hadoop.hbase.KeyValue$RawBytesComparator"
 argument_list|)
 operator|||
 name|comparatorClassName
