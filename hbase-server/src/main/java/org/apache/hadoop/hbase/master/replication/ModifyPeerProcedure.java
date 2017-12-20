@@ -311,8 +311,6 @@ name|peerId
 operator|=
 name|peerId
 expr_stmt|;
-comment|// TODO: temporarily set a 4.0 here to always wait for the procedure exection completed. Change
-comment|// to 3.0 or 2.0 after the client modification is done.
 name|this
 operator|.
 name|latch
@@ -321,7 +319,7 @@ name|ProcedurePrepareLatch
 operator|.
 name|createLatch
 argument_list|(
-literal|4
+literal|2
 argument_list|,
 literal|0
 argument_list|)
