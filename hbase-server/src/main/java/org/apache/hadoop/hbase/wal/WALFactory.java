@@ -456,6 +456,7 @@ decl_stmt|;
 end_decl_stmt
 
 begin_decl_stmt
+specifier|public
 specifier|static
 specifier|final
 name|String
