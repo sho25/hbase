@@ -827,7 +827,7 @@ operator|&&
 operator|!
 name|peerConfig
 operator|.
-name|getNamespaces
+name|getExcludeNamespaces
 argument_list|()
 operator|.
 name|isEmpty
@@ -845,7 +845,7 @@ operator|&&
 operator|!
 name|peerConfig
 operator|.
-name|getTableCFsMap
+name|getExcludeTableCFsMap
 argument_list|()
 operator|.
 name|isEmpty
