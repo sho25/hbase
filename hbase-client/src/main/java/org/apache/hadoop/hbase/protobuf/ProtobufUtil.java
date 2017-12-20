@@ -18,6 +18,24 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|protobuf
+operator|.
+name|ProtobufMagic
+operator|.
+name|PB_MAGIC
+import|;
+end_import
+
+begin_import
 import|import
 name|com
 operator|.
@@ -1804,8 +1822,6 @@ name|Bytes
 operator|.
 name|add
 argument_list|(
-name|ProtobufMagic
-operator|.
 name|PB_MAGIC
 argument_list|,
 name|bytes
@@ -1887,6 +1903,28 @@ name|bytes
 argument_list|)
 condition|)
 block|{
+name|String
+name|bytesPrefix
+init|=
+name|bytes
+operator|==
+literal|null
+condition|?
+literal|"null"
+else|:
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
+name|bytes
+argument_list|,
+literal|0
+argument_list|,
+name|PB_MAGIC
+operator|.
+name|length
+argument_list|)
+decl_stmt|;
 throw|throw
 operator|new
 name|DeserializationException
@@ -1897,12 +1935,12 @@ name|Bytes
 operator|.
 name|toString
 argument_list|(
-name|ProtobufMagic
-operator|.
 name|PB_MAGIC
 argument_list|)
 operator|+
-literal|" prefix"
+literal|" prefix, bytes: "
+operator|+
+name|bytesPrefix
 argument_list|)
 throw|;
 block|}

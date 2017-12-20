@@ -19,16 +19,6 @@ end_package
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|List
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -61,27 +51,6 @@ name|regionServerRemoved
 parameter_list|(
 name|String
 name|regionServer
-parameter_list|)
-function_decl|;
-comment|/**    * A peer cluster has been removed (i.e. unregistered) from replication.    * @param peerId The peer id of the cluster that has been removed    */
-specifier|public
-name|void
-name|peerRemoved
-parameter_list|(
-name|String
-name|peerId
-parameter_list|)
-function_decl|;
-comment|/**    * The list of registered peer clusters has changed.    * @param peerIds A list of all currently registered peer clusters    */
-specifier|public
-name|void
-name|peerListChanged
-parameter_list|(
-name|List
-argument_list|<
-name|String
-argument_list|>
-name|peerIds
 parameter_list|)
 function_decl|;
 block|}

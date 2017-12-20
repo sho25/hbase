@@ -216,7 +216,7 @@ condition|)
 block|{
 name|peer
 operator|.
-name|trackPeerConfigChanges
+name|registerPeerConfigListener
 argument_list|(
 name|this
 argument_list|)

@@ -23,6 +23,24 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|replication
+operator|.
+name|regionserver
+operator|.
+name|PeerProcedureHandler
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -64,9 +82,14 @@ name|ReplicationSourceService
 extends|extends
 name|ReplicationService
 block|{
-comment|/**    * Returns a WALObserver for the service. This is needed to     * observe log rolls and log archival events.    */
+comment|/**    * Returns a WALObserver for the service. This is needed to    * observe log rolls and log archival events.    */
 name|WALActionsListener
 name|getWALActionsListener
+parameter_list|()
+function_decl|;
+comment|/**    * Returns a Handler to handle peer procedures.    */
+name|PeerProcedureHandler
+name|getPeerProcedureHandler
 parameter_list|()
 function_decl|;
 block|}

@@ -736,6 +736,10 @@ specifier|private
 name|ReplicationLoad
 name|replicationLoad
 decl_stmt|;
+specifier|private
+name|PeerProcedureHandler
+name|peerProcedureHandler
+decl_stmt|;
 comment|/**    * Instantiate the replication management (if rep is enabled).    * @param server Hosting server    * @param fs handle to the filesystem    * @param logDir    * @param oldLogDir directory where logs are archived    * @throws IOException    */
 specifier|public
 name|Replication
@@ -1140,6 +1144,16 @@ operator|new
 name|ReplicationLoad
 argument_list|()
 expr_stmt|;
+name|this
+operator|.
+name|peerProcedureHandler
+operator|=
+operator|new
+name|PeerProcedureHandlerImpl
+argument_list|(
+name|replicationManager
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * @param c Configuration to look at    * @return True if replication for bulk load data is enabled.    */
 specifier|public
@@ -1175,6 +1189,17 @@ parameter_list|()
 block|{
 return|return
 name|this
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|PeerProcedureHandler
+name|getPeerProcedureHandler
+parameter_list|()
+block|{
+return|return
+name|peerProcedureHandler
 return|;
 block|}
 comment|/**    * Stops replication service.    */

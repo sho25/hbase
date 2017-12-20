@@ -149,10 +149,31 @@ name|ReplicationPeerConfig
 name|getPeerConfig
 parameter_list|()
 function_decl|;
-comment|/**    * Returns the state of the peer    * @return the enabled state    */
+comment|/**    * Get the peer config object. if loadFromBackingStore is true, it will load from backing store    * directly and update its load peer config. otherwise, just return the local cached peer config.    * @return the ReplicationPeerConfig for this peer    */
+specifier|public
+name|ReplicationPeerConfig
+name|getPeerConfig
+parameter_list|(
+name|boolean
+name|loadFromBackingStore
+parameter_list|)
+throws|throws
+name|ReplicationException
+function_decl|;
+comment|/**    * Returns the state of the peer by reading local cache.    * @return the enabled state    */
 name|PeerState
 name|getPeerState
 parameter_list|()
+function_decl|;
+comment|/**    * Returns the state of peer, if loadFromBackingStore is true, it will load from backing store    * directly and update its local peer state. otherwise, just return the local cached peer state.    * @return the enabled state    */
+name|PeerState
+name|getPeerState
+parameter_list|(
+name|boolean
+name|loadFromBackingStore
+parameter_list|)
+throws|throws
+name|ReplicationException
 function_decl|;
 comment|/**    * Get the configuration object required to communicate with this peer    * @return configuration object    */
 specifier|public
@@ -189,11 +210,22 @@ name|long
 name|getPeerBandwidth
 parameter_list|()
 function_decl|;
+comment|/**    * Register a peer config listener to catch the peer config change event.    * @param listener listener to catch the peer config change event.    */
+specifier|public
 name|void
-name|trackPeerConfigChanges
+name|registerPeerConfigListener
 parameter_list|(
 name|ReplicationPeerConfigListener
 name|listener
+parameter_list|)
+function_decl|;
+comment|/**    * Notify all the registered ReplicationPeerConfigListener to update their peer config.    * @param newPeerConfig the new peer config.    */
+specifier|public
+name|void
+name|triggerPeerConfigChange
+parameter_list|(
+name|ReplicationPeerConfig
+name|newPeerConfig
 parameter_list|)
 function_decl|;
 block|}
