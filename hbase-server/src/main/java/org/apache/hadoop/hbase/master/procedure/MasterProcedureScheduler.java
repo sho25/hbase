@@ -2066,6 +2066,40 @@ name|size
 argument_list|()
 expr_stmt|;
 block|}
+comment|// Peer queues
+specifier|final
+name|AvlTreeIterator
+argument_list|<
+name|PeerQueue
+argument_list|>
+name|peerIter
+init|=
+operator|new
+name|AvlTreeIterator
+argument_list|<>
+argument_list|(
+name|peerMap
+argument_list|)
+decl_stmt|;
+while|while
+condition|(
+name|peerIter
+operator|.
+name|hasNext
+argument_list|()
+condition|)
+block|{
+name|count
+operator|+=
+name|peerIter
+operator|.
+name|next
+argument_list|()
+operator|.
+name|size
+argument_list|()
+expr_stmt|;
+block|}
 return|return
 name|count
 return|;
@@ -4922,7 +4956,7 @@ operator|.
 name|REFRESH
 return|;
 block|}
-comment|/**    * Try to acquire the exclusive lock on the specified peer.    * @see #wakePeerExclusiveLock(Procedure, String)    * @param procedure the procedure trying to acquire the lock    * @param peerId peer to lock    * @return true if the procedure has to wait for the per to be available    */
+comment|/**    * Try to acquire the exclusive lock on the specified peer.    * @see #wakePeerExclusiveLock(Procedure, String)    * @param procedure the procedure trying to acquire the lock    * @param peerId peer to lock    * @return true if the procedure has to wait for the peer to be available    */
 specifier|public
 name|boolean
 name|waitPeerExclusiveLock
