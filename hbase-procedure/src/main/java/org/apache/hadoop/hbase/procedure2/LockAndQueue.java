@@ -17,11 +17,29 @@ name|procedure2
 package|;
 end_package
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * Locking for mutual exclusion between procedures. Used only by procedure framework internally.  * {@link LockAndQueue} has two purposes:  *<ol>  *<li>Acquire/release exclusive/shared locks.</li>  *<li>Maintains a list of procedures waiting on this lock.  *      {@link LockAndQueue} extends {@link ProcedureDeque} class. Blocked Procedures are added  *      to our super Deque. Using inheritance over composition to keep the Deque of waiting  *      Procedures is unusual, but we do it this way because in certain cases, there will be  *      millions of regions. This layout uses less memory.  *</ol>  *  *<p>NOT thread-safe. Needs external concurrency control: e.g. uses in MasterProcedureScheduler are  * guarded by schedLock().  *<br>  * There is no need of 'volatile' keyword for member variables because of memory synchronization  * guarantees of locks (see 'Memory Synchronization',  * http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/locks/Lock.html)  *<br>  * We do not implement Lock interface because we need exclusive and shared locking, and also  * because try-lock functions require procedure id.  *<br>  * We do not use ReentrantReadWriteLock directly because of its high memory overhead.  */
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 class|class
 name|LockAndQueue

@@ -49,11 +49,29 @@ name|Histogram
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * With this interface, the procedure framework provides means to collect following set of metrics  * per procedure type for all procedures:  *<ul>  *<li>Count of submitted procedure instances</li>  *<li>Time histogram for successfully completed procedure instances</li>  *<li>Count of failed procedure instances</li>  *</ul>  *  *  Please implement this interface to return appropriate metrics.  */
 end_comment
 
 begin_interface
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 interface|interface
 name|ProcedureMetrics

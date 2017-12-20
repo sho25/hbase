@@ -17,11 +17,29 @@ name|procedure2
 package|;
 end_package
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * Interface to get status of a Lock without getting access to acquire/release lock.  * Currently used in MasterProcedureScheduler where we want to give Queues access to lock's  * status for scheduling purposes, but not the ability to acquire/release it.  */
 end_comment
 
 begin_interface
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 interface|interface
 name|LockStatus
