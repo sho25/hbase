@@ -848,6 +848,19 @@ name|RemoteProcedure
 name|rp
 parameter_list|)
 block|{
+if|if
+condition|(
+name|key
+operator|==
+literal|null
+condition|)
+block|{
+comment|// Key is remote server name. Be careful. It could have been nulled by a concurrent
+comment|// ServerCrashProcedure shutting down outstanding RPC requests. See remoteCallFailed.
+return|return
+literal|false
+return|;
+block|}
 assert|assert
 name|key
 operator|!=
