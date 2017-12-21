@@ -119,6 +119,18 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|stream
+operator|.
+name|Collectors
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -449,6 +461,30 @@ name|google
 operator|.
 name|common
 operator|.
+name|base
+operator|.
+name|Preconditions
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
 name|collect
 operator|.
 name|ArrayListMultimap
@@ -645,6 +681,7 @@ name|RETURN_RESULTS
 init|=
 literal|"_rr_"
 decl_stmt|;
+comment|// TODO: row should be final
 specifier|protected
 name|byte
 index|[]
@@ -668,6 +705,7 @@ name|Durability
 operator|.
 name|USE_DEFAULT
 decl_stmt|;
+comment|// TODO: familyMap should be final
 comment|// A Map sorted by column family.
 specifier|protected
 name|NavigableMap
@@ -681,7 +719,16 @@ name|Cell
 argument_list|>
 argument_list|>
 name|familyMap
-init|=
+decl_stmt|;
+comment|/**    * empty construction.    * We need this empty construction to keep binary compatibility.    */
+specifier|protected
+name|Mutation
+parameter_list|()
+block|{
+name|this
+operator|.
+name|familyMap
+operator|=
 operator|new
 name|TreeMap
 argument_list|<>
@@ -690,8 +737,192 @@ name|Bytes
 operator|.
 name|BYTES_COMPARATOR
 argument_list|)
-decl_stmt|;
-annotation|@
+expr_stmt|;
+block|}
+specifier|protected
+name|Mutation
+parameter_list|(
+name|Mutation
+name|clone
+parameter_list|)
+block|{
+name|super
+argument_list|(
+name|clone
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|row
+operator|=
+name|clone
+operator|.
+name|getRow
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|ts
+operator|=
+name|clone
+operator|.
+name|getTimeStamp
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|familyMap
+operator|=
+name|clone
+operator|.
+name|getFamilyCellMap
+argument_list|()
+operator|.
+name|entrySet
+argument_list|()
+operator|.
+name|stream
+argument_list|()
+operator|.
+name|collect
+argument_list|(
+name|Collectors
+operator|.
+name|toMap
+argument_list|(
+name|e
+lambda|->
+name|e
+operator|.
+name|getKey
+argument_list|()
+argument_list|,
+name|e
+lambda|->
+operator|new
+name|ArrayList
+argument_list|<>
+argument_list|(
+name|e
+operator|.
+name|getValue
+argument_list|()
+argument_list|)
+argument_list|,
+parameter_list|(
+name|k
+parameter_list|,
+name|v
+parameter_list|)
+lambda|->
+block|{
+throw|throw
+argument_list|new
+name|RuntimeException
+argument_list|(
+literal|"collisions!!!"
+argument_list|)
+argument_list|;
+block|}
+operator|,
+parameter_list|()
+lambda|->
+operator|new
+name|TreeMap
+argument_list|(
+name|Bytes
+operator|.
+name|BYTES_COMPARATOR
+argument_list|)
+block|)
+end_class
+
+begin_empty_stmt
+unit|)
+empty_stmt|;
+end_empty_stmt
+
+begin_comment
+unit|}
+comment|/**    * Construct the mutation with user defined data.    * @param row row. CAN'T be null    * @param ts timestamp    * @param familyMap the map to collect all cells internally. CAN'T be null    */
+end_comment
+
+begin_expr_stmt
+unit|protected
+name|Mutation
+argument_list|(
+name|byte
+index|[]
+name|row
+argument_list|,
+name|long
+name|ts
+argument_list|,
+name|NavigableMap
+argument_list|<
+name|byte
+index|[]
+argument_list|,
+name|List
+argument_list|<
+name|Cell
+argument_list|>
+argument_list|>
+name|familyMap
+argument_list|)
+block|{
+name|this
+operator|.
+name|row
+operator|=
+name|Preconditions
+operator|.
+name|checkNotNull
+argument_list|(
+name|row
+argument_list|)
+block|;
+if|if
+condition|(
+name|row
+operator|.
+name|length
+operator|==
+literal|0
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Row can't be empty"
+argument_list|)
+throw|;
+block|}
+name|this
+operator|.
+name|ts
+operator|=
+name|ts
+expr_stmt|;
+end_expr_stmt
+
+begin_expr_stmt
+name|this
+operator|.
+name|familyMap
+operator|=
+name|Preconditions
+operator|.
+name|checkNotNull
+argument_list|(
+name|familyMap
+argument_list|)
+expr_stmt|;
+end_expr_stmt
+
+begin_function
+unit|}    @
 name|Override
 specifier|public
 name|CellScanner
@@ -708,7 +939,13 @@ argument_list|()
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Creates an empty list if one doesn't exist for the given column family    * or else it returns the associated list of Cell objects.    *    * @param family column family    * @return a list of Cell objects, returns an empty list if one doesn't exist.    */
+end_comment
+
+begin_function
 name|List
 argument_list|<
 name|Cell
@@ -765,7 +1002,13 @@ return|return
 name|list
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/*    * Create a KeyValue with this objects row key and the Put identifier.    *    * @return a KeyValue with this objects row key and the Put identifier.    */
+end_comment
+
+begin_function
 name|KeyValue
 name|createPutKeyValue
 parameter_list|(
@@ -809,7 +1052,13 @@ name|value
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Create a KeyValue with this objects row key and the Put identifier.    * @param family    * @param qualifier    * @param ts    * @param value    * @param tags - Specify the Tags as an Array    * @return a KeyValue with this objects row key and the Put identifier.    */
+end_comment
+
+begin_function
 name|KeyValue
 name|createPutKeyValue
 parameter_list|(
@@ -858,7 +1107,13 @@ return|return
 name|kvWithTag
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/*    * Create a KeyValue with this objects row key and the Put identifier.    *    * @return a KeyValue with this objects row key and the Put identifier.    */
+end_comment
+
+begin_function
 name|KeyValue
 name|createPutKeyValue
 parameter_list|(
@@ -945,7 +1200,13 @@ literal|null
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Compile the column family (i.e. schema) information    * into a Map. Useful for parsing and aggregation by debugging,    * logging, and administration tools.    * @return Map    */
+end_comment
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -1047,7 +1308,13 @@ return|return
 name|map
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Compile the details beyond the scope of getFingerprint (row, columns,    * timestamps, etc.) into a Map along with the fingerprinted information.    * Useful for debugging, logging, and administration tools.    * @param maxCols a limit on the number of columns output prior to truncation    * @return Map    */
+end_comment
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -1318,6 +1585,9 @@ return|return
 name|map
 return|;
 block|}
+end_function
+
+begin_function
 specifier|private
 specifier|static
 name|Map
@@ -1481,7 +1751,13 @@ return|return
 name|stringMap
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Set the durability for this mutation    * @param d    */
+end_comment
+
+begin_function
 specifier|public
 name|Mutation
 name|setDurability
@@ -1500,7 +1776,13 @@ return|return
 name|this
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/** Get the current durability */
+end_comment
+
+begin_function
 specifier|public
 name|Durability
 name|getDurability
@@ -1512,7 +1794,13 @@ operator|.
 name|durability
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Method for retrieving the put's familyMap    * @return familyMap    */
+end_comment
+
+begin_function
 specifier|public
 name|NavigableMap
 argument_list|<
@@ -1533,7 +1821,15 @@ operator|.
 name|familyMap
 return|;
 block|}
-comment|/**    * Method for setting the put's familyMap    */
+end_function
+
+begin_comment
+comment|/**    * Method for setting the mutation's familyMap    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    *             Use {@link Mutation#Mutation(byte[], long, NavigableMap)} instead    */
+end_comment
+
+begin_function
+annotation|@
+name|Deprecated
 specifier|public
 name|Mutation
 name|setFamilyCellMap
@@ -1563,7 +1859,13 @@ return|return
 name|this
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Method to check if the familyMap is empty    * @return true if empty, false otherwise    */
+end_comment
+
+begin_function
 specifier|public
 name|boolean
 name|isEmpty
@@ -1576,7 +1878,13 @@ name|isEmpty
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Method for retrieving the delete's row    * @return row    */
+end_comment
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -1591,6 +1899,9 @@ operator|.
 name|row
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -1619,7 +1930,13 @@ argument_list|()
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Method for retrieving the timestamp    * @return timestamp    */
+end_comment
+
+begin_function
 specifier|public
 name|long
 name|getTimeStamp
@@ -1631,7 +1948,13 @@ operator|.
 name|ts
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Marks that the clusters with the given clusterIds have consumed the mutation    * @param clusterIds of the clusters that have consumed the mutation    */
+end_comment
+
+begin_function
 specifier|public
 name|Mutation
 name|setClusterIds
@@ -1704,7 +2027,13 @@ return|return
 name|this
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * @return the set of clusterIds that have consumed the mutation    */
+end_comment
+
+begin_function
 specifier|public
 name|List
 argument_list|<
@@ -1798,7 +2127,13 @@ return|return
 name|clusterIds
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Sets the visibility expression associated with cells in this Mutation.    * @param expression    */
+end_comment
+
+begin_function
 specifier|public
 name|Mutation
 name|setCellVisibility
@@ -1828,7 +2163,13 @@ return|return
 name|this
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * @return CellVisibility associated with cells in this Mutation.    * @throws DeserializationException    */
+end_comment
+
+begin_function
 specifier|public
 name|CellVisibility
 name|getCellVisibility
@@ -1865,7 +2206,13 @@ name|cellVisibilityBytes
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Create a protocol buffer CellVisibility based on a client CellVisibility.    *    * @param cellVisibility    * @return a protocol buffer CellVisibility    */
+end_comment
+
+begin_function
 specifier|static
 name|ClientProtos
 operator|.
@@ -1907,7 +2254,13 @@ name|build
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Convert a protocol buffer CellVisibility to a client CellVisibility    *    * @param proto    * @return the converted client CellVisibility    */
+end_comment
+
+begin_function
 specifier|private
 specifier|static
 name|CellVisibility
@@ -1939,7 +2292,13 @@ argument_list|()
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Convert a protocol buffer CellVisibility bytes to a client CellVisibility    *    * @param protoBytes    * @return the converted client CellVisibility    * @throws DeserializationException    */
+end_comment
+
+begin_function
 specifier|private
 specifier|static
 name|CellVisibility
@@ -2022,7 +2381,13 @@ name|proto
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Number of KeyValues carried by this Mutation.    * @return the total number of KeyValues    */
+end_comment
+
+begin_function
 specifier|public
 name|int
 name|size
@@ -2061,7 +2426,13 @@ return|return
 name|size
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * @return the number of different families    */
+end_comment
+
+begin_function
 specifier|public
 name|int
 name|numFamilies
@@ -2074,7 +2445,13 @@ name|size
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * @return Calculate what Mutation adds to class heap size.    */
+end_comment
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -2250,7 +2627,13 @@ name|heapsize
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * @return The serialized ACL for this operation, or null if none    */
+end_comment
+
+begin_function
 specifier|public
 name|byte
 index|[]
@@ -2266,7 +2649,13 @@ name|OP_ATTRIBUTE_ACL
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * @param user User short name    * @param perms Permissions for the user    */
+end_comment
+
+begin_function
 specifier|public
 name|Mutation
 name|setACL
@@ -2301,7 +2690,13 @@ return|return
 name|this
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * @param perms A map of permissions for a user or users    */
+end_comment
+
+begin_function
 specifier|public
 name|Mutation
 name|setACL
@@ -2383,7 +2778,13 @@ return|return
 name|this
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Return the TTL requested for the result of the mutation, in milliseconds.    * @return the TTL requested for the result of the mutation, in milliseconds,    * or Long.MAX_VALUE if unset    */
+end_comment
+
+begin_function
 specifier|public
 name|long
 name|getTTL
@@ -2420,7 +2821,13 @@ operator|.
 name|MAX_VALUE
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Set the TTL desired for the result of the mutation, in milliseconds.    * @param ttl the TTL desired for the result of the mutation, in milliseconds    * @return this    */
+end_comment
+
+begin_function
 specifier|public
 name|Mutation
 name|setTTL
@@ -2445,8 +2852,17 @@ return|return
 name|this
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * @return current value for returnResults    */
+end_comment
+
+begin_comment
 comment|// Used by Increment and Append only.
+end_comment
+
+begin_function
 annotation|@
 name|InterfaceAudience
 operator|.
@@ -2480,6 +2896,9 @@ name|v
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|InterfaceAudience
 operator|.
@@ -2509,7 +2928,13 @@ return|return
 name|this
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Subclasses should override this method to add the heap size of their own fields.    * @return the heap size to add (will be aligned).    */
+end_comment
+
+begin_function
 specifier|protected
 name|long
 name|extraHeapSize
@@ -2519,7 +2944,13 @@ return|return
 literal|0L
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Set the timestamp of the delete.    */
+end_comment
+
+begin_function
 specifier|public
 name|Mutation
 name|setTimestamp
@@ -2555,7 +2986,13 @@ return|return
 name|this
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * A convenience method to determine if this object's familyMap contains    * a value assigned to the given family&amp; qualifier.    * Both given arguments must match the KeyValue object to return true.    *    * @param family column family    * @param qualifier column qualifier    * @return returns true if the given family and qualifier already has an    * existing KeyValue object in the family map.    */
+end_comment
+
+begin_function
 specifier|public
 name|boolean
 name|has
@@ -2590,7 +3027,13 @@ literal|true
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * A convenience method to determine if this object's familyMap contains    * a value assigned to the given family, qualifier and timestamp.    * All 3 given arguments must match the KeyValue object to return true.    *    * @param family column family    * @param qualifier column qualifier    * @param ts timestamp    * @return returns true if the given family, qualifier and timestamp already has an    * existing KeyValue object in the family map.    */
+end_comment
+
+begin_function
 specifier|public
 name|boolean
 name|has
@@ -2626,7 +3069,13 @@ literal|true
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * A convenience method to determine if this object's familyMap contains    * a value assigned to the given family, qualifier and timestamp.    * All 3 given arguments must match the KeyValue object to return true.    *    * @param family column family    * @param qualifier column qualifier    * @param value value to check    * @return returns true if the given family, qualifier and value already has an    * existing KeyValue object in the family map.    */
+end_comment
+
+begin_function
 specifier|public
 name|boolean
 name|has
@@ -2663,7 +3112,13 @@ literal|false
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * A convenience method to determine if this object's familyMap contains    * the given value assigned to the given family, qualifier and timestamp.    * All 4 given arguments must match the KeyValue object to return true.    *    * @param family column family    * @param qualifier column qualifier    * @param ts timestamp    * @param value value to check    * @return returns true if the given family, qualifier timestamp and value    *   already has an existing KeyValue object in the family map.    */
+end_comment
+
+begin_function
 specifier|public
 name|boolean
 name|has
@@ -2701,7 +3156,13 @@ literal|false
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Returns a list of all KeyValue objects with matching column family and qualifier.    *    * @param family column family    * @param qualifier column qualifier    * @return a list of KeyValue objects with the matching family and qualifier,    *   returns an empty list if one doesn't exist for the given family.    */
+end_comment
+
+begin_function
 specifier|public
 name|List
 argument_list|<
@@ -2765,7 +3226,13 @@ return|return
 name|filteredList
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/*    * Private method to determine if this object's familyMap contains    * the given value assigned to the given family, qualifier and timestamp    * respecting the 2 boolean arguments    *    * @param family    * @param qualifier    * @param ts    * @param value    * @param ignoreTS    * @param ignoreValue    * @return returns true if the given family, qualifier timestamp and value    * already has an existing KeyValue object in the family map.    */
+end_comment
+
+begin_function
 specifier|protected
 name|boolean
 name|has
@@ -3025,7 +3492,13 @@ return|return
 literal|false
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * @param row Row to check    * @throws IllegalArgumentException Thrown if<code>row</code> is empty or null or    *&gt; {@link HConstants#MAX_ROW_LENGTH}    * @return<code>row</code>    */
+end_comment
+
+begin_function
 specifier|static
 name|byte
 index|[]
@@ -3056,7 +3529,13 @@ name|length
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * @param row Row to check    * @param offset    * @param length    * @throws IllegalArgumentException Thrown if<code>row</code> is empty or null or    *&gt; {@link HConstants#MAX_ROW_LENGTH}    * @return<code>row</code>    */
+end_comment
+
+begin_function
 specifier|static
 name|byte
 index|[]
@@ -3135,6 +3614,9 @@ return|return
 name|row
 return|;
 block|}
+end_function
+
+begin_function
 specifier|static
 name|void
 name|checkRow
@@ -3208,8 +3690,8 @@ argument_list|)
 throw|;
 block|}
 block|}
-block|}
-end_class
+end_function
 
+unit|}
 end_unit
 
