@@ -762,7 +762,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"ARCHIVED (TODO: FILES ARE NOT PURGED FROM ARCHIVE!) "
+literal|"Archiving "
 operator|+
 name|logFile
 operator|+

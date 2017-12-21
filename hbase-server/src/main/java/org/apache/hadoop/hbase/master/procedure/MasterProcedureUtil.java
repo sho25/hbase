@@ -690,7 +690,7 @@ name|Pattern
 operator|.
 name|compile
 argument_list|(
-literal|".*pv-\\d{20}.log"
+literal|".*pv2-\\d{20}.log"
 argument_list|)
 decl_stmt|;
 comment|/**    * A Procedure WAL file name is of the format: pv-&lt;wal-id&gt;.log where wal-id is 20 digits.    * @param filename name of the file to validate    * @return<tt>true</tt> if the filename matches a Procedure WAL,<tt>false</tt> otherwise    */
