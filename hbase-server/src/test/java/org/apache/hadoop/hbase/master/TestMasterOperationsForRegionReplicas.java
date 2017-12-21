@@ -169,7 +169,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ClusterStatus
+name|ClusterMetrics
 operator|.
 name|Option
 import|;
@@ -442,22 +442,6 @@ operator|.
 name|client
 operator|.
 name|Table
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|HRegionServer
 import|;
 end_import
 

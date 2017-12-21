@@ -355,9 +355,9 @@ name|long
 name|getHFilesSize
 parameter_list|()
 function_decl|;
-comment|/**    * @return The size of the store file indexes, in bytes.    */
+comment|/**    * @return The size of the store file root-level indexes, in bytes.    */
 name|long
-name|getStorefilesIndexSize
+name|getStorefilesRootLevelIndexSize
 parameter_list|()
 function_decl|;
 comment|/**    * Returns the total size of all index blocks in the data block indexes, including the root level,    * intermediate levels, and the leaf level for multi-level indexes, or just the root level for    * single-level indexes.    * @return the total size of block indexes in the store    */

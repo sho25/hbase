@@ -125,9 +125,23 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ClusterStatus
+name|ClusterMetrics
 operator|.
 name|Option
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ClusterMetricsBuilder
 import|;
 end_import
 
@@ -8628,7 +8642,7 @@ argument_list|()
 operator|.
 name|addAllOptions
 argument_list|(
-name|ProtobufUtil
+name|ClusterMetricsBuilder
 operator|.
 name|toOptions
 argument_list|(

@@ -191,7 +191,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ClusterStatus
+name|ClusterMetrics
+operator|.
+name|Option
 import|;
 end_import
 
@@ -206,8 +208,6 @@ operator|.
 name|hbase
 operator|.
 name|ClusterStatus
-operator|.
-name|Option
 import|;
 end_import
 
@@ -3832,7 +3832,7 @@ name|REGIONS_IN_TRANSITION
 argument_list|)
 argument_list|)
 operator|.
-name|getRegionsInTransition
+name|getRegionStatesInTransition
 argument_list|()
 operator|.
 name|size
@@ -4372,7 +4372,7 @@ operator|.
 name|getClusterStatus
 argument_list|()
 operator|.
-name|getRegionsInTransition
+name|getRegionStatesInTransition
 argument_list|()
 operator|.
 name|isEmpty
@@ -4475,7 +4475,7 @@ operator|.
 name|getClusterStatus
 argument_list|()
 operator|.
-name|getRegionsInTransition
+name|getRegionStatesInTransition
 argument_list|()
 operator|.
 name|isEmpty
@@ -5917,7 +5917,7 @@ name|REGIONS_IN_TRANSITION
 argument_list|)
 argument_list|)
 operator|.
-name|getRegionsInTransition
+name|getRegionStatesInTransition
 argument_list|()
 operator|.
 name|size

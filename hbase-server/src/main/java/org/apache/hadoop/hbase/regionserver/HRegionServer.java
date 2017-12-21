@@ -9053,7 +9053,7 @@ init|=
 literal|0
 decl_stmt|;
 name|int
-name|rootIndexSizeKB
+name|rootLevelIndexSizeKB
 init|=
 literal|0
 decl_stmt|;
@@ -9142,11 +9142,12 @@ operator|/
 literal|1024
 argument_list|)
 expr_stmt|;
+comment|//TODO: storefileIndexSizeKB is same with rootLevelIndexSizeKB?
 name|storefileIndexSizeKB
 operator|+=
 name|store
 operator|.
-name|getStorefilesIndexSize
+name|getStorefilesRootLevelIndexSize
 argument_list|()
 operator|/
 literal|1024
@@ -9179,7 +9180,7 @@ operator|.
 name|currentCompactedKVs
 expr_stmt|;
 block|}
-name|rootIndexSizeKB
+name|rootLevelIndexSizeKB
 operator|+=
 call|(
 name|int
@@ -9187,7 +9188,7 @@ call|)
 argument_list|(
 name|store
 operator|.
-name|getStorefilesIndexSize
+name|getStorefilesRootLevelIndexSize
 argument_list|()
 operator|/
 literal|1024
@@ -9331,7 +9332,7 @@ argument_list|)
 operator|.
 name|setRootIndexSizeKB
 argument_list|(
-name|rootIndexSizeKB
+name|rootLevelIndexSizeKB
 argument_list|)
 operator|.
 name|setTotalStaticIndexSizeKB

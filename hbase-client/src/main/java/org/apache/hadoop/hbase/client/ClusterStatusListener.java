@@ -1354,7 +1354,7 @@ name|ncs
 init|=
 name|ProtobufUtil
 operator|.
-name|convert
+name|toClusterStatus
 argument_list|(
 name|csp
 argument_list|)

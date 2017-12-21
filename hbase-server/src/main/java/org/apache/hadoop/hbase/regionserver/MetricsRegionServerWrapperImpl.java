@@ -3175,7 +3175,7 @@ name|tempStorefileIndexSize
 operator|+=
 name|store
 operator|.
-name|getStorefilesIndexSize
+name|getStorefilesRootLevelIndexSize
 argument_list|()
 expr_stmt|;
 name|tempTotalStaticBloomSize

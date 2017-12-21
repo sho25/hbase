@@ -213,7 +213,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ClusterStatus
+name|ClusterMetrics
 import|;
 end_import
 
@@ -228,8 +228,6 @@ operator|.
 name|hbase
 operator|.
 name|ClusterStatus
-operator|.
-name|Option
 import|;
 end_import
 
@@ -1602,6 +1600,8 @@ name|EnumSet
 operator|.
 name|of
 argument_list|(
+name|ClusterMetrics
+operator|.
 name|Option
 operator|.
 name|LIVE_SERVERS

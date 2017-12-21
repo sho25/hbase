@@ -147,7 +147,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ClusterStatus
+name|ClusterMetrics
+operator|.
+name|Option
 import|;
 end_import
 
@@ -162,8 +164,6 @@ operator|.
 name|hbase
 operator|.
 name|ClusterStatus
-operator|.
-name|Option
 import|;
 end_import
 

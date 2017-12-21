@@ -385,7 +385,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ClusterStatus
+name|ClusterMetrics
+operator|.
+name|Option
 import|;
 end_import
 
@@ -400,8 +402,6 @@ operator|.
 name|hbase
 operator|.
 name|ClusterStatus
-operator|.
-name|Option
 import|;
 end_import
 
@@ -13050,7 +13050,7 @@ decl_stmt|;
 return|return
 name|ProtobufUtil
 operator|.
-name|convert
+name|toClusterStatus
 argument_list|(
 name|master
 operator|.

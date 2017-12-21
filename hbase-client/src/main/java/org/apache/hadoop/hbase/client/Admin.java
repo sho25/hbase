@@ -173,7 +173,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ClusterStatus
+name|ClusterMetrics
+operator|.
+name|Option
 import|;
 end_import
 
@@ -188,8 +190,6 @@ operator|.
 name|hbase
 operator|.
 name|ClusterStatus
-operator|.
-name|Option
 import|;
 end_import
 
@@ -316,20 +316,6 @@ operator|.
 name|hbase
 operator|.
 name|TableNotFoundException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
 import|;
 end_import
 
@@ -592,6 +578,20 @@ operator|.
 name|util
 operator|.
 name|Pair
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 

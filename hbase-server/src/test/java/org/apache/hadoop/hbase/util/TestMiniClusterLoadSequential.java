@@ -87,9 +87,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
+name|conf
 operator|.
-name|TableName
+name|Configuration
 import|;
 end_import
 
@@ -101,9 +101,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|conf
+name|hbase
 operator|.
-name|Configuration
+name|ClusterMetrics
+operator|.
+name|Option
 import|;
 end_import
 
@@ -173,7 +175,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableNotFoundException
+name|TableName
 import|;
 end_import
 
@@ -187,9 +189,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ClusterStatus
-operator|.
-name|Option
+name|TableNotFoundException
 import|;
 end_import
 

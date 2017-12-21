@@ -10634,7 +10634,7 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|getStorefilesIndexSize
+name|getStorefilesRootLevelIndexSize
 parameter_list|()
 block|{
 return|return

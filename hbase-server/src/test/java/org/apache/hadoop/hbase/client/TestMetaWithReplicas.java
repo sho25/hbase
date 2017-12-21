@@ -195,7 +195,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ClusterStatus
+name|ClusterMetrics
 operator|.
 name|Option
 import|;

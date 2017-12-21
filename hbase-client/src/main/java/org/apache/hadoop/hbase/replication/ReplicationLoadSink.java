@@ -39,19 +39,26 @@ begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Private
+name|Public
 specifier|public
 class|class
 name|ReplicationLoadSink
 block|{
 specifier|private
+specifier|final
 name|long
 name|ageOfLastAppliedOp
 decl_stmt|;
 specifier|private
+specifier|final
 name|long
 name|timeStampsOfLastAppliedOp
 decl_stmt|;
+comment|// TODO: add the builder for this class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 name|ReplicationLoadSink
 parameter_list|(

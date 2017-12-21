@@ -103,7 +103,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ServerName
+name|ClusterMetrics
+operator|.
+name|Option
 import|;
 end_import
 
@@ -117,9 +119,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ClusterStatus
-operator|.
-name|Option
+name|ServerName
 import|;
 end_import
 

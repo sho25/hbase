@@ -105,7 +105,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ClusterStatus
+name|ClusterMetrics
 operator|.
 name|Option
 import|;
@@ -612,7 +612,7 @@ name|REGIONS_IN_TRANSITION
 argument_list|)
 argument_list|)
 operator|.
-name|getRegionsInTransition
+name|getRegionStatesInTransition
 argument_list|()
 control|)
 block|{
