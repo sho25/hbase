@@ -20,6 +20,30 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertFalse
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -65,39 +89,21 @@ name|java
 operator|.
 name|util
 operator|.
+name|Objects
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|concurrent
 operator|.
 name|atomic
 operator|.
 name|AtomicBoolean
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|Log
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|LogFactory
 import|;
 end_import
 
@@ -140,20 +146,6 @@ operator|.
 name|hbase
 operator|.
 name|HBaseConfiguration
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|Server
 import|;
 end_import
 
@@ -472,26 +464,22 @@ import|;
 end_import
 
 begin_import
-import|import static
-name|junit
+import|import
+name|org
 operator|.
-name|framework
+name|slf4j
 operator|.
-name|TestCase
-operator|.
-name|assertFalse
+name|Logger
 import|;
 end_import
 
 begin_import
-import|import static
-name|junit
+import|import
+name|org
 operator|.
-name|framework
+name|slf4j
 operator|.
-name|TestCase
-operator|.
-name|assertTrue
+name|LoggerFactory
 import|;
 end_import
 
@@ -516,12 +504,12 @@ block|{
 specifier|private
 specifier|static
 specifier|final
-name|Log
+name|Logger
 name|LOG
 init|=
-name|LogFactory
+name|LoggerFactory
 operator|.
-name|getLog
+name|getLogger
 argument_list|(
 name|TestAssignProcedure
 operator|.
@@ -1650,7 +1638,12 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
+name|Objects
+operator|.
+name|toString
+argument_list|(
 name|proc
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
