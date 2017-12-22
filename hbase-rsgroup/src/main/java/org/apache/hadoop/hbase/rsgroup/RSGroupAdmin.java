@@ -67,11 +67,13 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|net
+operator|.
+name|Address
 import|;
 end_import
 
@@ -81,13 +83,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|yetus
 operator|.
-name|hbase
+name|audience
 operator|.
-name|net
-operator|.
-name|Address
+name|InterfaceAudience
 import|;
 end_import
 
@@ -206,7 +206,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Move given set of servers and tables to the specified target RegionServer group.    * @param servers set of servers to move    * @param tables set of tables to move    * @param targetGroup the target group name    * @throws IOException    */
+comment|/**    * Move given set of servers and tables to the specified target RegionServer group.    * @param servers set of servers to move    * @param tables set of tables to move    * @param targetGroup the target group name    * @throws IOException if moving the server and tables fail    */
 name|void
 name|moveServersAndTables
 parameter_list|(

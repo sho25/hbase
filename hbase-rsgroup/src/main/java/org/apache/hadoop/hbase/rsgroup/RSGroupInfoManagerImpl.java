@@ -19,6 +19,18 @@ end_package
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|ServiceException
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -1001,18 +1013,6 @@ name|ClientProtos
 import|;
 end_import
 
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|ServiceException
-import|;
-end_import
-
 begin_comment
 comment|/**  * This is an implementation of {@link RSGroupInfoManager} which makes  * use of an HBase table as the persistence store for the group information.  * It also makes use of zookeeper to store group information needed  * for bootstrapping during offline mode.  *  *<h2>Concurrency</h2>  * RSGroup state is kept locally in Maps. There is a rsgroup name to cached  * RSGroupInfo Map at {@link #rsGroupMap} and a Map of tables to the name of the  * rsgroup they belong too (in {@link #tableMap}). These Maps are persisted to the  * hbase:rsgroup table (and cached in zk) on each modification.  *  *<p>Mutations on state are synchronized but reads can continue without having  * to wait on an instance monitor, mutations do wholesale replace of the Maps on  * update -- Copy-On-Write; the local Maps of state are read-only, just-in-case  * (see flushConfig).  *  *<p>Reads must not block else there is a danger we'll deadlock.  *  *<p>Clients of this class, the {@link RSGroupAdminEndpoint} for example, want to query and  * then act on the results of the query modifying cache in zookeeper without another thread  * making intermediate modifications. These clients synchronize on the 'this' instance so  * no other has access concurrently. Reads must be able to continue concurrently.  */
 end_comment
@@ -1022,6 +1022,7 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
+specifier|final
 class|class
 name|RSGroupInfoManagerImpl
 implements|implements

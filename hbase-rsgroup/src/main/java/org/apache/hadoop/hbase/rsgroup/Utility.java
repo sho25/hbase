@@ -57,20 +57,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -97,6 +83,20 @@ name|Address
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * Utility for this RSGroup package in hbase-rsgroup.  */
 end_comment
@@ -106,10 +106,15 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
+specifier|final
 class|class
 name|Utility
 block|{
-comment|/**    * @param master    * @return Set of online Servers named for their hostname and port (not ServerName).    */
+specifier|private
+name|Utility
+parameter_list|()
+block|{   }
+comment|/**    * @param master the master to get online servers for    * @return Set of online Servers named for their hostname and port (not ServerName).    */
 specifier|static
 name|Set
 argument_list|<
@@ -141,9 +146,11 @@ name|master
 operator|==
 literal|null
 condition|)
+block|{
 return|return
 name|onlineServers
 return|;
+block|}
 for|for
 control|(
 name|ServerName

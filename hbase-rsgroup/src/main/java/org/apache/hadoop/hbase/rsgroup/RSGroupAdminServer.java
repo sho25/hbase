@@ -361,6 +361,40 @@ name|org
 operator|.
 name|apache
 operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|Logger
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|LoggerFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -400,40 +434,6 @@ operator|.
 name|collect
 operator|.
 name|Maps
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|slf4j
-operator|.
-name|Logger
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|slf4j
-operator|.
-name|LoggerFactory
 import|;
 end_import
 
@@ -766,7 +766,9 @@ argument_list|()
 operator|==
 literal|null
 condition|)
+block|{
 continue|continue;
+block|}
 if|if
 condition|(
 name|el
@@ -866,6 +868,7 @@ operator|.
 name|isMetaRegion
 argument_list|()
 condition|)
+block|{
 name|regions
 operator|.
 name|addLast
@@ -873,7 +876,9 @@ argument_list|(
 name|hri
 argument_list|)
 expr_stmt|;
+block|}
 else|else
+block|{
 name|regions
 operator|.
 name|addFirst
@@ -882,7 +887,8 @@ name|hri
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Check servers and tables.    * Fail if nulls or if servers and tables not belong to the same group    * @param servers servers to move    * @param tables tables to move    * @param targetGroupName target group name    * @throws IOException    */
+block|}
+comment|/**    * Check servers and tables.    *    * @param servers servers to move    * @param tables tables to move    * @param targetGroupName target group name    * @throws IOException if nulls or if servers and tables not belong to the same group    */
 specifier|private
 name|void
 name|checkServersAndTables
@@ -1148,7 +1154,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Moves every region from servers which are currently located on these servers,    * but should not be located there.    * @param servers the servers that will move to new group    * @param tables these tables will be kept on the servers, others will be moved    * @param targetGroupName the target group name    * @throws IOException    */
+comment|/**    * Moves every region from servers which are currently located on these servers,    * but should not be located there.    * @param servers the servers that will move to new group    * @param tables these tables will be kept on the servers, others will be moved    * @param targetGroupName the target group name    * @throws IOException if moving the server and tables fail    */
 specifier|private
 name|void
 name|moveRegionsFromServers
@@ -1421,7 +1427,7 @@ name|foundRegionsToMove
 condition|)
 do|;
 block|}
-comment|/**    * Moves every region of tables which should be kept on the servers,    * but currently they are located on other servers.    * @param servers the regions of these servers will be kept on the servers,    * others will be moved    * @param tables the tables that will move to new group    * @param targetGroupName the target group name    * @throws IOException    */
+comment|/**    * Moves every region of tables which should be kept on the servers,    * but currently they are located on other servers.    * @param servers the regions of these servers will be kept on the servers, others will be moved    * @param tables the tables that will move to new group    * @param targetGroupName the target group name    * @throws IOException if moving the region fails    */
 specifier|private
 name|void
 name|moveRegionsToServers
@@ -2779,9 +2785,11 @@ operator|.
 name|isBalancerOn
 argument_list|()
 condition|)
+block|{
 return|return
 literal|false
 return|;
+block|}
 if|if
 condition|(
 name|master

@@ -43,20 +43,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -93,9 +79,7 @@ name|hbase
 operator|.
 name|protobuf
 operator|.
-name|generated
-operator|.
-name|HBaseProtos
+name|ProtobufUtil
 import|;
 end_import
 
@@ -111,7 +95,9 @@ name|hbase
 operator|.
 name|protobuf
 operator|.
-name|ProtobufUtil
+name|generated
+operator|.
+name|HBaseProtos
 import|;
 end_import
 
@@ -133,14 +119,33 @@ name|RSGroupProtos
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
+specifier|final
 class|class
 name|RSGroupProtobufUtil
 block|{
+specifier|private
+name|RSGroupProtobufUtil
+parameter_list|()
+block|{   }
 specifier|static
 name|RSGroupInfo
 name|toGroupInfo

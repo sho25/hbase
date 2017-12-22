@@ -899,7 +899,7 @@ name|initialize
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Test the load balancing algorithm.    *    * Invariant is that all servers of the group should be hosting either floor(average) or    * ceiling(average)    *    * @throws Exception    */
+comment|/**    * Test the load balancing algorithm.    *    * Invariant is that all servers of the group should be hosting either floor(average) or    * ceiling(average)    */
 annotation|@
 name|Test
 specifier|public
@@ -1167,7 +1167,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * All regions have an assignment.    *    * @param regions    * @param servers    * @param assignments    * @throws java.io.IOException    * @throws java.io.FileNotFoundException    */
+comment|/**    * All regions have an assignment.    */
 specifier|private
 name|void
 name|assertImmediateAssignment
@@ -1280,7 +1280,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Tests the bulk assignment used during cluster startup.    *    * Round-robin. Should yield a balanced cluster so same invariant as the    * load balancer holds, all servers holding either floor(avg) or    * ceiling(avg).    *    * @throws Exception    */
+comment|/**    * Tests the bulk assignment used during cluster startup.    *    * Round-robin. Should yield a balanced cluster so same invariant as the    * load balancer holds, all servers holding either floor(avg) or    * ceiling(avg).    */
 annotation|@
 name|Test
 specifier|public
@@ -1459,7 +1459,7 @@ name|loadMap
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test the cluster startup bulk assignment which attempts to retain    * assignment info.    *    * @throws Exception    */
+comment|/**    * Test the cluster startup bulk assignment which attempts to retain assignment info.    */
 annotation|@
 name|Test
 specifier|public
@@ -1580,7 +1580,7 @@ name|newAssignment
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test BOGUS_SERVER_NAME among groups do not overwrite each other    * @throws Exception    */
+comment|/**    * Test BOGUS_SERVER_NAME among groups do not overwrite each other.    */
 annotation|@
 name|Test
 specifier|public
@@ -1808,7 +1808,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Asserts a valid retained assignment plan.    *<p>    * Must meet the following conditions:    *<ul>    *<li>Every input region has an assignment, and to an online server    *<li>If a region had an existing assignment to a server with the same    * address a a currently online server, it will be assigned to it    *</ul>    *    * @param existing    * @param assignment    * @throws java.io.IOException    * @throws java.io.FileNotFoundException    */
+comment|/**    * Asserts a valid retained assignment plan.    *<p>    * Must meet the following conditions:    *<ul>    *<li>Every input region has an assignment, and to an online server    *<li>If a region had an existing assignment to a server with the same    * address a a currently online server, it will be assigned to it    *</ul>    */
 specifier|private
 name|void
 name|assertRetainedAssignment
@@ -1918,6 +1918,7 @@ operator|.
 name|getValue
 argument_list|()
 control|)
+block|{
 name|assignedRegions
 operator|.
 name|add
@@ -1925,6 +1926,7 @@ argument_list|(
 name|r
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 name|assertEquals
 argument_list|(
