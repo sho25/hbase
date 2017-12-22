@@ -2064,7 +2064,7 @@ argument_list|)
 expr_stmt|;
 name|MetaTableAccessor
 operator|.
-name|addRegionToMeta
+name|addSpiltsToParent
 argument_list|(
 name|connection
 argument_list|,

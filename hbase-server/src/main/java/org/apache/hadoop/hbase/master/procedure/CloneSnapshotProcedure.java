@@ -2563,6 +2563,8 @@ argument_list|,
 name|newRegions
 argument_list|)
 expr_stmt|;
+comment|// TODO: parentsToChildrenPairMap is always empty, which makes updateMetaParentRegions()
+comment|// a no-op. This part seems unnecessary. Figure out. - Appy 12/21/17
 name|RestoreSnapshotHelper
 operator|.
 name|RestoreMetaChanges

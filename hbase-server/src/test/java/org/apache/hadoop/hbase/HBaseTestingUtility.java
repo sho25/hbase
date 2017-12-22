@@ -11137,7 +11137,8 @@ name|MetaTableAccessor
 operator|.
 name|addRegionToMeta
 argument_list|(
-name|meta
+name|getConnection
+argument_list|()
 argument_list|,
 name|hri
 argument_list|)
