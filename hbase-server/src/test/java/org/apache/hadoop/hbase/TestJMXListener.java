@@ -292,7 +292,10 @@ specifier|static
 name|int
 name|connectorPort
 init|=
-literal|61120
+name|UTIL
+operator|.
+name|randomFreePort
+argument_list|()
 decl_stmt|;
 annotation|@
 name|BeforeClass
