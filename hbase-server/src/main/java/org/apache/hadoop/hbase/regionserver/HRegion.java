@@ -35992,6 +35992,13 @@ condition|(
 name|walKey
 operator|!=
 literal|null
+operator|&&
+name|walKey
+operator|.
+name|getWriteEntry
+argument_list|()
+operator|!=
+literal|null
 condition|)
 block|{
 name|mvcc
