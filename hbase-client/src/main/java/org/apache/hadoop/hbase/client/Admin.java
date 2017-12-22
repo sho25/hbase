@@ -3680,9 +3680,7 @@ name|Map
 argument_list|<
 name|TableName
 argument_list|,
-name|?
-extends|extends
-name|Collection
+name|List
 argument_list|<
 name|String
 argument_list|>
@@ -3705,9 +3703,7 @@ name|Map
 argument_list|<
 name|TableName
 argument_list|,
-name|?
-extends|extends
-name|Collection
+name|List
 argument_list|<
 name|String
 argument_list|>
