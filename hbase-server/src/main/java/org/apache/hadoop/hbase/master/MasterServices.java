@@ -315,7 +315,7 @@ name|master
 operator|.
 name|replication
 operator|.
-name|ReplicationManager
+name|ReplicationPeerManager
 import|;
 end_import
 
@@ -1105,9 +1105,9 @@ name|ReplicationException
 throws|,
 name|IOException
 function_decl|;
-comment|/**    * Returns the {@link ReplicationManager}.    */
-name|ReplicationManager
-name|getReplicationManager
+comment|/**    * Returns the {@link ReplicationPeerManager}.    */
+name|ReplicationPeerManager
+name|getReplicationPeerManager
 parameter_list|()
 function_decl|;
 comment|/**    * Update the peerConfig for the specified peer    * @param peerId a short name that identifies the peer    * @param peerConfig new config for the peer    */

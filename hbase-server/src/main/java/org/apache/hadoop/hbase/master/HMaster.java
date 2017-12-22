@@ -243,6 +243,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Optional
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Set
 import|;
 end_import
@@ -1729,7 +1739,7 @@ name|master
 operator|.
 name|replication
 operator|.
-name|ReplicationManager
+name|ReplicationPeerManager
 import|;
 end_import
 
@@ -3374,8 +3384,8 @@ name|assignmentManager
 decl_stmt|;
 comment|// manager of replication
 specifier|private
-name|ReplicationManager
-name|replicationManager
+name|ReplicationPeerManager
+name|replicationPeerManager
 decl_stmt|;
 comment|// buffer for "fatal error" notices from region servers
 comment|// in the cluster. This is only used for assisting
@@ -4861,6 +4871,8 @@ throws|,
 name|KeeperException
 throws|,
 name|CoordinatedStateException
+throws|,
+name|ReplicationException
 block|{
 name|this
 operator|.
@@ -4984,16 +4996,15 @@ argument_list|()
 expr_stmt|;
 name|this
 operator|.
-name|replicationManager
+name|replicationPeerManager
 operator|=
-operator|new
-name|ReplicationManager
+name|ReplicationPeerManager
+operator|.
+name|create
 argument_list|(
-name|conf
-argument_list|,
 name|zooKeeper
 argument_list|,
-name|this
+name|conf
 argument_list|)
 expr_stmt|;
 name|this
@@ -5195,6 +5206,8 @@ throws|,
 name|KeeperException
 throws|,
 name|CoordinatedStateException
+throws|,
+name|ReplicationException
 block|{
 name|activeMaster
 operator|=
@@ -17081,19 +17094,6 @@ name|peerId
 argument_list|)
 expr_stmt|;
 block|}
-specifier|final
-name|ReplicationPeerConfig
-name|peerConfig
-init|=
-name|this
-operator|.
-name|replicationManager
-operator|.
-name|getPeerConfig
-argument_list|(
-name|peerId
-argument_list|)
-decl_stmt|;
 name|LOG
 operator|.
 name|info
@@ -17104,12 +17104,23 @@ operator|+
 literal|" get replication peer config, id="
 operator|+
 name|peerId
-operator|+
-literal|", config="
-operator|+
-name|peerConfig
 argument_list|)
 expr_stmt|;
+name|Optional
+argument_list|<
+name|ReplicationPeerConfig
+argument_list|>
+name|peerConfig
+init|=
+name|this
+operator|.
+name|replicationPeerManager
+operator|.
+name|getPeerConfig
+argument_list|(
+name|peerId
+argument_list|)
+decl_stmt|;
 if|if
 condition|(
 name|cpHost
@@ -17127,6 +17138,11 @@ expr_stmt|;
 block|}
 return|return
 name|peerConfig
+operator|.
+name|orElse
+argument_list|(
+literal|null
+argument_list|)
 return|;
 block|}
 annotation|@
@@ -17243,9 +17259,9 @@ name|peers
 init|=
 name|this
 operator|.
-name|replicationManager
+name|replicationPeerManager
 operator|.
-name|listReplicationPeers
+name|listPeers
 argument_list|(
 name|pattern
 argument_list|)
@@ -18030,12 +18046,12 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|ReplicationManager
-name|getReplicationManager
+name|ReplicationPeerManager
+name|getReplicationPeerManager
 parameter_list|()
 block|{
 return|return
-name|replicationManager
+name|replicationPeerManager
 return|;
 block|}
 block|}

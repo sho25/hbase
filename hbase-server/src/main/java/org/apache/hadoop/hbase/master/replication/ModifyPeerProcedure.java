@@ -39,20 +39,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|DoNotRetryIOException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|master
 operator|.
 name|procedure
@@ -158,6 +144,22 @@ operator|.
 name|procedure2
 operator|.
 name|StateMachineProcedure
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|replication
+operator|.
+name|ReplicationException
 import|;
 end_import
 
@@ -337,7 +339,7 @@ return|return
 name|peerId
 return|;
 block|}
-comment|/**    * Called before we start the actual processing. If an exception is thrown then we will give up    * and mark the procedure as failed directly.    */
+comment|/**    * Called before we start the actual processing. The implementation should call the pre CP hook,    * and also the pre-check for the peer modification.    *<p>    * If an IOException is thrown then we will give up and mark the procedure as failed directly. If    * all checks passes then the procedure can not be rolled back any more.    */
 specifier|protected
 specifier|abstract
 name|void
@@ -348,8 +350,9 @@ name|env
 parameter_list|)
 throws|throws
 name|IOException
+throws|,
+name|ReplicationException
 function_decl|;
-comment|/**    * We will give up and mark the procedure as failure if {@link IllegalArgumentException} is    * thrown, for other type of Exception we will retry.    */
 specifier|protected
 specifier|abstract
 name|void
@@ -359,9 +362,7 @@ name|MasterProcedureEnv
 name|env
 parameter_list|)
 throws|throws
-name|IllegalArgumentException
-throws|,
-name|Exception
+name|ReplicationException
 function_decl|;
 comment|/**    * Called before we finish the procedure. The implementation can do some logging work, and also    * call the coprocessor hook if any.    *<p>    * Notice that, since we have already done the actual work, throwing exception here will not fail    * this procedure, we will just ignore it and finish the procedure as suceeded.    */
 specifier|protected
@@ -441,7 +442,7 @@ operator|.
 name|getName
 argument_list|()
 operator|+
-literal|" failed to call prePeerModification for peer "
+literal|" failed to call CP hook or the pre check is failed for peer "
 operator|+
 name|peerId
 operator|+
@@ -452,7 +453,18 @@ argument_list|)
 expr_stmt|;
 name|setFailure
 argument_list|(
-literal|"prePeerModification"
+literal|"master-"
+operator|+
+name|getPeerOperationType
+argument_list|()
+operator|.
+name|name
+argument_list|()
+operator|.
+name|toLowerCase
+argument_list|()
+operator|+
+literal|"-peer"
 argument_list|,
 name|e
 argument_list|)
@@ -465,6 +477,37 @@ name|Flow
 operator|.
 name|NO_MORE_STATE
 return|;
+block|}
+catch|catch
+parameter_list|(
+name|ReplicationException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|getClass
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+operator|+
+literal|" failed to call prePeerModification for peer "
+operator|+
+name|peerId
+operator|+
+literal|", retry"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+throw|throw
+operator|new
+name|ProcedureYieldException
+argument_list|()
+throw|;
 block|}
 name|setNextState
 argument_list|(
@@ -491,44 +534,7 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|IllegalArgumentException
-name|e
-parameter_list|)
-block|{
-name|setFailure
-argument_list|(
-literal|"master-"
-operator|+
-name|getPeerOperationType
-argument_list|()
-operator|.
-name|name
-argument_list|()
-operator|.
-name|toLowerCase
-argument_list|()
-operator|+
-literal|"-peer"
-argument_list|,
-operator|new
-name|DoNotRetryIOException
-argument_list|(
-name|e
-argument_list|)
-argument_list|)
-expr_stmt|;
-name|releaseLatch
-argument_list|()
-expr_stmt|;
-return|return
-name|Flow
-operator|.
-name|NO_MORE_STATE
-return|;
-block|}
-catch|catch
-parameter_list|(
-name|Exception
+name|ReplicationException
 name|e
 parameter_list|)
 block|{
@@ -761,12 +767,6 @@ operator|==
 name|PeerModificationState
 operator|.
 name|PRE_PEER_MODIFICATION
-operator|||
-name|state
-operator|==
-name|PeerModificationState
-operator|.
-name|UPDATE_PEER_STORAGE
 condition|)
 block|{
 comment|// actually the peer related operations has no rollback, but if we haven't done any

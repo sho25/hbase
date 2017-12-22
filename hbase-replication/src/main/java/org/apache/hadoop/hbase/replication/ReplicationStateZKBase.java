@@ -316,7 +316,6 @@ specifier|final
 name|Abortable
 name|abortable
 decl_stmt|;
-comment|// Public for testing
 specifier|public
 specifier|static
 specifier|final

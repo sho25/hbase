@@ -31,6 +31,18 @@ end_import
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|Service
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -375,7 +387,7 @@ name|master
 operator|.
 name|replication
 operator|.
-name|ReplicationManager
+name|ReplicationPeerManager
 import|;
 end_import
 
@@ -570,18 +582,6 @@ operator|.
 name|zookeeper
 operator|.
 name|ZKWatcher
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|Service
 import|;
 end_import
 
@@ -1785,6 +1785,9 @@ annotation|@
 name|Override
 specifier|public
 name|ProcedureEvent
+argument_list|<
+name|?
+argument_list|>
 name|getInitializedEvent
 parameter_list|()
 block|{
@@ -1822,8 +1825,8 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|ReplicationManager
-name|getReplicationManager
+name|ReplicationPeerManager
+name|getReplicationPeerManager
 parameter_list|()
 block|{
 return|return
