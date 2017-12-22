@@ -63,7 +63,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|Iterator
+name|HashMap
 import|;
 end_import
 
@@ -73,7 +73,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|HashMap
+name|Iterator
 import|;
 end_import
 
@@ -153,7 +153,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
+name|HBaseTestingUtility
 import|;
 end_import
 
@@ -167,7 +167,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HBaseTestingUtility
+name|HConstants
 import|;
 end_import
 
@@ -355,22 +355,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|tool
-operator|.
-name|LoadIncrementalHFiles
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|spark
 operator|.
 name|example
@@ -410,6 +394,22 @@ operator|.
 name|testclassification
 operator|.
 name|MiscTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|tool
+operator|.
+name|LoadIncrementalHFiles
 import|;
 end_import
 
@@ -3786,9 +3786,11 @@ name|v1
 operator|==
 literal|null
 condition|)
+block|{
 return|return
 literal|null
 return|;
+block|}
 name|String
 index|[]
 name|strs
@@ -3808,9 +3810,11 @@ name|length
 operator|!=
 literal|4
 condition|)
+block|{
 return|return
 literal|null
 return|;
+block|}
 name|KeyFamilyQualifier
 name|kfq
 init|=
@@ -3904,8 +3908,6 @@ name|String
 argument_list|>
 name|list
 parameter_list|)
-throws|throws
-name|Exception
 block|{
 if|if
 condition|(
@@ -3913,9 +3915,11 @@ name|list
 operator|==
 literal|null
 condition|)
+block|{
 return|return
 literal|null
 return|;
+block|}
 name|ByteArrayWrapper
 name|rowKey
 init|=
