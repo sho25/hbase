@@ -93,7 +93,7 @@ name|MetricSet
 extends|extends
 name|Metric
 block|{
-comment|/**      * A map of metric names to metrics.      *      * @return the metrics      */
+comment|/**    * A map of metric names to metrics.    *    * @return the metrics    */
 name|Map
 argument_list|<
 name|String

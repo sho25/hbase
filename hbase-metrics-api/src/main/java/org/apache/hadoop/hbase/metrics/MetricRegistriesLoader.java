@@ -53,6 +53,22 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|ReflectionUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -91,22 +107,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
-operator|.
-name|ReflectionUtils
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|shaded
 operator|.
 name|com
@@ -127,6 +127,7 @@ name|InterfaceAudience
 operator|.
 name|Private
 specifier|public
+specifier|final
 class|class
 name|MetricRegistriesLoader
 block|{
@@ -153,6 +154,10 @@ name|defaultClass
 init|=
 literal|"org.apache.hadoop.hbase.metrics.impl.MetricRegistriesImpl"
 decl_stmt|;
+specifier|private
+name|MetricRegistriesLoader
+parameter_list|()
+block|{   }
 comment|/**    * Creates a {@link MetricRegistries} instance using the corresponding {@link MetricRegistries}    * available to {@link ServiceLoader} on the classpath. If no instance is found, then default    * implementation will be loaded.    * @return A {@link MetricRegistries} implementation.    */
 specifier|public
 specifier|static
