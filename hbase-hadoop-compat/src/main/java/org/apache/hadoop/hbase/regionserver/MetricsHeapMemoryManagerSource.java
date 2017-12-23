@@ -239,7 +239,9 @@ decl_stmt|;
 name|String
 name|DO_NOTHING_COUNTER_DESC
 init|=
-literal|"The number of times that tuner neither expands memstore global size limit nor expands blockcache max size"
+literal|"The number of times that tuner neither expands memstore global size limit nor expands "
+operator|+
+literal|"blockcache max size"
 decl_stmt|;
 name|String
 name|ABOVE_HEAP_LOW_WATERMARK_COUNTER_NAME

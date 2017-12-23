@@ -96,7 +96,7 @@ name|long
 name|t
 parameter_list|)
 function_decl|;
-comment|/**    * Update the PutBatch time histogram if a batch contains a Put op    * @param t    */
+comment|/**    * Update the PutBatch time histogram if a batch contains a Put op    * @param t time it took    */
 name|void
 name|updatePutBatch
 parameter_list|(

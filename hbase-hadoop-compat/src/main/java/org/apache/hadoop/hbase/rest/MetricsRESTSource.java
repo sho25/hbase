@@ -171,7 +171,7 @@ name|int
 name|inc
 parameter_list|)
 function_decl|;
-comment|/**    * Increment the number of successful Delete requests.    *    * @param inc    */
+comment|/**    * Increment the number of successful Delete requests.    *    * @param inc number of successful delete requests    */
 name|void
 name|incrementSucessfulDeleteRequests
 parameter_list|(

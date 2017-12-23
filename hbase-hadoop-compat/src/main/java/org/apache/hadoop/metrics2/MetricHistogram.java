@@ -85,7 +85,7 @@ name|NINETY_NINE_POINT_NINETH_PERCENTILE_METRIC_NAME
 init|=
 literal|"_99.9th_percentile"
 decl_stmt|;
-comment|/**    * Add a single value to a histogram's stream of values.    * @param value    */
+comment|/**    * Add a single value to a histogram's stream of values.    * @param value the value to add    */
 name|void
 name|add
 parameter_list|(

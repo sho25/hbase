@@ -18,7 +18,7 @@ package|;
 end_package
 
 begin_comment
-comment|/** Factory that will be used to create metrics sources for the two diffent types of thrift servers. */
+comment|/**  * Factory that will be used to create metrics sources for the two diffent types of thrift servers.  */
 end_comment
 
 begin_interface

@@ -97,7 +97,7 @@ name|ACTIVE_WORKER_COUNT_KEY
 init|=
 literal|"numActiveWorkers"
 decl_stmt|;
-comment|/**    * Add how long an operation was in the queue.    * @param time    */
+comment|/**    * Add how long an operation was in the queue.    * @param time the time to add    */
 name|void
 name|incTimeInQueue
 parameter_list|(

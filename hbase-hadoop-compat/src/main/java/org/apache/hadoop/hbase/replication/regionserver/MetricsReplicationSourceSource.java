@@ -66,9 +66,9 @@ name|SOURCE_SHIPPED_BATCHES
 init|=
 literal|"source.shippedBatches"
 decl_stmt|;
+comment|/**    * @deprecated Use {@link #SOURCE_SHIPPED_BYTES} instead    */
 annotation|@
 name|Deprecated
-comment|/** @deprecated Use SOURCE_SHIPPED_BYTES instead */
 specifier|public
 specifier|static
 specifier|final

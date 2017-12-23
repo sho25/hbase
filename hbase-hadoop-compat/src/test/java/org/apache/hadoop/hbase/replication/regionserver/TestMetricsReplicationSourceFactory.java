@@ -43,11 +43,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|replication
+name|testclassification
 operator|.
-name|regionserver
-operator|.
-name|MetricsReplicationSource
+name|MetricsTests
 import|;
 end_import
 
@@ -64,22 +62,6 @@ operator|.
 name|testclassification
 operator|.
 name|SmallTests
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|testclassification
-operator|.
-name|MetricsTests
 import|;
 end_import
 

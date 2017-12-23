@@ -16,6 +16,30 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertNotEquals
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -105,7 +129,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|SmallTests
+name|MetricsTests
 import|;
 end_import
 
@@ -121,7 +145,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|MetricsTests
+name|SmallTests
 import|;
 end_import
 
@@ -146,30 +170,6 @@ operator|.
 name|categories
 operator|.
 name|Category
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertEquals
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertNotEquals
 import|;
 end_import
 

@@ -43,7 +43,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|SmallTests
+name|MetricsTests
 import|;
 end_import
 
@@ -59,23 +59,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|MetricsTests
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|thrift
-operator|.
-name|MetricsThriftServerSourceFactory
+name|SmallTests
 import|;
 end_import
 
