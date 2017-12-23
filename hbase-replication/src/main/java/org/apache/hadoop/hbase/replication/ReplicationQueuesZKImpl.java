@@ -1778,6 +1778,7 @@ operator|.
 name|isTraceEnabled
 argument_list|()
 condition|)
+block|{
 name|LOG
 operator|.
 name|trace
@@ -1790,6 +1791,7 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 name|ZKUtil
 operator|.

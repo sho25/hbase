@@ -179,44 +179,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|shaded
-operator|.
-name|protobuf
-operator|.
-name|ProtobufUtil
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|ReplicationProtos
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|zookeeper
 operator|.
 name|ZKNodeTracker
@@ -285,20 +247,6 @@ begin_import
 import|import
 name|org
 operator|.
-name|apache
-operator|.
-name|zookeeper
-operator|.
-name|KeeperException
-operator|.
-name|NodeExistsException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
 name|slf4j
 operator|.
 name|Logger
@@ -312,6 +260,44 @@ operator|.
 name|slf4j
 operator|.
 name|LoggerFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|protobuf
+operator|.
+name|ProtobufUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ReplicationProtos
 import|;
 end_import
 
@@ -442,7 +428,7 @@ operator|=
 name|id
 expr_stmt|;
 block|}
-comment|/**    * start a state tracker to check whether this peer is enabled or not    *    * @param peerStateNode path to zk node which stores peer state    * @throws KeeperException    */
+comment|/**    * start a state tracker to check whether this peer is enabled or not    *    * @param peerStateNode path to zk node which stores peer state    * @throws KeeperException if creating the znode fails    */
 specifier|public
 name|void
 name|startStateTracker
@@ -535,7 +521,7 @@ operator|.
 name|DISABLED
 expr_stmt|;
 block|}
-comment|/**    * start a table-cfs tracker to listen the (table, cf-list) map change    * @param peerConfigNode path to zk node which stores table-cfs    * @throws KeeperException    */
+comment|/**    * start a table-cfs tracker to listen the (table, cf-list) map change    * @param peerConfigNode path to zk node which stores table-cfs    */
 specifier|public
 name|void
 name|startPeerConfigTracker
@@ -834,7 +820,7 @@ name|IOException
 block|{
 comment|// TODO: stop zkw?
 block|}
-comment|/**    * Parse the raw data from ZK to get a peer's state    * @param bytes raw ZK data    * @return True if the passed in<code>bytes</code> are those of a pb serialized ENABLED state.    * @throws DeserializationException    */
+comment|/**    * Parse the raw data from ZK to get a peer's state    * @param bytes raw ZK data    * @return True if the passed in<code>bytes</code> are those of a pb serialized ENABLED state.    * @throws DeserializationException if parsing the state fails    */
 specifier|public
 specifier|static
 name|boolean
@@ -872,7 +858,7 @@ operator|==
 name|state
 return|;
 block|}
-comment|/**    * @param bytes Content of a state znode.    * @return State parsed from the passed bytes.    * @throws DeserializationException    */
+comment|/**    * @param bytes Content of a state znode.    * @return State parsed from the passed bytes.    * @throws DeserializationException if a ProtoBuf operation fails    */
 specifier|private
 specifier|static
 name|ReplicationProtos
@@ -972,7 +958,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Utility method to ensure an ENABLED znode is in place; if not present, we create it.    * @param path Path to znode to check    * @return True if we created the znode.    * @throws NodeExistsException    * @throws KeeperException    */
+comment|/**    * Utility method to ensure an ENABLED znode is in place; if not present, we create it.    * @param path Path to znode to check    * @return True if we created the znode.    * @throws KeeperException if creating the znode fails    */
 specifier|private
 name|boolean
 name|ensurePeerEnabled
@@ -982,8 +968,6 @@ name|String
 name|path
 parameter_list|)
 throws|throws
-name|NodeExistsException
-throws|,
 name|KeeperException
 block|{
 if|if

@@ -54,7 +54,7 @@ specifier|public
 interface|interface
 name|ReplicationTracker
 block|{
-comment|/**    * Register a replication listener to receive replication events.    * @param listener    */
+comment|/**    * Register a replication listener to receive replication events.    * @param listener the listener to register    */
 specifier|public
 name|void
 name|registerListener

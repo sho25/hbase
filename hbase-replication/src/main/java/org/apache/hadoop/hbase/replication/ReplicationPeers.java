@@ -91,11 +91,13 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|util
+operator|.
+name|Pair
 import|;
 end_import
 
@@ -105,13 +107,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|yetus
 operator|.
-name|hbase
+name|audience
 operator|.
-name|util
-operator|.
-name|Pair
+name|InterfaceAudience
 import|;
 end_import
 
@@ -185,7 +185,7 @@ parameter_list|)
 throws|throws
 name|ReplicationException
 function_decl|;
-comment|/**    * Method called after a peer has been connected. It will create a ReplicationPeer to track the    * newly connected cluster.    * @param peerId a short that identifies the cluster    * @return whether a ReplicationPeer was successfully created    * @throws ReplicationException    */
+comment|/**    * Method called after a peer has been connected. It will create a ReplicationPeer to track the    * newly connected cluster.    * @param peerId a short that identifies the cluster    * @return whether a ReplicationPeer was successfully created    * @throws ReplicationException if connecting to the peer fails    */
 name|boolean
 name|peerConnected
 parameter_list|(
@@ -344,7 +344,7 @@ parameter_list|)
 throws|throws
 name|ReplicationException
 function_decl|;
-comment|/**    * Update the peerConfig for the a given peer cluster    * @param id a short that identifies the cluster    * @param peerConfig new config for the peer cluster    * @throws ReplicationException    */
+comment|/**    * Update the peerConfig for the a given peer cluster    * @param id a short that identifies the cluster    * @param peerConfig new config for the peer cluster    * @throws ReplicationException if updating the peer configuration fails    */
 name|void
 name|updatePeerConfig
 parameter_list|(

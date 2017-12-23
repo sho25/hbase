@@ -225,26 +225,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|shaded
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|ReplicationProtos
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|replication
 operator|.
 name|ReplicationPeer
@@ -394,6 +374,26 @@ operator|.
 name|slf4j
 operator|.
 name|LoggerFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ReplicationProtos
 import|;
 end_import
 
@@ -2485,7 +2485,7 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * Update the state znode of a peer cluster.    * @param id    * @param state    */
+comment|/**    * Update the state znode of a peer cluster.    * @param id the id of the peer    * @param state the state to update to    */
 specifier|private
 name|void
 name|changePeerState
@@ -2637,7 +2637,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Helper method to connect to a peer    * @param peerId peer's identifier    * @return object representing the peer    * @throws ReplicationException    */
+comment|/**    * Helper method to connect to a peer    * @param peerId peer's identifier    * @return object representing the peer    * @throws ReplicationException if creating the peer fails    */
 specifier|private
 name|ReplicationPeerZKImpl
 name|createPeer
@@ -2786,7 +2786,9 @@ name|queuesClient
 operator|==
 literal|null
 condition|)
+block|{
 return|return;
+block|}
 try|try
 block|{
 name|List

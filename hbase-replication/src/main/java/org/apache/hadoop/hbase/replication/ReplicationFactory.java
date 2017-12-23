@@ -39,20 +39,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|conf
@@ -105,6 +91,20 @@ name|ZKWatcher
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * A factory class for instantiating replication objects that deal with replication state.  */
 end_comment
@@ -115,9 +115,14 @@ name|InterfaceAudience
 operator|.
 name|Private
 specifier|public
+specifier|final
 class|class
 name|ReplicationFactory
 block|{
+specifier|private
+name|ReplicationFactory
+parameter_list|()
+block|{   }
 specifier|public
 specifier|static
 name|ReplicationQueues

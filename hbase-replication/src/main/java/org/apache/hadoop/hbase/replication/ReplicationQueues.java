@@ -57,11 +57,13 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|util
+operator|.
+name|Pair
 import|;
 end_import
 
@@ -71,13 +73,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|yetus
 operator|.
-name|hbase
+name|audience
 operator|.
-name|util
-operator|.
-name|Pair
+name|InterfaceAudience
 import|;
 end_import
 
@@ -179,7 +179,7 @@ name|String
 name|queueId
 parameter_list|)
 function_decl|;
-comment|/**    * Get a list of all queues for this region server.    * @return a list of queueIds, an empty list if this region server is dead and has no outstanding queues    */
+comment|/**    * Get a list of all queues for this region server.    * @return a list of queueIds, an empty list if this region server is dead and has no outstanding    *         queues    */
 name|List
 argument_list|<
 name|String
@@ -217,7 +217,7 @@ name|String
 name|queueId
 parameter_list|)
 function_decl|;
-comment|/**    * Remove the znode of region server if the queue is empty.    * @param regionserver    */
+comment|/**    * Remove the znode of region server if the queue is empty.    * @param regionserver the id of the region server    */
 name|void
 name|removeReplicatorIfQueueIsEmpty
 parameter_list|(
