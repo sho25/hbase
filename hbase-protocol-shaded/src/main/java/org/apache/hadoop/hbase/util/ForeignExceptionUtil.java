@@ -582,6 +582,7 @@ name|source
 operator|!=
 literal|null
 condition|)
+block|{
 name|exception
 operator|.
 name|setSource
@@ -589,6 +590,7 @@ argument_list|(
 name|source
 argument_list|)
 expr_stmt|;
+block|}
 return|return
 name|exception
 operator|.
@@ -617,9 +619,11 @@ name|trace
 operator|==
 literal|null
 condition|)
+block|{
 return|return
 literal|null
 return|;
+block|}
 comment|// build the stack trace for the message
 name|List
 argument_list|<
