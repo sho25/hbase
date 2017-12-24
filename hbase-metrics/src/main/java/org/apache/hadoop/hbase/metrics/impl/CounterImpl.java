@@ -39,11 +39,13 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|metrics
+operator|.
+name|Counter
 import|;
 end_import
 
@@ -53,13 +55,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|yetus
 operator|.
-name|hbase
+name|audience
 operator|.
-name|metrics
-operator|.
-name|Counter
+name|InterfaceAudience
 import|;
 end_import
 
