@@ -51,13 +51,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|commons
 operator|.
-name|hbase
+name|collections4
 operator|.
-name|util
-operator|.
-name|Bytes
+name|IterableUtils
 import|;
 end_import
 
@@ -73,7 +71,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|IterableUtils
+name|Bytes
 import|;
 end_import
 
@@ -293,7 +291,7 @@ name|kv
 range|:
 name|IterableUtils
 operator|.
-name|nullSafe
+name|emptyIfNull
 argument_list|(
 name|kvs
 argument_list|)
