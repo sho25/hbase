@@ -115,23 +115,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|zookeeper
-operator|.
-name|ZKWatcher
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
+name|ServerName
 import|;
 end_import
 
@@ -219,8 +203,38 @@ name|ErrorReporter
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
+name|ZKWatcher
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
-comment|/*  * Check and fix undeleted replication queues for removed peerId.  */
+comment|/**  * Check and fix undeleted replication queues for removed peerId.  */
 end_comment
 
 begin_class
@@ -241,7 +255,7 @@ comment|// replicator with its queueIds for removed peers
 specifier|private
 name|Map
 argument_list|<
-name|String
+name|ServerName
 argument_list|,
 name|List
 argument_list|<
@@ -353,7 +367,7 @@ for|for
 control|(
 name|Entry
 argument_list|<
-name|String
+name|ServerName
 argument_list|,
 name|List
 argument_list|<
@@ -368,7 +382,7 @@ name|entrySet
 argument_list|()
 control|)
 block|{
-name|String
+name|ServerName
 name|replicator
 init|=
 name|replicatorAndQueueIds

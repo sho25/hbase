@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/*  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -87,20 +87,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Abortable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HBaseInterfaceAudience
 import|;
 end_import
@@ -135,7 +121,7 @@ name|hbase
 operator|.
 name|replication
 operator|.
-name|ReplicationFactory
+name|ReplicationException
 import|;
 end_import
 
@@ -151,7 +137,7 @@ name|hbase
 operator|.
 name|replication
 operator|.
-name|ReplicationQueuesClient
+name|ReplicationQueueStorage
 import|;
 end_import
 
@@ -167,7 +153,7 @@ name|hbase
 operator|.
 name|replication
 operator|.
-name|ReplicationQueuesClientArguments
+name|ReplicationStorageFactory
 import|;
 end_import
 
@@ -214,18 +200,6 @@ operator|.
 name|audience
 operator|.
 name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|zookeeper
-operator|.
-name|KeeperException
 import|;
 end_import
 
@@ -355,8 +329,8 @@ name|ZKWatcher
 name|zkw
 decl_stmt|;
 specifier|private
-name|ReplicationQueuesClient
-name|replicationQueues
+name|ReplicationQueueStorage
+name|queueStorage
 decl_stmt|;
 specifier|private
 name|boolean
@@ -397,7 +371,7 @@ comment|// The concurrently created new WALs may not be included in the return l
 comment|// but they won't be deleted because they're not in the checking set.
 name|wals
 operator|=
-name|replicationQueues
+name|queueStorage
 operator|.
 name|getAllWALs
 argument_list|()
@@ -405,7 +379,7 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|KeeperException
+name|ReplicationException
 name|e
 parameter_list|)
 block|{
@@ -649,31 +623,16 @@ name|zk
 expr_stmt|;
 name|this
 operator|.
-name|replicationQueues
+name|queueStorage
 operator|=
-name|ReplicationFactory
+name|ReplicationStorageFactory
 operator|.
-name|getReplicationQueuesClient
+name|getReplicationQueueStorage
 argument_list|(
-operator|new
-name|ReplicationQueuesClientArguments
-argument_list|(
+name|zk
+argument_list|,
 name|conf
-argument_list|,
-operator|new
-name|WarnOnlyAbortable
-argument_list|()
-argument_list|,
-name|zkw
 argument_list|)
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|replicationQueues
-operator|.
-name|init
-argument_list|()
 expr_stmt|;
 block|}
 catch|catch
@@ -765,60 +724,6 @@ name|this
 operator|.
 name|stopped
 return|;
-block|}
-specifier|private
-specifier|static
-class|class
-name|WarnOnlyAbortable
-implements|implements
-name|Abortable
-block|{
-annotation|@
-name|Override
-specifier|public
-name|void
-name|abort
-parameter_list|(
-name|String
-name|why
-parameter_list|,
-name|Throwable
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"ReplicationLogCleaner received abort, ignoring.  Reason: "
-operator|+
-name|why
-argument_list|)
-expr_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-name|e
-operator|.
-name|toString
-argument_list|()
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-block|}
-annotation|@
-name|Override
-specifier|public
-name|boolean
-name|isAborted
-parameter_list|()
-block|{
-return|return
-literal|false
-return|;
-block|}
 block|}
 block|}
 end_class

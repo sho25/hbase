@@ -198,6 +198,22 @@ parameter_list|)
 throws|throws
 name|ReplicationException
 function_decl|;
+comment|/**    * Get a list of all WALs in the given queue on the given region server.    * @param serverName the server name of the region server that owns the queue    * @param queueId a String that identifies the queue    * @return a list of WALs    */
+name|List
+argument_list|<
+name|String
+argument_list|>
+name|getWALsInQueue
+parameter_list|(
+name|ServerName
+name|serverName
+parameter_list|,
+name|String
+name|queueId
+parameter_list|)
+throws|throws
+name|ReplicationException
+function_decl|;
 comment|/**    * Get a list of all queues for the specified region server.    * @param serverName the server name of the region server that owns the set of queues    * @return a list of queueIds    */
 name|List
 argument_list|<
@@ -255,7 +271,7 @@ parameter_list|()
 throws|throws
 name|ReplicationException
 function_decl|;
-comment|/**    * Load all wals in all replication queues. This method guarantees to return a snapshot which    * contains all WALs in the zookeeper at the start of this call even there is concurrent queue    * failover. However, some newly created WALs during the call may not be included.    */
+comment|/**    * Load all wals in all replication queues. This method guarantees to return a snapshot which    * contains all WALs at the start of this call even there is concurrent queue failover. However,    * some newly created WALs during the call may not be included.    */
 name|Set
 argument_list|<
 name|String
@@ -322,13 +338,6 @@ parameter_list|)
 throws|throws
 name|ReplicationException
 function_decl|;
-comment|/**    * Get the change version number of replication hfile references node. This can be used as    * optimistic locking to get a consistent snapshot of the replication queues of hfile references.    * @return change version number of hfile references node    */
-name|int
-name|getHFileRefsNodeChangeVersion
-parameter_list|()
-throws|throws
-name|ReplicationException
-function_decl|;
 comment|/**    * Get list of all peers from hfile reference queue.    * @return a list of peer ids    */
 name|List
 argument_list|<
@@ -349,6 +358,16 @@ parameter_list|(
 name|String
 name|peerId
 parameter_list|)
+throws|throws
+name|ReplicationException
+function_decl|;
+comment|/**    * Load all hfile references in all replication queues. This method guarantees to return a    * snapshot which contains all hfile references at the start of this call. However, some newly    * created hfile references during the call may not be included.    */
+name|Set
+argument_list|<
+name|String
+argument_list|>
+name|getAllHFileRefs
+parameter_list|()
 throws|throws
 name|ReplicationException
 function_decl|;
