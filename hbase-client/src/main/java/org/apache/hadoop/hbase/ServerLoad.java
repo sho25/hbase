@@ -51,6 +51,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Set
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|TreeMap
 import|;
 end_import
@@ -1098,7 +1108,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|List
+name|Set
 argument_list|<
 name|String
 argument_list|>

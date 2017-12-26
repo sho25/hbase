@@ -53,6 +53,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Set
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -164,8 +174,8 @@ argument_list|>
 name|getRegionMetrics
 parameter_list|()
 function_decl|;
-comment|/**    * Return the RegionServer-level and Region-level coprocessors    * @return string list of loaded RegionServer-level and Region-level coprocessors    */
-name|List
+comment|/**    * Return the RegionServer-level and Region-level coprocessors    * @return string set of loaded RegionServer-level and Region-level coprocessors    */
+name|Set
 argument_list|<
 name|String
 argument_list|>
