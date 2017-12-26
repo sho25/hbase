@@ -407,7 +407,6 @@ name|InterfaceAudience
 operator|.
 name|Private
 specifier|public
-specifier|final
 class|class
 name|ReplicationPeerManager
 block|{
@@ -431,7 +430,6 @@ name|ReplicationPeerDescription
 argument_list|>
 name|peers
 decl_stmt|;
-specifier|private
 name|ReplicationPeerManager
 parameter_list|(
 name|ReplicationPeerStorage
