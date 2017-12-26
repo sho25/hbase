@@ -143,46 +143,22 @@ name|String
 name|getId
 parameter_list|()
 function_decl|;
-comment|/**    * Get the peer config object    * @return the ReplicationPeerConfig for this peer    */
-specifier|public
-name|ReplicationPeerConfig
-name|getPeerConfig
-parameter_list|()
-function_decl|;
-comment|/**    * Get the peer config object. if loadFromBackingStore is true, it will load from backing store    * directly and update its load peer config. otherwise, just return the local cached peer config.    * @return the ReplicationPeerConfig for this peer    */
-specifier|public
-name|ReplicationPeerConfig
-name|getPeerConfig
-parameter_list|(
-name|boolean
-name|loadFromBackingStore
-parameter_list|)
-throws|throws
-name|ReplicationException
-function_decl|;
 comment|/**    * Returns the state of the peer by reading local cache.    * @return the enabled state    */
 name|PeerState
 name|getPeerState
 parameter_list|()
 function_decl|;
-comment|/**    * Returns the state of peer, if loadFromBackingStore is true, it will load from backing store    * directly and update its local peer state. otherwise, just return the local cached peer state.    * @return the enabled state    */
-name|PeerState
-name|getPeerState
-parameter_list|(
-name|boolean
-name|loadFromBackingStore
-parameter_list|)
-throws|throws
-name|ReplicationException
+comment|/**    * Get the peer config object    * @return the ReplicationPeerConfig for this peer    */
+name|ReplicationPeerConfig
+name|getPeerConfig
+parameter_list|()
 function_decl|;
 comment|/**    * Get the configuration object required to communicate with this peer    * @return configuration object    */
-specifier|public
 name|Configuration
 name|getConfiguration
 parameter_list|()
 function_decl|;
 comment|/**    * Get replicable (table, cf-list) map of this peer    * @return the replicable (table, cf-list) map    */
-specifier|public
 name|Map
 argument_list|<
 name|TableName
@@ -196,7 +172,6 @@ name|getTableCFs
 parameter_list|()
 function_decl|;
 comment|/**    * Get replicable namespace set of this peer    * @return the replicable namespaces set    */
-specifier|public
 name|Set
 argument_list|<
 name|String
@@ -205,13 +180,11 @@ name|getNamespaces
 parameter_list|()
 function_decl|;
 comment|/**    * Get the per node bandwidth upper limit for this peer    * @return the bandwidth upper limit    */
-specifier|public
 name|long
 name|getPeerBandwidth
 parameter_list|()
 function_decl|;
 comment|/**    * Register a peer config listener to catch the peer config change event.    * @param listener listener to catch the peer config change event.    */
-specifier|public
 name|void
 name|registerPeerConfigListener
 parameter_list|(
@@ -219,15 +192,23 @@ name|ReplicationPeerConfigListener
 name|listener
 parameter_list|)
 function_decl|;
-comment|/**    * Notify all the registered ReplicationPeerConfigListener to update their peer config.    * @param newPeerConfig the new peer config.    */
-specifier|public
+comment|/**    * @deprecated Use {@link #registerPeerConfigListener(ReplicationPeerConfigListener)} instead.    */
+annotation|@
+name|Deprecated
+specifier|default
 name|void
-name|triggerPeerConfigChange
+name|trackPeerConfigChanges
 parameter_list|(
-name|ReplicationPeerConfig
-name|newPeerConfig
+name|ReplicationPeerConfigListener
+name|listener
 parameter_list|)
-function_decl|;
+block|{
+name|registerPeerConfigListener
+argument_list|(
+name|listener
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 end_interface
 

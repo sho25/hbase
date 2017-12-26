@@ -266,8 +266,8 @@ parameter_list|)
 throws|throws
 name|ReplicationException
 function_decl|;
-comment|/**    * Returns the ReplicationPeer for the specified connected peer. This ReplicationPeer will    * continue to track changes to the Peer's state and config. This method returns null if no    * peer has been connected with the given peerId.    * @param peerId id for the peer    * @return ReplicationPeer object    */
-name|ReplicationPeer
+comment|/**    * Returns the ReplicationPeerImpl for the specified connected peer. This ReplicationPeer will    * continue to track changes to the Peer's state and config. This method returns null if no    * peer has been connected with the given peerId.    * @param peerId id for the peer    * @return ReplicationPeer object    */
+name|ReplicationPeerImpl
 name|getConnectedPeer
 parameter_list|(
 name|String
