@@ -1844,10 +1844,7 @@ name|listPeerIds
 argument_list|()
 control|)
 block|{
-name|Optional
-argument_list|<
 name|ReplicationPeerConfig
-argument_list|>
 name|peerConfig
 init|=
 name|peerStorage
@@ -1881,9 +1878,6 @@ argument_list|,
 name|enabled
 argument_list|,
 name|peerConfig
-operator|.
-name|get
-argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;

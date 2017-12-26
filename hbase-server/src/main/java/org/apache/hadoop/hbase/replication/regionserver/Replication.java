@@ -955,10 +955,6 @@ argument_list|,
 name|this
 operator|.
 name|conf
-argument_list|,
-name|this
-operator|.
-name|server
 argument_list|)
 expr_stmt|;
 name|this

@@ -670,8 +670,6 @@ name|HBaseZKTestingUtility
 name|testUtil
 parameter_list|)
 throws|throws
-name|ZooKeeperConnectionException
-throws|,
 name|IOException
 block|{
 name|ZKWatcher

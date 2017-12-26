@@ -561,10 +561,6 @@ argument_list|(
 name|zkw
 argument_list|,
 name|conf
-argument_list|,
-operator|new
-name|WarnOnlyAbortable
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|OUR_KEY

@@ -1342,7 +1342,7 @@ name|tableCFMap
 init|=
 name|replicationPeers
 operator|.
-name|getConnectedPeer
+name|getPeer
 argument_list|(
 name|peerId
 argument_list|)
@@ -2204,7 +2204,7 @@ name|this
 operator|.
 name|replicationPeers
 operator|.
-name|getConnectedPeer
+name|getPeer
 argument_list|(
 name|peerId
 argument_list|)
@@ -2410,7 +2410,7 @@ name|this
 operator|.
 name|replicationPeers
 operator|.
-name|getStatusOfPeer
+name|isPeerEnabled
 argument_list|(
 name|this
 operator|.

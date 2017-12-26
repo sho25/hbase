@@ -1995,10 +1995,6 @@ name|zkw
 argument_list|,
 name|getConf
 argument_list|()
-argument_list|,
-name|queueStorage
-argument_list|,
-name|connection
 argument_list|)
 expr_stmt|;
 name|replicationTracker

@@ -94,6 +94,18 @@ import|;
 end_import
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|fail
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -1142,9 +1154,6 @@ name|getPeerConfig
 argument_list|(
 name|peerId
 argument_list|)
-operator|.
-name|get
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -1216,9 +1225,6 @@ name|getPeerConfig
 argument_list|(
 name|peerId
 argument_list|)
-operator|.
-name|get
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -1378,19 +1384,27 @@ name|toRemove
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|assertFalse
-argument_list|(
+try|try
+block|{
 name|STORAGE
 operator|.
 name|getPeerConfig
 argument_list|(
 name|toRemove
 argument_list|)
-operator|.
-name|isPresent
-argument_list|()
+expr_stmt|;
+name|fail
+argument_list|(
+literal|"Should throw a ReplicationException when get peer config of a peerId"
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|ReplicationException
+name|e
+parameter_list|)
+block|{     }
 block|}
 block|}
 end_class
