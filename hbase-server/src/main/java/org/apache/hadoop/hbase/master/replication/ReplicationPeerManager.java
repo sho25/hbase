@@ -23,6 +23,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|ArrayList
@@ -338,6 +348,22 @@ operator|.
 name|replication
 operator|.
 name|ReplicationStorageFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
+name|ZKConfig
 import|;
 end_import
 
@@ -1350,9 +1376,7 @@ name|empty
 argument_list|()
 return|;
 block|}
-comment|/**    * If replicate_all flag is true, it means all user tables will be replicated to peer cluster.    * Then allow config exclude namespaces or exclude table-cfs which can't be replicated to peer    * cluster.    *<p>    * If replicate_all flag is false, it means all user tables can't be replicated to peer cluster.    * Then allow to config namespaces or table-cfs which will be replicated to peer cluster.    */
 specifier|private
-specifier|static
 name|void
 name|checkPeerConfig
 parameter_list|(
@@ -1362,6 +1386,14 @@ parameter_list|)
 throws|throws
 name|DoNotRetryIOException
 block|{
+name|checkClusterKey
+argument_list|(
+name|peerConfig
+operator|.
+name|getClusterKey
+argument_list|()
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|peerConfig
@@ -1370,6 +1402,9 @@ name|replicateAllUserTables
 argument_list|()
 condition|)
 block|{
+comment|// If replicate_all flag is true, it means all user tables will be replicated to peer cluster.
+comment|// Then allow config exclude namespaces or exclude table-cfs which can't be replicated to peer
+comment|// cluster.
 if|if
 condition|(
 operator|(
@@ -1435,6 +1470,9 @@ expr_stmt|;
 block|}
 else|else
 block|{
+comment|// If replicate_all flag is false, it means all user tables can't be replicated to peer
+comment|// cluster. Then allow to config namespaces or table-cfs which will be replicated to peer
+comment|// cluster.
 if|if
 condition|(
 operator|(
@@ -1506,7 +1544,6 @@ expr_stmt|;
 block|}
 comment|/**    * Set a namespace in the peer config means that all tables in this namespace will be replicated    * to the peer cluster.    *<ol>    *<li>If peer config already has a namespace, then not allow set any table of this namespace to    * the peer config.</li>    *<li>If peer config already has a table, then not allow set this table's namespace to the peer    * config.</li>    *</ol>    *<p>    * Set a exclude namespace in the peer config means that all tables in this namespace can't be    * replicated to the peer cluster.    *<ol>    *<li>If peer config already has a exclude namespace, then not allow set any exclude table of    * this namespace to the peer config.</li>    *<li>If peer config already has a exclude table, then not allow set this table's namespace as a    * exclude namespace.</li>    *</ol>    */
 specifier|private
-specifier|static
 name|void
 name|checkNamespacesAndTableCfsConfigConflict
 parameter_list|(
@@ -1626,7 +1663,6 @@ block|}
 block|}
 block|}
 specifier|private
-specifier|static
 name|void
 name|checkConfiguredWALEntryFilters
 parameter_list|(
@@ -1719,6 +1755,45 @@ argument_list|)
 throw|;
 block|}
 block|}
+block|}
+block|}
+specifier|private
+name|void
+name|checkClusterKey
+parameter_list|(
+name|String
+name|clusterKey
+parameter_list|)
+throws|throws
+name|DoNotRetryIOException
+block|{
+try|try
+block|{
+name|ZKConfig
+operator|.
+name|validateClusterKey
+argument_list|(
+name|clusterKey
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|DoNotRetryIOException
+argument_list|(
+literal|"Invalid cluster key: "
+operator|+
+name|clusterKey
+argument_list|,
+name|e
+argument_list|)
+throw|;
 block|}
 block|}
 specifier|public
