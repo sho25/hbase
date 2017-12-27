@@ -55,20 +55,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|conf
@@ -207,7 +193,7 @@ name|hbase
 operator|.
 name|replication
 operator|.
-name|ReplicationQueues
+name|ReplicationQueueStorage
 import|;
 end_import
 
@@ -245,6 +231,20 @@ name|Entry
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * Interface that defines a replication source  */
 end_comment
@@ -258,7 +258,7 @@ specifier|public
 interface|interface
 name|ReplicationSourceInterface
 block|{
-comment|/**    * Initializer for the source    * @param conf the configuration to use    * @param fs the file system to use    * @param manager the manager to use    * @param replicationQueues    * @param replicationPeers    * @param server the server for this region server    * @param peerClusterZnode    * @param clusterId    * @throws IOException    */
+comment|/**    * Initializer for the source    * @param conf the configuration to use    * @param fs the file system to use    * @param manager the manager to use    * @param server the server for this region server    */
 name|void
 name|init
 parameter_list|(
@@ -271,8 +271,8 @@ parameter_list|,
 name|ReplicationSourceManager
 name|manager
 parameter_list|,
-name|ReplicationQueues
-name|replicationQueues
+name|ReplicationQueueStorage
+name|queueStorage
 parameter_list|,
 name|ReplicationPeers
 name|replicationPeers

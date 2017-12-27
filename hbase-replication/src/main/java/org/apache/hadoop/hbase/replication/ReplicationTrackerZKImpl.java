@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/*  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -301,6 +301,12 @@ name|zookeeper
 argument_list|)
 argument_list|)
 expr_stmt|;
+comment|// watch the changes
+name|refreshOtherRegionServersList
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
 block|}
 annotation|@
 name|Override
@@ -350,7 +356,9 @@ name|getListOfRegionServers
 parameter_list|()
 block|{
 name|refreshOtherRegionServersList
-argument_list|()
+argument_list|(
+literal|false
+argument_list|)
 expr_stmt|;
 name|List
 argument_list|<
@@ -541,7 +549,9 @@ return|;
 block|}
 return|return
 name|refreshOtherRegionServersList
-argument_list|()
+argument_list|(
+literal|true
+argument_list|)
 return|;
 block|}
 block|}
@@ -588,7 +598,10 @@ comment|/**    * Reads the list of region servers from ZK and atomically clears 
 specifier|private
 name|boolean
 name|refreshOtherRegionServersList
-parameter_list|()
+parameter_list|(
+name|boolean
+name|watch
+parameter_list|)
 block|{
 name|List
 argument_list|<
@@ -597,7 +610,9 @@ argument_list|>
 name|newRsList
 init|=
 name|getRegisteredRegionServers
-argument_list|()
+argument_list|(
+name|watch
+argument_list|)
 decl_stmt|;
 if|if
 condition|(
@@ -642,7 +657,10 @@ argument_list|<
 name|String
 argument_list|>
 name|getRegisteredRegionServers
-parameter_list|()
+parameter_list|(
+name|boolean
+name|watch
+parameter_list|)
 block|{
 name|List
 argument_list|<
@@ -653,6 +671,11 @@ init|=
 literal|null
 decl_stmt|;
 try|try
+block|{
+if|if
+condition|(
+name|watch
+condition|)
 block|{
 name|result
 operator|=
@@ -673,6 +696,29 @@ operator|.
 name|rsZNode
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|result
+operator|=
+name|ZKUtil
+operator|.
+name|listChildrenNoWatch
+argument_list|(
+name|this
+operator|.
+name|zookeeper
+argument_list|,
+name|this
+operator|.
+name|zookeeper
+operator|.
+name|znodePaths
+operator|.
+name|rsZNode
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(

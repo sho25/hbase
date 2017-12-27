@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -291,28 +291,8 @@ name|ToolRunner
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|slf4j
-operator|.
-name|Logger
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|slf4j
-operator|.
-name|LoggerFactory
-import|;
-end_import
-
 begin_comment
-comment|/**  * In a scenario of Replication based Disaster/Recovery, when hbase  * Master-Cluster crashes, this tool is used to sync-up the delta from Master to  * Slave using the info from ZooKeeper. The tool will run on Master-Cluser, and  * assume ZK, Filesystem and NetWork still available after hbase crashes  *  * hbase org.apache.hadoop.hbase.replication.regionserver.ReplicationSyncUp  */
+comment|/**  * In a scenario of Replication based Disaster/Recovery, when hbase Master-Cluster crashes, this  * tool is used to sync-up the delta from Master to Slave using the info from ZooKeeper. The tool  * will run on Master-Cluser, and assume ZK, Filesystem and NetWork still available after hbase  * crashes  *  *<pre>  * hbase org.apache.hadoop.hbase.replication.regionserver.ReplicationSyncUp  *</pre>  */
 end_comment
 
 begin_class
@@ -324,24 +304,6 @@ name|Configured
 implements|implements
 name|Tool
 block|{
-specifier|private
-specifier|static
-specifier|final
-name|Logger
-name|LOG
-init|=
-name|LoggerFactory
-operator|.
-name|getLogger
-argument_list|(
-name|ReplicationSyncUp
-operator|.
-name|class
-operator|.
-name|getName
-argument_list|()
-argument_list|)
-decl_stmt|;
 specifier|private
 specifier|static
 name|Configuration
@@ -585,18 +547,18 @@ name|manager
 operator|.
 name|init
 argument_list|()
+operator|.
+name|get
+argument_list|()
 expr_stmt|;
 try|try
 block|{
-name|int
-name|numberOfOldSource
-init|=
-literal|1
-decl_stmt|;
-comment|// default wait once
 while|while
 condition|(
-name|numberOfOldSource
+name|manager
+operator|.
+name|activeFailoverTaskCount
+argument_list|()
 operator|>
 literal|0
 condition|)
@@ -608,8 +570,9 @@ argument_list|(
 name|SLEEP_TIME
 argument_list|)
 expr_stmt|;
-name|numberOfOldSource
-operator|=
+block|}
+while|while
+condition|(
 name|manager
 operator|.
 name|getOldSources
@@ -617,6 +580,16 @@ argument_list|()
 operator|.
 name|size
 argument_list|()
+operator|>
+literal|0
+condition|)
+block|{
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+name|SLEEP_TIME
+argument_list|)
 expr_stmt|;
 block|}
 block|}
@@ -655,9 +628,7 @@ name|close
 argument_list|()
 expr_stmt|;
 return|return
-operator|(
 literal|0
-operator|)
 return|;
 block|}
 specifier|static
