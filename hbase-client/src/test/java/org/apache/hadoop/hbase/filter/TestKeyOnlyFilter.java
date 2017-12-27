@@ -45,27 +45,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|ArrayList
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|Collection
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|List
 import|;
 end_import
 
@@ -169,7 +149,7 @@ name|filter
 operator|.
 name|KeyOnlyFilter
 operator|.
-name|KeyOnlyByteBufferCell
+name|KeyOnlyByteBufferExtendedCell
 import|;
 end_import
 
@@ -607,11 +587,11 @@ argument_list|,
 name|lenAsVal
 argument_list|)
 decl_stmt|;
-name|KeyOnlyByteBufferCell
+name|KeyOnlyByteBufferExtendedCell
 name|keyOnlyByteBufferedCell
 init|=
 operator|new
-name|KeyOnlyByteBufferCell
+name|KeyOnlyByteBufferExtendedCell
 argument_list|(
 name|bbCell
 argument_list|,

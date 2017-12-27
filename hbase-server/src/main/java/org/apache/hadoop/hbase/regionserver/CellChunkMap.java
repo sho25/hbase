@@ -451,7 +451,7 @@ throw|;
 block|}
 return|return
 operator|new
-name|ByteBufferChunkCell
+name|ByteBufferChunkKeyValue
 argument_list|(
 name|buf
 argument_list|,

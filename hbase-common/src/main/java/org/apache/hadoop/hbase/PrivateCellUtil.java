@@ -556,13 +556,13 @@ if|if
 condition|(
 name|cell
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 return|return
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -574,7 +574,7 @@ name|get
 argument_list|(
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -617,13 +617,13 @@ if|if
 condition|(
 name|cell
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 return|return
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -635,7 +635,7 @@ name|get
 argument_list|(
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -746,15 +746,15 @@ if|if
 condition|(
 name|cell
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 return|return
 operator|new
-name|TagRewriteByteBufferCell
+name|TagRewriteByteBufferExtendedCell
 argument_list|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 argument_list|,
@@ -793,15 +793,15 @@ if|if
 condition|(
 name|cell
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 return|return
 operator|new
-name|ValueAndTagRewriteByteBufferCell
+name|ValueAndTagRewriteByteBufferExtendedCell
 argument_list|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 argument_list|,
@@ -1585,14 +1585,12 @@ block|}
 block|}
 specifier|static
 class|class
-name|TagRewriteByteBufferCell
+name|TagRewriteByteBufferExtendedCell
 extends|extends
-name|ByteBufferCell
-implements|implements
-name|ExtendedCell
+name|ByteBufferExtendedCell
 block|{
 specifier|protected
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 name|cell
 decl_stmt|;
 specifier|protected
@@ -1616,11 +1614,11 @@ name|ClassSize
 operator|.
 name|REFERENCE
 decl_stmt|;
-comment|/**      * @param cell The original ByteBufferCell which it rewrites      * @param tags the tags bytes. The array suppose to contain the tags bytes alone.      */
+comment|/**      * @param cell The original ByteBufferExtendedCell which it rewrites      * @param tags the tags bytes. The array suppose to contain the tags bytes alone.      */
 specifier|public
-name|TagRewriteByteBufferCell
+name|TagRewriteByteBufferExtendedCell
 parameter_list|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 name|cell
 parameter_list|,
 name|byte
@@ -1628,11 +1626,6 @@ index|[]
 name|tags
 parameter_list|)
 block|{
-assert|assert
-name|cell
-operator|instanceof
-name|ExtendedCell
-assert|;
 assert|assert
 name|tags
 operator|!=
@@ -1657,13 +1650,13 @@ name|this
 operator|.
 name|cell
 operator|instanceof
-name|TagRewriteByteBufferCell
+name|TagRewriteByteBufferExtendedCell
 condition|)
 block|{
 comment|// Cleaning the ref so that the byte[] can be GCed
 operator|(
 operator|(
-name|TagRewriteByteBufferCell
+name|TagRewriteByteBufferExtendedCell
 operator|)
 name|this
 operator|.
@@ -2369,15 +2362,15 @@ if|if
 condition|(
 name|clonedBaseCell
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 return|return
 operator|new
-name|TagRewriteByteBufferCell
+name|TagRewriteByteBufferExtendedCell
 argument_list|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|clonedBaseCell
 argument_list|,
@@ -2735,7 +2728,7 @@ name|tags
 argument_list|)
 return|;
 block|}
-comment|// Made into a static method so as to reuse the logic within ValueAndTagRewriteByteBufferCell
+comment|/**      * Made into a static method so as to reuse the logic within      * ValueAndTagRewriteByteBufferExtendedCell      */
 specifier|static
 name|int
 name|write
@@ -2970,7 +2963,7 @@ name|tags
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Made into a static method so as to reuse the logic within ValueAndTagRewriteByteBufferCell
+comment|/**      * Made into a static method so as to reuse the logic      * within ValueAndTagRewriteByteBufferExtendedCell      */
 specifier|static
 name|void
 name|write
@@ -3155,9 +3148,9 @@ block|}
 block|}
 specifier|static
 class|class
-name|ValueAndTagRewriteByteBufferCell
+name|ValueAndTagRewriteByteBufferExtendedCell
 extends|extends
-name|TagRewriteByteBufferCell
+name|TagRewriteByteBufferExtendedCell
 block|{
 specifier|protected
 name|byte
@@ -3165,9 +3158,9 @@ index|[]
 name|value
 decl_stmt|;
 specifier|public
-name|ValueAndTagRewriteByteBufferCell
+name|ValueAndTagRewriteByteBufferExtendedCell
 parameter_list|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 name|cell
 parameter_list|,
 name|byte
@@ -3445,15 +3438,15 @@ if|if
 condition|(
 name|clonedBaseCell
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 return|return
 operator|new
-name|ValueAndTagRewriteByteBufferCell
+name|ValueAndTagRewriteByteBufferExtendedCell
 argument_list|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|clonedBaseCell
 argument_list|,
@@ -3511,7 +3504,7 @@ if|if
 condition|(
 name|left
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 return|return
@@ -3521,7 +3514,7 @@ name|equals
 argument_list|(
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|left
 operator|)
@@ -3531,7 +3524,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|left
 operator|)
@@ -3607,7 +3600,7 @@ if|if
 condition|(
 name|left
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 return|return
@@ -3617,7 +3610,7 @@ name|equals
 argument_list|(
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|left
 operator|)
@@ -3627,7 +3620,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|left
 operator|)
@@ -3720,7 +3713,7 @@ if|if
 condition|(
 name|left
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 return|return
@@ -3730,7 +3723,7 @@ name|equals
 argument_list|(
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|left
 operator|)
@@ -3740,7 +3733,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|left
 operator|)
@@ -3881,11 +3874,11 @@ if|if
 condition|(
 name|left
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|&&
 name|right
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 return|return
@@ -3895,7 +3888,7 @@ name|equals
 argument_list|(
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|left
 operator|)
@@ -3905,7 +3898,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|left
 operator|)
@@ -3917,7 +3910,7 @@ name|lvlength
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|right
 operator|)
@@ -3927,7 +3920,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|right
 operator|)
@@ -3943,7 +3936,7 @@ if|if
 condition|(
 name|left
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 return|return
@@ -3953,7 +3946,7 @@ name|equals
 argument_list|(
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|left
 operator|)
@@ -3963,7 +3956,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|left
 operator|)
@@ -3991,7 +3984,7 @@ if|if
 condition|(
 name|right
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 return|return
@@ -4001,7 +3994,7 @@ name|equals
 argument_list|(
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|right
 operator|)
@@ -4011,7 +4004,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|right
 operator|)
@@ -4344,7 +4337,7 @@ if|if
 condition|(
 name|cell
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 name|ByteBufferUtils
@@ -4355,7 +4348,7 @@ name|destination
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -4365,7 +4358,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -4437,7 +4430,7 @@ if|if
 condition|(
 name|cell
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 name|ByteBufferUtils
@@ -4446,7 +4439,7 @@ name|copyFromBufferToBuffer
 argument_list|(
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -4458,7 +4451,7 @@ name|destination
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -4581,7 +4574,7 @@ name|bufferBacked
 init|=
 name|cell
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 decl_stmt|;
 name|int
 name|length
@@ -4598,7 +4591,7 @@ name|bufferBacked
 condition|?
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -4638,7 +4631,7 @@ name|tagsBuffer
 init|=
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -4806,7 +4799,7 @@ if|if
 condition|(
 name|cell
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 return|return
@@ -4814,7 +4807,7 @@ name|tagsIterator
 argument_list|(
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -4824,7 +4817,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -5191,7 +5184,7 @@ if|if
 condition|(
 name|cell
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 name|ByteBufferUtils
@@ -5205,7 +5198,7 @@ name|out
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -5215,7 +5208,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -5350,11 +5343,11 @@ if|if
 condition|(
 name|c1
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|&&
 name|c2
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 name|rkCommonPrefix
@@ -5365,7 +5358,7 @@ name|findCommonPrefix
 argument_list|(
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|c1
 operator|)
@@ -5375,7 +5368,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|c1
 operator|)
@@ -5387,7 +5380,7 @@ name|rLen1
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|c2
 operator|)
@@ -5397,7 +5390,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|c2
 operator|)
@@ -5526,11 +5519,11 @@ if|if
 condition|(
 name|c1
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|&&
 name|c2
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 name|fCommonPrefix
@@ -5541,7 +5534,7 @@ name|findCommonPrefix
 argument_list|(
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|c1
 operator|)
@@ -5551,7 +5544,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|c1
 operator|)
@@ -5563,7 +5556,7 @@ name|fLen1
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|c2
 operator|)
@@ -5573,7 +5566,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|c2
 operator|)
@@ -5659,11 +5652,11 @@ if|if
 condition|(
 name|c1
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|&&
 name|c2
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 name|qCommon
@@ -5674,7 +5667,7 @@ name|findCommonPrefix
 argument_list|(
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|c1
 operator|)
@@ -5684,7 +5677,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|c1
 operator|)
@@ -5696,7 +5689,7 @@ name|qLen1
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|c2
 operator|)
@@ -5706,7 +5699,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|c2
 operator|)
@@ -6152,7 +6145,7 @@ if|if
 condition|(
 name|cell
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 return|return
@@ -6162,7 +6155,7 @@ name|compareTo
 argument_list|(
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -6172,7 +6165,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -6226,7 +6219,7 @@ if|if
 condition|(
 name|cell
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 return|return
@@ -6236,7 +6229,7 @@ name|compareTo
 argument_list|(
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -6246,7 +6239,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -6300,7 +6293,7 @@ if|if
 condition|(
 name|cell
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 return|return
@@ -6310,7 +6303,7 @@ name|compareTo
 argument_list|(
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -6320,7 +6313,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -6544,7 +6537,7 @@ if|if
 condition|(
 name|cell
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 return|return
@@ -6554,7 +6547,7 @@ name|compareTo
 argument_list|(
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -6564,7 +6557,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -6834,11 +6827,9 @@ specifier|private
 specifier|static
 specifier|abstract
 class|class
-name|EmptyByteBufferCell
+name|EmptyByteBufferExtendedCell
 extends|extends
-name|ByteBufferCell
-implements|implements
-name|ExtendedCell
+name|ByteBufferExtendedCell
 block|{
 annotation|@
 name|Override
@@ -7405,9 +7396,9 @@ block|}
 specifier|private
 specifier|static
 class|class
-name|FirstOnRowByteBufferCell
+name|FirstOnRowByteBufferExtendedCell
 extends|extends
-name|EmptyByteBufferCell
+name|EmptyByteBufferExtendedCell
 block|{
 specifier|private
 specifier|static
@@ -7451,7 +7442,7 @@ name|short
 name|rlength
 decl_stmt|;
 specifier|public
-name|FirstOnRowByteBufferCell
+name|FirstOnRowByteBufferExtendedCell
 parameter_list|(
 specifier|final
 name|ByteBuffer
@@ -7605,9 +7596,9 @@ block|}
 specifier|private
 specifier|static
 class|class
-name|LastOnRowByteBufferCell
+name|LastOnRowByteBufferExtendedCell
 extends|extends
-name|EmptyByteBufferCell
+name|EmptyByteBufferExtendedCell
 block|{
 specifier|private
 specifier|static
@@ -7651,7 +7642,7 @@ name|short
 name|rlength
 decl_stmt|;
 specifier|public
-name|LastOnRowByteBufferCell
+name|LastOnRowByteBufferExtendedCell
 parameter_list|(
 specifier|final
 name|ByteBuffer
@@ -7805,9 +7796,9 @@ block|}
 specifier|private
 specifier|static
 class|class
-name|FirstOnRowColByteBufferCell
+name|FirstOnRowColByteBufferExtendedCell
 extends|extends
-name|FirstOnRowByteBufferCell
+name|FirstOnRowByteBufferExtendedCell
 block|{
 specifier|private
 specifier|static
@@ -7815,7 +7806,7 @@ specifier|final
 name|int
 name|FIXED_OVERHEAD
 init|=
-name|FirstOnRowByteBufferCell
+name|FirstOnRowByteBufferExtendedCell
 operator|.
 name|FIXED_OVERHEAD
 operator|+
@@ -7869,7 +7860,7 @@ name|int
 name|colLength
 decl_stmt|;
 specifier|public
-name|FirstOnRowColByteBufferCell
+name|FirstOnRowColByteBufferExtendedCell
 parameter_list|(
 specifier|final
 name|ByteBuffer
@@ -8514,9 +8505,9 @@ block|}
 specifier|private
 specifier|static
 class|class
-name|FirstOnRowColTSByteBufferCell
+name|FirstOnRowColTSByteBufferExtendedCell
 extends|extends
-name|FirstOnRowColByteBufferCell
+name|FirstOnRowColByteBufferExtendedCell
 block|{
 specifier|private
 specifier|static
@@ -8524,7 +8515,7 @@ specifier|final
 name|int
 name|FIXED_OVERHEAD
 init|=
-name|FirstOnRowColByteBufferCell
+name|FirstOnRowColByteBufferExtendedCell
 operator|.
 name|FIXED_OVERHEAD
 operator|+
@@ -8538,7 +8529,7 @@ name|long
 name|ts
 decl_stmt|;
 specifier|public
-name|FirstOnRowColTSByteBufferCell
+name|FirstOnRowColTSByteBufferExtendedCell
 parameter_list|(
 name|ByteBuffer
 name|rBuffer
@@ -9110,9 +9101,9 @@ block|}
 specifier|private
 specifier|static
 class|class
-name|LastOnRowColByteBufferCell
+name|LastOnRowColByteBufferExtendedCell
 extends|extends
-name|LastOnRowByteBufferCell
+name|LastOnRowByteBufferExtendedCell
 block|{
 specifier|private
 specifier|static
@@ -9120,7 +9111,7 @@ specifier|final
 name|int
 name|FIXED_OVERHEAD
 init|=
-name|LastOnRowByteBufferCell
+name|LastOnRowByteBufferExtendedCell
 operator|.
 name|FIXED_OVERHEAD
 operator|+
@@ -9174,7 +9165,7 @@ name|int
 name|qlength
 decl_stmt|;
 specifier|public
-name|LastOnRowColByteBufferCell
+name|LastOnRowColByteBufferExtendedCell
 parameter_list|(
 name|ByteBuffer
 name|rBuffer
@@ -9693,7 +9684,7 @@ if|if
 condition|(
 name|cell
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 name|out
@@ -9711,7 +9702,7 @@ name|out
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -9721,7 +9712,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -9747,7 +9738,7 @@ name|out
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -9757,7 +9748,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -9776,7 +9767,7 @@ name|out
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -9786,7 +9777,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -10226,7 +10217,7 @@ if|if
 condition|(
 name|cell
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 name|StreamUtils
@@ -10246,7 +10237,7 @@ name|out
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -10256,7 +10247,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -10282,7 +10273,7 @@ name|out
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -10292,7 +10283,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -10311,7 +10302,7 @@ name|out
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -10321,7 +10312,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -10728,7 +10719,7 @@ if|if
 condition|(
 name|cell
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 name|ByteBufferUtils
@@ -10739,7 +10730,7 @@ name|out
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -10749,7 +10740,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -10804,7 +10795,7 @@ if|if
 condition|(
 name|cell
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 name|ByteBufferUtils
@@ -10815,7 +10806,7 @@ name|out
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -10825,7 +10816,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -10880,7 +10871,7 @@ if|if
 condition|(
 name|cell
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 name|ByteBufferUtils
@@ -10891,7 +10882,7 @@ name|out
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -10901,7 +10892,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -10959,7 +10950,7 @@ if|if
 condition|(
 name|cell
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 name|ByteBufferUtils
@@ -10973,7 +10964,7 @@ name|out
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -10983,7 +10974,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -11046,7 +11037,7 @@ if|if
 condition|(
 name|cell
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 name|ByteBufferUtils
@@ -11057,7 +11048,7 @@ name|out
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -11067,7 +11058,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -11122,7 +11113,7 @@ if|if
 condition|(
 name|cell
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 name|ByteBufferUtils
@@ -11133,7 +11124,7 @@ name|out
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -11143,7 +11134,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -11296,7 +11287,7 @@ if|if
 condition|(
 name|cell
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 return|return
@@ -11306,7 +11297,7 @@ name|toInt
 argument_list|(
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -11316,7 +11307,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -11357,7 +11348,7 @@ if|if
 condition|(
 name|cell
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 return|return
@@ -11367,7 +11358,7 @@ name|toLong
 argument_list|(
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -11377,7 +11368,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -11418,7 +11409,7 @@ if|if
 condition|(
 name|cell
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 return|return
@@ -11428,7 +11419,7 @@ name|toInt
 argument_list|(
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -11438,7 +11429,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -11479,7 +11470,7 @@ if|if
 condition|(
 name|cell
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 return|return
@@ -11489,7 +11480,7 @@ name|toDouble
 argument_list|(
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -11499,7 +11490,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -11540,7 +11531,7 @@ if|if
 condition|(
 name|cell
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 return|return
@@ -11550,7 +11541,7 @@ name|toBigDecimal
 argument_list|(
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -11560,7 +11551,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -11619,7 +11610,7 @@ if|if
 condition|(
 name|cell
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 name|tagCompressionContext
@@ -11630,7 +11621,7 @@ name|out
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -11640,7 +11631,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -11702,7 +11693,7 @@ if|if
 condition|(
 name|cell
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 name|Dictionary
@@ -11713,7 +11704,7 @@ name|out
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -11723,7 +11714,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -11789,7 +11780,7 @@ if|if
 condition|(
 name|cell
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 name|Dictionary
@@ -11800,7 +11791,7 @@ name|out
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -11810,7 +11801,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -11876,7 +11867,7 @@ if|if
 condition|(
 name|cell
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 name|Dictionary
@@ -11887,7 +11878,7 @@ name|out
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -11897,7 +11888,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -12461,16 +12452,16 @@ if|if
 condition|(
 name|cell
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 return|return
 operator|new
-name|LastOnRowColByteBufferCell
+name|LastOnRowColByteBufferExtendedCell
 argument_list|(
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -12480,7 +12471,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -12495,7 +12486,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -12505,7 +12496,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -12520,7 +12511,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -12530,7 +12521,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -12915,16 +12906,16 @@ if|if
 condition|(
 name|cell
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 return|return
 operator|new
-name|FirstOnRowByteBufferCell
+name|FirstOnRowByteBufferExtendedCell
 argument_list|(
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -12934,7 +12925,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -13168,16 +13159,16 @@ if|if
 condition|(
 name|cell
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 return|return
 operator|new
-name|FirstOnRowColByteBufferCell
+name|FirstOnRowColByteBufferExtendedCell
 argument_list|(
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -13187,7 +13178,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -13276,16 +13267,16 @@ if|if
 condition|(
 name|cell
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 return|return
 operator|new
-name|FirstOnRowColByteBufferCell
+name|FirstOnRowColByteBufferExtendedCell
 argument_list|(
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -13295,7 +13286,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -13321,7 +13312,7 @@ literal|0
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -13331,7 +13322,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -13483,16 +13474,16 @@ if|if
 condition|(
 name|cell
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 return|return
 operator|new
-name|FirstOnRowColByteBufferCell
+name|FirstOnRowColByteBufferExtendedCell
 argument_list|(
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -13502,7 +13493,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -13517,7 +13508,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -13527,7 +13518,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -13612,16 +13603,16 @@ if|if
 condition|(
 name|cell
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 return|return
 operator|new
-name|FirstOnRowColTSByteBufferCell
+name|FirstOnRowColTSByteBufferExtendedCell
 argument_list|(
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -13631,7 +13622,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -13646,7 +13637,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -13656,7 +13647,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -13671,7 +13662,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -13681,7 +13672,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -13766,16 +13757,16 @@ if|if
 condition|(
 name|cell
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 return|return
 operator|new
-name|LastOnRowByteBufferCell
+name|LastOnRowByteBufferExtendedCell
 argument_list|(
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -13785,7 +13776,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -13864,16 +13855,16 @@ if|if
 condition|(
 name|cell
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 return|return
 operator|new
-name|LastOnRowColByteBufferCell
+name|LastOnRowColByteBufferExtendedCell
 argument_list|(
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -13883,7 +13874,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -13898,7 +13889,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -13908,7 +13899,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -13923,7 +13914,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -13933,7 +13924,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)

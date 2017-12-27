@@ -132,7 +132,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This Cell is an implementation of {@link ByteBufferCell} where the data resides in  * off heap/ on heap ByteBuffer  */
+comment|/**  * This Cell is an implementation of {@link ByteBufferExtendedCell} where the data resides in  * off heap/ on heap ByteBuffer  */
 end_comment
 
 begin_class
@@ -144,9 +144,7 @@ specifier|public
 class|class
 name|ByteBufferKeyValue
 extends|extends
-name|ByteBufferCell
-implements|implements
-name|ExtendedCell
+name|ByteBufferExtendedCell
 block|{
 specifier|protected
 specifier|final
@@ -1348,7 +1346,7 @@ specifier|private
 name|int
 name|calculateHashForKey
 parameter_list|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 name|cell
 parameter_list|)
 block|{

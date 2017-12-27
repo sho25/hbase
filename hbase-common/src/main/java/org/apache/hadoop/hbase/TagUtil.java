@@ -485,7 +485,7 @@ if|if
 condition|(
 name|cell
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 name|ByteBufferUtils
@@ -496,7 +496,7 @@ name|b
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)
@@ -506,7 +506,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|cell
 operator|)

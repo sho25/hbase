@@ -107,7 +107,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|MapReduceCell
+name|MapReduceExtendedCell
 import|;
 end_import
 
@@ -285,7 +285,7 @@ argument_list|(
 name|row
 argument_list|,
 operator|new
-name|MapReduceCell
+name|MapReduceExtendedCell
 argument_list|(
 name|kv
 argument_list|)

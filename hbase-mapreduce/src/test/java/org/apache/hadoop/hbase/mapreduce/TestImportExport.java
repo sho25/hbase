@@ -261,7 +261,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|MapReduceCell
+name|MapReduceExtendedCell
 import|;
 end_import
 
@@ -4651,11 +4651,11 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
-name|MapReduceCell
+name|MapReduceExtendedCell
 name|key
 init|=
 operator|(
-name|MapReduceCell
+name|MapReduceExtendedCell
 operator|)
 name|invocation
 operator|.

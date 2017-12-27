@@ -681,7 +681,7 @@ comment|// reading the tagLength stored in the backing buffer. The Memstore addi
 comment|// call getTagsLength().
 return|return
 operator|new
-name|NoTagByteBufferChunkCell
+name|NoTagByteBufferChunkKeyValue
 argument_list|(
 name|buf
 argument_list|,
@@ -700,7 +700,7 @@ else|else
 block|{
 return|return
 operator|new
-name|ByteBufferChunkCell
+name|ByteBufferChunkKeyValue
 argument_list|(
 name|buf
 argument_list|,

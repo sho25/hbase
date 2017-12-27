@@ -387,11 +387,11 @@ if|if
 condition|(
 name|left
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|&&
 name|right
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 return|return
@@ -401,7 +401,7 @@ name|compareTo
 argument_list|(
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|left
 operator|)
@@ -411,7 +411,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|left
 operator|)
@@ -426,7 +426,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|right
 operator|)
@@ -436,7 +436,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|right
 operator|)
@@ -455,7 +455,7 @@ if|if
 condition|(
 name|left
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 return|return
@@ -465,7 +465,7 @@ name|compareTo
 argument_list|(
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|left
 operator|)
@@ -475,7 +475,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|left
 operator|)
@@ -509,7 +509,7 @@ if|if
 condition|(
 name|right
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 comment|// Notice how we flip the order of the compare here. We used to negate the return value but
@@ -538,7 +538,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|right
 operator|)
@@ -548,7 +548,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|right
 operator|)
@@ -619,11 +619,11 @@ if|if
 condition|(
 name|left
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|&&
 name|right
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 return|return
@@ -633,7 +633,7 @@ name|compareTo
 argument_list|(
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|left
 operator|)
@@ -643,7 +643,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|left
 operator|)
@@ -658,7 +658,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|right
 operator|)
@@ -668,7 +668,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|right
 operator|)
@@ -687,7 +687,7 @@ if|if
 condition|(
 name|left
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 return|return
@@ -697,7 +697,7 @@ name|compareTo
 argument_list|(
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|left
 operator|)
@@ -707,7 +707,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|left
 operator|)
@@ -741,7 +741,7 @@ if|if
 condition|(
 name|right
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 comment|// Notice how we flip the order of the compare here. We used to negate the return value but
@@ -770,7 +770,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|right
 operator|)
@@ -780,7 +780,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|right
 operator|)
@@ -864,11 +864,11 @@ if|if
 condition|(
 name|left
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|&&
 name|right
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 return|return
@@ -878,7 +878,7 @@ name|compareTo
 argument_list|(
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|left
 operator|)
@@ -888,7 +888,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|left
 operator|)
@@ -903,7 +903,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|right
 operator|)
@@ -913,7 +913,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|right
 operator|)
@@ -932,7 +932,7 @@ if|if
 condition|(
 name|left
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 return|return
@@ -942,7 +942,7 @@ name|compareTo
 argument_list|(
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|left
 operator|)
@@ -952,7 +952,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|left
 operator|)
@@ -986,7 +986,7 @@ if|if
 condition|(
 name|right
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 comment|// Notice how we flip the order of the compare here. We used to negate the return value but
@@ -1015,7 +1015,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|right
 operator|)
@@ -1025,7 +1025,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|right
 operator|)
@@ -1102,7 +1102,7 @@ if|if
 condition|(
 name|left
 operator|instanceof
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 condition|)
 block|{
 return|return
@@ -1112,7 +1112,7 @@ name|compareTo
 argument_list|(
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|left
 operator|)
@@ -1122,7 +1122,7 @@ argument_list|()
 argument_list|,
 operator|(
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|left
 operator|)

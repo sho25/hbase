@@ -40,7 +40,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * For internal purpose.  * {@link Tag} and memstoreTS/mvcc are internal implementation detail  *  that should not be exposed publicly.  * Use {@link ExtendedCellBuilderFactory} to get ExtendedCellBuilder instance.  * TODO: ditto for ByteBufferCell?  */
+comment|/**  * For internal purpose.  * {@link Tag} and memstoreTS/mvcc are internal implementation detail  *  that should not be exposed publicly.  * Use {@link ExtendedCellBuilderFactory} to get ExtendedCellBuilder instance.  * TODO: ditto for ByteBufferExtendedCell?  */
 end_comment
 
 begin_interface

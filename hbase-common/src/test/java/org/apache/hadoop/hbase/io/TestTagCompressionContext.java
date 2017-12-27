@@ -103,7 +103,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 import|;
 end_import
 
@@ -642,11 +642,11 @@ operator|.
 name|MAX_VALUE
 argument_list|)
 decl_stmt|;
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 name|kv1
 init|=
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|createOffheapKVWithTags
 argument_list|(
@@ -680,11 +680,11 @@ argument_list|,
 name|tagsLength1
 argument_list|)
 expr_stmt|;
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 name|kv2
 init|=
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|createOffheapKVWithTags
 argument_list|(
@@ -1096,11 +1096,11 @@ operator|.
 name|MAX_VALUE
 argument_list|)
 decl_stmt|;
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 name|kv1
 init|=
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|createOffheapKVWithTags
 argument_list|(
@@ -1134,11 +1134,11 @@ argument_list|,
 name|tagsLength1
 argument_list|)
 expr_stmt|;
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 name|kv2
 init|=
 operator|(
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 operator|)
 name|createOffheapKVWithTags
 argument_list|(

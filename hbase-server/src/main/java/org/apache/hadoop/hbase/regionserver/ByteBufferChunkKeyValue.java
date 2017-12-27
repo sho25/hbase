@@ -37,7 +37,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|NoTagsByteBufferKeyValue
+name|ByteBufferKeyValue
 import|;
 end_import
 
@@ -72,7 +72,19 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * ByteBuffer based cell which has the chunkid at the 0th offset and with no tags  * @see MemStoreLAB  */
+comment|/**  * ByteBuffer based cell which has the chunkid at the 0th offset  * @see MemStoreLAB  */
+end_comment
+
+begin_comment
+comment|//TODO : When moving this cell to CellChunkMap we will have the following things
+end_comment
+
+begin_comment
+comment|// to be serialized
+end_comment
+
+begin_comment
+comment|// chunkId (Integer) + offset (Integer) + length (Integer) + seqId (Long) = 20 bytes
 end_comment
 
 begin_class
@@ -82,12 +94,12 @@ operator|.
 name|Private
 specifier|public
 class|class
-name|NoTagByteBufferChunkCell
+name|ByteBufferChunkKeyValue
 extends|extends
-name|NoTagsByteBufferKeyValue
+name|ByteBufferKeyValue
 block|{
 specifier|public
-name|NoTagByteBufferChunkCell
+name|ByteBufferChunkKeyValue
 parameter_list|(
 name|ByteBuffer
 name|buf
@@ -110,7 +122,7 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|public
-name|NoTagByteBufferChunkCell
+name|ByteBufferChunkKeyValue
 parameter_list|(
 name|ByteBuffer
 name|buf

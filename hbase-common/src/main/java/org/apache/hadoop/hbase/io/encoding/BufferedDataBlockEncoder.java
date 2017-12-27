@@ -79,7 +79,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ByteBufferCell
+name|ByteBufferExtendedCell
 import|;
 end_import
 
@@ -1639,7 +1639,7 @@ block|}
 block|}
 return|return
 operator|new
-name|OffheapDecodedCell
+name|OffheapDecodedExtendedCell
 argument_list|(
 name|ByteBuffer
 operator|.
@@ -2523,11 +2523,9 @@ block|}
 specifier|protected
 specifier|static
 class|class
-name|OffheapDecodedCell
+name|OffheapDecodedExtendedCell
 extends|extends
-name|ByteBufferCell
-implements|implements
-name|ExtendedCell
+name|ByteBufferExtendedCell
 block|{
 specifier|private
 specifier|static
@@ -2651,7 +2649,7 @@ name|long
 name|seqId
 decl_stmt|;
 specifier|protected
-name|OffheapDecodedCell
+name|OffheapDecodedExtendedCell
 parameter_list|(
 name|ByteBuffer
 name|keyBuffer
