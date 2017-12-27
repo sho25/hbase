@@ -216,7 +216,7 @@ operator|)
 name|server
 operator|)
 operator|.
-name|reportProcedureDone
+name|remoteProcedureComplete
 argument_list|(
 name|procId
 argument_list|,
