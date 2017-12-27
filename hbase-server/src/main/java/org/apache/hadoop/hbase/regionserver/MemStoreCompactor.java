@@ -367,20 +367,12 @@ operator|.
 name|getImmutableSegments
 argument_list|()
 expr_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Starting the In-Memory Compaction for store "
-operator|+
+literal|"Starting In-Memory Compaction of {}"
+argument_list|,
 name|compactingMemStore
 operator|.
 name|getStore
@@ -390,7 +382,6 @@ name|getColumnFamilyName
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 name|HStore
 name|store
 init|=

@@ -20022,7 +20022,7 @@ throw|throw
 operator|new
 name|RegionTooBusyException
 argument_list|(
-literal|"Above memstore limit, "
+literal|"Over memstore limit, "
 operator|+
 literal|"regionName="
 operator|+

@@ -1452,21 +1452,21 @@ block|{
 name|String
 name|res
 init|=
-literal|"Store segment of type "
+literal|"Type="
 operator|+
 name|this
 operator|.
 name|getClass
 argument_list|()
 operator|.
-name|getName
+name|getSimpleName
 argument_list|()
 operator|+
-literal|"; "
+literal|", "
 decl_stmt|;
 name|res
 operator|+=
-literal|"isEmpty "
+literal|"empty="
 operator|+
 operator|(
 name|isEmpty
@@ -1477,56 +1477,54 @@ else|:
 literal|"no"
 operator|)
 operator|+
-literal|"; "
+literal|", "
 expr_stmt|;
 name|res
 operator|+=
-literal|"cellsCount "
+literal|"cellCount="
 operator|+
 name|getCellsCount
 argument_list|()
 operator|+
-literal|"; "
+literal|", "
 expr_stmt|;
 name|res
 operator|+=
-literal|"cellsSize "
+literal|"cellSize="
 operator|+
 name|keySize
 argument_list|()
 operator|+
-literal|"; "
+literal|", "
 expr_stmt|;
 name|res
 operator|+=
-literal|"totalHeapSize "
+literal|"totalHeapSize="
 operator|+
 name|heapSize
 argument_list|()
 operator|+
-literal|"; "
+literal|", "
 expr_stmt|;
 name|res
 operator|+=
-literal|"Min ts "
+literal|"min timestamp="
 operator|+
 name|timeRangeTracker
 operator|.
 name|getMin
 argument_list|()
 operator|+
-literal|"; "
+literal|", "
 expr_stmt|;
 name|res
 operator|+=
-literal|"Max ts "
+literal|"max timestamp="
 operator|+
 name|timeRangeTracker
 operator|.
 name|getMax
 argument_list|()
-operator|+
-literal|"; "
 expr_stmt|;
 return|return
 name|res

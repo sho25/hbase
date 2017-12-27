@@ -456,22 +456,12 @@ operator|.
 name|getStoreSegments
 argument_list|()
 expr_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Swapping pipeline suffix. "
-operator|+
-literal|"Just before the swap the number of segments in pipeline is:"
-operator|+
+literal|"Swapping pipeline suffix; before={}, new segement={}"
+argument_list|,
 name|versionedList
 operator|.
 name|getStoreSegments
@@ -479,13 +469,10 @@ argument_list|()
 operator|.
 name|size
 argument_list|()
-operator|+
-literal|", and the new segment is:"
-operator|+
+argument_list|,
 name|segment
 argument_list|)
 expr_stmt|;
-block|}
 name|swapSuffix
 argument_list|(
 name|suffix
@@ -599,36 +586,23 @@ name|heapSizeDelta
 argument_list|)
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Suffix data size: "
+literal|"Suffix data size={}, new segment data size={}, suffix heap size={},"
 operator|+
+literal|"new segment heap size={}"
+argument_list|,
 name|suffixDataSize
-operator|+
-literal|" new segment data size: "
-operator|+
+argument_list|,
 name|newDataSize
-operator|+
-literal|". Suffix heap size: "
-operator|+
+argument_list|,
 name|suffixHeapSize
-operator|+
-literal|" new segment heap size: "
-operator|+
+argument_list|,
 name|newHeapSize
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 return|return
 literal|true
@@ -866,11 +840,9 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Compaction pipeline segment "
-operator|+
+literal|"Compaction pipeline segment {} flattened"
+argument_list|,
 name|s
-operator|+
-literal|" was flattened"
 argument_list|)
 expr_stmt|;
 return|return

@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -28,6 +28,24 @@ operator|.
 name|hbase
 operator|.
 name|HBaseInterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|procedure2
+operator|.
+name|util
+operator|.
+name|StringUtils
 import|;
 end_import
 
@@ -213,24 +231,16 @@ operator|==
 literal|null
 condition|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"No "
+literal|"No {} set in table {} descriptor;"
 operator|+
+literal|"using region.getMemStoreFlushSize/# of families ({}) instead."
+argument_list|,
 name|HREGION_COLUMNFAMILY_FLUSH_SIZE_LOWER_BOUND
-operator|+
-literal|" set in description of table "
-operator|+
+argument_list|,
 name|region
 operator|.
 name|getTableDescriptor
@@ -238,15 +248,17 @@ argument_list|()
 operator|.
 name|getTableName
 argument_list|()
-operator|+
-literal|", use config ("
-operator|+
+argument_list|,
+name|StringUtils
+operator|.
+name|humanSize
+argument_list|(
 name|flushSizeLowerBound
+argument_list|)
 operator|+
-literal|") instead"
+literal|")"
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 else|else
 block|{
@@ -273,12 +285,12 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Number format exception when parsing "
+literal|"Number format exception parsing {} for table {}: {}, {}; "
 operator|+
+literal|"using region.getMemStoreFlushSize/# of families ({}) instead."
+argument_list|,
 name|HREGION_COLUMNFAMILY_FLUSH_SIZE_LOWER_BOUND
-operator|+
-literal|" for table "
-operator|+
+argument_list|,
 name|region
 operator|.
 name|getTableDescriptor
@@ -286,20 +298,12 @@ argument_list|()
 operator|.
 name|getTableName
 argument_list|()
-operator|+
-literal|":"
-operator|+
+argument_list|,
 name|flushedSizeLowerBoundString
-operator|+
-literal|". "
-operator|+
+argument_list|,
 name|nfe
-operator|+
-literal|", use config ("
-operator|+
+argument_list|,
 name|flushSizeLowerBound
-operator|+
-literal|") instead"
 argument_list|)
 expr_stmt|;
 block|}
@@ -331,27 +335,17 @@ operator|.
 name|flushSizeLowerBound
 condition|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Flush Column Family "
-operator|+
+literal|"Flush {} of {}; memstoreSize={}> lowerBound={}"
+argument_list|,
 name|store
 operator|.
 name|getColumnFamilyName
 argument_list|()
-operator|+
-literal|" of "
-operator|+
+argument_list|,
 name|region
 operator|.
 name|getRegionInfo
@@ -359,9 +353,7 @@ argument_list|()
 operator|.
 name|getEncodedName
 argument_list|()
-operator|+
-literal|" because memstoreSize="
-operator|+
+argument_list|,
 name|store
 operator|.
 name|getMemStoreSize
@@ -369,15 +361,12 @@ argument_list|()
 operator|.
 name|getDataSize
 argument_list|()
-operator|+
-literal|"> lower bound="
-operator|+
+argument_list|,
 name|this
 operator|.
 name|flushSizeLowerBound
 argument_list|)
 expr_stmt|;
-block|}
 return|return
 literal|true
 return|;

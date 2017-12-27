@@ -1686,22 +1686,13 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
-if|if
-condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
+name|trace
 argument_list|(
 literal|"IN-MEMORY FLUSH: Pushing active segment into compaction pipeline"
 argument_list|)
 expr_stmt|;
-block|}
 name|pushActiveToPipeline
 argument_list|(
 name|this
@@ -1782,22 +1773,13 @@ argument_list|(
 literal|false
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
+name|trace
 argument_list|(
 literal|"IN-MEMORY FLUSH: end"
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 specifier|private

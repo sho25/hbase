@@ -208,24 +208,14 @@ name|channel
 argument_list|()
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
 name|NettyRpcServer
 operator|.
 name|LOG
 operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|NettyRpcServer
-operator|.
-name|LOG
-operator|.
-name|debug
+name|trace
 argument_list|(
-literal|"Connection from "
-operator|+
+literal|"Connection {}; # active connections={}"
+argument_list|,
 name|ctx
 operator|.
 name|channel
@@ -233,9 +223,7 @@ argument_list|()
 operator|.
 name|remoteAddress
 argument_list|()
-operator|+
-literal|"; # active connections: "
-operator|+
+argument_list|,
 operator|(
 name|allChannels
 operator|.
@@ -246,7 +234,6 @@ literal|1
 operator|)
 argument_list|)
 expr_stmt|;
-block|}
 name|super
 operator|.
 name|channelActive
@@ -321,24 +308,14 @@ name|channel
 argument_list|()
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
 name|NettyRpcServer
 operator|.
 name|LOG
 operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|NettyRpcServer
-operator|.
-name|LOG
-operator|.
-name|debug
+name|trace
 argument_list|(
-literal|"Disconnecting client: "
-operator|+
+literal|"Disconnection {}; # active connections={}"
+argument_list|,
 name|ctx
 operator|.
 name|channel
@@ -346,9 +323,7 @@ argument_list|()
 operator|.
 name|remoteAddress
 argument_list|()
-operator|+
-literal|". Number of active connections: "
-operator|+
+argument_list|,
 operator|(
 name|allChannels
 operator|.
@@ -359,7 +334,6 @@ literal|1
 operator|)
 argument_list|)
 expr_stmt|;
-block|}
 name|super
 operator|.
 name|channelInactive
@@ -391,24 +365,14 @@ name|channel
 argument_list|()
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
 name|NettyRpcServer
 operator|.
 name|LOG
 operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|NettyRpcServer
-operator|.
-name|LOG
-operator|.
-name|debug
+name|trace
 argument_list|(
-literal|"Connection from "
-operator|+
+literal|"Connection {}; caught unexpected downstream exception."
+argument_list|,
 name|ctx
 operator|.
 name|channel
@@ -416,8 +380,6 @@ argument_list|()
 operator|.
 name|remoteAddress
 argument_list|()
-operator|+
-literal|" catch unexpected exception from downstream."
 argument_list|,
 name|e
 operator|.
@@ -425,7 +387,6 @@ name|getCause
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 name|ctx
 operator|.
 name|channel

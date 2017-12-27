@@ -245,17 +245,13 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
+literal|"{} in-memory compaction of {}; merging {} segments"
+argument_list|,
 name|strategy
-operator|+
-literal|" memory compaction for store "
-operator|+
+argument_list|,
 name|cfName
-operator|+
-literal|" merging "
-operator|+
+argument_list|,
 name|numOfSegments
-operator|+
-literal|" segments"
 argument_list|)
 expr_stmt|;
 return|return
@@ -268,13 +264,11 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
+literal|"{} in-memory compaction of {}; flattening a segment"
+argument_list|,
 name|strategy
-operator|+
-literal|" memory compaction for store "
-operator|+
+argument_list|,
 name|cfName
-operator|+
-literal|" flattening a segment in the pipeline"
 argument_list|)
 expr_stmt|;
 return|return
