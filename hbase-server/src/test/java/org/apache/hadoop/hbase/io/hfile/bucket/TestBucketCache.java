@@ -153,20 +153,6 @@ end_import
 
 begin_import
 import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|collect
-operator|.
-name|ImmutableMap
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -271,7 +257,9 @@ name|io
 operator|.
 name|hfile
 operator|.
-name|Cacheable
+name|CacheTestUtils
+operator|.
+name|HFileBlockPair
 import|;
 end_import
 
@@ -289,9 +277,7 @@ name|io
 operator|.
 name|hfile
 operator|.
-name|CacheTestUtils
-operator|.
-name|HFileBlockPair
+name|Cacheable
 import|;
 end_import
 
@@ -436,6 +422,30 @@ operator|.
 name|runners
 operator|.
 name|Parameterized
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|collect
+operator|.
+name|ImmutableMap
 import|;
 end_import
 
