@@ -1261,10 +1261,12 @@ name|Tag
 argument_list|>
 name|resTags
 init|=
-name|offheapKV
+name|PrivateCellUtil
 operator|.
 name|getTags
-argument_list|()
+argument_list|(
+name|offheapKV
+argument_list|)
 decl_stmt|;
 name|Tag
 name|tag1

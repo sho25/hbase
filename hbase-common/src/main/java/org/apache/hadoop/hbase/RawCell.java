@@ -21,7 +21,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|List
+name|Iterator
 import|;
 end_import
 
@@ -101,14 +101,25 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Creates a list of tags in the current cell    * @return a list of tags    */
-name|List
+specifier|default
+name|Iterator
 argument_list|<
 name|Tag
 argument_list|>
 name|getTags
 parameter_list|()
-function_decl|;
+block|{
+return|return
+name|PrivateCellUtil
+operator|.
+name|tagsIterator
+argument_list|(
+name|this
+argument_list|)
+return|;
+block|}
 comment|/**    * Returns the specific tag of the given type    * @param type the type of the tag    * @return the specific tag if available or null    */
+specifier|default
 name|Optional
 argument_list|<
 name|Tag
@@ -118,7 +129,18 @@ parameter_list|(
 name|byte
 name|type
 parameter_list|)
-function_decl|;
+block|{
+return|return
+name|PrivateCellUtil
+operator|.
+name|getTag
+argument_list|(
+name|this
+argument_list|,
+name|type
+argument_list|)
+return|;
+block|}
 comment|/**    * Check the length of tags. If it is invalid, throw IllegalArgumentException    * @param tagsLength the given length of tags    * @throws IllegalArgumentException if tagslength is invalid    */
 specifier|public
 specifier|static

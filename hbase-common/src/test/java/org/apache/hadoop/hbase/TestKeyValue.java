@@ -3815,10 +3815,12 @@ name|Tag
 argument_list|>
 name|tags
 init|=
-name|kv
+name|PrivateCellUtil
 operator|.
 name|getTags
-argument_list|()
+argument_list|(
+name|kv
+argument_list|)
 decl_stmt|;
 name|assertNotNull
 argument_list|(

@@ -245,7 +245,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|RawCell
+name|PrivateCellUtil
 import|;
 end_import
 
@@ -4627,15 +4627,12 @@ argument_list|()
 decl_stmt|;
 name|tags
 operator|=
-operator|(
-operator|(
-name|RawCell
-operator|)
-name|cell
-operator|)
+name|PrivateCellUtil
 operator|.
 name|getTags
-argument_list|()
+argument_list|(
+name|cell
+argument_list|)
 expr_stmt|;
 block|}
 block|}
