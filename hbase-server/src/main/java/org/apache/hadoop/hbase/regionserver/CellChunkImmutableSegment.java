@@ -19,6 +19,26 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|nio
+operator|.
+name|ByteBuffer
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -83,6 +103,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ExtendedCell
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|KeyValue
 import|;
 end_import
@@ -98,20 +132,6 @@ operator|.
 name|hbase
 operator|.
 name|KeyValueUtil
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
 import|;
 end_import
 
@@ -149,21 +169,15 @@ end_import
 
 begin_import
 import|import
-name|java
+name|org
 operator|.
-name|io
+name|apache
 operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
+name|yetus
 operator|.
-name|nio
+name|audience
 operator|.
-name|ByteBuffer
+name|InterfaceAudience
 import|;
 end_import
 
@@ -502,6 +516,11 @@ argument_list|()
 condition|)
 block|{
 comment|// the iterator hides the elimination logic for compaction
+name|boolean
+name|alreadyCopied
+init|=
+literal|false
+decl_stmt|;
 name|Cell
 name|c
 init|=
@@ -517,10 +536,41 @@ assert|assert
 operator|(
 name|c
 operator|instanceof
-name|ByteBufferKeyValue
+name|ExtendedCell
 operator|)
 assert|;
-comment|// shouldn't get here anything but ByteBufferKeyValue
+if|if
+condition|(
+operator|(
+operator|(
+name|ExtendedCell
+operator|)
+name|c
+operator|)
+operator|.
+name|getChunkId
+argument_list|()
+operator|==
+name|ExtendedCell
+operator|.
+name|CELL_NOT_BASED_ON_CHUNK
+condition|)
+block|{
+comment|// CellChunkMap assumes all cells are allocated on MSLAB.
+comment|// Therefore, cells which are not allocated on MSLAB initially,
+comment|// are copied into MSLAB here.
+name|c
+operator|=
+name|copyCellIntoMSLAB
+argument_list|(
+name|c
+argument_list|)
+expr_stmt|;
+name|alreadyCopied
+operator|=
+literal|true
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|offsetInCurentChunk
@@ -552,16 +602,21 @@ operator|.
 name|Action
 operator|.
 name|COMPACT
+operator|&&
+operator|!
+name|alreadyCopied
 condition|)
 block|{
+comment|// for compaction copy cell to the new segment (MSLAB copy)
 name|c
 operator|=
 name|maybeCloneWithAllocator
 argument_list|(
 name|c
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
-comment|// for compaction copy cell to the new segment (MSLAB copy)
 block|}
 name|offsetInCurentChunk
 operator|=
@@ -721,7 +776,6 @@ comment|/*----------------------------------------------------------------------
 comment|// Create CellSet based on CellChunkMap from current ConcurrentSkipListMap based CellSet
 comment|// (without compacting iterator)
 comment|// This is a service for not-flat immutable segments
-comment|// Assumption: cells do not exceed chunk size!
 specifier|private
 name|void
 name|reinitializeCellSet
@@ -855,10 +909,37 @@ assert|assert
 operator|(
 name|curCell
 operator|instanceof
-name|ByteBufferKeyValue
+name|ExtendedCell
 operator|)
 assert|;
-comment|// shouldn't get here anything but ByteBufferKeyValue
+if|if
+condition|(
+operator|(
+operator|(
+name|ExtendedCell
+operator|)
+name|curCell
+operator|)
+operator|.
+name|getChunkId
+argument_list|()
+operator|==
+name|ExtendedCell
+operator|.
+name|CELL_NOT_BASED_ON_CHUNK
+condition|)
+block|{
+comment|// CellChunkMap assumes all cells are allocated on MSLAB.
+comment|// Therefore, cells which are not allocated on MSLAB initially,
+comment|// are copied into MSLAB here.
+name|curCell
+operator|=
+name|copyCellIntoMSLAB
+argument_list|(
+name|curCell
+argument_list|)
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|offsetInCurentChunk
@@ -1161,6 +1242,87 @@ comment|// add one additional chunk
 block|}
 return|return
 name|numberOfChunks
+return|;
+block|}
+specifier|private
+name|Cell
+name|copyCellIntoMSLAB
+parameter_list|(
+name|Cell
+name|cell
+parameter_list|)
+block|{
+comment|// Take care for a special case when a cell is copied from on-heap to (probably off-heap) MSLAB.
+comment|// The cell allocated as an on-heap JVM object (byte array) occupies slightly different
+comment|// amount of memory, than when the cell serialized and allocated on the MSLAB.
+comment|// Here, we update the heap size of the new segment only for the difference between object and
+comment|// serialized size. This is a decrease of the size as serialized cell is a bit smaller.
+comment|// The actual size of the cell is not added yet, and will be added (only in compaction)
+comment|// in initializeCellSet#updateMetaInfo().
+name|long
+name|oldHeapSize
+init|=
+name|heapSizeChange
+argument_list|(
+name|cell
+argument_list|,
+literal|true
+argument_list|)
+decl_stmt|;
+name|long
+name|oldCellSize
+init|=
+name|getCellLength
+argument_list|(
+name|cell
+argument_list|)
+decl_stmt|;
+name|cell
+operator|=
+name|maybeCloneWithAllocator
+argument_list|(
+name|cell
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
+name|long
+name|newHeapSize
+init|=
+name|heapSizeChange
+argument_list|(
+name|cell
+argument_list|,
+literal|true
+argument_list|)
+decl_stmt|;
+name|long
+name|newCellSize
+init|=
+name|getCellLength
+argument_list|(
+name|cell
+argument_list|)
+decl_stmt|;
+name|long
+name|heapOverhead
+init|=
+name|newHeapSize
+operator|-
+name|oldHeapSize
+decl_stmt|;
+comment|//TODO: maybe need to update the dataSize of the region
+name|incSize
+argument_list|(
+name|newCellSize
+operator|-
+name|oldCellSize
+argument_list|,
+name|heapOverhead
+argument_list|)
+expr_stmt|;
+return|return
+name|cell
 return|;
 block|}
 block|}

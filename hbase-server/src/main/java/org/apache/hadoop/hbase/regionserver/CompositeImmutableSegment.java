@@ -400,6 +400,9 @@ name|maybeCloneWithAllocator
 parameter_list|(
 name|Cell
 name|cell
+parameter_list|,
+name|boolean
+name|forceCloneOfBigCell
 parameter_list|)
 block|{
 throw|throw

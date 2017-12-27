@@ -406,6 +406,8 @@ operator|=
 name|maybeCloneWithAllocator
 argument_list|(
 name|c
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 block|}
@@ -413,7 +415,10 @@ comment|// second parameter true, because in compaction/merge the addition of th
 comment|// is always successful
 name|updateMetaInfo
 argument_list|(
-name|c
+name|cells
+index|[
+name|i
+index|]
 argument_list|,
 literal|true
 argument_list|,

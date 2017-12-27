@@ -760,13 +760,16 @@ block|}
 comment|// do not set MSLab to null as scanners may still be reading the data here and need to decrease
 comment|// the counter when they finish
 block|}
-comment|/**    * If the segment has a memory allocator the cell is being cloned to this space, and returned;    * otherwise the given cell is returned    * @return either the given cell or its clone    */
+comment|/**    * If the segment has a memory allocator the cell is being cloned to this space, and returned;    * otherwise the given cell is returned    *    * When a cell's size is too big (bigger than maxAlloc), it is not allocated on MSLAB.    * Since the process of flattening to CellChunkMap assumes that all cells    * are allocated on MSLAB, during this process, the input parameter    * forceCloneOfBigCell is set to 'true' and the cell is copied into MSLAB.    *    * @return either the given cell or its clone    */
 specifier|public
 name|Cell
 name|maybeCloneWithAllocator
 parameter_list|(
 name|Cell
 name|cell
+parameter_list|,
+name|boolean
+name|forceCloneOfBigCell
 parameter_list|)
 block|{
 if|if
@@ -785,6 +788,29 @@ block|}
 name|Cell
 name|cellFromMslab
 init|=
+literal|null
+decl_stmt|;
+if|if
+condition|(
+name|forceCloneOfBigCell
+condition|)
+block|{
+name|cellFromMslab
+operator|=
+name|this
+operator|.
+name|memStoreLAB
+operator|.
+name|forceCopyOfBigCellInto
+argument_list|(
+name|cell
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|cellFromMslab
+operator|=
 name|this
 operator|.
 name|memStoreLAB
@@ -793,7 +819,8 @@ name|copyCellInto
 argument_list|(
 name|cell
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+block|}
 return|return
 operator|(
 name|cellFromMslab

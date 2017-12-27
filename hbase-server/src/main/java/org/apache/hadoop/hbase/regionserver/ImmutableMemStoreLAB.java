@@ -143,6 +143,24 @@ literal|"This is an Immutable MemStoreLAB."
 argument_list|)
 throw|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|Cell
+name|forceCopyOfBigCellInto
+parameter_list|(
+name|Cell
+name|cell
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|IllegalStateException
+argument_list|(
+literal|"This is an Immutable MemStoreLAB."
+argument_list|)
+throw|;
+block|}
 comment|/* Creating chunk to be used as index chunk in CellChunkMap, part of the chunks array.   ** Returning a new chunk, without replacing current chunk,   ** meaning MSLABImpl does not make the returned chunk as CurChunk.   ** The space on this chunk will be allocated externally.   ** The interface is only for external callers   */
 annotation|@
 name|Override

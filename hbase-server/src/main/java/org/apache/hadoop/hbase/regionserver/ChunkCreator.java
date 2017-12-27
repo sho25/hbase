@@ -724,20 +724,25 @@ operator|+
 literal|". Converting to regular chunk."
 argument_list|)
 expr_stmt|;
+return|return
 name|getChunk
 argument_list|(
 name|chunkIndexType
 argument_list|,
 name|chunkSize
 argument_list|)
-expr_stmt|;
+return|;
 block|}
+comment|// the size of the allocation includes
+comment|// both the size requested and a place for the Chunk's header
 return|return
 name|getChunk
 argument_list|(
 name|chunkIndexType
 argument_list|,
 name|jumboSize
+operator|+
+name|SIZEOF_CHUNK_HEADER
 argument_list|)
 return|;
 block|}
