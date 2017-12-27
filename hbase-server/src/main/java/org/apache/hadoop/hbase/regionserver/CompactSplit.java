@@ -2399,6 +2399,11 @@ operator|+
 literal|" to finish..."
 argument_list|)
 expr_stmt|;
+name|t
+operator|.
+name|shutdownNow
+argument_list|()
+expr_stmt|;
 block|}
 block|}
 block|}
