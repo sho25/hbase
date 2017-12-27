@@ -814,6 +814,8 @@ name|RegionTooBusyException
 condition|)
 block|{
 comment|// If RegionTooBusyException, print message since it has Region name in it.
+comment|// RegionTooBusyException message was edited to remove variance. Has regionname, server,
+comment|// and why the exception; no longer has duration it waited on lock nor current memsize.
 name|name
 operator|=
 name|t

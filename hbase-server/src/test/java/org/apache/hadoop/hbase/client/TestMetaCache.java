@@ -1256,7 +1256,9 @@ name|add
 argument_list|(
 operator|new
 name|RegionTooBusyException
-argument_list|()
+argument_list|(
+literal|"Some old message"
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|add

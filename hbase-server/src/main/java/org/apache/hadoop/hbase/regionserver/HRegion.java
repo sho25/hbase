@@ -20018,13 +20018,13 @@ expr_stmt|;
 name|requestFlush
 argument_list|()
 expr_stmt|;
+comment|// Don't print current limit because it will vary too much. The message is used as a key
+comment|// over in RetriesExhaustedWithDetailsException processing.
 throw|throw
 operator|new
 name|RegionTooBusyException
 argument_list|(
-literal|"Over memstore limit, "
-operator|+
-literal|"regionName="
+literal|"Over memstore limit; regionName="
 operator|+
 operator|(
 name|this
@@ -20065,13 +20065,6 @@ operator|.
 name|getServerName
 argument_list|()
 operator|)
-operator|+
-literal|", memstoreSize="
-operator|+
-name|memstoreDataSize
-operator|.
-name|get
-argument_list|()
 operator|+
 literal|", blockingMemStoreSize="
 operator|+
@@ -38847,17 +38840,13 @@ name|MILLISECONDS
 argument_list|)
 condition|)
 block|{
+comment|// Don't print millis. Message is used as a key over in
+comment|// RetriesExhaustedWithDetailsException processing.
 throw|throw
 operator|new
 name|RegionTooBusyException
 argument_list|(
-literal|"failed to get a lock in "
-operator|+
-name|waitTime
-operator|+
-literal|" ms. "
-operator|+
-literal|"regionName="
+literal|"Failed to obtain lock; regionName="
 operator|+
 operator|(
 name|this
