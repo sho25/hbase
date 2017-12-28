@@ -457,11 +457,9 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
-name|shaded
+name|thirdparty
 operator|.
 name|com
 operator|.
@@ -680,7 +678,7 @@ operator|new
 name|TestName
 argument_list|()
 decl_stmt|;
-comment|/**    * Verify that PleaseHoldException gets retried.    * HBASE-8764    * @throws IOException    * @throws ZooKeeperConnectionException    * @throws MasterNotRunningException    * @throws ServiceException    * @throws org.apache.hadoop.hbase.shaded.com.google.protobuf.ServiceException     */
+comment|/**    * Verify that PleaseHoldException gets retried.    * HBASE-8764    * @throws IOException    * @throws ZooKeeperConnectionException    * @throws MasterNotRunningException    * @throws ServiceException    * @throws org.apache.hbase.thirdparty.com.google.protobuf.ServiceException     */
 comment|//TODO: Clean up, with Procedure V2 and nonce to prevent the same procedure to call mulitple
 comment|// time, this test is invalid anymore. Just keep the test around for some time before
 comment|// fully removing it.
@@ -703,11 +701,9 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
-name|shaded
+name|thirdparty
 operator|.
 name|com
 operator|.

@@ -1881,7 +1881,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Helper method for testing async snapshot operations. Just waits for the    * given snapshot to complete on the server by repeatedly checking the master.    *    * @param master: the master running the snapshot    * @param snapshot: the snapshot to check    * @param sleep: amount to sleep between checks to see if the snapshot is done    * @throws ServiceException if the snapshot fails    * @throws org.apache.hadoop.hbase.shaded.com.google.protobuf.ServiceException    */
+comment|/**    * Helper method for testing async snapshot operations. Just waits for the    * given snapshot to complete on the server by repeatedly checking the master.    *    * @param master: the master running the snapshot    * @param snapshot: the snapshot to check    * @param sleep: amount to sleep between checks to see if the snapshot is done    * @throws ServiceException if the snapshot fails    * @throws org.apache.hbase.thirdparty.com.google.protobuf.ServiceException    */
 specifier|public
 specifier|static
 name|void
@@ -1903,11 +1903,9 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
-name|shaded
+name|thirdparty
 operator|.
 name|com
 operator|.
@@ -1990,11 +1988,9 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
-name|shaded
+name|thirdparty
 operator|.
 name|com
 operator|.
@@ -2203,11 +2199,9 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
-name|shaded
+name|thirdparty
 operator|.
 name|com
 operator|.

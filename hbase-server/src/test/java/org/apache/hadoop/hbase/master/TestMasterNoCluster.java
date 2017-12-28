@@ -921,7 +921,7 @@ name|join
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Test master failover.    * Start up three fake regionservers and a master.    * @throws IOException    * @throws KeeperException    * @throws InterruptedException    * @throws org.apache.hadoop.hbase.shaded.com.google.protobuf.ServiceException    */
+comment|/**    * Test master failover.    * Start up three fake regionservers and a master.    * @throws IOException    * @throws KeeperException    * @throws InterruptedException    * @throws org.apache.hbase.thirdparty.com.google.protobuf.ServiceException    */
 annotation|@
 name|Ignore
 annotation|@

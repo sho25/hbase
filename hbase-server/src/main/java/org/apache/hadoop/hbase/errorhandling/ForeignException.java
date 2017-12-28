@@ -548,7 +548,7 @@ name|toByteArray
 argument_list|()
 return|;
 block|}
-comment|/**    * Takes a series of bytes and tries to generate an ForeignException instance for it.    * @param bytes    * @return the ForeignExcpetion instance    * @throws InvalidProtocolBufferException if there was deserialization problem this is thrown.    * @throws org.apache.hadoop.hbase.shaded.com.google.protobuf.InvalidProtocolBufferException     */
+comment|/**    * Takes a series of bytes and tries to generate an ForeignException instance for it.    * @param bytes    * @return the ForeignExcpetion instance    * @throws InvalidProtocolBufferException if there was deserialization problem this is thrown.    * @throws org.apache.hbase.thirdparty.com.google.protobuf.InvalidProtocolBufferException     */
 specifier|public
 specifier|static
 name|ForeignException

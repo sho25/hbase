@@ -1037,11 +1037,9 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
-name|shaded
+name|thirdparty
 operator|.
 name|com
 operator|.
@@ -1061,11 +1059,9 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
-name|shaded
+name|thirdparty
 operator|.
 name|com
 operator|.
@@ -1085,11 +1081,9 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
-name|shaded
+name|thirdparty
 operator|.
 name|com
 operator|.
@@ -1431,11 +1425,9 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
-name|shaded
+name|thirdparty
 operator|.
 name|com
 operator|.
@@ -1451,11 +1443,9 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
-name|shaded
+name|thirdparty
 operator|.
 name|com
 operator|.
@@ -1479,11 +1469,9 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
-name|shaded
+name|thirdparty
 operator|.
 name|com
 operator|.
@@ -1502,11 +1490,9 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
-name|shaded
+name|thirdparty
 operator|.
 name|com
 operator|.
@@ -1596,11 +1582,9 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
-name|shaded
+name|thirdparty
 operator|.
 name|com
 operator|.
@@ -3016,7 +3000,7 @@ comment|//          // Make a proxy to go between the shaded RpcController that 
 comment|//          // non-shaded controller this CPEP is providing. This is because this test does a neat
 comment|//          // little trick of testing the CPEP Service by inserting it as RpcServer Service. This
 comment|//          // worked fine before we shaded PB. Now we need these proxies.
-comment|//          final org.apache.hadoop.hbase.shaded.com.google.protobuf.BlockingRpcChannel channel =
+comment|//          final org.apache.hbase.thirdparty.com.google.protobuf.BlockingRpcChannel channel =
 comment|//              rpcClient.createBlockingRpcChannel(sn, User.getCurrent(), HConstants.DEFAULT_HBASE_RPC_TIMEOUT);
 comment|//          AuthenticationProtos.AuthenticationService.BlockingInterface stub =
 comment|//              AuthenticationProtos.AuthenticationService.newBlockingStub(channel);
@@ -3196,7 +3180,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * A copy of the BlockingRpcCallback class for use locally. Only difference is that it makes    * use of non-shaded protobufs; i.e. refers to com.google.protobuf.* rather than to    * org.apache.hadoop.hbase.shaded.com.google.protobuf.*    */
+comment|/**    * A copy of the BlockingRpcCallback class for use locally. Only difference is that it makes    * use of non-shaded protobufs; i.e. refers to com.google.protobuf.* rather than to    * org.apache.hbase.thirdparty.com.google.protobuf.*    */
 specifier|private
 specifier|static
 class|class

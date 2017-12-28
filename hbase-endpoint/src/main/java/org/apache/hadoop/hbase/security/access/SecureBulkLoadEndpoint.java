@@ -739,11 +739,9 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
-name|shaded
+name|thirdparty
 operator|.
 name|com
 operator|.
@@ -907,7 +905,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Convert from CPEP protobuf 2.5 to internal protobuf 3.3.    * @throws org.apache.hadoop.hbase.shaded.com.google.protobuf.InvalidProtocolBufferException    */
+comment|/**    * Convert from CPEP protobuf 2.5 to internal protobuf 3.3.    * @throws org.apache.hbase.thirdparty.com.google.protobuf.InvalidProtocolBufferException    */
 name|org
 operator|.
 name|apache
@@ -935,11 +933,9 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
-name|shaded
+name|thirdparty
 operator|.
 name|com
 operator|.
@@ -1169,11 +1165,9 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
-name|shaded
+name|thirdparty
 operator|.
 name|com
 operator|.

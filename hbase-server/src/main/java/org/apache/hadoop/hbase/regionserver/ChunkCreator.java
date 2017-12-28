@@ -239,11 +239,9 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
-name|shaded
+name|thirdparty
 operator|.
 name|com
 operator|.
@@ -263,11 +261,9 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
-name|shaded
+name|thirdparty
 operator|.
 name|com
 operator|.

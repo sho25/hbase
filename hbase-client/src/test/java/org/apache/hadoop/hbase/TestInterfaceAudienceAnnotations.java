@@ -442,7 +442,7 @@ argument_list|()
 operator|.
 name|contains
 argument_list|(
-literal|"org.apache.hadoop.hbase.shaded.com.google.protobuf"
+literal|"org.apache.hbase.thirdparty.com.google.protobuf"
 argument_list|)
 return|;
 block|}
