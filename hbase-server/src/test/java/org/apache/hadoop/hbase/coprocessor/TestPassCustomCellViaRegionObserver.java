@@ -1753,7 +1753,7 @@ name|qualifier
 parameter_list|,
 name|Cell
 operator|.
-name|DataType
+name|Type
 name|type
 parameter_list|,
 name|byte
@@ -2056,7 +2056,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|DataType
+name|Type
 name|getType
 parameter_list|()
 block|{
@@ -2090,7 +2090,7 @@ name|QUALIFIER_FROM_CP
 argument_list|,
 name|Cell
 operator|.
-name|DataType
+name|Type
 operator|.
 name|Put
 argument_list|,
@@ -2121,7 +2121,7 @@ name|QUALIFIER_FROM_CP
 argument_list|,
 name|Cell
 operator|.
-name|DataType
+name|Type
 operator|.
 name|Put
 argument_list|,
@@ -2152,7 +2152,7 @@ name|QUALIFIER_FROM_CP
 argument_list|,
 name|Cell
 operator|.
-name|DataType
+name|Type
 operator|.
 name|Put
 argument_list|,
@@ -2183,7 +2183,7 @@ name|QUALIFIER_FROM_CP
 argument_list|,
 name|Cell
 operator|.
-name|DataType
+name|Type
 operator|.
 name|DeleteColumn
 argument_list|,

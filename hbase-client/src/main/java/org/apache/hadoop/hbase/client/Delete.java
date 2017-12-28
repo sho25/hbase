@@ -338,7 +338,7 @@ name|deleteToCopy
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Construct the Delete with user defined data. NOTED:    * 1) all cells in the familyMap must have the delete type.    * see {@link org.apache.hadoop.hbase.Cell.DataType}    * 2) the row of each cell must be same with passed row.    * @param row row. CAN'T be null    * @param ts timestamp    * @param familyMap the map to collect all cells internally. CAN'T be null    */
+comment|/**    * Construct the Delete with user defined data. NOTED:    * 1) all cells in the familyMap must have the delete type.    * see {@link org.apache.hadoop.hbase.Cell.Type}    * 2) the row of each cell must be same with passed row.    * @param row row. CAN'T be null    * @param ts timestamp    * @param familyMap the map to collect all cells internally. CAN'T be null    */
 specifier|public
 name|Delete
 parameter_list|(

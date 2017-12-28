@@ -134,7 +134,7 @@ parameter_list|(
 specifier|final
 name|Cell
 operator|.
-name|DataType
+name|Type
 name|type
 parameter_list|)
 function_decl|;

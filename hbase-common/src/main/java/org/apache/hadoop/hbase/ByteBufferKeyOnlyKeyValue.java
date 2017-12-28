@@ -643,14 +643,14 @@ argument_list|)
 return|;
 block|}
 specifier|public
-name|DataType
+name|Type
 name|getType
 parameter_list|()
 block|{
 return|return
 name|PrivateCellUtil
 operator|.
-name|toDataType
+name|toType
 argument_list|(
 name|getTypeByte
 argument_list|()

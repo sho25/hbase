@@ -895,7 +895,7 @@ name|setType
 argument_list|(
 name|Cell
 operator|.
-name|DataType
+name|Type
 operator|.
 name|Put
 argument_list|)
@@ -968,7 +968,7 @@ name|setType
 argument_list|(
 name|Cell
 operator|.
-name|DataType
+name|Type
 operator|.
 name|Put
 argument_list|)
@@ -1028,7 +1028,7 @@ name|setType
 argument_list|(
 name|Cell
 operator|.
-name|DataType
+name|Type
 operator|.
 name|Put
 argument_list|)

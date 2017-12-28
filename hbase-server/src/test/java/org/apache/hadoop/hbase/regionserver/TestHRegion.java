@@ -677,7 +677,7 @@ name|hbase
 operator|.
 name|Cell
 operator|.
-name|DataType
+name|Type
 import|;
 end_import
 
@@ -45219,7 +45219,9 @@ argument_list|)
 operator|.
 name|setType
 argument_list|(
-name|DataType
+name|Cell
+operator|.
+name|Type
 operator|.
 name|Put
 argument_list|)
@@ -45265,7 +45267,7 @@ argument_list|)
 operator|.
 name|setType
 argument_list|(
-name|DataType
+name|Type
 operator|.
 name|Put
 argument_list|)
@@ -45310,7 +45312,9 @@ argument_list|)
 operator|.
 name|setType
 argument_list|(
-name|DataType
+name|Cell
+operator|.
+name|Type
 operator|.
 name|Put
 argument_list|)
@@ -45559,7 +45563,9 @@ argument_list|)
 operator|.
 name|setType
 argument_list|(
-name|DataType
+name|Cell
+operator|.
+name|Type
 operator|.
 name|Put
 argument_list|)
@@ -45604,7 +45610,9 @@ argument_list|)
 operator|.
 name|setType
 argument_list|(
-name|DataType
+name|Cell
+operator|.
+name|Type
 operator|.
 name|Put
 argument_list|)

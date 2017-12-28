@@ -154,15 +154,14 @@ name|int
 name|getTagsLength
 parameter_list|()
 function_decl|;
-comment|/**    * Returns the type of cell in a human readable format using {@link DataType}    * @return The data type this cell: one of Put, Delete, etc    */
-name|DataType
+comment|/**    * Returns the type of cell in a human readable format using {@link Type}    * @return The data type this cell: one of Put, Delete, etc    */
+name|Type
 name|getType
 parameter_list|()
 function_decl|;
 comment|/**    * The valid types for user to build the cell. Currently, This is subset of {@link KeyValue.Type}.    */
-specifier|public
 enum|enum
-name|DataType
+name|Type
 block|{
 name|Put
 argument_list|(
@@ -209,7 +208,7 @@ specifier|final
 name|byte
 name|code
 decl_stmt|;
-name|DataType
+name|Type
 parameter_list|(
 specifier|final
 name|byte

@@ -346,7 +346,7 @@ name|getTimeRange
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Construct the Increment with user defined data. NOTED:    * 1) all cells in the familyMap must have the DataType.Put    * 2) the row of each cell must be same with passed row.    * @param row row. CAN'T be null    * @param ts timestamp    * @param familyMap the map to collect all cells internally. CAN'T be null    */
+comment|/**    * Construct the Increment with user defined data. NOTED:    * 1) all cells in the familyMap must have the Type.Put    * 2) the row of each cell must be same with passed row.    * @param row row. CAN'T be null    * @param ts timestamp    * @param familyMap the map to collect all cells internally. CAN'T be null    */
 specifier|public
 name|Increment
 parameter_list|(

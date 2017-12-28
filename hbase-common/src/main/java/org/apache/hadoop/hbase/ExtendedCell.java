@@ -400,14 +400,14 @@ comment|/**    * {@inheritDoc}    *<p>    * Note : This does not expose the inte
 annotation|@
 name|Override
 specifier|default
-name|DataType
+name|Type
 name|getType
 parameter_list|()
 block|{
 return|return
 name|PrivateCellUtil
 operator|.
-name|toDataType
+name|toType
 argument_list|(
 name|getTypeByte
 argument_list|()

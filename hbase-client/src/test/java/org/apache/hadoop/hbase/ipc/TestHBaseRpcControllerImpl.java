@@ -632,7 +632,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|DataType
+name|Type
 name|getType
 parameter_list|()
 block|{

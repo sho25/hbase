@@ -157,22 +157,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
-operator|.
-name|Type
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|filter
 operator|.
 name|ByteArrayComparable
@@ -4095,6 +4079,8 @@ name|type
 parameter_list|)
 block|{
 return|return
+name|KeyValue
+operator|.
 name|Type
 operator|.
 name|Delete
@@ -4106,6 +4092,8 @@ name|type
 operator|&&
 name|type
 operator|<=
+name|KeyValue
+operator|.
 name|Type
 operator|.
 name|DeleteFamily
@@ -4130,6 +4118,8 @@ operator|.
 name|getTypeByte
 argument_list|()
 operator|==
+name|KeyValue
+operator|.
 name|Type
 operator|.
 name|Delete
@@ -4154,6 +4144,8 @@ operator|.
 name|getTypeByte
 argument_list|()
 operator|==
+name|KeyValue
+operator|.
 name|Type
 operator|.
 name|DeleteFamily
@@ -4178,6 +4170,8 @@ operator|.
 name|getTypeByte
 argument_list|()
 operator|==
+name|KeyValue
+operator|.
 name|Type
 operator|.
 name|DeleteFamilyVersion
@@ -4202,6 +4196,8 @@ operator|.
 name|getTypeByte
 argument_list|()
 operator|==
+name|KeyValue
+operator|.
 name|Type
 operator|.
 name|DeleteColumn
@@ -4226,6 +4222,8 @@ operator|.
 name|getTypeByte
 argument_list|()
 operator|==
+name|KeyValue
+operator|.
 name|Type
 operator|.
 name|Delete
@@ -4255,6 +4253,8 @@ decl_stmt|;
 return|return
 name|t
 operator|==
+name|KeyValue
+operator|.
 name|Type
 operator|.
 name|DeleteColumn
@@ -4264,6 +4264,8 @@ argument_list|()
 operator|||
 name|t
 operator|==
+name|KeyValue
+operator|.
 name|Type
 operator|.
 name|DeleteFamily
@@ -5940,6 +5942,8 @@ operator|.
 name|getTypeByte
 argument_list|()
 operator|==
+name|KeyValue
+operator|.
 name|Type
 operator|.
 name|Minimum
@@ -5963,6 +5967,8 @@ literal|0
 operator|&&
 name|type
 operator|==
+name|KeyValue
+operator|.
 name|Type
 operator|.
 name|Minimum
@@ -6354,13 +6360,15 @@ specifier|public
 specifier|static
 name|Cell
 operator|.
-name|DataType
-name|toDataType
+name|Type
+name|toType
 parameter_list|(
 name|byte
 name|type
 parameter_list|)
 block|{
+name|KeyValue
+operator|.
 name|Type
 name|codeToType
 init|=
@@ -6384,7 +6392,7 @@ case|:
 return|return
 name|Cell
 operator|.
-name|DataType
+name|Type
 operator|.
 name|Put
 return|;
@@ -6394,7 +6402,7 @@ case|:
 return|return
 name|Cell
 operator|.
-name|DataType
+name|Type
 operator|.
 name|Delete
 return|;
@@ -6404,7 +6412,7 @@ case|:
 return|return
 name|Cell
 operator|.
-name|DataType
+name|Type
 operator|.
 name|DeleteColumn
 return|;
@@ -6414,7 +6422,7 @@ case|:
 return|return
 name|Cell
 operator|.
-name|DataType
+name|Type
 operator|.
 name|DeleteFamily
 return|;
@@ -6424,7 +6432,7 @@ case|:
 return|return
 name|Cell
 operator|.
-name|DataType
+name|Type
 operator|.
 name|DeleteFamilyVersion
 return|;
@@ -6449,7 +6457,7 @@ name|toTypeByte
 parameter_list|(
 name|Cell
 operator|.
-name|DataType
+name|Type
 name|type
 parameter_list|)
 block|{
@@ -7371,6 +7379,8 @@ name|getTypeByte
 parameter_list|()
 block|{
 return|return
+name|KeyValue
+operator|.
 name|Type
 operator|.
 name|Maximum
@@ -7382,7 +7392,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|DataType
+name|Type
 name|getType
 parameter_list|()
 block|{
@@ -7571,6 +7581,8 @@ name|getTypeByte
 parameter_list|()
 block|{
 return|return
+name|KeyValue
+operator|.
 name|Type
 operator|.
 name|Maximum
@@ -7582,7 +7594,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|DataType
+name|Type
 name|getType
 parameter_list|()
 block|{
@@ -7771,6 +7783,8 @@ name|getTypeByte
 parameter_list|()
 block|{
 return|return
+name|KeyValue
+operator|.
 name|Type
 operator|.
 name|Minimum
@@ -7782,7 +7796,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|DataType
+name|Type
 name|getType
 parameter_list|()
 block|{
@@ -8800,6 +8814,8 @@ name|getTypeByte
 parameter_list|()
 block|{
 return|return
+name|KeyValue
+operator|.
 name|Type
 operator|.
 name|Minimum
@@ -8811,7 +8827,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|DataType
+name|Type
 name|getType
 parameter_list|()
 block|{
@@ -9617,6 +9633,8 @@ name|getTypeByte
 parameter_list|()
 block|{
 return|return
+name|KeyValue
+operator|.
 name|Type
 operator|.
 name|DeleteFamily
@@ -9628,12 +9646,12 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|DataType
+name|Type
 name|getType
 parameter_list|()
 block|{
 return|return
-name|DataType
+name|Type
 operator|.
 name|DeleteFamily
 return|;
@@ -12127,6 +12145,8 @@ literal|0
 operator|&&
 name|ltype
 operator|==
+name|KeyValue
+operator|.
 name|Type
 operator|.
 name|Minimum
@@ -12148,6 +12168,8 @@ literal|0
 operator|&&
 name|rtype
 operator|==
+name|KeyValue
+operator|.
 name|Type
 operator|.
 name|Minimum
@@ -12355,6 +12377,8 @@ if|if
 condition|(
 name|type
 operator|!=
+name|KeyValue
+operator|.
 name|Type
 operator|.
 name|Minimum
@@ -12409,6 +12433,8 @@ literal|1
 expr_stmt|;
 name|type
 operator|=
+name|KeyValue
+operator|.
 name|Type
 operator|.
 name|Maximum

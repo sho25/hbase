@@ -137,22 +137,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
-operator|.
-name|Type
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|util
 operator|.
 name|ByteBufferUtils
@@ -304,6 +288,8 @@ name|qualifier1
 argument_list|,
 literal|0L
 argument_list|,
+name|KeyValue
+operator|.
 name|Type
 operator|.
 name|Put
@@ -352,6 +338,8 @@ name|qualifier2
 argument_list|,
 literal|0L
 argument_list|,
+name|KeyValue
+operator|.
 name|Type
 operator|.
 name|Put
@@ -410,6 +398,8 @@ name|nullQualifier
 argument_list|,
 literal|0L
 argument_list|,
+name|KeyValue
+operator|.
 name|Type
 operator|.
 name|Put
@@ -524,6 +514,8 @@ name|qualifier1
 argument_list|,
 literal|0L
 argument_list|,
+name|KeyValue
+operator|.
 name|Type
 operator|.
 name|Put
@@ -2551,6 +2543,8 @@ name|qual0
 argument_list|,
 name|ts
 argument_list|,
+name|KeyValue
+operator|.
 name|Type
 operator|.
 name|Put
@@ -2571,6 +2565,8 @@ name|qual0
 argument_list|,
 name|ts
 argument_list|,
+name|KeyValue
+operator|.
 name|Type
 operator|.
 name|Put
@@ -2591,6 +2587,8 @@ name|qual1
 argument_list|,
 name|ts
 argument_list|,
+name|KeyValue
+operator|.
 name|Type
 operator|.
 name|Put
@@ -2611,6 +2609,8 @@ name|qual2
 argument_list|,
 name|ts
 argument_list|,
+name|KeyValue
+operator|.
 name|Type
 operator|.
 name|Put
@@ -2631,6 +2631,8 @@ name|qual0
 argument_list|,
 name|ts
 argument_list|,
+name|KeyValue
+operator|.
 name|Type
 operator|.
 name|Put
@@ -2847,6 +2849,8 @@ literal|null
 argument_list|,
 name|ts
 argument_list|,
+name|KeyValue
+operator|.
 name|Type
 operator|.
 name|Put
@@ -2867,6 +2871,8 @@ name|qualA
 argument_list|,
 name|ts
 argument_list|,
+name|KeyValue
+operator|.
 name|Type
 operator|.
 name|Put
@@ -2944,6 +2950,8 @@ name|qualA
 argument_list|,
 name|ts
 argument_list|,
+name|KeyValue
+operator|.
 name|Type
 operator|.
 name|Put
@@ -5366,14 +5374,14 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|DataType
+name|Type
 name|getType
 parameter_list|()
 block|{
 return|return
 name|PrivateCellUtil
 operator|.
-name|toDataType
+name|toType
 argument_list|(
 name|getTypeByte
 argument_list|()
