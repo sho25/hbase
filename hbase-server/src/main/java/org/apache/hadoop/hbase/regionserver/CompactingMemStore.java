@@ -318,31 +318,6 @@ operator|.
 name|BASIC
 argument_list|)
 decl_stmt|;
-comment|// The external setting of the compacting MemStore behaviour
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|COMPACTING_MEMSTORE_INDEX_KEY
-init|=
-literal|"hbase.hregion.compacting.memstore.index"
-decl_stmt|;
-comment|// usage of CellArrayMap is default, later it will be decided how to use CellChunkMap
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|COMPACTING_MEMSTORE_INDEX_DEFAULT
-init|=
-name|String
-operator|.
-name|valueOf
-argument_list|(
-name|IndexType
-operator|.
-name|ARRAY_MAP
-argument_list|)
-decl_stmt|;
 comment|// Default fraction of in-memory-flush size w.r.t. flush-to-disk size
 specifier|public
 specifier|static
@@ -358,7 +333,7 @@ specifier|final
 name|double
 name|IN_MEMORY_FLUSH_THRESHOLD_FACTOR_DEFAULT
 init|=
-literal|0.02
+literal|0.1
 decl_stmt|;
 specifier|private
 specifier|static
@@ -567,29 +542,45 @@ argument_list|(
 name|compactionPolicy
 argument_list|)
 expr_stmt|;
-name|initInmemoryFlushSize
-argument_list|(
+if|if
+condition|(
 name|conf
+operator|.
+name|getBoolean
+argument_list|(
+name|MemStoreLAB
+operator|.
+name|USEMSLAB_KEY
+argument_list|,
+name|MemStoreLAB
+operator|.
+name|USEMSLAB_DEFAULT
 argument_list|)
-expr_stmt|;
+condition|)
+block|{
+comment|// if user requested to work with MSLABs (whether on- or off-heap), then the
+comment|// immutable segments are going to use CellChunkMap as their index
 name|indexType
 operator|=
 name|IndexType
 operator|.
-name|valueOf
+name|CHUNK_MAP
+expr_stmt|;
+block|}
+else|else
+block|{
+name|indexType
+operator|=
+name|IndexType
+operator|.
+name|ARRAY_MAP
+expr_stmt|;
+block|}
+comment|// initialization of the flush size should happen after initialization of the index type
+comment|// so do not transfer the following method
+name|initInmemoryFlushSize
 argument_list|(
 name|conf
-operator|.
-name|get
-argument_list|(
-name|CompactingMemStore
-operator|.
-name|COMPACTING_MEMSTORE_INDEX_KEY
-argument_list|,
-name|CompactingMemStore
-operator|.
-name|COMPACTING_MEMSTORE_INDEX_DEFAULT
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -623,6 +614,11 @@ name|Configuration
 name|conf
 parameter_list|)
 block|{
+name|double
+name|factor
+init|=
+literal|0
+decl_stmt|;
 name|long
 name|memstoreFlushSize
 init|=
@@ -660,10 +656,18 @@ name|memstoreFlushSize
 operator|/
 name|numStores
 expr_stmt|;
-comment|// multiply by a factor
-name|double
+comment|// multiply by a factor (different factors for different index types)
+if|if
+condition|(
+name|indexType
+operator|==
+name|IndexType
+operator|.
+name|ARRAY_MAP
+condition|)
+block|{
 name|factor
-init|=
+operator|=
 name|conf
 operator|.
 name|getDouble
@@ -672,7 +676,22 @@ name|IN_MEMORY_FLUSH_THRESHOLD_FACTOR_KEY
 argument_list|,
 name|IN_MEMORY_FLUSH_THRESHOLD_FACTOR_DEFAULT
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+block|}
+else|else
+block|{
+name|factor
+operator|=
+name|conf
+operator|.
+name|getDouble
+argument_list|(
+name|IN_MEMORY_FLUSH_THRESHOLD_FACTOR_KEY
+argument_list|,
+name|IN_MEMORY_FLUSH_THRESHOLD_FACTOR_DEFAULT
+argument_list|)
+expr_stmt|;
+block|}
 name|inmemoryFlushSize
 operator|*=
 name|factor
@@ -684,6 +703,10 @@ argument_list|(
 literal|"Setting in-memory flush size threshold to "
 operator|+
 name|inmemoryFlushSize
+operator|+
+literal|" and immutable segments index to be of type "
+operator|+
+name|indexType
 argument_list|)
 expr_stmt|;
 block|}
@@ -1362,32 +1385,20 @@ block|}
 comment|// setter is used only for testability
 annotation|@
 name|VisibleForTesting
-specifier|public
 name|void
 name|setIndexType
-parameter_list|()
+parameter_list|(
+name|IndexType
+name|type
+parameter_list|)
 block|{
 name|indexType
 operator|=
-name|IndexType
-operator|.
-name|valueOf
-argument_list|(
-name|getConfiguration
-argument_list|()
-operator|.
-name|get
-argument_list|(
-name|CompactingMemStore
-operator|.
-name|COMPACTING_MEMSTORE_INDEX_KEY
-argument_list|,
-name|CompactingMemStore
-operator|.
-name|COMPACTING_MEMSTORE_INDEX_DEFAULT
-argument_list|)
-argument_list|)
+name|type
 expr_stmt|;
+comment|// Because this functionality is for testing only and tests are setting in-memory flush size
+comment|// according to their need, there is no setting of in-memory flush size, here.
+comment|// If it is needed, please change in-memory flush size explicitly
 block|}
 specifier|public
 name|IndexType
@@ -2325,10 +2336,8 @@ argument_list|()
 decl_stmt|;
 name|msg
 operator|+=
-literal|" threshold="
+literal|" in-memory flush size is "
 operator|+
-name|IN_MEMORY_FLUSH_THRESHOLD_FACTOR_DEFAULT
-operator|*
 name|inmemoryFlushSize
 expr_stmt|;
 name|msg

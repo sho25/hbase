@@ -450,27 +450,15 @@ operator|+
 name|CHUNK_SIZE_KEY
 argument_list|)
 expr_stmt|;
+comment|// if user requested to work with MSLABs (whether on- or off-heap), then the
+comment|// immutable segments are going to use CellChunkMap as their index
 name|idxType
 operator|=
 name|CompactingMemStore
 operator|.
 name|IndexType
 operator|.
-name|valueOf
-argument_list|(
-name|conf
-operator|.
-name|get
-argument_list|(
-name|CompactingMemStore
-operator|.
-name|COMPACTING_MEMSTORE_INDEX_KEY
-argument_list|,
-name|CompactingMemStore
-operator|.
-name|COMPACTING_MEMSTORE_INDEX_DEFAULT
-argument_list|)
-argument_list|)
+name|CHUNK_MAP
 expr_stmt|;
 block|}
 annotation|@
