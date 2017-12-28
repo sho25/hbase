@@ -406,7 +406,7 @@ name|PRIMARY_CALL_TIMEOUT_KEY
 init|=
 literal|"hbase.client.primaryCallTimeout.multiget"
 decl_stmt|;
-comment|/**    * Configure the number of failures after which the client will start logging. A few failures    * is fine: region moved, then is not opened, then is overloaded. We try to have an acceptable    * heuristic for the number of errors we don't log. 9 was chosen because we wait for 1s at    * this stage.    */
+comment|/**    * Configure the number of failures after which the client will start logging. A few failures    * is fine: region moved, then is not opened, then is overloaded. We try to have an acceptable    * heuristic for the number of errors we don't log. 5 was chosen because we wait for 1s at    * this stage.    */
 specifier|public
 specifier|static
 specifier|final
@@ -421,7 +421,7 @@ specifier|final
 name|int
 name|DEFAULT_START_LOG_ERRORS_AFTER_COUNT
 init|=
-literal|9
+literal|5
 decl_stmt|;
 comment|/**    * Configuration to decide whether to log details for batch error    */
 specifier|public
