@@ -1180,7 +1180,7 @@ operator|!=
 literal|null
 condition|)
 block|{
-comment|/*        * http://2.bp.blogspot.com/_Cib_A77V54U/StZMrzaKufI/AAAAAAAAADo/ZhK7bGoJdMQ/s400/KeyValue.png        * Key = RowLen + Row + FamilyLen + Column [Family + Qualifier] + TimeStamp        *        * 2 Types of Filtering:        *  1. Row = Row        *  2. RowCol = Row + Qualifier        */
+comment|/*        * http://2.bp.blogspot.com/_Cib_A77V54U/StZMrzaKufI/AAAAAAAAADo/ZhK7bGoJdMQ/s400/KeyValue.png        * Key = RowLen + Row + FamilyLen + Column [Family + Qualifier] + Timestamp        *        * 2 Types of Filtering:        *  1. Row = Row        *  2. RowCol = Row + Qualifier        */
 name|bloomContext
 operator|.
 name|writeBloom

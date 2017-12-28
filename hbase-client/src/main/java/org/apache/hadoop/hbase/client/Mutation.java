@@ -802,7 +802,7 @@ name|ts
 operator|=
 name|clone
 operator|.
-name|getTimeStamp
+name|getTimestamp
 argument_list|()
 expr_stmt|;
 name|this
@@ -1976,13 +1976,34 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Method for retrieving the timestamp    * @return timestamp    */
+comment|/**    * Method for retrieving the timestamp    * @return timestamp    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    *             Use {@link #getTimestamp()} instead    */
+end_comment
+
+begin_function
+annotation|@
+name|Deprecated
+specifier|public
+name|long
+name|getTimeStamp
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|getTimestamp
+argument_list|()
+return|;
+block|}
+end_function
+
+begin_comment
+comment|/**    * Method for retrieving the timestamp.    *    * @return timestamp    */
 end_comment
 
 begin_function
 specifier|public
 name|long
-name|getTimeStamp
+name|getTimestamp
 parameter_list|()
 block|{
 return|return

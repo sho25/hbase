@@ -582,7 +582,7 @@ argument_list|,
 operator|(
 name|rLoadSink
 operator|.
-name|getTimeStampsOfLastAppliedOp
+name|getTimestampsOfLastAppliedOp
 argument_list|()
 operator|>=
 literal|0

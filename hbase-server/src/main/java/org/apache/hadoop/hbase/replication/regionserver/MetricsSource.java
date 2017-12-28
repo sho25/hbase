@@ -176,7 +176,7 @@ name|String
 argument_list|,
 name|Long
 argument_list|>
-name|lastTimeStamps
+name|lastTimestamps
 init|=
 operator|new
 name|HashMap
@@ -319,7 +319,7 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|lastTimeStamps
+name|lastTimestamps
 operator|.
 name|put
 argument_list|(
@@ -343,7 +343,7 @@ name|lastTimestamp
 init|=
 name|this
 operator|.
-name|lastTimeStamps
+name|lastTimestamps
 operator|.
 name|get
 argument_list|(
@@ -359,7 +359,7 @@ condition|)
 block|{
 name|this
 operator|.
-name|lastTimeStamps
+name|lastTimestamps
 operator|.
 name|put
 argument_list|(
@@ -658,7 +658,7 @@ argument_list|(
 name|lastHFileRefsQueueSize
 argument_list|)
 expr_stmt|;
-name|lastTimeStamps
+name|lastTimestamps
 operator|.
 name|clear
 argument_list|()
@@ -694,10 +694,23 @@ name|getSizeOfLogQueue
 argument_list|()
 return|;
 block|}
-comment|/**    * Get the timeStampsOfLastShippedOp, if there are multiple groups, return the latest one    * @return lastTimestampForAge    */
+comment|/**    * Get the timeStampsOfLastShippedOp, if there are multiple groups, return the latest one    * @return lastTimestampForAge    * @deprecated Since 2.0.0. Removed in 3.0.0.    * @see #getTimestampOfLastShippedOp()    */
+annotation|@
+name|Deprecated
 specifier|public
 name|long
 name|getTimeStampOfLastShippedOp
+parameter_list|()
+block|{
+return|return
+name|getTimestampOfLastShippedOp
+argument_list|()
+return|;
+block|}
+comment|/**    * Get the timestampsOfLastShippedOp, if there are multiple groups, return the latest one    * @return lastTimestampForAge    */
+specifier|public
+name|long
+name|getTimestampOfLastShippedOp
 parameter_list|()
 block|{
 name|long
@@ -710,7 +723,7 @@ control|(
 name|long
 name|ts
 range|:
-name|lastTimeStamps
+name|lastTimestamps
 operator|.
 name|values
 argument_list|()

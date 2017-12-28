@@ -10008,7 +10008,7 @@ name|setTimestamp
 argument_list|(
 name|mutation
 operator|.
-name|getTimeStamp
+name|getTimestamp
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -19299,7 +19299,7 @@ name|setTimeStampOfLastShippedOp
 argument_list|(
 name|rls
 operator|.
-name|getTimeStampOfLastShippedOp
+name|getTimestampOfLastShippedOp
 argument_list|()
 argument_list|)
 operator|.
@@ -19346,7 +19346,7 @@ name|setTimeStampsOfLastAppliedOp
 argument_list|(
 name|rls
 operator|.
-name|getTimeStampsOfLastAppliedOp
+name|getTimestampsOfLastAppliedOp
 argument_list|()
 argument_list|)
 operator|.

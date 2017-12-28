@@ -1668,7 +1668,7 @@ name|ts
 init|=
 name|put
 operator|.
-name|getTimeStamp
+name|getTimestamp
 argument_list|()
 decl_stmt|;
 for|for
@@ -3184,12 +3184,12 @@ argument_list|()
 argument_list|,
 name|delete
 operator|.
-name|getTimeStamp
+name|getTimestamp
 argument_list|()
 argument_list|,
 name|delete
 operator|.
-name|getTimeStamp
+name|getTimestamp
 argument_list|()
 argument_list|,
 literal|1

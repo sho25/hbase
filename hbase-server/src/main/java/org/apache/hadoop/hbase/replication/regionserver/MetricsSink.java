@@ -214,10 +214,23 @@ name|getLastAppliedOpAge
 argument_list|()
 return|;
 block|}
-comment|/**    * Get the TimeStampOfLastAppliedOp. If no replication Op applied yet, the value is the timestamp    * at which hbase instance starts    * @return timeStampsOfLastAppliedOp;    */
+comment|/**    * Get the TimeStampOfLastAppliedOp. If no replication Op applied yet, the value is the timestamp    * at which hbase instance starts    * @return timeStampsOfLastAppliedOp;    * @deprecated Since 2.0.0. Will be removed in 3.0.0.    * @see #getTimestampOfLastAppliedOp()    */
+annotation|@
+name|Deprecated
 specifier|public
 name|long
 name|getTimeStampOfLastAppliedOp
+parameter_list|()
+block|{
+return|return
+name|getTimestampOfLastAppliedOp
+argument_list|()
+return|;
+block|}
+comment|/**    * Get the TimestampOfLastAppliedOp. If no replication Op applied yet, the value is the timestamp    * at which hbase instance starts    * @return timeStampsOfLastAppliedOp;    */
+specifier|public
+name|long
+name|getTimestampOfLastAppliedOp
 parameter_list|()
 block|{
 return|return

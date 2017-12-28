@@ -284,7 +284,7 @@ name|minTs
 argument_list|,
 name|storeFile
 operator|.
-name|getModificationTimeStamp
+name|getModificationTimestamp
 argument_list|()
 argument_list|)
 expr_stmt|;

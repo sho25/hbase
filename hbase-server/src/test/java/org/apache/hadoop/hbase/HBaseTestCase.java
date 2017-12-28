@@ -1852,7 +1852,7 @@ argument_list|)
 decl_stmt|;
 name|get
 operator|.
-name|setTimeStamp
+name|setTimestamp
 argument_list|(
 name|timestamp
 argument_list|)

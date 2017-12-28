@@ -5861,7 +5861,7 @@ operator|.
 name|getPath
 argument_list|()
 operator|+
-literal|" whose maxTimeStamp is "
+literal|" whose maxTimestamp is "
 operator|+
 name|fileTs
 operator|+

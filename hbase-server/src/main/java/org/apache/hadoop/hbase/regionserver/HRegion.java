@@ -13741,7 +13741,7 @@ name|family
 argument_list|,
 name|delete
 operator|.
-name|getTimeStamp
+name|getTimestamp
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -14159,7 +14159,7 @@ name|get
 argument_list|)
 condition|)
 block|{
-name|updateDeleteLatestVersionTimeStamp
+name|updateDeleteLatestVersionTimestamp
 argument_list|(
 name|cell
 argument_list|,
@@ -14174,7 +14174,7 @@ block|}
 block|}
 else|else
 block|{
-name|updateDeleteLatestVersionTimeStamp
+name|updateDeleteLatestVersionTimestamp
 argument_list|(
 name|cell
 argument_list|,
@@ -14203,7 +14203,7 @@ block|}
 block|}
 block|}
 name|void
-name|updateDeleteLatestVersionTimeStamp
+name|updateDeleteLatestVersionTimestamp
 parameter_list|(
 name|Cell
 name|cell

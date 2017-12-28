@@ -2770,7 +2770,7 @@ name|LATEST_TIMESTAMP
 argument_list|,
 name|p
 operator|.
-name|getTimeStamp
+name|getTimestamp
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2866,7 +2866,7 @@ name|LATEST_TIMESTAMP
 argument_list|,
 name|p
 operator|.
-name|getTimeStamp
+name|getTimestamp
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3000,7 +3000,7 @@ name|LATEST_TIMESTAMP
 argument_list|,
 name|p
 operator|.
-name|getTimeStamp
+name|getTimestamp
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3158,7 +3158,7 @@ name|LATEST_TIMESTAMP
 argument_list|,
 name|p
 operator|.
-name|getTimeStamp
+name|getTimestamp
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3316,7 +3316,7 @@ literal|1970L
 argument_list|,
 name|p
 operator|.
-name|getTimeStamp
+name|getTimestamp
 argument_list|()
 argument_list|)
 expr_stmt|;

@@ -250,7 +250,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Used to perform Get operations on a single row.  *<p>  * To get everything for a row, instantiate a Get object with the row to get.  * To further narrow the scope of what to Get, use the methods below.  *<p>  * To get all columns from specific families, execute {@link #addFamily(byte[]) addFamily}  * for each family to retrieve.  *<p>  * To get specific columns, execute {@link #addColumn(byte[], byte[]) addColumn}  * for each column to retrieve.  *<p>  * To only retrieve columns within a specific range of version timestamps,  * execute {@link #setTimeRange(long, long) setTimeRange}.  *<p>  * To only retrieve columns with a specific timestamp, execute  * {@link #setTimeStamp(long) setTimestamp}.  *<p>  * To limit the number of versions of each column to be returned, execute  * {@link #setMaxVersions(int) setMaxVersions}.  *<p>  * To add a filter, call {@link #setFilter(Filter) setFilter}.  */
+comment|/**  * Used to perform Get operations on a single row.  *<p>  * To get everything for a row, instantiate a Get object with the row to get.  * To further narrow the scope of what to Get, use the methods below.  *<p>  * To get all columns from specific families, execute {@link #addFamily(byte[]) addFamily}  * for each family to retrieve.  *<p>  * To get specific columns, execute {@link #addColumn(byte[], byte[]) addColumn}  * for each column to retrieve.  *<p>  * To only retrieve columns within a specific range of version timestamps,  * execute {@link #setTimeRange(long, long) setTimeRange}.  *<p>  * To only retrieve columns with a specific timestamp, execute  * {@link #setTimestamp(long) setTimestamp}.  *<p>  * To limit the number of versions of each column to be returned, execute  * {@link #setMaxVersions(int) setMaxVersions}.  *<p>  * To add a filter, call {@link #setFilter(Filter) setFilter}.  */
 end_comment
 
 begin_class
@@ -964,7 +964,9 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Get versions of columns with the specified timestamp.    * @param timestamp version timestamp    * @return this for invocation chaining    */
+comment|/**    * Get versions of columns with the specified timestamp.    * @param timestamp version timestamp    * @return this for invocation chaining    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    *             Use {@link #setTimestamp(long)} instead    */
+annotation|@
+name|Deprecated
 specifier|public
 name|Get
 name|setTimeStamp
@@ -974,6 +976,24 @@ name|timestamp
 parameter_list|)
 throws|throws
 name|IOException
+block|{
+return|return
+name|this
+operator|.
+name|setTimestamp
+argument_list|(
+name|timestamp
+argument_list|)
+return|;
+block|}
+comment|/**    * Get versions of columns with the specified timestamp.    * @param timestamp version timestamp    * @return this for invocation chaining    */
+specifier|public
+name|Get
+name|setTimestamp
+parameter_list|(
+name|long
+name|timestamp
+parameter_list|)
 block|{
 try|try
 block|{

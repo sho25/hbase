@@ -1281,12 +1281,12 @@ name|assertEquals
 argument_list|(
 name|origin
 operator|.
-name|getTimeStamp
+name|getTimestamp
 argument_list|()
 argument_list|,
 name|clone
 operator|.
-name|getTimeStamp
+name|getTimestamp
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1604,7 +1604,7 @@ name|setTimestamp
 argument_list|(
 name|put
 operator|.
-name|getTimeStamp
+name|getTimestamp
 argument_list|()
 argument_list|)
 operator|.
@@ -1730,7 +1730,7 @@ argument_list|()
 operator|==
 name|put
 operator|.
-name|getTimeStamp
+name|getTimestamp
 argument_list|()
 argument_list|)
 expr_stmt|;

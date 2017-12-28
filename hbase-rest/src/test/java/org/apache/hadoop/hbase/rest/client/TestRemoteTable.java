@@ -1674,7 +1674,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setTimeStamp
+name|setTimestamp
 argument_list|(
 name|TS_1
 argument_list|)

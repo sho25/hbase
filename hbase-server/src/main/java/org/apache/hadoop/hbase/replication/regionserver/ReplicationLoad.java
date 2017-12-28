@@ -254,7 +254,7 @@ name|setTimeStampsOfLastAppliedOp
 argument_list|(
 name|sinkMetrics
 operator|.
-name|getTimeStampOfLastAppliedOp
+name|getTimestampOfLastAppliedOp
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -351,7 +351,7 @@ name|timeStampOfLastShippedOp
 init|=
 name|sm
 operator|.
-name|getTimeStampOfLastShippedOp
+name|getTimestampOfLastShippedOp
 argument_list|()
 decl_stmt|;
 name|long
@@ -650,7 +650,7 @@ name|appendKeyValue
 argument_list|(
 name|sb
 argument_list|,
-literal|"TimeStampsOfLastShippedOp"
+literal|"TimestampsOfLastShippedOp"
 argument_list|,
 operator|(
 operator|new
@@ -741,7 +741,7 @@ name|appendKeyValue
 argument_list|(
 name|sb
 argument_list|,
-literal|"TimeStampsOfLastAppliedOp"
+literal|"TimestampsOfLastAppliedOp"
 argument_list|,
 operator|(
 operator|new

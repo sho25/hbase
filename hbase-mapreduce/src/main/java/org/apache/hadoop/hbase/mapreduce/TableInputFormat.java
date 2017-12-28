@@ -761,7 +761,7 @@ condition|)
 block|{
 name|scan
 operator|.
-name|setTimeStamp
+name|setTimestamp
 argument_list|(
 name|Long
 operator|.

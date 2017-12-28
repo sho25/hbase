@@ -292,7 +292,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Used to perform Scan operations.  *<p>  * All operations are identical to {@link Get} with the exception of instantiation. Rather than  * specifying a single row, an optional startRow and stopRow may be defined. If rows are not  * specified, the Scanner will iterate over all rows.  *<p>  * To get all columns from all rows of a Table, create an instance with no constraints; use the  * {@link #Scan()} constructor. To constrain the scan to specific column families, call  * {@link #addFamily(byte[]) addFamily} for each family to retrieve on your Scan instance.  *<p>  * To get specific columns, call {@link #addColumn(byte[], byte[]) addColumn} for each column to  * retrieve.  *<p>  * To only retrieve columns within a specific range of version timestamps, call  * {@link #setTimeRange(long, long) setTimeRange}.  *<p>  * To only retrieve columns with a specific timestamp, call {@link #setTimeStamp(long) setTimestamp}  * .  *<p>  * To limit the number of versions of each column to be returned, call {@link #setMaxVersions(int)  * setMaxVersions}.  *<p>  * To limit the maximum number of values returned for each call to next(), call  * {@link #setBatch(int) setBatch}.  *<p>  * To add a filter, call {@link #setFilter(org.apache.hadoop.hbase.filter.Filter) setFilter}.  *<p>  * For small scan, it is deprecated in 2.0.0. Now we have a {@link #setLimit(int)} method in Scan  * object which is used to tell RS how many rows we want. If the rows return reaches the limit, the  * RS will close the RegionScanner automatically. And we will also fetch data when openScanner in  * the new implementation, this means we can also finish a scan operation in one rpc call. And we  * have also introduced a {@link #setReadType(ReadType)} method. You can use this method to tell RS  * to use pread explicitly.  *<p>  * Expert: To explicitly disable server-side block caching for this scan, execute  * {@link #setCacheBlocks(boolean)}.  *<p>  *<em>Note:</em> Usage alters Scan instances. Internally, attributes are updated as the Scan runs  * and if enabled, metrics accumulate in the Scan instance. Be aware this is the case when you go to  * clone a Scan instance or if you go to reuse a created Scan instance; safer is create a Scan  * instance per usage.  */
+comment|/**  * Used to perform Scan operations.  *<p>  * All operations are identical to {@link Get} with the exception of instantiation. Rather than  * specifying a single row, an optional startRow and stopRow may be defined. If rows are not  * specified, the Scanner will iterate over all rows.  *<p>  * To get all columns from all rows of a Table, create an instance with no constraints; use the  * {@link #Scan()} constructor. To constrain the scan to specific column families, call  * {@link #addFamily(byte[]) addFamily} for each family to retrieve on your Scan instance.  *<p>  * To get specific columns, call {@link #addColumn(byte[], byte[]) addColumn} for each column to  * retrieve.  *<p>  * To only retrieve columns within a specific range of version timestamps, call  * {@link #setTimeRange(long, long) setTimeRange}.  *<p>  * To only retrieve columns with a specific timestamp, call {@link #setTimestamp(long) setTimestamp}  * .  *<p>  * To limit the number of versions of each column to be returned, call {@link #setMaxVersions(int)  * setMaxVersions}.  *<p>  * To limit the maximum number of values returned for each call to next(), call  * {@link #setBatch(int) setBatch}.  *<p>  * To add a filter, call {@link #setFilter(org.apache.hadoop.hbase.filter.Filter) setFilter}.  *<p>  * For small scan, it is deprecated in 2.0.0. Now we have a {@link #setLimit(int)} method in Scan  * object which is used to tell RS how many rows we want. If the rows return reaches the limit, the  * RS will close the RegionScanner automatically. And we will also fetch data when openScanner in  * the new implementation, this means we can also finish a scan operation in one rpc call. And we  * have also introduced a {@link #setReadType(ReadType)} method. You can use this method to tell RS  * to use pread explicitly.  *<p>  * Expert: To explicitly disable server-side block caching for this scan, execute  * {@link #setCacheBlocks(boolean)}.  *<p>  *<em>Note:</em> Usage alters Scan instances. Internally, attributes are updated as the Scan runs  * and if enabled, metrics accumulate in the Scan instance. Be aware this is the case when you go to  * clone a Scan instance or if you go to reuse a created Scan instance; safer is create a Scan  * instance per usage.  */
 end_comment
 
 begin_class
@@ -1409,7 +1409,9 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Get versions of columns with the specified timestamp. Note, default maximum    * versions to return is 1.  If your time range spans more than one version    * and you want all versions returned, up the number of versions beyond the    * defaut.    * @param timestamp version timestamp    * @see #setMaxVersions()    * @see #setMaxVersions(int)    * @return this    */
+comment|/**    * Get versions of columns with the specified timestamp. Note, default maximum    * versions to return is 1.  If your time range spans more than one version    * and you want all versions returned, up the number of versions beyond the    * defaut.    * @param timestamp version timestamp    * @see #setMaxVersions()    * @see #setMaxVersions(int)    * @return this    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    *             Use {@link #setTimestamp(long)} instead    */
+annotation|@
+name|Deprecated
 specifier|public
 name|Scan
 name|setTimeStamp
@@ -1419,6 +1421,24 @@ name|timestamp
 parameter_list|)
 throws|throws
 name|IOException
+block|{
+return|return
+name|this
+operator|.
+name|setTimestamp
+argument_list|(
+name|timestamp
+argument_list|)
+return|;
+block|}
+comment|/**    * Get versions of columns with the specified timestamp. Note, default maximum    * versions to return is 1.  If your time range spans more than one version    * and you want all versions returned, up the number of versions beyond the    * defaut.    * @param timestamp version timestamp    * @see #setMaxVersions()    * @see #setMaxVersions(int)    * @return this    */
+specifier|public
+name|Scan
+name|setTimestamp
+parameter_list|(
+name|long
+name|timestamp
+parameter_list|)
 block|{
 try|try
 block|{

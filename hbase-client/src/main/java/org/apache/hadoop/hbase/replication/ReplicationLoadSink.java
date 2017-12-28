@@ -52,7 +52,7 @@ decl_stmt|;
 specifier|private
 specifier|final
 name|long
-name|timeStampsOfLastAppliedOp
+name|timestampsOfLastAppliedOp
 decl_stmt|;
 comment|// TODO: add the builder for this class
 annotation|@
@@ -66,7 +66,7 @@ name|long
 name|age
 parameter_list|,
 name|long
-name|timeStamp
+name|timestamp
 parameter_list|)
 block|{
 name|this
@@ -77,9 +77,9 @@ name|age
 expr_stmt|;
 name|this
 operator|.
-name|timeStampsOfLastAppliedOp
+name|timestampsOfLastAppliedOp
 operator|=
-name|timeStamp
+name|timestamp
 expr_stmt|;
 block|}
 specifier|public
@@ -93,15 +93,28 @@ operator|.
 name|ageOfLastAppliedOp
 return|;
 block|}
+comment|/**    * @deprecated Since hbase-2.0.0. Will be removed in 3.0.0.    * @see #getTimestampsOfLastAppliedOp()    */
+annotation|@
+name|Deprecated
 specifier|public
 name|long
 name|getTimeStampsOfLastAppliedOp
 parameter_list|()
 block|{
 return|return
+name|getTimestampsOfLastAppliedOp
+argument_list|()
+return|;
+block|}
+specifier|public
+name|long
+name|getTimestampsOfLastAppliedOp
+parameter_list|()
+block|{
+return|return
 name|this
 operator|.
-name|timeStampsOfLastAppliedOp
+name|timestampsOfLastAppliedOp
 return|;
 block|}
 block|}

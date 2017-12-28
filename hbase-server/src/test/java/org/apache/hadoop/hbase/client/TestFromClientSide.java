@@ -22652,7 +22652,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setTimeStamp
+name|setTimestamp
 argument_list|(
 name|stamp
 argument_list|)
@@ -22737,7 +22737,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setTimeStamp
+name|setTimestamp
 argument_list|(
 name|stamp
 argument_list|)
@@ -22816,7 +22816,7 @@ argument_list|)
 expr_stmt|;
 name|scan
 operator|.
-name|setTimeStamp
+name|setTimestamp
 argument_list|(
 name|stamp
 argument_list|)
@@ -22901,7 +22901,7 @@ argument_list|)
 expr_stmt|;
 name|scan
 operator|.
-name|setTimeStamp
+name|setTimestamp
 argument_list|(
 name|stamp
 argument_list|)

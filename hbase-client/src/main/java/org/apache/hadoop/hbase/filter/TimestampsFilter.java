@@ -178,7 +178,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Filter that returns only cells whose timestamp (version) is  * in the specified list of timestamps (versions).  *<p>  * Note: Use of this filter overrides any time range/time stamp  * options specified using {@link org.apache.hadoop.hbase.client.Get#setTimeRange(long, long)},  * {@link org.apache.hadoop.hbase.client.Scan#setTimeRange(long, long)}, {@link org.apache.hadoop.hbase.client.Get#setTimeStamp(long)},  * or {@link org.apache.hadoop.hbase.client.Scan#setTimeStamp(long)}.  */
+comment|/**  * Filter that returns only cells whose timestamp (version) is  * in the specified list of timestamps (versions).  *<p>  * Note: Use of this filter overrides any time range/time stamp  * options specified using {@link org.apache.hadoop.hbase.client.Get#setTimeRange(long, long)},  * {@link org.apache.hadoop.hbase.client.Scan#setTimeRange(long, long)},  * {@link org.apache.hadoop.hbase.client.Get#setTimestamp(long)},  * or {@link org.apache.hadoop.hbase.client.Scan#setTimestamp(long)}.  */
 end_comment
 
 begin_class
@@ -212,9 +212,9 @@ init|=
 literal|5
 decl_stmt|;
 comment|// Used during scans to hint the scan to stop early
-comment|// once the timestamps fall below the minTimeStamp.
+comment|// once the timestamps fall below the minTimestamp.
 name|long
-name|minTimeStamp
+name|minTimestamp
 init|=
 name|Long
 operator|.
@@ -349,7 +349,7 @@ operator|>
 literal|0
 condition|)
 block|{
-name|minTimeStamp
+name|minTimestamp
 operator|=
 name|this
 operator|.
@@ -367,7 +367,7 @@ name|getMin
 parameter_list|()
 block|{
 return|return
-name|minTimeStamp
+name|minTimestamp
 return|;
 block|}
 annotation|@
@@ -447,7 +447,7 @@ operator|.
 name|getTimestamp
 argument_list|()
 operator|<
-name|minTimeStamp
+name|minTimestamp
 condition|)
 block|{
 comment|// The remaining versions of this column are guaranteed

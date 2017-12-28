@@ -1156,7 +1156,7 @@ name|setTimestamp
 argument_list|(
 name|append
 operator|.
-name|getTimeStamp
+name|getTimestamp
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1709,7 +1709,7 @@ name|setTimestamp
 argument_list|(
 name|increment
 operator|.
-name|getTimeStamp
+name|getTimestamp
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1975,7 +1975,7 @@ name|timestamp
 init|=
 name|put
 operator|.
-name|getTimeStamp
+name|getTimestamp
 argument_list|()
 decl_stmt|;
 for|for

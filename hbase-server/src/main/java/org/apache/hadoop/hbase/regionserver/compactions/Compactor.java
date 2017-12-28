@@ -1020,7 +1020,7 @@ name|FileDetails
 argument_list|()
 decl_stmt|;
 name|long
-name|oldestHFileTimeStampToKeepMVCC
+name|oldestHFileTimestampToKeepMVCC
 init|=
 name|System
 operator|.
@@ -1056,10 +1056,10 @@ operator|&&
 operator|(
 name|file
 operator|.
-name|getModificationTimeStamp
+name|getModificationTimestamp
 argument_list|()
 operator|<
-name|oldestHFileTimeStampToKeepMVCC
+name|oldestHFileTimestampToKeepMVCC
 operator|)
 condition|)
 block|{

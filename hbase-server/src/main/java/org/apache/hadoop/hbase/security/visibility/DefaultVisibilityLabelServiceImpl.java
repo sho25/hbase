@@ -1687,7 +1687,7 @@ name|setTimestamp
 argument_list|(
 name|p
 operator|.
-name|getTimeStamp
+name|getTimestamp
 argument_list|()
 argument_list|)
 operator|.
@@ -1908,7 +1908,7 @@ name|setTimestamp
 argument_list|(
 name|p
 operator|.
-name|getTimeStamp
+name|getTimestamp
 argument_list|()
 argument_list|)
 operator|.
@@ -2183,7 +2183,7 @@ name|setTimestamp
 argument_list|(
 name|p
 operator|.
-name|getTimeStamp
+name|getTimestamp
 argument_list|()
 argument_list|)
 operator|.

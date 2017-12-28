@@ -955,19 +955,15 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Found an expired store file: "
-operator|+
+literal|"Found an expired store file {} whose maxTimestamp is {}, which is below {}"
+argument_list|,
 name|sf
 operator|.
 name|getPath
 argument_list|()
-operator|+
-literal|" whose maxTimeStamp is "
-operator|+
+argument_list|,
 name|fileTs
-operator|+
-literal|", which is below "
-operator|+
+argument_list|,
 name|maxTs
 argument_list|)
 expr_stmt|;

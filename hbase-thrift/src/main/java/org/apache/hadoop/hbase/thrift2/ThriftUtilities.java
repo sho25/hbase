@@ -898,7 +898,7 @@ condition|)
 block|{
 name|out
 operator|.
-name|setTimeStamp
+name|setTimestamp
 argument_list|(
 name|in
 operator|.
@@ -1584,7 +1584,7 @@ name|setTimestamp
 argument_list|(
 name|out
 operator|.
-name|getTimeStamp
+name|getTimestamp
 argument_list|()
 argument_list|)
 operator|.
@@ -2191,7 +2191,7 @@ name|rowTimestamp
 init|=
 name|in
 operator|.
-name|getTimeStamp
+name|getTimestamp
 argument_list|()
 decl_stmt|;
 if|if
