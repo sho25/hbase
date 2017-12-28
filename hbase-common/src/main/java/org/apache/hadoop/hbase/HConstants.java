@@ -2050,7 +2050,7 @@ specifier|final
 name|int
 name|DEFAULT_HBASE_CLIENT_RETRIES_NUMBER
 init|=
-literal|10
+literal|15
 decl_stmt|;
 specifier|public
 specifier|static
