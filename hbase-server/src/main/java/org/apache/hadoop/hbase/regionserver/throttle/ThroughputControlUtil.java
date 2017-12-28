@@ -166,7 +166,7 @@ operator|.
 name|getRegionInfo
 argument_list|()
 operator|.
-name|getRegionNameAsString
+name|getEncodedName
 argument_list|()
 operator|+
 name|NAME_DELIMITER

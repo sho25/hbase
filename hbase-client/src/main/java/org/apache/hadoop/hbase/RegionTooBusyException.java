@@ -62,7 +62,6 @@ name|serialVersionUID
 init|=
 literal|1728345723728342L
 decl_stmt|;
-comment|/**    * Constructor    * @param msg message    */
 comment|// Be careful. Keep variance in the passed 'msg' low because its msg is used as a key over in
 comment|// RetriesExhaustedWithDetailsException grouping failure types.
 specifier|public

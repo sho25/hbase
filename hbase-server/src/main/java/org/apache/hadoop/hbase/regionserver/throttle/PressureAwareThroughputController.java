@@ -589,11 +589,11 @@ name|debug
 argument_list|(
 name|opName
 operator|+
-literal|" sleep "
+literal|" sleep="
 operator|+
 name|sleepTime
 operator|+
-literal|" ms because current throughput is "
+literal|"ms because current throughput is "
 operator|+
 name|throughputDesc
 argument_list|(

@@ -20041,7 +20041,7 @@ operator|.
 name|getRegionInfo
 argument_list|()
 operator|.
-name|getRegionNameAsString
+name|getEncodedName
 argument_list|()
 operator|)
 operator|+
@@ -20068,7 +20068,24 @@ operator|)
 operator|+
 literal|", blockingMemStoreSize="
 operator|+
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|procedure2
+operator|.
+name|util
+operator|.
+name|StringUtils
+operator|.
+name|humanSize
+argument_list|(
 name|blockingMemStoreSize
+argument_list|)
 argument_list|)
 throw|;
 block|}

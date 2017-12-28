@@ -767,7 +767,9 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Use full core processors to scan dir"
+literal|"Use full core processors to scan dir, size={}"
+operator|+
+name|size
 argument_list|)
 expr_stmt|;
 block|}
@@ -907,7 +909,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"initialize cleaner="
+literal|"Initialize cleaner="
 operator|+
 name|className
 argument_list|)
@@ -957,26 +959,15 @@ operator|==
 name|chorePoolSize
 condition|)
 block|{
-if|if
-condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
+name|trace
 argument_list|(
-literal|"Size from configuration is the same as previous which is "
-operator|+
+literal|"Size from configuration is same as previous={}, no need to update."
+argument_list|,
 name|updatedSize
-operator|+
-literal|", no need to update."
 argument_list|)
 expr_stmt|;
-block|}
 return|return;
 block|}
 name|chorePoolSize
@@ -1027,15 +1018,13 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Update chore's pool size from "
-operator|+
+literal|"Update chore's pool size from {} to {}"
+argument_list|,
 name|chorePool
 operator|.
 name|getParallelism
 argument_list|()
-operator|+
-literal|" to "
-operator|+
+argument_list|,
 name|updatedSize
 argument_list|)
 expr_stmt|;
@@ -1130,8 +1119,8 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Can NOT create CleanerDelegate: "
-operator|+
+literal|"Can NOT create CleanerDelegate={}"
+argument_list|,
 name|className
 argument_list|,
 name|e
@@ -1162,26 +1151,15 @@ name|runCleaner
 argument_list|()
 condition|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Cleaned old files/dirs under "
-operator|+
+literal|"Cleaned old files/dirs under {} successfully"
+argument_list|,
 name|oldFileDir
-operator|+
-literal|" successfully."
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 else|else
 block|{
@@ -1447,20 +1425,12 @@ name|IOException
 name|e
 parameter_list|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"failed to get space consumed by path "
-operator|+
+literal|"Failed to get space consumed by path={}"
+argument_list|,
 name|f
 operator|.
 name|getPath
@@ -1469,7 +1439,6 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
-block|}
 return|return
 operator|-
 literal|1
@@ -1774,26 +1743,15 @@ operator|.
 name|getPath
 argument_list|()
 decl_stmt|;
-if|if
-condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
+name|trace
 argument_list|(
-literal|"Removing: "
-operator|+
+literal|"Removing {} from archive"
+argument_list|,
 name|filePath
-operator|+
-literal|" from archive"
 argument_list|)
 expr_stmt|;
-block|}
 try|try
 block|{
 name|boolean
@@ -2153,24 +2111,15 @@ condition|(
 name|nullSubDirs
 condition|)
 block|{
-if|if
-condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
+name|trace
 argument_list|(
-literal|"There is no subdir under "
-operator|+
+literal|"There is no subdir under {}"
+argument_list|,
 name|dir
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 if|if
 condition|(
@@ -2179,24 +2128,15 @@ operator|==
 literal|null
 condition|)
 block|{
-if|if
-condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
+name|trace
 argument_list|(
-literal|"There is no file under "
-operator|+
+literal|"There is no file under {}"
+argument_list|,
 name|dir
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 name|int
 name|capacity
@@ -2292,7 +2232,7 @@ name|deleteAction
 argument_list|(
 parameter_list|()
 lambda|->
-name|getCleanRusult
+name|getCleanResult
 argument_list|(
 name|tasks
 argument_list|)
@@ -2391,32 +2331,21 @@ decl_stmt|;
 name|String
 name|errorMsg
 init|=
-literal|""
+literal|null
 decl_stmt|;
 try|try
 block|{
-if|if
-condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
+name|trace
 argument_list|(
-literal|"Start deleting "
-operator|+
+literal|"Start deleting {} under {}"
+argument_list|,
 name|type
-operator|+
-literal|" under "
-operator|+
+argument_list|,
 name|dir
 argument_list|)
 expr_stmt|;
-block|}
 name|deleted
 operator|=
 name|deletion
@@ -2438,71 +2367,37 @@ operator|.
 name|getMessage
 argument_list|()
 expr_stmt|;
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Could not delete {} under {}; {}"
+argument_list|,
+name|type
+argument_list|,
+name|dir
+argument_list|,
+name|errorMsg
+argument_list|)
+expr_stmt|;
 name|deleted
 operator|=
 literal|false
 expr_stmt|;
 block|}
-if|if
-condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-if|if
-condition|(
+name|trace
+argument_list|(
+literal|"Finish deleting {} under {}, deleted="
+argument_list|,
+name|type
+argument_list|,
+name|dir
+argument_list|,
 name|deleted
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Finish deleting "
-operator|+
-name|type
-operator|+
-literal|" under "
-operator|+
-name|dir
 argument_list|)
 expr_stmt|;
-block|}
-else|else
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Couldn't delete "
-operator|+
-name|type
-operator|+
-literal|" completely under "
-operator|+
-name|dir
-operator|+
-literal|" with reasons: "
-operator|+
-operator|(
-operator|!
-name|errorMsg
-operator|.
-name|equals
-argument_list|(
-literal|""
-argument_list|)
-condition|?
-name|errorMsg
-else|:
-literal|" undeletable, please check."
-operator|)
-argument_list|)
-expr_stmt|;
-block|}
-block|}
 return|return
 name|deleted
 return|;
@@ -2510,7 +2405,7 @@ block|}
 comment|/**      * Get cleaner results of subdirs.      * @param tasks subdirs cleaner tasks      * @return true if all subdirs deleted successfully, false for patial/all failures      * @throws IOException something happen during computation      */
 specifier|private
 name|boolean
-name|getCleanRusult
+name|getCleanResult
 parameter_list|(
 name|List
 argument_list|<

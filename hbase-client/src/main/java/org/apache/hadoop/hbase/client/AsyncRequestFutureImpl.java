@@ -5358,7 +5358,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|"#"
+literal|"id="
 argument_list|)
 operator|.
 name|append
@@ -5440,7 +5440,7 @@ argument_list|)
 operator|.
 name|append
 argument_list|(
-literal|", last exception: "
+literal|", last exception="
 argument_list|)
 operator|.
 name|append
