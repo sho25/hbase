@@ -189,11 +189,6 @@ class|class
 name|Delete
 extends|extends
 name|Mutation
-implements|implements
-name|Comparable
-argument_list|<
-name|Row
-argument_list|>
 block|{
 comment|/**    * Create a Delete operation for the specified row.    *<p>    * If no further operations are done, this will delete everything    * associated with the specified row (all versions of all columns in all    * families), with timestamp from current point in time to the past.    * Cells defining timestamp for a future point in time    * (timestamp> current time) will not be deleted.    * @param row row key    */
 specifier|public

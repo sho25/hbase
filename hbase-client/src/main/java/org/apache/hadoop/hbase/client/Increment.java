@@ -231,11 +231,6 @@ class|class
 name|Increment
 extends|extends
 name|Mutation
-implements|implements
-name|Comparable
-argument_list|<
-name|Row
-argument_list|>
 block|{
 specifier|private
 specifier|static
@@ -1040,34 +1035,9 @@ name|toString
 argument_list|()
 return|;
 block|}
+comment|/**    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    *             No replacement.    */
 annotation|@
-name|Override
-specifier|public
-name|int
-name|compareTo
-parameter_list|(
-name|Row
-name|i
-parameter_list|)
-block|{
-comment|// TODO: This is wrong.  Can't have two the same just because on same row.
-return|return
-name|Bytes
-operator|.
-name|compareTo
-argument_list|(
-name|this
-operator|.
-name|getRow
-argument_list|()
-argument_list|,
-name|i
-operator|.
-name|getRow
-argument_list|()
-argument_list|)
-return|;
-block|}
+name|Deprecated
 annotation|@
 name|Override
 specifier|public
@@ -1089,6 +1059,9 @@ argument_list|()
 argument_list|)
 return|;
 block|}
+comment|/**    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    *             Use {@link Row#COMPARATOR} instead    */
+annotation|@
+name|Deprecated
 annotation|@
 name|Override
 specifier|public

@@ -98,7 +98,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Performs multiple mutations atomically on a single row.  * Currently {@link Put} and {@link Delete} are supported.  *  * The mutations are performed in the order in which they  * were added.  *   *<p>We compare and equate mutations based off their row so be careful putting RowMutations  * into Sets or using them as keys in Maps.  */
+comment|/**  * Performs multiple mutations atomically on a single row.  * Currently {@link Put} and {@link Delete} are supported.  *  * The mutations are performed in the order in which they  * were added.  *  *<p>We compare and equate mutations based off their row so be careful putting RowMutations  * into Sets or using them as keys in Maps.  */
 end_comment
 
 begin_class
@@ -312,6 +312,9 @@ name|m
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    *             Use {@link Row#COMPARATOR} instead    */
+annotation|@
+name|Deprecated
 annotation|@
 name|Override
 specifier|public
@@ -339,6 +342,9 @@ argument_list|()
 argument_list|)
 return|;
 block|}
+comment|/**    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    *             No replacement    */
+annotation|@
+name|Deprecated
 annotation|@
 name|Override
 specifier|public
@@ -386,6 +392,9 @@ return|return
 literal|false
 return|;
 block|}
+comment|/**    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    *             No replacement    */
+annotation|@
+name|Deprecated
 annotation|@
 name|Override
 specifier|public

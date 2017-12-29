@@ -265,11 +265,6 @@ extends|extends
 name|Query
 implements|implements
 name|Row
-implements|,
-name|Comparable
-argument_list|<
-name|Row
-argument_list|>
 block|{
 specifier|private
 specifier|static

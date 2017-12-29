@@ -231,11 +231,6 @@ extends|extends
 name|Mutation
 implements|implements
 name|HeapSize
-implements|,
-name|Comparable
-argument_list|<
-name|Row
-argument_list|>
 block|{
 comment|/**    * Create a Put operation for the specified row.    * @param row row key    */
 specifier|public
