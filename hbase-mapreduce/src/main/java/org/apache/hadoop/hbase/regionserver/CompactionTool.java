@@ -710,25 +710,12 @@ name|CONF_DELETE_COMPACTED
 init|=
 literal|"hbase.compactiontool.delete"
 decl_stmt|;
-specifier|private
-specifier|final
-specifier|static
-name|String
-name|CONF_COMPLETE_COMPACTION
-init|=
-literal|"hbase.hstore.compaction.complete"
-decl_stmt|;
 comment|/**    * Class responsible to execute the Compaction on the specified path.    * The path can be a table, region or family directory.    */
 specifier|private
 specifier|static
 class|class
 name|CompactionWorker
 block|{
-specifier|private
-specifier|final
-name|boolean
-name|keepCompactedFiles
-decl_stmt|;
 specifier|private
 specifier|final
 name|boolean
@@ -766,20 +753,6 @@ operator|.
 name|conf
 operator|=
 name|conf
-expr_stmt|;
-name|this
-operator|.
-name|keepCompactedFiles
-operator|=
-operator|!
-name|conf
-operator|.
-name|getBoolean
-argument_list|(
-name|CONF_COMPLETE_COMPACTION
-argument_list|,
-literal|true
-argument_list|)
 expr_stmt|;
 name|this
 operator|.
@@ -1274,8 +1247,6 @@ condition|)
 block|{
 if|if
 condition|(
-name|keepCompactedFiles
-operator|&&
 name|deleteCompacted
 condition|)
 block|{
@@ -2901,19 +2872,6 @@ operator|.
 name|println
 argument_list|(
 literal|"For example: "
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|" To preserve input files, pass -D"
-operator|+
-name|CONF_COMPLETE_COMPACTION
-operator|+
-literal|"=false"
 argument_list|)
 expr_stmt|;
 name|System
