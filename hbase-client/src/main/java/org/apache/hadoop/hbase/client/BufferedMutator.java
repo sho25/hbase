@@ -19,6 +19,36 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|Closeable
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -59,36 +89,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|Closeable
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|List
-import|;
-end_import
-
 begin_comment
 comment|/**  *<p>Used to communicate with a single HBase table similar to {@link Table} but meant for  * batched, asynchronous puts. Obtain an instance from a {@link Connection} and call  * {@link #close()} afterwards. Customizations can be applied to the {@code BufferedMutator} via  * the {@link BufferedMutatorParams}.  *</p>  *  *<p>Exception handling with asynchronously via the {@link BufferedMutator.ExceptionListener}.  * The default implementation is to throw the exception upon receipt. This behavior can be  * overridden with a custom implementation, provided as a parameter with  * {@link BufferedMutatorParams#listener(BufferedMutator.ExceptionListener)}.</p>  *  *<p>Map/Reduce jobs are good use cases for using {@code BufferedMutator}. Map/reduce jobs  * benefit from batching, but have no natural flush point. {@code BufferedMutator} receives the  * puts from the M/R job and will batch puts based on some heuristic, such as the accumulated size  * of the puts, and submit batches of puts asynchronously so that the M/R logic can continue  * without interruption.  *</p>  *  *<p>{@code BufferedMutator} can also be used on more exotic circumstances. Map/Reduce batch jobs  * will have a single {@code BufferedMutator} per thread. A single {@code BufferedMutator} can  * also be effectively used in high volume online systems to batch puts, with the caveat that  * extreme circumstances, such as JVM or machine failure, may cause some data loss.</p>  *  *<p>NOTE: This class replaces the functionality that used to be available via  * HTable#setAutoFlush(boolean) set to {@code false}.  *</p>  *  *<p>See also the {@code BufferedMutatorExample} in the hbase-examples module.</p>  * @see ConnectionFactory  * @see Connection  * @since 1.0.0  */
 end_comment
@@ -105,13 +105,16 @@ extends|extends
 name|Closeable
 block|{
 comment|/**    * Key to use setting non-default BufferedMutator implementation in Configuration.    */
-specifier|public
-specifier|static
-specifier|final
 name|String
 name|CLASSNAME_KEY
 init|=
 literal|"hbase.client.bufferedmutator.classname"
+decl_stmt|;
+comment|/**    * Having the timer tick run more often that once every 100ms is needless and will    * probably cause too many timer events firing having a negative impact on performance.    */
+name|long
+name|MIN_WRITE_BUFFER_PERIODIC_FLUSH_TIMERTICK_MS
+init|=
+literal|100
 decl_stmt|;
 comment|/**    * Gets the fully qualified table name instance of the table that this BufferedMutator writes to.    */
 name|TableName
@@ -164,6 +167,85 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Sets the maximum time before the buffer is automatically flushed checking once per second.    * @param timeoutMs    The maximum number of milliseconds how long records may be buffered    *                     before they are flushed. Set to 0 to disable.    */
+specifier|default
+name|void
+name|setWriteBufferPeriodicFlush
+parameter_list|(
+name|long
+name|timeoutMs
+parameter_list|)
+block|{
+name|setWriteBufferPeriodicFlush
+argument_list|(
+name|timeoutMs
+argument_list|,
+literal|1000L
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Sets the maximum time before the buffer is automatically flushed.    * @param timeoutMs    The maximum number of milliseconds how long records may be buffered    *                     before they are flushed. Set to 0 to disable.    * @param timerTickMs  The number of milliseconds between each check if the    *                     timeout has been exceeded. Must be 100ms (as defined in    *                     {@link #MIN_WRITE_BUFFER_PERIODIC_FLUSH_TIMERTICK_MS})    *                     or larger to avoid performance problems.    */
+specifier|default
+name|void
+name|setWriteBufferPeriodicFlush
+parameter_list|(
+name|long
+name|timeoutMs
+parameter_list|,
+name|long
+name|timerTickMs
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|UnsupportedOperationException
+argument_list|(
+literal|"The BufferedMutator::setWriteBufferPeriodicFlush has not been implemented"
+argument_list|)
+throw|;
+block|}
+comment|/**    * Disable periodic flushing of the write buffer.    */
+specifier|default
+name|void
+name|disableWriteBufferPeriodicFlush
+parameter_list|()
+block|{
+name|setWriteBufferPeriodicFlush
+argument_list|(
+literal|0
+argument_list|,
+name|MIN_WRITE_BUFFER_PERIODIC_FLUSH_TIMERTICK_MS
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Returns the current periodic flush timeout value in milliseconds.    * @return The maximum number of milliseconds how long records may be buffered before they    *   are flushed. The value 0 means this is disabled.    */
+specifier|default
+name|long
+name|getWriteBufferPeriodicFlushTimeoutMs
+parameter_list|()
+block|{
+throw|throw
+operator|new
+name|UnsupportedOperationException
+argument_list|(
+literal|"The BufferedMutator::getWriteBufferPeriodicFlushTimeoutMs has not been implemented"
+argument_list|)
+throw|;
+block|}
+comment|/**    * Returns the current periodic flush timertick interval in milliseconds.    * @return The number of milliseconds between each check if the timeout has been exceeded.    *   This value only has a real meaning if the timeout has been set to> 0    */
+specifier|default
+name|long
+name|getWriteBufferPeriodicFlushTimerTickMs
+parameter_list|()
+block|{
+throw|throw
+operator|new
+name|UnsupportedOperationException
+argument_list|(
+literal|"The BufferedMutator::getWriteBufferPeriodicFlushTimerTickMs has not been implemented"
+argument_list|)
+throw|;
+block|}
 comment|/**    * Returns the maximum size in bytes of the write buffer for this HTable.    *<p>    * The default value comes from the configuration parameter {@code hbase.client.write.buffer}.    * @return The size of the write buffer in bytes.    */
 name|long
 name|getWriteBufferSize
