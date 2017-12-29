@@ -5345,10 +5345,6 @@ argument_list|(
 name|zooKeeper
 argument_list|,
 name|conf
-argument_list|,
-name|this
-operator|.
-name|clusterConnection
 argument_list|)
 decl_stmt|;
 name|tableCFsUpdater

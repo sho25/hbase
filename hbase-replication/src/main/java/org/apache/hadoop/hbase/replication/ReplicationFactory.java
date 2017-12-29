@@ -137,13 +137,6 @@ parameter_list|(
 name|ZKWatcher
 name|zookeeper
 parameter_list|,
-specifier|final
-name|ReplicationPeers
-name|replicationPeers
-parameter_list|,
-name|Configuration
-name|conf
-parameter_list|,
 name|Abortable
 name|abortable
 parameter_list|,
@@ -156,10 +149,6 @@ operator|new
 name|ReplicationTrackerZKImpl
 argument_list|(
 name|zookeeper
-argument_list|,
-name|replicationPeers
-argument_list|,
-name|conf
 argument_list|,
 name|abortable
 argument_list|,

@@ -673,7 +673,7 @@ name|hbase
 operator|.
 name|replication
 operator|.
-name|ReplicationStateZKBase
+name|ReplicationStorageFactory
 import|;
 end_import
 
@@ -689,7 +689,7 @@ name|hbase
 operator|.
 name|replication
 operator|.
-name|ReplicationStorageFactory
+name|ZKReplicationPeerStorage
 import|;
 end_import
 
@@ -1411,7 +1411,7 @@ name|zkw
 argument_list|,
 literal|"/hbase/replication/peers/1/peer-state"
 argument_list|,
-name|ReplicationStateZKBase
+name|ZKReplicationPeerStorage
 operator|.
 name|ENABLED_ZNODE_BYTES
 argument_list|)
@@ -1433,7 +1433,7 @@ name|zkw
 argument_list|,
 literal|"/hbase/replication/state"
 argument_list|,
-name|ReplicationStateZKBase
+name|ZKReplicationPeerStorage
 operator|.
 name|ENABLED_ZNODE_BYTES
 argument_list|)

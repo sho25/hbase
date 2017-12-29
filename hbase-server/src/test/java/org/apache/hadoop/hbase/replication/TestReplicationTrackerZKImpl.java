@@ -612,11 +612,11 @@ name|getReplicationTracker
 argument_list|(
 name|zkw
 argument_list|,
-name|rp
-argument_list|,
-name|conf
-argument_list|,
-name|zkw
+operator|new
+name|DummyServer
+argument_list|(
+name|fakeRs1
+argument_list|)
 argument_list|,
 operator|new
 name|DummyServer

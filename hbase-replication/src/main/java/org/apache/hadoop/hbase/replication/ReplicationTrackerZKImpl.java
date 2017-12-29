@@ -57,20 +57,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|conf
-operator|.
-name|Configuration
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
 name|Abortable
@@ -197,8 +183,6 @@ name|Private
 specifier|public
 class|class
 name|ReplicationTrackerZKImpl
-extends|extends
-name|ReplicationStateZKBase
 implements|implements
 name|ReplicationTracker
 block|{
@@ -216,6 +200,18 @@ name|ReplicationTrackerZKImpl
 operator|.
 name|class
 argument_list|)
+decl_stmt|;
+comment|// Zookeeper
+specifier|private
+specifier|final
+name|ZKWatcher
+name|zookeeper
+decl_stmt|;
+comment|// Server to abort.
+specifier|private
+specifier|final
+name|Abortable
+name|abortable
 decl_stmt|;
 comment|// All about stopping
 specifier|private
@@ -257,13 +253,6 @@ parameter_list|(
 name|ZKWatcher
 name|zookeeper
 parameter_list|,
-specifier|final
-name|ReplicationPeers
-name|replicationPeers
-parameter_list|,
-name|Configuration
-name|conf
-parameter_list|,
 name|Abortable
 name|abortable
 parameter_list|,
@@ -271,14 +260,17 @@ name|Stoppable
 name|stopper
 parameter_list|)
 block|{
-name|super
-argument_list|(
+name|this
+operator|.
 name|zookeeper
-argument_list|,
-name|conf
-argument_list|,
+operator|=
+name|zookeeper
+expr_stmt|;
+name|this
+operator|.
 name|abortable
-argument_list|)
+operator|=
+name|abortable
 expr_stmt|;
 name|this
 operator|.

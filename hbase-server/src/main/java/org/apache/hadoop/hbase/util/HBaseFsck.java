@@ -2554,10 +2554,6 @@ name|Configuration
 name|conf
 parameter_list|)
 throws|throws
-name|MasterNotRunningException
-throws|,
-name|ZooKeeperConnectionException
-throws|,
 name|IOException
 throws|,
 name|ClassNotFoundException

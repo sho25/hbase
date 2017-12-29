@@ -979,14 +979,6 @@ argument_list|()
 argument_list|,
 name|this
 operator|.
-name|replicationPeers
-argument_list|,
-name|this
-operator|.
-name|conf
-argument_list|,
-name|this
-operator|.
 name|server
 argument_list|,
 name|this
