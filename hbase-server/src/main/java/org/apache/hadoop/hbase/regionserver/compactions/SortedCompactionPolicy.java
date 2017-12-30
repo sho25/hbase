@@ -720,7 +720,7 @@ argument_list|>
 name|filesToCompact
 parameter_list|)
 block|{
-comment|// default = 24hrs
+comment|/** Default to {@link org.apache.hadoop.hbase.HConstants#DEFAULT_MAJOR_COMPACTION_PERIOD}. */
 name|long
 name|period
 init|=
@@ -740,7 +740,7 @@ return|return
 name|period
 return|;
 block|}
-comment|// default = 20% = +/- 4.8 hrs
+comment|/**      * Default to {@link org.apache.hadoop.hbase.HConstants#DEFAULT_MAJOR_COMPACTION_JITTER},      * that is, +/- 3.5 days (7 days * 0.5).      */
 name|double
 name|jitterPct
 init|=

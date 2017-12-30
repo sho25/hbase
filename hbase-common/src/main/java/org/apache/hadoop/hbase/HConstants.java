@@ -795,7 +795,7 @@ name|DEFAULT_VERSION_FILE_WRITE_ATTEMPTS
 init|=
 literal|3
 decl_stmt|;
-comment|/** Parameter name for how often a region should should perform a major compaction */
+comment|/** Parameter name and default value for how often a region should perform a major compaction */
 specifier|public
 specifier|static
 specifier|final
@@ -803,6 +803,40 @@ name|String
 name|MAJOR_COMPACTION_PERIOD
 init|=
 literal|"hbase.hregion.majorcompaction"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|long
+name|DEFAULT_MAJOR_COMPACTION_PERIOD
+init|=
+literal|1000
+operator|*
+literal|60
+operator|*
+literal|60
+operator|*
+literal|24
+operator|*
+literal|7
+decl_stmt|;
+comment|// 7 days
+comment|/**    * Parameter name and default value for major compaction jitter.    * Used as a multiplier applied to {@link HConstants#MAJOR_COMPACTION_PERIOD}    * to cause compaction to occur a given amount of time either side of    * {@link HConstants#MAJOR_COMPACTION_PERIOD}.    * Default to 0.5 so jitter has us fall evenly either side of when the compaction should run.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|MAJOR_COMPACTION_JITTER
+init|=
+literal|"hbase.hregion.majorcompaction.jitter"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|float
+name|DEFAULT_MAJOR_COMPACTION_JITTER
+init|=
+literal|0.50F
 decl_stmt|;
 comment|/** Parameter name for the maximum batch of KVs to be used in flushes and compactions */
 specifier|public
