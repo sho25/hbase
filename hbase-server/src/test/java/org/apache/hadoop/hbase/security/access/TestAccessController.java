@@ -213,6 +213,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Collection
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Collections
 import|;
 end_import
@@ -10924,7 +10934,7 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-name|List
+name|Collection
 argument_list|<
 name|String
 argument_list|>
