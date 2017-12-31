@@ -849,14 +849,6 @@ argument_list|)
 condition|)
 block|{
 comment|// should never arrive here as long as we use PriorityQueue
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|trace
@@ -864,7 +856,6 @@ argument_list|(
 literal|"Large file deletion queue is full"
 argument_list|)
 expr_stmt|;
-block|}
 return|return
 literal|false
 return|;
@@ -886,14 +877,6 @@ argument_list|)
 condition|)
 block|{
 comment|// should never arrive here as long as we use PriorityQueue
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|trace
@@ -901,7 +884,6 @@ argument_list|(
 literal|"Small file deletion queue is full"
 argument_list|)
 expr_stmt|;
-block|}
 return|return
 literal|false
 return|;
@@ -1021,12 +1003,9 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Starting hfile cleaner for large files: "
-operator|+
+literal|"Starting hfile cleaner for large files: {}"
+argument_list|,
 name|large
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|threads
@@ -1109,12 +1088,9 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Starting hfile cleaner for small files: "
-operator|+
+literal|"Starting hfile cleaner for small files: {}"
+argument_list|,
 name|small
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|threads
@@ -1165,14 +1141,6 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
@@ -1182,7 +1150,6 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
-block|}
 break|break;
 block|}
 if|if
@@ -1192,28 +1159,17 @@ operator|!=
 literal|null
 condition|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Removing: "
-operator|+
+literal|"Removing: {} from archive"
+argument_list|,
 name|task
 operator|.
 name|filePath
-operator|+
-literal|" from archive"
 argument_list|)
 expr_stmt|;
-block|}
 name|boolean
 name|succeed
 decl_stmt|;
@@ -1245,8 +1201,8 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed to delete file "
-operator|+
+literal|"Failed to delete file {}"
+argument_list|,
 name|task
 operator|.
 name|filePath
@@ -1290,27 +1246,18 @@ block|}
 block|}
 finally|finally
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Exit thread: "
-operator|+
+literal|"Exit thread: {}"
+argument_list|,
 name|Thread
 operator|.
 name|currentThread
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 comment|// Currently only for testing purpose
@@ -1391,16 +1338,10 @@ argument_list|(
 literal|0L
 argument_list|)
 expr_stmt|;
-empty_stmt|;
 block|}
 if|if
 condition|(
 name|fromLargeQueue
-operator|&&
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
 condition|)
 block|{
 name|LOG
@@ -1428,14 +1369,6 @@ name|running
 operator|=
 literal|false
 expr_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
@@ -1443,7 +1376,6 @@ argument_list|(
 literal|"Stopping file delete threads"
 argument_list|)
 expr_stmt|;
-block|}
 for|for
 control|(
 name|Thread
@@ -1860,38 +1792,20 @@ name|size
 argument_list|()
 argument_list|)
 decl_stmt|;
-for|for
-control|(
-name|HFileDeleteTask
-name|task
-range|:
+name|leftOverTasks
+operator|.
+name|addAll
+argument_list|(
 name|largeFileQueue
-control|)
-block|{
-name|leftOverTasks
-operator|.
-name|add
-argument_list|(
-name|task
 argument_list|)
 expr_stmt|;
-block|}
-for|for
-control|(
-name|HFileDeleteTask
-name|task
-range|:
+name|leftOverTasks
+operator|.
+name|addAll
+argument_list|(
 name|smallFileQueue
-control|)
-block|{
-name|leftOverTasks
-operator|.
-name|add
-argument_list|(
-name|task
 argument_list|)
 expr_stmt|;
-block|}
 name|largeFileQueue
 operator|=
 operator|new
@@ -1975,14 +1889,12 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Updating throttle point, from "
-operator|+
+literal|"Updating throttle point, from {} to {}"
+argument_list|,
 name|this
 operator|.
 name|throttlePoint
-operator|+
-literal|" to "
-operator|+
+argument_list|,
 name|throttlePoint
 argument_list|)
 expr_stmt|;
@@ -2022,14 +1934,12 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Updating largeQueueInitSize, from "
-operator|+
+literal|"Updating largeQueueInitSize, from {} to {}"
+argument_list|,
 name|this
 operator|.
 name|largeQueueInitSize
-operator|+
-literal|" to "
-operator|+
+argument_list|,
 name|largeQueueInitSize
 argument_list|)
 expr_stmt|;
@@ -2069,14 +1979,12 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Updating smallQueueInitSize, from "
-operator|+
+literal|"Updating smallQueueInitSize, from {} to {}"
+argument_list|,
 name|this
 operator|.
 name|smallQueueInitSize
-operator|+
-literal|" to "
-operator|+
+argument_list|,
 name|smallQueueInitSize
 argument_list|)
 expr_stmt|;
@@ -2116,14 +2024,12 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Updating largeFileDeleteThreadNumber, from "
-operator|+
+literal|"Updating largeFileDeleteThreadNumber, from {} to {}"
+argument_list|,
 name|this
 operator|.
 name|largeFileDeleteThreadNumber
-operator|+
-literal|" to "
-operator|+
+argument_list|,
 name|largeFileDeleteThreadNumber
 argument_list|)
 expr_stmt|;
@@ -2163,14 +2069,12 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Updating smallFileDeleteThreadNumber, from "
-operator|+
+literal|"Updating smallFileDeleteThreadNumber, from {} to {}"
+argument_list|,
 name|this
 operator|.
 name|smallFileDeleteThreadNumber
-operator|+
-literal|" to "
-operator|+
+argument_list|,
 name|smallFileDeleteThreadNumber
 argument_list|)
 expr_stmt|;
