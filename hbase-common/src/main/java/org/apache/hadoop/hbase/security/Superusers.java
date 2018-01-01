@@ -33,7 +33,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|ArrayList
+name|Collection
 import|;
 end_import
 
@@ -43,7 +43,17 @@ name|java
 operator|.
 name|util
 operator|.
-name|List
+name|HashSet
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Set
 import|;
 end_import
 
@@ -150,7 +160,7 @@ decl_stmt|;
 comment|// Not getting a name
 specifier|private
 specifier|static
-name|List
+name|Set
 argument_list|<
 name|String
 argument_list|>
@@ -158,7 +168,7 @@ name|superUsers
 decl_stmt|;
 specifier|private
 specifier|static
-name|List
+name|Set
 argument_list|<
 name|String
 argument_list|>
@@ -188,14 +198,14 @@ block|{
 name|superUsers
 operator|=
 operator|new
-name|ArrayList
+name|HashSet
 argument_list|<>
 argument_list|()
 expr_stmt|;
 name|superGroups
 operator|=
 operator|new
-name|ArrayList
+name|HashSet
 argument_list|<>
 argument_list|()
 expr_stmt|;
@@ -223,27 +233,6 @@ literal|"authorization checks for internal operations will not work correctly!"
 argument_list|)
 throw|;
 block|}
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|trace
-argument_list|(
-literal|"Current user name is "
-operator|+
-name|systemUser
-operator|.
-name|getShortName
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
 name|String
 name|currentUser
 init|=
@@ -252,6 +241,22 @@ operator|.
 name|getShortName
 argument_list|()
 decl_stmt|;
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Current user name is {}"
+argument_list|,
+name|currentUser
+argument_list|)
+expr_stmt|;
+name|superUsers
+operator|.
+name|add
+argument_list|(
+name|currentUser
+argument_list|)
+expr_stmt|;
 name|String
 index|[]
 name|superUserList
@@ -311,13 +316,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-name|superUsers
-operator|.
-name|add
-argument_list|(
-name|currentUser
-argument_list|)
-expr_stmt|;
 block|}
 comment|/**    * @return true if current user is a super user (whether as user running process,    * declared as individual superuser or member of supergroup), false otherwise.    * @param user to check    * @throws IllegalStateException if lists of superusers/super groups    *   haven't been initialized properly    */
 specifier|public
@@ -342,7 +340,7 @@ name|IllegalStateException
 argument_list|(
 literal|"Super users/super groups lists"
 operator|+
-literal|" haven't been initialized properly."
+literal|" have not been initialized properly."
 argument_list|)
 throw|;
 block|}
@@ -395,7 +393,7 @@ return|;
 block|}
 specifier|public
 specifier|static
-name|List
+name|Collection
 argument_list|<
 name|String
 argument_list|>
