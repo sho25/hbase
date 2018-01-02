@@ -421,9 +421,6 @@ argument_list|(
 name|CleanerChore
 operator|.
 name|class
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 decl_stmt|;
 specifier|private
@@ -701,8 +698,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Cleaner pool size is "
-operator|+
+literal|"Cleaner pool size is {}"
+argument_list|,
 name|chorePoolSize
 argument_list|)
 expr_stmt|;
@@ -758,7 +755,7 @@ operator|.
 name|warn
 argument_list|(
 literal|"Use full core processors to scan dir, size={}"
-operator|+
+argument_list|,
 name|size
 argument_list|)
 expr_stmt|;
@@ -899,8 +896,8 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Initialize cleaner="
-operator|+
+literal|"Initialize cleaner={}"
+argument_list|,
 name|className
 argument_list|)
 expr_stmt|;
@@ -1157,11 +1154,9 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed to fully clean old files/dirs under "
-operator|+
+literal|"Failed to fully clean old files/dirs under {}"
+argument_list|,
 name|oldFileDir
-operator|+
-literal|"."
 argument_list|)
 expr_stmt|;
 block|}
@@ -1422,9 +1417,6 @@ argument_list|(
 literal|"Failed to get space consumed by path={}"
 argument_list|,
 name|f
-operator|.
-name|getPath
-argument_list|()
 argument_list|,
 name|e
 argument_list|)
