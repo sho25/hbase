@@ -536,18 +536,6 @@ name|wal
 argument_list|)
 expr_stmt|;
 block|}
-else|else
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Didn't find this log in ZK, deleting: "
-operator|+
-name|wal
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 return|return
 operator|!
