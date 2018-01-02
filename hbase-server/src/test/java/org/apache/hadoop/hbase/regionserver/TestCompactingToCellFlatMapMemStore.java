@@ -211,16 +211,6 @@ name|org
 operator|.
 name|junit
 operator|.
-name|Ignore
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
 name|Test
 import|;
 end_import
@@ -463,6 +453,17 @@ name|MemoryCompactionPolicy
 operator|.
 name|EAGER
 argument_list|)
+argument_list|)
+expr_stmt|;
+name|conf
+operator|.
+name|setDouble
+argument_list|(
+name|CompactingMemStore
+operator|.
+name|IN_MEMORY_FLUSH_THRESHOLD_FACTOR_KEY
+argument_list|,
+literal|0.02
 argument_list|)
 expr_stmt|;
 name|this
@@ -4969,8 +4970,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * CellChunkMap Segment index requires all cell data to be written in the MSLAB Chunks.    * Even though MSLAB is enabled, cells bigger than the size of a chunk are not    * written in the MSLAB Chunks.    * If such cells are found in the process of flattening into CellChunkMap    * (in-memory-flush) they need to be copied into MSLAB.    * testFlatteningToJumboCellChunkMap checks that the process of flattening    * into CellChunkMap succeeds, even when such big cells are allocated.    */
-annotation|@
-name|Ignore
 annotation|@
 name|Test
 specifier|public
