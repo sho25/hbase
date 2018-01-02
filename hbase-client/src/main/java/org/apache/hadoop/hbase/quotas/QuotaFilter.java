@@ -43,11 +43,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|commons
 operator|.
-name|audience
+name|lang3
 operator|.
-name|InterfaceAudience
+name|StringUtils
 import|;
 end_import
 
@@ -57,13 +57,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|yetus
 operator|.
-name|hbase
+name|audience
 operator|.
-name|util
-operator|.
-name|Strings
+name|InterfaceAudience
 import|;
 end_import
 
@@ -132,10 +130,9 @@ name|regex
 expr_stmt|;
 name|hasFilters
 operator||=
-operator|!
-name|Strings
+name|StringUtils
 operator|.
-name|isEmpty
+name|isNotEmpty
 argument_list|(
 name|regex
 argument_list|)
@@ -162,10 +159,9 @@ name|regex
 expr_stmt|;
 name|hasFilters
 operator||=
-operator|!
-name|Strings
+name|StringUtils
 operator|.
-name|isEmpty
+name|isNotEmpty
 argument_list|(
 name|regex
 argument_list|)
@@ -192,10 +188,9 @@ name|regex
 expr_stmt|;
 name|hasFilters
 operator||=
-operator|!
-name|Strings
+name|StringUtils
 operator|.
-name|isEmpty
+name|isNotEmpty
 argument_list|(
 name|regex
 argument_list|)

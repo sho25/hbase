@@ -65,6 +65,20 @@ name|org
 operator|.
 name|apache
 operator|.
+name|commons
+operator|.
+name|lang3
+operator|.
+name|StringUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -850,7 +864,7 @@ argument_list|(
 name|kv
 argument_list|)
 operator|+
-name|Strings
+name|StringUtils
 operator|.
 name|repeat
 argument_list|(
@@ -866,7 +880,7 @@ argument_list|(
 name|kv
 argument_list|)
 operator|+
-name|Strings
+name|StringUtils
 operator|.
 name|repeat
 argument_list|(
@@ -880,7 +894,7 @@ argument_list|(
 name|kv
 argument_list|)
 operator|+
-name|Strings
+name|StringUtils
 operator|.
 name|repeat
 argument_list|(
@@ -894,7 +908,7 @@ argument_list|(
 name|kv
 argument_list|)
 operator|+
-name|Strings
+name|StringUtils
 operator|.
 name|repeat
 argument_list|(
