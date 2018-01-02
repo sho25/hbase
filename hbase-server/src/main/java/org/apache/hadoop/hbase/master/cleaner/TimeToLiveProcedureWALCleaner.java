@@ -147,7 +147,7 @@ specifier|public
 class|class
 name|TimeToLiveProcedureWALCleaner
 extends|extends
-name|BaseFileCleanerDelegate
+name|BaseLogCleanerDelegate
 block|{
 specifier|private
 specifier|static
