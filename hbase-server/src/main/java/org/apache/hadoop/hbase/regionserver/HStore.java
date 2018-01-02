@@ -357,6 +357,34 @@ name|org
 operator|.
 name|apache
 operator|.
+name|commons
+operator|.
+name|collections
+operator|.
+name|CollectionUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|collections4
+operator|.
+name|IterableUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|hadoop
 operator|.
 name|conf
@@ -1892,12 +1920,10 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Time to purge deletes set to "
-operator|+
+literal|"Time to purge deletes set to {}ms in store {}"
+argument_list|,
 name|timeToPurgeDeletes
-operator|+
-literal|"ms in store "
-operator|+
+argument_list|,
 name|this
 argument_list|)
 expr_stmt|;
@@ -2116,8 +2142,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Memstore class name is "
-operator|+
+literal|"Memstore class name is {}"
+argument_list|,
 name|className
 argument_list|)
 expr_stmt|;
@@ -2190,8 +2216,8 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Compaction check period multiplier must be positive, setting default: "
-operator|+
+literal|"Compaction check period multiplier must be positive, setting default: {}"
+argument_list|,
 name|DEFAULT_COMPACTCHECKER_INTERVAL_MULTIPLIER
 argument_list|)
 expr_stmt|;
@@ -2270,7 +2296,7 @@ argument_list|(
 name|conf
 argument_list|)
 expr_stmt|;
-comment|// initilize bytes per checksum
+comment|// Initialize bytes per checksum
 name|this
 operator|.
 name|bytesPerChecksum
@@ -2917,20 +2943,18 @@ name|IOException
 block|{
 if|if
 condition|(
-name|files
-operator|==
-literal|null
-operator|||
-name|files
+name|CollectionUtils
 operator|.
 name|isEmpty
-argument_list|()
+argument_list|(
+name|files
+argument_list|)
 condition|)
 block|{
 return|return
-operator|new
-name|ArrayList
-argument_list|<>
+name|Collections
+operator|.
+name|emptyList
 argument_list|()
 return|;
 block|}
@@ -3084,27 +3108,15 @@ operator|.
 name|getTotalUncompressedBytes
 argument_list|()
 expr_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"loaded "
-operator|+
+literal|"loaded {}"
+argument_list|,
 name|storeFile
-operator|.
-name|toStringDetailed
-argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 name|results
 operator|.
 name|add
@@ -3210,6 +3222,7 @@ name|file
 operator|!=
 literal|null
 condition|)
+block|{
 name|file
 operator|.
 name|closeStoreFile
@@ -3217,6 +3230,7 @@ argument_list|(
 name|evictOnClose
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
@@ -3228,10 +3242,9 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
+literal|"Could not close store file"
+argument_list|,
 name|e
-operator|.
-name|getMessage
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -4107,6 +4120,14 @@ name|get
 argument_list|()
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -4164,6 +4185,7 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 operator|!
@@ -4234,9 +4256,6 @@ argument_list|(
 literal|"Trying to bulk load hfile "
 operator|+
 name|srcPath
-operator|.
-name|toString
-argument_list|()
 operator|+
 literal|" with size: "
 operator|+
@@ -4266,12 +4285,9 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Full verification started for bulk load hfile: "
-operator|+
+literal|"Full verification started for bulk load hfile: {}"
+argument_list|,
 name|srcPath
-operator|.
-name|toString
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|Cell
@@ -4633,19 +4649,13 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Successfully loaded store file "
-operator|+
+literal|"Successfully loaded store file {} into store {} (new location: {})"
+argument_list|,
 name|srcPath
-operator|+
-literal|" into store "
-operator|+
+argument_list|,
 name|this
-operator|+
-literal|" (new location: "
-operator|+
+argument_list|,
 name|dstPath
-operator|+
-literal|")"
 argument_list|)
 expr_stmt|;
 return|return
@@ -4890,15 +4900,12 @@ decl_stmt|;
 comment|// clear the compacted files
 if|if
 condition|(
-name|compactedfiles
-operator|!=
-literal|null
-operator|&&
-operator|!
-name|compactedfiles
+name|CollectionUtils
 operator|.
-name|isEmpty
-argument_list|()
+name|isNotEmpty
+argument_list|(
+name|compactedfiles
+argument_list|)
 condition|)
 block|{
 name|removeCompactedfiles
@@ -5125,8 +5132,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Closed "
-operator|+
+literal|"Closed {}"
+argument_list|,
 name|this
 argument_list|)
 expr_stmt|;
@@ -5316,12 +5323,10 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed validating store file "
-operator|+
+literal|"Failed validating store file {}, retrying num={}"
+argument_list|,
 name|lastPathName
-operator|+
-literal|", retrying num="
-operator|+
+argument_list|,
 name|i
 argument_list|,
 name|e
@@ -5365,8 +5370,8 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed flushing store file, retrying num="
-operator|+
+literal|"Failed flushing store file, retrying num={}"
+argument_list|,
 name|i
 argument_list|,
 name|e
@@ -7768,21 +7773,16 @@ operator|.
 name|getColumnFamilyName
 argument_list|()
 decl_stmt|;
-name|List
+name|Set
 argument_list|<
 name|String
 argument_list|>
 name|inputFiles
 init|=
 operator|new
-name|ArrayList
+name|HashSet
 argument_list|<>
-argument_list|(
-name|compactionInputs
-operator|.
-name|size
 argument_list|()
-argument_list|)
 decl_stmt|;
 for|for
 control|(
@@ -8396,11 +8396,9 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"StoreFile "
-operator|+
+literal|"StoreFile {} has null Reader"
+argument_list|,
 name|sf
-operator|+
-literal|" has null Reader"
 argument_list|)
 expr_stmt|;
 return|return
@@ -8850,6 +8848,14 @@ name|unlock
 argument_list|()
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -8892,6 +8898,7 @@ literal|""
 operator|)
 argument_list|)
 expr_stmt|;
+block|}
 name|this
 operator|.
 name|region
@@ -8927,11 +8934,16 @@ parameter_list|)
 block|{
 if|if
 condition|(
+name|CollectionUtils
+operator|.
+name|isEmpty
+argument_list|(
 name|filesToAdd
-operator|==
-literal|null
+argument_list|)
 condition|)
+block|{
 return|return;
+block|}
 comment|// Check that we do not try to compact the same StoreFile twice.
 if|if
 condition|(
@@ -9018,8 +9030,8 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Skipping expired store file removal due to min version being "
-operator|+
+literal|"Skipping expired store file removal due to min version being {}"
+argument_list|,
 name|getColumnFamilyDescriptor
 argument_list|()
 operator|.
@@ -9111,25 +9123,25 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-name|delSfs
-operator|==
-literal|null
-operator|||
-name|delSfs
+name|CollectionUtils
 operator|.
 name|isEmpty
-argument_list|()
+argument_list|(
+name|delSfs
+argument_list|)
 condition|)
+block|{
 return|return;
+block|}
 name|Collection
 argument_list|<
 name|HStoreFile
 argument_list|>
 name|newFiles
 init|=
-operator|new
-name|ArrayList
-argument_list|<>
+name|Collections
+operator|.
+name|emptyList
 argument_list|()
 decl_stmt|;
 comment|// No new files.
@@ -9318,11 +9330,9 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Failed to open store file : "
-operator|+
+literal|"Failed to open store file : {}, keeping it in tmp location"
+argument_list|,
 name|path
-operator|+
-literal|", keeping it in tmp location"
 argument_list|,
 name|e
 argument_list|)
@@ -9413,11 +9423,9 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"StoreFile "
-operator|+
+literal|"StoreFile {} has a null Reader"
+argument_list|,
 name|hsf
-operator|+
-literal|" has a null Reader"
 argument_list|)
 expr_stmt|;
 continue|continue;
@@ -9520,24 +9528,15 @@ operator|!
 name|result
 condition|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Not splittable; has references: "
-operator|+
+literal|"Not splittable; has references: {}"
+argument_list|,
 name|this
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 return|return
 name|result
@@ -9597,24 +9596,15 @@ name|hasReferences
 argument_list|()
 condition|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Not splittable; has references: "
-operator|+
+literal|"Not splittable; has references: {}"
+argument_list|,
 name|this
 argument_list|)
 expr_stmt|;
-block|}
 return|return
 name|Optional
 operator|.
@@ -9644,8 +9634,8 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed getting store size for "
-operator|+
+literal|"Failed getting store size for {}"
+argument_list|,
 name|this
 argument_list|,
 name|e
@@ -9966,21 +9956,26 @@ name|file
 argument_list|)
 expr_stmt|;
 block|}
-if|if
-condition|(
+name|Collection
+argument_list|<
+name|HStoreFile
+argument_list|>
+name|compactedFiles
+init|=
 name|getCompactedFiles
 argument_list|()
-operator|!=
-literal|null
-condition|)
-block|{
+decl_stmt|;
 for|for
 control|(
 name|HStoreFile
 name|file
 range|:
-name|getCompactedFiles
-argument_list|()
+name|IterableUtils
+operator|.
+name|emptyIfNull
+argument_list|(
+name|compactedFiles
+argument_list|)
 control|)
 block|{
 name|name2File
@@ -9998,7 +9993,6 @@ argument_list|,
 name|file
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 name|List
 argument_list|<
@@ -10199,11 +10193,9 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"StoreFile "
-operator|+
+literal|"StoreFile {} has a null Reader"
+argument_list|,
 name|sf
-operator|+
-literal|" has a null Reader"
 argument_list|)
 expr_stmt|;
 return|return
@@ -10455,11 +10447,9 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"StoreFile "
-operator|+
+literal|"StoreFile {} has a null Reader"
+argument_list|,
 name|sf
-operator|+
-literal|" has a null Reader"
 argument_list|)
 expr_stmt|;
 return|return
@@ -10541,11 +10531,9 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"StoreFile "
-operator|+
+literal|"StoreFile {} has a null Reader"
+argument_list|,
 name|sf
-operator|+
-literal|" has a null Reader"
 argument_list|)
 expr_stmt|;
 return|return
@@ -11053,18 +11041,14 @@ name|IOException
 block|{
 if|if
 condition|(
-name|this
-operator|.
-name|tempFiles
-operator|==
-literal|null
-operator|||
-name|this
-operator|.
-name|tempFiles
+name|CollectionUtils
 operator|.
 name|isEmpty
-argument_list|()
+argument_list|(
+name|this
+operator|.
+name|tempFiles
+argument_list|)
 condition|)
 block|{
 return|return
@@ -11143,8 +11127,8 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Failed to commit store file "
-operator|+
+literal|"Failed to commit store file {}"
+argument_list|,
 name|storeFilePath
 argument_list|,
 name|ex
@@ -11191,8 +11175,8 @@ name|FATAL
 argument_list|,
 literal|"Failed to delete store file we committed, "
 operator|+
-literal|"halting "
-operator|+
+literal|"halting {}"
+argument_list|,
 name|pathToDelete
 argument_list|,
 name|ex
@@ -11557,24 +11541,20 @@ block|{
 if|if
 condition|(
 name|snapshot
-operator|==
+operator|!=
 literal|null
 condition|)
 block|{
-return|return;
-block|}
 name|HStore
 operator|.
 name|this
 operator|.
 name|updateStorefiles
 argument_list|(
-operator|new
-name|ArrayList
-argument_list|<>
-argument_list|(
-literal|0
-argument_list|)
+name|Collections
+operator|.
+name|emptyList
+argument_list|()
 argument_list|,
 name|snapshot
 operator|.
@@ -11582,6 +11562,7 @@ name|getId
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 annotation|@
@@ -12085,16 +12066,12 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|compactedfiles
-operator|!=
-literal|null
-operator|&&
-name|compactedfiles
+name|CollectionUtils
 operator|.
-name|size
-argument_list|()
-operator|!=
-literal|0
+name|isNotEmpty
+argument_list|(
+name|compactedfiles
+argument_list|)
 condition|)
 block|{
 comment|// Do a copy under read lock
@@ -12110,14 +12087,6 @@ expr_stmt|;
 block|}
 else|else
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|trace
@@ -12125,8 +12094,6 @@ argument_list|(
 literal|"No compacted files to archive"
 argument_list|)
 expr_stmt|;
-return|return;
-block|}
 block|}
 block|}
 finally|finally
@@ -12142,15 +12109,12 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-name|copyCompactedfiles
-operator|!=
-literal|null
-operator|&&
-operator|!
-name|copyCompactedfiles
+name|CollectionUtils
 operator|.
-name|isEmpty
-argument_list|()
+name|isNotEmpty
+argument_list|(
+name|copyCompactedfiles
+argument_list|)
 condition|)
 block|{
 name|removeCompactedfiles
@@ -12231,26 +12195,15 @@ operator|==
 literal|null
 condition|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"The file "
-operator|+
+literal|"The file {} was closed but still not archived"
+argument_list|,
 name|file
-operator|+
-literal|" was closed but still not archived."
 argument_list|)
 expr_stmt|;
-block|}
 name|filesToRemove
 operator|.
 name|add
@@ -12276,27 +12229,15 @@ condition|)
 block|{
 comment|// Even if deleting fails we need not bother as any new scanners won't be
 comment|// able to use the compacted file as the status is already compactedAway
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Closing and archiving the file "
-operator|+
+literal|"Closing and archiving the file {}"
+argument_list|,
 name|file
-operator|.
-name|getPath
-argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 name|r
 operator|.
 name|close
@@ -12324,15 +12265,14 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Exception while trying to close the compacted store file "
-operator|+
+literal|"Exception while trying to close the compacted store file {}"
+argument_list|,
 name|file
 operator|.
 name|getPath
 argument_list|()
-operator|.
-name|getName
-argument_list|()
+argument_list|,
+name|e
 argument_list|)
 expr_stmt|;
 block|}
@@ -12358,26 +12298,15 @@ name|isEmpty
 argument_list|()
 condition|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Moving the files "
-operator|+
+literal|"Moving the files {} to archive"
+argument_list|,
 name|filesToRemove
-operator|+
-literal|" to archive"
 argument_list|)
 expr_stmt|;
-block|}
 comment|// Only if this is successful it has to be removed
 try|try
 block|{
@@ -12540,26 +12469,15 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Clearing the compacted file "
-operator|+
+literal|"Clearing the compacted file {} from this store"
+argument_list|,
 name|filesToRemove
-operator|+
-literal|" from this store"
 argument_list|)
 expr_stmt|;
-block|}
 try|try
 block|{
 name|lock
