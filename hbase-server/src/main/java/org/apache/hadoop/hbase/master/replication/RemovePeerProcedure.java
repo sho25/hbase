@@ -253,13 +253,25 @@ name|env
 parameter_list|)
 throws|throws
 name|IOException
+throws|,
+name|ReplicationException
 block|{
+name|env
+operator|.
+name|getReplicationPeerManager
+argument_list|()
+operator|.
+name|removeAllQueuesAndHFileRefs
+argument_list|(
+name|peerId
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Successfully removed peer "
-operator|+
+literal|"Successfully removed peer {}"
+argument_list|,
 name|peerId
 argument_list|)
 expr_stmt|;

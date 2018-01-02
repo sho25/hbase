@@ -369,7 +369,7 @@ parameter_list|)
 throws|throws
 name|ReplicationException
 function_decl|;
-comment|/**    * Called before we finish the procedure. The implementation can do some logging work, and also    * call the coprocessor hook if any.    *<p>    * Notice that, since we have already done the actual work, throwing exception here will not fail    * this procedure, we will just ignore it and finish the procedure as suceeded.    */
+comment|/**    * Called before we finish the procedure. The implementation can do some logging work, and also    * call the coprocessor hook if any.    *<p>    * Notice that, since we have already done the actual work, throwing {@code IOException} here will    * not fail this procedure, we will just ignore it and finish the procedure as suceeded. If    * {@code ReplicationException} is thrown we will retry since this usually means we fails to    * update the peer storage.    */
 specifier|protected
 specifier|abstract
 name|void
@@ -380,6 +380,8 @@ name|env
 parameter_list|)
 throws|throws
 name|IOException
+throws|,
+name|ReplicationException
 function_decl|;
 specifier|private
 name|void
@@ -441,17 +443,17 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
+literal|"{} failed to call pre CP hook or the pre check is failed for peer {}, "
+operator|+
+literal|"mark the procedure as failure and give up"
+argument_list|,
 name|getClass
 argument_list|()
 operator|.
 name|getName
 argument_list|()
-operator|+
-literal|" failed to call CP hook or the pre check is failed for peer "
-operator|+
+argument_list|,
 name|peerId
-operator|+
-literal|", mark the procedure as failure and give up"
 argument_list|,
 name|e
 argument_list|)
@@ -493,17 +495,15 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
+literal|"{} failed to call prePeerModification for peer {}, retry"
+argument_list|,
 name|getClass
 argument_list|()
 operator|.
 name|getName
 argument_list|()
-operator|+
-literal|" failed to call prePeerModification for peer "
-operator|+
+argument_list|,
 name|peerId
-operator|+
-literal|", retry"
 argument_list|,
 name|e
 argument_list|)
@@ -547,17 +547,15 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
+literal|"{} update peer storage for peer {} failed, retry"
+argument_list|,
 name|getClass
 argument_list|()
 operator|.
 name|getName
 argument_list|()
-operator|+
-literal|" update peer storage for peer "
-operator|+
+argument_list|,
 name|peerId
-operator|+
-literal|" failed, retry"
 argument_list|,
 name|e
 argument_list|)
@@ -649,6 +647,35 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
+name|ReplicationException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"{} failed to call postPeerModification for peer {}, retry"
+argument_list|,
+name|getClass
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+argument_list|,
+name|peerId
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+throw|throw
+operator|new
+name|ProcedureYieldException
+argument_list|()
+throw|;
+block|}
+catch|catch
+parameter_list|(
 name|IOException
 name|e
 parameter_list|)
@@ -657,17 +684,17 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
+literal|"{} failed to call post CP hook for peer {}, "
+operator|+
+literal|"ignore since the procedure has already done"
+argument_list|,
 name|getClass
 argument_list|()
 operator|.
 name|getName
 argument_list|()
-operator|+
-literal|" failed to call prePeerModification for peer "
-operator|+
+argument_list|,
 name|peerId
-operator|+
-literal|", ignore since the procedure has already done"
 argument_list|,
 name|e
 argument_list|)
@@ -816,7 +843,7 @@ name|PRE_PEER_MODIFICATION
 condition|)
 block|{
 comment|// actually the peer related operations has no rollback, but if we haven't done any
-comment|// modifications on the peer storage, we can just return.
+comment|// modifications on the peer storage yet, we can just return.
 return|return;
 block|}
 throw|throw

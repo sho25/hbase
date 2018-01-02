@@ -49,18 +49,6 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|assertNull
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
 name|assertTrue
 import|;
 end_import
@@ -1892,30 +1880,6 @@ name|ReplicationException
 name|e
 parameter_list|)
 block|{     }
-try|try
-block|{
-name|assertNull
-argument_list|(
-name|rp
-operator|.
-name|getPeerClusterConfiguration
-argument_list|(
-literal|"bogus"
-argument_list|)
-argument_list|)
-expr_stmt|;
-name|fail
-argument_list|(
-literal|"Should have thrown an ReplicationException when passed a bogus peerId"
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|ReplicationException
-name|e
-parameter_list|)
-block|{     }
 name|assertNumberOfPeers
 argument_list|(
 literal|0
@@ -2004,11 +1968,24 @@ name|ZKConfig
 operator|.
 name|getZooKeeperClusterKey
 argument_list|(
-name|rp
+name|ReplicationPeers
 operator|.
 name|getPeerClusterConfiguration
 argument_list|(
+name|rp
+operator|.
+name|getPeerStorage
+argument_list|()
+operator|.
+name|getPeerConfig
+argument_list|(
 name|ID_ONE
+argument_list|)
+argument_list|,
+name|rp
+operator|.
+name|getConf
+argument_list|()
 argument_list|)
 argument_list|)
 argument_list|)

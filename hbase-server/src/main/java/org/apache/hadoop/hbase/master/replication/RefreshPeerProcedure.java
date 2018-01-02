@@ -716,15 +716,9 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"procedure event for "
-operator|+
-name|getProcId
-argument_list|()
-operator|+
-literal|" is null, maybe the procedure is created when recovery"
+literal|"procedure event for {} is null, maybe the procedure is created when recovery"
 argument_list|,
-operator|new
-name|Exception
+name|getProcId
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -741,19 +735,13 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Refresh peer "
-operator|+
+literal|"Refresh peer {} for {} on {} failed"
+argument_list|,
 name|peerId
-operator|+
-literal|" for "
-operator|+
+argument_list|,
 name|type
-operator|+
-literal|" on "
-operator|+
+argument_list|,
 name|targetServer
-operator|+
-literal|" failed"
 argument_list|,
 name|error
 argument_list|)
@@ -771,19 +759,13 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Refresh peer "
-operator|+
+literal|"Refresh peer {} for {} on {} suceeded"
+argument_list|,
 name|peerId
-operator|+
-literal|" for "
-operator|+
+argument_list|,
 name|type
-operator|+
-literal|" on "
-operator|+
+argument_list|,
 name|targetServer
-operator|+
-literal|" suceeded"
 argument_list|)
 expr_stmt|;
 name|this
@@ -935,21 +917,17 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Can not add remote operation for refreshing peer "
+literal|"Can not add remote operation for refreshing peer {} for {} to {}, "
 operator|+
+literal|"this usually because the server is already dead, "
+operator|+
+literal|"give up and mark the procedure as complete"
+argument_list|,
 name|peerId
-operator|+
-literal|" for "
-operator|+
+argument_list|,
 name|type
-operator|+
-literal|" to "
-operator|+
+argument_list|,
 name|targetServer
-operator|+
-literal|", this usually because the server is already dead,"
-operator|+
-literal|" give up and mark the procedure as complete"
 argument_list|)
 expr_stmt|;
 return|return

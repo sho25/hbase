@@ -366,22 +366,16 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Successfully added "
-operator|+
-operator|(
+literal|"Successfully added {} peer {}, config {}"
+argument_list|,
 name|enabled
 condition|?
 literal|"ENABLED"
 else|:
 literal|"DISABLED"
-operator|)
-operator|+
-literal|" peer "
-operator|+
+argument_list|,
 name|peerId
-operator|+
-literal|", config "
-operator|+
+argument_list|,
 name|peerConfig
 argument_list|)
 expr_stmt|;

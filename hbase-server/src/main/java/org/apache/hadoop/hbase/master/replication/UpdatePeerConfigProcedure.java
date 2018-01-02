@@ -349,12 +349,10 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Successfully updated peer config of "
-operator|+
+literal|"Successfully updated peer config of {} to {}"
+argument_list|,
 name|peerId
-operator|+
-literal|" to "
-operator|+
+argument_list|,
 name|peerConfig
 argument_list|)
 expr_stmt|;

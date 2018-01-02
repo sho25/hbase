@@ -258,8 +258,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Successfully enabled peer "
-operator|+
+literal|"Successfully enabled peer {}"
+argument_list|,
 name|peerId
 argument_list|)
 expr_stmt|;
