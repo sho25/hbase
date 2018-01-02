@@ -304,7 +304,7 @@ parameter_list|,
 name|ReplicationQueueStorage
 name|rq
 parameter_list|,
-name|ReplicationPeers
+name|ReplicationPeer
 name|rp
 parameter_list|,
 name|Server
@@ -315,9 +315,6 @@ name|peerClusterId
 parameter_list|,
 name|UUID
 name|clusterId
-parameter_list|,
-name|ReplicationEndpoint
-name|replicationEndpoint
 parameter_list|,
 name|WALFileLengthProvider
 name|walFileLengthProvider

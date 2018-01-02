@@ -177,7 +177,7 @@ name|hbase
 operator|.
 name|replication
 operator|.
-name|ReplicationPeers
+name|ReplicationPeer
 import|;
 end_import
 
@@ -274,8 +274,8 @@ parameter_list|,
 name|ReplicationQueueStorage
 name|queueStorage
 parameter_list|,
-name|ReplicationPeers
-name|replicationPeers
+name|ReplicationPeer
+name|replicationPeer
 parameter_list|,
 name|Server
 name|server
@@ -285,9 +285,6 @@ name|peerClusterZnode
 parameter_list|,
 name|UUID
 name|clusterId
-parameter_list|,
-name|ReplicationEndpoint
-name|replicationEndpoint
 parameter_list|,
 name|WALFileLengthProvider
 name|walFileLengthProvider

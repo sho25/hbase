@@ -563,14 +563,11 @@ argument_list|(
 name|seed
 argument_list|)
 decl_stmt|;
+return|return
 name|ReplicationPeerConfig
-name|config
-init|=
-operator|new
-name|ReplicationPeerConfig
+operator|.
+name|newBuilder
 argument_list|()
-decl_stmt|;
-name|config
 operator|.
 name|setClusterKey
 argument_list|(
@@ -584,8 +581,6 @@ name|nextLong
 argument_list|()
 argument_list|)
 argument_list|)
-expr_stmt|;
-name|config
 operator|.
 name|setReplicationEndpointImpl
 argument_list|(
@@ -599,8 +594,6 @@ name|nextLong
 argument_list|()
 argument_list|)
 argument_list|)
-expr_stmt|;
-name|config
 operator|.
 name|setNamespaces
 argument_list|(
@@ -609,8 +602,6 @@ argument_list|(
 name|rand
 argument_list|)
 argument_list|)
-expr_stmt|;
-name|config
 operator|.
 name|setExcludeNamespaces
 argument_list|(
@@ -619,8 +610,6 @@ argument_list|(
 name|rand
 argument_list|)
 argument_list|)
-expr_stmt|;
-name|config
 operator|.
 name|setTableCFsMap
 argument_list|(
@@ -629,8 +618,6 @@ argument_list|(
 name|rand
 argument_list|)
 argument_list|)
-expr_stmt|;
-name|config
 operator|.
 name|setReplicateAllUserTables
 argument_list|(
@@ -639,8 +626,6 @@ operator|.
 name|nextBoolean
 argument_list|()
 argument_list|)
-expr_stmt|;
-name|config
 operator|.
 name|setBandwidth
 argument_list|(
@@ -651,9 +636,9 @@ argument_list|(
 literal|1000
 argument_list|)
 argument_list|)
-expr_stmt|;
-return|return
-name|config
+operator|.
+name|build
+argument_list|()
 return|;
 block|}
 specifier|private

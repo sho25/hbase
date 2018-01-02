@@ -148,6 +148,21 @@ name|PeerState
 name|getPeerState
 parameter_list|()
 function_decl|;
+comment|/**    * Test whether the peer is enabled.    * @return {@code true} if enabled, otherwise {@code false}.    */
+specifier|default
+name|boolean
+name|isPeerEnabled
+parameter_list|()
+block|{
+return|return
+name|getPeerState
+argument_list|()
+operator|==
+name|PeerState
+operator|.
+name|ENABLED
+return|;
+block|}
 comment|/**    * Get the peer config object    * @return the ReplicationPeerConfig for this peer    */
 name|ReplicationPeerConfig
 name|getPeerConfig

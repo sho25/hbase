@@ -1837,27 +1837,6 @@ parameter_list|)
 block|{     }
 try|try
 block|{
-name|rp
-operator|.
-name|isPeerEnabled
-argument_list|(
-literal|"bogus"
-argument_list|)
-expr_stmt|;
-name|fail
-argument_list|(
-literal|"Should have thrown an IllegalArgumentException when passed a bogus peerId"
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IllegalArgumentException
-name|e
-parameter_list|)
-block|{     }
-try|try
-block|{
 name|assertFalse
 argument_list|(
 name|rp
@@ -1938,28 +1917,6 @@ argument_list|(
 literal|2
 argument_list|)
 expr_stmt|;
-comment|// Test methods with a peer that is added but not connected
-try|try
-block|{
-name|rp
-operator|.
-name|isPeerEnabled
-argument_list|(
-name|ID_ONE
-argument_list|)
-expr_stmt|;
-name|fail
-argument_list|(
-literal|"There are no connected peers, should have thrown an IllegalArgumentException"
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IllegalArgumentException
-name|e
-parameter_list|)
-block|{     }
 name|assertEquals
 argument_list|(
 name|KEY_ONE
@@ -2050,10 +2007,13 @@ name|assertTrue
 argument_list|(
 name|rp
 operator|.
-name|isPeerEnabled
+name|getPeer
 argument_list|(
 name|ID_ONE
 argument_list|)
+operator|.
+name|isPeerEnabled
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|rp
@@ -2165,27 +2125,6 @@ argument_list|(
 literal|2
 argument_list|)
 expr_stmt|;
-try|try
-block|{
-name|rp
-operator|.
-name|isPeerEnabled
-argument_list|(
-name|ID_ONE
-argument_list|)
-expr_stmt|;
-name|fail
-argument_list|(
-literal|"There are no connected peers, should have thrown an IllegalArgumentException"
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IllegalArgumentException
-name|e
-parameter_list|)
-block|{     }
 block|}
 specifier|protected
 name|void
@@ -2242,10 +2181,13 @@ name|status
 operator|==
 name|rp
 operator|.
-name|isPeerEnabled
+name|getPeer
 argument_list|(
 name|peerId
 argument_list|)
+operator|.
+name|isPeerEnabled
+argument_list|()
 condition|)
 block|{
 return|return;

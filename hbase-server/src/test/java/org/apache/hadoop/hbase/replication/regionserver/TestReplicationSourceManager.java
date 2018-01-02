@@ -577,7 +577,7 @@ name|hbase
 operator|.
 name|replication
 operator|.
-name|ReplicationEndpoint
+name|ReplicationFactory
 import|;
 end_import
 
@@ -593,7 +593,7 @@ name|hbase
 operator|.
 name|replication
 operator|.
-name|ReplicationFactory
+name|ReplicationPeer
 import|;
 end_import
 
@@ -4692,7 +4692,7 @@ parameter_list|,
 name|ReplicationQueueStorage
 name|rq
 parameter_list|,
-name|ReplicationPeers
+name|ReplicationPeer
 name|rp
 parameter_list|,
 name|Server
@@ -4703,9 +4703,6 @@ name|peerClusterId
 parameter_list|,
 name|UUID
 name|clusterId
-parameter_list|,
-name|ReplicationEndpoint
-name|replicationEndpoint
 parameter_list|,
 name|WALFileLengthProvider
 name|walFileLengthProvider
