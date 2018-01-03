@@ -19138,6 +19138,8 @@ argument_list|(
 name|procId
 argument_list|,
 name|future
+argument_list|,
+literal|0
 argument_list|)
 expr_stmt|;
 block|}
@@ -19154,7 +19156,6 @@ specifier|private
 name|void
 name|getProcedureResult
 parameter_list|(
-specifier|final
 name|long
 name|procId
 parameter_list|,
@@ -19163,6 +19164,9 @@ argument_list|<
 name|Void
 argument_list|>
 name|future
+parameter_list|,
+name|int
+name|retries
 parameter_list|)
 block|{
 name|this
@@ -19260,8 +19264,8 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"failed to get the procedure result procId="
-operator|+
+literal|"failed to get the procedure result procId={}"
+argument_list|,
 name|procId
 argument_list|,
 name|ConnectionUtils
@@ -19283,9 +19287,20 @@ argument_list|(
 name|procId
 argument_list|,
 name|future
+argument_list|,
+name|retries
+operator|+
+literal|1
 argument_list|)
 argument_list|,
+name|ConnectionUtils
+operator|.
+name|getPauseTime
+argument_list|(
 name|pauseNs
+argument_list|,
+name|retries
+argument_list|)
 argument_list|,
 name|TimeUnit
 operator|.
@@ -19315,9 +19330,20 @@ argument_list|(
 name|procId
 argument_list|,
 name|future
+argument_list|,
+name|retries
+operator|+
+literal|1
 argument_list|)
 argument_list|,
+name|ConnectionUtils
+operator|.
+name|getPauseTime
+argument_list|(
 name|pauseNs
+argument_list|,
+name|retries
+argument_list|)
 argument_list|,
 name|TimeUnit
 operator|.
