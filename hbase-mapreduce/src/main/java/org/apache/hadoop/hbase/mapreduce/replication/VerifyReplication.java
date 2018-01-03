@@ -509,7 +509,7 @@ name|hbase
 operator|.
 name|replication
 operator|.
-name|ReplicationPeers
+name|ReplicationStorageFactory
 import|;
 end_import
 
@@ -525,7 +525,7 @@ name|hbase
 operator|.
 name|replication
 operator|.
-name|ReplicationStorageFactory
+name|ReplicationUtils
 import|;
 end_import
 
@@ -2293,7 +2293,7 @@ name|newPair
 argument_list|(
 name|peerConfig
 argument_list|,
-name|ReplicationPeers
+name|ReplicationUtils
 operator|.
 name|getPeerClusterConfiguration
 argument_list|(

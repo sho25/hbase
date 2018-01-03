@@ -1925,7 +1925,7 @@ name|ZKConfig
 operator|.
 name|getZooKeeperClusterKey
 argument_list|(
-name|ReplicationPeers
+name|ReplicationUtils
 operator|.
 name|getPeerClusterConfiguration
 argument_list|(

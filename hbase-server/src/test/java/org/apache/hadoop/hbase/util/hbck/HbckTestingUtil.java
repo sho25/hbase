@@ -303,7 +303,7 @@ parameter_list|,
 name|boolean
 name|fixTableLocks
 parameter_list|,
-name|Boolean
+name|boolean
 name|fixReplication
 parameter_list|,
 name|TableName
@@ -454,7 +454,7 @@ return|return
 name|fsck
 return|;
 block|}
-comment|/**    * Runs hbck with the -sidelineCorruptHFiles option    * @param conf    * @param table table constraint    * @return<returncode, hbckInstance>    * @throws Exception    */
+comment|/**    * Runs hbck with the -sidelineCorruptHFiles option    * @param table table constraint    * @return hbckInstance    */
 specifier|public
 specifier|static
 name|HBaseFsck

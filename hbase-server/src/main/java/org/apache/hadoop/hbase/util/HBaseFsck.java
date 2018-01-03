@@ -1353,6 +1353,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|replication
+operator|.
+name|ReplicationException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|security
 operator|.
 name|AccessDeniedException
@@ -4400,6 +4416,8 @@ throws|,
 name|KeeperException
 throws|,
 name|InterruptedException
+throws|,
+name|ReplicationException
 block|{
 comment|// print hbase server version
 name|errors
@@ -19248,7 +19266,7 @@ name|void
 name|checkAndFixReplication
 parameter_list|()
 throws|throws
-name|IOException
+name|ReplicationException
 block|{
 name|ReplicationChecker
 name|checker
@@ -19260,8 +19278,6 @@ name|getConf
 argument_list|()
 argument_list|,
 name|zkw
-argument_list|,
-name|connection
 argument_list|,
 name|errors
 argument_list|)
@@ -25021,6 +25037,8 @@ throws|,
 name|IOException
 throws|,
 name|InterruptedException
+throws|,
+name|ReplicationException
 block|{
 name|long
 name|sleepBeforeRerun
