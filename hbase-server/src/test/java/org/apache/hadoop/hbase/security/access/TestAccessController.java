@@ -19199,11 +19199,6 @@ argument_list|,
 name|SUPERUSER
 argument_list|,
 name|USER_ADMIN
-argument_list|)
-expr_stmt|;
-name|verifyDenied
-argument_list|(
-name|action
 argument_list|,
 name|USER_CREATE
 argument_list|,
