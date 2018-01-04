@@ -3104,7 +3104,7 @@ name|TableMapper
 operator|.
 name|class
 argument_list|,
-comment|// hbase-mapreduce
+comment|// hbase-server
 name|org
 operator|.
 name|apache
