@@ -706,7 +706,6 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Calculate size for cleaner pool.    * @param poolSize size from configuration    * @return size of pool after calculation    */
-specifier|private
 name|int
 name|calculatePoolSize
 parameter_list|(
@@ -776,7 +775,10 @@ argument_list|)
 condition|)
 block|{
 comment|// if poolSize is a double, return poolSize * availableProcessors;
-return|return
+comment|// Ensure that we always return at least one.
+name|int
+name|computedThreads
+init|=
 call|(
 name|int
 call|)
@@ -790,6 +792,29 @@ argument_list|(
 name|poolSize
 argument_list|)
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|computedThreads
+operator|<
+literal|1
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Computed {} threads for CleanerChore, using 1 instead"
+argument_list|,
+name|computedThreads
+argument_list|)
+expr_stmt|;
+return|return
+literal|1
+return|;
+block|}
+return|return
+name|computedThreads
 return|;
 block|}
 else|else
