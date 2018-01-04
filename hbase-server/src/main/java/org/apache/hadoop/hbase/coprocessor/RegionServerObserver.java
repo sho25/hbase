@@ -250,6 +250,34 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
+comment|/**    * This will be called before executing procedures    * @param ctx the environment to interact with the framework and region server.    */
+specifier|default
+name|void
+name|preExecuteProcedures
+parameter_list|(
+name|ObserverContext
+argument_list|<
+name|RegionServerCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|)
+throws|throws
+name|IOException
+block|{}
+comment|/**    * This will be called after executing procedures    * @param ctx the environment to interact with the framework and region server.    */
+specifier|default
+name|void
+name|postExecuteProcedures
+parameter_list|(
+name|ObserverContext
+argument_list|<
+name|RegionServerCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|)
+throws|throws
+name|IOException
+block|{}
 block|}
 end_interface
 

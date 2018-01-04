@@ -20748,6 +20748,15 @@ return|;
 block|}
 annotation|@
 name|Override
+annotation|@
+name|QosPriority
+argument_list|(
+name|priority
+operator|=
+name|HConstants
+operator|.
+name|ADMIN_QOS
+argument_list|)
 specifier|public
 name|ExecuteProceduresResponse
 name|executeProcedures
@@ -20761,6 +20770,19 @@ parameter_list|)
 throws|throws
 name|ServiceException
 block|{
+try|try
+block|{
+name|checkOpen
+argument_list|()
+expr_stmt|;
+name|regionServer
+operator|.
+name|getRegionServerCoprocessorHost
+argument_list|()
+operator|.
+name|preExecuteProcedures
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|request
@@ -20876,22 +20898,14 @@ name|Exception
 name|e
 parameter_list|)
 block|{
-comment|// here we just ignore the error as this should not happen and we do not provide a general
-comment|// way to report errors for all types of remote procedure. The procedure will hang at
-comment|// master side but after you solve the problem and restart master it will be executed
-comment|// again and pass.
-name|LOG
+name|regionServer
 operator|.
-name|warn
+name|remoteProcedureComplete
 argument_list|(
-literal|"create procedure of type "
-operator|+
 name|req
 operator|.
-name|getProcClass
+name|getProcId
 argument_list|()
-operator|+
-literal|" failed, give up"
 argument_list|,
 name|e
 argument_list|)
@@ -20927,12 +20941,35 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+name|regionServer
+operator|.
+name|getRegionServerCoprocessorHost
+argument_list|()
+operator|.
+name|postExecuteProcedures
+argument_list|()
+expr_stmt|;
 return|return
 name|ExecuteProceduresResponse
 operator|.
 name|getDefaultInstance
 argument_list|()
 return|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|ServiceException
+argument_list|(
+name|e
+argument_list|)
+throw|;
+block|}
 block|}
 block|}
 end_class

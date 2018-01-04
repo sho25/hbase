@@ -1044,6 +1044,24 @@ argument_list|)
 throw|;
 block|}
 block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|preExecuteProcedures
+parameter_list|(
+name|ObserverContext
+argument_list|<
+name|RegionServerCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+comment|// FIXME: ignore the procedure permission check since in our UT framework master is neither
+comment|// the systemuser nor the superuser so we can not call executeProcedures...
+block|}
 block|}
 block|}
 end_class
