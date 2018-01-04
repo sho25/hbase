@@ -1618,12 +1618,10 @@ name|currentPath
 argument_list|,
 name|source
 operator|.
-name|getPeerClusterZnode
+name|getQueueId
 argument_list|()
 argument_list|,
 name|lastReadPosition
-argument_list|,
-literal|false
 argument_list|,
 literal|false
 argument_list|)
@@ -1728,7 +1726,7 @@ literal|","
 operator|+
 name|source
 operator|.
-name|getPeerClusterZnode
+name|getQueueId
 argument_list|()
 argument_list|,
 name|handler

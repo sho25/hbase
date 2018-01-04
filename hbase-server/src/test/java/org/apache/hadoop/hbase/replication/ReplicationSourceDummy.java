@@ -439,7 +439,7 @@ annotation|@
 name|Override
 specifier|public
 name|String
-name|getPeerClusterZnode
+name|getQueueId
 parameter_list|()
 block|{
 return|return

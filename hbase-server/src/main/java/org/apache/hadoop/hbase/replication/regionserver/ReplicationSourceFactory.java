@@ -119,7 +119,7 @@ name|Configuration
 name|conf
 parameter_list|,
 name|String
-name|peerId
+name|queueId
 parameter_list|)
 block|{
 name|ReplicationQueueInfo
@@ -128,7 +128,7 @@ init|=
 operator|new
 name|ReplicationQueueInfo
 argument_list|(
-name|peerId
+name|queueId
 argument_list|)
 decl_stmt|;
 name|boolean

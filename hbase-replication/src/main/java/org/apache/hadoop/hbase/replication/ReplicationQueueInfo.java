@@ -96,7 +96,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This class is responsible for the parsing logic for a znode representing a queue.  * It will extract the peerId if it's recovered as well as the dead region servers  * that were part of the queue's history.  */
+comment|/**  * This class is responsible for the parsing logic for a queue id representing a queue.  * It will extract the peerId if it's recovered as well as the dead region servers  * that were part of the queue's history.  */
 end_comment
 
 begin_class
@@ -131,7 +131,7 @@ decl_stmt|;
 specifier|private
 specifier|final
 name|String
-name|peerClusterZnode
+name|queueId
 decl_stmt|;
 specifier|private
 name|boolean
@@ -150,25 +150,25 @@ name|ArrayList
 argument_list|<>
 argument_list|()
 decl_stmt|;
-comment|/**    * The passed znode will be either the id of the peer cluster or    * the handling story of that queue in the form of id-servername-*    */
+comment|/**    * The passed queueId will be either the id of the peer or the handling story of that queue    * in the form of id-servername-*    */
 specifier|public
 name|ReplicationQueueInfo
 parameter_list|(
 name|String
-name|znode
+name|queueId
 parameter_list|)
 block|{
 name|this
 operator|.
-name|peerClusterZnode
+name|queueId
 operator|=
-name|znode
+name|queueId
 expr_stmt|;
 name|String
 index|[]
 name|parts
 init|=
-name|znode
+name|queueId
 operator|.
 name|split
 argument_list|(
@@ -200,7 +200,7 @@ index|[
 literal|0
 index|]
 else|:
-name|peerClusterZnode
+name|queueId
 expr_stmt|;
 if|if
 condition|(
@@ -226,7 +226,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Parse dead server names from znode string servername can contain "-" such as    * "ip-10-46-221-101.ec2.internal", so we need skip some "-" during parsing for the following    * cases: 2-ip-10-46-221-101.ec2.internal,52170,1364333181125-&lt;server name>-...    */
+comment|/**    * Parse dead server names from queue id. servername can contain "-" such as    * "ip-10-46-221-101.ec2.internal", so we need skip some "-" during parsing for the following    * cases: 2-ip-10-46-221-101.ec2.internal,52170,1364333181125-&lt;server name>-...    */
 specifier|private
 specifier|static
 name|void
@@ -493,13 +493,13 @@ return|;
 block|}
 specifier|public
 name|String
-name|getPeerClusterZnode
+name|getQueueId
 parameter_list|()
 block|{
 return|return
 name|this
 operator|.
-name|peerClusterZnode
+name|queueId
 return|;
 block|}
 specifier|public

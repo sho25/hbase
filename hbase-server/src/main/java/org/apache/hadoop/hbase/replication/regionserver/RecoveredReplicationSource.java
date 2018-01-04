@@ -541,7 +541,7 @@ name|walGroupId
 operator|+
 literal|","
 operator|+
-name|peerClusterZnode
+name|queueId
 argument_list|,
 name|getUncaughtExceptionHandler
 argument_list|()
@@ -1093,7 +1093,7 @@ condition|)
 block|{
 name|manager
 operator|.
-name|closeRecoveredQueue
+name|removeRecoveredSource
 argument_list|(
 name|this
 argument_list|)
@@ -1104,7 +1104,7 @@ name|info
 argument_list|(
 literal|"Finished recovering queue "
 operator|+
-name|peerClusterZnode
+name|queueId
 operator|+
 literal|" with the following stats: "
 operator|+

@@ -381,7 +381,7 @@ literal|" of peer "
 operator|+
 name|source
 operator|.
-name|getPeerClusterZnode
+name|getQueueId
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -527,7 +527,7 @@ name|peerClusterZnode
 init|=
 name|source
 operator|.
-name|getPeerClusterZnode
+name|getQueueId
 argument_list|()
 decl_stmt|;
 try|try
@@ -627,14 +627,12 @@ name|currentPath
 argument_list|,
 name|source
 operator|.
-name|getPeerClusterZnode
+name|getQueueId
 argument_list|()
 argument_list|,
 name|lastReadPosition
 argument_list|,
 literal|true
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 name|lastLoggedPosition

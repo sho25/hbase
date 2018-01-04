@@ -751,7 +751,7 @@ decl_stmt|;
 comment|// The znode we currently play with
 specifier|protected
 name|String
-name|peerClusterZnode
+name|queueId
 decl_stmt|;
 comment|// Maximum number of retries before taking bold actions
 specifier|private
@@ -853,7 +853,7 @@ init|=
 operator|-
 literal|1
 decl_stmt|;
-comment|/**    * Instantiation method used by region servers    * @param conf configuration to use    * @param fs file system to use    * @param manager replication manager to ping to    * @param server the server for this region server    * @param peerClusterZnode the name of our znode    * @param clusterId unique UUID for the cluster    * @param metrics metrics for replication source    */
+comment|/**    * Instantiation method used by region servers    * @param conf configuration to use    * @param fs file system to use    * @param manager replication manager to ping to    * @param server the server for this region server    * @param queueId the id of our replication queue    * @param clusterId unique UUID for the cluster    * @param metrics metrics for replication source    */
 annotation|@
 name|Override
 specifier|public
@@ -879,7 +879,7 @@ name|Server
 name|server
 parameter_list|,
 name|String
-name|peerClusterZnode
+name|queueId
 parameter_list|,
 name|UUID
 name|clusterId
@@ -1013,9 +1013,9 @@ name|clusterId
 expr_stmt|;
 name|this
 operator|.
-name|peerClusterZnode
+name|queueId
 operator|=
-name|peerClusterZnode
+name|queueId
 expr_stmt|;
 name|this
 operator|.
@@ -1024,7 +1024,7 @@ operator|=
 operator|new
 name|ReplicationQueueInfo
 argument_list|(
-name|peerClusterZnode
+name|queueId
 argument_list|)
 expr_stmt|;
 comment|// ReplicationQueueInfo parses the peerId out of the znode for us
@@ -1106,9 +1106,9 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"peerClusterZnode="
+literal|"queueId="
 operator|+
-name|peerClusterZnode
+name|queueId
 operator|+
 literal|", ReplicationSource : "
 operator|+
@@ -1333,36 +1333,6 @@ parameter_list|)
 throws|throws
 name|ReplicationException
 block|{
-name|String
-name|peerId
-init|=
-name|peerClusterZnode
-decl_stmt|;
-if|if
-condition|(
-name|peerId
-operator|.
-name|contains
-argument_list|(
-literal|"-"
-argument_list|)
-condition|)
-block|{
-comment|// peerClusterZnode will be in the form peerId + "-" + rsZNode.
-comment|// A peerId will not have "-" in its name, see HBASE-11394
-name|peerId
-operator|=
-name|peerClusterZnode
-operator|.
-name|split
-argument_list|(
-literal|"-"
-argument_list|)
-index|[
-literal|0
-index|]
-expr_stmt|;
-block|}
 name|Map
 argument_list|<
 name|TableName
@@ -1874,7 +1844,7 @@ name|this
 operator|.
 name|manager
 operator|.
-name|closeQueue
+name|removeSource
 argument_list|(
 name|this
 argument_list|)
@@ -2181,7 +2151,7 @@ name|walGroupId
 operator|+
 literal|","
 operator|+
-name|peerClusterZnode
+name|queueId
 argument_list|,
 name|getUncaughtExceptionHandler
 argument_list|()
@@ -2595,7 +2565,7 @@ literal|".replicationSource,"
 operator|+
 name|this
 operator|.
-name|peerClusterZnode
+name|queueId
 argument_list|,
 name|handler
 argument_list|)
@@ -2671,7 +2641,7 @@ literal|"Closing source "
 operator|+
 name|this
 operator|.
-name|peerClusterZnode
+name|queueId
 operator|+
 literal|" because: "
 operator|+
@@ -2689,7 +2659,7 @@ literal|"Closing source "
 operator|+
 name|this
 operator|.
-name|peerClusterZnode
+name|queueId
 operator|+
 literal|" because an error occurred: "
 operator|+
@@ -2839,7 +2809,7 @@ literal|"Got exception while waiting for endpoint to shutdown for replication so
 operator|+
 name|this
 operator|.
-name|peerClusterZnode
+name|queueId
 argument_list|,
 name|te
 argument_list|)
@@ -2852,13 +2822,13 @@ annotation|@
 name|Override
 specifier|public
 name|String
-name|getPeerClusterZnode
+name|getQueueId
 parameter_list|()
 block|{
 return|return
 name|this
 operator|.
-name|peerClusterZnode
+name|queueId
 return|;
 block|}
 annotation|@

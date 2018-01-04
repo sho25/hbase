@@ -743,7 +743,7 @@ literal|"peerClusterZnode="
 operator|+
 name|source
 operator|.
-name|getPeerClusterZnode
+name|getQueueId
 argument_list|()
 operator|+
 literal|", ReplicationSourceWALReaderThread : "

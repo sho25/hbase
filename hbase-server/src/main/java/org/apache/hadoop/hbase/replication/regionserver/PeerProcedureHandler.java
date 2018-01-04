@@ -59,6 +59,10 @@ name|InterfaceAudience
 import|;
 end_import
 
+begin_comment
+comment|/**  * A handler for modifying replication peer in peer procedures.  */
+end_comment
+
 begin_interface
 annotation|@
 name|InterfaceAudience

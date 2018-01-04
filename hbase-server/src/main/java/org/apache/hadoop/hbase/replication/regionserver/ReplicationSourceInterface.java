@@ -281,7 +281,7 @@ name|Server
 name|server
 parameter_list|,
 name|String
-name|peerClusterZnode
+name|queueId
 parameter_list|,
 name|UUID
 name|clusterId
@@ -357,9 +357,9 @@ name|Path
 name|getCurrentPath
 parameter_list|()
 function_decl|;
-comment|/**    * Get the id that the source is replicating to    *    * @return peer cluster id    */
+comment|/**    * Get the queue id that the source is replicating to    *    * @return queue id    */
 name|String
-name|getPeerClusterZnode
+name|getQueueId
 parameter_list|()
 function_decl|;
 comment|/**    * Get the id that the source is replicating to.    *    * @return peer id    */
