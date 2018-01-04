@@ -185,7 +185,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ClusterMetricsBuilder
+name|ClusterMetrics
 import|;
 end_import
 
@@ -199,7 +199,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ClusterStatus
+name|ClusterMetricsBuilder
 import|;
 end_import
 
@@ -701,26 +701,6 @@ name|StringUtil
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|ClusterStatusProtos
-import|;
-end_import
-
 begin_comment
 comment|/**  * Class to publish the cluster status to the client. This allows them to know immediately  *  the dead region servers, hence to cut the connection they have with them, eventually stop  *  waiting on the socket. This improves the mean time to recover, and as well allows to increase  *  on the client the different timeouts, as the dead servers will be detected separately.  */
 end_comment
@@ -1061,9 +1041,6 @@ name|publisher
 operator|.
 name|publish
 argument_list|(
-operator|new
-name|ClusterStatus
-argument_list|(
 name|ClusterMetricsBuilder
 operator|.
 name|newBuilder
@@ -1106,7 +1083,6 @@ argument_list|)
 operator|.
 name|build
 argument_list|()
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -1465,7 +1441,7 @@ function_decl|;
 name|void
 name|publish
 parameter_list|(
-name|ClusterStatus
+name|ClusterMetrics
 name|cs
 parameter_list|)
 function_decl|;
@@ -1779,7 +1755,7 @@ operator|.
 name|handler
 argument_list|(
 operator|new
-name|ClusterStatusEncoder
+name|ClusterMetricsEncoder
 argument_list|(
 name|isa
 argument_list|)
@@ -1992,11 +1968,11 @@ specifier|private
 specifier|static
 specifier|final
 class|class
-name|ClusterStatusEncoder
+name|ClusterMetricsEncoder
 extends|extends
 name|MessageToMessageEncoder
 argument_list|<
-name|ClusterStatus
+name|ClusterMetrics
 argument_list|>
 block|{
 specifier|final
@@ -2005,7 +1981,7 @@ name|InetSocketAddress
 name|isa
 decl_stmt|;
 specifier|private
-name|ClusterStatusEncoder
+name|ClusterMetricsEncoder
 parameter_list|(
 name|InetSocketAddress
 name|isa
@@ -2027,7 +2003,7 @@ parameter_list|(
 name|ChannelHandlerContext
 name|channelHandlerContext
 parameter_list|,
-name|ClusterStatus
+name|ClusterMetrics
 name|clusterStatus
 parameter_list|,
 name|List
@@ -2037,18 +2013,6 @@ argument_list|>
 name|objects
 parameter_list|)
 block|{
-name|ClusterStatusProtos
-operator|.
-name|ClusterStatus
-name|csp
-init|=
-name|ClusterMetricsBuilder
-operator|.
-name|toClusterStatus
-argument_list|(
-name|clusterStatus
-argument_list|)
-decl_stmt|;
 name|objects
 operator|.
 name|add
@@ -2060,7 +2024,12 @@ name|Unpooled
 operator|.
 name|wrappedBuffer
 argument_list|(
-name|csp
+name|ClusterMetricsBuilder
+operator|.
+name|toClusterStatus
+argument_list|(
+name|clusterStatus
+argument_list|)
 operator|.
 name|toByteArray
 argument_list|()
@@ -2078,7 +2047,7 @@ specifier|public
 name|void
 name|publish
 parameter_list|(
-name|ClusterStatus
+name|ClusterMetrics
 name|cs
 parameter_list|)
 block|{

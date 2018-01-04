@@ -6765,10 +6765,13 @@ name|servers
 init|=
 name|master
 operator|.
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|()
 operator|.
-name|getServers
+name|getLiveServerMetrics
+argument_list|()
+operator|.
+name|keySet
 argument_list|()
 decl_stmt|;
 name|String

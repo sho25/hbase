@@ -151,7 +151,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ClusterStatus
+name|ClusterMetrics
 import|;
 end_import
 
@@ -592,7 +592,7 @@ name|conf
 decl_stmt|;
 specifier|private
 specifier|volatile
-name|ClusterStatus
+name|ClusterMetrics
 name|status
 decl_stmt|;
 specifier|private
@@ -756,7 +756,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create a cache for region to list of servers    * @param time time to cache the locations    * @return A new Cache.    */
+comment|/**    * Create a cache for region to list of servers    * @return A new Cache.    */
 specifier|private
 name|LoadingCache
 argument_list|<
@@ -829,9 +829,9 @@ expr_stmt|;
 block|}
 specifier|public
 name|void
-name|setClusterStatus
+name|setClusterMetrics
 parameter_list|(
-name|ClusterStatus
+name|ClusterMetrics
 name|status
 parameter_list|)
 block|{
@@ -1278,7 +1278,10 @@ name|regionServers
 init|=
 name|status
 operator|.
-name|getServers
+name|getLiveServerMetrics
+argument_list|()
+operator|.
+name|keySet
 argument_list|()
 decl_stmt|;
 comment|// create a mapping from hostname to ServerName for fast lookup

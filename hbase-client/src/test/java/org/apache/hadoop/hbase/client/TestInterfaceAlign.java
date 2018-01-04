@@ -431,6 +431,7 @@ argument_list|>
 name|c
 parameter_list|)
 block|{
+comment|// DON'T use the getDeclaredMethods as we want to check the Public APIs only.
 return|return
 name|Arrays
 operator|.
@@ -438,7 +439,7 @@ name|asList
 argument_list|(
 name|c
 operator|.
-name|getDeclaredMethods
+name|getMethods
 argument_list|()
 argument_list|)
 operator|.

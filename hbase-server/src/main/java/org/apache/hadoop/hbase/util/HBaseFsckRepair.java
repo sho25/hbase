@@ -600,7 +600,7 @@ name|rs
 range|:
 name|admin
 operator|.
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|(
 name|EnumSet
 operator|.

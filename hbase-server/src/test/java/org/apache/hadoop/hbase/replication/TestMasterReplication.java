@@ -227,20 +227,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ClusterStatus
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HBaseConfiguration
 import|;
 end_import
@@ -311,7 +297,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ServerLoad
+name|ServerMetrics
 import|;
 end_import
 
@@ -1583,7 +1569,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|ClusterStatus
+name|ClusterMetrics
 name|clusterStatus
 init|=
 name|utilities
@@ -1594,7 +1580,7 @@ operator|.
 name|getAdmin
 argument_list|()
 operator|.
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|(
 name|EnumSet
 operator|.
@@ -1608,12 +1594,15 @@ name|LIVE_SERVERS
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|ServerLoad
+name|ServerMetrics
 name|serverLoad
 init|=
 name|clusterStatus
 operator|.
-name|getLoad
+name|getLiveServerMetrics
+argument_list|()
+operator|.
+name|get
 argument_list|(
 name|rsName
 argument_list|)

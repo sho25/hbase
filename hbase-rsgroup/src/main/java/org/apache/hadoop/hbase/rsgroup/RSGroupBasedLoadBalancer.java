@@ -151,7 +151,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ClusterStatus
+name|ClusterMetrics
 import|;
 end_import
 
@@ -540,7 +540,7 @@ name|Configuration
 name|config
 decl_stmt|;
 specifier|private
-name|ClusterStatus
+name|ClusterMetrics
 name|clusterStatus
 decl_stmt|;
 specifier|private
@@ -597,17 +597,17 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|setClusterStatus
+name|setClusterMetrics
 parameter_list|(
-name|ClusterStatus
-name|st
+name|ClusterMetrics
+name|sm
 parameter_list|)
 block|{
 name|this
 operator|.
 name|clusterStatus
 operator|=
-name|st
+name|sm
 expr_stmt|;
 block|}
 annotation|@
@@ -2582,7 +2582,7 @@ argument_list|)
 expr_stmt|;
 name|internalBalancer
 operator|.
-name|setClusterStatus
+name|setClusterMetrics
 argument_list|(
 name|clusterStatus
 argument_list|)

@@ -179,10 +179,10 @@ if|if
 condition|(
 name|cluster
 operator|.
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|()
 operator|.
-name|getServers
+name|getLiveServerMetrics
 argument_list|()
 operator|.
 name|size

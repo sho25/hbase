@@ -310,8 +310,6 @@ operator|.
 name|hbase
 operator|.
 name|ClusterMetrics
-operator|.
-name|Option
 import|;
 end_import
 
@@ -325,7 +323,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ClusterStatus
+name|ClusterMetrics
+operator|.
+name|Option
 import|;
 end_import
 
@@ -1756,12 +1756,12 @@ name|getAdmin
 argument_list|()
 init|)
 block|{
-name|ClusterStatus
+name|ClusterMetrics
 name|status
 init|=
 name|admin
 operator|.
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|(
 name|EnumSet
 operator|.
@@ -1781,7 +1781,10 @@ name|servers
 init|=
 name|status
 operator|.
-name|getServers
+name|getLiveServerMetrics
+argument_list|()
+operator|.
+name|keySet
 argument_list|()
 decl_stmt|;
 return|return

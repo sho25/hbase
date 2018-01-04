@@ -83,6 +83,22 @@ end_import
 
 begin_import
 import|import
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|Nullable
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -658,22 +674,6 @@ operator|.
 name|slf4j
 operator|.
 name|LoggerFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|edu
-operator|.
-name|umd
-operator|.
-name|cs
-operator|.
-name|findbugs
-operator|.
-name|annotations
-operator|.
-name|Nullable
 import|;
 end_import
 
@@ -1550,10 +1550,10 @@ operator|.
 name|getHBaseClusterInterface
 argument_list|()
 operator|.
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|()
 operator|.
-name|getMaster
+name|getMasterName
 argument_list|()
 expr_stmt|;
 comment|// kill the master so that regionserver recovery is not triggered at all
@@ -2032,10 +2032,10 @@ operator|.
 name|getHBaseClusterInterface
 argument_list|()
 operator|.
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|()
 operator|.
-name|getMaster
+name|getMasterName
 argument_list|()
 decl_stmt|;
 name|TEST_UTIL
@@ -2944,7 +2944,7 @@ operator|.
 name|getAdmin
 argument_list|()
 operator|.
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|(
 name|EnumSet
 operator|.
@@ -2956,7 +2956,10 @@ name|LIVE_SERVERS
 argument_list|)
 argument_list|)
 operator|.
-name|getServers
+name|getLiveServerMetrics
+argument_list|()
+operator|.
+name|keySet
 argument_list|()
 decl_stmt|;
 name|ServerName

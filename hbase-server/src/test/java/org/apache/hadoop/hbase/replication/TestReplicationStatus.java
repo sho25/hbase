@@ -420,9 +420,12 @@ block|}
 name|ClusterStatus
 name|status
 init|=
+operator|new
+name|ClusterStatus
+argument_list|(
 name|hbaseAdmin
 operator|.
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|(
 name|EnumSet
 operator|.
@@ -431,6 +434,7 @@ argument_list|(
 name|Option
 operator|.
 name|LIVE_SERVERS
+argument_list|)
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -575,9 +579,12 @@ argument_list|)
 expr_stmt|;
 name|status
 operator|=
+operator|new
+name|ClusterStatus
+argument_list|(
 name|hbaseAdmin
 operator|.
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|(
 name|EnumSet
 operator|.
@@ -586,6 +593,7 @@ argument_list|(
 name|Option
 operator|.
 name|LIVE_SERVERS
+argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;

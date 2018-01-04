@@ -142,8 +142,6 @@ operator|.
 name|hbase
 operator|.
 name|ClusterMetrics
-operator|.
-name|Option
 import|;
 end_import
 
@@ -157,7 +155,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ClusterStatus
+name|ClusterMetrics
+operator|.
+name|Option
 import|;
 end_import
 
@@ -1354,12 +1354,12 @@ operator|.
 name|newHashMap
 argument_list|()
 decl_stmt|;
-name|ClusterStatus
+name|ClusterMetrics
 name|status
 init|=
 name|admin
 operator|.
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|(
 name|EnumSet
 operator|.
@@ -1378,7 +1378,10 @@ name|sn
 range|:
 name|status
 operator|.
-name|getServers
+name|getLiveServerMetrics
+argument_list|()
+operator|.
+name|keySet
 argument_list|()
 control|)
 block|{
@@ -1420,11 +1423,11 @@ argument_list|()
 decl_stmt|;
 name|regionFinder
 operator|.
-name|setClusterStatus
+name|setClusterMetrics
 argument_list|(
 name|admin
 operator|.
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|(
 name|EnumSet
 operator|.

@@ -19,6 +19,22 @@ end_package
 
 begin_import
 import|import
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|Nullable
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|util
@@ -75,7 +91,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ClusterStatus
+name|ClusterMetrics
 import|;
 end_import
 
@@ -181,22 +197,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|edu
-operator|.
-name|umd
-operator|.
-name|cs
-operator|.
-name|findbugs
-operator|.
-name|annotations
-operator|.
-name|Nullable
-import|;
-end_import
-
 begin_comment
 comment|/**  * Makes decisions about the placement and movement of Regions across  * RegionServers.  *  *<p>Cluster-wide load balancing will occur only when there are no regions in  * transition and according to a fixed period of a time using {@link #balanceCluster(Map)}.  *  *<p>On cluster startup, bulk assignment can be used to determine  * locations for all Regions in a cluster.  *  *<p>This class produces plans for the  * {@link org.apache.hadoop.hbase.master.assignment.AssignmentManager}  * to execute.  */
 end_comment
@@ -248,9 +248,9 @@ argument_list|)
 decl_stmt|;
 comment|/**    * Set the current cluster status.  This allows a LoadBalancer to map host name to a server    * @param st    */
 name|void
-name|setClusterStatus
+name|setClusterMetrics
 parameter_list|(
-name|ClusterStatus
+name|ClusterMetrics
 name|st
 parameter_list|)
 function_decl|;

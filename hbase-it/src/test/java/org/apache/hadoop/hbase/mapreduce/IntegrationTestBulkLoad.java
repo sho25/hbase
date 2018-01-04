@@ -4288,7 +4288,7 @@ operator|.
 name|getAdmin
 argument_list|()
 operator|.
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|(
 name|EnumSet
 operator|.
@@ -4300,7 +4300,10 @@ name|LIVE_SERVERS
 argument_list|)
 argument_list|)
 operator|.
-name|getServersSize
+name|getLiveServerMetrics
+argument_list|()
+operator|.
+name|size
 argument_list|()
 operator|*
 literal|10

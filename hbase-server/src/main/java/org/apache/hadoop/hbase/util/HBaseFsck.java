@@ -668,8 +668,6 @@ operator|.
 name|hbase
 operator|.
 name|ClusterMetrics
-operator|.
-name|Option
 import|;
 end_import
 
@@ -683,7 +681,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ClusterStatus
+name|ClusterMetrics
+operator|.
+name|Option
 import|;
 end_import
 
@@ -2115,7 +2115,7 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 specifier|private
-name|ClusterStatus
+name|ClusterMetrics
 name|status
 decl_stmt|;
 specifier|private
@@ -3495,7 +3495,7 @@ name|status
 operator|=
 name|admin
 operator|.
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|(
 name|EnumSet
 operator|.
@@ -3547,7 +3547,10 @@ name|regionServers
 init|=
 name|status
 operator|.
-name|getServers
+name|getLiveServerMetrics
+argument_list|()
+operator|.
+name|keySet
 argument_list|()
 decl_stmt|;
 name|errors
@@ -3646,7 +3649,7 @@ literal|"Master: "
 operator|+
 name|status
 operator|.
-name|getMaster
+name|getMasterName
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3659,7 +3662,7 @@ name|backupMasters
 init|=
 name|status
 operator|.
-name|getBackupMasters
+name|getBackupMasterNames
 argument_list|()
 decl_stmt|;
 name|errors
@@ -3730,7 +3733,7 @@ literal|"Number of regions: "
 operator|+
 name|status
 operator|.
-name|getRegionsCount
+name|getRegionCount
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -13367,7 +13370,7 @@ argument_list|()
 argument_list|,
 name|admin
 operator|.
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|(
 name|EnumSet
 operator|.
@@ -13379,7 +13382,10 @@ name|LIVE_SERVERS
 argument_list|)
 argument_list|)
 operator|.
-name|getServers
+name|getLiveServerMetrics
+argument_list|()
+operator|.
+name|keySet
 argument_list|()
 argument_list|,
 name|numReplicas
@@ -13546,7 +13552,7 @@ argument_list|()
 argument_list|,
 name|admin
 operator|.
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|(
 name|EnumSet
 operator|.
@@ -13558,7 +13564,10 @@ name|LIVE_SERVERS
 argument_list|)
 argument_list|)
 operator|.
-name|getServers
+name|getLiveServerMetrics
+argument_list|()
+operator|.
+name|keySet
 argument_list|()
 argument_list|,
 name|numReplicas

@@ -8687,7 +8687,7 @@ name|toClusterStatus
 argument_list|(
 name|master
 operator|.
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|(
 name|ClusterMetricsBuilder
 operator|.

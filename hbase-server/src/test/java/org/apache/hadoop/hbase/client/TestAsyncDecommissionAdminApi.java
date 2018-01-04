@@ -289,7 +289,7 @@ argument_list|<>
 argument_list|(
 name|admin
 operator|.
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|(
 name|EnumSet
 operator|.
@@ -304,7 +304,10 @@ operator|.
 name|get
 argument_list|()
 operator|.
-name|getServers
+name|getLiveServerMetrics
+argument_list|()
+operator|.
+name|keySet
 argument_list|()
 argument_list|)
 decl_stmt|;

@@ -138,8 +138,6 @@ operator|.
 name|hbase
 operator|.
 name|ClusterMetrics
-operator|.
-name|Option
 import|;
 end_import
 
@@ -153,7 +151,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ClusterStatus
+name|ClusterMetrics
+operator|.
+name|Option
 import|;
 end_import
 
@@ -181,7 +181,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|RegionLoad
+name|RegionMetrics
 import|;
 end_import
 
@@ -3086,13 +3086,13 @@ name|Override
 specifier|public
 name|CompletableFuture
 argument_list|<
-name|ClusterStatus
+name|ClusterMetrics
 argument_list|>
-name|getClusterStatus
+name|getClusterMetrics
 parameter_list|()
 block|{
 return|return
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|(
 name|EnumSet
 operator|.
@@ -3110,9 +3110,9 @@ name|Override
 specifier|public
 name|CompletableFuture
 argument_list|<
-name|ClusterStatus
+name|ClusterMetrics
 argument_list|>
-name|getClusterStatus
+name|getClusterMetrics
 parameter_list|(
 name|EnumSet
 argument_list|<
@@ -3126,7 +3126,7 @@ name|wrap
 argument_list|(
 name|rawAdmin
 operator|.
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|(
 name|options
 argument_list|)
@@ -3331,10 +3331,10 @@ name|CompletableFuture
 argument_list|<
 name|List
 argument_list|<
-name|RegionLoad
+name|RegionMetrics
 argument_list|>
 argument_list|>
-name|getRegionLoads
+name|getRegionMetrics
 parameter_list|(
 name|ServerName
 name|serverName
@@ -3345,7 +3345,7 @@ name|wrap
 argument_list|(
 name|rawAdmin
 operator|.
-name|getRegionLoads
+name|getRegionMetrics
 argument_list|(
 name|serverName
 argument_list|)
@@ -3359,10 +3359,10 @@ name|CompletableFuture
 argument_list|<
 name|List
 argument_list|<
-name|RegionLoad
+name|RegionMetrics
 argument_list|>
 argument_list|>
-name|getRegionLoads
+name|getRegionMetrics
 parameter_list|(
 name|ServerName
 name|serverName
@@ -3376,7 +3376,7 @@ name|wrap
 argument_list|(
 name|rawAdmin
 operator|.
-name|getRegionLoads
+name|getRegionMetrics
 argument_list|(
 name|serverName
 argument_list|,

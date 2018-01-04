@@ -738,7 +738,7 @@ while|while
 condition|(
 name|ADMIN
 operator|.
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|(
 name|EnumSet
 operator|.
@@ -750,7 +750,7 @@ name|LIVE_SERVERS
 argument_list|)
 argument_list|)
 operator|.
-name|getServers
+name|getLiveServerMetrics
 argument_list|()
 operator|.
 name|size
@@ -1314,10 +1314,10 @@ operator|.
 name|getHBaseClusterInterface
 argument_list|()
 operator|.
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|()
 operator|.
-name|getMaster
+name|getMasterName
 argument_list|()
 decl_stmt|;
 name|TEST_UTIL

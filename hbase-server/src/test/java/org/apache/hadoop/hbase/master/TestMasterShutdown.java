@@ -87,7 +87,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ClusterStatus
+name|ClusterMetrics
 import|;
 end_import
 
@@ -476,12 +476,12 @@ name|active
 argument_list|)
 expr_stmt|;
 comment|// make sure the other two are backup masters
-name|ClusterStatus
+name|ClusterMetrics
 name|status
 init|=
 name|active
 operator|.
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|()
 decl_stmt|;
 name|assertEquals
@@ -490,17 +490,7 @@ literal|2
 argument_list|,
 name|status
 operator|.
-name|getBackupMastersSize
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|assertEquals
-argument_list|(
-literal|2
-argument_list|,
-name|status
-operator|.
-name|getBackupMasters
+name|getBackupMasterNames
 argument_list|()
 operator|.
 name|size

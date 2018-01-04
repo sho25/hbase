@@ -3062,10 +3062,13 @@ operator|.
 name|getHBaseClusterInterface
 argument_list|()
 operator|.
-name|getInitialClusterStatus
+name|getInitialClusterMetrics
 argument_list|()
 operator|.
-name|getServersSize
+name|getLiveServerMetrics
+argument_list|()
+operator|.
+name|size
 argument_list|()
 decl_stmt|;
 name|int

@@ -506,14 +506,14 @@ argument_list|)
 expr_stmt|;
 name|finder
 operator|.
-name|setClusterStatus
+name|setClusterMetrics
 argument_list|(
 name|cluster
 operator|.
 name|getMaster
 argument_list|()
 operator|.
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|()
 argument_list|)
 expr_stmt|;

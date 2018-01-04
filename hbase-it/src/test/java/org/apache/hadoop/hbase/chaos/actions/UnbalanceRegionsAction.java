@@ -73,7 +73,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ClusterStatus
+name|ClusterMetrics
 import|;
 end_import
 
@@ -150,14 +150,14 @@ argument_list|(
 literal|"Unbalancing regions"
 argument_list|)
 expr_stmt|;
-name|ClusterStatus
+name|ClusterMetrics
 name|status
 init|=
 name|this
 operator|.
 name|cluster
 operator|.
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|()
 decl_stmt|;
 name|List
@@ -172,7 +172,10 @@ argument_list|<>
 argument_list|(
 name|status
 operator|.
-name|getServers
+name|getLiveServerMetrics
+argument_list|()
+operator|.
+name|keySet
 argument_list|()
 argument_list|)
 decl_stmt|;

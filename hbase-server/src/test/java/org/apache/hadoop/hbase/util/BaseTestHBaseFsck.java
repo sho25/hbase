@@ -234,8 +234,6 @@ operator|.
 name|hbase
 operator|.
 name|ClusterMetrics
-operator|.
-name|Option
 import|;
 end_import
 
@@ -249,7 +247,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ClusterStatus
+name|ClusterMetrics
+operator|.
+name|Option
 import|;
 end_import
 
@@ -320,20 +320,6 @@ operator|.
 name|hbase
 operator|.
 name|HTableDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|MetaTableAccessor
 import|;
 end_import
 
@@ -474,22 +460,6 @@ operator|.
 name|client
 operator|.
 name|RegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|RegionInfoBuilder
 import|;
 end_import
 
@@ -2152,12 +2122,12 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|ClusterStatus
+name|ClusterMetrics
 name|status
 init|=
 name|admin
 operator|.
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|(
 name|EnumSet
 operator|.
@@ -2177,7 +2147,10 @@ name|regionServers
 init|=
 name|status
 operator|.
-name|getServers
+name|getLiveServerMetrics
+argument_list|()
+operator|.
+name|keySet
 argument_list|()
 decl_stmt|;
 name|Map

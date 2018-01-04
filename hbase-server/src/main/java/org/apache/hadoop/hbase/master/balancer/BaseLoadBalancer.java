@@ -223,7 +223,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ClusterStatus
+name|ClusterMetrics
 import|;
 end_import
 
@@ -6140,7 +6140,7 @@ init|=
 literal|null
 decl_stmt|;
 specifier|protected
-name|ClusterStatus
+name|ClusterMetrics
 name|clusterStatus
 init|=
 literal|null
@@ -6844,9 +6844,9 @@ name|Override
 specifier|public
 specifier|synchronized
 name|void
-name|setClusterStatus
+name|setClusterMetrics
 parameter_list|(
-name|ClusterStatus
+name|ClusterMetrics
 name|st
 parameter_list|)
 block|{
@@ -6863,7 +6863,7 @@ condition|)
 block|{
 name|regionFinder
 operator|.
-name|setClusterStatus
+name|setClusterMetrics
 argument_list|(
 name|st
 argument_list|)

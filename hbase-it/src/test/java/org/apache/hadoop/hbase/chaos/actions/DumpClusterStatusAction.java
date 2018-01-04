@@ -84,7 +84,7 @@ literal|"Cluster status\n"
 operator|+
 name|cluster
 operator|.
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|()
 argument_list|)
 expr_stmt|;

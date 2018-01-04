@@ -975,7 +975,7 @@ while|while
 condition|(
 name|admin
 operator|.
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|(
 name|EnumSet
 operator|.
@@ -987,7 +987,7 @@ name|LIVE_SERVERS
 argument_list|)
 argument_list|)
 operator|.
-name|getServers
+name|getLiveServerMetrics
 argument_list|()
 operator|.
 name|size

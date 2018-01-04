@@ -35,16 +35,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|Arrays
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|Collection
 import|;
 end_import
@@ -146,8 +136,6 @@ operator|.
 name|hbase
 operator|.
 name|ClusterMetrics
-operator|.
-name|Option
 import|;
 end_import
 
@@ -161,7 +149,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ClusterStatus
+name|ClusterMetrics
+operator|.
+name|Option
 import|;
 end_import
 
@@ -189,7 +179,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|RegionLoad
+name|RegionMetrics
 import|;
 end_import
 
@@ -1833,17 +1823,17 @@ function_decl|;
 comment|/**    * @return cluster status wrapped by {@link CompletableFuture}    */
 name|CompletableFuture
 argument_list|<
-name|ClusterStatus
+name|ClusterMetrics
 argument_list|>
-name|getClusterStatus
+name|getClusterMetrics
 parameter_list|()
 function_decl|;
 comment|/**    * @return cluster status wrapped by {@link CompletableFuture}    */
 name|CompletableFuture
 argument_list|<
-name|ClusterStatus
+name|ClusterMetrics
 argument_list|>
-name|getClusterStatus
+name|getClusterMetrics
 parameter_list|(
 name|EnumSet
 argument_list|<
@@ -1862,7 +1852,7 @@ name|getMaster
 parameter_list|()
 block|{
 return|return
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|(
 name|EnumSet
 operator|.
@@ -1876,9 +1866,9 @@ argument_list|)
 operator|.
 name|thenApply
 argument_list|(
-name|ClusterStatus
+name|ClusterMetrics
 operator|::
-name|getMaster
+name|getMasterName
 argument_list|)
 return|;
 block|}
@@ -1895,7 +1885,7 @@ name|getBackupMasters
 parameter_list|()
 block|{
 return|return
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|(
 name|EnumSet
 operator|.
@@ -1909,9 +1899,9 @@ argument_list|)
 operator|.
 name|thenApply
 argument_list|(
-name|ClusterStatus
+name|ClusterMetrics
 operator|::
-name|getBackupMasters
+name|getBackupMasterNames
 argument_list|)
 return|;
 block|}
@@ -1928,7 +1918,7 @@ name|getRegionServers
 parameter_list|()
 block|{
 return|return
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|(
 name|EnumSet
 operator|.
@@ -1942,9 +1932,15 @@ argument_list|)
 operator|.
 name|thenApply
 argument_list|(
-name|ClusterStatus
-operator|::
-name|getServers
+name|cm
+lambda|->
+name|cm
+operator|.
+name|getLiveServerMetrics
+argument_list|()
+operator|.
+name|keySet
+argument_list|()
 argument_list|)
 return|;
 block|}
@@ -1957,11 +1953,11 @@ argument_list|<
 name|String
 argument_list|>
 argument_list|>
-name|getMasterCoprocessors
+name|getMasterCoprocessorNames
 parameter_list|()
 block|{
 return|return
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|(
 name|EnumSet
 operator|.
@@ -1975,16 +1971,9 @@ argument_list|)
 operator|.
 name|thenApply
 argument_list|(
-name|ClusterStatus
+name|ClusterMetrics
 operator|::
-name|getMasterCoprocessors
-argument_list|)
-operator|.
-name|thenApply
-argument_list|(
-name|Arrays
-operator|::
-name|asList
+name|getMasterCoprocessorNames
 argument_list|)
 return|;
 block|}
@@ -1998,7 +1987,7 @@ name|getMasterInfoPort
 parameter_list|()
 block|{
 return|return
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|(
 name|EnumSet
 operator|.
@@ -2012,7 +2001,7 @@ argument_list|)
 operator|.
 name|thenApply
 argument_list|(
-name|ClusterStatus
+name|ClusterMetrics
 operator|::
 name|getMasterInfoPort
 argument_list|)
@@ -2092,29 +2081,29 @@ argument_list|>
 name|queues
 parameter_list|)
 function_decl|;
-comment|/**    * Get a list of {@link RegionLoad} of all regions hosted on a region seerver.    * @param serverName    * @return a list of {@link RegionLoad} wrapped by {@link CompletableFuture}    */
+comment|/**    * Get a list of {@link RegionMetrics} of all regions hosted on a region seerver.    * @param serverName    * @return a list of {@link RegionMetrics} wrapped by {@link CompletableFuture}    */
 name|CompletableFuture
 argument_list|<
 name|List
 argument_list|<
-name|RegionLoad
+name|RegionMetrics
 argument_list|>
 argument_list|>
-name|getRegionLoads
+name|getRegionMetrics
 parameter_list|(
 name|ServerName
 name|serverName
 parameter_list|)
 function_decl|;
-comment|/**    * Get a list of {@link RegionLoad} of all regions hosted on a region seerver for a table.    * @param serverName    * @param tableName    * @return a list of {@link RegionLoad} wrapped by {@link CompletableFuture}    */
+comment|/**    * Get a list of {@link RegionMetrics} of all regions hosted on a region seerver for a table.    * @param serverName    * @param tableName    * @return a list of {@link RegionMetrics} wrapped by {@link CompletableFuture}    */
 name|CompletableFuture
 argument_list|<
 name|List
 argument_list|<
-name|RegionLoad
+name|RegionMetrics
 argument_list|>
 argument_list|>
-name|getRegionLoads
+name|getRegionMetrics
 parameter_list|(
 name|ServerName
 name|serverName
@@ -2423,7 +2412,7 @@ block|{
 return|return
 name|this
 operator|.
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|(
 name|EnumSet
 operator|.
@@ -2437,7 +2426,7 @@ argument_list|)
 operator|.
 name|thenApply
 argument_list|(
-name|ClusterStatus
+name|ClusterMetrics
 operator|::
 name|getDeadServerNames
 argument_list|)

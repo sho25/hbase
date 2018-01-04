@@ -338,7 +338,7 @@ operator|.
 name|getAdmin
 argument_list|()
 operator|.
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|(
 name|EnumSet
 operator|.

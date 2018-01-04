@@ -207,11 +207,11 @@ try|try
 block|{
 name|balancer
 operator|.
-name|setClusterStatus
+name|setClusterMetrics
 argument_list|(
 name|master
 operator|.
-name|getClusterStatusWithoutCoprocessor
+name|getClusterMetricsWithoutCoprocessor
 argument_list|()
 argument_list|)
 expr_stmt|;

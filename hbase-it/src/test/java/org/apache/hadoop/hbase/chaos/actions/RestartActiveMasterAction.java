@@ -78,10 +78,10 @@ name|master
 init|=
 name|cluster
 operator|.
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|()
 operator|.
-name|getMaster
+name|getMasterName
 argument_list|()
 decl_stmt|;
 name|restartMaster

@@ -19,6 +19,18 @@ end_package
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|Service
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -49,18 +61,6 @@ end_import
 
 begin_import
 import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|Service
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -83,7 +83,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ClusterStatus
+name|ClusterMetrics
 import|;
 end_import
 
@@ -8349,7 +8349,7 @@ expr_stmt|;
 block|}
 specifier|public
 name|void
-name|preGetClusterStatus
+name|preGetClusterMetrics
 parameter_list|()
 throws|throws
 name|IOException
@@ -8381,7 +8381,7 @@ name|IOException
 block|{
 name|observer
 operator|.
-name|preGetClusterStatus
+name|preGetClusterMetrics
 argument_list|(
 name|this
 argument_list|)
@@ -8393,9 +8393,9 @@ expr_stmt|;
 block|}
 specifier|public
 name|void
-name|postGetClusterStatus
+name|postGetClusterMetrics
 parameter_list|(
-name|ClusterStatus
+name|ClusterMetrics
 name|status
 parameter_list|)
 throws|throws
@@ -8428,7 +8428,7 @@ name|IOException
 block|{
 name|observer
 operator|.
-name|postGetClusterStatus
+name|postGetClusterMetrics
 argument_list|(
 name|this
 argument_list|,

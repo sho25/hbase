@@ -29,7 +29,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ClusterStatus
+name|ClusterMetrics
 import|;
 end_import
 
@@ -111,12 +111,12 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
-name|ClusterStatus
+name|ClusterMetrics
 name|clusterStatus
 init|=
 name|cluster
 operator|.
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|()
 decl_stmt|;
 if|if
@@ -127,7 +127,7 @@ name|equals
 argument_list|(
 name|clusterStatus
 operator|.
-name|getMaster
+name|getMasterName
 argument_list|()
 argument_list|)
 condition|)

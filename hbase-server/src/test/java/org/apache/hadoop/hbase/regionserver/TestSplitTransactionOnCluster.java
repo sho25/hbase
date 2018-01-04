@@ -6542,10 +6542,10 @@ operator|.
 name|getMaster
 argument_list|()
 operator|.
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|()
 operator|.
-name|getServers
+name|getLiveServerMetrics
 argument_list|()
 operator|.
 name|size
@@ -6596,10 +6596,10 @@ operator|.
 name|getMaster
 argument_list|()
 operator|.
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|()
 operator|.
-name|getServers
+name|getLiveServerMetrics
 argument_list|()
 operator|.
 name|size

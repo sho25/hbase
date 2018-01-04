@@ -57,7 +57,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ClusterStatus
+name|ClusterMetrics
 import|;
 end_import
 
@@ -2987,7 +2987,7 @@ block|{}
 comment|/**    * Called before get cluster status.    */
 specifier|default
 name|void
-name|preGetClusterStatus
+name|preGetClusterMetrics
 parameter_list|(
 name|ObserverContext
 argument_list|<
@@ -3001,7 +3001,7 @@ block|{}
 comment|/**    * Called after get cluster status.    */
 specifier|default
 name|void
-name|postGetClusterStatus
+name|postGetClusterMetrics
 parameter_list|(
 name|ObserverContext
 argument_list|<
@@ -3009,7 +3009,7 @@ name|MasterCoprocessorEnvironment
 argument_list|>
 name|ctx
 parameter_list|,
-name|ClusterStatus
+name|ClusterMetrics
 name|status
 parameter_list|)
 throws|throws

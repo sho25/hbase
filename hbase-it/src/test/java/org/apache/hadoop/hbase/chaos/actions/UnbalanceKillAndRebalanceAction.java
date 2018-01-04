@@ -93,7 +93,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ClusterStatus
+name|ClusterMetrics
 import|;
 end_import
 
@@ -221,14 +221,14 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|ClusterStatus
+name|ClusterMetrics
 name|status
 init|=
 name|this
 operator|.
 name|cluster
 operator|.
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|()
 decl_stmt|;
 name|List
@@ -243,7 +243,10 @@ argument_list|<>
 argument_list|(
 name|status
 operator|.
-name|getServers
+name|getLiveServerMetrics
+argument_list|()
+operator|.
+name|keySet
 argument_list|()
 argument_list|)
 decl_stmt|;

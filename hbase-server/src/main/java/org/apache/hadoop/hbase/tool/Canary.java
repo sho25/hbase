@@ -392,8 +392,6 @@ operator|.
 name|hbase
 operator|.
 name|ClusterMetrics
-operator|.
-name|Option
 import|;
 end_import
 
@@ -407,7 +405,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ClusterStatus
+name|ClusterMetrics
+operator|.
+name|Option
 import|;
 end_import
 
@@ -6950,7 +6950,7 @@ name|numberOfServers
 init|=
 name|admin
 operator|.
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|(
 name|EnumSet
 operator|.
@@ -6962,7 +6962,7 @@ name|LIVE_SERVERS
 argument_list|)
 argument_list|)
 operator|.
-name|getServers
+name|getLiveServerMetrics
 argument_list|()
 operator|.
 name|size
@@ -7008,12 +7008,12 @@ name|writeTableName
 argument_list|)
 expr_stmt|;
 block|}
-name|ClusterStatus
+name|ClusterMetrics
 name|status
 init|=
 name|admin
 operator|.
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|(
 name|EnumSet
 operator|.
@@ -7034,21 +7034,24 @@ name|numberOfServers
 init|=
 name|status
 operator|.
-name|getServersSize
+name|getLiveServerMetrics
+argument_list|()
+operator|.
+name|size
 argument_list|()
 decl_stmt|;
 if|if
 condition|(
 name|status
 operator|.
-name|getServers
+name|getLiveServerMetrics
 argument_list|()
 operator|.
-name|contains
+name|containsKey
 argument_list|(
 name|status
 operator|.
-name|getMaster
+name|getMasterName
 argument_list|()
 argument_list|)
 condition|)
@@ -8998,7 +9001,7 @@ name|this
 operator|.
 name|admin
 operator|.
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|(
 name|EnumSet
 operator|.
@@ -9010,7 +9013,10 @@ name|LIVE_SERVERS
 argument_list|)
 argument_list|)
 operator|.
-name|getServers
+name|getLiveServerMetrics
+argument_list|()
+operator|.
+name|keySet
 argument_list|()
 control|)
 block|{
