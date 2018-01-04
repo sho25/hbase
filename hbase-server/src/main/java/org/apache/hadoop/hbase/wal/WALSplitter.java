@@ -83,6 +83,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Arrays
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Collections
 import|;
 end_import
@@ -94,16 +104,6 @@ operator|.
 name|util
 operator|.
 name|HashMap
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|LinkedList
 import|;
 end_import
 
@@ -334,6 +334,48 @@ operator|.
 name|regex
 operator|.
 name|Pattern
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|collections
+operator|.
+name|CollectionUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|collections
+operator|.
+name|MapUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|lang3
+operator|.
+name|ArrayUtils
 import|;
 end_import
 
@@ -933,40 +975,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|slf4j
-operator|.
-name|Logger
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|slf4j
-operator|.
-name|LoggerFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hbase
 operator|.
 name|thirdparty
@@ -1044,6 +1052,40 @@ operator|.
 name|protobuf
 operator|.
 name|TextFormat
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|Logger
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|LoggerFactory
 import|;
 end_import
 
@@ -1617,15 +1659,12 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|logfiles
-operator|!=
-literal|null
-operator|&&
-name|logfiles
+name|ArrayUtils
 operator|.
-name|length
-operator|>
-literal|0
+name|isNotEmpty
+argument_list|(
+name|logfiles
+argument_list|)
 condition|)
 block|{
 for|for
@@ -1871,12 +1910,10 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Splitting WAL="
-operator|+
+literal|"Splitting WAL={}, length={}"
+argument_list|,
 name|logPath
-operator|+
-literal|", length="
-operator|+
+argument_list|,
 name|logLength
 argument_list|)
 expr_stmt|;
@@ -1930,8 +1967,8 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Nothing to split in WAL="
-operator|+
+literal|"Nothing to split in WAL={}"
+argument_list|,
 name|logPath
 argument_list|)
 expr_stmt|;
@@ -2342,8 +2379,8 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Could not parse, corrupted WAL="
-operator|+
+literal|"Could not parse, corrupted WAL={}"
+argument_list|,
 name|logPath
 argument_list|,
 name|e
@@ -2435,7 +2472,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Finishing writing output logs and closing down."
+literal|"Finishing writing output logs and closing down"
 argument_list|)
 expr_stmt|;
 try|try
@@ -2464,19 +2501,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Could not close WAL reader: "
-operator|+
-name|exception
-operator|.
-name|getMessage
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"exception details"
+literal|"Could not close WAL reader"
 argument_list|,
 name|exception
 argument_list|)
@@ -2851,8 +2876,8 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"hbase.regionserver.hlog.splitlog.corrupt.dir is deprecated. Default to "
-operator|+
+literal|"hbase.regionserver.hlog.splitlog.corrupt.dir is deprecated. Default to {}"
+argument_list|,
 name|corruptDir
 argument_list|)
 expr_stmt|;
@@ -2872,8 +2897,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Unable to mkdir "
-operator|+
+literal|"Unable to mkdir {}"
+argument_list|,
 name|corruptDir
 argument_list|)
 expr_stmt|;
@@ -2936,12 +2961,10 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Unable to move corrupted log "
-operator|+
+literal|"Unable to move corrupted log {} to {}"
+argument_list|,
 name|corrupted
-operator|+
-literal|" to "
-operator|+
+argument_list|,
 name|p
 argument_list|)
 expr_stmt|;
@@ -2952,12 +2975,10 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Moved corrupted log "
-operator|+
+literal|"Moved corrupted log {} to {}"
+argument_list|,
 name|corrupted
-operator|+
-literal|" to "
-operator|+
+argument_list|,
 name|p
 argument_list|)
 expr_stmt|;
@@ -3013,12 +3034,10 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Unable to move  "
-operator|+
+literal|"Unable to move {} to {}"
+argument_list|,
 name|p
-operator|+
-literal|" to "
-operator|+
+argument_list|,
 name|newPath
 argument_list|)
 expr_stmt|;
@@ -3029,12 +3048,10 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Archived processed log "
-operator|+
+literal|"Archived processed log {} to {}"
+argument_list|,
 name|p
-operator|+
-literal|" to "
-operator|+
+argument_list|,
 name|newPath
 argument_list|)
 expr_stmt|;
@@ -3141,16 +3158,13 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"This region's directory doesn't exist: "
+literal|"This region's directory does not exist: {}."
 operator|+
+literal|"It is very likely that it was already split so it is "
+operator|+
+literal|"safe to discard those edits."
+argument_list|,
 name|regiondir
-operator|.
-name|toString
-argument_list|()
-operator|+
-literal|". It is very likely that it was"
-operator|+
-literal|" already split so it's safe to discard those edits."
 argument_list|)
 expr_stmt|;
 return|return
@@ -3222,16 +3236,14 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Found existing old file: "
-operator|+
-name|dir
-operator|+
-literal|". It could be some "
+literal|"Found existing old file: {}. It could be some "
 operator|+
 literal|"leftover of an old installation. It should be a folder instead. "
 operator|+
-literal|"So moving it to "
-operator|+
+literal|"So moving it to {}"
+argument_list|,
+name|dir
+argument_list|,
 name|tmp
 argument_list|)
 expr_stmt|;
@@ -3252,8 +3264,8 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed to sideline old file "
-operator|+
+literal|"Failed to sideline old file {}"
+argument_list|,
 name|dir
 argument_list|)
 expr_stmt|;
@@ -3282,8 +3294,8 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"mkdir failed on "
-operator|+
+literal|"mkdir failed on {}"
+argument_list|,
 name|dir
 argument_list|)
 expr_stmt|;
@@ -3490,9 +3502,11 @@ argument_list|(
 name|editsdir
 argument_list|)
 condition|)
+block|{
 return|return
 name|filesSorted
 return|;
+block|}
 name|FileStatus
 index|[]
 name|files
@@ -3602,9 +3616,11 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed isFile check on "
-operator|+
+literal|"Failed isFile check on {}"
+argument_list|,
 name|p
+argument_list|,
+name|e
 argument_list|)
 expr_stmt|;
 block|}
@@ -3617,23 +3633,25 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
+name|ArrayUtils
+operator|.
+name|isNotEmpty
+argument_list|(
 name|files
-operator|==
-literal|null
+argument_list|)
 condition|)
 block|{
-return|return
-name|filesSorted
-return|;
-block|}
-for|for
-control|(
-name|FileStatus
-name|status
-range|:
+name|Arrays
+operator|.
+name|asList
+argument_list|(
 name|files
-control|)
-block|{
+argument_list|)
+operator|.
+name|forEach
+argument_list|(
+name|status
+lambda|->
 name|filesSorted
 operator|.
 name|add
@@ -3642,6 +3660,7 @@ name|status
 operator|.
 name|getPath
 argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -3707,12 +3726,10 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Rename failed from "
-operator|+
+literal|"Rename failed from {} to {}"
+argument_list|,
 name|edits
-operator|+
-literal|" to "
-operator|+
+argument_list|,
 name|moveAsideName
 argument_list|)
 expr_stmt|;
@@ -3945,8 +3962,8 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Invalid SeqId File Name="
-operator|+
+literal|"Invalid SeqId File Name={}"
+argument_list|,
 name|fileName
 argument_list|)
 expr_stmt|;
@@ -4023,32 +4040,19 @@ name|newSeqIdFile
 argument_list|)
 throw|;
 block|}
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Wrote file="
-operator|+
+literal|"Wrote file={}, newSeqId={}, maxSeqId={}"
+argument_list|,
 name|newSeqIdFile
-operator|+
-literal|", newSeqId="
-operator|+
+argument_list|,
 name|newSeqId
-operator|+
-literal|", maxSeqId="
-operator|+
+argument_list|,
 name|maxSeqId
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 catch|catch
 parameter_list|(
@@ -4077,6 +4081,7 @@ control|)
 block|{
 if|if
 condition|(
+operator|!
 name|newSeqIdFile
 operator|.
 name|equals
@@ -4088,8 +4093,6 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
-continue|continue;
-block|}
 name|fs
 operator|.
 name|delete
@@ -4102,6 +4105,7 @@ argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 return|return
@@ -4160,11 +4164,9 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"File "
-operator|+
+literal|"File {} might be still open, length is 0"
+argument_list|,
 name|path
-operator|+
-literal|" might be still open, length is 0"
 argument_list|)
 expr_stmt|;
 block|}
@@ -4224,26 +4226,18 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Could not open "
-operator|+
+literal|"Could not open {} for reading. File is empty"
+argument_list|,
 name|path
-operator|+
-literal|" for reading. File is empty"
 argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
-return|return
-literal|null
-return|;
 block|}
-else|else
-block|{
 comment|// EOFException being ignored
 return|return
 literal|null
 return|;
-block|}
 block|}
 block|}
 catch|catch
@@ -4264,11 +4258,9 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"File "
-operator|+
+literal|"File {} does not exist anymore"
+argument_list|,
 name|path
-operator|+
-literal|" doesn't exist anymore."
 argument_list|,
 name|e
 argument_list|)
@@ -4359,11 +4351,9 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"EOF from wal "
-operator|+
+literal|"EOF from wal {}. Continuing."
+argument_list|,
 name|path
-operator|+
-literal|".  continuing"
 argument_list|)
 expr_stmt|;
 return|return
@@ -4416,21 +4406,11 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Parse exception "
-operator|+
-name|e
-operator|.
-name|getCause
-argument_list|()
-operator|.
-name|toString
-argument_list|()
-operator|+
-literal|" from wal "
-operator|+
+literal|"Parse exception from wal {}. Continuing"
+argument_list|,
 name|path
-operator|+
-literal|".  continuing"
+argument_list|,
+name|e
 argument_list|)
 expr_stmt|;
 return|return
@@ -4884,11 +4864,9 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Used "
-operator|+
+literal|"Used {} bytes of buffered edits, waiting for IO threads"
+argument_list|,
 name|totalBuffered
-operator|+
-literal|" bytes of buffered edits, waiting for IO threads..."
 argument_list|)
 expr_stmt|;
 name|controller
@@ -5227,7 +5205,7 @@ operator|.
 name|entryBuffer
 operator|=
 operator|new
-name|LinkedList
+name|ArrayList
 argument_list|<>
 argument_list|()
 expr_stmt|;
@@ -5482,13 +5460,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
 name|LOG
 operator|.
 name|trace
@@ -6088,14 +6059,14 @@ name|LOG
 operator|.
 name|info
 argument_list|(
+literal|"{} split writers finished; closing."
+argument_list|,
 name|this
 operator|.
 name|writerThreads
 operator|.
 name|size
 argument_list|()
-operator|+
-literal|" split writers finished; closing..."
 argument_list|)
 expr_stmt|;
 return|return
@@ -6261,15 +6232,12 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|thrown
-operator|!=
-literal|null
-operator|&&
-operator|!
-name|thrown
+name|CollectionUtils
 operator|.
-name|isEmpty
-argument_list|()
+name|isNotEmpty
+argument_list|(
+name|thrown
+argument_list|)
 condition|)
 block|{
 throw|throw
@@ -6368,28 +6336,17 @@ name|EOFException
 name|e
 parameter_list|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Got EOF when reading first WAL entry from "
-operator|+
+literal|"Got EOF when reading first WAL entry from {}, an empty or broken WAL file?"
+argument_list|,
 name|dst
-operator|+
-literal|", an empty or broken WAL file?"
 argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 if|if
 condition|(
@@ -6440,8 +6397,8 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed deleting of old "
-operator|+
+literal|"Failed deleting of old {}"
+argument_list|,
 name|dst
 argument_list|)
 expr_stmt|;
@@ -6502,8 +6459,8 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed deleting of "
-operator|+
+literal|"Failed deleting of {}"
+argument_list|,
 name|wap
 operator|.
 name|p
@@ -6963,26 +6920,17 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Closing "
-operator|+
+literal|"Closing {}"
+argument_list|,
 name|wap
 operator|.
 name|p
 argument_list|)
 expr_stmt|;
-block|}
 try|try
 block|{
 name|wap
@@ -7003,8 +6951,8 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Couldn't close log at "
-operator|+
+literal|"Could not close log at {}"
+argument_list|,
 name|wap
 operator|.
 name|p
@@ -7107,8 +7055,8 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed deleting empty "
-operator|+
+literal|"Failed deleting empty {}"
+argument_list|,
 name|wap
 operator|.
 name|p
@@ -7227,14 +7175,12 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Rename "
-operator|+
+literal|"Rename {} to {}"
+argument_list|,
 name|wap
 operator|.
 name|p
-operator|+
-literal|" to "
-operator|+
+argument_list|,
 name|dst
 argument_list|)
 expr_stmt|;
@@ -7250,14 +7196,12 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Couldn't rename "
-operator|+
+literal|"Could not rename {} to {}"
+argument_list|,
 name|wap
 operator|.
 name|p
-operator|+
-literal|" to "
-operator|+
+argument_list|,
 name|dst
 argument_list|,
 name|ioe
@@ -7429,8 +7373,8 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Couldn't close log at "
-operator|+
+literal|"Couldn't close log at {}"
+argument_list|,
 name|wap
 operator|.
 name|p
@@ -7709,8 +7653,8 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed delete of old "
-operator|+
+literal|"Failed delete of old {}"
+argument_list|,
 name|regionedits
 argument_list|)
 expr_stmt|;
@@ -7728,8 +7672,8 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Creating writer path="
-operator|+
+literal|"Creating writer path={}"
+argument_list|,
 name|regionedits
 argument_list|)
 expr_stmt|;
@@ -7787,14 +7731,12 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|maxSeqIdInStores
-operator|==
-literal|null
-operator|||
-name|maxSeqIdInStores
+name|MapUtils
 operator|.
 name|isEmpty
-argument_list|()
+argument_list|(
+name|maxSeqIdInStores
+argument_list|)
 condition|)
 block|{
 return|return;
@@ -8040,26 +7982,17 @@ operator|==
 literal|null
 condition|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
 comment|// This log spews the full edit. Can be massive in the log. Enable only debugging
 comment|// WAL lost edit issues.
 name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"getWriterAndPath decided we don't need to write edits for "
-operator|+
+literal|"getWriterAndPath decided we don't need to write edits for {}"
+argument_list|,
 name|logEntry
 argument_list|)
 expr_stmt|;
-block|}
 return|return
 literal|null
 return|;
@@ -8166,7 +8099,7 @@ name|HBaseMarkers
 operator|.
 name|FATAL
 argument_list|,
-literal|" Got while writing log entry to log"
+literal|"Got while writing log entry to log"
 argument_list|,
 name|e
 argument_list|)
@@ -8205,20 +8138,10 @@ argument_list|()
 decl_stmt|;
 for|for
 control|(
-name|int
-name|i
-init|=
-literal|0
-init|;
-name|i
-operator|<
+name|Cell
+name|cell
+range|:
 name|cells
-operator|.
-name|size
-argument_list|()
-condition|;
-name|i
-operator|++
 control|)
 block|{
 if|if
@@ -8227,12 +8150,7 @@ name|WALEdit
 operator|.
 name|isCompactionMarker
 argument_list|(
-name|cells
-operator|.
-name|get
-argument_list|(
-name|i
-argument_list|)
+name|cell
 argument_list|)
 condition|)
 block|{
@@ -8487,8 +8405,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Submitting writeThenClose of "
-operator|+
+literal|"Submitting writeThenClose of {}"
+argument_list|,
 name|buffer
 operator|.
 name|getValue
@@ -9231,9 +9149,9 @@ condition|)
 block|{
 comment|// return an empty array
 return|return
-operator|new
-name|ArrayList
-argument_list|<>
+name|Collections
+operator|.
+name|emptyList
 argument_list|()
 return|;
 block|}
@@ -9311,12 +9229,14 @@ name|logEntry
 operator|!=
 literal|null
 condition|)
+block|{
 name|val
 operator|=
 operator|new
 name|WALEdit
 argument_list|()
 expr_stmt|;
+block|}
 for|for
 control|(
 name|int
