@@ -449,8 +449,9 @@ name|worker
 operator|.
 name|startup
 argument_list|(
-name|getUncaughtExceptionHandler
-argument_list|()
+name|this
+operator|::
+name|uncaughtException
 argument_list|)
 expr_stmt|;
 name|worker
@@ -543,8 +544,9 @@ literal|","
 operator|+
 name|queueId
 argument_list|,
-name|getUncaughtExceptionHandler
-argument_list|()
+name|this
+operator|::
+name|uncaughtException
 argument_list|)
 expr_stmt|;
 return|return
