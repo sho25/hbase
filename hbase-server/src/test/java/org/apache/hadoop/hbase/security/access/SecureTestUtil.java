@@ -992,17 +992,6 @@ argument_list|,
 literal|3
 argument_list|)
 expr_stmt|;
-name|conf
-operator|.
-name|set
-argument_list|(
-name|User
-operator|.
-name|HBASE_SECURITY_AUTHORIZATION_CONF_KEY
-argument_list|,
-literal|"true"
-argument_list|)
-expr_stmt|;
 name|configureSuperuser
 argument_list|(
 name|conf
@@ -1156,35 +1145,6 @@ operator|new
 name|RuntimeException
 argument_list|(
 literal|"Post 0.96 security features require HFile version>= 3"
-argument_list|)
-throw|;
-block|}
-if|if
-condition|(
-operator|!
-name|conf
-operator|.
-name|getBoolean
-argument_list|(
-name|User
-operator|.
-name|HBASE_SECURITY_AUTHORIZATION_CONF_KEY
-argument_list|,
-literal|false
-argument_list|)
-condition|)
-block|{
-throw|throw
-operator|new
-name|RuntimeException
-argument_list|(
-literal|"Post 2.0.0 security features require set "
-operator|+
-name|User
-operator|.
-name|HBASE_SECURITY_AUTHORIZATION_CONF_KEY
-operator|+
-literal|" to true"
 argument_list|)
 throw|;
 block|}

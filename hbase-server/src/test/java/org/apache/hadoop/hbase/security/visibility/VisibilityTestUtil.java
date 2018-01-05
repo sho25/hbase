@@ -59,22 +59,6 @@ name|CoprocessorHost
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|security
-operator|.
-name|User
-import|;
-end_import
-
 begin_comment
 comment|/**  * Utility methods for testing visibility labels.  */
 end_comment
@@ -102,17 +86,6 @@ argument_list|(
 literal|"hfile.format.version"
 argument_list|,
 literal|3
-argument_list|)
-expr_stmt|;
-name|conf
-operator|.
-name|setBoolean
-argument_list|(
-name|User
-operator|.
-name|HBASE_SECURITY_AUTHORIZATION_CONF_KEY
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|appendCoprocessor
