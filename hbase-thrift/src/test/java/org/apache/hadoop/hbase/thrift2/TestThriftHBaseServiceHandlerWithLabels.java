@@ -403,7 +403,7 @@ name|security
 operator|.
 name|visibility
 operator|.
-name|VisibilityController
+name|VisibilityTestUtil
 import|;
 end_import
 
@@ -1247,41 +1247,11 @@ name|getShortName
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|conf
+name|VisibilityTestUtil
 operator|.
-name|set
+name|enableVisiblityLabels
 argument_list|(
-literal|"hbase.coprocessor.master.classes"
-argument_list|,
-name|VisibilityController
-operator|.
-name|class
-operator|.
-name|getName
-argument_list|()
-argument_list|)
-expr_stmt|;
 name|conf
-operator|.
-name|set
-argument_list|(
-literal|"hbase.coprocessor.region.classes"
-argument_list|,
-name|VisibilityController
-operator|.
-name|class
-operator|.
-name|getName
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|conf
-operator|.
-name|setInt
-argument_list|(
-literal|"hfile.format.version"
-argument_list|,
-literal|3
 argument_list|)
 expr_stmt|;
 name|UTIL
@@ -1546,7 +1516,7 @@ name|setup
 parameter_list|()
 throws|throws
 name|Exception
-block|{  }
+block|{    }
 specifier|private
 name|ThriftHBaseServiceHandler
 name|createHandler
@@ -2062,7 +2032,7 @@ parameter_list|(
 name|TIllegalArgument
 name|e
 parameter_list|)
-block|{   }
+block|{     }
 block|}
 annotation|@
 name|Test
@@ -3633,7 +3603,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**  * Padding numbers to make comparison of sort order easier in a for loop  *   * @param n  *          The number to pad.  * @param pad  *          The length to pad up to.  * @return The padded number as a string.  */
+comment|/**    * Padding numbers to make comparison of sort order easier in a for loop    *    * @param n    *          The number to pad.    * @param pad    *          The length to pad up to.    * @return The padded number as a string.    */
 specifier|private
 name|String
 name|pad
@@ -3664,12 +3634,14 @@ argument_list|()
 operator|<
 name|pad
 condition|)
+block|{
 name|res
 operator|=
 literal|"0"
 operator|+
 name|res
 expr_stmt|;
+block|}
 return|return
 name|res
 return|;
