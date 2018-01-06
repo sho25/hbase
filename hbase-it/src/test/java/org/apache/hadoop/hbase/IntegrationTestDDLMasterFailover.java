@@ -3485,7 +3485,7 @@ literal|3
 block|,
 literal|4
 block|,
-literal|6
+literal|7
 block|}
 decl_stmt|;
 name|short
