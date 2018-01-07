@@ -3925,7 +3925,7 @@ name|equals
 argument_list|(
 name|key
 operator|.
-name|getTablename
+name|getTableName
 argument_list|()
 argument_list|)
 argument_list|)
@@ -4431,7 +4431,7 @@ operator|.
 name|getKey
 argument_list|()
 operator|.
-name|getTablename
+name|getTableName
 argument_list|()
 argument_list|)
 argument_list|)

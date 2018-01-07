@@ -1420,7 +1420,7 @@ annotation|@
 name|Override
 specifier|public
 name|TableName
-name|getTablename
+name|getTableName
 parameter_list|()
 block|{
 return|return

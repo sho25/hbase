@@ -1748,7 +1748,7 @@ operator|.
 name|getKey
 argument_list|()
 operator|.
-name|getTablename
+name|getTableName
 argument_list|()
 operator|.
 name|equals

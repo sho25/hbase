@@ -3044,7 +3044,7 @@ if|if
 condition|(
 name|logKey
 operator|.
-name|getTablename
+name|getTableName
 argument_list|()
 operator|.
 name|getNameAsString
@@ -3083,7 +3083,7 @@ if|if
 condition|(
 name|logKey
 operator|.
-name|getTablename
+name|getTableName
 argument_list|()
 operator|.
 name|getNameAsString

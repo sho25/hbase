@@ -1307,7 +1307,7 @@ name|when
 argument_list|(
 name|key
 operator|.
-name|getTablename
+name|getTableName
 argument_list|()
 argument_list|)
 operator|.

@@ -387,22 +387,6 @@ name|Entry
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|wal
-operator|.
-name|WALKey
-import|;
-end_import
-
 begin_class
 annotation|@
 name|InterfaceAudience
@@ -734,7 +718,7 @@ name|unsafeWrap
 argument_list|(
 name|key
 operator|.
-name|getTablename
+name|getTableName
 argument_list|()
 operator|.
 name|getName

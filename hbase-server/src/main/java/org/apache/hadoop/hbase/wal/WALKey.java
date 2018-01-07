@@ -161,16 +161,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|NavigableMap
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|UUID
 import|;
 end_import
@@ -242,7 +232,7 @@ parameter_list|()
 function_decl|;
 comment|/**    * @return table name    */
 name|TableName
-name|getTablename
+name|getTableName
 parameter_list|()
 function_decl|;
 comment|/**    * @return the write time    */
@@ -313,7 +303,7 @@ name|put
 argument_list|(
 literal|"table"
 argument_list|,
-name|getTablename
+name|getTableName
 argument_list|()
 argument_list|)
 expr_stmt|;

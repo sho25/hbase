@@ -4048,7 +4048,7 @@ name|tableName
 init|=
 name|logKey
 operator|.
-name|getTablename
+name|getTableName
 argument_list|()
 operator|.
 name|getNameAsString

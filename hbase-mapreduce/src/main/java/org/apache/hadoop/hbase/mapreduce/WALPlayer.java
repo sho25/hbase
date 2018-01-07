@@ -690,7 +690,7 @@ name|table
 argument_list|,
 name|key
 operator|.
-name|getTablename
+name|getTableName
 argument_list|()
 operator|.
 name|getName
@@ -886,7 +886,7 @@ name|containsKey
 argument_list|(
 name|key
 operator|.
-name|getTablename
+name|getTableName
 argument_list|()
 argument_list|)
 condition|)
@@ -901,7 +901,7 @@ argument_list|()
 condition|?
 name|key
 operator|.
-name|getTablename
+name|getTableName
 argument_list|()
 else|:
 name|tables
@@ -910,7 +910,7 @@ name|get
 argument_list|(
 name|key
 operator|.
-name|getTablename
+name|getTableName
 argument_list|()
 argument_list|)
 decl_stmt|;
