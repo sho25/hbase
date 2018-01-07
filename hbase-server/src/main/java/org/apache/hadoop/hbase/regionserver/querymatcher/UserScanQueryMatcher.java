@@ -901,6 +901,15 @@ name|MatchCode
 operator|.
 name|INCLUDE_AND_SEEK_NEXT_COL
 expr_stmt|;
+comment|// Update column tracker to next column, As we use the column hint from the tracker to seek
+comment|// to next cell
+name|columns
+operator|.
+name|doneWithColumn
+argument_list|(
+name|cell
+argument_list|)
+expr_stmt|;
 block|}
 break|break;
 case|case

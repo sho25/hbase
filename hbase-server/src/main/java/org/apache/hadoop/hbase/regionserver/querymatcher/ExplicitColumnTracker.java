@@ -728,7 +728,8 @@ operator|<
 name|oldestStamp
 return|;
 block|}
-comment|/**    * This method is used to inform the column tracker that we are done with this column. We may get    * this information from external filters or timestamp range and we then need to indicate this    * information to tracker. It is required only in case of ExplicitColumnTracker.    * @param cell    */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|doneWithColumn

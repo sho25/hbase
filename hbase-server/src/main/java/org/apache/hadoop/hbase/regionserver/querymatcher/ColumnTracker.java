@@ -175,6 +175,15 @@ name|long
 name|timestamp
 parameter_list|)
 function_decl|;
+comment|/**    * This method is used to inform the column tracker that we are done with this column. We may get    * this information from external filters or timestamp range and we then need to indicate this    * information to tracker. It is currently implemented for ExplicitColumnTracker.    * @param cell    */
+specifier|default
+name|void
+name|doneWithColumn
+parameter_list|(
+name|Cell
+name|cell
+parameter_list|)
+block|{   }
 block|}
 end_interface
 
