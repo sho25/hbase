@@ -163,8 +163,8 @@ comment|/**    * Array of Quantiles that we care about, along with desired error
 specifier|private
 specifier|final
 name|MetricQuantile
-name|quantiles
 index|[]
+name|quantiles
 decl_stmt|;
 specifier|public
 name|MetricSampleQuantiles
@@ -306,7 +306,7 @@ return|return
 name|minError
 return|;
 block|}
-comment|/**    * Add a new value from the stream.    *     * @param v    */
+comment|/**    * Add a new value from the stream.    *     * @param v the value to insert    */
 specifier|synchronized
 specifier|public
 name|void
@@ -970,18 +970,18 @@ class|class
 name|SampleItem
 block|{
 comment|/**      * Value of the sampled item (e.g. a measured latency value)      */
-specifier|public
+specifier|private
 specifier|final
 name|long
 name|value
 decl_stmt|;
 comment|/**      * Difference between the lowest possible rank of the previous item, and       * the lowest possible rank of this item.      *       * The sum of the g of all previous items yields this item's lower bound.       */
-specifier|public
+specifier|private
 name|int
 name|g
 decl_stmt|;
 comment|/**      * Difference between the item's greatest possible rank and lowest possible      * rank.      */
-specifier|public
+specifier|private
 specifier|final
 name|int
 name|delta

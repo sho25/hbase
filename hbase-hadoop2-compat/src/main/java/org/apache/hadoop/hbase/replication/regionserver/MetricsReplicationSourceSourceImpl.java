@@ -136,6 +136,7 @@ specifier|private
 name|String
 name|keyPrefix
 decl_stmt|;
+comment|/**    * @deprecated since 1.3.0. Use {@link #shippedBytesKey} instead.    */
 annotation|@
 name|Deprecated
 specifier|private

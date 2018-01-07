@@ -70,7 +70,7 @@ name|HadoopShimsImpl
 implements|implements
 name|HadoopShims
 block|{
-comment|/**    * Returns a TaskAttemptContext instance created from the given parameters.    * @param job an instance of o.a.h.mapreduce.Job    * @param taskId an identifier for the task attempt id. Should be parsable by    * TaskAttemptId.forName()    * @return a concrete TaskAttemptContext instance of o.a.h.mapreduce.TaskAttemptContext    */
+comment|/**    * Returns a TaskAttemptContext instance created from the given parameters.    * @param job an instance of o.a.h.mapreduce.Job    * @param taskId an identifier for the task attempt id. Should be parsable by    *               {@link TaskAttemptID#forName(String)}    * @return a concrete TaskAttemptContext instance of o.a.h.mapreduce.TaskAttemptContext    */
 annotation|@
 name|Override
 annotation|@

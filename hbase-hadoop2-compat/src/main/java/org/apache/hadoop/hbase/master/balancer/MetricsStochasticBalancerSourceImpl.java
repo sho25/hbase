@@ -57,20 +57,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -106,6 +92,20 @@ operator|.
 name|metrics2
 operator|.
 name|MetricsRecordBuilder
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -525,6 +525,7 @@ name|functionDesc
 operator|==
 literal|null
 condition|)
+block|{
 name|functionDesc
 operator|=
 name|costEntry
@@ -532,6 +533,7 @@ operator|.
 name|getKey
 argument_list|()
 expr_stmt|;
+block|}
 name|metricsRecordBuilder
 operator|.
 name|addGauge

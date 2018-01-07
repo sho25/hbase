@@ -23,36 +23,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|metrics
-operator|.
-name|BaseSourceImpl
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -125,8 +95,22 @@ name|MutableHistogram
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
-comment|/**  * Hadoop 2 version of MetricsThriftServerSource{@link org.apache.hadoop.hbase.thrift.MetricsThriftServerSource}  *  * Implements BaseSource through BaseSourceImpl, following the pattern  */
+comment|/**  * Hadoop 2 version of {@link org.apache.hadoop.hbase.thrift.MetricsThriftServerSource}  *  * Implements BaseSource through BaseSourceImpl, following the pattern  */
 end_comment
 
 begin_class

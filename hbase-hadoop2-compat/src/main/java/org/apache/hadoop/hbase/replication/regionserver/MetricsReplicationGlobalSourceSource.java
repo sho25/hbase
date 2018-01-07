@@ -140,6 +140,7 @@ specifier|final
 name|MutableFastCounter
 name|shippedBytesCounter
 decl_stmt|;
+comment|/**    * @deprecated since 1.3.0. Use {@link #shippedBytesCounter} instead.    */
 annotation|@
 name|Deprecated
 specifier|private

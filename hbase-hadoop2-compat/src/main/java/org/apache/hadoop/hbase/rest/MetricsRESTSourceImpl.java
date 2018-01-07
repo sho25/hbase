@@ -23,20 +23,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -74,6 +60,20 @@ operator|.
 name|lib
 operator|.
 name|MutableFastCounter
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -281,7 +281,7 @@ name|getCounter
 argument_list|(
 name|REQUEST_KEY
 argument_list|,
-literal|0l
+literal|0L
 argument_list|)
 expr_stmt|;
 name|sucGet
@@ -293,7 +293,7 @@ name|getCounter
 argument_list|(
 name|SUCCESSFUL_GET_KEY
 argument_list|,
-literal|0l
+literal|0L
 argument_list|)
 expr_stmt|;
 name|sucPut
@@ -305,7 +305,7 @@ name|getCounter
 argument_list|(
 name|SUCCESSFUL_PUT_KEY
 argument_list|,
-literal|0l
+literal|0L
 argument_list|)
 expr_stmt|;
 name|sucDel
@@ -317,7 +317,7 @@ name|getCounter
 argument_list|(
 name|SUCCESSFUL_DELETE_KEY
 argument_list|,
-literal|0l
+literal|0L
 argument_list|)
 expr_stmt|;
 name|sucScan
@@ -341,7 +341,7 @@ name|getCounter
 argument_list|(
 name|SUCCESSFUL_APPEND_KEY
 argument_list|,
-literal|0l
+literal|0L
 argument_list|)
 expr_stmt|;
 name|sucIncrement
@@ -365,7 +365,7 @@ name|getCounter
 argument_list|(
 name|FAILED_GET_KEY
 argument_list|,
-literal|0l
+literal|0L
 argument_list|)
 expr_stmt|;
 name|fPut
@@ -377,7 +377,7 @@ name|getCounter
 argument_list|(
 name|FAILED_PUT_KEY
 argument_list|,
-literal|0l
+literal|0L
 argument_list|)
 expr_stmt|;
 name|fDel
@@ -389,7 +389,7 @@ name|getCounter
 argument_list|(
 name|FAILED_DELETE_KEY
 argument_list|,
-literal|0l
+literal|0L
 argument_list|)
 expr_stmt|;
 name|fScan
@@ -401,7 +401,7 @@ name|getCounter
 argument_list|(
 name|FAILED_SCAN_KEY
 argument_list|,
-literal|0l
+literal|0L
 argument_list|)
 expr_stmt|;
 name|fAppend
@@ -413,7 +413,7 @@ name|getCounter
 argument_list|(
 name|FAILED_APPEND_KEY
 argument_list|,
-literal|0l
+literal|0L
 argument_list|)
 expr_stmt|;
 name|fIncrement

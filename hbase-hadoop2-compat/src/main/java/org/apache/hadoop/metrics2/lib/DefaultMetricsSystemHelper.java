@@ -408,7 +408,9 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Received exception while trying to access Hadoop Metrics classes via reflection."
+literal|"Received exception while trying to access Hadoop Metrics classes via "
+operator|+
+literal|"reflection."
 argument_list|,
 name|ex
 argument_list|)

@@ -23,20 +23,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -106,6 +92,20 @@ operator|.
 name|lib
 operator|.
 name|MutableGaugeLong
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -217,7 +217,7 @@ name|RIT_COUNT_NAME
 argument_list|,
 name|RIT_COUNT_DESC
 argument_list|,
-literal|0l
+literal|0L
 argument_list|)
 expr_stmt|;
 name|ritCountOverThresholdGauge
@@ -230,7 +230,7 @@ name|RIT_COUNT_OVER_THRESHOLD_NAME
 argument_list|,
 name|RIT_COUNT_OVER_THRESHOLD_DESC
 argument_list|,
-literal|0l
+literal|0L
 argument_list|)
 expr_stmt|;
 name|ritOldestAgeGauge
@@ -243,7 +243,7 @@ name|RIT_OLDEST_AGE_NAME
 argument_list|,
 name|RIT_OLDEST_AGE_DESC
 argument_list|,
-literal|0l
+literal|0L
 argument_list|)
 expr_stmt|;
 name|ritDurationHisto
@@ -265,7 +265,7 @@ name|getCounter
 argument_list|(
 name|OPERATION_COUNT_NAME
 argument_list|,
-literal|0l
+literal|0L
 argument_list|)
 expr_stmt|;
 comment|/**      * NOTE: Please refer to HBASE-9774 and HBASE-14282. Based on these two issues, HBase is      * moving away from using Hadoop's metric2 to having independent HBase specific Metrics. Use      * {@link BaseSourceImpl#registry} to register the new metrics.      */

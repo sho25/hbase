@@ -25,20 +25,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -79,8 +65,22 @@ name|MutableFastCounter
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
-comment|/**  * Class that transitions metrics from MetricsWAL into the metrics subsystem.  *  * Implements BaseSource through BaseSourceImpl, following the pattern.  * @see org.apache.hadoop.hbase.regionserver.wal.MetricsWAL  */
+comment|/**  * Class that transitions metrics from MetricsWAL into the metrics subsystem.  *  * Implements BaseSource through BaseSourceImpl, following the pattern.  * @see org.apache.hadoop.hbase.regionserver.wal.MetricsWALSource  */
 end_comment
 
 begin_class
@@ -221,7 +221,7 @@ name|APPEND_COUNT
 argument_list|,
 name|APPEND_COUNT_DESC
 argument_list|,
-literal|0l
+literal|0L
 argument_list|)
 expr_stmt|;
 name|slowAppendCount
@@ -237,7 +237,7 @@ name|SLOW_APPEND_COUNT
 argument_list|,
 name|SLOW_APPEND_COUNT_DESC
 argument_list|,
-literal|0l
+literal|0L
 argument_list|)
 expr_stmt|;
 name|syncTimeHisto
@@ -299,7 +299,7 @@ name|WRITTEN_BYTES
 argument_list|,
 name|WRITTEN_BYTES_DESC
 argument_list|,
-literal|0l
+literal|0L
 argument_list|)
 expr_stmt|;
 block|}

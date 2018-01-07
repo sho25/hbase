@@ -23,20 +23,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -223,6 +209,20 @@ name|JvmMetrics
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * Hadoop 2 implementation of BaseSource (using metrics2 framework).  It handles registration to  * DefaultMetricsSystem and creation of the metrics registry.  *  * All MetricsSource's in hbase-hadoop2-compat should derive from this class.  */
 end_comment
@@ -265,7 +265,9 @@ if|if
 condition|(
 name|inited
 condition|)
+block|{
 return|return;
+block|}
 name|inited
 operator|=
 literal|true
@@ -297,7 +299,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * @deprecated Use hbase-metrics/hbase-metrics-api module interfaces for new metrics.    * Defining BaseSources for new metric groups (WAL, RPC, etc) is not needed anymore, however,    * for existing BaseSource implemetnations, please use the field named "registry" which is a    * MetricRegistry instance together with the HBaseMetrics2HadoopMetricsAdapter.    */
+comment|/**    * @deprecated Use hbase-metrics/hbase-metrics-api module interfaces for new metrics.    *             Defining BaseSources for new metric groups (WAL, RPC, etc) is not needed anymore,    *             however, for existing {@link BaseSource} implementations, please use the field    *             named "registry" which is a {@link MetricRegistry} instance together with the    *             {@link HBaseMetrics2HadoopMetricsAdapter}.    */
 annotation|@
 name|Deprecated
 specifier|protected
@@ -506,7 +508,7 @@ name|getGauge
 argument_list|(
 name|gaugeName
 argument_list|,
-literal|0l
+literal|0L
 argument_list|)
 decl_stmt|;
 name|gaugeInt
@@ -538,7 +540,7 @@ name|getGauge
 argument_list|(
 name|gaugeName
 argument_list|,
-literal|0l
+literal|0L
 argument_list|)
 decl_stmt|;
 name|gaugeInt
@@ -570,7 +572,7 @@ name|getCounter
 argument_list|(
 name|key
 argument_list|,
-literal|0l
+literal|0L
 argument_list|)
 decl_stmt|;
 name|counter
@@ -612,7 +614,7 @@ name|value
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Remove a named gauge.    *    * @param key    */
+comment|/**    * Remove a named gauge.    *    * @param key the key of the gauge to remove    */
 specifier|public
 name|void
 name|removeMetric
