@@ -747,7 +747,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/*    * Call this when scan has filter. Decide the desired behavior by checkVersions's MatchCode    * and filterCell's ReturnCode. Cell may be skipped by filter, so the column versions    * in result may be less than user need. It will check versions again after filter.    *    * ColumnChecker                FilterResponse               Desired behavior    * INCLUDE                      SKIP                         SKIP    * INCLUDE                      NEXT_COL                     SEEK_NEXT_COL or SEEK_NEXT_ROW    * INCLUDE                      NEXT_ROW                     SEEK_NEXT_ROW    * INCLUDE                      SEEK_NEXT_USING_HINT         SEEK_NEXT_USING_HINT    * INCLUDE                      INCLUDE                      INCLUDE    * INCLUDE                      INCLUDE_AND_NEXT_COL         INCLUDE_AND_SEEK_NEXT_COL    * INCLUDE                      INCLUDE_AND_SEEK_NEXT_ROW    INCLUDE_AND_SEEK_NEXT_ROW    * INCLUDE_AND_SEEK_NEXT_COL    SKIP                         SEEK_NEXT_COL    * INCLUDE_AND_SEEK_NEXT_COL    NEXT_COL                     SEEK_NEXT_COL or SEEK_NEXT_ROW    * INCLUDE_AND_SEEK_NEXT_COL    NEXT_ROW                     SEEK_NEXT_ROW    * INCLUDE_AND_SEEK_NEXT_COL    SEEK_NEXT_USING_HINT         SEEK_NEXT_USING_HINT    * INCLUDE_AND_SEEK_NEXT_COL    INCLUDE                      INCLUDE_AND_SEEK_NEXT_COL    * INCLUDE_AND_SEEK_NEXT_COL    INCLUDE_AND_NEXT_COL         INCLUDE_AND_SEEK_NEXT_COL    * INCLUDE_AND_SEEK_NEXT_COL    INCLUDE_AND_SEEK_NEXT_ROW    INCLUDE_AND_SEEK_NEXT_ROW    * INCLUDE_AND_SEEK_NEXT_ROW    SKIP                         SEEK_NEXT_ROW    * INCLUDE_AND_SEEK_NEXT_ROW    NEXT_COL                     SEEK_NEXT_ROW    * INCLUDE_AND_SEEK_NEXT_ROW    NEXT_ROW                     SEEK_NEXT_ROW    * INCLUDE_AND_SEEK_NEXT_ROW    SEEK_NEXT_USING_HINT         SEEK_NEXT_USING_HINT    * INCLUDE_AND_SEEK_NEXT_ROW    INCLUDE                      INCLUDE_AND_SEEK_NEXT_ROW    * INCLUDE_AND_SEEK_NEXT_ROW    INCLUDE_AND_NEXT_COL         INCLUDE_AND_SEEK_NEXT_ROW    * INCLUDE_AND_SEEK_NEXT_ROW    INCLUDE_AND_SEEK_NEXT_ROW    INCLUDE_AND_SEEK_NEXT_ROW    */
+comment|/**    * Call this when scan has filter. Decide the desired behavior by checkVersions's MatchCode and    * filterCell's ReturnCode. Cell may be skipped by filter, so the column versions in result may be    * less than user need. It need to check versions again when filter and columnTracker both include    * the cell.<br/>    *    *<pre>    * ColumnChecker                FilterResponse               Desired behavior    * INCLUDE                      SKIP                         SKIP    * INCLUDE                      NEXT_COL                     SEEK_NEXT_COL or SEEK_NEXT_ROW    * INCLUDE                      NEXT_ROW                     SEEK_NEXT_ROW    * INCLUDE                      SEEK_NEXT_USING_HINT         SEEK_NEXT_USING_HINT    * INCLUDE                      INCLUDE                      INCLUDE    * INCLUDE                      INCLUDE_AND_NEXT_COL         INCLUDE_AND_SEEK_NEXT_COL    * INCLUDE                      INCLUDE_AND_SEEK_NEXT_ROW    INCLUDE_AND_SEEK_NEXT_ROW    * INCLUDE_AND_SEEK_NEXT_COL    SKIP                         SEEK_NEXT_COL    * INCLUDE_AND_SEEK_NEXT_COL    NEXT_COL                     SEEK_NEXT_COL or SEEK_NEXT_ROW    * INCLUDE_AND_SEEK_NEXT_COL    NEXT_ROW                     SEEK_NEXT_ROW    * INCLUDE_AND_SEEK_NEXT_COL    SEEK_NEXT_USING_HINT         SEEK_NEXT_USING_HINT    * INCLUDE_AND_SEEK_NEXT_COL    INCLUDE                      INCLUDE_AND_SEEK_NEXT_COL    * INCLUDE_AND_SEEK_NEXT_COL    INCLUDE_AND_NEXT_COL         INCLUDE_AND_SEEK_NEXT_COL    * INCLUDE_AND_SEEK_NEXT_COL    INCLUDE_AND_SEEK_NEXT_ROW    INCLUDE_AND_SEEK_NEXT_ROW    * INCLUDE_AND_SEEK_NEXT_ROW    SKIP                         SEEK_NEXT_ROW    * INCLUDE_AND_SEEK_NEXT_ROW    NEXT_COL                     SEEK_NEXT_ROW    * INCLUDE_AND_SEEK_NEXT_ROW    NEXT_ROW                     SEEK_NEXT_ROW    * INCLUDE_AND_SEEK_NEXT_ROW    SEEK_NEXT_USING_HINT         SEEK_NEXT_USING_HINT    * INCLUDE_AND_SEEK_NEXT_ROW    INCLUDE                      INCLUDE_AND_SEEK_NEXT_ROW    * INCLUDE_AND_SEEK_NEXT_ROW    INCLUDE_AND_NEXT_COL         INCLUDE_AND_SEEK_NEXT_ROW    * INCLUDE_AND_SEEK_NEXT_ROW    INCLUDE_AND_SEEK_NEXT_ROW    INCLUDE_AND_SEEK_NEXT_ROW    *</pre>    */
 specifier|private
 specifier|final
 name|MatchCode
@@ -901,20 +901,17 @@ name|MatchCode
 operator|.
 name|INCLUDE_AND_SEEK_NEXT_COL
 expr_stmt|;
-comment|// Update column tracker to next column, As we use the column hint from the tracker to seek
-comment|// to next cell
-name|columns
-operator|.
-name|doneWithColumn
-argument_list|(
-name|cell
-argument_list|)
-expr_stmt|;
 block|}
 break|break;
 case|case
 name|INCLUDE_AND_SEEK_NEXT_ROW
 case|:
+name|matchCode
+operator|=
+name|MatchCode
+operator|.
+name|INCLUDE_AND_SEEK_NEXT_ROW
+expr_stmt|;
 break|break;
 default|default:
 throw|throw
@@ -945,26 +942,8 @@ name|MatchCode
 operator|.
 name|INCLUDE_AND_SEEK_NEXT_ROW
 assert|;
-if|if
-condition|(
-name|matchCode
-operator|==
-name|MatchCode
-operator|.
-name|INCLUDE_AND_SEEK_NEXT_COL
-operator|||
-name|matchCode
-operator|==
-name|MatchCode
-operator|.
-name|INCLUDE_AND_SEEK_NEXT_ROW
-condition|)
-block|{
-return|return
-name|matchCode
-return|;
-block|}
-comment|// Now we will check versions again.
+comment|// We need to make sure that the number of cells returned will not exceed max version in scan
+comment|// when the match code is INCLUDE* case.
 if|if
 condition|(
 name|curColCell
@@ -995,19 +974,44 @@ name|count
 operator|+=
 literal|1
 expr_stmt|;
-return|return
+if|if
+condition|(
 name|count
 operator|>
 name|versionsAfterFilter
-condition|?
+condition|)
+block|{
+return|return
 name|MatchCode
 operator|.
 name|SEEK_NEXT_COL
-else|:
+return|;
+block|}
+else|else
+block|{
+if|if
+condition|(
+name|matchCode
+operator|==
 name|MatchCode
 operator|.
-name|INCLUDE
+name|INCLUDE_AND_SEEK_NEXT_COL
+condition|)
+block|{
+comment|// Update column tracker to next column, As we use the column hint from the tracker to seek
+comment|// to next cell
+name|columns
+operator|.
+name|doneWithColumn
+argument_list|(
+name|cell
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+name|matchCode
 return|;
+block|}
 block|}
 specifier|protected
 specifier|abstract
