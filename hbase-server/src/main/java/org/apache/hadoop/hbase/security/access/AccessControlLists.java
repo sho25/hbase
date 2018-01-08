@@ -2760,6 +2760,7 @@ literal|null
 argument_list|)
 return|;
 block|}
+specifier|public
 specifier|static
 name|ListMultimap
 argument_list|<

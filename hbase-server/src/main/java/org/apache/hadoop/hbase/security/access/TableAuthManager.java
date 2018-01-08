@@ -3906,6 +3906,7 @@ return|;
 block|}
 annotation|@
 name|VisibleForTesting
+specifier|public
 specifier|static
 name|int
 name|getTotalRefCount
