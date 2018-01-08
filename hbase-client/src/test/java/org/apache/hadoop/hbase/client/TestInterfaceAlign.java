@@ -298,14 +298,6 @@ name|class
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// TODO: Remove this after HBASE-19139
-name|adminMethodNames
-operator|.
-name|remove
-argument_list|(
-literal|"clearBlockCache"
-argument_list|)
-expr_stmt|;
 name|adminMethodNames
 operator|.
 name|forEach
