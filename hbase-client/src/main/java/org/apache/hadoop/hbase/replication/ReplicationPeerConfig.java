@@ -1311,6 +1311,8 @@ name|ReplicationPeerConfig
 name|build
 parameter_list|()
 block|{
+comment|// It would be nice to validate the configuration, but we have to work with "old" data
+comment|// from ZK which makes it much more difficult.
 return|return
 operator|new
 name|ReplicationPeerConfig

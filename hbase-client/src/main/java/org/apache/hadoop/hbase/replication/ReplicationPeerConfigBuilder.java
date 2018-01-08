@@ -104,6 +104,11 @@ name|String
 name|replicationEndpointImpl
 parameter_list|)
 function_decl|;
+comment|/**    * Sets a "raw" configuration property for this replication peer. For experts only.    * @param key Configuration property key    * @param value Configuration property value    * @return {@code this}    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 name|ReplicationPeerConfigBuilder
 name|putConfiguration
 parameter_list|(
@@ -114,6 +119,11 @@ name|String
 name|value
 parameter_list|)
 function_decl|;
+comment|/**    * Adds all of the provided "raw" configuration entries to {@code this}.    * @param configuration A collection of raw configuration entries    * @return {@code this}    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|default
 name|ReplicationPeerConfigBuilder
 name|putAllConfiguration
@@ -140,6 +150,11 @@ return|return
 name|this
 return|;
 block|}
+comment|/**    * Sets the serialized peer configuration data    * @return {@code this}    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 name|ReplicationPeerConfigBuilder
 name|putPeerData
 parameter_list|(
@@ -152,6 +167,11 @@ index|[]
 name|value
 parameter_list|)
 function_decl|;
+comment|/**    * Sets all of the provided serialized peer configuration data.    * @return {@code this}    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|default
 name|ReplicationPeerConfigBuilder
 name|putAllPeerData
@@ -180,6 +200,7 @@ return|return
 name|this
 return|;
 block|}
+comment|/**    * Sets an explicit map of tables and column families in those tables that should be replicated    * to the given peer. Use {@link #setReplicateAllUserTables(boolean)} to replicate all tables    * to a peer.    *    * @param tableCFsMap A map from tableName to column family names. An empty collection can be    *    passed to indicate replicating all column families.    * @return {@code this}    * @see #setReplicateAllUserTables(boolean)    */
 name|ReplicationPeerConfigBuilder
 name|setTableCFsMap
 parameter_list|(
@@ -195,6 +216,7 @@ argument_list|>
 name|tableCFsMap
 parameter_list|)
 function_decl|;
+comment|/**    * Sets a unique collection of HBase namespaces that should be replicated to this peer.    * @param namespaces A set of namespaces to be replicated to this peer.    * @return {@code this}    */
 name|ReplicationPeerConfigBuilder
 name|setNamespaces
 parameter_list|(
@@ -205,6 +227,7 @@ argument_list|>
 name|namespaces
 parameter_list|)
 function_decl|;
+comment|/**    * Sets the speed, in bytes per second, for any one RegionServer to replicate data to the peer.    * @param bandwidth Bytes per second    * @return {@code this}.    */
 name|ReplicationPeerConfigBuilder
 name|setBandwidth
 parameter_list|(
@@ -212,6 +235,7 @@ name|long
 name|bandwidth
 parameter_list|)
 function_decl|;
+comment|/**    * Configures HBase to replicate all user tables (not system tables) to the peer. Default is    * {@code true}.    * @param replicateAllUserTables True if all user tables should be replicated, else false.    * @return {@code this}    */
 name|ReplicationPeerConfigBuilder
 name|setReplicateAllUserTables
 parameter_list|(
@@ -219,6 +243,7 @@ name|boolean
 name|replicateAllUserTables
 parameter_list|)
 function_decl|;
+comment|/**    * Sets the mapping of table name to column families which should not be replicated. This    * method sets state which is mutually exclusive to {@link #setTableCFsMap(Map)}. Invoking this    * method is only relevant when all user tables are being replicated.    *    * @param tableCFsMap A mapping of table names to column families which should not be    *    replicated. An empty list of column families implies all families for the table.    * @return {@code this}.    */
 name|ReplicationPeerConfigBuilder
 name|setExcludeTableCFsMap
 parameter_list|(
@@ -234,6 +259,7 @@ argument_list|>
 name|tableCFsMap
 parameter_list|)
 function_decl|;
+comment|/**    * Sets the collection of namespaces which should not be replicated when all user tables are    * configured to be replicated. This method sets state which is mutually exclusive to    * {@link #setNamespaces(Set)}. Invoking this method is only relevant when all user tables are    * being replicated.    *    * @param namespaces A set of namespaces whose tables should not be replicated.    * @return {@code this}    */
 name|ReplicationPeerConfigBuilder
 name|setExcludeNamespaces
 parameter_list|(
@@ -244,6 +270,7 @@ argument_list|>
 name|namespaces
 parameter_list|)
 function_decl|;
+comment|/**    * Builds the configuration object from the current state of {@code this}.    * @return A {@link ReplicationPeerConfig} instance.    */
 name|ReplicationPeerConfig
 name|build
 parameter_list|()
