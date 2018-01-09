@@ -197,7 +197,7 @@ annotation|@
 name|Override
 specifier|public
 name|boolean
-name|isLogDeletable
+name|isFileDeletable
 parameter_list|(
 name|FileStatus
 name|fStat

@@ -48,7 +48,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Base class for the log cleaning function inside the master. By default, two  * cleaners:<code>TimeToLiveLogCleaner</code> and  *<code>ReplicationLogCleaner</code> are called in order. So if other effects  * are needed, implement your own LogCleanerDelegate and add it to the  * configuration "hbase.master.logcleaner.plugins", which is a comma-separated  * list of fully qualified class names. LogsCleaner will add it to the chain.  *<p>  * HBase ships with LogsCleaner as the default implementation.  *<p>  * This interface extends Configurable, so setConf needs to be called once  * before using the cleaner. Since LogCleanerDelegates are created in  * LogsCleaner by reflection. Classes that implements this interface should  * provide a default constructor.  */
+comment|/**  * Base class for the log cleaning function inside the master. By default, three  * cleaners:<code>TimeToLiveLogCleaner</code>,  *<code>TimeToLiveProcedureWALCleaner</code> and  *<code>ReplicationLogCleaner</code> are called in order. So if other effects  * are needed, implement your own LogCleanerDelegate and add it to the  * configuration "hbase.master.logcleaner.plugins", which is a comma-separated  * list of fully qualified class names. LogsCleaner will add it to the chain.  *<p>  * HBase ships with LogsCleaner as the default implementation.  *<p>  * This interface extends Configurable, so setConf needs to be called once  * before using the cleaner. Since LogCleanerDelegates are created in  * LogsCleaner by reflection. Classes that implements this interface should  * provide a default constructor.  */
 end_comment
 
 begin_class
@@ -68,24 +68,6 @@ name|Override
 specifier|public
 name|boolean
 name|isFileDeletable
-parameter_list|(
-name|FileStatus
-name|fStat
-parameter_list|)
-block|{
-return|return
-name|isLogDeletable
-argument_list|(
-name|fStat
-argument_list|)
-return|;
-block|}
-comment|/**    * Should the master delete the log or keep it?    *<p>    * Implementing classes should override {@link #isFileDeletable(FileStatus)} instead.    * @param fStat file status of the file    * @return true if the log is deletable, false (default) if not    */
-annotation|@
-name|Deprecated
-specifier|public
-name|boolean
-name|isLogDeletable
 parameter_list|(
 name|FileStatus
 name|fStat

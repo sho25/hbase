@@ -34,7 +34,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Base class for the hfile cleaning function inside the master. By default, only the  * {@link TimeToLiveHFileCleaner} is called.  *<p>  * If other effects are needed, implement your own LogCleanerDelegate and add it to the  * configuration "hbase.master.hfilecleaner.plugins", which is a comma-separated list of fully  * qualified class names. The<code>HFileCleaner</code> will build the cleaner chain in  * order the order specified by the configuration.  *</p>  *<p>  * For subclasses, setConf will be called exactly<i>once</i> before using the cleaner.  *</p>  *<p>  * Since {@link BaseHFileCleanerDelegate HFileCleanerDelegates} are created in  * HFileCleaner by reflection, classes that implements this interface<b>must</b>  * provide a default constructor.  *</p>  */
+comment|/**  * Base class for the hfile cleaning function inside the master. By default, only the  * {@link TimeToLiveHFileCleaner} is called.  *<p>  * If other effects are needed, implement your own HFileCleanerDelegate and add it to the  * configuration "hbase.master.hfilecleaner.plugins", which is a comma-separated list of fully  * qualified class names. The<code>HFileCleaner</code> will build the cleaner chain in  * order the order specified by the configuration.  *</p>  *<p>  * For subclasses, setConf will be called exactly<i>once</i> before using the cleaner.  *</p>  *<p>  * Since {@link BaseHFileCleanerDelegate HFileCleanerDelegates} are created in  * HFileCleaner by reflection, classes that implements this interface<b>must</b>  * provide a default constructor.  *</p>  */
 end_comment
 
 begin_class
