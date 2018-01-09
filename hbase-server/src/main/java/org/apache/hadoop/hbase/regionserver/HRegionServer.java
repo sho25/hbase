@@ -3267,12 +3267,6 @@ specifier|protected
 name|HeapMemoryManager
 name|hMemManager
 decl_stmt|;
-specifier|protected
-name|CountDownLatch
-name|initLatch
-init|=
-literal|null
-decl_stmt|;
 comment|/**    * Cluster connection to be shared by services.    * Initialized at server startup and closed when server shuts down.    * Clients must never close it explicitly.    */
 specifier|protected
 name|ClusterConnection
@@ -4815,21 +4809,6 @@ return|return
 literal|null
 return|;
 block|}
-specifier|protected
-name|void
-name|setInitLatch
-parameter_list|(
-name|CountDownLatch
-name|latch
-parameter_list|)
-block|{
-name|this
-operator|.
-name|initLatch
-operator|=
-name|latch
-expr_stmt|;
-block|}
 comment|/*    * Returns true if configured hostname should be used    */
 specifier|protected
 name|boolean
@@ -5342,13 +5321,6 @@ argument_list|(
 name|this
 operator|.
 name|clusterStatusTracker
-argument_list|)
-expr_stmt|;
-name|doLatch
-argument_list|(
-name|this
-operator|.
-name|initLatch
 argument_list|)
 expr_stmt|;
 comment|// Retrieve clusterId

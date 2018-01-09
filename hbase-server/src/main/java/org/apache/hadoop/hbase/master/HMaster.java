@@ -255,18 +255,6 @@ name|util
 operator|.
 name|concurrent
 operator|.
-name|CountDownLatch
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
 name|ExecutionException
 import|;
 end_import
@@ -4114,15 +4102,8 @@ literal|false
 argument_list|)
 condition|)
 block|{
-name|setInitLatch
-argument_list|(
-operator|new
-name|CountDownLatch
-argument_list|(
-literal|1
-argument_list|)
-argument_list|)
-expr_stmt|;
+name|this
+operator|.
 name|activeMasterManager
 operator|=
 operator|new
@@ -4137,20 +4118,11 @@ argument_list|,
 name|this
 argument_list|)
 expr_stmt|;
-name|int
-name|infoPort
-init|=
-name|putUpJettyServer
-argument_list|()
-decl_stmt|;
-name|startActiveMasterManager
-argument_list|(
-name|infoPort
-argument_list|)
-expr_stmt|;
 block|}
 else|else
 block|{
+name|this
+operator|.
 name|activeMasterManager
 operator|=
 literal|null
@@ -4179,7 +4151,8 @@ name|t
 throw|;
 block|}
 block|}
-comment|// Main run loop. Calls through to the regionserver run loop.
+comment|// Main run loop. Calls through to the regionserver run loop AFTER becoming active Master; will
+comment|// block in here until then.
 annotation|@
 name|Override
 specifier|public
@@ -4189,6 +4162,74 @@ parameter_list|()
 block|{
 try|try
 block|{
+if|if
+condition|(
+operator|!
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+literal|"hbase.testing.nocluster"
+argument_list|,
+literal|false
+argument_list|)
+condition|)
+block|{
+try|try
+block|{
+name|int
+name|infoPort
+init|=
+name|putUpJettyServer
+argument_list|()
+decl_stmt|;
+name|startActiveMasterManager
+argument_list|(
+name|infoPort
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|Throwable
+name|t
+parameter_list|)
+block|{
+comment|// Make sure we log the exception.
+name|String
+name|error
+init|=
+literal|"Failed to become Active Master"
+decl_stmt|;
+name|LOG
+operator|.
+name|error
+argument_list|(
+name|error
+argument_list|,
+name|t
+argument_list|)
+expr_stmt|;
+comment|// Abort should have been called already.
+if|if
+condition|(
+operator|!
+name|isAborted
+argument_list|()
+condition|)
+block|{
+name|abort
+argument_list|(
+name|error
+argument_list|,
+name|t
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+block|}
+comment|// Fall in here even if we have been aborted. Need to run the shutdown services and
+comment|// the super run call will do this for us.
 name|super
 operator|.
 name|run
@@ -5170,13 +5211,7 @@ throws|,
 name|KeeperException
 throws|,
 name|CoordinatedStateException
-throws|,
-name|ReplicationException
 block|{
-name|activeMaster
-operator|=
-literal|true
-expr_stmt|;
 name|Thread
 name|zombieDetector
 init|=
@@ -5197,6 +5232,13 @@ name|currentTimeMillis
 argument_list|()
 argument_list|)
 decl_stmt|;
+name|zombieDetector
+operator|.
+name|setDaemon
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
 name|zombieDetector
 operator|.
 name|start
@@ -5273,7 +5315,7 @@ name|getAll
 argument_list|()
 expr_stmt|;
 block|}
-comment|// publish cluster ID
+comment|// Publish cluster ID
 name|status
 operator|.
 name|setStatus
@@ -5294,13 +5336,6 @@ operator|.
 name|getClusterId
 argument_list|()
 argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|initLatch
-operator|.
-name|countDown
-argument_list|()
 expr_stmt|;
 name|this
 operator|.
@@ -5330,6 +5365,14 @@ argument_list|)
 expr_stmt|;
 name|initializeZKBasedSystemTrackers
 argument_list|()
+expr_stmt|;
+comment|// Set Master as active now after we've setup zk with stuff like whether cluster is up or not.
+comment|// RegionServers won't come up if the cluster status is not up.
+name|this
+operator|.
+name|activeMaster
+operator|=
+literal|true
 expr_stmt|;
 comment|// This is for backwards compatibility
 comment|// See HBASE-11393
@@ -5413,7 +5456,9 @@ operator|.
 name|skipSleepCycle
 argument_list|()
 expr_stmt|;
-comment|// Wait for region servers to report in
+comment|// Wait for region servers to report in.
+comment|// With this as part of master initialization, it precludes our being able to start a single
+comment|// server that is both Master and RegionServer. Needs more thought. TODO.
 name|String
 name|statusStr
 init|=
@@ -11177,6 +11222,8 @@ name|serverName
 argument_list|)
 expr_stmt|;
 block|}
+name|this
+operator|.
 name|activeMasterManager
 operator|.
 name|setInfoPort
@@ -11184,25 +11231,6 @@ argument_list|(
 name|infoPort
 argument_list|)
 expr_stmt|;
-comment|// Start a thread to try to become the active master, so we won't block here
-name|Threads
-operator|.
-name|setDaemonThreadRunning
-argument_list|(
-operator|new
-name|Thread
-argument_list|(
-operator|new
-name|Runnable
-argument_list|()
-block|{
-annotation|@
-name|Override
-specifier|public
-name|void
-name|run
-parameter_list|()
-block|{
 name|int
 name|timeout
 init|=
@@ -11219,7 +11247,7 @@ operator|.
 name|DEFAULT_ZK_SESSION_TIMEOUT
 argument_list|)
 decl_stmt|;
-comment|// If we're a backup master, stall until a primary to writes his address
+comment|// If we're a backup master, stall until a primary to write this address
 if|if
 condition|(
 name|conf
@@ -11240,9 +11268,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"HMaster started in backup mode. "
-operator|+
-literal|"Stalling until master znode is written."
+literal|"HMaster started in backup mode. Stalling until master znode is written."
 argument_list|)
 expr_stmt|;
 comment|// This will only be a minute or so while the cluster starts up,
@@ -11260,9 +11286,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Waiting for master address ZNode to be written "
-operator|+
-literal|"(Also watching cluster state node)"
+literal|"Waiting for master address and cluster state znode to be written."
 argument_list|)
 expr_stmt|;
 name|Threads
@@ -11367,9 +11391,9 @@ block|{
 comment|// improved error message for this special case
 name|abort
 argument_list|(
-literal|"HBase is having a problem with its Hadoop jars.  You may need to "
+literal|"HBase is having a problem with its Hadoop jars.  You may need to recompile "
 operator|+
-literal|"recompile HBase against Hadoop version "
+literal|"HBase against Hadoop version "
 operator|+
 name|org
 operator|.
@@ -11409,19 +11433,6 @@ name|cleanup
 argument_list|()
 expr_stmt|;
 block|}
-block|}
-block|}
-argument_list|,
-name|getServerName
-argument_list|()
-operator|.
-name|toShortString
-argument_list|()
-operator|+
-literal|".masterManager"
-argument_list|)
-argument_list|)
-expr_stmt|;
 block|}
 specifier|private
 name|void

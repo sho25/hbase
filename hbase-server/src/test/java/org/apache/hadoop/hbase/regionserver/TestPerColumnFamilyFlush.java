@@ -1742,13 +1742,6 @@ name|getDataSize
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|assertEquals
-argument_list|(
-name|smallestSeqInRegionCurrentMemstore
-argument_list|,
-name|smallestSeqCF3
-argument_list|)
-expr_stmt|;
 comment|// What happens when we hit the memstore limit, but we are not able to find
 comment|// any Column Family above the threshold?
 comment|// In that case, we should flush all the CFs.
