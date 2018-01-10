@@ -171,6 +171,20 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ZooKeeperConnectionException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -1577,9 +1591,52 @@ name|sessionTimeoutMs
 argument_list|,
 name|e
 lambda|->
-block|{       }
+block|{}
 argument_list|)
 expr_stmt|;
+name|int
+name|timeout
+init|=
+literal|10000
+decl_stmt|;
+try|try
+block|{
+comment|// Before returning, try and ensure we are connected. Don't wait long in case
+comment|// we are trying to connect to a cluster that is down. If we fail to connect,
+comment|// just catch the exception and carry-on. The first usage will fail and we'll
+comment|// cleanup.
+name|zookeeper
+operator|=
+name|ZooKeeperHelper
+operator|.
+name|ensureConnectedZooKeeper
+argument_list|(
+name|zookeeper
+argument_list|,
+name|timeout
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|ZooKeeperConnectionException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Failed connecting after waiting "
+operator|+
+name|timeout
+operator|+
+literal|"ms; "
+operator|+
+name|zookeeper
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 return|return
 name|zookeeper

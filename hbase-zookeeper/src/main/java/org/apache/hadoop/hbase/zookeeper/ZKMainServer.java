@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -24,18 +24,6 @@ operator|.
 name|io
 operator|.
 name|IOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|TimeUnit
 import|;
 end_import
 
@@ -119,28 +107,6 @@ name|ZooKeeperMain
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hbase
-operator|.
-name|thirdparty
-operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|base
-operator|.
-name|Stopwatch
-import|;
-end_import
-
 begin_comment
 comment|/**  * Tool for running ZookeeperMain from HBase by  reading a ZooKeeper server  * from HBase XML configuration.  */
 end_comment
@@ -212,82 +178,19 @@ argument_list|)
 expr_stmt|;
 comment|// Make sure we are connected before we proceed. Can take a while on some systems. If we
 comment|// run the command without being connected, we get ConnectionLoss KeeperErrorConnection...
-name|Stopwatch
-name|stopWatch
-init|=
-name|Stopwatch
+comment|// Make it 30seconds. We dont' have a config in this context and zk doesn't have
+comment|// a timeout until after connection. 30000ms is default for zk.
+name|ZooKeeperHelper
 operator|.
-name|createStarted
-argument_list|()
-decl_stmt|;
-while|while
-condition|(
-operator|!
+name|ensureConnectedZooKeeper
+argument_list|(
 name|this
 operator|.
 name|zk
-operator|.
-name|getState
-argument_list|()
-operator|.
-name|isConnected
-argument_list|()
-condition|)
-block|{
-name|Thread
-operator|.
-name|sleep
-argument_list|(
-literal|1
+argument_list|,
+literal|30000
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|stopWatch
-operator|.
-name|elapsed
-argument_list|(
-name|TimeUnit
-operator|.
-name|SECONDS
-argument_list|)
-operator|>
-literal|10
-condition|)
-block|{
-throw|throw
-operator|new
-name|InterruptedException
-argument_list|(
-literal|"Failed connect after waiting "
-operator|+
-name|stopWatch
-operator|.
-name|elapsed
-argument_list|(
-name|TimeUnit
-operator|.
-name|SECONDS
-argument_list|)
-operator|+
-literal|"seconds; state="
-operator|+
-name|this
-operator|.
-name|zk
-operator|.
-name|getState
-argument_list|()
-operator|+
-literal|"; "
-operator|+
-name|this
-operator|.
-name|zk
-argument_list|)
-throw|;
-block|}
-block|}
 block|}
 comment|/**      * Run the command-line args passed.  Calls System.exit when done.      * @throws KeeperException      * @throws IOException      * @throws InterruptedException      */
 name|void

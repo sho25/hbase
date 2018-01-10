@@ -309,6 +309,7 @@ operator|new
 name|HBaseZKTestingUtility
 argument_list|()
 decl_stmt|;
+comment|// Make it long so for sure succeeds.
 name|htu
 operator|.
 name|getConfiguration
@@ -320,7 +321,7 @@ name|HConstants
 operator|.
 name|ZK_SESSION_TIMEOUT
 argument_list|,
-literal|1000
+literal|30000
 argument_list|)
 expr_stmt|;
 name|htu

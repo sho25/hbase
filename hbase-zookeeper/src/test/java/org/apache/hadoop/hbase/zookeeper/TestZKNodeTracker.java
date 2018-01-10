@@ -759,8 +759,9 @@ specifier|final
 name|ZooKeeper
 name|zkconn
 init|=
-operator|new
-name|ZooKeeper
+name|ZooKeeperHelper
+operator|.
+name|getConnectedZooKeeper
 argument_list|(
 name|ZKConfig
 operator|.
@@ -773,10 +774,6 @@ argument_list|()
 argument_list|)
 argument_list|,
 literal|60000
-argument_list|,
-name|e
-lambda|->
-block|{         }
 argument_list|)
 decl_stmt|;
 comment|// Add the node with data one
