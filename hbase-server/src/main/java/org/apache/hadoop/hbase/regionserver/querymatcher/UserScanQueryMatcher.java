@@ -981,14 +981,35 @@ operator|>
 name|versionsAfterFilter
 condition|)
 block|{
-return|return
+comment|// when the number of cells exceed max version in scan, we should return SEEK_NEXT_COL match
+comment|// code, but if current code is INCLUDE_AND_SEEK_NEXT_ROW, we can optimize to choose the max
+comment|// step between SEEK_NEXT_COL and INCLUDE_AND_SEEK_NEXT_ROW, which is SEEK_NEXT_ROW.
+if|if
+condition|(
+name|matchCode
+operator|==
 name|MatchCode
 operator|.
-name|SEEK_NEXT_COL
-return|;
+name|INCLUDE_AND_SEEK_NEXT_ROW
+condition|)
+block|{
+name|matchCode
+operator|=
+name|MatchCode
+operator|.
+name|SEEK_NEXT_ROW
+expr_stmt|;
 block|}
 else|else
 block|{
+name|matchCode
+operator|=
+name|MatchCode
+operator|.
+name|SEEK_NEXT_COL
+expr_stmt|;
+block|}
+block|}
 if|if
 condition|(
 name|matchCode
@@ -996,10 +1017,16 @@ operator|==
 name|MatchCode
 operator|.
 name|INCLUDE_AND_SEEK_NEXT_COL
+operator|||
+name|matchCode
+operator|==
+name|MatchCode
+operator|.
+name|SEEK_NEXT_COL
 condition|)
 block|{
 comment|// Update column tracker to next column, As we use the column hint from the tracker to seek
-comment|// to next cell
+comment|// to next cell (HBASE-19749)
 name|columns
 operator|.
 name|doneWithColumn
@@ -1011,7 +1038,6 @@ block|}
 return|return
 name|matchCode
 return|;
-block|}
 block|}
 specifier|protected
 specifier|abstract
