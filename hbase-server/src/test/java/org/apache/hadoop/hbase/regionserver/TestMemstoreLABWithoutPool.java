@@ -241,6 +241,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -260,6 +270,9 @@ import|;
 end_import
 
 begin_class
+annotation|@
+name|Ignore
+comment|// See HBASE-19742 for issue on reenabling.
 annotation|@
 name|Category
 argument_list|(
