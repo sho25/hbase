@@ -229,6 +229,22 @@ begin_import
 import|import
 name|org
 operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Threads
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
 name|junit
 operator|.
 name|AfterClass
@@ -410,6 +426,7 @@ implements|implements
 name|Stoppable
 block|{
 specifier|private
+specifier|volatile
 name|boolean
 name|stopped
 decl_stmt|;
@@ -616,6 +633,13 @@ expr_stmt|;
 name|abdicate
 argument_list|()
 expr_stmt|;
+name|Threads
+operator|.
+name|sleep
+argument_list|(
+literal|100
+argument_list|)
+expr_stmt|;
 name|watcher
 operator|.
 name|close
@@ -682,12 +706,17 @@ operator|new
 name|MockAbortable
 argument_list|()
 decl_stmt|;
+name|int
+name|count
+init|=
+literal|5
+decl_stmt|;
 name|CANDIDATES
 operator|=
 operator|new
 name|MockLeader
 index|[
-literal|3
+name|count
 index|]
 expr_stmt|;
 for|for
@@ -699,7 +728,7 @@ literal|0
 init|;
 name|i
 operator|<
-literal|3
+name|count
 condition|;
 name|i
 operator|++
@@ -864,14 +893,6 @@ operator|.
 name|abdicate
 argument_list|()
 expr_stmt|;
-name|assertFalse
-argument_list|(
-name|currentLeader
-operator|.
-name|isMaster
-argument_list|()
-argument_list|)
-expr_stmt|;
 comment|// check for new leader
 name|currentLeader
 operator|=
@@ -968,14 +989,6 @@ argument_list|(
 literal|"Stopping for test"
 argument_list|)
 expr_stmt|;
-name|assertFalse
-argument_list|(
-name|currentLeader
-operator|.
-name|isMaster
-argument_list|()
-argument_list|)
-expr_stmt|;
 comment|// check for new leader
 name|currentLeader
 operator|=
@@ -1070,14 +1083,6 @@ operator|.
 name|stop
 argument_list|(
 literal|"Stopping for test"
-argument_list|)
-expr_stmt|;
-name|assertFalse
-argument_list|(
-name|currentLeader
-operator|.
-name|isMaster
-argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// check for new
@@ -1197,11 +1202,11 @@ break|break
 name|outer
 break|;
 block|}
-name|Thread
+name|Threads
 operator|.
 name|sleep
 argument_list|(
-literal|10
+literal|100
 argument_list|)
 expr_stmt|;
 block|}
