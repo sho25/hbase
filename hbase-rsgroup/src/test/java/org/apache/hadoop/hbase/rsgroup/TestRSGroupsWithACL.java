@@ -1137,7 +1137,7 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|5
+literal|4
 argument_list|,
 name|AccessControlLists
 operator|.
@@ -1156,7 +1156,7 @@ try|try
 block|{
 name|assertEquals
 argument_list|(
-literal|5
+literal|4
 argument_list|,
 name|AccessControlClient
 operator|.
