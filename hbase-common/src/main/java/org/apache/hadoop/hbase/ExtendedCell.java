@@ -396,24 +396,6 @@ name|int
 name|getTagsLength
 parameter_list|()
 function_decl|;
-comment|/**    * {@inheritDoc}    *<p>    * Note : This does not expose the internal types of Cells like {@link KeyValue.Type#Maximum} and    * {@link KeyValue.Type#Minimum}    */
-annotation|@
-name|Override
-specifier|default
-name|Type
-name|getType
-parameter_list|()
-block|{
-return|return
-name|PrivateCellUtil
-operator|.
-name|toType
-argument_list|(
-name|getTypeByte
-argument_list|()
-argument_list|)
-return|;
-block|}
 comment|/**    * @return The byte representation of the KeyValue.TYPE of this cell: one of Put, Delete, etc    */
 name|byte
 name|getTypeByte
