@@ -4923,7 +4923,7 @@ comment|// the extra 9's on the end are necessary to allow "exact" matches
 comment|// without knowing the precise region names.
 name|byte
 index|[]
-name|metaKey
+name|metaStartKey
 init|=
 name|RegionInfo
 operator|.
@@ -4936,6 +4936,25 @@ argument_list|,
 name|HConstants
 operator|.
 name|NINES
+argument_list|,
+literal|false
+argument_list|)
+decl_stmt|;
+name|byte
+index|[]
+name|metaStopKey
+init|=
+name|RegionInfo
+operator|.
+name|createRegionName
+argument_list|(
+name|tableName
+argument_list|,
+name|HConstants
+operator|.
+name|EMPTY_START_ROW
+argument_list|,
+literal|""
 argument_list|,
 literal|false
 argument_list|)
@@ -4958,7 +4977,16 @@ name|s
 operator|.
 name|withStartRow
 argument_list|(
-name|metaKey
+name|metaStartKey
+argument_list|)
+expr_stmt|;
+name|s
+operator|.
+name|withStopRow
+argument_list|(
+name|metaStopKey
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 name|s
@@ -5246,7 +5274,7 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"HRegionInfo was null in "
+literal|"RegionInfo null in "
 operator|+
 name|tableName
 operator|+
@@ -5280,7 +5308,7 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"HRegionInfo was null or empty in "
+literal|"RegionInfo null or empty in "
 operator|+
 name|TableName
 operator|.
@@ -5349,9 +5377,7 @@ throw|throw
 operator|new
 name|RegionOfflineException
 argument_list|(
-literal|"the only available region for the required row is a split parent,"
-operator|+
-literal|" the daughters should be online soon: "
+literal|"Region for row is a split parent, daughters not online: "
 operator|+
 name|regionInfo
 operator|.
@@ -5372,9 +5398,7 @@ throw|throw
 operator|new
 name|RegionOfflineException
 argument_list|(
-literal|"the region is offline, could"
-operator|+
-literal|" be caused by a disable table call: "
+literal|"Region offline; disable table call? "
 operator|+
 name|regionInfo
 operator|.
@@ -5616,7 +5640,7 @@ name|TableName
 operator|.
 name|META_TABLE_NAME
 argument_list|,
-name|metaKey
+name|metaStartKey
 argument_list|,
 name|replicaId
 argument_list|)
