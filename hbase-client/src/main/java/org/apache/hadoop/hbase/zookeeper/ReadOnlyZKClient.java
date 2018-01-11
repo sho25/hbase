@@ -175,6 +175,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|util
+operator|.
+name|Threads
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|ZooKeeperConnectionException
 import|;
 end_import
@@ -596,6 +612,12 @@ name|ZooKeeper
 name|zookeeper
 decl_stmt|;
 specifier|private
+name|int
+name|pendingRequests
+init|=
+literal|0
+decl_stmt|;
+specifier|private
 name|String
 name|getId
 parameter_list|()
@@ -690,58 +712,47 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Start read only zookeeper connection "
+literal|"Start read only zookeeper connection {} to {}, "
 operator|+
+literal|"session timeout {} ms, retries {}, "
+operator|+
+literal|"retry interval {} ms, keep alive {} ms"
+argument_list|,
 name|getId
 argument_list|()
-operator|+
-literal|" to "
-operator|+
+argument_list|,
 name|connectString
-operator|+
-literal|", session timeout "
-operator|+
+argument_list|,
 name|sessionTimeoutMs
-operator|+
-literal|" ms, retries "
-operator|+
+argument_list|,
 name|maxRetries
-operator|+
-literal|", retry interval "
-operator|+
+argument_list|,
 name|retryIntervalMs
-operator|+
-literal|" ms, keep alive "
-operator|+
+argument_list|,
 name|keepAliveTimeMs
-operator|+
-literal|" ms"
 argument_list|)
 expr_stmt|;
-name|Thread
-name|t
-init|=
+name|Threads
+operator|.
+name|setDaemonThreadRunning
+argument_list|(
 operator|new
 name|Thread
 argument_list|(
 name|this
 operator|::
 name|run
+argument_list|)
 argument_list|,
-literal|"ReadOnlyZKClient"
-argument_list|)
-decl_stmt|;
-name|t
-operator|.
-name|setDaemon
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
-name|t
-operator|.
-name|start
+literal|"ReadOnlyZKClient-"
+operator|+
+name|connectString
+operator|+
+literal|"@"
+operator|+
+name|getId
 argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 specifier|private
@@ -847,6 +858,9 @@ name|ZooKeeper
 name|alwaysNull
 parameter_list|)
 block|{
+name|pendingRequests
+operator|--
+expr_stmt|;
 name|Code
 name|code
 init|=
@@ -956,10 +970,12 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
+literal|"{} to {} session expired, close and reconnect"
+argument_list|,
 name|getId
 argument_list|()
-operator|+
-literal|" session expired, close and reconnect"
+argument_list|,
+name|connectString
 argument_list|)
 expr_stmt|;
 try|try
@@ -995,23 +1011,19 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
+literal|"{} to {} failed for {} of {}, code = {}, retries = {}"
+argument_list|,
 name|getId
 argument_list|()
-operator|+
-literal|" failed for "
-operator|+
+argument_list|,
+name|connectString
+argument_list|,
 name|operationType
-operator|+
-literal|" of "
-operator|+
+argument_list|,
 name|path
-operator|+
-literal|", code = "
-operator|+
+argument_list|,
 name|code
-operator|+
-literal|", retries = "
-operator|+
+argument_list|,
 name|ZKTask
 operator|.
 name|this
@@ -1035,30 +1047,24 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
+literal|"{} to {} failed for {} of {}, code = {}, retries = {}, give up"
+argument_list|,
 name|getId
 argument_list|()
-operator|+
-literal|" failed for "
-operator|+
+argument_list|,
+name|connectString
+argument_list|,
 name|operationType
-operator|+
-literal|" of "
-operator|+
+argument_list|,
 name|path
-operator|+
-literal|", code = "
-operator|+
+argument_list|,
 name|code
-operator|+
-literal|", retries = "
-operator|+
+argument_list|,
 name|ZKTask
 operator|.
 name|this
 operator|.
 name|retries
-operator|+
-literal|", give up"
 argument_list|)
 expr_stmt|;
 name|future
@@ -1116,6 +1122,35 @@ block|{
 return|return
 literal|true
 return|;
+block|}
+specifier|protected
+specifier|abstract
+name|void
+name|doExec
+parameter_list|(
+name|ZooKeeper
+name|zk
+parameter_list|)
+function_decl|;
+annotation|@
+name|Override
+specifier|public
+specifier|final
+name|void
+name|exec
+parameter_list|(
+name|ZooKeeper
+name|zk
+parameter_list|)
+block|{
+name|pendingRequests
+operator|++
+expr_stmt|;
+name|doExec
+argument_list|(
+name|zk
+argument_list|)
+expr_stmt|;
 block|}
 specifier|public
 name|boolean
@@ -1186,19 +1221,17 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
+literal|"{} to {} failed to connect to zk fo {} of {}, retries = {}"
+argument_list|,
 name|getId
 argument_list|()
-operator|+
-literal|" failed to connect to zk for "
-operator|+
+argument_list|,
+name|connectString
+argument_list|,
 name|operationType
-operator|+
-literal|" of "
-operator|+
+argument_list|,
 name|path
-operator|+
-literal|", retries = "
-operator|+
+argument_list|,
 name|retries
 argument_list|,
 name|e
@@ -1218,22 +1251,18 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
+literal|"{} to {} failed to connect to zk fo {} of {}, retries = {}, give up"
+argument_list|,
 name|getId
 argument_list|()
-operator|+
-literal|" failed to connect to zk for "
-operator|+
+argument_list|,
+name|connectString
+argument_list|,
 name|operationType
-operator|+
-literal|" of "
-operator|+
+argument_list|,
 name|path
-operator|+
-literal|", retries = "
-operator|+
+argument_list|,
 name|retries
-operator|+
-literal|", give up"
 argument_list|,
 name|e
 argument_list|)
@@ -1366,9 +1395,9 @@ argument_list|)
 block|{
 annotation|@
 name|Override
-specifier|public
+specifier|protected
 name|void
-name|exec
+name|doExec
 parameter_list|(
 name|ZooKeeper
 name|zk
@@ -1476,9 +1505,9 @@ argument_list|)
 block|{
 annotation|@
 name|Override
-specifier|public
+specifier|protected
 name|void
-name|exec
+name|doExec
 parameter_list|(
 name|ZooKeeper
 name|zk
@@ -1694,20 +1723,26 @@ condition|(
 name|task
 operator|==
 literal|null
+operator|&&
+name|pendingRequests
+operator|==
+literal|0
 condition|)
 block|{
 name|LOG
 operator|.
 name|info
 argument_list|(
+literal|"{} to {} no activities for {} ms, close active connection. "
+operator|+
+literal|"Will reconnect next time when there are new requests"
+argument_list|,
 name|getId
 argument_list|()
-operator|+
-literal|" no activities for "
-operator|+
+argument_list|,
+name|connectString
+argument_list|,
 name|keepAliveTimeMs
-operator|+
-literal|" ms, close active connection. Will reconnect next time when there are new requests."
 argument_list|)
 expr_stmt|;
 name|closeZk
@@ -1838,13 +1873,11 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Close zookeeper connection "
-operator|+
+literal|"Close zookeeper connection {} to {}"
+argument_list|,
 name|getId
 argument_list|()
-operator|+
-literal|" to "
-operator|+
+argument_list|,
 name|connectString
 argument_list|)
 expr_stmt|;
