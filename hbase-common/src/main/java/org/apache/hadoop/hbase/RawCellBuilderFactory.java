@@ -30,7 +30,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Factory for creating cells for CPs. It does deep_copy {@link CellBuilderType#DEEP_COPY} while  * creating cells.  */
+comment|/**  * Factory for creating cells for CPs. It does deep_copy {@link CellBuilderType#DEEP_COPY} while  * creating cells.  * This is private because coprocessors should get an instance of type {@link RawCellBuilder}  * using RegionCoprocessorEnvironment#getCellBuilder.  */
 end_comment
 
 begin_class
