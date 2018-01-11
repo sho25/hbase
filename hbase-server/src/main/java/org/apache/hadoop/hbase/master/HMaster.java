@@ -5211,6 +5211,8 @@ throws|,
 name|KeeperException
 throws|,
 name|CoordinatedStateException
+throws|,
+name|ReplicationException
 block|{
 name|Thread
 name|zombieDetector
