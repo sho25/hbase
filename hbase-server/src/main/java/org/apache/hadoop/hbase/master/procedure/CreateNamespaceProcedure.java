@@ -873,10 +873,14 @@ throw|throw
 operator|new
 name|NamespaceExistException
 argument_list|(
+literal|"Namespace "
+operator|+
 name|nsDescriptor
 operator|.
 name|getName
 argument_list|()
+operator|+
+literal|" already exists"
 argument_list|)
 throw|;
 block|}

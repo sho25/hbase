@@ -61,16 +61,12 @@ specifier|public
 name|NamespaceExistException
 parameter_list|(
 name|String
-name|namespace
+name|msg
 parameter_list|)
 block|{
 name|super
 argument_list|(
-literal|"Namespace "
-operator|+
-name|namespace
-operator|+
-literal|" already exists"
+name|msg
 argument_list|)
 expr_stmt|;
 block|}
