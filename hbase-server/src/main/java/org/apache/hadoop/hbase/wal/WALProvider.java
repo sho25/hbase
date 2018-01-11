@@ -79,17 +79,15 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
-
-begin_comment
-comment|// imports for things that haven't moved from regionserver.wal yet.
-end_comment
 
 begin_import
 import|import
@@ -106,6 +104,20 @@ operator|.
 name|wal
 operator|.
 name|WALActionsListener
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -126,45 +138,35 @@ comment|/**    * Set up the provider to create wals.    * will only be called on
 name|void
 name|init
 parameter_list|(
-specifier|final
 name|WALFactory
 name|factory
 parameter_list|,
-specifier|final
 name|Configuration
 name|conf
 parameter_list|,
-specifier|final
 name|List
 argument_list|<
 name|WALActionsListener
 argument_list|>
 name|listeners
 parameter_list|,
-specifier|final
 name|String
 name|providerId
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * @param identifier may not be null. contents will not be altered.    * @param namespace could be null, and will use default namespace if null    * @return a WAL for writing entries for the given region.    */
+comment|/**    * @param region the region which we want to get a WAL for it. Could be null.    * @return a WAL for writing entries for the given region.    */
 name|WAL
 name|getWAL
 parameter_list|(
-specifier|final
-name|byte
-index|[]
-name|identifier
-parameter_list|,
-name|byte
-index|[]
-name|namespace
+name|RegionInfo
+name|region
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/** @return the List of WALs that are used by this server    */
+comment|/**    * @return the List of WALs that are used by this server    */
 name|List
 argument_list|<
 name|WAL

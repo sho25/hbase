@@ -429,14 +429,8 @@ specifier|public
 name|WAL
 name|getWAL
 parameter_list|(
-specifier|final
-name|byte
-index|[]
-name|identifier
-parameter_list|,
-name|byte
-index|[]
-name|namespace
+name|RegionInfo
+name|region
 parameter_list|)
 throws|throws
 name|IOException

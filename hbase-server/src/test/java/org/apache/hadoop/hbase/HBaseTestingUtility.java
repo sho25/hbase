@@ -11245,17 +11245,6 @@ operator|.
 name|getWAL
 argument_list|(
 name|hri
-operator|.
-name|getEncodedNameAsBytes
-argument_list|()
-argument_list|,
-name|hri
-operator|.
-name|getTable
-argument_list|()
-operator|.
-name|getNamespace
-argument_list|()
 argument_list|)
 return|;
 block|}
