@@ -831,18 +831,33 @@ operator|+
 name|startTimeout
 condition|)
 block|{
+name|String
+name|msg
+init|=
+literal|"Master not active after "
+operator|+
+name|startTimeout
+operator|+
+literal|"ms"
+decl_stmt|;
+name|Threads
+operator|.
+name|printThreadInfo
+argument_list|(
+name|System
+operator|.
+name|out
+argument_list|,
+literal|"Thread dump because: "
+operator|+
+name|msg
+argument_list|)
+expr_stmt|;
 throw|throw
 operator|new
 name|RuntimeException
 argument_list|(
-name|String
-operator|.
-name|format
-argument_list|(
-literal|"Master not active after %s seconds"
-argument_list|,
-name|startTimeout
-argument_list|)
+name|msg
 argument_list|)
 throw|;
 block|}
