@@ -5158,7 +5158,15 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Minicluster is up"
+literal|"Minicluster is up; activeMaster="
+operator|+
+name|this
+operator|.
+name|getHBaseCluster
+argument_list|()
+operator|.
+name|getMaster
+argument_list|()
 argument_list|)
 expr_stmt|;
 return|return

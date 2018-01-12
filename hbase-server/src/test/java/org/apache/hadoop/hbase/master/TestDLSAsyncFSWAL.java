@@ -55,6 +55,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|experimental
 operator|.
 name|categories
@@ -64,6 +74,9 @@ import|;
 end_import
 
 begin_class
+annotation|@
+name|Ignore
+comment|// Temporarily disabled. Fails 40% of the time.
 annotation|@
 name|Category
 argument_list|(

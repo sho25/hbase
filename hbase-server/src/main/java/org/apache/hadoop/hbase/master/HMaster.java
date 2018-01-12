@@ -443,6 +443,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ClusterId
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|ClusterMetrics
 import|;
 end_import
@@ -5317,12 +5331,26 @@ name|getAll
 argument_list|()
 expr_stmt|;
 block|}
-comment|// Publish cluster ID
+comment|// Publish cluster ID; set it in Master too. The superclass RegionServer does this later but
+comment|// only after it has checked in with the Master. At least a few tests ask Master for clusterId
+comment|// before it has called its run method and before RegionServer has done the reportForDuty.
+name|ClusterId
+name|clusterId
+init|=
+name|fileSystemManager
+operator|.
+name|getClusterId
+argument_list|()
+decl_stmt|;
 name|status
 operator|.
 name|setStatus
 argument_list|(
-literal|"Publishing Cluster ID in ZooKeeper"
+literal|"Publishing Cluster ID "
+operator|+
+name|clusterId
+operator|+
+literal|" in ZooKeeper"
 argument_list|)
 expr_stmt|;
 name|ZKClusterId
@@ -5337,6 +5365,19 @@ name|fileSystemManager
 operator|.
 name|getClusterId
 argument_list|()
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|clusterId
+operator|=
+name|ZKClusterId
+operator|.
+name|readClusterIdZNode
+argument_list|(
+name|this
+operator|.
+name|zooKeeper
 argument_list|)
 expr_stmt|;
 name|this
@@ -5506,21 +5547,6 @@ name|FavoredNodesManager
 argument_list|(
 name|this
 argument_list|)
-expr_stmt|;
-block|}
-comment|// Wait for regionserver to finish initialization.
-if|if
-condition|(
-name|LoadBalancer
-operator|.
-name|isTablesOnMaster
-argument_list|(
-name|conf
-argument_list|)
-condition|)
-block|{
-name|waitForServerOnline
-argument_list|()
 expr_stmt|;
 block|}
 comment|//initialize load balancer
@@ -14390,6 +14416,41 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|stop
+parameter_list|(
+name|String
+name|msg
+parameter_list|)
+block|{
+name|super
+operator|.
+name|stop
+argument_list|(
+name|msg
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|activeMasterManager
+operator|!=
+literal|null
+condition|)
+block|{
+name|this
+operator|.
+name|activeMasterManager
+operator|.
+name|stop
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 name|void
 name|checkServiceStarted

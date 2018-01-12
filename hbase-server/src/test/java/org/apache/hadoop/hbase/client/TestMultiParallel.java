@@ -547,6 +547,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -586,6 +596,9 @@ import|;
 end_import
 
 begin_class
+annotation|@
+name|Ignore
+comment|// Depends on Master being able to host regions. Needs fixing.
 annotation|@
 name|Category
 argument_list|(

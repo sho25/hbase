@@ -3682,7 +3682,7 @@ name|long
 name|startcode
 decl_stmt|;
 comment|/**    * Unique identifier for the cluster we are a part of.    */
-specifier|private
+specifier|protected
 name|String
 name|clusterId
 decl_stmt|;

@@ -693,6 +693,9 @@ end_import
 
 begin_class
 annotation|@
+name|Ignore
+comment|// Disabled
+annotation|@
 name|Category
 argument_list|(
 name|MediumTests
