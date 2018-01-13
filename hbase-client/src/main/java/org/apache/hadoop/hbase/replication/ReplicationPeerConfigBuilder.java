@@ -278,6 +278,14 @@ name|boolean
 name|serial
 parameter_list|)
 function_decl|;
+comment|/**    * Set the remote peer cluster's wal directory. Used by synchronous replication.    * @param dir the remote peer cluster's wal directory    * @return {@code this}    */
+name|ReplicationPeerConfigBuilder
+name|setRemoteWALDir
+parameter_list|(
+name|String
+name|dir
+parameter_list|)
+function_decl|;
 comment|/**    * Builds the configuration object from the current state of {@code this}.    * @return A {@link ReplicationPeerConfig} instance.    */
 name|ReplicationPeerConfig
 name|build
