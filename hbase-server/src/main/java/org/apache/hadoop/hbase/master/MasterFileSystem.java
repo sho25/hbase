@@ -574,16 +574,11 @@ specifier|private
 name|boolean
 name|isSecurityEnabled
 decl_stmt|;
-specifier|private
-specifier|final
-name|MasterServices
-name|services
-decl_stmt|;
 specifier|public
 name|MasterFileSystem
 parameter_list|(
-name|MasterServices
-name|services
+name|Configuration
+name|conf
 parameter_list|)
 throws|throws
 name|IOException
@@ -592,16 +587,7 @@ name|this
 operator|.
 name|conf
 operator|=
-name|services
-operator|.
-name|getConfiguration
-argument_list|()
-expr_stmt|;
-name|this
-operator|.
-name|services
-operator|=
-name|services
+name|conf
 expr_stmt|;
 comment|// Set filesystem to be that of this.rootdir else we get complaints about
 comment|// mismatched filesystems if hbase.rootdir is hdfs and fs.defaultFS is

@@ -1015,7 +1015,7 @@ operator|=
 operator|new
 name|MasterFileSystem
 argument_list|(
-name|this
+name|conf
 argument_list|)
 expr_stmt|;
 name|this
