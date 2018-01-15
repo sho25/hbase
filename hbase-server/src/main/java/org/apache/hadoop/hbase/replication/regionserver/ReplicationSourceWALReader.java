@@ -1228,6 +1228,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
+operator|(
 name|e
 operator|instanceof
 name|EOFException
@@ -1238,6 +1239,7 @@ name|getCause
 argument_list|()
 operator|instanceof
 name|EOFException
+operator|)
 operator|&&
 name|logQueue
 operator|.
