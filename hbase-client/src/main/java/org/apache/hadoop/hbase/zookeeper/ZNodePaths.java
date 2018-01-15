@@ -993,7 +993,71 @@ name|znode
 argument_list|)
 return|;
 block|}
-comment|/**    * Join the prefix znode name with the suffix znode name to generate a proper    * full znode name.    *    * Assumes prefix does not end with slash and suffix does not begin with it.    *    * @param prefix beginning of znode name    * @param suffix ending of znode name    * @return result of properly joining prefix with suffix    */
+comment|/**    * Returns whether the znode is supposed to be readable by the client and DOES NOT contain    * sensitive information (world readable).    */
+specifier|public
+name|boolean
+name|isClientReadable
+parameter_list|(
+name|String
+name|node
+parameter_list|)
+block|{
+comment|// Developer notice: These znodes are world readable. DO NOT add more znodes here UNLESS
+comment|// all clients need to access this data to work. Using zk for sharing data to clients (other
+comment|// than service lookup case is not a recommended design pattern.
+return|return
+name|node
+operator|.
+name|equals
+argument_list|(
+name|baseZNode
+argument_list|)
+operator|||
+name|isAnyMetaReplicaZNode
+argument_list|(
+name|node
+argument_list|)
+operator|||
+name|node
+operator|.
+name|equals
+argument_list|(
+name|masterAddressZNode
+argument_list|)
+operator|||
+name|node
+operator|.
+name|equals
+argument_list|(
+name|clusterIdZNode
+argument_list|)
+operator|||
+name|node
+operator|.
+name|equals
+argument_list|(
+name|rsZNode
+argument_list|)
+operator|||
+comment|// /hbase/table and /hbase/table/foo is allowed, /hbase/table-lock is not
+name|node
+operator|.
+name|equals
+argument_list|(
+name|tableZNode
+argument_list|)
+operator|||
+name|node
+operator|.
+name|startsWith
+argument_list|(
+name|tableZNode
+operator|+
+literal|"/"
+argument_list|)
+return|;
+block|}
+comment|/**    * Join the prefix znode name with the suffix znode name to generate a proper full znode name.    *<p>    * Assumes prefix does not end with slash and suffix does not begin with it.    * @param prefix beginning of znode name    * @param suffix ending of znode name    * @return result of properly joining prefix with suffix    */
 specifier|public
 specifier|static
 name|String

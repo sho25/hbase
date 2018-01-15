@@ -3944,6 +3944,8 @@ if|if
 condition|(
 name|zkw
 operator|.
+name|znodePaths
+operator|.
 name|isClientReadable
 argument_list|(
 name|node

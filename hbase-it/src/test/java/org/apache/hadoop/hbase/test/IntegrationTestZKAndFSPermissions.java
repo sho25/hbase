@@ -960,6 +960,8 @@ name|expectedWorldReadable
 init|=
 name|watcher
 operator|.
+name|znodePaths
+operator|.
 name|isClientReadable
 argument_list|(
 name|znode
