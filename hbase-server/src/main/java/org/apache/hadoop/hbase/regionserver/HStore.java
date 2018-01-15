@@ -11515,6 +11515,11 @@ operator|.
 name|getId
 argument_list|()
 expr_stmt|;
+name|snapshot
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 name|HStore
 operator|.
