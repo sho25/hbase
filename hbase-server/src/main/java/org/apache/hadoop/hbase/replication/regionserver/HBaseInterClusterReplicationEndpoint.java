@@ -53,6 +53,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|net
+operator|.
+name|UnknownHostException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|ArrayList
@@ -2461,6 +2471,10 @@ condition|(
 name|ioe
 operator|instanceof
 name|ConnectException
+operator|||
+name|ioe
+operator|instanceof
+name|UnknownHostException
 condition|)
 block|{
 name|LOG
