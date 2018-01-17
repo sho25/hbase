@@ -369,10 +369,6 @@ name|LoggerFactory
 import|;
 end_import
 
-begin_comment
-comment|/**  * Test the ZooKeeper Async Registry.  */
-end_comment
-
 begin_class
 annotation|@
 name|Category
