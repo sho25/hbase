@@ -984,20 +984,7 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
-name|TEST_UTIL
-operator|.
-name|getConfiguration
-argument_list|()
-operator|.
-name|setBoolean
-argument_list|(
-name|LoadBalancer
-operator|.
-name|SYSTEM_TABLES_ON_MASTER
-argument_list|,
-literal|true
-argument_list|)
-expr_stmt|;
+comment|// TEST_UTIL.getConfiguration().setBoolean(LoadBalancer.SYSTEM_TABLES_ON_MASTER, true);
 name|TEST_UTIL
 operator|.
 name|startMiniCluster
@@ -2362,6 +2349,9 @@ argument_list|)
 expr_stmt|;
 block|}
 annotation|@
+name|Ignore
+comment|// HBASE-19785
+annotation|@
 name|Test
 specifier|public
 name|void
@@ -2589,6 +2579,9 @@ comment|//    resultCount = result.isEmpty() ? 0 : 1;
 comment|//    testReadRequests(resultCount, 0, 1);
 block|}
 annotation|@
+name|Ignore
+comment|// HBASE-19785
+annotation|@
 name|Test
 specifier|public
 name|void
@@ -2772,6 +2765,9 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Ignore
+comment|// See HBASE-19785
 annotation|@
 name|Test
 specifier|public

@@ -547,16 +547,6 @@ name|org
 operator|.
 name|junit
 operator|.
-name|Ignore
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
 name|Test
 import|;
 end_import
@@ -596,9 +586,6 @@ import|;
 end_import
 
 begin_class
-annotation|@
-name|Ignore
-comment|// Depends on Master being able to host regions. Needs fixing.
 annotation|@
 name|Category
 argument_list|(
@@ -791,20 +778,9 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
-name|UTIL
-operator|.
-name|getConfiguration
-argument_list|()
-operator|.
-name|setBoolean
-argument_list|(
-name|LoadBalancer
-operator|.
-name|SYSTEM_TABLES_ON_MASTER
-argument_list|,
-literal|true
-argument_list|)
-expr_stmt|;
+comment|// We used to ask for system tables on Master exclusively but not needed by test and doesn't
+comment|// work anyways -- so commented out.
+comment|// UTIL.getConfiguration().setBoolean(LoadBalancer.SYSTEM_TABLES_ON_MASTER, true);
 name|UTIL
 operator|.
 name|getConfiguration
