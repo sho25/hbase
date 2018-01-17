@@ -127,7 +127,7 @@ name|hbase
 operator|.
 name|master
 operator|.
-name|HMaster
+name|MasterServices
 import|;
 end_import
 
@@ -396,7 +396,7 @@ name|ProcedurePrepareLatch
 name|syncLatch
 decl_stmt|;
 specifier|private
-name|HMaster
+name|MasterServices
 name|master
 decl_stmt|;
 comment|/**    * Call this constructor to queue up a {@link RecoverMetaProcedure} in response to meta    * carrying server crash    * @param failedMetaServer failed/ crashed region server that was carrying meta    * @param shouldSplitLog split log file of meta region    */
@@ -1243,9 +1243,6 @@ condition|)
 block|{
 name|master
 operator|=
-operator|(
-name|HMaster
-operator|)
 name|env
 operator|.
 name|getMasterServices
