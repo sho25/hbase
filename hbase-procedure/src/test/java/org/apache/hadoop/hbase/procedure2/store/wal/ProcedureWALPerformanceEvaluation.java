@@ -1447,6 +1447,7 @@ return|;
 block|}
 block|}
 specifier|private
+specifier|static
 class|class
 name|NoSyncWalProcedureStore
 extends|extends

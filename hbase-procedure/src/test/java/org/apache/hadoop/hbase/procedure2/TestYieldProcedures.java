@@ -1209,6 +1209,7 @@ block|,
 name|STATE_3
 block|}
 specifier|public
+specifier|static
 class|class
 name|ExecutionInfo
 block|{

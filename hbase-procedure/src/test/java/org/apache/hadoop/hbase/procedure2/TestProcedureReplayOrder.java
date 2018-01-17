@@ -767,6 +767,9 @@ name|Procedure
 operator|)
 name|procClazz
 operator|.
+name|getDeclaredConstructor
+argument_list|()
+operator|.
 name|newInstance
 argument_list|()
 argument_list|)
@@ -774,9 +777,7 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|InstantiationException
-decl||
-name|IllegalAccessException
+name|Exception
 name|e
 parameter_list|)
 block|{

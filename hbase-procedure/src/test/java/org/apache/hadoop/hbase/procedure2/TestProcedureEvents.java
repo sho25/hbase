@@ -824,6 +824,7 @@ block|}
 annotation|@
 name|Override
 specifier|protected
+specifier|synchronized
 name|boolean
 name|setTimeoutFailure
 parameter_list|(

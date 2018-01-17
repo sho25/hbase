@@ -983,6 +983,8 @@ argument_list|,
 name|TestSMProcedureState
 argument_list|>
 block|{
+annotation|@
+name|Override
 specifier|protected
 name|Flow
 name|executeFromState
@@ -1061,6 +1063,8 @@ operator|.
 name|HAS_MORE_STATE
 return|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|rollbackState
@@ -1093,6 +1097,8 @@ name|incrementAndGet
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|TestSMProcedureState
 name|getState
@@ -1111,6 +1117,8 @@ name|stateId
 index|]
 return|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|int
 name|getStateId
@@ -1126,6 +1134,8 @@ name|ordinal
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|TestSMProcedureState
 name|getInitialState
@@ -1148,6 +1158,8 @@ argument_list|<
 name|TestProcEnv
 argument_list|>
 block|{
+annotation|@
+name|Override
 specifier|protected
 name|Procedure
 index|[]
@@ -1221,6 +1233,7 @@ expr_stmt|;
 block|}
 block|}
 specifier|public
+specifier|static
 class|class
 name|TestProcEnv
 block|{

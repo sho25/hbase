@@ -842,6 +842,8 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Pass one or more log file names and formatting options and it will dump out    * a text version of the contents on<code>stdout</code>.    *    * @param args    *          Command line arguments    * @throws IOException    *           Thrown upon file system errors etc.    */
+annotation|@
+name|Override
 specifier|public
 name|int
 name|run
