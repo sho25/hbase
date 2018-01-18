@@ -147,6 +147,24 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|HRegion
+operator|.
+name|FlushResult
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|HRegionServer
 import|;
 end_import
@@ -1768,7 +1786,7 @@ return|return
 name|t
 return|;
 block|}
-comment|/**    * Starts a region server thread and waits until its processed by master. Throws an exception    * when it can't start a region server or when the region server is not processed by master    * within the timeout.    *    * @return New RegionServerThread    * @throws IOException    */
+comment|/**    * Starts a region server thread and waits until its processed by master. Throws an exception    * when it can't start a region server or when the region server is not processed by master    * within the timeout.    *    * @return New RegionServerThread    */
 specifier|public
 name|JVMClusterUtil
 operator|.
@@ -2043,7 +2061,7 @@ name|serverNumber
 argument_list|)
 return|;
 block|}
-comment|/**    * Starts a master thread running    *    * @throws IOException    * @return New RegionServerThread    */
+comment|/**    * Starts a master thread running    *    * @return New RegionServerThread    */
 specifier|public
 name|JVMClusterUtil
 operator|.
@@ -2525,12 +2543,7 @@ name|join
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Shut down the mini HBase cluster    * @throws IOException    */
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"deprecation"
-argument_list|)
+comment|/**    * Shut down the mini HBase cluster    */
 specifier|public
 name|void
 name|shutdown
@@ -2626,7 +2639,68 @@ name|getClusterMetrics
 argument_list|()
 return|;
 block|}
-comment|/**    * Call flushCache on all regions on all participating regionservers.    * @throws IOException    */
+specifier|private
+name|void
+name|executeFlush
+parameter_list|(
+name|HRegion
+name|region
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+comment|// retry 5 times if we can not flush
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|0
+init|;
+name|i
+operator|<
+literal|5
+condition|;
+name|i
+operator|++
+control|)
+block|{
+name|FlushResult
+name|result
+init|=
+name|region
+operator|.
+name|flush
+argument_list|(
+literal|true
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|result
+operator|.
+name|getResult
+argument_list|()
+operator|!=
+name|FlushResult
+operator|.
+name|Result
+operator|.
+name|CANNOT_FLUSH
+condition|)
+block|{
+return|return;
+block|}
+name|Threads
+operator|.
+name|sleep
+argument_list|(
+literal|1000
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+comment|/**    * Call flushCache on all regions on all participating regionservers.    */
 specifier|public
 name|void
 name|flushcache
@@ -2663,17 +2737,15 @@ name|getOnlineRegionsLocalContext
 argument_list|()
 control|)
 block|{
-name|r
-operator|.
-name|flush
+name|executeFlush
 argument_list|(
-literal|true
+name|r
 argument_list|)
 expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Call flushCache on all regions of the specified table.    * @throws IOException    */
+comment|/**    * Call flushCache on all regions of the specified table.    */
 specifier|public
 name|void
 name|flushcache
@@ -2729,11 +2801,9 @@ name|tableName
 argument_list|)
 condition|)
 block|{
-name|r
-operator|.
-name|flush
+name|executeFlush
 argument_list|(
-literal|true
+name|r
 argument_list|)
 expr_stmt|;
 block|}
