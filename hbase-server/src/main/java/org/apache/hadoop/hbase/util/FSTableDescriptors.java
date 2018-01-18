@@ -1093,11 +1093,21 @@ name|HConstants
 operator|.
 name|TABLE_FAMILY
 argument_list|)
-comment|// Ten is arbitrary number.  Keep versions to help debugging.
 operator|.
 name|setMaxVersions
 argument_list|(
-literal|10
+name|conf
+operator|.
+name|getInt
+argument_list|(
+name|HConstants
+operator|.
+name|HBASE_META_VERSIONS
+argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_HBASE_META_VERSIONS
+argument_list|)
 argument_list|)
 operator|.
 name|setInMemory
