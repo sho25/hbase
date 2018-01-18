@@ -40,7 +40,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Allows creating a cell with {@link Tag}  * An instance of this type can be acquired using RegionCoprocessorEnvironment#getCellBuilder.  */
+comment|/**  * Allows creating a cell with {@link Tag}  * An instance of this type can be acquired by using RegionCoprocessorEnvironment#getCellBuilder  * (for prod code) and {@link RawCellBuilderFactory} (for unit tests).  */
 end_comment
 
 begin_interface

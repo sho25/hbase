@@ -30,14 +30,19 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Factory for creating cells for CPs. It does deep_copy {@link CellBuilderType#DEEP_COPY} while  * creating cells.  * This is private because coprocessors should get an instance of type {@link RawCellBuilder}  * using RegionCoprocessorEnvironment#getCellBuilder.  */
+comment|/**  * Factory for creating cells for CPs. It does deep_copy {@link CellBuilderType#DEEP_COPY} while  * creating cells.  * This class is limited private only for use in unit-tests.  * For non-test uses in coprocessors, get an instance of type {@link RawCellBuilder}  * using RegionCoprocessorEnvironment#getCellBuilder.  */
 end_comment
 
 begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Private
+name|LimitedPrivate
+argument_list|(
+name|HBaseInterfaceAudience
+operator|.
+name|UNITTEST
+argument_list|)
 specifier|public
 specifier|final
 class|class
