@@ -30343,13 +30343,13 @@ operator|.
 name|getHeapSizeProgress
 argument_list|()
 decl_stmt|;
-name|long
-name|initialTimeProgress
+comment|// Used to check time limit
+name|LimitScope
+name|limitScope
 init|=
-name|scannerContext
+name|LimitScope
 operator|.
-name|getTimeProgress
-argument_list|()
+name|BETWEEN_CELLS
 decl_stmt|;
 comment|// The loop here is used only when at some point during the next we determine
 comment|// that due to effects of filters or otherwise, we have an empty row in the result.
@@ -30381,8 +30381,6 @@ argument_list|,
 name|initialSizeProgress
 argument_list|,
 name|initialHeapSizeProgress
-argument_list|,
-name|initialTimeProgress
 argument_list|)
 expr_stmt|;
 block|}
@@ -30535,6 +30533,45 @@ operator|.
 name|BETWEEN_ROWS
 argument_list|)
 expr_stmt|;
+name|limitScope
+operator|=
+name|LimitScope
+operator|.
+name|BETWEEN_ROWS
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|scannerContext
+operator|.
+name|checkTimeLimit
+argument_list|(
+name|LimitScope
+operator|.
+name|BETWEEN_CELLS
+argument_list|)
+condition|)
+block|{
+if|if
+condition|(
+name|hasFilterRow
+condition|)
+block|{
+throw|throw
+operator|new
+name|IncompatibleFilterException
+argument_list|(
+literal|"Filter whose hasFilterRow() returns true is incompatible with scans that must "
+operator|+
+literal|" stop mid-row because of a limit. ScannerContext:"
+operator|+
+name|scannerContext
+argument_list|)
+throw|;
+block|}
+return|return
+literal|true
+return|;
 block|}
 comment|// Check if we were getting data from the joinedHeap and hit the limit.
 comment|// If not, then it's main path - getting results from storeHeap.
@@ -30657,6 +30694,21 @@ operator|.
 name|clear
 argument_list|()
 expr_stmt|;
+comment|// Read nothing as the rowkey was filtered, but still need to check time limit
+if|if
+condition|(
+name|scannerContext
+operator|.
+name|checkTimeLimit
+argument_list|(
+name|limitScope
+argument_list|)
+condition|)
+block|{
+return|return
+literal|true
+return|;
+block|}
 continue|continue;
 block|}
 comment|// Ok, we are good, let's try to get some results from the main heap.
@@ -30761,16 +30813,7 @@ name|results
 argument_list|)
 expr_stmt|;
 comment|// We don't know how the results have changed after being filtered. Must set progress
-comment|// according to contents of results now. However, a change in the results should not
-comment|// affect the time progress. Thus preserve whatever time progress has been made
-name|long
-name|timeProgress
-init|=
-name|scannerContext
-operator|.
-name|getTimeProgress
-argument_list|()
-decl_stmt|;
+comment|// according to contents of results now.
 if|if
 condition|(
 name|scannerContext
@@ -30788,8 +30831,6 @@ argument_list|,
 name|initialSizeProgress
 argument_list|,
 name|initialHeapSizeProgress
-argument_list|,
-name|initialTimeProgress
 argument_list|)
 expr_stmt|;
 block|}
@@ -30801,13 +30842,6 @@ name|clearProgress
 argument_list|()
 expr_stmt|;
 block|}
-name|scannerContext
-operator|.
-name|setTimeProgress
-argument_list|(
-name|timeProgress
-argument_list|)
-expr_stmt|;
 name|scannerContext
 operator|.
 name|incrementBatchProgress
@@ -30910,7 +30944,24 @@ condition|(
 operator|!
 name|shouldStop
 condition|)
+block|{
+comment|// Read nothing as the cells was filtered, but still need to check time limit
+if|if
+condition|(
+name|scannerContext
+operator|.
+name|checkTimeLimit
+argument_list|(
+name|limitScope
+argument_list|)
+condition|)
+block|{
+return|return
+literal|true
+return|;
+block|}
 continue|continue;
+block|}
 return|return
 name|scannerContext
 operator|.

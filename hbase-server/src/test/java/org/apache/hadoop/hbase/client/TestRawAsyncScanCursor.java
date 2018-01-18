@@ -54,6 +54,18 @@ import|;
 end_import
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -409,20 +421,7 @@ name|NUM_QUALIFIERS
 argument_list|)
 expr_stmt|;
 comment|// we will always provide a scan cursor if time limit is reached.
-if|if
-condition|(
-name|count
-operator|==
-name|NUM_ROWS
-operator|*
-name|NUM_FAMILIES
-operator|*
-name|NUM_QUALIFIERS
-operator|-
-literal|1
-condition|)
-block|{
-name|assertFalse
+name|assertTrue
 argument_list|(
 name|controller
 operator|.
@@ -433,9 +432,6 @@ name|isPresent
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
-else|else
-block|{
 name|assertArrayEquals
 argument_list|(
 name|ROWS
@@ -461,7 +457,6 @@ name|getRow
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 name|assertArrayEquals
 argument_list|(
 name|ROWS

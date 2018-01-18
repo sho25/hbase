@@ -159,25 +159,6 @@ block|}
 annotation|@
 name|Override
 name|void
-name|setTimeProgress
-parameter_list|(
-name|long
-name|timeProgress
-parameter_list|)
-block|{
-comment|// Do nothing. NoLimitScannerContext instances are immutable post-construction
-block|}
-annotation|@
-name|Override
-name|void
-name|updateTimeProgress
-parameter_list|()
-block|{
-comment|// Do nothing. NoLimitScannerContext instances are immutable post-construction
-block|}
-annotation|@
-name|Override
-name|void
 name|setProgress
 parameter_list|(
 name|int
@@ -188,9 +169,6 @@ name|sizeProgress
 parameter_list|,
 name|long
 name|heapSizeProgress
-parameter_list|,
-name|long
-name|timeProgress
 parameter_list|)
 block|{
 comment|// Do nothing. NoLimitScannerContext instances are immutable post-construction

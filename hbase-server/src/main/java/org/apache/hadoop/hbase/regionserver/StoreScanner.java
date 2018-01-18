@@ -2769,11 +2769,6 @@ literal|0
 operator|)
 condition|)
 block|{
-name|scannerContext
-operator|.
-name|updateTimeProgress
-argument_list|()
-expr_stmt|;
 if|if
 condition|(
 name|scannerContext
