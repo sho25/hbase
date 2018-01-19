@@ -915,14 +915,9 @@ argument_list|(
 name|hri
 argument_list|)
 condition|)
+block|{
 continue|continue;
-name|am
-operator|.
-name|offlineRegion
-argument_list|(
-name|hri
-argument_list|)
-expr_stmt|;
+block|}
 name|addChildProcedure
 argument_list|(
 operator|new
