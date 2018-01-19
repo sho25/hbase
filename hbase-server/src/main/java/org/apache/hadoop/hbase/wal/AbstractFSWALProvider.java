@@ -726,6 +726,11 @@ name|wal
 operator|=
 name|walCopy
 expr_stmt|;
+name|walCopy
+operator|.
+name|init
+argument_list|()
+expr_stmt|;
 block|}
 block|}
 block|}

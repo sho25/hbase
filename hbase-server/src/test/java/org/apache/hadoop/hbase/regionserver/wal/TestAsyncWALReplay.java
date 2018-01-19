@@ -458,7 +458,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-return|return
+name|AsyncFSWAL
+name|wal
+init|=
 operator|new
 name|AsyncFSWAL
 argument_list|(
@@ -491,6 +493,14 @@ name|GROUP
 argument_list|,
 name|CHANNEL_CLASS
 argument_list|)
+decl_stmt|;
+name|wal
+operator|.
+name|init
+argument_list|()
+expr_stmt|;
+return|return
+name|wal
 return|;
 block|}
 block|}

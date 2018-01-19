@@ -157,26 +157,6 @@ name|Category
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|slf4j
-operator|.
-name|Logger
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|slf4j
-operator|.
-name|LoggerFactory
-import|;
-end_import
-
 begin_comment
 comment|/**  * A test similar to TestHRegion, but with in-memory flush families.  * Also checks wal truncation after in-memory compaction.  */
 end_comment
@@ -195,11 +175,6 @@ operator|.
 name|class
 block|}
 argument_list|)
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"deprecation"
-argument_list|)
 specifier|public
 class|class
 name|TestHRegionWithInMemoryFlush
@@ -217,23 +192,6 @@ init|=
 name|HBaseClassTestRule
 operator|.
 name|forClass
-argument_list|(
-name|TestHRegionWithInMemoryFlush
-operator|.
-name|class
-argument_list|)
-decl_stmt|;
-comment|// Do not spin up clusters in here. If you need to spin up a cluster, do it
-comment|// over in TestHRegionOnCluster.
-specifier|private
-specifier|static
-specifier|final
-name|Logger
-name|LOG
-init|=
-name|LoggerFactory
-operator|.
-name|getLogger
 argument_list|(
 name|TestHRegionWithInMemoryFlush
 operator|.

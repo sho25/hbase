@@ -697,6 +697,11 @@ argument_list|,
 name|conf
 argument_list|)
 expr_stmt|;
+name|hlog
+operator|.
+name|init
+argument_list|()
+expr_stmt|;
 name|ChunkCreator
 operator|.
 name|initialize

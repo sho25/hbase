@@ -165,6 +165,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|client
 operator|.
 name|Durability
@@ -266,22 +280,6 @@ operator|.
 name|util
 operator|.
 name|Bytes
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|wal
-operator|.
-name|WAL
 import|;
 end_import
 
@@ -521,7 +519,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|WAL
+name|FSHLog
 name|wal
 init|=
 operator|new
@@ -550,6 +548,11 @@ argument_list|,
 name|conf
 argument_list|)
 decl_stmt|;
+name|wal
+operator|.
+name|init
+argument_list|()
+expr_stmt|;
 name|ChunkCreator
 operator|.
 name|initialize
@@ -570,16 +573,13 @@ literal|null
 argument_list|)
 expr_stmt|;
 return|return
-operator|(
-name|HRegion
-operator|)
 name|TEST_UTIL
 operator|.
 name|createLocalHRegion
 argument_list|(
-name|Bytes
+name|TableName
 operator|.
-name|toBytes
+name|valueOf
 argument_list|(
 name|tableName
 argument_list|)
@@ -591,10 +591,6 @@ argument_list|,
 name|HConstants
 operator|.
 name|EMPTY_BYTE_ARRAY
-argument_list|,
-name|tableName
-argument_list|,
-name|conf
 argument_list|,
 literal|false
 argument_list|,
@@ -1009,7 +1005,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * Have each thread update its own Cell. Avoid contention with another thread.    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * Have each thread update its own Cell. Avoid contention with another thread.    */
 annotation|@
 name|Test
 specifier|public
@@ -1306,7 +1302,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Have each thread update its own Cell. Avoid contention with another thread.    * This is    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * Have each thread update its own Cell. Avoid contention with another thread.    */
 annotation|@
 name|Test
 specifier|public

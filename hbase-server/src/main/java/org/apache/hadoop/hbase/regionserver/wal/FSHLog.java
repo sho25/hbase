@@ -1023,10 +1023,6 @@ operator|.
 name|DEFAULT_WAL_HSYNC
 argument_list|)
 expr_stmt|;
-comment|// rollWriter sets this.hdfs_out if it can.
-name|rollWriter
-argument_list|()
-expr_stmt|;
 comment|// This is the 'writer' -- a single threaded executor. This single thread 'consumes' what is
 comment|// put on the ring buffer.
 name|String

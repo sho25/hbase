@@ -1326,6 +1326,11 @@ argument_list|,
 name|CONF
 argument_list|)
 decl_stmt|;
+name|dodgyWAL
+operator|.
+name|init
+argument_list|()
+expr_stmt|;
 name|Path
 name|originalWAL
 init|=

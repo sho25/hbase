@@ -7676,6 +7676,11 @@ argument_list|,
 name|conf
 argument_list|)
 decl_stmt|;
+name|wal
+operator|.
+name|init
+argument_list|()
+expr_stmt|;
 comment|// Set down maximum recovery so we dfsclient doesn't linger retrying something
 comment|// long gone.
 name|HBaseTestingUtility

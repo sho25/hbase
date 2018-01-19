@@ -191,7 +191,7 @@ name|Path
 name|rootDir
 parameter_list|,
 name|Path
-name|remoteRootDir
+name|remoteWalDir
 parameter_list|,
 name|String
 name|logDir
@@ -268,13 +268,7 @@ name|this
 operator|.
 name|remoteWalDir
 operator|=
-operator|new
-name|Path
-argument_list|(
-name|remoteRootDir
-argument_list|,
-name|logDir
-argument_list|)
+name|remoteWalDir
 expr_stmt|;
 block|}
 annotation|@

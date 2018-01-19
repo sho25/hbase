@@ -1368,9 +1368,6 @@ argument_list|,
 name|DEFAULT_ASYNC_WAL_WAIT_ON_SHUTDOWN_IN_SECONDS
 argument_list|)
 expr_stmt|;
-name|rollWriter
-argument_list|()
-expr_stmt|;
 block|}
 specifier|private
 specifier|static

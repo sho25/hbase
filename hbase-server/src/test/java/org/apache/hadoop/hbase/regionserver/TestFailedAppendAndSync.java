@@ -711,26 +711,6 @@ name|getMethodName
 argument_list|()
 return|;
 block|}
-comment|/**    * Reproduce locking up that happens when we get an exceptions appending and syncing.    * See HBASE-14317.    * First I need to set up some mocks for Server and RegionServerServices. I also need to    * set up a dodgy WAL that will throw an exception when we go to append to it.    */
-annotation|@
-name|Test
-specifier|public
-name|void
-name|testLockupAroundBadAssignSync
-parameter_list|()
-throws|throws
-name|IOException
-block|{
-specifier|final
-name|AtomicLong
-name|rolls
-init|=
-operator|new
-name|AtomicLong
-argument_list|(
-literal|0
-argument_list|)
-decl_stmt|;
 comment|// Dodgy WAL. Will throw exceptions when flags set.
 class|class
 name|DodgyFSLog
@@ -748,6 +728,16 @@ name|boolean
 name|throwAppendException
 init|=
 literal|false
+decl_stmt|;
+specifier|final
+name|AtomicLong
+name|rolls
+init|=
+operator|new
+name|AtomicLong
+argument_list|(
+literal|0
+argument_list|)
 decl_stmt|;
 specifier|public
 name|DodgyFSLog
@@ -943,6 +933,16 @@ block|}
 return|;
 block|}
 block|}
+comment|/**    * Reproduce locking up that happens when we get an exceptions appending and syncing.    * See HBASE-14317.    * First I need to set up some mocks for Server and RegionServerServices. I also need to    * set up a dodgy WAL that will throw an exception when we go to append to it.    */
+annotation|@
+name|Test
+specifier|public
+name|void
+name|testLockupAroundBadAssignSync
+parameter_list|()
+throws|throws
+name|IOException
+block|{
 comment|// Make up mocked server and services.
 name|Server
 name|server
@@ -1043,6 +1043,11 @@ argument_list|,
 name|CONF
 argument_list|)
 decl_stmt|;
+name|dodgyWAL
+operator|.
+name|init
+argument_list|()
+expr_stmt|;
 name|LogRoller
 name|logRoller
 init|=
@@ -1159,6 +1164,8 @@ block|}
 name|long
 name|rollsCount
 init|=
+name|dodgyWAL
+operator|.
 name|rolls
 operator|.
 name|get
@@ -1226,11 +1233,14 @@ while|while
 condition|(
 name|rollsCount
 operator|==
+name|dodgyWAL
+operator|.
 name|rolls
 operator|.
 name|get
 argument_list|()
 condition|)
+block|{
 name|Threads
 operator|.
 name|sleep
@@ -1238,8 +1248,11 @@ argument_list|(
 literal|100
 argument_list|)
 expr_stmt|;
+block|}
 name|rollsCount
 operator|=
+name|dodgyWAL
+operator|.
 name|rolls
 operator|.
 name|get
@@ -1309,11 +1322,14 @@ while|while
 condition|(
 name|rollsCount
 operator|==
+name|dodgyWAL
+operator|.
 name|rolls
 operator|.
 name|get
 argument_list|()
 condition|)
+block|{
 name|Threads
 operator|.
 name|sleep
@@ -1321,6 +1337,7 @@ argument_list|(
 literal|100
 argument_list|)
 expr_stmt|;
+block|}
 comment|// Again, all should be good. New WAL and no outstanding unsync'd edits so we should be able
 comment|// to just continue.
 comment|// So, should be no abort at this stage. Verify.
@@ -1345,13 +1362,14 @@ operator|.
 name|anyString
 argument_list|()
 argument_list|,
-operator|(
-name|Throwable
-operator|)
 name|Mockito
 operator|.
-name|anyObject
-argument_list|()
+name|any
+argument_list|(
+name|Throwable
+operator|.
+name|class
+argument_list|)
 argument_list|)
 expr_stmt|;
 try|try
@@ -1443,13 +1461,14 @@ operator|.
 name|anyString
 argument_list|()
 argument_list|,
-operator|(
-name|Throwable
-operator|)
 name|Mockito
 operator|.
-name|anyObject
-argument_list|()
+name|any
+argument_list|(
+name|Throwable
+operator|.
+name|class
+argument_list|)
 argument_list|)
 expr_stmt|;
 break|break;

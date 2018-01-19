@@ -2221,6 +2221,18 @@ name|getSimpleName
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * Used to initialize the WAL. Usually just call rollWriter to create the first log writer.    */
+specifier|public
+name|void
+name|init
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+name|rollWriter
+argument_list|()
+expr_stmt|;
+block|}
 annotation|@
 name|Override
 specifier|public
