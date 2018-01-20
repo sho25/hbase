@@ -2692,7 +2692,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Starting ProcedureExecutor Worker threads (ProcExecWrkr)="
+literal|"Starting ProcedureExecutor Worker threads (ProcedureExecutorWorker)="
 operator|+
 name|corePoolSize
 argument_list|)
@@ -2703,7 +2703,7 @@ operator|=
 operator|new
 name|ThreadGroup
 argument_list|(
-literal|"ProcExecThrdGrp"
+literal|"ProcedureExecutorWorkerGroup"
 argument_list|)
 expr_stmt|;
 comment|// Create the timeout executor
@@ -3036,11 +3036,16 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Thread group "
+literal|"ThreadGroup "
 operator|+
 name|threadGroup
 operator|+
-literal|" contains running threads"
+literal|" contains running threads; "
+operator|+
+name|e
+operator|.
+name|getMessage
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|threadGroup
@@ -7750,7 +7755,7 @@ name|super
 argument_list|(
 name|group
 argument_list|,
-literal|"ProcExecWrkr-"
+literal|"ProcedureExecutorWorker-"
 operator|+
 name|workerId
 operator|.
@@ -8022,7 +8027,7 @@ finally|finally
 block|{
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
 literal|"Worker terminated."
 argument_list|)
@@ -8727,6 +8732,7 @@ argument_list|(
 literal|250
 argument_list|)
 expr_stmt|;
+comment|// Log every two seconds; send interrupt too.
 if|if
 condition|(
 name|i
@@ -8764,7 +8770,12 @@ argument_list|()
 operator|-
 name|startTime
 argument_list|)
+operator|+
+literal|"; sending interrupt"
 argument_list|)
+expr_stmt|;
+name|interrupt
+argument_list|()
 expr_stmt|;
 block|}
 block|}

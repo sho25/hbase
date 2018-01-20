@@ -1153,7 +1153,7 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|error
+name|debug
 argument_list|(
 name|this
 operator|.
@@ -1161,10 +1161,13 @@ name|watcher
 operator|.
 name|prefix
 argument_list|(
-literal|"Error deleting our own master address node"
-argument_list|)
-argument_list|,
+literal|"Failed delete of our master address node; "
+operator|+
 name|e
+operator|.
+name|getMessage
+argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

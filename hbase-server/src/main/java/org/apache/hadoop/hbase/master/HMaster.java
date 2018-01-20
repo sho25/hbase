@@ -7466,6 +7466,11 @@ name|stop
 argument_list|()
 expr_stmt|;
 name|procedureExecutor
+operator|.
+name|join
+argument_list|()
+expr_stmt|;
+name|procedureExecutor
 operator|=
 literal|null
 expr_stmt|;
