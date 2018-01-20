@@ -14465,6 +14465,13 @@ name|String
 name|msg
 parameter_list|)
 block|{
+if|if
+condition|(
+operator|!
+name|isStopped
+argument_list|()
+condition|)
+block|{
 name|super
 operator|.
 name|stop
@@ -14488,6 +14495,7 @@ operator|.
 name|stop
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 block|}
 name|void

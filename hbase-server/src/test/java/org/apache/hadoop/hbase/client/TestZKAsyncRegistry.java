@@ -167,20 +167,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ClusterId
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HBaseTestingUtility
 import|;
 end_import
@@ -715,10 +701,13 @@ operator|.
 name|getHBaseCluster
 argument_list|()
 operator|.
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|()
 operator|.
-name|getServersSize
+name|getLiveServerMetrics
+argument_list|()
+operator|.
+name|size
 argument_list|()
 argument_list|,
 name|REGISTRY
@@ -878,6 +867,8 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+try|try
+init|(
 name|ReadOnlyZKClient
 name|zk1
 init|=
@@ -885,7 +876,8 @@ name|REGISTRY
 operator|.
 name|getZKClient
 argument_list|()
-decl_stmt|;
+init|)
+block|{
 name|Configuration
 name|otherConf
 init|=
@@ -931,9 +923,9 @@ argument_list|()
 decl_stmt|;
 name|assertNotSame
 argument_list|(
-literal|"Using a different configuration / quorum should result in different backing "
+literal|"Using a different configuration / quorum should result in different "
 operator|+
-literal|"zk connection."
+literal|"backing zk connection."
 argument_list|,
 name|zk1
 argument_list|,
@@ -942,9 +934,7 @@ argument_list|)
 expr_stmt|;
 name|assertNotEquals
 argument_list|(
-literal|"Using a different configrution / quorum should be reflected in the "
-operator|+
-literal|"zk connection."
+literal|"Using a different configrution / quorum should be reflected in the zk connection."
 argument_list|,
 name|zk1
 operator|.
@@ -955,6 +945,17 @@ name|zk2
 operator|.
 name|getConnectString
 argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+finally|finally
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"DONE!"
 argument_list|)
 expr_stmt|;
 block|}
