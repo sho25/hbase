@@ -3081,6 +3081,9 @@ name|ClassSize
 operator|.
 name|align
 argument_list|(
+operator|(
+name|long
+operator|)
 name|ClassSize
 operator|.
 name|OBJECT

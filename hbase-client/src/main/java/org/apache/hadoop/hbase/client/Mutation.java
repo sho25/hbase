@@ -652,6 +652,9 @@ operator|.
 name|align
 argument_list|(
 comment|// This
+operator|(
+name|long
+operator|)
 name|ClassSize
 operator|.
 name|OBJECT
@@ -3882,6 +3885,9 @@ name|ClassSize
 operator|.
 name|align
 argument_list|(
+operator|(
+name|long
+operator|)
 name|ClassSize
 operator|.
 name|OBJECT
@@ -3897,7 +3903,7 @@ operator|.
 name|SIZEOF_LONG
 comment|// sequence id
 operator|+
-literal|1
+literal|1L
 operator|*
 name|ClassSize
 operator|.

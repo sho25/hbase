@@ -249,6 +249,9 @@ specifier|final
 name|long
 name|HEAP_OVERHEAD
 init|=
+operator|(
+name|long
+operator|)
 name|ClassSize
 operator|.
 name|REFERENCE

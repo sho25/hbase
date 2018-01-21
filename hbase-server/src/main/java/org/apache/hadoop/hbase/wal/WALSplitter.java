@@ -5244,7 +5244,7 @@ name|ClassSize
 operator|.
 name|align
 argument_list|(
-literal|2
+literal|2L
 operator|*
 name|ClassSize
 operator|.

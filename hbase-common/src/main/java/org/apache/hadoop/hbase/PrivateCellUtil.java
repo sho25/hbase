@@ -8146,6 +8146,9 @@ operator|*
 literal|3
 comment|// foffset, qoffset, qlength
 operator|+
+operator|(
+name|long
+operator|)
 name|ClassSize
 operator|.
 name|REFERENCE
@@ -8849,6 +8852,9 @@ specifier|final
 name|long
 name|FIXED_OVERHEAD
 init|=
+operator|(
+name|long
+operator|)
 name|LastOnRowCell
 operator|.
 name|FIXED_OVERHEAD
