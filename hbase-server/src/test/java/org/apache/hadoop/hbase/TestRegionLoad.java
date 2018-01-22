@@ -852,6 +852,15 @@ name|regionLoads
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Just wait here. If this fixes the test, come back and do a better job.
+comment|// Thought is that cluster status is stale.
+name|Threads
+operator|.
+name|sleep
+argument_list|(
+literal|10000
+argument_list|)
+expr_stmt|;
 comment|// Check RegionLoad matches the regionLoad from ClusterStatus
 name|ClusterStatus
 name|clusterStatus
