@@ -2026,7 +2026,7 @@ name|se
 argument_list|)
 return|;
 block|}
-comment|/**    * Return the Exception thrown by the remote server wrapped in    * ServiceException as cause. RemoteException are left untouched.    *    * @param se ServiceException that wraps IO exception thrown by the server    * @return Exception wrapped in ServiceException.    */
+comment|/**    * Return the Exception thrown by the remote server wrapped in    * ServiceException as cause. RemoteException are left untouched.    *    * @param e ServiceException that wraps IO exception thrown by the server    * @return Exception wrapped in ServiceException.    */
 specifier|public
 specifier|static
 name|IOException
