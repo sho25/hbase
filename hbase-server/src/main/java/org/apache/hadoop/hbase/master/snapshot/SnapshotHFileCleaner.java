@@ -472,6 +472,8 @@ return|return
 literal|false
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|setConf
@@ -544,6 +546,8 @@ operator|.
 name|SnapshotFileInspector
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Collection
 argument_list|<

@@ -474,6 +474,8 @@ operator|=
 name|masterClass
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|String
 name|getUsage
@@ -483,6 +485,8 @@ return|return
 name|USAGE
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|int
 name|run

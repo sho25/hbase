@@ -55,11 +55,13 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|util
+operator|.
+name|Bytes
 import|;
 end_import
 
@@ -111,6 +113,20 @@ name|LoadTestKVGenerator
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * A generator of random data (keys/cfs/columns/values) for load testing.  * Contains LoadTestKVGenerator as a matter of convenience...  */
 end_comment
@@ -138,10 +154,12 @@ name|byte
 index|[]
 name|MUTATE_INFO
 init|=
-literal|"mutate_info"
+name|Bytes
 operator|.
-name|getBytes
-argument_list|()
+name|toBytes
+argument_list|(
+literal|"mutate_info"
+argument_list|)
 decl_stmt|;
 comment|// The increment column always has a long value,
 comment|// which can be incremented later on during updates.
@@ -152,10 +170,12 @@ name|byte
 index|[]
 name|INCREMENT
 init|=
-literal|"increment"
+name|Bytes
 operator|.
-name|getBytes
-argument_list|()
+name|toBytes
+argument_list|(
+literal|"increment"
+argument_list|)
 decl_stmt|;
 specifier|protected
 name|String

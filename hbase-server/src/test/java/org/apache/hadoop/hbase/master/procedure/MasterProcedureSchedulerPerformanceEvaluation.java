@@ -544,6 +544,8 @@ operator|=
 name|hri
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|Procedure
 name|newProcedure
@@ -667,6 +669,8 @@ operator|=
 name|tableName
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|Procedure
 name|newProcedure
@@ -1079,6 +1083,8 @@ name|AddProcsWorker
 extends|extends
 name|Thread
 block|{
+annotation|@
+name|Override
 specifier|public
 name|void
 name|run
@@ -1157,6 +1163,8 @@ name|PollAndLockWorker
 extends|extends
 name|Thread
 block|{
+annotation|@
+name|Override
 specifier|public
 name|void
 name|run

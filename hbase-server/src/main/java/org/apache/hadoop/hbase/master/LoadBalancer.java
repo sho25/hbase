@@ -429,6 +429,8 @@ name|regionInfo
 parameter_list|)
 function_decl|;
 comment|/*    * Notification that config has changed    * @param conf    */
+annotation|@
+name|Override
 name|void
 name|onConfigurationChange
 parameter_list|(

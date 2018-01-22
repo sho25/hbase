@@ -631,6 +631,8 @@ literal|false
 return|;
 block|}
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|shouldPerformMajorCompaction

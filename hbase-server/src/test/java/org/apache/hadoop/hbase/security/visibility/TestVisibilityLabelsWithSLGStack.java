@@ -853,6 +853,8 @@ name|VisibilityLabelsResponse
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|VisibilityLabelsResponse
 name|run

@@ -271,6 +271,7 @@ init|=
 literal|false
 decl_stmt|;
 specifier|private
+specifier|final
 name|ConcurrentHashMap
 argument_list|<
 name|TableName

@@ -912,9 +912,9 @@ name|assertNotEquals
 argument_list|(
 literal|"Reported load does not produce a backoff"
 argument_list|,
-name|backoffTime
-argument_list|,
 literal|0
+argument_list|,
+name|backoffTime
 argument_list|)
 expr_stmt|;
 name|LOG
@@ -1210,26 +1210,26 @@ name|runnerStats
 decl_stmt|;
 name|assertEquals
 argument_list|(
+literal|1
+argument_list|,
 name|runnerStats
 operator|.
 name|delayRunners
 operator|.
 name|getCount
 argument_list|()
-argument_list|,
-literal|1
 argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
+literal|1
+argument_list|,
 name|runnerStats
 operator|.
 name|normalRunners
 operator|.
 name|getCount
 argument_list|()
-argument_list|,
-literal|1
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1271,12 +1271,12 @@ name|assertNotEquals
 argument_list|(
 literal|"AsyncProcess did not submit the work time"
 argument_list|,
+literal|0
+argument_list|,
 name|endTime
 operator|.
 name|get
 argument_list|()
-argument_list|,
-literal|0
 argument_list|)
 expr_stmt|;
 name|assertTrue

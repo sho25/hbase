@@ -220,7 +220,7 @@ name|src
 operator|.
 name|putLong
 argument_list|(
-literal|8l
+literal|8L
 argument_list|)
 expr_stmt|;
 block|}
@@ -417,7 +417,7 @@ name|sbb
 operator|.
 name|putLong
 argument_list|(
-literal|8l
+literal|8L
 argument_list|)
 expr_stmt|;
 block|}

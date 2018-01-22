@@ -201,6 +201,8 @@ name|getNextIndexedKey
 parameter_list|()
 function_decl|;
 comment|/**    * Close this HFile scanner and do necessary cleanup.    */
+annotation|@
+name|Override
 name|void
 name|close
 parameter_list|()

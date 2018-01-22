@@ -3102,9 +3102,9 @@ name|assertEquals
 argument_list|(
 literal|"the count should be "
 argument_list|,
-name|count
-argument_list|,
 literal|150
+argument_list|,
+name|count
 argument_list|)
 expr_stmt|;
 for|for
@@ -3259,9 +3259,9 @@ name|assertEquals
 argument_list|(
 literal|"the count should be "
 argument_list|,
-name|cnt
-argument_list|,
 literal|150
+argument_list|,
+name|cnt
 argument_list|)
 expr_stmt|;
 block|}

@@ -1439,9 +1439,6 @@ try|try
 block|{
 if|if
 condition|(
-operator|(
-name|inArchive
-operator|=
 name|fs
 operator|.
 name|exists
@@ -1451,9 +1448,12 @@ operator|.
 name|getArchivePath
 argument_list|()
 argument_list|)
-operator|)
 condition|)
 block|{
+name|inArchive
+operator|=
+literal|true
+expr_stmt|;
 name|size
 operator|=
 name|fs
@@ -1515,8 +1515,6 @@ block|}
 elseif|else
 if|if
 condition|(
-name|inArchive
-operator|=
 name|fs
 operator|.
 name|exists
@@ -1528,6 +1526,10 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
+name|inArchive
+operator|=
+literal|true
+expr_stmt|;
 name|size
 operator|=
 name|fs

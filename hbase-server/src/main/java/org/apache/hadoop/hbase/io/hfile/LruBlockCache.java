@@ -1841,6 +1841,8 @@ block|}
 block|}
 block|}
 comment|/**    * Cache the block with the specified name and buffer.    *<p>    *    * @param cacheKey block's cache key    * @param buf      block buffer    */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|cacheBlock
@@ -3405,6 +3407,8 @@ return|return
 name|totalSize
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|int
 name|compareTo
@@ -4116,6 +4120,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Get counter statistics for this cache.    *    *<p>Includes: total accesses, hits, misses, evicted blocks, and runs    * of the eviction processes.    */
+annotation|@
+name|Override
 specifier|public
 name|CacheStats
 name|getStats
@@ -4747,6 +4753,8 @@ name|minFactor
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|shutdown

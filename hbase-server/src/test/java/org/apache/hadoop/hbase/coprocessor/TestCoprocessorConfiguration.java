@@ -685,24 +685,19 @@ name|assertEquals
 argument_list|(
 literal|"System coprocessors loading default was not honored"
 argument_list|,
+name|CoprocessorHost
+operator|.
+name|DEFAULT_COPROCESSORS_ENABLED
+argument_list|,
 name|systemCoprocessorLoaded
 operator|.
 name|get
 argument_list|()
-argument_list|,
-name|CoprocessorHost
-operator|.
-name|DEFAULT_COPROCESSORS_ENABLED
 argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
 literal|"Table coprocessors loading default was not honored"
-argument_list|,
-name|tableCoprocessorLoaded
-operator|.
-name|get
-argument_list|()
 argument_list|,
 name|CoprocessorHost
 operator|.
@@ -711,6 +706,11 @@ operator|&&
 name|CoprocessorHost
 operator|.
 name|DEFAULT_USER_COPROCESSORS_ENABLED
+argument_list|,
+name|tableCoprocessorLoaded
+operator|.
+name|get
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -761,14 +761,14 @@ name|assertEquals
 argument_list|(
 literal|"System coprocessors loading default was not honored"
 argument_list|,
+name|CoprocessorHost
+operator|.
+name|DEFAULT_COPROCESSORS_ENABLED
+argument_list|,
 name|systemCoprocessorLoaded
 operator|.
 name|get
 argument_list|()
-argument_list|,
-name|CoprocessorHost
-operator|.
-name|DEFAULT_COPROCESSORS_ENABLED
 argument_list|)
 expr_stmt|;
 block|}
@@ -819,14 +819,14 @@ name|assertEquals
 argument_list|(
 literal|"System coprocessors loading default was not honored"
 argument_list|,
+name|CoprocessorHost
+operator|.
+name|DEFAULT_COPROCESSORS_ENABLED
+argument_list|,
 name|systemCoprocessorLoaded
 operator|.
 name|get
 argument_list|()
-argument_list|,
-name|CoprocessorHost
-operator|.
-name|DEFAULT_COPROCESSORS_ENABLED
 argument_list|)
 expr_stmt|;
 block|}

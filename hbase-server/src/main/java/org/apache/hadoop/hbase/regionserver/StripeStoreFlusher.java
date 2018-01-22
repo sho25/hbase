@@ -622,16 +622,12 @@ operator|.
 name|getCompressionType
 argument_list|()
 argument_list|,
-comment|/* isCompaction = */
 literal|false
 argument_list|,
-comment|/* includeMVCCReadpoint = */
 literal|true
 argument_list|,
-comment|/* includesTags = */
 literal|true
 argument_list|,
-comment|/* shouldDropBehind = */
 literal|false
 argument_list|)
 decl_stmt|;

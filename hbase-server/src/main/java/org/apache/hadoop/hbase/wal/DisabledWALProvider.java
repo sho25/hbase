@@ -966,7 +966,7 @@ name|listener
 operator|.
 name|postSync
 argument_list|(
-literal|0l
+literal|0L
 argument_list|,
 literal|0
 argument_list|)
@@ -988,6 +988,8 @@ name|sync
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|Long
 name|startCacheFlush

@@ -616,6 +616,9 @@ specifier|final
 name|long
 name|calculatedSize
 init|=
+operator|(
+name|long
+operator|)
 name|PB_WAL_COMPLETE_MAGIC
 operator|.
 name|length
@@ -648,12 +651,12 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"After parsing the trailer, we expect the total footer to be "
+literal|"After parsing the trailer, we expect the total footer to be {} bytes, but we "
 operator|+
+literal|"calculate it as being {}"
+argument_list|,
 name|expectedSize
-operator|+
-literal|" bytes, but we calculate it as being "
-operator|+
+argument_list|,
 name|calculatedSize
 argument_list|)
 expr_stmt|;

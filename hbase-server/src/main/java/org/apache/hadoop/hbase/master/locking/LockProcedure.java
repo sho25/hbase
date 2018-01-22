@@ -942,6 +942,7 @@ comment|/**    * Re run the procedure after every timeout to write new WAL entri
 annotation|@
 name|Override
 specifier|protected
+specifier|synchronized
 name|boolean
 name|setTimeoutFailure
 parameter_list|(

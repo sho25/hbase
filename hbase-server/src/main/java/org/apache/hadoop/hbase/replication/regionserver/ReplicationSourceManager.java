@@ -786,6 +786,7 @@ name|fs
 decl_stmt|;
 comment|// The paths to the latest log of each wal group, for new coming peers
 specifier|private
+specifier|final
 name|Set
 argument_list|<
 name|Path

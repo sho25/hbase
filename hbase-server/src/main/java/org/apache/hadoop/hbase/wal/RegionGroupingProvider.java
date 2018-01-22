@@ -494,6 +494,9 @@ name|result
 init|=
 name|clazz
 operator|.
+name|getDeclaredConstructor
+argument_list|()
+operator|.
 name|newInstance
 argument_list|()
 decl_stmt|;
@@ -512,8 +515,8 @@ return|;
 block|}
 catch|catch
 parameter_list|(
-name|InstantiationException
-name|exception
+name|Exception
+name|e
 parameter_list|)
 block|{
 name|LOG
@@ -531,7 +534,7 @@ name|debug
 argument_list|(
 literal|"Exception details for failure to load region grouping strategy."
 argument_list|,
-name|exception
+name|e
 argument_list|)
 expr_stmt|;
 throw|throw
@@ -540,41 +543,7 @@ name|IOException
 argument_list|(
 literal|"couldn't set up region grouping strategy"
 argument_list|,
-name|exception
-argument_list|)
-throw|;
-block|}
-catch|catch
-parameter_list|(
-name|IllegalAccessException
-name|exception
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"couldn't set up region grouping strategy, check config key "
-operator|+
-name|REGION_GROUPING_STRATEGY
-argument_list|)
-expr_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Exception details for failure to load region grouping strategy."
-argument_list|,
-name|exception
-argument_list|)
-expr_stmt|;
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-literal|"couldn't set up region grouping strategy"
-argument_list|,
-name|exception
+name|e
 argument_list|)
 throw|;
 block|}

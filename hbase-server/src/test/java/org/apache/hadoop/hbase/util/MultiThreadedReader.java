@@ -908,6 +908,7 @@ name|numThreads
 operator|!=
 name|readerId
 operator|||
+operator|(
 name|writer
 operator|!=
 literal|null
@@ -918,6 +919,7 @@ name|failedToWriteKey
 argument_list|(
 name|k
 argument_list|)
+operator|)
 condition|)
 block|{
 comment|// Skip keys that this thread should not read, as well as the keys

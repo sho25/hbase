@@ -767,6 +767,8 @@ specifier|public
 name|Replication
 parameter_list|()
 block|{   }
+annotation|@
+name|Override
 specifier|public
 name|void
 name|initialize
@@ -1129,6 +1131,8 @@ argument_list|)
 return|;
 block|}
 comment|/*     * Returns an object to listen to new wal changes     **/
+annotation|@
+name|Override
 specifier|public
 name|WALActionsListener
 name|getWALActionsListener
@@ -1150,6 +1154,8 @@ name|peerProcedureHandler
 return|;
 block|}
 comment|/**    * Stops replication service.    */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|stopReplicationService
@@ -1196,6 +1202,8 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Carry on the list of log entries down to the sink    * @param entries list of entries to replicate    * @param cells The data -- the cells -- that<code>entries</code> describes (the entries do not    *          contain the Cells we are replicating; they are passed here on the side in this    *          CellScanner).    * @param replicationClusterId Id which will uniquely identify source cluster FS client    *          configurations in the replication configuration directory    * @param sourceBaseNamespaceDirPath Path that point to the source cluster base namespace    *          directory required for replicating hfiles    * @param sourceHFileArchiveDirPath Path that point to the source cluster hfile archive directory    * @throws IOException    */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|replicateLogEntries
@@ -1240,6 +1248,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * If replication is enabled and this cluster is a master,    * it starts    * @throws IOException    */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|startReplicationService

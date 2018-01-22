@@ -2927,12 +2927,14 @@ argument_list|()
 operator|!=
 literal|null
 condition|)
+block|{
 return|return
 name|worker
 operator|.
 name|getCurrentPath
 argument_list|()
 return|;
+block|}
 block|}
 return|return
 literal|null

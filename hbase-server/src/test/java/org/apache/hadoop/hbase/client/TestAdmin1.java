@@ -2782,6 +2782,8 @@ argument_list|()
 decl_stmt|;
 name|assertEquals
 argument_list|(
+literal|0
+argument_list|,
 name|TableDescriptor
 operator|.
 name|COMPARATOR
@@ -2792,8 +2794,6 @@ name|htd
 argument_list|,
 name|confirmedHtd
 argument_list|)
-argument_list|,
-literal|0
 argument_list|)
 expr_stmt|;
 name|MetaTableAccessor

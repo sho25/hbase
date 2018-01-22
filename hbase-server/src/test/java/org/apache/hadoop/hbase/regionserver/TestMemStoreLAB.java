@@ -509,7 +509,7 @@ literal|false
 argument_list|,
 literal|50
 operator|*
-literal|1024000l
+literal|1024000L
 argument_list|,
 literal|0.2f
 argument_list|,

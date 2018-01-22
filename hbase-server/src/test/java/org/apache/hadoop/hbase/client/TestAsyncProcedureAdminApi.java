@@ -663,12 +663,14 @@ name|assertArrayEquals
 argument_list|(
 literal|"Incorrect return data from execProcedure"
 argument_list|,
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
 name|SimpleMasterProcedureManager
 operator|.
 name|SIMPLE_DATA
-operator|.
-name|getBytes
-argument_list|()
+argument_list|)
 argument_list|,
 name|result
 argument_list|)

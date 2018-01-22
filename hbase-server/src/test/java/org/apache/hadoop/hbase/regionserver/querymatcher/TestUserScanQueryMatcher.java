@@ -1996,6 +1996,7 @@ expr_stmt|;
 block|}
 block|}
 specifier|private
+specifier|static
 class|class
 name|AlwaysIncludeAndSeekNextRowFilter
 extends|extends
@@ -2325,6 +2326,7 @@ expr_stmt|;
 block|}
 block|}
 specifier|private
+specifier|static
 class|class
 name|AlwaysIncludeFilter
 extends|extends

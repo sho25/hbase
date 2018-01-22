@@ -94,6 +94,8 @@ name|TestVisibilityLabelsOnNewVersionBehaviorTable
 extends|extends
 name|TestVisibilityLabelsWithDeletes
 block|{
+annotation|@
+name|Override
 specifier|protected
 name|Table
 name|createTable

@@ -446,9 +446,9 @@ argument_list|)
 decl_stmt|;
 name|assertEquals
 argument_list|(
-name|custom
-argument_list|,
 literal|1000
+argument_list|,
+name|custom
 argument_list|)
 expr_stmt|;
 comment|// restore hbase-site.xml
@@ -623,9 +623,9 @@ argument_list|)
 decl_stmt|;
 name|assertEquals
 argument_list|(
-name|custom
-argument_list|,
 literal|1000
+argument_list|,
+name|custom
 argument_list|)
 expr_stmt|;
 name|Configuration
@@ -657,9 +657,9 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-name|custom
-argument_list|,
 literal|1000
+argument_list|,
+name|custom
 argument_list|)
 expr_stmt|;
 comment|// Check the configuration of the RegionServer
@@ -692,9 +692,9 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-name|custom
-argument_list|,
 literal|1000
+argument_list|,
+name|custom
 argument_list|)
 expr_stmt|;
 comment|// restore hbase-site.xml

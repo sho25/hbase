@@ -2315,6 +2315,8 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
+literal|"foo"
+argument_list|,
 name|getRow
 argument_list|(
 name|entryBatch
@@ -2327,8 +2329,6 @@ argument_list|(
 literal|0
 argument_list|)
 argument_list|)
-argument_list|,
-literal|"foo"
 argument_list|)
 expr_stmt|;
 block|}

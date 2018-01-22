@@ -6185,13 +6185,15 @@ name|byte
 index|[]
 name|familyName
 init|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
 name|familyDir
 operator|.
 name|getName
 argument_list|()
-operator|.
-name|getBytes
-argument_list|()
+argument_list|)
 decl_stmt|;
 comment|// Skip invalid family
 try|try

@@ -2661,9 +2661,9 @@ name|attempt
 operator|+
 literal|" attempts"
 argument_list|,
-name|regionMovement
-argument_list|,
 name|expected
+argument_list|,
+name|regionMovement
 argument_list|)
 expr_stmt|;
 block|}
@@ -3036,6 +3036,8 @@ operator|.
 name|Visitor
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|visit

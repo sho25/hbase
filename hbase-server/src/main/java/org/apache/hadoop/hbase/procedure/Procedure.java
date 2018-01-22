@@ -323,6 +323,7 @@ comment|// Members' and Coordinator's state
 comment|//
 comment|/** lock to prevent nodes from acquiring and then releasing before we can track them */
 specifier|private
+specifier|final
 name|Object
 name|joinBarrierLock
 init|=

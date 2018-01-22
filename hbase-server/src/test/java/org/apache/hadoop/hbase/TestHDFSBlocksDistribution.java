@@ -315,6 +315,8 @@ name|MockHDFSBlocksDistribution
 extends|extends
 name|HDFSBlocksDistribution
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Map
 argument_list|<

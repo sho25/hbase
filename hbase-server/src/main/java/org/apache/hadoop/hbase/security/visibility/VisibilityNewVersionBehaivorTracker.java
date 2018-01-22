@@ -901,6 +901,7 @@ name|isEmpty
 argument_list|()
 operator|&&
 operator|(
+operator|(
 name|putVisTags
 operator|.
 name|isEmpty
@@ -912,6 +913,7 @@ name|tags
 operator|.
 name|isEmpty
 argument_list|()
+operator|)
 operator|||
 name|VisibilityLabelServiceManager
 operator|.

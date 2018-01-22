@@ -1054,7 +1054,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Returns a brand new instance of the FileSystem. It does not use    * the FileSystem.Cache. In newer versions of HDFS, we can directly    * invoke FileSystem.newInstance(Configuration).    *     * @param conf Configuration    * @return A new instance of the filesystem    */
+comment|/**    * Returns a brand new instance of the FileSystem. It does not use    * the FileSystem.Cache. In newer versions of HDFS, we can directly    * invoke FileSystem.newInstance(Configuration).    *    * @param conf Configuration    * @return A new instance of the filesystem    */
 specifier|private
 specifier|static
 name|FileSystem
@@ -1666,6 +1666,8 @@ operator|new
 name|InvocationHandler
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Object
 name|invoke
@@ -1914,6 +1916,8 @@ name|ReorderWALBlocks
 implements|implements
 name|ReorderBlocks
 block|{
+annotation|@
+name|Override
 specifier|public
 name|void
 name|reorderBlocks
@@ -2159,6 +2163,8 @@ argument_list|)
 return|;
 block|}
 comment|/**    * The org.apache.hadoop.fs.FilterFileSystem does not yet support     * createNonRecursive. This is a hadoop bug and when it is fixed in Hadoop,    * this definition will go away.    */
+annotation|@
+name|Override
 annotation|@
 name|SuppressWarnings
 argument_list|(

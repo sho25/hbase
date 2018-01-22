@@ -979,12 +979,12 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
+name|sizeLimit
+argument_list|,
 name|snapshot
 operator|.
 name|getLimit
 argument_list|()
-argument_list|,
-name|sizeLimit
 argument_list|)
 expr_stmt|;
 name|SpaceQuotaStatus

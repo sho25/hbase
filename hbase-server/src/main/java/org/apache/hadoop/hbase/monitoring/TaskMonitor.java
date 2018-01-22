@@ -1623,6 +1623,7 @@ literal|"all"
 argument_list|)
 block|;
 specifier|private
+specifier|final
 name|String
 name|type
 decl_stmt|;

@@ -676,6 +676,7 @@ specifier|private
 name|ExecutorService
 name|executorService
 decl_stmt|;
+specifier|static
 class|class
 name|DummyServer
 implements|implements

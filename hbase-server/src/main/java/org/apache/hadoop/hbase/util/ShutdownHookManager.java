@@ -142,6 +142,8 @@ extends|extends
 name|ShutdownHookManager
 block|{
 comment|// priority is ignored in hadoop versions earlier than 2.0
+annotation|@
+name|Override
 specifier|public
 name|void
 name|addShutdownHook
@@ -164,6 +166,8 @@ name|shutdownHookThread
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|removeShutdownHook
@@ -224,6 +228,8 @@ name|ShutdownHookManagerV2
 extends|extends
 name|ShutdownHookManager
 block|{
+annotation|@
+name|Override
 specifier|public
 name|void
 name|addShutdownHook
@@ -301,6 +307,8 @@ argument_list|)
 throw|;
 block|}
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|removeShutdownHook

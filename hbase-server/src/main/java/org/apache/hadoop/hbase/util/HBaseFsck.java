@@ -20461,9 +20461,16 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 name|hash
-operator|^=
+operator|=
+call|(
+name|int
+call|)
+argument_list|(
+name|hash
+operator|^
 name|getRegionId
 argument_list|()
+argument_list|)
 expr_stmt|;
 name|hash
 operator|^=
@@ -20522,8 +20529,15 @@ argument_list|()
 expr_stmt|;
 block|}
 name|hash
-operator|^=
+operator|=
+call|(
+name|int
+call|)
+argument_list|(
+name|hash
+operator|^
 name|modTime
+argument_list|)
 expr_stmt|;
 return|return
 name|hash
@@ -21600,9 +21614,9 @@ return|;
 block|}
 comment|// both l.hdfsEntry and r.hdfsEntry must not be null.
 return|return
-call|(
-name|int
-call|)
+name|Long
+operator|.
+name|compare
 argument_list|(
 name|l
 operator|.
@@ -21612,7 +21626,7 @@ name|hri
 operator|.
 name|getRegionId
 argument_list|()
-operator|-
+argument_list|,
 name|r
 operator|.
 name|hdfsEntry

@@ -1671,6 +1671,8 @@ init|=
 name|metaCachePreservingExceptions
 argument_list|()
 decl_stmt|;
+annotation|@
+name|Override
 specifier|public
 name|void
 name|throwOnGet
@@ -1697,6 +1699,8 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|throwOnMutate
@@ -1723,6 +1727,8 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|throwOnScan

@@ -525,6 +525,8 @@ operator|=
 name|fs
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|SnapshotRegionManifest
 operator|.
@@ -562,6 +564,8 @@ return|return
 name|manifest
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|regionClose
@@ -640,6 +644,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Override
 specifier|public
 name|SnapshotRegionManifest
 operator|.
@@ -690,6 +696,8 @@ return|return
 name|family
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|familyClose
@@ -720,6 +728,8 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|storeFile

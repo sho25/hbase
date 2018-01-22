@@ -3161,6 +3161,7 @@ argument_list|(
 literal|"deleted"
 argument_list|)
 block|;
+specifier|final
 name|String
 name|statusMsg
 decl_stmt|;

@@ -289,21 +289,23 @@ name|seqId
 operator|>=
 name|newStartPoint
 condition|)
+block|{
 break|break;
+block|}
 if|if
 condition|(
 name|this
 operator|.
 name|tryAdvanceTo
 argument_list|(
-comment|/* newSeqId = */
 name|newStartPoint
 argument_list|,
-comment|/* expected = */
 name|seqId
 argument_list|)
 condition|)
+block|{
 break|break;
+block|}
 block|}
 block|}
 comment|/**    * Step the MVCC forward on to a new read/write basis.    * @param newStartPoint Point to move read and write points to.    * @param expected If not -1 (#NONE)    * @return Returns false if<code>expected</code> is not equal to the    * current<code>readPoint</code> or if<code>startPoint</code> is less than current    *<code>readPoint</code>    */
@@ -782,6 +784,8 @@ block|}
 block|}
 annotation|@
 name|VisibleForTesting
+annotation|@
+name|Override
 specifier|public
 name|String
 name|toString

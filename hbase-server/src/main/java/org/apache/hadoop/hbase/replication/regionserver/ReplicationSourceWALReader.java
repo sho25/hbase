@@ -2044,7 +2044,13 @@ operator|++
 control|)
 block|{
 name|totalStoreFilesSize
-operator|+=
+operator|=
+call|(
+name|int
+call|)
+argument_list|(
+name|totalStoreFilesSize
+operator|+
 name|stores
 operator|.
 name|get
@@ -2054,6 +2060,7 @@ argument_list|)
 operator|.
 name|getStoreFileSizeBytes
 argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 block|}

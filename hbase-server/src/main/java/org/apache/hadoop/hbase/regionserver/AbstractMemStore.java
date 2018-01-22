@@ -287,6 +287,9 @@ specifier|static
 name|long
 name|FIXED_OVERHEAD
 init|=
+operator|(
+name|long
+operator|)
 name|ClassSize
 operator|.
 name|OBJECT

@@ -1275,10 +1275,12 @@ literal|true
 argument_list|)
 block|;
 specifier|private
+specifier|final
 name|boolean
 name|moreValues
 decl_stmt|;
 specifier|private
+specifier|final
 name|boolean
 name|limitReached
 decl_stmt|;
@@ -1384,6 +1386,7 @@ literal|1
 argument_list|)
 block|;
 comment|/**      * When enforcing a limit, we must check that the scope is appropriate for enforcement.      *<p>      * To communicate this concept, each scope has a depth. A limit will be enforced if the depth of      * the checker's scope is less than or equal to the limit's scope. This means that when checking      * limits, the checker must know their own scope (i.e. are they checking the limits between      * rows, between cells, etc...)      */
+specifier|final
 name|int
 name|depth
 decl_stmt|;
@@ -1400,6 +1403,7 @@ operator|=
 name|depth
 expr_stmt|;
 block|}
+specifier|final
 name|int
 name|depth
 parameter_list|()

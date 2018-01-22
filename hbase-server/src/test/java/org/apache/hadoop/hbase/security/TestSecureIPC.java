@@ -1174,9 +1174,9 @@ decl_stmt|;
 comment|// check that the login user is okay:
 name|assertSame
 argument_list|(
-name|ugi
-argument_list|,
 name|ugi2
+argument_list|,
+name|ugi
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1845,6 +1845,8 @@ operator|.
 name|UncaughtExceptionHandler
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|void
 name|uncaughtException

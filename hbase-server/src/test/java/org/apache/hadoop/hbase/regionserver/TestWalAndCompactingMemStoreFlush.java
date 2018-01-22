@@ -3441,11 +3441,11 @@ expr_stmt|;
 comment|// Because there is nothing in any memstore the WAL's LSN should be -1
 name|assertEquals
 argument_list|(
-name|smallestSeqInRegionCurrentMemstorePhaseV
-argument_list|,
 name|HConstants
 operator|.
 name|NO_SEQNUM
+argument_list|,
+name|smallestSeqInRegionCurrentMemstorePhaseV
 argument_list|)
 expr_stmt|;
 comment|// What happens when we hit the memstore limit, but we are not able to find

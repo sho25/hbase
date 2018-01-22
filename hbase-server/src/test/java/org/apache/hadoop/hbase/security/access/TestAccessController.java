@@ -2864,12 +2864,15 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|int
+name|size
+init|=
+literal|0
+decl_stmt|;
 try|try
 block|{
-name|assertEquals
-argument_list|(
-literal|5
-argument_list|,
+name|size
+operator|=
 name|AccessControlClient
 operator|.
 name|getUserPermissions
@@ -2884,7 +2887,6 @@ argument_list|)
 operator|.
 name|size
 argument_list|()
-argument_list|)
 expr_stmt|;
 block|}
 catch|catch
@@ -2902,7 +2904,19 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
+name|fail
+argument_list|(
+literal|"error during call of AccessControlClient.getUserPermissions."
+argument_list|)
+expr_stmt|;
 block|}
+name|assertEquals
+argument_list|(
+literal|5
+argument_list|,
+name|size
+argument_list|)
+expr_stmt|;
 block|}
 specifier|private
 specifier|static
@@ -6579,6 +6593,7 @@ expr_stmt|;
 block|}
 block|}
 specifier|public
+specifier|static
 class|class
 name|BulkLoadHelper
 block|{

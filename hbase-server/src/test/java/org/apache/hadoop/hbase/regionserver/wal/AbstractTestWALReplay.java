@@ -4954,17 +4954,17 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|Throwable
-name|t
+name|IOException
+name|e
 parameter_list|)
 block|{
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Expected simulated exception when flushing region,"
-operator|+
-name|t
+literal|"Expected simulated exception when flushing region, {}"
+argument_list|,
+name|e
 operator|.
 name|getMessage
 argument_list|()
@@ -6379,11 +6379,7 @@ name|void
 name|testDatalossWhenInputError
 parameter_list|()
 throws|throws
-name|IOException
-throws|,
-name|InstantiationException
-throws|,
-name|IllegalAccessException
+name|Exception
 block|{
 specifier|final
 name|TableName
@@ -6688,6 +6684,9 @@ name|Reader
 name|reader
 init|=
 name|logReaderClass
+operator|.
+name|getDeclaredConstructor
+argument_list|()
 operator|.
 name|newInstance
 argument_list|()
@@ -7699,6 +7698,7 @@ return|;
 block|}
 comment|// Flusher used in this test.  Keep count of how often we are called and
 comment|// actually run the flush inside here.
+specifier|static
 class|class
 name|TestFlusher
 implements|implements

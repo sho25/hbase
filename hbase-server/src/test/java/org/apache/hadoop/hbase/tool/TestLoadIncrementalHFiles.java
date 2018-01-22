@@ -4946,11 +4946,11 @@ argument_list|()
 expr_stmt|;
 name|assertEquals
 argument_list|(
+literal|3
+argument_list|,
 name|keysArray
 operator|.
 name|length
-argument_list|,
-literal|3
 argument_list|)
 expr_stmt|;
 for|for

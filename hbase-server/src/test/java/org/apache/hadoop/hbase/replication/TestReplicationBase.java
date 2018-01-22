@@ -1853,12 +1853,12 @@ else|else
 block|{
 name|assertArrayEquals
 argument_list|(
+name|row
+argument_list|,
 name|res
 operator|.
 name|value
 argument_list|()
-argument_list|,
-name|row
 argument_list|)
 expr_stmt|;
 break|break;

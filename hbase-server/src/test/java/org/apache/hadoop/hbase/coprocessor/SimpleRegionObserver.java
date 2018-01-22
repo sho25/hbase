@@ -3719,6 +3719,10 @@ argument_list|)
 expr_stmt|;
 name|assertArrayEquals
 argument_list|(
+name|TestRegionObserverInterface
+operator|.
+name|A
+argument_list|,
 name|familyPaths
 operator|.
 name|get
@@ -3728,10 +3732,6 @@ argument_list|)
 operator|.
 name|getFirst
 argument_list|()
-argument_list|,
-name|TestRegionObserverInterface
-operator|.
-name|A
 argument_list|)
 expr_stmt|;
 name|String
@@ -3888,6 +3888,10 @@ argument_list|)
 expr_stmt|;
 name|assertArrayEquals
 argument_list|(
+name|TestRegionObserverInterface
+operator|.
+name|A
+argument_list|,
 name|familyPaths
 operator|.
 name|get
@@ -3897,10 +3901,6 @@ argument_list|)
 operator|.
 name|getFirst
 argument_list|()
-argument_list|,
-name|TestRegionObserverInterface
-operator|.
-name|A
 argument_list|)
 expr_stmt|;
 name|String

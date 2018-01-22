@@ -806,6 +806,8 @@ name|Cacheable
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|HFileBlock
 name|deserialize
@@ -5210,6 +5212,8 @@ name|fileContext
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|BlockIterator
 name|blockRange

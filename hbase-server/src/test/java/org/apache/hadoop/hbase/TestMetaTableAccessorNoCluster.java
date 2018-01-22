@@ -1151,6 +1151,8 @@ name|ScanResponse
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|ScanResponse
 name|answer

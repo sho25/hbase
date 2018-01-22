@@ -1109,6 +1109,8 @@ argument_list|()
 decl_stmt|;
 name|assertEquals
 argument_list|(
+literal|0
+argument_list|,
 name|modifyableDesc
 operator|.
 name|compareTo
@@ -1118,8 +1120,6 @@ name|ModifyableTableDescriptor
 operator|)
 name|confirmedHtd
 argument_list|)
-argument_list|,
-literal|0
 argument_list|)
 expr_stmt|;
 block|}

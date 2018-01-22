@@ -133,6 +133,8 @@ name|NUM_OF_THREADS
 init|=
 literal|20
 decl_stmt|;
+annotation|@
+name|Override
 specifier|protected
 name|TimeRangeTracker
 name|getTimeRangeTracker
@@ -151,6 +153,8 @@ name|SYNC
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|TimeRangeTracker
 name|getTimeRangeTracker
@@ -404,6 +408,7 @@ literal|0
 argument_list|)
 expr_stmt|;
 block|}
+specifier|static
 class|class
 name|RandomTestData
 block|{
@@ -613,6 +618,7 @@ name|min
 return|;
 block|}
 block|}
+specifier|static
 class|class
 name|TrtUpdateRunnable
 implements|implements
@@ -651,6 +657,8 @@ operator|=
 name|data
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|run

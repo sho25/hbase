@@ -241,6 +241,8 @@ argument_list|()
 return|;
 block|}
 comment|/**    * Accesses the queue time for the currently running RPC on the     * monitored Handler.    * @return the queue timestamp or -1 if there is no RPC currently running.    */
+annotation|@
+name|Override
 specifier|public
 name|long
 name|getRPCQueueTime
@@ -266,6 +268,8 @@ name|rpcQueueTime
 return|;
 block|}
 comment|/**    * Accesses the start time for the currently running RPC on the     * monitored Handler.    * @return the start timestamp or -1 if there is no RPC currently running.    */
+annotation|@
+name|Override
 specifier|public
 name|long
 name|getRPCStartTime
@@ -291,6 +295,8 @@ name|rpcStartTime
 return|;
 block|}
 comment|/**    * Produces a string representation of the method currently being serviced    * by this Handler.    * @return a string representing the method call without parameters    */
+annotation|@
+name|Override
 specifier|public
 specifier|synchronized
 name|String
@@ -305,6 +311,8 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Produces a string representation of the method currently being serviced    * by this Handler.    * @param withParams toggle inclusion of parameters in the RPC String    * @return A human-readable string representation of the method call.    */
+annotation|@
+name|Override
 specifier|public
 specifier|synchronized
 name|String
@@ -414,6 +422,8 @@ argument_list|()
 return|;
 block|}
 comment|/**    * Produces a string representation of the method currently being serviced    * by this Handler.    * @return A human-readable string representation of the method call.    */
+annotation|@
+name|Override
 specifier|public
 name|long
 name|getRPCPacketLength
@@ -447,6 +457,8 @@ argument_list|()
 return|;
 block|}
 comment|/**    * If an RPC call is currently running, produces a String representation of     * the connection from which it was received.    * @return A human-readable string representation of the address and port     *  of the client.    */
+annotation|@
+name|Override
 specifier|public
 name|String
 name|getClient
@@ -461,6 +473,8 @@ name|remotePort
 return|;
 block|}
 comment|/**    * Indicates to the client whether this task is monitoring a currently active     * RPC call.    * @return true if the monitored handler is currently servicing an RPC call.    */
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isRPCRunning
@@ -476,6 +490,8 @@ name|RUNNING
 return|;
 block|}
 comment|/**    * Indicates to the client whether this task is monitoring a currently active     * RPC call to a database command. (as defined by     * o.a.h.h.client.Operation)    * @return true if the monitored handler is currently servicing an RPC call    * to a database command.    */
+annotation|@
+name|Override
 specifier|public
 specifier|synchronized
 name|boolean
@@ -518,6 +534,8 @@ literal|false
 return|;
 block|}
 comment|/**    * Tells this instance that it is monitoring a new RPC call.    * @param methodName The name of the method that will be called by the RPC.    * @param params The parameters that will be passed to the indicated method.    */
+annotation|@
+name|Override
 specifier|public
 specifier|synchronized
 name|void
@@ -571,6 +589,8 @@ name|RUNNING
 expr_stmt|;
 block|}
 comment|/**    * Gives this instance a reference to the protobuf received by the RPC, so     * that it can later compute its size if asked for it.    * @param param The protobuf received by the RPC for this call    */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|setRPCPacket
@@ -587,6 +607,8 @@ name|param
 expr_stmt|;
 block|}
 comment|/**    * Registers current handler client details.    * @param clientAddress the address of the current client    * @param remotePort the port from which the client connected    */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|setConnection
@@ -642,6 +664,8 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 specifier|synchronized
 name|Map

@@ -495,7 +495,7 @@ name|minRelevantTime
 operator|&
 operator|(
 operator|~
-literal|0l
+literal|0L
 operator|>>>
 literal|3
 operator|)

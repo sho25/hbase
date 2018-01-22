@@ -18,6 +18,30 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertNotNull
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -34,16 +58,6 @@ operator|.
 name|util
 operator|.
 name|Date
-import|;
-end_import
-
-begin_import
-import|import
-name|junit
-operator|.
-name|framework
-operator|.
-name|TestCase
 import|;
 end_import
 
@@ -273,6 +287,26 @@ name|org
 operator|.
 name|junit
 operator|.
+name|After
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|Before
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -322,8 +356,6 @@ argument_list|)
 specifier|public
 class|class
 name|TestMobFileCache
-extends|extends
-name|TestCase
 block|{
 specifier|static
 specifier|final
@@ -554,7 +586,7 @@ literal|"qf3"
 argument_list|)
 decl_stmt|;
 annotation|@
-name|Override
+name|Before
 specifier|public
 name|void
 name|setUp
@@ -691,8 +723,8 @@ argument_list|)
 expr_stmt|;
 block|}
 annotation|@
-name|Override
-specifier|protected
+name|After
+specifier|public
 name|void
 name|tearDown
 parameter_list|()

@@ -1062,6 +1062,9 @@ condition|)
 block|{
 name|avgAgeNumerator
 operator|+=
+operator|(
+name|long
+operator|)
 name|storeAvgStoreFileAge
 operator|.
 name|getAsDouble

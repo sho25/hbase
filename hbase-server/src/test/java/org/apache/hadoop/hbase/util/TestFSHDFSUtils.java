@@ -1080,12 +1080,15 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Version of DFS that has HDFS-4525 in it.    */
+specifier|static
 class|class
 name|IsFileClosedDistributedFileSystem
 extends|extends
 name|DistributedFileSystem
 block|{
 comment|/**      * Close status of a file. Copied over from HDFS-4525      * @return true if file is already closed      **/
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isFileClosed

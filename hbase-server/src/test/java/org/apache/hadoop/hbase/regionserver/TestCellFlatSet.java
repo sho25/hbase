@@ -18,6 +18,54 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertFalse
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertNotNull
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -76,16 +124,6 @@ operator|.
 name|util
 operator|.
 name|SortedSet
-import|;
-end_import
-
-begin_import
-import|import
-name|junit
-operator|.
-name|framework
-operator|.
-name|TestCase
 import|;
 end_import
 
@@ -329,18 +367,6 @@ name|Parameterized
 import|;
 end_import
 
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertTrue
-import|;
-end_import
-
 begin_class
 annotation|@
 name|Category
@@ -365,8 +391,6 @@ argument_list|)
 specifier|public
 class|class
 name|TestCellFlatSet
-extends|extends
-name|TestCase
 block|{
 annotation|@
 name|Parameterized
@@ -501,8 +525,11 @@ decl_stmt|;
 if|if
 condition|(
 name|chunkType
-operator|==
+operator|.
+name|equals
+argument_list|(
 literal|"NORMAL_CHUNKS"
+argument_list|)
 condition|)
 block|{
 name|chunkCreator
@@ -528,11 +555,9 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertNotNull
 argument_list|(
 name|chunkCreator
-operator|!=
-literal|null
 argument_list|)
 expr_stmt|;
 name|smallChunks
@@ -564,11 +589,9 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertNotNull
 argument_list|(
 name|chunkCreator
-operator|!=
-literal|null
 argument_list|)
 expr_stmt|;
 name|smallChunks
@@ -579,8 +602,6 @@ block|}
 block|}
 annotation|@
 name|Before
-annotation|@
-name|Override
 specifier|public
 name|void
 name|setUp
@@ -588,11 +609,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|super
-operator|.
-name|setUp
-argument_list|()
-expr_stmt|;
 comment|// create array of Cells to bass to the CellFlatMap under CellSet
 specifier|final
 name|byte
@@ -907,8 +923,6 @@ expr_stmt|;
 if|if
 condition|(
 name|smallChunks
-operator|==
-literal|true
 condition|)
 block|{
 comment|// check jumbo chunks as well

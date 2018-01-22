@@ -327,6 +327,8 @@ return|return
 name|end
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|String
 name|toString
@@ -822,15 +824,13 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-name|res
-argument_list|,
 literal|"A:\t[A, B]\t\n"
 operator|+
 literal|"B:\t[B, C]\t\n"
 operator|+
-literal|"C:\t[C, D]\t\n"
-operator|+
-literal|"D:\t\n"
+literal|"C:\t[C, D]\t\nD:\t\n"
+argument_list|,
+name|res
 argument_list|)
 expr_stmt|;
 block|}

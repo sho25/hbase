@@ -2582,6 +2582,7 @@ if|if
 condition|(
 name|lowReplication
 operator|||
+operator|(
 name|writer
 operator|!=
 literal|null
@@ -2592,6 +2593,7 @@ name|getLength
 argument_list|()
 operator|>
 name|logrollsize
+operator|)
 condition|)
 block|{
 name|requestLogRoll
@@ -3298,11 +3300,12 @@ decl_stmt|;
 comment|// Had 'interesting' issues when this was non-volatile. On occasion, we'd not pass all
 comment|// syncFutures to the next sync'ing thread.
 specifier|private
-specifier|volatile
-name|int
+name|AtomicInteger
 name|syncFuturesCount
 init|=
-literal|0
+operator|new
+name|AtomicInteger
+argument_list|()
 decl_stmt|;
 specifier|private
 specifier|volatile
@@ -3429,6 +3432,9 @@ operator|<
 name|this
 operator|.
 name|syncFuturesCount
+operator|.
+name|get
+argument_list|()
 condition|;
 name|i
 operator|++
@@ -3452,8 +3458,11 @@ block|}
 name|this
 operator|.
 name|syncFuturesCount
-operator|=
+operator|.
+name|set
+argument_list|(
 literal|0
+argument_list|)
 expr_stmt|;
 block|}
 comment|/**      * @return True if outstanding sync futures still      */
@@ -3475,6 +3484,9 @@ operator|<
 name|this
 operator|.
 name|syncFuturesCount
+operator|.
+name|get
+argument_list|()
 condition|;
 name|i
 operator|++
@@ -3591,7 +3603,9 @@ index|[
 name|this
 operator|.
 name|syncFuturesCount
-operator|++
+operator|.
+name|getAndIncrement
+argument_list|()
 index|]
 operator|=
 name|truck
@@ -3605,6 +3619,9 @@ condition|(
 name|this
 operator|.
 name|syncFuturesCount
+operator|.
+name|get
+argument_list|()
 operator|==
 name|this
 operator|.
@@ -3747,6 +3764,9 @@ operator|||
 name|this
 operator|.
 name|syncFuturesCount
+operator|.
+name|get
+argument_list|()
 operator|<=
 literal|0
 condition|)
@@ -3805,6 +3825,9 @@ argument_list|,
 name|this
 operator|.
 name|syncFuturesCount
+operator|.
+name|get
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -3876,8 +3899,11 @@ expr_stmt|;
 name|this
 operator|.
 name|syncFuturesCount
-operator|=
+operator|.
+name|set
+argument_list|(
 literal|0
+argument_list|)
 expr_stmt|;
 block|}
 catch|catch

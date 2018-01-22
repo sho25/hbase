@@ -623,8 +623,6 @@ name|get
 argument_list|()
 condition|)
 block|{
-if|if
-condition|(
 name|resultSwapped
 operator|=
 name|compactingMemStore
@@ -637,6 +635,10 @@ name|result
 argument_list|,
 name|merge
 argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|resultSwapped
 condition|)
 block|{
 comment|// update compaction strategy

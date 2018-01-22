@@ -305,7 +305,7 @@ operator|=
 operator|new
 name|Random
 argument_list|(
-literal|42l
+literal|42L
 argument_list|)
 expr_stmt|;
 name|numberOfSeeks

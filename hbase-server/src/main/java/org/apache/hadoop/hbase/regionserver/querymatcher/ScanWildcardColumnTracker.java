@@ -656,6 +656,8 @@ name|oldestStamp
 return|;
 block|}
 comment|/**    * Used by matcher and scan/get to get a hint of the next column to seek to after checkColumn()    * returns SKIP. Returns the next interesting column we want, or NULL there is none (wildcard    * scanner).    * @return The column count.    */
+annotation|@
+name|Override
 specifier|public
 name|ColumnCount
 name|getColumnHint
@@ -722,6 +724,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isDone

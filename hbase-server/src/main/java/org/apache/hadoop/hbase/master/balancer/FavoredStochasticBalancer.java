@@ -580,6 +580,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
+specifier|synchronized
 name|void
 name|setMasterServices
 parameter_list|(
@@ -3861,6 +3862,7 @@ comment|/*    * For all regions correctly assigned to favored nodes, we just use
 annotation|@
 name|Override
 specifier|public
+specifier|synchronized
 name|List
 argument_list|<
 name|RegionPlan

@@ -345,6 +345,8 @@ operator|=
 name|initialCompactionProbability
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|Action
 name|getMergingAction
@@ -356,6 +358,8 @@ operator|.
 name|MERGE_COUNT_UNIQUE_KEYS
 return|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|Action
 name|getFlattenAction

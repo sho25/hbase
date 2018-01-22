@@ -554,7 +554,7 @@ name|fam1
 argument_list|,
 name|qual1
 argument_list|,
-literal|1l
+literal|1L
 argument_list|,
 name|Type
 operator|.
@@ -573,7 +573,7 @@ name|fam_1_2
 argument_list|,
 name|qual1
 argument_list|,
-literal|1l
+literal|1L
 argument_list|,
 name|Type
 operator|.
@@ -609,7 +609,7 @@ name|fam1
 argument_list|,
 name|qual1
 argument_list|,
-literal|1l
+literal|1L
 argument_list|,
 name|Type
 operator|.
@@ -627,7 +627,7 @@ name|fam_1_2
 argument_list|,
 name|qual1
 argument_list|,
-literal|1l
+literal|1L
 argument_list|,
 name|Type
 operator|.
@@ -663,7 +663,7 @@ name|fam1
 argument_list|,
 name|qual2
 argument_list|,
-literal|1l
+literal|1L
 argument_list|,
 name|Type
 operator|.
@@ -681,7 +681,7 @@ name|fam1
 argument_list|,
 name|qual1
 argument_list|,
-literal|1l
+literal|1L
 argument_list|,
 name|Type
 operator|.

@@ -379,6 +379,8 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Override
 specifier|public
 name|Cell
 name|peek
@@ -406,6 +408,8 @@ name|peek
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|Cell
 name|next
@@ -726,6 +730,8 @@ operator|=
 name|kvComparator
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|int
 name|compare
@@ -825,6 +831,8 @@ name|kvComparator
 return|;
 block|}
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|close

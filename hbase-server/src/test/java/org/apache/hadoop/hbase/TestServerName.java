@@ -689,11 +689,6 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-name|sn
-operator|.
-name|toString
-argument_list|()
-argument_list|,
 literal|"www.example.org"
 operator|+
 name|ServerName
@@ -707,6 +702,11 @@ operator|.
 name|SERVERNAME_SEPARATOR
 operator|+
 literal|"5678"
+argument_list|,
+name|sn
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

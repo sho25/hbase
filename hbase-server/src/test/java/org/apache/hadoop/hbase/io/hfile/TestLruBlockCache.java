@@ -1594,6 +1594,8 @@ block|}
 comment|// A single eviction run should have occurred
 name|assertEquals
 argument_list|(
+literal|1
+argument_list|,
 name|cache
 operator|.
 name|getStats
@@ -1601,13 +1603,13 @@ argument_list|()
 operator|.
 name|getEvictionCount
 argument_list|()
-argument_list|,
-literal|1
 argument_list|)
 expr_stmt|;
 comment|// We expect two entries evicted
 name|assertEquals
 argument_list|(
+literal|2
+argument_list|,
 name|cache
 operator|.
 name|getStats
@@ -1615,8 +1617,6 @@ argument_list|()
 operator|.
 name|getEvictedCount
 argument_list|()
-argument_list|,
-literal|2
 argument_list|)
 expr_stmt|;
 comment|// Our expected size overruns acceptable limit

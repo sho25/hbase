@@ -642,10 +642,12 @@ name|byte
 index|[]
 name|row
 init|=
-literal|"TestRegionReplicas"
+name|Bytes
 operator|.
-name|getBytes
-argument_list|()
+name|toBytes
+argument_list|(
+literal|"TestRegionReplicas"
+argument_list|)
 decl_stmt|;
 specifier|private
 specifier|static

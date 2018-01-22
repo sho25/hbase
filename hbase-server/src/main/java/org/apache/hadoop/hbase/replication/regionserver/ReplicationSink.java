@@ -748,6 +748,9 @@ name|SourceFSConfigurationProvider
 operator|)
 name|c
 operator|.
+name|getDeclaredConstructor
+argument_list|()
+operator|.
 name|newInstance
 argument_list|()
 expr_stmt|;
@@ -818,6 +821,9 @@ operator|(
 name|WALEntrySinkFilter
 operator|)
 name|walEntryFilterClass
+operator|.
+name|getDeclaredConstructor
+argument_list|()
 operator|.
 name|newInstance
 argument_list|()

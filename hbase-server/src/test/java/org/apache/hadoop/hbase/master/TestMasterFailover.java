@@ -1162,14 +1162,14 @@ name|assertEquals
 argument_list|(
 literal|"hbase:meta should be online on RS"
 argument_list|,
+name|State
+operator|.
+name|OPEN
+argument_list|,
 name|metaState
 operator|.
 name|getState
 argument_list|()
-argument_list|,
-name|State
-operator|.
-name|OPEN
 argument_list|)
 expr_stmt|;
 comment|// Start up a new master
@@ -1238,14 +1238,14 @@ name|assertEquals
 argument_list|(
 literal|"hbase:meta should be online on RS"
 argument_list|,
+name|State
+operator|.
+name|OPEN
+argument_list|,
 name|metaState
 operator|.
 name|getState
 argument_list|()
-argument_list|,
-name|State
-operator|.
-name|OPEN
 argument_list|)
 expr_stmt|;
 comment|// Done, shutdown the cluster

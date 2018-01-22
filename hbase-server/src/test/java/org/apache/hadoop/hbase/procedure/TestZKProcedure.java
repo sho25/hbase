@@ -1679,12 +1679,12 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
+literal|true
+argument_list|,
 name|r
 operator|.
 name|isComplete
 argument_list|()
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 comment|// don't complete the error phase until the coordinator has gotten the error

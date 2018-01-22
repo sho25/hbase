@@ -185,6 +185,8 @@ name|getDataBlockCount
 parameter_list|()
 function_decl|;
 comment|/**    * @return Iterator over the blocks in the cache.    */
+annotation|@
+name|Override
 name|Iterator
 argument_list|<
 name|CachedBlock

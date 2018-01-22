@@ -628,9 +628,9 @@ name|Assert
 operator|.
 name|assertEquals
 argument_list|(
-name|value
-argument_list|,
 literal|0
+argument_list|,
+name|value
 argument_list|)
 expr_stmt|;
 block|}
@@ -800,9 +800,9 @@ name|Assert
 operator|.
 name|assertEquals
 argument_list|(
-name|count
-argument_list|,
 literal|0
+argument_list|,
+name|count
 argument_list|)
 expr_stmt|;
 block|}

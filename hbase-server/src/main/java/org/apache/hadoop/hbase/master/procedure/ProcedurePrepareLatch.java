@@ -263,6 +263,8 @@ name|NoopLatch
 extends|extends
 name|ProcedurePrepareLatch
 block|{
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|countDown
@@ -272,6 +274,8 @@ name|Procedure
 name|proc
 parameter_list|)
 block|{}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|await
@@ -304,6 +308,8 @@ name|exception
 init|=
 literal|null
 decl_stmt|;
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|countDown
@@ -338,6 +344,8 @@ name|countDown
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|await

@@ -272,6 +272,7 @@ name|class
 argument_list|)
 decl_stmt|;
 specifier|private
+specifier|final
 name|NavigableMap
 argument_list|<
 name|ServerName

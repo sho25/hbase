@@ -1950,10 +1950,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-operator|(
-name|long
-operator|)
-literal|2
+literal|2L
 argument_list|)
 argument_list|)
 argument_list|)
@@ -2068,10 +2065,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-operator|(
-name|long
-operator|)
-literal|100
+literal|100L
 argument_list|)
 argument_list|)
 argument_list|)
@@ -2101,10 +2095,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-operator|(
-name|long
-operator|)
-literal|200
+literal|200L
 argument_list|)
 argument_list|)
 argument_list|)

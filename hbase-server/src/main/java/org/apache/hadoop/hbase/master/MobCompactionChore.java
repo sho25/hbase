@@ -526,6 +526,7 @@ block|}
 annotation|@
 name|Override
 specifier|protected
+specifier|synchronized
 name|void
 name|cleanup
 parameter_list|()

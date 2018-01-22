@@ -2638,6 +2638,8 @@ throw|;
 block|}
 block|}
 comment|/**    * The number of open RPC conections    * @return the number of open rpc connections    */
+annotation|@
+name|Override
 specifier|public
 name|int
 name|getNumOpenConnections

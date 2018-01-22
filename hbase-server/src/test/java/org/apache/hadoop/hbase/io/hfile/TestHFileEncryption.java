@@ -1932,14 +1932,14 @@ literal|"Unable to find KV as expected: "
 operator|+
 name|kv
 argument_list|,
+literal|0
+argument_list|,
 name|scanner
 operator|.
 name|seekTo
 argument_list|(
 name|kv
 argument_list|)
-argument_list|,
-literal|0
 argument_list|)
 expr_stmt|;
 block|}

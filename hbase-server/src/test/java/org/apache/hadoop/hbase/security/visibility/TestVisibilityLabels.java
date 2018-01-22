@@ -2634,6 +2634,8 @@ operator|new
 name|Thread
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|void
 name|run
@@ -2733,6 +2735,8 @@ operator|new
 name|Thread
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|void
 name|run
@@ -3307,6 +3311,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -3505,6 +3511,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -3653,6 +3661,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -3879,10 +3889,12 @@ name|getColumnLatestCell
 argument_list|(
 name|LABELS_TABLE_FAMILY
 argument_list|,
-name|user
+name|Bytes
 operator|.
-name|getBytes
-argument_list|()
+name|toBytes
+argument_list|(
+name|user
+argument_list|)
 argument_list|)
 decl_stmt|;
 if|if
@@ -3945,6 +3957,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|run
@@ -5536,7 +5550,7 @@ name|fam
 argument_list|,
 name|qual
 argument_list|,
-literal|3l
+literal|3L
 argument_list|,
 name|v1
 argument_list|)
@@ -5549,7 +5563,7 @@ name|fam
 argument_list|,
 name|qual2
 argument_list|,
-literal|3l
+literal|3L
 argument_list|,
 name|v1
 argument_list|)
@@ -5562,7 +5576,7 @@ name|fam2
 argument_list|,
 name|qual
 argument_list|,
-literal|3l
+literal|3L
 argument_list|,
 name|v1
 argument_list|)
@@ -5575,7 +5589,7 @@ name|fam2
 argument_list|,
 name|qual2
 argument_list|,
-literal|3l
+literal|3L
 argument_list|,
 name|v1
 argument_list|)
@@ -5614,7 +5628,7 @@ name|fam
 argument_list|,
 name|qual
 argument_list|,
-literal|4l
+literal|4L
 argument_list|,
 name|v2
 argument_list|)
@@ -5627,7 +5641,7 @@ name|fam
 argument_list|,
 name|qual2
 argument_list|,
-literal|4l
+literal|4L
 argument_list|,
 name|v2
 argument_list|)
@@ -5640,7 +5654,7 @@ name|fam2
 argument_list|,
 name|qual
 argument_list|,
-literal|4l
+literal|4L
 argument_list|,
 name|v2
 argument_list|)
@@ -5653,7 +5667,7 @@ name|fam2
 argument_list|,
 name|qual2
 argument_list|,
-literal|4l
+literal|4L
 argument_list|,
 name|v2
 argument_list|)
@@ -5692,7 +5706,7 @@ name|fam
 argument_list|,
 name|qual
 argument_list|,
-literal|3l
+literal|3L
 argument_list|,
 name|v1
 argument_list|)
@@ -5705,7 +5719,7 @@ name|fam
 argument_list|,
 name|qual2
 argument_list|,
-literal|3l
+literal|3L
 argument_list|,
 name|v1
 argument_list|)
@@ -5718,7 +5732,7 @@ name|fam2
 argument_list|,
 name|qual
 argument_list|,
-literal|3l
+literal|3L
 argument_list|,
 name|v1
 argument_list|)
@@ -5731,7 +5745,7 @@ name|fam2
 argument_list|,
 name|qual2
 argument_list|,
-literal|3l
+literal|3L
 argument_list|,
 name|v1
 argument_list|)
@@ -5770,7 +5784,7 @@ name|fam
 argument_list|,
 name|qual
 argument_list|,
-literal|4l
+literal|4L
 argument_list|,
 name|v2
 argument_list|)
@@ -5783,7 +5797,7 @@ name|fam
 argument_list|,
 name|qual2
 argument_list|,
-literal|4l
+literal|4L
 argument_list|,
 name|v2
 argument_list|)
@@ -5796,7 +5810,7 @@ name|fam2
 argument_list|,
 name|qual
 argument_list|,
-literal|4l
+literal|4L
 argument_list|,
 name|v2
 argument_list|)
@@ -5809,7 +5823,7 @@ name|fam2
 argument_list|,
 name|qual2
 argument_list|,
-literal|4l
+literal|4L
 argument_list|,
 name|v2
 argument_list|)
@@ -6919,6 +6933,8 @@ name|VisibilityLabelsResponse
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|VisibilityLabelsResponse
 name|run

@@ -804,6 +804,7 @@ extends|extends
 name|EventHandler
 block|{
 specifier|private
+specifier|final
 name|AtomicBoolean
 name|lock
 decl_stmt|;

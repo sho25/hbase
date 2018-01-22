@@ -177,6 +177,7 @@ name|TestCoprocessorHost
 block|{
 comment|/**    * An {@link Abortable} implementation for tests.    */
 specifier|private
+specifier|static
 class|class
 name|TestAbortable
 implements|implements

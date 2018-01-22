@@ -896,6 +896,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
+specifier|synchronized
 name|void
 name|cleanup
 parameter_list|()

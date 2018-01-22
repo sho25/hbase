@@ -500,6 +500,8 @@ name|SuppressWarnings
 argument_list|(
 literal|"finally"
 argument_list|)
+annotation|@
+name|Override
 specifier|final
 specifier|public
 name|Void

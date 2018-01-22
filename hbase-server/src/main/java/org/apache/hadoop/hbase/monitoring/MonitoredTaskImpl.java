@@ -494,6 +494,8 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Force the completion timestamp backwards so that    * it expires now.    */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|expireNow

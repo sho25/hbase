@@ -5541,6 +5541,7 @@ name|this
 operator|.
 name|masterless
 operator|||
+operator|(
 name|this
 operator|.
 name|clusterStatusTracker
@@ -5553,6 +5554,7 @@ name|clusterStatusTracker
 operator|.
 name|isClusterUp
 argument_list|()
+operator|)
 return|;
 block|}
 comment|/**    * The HRegionServer sticks in this loop until closed.    */
@@ -9921,6 +9923,9 @@ block|{
 name|long
 name|randomDelay
 init|=
+operator|(
+name|long
+operator|)
 name|RandomUtils
 operator|.
 name|nextInt
@@ -15940,10 +15945,12 @@ name|regionsInTransitionInRS
 operator|.
 name|putIfAbsent
 argument_list|(
-name|encodedName
+name|Bytes
 operator|.
-name|getBytes
-argument_list|()
+name|toBytes
+argument_list|(
+name|encodedName
+argument_list|)
 argument_list|,
 name|Boolean
 operator|.
@@ -15982,10 +15989,12 @@ name|regionsInTransitionInRS
 operator|.
 name|replace
 argument_list|(
-name|encodedName
+name|Bytes
 operator|.
-name|getBytes
-argument_list|()
+name|toBytes
+argument_list|(
+name|encodedName
+argument_list|)
 argument_list|,
 name|previous
 argument_list|,
@@ -16108,10 +16117,12 @@ name|regionsInTransitionInRS
 operator|.
 name|remove
 argument_list|(
-name|encodedName
+name|Bytes
 operator|.
-name|getBytes
-argument_list|()
+name|toBytes
+argument_list|(
+name|encodedName
+argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// The master deletes the znode when it receives this exception.

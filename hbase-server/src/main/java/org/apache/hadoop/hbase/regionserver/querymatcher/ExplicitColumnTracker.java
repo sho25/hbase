@@ -264,6 +264,8 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Done when there are no more columns to match against.    */
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|done
@@ -279,6 +281,8 @@ operator|.
 name|length
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|ColumnCount
 name|getColumnHint
@@ -629,6 +633,8 @@ name|INCLUDE
 return|;
 block|}
 comment|// Called between every row.
+annotation|@
+name|Override
 specifier|public
 name|void
 name|reset
@@ -868,6 +874,8 @@ name|SEEK_NEXT_COL
 return|;
 block|}
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isDone

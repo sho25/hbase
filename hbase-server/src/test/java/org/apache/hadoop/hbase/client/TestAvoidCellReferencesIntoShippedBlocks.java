@@ -1592,9 +1592,9 @@ name|assertEquals
 argument_list|(
 literal|"Count all the rows "
 argument_list|,
-name|count
-argument_list|,
 literal|6
+argument_list|,
+name|count
 argument_list|)
 expr_stmt|;
 comment|// all the cache is loaded
@@ -1662,9 +1662,9 @@ name|assertEquals
 argument_list|(
 literal|"Count all the rows "
 argument_list|,
-name|count
-argument_list|,
 literal|6
+argument_list|,
+name|count
 argument_list|)
 expr_stmt|;
 block|}
@@ -1717,6 +1717,8 @@ operator|=
 name|cache
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|run
@@ -2571,9 +2573,9 @@ name|assertEquals
 argument_list|(
 literal|"Count all the rows "
 argument_list|,
-name|count
-argument_list|,
 literal|6
+argument_list|,
+name|count
 argument_list|)
 expr_stmt|;
 comment|// Scan from cache
@@ -2760,9 +2762,9 @@ name|assertEquals
 argument_list|(
 literal|"One block should be there "
 argument_list|,
-name|refBlockCount
-argument_list|,
 literal|1
+argument_list|,
+name|refBlockCount
 argument_list|)
 expr_stmt|;
 comment|// Rescan to prepopulate the data
@@ -2825,9 +2827,9 @@ name|assertEquals
 argument_list|(
 literal|"Count the rows"
 argument_list|,
-name|count
-argument_list|,
 literal|2
+argument_list|,
+name|count
 argument_list|)
 expr_stmt|;
 name|iterator
@@ -2921,9 +2923,9 @@ name|assertEquals
 argument_list|(
 literal|"old blocks should still be found "
 argument_list|,
-name|newBlockRefCount
-argument_list|,
 literal|6
+argument_list|,
+name|newBlockRefCount
 argument_list|)
 expr_stmt|;
 name|latch
@@ -2982,9 +2984,9 @@ name|assertEquals
 argument_list|(
 literal|"Count should give all rows "
 argument_list|,
-name|count
-argument_list|,
 literal|10
+argument_list|,
+name|count
 argument_list|)
 expr_stmt|;
 block|}

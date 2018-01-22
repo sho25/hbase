@@ -1105,7 +1105,7 @@ operator|new
 name|Long
 index|[]
 block|{
-literal|2l
+literal|2L
 block|,
 literal|3L
 block|}
@@ -1623,7 +1623,7 @@ operator|new
 name|Long
 index|[]
 block|{
-literal|2l
+literal|2L
 block|,
 literal|4L
 block|}

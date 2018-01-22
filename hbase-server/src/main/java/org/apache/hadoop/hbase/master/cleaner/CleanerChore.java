@@ -1098,6 +1098,9 @@ name|T
 operator|)
 name|c
 operator|.
+name|getDeclaredConstructor
+argument_list|()
+operator|.
 name|newInstance
 argument_list|()
 decl_stmt|;
@@ -1843,6 +1846,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
+specifier|synchronized
 name|void
 name|cleanup
 parameter_list|()

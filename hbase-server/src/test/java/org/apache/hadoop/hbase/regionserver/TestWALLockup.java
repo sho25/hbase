@@ -1569,6 +1569,8 @@ argument_list|(
 literal|"Flusher"
 argument_list|)
 block|{
+annotation|@
+name|Override
 specifier|public
 name|void
 name|run
@@ -2497,6 +2499,8 @@ argument_list|(
 literal|"Sync"
 argument_list|)
 block|{
+annotation|@
+name|Override
 specifier|public
 name|void
 name|run

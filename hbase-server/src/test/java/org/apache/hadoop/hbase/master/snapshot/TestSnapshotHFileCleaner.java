@@ -734,6 +734,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+specifier|static
 class|class
 name|SnapshotFiles
 implements|implements
@@ -741,6 +742,8 @@ name|SnapshotFileCache
 operator|.
 name|SnapshotFileInspector
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Collection
 argument_list|<

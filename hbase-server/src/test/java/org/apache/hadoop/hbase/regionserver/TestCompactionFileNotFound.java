@@ -907,6 +907,8 @@ expr_stmt|;
 comment|// Split at this point should not result in the RS being aborted
 name|assertEquals
 argument_list|(
+literal|3
+argument_list|,
 name|util
 operator|.
 name|getMiniHBaseCluster
@@ -917,8 +919,6 @@ argument_list|()
 operator|.
 name|size
 argument_list|()
-argument_list|,
-literal|3
 argument_list|)
 expr_stmt|;
 block|}

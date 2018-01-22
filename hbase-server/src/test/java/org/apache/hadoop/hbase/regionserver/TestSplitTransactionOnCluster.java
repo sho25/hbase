@@ -5051,12 +5051,12 @@ operator|.
 name|toString
 argument_list|()
 argument_list|,
+literal|0
+argument_list|,
 name|storefiles
 operator|.
 name|size
 argument_list|()
-argument_list|,
-literal|0
 argument_list|)
 expr_stmt|;
 comment|// find a splittable region.  Refresh the regions list
@@ -5186,12 +5186,12 @@ operator|.
 name|toString
 argument_list|()
 argument_list|,
+literal|0
+argument_list|,
 name|storefilesAfter
 operator|.
 name|size
 argument_list|()
-argument_list|,
-literal|0
 argument_list|)
 expr_stmt|;
 name|hri
@@ -5653,12 +5653,12 @@ argument_list|()
 decl_stmt|;
 name|assertEquals
 argument_list|(
+literal|1
+argument_list|,
 name|storefiles
 operator|.
 name|size
 argument_list|()
-argument_list|,
-literal|1
 argument_list|)
 expr_stmt|;
 name|assertFalse

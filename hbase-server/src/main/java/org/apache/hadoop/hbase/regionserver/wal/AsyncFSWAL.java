@@ -1777,9 +1777,12 @@ specifier|final
 name|long
 name|epoch
 init|=
+operator|(
+name|long
+operator|)
 name|epochAndState
 operator|>>>
-literal|2
+literal|2L
 decl_stmt|;
 name|writer
 operator|.

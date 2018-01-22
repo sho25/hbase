@@ -185,6 +185,18 @@ begin_import
 import|import
 name|java
 operator|.
+name|nio
+operator|.
+name|charset
+operator|.
+name|StandardCharsets
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|security
 operator|.
 name|MessageDigest
@@ -7162,7 +7174,7 @@ name|sleep
 argument_list|(
 literal|1
 operator|*
-literal|1000l
+literal|1000L
 argument_list|)
 expr_stmt|;
 block|}
@@ -8931,6 +8943,10 @@ name|b2
 block|,
 name|b3
 block|}
+argument_list|,
+name|StandardCharsets
+operator|.
+name|UTF_8
 argument_list|)
 decl_stmt|;
 throw|throw
@@ -9567,6 +9583,8 @@ name|assertEquals
 argument_list|(
 name|failMsg
 argument_list|,
+literal|1
+argument_list|,
 name|result
 operator|.
 name|getColumnCells
@@ -9578,8 +9596,6 @@ argument_list|)
 operator|.
 name|size
 argument_list|()
-argument_list|,
-literal|1
 argument_list|)
 expr_stmt|;
 name|Cell
@@ -9879,6 +9895,8 @@ name|assertEquals
 argument_list|(
 name|failMsg
 argument_list|,
+literal|1
+argument_list|,
 name|result
 operator|.
 name|getColumnCells
@@ -9890,8 +9908,6 @@ argument_list|)
 operator|.
 name|size
 argument_list|()
-argument_list|,
-literal|1
 argument_list|)
 expr_stmt|;
 name|Cell

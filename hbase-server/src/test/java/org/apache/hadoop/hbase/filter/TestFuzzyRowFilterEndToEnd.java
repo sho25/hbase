@@ -683,10 +683,7 @@ operator|.
 name|HREGION_MAX_FILESIZE
 argument_list|,
 operator|(
-operator|(
-name|long
-operator|)
-literal|1024
+literal|1024L
 operator|)
 operator|*
 literal|1024

@@ -559,16 +559,16 @@ name|assertEquals
 argument_list|(
 literal|"Meta should be not in transition"
 argument_list|,
-name|metaState
-operator|.
-name|getState
-argument_list|()
-argument_list|,
 name|RegionState
 operator|.
 name|State
 operator|.
 name|OPEN
+argument_list|,
+name|metaState
+operator|.
+name|getState
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|assertNotEquals
@@ -719,16 +719,16 @@ name|assertEquals
 argument_list|(
 literal|"Meta should be not in transition"
 argument_list|,
-name|metaState
-operator|.
-name|getState
-argument_list|()
-argument_list|,
 name|RegionState
 operator|.
 name|State
 operator|.
 name|OPEN
+argument_list|,
+name|metaState
+operator|.
+name|getState
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|assertEquals

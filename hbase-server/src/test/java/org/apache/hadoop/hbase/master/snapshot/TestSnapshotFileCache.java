@@ -1296,6 +1296,8 @@ name|SnapshotFileCache
 operator|.
 name|SnapshotFileInspector
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Collection
 argument_list|<

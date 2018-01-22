@@ -3081,12 +3081,12 @@ comment|// The three expected attempts are 1) failure because need to split, 2)
 comment|// load of split top 3) load of split bottom
 name|assertEquals
 argument_list|(
+literal|3
+argument_list|,
 name|attemptedCalls
 operator|.
 name|get
 argument_list|()
-argument_list|,
-literal|3
 argument_list|)
 expr_stmt|;
 name|assertExpectedTable

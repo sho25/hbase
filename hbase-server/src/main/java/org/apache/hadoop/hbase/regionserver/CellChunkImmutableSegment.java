@@ -371,6 +371,9 @@ parameter_list|()
 block|{
 return|return
 operator|(
+operator|(
+name|long
+operator|)
 name|ClassSize
 operator|.
 name|CELL_CHUNK_MAP_ENTRY

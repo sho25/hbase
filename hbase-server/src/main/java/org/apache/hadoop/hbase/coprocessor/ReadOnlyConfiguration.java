@@ -395,6 +395,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
+specifier|synchronized
 name|void
 name|reloadConfiguration
 parameter_list|()
@@ -430,6 +431,7 @@ name|name
 argument_list|)
 return|;
 block|}
+comment|// Do not add @Override because it is not in Hadoop 2.6.5
 specifier|public
 name|void
 name|setAllowNullValueProperties
@@ -446,6 +448,8 @@ literal|"Read-only Configuration"
 argument_list|)
 throw|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|String
 name|getTrimmed
@@ -554,6 +558,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
+specifier|synchronized
 name|void
 name|unset
 parameter_list|(
@@ -572,6 +577,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
+specifier|synchronized
 name|void
 name|setIfUnset
 parameter_list|(
@@ -1066,6 +1072,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
+specifier|synchronized
 name|String
 index|[]
 name|getPropertySources
@@ -1484,7 +1491,7 @@ name|Class
 argument_list|<
 name|?
 argument_list|>
-index|[]
+modifier|...
 name|defaultValue
 parameter_list|)
 block|{
@@ -1905,6 +1912,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
+specifier|synchronized
 name|void
 name|setQuietMode
 parameter_list|(

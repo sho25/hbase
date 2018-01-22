@@ -1465,12 +1465,12 @@ else|else
 block|{
 name|assertArrayEquals
 argument_list|(
+name|ROW
+argument_list|,
 name|res
 operator|.
 name|value
 argument_list|()
-argument_list|,
-name|ROW
 argument_list|)
 expr_stmt|;
 name|assertEquals

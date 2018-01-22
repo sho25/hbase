@@ -2264,9 +2264,13 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
+operator|!
 name|file
-operator|!=
+operator|.
+name|equals
+argument_list|(
 name|mostCurrent
+argument_list|)
 condition|)
 block|{
 if|if

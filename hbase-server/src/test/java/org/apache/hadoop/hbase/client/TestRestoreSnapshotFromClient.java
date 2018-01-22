@@ -1290,7 +1290,7 @@ name|snapshot2Rows
 init|=
 name|snapshot1Rows
 operator|+
-literal|500
+literal|500L
 decl_stmt|;
 name|assertEquals
 argument_list|(

@@ -170,6 +170,8 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Closes the scanner and releases any resources it has allocated    * @throws IOException    */
+annotation|@
+name|Override
 name|void
 name|close
 parameter_list|()

@@ -471,6 +471,8 @@ operator|=
 name|fs
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|HRegionFileSystem
 name|regionOpen
@@ -502,6 +504,8 @@ return|return
 name|snapshotRegionFs
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|regionClose
@@ -511,6 +515,8 @@ name|HRegionFileSystem
 name|region
 parameter_list|)
 block|{     }
+annotation|@
+name|Override
 specifier|public
 name|Path
 name|familyOpen
@@ -544,6 +550,8 @@ return|return
 name|familyDir
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|familyClose
@@ -557,6 +565,8 @@ name|Path
 name|family
 parameter_list|)
 block|{     }
+annotation|@
+name|Override
 specifier|public
 name|void
 name|storeFile

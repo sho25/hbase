@@ -283,6 +283,8 @@ argument_list|()
 return|;
 block|}
 comment|/**    * Total size of all elements in this queue.    * @return size of all elements currently in queue, in bytes    */
+annotation|@
+name|Override
 specifier|public
 name|long
 name|heapSize

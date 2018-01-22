@@ -572,6 +572,8 @@ operator|=
 name|entryCount
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|OptionalLong
 name|getMinimumTimestamp
@@ -598,6 +600,8 @@ argument_list|()
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|OptionalLong
 name|getMaximumTimestamp

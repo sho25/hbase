@@ -3497,10 +3497,12 @@ name|htd
 operator|.
 name|getColumnFamily
 argument_list|(
-name|family
+name|Bytes
 operator|.
-name|getBytes
-argument_list|()
+name|toBytes
+argument_list|(
+name|family
+argument_list|)
 argument_list|)
 decl_stmt|;
 specifier|final

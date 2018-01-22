@@ -845,6 +845,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
+specifier|static
 specifier|final
 class|class
 name|FailingConnection

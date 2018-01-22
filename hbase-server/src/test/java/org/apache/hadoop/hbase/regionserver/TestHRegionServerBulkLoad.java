@@ -1555,6 +1555,8 @@ operator|=
 name|tableName
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|doAnAction
@@ -2259,6 +2261,8 @@ name|TABLE_NAME
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|doAnAction

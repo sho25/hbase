@@ -932,14 +932,14 @@ argument_list|)
 decl_stmt|;
 name|assertEquals
 argument_list|(
+name|expected
+argument_list|,
 name|comparator
 operator|.
 name|compareTo
 argument_list|(
 name|data
 argument_list|)
-argument_list|,
-name|expected
 argument_list|)
 expr_stmt|;
 block|}
@@ -976,6 +976,8 @@ argument_list|)
 decl_stmt|;
 name|assertEquals
 argument_list|(
+name|expected
+argument_list|,
 name|comparator
 operator|.
 name|compareTo
@@ -989,8 +991,6 @@ operator|.
 name|capacity
 argument_list|()
 argument_list|)
-argument_list|,
-name|expected
 argument_list|)
 expr_stmt|;
 block|}
@@ -1232,6 +1232,8 @@ argument_list|)
 decl_stmt|;
 name|assertEquals
 argument_list|(
+name|expected
+argument_list|,
 name|comparator
 operator|.
 name|compareTo
@@ -1244,8 +1246,6 @@ name|comparatorBytes
 operator|.
 name|length
 argument_list|)
-argument_list|,
-name|expected
 argument_list|)
 expr_stmt|;
 block|}
@@ -1282,6 +1282,8 @@ argument_list|)
 decl_stmt|;
 name|assertEquals
 argument_list|(
+name|expected
+argument_list|,
 name|comparator
 operator|.
 name|compareTo
@@ -1294,8 +1296,6 @@ name|comparatorBytes
 operator|.
 name|length
 argument_list|)
-argument_list|,
-name|expected
 argument_list|)
 expr_stmt|;
 block|}

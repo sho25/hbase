@@ -25,6 +25,8 @@ extends|extends
 name|IncreasingToUpperBoundRegionSplitPolicy
 block|{
 comment|/**    * @return flushSize * 2 if there's exactly one region of the table in question    * found on this regionserver. Otherwise max file size.    * This allows a table to spread quickly across servers, while avoiding creating    * too many regions.    */
+annotation|@
+name|Override
 specifier|protected
 name|long
 name|getSizeToCheck

@@ -2789,6 +2789,8 @@ argument_list|)
 decl_stmt|;
 name|assertEquals
 argument_list|(
+literal|10000
+argument_list|,
 name|result
 operator|.
 name|getValue
@@ -2799,12 +2801,12 @@ name|qual1
 argument_list|)
 operator|.
 name|length
-argument_list|,
-literal|10000
 argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
+literal|10000
+argument_list|,
 name|result
 operator|.
 name|getValue
@@ -2815,12 +2817,12 @@ name|qual2
 argument_list|)
 operator|.
 name|length
-argument_list|,
-literal|10000
 argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
+literal|10000
+argument_list|,
 name|result
 operator|.
 name|getValue
@@ -2831,8 +2833,6 @@ name|qual3
 argument_list|)
 operator|.
 name|length
-argument_list|,
-literal|10000
 argument_list|)
 expr_stmt|;
 block|}

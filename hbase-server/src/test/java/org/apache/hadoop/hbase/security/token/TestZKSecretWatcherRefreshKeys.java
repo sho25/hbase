@@ -298,6 +298,8 @@ specifier|private
 name|boolean
 name|abort
 decl_stmt|;
+annotation|@
+name|Override
 specifier|public
 name|void
 name|abort
@@ -325,6 +327,8 @@ operator|=
 literal|true
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isAborted

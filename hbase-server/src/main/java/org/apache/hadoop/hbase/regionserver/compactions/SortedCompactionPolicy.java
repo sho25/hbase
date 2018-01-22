@@ -684,6 +684,8 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * @param filesToCompact Files to compact. Can be null.    * @return True if we should run a major compaction.    */
+annotation|@
+name|Override
 specifier|public
 specifier|abstract
 name|boolean
@@ -847,6 +849,8 @@ return|;
 block|}
 block|}
 comment|/**    * @param compactionSize Total size of some compaction    * @return whether this should be a large or small compaction    */
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|throttleCompaction

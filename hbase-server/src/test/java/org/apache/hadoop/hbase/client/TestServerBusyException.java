@@ -889,6 +889,7 @@ argument_list|()
 expr_stmt|;
 block|}
 specifier|private
+specifier|static
 class|class
 name|TestPutThread
 extends|extends
@@ -982,6 +983,7 @@ block|{       }
 block|}
 block|}
 specifier|private
+specifier|static
 class|class
 name|TestGetThread
 extends|extends

@@ -60,6 +60,7 @@ literal|'!'
 argument_list|)
 block|;
 specifier|private
+specifier|final
 name|char
 name|rep
 decl_stmt|;
@@ -77,6 +78,8 @@ operator|=
 name|rep
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|String
 name|toString

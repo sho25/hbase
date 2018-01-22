@@ -1366,11 +1366,9 @@ argument_list|)
 operator|.
 name|thenReturn
 argument_list|(
-operator|new
 name|Boolean
-argument_list|(
-literal|true
-argument_list|)
+operator|.
+name|TRUE
 argument_list|)
 expr_stmt|;
 name|Mockito

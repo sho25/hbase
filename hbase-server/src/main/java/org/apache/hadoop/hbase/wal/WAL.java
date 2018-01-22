@@ -303,6 +303,8 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Caller no longer needs any edits from this WAL. Implementers are free to reclaim    * underlying resources after this call; i.e. filesystem based WALs can archive or    * delete files.    */
+annotation|@
+name|Override
 name|void
 name|close
 parameter_list|()

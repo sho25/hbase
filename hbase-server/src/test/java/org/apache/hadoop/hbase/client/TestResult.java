@@ -1420,6 +1420,8 @@ argument_list|()
 expr_stmt|;
 name|assertEquals
 argument_list|(
+name|loadValueBuffer
+argument_list|,
 name|ByteBuffer
 operator|.
 name|wrap
@@ -1438,8 +1440,6 @@ name|i
 argument_list|)
 argument_list|)
 argument_list|)
-argument_list|,
-name|loadValueBuffer
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1650,6 +1650,8 @@ argument_list|()
 expr_stmt|;
 name|assertEquals
 argument_list|(
+name|loadValueBuffer
+argument_list|,
 name|ByteBuffer
 operator|.
 name|wrap
@@ -1668,8 +1670,6 @@ name|i
 argument_list|)
 argument_list|)
 argument_list|)
-argument_list|,
-name|loadValueBuffer
 argument_list|)
 expr_stmt|;
 name|assertEquals

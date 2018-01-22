@@ -207,6 +207,7 @@ name|fs
 decl_stmt|;
 comment|/**    * Maps each region to the RS with highest locality for that region.    */
 specifier|private
+specifier|final
 name|Map
 argument_list|<
 name|String

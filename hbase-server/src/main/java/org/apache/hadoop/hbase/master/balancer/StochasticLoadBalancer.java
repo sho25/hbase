@@ -1829,6 +1829,7 @@ literal|null
 decl_stmt|;
 if|if
 condition|(
+operator|(
 name|this
 operator|.
 name|localityCost
@@ -1843,7 +1844,9 @@ name|getMultiplier
 argument_list|()
 operator|>
 literal|0
+operator|)
 operator|||
+operator|(
 name|this
 operator|.
 name|rackLocalityCost
@@ -1858,6 +1861,7 @@ name|getMultiplier
 argument_list|()
 operator|>
 literal|0
+operator|)
 condition|)
 block|{
 name|finder
@@ -6576,10 +6580,17 @@ literal|null
 condition|)
 block|{
 name|cost
-operator|+=
+operator|=
+call|(
+name|long
+call|)
+argument_list|(
+name|cost
+operator|+
 name|getRegionLoadCost
 argument_list|(
 name|regionLoadList
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

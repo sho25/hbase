@@ -324,6 +324,8 @@ name|MapreduceV1Shim
 extends|extends
 name|MapreduceTestingShim
 block|{
+annotation|@
+name|Override
 specifier|public
 name|JobContext
 name|newJobContext
@@ -457,6 +459,8 @@ argument_list|)
 throw|;
 block|}
 block|}
+annotation|@
+name|Override
 specifier|public
 name|JobConf
 name|obtainJobConf
@@ -596,6 +600,8 @@ name|MapreduceV2Shim
 extends|extends
 name|MapreduceTestingShim
 block|{
+annotation|@
+name|Override
 specifier|public
 name|JobContext
 name|newJobContext
@@ -676,6 +682,8 @@ argument_list|)
 throw|;
 block|}
 block|}
+annotation|@
+name|Override
 specifier|public
 name|JobConf
 name|obtainJobConf

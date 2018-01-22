@@ -205,6 +205,7 @@ argument_list|)
 decl_stmt|;
 comment|// Map containing all the source clusters configurations against their replication cluster id
 specifier|private
+specifier|final
 name|Map
 argument_list|<
 name|String

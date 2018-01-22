@@ -606,6 +606,8 @@ expr_stmt|;
 block|}
 block|}
 block|}
+annotation|@
+name|Override
 specifier|public
 specifier|synchronized
 name|String

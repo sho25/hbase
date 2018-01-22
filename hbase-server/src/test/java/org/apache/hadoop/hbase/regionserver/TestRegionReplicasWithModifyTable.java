@@ -750,9 +750,9 @@ name|assertEquals
 argument_list|(
 literal|"the number of regions should be more than 1"
 argument_list|,
-name|totalRegions
-argument_list|,
 literal|3
+argument_list|,
+name|totalRegions
 argument_list|)
 expr_stmt|;
 block|}
@@ -906,9 +906,9 @@ name|assertEquals
 argument_list|(
 literal|"the number of regions should be equal to 30"
 argument_list|,
-name|totalRegions
-argument_list|,
 literal|30
+argument_list|,
+name|totalRegions
 argument_list|)
 expr_stmt|;
 block|}
@@ -1031,9 +1031,9 @@ name|assertEquals
 argument_list|(
 literal|"the number of regions should be 3"
 argument_list|,
-name|totalRegions
-argument_list|,
 literal|3
+argument_list|,
+name|totalRegions
 argument_list|)
 expr_stmt|;
 block|}
@@ -1156,9 +1156,9 @@ name|assertEquals
 argument_list|(
 literal|"the number of regions should be reduced to 2"
 argument_list|,
-name|totalRegions
-argument_list|,
 literal|2
+argument_list|,
+name|totalRegions
 argument_list|)
 expr_stmt|;
 block|}
@@ -1281,9 +1281,9 @@ name|assertEquals
 argument_list|(
 literal|"the number of regions should be reduced to 40"
 argument_list|,
-name|totalRegions
-argument_list|,
 literal|40
+argument_list|,
+name|totalRegions
 argument_list|)
 expr_stmt|;
 block|}
@@ -1406,11 +1406,11 @@ name|assertEquals
 argument_list|(
 literal|"the number of regions should be equal to 45"
 argument_list|,
-name|totalRegions
-argument_list|,
 literal|3
 operator|*
 literal|15
+argument_list|,
+name|totalRegions
 argument_list|)
 expr_stmt|;
 block|}

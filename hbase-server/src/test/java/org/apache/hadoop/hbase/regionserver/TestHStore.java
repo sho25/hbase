@@ -5644,6 +5644,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
+specifier|synchronized
 name|void
 name|write
 parameter_list|(
@@ -11437,6 +11438,7 @@ argument_list|)
 return|;
 block|}
 specifier|private
+specifier|static
 class|class
 name|MyStore
 extends|extends
@@ -11591,6 +11593,7 @@ block|}
 block|}
 specifier|private
 specifier|abstract
+specifier|static
 class|class
 name|MyStoreHook
 block|{
@@ -11700,7 +11703,7 @@ decl_stmt|;
 name|long
 name|seqID
 init|=
-literal|1l
+literal|1L
 decl_stmt|;
 comment|// Add some data to the region and do some flushes
 for|for
@@ -12187,6 +12190,8 @@ operator|.
 name|heap
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|run

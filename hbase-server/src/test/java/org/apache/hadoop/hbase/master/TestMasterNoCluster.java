@@ -1255,6 +1255,8 @@ argument_list|(
 name|conf
 argument_list|)
 block|{
+annotation|@
+name|Override
 name|InetAddress
 name|getRemoteInetAddress
 parameter_list|(

@@ -146,6 +146,7 @@ comment|// notified when the configuration is reloaded from disk. This is a set
 comment|// constructed from a WeakHashMap, whose entries would be removed if the
 comment|// observer classes go out of scope.
 specifier|private
+specifier|final
 name|Set
 argument_list|<
 name|ConfigurationObserver

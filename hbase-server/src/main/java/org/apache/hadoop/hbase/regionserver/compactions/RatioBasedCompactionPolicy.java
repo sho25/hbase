@@ -1053,6 +1053,8 @@ name|candidates
 return|;
 block|}
 comment|/**    * A heuristic method to decide whether to schedule a compaction request    * @param storeFiles files in the store.    * @param filesCompacting files being scheduled to compact.    * @return true to schedule a request.    */
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|needsCompaction

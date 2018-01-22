@@ -1050,7 +1050,7 @@ init|=
 operator|new
 name|Random
 argument_list|(
-literal|42l
+literal|42L
 operator|+
 name|seed
 argument_list|)

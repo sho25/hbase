@@ -1034,6 +1034,9 @@ specifier|private
 name|long
 name|numRows
 init|=
+operator|(
+name|long
+operator|)
 name|ROWS_ONE
 operator|.
 name|length
@@ -1046,6 +1049,9 @@ specifier|private
 name|long
 name|colsPerRow
 init|=
+operator|(
+name|long
+operator|)
 name|FAMILIES
 operator|.
 name|length
@@ -15829,14 +15835,14 @@ name|assertEquals
 argument_list|(
 literal|"Value in result is not SIZEOF_INT"
 argument_list|,
+name|Bytes
+operator|.
+name|SIZEOF_INT
+argument_list|,
 name|kv
 operator|.
 name|getValueLength
 argument_list|()
-argument_list|,
-name|Bytes
-operator|.
-name|SIZEOF_INT
 argument_list|)
 expr_stmt|;
 name|LOG
@@ -15911,12 +15917,12 @@ name|assertEquals
 argument_list|(
 literal|"Value in result is not empty"
 argument_list|,
+literal|0
+argument_list|,
 name|kv
 operator|.
 name|getValueLength
 argument_list|()
-argument_list|,
-literal|0
 argument_list|)
 expr_stmt|;
 block|}

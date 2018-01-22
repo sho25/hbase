@@ -410,6 +410,12 @@ name|Assert
 operator|.
 name|assertEquals
 argument_list|(
+name|TableState
+operator|.
+name|State
+operator|.
+name|DISABLED
+argument_list|,
 name|master
 operator|.
 name|getTableStateManager
@@ -419,12 +425,6 @@ name|getTableState
 argument_list|(
 name|tableName
 argument_list|)
-argument_list|,
-name|TableState
-operator|.
-name|State
-operator|.
-name|DISABLED
 argument_list|)
 expr_stmt|;
 block|}

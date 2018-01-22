@@ -582,6 +582,7 @@ name|TaskExecutor
 name|splitTaskExecutor
 decl_stmt|;
 specifier|private
+specifier|final
 name|AtomicInteger
 name|taskReadySeq
 init|=

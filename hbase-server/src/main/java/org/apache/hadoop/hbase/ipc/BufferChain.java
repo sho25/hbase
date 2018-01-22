@@ -384,8 +384,15 @@ literal|0
 condition|)
 block|{
 name|remaining
-operator|-=
+operator|=
+call|(
+name|int
+call|)
+argument_list|(
+name|remaining
+operator|-
 name|ret
+argument_list|)
 expr_stmt|;
 block|}
 return|return

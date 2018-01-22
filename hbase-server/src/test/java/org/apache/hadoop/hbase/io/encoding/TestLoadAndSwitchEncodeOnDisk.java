@@ -427,6 +427,8 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|int
 name|numKeys
@@ -436,6 +438,8 @@ return|return
 literal|3000
 return|;
 block|}
+annotation|@
+name|Override
 annotation|@
 name|Test
 argument_list|(

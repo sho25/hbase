@@ -319,22 +319,6 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|CustomizedScanInfoBuilder
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
 name|HStore
 import|;
 end_import
@@ -1680,17 +1664,14 @@ name|this
 operator|.
 name|compactionCompression
 argument_list|,
-comment|/* isCompaction = */
 literal|true
 argument_list|,
-comment|/* includeMVCCReadpoint = */
 name|fd
 operator|.
 name|maxMVCCReadpoint
 operator|>
 literal|0
 argument_list|,
-comment|/* includesTags = */
 name|fd
 operator|.
 name|maxTagsLength

@@ -1200,9 +1200,9 @@ name|Assert
 operator|.
 name|assertEquals
 argument_list|(
-name|rowCount
-argument_list|,
 name|ROW_COUNT
+argument_list|,
+name|rowCount
 argument_list|)
 expr_stmt|;
 block|}

@@ -55,6 +55,18 @@ begin_import
 import|import
 name|java
 operator|.
+name|nio
+operator|.
+name|charset
+operator|.
+name|StandardCharsets
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|ArrayList
@@ -1942,11 +1954,7 @@ name|counts
 operator|.
 name|contains
 argument_list|(
-operator|new
-name|Integer
-argument_list|(
 name|numReplica
-argument_list|)
 argument_list|)
 operator|)
 assert|;
@@ -2635,15 +2643,17 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"--STARTKEY "
-operator|+
+literal|"--STARTKEY {}--"
+argument_list|,
 operator|new
 name|String
 argument_list|(
 name|startKey
+argument_list|,
+name|StandardCharsets
+operator|.
+name|UTF_8
 argument_list|)
-operator|+
-literal|"--"
 argument_list|)
 expr_stmt|;
 block|}

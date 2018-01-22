@@ -805,6 +805,8 @@ name|Object
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Object
 name|run
@@ -930,6 +932,8 @@ name|Object
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Object
 name|run
@@ -2201,6 +2205,8 @@ name|t
 return|;
 block|}
 comment|/**    * Returns the current active master, if available.    * @return the active HMaster, null if none is active.    */
+annotation|@
+name|Override
 specifier|public
 name|MasterService
 operator|.
@@ -2442,6 +2448,8 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Blocks until there is an active master and that master has completed    * initialization.    *    * @return true if an active master becomes available.  false if there are no    *         masters left.    * @throws InterruptedException    */
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|waitForActiveAndReadyMaster
@@ -2594,6 +2602,8 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Shut down the mini HBase cluster    */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|shutdown

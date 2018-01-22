@@ -693,8 +693,15 @@ argument_list|)
 expr_stmt|;
 block|}
 name|inmemoryFlushSize
-operator|*=
+operator|=
+call|(
+name|long
+call|)
+argument_list|(
+name|inmemoryFlushSize
+operator|*
 name|factor
+argument_list|)
 expr_stmt|;
 name|LOG
 operator|.
@@ -1520,7 +1527,7 @@ decl_stmt|;
 name|long
 name|order
 init|=
-literal|1
+literal|1L
 operator|+
 name|pipelineList
 operator|.

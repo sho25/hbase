@@ -968,6 +968,8 @@ return|return
 name|scanners
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|String
 name|toString
@@ -988,6 +990,8 @@ operator|+
 literal|"]"
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|Cell
 name|peek
@@ -997,6 +1001,8 @@ return|return
 name|cur
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|Cell
 name|next
@@ -1082,6 +1088,8 @@ return|return
 name|retKey
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|seek
@@ -1208,6 +1216,8 @@ argument_list|)
 throw|;
 block|}
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|reseek
@@ -1479,6 +1489,8 @@ return|return
 literal|true
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|close

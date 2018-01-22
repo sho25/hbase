@@ -3061,6 +3061,8 @@ name|trailingPartialChunkLength
 expr_stmt|;
 block|}
 comment|/**    * Flush the buffer out to datanodes.    * @param syncBlock will call hsync if true, otherwise hflush.    * @return A CompletableFuture that hold the acked length after flushing.    */
+annotation|@
+name|Override
 specifier|public
 name|CompletableFuture
 argument_list|<

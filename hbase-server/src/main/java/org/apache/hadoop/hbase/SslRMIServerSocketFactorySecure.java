@@ -132,6 +132,8 @@ argument_list|(
 name|port
 argument_list|)
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Socket
 name|accept

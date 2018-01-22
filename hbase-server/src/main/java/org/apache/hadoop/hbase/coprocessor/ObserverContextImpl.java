@@ -189,6 +189,8 @@ operator|=
 name|bypassable
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|E
 name|getEnvironment
@@ -224,6 +226,8 @@ operator|.
 name|bypassable
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|bypass
@@ -284,6 +288,8 @@ return|return
 literal|false
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|Optional
 argument_list|<

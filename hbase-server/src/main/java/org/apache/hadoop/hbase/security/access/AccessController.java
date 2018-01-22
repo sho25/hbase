@@ -13274,10 +13274,12 @@ argument_list|(
 operator|new
 name|UserPermission
 argument_list|(
-name|user
+name|Bytes
 operator|.
-name|getBytes
-argument_list|()
+name|toBytes
+argument_list|(
+name|user
+argument_list|)
 argument_list|,
 name|AccessControlLists
 operator|.

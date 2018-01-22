@@ -1499,6 +1499,8 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|resetKVHeap
@@ -1546,6 +1548,8 @@ name|count
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|boolean
 name|trySkipToNextRow
@@ -1606,6 +1610,8 @@ return|return
 name|optimized
 return|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|boolean
 name|trySkipToNextColumn
@@ -1963,6 +1969,8 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|boolean
 name|trySkipToNextColumn
@@ -2115,6 +2123,8 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|boolean
 name|trySkipToNextColumn
@@ -7223,6 +7233,8 @@ operator|new
 name|EnvironmentEdge
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|long
 name|currentTime

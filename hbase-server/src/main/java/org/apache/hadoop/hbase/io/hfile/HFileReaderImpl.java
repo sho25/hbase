@@ -4400,7 +4400,7 @@ decl_stmt|;
 name|long
 name|seqId
 init|=
-literal|0l
+literal|0L
 decl_stmt|;
 if|if
 condition|(

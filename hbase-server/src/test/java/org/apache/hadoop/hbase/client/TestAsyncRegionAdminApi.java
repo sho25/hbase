@@ -475,16 +475,6 @@ name|org
 operator|.
 name|junit
 operator|.
-name|Assert
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
 name|Ignore
 import|;
 end_import
@@ -1512,8 +1502,6 @@ name|getServerName
 argument_list|()
 argument_list|;             try
 block|{
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 name|admin
@@ -1567,16 +1555,14 @@ class|;
 end_class
 
 begin_expr_stmt
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
+literal|2
+argument_list|,
 name|regionServerCount
 operator|.
 name|get
 argument_list|()
-argument_list|,
-literal|2
 argument_list|)
 expr_stmt|;
 end_expr_stmt
@@ -1703,8 +1689,6 @@ operator|.
 name|join
 argument_list|()
 expr_stmt|;
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 name|regionServer
@@ -1805,10 +1789,10 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// check the memstore.
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
+literal|0
+argument_list|,
 name|regionServer
 operator|.
 name|getOnlineRegion
@@ -1821,8 +1805,6 @@ argument_list|)
 operator|.
 name|getMemStoreSize
 argument_list|()
-argument_list|,
-literal|0
 argument_list|)
 expr_stmt|;
 comment|// write another put into the specific region
@@ -1862,8 +1844,6 @@ operator|.
 name|join
 argument_list|()
 expr_stmt|;
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 name|regionServer
@@ -1926,10 +1906,10 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// check the memstore.
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
+literal|0
+argument_list|,
 name|regionServer
 operator|.
 name|getOnlineRegion
@@ -1942,8 +1922,6 @@ argument_list|)
 operator|.
 name|getMemStoreSize
 argument_list|()
-argument_list|,
-literal|0
 argument_list|)
 expr_stmt|;
 block|}
@@ -3241,9 +3219,9 @@ block|}
 block|}
 name|assertEquals
 argument_list|(
-name|count
-argument_list|,
 literal|2
+argument_list|,
+name|count
 argument_list|)
 expr_stmt|;
 block|}
@@ -3608,16 +3586,14 @@ argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
+literal|1
+argument_list|,
 name|regions
 operator|.
 name|size
 argument_list|()
-argument_list|,
-literal|1
 argument_list|)
 expr_stmt|;
 name|int
@@ -3630,8 +3606,6 @@ argument_list|,
 name|families
 argument_list|)
 decl_stmt|;
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 name|countBefore
@@ -3677,8 +3651,6 @@ argument_list|,
 name|families
 argument_list|)
 decl_stmt|;
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 name|countAfterMinorCompaction
@@ -3724,13 +3696,11 @@ argument_list|,
 name|families
 argument_list|)
 decl_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
-name|countAfterMajorCompaction
-argument_list|,
 literal|3
+argument_list|,
+name|countAfterMajorCompaction
 argument_list|)
 expr_stmt|;
 block|}
@@ -3952,16 +3922,14 @@ argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
+literal|1
+argument_list|,
 name|regions
 operator|.
 name|size
 argument_list|()
-argument_list|,
-literal|1
 argument_list|)
 expr_stmt|;
 name|int

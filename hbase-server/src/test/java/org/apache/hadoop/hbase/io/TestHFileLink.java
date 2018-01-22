@@ -927,12 +927,12 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
+name|encodedRegion
+argument_list|,
 name|parsedRef
 operator|.
 name|getSecond
 argument_list|()
-argument_list|,
-name|encodedRegion
 argument_list|)
 expr_stmt|;
 comment|//verify resolving back reference

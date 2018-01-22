@@ -826,12 +826,12 @@ argument_list|)
 decl_stmt|;
 name|assertEquals
 argument_list|(
+literal|"hello"
+argument_list|,
 name|echoResponse
 operator|.
 name|getMessage
 argument_list|()
-argument_list|,
-literal|"hello"
 argument_list|)
 expr_stmt|;
 name|stub

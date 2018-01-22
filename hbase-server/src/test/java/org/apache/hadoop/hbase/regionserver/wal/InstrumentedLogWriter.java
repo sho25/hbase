@@ -136,10 +136,12 @@ operator|.
 name|getEncodedRegionName
 argument_list|()
 argument_list|,
-literal|"break"
+name|Bytes
 operator|.
-name|getBytes
-argument_list|()
+name|toBytes
+argument_list|(
+literal|"break"
+argument_list|)
 argument_list|)
 condition|)
 block|{

@@ -690,6 +690,8 @@ literal|0
 expr_stmt|;
 block|}
 comment|/**    * @return The filter serialized using pb    */
+annotation|@
+name|Override
 specifier|public
 name|byte
 index|[]

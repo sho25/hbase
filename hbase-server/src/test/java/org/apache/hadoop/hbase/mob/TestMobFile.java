@@ -18,12 +18,38 @@ package|;
 end_package
 
 begin_import
-import|import
+import|import static
+name|org
+operator|.
 name|junit
 operator|.
-name|framework
+name|Assert
 operator|.
-name|TestCase
+name|assertNotNull
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertNull
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
 import|;
 end_import
 
@@ -283,6 +309,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Rule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -298,6 +334,18 @@ operator|.
 name|categories
 operator|.
 name|Category
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|rules
+operator|.
+name|TestName
 import|;
 end_import
 
@@ -332,8 +380,6 @@ argument_list|)
 specifier|public
 class|class
 name|TestMobFile
-extends|extends
-name|TestCase
 block|{
 specifier|static
 specifier|final
@@ -377,6 +423,16 @@ name|CacheConfig
 argument_list|(
 name|conf
 argument_list|)
+decl_stmt|;
+annotation|@
+name|Rule
+specifier|public
+name|TestName
+name|testName
+init|=
+operator|new
+name|TestName
+argument_list|()
 decl_stmt|;
 annotation|@
 name|Test
@@ -453,7 +509,9 @@ decl_stmt|;
 name|String
 name|caseName
 init|=
-name|getName
+name|testName
+operator|.
+name|getMethodName
 argument_list|()
 decl_stmt|;
 name|MobTestUtil
@@ -921,7 +979,9 @@ name|writeStoreFile
 argument_list|(
 name|writer
 argument_list|,
-name|getName
+name|testName
+operator|.
+name|getMethodName
 argument_list|()
 argument_list|)
 expr_stmt|;

@@ -631,6 +631,8 @@ name|atEnd
 init|=
 literal|false
 decl_stmt|;
+annotation|@
+name|Override
 specifier|public
 name|Cell
 name|getKey
@@ -650,6 +652,8 @@ name|getKey
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|String
 name|getKeyString
@@ -669,6 +673,8 @@ name|getKeyString
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|ByteBuffer
 name|getValue
@@ -688,6 +694,8 @@ name|getValue
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|String
 name|getValueString
@@ -707,6 +715,8 @@ name|getValueString
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|Cell
 name|getCell
@@ -726,6 +736,8 @@ name|getCell
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|next
@@ -913,6 +925,8 @@ operator|>
 literal|0
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|org
 operator|.
@@ -941,6 +955,8 @@ name|getReader
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isSeeked

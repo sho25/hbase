@@ -1069,6 +1069,8 @@ name|shutdownMiniCluster
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testClusterConnection
@@ -4138,6 +4140,8 @@ name|Assert
 operator|.
 name|assertArrayEquals
 argument_list|(
+name|ROW
+argument_list|,
 name|e
 operator|.
 name|getRow
@@ -4147,8 +4151,6 @@ argument_list|)
 operator|.
 name|getRow
 argument_list|()
-argument_list|,
-name|ROW
 argument_list|)
 expr_stmt|;
 comment|// Check that we unserialized the exception as expected

@@ -1117,6 +1117,8 @@ argument_list|>
 argument_list|()
 block|{
 comment|/**          * The workers are going to perform a couple of reads. The second read          * will follow the killing of a regionserver so that we make sure that          * some of threads go into PreemptiveFastFailExcception          */
+annotation|@
+name|Override
 specifier|public
 name|Boolean
 name|call
@@ -1627,9 +1629,9 @@ literal|"Number of threads that threw execution exceptions "
 operator|+
 literal|"otherwise should be 0"
 argument_list|,
-name|numThreadsThrewExceptions
-argument_list|,
 literal|0
+argument_list|,
+name|numThreadsThrewExceptions
 argument_list|)
 expr_stmt|;
 name|assertEquals

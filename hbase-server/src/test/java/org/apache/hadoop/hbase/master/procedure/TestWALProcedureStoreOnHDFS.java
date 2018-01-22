@@ -908,7 +908,7 @@ name|procId
 init|=
 name|i
 operator|+
-literal|1
+literal|1L
 decl_stmt|;
 name|thread
 index|[

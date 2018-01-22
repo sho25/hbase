@@ -408,6 +408,8 @@ operator|=
 name|fastPathHandlerStack
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|CallRunner
 name|getCallRunner

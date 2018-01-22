@@ -997,12 +997,12 @@ block|{
 name|long
 name|rowsObserved
 init|=
-literal|0l
+literal|0L
 decl_stmt|;
 name|long
 name|entriesObserved
 init|=
-literal|0l
+literal|0L
 decl_stmt|;
 comment|// Read all the records in the table
 for|for

@@ -1045,6 +1045,8 @@ name|this
 argument_list|)
 argument_list|)
 block|{
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isTableEnabled
@@ -1058,6 +1060,8 @@ return|return
 literal|true
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isTableDisabled

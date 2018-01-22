@@ -1517,6 +1517,8 @@ argument_list|,
 name|cohort
 argument_list|)
 block|{
+annotation|@
+name|Override
 specifier|public
 name|void
 name|doWork
@@ -2034,6 +2036,7 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|private
+specifier|static
 specifier|abstract
 class|class
 name|OperationAnswer

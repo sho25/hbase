@@ -417,12 +417,12 @@ name|assertEquals
 argument_list|(
 literal|"resultSize"
 argument_list|,
+literal|2
+argument_list|,
 name|kvs
 operator|.
 name|size
 argument_list|()
-argument_list|,
-literal|2
 argument_list|)
 expr_stmt|;
 name|assertTrue

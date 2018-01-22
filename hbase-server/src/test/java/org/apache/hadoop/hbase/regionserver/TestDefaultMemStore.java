@@ -4115,11 +4115,9 @@ operator|==
 name|ROW_COUNT
 condition|)
 block|{
-name|assertEquals
+name|assertNull
 argument_list|(
 name|nr
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 block|}
@@ -6298,11 +6296,11 @@ argument_list|()
 decl_stmt|;
 name|assertEquals
 argument_list|(
-name|t
-argument_list|,
 name|Long
 operator|.
 name|MAX_VALUE
+argument_list|,
+name|t
 argument_list|)
 expr_stmt|;
 comment|// test the case that the timeOfOldestEdit is updated after a KV add

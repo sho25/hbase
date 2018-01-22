@@ -5644,6 +5644,7 @@ argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|protected
+specifier|final
 name|ConcurrentHashMap
 argument_list|<
 name|String
@@ -8407,12 +8408,17 @@ name|info
 argument_list|(
 literal|"Submitting writeThenClose of {}"
 argument_list|,
+name|Arrays
+operator|.
+name|toString
+argument_list|(
 name|buffer
 operator|.
 name|getValue
 argument_list|()
 operator|.
 name|encodedRegionName
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|completionService
@@ -8426,6 +8432,8 @@ name|Void
 argument_list|>
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|Void
 name|call

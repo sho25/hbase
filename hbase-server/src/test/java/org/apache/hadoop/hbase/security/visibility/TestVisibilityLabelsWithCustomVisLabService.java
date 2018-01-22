@@ -349,6 +349,8 @@ expr_stmt|;
 block|}
 comment|// Extending this test from super as we don't verify predefined labels in ExpAsStringVisibilityLabelServiceImpl
 annotation|@
+name|Override
+annotation|@
 name|Test
 specifier|public
 name|void
@@ -381,6 +383,8 @@ literal|"TEST"
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|List
 argument_list|<

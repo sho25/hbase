@@ -685,6 +685,7 @@ init|=
 literal|null
 decl_stmt|;
 specifier|private
+specifier|static
 class|class
 name|MockedBucketCache
 extends|extends
@@ -2061,12 +2062,12 @@ name|ACCEPT_FACTOR_CONFIG_NAME
 operator|+
 literal|" failed to propagate."
 argument_list|,
+literal|0.9f
+argument_list|,
 name|cache
 operator|.
 name|getAcceptableFactor
 argument_list|()
-argument_list|,
-literal|0.9f
 argument_list|,
 literal|0
 argument_list|)
@@ -2079,12 +2080,12 @@ name|MIN_FACTOR_CONFIG_NAME
 operator|+
 literal|" failed to propagate."
 argument_list|,
+literal|0.5f
+argument_list|,
 name|cache
 operator|.
 name|getMinFactor
 argument_list|()
-argument_list|,
-literal|0.5f
 argument_list|,
 literal|0
 argument_list|)
@@ -2097,12 +2098,12 @@ name|EXTRA_FREE_FACTOR_CONFIG_NAME
 operator|+
 literal|" failed to propagate."
 argument_list|,
+literal|0.5f
+argument_list|,
 name|cache
 operator|.
 name|getExtraFreeFactor
 argument_list|()
-argument_list|,
-literal|0.5f
 argument_list|,
 literal|0
 argument_list|)
@@ -2115,12 +2116,12 @@ name|SINGLE_FACTOR_CONFIG_NAME
 operator|+
 literal|" failed to propagate."
 argument_list|,
+literal|0.1f
+argument_list|,
 name|cache
 operator|.
 name|getSingleFactor
 argument_list|()
-argument_list|,
-literal|0.1f
 argument_list|,
 literal|0
 argument_list|)
@@ -2133,12 +2134,12 @@ name|MULTI_FACTOR_CONFIG_NAME
 operator|+
 literal|" failed to propagate."
 argument_list|,
+literal|0.7f
+argument_list|,
 name|cache
 operator|.
 name|getMultiFactor
 argument_list|()
-argument_list|,
-literal|0.7f
 argument_list|,
 literal|0
 argument_list|)
@@ -2151,12 +2152,12 @@ name|MEMORY_FACTOR_CONFIG_NAME
 operator|+
 literal|" failed to propagate."
 argument_list|,
+literal|0.2f
+argument_list|,
 name|cache
 operator|.
 name|getMemoryFactor
 argument_list|()
-argument_list|,
-literal|0.2f
 argument_list|,
 literal|0
 argument_list|)

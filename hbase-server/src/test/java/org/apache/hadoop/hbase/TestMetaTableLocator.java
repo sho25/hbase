@@ -963,6 +963,8 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
+name|SN
+argument_list|,
 name|mtl
 operator|.
 name|getMetaRegionLocation
@@ -971,8 +973,6 @@ name|this
 operator|.
 name|watcher
 argument_list|)
-argument_list|,
-name|SN
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1022,6 +1022,12 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
+name|RegionState
+operator|.
+name|State
+operator|.
+name|OFFLINE
+argument_list|,
 name|MetaTableLocator
 operator|.
 name|getMetaRegionState
@@ -1033,12 +1039,6 @@ argument_list|)
 operator|.
 name|getState
 argument_list|()
-argument_list|,
-name|RegionState
-operator|.
-name|State
-operator|.
-name|OFFLINE
 argument_list|)
 expr_stmt|;
 name|assertNull

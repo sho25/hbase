@@ -2367,6 +2367,7 @@ name|T
 parameter_list|>
 block|{
 specifier|private
+specifier|final
 name|HashSet
 argument_list|<
 name|T
@@ -2533,6 +2534,8 @@ return|return
 name|time
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|equals
@@ -2574,6 +2577,8 @@ return|return
 literal|false
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|int
 name|hashCode

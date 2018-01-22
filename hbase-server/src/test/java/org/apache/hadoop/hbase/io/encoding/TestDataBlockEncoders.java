@@ -683,7 +683,7 @@ init|=
 operator|new
 name|Random
 argument_list|(
-literal|42l
+literal|42L
 argument_list|)
 decl_stmt|;
 specifier|private
@@ -918,7 +918,7 @@ name|family
 argument_list|,
 name|qualifier
 argument_list|,
-literal|0l
+literal|0L
 argument_list|,
 name|value
 argument_list|)
@@ -937,7 +937,7 @@ name|family
 argument_list|,
 name|qualifier
 argument_list|,
-literal|0l
+literal|0L
 argument_list|,
 name|value
 argument_list|)
@@ -981,7 +981,7 @@ name|family
 argument_list|,
 name|qualifier
 argument_list|,
-literal|0l
+literal|0L
 argument_list|,
 name|value
 argument_list|,
@@ -1016,7 +1016,7 @@ name|family
 argument_list|,
 name|qualifier
 argument_list|,
-literal|0l
+literal|0L
 argument_list|,
 name|value
 argument_list|,
@@ -1150,7 +1150,7 @@ name|family
 argument_list|,
 name|qualifier
 argument_list|,
-literal|0l
+literal|0L
 argument_list|,
 name|value
 argument_list|,
@@ -1185,7 +1185,7 @@ name|family
 argument_list|,
 name|qualifier
 argument_list|,
-literal|0l
+literal|0L
 argument_list|,
 name|value
 argument_list|,
@@ -1224,7 +1224,7 @@ argument_list|,
 name|qualifier
 argument_list|,
 operator|-
-literal|1l
+literal|1L
 argument_list|,
 name|Type
 operator|.
@@ -1248,7 +1248,7 @@ argument_list|,
 name|qualifier
 argument_list|,
 operator|-
-literal|2l
+literal|2L
 argument_list|,
 name|Type
 operator|.

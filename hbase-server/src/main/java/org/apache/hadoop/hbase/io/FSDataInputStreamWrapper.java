@@ -73,6 +73,20 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|atomic
+operator|.
+name|AtomicInteger
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -133,6 +147,22 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|fs
+operator|.
+name|HFileSystem
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -158,22 +188,6 @@ operator|.
 name|slf4j
 operator|.
 name|LoggerFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|fs
-operator|.
-name|HFileSystem
 import|;
 end_import
 
@@ -286,6 +300,7 @@ init|=
 literal|null
 decl_stmt|;
 specifier|private
+specifier|final
 name|Object
 name|streamNoFsChecksumFirstCreateLock
 init|=
@@ -310,12 +325,15 @@ decl_stmt|;
 comment|// In the case of a checksum failure, do these many succeeding
 comment|// reads without hbase checksum verification.
 specifier|private
-specifier|volatile
-name|int
+name|AtomicInteger
 name|hbaseChecksumOffCount
 init|=
+operator|new
+name|AtomicInteger
+argument_list|(
 operator|-
 literal|1
+argument_list|)
 decl_stmt|;
 specifier|private
 name|Boolean
@@ -912,8 +930,11 @@ expr_stmt|;
 name|this
 operator|.
 name|hbaseChecksumOffCount
-operator|=
+operator|.
+name|set
+argument_list|(
 name|offCount
+argument_list|)
 expr_stmt|;
 block|}
 return|return
@@ -943,7 +964,9 @@ operator|(
 name|this
 operator|.
 name|hbaseChecksumOffCount
-operator|--
+operator|.
+name|getAndDecrement
+argument_list|()
 operator|<
 literal|0
 operator|)

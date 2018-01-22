@@ -178,6 +178,8 @@ name|getScannerOrder
 parameter_list|()
 function_decl|;
 comment|/**    * Close the KeyValue scanner.    */
+annotation|@
+name|Override
 name|void
 name|close
 parameter_list|()

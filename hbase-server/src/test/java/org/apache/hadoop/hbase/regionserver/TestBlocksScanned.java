@@ -407,6 +407,8 @@ init|=
 literal|null
 decl_stmt|;
 annotation|@
+name|Override
+annotation|@
 name|Before
 specifier|public
 name|void

@@ -592,6 +592,8 @@ name|assertEquals
 argument_list|(
 literal|"HBaseAdmin threw an interrupted IOException as expected."
 argument_list|,
+literal|"java.io.InterruptedIOException"
+argument_list|,
 name|e
 operator|.
 name|getClass
@@ -599,8 +601,6 @@ argument_list|()
 operator|.
 name|getName
 argument_list|()
-argument_list|,
-literal|"java.io.InterruptedIOException"
 argument_list|)
 expr_stmt|;
 block|}

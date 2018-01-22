@@ -247,6 +247,7 @@ name|CAPACITY
 init|=
 literal|16
 decl_stmt|;
+specifier|static
 class|class
 name|TestObject
 block|{
@@ -308,6 +309,7 @@ name|priority
 return|;
 block|}
 block|}
+specifier|static
 class|class
 name|TestObjectComparator
 implements|implements
@@ -1364,6 +1366,8 @@ operator|new
 name|Runnable
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|void
 name|run
@@ -1441,6 +1445,8 @@ operator|new
 name|Runnable
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|void
 name|run

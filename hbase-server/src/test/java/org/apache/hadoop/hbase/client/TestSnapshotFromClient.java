@@ -1118,6 +1118,8 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
+name|snapshot3
+argument_list|,
 name|snapshots
 operator|.
 name|get
@@ -1127,8 +1129,6 @@ argument_list|)
 operator|.
 name|getName
 argument_list|()
-argument_list|,
-name|snapshot3
 argument_list|)
 expr_stmt|;
 name|admin

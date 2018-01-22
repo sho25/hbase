@@ -997,7 +997,7 @@ name|fam
 argument_list|,
 name|qual
 argument_list|,
-literal|125l
+literal|125L
 argument_list|,
 name|value
 argument_list|)
