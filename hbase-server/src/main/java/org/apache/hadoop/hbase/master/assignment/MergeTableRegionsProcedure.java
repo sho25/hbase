@@ -1758,6 +1758,7 @@ operator|.
 name|HAS_MORE_STATE
 return|;
 block|}
+comment|/**    * To rollback {@link MergeTableRegionsProcedure}, two AssignProcedures are asynchronously    * submitted for each region to be merged (rollback doesn't wait on the completion of the    * AssignProcedures) . This can be improved by changing rollback() to support sub-procedures.    * See HBASE-19851 for details.    */
 annotation|@
 name|Override
 specifier|protected

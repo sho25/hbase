@@ -1850,8 +1850,8 @@ literal|true
 argument_list|)
 argument_list|)
 decl_stmt|;
-comment|// Failing before MERGE_TABLE_REGIONS_UPDATE_META we should trigger the rollback
-comment|// NOTE: the 5 (number before MERGE_TABLE_REGIONS_UPDATE_META step) is
+comment|// Failing before MERGE_TABLE_REGIONS_CREATE_MERGED_REGION we should trigger the rollback
+comment|// NOTE: the 5 (number before MERGE_TABLE_REGIONS_CREATE_MERGED_REGION step) is
 comment|// hardcoded, so you have to look at this test at least once when you add a new step.
 name|int
 name|numberOfSteps
@@ -1867,6 +1867,8 @@ argument_list|,
 name|procId
 argument_list|,
 name|numberOfSteps
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 block|}
