@@ -161,6 +161,20 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|atomic
+operator|.
+name|AtomicBoolean
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -827,10 +841,14 @@ operator|new
 name|Abortable
 argument_list|()
 block|{
-name|boolean
+name|AtomicBoolean
 name|aborted
 init|=
+operator|new
+name|AtomicBoolean
+argument_list|(
 literal|false
+argument_list|)
 decl_stmt|;
 annotation|@
 name|Override
@@ -841,6 +859,9 @@ parameter_list|()
 block|{
 return|return
 name|aborted
+operator|.
+name|get
+argument_list|()
 return|;
 block|}
 annotation|@
@@ -857,8 +878,11 @@ name|e
 parameter_list|)
 block|{
 name|aborted
-operator|=
+operator|.
+name|set
+argument_list|(
 literal|true
+argument_list|)
 expr_stmt|;
 block|}
 block|}
@@ -1274,6 +1298,18 @@ argument_list|(
 name|data
 argument_list|)
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Primary="
+operator|+
+name|primary
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|TableName
 name|TABLE
 init|=
@@ -1556,6 +1592,18 @@ argument_list|()
 expr_stmt|;
 comment|// kill the master so that regionserver recovery is not triggered at all
 comment|// for the meta server
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Stopping master="
+operator|+
+name|master
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|util
 operator|.
 name|getHBaseClusterInterface
@@ -1576,6 +1624,13 @@ argument_list|(
 name|master
 argument_list|,
 literal|60000
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Master stopped!"
 argument_list|)
 expr_stmt|;
 if|if
@@ -1623,6 +1678,13 @@ name|clearRegionCache
 argument_list|()
 expr_stmt|;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Running GETs"
+argument_list|)
+expr_stmt|;
 name|Get
 name|get
 init|=
@@ -1735,6 +1797,13 @@ argument_list|)
 expr_stmt|;
 comment|// now start back the killed servers and disable use of replicas. That would mean
 comment|// calls go to the primary
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Starting Master"
+argument_list|)
+expr_stmt|;
 name|util
 operator|.
 name|getHBaseClusterInterface
@@ -1773,6 +1842,13 @@ operator|.
 name|waitForActiveAndReadyMaster
 argument_list|()
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Master active!"
+argument_list|)
+expr_stmt|;
 operator|(
 operator|(
 name|ClusterConnection
@@ -1795,6 +1871,13 @@ argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Running GETs no replicas"
+argument_list|)
+expr_stmt|;
 try|try
 init|(
 name|Table
@@ -1806,6 +1889,7 @@ name|getTable
 argument_list|(
 name|TABLE
 argument_list|)
+init|;
 init|)
 block|{
 name|r
