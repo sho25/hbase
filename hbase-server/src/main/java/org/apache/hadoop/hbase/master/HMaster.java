@@ -14151,13 +14151,11 @@ specifier|public
 name|void
 name|abort
 parameter_list|(
-specifier|final
 name|String
-name|msg
+name|reason
 parameter_list|,
-specifier|final
 name|Throwable
-name|t
+name|cause
 parameter_list|)
 block|{
 if|if
@@ -14194,9 +14192,22 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+name|String
+name|msg
+init|=
+literal|"***** ABORTING master "
+operator|+
+name|this
+operator|+
+literal|": "
+operator|+
+name|reason
+operator|+
+literal|" *****"
+decl_stmt|;
 if|if
 condition|(
-name|t
+name|cause
 operator|!=
 literal|null
 condition|)
@@ -14211,7 +14222,7 @@ name|FATAL
 argument_list|,
 name|msg
 argument_list|,
-name|t
+name|cause
 argument_list|)
 expr_stmt|;
 block|}
@@ -14347,6 +14358,7 @@ return|return
 name|rsFatals
 return|;
 block|}
+comment|/**    * Shutdown the cluster.    * Master runs a coordinated stop of all RegionServers and then itself.    */
 specifier|public
 name|void
 name|shutdown
@@ -14367,6 +14379,7 @@ name|preShutdown
 argument_list|()
 expr_stmt|;
 block|}
+comment|// Tell the servermanager cluster is down.
 if|if
 condition|(
 name|this
@@ -14384,6 +14397,7 @@ name|shutdownCluster
 argument_list|()
 expr_stmt|;
 block|}
+comment|// Set the cluster down flag; broadcast across the cluster.
 if|if
 condition|(
 name|this
@@ -14419,6 +14433,27 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+comment|// Shutdown our cluster connection. This will kill any hosted RPCs that might be going on;
+comment|// this is what we want especially if the Master is in startup phase doing call outs to
+comment|// hbase:meta, etc. when cluster is down. Without ths connection close, we'd have to wait on
+comment|// the rpc to timeout.
+if|if
+condition|(
+name|this
+operator|.
+name|clusterConnection
+operator|!=
+literal|null
+condition|)
+block|{
+name|this
+operator|.
+name|clusterConnection
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 block|}
 specifier|public

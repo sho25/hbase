@@ -4503,44 +4503,13 @@ name|get
 argument_list|()
 return|;
 block|}
-comment|/**    * Stop the ServerManager.  Currently closes the connection to the master.    */
+comment|/**    * Stop the ServerManager.    */
 specifier|public
 name|void
 name|stop
 parameter_list|()
 block|{
-if|if
-condition|(
-name|connection
-operator|!=
-literal|null
-condition|)
-block|{
-try|try
-block|{
-name|connection
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Attempt to close connection to master failed"
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-block|}
-block|}
+comment|// Nothing to do.
 block|}
 comment|/**    * Creates a list of possible destinations for a region. It contains the online servers, but not    *  the draining or dying servers.    *  @param serversToExclude can be null if there is no server to exclude    */
 specifier|public

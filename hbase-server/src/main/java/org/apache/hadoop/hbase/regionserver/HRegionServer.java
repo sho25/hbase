@@ -3275,7 +3275,7 @@ specifier|protected
 name|HeapMemoryManager
 name|hMemManager
 decl_stmt|;
-comment|/**    * Cluster connection to be shared by services.    * Initialized at server startup and closed when server shuts down.    * Clients must never close it explicitly.    */
+comment|/**    * Cluster connection to be shared by services.    * Initialized at server startup and closed when server shuts down.    * Clients must never close it explicitly.    * Clients hosted by this Server should make use of this clusterConnection rather than create    * their own; if they create their own, there is no way for the hosting server to shutdown    * ongoing client RPCs.    */
 specifier|protected
 name|ClusterConnection
 name|clusterConnection
