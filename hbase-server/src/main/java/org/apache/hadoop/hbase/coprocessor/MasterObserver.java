@@ -281,6 +281,22 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|replication
+operator|.
+name|SyncReplicationState
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -3254,6 +3270,48 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
+comment|/**    * Called before transit current cluster state for the specified synchronous replication peer    * @param ctx the environment to interact with the framework and master    * @param peerId a short name that identifies the peer    * @param state a new state    */
+specifier|default
+name|void
+name|preTransitReplicationPeerSyncReplicationState
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|String
+name|peerId
+parameter_list|,
+name|SyncReplicationState
+name|state
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
+comment|/**    * Called after transit current cluster state for the specified synchronous replication peer    * @param ctx the environment to interact with the framework and master    * @param peerId a short name that identifies the peer    * @param state a new state    */
+specifier|default
+name|void
+name|postTransitReplicationPeerSyncReplicationState
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|String
+name|peerId
+parameter_list|,
+name|SyncReplicationState
+name|state
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
 comment|/**    * Called before new LockProcedure is queued.    * @param ctx the environment to interact with the framework and master    */
 specifier|default
 name|void

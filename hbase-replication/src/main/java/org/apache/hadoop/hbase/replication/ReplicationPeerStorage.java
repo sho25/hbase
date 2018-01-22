@@ -66,6 +66,9 @@ name|peerConfig
 parameter_list|,
 name|boolean
 name|enabled
+parameter_list|,
+name|SyncReplicationState
+name|syncReplicationState
 parameter_list|)
 throws|throws
 name|ReplicationException
@@ -129,6 +132,29 @@ function_decl|;
 comment|/**    * Get the peer config of a replication peer.    * @throws ReplicationException if there are errors accessing the storage service.    */
 name|ReplicationPeerConfig
 name|getPeerConfig
+parameter_list|(
+name|String
+name|peerId
+parameter_list|)
+throws|throws
+name|ReplicationException
+function_decl|;
+comment|/**    * Set the state of current cluster in a synchronous replication peer.    * @throws ReplicationException if there are errors accessing the storage service.    */
+name|void
+name|setPeerSyncReplicationState
+parameter_list|(
+name|String
+name|peerId
+parameter_list|,
+name|SyncReplicationState
+name|state
+parameter_list|)
+throws|throws
+name|ReplicationException
+function_decl|;
+comment|/**    * Get the state of current cluster in a synchronous replication peer.    * @throws ReplicationException if there are errors accessing the storage service.    */
+name|SyncReplicationState
+name|getPeerSyncReplicationState
 parameter_list|(
 name|String
 name|peerId

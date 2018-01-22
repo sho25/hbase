@@ -59,6 +59,11 @@ specifier|final
 name|ReplicationPeerConfig
 name|config
 decl_stmt|;
+specifier|private
+specifier|final
+name|SyncReplicationState
+name|syncReplicationState
+decl_stmt|;
 specifier|public
 name|ReplicationPeerDescription
 parameter_list|(
@@ -70,6 +75,9 @@ name|enabled
 parameter_list|,
 name|ReplicationPeerConfig
 name|config
+parameter_list|,
+name|SyncReplicationState
+name|syncReplicationState
 parameter_list|)
 block|{
 name|this
@@ -89,6 +97,12 @@ operator|.
 name|config
 operator|=
 name|config
+expr_stmt|;
+name|this
+operator|.
+name|syncReplicationState
+operator|=
+name|syncReplicationState
 expr_stmt|;
 block|}
 specifier|public
@@ -122,6 +136,17 @@ return|return
 name|this
 operator|.
 name|config
+return|;
+block|}
+specifier|public
+name|SyncReplicationState
+name|getSyncReplicationState
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|syncReplicationState
 return|;
 block|}
 annotation|@
@@ -161,6 +186,15 @@ argument_list|(
 literal|", config : "
 operator|+
 name|config
+argument_list|)
+expr_stmt|;
+name|builder
+operator|.
+name|append
+argument_list|(
+literal|", syncReplicationState : "
+operator|+
+name|syncReplicationState
 argument_list|)
 expr_stmt|;
 return|return

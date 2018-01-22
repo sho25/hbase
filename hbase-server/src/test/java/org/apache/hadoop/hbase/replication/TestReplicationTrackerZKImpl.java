@@ -1008,6 +1008,10 @@ name|build
 argument_list|()
 argument_list|,
 literal|true
+argument_list|,
+name|SyncReplicationState
+operator|.
+name|NONE
 argument_list|)
 expr_stmt|;
 try|try
@@ -1038,6 +1042,10 @@ name|build
 argument_list|()
 argument_list|,
 literal|true
+argument_list|,
+name|SyncReplicationState
+operator|.
+name|NONE
 argument_list|)
 expr_stmt|;
 block|}
