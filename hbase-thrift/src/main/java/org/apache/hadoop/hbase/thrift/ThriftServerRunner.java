@@ -12405,6 +12405,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
+specifier|synchronized
 name|Throwable
 name|getCause
 parameter_list|()

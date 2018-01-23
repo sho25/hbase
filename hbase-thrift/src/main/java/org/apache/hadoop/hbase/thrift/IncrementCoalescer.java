@@ -792,6 +792,8 @@ operator|+
 literal|"-thread-"
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|Thread
 name|newThread
@@ -1706,6 +1708,8 @@ expr_stmt|;
 block|}
 block|}
 comment|// MBean get/set methods
+annotation|@
+name|Override
 specifier|public
 name|int
 name|getQueueSize
@@ -1721,6 +1725,8 @@ name|size
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|int
 name|getMaxQueueSize
@@ -1732,6 +1738,8 @@ operator|.
 name|maxQueueSize
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|setMaxQueueSize
@@ -1747,6 +1755,8 @@ operator|=
 name|newSize
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|long
 name|getPoolCompletedTaskCount
@@ -1759,6 +1769,8 @@ name|getCompletedTaskCount
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|long
 name|getPoolTaskCount
@@ -1771,6 +1783,8 @@ name|getTaskCount
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|int
 name|getPoolLargestPoolSize
@@ -1783,6 +1797,8 @@ name|getLargestPoolSize
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|int
 name|getCorePoolSize
@@ -1795,6 +1811,8 @@ name|getCorePoolSize
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|setCorePoolSize
@@ -1811,6 +1829,8 @@ name|newCoreSize
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|int
 name|getMaxPoolSize
@@ -1823,6 +1843,8 @@ name|getMaximumPoolSize
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|setMaxPoolSize
@@ -1839,6 +1861,8 @@ name|newMaxSize
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|long
 name|getFailedIncrements
@@ -1851,6 +1875,8 @@ name|sum
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|long
 name|getSuccessfulCoalescings
@@ -1863,6 +1889,8 @@ name|sum
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|long
 name|getTotalIncrements
@@ -1875,6 +1903,8 @@ name|sum
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|long
 name|getCountersMapSize

@@ -364,17 +364,9 @@ operator|new
 name|Object
 index|[]
 block|{
-operator|new
-name|Integer
-argument_list|(
 name|elementsAdded
-argument_list|)
 block|,
-operator|new
-name|Integer
-argument_list|(
 name|elementsRemoved
-argument_list|)
 block|}
 argument_list|)
 expr_stmt|;
