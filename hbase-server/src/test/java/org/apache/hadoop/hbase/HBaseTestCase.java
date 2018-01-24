@@ -673,6 +673,15 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
+name|conf
+operator|.
+name|setBoolean
+argument_list|(
+literal|"hbase.unsafe.stream.capability.enforce"
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
 block|}
 else|else
 block|{

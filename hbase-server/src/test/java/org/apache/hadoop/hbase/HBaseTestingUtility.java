@@ -19,6 +19,24 @@ begin_import
 import|import static
 name|org
 operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|CommonFSUtils
+operator|.
+name|UNSAFE_STREAM_CAPABILITY_ENFORCE
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
 name|junit
 operator|.
 name|Assert
@@ -2514,6 +2532,7 @@ init|=
 name|bloomAndCompressionCombinations
 argument_list|()
 decl_stmt|;
+comment|/**    * Creates a new HBaseTestingUtility for starting a mini-cluster.    * If you are not using the startMini* methods, consider {@link #createLocalHTU()} instead.    */
 specifier|public
 name|HBaseTestingUtility
 parameter_list|()
@@ -2527,6 +2546,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Creates a new HBaseTestingUtility for starting a mini-cluster.    * If you are not using the startMini* methods, consider {@link #createLocalHTU()} instead.    */
 specifier|public
 name|HBaseTestingUtility
 parameter_list|(
@@ -2742,6 +2762,18 @@ operator|+
 literal|" to "
 operator|+
 name|dataTestDir
+argument_list|)
+expr_stmt|;
+name|htu
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|setBoolean
+argument_list|(
+name|UNSAFE_STREAM_CAPABILITY_ENFORCE
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|htu
