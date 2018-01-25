@@ -20,24 +20,48 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertFalse
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
 name|util
 operator|.
 name|Iterator
-import|;
-end_import
-
-begin_import
-import|import
-name|javax
-operator|.
-name|xml
-operator|.
-name|bind
-operator|.
-name|JAXBContext
 import|;
 end_import
 
@@ -232,10 +256,6 @@ name|TIMESTAMP1
 init|=
 literal|1245219839331L
 decl_stmt|;
-specifier|private
-name|JAXBContext
-name|context
-decl_stmt|;
 specifier|public
 name|TestRowModel
 parameter_list|()
@@ -262,6 +282,8 @@ operator|+
 literal|"\"timestamp\":1245219839331,\"$\":\"dGVzdHZhbHVlMQ==\"}]}"
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|RowModel
 name|buildTestModel
@@ -300,6 +322,8 @@ return|return
 name|model
 return|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|checkModel
@@ -385,12 +409,12 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
+name|TIMESTAMP1
+argument_list|,
 name|cell
 operator|.
 name|getTimestamp
 argument_list|()
-argument_list|,
-name|TIMESTAMP1
 argument_list|)
 expr_stmt|;
 name|assertFalse

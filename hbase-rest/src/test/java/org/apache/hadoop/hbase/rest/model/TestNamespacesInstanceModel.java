@@ -20,6 +20,30 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertNotSame
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -205,6 +229,8 @@ operator|+
 literal|"\"KEY_1\":\"VALUE_1\",\"KEY_2\":\"VALUE_2\"}}"
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|NamespacesInstanceModel
 name|buildTestModel
@@ -272,6 +298,8 @@ return|return
 name|model
 return|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|checkModel
@@ -377,6 +405,8 @@ expr_stmt|;
 block|}
 block|}
 annotation|@
+name|Override
+annotation|@
 name|Test
 specifier|public
 name|void
@@ -392,6 +422,8 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 annotation|@
 name|Test
 specifier|public
@@ -410,6 +442,8 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 annotation|@
 name|Test
 specifier|public

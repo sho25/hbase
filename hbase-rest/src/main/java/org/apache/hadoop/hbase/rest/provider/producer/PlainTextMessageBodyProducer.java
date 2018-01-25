@@ -151,11 +151,13 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|util
+operator|.
+name|Bytes
 import|;
 end_import
 
@@ -172,6 +174,20 @@ operator|.
 name|rest
 operator|.
 name|Constants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -306,13 +322,15 @@ name|outStream
 operator|.
 name|write
 argument_list|(
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
 name|object
 operator|.
 name|toString
 argument_list|()
-operator|.
-name|getBytes
-argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

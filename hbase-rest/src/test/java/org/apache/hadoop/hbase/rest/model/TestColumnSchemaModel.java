@@ -20,6 +20,30 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
 import|import
 name|org
 operator|.
@@ -48,6 +72,16 @@ operator|.
 name|testclassification
 operator|.
 name|SmallTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|Test
 import|;
 end_import
 
@@ -182,6 +216,8 @@ operator|+
 literal|"\"TTL\":\"86400\",\"IN_MEMORY\":\"false\"}"
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|ColumnSchemaModel
 name|buildTestModel
@@ -254,6 +290,8 @@ return|return
 name|model
 return|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|checkModel
@@ -362,6 +400,10 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testFromPB

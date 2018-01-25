@@ -20,6 +20,42 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertFalse
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
 import|import
 name|org
 operator|.
@@ -224,6 +260,8 @@ operator|=
 literal|"{\"column\":\"dGVzdGNvbHVtbg==\",\"timestamp\":1245219839331,\"$\":\"dGVzdHZhbHVl\"}"
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|CellModel
 name|buildTestModel
@@ -261,6 +299,8 @@ return|return
 name|model
 return|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|checkModel
@@ -309,15 +349,17 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
+name|TIMESTAMP
+argument_list|,
 name|model
 operator|.
 name|getTimestamp
 argument_list|()
-argument_list|,
-name|TIMESTAMP
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|testBuildModel
@@ -332,6 +374,8 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|testFromXML
@@ -348,6 +392,8 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|testFromPB

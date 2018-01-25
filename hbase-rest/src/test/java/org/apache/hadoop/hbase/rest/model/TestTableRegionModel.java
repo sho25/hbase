@@ -20,6 +20,30 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
 import|import
 name|org
 operator|.
@@ -29,7 +53,21 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|*
+name|HRegionInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|TableName
 import|;
 end_import
 
@@ -78,6 +116,16 @@ operator|.
 name|util
 operator|.
 name|Bytes
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|Test
 import|;
 end_import
 
@@ -202,6 +250,8 @@ operator|+
 literal|"startKey\":\"YWJyYWNhZGJyYQ==\"}"
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|TableRegionModel
 name|buildTestModel
@@ -228,6 +278,8 @@ return|return
 name|model
 return|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|checkModel
@@ -268,22 +320,22 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
+name|ID
+argument_list|,
 name|model
 operator|.
 name|getId
 argument_list|()
-argument_list|,
-name|ID
 argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
+name|LOCATION
+argument_list|,
 name|model
 operator|.
 name|getLocation
 argument_list|()
-argument_list|,
-name|LOCATION
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -317,6 +369,8 @@ literal|".ad9860f031282c46ed431d7af8f94aca."
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testGetName
@@ -369,6 +423,8 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testSetName

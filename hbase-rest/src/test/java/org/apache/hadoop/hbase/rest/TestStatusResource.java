@@ -18,6 +18,54 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertFalse
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertNotNull
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -234,18 +282,6 @@ operator|.
 name|util
 operator|.
 name|Bytes
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|*
 import|;
 end_import
 
@@ -766,12 +802,12 @@ argument_list|)
 decl_stmt|;
 name|assertEquals
 argument_list|(
+literal|200
+argument_list|,
 name|response
 operator|.
 name|getCode
 argument_list|()
-argument_list|,
-literal|200
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -842,12 +878,12 @@ argument_list|)
 decl_stmt|;
 name|assertEquals
 argument_list|(
+literal|200
+argument_list|,
 name|response
 operator|.
 name|getCode
 argument_list|()
-argument_list|,
-literal|200
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -901,12 +937,12 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
+literal|200
+argument_list|,
 name|response
 operator|.
 name|getCode
 argument_list|()
-argument_list|,
-literal|200
 argument_list|)
 expr_stmt|;
 name|assertEquals

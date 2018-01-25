@@ -18,6 +18,42 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertFalse
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertNotNull
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -89,35 +125,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
+name|conf
 operator|.
-name|HBaseCommonTestingUtility
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|http
-operator|.
-name|Header
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|http
-operator|.
-name|message
-operator|.
-name|BasicHeader
+name|Configuration
 import|;
 end_import
 
@@ -129,9 +139,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|conf
+name|hbase
 operator|.
-name|Configuration
+name|HBaseCommonTestingUtility
 import|;
 end_import
 
@@ -336,14 +346,28 @@ import|;
 end_import
 
 begin_import
-import|import static
+import|import
 name|org
 operator|.
-name|junit
+name|apache
 operator|.
-name|Assert
+name|http
 operator|.
-name|*
+name|Header
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|http
+operator|.
+name|message
+operator|.
+name|BasicHeader
 import|;
 end_import
 
@@ -1438,12 +1462,12 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
+literal|403
+argument_list|,
 name|response
 operator|.
 name|getCode
 argument_list|()
-argument_list|,
-literal|403
 argument_list|)
 expr_stmt|;
 comment|// retrieve the schema and validate it
@@ -1462,12 +1486,12 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
+literal|200
+argument_list|,
 name|response
 operator|.
 name|getCode
 argument_list|()
-argument_list|,
-literal|200
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1525,12 +1549,12 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
+literal|200
+argument_list|,
 name|response
 operator|.
 name|getCode
 argument_list|()
-argument_list|,
-literal|200
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1612,12 +1636,12 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
+literal|403
+argument_list|,
 name|response
 operator|.
 name|getCode
 argument_list|()
-argument_list|,
-literal|403
 argument_list|)
 expr_stmt|;
 comment|// return read-only setting back to default
@@ -1644,12 +1668,12 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
+literal|200
+argument_list|,
 name|response
 operator|.
 name|getCode
 argument_list|()
-argument_list|,
-literal|200
 argument_list|)
 expr_stmt|;
 name|assertFalse

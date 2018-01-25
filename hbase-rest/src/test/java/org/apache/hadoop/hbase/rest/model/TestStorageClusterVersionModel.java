@@ -20,6 +20,18 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
 import|import
 name|org
 operator|.
@@ -124,6 +136,8 @@ operator|=
 literal|"{\"Version\": \"0.0.1-testing\"}"
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|StorageClusterVersionModel
 name|buildTestModel
@@ -147,6 +161,8 @@ return|return
 name|model
 return|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|checkModel
@@ -157,12 +173,12 @@ parameter_list|)
 block|{
 name|assertEquals
 argument_list|(
+name|VERSION
+argument_list|,
 name|model
 operator|.
 name|getVersion
 argument_list|()
-argument_list|,
-name|VERSION
 argument_list|)
 expr_stmt|;
 block|}

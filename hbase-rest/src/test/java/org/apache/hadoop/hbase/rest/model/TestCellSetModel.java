@@ -20,6 +20,42 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertFalse
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -328,6 +364,8 @@ operator|+
 literal|"\"timestamp\":1245393318192,\"$\":\"dGVzdHZhbHVlMw==\"}]}]}"
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|CellSetModel
 name|buildTestModel
@@ -432,6 +470,8 @@ return|return
 name|model
 return|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|checkModel
@@ -539,12 +579,12 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
+name|TIMESTAMP1
+argument_list|,
 name|cell
 operator|.
 name|getTimestamp
 argument_list|()
-argument_list|,
-name|TIMESTAMP1
 argument_list|)
 expr_stmt|;
 name|assertFalse
@@ -634,12 +674,12 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
+name|TIMESTAMP2
+argument_list|,
 name|cell
 operator|.
 name|getTimestamp
 argument_list|()
-argument_list|,
-name|TIMESTAMP2
 argument_list|)
 expr_stmt|;
 name|cell
@@ -689,12 +729,12 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
+name|TIMESTAMP3
+argument_list|,
 name|cell
 operator|.
 name|getTimestamp
 argument_list|()
-argument_list|,
-name|TIMESTAMP3
 argument_list|)
 expr_stmt|;
 name|assertFalse
@@ -706,6 +746,8 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|testBuildModel
@@ -720,6 +762,8 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|testFromXML
@@ -736,6 +780,8 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|testFromPB
