@@ -131,6 +131,11 @@ name|PeerState
 name|peerState
 decl_stmt|;
 specifier|private
+specifier|volatile
+name|SyncReplicationState
+name|syncReplicationState
+decl_stmt|;
+specifier|private
 specifier|final
 name|List
 argument_list|<
@@ -148,11 +153,14 @@ parameter_list|,
 name|String
 name|id
 parameter_list|,
+name|ReplicationPeerConfig
+name|peerConfig
+parameter_list|,
 name|boolean
 name|peerState
 parameter_list|,
-name|ReplicationPeerConfig
-name|peerConfig
+name|SyncReplicationState
+name|syncReplicationState
 parameter_list|)
 block|{
 name|this
@@ -186,6 +194,12 @@ operator|.
 name|peerConfig
 operator|=
 name|peerConfig
+expr_stmt|;
+name|this
+operator|.
+name|syncReplicationState
+operator|=
+name|syncReplicationState
 expr_stmt|;
 name|this
 operator|.
@@ -272,7 +286,17 @@ return|return
 name|peerState
 return|;
 block|}
-comment|/**    * Get the peer config object    * @return the ReplicationPeerConfig for this peer    */
+annotation|@
+name|Override
+specifier|public
+name|SyncReplicationState
+name|getSyncReplicationState
+parameter_list|()
+block|{
+return|return
+name|syncReplicationState
+return|;
+block|}
 annotation|@
 name|Override
 specifier|public
@@ -284,7 +308,6 @@ return|return
 name|peerConfig
 return|;
 block|}
-comment|/**    * Get the configuration object required to communicate with this peer    * @return configuration object    */
 annotation|@
 name|Override
 specifier|public
@@ -296,7 +319,6 @@ return|return
 name|conf
 return|;
 block|}
-comment|/**    * Get replicable (table, cf-list) map of this peer    * @return the replicable (table, cf-list) map    */
 annotation|@
 name|Override
 specifier|public
@@ -321,7 +343,6 @@ name|getTableCFsMap
 argument_list|()
 return|;
 block|}
-comment|/**    * Get replicable namespace set of this peer    * @return the replicable namespaces set    */
 annotation|@
 name|Override
 specifier|public

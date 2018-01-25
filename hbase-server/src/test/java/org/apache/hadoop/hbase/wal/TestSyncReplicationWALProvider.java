@@ -383,7 +383,7 @@ block|}
 argument_list|)
 specifier|public
 class|class
-name|TestSynchronousReplicationWALProvider
+name|TestSyncReplicationWALProvider
 block|{
 specifier|private
 specifier|static
@@ -553,7 +553,7 @@ argument_list|()
 argument_list|,
 literal|"test"
 argument_list|,
-name|TestSynchronousReplicationWALProvider
+name|TestSyncReplicationWALProvider
 operator|::
 name|getPeerIdAndRemoteWALDir
 argument_list|)
@@ -1052,11 +1052,11 @@ argument_list|(
 name|wal
 argument_list|)
 expr_stmt|;
-name|SynchronousReplicationWALProvider
+name|SyncReplicationWALProvider
 name|walProvider
 init|=
 operator|(
-name|SynchronousReplicationWALProvider
+name|SyncReplicationWALProvider
 operator|)
 name|FACTORY
 operator|.

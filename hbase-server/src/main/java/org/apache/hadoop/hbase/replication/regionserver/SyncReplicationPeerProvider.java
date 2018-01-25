@@ -86,7 +86,7 @@ operator|.
 name|Private
 specifier|public
 interface|interface
-name|SynchronousReplicationPeerProvider
+name|SyncReplicationPeerProvider
 block|{
 comment|/**    * Return the peer id and remote WAL directory if the region is synchronously replicated.    */
 name|Optional

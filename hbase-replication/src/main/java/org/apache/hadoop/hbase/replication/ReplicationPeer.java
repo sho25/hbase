@@ -148,6 +148,11 @@ name|PeerState
 name|getPeerState
 parameter_list|()
 function_decl|;
+comment|/**    * Returns the sync replication state of the peer by reading local cache.    *<p>    * If the peer is not a synchronous replication peer, a {@link SyncReplicationState#NONE} will be    * returned.    * @return the sync replication state    */
+name|SyncReplicationState
+name|getSyncReplicationState
+parameter_list|()
+function_decl|;
 comment|/**    * Test whether the peer is enabled.    * @return {@code true} if enabled, otherwise {@code false}.    */
 specifier|default
 name|boolean

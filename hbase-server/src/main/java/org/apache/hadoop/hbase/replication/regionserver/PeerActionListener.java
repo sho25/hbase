@@ -25,6 +25,22 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|replication
+operator|.
+name|SyncReplicationState
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -34,7 +50,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Get notification for replication peer events. Mainly used for telling the  * {@link org.apache.hadoop.hbase.wal.SynchronousReplicationWALProvider} to close some WAL if not  * used any more.  *<p>  * TODO: Also need a synchronous peer state change notification.  */
+comment|/**  * Get notification for replication peer events. Mainly used for telling the  * {@link org.apache.hadoop.hbase.wal.SyncReplicationWALProvider} to close some WAL if not used any  * more.  */
 end_comment
 
 begin_interface
@@ -52,6 +68,20 @@ name|peerRemoved
 parameter_list|(
 name|String
 name|peerId
+parameter_list|)
+block|{}
+specifier|default
+name|void
+name|peerSyncReplicationStateChange
+parameter_list|(
+name|String
+name|peerId
+parameter_list|,
+name|SyncReplicationState
+name|from
+parameter_list|,
+name|SyncReplicationState
+name|to
 parameter_list|)
 block|{}
 block|}
