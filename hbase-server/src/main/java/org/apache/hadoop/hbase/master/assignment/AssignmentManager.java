@@ -2457,121 +2457,6 @@ name|isReady
 argument_list|()
 return|;
 block|}
-comment|// ============================================================================================
-comment|//  TODO: Sync helpers
-comment|// ============================================================================================
-specifier|public
-name|void
-name|assignMeta
-parameter_list|(
-specifier|final
-name|RegionInfo
-name|metaRegionInfo
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|assignMeta
-argument_list|(
-name|metaRegionInfo
-argument_list|,
-literal|null
-argument_list|)
-expr_stmt|;
-block|}
-specifier|public
-name|void
-name|assignMeta
-parameter_list|(
-specifier|final
-name|RegionInfo
-name|metaRegionInfo
-parameter_list|,
-specifier|final
-name|ServerName
-name|serverName
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-assert|assert
-name|isMetaRegion
-argument_list|(
-name|metaRegionInfo
-argument_list|)
-operator|:
-literal|"unexpected non-meta region "
-operator|+
-name|metaRegionInfo
-assert|;
-name|AssignProcedure
-name|proc
-decl_stmt|;
-if|if
-condition|(
-name|serverName
-operator|!=
-literal|null
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Try assigning Meta "
-operator|+
-name|metaRegionInfo
-operator|+
-literal|" to "
-operator|+
-name|serverName
-argument_list|)
-expr_stmt|;
-name|proc
-operator|=
-name|createAssignProcedure
-argument_list|(
-name|metaRegionInfo
-argument_list|,
-name|serverName
-argument_list|)
-expr_stmt|;
-block|}
-else|else
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Assigning "
-operator|+
-name|metaRegionInfo
-operator|.
-name|getRegionNameAsString
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|proc
-operator|=
-name|createAssignProcedure
-argument_list|(
-name|metaRegionInfo
-argument_list|)
-expr_stmt|;
-block|}
-name|ProcedureSyncWait
-operator|.
-name|submitAndWaitProcedure
-argument_list|(
-name|master
-operator|.
-name|getMasterProcedureExecutor
-argument_list|()
-argument_list|,
-name|proc
-argument_list|)
-expr_stmt|;
-block|}
 comment|/**    * Start a new thread to check if there are region servers whose versions are higher than others.    * If so, move all system table regions to RS with the highest version to keep compatibility.    * The reason is, RS in new version may not be able to access RS in old version when there are    * some incompatible changes.    */
 specifier|public
 name|void
@@ -2822,6 +2707,43 @@ name|toList
 argument_list|()
 argument_list|)
 return|;
+block|}
+specifier|public
+name|void
+name|assign
+parameter_list|(
+specifier|final
+name|RegionInfo
+name|regionInfo
+parameter_list|,
+name|ServerName
+name|sn
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|AssignProcedure
+name|proc
+init|=
+name|createAssignProcedure
+argument_list|(
+name|regionInfo
+argument_list|,
+name|sn
+argument_list|)
+decl_stmt|;
+name|ProcedureSyncWait
+operator|.
+name|submitAndWaitProcedure
+argument_list|(
+name|master
+operator|.
+name|getMasterProcedureExecutor
+argument_list|()
+argument_list|,
+name|proc
+argument_list|)
+expr_stmt|;
 block|}
 specifier|public
 name|void
@@ -8619,6 +8541,13 @@ block|}
 expr_stmt|;
 name|assignThread
 operator|.
+name|setDaemon
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+name|assignThread
+operator|.
 name|start
 argument_list|()
 expr_stmt|;
@@ -8941,20 +8870,25 @@ name|List
 argument_list|<
 name|RegionInfo
 argument_list|>
-name|userRRList
+name|userHRIs
 init|=
 operator|new
 name|ArrayList
 argument_list|<>
+argument_list|(
+name|regions
+operator|.
+name|size
 argument_list|()
+argument_list|)
 decl_stmt|;
-comment|// regions for system tables requiring reassignment
+comment|// Regions for system tables requiring reassignment
 specifier|final
 name|List
 argument_list|<
 name|RegionInfo
 argument_list|>
-name|sysRRList
+name|systemHRIs
 init|=
 operator|new
 name|ArrayList
@@ -8964,7 +8898,7 @@ decl_stmt|;
 for|for
 control|(
 name|RegionStateNode
-name|regionNode
+name|regionStateNode
 range|:
 name|regions
 operator|.
@@ -8975,7 +8909,7 @@ block|{
 name|boolean
 name|sysTable
 init|=
-name|regionNode
+name|regionStateNode
 operator|.
 name|isSystemTable
 argument_list|()
@@ -8985,17 +8919,17 @@ name|List
 argument_list|<
 name|RegionInfo
 argument_list|>
-name|rrList
+name|hris
 init|=
 name|sysTable
 condition|?
-name|sysRRList
+name|systemHRIs
 else|:
-name|userRRList
+name|userHRIs
 decl_stmt|;
 if|if
 condition|(
-name|regionNode
+name|regionStateNode
 operator|.
 name|getRegionLocation
 argument_list|()
@@ -9007,12 +8941,12 @@ name|retainMap
 operator|.
 name|put
 argument_list|(
-name|regionNode
+name|regionStateNode
 operator|.
 name|getRegionInfo
 argument_list|()
 argument_list|,
-name|regionNode
+name|regionStateNode
 operator|.
 name|getRegionLocation
 argument_list|()
@@ -9021,11 +8955,11 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|rrList
+name|hris
 operator|.
 name|add
 argument_list|(
-name|regionNode
+name|regionStateNode
 operator|.
 name|getRegionInfo
 argument_list|()
@@ -9067,6 +9001,7 @@ operator|++
 name|i
 control|)
 block|{
+comment|// Report every fourth time around this loop; try not to flood log.
 if|if
 condition|(
 name|i
@@ -9080,18 +9015,17 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"no server available, unable to find a location for "
+literal|"No servers available; cannot place "
 operator|+
 name|regions
 operator|.
 name|size
 argument_list|()
 operator|+
-literal|" unassigned regions. waiting"
+literal|" unassigned regions."
 argument_list|)
 expr_stmt|;
 block|}
-comment|// the was AM killed
 if|if
 condition|(
 operator|!
@@ -9103,14 +9037,14 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"aborting assignment-queue with "
+literal|"Stopped! Dropping assign of "
 operator|+
 name|regions
 operator|.
 name|size
 argument_list|()
 operator|+
-literal|" not assigned"
+literal|" queued regions."
 argument_list|)
 expr_stmt|;
 return|return;
@@ -9136,13 +9070,13 @@ block|}
 if|if
 condition|(
 operator|!
-name|sysRRList
+name|systemHRIs
 operator|.
 name|isEmpty
 argument_list|()
 condition|)
 block|{
-comment|// system table regions requiring reassignment are present, get region servers
+comment|// System table regions requiring reassignment are present, get region servers
 comment|// not available for system table regions
 specifier|final
 name|List
@@ -9198,7 +9132,9 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"No servers available for system table regions, considering all servers!"
+literal|"Filtering old server versions and the excluded produced an empty set; "
+operator|+
+literal|"instead considering all candidate servers!"
 argument_list|)
 expr_stmt|;
 block|}
@@ -9206,7 +9142,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Processing assignment plans for System tables sysServersCount="
+literal|"Processing assignQueue; systemServersCount="
 operator|+
 name|serversForSysTables
 operator|.
@@ -9227,7 +9163,7 @@ name|regions
 argument_list|,
 literal|null
 argument_list|,
-name|sysRRList
+name|systemHRIs
 argument_list|,
 name|serversForSysTables
 operator|.
@@ -9246,7 +9182,7 @@ name|regions
 argument_list|,
 name|retainMap
 argument_list|,
-name|userRRList
+name|userHRIs
 argument_list|,
 name|servers
 argument_list|)
@@ -9279,7 +9215,7 @@ name|List
 argument_list|<
 name|RegionInfo
 argument_list|>
-name|rrList
+name|hris
 parameter_list|,
 specifier|final
 name|List
@@ -9306,7 +9242,7 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"available servers count="
+literal|"Available servers count="
 operator|+
 name|servers
 operator|.
@@ -9404,7 +9340,7 @@ comment|// the retain seems to fallback to round-robin/random if the region is n
 if|if
 condition|(
 operator|!
-name|rrList
+name|hris
 operator|.
 name|isEmpty
 argument_list|()
@@ -9414,7 +9350,7 @@ name|Collections
 operator|.
 name|sort
 argument_list|(
-name|rrList
+name|hris
 argument_list|,
 name|RegionInfo
 operator|.
@@ -9432,7 +9368,7 @@ name|trace
 argument_list|(
 literal|"round robin regions="
 operator|+
-name|rrList
+name|hris
 argument_list|)
 expr_stmt|;
 block|}
@@ -9446,7 +9382,7 @@ name|balancer
 operator|.
 name|roundRobinAssignment
 argument_list|(
-name|rrList
+name|hris
 argument_list|,
 name|servers
 argument_list|)
@@ -9472,7 +9408,7 @@ name|addToPendingAssignment
 argument_list|(
 name|regions
 argument_list|,
-name|rrList
+name|hris
 argument_list|)
 expr_stmt|;
 block|}
@@ -9744,7 +9680,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Get a list of servers that this region can not assign to.    * For system table, we must assign them to a server with highest version.    */
+comment|/**    * Get a list of servers that this region cannot be assigned to.    * For system tables, we must assign them to a server with highest version.    */
 specifier|public
 name|List
 argument_list|<
@@ -9753,6 +9689,9 @@ argument_list|>
 name|getExcludedServersForSystemTable
 parameter_list|()
 block|{
+comment|// TODO: This should be a cached list kept by the ServerManager rather than calculated on each
+comment|// move or system region assign. The RegionServerTracker keeps list of online Servers with
+comment|// RegionServerInfo that includes Version.
 name|List
 argument_list|<
 name|Pair
@@ -9813,10 +9752,9 @@ argument_list|()
 condition|)
 block|{
 return|return
-operator|new
-name|ArrayList
-argument_list|<>
-argument_list|()
+name|Collections
+operator|.
+name|EMPTY_LIST
 return|;
 block|}
 name|String

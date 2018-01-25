@@ -1664,12 +1664,17 @@ annotation|@
 name|Override
 specifier|protected
 name|void
-name|assignMeta
-parameter_list|(
-name|int
-name|replicaId
-parameter_list|)
-block|{ }
+name|assignMetaReplicas
+parameter_list|()
+throws|throws
+name|IOException
+throws|,
+name|InterruptedException
+throws|,
+name|KeeperException
+block|{
+comment|// Nothing to do.
+block|}
 block|}
 return|;
 block|}

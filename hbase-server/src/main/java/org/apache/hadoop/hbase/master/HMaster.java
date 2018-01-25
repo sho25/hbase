@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -5422,6 +5422,8 @@ argument_list|(
 name|this
 argument_list|)
 expr_stmt|;
+comment|// This manager is started AFTER hbase:meta is confirmed on line.
+comment|// See inside metaBootstrap.recoverMeta(); below. Shouldn't be so cryptic!
 name|this
 operator|.
 name|tableStateManager
@@ -5442,8 +5444,7 @@ expr_stmt|;
 name|initializeZKBasedSystemTrackers
 argument_list|()
 expr_stmt|;
-comment|// Set Master as active now after we've setup zk with stuff like whether cluster is up or not.
-comment|// RegionServers won't come up if the cluster status is not up.
+comment|// Set ourselves as active Master now our claim has succeeded up in zk.
 name|this
 operator|.
 name|activeMaster
@@ -5609,14 +5610,6 @@ operator|.
 name|initialize
 argument_list|()
 expr_stmt|;
-comment|// Check if master is shutting down because of some issue
-comment|// in initializing the regionserver or the balancer.
-if|if
-condition|(
-name|isStopped
-argument_list|()
-condition|)
-return|return;
 comment|// Make sure meta assigned before proceeding.
 name|status
 operator|.
@@ -5642,14 +5635,6 @@ operator|.
 name|recoverMeta
 argument_list|()
 expr_stmt|;
-comment|// check if master is shutting down because above assignMeta could return even hbase:meta isn't
-comment|// assigned when master is shutting down
-if|if
-condition|(
-name|isStopped
-argument_list|()
-condition|)
-return|return;
 comment|//Initialize after meta as it scans meta
 if|if
 condition|(
@@ -14379,7 +14364,10 @@ name|preShutdown
 argument_list|()
 expr_stmt|;
 block|}
-comment|// Tell the servermanager cluster is down.
+comment|// Tell the servermanager cluster shutdown has been called. This makes it so when Master is
+comment|// last running server, it'll stop itself. Next, we broadcast the cluster shutdown by setting
+comment|// the cluster status as down. RegionServers will notice this change in state and will start
+comment|// shutting themselves down. When last has exited, Master can go down.
 if|if
 condition|(
 name|this
@@ -14397,7 +14385,6 @@ name|shutdownCluster
 argument_list|()
 expr_stmt|;
 block|}
-comment|// Set the cluster down flag; broadcast across the cluster.
 if|if
 condition|(
 name|this
@@ -14433,6 +14420,25 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+comment|// Stop the procedure executor. Will stop any ongoing assign, unassign, server crash etc.,
+comment|// processing so we can go down.
+if|if
+condition|(
+name|this
+operator|.
+name|procedureExecutor
+operator|!=
+literal|null
+condition|)
+block|{
+name|this
+operator|.
+name|procedureExecutor
+operator|.
+name|stop
+argument_list|()
+expr_stmt|;
 block|}
 comment|// Shutdown our cluster connection. This will kill any hosted RPCs that might be going on;
 comment|// this is what we want especially if the Master is in startup phase doing call outs to

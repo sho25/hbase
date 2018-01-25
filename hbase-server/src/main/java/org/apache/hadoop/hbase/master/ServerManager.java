@@ -719,10 +719,6 @@ begin_comment
 comment|/**  * The ServerManager class manages info about region servers.  *<p>  * Maintains lists of online and dead servers.  Processes the startups,  * shutdowns, and deaths of region servers.  *<p>  * Servers are distinguished in two different ways.  A given server has a  * location, specified by hostname and port, and of which there can only be one  * online at any given time.  A server instance is specified by the location  * (hostname and port) as well as the startcode (timestamp from when the server  * was started).  This is used to differentiate a restarted instance of a given  * server from the original instance.  *<p>  * If a sever is known not to be running any more, it is called dead. The dead  * server needs to be handled by a ServerShutdownHandler.  If the handler is not  * enabled yet, the server can't be handled right away so it is queued up.  * After the handler is enabled, the server will be submitted to a handler to handle.  * However, the handler may be just partially enabled.  If so,  * the server cannot be fully processed, and be queued up for further processing.  * A server is fully processed only after the handler is fully enabled  * and has completed the handling.  */
 end_comment
 
-begin_comment
-comment|/**  *  */
-end_comment
-
 begin_class
 annotation|@
 name|InterfaceAudience
@@ -2819,11 +2815,7 @@ comment|// If cluster is going down, yes, servers are going to be expiring; don'
 comment|// process as a dead server
 if|if
 condition|(
-name|this
-operator|.
-name|clusterShutdown
-operator|.
-name|get
+name|isClusterShutdown
 argument_list|()
 condition|)
 block|{
@@ -4489,7 +4481,6 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-specifier|public
 name|boolean
 name|isClusterShutdown
 parameter_list|()
