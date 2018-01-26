@@ -1557,9 +1557,8 @@ specifier|final
 name|HBaseTestingUtility
 name|TEST_UTIL
 init|=
+operator|new
 name|HBaseTestingUtility
-operator|.
-name|createLocalHTU
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -2158,12 +2157,7 @@ init|=
 name|HBaseConfiguration
 operator|.
 name|create
-argument_list|(
-name|TEST_UTIL
-operator|.
-name|getConfiguration
 argument_list|()
-argument_list|)
 decl_stmt|;
 comment|// Only retry once.
 name|conf
@@ -5077,12 +5071,7 @@ init|=
 name|HBaseConfiguration
 operator|.
 name|create
-argument_list|(
-name|TEST_UTIL
-operator|.
-name|getConfiguration
 argument_list|()
-argument_list|)
 decl_stmt|;
 name|User
 name|user

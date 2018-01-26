@@ -515,9 +515,8 @@ block|{
 name|HBaseTestingUtility
 name|htu
 init|=
+operator|new
 name|HBaseTestingUtility
-operator|.
-name|createLocalHTU
 argument_list|()
 decl_stmt|;
 name|HRegionInfo
