@@ -242,7 +242,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/**    * Verify that load data- backup - delete some data - restore works as expected - deleted data get    * restored.    * @throws Exception    */
+comment|/**    * Verify that load data- backup - delete some data - restore works as expected - deleted data get    * restored.    *    * @throws Exception if doing the backup or an operation on the tables fails    */
 annotation|@
 name|Test
 specifier|public

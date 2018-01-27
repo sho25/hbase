@@ -264,7 +264,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/**    * Verify that describe works as expected if incorrect backup Id is supplied    * @throws Exception    */
+comment|/**    * Verify that describe works as expected if incorrect backup Id is supplied.    *    * @throws Exception if creating the {@link BackupDriver} fails    */
 annotation|@
 name|Test
 specifier|public

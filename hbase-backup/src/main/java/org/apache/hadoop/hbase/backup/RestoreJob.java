@@ -98,7 +98,7 @@ name|RestoreJob
 extends|extends
 name|Configurable
 block|{
-comment|/**    * Run restore operation    * @param dirPaths path array of WAL log directories    * @param fromTables from tables    * @param toTables to tables    * @param fullBackupRestore full backup restore    * @throws IOException    */
+comment|/**    * Run restore operation    * @param dirPaths path array of WAL log directories    * @param fromTables from tables    * @param toTables to tables    * @param fullBackupRestore full backup restore    * @throws IOException if running the job fails    */
 name|void
 name|run
 parameter_list|(

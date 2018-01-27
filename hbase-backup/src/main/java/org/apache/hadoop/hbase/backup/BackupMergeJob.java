@@ -70,7 +70,7 @@ name|BackupMergeJob
 extends|extends
 name|Configurable
 block|{
-comment|/**    * Run backup merge operation    * @param backupIds backup image ids    * @throws IOException    */
+comment|/**    * Run backup merge operation.    *    * @param backupIds backup image ids    * @throws IOException if the backup merge operation fails    */
 name|void
 name|run
 parameter_list|(

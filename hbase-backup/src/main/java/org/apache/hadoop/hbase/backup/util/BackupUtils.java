@@ -713,11 +713,7 @@ name|rsLogTimestampMins
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|HashMap
@@ -735,16 +731,7 @@ name|rsLogTimestampMapByRS
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|HashMap
-argument_list|<
-name|TableName
-argument_list|,
-name|Long
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -840,11 +827,7 @@ name|rs
 argument_list|,
 operator|new
 name|HashMap
-argument_list|<
-name|TableName
-argument_list|,
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -933,7 +916,7 @@ return|return
 name|rsLogTimestampMins
 return|;
 block|}
-comment|/**    * copy out Table RegionInfo into incremental backup image need to consider move this logic into    * HBackupFileSystem    * @param conn connection    * @param backupInfo backup info    * @param conf configuration    * @throws IOException exception    * @throws InterruptedException exception    */
+comment|/**    * copy out Table RegionInfo into incremental backup image need to consider move this logic into    * HBackupFileSystem    * @param conn connection    * @param backupInfo backup info    * @param conf configuration    * @throws IOException exception    */
 specifier|public
 specifier|static
 name|void
@@ -950,8 +933,6 @@ name|conf
 parameter_list|)
 throws|throws
 name|IOException
-throws|,
-name|InterruptedException
 block|{
 name|Path
 name|rootDir
@@ -1110,10 +1091,6 @@ name|RegionInfo
 argument_list|>
 name|regions
 init|=
-literal|null
-decl_stmt|;
-name|regions
-operator|=
 name|MetaTableAccessor
 operator|.
 name|getTableRegions
@@ -1122,7 +1099,7 @@ name|conn
 argument_list|,
 name|table
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 comment|// For each region, write the region info to disk
 name|LOG
 operator|.
@@ -1408,7 +1385,7 @@ literal|null
 return|;
 block|}
 block|}
-comment|/**    * Returns WAL file name    * @param walFileName WAL file name    * @return WAL file name    * @throws IOException exception    * @throws IllegalArgumentException exception    */
+comment|/**    * Returns WAL file name    * @param walFileName WAL file name    * @return WAL file name    */
 specifier|public
 specifier|static
 name|String
@@ -1417,8 +1394,6 @@ parameter_list|(
 name|String
 name|walFileName
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 return|return
 name|getUniqueWALFileNamePart
@@ -1431,7 +1406,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Returns WAL file name    * @param p WAL file path    * @return WAL file name    * @throws IOException exception    */
+comment|/**    * Returns WAL file name    * @param p WAL file path    * @return WAL file name    */
 specifier|public
 specifier|static
 name|String
@@ -1440,8 +1415,6 @@ parameter_list|(
 name|Path
 name|p
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 return|return
 name|p
@@ -1604,27 +1577,14 @@ name|logFiles
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|PathFilter
 name|filter
 init|=
-operator|new
-name|PathFilter
-argument_list|()
-block|{
-annotation|@
-name|Override
-specifier|public
-name|boolean
-name|accept
-parameter_list|(
-name|Path
 name|p
-parameter_list|)
+lambda|->
 block|{
 try|try
 block|{
@@ -1707,7 +1667,6 @@ expr_stmt|;
 return|return
 literal|false
 return|;
-block|}
 block|}
 block|}
 decl_stmt|;
@@ -1946,8 +1905,6 @@ name|IOException
 block|{
 name|boolean
 name|targetExists
-init|=
-literal|false
 decl_stmt|;
 try|try
 block|{
@@ -2086,9 +2043,7 @@ name|timestampList
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|(
 name|map
 operator|.
@@ -2118,7 +2073,7 @@ return|return
 name|minTimestamp
 return|;
 block|}
-comment|/**    * Parses host name:port from archived WAL path    * @param p path    * @return host name    * @throws IOException exception    */
+comment|/**    * Parses host name:port from archived WAL path    * @param p path    * @return host name    */
 specifier|public
 specifier|static
 name|String
@@ -2295,8 +2250,6 @@ name|PathFilter
 name|filter
 parameter_list|)
 throws|throws
-name|FileNotFoundException
-throws|,
 name|IOException
 block|{
 name|RemoteIterator
@@ -2871,9 +2824,7 @@ name|list
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|BackupInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|TreeMap
@@ -2886,11 +2837,7 @@ name|map
 init|=
 operator|new
 name|TreeMap
-argument_list|<
-name|String
-argument_list|,
-name|BackupInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -3052,9 +2999,11 @@ name|length
 operator|<
 literal|1
 condition|)
+block|{
 return|return
 literal|null
 return|;
+block|}
 return|return
 name|status
 return|;
@@ -3159,9 +3108,7 @@ name|infos
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|BackupInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 while|while
@@ -3188,7 +3135,9 @@ operator|.
 name|isDirectory
 argument_list|()
 condition|)
+block|{
 continue|continue;
+block|}
 name|String
 name|backupId
 init|=
@@ -3299,9 +3248,11 @@ name|ts1
 operator|==
 name|ts2
 condition|)
+block|{
 return|return
 literal|0
 return|;
+block|}
 return|return
 name|ts1
 operator|<
@@ -3398,9 +3349,7 @@ name|ret
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|BackupInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -3732,9 +3681,7 @@ name|imageSet
 init|=
 operator|new
 name|TreeSet
-argument_list|<
-name|BackupImage
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|ArrayList
@@ -4086,8 +4033,6 @@ argument_list|)
 expr_stmt|;
 name|LoadIncrementalHFiles
 name|loader
-init|=
-literal|null
 decl_stmt|;
 try|try
 block|{

@@ -271,40 +271,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|slf4j
-operator|.
-name|Logger
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|slf4j
-operator|.
-name|LoggerFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -360,6 +326,40 @@ operator|.
 name|util
 operator|.
 name|FSUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|Logger
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|LoggerFactory
 import|;
 end_import
 
@@ -828,7 +828,7 @@ return|return
 name|msg
 return|;
 block|}
-comment|/**    * Delete HBase snapshot for backup.    * @param backupInfo backup info    * @throws Exception exception    */
+comment|/**    * Delete HBase snapshot for backup.    * @param backupInfo backup info    * @throws IOException exception    */
 specifier|protected
 specifier|static
 name|void
@@ -1330,7 +1330,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Fail the overall backup.    * @param backupInfo backup info    * @param e exception    * @throws Exception exception    */
+comment|/**    * Fail the overall backup.    * @param backupInfo backup info    * @param e exception    * @throws IOException exception    */
 specifier|protected
 name|void
 name|failBackup
@@ -1586,7 +1586,7 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Add manifest for the current backup. The manifest is stored within the table backup directory.    * @param backupInfo The current backup info    * @throws IOException exception    * @throws BackupException exception    */
+comment|/**    * Add manifest for the current backup. The manifest is stored within the table backup directory.    * @param backupInfo The current backup info    * @throws IOException exception    */
 specifier|protected
 name|void
 name|addManifest
@@ -1605,8 +1605,6 @@ name|conf
 parameter_list|)
 throws|throws
 name|IOException
-throws|,
-name|BackupException
 block|{
 comment|// set the overall backup phase : store manifest
 name|backupInfo
@@ -1700,16 +1698,7 @@ name|tableTimestampMap
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|TableName
-argument_list|,
-name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|Long
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|tableTimestampMap
@@ -2054,7 +2043,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Complete the overall backup.    * @param backupInfo backup info    * @throws Exception exception    */
+comment|/**    * Complete the overall backup.    * @param backupInfo backup info    * @throws IOException exception    */
 specifier|protected
 name|void
 name|completeBackup
@@ -2254,7 +2243,7 @@ literal|" completed."
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Backup request execution    * @throws IOException    */
+comment|/**    * Backup request execution.    *    * @throws IOException if the execution of the backup fails    */
 specifier|public
 specifier|abstract
 name|void
@@ -2327,7 +2316,6 @@ throw|;
 block|}
 block|}
 specifier|public
-specifier|static
 enum|enum
 name|Stage
 block|{

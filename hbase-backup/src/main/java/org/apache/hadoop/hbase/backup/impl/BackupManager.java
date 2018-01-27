@@ -1346,7 +1346,7 @@ operator|=
 name|backupInfo
 expr_stmt|;
 block|}
-comment|/**    * Get direct ancestors of the current backup.    * @param backupInfo The backup info for the current backup    * @return The ancestors for the current backup    * @throws IOException exception    * @throws BackupException exception    */
+comment|/**    * Get direct ancestors of the current backup.    * @param backupInfo The backup info for the current backup    * @return The ancestors for the current backup    * @throws IOException exception    */
 specifier|public
 name|ArrayList
 argument_list|<
@@ -1359,8 +1359,6 @@ name|backupInfo
 parameter_list|)
 throws|throws
 name|IOException
-throws|,
-name|BackupException
 block|{
 name|LOG
 operator|.
@@ -1382,9 +1380,7 @@ name|ancestors
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|BackupImage
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// full backup does not have ancestor
@@ -1700,7 +1696,7 @@ return|return
 name|ancestors
 return|;
 block|}
-comment|/**    * Get the direct ancestors of this backup for one table involved.    * @param backupInfo backup info    * @param table table    * @return backupImages on the dependency list    * @throws BackupException exception    * @throws IOException exception    */
+comment|/**    * Get the direct ancestors of this backup for one table involved.    * @param backupInfo backup info    * @param table table    * @return backupImages on the dependency list    * @throws IOException exception    */
 specifier|public
 name|ArrayList
 argument_list|<
@@ -1715,8 +1711,6 @@ name|TableName
 name|table
 parameter_list|)
 throws|throws
-name|BackupException
-throws|,
 name|IOException
 block|{
 name|ArrayList
@@ -1738,9 +1732,7 @@ name|tableAncestors
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|BackupImage
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -2170,7 +2162,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Get WAL files iterator    * @return WAL files iterator from backup system table    * @throws IOException    */
+comment|/**    * Get WAL files iterator.    *    * @return WAL files iterator from backup system table    * @throws IOException if getting the WAL files iterator fails    */
 specifier|public
 name|Iterator
 argument_list|<

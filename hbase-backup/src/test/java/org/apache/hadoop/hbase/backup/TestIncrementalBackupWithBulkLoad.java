@@ -223,28 +223,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hbase
-operator|.
-name|thirdparty
-operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|collect
-operator|.
-name|Lists
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -381,6 +359,28 @@ name|LoggerFactory
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hbase
+operator|.
+name|thirdparty
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|collect
+operator|.
+name|Lists
+import|;
+end_import
+
 begin_comment
 comment|/**  * 1. Create table t1  * 2. Load data to t1  * 3 Full backup t1  * 4 Load data to t1  * 5 bulk load into t1  * 6 Incremental backup t1  */
 end_comment
@@ -448,10 +448,7 @@ name|params
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Object
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|params
@@ -515,11 +512,6 @@ argument_list|(
 name|table1
 argument_list|)
 decl_stmt|;
-name|HBaseAdmin
-name|admin
-init|=
-literal|null
-decl_stmt|;
 name|Connection
 name|conn
 init|=
@@ -530,8 +522,9 @@ argument_list|(
 name|conf1
 argument_list|)
 decl_stmt|;
+name|HBaseAdmin
 name|admin
-operator|=
+init|=
 operator|(
 name|HBaseAdmin
 operator|)
@@ -539,7 +532,7 @@ name|conn
 operator|.
 name|getAdmin
 argument_list|()
-expr_stmt|;
+decl_stmt|;
 name|BackupAdminImpl
 name|client
 init|=
@@ -755,7 +748,7 @@ argument_list|(
 literal|"ooo"
 argument_list|)
 block|}
-block|,     }
+block|,         }
 argument_list|,
 literal|true
 argument_list|,

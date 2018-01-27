@@ -504,7 +504,9 @@ name|wal
 operator|==
 literal|null
 condition|)
+block|{
 continue|continue;
+block|}
 if|if
 condition|(
 operator|(
@@ -831,8 +833,6 @@ specifier|public
 name|void
 name|acquireBarrier
 parameter_list|()
-throws|throws
-name|ForeignException
 block|{
 comment|// do nothing, executing in inside barrier step.
 block|}

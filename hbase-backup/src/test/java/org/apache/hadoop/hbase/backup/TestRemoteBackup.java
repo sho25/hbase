@@ -379,7 +379,7 @@ name|setUp
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Verify that a remote full backup is created on a single table with data correctly.    * @throws Exception    */
+comment|/**    * Verify that a remote full backup is created on a single table with data correctly.    *    * @throws Exception if an operation on the table fails    */
 annotation|@
 name|Test
 specifier|public
@@ -452,14 +452,9 @@ name|t
 init|=
 operator|new
 name|Thread
-argument_list|()
-block|{
-annotation|@
-name|Override
-specifier|public
-name|void
-name|run
+argument_list|(
 parameter_list|()
+lambda|->
 block|{
 try|try
 block|{
@@ -474,7 +469,7 @@ parameter_list|(
 name|InterruptedException
 name|ie
 parameter_list|)
-block|{         }
+block|{       }
 try|try
 block|{
 name|HTable
@@ -581,7 +576,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-block|}
+argument_list|)
 decl_stmt|;
 name|t
 operator|.

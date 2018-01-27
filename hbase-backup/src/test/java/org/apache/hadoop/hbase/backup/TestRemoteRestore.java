@@ -185,7 +185,7 @@ name|setUp
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Verify that a remote restore on a single table is successful.    * @throws Exception    */
+comment|/**    * Verify that a remote restore on a single table is successful.    *    * @throws Exception if doing the backup or an operation on the tables fails    */
 annotation|@
 name|Test
 specifier|public

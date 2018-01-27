@@ -2793,8 +2793,6 @@ decl_stmt|;
 name|byte
 index|[]
 name|row
-init|=
-literal|null
 decl_stmt|;
 name|String
 name|region
@@ -2982,10 +2980,12 @@ literal|true
 expr_stmt|;
 block|}
 else|else
+block|{
 name|raw
 operator|=
 literal|false
 expr_stmt|;
+block|}
 block|}
 block|}
 if|if
@@ -3008,24 +3008,7 @@ name|tTable
 argument_list|,
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|Map
-argument_list|<
-name|String
-argument_list|,
-name|List
-argument_list|<
-name|Pair
-argument_list|<
-name|String
-argument_list|,
-name|Boolean
-argument_list|>
-argument_list|>
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3059,19 +3042,7 @@ name|region
 argument_list|,
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|List
-argument_list|<
-name|Pair
-argument_list|<
-name|String
-argument_list|,
-name|Boolean
-argument_list|>
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3119,14 +3090,7 @@ name|fam
 argument_list|,
 operator|new
 name|ArrayList
-argument_list|<
-name|Pair
-argument_list|<
-name|String
-argument_list|,
-name|Boolean
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3298,7 +3262,9 @@ name|map
 operator|==
 literal|null
 condition|)
+block|{
 continue|continue;
+block|}
 for|for
 control|(
 name|Map
@@ -3656,7 +3622,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Exclusive operations are:    * create, delete, merge    * @throws IOException    */
+comment|/**    * Exclusive operations are:    * create, delete, merge    * @throws IOException if a table operation fails or an active backup exclusive operation is    *                     already underway    */
 specifier|public
 name|void
 name|startBackupExclusiveOperation
@@ -3942,8 +3908,6 @@ init|)
 block|{
 name|Result
 name|res
-init|=
-literal|null
 decl_stmt|;
 name|HashMap
 argument_list|<
@@ -3955,11 +3919,7 @@ name|rsTimestampMap
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 while|while
@@ -4151,7 +4111,7 @@ name|list
 argument_list|)
 return|;
 block|}
-comment|/**    * Get all backups history    * @return list of backup info    * @throws IOException    */
+comment|/**    * Get all backups history    * @return list of backup info    * @throws IOException if getting the backup history fails    */
 specifier|public
 name|List
 argument_list|<
@@ -4169,7 +4129,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Get first n backup history records    * @param n number of records, if n== -1 - max number    *        is ignored    * @return list of records    * @throws IOException    */
+comment|/**    * Get first n backup history records    * @param n number of records, if n== -1 - max number    *        is ignored    * @return list of records    * @throws IOException if getting the backup history fails    */
 specifier|public
 name|List
 argument_list|<
@@ -4227,7 +4187,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Get backup history records filtered by list of filters.    * @param n max number of records, if n == -1 , then max number    *        is ignored    * @param filters list of filters    * @return backup records    * @throws IOException    */
+comment|/**    * Get backup history records filtered by list of filters.    * @param n max number of records, if n == -1 , then max number    *        is ignored    * @param filters list of filters    * @return backup records    * @throws IOException if getting the backup history fails    */
 specifier|public
 name|List
 argument_list|<
@@ -4255,12 +4215,14 @@ name|length
 operator|==
 literal|0
 condition|)
+block|{
 return|return
 name|getHistory
 argument_list|(
 name|n
 argument_list|)
 return|;
+block|}
 name|List
 argument_list|<
 name|BackupInfo
@@ -4278,9 +4240,7 @@ name|result
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|BackupInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -4304,7 +4264,9 @@ argument_list|()
 operator|==
 name|n
 condition|)
+block|{
 break|break;
+block|}
 name|boolean
 name|passed
 init|=
@@ -4441,7 +4403,7 @@ name|names
 argument_list|)
 return|;
 block|}
-comment|/**    * Get history for backup destination    * @param backupRoot backup destination path    * @return List of backup info    * @throws IOException    */
+comment|/**    * Get history for backup destination    * @param backupRoot backup destination path    * @return List of backup info    * @throws IOException if getting the backup history fails    */
 specifier|public
 name|List
 argument_list|<
@@ -4519,7 +4481,7 @@ return|return
 name|history
 return|;
 block|}
-comment|/**    * Get history for a table    * @param name table name    * @return history for a table    * @throws IOException    */
+comment|/**    * Get history for a table    * @param name table name    * @return history for a table    * @throws IOException if getting the backup history fails    */
 specifier|public
 name|List
 argument_list|<
@@ -4550,9 +4512,7 @@ name|tableHistory
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|BackupInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -4645,14 +4605,7 @@ name|tableHistoryMap
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|TableName
-argument_list|,
-name|ArrayList
-argument_list|<
-name|BackupInfo
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -4752,9 +4705,7 @@ name|list
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|BackupInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 name|tableHistoryMap
@@ -4816,9 +4767,7 @@ name|list
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|BackupInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 try|try
@@ -4846,8 +4795,6 @@ init|)
 block|{
 name|Result
 name|res
-init|=
-literal|null
 decl_stmt|;
 while|while
 condition|(
@@ -4970,9 +4917,7 @@ name|puts
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Put
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -5093,16 +5038,7 @@ name|tableTimestampMap
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|TableName
-argument_list|,
-name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|Long
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|Scan
@@ -5138,8 +5074,6 @@ init|)
 block|{
 name|Result
 name|res
-init|=
-literal|null
 decl_stmt|;
 while|while
 condition|(
@@ -5470,11 +5404,7 @@ name|map
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|List
@@ -6289,7 +6219,8 @@ block|}
 block|}
 return|;
 block|}
-comment|/**    * Check if WAL file is eligible for deletion Future: to support all backup destinations    * @param file name of a file to check    * @return true, if deletable, false otherwise.    * @throws IOException exception    * TODO: multiple backup destination support    */
+comment|/**    * Check if WAL file is eligible for deletion Future: to support all backup destinations    * @param file name of a file to check    * @return true, if deletable, false otherwise.    * @throws IOException exception    */
+comment|// TODO: multiple backup destination support
 specifier|public
 name|boolean
 name|isWALFileDeletable
@@ -6688,7 +6619,7 @@ return|;
 block|}
 block|}
 comment|/**    * BACKUP SETS    */
-comment|/**    * Get backup set list    * @return backup set list    * @throws IOException    */
+comment|/**    * Get backup set list    * @return backup set list    * @throws IOException if a table or scanner operation fails    */
 specifier|public
 name|List
 argument_list|<
@@ -6714,9 +6645,7 @@ name|list
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|Table
@@ -6764,8 +6693,6 @@ argument_list|)
 expr_stmt|;
 name|Result
 name|res
-init|=
-literal|null
 decl_stmt|;
 while|while
 condition|(
@@ -6834,7 +6761,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Get backup set description (list of tables)    * @param name set's name    * @return list of tables in a backup set    * @throws IOException    */
+comment|/**    * Get backup set description (list of tables)    * @param name set's name    * @return list of tables in a backup set    * @throws IOException if a table operation fails    */
 specifier|public
 name|List
 argument_list|<
@@ -6907,9 +6834,11 @@ operator|.
 name|isEmpty
 argument_list|()
 condition|)
+block|{
 return|return
 literal|null
 return|;
+block|}
 name|res
 operator|.
 name|advance
@@ -6976,7 +6905,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Add backup set (list of tables)    * @param name set name    * @param newTables list of tables, comma-separated    * @throws IOException    */
+comment|/**    * Add backup set (list of tables)    * @param name set name    * @param newTables list of tables, comma-separated    * @throws IOException if a table operation fails    */
 specifier|public
 name|void
 name|addToBackupSet
@@ -7120,7 +7049,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Remove tables from backup set (list of tables)    * @param name set name    * @param toRemove list of tables    * @throws IOException    */
+comment|/**    * Remove tables from backup set (list of tables)    * @param name set name    * @param toRemove list of tables    * @throws IOException if a table operation or deleting the backup set fails    */
 specifier|public
 name|void
 name|removeFromBackupSet
@@ -7169,14 +7098,10 @@ block|}
 name|String
 index|[]
 name|disjoint
-init|=
-literal|null
 decl_stmt|;
 name|String
 index|[]
 name|tables
-init|=
-literal|null
 decl_stmt|;
 try|try
 init|(
@@ -7471,7 +7396,7 @@ index|]
 argument_list|)
 return|;
 block|}
-comment|/**    * Delete backup set    * @param name set's name    * @throws IOException    */
+comment|/**    * Delete backup set    * @param name set's name    * @throws IOException if getting or deleting the table fails    */
 specifier|public
 name|void
 name|deleteBackupSet
@@ -7980,7 +7905,7 @@ return|return
 name|get
 return|;
 block|}
-comment|/**    * Creates Delete operation for a given backup id    * @param backupId backup's ID    * @return delete operation    * @throws IOException exception    */
+comment|/**    * Creates Delete operation for a given backup id    * @param backupId backup's ID    * @return delete operation    */
 specifier|private
 name|Delete
 name|createDeleteForBackupInfo
@@ -8092,7 +8017,7 @@ return|return
 name|get
 return|;
 block|}
-comment|/**    * Creates Put operation to store start code to backup system table    * @return put operation    * @throws IOException exception    */
+comment|/**    * Creates Put operation to store start code to backup system table    * @return put operation    */
 specifier|private
 name|Put
 name|createPutForStartCode
@@ -10505,8 +10430,6 @@ parameter_list|(
 name|TableName
 name|table
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|Scan
 name|scan
@@ -10702,8 +10625,6 @@ parameter_list|(
 name|String
 name|backupId
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|Scan
 name|scan
@@ -10785,7 +10706,6 @@ argument_list|(
 name|stopRow
 argument_list|)
 expr_stmt|;
-comment|// scan.setTimeRange(lower, Long.MAX_VALUE);
 name|scan
 operator|.
 name|addFamily
@@ -10901,7 +10821,7 @@ return|return
 name|put
 return|;
 block|}
-comment|/**    * Creates put list for list of WAL files    * @param files list of WAL file paths    * @param backupId backup id    * @return put list    * @throws IOException exception    */
+comment|/**    * Creates put list for list of WAL files    * @param files list of WAL file paths    * @param backupId backup id    * @return put list    */
 specifier|private
 name|List
 argument_list|<
@@ -10921,8 +10841,6 @@ parameter_list|,
 name|String
 name|backupRoot
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|List
 argument_list|<
@@ -10932,9 +10850,7 @@ name|puts
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Put
-argument_list|>
+argument_list|<>
 argument_list|(
 name|files
 operator|.
@@ -11145,7 +11061,7 @@ return|return
 name|scan
 return|;
 block|}
-comment|/**    * Creates Get operation for a given wal file name TODO: support for backup destination    * @param file file    * @return get operation    * @throws IOException exception    */
+comment|/**    * Creates Get operation for a given wal file name TODO: support for backup destination    * @param file file    * @return get operation    */
 specifier|private
 name|Get
 name|createGetForCheckWALFile
@@ -11153,8 +11069,6 @@ parameter_list|(
 name|String
 name|file
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|Get
 name|get
@@ -11434,7 +11348,7 @@ name|getBytes
 argument_list|()
 return|;
 block|}
-comment|/**    * Converts cell to backup set list.    * @param current current cell    * @return backup set as array of table names    * @throws IOException    */
+comment|/**    * Converts cell to backup set list.    * @param current current cell    * @return backup set as array of table names    */
 specifier|private
 name|String
 index|[]
@@ -11443,8 +11357,6 @@ parameter_list|(
 name|Cell
 name|current
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|byte
 index|[]
@@ -11490,7 +11402,7 @@ literal|0
 index|]
 return|;
 block|}
-comment|/**    * Converts cell key to backup set name.    * @param current current cell    * @return backup set name    * @throws IOException    */
+comment|/**    * Converts cell key to backup set name.    * @param current current cell    * @return backup set name    */
 specifier|private
 name|String
 name|cellKeyToBackupSetName
@@ -11498,8 +11410,6 @@ parameter_list|(
 name|Cell
 name|current
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|byte
 index|[]

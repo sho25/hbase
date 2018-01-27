@@ -131,9 +131,14 @@ name|InterfaceAudience
 operator|.
 name|Private
 specifier|public
+specifier|final
 class|class
 name|BackupClientFactory
 block|{
+specifier|private
+name|BackupClientFactory
+parameter_list|()
+block|{   }
 specifier|public
 specifier|static
 name|TableBackupClient

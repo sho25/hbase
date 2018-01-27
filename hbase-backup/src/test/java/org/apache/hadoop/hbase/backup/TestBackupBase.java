@@ -1361,13 +1361,9 @@ argument_list|)
 expr_stmt|;
 name|String
 name|savedStartCode
-init|=
-literal|null
 decl_stmt|;
 name|boolean
 name|firstBackup
-init|=
-literal|false
 decl_stmt|;
 comment|// do snapshot for full table backup
 name|savedStartCode
@@ -1397,8 +1393,8 @@ condition|(
 name|firstBackup
 condition|)
 block|{
-comment|// This is our first backup. Let's put some marker to system table so that we can hold the logs
-comment|// while we do the backup.
+comment|// This is our first backup. Let's put some marker to system table so that we can hold the
+comment|// logs while we do the backup.
 name|backupManager
 operator|.
 name|writeBackupStartCode
@@ -1436,11 +1432,7 @@ name|props
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|props
@@ -1747,7 +1739,7 @@ throw|;
 block|}
 block|}
 block|}
-comment|/**    * @throws java.lang.Exception    */
+comment|/**    * @throws Exception if starting the mini cluster or setting up the tables fails    */
 annotation|@
 name|Before
 specifier|public
@@ -2074,7 +2066,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * @throws java.lang.Exception    */
+comment|/**    * @throws Exception if deleting the archive directory or shutting down the mini cluster fails    */
 annotation|@
 name|AfterClass
 specifier|public
@@ -2862,9 +2854,11 @@ name|status
 operator|==
 literal|null
 condition|)
+block|{
 return|return
 literal|false
 return|;
+block|}
 return|return
 name|status
 operator|.
@@ -2900,9 +2894,11 @@ name|status
 operator|==
 literal|null
 condition|)
+block|{
 return|return
 literal|false
 return|;
+block|}
 return|return
 name|status
 operator|.

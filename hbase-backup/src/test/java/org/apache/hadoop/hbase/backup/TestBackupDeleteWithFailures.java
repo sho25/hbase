@@ -439,7 +439,6 @@ name|class
 argument_list|)
 decl_stmt|;
 specifier|public
-specifier|static
 enum|enum
 name|Failure
 block|{
@@ -468,9 +467,7 @@ name|failures
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Failure
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 specifier|public
@@ -659,7 +656,7 @@ throw|;
 block|}
 block|}
 block|}
-comment|/**    * @throws java.lang.Exception    */
+comment|/**    * @throws Exception if starting the mini cluster or setting up the tables fails    */
 annotation|@
 name|Override
 annotation|@
@@ -952,11 +949,13 @@ name|expected
 operator|!=
 literal|1
 condition|)
+block|{
 name|assertTrue
 argument_list|(
 literal|false
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|// Verify that history length == expected after delete failure
 name|assertTrue

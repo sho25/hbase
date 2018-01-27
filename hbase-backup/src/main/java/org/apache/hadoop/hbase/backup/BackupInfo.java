@@ -171,6 +171,22 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Bytes
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -261,22 +277,6 @@ name|Builder
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Bytes
-import|;
-end_import
-
 begin_comment
 comment|/**  * An object to encapsulate the information for each backup session  */
 end_comment
@@ -311,12 +311,10 @@ name|class
 argument_list|)
 decl_stmt|;
 specifier|public
-specifier|static
 interface|interface
 name|Filter
 block|{
 comment|/**      * Filter interface      * @param info backup info      * @return true if info passes filter, false otherwise      */
-specifier|public
 name|boolean
 name|apply
 parameter_list|(
@@ -327,7 +325,6 @@ function_decl|;
 block|}
 comment|/**    * Backup session states    */
 specifier|public
-specifier|static
 enum|enum
 name|BackupState
 block|{
@@ -341,7 +338,6 @@ name|ANY
 block|}
 comment|/**    * BackupPhase - phases of an ACTIVE backup session (running), when state of a backup session is    * BackupState.RUNNING    */
 specifier|public
-specifier|static
 enum|enum
 name|BackupPhase
 block|{
@@ -475,11 +471,7 @@ name|backupTableInfoMap
 operator|=
 operator|new
 name|HashMap
-argument_list|<
-name|TableName
-argument_list|,
-name|BackupTableInfo
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 block|}
@@ -991,9 +983,7 @@ name|snapshotNames
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -1052,9 +1042,7 @@ block|{
 return|return
 operator|new
 name|ArrayList
-argument_list|<
-name|TableName
-argument_list|>
+argument_list|<>
 argument_list|(
 name|backupTableInfoMap
 operator|.

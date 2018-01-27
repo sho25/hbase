@@ -244,7 +244,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/**    * Verify that full backup is created on a single table with data correctly. Verify that history    * works as expected    * @throws Exception    */
+comment|/**    * Verify that full backup is created on a single table with data correctly. Verify that history    * works as expected.    *    * @throws Exception if doing the backup or an operation on the tables fails    */
 annotation|@
 name|Test
 specifier|public
@@ -428,7 +428,7 @@ literal|"delete_backup"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Verify that full backup is created on a single table with data correctly. Verify that history    * works as expected    * @throws Exception    */
+comment|/**    * Verify that full backup is created on a single table with data correctly. Verify that history    * works as expected.    *    * @throws Exception if doing the backup or an operation on the tables fails    */
 annotation|@
 name|Test
 specifier|public

@@ -442,8 +442,6 @@ parameter_list|,
 name|RestoreRequest
 name|request
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|this
 operator|.
@@ -526,7 +524,7 @@ name|getConfiguration
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Validate target tables    * @param conn connection    * @param mgr table state manager    * @param tTableArray: target tables    * @param isOverwrite overwrite existing table    * @throws IOException exception    */
+comment|/**    * Validate target tables.    *    * @param tTableArray: target tables    * @param isOverwrite overwrite existing table    * @throws IOException exception    */
 specifier|private
 name|void
 name|checkTargetTables
@@ -717,7 +715,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * Restore operation handle each backupImage in array    * @param svc: master services    * @param images: array BackupImage    * @param sTable: table to be restored    * @param tTable: table to be restored to    * @param truncateIfExists: truncate table    * @throws IOException exception    */
+comment|/**    * Restore operation handle each backupImage in array.    *    * @param images: array BackupImage    * @param sTable: table to be restored    * @param tTable: table to be restored to    * @param truncateIfExists: truncate table    * @throws IOException exception    */
 specifier|private
 name|void
 name|restoreImages
@@ -947,9 +945,7 @@ name|dirList
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Path
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// add full backup path
@@ -1167,9 +1163,7 @@ name|list
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Path
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|RemoteIterator
@@ -1235,7 +1229,7 @@ return|return
 name|list
 return|;
 block|}
-comment|/**    * Restore operation. Stage 2: resolved Backup Image dependency    * @param backupManifestMap : tableName, Manifest    * @param sTableArray The array of tables to be restored    * @param tTableArray The array of mapping tables to restore to    * @return set of BackupImages restored    * @throws IOException exception    */
+comment|/**    * Restore operation. Stage 2: resolved Backup Image dependency    * @param backupManifestMap : tableName, Manifest    * @param sTableArray The array of tables to be restored    * @param tTableArray The array of mapping tables to restore to    * @throws IOException exception    */
 specifier|private
 name|void
 name|restore
@@ -1270,15 +1264,8 @@ name|restoreImageSet
 init|=
 operator|new
 name|TreeSet
-argument_list|<
-name|BackupImage
-argument_list|>
+argument_list|<>
 argument_list|()
-decl_stmt|;
-name|boolean
-name|truncateIfExists
-init|=
-name|isOverwrite
 decl_stmt|;
 name|Set
 argument_list|<
@@ -1336,9 +1323,7 @@ name|list
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|BackupImage
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|list
@@ -1359,9 +1344,7 @@ name|set
 init|=
 operator|new
 name|TreeSet
-argument_list|<
-name|BackupImage
-argument_list|>
+argument_list|<>
 argument_list|(
 name|list
 argument_list|)
@@ -1417,7 +1400,7 @@ index|[
 name|i
 index|]
 argument_list|,
-name|truncateIfExists
+name|isOverwrite
 argument_list|)
 expr_stmt|;
 name|restoreImageSet
@@ -1588,23 +1571,14 @@ name|long
 name|upper
 parameter_list|)
 block|{
-if|if
-condition|(
+return|return
 name|a
-argument_list|<
+operator|>=
 name|lower
-operator|||
+operator|&&
 name|a
-argument_list|>
+operator|<=
 name|upper
-condition|)
-block|{
-return|return
-literal|false
-return|;
-block|}
-return|return
-literal|true
 return|;
 block|}
 specifier|public

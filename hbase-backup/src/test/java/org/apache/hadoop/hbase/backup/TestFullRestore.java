@@ -248,7 +248,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/**    * Verify that a single table is restored to a new table    * @throws Exception    */
+comment|/**    * Verify that a single table is restored to a new table.    *    * @throws Exception if doing the backup, restoring it or an operation on the tables fails    */
 annotation|@
 name|Test
 specifier|public
@@ -643,7 +643,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Verify that multiple tables are restored to new tables.    * @throws Exception    */
+comment|/**    * Verify that multiple tables are restored to new tables.    *    * @throws Exception if doing the backup, restoring it or an operation on the tables fails    */
 annotation|@
 name|Test
 specifier|public
@@ -793,7 +793,7 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Verify that multiple tables are restored to new tables.    * @throws Exception    */
+comment|/**    * Verify that multiple tables are restored to new tables.    *    * @throws Exception if doing the backup, restoring it or an operation on the tables fails    */
 annotation|@
 name|Test
 specifier|public
@@ -975,7 +975,7 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Verify that a single table is restored using overwrite    * @throws Exception    */
+comment|/**    * Verify that a single table is restored using overwrite.    *    * @throws Exception if doing the backup or restoring it fails    */
 annotation|@
 name|Test
 specifier|public
@@ -1068,7 +1068,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Verify that a single table is restored using overwrite    * @throws Exception    */
+comment|/**    * Verify that a single table is restored using overwrite.    *    * @throws Exception if doing the backup or an operation on the tables fails    */
 annotation|@
 name|Test
 specifier|public
@@ -1207,7 +1207,7 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Verify that multiple tables are restored to new tables using overwrite.    * @throws Exception    */
+comment|/**    * Verify that multiple tables are restored to new tables using overwrite.    *    * @throws Exception if doing the backup or restoring it fails    */
 annotation|@
 name|Test
 specifier|public
@@ -1297,7 +1297,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Verify that multiple tables are restored to new tables using overwrite.    * @throws Exception    */
+comment|/**    * Verify that multiple tables are restored to new tables using overwrite.    *    * @throws Exception if doing the backup or an operation on the tables fails    */
 annotation|@
 name|Test
 specifier|public
@@ -1443,7 +1443,7 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Verify that restore fails on a single table that does not exist.    * @throws Exception    */
+comment|/**    * Verify that restore fails on a single table that does not exist.    *    * @throws Exception if doing the backup or restoring it fails    */
 annotation|@
 name|Test
 argument_list|(
@@ -1559,7 +1559,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Verify that restore fails on a single table that does not exist.    * @throws Exception    */
+comment|/**    * Verify that restore fails on a single table that does not exist.    *    * @throws Exception if doing the backup or restoring it fails    */
 annotation|@
 name|Test
 specifier|public
@@ -1697,7 +1697,7 @@ literal|0
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Verify that restore fails on multiple tables that do not exist.    * @throws Exception    */
+comment|/**    * Verify that restore fails on multiple tables that do not exist.    *    * @throws Exception if doing the backup or restoring it fails    */
 annotation|@
 name|Test
 argument_list|(
@@ -1817,7 +1817,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Verify that restore fails on multiple tables that do not exist.    * @throws Exception    */
+comment|/**    * Verify that restore fails on multiple tables that do not exist.    *    * @throws Exception if doing the backup or restoring it fails    */
 annotation|@
 name|Test
 specifier|public

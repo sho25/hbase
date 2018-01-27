@@ -144,7 +144,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/**    * Verify backup system table snapshot    * @throws Exception    */
+comment|/**    * Verify backup system table snapshot.    *    * @throws Exception if an operation on the table fails    */
 comment|// @Test
 specifier|public
 name|void

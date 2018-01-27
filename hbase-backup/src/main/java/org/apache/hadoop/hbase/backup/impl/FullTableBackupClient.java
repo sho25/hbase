@@ -321,40 +321,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|slf4j
-operator|.
-name|Logger
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|slf4j
-operator|.
-name|LoggerFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -394,6 +360,40 @@ operator|.
 name|util
 operator|.
 name|EnvironmentEdgeManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|Logger
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|LoggerFactory
 import|;
 end_import
 
@@ -540,8 +540,6 @@ comment|// calculate the real files' size for the percentage in the future.
 comment|// backupCopier.setSubTaskPercntgInWholeTask(1f / numOfSnapshots);
 name|int
 name|res
-init|=
-literal|0
 decl_stmt|;
 name|String
 index|[]
@@ -746,7 +744,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Backup request execution    * @throws IOException    */
+comment|/**    * Backup request execution.    *    * @throws IOException if the execution of the backup fails    */
 annotation|@
 name|Override
 specifier|public
@@ -777,13 +775,9 @@ argument_list|)
 expr_stmt|;
 name|String
 name|savedStartCode
-init|=
-literal|null
 decl_stmt|;
 name|boolean
 name|firstBackup
-init|=
-literal|false
 decl_stmt|;
 comment|// do snapshot for full table backup
 name|savedStartCode
@@ -813,8 +807,8 @@ condition|(
 name|firstBackup
 condition|)
 block|{
-comment|// This is our first backup. Let's put some marker to system table so that we can hold the logs
-comment|// while we do the backup.
+comment|// This is our first backup. Let's put some marker to system table so that we can hold the
+comment|// logs while we do the backup.
 name|backupManager
 operator|.
 name|writeBackupStartCode
@@ -845,11 +839,7 @@ name|props
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|props

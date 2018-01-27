@@ -748,9 +748,7 @@ name|tableList
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|TableName
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -1057,16 +1055,7 @@ name|incrTimeRanges
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|TableName
-argument_list|,
-name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|Long
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 if|if
@@ -1082,9 +1071,11 @@ argument_list|()
 operator|==
 literal|0
 condition|)
+block|{
 return|return
 name|incrTimeRanges
 return|;
+block|}
 for|for
 control|(
 name|BackupProtos
@@ -1134,11 +1125,7 @@ name|map
 operator|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|Long
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 name|incrTimeRanges
@@ -1608,9 +1595,7 @@ name|ancestors
 operator|=
 operator|new
 name|ArrayList
-argument_list|<
-name|BackupImage
-argument_list|>
+argument_list|<>
 argument_list|()
 expr_stmt|;
 block|}
@@ -1639,9 +1624,7 @@ name|toRemove
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|BackupImage
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -2264,7 +2247,7 @@ name|build
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Construct manifest from a backup directory.    * @param conf configuration    * @param backupPath backup path    * @throws IOException    */
+comment|/**    * Construct manifest from a backup directory.    *    * @param conf configuration    * @param backupPath backup path    * @throws IOException if constructing the manifest from the backup directory fails    */
 specifier|public
 name|BackupManifest
 parameter_list|(
@@ -2778,11 +2761,7 @@ name|restoreImages
 init|=
 operator|new
 name|TreeMap
-argument_list|<
-name|Long
-argument_list|,
-name|BackupImage
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|restoreImages
@@ -2827,9 +2806,7 @@ block|}
 return|return
 operator|new
 name|ArrayList
-argument_list|<
-name|BackupImage
-argument_list|>
+argument_list|<>
 argument_list|(
 name|reverse
 condition|?
@@ -2872,9 +2849,7 @@ name|tableImageList
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|BackupImage
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|ArrayList
@@ -2960,9 +2935,7 @@ name|tableImageList
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|BackupImage
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|ArrayList
@@ -3081,8 +3054,6 @@ argument_list|()
 decl_stmt|;
 name|boolean
 name|found
-init|=
-literal|false
 decl_stmt|;
 for|for
 control|(
@@ -3255,9 +3226,7 @@ name|image1TableList
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -3307,9 +3276,7 @@ name|image2TableList
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|List

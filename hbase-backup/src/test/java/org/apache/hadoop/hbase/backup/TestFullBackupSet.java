@@ -214,7 +214,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/**    * Verify that full backup is created on a single table with data correctly.    * @throws Exception    */
+comment|/**    * Verify that full backup is created on a single table with data correctly.    *    * @throws Exception if doing the backup or an operation on the tables fails    */
 annotation|@
 name|Test
 specifier|public

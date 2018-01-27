@@ -422,7 +422,7 @@ decl_stmt|;
 name|Path
 name|root
 decl_stmt|;
-comment|/**    * @throws java.lang.Exception    */
+comment|/**    * @throws Exception if starting the mini cluster or getting the filesystem fails    */
 annotation|@
 name|BeforeClass
 specifier|public
@@ -466,7 +466,7 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @throws java.lang.Exception    */
+comment|/**    * @throws Exception if closing the filesystem or shutting down the mini cluster fails    */
 annotation|@
 name|AfterClass
 specifier|public
@@ -684,10 +684,12 @@ argument_list|(
 name|stat1
 argument_list|)
 condition|)
+block|{
 name|found
 operator|=
 literal|true
 expr_stmt|;
+block|}
 block|}
 name|assertTrue
 argument_list|(
@@ -855,10 +857,12 @@ argument_list|(
 name|stat1
 argument_list|)
 condition|)
+block|{
 name|found
 operator|=
 literal|true
 expr_stmt|;
+block|}
 block|}
 name|assertFalse
 argument_list|(

@@ -111,7 +111,7 @@ decl_stmt|;
 specifier|public
 name|BackupTableInfo
 parameter_list|()
-block|{    }
+block|{   }
 specifier|public
 name|BackupTableInfo
 parameter_list|(
@@ -259,18 +259,6 @@ name|builder
 operator|.
 name|setTableName
 argument_list|(
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|protobuf
-operator|.
 name|ProtobufUtil
 operator|.
 name|toProtoTableName

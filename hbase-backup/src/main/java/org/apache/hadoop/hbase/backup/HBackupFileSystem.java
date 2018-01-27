@@ -169,6 +169,7 @@ name|InterfaceAudience
 operator|.
 name|Private
 specifier|public
+specifier|final
 class|class
 name|HBackupFileSystem
 block|{
@@ -407,11 +408,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|Path
-name|manifestPath
-init|=
-literal|null
-decl_stmt|;
 name|FileSystem
 name|fs
 init|=
@@ -422,8 +418,9 @@ argument_list|(
 name|conf
 argument_list|)
 decl_stmt|;
+name|Path
 name|manifestPath
-operator|=
+init|=
 operator|new
 name|Path
 argument_list|(
@@ -445,7 +442,7 @@ name|BackupManifest
 operator|.
 name|MANIFEST_FILE_NAME
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 if|if
 condition|(
 operator|!

@@ -468,7 +468,6 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-specifier|static
 enum|enum
 name|FailurePhase
 block|{
@@ -627,14 +626,7 @@ name|processedTableList
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Pair
-argument_list|<
-name|TableName
-argument_list|,
-name|Path
-argument_list|>
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|boolean
@@ -707,11 +699,6 @@ argument_list|(
 name|backupIds
 argument_list|)
 decl_stmt|;
-name|String
-name|backupRoot
-init|=
-literal|null
-decl_stmt|;
 name|BackupInfo
 name|bInfo
 init|=
@@ -725,13 +712,14 @@ literal|0
 index|]
 argument_list|)
 decl_stmt|;
+name|String
 name|backupRoot
-operator|=
+init|=
 name|bInfo
 operator|.
 name|getBackupRootDir
 argument_list|()
-expr_stmt|;
+decl_stmt|;
 comment|// PHASE 1
 name|checkFailure
 argument_list|(
@@ -892,11 +880,6 @@ name|getNameAsString
 argument_list|()
 block|}
 decl_stmt|;
-name|int
-name|result
-init|=
-literal|0
-decl_stmt|;
 comment|// PHASE 2
 name|checkFailure
 argument_list|(
@@ -913,15 +896,16 @@ name|getConf
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|int
 name|result
-operator|=
+init|=
 name|player
 operator|.
 name|run
 argument_list|(
 name|playerArgs
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 if|if
 condition|(
 name|succeeded
@@ -937,11 +921,7 @@ name|add
 argument_list|(
 operator|new
 name|Pair
-argument_list|<
-name|TableName
-argument_list|,
-name|Path
-argument_list|>
+argument_list|<>
 argument_list|(
 name|tableNames
 index|[
@@ -1288,10 +1268,6 @@ decl_stmt|;
 name|HBaseAdmin
 name|admin
 init|=
-literal|null
-decl_stmt|;
-name|admin
-operator|=
 operator|(
 name|HBaseAdmin
 operator|)
@@ -1299,7 +1275,7 @@ name|conn
 operator|.
 name|getAdmin
 argument_list|()
-expr_stmt|;
+decl_stmt|;
 name|BackupAdminImpl
 name|client
 init|=

@@ -176,7 +176,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/**    * Verify that a single empty table is restored to a new table    * @throws Exception    */
+comment|/**    * Verify that a single empty table is restored to a new table.    *    * @throws Exception if doing the backup or an operation on the tables fails    */
 annotation|@
 name|Test
 specifier|public
@@ -285,7 +285,7 @@ name|table1_restore
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Verify that multiple tables are restored to new tables.    * @throws Exception    */
+comment|/**    * Verify that multiple tables are restored to new tables.    *    * @throws Exception if doing the backup or an operation on the tables fails    */
 annotation|@
 name|Test
 specifier|public

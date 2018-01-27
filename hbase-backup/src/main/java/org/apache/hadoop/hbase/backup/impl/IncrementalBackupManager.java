@@ -528,11 +528,7 @@ name|props
 init|=
 operator|new
 name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|props
@@ -631,7 +627,7 @@ return|return
 name|newTimestamps
 return|;
 block|}
-comment|/**    * Get list of WAL files eligible for incremental backup    * @return list of WAL files    * @throws IOException    */
+comment|/**    * Get list of WAL files eligible for incremental backup.    *    * @return list of WAL files    * @throws IOException if getting the list of WAL files fails    */
 specifier|public
 name|List
 argument_list|<
@@ -845,9 +841,7 @@ name|list
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -899,7 +893,9 @@ argument_list|(
 name|name
 argument_list|)
 condition|)
+block|{
 continue|continue;
+block|}
 name|list
 operator|.
 name|add
@@ -917,7 +913,7 @@ return|return
 name|list
 return|;
 block|}
-comment|/**    * Create Set of WAL file names (not full path names)    * @param logFromSystemTable    * @return set of WAL file names    */
+comment|/**    * Create Set of WAL file names (not full path names)    * @param logFromSystemTable the logs from the system table to convert    * @return set of WAL file names    */
 specifier|private
 name|Set
 argument_list|<
@@ -940,9 +936,7 @@ name|set
 init|=
 operator|new
 name|HashSet
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 for|for
@@ -987,7 +981,7 @@ return|return
 name|set
 return|;
 block|}
-comment|/**    * For each region server: get all log files newer than the last timestamps, but not newer than    * the newest timestamps.    * @param olderTimestamps timestamp map for each region server of the last backup.    * @param newestTimestamps timestamp map for each region server that the backup should lead to.    * @return list of log files which needs to be added to this backup    * @throws IOException    */
+comment|/**    * For each region server: get all log files newer than the last timestamps, but not newer than    * the newest timestamps.    * @param olderTimestamps timestamp map for each region server of the last backup.    * @param newestTimestamps timestamp map for each region server that the backup should lead to.    * @return list of log files which needs to be added to this backup    * @throws IOException if getting the WAL files from the backup system fails    */
 specifier|private
 name|List
 argument_list|<
@@ -1025,9 +1019,7 @@ name|logFiles
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|WALItem
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|Iterator
@@ -1334,9 +1326,7 @@ name|resultLogFiles
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|List
@@ -1347,9 +1337,7 @@ name|newestLogs
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|String
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|/*      * The old region servers and timestamps info we kept in backup system table may be out of sync      * if new region server is added or existing one lost. We'll deal with it here when processing      * the logs. If data in backup system table has more hosts, just ignore it. If the .logs      * directory includes more hosts, the additional hosts will not have old timestamps to compare      * with. We'll just use all the logs in that directory. We always write up-to-date region server      * and timestamp info to backup system table at the end of successful backup.      */

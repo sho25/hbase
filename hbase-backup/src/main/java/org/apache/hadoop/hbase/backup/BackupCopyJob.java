@@ -125,7 +125,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Cancel copy job    * @param jobHandler backup copy job handler    * @throws IOException    */
+comment|/**    * Cancel copy job    * @param jobHandler backup copy job handler    * @throws IOException if cancelling the jobs fails    */
 name|void
 name|cancel
 parameter_list|(
