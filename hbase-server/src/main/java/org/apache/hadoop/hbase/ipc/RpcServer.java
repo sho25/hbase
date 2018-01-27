@@ -1882,7 +1882,6 @@ block|}
 annotation|@
 name|Override
 specifier|public
-specifier|synchronized
 name|void
 name|refreshAuthManager
 parameter_list|(
@@ -1892,8 +1891,11 @@ parameter_list|)
 block|{
 comment|// Ignore warnings that this should be accessed in a static way instead of via an instance;
 comment|// it'll break if you go via static route.
-name|this
-operator|.
+synchronized|synchronized
+init|(
+name|authManager
+init|)
+block|{
 name|authManager
 operator|.
 name|refresh
@@ -1905,6 +1907,7 @@ argument_list|,
 name|pp
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 specifier|protected
 name|AuthenticationTokenSecretManager
@@ -2840,9 +2843,8 @@ name|diff
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Authorize the incoming client connection.    *    * @param user client user    * @param connection incoming connection    * @param addr InetAddress of incoming connection    * @throws org.apache.hadoop.security.authorize.AuthorizationException    *         when the client isn't authorized to talk the protocol    */
+comment|/**    * Authorize the incoming client connection.    * @param user client user    * @param connection incoming connection    * @param addr InetAddress of incoming connection    * @throws AuthorizationException when the client isn't authorized to talk the protocol    */
 specifier|public
-specifier|synchronized
 name|void
 name|authorize
 parameter_list|(
@@ -2879,19 +2881,16 @@ name|getServiceName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|this
-operator|.
+synchronized|synchronized
+init|(
+name|authManager
+init|)
+block|{
 name|authManager
 operator|.
 name|authorize
 argument_list|(
 name|user
-operator|!=
-literal|null
-condition|?
-name|user
-else|:
-literal|null
 argument_list|,
 name|c
 argument_list|,
@@ -2901,6 +2900,7 @@ argument_list|,
 name|addr
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 comment|/**    * When the read or write buffer size is larger than this limit, i/o will be    * done in chunks of this size. Most RPC requests and responses would be    * be smaller.    */
