@@ -31,6 +31,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -67,7 +77,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
+name|HBaseClassTestRule
 import|;
 end_import
 
@@ -82,6 +92,20 @@ operator|.
 name|hbase
 operator|.
 name|HRegionInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|TableName
 import|;
 end_import
 
@@ -114,6 +138,16 @@ operator|.
 name|testclassification
 operator|.
 name|SmallTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|ClassRule
 import|;
 end_import
 
@@ -163,16 +197,6 @@ name|TestName
 import|;
 end_import
 
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
 begin_comment
 comment|/**  * Test that the utility works as expected  */
 end_comment
@@ -195,6 +219,23 @@ specifier|public
 class|class
 name|TestHFileArchiveUtil
 block|{
+annotation|@
+name|ClassRule
+specifier|public
+specifier|static
+specifier|final
+name|HBaseClassTestRule
+name|CLASS_RULE
+init|=
+name|HBaseClassTestRule
+operator|.
+name|forClass
+argument_list|(
+name|TestHFileArchiveUtil
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 specifier|private
 name|Path
 name|rootDir

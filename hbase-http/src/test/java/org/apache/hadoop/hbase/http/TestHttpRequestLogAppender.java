@@ -18,6 +18,32 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseClassTestRule
+import|;
+end_import
+
+begin_import
 import|import
 name|org
 operator|.
@@ -46,6 +72,16 @@ operator|.
 name|testclassification
 operator|.
 name|SmallTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|ClassRule
 import|;
 end_import
 
@@ -73,18 +109,6 @@ name|Category
 import|;
 end_import
 
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertEquals
-import|;
-end_import
-
 begin_class
 annotation|@
 name|Category
@@ -103,6 +127,23 @@ specifier|public
 class|class
 name|TestHttpRequestLogAppender
 block|{
+annotation|@
+name|ClassRule
+specifier|public
+specifier|static
+specifier|final
+name|HBaseClassTestRule
+name|CLASS_RULE
+init|=
+name|HBaseClassTestRule
+operator|.
+name|forClass
+argument_list|(
+name|TestHttpRequestLogAppender
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 annotation|@
 name|Test
 specifier|public

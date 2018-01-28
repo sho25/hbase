@@ -199,6 +199,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HBaseClassTestRule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseTestingUtility
 import|;
 end_import
@@ -551,6 +565,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|ClassRule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Rule
 import|;
 end_import
@@ -592,7 +616,7 @@ import|;
 end_import
 
 begin_comment
-comment|/*  * Test that verifies WAL written by SecureProtobufLogWriter is not readable by ProtobufLogReader  */
+comment|/**  * Test that verifies WAL written by SecureProtobufLogWriter is not readable by ProtobufLogReader  */
 end_comment
 
 begin_class
@@ -613,6 +637,23 @@ specifier|public
 class|class
 name|TestWALReaderOnSecureWAL
 block|{
+annotation|@
+name|ClassRule
+specifier|public
+specifier|static
+specifier|final
+name|HBaseClassTestRule
+name|CLASS_RULE
+init|=
+name|HBaseClassTestRule
+operator|.
+name|forClass
+argument_list|(
+name|TestWALReaderOnSecureWAL
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 specifier|static
 specifier|final
 name|HBaseTestingUtility

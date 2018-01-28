@@ -18,6 +18,18 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|fail
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -46,6 +58,20 @@ operator|.
 name|function
 operator|.
 name|Consumer
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseClassTestRule
 import|;
 end_import
 
@@ -208,14 +234,12 @@ import|;
 end_import
 
 begin_import
-import|import static
+import|import
 name|org
 operator|.
 name|junit
 operator|.
-name|Assert
-operator|.
-name|fail
+name|ClassRule
 import|;
 end_import
 
@@ -283,6 +307,23 @@ specifier|public
 class|class
 name|TestImmutableHColumnDescriptor
 block|{
+annotation|@
+name|ClassRule
+specifier|public
+specifier|static
+specifier|final
+name|HBaseClassTestRule
+name|CLASS_RULE
+init|=
+name|HBaseClassTestRule
+operator|.
+name|forClass
+argument_list|(
+name|TestImmutableHColumnDescriptor
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 annotation|@
 name|Rule
 specifier|public

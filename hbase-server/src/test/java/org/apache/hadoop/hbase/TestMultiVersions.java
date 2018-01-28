@@ -331,6 +331,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|ClassRule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Rule
 import|;
 end_import
@@ -413,6 +423,23 @@ specifier|public
 class|class
 name|TestMultiVersions
 block|{
+annotation|@
+name|ClassRule
+specifier|public
+specifier|static
+specifier|final
+name|HBaseClassTestRule
+name|CLASS_RULE
+init|=
+name|HBaseClassTestRule
+operator|.
+name|forClass
+argument_list|(
+name|TestMultiVersions
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
@@ -517,7 +544,7 @@ name|getAdmin
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**   * Tests user specifiable time stamps putting, getting and scanning.  Also    * tests same in presence of deletes.  Test cores are written so can be    * run against an HRegion and against an HTable: i.e. both local and remote.    *     *<p>Port of old TestTimestamp test to here so can better utilize the spun    * up cluster running more than a single test per spin up.  Keep old tests'    * crazyness.    */
+comment|/**   * Tests user specifiable time stamps putting, getting and scanning.  Also    * tests same in presence of deletes.  Test cores are written so can be    * run against an HRegion and against an HTable: i.e. both local and remote.    *    *<p>Port of old TestTimestamp test to here so can better utilize the spun    * up cluster running more than a single test per spin up.  Keep old tests'    * crazyness.    */
 annotation|@
 name|Test
 specifier|public
@@ -1160,7 +1187,7 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Port of old TestScanMultipleVersions test here so can better utilize the    * spun up cluster running more than just a single test.  Keep old tests    * crazyness.    *     *<p>Tests five cases of scans and timestamps.    * @throws Exception    */
+comment|/**    * Port of old TestScanMultipleVersions test here so can better utilize the    * spun up cluster running more than just a single test.  Keep old tests    * crazyness.    *    *<p>Tests five cases of scans and timestamps.    * @throws Exception    */
 annotation|@
 name|Test
 specifier|public

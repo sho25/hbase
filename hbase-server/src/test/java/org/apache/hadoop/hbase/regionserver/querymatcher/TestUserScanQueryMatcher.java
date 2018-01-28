@@ -109,7 +109,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
+name|HBaseClassTestRule
 import|;
 end_import
 
@@ -123,7 +123,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|PrivateCellUtil
+name|HConstants
 import|;
 end_import
 
@@ -152,6 +152,20 @@ operator|.
 name|hbase
 operator|.
 name|KeyValue
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|PrivateCellUtil
 import|;
 end_import
 
@@ -277,6 +291,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|ClassRule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -335,6 +359,23 @@ name|TestUserScanQueryMatcher
 extends|extends
 name|AbstractTestScanQueryMatcher
 block|{
+annotation|@
+name|ClassRule
+specifier|public
+specifier|static
+specifier|final
+name|HBaseClassTestRule
+name|CLASS_RULE
+init|=
+name|HBaseClassTestRule
+operator|.
+name|forClass
+argument_list|(
+name|TestUserScanQueryMatcher
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 specifier|private
 specifier|static
 specifier|final

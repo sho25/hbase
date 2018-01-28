@@ -53,7 +53,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CategoryBasedTimeout
+name|HBaseClassTestRule
 import|;
 end_import
 
@@ -233,18 +233,6 @@ name|TestName
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
-name|rules
-operator|.
-name|TestRule
-import|;
-end_import
-
 begin_comment
 comment|/**  * A silly test that does nothing but make sure an rpcscheduler factory makes what it says  * it is going to make.  */
 end_comment
@@ -262,6 +250,23 @@ class|class
 name|TestRpcSchedulerFactory
 block|{
 annotation|@
+name|ClassRule
+specifier|public
+specifier|static
+specifier|final
+name|HBaseClassTestRule
+name|CLASS_RULE
+init|=
+name|HBaseClassTestRule
+operator|.
+name|forClass
+argument_list|(
+name|TestRpcSchedulerFactory
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
+annotation|@
 name|Rule
 specifier|public
 name|TestName
@@ -270,22 +275,6 @@ init|=
 operator|new
 name|TestName
 argument_list|()
-decl_stmt|;
-annotation|@
-name|ClassRule
-specifier|public
-specifier|static
-name|TestRule
-name|timeout
-init|=
-name|CategoryBasedTimeout
-operator|.
-name|forClass
-argument_list|(
-name|TestRpcSchedulerFactory
-operator|.
-name|class
-argument_list|)
 decl_stmt|;
 specifier|private
 name|Configuration

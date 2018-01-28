@@ -85,6 +85,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HBaseClassTestRule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|testclassification
 operator|.
 name|MasterTests
@@ -104,6 +118,16 @@ operator|.
 name|testclassification
 operator|.
 name|SmallTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|ClassRule
 import|;
 end_import
 
@@ -153,6 +177,23 @@ specifier|public
 class|class
 name|TestForeignExceptionSerialization
 block|{
+annotation|@
+name|ClassRule
+specifier|public
+specifier|static
+specifier|final
+name|HBaseClassTestRule
+name|CLASS_RULE
+init|=
+name|HBaseClassTestRule
+operator|.
+name|forClass
+argument_list|(
+name|TestForeignExceptionSerialization
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
@@ -161,7 +202,7 @@ name|srcName
 init|=
 literal|"someNode"
 decl_stmt|;
-comment|/**    * Verify that we get back similar stack trace information before an after serialization.    * @throws IOException     */
+comment|/**    * Verify that we get back similar stack trace information before an after serialization.    */
 annotation|@
 name|Test
 specifier|public
@@ -305,7 +346,7 @@ name|length
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Compare that a generic exception's stack trace has the same stack trace elements after    * serialization and deserialization    * @throws IOException     */
+comment|/**    * Compare that a generic exception's stack trace has the same stack trace elements after    * serialization and deserialization    */
 annotation|@
 name|Test
 specifier|public

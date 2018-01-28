@@ -18,6 +18,18 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|fail
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -65,6 +77,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HBaseClassTestRule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseTestingUtility
 import|;
 end_import
@@ -79,7 +105,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
+name|HColumnDescriptor
 import|;
 end_import
 
@@ -93,7 +119,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HColumnDescriptor
+name|HConstants
 import|;
 end_import
 
@@ -245,6 +271,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|ClassRule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Rule
 import|;
 end_import
@@ -305,18 +341,6 @@ name|LoggerFactory
 import|;
 end_import
 
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|fail
-import|;
-end_import
-
 begin_class
 annotation|@
 name|Category
@@ -329,6 +353,23 @@ specifier|public
 class|class
 name|TestAssignmentManagerMetrics
 block|{
+annotation|@
+name|ClassRule
+specifier|public
+specifier|static
+specifier|final
+name|HBaseClassTestRule
+name|CLASS_RULE
+init|=
+name|HBaseClassTestRule
+operator|.
+name|forClass
+argument_list|(
+name|TestAssignmentManagerMetrics
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 specifier|private
 specifier|static
 specifier|final

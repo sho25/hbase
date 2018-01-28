@@ -45,6 +45,18 @@ name|junit
 operator|.
 name|Assert
 operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
 name|assertFalse
 import|;
 end_import
@@ -58,18 +70,6 @@ operator|.
 name|Assert
 operator|.
 name|assertNotNull
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertEquals
 import|;
 end_import
 
@@ -104,6 +104,20 @@ operator|.
 name|conf
 operator|.
 name|Configuration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseClassTestRule
 import|;
 end_import
 
@@ -289,21 +303,9 @@ begin_import
 import|import
 name|org
 operator|.
-name|apache
+name|junit
 operator|.
-name|hbase
-operator|.
-name|thirdparty
-operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|collect
-operator|.
-name|Sets
+name|After
 import|;
 end_import
 
@@ -313,7 +315,7 @@ name|org
 operator|.
 name|junit
 operator|.
-name|After
+name|ClassRule
 import|;
 end_import
 
@@ -361,6 +363,28 @@ name|LoggerFactory
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hbase
+operator|.
+name|thirdparty
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|collect
+operator|.
+name|Sets
+import|;
+end_import
+
 begin_comment
 comment|/*  * This case tests a scenario when a cluster with tables is moved from Stochastic Load Balancer  * to FavoredStochasticLoadBalancer and the generation of favored nodes after switch.  */
 end_comment
@@ -377,6 +401,23 @@ specifier|public
 class|class
 name|TestFavoredNodeTableImport
 block|{
+annotation|@
+name|ClassRule
+specifier|public
+specifier|static
+specifier|final
+name|HBaseClassTestRule
+name|CLASS_RULE
+init|=
+name|HBaseClassTestRule
+operator|.
+name|forClass
+argument_list|(
+name|TestFavoredNodeTableImport
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 specifier|private
 specifier|static
 specifier|final

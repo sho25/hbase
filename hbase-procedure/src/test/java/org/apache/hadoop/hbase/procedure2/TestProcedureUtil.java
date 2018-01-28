@@ -18,6 +18,32 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseClassTestRule
+import|;
+end_import
+
+begin_import
 import|import
 name|org
 operator|.
@@ -45,13 +71,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|shaded
+name|testclassification
 operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|ProcedureProtos
+name|MasterTests
 import|;
 end_import
 
@@ -75,15 +97,9 @@ begin_import
 import|import
 name|org
 operator|.
-name|apache
+name|junit
 operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|testclassification
-operator|.
-name|MasterTests
+name|ClassRule
 import|;
 end_import
 
@@ -112,14 +128,22 @@ import|;
 end_import
 
 begin_import
-import|import static
+import|import
 name|org
 operator|.
-name|junit
+name|apache
 operator|.
-name|Assert
+name|hadoop
 operator|.
-name|assertEquals
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ProcedureProtos
 import|;
 end_import
 
@@ -141,6 +165,23 @@ specifier|public
 class|class
 name|TestProcedureUtil
 block|{
+annotation|@
+name|ClassRule
+specifier|public
+specifier|static
+specifier|final
+name|HBaseClassTestRule
+name|CLASS_RULE
+init|=
+name|HBaseClassTestRule
+operator|.
+name|forClass
+argument_list|(
+name|TestProcedureUtil
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 annotation|@
 name|Test
 specifier|public

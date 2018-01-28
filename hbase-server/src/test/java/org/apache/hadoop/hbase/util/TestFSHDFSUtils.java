@@ -91,6 +91,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HBaseClassTestRule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseConfiguration
 import|;
 end_import
@@ -171,6 +185,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|ClassRule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -241,6 +265,23 @@ specifier|public
 class|class
 name|TestFSHDFSUtils
 block|{
+annotation|@
+name|ClassRule
+specifier|public
+specifier|static
+specifier|final
+name|HBaseClassTestRule
+name|CLASS_RULE
+init|=
+name|HBaseClassTestRule
+operator|.
+name|forClass
+argument_list|(
+name|TestFSHDFSUtils
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
@@ -342,14 +383,9 @@ name|currentTime
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Test recover lease eventually succeeding.    * @throws IOException     */
+comment|/**    * Test recover lease eventually succeeding.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|30000
-argument_list|)
 specifier|public
 name|void
 name|testRecoverLease
@@ -519,14 +555,9 @@ operator|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test that isFileClosed makes us recover lease faster.    * @throws IOException    */
+comment|/**    * Test that isFileClosed makes us recover lease faster.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|30000
-argument_list|)
 specifier|public
 name|void
 name|testIsFileClosed

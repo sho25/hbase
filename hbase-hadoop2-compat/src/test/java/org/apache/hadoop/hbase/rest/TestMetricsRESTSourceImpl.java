@@ -18,6 +18,30 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertNotNull
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
 import|import
 name|org
 operator|.
@@ -28,6 +52,20 @@ operator|.
 name|hbase
 operator|.
 name|CompatibilitySingletonFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseClassTestRule
 import|;
 end_import
 
@@ -75,7 +113,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|SmallTests
+name|MetricsTests
 import|;
 end_import
 
@@ -91,7 +129,17 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|MetricsTests
+name|SmallTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|ClassRule
 import|;
 end_import
 
@@ -119,30 +167,6 @@ name|Category
 import|;
 end_import
 
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertNotNull
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertTrue
-import|;
-end_import
-
 begin_comment
 comment|/**  *   Test for hadoop 2's version of MetricsRESTSource  */
 end_comment
@@ -165,6 +189,23 @@ specifier|public
 class|class
 name|TestMetricsRESTSourceImpl
 block|{
+annotation|@
+name|ClassRule
+specifier|public
+specifier|static
+specifier|final
+name|HBaseClassTestRule
+name|CLASS_RULE
+init|=
+name|HBaseClassTestRule
+operator|.
+name|forClass
+argument_list|(
+name|TestMetricsRESTSourceImpl
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 annotation|@
 name|Test
 specifier|public

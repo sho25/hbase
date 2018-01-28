@@ -65,7 +65,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CategoryBasedTimeout
+name|HBaseClassTestRule
 import|;
 end_import
 
@@ -231,7 +231,7 @@ name|org
 operator|.
 name|junit
 operator|.
-name|Rule
+name|ClassRule
 import|;
 end_import
 
@@ -259,18 +259,6 @@ name|Category
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
-name|rules
-operator|.
-name|TestRule
-import|;
-end_import
-
 begin_class
 annotation|@
 name|Category
@@ -292,32 +280,21 @@ extends|extends
 name|AbstractTestLogRolling
 block|{
 annotation|@
-name|Rule
+name|ClassRule
 specifier|public
+specifier|static
 specifier|final
-name|TestRule
-name|timeout
+name|HBaseClassTestRule
+name|CLASS_RULE
 init|=
-name|CategoryBasedTimeout
+name|HBaseClassTestRule
 operator|.
-name|builder
-argument_list|()
-operator|.
-name|withTimeout
+name|forClass
 argument_list|(
-name|this
+name|TestAsyncLogRolling
 operator|.
-name|getClass
-argument_list|()
+name|class
 argument_list|)
-operator|.
-name|withLookingForStuckThread
-argument_list|(
-literal|true
-argument_list|)
-operator|.
-name|build
-argument_list|()
 decl_stmt|;
 annotation|@
 name|BeforeClass

@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  * http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -101,7 +101,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CategoryBasedTimeout
+name|Coprocessor
 import|;
 end_import
 
@@ -115,7 +115,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Coprocessor
+name|HBaseClassTestRule
 import|;
 end_import
 
@@ -411,18 +411,6 @@ begin_import
 import|import
 name|org
 operator|.
-name|junit
-operator|.
-name|rules
-operator|.
-name|TestRule
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
 name|slf4j
 operator|.
 name|Logger
@@ -463,6 +451,23 @@ name|TestCoprocessorWhitelistMasterObserver
 extends|extends
 name|SecureTestUtil
 block|{
+annotation|@
+name|ClassRule
+specifier|public
+specifier|static
+specifier|final
+name|HBaseClassTestRule
+name|CLASS_RULE
+init|=
+name|HBaseClassTestRule
+operator|.
+name|forClass
+argument_list|(
+name|TestCoprocessorWhitelistMasterObserver
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
@@ -588,22 +593,6 @@ name|shutdownMiniCluster
 argument_list|()
 expr_stmt|;
 block|}
-annotation|@
-name|ClassRule
-specifier|public
-specifier|static
-name|TestRule
-name|timeout
-init|=
-name|CategoryBasedTimeout
-operator|.
-name|forClass
-argument_list|(
-name|TestCoprocessorWhitelistMasterObserver
-operator|.
-name|class
-argument_list|)
-decl_stmt|;
 comment|/**    * Test a table modification adding a coprocessor path    * which is not whitelisted    * @result An IOException should be thrown and caught    *         to show coprocessor is working as desired    * @param whitelistedPaths A String array of paths to add in    *         for the whitelisting configuration    * @param coprocessorPath A String to use as the    *         path for a mock coprocessor    */
 specifier|private
 specifier|static

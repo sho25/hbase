@@ -18,6 +18,30 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -95,6 +119,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HBaseClassTestRule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseCommonTestingUtility
 import|;
 end_import
@@ -127,15 +165,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|shaded
+name|testclassification
 operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|ProcedureProtos
-operator|.
-name|ProcedureState
+name|MasterTests
 import|;
 end_import
 
@@ -152,22 +184,6 @@ operator|.
 name|testclassification
 operator|.
 name|SmallTests
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|testclassification
-operator|.
-name|MasterTests
 import|;
 end_import
 
@@ -204,6 +220,16 @@ operator|.
 name|junit
 operator|.
 name|Before
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|ClassRule
 import|;
 end_import
 
@@ -252,26 +278,24 @@ import|;
 end_import
 
 begin_import
-import|import static
+import|import
 name|org
 operator|.
-name|junit
+name|apache
 operator|.
-name|Assert
+name|hadoop
 operator|.
-name|assertEquals
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
+name|hbase
 operator|.
-name|junit
+name|shaded
 operator|.
-name|Assert
+name|protobuf
 operator|.
-name|assertTrue
+name|generated
+operator|.
+name|ProcedureProtos
+operator|.
+name|ProcedureState
 import|;
 end_import
 
@@ -293,6 +317,23 @@ specifier|public
 class|class
 name|TestProcedureExecution
 block|{
+annotation|@
+name|ClassRule
+specifier|public
+specifier|static
+specifier|final
+name|HBaseClassTestRule
+name|CLASS_RULE
+init|=
+name|HBaseClassTestRule
+operator|.
+name|forClass
+argument_list|(
+name|TestProcedureExecution
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 specifier|private
 specifier|static
 specifier|final

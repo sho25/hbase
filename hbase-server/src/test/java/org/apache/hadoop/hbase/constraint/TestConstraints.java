@@ -99,39 +99,21 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HBaseClassTestRule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HTableDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|testclassification
-operator|.
-name|MiscTests
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|testclassification
-operator|.
-name|SmallTests
 import|;
 end_import
 
@@ -211,9 +193,51 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|testclassification
+operator|.
+name|MiscTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|testclassification
+operator|.
+name|SmallTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Pair
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|ClassRule
 import|;
 end_import
 
@@ -285,6 +309,23 @@ specifier|public
 class|class
 name|TestConstraints
 block|{
+annotation|@
+name|ClassRule
+specifier|public
+specifier|static
+specifier|final
+name|HBaseClassTestRule
+name|CLASS_RULE
+init|=
+name|HBaseClassTestRule
+operator|.
+name|forClass
+argument_list|(
+name|TestConstraints
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 annotation|@
 name|Rule
 specifier|public
@@ -640,7 +681,7 @@ block|{
 comment|// expect to have the exception, so don't do anything
 block|}
 block|}
-comment|/**    * Test that Constraints are properly enabled, disabled, and removed    *     * @throws Exception    */
+comment|/**    * Test that Constraints are properly enabled, disabled, and removed    *    * @throws Exception    */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -829,7 +870,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test that when we update a constraint the ordering is not modified.    *     * @throws Exception    */
+comment|/**    * Test that when we update a constraint the ordering is not modified.    *    * @throws Exception    */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -961,7 +1002,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test that if a constraint hasn't been set that there are no problems with    * attempting to remove it.    *     * @throws Throwable    *           on failure.    */
+comment|/**    * Test that if a constraint hasn't been set that there are no problems with    * attempting to remove it.    *    * @throws Throwable    *           on failure.    */
 annotation|@
 name|Test
 specifier|public

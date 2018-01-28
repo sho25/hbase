@@ -285,9 +285,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|errorhandling
-operator|.
-name|ForeignExceptionDispatcher
+name|HBaseClassTestRule
 import|;
 end_import
 
@@ -297,19 +295,13 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
 name|hbase
 operator|.
-name|thirdparty
+name|errorhandling
 operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|collect
-operator|.
-name|Lists
+name|ForeignExceptionDispatcher
 import|;
 end_import
 
@@ -352,6 +344,16 @@ operator|.
 name|junit
 operator|.
 name|After
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|ClassRule
 import|;
 end_import
 
@@ -413,6 +415,28 @@ name|Answer
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hbase
+operator|.
+name|thirdparty
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|collect
+operator|.
+name|Lists
+import|;
+end_import
+
 begin_comment
 comment|/**  * Test Procedure coordinator operation.  *<p>  * This only works correctly when we do<i>class level parallelization</i> of tests. If we do method  * level serialization this class will likely throw all kinds of errors.  */
 end_comment
@@ -435,6 +459,23 @@ specifier|public
 class|class
 name|TestProcedureCoordinator
 block|{
+annotation|@
+name|ClassRule
+specifier|public
+specifier|static
+specifier|final
+name|HBaseClassTestRule
+name|CLASS_RULE
+init|=
+name|HBaseClassTestRule
+operator|.
+name|forClass
+argument_list|(
+name|TestProcedureCoordinator
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 comment|// general test constants
 specifier|private
 specifier|static
