@@ -135,7 +135,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|SmallTests
+name|MediumTests
 import|;
 end_import
 
@@ -193,26 +193,6 @@ name|Category
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|slf4j
-operator|.
-name|Logger
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|slf4j
-operator|.
-name|LoggerFactory
-import|;
-end_import
-
 begin_class
 annotation|@
 name|Category
@@ -222,7 +202,7 @@ name|MasterTests
 operator|.
 name|class
 block|,
-name|SmallTests
+name|MediumTests
 operator|.
 name|class
 block|}
@@ -242,21 +222,6 @@ init|=
 name|HBaseClassTestRule
 operator|.
 name|forClass
-argument_list|(
-name|TestProcedureManager
-operator|.
-name|class
-argument_list|)
-decl_stmt|;
-specifier|private
-specifier|static
-specifier|final
-name|Logger
-name|LOG
-init|=
-name|LoggerFactory
-operator|.
-name|getLogger
 argument_list|(
 name|TestProcedureManager
 operator|.
