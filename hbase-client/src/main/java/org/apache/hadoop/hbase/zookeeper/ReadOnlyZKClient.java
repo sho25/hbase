@@ -1667,7 +1667,10 @@ condition|(
 name|task
 operator|==
 literal|null
-operator|&&
+condition|)
+block|{
+if|if
+condition|(
 name|pendingRequests
 operator|==
 literal|0
@@ -1692,6 +1695,7 @@ expr_stmt|;
 name|closeZk
 argument_list|()
 expr_stmt|;
+block|}
 continue|continue;
 block|}
 if|if
