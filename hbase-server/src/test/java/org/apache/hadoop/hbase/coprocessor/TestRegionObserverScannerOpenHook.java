@@ -177,20 +177,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HBaseConfiguration
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HBaseTestingUtility
 import|;
 end_import
@@ -1462,12 +1448,15 @@ block|{
 name|A
 block|}
 decl_stmt|;
+comment|// Use new HTU to not overlap with the DFS cluster started in #CompactionStacking
 name|Configuration
 name|conf
 init|=
-name|HBaseConfiguration
+operator|new
+name|HBaseTestingUtility
+argument_list|()
 operator|.
-name|create
+name|getConfiguration
 argument_list|()
 decl_stmt|;
 name|HRegion
@@ -1651,12 +1640,15 @@ block|{
 name|A
 block|}
 decl_stmt|;
+comment|// Use new HTU to not overlap with the DFS cluster started in #CompactionStacking
 name|Configuration
 name|conf
 init|=
-name|HBaseConfiguration
+operator|new
+name|HBaseTestingUtility
+argument_list|()
 operator|.
-name|create
+name|getConfiguration
 argument_list|()
 decl_stmt|;
 name|HRegion

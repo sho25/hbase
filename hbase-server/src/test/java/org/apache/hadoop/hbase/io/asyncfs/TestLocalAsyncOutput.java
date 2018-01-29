@@ -93,7 +93,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HBaseCommonTestingUtility
+name|HBaseTestingUtility
 import|;
 end_import
 
@@ -336,11 +336,11 @@ decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
-name|HBaseCommonTestingUtility
+name|HBaseTestingUtility
 name|TEST_UTIL
 init|=
 operator|new
-name|HBaseCommonTestingUtility
+name|HBaseTestingUtility
 argument_list|()
 decl_stmt|;
 annotation|@

@@ -522,9 +522,9 @@ specifier|volatile
 name|Configuration
 name|conf
 init|=
-name|HBaseConfiguration
+name|testUtil
 operator|.
-name|create
+name|getConfiguration
 argument_list|()
 decl_stmt|;
 specifier|public

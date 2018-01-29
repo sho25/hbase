@@ -305,10 +305,7 @@ parameter_list|()
 block|{
 name|this
 argument_list|(
-name|HBaseConfiguration
-operator|.
-name|create
-argument_list|()
+literal|null
 argument_list|)
 expr_stmt|;
 block|}
@@ -323,7 +320,18 @@ name|this
 operator|.
 name|conf
 operator|=
+operator|(
 name|conf
+operator|==
+literal|null
+condition|?
+name|HBaseConfiguration
+operator|.
+name|create
+argument_list|()
+else|:
+name|conf
+operator|)
 expr_stmt|;
 block|}
 comment|/**    * Returns this classes's instance of {@link Configuration}.    *    * @return Instance of Configuration.    */
