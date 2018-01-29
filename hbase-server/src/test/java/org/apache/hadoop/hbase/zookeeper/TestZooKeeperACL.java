@@ -37,6 +37,18 @@ name|junit
 operator|.
 name|Assert
 operator|.
+name|assertFalse
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
 name|assertTrue
 import|;
 end_import
@@ -1656,10 +1668,8 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|assertEquals
+name|assertFalse
 argument_list|(
-literal|false
-argument_list|,
 name|testJaasConfig
 argument_list|)
 expr_stmt|;
@@ -1718,10 +1728,8 @@ argument_list|(
 name|config
 argument_list|)
 decl_stmt|;
-name|assertEquals
+name|assertFalse
 argument_list|(
-literal|false
-argument_list|,
 name|testJaasConfig
 argument_list|)
 expr_stmt|;
@@ -1745,10 +1753,8 @@ argument_list|(
 name|config
 argument_list|)
 expr_stmt|;
-name|assertEquals
+name|assertFalse
 argument_list|(
-literal|false
-argument_list|,
 name|testJaasConfig
 argument_list|)
 expr_stmt|;
@@ -1806,10 +1812,8 @@ argument_list|(
 name|config
 argument_list|)
 expr_stmt|;
-name|assertEquals
+name|assertTrue
 argument_list|(
-literal|true
-argument_list|,
 name|testJaasConfig
 argument_list|)
 expr_stmt|;

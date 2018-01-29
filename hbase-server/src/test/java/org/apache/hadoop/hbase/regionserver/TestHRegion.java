@@ -16150,7 +16150,7 @@ operator|=
 literal|true
 expr_stmt|;
 block|}
-name|assertEquals
+name|assertTrue
 argument_list|(
 literal|"Family "
 operator|+
@@ -16165,8 +16165,6 @@ name|UTF_8
 argument_list|)
 operator|+
 literal|" does exist"
-argument_list|,
-literal|true
 argument_list|,
 name|ok
 argument_list|)
