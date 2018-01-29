@@ -367,7 +367,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|MediumTests
+name|LargeTests
 import|;
 end_import
 
@@ -541,10 +541,6 @@ name|Lists
 import|;
 end_import
 
-begin_comment
-comment|/**  */
-end_comment
-
 begin_class
 annotation|@
 name|Category
@@ -554,7 +550,7 @@ name|FilterTests
 operator|.
 name|class
 block|,
-name|MediumTests
+name|LargeTests
 operator|.
 name|class
 block|}
