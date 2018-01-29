@@ -27,7 +27,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|MediumTests
+name|LargeTests
 import|;
 end_import
 
@@ -59,17 +59,15 @@ begin_class
 annotation|@
 name|Category
 argument_list|(
-block|{
-name|MediumTests
+name|LargeTests
 operator|.
 name|class
-block|}
 argument_list|)
 specifier|public
 class|class
 name|TestAcidGuaranteesWithAdaptivePolicy
 extends|extends
-name|TestAcidGuaranteesWithNoInMemCompaction
+name|AcidGuaranteesTestBase
 block|{
 annotation|@
 name|ClassRule
