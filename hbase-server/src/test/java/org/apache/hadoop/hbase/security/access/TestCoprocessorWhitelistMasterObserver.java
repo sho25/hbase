@@ -327,7 +327,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|MediumTests
+name|LargeTests
 import|;
 end_import
 
@@ -428,7 +428,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Performs coprocessor loads for variuos paths and malformed strings  */
+comment|/**  * Performs coprocessor loads for various paths and malformed strings  */
 end_comment
 
 begin_class
@@ -440,7 +440,7 @@ name|SecurityTests
 operator|.
 name|class
 block|,
-name|MediumTests
+name|LargeTests
 operator|.
 name|class
 block|}
