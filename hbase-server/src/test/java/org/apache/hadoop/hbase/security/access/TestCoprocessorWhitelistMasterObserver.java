@@ -652,7 +652,7 @@ name|setInt
 argument_list|(
 literal|"hbase.client.retries.number"
 argument_list|,
-literal|1
+literal|5
 argument_list|)
 expr_stmt|;
 name|UTIL
@@ -822,7 +822,7 @@ name|setInt
 argument_list|(
 literal|"hbase.client.retries.number"
 argument_list|,
-literal|1
+literal|5
 argument_list|)
 expr_stmt|;
 comment|// load coprocessor under test
@@ -1209,7 +1209,7 @@ name|setInt
 argument_list|(
 literal|"hbase.client.retries.number"
 argument_list|,
-literal|1
+literal|5
 argument_list|)
 expr_stmt|;
 name|UTIL
@@ -1426,7 +1426,7 @@ name|setInt
 argument_list|(
 literal|"hbase.client.retries.number"
 argument_list|,
-literal|1
+literal|5
 argument_list|)
 expr_stmt|;
 name|UTIL
