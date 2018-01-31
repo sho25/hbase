@@ -10002,11 +10002,38 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-operator|!
+name|regionStateNode
+operator|==
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"RegionStateNode is null for "
+operator|+
+name|hri
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
+name|ServerName
+name|rsnServerName
+init|=
 name|regionStateNode
 operator|.
 name|getServerName
 argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|rsnServerName
+operator|!=
+literal|null
+operator|&&
+operator|!
+name|rsnServerName
 operator|.
 name|equals
 argument_list|(
@@ -10015,6 +10042,24 @@ argument_list|)
 condition|)
 block|{
 return|return;
+block|}
+elseif|else
+if|if
+condition|(
+name|rsnServerName
+operator|==
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Empty ServerName in RegionStateNode; proceeding anyways in case latched "
+operator|+
+literal|"RecoverMetaProcedure so meta latch gets cleaned up."
+argument_list|)
+expr_stmt|;
 block|}
 comment|// meta has been assigned to crashed server.
 name|LOG

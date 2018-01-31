@@ -5618,6 +5618,15 @@ argument_list|(
 literal|"Recovering  Meta Region"
 argument_list|)
 expr_stmt|;
+comment|// Check if master is shutting down because issue initializing regionservers or balancer.
+if|if
+condition|(
+name|isStopped
+argument_list|()
+condition|)
+block|{
+return|return;
+block|}
 comment|// we recover hbase:meta region servers inside master initialization and
 comment|// handle other failed servers in SSH in order to start up master node ASAP
 name|MasterMetaBootstrap
