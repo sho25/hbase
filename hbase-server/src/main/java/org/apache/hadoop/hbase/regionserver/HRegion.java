@@ -18758,8 +18758,6 @@ argument_list|,
 literal|null
 argument_list|,
 name|mutation
-argument_list|,
-name|writeToWAL
 argument_list|)
 return|;
 block|}
@@ -18789,9 +18787,6 @@ name|comparator
 parameter_list|,
 name|RowMutations
 name|rm
-parameter_list|,
-name|boolean
-name|writeToWAL
 parameter_list|)
 throws|throws
 name|IOException
@@ -18812,8 +18807,6 @@ argument_list|,
 name|rm
 argument_list|,
 literal|null
-argument_list|,
-name|writeToWAL
 argument_list|)
 return|;
 block|}
@@ -18845,9 +18838,6 @@ name|rowMutations
 parameter_list|,
 name|Mutation
 name|mutation
-parameter_list|,
-name|boolean
-name|writeToWAL
 parameter_list|)
 throws|throws
 name|IOException

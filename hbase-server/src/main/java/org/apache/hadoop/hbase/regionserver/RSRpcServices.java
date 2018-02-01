@@ -5450,10 +5450,6 @@ argument_list|,
 name|comparator
 argument_list|,
 name|rm
-argument_list|,
-name|Boolean
-operator|.
-name|TRUE
 argument_list|)
 return|;
 block|}

@@ -737,7 +737,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Atomically checks if a row/family/qualifier value matches the expected values and if it does,    * it performs the row mutations. If the passed value is null, the lack of column value    * (ie: non-existence) is used. Use to do many mutations on a single row. Use checkAndMutate    * to do one checkAndMutate at a time.    * @param row to check    * @param family column family to check    * @param qualifier column qualifier to check    * @param op the comparison operator    * @param comparator    * @param mutations    * @param writeToWAL    * @return true if mutations were applied, false otherwise    * @throws IOException    */
+comment|/**    * Atomically checks if a row/family/qualifier value matches the expected values and if it does,    * it performs the row mutations. If the passed value is null, the lack of column value    * (ie: non-existence) is used. Use to do many mutations on a single row. Use checkAndMutate    * to do one checkAndMutate at a time.    * @param row to check    * @param family column family to check    * @param qualifier column qualifier to check    * @param op the comparison operator    * @param comparator    * @param mutations    * @return true if mutations were applied, false otherwise    * @throws IOException    */
 name|boolean
 name|checkAndRowMutate
 parameter_list|(
@@ -761,9 +761,6 @@ name|comparator
 parameter_list|,
 name|RowMutations
 name|mutations
-parameter_list|,
-name|boolean
-name|writeToWAL
 parameter_list|)
 throws|throws
 name|IOException
