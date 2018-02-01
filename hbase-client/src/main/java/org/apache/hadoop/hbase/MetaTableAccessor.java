@@ -7912,6 +7912,22 @@ name|build
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// Set initial state to CLOSED
+comment|// NOTE: If initial state is not set to CLOSED then merged region gets added with the
+comment|// default OFFLINE state. If Master gets restarted after this step, start up sequence of
+comment|// master tries to assign this offline region. This is followed by re-assignments of the
+comment|// merged region from resumed {@link MergeTableRegionsProcedure}
+name|addRegionStateToPut
+argument_list|(
+name|putOfMerged
+argument_list|,
+name|RegionState
+operator|.
+name|State
+operator|.
+name|CLOSED
+argument_list|)
+expr_stmt|;
 comment|// Deletes for merging regions
 name|Delete
 name|deleteA
@@ -8229,6 +8245,33 @@ argument_list|(
 name|splitB
 argument_list|)
 decl_stmt|;
+comment|// Set initial state to CLOSED
+comment|// NOTE: If initial state is not set to CLOSED then daughter regions get added with the
+comment|// default OFFLINE state. If Master gets restarted after this step, start up sequence of
+comment|// master tries to assign these offline regions. This is followed by re-assignments of the
+comment|// daughter regions from resumed {@link SplitTableRegionProcedure}
+name|addRegionStateToPut
+argument_list|(
+name|putA
+argument_list|,
+name|RegionState
+operator|.
+name|State
+operator|.
+name|CLOSED
+argument_list|)
+expr_stmt|;
+name|addRegionStateToPut
+argument_list|(
+name|putA
+argument_list|,
+name|RegionState
+operator|.
+name|State
+operator|.
+name|CLOSED
+argument_list|)
+expr_stmt|;
 name|addSequenceNum
 argument_list|(
 name|putA
