@@ -295,8 +295,10 @@ name|class
 condition|)
 block|{
 comment|// See SmallTests. Supposed to run 15 seconds.
+comment|// Lots of these timeout on Jenkins... a stall of ten or twenty seconds mess up what looks
+comment|// fine when run local.
 return|return
-literal|30
+literal|60
 return|;
 block|}
 elseif|else
