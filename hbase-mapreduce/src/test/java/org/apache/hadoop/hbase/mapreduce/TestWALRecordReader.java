@@ -932,8 +932,6 @@ name|WALFactory
 argument_list|(
 name|conf
 argument_list|,
-literal|null
-argument_list|,
 name|getName
 argument_list|()
 argument_list|)
@@ -1430,8 +1428,6 @@ operator|new
 name|WALFactory
 argument_list|(
 name|conf
-argument_list|,
-literal|null
 argument_list|,
 name|getName
 argument_list|()

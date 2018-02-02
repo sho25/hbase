@@ -53,6 +53,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|OptionalLong
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|concurrent
 operator|.
 name|CompletableFuture
@@ -113,6 +123,24 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|replication
+operator|.
+name|regionserver
+operator|.
+name|WALFileLengthProvider
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -122,7 +150,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The Write Ahead Log (WAL) stores all durable edits to the HRegion.  * This interface provides the entry point for all WAL implementors.  *<p>  * See {@link FSHLogProvider} for an example implementation.  *  * A single WALProvider will be used for retrieving multiple WALs in a particular region server  * and must be threadsafe.  */
+comment|/**  * The Write Ahead Log (WAL) stores all durable edits to the HRegion. This interface provides the  * entry point for all WAL implementors.  *<p>  * See {@link FSHLogProvider} for an example implementation. A single WALProvider will be used for  * retrieving multiple WALs in a particular region server and must be threadsafe.  */
 end_comment
 
 begin_interface
@@ -134,7 +162,7 @@ specifier|public
 interface|interface
 name|WALProvider
 block|{
-comment|/**    * Set up the provider to create wals.    * will only be called once per instance.    * @param factory factory that made us may not be null    * @param conf may not be null    * @param listeners may be null    * @param providerId differentiate between providers from one factory. may be null    */
+comment|/**    * Set up the provider to create wals. will only be called once per instance.    * @param factory factory that made us may not be null    * @param conf may not be null    * @param providerId differentiate between providers from one factory. may be null    */
 name|void
 name|init
 parameter_list|(
@@ -143,12 +171,6 @@ name|factory
 parameter_list|,
 name|Configuration
 name|conf
-parameter_list|,
-name|List
-argument_list|<
-name|WALActionsListener
-argument_list|>
-name|listeners
 parameter_list|,
 name|String
 name|providerId
@@ -174,14 +196,14 @@ argument_list|>
 name|getWALs
 parameter_list|()
 function_decl|;
-comment|/**    * persist outstanding WALs to storage and stop accepting new appends.    * This method serves as shorthand for sending a sync to every WAL provided by a given    * implementation. Those WALs will also stop accepting new writes.    */
+comment|/**    * persist outstanding WALs to storage and stop accepting new appends. This method serves as    * shorthand for sending a sync to every WAL provided by a given implementation. Those WALs will    * also stop accepting new writes.    */
 name|void
 name|shutdown
 parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * shutdown utstanding WALs and clean up any persisted state.    * Call this method only when you will not need to replay any of the edits to the WALs from    * this provider. After this call completes, the underlying resources should have been reclaimed.    */
+comment|/**    * shutdown utstanding WALs and clean up any persisted state. Call this method only when you will    * not need to replay any of the edits to the WALs from this provider. After this call completes,    * the underlying resources should have been reclaimed.    */
 name|void
 name|close
 parameter_list|()
@@ -255,6 +277,62 @@ name|long
 name|getLogFileSize
 parameter_list|()
 function_decl|;
+comment|/**    * Add a {@link WALActionsListener}.    *<p>    * Notice that you must call this method before calling {@link #getWAL(RegionInfo)} as this method    * will not effect the {@link WAL} which has already been created. And as long as we can only it    * when initialization, it is not thread safe.    */
+name|void
+name|addWALActionsListener
+parameter_list|(
+name|WALActionsListener
+name|listener
+parameter_list|)
+function_decl|;
+specifier|default
+name|WALFileLengthProvider
+name|getWALFileLengthProvider
+parameter_list|()
+block|{
+return|return
+name|path
+lambda|->
+name|getWALs
+argument_list|()
+operator|.
+name|stream
+argument_list|()
+operator|.
+name|map
+argument_list|(
+name|w
+lambda|->
+name|w
+operator|.
+name|getLogFileSizeIfBeingWritten
+argument_list|(
+name|path
+argument_list|)
+argument_list|)
+operator|.
+name|filter
+argument_list|(
+name|o
+lambda|->
+name|o
+operator|.
+name|isPresent
+argument_list|()
+argument_list|)
+operator|.
+name|findAny
+argument_list|()
+operator|.
+name|orElse
+argument_list|(
+name|OptionalLong
+operator|.
+name|empty
+argument_list|()
+argument_list|)
+return|;
+block|}
 block|}
 end_interface
 

@@ -746,10 +746,11 @@ argument_list|()
 decl_stmt|;
 name|replicationService
 operator|.
+name|getReplicationManager
+argument_list|()
+operator|.
 name|preLogRoll
 argument_list|(
-literal|null
-argument_list|,
 name|emptyWalPaths
 operator|.
 name|get
@@ -760,10 +761,11 @@ argument_list|)
 expr_stmt|;
 name|replicationService
 operator|.
+name|getReplicationManager
+argument_list|()
+operator|.
 name|postLogRoll
 argument_list|(
-literal|null
-argument_list|,
 name|emptyWalPaths
 operator|.
 name|get

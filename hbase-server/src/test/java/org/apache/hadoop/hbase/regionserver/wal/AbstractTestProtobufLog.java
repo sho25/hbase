@@ -544,8 +544,6 @@ operator|.
 name|getConfiguration
 argument_list|()
 argument_list|,
-literal|null
-argument_list|,
 name|currentTest
 operator|.
 name|getMethodName

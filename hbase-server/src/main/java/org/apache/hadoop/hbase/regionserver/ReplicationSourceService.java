@@ -49,24 +49,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|wal
-operator|.
-name|WALActionsListener
-import|;
-end_import
-
 begin_comment
 comment|/**  * A source for a replication stream has to expose this service.  * This service allows an application to hook into the  * regionserver and watch for new transactions.  */
 end_comment
@@ -82,11 +64,6 @@ name|ReplicationSourceService
 extends|extends
 name|ReplicationService
 block|{
-comment|/**    * Returns a WALObserver for the service. This is needed to    * observe log rolls and log archival events.    */
-name|WALActionsListener
-name|getWALActionsListener
-parameter_list|()
-function_decl|;
 comment|/**    * Returns a Handler to handle peer procedures.    */
 name|PeerProcedureHandler
 name|getPeerProcedureHandler

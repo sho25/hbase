@@ -454,14 +454,10 @@ decl_stmt|;
 specifier|protected
 name|WALFactory
 name|factory
-init|=
-literal|null
 decl_stmt|;
 specifier|protected
 name|Configuration
 name|conf
-init|=
-literal|null
 decl_stmt|;
 specifier|protected
 name|List
@@ -470,13 +466,14 @@ name|WALActionsListener
 argument_list|>
 name|listeners
 init|=
-literal|null
+operator|new
+name|ArrayList
+argument_list|<>
+argument_list|()
 decl_stmt|;
 specifier|protected
 name|String
 name|providerId
-init|=
-literal|null
 decl_stmt|;
 specifier|protected
 name|AtomicBoolean
@@ -492,8 +489,6 @@ comment|// for default wal provider, logPrefix won't change
 specifier|protected
 name|String
 name|logPrefix
-init|=
-literal|null
 decl_stmt|;
 comment|/**    * we synchronized on walCreateLock to prevent wal recreation in different threads    */
 specifier|private
@@ -505,7 +500,7 @@ operator|new
 name|Object
 argument_list|()
 decl_stmt|;
-comment|/**    * @param factory factory that made us, identity used for FS layout. may not be null    * @param conf may not be null    * @param listeners may be null    * @param providerId differentiate between providers from one factory, used for FS layout. may be    *          null    */
+comment|/**    * @param factory factory that made us, identity used for FS layout. may not be null    * @param conf may not be null    * @param providerId differentiate between providers from one factory, used for FS layout. may be    *          null    */
 annotation|@
 name|Override
 specifier|public
@@ -517,12 +512,6 @@ name|factory
 parameter_list|,
 name|Configuration
 name|conf
-parameter_list|,
-name|List
-argument_list|<
-name|WALActionsListener
-argument_list|>
-name|listeners
 parameter_list|,
 name|String
 name|providerId
@@ -562,12 +551,6 @@ operator|.
 name|conf
 operator|=
 name|conf
-expr_stmt|;
-name|this
-operator|.
-name|listeners
-operator|=
-name|listeners
 expr_stmt|;
 name|this
 operator|.
@@ -1157,7 +1140,7 @@ name|matches
 argument_list|()
 return|;
 block|}
-comment|/**    * Construct the directory name for all WALs on a given server. Dir names currently look like    * this for WALs:<code>hbase//WALs/kalashnikov.att.net,61634,1486865297088</code>.    * @param serverName Server name formatted as described in {@link ServerName}    * @return the relative WAL directory name, e.g.<code>.logs/1.example.org,60030,12345</code> if    *<code>serverName</code> passed is<code>1.example.org,60030,12345</code>    */
+comment|/**    * Construct the directory name for all WALs on a given server. Dir names currently look like this    * for WALs:<code>hbase//WALs/kalashnikov.att.net,61634,1486865297088</code>.    * @param serverName Server name formatted as described in {@link ServerName}    * @return the relative WAL directory name, e.g.<code>.logs/1.example.org,60030,12345</code> if    *<code>serverName</code> passed is<code>1.example.org,60030,12345</code>    */
 specifier|public
 specifier|static
 name|String
@@ -1200,7 +1183,7 @@ name|toString
 argument_list|()
 return|;
 block|}
-comment|/**    * Construct the directory name for all old WALs on a given server. The default old WALs dir    * looks like:<code>hbase/oldWALs</code>. If you config hbase.separate.oldlogdir.by.regionserver    * to true, it looks like<code>hbase//oldWALs/kalashnikov.att.net,61634,1486865297088</code>.    * @param conf    * @param serverName Server name formatted as described in {@link ServerName}    * @return the relative WAL directory name    */
+comment|/**    * Construct the directory name for all old WALs on a given server. The default old WALs dir looks    * like:<code>hbase/oldWALs</code>. If you config hbase.separate.oldlogdir.by.regionserver to    * true, it looks like<code>hbase//oldWALs/kalashnikov.att.net,61634,1486865297088</code>.    * @param conf    * @param serverName Server name formatted as described in {@link ServerName}    * @return the relative WAL directory name    */
 specifier|public
 specifier|static
 name|String
@@ -1933,7 +1916,7 @@ name|path
 return|;
 block|}
 block|}
-comment|/**    * Opens WAL reader with retries and    * additional exception handling    * @param path path to WAL file    * @param conf configuration    * @return WAL Reader instance    * @throws IOException    */
+comment|/**    * Opens WAL reader with retries and additional exception handling    * @param path path to WAL file    * @param conf configuration    * @return WAL Reader instance    * @throws IOException    */
 specifier|public
 specifier|static
 name|org
@@ -2275,6 +2258,24 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|addWALActionsListener
+parameter_list|(
+name|WALActionsListener
+name|listener
+parameter_list|)
+block|{
+name|listeners
+operator|.
+name|add
+argument_list|(
+name|listener
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * Get prefix of the log from its name, assuming WAL name in format of    * log_prefix.filenumber.log_suffix    * @param name Name of the WAL to parse    * @return prefix of the log    * @see AbstractFSWAL#getCurrentFileName()    */
 specifier|public

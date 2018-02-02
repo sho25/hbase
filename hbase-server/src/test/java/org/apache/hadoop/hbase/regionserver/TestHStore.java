@@ -2047,8 +2047,6 @@ name|WALFactory
 argument_list|(
 name|walConf
 argument_list|,
-literal|null
-argument_list|,
 name|methodName
 argument_list|)
 decl_stmt|;

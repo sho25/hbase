@@ -924,8 +924,6 @@ name|WALFactory
 argument_list|(
 name|CONF
 argument_list|,
-literal|null
-argument_list|,
 name|ServerName
 operator|.
 name|valueOf
@@ -1344,8 +1342,6 @@ operator|new
 name|WALFactory
 argument_list|(
 name|CONF
-argument_list|,
-literal|null
 argument_list|,
 name|ServerName
 operator|.
@@ -1885,8 +1881,6 @@ operator|new
 name|WALFactory
 argument_list|(
 name|CONF
-argument_list|,
-literal|null
 argument_list|,
 name|ServerName
 operator|.

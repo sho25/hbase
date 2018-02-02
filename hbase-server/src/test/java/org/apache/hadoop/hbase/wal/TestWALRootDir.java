@@ -618,8 +618,6 @@ name|WALFactory
 argument_list|(
 name|conf
 argument_list|,
-literal|null
-argument_list|,
 literal|"testWALRootDir"
 argument_list|)
 expr_stmt|;

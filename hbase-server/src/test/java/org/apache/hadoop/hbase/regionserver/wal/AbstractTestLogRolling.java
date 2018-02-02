@@ -998,11 +998,6 @@ block|}
 comment|/**    * Tests that log rolling doesn't hang when no data is written.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|120000
-argument_list|)
 specifier|public
 name|void
 name|testLogRollOnNothingWritten
@@ -1027,8 +1022,6 @@ operator|new
 name|WALFactory
 argument_list|(
 name|conf
-argument_list|,
-literal|null
 argument_list|,
 name|ServerName
 operator|.
@@ -1125,7 +1118,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Tests that logs are deleted    * @throws IOException    * @throws org.apache.hadoop.hbase.regionserver.wal.FailedLogCloseException    */
+comment|/**    * Tests that logs are deleted    */
 annotation|@
 name|Test
 specifier|public

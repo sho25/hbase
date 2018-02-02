@@ -1352,8 +1352,6 @@ name|WALFactory
 argument_list|(
 name|conf
 argument_list|,
-literal|null
-argument_list|,
 name|serverName
 argument_list|)
 expr_stmt|;
@@ -2586,8 +2584,6 @@ operator|new
 name|WALFactory
 argument_list|(
 name|conf
-argument_list|,
-literal|null
 argument_list|,
 name|ServerName
 operator|.

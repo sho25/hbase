@@ -1331,8 +1331,6 @@ name|WALFactory
 argument_list|(
 name|conf
 argument_list|,
-literal|null
-argument_list|,
 name|id
 argument_list|)
 expr_stmt|;

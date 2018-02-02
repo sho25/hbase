@@ -976,8 +976,6 @@ operator|.
 name|getConfiguration
 argument_list|()
 argument_list|,
-literal|null
-argument_list|,
 name|tableName
 operator|.
 name|getNameAsString

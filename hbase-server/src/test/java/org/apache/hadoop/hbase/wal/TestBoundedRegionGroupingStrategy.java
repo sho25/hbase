@@ -1203,8 +1203,6 @@ name|WALFactory
 argument_list|(
 name|CONF
 argument_list|,
-literal|null
-argument_list|,
 literal|"setMembershipDedups"
 argument_list|)
 expr_stmt|;

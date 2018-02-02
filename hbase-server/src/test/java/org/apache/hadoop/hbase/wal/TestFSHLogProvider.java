@@ -1462,8 +1462,6 @@ name|WALFactory
 argument_list|(
 name|localConf
 argument_list|,
-literal|null
-argument_list|,
 name|currentTest
 operator|.
 name|getMethodName
@@ -1980,8 +1978,6 @@ name|WALFactory
 argument_list|(
 name|localConf
 argument_list|,
-literal|null
-argument_list|,
 name|currentTest
 operator|.
 name|getMethodName
@@ -2429,8 +2425,6 @@ operator|new
 name|WALFactory
 argument_list|(
 name|localConf
-argument_list|,
-literal|null
 argument_list|,
 name|currentTest
 operator|.

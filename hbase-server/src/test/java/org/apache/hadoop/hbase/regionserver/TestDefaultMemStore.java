@@ -6768,8 +6768,6 @@ name|WALFactory
 argument_list|(
 name|conf
 argument_list|,
-literal|null
-argument_list|,
 literal|"1234"
 argument_list|)
 decl_stmt|;

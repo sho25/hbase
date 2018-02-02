@@ -75,18 +75,6 @@ name|mockito
 operator|.
 name|ArgumentMatchers
 operator|.
-name|anyInt
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|mockito
-operator|.
-name|Matchers
-operator|.
 name|any
 import|;
 end_import
@@ -97,7 +85,19 @@ name|org
 operator|.
 name|mockito
 operator|.
-name|Matchers
+name|ArgumentMatchers
+operator|.
+name|anyInt
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|mockito
+operator|.
+name|ArgumentMatchers
 operator|.
 name|eq
 import|;
@@ -1596,8 +1596,6 @@ operator|new
 name|WALFactory
 argument_list|(
 name|conf
-argument_list|,
-literal|null
 argument_list|,
 name|currentTest
 operator|.

@@ -2460,8 +2460,6 @@ argument_list|(
 name|getConf
 argument_list|()
 argument_list|,
-literal|null
-argument_list|,
 literal|"wals"
 argument_list|)
 decl_stmt|;

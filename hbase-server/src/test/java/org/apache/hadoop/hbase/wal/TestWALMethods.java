@@ -768,8 +768,6 @@ name|WALFactory
 argument_list|(
 name|walConf
 argument_list|,
-literal|null
-argument_list|,
 literal|"dummyLogName"
 argument_list|)
 operator|)

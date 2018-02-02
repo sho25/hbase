@@ -522,6 +522,11 @@ name|replication
 operator|=
 operator|new
 name|Replication
+argument_list|()
+expr_stmt|;
+name|replication
+operator|.
+name|initialize
 argument_list|(
 operator|new
 name|DummyServer
@@ -534,6 +539,8 @@ argument_list|,
 name|logDir
 argument_list|,
 name|oldLogDir
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|manager

@@ -1167,8 +1167,6 @@ name|WALFactory
 argument_list|(
 name|walConf
 argument_list|,
-literal|null
-argument_list|,
 literal|"log_"
 operator|+
 name|info

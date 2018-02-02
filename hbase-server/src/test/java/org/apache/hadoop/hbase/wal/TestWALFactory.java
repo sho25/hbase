@@ -918,8 +918,6 @@ name|WALFactory
 argument_list|(
 name|conf
 argument_list|,
-literal|null
-argument_list|,
 name|this
 operator|.
 name|currentServername
