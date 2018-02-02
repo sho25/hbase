@@ -1269,6 +1269,11 @@ name|getMaxVersions
 argument_list|()
 argument_list|,
 literal|600
+argument_list|,
+name|oldScanInfo
+operator|.
+name|getKeepDeletedCells
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|store

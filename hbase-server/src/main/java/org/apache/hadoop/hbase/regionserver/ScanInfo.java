@@ -732,7 +732,7 @@ return|return
 name|newVersionBehavior
 return|;
 block|}
-comment|/**    * Used for CP users for customizing max versions and ttl.    */
+comment|/**    * Used for CP users for customizing max versions, ttl and keepDeletedCells.    */
 name|ScanInfo
 name|customize
 parameter_list|(
@@ -741,6 +741,9 @@ name|maxVersions
 parameter_list|,
 name|long
 name|ttl
+parameter_list|,
+name|KeepDeletedCells
+name|keepDeletedCells
 parameter_list|)
 block|{
 return|return
@@ -757,19 +760,19 @@ name|ttl
 argument_list|,
 name|keepDeletedCells
 argument_list|,
-name|ttl
+name|timeToPurgeDeletes
 argument_list|,
 name|comparator
 argument_list|,
-name|ttl
+name|tableMaxRowSize
 argument_list|,
 name|usePread
 argument_list|,
-name|maxVersions
+name|cellsPerTimeoutCheck
 argument_list|,
 name|parallelSeekEnabled
 argument_list|,
-name|ttl
+name|preadMaxBytes
 argument_list|,
 name|newVersionBehavior
 argument_list|)

@@ -1757,6 +1757,11 @@ name|getMaxVersions
 argument_list|()
 argument_list|,
 name|ttl
+argument_list|,
+name|old
+operator|.
+name|getKeepDeletedCells
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|store
