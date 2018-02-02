@@ -2534,13 +2534,11 @@ throw|;
 block|}
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
-literal|"Node "
-operator|+
+literal|"Node {} already exists"
+argument_list|,
 name|path
-operator|+
-literal|" already exists"
 argument_list|)
 expr_stmt|;
 throw|throw

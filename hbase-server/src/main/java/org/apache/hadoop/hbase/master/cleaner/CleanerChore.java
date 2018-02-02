@@ -452,7 +452,7 @@ specifier|final
 name|String
 name|DEFAULT_CHORE_POOL_SIZE
 init|=
-literal|"0.5"
+literal|"0.25"
 decl_stmt|;
 comment|// It may be waste resources for each cleaner chore own its pool,
 comment|// so let's make pool for all cleaner chores.
@@ -1170,7 +1170,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Cleaned old files/dirs under {} successfully"
+literal|"Cleaned all WALs under {}"
 argument_list|,
 name|oldFileDir
 argument_list|)
@@ -1182,7 +1182,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed to fully clean old files/dirs under {}"
+literal|"WALs outstanding under {}"
 argument_list|,
 name|oldFileDir
 argument_list|)
@@ -2020,36 +2020,15 @@ name|Boolean
 name|compute
 parameter_list|()
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"CleanerTask "
-operator|+
-name|Thread
-operator|.
-name|currentThread
-argument_list|()
-operator|.
-name|getId
-argument_list|()
-operator|+
-literal|" starts cleaning dirs and files under "
-operator|+
+literal|"Cleaning under {}"
+argument_list|,
 name|dir
-operator|+
-literal|" and itself."
 argument_list|)
 expr_stmt|;
-block|}
 name|List
 argument_list|<
 name|FileStatus
@@ -2339,11 +2318,6 @@ block|{
 name|boolean
 name|deleted
 decl_stmt|;
-name|String
-name|errorMsg
-init|=
-literal|null
-decl_stmt|;
 try|try
 block|{
 name|LOG
@@ -2371,13 +2345,6 @@ name|IOException
 name|ioe
 parameter_list|)
 block|{
-name|errorMsg
-operator|=
-name|ioe
-operator|.
-name|getMessage
-argument_list|()
-expr_stmt|;
 name|LOG
 operator|.
 name|warn
@@ -2388,7 +2355,7 @@ name|type
 argument_list|,
 name|dir
 argument_list|,
-name|errorMsg
+name|ioe
 argument_list|)
 expr_stmt|;
 name|deleted

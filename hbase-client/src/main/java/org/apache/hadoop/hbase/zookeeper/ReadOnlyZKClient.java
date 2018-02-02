@@ -699,11 +699,9 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Start read only zookeeper connection {} to {}, "
+literal|"Connect {} to {} with session timeout={}ms, retries {}, "
 operator|+
-literal|"session timeout {} ms, retries {}, "
-operator|+
-literal|"retry interval {} ms, keep alive {} ms"
+literal|"retry interval {}ms, keepAlive={}ms"
 argument_list|,
 name|getId
 argument_list|()
@@ -1680,9 +1678,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"{} to {} no activities for {} ms, close active connection. "
-operator|+
-literal|"Will reconnect next time when there are new requests"
+literal|"{} to {} inactive for {}ms; closing (Will reconnect when new requests)"
 argument_list|,
 name|getId
 argument_list|()

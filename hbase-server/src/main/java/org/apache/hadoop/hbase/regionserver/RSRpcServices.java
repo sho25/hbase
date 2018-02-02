@@ -1159,6 +1159,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|net
+operator|.
+name|Address
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|procedure2
 operator|.
 name|RSProcedureCallable
@@ -8532,6 +8548,16 @@ name|createPriority
 argument_list|()
 expr_stmt|;
 name|String
+name|hostname
+init|=
+name|initialIsa
+operator|.
+name|getHostName
+argument_list|()
+decl_stmt|;
+comment|// Using Address means we don't get the IP too. Shorten it more even to just the host name
+comment|// w/o the domain.
+name|String
 name|name
 init|=
 name|rs
@@ -8541,9 +8567,22 @@ argument_list|()
 operator|+
 literal|"/"
 operator|+
+name|Address
+operator|.
+name|fromParts
+argument_list|(
 name|initialIsa
 operator|.
-name|toString
+name|getHostName
+argument_list|()
+argument_list|,
+name|initialIsa
+operator|.
+name|getPort
+argument_list|()
+argument_list|)
+operator|.
+name|toStringWithoutDomain
 argument_list|()
 decl_stmt|;
 comment|// Set how many times to retry talking to another server over Connection.

@@ -798,7 +798,7 @@ specifier|static
 name|String
 name|THREAD_NAME_SUFFIX
 init|=
-literal|"_Chore_"
+literal|".Chore."
 decl_stmt|;
 specifier|private
 name|AtomicInteger

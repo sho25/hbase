@@ -1295,12 +1295,10 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Updating permissions cache from node "
-operator|+
+literal|"Updating permissions cache from {} with data {}"
+argument_list|,
 name|entry
-operator|+
-literal|" with data: "
-operator|+
+argument_list|,
 name|Bytes
 operator|.
 name|toStringBinary

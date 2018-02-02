@@ -805,18 +805,13 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|info
+name|trace
 argument_list|(
-name|String
-operator|.
-name|format
-argument_list|(
-literal|"Using procedure batch rpc execution for serverName=%s version=%s"
+literal|"Using procedure batch rpc execution for serverName={} version={}"
 argument_list|,
 name|serverName
 argument_list|,
 name|rsVersion
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|submitTask

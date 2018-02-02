@@ -5202,7 +5202,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Server active/primary master="
+literal|"Active/primary master="
 operator|+
 name|this
 operator|.
@@ -6943,7 +6943,7 @@ name|getInt
 argument_list|(
 literal|"hbase.master.cleaner.interval"
 argument_list|,
-literal|60
+literal|600
 operator|*
 literal|1000
 argument_list|)
@@ -7397,6 +7397,17 @@ argument_list|(
 name|procEnv
 argument_list|)
 expr_stmt|;
+name|int
+name|cpus
+init|=
+name|Runtime
+operator|.
+name|getRuntime
+argument_list|()
+operator|.
+name|availableProcessors
+argument_list|()
+decl_stmt|;
 specifier|final
 name|int
 name|numThreads
@@ -7413,13 +7424,17 @@ name|Math
 operator|.
 name|max
 argument_list|(
-name|Runtime
-operator|.
-name|getRuntime
-argument_list|()
-operator|.
-name|availableProcessors
-argument_list|()
+operator|(
+name|cpus
+operator|>
+literal|0
+condition|?
+name|cpus
+operator|/
+literal|4
+else|:
+literal|0
+operator|)
 argument_list|,
 name|MasterProcedureConstants
 operator|.
@@ -17969,7 +17984,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"hbase:meta (default replica) deployed at="
+literal|"hbase:meta deployed at="
 operator|+
 name|getMetaTableLocator
 argument_list|()

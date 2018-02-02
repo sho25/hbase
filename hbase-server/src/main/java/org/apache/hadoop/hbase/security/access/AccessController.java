@@ -5092,7 +5092,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"The AccessController has been loaded with authorization checks disabled."
+literal|"AccessController has been loaded with authorization checks DISABLED!"
 argument_list|)
 expr_stmt|;
 block|}

@@ -1363,21 +1363,15 @@ operator|.
 name|remove
 argument_list|()
 expr_stmt|;
-if|if
-condition|(
-name|debugEnabled
-condition|)
-block|{
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
-literal|"Evict completed "
-operator|+
+literal|"Evict completed {}"
+argument_list|,
 name|proc
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 if|if
@@ -1760,15 +1754,6 @@ literal|0
 operator|:
 literal|"expected only one call to setMaxProcId()"
 assert|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Load max pid="
-operator|+
-name|maxProcId
-argument_list|)
-expr_stmt|;
 name|lastProcId
 operator|.
 name|set
@@ -2704,8 +2689,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Starting ProcedureExecutor Worker threads (ProcedureExecutorWorker)="
-operator|+
+literal|"Starting {} Workers (bigger of cpus/4 or 16)"
+argument_list|,
 name|corePoolSize
 argument_list|)
 expr_stmt|;
@@ -2715,7 +2700,7 @@ operator|=
 operator|new
 name|ThreadGroup
 argument_list|(
-literal|"ProcedureExecutorWorkerGroup"
+literal|"PEWorkerGroup"
 argument_list|)
 expr_stmt|;
 comment|// Create the timeout executor
@@ -2802,7 +2787,7 @@ name|String
 operator|.
 name|format
 argument_list|(
-literal|"Recover store (%s) lease: %s"
+literal|"Recovered %s lease in %s"
 argument_list|,
 name|store
 operator|.
@@ -2861,7 +2846,7 @@ name|String
 operator|.
 name|format
 argument_list|(
-literal|"Load store (%s): %s"
+literal|"Loaded %s in %s, um pid="
 argument_list|,
 name|store
 operator|.
@@ -7271,15 +7256,6 @@ assert|;
 return|return;
 block|}
 comment|// If this procedure is the last child awake the parent procedure
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Finish suprocedure "
-operator|+
-name|procedure
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 name|parent
@@ -7767,7 +7743,7 @@ name|super
 argument_list|(
 name|group
 argument_list|,
-literal|"ProcedureExecutorWorker-"
+literal|"PEWorker-"
 operator|+
 name|workerId
 operator|.

@@ -1152,7 +1152,9 @@ name|getNameAsString
 argument_list|()
 argument_list|)
 condition|)
+block|{
 continue|continue;
+block|}
 if|if
 condition|(
 operator|!
@@ -1168,7 +1170,9 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Found table with no state, assuming ENABLED"
+name|table
+operator|+
+literal|" has no state, assuming ENABLED"
 argument_list|)
 expr_stmt|;
 name|MetaTableAccessor

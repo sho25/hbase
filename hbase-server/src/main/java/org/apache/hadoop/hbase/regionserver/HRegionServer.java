@@ -4401,6 +4401,13 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
+name|this
+operator|.
+name|rpcServices
+operator|.
+name|start
+argument_list|()
+expr_stmt|;
 comment|// This violates 'no starting stuff in Constructor' but Master depends on the below chore
 comment|// and executor being created and takes a different startup route. Lots of overlap between HRS
 comment|// and M (An M IS A HRS now). Need to refactor so less duplication between M and its super
@@ -4413,10 +4420,7 @@ operator|=
 operator|new
 name|ChoreService
 argument_list|(
-name|getServerName
-argument_list|()
-operator|.
-name|toString
+name|getName
 argument_list|()
 argument_list|,
 literal|true
@@ -4429,19 +4433,9 @@ operator|=
 operator|new
 name|ExecutorService
 argument_list|(
-name|getServerName
-argument_list|()
-operator|.
-name|toShortString
+name|getName
 argument_list|()
 argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|rpcServices
-operator|.
-name|start
-argument_list|()
 expr_stmt|;
 name|putUpWebUI
 argument_list|()

@@ -835,17 +835,11 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"System coprocessor "
-operator|+
+literal|"System coprocessor {} loaded, priority={}."
+argument_list|,
 name|className
-operator|+
-literal|" was loaded "
-operator|+
-literal|"successfully with priority ("
-operator|+
+argument_list|,
 name|priority
-operator|+
-literal|")."
 argument_list|)
 expr_stmt|;
 operator|++

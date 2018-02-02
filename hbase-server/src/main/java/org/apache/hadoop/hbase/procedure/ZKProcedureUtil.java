@@ -917,18 +917,14 @@ name|KeeperException
 block|{
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
-literal|"Clearing all procedure znodes: "
-operator|+
+literal|"Clearing all znodes {}, {}, {}"
+argument_list|,
 name|acquiredZnode
-operator|+
-literal|" "
-operator|+
+argument_list|,
 name|reachedZnode
-operator|+
-literal|" "
-operator|+
+argument_list|,
 name|abortZnode
 argument_list|)
 expr_stmt|;

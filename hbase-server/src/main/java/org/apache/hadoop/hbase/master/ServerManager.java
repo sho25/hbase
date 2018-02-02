@@ -2081,7 +2081,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Registering server="
+literal|"Registering regionserver="
 operator|+
 name|serverName
 argument_list|)
@@ -2533,7 +2533,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Waiting on regionserver(s) to go down "
+literal|"Waiting on regionserver(s) "
 operator|+
 name|sb
 operator|.
@@ -4045,11 +4045,11 @@ expr_stmt|;
 name|String
 name|msg
 init|=
-literal|"Waiting on RegionServer count="
+literal|"Waiting on regionserver count="
 operator|+
 name|count
 operator|+
-literal|" to settle; waited="
+literal|"; waited="
 operator|+
 name|slept
 operator|+
@@ -4165,7 +4165,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Finished wait on RegionServer count="
+literal|"Finished waiting on RegionServer count="
 operator|+
 name|count
 operator|+

@@ -1057,7 +1057,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"resubmitting unassigned orphan task "
+literal|"Resubmitting unassigned orphan task "
 operator|+
 name|path
 argument_list|)
@@ -1301,7 +1301,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"resubmitting task "
+literal|"Resubmitting task "
 operator|+
 name|path
 argument_list|)
@@ -1657,7 +1657,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"deleted task without in memory state "
+literal|"Deleted task without in memory state "
 operator|+
 name|path
 argument_list|)
@@ -1863,7 +1863,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"put up splitlog task at znode "
+literal|"Put up splitlog task at znode "
 operator|+
 name|path
 argument_list|)
@@ -1889,7 +1889,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"failed to create task node"
+literal|"Failed to create task node "
 operator|+
 name|path
 argument_list|)
@@ -2049,11 +2049,11 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"task not yet acquired "
+literal|"Task not yet acquired "
 operator|+
 name|path
 operator|+
-literal|" ver = "
+literal|", ver="
 operator|+
 name|version
 argument_list|)
@@ -2099,11 +2099,11 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"task "
+literal|"Task "
 operator|+
 name|path
 operator|+
-literal|" entered state: "
+literal|" entered state="
 operator|+
 name|slt
 operator|.
@@ -2132,11 +2132,11 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"task "
+literal|"Task "
 operator|+
 name|path
 operator|+
-literal|" entered state: "
+literal|" entered state="
 operator|+
 name|slt
 operator|.
@@ -2228,11 +2228,11 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"task "
+literal|"Task "
 operator|+
 name|path
 operator|+
-literal|" entered state: "
+literal|" entered state="
 operator|+
 name|slt
 operator|.
@@ -2328,7 +2328,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"failed to set data watch "
+literal|"Failed to set data watch "
 operator|+
 name|path
 argument_list|)
@@ -2396,7 +2396,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"unacquired orphan task is done "
+literal|"Unacquired orphan task is done "
 operator|+
 name|path
 argument_list|)
@@ -2564,7 +2564,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"creating orphan task "
+literal|"Creating orphan task "
 operator|+
 name|path
 argument_list|)
@@ -2623,7 +2623,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"task "
+literal|"Task "
 operator|+
 name|path
 operator|+
@@ -2707,7 +2707,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"could not get children of "
+literal|"Could not get children of "
 operator|+
 name|this
 operator|.
@@ -2731,7 +2731,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"could not get children of "
+literal|"Could not get children of "
 operator|+
 name|this
 operator|.
@@ -2826,7 +2826,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"found orphan rescan node "
+literal|"Found orphan rescan node "
 operator|+
 name|path
 argument_list|)
@@ -2838,7 +2838,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"found orphan task "
+literal|"Found orphan task "
 operator|+
 name|path
 argument_list|)
@@ -3000,7 +3000,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"failed to resubmit task "
+literal|"Failed to resubmit task "
 operator|+
 name|path
 operator|+
@@ -3022,7 +3022,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"failed to resubmit because znode doesn't exist "
+literal|"Failed to resubmit because znode doesn't exist "
 operator|+
 name|path
 operator|+
@@ -3082,7 +3082,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"failed to resubmit task "
+literal|"Failed to resubmit task "
 operator|+
 name|path
 operator|+
@@ -3110,7 +3110,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"failed to resubmit "
+literal|"Failed to resubmit "
 operator|+
 name|path
 argument_list|,
@@ -3259,7 +3259,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"found pre-existing znode "
+literal|"Found pre-existing znode "
 operator|+
 name|path
 argument_list|)
@@ -3286,7 +3286,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"create rc ="
+literal|"Create rc="
 operator|+
 name|KeeperException
 operator|.
@@ -3460,7 +3460,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"task znode "
+literal|"Task znode "
 operator|+
 name|path
 operator|+
@@ -3491,7 +3491,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"getdata rc = "
+literal|"Getdata rc="
 operator|+
 name|KeeperException
 operator|.
@@ -3515,7 +3515,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"getdata rc = "
+literal|"Getdata rc="
 operator|+
 name|KeeperException
 operator|.
@@ -3726,7 +3726,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"delete rc="
+literal|"Delete rc="
 operator|+
 name|KeeperException
 operator|.
@@ -3757,7 +3757,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"delete failed "
+literal|"Delete failed "
 operator|+
 name|path
 argument_list|)
@@ -3817,7 +3817,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"deleted "
+literal|"Deleted "
 operator|+
 name|path
 argument_list|)

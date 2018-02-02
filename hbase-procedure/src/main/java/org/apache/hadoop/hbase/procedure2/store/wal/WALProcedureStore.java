@@ -1972,7 +1972,7 @@ try|try
 block|{
 name|LOG
 operator|.
-name|info
+name|trace
 argument_list|(
 literal|"Starting WAL Procedure Store lease recovery"
 argument_list|)
@@ -2097,10 +2097,10 @@ continue|continue;
 block|}
 name|LOG
 operator|.
-name|info
+name|trace
 argument_list|(
-literal|"Lease acquired for flushLogId: "
-operator|+
+literal|"Lease acquired for flushLogId={}"
+argument_list|,
 name|flushLogId
 argument_list|)
 expr_stmt|;
@@ -2163,22 +2163,13 @@ operator|==
 literal|1
 condition|)
 block|{
-if|if
-condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
+name|trace
 argument_list|(
 literal|"No state logs to replay."
 argument_list|)
 expr_stmt|;
-block|}
 name|loader
 operator|.
 name|setMaxProcId

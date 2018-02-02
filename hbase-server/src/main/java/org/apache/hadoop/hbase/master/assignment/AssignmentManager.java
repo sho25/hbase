@@ -883,6 +883,22 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|HasThread
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|hbase
 operator|.
 name|thirdparty
@@ -1608,7 +1624,7 @@ return|return;
 block|}
 name|LOG
 operator|.
-name|info
+name|trace
 argument_list|(
 literal|"Starting assignment manager"
 argument_list|)
@@ -6549,9 +6565,9 @@ argument_list|()
 decl_stmt|;
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
-literal|"Joining cluster...Loading hbase:meta content."
+literal|"Joining cluster..."
 argument_list|)
 expr_stmt|;
 comment|// Scan hbase:meta to build list of existing regions, servers, and assignment
@@ -8511,7 +8527,17 @@ operator|=
 operator|new
 name|Thread
 argument_list|(
-literal|"AssignmentThread"
+operator|(
+operator|(
+name|HasThread
+operator|)
+name|this
+operator|.
+name|master
+operator|)
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 block|{
 annotation|@

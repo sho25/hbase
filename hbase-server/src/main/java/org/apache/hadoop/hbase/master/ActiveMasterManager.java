@@ -510,7 +510,7 @@ block|{
 comment|// A master node exists, there is an active master
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
 literal|"A master is now available"
 argument_list|)
@@ -729,7 +729,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Registered Active Master="
+literal|"Registered as active master="
 operator|+
 name|this
 operator|.

@@ -1004,7 +1004,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Starting hfile cleaner for large files: {}"
+literal|"Starting for large file={}"
 argument_list|,
 name|large
 argument_list|)
@@ -1089,7 +1089,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Starting hfile cleaner for small files: {}"
+literal|"Starting for small files={}"
 argument_list|,
 name|small
 argument_list|)

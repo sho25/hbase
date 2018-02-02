@@ -1522,7 +1522,7 @@ else|else
 block|{
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
 literal|"Fetching table descriptors from the filesystem."
 argument_list|)
@@ -3094,7 +3094,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Deleted table descriptor at "
+literal|"Deleted "
 operator|+
 name|path
 argument_list|)
@@ -3106,7 +3106,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Failed to delete descriptor at "
+literal|"Failed to delete table descriptor at "
 operator|+
 name|path
 argument_list|)
@@ -3321,7 +3321,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Wrote descriptor into: "
+literal|"Wrote into "
 operator|+
 name|tableInfoDirPath
 argument_list|)
@@ -3570,7 +3570,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Current tableInfoPath = "
+literal|"Current path="
 operator|+
 name|status
 operator|.
@@ -3621,7 +3621,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
 literal|"TableInfo already exists.. Skipping creation"
 argument_list|)

@@ -642,16 +642,14 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"The chunk pool is full. Reached maxCount= "
-operator|+
+literal|"Chunk pool full (maxCount={}); creating chunk offheap."
+argument_list|,
 name|this
 operator|.
 name|pool
 operator|.
 name|getMaxCount
 argument_list|()
-operator|+
-literal|". Creating chunk onheap."
 argument_list|)
 expr_stmt|;
 block|}
@@ -713,15 +711,15 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Jumbo chunk size "
+literal|"Jumbo chunk size="
 operator|+
 name|jumboSize
 operator|+
-literal|" must be more than regular chunk size "
+literal|" must be more than regular chunk size="
 operator|+
 name|chunkSize
 operator|+
-literal|". Converting to regular chunk."
+literal|"; converting to regular chunk."
 argument_list|)
 expr_stmt|;
 return|return
@@ -1743,7 +1741,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Allocating MemStoreChunkPool with chunk size "
+literal|"Allocating MemStoreChunkPool with chunk size="
 operator|+
 name|StringUtils
 operator|.
@@ -1753,11 +1751,11 @@ name|getChunkSize
 argument_list|()
 argument_list|)
 operator|+
-literal|", max count "
+literal|", max count="
 operator|+
 name|maxCount
 operator|+
-literal|", initial count "
+literal|", initial count="
 operator|+
 name|initialCount
 argument_list|)

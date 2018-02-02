@@ -831,7 +831,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"copy tableCFs into peerNode:"
+literal|"Copy table ColumnFamilies into peer="
 operator|+
 name|peerId
 argument_list|)

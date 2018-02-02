@@ -629,7 +629,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Creating OldWALs cleaners with size: "
+literal|"Creating OldWALs cleaners with size="
 operator|+
 name|size
 argument_list|)

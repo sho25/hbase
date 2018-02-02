@@ -562,7 +562,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Starting procedure remote dispatcher; threads="
+literal|"Started, threads="
 operator|+
 name|this
 operator|.

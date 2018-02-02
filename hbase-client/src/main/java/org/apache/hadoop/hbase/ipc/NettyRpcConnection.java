@@ -1677,26 +1677,17 @@ name|void
 name|connect
 parameter_list|()
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Connecting to "
-operator|+
+literal|"Connecting to {}"
+argument_list|,
 name|remoteId
 operator|.
 name|address
 argument_list|)
 expr_stmt|;
-block|}
 name|this
 operator|.
 name|channel

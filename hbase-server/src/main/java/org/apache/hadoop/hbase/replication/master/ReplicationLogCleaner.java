@@ -489,14 +489,6 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-if|if
-condition|(
 name|logInReplicationQueue
 condition|)
 block|{
@@ -504,12 +496,11 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Found log in ZK, keeping: "
-operator|+
+literal|"Found up in ZooKeeper, NOT deleting={}"
+argument_list|,
 name|wal
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 return|return
 operator|!

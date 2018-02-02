@@ -961,10 +961,10 @@ argument_list|)
 decl_stmt|;
 name|LOG
 operator|.
-name|info
+name|trace
 argument_list|(
-literal|"System coprocessor loading is "
-operator|+
+literal|"System coprocessor loading is {}"
+argument_list|,
 operator|(
 name|coprocessorsEnabled
 condition|?

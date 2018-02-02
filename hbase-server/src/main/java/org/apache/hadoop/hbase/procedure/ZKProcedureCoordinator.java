@@ -1304,7 +1304,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Starting the controller for procedure member:"
+literal|"Starting controller for procedure member="
 operator|+
 name|coordName
 argument_list|)
