@@ -731,13 +731,15 @@ name|conf
 operator|=
 name|conf
 expr_stmt|;
-name|this
-operator|.
-name|choreService
-operator|=
-operator|new
-name|ChoreService
-argument_list|(
+comment|// Get Server Thread name. Sometimes the Server is mocked so may not implement HasThread.
+comment|// For example, in tests.
+name|String
+name|name
+init|=
+name|master
+operator|instanceof
+name|HasThread
+condition|?
 operator|(
 operator|(
 name|HasThread
@@ -747,6 +749,23 @@ operator|)
 operator|.
 name|getName
 argument_list|()
+else|:
+name|master
+operator|.
+name|getServerName
+argument_list|()
+operator|.
+name|toShortString
+argument_list|()
+decl_stmt|;
+name|this
+operator|.
+name|choreService
+operator|=
+operator|new
+name|ChoreService
+argument_list|(
+name|name
 operator|+
 literal|".splitLogManager."
 argument_list|)
