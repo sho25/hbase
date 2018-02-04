@@ -12689,12 +12689,12 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Expire a region server's session    * @param index which RS    * @throws Exception    */
+comment|/**    * Expire a region server's session    * @param index which RS    */
 end_comment
 
 begin_function
 specifier|public
-name|void
+name|HRegionServer
 name|expireRegionServerSession
 parameter_list|(
 name|int
@@ -12727,6 +12727,9 @@ expr_stmt|;
 name|decrementMinRegionServerCount
 argument_list|()
 expr_stmt|;
+return|return
+name|rs
+return|;
 block|}
 end_function
 
