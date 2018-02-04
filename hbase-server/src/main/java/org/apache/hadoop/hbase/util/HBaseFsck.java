@@ -9764,6 +9764,34 @@ argument_list|(
 name|connection
 argument_list|)
 expr_stmt|;
+comment|// Add hbase:meta so this tool keeps working. In hbase2, meta is always enabled though it
+comment|// has no entry in the table states. HBCK doesn't work right w/ hbase2 but just do this in
+comment|// meantime.
+name|this
+operator|.
+name|tableStates
+operator|.
+name|put
+argument_list|(
+name|TableName
+operator|.
+name|META_TABLE_NAME
+argument_list|,
+operator|new
+name|TableState
+argument_list|(
+name|TableName
+operator|.
+name|META_TABLE_NAME
+argument_list|,
+name|TableState
+operator|.
+name|State
+operator|.
+name|ENABLED
+argument_list|)
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * Check if the specified region's table is disabled.    * @param tableName table to check status of    */
 specifier|private
