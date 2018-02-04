@@ -5438,6 +5438,7 @@ name|getId
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// Allocating two big cells (too big for being copied into a regular chunk).
 name|String
 index|[]
 name|keys2
@@ -5446,8 +5447,6 @@ block|{
 literal|"C"
 block|,
 literal|"D"
-block|,
-literal|"E"
 block|}
 decl_stmt|;
 name|addRowsByKeys
@@ -5480,12 +5479,11 @@ literal|10
 argument_list|)
 expr_stmt|;
 block|}
+comment|// The in-memory flush size is bigger than the size of a single cell,
+comment|// but smaller than the size of two cells.
+comment|// Therefore, the two created cells are flattened together.
 name|totalHeapSize
 operator|=
-literal|1
-operator|*
-name|oneCellOnCSLMHeapSize
-operator|+
 name|MutableSegment
 operator|.
 name|DEEP_OVERHEAD
