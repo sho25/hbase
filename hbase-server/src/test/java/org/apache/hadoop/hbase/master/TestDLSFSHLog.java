@@ -79,16 +79,6 @@ name|org
 operator|.
 name|junit
 operator|.
-name|Ignore
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
 name|experimental
 operator|.
 name|categories
@@ -98,9 +88,6 @@ import|;
 end_import
 
 begin_class
-annotation|@
-name|Ignore
-comment|// Fails 33% of the time. Disabling for now.
 annotation|@
 name|Category
 argument_list|(
