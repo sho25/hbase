@@ -2740,7 +2740,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Write out a split reference. Package local so it doesnt leak out of    * regionserver.    * @param hri {@link RegionInfo} of the destination    * @param familyName Column Family Name    * @param f File to split.    * @param splitRow Split Row    * @param top True if we are referring to the top half of the hfile.    * @param splitPolicy    * @return Path to created reference.    * @throws IOException    */
+comment|/**    * Write out a split reference. Package local so it doesnt leak out of    * regionserver.    * @param hri {@link RegionInfo} of the destination    * @param familyName Column Family Name    * @param f File to split.    * @param splitRow Split Row    * @param top True if we are referring to the top half of the hfile.    * @param splitPolicy A split policy instance; be careful! May not be full populated; e.g. if    *                    this method is invoked on the Master side, then the RegionSplitPolicy will    *                    NOT have a reference to a Region.    * @return Path to created reference.    * @throws IOException    */
 specifier|public
 name|Path
 name|splitStoreFile

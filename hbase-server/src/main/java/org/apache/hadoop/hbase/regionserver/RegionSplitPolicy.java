@@ -170,7 +170,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A split policy determines when a region should be split.  * @see SteppingSplitPolicy Default split policy since 2.0.0  * @see IncreasingToUpperBoundRegionSplitPolicy Default split policy since  *      0.94.0  * @see ConstantSizeRegionSplitPolicy Default split policy before 0.94.0  */
+comment|/**  * A split policy determines when a Region should be split.  *  * @see SteppingSplitPolicy Default split policy since 2.0.0  * @see IncreasingToUpperBoundRegionSplitPolicy Default split policy since  *      0.94.0  * @see ConstantSizeRegionSplitPolicy Default split policy before 0.94.0  */
 end_comment
 
 begin_class
@@ -205,7 +205,7 @@ name|SteppingSplitPolicy
 operator|.
 name|class
 decl_stmt|;
-comment|/**    * The region configured for this split policy.    */
+comment|/**    * The region configured for this split policy.    * As of hbase-2.0.0, RegionSplitPolicy can be instantiated on the Master-side so the    * Phoenix local-indexer can block default hbase behavior. This is an exotic usage. Should not    * trouble any other users of RegionSplitPolicy.    */
 specifier|protected
 name|HRegion
 name|region
@@ -374,6 +374,15 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|Preconditions
+operator|.
+name|checkNotNull
+argument_list|(
+name|region
+argument_list|,
+literal|"Region should not be null."
+argument_list|)
+expr_stmt|;
 name|Class
 argument_list|<
 name|?
@@ -522,7 +531,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * In {@link HRegionFileSystem#splitStoreFile(org.apache.hadoop.hbase.client.RegionInfo, String,    * HStoreFile, byte[], boolean, RegionSplitPolicy)} we are not creating the split reference    * if split row not lies in the StoreFile range. But in some use cases we may need to create    * the split reference even when the split row not lies in the range. This method can be used    * to decide, whether to skip the the StoreFile range check or not.    * @return whether to skip the StoreFile range check or not    * @param familyName    * @return whether to skip the StoreFile range check or not    */
+comment|/**    * In {@link HRegionFileSystem#splitStoreFile(org.apache.hadoop.hbase.client.RegionInfo, String,    * HStoreFile, byte[], boolean, RegionSplitPolicy)} we are not creating the split reference    * if split row does not lie inside the StoreFile range. But in some use cases we may need to    * create the split reference even when the split row does not lie inside the StoreFile range.    * This method can be used to decide, whether to skip the the StoreFile range check or not.    *    *<p>This method is not for general use. It is a mechanism put in place by Phoenix    * local indexing to defeat standard hbase behaviors. Phoenix local indices are very likely    * the only folks who would make use of this method. On the Master-side, we will instantiate    * a RegionSplitPolicy instance and run this method ONLY... none of the others make sense    * on the Master-side.</p>    *    * TODO: Shutdown this phoenix specialization or do it via some other means.    * @return whether to skip the StoreFile range check or not    */
 specifier|protected
 name|boolean
 name|skipStoreFileRangeCheck

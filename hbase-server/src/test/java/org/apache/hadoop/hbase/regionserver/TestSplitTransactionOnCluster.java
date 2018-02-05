@@ -6986,7 +6986,7 @@ specifier|static
 class|class
 name|CustomSplitPolicy
 extends|extends
-name|RegionSplitPolicy
+name|IncreasingToUpperBoundRegionSplitPolicy
 block|{
 annotation|@
 name|Override
