@@ -897,12 +897,50 @@ name|ServerName
 argument_list|>
 argument_list|()
 decl_stmt|;
+name|ServerName
+name|hbaseMetaServerName
+init|=
+name|TEST_UTIL
+operator|.
+name|getMiniHBaseCluster
+argument_list|()
+operator|.
+name|getMaster
+argument_list|()
+operator|.
+name|getMetaTableLocator
+argument_list|()
+operator|.
+name|getMetaRegionLocation
+argument_list|(
+name|TEST_UTIL
+operator|.
+name|getZooKeeperWatcher
+argument_list|()
+argument_list|)
+decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"HBASE:META DEPLOY: on "
+operator|+
+name|hbaseMetaServerName
+argument_list|)
+expr_stmt|;
+name|sns
+operator|.
+name|add
+argument_list|(
+name|hbaseMetaServerName
+argument_list|)
+expr_stmt|;
 for|for
 control|(
 name|int
 name|replicaId
 init|=
-literal|0
+literal|1
 init|;
 name|replicaId
 operator|<
@@ -952,6 +990,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
+literal|"HBASE:META DEPLOY: "
+operator|+
 name|h
 operator|.
 name|getRegionNameAsString
@@ -1031,7 +1071,9 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"All hbase:meta replicas are on the one server; moving hbase:meta"
+literal|"All hbase:meta replicas are on the one server; moving hbase:meta: "
+operator|+
+name|sns
 argument_list|)
 expr_stmt|;
 name|int
