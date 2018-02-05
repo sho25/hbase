@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -485,6 +485,20 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+comment|// Make servers report eagerly. This test is about looking at the cluster status reported.
+comment|// Make it so we don't have to wait around too long to see change.
+name|UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.regionserver.msginterval"
+argument_list|,
+literal|500
+argument_list|)
+expr_stmt|;
 name|UTIL
 operator|.
 name|startMiniCluster
@@ -879,13 +893,30 @@ name|regionLoads
 argument_list|)
 expr_stmt|;
 block|}
+name|int
+name|pause
+init|=
+name|UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.regionserver.msginterval"
+argument_list|,
+literal|3000
+argument_list|)
+decl_stmt|;
 comment|// Just wait here. If this fixes the test, come back and do a better job.
-comment|// Thought is that cluster status is stale.
+comment|// Would have to redo the below so can wait on cluster status changing.
 name|Threads
 operator|.
 name|sleep
 argument_list|(
-literal|10000
+literal|2
+operator|*
+name|pause
 argument_list|)
 expr_stmt|;
 comment|// Check RegionLoad matches the regionLoad from ClusterStatus

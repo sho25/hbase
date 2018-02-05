@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -74,20 +74,6 @@ operator|.
 name|conf
 operator|.
 name|Configuration
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|CoordinatedStateManager
 import|;
 end_import
 
@@ -355,6 +341,26 @@ name|Category
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|Logger
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|LoggerFactory
+import|;
+end_import
+
 begin_comment
 comment|/**  * Tests handling of meta-carrying region server failover.  */
 end_comment
@@ -371,6 +377,21 @@ specifier|public
 class|class
 name|TestMetaShutdownHandler
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|Logger
+name|LOG
+init|=
+name|LoggerFactory
+operator|.
+name|getLogger
+argument_list|(
+name|TestMetaShutdownHandler
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 annotation|@
 name|ClassRule
 specifier|public
@@ -582,6 +603,17 @@ argument_list|(
 literal|60000
 argument_list|)
 expr_stmt|;
+name|metaServerName
+operator|=
+name|regionStates
+operator|.
+name|getRegionServerOfRegion
+argument_list|(
+name|HRegionInfo
+operator|.
+name|FIRST_META_REGIONINFO
+argument_list|)
+expr_stmt|;
 block|}
 name|RegionState
 name|metaState
@@ -598,7 +630,7 @@ argument_list|)
 decl_stmt|;
 name|assertEquals
 argument_list|(
-literal|"Meta should be not in transition"
+literal|"Wrong state for meta!"
 argument_list|,
 name|RegionState
 operator|.
@@ -614,7 +646,7 @@ argument_list|)
 expr_stmt|;
 name|assertNotEquals
 argument_list|(
-literal|"Meta should be moved off master"
+literal|"Meta is on master!"
 argument_list|,
 name|metaServerName
 argument_list|,
@@ -658,6 +690,13 @@ name|getZooKeeper
 argument_list|()
 argument_list|,
 name|rsEphemeralNodePath
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Deleted the znode for the RegionServer hosting hbase:meta; waiting on SSH"
 argument_list|)
 expr_stmt|;
 comment|// Wait for SSH to finish
@@ -721,6 +760,13 @@ block|}
 block|}
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Past wait on RIT"
+argument_list|)
+expr_stmt|;
 name|TEST_UTIL
 operator|.
 name|waitUntilNoRegionsInTransition
@@ -758,7 +804,7 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|"Meta should be not in transition"
+literal|"Meta should not be in transition"
 argument_list|,
 name|RegionState
 operator|.
