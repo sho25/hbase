@@ -197,6 +197,7 @@ argument_list|<>
 argument_list|()
 expr_stmt|;
 block|}
+specifier|public
 name|void
 name|setPeerState
 parameter_list|(
@@ -219,6 +220,7 @@ operator|.
 name|DISABLED
 expr_stmt|;
 block|}
+specifier|public
 name|void
 name|setPeerConfig
 parameter_list|(
