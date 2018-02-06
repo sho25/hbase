@@ -1407,7 +1407,7 @@ name|warn
 argument_list|(
 literal|"RegionServerThreads taking too long to stop, interrupting; thread dump "
 operator|+
-literal|"if> three attempts: i="
+literal|"if> 3 attempts: i="
 operator|+
 name|i
 argument_list|)
@@ -1419,28 +1419,22 @@ operator|>
 literal|3
 condition|)
 block|{
-try|try
-block|{
 name|Threads
 operator|.
-name|threadDumpingIsAlive
+name|printThreadInfo
 argument_list|(
+name|System
+operator|.
+name|out
+argument_list|,
+literal|"Thread dump "
+operator|+
 name|t
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|InterruptedException
-name|e
-parameter_list|)
-block|{
-name|e
-operator|.
-name|printStackTrace
-argument_list|()
-expr_stmt|;
-block|}
 block|}
 name|t
 operator|.
