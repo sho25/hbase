@@ -933,14 +933,20 @@ name|info
 argument_list|(
 literal|"RpcExecutor "
 operator|+
+name|this
+operator|.
 name|name
 operator|+
 literal|" using "
 operator|+
-name|callQueueType
+name|this
+operator|.
+name|queueClass
 operator|+
 literal|" as call queue; numCallQueues="
 operator|+
+name|this
+operator|.
 name|numCallQueues
 operator|+
 literal|"; maxQueueLength="
@@ -949,6 +955,8 @@ name|maxQueueLength
 operator|+
 literal|"; handlerCount="
 operator|+
+name|this
+operator|.
 name|handlerCount
 argument_list|)
 expr_stmt|;
