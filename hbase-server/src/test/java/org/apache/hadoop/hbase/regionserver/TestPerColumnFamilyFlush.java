@@ -1133,13 +1133,15 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-comment|// Set up the configuration
+comment|// Set up the configuration, use new one to not conflict with minicluster in other tests
 name|Configuration
 name|conf
 init|=
-name|HBaseConfiguration
+operator|new
+name|HBaseTestingUtility
+argument_list|()
 operator|.
-name|create
+name|getConfiguration
 argument_list|()
 decl_stmt|;
 name|conf
@@ -1914,13 +1916,15 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-comment|// Set up the configuration
+comment|// Set up the configuration, use new one to not conflict with minicluster in other tests
 name|Configuration
 name|conf
 init|=
-name|HBaseConfiguration
+operator|new
+name|HBaseTestingUtility
+argument_list|()
 operator|.
-name|create
+name|getConfiguration
 argument_list|()
 decl_stmt|;
 name|conf
