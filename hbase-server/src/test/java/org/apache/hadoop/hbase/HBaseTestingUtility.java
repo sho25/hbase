@@ -2622,6 +2622,25 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|// Save this for when setting default file:// breaks things
+name|this
+operator|.
+name|conf
+operator|.
+name|set
+argument_list|(
+literal|"original.defaultFS"
+argument_list|,
+name|this
+operator|.
+name|conf
+operator|.
+name|get
+argument_list|(
+literal|"fs.defaultFS"
+argument_list|)
+argument_list|)
+expr_stmt|;
 comment|// Every cluster is a local cluster until we start DFS
 comment|// Note that conf could be null, but this.conf will not be
 name|String
