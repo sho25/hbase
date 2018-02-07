@@ -25,9 +25,7 @@ name|apache
 operator|.
 name|log4j
 operator|.
-name|spi
-operator|.
-name|LoggingEvent
+name|AppenderSkeleton
 import|;
 end_import
 
@@ -39,7 +37,9 @@ name|apache
 operator|.
 name|log4j
 operator|.
-name|AppenderSkeleton
+name|spi
+operator|.
+name|LoggingEvent
 import|;
 end_import
 

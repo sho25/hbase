@@ -339,6 +339,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+specifier|private
 specifier|static
 specifier|final
 name|Set
@@ -423,7 +424,9 @@ name|filterConfig
 operator|==
 literal|null
 condition|)
+block|{
 return|return;
+block|}
 name|String
 name|uri
 init|=
@@ -507,7 +510,8 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/** access a url, ignoring some IOException such as the page does not exist */
+comment|/**    * access a url, ignoring some IOException such as the page does not exist    */
+specifier|private
 specifier|static
 name|void
 name|access
@@ -551,6 +555,8 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
+try|try
+init|(
 name|BufferedReader
 name|in
 init|=
@@ -564,10 +570,11 @@ name|connection
 operator|.
 name|getInputStream
 argument_list|()
+argument_list|,
+literal|"UTF-8"
 argument_list|)
 argument_list|)
-decl_stmt|;
-try|try
+init|)
 block|{
 for|for
 control|(
@@ -580,15 +587,9 @@ operator|!=
 literal|null
 condition|;
 control|)
-empty_stmt|;
-block|}
-finally|finally
 block|{
-name|in
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
+comment|// Ignoring the content of the URLs. Only checking if something is there.
+block|}
 block|}
 block|}
 catch|catch
@@ -768,29 +769,17 @@ try|try
 block|{
 for|for
 control|(
-name|int
-name|i
-init|=
-literal|0
-init|;
-name|i
-operator|<
+name|String
+name|url
+range|:
 name|urls
-operator|.
-name|length
-condition|;
-name|i
-operator|++
 control|)
 block|{
 name|access
 argument_list|(
 name|prefix
 operator|+
-name|urls
-index|[
-name|i
-index|]
+name|url
 argument_list|)
 expr_stmt|;
 block|}
@@ -815,19 +804,10 @@ expr_stmt|;
 comment|//verify records
 for|for
 control|(
-name|int
-name|i
-init|=
-literal|0
-init|;
-name|i
-operator|<
+name|String
+name|url
+range|:
 name|urls
-operator|.
-name|length
-condition|;
-name|i
-operator|++
 control|)
 block|{
 name|assertTrue
@@ -836,10 +816,7 @@ name|RECORDS
 operator|.
 name|remove
 argument_list|(
-name|urls
-index|[
-name|i
-index|]
+name|url
 argument_list|)
 argument_list|)
 expr_stmt|;

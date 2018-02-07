@@ -363,6 +363,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+specifier|private
 specifier|static
 specifier|volatile
 name|String
@@ -443,7 +444,9 @@ name|filterConfig
 operator|==
 literal|null
 condition|)
+block|{
 return|return;
+block|}
 name|uri
 operator|=
 operator|(
@@ -519,7 +522,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-specifier|public
+specifier|private
 specifier|static
 name|void
 name|assertExceptionContains
@@ -565,7 +568,8 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** access a url, ignoring some IOException such as the page does not exist */
+comment|/**    * access a url, ignoring some IOException such as the page does not exist    */
+specifier|private
 specifier|static
 name|void
 name|access
@@ -609,6 +613,8 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
+try|try
+init|(
 name|BufferedReader
 name|in
 init|=
@@ -622,10 +628,11 @@ name|connection
 operator|.
 name|getInputStream
 argument_list|()
+argument_list|,
+literal|"UTF-8"
 argument_list|)
 argument_list|)
-decl_stmt|;
-try|try
+init|)
 block|{
 for|for
 control|(
@@ -638,15 +645,9 @@ operator|!=
 literal|null
 condition|;
 control|)
-empty_stmt|;
-block|}
-finally|finally
 block|{
-name|in
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
+comment|// Ignoring the content of the URLs. Only checking if something is there.
+block|}
 block|}
 block|}
 catch|catch
@@ -844,18 +845,9 @@ block|{
 for|for
 control|(
 name|int
-name|i
-init|=
-literal|0
-init|;
-name|i
-operator|<
+name|aSequence
+range|:
 name|sequence
-operator|.
-name|length
-condition|;
-name|i
-operator|++
 control|)
 block|{
 name|access
@@ -864,28 +856,20 @@ name|prefix
 operator|+
 name|urls
 index|[
-name|sequence
-index|[
-name|i
-index|]
+name|aSequence
 index|]
 argument_list|)
 expr_stmt|;
 comment|//make sure everything except fsck get filtered
 if|if
 condition|(
-name|sequence
-index|[
-name|i
-index|]
+name|aSequence
 operator|==
 literal|0
 condition|)
 block|{
-name|assertEquals
+name|assertNull
 argument_list|(
-literal|null
-argument_list|,
 name|uri
 argument_list|)
 expr_stmt|;
@@ -896,10 +880,7 @@ name|assertEquals
 argument_list|(
 name|urls
 index|[
-name|sequence
-index|[
-name|i
-index|]
+name|aSequence
 index|]
 argument_list|,
 name|uri

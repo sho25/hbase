@@ -83,6 +83,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Collections
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Enumeration
 import|;
 end_import
@@ -704,8 +714,6 @@ name|HttpServletResponse
 name|response
 parameter_list|)
 throws|throws
-name|ServletException
-throws|,
 name|IOException
 block|{
 name|PrintWriter
@@ -874,8 +882,6 @@ name|HttpServletResponse
 name|response
 parameter_list|)
 throws|throws
-name|ServletException
-throws|,
 name|IOException
 block|{
 name|PrintWriter
@@ -1000,10 +1006,6 @@ parameter_list|,
 name|HttpServletResponse
 name|response
 parameter_list|)
-throws|throws
-name|ServletException
-throws|,
-name|IOException
 block|{
 name|Assert
 operator|.
@@ -1060,8 +1062,6 @@ name|HttpServletResponse
 name|response
 parameter_list|)
 throws|throws
-name|ServletException
-throws|,
 name|IOException
 block|{
 name|response
@@ -1235,7 +1235,7 @@ name|stop
 argument_list|()
 expr_stmt|;
 block|}
-comment|/** Test the maximum number of threads cannot be exceeded. */
+comment|/**    * Test the maximum number of threads cannot be exceeded.    */
 annotation|@
 name|Test
 specifier|public
@@ -1302,16 +1302,8 @@ name|executor
 operator|.
 name|execute
 argument_list|(
-operator|new
-name|Runnable
-argument_list|()
-block|{
-annotation|@
-name|Override
-specifier|public
-name|void
-name|run
 parameter_list|()
+lambda|->
 block|{
 name|ready
 operator|.
@@ -1365,11 +1357,9 @@ operator|<=
 name|MAX_THREADS
 argument_list|)
 expr_stmt|;
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
+name|info
 argument_list|(
 literal|"Number of threads = "
 operator|+
@@ -1388,7 +1378,6 @@ name|e
 parameter_list|)
 block|{
 comment|// do nothing
-block|}
 block|}
 block|}
 argument_list|)
@@ -1875,8 +1864,6 @@ parameter_list|(
 name|FilterConfig
 name|arg0
 parameter_list|)
-throws|throws
-name|ServletException
 block|{ }
 block|}
 comment|/**    * FilterInitializer that initialized the DummyFilter.    *    */
@@ -1923,6 +1910,7 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Access a URL and get the corresponding return Http status code. The URL    * will be accessed as the passed user, by sending user.name request    * parameter.    *    * @param urlstring The url to access    * @param userName The user to perform access as    * @return The HTTP response code    * @throws IOException if there is a problem communicating with the server    */
+specifier|private
 specifier|static
 name|int
 name|getHttpStatusCode
@@ -2035,8 +2023,6 @@ parameter_list|(
 name|String
 name|user
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 return|return
 name|mapping
@@ -2048,7 +2034,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * Verify the access for /logs, /stacks, /conf, /logLevel and /metrics    * servlets, when authentication filters are set, but authorization is not    * enabled.    * @throws Exception    */
+comment|/**    * Verify the access for /logs, /stacks, /conf, /logLevel and /metrics    * servlets, when authentication filters are set, but authorization is not    * enabled.    */
 annotation|@
 name|Test
 annotation|@
@@ -2120,9 +2106,9 @@ name|put
 argument_list|(
 literal|"userA"
 argument_list|,
-name|Arrays
+name|Collections
 operator|.
-name|asList
+name|singletonList
 argument_list|(
 literal|"groupA"
 argument_list|)
@@ -2136,9 +2122,9 @@ name|put
 argument_list|(
 literal|"userB"
 argument_list|,
-name|Arrays
+name|Collections
 operator|.
-name|asList
+name|singletonList
 argument_list|(
 literal|"groupB"
 argument_list|)
@@ -2270,7 +2256,7 @@ name|stop
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Verify the administrator access for /logs, /stacks, /conf, /logLevel and    * /metrics servlets.    *    * @throws Exception    */
+comment|/**    * Verify the administrator access for /logs, /stacks, /conf, /logLevel and    * /metrics servlets.    */
 annotation|@
 name|Test
 annotation|@
@@ -2363,9 +2349,9 @@ name|put
 argument_list|(
 literal|"userA"
 argument_list|,
-name|Arrays
+name|Collections
 operator|.
-name|asList
+name|singletonList
 argument_list|(
 literal|"groupA"
 argument_list|)
@@ -2379,9 +2365,9 @@ name|put
 argument_list|(
 literal|"userB"
 argument_list|,
-name|Arrays
+name|Collections
 operator|.
-name|asList
+name|singletonList
 argument_list|(
 literal|"groupB"
 argument_list|)
@@ -2395,9 +2381,9 @@ name|put
 argument_list|(
 literal|"userC"
 argument_list|,
-name|Arrays
+name|Collections
 operator|.
-name|asList
+name|singletonList
 argument_list|(
 literal|"groupC"
 argument_list|)
@@ -2411,9 +2397,9 @@ name|put
 argument_list|(
 literal|"userD"
 argument_list|,
-name|Arrays
+name|Collections
 operator|.
-name|asList
+name|singletonList
 argument_list|(
 literal|"groupD"
 argument_list|)
@@ -2427,9 +2413,9 @@ name|put
 argument_list|(
 literal|"userE"
 argument_list|,
-name|Arrays
+name|Collections
 operator|.
-name|asList
+name|singletonList
 argument_list|(
 literal|"groupE"
 argument_list|)
@@ -2601,8 +2587,6 @@ specifier|public
 name|void
 name|testRequestQuoterWithNull
 parameter_list|()
-throws|throws
-name|Exception
 block|{
 name|HttpServletRequest
 name|request
@@ -2655,13 +2639,11 @@ argument_list|)
 decl_stmt|;
 name|Assert
 operator|.
-name|assertEquals
+name|assertNull
 argument_list|(
 literal|"It should return null "
 operator|+
 literal|"when there are no values for the parameter"
-argument_list|,
-literal|null
 argument_list|,
 name|parameterValues
 argument_list|)
@@ -2673,8 +2655,6 @@ specifier|public
 name|void
 name|testRequestQuoterWithNotNull
 parameter_list|()
-throws|throws
-name|Exception
 block|{
 name|HttpServletRequest
 name|request

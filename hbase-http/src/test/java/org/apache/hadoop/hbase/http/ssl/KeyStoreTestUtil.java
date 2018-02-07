@@ -329,9 +329,14 @@ end_import
 
 begin_class
 specifier|public
+specifier|final
 class|class
 name|KeyStoreTestUtil
 block|{
+specifier|private
+name|KeyStoreTestUtil
+parameter_list|()
+block|{   }
 specifier|public
 specifier|static
 name|String
@@ -470,7 +475,7 @@ argument_list|()
 operator|+
 name|days
 operator|*
-literal|86400000l
+literal|86400000L
 argument_list|)
 decl_stmt|;
 name|BigInteger

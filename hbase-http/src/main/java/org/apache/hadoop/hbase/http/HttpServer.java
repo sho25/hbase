@@ -1238,6 +1238,7 @@ name|logDir
 decl_stmt|;
 specifier|private
 specifier|static
+specifier|final
 class|class
 name|ListenerInfo
 block|{
@@ -1479,18 +1480,21 @@ specifier|private
 name|String
 name|signatureSecretFileKey
 decl_stmt|;
+comment|/**      * @see #setAppDir(String)      * @deprecated Since 0.99.0. Use builder pattern via {@link #setAppDir(String)} instead.      */
 annotation|@
 name|Deprecated
 specifier|private
 name|String
 name|name
 decl_stmt|;
+comment|/**      * @see #addEndpoint(URI)      * @deprecated Since 0.99.0. Use builder pattern via {@link #addEndpoint(URI)} instead.      */
 annotation|@
 name|Deprecated
 specifier|private
 name|String
 name|bindAddress
 decl_stmt|;
+comment|/**      * @see #addEndpoint(URI)      * @deprecated Since 0.99.0. Use builder pattern vai {@link #addEndpoint(URI)} instead.      */
 annotation|@
 name|Deprecated
 specifier|private
@@ -1648,7 +1652,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      * Use setAppDir() instead.      */
+comment|/**      * @see #setAppDir(String)      * @deprecated Since 0.99.0. Use {@link #setAppDir(String)} instead.      */
 annotation|@
 name|Deprecated
 specifier|public
@@ -1669,7 +1673,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      * Use addEndpoint() instead.      */
+comment|/**      * @see #addEndpoint(URI)      * @deprecated Since 0.99.0. Use {@link #addEndpoint(URI)} instead.      */
 annotation|@
 name|Deprecated
 specifier|public
@@ -1690,7 +1694,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**      * Use addEndpoint() instead.      */
+comment|/**      * @see #addEndpoint(URI)      * @deprecated Since 0.99.0. Use {@link #addEndpoint(URI)} instead.      */
 annotation|@
 name|Deprecated
 specifier|public
@@ -2387,7 +2391,7 @@ name|server
 return|;
 block|}
 block|}
-comment|/** Same as this(name, bindAddress, port, findPort, null); */
+comment|/**    * @see #HttpServer(String, String, int, boolean, Configuration)    * @deprecated Since 0.99.0    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -2424,7 +2428,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create a status server on the given port. Allows you to specify the    * path specifications that this server will be serving so that they will be    * added to the filters properly.    *    * @param name The name of the server    * @param bindAddress The address for this server    * @param port The port to use on the server    * @param findPort whether the server should start at the given port and    *        increment by 1 until it finds a free port.    * @param conf Configuration    * @param pathSpecs Path specifications that this httpserver will be serving.    *        These will be added to any filters.    */
+comment|/**    * Create a status server on the given port. Allows you to specify the    * path specifications that this server will be serving so that they will be    * added to the filters properly.    *    * @param name The name of the server    * @param bindAddress The address for this server    * @param port The port to use on the server    * @param findPort whether the server should start at the given port and    *        increment by 1 until it finds a free port.    * @param conf Configuration    * @param pathSpecs Path specifications that this httpserver will be serving.    *        These will be added to any filters.    * @deprecated Since 0.99.0    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -2470,7 +2474,7 @@ name|pathSpecs
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create a status server on the given port.    * The jsp scripts are taken from src/webapps/&lt;name&gt;.    * @param name The name of the server    * @param port The port to use on the server    * @param findPort whether the server should start at the given port and    *        increment by 1 until it finds a free port.    * @param conf Configuration    */
+comment|/**    * Create a status server on the given port.    * The jsp scripts are taken from src/webapps/&lt;name&gt;.    * @param name The name of the server    * @param port The port to use on the server    * @param findPort whether the server should start at the given port and    *        increment by 1 until it finds a free port.    * @param conf Configuration    * @deprecated Since 0.99.0    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -2512,6 +2516,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Creates a status server on the given port. The JSP scripts are taken    * from src/webapp&lt;name&gt;.    *    * @param name the name of the server    * @param bindAddress the address for this server    * @param port the port to use on the server    * @param findPort whether the server should start at the given port and increment by 1 until it    *                 finds a free port    * @param conf the configuration to use    * @param adminsAcl {@link AccessControlList} of the admins    * @throws IOException when creating the server fails    * @deprecated Since 0.99.0    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -2556,7 +2561,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create a status server on the given port.    * The jsp scripts are taken from src/webapps/&lt;name&gt;.    * @param name The name of the server    * @param bindAddress The address for this server    * @param port The port to use on the server    * @param findPort whether the server should start at the given port and    *        increment by 1 until it finds a free port.    * @param conf Configuration    * @param adminsAcl {@link AccessControlList} of the admins    * @param pathSpecs Path specifications that this httpserver will be serving.    *        These will be added to any filters.    */
+comment|/**    * Create a status server on the given port.    * The jsp scripts are taken from src/webapps/&lt;name&gt;.    * @param name The name of the server    * @param bindAddress The address for this server    * @param port The port to use on the server    * @param findPort whether the server should start at the given port and    *        increment by 1 until it finds a free port.    * @param conf Configuration    * @param adminsAcl {@link AccessControlList} of the admins    * @param pathSpecs Path specifications that this httpserver will be serving.    *        These will be added to any filters.    * @deprecated Since 0.99.0    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -3317,7 +3322,7 @@ return|return
 name|initializers
 return|;
 block|}
-comment|/**    * Add default apps.    * @param appDir The application directory    * @throws IOException    */
+comment|/**    * Add default apps.    * @param appDir The application directory    */
 specifier|protected
 name|void
 name|addDefaultApps
@@ -3332,8 +3337,6 @@ parameter_list|,
 name|Configuration
 name|conf
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 comment|// set up the context for "/logs/" if "hadoop.log.dir" property is defined.
 name|String
@@ -4539,6 +4542,7 @@ name|url
 operator|==
 literal|null
 condition|)
+block|{
 throw|throw
 operator|new
 name|FileNotFoundException
@@ -4552,6 +4556,7 @@ operator|+
 literal|" not found in CLASSPATH"
 argument_list|)
 throw|;
+block|}
 name|String
 name|urlString
 init|=
@@ -4576,7 +4581,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Get the port that the server is on    * @return the port    */
+comment|/**    * Get the port that the server is on    * @return the port    * @deprecated Since 0.99.0    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -4631,9 +4636,11 @@ argument_list|()
 operator|.
 name|length
 condition|)
+block|{
 return|return
 literal|null
 return|;
+block|}
 name|ServerConnector
 name|c
 init|=
@@ -5244,7 +5251,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Open the main listener for the server    * @throws Exception    */
+comment|/**    * Open the main listener for the server    * @throws Exception if the listener cannot be opened or the appropriate port is already in use    */
 annotation|@
 name|VisibleForTesting
 name|void
@@ -5813,7 +5820,7 @@ return|return
 name|access
 return|;
 block|}
-comment|/**    * Does the user sending the HttpServletRequest has the administrator ACLs? If    * it isn't the case, response will be modified to send an error to the user.    *    * @param servletContext    * @param request    * @param response used to send the error response if user does not have admin access.    * @return true if admin-authorized, false otherwise    * @throws IOException    */
+comment|/**    * Does the user sending the HttpServletRequest has the administrator ACLs? If    * it isn't the case, response will be modified to send an error to the user.    *    * @param servletContext the {@link ServletContext} to use    * @param request the {@link HttpServletRequest} to check    * @param response used to send the error response if user does not have admin access.    * @return true if admin-authorized, false otherwise    * @throws IOException if an unauthenticated or unauthorized user tries to access the page    */
 specifier|public
 specifier|static
 name|boolean

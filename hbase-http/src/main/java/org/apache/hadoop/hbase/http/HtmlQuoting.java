@@ -419,6 +419,7 @@ argument_list|,
 literal|1
 argument_list|)
 expr_stmt|;
+break|break;
 block|}
 block|}
 block|}
@@ -513,7 +514,7 @@ name|item
 return|;
 block|}
 block|}
-comment|/**    * Return an output stream that quotes all of the output.    * @param out the stream to write the quoted output to    * @return a new stream that the application show write to    * @throws IOException if the underlying output fails    */
+comment|/**    * Return an output stream that quotes all of the output.    * @param out the stream to write the quoted output to    * @return a new stream that the application show write to    */
 specifier|public
 specifier|static
 name|OutputStream
@@ -523,8 +524,6 @@ specifier|final
 name|OutputStream
 name|out
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 return|return
 operator|new
@@ -941,8 +940,6 @@ name|String
 index|[]
 name|args
 parameter_list|)
-throws|throws
-name|Exception
 block|{
 if|if
 condition|(
