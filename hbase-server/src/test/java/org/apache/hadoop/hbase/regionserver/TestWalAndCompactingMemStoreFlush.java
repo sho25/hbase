@@ -1107,11 +1107,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|180000
-argument_list|)
 specifier|public
 name|void
 name|testSelectiveFlushWithEager
@@ -2366,11 +2361,6 @@ comment|/*----------------------------------------------------------------------
 comment|/* Check the same as above but for index-compaction type of compacting memstore */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|180000
-argument_list|)
 specifier|public
 name|void
 name|testSelectiveFlushWithIndexCompaction
@@ -3724,11 +3714,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|180000
-argument_list|)
 specifier|public
 name|void
 name|testSelectiveFlushAndWALinDataCompaction
@@ -4573,11 +4558,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|180000
-argument_list|)
 specifier|public
 name|void
 name|testSelectiveFlushWithBasicAndMerge
@@ -5596,11 +5576,6 @@ block|}
 comment|// should end in 300 seconds (5 minutes)
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testStressFlushAndWALinIndexCompaction

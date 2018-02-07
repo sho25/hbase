@@ -914,11 +914,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testCreateBadTables
@@ -1259,11 +1254,6 @@ block|}
 comment|/**    * Test for hadoop-1581 'HBASE: Unopenable tablename bug'.    * @throws Exception    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testTableNameClash
@@ -1373,11 +1363,6 @@ block|}
 comment|/***    * HMaster.createTable used to be kind of synchronous call    * Thus creating of table with lots of regions can cause RPC timeout    * After the fix to make createTable truly async, RPC timeout shouldn't be an    * issue anymore    * @throws Exception    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testCreateTableRPCTimeOut
@@ -1559,11 +1544,6 @@ block|}
 comment|/**    * Test read only tables    * @throws Exception    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testReadOnlyTable
@@ -1653,11 +1633,6 @@ block|}
 comment|/**    * Test that user table names can contain '-' and '.' so long as they do not    * start with same. HBASE-771    * @throws IOException    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testTableNames
@@ -1801,10 +1776,6 @@ operator|=
 name|TableExistsException
 operator|.
 name|class
-argument_list|,
-name|timeout
-operator|=
-literal|300000
 argument_list|)
 specifier|public
 name|void
@@ -1864,10 +1835,6 @@ operator|=
 name|TableNotEnabledException
 operator|.
 name|class
-argument_list|,
-name|timeout
-operator|=
-literal|300000
 argument_list|)
 specifier|public
 name|void
@@ -1934,10 +1901,6 @@ operator|=
 name|TableNotDisabledException
 operator|.
 name|class
-argument_list|,
-name|timeout
-operator|=
-literal|300000
 argument_list|)
 specifier|public
 name|void
@@ -2006,10 +1969,6 @@ operator|=
 name|TableNotFoundException
 operator|.
 name|class
-argument_list|,
-name|timeout
-operator|=
-literal|300000
 argument_list|)
 specifier|public
 name|void
@@ -2060,11 +2019,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testShouldUnassignTheRegion
@@ -2239,11 +2193,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testCloseRegionIfInvalidRegionNameIsPassed
@@ -2403,11 +2352,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testCloseRegionThatFetchesTheHRIFromMeta
@@ -2717,11 +2661,6 @@ block|}
 comment|/**    * For HBASE-2556    * @throws IOException    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testGetTableRegions
@@ -2875,11 +2814,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testMoveToPreviouslyAssignedRS
@@ -3011,11 +2945,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testWALRollWriting
@@ -3561,11 +3490,6 @@ block|}
 comment|/**    * Check that we have an exception if the cluster is not there.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testCheckHBaseAvailableWithoutCluster
@@ -3669,11 +3593,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testDisableCatalogTable
@@ -3764,11 +3683,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testIsEnabledOrDisabledOnUnknownTable
@@ -3837,11 +3751,6 @@ block|{     }
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testGetRegion
@@ -4011,11 +3920,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|30000
-argument_list|)
 specifier|public
 name|void
 name|testBalancer
@@ -4100,11 +4004,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|30000
-argument_list|)
 specifier|public
 name|void
 name|testRegionNormalizer
@@ -4185,11 +4084,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|30000
-argument_list|)
 specifier|public
 name|void
 name|testAbortProcedureFail
@@ -4232,11 +4126,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testGetProcedures
@@ -4265,11 +4154,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testGetLocks
@@ -4298,11 +4182,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|30000
-argument_list|)
 specifier|public
 name|void
 name|testDecommissionRegionServers

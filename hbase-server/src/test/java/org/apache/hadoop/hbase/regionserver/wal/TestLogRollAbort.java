@@ -1253,11 +1253,6 @@ block|}
 comment|/**    * Tests the case where a RegionServer enters a GC pause,    * comes back online after the master declared it dead and started to split.    * Want log rolling after a master split to fail. See HBASE-2312.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testLogRollAfterSplitStart

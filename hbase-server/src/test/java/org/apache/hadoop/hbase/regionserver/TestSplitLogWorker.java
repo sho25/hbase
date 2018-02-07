@@ -1442,11 +1442,6 @@ block|}
 decl_stmt|;
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testAcquireTaskAtStartup
@@ -1678,11 +1673,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testRaceForTask
@@ -1936,11 +1926,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testPreemptTask
@@ -2178,11 +2163,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testMultipleTasks
@@ -2487,11 +2467,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testRescan
@@ -2886,11 +2861,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testAcquireMultiTasks
@@ -3128,11 +3098,6 @@ block|}
 comment|/**    * The test checks SplitLogWorker should not spawn more splitters than expected num of tasks per    * RS    * @throws Exception    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testAcquireMultiTasksByAvgTasksPerRS

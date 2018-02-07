@@ -1150,11 +1150,6 @@ block|}
 comment|/**    * Verify that the describe for a cloned table matches the describe from the original.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testDescribeMatchesAfterClone
@@ -1409,11 +1404,6 @@ block|}
 comment|/**    * Verify that the describe for a restored table matches the describe for one the original.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testDescribeMatchesAfterRestore
@@ -1430,11 +1420,6 @@ block|}
 comment|/**    * Verify that if metadata changed after a snapshot was taken, that the old metadata replaces the    * new metadata during a restore    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testDescribeMatchesAfterMetadataChangeAndRestore
@@ -1451,11 +1436,6 @@ block|}
 comment|/**    * Verify that when the table is empty, making metadata changes after the restore does not affect    * the restored table's original metadata    * @throws Exception    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testDescribeOnEmptyTableMatchesAfterMetadataChangeAndRestore

@@ -622,11 +622,6 @@ annotation|@
 name|Ignore
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testRegionCloseWhenNoMetaHBase2428
@@ -641,11 +636,6 @@ annotation|@
 name|Ignore
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testAddingServerBeforeOldIsDead2413
@@ -662,11 +652,6 @@ annotation|@
 name|Ignore
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testKillRSWithOpeningRegion2482

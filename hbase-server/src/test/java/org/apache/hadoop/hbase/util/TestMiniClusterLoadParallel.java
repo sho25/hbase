@@ -221,11 +221,6 @@ annotation|@
 name|Override
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-name|TIMEOUT_MS
-argument_list|)
 specifier|public
 name|void
 name|loadTest

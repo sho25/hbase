@@ -714,11 +714,6 @@ block|}
 comment|/**    * Reproduce locking up that happens when we get an exceptions appending and syncing.    * See HBASE-14317.    * First I need to set up some mocks for Server and RegionServerServices. I also need to    * set up a dodgy WAL that will throw an exception when we go to append to it.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testLockupAroundBadAssignSync

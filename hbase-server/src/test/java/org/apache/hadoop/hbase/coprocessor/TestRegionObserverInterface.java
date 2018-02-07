@@ -3174,11 +3174,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 comment|// HBase-3758
 specifier|public
 name|void

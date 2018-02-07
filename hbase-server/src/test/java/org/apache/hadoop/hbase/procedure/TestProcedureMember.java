@@ -753,11 +753,6 @@ block|}
 comment|/**    * Test the normal sub procedure execution case.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|500
-argument_list|)
 specifier|public
 name|void
 name|testSimpleRun
@@ -928,11 +923,6 @@ block|}
 comment|/**    * Make sure we call cleanup etc, when we have an exception during    * {@link Subprocedure#acquireBarrier()}.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testMemberPrepareException
@@ -1123,11 +1113,6 @@ block|}
 comment|/**    * Make sure we call cleanup etc, when we have an exception during prepare.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testSendMemberAcquiredCommsFailure
@@ -1318,11 +1303,6 @@ block|}
 comment|/**    * Fail correctly if coordinator aborts the procedure.  The subprocedure will not interrupt a    * running {@link Subprocedure#acquireBarrier()} -- prepare needs to finish first, and the the abort    * is checked.  Thus, the {@link Subprocedure#acquireBarrier()} should succeed but later get rolled back    * via {@link Subprocedure#cleanup}.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testCoordinatorAbort
@@ -1540,11 +1520,6 @@ block|}
 comment|/**    * Handle failures if a member's commit phase fails.    *    * NOTE: This is the core difference that makes this different from traditional 2PC.  In true    * 2PC the transaction is committed just before the coordinator sends commit messages to the    * member.  Members are then responsible for reading its TX log.  This implementation actually    * rolls back, and thus breaks the normal TX guarantees.   */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testMemberCommitException
@@ -1729,11 +1704,6 @@ block|}
 comment|/**    * Handle Failures if a member's commit phase succeeds but notification to coordinator fails    *    * NOTE: This is the core difference that makes this different from traditional 2PC.  In true    * 2PC the transaction is committed just before the coordinator sends commit messages to the    * member.  Members are then responsible for reading its TX log.  This implementation actually    * rolls back, and thus breaks the normal TX guarantees.   */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testMemberCommitCommsFailure
@@ -1951,11 +1921,6 @@ block|}
 comment|/**    * Fail correctly on getting an external error while waiting for the prepared latch    * @throws Exception on failure    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testPropagateConnectionErrorBackToManager

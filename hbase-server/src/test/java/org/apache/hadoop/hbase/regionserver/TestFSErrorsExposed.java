@@ -1240,15 +1240,6 @@ block|}
 comment|/**    * Cluster test which starts a region server with a region, then    * removes the data from HDFS underneath it, and ensures that    * errors are bubbled to the client.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|5
-operator|*
-literal|60
-operator|*
-literal|1000
-argument_list|)
 specifier|public
 name|void
 name|testFullSystemBubblesFSErrors

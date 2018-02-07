@@ -696,11 +696,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|90000
-argument_list|)
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -1212,11 +1207,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 annotation|@
 name|SuppressWarnings
 argument_list|(

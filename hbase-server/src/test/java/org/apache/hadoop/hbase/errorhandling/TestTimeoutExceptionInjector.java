@@ -196,11 +196,6 @@ decl_stmt|;
 comment|/**    * Test that a manually triggered timer fires an exception.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testTimerTrigger
@@ -335,11 +330,6 @@ block|}
 comment|/**    * Demonstrate TimeoutExceptionInjector semantics -- completion means no more exceptions passed to    * error listener.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testStartAfterComplete
@@ -433,11 +423,6 @@ block|}
 comment|/**    * Demonstrate TimeoutExceptionInjector semantics -- triggering fires exception and completes    * the timer.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testStartAfterTrigger

@@ -647,11 +647,6 @@ block|}
 comment|/**    * This creates a table and then corrupts a mob file.  Hbck should quarantine the file.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|180000
-argument_list|)
 specifier|public
 name|void
 name|testQuarantineCorruptMobFile

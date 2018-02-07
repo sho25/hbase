@@ -932,11 +932,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|120000
-argument_list|)
 specifier|public
 name|void
 name|testSimpleLoadWithMap
@@ -1006,11 +1001,6 @@ block|}
 comment|/**    * Test case that creates some regions and loads HFiles that fit snugly inside those regions    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|120000
-argument_list|)
 specifier|public
 name|void
 name|testSimpleLoad
@@ -1077,11 +1067,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|120000
-argument_list|)
 specifier|public
 name|void
 name|testSimpleLoadWithFileCopy
@@ -1191,11 +1176,6 @@ block|}
 comment|/**    * Test case that creates some regions and loads HFiles that cross the boundaries of those regions    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|120000
-argument_list|)
 specifier|public
 name|void
 name|testRegionCrossingLoad
@@ -1263,11 +1243,6 @@ block|}
 comment|/**    * Test loading into a column family that has a ROW bloom filter.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testRegionCrossingRowBloom
@@ -1335,11 +1310,6 @@ block|}
 comment|/**    * Test loading into a column family that has a ROWCOL bloom filter.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|120000
-argument_list|)
 specifier|public
 name|void
 name|testRegionCrossingRowColBloom
@@ -1407,11 +1377,6 @@ block|}
 comment|/**    * Test case that creates some regions and loads HFiles that have different region boundaries than    * the table pre-split.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|120000
-argument_list|)
 specifier|public
 name|void
 name|testSimpleHFileSplit
@@ -1527,11 +1492,6 @@ block|}
 comment|/**    * Test case that creates some regions and loads HFiles that cross the boundaries and have    * different region boundaries than the table pre-split.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testRegionCrossingHFileSplit
@@ -1550,11 +1510,6 @@ block|}
 comment|/**    * Test case that creates some regions and loads HFiles that cross the boundaries have a ROW bloom    * filter and a different region boundaries than the table pre-split.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|120000
-argument_list|)
 specifier|public
 name|void
 name|testRegionCrossingHFileSplitRowBloom
@@ -1573,11 +1528,6 @@ block|}
 comment|/**    * Test case that creates some regions and loads HFiles that cross the boundaries have a ROWCOL    * bloom filter and a different region boundaries than the table pre-split.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|120000
-argument_list|)
 specifier|public
 name|void
 name|testRegionCrossingHFileSplitRowColBloom
@@ -3113,11 +3063,6 @@ block|}
 comment|/**    * Test that tags survive through a bulk load that needs to split hfiles. This test depends on the    * "hbase.client.rpc.codec" = KeyValueCodecWithTags so that the client can get tags in the    * responses.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testTagsSurviveBulkLoadSplit
@@ -3422,11 +3367,6 @@ block|}
 comment|/**    * Test loading into a column family that does not exist.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testNonexistentColumnFamilyLoad
@@ -3631,11 +3571,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|120000
-argument_list|)
 specifier|public
 name|void
 name|testNonHfileFolderWithUnmatchedFamilyName
@@ -3653,11 +3588,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|120000
-argument_list|)
 specifier|public
 name|void
 name|testNonHfileFolder
@@ -4096,11 +4026,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|120000
-argument_list|)
 specifier|public
 name|void
 name|testSplitStoreFile
@@ -4689,11 +4614,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|120000
-argument_list|)
 specifier|public
 name|void
 name|testInferBoundaries
@@ -5028,11 +4948,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testLoadTooMayHFiles
@@ -5290,11 +5205,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|120000
-argument_list|)
 specifier|public
 name|void
 name|testTableWithCFNameStartWithUnderScore

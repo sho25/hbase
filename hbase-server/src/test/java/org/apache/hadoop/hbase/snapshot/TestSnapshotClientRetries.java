@@ -451,10 +451,6 @@ block|}
 annotation|@
 name|Test
 argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|,
 name|expected
 operator|=
 name|SnapshotExistsException
@@ -515,10 +511,6 @@ block|}
 annotation|@
 name|Test
 argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|,
 name|expected
 operator|=
 name|SnapshotDoesNotExistException

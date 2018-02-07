@@ -1206,11 +1206,6 @@ block|}
 comment|/**    * Tests the bulk assignment used during cluster startup.    *    * Round-robin. Should yield a balanced cluster so same invariant as the load    * balancer holds, all servers holding either floor(avg) or ceiling(avg).    *    * @throws Exception    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|180000
-argument_list|)
 specifier|public
 name|void
 name|testBulkAssignment
@@ -1558,11 +1553,6 @@ block|}
 comment|/**    * Test the cluster startup bulk assignment which attempts to retain    * assignment info.    * @throws Exception    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|180000
-argument_list|)
 specifier|public
 name|void
 name|testRetainAssignment
@@ -1849,11 +1839,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|30000
-argument_list|)
 specifier|public
 name|void
 name|testRandomAssignment
@@ -2239,11 +2224,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|180000
-argument_list|)
 specifier|public
 name|void
 name|testRegionAvailability
@@ -2742,11 +2722,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|180000
-argument_list|)
 specifier|public
 name|void
 name|testRegionAvailabilityWithRegionMoves
@@ -3496,11 +3471,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|180000
-argument_list|)
 specifier|public
 name|void
 name|testClusterServersWithSameHostPort
@@ -3787,11 +3757,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|180000
-argument_list|)
 specifier|public
 name|void
 name|testClusterRegionLocations

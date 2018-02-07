@@ -1425,11 +1425,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testCloseByRegionServer
@@ -1453,11 +1448,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testMultipleCloseFromMaster
@@ -1598,11 +1588,6 @@ block|}
 comment|/**    * Test that if we do a close while opening it stops the opening.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testCancelOpeningWithoutZK

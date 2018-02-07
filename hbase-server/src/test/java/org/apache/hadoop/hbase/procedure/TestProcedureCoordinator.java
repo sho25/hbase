@@ -807,11 +807,6 @@ block|}
 comment|/**    * Check handling a connection failure correctly if we get it during the acquiring phase    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testUnreachableControllerDuringPrepare
@@ -1055,11 +1050,6 @@ block|}
 comment|/**    * Check handling a connection failure correctly if we get it during the barrier phase    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testUnreachableControllerDuringCommit
@@ -1347,11 +1337,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testNoCohort
@@ -1365,11 +1350,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testSingleCohortOrchestration
@@ -1385,11 +1365,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testMultipleCohortOrchestration
@@ -1471,11 +1446,6 @@ block|}
 comment|/**    * Test that if nodes join the barrier early we still correctly handle the progress    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testEarlyJoiningBarrier

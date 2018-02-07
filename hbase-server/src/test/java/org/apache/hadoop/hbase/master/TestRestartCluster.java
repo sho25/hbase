@@ -482,11 +482,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testClusterRestart
@@ -720,11 +715,6 @@ block|}
 comment|/**    * This tests retaining assignments on a cluster restart    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testRetainAssignmentOnRestart

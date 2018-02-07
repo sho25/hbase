@@ -1284,11 +1284,6 @@ block|}
 comment|/**    * This is for testing the active number of threads that were used while    * doing a batch operation. It inserts one row per region via the batch    * operation, and then checks the number of active threads.    * For HBASE-3553    * @throws IOException    * @throws InterruptedException    * @throws NoSuchFieldException    * @throws SecurityException    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testActiveThreadsCount
@@ -1459,11 +1454,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testBatchWithGet
@@ -1987,11 +1977,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testFlushCommitsNoAbort
@@ -2015,11 +2000,6 @@ block|}
 comment|/**    * Only run one Multi test with a forced RegionServer abort. Otherwise, the    * unit tests will take an unnecessarily long time to run.    *    * @throws Exception    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|360000
-argument_list|)
 specifier|public
 name|void
 name|testFlushCommitsWithAbort
@@ -2397,11 +2377,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testBatchWithPut
@@ -2601,11 +2576,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testBatchWithDelete
@@ -2808,11 +2778,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testHTableDeleteWithList
@@ -3003,11 +2968,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testBatchWithManyColsInOneRowGetAndPut
@@ -3267,11 +3227,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testBatchWithIncrementAndAppend
@@ -3606,11 +3561,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testNonceCollision
@@ -4161,11 +4111,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testBatchWithMixedActions

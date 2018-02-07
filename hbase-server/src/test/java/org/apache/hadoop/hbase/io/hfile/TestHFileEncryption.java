@@ -1020,11 +1020,6 @@ return|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|20000
-argument_list|)
 specifier|public
 name|void
 name|testDataBlockEncryption
@@ -1281,11 +1276,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|20000
-argument_list|)
 specifier|public
 name|void
 name|testHFileEncryptionMetadata
@@ -1530,11 +1520,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|6000000
-argument_list|)
 specifier|public
 name|void
 name|testHFileEncryption

@@ -551,11 +551,6 @@ block|}
 comment|/**    * Test that scanner can continue even if the region server it was reading    * from failed. Before 2772, it reused the same scanner id.    * @throws Exception    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|test2772
@@ -700,11 +695,6 @@ block|}
 comment|/**    * Test that scanner won't miss any rows if the region server it was reading    * from failed. Before 3686, it would skip rows in the scan.    * @throws Exception    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|test3686a
@@ -915,11 +905,6 @@ block|}
 comment|/**    * Make sure that no rows are lost if the scanner timeout is longer on the    * client than the server, and the scan times out on the server but not the    * client.    * @throws Exception    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|test3686b

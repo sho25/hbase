@@ -167,11 +167,6 @@ annotation|@
 name|Override
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 annotation|@
 name|Ignore
 specifier|public

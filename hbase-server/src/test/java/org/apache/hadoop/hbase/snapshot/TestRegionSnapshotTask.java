@@ -679,11 +679,6 @@ block|}
 comment|/**    * Tests adding a region to the snapshot manifest while compactions are running on the region.    * The idea is to slow down the process of adding a store file to the manifest while    * triggering compactions on the region, allowing the store files to be marked for archival while    * snapshot operation is running.    * This test checks for the correct behavior in such a case that the compacted files should    * not be moved around if a snapshot operation is in progress.    * See HBASE-18398    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|30000
-argument_list|)
 specifier|public
 name|void
 name|testAddRegionWithCompactions

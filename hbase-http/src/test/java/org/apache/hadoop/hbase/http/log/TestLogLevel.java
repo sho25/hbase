@@ -295,11 +295,6 @@ name|out
 decl_stmt|;
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 annotation|@
 name|SuppressWarnings
 argument_list|(

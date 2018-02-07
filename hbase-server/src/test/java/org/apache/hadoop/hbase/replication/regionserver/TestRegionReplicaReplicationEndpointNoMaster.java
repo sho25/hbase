@@ -1334,11 +1334,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|240000
-argument_list|)
 specifier|public
 name|void
 name|testReplayCallable
@@ -1619,11 +1614,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|240000
-argument_list|)
 specifier|public
 name|void
 name|testReplayCallableWithRegionMove
@@ -1815,11 +1805,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|240000
-argument_list|)
 specifier|public
 name|void
 name|testRegionReplicaReplicationEndpointReplicate

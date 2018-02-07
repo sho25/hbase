@@ -449,11 +449,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|600000
-argument_list|)
 specifier|public
 name|void
 name|testMajorCompaction
@@ -482,11 +477,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|600000
-argument_list|)
 specifier|public
 name|void
 name|testMinorCompaction
@@ -515,11 +505,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|600000
-argument_list|)
 specifier|public
 name|void
 name|testMajorCompactionOnFamily
@@ -548,11 +533,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|600000
-argument_list|)
 specifier|public
 name|void
 name|testMinorCompactionOnFamily

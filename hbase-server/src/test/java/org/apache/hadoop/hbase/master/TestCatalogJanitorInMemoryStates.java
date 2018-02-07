@@ -673,11 +673,6 @@ block|}
 comment|/**    * Test clearing a split parent from memory.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|180000
-argument_list|)
 specifier|public
 name|void
 name|testInMemoryParentCleanup

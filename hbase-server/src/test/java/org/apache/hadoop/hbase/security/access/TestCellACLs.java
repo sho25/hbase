@@ -1218,11 +1218,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|120000
-argument_list|)
 specifier|public
 name|void
 name|testCellPermissions
@@ -2499,11 +2494,6 @@ block|}
 comment|/**    * Insure we are not granting access in the absence of any cells found    * when scanning for covered cells.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|120000
-argument_list|)
 specifier|public
 name|void
 name|testCoveringCheck

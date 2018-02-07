@@ -3095,11 +3095,6 @@ block|}
 comment|/**    * Tests the case where all replicas of a region throw an exception. It should not cause a hang    * but the exception should propagate to the client    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|30000
-argument_list|)
 specifier|public
 name|void
 name|testExceptionsFromReplicasArePropagated

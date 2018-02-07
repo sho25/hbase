@@ -1121,11 +1121,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|180000
-argument_list|)
 specifier|public
 name|void
 name|testSelectiveFlushWhenEnabled
@@ -1904,11 +1899,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|180000
-argument_list|)
 specifier|public
 name|void
 name|testSelectiveFlushWhenNotEnabled
@@ -2837,11 +2827,6 @@ block|}
 comment|// Test Log Replay with Distributed log split on.
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|180000
-argument_list|)
 specifier|public
 name|void
 name|testLogReplayWithDistributedLogSplit
@@ -2896,11 +2881,6 @@ block|}
 comment|/**    * When a log roll is about to happen, we do a flush of the regions who will be affected by the    * log roll. These flushes cannot be a selective flushes, otherwise we cannot roll the logs. This    * test ensures that we do a full-flush in that scenario.    * @throws IOException    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|180000
-argument_list|)
 specifier|public
 name|void
 name|testFlushingWhenLogRolling
@@ -3690,11 +3670,6 @@ comment|// Under the same write load, small stores should have less store files 
 comment|// percolumnfamilyflush enabled.
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|180000
-argument_list|)
 specifier|public
 name|void
 name|testCompareStoreFileCount

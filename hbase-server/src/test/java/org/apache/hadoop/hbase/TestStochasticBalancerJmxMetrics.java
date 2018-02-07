@@ -825,11 +825,6 @@ block|}
 comment|/**    * In Ensemble mode, there should be only one ensemble table    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testJmxMetrics_EnsembleMode
@@ -970,11 +965,6 @@ block|}
 comment|/**    * In per-table mode, each table has a set of metrics    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testJmxMetrics_PerTableMode

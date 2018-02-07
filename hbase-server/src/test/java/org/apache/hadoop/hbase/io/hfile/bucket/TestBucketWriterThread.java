@@ -660,11 +660,6 @@ block|}
 comment|/**    * Test non-error case just works.    * @throws FileNotFoundException    * @throws IOException    * @throws InterruptedException    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|30000
-argument_list|)
 specifier|public
 name|void
 name|testNonErrorCase
@@ -779,11 +774,6 @@ literal|"unchecked"
 argument_list|)
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|30000
-argument_list|)
 specifier|public
 name|void
 name|testIOE
@@ -910,11 +900,6 @@ block|}
 comment|/**    * Do Cache full exception    * @throws IOException    * @throws InterruptedException    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|30000
-argument_list|)
 specifier|public
 name|void
 name|testCacheFullException

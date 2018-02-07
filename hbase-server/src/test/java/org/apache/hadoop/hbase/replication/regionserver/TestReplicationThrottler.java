@@ -196,11 +196,6 @@ decl_stmt|;
 comment|/**    * unit test for throttling    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|10000
-argument_list|)
 specifier|public
 name|void
 name|testThrottling

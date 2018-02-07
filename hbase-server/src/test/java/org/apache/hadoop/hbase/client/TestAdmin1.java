@@ -876,11 +876,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testSplitFlushCompactUnknownTable
@@ -1008,11 +1003,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testDeleteEditUnknownColumnFamilyAndOrTable
@@ -1503,11 +1493,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testDisableAndEnableTable
@@ -1927,11 +1912,6 @@ return|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testDisableAndEnableTables
@@ -2306,11 +2286,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testCreateTable
@@ -2426,11 +2401,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testTruncateTable
@@ -2456,11 +2426,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testTruncateTablePreservingSplits
@@ -2711,11 +2676,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testGetTableDescriptor
@@ -2855,11 +2815,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testCompactionTimestamps
@@ -3282,11 +3237,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testHColumnValidName
@@ -3324,11 +3274,6 @@ block|}
 comment|/**    * Verify schema modification takes.    * @throws IOException    * @throws InterruptedException    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testOnlineChangeTableSchema
@@ -4152,11 +4097,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testCreateTableNumberOfRegions
@@ -4603,11 +4543,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testCreateTableWithRegions
@@ -6672,11 +6607,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testTableAvailableWithRandomSplitKeys
@@ -6789,11 +6719,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testCreateTableWithOnlyEmptyStartRow
@@ -6888,11 +6813,6 @@ block|{     }
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testCreateTableWithEmptyRowInTheSplitKeys
@@ -7017,11 +6937,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|120000
-argument_list|)
 specifier|public
 name|void
 name|testTableExist
@@ -7097,11 +7012,6 @@ block|}
 comment|/**    * Tests forcing split from client and having scanners successfully ride over split.    * @throws Exception    * @throws IOException    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|400000
-argument_list|)
 specifier|public
 name|void
 name|testForceSplit
@@ -7211,11 +7121,6 @@ block|}
 comment|/**    * Test retain assignment on enableTable.    *    * @throws IOException    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testEnableTableRetainAssignment
@@ -7489,11 +7394,6 @@ block|}
 comment|/**    * Multi-family scenario. Tests forcing split from client and    * having scanners successfully ride over split.    * @throws Exception    * @throws IOException    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|800000
-argument_list|)
 specifier|public
 name|void
 name|testForceSplitMultiFamily
@@ -9294,10 +9194,6 @@ operator|=
 name|IllegalArgumentException
 operator|.
 name|class
-argument_list|,
-name|timeout
-operator|=
-literal|300000
 argument_list|)
 specifier|public
 name|void
@@ -9315,11 +9211,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testEnableDisableAddColumnDeleteColumn
@@ -9505,11 +9396,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testDeleteLastColumnFamily
@@ -9656,11 +9542,6 @@ block|}
 comment|/*    * Test DFS replication for column families, where one CF has default replication(3) and the other    * is set to 1.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testHFileReplication
@@ -10087,11 +9968,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testMergeRegions

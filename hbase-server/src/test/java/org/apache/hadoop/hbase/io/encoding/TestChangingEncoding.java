@@ -1345,11 +1345,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-name|TIMEOUT_MS
-argument_list|)
 specifier|public
 name|void
 name|testChangingEncoding
@@ -1403,11 +1398,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-name|TIMEOUT_MS
-argument_list|)
 specifier|public
 name|void
 name|testChangingEncodingWithCompaction

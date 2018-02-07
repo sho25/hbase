@@ -10574,11 +10574,6 @@ block|}
 comment|/**    * If there are two running InMemoryFlushRunnable, the later InMemoryFlushRunnable    * may change the versionedList. And the first InMemoryFlushRunnable will use the chagned    * versionedList to remove the corresponding segments.    * In short, there will be some segements which isn't in merge are removed.    * @throws IOException    * @throws InterruptedException    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|30000
-argument_list|)
 specifier|public
 name|void
 name|testRunDoubleMemStoreCompactors

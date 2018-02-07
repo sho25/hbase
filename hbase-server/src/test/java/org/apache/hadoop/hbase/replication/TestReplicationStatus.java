@@ -346,11 +346,6 @@ decl_stmt|;
 comment|/**    * Test for HBASE-9531    * put a few rows into htable1, which should be replicated to htable2    * create a ClusterStatus instance 'status' from HBaseAdmin    * test : status.getLoad(server).getReplicationLoadSourceList()    * test : status.getLoad(server).getReplicationLoadSink()    * * @throws Exception    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testReplicationStatus

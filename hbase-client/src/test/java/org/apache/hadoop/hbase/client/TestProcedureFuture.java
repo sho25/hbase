@@ -487,11 +487,6 @@ block|}
 comment|/**    * When a master return a result with procId,    * we are skipping the waitOperationResult() call,    * since we are getting the procedure result.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testWithProcId
@@ -577,11 +572,6 @@ block|}
 comment|/**    * Verify that the spin loop for the procedure running works.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testWithProcIdAndSpinning
@@ -729,11 +719,6 @@ block|}
 comment|/**    * When a master return a result without procId,    * we are skipping the getProcedureResult() call.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testWithoutProcId
@@ -819,11 +804,6 @@ block|}
 comment|/**    * When a new client with procedure support tries to ask an old-master without proc-support    * the procedure result we get a DoNotRetryIOException (which is an UnsupportedOperationException)    * The future should trap that and fallback to the waitOperationResult().    *    * This happens when the operation calls happens on a "new master" but while we are waiting    * the operation to be completed, we failover on an "old master".    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testOnServerWithNoProcedureSupport

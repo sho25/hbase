@@ -640,11 +640,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|600000
-argument_list|)
 specifier|public
 name|void
 name|testEditsStuckBehindDroppedTable
@@ -665,11 +660,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|600000
-argument_list|)
 specifier|public
 name|void
 name|testEditsDroppedWithDroppedTable
@@ -689,11 +679,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|600000
-argument_list|)
 specifier|public
 name|void
 name|testEditsDroppedWithDroppedTableNS
@@ -1166,11 +1151,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|600000
-argument_list|)
 specifier|public
 name|void
 name|testEditsBehindDroppedTableTiming

@@ -923,11 +923,6 @@ block|}
 comment|/**    * Test snapshotting not allowed hbase:meta and -ROOT-    * @throws Exception    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testMetaTablesSnapshot
@@ -985,11 +980,6 @@ block|}
 comment|/**    * Test HBaseAdmin#deleteSnapshots(String) which deletes snapshots whose names match the parameter    *    * @throws Exception    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testSnapshotDeletionWithRegex
@@ -1188,11 +1178,6 @@ block|}
 comment|/**    * Test snapshotting a table that is offline    * @throws Exception    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testOfflineTableSnapshot
@@ -1492,11 +1477,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testSnapshotFailsOnNonExistantTable
@@ -1631,11 +1611,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testOfflineTableSnapshotWithEmptyRegions
@@ -1915,11 +1890,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testListTableSnapshots
@@ -2203,11 +2173,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testListTableSnapshotsWithRegex
@@ -2435,11 +2400,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testDeleteTableSnapshots
@@ -2648,11 +2608,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testDeleteTableSnapshotsWithRegex

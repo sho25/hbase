@@ -1338,11 +1338,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|180000
-argument_list|)
 specifier|public
 name|void
 name|testCreateWithCorrectOwner
@@ -1627,11 +1622,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|180000
-argument_list|)
 specifier|public
 name|void
 name|testCreateTableWithGroupPermissions
@@ -1765,11 +1755,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|180000
-argument_list|)
 specifier|public
 name|void
 name|testACLTableAccess
@@ -2616,11 +2601,6 @@ block|}
 comment|/*    * Test table scan operation at table, column family and column qualifier level.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testPostGrantAndRevokeScanAction
@@ -3358,11 +3338,6 @@ name|AccessController
 block|{   }
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|180000
-argument_list|)
 specifier|public
 name|void
 name|testCoprocessorLoading
@@ -3466,11 +3441,6 @@ decl_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|180000
-argument_list|)
 specifier|public
 name|void
 name|testACLZNodeDeletion

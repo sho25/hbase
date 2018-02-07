@@ -2958,11 +2958,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|20000
-argument_list|)
 specifier|public
 name|void
 name|testRemoteTableLockRecovery
@@ -2988,11 +2983,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|20000
-argument_list|)
 specifier|public
 name|void
 name|testRemoteNamespaceLockRecovery
@@ -3018,11 +3008,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|20000
-argument_list|)
 specifier|public
 name|void
 name|testRemoteRegionLockRecovery
@@ -3048,11 +3033,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|20000
-argument_list|)
 specifier|public
 name|void
 name|testLocalMasterLockRecovery

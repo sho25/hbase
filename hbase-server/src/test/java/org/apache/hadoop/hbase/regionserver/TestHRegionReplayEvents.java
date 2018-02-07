@@ -2147,11 +2147,6 @@ block|}
 comment|/**    * Tests a case where we replay only a flush start marker, then the region is closed. This region    * should not block indefinitely    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testOnlyReplayingFlushStartDoesNotHoldUpRegionClose

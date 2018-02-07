@@ -476,11 +476,6 @@ block|}
 comment|/**    * This tests to validate the HMaster's ConnectorServer after unauthorised stopMaster call.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|180000
-argument_list|)
 specifier|public
 name|void
 name|testHMConnectorServerWhenStopMaster
@@ -657,11 +652,6 @@ block|}
 comment|/**    * This tests to validate the RegionServer's ConnectorServer after unauthorised stopRegionServer    * call.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|180000
-argument_list|)
 specifier|public
 name|void
 name|testRSConnectorServerWhenStopRegionServer
@@ -830,11 +820,6 @@ block|}
 comment|/**    * This tests to validate the HMaster's ConnectorServer after unauthorised shutdown call.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|180000
-argument_list|)
 specifier|public
 name|void
 name|testHMConnectorServerWhenShutdownCluster

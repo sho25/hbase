@@ -402,11 +402,6 @@ decl_stmt|;
 comment|/**    * Test that the logic for doing 'correct' back-off based on exponential increase and the max-time    * passed from the server ensures the correct overall waiting for the snapshot to finish.    * @throws Exception    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testBackoffLogic

@@ -204,10 +204,6 @@ operator|=
 name|DoNotRetryIOException
 operator|.
 name|class
-argument_list|,
-name|timeout
-operator|=
-literal|3000
 argument_list|)
 specifier|public
 name|void

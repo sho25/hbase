@@ -1366,11 +1366,6 @@ block|}
 comment|/**    * It tests the replication scenario involving 0 -> 1 -> 0. It does it by    * adding and deleting a row to a table in each cluster, checking if it's    * replicated. It also tests that the puts and deletes are not replicated back    * to the originating cluster.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testCyclicReplication1
@@ -1518,11 +1513,6 @@ block|}
 comment|/**    * Tests the replication scenario 0 -> 0. By default    * {@link BaseReplicationEndpoint#canReplicateToSameCluster()} returns false, so the    * ReplicationSource should terminate, and no further logs should get enqueued    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testLoopedReplication
@@ -1784,11 +1774,6 @@ block|}
 comment|/**    * It tests the replication scenario involving 0 -> 1 -> 0. It does it by bulk loading a set of    * HFiles to a table in each cluster, checking if it's replicated.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testHFileCyclicReplication
@@ -2117,11 +2102,6 @@ block|}
 comment|/**    * Tests the cyclic replication scenario of 0 -> 1 -> 2 -> 0 by adding and deleting rows to a    * table in each clusters and ensuring that the each of these clusters get the appropriate    * mutations. It also tests the grouping scenario where a cluster needs to replicate the edits    * originating from itself and also the edits that it received using replication from a different    * cluster. The scenario is explained in HBASE-9158    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testCyclicReplication2
@@ -2414,11 +2394,6 @@ block|}
 comment|/**    * It tests the multi slave hfile replication scenario involving 0 -> 1, 2. It does it by bulk    * loading a set of HFiles to a table in master cluster, checking if it's replicated in its peers.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testHFileMultiSlaveReplication
@@ -2767,11 +2742,6 @@ block|}
 comment|/**    * It tests the bulk loaded hfile replication scenario to only explicitly specified table column    * families. It does it by bulk loading a set of HFiles belonging to both the CFs of table and set    * only one CF data to replicate.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testHFileReplicationForConfiguredTableCfs
@@ -3125,11 +3095,6 @@ block|}
 comment|/**    * Tests cyclic replication scenario of 0 -> 1 -> 2 -> 1.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testCyclicReplication3

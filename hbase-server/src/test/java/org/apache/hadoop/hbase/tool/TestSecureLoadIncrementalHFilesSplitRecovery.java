@@ -293,11 +293,6 @@ block|}
 comment|// Disabling this test as it does not work in secure mode
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|180000
-argument_list|)
 annotation|@
 name|Override
 specifier|public

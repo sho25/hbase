@@ -2444,11 +2444,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testMinorCompaction
@@ -3327,11 +3322,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testCompactionWithHFileLink
@@ -3968,11 +3958,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testMajorCompactionFromAdmin
@@ -4557,11 +4542,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testScannerOnBulkLoadRefHFiles
@@ -5074,11 +5054,6 @@ block|}
 comment|/**    * This case tests the following mob compaction and normal compaction scenario,    * after mob compaction, the mob reference in new bulkloaded hfile will win even after it    * is compacted with some other normal hfiles. This is to make sure the mvcc is included    * after compaction for mob enabled store files.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testGetAfterCompaction

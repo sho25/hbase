@@ -1082,11 +1082,6 @@ return|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|600000
-argument_list|)
 specifier|public
 name|void
 name|testRestoreSnapshot
@@ -1145,11 +1140,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testRestoreSnapshotToDifferentTable
@@ -1265,11 +1255,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testRestoreSnapshotToEnabledTable
@@ -1384,11 +1369,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testRecoveryAndDoubleExecution

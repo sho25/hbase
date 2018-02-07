@@ -970,11 +970,6 @@ block|}
 comment|/**    * Verify that "write" operations for a single table are serialized,    * but different tables can be executed in parallel.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testConcurrentWriteOps
@@ -1582,11 +1577,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testMasterProcedureSchedulerPerformanceEvaluation

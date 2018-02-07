@@ -1033,11 +1033,6 @@ block|}
 comment|/**    * Test turning on/off archiving    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testArchivingEnableDisable
@@ -1135,11 +1130,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testArchivingOnSingleTable
@@ -1440,11 +1430,6 @@ block|}
 comment|/**    * Test archiving/cleaning across multiple tables, where some are retained, and others aren't    * @throws Exception on failure    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testMultipleTables

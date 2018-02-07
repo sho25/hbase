@@ -251,11 +251,6 @@ decl_stmt|;
 comment|/**    * Test that if the master fails, the load balancer maintains its    * state (running or not) when the next master takes over    *    * @throws Exception    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|240000
-argument_list|)
 specifier|public
 name|void
 name|testMasterFailoverBalancerPersistence

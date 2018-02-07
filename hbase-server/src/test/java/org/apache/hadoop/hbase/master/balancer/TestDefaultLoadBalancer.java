@@ -1238,11 +1238,6 @@ decl_stmt|;
 comment|/**    * Test the load balancing algorithm.    *    * Invariant is that all servers should be hosting either floor(average) or    * ceiling(average) at both table level and cluster level    *    * @throws Exception    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testBalanceClusterOverall
@@ -1563,11 +1558,6 @@ block|}
 comment|/**    * Test the load balancing algorithm.    *    * Invariant is that all servers should be hosting either floor(average) or    * ceiling(average) at both table level and cluster level    * Deliberately generate a special case to show the overall strategy can achieve cluster    * level balance while the bytable strategy cannot    * @throws Exception    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testImpactOfBalanceClusterOverall

@@ -1260,11 +1260,6 @@ block|}
 comment|/**    * Test that the contract from the master for checking on a snapshot are valid.    *<p>    *<ol>    *<li>If a snapshot fails with an error, we expect to get the source error.</li>    *<li>If there is no snapshot name supplied, we should get an error.</li>    *<li>If asking about a snapshot has hasn't occurred, you should get an error.</li>    *</ol>    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testIsDoneContract
@@ -1586,11 +1581,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testGetCompletedSnapshots
@@ -1776,11 +1766,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testDeleteSnapshot
@@ -1890,11 +1875,6 @@ block|}
 comment|/**    * Test that the snapshot hfile archive cleaner works correctly. HFiles that are in snapshots    * should be retained, while those that are not in a snapshot should be deleted.    * @throws Exception on failure    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testSnapshotHFileArchiving

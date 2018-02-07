@@ -548,11 +548,6 @@ block|}
 comment|/**    * Smaller test to just test the actuation on the cohort member    * @throws Exception on failure    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testSimpleZKCohortMemberController
@@ -979,11 +974,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testZKCoordinatorControllerWithNoCohort
@@ -1034,11 +1024,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testZKCoordinatorControllerWithSingleMemberCohort
@@ -1093,11 +1078,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testZKCoordinatorControllerMultipleCohort

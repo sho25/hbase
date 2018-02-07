@@ -565,11 +565,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|disableNotFullReplication
@@ -673,11 +668,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testEnableReplicationWhenSlaveClusterDoesntHaveTable
@@ -736,11 +726,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testEnableReplicationWhenReplicationNotEnabled
@@ -872,11 +857,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testEnableReplicationWhenTableDescriptorIsNotSameInClusters
@@ -1024,11 +1004,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testDisableAndEnableReplication
@@ -1121,10 +1096,6 @@ block|}
 annotation|@
 name|Test
 argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|,
 name|expected
 operator|=
 name|TableNotFoundException
@@ -1157,10 +1128,6 @@ block|}
 annotation|@
 name|Test
 argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|,
 name|expected
 operator|=
 name|TableNotFoundException
@@ -1193,10 +1160,6 @@ block|}
 annotation|@
 name|Test
 argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|,
 name|expected
 operator|=
 name|IllegalArgumentException
@@ -1221,10 +1184,6 @@ block|}
 annotation|@
 name|Test
 argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|,
 name|expected
 operator|=
 name|IllegalArgumentException
@@ -1249,11 +1208,6 @@ block|}
 comment|/*    * Test enable table replication should create table only in user explicit specified table-cfs.    * HBASE-14717    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testEnableReplicationForExplicitSetTableCfs
@@ -1513,11 +1467,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testReplicationPeerConfigUpdateCallback

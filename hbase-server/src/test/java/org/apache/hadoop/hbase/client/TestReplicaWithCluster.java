@@ -1814,11 +1814,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|30000
-argument_list|)
 specifier|public
 name|void
 name|testCreateDeleteTable
@@ -2043,11 +2038,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|120000
-argument_list|)
 specifier|public
 name|void
 name|testChangeTable
@@ -2510,11 +2500,6 @@ literal|"deprecation"
 argument_list|)
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testReplicaAndReplication
@@ -3108,11 +3093,6 @@ comment|// the minicluster has negative impact of deleting all HConnections in J
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|30000
-argument_list|)
 specifier|public
 name|void
 name|testBulkLoad

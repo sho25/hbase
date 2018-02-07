@@ -1593,11 +1593,6 @@ block|}
 comment|/*   Test that not started connections are successfully removed from connection pool when   rpc client is closing.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|30000
-argument_list|)
 specifier|public
 name|void
 name|testRpcWithWriteThread
@@ -1716,11 +1711,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|1800000
-argument_list|)
 specifier|public
 name|void
 name|testRpcWithChaosMonkeyWithSyncClient
@@ -1815,11 +1805,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|900000
-argument_list|)
 annotation|@
 name|Ignore
 comment|// TODO: test fails with async client

@@ -564,11 +564,6 @@ decl_stmt|;
 comment|/**    * Basic sanity test that spins up multiple HDFS and HBase clusters that share    * the same ZK ensemble. We then create the same table in both and make sure    * that what we insert in one place doesn't end up in the other.    * @throws Exception    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|180000
-argument_list|)
 specifier|public
 name|void
 name|testMultiClusters

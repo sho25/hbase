@@ -1954,11 +1954,6 @@ block|}
 comment|/**    * Assert that when BUCKET_CACHE_COMBINED_KEY is false, the non-default, that we deploy    * LruBlockCache as L1 with a BucketCache for L2.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|10000
-argument_list|)
 specifier|public
 name|void
 name|testBucketCacheConfigL1L2Setup

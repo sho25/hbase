@@ -476,11 +476,6 @@ block|}
 comment|/**    * This test will test the expire handling of a meta-carrying    * region server.    * After HBaseMiniCluster is up, we will delete the ephemeral    * node of the meta-carrying region server, which will trigger    * the expire of this region server on the master.    * On the other hand, we will slow down the abort process on    * the region server so that it is still up during the master SSH.    * We will check that the master SSH is still successfully done.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|180000
-argument_list|)
 specifier|public
 name|void
 name|testExpireMetaRegionServer

@@ -612,11 +612,6 @@ block|}
 comment|/**    * Test CellCounter all data should print to output    *    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testCellCounter
@@ -987,11 +982,6 @@ block|}
 comment|/**    * Test CellCounter all data should print to output    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testCellCounterPrefix
@@ -1362,11 +1352,6 @@ block|}
 comment|/**    * Test CellCounter with time range all data should print to output    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testCellCounterStartTimeRange
@@ -1747,11 +1732,6 @@ block|}
 comment|/**    * Test CellCounter with time range all data should print to output    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testCellCounteEndTimeRange
@@ -2128,11 +2108,6 @@ block|}
 comment|/**    * Test CellCounter with time range all data should print to output    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testCellCounteOutOfTimeRange
@@ -2466,11 +2441,6 @@ block|}
 comment|/**    * Test main method of CellCounter    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testCellCounterMain
@@ -2626,11 +2596,6 @@ block|}
 comment|/**    * Test CellCounter for complete table all data should print to output    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|600000
-argument_list|)
 specifier|public
 name|void
 name|testCellCounterForCompleteTable

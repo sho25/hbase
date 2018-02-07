@@ -594,11 +594,6 @@ decl_stmt|;
 comment|/**    * HBASE-12782 ITBLL fails for me if generator does anything but 5M per maptask.    * Create a region. Close it. Then copy into place a file to replay, one that is bigger than    * configured flush size so we bring on lots of flushes.  Then reopen and confirm all edits    * made it in.    * @throws IOException    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|180000
-argument_list|)
 specifier|public
 name|void
 name|testReplayWorksThoughLotsOfFlushing

@@ -690,11 +690,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testEnableTableWithNoRegionServers
@@ -1098,11 +1093,6 @@ block|}
 comment|/**    * We were only clearing rows that had a hregioninfo column in hbase:meta.  Mangled rows that    * were missing the hregioninfo because of error were being left behind messing up any    * subsequent table made with the same name. HBASE-12980    * @throws IOException    * @throws InterruptedException    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testDeleteForSureClearsAllTableRowsFromMeta

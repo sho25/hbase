@@ -1151,11 +1151,6 @@ block|}
 comment|/**    * Test that loading the same region set doesn't cause timeout loop during meta load.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|30000
-argument_list|)
 specifier|public
 name|void
 name|testRepeatedLoad

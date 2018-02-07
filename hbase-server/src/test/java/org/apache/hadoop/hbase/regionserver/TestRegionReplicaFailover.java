@@ -789,11 +789,6 @@ block|}
 comment|/**    * Tests the case where a newly created table with region replicas and no data, the secondary    * region replicas are available to read immediately.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testSecondaryRegionWithEmptyRegion
@@ -870,11 +865,6 @@ block|}
 comment|/**    * Tests the case where if there is some data in the primary region, reopening the region replicas    * (enable/disable table, etc) makes the region replicas readable.    * @throws IOException    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testSecondaryRegionWithNonEmptyRegion
@@ -972,11 +962,6 @@ block|}
 comment|/**    * Tests the case where killing a primary region with unflushed data recovers    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|120000
-argument_list|)
 specifier|public
 name|void
 name|testPrimaryRegionKill
@@ -1318,11 +1303,6 @@ block|}
 comment|/**    * Tests the case where killing a secondary region with unflushed data recovers, and the replica    * becomes available to read again shortly.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|120000
-argument_list|)
 specifier|public
 name|void
 name|testSecondaryRegionKill
@@ -1538,11 +1518,6 @@ block|}
 comment|/**    * Tests the case where there are 3 region replicas and the primary is continuously accepting    * new writes while one of the secondaries is killed. Verification is done for both of the    * secondary replicas.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|120000
-argument_list|)
 specifier|public
 name|void
 name|testSecondaryRegionKillWhilePrimaryIsAcceptingWrites
@@ -1975,11 +1950,6 @@ block|}
 comment|/**    * Tests the case where we are creating a table with a lot of regions and replicas. Opening region    * replicas should not block handlers on RS indefinitely.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|120000
-argument_list|)
 specifier|public
 name|void
 name|testLotsOfRegionReplicas
