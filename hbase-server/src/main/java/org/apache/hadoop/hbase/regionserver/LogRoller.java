@@ -735,6 +735,69 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+specifier|private
+name|void
+name|abort
+parameter_list|(
+name|String
+name|reason
+parameter_list|,
+name|Throwable
+name|cause
+parameter_list|)
+block|{
+comment|// close all WALs before calling abort on RS.
+comment|// This is because AsyncFSWAL replies on us for rolling a new writer to make progress, and if we
+comment|// failed, AsyncFSWAL may be stuck, so we need to close it to let the upper layer know that it
+comment|// is already broken.
+for|for
+control|(
+name|WAL
+name|wal
+range|:
+name|walNeedsRoll
+operator|.
+name|keySet
+argument_list|()
+control|)
+block|{
+comment|// shutdown rather than close here since we are going to abort the RS and the wals need to be
+comment|// split when recovery
+try|try
+block|{
+name|wal
+operator|.
+name|shutdown
+argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Failed to shutdown wal"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+name|server
+operator|.
+name|abort
+argument_list|(
+name|reason
+argument_list|,
+name|cause
+argument_list|)
+expr_stmt|;
+block|}
 annotation|@
 name|Override
 specifier|public
@@ -833,37 +896,19 @@ block|}
 continue|continue;
 block|}
 comment|// Time for periodic roll
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Wal roll period "
-operator|+
+literal|"Wal roll period {} ms elapsed"
+argument_list|,
 name|this
 operator|.
 name|rollperiod
-operator|+
-literal|"ms elapsed"
 argument_list|)
 expr_stmt|;
 block|}
-block|}
-elseif|else
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
+else|else
 block|{
 name|LOG
 operator|.
@@ -961,11 +1006,13 @@ name|r
 range|:
 name|regionsToFlush
 control|)
+block|{
 name|scheduleFlush
 argument_list|(
 name|r
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}
@@ -975,8 +1022,6 @@ name|FailedLogCloseException
 name|e
 parameter_list|)
 block|{
-name|server
-operator|.
 name|abort
 argument_list|(
 literal|"Failed log close in log roller"
@@ -995,8 +1040,6 @@ name|ConnectException
 name|e
 parameter_list|)
 block|{
-name|server
-operator|.
 name|abort
 argument_list|(
 literal|"Failed log close in log roller"
@@ -1012,8 +1055,6 @@ name|ex
 parameter_list|)
 block|{
 comment|// Abort if we get here.  We probably won't recover an IOE. HBASE-1132
-name|server
-operator|.
 name|abort
 argument_list|(
 literal|"IOE in log roller"
@@ -1051,8 +1092,6 @@ argument_list|,
 name|ex
 argument_list|)
 expr_stmt|;
-name|server
-operator|.
 name|abort
 argument_list|(
 literal|"Log rolling failed"
@@ -1185,21 +1224,17 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed to schedule flush of "
-operator|+
+literal|"Failed to schedule flush of {}, region={}, requester={}"
+argument_list|,
 name|Bytes
 operator|.
 name|toString
 argument_list|(
 name|encodedRegionName
 argument_list|)
-operator|+
-literal|", region="
-operator|+
+argument_list|,
 name|r
-operator|+
-literal|", requester="
-operator|+
+argument_list|,
 name|requester
 argument_list|)
 expr_stmt|;
