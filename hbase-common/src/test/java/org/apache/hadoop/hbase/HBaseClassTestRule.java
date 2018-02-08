@@ -246,28 +246,6 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
-name|categories
-operator|.
-name|length
-operator|==
-literal|0
-condition|)
-block|{
-throw|throw
-operator|new
-name|IllegalArgumentException
-argument_list|(
-name|clazz
-operator|.
-name|getName
-argument_list|()
-operator|+
-literal|" is not annotated with @Category"
-argument_list|)
-throw|;
-block|}
 for|for
 control|(
 name|Class
@@ -292,33 +270,13 @@ operator|==
 name|SmallTests
 operator|.
 name|class
-condition|)
-block|{
-comment|// See SmallTests. Supposed to run 15 seconds.
-comment|// Lots of these timeout on Jenkins... a stall of ten or twenty seconds mess up what looks
-comment|// fine when run local.
-return|return
-literal|60
-return|;
-block|}
-elseif|else
-if|if
-condition|(
+operator|||
 name|c
 operator|==
 name|MediumTests
 operator|.
 name|class
-condition|)
-block|{
-comment|// See MediumTests. Supposed to run 50 seconds.
-return|return
-literal|180
-return|;
-block|}
-elseif|else
-if|if
-condition|(
+operator|||
 name|c
 operator|==
 name|LargeTests
@@ -326,7 +284,7 @@ operator|.
 name|class
 condition|)
 block|{
-comment|// Let large tests have a ten minute timeout.
+comment|// All tests have a 10minute timeout.
 return|return
 name|TimeUnit
 operator|.
