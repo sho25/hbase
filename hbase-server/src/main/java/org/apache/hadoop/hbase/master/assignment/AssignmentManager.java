@@ -6571,6 +6571,7 @@ literal|"Joining cluster..."
 argument_list|)
 expr_stmt|;
 comment|// Scan hbase:meta to build list of existing regions, servers, and assignment
+comment|// hbase:meta is online when we get to here and TableStateManager has been started.
 name|loadMeta
 argument_list|()
 expr_stmt|;
@@ -6864,6 +6865,36 @@ argument_list|(
 name|regionNode
 argument_list|)
 expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
+name|localState
+operator|==
+name|State
+operator|.
+name|CLOSED
+operator|&&
+name|getTableStateManager
+argument_list|()
+operator|.
+name|isTableState
+argument_list|(
+name|regionNode
+operator|.
+name|getTable
+argument_list|()
+argument_list|,
+name|TableState
+operator|.
+name|State
+operator|.
+name|DISABLED
+argument_list|)
+condition|)
+block|{
+comment|// The region is CLOSED and the table is DISABLED, there is nothing to schedule;
+comment|// the region is inert.
 block|}
 else|else
 block|{
@@ -7919,24 +7950,10 @@ name|hri
 argument_list|)
 condition|)
 block|{
-name|master
-operator|.
-name|getTableStateManager
-argument_list|()
-operator|.
-name|setTableState
-argument_list|(
-name|TableName
-operator|.
-name|META_TABLE_NAME
-argument_list|,
-name|TableState
-operator|.
-name|State
-operator|.
-name|ENABLED
-argument_list|)
-expr_stmt|;
+comment|// Usually we'd set a table ENABLED at this stage but hbase:meta is ALWAYs enabled, it
+comment|// can't be disabled -- so skip the RPC (besides... enabled is managed by TableStateManager
+comment|// which is backed by hbase:meta... Avoid setting ENABLED to avoid having to update state
+comment|// on table that contains state.
 name|setMetaInitialized
 argument_list|(
 name|hri

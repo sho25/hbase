@@ -531,20 +531,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CoordinatedStateException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|DoNotRetryIOException
 import|;
 end_import
@@ -2578,22 +2564,6 @@ operator|.
 name|util
 operator|.
 name|VersionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|ZKDataMigrator
 import|;
 end_import
 
@@ -4974,8 +4944,6 @@ name|InterruptedException
 throws|,
 name|KeeperException
 throws|,
-name|CoordinatedStateException
-throws|,
 name|ReplicationException
 block|{
 name|this
@@ -5309,8 +5277,6 @@ name|InterruptedException
 throws|,
 name|KeeperException
 throws|,
-name|CoordinatedStateException
-throws|,
 name|ReplicationException
 block|{
 name|Thread
@@ -5472,10 +5438,31 @@ argument_list|)
 expr_stmt|;
 comment|// This manager is started AFTER hbase:meta is confirmed on line.
 comment|// See inside metaBootstrap.recoverMeta(); below. Shouldn't be so cryptic!
+comment|// hbase.mirror.table.state.to.zookeeper is so hbase1 clients can connect. They read table
+comment|// state from zookeeper while hbase2 reads it from hbase:meta. Disable if no hbase1 clients.
 name|this
 operator|.
 name|tableStateManager
 operator|=
+name|this
+operator|.
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+name|MirroringTableStateManager
+operator|.
+name|MIRROR_TABLE_STATE_TO_ZK_KEY
+argument_list|,
+literal|true
+argument_list|)
+condition|?
+operator|new
+name|MirroringTableStateManager
+argument_list|(
+name|this
+argument_list|)
+else|:
 operator|new
 name|TableStateManager
 argument_list|(
@@ -5675,8 +5662,8 @@ condition|)
 block|{
 return|return;
 block|}
-comment|// we recover hbase:meta region servers inside master initialization and
-comment|// handle other failed servers in SSH in order to start up master node ASAP
+comment|// Bring up hbase:meta. recoverMeta is a blocking call waiting until hbase:meta is deployed.
+comment|// It also starts the TableStateManager.
 name|MasterMetaBootstrap
 name|metaBootstrap
 init|=
@@ -5723,74 +5710,6 @@ name|snapshotOfRegionAssignment
 argument_list|)
 expr_stmt|;
 block|}
-comment|// migrating existent table state from zk, so splitters
-comment|// and recovery process treat states properly.
-for|for
-control|(
-name|Map
-operator|.
-name|Entry
-argument_list|<
-name|TableName
-argument_list|,
-name|TableState
-operator|.
-name|State
-argument_list|>
-name|entry
-range|:
-name|ZKDataMigrator
-operator|.
-name|queryForTableStates
-argument_list|(
-name|getZooKeeper
-argument_list|()
-argument_list|)
-operator|.
-name|entrySet
-argument_list|()
-control|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Converting state from zk to new states:"
-operator|+
-name|entry
-argument_list|)
-expr_stmt|;
-name|tableStateManager
-operator|.
-name|setTableState
-argument_list|(
-name|entry
-operator|.
-name|getKey
-argument_list|()
-argument_list|,
-name|entry
-operator|.
-name|getValue
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-name|ZKUtil
-operator|.
-name|deleteChildrenRecursively
-argument_list|(
-name|getZooKeeper
-argument_list|()
-argument_list|,
-name|getZooKeeper
-argument_list|()
-operator|.
-name|znodePaths
-operator|.
-name|tableZNode
-argument_list|)
-expr_stmt|;
 name|status
 operator|.
 name|setStatus

@@ -287,6 +287,9 @@ name|String
 name|clusterStateZNode
 decl_stmt|;
 comment|// znode used for table disabling/enabling
+comment|// Still used in hbase2 by MirroringTableStateManager; it mirrors internal table state out to
+comment|// zookeeper for hbase1 clients to make use of. If no hbase1 clients disable. See
+comment|// MirroringTableStateManager. To be removed in hbase3.
 annotation|@
 name|Deprecated
 specifier|public

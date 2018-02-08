@@ -236,10 +236,12 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * utlity method to migrate zookeeper data across HBase versions.  */
+comment|/**  * Utlity method to migrate zookeeper data across HBase versions.  * @deprecated Since 2.0.0. To be removed in hbase-3.0.0.  */
 end_comment
 
 begin_class
+annotation|@
+name|Deprecated
 annotation|@
 name|InterfaceAudience
 operator|.
@@ -263,7 +265,12 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/**    * Method for table states migration.    * Used when upgrading from pre-2.0 to 2.0    * Reading state from zk, applying them to internal state    * and delete.    * Used by master to clean migration from zk based states to    * table descriptor based states.    */
+comment|// Shutdown constructor.
+specifier|private
+name|ZKDataMigrator
+parameter_list|()
+block|{}
+comment|/**    * Method for table states migration.    * Used when upgrading from pre-2.0 to 2.0    * Reading state from zk, applying them to internal state    * and delete.    * Used by master to clean migration from zk based states to    * table descriptor based states.    * @deprecated Since 2.0.0. To be removed in hbase-3.0.0.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -449,7 +456,7 @@ return|return
 name|rv
 return|;
 block|}
-comment|/**    * Gets table state from ZK.    * @param zkw ZKWatcher instance to use    * @param tableName table we're checking    * @return Null or {@link ZooKeeperProtos.DeprecatedTableState.State} found in znode.    * @throws KeeperException    */
+comment|/**    * Gets table state from ZK.    * @param zkw ZKWatcher instance to use    * @param tableName table we're checking    * @return Null or {@link ZooKeeperProtos.DeprecatedTableState.State} found in znode.    * @throws KeeperException    * @deprecated Since 2.0.0. To be removed in hbase-3.0.0.    */
 annotation|@
 name|Deprecated
 specifier|private

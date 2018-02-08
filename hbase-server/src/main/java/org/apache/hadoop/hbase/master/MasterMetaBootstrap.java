@@ -323,11 +323,13 @@ name|InterruptedException
 throws|,
 name|IOException
 block|{
+comment|// This is a blocking call that waits until hbase:meta is deployed.
 name|master
 operator|.
 name|recoverMeta
 argument_list|()
 expr_stmt|;
+comment|// Now we can start the TableStateManager. It is backed by hbase:meta.
 name|master
 operator|.
 name|getTableStateManager
@@ -336,6 +338,7 @@ operator|.
 name|start
 argument_list|()
 expr_stmt|;
+comment|// Enable server crash procedure handling
 name|enableCrashedServerProcessing
 argument_list|(
 literal|false
