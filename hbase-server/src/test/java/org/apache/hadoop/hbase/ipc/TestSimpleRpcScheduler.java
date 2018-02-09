@@ -891,7 +891,7 @@ name|task
 argument_list|,
 name|timeout
 argument_list|(
-literal|1000
+literal|10000
 argument_list|)
 argument_list|)
 operator|.
@@ -1541,7 +1541,7 @@ name|task
 argument_list|,
 name|timeout
 argument_list|(
-literal|1000
+literal|10000
 argument_list|)
 argument_list|)
 operator|.
