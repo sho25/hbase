@@ -802,6 +802,16 @@ name|IOException
 name|ioe
 parameter_list|)
 block|{
+if|if
+condition|(
+name|walKey
+operator|.
+name|getWriteEntry
+argument_list|()
+operator|!=
+literal|null
+condition|)
+block|{
 name|mvcc
 operator|.
 name|complete
@@ -812,6 +822,7 @@ name|getWriteEntry
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 throw|throw
 name|ioe
 throw|;
