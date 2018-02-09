@@ -139,9 +139,9 @@ parameter_list|)
 throws|throws
 name|ReplicationException
 function_decl|;
-comment|/**    * Set the state of current cluster in a synchronous replication peer.    * @throws ReplicationException if there are errors accessing the storage service.    */
+comment|/**    * Set the new sync replication state that we are going to transit to.    * @throws ReplicationException if there are errors accessing the storage service.    */
 name|void
-name|setPeerSyncReplicationState
+name|setPeerNewSyncReplicationState
 parameter_list|(
 name|String
 name|peerId
@@ -152,9 +152,29 @@ parameter_list|)
 throws|throws
 name|ReplicationException
 function_decl|;
-comment|/**    * Get the state of current cluster in a synchronous replication peer.    * @throws ReplicationException if there are errors accessing the storage service.    */
+comment|/**    * Overwrite the sync replication state with the new sync replication state which is set with the    * {@link #setPeerNewSyncReplicationState(String, SyncReplicationState)} method above, and clear    * the new sync replication state.    * @throws ReplicationException if there are errors accessing the storage service.    */
+name|void
+name|transitPeerSyncReplicationState
+parameter_list|(
+name|String
+name|peerId
+parameter_list|)
+throws|throws
+name|ReplicationException
+function_decl|;
+comment|/**    * Get the sync replication state.    * @throws ReplicationException if there are errors accessing the storage service.    */
 name|SyncReplicationState
 name|getPeerSyncReplicationState
+parameter_list|(
+name|String
+name|peerId
+parameter_list|)
+throws|throws
+name|ReplicationException
+function_decl|;
+comment|/**    * Get the new sync replication state. Will return {@link SyncReplicationState#NONE} if we are    * not in a transition.    * @throws ReplicationException if there are errors accessing the storage service.    */
+name|SyncReplicationState
+name|getPeerNewSyncReplicationState
 parameter_list|(
 name|String
 name|peerId

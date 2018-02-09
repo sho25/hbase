@@ -55,6 +55,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|replication
+operator|.
+name|SyncReplicationState
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Pair
@@ -76,7 +92,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Get the peer id and remote root dir if the region is synchronously replicated.  */
+comment|/**  * Get the information for a sync replication peer.  */
 end_comment
 
 begin_interface
@@ -86,9 +102,9 @@ operator|.
 name|Private
 specifier|public
 interface|interface
-name|SyncReplicationPeerProvider
+name|SyncReplicationPeerInfoProvider
 block|{
-comment|/**    * Return the peer id and remote WAL directory if the region is synchronously replicated.    */
+comment|/**    * Return the peer id and remote WAL directory if the region is synchronously replicated and the    * state is {@link SyncReplicationState#ACTIVE}.    */
 name|Optional
 argument_list|<
 name|Pair
@@ -102,6 +118,17 @@ name|getPeerIdAndRemoteWALDir
 parameter_list|(
 name|RegionInfo
 name|info
+parameter_list|)
+function_decl|;
+comment|/**    * Check whether the give region is contained in a sync replication peer which is in the given    * state.    */
+name|boolean
+name|isInState
+parameter_list|(
+name|RegionInfo
+name|info
+parameter_list|,
+name|SyncReplicationState
+name|state
 parameter_list|)
 function_decl|;
 block|}

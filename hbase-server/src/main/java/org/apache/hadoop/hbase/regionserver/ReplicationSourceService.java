@@ -41,6 +41,24 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|replication
+operator|.
+name|regionserver
+operator|.
+name|SyncReplicationPeerInfoProvider
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -50,7 +68,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A source for a replication stream has to expose this service.  * This service allows an application to hook into the  * regionserver and watch for new transactions.  */
+comment|/**  * A source for a replication stream has to expose this service. This service allows an application  * to hook into the regionserver and watch for new transactions.  */
 end_comment
 
 begin_interface
@@ -64,6 +82,11 @@ name|ReplicationSourceService
 extends|extends
 name|ReplicationService
 block|{
+comment|/**    * Returns an info provider for sync replication peer.    */
+name|SyncReplicationPeerInfoProvider
+name|getSyncReplicationPeerInfoProvider
+parameter_list|()
+function_decl|;
 comment|/**    * Returns a Handler to handle peer procedures.    */
 name|PeerProcedureHandler
 name|getPeerProcedureHandler

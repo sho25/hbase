@@ -3270,7 +3270,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**    * Called before transit current cluster state for the specified synchronous replication peer    * @param ctx the environment to interact with the framework and master    * @param peerId a short name that identifies the peer    * @param state a new state    */
+comment|/**    * Called before transit current cluster state for the specified synchronous replication peer    * @param ctx the environment to interact with the framework and master    * @param peerId a short name that identifies the peer    * @param state the new state    */
 specifier|default
 name|void
 name|preTransitReplicationPeerSyncReplicationState
@@ -3291,7 +3291,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{   }
-comment|/**    * Called after transit current cluster state for the specified synchronous replication peer    * @param ctx the environment to interact with the framework and master    * @param peerId a short name that identifies the peer    * @param state a new state    */
+comment|/**    * Called after transit current cluster state for the specified synchronous replication peer    * @param ctx the environment to interact with the framework and master    * @param peerId a short name that identifies the peer    * @param from the old state    * @param to the new state    */
 specifier|default
 name|void
 name|postTransitReplicationPeerSyncReplicationState
@@ -3307,7 +3307,10 @@ name|String
 name|peerId
 parameter_list|,
 name|SyncReplicationState
-name|state
+name|from
+parameter_list|,
+name|SyncReplicationState
+name|to
 parameter_list|)
 throws|throws
 name|IOException

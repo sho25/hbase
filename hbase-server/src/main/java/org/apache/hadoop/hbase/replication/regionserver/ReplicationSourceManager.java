@@ -447,6 +447,22 @@ name|hbase
 operator|.
 name|replication
 operator|.
+name|ReplicationPeerConfig
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|replication
+operator|.
 name|ReplicationPeerImpl
 import|;
 end_import
@@ -760,6 +776,11 @@ name|walsByIdRecoveredQueues
 decl_stmt|;
 specifier|private
 specifier|final
+name|SyncReplicationPeerMappingManager
+name|syncReplicationPeerMappingManager
+decl_stmt|;
+specifier|private
+specifier|final
 name|Configuration
 name|conf
 decl_stmt|;
@@ -852,12 +873,13 @@ name|clusterId
 parameter_list|,
 name|WALFileLengthProvider
 name|walFileLengthProvider
+parameter_list|,
+name|SyncReplicationPeerMappingManager
+name|syncReplicationPeerMappingManager
 parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// CopyOnWriteArrayList is thread-safe.
-comment|// Generally, reading is more than modifying.
 name|this
 operator|.
 name|sources
@@ -942,6 +964,7 @@ name|oldLogDir
 operator|=
 name|oldLogDir
 expr_stmt|;
+comment|// 30 seconds
 name|this
 operator|.
 name|sleepBeforeFailover
@@ -955,8 +978,6 @@ argument_list|,
 literal|30000
 argument_list|)
 expr_stmt|;
-comment|// 30
-comment|// seconds
 name|this
 operator|.
 name|clusterId
@@ -968,6 +989,12 @@ operator|.
 name|walFileLengthProvider
 operator|=
 name|walFileLengthProvider
+expr_stmt|;
+name|this
+operator|.
+name|syncReplicationPeerMappingManager
+operator|=
+name|syncReplicationPeerMappingManager
 expr_stmt|;
 name|this
 operator|.
@@ -1265,7 +1292,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * 1. Add peer to replicationPeers 2. Add the normal source and related replication queue 3. Add    * HFile Refs    * @param peerId the id of replication peer    */
+comment|/**    *<ol>    *<li>Add peer to replicationPeers</li>    *<li>Add the normal source and related replication queue</li>    *<li>Add HFile Refs</li>    *</ol>    * @param peerId the id of replication peer    */
 specifier|public
 name|void
 name|addPeer
@@ -1341,7 +1368,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * 1. Remove peer for replicationPeers 2. Remove all the recovered sources for the specified id    * and related replication queues 3. Remove the normal source and related replication queue 4.    * Remove HFile Refs    * @param peerId the id of the replication peer    */
+comment|/**    *<ol>    *<li>Remove peer for replicationPeers</li>    *<li>Remove all the recovered sources for the specified id and related replication queues</li>    *<li>Remove the normal source and related replication queue</li>    *<li>Remove HFile Refs</li>    *</ol>    * @param peerId the id of the replication peer    */
 specifier|public
 name|void
 name|removePeer
@@ -1350,13 +1377,16 @@ name|String
 name|peerId
 parameter_list|)
 block|{
+name|ReplicationPeer
+name|peer
+init|=
 name|replicationPeers
 operator|.
 name|removePeer
 argument_list|(
 name|peerId
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 name|String
 name|terminateMessage
 init|=
@@ -1501,6 +1531,32 @@ operator|.
 name|remove
 argument_list|(
 name|peerId
+argument_list|)
+expr_stmt|;
+block|}
+name|ReplicationPeerConfig
+name|peerConfig
+init|=
+name|peer
+operator|.
+name|getPeerConfig
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|peerConfig
+operator|.
+name|isSyncReplication
+argument_list|()
+condition|)
+block|{
+name|syncReplicationPeerMappingManager
+operator|.
+name|remove
+argument_list|(
+name|peerId
+argument_list|,
+name|peerConfig
 argument_list|)
 expr_stmt|;
 block|}
@@ -1760,6 +1816,35 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+block|}
+name|ReplicationPeerConfig
+name|peerConfig
+init|=
+name|peer
+operator|.
+name|getPeerConfig
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|peerConfig
+operator|.
+name|isSyncReplication
+argument_list|()
+condition|)
+block|{
+name|syncReplicationPeerMappingManager
+operator|.
+name|add
+argument_list|(
+name|peer
+operator|.
+name|getId
+argument_list|()
+argument_list|,
+name|peerConfig
+argument_list|)
+expr_stmt|;
 block|}
 name|src
 operator|.

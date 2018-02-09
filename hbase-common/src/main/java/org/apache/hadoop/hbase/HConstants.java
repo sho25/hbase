@@ -3510,6 +3510,15 @@ name|NOT_IMPLEMENTED
 init|=
 literal|"Not implemented"
 decl_stmt|;
+comment|// TODO: need to find a better place to hold it.
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|SYNC_REPLICATION_ENABLED
+init|=
+literal|"hbase.replication.sync.enabled"
+decl_stmt|;
 specifier|private
 name|HConstants
 parameter_list|()

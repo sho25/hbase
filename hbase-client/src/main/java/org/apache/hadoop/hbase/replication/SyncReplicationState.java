@@ -118,7 +118,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Used by synchronous replication. Indicate the state of the current cluster in a synchronous  * replication peer. The state may be one of {@link SyncReplicationState#ACTIVE},  * {@link SyncReplicationState#DOWNGRADE_ACTIVE} or  * {@link SyncReplicationState#STANDBY}.  *<p>  * For asynchronous replication, the state is {@link SyncReplicationState#NONE}.  */
+comment|/**  * Used by synchronous replication. Indicate the state of the current cluster in a synchronous  * replication peer. The state may be one of {@link SyncReplicationState#ACTIVE},  * {@link SyncReplicationState#DOWNGRADE_ACTIVE} or {@link SyncReplicationState#STANDBY}.  *<p>  * For asynchronous replication, the state is {@link SyncReplicationState#NONE}.  */
 end_comment
 
 begin_enum
@@ -131,13 +131,47 @@ enum|enum
 name|SyncReplicationState
 block|{
 name|NONE
+argument_list|(
+literal|0
+argument_list|)
 block|,
 name|ACTIVE
+argument_list|(
+literal|1
+argument_list|)
 block|,
 name|DOWNGRADE_ACTIVE
+argument_list|(
+literal|2
+argument_list|)
 block|,
 name|STANDBY
+argument_list|(
+literal|3
+argument_list|)
 block|;
+specifier|private
+specifier|final
+name|byte
+name|value
+decl_stmt|;
+specifier|private
+name|SyncReplicationState
+parameter_list|(
+name|int
+name|value
+parameter_list|)
+block|{
+name|this
+operator|.
+name|value
+operator|=
+operator|(
+name|byte
+operator|)
+name|value
+expr_stmt|;
+block|}
 specifier|public
 specifier|static
 name|SyncReplicationState
@@ -187,6 +221,17 @@ name|value
 argument_list|)
 throw|;
 block|}
+block|}
+specifier|public
+name|int
+name|value
+parameter_list|()
+block|{
+return|return
+name|value
+operator|&
+literal|0xFF
+return|;
 block|}
 specifier|public
 specifier|static

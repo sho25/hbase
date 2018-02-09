@@ -32,7 +32,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The POJO equivalent of ReplicationProtos.ReplicationPeerDescription  */
+comment|/**  * The POJO equivalent of ReplicationProtos.ReplicationPeerDescription.  *<p>  * To developer, here we do not store the new sync replication state since it is just an  * intermediate state and this class is public.  */
 end_comment
 
 begin_class
