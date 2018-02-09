@@ -428,9 +428,6 @@ expr_stmt|;
 block|}
 name|UTIL
 operator|.
-name|getAdmin
-argument_list|()
-operator|.
 name|flush
 argument_list|(
 name|NAME
