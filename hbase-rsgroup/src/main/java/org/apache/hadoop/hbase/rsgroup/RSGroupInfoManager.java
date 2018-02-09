@@ -196,6 +196,10 @@ block|{
 literal|0
 block|}
 decl_stmt|;
+name|void
+name|start
+parameter_list|()
+function_decl|;
 comment|/**    * Add given RSGroupInfo to existing list of group infos.    */
 name|void
 name|addRSGroup

@@ -1232,11 +1232,6 @@ block|{
 name|refresh
 argument_list|()
 expr_stmt|;
-name|rsGroupStartupWorker
-operator|.
-name|start
-argument_list|()
-expr_stmt|;
 name|serverEventsListenerThread
 operator|.
 name|start
@@ -1306,6 +1301,18 @@ expr_stmt|;
 return|return
 name|instance
 return|;
+block|}
+specifier|public
+name|void
+name|start
+parameter_list|()
+block|{
+comment|// create system table of rsgroup
+name|rsGroupStartupWorker
+operator|.
+name|start
+argument_list|()
+expr_stmt|;
 block|}
 annotation|@
 name|Override
