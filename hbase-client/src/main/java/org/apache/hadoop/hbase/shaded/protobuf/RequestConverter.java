@@ -4057,7 +4057,7 @@ return|return
 name|regionActionBuilder
 return|;
 block|}
-specifier|private
+specifier|public
 specifier|static
 name|RegionAction
 operator|.
@@ -7008,7 +7008,7 @@ argument_list|()
 return|;
 block|}
 comment|/**    * Create a protocol buffer Condition    *    * @param row    * @param family    * @param qualifier    * @param comparator    * @param compareType    * @return a Condition    * @throws IOException    */
-specifier|private
+specifier|public
 specifier|static
 name|Condition
 name|buildCondition
