@@ -2168,8 +2168,6 @@ operator|.
 name|writePermissionsAsBytes
 argument_list|(
 name|permissions
-argument_list|,
-name|conf
 argument_list|)
 decl_stmt|;
 name|ListMultimap

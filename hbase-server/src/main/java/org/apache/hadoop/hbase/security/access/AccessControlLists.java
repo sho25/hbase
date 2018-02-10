@@ -3689,9 +3689,6 @@ argument_list|,
 name|TablePermission
 argument_list|>
 name|perms
-parameter_list|,
-name|Configuration
-name|conf
 parameter_list|)
 block|{
 return|return

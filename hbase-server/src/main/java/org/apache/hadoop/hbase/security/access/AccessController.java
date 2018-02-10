@@ -2164,8 +2164,6 @@ operator|.
 name|writePermissionsAsBytes
 argument_list|(
 name|perms
-argument_list|,
-name|conf
 argument_list|)
 decl_stmt|;
 name|getAuthManager
@@ -2384,8 +2382,6 @@ operator|.
 name|writePermissionsAsBytes
 argument_list|(
 name|perms
-argument_list|,
-name|conf
 argument_list|)
 decl_stmt|;
 name|zkw
