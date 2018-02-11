@@ -2615,6 +2615,9 @@ argument_list|)
 throw|;
 block|}
 block|}
+throw|throw
+name|rewde
+throw|;
 block|}
 catch|catch
 parameter_list|(
