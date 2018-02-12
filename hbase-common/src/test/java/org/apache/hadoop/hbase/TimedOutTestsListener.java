@@ -291,6 +291,11 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+name|output
+operator|.
+name|flush
+argument_list|()
+expr_stmt|;
 block|}
 specifier|public
 specifier|static
