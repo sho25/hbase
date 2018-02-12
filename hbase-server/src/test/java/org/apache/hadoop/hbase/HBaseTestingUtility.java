@@ -11663,6 +11663,48 @@ block|}
 end_function
 
 begin_comment
+comment|/**    * Returns all regions of the specified table    *    * @param tableName the table name    * @return all regions of the specified table    * @throws IOException when getting the regions fails.    */
+end_comment
+
+begin_function
+specifier|private
+name|List
+argument_list|<
+name|RegionInfo
+argument_list|>
+name|getRegions
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+try|try
+init|(
+name|Admin
+name|admin
+init|=
+name|getConnection
+argument_list|()
+operator|.
+name|getAdmin
+argument_list|()
+init|)
+block|{
+return|return
+name|admin
+operator|.
+name|getRegions
+argument_list|(
+name|tableName
+argument_list|)
+return|;
+block|}
+block|}
+end_function
+
+begin_comment
 comment|/*    * Find any other region server which is different from the one identified by parameter    * @param rs    * @return another region server    */
 end_comment
 
@@ -11717,7 +11759,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Tool to get the reference to the region server object that holds the    * region of the specified user table.    * It first searches for the meta rows that contain the region of the    * specified table, then gets the index of that RS, and finally retrieves    * the RS's reference.    * @param tableName user table to lookup in hbase:meta    * @return region server that holds it, null if the row doesn't exist    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * Tool to get the reference to the region server object that holds the    * region of the specified user table.    * @param tableName user table to lookup in hbase:meta    * @return region server that holds it, null if the row doesn't exist    * @throws IOException    * @throws InterruptedException    */
 end_comment
 
 begin_function
@@ -11735,23 +11777,22 @@ name|InterruptedException
 block|{
 name|List
 argument_list|<
-name|byte
-index|[]
+name|RegionInfo
 argument_list|>
-name|metaRows
+name|regions
 init|=
-name|getMetaTableRows
+name|getRegions
 argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|metaRows
+name|regions
 operator|==
 literal|null
 operator|||
-name|metaRows
+name|regions
 operator|.
 name|isEmpty
 argument_list|()
@@ -11767,38 +11808,70 @@ name|debug
 argument_list|(
 literal|"Found "
 operator|+
-name|metaRows
+name|regions
 operator|.
 name|size
 argument_list|()
 operator|+
-literal|" rows for table "
+literal|" regions for table "
 operator|+
 name|tableName
 argument_list|)
 expr_stmt|;
 name|byte
 index|[]
-name|firstrow
+name|firstRegionName
 init|=
-name|metaRows
+name|regions
 operator|.
-name|get
+name|stream
+argument_list|()
+operator|.
+name|filter
 argument_list|(
-literal|0
+name|r
+lambda|->
+operator|!
+name|r
+operator|.
+name|isOffline
+argument_list|()
+argument_list|)
+operator|.
+name|map
+argument_list|(
+name|RegionInfo
+operator|::
+name|getRegionName
+argument_list|)
+operator|.
+name|findFirst
+argument_list|()
+operator|.
+name|orElseThrow
+argument_list|(
+parameter_list|()
+lambda|->
+operator|new
+name|IOException
+argument_list|(
+literal|"online regions not found in table "
+operator|+
+name|tableName
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"FirstRow="
+literal|"firstRegionName="
 operator|+
 name|Bytes
 operator|.
 name|toString
 argument_list|(
-name|firstrow
+name|firstRegionName
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -11872,7 +11945,7 @@ argument_list|()
 operator|.
 name|getServerWith
 argument_list|(
-name|firstrow
+name|firstRegionName
 argument_list|)
 decl_stmt|;
 if|if
