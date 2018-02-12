@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -2409,6 +2409,12 @@ argument_list|(
 literal|1
 argument_list|)
 decl_stmt|;
+specifier|final
+name|String
+name|hfilePrefix
+init|=
+literal|"hfile-"
+decl_stmt|;
 comment|// 1. Generate 25 hfile ranges
 name|Random
 name|rng
@@ -2539,7 +2545,7 @@ name|Path
 argument_list|(
 name|familyDir
 argument_list|,
-literal|"hfile_"
+name|hfilePrefix
 operator|+
 name|i
 argument_list|)
@@ -2872,7 +2878,7 @@ argument_list|)
 operator|.
 name|append
 argument_list|(
-literal|"hfile_"
+name|hfilePrefix
 operator|+
 name|i
 argument_list|)
@@ -2891,6 +2897,15 @@ name|SEPARATOR
 operator|+
 name|pathToHfileFromNS
 decl_stmt|;
+name|Path
+name|dstPath
+init|=
+operator|new
+name|Path
+argument_list|(
+name|dst
+argument_list|)
+decl_stmt|;
 name|FileUtil
 operator|.
 name|copy
@@ -2906,11 +2921,7 @@ argument_list|)
 argument_list|,
 name|fs
 argument_list|,
-operator|new
-name|Path
-argument_list|(
-name|dst
-argument_list|)
+name|dstPath
 argument_list|,
 literal|false
 argument_list|,
@@ -3017,6 +3028,7 @@ name|length
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Clean up the created hfiles or it will mess up subsequent tests
 block|}
 specifier|private
 name|WALEntry

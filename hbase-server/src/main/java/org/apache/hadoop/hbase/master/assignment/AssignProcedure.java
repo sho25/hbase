@@ -779,7 +779,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|// Don't assign if table is in disabling of disabled state.
+comment|// Don't assign if table is in disabling or disabled state.
 name|TableStateManager
 name|tsm
 init|=
@@ -851,7 +851,7 @@ literal|false
 return|;
 block|}
 comment|// If the region is SPLIT, we can't assign it. But state might be CLOSED, rather than
-comment|// SPLIT which is what a region gets set to when Unassigned as part of SPLIT. FIX.
+comment|// SPLIT which is what a region gets set to when unassigned as part of SPLIT. FIX.
 if|if
 condition|(
 name|regionNode
