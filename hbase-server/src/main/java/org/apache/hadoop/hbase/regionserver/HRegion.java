@@ -20895,7 +20895,7 @@ name|readsEnabled
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Add updates first to the wal and then add values to memstore.    * Warning: Assumption is caller has lock on passed in row.    * @param edits Cell updates by column    * @throws IOException    */
+comment|/**    * Add updates first to the wal and then add values to memstore.    *<p>    * Warning: Assumption is caller has lock on passed in row.    * @param edits Cell updates by column    */
 name|void
 name|put
 parameter_list|(

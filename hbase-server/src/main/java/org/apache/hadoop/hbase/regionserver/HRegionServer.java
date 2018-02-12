@@ -10081,7 +10081,7 @@ name|conf
 operator|.
 name|setBoolean
 argument_list|(
-name|HConstants
+name|ReplicationUtils
 operator|.
 name|SYNC_REPLICATION_ENABLED
 argument_list|,

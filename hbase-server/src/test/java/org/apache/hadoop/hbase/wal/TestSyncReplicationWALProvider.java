@@ -87,6 +87,18 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|function
+operator|.
+name|BiPredicate
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -124,20 +136,6 @@ operator|.
 name|hbase
 operator|.
 name|HBaseTestingUtility
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HConstants
 import|;
 end_import
 
@@ -270,6 +268,22 @@ operator|.
 name|wal
 operator|.
 name|ProtobufLogTestHelper
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|replication
+operator|.
+name|ReplicationUtils
 import|;
 end_import
 
@@ -626,13 +640,18 @@ annotation|@
 name|Override
 specifier|public
 name|boolean
-name|isInState
+name|checkState
 parameter_list|(
 name|RegionInfo
 name|info
 parameter_list|,
+name|BiPredicate
+argument_list|<
 name|SyncReplicationState
-name|state
+argument_list|,
+name|SyncReplicationState
+argument_list|>
+name|checker
 parameter_list|)
 block|{
 comment|// TODO Implement SyncReplicationPeerInfoProvider.isInState
@@ -658,7 +677,7 @@ argument_list|()
 operator|.
 name|setBoolean
 argument_list|(
-name|HConstants
+name|ReplicationUtils
 operator|.
 name|SYNC_REPLICATION_ENABLED
 argument_list|,
