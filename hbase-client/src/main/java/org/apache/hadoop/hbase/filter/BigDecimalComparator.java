@@ -176,6 +176,12 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Public
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"ComparableType"
+argument_list|)
+comment|// Should this move to Comparator usage?
 specifier|public
 class|class
 name|BigDecimalComparator

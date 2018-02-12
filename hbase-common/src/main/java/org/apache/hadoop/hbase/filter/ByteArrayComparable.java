@@ -102,6 +102,12 @@ comment|// TODO Now we are deviating a lot from the actual Comparable<byte[]> th
 comment|// adding special compareTo methods. We have to clean it. Deprecate this class and replace it
 comment|// with a more generic one which says it compares bytes (not necessary a byte array only)
 comment|// BytesComparable implements Comparable<Byte> will work?
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"ComparableType"
+argument_list|)
+comment|// Should this move to Comparator usage?
 specifier|public
 specifier|abstract
 class|class

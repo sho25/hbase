@@ -132,13 +132,9 @@ name|SeverityLevel
 operator|.
 name|ERROR
 argument_list|,
-name|suppressibility
+name|suppressionAnnotations
 operator|=
-name|BugPattern
-operator|.
-name|Suppressibility
-operator|.
-name|UNSUPPRESSIBLE
+block|{}
 argument_list|,
 name|linkType
 operator|=

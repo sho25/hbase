@@ -1232,6 +1232,7 @@ parameter_list|()
 lambda|->
 operator|new
 name|TreeMap
+argument_list|<>
 argument_list|(
 name|Bytes
 operator|.
