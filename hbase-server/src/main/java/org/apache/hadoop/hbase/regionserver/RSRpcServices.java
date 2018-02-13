@@ -4783,6 +4783,49 @@ name|build
 argument_list|()
 return|;
 block|}
+comment|/**    * Checks for the following pre-checks in order:    *<ol>    *<li>RegionServer is running</li>    *<li>If authorization is enabled, then RPC caller has ADMIN permissions</li>    *</ol>    * @param requestName name of rpc request. Used in reporting failures to provide context.    * @throws ServiceException If any of the above listed pre-check fails.    */
+specifier|private
+name|void
+name|rpcPreCheck
+parameter_list|(
+name|String
+name|requestName
+parameter_list|)
+throws|throws
+name|ServiceException
+block|{
+try|try
+block|{
+name|checkOpen
+argument_list|()
+expr_stmt|;
+name|requirePermission
+argument_list|(
+name|requestName
+argument_list|,
+name|Permission
+operator|.
+name|Action
+operator|.
+name|ADMIN
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|ioe
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|ServiceException
+argument_list|(
+name|ioe
+argument_list|)
+throw|;
+block|}
+block|}
 comment|/**    * Starts the nonce operation for a mutation, if needed.    * @param mutation Mutation.    * @param nonceGroup Nonce group from the request.    * @returns whether to proceed this mutation.    */
 specifier|private
 name|boolean
@@ -9842,7 +9885,8 @@ name|stop
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Called to verify that this server is up and running.    *    * @throws IOException    */
+comment|/**    * Called to verify that this server is up and running.    */
+comment|// TODO : Rename this and HMaster#checkInitialized to isRunning() (or a better name).
 specifier|protected
 name|void
 name|checkOpen
@@ -20619,6 +20663,11 @@ parameter_list|)
 throws|throws
 name|ServiceException
 block|{
+name|rpcPreCheck
+argument_list|(
+literal|"execRegionServerService"
+argument_list|)
+expr_stmt|;
 return|return
 name|regionServer
 operator|.
