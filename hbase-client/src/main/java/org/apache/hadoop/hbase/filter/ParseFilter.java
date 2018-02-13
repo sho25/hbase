@@ -555,6 +555,21 @@ operator|+
 literal|"DependentColumnFilter"
 argument_list|)
 expr_stmt|;
+name|filterHashMap
+operator|.
+name|put
+argument_list|(
+literal|"ColumnValueFilter"
+argument_list|,
+name|ParseConstants
+operator|.
+name|FILTER_PACKAGE
+operator|+
+literal|"."
+operator|+
+literal|"ColumnValueFilter"
+argument_list|)
+expr_stmt|;
 comment|// Creates the operatorPrecedenceHashMap
 name|operatorPrecedenceHashMap
 operator|=
@@ -3826,7 +3841,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Takes a compareOperator symbol as a byte array and returns the corresponding CompareOperator    * @deprecated Since 2.0    *<p>    * @param compareOpAsByteArray the comparatorOperator symbol as a byte array    * @return the Compare Operator    */
+comment|/**    * Takes a compareOperator symbol as a byte array and returns the corresponding CompareOperator    * @param compareOpAsByteArray the comparatorOperator symbol as a byte array    * @return the Compare Operator    */
 specifier|public
 specifier|static
 name|CompareOperator
