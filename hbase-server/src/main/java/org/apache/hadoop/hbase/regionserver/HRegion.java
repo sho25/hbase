@@ -15206,10 +15206,14 @@ block|}
 catch|catch
 parameter_list|(
 name|TimeoutIOException
+decl||
+name|InterruptedIOException
 name|e
 parameter_list|)
 block|{
-comment|// We will retry when other exceptions, but we should stop if we timeout .
+comment|// NOTE: We will retry when other exceptions, but we should stop if we receive
+comment|// TimeoutIOException or InterruptedIOException as operation has timed out or
+comment|// interrupted respectively.
 throw|throw
 name|e
 throw|;
