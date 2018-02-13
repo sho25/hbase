@@ -173,7 +173,7 @@ while|while
 condition|(
 literal|true
 condition|)
-block|{             }
+block|{}
 block|}
 block|}
 block|}
@@ -187,9 +187,7 @@ while|while
 condition|(
 literal|true
 condition|)
-block|{
-comment|// Just hang out too.
-block|}
+block|{}
 block|}
 block|}
 end_class
