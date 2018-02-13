@@ -5323,6 +5323,7 @@ name|getConfiguration
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// Throws RuntimeException if fails to load TableAuthManager so that coprocessor is unloaded.
 name|accessChecker
 operator|=
 operator|new
@@ -5359,13 +5360,10 @@ name|CoprocessorEnvironment
 name|env
 parameter_list|)
 block|{
-name|TableAuthManager
+name|accessChecker
 operator|.
-name|release
-argument_list|(
-name|getAuthManager
+name|stop
 argument_list|()
-argument_list|)
 expr_stmt|;
 block|}
 comment|/*********************************** Observer/Service Getters ***********************************/

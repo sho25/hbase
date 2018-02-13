@@ -2208,7 +2208,7 @@ name|startMiniCluster
 argument_list|()
 expr_stmt|;
 name|MasterCoprocessorHost
-name|cpHost
+name|masterCpHost
 init|=
 name|TEST_UTIL
 operator|.
@@ -2221,7 +2221,7 @@ operator|.
 name|getMasterCoprocessorHost
 argument_list|()
 decl_stmt|;
-name|cpHost
+name|masterCpHost
 operator|.
 name|load
 argument_list|(
@@ -2238,7 +2238,7 @@ argument_list|)
 expr_stmt|;
 name|ACCESS_CONTROLLER
 operator|=
-name|cpHost
+name|masterCpHost
 operator|.
 name|findCoprocessor
 argument_list|(
@@ -2249,7 +2249,7 @@ argument_list|)
 expr_stmt|;
 name|CP_ENV
 operator|=
-name|cpHost
+name|masterCpHost
 operator|.
 name|createEnvironment
 argument_list|(
@@ -2265,7 +2265,7 @@ name|conf
 argument_list|)
 expr_stmt|;
 name|RegionServerCoprocessorHost
-name|rsHost
+name|rsCpHost
 init|=
 name|TEST_UTIL
 operator|.
@@ -2282,7 +2282,7 @@ argument_list|()
 decl_stmt|;
 name|RSCP_ENV
 operator|=
-name|rsHost
+name|rsCpHost
 operator|.
 name|createEnvironment
 argument_list|(

@@ -265,6 +265,9 @@ name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
+comment|// TODO: we should move to a design where we don't even instantiate an AccessChecker if
+comment|// authorization is not enabled (like in RSRpcServices), instead of always instantiating one and
+comment|// calling requireXXX() only to do nothing (since authorizationEnabled will be false).
 specifier|private
 name|TableAuthManager
 name|authManager
@@ -311,8 +314,6 @@ parameter_list|)
 throws|throws
 name|RuntimeException
 block|{
-comment|// If zk is null or IOException while obtaining auth manager,
-comment|// throw RuntimeException so that the coprocessor is unloaded.
 if|if
 condition|(
 name|zkw
@@ -371,6 +372,20 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Releases {@link TableAuthManager}'s reference.    */
+specifier|public
+name|void
+name|stop
+parameter_list|()
+block|{
+name|TableAuthManager
+operator|.
+name|release
+argument_list|(
+name|authManager
+argument_list|)
+expr_stmt|;
+block|}
 specifier|public
 name|TableAuthManager
 name|getAuthManager
@@ -401,6 +416,14 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+operator|!
+name|authorizationEnabled
+condition|)
+block|{
+return|return;
+block|}
 name|AuthResult
 name|result
 init|=
@@ -484,8 +507,6 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|authorizationEnabled
-operator|&&
 operator|!
 name|result
 operator|.
@@ -573,6 +594,14 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+operator|!
+name|authorizationEnabled
+condition|)
+block|{
+return|return;
+block|}
 name|AuthResult
 name|result
 decl_stmt|;
@@ -669,11 +698,6 @@ argument_list|(
 name|result
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|authorizationEnabled
-condition|)
-block|{
 throw|throw
 operator|new
 name|AccessDeniedException
@@ -703,7 +727,6 @@ operator|+
 literal|")"
 argument_list|)
 throw|;
-block|}
 block|}
 block|}
 comment|/**    * Checks that the user has the given global permission. The generated    * audit log message will contain context information for the operation    * being authorized, based on the given parameters.    *    * @param perm      Action being requested    * @param namespace The given namespace    */
@@ -726,6 +749,14 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+operator|!
+name|authorizationEnabled
+condition|)
+block|{
+return|return;
+block|}
 name|AuthResult
 name|authResult
 decl_stmt|;
@@ -808,11 +839,6 @@ argument_list|(
 name|authResult
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|authorizationEnabled
-condition|)
-block|{
 throw|throw
 operator|new
 name|AccessDeniedException
@@ -842,7 +868,6 @@ operator|+
 literal|")"
 argument_list|)
 throw|;
-block|}
 block|}
 block|}
 comment|/**    * Checks that the user has the given global or namespace permission.    *    * @param namespace  The given namespace    * @param permissions Actions being requested    */
@@ -866,6 +891,14 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+operator|!
+name|authorizationEnabled
+condition|)
+block|{
+return|return;
+block|}
 name|AuthResult
 name|result
 init|=
@@ -941,8 +974,6 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|authorizationEnabled
-operator|&&
 operator|!
 name|result
 operator|.
@@ -1003,6 +1034,14 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+operator|!
+name|authorizationEnabled
+condition|)
+block|{
+return|return;
+block|}
 name|AuthResult
 name|result
 init|=
@@ -1108,8 +1147,6 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|authorizationEnabled
-operator|&&
 operator|!
 name|result
 operator|.
@@ -1160,6 +1197,14 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+operator|!
+name|authorizationEnabled
+condition|)
+block|{
+return|return;
+block|}
 name|AuthResult
 name|result
 init|=
@@ -1247,8 +1292,6 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|authorizationEnabled
-operator|&&
 operator|!
 name|result
 operator|.
@@ -1299,6 +1342,14 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+operator|!
+name|authorizationEnabled
+condition|)
+block|{
+return|return;
+block|}
 name|AuthResult
 name|result
 init|=
@@ -1416,8 +1467,6 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|authorizationEnabled
-operator|&&
 operator|!
 name|result
 operator|.
@@ -1585,8 +1634,8 @@ name|AUDITLOG
 operator|.
 name|trace
 argument_list|(
-literal|"Access "
-operator|+
+literal|"Access {} for user {}; reason: {}; remote address: {}; request: {}; context: {}"
+argument_list|,
 operator|(
 name|result
 operator|.
@@ -1597,9 +1646,7 @@ literal|"allowed"
 else|:
 literal|"denied"
 operator|)
-operator|+
-literal|" for user "
-operator|+
+argument_list|,
 operator|(
 name|result
 operator|.
@@ -1618,16 +1665,12 @@ argument_list|()
 else|:
 literal|"UNKNOWN"
 operator|)
-operator|+
-literal|"; reason: "
-operator|+
+argument_list|,
 name|result
 operator|.
 name|getReason
 argument_list|()
-operator|+
-literal|"; remote address: "
-operator|+
+argument_list|,
 name|RpcServer
 operator|.
 name|getRemoteAddress
@@ -1644,16 +1687,12 @@ name|orElse
 argument_list|(
 literal|""
 argument_list|)
-operator|+
-literal|"; request: "
-operator|+
+argument_list|,
 name|result
 operator|.
 name|getRequest
 argument_list|()
-operator|+
-literal|"; context: "
-operator|+
+argument_list|,
 name|result
 operator|.
 name|toContextString
