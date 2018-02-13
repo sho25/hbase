@@ -636,23 +636,30 @@ name|outputStream
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Write trailer data as protobuf    * @param outputStream    * @throws IOException    */
-name|void
-name|serializeAsPB
-parameter_list|(
-name|DataOutputStream
-name|output
-parameter_list|)
-throws|throws
-name|IOException
+annotation|@
+name|org
+operator|.
+name|apache
+operator|.
+name|hbase
+operator|.
+name|thirdparty
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+name|HFileProtos
+operator|.
+name|FileTrailerProto
+name|toProtobuf
+parameter_list|()
 block|{
-name|ByteArrayOutputStream
-name|baos
-init|=
-operator|new
-name|ByteArrayOutputStream
-argument_list|()
-decl_stmt|;
 name|HFileProtos
 operator|.
 name|FileTrailerProto
@@ -716,12 +723,13 @@ name|setLastDataBlockOffset
 argument_list|(
 name|lastDataBlockOffset
 argument_list|)
-comment|// TODO this is a classname encoded into an  HFile's trailer. We are going to need to have
-comment|// some compat code here.
 operator|.
 name|setComparatorClassName
 argument_list|(
+name|getHBase1CompatibleName
+argument_list|(
 name|comparatorClassName
+argument_list|)
 argument_list|)
 operator|.
 name|setCompressionCodec
@@ -752,11 +760,33 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|// We need this extra copy unfortunately to determine the final size of the
-comment|// delimited output, see use of baos.size() below.
+return|return
 name|builder
 operator|.
 name|build
+argument_list|()
+return|;
+block|}
+comment|/**    * Write trailer data as protobuf.    * NOTE: we run a translation on the comparator name and will serialize the old hbase-1.x where    * it makes sense. See {@link #getHBase1CompatibleName(String)}.    */
+name|void
+name|serializeAsPB
+parameter_list|(
+name|DataOutputStream
+name|output
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|ByteArrayOutputStream
+name|baos
+init|=
+operator|new
+name|ByteArrayOutputStream
+argument_list|()
+decl_stmt|;
+comment|// We need this extra copy unfortunately to determine the final size of the
+comment|// delimited output, see use of baos.size() below.
+name|toProtobuf
 argument_list|()
 operator|.
 name|writeDelimitedTo
@@ -1138,8 +1168,6 @@ name|hasComparatorClassName
 argument_list|()
 condition|)
 block|{
-comment|// TODO this is a classname encoded into an  HFile's trailer. We are going to need to have
-comment|// some compat code here.
 name|setComparatorClass
 argument_list|(
 name|getComparatorClass
@@ -2152,6 +2180,8 @@ argument_list|()
 decl_stmt|;
 comment|// if the name wasn't one of the legacy names, maybe its a legit new
 comment|// kind of comparator.
+name|this
+operator|.
 name|comparatorClassName
 operator|=
 name|klass
@@ -2184,6 +2214,76 @@ name|e
 argument_list|)
 throw|;
 block|}
+block|}
+comment|/**    * If a 'standard' Comparator, write the old name for the Comparator when we serialize rather    * than the new name; writing the new name will make it so newly-written hfiles are not parseable    * by hbase-1.x, a facility we'd like to preserve across rolling upgrade and hbase-1.x clusters    * reading hbase-2.x produce.    *    * The Comparators in hbase-2.x work the same as they did in hbase-1.x; they compare    * KeyValues. In hbase-2.x they were renamed making use of the more generic 'Cell'    * nomenclature to indicate that we intend to move away from KeyValues post hbase-2. A naming    * change is not reason enough to make it so hbase-1.x cannot read hbase-2.x files given the    * structure goes unchanged (hfile v3). So, lets write the old names for Comparators into the    * hfile tails in hbase-2. Here is where we do the translation.    * {@link #getComparatorClass(String)} does translation going the other way.    *    *<p>The translation is done on the serialized Protobuf only.</p>    *    * @param comparator String class name of the Comparator used in this hfile.    * @return What to store in the trailer as our comparator name.    * @since hbase-2.0.0.    * @deprecated Since hbase-2.0.0. Will be removed in hbase-3.0.0.    * @see #getComparatorClass(String)    */
+annotation|@
+name|Deprecated
+specifier|private
+name|String
+name|getHBase1CompatibleName
+parameter_list|(
+specifier|final
+name|String
+name|comparator
+parameter_list|)
+block|{
+if|if
+condition|(
+name|comparator
+operator|.
+name|equals
+argument_list|(
+name|CellComparatorImpl
+operator|.
+name|class
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+condition|)
+block|{
+return|return
+name|KeyValue
+operator|.
+name|COMPARATOR
+operator|.
+name|getClass
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+return|;
+block|}
+if|if
+condition|(
+name|comparator
+operator|.
+name|equals
+argument_list|(
+name|MetaCellComparator
+operator|.
+name|class
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+condition|)
+block|{
+return|return
+name|KeyValue
+operator|.
+name|META_COMPARATOR
+operator|.
+name|getClass
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+return|;
+block|}
+return|return
+name|comparator
+return|;
 block|}
 annotation|@
 name|SuppressWarnings
