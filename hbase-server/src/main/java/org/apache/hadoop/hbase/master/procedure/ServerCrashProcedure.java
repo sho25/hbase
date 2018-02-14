@@ -858,24 +858,13 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
 name|LOG
 operator|.
 name|debug
 argument_list|(
+literal|"{}; processing hbase:meta"
+argument_list|,
 name|this
-operator|+
-literal|"; Processing hbase:meta that was on "
-operator|+
-name|this
-operator|.
-name|serverName
 argument_list|)
 expr_stmt|;
 comment|// Assign meta if still carrying it. Check again: region may be assigned because of RIT timeout
