@@ -3774,6 +3774,31 @@ name|nextCell
 argument_list|)
 condition|)
 do|;
+comment|// We need this check because it may happen that the new scanner that we get
+comment|// during heap.next() is requiring reseek due of fake KV previously generated for
+comment|// ROWCOL bloom filter optimization. See HBASE-19863 for more details
+if|if
+condition|(
+name|nextCell
+operator|!=
+literal|null
+operator|&&
+name|matcher
+operator|.
+name|compareKeyForNextColumn
+argument_list|(
+name|nextCell
+argument_list|,
+name|cell
+argument_list|)
+operator|<
+literal|0
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
 return|return
 literal|true
 return|;

@@ -6220,7 +6220,7 @@ name|c
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a table.    * @param htd    * @param families    * @param splitKeys    * @param c Configuration to use    * @return A Table instance for the created table.    * @throws IOException    */
+comment|/**    * Create a table.    * @param htd table descriptor    * @param families array of column families    * @param splitKeys array of split keys    * @param c Configuration to use    * @return A Table instance for the created table.    * @throws IOException if getAdmin or createTable fails    */
 specifier|public
 name|Table
 name|createTable
@@ -6237,6 +6237,60 @@ name|byte
 index|[]
 index|[]
 name|splitKeys
+parameter_list|,
+name|Configuration
+name|c
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+comment|// Disable blooms (they are on by default as of 0.95) but we disable them here because
+comment|// tests have hard coded counts of what to expect in block cache, etc., and blooms being
+comment|// on is interfering.
+return|return
+name|createTable
+argument_list|(
+name|htd
+argument_list|,
+name|families
+argument_list|,
+name|splitKeys
+argument_list|,
+name|BloomType
+operator|.
+name|NONE
+argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_BLOCKSIZE
+argument_list|,
+name|c
+argument_list|)
+return|;
+block|}
+comment|/**    * Create a table.    * @param htd table descriptor    * @param families array of column families    * @param splitKeys array of split keys    * @param type Bloom type    * @param blockSize block size    * @param c Configuration to use    * @return A Table instance for the created table.    * @throws IOException if getAdmin or createTable fails    */
+specifier|public
+name|Table
+name|createTable
+parameter_list|(
+name|TableDescriptor
+name|htd
+parameter_list|,
+name|byte
+index|[]
+index|[]
+name|families
+parameter_list|,
+name|byte
+index|[]
+index|[]
+name|splitKeys
+parameter_list|,
+name|BloomType
+name|type
+parameter_list|,
+name|int
+name|blockSize
 parameter_list|,
 name|Configuration
 name|c
@@ -6263,9 +6317,6 @@ range|:
 name|families
 control|)
 block|{
-comment|// Disable blooms (they are on by default as of 0.95) but we disable them here because
-comment|// tests have hard coded counts of what to expect in block cache, etc., and blooms being
-comment|// on is interfering.
 name|builder
 operator|.
 name|addColumnFamily
@@ -6279,9 +6330,12 @@ argument_list|)
 operator|.
 name|setBloomFilterType
 argument_list|(
-name|BloomType
+name|type
+argument_list|)
 operator|.
-name|NONE
+name|setBlocksize
+argument_list|(
+name|blockSize
 argument_list|)
 operator|.
 name|build
@@ -6330,7 +6384,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a table.    * @param htd    * @param splitRows    * @return A Table instance for the created table.    * @throws IOException    */
+comment|/**    * Create a table.    * @param htd table descriptor    * @param splitRows array of split keys    * @return A Table instance for the created table.    * @throws IOException    */
 specifier|public
 name|Table
 name|createTable
