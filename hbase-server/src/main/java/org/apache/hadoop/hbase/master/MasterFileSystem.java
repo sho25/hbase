@@ -365,6 +365,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|replication
+operator|.
+name|ReplicationUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
@@ -811,6 +827,10 @@ block|,
 name|WALProcedureStore
 operator|.
 name|MASTER_PROCEDURE_LOGDIR
+block|,
+name|ReplicationUtils
+operator|.
+name|REMOTE_WAL_DIR_NAME
 block|}
 decl_stmt|;
 comment|// check if the root directory exists
@@ -1093,7 +1113,7 @@ operator|.
 name|fs
 return|;
 block|}
-specifier|protected
+specifier|public
 name|FileSystem
 name|getWALFileSystem
 parameter_list|()
@@ -1192,7 +1212,7 @@ return|return
 name|clusterId
 return|;
 block|}
-comment|/**    * Get the rootdir.  Make sure its wholesome and exists before returning.    * @param rd    * @param c    * @param fs    * @return hbase.rootdir (after checks for existence and bootstrapping if    * needed populating the directory with necessary bootup files).    * @throws IOException    */
+comment|/**    * Get the rootdir. Make sure its wholesome and exists before returning.    * @return hbase.rootdir (after checks for existence and bootstrapping if needed populating the    *         directory with necessary bootup files).    */
 specifier|private
 name|Path
 name|checkRootDir

@@ -195,6 +195,14 @@ name|REPLICATION_ATTR_NAME
 init|=
 literal|"__rep__"
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|REMOTE_WAL_DIR_NAME
+init|=
+literal|"remoteWALs"
+decl_stmt|;
 specifier|private
 name|ReplicationUtils
 parameter_list|()

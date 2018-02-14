@@ -46,7 +46,7 @@ import|;
 end_import
 
 begin_comment
-comment|// TODO: Not used yet
+comment|/**  * Indicate that a procedure wants to be rescheduled. Usually because there are something wrong but  * we do not want to fail the procedure.  *<p>  * TODO: need to support scheduling after a delay.  */
 end_comment
 
 begin_class
