@@ -2473,12 +2473,38 @@ name|isReady
 argument_list|()
 return|;
 block|}
-comment|/**    * Start a new thread to check if there are region servers whose versions are higher than others.    * If so, move all system table regions to RS with the highest version to keep compatibility.    * The reason is, RS in new version may not be able to access RS in old version when there are    * some incompatible changes.    */
+comment|/**    * Start a new thread to check if there are region servers whose versions are higher than others.    * If so, move all system table regions to RS with the highest version to keep compatibility.    * The reason is, RS in new version may not be able to access RS in old version when there are    * some incompatible changes.    *<p>This method is called when a new RegionServer is added to cluster only.</p>    */
 specifier|public
 name|void
 name|checkIfShouldMoveSystemRegionAsync
 parameter_list|()
 block|{
+comment|// TODO: Fix this thread. If a server is killed and a new one started, this thread thinks that
+comment|// it should 'move' the system tables from the old server to the new server but
+comment|// ServerCrashProcedure is on it; and it will take care of the assign without dataloss.
+if|if
+condition|(
+name|this
+operator|.
+name|master
+operator|.
+name|getServerManager
+argument_list|()
+operator|.
+name|countOfRegionServers
+argument_list|()
+operator|<=
+literal|1
+condition|)
+block|{
+return|return;
+block|}
+comment|// This thread used to run whenever there was a change in the cluster. The ZooKeeper
+comment|// childrenChanged notification came in before the nodeDeleted message and so this method
+comment|// cold run before a ServerCrashProcedure could run. That meant that this thread could see
+comment|// a Crashed Server before ServerCrashProcedure and it could find system regions on the
+comment|// crashed server and go move them before ServerCrashProcedure had a chance; could be
+comment|// dataloss too if WALs were not recovered.
 operator|new
 name|Thread
 argument_list|(
@@ -2503,6 +2529,8 @@ name|ArrayList
 argument_list|<>
 argument_list|()
 decl_stmt|;
+comment|// TODO: I don't think this code does a good job if all servers in cluster have same
+comment|// version. It looks like it will schedule unnecessary moves.
 for|for
 control|(
 name|ServerName
@@ -2539,7 +2567,7 @@ name|RegionInfo
 argument_list|>
 name|regionsShouldMove
 init|=
-name|getCarryingSystemTables
+name|getSystemTables
 argument_list|(
 name|server
 argument_list|)
@@ -2584,6 +2612,20 @@ argument_list|()
 condition|)
 block|{
 comment|// Must move meta region first.
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Async MOVE of {} to newer Server={}"
+argument_list|,
+name|regionInfo
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|,
+name|server
+argument_list|)
+expr_stmt|;
 name|moveAsync
 argument_list|(
 name|plan
@@ -2610,6 +2652,23 @@ range|:
 name|plans
 control|)
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Async MOVE of {} to newer Server={}"
+argument_list|,
+name|plan
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|,
+name|server
+argument_list|)
+expr_stmt|;
 name|moveAsync
 argument_list|(
 name|plan
@@ -2650,7 +2709,7 @@ name|List
 argument_list|<
 name|RegionInfo
 argument_list|>
-name|getCarryingSystemTables
+name|getSystemTables
 parameter_list|(
 name|ServerName
 name|serverName

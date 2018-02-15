@@ -311,19 +311,6 @@ name|plan
 operator|=
 name|plan
 expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"REMOVE"
-argument_list|,
-operator|new
-name|Throwable
-argument_list|(
-literal|"REMOVE: Just to see who is calling Move!!!"
-argument_list|)
-argument_list|)
-expr_stmt|;
 block|}
 annotation|@
 name|Override
