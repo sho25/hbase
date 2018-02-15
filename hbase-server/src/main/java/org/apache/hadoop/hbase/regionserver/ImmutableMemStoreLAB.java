@@ -143,6 +143,7 @@ literal|"This is an Immutable MemStoreLAB."
 argument_list|)
 throw|;
 block|}
+comment|/**    * The process of merging assumes all cells are allocated on mslab.    * There is a rare case in which the first immutable segment,    * participating in a merge, is a CSLM.    * Since the CSLM hasn't been flattened yet, and there is no point in flattening it (since it is    * going to be merged), its big cells (for whom size> maxAlloc) must be copied into mslab.    * This method copies the passed cell into the first mslab in the mslabs list,    * returning either a new cell instance over the copied data,    * or null when this cell cannt be copied.    */
 annotation|@
 name|Override
 specifier|public
@@ -153,13 +154,26 @@ name|Cell
 name|cell
 parameter_list|)
 block|{
-throw|throw
-operator|new
-name|IllegalStateException
+name|MemStoreLAB
+name|mslab
+init|=
+name|this
+operator|.
+name|mslabs
+operator|.
+name|get
 argument_list|(
-literal|"This is an Immutable MemStoreLAB."
+literal|0
 argument_list|)
-throw|;
+decl_stmt|;
+return|return
+name|mslab
+operator|.
+name|forceCopyOfBigCellInto
+argument_list|(
+name|cell
+argument_list|)
+return|;
 block|}
 comment|/* Creating chunk to be used as index chunk in CellChunkMap, part of the chunks array.   ** Returning a new chunk, without replacing current chunk,   ** meaning MSLABImpl does not make the returned chunk as CurChunk.   ** The space on this chunk will be allocated externally.   ** The interface is only for external callers   */
 annotation|@
