@@ -279,9 +279,36 @@ name|NamespaceDescriptor
 name|nsDescriptor
 parameter_list|)
 block|{
+name|this
+argument_list|(
+name|env
+argument_list|,
+name|nsDescriptor
+argument_list|,
+literal|null
+argument_list|)
+expr_stmt|;
+block|}
+specifier|public
+name|CreateNamespaceProcedure
+parameter_list|(
+specifier|final
+name|MasterProcedureEnv
+name|env
+parameter_list|,
+specifier|final
+name|NamespaceDescriptor
+name|nsDescriptor
+parameter_list|,
+name|ProcedurePrepareLatch
+name|latch
+parameter_list|)
+block|{
 name|super
 argument_list|(
 name|env
+argument_list|,
+name|latch
 argument_list|)
 expr_stmt|;
 name|this
@@ -342,11 +369,35 @@ block|{
 case|case
 name|CREATE_NAMESPACE_PREPARE
 case|:
+name|boolean
+name|success
+init|=
 name|prepareCreate
 argument_list|(
 name|env
 argument_list|)
+decl_stmt|;
+name|releaseSyncLatch
+argument_list|()
 expr_stmt|;
+if|if
+condition|(
+operator|!
+name|success
+condition|)
+block|{
+assert|assert
+name|isFailed
+argument_list|()
+operator|:
+literal|"createNamespace should have an exception here"
+assert|;
+return|return
+name|Flow
+operator|.
+name|NO_MORE_STATE
+return|;
+block|}
 name|setNextState
 argument_list|(
 name|CreateNamespaceState
@@ -518,6 +569,9 @@ condition|)
 block|{
 comment|// nothing to rollback, pre-create is just state checks.
 comment|// TODO: coprocessor rollback semantic is still undefined.
+name|releaseSyncLatch
+argument_list|()
+expr_stmt|;
 return|return;
 block|}
 comment|// The procedure doesn't have a rollback. The execution will succeed, at some point.
@@ -843,7 +897,7 @@ return|;
 block|}
 comment|/**    * Action before any real action of creating namespace.    * @param env MasterProcedureEnv    * @throws IOException    */
 specifier|private
-name|void
+name|boolean
 name|prepareCreate
 parameter_list|(
 specifier|final
@@ -869,7 +923,10 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
-throw|throw
+name|setFailure
+argument_list|(
+literal|"master-create-namespace"
+argument_list|,
 operator|new
 name|NamespaceExistException
 argument_list|(
@@ -882,7 +939,11 @@ argument_list|()
 operator|+
 literal|" already exists"
 argument_list|)
-throw|;
+argument_list|)
+expr_stmt|;
+return|return
+literal|false
+return|;
 block|}
 name|getTableNamespaceManager
 argument_list|(
@@ -894,6 +955,9 @@ argument_list|(
 name|nsDescriptor
 argument_list|)
 expr_stmt|;
+return|return
+literal|true
+return|;
 block|}
 comment|/**    * Create the namespace directory    * @param env MasterProcedureEnv    * @param nsDescriptor NamespaceDescriptor    * @throws IOException    */
 specifier|protected

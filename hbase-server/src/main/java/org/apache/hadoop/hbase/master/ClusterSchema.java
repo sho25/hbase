@@ -67,6 +67,24 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
+name|procedure
+operator|.
+name|ProcedurePrepareLatch
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -216,7 +234,7 @@ name|TableNamespaceManager
 name|getTableNamespaceManager
 parameter_list|()
 function_decl|;
-comment|/**    * Create a new Namespace.    * @param namespaceDescriptor descriptor for new Namespace    * @param nonceKey A unique identifier for this operation from the client or process.    * @return procedure id    * @throws IOException Throws {@link ClusterSchemaException} and {@link InterruptedIOException}    *    as well as {@link IOException}    */
+comment|/**    * Create a new Namespace.    * @param namespaceDescriptor descriptor for new Namespace    * @param nonceKey A unique identifier for this operation from the client or process.    * @param latch A latch to block on for precondition validation    * @return procedure id    * @throws IOException Throws {@link ClusterSchemaException} and {@link InterruptedIOException}    *    as well as {@link IOException}    */
 name|long
 name|createNamespace
 parameter_list|(
@@ -225,11 +243,14 @@ name|namespaceDescriptor
 parameter_list|,
 name|NonceKey
 name|nonceKey
+parameter_list|,
+name|ProcedurePrepareLatch
+name|latch
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Modify an existing Namespace.    * @param nonceKey A unique identifier for this operation from the client or process.    * @return procedure id    * @throws IOException Throws {@link ClusterSchemaException} and {@link InterruptedIOException}    *    as well as {@link IOException}    */
+comment|/**    * Modify an existing Namespace.    * @param nonceKey A unique identifier for this operation from the client or process.    * @param latch A latch to block on for precondition validation    * @return procedure id    * @throws IOException Throws {@link ClusterSchemaException} and {@link InterruptedIOException}    *    as well as {@link IOException}    */
 name|long
 name|modifyNamespace
 parameter_list|(
@@ -238,11 +259,14 @@ name|descriptor
 parameter_list|,
 name|NonceKey
 name|nonceKey
+parameter_list|,
+name|ProcedurePrepareLatch
+name|latch
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Delete an existing Namespace.    * Only empty Namespaces (no tables) can be removed.    * @param nonceKey A unique identifier for this operation from the client or process.    * @return procedure id    * @throws IOException Throws {@link ClusterSchemaException} and {@link InterruptedIOException}    *    as well as {@link IOException}    */
+comment|/**    * Delete an existing Namespace.    * Only empty Namespaces (no tables) can be removed.    * @param nonceKey A unique identifier for this operation from the client or process.    * @param latch A latch to block on for precondition validation    * @return procedure id    * @throws IOException Throws {@link ClusterSchemaException} and {@link InterruptedIOException}    *    as well as {@link IOException}    */
 name|long
 name|deleteNamespace
 parameter_list|(
@@ -251,6 +275,9 @@ name|name
 parameter_list|,
 name|NonceKey
 name|nonceKey
+parameter_list|,
+name|ProcedurePrepareLatch
+name|latch
 parameter_list|)
 throws|throws
 name|IOException

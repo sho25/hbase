@@ -1437,6 +1437,24 @@ name|master
 operator|.
 name|procedure
 operator|.
+name|DeleteNamespaceProcedure
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
+name|procedure
+operator|.
 name|DeleteTableProcedure
 import|;
 end_import
@@ -1546,6 +1564,24 @@ operator|.
 name|procedure
 operator|.
 name|MasterProcedureUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
+name|procedure
+operator|.
+name|ModifyNamespaceProcedure
 import|;
 end_import
 
@@ -10037,12 +10073,15 @@ argument_list|)
 expr_stmt|;
 comment|// TODO: We can handle/merge duplicate requests, and differentiate the case of
 comment|//       TableExistsException by saying if the schema is the same or not.
+comment|//
+comment|// We need to wait for the procedure to potentially fail due to "prepare" sanity
+comment|// checks. This will block only the beginning of the procedure. See HBASE-19953.
 name|ProcedurePrepareLatch
 name|latch
 init|=
 name|ProcedurePrepareLatch
 operator|.
-name|createLatch
+name|createBlockingLatch
 argument_list|()
 decl_stmt|;
 name|submitProcedure
@@ -11766,12 +11805,15 @@ name|tableName
 argument_list|)
 expr_stmt|;
 comment|// TODO: We can handle/merge duplicate request
+comment|//
+comment|// We need to wait for the procedure to potentially fail due to "prepare" sanity
+comment|// checks. This will block only the beginning of the procedure. See HBASE-19953.
 name|ProcedurePrepareLatch
 name|latch
 init|=
 name|ProcedurePrepareLatch
 operator|.
-name|createLatch
+name|createBlockingLatch
 argument_list|()
 decl_stmt|;
 name|submitProcedure
@@ -12620,13 +12662,16 @@ comment|// In case the request is from a<1.1 client before returning,
 comment|// we want to make sure that the table is prepared to be
 comment|// enabled (the table is locked and the table state is set).
 comment|// Note: if the procedure throws exception, we will catch it and rethrow.
+comment|//
+comment|// We need to wait for the procedure to potentially fail due to "prepare" sanity
+comment|// checks. This will block only the beginning of the procedure. See HBASE-19953.
 specifier|final
 name|ProcedurePrepareLatch
 name|prepareLatch
 init|=
 name|ProcedurePrepareLatch
 operator|.
-name|createLatch
+name|createBlockingLatch
 argument_list|()
 decl_stmt|;
 name|submitProcedure
@@ -12933,17 +12978,16 @@ name|tableName
 argument_list|)
 expr_stmt|;
 comment|// Execute the operation synchronously - wait for the operation completes before continuing.
+comment|//
+comment|// We need to wait for the procedure to potentially fail due to "prepare" sanity
+comment|// checks. This will block only the beginning of the procedure. See HBASE-19953.
 name|ProcedurePrepareLatch
 name|latch
 init|=
 name|ProcedurePrepareLatch
 operator|.
-name|createLatch
-argument_list|(
-literal|2
-argument_list|,
-literal|0
-argument_list|)
+name|createBlockingLatch
+argument_list|()
 decl_stmt|;
 name|submitProcedure
 argument_list|(
@@ -15182,6 +15226,16 @@ argument_list|(
 name|namespaceDescriptor
 argument_list|)
 expr_stmt|;
+comment|// We need to wait for the procedure to potentially fail due to "prepare" sanity
+comment|// checks. This will block only the beginning of the procedure. See HBASE-19953.
+name|ProcedurePrepareLatch
+name|latch
+init|=
+name|ProcedurePrepareLatch
+operator|.
+name|createBlockingLatch
+argument_list|()
+decl_stmt|;
 name|LOG
 operator|.
 name|info
@@ -15207,8 +15261,15 @@ name|namespaceDescriptor
 argument_list|,
 name|getNonceKey
 argument_list|()
+argument_list|,
+name|latch
 argument_list|)
 argument_list|)
+expr_stmt|;
+name|latch
+operator|.
+name|await
+argument_list|()
 expr_stmt|;
 name|getMaster
 argument_list|()
@@ -15311,6 +15372,16 @@ argument_list|(
 name|namespaceDescriptor
 argument_list|)
 expr_stmt|;
+comment|// We need to wait for the procedure to potentially fail due to "prepare" sanity
+comment|// checks. This will block only the beginning of the procedure. See HBASE-19953.
+name|ProcedurePrepareLatch
+name|latch
+init|=
+name|ProcedurePrepareLatch
+operator|.
+name|createBlockingLatch
+argument_list|()
+decl_stmt|;
 name|LOG
 operator|.
 name|info
@@ -15336,8 +15407,15 @@ name|namespaceDescriptor
 argument_list|,
 name|getNonceKey
 argument_list|()
+argument_list|,
+name|latch
 argument_list|)
 argument_list|)
+expr_stmt|;
+name|latch
+operator|.
+name|await
+argument_list|()
 expr_stmt|;
 name|getMaster
 argument_list|()
@@ -15439,20 +15517,42 @@ argument_list|)
 expr_stmt|;
 comment|// Execute the operation synchronously - wait for the operation to complete before
 comment|// continuing.
+comment|//
+comment|// We need to wait for the procedure to potentially fail due to "prepare" sanity
+comment|// checks. This will block only the beginning of the procedure. See HBASE-19953.
+name|ProcedurePrepareLatch
+name|latch
+init|=
+name|ProcedurePrepareLatch
+operator|.
+name|createBlockingLatch
+argument_list|()
+decl_stmt|;
 name|setProcId
 argument_list|(
-name|getClusterSchema
-argument_list|()
-operator|.
-name|deleteNamespace
+name|submitProcedure
 argument_list|(
+operator|new
+name|DeleteNamespaceProcedure
+argument_list|(
+name|procedureExecutor
+operator|.
+name|getEnvironment
+argument_list|()
+argument_list|,
 name|name
 argument_list|,
-name|getNonceKey
-argument_list|()
+name|latch
+argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|latch
+operator|.
+name|await
+argument_list|()
+expr_stmt|;
+comment|// Will not be invoked in the face of Exception thrown by the Procedure's execution
 name|getMaster
 argument_list|()
 operator|.

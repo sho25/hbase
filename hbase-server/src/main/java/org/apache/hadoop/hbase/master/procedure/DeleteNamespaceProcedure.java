@@ -371,9 +371,37 @@ name|String
 name|namespaceName
 parameter_list|)
 block|{
+name|this
+argument_list|(
+name|env
+argument_list|,
+name|namespaceName
+argument_list|,
+literal|null
+argument_list|)
+expr_stmt|;
+block|}
+specifier|public
+name|DeleteNamespaceProcedure
+parameter_list|(
+specifier|final
+name|MasterProcedureEnv
+name|env
+parameter_list|,
+specifier|final
+name|String
+name|namespaceName
+parameter_list|,
+specifier|final
+name|ProcedurePrepareLatch
+name|latch
+parameter_list|)
+block|{
 name|super
 argument_list|(
 name|env
+argument_list|,
+name|latch
 argument_list|)
 expr_stmt|;
 name|this
@@ -451,11 +479,35 @@ block|{
 case|case
 name|DELETE_NAMESPACE_PREPARE
 case|:
+name|boolean
+name|present
+init|=
 name|prepareDelete
 argument_list|(
 name|env
 argument_list|)
+decl_stmt|;
+name|releaseSyncLatch
+argument_list|()
 expr_stmt|;
+if|if
+condition|(
+operator|!
+name|present
+condition|)
+block|{
+assert|assert
+name|isFailed
+argument_list|()
+operator|:
+literal|"Delete namespace should have an exception here"
+assert|;
+return|return
+name|Flow
+operator|.
+name|NO_MORE_STATE
+return|;
+block|}
 name|setNextState
 argument_list|(
 name|DeleteNamespaceState
@@ -625,6 +677,9 @@ block|{
 comment|// nothing to rollback, pre is just table-state checks.
 comment|// We can fail if the table does not exist or is not disabled.
 comment|// TODO: coprocessor rollback semantic is still undefined.
+name|releaseSyncLatch
+argument_list|()
+expr_stmt|;
 return|return;
 block|}
 comment|// The procedure doesn't have a rollback. The execution will succeed, at some point.
@@ -880,7 +935,7 @@ return|;
 block|}
 comment|/**    * Action before any real action of deleting namespace.    * @param env MasterProcedureEnv    * @throws IOException    */
 specifier|private
-name|void
+name|boolean
 name|prepareDelete
 parameter_list|(
 specifier|final
@@ -905,13 +960,20 @@ operator|==
 literal|false
 condition|)
 block|{
-throw|throw
+name|setFailure
+argument_list|(
+literal|"master-delete-namespace"
+argument_list|,
 operator|new
 name|NamespaceNotFoundException
 argument_list|(
 name|namespaceName
 argument_list|)
-throw|;
+argument_list|)
+expr_stmt|;
+return|return
+literal|false
+return|;
 block|}
 if|if
 condition|(
@@ -925,7 +987,10 @@ name|namespaceName
 argument_list|)
 condition|)
 block|{
-throw|throw
+name|setFailure
+argument_list|(
+literal|"master-delete-namespace"
+argument_list|,
 operator|new
 name|ConstraintException
 argument_list|(
@@ -935,7 +1000,11 @@ name|namespaceName
 operator|+
 literal|" cannot be removed."
 argument_list|)
-throw|;
+argument_list|)
+expr_stmt|;
+return|return
+literal|false
+return|;
 block|}
 name|int
 name|tableCount
@@ -966,13 +1035,20 @@ name|FileNotFoundException
 name|fnfe
 parameter_list|)
 block|{
-throw|throw
+name|setFailure
+argument_list|(
+literal|"master-delete-namespace"
+argument_list|,
 operator|new
 name|NamespaceNotFoundException
 argument_list|(
 name|namespaceName
 argument_list|)
-throw|;
+argument_list|)
+expr_stmt|;
+return|return
+literal|false
+return|;
 block|}
 if|if
 condition|(
@@ -981,13 +1057,14 @@ operator|>
 literal|0
 condition|)
 block|{
-throw|throw
+name|setFailure
+argument_list|(
+literal|"master-delete-namespace"
+argument_list|,
 operator|new
 name|ConstraintException
 argument_list|(
-literal|"Only empty namespaces can be removed. "
-operator|+
-literal|"Namespace "
+literal|"Only empty namespaces can be removed. Namespace "
 operator|+
 name|namespaceName
 operator|+
@@ -997,7 +1074,11 @@ name|tableCount
 operator|+
 literal|" tables"
 argument_list|)
-throw|;
+argument_list|)
+expr_stmt|;
+return|return
+literal|false
+return|;
 block|}
 comment|// This is used for rollback
 name|nsDescriptor
@@ -1012,6 +1093,9 @@ argument_list|(
 name|namespaceName
 argument_list|)
 expr_stmt|;
+return|return
+literal|true
+return|;
 block|}
 comment|/**    * delete the row from namespace table    * @param env MasterProcedureEnv    * @param namespaceName name of the namespace in string format    * @throws IOException    */
 specifier|protected

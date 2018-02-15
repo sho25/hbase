@@ -185,6 +185,30 @@ name|CompatibilityLatch
 argument_list|()
 return|;
 block|}
+comment|/**    * Creates a latch which blocks.    */
+specifier|public
+specifier|static
+name|ProcedurePrepareLatch
+name|createBlockingLatch
+parameter_list|()
+block|{
+return|return
+operator|new
+name|CompatibilityLatch
+argument_list|()
+return|;
+block|}
+comment|/**    * Returns the singleton latch which does nothing.    */
+specifier|public
+specifier|static
+name|ProcedurePrepareLatch
+name|getNoopLatch
+parameter_list|()
+block|{
+return|return
+name|noopLatch
+return|;
+block|}
 specifier|private
 specifier|static
 name|boolean
