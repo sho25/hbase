@@ -27,7 +27,43 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|*
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertFalse
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertNull
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
 import|;
 end_import
 
@@ -93,37 +129,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|conf
-operator|.
-name|Configuration
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
 name|HBaseClassTestRule
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HBaseConfiguration
 import|;
 end_import
 
@@ -483,10 +491,6 @@ specifier|private
 name|MasterProcedureScheduler
 name|queue
 decl_stmt|;
-specifier|private
-name|Configuration
-name|conf
-decl_stmt|;
 annotation|@
 name|Rule
 specifier|public
@@ -506,20 +510,11 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|conf
-operator|=
-name|HBaseConfiguration
-operator|.
-name|create
-argument_list|()
-expr_stmt|;
 name|queue
 operator|=
 operator|new
 name|MasterProcedureScheduler
-argument_list|(
-name|conf
-argument_list|)
+argument_list|()
 expr_stmt|;
 name|queue
 operator|.
@@ -1797,10 +1792,8 @@ name|getProcId
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|assertEquals
+name|assertFalse
 argument_list|(
-literal|false
-argument_list|,
 name|queue
 operator|.
 name|waitNamespaceExclusiveLock
@@ -1811,7 +1804,7 @@ name|nsName1
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// System tables have 2 as default priority
+comment|// namespace table has higher priority so we still return procedure for it
 name|Procedure
 name|procNs2
 init|=
@@ -1830,10 +1823,8 @@ name|getProcId
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|assertEquals
+name|assertFalse
 argument_list|(
-literal|false
-argument_list|,
 name|queue
 operator|.
 name|waitNamespaceExclusiveLock
@@ -1861,7 +1852,7 @@ argument_list|(
 name|procNs2
 argument_list|)
 expr_stmt|;
-comment|// table on ns1 is locked, so we get table on ns2
+comment|// again
 name|procNs2
 operator|=
 name|queue
@@ -1871,59 +1862,33 @@ argument_list|()
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|3
-argument_list|,
-name|procNs2
-operator|.
-name|getProcId
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|assertEquals
-argument_list|(
-literal|false
-argument_list|,
-name|queue
-operator|.
-name|waitTableExclusiveLock
-argument_list|(
-name|procNs2
-argument_list|,
-name|tableName2
-argument_list|)
-argument_list|)
-expr_stmt|;
-comment|// ns2 is not available (TODO we may avoid this one)
-name|Procedure
-name|procNs2b
-init|=
-name|queue
-operator|.
-name|poll
-argument_list|()
-decl_stmt|;
-name|assertEquals
-argument_list|(
 literal|4
 argument_list|,
-name|procNs2b
+name|procNs2
 operator|.
 name|getProcId
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|assertEquals
+name|assertFalse
 argument_list|(
-literal|true
-argument_list|,
 name|queue
 operator|.
 name|waitNamespaceExclusiveLock
 argument_list|(
-name|procNs2b
+name|procNs2
 argument_list|,
 name|nsName2
 argument_list|)
+argument_list|)
+expr_stmt|;
+comment|// ns1 and ns2 are both locked so we get nothing
+name|assertNull
+argument_list|(
+name|queue
+operator|.
+name|poll
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// release the ns1 lock
@@ -1958,14 +1923,14 @@ expr_stmt|;
 comment|// release ns2
 name|queue
 operator|.
-name|wakeTableExclusiveLock
+name|wakeNamespaceExclusiveLock
 argument_list|(
 name|procNs2
 argument_list|,
-name|tableName2
+name|nsName2
 argument_list|)
 expr_stmt|;
-comment|// we are now able to execute ns2
+comment|// we are now able to execute table of ns2
 name|procId
 operator|=
 name|queue
@@ -1978,7 +1943,7 @@ argument_list|()
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|4
+literal|3
 argument_list|,
 name|procId
 argument_list|)

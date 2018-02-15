@@ -1345,12 +1345,7 @@ name|procedureScheduler
 operator|=
 operator|new
 name|MasterProcedureScheduler
-argument_list|(
-name|UTIL
-operator|.
-name|getConfiguration
 argument_list|()
-argument_list|)
 expr_stmt|;
 name|procedureScheduler
 operator|.

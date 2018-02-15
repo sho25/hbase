@@ -660,12 +660,7 @@ name|procSched
 operator|=
 operator|new
 name|MasterProcedureScheduler
-argument_list|(
-name|master
-operator|.
-name|getConfiguration
 argument_list|()
-argument_list|)
 expr_stmt|;
 name|this
 operator|.
