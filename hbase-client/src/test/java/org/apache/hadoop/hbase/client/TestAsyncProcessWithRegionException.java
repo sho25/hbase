@@ -1466,8 +1466,6 @@ argument_list|(
 name|conf
 argument_list|)
 argument_list|,
-literal|false
-argument_list|,
 operator|new
 name|RpcControllerFactory
 argument_list|(

@@ -7267,8 +7267,6 @@ name|getStatisticsTracker
 argument_list|()
 argument_list|)
 argument_list|,
-literal|true
-argument_list|,
 name|RpcControllerFactory
 operator|.
 name|instantiate

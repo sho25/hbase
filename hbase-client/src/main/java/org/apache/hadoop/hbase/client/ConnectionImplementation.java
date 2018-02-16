@@ -2404,8 +2404,6 @@ name|conf
 argument_list|,
 name|rpcCallerFactory
 argument_list|,
-literal|false
-argument_list|,
 name|rpcControllerFactory
 argument_list|)
 expr_stmt|;

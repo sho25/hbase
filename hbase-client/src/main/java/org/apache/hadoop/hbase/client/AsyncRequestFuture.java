@@ -52,7 +52,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The context used to wait for results from one submit call.  * 1) If AsyncProcess is set to track errors globally, and not per call (for HTable puts),  *    then errors and failed operations in this object will reflect global errors.  * 2) If submit call is made with needResults false, results will not be saved.  * @since 2.0.0  */
+comment|/**  * The context used to wait for results from one submit call. If submit call is made with  * needResults false, results will not be saved.  * @since 2.0.0  */
 end_comment
 
 begin_interface
