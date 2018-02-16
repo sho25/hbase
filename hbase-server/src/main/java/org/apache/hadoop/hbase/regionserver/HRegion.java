@@ -5133,30 +5133,6 @@ name|checkRegionInfoOnFilesystem
 argument_list|()
 expr_stmt|;
 block|}
-else|else
-block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Skipping creation of .regioninfo file for "
-operator|+
-name|this
-operator|.
-name|getRegionInfo
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-block|}
 comment|// Initialize all the HStores
 name|status
 operator|.
