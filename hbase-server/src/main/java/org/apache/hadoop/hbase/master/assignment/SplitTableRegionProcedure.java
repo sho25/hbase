@@ -1632,12 +1632,6 @@ break|break;
 block|}
 else|else
 block|{
-assert|assert
-name|isFailed
-argument_list|()
-operator|:
-literal|"split region should have an exception here"
-assert|;
 return|return
 name|Flow
 operator|.

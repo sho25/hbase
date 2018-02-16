@@ -283,6 +283,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Rule
 import|;
 end_import
@@ -346,6 +356,9 @@ import|;
 end_import
 
 begin_class
+annotation|@
+name|Ignore
+comment|// We don't support htrace in hbase-2.0.0 and this flakey is a little flakey.
 annotation|@
 name|Category
 argument_list|(

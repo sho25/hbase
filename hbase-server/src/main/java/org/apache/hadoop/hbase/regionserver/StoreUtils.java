@@ -577,7 +577,9 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"cannot split because midkey is the same as first or last row"
+literal|"cannot split {} because midkey is the same as first or last row"
+argument_list|,
+name|file
 argument_list|)
 expr_stmt|;
 block|}
