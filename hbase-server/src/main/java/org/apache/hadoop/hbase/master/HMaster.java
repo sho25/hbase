@@ -14551,6 +14551,21 @@ argument_list|)
 throw|;
 block|}
 block|}
+specifier|public
+specifier|static
+class|class
+name|MasterStoppedException
+extends|extends
+name|DoNotRetryIOException
+block|{
+name|MasterStoppedException
+parameter_list|()
+block|{
+name|super
+argument_list|()
+expr_stmt|;
+block|}
+block|}
 name|void
 name|checkInitialized
 parameter_list|()
@@ -14560,6 +14575,8 @@ throws|,
 name|ServerNotRunningYetException
 throws|,
 name|MasterNotRunningException
+throws|,
+name|MasterStoppedException
 block|{
 name|checkServiceStarted
 argument_list|()
@@ -14570,6 +14587,7 @@ operator|!
 name|isInitialized
 argument_list|()
 condition|)
+block|{
 throw|throw
 operator|new
 name|PleaseHoldException
@@ -14577,16 +14595,19 @@ argument_list|(
 literal|"Master is initializing"
 argument_list|)
 throw|;
+block|}
 if|if
 condition|(
 name|isStopped
 argument_list|()
 condition|)
+block|{
 throw|throw
 operator|new
-name|MasterNotRunningException
+name|MasterStoppedException
 argument_list|()
 throw|;
+block|}
 block|}
 comment|/**    * Report whether this master is currently the active master or not.    * If not active master, we are parked on ZK waiting to become active.    *    * This method is used for testing.    *    * @return true if active master, false if not.    */
 annotation|@
