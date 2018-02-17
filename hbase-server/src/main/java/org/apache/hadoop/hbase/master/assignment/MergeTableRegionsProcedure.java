@@ -1717,10 +1717,9 @@ name|IOException
 name|e
 parameter_list|)
 block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
+name|String
+name|msg
+init|=
 literal|"Error trying to merge regions "
 operator|+
 name|RegionInfo
@@ -1740,6 +1739,34 @@ operator|+
 name|state
 operator|+
 literal|")"
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|isRollbackSupported
+argument_list|(
+name|state
+argument_list|)
+condition|)
+block|{
+comment|// We reach a state that cannot be rolled back. We just need to keep retry.
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|msg
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+name|msg
 argument_list|,
 name|e
 argument_list|)
@@ -1751,6 +1778,7 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 return|return
 name|Flow

@@ -1857,6 +1857,13 @@ argument_list|(
 name|e
 argument_list|)
 expr_stmt|;
+name|setFailure
+argument_list|(
+literal|"master-split-regions"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 comment|// if split fails,  need to call ((HRegion)parent).clearSplit() when it is a force split
