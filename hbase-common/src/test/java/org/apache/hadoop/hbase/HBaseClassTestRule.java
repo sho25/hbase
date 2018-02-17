@@ -292,7 +292,7 @@ name|MINUTES
 operator|.
 name|toSeconds
 argument_list|(
-literal|10
+literal|13
 argument_list|)
 return|;
 block|}
