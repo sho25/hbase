@@ -169,11 +169,7 @@ comment|// No need to parse and set flush size lower bound if only one family
 comment|// Family number might also be zero in some of our unit test case
 return|return;
 block|}
-name|this
-operator|.
-name|flushSizeLowerBound
-operator|=
-name|getFlushSizeLowerBound
+name|setFlushSizeLowerBounds
 argument_list|(
 name|region
 argument_list|)

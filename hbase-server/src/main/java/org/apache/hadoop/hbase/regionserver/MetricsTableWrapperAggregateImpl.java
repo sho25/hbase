@@ -459,7 +459,7 @@ argument_list|()
 operator|+
 name|r
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 argument_list|)
 expr_stmt|;

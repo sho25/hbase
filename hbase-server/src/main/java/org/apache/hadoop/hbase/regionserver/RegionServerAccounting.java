@@ -146,7 +146,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * RegionServerAccounting keeps record of some basic real time information about  * the Region Server. Currently, it keeps record the global memstore size and global memstore heap  * overhead. It also tracks the replay edits per region.  */
+comment|/**  * RegionServerAccounting keeps record of some basic real time information about  * the Region Server. Currently, it keeps record the global memstore size and global memstore  * on-heap and off-heap overhead. It also tracks the replay edits per region.  */
 end_comment
 
 begin_class
@@ -162,19 +162,27 @@ comment|// memstore data size
 specifier|private
 specifier|final
 name|LongAdder
-name|globalMemstoreDataSize
+name|globalMemStoreDataSize
 init|=
 operator|new
 name|LongAdder
 argument_list|()
 decl_stmt|;
-comment|// memstore heap size. When off heap MSLAB in place, this will be only heap overhead of the Cell
-comment|// POJOs and entry overhead of them onto memstore. When on heap MSLAB, this will be include heap
-comment|// overhead as well as the cell data size. Ya cell data is in on heap area only then.
+comment|// memstore heap size.
 specifier|private
 specifier|final
 name|LongAdder
-name|globalMemstoreHeapSize
+name|globalMemStoreHeapSize
+init|=
+operator|new
+name|LongAdder
+argument_list|()
+decl_stmt|;
+comment|// memstore off-heap size.
+specifier|private
+specifier|final
+name|LongAdder
+name|globalMemStoreOffHeapSize
 init|=
 operator|new
 name|LongAdder
@@ -473,7 +481,7 @@ name|getGlobalMemStoreDataSize
 parameter_list|()
 block|{
 return|return
-name|globalMemstoreDataSize
+name|globalMemStoreDataSize
 operator|.
 name|sum
 argument_list|()
@@ -488,7 +496,22 @@ block|{
 return|return
 name|this
 operator|.
-name|globalMemstoreHeapSize
+name|globalMemStoreHeapSize
+operator|.
+name|sum
+argument_list|()
+return|;
+block|}
+comment|/**    * @return the global memstore heap size in the RegionServer    */
+specifier|public
+name|long
+name|getGlobalMemStoreOffHeapSize
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|globalMemStoreOffHeapSize
 operator|.
 name|sum
 argument_list|()
@@ -503,7 +526,7 @@ name|MemStoreSize
 name|memStoreSize
 parameter_list|)
 block|{
-name|globalMemstoreDataSize
+name|globalMemStoreDataSize
 operator|.
 name|add
 argument_list|(
@@ -513,13 +536,23 @@ name|getDataSize
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|globalMemstoreHeapSize
+name|globalMemStoreHeapSize
 operator|.
 name|add
 argument_list|(
 name|memStoreSize
 operator|.
 name|getHeapSize
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|globalMemStoreOffHeapSize
+operator|.
+name|add
+argument_list|(
+name|memStoreSize
+operator|.
+name|getOffHeapSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -532,7 +565,7 @@ name|MemStoreSize
 name|memStoreSize
 parameter_list|)
 block|{
-name|globalMemstoreDataSize
+name|globalMemStoreDataSize
 operator|.
 name|add
 argument_list|(
@@ -543,7 +576,7 @@ name|getDataSize
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|globalMemstoreHeapSize
+name|globalMemStoreHeapSize
 operator|.
 name|add
 argument_list|(
@@ -551,6 +584,17 @@ operator|-
 name|memStoreSize
 operator|.
 name|getHeapSize
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|globalMemStoreOffHeapSize
+operator|.
+name|add
+argument_list|(
+operator|-
+name|memStoreSize
+operator|.
+name|getOffHeapSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -590,7 +634,7 @@ block|}
 else|else
 block|{
 comment|// If the configured memstore is offheap, check for two things
-comment|// 1) If the global memstore data size is greater than the configured
+comment|// 1) If the global memstore off-heap size is greater than the configured
 comment|// 'hbase.regionserver.offheap.global.memstore.size'
 comment|// 2) If the global memstore heap size is greater than the configured onheap
 comment|// global memstore limit 'hbase.regionserver.global.memstore.size'.
@@ -598,7 +642,7 @@ comment|// We do this to avoid OOME incase of scenarios where the heap is occupi
 comment|// lot of onheap references to the cells in memstore
 if|if
 condition|(
-name|getGlobalMemStoreDataSize
+name|getGlobalMemStoreOffHeapSize
 argument_list|()
 operator|>=
 name|globalMemStoreLimit
@@ -674,13 +718,13 @@ else|else
 block|{
 if|if
 condition|(
-name|getGlobalMemStoreDataSize
+name|getGlobalMemStoreOffHeapSize
 argument_list|()
 operator|>=
 name|globalMemStoreLimitLowMark
 condition|)
 block|{
-comment|// Indicates that the offheap memstore's data size is greater than the global memstore
+comment|// Indicates that the offheap memstore's size is greater than the global memstore
 comment|// lower limit
 return|return
 name|FlushType
@@ -745,7 +789,7 @@ name|Math
 operator|.
 name|max
 argument_list|(
-name|getGlobalMemStoreDataSize
+name|getGlobalMemStoreOffHeapSize
 argument_list|()
 operator|*
 literal|1.0

@@ -192,6 +192,8 @@ block|{
 name|super
 argument_list|(
 name|comparator
+argument_list|,
+name|segments
 argument_list|)
 expr_stmt|;
 name|this
@@ -348,25 +350,6 @@ block|}
 return|return
 name|result
 return|;
-block|}
-comment|/**    * @return the first cell in the segment that has equal or greater key than the given cell    */
-annotation|@
-name|Override
-specifier|public
-name|Cell
-name|getFirstAfter
-parameter_list|(
-name|Cell
-name|cell
-parameter_list|)
-block|{
-throw|throw
-operator|new
-name|IllegalStateException
-argument_list|(
-literal|"Not supported by CompositeImmutableScanner"
-argument_list|)
-throw|;
 block|}
 comment|/**    * Closing a segment before it is being discarded    */
 annotation|@
@@ -691,6 +674,9 @@ name|delta
 parameter_list|,
 name|long
 name|heapOverhead
+parameter_list|,
+name|long
+name|offHeapOverhead
 parameter_list|)
 block|{
 throw|throw

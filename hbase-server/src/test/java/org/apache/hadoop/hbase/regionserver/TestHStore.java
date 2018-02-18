@@ -2384,6 +2384,8 @@ argument_list|,
 name|MutableSegment
 operator|.
 name|DEEP_OVERHEAD
+argument_list|,
+literal|0
 argument_list|)
 expr_stmt|;
 name|size
@@ -2460,6 +2462,8 @@ operator|-
 name|MutableSegment
 operator|.
 name|DEEP_OVERHEAD
+argument_list|,
+literal|0
 argument_list|)
 expr_stmt|;
 name|size
@@ -2519,6 +2523,8 @@ argument_list|,
 name|MutableSegment
 operator|.
 name|DEEP_OVERHEAD
+argument_list|,
+literal|0
 argument_list|)
 expr_stmt|;
 comment|// Even though we add a new kv, we expect the flushable size to be 'same' since we have

@@ -194,7 +194,6 @@ name|int
 name|size
 parameter_list|)
 function_decl|;
-specifier|public
 specifier|static
 name|MemStoreLAB
 name|newInstance
@@ -263,7 +262,6 @@ return|return
 name|memStoreLAB
 return|;
 block|}
-specifier|public
 specifier|static
 name|boolean
 name|isEnabled
@@ -283,6 +281,14 @@ name|USEMSLAB_DEFAULT
 argument_list|)
 return|;
 block|}
+name|boolean
+name|isOnHeap
+parameter_list|()
+function_decl|;
+name|boolean
+name|isOffHeap
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

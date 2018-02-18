@@ -240,11 +240,7 @@ argument_list|(
 name|region
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|flushSizeLowerBound
-operator|=
-name|getFlushSizeLowerBound
+name|setFlushSizeLowerBounds
 argument_list|(
 name|region
 argument_list|)

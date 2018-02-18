@@ -1447,7 +1447,7 @@ name|totalCellsLen1
 argument_list|,
 name|region
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 argument_list|)
 expr_stmt|;

@@ -2135,7 +2135,7 @@ name|CELL_HEAP_SIZE
 operator|=
 name|PrivateCellUtil
 operator|.
-name|estimatedHeapSizeOf
+name|estimatedSizeOfCell
 argument_list|(
 name|result
 operator|.

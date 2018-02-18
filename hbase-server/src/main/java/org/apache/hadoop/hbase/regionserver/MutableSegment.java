@@ -244,6 +244,8 @@ argument_list|(
 literal|0
 argument_list|,
 name|DEEP_OVERHEAD
+argument_list|,
+literal|0
 argument_list|)
 expr_stmt|;
 comment|// update the mutable segment metadata
@@ -447,6 +449,16 @@ argument_list|,
 literal|true
 argument_list|)
 decl_stmt|;
+name|long
+name|offHeapSize
+init|=
+name|offHeapSizeChange
+argument_list|(
+name|cur
+argument_list|,
+literal|true
+argument_list|)
+decl_stmt|;
 name|this
 operator|.
 name|incSize
@@ -456,6 +468,9 @@ name|cellLen
 argument_list|,
 operator|-
 name|heapSize
+argument_list|,
+operator|-
+name|offHeapSize
 argument_list|)
 expr_stmt|;
 if|if
@@ -472,6 +487,8 @@ argument_list|(
 name|cellLen
 argument_list|,
 name|heapSize
+argument_list|,
+name|offHeapSize
 argument_list|)
 expr_stmt|;
 block|}

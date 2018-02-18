@@ -274,7 +274,7 @@ parameter_list|)
 block|{
 name|region
 operator|.
-name|addAndGetMemStoreSize
+name|incMemStoreSize
 argument_list|(
 name|size
 argument_list|)
@@ -349,7 +349,7 @@ block|{
 return|return
 name|region
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 return|;
 block|}

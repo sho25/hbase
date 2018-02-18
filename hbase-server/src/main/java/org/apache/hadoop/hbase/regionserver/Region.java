@@ -555,7 +555,17 @@ parameter_list|()
 function_decl|;
 comment|/**    * @return memstore size for this region, in bytes. It just accounts data size of cells added to    *         the memstores of this Region. Means size in bytes for key, value and tags within Cells.    *         It wont consider any java heap overhead for the cell objects or any other.    */
 name|long
-name|getMemStoreSize
+name|getMemStoreDataSize
+parameter_list|()
+function_decl|;
+comment|/**    * @return memstore heap size for this region, in bytes. It accounts data size of cells    *         added to the memstores of this Region, as well as java heap overhead for the cell    *         objects or any other.    */
+name|long
+name|getMemStoreHeapSize
+parameter_list|()
+function_decl|;
+comment|/**    * @return memstore off-heap size for this region, in bytes. It accounts data size of cells    *         added to the memstores of this Region, as well as overhead for the cell    *         objects or any other that is allocated off-heap.    */
+name|long
+name|getMemStoreOffHeapSize
 parameter_list|()
 function_decl|;
 comment|/** @return the number of mutations processed bypassing the WAL */

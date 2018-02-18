@@ -812,6 +812,13 @@ name|snapshot
 operator|.
 name|heapSize
 argument_list|()
+argument_list|,
+name|this
+operator|.
+name|snapshot
+operator|.
+name|offHeapSize
+argument_list|()
 argument_list|)
 return|;
 block|}

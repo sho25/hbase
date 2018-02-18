@@ -961,7 +961,7 @@ block|{
 return|return
 name|PrivateCellUtil
 operator|.
-name|estimatedHeapSizeOf
+name|estimatedSizeOfCell
 argument_list|(
 name|cell
 argument_list|)

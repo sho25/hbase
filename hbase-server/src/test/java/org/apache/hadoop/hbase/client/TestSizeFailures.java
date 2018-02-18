@@ -374,7 +374,7 @@ literal|1000
 decl_stmt|,
 name|NUM_COLS
 init|=
-literal|10
+literal|9
 decl_stmt|;
 annotation|@
 name|BeforeClass
@@ -874,7 +874,7 @@ operator|.
 name|getValue
 argument_list|()
 decl_stmt|;
-comment|// Verify that we see 1M rows and 10M cells
+comment|// Verify that we see 1M rows and 9M cells
 name|assertEquals
 argument_list|(
 name|NUM_ROWS
@@ -1002,7 +1002,7 @@ operator|.
 name|getValue
 argument_list|()
 decl_stmt|;
-comment|// Verify that we see 1M rows and 10M cells
+comment|// Verify that we see 1M rows and 9M cells
 name|assertEquals
 argument_list|(
 name|NUM_ROWS

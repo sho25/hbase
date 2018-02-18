@@ -3001,7 +3001,7 @@ name|cellSize
 argument_list|,
 name|PrivateCellUtil
 operator|.
-name|estimatedHeapSizeOf
+name|estimatedSizeOfCell
 argument_list|(
 name|cell
 argument_list|)

@@ -1530,7 +1530,7 @@ name|getRegionName
 argument_list|()
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 operator|>
 literal|0
@@ -1603,7 +1603,7 @@ name|getRegionName
 argument_list|()
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 operator|>
 literal|0
@@ -1620,8 +1620,6 @@ block|}
 comment|// check the memstore.
 name|assertEquals
 argument_list|(
-literal|0
-argument_list|,
 name|regionServer
 operator|.
 name|getOnlineRegion
@@ -1632,8 +1630,10 @@ name|getRegionName
 argument_list|()
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
+argument_list|,
+literal|0
 argument_list|)
 expr_stmt|;
 comment|// write another put into the specific region
@@ -1685,7 +1685,7 @@ name|getRegionName
 argument_list|()
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 operator|>
 literal|0
@@ -1720,7 +1720,7 @@ name|getRegionName
 argument_list|()
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 operator|>
 literal|0
@@ -1737,8 +1737,6 @@ block|}
 comment|// check the memstore.
 name|assertEquals
 argument_list|(
-literal|0
-argument_list|,
 name|regionServer
 operator|.
 name|getOnlineRegion
@@ -1749,8 +1747,10 @@ name|getRegionName
 argument_list|()
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
+argument_list|,
+literal|0
 argument_list|)
 expr_stmt|;
 block|}

@@ -1177,7 +1177,7 @@ name|sum
 init|=
 name|HEAP_SIZE_OVERHEAD
 operator|+
-name|estimatedHeapSizeOf
+name|estimatedSizeOfCell
 argument_list|(
 name|cell
 argument_list|)
@@ -2034,7 +2034,7 @@ name|sum
 init|=
 name|HEAP_SIZE_OVERHEAD
 operator|+
-name|estimatedHeapSizeOf
+name|estimatedSizeOfCell
 argument_list|(
 name|cell
 argument_list|)
@@ -12832,11 +12832,11 @@ operator|.
 name|KEY_INFRASTRUCTURE_SIZE
 return|;
 block|}
-comment|/**    * This is an estimate of the heap space occupied by a cell. When the cell is of type    * {@link HeapSize} we call {@link HeapSize#heapSize()} so cell can give a correct value. In other    * cases we just consider the bytes occupied by the cell components ie. row, CF, qualifier,    * timestamp, type, value and tags.    * @param cell    * @return estimate of the heap space    */
+comment|/**    * This is an estimate of the heap space occupied by a cell. When the cell is of type    * {@link HeapSize} we call {@link HeapSize#heapSize()} so cell can give a correct value. In other    * cases we just consider the bytes occupied by the cell components ie. row, CF, qualifier,    * timestamp, type, value and tags.    * Note that this can be the JVM heap space (on-heap) or the OS heap (off-heap)    * @param cell    * @return estimate of the heap space    */
 specifier|public
 specifier|static
 name|long
-name|estimatedHeapSizeOf
+name|estimatedSizeOfCell
 parameter_list|(
 specifier|final
 name|Cell

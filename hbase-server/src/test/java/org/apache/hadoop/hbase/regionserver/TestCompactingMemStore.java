@@ -4804,7 +4804,7 @@ name|totalCellsLen1
 argument_list|,
 name|region
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -5404,7 +5404,7 @@ name|totalCellsLen1
 argument_list|,
 name|region
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -5970,6 +5970,8 @@ name|heapSize
 argument_list|()
 operator|-
 name|heapOverhead
+argument_list|,
+literal|0
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -6170,6 +6172,8 @@ name|heapSize
 argument_list|()
 operator|-
 name|heapOverhead
+argument_list|,
+literal|0
 argument_list|)
 argument_list|)
 expr_stmt|;

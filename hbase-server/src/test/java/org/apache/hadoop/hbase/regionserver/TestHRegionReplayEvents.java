@@ -2890,7 +2890,7 @@ name|regionMemstoreSize
 init|=
 name|secondaryRegion
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 decl_stmt|;
 name|long
@@ -3081,7 +3081,7 @@ name|newRegionMemstoreSize
 init|=
 name|secondaryRegion
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 decl_stmt|;
 name|assertTrue
@@ -3463,7 +3463,7 @@ name|regionMemstoreSize
 init|=
 name|secondaryRegion
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 decl_stmt|;
 name|long
@@ -3691,7 +3691,7 @@ name|assertTrue
 argument_list|(
 name|secondaryRegion
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 operator|>
 literal|0
@@ -3779,7 +3779,7 @@ name|assertTrue
 argument_list|(
 name|secondaryRegion
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 operator|>
 literal|0
@@ -3867,7 +3867,7 @@ name|assertTrue
 argument_list|(
 name|secondaryRegion
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 operator|>
 literal|0
@@ -4207,7 +4207,7 @@ name|regionMemstoreSize
 init|=
 name|secondaryRegion
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 decl_stmt|;
 comment|// Test case 1: replay the a flush commit marker smaller than what we have prepared
@@ -4319,7 +4319,7 @@ name|newRegionMemstoreSize
 init|=
 name|secondaryRegion
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 decl_stmt|;
 name|assertEquals
@@ -4652,7 +4652,7 @@ name|regionMemstoreSize
 init|=
 name|secondaryRegion
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 decl_stmt|;
 comment|// Test case 1: replay the a flush commit marker larger than what we have prepared
@@ -4764,7 +4764,7 @@ name|newRegionMemstoreSize
 init|=
 name|secondaryRegion
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 decl_stmt|;
 name|assertTrue
@@ -5086,7 +5086,7 @@ name|regionMemstoreSize
 init|=
 name|secondaryRegion
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 decl_stmt|;
 comment|// Test case 1: replay a flush commit marker without start flush marker
@@ -5242,7 +5242,7 @@ name|newRegionMemstoreSize
 init|=
 name|secondaryRegion
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 decl_stmt|;
 if|if
@@ -5581,7 +5581,7 @@ name|regionMemstoreSize
 init|=
 name|secondaryRegion
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 decl_stmt|;
 name|assertTrue
@@ -5685,7 +5685,7 @@ name|newRegionMemstoreSize
 init|=
 name|secondaryRegion
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 decl_stmt|;
 name|assertTrue
@@ -6092,7 +6092,7 @@ name|newRegionMemstoreSize
 init|=
 name|secondaryRegion
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 decl_stmt|;
 name|assertTrue
@@ -8360,7 +8360,7 @@ name|assertTrue
 argument_list|(
 name|secondaryRegion
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 operator|==
 literal|0
@@ -8455,7 +8455,7 @@ name|assertTrue
 argument_list|(
 name|secondaryRegion
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 operator|>
 literal|0
@@ -8470,7 +8470,7 @@ name|assertTrue
 argument_list|(
 name|secondaryRegion
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 operator|==
 literal|0

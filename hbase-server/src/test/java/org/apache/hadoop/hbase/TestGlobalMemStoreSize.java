@@ -632,7 +632,7 @@ name|getEncodedName
 argument_list|()
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 expr_stmt|;
 block|}
@@ -837,7 +837,7 @@ name|l
 init|=
 name|r
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 decl_stmt|;
 if|if

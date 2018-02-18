@@ -90,18 +90,26 @@ name|segment
 argument_list|)
 expr_stmt|;
 comment|// update the segment metadata heap size
-name|incSize
-argument_list|(
-literal|0
-argument_list|,
+name|long
+name|indexOverhead
+init|=
 operator|-
 name|MutableSegment
 operator|.
 name|DEEP_OVERHEAD
 operator|+
 name|DEEP_OVERHEAD_CSLM
+decl_stmt|;
+name|incSize
+argument_list|(
+literal|0
+argument_list|,
+name|indexOverhead
+argument_list|,
+literal|0
 argument_list|)
 expr_stmt|;
+comment|// CSLM is always on-heap
 block|}
 annotation|@
 name|Override

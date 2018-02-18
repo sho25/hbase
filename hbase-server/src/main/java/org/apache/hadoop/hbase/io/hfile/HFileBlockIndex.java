@@ -1181,7 +1181,7 @@ name|align
 argument_list|(
 name|PrivateCellUtil
 operator|.
-name|estimatedHeapSizeOf
+name|estimatedSizeOfCell
 argument_list|(
 name|key
 argument_list|)

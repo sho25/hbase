@@ -155,8 +155,8 @@ operator|-
 literal|1
 decl_stmt|;
 specifier|protected
-name|long
-name|getFlushSizeLowerBound
+name|void
+name|setFlushSizeLowerBounds
 parameter_list|(
 name|HRegion
 name|region
@@ -175,16 +175,15 @@ argument_list|()
 decl_stmt|;
 comment|// For multiple families, lower bound is the "average flush size" by default
 comment|// unless setting in configuration is larger.
-name|long
 name|flushSizeLowerBound
-init|=
+operator|=
 name|region
 operator|.
 name|getMemStoreFlushSize
 argument_list|()
 operator|/
 name|familyNumber
-decl_stmt|;
+expr_stmt|;
 name|long
 name|minimumLowerBound
 init|=
@@ -237,7 +236,9 @@ name|debug
 argument_list|(
 literal|"No {} set in table {} descriptor;"
 operator|+
-literal|"using region.getMemStoreFlushSize/# of families ({}) instead."
+literal|"using region.getMemStoreFlushHeapSize/# of families ({}) "
+operator|+
+literal|"instead."
 argument_list|,
 name|HREGION_COLUMNFAMILY_FLUSH_SIZE_LOWER_BOUND
 argument_list|,
@@ -287,7 +288,11 @@ name|warn
 argument_list|(
 literal|"Number format exception parsing {} for table {}: {}, {}; "
 operator|+
-literal|"using region.getMemStoreFlushSize/# of families ({}) instead."
+literal|"using region.getMemStoreFlushHeapSize/# of families ({}) "
+operator|+
+literal|"and region.getMemStoreFlushOffHeapSize/# of families ({}) "
+operator|+
+literal|"instead."
 argument_list|,
 name|HREGION_COLUMNFAMILY_FLUSH_SIZE_LOWER_BOUND
 argument_list|,
@@ -308,9 +313,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-return|return
-name|flushSizeLowerBound
-return|;
 block|}
 specifier|protected
 name|boolean
@@ -327,7 +329,15 @@ operator|.
 name|getMemStoreSize
 argument_list|()
 operator|.
-name|getDataSize
+name|getHeapSize
+argument_list|()
+operator|+
+name|store
+operator|.
+name|getMemStoreSize
+argument_list|()
+operator|.
+name|getOffHeapSize
 argument_list|()
 operator|>
 name|this
@@ -339,7 +349,11 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Flush {} of {}; memstoreSize={}> lowerBound={}"
+literal|"Flush {} of {}; "
+operator|+
+literal|"heap memstoreSize={} +"
+operator|+
+literal|"off heap memstoreSize={}> memstore lowerBound={}"
 argument_list|,
 name|store
 operator|.
@@ -359,7 +373,15 @@ operator|.
 name|getMemStoreSize
 argument_list|()
 operator|.
-name|getDataSize
+name|getHeapSize
+argument_list|()
+argument_list|,
+name|store
+operator|.
+name|getMemStoreSize
+argument_list|()
+operator|.
+name|getOffHeapSize
 argument_list|()
 argument_list|,
 name|this

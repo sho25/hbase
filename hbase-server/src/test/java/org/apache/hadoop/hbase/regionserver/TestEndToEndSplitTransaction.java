@@ -2075,7 +2075,7 @@ argument_list|(
 name|regionName
 argument_list|)
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 operator|>
 literal|0

@@ -735,7 +735,7 @@ name|r
 lambda|->
 name|r
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 operator|!=
 literal|0
@@ -831,7 +831,7 @@ name|r
 lambda|->
 name|r
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 operator|!=
 literal|0
@@ -881,7 +881,7 @@ name|r
 lambda|->
 name|r
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 operator|!=
 literal|0
@@ -946,7 +946,7 @@ literal|0
 argument_list|,
 name|r
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1010,7 +1010,7 @@ literal|0
 argument_list|,
 name|r
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1096,7 +1096,7 @@ name|r
 lambda|->
 name|r
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 operator|!=
 literal|0
@@ -1186,7 +1186,7 @@ name|r
 lambda|->
 name|r
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 operator|!=
 literal|0

@@ -10963,12 +10963,7 @@ name|MemStoreSize
 argument_list|(
 name|snapshot
 operator|.
-name|getDataSize
-argument_list|()
-argument_list|,
-name|snapshot
-operator|.
-name|getHeapSize
+name|getMemStoreSize
 argument_list|()
 argument_list|)
 return|;

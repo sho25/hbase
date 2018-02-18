@@ -164,8 +164,11 @@ argument_list|(
 literal|0
 argument_list|,
 name|DEEP_OVERHEAD_CAM
+argument_list|,
+literal|0
 argument_list|)
 expr_stmt|;
+comment|// CAM is always on-heap
 comment|// build the new CellSet based on CellArrayMap and update the CellSet of the new Segment
 name|initializeCellSet
 argument_list|(
@@ -199,17 +202,25 @@ name|segment
 argument_list|)
 expr_stmt|;
 comment|// initiailize the upper class
-name|incSize
-argument_list|(
-literal|0
-argument_list|,
+name|long
+name|indexOverhead
+init|=
 name|DEEP_OVERHEAD_CAM
 operator|-
 name|CSLMImmutableSegment
 operator|.
 name|DEEP_OVERHEAD_CSLM
+decl_stmt|;
+name|incSize
+argument_list|(
+literal|0
+argument_list|,
+name|indexOverhead
+argument_list|,
+literal|0
 argument_list|)
 expr_stmt|;
+comment|// CAM is always on-heap
 name|int
 name|numOfCells
 init|=
@@ -261,6 +272,8 @@ argument_list|(
 literal|0
 argument_list|,
 name|newSegmentSizeDelta
+argument_list|,
+literal|0
 argument_list|)
 expr_stmt|;
 name|memstoreSizing
@@ -270,6 +283,8 @@ argument_list|(
 literal|0
 argument_list|,
 name|newSegmentSizeDelta
+argument_list|,
+literal|0
 argument_list|)
 expr_stmt|;
 block|}

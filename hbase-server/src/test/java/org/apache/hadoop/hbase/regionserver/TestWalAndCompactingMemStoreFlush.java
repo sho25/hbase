@@ -1281,7 +1281,7 @@ name|totalMemstoreSize
 init|=
 name|region
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 decl_stmt|;
 comment|// Find the smallest LSNs for edits wrt to each CF.
@@ -2322,7 +2322,7 @@ literal|". After additional inserts and last flush, the entire region size is:"
 operator|+
 name|region
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 operator|+
 literal|"\n----------------------------------\n"
@@ -2336,7 +2336,7 @@ literal|0
 argument_list|,
 name|region
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2553,7 +2553,7 @@ name|totalMemstoreSizePhaseI
 init|=
 name|region
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 decl_stmt|;
 comment|// Find the smallest LSNs for edits wrt to each CF.
@@ -2933,7 +2933,7 @@ name|totalMemstoreSizePhaseII
 init|=
 name|region
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 decl_stmt|;
 comment|/*------------------------------------------------------------------------------*/
@@ -3138,7 +3138,7 @@ name|totalMemstoreSizePhaseIII
 init|=
 name|region
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 decl_stmt|;
 comment|/*------------------------------------------------------------------------------*/
@@ -3392,7 +3392,7 @@ name|totalMemstoreSizePhaseV
 init|=
 name|region
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 decl_stmt|;
 comment|/*------------------------------------------------------------------------------*/
@@ -3935,7 +3935,7 @@ name|totalMemstoreSize
 init|=
 name|region
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 decl_stmt|;
 comment|// Find the sizes of the memstores of each CF.
@@ -4753,7 +4753,7 @@ name|totalMemstoreSize
 init|=
 name|region
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 decl_stmt|;
 comment|// test in-memory flashing into CAM here

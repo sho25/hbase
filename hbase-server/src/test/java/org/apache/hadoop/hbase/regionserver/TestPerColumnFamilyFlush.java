@@ -1266,7 +1266,7 @@ name|totalMemstoreSize
 init|=
 name|region
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 decl_stmt|;
 comment|// Find the smallest LSNs for edits wrt to each CF.
@@ -1496,7 +1496,7 @@ name|totalMemstoreSize
 operator|=
 name|region
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 expr_stmt|;
 name|smallestSeqInRegionCurrentMemstore
@@ -1696,7 +1696,7 @@ name|totalMemstoreSize
 operator|=
 name|region
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 expr_stmt|;
 name|smallestSeqInRegionCurrentMemstore
@@ -1885,7 +1885,7 @@ literal|0
 argument_list|,
 name|region
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2031,7 +2031,7 @@ name|totalMemstoreSize
 init|=
 name|region
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 decl_stmt|;
 comment|// Find the sizes of the memstores of each CF.
@@ -2175,7 +2175,7 @@ name|totalMemstoreSize
 operator|=
 name|region
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 expr_stmt|;
 name|long
@@ -2651,7 +2651,7 @@ name|totalMemstoreSize
 operator|=
 name|desiredRegion
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 expr_stmt|;
 comment|// Find the sizes of the memstores of each CF.
@@ -3323,7 +3323,7 @@ block|{
 return|return
 name|desiredRegion
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 operator|==
 literal|0
@@ -3343,7 +3343,7 @@ name|memstoreSize
 init|=
 name|desiredRegion
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 decl_stmt|;
 if|if
@@ -3650,7 +3650,7 @@ while|while
 condition|(
 name|region
 operator|.
-name|getMemStoreSize
+name|getMemStoreHeapSize
 argument_list|()
 operator|>
 name|memstoreFlushSize

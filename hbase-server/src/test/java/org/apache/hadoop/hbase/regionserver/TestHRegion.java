@@ -3136,7 +3136,7 @@ literal|0
 argument_list|,
 name|region
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3595,7 +3595,7 @@ literal|0
 argument_list|,
 name|region
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3648,7 +3648,7 @@ name|onePutSize
 init|=
 name|region
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 decl_stmt|;
 name|assertTrue
@@ -3763,7 +3763,7 @@ name|expectedSize
 argument_list|,
 name|region
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3964,7 +3964,7 @@ name|size
 init|=
 name|region
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 decl_stmt|;
 name|Assert
@@ -4022,7 +4022,7 @@ name|sizeOfOnePut
 init|=
 name|region
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 decl_stmt|;
 comment|// Fail a flush which means the current memstore will hang out as memstore 'snapshot'.
@@ -4087,7 +4087,7 @@ name|sizeOfOnePut
 argument_list|,
 name|region
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -4170,7 +4170,7 @@ name|expectedSize
 argument_list|,
 name|region
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -4195,7 +4195,7 @@ literal|2
 argument_list|,
 name|region
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -4396,7 +4396,7 @@ name|size
 init|=
 name|region
 operator|.
-name|getMemStoreSize
+name|getMemStoreDataSize
 argument_list|()
 decl_stmt|;
 name|Assert
