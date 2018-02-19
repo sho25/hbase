@@ -17897,9 +17897,6 @@ argument_list|(
 literal|"Running RecoverMetaProcedure to ensure proper hbase:meta deploy."
 argument_list|)
 expr_stmt|;
-name|long
-name|procId
-init|=
 name|procedureExecutor
 operator|.
 name|submitProcedure
@@ -17914,7 +17911,7 @@ argument_list|,
 name|latch
 argument_list|)
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 name|latch
 operator|.
 name|await
