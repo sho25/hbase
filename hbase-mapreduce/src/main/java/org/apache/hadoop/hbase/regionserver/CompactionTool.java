@@ -2941,7 +2941,7 @@ operator|.
 name|getName
 argument_list|()
 operator|+
-literal|" -mapred hdfs:///hbase/data/default/TestTable"
+literal|" -mapred hdfs://hbase/data/default/TestTable"
 argument_list|)
 expr_stmt|;
 name|System
@@ -2976,7 +2976,7 @@ operator|.
 name|getName
 argument_list|()
 operator|+
-literal|" hdfs:///hbase/data/default/TestTable/abc/x"
+literal|" hdfs://hbase/data/default/TestTable/abc/x"
 argument_list|)
 expr_stmt|;
 block|}
