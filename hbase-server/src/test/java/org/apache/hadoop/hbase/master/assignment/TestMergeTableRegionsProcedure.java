@@ -1889,7 +1889,7 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"testRecoveryAndDoubleExecution"
+literal|"testMergeWithoutPONR"
 argument_list|)
 decl_stmt|;
 specifier|final

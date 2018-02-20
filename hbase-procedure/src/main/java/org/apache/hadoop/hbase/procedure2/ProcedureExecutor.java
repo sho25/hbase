@@ -4287,7 +4287,7 @@ name|getProcId
 argument_list|()
 return|;
 block|}
-comment|/**    * Send an abort notification the specified procedure.    * Depending on the procedure implementation the abort can be considered or ignored.    * @param procId the procedure to abort    * @return true if the procedure exist and has received the abort, otherwise false.    */
+comment|/**    * Send an abort notification the specified procedure.    * Depending on the procedure implementation the abort can be considered or ignored.    * @param procId the procedure to abort    * @return true if the procedure exists and has received the abort, otherwise false.    */
 specifier|public
 name|boolean
 name|abort
@@ -4306,7 +4306,7 @@ literal|true
 argument_list|)
 return|;
 block|}
-comment|/**    * Send an abort notification the specified procedure.    * Depending on the procedure implementation the abort can be considered or ignored.    * @param procId the procedure to abort    * @param mayInterruptIfRunning if the proc completed at least one step, should it be aborted?    * @return true if the procedure exist and has received the abort, otherwise false.    */
+comment|/**    * Send an abort notification to the specified procedure.    * Depending on the procedure implementation, the abort can be considered or ignored.    * @param procId the procedure to abort    * @param mayInterruptIfRunning if the proc completed at least one step, should it be aborted?    * @return true if the procedure exists and has received the abort, otherwise false.    */
 specifier|public
 name|boolean
 name|abort

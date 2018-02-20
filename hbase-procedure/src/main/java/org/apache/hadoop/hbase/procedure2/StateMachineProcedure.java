@@ -773,40 +773,21 @@ name|env
 parameter_list|)
 block|{
 specifier|final
-name|boolean
-name|isDebugEnabled
-init|=
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-decl_stmt|;
-specifier|final
 name|TState
 name|state
 init|=
 name|getCurrentState
 argument_list|()
 decl_stmt|;
-if|if
-condition|(
-name|isDebugEnabled
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"abort requested for "
-operator|+
+literal|"Abort requested for {}"
+argument_list|,
 name|this
-operator|+
-literal|" state="
-operator|+
-name|state
 argument_list|)
 expr_stmt|;
-block|}
 if|if
 condition|(
 name|hasMoreState
@@ -824,26 +805,15 @@ return|return
 literal|true
 return|;
 block|}
-elseif|else
-if|if
-condition|(
-name|isDebugEnabled
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"ignoring abort request on state="
-operator|+
-name|state
-operator|+
-literal|" for "
-operator|+
+literal|"Ignoring abort request on {}"
+argument_list|,
 name|this
 argument_list|)
 expr_stmt|;
-block|}
 return|return
 literal|false
 return|;

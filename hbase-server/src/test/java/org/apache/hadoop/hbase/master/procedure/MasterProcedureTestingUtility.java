@@ -2784,7 +2784,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Run through all procedure flow states TWICE while also restarting    * procedure executor at each step; i.e force a reread of procedure store.    *    *<p>It does    *<ol><li>Execute step N - kill the executor before store update    *<li>Restart executor/store    *<li>Execute step N - and then save to store    *</ol>    *    *<p>This is a good test for finding state that needs persisting and steps that are not    * idempotent. Use this version of the test when the order in which flow steps are executed is    * not start to finish; where the procedure may vary the flow steps dependent on circumstance    * found.    * @see #testRecoveryAndDoubleExecution(ProcedureExecutor, long, int)    */
+comment|/**    * Run through all procedure flow states TWICE while also restarting    * procedure executor at each step; i.e force a reread of procedure store.    *    *<p>It does    *<ol><li>Execute step N - kill the executor before store update    *<li>Restart executor/store    *<li>Execute step N - and then save to store    *</ol>    *    *<p>This is a good test for finding state that needs persisting and steps that are not    * idempotent. Use this version of the test when the order in which flow steps are executed is    * not start to finish; where the procedure may vary the flow steps dependent on circumstance    * found.    * @see #testRecoveryAndDoubleExecution(ProcedureExecutor, long, int, boolean)    */
 specifier|public
 specifier|static
 name|void

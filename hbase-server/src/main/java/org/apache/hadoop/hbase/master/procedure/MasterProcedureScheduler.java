@@ -3061,10 +3061,6 @@ name|info
 argument_list|(
 name|procedure
 operator|+
-literal|", table="
-operator|+
-name|table
-operator|+
 literal|", "
 operator|+
 name|regionInfo

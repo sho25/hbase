@@ -996,8 +996,8 @@ name|MasterProcedureEnv
 name|env
 parameter_list|)
 block|{
-comment|// TODO: Current behavior is: with no rollback and no abort support, procedure may stuck
-comment|// looping in retrying failing step forever. Default behavior of abort is changed to support
+comment|// TODO: Current behavior is: with no rollback and no abort support, procedure may get stuck
+comment|// looping in retrying failing a step forever. Default behavior of abort is changed to support
 comment|// aborting all procedures. Override the default wisely. Following code retains the current
 comment|// behavior. Revisit it later.
 return|return

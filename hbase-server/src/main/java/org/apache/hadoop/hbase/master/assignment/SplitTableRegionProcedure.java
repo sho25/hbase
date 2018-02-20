@@ -1854,11 +1854,6 @@ argument_list|)
 expr_stmt|;
 name|setFailure
 argument_list|(
-name|e
-argument_list|)
-expr_stmt|;
-name|setFailure
-argument_list|(
 literal|"master-split-regions"
 argument_list|,
 name|e
@@ -4728,6 +4723,36 @@ expr_stmt|;
 block|}
 return|return
 name|traceEnabled
+return|;
+block|}
+annotation|@
+name|Override
+specifier|protected
+name|boolean
+name|abort
+parameter_list|(
+name|MasterProcedureEnv
+name|env
+parameter_list|)
+block|{
+comment|// Abort means rollback. We can't rollback all steps. HBASE-18018 added abort to all
+comment|// Procedures. Here is a Procedure that has a PONR and cannot be aborted wants it enters this
+comment|// range of steps; what do we do for these should an operator want to cancel them? HBASE-20022.
+return|return
+name|isRollbackSupported
+argument_list|(
+name|getCurrentState
+argument_list|()
+argument_list|)
+condition|?
+name|super
+operator|.
+name|abort
+argument_list|(
+name|env
+argument_list|)
+else|:
+literal|false
 return|;
 block|}
 block|}
