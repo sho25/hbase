@@ -141,20 +141,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -180,6 +166,20 @@ operator|.
 name|ipc
 operator|.
 name|RpcControllerFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -224,28 +224,6 @@ operator|.
 name|ClientProtos
 operator|.
 name|ClientService
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|MasterProtos
-operator|.
-name|MasterService
 import|;
 end_import
 
@@ -528,9 +506,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Returns a {@link MasterKeepAliveConnection} to the active master    */
-name|MasterService
-operator|.
-name|BlockingInterface
+name|MasterKeepAliveConnection
 name|getMaster
 parameter_list|()
 throws|throws
@@ -595,25 +571,6 @@ parameter_list|(
 specifier|final
 name|ServerName
 name|sn
-parameter_list|)
-function_decl|;
-comment|/**    * This function allows HBaseAdmin and potentially others to get a shared MasterService    * connection.    * @return The shared instance. Never returns null.    * @throws MasterNotRunningException if master is not running    * @deprecated Since 0.96.0    */
-annotation|@
-name|Deprecated
-name|MasterKeepAliveConnection
-name|getKeepAliveMasterService
-parameter_list|()
-throws|throws
-name|MasterNotRunningException
-function_decl|;
-comment|/**    * @param serverName of server to check    * @return true if the server is known as dead, false otherwise.    * @deprecated internal method, do not use thru ClusterConnection */
-annotation|@
-name|Deprecated
-name|boolean
-name|isDeadServer
-parameter_list|(
-name|ServerName
-name|serverName
 parameter_list|)
 function_decl|;
 comment|/**    * @return Nonce generator for this ClusterConnection; may be null if disabled in configuration.    */

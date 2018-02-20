@@ -590,7 +590,7 @@ name|when
 argument_list|(
 name|mockConnection
 operator|.
-name|getKeepAliveMasterService
+name|getMaster
 argument_list|()
 argument_list|)
 operator|.
@@ -1117,7 +1117,7 @@ name|when
 argument_list|(
 name|mockConnection
 operator|.
-name|getKeepAliveMasterService
+name|getMaster
 argument_list|()
 argument_list|)
 operator|.

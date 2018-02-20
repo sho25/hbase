@@ -867,7 +867,7 @@ name|when
 argument_list|(
 name|connection
 operator|.
-name|getKeepAliveMasterService
+name|getMaster
 argument_list|()
 argument_list|)
 operator|.
@@ -2045,7 +2045,7 @@ name|when
 argument_list|(
 name|connection
 operator|.
-name|getKeepAliveMasterService
+name|getMaster
 argument_list|()
 argument_list|)
 operator|.
