@@ -25,39 +25,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|conf
-operator|.
-name|Configuration
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
 name|HBaseClassTestRule
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|coprocessor
-operator|.
-name|CoprocessorHost
 import|;
 end_import
 
@@ -160,7 +130,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Test all client operations with a coprocessor that  * just implements the default flush/compact/scan policy.  */
+comment|/**  * Test all client operations with a coprocessor that just implements the default flush/compact/scan  * policy.  */
 end_comment
 
 begin_class
@@ -210,53 +180,15 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|Configuration
-name|conf
-init|=
-name|TEST_UTIL
-operator|.
-name|getConfiguration
-argument_list|()
-decl_stmt|;
-name|conf
-operator|.
-name|setStrings
+name|initialize
 argument_list|(
-name|CoprocessorHost
-operator|.
-name|REGION_COPROCESSOR_CONF_KEY
-argument_list|,
 name|MultiRowMutationEndpoint
 operator|.
 name|class
-operator|.
-name|getName
-argument_list|()
 argument_list|,
 name|NoOpScanPolicyObserver
 operator|.
 name|class
-operator|.
-name|getName
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|conf
-operator|.
-name|setBoolean
-argument_list|(
-literal|"hbase.table.sanity.checks"
-argument_list|,
-literal|true
-argument_list|)
-expr_stmt|;
-comment|// enable for below tests
-comment|// We need more than one region server in this test
-name|TEST_UTIL
-operator|.
-name|startMiniCluster
-argument_list|(
-name|SLAVES
 argument_list|)
 expr_stmt|;
 block|}

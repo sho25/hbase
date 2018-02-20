@@ -1478,21 +1478,27 @@ operator|new
 name|TestName
 argument_list|()
 decl_stmt|;
-annotation|@
-name|BeforeClass
-specifier|public
+specifier|protected
 specifier|static
+specifier|final
 name|void
-name|setUpBeforeClass
-parameter_list|()
+name|initialize
+parameter_list|(
+name|Class
+argument_list|<
+name|?
+argument_list|>
+modifier|...
+name|cps
+parameter_list|)
 throws|throws
 name|Exception
 block|{
 comment|// Uncomment the following lines if more verbosity is needed for
 comment|// debugging (see HBASE-12285 for details).
-comment|//((Log4JLogger)RpcServer.LOG).getLogger().setLevel(Level.ALL);
-comment|//((Log4JLogger)RpcClient.LOG).getLogger().setLevel(Level.ALL);
-comment|//((Log4JLogger)ScannerCallable.LOG).getLogger().setLevel(Level.ALL);
+comment|// ((Log4JLogger)RpcServer.LOG).getLogger().setLevel(Level.ALL);
+comment|// ((Log4JLogger)RpcClient.LOG).getLogger().setLevel(Level.ALL);
+comment|// ((Log4JLogger)ScannerCallable.LOG).getLogger().setLevel(Level.ALL);
 comment|// make sure that we do not get the same ts twice, see HBASE-19731 for more details.
 name|EnvironmentEdgeManager
 operator|.
@@ -1519,12 +1525,27 @@ name|CoprocessorHost
 operator|.
 name|REGION_COPROCESSOR_CONF_KEY
 argument_list|,
-name|MultiRowMutationEndpoint
+name|Arrays
 operator|.
-name|class
+name|stream
+argument_list|(
+name|cps
+argument_list|)
 operator|.
+name|map
+argument_list|(
+name|Class
+operator|::
 name|getName
-argument_list|()
+argument_list|)
+operator|.
+name|toArray
+argument_list|(
+name|String
+index|[]
+operator|::
+operator|new
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|conf
@@ -1537,23 +1558,30 @@ literal|true
 argument_list|)
 expr_stmt|;
 comment|// enable for below tests
-name|conf
-operator|.
-name|setLong
-argument_list|(
-name|HConstants
-operator|.
-name|HBASE_CLIENT_SCANNER_TIMEOUT_PERIOD
-argument_list|,
-literal|6000000
-argument_list|)
-expr_stmt|;
 comment|// We need more than one region server in this test
 name|TEST_UTIL
 operator|.
 name|startMiniCluster
 argument_list|(
 name|SLAVES
+argument_list|)
+expr_stmt|;
+block|}
+annotation|@
+name|BeforeClass
+specifier|public
+specifier|static
+name|void
+name|setUpBeforeClass
+parameter_list|()
+throws|throws
+name|Exception
+block|{
+name|initialize
+argument_list|(
+name|MultiRowMutationEndpoint
+operator|.
+name|class
 argument_list|)
 expr_stmt|;
 block|}
