@@ -347,6 +347,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -386,6 +396,9 @@ import|;
 end_import
 
 begin_class
+annotation|@
+name|Ignore
+comment|// Disabled because flakey. Fails ~30% on a resource constrained GCE though not on Apache.
 annotation|@
 name|Category
 argument_list|(
