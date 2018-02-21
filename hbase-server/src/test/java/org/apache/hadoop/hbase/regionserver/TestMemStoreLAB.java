@@ -1374,11 +1374,11 @@ name|oldInstance
 operator|=
 name|ChunkCreator
 operator|.
-name|INSTANCE
+name|instance
 expr_stmt|;
 name|ChunkCreator
 operator|.
-name|INSTANCE
+name|instance
 operator|=
 literal|null
 expr_stmt|;
@@ -1659,7 +1659,7 @@ literal|"All the chunks must have been cleared"
 argument_list|,
 name|ChunkCreator
 operator|.
-name|INSTANCE
+name|instance
 operator|.
 name|numberOfMappedChunks
 argument_list|()
@@ -1717,7 +1717,7 @@ finally|finally
 block|{
 name|ChunkCreator
 operator|.
-name|INSTANCE
+name|instance
 operator|=
 name|oldInstance
 expr_stmt|;

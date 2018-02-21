@@ -116,6 +116,16 @@ operator|*
 literal|1024
 decl_stmt|;
 name|String
+name|INDEX_CHUNK_PERCENTAGE_KEY
+init|=
+literal|"hbase.hregion.memstore.mslab.indexchunksize"
+decl_stmt|;
+name|float
+name|INDEX_CHUNK_PERCENTAGE_DEFAULT
+init|=
+literal|0.1f
+decl_stmt|;
+name|String
 name|MAX_ALLOC_KEY
 init|=
 literal|"hbase.hregion.memstore.mslab.max.allocation"
@@ -181,14 +191,19 @@ name|void
 name|decScannerCount
 parameter_list|()
 function_decl|;
-comment|/* Creating chunk to be used as index chunk in CellChunkMap, part of the chunks array.   ** Returning a new chunk, without replacing current chunk,   ** meaning MSLABImpl does not make the returned chunk as CurChunk.   ** The space on this chunk will be allocated externally.   ** The interface is only for external callers   */
+comment|/* Returning a new pool chunk, without replacing current chunk,   ** meaning MSLABImpl does not make the returned chunk as CurChunk.   ** The space on this chunk will be allocated externally.   ** The interface is only for external callers.   */
 name|Chunk
 name|getNewExternalChunk
-parameter_list|()
+parameter_list|(
+name|ChunkCreator
+operator|.
+name|ChunkType
+name|chunkType
+parameter_list|)
 function_decl|;
-comment|/* Creating chunk to be used as data chunk in CellChunkMap.   ** This chunk is bigger than normal constant chunk size, and thus called JumboChunk it is used for   ** jumbo cells (which size is bigger than normal chunks).   ** Jumbo Chunks are needed only for CCM and thus are created only in   ** CompactingMemStore.IndexType.CHUNK_MAP type.   ** Returning a new chunk, without replacing current chunk,   ** meaning MSLABImpl does not make the returned chunk as CurChunk.   ** The space on this chunk will be allocated externally.   ** The interface is only for external callers   */
+comment|/* Returning a new chunk, without replacing current chunk,   ** meaning MSLABImpl does not make the returned chunk as CurChunk.   ** The space on this chunk will be allocated externally.   ** The interface is only for external callers.   */
 name|Chunk
-name|getNewExternalJumboChunk
+name|getNewExternalChunk
 parameter_list|(
 name|int
 name|size

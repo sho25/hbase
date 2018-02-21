@@ -135,31 +135,13 @@ index|[]
 name|chunks
 decl_stmt|;
 comment|// the array of chunks, on which the index is based
-comment|// constant number of cell-representations in a chunk
+comment|// number of cell-representations in a chunk
+comment|// depends on the size of the chunks (may be index chunks or regular data chunks)
 comment|// each chunk starts with its own ID following the cells data
-specifier|public
-specifier|static
+specifier|private
 specifier|final
 name|int
-name|NUM_OF_CELL_REPS_IN_CHUNK
-init|=
-operator|(
-name|ChunkCreator
-operator|.
-name|getInstance
-argument_list|()
-operator|.
-name|getChunkSize
-argument_list|()
-operator|-
-name|ChunkCreator
-operator|.
-name|SIZEOF_CHUNK_HEADER
-operator|)
-operator|/
-name|ClassSize
-operator|.
-name|CELL_CHUNK_MAP_ENTRY
+name|numOfCellRepsInChunk
 decl_stmt|;
 comment|/**    * C-tor for creating CellChunkMap from existing Chunk array, which must be ordered    * (decreasingly or increasingly according to parameter "descending")    * @param comparator a tool for comparing cells    * @param chunks ordered array of index chunk with cell representations    * @param min the index of the first cell (usually 0)    * @param max number of Cells or the index of the cell after the maximal cell    * @param descending the order of the given array    */
 specifier|public
@@ -204,6 +186,58 @@ name|chunks
 operator|=
 name|chunks
 expr_stmt|;
+if|if
+condition|(
+name|chunks
+operator|!=
+literal|null
+operator|&&
+name|chunks
+operator|.
+name|length
+operator|!=
+literal|0
+operator|&&
+name|chunks
+index|[
+literal|0
+index|]
+operator|!=
+literal|null
+condition|)
+block|{
+name|this
+operator|.
+name|numOfCellRepsInChunk
+operator|=
+operator|(
+name|chunks
+index|[
+literal|0
+index|]
+operator|.
+name|size
+operator|-
+name|ChunkCreator
+operator|.
+name|SIZEOF_CHUNK_HEADER
+operator|)
+operator|/
+name|ClassSize
+operator|.
+name|CELL_CHUNK_MAP_ENTRY
+expr_stmt|;
+block|}
+else|else
+block|{
+comment|// In case the chunks array was not allocated
+name|this
+operator|.
+name|numOfCellRepsInChunk
+operator|=
+literal|0
+expr_stmt|;
+block|}
 block|}
 comment|/* To be used by base (CellFlatMap) class only to create a sub-CellFlatMap   * Should be used only to create only CellChunkMap from CellChunkMap */
 annotation|@
@@ -260,7 +294,7 @@ init|=
 operator|(
 name|i
 operator|/
-name|NUM_OF_CELL_REPS_IN_CHUNK
+name|numOfCellRepsInChunk
 operator|)
 decl_stmt|;
 name|ByteBuffer
@@ -282,7 +316,7 @@ name|i
 operator|-
 name|chunkIndex
 operator|*
-name|NUM_OF_CELL_REPS_IN_CHUNK
+name|numOfCellRepsInChunk
 decl_stmt|;
 comment|// get the index of the cell-representation
 comment|// find inside the offset inside the chunk holding the index, skip bytes for chunk id

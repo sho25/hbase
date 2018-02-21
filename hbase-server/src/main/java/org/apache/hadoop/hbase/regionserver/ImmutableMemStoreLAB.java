@@ -175,13 +175,18 @@ name|cell
 argument_list|)
 return|;
 block|}
-comment|/* Creating chunk to be used as index chunk in CellChunkMap, part of the chunks array.   ** Returning a new chunk, without replacing current chunk,   ** meaning MSLABImpl does not make the returned chunk as CurChunk.   ** The space on this chunk will be allocated externally.   ** The interface is only for external callers   */
+comment|/* Returning a new pool chunk, without replacing current chunk,   ** meaning MSLABImpl does not make the returned chunk as CurChunk.   ** The space on this chunk will be allocated externally.   ** The interface is only for external callers.   */
 annotation|@
 name|Override
 specifier|public
 name|Chunk
 name|getNewExternalChunk
-parameter_list|()
+parameter_list|(
+name|ChunkCreator
+operator|.
+name|ChunkType
+name|chunkType
+parameter_list|)
 block|{
 name|MemStoreLAB
 name|mslab
@@ -199,15 +204,17 @@ return|return
 name|mslab
 operator|.
 name|getNewExternalChunk
-argument_list|()
+argument_list|(
+name|chunkType
+argument_list|)
 return|;
 block|}
-comment|/* Creating chunk to be used as data chunk in CellChunkMap.   ** This chunk is bigger the normal constant chunk size, and thus called JumboChunk it is used for   ** jumbo cells (which size is bigger than normal chunks).   ** Jumbo Chunks are needed only for CCM and thus are created only in   ** CompactingMemStore.IndexType.CHUNK_MAP type.   ** Returning a new chunk, without replacing current chunk,   ** meaning MSLABImpl does not make the returned chunk as CurChunk.   ** The space on this chunk will be allocated externally.   ** The interface is only for external callers   */
+comment|/* Returning a new chunk, without replacing current chunk,    ** meaning MSLABImpl does not make the returned chunk as CurChunk.    ** The space on this chunk will be allocated externally.    ** The interface is only for external callers.    */
 annotation|@
 name|Override
 specifier|public
 name|Chunk
-name|getNewExternalJumboChunk
+name|getNewExternalChunk
 parameter_list|(
 name|int
 name|size
@@ -228,7 +235,7 @@ decl_stmt|;
 return|return
 name|mslab
 operator|.
-name|getNewExternalJumboChunk
+name|getNewExternalChunk
 argument_list|(
 name|size
 argument_list|)

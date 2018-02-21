@@ -1587,6 +1587,8 @@ argument_list|,
 literal|0.5f
 argument_list|,
 literal|null
+argument_list|,
+literal|0
 argument_list|)
 decl_stmt|;
 name|assertEquals
@@ -1611,7 +1613,7 @@ argument_list|)
 expr_stmt|;
 name|ChunkCreator
 operator|.
-name|INSTANCE
+name|instance
 operator|=
 name|newCreator
 expr_stmt|;
@@ -1784,7 +1786,7 @@ finally|finally
 block|{
 name|ChunkCreator
 operator|.
-name|INSTANCE
+name|instance
 operator|=
 name|oldCreator
 expr_stmt|;

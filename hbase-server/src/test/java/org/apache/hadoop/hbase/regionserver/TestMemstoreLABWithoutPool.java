@@ -913,7 +913,7 @@ literal|"All the chunks must have been cleared"
 argument_list|,
 name|ChunkCreator
 operator|.
-name|INSTANCE
+name|instance
 operator|.
 name|numberOfMappedChunks
 argument_list|()
