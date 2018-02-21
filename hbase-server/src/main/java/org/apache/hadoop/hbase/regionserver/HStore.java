@@ -6891,7 +6891,8 @@ operator|+=
 name|getCompactionProgress
 argument_list|()
 operator|.
-name|totalCompactingKVs
+name|getTotalCompactingKVs
+argument_list|()
 expr_stmt|;
 name|majorCompactedCellsSize
 operator|+=
@@ -6908,7 +6909,8 @@ operator|+=
 name|getCompactionProgress
 argument_list|()
 operator|.
-name|totalCompactingKVs
+name|getTotalCompactingKVs
+argument_list|()
 expr_stmt|;
 name|compactedCellsSize
 operator|+=
