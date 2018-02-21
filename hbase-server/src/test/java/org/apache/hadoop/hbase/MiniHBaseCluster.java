@@ -605,6 +605,20 @@ argument_list|(
 name|conf
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+name|LocalHBaseCluster
+operator|.
+name|ASSIGN_RANDOM_PORTS
+argument_list|,
+literal|true
+argument_list|)
+condition|)
+block|{
 name|conf
 operator|.
 name|set
@@ -644,6 +658,7 @@ argument_list|,
 literal|"0"
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|// Hadoop 2
 name|CompatibilityFactory
