@@ -4061,6 +4061,19 @@ argument_list|,
 name|regionInfo
 argument_list|)
 decl_stmt|;
+comment|// We only create a .regioninfo and the region directory if this is the default region replica
+if|if
+condition|(
+name|regionInfo
+operator|.
+name|getReplicaId
+argument_list|()
+operator|==
+name|RegionInfo
+operator|.
+name|DEFAULT_REPLICA_ID
+condition|)
+block|{
 name|Path
 name|regionDir
 init|=
@@ -4132,19 +4145,6 @@ argument_list|)
 throw|;
 block|}
 comment|// Write HRI to a file in case we need to recover hbase:meta
-comment|// Only primary replicas should write region info
-if|if
-condition|(
-name|regionInfo
-operator|.
-name|getReplicaId
-argument_list|()
-operator|==
-name|RegionInfo
-operator|.
-name|DEFAULT_REPLICA_ID
-condition|)
-block|{
 name|regionFs
 operator|.
 name|writeRegionInfoOnFilesystem
@@ -4152,6 +4152,9 @@ argument_list|(
 literal|false
 argument_list|)
 expr_stmt|;
+return|return
+name|regionFs
+return|;
 block|}
 else|else
 block|{
@@ -4173,7 +4176,7 @@ argument_list|)
 expr_stmt|;
 block|}
 return|return
-name|regionFs
+literal|null
 return|;
 block|}
 comment|/**    * Open Region from file-system.    * @param conf the {@link Configuration} to use    * @param fs {@link FileSystem} from which to add the region    * @param tableDir {@link Path} to where the table is being stored    * @param regionInfo {@link RegionInfo} for region to be added    * @param readOnly True if you don't want to edit the region data    * @throws IOException if the region creation fails due to a FileSystem exception.    */
