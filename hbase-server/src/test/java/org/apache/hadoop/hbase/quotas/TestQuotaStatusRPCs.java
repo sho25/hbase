@@ -1322,18 +1322,21 @@ name|sizeLimit
 init|=
 literal|1024L
 operator|*
-literal|10L
+literal|25L
 decl_stmt|;
-comment|// 10KB
+comment|// 25KB
+comment|// As of 2.0.0-beta-2, this 1KB of "Cells" actually results in about 15KB on disk (HFiles)
+comment|// This is skewed a bit since we're writing such little data, so the test needs to keep
+comment|// this in mind; else, the quota will be in violation before the test expects it to be.
 specifier|final
 name|long
 name|tableSize
 init|=
 literal|1024L
 operator|*
-literal|5
+literal|1
 decl_stmt|;
-comment|// 5KB
+comment|// 1KB
 specifier|final
 name|long
 name|nsLimit
@@ -1621,6 +1624,42 @@ literal|0
 return|;
 block|}
 block|}
+argument_list|)
+expr_stmt|;
+comment|// Sanity check: the below assertions will fail if we somehow write too much data
+comment|// and force the table to move into violation before we write the second bit of data.
+name|SpaceQuotaSnapshot
+name|snapshot
+init|=
+name|QuotaTableUtil
+operator|.
+name|getCurrentSnapshot
+argument_list|(
+name|conn
+argument_list|,
+name|tn
+argument_list|)
+decl_stmt|;
+name|assertTrue
+argument_list|(
+literal|"QuotaSnapshot for "
+operator|+
+name|tn
+operator|+
+literal|" should be non-null and not in violation"
+argument_list|,
+name|snapshot
+operator|!=
+literal|null
+operator|&&
+operator|!
+name|snapshot
+operator|.
+name|getQuotaStatus
+argument_list|()
+operator|.
+name|isInViolation
+argument_list|()
 argument_list|)
 expr_stmt|;
 try|try
