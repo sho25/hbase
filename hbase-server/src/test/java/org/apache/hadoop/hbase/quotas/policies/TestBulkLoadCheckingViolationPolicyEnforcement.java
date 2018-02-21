@@ -522,7 +522,7 @@ argument_list|)
 expr_stmt|;
 name|policy
 operator|.
-name|checkBulkLoad
+name|computeBulkLoadSize
 argument_list|(
 name|fs
 argument_list|,
@@ -658,7 +658,7 @@ expr_stmt|;
 comment|// If the file to bulk load isn't a file, this should throw an exception
 name|policy
 operator|.
-name|checkBulkLoad
+name|computeBulkLoadSize
 argument_list|(
 name|fs
 argument_list|,
@@ -836,7 +836,7 @@ argument_list|)
 expr_stmt|;
 name|policy
 operator|.
-name|checkBulkLoad
+name|computeBulkLoadSize
 argument_list|(
 name|fs
 argument_list|,
@@ -1012,7 +1012,7 @@ argument_list|)
 expr_stmt|;
 name|policy
 operator|.
-name|checkBulkLoad
+name|computeBulkLoadSize
 argument_list|(
 name|fs
 argument_list|,

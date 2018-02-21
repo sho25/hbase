@@ -14262,9 +14262,10 @@ name|map
 init|=
 literal|null
 decl_stmt|;
-comment|// Check to see if this bulk load would exceed the space quota for this table
-if|if
-condition|(
+specifier|final
+name|boolean
+name|spaceQuotaEnabled
+init|=
 name|QuotaUtil
 operator|.
 name|isQuotaEnabled
@@ -14272,6 +14273,17 @@ argument_list|(
 name|getConfiguration
 argument_list|()
 argument_list|)
+decl_stmt|;
+name|long
+name|sizeToBeLoaded
+init|=
+operator|-
+literal|1
+decl_stmt|;
+comment|// Check to see if this bulk load would exceed the space quota for this table
+if|if
+condition|(
+name|spaceQuotaEnabled
 condition|)
 block|{
 name|ActivePolicyEnforcement
@@ -14340,9 +14352,11 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// Check if the batch of files exceeds the current quota
+name|sizeToBeLoaded
+operator|=
 name|enforcement
 operator|.
-name|checkBulkLoad
+name|computeBulkLoadSize
 argument_list|(
 name|regionServer
 operator|.
@@ -14528,6 +14542,70 @@ operator|!=
 literal|null
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|map
+operator|!=
+literal|null
+condition|)
+block|{
+comment|// Treat any negative size as a flag to "ignore" updating the region size as that is
+comment|// not possible to occur in real life (cannot bulk load a file with negative size)
+if|if
+condition|(
+name|spaceQuotaEnabled
+operator|&&
+name|sizeToBeLoaded
+operator|>
+literal|0
+condition|)
+block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Incrementing space use of "
+operator|+
+name|region
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|+
+literal|" by "
+operator|+
+name|sizeToBeLoaded
+operator|+
+literal|" bytes"
+argument_list|)
+expr_stmt|;
+block|}
+comment|// Inform space quotas of the new files for this region
+name|getSpaceQuotaManager
+argument_list|()
+operator|.
+name|getRegionSizeStore
+argument_list|()
+operator|.
+name|incrementRegionSize
+argument_list|(
+name|region
+operator|.
+name|getRegionInfo
+argument_list|()
+argument_list|,
+name|sizeToBeLoaded
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 return|return
 name|builder
 operator|.

@@ -23,16 +23,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|HashMap
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|HashSet
 import|;
 end_import
@@ -44,16 +34,6 @@ operator|.
 name|util
 operator|.
 name|Iterator
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Map
 import|;
 end_import
 
@@ -238,7 +218,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A chore which computes the size of each {@link HRegion} on the FileSystem hosted by the given {@link HRegionServer}.  */
+comment|/**  * A chore which computes the size of each {@link HRegion} on the FileSystem hosted by the given  * {@link HRegionServer}. The results of this computation are stored in the  * {@link RegionServerSpaceQuotaManager}'s {@link RegionSizeStore} object.  */
 end_comment
 
 begin_class
@@ -337,24 +317,6 @@ init|=
 literal|5000L
 decl_stmt|;
 specifier|private
-name|int
-name|numberOfCyclesToSkip
-init|=
-literal|0
-decl_stmt|,
-name|prevNumberOfCyclesToSkip
-init|=
-literal|0
-decl_stmt|;
-specifier|private
-specifier|static
-specifier|final
-name|int
-name|CYCLE_UPPER_BOUND
-init|=
-literal|32
-decl_stmt|;
-specifier|private
 specifier|final
 name|HRegionServer
 name|rs
@@ -444,30 +406,11 @@ name|void
 name|chore
 parameter_list|()
 block|{
-if|if
-condition|(
-name|numberOfCyclesToSkip
-operator|>
-literal|0
-condition|)
-block|{
-name|numberOfCyclesToSkip
-operator|--
-expr_stmt|;
-return|return;
-block|}
 specifier|final
-name|Map
-argument_list|<
-name|RegionInfo
-argument_list|,
-name|Long
-argument_list|>
-name|onlineRegionSizes
+name|RegionSizeStore
+name|regionSizeStore
 init|=
-operator|new
-name|HashMap
-argument_list|<>
+name|getRegionSizeStore
 argument_list|()
 decl_stmt|;
 specifier|final
@@ -606,7 +549,7 @@ name|debug
 argument_list|(
 literal|"Preempting execution of FileSystemUtilizationChore because it exceeds the"
 operator|+
-literal|" maximum iteration configuration value. Will process remaining iterators"
+literal|" maximum iteration configuration value. Will process remaining Regions"
 operator|+
 literal|" on a subsequent invocation."
 argument_list|)
@@ -694,7 +637,7 @@ argument_list|(
 name|region
 argument_list|)
 decl_stmt|;
-name|onlineRegionSizes
+name|regionSizeStore
 operator|.
 name|put
 argument_list|(
@@ -742,45 +685,6 @@ name|skippedRegionReplicas
 operator|+
 literal|" regions due to being region replicas."
 argument_list|)
-expr_stmt|;
-block|}
-if|if
-condition|(
-operator|!
-name|reportRegionSizesToMaster
-argument_list|(
-name|onlineRegionSizes
-argument_list|)
-condition|)
-block|{
-comment|// backoff reporting
-name|numberOfCyclesToSkip
-operator|=
-name|prevNumberOfCyclesToSkip
-operator|>
-literal|0
-condition|?
-literal|2
-operator|*
-name|prevNumberOfCyclesToSkip
-else|:
-literal|1
-expr_stmt|;
-if|if
-condition|(
-name|numberOfCyclesToSkip
-operator|>
-name|CYCLE_UPPER_BOUND
-condition|)
-block|{
-name|numberOfCyclesToSkip
-operator|=
-name|CYCLE_UPPER_BOUND
-expr_stmt|;
-block|}
-name|prevNumberOfCyclesToSkip
-operator|=
-name|numberOfCyclesToSkip
 expr_stmt|;
 block|}
 block|}
@@ -872,28 +776,19 @@ return|return
 name|regionSize
 return|;
 block|}
-comment|/**    * Reports the computed region sizes to the currently active Master.    *    * @param onlineRegionSizes The computed region sizes to report.    * @return {@code false} if FileSystemUtilizationChore should pause reporting to master,    *    {@code true} otherwise.    */
-name|boolean
-name|reportRegionSizesToMaster
-parameter_list|(
-name|Map
-argument_list|<
-name|RegionInfo
-argument_list|,
-name|Long
-argument_list|>
-name|onlineRegionSizes
-parameter_list|)
+comment|// VisibleForTesting
+name|RegionSizeStore
+name|getRegionSizeStore
+parameter_list|()
 block|{
 return|return
-name|this
-operator|.
 name|rs
 operator|.
-name|reportRegionSizesForQuotas
-argument_list|(
-name|onlineRegionSizes
-argument_list|)
+name|getRegionServerSpaceQuotaManager
+argument_list|()
+operator|.
+name|getRegionSizeStore
+argument_list|()
 return|;
 block|}
 comment|/**    * Extracts the period for the chore from the configuration.    *    * @param conf The configuration object.    * @return The configured chore period or the default value.    */

@@ -185,6 +185,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|quotas
+operator|.
+name|RegionSizeStore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|regionserver
 operator|.
 name|compactions
@@ -643,6 +659,14 @@ name|regionName
 parameter_list|)
 throws|throws
 name|IOException
+function_decl|;
+comment|/**    * Reports the provided Region sizes hosted by this RegionServer to the active Master.    *    * @param sizeStore The sizes for Regions locally hosted.    * @return {@code false} if reporting should be temporarily paused, {@code true} otherwise.    */
+name|boolean
+name|reportRegionSizesForQuotas
+parameter_list|(
+name|RegionSizeStore
+name|sizeStore
+parameter_list|)
 function_decl|;
 block|}
 end_interface

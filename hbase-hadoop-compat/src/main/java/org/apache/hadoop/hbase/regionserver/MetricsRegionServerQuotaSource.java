@@ -66,6 +66,36 @@ literal|"RegionServer,sub="
 operator|+
 name|METRICS_NAME
 decl_stmt|;
+name|String
+name|NUM_TABLES_IN_VIOLATION_NAME
+init|=
+literal|"numTablesInViolation"
+decl_stmt|;
+name|String
+name|NUM_SPACE_SNAPSHOTS_RECEIVED_NAME
+init|=
+literal|"numSpaceSnapshotsReceived"
+decl_stmt|;
+name|String
+name|FILE_SYSTEM_UTILIZATION_CHORE_TIME
+init|=
+literal|"fileSystemUtilizationChoreTime"
+decl_stmt|;
+name|String
+name|SPACE_QUOTA_REFRESHER_CHORE_TIME
+init|=
+literal|"spaceQuotaRefresherChoreTime"
+decl_stmt|;
+name|String
+name|NUM_REGION_SIZE_REPORT_NAME
+init|=
+literal|"numRegionSizeReports"
+decl_stmt|;
+name|String
+name|REGION_SIZE_REPORTING_CHORE_TIME_NAME
+init|=
+literal|"regionSizeReportingChoreTime"
+decl_stmt|;
 comment|/**    * Updates the metric tracking how many tables this RegionServer has marked as in violation    * of their space quota.    */
 name|void
 name|updateNumTablesInSpaceQuotaViolation
@@ -93,6 +123,22 @@ function_decl|;
 comment|/**    * Updates the metric tracking how much time was spent updating the RegionServer with the    * latest information on space quotas from the {@code hbase:quota} table.    *    * @param time The execution time of the chore in milliseconds.    */
 name|void
 name|incrementSpaceQuotaRefresherChoreTime
+parameter_list|(
+name|long
+name|time
+parameter_list|)
+function_decl|;
+comment|/**    * Updates the metric tracking how many region size reports were sent from this RegionServer to    * the Master. These reports contain information on the size of each Region hosted locally.    *    * @param numReportsSent The number of region size reports sent    */
+name|void
+name|incrementNumRegionSizeReportsSent
+parameter_list|(
+name|long
+name|numReportsSent
+parameter_list|)
+function_decl|;
+comment|/**    * Updates the metric tracking how much time was spent sending region size reports to the Master    * by the RegionSizeReportingChore.    *    * @param time The execution time in milliseconds.    */
+name|void
+name|incrementRegionSizeReportingChoreTime
 parameter_list|(
 name|long
 name|time
