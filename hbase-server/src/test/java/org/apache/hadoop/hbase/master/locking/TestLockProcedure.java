@@ -2141,7 +2141,7 @@ name|Thread
 operator|.
 name|sleep
 argument_list|(
-literal|2
+literal|4
 operator|*
 name|HEARTBEAT_TIMEOUT
 argument_list|)
