@@ -196,6 +196,18 @@ name|channelClass
 argument_list|)
 expr_stmt|;
 block|}
+comment|/*    * @return class name which is recognized by hbase-1.x to avoid ProtobufLogReader throwing error:    *   IOException: Got unknown writer class: SecureAsyncProtobufLogWriter    */
+annotation|@
+name|Override
+specifier|protected
+name|String
+name|getWriterClassName
+parameter_list|()
+block|{
+return|return
+literal|"SecureProtobufLogWriter"
+return|;
+block|}
 annotation|@
 name|Override
 specifier|protected
