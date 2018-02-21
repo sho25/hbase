@@ -39,28 +39,6 @@ end_import
 
 begin_import
 import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hbase
-operator|.
-name|thirdparty
-operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|annotations
-operator|.
-name|VisibleForTesting
-import|;
-end_import
-
-begin_import
-import|import
 name|java
 operator|.
 name|util
@@ -167,7 +145,25 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
+name|util
+operator|.
+name|Bytes
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|ImmutableByteArray
 import|;
 end_import
 
@@ -211,34 +207,24 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
-name|util
+name|thirdparty
 operator|.
-name|Bytes
-import|;
-end_import
-
-begin_import
-import|import
-name|org
+name|com
 operator|.
-name|apache
+name|google
 operator|.
-name|hadoop
+name|common
 operator|.
-name|hbase
+name|annotations
 operator|.
-name|util
-operator|.
-name|ImmutableByteArray
+name|VisibleForTesting
 import|;
 end_import
 
 begin_comment
-comment|/**  * Accounting of sequence ids per region and then by column family. So we can our accounting  * current, call startCacheFlush and then finishedCacheFlush or abortCacheFlush so this instance can  * keep abreast of the state of sequence id persistence. Also call update per append.  *<p>  * For the implementation, we assume that all the {@code encodedRegionName} passed in is gotten by  * {@link HRegionInfo#getEncodedNameAsBytes()}. So it is safe to use it as a hash key. And for  * family name, we use {@link ImmutableByteArray} as key. This is because hash based map is much  * faster than RBTree or CSLM and here we are on the critical write path. See HBASE-16278 for more  * details.  */
+comment|/**  *<p>  * Accounting of sequence ids per region and then by column family. So we can our accounting  * current, call startCacheFlush and then finishedCacheFlush or abortCacheFlush so this instance can  * keep abreast of the state of sequence id persistence. Also call update per append.  *</p>  *<p>  * For the implementation, we assume that all the {@code encodedRegionName} passed in is gotten by  * {@link org.apache.hadoop.hbase.client.RegionInfo#getEncodedNameAsBytes()}. So it is safe to use  * it as a hash key. And for family name, we use {@link ImmutableByteArray} as key. This is because  * hash based map is much faster than RBTree or CSLM and here we are on the critical write path. See  * HBASE-16278 for more details.  *</p>  */
 end_comment
 
 begin_class
@@ -318,7 +304,7 @@ name|HashMap
 argument_list|<>
 argument_list|()
 decl_stmt|;
-comment|/**   * Map of region encoded names to the latest/highest region sequence id.  Updated on each   * call to append.   *<p>   * This map uses byte[] as the key, and uses reference equality. It works in our use case as we   * use {@link HRegionInfo#getEncodedNameAsBytes()} as keys. For a given region, it always returns   * the same array.   */
+comment|/**    *<p>    * Map of region encoded names to the latest/highest region sequence id. Updated on each call to    * append.    *</p>    *<p>    * This map uses byte[] as the key, and uses reference equality. It works in our use case as we    * use {@link org.apache.hadoop.hbase.client.RegionInfo#getEncodedNameAsBytes()} as keys. For a    * given region, it always returns the same array.    *</p>    */
 specifier|private
 name|Map
 argument_list|<

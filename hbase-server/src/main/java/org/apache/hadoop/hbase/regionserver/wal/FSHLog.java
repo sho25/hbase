@@ -1293,7 +1293,7 @@ block|}
 annotation|@
 name|Override
 specifier|protected
-name|long
+name|void
 name|doReplaceWriter
 parameter_list|(
 name|Path
@@ -1364,11 +1364,6 @@ block|}
 name|afterCreatingZigZagLatch
 argument_list|()
 expr_stmt|;
-name|long
-name|oldFileLen
-init|=
-literal|0L
-decl_stmt|;
 try|try
 block|{
 comment|// Wait on the safe point to be achieved. Send in a sync in case nothing has hit the
@@ -1445,6 +1440,11 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+name|long
+name|oldFileLen
+init|=
+literal|0L
+decl_stmt|;
 comment|// It is at the safe point. Swap out writer from under the blocked writer thread.
 comment|// TODO: This is close is inline with critical section. Should happen in background?
 if|if
@@ -1558,6 +1558,15 @@ throw|;
 block|}
 block|}
 block|}
+name|logRollAndSetupWalProps
+argument_list|(
+name|oldPath
+argument_list|,
+name|newPath
+argument_list|,
+name|oldFileLen
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|writer
@@ -1721,9 +1730,6 @@ block|}
 block|}
 block|}
 block|}
-return|return
-name|oldFileLen
-return|;
 block|}
 annotation|@
 name|Override
