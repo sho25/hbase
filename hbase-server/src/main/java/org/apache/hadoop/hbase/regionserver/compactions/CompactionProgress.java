@@ -33,6 +33,26 @@ name|InterfaceAudience
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|Logger
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|LoggerFactory
+import|;
+end_import
+
 begin_comment
 comment|/**  * This class holds information relevant for tracking the progress of a  * compaction.  *  *<p>The metrics tracked allow one to calculate the percent completion of the  * compaction based on the number of Key/Value pairs already compacted vs.  * total amount scheduled to be compacted.  *  */
 end_comment
@@ -46,8 +66,23 @@ specifier|public
 class|class
 name|CompactionProgress
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|Logger
+name|LOG
+init|=
+name|LoggerFactory
+operator|.
+name|getLogger
+argument_list|(
+name|CompactionProgress
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 comment|/** the total compacting key values in currently running compaction */
-specifier|public
+specifier|private
 name|long
 name|totalCompactingKVs
 decl_stmt|;
@@ -92,7 +127,8 @@ name|float
 operator|)
 name|currentCompactedKVs
 operator|/
-name|totalCompactingKVs
+name|getTotalCompactingKVs
+argument_list|()
 return|;
 block|}
 comment|/**    * Cancels the compaction progress, setting things to 0.    */
@@ -130,9 +166,31 @@ block|}
 comment|/**    * @return the total compacting key values in currently running compaction    */
 specifier|public
 name|long
-name|getTotalCompactingKvs
+name|getTotalCompactingKVs
 parameter_list|()
 block|{
+if|if
+condition|(
+name|totalCompactingKVs
+operator|<
+name|currentCompactedKVs
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"totalCompactingKVs={} less than currentCompactedKVs={}"
+argument_list|,
+name|totalCompactingKVs
+argument_list|,
+name|currentCompactedKVs
+argument_list|)
+expr_stmt|;
+return|return
+name|currentCompactedKVs
+return|;
+block|}
 return|return
 name|totalCompactingKVs
 return|;
@@ -173,7 +231,8 @@ literal|"%d/%d (%.2f%%)"
 argument_list|,
 name|currentCompactedKVs
 argument_list|,
-name|totalCompactingKVs
+name|getTotalCompactingKVs
+argument_list|()
 argument_list|,
 literal|100
 operator|*
