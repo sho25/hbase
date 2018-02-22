@@ -4518,6 +4518,14 @@ argument_list|,
 literal|null
 argument_list|,
 literal|true
+argument_list|,
+operator|!
+name|RegionReplicaUtil
+operator|.
+name|isDefaultReplica
+argument_list|(
+name|hri
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
