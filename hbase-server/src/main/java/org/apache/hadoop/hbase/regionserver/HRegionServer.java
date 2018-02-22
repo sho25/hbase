@@ -9175,8 +9175,7 @@ name|totalCompactingKVs
 operator|+=
 name|progress
 operator|.
-name|getTotalCompactingKVs
-argument_list|()
+name|totalCompactingKVs
 expr_stmt|;
 name|currentCompactedKVs
 operator|+=

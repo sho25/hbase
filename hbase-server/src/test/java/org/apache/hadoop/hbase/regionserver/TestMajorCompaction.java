@@ -1505,8 +1505,7 @@ name|assertTrue
 argument_list|(
 name|progress
 operator|.
-name|getTotalCompactingKVs
-argument_list|()
+name|totalCompactingKVs
 operator|>
 literal|0
 argument_list|)
