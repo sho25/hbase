@@ -4152,9 +4152,6 @@ argument_list|(
 literal|false
 argument_list|)
 expr_stmt|;
-return|return
-name|regionFs
-return|;
 block|}
 else|else
 block|{
@@ -4176,7 +4173,7 @@ argument_list|)
 expr_stmt|;
 block|}
 return|return
-literal|null
+name|regionFs
 return|;
 block|}
 comment|/**    * Open Region from file-system.    * @param conf the {@link Configuration} to use    * @param fs {@link FileSystem} from which to add the region    * @param tableDir {@link Path} to where the table is being stored    * @param regionInfo {@link RegionInfo} for region to be added    * @param readOnly True if you don't want to edit the region data    * @throws IOException if the region creation fails due to a FileSystem exception.    */
