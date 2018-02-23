@@ -1567,7 +1567,9 @@ specifier|private
 name|ScanInfo
 name|scanInfo
 decl_stmt|;
+comment|// All access must be synchronized.
 comment|// TODO: ideally, this should be part of storeFileManager, as we keep passing this to it.
+specifier|private
 specifier|final
 name|List
 argument_list|<
