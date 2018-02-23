@@ -460,7 +460,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Swapping pipeline suffix; before={}, new segement={}"
+literal|"Swapping pipeline suffix; before={}, new segment={}"
 argument_list|,
 name|versionedList
 operator|.

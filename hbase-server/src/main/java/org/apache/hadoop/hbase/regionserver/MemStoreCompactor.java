@@ -369,7 +369,21 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Starting In-Memory Compaction of {}"
+literal|"Starting on {}/{}"
+argument_list|,
+name|compactingMemStore
+operator|.
+name|getStore
+argument_list|()
+operator|.
+name|getHRegion
+argument_list|()
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
 argument_list|,
 name|compactingMemStore
 operator|.

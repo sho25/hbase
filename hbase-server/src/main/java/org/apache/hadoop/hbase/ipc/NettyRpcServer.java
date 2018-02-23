@@ -1001,8 +1001,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"NettyRpcServer bind to address="
-operator|+
+literal|"Bind to {}"
+argument_list|,
 name|serverChannel
 operator|.
 name|localAddress
@@ -1152,9 +1152,9 @@ literal|"Stopping server on "
 operator|+
 name|this
 operator|.
-name|bindAddress
+name|serverChannel
 operator|.
-name|getPort
+name|localAddress
 argument_list|()
 argument_list|)
 expr_stmt|;

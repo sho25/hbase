@@ -39,6 +39,20 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|util
+operator|.
+name|StringUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|hbase
 operator|.
 name|thirdparty
@@ -707,12 +721,15 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Setting in-memory flush size threshold to "
-operator|+
+literal|"Setting in-memory flush size threshold to {} and immutable segments index to type={}"
+argument_list|,
+name|StringUtils
+operator|.
+name|byteDesc
+argument_list|(
 name|inmemoryFlushSize
-operator|+
-literal|" and immutable segments index to be of type "
-operator|+
+argument_list|)
+argument_list|,
 name|indexType
 argument_list|)
 expr_stmt|;

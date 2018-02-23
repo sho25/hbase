@@ -611,7 +611,7 @@ index|[
 name|i
 index|]
 argument_list|,
-literal|"ChaosMonkeyThread"
+literal|"ChaosMonkey"
 argument_list|)
 decl_stmt|;
 name|monkeyThread

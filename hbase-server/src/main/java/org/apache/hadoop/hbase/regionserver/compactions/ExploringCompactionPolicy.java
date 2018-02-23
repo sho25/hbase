@@ -557,30 +557,22 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Exploring compaction algorithm has selected "
+literal|"Exploring compaction algorithm has selected {}  files of size {} starting at "
 operator|+
+literal|"candidate #{} after considering {} permutations with {} in ratio"
+argument_list|,
 name|bestSelection
 operator|.
 name|size
 argument_list|()
-operator|+
-literal|" files of size "
-operator|+
+argument_list|,
 name|bestSize
-operator|+
-literal|" starting at candidate #"
-operator|+
-name|bestStart
-operator|+
-literal|" after considering "
-operator|+
+argument_list|,
+name|bestSize
+argument_list|,
 name|opts
-operator|+
-literal|" permutations with "
-operator|+
+argument_list|,
 name|optsInRatio
-operator|+
-literal|" in ratio"
 argument_list|)
 expr_stmt|;
 return|return

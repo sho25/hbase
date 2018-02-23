@@ -53,6 +53,20 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|util
+operator|.
+name|StringUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -634,7 +648,7 @@ name|String
 operator|.
 name|format
 argument_list|(
-literal|"size [%d, %d, %d); files [%d, %d); ratio %f; off-peak ratio %f; throttle point %d;"
+literal|"size [%s, %s, %s); files [%d, %d); ratio %f; off-peak ratio %f; throttle point %d;"
 operator|+
 literal|" major period %d, major jitter %f, min locality to compact %f;"
 operator|+
@@ -644,11 +658,26 @@ literal|" compaction policy for tiered window %s, single output for minor %b,"
 operator|+
 literal|" compaction window factory %s"
 argument_list|,
+name|StringUtils
+operator|.
+name|byteDesc
+argument_list|(
 name|minCompactSize
+argument_list|)
 argument_list|,
+name|StringUtils
+operator|.
+name|byteDesc
+argument_list|(
 name|maxCompactSize
+argument_list|)
 argument_list|,
+name|StringUtils
+operator|.
+name|byteDesc
+argument_list|(
 name|offPeakMaxCompactSize
+argument_list|)
 argument_list|,
 name|minFilesToCompact
 argument_list|,

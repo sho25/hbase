@@ -939,7 +939,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Killing master:"
+literal|"Killing master "
 operator|+
 name|server
 argument_list|)
@@ -964,7 +964,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Killed master server:"
+literal|"Killed master "
 operator|+
 name|server
 argument_list|)
@@ -984,7 +984,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Starting master:"
+literal|"Starting master "
 operator|+
 name|server
 operator|.
@@ -1018,9 +1018,12 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Started master: "
+literal|"Started master "
 operator|+
 name|server
+operator|.
+name|getHostname
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -1038,7 +1041,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Killing region server:"
+literal|"Killing regionserver "
 operator|+
 name|server
 argument_list|)
@@ -1063,7 +1066,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Killed region server:"
+literal|"Killed regionserver "
 operator|+
 name|server
 operator|+
@@ -1096,11 +1099,11 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Starting region server:"
+literal|"Starting regionserver "
 operator|+
 name|server
 operator|.
-name|getHostname
+name|getAddress
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1140,9 +1143,12 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Started region server:"
+literal|"Started regionserver "
 operator|+
 name|server
+operator|.
+name|getAddress
+argument_list|()
 operator|+
 literal|". Reported num of rs:"
 operator|+
@@ -1173,7 +1179,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Killing zookeeper node:"
+literal|"Killing zookeeper node "
 operator|+
 name|server
 argument_list|)
@@ -1198,7 +1204,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Killed zookeeper node:"
+literal|"Killed zookeeper node "
 operator|+
 name|server
 operator|+
@@ -1231,7 +1237,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Starting zookeeper node:"
+literal|"Starting zookeeper node "
 operator|+
 name|server
 operator|.
@@ -1267,7 +1273,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Started zookeeper node:"
+literal|"Started zookeeper node "
 operator|+
 name|server
 argument_list|)
@@ -1287,7 +1293,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Killing datanode:"
+literal|"Killing datanode "
 operator|+
 name|server
 argument_list|)
@@ -1312,7 +1318,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Killed datanode:"
+literal|"Killed datanode "
 operator|+
 name|server
 operator|+
@@ -1345,7 +1351,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Starting datanode:"
+literal|"Starting datanode "
 operator|+
 name|server
 operator|.
@@ -1373,7 +1379,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Started datanode:"
+literal|"Started datanode "
 operator|+
 name|server
 argument_list|)

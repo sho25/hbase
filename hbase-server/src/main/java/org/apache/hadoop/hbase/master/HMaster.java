@@ -17913,13 +17913,6 @@ argument_list|,
 literal|0
 argument_list|)
 decl_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Running RecoverMetaProcedure to ensure proper hbase:meta deploy."
-argument_list|)
-expr_stmt|;
 name|procedureExecutor
 operator|.
 name|submitProcedure

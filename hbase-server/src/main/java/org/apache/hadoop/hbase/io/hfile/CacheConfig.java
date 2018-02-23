@@ -1714,7 +1714,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Allocating On heap LruBlockCache size="
+literal|"Allocating onheap LruBlockCache size="
 operator|+
 name|StringUtils
 operator|.

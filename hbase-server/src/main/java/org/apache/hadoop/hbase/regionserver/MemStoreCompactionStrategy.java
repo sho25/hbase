@@ -245,7 +245,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"{} in-memory compaction of {}; merging {} segments"
+literal|"{} {}; merging {} segments"
 argument_list|,
 name|strategy
 argument_list|,
@@ -264,7 +264,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"{} in-memory compaction of {}; flattening a segment"
+literal|"{} {}; flattening a segment"
 argument_list|,
 name|strategy
 argument_list|,

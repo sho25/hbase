@@ -5437,8 +5437,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Onlined "
-operator|+
+literal|"Opened {}; next sequenceid={}"
+argument_list|,
 name|this
 operator|.
 name|getRegionInfo
@@ -5446,9 +5446,7 @@ argument_list|()
 operator|.
 name|getShortNameToLog
 argument_list|()
-operator|+
-literal|"; next sequenceid="
-operator|+
+argument_list|,
 name|nextSeqid
 argument_list|)
 expr_stmt|;

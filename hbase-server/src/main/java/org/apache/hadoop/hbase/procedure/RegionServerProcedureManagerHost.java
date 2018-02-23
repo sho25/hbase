@@ -176,14 +176,12 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Procedure "
-operator|+
+literal|"Procedure {} initializing"
+argument_list|,
 name|proc
 operator|.
 name|getProcedureSignature
 argument_list|()
-operator|+
-literal|" is initializing"
 argument_list|)
 expr_stmt|;
 name|proc
@@ -197,14 +195,12 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Procedure "
-operator|+
+literal|"Procedure {} initialized"
+argument_list|,
 name|proc
 operator|.
 name|getProcedureSignature
 argument_list|()
-operator|+
-literal|" is initialized"
 argument_list|)
 expr_stmt|;
 block|}
@@ -226,14 +222,12 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Procedure "
-operator|+
+literal|"Procedure {} starting"
+argument_list|,
 name|proc
 operator|.
 name|getProcedureSignature
 argument_list|()
-operator|+
-literal|" is starting"
 argument_list|)
 expr_stmt|;
 name|proc
@@ -245,14 +239,12 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Procedure "
-operator|+
+literal|"Procedure {} started"
+argument_list|,
 name|proc
 operator|.
 name|getProcedureSignature
 argument_list|()
-operator|+
-literal|" is started"
 argument_list|)
 expr_stmt|;
 block|}

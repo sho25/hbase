@@ -6659,28 +6659,13 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"stopping server "
+literal|"Exiting; stopping="
 operator|+
 name|this
 operator|.
 name|serverName
 operator|+
 literal|"; zookeeper connection closed."
-argument_list|)
-expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-name|Thread
-operator|.
-name|currentThread
-argument_list|()
-operator|.
-name|getName
-argument_list|()
-operator|+
-literal|" exiting"
 argument_list|)
 expr_stmt|;
 block|}

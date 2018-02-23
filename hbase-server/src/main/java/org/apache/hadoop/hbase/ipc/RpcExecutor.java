@@ -931,30 +931,24 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"RpcExecutor "
+literal|"Instantiated {} with queueClass={}; "
 operator|+
+literal|"numCallQueues={}, maxQueueLength={}, handlerCount={}"
+argument_list|,
 name|this
 operator|.
 name|name
-operator|+
-literal|" using "
-operator|+
+argument_list|,
 name|this
 operator|.
 name|queueClass
-operator|+
-literal|" as call queue; numCallQueues="
-operator|+
+argument_list|,
 name|this
 operator|.
 name|numCallQueues
-operator|+
-literal|"; maxQueueLength="
-operator|+
+argument_list|,
 name|maxQueueLength
-operator|+
-literal|"; handlerCount="
-operator|+
+argument_list|,
 name|this
 operator|.
 name|handlerCount
@@ -1607,23 +1601,17 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Started "
-operator|+
+literal|"Started handlerCount={} with threadPrefix={}, numCallQueues={}, port={}"
+argument_list|,
 name|handlers
 operator|.
 name|size
 argument_list|()
-operator|+
-literal|" "
-operator|+
+argument_list|,
 name|threadPrefix
-operator|+
-literal|" handlers, queues="
-operator|+
+argument_list|,
 name|qsize
-operator|+
-literal|", port="
-operator|+
+argument_list|,
 name|port
 argument_list|)
 expr_stmt|;

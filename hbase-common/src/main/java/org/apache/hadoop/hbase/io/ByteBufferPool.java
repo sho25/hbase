@@ -277,13 +277,37 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Created ByteBufferPool with bufferSize : "
-operator|+
+literal|"Created with bufferSize={} and maxPoolSize={}"
+argument_list|,
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|util
+operator|.
+name|StringUtils
+operator|.
+name|byteDesc
+argument_list|(
 name|bufferSize
-operator|+
-literal|" and maxPoolSize : "
-operator|+
+argument_list|)
+argument_list|,
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|util
+operator|.
+name|StringUtils
+operator|.
+name|byteDesc
+argument_list|(
 name|maxPoolSize
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|this

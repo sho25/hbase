@@ -562,20 +562,18 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Started, threads="
+literal|"Instantiated, coreThreads={} (allowCoreThreadTimeOut=true), queueMaxSize={}, "
 operator|+
+literal|"operationDelay={}"
+argument_list|,
 name|this
 operator|.
 name|corePoolSize
-operator|+
-literal|", queueMaxSize="
-operator|+
+argument_list|,
 name|this
 operator|.
 name|queueMaxSize
-operator|+
-literal|", operationDelay="
-operator|+
+argument_list|,
 name|this
 operator|.
 name|operationDelay

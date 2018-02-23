@@ -382,7 +382,7 @@ name|String
 operator|.
 name|format
 argument_list|(
-literal|"%.2f MB/sec"
+literal|"%.2f MB/second"
 argument_list|,
 name|speed
 operator|/

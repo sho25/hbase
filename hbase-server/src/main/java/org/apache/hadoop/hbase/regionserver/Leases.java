@@ -571,21 +571,6 @@ name|void
 name|close
 parameter_list|()
 block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-name|Thread
-operator|.
-name|currentThread
-argument_list|()
-operator|.
-name|getName
-argument_list|()
-operator|+
-literal|" closing leases"
-argument_list|)
-expr_stmt|;
 name|this
 operator|.
 name|stopRequested
@@ -601,15 +586,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-name|Thread
-operator|.
-name|currentThread
-argument_list|()
-operator|.
-name|getName
-argument_list|()
-operator|+
-literal|" closed leases"
+literal|"Closed leases"
 argument_list|)
 expr_stmt|;
 block|}

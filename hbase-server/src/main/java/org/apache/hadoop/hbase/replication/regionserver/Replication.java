@@ -907,8 +907,8 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"ReplicationStatisticsThread "
-operator|+
+literal|"Replication stats-in-log period={} seconds"
+argument_list|,
 name|this
 operator|.
 name|statsThreadPeriod

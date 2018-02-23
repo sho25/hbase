@@ -106,11 +106,9 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Sleeping for "
-operator|+
+literal|"Sleeping for {} ms to add jitter"
+argument_list|,
 name|jitter
-operator|+
-literal|" to add jitter"
 argument_list|)
 expr_stmt|;
 name|Threads
@@ -169,8 +167,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Sleeping for: "
-operator|+
+literal|"Sleeping for {} ms"
+argument_list|,
 name|sleepTime
 argument_list|)
 expr_stmt|;
@@ -213,15 +211,13 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Using ChaosMonkey Policy: "
-operator|+
+literal|"Using ChaosMonkey Policy {}, period={} ms"
+argument_list|,
 name|this
 operator|.
 name|getClass
 argument_list|()
-operator|+
-literal|", period: "
-operator|+
+argument_list|,
 name|periodMs
 argument_list|)
 expr_stmt|;

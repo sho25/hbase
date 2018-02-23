@@ -1677,7 +1677,7 @@ block|{
 name|String
 name|res
 init|=
-literal|"Type="
+literal|"type="
 operator|+
 name|this
 operator|.

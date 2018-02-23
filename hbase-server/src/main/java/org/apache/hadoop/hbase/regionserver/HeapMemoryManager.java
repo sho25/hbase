@@ -1123,7 +1123,11 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Starting HeapMemoryTuner chore."
+literal|"Starting, tuneOn={}"
+argument_list|,
+name|this
+operator|.
+name|tunerOn
 argument_list|)
 expr_stmt|;
 name|this
@@ -1166,7 +1170,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Stopping HeapMemoryTuner chore."
+literal|"Stopping"
 argument_list|)
 expr_stmt|;
 name|this

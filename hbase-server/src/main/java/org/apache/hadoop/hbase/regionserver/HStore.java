@@ -2165,9 +2165,9 @@ expr_stmt|;
 block|}
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
-literal|"Memstore class name is {}"
+literal|"Memstore type={}"
 argument_list|,
 name|className
 argument_list|)
