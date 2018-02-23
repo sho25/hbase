@@ -2373,7 +2373,7 @@ argument_list|)
 operator|.
 name|contains
 argument_list|(
-literal|"regions not online"
+literal|"regions that are not online"
 argument_list|)
 operator|&&
 name|ie

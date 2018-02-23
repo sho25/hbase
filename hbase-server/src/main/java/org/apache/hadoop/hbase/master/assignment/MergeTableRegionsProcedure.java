@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -510,38 +510,6 @@ operator|.
 name|procedure2
 operator|.
 name|ProcedureStateSerializer
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|procedure2
-operator|.
-name|ProcedureSuspendedException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|procedure2
-operator|.
-name|ProcedureYieldException
 import|;
 end_import
 
@@ -1166,7 +1134,7 @@ block|{
 name|String
 name|msg
 init|=
-literal|"Unable to merge not adjacent regions "
+literal|"Unable to merge non-adjacent regions "
 operator|+
 name|regionToMergeA
 operator|.
@@ -1426,7 +1394,7 @@ operator|.
 name|currentTime
 argument_list|()
 decl_stmt|;
-comment|// Regionid is timestamp. Merged region's id can't be less than that of
+comment|// Region Id is a timestamp. Merged region's id can't be less than that of
 comment|// merging regions else will insert at wrong location in hbase:meta (See HBASE-710).
 if|if
 condition|(
@@ -1506,12 +1474,6 @@ specifier|final
 name|MergeTableRegionsState
 name|state
 parameter_list|)
-throws|throws
-name|ProcedureSuspendedException
-throws|,
-name|ProcedureYieldException
-throws|,
-name|InterruptedException
 block|{
 name|LOG
 operator|.
@@ -1772,7 +1734,7 @@ name|state
 argument_list|)
 condition|)
 block|{
-comment|// We reach a state that cannot be rolled back. We just need to keep retry.
+comment|// We reach a state that cannot be rolled back. We just need to keep retrying.
 name|LOG
 operator|.
 name|warn
@@ -1826,8 +1788,6 @@ name|state
 parameter_list|)
 throws|throws
 name|IOException
-throws|,
-name|InterruptedException
 block|{
 if|if
 condition|(
@@ -1990,7 +1950,7 @@ name|e
 throw|;
 block|}
 block|}
-comment|/*    * Check whether we are in the state that can be rollback    */
+comment|/*    * Check whether we are in the state that can be rolled back    */
 annotation|@
 name|Override
 specifier|protected
@@ -2019,7 +1979,7 @@ case|:
 case|case
 name|MERGE_TABLE_REGIONS_UPDATE_META
 case|:
-comment|// It is not safe to rollback if we reach to these states.
+comment|// It is not safe to rollback in these states.
 return|return
 literal|false
 return|;
@@ -2615,7 +2575,7 @@ throws|throws
 name|IOException
 block|{
 comment|// Note: the following logic assumes that we only have 2 regions to merge.  In the future,
-comment|// if we want to extend to more than 2 regions, the code needs to modify a little bit.
+comment|// if we want to extend to more than 2 regions, the code needs to be modified a little bit.
 comment|//
 name|CatalogJanitor
 name|catalogJanitor
@@ -2808,7 +2768,7 @@ throw|throw
 operator|new
 name|MergeRegionException
 argument_list|(
-literal|"Unable to merge regions not online "
+literal|"Unable to merge regions that are not online "
 operator|+
 name|regionStateA
 operator|+
@@ -2879,7 +2839,7 @@ literal|false
 return|;
 block|}
 comment|// Ask the remote regionserver if regions are mergeable. If we get an IOE, report it
-comment|// along w/ the failure so can see why we are not mergeable at this time.
+comment|// along with the failure, so we can see why regions are not mergeable at this time.
 name|IOException
 name|mergeableCheckIOE
 init|=
@@ -3204,8 +3164,6 @@ specifier|final
 name|MasterProcedureEnv
 name|env
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 comment|// Set State.MERGING to regions to be merged
 name|RegionStates
@@ -3254,7 +3212,7 @@ name|MERGING
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create merged region    * @param env MasterProcedureEnv    */
+comment|/**    * Create a merged region    * @param env MasterProcedureEnv    */
 specifier|private
 name|void
 name|createMergedRegion
@@ -3415,7 +3373,7 @@ name|MERGING_NEW
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create reference file(s) of merging regions under the merges directory    * @param env MasterProcedureEnv    * @param regionFs region file system    * @param mergedDir the temp directory of merged region    */
+comment|/**    * Create reference file(s) of merging regions under the merged directory    * @param env MasterProcedureEnv    * @param regionFs region file system    * @param mergedDir the temp directory of merged region    */
 specifier|private
 name|void
 name|mergeStoreFiles
@@ -3587,7 +3545,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * Clean up merged region    * @param env MasterProcedureEnv    */
+comment|/**    * Clean up a merged region    * @param env MasterProcedureEnv    */
 specifier|private
 name|void
 name|cleanupMergedRegion
@@ -4084,9 +4042,7 @@ name|metaEntries
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Mutation
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|cpHost
@@ -4133,7 +4089,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Row key of mutation from coprocessor is not parsable as region name."
+literal|"Row key of mutation from coprocessor is not parsable as region name. "
 operator|+
 literal|"Mutations from coprocessor should only be for hbase:meta table."
 argument_list|,
@@ -4157,8 +4113,6 @@ name|env
 parameter_list|)
 throws|throws
 name|IOException
-throws|,
-name|ProcedureYieldException
 block|{
 specifier|final
 name|ServerName
@@ -4457,7 +4411,7 @@ name|env
 parameter_list|)
 block|{
 comment|// Abort means rollback. We can't rollback all steps. HBASE-18018 added abort to all
-comment|// Procedures. Here is a Procedure that has a PONR and cannot be aborted wants it enters this
+comment|// Procedures. Here is a Procedure that has a PONR and cannot be aborted once it enters this
 comment|// range of steps; what do we do for these should an operator want to cancel them? HBASE-20022.
 return|return
 name|isRollbackSupported
