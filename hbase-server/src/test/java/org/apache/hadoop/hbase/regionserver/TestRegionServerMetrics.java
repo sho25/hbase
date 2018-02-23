@@ -2411,7 +2411,7 @@ name|TABLES_ON_MASTER
 condition|?
 literal|1
 else|:
-literal|7
+literal|4
 argument_list|)
 expr_stmt|;
 name|assertGauge

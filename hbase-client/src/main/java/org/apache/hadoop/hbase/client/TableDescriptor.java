@@ -520,11 +520,6 @@ name|boolean
 name|hasRegionMemStoreReplication
 parameter_list|()
 function_decl|;
-comment|/**    * @return true if there are at least one cf whose replication scope is    * serial.    */
-name|boolean
-name|hasSerialReplicationScope
-parameter_list|()
-function_decl|;
 comment|/**    * Check if the compaction enable flag of the table is true. If flag is false    * then no minor/major compactions will be done in real.    *    * @return true if table compaction enabled    */
 name|boolean
 name|isCompactionEnabled
@@ -588,15 +583,6 @@ operator|!=
 name|HConstants
 operator|.
 name|REPLICATION_SCOPE_GLOBAL
-operator|&&
-name|cf
-operator|.
-name|getScope
-argument_list|()
-operator|!=
-name|HConstants
-operator|.
-name|REPLICATION_SCOPE_SERIAL
 condition|)
 block|{
 name|hasDisabled

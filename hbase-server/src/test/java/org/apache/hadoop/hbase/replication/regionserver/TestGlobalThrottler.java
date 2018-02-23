@@ -971,7 +971,7 @@ name|setScope
 argument_list|(
 name|HConstants
 operator|.
-name|REPLICATION_SCOPE_SERIAL
+name|REPLICATION_SCOPE_GLOBAL
 argument_list|)
 expr_stmt|;
 name|table

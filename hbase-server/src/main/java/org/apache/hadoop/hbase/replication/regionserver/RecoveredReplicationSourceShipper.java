@@ -359,14 +359,6 @@ argument_list|()
 operator|.
 name|isEmpty
 argument_list|()
-operator|&&
-name|entryBatch
-operator|.
-name|getLastSeqIds
-argument_list|()
-operator|.
-name|isEmpty
-argument_list|()
 condition|)
 block|{
 name|LOG

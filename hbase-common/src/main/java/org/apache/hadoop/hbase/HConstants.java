@@ -1212,78 +1212,6 @@ argument_list|(
 name|CATALOG_FAMILY_STR
 argument_list|)
 decl_stmt|;
-comment|/** The replication barrier family as a string*/
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|REPLICATION_BARRIER_FAMILY_STR
-init|=
-literal|"rep_barrier"
-decl_stmt|;
-comment|/** The replication barrier family */
-specifier|public
-specifier|static
-specifier|final
-name|byte
-index|[]
-name|REPLICATION_BARRIER_FAMILY
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|REPLICATION_BARRIER_FAMILY_STR
-argument_list|)
-decl_stmt|;
-comment|/** The replication position family as a string*/
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|REPLICATION_POSITION_FAMILY_STR
-init|=
-literal|"rep_position"
-decl_stmt|;
-comment|/** The replication position family */
-specifier|public
-specifier|static
-specifier|final
-name|byte
-index|[]
-name|REPLICATION_POSITION_FAMILY
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|REPLICATION_POSITION_FAMILY_STR
-argument_list|)
-decl_stmt|;
-comment|/** The replication meta family as a string*/
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|REPLICATION_META_FAMILY_STR
-init|=
-literal|"rep_meta"
-decl_stmt|;
-comment|/** The replication meta family */
-specifier|public
-specifier|static
-specifier|final
-name|byte
-index|[]
-name|REPLICATION_META_FAMILY
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|REPLICATION_META_FAMILY_STR
-argument_list|)
-decl_stmt|;
 comment|/** The RegionInfo qualifier as a string */
 specifier|public
 specifier|static
@@ -1881,15 +1809,6 @@ name|REPLICATION_SCOPE_GLOBAL
 init|=
 literal|1
 decl_stmt|;
-comment|/**    * Scope tag for serially scoped data    * This data will be replicated to all peers by the order of sequence id.    */
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|REPLICATION_SCOPE_SERIAL
-init|=
-literal|2
-decl_stmt|;
 comment|/**    * Default cluster ID, cannot be used to identify a cluster so a key with    * this value means it wasn't meant for replication.    */
 specifier|public
 specifier|static
@@ -2329,22 +2248,6 @@ name|String
 name|REPLICATION_CLUSTER_ID
 init|=
 literal|"hbase.replication.cluster.id"
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|REPLICATION_SERIALLY_WAITING_KEY
-init|=
-literal|"hbase.serial.replication.waitingMs"
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|long
-name|REPLICATION_SERIALLY_WAITING_DEFAULT
-init|=
-literal|10000
 decl_stmt|;
 comment|/**    * Max total size of buffered entries in all replication peers. It will prevent server getting    * OOM if there are many peers. Default value is 256MB which is four times to default    * replication.source.size.capacity.    */
 specifier|public
