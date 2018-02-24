@@ -772,13 +772,6 @@ name|TEnvironment
 name|env
 parameter_list|)
 block|{
-specifier|final
-name|TState
-name|state
-init|=
-name|getCurrentState
-argument_list|()
-decl_stmt|;
 name|LOG
 operator|.
 name|debug

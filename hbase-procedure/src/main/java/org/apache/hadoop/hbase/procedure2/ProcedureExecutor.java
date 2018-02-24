@@ -1167,15 +1167,6 @@ operator|.
 name|iterator
 argument_list|()
 decl_stmt|;
-specifier|final
-name|boolean
-name|debugEnabled
-init|=
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-decl_stmt|;
 while|while
 condition|(
 name|it

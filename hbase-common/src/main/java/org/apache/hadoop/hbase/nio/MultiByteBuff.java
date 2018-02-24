@@ -1361,7 +1361,7 @@ operator|==
 name|itemIndex
 condition|)
 block|{
-comment|// means cur item is the last one and we wont be able to read a int. Throw exception
+comment|// means cur item is the last one and we wont be able to read a short. Throw exception
 throw|throw
 operator|new
 name|BufferUnderflowException
@@ -1479,7 +1479,7 @@ name|ByteBufferUtils
 operator|.
 name|toByte
 argument_list|(
-name|item
+name|nextItem
 argument_list|,
 name|i
 argument_list|)

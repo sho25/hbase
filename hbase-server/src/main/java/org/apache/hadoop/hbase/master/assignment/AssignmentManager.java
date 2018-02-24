@@ -7063,14 +7063,6 @@ argument_list|(
 name|size
 argument_list|)
 decl_stmt|;
-name|long
-name|startTime
-init|=
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
-decl_stmt|;
 comment|// If deadservers then its a failover, else, we are not sure yet.
 name|boolean
 name|failover

@@ -394,6 +394,27 @@ comment|/**  * Abstract Cleaner that uses a chain of delegates to clean a direct
 end_comment
 
 begin_class
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD"
+argument_list|,
+name|justification
+operator|=
+literal|"TODO: Fix. It is wonky have static pool initialized from instance"
+argument_list|)
 specifier|public
 specifier|abstract
 class|class
@@ -460,13 +481,13 @@ specifier|private
 specifier|static
 specifier|volatile
 name|ForkJoinPool
-name|chorePool
+name|CHOREPOOL
 decl_stmt|;
 specifier|private
 specifier|static
 specifier|volatile
 name|int
-name|chorePoolSize
+name|CHOREPOOLSIZE
 decl_stmt|;
 specifier|protected
 specifier|final
@@ -645,7 +666,7 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|chorePool
+name|CHOREPOOL
 operator|==
 literal|null
 condition|)
@@ -662,7 +683,7 @@ argument_list|,
 name|DEFAULT_CHORE_POOL_SIZE
 argument_list|)
 decl_stmt|;
-name|chorePoolSize
+name|CHOREPOOLSIZE
 operator|=
 name|calculatePoolSize
 argument_list|(
@@ -671,9 +692,9 @@ argument_list|)
 expr_stmt|;
 comment|// poolSize may be 0 or 0.0 from a careless configuration,
 comment|// double check to make sure.
-name|chorePoolSize
+name|CHOREPOOLSIZE
 operator|=
-name|chorePoolSize
+name|CHOREPOOLSIZE
 operator|==
 literal|0
 condition|?
@@ -682,16 +703,16 @@ argument_list|(
 name|DEFAULT_CHORE_POOL_SIZE
 argument_list|)
 else|:
-name|chorePoolSize
+name|CHOREPOOLSIZE
 expr_stmt|;
 name|this
 operator|.
-name|chorePool
+name|CHOREPOOL
 operator|=
 operator|new
 name|ForkJoinPool
 argument_list|(
-name|chorePoolSize
+name|CHOREPOOLSIZE
 argument_list|)
 expr_stmt|;
 name|LOG
@@ -700,12 +721,13 @@ name|info
 argument_list|(
 literal|"Cleaner pool size is {}"
 argument_list|,
-name|chorePoolSize
+name|CHOREPOOLSIZE
 argument_list|)
 expr_stmt|;
 block|}
 block|}
 comment|/**    * Calculate size for cleaner pool.    * @param poolSize size from configuration    * @return size of pool after calculation    */
+specifier|static
 name|int
 name|calculatePoolSize
 parameter_list|(
@@ -734,7 +756,7 @@ name|min
 argument_list|(
 name|Integer
 operator|.
-name|valueOf
+name|parseInt
 argument_list|(
 name|poolSize
 argument_list|)
@@ -968,7 +990,7 @@ if|if
 condition|(
 name|updatedSize
 operator|==
-name|chorePoolSize
+name|CHOREPOOLSIZE
 condition|)
 block|{
 name|LOG
@@ -982,13 +1004,13 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
-name|chorePoolSize
+name|CHOREPOOLSIZE
 operator|=
 name|updatedSize
 expr_stmt|;
 if|if
 condition|(
-name|chorePool
+name|CHOREPOOL
 operator|.
 name|getPoolSize
 argument_list|()
@@ -1021,7 +1043,7 @@ name|int
 name|updatedSize
 parameter_list|)
 block|{
-name|chorePool
+name|CHOREPOOL
 operator|.
 name|shutdownNow
 argument_list|()
@@ -1032,7 +1054,7 @@ name|info
 argument_list|(
 literal|"Update chore's pool size from {} to {}"
 argument_list|,
-name|chorePool
+name|CHOREPOOL
 operator|.
 name|getParallelism
 argument_list|()
@@ -1040,7 +1062,7 @@ argument_list|,
 name|updatedSize
 argument_list|)
 expr_stmt|;
-name|chorePool
+name|CHOREPOOL
 operator|=
 operator|new
 name|ForkJoinPool
@@ -1203,7 +1225,7 @@ condition|)
 block|{
 name|updateChorePoolSize
 argument_list|(
-name|chorePoolSize
+name|CHOREPOOLSIZE
 argument_list|)
 expr_stmt|;
 block|}
@@ -1255,7 +1277,7 @@ argument_list|,
 literal|true
 argument_list|)
 decl_stmt|;
-name|chorePool
+name|CHOREPOOL
 operator|.
 name|submit
 argument_list|(
@@ -1896,7 +1918,7 @@ name|getChorePoolSize
 parameter_list|()
 block|{
 return|return
-name|chorePoolSize
+name|CHOREPOOLSIZE
 return|;
 block|}
 comment|/**    * @param enabled    */

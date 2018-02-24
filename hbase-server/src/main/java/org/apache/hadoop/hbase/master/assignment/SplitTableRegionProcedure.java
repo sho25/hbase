@@ -2530,6 +2530,26 @@ operator|.
 name|getRegionInfo
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|parentHRI
+operator|==
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Unsplittable; parent region is null; node={}"
+argument_list|,
+name|node
+argument_list|)
+expr_stmt|;
+return|return
+literal|false
+return|;
+block|}
 comment|// Lookup the parent HRI state from the AM, which has the latest updated info.
 comment|// Protect against the case where concurrent SPLIT requests came in and succeeded
 comment|// just before us.
@@ -2674,18 +2694,10 @@ name|IOException
 argument_list|(
 literal|"Split region "
 operator|+
-operator|(
-name|parentHRI
-operator|==
-literal|null
-condition|?
-literal|"null"
-else|:
 name|parentHRI
 operator|.
 name|getRegionNameAsString
 argument_list|()
-operator|)
 operator|+
 literal|" failed due to split switch off"
 argument_list|)

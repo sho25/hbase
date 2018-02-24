@@ -8660,14 +8660,6 @@ operator|=
 name|createPriority
 argument_list|()
 expr_stmt|;
-name|String
-name|hostname
-init|=
-name|initialIsa
-operator|.
-name|getHostName
-argument_list|()
-decl_stmt|;
 comment|// Using Address means we don't get the IP too. Shorten it more even to just the host name
 comment|// w/o the domain.
 name|String

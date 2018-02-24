@@ -972,6 +972,27 @@ name|String
 argument_list|>
 name|saslProps
 decl_stmt|;
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"IS2_INCONSISTENT_SYNC"
+argument_list|,
+name|justification
+operator|=
+literal|"Start is synchronized so authManager creation is single-threaded"
+argument_list|)
 specifier|protected
 name|ServiceAuthorizationManager
 name|authManager
