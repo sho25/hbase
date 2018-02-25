@@ -2020,22 +2020,6 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|start
-parameter_list|()
-throws|throws
-name|IOException
-block|{     }
-annotation|@
-name|Override
-specifier|public
-name|void
-name|stop
-parameter_list|()
-block|{     }
-annotation|@
-name|Override
-specifier|public
-name|void
 name|updateRegionLocation
 parameter_list|(
 name|RegionStates

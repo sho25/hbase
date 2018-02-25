@@ -822,7 +822,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Read/write operations on region and assignment information store in  *<code>hbase:meta</code>.  *  * Some of the methods of this class take ZooKeeperWatcher as a param. The only reason  * for this is because when used on client-side (like from HBaseAdmin), we want to use  * short-living connection (opened before each operation, closed right after), while  * when used on HM or HRS (like in AssignmentManager) we want permanent connection.  */
+comment|/**  *<p>  * Read/write operations on region and assignment information store in<code>hbase:meta</code>.  *</p>  *<p>  * Some of the methods of this class take ZooKeeperWatcher as a param. The only reason for this is  * because when used on client-side (like from HBaseAdmin), we want to use short-living connection  * (opened before each operation, closed right after), while when used on HM or HRS (like in  * AssignmentManager) we want permanent connection.  *</p>  *<p>  * HBASE-10070 adds a replicaId to HRI, meaning more than one HRI can be defined for the same table  * range (table, startKey, endKey). For every range, there will be at least one HRI defined which is  * called default replica.  *</p>  *<p>  * Meta layout (as of 0.98 + HBASE-10070) is like:  *  *<pre>  * For each table there is single row in column family 'table' formatted:  *&lt;tableName&gt; including namespace and columns are:  * table: state             => contains table state  *  * For each table range, there is a single row, formatted like:  *&lt;tableName&gt;,&lt;startKey&gt;,&lt;regionId&gt;,&lt;encodedRegionName&gt;.  * This row corresponds to the regionName of the default region replica.  * Columns are:  * info:regioninfo         => contains serialized HRI for the default region replica  * info:server             => contains hostname:port (in string form) for the server hosting  *                            the default regionInfo replica  * info:server_&lt;replicaId&gt => contains hostname:port (in string form) for the server hosting  *                                 the regionInfo replica with replicaId  * info:serverstartcode    => contains server start code (in binary long form) for the server  *                            hosting the default regionInfo replica  * info:serverstartcode_&lt;replicaId&gt => contains server start code (in binary long form) for  *                                          the server hosting the regionInfo replica with  *                                          replicaId  * info:seqnumDuringOpen   => contains seqNum (in binary long form) for the region at the time  *                             the server opened the region with default replicaId  * info:seqnumDuringOpen_&lt;replicaId&gt => contains seqNum (in binary long form) for the region  *                                           at the time the server opened the region with  *                                           replicaId  * info:splitA             => contains a serialized HRI for the first daughter region if the  *                             region is split  * info:splitB             => contains a serialized HRI for the second daughter region if the  *                             region is split  * info:mergeA             => contains a serialized HRI for the first parent region if the  *                             region is the result of a merge  * info:mergeB             => contains a serialized HRI for the second parent region if the  *                             region is the result of a merge  *</pre>  *</p>  *<p>  * The actual layout of meta should be encapsulated inside MetaTableAccessor methods, and should not  * leak out of it (through Result objects, etc)  *</p>  */
 end_comment
 
 begin_class
@@ -834,7 +834,6 @@ specifier|public
 class|class
 name|MetaTableAccessor
 block|{
-comment|/*    * HBASE-10070 adds a replicaId to HRI, meaning more than one HRI can be defined for the    * same table range (table, startKey, endKey). For every range, there will be at least one    * HRI defined which is called default replica.    *    * Meta layout (as of 0.98 + HBASE-10070) is like:    *    * For each table there is single row in column family 'table' formatted:    *<tableName> including namespace and columns are:    * table: state             => contains table state    *    * For each table range, there is a single row, formatted like:    *<tableName>,<startKey>,<regionId>,<encodedRegionName>. This row corresponds to the regionName    * of the default region replica.    * Columns are:    * info:regioninfo         => contains serialized HRI for the default region replica    * info:server             => contains hostname:port (in string form) for the server hosting    *                            the default regionInfo replica    * info:server_<replicaId> => contains hostname:port (in string form) for the server hosting the    *                            regionInfo replica with replicaId    * info:serverstartcode    => contains server start code (in binary long form) for the server    *                            hosting the default regionInfo replica    * info:serverstartcode_<replicaId> => contains server start code (in binary long form) for the    *                                     server hosting the regionInfo replica with replicaId    * info:seqnumDuringOpen    => contains seqNum (in binary long form) for the region at the time    *                             the server opened the region with default replicaId    * info:seqnumDuringOpen_<replicaId> => contains seqNum (in binary long form) for the region at    *                             the time the server opened the region with replicaId    * info:splitA              => contains a serialized HRI for the first daughter region if the    *                             region is split    * info:splitB              => contains a serialized HRI for the second daughter region if the    *                             region is split    * info:mergeA              => contains a serialized HRI for the first parent region if the    *                             region is the result of a merge    * info:mergeB              => contains a serialized HRI for the second parent region if the    *                             region is the result of a merge    *    * The actual layout of meta should be encapsulated inside MetaTableAccessor methods,    * and should not leak out of it (through Result objects, etc)    */
 specifier|private
 specifier|static
 specifier|final
@@ -916,7 +915,7 @@ name|len
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Lists all of the table regions currently in META.    * Deprecated, keep there until some test use this.    * @param connection what we will use    * @param tableName table to list    * @return Map of all user-space regions to servers    * @throws java.io.IOException    * @deprecated use {@link #getTableRegionsAndLocations}, region can have multiple locations    */
+comment|/**    * Lists all of the table regions currently in META.    * Deprecated, keep there until some test use this.    * @param connection what we will use    * @param tableName table to list    * @return Map of all user-space regions to servers    * @deprecated use {@link #getTableRegionsAndLocations}, region can have multiple locations    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -1164,7 +1163,7 @@ comment|////////////////////////
 end_comment
 
 begin_comment
-comment|/**    * Performs a full scan of<code>hbase:meta</code> for regions.    * @param connection connection we're using    * @param visitor Visitor invoked against each row in regions family.    * @throws IOException    */
+comment|/**    * Performs a full scan of<code>hbase:meta</code> for regions.    * @param connection connection we're using    * @param visitor Visitor invoked against each row in regions family.    */
 end_comment
 
 begin_function
@@ -1202,7 +1201,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Performs a full scan of<code>hbase:meta</code> for regions.    * @param connection connection we're using    * @throws IOException    */
+comment|/**    * Performs a full scan of<code>hbase:meta</code> for regions.    * @param connection connection we're using    */
 end_comment
 
 begin_function
@@ -1234,7 +1233,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Performs a full scan of<code>hbase:meta</code> for tables.    * @param connection connection we're using    * @param visitor Visitor invoked against each row in tables family.    * @throws IOException    */
+comment|/**    * Performs a full scan of<code>hbase:meta</code> for tables.    * @param connection connection we're using    * @param visitor Visitor invoked against each row in tables family.    */
 end_comment
 
 begin_function
@@ -1272,7 +1271,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Performs a full scan of<code>hbase:meta</code>.    * @param connection connection we're using    * @param type scanned part of meta    * @return List of {@link Result}    * @throws IOException    */
+comment|/**    * Performs a full scan of<code>hbase:meta</code>.    * @param connection connection we're using    * @param type scanned part of meta    * @return List of {@link Result}    */
 end_comment
 
 begin_function
@@ -1323,7 +1322,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Callers should call close on the returned {@link Table} instance.    * @param connection connection we're using to access Meta    * @return An {@link Table} for<code>hbase:meta</code>    * @throws IOException    */
+comment|/**    * Callers should call close on the returned {@link Table} instance.    * @param connection connection we're using to access Meta    * @return An {@link Table} for<code>hbase:meta</code>    */
 end_comment
 
 begin_function
@@ -1386,7 +1385,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * @param t Table to use (will be closed when done).    * @param g Get to run    * @throws IOException    */
+comment|/**    * @param t Table to use (will be closed when done).    * @param g Get to run    */
 end_comment
 
 begin_function
@@ -1438,7 +1437,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Gets the region info and assignment for the specified region.    * @param connection connection we're using    * @param regionName Region to lookup.    * @return Location and RegionInfo for<code>regionName</code>    * @throws IOException    * @deprecated use {@link #getRegionLocation(Connection, byte[])} instead    */
+comment|/**    * Gets the region info and assignment for the specified region.    * @param connection connection we're using    * @param regionName Region to lookup.    * @return Location and RegionInfo for<code>regionName</code>    * @deprecated use {@link #getRegionLocation(Connection, byte[])} instead    */
 end_comment
 
 begin_function
@@ -1500,7 +1499,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Returns the HRegionLocation from meta for the given region    * @param connection connection we're using    * @param regionName region we're looking for    * @return HRegionLocation for the given region    * @throws IOException    */
+comment|/**    * Returns the HRegionLocation from meta for the given region    * @param connection connection we're using    * @param regionName region we're looking for    * @return HRegionLocation for the given region    */
 end_comment
 
 begin_function
@@ -1621,7 +1620,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Returns the HRegionLocation from meta for the given region    * @param connection connection we're using    * @param regionInfo region information    * @return HRegionLocation for the given region    * @throws IOException    */
+comment|/**    * Returns the HRegionLocation from meta for the given region    * @param connection connection we're using    * @param regionInfo region information    * @return HRegionLocation for the given region    */
 end_comment
 
 begin_function
@@ -1853,7 +1852,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Gets the result in hbase:meta for the specified region.    * @param connection connection we're using    * @param regionName region we're looking for    * @return result of the specified region    * @throws IOException    */
+comment|/**    * Gets the result in hbase:meta for the specified region.    * @param connection connection we're using    * @param regionName region we're looking for    * @return result of the specified region    */
 end_comment
 
 begin_function
@@ -1905,7 +1904,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Get regions from the merge qualifier of the specified merged region    * @return null if it doesn't contain merge qualifier, else two merge regions    * @throws IOException    */
+comment|/**    * Get regions from the merge qualifier of the specified merged region    * @return null if it doesn't contain merge qualifier, else two merge regions    */
 end_comment
 
 begin_function
@@ -1994,7 +1993,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Checks if the specified table exists.  Looks at the hbase:meta table hosted on    * the specified server.    * @param connection connection we're using    * @param tableName table to check    * @return true if the table exists in meta, false if not    * @throws IOException    */
+comment|/**    * Checks if the specified table exists.  Looks at the hbase:meta table hosted on    * the specified server.    * @param connection connection we're using    * @param tableName table to check    * @return true if the table exists in meta, false if not    */
 end_comment
 
 begin_function
@@ -2037,7 +2036,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Lists all of the regions currently in META.    *    * @param connection to connect with    * @param excludeOfflinedSplitParents False if we are to include offlined/splitparents regions,    *                                    true and we'll leave out offlined regions from returned list    * @return List of all user-space regions.    * @throws IOException    */
+comment|/**    * Lists all of the regions currently in META.    *    * @param connection to connect with    * @param excludeOfflinedSplitParents False if we are to include offlined/splitparents regions,    *                                    true and we'll leave out offlined regions from returned list    * @return List of all user-space regions.    */
 end_comment
 
 begin_function
@@ -2092,7 +2091,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Gets all of the regions of the specified table. Do not use this method    * to get meta table regions, use methods in MetaTableLocator instead.    * @param connection connection we're using    * @param tableName table we're looking for    * @return Ordered list of {@link RegionInfo}.    * @throws IOException    */
+comment|/**    * Gets all of the regions of the specified table. Do not use this method    * to get meta table regions, use methods in MetaTableLocator instead.    * @param connection connection we're using    * @param tableName table we're looking for    * @return Ordered list of {@link RegionInfo}.    */
 end_comment
 
 begin_function
@@ -2127,7 +2126,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Gets all of the regions of the specified table. Do not use this method    * to get meta table regions, use methods in MetaTableLocator instead.    * @param connection connection we're using    * @param tableName table we're looking for    * @param excludeOfflinedSplitParents If true, do not include offlined split    * parents in the return.    * @return Ordered list of {@link RegionInfo}.    * @throws IOException    */
+comment|/**    * Gets all of the regions of the specified table. Do not use this method    * to get meta table regions, use methods in MetaTableLocator instead.    * @param connection connection we're using    * @param tableName table we're looking for    * @param excludeOfflinedSplitParents If true, do not include offlined split    * parents in the return.    * @return Ordered list of {@link RegionInfo}.    */
 end_comment
 
 begin_function
@@ -2182,6 +2181,7 @@ block|}
 end_function
 
 begin_function
+specifier|private
 specifier|static
 name|List
 argument_list|<
@@ -2213,11 +2213,14 @@ operator|.
 name|isEmpty
 argument_list|()
 condition|)
+block|{
 return|return
 name|Collections
 operator|.
-name|EMPTY_LIST
+name|emptyList
+argument_list|()
 return|;
+block|}
 name|List
 argument_list|<
 name|RegionInfo
@@ -2260,38 +2263,6 @@ expr_stmt|;
 block|}
 return|return
 name|result
-return|;
-block|}
-end_function
-
-begin_comment
-comment|/**    * @param current region of current table we're working with    * @param tableName table we're checking against    * @return True if<code>current</code> tablename is equal to    *<code>tableName</code>    */
-end_comment
-
-begin_function
-specifier|static
-name|boolean
-name|isInsideTable
-parameter_list|(
-specifier|final
-name|RegionInfo
-name|current
-parameter_list|,
-specifier|final
-name|TableName
-name|tableName
-parameter_list|)
-block|{
-return|return
-name|tableName
-operator|.
-name|equals
-argument_list|(
-name|current
-operator|.
-name|getTable
-argument_list|()
-argument_list|)
 return|;
 block|}
 end_function
@@ -2946,7 +2917,7 @@ operator|.
 name|getRegionLocation
 argument_list|()
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|==
 literal|null
@@ -2973,7 +2944,7 @@ operator|.
 name|getRegionLocation
 argument_list|()
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 decl_stmt|;
 if|if
@@ -3046,7 +3017,7 @@ argument_list|<>
 argument_list|(
 name|loc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 argument_list|,
 name|loc
@@ -3233,7 +3204,7 @@ name|put
 argument_list|(
 name|loc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 argument_list|,
 name|r
@@ -3390,7 +3361,7 @@ literal|"fullScanMetaAndPrint.HRI Print= "
 operator|+
 name|loc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3789,26 +3760,30 @@ name|startRow
 operator|!=
 literal|null
 condition|)
+block|{
 name|scan
 operator|.
-name|setStartRow
+name|withStartRow
 argument_list|(
 name|startRow
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|stopRow
 operator|!=
 literal|null
 condition|)
+block|{
 name|scan
 operator|.
-name|setStopRow
+name|withStopRow
 argument_list|(
 name|stopRow
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|LOG
@@ -3983,13 +3958,13 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * @return Get closest metatable region row to passed<code>row</code>    * @throws java.io.IOException    */
+comment|/**    * @return Get closest metatable region row to passed<code>row</code>    */
 end_comment
 
 begin_function
 annotation|@
 name|NonNull
-specifier|public
+specifier|private
 specifier|static
 name|RegionInfo
 name|getClosestRegionInfo
@@ -4051,7 +4026,7 @@ argument_list|)
 expr_stmt|;
 name|scan
 operator|.
-name|setStartRow
+name|withStartRow
 argument_list|(
 name|searchRow
 argument_list|)
@@ -4154,7 +4129,7 @@ comment|/**    * Returns the column family used for meta columns.    * @return H
 end_comment
 
 begin_function
-specifier|protected
+specifier|private
 specifier|static
 name|byte
 index|[]
@@ -4174,7 +4149,7 @@ comment|/**    * Returns the column family used for table columns.    * @return 
 end_comment
 
 begin_function
-specifier|protected
+specifier|private
 specifier|static
 name|byte
 index|[]
@@ -4194,7 +4169,7 @@ comment|/**    * Returns the column qualifier for serialized region info    * @r
 end_comment
 
 begin_function
-specifier|protected
+specifier|private
 specifier|static
 name|byte
 index|[]
@@ -4210,11 +4185,11 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Returns the column qualifier for serialized table state    *    * @return HConstants.TABLE_STATE_QUALIFIER    */
+comment|/**    * Returns the column qualifier for serialized table state    * @return HConstants.TABLE_STATE_QUALIFIER    */
 end_comment
 
 begin_function
-specifier|protected
+specifier|private
 specifier|static
 name|byte
 index|[]
@@ -4230,11 +4205,11 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Returns the column qualifier for serialized region state    *    * @return HConstants.TABLE_STATE_QUALIFIER    */
+comment|/**    * Returns the column qualifier for serialized region state    * @return HConstants.TABLE_STATE_QUALIFIER    */
 end_comment
 
 begin_function
-specifier|protected
+specifier|private
 specifier|static
 name|byte
 index|[]
@@ -5563,7 +5538,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Decode table state from META Result.    * Should contain cell from HConstants.TABLE_FAMILY    * @param r result    * @return null if not found    * @throws IOException    */
+comment|/**    * Decode table state from META Result.    * Should contain cell from HConstants.TABLE_FAMILY    * @param r result    * @return null if not found    */
 end_comment
 
 begin_function
@@ -5600,9 +5575,11 @@ name|cell
 operator|==
 literal|null
 condition|)
+block|{
 return|return
 literal|null
 return|;
+block|}
 try|try
 block|{
 return|return
@@ -6018,7 +5995,7 @@ block|}
 end_class
 
 begin_comment
-comment|/**    * Count regions in<code>hbase:meta</code> for passed table.    * @param c Configuration object    * @param tableName table name to count regions for    * @return Count or regions in table<code>tableName</code>    * @throws IOException    */
+comment|/**    * Count regions in<code>hbase:meta</code> for passed table.    * @param c Configuration object    * @param tableName table name to count regions for    * @return Count or regions in table<code>tableName</code>    */
 end_comment
 
 begin_function
@@ -6064,7 +6041,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Count regions in<code>hbase:meta</code> for passed table.    * @param connection Connection object    * @param tableName table name to count regions for    * @return Count or regions in table<code>tableName</code>    * @throws IOException    */
+comment|/**    * Count regions in<code>hbase:meta</code> for passed table.    * @param connection Connection object    * @param tableName table name to count regions for    * @return Count or regions in table<code>tableName</code>    */
 end_comment
 
 begin_function
@@ -6148,36 +6125,6 @@ name|makePutFromRegionInfo
 parameter_list|(
 name|RegionInfo
 name|regionInfo
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-return|return
-name|makePutFromRegionInfo
-argument_list|(
-name|regionInfo
-argument_list|,
-name|EnvironmentEdgeManager
-operator|.
-name|currentTime
-argument_list|()
-argument_list|)
-return|;
-block|}
-end_function
-
-begin_comment
-comment|/**    * Generates and returns a Put containing the region into for the catalog table    */
-end_comment
-
-begin_function
-specifier|public
-specifier|static
-name|Put
-name|makePutFromRegionInfo
-parameter_list|(
-name|RegionInfo
-name|regionInfo
 parameter_list|,
 name|long
 name|ts
@@ -6217,40 +6164,7 @@ comment|/**    * Generates and returns a Delete containing the region info for t
 end_comment
 
 begin_function
-specifier|public
-specifier|static
-name|Delete
-name|makeDeleteFromRegionInfo
-parameter_list|(
-name|RegionInfo
-name|regionInfo
-parameter_list|)
-block|{
-name|long
-name|now
-init|=
-name|EnvironmentEdgeManager
-operator|.
-name|currentTime
-argument_list|()
-decl_stmt|;
-return|return
-name|makeDeleteFromRegionInfo
-argument_list|(
-name|regionInfo
-argument_list|,
-name|now
-argument_list|)
-return|;
-block|}
-end_function
-
-begin_comment
-comment|/**    * Generates and returns a Delete containing the region info for the catalog    * table    */
-end_comment
-
-begin_function
-specifier|public
+specifier|private
 specifier|static
 name|Delete
 name|makeDeleteFromRegionInfo
@@ -6478,40 +6392,48 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Put the passed<code>p</code> to the<code>hbase:meta</code> table.    * @param connection connection we're using    * @param p Put to add to hbase:meta    * @throws IOException    */
+comment|/**    * Put the passed<code>p</code> to the<code>hbase:meta</code> table.    * @param connection connection we're using    * @param p Put to add to hbase:meta    */
 end_comment
 
 begin_function
+specifier|private
 specifier|static
 name|void
 name|putToMetaTable
 parameter_list|(
-specifier|final
 name|Connection
 name|connection
 parameter_list|,
-specifier|final
 name|Put
 name|p
 parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|put
-argument_list|(
+try|try
+init|(
+name|Table
+name|table
+init|=
 name|getMetaHTable
 argument_list|(
 name|connection
 argument_list|)
+init|)
+block|{
+name|put
+argument_list|(
+name|table
 argument_list|,
 name|p
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 end_function
 
 begin_comment
-comment|/**    * @param t Table to use (will be closed when done).    * @param p put to make    * @throws IOException    */
+comment|/**    * @param t Table to use    * @param p put to make    */
 end_comment
 
 begin_function
@@ -6520,18 +6442,14 @@ specifier|static
 name|void
 name|put
 parameter_list|(
-specifier|final
 name|Table
 name|t
 parameter_list|,
-specifier|final
 name|Put
 name|p
 parameter_list|)
 throws|throws
 name|IOException
-block|{
-try|try
 block|{
 name|debugLogMutation
 argument_list|(
@@ -6546,19 +6464,10 @@ name|p
 argument_list|)
 expr_stmt|;
 block|}
-finally|finally
-block|{
-name|t
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-block|}
-block|}
 end_function
 
 begin_comment
-comment|/**    * Put the passed<code>ps</code> to the<code>hbase:meta</code> table.    * @param connection connection we're using    * @param ps Put to add to hbase:meta    * @throws IOException    */
+comment|/**    * Put the passed<code>ps</code> to the<code>hbase:meta</code> table.    * @param connection connection we're using    * @param ps Put to add to hbase:meta    */
 end_comment
 
 begin_function
@@ -6581,6 +6490,8 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+try|try
+init|(
 name|Table
 name|t
 init|=
@@ -6588,8 +6499,7 @@ name|getMetaHTable
 argument_list|(
 name|connection
 argument_list|)
-decl_stmt|;
-try|try
+init|)
 block|{
 name|debugLogMutations
 argument_list|(
@@ -6604,22 +6514,15 @@ name|ps
 argument_list|)
 expr_stmt|;
 block|}
-finally|finally
-block|{
-name|t
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-block|}
 block|}
 end_function
 
 begin_comment
-comment|/**    * Delete the passed<code>d</code> from the<code>hbase:meta</code> table.    * @param connection connection we're using    * @param d Delete to add to hbase:meta    * @throws IOException    */
+comment|/**    * Delete the passed<code>d</code> from the<code>hbase:meta</code> table.    * @param connection connection we're using    * @param d Delete to add to hbase:meta    */
 end_comment
 
 begin_function
+specifier|private
 specifier|static
 name|void
 name|deleteFromMetaTable
@@ -6666,11 +6569,11 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Delete the passed<code>deletes</code> from the<code>hbase:meta</code> table.    * @param connection connection we're using    * @param deletes Deletes to add to hbase:meta  This list should support #remove.    * @throws IOException    */
+comment|/**    * Delete the passed<code>deletes</code> from the<code>hbase:meta</code> table.    * @param connection connection we're using    * @param deletes Deletes to add to hbase:meta  This list should support #remove.    */
 end_comment
 
 begin_function
-specifier|public
+specifier|private
 specifier|static
 name|void
 name|deleteFromMetaTable
@@ -6689,6 +6592,8 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+try|try
+init|(
 name|Table
 name|t
 init|=
@@ -6696,8 +6601,7 @@ name|getMetaHTable
 argument_list|(
 name|connection
 argument_list|)
-decl_stmt|;
-try|try
+init|)
 block|{
 name|debugLogMutations
 argument_list|(
@@ -6712,19 +6616,11 @@ name|deletes
 argument_list|)
 expr_stmt|;
 block|}
-finally|finally
-block|{
-name|t
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-block|}
 block|}
 end_function
 
 begin_comment
-comment|/**    * Deletes some replica columns corresponding to replicas for the passed rows    * @param metaRows rows in hbase:meta    * @param replicaIndexToDeleteFrom the replica ID we would start deleting from    * @param numReplicasToRemove how many replicas to remove    * @param connection connection we're using to access meta table    * @throws IOException    */
+comment|/**    * Deletes some replica columns corresponding to replicas for the passed rows    * @param metaRows rows in hbase:meta    * @param replicaIndexToDeleteFrom the replica ID we would start deleting from    * @param numReplicasToRemove how many replicas to remove    * @param connection connection we're using to access meta table    */
 end_comment
 
 begin_function
@@ -6947,6 +6843,7 @@ block|}
 end_function
 
 begin_function
+specifier|private
 specifier|static
 name|void
 name|addRegionStateToPut
@@ -7074,6 +6971,11 @@ init|=
 name|makePutFromRegionInfo
 argument_list|(
 name|regionInfo
+argument_list|,
+name|EnvironmentEdgeManager
+operator|.
+name|currentTime
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|addDaughtersToPut
@@ -7192,9 +7094,10 @@ name|regionInfos
 argument_list|,
 name|regionReplication
 argument_list|,
-name|HConstants
+name|EnvironmentEdgeManager
 operator|.
-name|LATEST_TIMESTAMP
+name|currentTime
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -7205,7 +7108,7 @@ comment|/**    * Adds a hbase:meta row for each of the specified new regions. In
 end_comment
 
 begin_function
-specifier|public
+specifier|private
 specifier|static
 name|void
 name|addRegionsToMeta
@@ -7336,7 +7239,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Merge the two regions into one in an atomic operation. Deletes the two    * merging regions in hbase:meta and adds the merged region with the information of    * two merging regions.    * @param connection connection we're using    * @param mergedRegion the merged region    * @param regionA    * @param regionB    * @param sn the location of the region    * @param masterSystemTime    * @throws IOException    */
+comment|/**    * Merge the two regions into one in an atomic operation. Deletes the two    * merging regions in hbase:meta and adds the merged region with the information of    * two merging regions.    * @param connection connection we're using    * @param mergedRegion the merged region    * @param regionA merge parent region A    * @param regionB merge parent region B    * @param sn the location of the region    */
 end_comment
 
 begin_function
@@ -7363,13 +7266,12 @@ name|sn
 parameter_list|,
 name|int
 name|regionReplication
-parameter_list|,
-name|long
-name|masterSystemTime
 parameter_list|)
 throws|throws
 name|IOException
 block|{
+try|try
+init|(
 name|Table
 name|meta
 init|=
@@ -7377,24 +7279,16 @@ name|getMetaHTable
 argument_list|(
 name|connection
 argument_list|)
-decl_stmt|;
-try|try
+init|)
 block|{
 comment|// use the maximum of what master passed us vs local time.
 name|long
 name|time
 init|=
-name|Math
-operator|.
-name|max
-argument_list|(
 name|EnvironmentEdgeManager
 operator|.
 name|currentTime
 argument_list|()
-argument_list|,
-name|masterSystemTime
-argument_list|)
 decl_stmt|;
 comment|// Put for parent
 name|Put
@@ -7580,6 +7474,7 @@ name|sn
 operator|!=
 literal|null
 condition|)
+block|{
 name|addLocation
 argument_list|(
 name|putOfMerged
@@ -7588,15 +7483,13 @@ name|sn
 argument_list|,
 literal|1
 argument_list|,
-operator|-
-literal|1
-argument_list|,
 name|mergedRegion
 operator|.
 name|getReplicaId
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 comment|// Add empty locations for region replicas of the merged region so that number of replicas can
 comment|// be cached whenever the primary region is looked up from meta
 for|for
@@ -7656,19 +7549,11 @@ name|deleteB
 argument_list|)
 expr_stmt|;
 block|}
-finally|finally
-block|{
-name|meta
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-block|}
 block|}
 end_function
 
 begin_comment
-comment|/**    * Splits the region into two in an atomic operation. Offlines the parent    * region with the information that it is split into two, and also adds    * the daughter regions. Does not add the location information to the daughter    * regions since they are not open yet.    * @param connection connection we're using    * @param parent the parent region which is split    * @param splitA Split daughter region A    * @param splitB Split daughter region A    * @param sn the location of the region    */
+comment|/**    * Splits the region into two in an atomic operation. Offlines the parent    * region with the information that it is split into two, and also adds    * the daughter regions. Does not add the location information to the daughter    * regions since they are not open yet.    * @param connection connection we're using    * @param parent the parent region which is split    * @param splitA Split daughter region A    * @param splitB Split daughter region B    * @param sn the location of the region    */
 end_comment
 
 begin_function
@@ -7699,6 +7584,8 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+try|try
+init|(
 name|Table
 name|meta
 init|=
@@ -7706,10 +7593,17 @@ name|getMetaHTable
 argument_list|(
 name|connection
 argument_list|)
-decl_stmt|;
-try|try
+init|)
 block|{
-comment|//Put for parent
+name|long
+name|time
+init|=
+name|EnvironmentEdgeManager
+operator|.
+name|currentTime
+argument_list|()
+decl_stmt|;
+comment|// Put for parent
 name|Put
 name|putParent
 init|=
@@ -7734,6 +7628,8 @@ argument_list|)
 operator|.
 name|build
 argument_list|()
+argument_list|,
+name|time
 argument_list|)
 decl_stmt|;
 name|addDaughtersToPut
@@ -7745,13 +7641,15 @@ argument_list|,
 name|splitB
 argument_list|)
 expr_stmt|;
-comment|//Puts for daughters
+comment|// Puts for daughters
 name|Put
 name|putA
 init|=
 name|makePutFromRegionInfo
 argument_list|(
 name|splitA
+argument_list|,
+name|time
 argument_list|)
 decl_stmt|;
 name|Put
@@ -7760,6 +7658,8 @@ init|=
 name|makePutFromRegionInfo
 argument_list|(
 name|splitB
+argument_list|,
+name|time
 argument_list|)
 decl_stmt|;
 comment|// Set initial state to CLOSED
@@ -7795,23 +7695,17 @@ name|putA
 argument_list|,
 literal|1
 argument_list|,
-operator|-
-literal|1
-argument_list|,
 name|splitA
 operator|.
 name|getReplicaId
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|//new regions, openSeqNum = 1 is fine.
+comment|// new regions, openSeqNum = 1 is fine.
 name|addSequenceNum
 argument_list|(
 name|putB
 argument_list|,
-literal|1
-argument_list|,
-operator|-
 literal|1
 argument_list|,
 name|splitB
@@ -7886,23 +7780,15 @@ name|putB
 argument_list|)
 expr_stmt|;
 block|}
-finally|finally
-block|{
-name|meta
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-block|}
 block|}
 end_function
 
 begin_comment
-comment|/**    * Update state of the table in meta.    * @param connection what we use for update    * @param state new state    * @throws IOException    */
+comment|/**    * Update state of the table in meta.    * @param connection what we use for update    * @param state new state    */
 end_comment
 
 begin_function
-specifier|public
+specifier|private
 specifier|static
 name|void
 name|updateTableState
@@ -7922,6 +7808,11 @@ init|=
 name|makePutFromTableState
 argument_list|(
 name|state
+argument_list|,
+name|EnvironmentEdgeManager
+operator|.
+name|currentTime
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|putToMetaTable
@@ -7935,21 +7826,17 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Updated table "
-operator|+
+literal|"Updated table {} state to {} in META"
+argument_list|,
 name|state
 operator|.
 name|getTableName
 argument_list|()
-operator|+
-literal|" state to "
-operator|+
+argument_list|,
 name|state
 operator|.
 name|getState
 argument_list|()
-operator|+
-literal|" in META"
 argument_list|)
 expr_stmt|;
 block|}
@@ -7967,16 +7854,11 @@ name|makePutFromTableState
 parameter_list|(
 name|TableState
 name|state
+parameter_list|,
+name|long
+name|ts
 parameter_list|)
 block|{
-name|long
-name|time
-init|=
-name|EnvironmentEdgeManager
-operator|.
-name|currentTime
-argument_list|()
-decl_stmt|;
 name|Put
 name|put
 init|=
@@ -7991,7 +7873,7 @@ operator|.
 name|getName
 argument_list|()
 argument_list|,
-name|time
+name|ts
 argument_list|)
 decl_stmt|;
 name|put
@@ -8347,7 +8229,7 @@ name|REGION_NAME
 argument_list|,
 name|hrl
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName
@@ -8471,10 +8353,12 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Updates the location of the specified region in hbase:meta to be the specified    * server hostname and startcode.    *<p>    * Uses passed catalog tracker to get a connection to the server hosting    * hbase:meta and makes edits to that region.    *    * @param connection connection we're using    * @param regionInfo region to update location of    * @param openSeqNum the latest sequence number obtained when the region was open    * @param sn Server name    * @param masterSystemTime wall clock time from master if passed in the open region RPC or -1    * @throws IOException    */
+comment|/**    * Updates the location of the specified region in hbase:meta to be the specified server hostname    * and startcode.    *<p>    * Uses passed catalog tracker to get a connection to the server hosting hbase:meta and makes    * edits to that region.    * @param connection connection we're using    * @param regionInfo region to update location of    * @param openSeqNum the latest sequence number obtained when the region was open    * @param sn Server name    * @param masterSystemTime wall clock time from master if passed in the open region RPC    */
 end_comment
 
 begin_function
+annotation|@
+name|VisibleForTesting
 specifier|public
 specifier|static
 name|void
@@ -8515,7 +8399,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Updates the location of the specified region to be the specified server.    *<p>    * Connects to the specified server which should be hosting the specified    * catalog region name to perform the edit.    *    * @param connection connection we're using    * @param regionInfo region to update location of    * @param sn Server name    * @param openSeqNum the latest sequence number obtained when the region was open    * @param masterSystemTime wall clock time from master if passed in the open region RPC or -1    * @throws IOException In particular could throw {@link java.net.ConnectException}    * if the server is down on other end.    */
+comment|/**    * Updates the location of the specified region to be the specified server.    *<p>    * Connects to the specified server which should be hosting the specified catalog region name to    * perform the edit.    * @param connection connection we're using    * @param regionInfo region to update location of    * @param sn Server name    * @param openSeqNum the latest sequence number obtained when the region was open    * @param masterSystemTime wall clock time from master if passed in the open region RPC    * @throws IOException In particular could throw {@link java.net.ConnectException} if the server    *           is down on other end.    */
 end_comment
 
 begin_function
@@ -8524,7 +8408,6 @@ specifier|static
 name|void
 name|updateLocation
 parameter_list|(
-specifier|final
 name|Connection
 name|connection
 parameter_list|,
@@ -8543,22 +8426,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// use the maximum of what master passed us vs local time.
-name|long
-name|time
-init|=
-name|Math
-operator|.
-name|max
-argument_list|(
-name|EnvironmentEdgeManager
-operator|.
-name|currentTime
-argument_list|()
-argument_list|,
-name|masterSystemTime
-argument_list|)
-decl_stmt|;
 comment|// region replicas are kept in the primary region's row
 name|Put
 name|put
@@ -8571,7 +8438,7 @@ argument_list|(
 name|regionInfo
 argument_list|)
 argument_list|,
-name|time
+name|masterSystemTime
 argument_list|)
 decl_stmt|;
 name|addRegionInfo
@@ -8588,8 +8455,6 @@ argument_list|,
 name|sn
 argument_list|,
 name|openSeqNum
-argument_list|,
-name|time
 argument_list|,
 name|regionInfo
 operator|.
@@ -8608,15 +8473,13 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Updated row "
-operator|+
+literal|"Updated row {} with server="
+argument_list|,
 name|regionInfo
 operator|.
 name|getRegionNameAsString
 argument_list|()
-operator|+
-literal|" with server="
-operator|+
+argument_list|,
 name|sn
 argument_list|)
 expr_stmt|;
@@ -8695,7 +8558,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Deletes the specified regions from META.    * @param connection connection we're using    * @param regionsInfo list of regions to be deleted from META    * @throws IOException    */
+comment|/**    * Deletes the specified regions from META.    * @param connection connection we're using    * @param regionsInfo list of regions to be deleted from META    */
 end_comment
 
 begin_function
@@ -8732,7 +8595,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Deletes the specified regions from META.    * @param connection connection we're using    * @param regionsInfo list of regions to be deleted from META    * @throws IOException    */
+comment|/**    * Deletes the specified regions from META.    * @param connection connection we're using    * @param regionsInfo list of regions to be deleted from META    */
 end_comment
 
 begin_function
@@ -8821,14 +8684,12 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Deleted "
-operator|+
+literal|"Deleted {} regions from META"
+argument_list|,
 name|regionsInfo
 operator|.
 name|size
 argument_list|()
-operator|+
-literal|" regions from META"
 argument_list|)
 expr_stmt|;
 name|LOG
@@ -8844,7 +8705,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Overwrites the specified regions from hbase:meta. Deletes old rows for the given regions and    * adds new ones. Regions added back have state CLOSED.    * @param connection connection we're using    * @param regionInfos list of regions to be added to META    * @throws IOException    */
+comment|/**    * Overwrites the specified regions from hbase:meta. Deletes old rows for the given regions and    * adds new ones. Regions added back have state CLOSED.    * @param connection connection we're using    * @param regionInfos list of regions to be added to META    */
 end_comment
 
 begin_function
@@ -8932,7 +8793,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Deletes merge qualifiers for the specified merged region.    * @param connection connection we're using    * @param mergedRegion    * @throws IOException    */
+comment|/**    * Deletes merge qualifiers for the specified merged region.    * @param connection connection we're using    * @param mergedRegion the merged region    */
 end_comment
 
 begin_function
@@ -9135,19 +8996,14 @@ specifier|static
 name|Put
 name|addLocation
 parameter_list|(
-specifier|final
 name|Put
 name|p
 parameter_list|,
-specifier|final
 name|ServerName
 name|sn
 parameter_list|,
 name|long
 name|openSeqNum
-parameter_list|,
-name|long
-name|time
 parameter_list|,
 name|int
 name|replicaId
@@ -9155,21 +9011,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-if|if
-condition|(
-name|time
-operator|<=
-literal|0
-condition|)
-block|{
-name|time
-operator|=
-name|EnvironmentEdgeManager
-operator|.
-name|currentTime
-argument_list|()
-expr_stmt|;
-block|}
 name|CellBuilder
 name|builder
 init|=
@@ -9216,7 +9057,10 @@ argument_list|)
 operator|.
 name|setTimestamp
 argument_list|(
-name|time
+name|p
+operator|.
+name|getTimeStamp
+argument_list|()
 argument_list|)
 operator|.
 name|setType
@@ -9279,7 +9123,10 @@ argument_list|)
 operator|.
 name|setTimestamp
 argument_list|(
-name|time
+name|p
+operator|.
+name|getTimeStamp
+argument_list|()
 argument_list|)
 operator|.
 name|setType
@@ -9339,7 +9186,10 @@ argument_list|)
 operator|.
 name|setTimestamp
 argument_list|(
-name|time
+name|p
+operator|.
+name|getTimeStamp
+argument_list|()
 argument_list|)
 operator|.
 name|setType
@@ -9367,12 +9217,11 @@ block|}
 end_function
 
 begin_function
-specifier|public
+specifier|private
 specifier|static
 name|Put
 name|addEmptyLocation
 parameter_list|(
-specifier|final
 name|Put
 name|p
 parameter_list|,
@@ -9382,14 +9231,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|long
-name|now
-init|=
-name|EnvironmentEdgeManager
-operator|.
-name|currentTime
-argument_list|()
-decl_stmt|;
 name|CellBuilder
 name|builder
 init|=
@@ -9436,7 +9277,10 @@ argument_list|)
 operator|.
 name|setTimestamp
 argument_list|(
-name|now
+name|p
+operator|.
+name|getTimeStamp
+argument_list|()
 argument_list|)
 operator|.
 name|setType
@@ -9481,7 +9325,10 @@ argument_list|)
 operator|.
 name|setTimestamp
 argument_list|(
-name|now
+name|p
+operator|.
+name|getTimeStamp
+argument_list|()
 argument_list|)
 operator|.
 name|setType
@@ -9528,7 +9375,10 @@ argument_list|)
 operator|.
 name|setTimestamp
 argument_list|(
-name|now
+name|p
+operator|.
+name|getTimeStamp
+argument_list|()
 argument_list|)
 operator|.
 name|setType
@@ -9630,20 +9480,16 @@ block|}
 end_function
 
 begin_function
-specifier|public
+specifier|private
 specifier|static
 name|Put
 name|addSequenceNum
 parameter_list|(
-specifier|final
 name|Put
 name|p
 parameter_list|,
 name|long
 name|openSeqNum
-parameter_list|,
-name|long
-name|time
 parameter_list|,
 name|int
 name|replicaId
@@ -9651,21 +9497,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-if|if
-condition|(
-name|time
-operator|<=
-literal|0
-condition|)
-block|{
-name|time
-operator|=
-name|EnvironmentEdgeManager
-operator|.
-name|currentTime
-argument_list|()
-expr_stmt|;
-block|}
 return|return
 name|p
 operator|.
@@ -9705,7 +9536,10 @@ argument_list|)
 operator|.
 name|setTimestamp
 argument_list|(
-name|time
+name|p
+operator|.
+name|getTimeStamp
+argument_list|()
 argument_list|)
 operator|.
 name|setType

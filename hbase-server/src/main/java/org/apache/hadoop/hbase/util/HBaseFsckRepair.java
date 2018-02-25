@@ -819,6 +819,11 @@ operator|.
 name|makePutFromRegionInfo
 argument_list|(
 name|hri
+argument_list|,
+name|EnvironmentEdgeManager
+operator|.
+name|currentTime
+argument_list|()
 argument_list|)
 decl_stmt|;
 if|if
@@ -899,9 +904,6 @@ name|sn
 operator|.
 name|getStartcode
 argument_list|()
-argument_list|,
-operator|-
-literal|1
 argument_list|,
 name|i
 argument_list|)

@@ -1640,12 +1640,6 @@ argument_list|(
 name|this
 argument_list|)
 expr_stmt|;
-comment|// Start the RegionStateStore
-name|regionStateStore
-operator|.
-name|start
-argument_list|()
-expr_stmt|;
 comment|// Start the Assignment Thread
 name|startAssignmentThread
 argument_list|()
@@ -1718,11 +1712,6 @@ comment|// Stop the RegionStateStore
 name|regionStates
 operator|.
 name|clear
-argument_list|()
-expr_stmt|;
-name|regionStateStore
-operator|.
-name|stop
 argument_list|()
 expr_stmt|;
 comment|// Unregister Server Listener

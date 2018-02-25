@@ -1104,7 +1104,8 @@ literal|" regions in META"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Generates and returns a Put containing the region info for the catalog table    * and the servers    * @param regionInfo    * @param favoredNodeList    * @return Put object    */
+comment|/**    * Generates and returns a Put containing the region info for the catalog table and the servers    * @return Put object    */
+specifier|private
 specifier|static
 name|Put
 name|makePutFromRegionInfo
@@ -1133,6 +1134,14 @@ operator|!=
 literal|null
 condition|)
 block|{
+name|long
+name|time
+init|=
+name|EnvironmentEdgeManager
+operator|.
+name|currentTime
+argument_list|()
+decl_stmt|;
 name|put
 operator|=
 name|MetaTableAccessor
@@ -1140,6 +1149,8 @@ operator|.
 name|makePutFromRegionInfo
 argument_list|(
 name|regionInfo
+argument_list|,
+name|time
 argument_list|)
 expr_stmt|;
 name|byte
@@ -1186,10 +1197,7 @@ argument_list|)
 operator|.
 name|setTimestamp
 argument_list|(
-name|EnvironmentEdgeManager
-operator|.
-name|currentTime
-argument_list|()
+name|time
 argument_list|)
 operator|.
 name|setType
@@ -1212,15 +1220,13 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Create the region "
-operator|+
+literal|"Create the region {} with favored nodes {}"
+argument_list|,
 name|regionInfo
 operator|.
 name|getRegionNameAsString
 argument_list|()
-operator|+
-literal|" with favored nodes "
-operator|+
+argument_list|,
 name|favoredNodeList
 argument_list|)
 expr_stmt|;

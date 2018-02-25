@@ -8293,6 +8293,11 @@ name|State
 operator|.
 name|ENABLED
 argument_list|)
+argument_list|,
+name|EnvironmentEdgeManager
+operator|.
+name|currentTime
+argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -8409,6 +8414,11 @@ operator|.
 name|makePutFromRegionInfo
 argument_list|(
 name|hri
+argument_list|,
+name|EnvironmentEdgeManager
+operator|.
+name|currentTime
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|puts
@@ -11745,6 +11755,11 @@ operator|.
 name|makePutFromRegionInfo
 argument_list|(
 name|hri
+argument_list|,
+name|EnvironmentEdgeManager
+operator|.
+name|currentTime
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|mutations
