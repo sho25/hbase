@@ -3964,6 +3964,20 @@ name|HashSet
 argument_list|<>
 argument_list|()
 decl_stmt|;
+name|List
+argument_list|<
+name|ServerName
+argument_list|>
+name|drainingServers
+init|=
+name|master
+operator|.
+name|getServerManager
+argument_list|()
+operator|.
+name|getDrainingServersList
+argument_list|()
+decl_stmt|;
 for|for
 control|(
 name|ServerName
@@ -3981,6 +3995,18 @@ name|keySet
 argument_list|()
 control|)
 block|{
+comment|// Only online but not decommissioned servers are really online
+if|if
+condition|(
+operator|!
+name|drainingServers
+operator|.
+name|contains
+argument_list|(
+name|server
+argument_list|)
+condition|)
+block|{
 name|onlineServers
 operator|.
 name|add
@@ -3991,6 +4017,7 @@ name|getAddress
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 name|Set
 argument_list|<
