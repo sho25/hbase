@@ -7281,7 +7281,6 @@ name|connection
 argument_list|)
 init|)
 block|{
-comment|// use the maximum of what master passed us vs local time.
 name|long
 name|time
 init|=
