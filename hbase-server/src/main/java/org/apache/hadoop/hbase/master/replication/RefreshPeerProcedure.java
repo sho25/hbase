@@ -413,6 +413,27 @@ specifier|private
 name|PeerOperationType
 name|type
 decl_stmt|;
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"IS2_INCONSISTENT_SYNC"
+argument_list|,
+name|justification
+operator|=
+literal|"Will never change after construction"
+argument_list|)
 specifier|private
 name|ServerName
 name|targetServer
