@@ -771,6 +771,22 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
+name|wal
+operator|.
+name|WALSplitter
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|util
 operator|.
 name|ReflectionUtils
@@ -1585,24 +1601,17 @@ parameter_list|)
 throws|throws
 name|InterruptedException
 block|{
-if|if
-condition|(
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|trace
 argument_list|(
+literal|"{} execute state={}"
+argument_list|,
 name|this
-operator|+
-literal|" execute state="
-operator|+
+argument_list|,
 name|state
 argument_list|)
 expr_stmt|;
-block|}
 try|try
 block|{
 switch|switch
@@ -1682,6 +1691,22 @@ case|case
 name|SPLIT_TABLE_REGION_CREATE_DAUGHTER_REGIONS
 case|:
 name|createDaughterRegions
+argument_list|(
+name|env
+argument_list|)
+expr_stmt|;
+name|setNextState
+argument_list|(
+name|SplitTableRegionState
+operator|.
+name|SPLIT_TABLE_REGION_WRITE_MAX_SEQUENCE_ID_FILE
+argument_list|)
+expr_stmt|;
+break|break;
+case|case
+name|SPLIT_TABLE_REGION_WRITE_MAX_SEQUENCE_ID_FILE
+case|:
+name|writeMaxSequenceIdFile
 argument_list|(
 name|env
 argument_list|)
@@ -1943,6 +1968,9 @@ case|:
 break|break;
 case|case
 name|SPLIT_TABLE_REGION_CREATE_DAUGHTER_REGIONS
+case|:
+case|case
+name|SPLIT_TABLE_REGION_WRITE_MAX_SEQUENCE_ID_FILE
 case|:
 comment|// Doing nothing, as re-open parent region would clean up daughter region directories.
 break|break;
@@ -2454,6 +2482,7 @@ return|;
 block|}
 specifier|private
 specifier|static
+specifier|final
 name|State
 index|[]
 name|EXPECTED_SPLIT_STATES
@@ -2471,7 +2500,7 @@ operator|.
 name|CLOSED
 block|}
 decl_stmt|;
-comment|/**    * Prepare to Split region.    * @param env MasterProcedureEnv    * @throws IOException    */
+comment|/**    * Prepare to Split region.    * @param env MasterProcedureEnv    */
 annotation|@
 name|VisibleForTesting
 specifier|public
@@ -2721,7 +2750,7 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * Action before splitting region in a table.    * @param env MasterProcedureEnv    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * Action before splitting region in a table.    * @param env MasterProcedureEnv    */
 specifier|private
 name|void
 name|preSplitRegion
@@ -2820,7 +2849,7 @@ name|e
 throw|;
 block|}
 block|}
-comment|/**    * Action after rollback a split table region action.    * @param env MasterProcedureEnv    * @throws IOException    */
+comment|/**    * Action after rollback a split table region action.    * @param env MasterProcedureEnv    */
 specifier|private
 name|void
 name|postRollBackSplitRegion
@@ -2858,7 +2887,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Rollback close parent region    * @param env MasterProcedureEnv    **/
+comment|/**    * Rollback close parent region    * @param env MasterProcedureEnv    */
 specifier|private
 name|void
 name|openParentRegion
@@ -2961,7 +2990,7 @@ name|procs
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create daughter regions    * @param env MasterProcedureEnv    * @throws IOException    */
+comment|/**    * Create daughter regions    * @param env MasterProcedureEnv    */
 annotation|@
 name|VisibleForTesting
 specifier|public
@@ -3147,7 +3176,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create Split directory    * @param env MasterProcedureEnv    * @throws IOException    */
+comment|/**    * Create Split directory    * @param env MasterProcedureEnv    */
 specifier|private
 name|Pair
 argument_list|<
@@ -4314,7 +4343,7 @@ throw|;
 block|}
 block|}
 block|}
-comment|/**    * Add daughter regions to META    * @param env MasterProcedureEnv    * @throws IOException    */
+comment|/**    * Add daughter regions to META    * @param env MasterProcedureEnv    */
 specifier|private
 name|void
 name|updateMetaForDaughterRegions
@@ -4719,6 +4748,89 @@ operator|.
 name|getRegionReplication
 argument_list|()
 return|;
+block|}
+specifier|private
+name|void
+name|writeMaxSequenceIdFile
+parameter_list|(
+name|MasterProcedureEnv
+name|env
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|FileSystem
+name|fs
+init|=
+name|env
+operator|.
+name|getMasterServices
+argument_list|()
+operator|.
+name|getMasterFileSystem
+argument_list|()
+operator|.
+name|getFileSystem
+argument_list|()
+decl_stmt|;
+name|long
+name|maxSequenceId
+init|=
+name|WALSplitter
+operator|.
+name|getMaxRegionSequenceId
+argument_list|(
+name|fs
+argument_list|,
+name|getRegionDir
+argument_list|(
+name|env
+argument_list|,
+name|getParentRegion
+argument_list|()
+argument_list|)
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|maxSequenceId
+operator|>
+literal|0
+condition|)
+block|{
+name|WALSplitter
+operator|.
+name|writeRegionSequenceIdFile
+argument_list|(
+name|fs
+argument_list|,
+name|getRegionDir
+argument_list|(
+name|env
+argument_list|,
+name|daughter_1_RI
+argument_list|)
+argument_list|,
+name|maxSequenceId
+argument_list|)
+expr_stmt|;
+name|WALSplitter
+operator|.
+name|writeRegionSequenceIdFile
+argument_list|(
+name|fs
+argument_list|,
+name|getRegionDir
+argument_list|(
+name|env
+argument_list|,
+name|daughter_2_RI
+argument_list|)
+argument_list|,
+name|maxSequenceId
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|/**    * The procedure could be restarted from a different machine. If the variable is null, we need to    * retrieve it.    * @return traceEnabled    */
 specifier|private
