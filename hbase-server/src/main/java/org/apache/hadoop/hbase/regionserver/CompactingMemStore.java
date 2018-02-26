@@ -670,16 +670,7 @@ name|memstoreFlushSize
 operator|/
 name|numStores
 expr_stmt|;
-comment|// multiply by a factor (different factors for different index types)
-if|if
-condition|(
-name|indexType
-operator|==
-name|IndexType
-operator|.
-name|ARRAY_MAP
-condition|)
-block|{
+comment|// multiply by a factor (the same factor for all index types)
 name|factor
 operator|=
 name|conf
@@ -691,21 +682,6 @@ argument_list|,
 name|IN_MEMORY_FLUSH_THRESHOLD_FACTOR_DEFAULT
 argument_list|)
 expr_stmt|;
-block|}
-else|else
-block|{
-name|factor
-operator|=
-name|conf
-operator|.
-name|getDouble
-argument_list|(
-name|IN_MEMORY_FLUSH_THRESHOLD_FACTOR_KEY
-argument_list|,
-name|IN_MEMORY_FLUSH_THRESHOLD_FACTOR_DEFAULT
-argument_list|)
-expr_stmt|;
-block|}
 name|inmemoryFlushSize
 operator|=
 call|(
