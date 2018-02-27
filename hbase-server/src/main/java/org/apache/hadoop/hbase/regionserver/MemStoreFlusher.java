@@ -629,30 +629,17 @@ specifier|private
 name|FlushType
 name|flushType
 decl_stmt|;
-comment|/**    * Singleton instance of this class inserted into flush queue.    */
+comment|/**    * Singleton instance inserted into flush queue used for signaling.    */
 specifier|private
 specifier|static
 specifier|final
-name|WakeupFlushThread
+name|FlushQueueEntry
 name|WAKEUPFLUSH_INSTANCE
 init|=
 operator|new
-name|WakeupFlushThread
-argument_list|()
-decl_stmt|;
-comment|/**    * Marker class used as a token inserted into flush queue that ensures the flusher does not sleep.    * Create a single instance only.    */
-specifier|private
-specifier|static
-specifier|final
-class|class
-name|WakeupFlushThread
-implements|implements
 name|FlushQueueEntry
+argument_list|()
 block|{
-specifier|private
-name|WakeupFlushThread
-parameter_list|()
-block|{}
 annotation|@
 name|Override
 specifier|public
@@ -710,6 +697,7 @@ literal|42
 return|;
 block|}
 block|}
+decl_stmt|;
 comment|/**    * @param conf    * @param server    */
 specifier|public
 name|MemStoreFlusher

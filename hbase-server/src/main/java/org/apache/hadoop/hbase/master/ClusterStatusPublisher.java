@@ -965,7 +965,8 @@ block|{
 if|if
 condition|(
 operator|!
-name|connected
+name|isConnected
+argument_list|()
 condition|)
 block|{
 return|return;
@@ -1085,6 +1086,18 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
+specifier|private
+specifier|synchronized
+name|boolean
+name|isConnected
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|connected
+return|;
 block|}
 comment|/**    * Create the dead server to send. A dead server is sent NB_SEND times. We send at max    * MAX_SERVER_PER_MESSAGE at a time. if there are too many dead servers, we send the newly    * dead first.    */
 specifier|protected

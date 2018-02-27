@@ -5307,6 +5307,27 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Supports Coprocessor 'bypass'.    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param op the comparison operation    * @param comparator the comparator    * @param put data to put if check succeeds    * @return true or false to return to client if default processing should be bypassed, or null    * otherwise    */
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"NP_BOOLEAN_RETURN_NULL"
+argument_list|,
+name|justification
+operator|=
+literal|"Null is legit"
+argument_list|)
 specifier|public
 name|Boolean
 name|preCheckAndPutAfterRowLock
@@ -5664,7 +5685,7 @@ literal|"NP_BOOLEAN_RETURN_NULL"
 argument_list|,
 name|justification
 operator|=
-literal|"TODO: Fix"
+literal|"Null is legit"
 argument_list|)
 specifier|public
 name|Boolean
