@@ -117,6 +117,18 @@ name|java
 operator|.
 name|util
 operator|.
+name|concurrent
+operator|.
+name|TimeUnit
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|stream
 operator|.
 name|Collectors
@@ -216,22 +228,6 @@ operator|.
 name|util
 operator|.
 name|Bytes
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Threads
 import|;
 end_import
 
@@ -475,6 +471,15 @@ block|,
 name|TABLE_3
 block|}
 decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|int
+name|MSG_INTERVAL
+init|=
+literal|500
+decl_stmt|;
+comment|// ms
 annotation|@
 name|BeforeClass
 specifier|public
@@ -496,7 +501,7 @@ name|setInt
 argument_list|(
 literal|"hbase.regionserver.msginterval"
 argument_list|,
-literal|500
+name|MSG_INTERVAL
 argument_list|)
 expr_stmt|;
 name|UTIL
@@ -893,30 +898,20 @@ name|regionLoads
 argument_list|)
 expr_stmt|;
 block|}
-name|int
-name|pause
-init|=
-name|UTIL
-operator|.
-name|getConfiguration
-argument_list|()
-operator|.
-name|getInt
-argument_list|(
-literal|"hbase.regionserver.msginterval"
-argument_list|,
-literal|3000
-argument_list|)
-decl_stmt|;
 comment|// Just wait here. If this fixes the test, come back and do a better job.
 comment|// Would have to redo the below so can wait on cluster status changing.
-name|Threads
+comment|// Admin#getClusterMetrics retrieves data from HMaster. Admin#getRegionMetrics, by contrast,
+comment|// get the data from RS. Hence, it will fail if we do the assert check before RS has done
+comment|// the report.
+name|TimeUnit
+operator|.
+name|MILLISECONDS
 operator|.
 name|sleep
 argument_list|(
-literal|2
+literal|3
 operator|*
-name|pause
+name|MSG_INTERVAL
 argument_list|)
 expr_stmt|;
 comment|// Check RegionLoad matches the regionLoad from ClusterStatus
@@ -1036,7 +1031,7 @@ end_class
 begin_expr_stmt
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
 literal|"serverName="
 operator|+
@@ -1081,7 +1076,7 @@ end_expr_stmt
 begin_expr_stmt
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
 literal|"serverName="
 operator|+
