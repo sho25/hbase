@@ -523,6 +523,22 @@ name|hbase
 operator|.
 name|procedure2
 operator|.
+name|Procedure
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|procedure2
+operator|.
 name|ProcedureExecutor
 import|;
 end_import
@@ -540,6 +556,22 @@ operator|.
 name|procedure2
 operator|.
 name|ProcedureTestingUtility
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|procedure2
+operator|.
+name|StateMachineProcedure
 import|;
 end_import
 
@@ -2716,20 +2748,51 @@ comment|// Restart the executor and execute the step twice
 comment|//   execute step N - kill before store update
 comment|//   restart executor/store
 comment|//   execute step N - save on store
-for|for
-control|(
-name|int
-name|i
+comment|// NOTE: currently we make assumption that states/ steps are sequential. There are already
+comment|// instances of a procedures which skip (don't use) intermediate states/ steps. In future,
+comment|// intermediate states/ steps can be added with ordinal greater than lastStep. If and when
+comment|// that happens the states can not be treated as sequential steps and the condition in
+comment|// following while loop needs to be changed. We can use euqals/ not equals operator to check
+comment|// if the procedure has reached the user specified state. But there is a possibility that
+comment|// while loop may not get the control back exaclty when the procedure is in lastStep. Proper
+comment|// fix would be get all visited states by the procedure and then check if user speccified
+comment|// state is in that list. Current assumption of sequential proregression of steps/ states is
+comment|// made at multiple places so we can keep while condition below for simplicity.
+name|Procedure
+name|proc
 init|=
+name|procExec
+operator|.
+name|getProcedure
+argument_list|(
+name|procId
+argument_list|)
+decl_stmt|;
+name|int
+name|stepNum
+init|=
+name|proc
+operator|instanceof
+name|StateMachineProcedure
+condition|?
+operator|(
+operator|(
+name|StateMachineProcedure
+operator|)
+name|proc
+operator|)
+operator|.
+name|getCurrentStateId
+argument_list|()
+else|:
 literal|0
-init|;
-name|i
+decl_stmt|;
+while|while
+condition|(
+name|stepNum
 operator|<
 name|numSteps
-condition|;
-operator|++
-name|i
-control|)
+condition|)
 block|{
 name|LOG
 operator|.
@@ -2737,16 +2800,11 @@ name|info
 argument_list|(
 literal|"Restart "
 operator|+
-name|i
+name|stepNum
 operator|+
 literal|" exec state="
 operator|+
-name|procExec
-operator|.
-name|getProcedure
-argument_list|(
-name|procId
-argument_list|)
+name|proc
 argument_list|)
 expr_stmt|;
 name|ProcedureTestingUtility
@@ -2771,6 +2829,36 @@ name|procExec
 argument_list|,
 name|procId
 argument_list|)
+expr_stmt|;
+comment|// Old proc object is stale, need to get the new one after ProcedureExecutor restart
+name|proc
+operator|=
+name|procExec
+operator|.
+name|getProcedure
+argument_list|(
+name|procId
+argument_list|)
+expr_stmt|;
+name|stepNum
+operator|=
+name|proc
+operator|instanceof
+name|StateMachineProcedure
+condition|?
+operator|(
+operator|(
+name|StateMachineProcedure
+operator|)
+name|proc
+operator|)
+operator|.
+name|getCurrentStateId
+argument_list|()
+else|:
+name|stepNum
+operator|+
+literal|1
 expr_stmt|;
 block|}
 name|assertEquals
