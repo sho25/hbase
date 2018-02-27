@@ -551,6 +551,7 @@ init|=
 literal|0
 decl_stmt|;
 comment|/**    * The file name prefix used to store HTD in HDFS    */
+specifier|public
 specifier|static
 specifier|final
 name|String
@@ -558,6 +559,7 @@ name|TABLEINFO_FILE_PREFIX
 init|=
 literal|".tableinfo"
 decl_stmt|;
+specifier|public
 specifier|static
 specifier|final
 name|String
@@ -565,6 +567,7 @@ name|TABLEINFO_DIR
 init|=
 literal|".tabledesc"
 decl_stmt|;
+specifier|public
 specifier|static
 specifier|final
 name|String
