@@ -287,7 +287,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|RegionLoad
+name|RegionMetrics
 import|;
 end_import
 
@@ -301,7 +301,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ServerLoad
+name|ServerMetrics
 import|;
 end_import
 
@@ -841,7 +841,7 @@ name|ConcurrentNavigableMap
 argument_list|<
 name|ServerName
 argument_list|,
-name|ServerLoad
+name|ServerMetrics
 argument_list|>
 name|onlineServers
 init|=
@@ -1176,15 +1176,11 @@ name|checkAndRecordNewServer
 argument_list|(
 name|sn
 argument_list|,
-operator|new
-name|ServerLoad
-argument_list|(
 name|ServerMetricsBuilder
 operator|.
 name|of
 argument_list|(
 name|sn
-argument_list|)
 argument_list|)
 argument_list|)
 condition|)
@@ -1213,24 +1209,10 @@ parameter_list|(
 name|ServerName
 name|sn
 parameter_list|,
-name|ServerLoad
+name|ServerMetrics
 name|hsl
 parameter_list|)
 block|{
-name|Map
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|RegionLoad
-argument_list|>
-name|regionsLoad
-init|=
-name|hsl
-operator|.
-name|getRegionsLoad
-argument_list|()
-decl_stmt|;
 for|for
 control|(
 name|Entry
@@ -1238,11 +1220,14 @@ argument_list|<
 name|byte
 index|[]
 argument_list|,
-name|RegionLoad
+name|RegionMetrics
 argument_list|>
 name|entry
 range|:
-name|regionsLoad
+name|hsl
+operator|.
+name|getRegionMetrics
+argument_list|()
 operator|.
 name|entrySet
 argument_list|()
@@ -1285,7 +1270,7 @@ operator|.
 name|getValue
 argument_list|()
 operator|.
-name|getCompleteSequenceId
+name|getCompletedSequenceId
 argument_list|()
 decl_stmt|;
 comment|// Don't let smaller sequence ids override greater sequence ids.
@@ -1422,7 +1407,13 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|StoreSequenceId
+name|Entry
+argument_list|<
+name|byte
+index|[]
+argument_list|,
+name|Long
+argument_list|>
 name|storeSeqId
 range|:
 name|entry
@@ -1430,7 +1421,10 @@ operator|.
 name|getValue
 argument_list|()
 operator|.
-name|getStoreCompleteSequenceId
+name|getStoreSequenceId
+argument_list|()
+operator|.
+name|entrySet
 argument_list|()
 control|)
 block|{
@@ -1440,10 +1434,7 @@ name|family
 init|=
 name|storeSeqId
 operator|.
-name|getFamilyName
-argument_list|()
-operator|.
-name|toByteArray
+name|getKey
 argument_list|()
 decl_stmt|;
 name|existingValue
@@ -1459,7 +1450,7 @@ name|l
 operator|=
 name|storeSeqId
 operator|.
-name|getSequenceId
+name|getValue
 argument_list|()
 expr_stmt|;
 if|if
@@ -1545,7 +1536,7 @@ parameter_list|(
 name|ServerName
 name|sn
 parameter_list|,
-name|ServerLoad
+name|ServerMetrics
 name|sl
 parameter_list|)
 throws|throws
@@ -1621,7 +1612,7 @@ name|ServerName
 name|serverName
 parameter_list|,
 specifier|final
-name|ServerLoad
+name|ServerMetrics
 name|sl
 parameter_list|)
 block|{
@@ -2073,7 +2064,7 @@ name|ServerName
 name|serverName
 parameter_list|,
 specifier|final
-name|ServerLoad
+name|ServerMetrics
 name|sl
 parameter_list|)
 block|{
@@ -2242,9 +2233,9 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * @param serverName    * @return ServerLoad if serverName is known else null    */
+comment|/**    * @param serverName    * @return ServerMetrics if serverName is known else null    */
 specifier|public
-name|ServerLoad
+name|ServerMetrics
 name|getLoad
 parameter_list|(
 specifier|final
@@ -2281,7 +2272,7 @@ literal|0
 decl_stmt|;
 for|for
 control|(
-name|ServerLoad
+name|ServerMetrics
 name|sl
 range|:
 name|this
@@ -2299,7 +2290,10 @@ name|totalLoad
 operator|+=
 name|sl
 operator|.
-name|getNumberOfRegions
+name|getRegionMetrics
+argument_list|()
+operator|.
+name|size
 argument_list|()
 expr_stmt|;
 block|}
@@ -2343,7 +2337,7 @@ name|Map
 argument_list|<
 name|ServerName
 argument_list|,
-name|ServerLoad
+name|ServerMetrics
 argument_list|>
 name|getOnlineServers
 parameter_list|()
@@ -4272,7 +4266,7 @@ name|keys
 parameter_list|,
 name|Predicate
 argument_list|<
-name|ServerLoad
+name|ServerMetrics
 argument_list|>
 name|idleServerPredicator
 parameter_list|)
@@ -4306,7 +4300,7 @@ argument_list|(
 name|name
 lambda|->
 block|{
-name|ServerLoad
+name|ServerMetrics
 name|load
 init|=
 name|onlineServers

@@ -157,7 +157,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|RegionLoad
+name|RegionMetrics
 import|;
 end_import
 
@@ -172,6 +172,20 @@ operator|.
 name|hbase
 operator|.
 name|ServerName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|Size
 import|;
 end_import
 
@@ -2641,14 +2655,14 @@ name|entrySet
 argument_list|()
 control|)
 block|{
-name|RegionLoad
+name|RegionMetrics
 name|regionLoad
 init|=
 name|Mockito
 operator|.
 name|mock
 argument_list|(
-name|RegionLoad
+name|RegionMetrics
 operator|.
 name|class
 argument_list|)
@@ -2657,7 +2671,7 @@ name|when
 argument_list|(
 name|regionLoad
 operator|.
-name|getName
+name|getRegionName
 argument_list|()
 argument_list|)
 operator|.
@@ -2673,16 +2687,26 @@ name|when
 argument_list|(
 name|regionLoad
 operator|.
-name|getStorefileSizeMB
+name|getStoreFileSize
 argument_list|()
 argument_list|)
 operator|.
 name|thenReturn
 argument_list|(
+operator|new
+name|Size
+argument_list|(
 name|region
 operator|.
 name|getValue
 argument_list|()
+argument_list|,
+name|Size
+operator|.
+name|Unit
+operator|.
+name|MEGABYTE
+argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// this is possibly broken with jdk9, unclear if false positive or not
@@ -2703,7 +2727,7 @@ argument_list|(
 name|sn
 argument_list|)
 operator|.
-name|getRegionsLoad
+name|getRegionMetrics
 argument_list|()
 operator|.
 name|get

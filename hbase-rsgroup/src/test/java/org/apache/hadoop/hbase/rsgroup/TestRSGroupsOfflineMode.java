@@ -899,6 +899,7 @@ throws|throws
 name|Exception
 block|{
 return|return
+operator|!
 name|master
 operator|.
 name|getServerManager
@@ -912,13 +913,11 @@ name|getServerName
 argument_list|()
 argument_list|)
 operator|.
-name|getRegionsLoad
+name|getRegionMetrics
 argument_list|()
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|>
-literal|0
 return|;
 block|}
 block|}

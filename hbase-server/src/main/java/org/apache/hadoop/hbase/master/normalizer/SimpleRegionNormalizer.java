@@ -83,7 +83,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|RegionLoad
+name|RegionMetrics
 import|;
 end_import
 
@@ -98,6 +98,20 @@ operator|.
 name|hbase
 operator|.
 name|ServerName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|Size
 import|;
 end_import
 
@@ -252,7 +266,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Simple implementation of region normalizer.  *  * Logic in use:  *  *<ol>  *<li> Get all regions of a given table  *<li> Get avg size S of each region (by total size of store files reported in RegionLoad)  *<li> Seek every single region one by one. If a region R0 is bigger than S * 2, it is  *  kindly requested to split. Thereon evaluate the next region R1  *<li> Otherwise, if R0 + R1 is smaller than S, R0 and R1 are kindly requested to merge.  *  Thereon evaluate the next region R2  *<li> Otherwise, R1 is evaluated  *</ol>  *<p>  * Region sizes are coarse and approximate on the order of megabytes. Additionally,  * "empty" regions (less than 1MB, with the previous note) are not merged away. This  * is by design to prevent normalization from undoing the pre-splitting of a table.  */
+comment|/**  * Simple implementation of region normalizer.  *  * Logic in use:  *  *<ol>  *<li> Get all regions of a given table  *<li> Get avg size S of each region (by total size of store files reported in RegionMetrics)  *<li> Seek every single region one by one. If a region R0 is bigger than S * 2, it is  *  kindly requested to split. Thereon evaluate the next region R1  *<li> Otherwise, if R0 + R1 is smaller than S, R0 and R1 are kindly requested to merge.  *  Thereon evaluate the next region R2  *<li> Otherwise, R1 is evaluated  *</ol>  *<p>  * Region sizes are coarse and approximate on the order of megabytes. Additionally,  * "empty" regions (less than 1MB, with the previous note) are not merged away. This  * is by design to prevent normalization from undoing the pre-splitting of a table.  */
 end_comment
 
 begin_class
@@ -1065,7 +1079,7 @@ argument_list|(
 name|hri
 argument_list|)
 decl_stmt|;
-name|RegionLoad
+name|RegionMetrics
 name|regionLoad
 init|=
 name|masterServices
@@ -1078,7 +1092,7 @@ argument_list|(
 name|sn
 argument_list|)
 operator|.
-name|getRegionsLoad
+name|getRegionMetrics
 argument_list|()
 operator|.
 name|get
@@ -1114,10 +1128,22 @@ literal|1
 return|;
 block|}
 return|return
+operator|(
+name|long
+operator|)
 name|regionLoad
 operator|.
-name|getStorefileSizeMB
+name|getStoreFileSize
 argument_list|()
+operator|.
+name|get
+argument_list|(
+name|Size
+operator|.
+name|Unit
+operator|.
+name|MEGABYTE
+argument_list|)
 return|;
 block|}
 block|}

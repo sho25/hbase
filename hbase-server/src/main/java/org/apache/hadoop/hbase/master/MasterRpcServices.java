@@ -249,7 +249,21 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ServerLoad
+name|ServerMetrics
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ServerMetricsBuilder
 import|;
 end_import
 
@@ -6169,7 +6183,7 @@ name|getServer
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|ServerLoad
+name|ServerMetrics
 name|oldLoad
 init|=
 name|master
@@ -6182,11 +6196,12 @@ argument_list|(
 name|serverName
 argument_list|)
 decl_stmt|;
-name|ServerLoad
+name|ServerMetrics
 name|newLoad
 init|=
-operator|new
-name|ServerLoad
+name|ServerMetricsBuilder
+operator|.
+name|toServerMetrics
 argument_list|(
 name|serverName
 argument_list|,
@@ -6226,7 +6241,7 @@ name|version
 argument_list|,
 name|newLoad
 operator|.
-name|getRegionsLoad
+name|getRegionMetrics
 argument_list|()
 operator|.
 name|keySet
@@ -6265,7 +6280,7 @@ literal|null
 condition|?
 name|oldLoad
 operator|.
-name|getTotalNumberOfRequests
+name|getRequestCount
 argument_list|()
 else|:
 literal|0

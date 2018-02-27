@@ -189,7 +189,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ServerLoad
+name|ServerMetrics
 import|;
 end_import
 
@@ -889,7 +889,7 @@ continue|continue;
 block|}
 comment|//the region is currently on none of the favored nodes
 comment|//get it on one of them if possible
-name|ServerLoad
+name|ServerMetrics
 name|l1
 init|=
 name|super
@@ -914,7 +914,7 @@ argument_list|)
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|ServerLoad
+name|ServerMetrics
 name|l2
 init|=
 name|super
@@ -954,12 +954,18 @@ if|if
 condition|(
 name|l1
 operator|.
-name|getLoad
+name|getRegionMetrics
+argument_list|()
+operator|.
+name|size
 argument_list|()
 operator|>
 name|l2
 operator|.
-name|getLoad
+name|getRegionMetrics
+argument_list|()
+operator|.
+name|size
 argument_list|()
 condition|)
 block|{
@@ -1862,7 +1868,7 @@ comment|// (both have the desired hdfs blocks)
 name|ServerName
 name|s
 decl_stmt|;
-name|ServerLoad
+name|ServerMetrics
 name|tertiaryLoad
 init|=
 name|super
@@ -1877,7 +1883,7 @@ argument_list|(
 name|tertiaryHost
 argument_list|)
 decl_stmt|;
-name|ServerLoad
+name|ServerMetrics
 name|secondaryLoad
 init|=
 name|super
@@ -1896,12 +1902,18 @@ if|if
 condition|(
 name|secondaryLoad
 operator|.
-name|getLoad
+name|getRegionMetrics
+argument_list|()
+operator|.
+name|size
 argument_list|()
 operator|<
 name|tertiaryLoad
 operator|.
-name|getLoad
+name|getRegionMetrics
+argument_list|()
+operator|.
+name|size
 argument_list|()
 condition|)
 block|{

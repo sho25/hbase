@@ -219,7 +219,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ServerLoad
+name|ServerMetrics
 import|;
 end_import
 
@@ -1559,7 +1559,7 @@ comment|// Assign the region to the one with a lower load (both have the desired
 name|ServerName
 name|s
 decl_stmt|;
-name|ServerLoad
+name|ServerMetrics
 name|tertiaryLoad
 init|=
 name|super
@@ -1574,7 +1574,7 @@ argument_list|(
 name|tertiaryHost
 argument_list|)
 decl_stmt|;
-name|ServerLoad
+name|ServerMetrics
 name|secondaryLoad
 init|=
 name|super
@@ -1604,12 +1604,18 @@ if|if
 condition|(
 name|secondaryLoad
 operator|.
-name|getLoad
+name|getRegionMetrics
+argument_list|()
+operator|.
+name|size
 argument_list|()
 operator|<
 name|tertiaryLoad
 operator|.
-name|getLoad
+name|getRegionMetrics
+argument_list|()
+operator|.
+name|size
 argument_list|()
 condition|)
 block|{

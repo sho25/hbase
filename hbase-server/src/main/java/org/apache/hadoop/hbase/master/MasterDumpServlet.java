@@ -107,20 +107,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|conf
@@ -139,7 +125,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ServerLoad
+name|ServerMetrics
 import|;
 end_import
 
@@ -272,6 +258,20 @@ operator|.
 name|util
 operator|.
 name|Threads
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -790,7 +790,7 @@ name|Map
 argument_list|<
 name|ServerName
 argument_list|,
-name|ServerLoad
+name|ServerMetrics
 argument_list|>
 name|servers
 init|=
@@ -807,7 +807,7 @@ name|Entry
 argument_list|<
 name|ServerName
 argument_list|,
-name|ServerLoad
+name|ServerMetrics
 argument_list|>
 name|e
 range|:
