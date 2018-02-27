@@ -116,18 +116,6 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get Map of all TableDescriptors. Populates the descriptor cache as a    * side effect.    * @return Map of all descriptors.    * @throws IOException    */
-name|Map
-argument_list|<
-name|String
-argument_list|,
-name|TableDescriptor
-argument_list|>
-name|getAllDescriptors
-parameter_list|()
-throws|throws
-name|IOException
-function_decl|;
 comment|/**    * Add or update descriptor    * @param htd Descriptor to set into TableDescriptors    * @throws IOException    */
 name|void
 name|add

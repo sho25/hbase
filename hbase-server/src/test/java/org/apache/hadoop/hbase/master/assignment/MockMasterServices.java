@@ -2082,25 +2082,6 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|Map
-argument_list|<
-name|String
-argument_list|,
-name|TableDescriptor
-argument_list|>
-name|getAllDescriptors
-parameter_list|()
-throws|throws
-name|IOException
-block|{
-comment|// noop
-return|return
-literal|null
-return|;
-block|}
-annotation|@
-name|Override
-specifier|public
 name|TableDescriptor
 name|get
 parameter_list|(

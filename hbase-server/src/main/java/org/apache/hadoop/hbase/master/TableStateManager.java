@@ -1104,7 +1104,7 @@ name|allDescriptors
 init|=
 name|tableDescriptors
 operator|.
-name|getAllDescriptors
+name|getAll
 argument_list|()
 decl_stmt|;
 specifier|final
