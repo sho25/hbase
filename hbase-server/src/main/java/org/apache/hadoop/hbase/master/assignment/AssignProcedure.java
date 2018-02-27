@@ -1096,7 +1096,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Start "
+literal|"Starting "
 operator|+
 name|this
 operator|+

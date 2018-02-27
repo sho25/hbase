@@ -1445,6 +1445,20 @@ case|case
 name|REGION_TRANSITION_FINISH
 case|:
 comment|// 3. wait assignment response. completion/failure
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Finishing {}; {}"
+argument_list|,
+name|this
+argument_list|,
+name|regionNode
+operator|.
+name|toShortString
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|finishTransition
 argument_list|(
 name|env

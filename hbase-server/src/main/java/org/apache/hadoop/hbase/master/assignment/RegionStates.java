@@ -430,6 +430,12 @@ index|[]
 block|{
 name|State
 operator|.
+name|OPEN
+block|,
+comment|// State may already be OPEN if we died after receiving the OPEN from regionserver
+comment|// but before complete finish of AssignProcedure. HBASE-20100.
+name|State
+operator|.
 name|OFFLINE
 block|,
 name|State
