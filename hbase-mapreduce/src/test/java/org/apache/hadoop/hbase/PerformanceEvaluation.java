@@ -3682,9 +3682,14 @@ comment|// yammer metrics
 name|ObjectMapper
 operator|.
 name|class
+argument_list|,
+comment|// jackson-mapper-asl
+name|FilterAllFilter
+operator|.
+name|class
+comment|// hbase-server tests jar
 argument_list|)
 expr_stmt|;
-comment|// jackson-mapper-asl
 name|TableMapReduceUtil
 operator|.
 name|initCredentials
