@@ -18231,6 +18231,17 @@ expr_stmt|;
 block|}
 block|}
 block|}
+specifier|public
+name|SnapshotQuotaObserverChore
+name|getSnapshotQuotaObserverChore
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|snapshotQuotaChore
+return|;
+block|}
 block|}
 end_class
 
