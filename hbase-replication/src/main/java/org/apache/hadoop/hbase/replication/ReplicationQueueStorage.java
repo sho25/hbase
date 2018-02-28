@@ -33,6 +33,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Map
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Set
 import|;
 end_import
@@ -163,7 +173,7 @@ parameter_list|)
 throws|throws
 name|ReplicationException
 function_decl|;
-comment|/**    * Set the current position for a specific WAL in a given queue for a given regionserver.    * @param serverName the name of the regionserver    * @param queueId a String that identifies the queue    * @param fileName name of the WAL    * @param position the current position in the file    */
+comment|/**    * Set the current position for a specific WAL in a given queue for a given regionserver.    * @param serverName the name of the regionserver    * @param queueId a String that identifies the queue    * @param fileName name of the WAL    * @param position the current position in the file    * @param lastSeqIds map with {encodedRegionName, sequenceId} pairs for serial replication.    */
 name|void
 name|setWALPosition
 parameter_list|(
@@ -178,6 +188,27 @@ name|fileName
 parameter_list|,
 name|long
 name|position
+parameter_list|,
+name|Map
+argument_list|<
+name|String
+argument_list|,
+name|Long
+argument_list|>
+name|lastSeqIds
+parameter_list|)
+throws|throws
+name|ReplicationException
+function_decl|;
+comment|/**    * Read the max sequence id of the specific region for a given peer. For serial replication, we    * need the max sequenced id to decide whether we can push the next entries.    * @param encodedRegionName the encoded region name    * @param peerId peer id    * @return the max sequence id of the specific region for a given peer.    */
+name|long
+name|getLastSequenceId
+parameter_list|(
+name|String
+name|encodedRegionName
+parameter_list|,
+name|String
+name|peerId
 parameter_list|)
 throws|throws
 name|ReplicationException

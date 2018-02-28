@@ -2368,6 +2368,8 @@ argument_list|,
 name|fileName
 argument_list|,
 name|position
+argument_list|,
+literal|null
 argument_list|)
 argument_list|)
 expr_stmt|;

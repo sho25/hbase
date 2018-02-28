@@ -894,7 +894,7 @@ name|assertEquals
 argument_list|(
 literal|10
 argument_list|,
-name|wals1
+name|wals2
 operator|.
 name|size
 argument_list|()
@@ -1025,6 +1025,8 @@ literal|1
 operator|)
 operator|*
 literal|100
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|STORAGE
@@ -1051,6 +1053,8 @@ operator|*
 literal|100
 operator|+
 literal|10
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 block|}
