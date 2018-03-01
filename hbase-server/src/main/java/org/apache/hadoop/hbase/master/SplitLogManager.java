@@ -1404,14 +1404,37 @@ operator|.
 name|increment
 argument_list|()
 expr_stmt|;
-name|String
-name|msg
-init|=
-literal|"Error or interrupted while splitting WALs in "
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"error while splitting logs in "
 operator|+
 name|logDirs
 operator|+
-literal|"; task="
+literal|" installed = "
+operator|+
+name|batch
+operator|.
+name|installed
+operator|+
+literal|" but only "
+operator|+
+name|batch
+operator|.
+name|done
+operator|+
+literal|" done"
+argument_list|)
+expr_stmt|;
+name|String
+name|msg
+init|=
+literal|"error or interrupted while splitting logs in "
+operator|+
+name|logDirs
+operator|+
+literal|" Task = "
 operator|+
 name|batch
 decl_stmt|;
@@ -2424,15 +2447,15 @@ parameter_list|()
 block|{
 return|return
 operator|(
-literal|"installed="
+literal|"installed = "
 operator|+
 name|installed
 operator|+
-literal|", done="
+literal|" done = "
 operator|+
 name|done
 operator|+
-literal|", error="
+literal|" error = "
 operator|+
 name|error
 operator|)

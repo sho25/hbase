@@ -105,7 +105,35 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HColumnDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HTableDescriptor
 import|;
 end_import
 
@@ -149,38 +177,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|ColumnFamilyDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|ColumnFamilyDescriptorBuilder
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|Put
 import|;
 end_import
@@ -198,38 +194,6 @@ operator|.
 name|client
 operator|.
 name|Table
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|TableDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|TableDescriptorBuilder
 import|;
 end_import
 
@@ -317,6 +281,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Rule
 import|;
 end_import
@@ -390,6 +364,9 @@ import|;
 end_import
 
 begin_class
+annotation|@
+name|Ignore
+comment|// Disabled temporarily; reenable
 annotation|@
 name|Category
 argument_list|(
@@ -548,7 +525,17 @@ argument_list|,
 name|msgInterval
 argument_list|)
 expr_stmt|;
-comment|// Set client sync wait timeout to 5sec
+comment|// set tablesOnMaster to none
+name|conf
+operator|.
+name|set
+argument_list|(
+literal|"hbase.balancer.tablesOnMaster"
+argument_list|,
+literal|"none"
+argument_list|)
+expr_stmt|;
+comment|// set client sync wait timeout to 5sec
 name|conf
 operator|.
 name|setInt
@@ -794,42 +781,43 @@ name|amSource
 argument_list|)
 expr_stmt|;
 comment|// alter table with a non-existing coprocessor
-name|ColumnFamilyDescriptor
-name|hcd
-init|=
-name|ColumnFamilyDescriptorBuilder
-operator|.
-name|newBuilder
-argument_list|(
-name|FAMILY
-argument_list|)
-operator|.
-name|build
-argument_list|()
-decl_stmt|;
-name|TableDescriptor
+name|HTableDescriptor
 name|htd
 init|=
-name|TableDescriptorBuilder
-operator|.
-name|newBuilder
+operator|new
+name|HTableDescriptor
 argument_list|(
 name|TABLENAME
 argument_list|)
+decl_stmt|;
+name|HColumnDescriptor
+name|hcd
+init|=
+operator|new
+name|HColumnDescriptor
+argument_list|(
+name|FAMILY
+argument_list|)
+decl_stmt|;
+name|htd
 operator|.
-name|addColumnFamily
+name|addFamily
 argument_list|(
 name|hcd
 argument_list|)
+expr_stmt|;
+name|String
+name|spec
+init|=
+literal|"hdfs:///foo.jar|com.foo.FooRegionObserver|1001|arg1=1,arg2=2"
+decl_stmt|;
+name|htd
 operator|.
 name|addCoprocessorWithSpec
 argument_list|(
-literal|"hdfs:///foo.jar|com.foo.FooRegionObserver|1001|arg1=1,arg2=2"
+name|spec
 argument_list|)
-operator|.
-name|build
-argument_list|()
-decl_stmt|;
+expr_stmt|;
 try|try
 block|{
 name|TEST_UTIL
@@ -839,6 +827,8 @@ argument_list|()
 operator|.
 name|modifyTable
 argument_list|(
+name|TABLENAME
+argument_list|,
 name|htd
 argument_list|)
 expr_stmt|;
@@ -854,17 +844,9 @@ name|IOException
 name|e
 parameter_list|)
 block|{
-comment|// Expected, the RS will crash and the assignment will spin forever waiting for a RS
-comment|// to assign the region.
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Expected exception"
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
+comment|// expected, the RS will crash and the assignment will spin forever waiting for a RS
+comment|// to assign the region. the region will not go to FAILED_OPEN because in this case
+comment|// we have just one RS and it will do one retry.
 block|}
 comment|// Sleep 3 seconds, wait for doMetrics chore catching up
 name|Thread
@@ -876,7 +858,6 @@ operator|*
 literal|3
 argument_list|)
 expr_stmt|;
-comment|// Two regions in RIT -- meta and the testRITAssignementManagerMetrics table region.
 name|metricsHelper
 operator|.
 name|assertGauge
@@ -885,12 +866,11 @@ name|MetricsAssignmentManagerSource
 operator|.
 name|RIT_COUNT_NAME
 argument_list|,
-literal|2
+literal|1
 argument_list|,
 name|amSource
 argument_list|)
 expr_stmt|;
-comment|// Both are over the threshold because no RegionServer to assign to.
 name|metricsHelper
 operator|.
 name|assertGauge
@@ -899,7 +879,7 @@ name|MetricsAssignmentManagerSource
 operator|.
 name|RIT_COUNT_OVER_THRESHOLD_NAME
 argument_list|,
-literal|2
+literal|1
 argument_list|,
 name|amSource
 argument_list|)

@@ -7314,39 +7314,6 @@ return|return
 name|assignments
 return|;
 block|}
-if|if
-condition|(
-operator|!
-name|this
-operator|.
-name|tablesOnMaster
-condition|)
-block|{
-comment|// Make sure Master is not in set of possible servers.
-if|if
-condition|(
-name|servers
-operator|!=
-literal|null
-operator|&&
-operator|!
-name|servers
-operator|.
-name|isEmpty
-argument_list|()
-condition|)
-block|{
-name|servers
-operator|.
-name|remove
-argument_list|(
-name|this
-operator|.
-name|masterServerName
-argument_list|)
-expr_stmt|;
-block|}
-block|}
 name|int
 name|numServers
 init|=
@@ -7372,7 +7339,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Wanted to round-robin assignment but no server(s) to assign to."
+literal|"Wanted to do round robin assignment but no servers to assign to"
 argument_list|)
 expr_stmt|;
 return|return

@@ -4722,7 +4722,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Wait here if backup Master. This avoids showing backup masters as regionservers in master    * web UI, or assigning any region to them.    */
+comment|/**    * If configured to put regions on active master,    * wait till a backup master becomes active.    * Otherwise, loop till the server is stopped or aborted.    */
 annotation|@
 name|Override
 specifier|protected
@@ -4730,14 +4730,31 @@ name|void
 name|waitForMasterActive
 parameter_list|()
 block|{
+name|boolean
+name|tablesOnMaster
+init|=
+name|LoadBalancer
+operator|.
+name|isTablesOnMaster
+argument_list|(
+name|conf
+argument_list|)
+decl_stmt|;
 while|while
 condition|(
 operator|!
-name|this
-operator|.
-name|activeMaster
+operator|(
+name|tablesOnMaster
 operator|&&
-name|keepLooping
+name|activeMaster
+operator|)
+operator|&&
+operator|!
+name|isStopped
+argument_list|()
+operator|&&
+operator|!
+name|isAborted
 argument_list|()
 condition|)
 block|{

@@ -5430,13 +5430,26 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|// Watch for snapshots and other procedures. Check we have not been stopped before proceeding.
+comment|// In case colocated master, wait here till it's active.
+comment|// So backup masters won't start as regionservers.
+comment|// This is to avoid showing backup masters as regionservers
+comment|// in master web UI, or assigning any region to them.
+name|waitForMasterActive
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
-name|keepLooping
+name|isStopped
+argument_list|()
+operator|||
+name|isAborted
 argument_list|()
 condition|)
 block|{
+return|return;
+comment|// No need for further initialization
+block|}
+comment|// watch for snapshots and other procedures
 try|try
 block|{
 name|rspmHost
@@ -5470,12 +5483,11 @@ name|this
 operator|.
 name|abort
 argument_list|(
-literal|"Failed setup of RegionServerProcedureManager."
+literal|"Failed to reach coordination cluster when creating procedure handler."
 argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 comment|/**    * Utilty method to wait indefinitely on a znode availability while checking    * if the region server is shut down    * @param tracker znode tracker to use    * @throws IOException any IO exception, plus if the RS is stopped    * @throws InterruptedException    */
@@ -5582,13 +5594,14 @@ expr_stmt|;
 block|}
 try|try
 block|{
-comment|// If we are backup server instance, wait till we become active master before proceeding.
-name|waitForMasterActive
-argument_list|()
-expr_stmt|;
 if|if
 condition|(
-name|keepLooping
+operator|!
+name|isStopped
+argument_list|()
+operator|&&
+operator|!
+name|isAborted
 argument_list|()
 condition|)
 block|{
@@ -11743,9 +11756,11 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"STOPPING server '"
+literal|"***** STOPPING region server '"
 operator|+
 name|this
+operator|+
+literal|"' *****"
 argument_list|)
 expr_stmt|;
 if|if
@@ -13663,7 +13678,7 @@ name|sn
 return|;
 block|}
 comment|/**    * @return True if we should break loop because cluster is going down or    * this server has been stopped or hdfs has gone bad.    */
-specifier|protected
+specifier|private
 name|boolean
 name|keepLooping
 parameter_list|()
