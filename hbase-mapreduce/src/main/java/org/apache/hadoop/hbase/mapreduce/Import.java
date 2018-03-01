@@ -1142,6 +1142,27 @@ expr_stmt|;
 block|}
 annotation|@
 name|Override
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"EQ_COMPARETO_USE_OBJECT_EQUALS"
+argument_list|,
+name|justification
+operator|=
+literal|"This is wrong, yes, but we should be purging Writables, not fixing them"
+argument_list|)
 specifier|public
 name|int
 name|compareTo

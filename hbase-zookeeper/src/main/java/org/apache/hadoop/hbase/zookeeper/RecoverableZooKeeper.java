@@ -1913,13 +1913,6 @@ operator|new
 name|Stat
 argument_list|()
 decl_stmt|;
-name|startTime
-operator|=
-name|EnvironmentEdgeManager
-operator|.
-name|currentTime
-argument_list|()
-expr_stmt|;
 name|byte
 index|[]
 name|revData
@@ -2455,13 +2448,6 @@ block|{
 comment|// If the connection was lost, there is still a possibility that
 comment|// we have successfully created the node at our previous attempt,
 comment|// so we read the node and compare.
-name|startTime
-operator|=
-name|EnvironmentEdgeManager
-operator|.
-name|currentTime
-argument_list|()
-expr_stmt|;
 name|byte
 index|[]
 name|currentData
@@ -3361,14 +3347,6 @@ parameter_list|)
 throws|throws
 name|KeeperException
 block|{
-name|long
-name|startTime
-init|=
-name|EnvironmentEdgeManager
-operator|.
-name|currentTime
-argument_list|()
-decl_stmt|;
 name|checkZk
 argument_list|()
 operator|.
