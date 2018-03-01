@@ -2816,7 +2816,9 @@ return|return
 name|logRollNeeded
 return|;
 block|}
-specifier|private
+annotation|@
+name|VisibleForTesting
+specifier|protected
 name|long
 name|getSequenceOnRingBuffer
 parameter_list|()
@@ -2851,7 +2853,9 @@ name|sequence
 argument_list|)
 return|;
 block|}
-specifier|private
+annotation|@
+name|VisibleForTesting
+specifier|protected
 name|SyncFuture
 name|publishSyncOnRingBuffer
 parameter_list|(
