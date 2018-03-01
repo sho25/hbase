@@ -1868,7 +1868,7 @@ block|{
 name|String
 name|message
 init|=
-literal|"Number of failed RpcServer handler runs exceeded threshhold "
+literal|"Number of failed RpcServer handler runs exceeded threshold "
 operator|+
 name|this
 operator|.

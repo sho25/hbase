@@ -4159,7 +4159,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Finished waiting on RegionServer count="
+literal|"RegionServer count="
 operator|+
 name|count
 operator|+

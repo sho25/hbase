@@ -1074,6 +1074,9 @@ name|size
 argument_list|()
 argument_list|,
 name|numRs
+operator|+
+literal|1
+comment|/*Master*/
 argument_list|)
 expr_stmt|;
 name|Assert

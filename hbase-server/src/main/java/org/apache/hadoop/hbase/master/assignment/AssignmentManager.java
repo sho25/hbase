@@ -8993,7 +8993,7 @@ name|RegionInfo
 argument_list|,
 name|ServerName
 argument_list|>
-name|retainMap
+name|retainPlan
 init|=
 operator|new
 name|HashMap
@@ -9005,17 +9005,12 @@ name|List
 argument_list|<
 name|RegionInfo
 argument_list|>
-name|userHRIs
+name|userRegionInfos
 init|=
 operator|new
 name|ArrayList
 argument_list|<>
-argument_list|(
-name|regions
-operator|.
-name|size
 argument_list|()
-argument_list|)
 decl_stmt|;
 comment|// Regions for system tables requiring reassignment
 specifier|final
@@ -9023,7 +9018,7 @@ name|List
 argument_list|<
 name|RegionInfo
 argument_list|>
-name|systemHRIs
+name|systemRegionInfos
 init|=
 operator|new
 name|ArrayList
@@ -9058,9 +9053,9 @@ name|hris
 init|=
 name|sysTable
 condition|?
-name|systemHRIs
+name|systemRegionInfos
 else|:
-name|userHRIs
+name|userRegionInfos
 decl_stmt|;
 if|if
 condition|(
@@ -9072,7 +9067,7 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|retainMap
+name|retainPlan
 operator|.
 name|put
 argument_list|(
@@ -9146,18 +9141,19 @@ operator|==
 literal|0
 condition|)
 block|{
+comment|// Log every 4th time; we wait 250ms below so means every second.
 name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"No servers available; cannot place "
+literal|"No server available; unable to find a location for "
 operator|+
 name|regions
 operator|.
 name|size
 argument_list|()
 operator|+
-literal|" unassigned regions."
+literal|" regions. waiting..."
 argument_list|)
 expr_stmt|;
 block|}
@@ -9172,14 +9168,14 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Stopped! Dropping assign of "
+literal|"Aborting assignment-queue with "
 operator|+
 name|regions
 operator|.
 name|size
 argument_list|()
 operator|+
-literal|" queued regions."
+literal|" unassigned"
 argument_list|)
 expr_stmt|;
 return|return;
@@ -9191,6 +9187,7 @@ argument_list|(
 literal|250
 argument_list|)
 expr_stmt|;
+comment|// Refresh server list.
 name|servers
 operator|=
 name|master
@@ -9205,14 +9202,17 @@ block|}
 if|if
 condition|(
 operator|!
-name|systemHRIs
+name|systemRegionInfos
 operator|.
 name|isEmpty
 argument_list|()
 condition|)
 block|{
 comment|// System table regions requiring reassignment are present, get region servers
-comment|// not available for system table regions
+comment|// not available for system table regions. Here we are filtering out any regionservers
+comment|// that might be running older versions of the RegionServer; we want system tables on any
+comment|// newer servers that may be present. Newer servers means we are probably doing a rolling
+comment|// upgrade.
 specifier|final
 name|List
 argument_list|<
@@ -9267,9 +9267,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Filtering old server versions and the excluded produced an empty set; "
-operator|+
-literal|"instead considering all candidate servers!"
+literal|"All servers excluded! Considering all servers!"
 argument_list|)
 expr_stmt|;
 block|}
@@ -9277,14 +9275,14 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Processing assignQueue; systemServersCount="
+literal|"Candidate servers to host system regions="
 operator|+
 name|serversForSysTables
 operator|.
 name|size
 argument_list|()
 operator|+
-literal|", allServersCount="
+literal|"; totalServersCount="
 operator|+
 name|servers
 operator|.
@@ -9298,7 +9296,7 @@ name|regions
 argument_list|,
 literal|null
 argument_list|,
-name|systemHRIs
+name|systemRegionInfos
 argument_list|,
 name|serversForSysTables
 operator|.
@@ -9315,9 +9313,9 @@ name|processAssignmentPlans
 argument_list|(
 name|regions
 argument_list|,
-name|retainMap
+name|retainPlan
 argument_list|,
-name|userHRIs
+name|userRegionInfos
 argument_list|,
 name|servers
 argument_list|)
@@ -9343,7 +9341,7 @@ name|RegionInfo
 argument_list|,
 name|ServerName
 argument_list|>
-name|retainMap
+name|retain
 parameter_list|,
 specifier|final
 name|List
@@ -9400,12 +9398,12 @@ decl_stmt|;
 comment|// ask the balancer where to place regions
 if|if
 condition|(
-name|retainMap
+name|retain
 operator|!=
 literal|null
 operator|&&
 operator|!
-name|retainMap
+name|retain
 operator|.
 name|isEmpty
 argument_list|()
@@ -9420,9 +9418,9 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"retain assign regions="
+literal|"Retain assign regions="
 operator|+
-name|retainMap
+name|retain
 argument_list|)
 expr_stmt|;
 block|}
@@ -9436,7 +9434,7 @@ name|balancer
 operator|.
 name|retainAssignment
 argument_list|(
-name|retainMap
+name|retain
 argument_list|,
 name|servers
 argument_list|)
@@ -9462,7 +9460,7 @@ name|addToPendingAssignment
 argument_list|(
 name|regions
 argument_list|,
-name|retainMap
+name|retain
 operator|.
 name|keySet
 argument_list|()
@@ -9501,7 +9499,7 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"round robin regions="
+literal|"Round-robin regions="
 operator|+
 name|hris
 argument_list|)
@@ -9534,7 +9532,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"unable to round-robin assignment"
+literal|"Unable to round-robin assignment"
 argument_list|,
 name|e
 argument_list|)
@@ -9611,12 +9609,14 @@ throw|throw
 operator|new
 name|HBaseIOException
 argument_list|(
-literal|"unable to compute plans for regions="
+literal|"Unable to compute plans for "
 operator|+
 name|regions
 operator|.
 name|size
 argument_list|()
+operator|+
+literal|" regions"
 argument_list|)
 throw|;
 block|}
@@ -9815,7 +9815,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Get a list of servers that this region cannot be assigned to.    * For system tables, we must assign them to a server with highest version.    */
+comment|/**    * Get a list of servers that this region can NOT be assigned to.    * For system tables, we must assign them to a server with highest version (rolling upgrade    * scenario).    */
 specifier|public
 name|List
 argument_list|<

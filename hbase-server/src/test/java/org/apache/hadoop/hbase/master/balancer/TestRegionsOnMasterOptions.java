@@ -356,7 +356,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Test options for regions on master; none, system, or any (i.e. master is like any other  * regionserver). Checks how regions are deployed when each of the options are enabled.  * It then does kill combinations to make sure the distribution is more than just for startup.  * NOTE: Regions on Master does not work well. See HBASE-19828. Until addressed, disabling this  * test.  */
+comment|/**  * Test options for regions on master; none, system, or any (i.e. master is like any other  * regionserver). Checks how regions are deployed when each of the options are enabled.  * It then does kill combinations to make sure the distribution is more than just for startup.  * NOTE: Regions on Master does not work well. See HBASE-19828. Until addressed, disabling this  * test.  * NOTE: System-tables only on Master doesn't work. TODO.  */
 end_comment
 
 begin_class
@@ -696,8 +696,8 @@ expr_stmt|;
 block|}
 annotation|@
 name|Ignore
-comment|// Fix this. The Master startup doesn't allow Master reporting as a RegionServer, not
-comment|// until way late after the Master startup finishes. Needs more work.
+comment|// Needs a bunch of work. We need to assign meta first and do it ahead of all others.
+comment|// This special handling messes up being able to host system tables only on Master w/o hacks.
 annotation|@
 name|Test
 specifier|public

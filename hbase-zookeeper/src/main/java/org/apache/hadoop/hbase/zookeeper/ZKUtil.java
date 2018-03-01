@@ -2767,13 +2767,13 @@ name|zkw
 operator|.
 name|prefix
 argument_list|(
-literal|"Unable to get data of znode "
+literal|"failed to get data of "
 operator|+
 name|znode
 operator|+
 literal|" "
 operator|+
-literal|"because node does not exist (not an error)"
+literal|"; does not exist (not an error)"
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2789,30 +2789,29 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|warn
+name|debug
 argument_list|(
 name|zkw
 operator|.
 name|prefix
 argument_list|(
-literal|"Unable to get data of znode "
+literal|"failed to get data of "
 operator|+
 name|znode
-argument_list|)
-argument_list|,
+operator|+
+literal|"; "
+operator|+
 name|e
-argument_list|)
-expr_stmt|;
-name|zkw
 operator|.
-name|keeperException
-argument_list|(
-name|e
+name|getMessage
+argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
-return|return
-literal|null
-return|;
+comment|// Rethrow
+throw|throw
+name|e
+throw|;
 block|}
 block|}
 comment|/**    * Get the data at the specified znode and set a watch.    *    * Returns the data and sets a watch if the node exists.  Returns null and no    * watch is set if the node does not exist or there is an exception.    *    * @param zkw zk reference    * @param znode path of node    * @return data of the specified znode, or null    * @throws KeeperException if unexpected zookeeper exception    */
