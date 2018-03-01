@@ -958,7 +958,7 @@ name|provider
 operator|.
 name|getWAL
 argument_list|(
-name|region
+literal|null
 argument_list|)
 return|;
 block|}
