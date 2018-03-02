@@ -212,6 +212,15 @@ operator|!=
 name|PeerOperationType
 operator|.
 name|REFRESH
+operator|&&
+name|proc
+operator|.
+name|getPeerOperationType
+argument_list|()
+operator|!=
+name|PeerOperationType
+operator|.
+name|REPLAY_SYNC_REPLICATION_WAL
 return|;
 block|}
 block|}

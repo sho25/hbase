@@ -315,6 +315,24 @@ name|master
 operator|.
 name|replication
 operator|.
+name|ReplaySyncReplicationWALManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
+name|replication
+operator|.
 name|ReplicationPeerManager
 import|;
 end_import
@@ -1121,6 +1139,11 @@ function_decl|;
 comment|/**    * Returns the {@link ReplicationPeerManager}.    */
 name|ReplicationPeerManager
 name|getReplicationPeerManager
+parameter_list|()
+function_decl|;
+comment|/**    * Returns the {@link ReplaySyncReplicationWALManager}.    */
+name|ReplaySyncReplicationWALManager
+name|getReplaySyncReplicationWALManager
 parameter_list|()
 function_decl|;
 comment|/**    * Update the peerConfig for the specified peer    * @param peerId a short name that identifies the peer    * @param peerConfig new config for the peer    */

@@ -418,6 +418,16 @@ name|ExecutorType
 operator|.
 name|RS_REFRESH_PEER
 argument_list|)
+block|,
+comment|/**    * RS replay sync replication wal.<br>    *    * RS_REPLAY_SYNC_REPLICATION_WAL    */
+name|RS_REPLAY_SYNC_REPLICATION_WAL
+argument_list|(
+literal|85
+argument_list|,
+name|ExecutorType
+operator|.
+name|RS_REPLAY_SYNC_REPLICATION_WAL
+argument_list|)
 block|;
 specifier|private
 specifier|final

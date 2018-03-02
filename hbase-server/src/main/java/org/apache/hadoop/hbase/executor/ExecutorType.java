@@ -140,6 +140,11 @@ name|RS_REFRESH_PEER
 argument_list|(
 literal|31
 argument_list|)
+block|,
+name|RS_REPLAY_SYNC_REPLICATION_WAL
+argument_list|(
+literal|32
+argument_list|)
 block|;
 name|ExecutorType
 parameter_list|(

@@ -58,6 +58,10 @@ block|,
 name|REFRESH
 block|,
 name|TRANSIT_SYNC_REPLICATION_STATE
+block|,
+name|RECOVER_STANDBY
+block|,
+name|REPLAY_SYNC_REPLICATION_WAL
 block|}
 name|String
 name|getPeerId
