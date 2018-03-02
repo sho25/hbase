@@ -5837,6 +5837,14 @@ expr_stmt|;
 block|}
 return|return
 name|r
+operator|==
+literal|null
+condition|?
+name|Result
+operator|.
+name|EMPTY_RESULT
+else|:
+name|r
 return|;
 block|}
 comment|/**    * Execute an increment mutation.    *    * @param region    * @param mutation    * @return the Result    * @throws IOException    */
@@ -6124,6 +6132,14 @@ argument_list|)
 expr_stmt|;
 block|}
 return|return
+name|r
+operator|==
+literal|null
+condition|?
+name|Result
+operator|.
+name|EMPTY_RESULT
+else|:
 name|r
 return|;
 block|}
