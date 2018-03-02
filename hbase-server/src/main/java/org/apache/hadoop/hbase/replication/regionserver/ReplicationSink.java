@@ -679,7 +679,7 @@ specifier|private
 name|WALEntrySinkFilter
 name|walEntrySinkFilter
 decl_stmt|;
-comment|/**    * Create a sink for replication    *    * @param conf                conf object    * @param stopper             boolean to tell this thread to stop    * @throws IOException thrown when HDFS goes bad or bad file name    */
+comment|/**    * Create a sink for replication    * @param conf conf object    * @param stopper boolean to tell this thread to stop    * @throws IOException thrown when HDFS goes bad or bad file name    */
 specifier|public
 name|ReplicationSink
 parameter_list|(

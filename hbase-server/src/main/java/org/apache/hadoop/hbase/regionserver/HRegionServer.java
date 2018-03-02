@@ -13385,7 +13385,8 @@ return|return
 name|replicationSourceHandler
 return|;
 block|}
-comment|/**    * @return Return the object that implements the replication    * sink executorService.    */
+comment|/**    * @return Return the object that implements the replication sink executorService.    */
+specifier|public
 name|ReplicationSinkService
 name|getReplicationSinkService
 parameter_list|()

@@ -10093,6 +10093,9 @@ name|checkState
 argument_list|(
 name|getRegionInfo
 argument_list|()
+operator|.
+name|getTable
+argument_list|()
 argument_list|,
 name|ForbidMajorCompactionChecker
 operator|.

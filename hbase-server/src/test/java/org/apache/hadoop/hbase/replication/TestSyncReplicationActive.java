@@ -171,6 +171,21 @@ operator|.
 name|ACTIVE
 argument_list|)
 expr_stmt|;
+comment|// confirm that peer with state A will reject replication request.
+name|verifyReplicationRequestRejection
+argument_list|(
+name|UTIL1
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
+name|verifyReplicationRequestRejection
+argument_list|(
+name|UTIL2
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
 name|UTIL1
 operator|.
 name|getAdmin
@@ -219,6 +234,14 @@ argument_list|,
 name|SyncReplicationState
 operator|.
 name|DOWNGRADE_ACTIVE
+argument_list|)
+expr_stmt|;
+comment|// confirm that peer with state DA will reject replication request.
+name|verifyReplicationRequestRejection
+argument_list|(
+name|UTIL2
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 comment|// confirm that the data is there after we convert the peer to DA
@@ -289,6 +312,14 @@ argument_list|,
 name|SyncReplicationState
 operator|.
 name|DOWNGRADE_ACTIVE
+argument_list|)
+expr_stmt|;
+comment|// confirm that peer with state DA will reject replication request.
+name|verifyReplicationRequestRejection
+argument_list|(
+name|UTIL2
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 name|write

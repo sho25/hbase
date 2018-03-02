@@ -1457,12 +1457,7 @@ name|sourceMetricsList
 operator|.
 name|add
 argument_list|(
-operator|(
-operator|(
-name|ReplicationSource
-operator|)
 name|source
-operator|)
 operator|.
 name|getSourceMetrics
 argument_list|()

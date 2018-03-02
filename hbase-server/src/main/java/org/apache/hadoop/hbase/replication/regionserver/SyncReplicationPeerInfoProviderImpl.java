@@ -51,9 +51,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
-operator|.
-name|RegionInfo
+name|TableName
 import|;
 end_import
 
@@ -191,13 +189,13 @@ argument_list|>
 argument_list|>
 name|getPeerIdAndRemoteWALDir
 parameter_list|(
-name|RegionInfo
-name|info
+name|TableName
+name|table
 parameter_list|)
 block|{
 if|if
 condition|(
-name|info
+name|table
 operator|==
 literal|null
 condition|)
@@ -216,7 +214,7 @@ name|mapping
 operator|.
 name|getPeerId
 argument_list|(
-name|info
+name|table
 argument_list|)
 decl_stmt|;
 if|if
@@ -351,8 +349,8 @@ specifier|public
 name|boolean
 name|checkState
 parameter_list|(
-name|RegionInfo
-name|info
+name|TableName
+name|table
 parameter_list|,
 name|BiPredicate
 argument_list|<
@@ -370,7 +368,7 @@ name|mapping
 operator|.
 name|getPeerId
 argument_list|(
-name|info
+name|table
 argument_list|)
 decl_stmt|;
 if|if
