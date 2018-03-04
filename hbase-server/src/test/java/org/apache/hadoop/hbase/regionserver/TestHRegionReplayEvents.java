@@ -9203,7 +9203,7 @@ argument_list|)
 operator|.
 name|addFlushOutput
 argument_list|(
-literal|"/foo/baz/bar"
+literal|"/foo/baz/123"
 argument_list|)
 operator|.
 name|build
@@ -9285,12 +9285,12 @@ argument_list|)
 operator|.
 name|addCompactionInput
 argument_list|(
-literal|"/foo"
+literal|"/123"
 argument_list|)
 operator|.
 name|addCompactionOutput
 argument_list|(
-literal|"/bar"
+literal|"/456"
 argument_list|)
 operator|.
 name|setStoreHomeDir
@@ -9458,7 +9458,7 @@ argument_list|)
 operator|.
 name|addStoreFile
 argument_list|(
-literal|"/foo"
+literal|"/123"
 argument_list|)
 operator|.
 name|build
@@ -9556,7 +9556,7 @@ argument_list|)
 operator|.
 name|addStoreFile
 argument_list|(
-literal|"/foo"
+literal|"/123"
 argument_list|)
 operator|.
 name|build

@@ -707,7 +707,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create a Store File Info from an HFileLink    * @param conf the {@link Configuration} to use    * @param fs The current file system to use.    * @param fileStatus The {@link FileStatus} of the file    */
+comment|/**    * Create a Store File Info from an HFileLink    * @param conf The {@link Configuration} to use    * @param fs The current file system to use    * @param fileStatus The {@link FileStatus} of the file    */
 specifier|public
 name|StoreFileInfo
 parameter_list|(
@@ -727,8 +727,6 @@ specifier|final
 name|HFileLink
 name|link
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|this
 operator|.
@@ -774,7 +772,7 @@ operator|=
 name|link
 expr_stmt|;
 block|}
-comment|/**    * Create a Store File Info from an HFileLink    * @param conf    * @param fs    * @param fileStatus    * @param reference    * @throws IOException    */
+comment|/**    * Create a Store File Info from an HFileLink    * @param conf The {@link Configuration} to use    * @param fs The current file system to use    * @param fileStatus The {@link FileStatus} of the file    * @param reference The reference instance    */
 specifier|public
 name|StoreFileInfo
 parameter_list|(
@@ -794,8 +792,6 @@ specifier|final
 name|Reference
 name|reference
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|this
 operator|.
@@ -838,6 +834,74 @@ operator|.
 name|link
 operator|=
 literal|null
+expr_stmt|;
+block|}
+comment|/**    * Create a Store File Info from an HFileLink and a Reference    * @param conf The {@link Configuration} to use    * @param fs The current file system to use    * @param fileStatus The {@link FileStatus} of the file    * @param reference The reference instance    * @param link The link instance    */
+specifier|public
+name|StoreFileInfo
+parameter_list|(
+specifier|final
+name|Configuration
+name|conf
+parameter_list|,
+specifier|final
+name|FileSystem
+name|fs
+parameter_list|,
+specifier|final
+name|FileStatus
+name|fileStatus
+parameter_list|,
+specifier|final
+name|Reference
+name|reference
+parameter_list|,
+specifier|final
+name|HFileLink
+name|link
+parameter_list|)
+block|{
+name|this
+operator|.
+name|fs
+operator|=
+name|fs
+expr_stmt|;
+name|this
+operator|.
+name|conf
+operator|=
+name|conf
+expr_stmt|;
+name|this
+operator|.
+name|initialPath
+operator|=
+name|fileStatus
+operator|.
+name|getPath
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|createdTimestamp
+operator|=
+name|fileStatus
+operator|.
+name|getModificationTime
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|reference
+operator|=
+name|reference
+expr_stmt|;
+name|this
+operator|.
+name|link
+operator|=
+name|link
 expr_stmt|;
 block|}
 comment|/**    * Sets the region coprocessor env.    * @param coprocessorHost    */
