@@ -218,9 +218,6 @@ specifier|protected
 name|void
 name|handleEmptyWALEntryBatch
 parameter_list|(
-name|WALEntryBatch
-name|batch
-parameter_list|,
 name|Path
 name|currentPath
 parameter_list|)
@@ -245,12 +242,6 @@ name|entryBatchQueue
 operator|.
 name|put
 argument_list|(
-name|batch
-operator|!=
-literal|null
-condition|?
-name|batch
-else|:
 operator|new
 name|WALEntryBatch
 argument_list|(

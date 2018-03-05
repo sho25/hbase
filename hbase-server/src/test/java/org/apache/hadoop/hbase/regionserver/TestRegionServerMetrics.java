@@ -2377,7 +2377,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-comment|//Force a hfile.
+comment|// Force a hfile.
 name|doNPuts
 argument_list|(
 literal|1
@@ -2411,7 +2411,7 @@ name|TABLES_ON_MASTER
 condition|?
 literal|1
 else|:
-literal|4
+literal|5
 argument_list|)
 expr_stmt|;
 name|assertGauge

@@ -1139,6 +1139,37 @@ operator|.
 name|walRootDir
 return|;
 block|}
+comment|/**    * @return the directory for a give {@code region}.    */
+specifier|public
+name|Path
+name|getRegionDir
+parameter_list|(
+name|RegionInfo
+name|region
+parameter_list|)
+block|{
+return|return
+name|FSUtils
+operator|.
+name|getRegionDir
+argument_list|(
+name|FSUtils
+operator|.
+name|getTableDir
+argument_list|(
+name|getRootDir
+argument_list|()
+argument_list|,
+name|region
+operator|.
+name|getTable
+argument_list|()
+argument_list|)
+argument_list|,
+name|region
+argument_list|)
+return|;
+block|}
 comment|/**    * @return HBase temp dir.    */
 specifier|public
 name|Path

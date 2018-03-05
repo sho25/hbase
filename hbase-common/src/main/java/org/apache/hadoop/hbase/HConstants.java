@@ -1453,6 +1453,30 @@ argument_list|(
 literal|"state"
 argument_list|)
 decl_stmt|;
+comment|/** The replication barrier family as a string*/
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|REPLICATION_BARRIER_FAMILY_STR
+init|=
+literal|"rep_barrier"
+decl_stmt|;
+comment|/** The replication barrier family */
+specifier|public
+specifier|static
+specifier|final
+name|byte
+index|[]
+name|REPLICATION_BARRIER_FAMILY
+init|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|REPLICATION_BARRIER_FAMILY_STR
+argument_list|)
+decl_stmt|;
 comment|/**    * The meta table version column qualifier.    * We keep current version of the meta table in this column in<code>-ROOT-</code>    * table: i.e. in the 'info:v' column.    */
 specifier|public
 specifier|static
@@ -1808,6 +1832,15 @@ name|int
 name|REPLICATION_SCOPE_GLOBAL
 init|=
 literal|1
+decl_stmt|;
+comment|/**    * Scope tag for serially scoped data    * This data will be replicated to all peers by the order of sequence id.    */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|REPLICATION_SCOPE_SERIAL
+init|=
+literal|2
 decl_stmt|;
 comment|/**    * Default cluster ID, cannot be used to identify a cluster so a key with    * this value means it wasn't meant for replication.    */
 specifier|public

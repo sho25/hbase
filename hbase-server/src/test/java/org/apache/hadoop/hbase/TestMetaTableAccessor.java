@@ -3451,6 +3451,9 @@ name|connection
 argument_list|,
 name|parent
 argument_list|,
+operator|-
+literal|1L
+argument_list|,
 name|splitA
 argument_list|,
 name|splitB
@@ -3751,7 +3754,13 @@ name|merged
 argument_list|,
 name|parentA
 argument_list|,
+operator|-
+literal|1L
+argument_list|,
 name|parentB
+argument_list|,
+operator|-
+literal|1L
 argument_list|,
 name|serverName0
 argument_list|,
@@ -4801,7 +4810,13 @@ name|mergedRegionInfo
 argument_list|,
 name|regionInfoA
 argument_list|,
+operator|-
+literal|1L
+argument_list|,
 name|regionInfoB
+argument_list|,
+operator|-
+literal|1L
 argument_list|,
 name|sn
 argument_list|,
@@ -5297,6 +5312,9 @@ name|connection
 argument_list|,
 name|parent
 argument_list|,
+operator|-
+literal|1L
+argument_list|,
 name|splitA
 argument_list|,
 name|splitB
@@ -5548,6 +5566,9 @@ argument_list|(
 name|connection
 argument_list|,
 name|parent
+argument_list|,
+operator|-
+literal|1L
 argument_list|,
 name|splitA
 argument_list|,

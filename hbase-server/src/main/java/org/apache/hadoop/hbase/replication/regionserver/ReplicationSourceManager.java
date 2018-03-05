@@ -2336,6 +2336,14 @@ parameter_list|,
 name|long
 name|position
 parameter_list|,
+name|Map
+argument_list|<
+name|String
+argument_list|,
+name|Long
+argument_list|>
+name|lastSeqIds
+parameter_list|,
 name|boolean
 name|queueRecovered
 parameter_list|)
@@ -2369,7 +2377,7 @@ name|fileName
 argument_list|,
 name|position
 argument_list|,
-literal|null
+name|lastSeqIds
 argument_list|)
 argument_list|)
 expr_stmt|;

@@ -431,6 +431,16 @@ name|ServerName
 name|getServerWALsBelongTo
 parameter_list|()
 function_decl|;
+comment|/**    * @return whether this is a replication source for recovery.    */
+specifier|default
+name|boolean
+name|isRecovered
+parameter_list|()
+block|{
+return|return
+literal|false
+return|;
+block|}
 block|}
 end_interface
 

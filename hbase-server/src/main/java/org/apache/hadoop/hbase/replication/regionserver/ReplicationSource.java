@@ -3285,6 +3285,22 @@ name|getServerName
 argument_list|()
 return|;
 block|}
+name|Server
+name|getServer
+parameter_list|()
+block|{
+return|return
+name|server
+return|;
+block|}
+name|ReplicationQueueStorage
+name|getQueueStorage
+parameter_list|()
+block|{
+return|return
+name|queueStorage
+return|;
+block|}
 block|}
 end_class
 

@@ -1738,7 +1738,7 @@ break|break;
 case|case
 name|SPLIT_TABLE_REGION_UPDATE_META
 case|:
-name|updateMetaForDaughterRegions
+name|updateMeta
 argument_list|(
 name|env
 argument_list|)
@@ -4346,7 +4346,7 @@ block|}
 comment|/**    * Add daughter regions to META    * @param env MasterProcedureEnv    */
 specifier|private
 name|void
-name|updateMetaForDaughterRegions
+name|updateMeta
 parameter_list|(
 specifier|final
 name|MasterProcedureEnv

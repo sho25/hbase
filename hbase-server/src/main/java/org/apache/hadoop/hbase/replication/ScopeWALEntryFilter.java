@@ -75,11 +75,15 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|wal
+operator|.
+name|WAL
+operator|.
+name|Entry
 import|;
 end_import
 
@@ -105,15 +109,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|yetus
 operator|.
-name|hbase
+name|audience
 operator|.
-name|wal
-operator|.
-name|WAL
-operator|.
-name|Entry
+name|InterfaceAudience
 import|;
 end_import
 
@@ -156,6 +156,8 @@ name|WALEntryFilter
 implements|,
 name|WALCellFilter
 block|{
+specifier|private
+specifier|final
 name|BulkLoadCellFilter
 name|bulkLoadFilter
 init|=

@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -74,6 +74,16 @@ operator|.
 name|util
 operator|.
 name|List
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Objects
 import|;
 end_import
 
@@ -628,6 +638,11 @@ specifier|final
 name|FileSystem
 name|fs
 decl_stmt|;
+specifier|private
+specifier|final
+name|Path
+name|regionDir
+decl_stmt|;
 comment|/**    * In order to handle NN connectivity hiccups, one need to retry non-idempotent operation at the    * client level.    */
 specifier|private
 specifier|final
@@ -691,13 +706,27 @@ name|this
 operator|.
 name|tableDir
 operator|=
+name|Objects
+operator|.
+name|requireNonNull
+argument_list|(
 name|tableDir
+argument_list|,
+literal|"tableDir is null"
+argument_list|)
 expr_stmt|;
 name|this
 operator|.
 name|regionInfo
 operator|=
+name|Objects
+operator|.
+name|requireNonNull
+argument_list|(
 name|regionInfo
+argument_list|,
+literal|"regionInfo is null"
+argument_list|)
 expr_stmt|;
 name|this
 operator|.
@@ -707,6 +736,19 @@ name|ServerRegionReplicaUtil
 operator|.
 name|getRegionInfoForFs
 argument_list|(
+name|regionInfo
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|regionDir
+operator|=
+name|FSUtils
+operator|.
+name|getRegionDir
+argument_list|(
+name|tableDir
+argument_list|,
 name|regionInfo
 argument_list|)
 expr_stmt|;
@@ -791,20 +833,7 @@ name|getRegionDir
 parameter_list|()
 block|{
 return|return
-operator|new
-name|Path
-argument_list|(
-name|this
-operator|.
-name|tableDir
-argument_list|,
-name|this
-operator|.
-name|regionInfoForFs
-operator|.
-name|getEncodedName
-argument_list|()
-argument_list|)
+name|regionDir
 return|;
 block|}
 comment|// ===========================================================================

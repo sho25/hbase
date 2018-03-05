@@ -1675,7 +1675,10 @@ name|TEST_UTIL
 operator|.
 name|getDataTestDirOnTestFS
 argument_list|(
-literal|"testOnDiskRegionCreation"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|FileSystem
@@ -1883,7 +1886,10 @@ name|TEST_UTIL
 operator|.
 name|getDataTestDirOnTestFS
 argument_list|(
-literal|"testOnDiskRegionCreation"
+name|name
+operator|.
+name|getMethodName
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|FileSystem
@@ -1964,13 +1970,11 @@ operator|new
 name|MockFileSystemForCreate
 argument_list|()
 argument_list|,
-literal|null
+name|rootDir
 argument_list|,
-literal|null
+name|hri
 argument_list|)
 expr_stmt|;
-comment|// HRegionFileSystem.createRegionOnFileSystem(conf, new MockFileSystemForCreate(), rootDir,
-comment|// hri);
 name|boolean
 name|result
 init|=
@@ -2003,9 +2007,9 @@ operator|new
 name|MockFileSystem
 argument_list|()
 argument_list|,
-literal|null
+name|rootDir
 argument_list|,
-literal|null
+name|hri
 argument_list|)
 expr_stmt|;
 name|result
@@ -2045,9 +2049,9 @@ operator|new
 name|MockFileSystem
 argument_list|()
 argument_list|,
-literal|null
+name|rootDir
 argument_list|,
-literal|null
+name|hri
 argument_list|)
 expr_stmt|;
 name|result
