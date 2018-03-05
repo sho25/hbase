@@ -14,6 +14,8 @@ operator|.
 name|hbase
 operator|.
 name|replication
+operator|.
+name|storage
 package|;
 end_package
 
@@ -168,6 +170,38 @@ operator|.
 name|hbase
 operator|.
 name|ServerName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|replication
+operator|.
+name|ReplicationException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|replication
+operator|.
+name|ZKReplicationQueueStorage
 import|;
 end_import
 
@@ -1701,7 +1735,7 @@ literal|0
 decl_stmt|;
 annotation|@
 name|Override
-specifier|protected
+specifier|public
 name|int
 name|getQueuesZNodeCversion
 parameter_list|()

@@ -80,7 +80,7 @@ parameter_list|)
 throws|throws
 name|ReplicationException
 function_decl|;
-comment|/**    * Set the state of peer, {@code true} to {@code ENABLED}, otherwise to {@code DISABLED}.    * @throws ReplicationException if there are errors accessing the storage service.    */
+comment|/**    * Set the state of peer, {@code true} to {@code ENABLED}, otherwise to {@code DISABLED}.    * @throws ReplicationException if there are errors accessing the storage service or peer does not    *           exist.    */
 name|void
 name|setPeerState
 parameter_list|(

@@ -474,6 +474,7 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
+specifier|public
 class|class
 name|ZKReplicationQueueStorage
 extends|extends
@@ -1101,14 +1102,12 @@ block|{
 name|String
 name|peerId
 init|=
-operator|new
-name|ReplicationQueueInfo
+name|ReplicationUtils
+operator|.
+name|parsePeerIdFromQueueId
 argument_list|(
 name|queueId
 argument_list|)
-operator|.
-name|getPeerId
-argument_list|()
 decl_stmt|;
 name|String
 name|path
@@ -2198,7 +2197,7 @@ block|}
 comment|// will be overridden in UTs
 annotation|@
 name|VisibleForTesting
-specifier|protected
+specifier|public
 name|int
 name|getQueuesZNodeCversion
 parameter_list|()

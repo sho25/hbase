@@ -14,6 +14,8 @@ operator|.
 name|hbase
 operator|.
 name|replication
+operator|.
+name|storage
 package|;
 end_package
 
@@ -163,9 +165,105 @@ name|hbase
 operator|.
 name|replication
 operator|.
+name|ReplicationException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|replication
+operator|.
 name|ReplicationPeer
 operator|.
 name|PeerState
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|replication
+operator|.
+name|ReplicationPeerConfig
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|replication
+operator|.
+name|ReplicationPeerImpl
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|replication
+operator|.
+name|ReplicationPeers
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|replication
+operator|.
+name|ReplicationQueueStorage
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|replication
+operator|.
+name|ReplicationUtils
 import|;
 end_import
 
@@ -1861,7 +1959,7 @@ argument_list|)
 expr_stmt|;
 name|fail
 argument_list|(
-literal|"Should have thrown an IllegalArgumentException when passed a bogus peerId"
+literal|"Should have thrown an ReplicationException when passed a non-exist bogus peerId"
 argument_list|)
 expr_stmt|;
 block|}
@@ -1887,7 +1985,7 @@ argument_list|)
 expr_stmt|;
 name|fail
 argument_list|(
-literal|"Should have thrown an IllegalArgumentException when passed a bogus peerId"
+literal|"Should have thrown an ReplicationException when passed a non-exist bogus peerId"
 argument_list|)
 expr_stmt|;
 block|}
@@ -1911,7 +2009,9 @@ argument_list|)
 expr_stmt|;
 name|fail
 argument_list|(
-literal|"Should have thrown an ReplicationException when passed a bogus peerId"
+literal|"Should have thrown an ReplicationException when creating a bogus peerId "
+operator|+
+literal|"with null peer config"
 argument_list|)
 expr_stmt|;
 block|}
