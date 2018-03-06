@@ -4493,7 +4493,7 @@ specifier|final
 name|int
 name|TYPES_OF_FAILURE
 init|=
-literal|6
+literal|7
 decl_stmt|;
 specifier|private
 name|int
@@ -4565,6 +4565,43 @@ argument_list|)
 throw|;
 case|case
 literal|4
+case|:
+comment|// We will expire the server that we failed to rpc against.
+throw|throw
+operator|new
+name|FailedRemoteDispatchException
+argument_list|(
+literal|"Fake!"
+argument_list|)
+throw|;
+case|case
+literal|5
+case|:
+comment|// Mark this regionserver as already expiring so we go different code route; i.e. we
+comment|// FAIL to expire the remote server and presume ok to move region to CLOSED. HBASE-20137.
+name|TestAssignmentManager
+operator|.
+name|this
+operator|.
+name|master
+operator|.
+name|getServerManager
+argument_list|()
+operator|.
+name|expireServer
+argument_list|(
+name|server
+argument_list|)
+expr_stmt|;
+throw|throw
+operator|new
+name|FailedRemoteDispatchException
+argument_list|(
+literal|"Fake!"
+argument_list|)
+throw|;
+case|case
+literal|6
 case|:
 name|LOG
 operator|.
