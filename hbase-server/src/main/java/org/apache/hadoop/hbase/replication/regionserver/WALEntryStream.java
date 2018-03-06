@@ -381,10 +381,19 @@ specifier|private
 name|Entry
 name|currentEntry
 decl_stmt|;
+comment|// position for the current entry. As now we support peek, which means that the upper layer may
+comment|// choose to return before reading the current entry, so it is not safe to return the value below
+comment|// in getPosition.
+specifier|private
+name|long
+name|currentPositionOfEntry
+init|=
+literal|0
+decl_stmt|;
 comment|// position after reading current entry
 specifier|private
 name|long
-name|currentPosition
+name|currentPositionOfReader
 init|=
 literal|0
 decl_stmt|;
@@ -473,7 +482,7 @@ name|conf
 expr_stmt|;
 name|this
 operator|.
-name|currentPosition
+name|currentPositionOfEntry
 operator|=
 name|startPosition
 expr_stmt|;
@@ -552,6 +561,10 @@ init|=
 name|peek
 argument_list|()
 decl_stmt|;
+name|currentPositionOfEntry
+operator|=
+name|currentPositionOfReader
+expr_stmt|;
 name|currentEntry
 operator|=
 literal|null
@@ -581,7 +594,7 @@ name|getPosition
 parameter_list|()
 block|{
 return|return
-name|currentPosition
+name|currentPositionOfEntry
 return|;
 block|}
 comment|/**    * @return the {@link Path} of the current WAL    */
@@ -632,7 +645,7 @@ argument_list|)
 operator|.
 name|append
 argument_list|(
-name|currentPosition
+name|currentPositionOfEntry
 argument_list|)
 operator|.
 name|append
@@ -690,7 +703,7 @@ name|long
 name|position
 parameter_list|)
 block|{
-name|currentPosition
+name|currentPositionOfEntry
 operator|=
 name|position
 expr_stmt|;
@@ -726,7 +739,7 @@ block|{
 name|boolean
 name|beingWritten
 init|=
-name|readNextEntryAndSetPosition
+name|readNextEntryAndRecordReaderPosition
 argument_list|()
 decl_stmt|;
 if|if
@@ -746,7 +759,7 @@ comment|// while we were reading. See HBASE-6758
 name|resetReader
 argument_list|()
 expr_stmt|;
-name|readNextEntryAndSetPosition
+name|readNextEntryAndRecordReaderPosition
 argument_list|()
 expr_stmt|;
 if|if
@@ -772,7 +785,7 @@ name|openNextLog
 argument_list|()
 condition|)
 block|{
-name|readNextEntryAndSetPosition
+name|readNextEntryAndRecordReaderPosition
 argument_list|()
 expr_stmt|;
 block|}
@@ -831,15 +844,10 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Couldn't get file length information about log "
-operator|+
-name|this
-operator|.
+literal|"Couldn't get file length information about log {}, it {} closed cleanly {}"
+argument_list|,
 name|currentPath
-operator|+
-literal|", it "
-operator|+
-operator|(
+argument_list|,
 name|trailerSize
 operator|<
 literal|0
@@ -847,10 +855,7 @@ condition|?
 literal|"was not"
 else|:
 literal|"was"
-operator|)
-operator|+
-literal|" closed cleanly "
-operator|+
+argument_list|,
 name|getCurrentPathStat
 argument_list|()
 argument_list|)
@@ -861,6 +866,12 @@ name|incrUnknownFileLengthForClosedWAL
 argument_list|()
 expr_stmt|;
 block|}
+comment|// Here we use currentPositionOfReader instead of currentPositionOfEntry.
+comment|// We only call this method when currentEntry is null so usually they are the same, but there
+comment|// are two exceptions. One is we have nothing in the file but only a header, in this way
+comment|// the currentPositionOfEntry will always be 0 since we have no change to update it. The other
+comment|// is that we reach the end of file, then currentPositionOfEntry will point to the tail of the
+comment|// last valid entry, and the currentPositionOfReader will usually point to the end of the file.
 if|if
 condition|(
 name|stat
@@ -877,7 +888,7 @@ condition|)
 block|{
 if|if
 condition|(
-name|currentPosition
+name|currentPositionOfReader
 operator|<
 name|stat
 operator|.
@@ -894,32 +905,21 @@ operator|.
 name|getLen
 argument_list|()
 operator|-
-name|currentPosition
+name|currentPositionOfReader
 decl_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Reached the end of WAL file '"
+literal|"Reached the end of WAL file '{}'. It was not closed cleanly,"
 operator|+
+literal|" so we did not parse {} bytes of data. This is normally ok."
+argument_list|,
 name|currentPath
-operator|+
-literal|"'. It was not closed cleanly, so we did not parse "
-operator|+
+argument_list|,
 name|skippedBytes
-operator|+
-literal|" bytes of data. This is normally ok."
 argument_list|)
 expr_stmt|;
-block|}
 name|metrics
 operator|.
 name|incrUncleanlyClosedWALs
@@ -937,7 +937,7 @@ block|}
 elseif|else
 if|if
 condition|(
-name|currentPosition
+name|currentPositionOfReader
 operator|+
 name|trailerSize
 operator|<
@@ -951,23 +951,19 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Processing end of WAL file '"
+literal|"Processing end of WAL file '{}'. At position {}, which is too far away from"
 operator|+
+literal|" reported file length {}. Restarting WAL reading (see HBASE-15983 for details). {}"
+argument_list|,
 name|currentPath
-operator|+
-literal|"'. At position "
-operator|+
-name|currentPosition
-operator|+
-literal|", which is too far away from reported file length "
-operator|+
+argument_list|,
+name|currentPositionOfReader
+argument_list|,
 name|stat
 operator|.
 name|getLen
 argument_list|()
-operator|+
-literal|". Restarting WAL reading (see HBASE-15983 for details). "
-operator|+
+argument_list|,
 name|getCurrentPathStat
 argument_list|()
 argument_list|)
@@ -989,7 +985,7 @@ name|metrics
 operator|.
 name|incrRepeatedFileBytes
 argument_list|(
-name|currentPosition
+name|currentPositionOfReader
 argument_list|)
 expr_stmt|;
 return|return
@@ -1048,24 +1044,15 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Reached the end of log "
-operator|+
+literal|"Reached the end of log {}"
+argument_list|,
 name|currentPath
 argument_list|)
 expr_stmt|;
-block|}
 name|closeReader
 argument_list|()
 expr_stmt|;
@@ -1088,7 +1075,7 @@ block|}
 comment|/**    * Returns whether the file is opened for writing.    */
 specifier|private
 name|boolean
-name|readNextEntryAndSetPosition
+name|readNextEntryAndRecordReaderPosition
 parameter_list|()
 throws|throws
 name|IOException
@@ -1190,7 +1177,7 @@ name|incrLogReadInBytes
 argument_list|(
 name|readerPos
 operator|-
-name|currentPosition
+name|currentPositionOfEntry
 argument_list|)
 expr_stmt|;
 block|}
@@ -1199,10 +1186,11 @@ operator|=
 name|readEntry
 expr_stmt|;
 comment|// could be null
-name|setPosition
-argument_list|(
+name|this
+operator|.
+name|currentPositionOfReader
+operator|=
 name|readerPos
-argument_list|)
 expr_stmt|;
 return|return
 name|fileLength
@@ -1861,7 +1849,7 @@ name|IOException
 block|{
 if|if
 condition|(
-name|currentPosition
+name|currentPositionOfEntry
 operator|!=
 literal|0
 condition|)
@@ -1870,7 +1858,7 @@ name|reader
 operator|.
 name|seek
 argument_list|(
-name|currentPosition
+name|currentPositionOfEntry
 argument_list|)
 expr_stmt|;
 block|}

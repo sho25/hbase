@@ -590,6 +590,7 @@ block|}
 block|}
 comment|/**    * Do the shipping logic    */
 specifier|protected
+specifier|final
 name|void
 name|shipEdits
 parameter_list|(
@@ -1371,6 +1372,7 @@ literal|0
 return|;
 block|}
 specifier|protected
+specifier|final
 name|boolean
 name|isActive
 parameter_list|()

@@ -475,6 +475,15 @@ specifier|final
 name|boolean
 name|eofAutoRecovery
 decl_stmt|;
+comment|// used to store the first cell in an entry before filtering. This is because that if serial
+comment|// replication is enabled, we may find out that an entry can not be pushed after filtering. And
+comment|// when we try the next time, the cells maybe null since the entry has already been filtered,
+comment|// especially for region event wal entries. And this can also used to determine whether we can
+comment|// skip filtering.
+specifier|private
+name|Cell
+name|firstCellInEntryBeforeFiltering
+decl_stmt|;
 comment|//Indicates whether this particular worker is running
 specifier|private
 name|boolean
@@ -949,6 +958,39 @@ block|}
 block|}
 block|}
 specifier|private
+name|void
+name|removeEntryFromStream
+parameter_list|(
+name|WALEntryStream
+name|entryStream
+parameter_list|,
+name|WALEntryBatch
+name|batch
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|entryStream
+operator|.
+name|next
+argument_list|()
+expr_stmt|;
+name|firstCellInEntryBeforeFiltering
+operator|=
+literal|null
+expr_stmt|;
+name|batch
+operator|.
+name|setLastWalPosition
+argument_list|(
+name|entryStream
+operator|.
+name|getPosition
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+specifier|private
 name|WALEntryBatch
 name|readWALEntries
 parameter_list|(
@@ -973,6 +1015,14 @@ return|return
 literal|null
 return|;
 block|}
+name|long
+name|positionBefore
+init|=
+name|entryStream
+operator|.
+name|getPosition
+argument_list|()
+decl_stmt|;
 name|WALEntryBatch
 name|batch
 init|=
@@ -997,16 +1047,6 @@ operator|.
 name|peek
 argument_list|()
 decl_stmt|;
-name|batch
-operator|.
-name|setLastWalPosition
-argument_list|(
-name|entryStream
-operator|.
-name|getPosition
-argument_list|()
-argument_list|)
-expr_stmt|;
 name|boolean
 name|hasSerialReplicationScope
 init|=
@@ -1018,20 +1058,21 @@ operator|.
 name|hasSerialReplicationScope
 argument_list|()
 decl_stmt|;
-comment|// Used to locate the region record in meta table. In WAL we only have the table name and
-comment|// encoded region name which can not be mapping to region name without scanning all the
-comment|// records for a table, so we need a start key, just like what we have done at client side
-comment|// when locating a region. For the markers, we will use the start key of the region as the row
-comment|// key for the edit. And we need to do this before filtering since all the cells may be
-comment|// filtered out, especially that for the markers.
-name|Cell
-name|firstCellInEdit
+name|boolean
+name|doFiltering
 init|=
-literal|null
+literal|true
 decl_stmt|;
 if|if
 condition|(
 name|hasSerialReplicationScope
+condition|)
+block|{
+if|if
+condition|(
+name|firstCellInEntryBeforeFiltering
+operator|==
+literal|null
 condition|)
 block|{
 assert|assert
@@ -1046,7 +1087,13 @@ argument_list|()
 operator|:
 literal|"should not write empty edits"
 assert|;
-name|firstCellInEdit
+comment|// Used to locate the region record in meta table. In WAL we only have the table name and
+comment|// encoded region name which can not be mapping to region name without scanning all the
+comment|// records for a table, so we need a start key, just like what we have done at client side
+comment|// when locating a region. For the markers, we will use the start key of the region as the
+comment|// row key for the edit. And we need to do this before filtering since all the cells may
+comment|// be filtered out, especially that for the markers.
+name|firstCellInEntryBeforeFiltering
 operator|=
 name|entry
 operator|.
@@ -1062,6 +1109,20 @@ literal|0
 argument_list|)
 expr_stmt|;
 block|}
+else|else
+block|{
+comment|// if this is not null then we know that the entry has already been filtered.
+name|doFiltering
+operator|=
+literal|false
+expr_stmt|;
+block|}
+block|}
+if|if
+condition|(
+name|doFiltering
+condition|)
+block|{
 name|entry
 operator|=
 name|filterEntry
@@ -1069,6 +1130,7 @@ argument_list|(
 name|entry
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|entry
@@ -1090,7 +1152,7 @@ name|canPush
 argument_list|(
 name|entry
 argument_list|,
-name|firstCellInEdit
+name|firstCellInEntryBeforeFiltering
 argument_list|)
 condition|)
 block|{
@@ -1098,10 +1160,10 @@ if|if
 condition|(
 name|batch
 operator|.
-name|getNbEntries
+name|getLastWalPosition
 argument_list|()
 operator|>
-literal|0
+name|positionBefore
 condition|)
 block|{
 comment|// we have something that can push, break
@@ -1115,7 +1177,7 @@ name|waitUntilCanPush
 argument_list|(
 name|entry
 argument_list|,
-name|firstCellInEdit
+name|firstCellInEntryBeforeFiltering
 argument_list|)
 expr_stmt|;
 block|}
@@ -1149,10 +1211,12 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// actually remove the entry.
+name|removeEntryFromStream
+argument_list|(
 name|entryStream
-operator|.
-name|next
-argument_list|()
+argument_list|,
+name|batch
+argument_list|)
 expr_stmt|;
 name|WALEdit
 name|edit
@@ -1234,10 +1298,12 @@ block|}
 else|else
 block|{
 comment|// actually remove the entry.
+name|removeEntryFromStream
+argument_list|(
 name|entryStream
-operator|.
-name|next
-argument_list|()
+argument_list|,
+name|batch
+argument_list|)
 expr_stmt|;
 block|}
 block|}

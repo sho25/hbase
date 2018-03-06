@@ -81,7 +81,7 @@ specifier|public
 interface|interface
 name|WALEntryFilter
 block|{
-comment|/**    * Applies the filter, possibly returning a different Entry instance.    * If null is returned, the entry will be skipped.    * @param entry Entry to filter    * @return a (possibly modified) Entry to use. Returning null or an entry with    * no cells will cause the entry to be skipped for replication.    */
+comment|/**    *<p>    * Applies the filter, possibly returning a different Entry instance. If null is returned, the    * entry will be skipped.    *</p>    *<p>    * Notice that you are free to modify the cell list of the give entry, but do not change the    * content of the cell, it may be used by others at the same time(and usually you can not modify a    * cell unless you cast it to the implementation class, which is not a good idea).    *</p>    * @param entry Entry to filter    * @return a (possibly modified) Entry to use. Returning null or an entry with no cells will cause    *         the entry to be skipped for replication.    */
 specifier|public
 name|Entry
 name|filter
