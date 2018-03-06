@@ -285,6 +285,26 @@ begin_import
 import|import
 name|org
 operator|.
+name|slf4j
+operator|.
+name|Logger
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|LoggerFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
 name|apache
 operator|.
 name|hbase
@@ -381,6 +401,21 @@ name|Private
 class|class
 name|SerialReplicationChecker
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|Logger
+name|LOG
+init|=
+name|LoggerFactory
+operator|.
+name|getLogger
+argument_list|(
+name|SerialReplicationChecker
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 specifier|public
 specifier|static
 specifier|final
@@ -837,6 +872,17 @@ name|getEncodedRegionName
 argument_list|()
 argument_list|)
 decl_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Replication barrier for {}: {}"
+argument_list|,
+name|entry
+argument_list|,
+name|barrierResult
+argument_list|)
+expr_stmt|;
 name|long
 index|[]
 name|barriers
@@ -866,6 +912,15 @@ operator|-
 literal|1
 condition|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"{} is before the first barrier, pass"
+argument_list|,
+name|entry
+argument_list|)
+expr_stmt|;
 comment|// This means we are in the range before the first record openSeqNum, this usually because the
 comment|// wal is written before we enable serial replication for this table, just return true since
 comment|// we can not guarantee the order.
@@ -938,6 +993,22 @@ name|regionName
 argument_list|)
 condition|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Parent {} has not been finished yet for entry {}, give up"
+argument_list|,
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
+name|regionName
+argument_list|)
+argument_list|,
+name|entry
+argument_list|)
+expr_stmt|;
 return|return
 literal|false
 return|;
@@ -953,10 +1024,28 @@ name|index
 argument_list|)
 condition|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"{} is in the last range and the region is opening, give up"
+argument_list|,
+name|entry
+argument_list|)
+expr_stmt|;
 return|return
 literal|false
 return|;
 block|}
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"{} is in the first range, pass"
+argument_list|,
+name|entry
+argument_list|)
+expr_stmt|;
 name|recordCanPush
 argument_list|(
 name|encodedNameAsString
@@ -989,6 +1078,15 @@ name|encodedNameAsString
 argument_list|)
 condition|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Previous range for {} has not been finished yet, give up"
+argument_list|,
+name|entry
+argument_list|)
+expr_stmt|;
 return|return
 literal|false
 return|;
@@ -1003,10 +1101,28 @@ name|index
 argument_list|)
 condition|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"{} is in the last range and the region is opening, give up"
+argument_list|,
+name|entry
+argument_list|)
+expr_stmt|;
 return|return
 literal|false
 return|;
 block|}
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"The previous range for {} has been finished, pass"
+argument_list|,
+name|entry
+argument_list|)
+expr_stmt|;
 name|recordCanPush
 argument_list|(
 name|encodedNameAsString
@@ -1089,10 +1205,32 @@ name|longValue
 argument_list|()
 condition|)
 block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"{} is before the end barrier {}, pass"
+argument_list|,
+name|entry
+argument_list|,
+name|canReplicateUnderSeqId
+argument_list|)
+expr_stmt|;
 return|return
 literal|true
 return|;
 block|}
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"{} is beyond the previous end barrier {}, remove from cache"
+argument_list|,
+name|entry
+argument_list|,
+name|canReplicateUnderSeqId
+argument_list|)
+expr_stmt|;
 comment|// we are already beyond the last safe point, remove
 name|canPushUnder
 operator|.
@@ -1127,6 +1265,13 @@ operator|+
 literal|1
 condition|)
 block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"The sequence id for {} is continuous, pass"
+argument_list|)
+expr_stmt|;
 name|previousPushedSeqId
 operator|.
 name|increment
@@ -1187,6 +1332,15 @@ name|row
 argument_list|)
 condition|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Can not push{}, wait"
+argument_list|,
+name|entry
+argument_list|)
+expr_stmt|;
 name|Thread
 operator|.
 name|sleep
