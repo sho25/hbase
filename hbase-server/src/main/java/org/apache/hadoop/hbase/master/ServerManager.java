@@ -2680,10 +2680,10 @@ name|rsZNode
 argument_list|)
 return|;
 block|}
-comment|/*    * Expire the passed server. Add it to list of dead servers and queue a shutdown processing.    * @return True if we expired passed<code>serverName</code> else false if we failed to schedule    * an expire (and attendant ServerCrashProcedure -- some clients are dependent on    * server crash procedure being queued and need to know if has not been queued).    */
+comment|/*    * Expire the passed server.  Add it to list of dead servers and queue a    * shutdown processing.    */
 specifier|public
 specifier|synchronized
-name|boolean
+name|void
 name|expireServer
 parameter_list|(
 specifier|final
@@ -2728,9 +2728,7 @@ literal|"We lost our znode?"
 argument_list|)
 expr_stmt|;
 block|}
-return|return
-literal|false
-return|;
+return|return;
 block|}
 if|if
 condition|(
@@ -2774,9 +2772,7 @@ argument_list|(
 name|serverName
 argument_list|)
 expr_stmt|;
-return|return
-literal|false
-return|;
+return|return;
 block|}
 if|if
 condition|(
@@ -2802,9 +2798,7 @@ operator|+
 literal|" but server shutdown already in progress"
 argument_list|)
 expr_stmt|;
-return|return
-literal|false
-return|;
+return|return;
 block|}
 name|moveFromOnlineToDeadServers
 argument_list|(
@@ -2855,9 +2849,7 @@ literal|"Cluster shutdown set; onlineServer=0"
 argument_list|)
 expr_stmt|;
 block|}
-return|return
-literal|false
-return|;
+return|return;
 block|}
 name|LOG
 operator|.
@@ -2920,9 +2912,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-return|return
-literal|true
-return|;
 block|}
 annotation|@
 name|VisibleForTesting

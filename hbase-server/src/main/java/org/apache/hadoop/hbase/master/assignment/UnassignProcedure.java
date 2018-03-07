@@ -1283,18 +1283,44 @@ operator|instanceof
 name|ServerCrashException
 condition|)
 block|{
-comment|// This exception comes from ServerCrashProcedure after it is done with log splitting.
-comment|// SCP found this region as a Region-In-Transition (RIT). Its call into here says it is ok to
-comment|// let this procedure go on to a complete close now. This will release lock on this region so
-comment|// subsequent action on region can succeed; e.g. the assign that follows this unassign when
-comment|// a move (w/o wait on SCP the assign could run w/o logs being split so data loss).
-name|reportTransitionCLOSED
+comment|// This exception comes from ServerCrashProcedure after log splitting.
+comment|// SCP found this region as a RIT. Its call into here says it is ok to let this procedure go
+comment|// on to a complete close now. This will release lock on this region so subsequent action on
+comment|// region can succeed; e.g. the assign that follows this unassign when a move (w/o wait on SCP
+comment|// the assign could run w/o logs being split so data loss).
+try|try
+block|{
+name|reportTransition
 argument_list|(
 name|env
 argument_list|,
 name|regionNode
+argument_list|,
+name|TransitionCode
+operator|.
+name|CLOSED
+argument_list|,
+name|HConstants
+operator|.
+name|NO_SEQNUM
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|UnexpectedStateException
+name|e
+parameter_list|)
+block|{
+comment|// Should never happen.
+throw|throw
+operator|new
+name|RuntimeException
+argument_list|(
+name|e
+argument_list|)
+throw|;
+block|}
 block|}
 elseif|else
 if|if
@@ -1359,23 +1385,22 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Expiring server {}; rit={}, exception={}"
-argument_list|,
+literal|"Expiring server "
+operator|+
 name|this
-argument_list|,
+operator|+
+literal|"; "
+operator|+
 name|regionNode
 operator|.
-name|getState
+name|toShortString
 argument_list|()
-argument_list|,
+operator|+
+literal|", exception="
+operator|+
 name|exception
-operator|.
-name|toString
-argument_list|()
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
 name|env
 operator|.
 name|getMasterServices
@@ -1391,89 +1416,17 @@ operator|.
 name|getRegionLocation
 argument_list|()
 argument_list|)
-condition|)
-block|{
-comment|// Return false so this procedure stays in suspended state. It will be woken up by
-comment|// ServerCrashProcedure when it notices this RIT and calls this method again but with
-comment|// a SCPException -- see above.
+expr_stmt|;
+comment|// Return false so this procedure stays in suspended state. It will be woken up by a
+comment|// ServerCrashProcedure when it notices this RIT.
 comment|// TODO: Add a SCP as a new subprocedure that we now come to depend on.
 return|return
 literal|false
 return|;
 block|}
-else|else
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Failed expire of {}; presumed CRASHED; moving region to CLOSED state"
-argument_list|,
-name|regionNode
-operator|.
-name|getRegionLocation
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|reportTransitionCLOSED
-argument_list|(
-name|env
-argument_list|,
-name|regionNode
-argument_list|)
-expr_stmt|;
-block|}
-block|}
 return|return
 literal|true
 return|;
-block|}
-specifier|private
-name|void
-name|reportTransitionCLOSED
-parameter_list|(
-specifier|final
-name|MasterProcedureEnv
-name|env
-parameter_list|,
-specifier|final
-name|RegionStateNode
-name|regionNode
-parameter_list|)
-block|{
-try|try
-block|{
-name|reportTransition
-argument_list|(
-name|env
-argument_list|,
-name|regionNode
-argument_list|,
-name|TransitionCode
-operator|.
-name|CLOSED
-argument_list|,
-name|HConstants
-operator|.
-name|NO_SEQNUM
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|UnexpectedStateException
-name|e
-parameter_list|)
-block|{
-comment|// Should never happen.
-throw|throw
-operator|new
-name|RuntimeException
-argument_list|(
-name|e
-argument_list|)
-throw|;
-block|}
 block|}
 annotation|@
 name|Override

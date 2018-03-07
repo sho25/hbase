@@ -48,7 +48,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Used internally signaling failed queue of a remote procedure operation.  * Usually happens because no such remote server; it is being processed as crashed so it is not  * online at time of RPC. Otherwise, something unexpected happened.  */
+comment|/**  * Used internally signaling failed queue of a remote procedure  * operation.  */
 end_comment
 
 begin_class
@@ -67,14 +67,6 @@ name|FailedRemoteDispatchException
 extends|extends
 name|HBaseIOException
 block|{
-specifier|public
-name|FailedRemoteDispatchException
-parameter_list|()
-block|{
-name|super
-argument_list|()
-expr_stmt|;
-block|}
 specifier|public
 name|FailedRemoteDispatchException
 parameter_list|(

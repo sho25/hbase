@@ -745,23 +745,47 @@ argument_list|(
 name|env
 argument_list|)
 decl_stmt|;
+name|String
+name|msg
+init|=
+name|exception
+operator|.
+name|getMessage
+argument_list|()
+operator|==
+literal|null
+condition|?
+name|exception
+operator|.
+name|getClass
+argument_list|()
+operator|.
+name|getSimpleName
+argument_list|()
+else|:
+name|exception
+operator|.
+name|getMessage
+argument_list|()
+decl_stmt|;
 name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Remote call failed {}; rit={}, exception={}"
-argument_list|,
+literal|"Remote call failed "
+operator|+
 name|this
-argument_list|,
+operator|+
+literal|"; "
+operator|+
 name|regionNode
 operator|.
-name|getState
+name|toShortString
 argument_list|()
-argument_list|,
-name|exception
-operator|.
-name|toString
-argument_list|()
+operator|+
+literal|"; exception="
+operator|+
+name|msg
 argument_list|)
 expr_stmt|;
 if|if
@@ -878,10 +902,6 @@ comment|// Tricky because the below call to addOperationToNode can fail. If it f
 comment|// backtrack on stuff like the 'suspend' done above -- tricky as the 'wake' requests us -- and
 comment|// ditto up in the caller; it needs to undo state changes. Inside in remoteCallFailed, it does
 comment|// wake to undo the above suspend.
-comment|//
-comment|// We fail the addOperationToNode usually because there is no such remote server (it has
-comment|// crashed and we are currently processing it or something went badly wrong and we have a
-comment|// bad server).
 if|if
 condition|(
 operator|!
@@ -904,21 +924,14 @@ name|env
 argument_list|,
 name|targetServer
 argument_list|,
-name|targetServer
-operator|==
-literal|null
-condition|?
-operator|new
-name|FailedRemoteDispatchException
-argument_list|()
-else|:
 operator|new
 name|FailedRemoteDispatchException
 argument_list|(
+name|this
+operator|+
+literal|" to "
+operator|+
 name|targetServer
-operator|.
-name|toShortString
-argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
