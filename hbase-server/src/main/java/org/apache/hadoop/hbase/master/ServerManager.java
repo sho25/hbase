@@ -4474,6 +4474,23 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|onlineServers
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
+comment|// we do not synchronize here so this may cause a double stop, but not a big deal
+name|master
+operator|.
+name|stop
+argument_list|(
+literal|"OnlineServer=0 right after cluster shutdown set"
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 name|boolean
 name|isClusterShutdown
