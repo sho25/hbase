@@ -1399,21 +1399,6 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Return true if there are at least one cf whose replication scope is serial.    */
-annotation|@
-name|Override
-specifier|public
-name|boolean
-name|hasSerialReplicationScope
-parameter_list|()
-block|{
-return|return
-name|delegatee
-operator|.
-name|hasSerialReplicationScope
-argument_list|()
-return|;
-block|}
 comment|/**    * Returns the configured replicas per region    */
 annotation|@
 name|Override

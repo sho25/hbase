@@ -33,6 +33,18 @@ begin_import
 import|import static
 name|org
 operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
 name|mockito
 operator|.
 name|Mockito
@@ -189,20 +201,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|KeyValue
 import|;
 end_import
@@ -218,6 +216,22 @@ operator|.
 name|hbase
 operator|.
 name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|RegionInfoBuilder
 import|;
 end_import
 
@@ -489,7 +503,7 @@ init|=
 operator|new
 name|WALKeyImpl
 argument_list|(
-name|HRegionInfo
+name|RegionInfoBuilder
 operator|.
 name|FIRST_META_REGIONINFO
 operator|.
@@ -680,19 +694,26 @@ literal|null
 argument_list|)
 decl_stmt|;
 comment|// no scopes
-name|assertEquals
+comment|// now we will not filter out entries without a replication scope since serial replication still
+comment|// need the sequence id, but the cells will all be filtered out.
+name|assertTrue
 argument_list|(
-literal|null
-argument_list|,
 name|filter
 operator|.
 name|filter
 argument_list|(
 name|userEntry
 argument_list|)
+operator|.
+name|getEdit
+argument_list|()
+operator|.
+name|isEmpty
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// empty scopes
+comment|// ditto
 name|TreeMap
 argument_list|<
 name|byte
@@ -722,16 +743,20 @@ argument_list|,
 name|b
 argument_list|)
 expr_stmt|;
-name|assertEquals
+name|assertTrue
 argument_list|(
-literal|null
-argument_list|,
 name|filter
 operator|.
 name|filter
 argument_list|(
 name|userEntry
 argument_list|)
+operator|.
+name|getEdit
+argument_list|()
+operator|.
+name|isEmpty
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// different scope

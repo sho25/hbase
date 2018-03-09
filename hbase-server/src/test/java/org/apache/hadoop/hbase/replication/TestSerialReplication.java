@@ -989,6 +989,11 @@ name|getName
 argument_list|()
 argument_list|)
 operator|.
+name|setSerial
+argument_list|(
+literal|true
+argument_list|)
+operator|.
 name|build
 argument_list|()
 argument_list|,
@@ -1415,7 +1420,7 @@ name|setScope
 argument_list|(
 name|HConstants
 operator|.
-name|REPLICATION_SCOPE_SERIAL
+name|REPLICATION_SCOPE_GLOBAL
 argument_list|)
 operator|.
 name|build
@@ -1753,7 +1758,7 @@ name|setScope
 argument_list|(
 name|HConstants
 operator|.
-name|REPLICATION_SCOPE_SERIAL
+name|REPLICATION_SCOPE_GLOBAL
 argument_list|)
 operator|.
 name|build
@@ -2286,7 +2291,7 @@ name|setScope
 argument_list|(
 name|HConstants
 operator|.
-name|REPLICATION_SCOPE_SERIAL
+name|REPLICATION_SCOPE_GLOBAL
 argument_list|)
 operator|.
 name|build

@@ -1336,7 +1336,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Can not push{}, wait"
+literal|"Can not push {}, wait"
 argument_list|,
 name|entry
 argument_list|)

@@ -270,6 +270,14 @@ argument_list|>
 name|namespaces
 parameter_list|)
 function_decl|;
+comment|/**    *<p>    * Sets whether we should preserve order when replicating, i.e, serial replication.    *</p>    *<p>    * Default {@code false}.    *</p>    * @param serial {@code true} means preserve order, otherwise {@code false}.    * @return {@code this}    */
+name|ReplicationPeerConfigBuilder
+name|setSerial
+parameter_list|(
+name|boolean
+name|serial
+parameter_list|)
+function_decl|;
 comment|/**    * Builds the configuration object from the current state of {@code this}.    * @return A {@link ReplicationPeerConfig} instance.    */
 name|ReplicationPeerConfig
 name|build

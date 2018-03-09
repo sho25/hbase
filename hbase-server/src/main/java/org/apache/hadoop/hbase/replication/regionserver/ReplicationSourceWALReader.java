@@ -1048,14 +1048,11 @@ name|peek
 argument_list|()
 decl_stmt|;
 name|boolean
-name|hasSerialReplicationScope
+name|isSerial
 init|=
-name|entry
+name|source
 operator|.
-name|getKey
-argument_list|()
-operator|.
-name|hasSerialReplicationScope
+name|isSerial
 argument_list|()
 decl_stmt|;
 name|boolean
@@ -1065,7 +1062,7 @@ literal|true
 decl_stmt|;
 if|if
 condition|(
-name|hasSerialReplicationScope
+name|isSerial
 condition|)
 block|{
 if|if
@@ -1140,7 +1137,7 @@ condition|)
 block|{
 if|if
 condition|(
-name|hasSerialReplicationScope
+name|isSerial
 condition|)
 block|{
 if|if

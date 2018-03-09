@@ -1197,7 +1197,7 @@ name|RegionInfo
 operator|.
 name|DEFAULT_REPLICA_ID
 operator|&&
-name|hasSerialReplicationScope
+name|hasGlobalReplicationScope
 argument_list|(
 name|regionInfo
 operator|.
@@ -1618,7 +1618,7 @@ if|if
 condition|(
 name|htd
 operator|.
-name|hasSerialReplicationScope
+name|hasGlobalReplicationScope
 argument_list|()
 condition|)
 block|{
@@ -1705,7 +1705,7 @@ if|if
 condition|(
 name|htd
 operator|.
-name|hasSerialReplicationScope
+name|hasGlobalReplicationScope
 argument_list|()
 condition|)
 block|{
@@ -1809,7 +1809,7 @@ comment|//  Table Descriptors helpers
 comment|// ==========================================================================
 specifier|private
 name|boolean
-name|hasSerialReplicationScope
+name|hasGlobalReplicationScope
 parameter_list|(
 name|TableName
 name|tableName
@@ -1818,7 +1818,7 @@ throws|throws
 name|IOException
 block|{
 return|return
-name|hasSerialReplicationScope
+name|hasGlobalReplicationScope
 argument_list|(
 name|getTableDescriptor
 argument_list|(
@@ -1829,7 +1829,7 @@ return|;
 block|}
 specifier|private
 name|boolean
-name|hasSerialReplicationScope
+name|hasGlobalReplicationScope
 parameter_list|(
 name|TableDescriptor
 name|htd
@@ -1842,7 +1842,7 @@ literal|null
 condition|?
 name|htd
 operator|.
-name|hasSerialReplicationScope
+name|hasGlobalReplicationScope
 argument_list|()
 else|:
 literal|false

@@ -79,6 +79,18 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|stream
+operator|.
+name|Stream
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -520,11 +532,6 @@ name|boolean
 name|hasRegionMemStoreReplication
 parameter_list|()
 function_decl|;
-comment|/**    * @return true if there are at least one cf whose replication scope is serial.    */
-name|boolean
-name|hasSerialReplicationScope
-parameter_list|()
-function_decl|;
 comment|/**    * Check if the compaction enable flag of the table is true. If flag is false    * then no minor/major compactions will be done in real.    *    * @return true if table compaction enabled    */
 name|boolean
 name|isCompactionEnabled
@@ -550,6 +557,36 @@ name|boolean
 name|isReadOnly
 parameter_list|()
 function_decl|;
+comment|/**    * Check if any of the table's cfs' replication scope are set to    * {@link HConstants#REPLICATION_SCOPE_GLOBAL}.    * @return {@code true} if we have, otherwise {@code false}.    */
+specifier|default
+name|boolean
+name|hasGlobalReplicationScope
+parameter_list|()
+block|{
+return|return
+name|Stream
+operator|.
+name|of
+argument_list|(
+name|getColumnFamilies
+argument_list|()
+argument_list|)
+operator|.
+name|anyMatch
+argument_list|(
+name|cf
+lambda|->
+name|cf
+operator|.
+name|getScope
+argument_list|()
+operator|==
+name|HConstants
+operator|.
+name|REPLICATION_SCOPE_GLOBAL
+argument_list|)
+return|;
+block|}
 comment|/**    * Check if the table's cfs' replication scope matched with the replication state    * @param enabled replication state    * @return true if matched, otherwise false    */
 specifier|default
 name|boolean
@@ -588,15 +625,6 @@ operator|!=
 name|HConstants
 operator|.
 name|REPLICATION_SCOPE_GLOBAL
-operator|&&
-name|cf
-operator|.
-name|getScope
-argument_list|()
-operator|!=
-name|HConstants
-operator|.
-name|REPLICATION_SCOPE_SERIAL
 condition|)
 block|{
 name|hasDisabled

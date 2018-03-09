@@ -337,28 +337,6 @@ condition|)
 block|{
 return|return;
 block|}
-name|WALKeyImpl
-name|keyImpl
-init|=
-operator|(
-name|WALKeyImpl
-operator|)
-name|logKey
-decl_stmt|;
-comment|// For serial replication we need to count all the sequence ids even for markers, so here we
-comment|// always need to retain the replication scopes to let the replication wal reader to know that
-comment|// we need serial replication. The ScopeWALEntryFilter will help filtering out the cell for
-comment|// WALEdit.METAFAMILY.
-if|if
-condition|(
-name|keyImpl
-operator|.
-name|hasSerialReplicationScope
-argument_list|()
-condition|)
-block|{
-return|return;
-block|}
 comment|// For replay, or if all the cells are markers, do not need to store replication scope.
 if|if
 condition|(
@@ -392,7 +370,12 @@ argument_list|)
 argument_list|)
 condition|)
 block|{
-name|keyImpl
+operator|(
+operator|(
+name|WALKeyImpl
+operator|)
+name|logKey
+operator|)
 operator|.
 name|clearReplicationScope
 argument_list|()

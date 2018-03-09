@@ -1833,15 +1833,6 @@ name|REPLICATION_SCOPE_GLOBAL
 init|=
 literal|1
 decl_stmt|;
-comment|/**    * Scope tag for serially scoped data    * This data will be replicated to all peers by the order of sequence id.    */
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|REPLICATION_SCOPE_SERIAL
-init|=
-literal|2
-decl_stmt|;
 comment|/**    * Default cluster ID, cannot be used to identify a cluster so a key with    * this value means it wasn't meant for replication.    */
 specifier|public
 specifier|static
