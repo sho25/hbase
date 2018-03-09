@@ -183,14 +183,6 @@ specifier|public
 specifier|static
 specifier|final
 name|String
-name|SYNC_REPLICATION_ENABLED
-init|=
-literal|"hbase.replication.sync.enabled"
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|String
 name|REPLICATION_ATTR_NAME
 init|=
 literal|"__rep__"

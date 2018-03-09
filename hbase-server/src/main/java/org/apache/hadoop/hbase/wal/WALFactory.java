@@ -165,22 +165,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|replication
-operator|.
-name|ReplicationUtils
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|util
 operator|.
 name|CancelableProgressable
@@ -755,6 +739,40 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// default enableSyncReplicationWALProvider is true, only disable SyncReplicationWALProvider
+comment|// for HMaster or HRegionServer which take system table only. See HBASE-19999
+name|this
+argument_list|(
+name|conf
+argument_list|,
+name|factoryId
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
+block|}
+end_constructor
+
+begin_comment
+comment|/**    * @param conf must not be null, will keep a reference to read params in later reader/writer    *          instances.    * @param factoryId a unique identifier for this factory. used i.e. by filesystem implementations    *          to make a directory    * @param enableSyncReplicationWALProvider whether wrap the wal provider to a    *          {@link SyncReplicationWALProvider}    */
+end_comment
+
+begin_constructor
+specifier|public
+name|WALFactory
+parameter_list|(
+name|Configuration
+name|conf
+parameter_list|,
+name|String
+name|factoryId
+parameter_list|,
+name|boolean
+name|enableSyncReplicationWALProvider
+parameter_list|)
+throws|throws
+name|IOException
+block|{
 comment|// until we've moved reader/writer construction down into providers, this initialization must
 comment|// happen prior to provider initialization, in case they need to instantiate a reader/writer.
 name|timeoutMillis
@@ -828,16 +846,7 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|conf
-operator|.
-name|getBoolean
-argument_list|(
-name|ReplicationUtils
-operator|.
-name|SYNC_REPLICATION_ENABLED
-argument_list|,
-literal|false
-argument_list|)
+name|enableSyncReplicationWALProvider
 condition|)
 block|{
 name|provider
