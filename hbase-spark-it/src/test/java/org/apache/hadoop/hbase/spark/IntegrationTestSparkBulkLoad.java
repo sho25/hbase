@@ -2167,7 +2167,7 @@ block|{
 annotation|@
 name|Override
 specifier|public
-name|Iterable
+name|Iterator
 argument_list|<
 name|Tuple2
 argument_list|<
@@ -2351,6 +2351,9 @@ expr_stmt|;
 block|}
 return|return
 name|list
+operator|.
+name|iterator
+argument_list|()
 return|;
 block|}
 block|}
