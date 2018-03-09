@@ -564,7 +564,7 @@ argument_list|,
 literal|"none"
 argument_list|)
 expr_stmt|;
-comment|// set client sync wait timeout to 10sec
+comment|// set client sync wait timeout to 5sec
 name|conf
 operator|.
 name|setInt
