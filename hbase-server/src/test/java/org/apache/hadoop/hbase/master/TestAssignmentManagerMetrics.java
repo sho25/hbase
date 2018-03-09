@@ -564,14 +564,14 @@ argument_list|,
 literal|"none"
 argument_list|)
 expr_stmt|;
-comment|// set client sync wait timeout to 5sec
+comment|// set client sync wait timeout to 10sec
 name|conf
 operator|.
 name|setInt
 argument_list|(
 literal|"hbase.client.sync.wait.timeout.msec"
 argument_list|,
-literal|2500
+literal|5000
 argument_list|)
 expr_stmt|;
 name|conf
