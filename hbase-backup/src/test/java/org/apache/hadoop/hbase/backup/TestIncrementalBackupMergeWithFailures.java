@@ -207,6 +207,24 @@ name|backup
 operator|.
 name|impl
 operator|.
+name|BackupCommands
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|backup
+operator|.
+name|impl
+operator|.
 name|BackupSystemTable
 import|;
 end_import
@@ -726,6 +744,8 @@ comment|// Select most recent backup id
 name|String
 name|mergedBackupId
 init|=
+name|BackupUtils
+operator|.
 name|findMostRecentBackupId
 argument_list|(
 name|backupIds
@@ -1030,7 +1050,77 @@ name|finishedTables
 operator|=
 literal|true
 expr_stmt|;
-comment|// Move data
+comment|// (modification of a backup file system)
+comment|// Move existing mergedBackupId data into tmp directory
+comment|// we will need it later in case of a failure
+name|Path
+name|tmpBackupDir
+init|=
+name|HBackupFileSystem
+operator|.
+name|getBackupTmpDirPathForBackupId
+argument_list|(
+name|backupRoot
+argument_list|,
+name|mergedBackupId
+argument_list|)
+decl_stmt|;
+name|Path
+name|backupDirPath
+init|=
+name|HBackupFileSystem
+operator|.
+name|getBackupPath
+argument_list|(
+name|backupRoot
+argument_list|,
+name|mergedBackupId
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|fs
+operator|.
+name|rename
+argument_list|(
+name|backupDirPath
+argument_list|,
+name|tmpBackupDir
+argument_list|)
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Failed to rename "
+operator|+
+name|backupDirPath
+operator|+
+literal|" to "
+operator|+
+name|tmpBackupDir
+argument_list|)
+throw|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Renamed "
+operator|+
+name|backupDirPath
+operator|+
+literal|" to "
+operator|+
+name|tmpBackupDir
+argument_list|)
+expr_stmt|;
+block|}
+comment|// Move new data into backup dest
 for|for
 control|(
 name|Pair
@@ -1064,7 +1154,6 @@ name|mergedBackupId
 argument_list|)
 expr_stmt|;
 block|}
-comment|// PHASE 4
 name|checkFailure
 argument_list|(
 name|FailurePhase
@@ -1072,7 +1161,7 @@ operator|.
 name|PHASE4
 argument_list|)
 expr_stmt|;
-comment|// Delete old data and update manifest
+comment|// Update backup manifest
 name|List
 argument_list|<
 name|String
@@ -1086,6 +1175,57 @@ argument_list|,
 name|mergedBackupId
 argument_list|)
 decl_stmt|;
+name|updateBackupManifest
+argument_list|(
+name|tmpBackupDir
+operator|.
+name|getParent
+argument_list|()
+operator|.
+name|toString
+argument_list|()
+argument_list|,
+name|mergedBackupId
+argument_list|,
+name|backupsToDelete
+argument_list|)
+expr_stmt|;
+comment|// Copy meta files back from tmp to backup dir
+name|copyMetaData
+argument_list|(
+name|fs
+argument_list|,
+name|tmpBackupDir
+argument_list|,
+name|backupDirPath
+argument_list|)
+expr_stmt|;
+comment|// Delete tmp dir (Rename back during repair)
+if|if
+condition|(
+operator|!
+name|fs
+operator|.
+name|delete
+argument_list|(
+name|tmpBackupDir
+argument_list|,
+literal|true
+argument_list|)
+condition|)
+block|{
+comment|// WARN and ignore
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Could not delete tmp dir: "
+operator|+
+name|tmpBackupDir
+argument_list|)
+expr_stmt|;
+block|}
+comment|// Delete old data
 name|deleteBackupImages
 argument_list|(
 name|backupsToDelete
@@ -1097,19 +1237,16 @@ argument_list|,
 name|backupRoot
 argument_list|)
 expr_stmt|;
-name|updateBackupManifest
-argument_list|(
-name|backupRoot
-argument_list|,
-name|mergedBackupId
-argument_list|,
-name|backupsToDelete
-argument_list|)
-expr_stmt|;
 comment|// Finish merge session
 name|table
 operator|.
 name|finishMergeOperation
+argument_list|()
+expr_stmt|;
+comment|// Release lock
+name|table
+operator|.
+name|finishBackupExclusiveOperation
 argument_list|()
 expr_stmt|;
 block|}
@@ -1756,16 +1893,8 @@ name|ee
 parameter_list|)
 block|{
 comment|// Expected - clean up before proceeding
-name|table
-operator|.
-name|finishMergeOperation
-argument_list|()
-expr_stmt|;
-name|table
-operator|.
-name|finishBackupExclusiveOperation
-argument_list|()
-expr_stmt|;
+comment|//table.finishMergeOperation();
+comment|//table.finishBackupExclusiveOperation();
 block|}
 block|}
 name|table
@@ -1812,6 +1941,28 @@ operator|.
 name|HBASE_BACKUP_MERGE_IMPL_CLASS
 argument_list|)
 expr_stmt|;
+comment|// Now run repair
+name|BackupSystemTable
+name|sysTable
+init|=
+operator|new
+name|BackupSystemTable
+argument_list|(
+name|conn
+argument_list|)
+decl_stmt|;
+name|BackupCommands
+operator|.
+name|RepairCommand
+operator|.
+name|repairFailedBackupMergeIfAny
+argument_list|(
+name|conn
+argument_list|,
+name|sysTable
+argument_list|)
+expr_stmt|;
+comment|// Now repeat merge
 try|try
 init|(
 name|BackupAdmin

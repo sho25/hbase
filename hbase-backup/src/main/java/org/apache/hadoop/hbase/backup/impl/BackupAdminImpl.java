@@ -3617,6 +3617,7 @@ argument_list|,
 name|sysTable
 argument_list|)
 expr_stmt|;
+comment|//TODO run job on remote cluster
 name|BackupMergeJob
 name|job
 init|=
