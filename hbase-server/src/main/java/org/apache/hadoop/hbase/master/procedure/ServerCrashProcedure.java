@@ -45,6 +45,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Collections
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Iterator
 import|;
 end_import
@@ -148,24 +158,6 @@ operator|.
 name|master
 operator|.
 name|MasterWalManager
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|master
-operator|.
-name|assignment
-operator|.
-name|AssignProcedure
 import|;
 end_import
 
@@ -732,13 +724,21 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Handle RIT against crashed server. Will cancel any ongoing assigns/unassigns.
+comment|// Returns list of regions we need to reassign.
+name|List
+argument_list|<
+name|RegionInfo
+argument_list|>
+name|toAssign
+init|=
 name|handleRIT
 argument_list|(
 name|env
 argument_list|,
 name|regionsOnCrashedServer
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 name|AssignmentManager
 name|am
 init|=
@@ -747,18 +747,48 @@ operator|.
 name|getAssignmentManager
 argument_list|()
 decl_stmt|;
-comment|// createAssignProcedure will try to use the old location for the region deploy.
+comment|// CreateAssignProcedure will try to use the old location for the region deploy.
 name|addChildProcedure
 argument_list|(
 name|am
 operator|.
 name|createAssignProcedures
 argument_list|(
-name|regionsOnCrashedServer
+name|toAssign
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|setNextState
+argument_list|(
+name|ServerCrashState
+operator|.
+name|SERVER_CRASH_HANDLE_RIT2
+argument_list|)
+expr_stmt|;
 block|}
+else|else
+block|{
+name|setNextState
+argument_list|(
+name|ServerCrashState
+operator|.
+name|SERVER_CRASH_FINISH
+argument_list|)
+expr_stmt|;
+block|}
+break|break;
+case|case
+name|SERVER_CRASH_HANDLE_RIT2
+case|:
+comment|// Run the handleRIT again for case where another procedure managed to grab the lock on
+comment|// a region ahead of this crash handling procedure. Can happen in rare case. See
+name|handleRIT
+argument_list|(
+name|env
+argument_list|,
+name|regionsOnCrashedServer
+argument_list|)
+expr_stmt|;
 name|setNextState
 argument_list|(
 name|ServerCrashState
@@ -1646,16 +1676,18 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * Handle any outstanding RIT that are up against this.serverName, the crashed server.    * Notify them of crash. Remove assign entries from the passed in<code>regions</code>    * otherwise we have two assigns going on and they will fight over who has lock.    * Notify Unassigns. If unable to unassign because server went away, unassigns block waiting    * on the below callback from a ServerCrashProcedure before proceeding.    * @param env    * @param regions Regions that were on crashed server    */
+comment|/**    * Handle any outstanding RIT that are up against this.serverName, the crashed server.    * Notify them of crash. Remove assign entries from the passed in<code>regions</code>    * otherwise we have two assigns going on and they will fight over who has lock.    * Notify Unassigns. If unable to unassign because server went away, unassigns block waiting    * on the below callback from a ServerCrashProcedure before proceeding.    * @param regions Regions on the Crashed Server.    * @return List of regions we should assign to new homes (not same as regions on crashed server).    */
 specifier|private
-name|void
+name|List
+argument_list|<
+name|RegionInfo
+argument_list|>
 name|handleRIT
 parameter_list|(
 specifier|final
 name|MasterProcedureEnv
 name|env
 parameter_list|,
-specifier|final
 name|List
 argument_list|<
 name|RegionInfo
@@ -1668,8 +1700,20 @@ condition|(
 name|regions
 operator|==
 literal|null
+operator|||
+name|regions
+operator|.
+name|isEmpty
+argument_list|()
 condition|)
-return|return;
+block|{
+return|return
+name|Collections
+operator|.
+name|emptyList
+argument_list|()
+return|;
+block|}
 name|AssignmentManager
 name|am
 init|=
@@ -1681,6 +1725,22 @@ operator|.
 name|getAssignmentManager
 argument_list|()
 decl_stmt|;
+name|List
+argument_list|<
+name|RegionInfo
+argument_list|>
+name|toAssign
+init|=
+operator|new
+name|ArrayList
+argument_list|<
+name|RegionInfo
+argument_list|>
+argument_list|(
+name|regions
+argument_list|)
+decl_stmt|;
+comment|// Get an iterator so can remove items.
 specifier|final
 name|Iterator
 argument_list|<
@@ -1688,7 +1748,7 @@ name|RegionInfo
 argument_list|>
 name|it
 init|=
-name|regions
+name|toAssign
 operator|.
 name|iterator
 argument_list|()
@@ -1734,7 +1794,9 @@ name|rtp
 operator|==
 literal|null
 condition|)
+block|{
 continue|continue;
+block|}
 comment|// Make sure the RIT is against this crashed server. In the case where there are many
 comment|// processings of a crashed server -- backed up for whatever reason (slow WAL split) --
 comment|// then a previous SCP may have already failed an assign, etc., and it may have a new
@@ -1840,21 +1902,20 @@ argument_list|,
 name|sce
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|rtp
-operator|instanceof
-name|AssignProcedure
-condition|)
-block|{
-comment|// If an assign, include it in our return and remove from passed-in list of regions.
+comment|// If an assign, remove from passed-in list of regions so we subsequently do not create
+comment|// a new assign; the exisitng assign after the call to remoteCallFailed will recalibrate
+comment|// and assign to a server other than the crashed one; no need to create new assign.
+comment|// If an unassign, do not return this region; the above cancel will wake up the unassign and
+comment|// it will complete. Done.
 name|it
 operator|.
 name|remove
 argument_list|()
 expr_stmt|;
 block|}
-block|}
+return|return
+name|toAssign
+return|;
 block|}
 annotation|@
 name|Override

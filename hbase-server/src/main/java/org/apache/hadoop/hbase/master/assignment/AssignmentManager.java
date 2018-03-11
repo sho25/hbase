@@ -6621,8 +6621,8 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"TODO Handle stuck in transition: "
-operator|+
+literal|"STUCK Region-In-Transition {}"
+argument_list|,
 name|regionNode
 argument_list|)
 expr_stmt|;

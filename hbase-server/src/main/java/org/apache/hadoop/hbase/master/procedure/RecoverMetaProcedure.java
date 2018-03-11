@@ -844,6 +844,8 @@ name|HAS_MORE_STATE
 return|;
 block|}
 comment|/**    * Is the region stuck assigning to this failedMetaServer? If so, cancel the call    * just as we do over in ServerCrashProcedure#handleRIT except less to do here; less context    * to carry.    */
+comment|// NOTE: Make sure any fix or improvement done here is also done in SCP#handleRIT; the methods
+comment|// have overlap.
 specifier|private
 name|void
 name|handleRIT

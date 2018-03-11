@@ -1283,10 +1283,10 @@ operator|instanceof
 name|ServerCrashException
 condition|)
 block|{
-comment|// This exception comes from ServerCrashProcedure after log splitting.
+comment|// This exception comes from ServerCrashProcedure AFTER log splitting.
 comment|// SCP found this region as a RIT. Its call into here says it is ok to let this procedure go
-comment|// on to a complete close now. This will release lock on this region so subsequent action on
-comment|// region can succeed; e.g. the assign that follows this unassign when a move (w/o wait on SCP
+comment|// complete. This complete will release lock on this region so subsequent action on region
+comment|// can succeed; e.g. the assign that follows this unassign when a move (w/o wait on SCP
 comment|// the assign could run w/o logs being split so data loss).
 try|try
 block|{
@@ -1338,7 +1338,6 @@ operator|instanceof
 name|ServerNotRunningYetException
 condition|)
 block|{
-comment|// TODO
 comment|// RS is aborting, we cannot offline the region since the region may need to do WAL
 comment|// recovery. Until we see the RS expiration, we should retry.
 comment|// TODO: This should be suspend like the below where we call expire on server?
@@ -1417,8 +1416,10 @@ name|getRegionLocation
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// Return false so this procedure stays in suspended state. It will be woken up by a
-comment|// ServerCrashProcedure when it notices this RIT.
+comment|// Return false so this procedure stays in suspended state. It will be woken up by the
+comment|// ServerCrashProcedure that was scheduled when we called #expireServer above. SCP calls
+comment|// #handleRIT which will call this method only the exception will be a ServerCrashException
+comment|// this time around (See above).
 comment|// TODO: Add a SCP as a new subprocedure that we now come to depend on.
 return|return
 literal|false
