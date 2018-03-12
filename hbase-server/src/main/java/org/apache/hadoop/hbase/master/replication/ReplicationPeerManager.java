@@ -1767,6 +1767,9 @@ argument_list|(
 name|filter
 argument_list|)
 operator|.
+name|getDeclaredConstructor
+argument_list|()
+operator|.
 name|newInstance
 argument_list|()
 expr_stmt|;
@@ -1785,9 +1788,7 @@ literal|"Configured WALEntryFilter "
 operator|+
 name|filter
 operator|+
-literal|" could not be created. Failing add/update "
-operator|+
-literal|"peer operation."
+literal|" could not be created. Failing add/update peer operation."
 argument_list|,
 name|e
 argument_list|)
