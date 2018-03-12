@@ -457,6 +457,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
+specifier|final
 name|void
 name|run
 parameter_list|()
@@ -506,28 +507,6 @@ expr_stmt|;
 block|}
 continue|continue;
 block|}
-while|while
-condition|(
-name|entryReader
-operator|==
-literal|null
-condition|)
-block|{
-if|if
-condition|(
-name|sleepForRetries
-argument_list|(
-literal|"Replication WAL entry reader thread not initialized"
-argument_list|,
-name|sleepMultiplier
-argument_list|)
-condition|)
-block|{
-name|sleepMultiplier
-operator|++
-expr_stmt|;
-block|}
-block|}
 try|try
 block|{
 name|WALEntryBatch
@@ -539,6 +518,11 @@ name|take
 argument_list|()
 decl_stmt|;
 name|shipEdits
+argument_list|(
+name|entryBatch
+argument_list|)
+expr_stmt|;
+name|postShipEdits
 argument_list|(
 name|entryBatch
 argument_list|)
@@ -572,11 +556,9 @@ block|}
 comment|// If the worker exits run loop without finishing its task, mark it as stopped.
 if|if
 condition|(
-name|state
-operator|!=
-name|WorkerState
-operator|.
-name|FINISHED
+operator|!
+name|isFinished
+argument_list|()
 condition|)
 block|{
 name|setWorkerState
@@ -587,7 +569,28 @@ name|STOPPED
 argument_list|)
 expr_stmt|;
 block|}
+else|else
+block|{
+name|postFinish
+argument_list|()
+expr_stmt|;
 block|}
+block|}
+comment|// To be implemented by recovered shipper
+specifier|protected
+name|void
+name|postShipEdits
+parameter_list|(
+name|WALEntryBatch
+name|entryBatch
+parameter_list|)
+block|{   }
+comment|// To be implemented by recovered shipper
+specifier|protected
+name|void
+name|postFinish
+parameter_list|()
+block|{   }
 comment|/**    * Do the shipping logic    */
 specifier|protected
 specifier|final
@@ -1293,7 +1296,7 @@ name|this
 argument_list|,
 name|name
 operator|+
-literal|".replicationSource."
+literal|".replicationSource.shipper"
 operator|+
 name|walGroupId
 operator|+
