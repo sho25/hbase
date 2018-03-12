@@ -1354,13 +1354,6 @@ argument_list|)
 throw|;
 block|}
 comment|// otherwise we attempt to archive the store files
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
 name|LOG
 operator|.
 name|debug
