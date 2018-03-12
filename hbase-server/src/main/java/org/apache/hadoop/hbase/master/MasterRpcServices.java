@@ -9467,9 +9467,7 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 name|TableState
-operator|.
-name|State
-name|state
+name|ts
 init|=
 name|master
 operator|.
@@ -9495,13 +9493,7 @@ name|builder
 operator|.
 name|setTableState
 argument_list|(
-operator|new
-name|TableState
-argument_list|(
-name|tableName
-argument_list|,
-name|state
-argument_list|)
+name|ts
 operator|.
 name|convert
 argument_list|()

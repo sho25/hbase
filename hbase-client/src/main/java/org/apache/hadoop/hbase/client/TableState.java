@@ -332,6 +332,74 @@ specifier|final
 name|State
 name|state
 decl_stmt|;
+comment|/**    * @return True if table is {@link State#ENABLED}.    */
+specifier|public
+name|boolean
+name|isEnabled
+parameter_list|()
+block|{
+return|return
+name|isInStates
+argument_list|(
+name|State
+operator|.
+name|ENABLED
+argument_list|)
+return|;
+block|}
+comment|/**    * @return True if {@link State#ENABLED} or {@link State#ENABLING}    */
+specifier|public
+name|boolean
+name|isEnabledOrEnabling
+parameter_list|()
+block|{
+return|return
+name|isInStates
+argument_list|(
+name|State
+operator|.
+name|ENABLED
+argument_list|,
+name|State
+operator|.
+name|ENABLING
+argument_list|)
+return|;
+block|}
+comment|/**    * @return True if table is disabled.    */
+specifier|public
+name|boolean
+name|isDisabled
+parameter_list|()
+block|{
+return|return
+name|isInStates
+argument_list|(
+name|State
+operator|.
+name|DISABLED
+argument_list|)
+return|;
+block|}
+comment|/**    * @return True if {@link State#DISABLED} or {@link State#DISABLED}    */
+specifier|public
+name|boolean
+name|isDisabledOrDisabling
+parameter_list|()
+block|{
+return|return
+name|isInStates
+argument_list|(
+name|State
+operator|.
+name|DISABLED
+argument_list|,
+name|State
+operator|.
+name|DISABLING
+argument_list|)
+return|;
+block|}
 comment|/**    * Create instance of TableState.    * @param tableName name of the table    * @param state table state    */
 specifier|public
 name|TableState
@@ -551,15 +619,11 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Static version of state checker    * @param state desired    * @param target equals to any of    * @return true if satisfies    */
+comment|/**    * Static version of state checker    * @param target equals to any of    * @return true if satisfies    */
 specifier|public
-specifier|static
 name|boolean
 name|isInStates
 parameter_list|(
-name|State
-name|state
-parameter_list|,
 name|State
 modifier|...
 name|target
@@ -575,6 +639,8 @@ control|)
 block|{
 if|if
 condition|(
+name|this
+operator|.
 name|state
 operator|.
 name|equals
@@ -582,9 +648,11 @@ argument_list|(
 name|tableState
 argument_list|)
 condition|)
+block|{
 return|return
 literal|true
 return|;
+block|}
 block|}
 return|return
 literal|false
@@ -728,17 +796,13 @@ name|toString
 parameter_list|()
 block|{
 return|return
-literal|"TableState{"
-operator|+
-literal|", tableName="
+literal|"tableName="
 operator|+
 name|tableName
 operator|+
 literal|", state="
 operator|+
 name|state
-operator|+
-literal|'}'
 return|;
 block|}
 block|}

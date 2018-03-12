@@ -5557,7 +5557,9 @@ block|}
 block|}
 block|}
 comment|/**    * @return True if the cluster is up.    */
-specifier|private
+annotation|@
+name|Override
+specifier|public
 name|boolean
 name|isClusterUp
 parameter_list|()

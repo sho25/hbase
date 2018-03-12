@@ -1626,9 +1626,7 @@ name|getTableStateManager
 argument_list|()
 decl_stmt|;
 name|TableState
-operator|.
-name|State
-name|state
+name|ts
 init|=
 name|tsm
 operator|.
@@ -1640,32 +1638,19 @@ decl_stmt|;
 if|if
 condition|(
 operator|!
-name|state
+name|ts
 operator|.
-name|equals
-argument_list|(
-name|TableState
-operator|.
-name|State
-operator|.
-name|DISABLED
-argument_list|)
+name|isDisabled
+argument_list|()
 condition|)
 block|{
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Table "
+literal|"Not DISABLED tableState="
 operator|+
-name|tableName
-operator|+
-literal|" isn't disabled;is "
-operator|+
-name|state
-operator|.
-name|name
-argument_list|()
+name|ts
 operator|+
 literal|"; skipping enable"
 argument_list|)
@@ -1677,15 +1662,9 @@ argument_list|,
 operator|new
 name|TableNotDisabledException
 argument_list|(
-name|this
+name|ts
 operator|.
-name|tableName
-operator|+
-literal|" state is "
-operator|+
-name|state
-operator|.
-name|name
+name|toString
 argument_list|()
 argument_list|)
 argument_list|)

@@ -516,7 +516,20 @@ argument_list|,
 name|tableName
 argument_list|)
 expr_stmt|;
-comment|// Disable the table again - expect failure
+comment|// Disable the table again - expect failure. We used to get it via procExec#getResult but we
+comment|// added fail fast so now happens on construction.
+name|Throwable
+name|e
+init|=
+literal|null
+decl_stmt|;
+name|Throwable
+name|cause
+init|=
+literal|null
+decl_stmt|;
+try|try
+block|{
 name|long
 name|procId2
 init|=
@@ -569,26 +582,51 @@ name|isFailed
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Disable failed with exception: "
-operator|+
-name|result
-operator|.
-name|getException
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|assertTrue
-argument_list|(
+name|cause
+operator|=
 name|ProcedureTestingUtility
 operator|.
 name|getExceptionCause
 argument_list|(
 name|result
 argument_list|)
+expr_stmt|;
+name|e
+operator|=
+name|result
+operator|.
+name|getException
+argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|TableNotEnabledException
+name|tnde
+parameter_list|)
+block|{
+comment|// Expected.
+name|e
+operator|=
+name|tnde
+expr_stmt|;
+name|cause
+operator|=
+name|tnde
+expr_stmt|;
+block|}
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Disable failed with exception {}"
+operator|+
+name|e
+argument_list|)
+expr_stmt|;
+name|assertTrue
+argument_list|(
+name|cause
 operator|instanceof
 name|TableNotEnabledException
 argument_list|)
@@ -653,11 +691,15 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Disable failed with expected exception."
+literal|"Disable failed with expected exception {}"
+argument_list|,
+name|tnee
 argument_list|)
 expr_stmt|;
 block|}
 comment|// Disable the table again with skipping table state check flag (simulate recovery scenario)
+try|try
+block|{
 name|long
 name|procId4
 init|=
@@ -698,6 +740,24 @@ argument_list|,
 name|procId4
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|TableNotEnabledException
+name|tnee
+parameter_list|)
+block|{
+comment|// Expected
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Disable failed with expected exception {}"
+argument_list|,
+name|tnee
+argument_list|)
+expr_stmt|;
+block|}
 name|MasterProcedureTestingUtility
 operator|.
 name|validateTableIsDisabled

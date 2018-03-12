@@ -5448,23 +5448,6 @@ name|getTableStateColumn
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|long
-name|time
-init|=
-name|EnvironmentEdgeManager
-operator|.
-name|currentTime
-argument_list|()
-decl_stmt|;
-name|get
-operator|.
-name|setTimeRange
-argument_list|(
-literal|0
-argument_list|,
-name|time
-argument_list|)
-expr_stmt|;
 name|Result
 name|result
 init|=
@@ -8064,17 +8047,9 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Updated table {} state to {} in META"
+literal|"Updated {} in hbase:meta"
 argument_list|,
 name|state
-operator|.
-name|getTableName
-argument_list|()
-argument_list|,
-name|state
-operator|.
-name|getState
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

@@ -932,7 +932,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The procedure to split a region in a table.  * Takes lock on the parent region.  * It holds the lock for the life of the procedure.  */
+comment|/**  * The procedure to split a region in a table.  * Takes lock on the parent region.  * It holds the lock for the life of the procedure.  *<p>Throws exception on construction if determines context hostile to spllt (cluster going  * down or master is shutting down or table is disabled).</p>  */
 end_comment
 
 begin_class
@@ -1017,6 +1017,13 @@ argument_list|(
 name|env
 argument_list|,
 name|regionToSplit
+argument_list|)
+expr_stmt|;
+name|preflightChecks
+argument_list|(
+name|env
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 name|this

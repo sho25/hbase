@@ -83,6 +83,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HBaseIOException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HConstants
 import|;
 end_import
@@ -477,6 +491,8 @@ specifier|final
 name|TableDescriptor
 name|htd
 parameter_list|)
+throws|throws
+name|HBaseIOException
 block|{
 name|this
 argument_list|(
@@ -503,6 +519,8 @@ specifier|final
 name|ProcedurePrepareLatch
 name|latch
 parameter_list|)
+throws|throws
+name|HBaseIOException
 block|{
 name|super
 argument_list|(
@@ -519,6 +537,14 @@ operator|.
 name|modifiedTableDescriptor
 operator|=
 name|htd
+expr_stmt|;
+name|preflightChecks
+argument_list|(
+name|env
+argument_list|,
+literal|null
+comment|/*No table checks; if changing peers, table can be online*/
+argument_list|)
 expr_stmt|;
 block|}
 specifier|private

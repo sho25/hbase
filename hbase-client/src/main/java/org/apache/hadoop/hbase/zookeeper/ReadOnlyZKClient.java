@@ -1676,7 +1676,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
 literal|"{} to {} inactive for {}ms; closing (Will reconnect when new requests)"
 argument_list|,

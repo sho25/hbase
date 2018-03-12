@@ -39,6 +39,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HBaseIOException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|ServerName
 import|;
 end_import
@@ -238,7 +252,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Procedure that implements a RegionPlan.  * It first runs an unassign subprocedure followed  * by an assign subprocedure. It takes a lock on the region being moved.  * It holds the lock for the life of the procedure.  */
+comment|/**  * Procedure that implements a RegionPlan.  * It first runs an unassign subprocedure followed  * by an assign subprocedure. It takes a lock on the region being moved.  * It holds the lock for the life of the procedure.  *  *<p>Throws exception on construction if determines context hostile to move (cluster going  * down or master is shutting down or table is disabled).</p>  */
 end_comment
 
 begin_class
@@ -283,6 +297,7 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * @throws IOException If the cluster is offline or master is stopping or if table is disabled    *   or non-existent.    */
 specifier|public
 name|MoveRegionProcedure
 parameter_list|(
@@ -294,6 +309,8 @@ specifier|final
 name|RegionPlan
 name|plan
 parameter_list|)
+throws|throws
+name|HBaseIOException
 block|{
 name|super
 argument_list|(
@@ -310,6 +327,13 @@ operator|.
 name|plan
 operator|=
 name|plan
+expr_stmt|;
+name|preflightChecks
+argument_list|(
+name|env
+argument_list|,
+literal|true
+argument_list|)
 expr_stmt|;
 block|}
 annotation|@

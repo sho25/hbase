@@ -779,6 +779,7 @@ block|}
 block|}
 else|else
 block|{
+comment|// Don't dump full exception.. just String version
 name|RpcServer
 operator|.
 name|LOG
@@ -789,7 +790,9 @@ name|call
 operator|.
 name|toShortString
 argument_list|()
-argument_list|,
+operator|+
+literal|", exception="
+operator|+
 name|e
 argument_list|)
 expr_stmt|;

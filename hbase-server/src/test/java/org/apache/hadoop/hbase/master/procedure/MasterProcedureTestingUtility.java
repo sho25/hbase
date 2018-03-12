@@ -2021,6 +2021,9 @@ argument_list|(
 name|tableName
 argument_list|)
 operator|.
+name|getState
+argument_list|()
+operator|.
 name|equals
 argument_list|(
 name|TableState
@@ -2064,6 +2067,9 @@ name|getTableState
 argument_list|(
 name|tableName
 argument_list|)
+operator|.
+name|getState
+argument_list|()
 operator|.
 name|equals
 argument_list|(

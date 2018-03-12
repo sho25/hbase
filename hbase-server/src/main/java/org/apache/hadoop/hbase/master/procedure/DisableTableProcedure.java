@@ -39,6 +39,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HBaseIOException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|MetaTableAccessor
 import|;
 end_import
@@ -326,6 +340,8 @@ specifier|final
 name|boolean
 name|skipTableStateCheck
 parameter_list|)
+throws|throws
+name|HBaseIOException
 block|{
 name|this
 argument_list|(
@@ -359,6 +375,8 @@ specifier|final
 name|ProcedurePrepareLatch
 name|syncLatch
 parameter_list|)
+throws|throws
+name|HBaseIOException
 block|{
 name|super
 argument_list|(
@@ -372,6 +390,13 @@ operator|.
 name|tableName
 operator|=
 name|tableName
+expr_stmt|;
+name|preflightChecks
+argument_list|(
+name|env
+argument_list|,
+literal|true
+argument_list|)
 expr_stmt|;
 name|this
 operator|.
@@ -1012,9 +1037,7 @@ name|getTableStateManager
 argument_list|()
 decl_stmt|;
 name|TableState
-operator|.
-name|State
-name|state
+name|ts
 init|=
 name|tsm
 operator|.
@@ -1026,32 +1049,19 @@ decl_stmt|;
 if|if
 condition|(
 operator|!
-name|state
+name|ts
 operator|.
-name|equals
-argument_list|(
-name|TableState
-operator|.
-name|State
-operator|.
-name|ENABLED
-argument_list|)
+name|isEnabled
+argument_list|()
 condition|)
 block|{
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Table "
+literal|"Not ENABLED tableState="
 operator|+
-name|tableName
-operator|+
-literal|" isn't enabled;is "
-operator|+
-name|state
-operator|.
-name|name
-argument_list|()
+name|ts
 operator|+
 literal|"; skipping disable"
 argument_list|)
@@ -1063,13 +1073,9 @@ argument_list|,
 operator|new
 name|TableNotEnabledException
 argument_list|(
-name|tableName
-operator|+
-literal|" state is "
-operator|+
-name|state
+name|ts
 operator|.
-name|name
+name|toString
 argument_list|()
 argument_list|)
 argument_list|)

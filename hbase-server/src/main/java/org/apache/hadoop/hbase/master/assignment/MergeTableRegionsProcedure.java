@@ -780,7 +780,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The procedure to Merge a region in a table.  * This procedure takes an exclusive table lock since it is working over multiple regions.  * It holds the lock for the life of the procedure.  */
+comment|/**  * The procedure to Merge a region in a table.  * This procedure takes an exclusive table lock since it is working over multiple regions.  * It holds the lock for the life of the procedure.  *<p>Throws exception on construction if determines context hostile to merge (cluster going  * down or master is shutting down or table is disabled).</p>  */
 end_comment
 
 begin_class
@@ -896,7 +896,7 @@ name|boolean
 name|forcible
 parameter_list|)
 throws|throws
-name|MergeRegionException
+name|IOException
 block|{
 name|this
 argument_list|(
@@ -932,7 +932,7 @@ name|boolean
 name|forcible
 parameter_list|)
 throws|throws
-name|MergeRegionException
+name|IOException
 block|{
 name|super
 argument_list|(
@@ -966,6 +966,13 @@ operator|=
 name|createMergedRegionInfo
 argument_list|(
 name|regionsToMerge
+argument_list|)
+expr_stmt|;
+name|preflightChecks
+argument_list|(
+name|env
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 name|this

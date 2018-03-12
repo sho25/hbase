@@ -440,33 +440,14 @@ parameter_list|)
 throws|throws
 name|InterruptedException
 block|{
-if|if
-condition|(
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|trace
-argument_list|(
-name|this
-operator|+
-literal|" execute state="
-operator|+
-name|state
-argument_list|)
-expr_stmt|;
-block|}
 name|LOG
 operator|.
 name|info
 argument_list|(
 name|this
-operator|+
-literal|" execute state="
-operator|+
-name|state
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 expr_stmt|;
 try|try

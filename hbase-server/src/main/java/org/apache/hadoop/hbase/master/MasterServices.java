@@ -1171,6 +1171,11 @@ name|String
 name|getClientIdAuditPrefix
 parameter_list|()
 function_decl|;
+comment|/**    * @return True if cluster is up; false if cluster is not up (we are shutting down).    */
+name|boolean
+name|isClusterUp
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

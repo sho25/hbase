@@ -3028,6 +3028,8 @@ specifier|final
 name|RegionPlan
 name|regionPlan
 parameter_list|)
+throws|throws
+name|HBaseIOException
 block|{
 name|MoveRegionProcedure
 name|proc
@@ -3581,7 +3583,7 @@ name|ASSIGN_PROCEDURE_ARRAY_TYPE
 argument_list|)
 return|;
 block|}
-comment|// Needed for the following method so it can type the created Array we return
+comment|// Needed for the following method so it can type the created Array we retur n
 specifier|private
 specifier|static
 specifier|final
@@ -3730,6 +3732,8 @@ name|RegionInfo
 argument_list|>
 name|regionInfo
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 specifier|final
 name|MoveRegionProcedure
@@ -4016,6 +4020,8 @@ specifier|final
 name|RegionPlan
 name|plan
 parameter_list|)
+throws|throws
+name|HBaseIOException
 block|{
 if|if
 condition|(
@@ -4763,22 +4769,16 @@ name|seqId
 argument_list|)
 condition|)
 block|{
+comment|// Don't log if shutting down cluster; during shutdown.
 name|LOG
 operator|.
 name|warn
 argument_list|(
-name|String
-operator|.
-name|format
-argument_list|(
-literal|"No procedure for %s. server=%s to transition to %s"
+literal|"No matchin procedure found for {} to transition to {}"
 argument_list|,
 name|regionNode
 argument_list|,
-name|serverName
-argument_list|,
 name|state
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

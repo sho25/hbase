@@ -341,13 +341,6 @@ condition|(
 name|tableState
 operator|==
 literal|null
-operator|||
-name|tableState
-operator|.
-name|getState
-argument_list|()
-operator|==
-literal|null
 condition|)
 block|{
 return|return;

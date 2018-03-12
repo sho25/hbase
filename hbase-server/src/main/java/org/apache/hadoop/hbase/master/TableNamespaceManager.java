@@ -1878,8 +1878,6 @@ return|;
 block|}
 specifier|private
 name|TableState
-operator|.
-name|State
 name|getTableState
 parameter_list|()
 throws|throws
@@ -1910,14 +1908,8 @@ return|return
 name|getTableState
 argument_list|()
 operator|.
-name|equals
-argument_list|(
-name|TableState
-operator|.
-name|State
-operator|.
-name|ENABLED
-argument_list|)
+name|isEnabled
+argument_list|()
 return|;
 block|}
 specifier|private

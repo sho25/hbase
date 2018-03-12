@@ -3326,6 +3326,19 @@ argument_list|)
 expr_stmt|;
 comment|// disable-enable cycle to get rid of table's dead regions left behind
 comment|// by createMultiRegions
+name|assertTrue
+argument_list|(
+name|TEST_UTIL
+operator|.
+name|getAdmin
+argument_list|()
+operator|.
+name|isTableEnabled
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
 name|debug

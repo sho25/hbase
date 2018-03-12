@@ -484,8 +484,6 @@ block|}
 comment|/**    * Set table state to provided but only if table in specified states    * Caller should lock table on write.    * @param tableName table to change state for    * @param newState new state    * @param states states to check against    * @return null if succeed or table state if failed    * @throws IOException    */
 specifier|public
 name|TableState
-operator|.
-name|State
 name|setTableStateIfInStates
 parameter_list|(
 name|TableName
@@ -563,9 +561,6 @@ else|else
 block|{
 return|return
 name|currentState
-operator|.
-name|getState
-argument_list|()
 return|;
 block|}
 block|}
@@ -672,8 +667,6 @@ block|{
 try|try
 block|{
 name|TableState
-operator|.
-name|State
 name|tableState
 init|=
 name|getTableState
@@ -682,12 +675,10 @@ name|tableName
 argument_list|)
 decl_stmt|;
 return|return
-name|TableState
+name|tableState
 operator|.
 name|isInStates
 argument_list|(
-name|tableState
-argument_list|,
 name|states
 argument_list|)
 return|;
@@ -900,8 +891,6 @@ annotation|@
 name|NonNull
 specifier|public
 name|TableState
-operator|.
-name|State
 name|getTableState
 parameter_list|(
 name|TableName
@@ -935,9 +924,6 @@ throw|;
 block|}
 return|return
 name|currentState
-operator|.
-name|getState
-argument_list|()
 return|;
 block|}
 specifier|protected
@@ -1258,13 +1244,6 @@ condition|(
 name|tableState
 operator|==
 literal|null
-operator|||
-name|tableState
-operator|.
-name|getState
-argument_list|()
-operator|==
-literal|null
 condition|)
 block|{
 name|LOG
@@ -1442,15 +1421,13 @@ expr_stmt|;
 continue|continue;
 block|}
 name|TableState
-operator|.
-name|State
-name|state
+name|ts
 init|=
 literal|null
 decl_stmt|;
 try|try
 block|{
-name|state
+name|ts
 operator|=
 name|getTableState
 argument_list|(
@@ -1471,7 +1448,7 @@ comment|// This can happen; table exists but no TableState.
 block|}
 if|if
 condition|(
-name|state
+name|ts
 operator|==
 literal|null
 condition|)
