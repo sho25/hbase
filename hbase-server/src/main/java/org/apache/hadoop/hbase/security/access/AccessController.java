@@ -7119,6 +7119,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// Move this ACL check to SnapshotManager#checkPermissions as part of AC deprecation.
 name|requirePermission
 argument_list|(
 name|ctx
@@ -7920,6 +7921,8 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// Move this ACL check to MasterFlushTableProcedureManager#checkPermissions as part of AC
+comment|// deprecation.
 name|requirePermission
 argument_list|(
 name|ctx

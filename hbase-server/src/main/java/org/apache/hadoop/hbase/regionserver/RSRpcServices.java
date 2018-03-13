@@ -4099,7 +4099,7 @@ comment|// instance to only this class to prevent its use from spreading deeper 
 comment|// Initialized in start() since AccessChecker needs ZKWatcher which is created by HRegionServer
 comment|// after RSRpcServices constructor and before start() is called.
 comment|// Initialized only if authorization is enabled, else remains null.
-specifier|private
+specifier|protected
 name|AccessChecker
 name|accessChecker
 decl_stmt|;

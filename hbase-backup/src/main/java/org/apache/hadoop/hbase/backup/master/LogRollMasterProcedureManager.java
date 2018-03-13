@@ -303,6 +303,40 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|security
+operator|.
+name|User
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|security
+operator|.
+name|access
+operator|.
+name|AccessChecker
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -376,7 +410,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Master procedure manager for coordinated cluster-wide WAL roll operation, which is run during  * backup operation, see {@link MasterProcedureManager} and and {@link RegionServerProcedureManager}  */
+comment|/**  * Master procedure manager for coordinated cluster-wide WAL roll operation, which is run during  * backup operation, see {@link MasterProcedureManager} and {@link RegionServerProcedureManager}  */
 end_comment
 
 begin_class
@@ -957,6 +991,26 @@ operator|.
 name|rethrowException
 argument_list|()
 expr_stmt|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|checkPermissions
+parameter_list|(
+name|ProcedureDescription
+name|desc
+parameter_list|,
+name|AccessChecker
+name|accessChecker
+parameter_list|,
+name|User
+name|user
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+comment|// TODO: what permissions checks are needed here?
 block|}
 specifier|private
 name|boolean
