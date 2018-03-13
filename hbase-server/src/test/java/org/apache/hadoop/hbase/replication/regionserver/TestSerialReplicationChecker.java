@@ -1280,6 +1280,10 @@ operator|.
 name|getTimeStamp
 argument_list|()
 operator|-
+name|barriers
+operator|.
+name|length
+operator|+
 name|i
 argument_list|,
 name|Bytes
