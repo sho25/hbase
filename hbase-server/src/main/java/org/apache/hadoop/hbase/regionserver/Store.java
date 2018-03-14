@@ -453,6 +453,10 @@ name|boolean
 name|isSloppyMemStore
 parameter_list|()
 function_decl|;
+name|int
+name|getCurrentParallelPutCount
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 
