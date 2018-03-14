@@ -323,8 +323,6 @@ name|SUCCESS
 block|,
 name|BAD_FAMILY
 block|,
-name|STORE_TOO_BUSY
-block|,
 name|SANITY_CHECK_FAILURE
 block|,
 name|FAILURE
