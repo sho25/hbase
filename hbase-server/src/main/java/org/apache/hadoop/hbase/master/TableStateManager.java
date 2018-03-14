@@ -1329,6 +1329,7 @@ name|IOException
 block|{
 if|if
 condition|(
+operator|!
 name|this
 operator|.
 name|master
@@ -1340,7 +1341,7 @@ name|getBoolean
 argument_list|(
 name|MIGRATE_TABLE_STATE_FROM_ZK_KEY
 argument_list|,
-literal|false
+literal|true
 argument_list|)
 condition|)
 block|{
