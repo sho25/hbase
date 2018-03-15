@@ -2244,7 +2244,7 @@ argument_list|,
 name|cpValue3
 argument_list|)
 expr_stmt|;
-comment|// add 2 coprocessor by using new htd.addCoprocessor() api
+comment|// add 2 coprocessor by using new htd.setCoprocessor() api
 name|htd
 operator|.
 name|addCoprocessor

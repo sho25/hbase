@@ -526,7 +526,7 @@ argument_list|(
 name|TABLE_NAME
 argument_list|)
 operator|.
-name|addCoprocessor
+name|setCoprocessor
 argument_list|(
 name|MyObserver
 operator|.
@@ -536,7 +536,7 @@ name|getName
 argument_list|()
 argument_list|)
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|ColumnFamilyDescriptorBuilder
 operator|.

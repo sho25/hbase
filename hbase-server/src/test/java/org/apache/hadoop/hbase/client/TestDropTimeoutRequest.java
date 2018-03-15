@@ -668,7 +668,7 @@ argument_list|)
 decl_stmt|;
 name|builder
 operator|.
-name|addCoprocessor
+name|setCoprocessor
 argument_list|(
 name|SleepLongerAtFirstCoprocessor
 operator|.
@@ -693,7 +693,7 @@ argument_list|()
 decl_stmt|;
 name|builder
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|cfd
 argument_list|)

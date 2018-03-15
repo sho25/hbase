@@ -2373,6 +2373,9 @@ name|HBASE_CLUSTER_MINIMUM_MEMORY_THRESHOLD
 init|=
 literal|0.2f
 decl_stmt|;
+comment|/**    * @deprecated  It is used internally. As of release 2.0.0, this will be removed in HBase 3.0.0.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 specifier|final
@@ -2390,7 +2393,9 @@ operator|.
 name|CASE_INSENSITIVE
 argument_list|)
 decl_stmt|;
-comment|/**    *<pre>    * Pattern that matches a coprocessor specification. Form is:    * {@code<coprocessor jar file location> '|'<class name> ['|'<priority> ['|'<arguments>]]}    * where arguments are {@code<KEY> '='<VALUE> [,...]}    * For example: {@code hdfs:///foo.jar|com.foo.FooRegionObserver|1001|arg1=1,arg2=2}    *</pre>    */
+comment|/**    *<pre>    * Pattern that matches a coprocessor specification. Form is:    * {@code<coprocessor jar file location> '|'<class name> ['|'<priority> ['|'<arguments>]]}    * where arguments are {@code<KEY> '='<VALUE> [,...]}    * For example: {@code hdfs:///foo.jar|com.foo.FooRegionObserver|1001|arg1=1,arg2=2}    *</pre>    * @deprecated  It is used internally. As of release 2.0.0, this will be removed in HBase 3.0.0.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 specifier|final
@@ -2404,6 +2409,9 @@ argument_list|(
 literal|"(^[^\\|]*)\\|([^\\|]+)\\|[\\s]*([\\d]*)[\\s]*(\\|.*)?$"
 argument_list|)
 decl_stmt|;
+comment|/**    * @deprecated  It is used internally. As of release 2.0.0, this will be removed in HBase 3.0.0.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 specifier|final
@@ -2412,6 +2420,9 @@ name|CP_HTD_ATTR_VALUE_PARAM_KEY_PATTERN
 init|=
 literal|"[^=,]+"
 decl_stmt|;
+comment|/**    * @deprecated  It is used internally. As of release 2.0.0, this will be removed in HBase 3.0.0.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 specifier|final
@@ -2420,6 +2431,9 @@ name|CP_HTD_ATTR_VALUE_PARAM_VALUE_PATTERN
 init|=
 literal|"[^,]+"
 decl_stmt|;
+comment|/**    * @deprecated  It is used internally. As of release 2.0.0, this will be removed in HBase 3.0.0.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 specifier|final

@@ -295,7 +295,7 @@ argument_list|(
 name|tableDescriptor
 argument_list|)
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|columnDescriptor
 argument_list|)

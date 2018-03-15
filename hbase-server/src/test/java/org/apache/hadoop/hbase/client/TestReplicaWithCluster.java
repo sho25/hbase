@@ -2065,7 +2065,7 @@ argument_list|(
 name|NB_SERVERS
 argument_list|)
 operator|.
-name|addCoprocessor
+name|setCoprocessor
 argument_list|(
 name|SlowMeCopro
 operator|.
@@ -2075,7 +2075,7 @@ name|getName
 argument_list|()
 argument_list|)
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|ColumnFamilyDescriptorBuilder
 operator|.
@@ -2197,7 +2197,7 @@ argument_list|(
 name|td
 argument_list|)
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|ColumnFamilyDescriptorBuilder
 operator|.

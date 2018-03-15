@@ -2303,7 +2303,7 @@ argument_list|()
 argument_list|)
 argument_list|)
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|ColumnFamilyDescriptorBuilder
 operator|.
@@ -2959,7 +2959,7 @@ name|exportTable
 argument_list|)
 argument_list|)
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|ColumnFamilyDescriptorBuilder
 operator|.
@@ -3570,7 +3570,7 @@ name|importTable
 argument_list|)
 argument_list|)
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|ColumnFamilyDescriptorBuilder
 operator|.

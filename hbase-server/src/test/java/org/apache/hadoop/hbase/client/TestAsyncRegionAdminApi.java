@@ -431,16 +431,6 @@ name|org
 operator|.
 name|junit
 operator|.
-name|Ignore
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
 name|Test
 import|;
 end_import
@@ -754,7 +744,7 @@ argument_list|(
 name|tableName
 argument_list|)
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|ColumnFamilyDescriptorBuilder
 operator|.
@@ -1901,7 +1891,7 @@ argument_list|(
 name|tableName
 argument_list|)
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|columnDescriptor
 argument_list|)

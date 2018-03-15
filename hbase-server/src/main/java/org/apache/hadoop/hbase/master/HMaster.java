@@ -11955,7 +11955,7 @@ argument_list|(
 name|old
 argument_list|)
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|column
 argument_list|)

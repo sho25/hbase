@@ -2597,7 +2597,7 @@ name|TABLE_NAME
 argument_list|)
 argument_list|)
 operator|.
-name|addCoprocessor
+name|setCoprocessor
 argument_list|(
 name|ErrorInjectObserver
 operator|.

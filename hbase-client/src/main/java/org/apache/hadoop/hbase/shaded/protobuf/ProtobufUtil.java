@@ -17576,7 +17576,7 @@ name|forEach
 argument_list|(
 name|builder
 operator|::
-name|addColumnFamily
+name|setColumnFamily
 argument_list|)
 expr_stmt|;
 name|ts

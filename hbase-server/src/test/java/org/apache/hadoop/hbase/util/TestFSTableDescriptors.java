@@ -2041,7 +2041,7 @@ argument_list|)
 decl_stmt|;
 name|builder
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|ColumnFamilyDescriptorBuilder
 operator|.
@@ -2370,7 +2370,7 @@ argument_list|)
 decl_stmt|;
 name|builder
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|ColumnFamilyDescriptorBuilder
 operator|.

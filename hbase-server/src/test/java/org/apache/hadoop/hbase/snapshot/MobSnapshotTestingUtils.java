@@ -462,7 +462,7 @@ control|)
 block|{
 name|builder
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|ColumnFamilyDescriptorBuilder
 operator|.
@@ -586,7 +586,7 @@ comment|// and blooms being
 comment|// on is interfering.
 name|builder
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|ColumnFamilyDescriptorBuilder
 operator|.
@@ -894,7 +894,7 @@ name|tableName
 argument_list|)
 argument_list|)
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|ColumnFamilyDescriptorBuilder
 operator|.

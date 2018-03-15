@@ -368,7 +368,7 @@ name|tableName
 argument_list|)
 comment|// MUST mount the export endpoint
 operator|.
-name|addCoprocessor
+name|setCoprocessor
 argument_list|(
 name|Export
 operator|.
@@ -378,7 +378,7 @@ name|getName
 argument_list|()
 argument_list|)
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|ColumnFamilyDescriptorBuilder
 operator|.

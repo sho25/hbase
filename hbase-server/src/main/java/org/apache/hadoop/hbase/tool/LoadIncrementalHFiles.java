@@ -5574,7 +5574,7 @@ name|forEachOrdered
 argument_list|(
 name|tdBuilder
 operator|::
-name|addColumnFamily
+name|setColumnFamily
 argument_list|)
 expr_stmt|;
 name|admin

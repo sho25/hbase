@@ -7536,7 +7536,7 @@ argument_list|()
 decl_stmt|;
 name|builder
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|colSessionsDesc
 argument_list|)
@@ -7559,7 +7559,7 @@ argument_list|)
 expr_stmt|;
 name|builder
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|colBuilder
 operator|.
@@ -7733,7 +7733,7 @@ argument_list|()
 decl_stmt|;
 name|builder
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|colSessionsDesc
 argument_list|)
@@ -7756,7 +7756,7 @@ argument_list|)
 expr_stmt|;
 name|builder
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|colBuilder
 operator|.

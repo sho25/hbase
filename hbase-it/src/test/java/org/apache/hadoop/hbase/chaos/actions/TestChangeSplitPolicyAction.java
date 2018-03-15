@@ -330,7 +330,7 @@ name|createTable
 argument_list|(
 name|builder
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|ColumnFamilyDescriptorBuilder
 operator|.

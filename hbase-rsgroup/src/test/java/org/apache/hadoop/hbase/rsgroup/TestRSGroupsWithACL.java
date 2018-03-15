@@ -979,7 +979,7 @@ argument_list|)
 expr_stmt|;
 name|tableBuilder
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|cfd
 operator|.

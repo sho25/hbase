@@ -3400,7 +3400,7 @@ name|forEachOrdered
 argument_list|(
 name|builder
 operator|::
-name|addColumnFamily
+name|setColumnFamily
 argument_list|)
 expr_stmt|;
 return|return
@@ -3431,7 +3431,7 @@ name|tableName
 argument_list|)
 argument_list|)
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|ColumnFamilyDescriptorBuilder
 operator|.
@@ -3441,7 +3441,7 @@ literal|"a"
 argument_list|)
 argument_list|)
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|ColumnFamilyDescriptorBuilder
 operator|.
@@ -3451,7 +3451,7 @@ literal|"b"
 argument_list|)
 argument_list|)
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|ColumnFamilyDescriptorBuilder
 operator|.

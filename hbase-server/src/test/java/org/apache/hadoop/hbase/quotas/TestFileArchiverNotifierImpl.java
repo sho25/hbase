@@ -1076,7 +1076,7 @@ argument_list|(
 name|tn
 argument_list|)
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|ColumnFamilyDescriptorBuilder
 operator|.
@@ -1764,7 +1764,7 @@ argument_list|(
 name|fakeQuotaTableName
 argument_list|)
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|ColumnFamilyDescriptorBuilder
 operator|.
@@ -1776,7 +1776,7 @@ name|QUOTA_FAMILY_USAGE
 argument_list|)
 argument_list|)
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|ColumnFamilyDescriptorBuilder
 operator|.

@@ -7079,7 +7079,7 @@ operator|.
 name|ACL_TABLE_NAME
 argument_list|)
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|cfd
 argument_list|)

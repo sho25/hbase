@@ -1303,7 +1303,7 @@ argument_list|)
 expr_stmt|;
 name|builder
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|colDescriptorBldr
 operator|.

@@ -406,7 +406,7 @@ argument_list|)
 decl_stmt|;
 name|builder
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|ColumnFamilyDescriptorBuilder
 operator|.
@@ -497,7 +497,7 @@ argument_list|)
 decl_stmt|;
 name|builder
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|ColumnFamilyDescriptorBuilder
 operator|.
@@ -647,7 +647,7 @@ name|createTable
 argument_list|(
 name|tdBuilder
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|cfd
 argument_list|)
@@ -791,7 +791,7 @@ name|createTable
 argument_list|(
 name|tdBuilder
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|cfd
 argument_list|)
@@ -899,7 +899,7 @@ argument_list|)
 decl_stmt|;
 name|builder
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|ColumnFamilyDescriptorBuilder
 operator|.
@@ -909,7 +909,7 @@ name|FAMILY_0
 argument_list|)
 argument_list|)
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|ColumnFamilyDescriptorBuilder
 operator|.
@@ -995,7 +995,7 @@ argument_list|)
 decl_stmt|;
 name|builder
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|ColumnFamilyDescriptorBuilder
 operator|.
@@ -1005,7 +1005,7 @@ name|FAMILY_0
 argument_list|)
 argument_list|)
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|ColumnFamilyDescriptorBuilder
 operator|.

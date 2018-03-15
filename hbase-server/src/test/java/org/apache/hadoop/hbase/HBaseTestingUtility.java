@@ -6319,7 +6319,7 @@ control|)
 block|{
 name|builder
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|ColumnFamilyDescriptorBuilder
 operator|.
@@ -17820,7 +17820,7 @@ condition|)
 block|{
 name|builder
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|cd
 argument_list|)
@@ -18423,7 +18423,7 @@ name|tableName
 argument_list|)
 argument_list|)
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|cd
 argument_list|)

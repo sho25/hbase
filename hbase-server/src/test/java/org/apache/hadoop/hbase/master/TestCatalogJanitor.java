@@ -1371,7 +1371,7 @@ argument_list|()
 argument_list|)
 argument_list|)
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 operator|new
 name|HColumnDescriptor

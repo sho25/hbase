@@ -1930,7 +1930,7 @@ name|htd
 init|=
 name|builder
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|hcd
 argument_list|)

@@ -552,7 +552,7 @@ argument_list|(
 name|NAME
 argument_list|)
 operator|.
-name|addCoprocessor
+name|setCoprocessor
 argument_list|(
 name|ScanModifyingObserver
 operator|.
@@ -590,7 +590,7 @@ name|IMPLICIT_QUAL
 argument_list|)
 argument_list|)
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|CFD
 argument_list|)

@@ -511,7 +511,7 @@ argument_list|(
 name|tn
 argument_list|)
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|cfd
 argument_list|)

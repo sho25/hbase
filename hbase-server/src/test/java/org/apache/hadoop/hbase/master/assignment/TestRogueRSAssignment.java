@@ -1247,7 +1247,7 @@ argument_list|)
 decl_stmt|;
 name|tdBuilder
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|ColumnFamilyDescriptorBuilder
 operator|.

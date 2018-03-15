@@ -392,12 +392,12 @@ name|int
 name|getColumnFamilyCount
 parameter_list|()
 function_decl|;
-comment|/**    * Return the list of attached co-processor represented by their name    * className    *    * @return The list of co-processors classNames    */
+comment|/**    * Return the list of attached co-processor represented    *    * @return The list of CoprocessorDescriptor    */
 name|Collection
 argument_list|<
-name|String
+name|CoprocessorDescriptor
 argument_list|>
-name|getCoprocessors
+name|getCoprocessorDescriptors
 parameter_list|()
 function_decl|;
 comment|/**    * Returns the durability setting for the table.    *    * @return durability setting for the table.    */

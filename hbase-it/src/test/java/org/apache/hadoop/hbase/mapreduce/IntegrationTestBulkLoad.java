@@ -1518,7 +1518,7 @@ argument_list|)
 decl_stmt|;
 name|builder
 operator|.
-name|addCoprocessor
+name|setCoprocessor
 argument_list|(
 name|SlowMeCoproScanOperations
 operator|.

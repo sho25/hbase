@@ -183,7 +183,7 @@ argument_list|(
 name|tableName
 argument_list|)
 operator|.
-name|addCoprocessor
+name|setCoprocessor
 argument_list|(
 name|SleepCoprocessor
 operator|.
@@ -193,7 +193,7 @@ name|getName
 argument_list|()
 argument_list|)
 operator|.
-name|addColumnFamily
+name|setColumnFamily
 argument_list|(
 name|ColumnFamilyDescriptorBuilder
 operator|.
