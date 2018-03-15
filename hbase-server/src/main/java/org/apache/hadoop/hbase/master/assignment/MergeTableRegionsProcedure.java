@@ -209,6 +209,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|DoNotRetryRegionException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|MasterSwitchType
 import|;
 end_import
@@ -940,9 +956,11 @@ name|env
 argument_list|)
 expr_stmt|;
 comment|// Check daughter regions and make sure that we have valid daughter regions
-comment|// before doing the real work.
+comment|// before doing the real work. This check calls the super method #checkOnline also.
 name|checkRegionsToMerge
 argument_list|(
+name|env
+argument_list|,
 name|regionsToMerge
 argument_list|,
 name|forcible
@@ -987,6 +1005,9 @@ specifier|static
 name|void
 name|checkRegionsToMerge
 parameter_list|(
+name|MasterProcedureEnv
+name|env
+parameter_list|,
 specifier|final
 name|RegionInfo
 index|[]
@@ -1031,6 +1052,8 @@ throw|;
 block|}
 name|checkRegionsToMerge
 argument_list|(
+name|env
+argument_list|,
 name|regionsToMerge
 index|[
 literal|0
@@ -1045,11 +1068,15 @@ name|forcible
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * One time checks.    */
 specifier|private
 specifier|static
 name|void
 name|checkRegionsToMerge
 parameter_list|(
+name|MasterProcedureEnv
+name|env
+parameter_list|,
 specifier|final
 name|RegionInfo
 name|regionToMergeA
@@ -1122,6 +1149,37 @@ operator|new
 name|MergeRegionException
 argument_list|(
 literal|"Can't merge non-default replicas"
+argument_list|)
+throw|;
+block|}
+try|try
+block|{
+name|checkOnline
+argument_list|(
+name|env
+argument_list|,
+name|regionToMergeA
+argument_list|)
+expr_stmt|;
+name|checkOnline
+argument_list|(
+name|env
+argument_list|,
+name|regionToMergeB
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|DoNotRetryRegionException
+name|dnrre
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|MergeRegionException
+argument_list|(
+name|dnrre
 argument_list|)
 throw|;
 block|}
@@ -2583,7 +2641,6 @@ name|IOException
 block|{
 comment|// Note: the following logic assumes that we only have 2 regions to merge.  In the future,
 comment|// if we want to extend to more than 2 regions, the code needs to be modified a little bit.
-comment|//
 name|CatalogJanitor
 name|catalogJanitor
 init|=

@@ -89,6 +89,19 @@ name|s
 argument_list|)
 expr_stmt|;
 block|}
+specifier|public
+name|DoNotRetryRegionException
+parameter_list|(
+name|Throwable
+name|cause
+parameter_list|)
+block|{
+name|super
+argument_list|(
+name|cause
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 end_class
 

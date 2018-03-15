@@ -475,6 +475,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|DoNotRetryRegionException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Get
 import|;
 end_import
@@ -2538,6 +2554,10 @@ argument_list|)
 expr_stmt|;
 comment|// Now try splitting.... should fail.  And each should successfully
 comment|// rollback.
+comment|// We don't roll back here anymore. Instead we fail-fast on construction of the
+comment|// split transaction. Catch the exception instead.
+try|try
+block|{
 name|this
 operator|.
 name|admin
@@ -2550,30 +2570,18 @@ name|getRegionName
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|admin
-operator|.
-name|splitRegion
-argument_list|(
-name|hri
-operator|.
-name|getRegionName
+name|fail
 argument_list|()
-argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|admin
-operator|.
-name|splitRegion
-argument_list|(
-name|hri
-operator|.
-name|getRegionName
-argument_list|()
-argument_list|)
-expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|DoNotRetryRegionException
+name|e
+parameter_list|)
+block|{
+comment|// Expected
+block|}
 comment|// Wait around a while and assert count of regions remains constant.
 for|for
 control|(

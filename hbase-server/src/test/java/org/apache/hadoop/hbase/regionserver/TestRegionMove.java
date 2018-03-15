@@ -19,6 +19,18 @@ end_package
 
 begin_import
 import|import static
+name|junit
+operator|.
+name|framework
+operator|.
+name|TestCase
+operator|.
+name|fail
+import|;
+end_import
+
+begin_import
+import|import static
 name|org
 operator|.
 name|junit
@@ -144,6 +156,22 @@ operator|.
 name|client
 operator|.
 name|Admin
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|DoNotRetryRegionException
 import|;
 end_import
 
@@ -724,6 +752,67 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
+comment|// Offline the region and then try to move it. Should fail.
+name|admin
+operator|.
+name|unassign
+argument_list|(
+name|regionToMove
+operator|.
+name|getRegionName
+argument_list|()
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
+try|try
+block|{
+name|admin
+operator|.
+name|move
+argument_list|(
+name|regionToMove
+operator|.
+name|getEncodedNameAsBytes
+argument_list|()
+argument_list|,
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|rs2
+operator|.
+name|getServerName
+argument_list|()
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|fail
+argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|DoNotRetryRegionException
+name|e
+parameter_list|)
+block|{
+comment|// We got expected exception
+block|}
+comment|// Reassign for next stage of test.
+name|admin
+operator|.
+name|assign
+argument_list|(
+name|regionToMove
+operator|.
+name|getRegionName
+argument_list|()
+argument_list|)
+expr_stmt|;
 comment|// Disable the table
 name|admin
 operator|.

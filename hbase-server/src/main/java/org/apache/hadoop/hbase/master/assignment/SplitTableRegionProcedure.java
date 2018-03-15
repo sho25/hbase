@@ -1026,6 +1026,15 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
+comment|// When procedure goes to run in its prepare step, it also does these checkOnline checks. Here
+comment|// we fail-fast on construction. There it skips the split with just a warning.
+name|checkOnline
+argument_list|(
+name|env
+argument_list|,
+name|regionToSplit
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|bestSplitRow

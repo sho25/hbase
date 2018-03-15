@@ -13119,7 +13119,7 @@ throw|throw
 operator|new
 name|TableNotDisabledException
 argument_list|(
-literal|"Not DISABLE tableState="
+literal|"Not DISABLED; "
 operator|+
 name|ts
 argument_list|)
