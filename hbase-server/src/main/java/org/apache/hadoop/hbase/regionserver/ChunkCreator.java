@@ -486,6 +486,8 @@ name|dataChunksPool
 operator|=
 name|initializePool
 argument_list|(
+literal|"data"
+argument_list|,
 name|globalMemStoreSize
 argument_list|,
 operator|(
@@ -512,6 +514,8 @@ name|indexChunksPool
 operator|=
 name|initializePool
 argument_list|(
+literal|"index"
+argument_list|,
 name|globalMemStoreSize
 argument_list|,
 name|indexChunkSizePercentage
@@ -1308,8 +1312,16 @@ operator|new
 name|LongAdder
 argument_list|()
 decl_stmt|;
+specifier|private
+specifier|final
+name|String
+name|label
+decl_stmt|;
 name|MemStoreChunkPool
 parameter_list|(
+name|String
+name|label
+parameter_list|,
 name|int
 name|chunkSize
 parameter_list|,
@@ -1323,6 +1335,12 @@ name|float
 name|poolSizePercentage
 parameter_list|)
 block|{
+name|this
+operator|.
+name|label
+operator|=
+name|label
+expr_stmt|;
 name|this
 operator|.
 name|chunkSize
@@ -1722,29 +1740,23 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Stats (chunk size="
+literal|"{} Stats (chunk size={}): current pool size={}, created chunk count={}, "
 operator|+
+literal|"reused chunk count={}, reuseRatio={}"
+argument_list|,
+name|label
+argument_list|,
 name|chunkSize
-operator|+
-literal|"): "
-operator|+
-literal|"current pool size="
-operator|+
+argument_list|,
 name|reclaimedChunks
 operator|.
 name|size
 argument_list|()
-operator|+
-literal|",created chunk count="
-operator|+
+argument_list|,
 name|created
-operator|+
-literal|",reused chunk count="
-operator|+
+argument_list|,
 name|reused
-operator|+
-literal|",reuseRatio="
-operator|+
+argument_list|,
 operator|(
 name|total
 operator|==
@@ -1808,7 +1820,9 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Not tuning the chunk pool as it is offheap"
+literal|"{} not tuning the chunk pool as it is offheap"
+argument_list|,
+name|label
 argument_list|)
 expr_stmt|;
 return|return;
@@ -1853,14 +1867,16 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Max count for chunks increased from "
-operator|+
+literal|"{} max count for chunks increased from {} to {}"
+argument_list|,
+name|this
+operator|.
+name|label
+argument_list|,
 name|this
 operator|.
 name|maxCount
-operator|+
-literal|" to "
-operator|+
+argument_list|,
 name|newMaxCount
 argument_list|)
 expr_stmt|;
@@ -1879,14 +1895,16 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Max count for chunks decreased from "
-operator|+
+literal|"{} max count for chunks decreased from {} to {}"
+argument_list|,
+name|this
+operator|.
+name|label
+argument_list|,
 name|this
 operator|.
 name|maxCount
-operator|+
-literal|" to "
-operator|+
+argument_list|,
 name|newMaxCount
 argument_list|)
 expr_stmt|;
@@ -1955,6 +1973,9 @@ specifier|private
 name|MemStoreChunkPool
 name|initializePool
 parameter_list|(
+name|String
+name|label
+parameter_list|,
 name|long
 name|globalMemStoreSize
 parameter_list|,
@@ -1982,7 +2003,9 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"PoolSizePercentage is less than 0. So not using pool"
+literal|"{} poolSizePercentage is less than 0. So not using pool"
+argument_list|,
+name|label
 argument_list|)
 expr_stmt|;
 return|return
@@ -2046,6 +2069,10 @@ throw|throw
 operator|new
 name|IllegalArgumentException
 argument_list|(
+name|label
+operator|+
+literal|" "
+operator|+
 name|MemStoreLAB
 operator|.
 name|CHUNK_POOL_INITIALSIZE_KEY
@@ -2070,21 +2097,21 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Allocating MemStoreChunkPool with chunk size "
+literal|"{} allocating {} MemStoreChunkPool with chunk size {}, max count {}, "
 operator|+
+literal|"initial count {}"
+argument_list|,
+name|label
+argument_list|,
 name|StringUtils
 operator|.
 name|byteDesc
 argument_list|(
 name|chunkSize
 argument_list|)
-operator|+
-literal|", max count "
-operator|+
+argument_list|,
 name|maxCount
-operator|+
-literal|", initial count "
-operator|+
+argument_list|,
 name|initialCount
 argument_list|)
 expr_stmt|;
@@ -2094,6 +2121,8 @@ init|=
 operator|new
 name|MemStoreChunkPool
 argument_list|(
+name|label
+argument_list|,
 name|chunkSize
 argument_list|,
 name|maxCount

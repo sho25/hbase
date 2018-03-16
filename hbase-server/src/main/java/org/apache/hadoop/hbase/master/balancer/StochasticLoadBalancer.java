@@ -1558,15 +1558,15 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
+literal|"{} not needed"
+argument_list|,
 name|c
 operator|.
 name|getClass
 argument_list|()
 operator|.
-name|getName
+name|getSimpleName
 argument_list|()
-operator|+
-literal|" indicated that its cost should not be considered"
 argument_list|)
 expr_stmt|;
 continue|continue;

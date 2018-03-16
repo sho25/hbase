@@ -1720,19 +1720,17 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Unable to run memstore compaction. region "
-operator|+
+literal|"Unable to run in-memory compaction on {}/{}; exception={}"
+argument_list|,
 name|getRegionServices
 argument_list|()
 operator|.
 name|getRegionInfo
 argument_list|()
 operator|.
-name|getRegionNameAsString
+name|getEncodedName
 argument_list|()
-operator|+
-literal|"store: "
-operator|+
+argument_list|,
 name|getFamilyName
 argument_list|()
 argument_list|,

@@ -965,9 +965,9 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
+literal|"{} already deleted when removing log"
+argument_list|,
 name|fileNode
-operator|+
-literal|" has already been deleted when removing log"
 argument_list|)
 expr_stmt|;
 block|}
@@ -1404,19 +1404,13 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed to parse log position (serverName="
-operator|+
+literal|"Failed parse log position (serverName={}, queueId={}, fileName={})"
+argument_list|,
 name|serverName
-operator|+
-literal|", queueId="
-operator|+
+argument_list|,
 name|queueId
-operator|+
-literal|", fileName="
-operator|+
+argument_list|,
 name|fileName
-operator|+
-literal|")"
 argument_list|)
 expr_stmt|;
 block|}
@@ -1455,16 +1449,12 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Atomically moving "
-operator|+
+literal|"Atomically moving {}/{}'s WALs to {}"
+argument_list|,
 name|sourceServerName
-operator|+
-literal|"/"
-operator|+
+argument_list|,
 name|queueId
-operator|+
-literal|"'s WALs to "
-operator|+
+argument_list|,
 name|destServerName
 argument_list|)
 expr_stmt|;
@@ -1572,15 +1562,11 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Removed "
-operator|+
+literal|"Removed empty {}/{}"
+argument_list|,
 name|sourceServerName
-operator|+
-literal|"/"
-operator|+
+argument_list|,
 name|queueId
-operator|+
-literal|" since it's empty"
 argument_list|)
 expr_stmt|;
 return|return
@@ -1680,24 +1666,14 @@ argument_list|,
 name|oldWalNode
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Creating "
-operator|+
+literal|"Creating {} with data {}"
+argument_list|,
 name|wal
-operator|+
-literal|" with data "
-operator|+
+argument_list|,
 name|Bytes
 operator|.
 name|toStringBinary
@@ -1706,7 +1682,6 @@ name|logOffset
 argument_list|)
 argument_list|)
 expr_stmt|;
-block|}
 name|String
 name|newWalNode
 init|=
@@ -1764,27 +1739,18 @@ name|oldQueueNode
 argument_list|)
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"The multi list size is: "
-operator|+
+literal|"The multi list size is {}"
+argument_list|,
 name|listOfOps
 operator|.
 name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 name|ZKUtil
 operator|.
 name|multiOrSequential
@@ -1800,16 +1766,12 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Atomically moved "
-operator|+
+literal|"Atomically moved {}/{}'s WALs to {}"
+argument_list|,
 name|sourceServerName
-operator|+
-literal|"/"
-operator|+
+argument_list|,
 name|queueId
-operator|+
-literal|"'s WALs to "
-operator|+
+argument_list|,
 name|destServerName
 argument_list|)
 expr_stmt|;
@@ -1843,26 +1805,18 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Claim queue queueId="
-operator|+
+literal|"Claim queue queueId={} from {} to {} failed with {}, someone else took the log?"
+argument_list|,
 name|queueId
-operator|+
-literal|" from "
-operator|+
+argument_list|,
 name|sourceServerName
-operator|+
-literal|" to "
-operator|+
+argument_list|,
 name|destServerName
-operator|+
-literal|" failed with "
-operator|+
+argument_list|,
 name|e
 operator|.
 name|toString
 argument_list|()
-operator|+
-literal|", maybe someone else has already took away the logs"
 argument_list|)
 expr_stmt|;
 return|return
@@ -2286,7 +2240,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Didn't find any region server that replicates, won't prevent any deletions."
+literal|"Didn't find a RegionServer that replicates, won't prevent deletions."
 argument_list|)
 expr_stmt|;
 return|return
@@ -2361,10 +2315,6 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-name|String
-operator|.
-name|format
-argument_list|(
 literal|"Replication queue node cversion changed from %d to %d, retry = %d"
 argument_list|,
 name|v0
@@ -2372,7 +2322,6 @@ argument_list|,
 name|v1
 argument_list|,
 name|retry
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -2476,11 +2425,9 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Adding peer "
-operator|+
+literal|"Adding peer {} to hfile reference queue."
+argument_list|,
 name|peerId
-operator|+
-literal|" to hfile reference queue."
 argument_list|)
 expr_stmt|;
 name|ZKUtil
@@ -2552,26 +2499,15 @@ operator|-
 literal|1
 condition|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Peer "
-operator|+
+literal|"Peer {} not found in hfile reference queue."
+argument_list|,
 name|peerNode
-operator|+
-literal|" not found in hfile reference queue."
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 else|else
 block|{
@@ -2579,11 +2515,9 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Removing peer "
-operator|+
+literal|"Removing peer {} from hfile reference queue."
+argument_list|,
 name|peerNode
-operator|+
-literal|" from hfile reference queue."
 argument_list|)
 expr_stmt|;
 name|ZKUtil
@@ -2649,33 +2583,17 @@ argument_list|(
 name|peerId
 argument_list|)
 decl_stmt|;
-name|boolean
-name|debugEnabled
-init|=
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-decl_stmt|;
-if|if
-condition|(
-name|debugEnabled
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Adding hfile references "
-operator|+
+literal|"Adding hfile references {} in queue {}"
+argument_list|,
 name|pairs
-operator|+
-literal|" in queue "
-operator|+
+argument_list|,
 name|peerNode
 argument_list|)
 expr_stmt|;
-block|}
 name|List
 argument_list|<
 name|ZKUtilOp
@@ -2734,28 +2652,20 @@ name|toList
 argument_list|()
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
-name|debugEnabled
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"The multi list size for adding hfile references in zk for node "
-operator|+
+literal|"The multi list size for adding hfile references in zk for node {} is {}"
+argument_list|,
 name|peerNode
-operator|+
-literal|" is "
-operator|+
+argument_list|,
 name|listOfOps
 operator|.
 name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 try|try
 block|{
 name|ZKUtil
@@ -2817,33 +2727,17 @@ argument_list|(
 name|peerId
 argument_list|)
 decl_stmt|;
-name|boolean
-name|debugEnabled
-init|=
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-decl_stmt|;
-if|if
-condition|(
-name|debugEnabled
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Removing hfile references "
-operator|+
+literal|"Removing hfile references {} from queue {}"
+argument_list|,
 name|files
-operator|+
-literal|" from queue "
-operator|+
+argument_list|,
 name|peerNode
 argument_list|)
 expr_stmt|;
-block|}
 name|List
 argument_list|<
 name|ZKUtilOp
@@ -2880,28 +2774,20 @@ name|toList
 argument_list|()
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
-name|debugEnabled
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"The multi list size for removing hfile references in zk for node "
-operator|+
+literal|"The multi list size for removing hfile references in zk for node {} is {}"
+argument_list|,
 name|peerNode
-operator|+
-literal|" is "
-operator|+
+argument_list|,
 name|listOfOps
 operator|.
 name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 try|try
 block|{
 name|ZKUtil
@@ -3179,7 +3065,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Didn't find any peers with hfile references, won't prevent any deletions."
+literal|"Didn't find any peers with hfile references, won't prevent deletions."
 argument_list|)
 expr_stmt|;
 return|return
@@ -3240,20 +3126,13 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-name|String
-operator|.
-name|format
-argument_list|(
-literal|"Replication hfile references node cversion changed from "
-operator|+
-literal|"%d to %d, retry = %d"
+literal|"Replication hfile references node cversion changed from %d to %d, retry = %d"
 argument_list|,
 name|v0
 argument_list|,
 name|v1
 argument_list|,
 name|retry
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

@@ -4503,26 +4503,22 @@ condition|)
 block|{
 return|return;
 block|}
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Switch to stream read because we have already read "
-operator|+
+literal|"Switch to stream read (scanned={} bytes) of {}"
+argument_list|,
 name|bytesRead
-operator|+
-literal|" bytes from this scanner"
+argument_list|,
+name|this
+operator|.
+name|store
+operator|.
+name|getColumnFamilyName
+argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 name|scanUsePread
 operator|=
 literal|false

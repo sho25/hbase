@@ -8723,15 +8723,13 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
-literal|"Skipping normalization for table: "
-operator|+
-name|table
-operator|+
-literal|", as it's either system"
+literal|"Skipping normalization for {}, as it's either system"
 operator|+
 literal|" table or doesn't have auto normalization turned on"
+argument_list|,
+name|table
 argument_list|)
 expr_stmt|;
 continue|continue;

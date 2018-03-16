@@ -1212,7 +1212,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"relogin failed"
+literal|"Relogin failed"
 argument_list|,
 name|e
 argument_list|)
@@ -1679,7 +1679,7 @@ parameter_list|()
 block|{
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
 literal|"Connecting to {}"
 argument_list|,

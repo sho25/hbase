@@ -1391,28 +1391,33 @@ operator|.
 name|getMax
 argument_list|()
 expr_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Compacting "
-operator|+
+literal|"Compacting {}, keycount={}, bloomtype={}, size={}, encoding={}, seqNum={}{}"
+argument_list|,
+operator|(
 name|file
-operator|+
-literal|", keycount="
-operator|+
+operator|.
+name|getPath
+argument_list|()
+operator|==
+literal|null
+condition|?
+literal|null
+else|:
+name|file
+operator|.
+name|getPath
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+operator|)
+argument_list|,
 name|keyCount
-operator|+
-literal|", bloomtype="
-operator|+
+argument_list|,
 name|r
 operator|.
 name|getBloomFilterType
@@ -1420,9 +1425,7 @@ argument_list|()
 operator|.
 name|toString
 argument_list|()
-operator|+
-literal|", size="
-operator|+
+argument_list|,
 name|TraditionalBinaryPrefix
 operator|.
 name|long2String
@@ -1436,9 +1439,7 @@ literal|""
 argument_list|,
 literal|1
 argument_list|)
-operator|+
-literal|", encoding="
-operator|+
+argument_list|,
 name|r
 operator|.
 name|getHFileReader
@@ -1446,11 +1447,9 @@ argument_list|()
 operator|.
 name|getDataBlockEncoding
 argument_list|()
-operator|+
-literal|", seqNum="
-operator|+
+argument_list|,
 name|seqNum
-operator|+
+argument_list|,
 operator|(
 name|allFiles
 condition|?
@@ -1462,7 +1461,6 @@ literal|""
 operator|)
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 return|return
 name|fd

@@ -1023,7 +1023,7 @@ name|toString
 parameter_list|()
 block|{
 return|return
-literal|"compaction_queue=("
+literal|"compactionQueue=(longCompactions="
 operator|+
 name|longCompactions
 operator|.
@@ -1033,7 +1033,7 @@ operator|.
 name|size
 argument_list|()
 operator|+
-literal|":"
+literal|":shortCompactions="
 operator|+
 name|shortCompactions
 operator|.
@@ -1045,7 +1045,7 @@ argument_list|()
 operator|+
 literal|")"
 operator|+
-literal|", split_queue="
+literal|", splitQueue="
 operator|+
 name|splits
 operator|.
@@ -2999,7 +2999,7 @@ literal|null
 condition|)
 block|{
 return|return
-literal|"Request = "
+literal|"Request="
 operator|+
 name|compaction
 operator|.
@@ -3010,25 +3010,25 @@ block|}
 else|else
 block|{
 return|return
-literal|"regionName = "
+literal|"region="
 operator|+
 name|region
 operator|.
 name|toString
 argument_list|()
 operator|+
-literal|", storeName = "
+literal|", storeName="
 operator|+
 name|store
 operator|.
 name|toString
 argument_list|()
 operator|+
-literal|", priority = "
+literal|", priority="
 operator|+
 name|queuedPriority
 operator|+
-literal|", time = "
+literal|", startTime="
 operator|+
 name|time
 return|;
@@ -3316,7 +3316,7 @@ else|:
 literal|"Aborted"
 operator|)
 operator|+
-literal|" compaction: "
+literal|" compaction "
 operator|+
 name|this
 operator|+
@@ -3489,8 +3489,8 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"CompactSplitThread Status: "
-operator|+
+literal|"Status {}"
+argument_list|,
 name|CompactSplit
 operator|.
 name|this

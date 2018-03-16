@@ -243,9 +243,9 @@ block|{
 comment|// to avoid too many segments, merge now
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
-literal|"{} {}; merging {} segments"
+literal|"Strategy={}, store={}; merging {} segments"
 argument_list|,
 name|strategy
 argument_list|,
@@ -262,9 +262,9 @@ block|}
 comment|// just flatten a segment
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
-literal|"{} {}; flattening a segment"
+literal|"Strategy={}, store={}; flattening a segment"
 argument_list|,
 name|strategy
 argument_list|,
@@ -319,19 +319,15 @@ argument_list|()
 decl_stmt|;
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
+literal|"{} in-memory compaction for store={} compacting {} segments"
+argument_list|,
 name|strategyInfo
-operator|+
-literal|" memory compaction for store "
-operator|+
+argument_list|,
 name|cfName
-operator|+
-literal|" compacting "
-operator|+
+argument_list|,
 name|numOfSegments
-operator|+
-literal|" segments"
 argument_list|)
 expr_stmt|;
 return|return

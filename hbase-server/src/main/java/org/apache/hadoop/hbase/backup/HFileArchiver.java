@@ -628,27 +628,18 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"ARCHIVING "
-operator|+
-name|regionDir
+literal|"ARCHIVING {}"
+argument_list|,
+name|rootdir
 operator|.
 name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 comment|// otherwise, we archive the files
 comment|// make sure we can archive
 if|if
@@ -834,11 +825,9 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Region directory "
-operator|+
+literal|"Directory {} empty."
+argument_list|,
 name|regionDir
-operator|+
-literal|" empty."
 argument_list|)
 expr_stmt|;
 return|return
@@ -1059,15 +1048,13 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"No store files to dispose for region="
-operator|+
+literal|"No files to dispose of in {}, family={}"
+argument_list|,
 name|parent
 operator|.
 name|getRegionNameAsString
 argument_list|()
-operator|+
-literal|", family="
-operator|+
+argument_list|,
 name|Bytes
 operator|.
 name|toString
@@ -1239,8 +1226,10 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Passed filesystem is null, so just deleting the files without archiving for region:"
+literal|"Passed filesystem is null, so just deleting files without archiving for {},"
 operator|+
+literal|"family={}"
+argument_list|,
 name|Bytes
 operator|.
 name|toString
@@ -1250,9 +1239,7 @@ operator|.
 name|getRegionName
 argument_list|()
 argument_list|)
-operator|+
-literal|", family:"
-operator|+
+argument_list|,
 name|Bytes
 operator|.
 name|toString
@@ -1281,7 +1268,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"No store files to dispose, done!"
+literal|"No files to dispose of, done!"
 argument_list|)
 expr_stmt|;
 return|return;
@@ -1358,7 +1345,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Archiving compacted store files."
+literal|"Archiving compacted files."
 argument_list|)
 expr_stmt|;
 comment|// Wrap the storefile into a File
@@ -1638,25 +1625,20 @@ operator|.
 name|isEmpty
 argument_list|()
 condition|)
+block|{
 return|return
 name|Collections
 operator|.
 name|emptyList
 argument_list|()
 return|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
+block|}
 name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"moving files to the archive directory: "
-operator|+
+literal|"Moving files to the archive directory {}"
+argument_list|,
 name|baseArchiveDir
 argument_list|)
 expr_stmt|;
@@ -1695,19 +1677,12 @@ literal|", quitting archive attempt."
 argument_list|)
 throw|;
 block|}
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
 name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Created archive directory:"
-operator|+
+literal|"Created archive directory {}"
+argument_list|,
 name|baseArchiveDir
 argument_list|)
 expr_stmt|;
@@ -1744,19 +1719,12 @@ block|{
 comment|// if its a file archive it
 try|try
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
 name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Archiving: "
-operator|+
+literal|"Archiving {}"
+argument_list|,
 name|file
 argument_list|)
 expr_stmt|;
@@ -1807,20 +1775,13 @@ block|}
 else|else
 block|{
 comment|// otherwise its a directory and we need to archive all files
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
 name|LOG
 operator|.
 name|trace
 argument_list|(
+literal|"{} is a directory, archiving children files"
+argument_list|,
 name|file
-operator|+
-literal|" is a directory, archiving children files"
 argument_list|)
 expr_stmt|;
 comment|// so we add the directory name to the one base archive
@@ -1879,8 +1840,8 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed to archive "
-operator|+
+literal|"Failed to archive {}"
+argument_list|,
 name|file
 argument_list|,
 name|e
@@ -1958,28 +1919,17 @@ name|archiveFile
 argument_list|)
 condition|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"File:"
+literal|"{} already exists in archive, moving to timestamped backup and "
 operator|+
+literal|"overwriting current."
+argument_list|,
 name|archiveFile
-operator|+
-literal|" already exists in archive, moving to "
-operator|+
-literal|"timestamped backup and overwriting current."
 argument_list|)
 expr_stmt|;
-block|}
 comment|// move the archive file to the stamped backup
 name|Path
 name|backedupArchiveFile
@@ -2061,26 +2011,15 @@ name|archiveFile
 argument_list|)
 expr_stmt|;
 block|}
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"No existing file in archive for: "
-operator|+
+literal|"No existing file in archive for {}, free to archive original file."
+argument_list|,
 name|archiveFile
-operator|+
-literal|", free to archive original file."
 argument_list|)
 expr_stmt|;
-block|}
 comment|// at this point, we should have a free spot for the archive file
 name|boolean
 name|success
@@ -2143,8 +2082,8 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Created archive directory:"
-operator|+
+literal|"Created archive directory {}"
+argument_list|,
 name|archiveDir
 argument_list|)
 expr_stmt|;
@@ -2161,8 +2100,8 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed to create directory: "
-operator|+
+literal|"Failed to create directory {}"
+argument_list|,
 name|archiveDir
 argument_list|,
 name|e
@@ -2252,28 +2191,17 @@ return|return
 literal|false
 return|;
 block|}
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Finished archiving from "
-operator|+
+literal|"Archived from {} to {}"
+argument_list|,
 name|currentFile
-operator|+
-literal|", to "
-operator|+
+argument_list|,
 name|archiveFile
 argument_list|)
 expr_stmt|;
-block|}
 return|return
 literal|true
 return|;
@@ -2309,8 +2237,8 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Deleted "
-operator|+
+literal|"Deleted {}"
+argument_list|,
 name|regionDir
 argument_list|)
 expr_stmt|;
@@ -2322,8 +2250,8 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Failed to delete region directory:"
-operator|+
+literal|"Failed to delete directory {}"
+argument_list|,
 name|regionDir
 argument_list|)
 expr_stmt|;
@@ -2350,7 +2278,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Deleting store files without archiving."
+literal|"Deleting files without archiving."
 argument_list|)
 expr_stmt|;
 name|List
@@ -2392,8 +2320,8 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Failed to delete store file:"
-operator|+
+literal|"Failed to delete {}"
+argument_list|,
 name|hsf
 operator|.
 name|getPath
@@ -2693,8 +2621,11 @@ name|this
 operator|.
 name|getClass
 argument_list|()
+operator|.
+name|getSimpleName
+argument_list|()
 operator|+
-literal|", file:"
+literal|", "
 operator|+
 name|getPath
 argument_list|()

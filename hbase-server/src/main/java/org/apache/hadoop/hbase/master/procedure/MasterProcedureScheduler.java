@@ -3059,16 +3059,16 @@ name|LOG
 operator|.
 name|info
 argument_list|(
+literal|"{} checking lock on {}"
+argument_list|,
 name|procedure
-operator|+
-literal|", "
-operator|+
+argument_list|,
 name|regionInfo
 index|[
 name|i
 index|]
 operator|.
-name|getRegionNameAsString
+name|getEncodedName
 argument_list|()
 argument_list|)
 expr_stmt|;

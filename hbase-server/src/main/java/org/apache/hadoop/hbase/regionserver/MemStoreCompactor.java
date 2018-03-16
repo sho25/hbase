@@ -367,9 +367,9 @@ argument_list|()
 expr_stmt|;
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
-literal|"Starting on {}/{}"
+literal|"Speculative compaction starting on {}/{}"
 argument_list|,
 name|compactingMemStore
 operator|.
@@ -683,10 +683,10 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
-literal|"Interrupting the MemStore in-memory compaction for store "
-operator|+
+literal|"Interrupting in-memory compaction for store={}"
+argument_list|,
 name|compactingMemStore
 operator|.
 name|getFamilyName

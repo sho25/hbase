@@ -6303,6 +6303,11 @@ operator|==
 name|ProcedureState
 operator|.
 name|RUNNABLE
+argument_list|,
+name|procedure
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Procedures can suspend themselves. They skip out by throwing a ProcedureSuspendedException.

@@ -10078,14 +10078,12 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Starting compaction on "
-operator|+
+literal|"Starting compaction of {} in {}{}"
+argument_list|,
 name|store
-operator|+
-literal|" in region "
-operator|+
+argument_list|,
 name|this
-operator|+
+argument_list|,
 operator|(
 name|compaction
 operator|.

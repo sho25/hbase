@@ -629,8 +629,8 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Replica thread was interrupted - no replica calls: "
-operator|+
+literal|"Replica thread interrupted - no replica calls {}"
+argument_list|,
 name|ex
 operator|.
 name|getMessage
@@ -889,8 +889,8 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"No replicas found for "
-operator|+
+literal|"No replicas found for {}"
+argument_list|,
 name|action
 operator|.
 name|getAction
@@ -1293,15 +1293,15 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"#"
+literal|"id="
 operator|+
 name|asyncProcess
 operator|.
 name|id
 operator|+
-literal|", Caught throwable while calling. This is unexpected."
+literal|", caught throwable. Unexpected."
 operator|+
-literal|" Retrying. Server is "
+literal|" Retrying. Server="
 operator|+
 name|server
 operator|+
@@ -1401,7 +1401,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Internal AsyncProcess #"
+literal|"id="
 operator|+
 name|asyncProcess
 operator|.
@@ -1411,7 +1411,7 @@ literal|" error for "
 operator|+
 name|tableName
 operator|+
-literal|" processing for "
+literal|" processing "
 operator|+
 name|server
 argument_list|,
@@ -2974,15 +2974,15 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"#"
+literal|"id="
 operator|+
 name|asyncProcess
 operator|.
 name|id
 operator|+
-literal|", the task was rejected by the pool. This is unexpected."
+literal|", task rejected by pool. Unexpected."
 operator|+
-literal|" Server is "
+literal|" Server="
 operator|+
 name|server
 operator|.
@@ -3574,13 +3574,13 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"#"
+literal|"id="
 operator|+
 name|asyncProcess
 operator|.
 name|id
 operator|+
-literal|", replica task was rejected by the pool - no replica calls"
+literal|" replica task rejected by pool; no replica calls"
 argument_list|,
 name|ree
 argument_list|)
@@ -5167,7 +5167,7 @@ argument_list|)
 operator|.
 name|append
 argument_list|(
-literal|" "
+literal|", "
 argument_list|)
 expr_stmt|;
 if|if
