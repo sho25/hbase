@@ -282,7 +282,9 @@ specifier|private
 name|int
 name|previousState
 decl_stmt|;
-specifier|protected
+annotation|@
+name|VisibleForTesting
+specifier|public
 enum|enum
 name|Flow
 block|{

@@ -1740,7 +1740,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"{} Stats (chunk size={}): current pool size={}, created chunk count={}, "
+literal|"{} stats (chunk size={}): current pool size={}, created chunk count={}, "
 operator|+
 literal|"reused chunk count={}, reuseRatio={}"
 argument_list|,

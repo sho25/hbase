@@ -656,6 +656,15 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"AFTER {}<= IS THIS NULL?"
+argument_list|,
+name|TEST_UTIL
+argument_list|)
+expr_stmt|;
 name|TEST_UTIL
 operator|.
 name|shutdownMiniCluster

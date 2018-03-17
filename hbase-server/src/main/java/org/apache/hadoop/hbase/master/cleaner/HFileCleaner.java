@@ -1164,7 +1164,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Removing: {} from archive"
+literal|"Removing {}"
 argument_list|,
 name|task
 operator|.
@@ -1202,7 +1202,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed to delete file {}"
+literal|"Failed to delete {}"
 argument_list|,
 name|task
 operator|.
@@ -1251,7 +1251,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Exit thread: {}"
+literal|"Exit {}"
 argument_list|,
 name|Thread
 operator|.
