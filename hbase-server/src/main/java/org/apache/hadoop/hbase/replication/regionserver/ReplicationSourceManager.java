@@ -105,6 +105,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|NavigableSet
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Set
 import|;
 end_import
@@ -602,7 +612,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This class is responsible to manage all the replication sources. There are two classes of  * sources:  *<ul>  *<li>Normal sources are persistent and one per peer cluster</li>  *<li>Old sources are recovered from a failed region server and our only goal is to finish  * replicating the WAL queue it had</li>  *</ul>  *<p>  * When a region server dies, this class uses a watcher to get notified and it tries to grab a lock  * in order to transfer all the queues in a local old source.  *<p>  * Synchronization specification:  *<ul>  *<li>No need synchronized on {@link #sources}. {@link #sources} is a ConcurrentHashMap and there  * is a Lock for peer id in {@link PeerProcedureHandlerImpl}. So there is no race for peer  * operations.</li>  *<li>Need synchronized on {@link #walsById}. There are four methods which modify it,  * {@link #addPeer(String)}, {@link #removePeer(String)},  * {@link #cleanOldLogs(SortedSet, String, String)} and {@link #preLogRoll(Path)}.  * {@link #walsById} is a ConcurrentHashMap and there is a Lock for peer id in  * {@link PeerProcedureHandlerImpl}. So there is no race between {@link #addPeer(String)} and  * {@link #removePeer(String)}. {@link #cleanOldLogs(SortedSet, String, String)} is called by  * {@link ReplicationSourceInterface}. So no race with {@link #addPeer(String)}.  * {@link #removePeer(String)} will terminate the {@link ReplicationSourceInterface} firstly, then  * remove the wals from {@link #walsById}. So no race with {@link #removePeer(String)}. The only  * case need synchronized is {@link #cleanOldLogs(SortedSet, String, String)} and  * {@link #preLogRoll(Path)}.</li>  *<li>No need synchronized on {@link #walsByIdRecoveredQueues}. There are three methods which  * modify it, {@link #removePeer(String)} , {@link #cleanOldLogs(SortedSet, String, String)} and  * {@link ReplicationSourceManager.NodeFailoverWorker#run()}.  * {@link #cleanOldLogs(SortedSet, String, String)} is called by {@link ReplicationSourceInterface}.  * {@link #removePeer(String)} will terminate the {@link ReplicationSourceInterface} firstly, then  * remove the wals from {@link #walsByIdRecoveredQueues}. And  * {@link ReplicationSourceManager.NodeFailoverWorker#run()} will add the wals to  * {@link #walsByIdRecoveredQueues} firstly, then start up a {@link ReplicationSourceInterface}. So  * there is no race here. For {@link ReplicationSourceManager.NodeFailoverWorker#run()} and  * {@link #removePeer(String)}, there is already synchronized on {@link #oldsources}. So no need  * synchronized on {@link #walsByIdRecoveredQueues}.</li>  *<li>Need synchronized on {@link #latestPaths} to avoid the new open source miss new log.</li>  *<li>Need synchronized on {@link #oldsources} to avoid adding recovered source for the  * to-be-removed peer.</li>  *</ul>  */
+comment|/**  * This class is responsible to manage all the replication sources. There are two classes of  * sources:  *<ul>  *<li>Normal sources are persistent and one per peer cluster</li>  *<li>Old sources are recovered from a failed region server and our only goal is to finish  * replicating the WAL queue it had</li>  *</ul>  *<p>  * When a region server dies, this class uses a watcher to get notified and it tries to grab a lock  * in order to transfer all the queues in a local old source.  *<p>  * Synchronization specification:  *<ul>  *<li>No need synchronized on {@link #sources}. {@link #sources} is a ConcurrentHashMap and there  * is a Lock for peer id in {@link PeerProcedureHandlerImpl}. So there is no race for peer  * operations.</li>  *<li>Need synchronized on {@link #walsById}. There are four methods which modify it,  * {@link #addPeer(String)}, {@link #removePeer(String)},  * {@link #cleanOldLogs(NavigableSet, String, boolean, String)} and {@link #preLogRoll(Path)}.  * {@link #walsById} is a ConcurrentHashMap and there is a Lock for peer id in  * {@link PeerProcedureHandlerImpl}. So there is no race between {@link #addPeer(String)} and  * {@link #removePeer(String)}. {@link #cleanOldLogs(NavigableSet, String, boolean, String)} is  * called by {@link ReplicationSourceInterface}. So no race with {@link #addPeer(String)}.  * {@link #removePeer(String)} will terminate the {@link ReplicationSourceInterface} firstly, then  * remove the wals from {@link #walsById}. So no race with {@link #removePeer(String)}. The only  * case need synchronized is {@link #cleanOldLogs(NavigableSet, String, boolean, String)} and  * {@link #preLogRoll(Path)}.</li>  *<li>No need synchronized on {@link #walsByIdRecoveredQueues}. There are three methods which  * modify it, {@link #removePeer(String)} ,  * {@link #cleanOldLogs(NavigableSet, String, boolean, String)} and  * {@link ReplicationSourceManager.NodeFailoverWorker#run()}.  * {@link #cleanOldLogs(NavigableSet, String, boolean, String)} is called by  * {@link ReplicationSourceInterface}. {@link #removePeer(String)} will terminate the  * {@link ReplicationSourceInterface} firstly, then remove the wals from  * {@link #walsByIdRecoveredQueues}. And {@link ReplicationSourceManager.NodeFailoverWorker#run()}  * will add the wals to {@link #walsByIdRecoveredQueues} firstly, then start up a  * {@link ReplicationSourceInterface}. So there is no race here. For  * {@link ReplicationSourceManager.NodeFailoverWorker#run()} and {@link #removePeer(String)}, there  * is already synchronized on {@link #oldsources}. So no need synchronized on  * {@link #walsByIdRecoveredQueues}.</li>  *<li>Need synchronized on {@link #latestPaths} to avoid the new open source miss new log.</li>  *<li>Need synchronized on {@link #oldsources} to avoid adding recovered source for the  * to-be-removed peer.</li>  *</ul>  */
 end_comment
 
 begin_class
@@ -691,7 +701,7 @@ name|Map
 argument_list|<
 name|String
 argument_list|,
-name|SortedSet
+name|NavigableSet
 argument_list|<
 name|String
 argument_list|>
@@ -712,7 +722,7 @@ name|Map
 argument_list|<
 name|String
 argument_list|,
-name|SortedSet
+name|NavigableSet
 argument_list|<
 name|String
 argument_list|>
@@ -1602,7 +1612,7 @@ name|Map
 argument_list|<
 name|String
 argument_list|,
-name|SortedSet
+name|NavigableSet
 argument_list|<
 name|String
 argument_list|>
@@ -1664,7 +1674,7 @@ argument_list|(
 name|name
 argument_list|)
 decl_stmt|;
-name|SortedSet
+name|NavigableSet
 argument_list|<
 name|String
 argument_list|>
@@ -2322,36 +2332,28 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * This method will log the current position to storage. And also clean old logs from the    * replication queue.    * @param log Path to the log currently being replicated    * @param queueId id of the replication queue    * @param position current location in the log    * @param queueRecovered indicates if this queue comes from another region server    */
+comment|/**    * This method will log the current position to storage. And also clean old logs from the    * replication queue.    * @param queueId id of the replication queue    * @param queueRecovered indicates if this queue comes from another region server    * @param entryBatch the wal entry batch we just shipped    */
 specifier|public
 name|void
 name|logPositionAndCleanOldLogs
 parameter_list|(
-name|Path
-name|log
-parameter_list|,
 name|String
 name|queueId
 parameter_list|,
-name|long
-name|position
-parameter_list|,
-name|Map
-argument_list|<
-name|String
-argument_list|,
-name|Long
-argument_list|>
-name|lastSeqIds
-parameter_list|,
 name|boolean
 name|queueRecovered
+parameter_list|,
+name|WALEntryBatch
+name|entryBatch
 parameter_list|)
 block|{
 name|String
 name|fileName
 init|=
-name|log
+name|entryBatch
+operator|.
+name|getLastWalPath
+argument_list|()
 operator|.
 name|getName
 argument_list|()
@@ -2375,9 +2377,15 @@ name|queueId
 argument_list|,
 name|fileName
 argument_list|,
-name|position
+name|entryBatch
+operator|.
+name|getLastWalPosition
+argument_list|()
 argument_list|,
-name|lastSeqIds
+name|entryBatch
+operator|.
+name|getLastSeqIds
+argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2385,13 +2393,18 @@ name|cleanOldLogs
 argument_list|(
 name|fileName
 argument_list|,
+name|entryBatch
+operator|.
+name|isEndOfFile
+argument_list|()
+argument_list|,
 name|queueId
 argument_list|,
 name|queueRecovered
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Cleans a log file and all older logs from replication queue. Called when we are sure that a log    * file is closed and has no more entries.    * @param log Path to the log    * @param queueId id of the replication queue    * @param queueRecovered Whether this is a recovered queue    */
+comment|/**    * Cleans a log file and all older logs from replication queue. Called when we are sure that a log    * file is closed and has no more entries.    * @param log Path to the log    * @param inclusive whether we should also remove the given log file    * @param queueId id of the replication queue    * @param queueRecovered Whether this is a recovered queue    */
 annotation|@
 name|VisibleForTesting
 name|void
@@ -2399,6 +2412,9 @@ name|cleanOldLogs
 parameter_list|(
 name|String
 name|log
+parameter_list|,
+name|boolean
+name|inclusive
 parameter_list|,
 name|String
 name|queueId
@@ -2422,7 +2438,7 @@ condition|(
 name|queueRecovered
 condition|)
 block|{
-name|SortedSet
+name|NavigableSet
 argument_list|<
 name|String
 argument_list|>
@@ -2445,17 +2461,6 @@ condition|(
 name|wals
 operator|!=
 literal|null
-operator|&&
-operator|!
-name|wals
-operator|.
-name|first
-argument_list|()
-operator|.
-name|equals
-argument_list|(
-name|log
-argument_list|)
 condition|)
 block|{
 name|cleanOldLogs
@@ -2463,6 +2468,8 @@ argument_list|(
 name|wals
 argument_list|,
 name|log
+argument_list|,
+name|inclusive
 argument_list|,
 name|queueId
 argument_list|)
@@ -2479,7 +2486,7 @@ operator|.
 name|walsById
 init|)
 block|{
-name|SortedSet
+name|NavigableSet
 argument_list|<
 name|String
 argument_list|>
@@ -2521,6 +2528,8 @@ name|wals
 argument_list|,
 name|log
 argument_list|,
+name|inclusive
+argument_list|,
 name|queueId
 argument_list|)
 expr_stmt|;
@@ -2532,7 +2541,7 @@ specifier|private
 name|void
 name|cleanOldLogs
 parameter_list|(
-name|SortedSet
+name|NavigableSet
 argument_list|<
 name|String
 argument_list|>
@@ -2541,11 +2550,14 @@ parameter_list|,
 name|String
 name|key
 parameter_list|,
+name|boolean
+name|inclusive
+parameter_list|,
 name|String
 name|id
 parameter_list|)
 block|{
-name|SortedSet
+name|NavigableSet
 argument_list|<
 name|String
 argument_list|>
@@ -2556,33 +2568,34 @@ operator|.
 name|headSet
 argument_list|(
 name|key
+argument_list|,
+name|inclusive
 argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|LOG
+name|walSet
 operator|.
-name|isDebugEnabled
+name|isEmpty
 argument_list|()
 condition|)
 block|{
+return|return;
+block|}
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Removing "
-operator|+
+literal|"Removing {} logs in the list: {}"
+argument_list|,
 name|walSet
 operator|.
 name|size
 argument_list|()
-operator|+
-literal|" logs in the list: "
-operator|+
+argument_list|,
 name|walSet
 argument_list|)
 expr_stmt|;
-block|}
 for|for
 control|(
 name|String
@@ -2720,7 +2733,7 @@ name|Map
 argument_list|<
 name|String
 argument_list|,
-name|SortedSet
+name|NavigableSet
 argument_list|<
 name|String
 argument_list|>
@@ -2748,7 +2761,7 @@ name|Map
 argument_list|<
 name|String
 argument_list|,
-name|SortedSet
+name|NavigableSet
 argument_list|<
 name|String
 argument_list|>
@@ -2773,7 +2786,7 @@ name|Entry
 argument_list|<
 name|String
 argument_list|,
-name|SortedSet
+name|NavigableSet
 argument_list|<
 name|String
 argument_list|>
@@ -2852,16 +2865,14 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Start tracking logs for wal group "
-operator|+
+literal|"Start tracking logs for wal group {} for peer {}"
+argument_list|,
 name|logPrefix
-operator|+
-literal|" for peer "
-operator|+
+argument_list|,
 name|peerId
 argument_list|)
 expr_stmt|;
-name|SortedSet
+name|NavigableSet
 argument_list|<
 name|String
 argument_list|>
@@ -3545,7 +3556,7 @@ name|Map
 argument_list|<
 name|String
 argument_list|,
-name|SortedSet
+name|NavigableSet
 argument_list|<
 name|String
 argument_list|>
@@ -3584,7 +3595,7 @@ argument_list|(
 name|wal
 argument_list|)
 decl_stmt|;
-name|SortedSet
+name|NavigableSet
 argument_list|<
 name|String
 argument_list|>
@@ -3778,7 +3789,7 @@ name|Map
 argument_list|<
 name|String
 argument_list|,
-name|SortedSet
+name|NavigableSet
 argument_list|<
 name|String
 argument_list|>
@@ -3807,7 +3818,7 @@ name|Map
 argument_list|<
 name|String
 argument_list|,
-name|SortedSet
+name|NavigableSet
 argument_list|<
 name|String
 argument_list|>

@@ -173,7 +173,7 @@ parameter_list|)
 throws|throws
 name|ReplicationException
 function_decl|;
-comment|/**    * Set the current position for a specific WAL in a given queue for a given regionserver.    * @param serverName the name of the regionserver    * @param queueId a String that identifies the queue    * @param fileName name of the WAL    * @param position the current position in the file    * @param lastSeqIds map with {encodedRegionName, sequenceId} pairs for serial replication.    */
+comment|/**    * Set the current position for a specific WAL in a given queue for a given regionserver.    * @param serverName the name of the regionserver    * @param queueId a String that identifies the queue    * @param fileName name of the WAL    * @param position the current position in the file. Will ignore if less than or equal to 0.    * @param lastSeqIds map with {encodedRegionName, sequenceId} pairs for serial replication.    */
 name|void
 name|setWALPosition
 parameter_list|(

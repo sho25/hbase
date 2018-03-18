@@ -671,7 +671,7 @@ name|toString
 argument_list|()
 return|;
 block|}
-comment|/**    * Should be called if the stream is to be reused (i.e. used again after hasNext() has returned    * false)    * @throws IOException    */
+comment|/**    * Should be called if the stream is to be reused (i.e. used again after hasNext() has returned    * false)    */
 specifier|public
 name|void
 name|reset
@@ -1288,6 +1288,15 @@ literal|true
 return|;
 block|}
 block|}
+else|else
+block|{
+comment|// no more files in queue, this could only happen for recovered queue.
+name|setCurrentPath
+argument_list|(
+literal|null
+argument_list|)
+expr_stmt|;
+block|}
 return|return
 literal|false
 return|;
@@ -1775,6 +1784,10 @@ name|IOException
 block|{
 try|try
 block|{
+name|currentEntry
+operator|=
+literal|null
+expr_stmt|;
 name|reader
 operator|.
 name|reset

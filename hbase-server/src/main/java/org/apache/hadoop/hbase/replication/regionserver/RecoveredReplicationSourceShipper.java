@@ -241,33 +241,17 @@ annotation|@
 name|Override
 specifier|protected
 name|void
-name|postShipEdits
-parameter_list|(
-name|WALEntryBatch
-name|entryBatch
-parameter_list|)
-block|{
-if|if
-condition|(
-name|entryBatch
-operator|.
-name|getWalEntries
-argument_list|()
-operator|.
-name|isEmpty
-argument_list|()
-condition|)
+name|noMoreData
+parameter_list|()
 block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Finished recovering queue for group "
-operator|+
+literal|"Finished recovering queue for group {} of peer {}"
+argument_list|,
 name|walGroupId
-operator|+
-literal|" of peer "
-operator|+
+argument_list|,
 name|source
 operator|.
 name|getQueueId
@@ -290,7 +274,6 @@ name|FINISHED
 argument_list|)
 expr_stmt|;
 block|}
-block|}
 annotation|@
 name|Override
 specifier|protected
@@ -306,7 +289,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Override
-specifier|public
 name|long
 name|getStartPosition
 parameter_list|()

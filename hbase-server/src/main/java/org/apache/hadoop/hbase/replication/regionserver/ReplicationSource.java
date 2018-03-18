@@ -1940,7 +1940,7 @@ name|this
 argument_list|)
 return|;
 block|}
-specifier|protected
+specifier|private
 name|ReplicationSourceWALReader
 name|createNewWALReader
 parameter_list|(

@@ -1041,6 +1041,13 @@ name|ArrayList
 argument_list|<>
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|position
+operator|>
+literal|0
+condition|)
+block|{
 name|listOfOps
 operator|.
 name|add
@@ -1067,21 +1074,8 @@ argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 comment|// Persist the max sequence id(s) of regions for serial replication atomically.
-if|if
-condition|(
-name|lastSeqIds
-operator|!=
-literal|null
-operator|&&
-name|lastSeqIds
-operator|.
-name|size
-argument_list|()
-operator|>
-literal|0
-condition|)
-block|{
 for|for
 control|(
 name|Entry
@@ -1123,7 +1117,7 @@ argument_list|,
 name|peerId
 argument_list|)
 decl_stmt|;
-comment|/*            * Make sure the existence of path            * /hbase/replication/regions/<hash>/<encoded-region-name>-<peer-id>. As the javadoc in            * multiOrSequential() method said, if received a NodeExistsException, all operations will            * fail. So create the path here, and in fact, no need to add this operation to listOfOps,            * because only need to make sure that update file position and sequence id atomically.            */
+comment|/*          * Make sure the existence of path          * /hbase/replication/regions/<hash>/<encoded-region-name>-<peer-id>. As the javadoc in          * multiOrSequential() method said, if received a NodeExistsException, all operations will          * fail. So create the path here, and in fact, no need to add this operation to listOfOps,          * because only need to make sure that update file position and sequence id atomically.          */
 name|ZKUtil
 operator|.
 name|createWithParents
@@ -1157,7 +1151,15 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-block|}
+if|if
+condition|(
+operator|!
+name|listOfOps
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
 name|ZKUtil
 operator|.
 name|multiOrSequential
@@ -1169,6 +1171,7 @@ argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
