@@ -1139,7 +1139,7 @@ operator|+
 literal|"),?"
 argument_list|)
 decl_stmt|;
-specifier|public
+specifier|private
 specifier|static
 specifier|final
 name|Pattern
