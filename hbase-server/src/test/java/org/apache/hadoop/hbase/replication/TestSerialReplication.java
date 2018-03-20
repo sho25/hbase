@@ -755,7 +755,9 @@ block|}
 name|WRITER
 operator|.
 name|sync
-argument_list|()
+argument_list|(
+literal|false
+argument_list|)
 expr_stmt|;
 block|}
 catch|catch

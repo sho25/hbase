@@ -116,6 +116,10 @@ specifier|private
 name|Thread
 name|t
 decl_stmt|;
+specifier|private
+name|boolean
+name|forceSync
+decl_stmt|;
 comment|/**    * Call this method to clear old usage and get it ready for new deploy.    * @param txid the new transaction id    * @param span current span, detached from caller. Don't forget to attach it when resuming after a    *          call to {@link #get(long)}.    * @return this    */
 specifier|synchronized
 name|SyncFuture
@@ -228,6 +232,33 @@ return|return
 name|this
 operator|.
 name|txid
+return|;
+block|}
+specifier|synchronized
+name|boolean
+name|isForceSync
+parameter_list|()
+block|{
+return|return
+name|forceSync
+return|;
+block|}
+specifier|synchronized
+name|SyncFuture
+name|setForceSync
+parameter_list|(
+name|boolean
+name|forceSync
+parameter_list|)
+block|{
+name|this
+operator|.
+name|forceSync
+operator|=
+name|forceSync
+expr_stmt|;
+return|return
+name|this
 return|;
 block|}
 comment|/**    * @param txid the transaction id at which this future 'completed'.    * @param t Can be null. Set if we are 'completing' on error (and this 't' is the error).    * @return True if we successfully marked this outstanding future as completed/done. Returns false    *         if this future is already 'done' when this method called.    */

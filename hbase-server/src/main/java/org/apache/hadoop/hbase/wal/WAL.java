@@ -362,6 +362,41 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * @param forceSync Flag to force sync rather than flushing to the buffer. Example - Hadoop hflush    *          vs hsync.    */
+specifier|default
+name|void
+name|sync
+parameter_list|(
+name|boolean
+name|forceSync
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|sync
+argument_list|()
+expr_stmt|;
+block|}
+comment|/**    * @param txid Transaction id to sync to.    * @param forceSync Flag to force sync rather than flushing to the buffer. Example - Hadoop hflush    *          vs hsync.    */
+specifier|default
+name|void
+name|sync
+parameter_list|(
+name|long
+name|txid
+parameter_list|,
+name|boolean
+name|forceSync
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|sync
+argument_list|(
+name|txid
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * WAL keeps track of the sequence numbers that are as yet not flushed im memstores    * in order to be able to do accounting to figure which WALs can be let go. This method tells WAL    * that some region is about to flush. The flush can be the whole region or for a column family    * of the region only.    *    *<p>Currently, it is expected that the update lock is held for the region; i.e. no    * concurrent appends while we set up cache flush.    * @param families Families to flush. May be a subset of all families in the region.    * @return Returns {@link HConstants#NO_SEQNUM} if we are flushing the whole region OR if    * we are flushing a subset of all families but there are no edits in those families not    * being flushed; in other words, this is effectively same as a flush of all of the region    * though we were passed a subset of regions. Otherwise, it returns the sequence id of the    * oldest/lowest outstanding edit.    * @see #completeCacheFlush(byte[])    * @see #abortCacheFlush(byte[])    */
 name|Long
 name|startCacheFlush

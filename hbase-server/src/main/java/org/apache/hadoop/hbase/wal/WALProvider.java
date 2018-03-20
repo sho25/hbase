@@ -229,7 +229,10 @@ name|WriterBase
 block|{
 name|void
 name|sync
-parameter_list|()
+parameter_list|(
+name|boolean
+name|forceSync
+parameter_list|)
 throws|throws
 name|IOException
 function_decl|;

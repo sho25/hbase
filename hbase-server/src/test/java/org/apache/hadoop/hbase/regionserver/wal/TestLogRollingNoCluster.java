@@ -526,7 +526,10 @@ name|Override
 specifier|public
 name|void
 name|sync
-parameter_list|()
+parameter_list|(
+name|boolean
+name|forceSync
+parameter_list|)
 throws|throws
 name|IOException
 block|{
@@ -548,7 +551,9 @@ expr_stmt|;
 name|super
 operator|.
 name|sync
-argument_list|()
+argument_list|(
+name|forceSync
+argument_list|)
 expr_stmt|;
 name|Threads
 operator|.

@@ -1128,7 +1128,10 @@ name|Override
 specifier|public
 name|void
 name|sync
-parameter_list|()
+parameter_list|(
+name|boolean
+name|forceSync
+parameter_list|)
 throws|throws
 name|IOException
 block|{
@@ -1148,7 +1151,9 @@ block|}
 name|w
 operator|.
 name|sync
-argument_list|()
+argument_list|(
+name|forceSync
+argument_list|)
 expr_stmt|;
 block|}
 annotation|@
@@ -1573,7 +1578,9 @@ block|{
 name|dodgyWAL
 operator|.
 name|sync
-argument_list|()
+argument_list|(
+literal|false
+argument_list|)
 expr_stmt|;
 block|}
 catch|catch
@@ -1948,6 +1955,8 @@ operator|.
 name|publishSyncOnRingBuffer
 argument_list|(
 name|sequence
+argument_list|,
+literal|false
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2016,7 +2025,10 @@ name|Override
 specifier|public
 name|void
 name|sync
-parameter_list|()
+parameter_list|(
+name|boolean
+name|forceSync
+parameter_list|)
 throws|throws
 name|IOException
 block|{
@@ -2301,7 +2313,9 @@ expr_stmt|;
 name|dodgyWAL
 operator|.
 name|sync
-argument_list|()
+argument_list|(
+literal|false
+argument_list|)
 expr_stmt|;
 comment|// Should not get a hang here, otherwise we will see timeout in this test.
 name|Assert
