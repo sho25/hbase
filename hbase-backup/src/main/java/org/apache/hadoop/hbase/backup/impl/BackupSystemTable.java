@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -655,6 +655,46 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|shaded
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|BackupProtos
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|HBaseProtos
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
@@ -727,48 +767,8 @@ name|LoggerFactory
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|BackupProtos
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|HBaseProtos
-import|;
-end_import
-
 begin_comment
-comment|/**  * This class provides API to access backup system table<br>  *  * Backup system table schema:<br>  *<p><ul>  *<li>1. Backup sessions rowkey= "session:"+backupId; value =serialized BackupInfo</li>  *<li>2. Backup start code rowkey = "startcode:"+backupRoot; value = startcode</li>  *<li>3. Incremental backup set rowkey="incrbackupset:"+backupRoot; value=[list of tables]</li>  *<li>4. Table-RS-timestamp map rowkey="trslm:"+backupRoot+table_name;  * value = map[RS-> last WAL timestamp]</li>  *<li>5. RS - WAL ts map rowkey="rslogts:"+backupRoot +server; value = last WAL timestamp</li>  *<li>6. WALs recorded rowkey="wals:"+WAL unique file name;  * value = backupId and full WAL file name</li>  *</ul></p>  */
+comment|/**  * This class provides API to access backup system table<br>  * Backup system table schema:<br>  *<p>  *<ul>  *<li>1. Backup sessions rowkey= "session:"+backupId; value =serialized BackupInfo</li>  *<li>2. Backup start code rowkey = "startcode:"+backupRoot; value = startcode</li>  *<li>3. Incremental backup set rowkey="incrbackupset:"+backupRoot; value=[list of tables]</li>  *<li>4. Table-RS-timestamp map rowkey="trslm:"+backupRoot+table_name; value = map[RS-> last WAL  * timestamp]</li>  *<li>5. RS - WAL ts map rowkey="rslogts:"+backupRoot +server; value = last WAL timestamp</li>  *<li>6. WALs recorded rowkey="wals:"+WAL unique file name; value = backupId and full WAL file  * name</li>  *</ul>  *</p>  */
 end_comment
 
 begin_class
@@ -902,7 +902,7 @@ specifier|private
 name|TableName
 name|tableName
 decl_stmt|;
-comment|/**    * Backup System table name for bulk loaded files.    * We keep all bulk loaded file references in a separate table    * because we have to isolate general backup operations: create, merge etc    * from activity of RegionObserver, which controls process of a bulk loading    * {@link org.apache.hadoop.hbase.backup.BackupObserver}    */
+comment|/**    * Backup System table name for bulk loaded files. We keep all bulk loaded file references in a    * separate table because we have to isolate general backup operations: create, merge etc from    * activity of RegionObserver, which controls process of a bulk loading    * {@link org.apache.hadoop.hbase.backup.BackupObserver}    */
 specifier|private
 name|TableName
 name|bulkLoadTableName
@@ -3622,7 +3622,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Exclusive operations are:    * create, delete, merge    * @throws IOException if a table operation fails or an active backup exclusive operation is    *                     already underway    */
+comment|/**    * Exclusive operations are: create, delete, merge    * @throws IOException if a table operation fails or an active backup exclusive operation is    *           already underway    */
 specifier|public
 name|void
 name|startBackupExclusiveOperation
@@ -3714,10 +3714,8 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|IOException
-argument_list|(
-literal|"There is an active backup exclusive operation"
-argument_list|)
+name|ExclusiveOperationException
+argument_list|()
 throw|;
 block|}
 block|}
@@ -4129,7 +4127,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Get first n backup history records    * @param n number of records, if n== -1 - max number    *        is ignored    * @return list of records    * @throws IOException if getting the backup history fails    */
+comment|/**    * Get first n backup history records    * @param n number of records, if n== -1 - max number is ignored    * @return list of records    * @throws IOException if getting the backup history fails    */
 specifier|public
 name|List
 argument_list|<
@@ -4187,7 +4185,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Get backup history records filtered by list of filters.    * @param n max number of records, if n == -1 , then max number    *        is ignored    * @param filters list of filters    * @return backup records    * @throws IOException if getting the backup history fails    */
+comment|/**    * Get backup history records filtered by list of filters.    * @param n max number of records, if n == -1 , then max number is ignored    * @param filters list of filters    * @return backup records    * @throws IOException if getting the backup history fails    */
 specifier|public
 name|List
 argument_list|<
@@ -6291,7 +6289,7 @@ operator|)
 return|;
 block|}
 block|}
-comment|/**    * Check if WAL file is eligible for deletion using multi-get    * @param files names of a file to check    * @return map of results    *         (key: FileStatus object. value: true if the file is deletable, false otherwise)    * @throws IOException exception    */
+comment|/**    * Check if WAL file is eligible for deletion using multi-get    * @param files names of a file to check    * @return map of results (key: FileStatus object. value: true if the file is deletable, false    *         otherwise)    * @throws IOException exception    */
 specifier|public
 name|Map
 argument_list|<
