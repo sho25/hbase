@@ -2024,7 +2024,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Committing store file "
+literal|"Committing "
 operator|+
 name|buildPath
 operator|+

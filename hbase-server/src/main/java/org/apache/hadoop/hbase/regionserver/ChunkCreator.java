@@ -2097,9 +2097,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"{} allocating {} MemStoreChunkPool with chunk size {}, max count {}, "
-operator|+
-literal|"initial count {}"
+literal|"Allocating {} MemStoreChunkPool with chunk size {}, max count {}, initial count {}"
 argument_list|,
 name|label
 argument_list|,

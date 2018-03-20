@@ -17379,15 +17379,15 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Adding moved region record: "
+literal|"Adding "
 operator|+
 name|encodedName
 operator|+
-literal|" to "
+literal|" move to "
 operator|+
 name|destination
 operator|+
-literal|" as of "
+literal|" record at close sequenceid="
 operator|+
 name|closeSeqNum
 argument_list|)

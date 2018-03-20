@@ -7467,6 +7467,12 @@ argument_list|(
 literal|"Closing region "
 operator|+
 name|this
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
 operator|+
 operator|(
 name|abort
@@ -7678,11 +7684,15 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Closing "
-operator|+
+literal|"Closing {}, disabling compactions& flushes"
+argument_list|,
 name|this
-operator|+
-literal|": disabling compactions& flushes"
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|waitForFlushesAndCompactions
@@ -7714,9 +7724,15 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Running close preflush of "
+literal|"Running close preflush of {}"
 operator|+
 name|this
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
 argument_list|)
 expr_stmt|;
 try|try
@@ -13162,9 +13178,9 @@ decl_stmt|;
 name|String
 name|msg
 init|=
-literal|"Finished memstore flush."
+literal|"Finished memstore flush;"
 operator|+
-literal|" Flushed data size ~"
+literal|" data size ~"
 operator|+
 name|StringUtils
 operator|.
@@ -13177,7 +13193,7 @@ literal|"/"
 operator|+
 name|flushableDataSize
 operator|+
-literal|" Flushed Heap size ~"
+literal|", heap size ~"
 operator|+
 name|StringUtils
 operator|.
@@ -13203,9 +13219,15 @@ literal|"/"
 operator|+
 name|memstoresize
 operator|+
-literal|" for region "
+literal|" for "
 operator|+
 name|this
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
 operator|+
 literal|" in "
 operator|+

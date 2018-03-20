@@ -850,36 +850,25 @@ expr_stmt|;
 block|}
 else|else
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"FLUSHING TO DISK: region "
-operator|+
+literal|"FLUSHING TO DISK {}, store={}"
+argument_list|,
 name|getRegionServices
 argument_list|()
 operator|.
 name|getRegionInfo
 argument_list|()
 operator|.
-name|getRegionNameAsString
+name|getEncodedName
 argument_list|()
-operator|+
-literal|"store: "
-operator|+
+argument_list|,
 name|getFamilyName
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 name|stopCompaction
 argument_list|()
 expr_stmt|;

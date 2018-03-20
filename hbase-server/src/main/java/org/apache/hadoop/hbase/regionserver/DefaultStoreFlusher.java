@@ -422,37 +422,25 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Flushed, sequenceid="
-operator|+
-name|cacheFlushId
-operator|+
-literal|", memsize="
-operator|+
+literal|"Flushed memstore data size={} at sequenceid={} (bloomFilter={}), to={}"
+argument_list|,
 name|StringUtils
 operator|.
-name|TraditionalBinaryPrefix
-operator|.
-name|long2String
+name|byteDesc
 argument_list|(
 name|snapshot
 operator|.
 name|getDataSize
 argument_list|()
-argument_list|,
-literal|""
-argument_list|,
-literal|1
 argument_list|)
-operator|+
-literal|", hasBloomFilter="
-operator|+
+argument_list|,
+name|cacheFlushId
+argument_list|,
 name|writer
 operator|.
 name|hasGeneralBloom
 argument_list|()
-operator|+
-literal|", into tmp file "
-operator|+
+argument_list|,
 name|writer
 operator|.
 name|getPath

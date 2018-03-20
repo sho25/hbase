@@ -410,15 +410,15 @@ name|name
 init|=
 name|regionInfo
 operator|.
-name|getRegionNameAsString
+name|getEncodedName
 argument_list|()
 decl_stmt|;
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
-literal|"Processing close of "
-operator|+
+literal|"Processing close of {}"
+argument_list|,
 name|name
 argument_list|)
 expr_stmt|;
@@ -455,11 +455,9 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Received CLOSE for region "
-operator|+
+literal|"Received CLOSE for region {} but currently not serving - ignoring"
+argument_list|,
 name|name
-operator|+
-literal|" but currently not serving - ignoring"
 argument_list|)
 expr_stmt|;
 comment|// TODO: do better than a simple warning
@@ -486,8 +484,8 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Can't close region: was already closed during close(): "
-operator|+
+literal|"Can't close region {}, was already closed during close()"
+argument_list|,
 name|name
 argument_list|)
 expr_stmt|;

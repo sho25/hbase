@@ -5397,7 +5397,7 @@ throw|;
 block|}
 name|LOG
 operator|.
-name|info
+name|trace
 argument_list|(
 literal|"Closed {}"
 argument_list|,
