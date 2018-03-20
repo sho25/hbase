@@ -51,11 +51,29 @@ name|FastLongHistogram
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * Snapshot of block cache age in cache.  * This object is preferred because we can control how it is serialized out when JSON'ing.  */
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 annotation|@
 name|JsonIgnoreProperties
 argument_list|(

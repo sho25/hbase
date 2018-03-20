@@ -47,7 +47,7 @@ name|metrics2
 operator|.
 name|lib
 operator|.
-name|MutableGaugeLong
+name|MutableHistogram
 import|;
 end_import
 
@@ -57,17 +57,19 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|yetus
 operator|.
-name|metrics2
+name|audience
 operator|.
-name|lib
-operator|.
-name|MutableHistogram
+name|InterfaceAudience
 import|;
 end_import
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 class|class
 name|MetricsReplicationSinkSourceImpl

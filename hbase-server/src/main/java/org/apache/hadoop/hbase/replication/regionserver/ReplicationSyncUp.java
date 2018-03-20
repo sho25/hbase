@@ -291,11 +291,29 @@ name|ToolRunner
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * In a scenario of Replication based Disaster/Recovery, when hbase Master-Cluster crashes, this  * tool is used to sync-up the delta from Master to Slave using the info from ZooKeeper. The tool  * will run on Master-Cluser, and assume ZK, Filesystem and NetWork still available after hbase  * crashes  *  *<pre>  * hbase org.apache.hadoop.hbase.replication.regionserver.ReplicationSyncUp  *</pre>  */
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 class|class
 name|ReplicationSyncUp

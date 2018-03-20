@@ -19,11 +19,29 @@ name|balancer
 package|;
 end_package
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
-comment|/**  * This interface extends the basic metrics balancer source to add a function   * to report metrics that related to stochastic load balancer. The purpose is to   * offer an insight to the internal cost calculations that can be useful to tune  * the balancer. For details, refer to HBASE-13965  */
+comment|/**  * This interface extends the basic metrics balancer source to add a function  * to report metrics that related to stochastic load balancer. The purpose is to  * offer an insight to the internal cost calculations that can be useful to tune  * the balancer. For details, refer to HBASE-13965  */
 end_comment
 
 begin_interface
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 interface|interface
 name|MetricsStochasticBalancerSource

@@ -55,6 +55,20 @@ name|HConstants
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * Annotation which decorates RPC methods to denote the relative priority among other RPCs in the  * same server. Provides a basic notion of quality of service (QOS).  */
 end_comment
@@ -67,6 +81,10 @@ name|RetentionPolicy
 operator|.
 name|RUNTIME
 argument_list|)
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 annotation_defn|@interface
 name|QosPriority

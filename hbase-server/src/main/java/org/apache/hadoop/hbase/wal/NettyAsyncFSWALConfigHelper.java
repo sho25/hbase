@@ -87,6 +87,20 @@ name|org
 operator|.
 name|apache
 operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|hbase
 operator|.
 name|thirdparty
@@ -148,7 +162,12 @@ comment|/**  * Helper class for passing netty event loop config to {@link AsyncF
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
+specifier|final
 class|class
 name|NettyAsyncFSWALConfigHelper
 block|{
@@ -320,6 +339,10 @@ name|name
 argument_list|)
 return|;
 block|}
+specifier|private
+name|NettyAsyncFSWALConfigHelper
+parameter_list|()
+block|{}
 block|}
 end_class
 

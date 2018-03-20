@@ -337,11 +337,29 @@ name|EnvironmentEdgeManager
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * This is an example showing how a RegionObserver could configured via ZooKeeper in order to  * control a Region compaction, flush, and scan policy. This also demonstrated the use of shared  * {@link org.apache.hadoop.hbase.coprocessor.RegionObserver} state. See  * {@link RegionCoprocessorEnvironment#getSharedData()}.  *<p>  * This would be useful for an incremental backup tool, which would indicate the last time of a  * successful backup via ZK and instruct HBase that to safely delete the data which has already been  * backup.  */
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 class|class
 name|ZooKeeperScanPolicyObserver

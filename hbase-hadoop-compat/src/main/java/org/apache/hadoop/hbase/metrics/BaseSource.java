@@ -17,11 +17,29 @@ name|metrics
 package|;
 end_package
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  *   BaseSource for dynamic metrics to announce to Metrics2.  *   In hbase-hadoop{1|2}-compat there is an implementation of this interface.  */
 end_comment
 
 begin_interface
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 interface|interface
 name|BaseSource

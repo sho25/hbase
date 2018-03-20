@@ -17,11 +17,29 @@ begin_comment
 comment|// This is a lie.
 end_comment
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * Helper class to extract byte arrays from {@link ByteString} without copy.  *<p>  * Without this protobufs would force us to copy every single byte array out  * of the objects de-serialized from the wire (which already do one copy, on  * top of the copies the JVM does to go from kernel buffer to C buffer and  * from C buffer to JVM buffer).  *  * @since 0.96.1  */
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 specifier|final
 class|class

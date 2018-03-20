@@ -85,6 +85,20 @@ begin_import
 import|import
 name|org
 operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
 name|eclipse
 operator|.
 name|jetty
@@ -146,7 +160,12 @@ comment|/**  * RequestLog object for use with Http  */
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
+specifier|final
 class|class
 name|HttpRequestLog
 block|{
@@ -476,6 +495,10 @@ literal|null
 return|;
 block|}
 block|}
+specifier|private
+name|HttpRequestLog
+parameter_list|()
+block|{}
 block|}
 end_class
 

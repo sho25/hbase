@@ -299,6 +299,20 @@ begin_import
 import|import
 name|org
 operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
 name|slf4j
 operator|.
 name|Logger
@@ -320,6 +334,10 @@ comment|/**  * This class will coalesce increments from a thift server if  * hba
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 class|class
 name|IncrementCoalescer

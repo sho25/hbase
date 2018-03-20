@@ -65,6 +65,20 @@ name|HStoreFile
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_class
 annotation|@
 name|edu
@@ -87,6 +101,10 @@ name|justification
 operator|=
 literal|"It is intended to use the same equal method as superclass"
 argument_list|)
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 class|class
 name|DateTieredCompactionRequest

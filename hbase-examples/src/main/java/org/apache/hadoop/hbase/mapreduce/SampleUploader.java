@@ -251,11 +251,29 @@ name|ToolRunner
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * Sample Uploader MapReduce  *<p>  * This is EXAMPLE code.  You will need to change it to work for your context.  *<p>  * Uses {@link TableReducer} to put the data into HBase. Change the InputFormat  * to suit your data.  In this example, we are importing a CSV file.  *<p>  *<pre>row,family,qualifier,value</pre>  *<p>  * The table and columnfamily we're to insert into must preexist.  *<p>  * There is no reducer in this example as it is not necessary and adds  * significant overhead.  If you need to do any massaging of data before  * inserting into HBase, you can do this in the map as well.  *<p>Do the following to start the MR job:  *<pre>  * ./bin/hadoop org.apache.hadoop.hbase.mapreduce.SampleUploader /tmp/input.csv TABLE_NAME  *</pre>  *<p>  * This code was written against HBase 0.21 trunk.  */
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 class|class
 name|SampleUploader

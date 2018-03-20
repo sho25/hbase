@@ -47,12 +47,31 @@ name|OutputStream
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * This class is responsible for quoting HTML characters.  */
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
+specifier|final
 class|class
 name|HtmlQuoting
 block|{
@@ -978,6 +997,10 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+specifier|private
+name|HtmlQuoting
+parameter_list|()
+block|{}
 block|}
 end_class
 

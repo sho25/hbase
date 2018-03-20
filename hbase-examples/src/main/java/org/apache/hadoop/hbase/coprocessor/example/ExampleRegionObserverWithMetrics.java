@@ -301,11 +301,29 @@ name|CompactionRequest
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * An example coprocessor that collects some metrics to demonstrate the usage of exporting custom  * metrics from the coprocessor.  *<p>  * These metrics will be available through the regular Hadoop metrics2 sinks (ganglia, opentsdb,  * etc) as well as JMX output. You can view a snapshot of the metrics by going to the http web UI  * of the regionserver page, something like http://myregionserverhost:16030/jmx  *</p>  *  * @see ExampleMasterObserverWithMetrics  */
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 class|class
 name|ExampleRegionObserverWithMetrics

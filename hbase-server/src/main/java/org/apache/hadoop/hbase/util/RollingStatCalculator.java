@@ -17,11 +17,29 @@ name|util
 package|;
 end_package
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * This class maintains mean and variation for any sequence of input provided to it.  * It is initialized with number of rolling periods which basically means the number of past  * inputs whose data will be considered to maintain mean and variation.  * It will use O(N) memory to maintain these statistics, where N is number of look up periods it  * was initialized with.  * If zero is passed during initialization then it will maintain mean and variance from the  * start. It will use O(1) memory only. But note that since it will maintain mean / variance  * from the start the statistics may behave like constants and may ignore short trends.  * All operations are O(1) except the initialization which is O(N).  */
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 class|class
 name|RollingStatCalculator

@@ -17,12 +17,31 @@ name|util
 package|;
 end_package
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * A generic way for querying Java properties.  */
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
+specifier|final
 class|class
 name|GetJavaProperty
 block|{
@@ -113,6 +132,10 @@ expr_stmt|;
 block|}
 block|}
 block|}
+specifier|private
+name|GetJavaProperty
+parameter_list|()
+block|{}
 block|}
 end_class
 

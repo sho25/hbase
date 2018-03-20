@@ -19,6 +19,22 @@ end_package
 
 begin_import
 import|import
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|Nullable
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -451,6 +467,20 @@ begin_import
 import|import
 name|org
 operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
 name|slf4j
 operator|.
 name|Logger
@@ -467,27 +497,15 @@ name|LoggerFactory
 import|;
 end_import
 
-begin_import
-import|import
-name|edu
-operator|.
-name|umd
-operator|.
-name|cs
-operator|.
-name|findbugs
-operator|.
-name|annotations
-operator|.
-name|Nullable
-import|;
-end_import
-
 begin_comment
 comment|/**  * An encapsulation for the FileSystem object that hbase uses to access  * data. This class allows the flexibility of using  * separate filesystem objects for reading and writing hfiles and wals.  */
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 class|class
 name|HFileSystem
@@ -719,7 +737,7 @@ operator|=
 literal|false
 expr_stmt|;
 block|}
-comment|/**    * Returns the filesystem that is specially setup for     * doing reads from storage. This object avoids doing     * checksum verifications for reads.    * @return The FileSystem object that can be used to read data    *         from files.    */
+comment|/**    * Returns the filesystem that is specially setup for    * doing reads from storage. This object avoids doing    * checksum verifications for reads.    * @return The FileSystem object that can be used to read data    *         from files.    */
 specifier|public
 name|FileSystem
 name|getNoChecksumFs
@@ -2162,7 +2180,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * The org.apache.hadoop.fs.FilterFileSystem does not yet support     * createNonRecursive. This is a hadoop bug and when it is fixed in Hadoop,    * this definition will go away.    */
+comment|/**    * The org.apache.hadoop.fs.FilterFileSystem does not yet support    * createNonRecursive. This is a hadoop bug and when it is fixed in Hadoop,    * this definition will go away.    */
 annotation|@
 name|Override
 annotation|@

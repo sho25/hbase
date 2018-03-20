@@ -39,6 +39,20 @@ begin_import
 import|import
 name|org
 operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
 name|slf4j
 operator|.
 name|Logger
@@ -60,6 +74,10 @@ comment|/**  * Class that will create many instances of classes provided by the 
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 class|class
 name|CompatibilityFactory

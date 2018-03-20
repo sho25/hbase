@@ -19,22 +19,6 @@ end_package
 
 begin_import
 import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|JSONBean
-import|;
-end_import
-
-begin_import
-import|import
 name|java
 operator|.
 name|io
@@ -105,12 +89,47 @@ name|ObjectName
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|JSONBean
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * Utility for doing JSON and MBeans.  */
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
+specifier|final
 class|class
 name|DumpRegionServerMetrics
 block|{
@@ -291,6 +310,10 @@ name|str
 argument_list|)
 expr_stmt|;
 block|}
+specifier|private
+name|DumpRegionServerMetrics
+parameter_list|()
+block|{}
 block|}
 end_class
 

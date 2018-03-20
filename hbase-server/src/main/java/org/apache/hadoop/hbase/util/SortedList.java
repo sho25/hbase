@@ -97,8 +97,22 @@ name|RandomAccess
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
-comment|/**  * Simple sorted list implementation that uses {@link java.util.ArrayList} as  * the underlying collection so we can support RandomAccess. All mutations  * create a new copy of the<code>ArrayList</code> instance, so can be  * expensive. This class is only intended for use on small, very rarely  * written collections that expect highly concurrent reads.  *<p>  * Read operations are performed on a reference to the internal list at the  * time of invocation, so will not see any mutations to the collection during  * their operation. Iterating over list elements manually using the  * RandomAccess pattern involves multiple operations. For this to be safe get  * a reference to the internal list first using get().   *<p>  * If constructed with a {@link java.util.Comparator}, the list will be sorted  * using the comparator. Adding or changing an element using an index will  * trigger a resort.  *<p>  * Iterators are read-only. They cannot be used to remove elements.  */
+comment|/**  * Simple sorted list implementation that uses {@link java.util.ArrayList} as  * the underlying collection so we can support RandomAccess. All mutations  * create a new copy of the<code>ArrayList</code> instance, so can be  * expensive. This class is only intended for use on small, very rarely  * written collections that expect highly concurrent reads.  *<p>  * Read operations are performed on a reference to the internal list at the  * time of invocation, so will not see any mutations to the collection during  * their operation. Iterating over list elements manually using the  * RandomAccess pattern involves multiple operations. For this to be safe get  * a reference to the internal list first using get().  *<p>  * If constructed with a {@link java.util.Comparator}, the list will be sorted  * using the comparator. Adding or changing an element using an index will  * trigger a resort.  *<p>  * Iterators are read-only. They cannot be used to remove elements.  */
 end_comment
 
 begin_class
@@ -123,6 +137,10 @@ name|justification
 operator|=
 literal|"TODO: synchronization in here needs review!!!"
 argument_list|)
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 class|class
 name|SortedList

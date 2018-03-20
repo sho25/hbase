@@ -101,12 +101,31 @@ name|SpaceViolationPolicyEnforcement
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * A {@link SpaceViolationPolicyEnforcement} which can be treated as a singleton. When a quota is  * not defined on a table or we lack quota information, we want to avoid creating a policy, keeping  * this path fast.  */
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
+specifier|final
 class|class
 name|MissingSnapshotViolationPolicyEnforcement
 extends|extends

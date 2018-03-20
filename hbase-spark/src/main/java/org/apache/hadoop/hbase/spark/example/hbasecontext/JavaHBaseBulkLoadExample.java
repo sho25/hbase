@@ -249,11 +249,29 @@ name|Function
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * Run this example using command below:  *  *  SPARK_HOME/bin/spark-submit --master local[2]  *  --class org.apache.hadoop.hbase.spark.example.hbasecontext.JavaHBaseBulkLoadExample  *  path/to/hbase-spark.jar {path/to/output/HFiles}  *  * This example will output put hfiles in {path/to/output/HFiles}, and user can run  * 'hbase org.apache.hadoop.hbase.tool.LoadIncrementalHFiles' to load the HFiles into table to  * verify this example.  */
 end_comment
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|final
 specifier|public
 class|class

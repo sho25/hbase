@@ -195,6 +195,20 @@ begin_import
 import|import
 name|org
 operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
 name|slf4j
 operator|.
 name|Logger
@@ -212,7 +226,12 @@ import|;
 end_import
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
+specifier|final
 class|class
 name|PrefetchExecutor
 block|{
@@ -739,6 +758,10 @@ return|return
 literal|true
 return|;
 block|}
+specifier|private
+name|PrefetchExecutor
+parameter_list|()
+block|{}
 block|}
 end_class
 

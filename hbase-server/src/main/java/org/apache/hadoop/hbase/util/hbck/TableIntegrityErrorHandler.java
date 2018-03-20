@@ -75,11 +75,29 @@ name|TableInfo
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * This interface provides callbacks for handling particular table integrity  * invariant violations.  This could probably be boiled down to handling holes  * and handling overlaps but currently preserves the older more specific error  * condition codes.  */
 end_comment
 
 begin_interface
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 interface|interface
 name|TableIntegrityErrorHandler
@@ -127,7 +145,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Callback for handling two regions that have the same start key.  This is    * a specific case of a region overlap.    * @param hi1 one of the overlapping HbckInfo     * @param hi2 the other overlapping HbckInfo    */
+comment|/**    * Callback for handling two regions that have the same start key.  This is    * a specific case of a region overlap.    * @param hi1 one of the overlapping HbckInfo    * @param hi2 the other overlapping HbckInfo    */
 name|void
 name|handleDuplicateStartKeys
 parameter_list|(
@@ -166,7 +184,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Callback for handling a region hole between two keys.    * @param holeStartKey key at the beginning of the region hole    * @param holeEndKey key at the end of the region hole        */
+comment|/**    * Callback for handling a region hole between two keys.    * @param holeStartKey key at the beginning of the region hole    * @param holeEndKey key at the end of the region hole     */
 name|void
 name|handleHoleInRegionChain
 parameter_list|(

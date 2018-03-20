@@ -18,6 +18,24 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
+name|MetricsMaster
+operator|.
+name|convertToProcedureMetrics
+import|;
+end_import
+
+begin_import
 import|import
 name|org
 operator|.
@@ -48,24 +66,24 @@ import|;
 end_import
 
 begin_import
-import|import static
+import|import
 name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|yetus
 operator|.
-name|hbase
+name|audience
 operator|.
-name|master
-operator|.
-name|MetricsMaster
-operator|.
-name|convertToProcedureMetrics
+name|InterfaceAudience
 import|;
 end_import
 
 begin_class
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 class|class
 name|MetricsAssignmentManager

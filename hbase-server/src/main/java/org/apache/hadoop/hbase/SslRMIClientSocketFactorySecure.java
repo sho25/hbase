@@ -69,6 +69,20 @@ name|SslRMIClientSocketFactory
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * Avoid SSL V3.0 "Poodle" Vulnerability - CVE-2014-3566  */
 end_comment
@@ -79,6 +93,10 @@ name|SuppressWarnings
 argument_list|(
 literal|"serial"
 argument_list|)
+annotation|@
+name|InterfaceAudience
+operator|.
+name|Private
 specifier|public
 class|class
 name|SslRMIClientSocketFactorySecure
