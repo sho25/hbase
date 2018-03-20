@@ -2269,11 +2269,11 @@ decl_stmt|;
 name|String
 name|region0
 init|=
-literal|"region0"
+literal|"6b2c8f8555335cc9af74455b94516cbe"
 decl_stmt|,
 name|region1
 init|=
-literal|"region1"
+literal|"6ecd2e9e010499f8ddef97ee8f70834f"
 decl_stmt|;
 for|for
 control|(
