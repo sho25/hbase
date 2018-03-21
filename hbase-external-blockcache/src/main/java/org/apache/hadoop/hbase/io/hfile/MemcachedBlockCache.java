@@ -1205,6 +1205,8 @@ operator|.
 name|serialize
 argument_list|(
 name|bb
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 return|return

@@ -772,6 +772,9 @@ name|serialize
 parameter_list|(
 name|ByteBuffer
 name|destination
+parameter_list|,
+name|boolean
+name|includeNextBlockMetadata
 parameter_list|)
 block|{
 name|LOG

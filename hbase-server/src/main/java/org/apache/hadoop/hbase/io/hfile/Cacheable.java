@@ -79,12 +79,15 @@ name|int
 name|getSerializedLength
 parameter_list|()
 function_decl|;
-comment|/**    * Serializes its data into destination.    * @param destination Where to serialize to    */
+comment|/**    * Serializes its data into destination.    * @param destination Where to serialize to    * @param includeNextBlockMetadata Whether to include nextBlockMetadata in the Cache block.    */
 name|void
 name|serialize
 parameter_list|(
 name|ByteBuffer
 name|destination
+parameter_list|,
+name|boolean
+name|includeNextBlockMetadata
 parameter_list|)
 function_decl|;
 comment|/**    * Returns CacheableDeserializer instance which reconstructs original object from ByteBuffer.    *    * @return CacheableDeserialzer instance.    */

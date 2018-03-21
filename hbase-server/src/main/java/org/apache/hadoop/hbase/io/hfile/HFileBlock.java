@@ -550,7 +550,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Cacheable Blocks of an {@link HFile} version 2 file.  * Version 2 was introduced in hbase-0.92.0.  *  *<p>Version 1 was the original file block. Version 2 was introduced when we changed the hbase file  * format to support multi-level block indexes and compound bloom filters (HBASE-3857). Support  * for Version 1 was removed in hbase-1.3.0.  *  *<h3>HFileBlock: Version 2</h3>  * In version 2, a block is structured as follows:  *<ul>  *<li><b>Header:</b> See Writer#putHeader() for where header is written; header total size is  * HFILEBLOCK_HEADER_SIZE  *<ul>  *<li>0. blockType: Magic record identifying the {@link BlockType} (8 bytes):  * e.g.<code>DATABLK*</code>  *<li>1. onDiskSizeWithoutHeader: Compressed -- a.k.a 'on disk' -- block size, excluding header,  * but including tailing checksum bytes (4 bytes)  *<li>2. uncompressedSizeWithoutHeader: Uncompressed block size, excluding header, and excluding  * checksum bytes (4 bytes)  *<li>3. prevBlockOffset: The offset of the previous block of the same type (8 bytes). This is  * used to navigate to the previous block without having to go to the block index  *<li>4: For minorVersions&gt;=1, the ordinal describing checksum type (1 byte)  *<li>5: For minorVersions&gt;=1, the number of data bytes/checksum chunk (4 bytes)  *<li>6: onDiskDataSizeWithHeader: For minorVersions&gt;=1, the size of data 'on disk', including  * header, excluding checksums (4 bytes)  *</ul>  *</li>  *<li><b>Raw/Compressed/Encrypted/Encoded data:</b> The compression  * algorithm is the same for all the blocks in an {@link HFile}. If compression is NONE, this is  * just raw, serialized Cells.  *<li><b>Tail:</b> For minorVersions&gt;=1, a series of 4 byte checksums, one each for  * the number of bytes specified by bytesPerChecksum.  *</ul>  *  *<h3>Caching</h3>  * Caches cache whole blocks with trailing checksums if any. We then tag on some metadata, the  * content of BLOCK_METADATA_SPACE which will be flag on if we are doing 'hbase'  * checksums and then the offset into the file which is needed when we re-make a cache key  * when we return the block to the cache as 'done'. See {@link Cacheable#serialize(ByteBuffer)} and  * {@link Cacheable#getDeserializer()}.  *  *<p>TODO: Should we cache the checksums? Down in Writer#getBlockForCaching(CacheConfig) where  * we make a block to cache-on-write, there is an attempt at turning off checksums. This is not the  * only place we get blocks to cache. We also will cache the raw return from an hdfs read. In this  * case, the checksums may be present. If the cache is backed by something that doesn't do ECC,  * say an SSD, we might want to preserve checksums. For now this is open question.  *<p>TODO: Over in BucketCache, we save a block allocation by doing a custom serialization.  * Be sure to change it if serialization changes in here. Could we add a method here that takes an  * IOEngine and that then serializes to it rather than expose our internals over in BucketCache?  * IOEngine is in the bucket subpackage. Pull it up? Then this class knows about bucketcache. Ugh.  */
+comment|/**  * Cacheable Blocks of an {@link HFile} version 2 file.  * Version 2 was introduced in hbase-0.92.0.  *  *<p>Version 1 was the original file block. Version 2 was introduced when we changed the hbase file  * format to support multi-level block indexes and compound bloom filters (HBASE-3857). Support  * for Version 1 was removed in hbase-1.3.0.  *  *<h3>HFileBlock: Version 2</h3>  * In version 2, a block is structured as follows:  *<ul>  *<li><b>Header:</b> See Writer#putHeader() for where header is written; header total size is  * HFILEBLOCK_HEADER_SIZE  *<ul>  *<li>0. blockType: Magic record identifying the {@link BlockType} (8 bytes):  * e.g.<code>DATABLK*</code>  *<li>1. onDiskSizeWithoutHeader: Compressed -- a.k.a 'on disk' -- block size, excluding header,  * but including tailing checksum bytes (4 bytes)  *<li>2. uncompressedSizeWithoutHeader: Uncompressed block size, excluding header, and excluding  * checksum bytes (4 bytes)  *<li>3. prevBlockOffset: The offset of the previous block of the same type (8 bytes). This is  * used to navigate to the previous block without having to go to the block index  *<li>4: For minorVersions&gt;=1, the ordinal describing checksum type (1 byte)  *<li>5: For minorVersions&gt;=1, the number of data bytes/checksum chunk (4 bytes)  *<li>6: onDiskDataSizeWithHeader: For minorVersions&gt;=1, the size of data 'on disk', including  * header, excluding checksums (4 bytes)  *</ul>  *</li>  *<li><b>Raw/Compressed/Encrypted/Encoded data:</b> The compression  * algorithm is the same for all the blocks in an {@link HFile}. If compression is NONE, this is  * just raw, serialized Cells.  *<li><b>Tail:</b> For minorVersions&gt;=1, a series of 4 byte checksums, one each for  * the number of bytes specified by bytesPerChecksum.  *</ul>  *  *<h3>Caching</h3>  * Caches cache whole blocks with trailing checksums if any. We then tag on some metadata, the  * content of BLOCK_METADATA_SPACE which will be flag on if we are doing 'hbase'  * checksums and then the offset into the file which is needed when we re-make a cache key  * when we return the block to the cache as 'done'.  * See {@link Cacheable#serialize(ByteBuffer, boolean)} and {@link Cacheable#getDeserializer()}.  *  *<p>TODO: Should we cache the checksums? Down in Writer#getBlockForCaching(CacheConfig) where  * we make a block to cache-on-write, there is an attempt at turning off checksums. This is not the  * only place we get blocks to cache. We also will cache the raw return from an hdfs read. In this  * case, the checksums may be present. If the cache is backed by something that doesn't do ECC,  * say an SSD, we might want to preserve checksums. For now this is open question.  *<p>TODO: Over in BucketCache, we save a block allocation by doing a custom serialization.  * Be sure to change it if serialization changes in here. Could we add a method here that takes an  * IOEngine and that then serializes to it rather than expose our internals over in BucketCache?  * IOEngine is in the bucket subpackage. Pull it up? Then this class knows about bucketcache. Ugh.  */
 end_comment
 
 begin_class
@@ -1144,7 +1144,10 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Creates a new {@link HFile} block from the given fields. This constructor    * is used only while writing blocks and caching,    * and is sitting in a byte buffer and we want to stuff the block into cache.    * See {@link Writer#getBlockForCaching(CacheConfig)}.    *    *<p>TODO: The caller presumes no checksumming    * required of this block instance since going into cache; checksum already verified on    * underlying block data pulled in from filesystem. Is that correct? What if cache is SSD?    *    * @param blockType the type of this block, see {@link BlockType}    * @param onDiskSizeWithoutHeader see {@link #onDiskSizeWithoutHeader}    * @param uncompressedSizeWithoutHeader see {@link #uncompressedSizeWithoutHeader}    * @param prevBlockOffset see {@link #prevBlockOffset}    * @param b block header ({@link HConstants#HFILEBLOCK_HEADER_SIZE} bytes)    * @param fillHeader when true, write the first 4 header fields into passed buffer.    * @param offset the file offset the block was read from    * @param onDiskDataSizeWithHeader see {@link #onDiskDataSizeWithHeader}    * @param fileContext HFile meta data    */
+comment|/**    * Creates a new {@link HFile} block from the given fields. This constructor    * is used only while writing blocks and caching,    * and is sitting in a byte buffer and we want to stuff the block into cache.    *    *<p>TODO: The caller presumes no checksumming    * required of this block instance since going into cache; checksum already verified on    * underlying block data pulled in from filesystem. Is that correct? What if cache is SSD?    *    * @param blockType the type of this block, see {@link BlockType}    * @param onDiskSizeWithoutHeader see {@link #onDiskSizeWithoutHeader}    * @param uncompressedSizeWithoutHeader see {@link #uncompressedSizeWithoutHeader}    * @param prevBlockOffset see {@link #prevBlockOffset}    * @param b block header ({@link HConstants#HFILEBLOCK_HEADER_SIZE} bytes)    * @param fillHeader when true, write the first 4 header fields into passed buffer.    * @param offset the file offset the block was read from    * @param onDiskDataSizeWithHeader see {@link #onDiskDataSizeWithHeader}    * @param fileContext HFile meta data    */
+annotation|@
+name|VisibleForTesting
+specifier|public
 name|HFileBlock
 parameter_list|(
 name|BlockType
@@ -2518,6 +2521,16 @@ operator|.
 name|append
 argument_list|(
 name|fileContext
+argument_list|)
+operator|.
+name|append
+argument_list|(
+literal|", nextBlockOnDiskSize="
+argument_list|)
+operator|.
+name|append
+argument_list|(
+name|nextBlockOnDiskSize
 argument_list|)
 operator|.
 name|append
@@ -6842,10 +6855,11 @@ name|serialize
 parameter_list|(
 name|ByteBuffer
 name|destination
+parameter_list|,
+name|boolean
+name|includeNextBlockMetadata
 parameter_list|)
 block|{
-comment|// BE CAREFUL!! There is a custom version of this serialization over in BucketCache#doDrain.
-comment|// Make sure any changes in here are reflected over there.
 name|this
 operator|.
 name|buf
@@ -6867,6 +6881,8 @@ operator|=
 name|addMetaData
 argument_list|(
 name|destination
+argument_list|,
+name|includeNextBlockMetadata
 argument_list|)
 expr_stmt|;
 comment|// Make it ready for reading. flip sets position to zero and limit to current position which
@@ -6899,6 +6915,8 @@ operator|=
 name|addMetaData
 argument_list|(
 name|bb
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 name|bb
@@ -6918,6 +6936,9 @@ parameter_list|(
 specifier|final
 name|ByteBuffer
 name|destination
+parameter_list|,
+name|boolean
+name|includeNextBlockMetadata
 parameter_list|)
 block|{
 name|destination
@@ -6951,6 +6972,11 @@ operator|.
 name|offset
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|includeNextBlockMetadata
+condition|)
+block|{
 name|destination
 operator|.
 name|putInt
@@ -6960,6 +6986,7 @@ operator|.
 name|nextBlockOnDiskSize
 argument_list|)
 expr_stmt|;
+block|}
 return|return
 name|destination
 return|;
