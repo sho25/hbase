@@ -3024,6 +3024,9 @@ block|{
 case|case
 name|REGION
 case|:
+case|case
+name|REPLICATION
+case|:
 name|byte
 index|[]
 name|startRow
@@ -3159,6 +3162,9 @@ condition|)
 block|{
 case|case
 name|REGION
+case|:
+case|case
+name|REPLICATION
 case|:
 name|stopRow
 operator|=

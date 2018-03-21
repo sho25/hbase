@@ -213,6 +213,24 @@ parameter_list|)
 throws|throws
 name|ReplicationException
 function_decl|;
+comment|/**    * Set the max sequence id of a bunch of regions for a given peer. Will be called when setting up    * a serial replication peer.    * @param peerId peer id    * @param lastSeqIds map with {encodedRegionName, sequenceId} pairs for serial replication.    */
+name|void
+name|setLastSequenceIds
+parameter_list|(
+name|String
+name|peerId
+parameter_list|,
+name|Map
+argument_list|<
+name|String
+argument_list|,
+name|Long
+argument_list|>
+name|lastSeqIds
+parameter_list|)
+throws|throws
+name|ReplicationException
+function_decl|;
 comment|/**    * Get the current position for a specific WAL in a given queue for a given regionserver.    * @param serverName the name of the regionserver    * @param queueId a String that identifies the queue    * @param fileName name of the WAL    * @return the current position in the file    */
 name|long
 name|getWALPosition

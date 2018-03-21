@@ -594,7 +594,6 @@ argument_list|)
 throw|;
 block|}
 block|}
-specifier|public
 name|void
 name|preAddPeer
 parameter_list|(
@@ -709,7 +708,6 @@ return|return
 name|desc
 return|;
 block|}
-specifier|public
 name|void
 name|preRemovePeer
 parameter_list|(
@@ -725,7 +723,6 @@ name|peerId
 argument_list|)
 expr_stmt|;
 block|}
-specifier|public
 name|void
 name|preEnablePeer
 parameter_list|(
@@ -764,7 +761,6 @@ argument_list|)
 throw|;
 block|}
 block|}
-specifier|public
 name|void
 name|preDisablePeer
 parameter_list|(
@@ -804,8 +800,8 @@ argument_list|)
 throw|;
 block|}
 block|}
-specifier|public
-name|void
+comment|/**    * Return the old peer description. Can never be null.    */
+name|ReplicationPeerDescription
 name|preUpdatePeerConfig
 parameter_list|(
 name|String
@@ -926,6 +922,9 @@ literal|"'"
 argument_list|)
 throw|;
 block|}
+return|return
+name|desc
+return|;
 block|}
 specifier|public
 name|void
@@ -1368,7 +1367,6 @@ name|empty
 argument_list|()
 return|;
 block|}
-specifier|public
 name|void
 name|removeAllQueuesAndHFileRefs
 parameter_list|(

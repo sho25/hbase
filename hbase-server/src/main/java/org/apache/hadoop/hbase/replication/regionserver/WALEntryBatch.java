@@ -477,6 +477,49 @@ name|sequenceId
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|String
+name|toString
+parameter_list|()
+block|{
+return|return
+literal|"WALEntryBatch [walEntries="
+operator|+
+name|walEntries
+operator|+
+literal|", lastWalPath="
+operator|+
+name|lastWalPath
+operator|+
+literal|", lastWalPosition="
+operator|+
+name|lastWalPosition
+operator|+
+literal|", nbRowKeys="
+operator|+
+name|nbRowKeys
+operator|+
+literal|", nbHFiles="
+operator|+
+name|nbHFiles
+operator|+
+literal|", heapSize="
+operator|+
+name|heapSize
+operator|+
+literal|", lastSeqIds="
+operator|+
+name|lastSeqIds
+operator|+
+literal|", endOfFile="
+operator|+
+name|endOfFile
+operator|+
+literal|"]"
+return|;
+block|}
 block|}
 end_class
 

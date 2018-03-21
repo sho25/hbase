@@ -2509,17 +2509,6 @@ condition|(
 name|wals
 operator|!=
 literal|null
-operator|&&
-operator|!
-name|wals
-operator|.
-name|first
-argument_list|()
-operator|.
-name|equals
-argument_list|(
-name|log
-argument_list|)
 condition|)
 block|{
 name|cleanOldLogs
@@ -3781,6 +3770,7 @@ block|}
 comment|/**    * Get a copy of the wals of the normal sources on this rs    * @return a sorted set of wal names    */
 annotation|@
 name|VisibleForTesting
+specifier|public
 name|Map
 argument_list|<
 name|String
