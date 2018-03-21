@@ -615,7 +615,7 @@ name|LocalHBaseCluster
 operator|.
 name|ASSIGN_RANDOM_PORTS
 argument_list|,
-literal|true
+literal|false
 argument_list|)
 condition|)
 block|{
