@@ -943,6 +943,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
+name|UnknownProtocolException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|filter
 operator|.
 name|ByteArrayComparable
@@ -6462,6 +6478,45 @@ operator|.
 name|currentTime
 argument_list|()
 decl_stmt|;
+name|ClientProtos
+operator|.
+name|Get
+name|pbGet
+init|=
+name|action
+operator|.
+name|getGet
+argument_list|()
+decl_stmt|;
+comment|// An asynchbase client, https://github.com/OpenTSDB/asynchbase, starts by trying to do
+comment|// a get closest before. Throwing the UnknownProtocolException signals it that it needs
+comment|// to switch and do hbase2 protocol (HBase servers do not tell clients what versions
+comment|// they are; its a problem for non-native clients like asynchbase. HBASE-20225.
+if|if
+condition|(
+name|pbGet
+operator|.
+name|hasClosestRowBefore
+argument_list|()
+operator|&&
+name|pbGet
+operator|.
+name|getClosestRowBefore
+argument_list|()
+condition|)
+block|{
+throw|throw
+operator|new
+name|UnknownProtocolException
+argument_list|(
+literal|"Is this a pre-hbase-1.0.0 or asynchbase client? "
+operator|+
+literal|"Client is invoking getClosestRowBefore removed in hbase-2.0.0 replaced by "
+operator|+
+literal|"reverse Scan."
+argument_list|)
+throw|;
+block|}
 try|try
 block|{
 name|Get
@@ -6471,10 +6526,7 @@ name|ProtobufUtil
 operator|.
 name|toGet
 argument_list|(
-name|action
-operator|.
-name|getGet
-argument_list|()
+name|pbGet
 argument_list|)
 decl_stmt|;
 if|if
@@ -15184,6 +15236,35 @@ operator|.
 name|getGet
 argument_list|()
 decl_stmt|;
+comment|// An asynchbase client, https://github.com/OpenTSDB/asynchbase, starts by trying to do
+comment|// a get closest before. Throwing the UnknownProtocolException signals it that it needs
+comment|// to switch and do hbase2 protocol (HBase servers do not tell clients what versions
+comment|// they are; its a problem for non-native clients like asynchbase. HBASE-20225.
+if|if
+condition|(
+name|get
+operator|.
+name|hasClosestRowBefore
+argument_list|()
+operator|&&
+name|get
+operator|.
+name|getClosestRowBefore
+argument_list|()
+condition|)
+block|{
+throw|throw
+operator|new
+name|UnknownProtocolException
+argument_list|(
+literal|"Is this a pre-hbase-1.0.0 or asynchbase client? "
+operator|+
+literal|"Client is invoking getClosestRowBefore removed in hbase-2.0.0 replaced by "
+operator|+
+literal|"reverse Scan."
+argument_list|)
+throw|;
+block|}
 name|Boolean
 name|existence
 init|=
