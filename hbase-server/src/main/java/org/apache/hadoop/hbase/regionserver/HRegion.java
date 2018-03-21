@@ -5545,6 +5545,8 @@ name|getRegionDir
 argument_list|()
 argument_list|,
 name|nextSeqId
+operator|-
+literal|1
 argument_list|)
 expr_stmt|;
 block|}
@@ -6216,7 +6218,9 @@ return|return
 name|allStoreFiles
 return|;
 block|}
-specifier|private
+annotation|@
+name|VisibleForTesting
+specifier|protected
 name|void
 name|writeRegionOpenMarker
 parameter_list|(
