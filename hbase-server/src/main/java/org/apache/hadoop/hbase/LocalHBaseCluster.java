@@ -627,7 +627,7 @@ name|getBoolean
 argument_list|(
 name|ASSIGN_RANDOM_PORTS
 argument_list|,
-literal|false
+literal|true
 argument_list|)
 condition|)
 block|{
