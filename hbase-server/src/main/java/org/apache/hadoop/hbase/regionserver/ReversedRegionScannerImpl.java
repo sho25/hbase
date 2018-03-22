@@ -61,7 +61,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellUtil
+name|DoNotRetryIOException
 import|;
 end_import
 
@@ -90,20 +90,6 @@ operator|.
 name|hbase
 operator|.
 name|PrivateCellUtil
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
 import|;
 end_import
 
@@ -154,6 +140,20 @@ operator|.
 name|util
 operator|.
 name|Bytes
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -246,18 +246,13 @@ name|isEmpty
 argument_list|()
 condition|)
 block|{
-name|this
-operator|.
-name|joinedHeap
-operator|=
+throw|throw
 operator|new
-name|ReversedKeyValueHeap
+name|DoNotRetryIOException
 argument_list|(
-name|joinedScanners
-argument_list|,
-name|comparator
+literal|"Reverse scan with loading CFs on demand is not supported"
 argument_list|)
-expr_stmt|;
+throw|;
 block|}
 block|}
 annotation|@
