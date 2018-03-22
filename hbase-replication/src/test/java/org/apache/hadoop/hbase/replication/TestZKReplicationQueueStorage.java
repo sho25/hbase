@@ -1926,11 +1926,7 @@ decl_stmt|;
 name|String
 name|expectedPath
 init|=
-literal|"/hbase/replication/regions/31/d9/"
-operator|+
-name|encodedRegionName
-operator|+
-literal|"-"
+literal|"/hbase/replication/regions/31/d9/792f4435b99d9fb1016f6fbc8dc7-"
 operator|+
 name|peerId
 decl_stmt|;
