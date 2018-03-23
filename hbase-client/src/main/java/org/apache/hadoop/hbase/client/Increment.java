@@ -250,8 +250,9 @@ specifier|private
 name|TimeRange
 name|tr
 init|=
-operator|new
 name|TimeRange
+operator|.
+name|allTime
 argument_list|()
 decl_stmt|;
 comment|/**    * Create a Increment operation for the specified row.    *<p>    * At least one column must be incremented.    * @param row row key (we will make a copy of this).    */

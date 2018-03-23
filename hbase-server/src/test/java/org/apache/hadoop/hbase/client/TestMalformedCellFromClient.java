@@ -1939,6 +1939,8 @@ operator|.
 name|CompareType
 operator|.
 name|EQUAL
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 for|for

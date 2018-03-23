@@ -177,6 +177,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|io
+operator|.
+name|TimeRange
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
@@ -528,6 +544,14 @@ parameter_list|(
 name|byte
 index|[]
 name|qualifier
+parameter_list|)
+function_decl|;
+comment|/**      * @param timeRange time range to check.      */
+name|CheckAndMutateBuilder
+name|timeRange
+parameter_list|(
+name|TimeRange
+name|timeRange
 parameter_list|)
 function_decl|;
 comment|/**      * Check for lack of column.      */

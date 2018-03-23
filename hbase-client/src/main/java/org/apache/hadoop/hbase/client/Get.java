@@ -317,8 +317,9 @@ specifier|private
 name|TimeRange
 name|tr
 init|=
-operator|new
 name|TimeRange
+operator|.
+name|allTime
 argument_list|()
 decl_stmt|;
 specifier|private

@@ -261,8 +261,9 @@ specifier|private
 name|TimeRange
 name|tr
 init|=
-operator|new
 name|TimeRange
+operator|.
+name|allTime
 argument_list|()
 decl_stmt|;
 comment|/**    * Sets the TimeRange to be used on the Get for this append.    *<p>    * This is useful for when you have counters that only last for specific    * periods of time (ie. counters that are partitioned by time).  By setting    * the range of valid times for this append, you can potentially gain    * some performance with a more optimal Get operation.    * Be careful adding the time range to this class as you will update the old cell if the    * time range doesn't include the latest cells.    *<p>    * This range is used as [minStamp, maxStamp).    * @param minStamp minimum timestamp value, inclusive    * @param maxStamp maximum timestamp value, exclusive    * @return this    */

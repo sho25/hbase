@@ -286,8 +286,9 @@ block|{
 name|TimeRange
 name|tr
 init|=
-operator|new
 name|TimeRange
+operator|.
+name|allTime
 argument_list|()
 decl_stmt|;
 name|assertTrue
@@ -296,8 +297,9 @@ name|tr
 operator|.
 name|includesTimeRange
 argument_list|(
-operator|new
 name|TimeRange
+operator|.
+name|allTime
 argument_list|()
 argument_list|)
 argument_list|)
@@ -314,8 +316,9 @@ name|trt
 operator|.
 name|includesTimeRange
 argument_list|(
-operator|new
 name|TimeRange
+operator|.
+name|allTime
 argument_list|()
 argument_list|)
 argument_list|)
@@ -340,8 +343,9 @@ name|trt
 operator|.
 name|includesTimeRange
 argument_list|(
-operator|new
 name|TimeRange
+operator|.
+name|allTime
 argument_list|()
 argument_list|)
 argument_list|)
@@ -700,8 +704,9 @@ block|{
 name|TimeRange
 name|defaultRange
 init|=
-operator|new
 name|TimeRange
+operator|.
+name|allTime
 argument_list|()
 decl_stmt|;
 name|assertEquals

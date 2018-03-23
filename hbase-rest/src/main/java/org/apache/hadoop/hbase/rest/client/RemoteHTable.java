@@ -5666,6 +5666,24 @@ annotation|@
 name|Override
 specifier|public
 name|CheckAndMutateBuilder
+name|timeRange
+parameter_list|(
+name|TimeRange
+name|timeRange
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|UnsupportedOperationException
+argument_list|(
+literal|"timeRange not implemented"
+argument_list|)
+throw|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|CheckAndMutateBuilder
 name|ifNotExists
 parameter_list|()
 block|{
