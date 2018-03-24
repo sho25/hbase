@@ -806,7 +806,7 @@ name|excludedTableCFs
 init|=
 name|peerConfig
 operator|.
-name|getTableCFsMap
+name|getExcludeTableCFsMap
 argument_list|()
 decl_stmt|;
 comment|// trap here, must check existence first since HashMap allows null value.
