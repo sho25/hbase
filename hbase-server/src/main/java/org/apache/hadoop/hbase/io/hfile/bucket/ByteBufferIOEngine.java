@@ -290,6 +290,17 @@ block|}
 annotation|@
 name|Override
 specifier|public
+name|boolean
+name|usesSharedMemory
+parameter_list|()
+block|{
+return|return
+literal|true
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
 name|Cacheable
 name|read
 parameter_list|(

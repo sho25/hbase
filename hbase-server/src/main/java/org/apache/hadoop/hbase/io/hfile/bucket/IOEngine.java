@@ -125,6 +125,16 @@ name|boolean
 name|isPersistent
 parameter_list|()
 function_decl|;
+comment|/**    * IOEngine uses shared memory means, when reading Cacheable from it, those refers to the same    * memory area as used by the Engine for caching it.    * @return true when IOEngine using shared memory.    */
+specifier|default
+name|boolean
+name|usesSharedMemory
+parameter_list|()
+block|{
+return|return
+literal|false
+return|;
+block|}
 comment|/**    * Transfers data from IOEngine to a Cacheable object.    * @param length How many bytes to be read from the offset    * @param offset The offset in the IO engine where the first byte to be read    * @param deserializer The deserializer to be used to make a Cacheable from the data.    * @return Cacheable    * @throws IOException    * @throws RuntimeException when the length of the ByteBuff read is less than 'len'    */
 name|Cacheable
 name|read
