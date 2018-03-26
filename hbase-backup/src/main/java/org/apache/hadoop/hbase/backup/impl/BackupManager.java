@@ -181,6 +181,22 @@ name|hbase
 operator|.
 name|backup
 operator|.
+name|BackupHFileCleaner
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|backup
+operator|.
 name|BackupInfo
 import|;
 end_import
@@ -386,6 +402,24 @@ operator|.
 name|coprocessor
 operator|.
 name|CoprocessorHost
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
+name|cleaner
+operator|.
+name|HFileCleaner
 import|;
 end_import
 
@@ -765,6 +799,45 @@ name|masterProcedureClass
 argument_list|)
 expr_stmt|;
 block|}
+name|plugins
+operator|=
+name|conf
+operator|.
+name|get
+argument_list|(
+name|HFileCleaner
+operator|.
+name|MASTER_HFILE_CLEANER_PLUGINS
+argument_list|)
+expr_stmt|;
+name|conf
+operator|.
+name|set
+argument_list|(
+name|HFileCleaner
+operator|.
+name|MASTER_HFILE_CLEANER_PLUGINS
+argument_list|,
+operator|(
+name|plugins
+operator|==
+literal|null
+condition|?
+literal|""
+else|:
+name|plugins
+operator|+
+literal|","
+operator|)
+operator|+
+name|BackupHFileCleaner
+operator|.
+name|class
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|LOG
@@ -777,15 +850,20 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Added log cleaner: "
+literal|"Added log cleaner: {}. Added master procedure manager: {}."
 operator|+
+literal|"Added master procedure manager: {}"
+argument_list|,
 name|cleanerClass
-operator|+
-literal|"\n"
-operator|+
-literal|"Added master procedure manager: "
-operator|+
+argument_list|,
 name|masterProcedureClass
+argument_list|,
+name|BackupHFileCleaner
+operator|.
+name|class
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -939,12 +1017,10 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Added region procedure manager: "
-operator|+
+literal|"Added region procedure manager: {}. Added region observer: {}"
+argument_list|,
 name|regionProcedureClass
-operator|+
-literal|". Added region observer: "
-operator|+
+argument_list|,
 name|regionObserverClass
 argument_list|)
 expr_stmt|;
@@ -1205,8 +1281,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Full backup all the tables available in the cluster: "
-operator|+
+literal|"Full backup all the tables available in the cluster: {}"
+argument_list|,
 name|tableList
 argument_list|)
 expr_stmt|;
@@ -1333,18 +1409,18 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"There is a ongoing backup "
-operator|+
-name|ongoingBackupId
+literal|"There is a ongoing backup {}"
 operator|+
 literal|". Can not launch new backup until no ongoing backup remains."
+argument_list|,
+name|ongoingBackupId
 argument_list|)
 expr_stmt|;
 throw|throw
 operator|new
 name|BackupException
 argument_list|(
-literal|"There is ongoing backup."
+literal|"There is ongoing backup seesion."
 argument_list|)
 throw|;
 block|}
@@ -1382,8 +1458,8 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Getting the direct ancestors of the current backup "
-operator|+
+literal|"Getting the direct ancestors of the current backup {}"
+argument_list|,
 name|backupInfo
 operator|.
 name|getBackupId
@@ -1589,15 +1665,13 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"  BackupID="
-operator|+
+literal|"  BackupID={}, BackupDir={}"
+argument_list|,
 name|image1
 operator|.
 name|getBackupId
 argument_list|()
-operator|+
-literal|", BackupDir="
-operator|+
+argument_list|,
 name|image1
 operator|.
 name|getRootDir
@@ -1632,14 +1706,14 @@ name|debug
 argument_list|(
 literal|"Current backup has an incremental backup ancestor, "
 operator|+
-literal|"touching its image manifest in "
+literal|"touching its image manifest in {}"
 operator|+
+literal|" to construct the dependency."
+argument_list|,
 name|logBackupPath
 operator|.
 name|toString
 argument_list|()
-operator|+
-literal|" to construct the dependency."
 argument_list|)
 expr_stmt|;
 name|BackupManifest
@@ -1672,25 +1746,19 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Last dependent incremental backup image: "
+literal|"Last dependent incremental backup image: {BackupID={}"
 operator|+
-literal|"{BackupID="
-operator|+
+literal|"BackupDir={}}"
+argument_list|,
 name|lastIncrImage
 operator|.
 name|getBackupId
 argument_list|()
-operator|+
-literal|","
-operator|+
-literal|"BackupDir="
-operator|+
+argument_list|,
 name|lastIncrImage
 operator|.
 name|getRootDir
 argument_list|()
-operator|+
-literal|"}"
 argument_list|)
 expr_stmt|;
 block|}
@@ -1700,14 +1768,12 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Got "
-operator|+
+literal|"Got {} ancestors for the current backup."
+argument_list|,
 name|ancestors
 operator|.
 name|size
 argument_list|()
-operator|+
-literal|" ancestors for the current backup."
 argument_list|)
 expr_stmt|;
 return|return
@@ -1943,7 +2009,8 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Waiting to acquire backup exclusive lock for "
+literal|"Waiting to acquire backup exclusive lock for {}s"
+argument_list|,
 operator|+
 operator|(
 name|lastWarningOutputTime
@@ -1952,8 +2019,6 @@ name|startTime
 operator|)
 operator|/
 literal|1000
-operator|+
-literal|"s"
 argument_list|)
 expr_stmt|;
 block|}
