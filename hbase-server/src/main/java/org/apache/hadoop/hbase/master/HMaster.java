@@ -1255,6 +1255,24 @@ name|master
 operator|.
 name|cleaner
 operator|.
+name|CleanerChore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
+name|cleaner
+operator|.
 name|HFileCleaner
 import|;
 end_import
@@ -6865,6 +6883,14 @@ argument_list|)
 expr_stmt|;
 name|startProcedureExecutor
 argument_list|()
+expr_stmt|;
+comment|// Initial cleaner chore
+name|CleanerChore
+operator|.
+name|initChorePool
+argument_list|(
+name|conf
+argument_list|)
 expr_stmt|;
 comment|// Start log cleaner thread
 name|int

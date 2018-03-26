@@ -826,6 +826,13 @@ operator|new
 name|DummyServer
 argument_list|()
 decl_stmt|;
+name|CleanerChore
+operator|.
+name|initChorePool
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
 name|HFileCleaner
 name|cleaner
 init|=
