@@ -413,22 +413,22 @@ decl_stmt|;
 name|String
 name|MAX_STORE_FILE_AGE_DESC
 init|=
-literal|"Max age of store files hosted on this region server"
+literal|"Max age of store files hosted on this RegionServer"
 decl_stmt|;
 name|String
 name|MIN_STORE_FILE_AGE_DESC
 init|=
-literal|"Min age of store files hosted on this region server"
+literal|"Min age of store files hosted on this RegionServer"
 decl_stmt|;
 name|String
 name|AVG_STORE_FILE_AGE_DESC
 init|=
-literal|"Average age of store files hosted on this region server"
+literal|"Average age of store files hosted on this RegionServer"
 decl_stmt|;
 name|String
 name|NUM_REFERENCE_FILES_DESC
 init|=
-literal|"Number of reference file on this region server"
+literal|"Number of reference file on this RegionServer"
 decl_stmt|;
 name|String
 name|STOREFILE_SIZE_DESC
@@ -443,7 +443,11 @@ decl_stmt|;
 name|String
 name|TOTAL_REQUEST_COUNT_DESC
 init|=
-literal|"Total number of requests this RegionServer has answered."
+literal|"Total number of requests this RegionServer has answered; increments the count once for "
+operator|+
+literal|"EVERY access whether an admin operation, a Scan, a Put or Put of 1M rows, or a Get "
+operator|+
+literal|"of a non-existent row"
 decl_stmt|;
 name|String
 name|TOTAL_ROW_ACTION_REQUEST_COUNT
@@ -453,7 +457,11 @@ decl_stmt|;
 name|String
 name|TOTAL_ROW_ACTION_REQUEST_COUNT_DESC
 init|=
-literal|"Total number of region requests this RegionServer has answered, count by row-level action"
+literal|"Total number of region requests this RegionServer has answered; counts by row-level "
+operator|+
+literal|"action at the RPC Server (Sums 'readRequestsCount' and 'writeRequestsCount'); counts"
+operator|+
+literal|"once per access whether a Put of 1M rows or a Get that returns 1M Results"
 decl_stmt|;
 name|String
 name|READ_REQUEST_COUNT
@@ -463,7 +471,7 @@ decl_stmt|;
 name|String
 name|READ_REQUEST_COUNT_DESC
 init|=
-literal|"Number of read requests this region server has answered."
+literal|"Number of read requests with non-empty Results that this RegionServer has answered."
 decl_stmt|;
 name|String
 name|FILTERED_READ_REQUEST_COUNT
@@ -473,7 +481,7 @@ decl_stmt|;
 name|String
 name|FILTERED_READ_REQUEST_COUNT_DESC
 init|=
-literal|"Number of filtered read requests this region server has answered."
+literal|"Number of filtered read requests this RegionServer has answered."
 decl_stmt|;
 name|String
 name|WRITE_REQUEST_COUNT
@@ -483,7 +491,7 @@ decl_stmt|;
 name|String
 name|WRITE_REQUEST_COUNT_DESC
 init|=
-literal|"Number of mutation requests this region server has answered."
+literal|"Number of mutation requests this RegionServer has answered."
 decl_stmt|;
 name|String
 name|CHECK_MUTATE_FAILED_COUNT
@@ -1568,7 +1576,7 @@ decl_stmt|;
 name|String
 name|RPC_GET_REQUEST_COUNT_DESC
 init|=
-literal|"Number of rpc get requests this region server has answered."
+literal|"Number of rpc get requests this RegionServer has answered."
 decl_stmt|;
 name|String
 name|RPC_SCAN_REQUEST_COUNT
@@ -1578,7 +1586,7 @@ decl_stmt|;
 name|String
 name|RPC_SCAN_REQUEST_COUNT_DESC
 init|=
-literal|"Number of rpc scan requests this region server has answered."
+literal|"Number of rpc scan requests this RegionServer has answered."
 decl_stmt|;
 name|String
 name|RPC_MULTI_REQUEST_COUNT
@@ -1588,7 +1596,7 @@ decl_stmt|;
 name|String
 name|RPC_MULTI_REQUEST_COUNT_DESC
 init|=
-literal|"Number of rpc multi requests this region server has answered."
+literal|"Number of rpc multi requests this RegionServer has answered."
 decl_stmt|;
 name|String
 name|RPC_MUTATE_REQUEST_COUNT
@@ -1598,7 +1606,7 @@ decl_stmt|;
 name|String
 name|RPC_MUTATE_REQUEST_COUNT_DESC
 init|=
-literal|"Number of rpc mutation requests this region server has answered."
+literal|"Number of rpc mutation requests this RegionServer has answered."
 decl_stmt|;
 name|String
 name|AVERAGE_REGION_SIZE
@@ -1608,7 +1616,7 @@ decl_stmt|;
 name|String
 name|AVERAGE_REGION_SIZE_DESC
 init|=
-literal|"Average region size over the region server including memstore and storefile sizes."
+literal|"Average region size over the RegionServer including memstore and storefile sizes."
 decl_stmt|;
 block|}
 end_interface

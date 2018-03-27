@@ -349,6 +349,7 @@ argument_list|>
 name|fastPathHandlerStack
 decl_stmt|;
 comment|// Semaphore to coordinate loading of fastpathed loadedTask and our running it.
+comment|// UNFAIR synchronization.
 specifier|private
 name|Semaphore
 name|semaphore
@@ -491,7 +492,7 @@ return|return
 name|cr
 return|;
 block|}
-comment|/**      * @param task Task gotten via fastpath.      * @return True if we successfully loaded our task      */
+comment|/**      * @param cr Task gotten via fastpath.      * @return True if we successfully loaded our task      */
 name|boolean
 name|loadCallRunner
 parameter_list|(

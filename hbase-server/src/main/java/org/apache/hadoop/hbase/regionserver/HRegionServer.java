@@ -347,16 +347,6 @@ begin_import
 import|import
 name|javax
 operator|.
-name|management
-operator|.
-name|ObjectName
-import|;
-end_import
-
-begin_import
-import|import
-name|javax
-operator|.
 name|servlet
 operator|.
 name|http
@@ -2261,22 +2251,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|metrics2
-operator|.
-name|util
-operator|.
-name|MBeans
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|util
 operator|.
 name|ReflectionUtils
@@ -3735,13 +3709,6 @@ comment|/**    * Unique identifier for the cluster we are a part of.    */
 specifier|protected
 name|String
 name|clusterId
-decl_stmt|;
-comment|/**    * MX Bean for RegionServerInfo    */
-specifier|private
-name|ObjectName
-name|mxBean
-init|=
-literal|null
 decl_stmt|;
 comment|/**    * Chore to clean periodically the moved region list    */
 specifier|private
@@ -6067,26 +6034,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|// Run shutdown.
-if|if
-condition|(
-name|mxBean
-operator|!=
-literal|null
-condition|)
-block|{
-name|MBeans
-operator|.
-name|unregister
-argument_list|(
-name|mxBean
-argument_list|)
-expr_stmt|;
-name|mxBean
-operator|=
-literal|null
-expr_stmt|;
-block|}
 if|if
 condition|(
 name|this
@@ -6095,6 +6042,7 @@ name|leases
 operator|!=
 literal|null
 condition|)
+block|{
 name|this
 operator|.
 name|leases
@@ -6102,6 +6050,7 @@ operator|.
 name|closeAfterLeasesExpire
 argument_list|()
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|this
