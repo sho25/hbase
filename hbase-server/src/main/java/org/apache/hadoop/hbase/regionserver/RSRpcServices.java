@@ -11372,6 +11372,11 @@ name|bestSplitRow
 init|=
 literal|null
 decl_stmt|;
+name|boolean
+name|shouldSplit
+init|=
+literal|true
+decl_stmt|;
 if|if
 condition|(
 name|request
@@ -11405,6 +11410,23 @@ name|forceSplit
 argument_list|(
 literal|null
 argument_list|)
+expr_stmt|;
+comment|// Even after setting force split if split policy says no to split then we should not split.
+name|shouldSplit
+operator|=
+name|region
+operator|.
+name|getSplitPolicy
+argument_list|()
+operator|.
+name|shouldSplit
+argument_list|()
+operator|&&
+operator|!
+name|info
+operator|.
+name|isMetaRegion
+argument_list|()
 expr_stmt|;
 name|bestSplitRow
 operator|=
@@ -11502,6 +11524,8 @@ name|region
 operator|.
 name|isSplittable
 argument_list|()
+operator|&&
+name|shouldSplit
 argument_list|)
 expr_stmt|;
 name|builder

@@ -1428,7 +1428,7 @@ name|IOException
 name|e
 init|=
 operator|new
-name|IOException
+name|DoNotRetryIOException
 argument_list|(
 name|regionToSplit
 operator|.
