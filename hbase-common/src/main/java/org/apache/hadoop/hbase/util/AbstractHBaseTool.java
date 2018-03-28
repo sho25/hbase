@@ -722,8 +722,7 @@ argument_list|)
 expr_stmt|;
 name|cmd
 operator|=
-operator|new
-name|DefaultParser
+name|newParser
 argument_list|()
 operator|.
 name|parse
@@ -824,6 +823,18 @@ return|;
 block|}
 return|return
 name|ret
+return|;
+block|}
+comment|/**    * Create the parser to use for parsing and validating the command line. Since commons-cli lacks    * the capability to validate arbitrary combination of options, it may be helpful to bake custom    * logic into a specialized parser implementation. See LoadTestTool for examples.    * @return a new parser specific to the current tool    */
+specifier|protected
+name|CommandLineParser
+name|newParser
+parameter_list|()
+block|{
+return|return
+operator|new
+name|DefaultParser
+argument_list|()
 return|;
 block|}
 specifier|private

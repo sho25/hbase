@@ -4973,15 +4973,9 @@ name|System
 operator|.
 name|err
 operator|.
-name|printf
+name|println
 argument_list|(
-literal|"Usage: hbase %s [opts] [table1 [table2]...] | [regionserver1 [regionserver2]..]%n"
-argument_list|,
-name|getClass
-argument_list|()
-operator|.
-name|getName
-argument_list|()
+literal|"Usage: hbase canary [opts] [table1 [table2]...] | [regionserver1 [regionserver2]..]"
 argument_list|)
 expr_stmt|;
 name|System

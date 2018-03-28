@@ -1133,7 +1133,7 @@ literal|"risky"
 argument_list|,
 literal|false
 argument_list|,
-literal|"Skip verification steps to complete quickly."
+literal|"Skip verification steps to complete quickly. "
 operator|+
 literal|"STRONGLY DISCOURAGED for production systems.  "
 argument_list|)
@@ -1329,9 +1329,9 @@ argument_list|()
 operator|.
 name|printHelp
 argument_list|(
-literal|"RegionSplitter<TABLE><SPLITALGORITHM>\n"
+literal|"bin/hbase regionsplitter<TABLE><SPLITALGORITHM>\n"
 operator|+
-literal|"SPLITALGORITHM is a java class name of a class implementing "
+literal|"SPLITALGORITHM is the java class name of a class implementing "
 operator|+
 literal|"SplitAlgorithm, or one of the special strings HexStringSplit or "
 operator|+
