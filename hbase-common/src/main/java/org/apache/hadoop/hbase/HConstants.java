@@ -566,6 +566,42 @@ name|ZOOKEEPER_QUORUM
 init|=
 literal|"hbase.zookeeper.quorum"
 decl_stmt|;
+comment|/** Name of ZooKeeper quorum configuration parameter for client to locate meta. */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|CLIENT_ZOOKEEPER_QUORUM
+init|=
+literal|"hbase.client.zookeeper.quorum"
+decl_stmt|;
+comment|/** Client port of ZooKeeper for client to locate meta */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|CLIENT_ZOOKEEPER_CLIENT_PORT
+init|=
+literal|"hbase.client.zookeeper.property.clientPort"
+decl_stmt|;
+comment|/** Indicate whether the client ZK are observer nodes of the server ZK */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|CLIENT_ZOOKEEPER_OBSERVER_MODE
+init|=
+literal|"hbase.client.zookeeper.observer.mode"
+decl_stmt|;
+comment|/** Assuming client zk not in observer mode and master need to synchronize information */
+specifier|public
+specifier|static
+specifier|final
+name|boolean
+name|DEFAULT_CLIENT_ZOOKEEPER_OBSERVER_MODE
+init|=
+literal|false
+decl_stmt|;
 comment|/** Common prefix of ZooKeeper configuration properties */
 specifier|public
 specifier|static
@@ -611,7 +647,7 @@ specifier|public
 specifier|static
 specifier|final
 name|int
-name|DEFAULT_ZOOKEPER_CLIENT_PORT
+name|DEFAULT_ZOOKEEPER_CLIENT_PORT
 init|=
 literal|2181
 decl_stmt|;
@@ -670,7 +706,7 @@ specifier|public
 specifier|static
 specifier|final
 name|int
-name|DEFAULT_ZOOKEPER_MAX_CLIENT_CNXNS
+name|DEFAULT_ZOOKEEPER_MAX_CLIENT_CNXNS
 init|=
 literal|300
 decl_stmt|;

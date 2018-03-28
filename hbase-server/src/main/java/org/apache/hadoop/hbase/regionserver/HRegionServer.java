@@ -3437,6 +3437,13 @@ name|killed
 init|=
 literal|false
 decl_stmt|;
+specifier|private
+specifier|volatile
+name|boolean
+name|shutDown
+init|=
+literal|false
+decl_stmt|;
 specifier|protected
 specifier|final
 name|Configuration
@@ -5115,6 +5122,49 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+name|Configuration
+name|conf
+init|=
+name|this
+operator|.
+name|conf
+decl_stmt|;
+if|if
+condition|(
+name|conf
+operator|.
+name|get
+argument_list|(
+name|HConstants
+operator|.
+name|CLIENT_ZOOKEEPER_QUORUM
+argument_list|)
+operator|!=
+literal|null
+condition|)
+block|{
+comment|// Use server ZK cluster for server-issued connections, so we clone
+comment|// the conf and unset the client ZK related properties
+name|conf
+operator|=
+operator|new
+name|Configuration
+argument_list|(
+name|this
+operator|.
+name|conf
+argument_list|)
+expr_stmt|;
+name|conf
+operator|.
+name|unset
+argument_list|(
+name|HConstants
+operator|.
+name|CLIENT_ZOOKEEPER_QUORUM
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Create a cluster connection that when appropriate, can short-circuit and go directly to the
 comment|// local server if the request is to the local server bypassing RPC. Can be used for both local
 comment|// and remote invocations.
@@ -6709,6 +6759,12 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+name|this
+operator|.
+name|shutDown
+operator|=
+literal|true
+expr_stmt|;
 name|LOG
 operator|.
 name|info
@@ -18961,6 +19017,15 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+block|}
+specifier|public
+name|boolean
+name|isShutDown
+parameter_list|()
+block|{
+return|return
+name|shutDown
+return|;
 block|}
 block|}
 end_class

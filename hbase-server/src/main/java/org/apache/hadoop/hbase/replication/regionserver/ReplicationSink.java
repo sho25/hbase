@@ -953,6 +953,35 @@ name|replicationCodec
 argument_list|)
 expr_stmt|;
 block|}
+comment|// use server ZK cluster for replication, so we unset the client ZK related properties if any
+if|if
+condition|(
+name|this
+operator|.
+name|conf
+operator|.
+name|get
+argument_list|(
+name|HConstants
+operator|.
+name|CLIENT_ZOOKEEPER_QUORUM
+argument_list|)
+operator|!=
+literal|null
+condition|)
+block|{
+name|this
+operator|.
+name|conf
+operator|.
+name|unset
+argument_list|(
+name|HConstants
+operator|.
+name|CLIENT_ZOOKEEPER_QUORUM
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|/**    * Replicate this array of entries directly into the local cluster using the native client. Only    * operates against raw protobuf type saving on a conversion from pb to pojo.    * @param replicationClusterId Id which will uniquely identify source cluster FS client    *          configurations in the replication configuration directory    * @param sourceBaseNamespaceDirPath Path that point to the source cluster base namespace    *          directory    * @param sourceHFileArchiveDirPath Path that point to the source cluster hfile archive directory    * @throws IOException If failed to replicate the data    */
 specifier|public

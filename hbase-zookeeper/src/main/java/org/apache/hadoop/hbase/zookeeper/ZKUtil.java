@@ -8144,7 +8144,7 @@ argument_list|)
 else|:
 name|HConstants
 operator|.
-name|DEFAULT_ZOOKEPER_CLIENT_PORT
+name|DEFAULT_ZOOKEEPER_CLIENT_PORT
 decl_stmt|;
 name|InetSocketAddress
 name|sockAddr
