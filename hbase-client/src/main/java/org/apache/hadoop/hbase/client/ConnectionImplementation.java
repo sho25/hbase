@@ -553,6 +553,24 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|Scan
+operator|.
+name|ReadType
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|backoff
 operator|.
 name|ClientBackoffPolicy
@@ -4880,7 +4898,7 @@ return|return
 name|locations
 return|;
 block|}
-comment|/*     * Search the hbase:meta table for the HRegionLocation     * info that contains the table and row we're seeking.     */
+comment|/**    * Search the hbase:meta table for the HRegionLocation info that contains the table and row we're    * seeking.    */
 specifier|private
 name|RegionLocations
 name|locateRegionInMeta
@@ -4904,8 +4922,8 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// If we are supposed to be using the cache, look in the cache to see if
-comment|// we already have the region.
+comment|// If we are supposed to be using the cache, look in the cache to see if we already have the
+comment|// region.
 if|if
 condition|(
 name|useCache
@@ -4989,22 +5007,11 @@ init|=
 operator|new
 name|Scan
 argument_list|()
-decl_stmt|;
-name|s
-operator|.
-name|setReversed
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
-name|s
 operator|.
 name|withStartRow
 argument_list|(
 name|metaStartKey
 argument_list|)
-expr_stmt|;
-name|s
 operator|.
 name|withStopRow
 argument_list|(
@@ -5012,8 +5019,6 @@ name|metaStopKey
 argument_list|,
 literal|true
 argument_list|)
-expr_stmt|;
-name|s
 operator|.
 name|addFamily
 argument_list|(
@@ -5021,7 +5026,24 @@ name|HConstants
 operator|.
 name|CATALOG_FAMILY
 argument_list|)
-expr_stmt|;
+operator|.
+name|setReversed
+argument_list|(
+literal|true
+argument_list|)
+operator|.
+name|setCaching
+argument_list|(
+literal|5
+argument_list|)
+operator|.
+name|setReadType
+argument_list|(
+name|ReadType
+operator|.
+name|PREAD
+argument_list|)
+decl_stmt|;
 if|if
 condition|(
 name|this
@@ -5057,7 +5079,6 @@ name|tries
 init|=
 literal|0
 init|;
-literal|true
 condition|;
 name|tries
 operator|++
@@ -5200,19 +5221,9 @@ name|locations
 return|;
 block|}
 block|}
-name|Result
-name|regionInfoRow
-init|=
-literal|null
-decl_stmt|;
 name|s
 operator|.
 name|resetMvccReadPoint
-argument_list|()
-expr_stmt|;
-name|s
-operator|.
-name|setOneRowLimit
 argument_list|()
 expr_stmt|;
 try|try
@@ -5244,19 +5255,35 @@ name|metaReplicaCallTimeoutScanInMicroSecond
 argument_list|)
 init|)
 block|{
+name|boolean
+name|tableNotFound
+init|=
+literal|true
+decl_stmt|;
+for|for
+control|(
+init|;
+condition|;
+control|)
+block|{
+name|Result
 name|regionInfoRow
-operator|=
+init|=
 name|rcs
 operator|.
 name|next
 argument_list|()
-expr_stmt|;
-block|}
+decl_stmt|;
 if|if
 condition|(
 name|regionInfoRow
 operator|==
 literal|null
+condition|)
+block|{
+if|if
+condition|(
+name|tableNotFound
 condition|)
 block|{
 throw|throw
@@ -5267,6 +5294,32 @@ name|tableName
 argument_list|)
 throw|;
 block|}
+else|else
+block|{
+throw|throw
+operator|new
+name|NoServerForRegionException
+argument_list|(
+literal|"Unable to find region for "
+operator|+
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
+name|row
+argument_list|)
+operator|+
+literal|" in "
+operator|+
+name|tableName
+argument_list|)
+throw|;
+block|}
+block|}
+name|tableNotFound
+operator|=
+literal|false
+expr_stmt|;
 comment|// convert the row result into the HRegionLocation we need!
 name|RegionLocations
 name|locations
@@ -5344,71 +5397,17 @@ name|regionInfoRow
 argument_list|)
 throw|;
 block|}
-comment|// possible we got a region of a different table...
-if|if
-condition|(
-operator|!
-name|regionInfo
-operator|.
-name|getTable
-argument_list|()
-operator|.
-name|equals
-argument_list|(
-name|tableName
-argument_list|)
-condition|)
-block|{
-throw|throw
-operator|new
-name|TableNotFoundException
-argument_list|(
-literal|"Region of '"
-operator|+
-name|regionInfo
-operator|.
-name|getRegionNameAsString
-argument_list|()
-operator|+
-literal|"' is expected in the table of '"
-operator|+
-name|tableName
-operator|+
-literal|"', "
-operator|+
-literal|"but hbase:meta says it is in the table of '"
-operator|+
-name|regionInfo
-operator|.
-name|getTable
-argument_list|()
-operator|+
-literal|"'. "
-operator|+
-literal|"hbase:meta might be damaged."
-argument_list|)
-throw|;
-block|}
+comment|// See HBASE-20182. It is possible that we locate to a split parent even after the
+comment|// children are online, so here we need to skip this region and go to the next one.
 if|if
 condition|(
 name|regionInfo
 operator|.
-name|isSplit
+name|isSplitParent
 argument_list|()
 condition|)
 block|{
-throw|throw
-operator|new
-name|RegionOfflineException
-argument_list|(
-literal|"Region for row is a split parent, daughters not online: "
-operator|+
-name|regionInfo
-operator|.
-name|getRegionNameAsString
-argument_list|()
-argument_list|)
-throw|;
+continue|continue;
 block|}
 if|if
 condition|(
@@ -5428,6 +5427,39 @@ name|regionInfo
 operator|.
 name|getRegionNameAsString
 argument_list|()
+argument_list|)
+throw|;
+block|}
+comment|// It is possible that the split children have not been online yet and we have skipped
+comment|// the parent in the above condition, so we may have already reached a region which does
+comment|// not contains us.
+if|if
+condition|(
+operator|!
+name|regionInfo
+operator|.
+name|containsRow
+argument_list|(
+name|row
+argument_list|)
+condition|)
+block|{
+throw|throw
+operator|new
+name|NoServerForRegionException
+argument_list|(
+literal|"Unable to find region for "
+operator|+
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
+name|row
+argument_list|)
+operator|+
+literal|" in "
+operator|+
+name|tableName
 argument_list|)
 throw|;
 block|}
@@ -5518,6 +5550,8 @@ return|return
 name|locations
 return|;
 block|}
+block|}
+block|}
 catch|catch
 parameter_list|(
 name|TableNotFoundException
@@ -5588,54 +5622,27 @@ operator|-
 literal|1
 condition|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"locateRegionInMeta parentTable="
+literal|"locateRegionInMeta parentTable='{}', attempt={} of {} failed; retrying "
 operator|+
+literal|"after sleep of {}"
+argument_list|,
 name|TableName
 operator|.
 name|META_TABLE_NAME
-operator|+
-literal|", metaLocation="
-operator|+
-literal|", attempt="
-operator|+
-name|tries
-operator|+
-literal|" of "
-operator|+
-name|maxAttempts
-operator|+
-literal|" failed; retrying after sleep of "
-operator|+
-name|ConnectionUtils
-operator|.
-name|getPauseTime
-argument_list|(
-name|pauseBase
 argument_list|,
 name|tries
-argument_list|)
-operator|+
-literal|" because: "
-operator|+
+argument_list|,
+name|maxAttempts
+argument_list|,
+name|maxAttempts
+argument_list|,
 name|e
-operator|.
-name|getMessage
-argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 else|else
 block|{
