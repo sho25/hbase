@@ -74,7 +74,7 @@ specifier|private
 specifier|static
 specifier|final
 name|String
-name|name
+name|NAME
 init|=
 literal|"ADAPTIVE"
 decl_stmt|;
@@ -246,7 +246,8 @@ name|compact
 argument_list|(
 name|versionedList
 argument_list|,
-name|name
+name|getName
+argument_list|()
 operator|+
 literal|" (compaction probability="
 operator|+
@@ -266,7 +267,8 @@ name|simpleMergeOrFlatten
 argument_list|(
 name|versionedList
 argument_list|,
-name|name
+name|getName
+argument_list|()
 operator|+
 literal|" (compaction probability="
 operator|+
@@ -369,6 +371,17 @@ return|return
 name|Action
 operator|.
 name|FLATTEN
+return|;
+block|}
+annotation|@
+name|Override
+specifier|protected
+name|String
+name|getName
+parameter_list|()
+block|{
+return|return
+name|NAME
 return|;
 block|}
 block|}

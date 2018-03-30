@@ -841,7 +841,7 @@ name|DEFAULT_NORMALIZATION_ENABLED
 init|=
 literal|false
 decl_stmt|;
-comment|/**    * Constant that denotes the maximum default size of the memstore after which    * the contents are flushed to the store files    */
+comment|/**    * Constant that denotes the maximum default size of the memstore in bytes after which    * the contents are flushed to the store files.    */
 specifier|public
 specifier|static
 specifier|final

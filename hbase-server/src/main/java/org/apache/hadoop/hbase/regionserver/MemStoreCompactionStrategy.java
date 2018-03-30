@@ -188,6 +188,30 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Override
+specifier|public
+name|String
+name|toString
+parameter_list|()
+block|{
+return|return
+name|getName
+argument_list|()
+operator|+
+literal|", pipelineThreshold="
+operator|+
+name|this
+operator|.
+name|pipelineThreshold
+return|;
+block|}
+specifier|protected
+specifier|abstract
+name|String
+name|getName
+parameter_list|()
+function_decl|;
 comment|// get next compaction action to apply on compaction pipeline
 specifier|public
 specifier|abstract

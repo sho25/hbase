@@ -334,6 +334,25 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|String
+name|toString
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|strategy
+operator|+
+literal|", compactionCellMax="
+operator|+
+name|this
+operator|.
+name|compactionKVMax
+return|;
+block|}
 comment|/**----------------------------------------------------------------------    * The request to dispatch the compaction asynchronous task.    * The method returns true if compaction was successfully dispatched, or false if there    * is already an ongoing compaction or no segments to compact.    */
 specifier|public
 name|boolean

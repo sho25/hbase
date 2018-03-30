@@ -6173,49 +6173,32 @@ argument_list|(
 name|offset
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Reading "
+literal|"Reading {} at offset={}, pread={}, verifyChecksum={}, cachedHeader={}, "
 operator|+
+literal|"onDiskSizeWithHeader={}"
+argument_list|,
 name|this
 operator|.
 name|fileContext
 operator|.
 name|getHFileName
 argument_list|()
-operator|+
-literal|" at offset="
-operator|+
+argument_list|,
 name|offset
-operator|+
-literal|", pread="
-operator|+
+argument_list|,
 name|pread
-operator|+
-literal|", verifyChecksum="
-operator|+
+argument_list|,
 name|verifyChecksum
-operator|+
-literal|", cachedHeader="
-operator|+
+argument_list|,
 name|headerBuf
-operator|+
-literal|", onDiskSizeWithHeader="
-operator|+
+argument_list|,
 name|onDiskSizeWithHeader
 argument_list|)
 expr_stmt|;
-block|}
 comment|// This is NOT same as verifyChecksum. This latter is whether to do hbase
 comment|// checksums. Can change with circumstances. The below flag is whether the
 comment|// file has support for checksums (version 2+).
@@ -6543,30 +6526,17 @@ name|sanityCheckUncompressed
 argument_list|()
 expr_stmt|;
 block|}
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Read "
-operator|+
+literal|"Read {} in {} ns"
+argument_list|,
 name|hFileBlock
-operator|+
-literal|" in "
-operator|+
+argument_list|,
 name|duration
-operator|+
-literal|" ns"
 argument_list|)
 expr_stmt|;
-block|}
 comment|// Cache next block header if we read it for the next time through here.
 if|if
 condition|(
