@@ -606,6 +606,7 @@ name|read
 operator|!=
 name|pblen
 condition|)
+block|{
 throw|throw
 operator|new
 name|IOException
@@ -619,6 +620,7 @@ operator|+
 name|pblen
 argument_list|)
 throw|;
+block|}
 comment|// WATCHOUT! Return in middle of function!!!
 if|if
 condition|(
