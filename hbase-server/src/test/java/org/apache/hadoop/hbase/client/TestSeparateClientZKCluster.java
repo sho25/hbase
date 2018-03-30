@@ -179,6 +179,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|master
+operator|.
+name|NoSuchProcedureException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|regionserver
 operator|.
 name|HRegionServer
@@ -938,6 +954,13 @@ expr_stmt|;
 block|}
 while|while
 condition|(
+name|cluster
+operator|.
+name|getMaster
+argument_list|()
+operator|==
+literal|null
+operator|||
 operator|!
 name|cluster
 operator|.
@@ -1589,6 +1612,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// wait for meta region online
+try|try
+block|{
 name|cluster
 operator|.
 name|getMaster
@@ -1604,6 +1629,15 @@ operator|.
 name|FIRST_META_REGIONINFO
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|NoSuchProcedureException
+name|e
+parameter_list|)
+block|{
+comment|// we don't need to take any further action
+block|}
 comment|// wait some long time to make sure we will retry sync data to client ZK until data set
 name|Thread
 operator|.
