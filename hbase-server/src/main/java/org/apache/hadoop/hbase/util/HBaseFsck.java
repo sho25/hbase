@@ -11313,8 +11313,15 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-else|else
+elseif|else
+if|if
+condition|(
+operator|!
+name|checkMetaOnly
+condition|)
 block|{
+comment|// dangling table state in meta if checkMetaOnly is false. If checkMetaOnly is
+comment|// true, tableInfo will be null as tablesInfo are not polulated for all tables from hdfs
 name|errors
 operator|.
 name|reportError
