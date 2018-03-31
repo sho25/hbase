@@ -241,6 +241,22 @@ parameter_list|)
 throws|throws
 name|ReplicationException
 function_decl|;
+comment|/**    * Remove the max sequence id record for the given peer and regions.    * @param peerId peer id    * @param encodedRegionNames the encoded region names    */
+name|void
+name|removeLastSequenceIds
+parameter_list|(
+name|String
+name|peerId
+parameter_list|,
+name|List
+argument_list|<
+name|String
+argument_list|>
+name|encodedRegionNames
+parameter_list|)
+throws|throws
+name|ReplicationException
+function_decl|;
 comment|/**    * Get the current position for a specific WAL in a given queue for a given regionserver.    * @param serverName the name of the regionserver    * @param queueId a String that identifies the queue    * @param fileName name of the WAL    * @return the current position in the file    */
 name|long
 name|getWALPosition
