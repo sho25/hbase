@@ -1985,6 +1985,12 @@ argument_list|(
 literal|"Starting WAL Procedure Store lease recovery"
 argument_list|)
 expr_stmt|;
+while|while
+condition|(
+name|isRunning
+argument_list|()
+condition|)
+block|{
 name|FileStatus
 index|[]
 name|oldLogs
@@ -1992,12 +1998,6 @@ init|=
 name|getLogFiles
 argument_list|()
 decl_stmt|;
-while|while
-condition|(
-name|isRunning
-argument_list|()
-condition|)
-block|{
 comment|// Get Log-MaxID and recover lease on old logs
 try|try
 block|{
@@ -2024,11 +2024,6 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
-name|oldLogs
-operator|=
-name|getLogFiles
-argument_list|()
-expr_stmt|;
 continue|continue;
 block|}
 comment|// Create new state-log
@@ -2048,8 +2043,8 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Someone else has already created log "
-operator|+
+literal|"Someone else has already created log {}. Retrying."
+argument_list|,
 name|flushLogId
 argument_list|)
 expr_stmt|;
@@ -5036,7 +5031,8 @@ return|return
 literal|true
 return|;
 block|}
-specifier|private
+annotation|@
+name|VisibleForTesting
 name|boolean
 name|rollWriter
 parameter_list|(
@@ -5423,8 +5419,15 @@ condition|(
 name|stream
 operator|==
 literal|null
+operator|||
+name|logs
+operator|.
+name|isEmpty
+argument_list|()
 condition|)
+block|{
 return|return;
+block|}
 try|try
 block|{
 name|ProcedureWALFile
