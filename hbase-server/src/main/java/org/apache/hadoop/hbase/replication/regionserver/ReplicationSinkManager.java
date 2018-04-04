@@ -309,7 +309,7 @@ specifier|final
 name|float
 name|DEFAULT_REPLICATION_SOURCE_RATIO
 init|=
-literal|0.1f
+literal|0.5f
 decl_stmt|;
 specifier|private
 specifier|final

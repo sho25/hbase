@@ -151,22 +151,6 @@ name|hbase
 operator|.
 name|replication
 operator|.
-name|ReplicationPeers
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|replication
-operator|.
 name|regionserver
 operator|.
 name|ReplicationSinkManager
@@ -339,10 +323,6 @@ init|=
 literal|"PEER_CLUSTER_ID"
 decl_stmt|;
 specifier|private
-name|ReplicationPeers
-name|replicationPeers
-decl_stmt|;
-specifier|private
 name|HBaseReplicationEndpoint
 name|replicationEndpoint
 decl_stmt|;
@@ -357,15 +337,6 @@ name|void
 name|setUp
 parameter_list|()
 block|{
-name|replicationPeers
-operator|=
-name|mock
-argument_list|(
-name|ReplicationPeers
-operator|.
-name|class
-argument_list|)
-expr_stmt|;
 name|replicationEndpoint
 operator|=
 name|mock
@@ -415,6 +386,11 @@ operator|.
 name|newArrayList
 argument_list|()
 decl_stmt|;
+name|int
+name|totalServers
+init|=
+literal|20
+decl_stmt|;
 for|for
 control|(
 name|int
@@ -424,7 +400,7 @@ literal|0
 init|;
 name|i
 operator|<
-literal|20
+name|totalServers
 condition|;
 name|i
 operator|++
@@ -461,9 +437,23 @@ operator|.
 name|chooseSinks
 argument_list|()
 expr_stmt|;
+name|int
+name|expected
+init|=
+call|(
+name|int
+call|)
+argument_list|(
+name|totalServers
+operator|*
+name|ReplicationSinkManager
+operator|.
+name|DEFAULT_REPLICATION_SOURCE_RATIO
+argument_list|)
+decl_stmt|;
 name|assertEquals
 argument_list|(
-literal|2
+name|expected
 argument_list|,
 name|sinkManager
 operator|.
@@ -652,6 +642,11 @@ operator|.
 name|newArrayList
 argument_list|()
 decl_stmt|;
+name|int
+name|totalServers
+init|=
+literal|30
+decl_stmt|;
 for|for
 control|(
 name|int
@@ -661,7 +656,7 @@ literal|0
 init|;
 name|i
 operator|<
-literal|30
+name|totalServers
 condition|;
 name|i
 operator|++
@@ -699,9 +694,23 @@ name|chooseSinks
 argument_list|()
 expr_stmt|;
 comment|// Sanity check
+name|int
+name|expected
+init|=
+call|(
+name|int
+call|)
+argument_list|(
+name|totalServers
+operator|*
+name|ReplicationSinkManager
+operator|.
+name|DEFAULT_REPLICATION_SOURCE_RATIO
+argument_list|)
+decl_stmt|;
 name|assertEquals
 argument_list|(
-literal|3
+name|expected
 argument_list|,
 name|sinkManager
 operator|.
@@ -777,7 +786,9 @@ comment|// Reporting a bad sink more than the threshold count should remove it
 comment|// from the list of potential sinks
 name|assertEquals
 argument_list|(
-literal|2
+name|expected
+operator|-
+literal|1
 argument_list|,
 name|sinkManager
 operator|.
@@ -862,7 +873,9 @@ expr_stmt|;
 comment|// did not remove the sink, since we had one successful try
 name|assertEquals
 argument_list|(
-literal|2
+name|expected
+operator|-
+literal|1
 argument_list|,
 name|sinkManager
 operator|.
@@ -900,7 +913,9 @@ block|}
 comment|// still not remove, since the success reset the counter
 name|assertEquals
 argument_list|(
-literal|2
+name|expected
+operator|-
+literal|1
 argument_list|,
 name|sinkManager
 operator|.
@@ -918,7 +933,9 @@ expr_stmt|;
 comment|// but we exhausted the tries
 name|assertEquals
 argument_list|(
-literal|1
+name|expected
+operator|-
+literal|2
 argument_list|,
 name|sinkManager
 operator|.
@@ -945,6 +962,11 @@ operator|.
 name|newArrayList
 argument_list|()
 decl_stmt|;
+name|int
+name|totalServers
+init|=
+literal|4
+decl_stmt|;
 for|for
 control|(
 name|int
@@ -954,7 +976,7 @@ literal|0
 init|;
 name|i
 operator|<
-literal|20
+name|totalServers
 condition|;
 name|i
 operator|++
@@ -1003,9 +1025,23 @@ operator|.
 name|getSinksForTesting
 argument_list|()
 decl_stmt|;
+name|int
+name|expected
+init|=
+call|(
+name|int
+call|)
+argument_list|(
+name|totalServers
+operator|*
+name|ReplicationSinkManager
+operator|.
+name|DEFAULT_REPLICATION_SOURCE_RATIO
+argument_list|)
+decl_stmt|;
 name|assertEquals
 argument_list|(
-literal|2
+name|expected
 argument_list|,
 name|sinkList
 operator|.
@@ -1102,10 +1138,28 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// We've gone down to 0 good sinks, so the replication sinks
-comment|// should have been refreshed now
+comment|// should have been refreshed now, so out of 4 servers, 2 are not considered as they are
+comment|// reported as bad.
+name|expected
+operator|=
+call|(
+name|int
+call|)
+argument_list|(
+operator|(
+name|totalServers
+operator|-
+literal|2
+operator|)
+operator|*
+name|ReplicationSinkManager
+operator|.
+name|DEFAULT_REPLICATION_SOURCE_RATIO
+argument_list|)
+expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|2
+name|expected
 argument_list|,
 name|sinkManager
 operator|.
