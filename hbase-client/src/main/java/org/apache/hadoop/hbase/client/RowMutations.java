@@ -73,13 +73,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|commons
 operator|.
-name|hbase
+name|collections
 operator|.
-name|util
-operator|.
-name|Bytes
+name|CollectionUtils
 import|;
 end_import
 
@@ -95,7 +93,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|CollectionUtils
+name|Bytes
 import|;
 end_import
 
@@ -159,7 +157,7 @@ throw|throw
 operator|new
 name|IllegalArgumentException
 argument_list|(
-literal|"Can't instantiate a RowMutations by empty list"
+literal|"Cannot instantiate a RowMutations by empty list"
 argument_list|)
 throw|;
 block|}
