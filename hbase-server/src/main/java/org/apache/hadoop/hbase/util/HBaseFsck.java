@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -1669,6 +1669,28 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hbase
+operator|.
+name|thirdparty
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|collect
+operator|.
+name|Sets
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -2154,6 +2176,51 @@ operator|new
 name|AtomicBoolean
 argument_list|(
 literal|false
+argument_list|)
+decl_stmt|;
+comment|// Unsupported options in HBase 2.0+
+specifier|private
+specifier|static
+specifier|final
+name|Set
+argument_list|<
+name|String
+argument_list|>
+name|unsupportedOptionsInV2
+init|=
+name|Sets
+operator|.
+name|newHashSet
+argument_list|(
+literal|"-fix"
+argument_list|,
+literal|"-fixAssignments"
+argument_list|,
+literal|"-fixMeta"
+argument_list|,
+literal|"-fixHdfsHoles"
+argument_list|,
+literal|"-fixHdfsOrphans"
+argument_list|,
+literal|"-fixTableOrphans"
+argument_list|,
+literal|"-fixHdfsOverlaps"
+argument_list|,
+literal|"-sidelineBigOverlaps"
+argument_list|,
+literal|"-fixSplitParents"
+argument_list|,
+literal|"-removeParents"
+argument_list|,
+literal|"-fixEmptyMetaCells"
+argument_list|,
+literal|"-repair"
+argument_list|,
+literal|"-repairHoles"
+argument_list|,
+literal|"-maxOverlapsToSideline"
+argument_list|,
+literal|"-maxMerge"
 argument_list|)
 decl_stmt|;
 comment|/***********    * Options    ***********/
@@ -22029,6 +22096,8 @@ block|,
 name|UNDELETED_REPLICATION_QUEUE
 block|,
 name|DUPE_ENDKEYS
+block|,
+name|UNSUPPORTED_OPTION
 block|}
 name|void
 name|clear
@@ -24528,6 +24597,62 @@ name|out
 operator|.
 name|println
 argument_list|(
+literal|""
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|println
+argument_list|(
+literal|"-----------------------------------------------------------------------"
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|println
+argument_list|(
+literal|"NOTE: As of HBase version 2.0, the hbck tool is significantly changed."
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|println
+argument_list|(
+literal|"In general, all Read-Only options are supported and can be be used"
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|println
+argument_list|(
+literal|"safely. Most -fix/ -repair options are NOT supported. Please see usage"
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|println
+argument_list|(
+literal|"below for details on which options are not supported."
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|println
+argument_list|(
+literal|"-----------------------------------------------------------------------"
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|println
+argument_list|(
+literal|""
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|println
+argument_list|(
 literal|"Usage: fsck [opts] {only tables}"
 argument_list|)
 expr_stmt|;
@@ -24618,7 +24743,121 @@ name|out
 operator|.
 name|println
 argument_list|(
-literal|"  Metadata Repair options: (expert features, use with caution!)"
+literal|"  Datafile Repair options: (expert features, use with caution!)"
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|println
+argument_list|(
+literal|"   -checkCorruptHFiles     Check all Hfiles by opening them to make sure they are valid"
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|println
+argument_list|(
+literal|"   -sidelineCorruptHFiles  Quarantine corrupted HFiles.  implies -checkCorruptHFiles"
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|println
+argument_list|(
+literal|""
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|println
+argument_list|(
+literal|" Replication options"
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|println
+argument_list|(
+literal|"   -fixReplication   Deletes replication queues for removed peers"
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|println
+argument_list|(
+literal|""
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|println
+argument_list|(
+literal|"  Metadata Repair options supported as of version 2.0: (expert features, use with caution!)"
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|println
+argument_list|(
+literal|"   -fixVersionFile   Try to fix missing hbase.version file in hdfs."
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|println
+argument_list|(
+literal|"   -fixReferenceFiles  Try to offline lingering reference store files"
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|println
+argument_list|(
+literal|"   -fixHFileLinks  Try to offline lingering HFileLinks"
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|println
+argument_list|(
+literal|"   -noHdfsChecking   Don't load/check region info from HDFS."
+operator|+
+literal|" Assumes hbase:meta region info is good. Won't check/fix any HDFS issue, e.g. hole, orphan, or overlap"
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|println
+argument_list|(
+literal|"   -ignorePreCheckPermission  ignore filesystem permission pre-check"
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|println
+argument_list|(
+literal|""
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|println
+argument_list|(
+literal|"NOTE: Following options are NOT supported as of HBase version 2.0+."
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|println
+argument_list|(
+literal|""
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|println
+argument_list|(
+literal|"  UNSUPPORTED Metadata Repair options: (expert features, use with caution!)"
 argument_list|)
 expr_stmt|;
 name|out
@@ -24640,15 +24879,6 @@ operator|.
 name|println
 argument_list|(
 literal|"   -fixMeta          Try to fix meta problems.  This assumes HDFS region info is good."
-argument_list|)
-expr_stmt|;
-name|out
-operator|.
-name|println
-argument_list|(
-literal|"   -noHdfsChecking   Don't load/check region info from HDFS."
-operator|+
-literal|" Assumes hbase:meta region info is good. Won't check/fix any HDFS issue, e.g. hole, orphan, or overlap"
 argument_list|)
 expr_stmt|;
 name|out
@@ -24677,13 +24907,6 @@ operator|.
 name|println
 argument_list|(
 literal|"   -fixHdfsOverlaps  Try to fix region overlaps in hdfs."
-argument_list|)
-expr_stmt|;
-name|out
-operator|.
-name|println
-argument_list|(
-literal|"   -fixVersionFile   Try to fix missing hbase.version file in hdfs."
 argument_list|)
 expr_stmt|;
 name|out
@@ -24733,27 +24956,6 @@ name|out
 operator|.
 name|println
 argument_list|(
-literal|"   -ignorePreCheckPermission  ignore filesystem permission pre-check"
-argument_list|)
-expr_stmt|;
-name|out
-operator|.
-name|println
-argument_list|(
-literal|"   -fixReferenceFiles  Try to offline lingering reference store files"
-argument_list|)
-expr_stmt|;
-name|out
-operator|.
-name|println
-argument_list|(
-literal|"   -fixHFileLinks  Try to offline lingering HFileLinks"
-argument_list|)
-expr_stmt|;
-name|out
-operator|.
-name|println
-argument_list|(
 literal|"   -fixEmptyMetaCells  Try to fix hbase:meta entries not referencing any region"
 operator|+
 literal|" (empty REGIONINFO_QUALIFIER rows)"
@@ -24770,35 +24972,7 @@ name|out
 operator|.
 name|println
 argument_list|(
-literal|"  Datafile Repair options: (expert features, use with caution!)"
-argument_list|)
-expr_stmt|;
-name|out
-operator|.
-name|println
-argument_list|(
-literal|"   -checkCorruptHFiles     Check all Hfiles by opening them to make sure they are valid"
-argument_list|)
-expr_stmt|;
-name|out
-operator|.
-name|println
-argument_list|(
-literal|"   -sidelineCorruptHFiles  Quarantine corrupted HFiles.  implies -checkCorruptHFiles"
-argument_list|)
-expr_stmt|;
-name|out
-operator|.
-name|println
-argument_list|(
-literal|""
-argument_list|)
-expr_stmt|;
-name|out
-operator|.
-name|println
-argument_list|(
-literal|"  Metadata Repair shortcuts"
+literal|"  UNSUPPORTED Metadata Repair shortcuts"
 argument_list|)
 expr_stmt|;
 name|out
@@ -24817,27 +24991,6 @@ operator|.
 name|println
 argument_list|(
 literal|"   -repairHoles      Shortcut for -fixAssignments -fixMeta -fixHdfsHoles"
-argument_list|)
-expr_stmt|;
-name|out
-operator|.
-name|println
-argument_list|(
-literal|""
-argument_list|)
-expr_stmt|;
-name|out
-operator|.
-name|println
-argument_list|(
-literal|" Replication options"
-argument_list|)
-expr_stmt|;
-name|out
-operator|.
-name|println
-argument_list|(
-literal|"   -fixReplication   Deletes replication queues for removed peers"
 argument_list|)
 expr_stmt|;
 name|out
@@ -26138,6 +26291,22 @@ comment|// do the real work of hbck
 name|connect
 argument_list|()
 expr_stmt|;
+comment|// after connecting to server above, we have server version
+comment|// check if unsupported option is specified based on server version
+if|if
+condition|(
+operator|!
+name|isOptionsSupported
+argument_list|(
+name|args
+argument_list|)
+condition|)
+block|{
+return|return
+name|printUsageAndExit
+argument_list|()
+return|;
+block|}
 try|try
 block|{
 comment|// if corrupt file mode is on, first fix them since they may be opened later
@@ -26389,6 +26558,109 @@ expr_stmt|;
 block|}
 return|return
 name|this
+return|;
+block|}
+specifier|private
+name|boolean
+name|isOptionsSupported
+parameter_list|(
+name|String
+index|[]
+name|args
+parameter_list|)
+block|{
+name|boolean
+name|result
+init|=
+literal|true
+decl_stmt|;
+name|String
+name|hbaseServerVersion
+init|=
+name|status
+operator|.
+name|getHBaseVersion
+argument_list|()
+decl_stmt|;
+name|Object
+index|[]
+name|versionComponents
+init|=
+name|VersionInfo
+operator|.
+name|getVersionComponents
+argument_list|(
+name|hbaseServerVersion
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|versionComponents
+index|[
+literal|0
+index|]
+operator|instanceof
+name|Integer
+operator|&&
+operator|(
+operator|(
+name|Integer
+operator|)
+name|versionComponents
+index|[
+literal|0
+index|]
+operator|)
+operator|>=
+literal|2
+condition|)
+block|{
+comment|// Process command-line args.
+for|for
+control|(
+name|String
+name|arg
+range|:
+name|args
+control|)
+block|{
+if|if
+condition|(
+name|unsupportedOptionsInV2
+operator|.
+name|contains
+argument_list|(
+name|arg
+argument_list|)
+condition|)
+block|{
+name|errors
+operator|.
+name|reportError
+argument_list|(
+name|ERROR_CODE
+operator|.
+name|UNSUPPORTED_OPTION
+argument_list|,
+literal|"option '"
+operator|+
+name|arg
+operator|+
+literal|"' is not "
+operator|+
+literal|"supportted!"
+argument_list|)
+expr_stmt|;
+name|result
+operator|=
+literal|false
+expr_stmt|;
+break|break;
+block|}
+block|}
+block|}
+return|return
+name|result
 return|;
 block|}
 comment|/**    * ls -r for debugging purposes    */
