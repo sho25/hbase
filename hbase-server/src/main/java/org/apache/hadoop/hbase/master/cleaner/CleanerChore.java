@@ -614,10 +614,10 @@ operator|=
 literal|0
 expr_stmt|;
 block|}
-comment|/**      * Checks if pool can be updated immediately.      * @param conf configuration      * @return true if pool can be updated immediately, false otherwise      */
+comment|/**      * Checks if pool can be updated. If so, mark for update later.      * @param conf configuration      */
 specifier|synchronized
-name|boolean
-name|canUpdateImmediately
+name|void
+name|markUpdate
 parameter_list|(
 name|Configuration
 name|conf
@@ -654,29 +654,12 @@ argument_list|,
 name|newSize
 argument_list|)
 expr_stmt|;
-return|return
-literal|false
-return|;
+return|return;
 block|}
 name|size
 operator|=
 name|newSize
 expr_stmt|;
-if|if
-condition|(
-name|pool
-operator|.
-name|getPoolSize
-argument_list|()
-operator|==
-literal|0
-condition|)
-block|{
-comment|// chore has no working thread.
-return|return
-literal|true
-return|;
-block|}
 comment|// Chore is working, update it later.
 name|reconfigNotification
 operator|.
@@ -685,9 +668,6 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
-return|return
-literal|false
-return|;
 block|}
 comment|/**      * Update pool with new size.      */
 specifier|synchronized
@@ -698,10 +678,24 @@ name|long
 name|timeout
 parameter_list|)
 block|{
+name|long
+name|stopTime
+init|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+operator|+
+name|timeout
+decl_stmt|;
 while|while
 condition|(
 name|cleanerLatch
 operator|!=
+literal|0
+operator|&&
+name|timeout
+operator|>
 literal|0
 condition|)
 block|{
@@ -712,6 +706,15 @@ argument_list|(
 name|timeout
 argument_list|)
 expr_stmt|;
+name|timeout
+operator|=
+name|stopTime
+operator|-
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -719,9 +722,16 @@ name|InterruptedException
 name|ie
 parameter_list|)
 block|{
-comment|// It's ok to ignore
-block|}
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|interrupt
+argument_list|()
+expr_stmt|;
 break|break;
+block|}
 block|}
 name|pool
 operator|.
@@ -1249,25 +1259,13 @@ name|Configuration
 name|conf
 parameter_list|)
 block|{
-if|if
-condition|(
 name|POOL
 operator|.
-name|canUpdateImmediately
+name|markUpdate
 argument_list|(
 name|conf
 argument_list|)
-condition|)
-block|{
-comment|// Can immediately update, no need to wait.
-name|POOL
-operator|.
-name|updatePool
-argument_list|(
-literal|0
-argument_list|)
 expr_stmt|;
-block|}
 block|}
 comment|/**    * A utility method to create new instances of LogCleanerDelegate based on the class name of the    * LogCleanerDelegate.    * @param className fully qualified class name of the LogCleanerDelegate    * @param conf used configuration    * @return the new instance    */
 specifier|private
