@@ -1985,12 +1985,47 @@ argument_list|(
 literal|"Starting WAL Procedure Store lease recovery"
 argument_list|)
 expr_stmt|;
+name|boolean
+name|afterFirstAttempt
+init|=
+literal|false
+decl_stmt|;
 while|while
 condition|(
 name|isRunning
 argument_list|()
 condition|)
 block|{
+comment|// Don't sleep before first attempt
+if|if
+condition|(
+name|afterFirstAttempt
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Sleep {} ms after first lease recovery attempt."
+argument_list|,
+name|waitBeforeRoll
+argument_list|)
+expr_stmt|;
+name|Threads
+operator|.
+name|sleepWithoutInterrupt
+argument_list|(
+name|waitBeforeRoll
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|afterFirstAttempt
+operator|=
+literal|true
+expr_stmt|;
+block|}
 name|FileStatus
 index|[]
 name|oldLogs
