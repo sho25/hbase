@@ -363,7 +363,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/**    * Simple test of shutdown.    *<p>    * Starts with three masters.  Tells the active master to shutdown the cluster.    * Verifies that all masters are properly shutdown.    * @throws Exception    */
+comment|/**    * Simple test of shutdown.    *<p>    * Starts with three masters.  Tells the active master to shutdown the cluster.    * Verifies that all masters are properly shutdown.    */
 annotation|@
 name|Test
 specifier|public
@@ -779,6 +779,26 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Error while calling Admin.shutdown, which is expected: "
+operator|+
+name|e
+operator|.
+name|getMessage
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 name|LOG
 operator|.
 name|info
@@ -793,13 +813,6 @@ argument_list|(
 name|MASTER_INDEX
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|Exception
-name|e
-parameter_list|)
-block|{         }
 block|}
 block|}
 decl_stmt|;
