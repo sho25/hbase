@@ -129,7 +129,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|PrivateCellUtil
+name|KeyValue
 import|;
 end_import
 
@@ -143,7 +143,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|PrivateCellUtil
 import|;
 end_import
 
@@ -254,26 +254,6 @@ operator|.
 name|audience
 operator|.
 name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|slf4j
-operator|.
-name|Logger
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|slf4j
-operator|.
-name|LoggerFactory
 import|;
 end_import
 
@@ -415,21 +395,6 @@ name|WALEdit
 implements|implements
 name|HeapSize
 block|{
-specifier|private
-specifier|static
-specifier|final
-name|Logger
-name|LOG
-init|=
-name|LoggerFactory
-operator|.
-name|getLogger
-argument_list|(
-name|WALEdit
-operator|.
-name|class
-argument_list|)
-decl_stmt|;
 comment|// TODO: Get rid of this; see HBASE-8457
 specifier|public
 specifier|static

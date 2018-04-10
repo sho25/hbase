@@ -681,6 +681,9 @@ block|{
 return|return
 name|clazz
 operator|.
+name|getDeclaredConstructor
+argument_list|()
+operator|.
 name|newInstance
 argument_list|()
 return|;

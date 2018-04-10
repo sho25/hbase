@@ -998,7 +998,15 @@ return|;
 case|case
 name|REPLAY_REMOTE_WAL_IN_PEER
 case|:
-comment|// TODO: replay remote wal when transiting from S to DA.
+name|addChildProcedure
+argument_list|(
+operator|new
+name|RecoverStandbyProcedure
+argument_list|(
+name|peerId
+argument_list|)
+argument_list|)
+expr_stmt|;
 name|setNextState
 argument_list|(
 name|PeerSyncReplicationStateTransitionState

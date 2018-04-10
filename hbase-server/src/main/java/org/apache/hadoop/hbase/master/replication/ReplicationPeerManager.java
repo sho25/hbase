@@ -548,6 +548,10 @@ argument_list|(
 name|SyncReplicationState
 operator|.
 name|DOWNGRADE_ACTIVE
+argument_list|,
+name|SyncReplicationState
+operator|.
+name|STANDBY
 argument_list|)
 argument_list|,
 name|SyncReplicationState

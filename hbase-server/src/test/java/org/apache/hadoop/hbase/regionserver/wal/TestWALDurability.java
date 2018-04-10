@@ -626,6 +626,11 @@ argument_list|,
 name|conf
 argument_list|)
 decl_stmt|;
+name|customFSLog
+operator|.
+name|init
+argument_list|()
+expr_stmt|;
 name|HRegion
 name|region
 init|=
@@ -740,6 +745,11 @@ argument_list|()
 argument_list|,
 name|conf
 argument_list|)
+expr_stmt|;
+name|customFSLog
+operator|.
+name|init
+argument_list|()
 expr_stmt|;
 name|region
 operator|=

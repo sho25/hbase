@@ -178,6 +178,13 @@ specifier|final
 name|Path
 name|remoteWalDir
 decl_stmt|;
+specifier|private
+specifier|volatile
+name|boolean
+name|skipRemoteWal
+init|=
+literal|false
+decl_stmt|;
 specifier|public
 name|DualAsyncFSWAL
 parameter_list|(
@@ -293,6 +300,15 @@ argument_list|(
 name|path
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|skipRemoteWal
+condition|)
+block|{
+return|return
+name|localWriter
+return|;
+block|}
 name|AsyncWriter
 name|remoteWriter
 decl_stmt|;
@@ -357,6 +373,23 @@ argument_list|,
 name|localWriter
 argument_list|)
 return|;
+block|}
+comment|// Allow temporarily skipping the creation of remote writer. When failing to write to the remote
+comment|// dfs cluster, we need to reopen the regions and switch to use the original wal writer. But we
+comment|// need to write a close marker when closing a region, and if it fails, the whole rs will abort.
+comment|// So here we need to skip the creation of remote writer and make it possible to write the region
+comment|// close marker.
+specifier|public
+name|void
+name|skipRemoteWal
+parameter_list|()
+block|{
+name|this
+operator|.
+name|skipRemoteWal
+operator|=
+literal|true
+expr_stmt|;
 block|}
 block|}
 end_class
