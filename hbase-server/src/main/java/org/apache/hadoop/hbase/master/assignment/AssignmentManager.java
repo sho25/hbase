@@ -4774,7 +4774,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"No matchin procedure found for {} to transition to {}"
+literal|"No matching procedure found for {} transition to {}"
 argument_list|,
 name|regionNode
 argument_list|,

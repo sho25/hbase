@@ -742,7 +742,7 @@ name|this
 operator|.
 name|hri
 operator|.
-name|getRegionNameAsString
+name|getEncodedName
 argument_list|()
 operator|+
 literal|", source="

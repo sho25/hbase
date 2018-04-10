@@ -854,20 +854,20 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-name|String
-operator|.
-name|format
-argument_list|(
-literal|"Load hbase:meta entry region=%s regionState=%s lastHost=%s regionLocation=%s"
+literal|"Load hbase:meta entry region={}, regionState={}, lastHost={}, "
+operator|+
+literal|"regionLocation={}"
 argument_list|,
 name|regionInfo
+operator|.
+name|getEncodedName
+argument_list|()
 argument_list|,
 name|state
 argument_list|,
 name|lastHost
 argument_list|,
 name|regionLocation
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|visitor
@@ -1134,7 +1134,7 @@ name|append
 argument_list|(
 name|regionInfo
 operator|.
-name|getRegionNameAsString
+name|getEncodedName
 argument_list|()
 argument_list|)
 operator|.
