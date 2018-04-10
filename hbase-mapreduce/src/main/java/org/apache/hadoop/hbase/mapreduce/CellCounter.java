@@ -1736,236 +1736,11 @@ operator|<
 literal|2
 condition|)
 block|{
-name|System
-operator|.
-name|err
-operator|.
-name|println
+name|printUsage
 argument_list|(
-literal|"ERROR: Wrong number of parameters: "
-operator|+
 name|args
 operator|.
 name|length
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"Usage: CellCounter "
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"<tablename><outputDir><reportSeparator> [^[regex pattern] or "
-operator|+
-literal|"[Prefix] for row filter]] --starttime=[starttime] --endtime=[endtime]"
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"  Note: -D properties will be applied to the conf used. "
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"  Additionally, all of the SCAN properties from TableInputFormat"
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"  can be specified to get fine grained control on what is counted.."
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"   -D "
-operator|+
-name|TableInputFormat
-operator|.
-name|SCAN_ROW_START
-operator|+
-literal|"=<rowkey>"
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"   -D "
-operator|+
-name|TableInputFormat
-operator|.
-name|SCAN_ROW_STOP
-operator|+
-literal|"=<rowkey>"
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"   -D "
-operator|+
-name|TableInputFormat
-operator|.
-name|SCAN_COLUMNS
-operator|+
-literal|"=\"<col1><col2>...\""
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"   -D "
-operator|+
-name|TableInputFormat
-operator|.
-name|SCAN_COLUMN_FAMILY
-operator|+
-literal|"=<family1>,<family2>, ..."
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"   -D "
-operator|+
-name|TableInputFormat
-operator|.
-name|SCAN_TIMESTAMP
-operator|+
-literal|"=<timestamp>"
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"   -D "
-operator|+
-name|TableInputFormat
-operator|.
-name|SCAN_TIMERANGE_START
-operator|+
-literal|"=<timestamp>"
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"   -D "
-operator|+
-name|TableInputFormat
-operator|.
-name|SCAN_TIMERANGE_END
-operator|+
-literal|"=<timestamp>"
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"   -D "
-operator|+
-name|TableInputFormat
-operator|.
-name|SCAN_MAXVERSIONS
-operator|+
-literal|"=<count>"
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"   -D "
-operator|+
-name|TableInputFormat
-operator|.
-name|SCAN_CACHEDROWS
-operator|+
-literal|"=<count>"
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"   -D "
-operator|+
-name|TableInputFormat
-operator|.
-name|SCAN_BATCHSIZE
-operator|+
-literal|"=<count>"
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"<reportSeparator> parameter can be used to override the default report separator "
-operator|+
-literal|"string : used to separate the rowId/column family name and qualifier name."
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|" [^[regex pattern] or [Prefix] parameter can be used to limit the cell counter count "
-operator|+
-literal|"operation to a limited subset of rows from the table based on regex or prefix pattern."
 argument_list|)
 expr_stmt|;
 return|return
@@ -1998,6 +1773,231 @@ else|:
 literal|1
 operator|)
 return|;
+block|}
+specifier|private
+name|void
+name|printUsage
+parameter_list|(
+name|int
+name|parameterCount
+parameter_list|)
+block|{
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"ERROR: Wrong number of parameters: "
+operator|+
+name|parameterCount
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"Usage: hbase cellcounter<tablename><outputDir> [reportSeparator] "
+operator|+
+literal|"[^[regex pattern] or [Prefix]] [--starttime=<starttime> --endtime=<endtime>]"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"  Note: -D properties will be applied to the conf used."
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"  Additionally, all of the SCAN properties from TableInputFormat can be "
+operator|+
+literal|"specified to get fine grained control on what is counted."
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"   -D"
+operator|+
+name|TableInputFormat
+operator|.
+name|SCAN_ROW_START
+operator|+
+literal|"=<rowkey>"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"   -D"
+operator|+
+name|TableInputFormat
+operator|.
+name|SCAN_ROW_STOP
+operator|+
+literal|"=<rowkey>"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"   -D"
+operator|+
+name|TableInputFormat
+operator|.
+name|SCAN_COLUMNS
+operator|+
+literal|"=\"<col1><col2>...\""
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"   -D"
+operator|+
+name|TableInputFormat
+operator|.
+name|SCAN_COLUMN_FAMILY
+operator|+
+literal|"=<family1>,<family2>, ..."
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"   -D"
+operator|+
+name|TableInputFormat
+operator|.
+name|SCAN_TIMESTAMP
+operator|+
+literal|"=<timestamp>"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"   -D"
+operator|+
+name|TableInputFormat
+operator|.
+name|SCAN_TIMERANGE_START
+operator|+
+literal|"=<timestamp>"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"   -D"
+operator|+
+name|TableInputFormat
+operator|.
+name|SCAN_TIMERANGE_END
+operator|+
+literal|"=<timestamp>"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"   -D"
+operator|+
+name|TableInputFormat
+operator|.
+name|SCAN_MAXVERSIONS
+operator|+
+literal|"=<count>"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"   -D"
+operator|+
+name|TableInputFormat
+operator|.
+name|SCAN_CACHEDROWS
+operator|+
+literal|"=<count>"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"   -D"
+operator|+
+name|TableInputFormat
+operator|.
+name|SCAN_BATCHSIZE
+operator|+
+literal|"=<count>"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"<reportSeparator> parameter can be used to override the default report "
+operator|+
+literal|"separator string : used to separate the rowId/column family name and qualifier name."
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|" [^[regex pattern] or [Prefix] parameter can be used to limit the cell "
+operator|+
+literal|"counter count operation to a limited subset of rows from the table based on regex or "
+operator|+
+literal|"prefix pattern."
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * Main entry point.    * @param args The command line parameters.    * @throws Exception When running the job fails.    */
 specifier|public

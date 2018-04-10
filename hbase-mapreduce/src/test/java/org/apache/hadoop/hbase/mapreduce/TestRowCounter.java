@@ -1737,49 +1737,12 @@ literal|"Wrong number of parameters:"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertUsageContent
 argument_list|(
 name|data
 operator|.
 name|toString
 argument_list|()
-operator|.
-name|contains
-argument_list|(
-literal|"Usage: RowCounter [options]<tablename> "
-operator|+
-literal|"[--starttime=[start] --endtime=[end] "
-operator|+
-literal|"[--range=[startKey],[endKey][;[startKey],[endKey]...]] "
-operator|+
-literal|"[<column1><column2>...]"
-argument_list|)
-argument_list|)
-expr_stmt|;
-name|assertTrue
-argument_list|(
-name|data
-operator|.
-name|toString
-argument_list|()
-operator|.
-name|contains
-argument_list|(
-literal|"-Dhbase.client.scanner.caching=100"
-argument_list|)
-argument_list|)
-expr_stmt|;
-name|assertTrue
-argument_list|(
-name|data
-operator|.
-name|toString
-argument_list|()
-operator|.
-name|contains
-argument_list|(
-literal|"-Dmapreduce.map.speculative=false"
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -1857,23 +1820,12 @@ literal|" \"--range=,b\" or \"--range=a,\""
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertUsageContent
 argument_list|(
 name|data
 operator|.
 name|toString
 argument_list|()
-operator|.
-name|contains
-argument_list|(
-literal|"Usage: RowCounter [options]<tablename> "
-operator|+
-literal|"[--starttime=[start] --endtime=[end] "
-operator|+
-literal|"[--range=[startKey],[endKey][;[startKey],[endKey]...]] "
-operator|+
-literal|"[<column1><column2>...]"
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -1895,6 +1847,59 @@ name|SECURITY_MANAGER
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+specifier|private
+name|void
+name|assertUsageContent
+parameter_list|(
+name|String
+name|usage
+parameter_list|)
+block|{
+name|assertTrue
+argument_list|(
+name|usage
+operator|.
+name|contains
+argument_list|(
+literal|"Usage: hbase rowcounter [options]<tablename> "
+operator|+
+literal|"[--starttime=<start> --endtime=<end>] "
+operator|+
+literal|"[--range=[startKey],[endKey][;[startKey],[endKey]...]] [<column1><column2>...]"
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|assertTrue
+argument_list|(
+name|usage
+operator|.
+name|contains
+argument_list|(
+literal|"For performance consider the following options:"
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|assertTrue
+argument_list|(
+name|usage
+operator|.
+name|contains
+argument_list|(
+literal|"-Dhbase.client.scanner.caching=100"
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|assertTrue
+argument_list|(
+name|usage
+operator|.
+name|contains
+argument_list|(
+literal|"-Dmapreduce.map.speculative=false"
+argument_list|)
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 end_class

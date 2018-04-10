@@ -1262,9 +1262,9 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"Usage: RowCounter [options]<tablename> "
+literal|"Usage: hbase rowcounter [options]<tablename> "
 operator|+
-literal|"[--starttime=[start] --endtime=[end] "
+literal|"[--starttime=<start> --endtime=<end>] "
 operator|+
 literal|"[--range=[startKey],[endKey][;[startKey],[endKey]...]] [<column1><column2>...]"
 argument_list|)
