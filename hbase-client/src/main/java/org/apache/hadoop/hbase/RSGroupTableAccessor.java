@@ -265,6 +265,33 @@ argument_list|(
 literal|"i"
 argument_list|)
 decl_stmt|;
+specifier|private
+name|RSGroupTableAccessor
+parameter_list|()
+block|{   }
+specifier|public
+specifier|static
+name|boolean
+name|isRSGroupsEnabled
+parameter_list|(
+name|Connection
+name|connection
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|connection
+operator|.
+name|getAdmin
+argument_list|()
+operator|.
+name|tableExists
+argument_list|(
+name|RSGROUP_TABLE_NAME
+argument_list|)
+return|;
+block|}
 specifier|public
 specifier|static
 name|List
@@ -455,10 +482,6 @@ argument_list|)
 return|;
 block|}
 block|}
-specifier|private
-name|RSGroupTableAccessor
-parameter_list|()
-block|{   }
 block|}
 end_class
 
