@@ -1079,21 +1079,22 @@ name|hadoopVersion
 argument_list|)
 expr_stmt|;
 name|boolean
-name|isHadoop3
+name|isHadoop3_0_0
 init|=
 name|hadoopVersion
 operator|.
 name|startsWith
 argument_list|(
-literal|"3."
+literal|"3.0.0"
 argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|isHadoop3
+name|isHadoop3_0_0
 condition|)
 block|{
-comment|// Hadoop 3.0.0 alpha1+ change default nn port to 9820. See HDFS-9427
+comment|// Hadoop 3.0.0 alpha1+ ~ 3.0.0 GA changed default nn port to 9820.
+comment|// See HDFS-9427
 name|testIsSameHdfs
 argument_list|(
 literal|9820
@@ -1103,6 +1104,7 @@ block|}
 else|else
 block|{
 comment|// pre hadoop 3.0.0 defaults to port 8020
+comment|// Hadoop 3.0.1 changed it back to port 8020. See HDFS-12990
 name|testIsSameHdfs
 argument_list|(
 literal|8020
