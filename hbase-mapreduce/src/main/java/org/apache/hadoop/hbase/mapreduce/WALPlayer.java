@@ -2163,7 +2163,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"Read all WAL entries for<tables>."
+literal|"Replay all WAL files into HBase."
 argument_list|)
 expr_stmt|;
 name|System
@@ -2172,7 +2172,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"If no tables (\"\") are specific, all tables are imported."
+literal|"<tables> is a comma separated list of tables."
 argument_list|)
 expr_stmt|;
 name|System
@@ -2181,9 +2181,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"(Careful, even hbase:meta entries will be imported"
-operator|+
-literal|" in that case.)"
+literal|"If no tables (\"\") are specified, all tables are imported."
 argument_list|)
 expr_stmt|;
 name|System
@@ -2192,7 +2190,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"Otherwise<tables> is a comma separated list of tables.\n"
+literal|"(Be careful, hbase:meta entries will be imported in this case.)\n"
 argument_list|)
 expr_stmt|;
 name|System
@@ -2201,7 +2199,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"The WAL entries can be mapped to new set of tables via<tableMapping>."
+literal|"WAL entries can be mapped to new set of tables via<tableMappings>."
 argument_list|)
 expr_stmt|;
 name|System
@@ -2210,7 +2208,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"<tableMapping> is a command separated list of targettables."
+literal|"<tableMappings> is a comma separated list of target tables."
 argument_list|)
 expr_stmt|;
 name|System
@@ -2241,7 +2239,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"To generate HFiles for a bulk data load instead, pass the option:"
+literal|"To generate HFiles for a bulk data load instead, pass the following option:"
 argument_list|)
 expr_stmt|;
 name|System
@@ -2272,7 +2270,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"Other options: (specify time range to WAL edit to consider)"
+literal|"Time range options:"
 argument_list|)
 expr_stmt|;
 name|System
@@ -2311,11 +2309,56 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"   -D "
+literal|"  (The start and the end date of timerange. The dates can be expressed"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"  in milliseconds since epoch or in yyyy-MM-dd'T'HH:mm:ss.SS format."
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"  E.g. 1234567890120 or 2009-02-13T23:32:30.12)"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"Other options:"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"  -D"
 operator|+
 name|JOB_NAME_CONF_KEY
 operator|+
-literal|"=jobName - use the specified mapreduce job name for the wal player"
+literal|"=jobName"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"  Use the specified mapreduce job name for the wal player"
 argument_list|)
 expr_stmt|;
 name|System
