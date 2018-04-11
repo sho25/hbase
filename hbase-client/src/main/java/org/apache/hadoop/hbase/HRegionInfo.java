@@ -485,9 +485,11 @@ name|HConstants
 operator|.
 name|EMPTY_BYTE_ARRAY
 decl_stmt|;
-comment|// This flag is in the parent of a split while the parent is still referenced
-comment|// by daughter regions.  We USED to set this flag when we disabled a table
-comment|// but now table state is kept up in zookeeper as of 0.90.0 HBase.
+comment|// This flag is in the parent of a split while the parent is still referenced by daughter regions.
+comment|// We USED to set this flag when we disabled a table but now table state is kept up in zookeeper
+comment|// as of 0.90.0 HBase. And now in DisableTableProcedure, finally we will create bunch of
+comment|// UnassignProcedures and at the last of the procedure we will set the region state to CLOSED, and
+comment|// will not change the offLine flag.
 specifier|private
 name|boolean
 name|offLine

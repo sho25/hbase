@@ -5298,7 +5298,7 @@ else|else
 block|{
 throw|throw
 operator|new
-name|NoServerForRegionException
+name|IOException
 argument_list|(
 literal|"Unable to find region for "
 operator|+
@@ -5446,7 +5446,7 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|NoServerForRegionException
+name|IOException
 argument_list|(
 literal|"Unable to find region for "
 operator|+

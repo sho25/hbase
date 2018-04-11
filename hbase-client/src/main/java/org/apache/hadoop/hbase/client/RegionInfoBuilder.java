@@ -550,9 +550,11 @@ name|RegionInfo
 argument_list|>
 block|{
 comment|/**      * The new format for a region name contains its encodedName at the end.      * The encoded name also serves as the directory name for the region      * in the filesystem.      *      * New region name format:      *&lt;tablename>,,&lt;startkey>,&lt;regionIdTimestamp>.&lt;encodedName>.      * where,      *&lt;encodedName> is a hex version of the MD5 hash of      *&lt;tablename>,&lt;startkey>,&lt;regionIdTimestamp>      *      * The old region name format:      *&lt;tablename>,&lt;startkey>,&lt;regionIdTimestamp>      * For region names in the old format, the encoded name is a 32-bit      * JenkinsHash integer value (in its decimal notation, string form).      *<p>      * **NOTE**      *      * The first hbase:meta region, and regions created by an older      * version of HBase (0.20 or prior) will continue to use the      * old region name format.      */
-comment|// This flag is in the parent of a split while the parent is still referenced
-comment|// by daughter regions.  We USED to set this flag when we disabled a table
-comment|// but now table state is kept up in zookeeper as of 0.90.0 HBase.
+comment|// This flag is in the parent of a split while the parent is still referenced by daughter
+comment|// regions. We USED to set this flag when we disabled a table but now table state is kept up in
+comment|// zookeeper as of 0.90.0 HBase. And now in DisableTableProcedure, finally we will create bunch
+comment|// of UnassignProcedures and at the last of the procedure we will set the region state to
+comment|// CLOSED, and will not change the offLine flag.
 specifier|private
 name|boolean
 name|offLine
