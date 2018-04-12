@@ -33,6 +33,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|ArrayList
@@ -324,6 +334,16 @@ operator|.
 name|util
 operator|.
 name|ToolRunner
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|After
 import|;
 end_import
 
@@ -715,6 +735,18 @@ argument_list|(
 name|fam
 argument_list|)
 expr_stmt|;
+block|}
+annotation|@
+name|After
+specifier|public
+name|void
+name|tearDownBase
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+comment|// Do nothing, just replace the super tearDown. because the super tearDown will use the
+comment|// out-of-data HBase admin to remove replication peer, which will be result in failure.
 block|}
 comment|/**    * Add a row to a table in each cluster, check it's replicated, delete it,    * check's gone Also check the puts and deletes are not replicated back to    * the originating cluster.    */
 annotation|@

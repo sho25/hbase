@@ -506,7 +506,7 @@ name|LoggerFactory
 operator|.
 name|getLogger
 argument_list|(
-name|TestReplicationBase
+name|TestMultiSlaveReplication
 operator|.
 name|class
 argument_list|)
