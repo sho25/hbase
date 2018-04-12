@@ -473,10 +473,9 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-name|e
-operator|.
-name|toString
-argument_list|()
+literal|"Failed load of monkey properties {} from CLASSPATH"
+argument_list|,
+name|chaosMonkeyPropsFile
 argument_list|,
 name|e
 argument_list|)
