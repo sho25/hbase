@@ -728,6 +728,11 @@ name|boolean
 name|isClusterUp
 parameter_list|()
 function_decl|;
+comment|/**    * @return Return the object that implements the replication source executorService.    */
+name|ReplicationSourceService
+name|getReplicationSourceService
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

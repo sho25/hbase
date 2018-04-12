@@ -13375,7 +13375,7 @@ block|}
 block|}
 comment|/**    * @return Return the object that implements the replication    * source executorService.    */
 annotation|@
-name|VisibleForTesting
+name|Override
 specifier|public
 name|ReplicationSourceService
 name|getReplicationSourceService
