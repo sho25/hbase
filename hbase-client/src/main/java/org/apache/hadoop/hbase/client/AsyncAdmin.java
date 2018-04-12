@@ -2487,6 +2487,26 @@ name|TableName
 name|tableName
 parameter_list|)
 function_decl|;
+comment|/**    * Create a new table by cloning the existent table schema.    *    * @param tableName name of the table to be cloned    * @param newTableName name of the new table where the table will be created    * @param preserveSplits True if the splits should be preserved    */
+name|CompletableFuture
+argument_list|<
+name|Void
+argument_list|>
+name|cloneTableSchema
+parameter_list|(
+specifier|final
+name|TableName
+name|tableName
+parameter_list|,
+specifier|final
+name|TableName
+name|newTableName
+parameter_list|,
+specifier|final
+name|boolean
+name|preserveSplits
+parameter_list|)
+function_decl|;
 block|}
 end_interface
 
