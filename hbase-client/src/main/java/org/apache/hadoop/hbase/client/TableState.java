@@ -347,6 +347,21 @@ name|ENABLED
 argument_list|)
 return|;
 block|}
+comment|/**    * @return True if table is {@link State#ENABLING}.    */
+specifier|public
+name|boolean
+name|isEnabling
+parameter_list|()
+block|{
+return|return
+name|isInStates
+argument_list|(
+name|State
+operator|.
+name|ENABLING
+argument_list|)
+return|;
+block|}
 comment|/**    * @return True if {@link State#ENABLED} or {@link State#ENABLING}    */
 specifier|public
 name|boolean
@@ -378,6 +393,21 @@ argument_list|(
 name|State
 operator|.
 name|DISABLED
+argument_list|)
+return|;
+block|}
+comment|/**    * @return True if table is disabling.    */
+specifier|public
+name|boolean
+name|isDisabling
+parameter_list|()
+block|{
+return|return
+name|isInStates
+argument_list|(
+name|State
+operator|.
+name|DISABLING
 argument_list|)
 return|;
 block|}
