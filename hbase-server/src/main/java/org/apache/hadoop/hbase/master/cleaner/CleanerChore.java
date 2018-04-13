@@ -205,6 +205,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|fs
+operator|.
+name|PathIsNotEmptyDirectoryException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|hbase
 operator|.
 name|ScheduledChore
@@ -2205,6 +2219,7 @@ throws|throws
 name|IOException
 function_decl|;
 block|}
+comment|/**    * Attemps to clean up a directory, its subdirectories, and files.    * Return value is true if everything was deleted. false on partial / total failures.    */
 specifier|private
 class|class
 name|CleanerTask
@@ -2300,6 +2315,8 @@ name|files
 decl_stmt|;
 try|try
 block|{
+comment|// if dir doesn't exist, we'll get null back for both of these
+comment|// which will fall through to succeeding.
 name|subDirs
 operator|=
 name|getFilteredStatus
@@ -2335,15 +2352,15 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
+literal|"failed to get FileStatus for contents of '{}'"
+argument_list|,
 name|dir
-operator|+
-literal|" doesn't exist, just skip it. "
 argument_list|,
 name|ioe
 argument_list|)
 expr_stmt|;
 return|return
-literal|true
+literal|false
 return|;
 block|}
 name|boolean
@@ -2520,7 +2537,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**      * Get FileStatus with filter.      * Pay attention that FSUtils #listStatusWithStatusFilter would return null,      * even though status is empty but not null.      * @param function a filter function      * @return filtered FileStatus      * @throws IOException if there's no such a directory      */
+comment|/**      * Get FileStatus with filter.      * Pay attention that FSUtils #listStatusWithStatusFilter would return null,      * even though status is empty but not null.      * @param function a filter function      * @return filtered FileStatus or null if dir doesn't exist      * @throws IOException if there's an error other than dir not existing      */
 specifier|private
 name|List
 argument_list|<
@@ -2598,15 +2615,53 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
+name|PathIsNotEmptyDirectoryException
+name|exception
+parameter_list|)
+block|{
+comment|// N.B. HDFS throws this exception when we try to delete a non-empty directory, but
+comment|// LocalFileSystem throws a bare IOException. So some test code will get the verbose
+comment|// message below.
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Couldn't delete '{}' yet because it isn't empty. Probably transient. "
+operator|+
+literal|"exception details at TRACE."
+argument_list|,
+name|dir
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Couldn't delete '{}' yet because it isn't empty w/exception."
+argument_list|,
+name|dir
+argument_list|,
+name|exception
+argument_list|)
+expr_stmt|;
+name|deleted
+operator|=
+literal|false
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
 name|IOException
 name|ioe
 parameter_list|)
 block|{
 name|LOG
 operator|.
-name|warn
+name|info
 argument_list|(
-literal|"Could not delete {} under {}; {}"
+literal|"Could not delete {} under {}. might be transient; we'll retry. if it keeps "
+operator|+
+literal|"happening, use following exception when asking on mailing list."
 argument_list|,
 name|type
 argument_list|,
