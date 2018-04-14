@@ -468,11 +468,6 @@ name|isActive
 argument_list|()
 condition|)
 block|{
-name|int
-name|sleepMultiplier
-init|=
-literal|1
-decl_stmt|;
 comment|// Sleep until replication is enabled again
 if|if
 condition|(
@@ -483,20 +478,15 @@ name|isPeerEnabled
 argument_list|()
 condition|)
 block|{
-if|if
-condition|(
+comment|// The peer enabled check is in memory, not expensive, so do not need to increase the
+comment|// sleep interval as it may cause a long lag when we enable the peer.
 name|sleepForRetries
 argument_list|(
 literal|"Replication is disabled"
 argument_list|,
-name|sleepMultiplier
+literal|1
 argument_list|)
-condition|)
-block|{
-name|sleepMultiplier
-operator|++
 expr_stmt|;
-block|}
 continue|continue;
 block|}
 try|try
@@ -929,6 +919,8 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
+literal|"{} threw unknown exception:"
+argument_list|,
 name|source
 operator|.
 name|getReplicationEndpoint
@@ -939,23 +931,8 @@ argument_list|()
 operator|.
 name|getName
 argument_list|()
-operator|+
-literal|" threw unknown exception:"
-operator|+
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|util
-operator|.
-name|StringUtils
-operator|.
-name|stringifyException
-argument_list|(
+argument_list|,
 name|ex
-argument_list|)
 argument_list|)
 expr_stmt|;
 if|if
@@ -1437,30 +1414,19 @@ parameter_list|)
 block|{
 try|try
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|trace
 argument_list|(
+literal|"{}, sleeping {} times {}"
+argument_list|,
 name|msg
-operator|+
-literal|", sleeping "
-operator|+
+argument_list|,
 name|sleepForRetries
-operator|+
-literal|" times "
-operator|+
+argument_list|,
 name|sleepMultiplier
 argument_list|)
 expr_stmt|;
-block|}
 name|Thread
 operator|.
 name|sleep
