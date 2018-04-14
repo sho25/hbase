@@ -315,6 +315,22 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|replication
+operator|.
+name|ReplicationQueueStorage
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -476,6 +492,11 @@ literal|0
 decl_stmt|;
 name|long
 name|deletedBarriers
+init|=
+literal|0
+decl_stmt|;
+name|long
+name|deletedLastPushedSeqIds
 init|=
 literal|0
 decl_stmt|;
@@ -776,8 +797,8 @@ name|index
 operator|++
 expr_stmt|;
 block|}
-comment|// A special case for merged/split region, where we are in the last closed range and the
-comment|// pushedSeqId is the last barrier minus 1.
+comment|// A special case for merged/split region, and also deleted tables, where we are in the last
+comment|// closed range and the pushedSeqId is the last barrier minus 1.
 if|if
 condition|(
 name|index
@@ -825,6 +846,40 @@ argument_list|)
 argument_list|)
 condition|)
 block|{
+name|ReplicationQueueStorage
+name|queueStorage
+init|=
+name|peerManager
+operator|.
+name|getQueueStorage
+argument_list|()
+decl_stmt|;
+for|for
+control|(
+name|String
+name|peerId
+range|:
+name|peerIds
+control|)
+block|{
+name|queueStorage
+operator|.
+name|removeLastSequenceIds
+argument_list|(
+name|peerId
+argument_list|,
+name|Arrays
+operator|.
+name|asList
+argument_list|(
+name|encodedRegionName
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|deletedLastPushedSeqIds
+operator|++
+expr_stmt|;
+block|}
 name|metaTable
 operator|.
 name|delete
@@ -967,9 +1022,9 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Cleanup replication barriers: "
+literal|"Cleanup replication barriers: totalRows {}, "
 operator|+
-literal|"totalRows {}, cleanedRows {}, deletedRows {}, deletedBarriers {}"
+literal|"cleanedRows {}, deletedRows {}, deletedBarriers {}, deletedLastPushedSeqIds {}"
 argument_list|,
 name|totalRows
 argument_list|,
@@ -978,6 +1033,8 @@ argument_list|,
 name|deletedRows
 argument_list|,
 name|deletedBarriers
+argument_list|,
+name|deletedLastPushedSeqIds
 argument_list|)
 expr_stmt|;
 block|}
