@@ -605,7 +605,7 @@ name|long
 name|readSize
 parameter_list|)
 throws|throws
-name|ThrottlingException
+name|RpcThrottlingException
 block|{
 if|if
 condition|(
@@ -616,7 +616,7 @@ name|canExecute
 argument_list|()
 condition|)
 block|{
-name|ThrottlingException
+name|RpcThrottlingException
 operator|.
 name|throwNumRequestsExceeded
 argument_list|(
@@ -640,7 +640,7 @@ name|readSize
 argument_list|)
 condition|)
 block|{
-name|ThrottlingException
+name|RpcThrottlingException
 operator|.
 name|throwRequestSizeExceeded
 argument_list|(
@@ -671,7 +671,7 @@ name|canExecute
 argument_list|()
 condition|)
 block|{
-name|ThrottlingException
+name|RpcThrottlingException
 operator|.
 name|throwNumWriteRequestsExceeded
 argument_list|(
@@ -693,7 +693,7 @@ name|writeSize
 argument_list|)
 condition|)
 block|{
-name|ThrottlingException
+name|RpcThrottlingException
 operator|.
 name|throwWriteSizeExceeded
 argument_list|(
@@ -723,7 +723,7 @@ name|canExecute
 argument_list|()
 condition|)
 block|{
-name|ThrottlingException
+name|RpcThrottlingException
 operator|.
 name|throwNumReadRequestsExceeded
 argument_list|(
@@ -745,7 +745,7 @@ name|readSize
 argument_list|)
 condition|)
 block|{
-name|ThrottlingException
+name|RpcThrottlingException
 operator|.
 name|throwReadSizeExceeded
 argument_list|(

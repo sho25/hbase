@@ -273,7 +273,7 @@ name|hbase
 operator|.
 name|quotas
 operator|.
-name|ThrottlingException
+name|RpcThrottlingException
 import|;
 end_import
 
@@ -379,7 +379,7 @@ name|RegionTooBusyException
 operator|||
 name|cur
 operator|instanceof
-name|ThrottlingException
+name|RpcThrottlingException
 operator|||
 name|cur
 operator|instanceof
@@ -407,7 +407,7 @@ name|RequestTooBigException
 operator|)
 return|;
 block|}
-comment|/**    * Look for an exception we know in the remote exception:    * - hadoop.ipc wrapped exceptions    * - nested exceptions    *    * Looks for: RegionMovedException / RegionOpeningException / RegionTooBusyException /    *            ThrottlingException    * @return null if we didn't find the exception, the exception otherwise.    */
+comment|/**    * Look for an exception we know in the remote exception:    * - hadoop.ipc wrapped exceptions    * - nested exceptions    *    * Looks for: RegionMovedException / RegionOpeningException / RegionTooBusyException /    *            RpcThrottlingException    * @return null if we didn't find the exception, the exception otherwise.    */
 specifier|public
 specifier|static
 name|Throwable

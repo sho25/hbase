@@ -114,7 +114,7 @@ name|GET
 block|,
 name|SCAN
 block|}
-comment|/**    * Checks if it is possible to execute the specified operation.    * The quota will be estimated based on the number of operations to perform    * and the average size accumulated during time.    *    * @param numWrites number of write operation that will be performed    * @param numReads number of small-read operation that will be performed    * @param numScans number of long-read operation that will be performed    * @throws ThrottlingException if the operation cannot be performed    */
+comment|/**    * Checks if it is possible to execute the specified operation.    * The quota will be estimated based on the number of operations to perform    * and the average size accumulated during time.    *    * @param numWrites number of write operation that will be performed    * @param numReads number of small-read operation that will be performed    * @param numScans number of long-read operation that will be performed    * @throws RpcThrottlingException if the operation cannot be performed because    *   RPC quota is exceeded.    */
 name|void
 name|checkQuota
 parameter_list|(
@@ -128,7 +128,7 @@ name|int
 name|numScans
 parameter_list|)
 throws|throws
-name|ThrottlingException
+name|RpcThrottlingException
 function_decl|;
 comment|/** Cleanup method on operation completion */
 name|void

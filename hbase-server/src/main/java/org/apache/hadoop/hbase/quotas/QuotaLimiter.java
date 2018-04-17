@@ -80,7 +80,7 @@ specifier|public
 interface|interface
 name|QuotaLimiter
 block|{
-comment|/**    * Checks if it is possible to execute the specified operation.    *    * @param estimateWriteSize the write size that will be checked against the available quota    * @param estimateReadSize the read size that will be checked against the available quota    * @throws ThrottlingException thrown if not enough avialable resources to perform operation.    */
+comment|/**    * Checks if it is possible to execute the specified operation.    *    * @param estimateWriteSize the write size that will be checked against the available quota    * @param estimateReadSize the read size that will be checked against the available quota    * @throws RpcThrottlingException thrown if not enough avialable resources to perform operation.    */
 name|void
 name|checkQuota
 parameter_list|(
@@ -91,7 +91,7 @@ name|long
 name|estimateReadSize
 parameter_list|)
 throws|throws
-name|ThrottlingException
+name|RpcThrottlingException
 function_decl|;
 comment|/**    * Removes the specified write and read amount from the quota.    * At this point the write and read amount will be an estimate,    * that will be later adjusted with a consumeWrite()/consumeRead() call.    *    * @param writeSize the write size that will be removed from the current quota    * @param readSize the read size that will be removed from the current quota    */
 name|void

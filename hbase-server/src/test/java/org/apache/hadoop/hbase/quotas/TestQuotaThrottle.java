@@ -3586,7 +3586,7 @@ block|}
 block|}
 catch|catch
 parameter_list|(
-name|ThrottlingException
+name|RpcThrottlingException
 name|e
 parameter_list|)
 block|{
@@ -3678,7 +3678,7 @@ block|}
 block|}
 catch|catch
 parameter_list|(
-name|ThrottlingException
+name|RpcThrottlingException
 name|e
 parameter_list|)
 block|{

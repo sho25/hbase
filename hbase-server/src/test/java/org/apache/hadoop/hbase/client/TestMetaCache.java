@@ -193,7 +193,7 @@ name|hbase
 operator|.
 name|quotas
 operator|.
-name|ThrottlingException
+name|RpcThrottlingException
 import|;
 end_import
 
@@ -1301,7 +1301,7 @@ expr_stmt|;
 name|add
 argument_list|(
 operator|new
-name|ThrottlingException
+name|RpcThrottlingException
 argument_list|(
 literal|" "
 argument_list|)

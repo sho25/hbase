@@ -601,7 +601,7 @@ name|get
 argument_list|()
 return|;
 block|}
-comment|/**    * Check the quota for the current (rpc-context) user.    * Returns the OperationQuota used to get the available quota and    * to report the data/usage of the operation.    * @param region the region where the operation will be performed    * @param type the operation type    * @return the OperationQuota    * @throws ThrottlingException if the operation cannot be executed due to quota exceeded.    */
+comment|/**    * Check the quota for the current (rpc-context) user.    * Returns the OperationQuota used to get the available quota and    * to report the data/usage of the operation.    * @param region the region where the operation will be performed    * @param type the operation type    * @return the OperationQuota    * @throws RpcThrottlingException if the operation cannot be executed due to quota exceeded.    */
 specifier|public
 name|OperationQuota
 name|checkQuota
@@ -619,7 +619,7 @@ parameter_list|)
 throws|throws
 name|IOException
 throws|,
-name|ThrottlingException
+name|RpcThrottlingException
 block|{
 switch|switch
 condition|(
@@ -682,7 +682,7 @@ name|type
 argument_list|)
 throw|;
 block|}
-comment|/**    * Check the quota for the current (rpc-context) user.    * Returns the OperationQuota used to get the available quota and    * to report the data/usage of the operation.    * @param region the region where the operation will be performed    * @param actions the "multi" actions to perform    * @return the OperationQuota    * @throws ThrottlingException if the operation cannot be executed due to quota exceeded.    */
+comment|/**    * Check the quota for the current (rpc-context) user.    * Returns the OperationQuota used to get the available quota and    * to report the data/usage of the operation.    * @param region the region where the operation will be performed    * @param actions the "multi" actions to perform    * @return the OperationQuota    * @throws RpcThrottlingException if the operation cannot be executed due to quota exceeded.    */
 specifier|public
 name|OperationQuota
 name|checkQuota
@@ -703,7 +703,7 @@ parameter_list|)
 throws|throws
 name|IOException
 throws|,
-name|ThrottlingException
+name|RpcThrottlingException
 block|{
 name|int
 name|numWrites
@@ -765,7 +765,7 @@ literal|0
 argument_list|)
 return|;
 block|}
-comment|/**    * Check the quota for the current (rpc-context) user.    * Returns the OperationQuota used to get the available quota and    * to report the data/usage of the operation.    * @param region the region where the operation will be performed    * @param numWrites number of writes to perform    * @param numReads number of short-reads to perform    * @param numScans number of scan to perform    * @return the OperationQuota    * @throws ThrottlingException if the operation cannot be executed due to quota exceeded.    */
+comment|/**    * Check the quota for the current (rpc-context) user.    * Returns the OperationQuota used to get the available quota and    * to report the data/usage of the operation.    * @param region the region where the operation will be performed    * @param numWrites number of writes to perform    * @param numReads number of short-reads to perform    * @param numScans number of scan to perform    * @return the OperationQuota    * @throws RpcThrottlingException if the operation cannot be executed due to quota exceeded.    */
 specifier|private
 name|OperationQuota
 name|checkQuota
@@ -789,7 +789,7 @@ parameter_list|)
 throws|throws
 name|IOException
 throws|,
-name|ThrottlingException
+name|RpcThrottlingException
 block|{
 name|Optional
 argument_list|<
@@ -874,7 +874,7 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|ThrottlingException
+name|RpcThrottlingException
 name|e
 parameter_list|)
 block|{

@@ -109,7 +109,7 @@ name|long
 name|estimateReadSize
 parameter_list|)
 throws|throws
-name|ThrottlingException
+name|RpcThrottlingException
 block|{
 comment|// no-op
 block|}

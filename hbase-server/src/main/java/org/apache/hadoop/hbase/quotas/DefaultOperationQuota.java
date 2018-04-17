@@ -281,7 +281,7 @@ name|int
 name|numScans
 parameter_list|)
 throws|throws
-name|ThrottlingException
+name|RpcThrottlingException
 block|{
 name|writeConsumed
 operator|=
