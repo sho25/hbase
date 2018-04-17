@@ -362,9 +362,23 @@ name|String
 name|getQueueId
 parameter_list|()
 function_decl|;
-comment|/**    * Get the id that the source is replicating to.    *    * @return peer id    */
+comment|/**    * Get the id that the source is replicating to.    * @return peer id    */
+specifier|default
 name|String
 name|getPeerId
+parameter_list|()
+block|{
+return|return
+name|getPeer
+argument_list|()
+operator|.
+name|getId
+argument_list|()
+return|;
+block|}
+comment|/**    * Get the replication peer instance.    * @return the replication peer instance    */
+name|ReplicationPeer
+name|getPeer
 parameter_list|()
 function_decl|;
 comment|/**    * Get a string representation of the current statistics    * for this source    * @return printable stats    */
@@ -373,10 +387,36 @@ name|getStats
 parameter_list|()
 function_decl|;
 comment|/**    * @return peer enabled or not    */
+specifier|default
 name|boolean
 name|isPeerEnabled
 parameter_list|()
-function_decl|;
+block|{
+return|return
+name|getPeer
+argument_list|()
+operator|.
+name|isPeerEnabled
+argument_list|()
+return|;
+block|}
+comment|/**    * @return whether this is sync replication peer.    */
+specifier|default
+name|boolean
+name|isSyncReplication
+parameter_list|()
+block|{
+return|return
+name|getPeer
+argument_list|()
+operator|.
+name|getPeerConfig
+argument_list|()
+operator|.
+name|isSyncReplication
+argument_list|()
+return|;
+block|}
 comment|/**    * @return active or not    */
 name|boolean
 name|isSourceActive

@@ -713,11 +713,6 @@ specifier|protected
 name|ReplicationQueueInfo
 name|replicationQueueInfo
 decl_stmt|;
-comment|// id of the peer cluster this source replicates to
-specifier|private
-name|String
-name|peerId
-decl_stmt|;
 comment|// The manager of all sources to which we ping back our progress
 specifier|protected
 name|ReplicationSourceManager
@@ -1030,18 +1025,6 @@ argument_list|(
 name|queueId
 argument_list|)
 expr_stmt|;
-comment|// ReplicationQueueInfo parses the peerId out of the znode for us
-name|this
-operator|.
-name|peerId
-operator|=
-name|this
-operator|.
-name|replicationQueueInfo
-operator|.
-name|getPeerId
-argument_list|()
-expr_stmt|;
 name|this
 operator|.
 name|logQueueWarnThreshold
@@ -1109,16 +1092,15 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"queueId="
-operator|+
+literal|"queueId={}, ReplicationSource : {}, currentBandwidth={}"
+argument_list|,
 name|queueId
-operator|+
-literal|", ReplicationSource : "
-operator|+
-name|peerId
-operator|+
-literal|", currentBandwidth="
-operator|+
+argument_list|,
+name|replicationPeer
+operator|.
+name|getId
+argument_list|()
+argument_list|,
 name|this
 operator|.
 name|currentBandwidth
@@ -1338,6 +1320,14 @@ parameter_list|)
 throws|throws
 name|ReplicationException
 block|{
+name|String
+name|peerId
+init|=
+name|replicationPeer
+operator|.
+name|getId
+argument_list|()
+decl_stmt|;
 name|Map
 argument_list|<
 name|TableName
@@ -1678,7 +1668,10 @@ argument_list|()
 argument_list|,
 name|fs
 argument_list|,
-name|peerId
+name|replicationPeer
+operator|.
+name|getId
+argument_list|()
 argument_list|,
 name|clusterId
 argument_list|,
@@ -2191,12 +2184,13 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"ReplicationSource : "
-operator|+
-name|peerId
-operator|+
-literal|" bandwidth throttling changed, currentBandWidth="
-operator|+
+literal|"ReplicationSource : {} bandwidth throttling changed, currentBandWidth={}"
+argument_list|,
+name|replicationPeer
+operator|.
+name|getId
+argument_list|()
+argument_list|,
 name|currentBandwidth
 argument_list|)
 expr_stmt|;
@@ -2302,21 +2296,6 @@ return|return
 name|sleepMultiplier
 operator|<
 name|maxRetriesMultiplier
-return|;
-block|}
-comment|/**    * check whether the peer is enabled or not    * @return true if the peer is enabled, otherwise false    */
-annotation|@
-name|Override
-specifier|public
-name|boolean
-name|isPeerEnabled
-parameter_list|()
-block|{
-return|return
-name|replicationPeer
-operator|.
-name|isPeerEnabled
-argument_list|()
 return|;
 block|}
 specifier|private
@@ -3070,19 +3049,6 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|String
-name|getPeerId
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|peerId
-return|;
-block|}
-annotation|@
-name|Override
-specifier|public
 name|Path
 name|getCurrentPath
 parameter_list|()
@@ -3465,6 +3431,17 @@ name|server
 operator|.
 name|getServerName
 argument_list|()
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|ReplicationPeer
+name|getPeer
+parameter_list|()
+block|{
+return|return
+name|replicationPeer
 return|;
 block|}
 name|Server
