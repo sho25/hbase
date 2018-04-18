@@ -148,21 +148,6 @@ name|SegmentScanner
 implements|implements
 name|KeyValueScanner
 block|{
-comment|/**    * Order of this scanner relative to other scanners. See    * {@link KeyValueScanner#getScannerOrder()}.    */
-specifier|private
-name|long
-name|scannerOrder
-decl_stmt|;
-specifier|private
-specifier|static
-specifier|final
-name|long
-name|DEFAULT_SCANNER_ORDER
-init|=
-name|Long
-operator|.
-name|MAX_VALUE
-decl_stmt|;
 comment|// the observed structure
 specifier|protected
 specifier|final
@@ -213,6 +198,7 @@ name|closed
 init|=
 literal|false
 decl_stmt|;
+comment|/**    * Scanners are ordered from 0 (oldest) to newest in increasing order.    */
 specifier|protected
 name|SegmentScanner
 parameter_list|(
@@ -221,30 +207,6 @@ name|segment
 parameter_list|,
 name|long
 name|readPoint
-parameter_list|)
-block|{
-name|this
-argument_list|(
-name|segment
-argument_list|,
-name|readPoint
-argument_list|,
-name|DEFAULT_SCANNER_ORDER
-argument_list|)
-expr_stmt|;
-block|}
-comment|/**    * @param scannerOrder see {@link KeyValueScanner#getScannerOrder()}.    * Scanners are ordered from 0 (oldest) to newest in increasing order.    */
-specifier|protected
-name|SegmentScanner
-parameter_list|(
-name|Segment
-name|segment
-parameter_list|,
-name|long
-name|readPoint
-parameter_list|,
-name|long
-name|scannerOrder
 parameter_list|)
 block|{
 name|this
@@ -277,12 +239,6 @@ expr_stmt|;
 comment|// the initialization of the current is required for working with heap of SegmentScanners
 name|updateCurrent
 argument_list|()
-expr_stmt|;
-name|this
-operator|.
-name|scannerOrder
-operator|=
-name|scannerOrder
 expr_stmt|;
 if|if
 condition|(
@@ -810,18 +766,6 @@ name|higherCell
 argument_list|)
 return|;
 block|}
-block|}
-comment|/**    * @see KeyValueScanner#getScannerOrder()    */
-annotation|@
-name|Override
-specifier|public
-name|long
-name|getScannerOrder
-parameter_list|()
-block|{
-return|return
-name|scannerOrder
-return|;
 block|}
 comment|/**    * Close the KeyValue scanner.    */
 annotation|@

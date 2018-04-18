@@ -488,18 +488,6 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * @see org.apache.hadoop.hbase.regionserver.KeyValueScanner#getScannerOrder()    */
-annotation|@
-name|Override
-specifier|public
-name|long
-name|getScannerOrder
-parameter_list|()
-block|{
-return|return
-literal|0
-return|;
-block|}
 annotation|@
 name|Override
 specifier|public

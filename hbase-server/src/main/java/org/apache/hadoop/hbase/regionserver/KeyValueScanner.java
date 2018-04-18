@@ -172,11 +172,16 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get the order of this KeyValueScanner. This is only relevant for StoreFileScanners and    * MemStoreScanners (other scanners simply return 0). This is required for comparing multiple    * files to find out which one has the latest data. StoreFileScanners are ordered from 0    * (oldest) to newest in increasing order. MemStoreScanner gets LONG.max since it always    * contains freshest data.    */
+comment|/**    * Get the order of this KeyValueScanner. This is only relevant for StoreFileScanners.    * This is required for comparing multiple files to find out which one has the latest    * data. StoreFileScanners are ordered from 0 (oldest) to newest in increasing order.    */
+specifier|default
 name|long
 name|getScannerOrder
 parameter_list|()
-function_decl|;
+block|{
+return|return
+literal|0
+return|;
+block|}
 comment|/**    * Close the KeyValue scanner.    */
 annotation|@
 name|Override

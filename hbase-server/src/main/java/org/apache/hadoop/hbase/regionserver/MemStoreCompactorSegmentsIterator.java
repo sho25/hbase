@@ -282,16 +282,6 @@ name|KeyValueScanner
 argument_list|>
 argument_list|()
 decl_stmt|;
-comment|// create the list of scanners to traverse over all the data
-comment|// no dirty reads here as these are immutable segments
-name|int
-name|order
-init|=
-name|segments
-operator|.
-name|size
-argument_list|()
-decl_stmt|;
 name|AbstractMemStore
 operator|.
 name|addToScanners
@@ -301,8 +291,6 @@ argument_list|,
 name|Integer
 operator|.
 name|MAX_VALUE
-argument_list|,
-name|order
 argument_list|,
 name|scanners
 argument_list|)

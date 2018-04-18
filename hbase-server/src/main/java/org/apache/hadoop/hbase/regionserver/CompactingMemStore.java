@@ -1459,7 +1459,6 @@ return|;
 block|}
 annotation|@
 name|Override
-comment|/*    * Scanners are ordered from 0 (oldest) to newest in increasing order.    */
 specifier|public
 name|List
 argument_list|<
@@ -1505,7 +1504,7 @@ name|getAllSegments
 argument_list|()
 decl_stmt|;
 name|long
-name|order
+name|numberOfSegments
 init|=
 literal|1L
 operator|+
@@ -1520,7 +1519,6 @@ name|size
 argument_list|()
 decl_stmt|;
 comment|// The list of elements in pipeline + the active element + the snapshot segment
-comment|// The order is the Segment ordinal
 name|List
 argument_list|<
 name|KeyValueScanner
@@ -1532,31 +1530,23 @@ argument_list|(
 operator|(
 name|int
 operator|)
-name|order
+name|numberOfSegments
 argument_list|)
 decl_stmt|;
-name|order
-operator|=
 name|addToScanners
 argument_list|(
 name|activeTmp
 argument_list|,
 name|readPt
 argument_list|,
-name|order
-argument_list|,
 name|list
 argument_list|)
 expr_stmt|;
-name|order
-operator|=
 name|addToScanners
 argument_list|(
 name|pipelineList
 argument_list|,
 name|readPt
-argument_list|,
-name|order
 argument_list|,
 name|list
 argument_list|)
@@ -1566,8 +1556,6 @@ argument_list|(
 name|snapshotList
 argument_list|,
 name|readPt
-argument_list|,
-name|order
 argument_list|,
 name|list
 argument_list|)

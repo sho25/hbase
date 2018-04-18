@@ -4819,18 +4819,6 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * @see KeyValueScanner#getScannerOrder()    */
-annotation|@
-name|Override
-specifier|public
-name|long
-name|getScannerOrder
-parameter_list|()
-block|{
-return|return
-literal|0
-return|;
-block|}
 comment|/**    * Seek storefiles in parallel to optimize IO latency as much as possible    * @param scanners the list {@link KeyValueScanner}s to be read from    * @param kv the KeyValue on which the operation is being requested    * @throws IOException    */
 specifier|private
 name|void

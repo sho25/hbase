@@ -436,28 +436,6 @@ literal|"Not supported by CompositeImmutableScanner"
 argument_list|)
 throw|;
 block|}
-comment|/**    * Creates the scanner for the given read point, and a specific order in a list    * @return a scanner for the given read point    */
-annotation|@
-name|Override
-specifier|public
-name|KeyValueScanner
-name|getScanner
-parameter_list|(
-name|long
-name|readPoint
-parameter_list|,
-name|long
-name|order
-parameter_list|)
-block|{
-throw|throw
-operator|new
-name|IllegalStateException
-argument_list|(
-literal|"Not supported by CompositeImmutableScanner"
-argument_list|)
-throw|;
-block|}
 annotation|@
 name|Override
 specifier|public
@@ -469,9 +447,6 @@ name|getScanners
 parameter_list|(
 name|long
 name|readPoint
-parameter_list|,
-name|long
-name|order
 parameter_list|)
 block|{
 name|List
@@ -497,8 +472,6 @@ argument_list|(
 name|segments
 argument_list|,
 name|readPoint
-argument_list|,
-name|order
 argument_list|,
 name|list
 argument_list|)

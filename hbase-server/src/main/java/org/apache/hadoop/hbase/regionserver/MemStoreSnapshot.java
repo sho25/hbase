@@ -153,10 +153,6 @@ argument_list|(
 name|Long
 operator|.
 name|MAX_VALUE
-argument_list|,
-name|Long
-operator|.
-name|MAX_VALUE
 argument_list|)
 expr_stmt|;
 name|this
