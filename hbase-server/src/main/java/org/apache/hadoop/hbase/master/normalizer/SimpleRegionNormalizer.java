@@ -69,6 +69,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HBaseConfiguration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseIOException
 import|;
 end_import
@@ -296,12 +310,8 @@ name|class
 argument_list|)
 decl_stmt|;
 specifier|private
-specifier|static
-specifier|final
 name|int
-name|MIN_REGION_COUNT
-init|=
-literal|3
+name|minRegionCount
 decl_stmt|;
 specifier|private
 name|MasterServices
@@ -330,6 +340,25 @@ operator|.
 name|length
 index|]
 decl_stmt|;
+specifier|public
+name|SimpleRegionNormalizer
+parameter_list|()
+block|{
+name|minRegionCount
+operator|=
+name|HBaseConfiguration
+operator|.
+name|create
+argument_list|()
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.normalizer.min.region.count"
+argument_list|,
+literal|3
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Set the master service.    * @param masterServices inject instance of MasterServices    */
 annotation|@
 name|Override
@@ -583,7 +612,7 @@ operator|.
 name|size
 argument_list|()
 operator|<
-name|MIN_REGION_COUNT
+name|minRegionCount
 condition|)
 block|{
 name|int
@@ -616,7 +645,7 @@ literal|" regions, required min number"
 operator|+
 literal|" of regions for normalizer to run is "
 operator|+
-name|MIN_REGION_COUNT
+name|minRegionCount
 operator|+
 literal|", not running normalizer"
 argument_list|)
