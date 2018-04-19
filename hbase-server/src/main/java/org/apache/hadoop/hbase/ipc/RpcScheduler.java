@@ -204,11 +204,32 @@ name|int
 name|getReplicationQueueLength
 parameter_list|()
 function_decl|;
-comment|/** Retrieves the number of active handler. */
+comment|/** Retrieves the total number of active handler. */
 specifier|public
 specifier|abstract
 name|int
 name|getActiveRpcHandlerCount
+parameter_list|()
+function_decl|;
+comment|/** Retrieves the number of active general handler. */
+specifier|public
+specifier|abstract
+name|int
+name|getActiveGeneralRpcHandlerCount
+parameter_list|()
+function_decl|;
+comment|/** Retrieves the number of active priority handler. */
+specifier|public
+specifier|abstract
+name|int
+name|getActivePriorityRpcHandlerCount
+parameter_list|()
+function_decl|;
+comment|/** Retrieves the number of active replication handler. */
+specifier|public
+specifier|abstract
+name|int
+name|getActiveReplicationRpcHandlerCount
 parameter_list|()
 function_decl|;
 comment|/**    * If CoDel-based RPC executors are used, retrieves the number of Calls that were dropped    * from general queue because RPC executor is under high load; returns 0 otherwise.    */

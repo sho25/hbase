@@ -276,7 +276,37 @@ decl_stmt|;
 name|String
 name|NUM_ACTIVE_HANDLER_DESC
 init|=
-literal|"Number of active rpc handlers."
+literal|"Total number of active rpc handlers."
+decl_stmt|;
+name|String
+name|NUM_ACTIVE_GENERAL_HANDLER_NAME
+init|=
+literal|"numActiveGeneralHandler"
+decl_stmt|;
+name|String
+name|NUM_ACTIVE_GENERAL_HANDLER_DESC
+init|=
+literal|"Number of active general rpc handlers."
+decl_stmt|;
+name|String
+name|NUM_ACTIVE_PRIORITY_HANDLER_NAME
+init|=
+literal|"numActivePriorityHandler"
+decl_stmt|;
+name|String
+name|NUM_ACTIVE_PRIORITY_HANDLER_DESC
+init|=
+literal|"Number of active priority rpc handlers."
+decl_stmt|;
+name|String
+name|NUM_ACTIVE_REPLICATION_HANDLER_NAME
+init|=
+literal|"numActiveReplicationHandler"
+decl_stmt|;
+name|String
+name|NUM_ACTIVE_REPLICATION_HANDLER_DESC
+init|=
+literal|"Number of active replication rpc handlers."
 decl_stmt|;
 name|String
 name|NUM_ACTIVE_WRITE_HANDLER_NAME
