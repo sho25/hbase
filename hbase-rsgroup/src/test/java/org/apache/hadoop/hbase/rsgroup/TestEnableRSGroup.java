@@ -356,6 +356,16 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
+name|TEST_UTIL
+operator|.
+name|getMiniHBaseCluster
+argument_list|()
+operator|.
+name|waitOnMaster
+argument_list|(
+literal|0
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
 name|info
