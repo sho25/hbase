@@ -103,7 +103,13 @@ name|void
 name|checkQuota
 parameter_list|(
 name|long
+name|writeReqs
+parameter_list|,
+name|long
 name|estimateWriteSize
+parameter_list|,
+name|long
+name|readReqs
 parameter_list|,
 name|long
 name|estimateReadSize
@@ -120,7 +126,13 @@ name|void
 name|grabQuota
 parameter_list|(
 name|long
+name|writeReqs
+parameter_list|,
+name|long
 name|writeSize
+parameter_list|,
+name|long
+name|readReqs
 parameter_list|,
 name|long
 name|readSize

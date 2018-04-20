@@ -355,7 +355,13 @@ name|limiter
 operator|.
 name|checkQuota
 argument_list|(
+name|numWrites
+argument_list|,
 name|writeConsumed
+argument_list|,
+name|numReads
+operator|+
+name|numScans
 argument_list|,
 name|readConsumed
 argument_list|)
@@ -402,7 +408,13 @@ name|limiter
 operator|.
 name|grabQuota
 argument_list|(
+name|numWrites
+argument_list|,
 name|writeConsumed
+argument_list|,
+name|numReads
+operator|+
+name|numScans
 argument_list|,
 name|readConsumed
 argument_list|)
