@@ -3091,7 +3091,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * Path to a file under RECOVERED_EDITS_DIR directory of the region found in    *<code>logEntry</code> named for the sequenceid in the passed    *<code>logEntry</code>: e.g. /hbase/some_table/2323432434/recovered.edits/2332.    * This method also ensures existence of RECOVERED_EDITS_DIR under the region    * creating it if necessary.    * @param logEntry    * @param fileNameBeingSplit the file being split currently. Used to generate tmp file name.    * @param conf    * @return Path to file into which to dump split log edits.    * @throws IOException    */
+comment|/**    * Path to a file under RECOVERED_EDITS_DIR directory of the region found in    *<code>logEntry</code> named for the sequenceid in the passed    *<code>logEntry</code>: e.g. /hbase/some_table/2323432434/recovered.edits/2332.    * This method also ensures existence of RECOVERED_EDITS_DIR under the region    * creating it if necessary.    * @param logEntry    * @param fileNameBeingSplit the file being split currently. Used to generate tmp file name.    * @param tmpDirName of the directory used to sideline old recovered edits file    * @param conf    * @return Path to file into which to dump split log edits.    * @throws IOException    */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -3109,6 +3109,9 @@ name|logEntry
 parameter_list|,
 name|String
 name|fileNameBeingSplit
+parameter_list|,
+name|String
+name|tmpDirName
 parameter_list|,
 name|Configuration
 name|conf
@@ -3241,7 +3244,7 @@ init|=
 operator|new
 name|Path
 argument_list|(
-literal|"/tmp"
+name|tmpDirName
 argument_list|)
 decl_stmt|;
 if|if
@@ -7768,6 +7771,22 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|String
+name|tmpDirName
+init|=
+name|conf
+operator|.
+name|get
+argument_list|(
+name|HConstants
+operator|.
+name|TEMPORARY_FS_DIRECTORY_KEY
+argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_TEMPORARY_HDFS_DIRECTORY
+argument_list|)
+decl_stmt|;
 name|Path
 name|regionedits
 init|=
@@ -7782,6 +7801,8 @@ argument_list|()
 operator|.
 name|getName
 argument_list|()
+argument_list|,
+name|tmpDirName
 argument_list|,
 name|conf
 argument_list|)
