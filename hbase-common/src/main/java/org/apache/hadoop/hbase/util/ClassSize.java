@@ -462,8 +462,7 @@ block|{
 return|return
 name|align
 argument_list|(
-name|arrayHeaderSize
-argument_list|()
+name|ARRAY
 operator|+
 name|len
 argument_list|)
@@ -613,8 +612,7 @@ block|{
 return|return
 name|align
 argument_list|(
-name|arrayHeaderSize
-argument_list|()
+name|ARRAY
 operator|+
 name|len
 operator|*
