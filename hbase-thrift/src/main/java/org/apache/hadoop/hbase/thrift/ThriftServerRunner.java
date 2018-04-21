@@ -815,22 +815,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|http
-operator|.
-name|HttpServerUtil
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|log
 operator|.
 name|HBaseMarkers
@@ -3325,13 +3309,6 @@ name|thriftHttpServlet
 argument_list|)
 argument_list|,
 literal|"/*"
-argument_list|)
-expr_stmt|;
-name|HttpServerUtil
-operator|.
-name|constrainHttpMethods
-argument_list|(
-name|ctxHandler
 argument_list|)
 expr_stmt|;
 comment|// set up Jetty and run the embedded server
