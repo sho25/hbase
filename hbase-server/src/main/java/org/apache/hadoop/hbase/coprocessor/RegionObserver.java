@@ -19,22 +19,6 @@ end_package
 
 begin_import
 import|import
-name|edu
-operator|.
-name|umd
-operator|.
-name|cs
-operator|.
-name|findbugs
-operator|.
-name|annotations
-operator|.
-name|NonNull
-import|;
-end_import
-
-begin_import
-import|import
 name|java
 operator|.
 name|io
@@ -888,8 +872,6 @@ throws|throws
 name|IOException
 block|{}
 comment|/**    * Called before we do in memory compaction. Notice that this method will only be called when you    * use {@code eager} mode. For {@code basic} mode we will not drop any cells thus there is no    * {@link InternalScanner}.    * @param c the environment provided by the region server    * @param store the store where in memory compaction is being executed    * @param scanner the scanner over existing data used in the memstore segments being compact    * @return the scanner to use during in memory compaction. Must be non-null.    */
-annotation|@
-name|NonNull
 specifier|default
 name|InternalScanner
 name|preMemStoreCompactionCompact

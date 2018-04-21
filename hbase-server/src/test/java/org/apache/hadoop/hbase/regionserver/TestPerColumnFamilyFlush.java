@@ -2709,17 +2709,20 @@ name|cf1MemstoreSize
 argument_list|)
 expr_stmt|;
 comment|// CF2 and CF3 shouldn't have been flushed.
+comment|// TODO: This test doesn't allow for this case:
+comment|// " Since none of the CFs were above the size, flushing all."
+comment|// i.e. a flush happens before we get to here and its a flush-all.
 name|assertTrue
 argument_list|(
 name|cf2MemstoreSize
-operator|>
+operator|>=
 literal|0
 argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
 name|cf3MemstoreSize
-operator|>
+operator|>=
 literal|0
 argument_list|)
 expr_stmt|;
