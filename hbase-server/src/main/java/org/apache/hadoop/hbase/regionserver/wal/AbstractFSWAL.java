@@ -3649,6 +3649,21 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
+if|if
+condition|(
+name|this
+operator|.
+name|closed
+condition|)
+block|{
+throw|throw
+operator|new
+name|WALClosedException
+argument_list|(
+literal|"WAL has been closed"
+argument_list|)
+throw|;
+block|}
 comment|// Return if nothing to flush.
 if|if
 condition|(
@@ -3682,24 +3697,6 @@ name|regionsToFlush
 init|=
 literal|null
 decl_stmt|;
-if|if
-condition|(
-name|this
-operator|.
-name|closed
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"WAL closed. Skipping rolling of writer"
-argument_list|)
-expr_stmt|;
-return|return
-name|regionsToFlush
-return|;
-block|}
 try|try
 init|(
 name|TraceScope
