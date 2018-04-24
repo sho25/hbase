@@ -340,7 +340,7 @@ name|STOPPED
 block|,
 name|FINISHED
 block|,
-comment|// The worker is done processing a recovered queue
+comment|// The worker is done processing a queue
 block|}
 specifier|private
 specifier|final
@@ -362,7 +362,7 @@ name|queue
 decl_stmt|;
 specifier|private
 specifier|final
-name|ReplicationSourceInterface
+name|ReplicationSource
 name|source
 decl_stmt|;
 comment|// Last position in the log that we sent to ZooKeeper
@@ -417,7 +417,7 @@ name|Path
 argument_list|>
 name|queue
 parameter_list|,
-name|ReplicationSourceInterface
+name|ReplicationSource
 name|source
 parameter_list|)
 block|{
@@ -535,7 +535,7 @@ operator|.
 name|take
 argument_list|()
 decl_stmt|;
-comment|// the NO_MORE_DATA instance has no path so do not all shipEdits
+comment|// the NO_MORE_DATA instance has no path so do not call shipEdits
 if|if
 condition|(
 name|entryBatch
@@ -601,17 +601,79 @@ expr_stmt|;
 block|}
 else|else
 block|{
+name|source
+operator|.
+name|removeWorker
+argument_list|(
+name|this
+argument_list|)
+expr_stmt|;
 name|postFinish
 argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|// To be implemented by recovered shipper
-specifier|protected
+specifier|private
 name|void
 name|noMoreData
 parameter_list|()
-block|{   }
+block|{
+if|if
+condition|(
+name|source
+operator|.
+name|isRecovered
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Finished recovering queue for group {} of peer {}"
+argument_list|,
+name|walGroupId
+argument_list|,
+name|source
+operator|.
+name|getQueueId
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|source
+operator|.
+name|getSourceMetrics
+argument_list|()
+operator|.
+name|incrCompletedRecoveryQueue
+argument_list|()
+expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Finished queue for group {} of peer {}"
+argument_list|,
+name|walGroupId
+argument_list|,
+name|source
+operator|.
+name|getQueueId
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+name|setWorkerState
+argument_list|(
+name|WorkerState
+operator|.
+name|FINISHED
+argument_list|)
+expr_stmt|;
+block|}
 comment|// To be implemented by recovered shipper
 specifier|protected
 name|void

@@ -854,12 +854,7 @@ else|else
 block|{
 comment|// got no entries and didn't advance position in WAL
 name|handleEmptyWALEntryBatch
-argument_list|(
-name|entryStream
-operator|.
-name|getCurrentPath
 argument_list|()
-argument_list|)
 expr_stmt|;
 name|entryStream
 operator|.
@@ -1286,10 +1281,7 @@ block|}
 specifier|private
 name|void
 name|handleEmptyWALEntryBatch
-parameter_list|(
-name|Path
-name|currentPath
-parameter_list|)
+parameter_list|()
 throws|throws
 name|InterruptedException
 block|{
@@ -1302,13 +1294,14 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|source
+name|logQueue
 operator|.
-name|isRecovered
+name|isEmpty
 argument_list|()
 condition|)
 block|{
-comment|// we're done with queue recovery, shut ourself down
+comment|// we're done with current queue, either this is a recovered queue, or it is the special group
+comment|// for a sync replication peer and the peer has been transited to DA or S state.
 name|setReaderRunning
 argument_list|(
 literal|false

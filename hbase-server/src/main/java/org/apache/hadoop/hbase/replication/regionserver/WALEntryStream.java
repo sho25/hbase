@@ -1290,7 +1290,8 @@ block|}
 block|}
 else|else
 block|{
-comment|// no more files in queue, this could only happen for recovered queue.
+comment|// no more files in queue, this could happen for recovered queue, or for a wal group of a sync
+comment|// replication peer which has already been transited to DA or S.
 name|setCurrentPath
 argument_list|(
 literal|null

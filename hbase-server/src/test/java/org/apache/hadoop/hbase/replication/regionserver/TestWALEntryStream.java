@@ -2693,9 +2693,7 @@ name|getNbEntries
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// Actually this should be true but we haven't handled this yet since for a normal queue the
-comment|// last one is always open... Not a big deal for now.
-name|assertFalse
+name|assertTrue
 argument_list|(
 name|batch
 operator|.

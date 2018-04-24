@@ -3364,6 +3364,12 @@ operator|.
 name|writer
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|writer
+operator|=
+literal|null
+expr_stmt|;
 name|closeExecutor
 operator|.
 name|shutdown

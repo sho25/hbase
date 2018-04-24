@@ -31,24 +31,6 @@ name|wal
 operator|.
 name|AbstractFSWALProvider
 operator|.
-name|WAL_FILE_NAME_DELIMITER
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|wal
-operator|.
-name|AbstractFSWALProvider
-operator|.
 name|getWALArchiveDirectoryName
 import|;
 end_import
@@ -360,6 +342,22 @@ operator|.
 name|util
 operator|.
 name|CommonFSUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|EnvironmentEdgeManager
 import|;
 end_import
 
@@ -746,6 +744,10 @@ name|getSecond
 argument_list|()
 expr_stmt|;
 block|}
+comment|// Use a timestamp to make it identical. That means, after we transit the peer to DA/S and then
+comment|// back to A, the log prefix will be changed. This is used to simplify the implementation for
+comment|// replication source, where we do not need to consider that a terminated shipper could be added
+comment|// back.
 specifier|private
 name|String
 name|getLogPrefix
@@ -759,7 +761,14 @@ name|factory
 operator|.
 name|factoryId
 operator|+
-name|WAL_FILE_NAME_DELIMITER
+literal|"-"
+operator|+
+name|EnvironmentEdgeManager
+operator|.
+name|currentTime
+argument_list|()
+operator|+
+literal|"-"
 operator|+
 name|peerId
 return|;
@@ -1501,12 +1510,6 @@ operator|==
 name|SyncReplicationState
 operator|.
 name|ACTIVE
-operator|&&
-name|to
-operator|==
-name|SyncReplicationState
-operator|.
-name|DOWNGRADE_ACTIVE
 condition|)
 block|{
 if|if
