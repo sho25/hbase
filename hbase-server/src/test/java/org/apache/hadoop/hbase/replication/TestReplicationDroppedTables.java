@@ -279,6 +279,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ipc
+operator|.
+name|RpcServer
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|testclassification
 operator|.
 name|LargeTests
@@ -638,6 +654,24 @@ block|{
 break|break;
 block|}
 block|}
+comment|// Set the max request size to a tiny 10K for dividing the replication WAL entries into multiple
+comment|// batches. the default max request size is 256M, so all replication entries are in a batch, but
+comment|// when replicate at sink side, it'll apply to rs group by table name, so the WAL of test table
+comment|// may apply first, and then test_dropped table, and we will believe that the replication is not
+comment|// got stuck (HBASE-20475).
+name|conf1
+operator|.
+name|setInt
+argument_list|(
+name|RpcServer
+operator|.
+name|MAX_REQUEST_SIZE
+argument_list|,
+literal|10
+operator|*
+literal|1024
+argument_list|)
+expr_stmt|;
 block|}
 annotation|@
 name|Test
@@ -1023,7 +1057,7 @@ comment|//   in the replication batch)
 comment|// write a bunch of edits, making sure we fill a batch
 name|byte
 index|[]
-name|rowkey
+name|rowKey
 init|=
 name|Bytes
 operator|.
@@ -1040,7 +1074,7 @@ init|=
 operator|new
 name|Put
 argument_list|(
-name|rowkey
+name|rowKey
 argument_list|)
 decl_stmt|;
 name|put
@@ -1061,13 +1095,30 @@ argument_list|(
 name|put
 argument_list|)
 expr_stmt|;
-name|rowkey
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|0
+init|;
+name|i
+operator|<
+literal|1000
+condition|;
+name|i
+operator|++
+control|)
+block|{
+name|rowKey
 operator|=
 name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"normal put"
+literal|"NormalPut"
+operator|+
+name|i
 argument_list|)
 expr_stmt|;
 name|put
@@ -1075,10 +1126,8 @@ operator|=
 operator|new
 name|Put
 argument_list|(
-name|rowkey
+name|rowKey
 argument_list|)
-expr_stmt|;
-name|put
 operator|.
 name|addColumn
 argument_list|(
@@ -1096,6 +1145,7 @@ argument_list|(
 name|put
 argument_list|)
 expr_stmt|;
+block|}
 try|try
 init|(
 name|Admin
@@ -1163,7 +1213,7 @@ block|{
 comment|// in this we'd expect the key to make it over
 name|verifyReplicationProceeded
 argument_list|(
-name|rowkey
+name|rowKey
 argument_list|)
 expr_stmt|;
 block|}
@@ -1171,7 +1221,7 @@ else|else
 block|{
 name|verifyReplicationStuck
 argument_list|(
-name|rowkey
+name|rowKey
 argument_list|)
 expr_stmt|;
 block|}
@@ -1395,11 +1445,11 @@ literal|"2"
 argument_list|)
 expr_stmt|;
 comment|// put some data (lead with 0 so the edit gets sorted before the other table's edits
-comment|//   in the replication batch)
+comment|// in the replication batch)
 comment|// write a bunch of edits, making sure we fill a batch
 name|byte
 index|[]
-name|rowkey
+name|rowKey
 init|=
 name|Bytes
 operator|.
@@ -1416,7 +1466,7 @@ init|=
 operator|new
 name|Put
 argument_list|(
-name|rowkey
+name|rowKey
 argument_list|)
 decl_stmt|;
 name|put
@@ -1437,13 +1487,30 @@ argument_list|(
 name|put
 argument_list|)
 expr_stmt|;
-name|rowkey
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|0
+init|;
+name|i
+operator|<
+literal|1000
+condition|;
+name|i
+operator|++
+control|)
+block|{
+name|rowKey
 operator|=
 name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"normal put"
+literal|"NormalPut"
+operator|+
+name|i
 argument_list|)
 expr_stmt|;
 name|put
@@ -1451,10 +1518,8 @@ operator|=
 operator|new
 name|Put
 argument_list|(
-name|rowkey
+name|rowKey
 argument_list|)
-expr_stmt|;
-name|put
 operator|.
 name|addColumn
 argument_list|(
@@ -1472,6 +1537,7 @@ argument_list|(
 name|put
 argument_list|)
 expr_stmt|;
+block|}
 try|try
 init|(
 name|Admin
@@ -1520,7 +1586,7 @@ block|{
 comment|// the source table still exists, replication should be stalled
 name|verifyReplicationStuck
 argument_list|(
-name|rowkey
+name|rowKey
 argument_list|)
 expr_stmt|;
 name|admin1
@@ -1533,7 +1599,7 @@ expr_stmt|;
 comment|// still stuck, source table still exists
 name|verifyReplicationStuck
 argument_list|(
-name|rowkey
+name|rowKey
 argument_list|)
 expr_stmt|;
 name|admin1
@@ -1547,7 +1613,7 @@ comment|// now the source table is gone, replication should proceed, the
 comment|// offending edits be dropped
 name|verifyReplicationProceeded
 argument_list|(
-name|rowkey
+name|rowKey
 argument_list|)
 expr_stmt|;
 block|}
