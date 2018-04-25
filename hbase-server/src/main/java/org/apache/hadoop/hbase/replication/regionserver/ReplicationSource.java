@@ -3185,7 +3185,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**      * Split a path to get the start time      * For example: 10.20.20.171%3A60020.1277499063250      * @param p path to split      * @return start time      */
+comment|/**      *<p>      * Split a path to get the start time      *</p>      *<p>      * For example: 10.20.20.171%3A60020.1277499063250      *</p>      * @param p path to split      * @return start time      */
 specifier|private
 specifier|static
 name|long
@@ -3195,35 +3195,15 @@ name|Path
 name|p
 parameter_list|)
 block|{
-name|int
-name|tsIndex
-init|=
-name|p
-operator|.
-name|getName
-argument_list|()
-operator|.
-name|lastIndexOf
-argument_list|(
-literal|'.'
-argument_list|)
-operator|+
-literal|1
-decl_stmt|;
 return|return
-name|Long
+name|AbstractFSWALProvider
 operator|.
-name|parseLong
+name|getWALStartTimeFromWALName
 argument_list|(
 name|p
 operator|.
 name|getName
 argument_list|()
-operator|.
-name|substring
-argument_list|(
-name|tsIndex
-argument_list|)
 argument_list|)
 return|;
 block|}

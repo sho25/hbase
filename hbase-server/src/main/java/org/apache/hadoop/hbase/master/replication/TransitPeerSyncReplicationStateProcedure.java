@@ -1249,8 +1249,9 @@ decl_stmt|;
 name|Path
 name|remoteWALDirForPeer
 init|=
-operator|new
-name|Path
+name|ReplicationUtils
+operator|.
+name|getRemoteWALDirForPeer
 argument_list|(
 name|remoteWALDir
 argument_list|,
