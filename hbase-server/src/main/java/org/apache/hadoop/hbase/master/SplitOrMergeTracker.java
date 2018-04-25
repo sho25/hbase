@@ -234,7 +234,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Tracks the switch of split and merge states in ZK  *  */
+comment|/**  * Tracks the switch of split and merge states in ZK  */
 end_comment
 
 begin_class
