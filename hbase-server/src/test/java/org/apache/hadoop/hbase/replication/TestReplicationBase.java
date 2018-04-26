@@ -666,7 +666,7 @@ specifier|final
 name|int
 name|NB_RETRIES
 init|=
-literal|10
+literal|50
 decl_stmt|;
 specifier|protected
 specifier|static
@@ -1281,6 +1281,15 @@ argument_list|(
 literal|"replication.source.eof.autorecovery"
 argument_list|,
 literal|true
+argument_list|)
+expr_stmt|;
+name|conf1
+operator|.
+name|setLong
+argument_list|(
+literal|"hbase.serial.replication.waiting.ms"
+argument_list|,
+literal|100
 argument_list|)
 expr_stmt|;
 name|utility1
