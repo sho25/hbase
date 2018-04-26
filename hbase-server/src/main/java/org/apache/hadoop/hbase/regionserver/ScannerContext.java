@@ -161,6 +161,14 @@ name|lastPeekedCell
 init|=
 literal|null
 decl_stmt|;
+comment|// Set this to true will have the same behavior with reaching the time limit.
+comment|// This is used when you want to make the current RSRpcService.scan returns immediately. For
+comment|// example, when we want to switch from pread to stream, we can only do it after the rpc call is
+comment|// returned.
+specifier|private
+name|boolean
+name|returnImmediately
+decl_stmt|;
 comment|/**    * Tracks the relevant server side metrics during scans. null when metrics should not be tracked    */
 specifier|final
 name|ServerSideScanMetrics
@@ -616,12 +624,16 @@ argument_list|(
 name|checkerScope
 argument_list|)
 operator|&&
+operator|(
 name|limits
 operator|.
 name|getTime
 argument_list|()
 operator|>
 literal|0
+operator|||
+name|returnImmediately
+operator|)
 return|;
 block|}
 comment|/**    * @param checkerScope    * @return true if any limit can be enforced within the checker's scope    */
@@ -791,6 +803,8 @@ name|checkerScope
 argument_list|)
 operator|&&
 operator|(
+name|returnImmediately
+operator|||
 name|System
 operator|.
 name|currentTimeMillis
@@ -848,6 +862,17 @@ operator|.
 name|lastPeekedCell
 operator|=
 name|lastPeekedCell
+expr_stmt|;
+block|}
+name|void
+name|returnImmediately
+parameter_list|()
+block|{
+name|this
+operator|.
+name|returnImmediately
+operator|=
+literal|true
 expr_stmt|;
 block|}
 annotation|@
@@ -1449,43 +1474,6 @@ comment|/**      * Fields keep their default values.      */
 name|LimitFields
 parameter_list|()
 block|{     }
-name|LimitFields
-parameter_list|(
-name|int
-name|batch
-parameter_list|,
-name|LimitScope
-name|sizeScope
-parameter_list|,
-name|long
-name|size
-parameter_list|,
-name|long
-name|heapSize
-parameter_list|,
-name|LimitScope
-name|timeScope
-parameter_list|,
-name|long
-name|time
-parameter_list|)
-block|{
-name|setFields
-argument_list|(
-name|batch
-argument_list|,
-name|sizeScope
-argument_list|,
-name|size
-argument_list|,
-name|heapSize
-argument_list|,
-name|timeScope
-argument_list|,
-name|time
-argument_list|)
-expr_stmt|;
-block|}
 name|void
 name|copy
 parameter_list|(
@@ -1955,10 +1943,6 @@ name|heapSize
 init|=
 name|DEFAULT_SIZE
 decl_stmt|;
-comment|/**      * Fields keep their default values.      */
-name|ProgressFields
-parameter_list|()
-block|{     }
 name|ProgressFields
 parameter_list|(
 name|int

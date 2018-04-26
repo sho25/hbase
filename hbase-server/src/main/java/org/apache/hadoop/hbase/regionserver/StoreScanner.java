@@ -2764,14 +2764,33 @@ label|:
 do|do
 block|{
 comment|// Update and check the time limit based on the configured value of cellsPerTimeoutCheck
+comment|// Or if the preadMaxBytes is reached and we may want to return so we can switch to stream in
+comment|// the shipped method below.
 if|if
 condition|(
-operator|(
 name|kvsScanned
 operator|%
 name|cellsPerHeartbeatCheck
 operator|==
 literal|0
+operator|||
+operator|(
+name|scanUsePread
+operator|&&
+name|scan
+operator|.
+name|getReadType
+argument_list|()
+operator|==
+name|Scan
+operator|.
+name|ReadType
+operator|.
+name|DEFAULT
+operator|&&
+name|bytesRead
+operator|>
+name|preadMaxBytes
 operator|)
 condition|)
 block|{
@@ -2837,6 +2856,40 @@ name|bytesRead
 operator|+=
 name|cellSize
 expr_stmt|;
+if|if
+condition|(
+name|scanUsePread
+operator|&&
+name|scan
+operator|.
+name|getReadType
+argument_list|()
+operator|==
+name|Scan
+operator|.
+name|ReadType
+operator|.
+name|DEFAULT
+operator|&&
+name|bytesRead
+operator|>
+name|preadMaxBytes
+condition|)
+block|{
+comment|// return immediately if we want to switch from pread to stream. We need this because we can
+comment|// only switch in the shipped method, if user use a filter to filter out everything and rpc
+comment|// timeout is very large then the shipped method will never be called until the whole scan
+comment|// is finished, but at that time we have already scan all the data...
+comment|// See HBASE-20457 for more details.
+comment|// And there is still a scenario that can not be handled. If we have a very large row, which
+comment|// have millions of qualifiers, and filter.filterRow is used, then even if we set the flag
+comment|// here, we still need to scan all the qualifiers before returning...
+name|scannerContext
+operator|.
+name|returnImmediately
+argument_list|()
+expr_stmt|;
+block|}
 name|prevCell
 operator|=
 name|cell
