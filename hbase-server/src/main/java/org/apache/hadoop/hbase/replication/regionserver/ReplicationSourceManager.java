@@ -447,6 +447,22 @@ name|hbase
 operator|.
 name|replication
 operator|.
+name|ReplicationPeerImpl
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|replication
+operator|.
 name|ReplicationPeers
 import|;
 end_import
@@ -3089,6 +3105,23 @@ specifier|final
 name|ServerName
 name|deadRS
 decl_stmt|;
+comment|// After claim the queues from dead region server, the NodeFailoverWorker will skip to start
+comment|// the RecoveredReplicationSource if the peer has been removed. but there's possible that
+comment|// remove a peer with peerId = 2 and add a peer with peerId = 2 again during the
+comment|// NodeFailoverWorker. So we need a deep copied<peerId, peer> map to decide whether we
+comment|// should start the RecoveredReplicationSource. If the latest peer is not the old peer when
+comment|// NodeFailoverWorker begin, we should skip to start the RecoveredReplicationSource, Otherwise
+comment|// the rs will abort (See HBASE-20475).
+specifier|private
+specifier|final
+name|Map
+argument_list|<
+name|String
+argument_list|,
+name|ReplicationPeerImpl
+argument_list|>
+name|peersSnapshot
+decl_stmt|;
 annotation|@
 name|VisibleForTesting
 specifier|public
@@ -3111,6 +3144,49 @@ name|deadRS
 operator|=
 name|deadRS
 expr_stmt|;
+name|peersSnapshot
+operator|=
+operator|new
+name|HashMap
+argument_list|<>
+argument_list|(
+name|replicationPeers
+operator|.
+name|getPeerCache
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+specifier|private
+name|boolean
+name|isOldPeer
+parameter_list|(
+name|String
+name|peerId
+parameter_list|,
+name|ReplicationPeerImpl
+name|newPeerRef
+parameter_list|)
+block|{
+name|ReplicationPeerImpl
+name|oldPeerRef
+init|=
+name|peersSnapshot
+operator|.
+name|get
+argument_list|(
+name|peerId
+argument_list|)
+decl_stmt|;
+return|return
+name|oldPeerRef
+operator|!=
+literal|null
+operator|&&
+name|oldPeerRef
+operator|==
+name|newPeerRef
+return|;
 block|}
 annotation|@
 name|Override
@@ -3455,7 +3531,7 @@ operator|.
 name|getPeerId
 argument_list|()
 decl_stmt|;
-name|ReplicationPeer
+name|ReplicationPeerImpl
 name|peer
 init|=
 name|replicationPeers
@@ -3470,21 +3546,25 @@ condition|(
 name|peer
 operator|==
 literal|null
+operator|||
+operator|!
+name|isOldPeer
+argument_list|(
+name|actualPeerId
+argument_list|,
+name|peer
+argument_list|)
 condition|)
 block|{
 name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Skipping failover for peer:"
-operator|+
+literal|"Skipping failover for peer {} of node {}, peer is null"
+argument_list|,
 name|actualPeerId
-operator|+
-literal|" of node "
-operator|+
+argument_list|,
 name|deadRS
-operator|+
-literal|", peer is null"
 argument_list|)
 expr_stmt|;
 name|abortWhenFail
@@ -3531,7 +3611,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Peer {} is disbaled. ReplicationSyncUp tool will skip "
+literal|"Peer {} is disabled. ReplicationSyncUp tool will skip "
 operator|+
 literal|"replicating data to this peer."
 argument_list|,
@@ -3645,20 +3725,33 @@ init|(
 name|oldsources
 init|)
 block|{
-if|if
-condition|(
-operator|!
+name|peer
+operator|=
 name|replicationPeers
 operator|.
-name|getAllPeerIds
-argument_list|()
-operator|.
-name|contains
+name|getPeer
 argument_list|(
 name|src
 operator|.
 name|getPeerId
 argument_list|()
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|peer
+operator|==
+literal|null
+operator|||
+operator|!
+name|isOldPeer
+argument_list|(
+name|src
+operator|.
+name|getPeerId
+argument_list|()
+argument_list|,
+name|peer
 argument_list|)
 condition|)
 block|{
