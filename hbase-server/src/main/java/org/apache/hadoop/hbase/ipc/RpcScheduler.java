@@ -124,6 +124,14 @@ name|IPC_SERVER_PRIORITY_MAX_CALLQUEUE_LENGTH
 init|=
 literal|"hbase.ipc.server.priority.max.callqueue.length"
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|IPC_SERVER_REPLICATION_MAX_CALLQUEUE_LENGTH
+init|=
+literal|"hbase.ipc.server.replication.max.callqueue.length"
+decl_stmt|;
 comment|/** Exposes runtime information of a {@code RpcServer} that a {@code RpcScheduler} may need. */
 specifier|public
 specifier|static
