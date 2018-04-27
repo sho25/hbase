@@ -1215,6 +1215,18 @@ argument_list|,
 name|openSeqNum
 argument_list|)
 expr_stmt|;
+name|info
+operator|.
+name|append
+argument_list|(
+literal|", repBarrier="
+argument_list|)
+operator|.
+name|append
+argument_list|(
+name|openSeqNum
+argument_list|)
+expr_stmt|;
 block|}
 name|info
 operator|.

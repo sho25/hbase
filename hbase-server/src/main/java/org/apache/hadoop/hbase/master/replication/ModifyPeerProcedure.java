@@ -1209,6 +1209,15 @@ name|tableName
 argument_list|)
 condition|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Skip settting last pushed sequence id for {}"
+argument_list|,
+name|tableName
+argument_list|)
+expr_stmt|;
 return|return;
 block|}
 for|for
@@ -1231,6 +1240,18 @@ name|tableName
 argument_list|)
 control|)
 block|{
+comment|// XXX: for debug only, change to trace after find out the real issues
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Update last pushed sequence id for {}, {}"
+argument_list|,
+name|tableName
+argument_list|,
+name|name2Barrier
+argument_list|)
+expr_stmt|;
 name|addToMap
 argument_list|(
 name|lastSeqIds
