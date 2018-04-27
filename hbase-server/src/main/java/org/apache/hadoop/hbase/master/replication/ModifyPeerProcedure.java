@@ -1240,10 +1240,9 @@ name|tableName
 argument_list|)
 control|)
 block|{
-comment|// XXX: for debug only, change to trace after find out the real issues
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
 literal|"Update last pushed sequence id for {}, {}"
 argument_list|,

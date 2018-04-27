@@ -1456,6 +1456,8 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+else|else
+block|{
 name|regionNode
 operator|.
 name|setOpenSeqNum
@@ -1463,6 +1465,7 @@ argument_list|(
 name|openSeqNum
 argument_list|)
 expr_stmt|;
+block|}
 comment|// Leave the state here as OPENING for now. We set it to OPEN in
 comment|// REGION_TRANSITION_FINISH section where we do a bunch of checks.
 comment|// regionNode.setState(RegionState.State.OPEN, RegionState.State.OPENING);
