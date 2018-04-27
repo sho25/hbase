@@ -2997,7 +2997,7 @@ return|return
 name|count
 return|;
 block|}
-comment|/**    * Helper for {@link #channelRead(java.nio.channels.ReadableByteChannel, java.nio.ByteBuffer).    * Only one of readCh or writeCh should be non-null.    *    * @param readCh read channel    * @param writeCh write channel    * @param buf buffer to read or write into/out of    * @return bytes written    * @throws java.io.IOException e    * @see #channelRead(java.nio.channels.ReadableByteChannel, java.nio.ByteBuffer)    */
+comment|/**    * Helper for {@link #channelRead(java.nio.channels.ReadableByteChannel, java.nio.ByteBuffer)}.    * Only one of readCh or writeCh should be non-null.    *    * @param readCh read channel    * @param writeCh write channel    * @param buf buffer to read or write into/out of    * @return bytes written    * @throws java.io.IOException e    * @see #channelRead(java.nio.channels.ReadableByteChannel, java.nio.ByteBuffer)    */
 specifier|private
 specifier|static
 name|int

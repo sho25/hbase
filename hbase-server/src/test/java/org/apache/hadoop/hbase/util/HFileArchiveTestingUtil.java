@@ -695,7 +695,7 @@ return|return
 literal|null
 return|;
 block|}
-comment|/**    * @return<expected, gotten, backup>, where each is sorted    */
+comment|/**    * @return&lt;expected, gotten, backup&gt;, where each is sorted    */
 specifier|private
 specifier|static
 name|List

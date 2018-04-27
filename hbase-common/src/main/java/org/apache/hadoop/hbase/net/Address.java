@@ -68,7 +68,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * An immutable type to hold a hostname and port combo, like an Endpoint  * or java.net.InetSocketAddress (but without danger of our calling  * resolve -- we do NOT want a resolve happening every time we want  * to hold a hostname and port combo). This class is also<<Comparable>>.  *<p>In implementation this class is a facade over Guava's {@link HostAndPort}.  * We cannot have Guava classes in our API hence this Type.  */
+comment|/**  * An immutable type to hold a hostname and port combo, like an Endpoint  * or java.net.InetSocketAddress (but without danger of our calling  * resolve -- we do NOT want a resolve happening every time we want  * to hold a hostname and port combo). This class is also {@link Comparable}  *<p>In implementation this class is a facade over Guava's {@link HostAndPort}.  * We cannot have Guava classes in our API hence this Type.  */
 end_comment
 
 begin_class

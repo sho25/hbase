@@ -2495,7 +2495,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Get the names of all the files below the given directory    * @param fs    * @param archiveDir    * @return    * @throws IOException    */
+comment|/**    * Get the names of all the files below the given directory    * @param fs the file system to inspect    * @param archiveDir the directory in which to look    * @return a list of all files in the directory and sub-directories    * @throws IOException    */
 specifier|private
 name|List
 argument_list|<

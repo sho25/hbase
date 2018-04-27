@@ -462,7 +462,7 @@ argument_list|)
 argument_list|)
 throw|;
 block|}
-comment|/**    * Perform unsigned comparison between two long values. Conforms to the same interface as    * {@link org.apache.hadoop.hbase.CellComparator#COMPARATOR#compare(Object, Object)}.    */
+comment|/**    * Perform unsigned comparison between two long values. Conforms to the same interface as    * {@link org.apache.hadoop.hbase.CellComparator}.    */
 specifier|private
 specifier|static
 name|int

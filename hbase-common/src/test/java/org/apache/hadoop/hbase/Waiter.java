@@ -206,7 +206,7 @@ return|return
 name|waitForRatio
 return|;
 block|}
-comment|/**    * A predicate 'closure' used by the {@link Waiter#waitFor(Configuration, long, Predicate)} and    * {@link Waiter#waitFor(Configuration, long, Predicate)} and    * {@link Waiter#waitFor(Configuration, long, long, boolean, Predicate) methods.    */
+comment|/**    * A predicate 'closure' used by the {@link Waiter#waitFor(Configuration, long, Predicate)} and    * {@link Waiter#waitFor(Configuration, long, Predicate)} and    * {@link Waiter#waitFor(Configuration, long, long, boolean, Predicate)} methods.    */
 annotation|@
 name|InterfaceAudience
 operator|.

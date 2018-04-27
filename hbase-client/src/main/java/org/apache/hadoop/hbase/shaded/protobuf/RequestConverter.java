@@ -6874,7 +6874,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * @see {@link #buildRollWALWriterRequest()}    */
+comment|/**    * @see #buildRollWALWriterRequest()    */
 specifier|private
 specifier|static
 name|RollWALWriterRequest
@@ -6899,7 +6899,7 @@ return|return
 name|ROLL_WAL_WRITER_REQUEST
 return|;
 block|}
-comment|/**    * @see {@link #buildGetServerInfoRequest()}    */
+comment|/**    * @see #buildGetServerInfoRequest()    */
 specifier|private
 specifier|static
 name|GetServerInfoRequest
@@ -8644,7 +8644,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * @see {@link #buildCatalogScanRequest}    */
+comment|/**    * @see #buildCatalogScanRequest    */
 specifier|private
 specifier|static
 specifier|final
@@ -8695,7 +8695,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * @see {@link #buildIsCatalogJanitorEnabledRequest()}    */
+comment|/**    * @see #buildIsCatalogJanitorEnabledRequest()    */
 specifier|private
 specifier|static
 specifier|final
@@ -8721,7 +8721,7 @@ return|return
 name|IS_CATALOG_JANITOR_ENABLED_REQUEST
 return|;
 block|}
-comment|/**    * @see {@link #buildCleanerChoreRequest}    */
+comment|/**    * @see #buildRunCleanerChoreRequest()    */
 specifier|private
 specifier|static
 specifier|final
@@ -8772,7 +8772,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * @see {@link #buildIsCleanerChoreEnabledRequest()}    */
+comment|/**    * @see #buildIsCleanerChoreEnabledRequest()    */
 specifier|private
 specifier|static
 specifier|final

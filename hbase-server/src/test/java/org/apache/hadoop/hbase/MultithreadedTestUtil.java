@@ -591,12 +591,9 @@ throws|throws
 name|IOException
 block|{}
 block|}
-comment|/**    * Verify that no assertions have failed inside a future.    * Used for unit tests that spawn threads. E.g.,    *<p>    *<code>    *   List<Future<Void>> results = Lists.newArrayList();    *   Future<Void> f = executor.submit(new Callable<Void> {    *     public Void call() {    *       assertTrue(someMethod());    *     }    *   });    *   results.add(f);    *   assertOnFutures(results);    *</code>    * @param threadResults A list of futures    * @param<T>    * @throws InterruptedException If interrupted when waiting for a result    *                              from one of the futures    * @throws ExecutionException If an exception other than AssertionError    *                            occurs inside any of the futures    */
+comment|/**    * Verify that no assertions have failed inside a future.    * Used for unit tests that spawn threads. E.g.,    *<p>    *<pre>    *   List&lt;Future&lt;Void>> results = Lists.newArrayList();    *   Future&lt;Void> f = executor.submit(new Callable&lt;Void> {    *     public Void call() {    *       assertTrue(someMethod());    *     }    *   });    *   results.add(f);    *   assertOnFutures(results);    *</pre>    * @param threadResults A list of futures    * @throws InterruptedException If interrupted when waiting for a result    *                              from one of the futures    * @throws ExecutionException If an exception other than AssertionError    *                            occurs inside any of the futures    */
 specifier|public
 specifier|static
-parameter_list|<
-name|T
-parameter_list|>
 name|void
 name|assertOnFutures
 parameter_list|(
@@ -604,7 +601,7 @@ name|List
 argument_list|<
 name|Future
 argument_list|<
-name|T
+name|?
 argument_list|>
 argument_list|>
 name|threadResults
@@ -618,7 +615,7 @@ for|for
 control|(
 name|Future
 argument_list|<
-name|T
+name|?
 argument_list|>
 name|threadResult
 range|:

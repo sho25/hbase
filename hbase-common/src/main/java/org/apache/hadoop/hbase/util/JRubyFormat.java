@@ -108,7 +108,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Utility class for converting objects to JRuby.  *  * It handles null, Boolean, Number, String, byte[], List<Object>, Map<String, Object> structures.  *  *<p>  * E.g.  *<pre>  * Map<String, Object> map = new LinkedHashMap<>();  * map.put("null", null);  * map.put("boolean", true);  * map.put("number", 1);  * map.put("string", "str");  * map.put("binary", new byte[] { 1, 2, 3 });  * map.put("list", Lists.newArrayList(1, "2", true));  *</pre>  *</p>  *  *<p>  * Calling {@link #print(Object)} method will result:  *<pre>  * { null => '', boolean => 'true', number => '1', string => 'str', binary => '010203', list => [ '1', '2', 'true' ] }  *</pre>  *</p>  */
+comment|/**  * Utility class for converting objects to JRuby.  *  * It handles null, Boolean, Number, String, byte[], List&lt;Object>, Map&lt;String, Object>  *   structures.  *  *<p>  * E.g.  *<pre>  * Map&lt;String, Object> map = new LinkedHashMap&lt;>();  * map.put("null", null);  * map.put("boolean", true);  * map.put("number", 1);  * map.put("string", "str");  * map.put("binary", new byte[] { 1, 2, 3 });  * map.put("list", Lists.newArrayList(1, "2", true));  *</pre>  *</p>  *  *<p>  * Calling {@link #print(Object)} method will result:  *<pre>  * { null => '', boolean => 'true', number => '1', string => 'str',  *   binary => '010203', list => [ '1', '2', 'true' ] }  *</pre>  *</p>  */
 end_comment
 
 begin_class

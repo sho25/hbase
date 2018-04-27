@@ -504,7 +504,7 @@ name|getConfiguration
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Validate target tables.    *    * @param tTableArray: target tables    * @param isOverwrite overwrite existing table    * @throws IOException exception    */
+comment|/**    * Validate target tables.    *    * @param tTableArray target tables    * @param isOverwrite overwrite existing table    * @throws IOException exception    */
 specifier|private
 name|void
 name|checkTargetTables
@@ -695,7 +695,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * Restore operation handle each backupImage in array.    *    * @param images: array BackupImage    * @param sTable: table to be restored    * @param tTable: table to be restored to    * @param truncateIfExists: truncate table    * @throws IOException exception    */
+comment|/**    * Restore operation handle each backupImage in array.    *    * @param images array BackupImage    * @param sTable table to be restored    * @param tTable table to be restored to    * @param truncateIfExists truncate table    * @throws IOException exception    */
 specifier|private
 name|void
 name|restoreImages

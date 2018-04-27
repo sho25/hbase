@@ -1922,7 +1922,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Access a URL and get the corresponding return Http status code. The URL    * will be accessed as the passed user, by sending user.name request    * parameter.    *    * @param urlstring    * @param userName    * @return    * @throws IOException    */
+comment|/**    * Access a URL and get the corresponding return Http status code. The URL    * will be accessed as the passed user, by sending user.name request    * parameter.    *    * @param urlstring The url to access    * @param userName The user to perform access as    * @return The HTTP response code    * @throws IOException if there is a problem communicating with the server    */
 specifier|static
 name|int
 name|getHttpStatusCode

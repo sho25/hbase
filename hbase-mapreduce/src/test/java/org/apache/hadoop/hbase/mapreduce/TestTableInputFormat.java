@@ -788,7 +788,7 @@ literal|"before done"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Setup a table with two rows and values.    *    * @param tableName    * @return    * @throws IOException    */
+comment|/**    * Setup a table with two rows and values.    *    * @param tableName    * @return A Table instance for the created table.    * @throws IOException    */
 specifier|public
 specifier|static
 name|Table
@@ -816,7 +816,7 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * Setup a table with two rows and values per column family.    *    * @param tableName    * @return    * @throws IOException    */
+comment|/**    * Setup a table with two rows and values per column family.    *    * @param tableName    * @return A Table instance for the created table.    * @throws IOException    */
 specifier|public
 specifier|static
 name|Table

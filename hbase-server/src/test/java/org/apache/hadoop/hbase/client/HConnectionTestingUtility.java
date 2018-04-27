@@ -305,7 +305,7 @@ class|class
 name|HConnectionTestingUtility
 block|{
 comment|/*    * Not part of {@link HBaseTestingUtility} because this class is not    * in same package as {@link ClusterConnection}.  Would have to reveal ugly    * {@link ConnectionImplementation} innards to HBaseTestingUtility to give it access.    */
-comment|/**    * Get a Mocked {@link ClusterConnection} that goes with the passed<code>conf</code>    * configuration instance.  Minimally the mock will return    *<code>conf</conf> when {@link ClusterConnection#getConfiguration()} is invoked.    * Be sure to shutdown the connection when done by calling    * {@link Connection#close()} else it will stick around; this is probably not what you want.    * @param conf configuration    * @return ClusterConnection object for<code>conf</code>    * @throws ZooKeeperConnectionException    */
+comment|/**    * Get a Mocked {@link ClusterConnection} that goes with the passed<code>conf</code>    * configuration instance.  Minimally the mock will return    *&lt;code>conf&lt;/conf> when {@link ClusterConnection#getConfiguration()} is invoked.    * Be sure to shutdown the connection when done by calling    * {@link Connection#close()} else it will stick around; this is probably not what you want.    * @param conf configuration    * @return ClusterConnection object for<code>conf</code>    * @throws ZooKeeperConnectionException    */
 specifier|public
 specifier|static
 name|ClusterConnection
@@ -850,7 +850,7 @@ return|return
 name|c
 return|;
 block|}
-comment|/**    * Get a Mockito spied-upon {@link ClusterConnection} that goes with the passed    *<code>conf</code> configuration instance.    * Be sure to shutdown the connection when done by calling    * {@link Connection#close()} else it will stick around; this is probably not what you want.    * @param conf configuration    * @return ClusterConnection object for<code>conf</code>    * @throws ZooKeeperConnectionException    * @see @link    * {http://mockito.googlecode.com/svn/branches/1.6/javadoc/org/mockito/Mockito.html#spy(T)}    */
+comment|/**    * Get a Mockito spied-upon {@link ClusterConnection} that goes with the passed    *<code>conf</code> configuration instance.    * Be sure to shutdown the connection when done by calling    * {@link Connection#close()} else it will stick around; this is probably not what you want.    * @param conf configuration    * @return ClusterConnection object for<code>conf</code>    * @throws ZooKeeperConnectionException    * [Dead link]: See also    * {http://mockito.googlecode.com/svn/branches/1.6/javadoc/org/mockito/Mockito.html#spy(T)}    */
 specifier|public
 specifier|static
 name|ClusterConnection

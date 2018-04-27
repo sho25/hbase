@@ -707,7 +707,7 @@ literal|"Serialization not supported.  Intended for server-side use only."
 argument_list|)
 throw|;
 block|}
-comment|/**    * @param pbBytes A pb serialized {@link AccessControlFilter} instance    * @return An instance of {@link AccessControlFilter} made from<code>bytes</code>    * @throws org.apache.hadoop.hbase.exceptions.DeserializationException    * @see {@link #toByteArray()}    */
+comment|/**    * @param pbBytes A pb serialized {@link AccessControlFilter} instance    * @return An instance of {@link AccessControlFilter} made from<code>bytes</code>    * @throws org.apache.hadoop.hbase.exceptions.DeserializationException    * @see #toByteArray()    */
 specifier|public
 specifier|static
 name|AccessControlFilter

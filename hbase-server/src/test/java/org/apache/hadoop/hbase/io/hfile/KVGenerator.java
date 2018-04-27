@@ -58,7 +58,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Generate random<key, value> pairs.  *<p>  * Copied from  *<a href="https://issues.apache.org/jira/browse/HADOOP-3315">hadoop-3315 tfile</a>.  * Remove after tfile is committed and use the tfile version of this class  * instead.</p>  */
+comment|/**  * Generate random&lt;key, value> pairs.  *<p>  * Copied from  *<a href="https://issues.apache.org/jira/browse/HADOOP-3315">hadoop-3315 tfile</a>.  * Remove after tfile is committed and use the tfile version of this class  * instead.</p>  */
 end_comment
 
 begin_class

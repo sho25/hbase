@@ -9607,7 +9607,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * @see {@link #buildGetServerInfoRequest()}    */
+comment|/**    * @see #buildGetServerInfoRequest()    */
 specifier|private
 specifier|static
 name|GetServerInfoRequest

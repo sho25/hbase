@@ -3323,7 +3323,7 @@ literal|true
 argument_list|)
 return|;
 block|}
-comment|/**    * Start a minidfscluster.    * @param servers How many DNs to start.    * @throws Exception    * @see {@link #shutdownMiniDFSCluster()}    * @return The mini dfs cluster created.    */
+comment|/**    * Start a minidfscluster.    * @param servers How many DNs to start.    * @throws Exception    * @see #shutdownMiniDFSCluster()    * @return The mini dfs cluster created.    */
 specifier|public
 name|MiniDFSCluster
 name|startMiniDFSCluster
@@ -3343,7 +3343,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * Start a minidfscluster.    * This is useful if you want to run datanode on distinct hosts for things    * like HDFS block location verification.    * If you start MiniDFSCluster without host names, all instances of the    * datanodes will have the same host name.    * @param hosts hostnames DNs to run on.    * @throws Exception    * @see {@link #shutdownMiniDFSCluster()}    * @return The mini dfs cluster created.    */
+comment|/**    * Start a minidfscluster.    * This is useful if you want to run datanode on distinct hosts for things    * like HDFS block location verification.    * If you start MiniDFSCluster without host names, all instances of the    * datanodes will have the same host name.    * @param hosts hostnames DNs to run on.    * @throws Exception    * @see #shutdownMiniDFSCluster()    * @return The mini dfs cluster created.    */
 specifier|public
 name|MiniDFSCluster
 name|startMiniDFSCluster
@@ -3392,7 +3392,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * Start a minidfscluster.    * Can only create one.    * @param servers How many DNs to start.    * @param hosts hostnames DNs to run on.    * @throws Exception    * @see {@link #shutdownMiniDFSCluster()}    * @return The mini dfs cluster created.    */
+comment|/**    * Start a minidfscluster.    * Can only create one.    * @param servers How many DNs to start.    * @param hosts hostnames DNs to run on.    * @throws Exception    * @see #shutdownMiniDFSCluster()    * @return The mini dfs cluster created.    */
 specifier|public
 name|MiniDFSCluster
 name|startMiniDFSCluster
@@ -4146,7 +4146,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Start up a minicluster of hbase, dfs, and zookeeper.    * @throws Exception    * @return Mini hbase cluster instance created.    * @see {@link #shutdownMiniDFSCluster()}    */
+comment|/**    * Start up a minicluster of hbase, dfs, and zookeeper.    * @throws Exception    * @return Mini hbase cluster instance created.    * @see #shutdownMiniDFSCluster()    */
 specifier|public
 name|MiniHBaseCluster
 name|startMiniCluster
@@ -4163,7 +4163,7 @@ literal|1
 argument_list|)
 return|;
 block|}
-comment|/**    * Start up a minicluster of hbase, dfs, and zookeeper where WAL's walDir is created separately.    * @throws Exception    * @return Mini hbase cluster instance created.    * @see {@link #shutdownMiniDFSCluster()}    */
+comment|/**    * Start up a minicluster of hbase, dfs, and zookeeper where WAL's walDir is created separately.    * @throws Exception    * @return Mini hbase cluster instance created.    * @see #shutdownMiniDFSCluster()    */
 specifier|public
 name|MiniHBaseCluster
 name|startMiniCluster
@@ -4195,7 +4195,7 @@ name|withWALDir
 argument_list|)
 return|;
 block|}
-comment|/**    * Start up a minicluster of hbase, dfs, and zookeeper.    * Set the<code>create</code> flag to create root or data directory path or not    * (will overwrite if dir already exists)    * @throws Exception    * @return Mini hbase cluster instance created.    * @see {@link #shutdownMiniDFSCluster()}    */
+comment|/**    * Start up a minicluster of hbase, dfs, and zookeeper.    * Set the<code>create</code> flag to create root or data directory path or not    * (will overwrite if dir already exists)    * @throws Exception    * @return Mini hbase cluster instance created.    * @see #shutdownMiniDFSCluster()    */
 specifier|public
 name|MiniHBaseCluster
 name|startMiniCluster
@@ -4221,7 +4221,7 @@ name|create
 argument_list|)
 return|;
 block|}
-comment|/**    * Start up a minicluster of hbase, optionally dfs, and zookeeper.    * Modifies Configuration.  Homes the cluster data directory under a random    * subdirectory in a directory under System property test.build.data.    * Directory is cleaned up on exit.    * @param numSlaves Number of slaves to start up.  We'll start this many    * datanodes and regionservers.  If numSlaves is> 1, then make sure    * hbase.regionserver.info.port is -1 (i.e. no ui per regionserver) otherwise    * bind errors.    * @throws Exception    * @see {@link #shutdownMiniCluster()}    * @return Mini hbase cluster instance created.    */
+comment|/**    * Start up a minicluster of hbase, optionally dfs, and zookeeper.    * Modifies Configuration.  Homes the cluster data directory under a random    * subdirectory in a directory under System property test.build.data.    * Directory is cleaned up on exit.    * @param numSlaves Number of slaves to start up.  We'll start this many    * datanodes and regionservers.  If numSlaves is> 1, then make sure    * hbase.regionserver.info.port is -1 (i.e. no ui per regionserver) otherwise    * bind errors.    * @throws Exception    * @see #shutdownMiniCluster()    * @return Mini hbase cluster instance created.    */
 specifier|public
 name|MiniHBaseCluster
 name|startMiniCluster
@@ -4282,7 +4282,7 @@ name|withWALDir
 argument_list|)
 return|;
 block|}
-comment|/**    * Start minicluster. Whether to create a new root or data dir path even if such a path    * has been created earlier is decided based on flag<code>create</code>    * @throws Exception    * @see {@link #shutdownMiniCluster()}    * @return Mini hbase cluster instance created.    */
+comment|/**    * Start minicluster. Whether to create a new root or data dir path even if such a path    * has been created earlier is decided based on flag<code>create</code>    * @throws Exception    * @see #shutdownMiniCluster()    * @return Mini hbase cluster instance created.    */
 specifier|public
 name|MiniHBaseCluster
 name|startMiniCluster
@@ -4314,7 +4314,7 @@ name|create
 argument_list|)
 return|;
 block|}
-comment|/**    * start minicluster    * @throws Exception    * @see {@link #shutdownMiniCluster()}    * @return Mini hbase cluster instance created.    */
+comment|/**    * start minicluster    * @throws Exception    * @see #shutdownMiniCluster()    * @return Mini hbase cluster instance created.    */
 specifier|public
 name|MiniHBaseCluster
 name|startMiniCluster
@@ -4387,7 +4387,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Start up a minicluster of hbase, optionally dfs, and zookeeper.    * Modifies Configuration.  Homes the cluster data directory under a random    * subdirectory in a directory under System property test.build.data.    * Directory is cleaned up on exit.    * @param numMasters Number of masters to start up.  We'll start this many    * hbase masters.  If numMasters> 1, you can find the active/primary master    * with {@link MiniHBaseCluster#getMaster()}.    * @param numSlaves Number of slaves to start up.  We'll start this many    * regionservers. If dataNodeHosts == null, this also indicates the number of    * datanodes to start. If dataNodeHosts != null, the number of datanodes is    * based on dataNodeHosts.length.    * If numSlaves is> 1, then make sure    * hbase.regionserver.info.port is -1 (i.e. no ui per regionserver) otherwise    * bind errors.    * @param dataNodeHosts hostnames DNs to run on.    * This is useful if you want to run datanode on distinct hosts for things    * like HDFS block location verification.    * If you start MiniDFSCluster without host names,    * all instances of the datanodes will have the same host name.    * @throws Exception    * @see {@link #shutdownMiniCluster()}    * @return Mini hbase cluster instance created.    */
+comment|/**    * Start up a minicluster of hbase, optionally dfs, and zookeeper.    * Modifies Configuration.  Homes the cluster data directory under a random    * subdirectory in a directory under System property test.build.data.    * Directory is cleaned up on exit.    * @param numMasters Number of masters to start up.  We'll start this many    * hbase masters.  If numMasters> 1, you can find the active/primary master    * with {@link MiniHBaseCluster#getMaster()}.    * @param numSlaves Number of slaves to start up.  We'll start this many    * regionservers. If dataNodeHosts == null, this also indicates the number of    * datanodes to start. If dataNodeHosts != null, the number of datanodes is    * based on dataNodeHosts.length.    * If numSlaves is> 1, then make sure    * hbase.regionserver.info.port is -1 (i.e. no ui per regionserver) otherwise    * bind errors.    * @param dataNodeHosts hostnames DNs to run on.    * This is useful if you want to run datanode on distinct hosts for things    * like HDFS block location verification.    * If you start MiniDFSCluster without host names,    * all instances of the datanodes will have the same host name.    * @throws Exception    * @see #shutdownMiniCluster()    * @return Mini hbase cluster instance created.    */
 specifier|public
 name|MiniHBaseCluster
 name|startMiniCluster
@@ -4462,7 +4462,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * Start up a minicluster of hbase, optionally dfs, and zookeeper.    * Modifies Configuration.  Homes the cluster data directory under a random    * subdirectory in a directory under System property test.build.data.    * Directory is cleaned up on exit.    * @param numMasters Number of masters to start up.  We'll start this many    * hbase masters.  If numMasters> 1, you can find the active/primary master    * with {@link MiniHBaseCluster#getMaster()}.    * @param numSlaves Number of slaves to start up.  We'll start this many    * regionservers. If dataNodeHosts == null, this also indicates the number of    * datanodes to start. If dataNodeHosts != null, the number of datanodes is    * based on dataNodeHosts.length.    * If numSlaves is> 1, then make sure    * hbase.regionserver.info.port is -1 (i.e. no ui per regionserver) otherwise    * bind errors.    * @param dataNodeHosts hostnames DNs to run on.    * This is useful if you want to run datanode on distinct hosts for things    * like HDFS block location verification.    * If you start MiniDFSCluster without host names,    * all instances of the datanodes will have the same host name.    * @param masterClass The class to use as HMaster, or null for default    * @param regionserverClass The class to use as HRegionServer, or null for    * default    * @throws Exception    * @see {@link #shutdownMiniCluster()}    * @return Mini hbase cluster instance created.    */
+comment|/**    * Start up a minicluster of hbase, optionally dfs, and zookeeper.    * Modifies Configuration.  Homes the cluster data directory under a random    * subdirectory in a directory under System property test.build.data.    * Directory is cleaned up on exit.    * @param numMasters Number of masters to start up.  We'll start this many    * hbase masters.  If numMasters> 1, you can find the active/primary master    * with {@link MiniHBaseCluster#getMaster()}.    * @param numSlaves Number of slaves to start up.  We'll start this many    * regionservers. If dataNodeHosts == null, this also indicates the number of    * datanodes to start. If dataNodeHosts != null, the number of datanodes is    * based on dataNodeHosts.length.    * If numSlaves is> 1, then make sure    * hbase.regionserver.info.port is -1 (i.e. no ui per regionserver) otherwise    * bind errors.    * @param dataNodeHosts hostnames DNs to run on.    * This is useful if you want to run datanode on distinct hosts for things    * like HDFS block location verification.    * If you start MiniDFSCluster without host names,    * all instances of the datanodes will have the same host name.    * @param masterClass The class to use as HMaster, or null for default    * @param regionserverClass The class to use as HRegionServer, or null for    * default    * @throws Exception    * @see #shutdownMiniCluster()    * @return Mini hbase cluster instance created.    */
 specifier|public
 name|MiniHBaseCluster
 name|startMiniCluster
@@ -4841,7 +4841,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Starts up mini hbase cluster.  Usually used after call to    * {@link #startMiniCluster(int, int)} when doing stepped startup of clusters.    * Usually you won't want this.  You'll usually want {@link #startMiniCluster()}.    * @param rsPorts Ports that RegionServer should use; pass ports if you want to test cluster    *                restart where for sure the regionservers come up on same address+port (but    *                just with different startcode); by default mini hbase clusters choose new    *                arbitrary ports on each cluster start.    * @param create Whether to create a    * root or data directory path or not; will overwrite if exists already.    * @return Reference to the hbase mini hbase cluster.    * @throws IOException    * @throws InterruptedException    * @see {@link #startMiniCluster()}    */
+comment|/**    * Starts up mini hbase cluster.  Usually used after call to    * {@link #startMiniCluster(int, int)} when doing stepped startup of clusters.    * Usually you won't want this.  You'll usually want {@link #startMiniCluster()}.    * @param rsPorts Ports that RegionServer should use; pass ports if you want to test cluster    *                restart where for sure the regionservers come up on same address+port (but    *                just with different startcode); by default mini hbase clusters choose new    *                arbitrary ports on each cluster start.    * @param create Whether to create a    * root or data directory path or not; will overwrite if exists already.    * @return Reference to the hbase mini hbase cluster.    * @throws IOException    * @throws InterruptedException    * @see #startMiniCluster()    */
 specifier|public
 name|MiniHBaseCluster
 name|startMiniHBaseCluster
@@ -5248,7 +5248,7 @@ argument_list|()
 argument_list|)
 throw|;
 block|}
-comment|/**    * Stops mini hbase, zk, and hdfs clusters.    * @throws IOException    * @see {@link #startMiniCluster(int)}    */
+comment|/**    * Stops mini hbase, zk, and hdfs clusters.    * @throws IOException    * @see #startMiniCluster(int)    */
 specifier|public
 name|void
 name|shutdownMiniCluster
@@ -7735,7 +7735,7 @@ return|return
 name|desc
 return|;
 block|}
-comment|/**    * Create an HRegion that writes to the local tmp dirs    * @param desc    * @param startKey    * @param endKey    * @return    * @throws IOException    */
+comment|/**    * Create an HRegion that writes to the local tmp dirs    * @param desc a table descriptor indicating which table the region belongs to    * @param startKey the start boundary of the region    * @param endKey the end boundary of the region    * @return a region that writes to local dir for testing    * @throws IOException    */
 specifier|public
 name|HRegion
 name|createLocalHRegion

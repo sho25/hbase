@@ -3403,7 +3403,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**      * List.indexOf() doesn't really work for a List<byte[]>, because byte[]      * doesn't override equals(). This method checks whether a list contains      * a given element by checking each element using the byte array      * comparator.      * @return the index of the first element that equals compareTo, or -1      * if no elements are equal.      */
+comment|/**      * List.indexOf() doesn't really work for a List&lt;byte[]>, because byte[]      * doesn't override equals(). This method checks whether a list contains      * a given element by checking each element using the byte array      * comparator.      * @return the index of the first element that equals compareTo, or -1      * if no elements are equal.      */
 specifier|static
 specifier|private
 name|int

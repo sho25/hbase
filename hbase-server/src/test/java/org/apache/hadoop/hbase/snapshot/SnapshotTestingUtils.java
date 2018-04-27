@@ -1841,7 +1841,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Helper method for testing async snapshot operations. Just waits for the    * given snapshot to complete on the server by repeatedly checking the master.    *    * @param master: the master running the snapshot    * @param snapshot: the snapshot to check    * @param sleep: amount to sleep between checks to see if the snapshot is done    * @throws ServiceException if the snapshot fails    * @throws org.apache.hbase.thirdparty.com.google.protobuf.ServiceException    */
+comment|/**    * Helper method for testing async snapshot operations. Just waits for the    * given snapshot to complete on the server by repeatedly checking the master.    *    * @param master the master running the snapshot    * @param snapshot the snapshot to check    * @param sleep amount to sleep between checks to see if the snapshot is done    * @throws ServiceException if the snapshot fails    * @throws org.apache.hbase.thirdparty.com.google.protobuf.ServiceException    */
 specifier|public
 specifier|static
 name|void
@@ -2221,7 +2221,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * List all the HFiles in the given table    *    * @param fs: FileSystem where the table lives    * @param tableDir directory of the table    * @return array of the current HFiles in the table (could be a zero-length array)    * @throws IOException on unexecpted error reading the FS    */
+comment|/**    * List all the HFiles in the given table    *    * @param fs FileSystem where the table lives    * @param tableDir directory of the table    * @return array of the current HFiles in the table (could be a zero-length array)    * @throws IOException on unexecpted error reading the FS    */
 specifier|public
 specifier|static
 name|ArrayList

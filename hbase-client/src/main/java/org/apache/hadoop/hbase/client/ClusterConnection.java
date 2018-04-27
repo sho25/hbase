@@ -521,7 +521,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Establishes a connection to the region server at the specified address.    * @param serverName    * @return proxy for HRegionServer    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Establishes a connection to the region server at the specified address.    * @param serverName the region server to connect to    * @return proxy for HRegionServer    * @throws IOException if a remote or network exception occurs    */
 name|AdminService
 operator|.
 name|BlockingInterface
@@ -534,7 +534,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Establishes a connection to the region server at the specified address, and returns    * a region client protocol.    *    * @param serverName    * @return ClientProtocol proxy for RegionServer    * @throws IOException if a remote or network exception occurs    *    */
+comment|/**    * Establishes a connection to the region server at the specified address, and returns    * a region client protocol.    *    * @param serverName the region server to connect to    * @return ClientProtocol proxy for RegionServer    * @throws IOException if a remote or network exception occurs    *    */
 name|ClientService
 operator|.
 name|BlockingInterface

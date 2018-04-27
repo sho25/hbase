@@ -712,6 +712,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    *  Convert from CPEP protobuf 2.5 to internal protobuf 3.3.    */
 name|org
 operator|.
 name|apache
@@ -905,7 +906,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Convert from CPEP protobuf 2.5 to internal protobuf 3.3.    * @throws org.apache.hbase.thirdparty.com.google.protobuf.InvalidProtocolBufferException    */
+comment|/**    *  Convert from CPEP protobuf 2.5 to internal protobuf 3.3.    */
 name|org
 operator|.
 name|apache
@@ -1138,6 +1139,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    *  Convert from CPEP protobuf 2.5 to internal protobuf 3.3.    */
 name|org
 operator|.
 name|apache

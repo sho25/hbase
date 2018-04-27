@@ -108,7 +108,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Commit the flush - add the store file to the store and clear the    * memstore snapshot.    *    * Requires pausing scans.    *    * A very short operation    *    * @return    * @throws IOException    */
+comment|/**    * Commit the flush - add the store file to the store and clear the    * memstore snapshot.    *    * Requires pausing scans.    *    * A very short operation    *    * @return whether compaction is required    * @throws IOException    */
 name|boolean
 name|commit
 parameter_list|(

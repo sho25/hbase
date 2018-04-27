@@ -3070,7 +3070,7 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Make puts to put the input value into each combination of row, family, and qualifier    * @param rows    * @param families    * @param qualifiers    * @param value    * @return    * @throws IOException    */
+comment|/**    * Make puts to put the input value into each combination of row, family, and qualifier    * @param rows the rows to use    * @param families the families to use    * @param qualifiers the qualifiers to use    * @param value the values to use    * @return the dot product of the given rows, families, qualifiers, and values    * @throws IOException if there is a problem creating one of the Put objects    */
 specifier|static
 name|ArrayList
 argument_list|<
@@ -3223,7 +3223,7 @@ return|return
 name|puts
 return|;
 block|}
-comment|/**    * Make key values to represent each possible combination of family and qualifier in the specified    * row.    * @param row    * @param families    * @param qualifiers    * @param value    * @return    */
+comment|/**    * Make key values to represent each possible combination of family and qualifier in the specified    * row.    * @param row the row to use    * @param families the families to use    * @param qualifiers the qualifiers to use    * @param value the values to use    * @return the dot product of the given families, qualifiers, and values for a given row    */
 specifier|static
 name|ArrayList
 argument_list|<
@@ -4137,7 +4137,7 @@ name|tableName
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Exhausts the scanner by calling next repetitively. Once completely exhausted, close scanner and    * return total cell count    * @param scanner    * @return    * @throws Exception    */
+comment|/**    * Exhausts the scanner by calling next repetitively. Once completely exhausted, close scanner and    * return total cell count    * @param scanner the scanner to exhaust    * @return the number of cells counted    * @throws Exception if there is a problem retrieving cells from the scanner    */
 specifier|private
 name|int
 name|countCellsFromScanner

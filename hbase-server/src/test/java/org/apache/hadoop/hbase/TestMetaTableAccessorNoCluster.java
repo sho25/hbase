@@ -852,7 +852,7 @@ literal|0
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test that MetaTableAccessor will ride over server throwing    * "Server not running" IOEs.    * @see @link {https://issues.apache.org/jira/browse/HBASE-3446}    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * Test that MetaTableAccessor will ride over server throwing    * "Server not running" IOEs.    * @see<a href="https://issues.apache.org/jira/browse/HBASE-3446">HBASE-3446</a>    * @throws IOException    * @throws InterruptedException    */
 annotation|@
 name|Test
 specifier|public

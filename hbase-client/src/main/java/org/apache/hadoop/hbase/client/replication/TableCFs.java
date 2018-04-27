@@ -72,7 +72,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Used by {@link org.apache.hadoop.hbase.client.Admin#listReplicatedTableCFs()}.  * The cfs is a map of<ColumnFamily, ReplicationScope>.  */
+comment|/**  * Used by {@link org.apache.hadoop.hbase.client.Admin#listReplicatedTableCFs()}.  * The cfs is a map of&lt;ColumnFamily, ReplicationScope>.  */
 end_comment
 
 begin_class

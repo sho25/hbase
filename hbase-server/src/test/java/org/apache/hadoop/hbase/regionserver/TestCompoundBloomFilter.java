@@ -931,7 +931,7 @@ specifier|private
 name|BlockCache
 name|blockCache
 decl_stmt|;
-comment|/** A message of the form "in test#<number>:" to include in logging. */
+comment|/** A message of the form "in test#&lt;number>:" to include in logging. */
 specifier|private
 name|String
 name|testIdMsg

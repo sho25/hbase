@@ -3749,7 +3749,7 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Count the number of keyvalues in the specified table for the given timerange    * @param table    * @return    * @throws IOException    */
+comment|/**    * Count the number of keyvalues in the specified table with the given filter    * @param table the table to scan    * @return the number of keyvalues found    * @throws IOException    */
 specifier|private
 name|int
 name|getCount

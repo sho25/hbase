@@ -294,6 +294,9 @@ name|hashCode
 argument_list|()
 return|;
 block|}
+comment|// Do not need @Override #equals() because super.equals() delegates to compareTo(), which ends
+comment|// up doing the right thing. We have a test for it, so the checkstyle warning here would be a
+comment|// false positive.
 block|}
 end_class
 
