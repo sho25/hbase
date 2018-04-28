@@ -49,6 +49,10 @@ name|InterfaceAudience
 import|;
 end_import
 
+begin_comment
+comment|/**  * Vessel that carries a Procedure and a timeout.  */
+end_comment
+
 begin_class
 annotation|@
 name|InterfaceAudience

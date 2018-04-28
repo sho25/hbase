@@ -618,6 +618,23 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|getAttempt
+argument_list|()
+operator|>
+literal|0
+condition|)
+block|{
+name|state
+operator|.
+name|setAttempt
+argument_list|(
+name|getAttempt
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 name|serializer
 operator|.
 name|serialize
@@ -701,6 +718,23 @@ argument_list|(
 name|state
 operator|.
 name|getTargetServer
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|state
+operator|.
+name|hasAttempt
+argument_list|()
+condition|)
+block|{
+name|setAttempt
+argument_list|(
+name|state
+operator|.
+name|getAttempt
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -956,10 +990,12 @@ return|return
 literal|false
 return|;
 block|}
-comment|// Send assign (add into assign-pool). Region is now in OFFLINE state. Setting offline state
-comment|// scrubs what was the old region location. Setting a new regionLocation here is how we retain
+comment|// Send assign (add into assign-pool). We call regionNode.offline below to set state to
+comment|// OFFLINE and to clear the region location. Setting a new regionLocation here is how we retain
 comment|// old assignment or specify target server if a move or merge. See
 comment|// AssignmentManager#processAssignQueue. Otherwise, balancer gives us location.
+comment|// TODO: Region will be set into OFFLINE state below regardless of what its previous state was
+comment|// This is dangerous? Wrong? What if region was in an unexpected state?
 name|ServerName
 name|lastRegionLocation
 init|=
