@@ -289,6 +289,7 @@ expr_stmt|;
 block|}
 annotation|@
 name|Override
+specifier|public
 name|long
 name|getStartPosition
 parameter_list|()
@@ -359,7 +360,7 @@ init|=
 literal|0
 decl_stmt|;
 name|String
-name|peerClusterZnode
+name|peerClusterZNode
 init|=
 name|source
 operator|.
@@ -378,10 +379,13 @@ name|getWALPosition
 argument_list|(
 name|source
 operator|.
-name|getServerWALsBelongTo
+name|getServer
+argument_list|()
+operator|.
+name|getServerName
 argument_list|()
 argument_list|,
-name|peerClusterZnode
+name|peerClusterZNode
 argument_list|,
 name|this
 operator|.
@@ -394,33 +398,22 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Recovered queue started with log "
-operator|+
+literal|"Recovered queue started with log {} at position {}"
+argument_list|,
 name|this
 operator|.
 name|queue
 operator|.
 name|peek
 argument_list|()
-operator|+
-literal|" at position "
-operator|+
+argument_list|,
 name|startPosition
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 catch|catch
 parameter_list|(
@@ -432,7 +425,7 @@ name|terminate
 argument_list|(
 literal|"Couldn't get the position of this recovered queue "
 operator|+
-name|peerClusterZnode
+name|peerClusterZNode
 argument_list|,
 name|e
 argument_list|)
@@ -464,14 +457,12 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Closing worker for wal group "
-operator|+
+literal|"Closing worker for wal group {} because: {}"
+argument_list|,
 name|this
 operator|.
 name|walGroupId
-operator|+
-literal|" because: "
-operator|+
+argument_list|,
 name|reason
 argument_list|)
 expr_stmt|;
@@ -528,14 +519,12 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"ReplicationSourceWorker "
-operator|+
+literal|"ReplicationSourceWorker {} terminated"
+argument_list|,
 name|this
 operator|.
 name|getName
 argument_list|()
-operator|+
-literal|" terminated"
 argument_list|)
 expr_stmt|;
 block|}
