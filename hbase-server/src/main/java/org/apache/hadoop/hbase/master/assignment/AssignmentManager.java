@@ -6973,11 +6973,17 @@ operator|.
 name|State
 operator|.
 name|DISABLED
+argument_list|,
+name|TableState
+operator|.
+name|State
+operator|.
+name|DISABLING
 argument_list|)
 condition|)
 block|{
-comment|// The region is CLOSED and the table is DISABLED, there is nothing to schedule;
-comment|// the region is inert.
+comment|// The region is CLOSED and the table is DISABLED/ DISABLING, there is nothing to
+comment|// schedule; the region is inert.
 block|}
 else|else
 block|{
