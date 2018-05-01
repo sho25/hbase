@@ -1422,10 +1422,12 @@ specifier|private
 name|Configuration
 name|conf
 decl_stmt|;
+comment|/**    * Created in the {@link #start(int, boolean)} method. Destroyed in {@link #join()} (FIX! Doing    * resource handling rather than observing in a #join is unexpected).    * Overridden when we do the ProcedureTestingUtility.testRecoveryAndDoubleExecution trickery    * (Should be ok).    */
 specifier|private
 name|ThreadGroup
 name|threadGroup
 decl_stmt|;
+comment|/**    * Created in the {@link #start(int, boolean)} method. Terminated in {@link #join()} (FIX! Doing    * resource handling rather than observing in a #join is unexpected).    * Overridden when we do the ProcedureTestingUtility.testRecoveryAndDoubleExecution trickery    * (Should be ok).    */
 specifier|private
 name|CopyOnWriteArrayList
 argument_list|<
@@ -1433,6 +1435,7 @@ name|WorkerThread
 argument_list|>
 name|workerThreads
 decl_stmt|;
+comment|/**    * Created in the {@link #start(int, boolean)} method. Terminated in {@link #join()} (FIX! Doing    * resource handling rather than observing in a #join is unexpected).    * Overridden when we do the ProcedureTestingUtility.testRecoveryAndDoubleExecution trickery    * (Should be ok).    */
 specifier|private
 name|TimeoutExecutorThread
 name|timeoutExecutor
@@ -2653,7 +2656,8 @@ argument_list|,
 name|maxPoolSize
 argument_list|)
 expr_stmt|;
-comment|// Create the Thread Group for the executors
+name|this
+operator|.
 name|threadGroup
 operator|=
 operator|new
@@ -2662,7 +2666,8 @@ argument_list|(
 literal|"PEWorkerGroup"
 argument_list|)
 expr_stmt|;
-comment|// Create the timeout executor
+name|this
+operator|.
 name|timeoutExecutor
 operator|=
 operator|new
@@ -2933,10 +2938,6 @@ operator|.
 name|awaitTermination
 argument_list|()
 expr_stmt|;
-name|timeoutExecutor
-operator|=
-literal|null
-expr_stmt|;
 comment|// stop the worker threads
 for|for
 control|(
@@ -2952,11 +2953,8 @@ name|awaitTermination
 argument_list|()
 expr_stmt|;
 block|}
-name|workerThreads
-operator|=
-literal|null
-expr_stmt|;
 comment|// Destroy the Thread Group for the executors
+comment|// TODO: Fix. #join is not place to destroy resources.
 try|try
 block|{
 name|threadGroup
@@ -2975,29 +2973,25 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"ThreadGroup "
-operator|+
+literal|"ThreadGroup {} contains running threads; {}: See STDOUT"
+argument_list|,
+name|this
+operator|.
 name|threadGroup
-operator|+
-literal|" contains running threads; "
-operator|+
+argument_list|,
 name|e
 operator|.
 name|getMessage
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// This dumps list of threads on STDOUT.
+name|this
+operator|.
 name|threadGroup
 operator|.
 name|list
 argument_list|()
-expr_stmt|;
-block|}
-finally|finally
-block|{
-name|threadGroup
-operator|=
-literal|null
 expr_stmt|;
 block|}
 comment|// reset the in-memory state for testing

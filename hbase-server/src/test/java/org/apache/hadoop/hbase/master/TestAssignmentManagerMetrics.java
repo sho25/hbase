@@ -243,6 +243,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|coprocessor
+operator|.
+name|CoprocessorHost
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|master
 operator|.
 name|assignment
@@ -624,6 +640,18 @@ argument_list|,
 name|MSG_INTERVAL
 argument_list|)
 expr_stmt|;
+comment|// keep rs online so it can report the failed opens.
+name|conf
+operator|.
+name|setBoolean
+argument_list|(
+name|CoprocessorHost
+operator|.
+name|ABORT_ON_ERROR_KEY
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
 name|TEST_UTIL
 operator|.
 name|startMiniCluster
@@ -934,6 +962,13 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// Sleep 3 seconds, wait for doMetrics chore catching up
+comment|// the rit count consists of rit and failed opens. see RegionInTransitionStat#update
+comment|// Waiting for the completion of rit makes the assert stable.
+name|TEST_UTIL
+operator|.
+name|waitUntilNoRegionsInTransition
+argument_list|()
+expr_stmt|;
 name|Thread
 operator|.
 name|sleep
