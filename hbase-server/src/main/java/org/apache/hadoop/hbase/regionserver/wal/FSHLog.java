@@ -1269,6 +1269,10 @@ argument_list|,
 name|path
 argument_list|,
 literal|false
+argument_list|,
+name|this
+operator|.
+name|blocksize
 argument_list|)
 decl_stmt|;
 if|if

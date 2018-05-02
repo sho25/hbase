@@ -400,7 +400,7 @@ name|ArrayList
 argument_list|<>
 argument_list|()
 decl_stmt|;
-comment|/**    * @param factory factory that made us, identity used for FS layout. may not be null    * @param conf may not be null    * @param listeners may be null    * @param providerId differentiate between providers from one facotry, used for FS layout. may be    *                   null    */
+comment|/**    * @param factory factory that made us, identity used for FS layout. may not be null    * @param conf may not be null    * @param providerId differentiate between providers from one facotry, used for FS layout. may be    *                   null    */
 annotation|@
 name|Override
 specifier|public
@@ -880,6 +880,10 @@ argument_list|,
 name|conf
 argument_list|,
 literal|false
+argument_list|,
+name|this
+operator|.
+name|blocksize
 argument_list|)
 expr_stmt|;
 block|}
@@ -975,6 +979,9 @@ name|conf
 parameter_list|,
 name|boolean
 name|overwritable
+parameter_list|,
+name|long
+name|blocksize
 parameter_list|)
 throws|throws
 name|IOException
@@ -1113,6 +1120,8 @@ argument_list|,
 name|conf
 argument_list|,
 name|overwritable
+argument_list|,
+name|blocksize
 argument_list|)
 expr_stmt|;
 block|}

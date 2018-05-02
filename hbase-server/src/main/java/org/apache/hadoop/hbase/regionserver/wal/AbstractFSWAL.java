@@ -1076,6 +1076,12 @@ specifier|final
 name|long
 name|logrollsize
 decl_stmt|;
+comment|/**    * Block size to use writing files.    */
+specifier|protected
+specifier|final
+name|long
+name|blocksize
+decl_stmt|;
 comment|/*    * If more than this many logs, force flush of oldest region to oldest edit goes to disk. If too    * many and we crash, then will take forever replaying. Keep the number of logs tidy.    */
 specifier|protected
 specifier|final
@@ -1993,22 +1999,18 @@ comment|// roll to happen before end-of-block. So the new accounting makes WALs 
 comment|// size as those made in hbase-1 (to prevent surprise), we now have default block size as
 comment|// 2 times the DFS default: i.e. 2 * DFS default block size rolling at 50% full will generally
 comment|// make similar size logs to 1 * DFS default block size rolling at 95% full. See HBASE-19148.
-specifier|final
-name|long
+name|this
+operator|.
 name|blocksize
-init|=
+operator|=
+name|WALUtil
+operator|.
+name|getWALBlockSize
+argument_list|(
 name|this
 operator|.
 name|conf
-operator|.
-name|getLong
-argument_list|(
-literal|"hbase.regionserver.hlog.blocksize"
 argument_list|,
-name|CommonFSUtils
-operator|.
-name|getDefaultBlockSize
-argument_list|(
 name|this
 operator|.
 name|fs
@@ -2017,8 +2019,17 @@ name|this
 operator|.
 name|walDir
 argument_list|)
-operator|*
-literal|2
+expr_stmt|;
+name|float
+name|multiplier
+init|=
+name|conf
+operator|.
+name|getFloat
+argument_list|(
+literal|"hbase.regionserver.logroll.multiplier"
+argument_list|,
+literal|0.5f
 argument_list|)
 decl_stmt|;
 name|this
@@ -2029,16 +2040,11 @@ call|(
 name|long
 call|)
 argument_list|(
+name|this
+operator|.
 name|blocksize
 operator|*
-name|conf
-operator|.
-name|getFloat
-argument_list|(
-literal|"hbase.regionserver.logroll.multiplier"
-argument_list|,
-literal|0.5f
-argument_list|)
+name|multiplier
 argument_list|)
 expr_stmt|;
 name|boolean

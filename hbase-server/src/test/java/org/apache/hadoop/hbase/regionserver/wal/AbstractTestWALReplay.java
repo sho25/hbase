@@ -8512,6 +8512,17 @@ argument_list|,
 name|conf
 argument_list|,
 literal|true
+argument_list|,
+name|WALUtil
+operator|.
+name|getWALBlockSize
+argument_list|(
+name|conf
+argument_list|,
+name|fs
+argument_list|,
+name|file
+argument_list|)
 argument_list|)
 expr_stmt|;
 for|for

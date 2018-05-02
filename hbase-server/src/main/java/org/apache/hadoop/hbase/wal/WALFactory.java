@@ -1642,7 +1642,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Create a writer for the WAL.    *<p>    * should be package-private. public only for tests and    * {@link org.apache.hadoop.hbase.regionserver.wal.Compressor}    * @return A WAL writer. Close when done with it.    * @throws IOException    */
+comment|/**    * Create a writer for the WAL.    * Uses defaults.    *<p>    * Should be package-private. public only for tests and    * {@link org.apache.hadoop.hbase.regionserver.wal.Compressor}    * @return A WAL writer. Close when done with it.    */
 end_comment
 
 begin_function
@@ -1679,7 +1679,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * should be package-private, visible for recovery testing.    * @return an overwritable writer for recovered edits. caller should close.    */
+comment|/**    * Should be package-private, visible for recovery testing.    * Uses defaults.    * @return an overwritable writer for recovered edits. caller should close.    */
 end_comment
 
 begin_function
@@ -1767,7 +1767,7 @@ decl_stmt|;
 end_decl_stmt
 
 begin_comment
-comment|// public only for FSHLog
+comment|// Public only for FSHLog
 end_comment
 
 begin_function
@@ -1996,7 +1996,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * If you already have a WALFactory, you should favor the instance method.    * @return a Writer that will overwrite files. Caller must close.    */
+comment|/**    * If you already have a WALFactory, you should favor the instance method.    * Uses defaults.    * @return a Writer that will overwrite files. Caller must close.    */
 end_comment
 
 begin_function
@@ -2037,7 +2037,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * If you already have a WALFactory, you should favor the instance method.    * @return a writer that won't overwrite files. Caller must close.    */
+comment|/**    * If you already have a WALFactory, you should favor the instance method.    * Uses defaults.    * @return a writer that won't overwrite files. Caller must close.    */
 end_comment
 
 begin_function
