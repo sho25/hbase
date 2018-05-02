@@ -463,7 +463,7 @@ name|abortable
 return|;
 block|}
 block|}
-comment|/**    * Initialize the replication endpoint with the given context.    * @param context replication context    * @throws IOException    */
+comment|/**    * Initialize the replication endpoint with the given context.    * @param context replication context    * @throws IOException error occur when initialize the endpoint.    */
 name|void
 name|init
 parameter_list|(
