@@ -421,7 +421,15 @@ parameter_list|(
 name|String
 name|reason
 parameter_list|)
-block|{    }
+block|{
+name|terminate
+argument_list|(
+name|reason
+argument_list|,
+literal|null
+argument_list|)
+expr_stmt|;
+block|}
 annotation|@
 name|Override
 specifier|public
@@ -434,7 +442,15 @@ parameter_list|,
 name|Exception
 name|e
 parameter_list|)
-block|{    }
+block|{
+name|this
+operator|.
+name|metrics
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
+block|}
 annotation|@
 name|Override
 specifier|public

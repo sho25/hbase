@@ -929,6 +929,14 @@ condition|(
 name|allTasksDone
 condition|)
 block|{
+name|this
+operator|.
+name|getSourceMetrics
+argument_list|()
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
 name|manager
 operator|.
 name|removeRecoveredSource

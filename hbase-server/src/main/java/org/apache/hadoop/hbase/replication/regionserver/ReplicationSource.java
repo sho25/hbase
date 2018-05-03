@@ -2952,6 +2952,13 @@ expr_stmt|;
 block|}
 block|}
 block|}
+name|this
+operator|.
+name|metrics
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
 block|}
 annotation|@
 name|Override
