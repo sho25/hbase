@@ -2973,6 +2973,11 @@ name|stop
 argument_list|()
 expr_stmt|;
 block|}
+name|metrics
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|join

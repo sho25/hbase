@@ -1327,9 +1327,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * For testing only    * @return true if all WAL roll finished    */
-annotation|@
-name|VisibleForTesting
+comment|/**    * @return true if all WAL roll finished    */
 specifier|public
 name|boolean
 name|walRollFinished
@@ -1359,6 +1357,30 @@ block|}
 return|return
 literal|true
 return|;
+block|}
+comment|/**    * Wait until all wals have been rolled after calling {@link #requestRollAll()}.    */
+specifier|public
+name|void
+name|waitUntilWalRollFinished
+parameter_list|()
+throws|throws
+name|InterruptedException
+block|{
+while|while
+condition|(
+operator|!
+name|walRollFinished
+argument_list|()
+condition|)
+block|{
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|100
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Override
