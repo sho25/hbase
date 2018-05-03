@@ -73,6 +73,16 @@ name|java
 operator|.
 name|io
 operator|.
+name|FileNotFoundException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
 name|IOException
 import|;
 end_import
@@ -572,6 +582,14 @@ argument_list|()
 expr_stmt|;
 comment|// a successful close is also OK for us so no assertion here, we just need to confirm that the
 comment|// data in the file are correct.
+block|}
+catch|catch
+parameter_list|(
+name|FileNotFoundException
+name|fnfe
+parameter_list|)
+block|{
+comment|// hadoop3 throws one of these.
 block|}
 catch|catch
 parameter_list|(
