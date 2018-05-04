@@ -664,9 +664,7 @@ block|{
 name|Configuration
 name|hConf
 init|=
-name|context
-operator|.
-name|getConfiguration
+name|getConf
 argument_list|()
 decl_stmt|;
 if|if
@@ -678,9 +676,10 @@ condition|)
 block|{
 name|hConf
 operator|=
-name|this
+name|context
 operator|.
-name|conf
+name|getConfiguration
+argument_list|()
 expr_stmt|;
 block|}
 try|try
