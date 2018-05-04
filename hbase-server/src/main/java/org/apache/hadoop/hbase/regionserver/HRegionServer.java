@@ -6272,37 +6272,6 @@ expr_stmt|;
 name|sendShutdownInterrupt
 argument_list|()
 expr_stmt|;
-comment|// Stop the quota manager
-if|if
-condition|(
-name|rsQuotaManager
-operator|!=
-literal|null
-condition|)
-block|{
-name|rsQuotaManager
-operator|.
-name|stop
-argument_list|()
-expr_stmt|;
-block|}
-if|if
-condition|(
-name|rsSpaceQuotaManager
-operator|!=
-literal|null
-condition|)
-block|{
-name|rsSpaceQuotaManager
-operator|.
-name|stop
-argument_list|()
-expr_stmt|;
-name|rsSpaceQuotaManager
-operator|=
-literal|null
-expr_stmt|;
-block|}
 comment|// Stop the snapshot and other procedure handlers, forcefully killing all running tasks
 if|if
 condition|(
@@ -6526,6 +6495,37 @@ name|serverName
 operator|+
 literal|"; all regions closed."
 argument_list|)
+expr_stmt|;
+block|}
+comment|// Stop the quota manager
+if|if
+condition|(
+name|rsQuotaManager
+operator|!=
+literal|null
+condition|)
+block|{
+name|rsQuotaManager
+operator|.
+name|stop
+argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|rsSpaceQuotaManager
+operator|!=
+literal|null
+condition|)
+block|{
+name|rsSpaceQuotaManager
+operator|.
+name|stop
+argument_list|()
+expr_stmt|;
+name|rsSpaceQuotaManager
+operator|=
+literal|null
 expr_stmt|;
 block|}
 comment|//fsOk flag may be changed when closing regions throws exception.
@@ -18584,6 +18584,10 @@ decl_stmt|;
 if|if
 condition|(
 name|rss
+operator|==
+literal|null
+operator|||
+name|rsSpaceQuotaManager
 operator|==
 literal|null
 condition|)
