@@ -246,7 +246,7 @@ name|keySize
 operator|+=
 name|s
 operator|.
-name|keySize
+name|getDataSize
 argument_list|()
 expr_stmt|;
 block|}
@@ -593,7 +593,7 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|keySize
+name|getDataSize
 parameter_list|()
 block|{
 return|return
@@ -607,7 +607,7 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|heapSize
+name|getHeapSize
 parameter_list|()
 block|{
 name|long
@@ -627,7 +627,7 @@ name|result
 operator|+=
 name|s
 operator|.
-name|heapSize
+name|getHeapSize
 argument_list|()
 expr_stmt|;
 block|}
@@ -638,9 +638,9 @@ block|}
 comment|/**    * Updates the heap size counter of the segment by the given delta    */
 annotation|@
 name|Override
-specifier|protected
-name|void
-name|incSize
+specifier|public
+name|long
+name|incMemStoreSize
 parameter_list|(
 name|long
 name|delta

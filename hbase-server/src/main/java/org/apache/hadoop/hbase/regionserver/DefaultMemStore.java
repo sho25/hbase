@@ -430,7 +430,6 @@ name|snapshot
 argument_list|)
 return|;
 block|}
-comment|/**    * On flush, how much memory we will clear from the active cell set.    *    * @return size of data that is going to be flushed from active set    */
 annotation|@
 name|Override
 specifier|public
@@ -439,29 +438,27 @@ name|getFlushableSize
 parameter_list|()
 block|{
 name|MemStoreSize
-name|snapshotSize
+name|mss
 init|=
 name|getSnapshotSize
 argument_list|()
 decl_stmt|;
 return|return
-name|snapshotSize
+name|mss
 operator|.
 name|getDataSize
 argument_list|()
 operator|>
 literal|0
 condition|?
-name|snapshotSize
+name|mss
 else|:
-operator|new
-name|MemStoreSize
-argument_list|(
+name|this
+operator|.
 name|active
 operator|.
 name|getMemStoreSize
 argument_list|()
-argument_list|)
 return|;
 block|}
 annotation|@
@@ -476,7 +473,7 @@ name|this
 operator|.
 name|active
 operator|.
-name|keySize
+name|getDataSize
 argument_list|()
 return|;
 block|}
@@ -492,7 +489,7 @@ name|this
 operator|.
 name|active
 operator|.
-name|heapSize
+name|getHeapSize
 argument_list|()
 return|;
 block|}
@@ -651,14 +648,10 @@ name|size
 parameter_list|()
 block|{
 return|return
-operator|new
-name|MemStoreSize
-argument_list|(
 name|active
 operator|.
 name|getMemStoreSize
 argument_list|()
-argument_list|)
 return|;
 block|}
 comment|/**    * Check whether anything need to be done based on the current active set size    * Nothing need to be done for the DefaultMemStore    */
@@ -799,10 +792,10 @@ literal|0
 index|]
 decl_stmt|;
 name|MemStoreSizing
-name|memstoreSizing
+name|memStoreSizing
 init|=
 operator|new
-name|MemStoreSizing
+name|NonThreadSafeMemStoreSizing
 argument_list|()
 decl_stmt|;
 for|for
@@ -844,7 +837,7 @@ argument_list|,
 name|empty
 argument_list|)
 argument_list|,
-name|memstoreSizing
+name|memStoreSizing
 argument_list|)
 expr_stmt|;
 block|}
@@ -852,19 +845,23 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"memstore1 estimated size="
-operator|+
-operator|(
-name|memstoreSizing
+literal|"memstore1 estimated size={}"
+argument_list|,
+name|memStoreSizing
+operator|.
+name|getMemStoreSize
+argument_list|()
 operator|.
 name|getDataSize
 argument_list|()
 operator|+
-name|memstoreSizing
+name|memStoreSizing
+operator|.
+name|getMemStoreSize
+argument_list|()
 operator|.
 name|getHeapSize
 argument_list|()
-operator|)
 argument_list|)
 expr_stmt|;
 for|for
@@ -905,7 +902,7 @@ argument_list|,
 name|empty
 argument_list|)
 argument_list|,
-name|memstoreSizing
+name|memStoreSizing
 argument_list|)
 expr_stmt|;
 block|}
@@ -913,19 +910,23 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"memstore1 estimated size (2nd loading of same data)="
-operator|+
-operator|(
-name|memstoreSizing
+literal|"memstore1 estimated size (2nd loading of same data)={}"
+argument_list|,
+name|memStoreSizing
+operator|.
+name|getMemStoreSize
+argument_list|()
 operator|.
 name|getDataSize
 argument_list|()
 operator|+
-name|memstoreSizing
+name|memStoreSizing
+operator|.
+name|getMemStoreSize
+argument_list|()
 operator|.
 name|getHeapSize
 argument_list|()
-operator|)
 argument_list|)
 expr_stmt|;
 comment|// Make a variably sized memstore.
@@ -936,10 +937,10 @@ operator|new
 name|DefaultMemStore
 argument_list|()
 decl_stmt|;
-name|memstoreSizing
+name|memStoreSizing
 operator|=
 operator|new
-name|MemStoreSizing
+name|NonThreadSafeMemStoreSizing
 argument_list|()
 expr_stmt|;
 for|for
@@ -984,7 +985,7 @@ name|i
 index|]
 argument_list|)
 argument_list|,
-name|memstoreSizing
+name|memStoreSizing
 argument_list|)
 expr_stmt|;
 block|}
@@ -992,19 +993,23 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"memstore2 estimated size="
-operator|+
-operator|(
-name|memstoreSizing
+literal|"memstore2 estimated size={}"
+argument_list|,
+name|memStoreSizing
+operator|.
+name|getMemStoreSize
+argument_list|()
 operator|.
 name|getDataSize
 argument_list|()
 operator|+
-name|memstoreSizing
+name|memStoreSizing
+operator|.
+name|getMemStoreSize
+argument_list|()
 operator|.
 name|getHeapSize
 argument_list|()
-operator|)
 argument_list|)
 expr_stmt|;
 specifier|final

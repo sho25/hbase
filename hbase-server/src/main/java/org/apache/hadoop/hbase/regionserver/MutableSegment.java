@@ -239,7 +239,7 @@ name|SYNC
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|incSize
+name|incMemStoreSize
 argument_list|(
 literal|0
 argument_list|,
@@ -459,9 +459,7 @@ argument_list|,
 literal|true
 argument_list|)
 decl_stmt|;
-name|this
-operator|.
-name|incSize
+name|incMemStoreSize
 argument_list|(
 operator|-
 name|cellLen

@@ -258,6 +258,8 @@ specifier|public
 specifier|abstract
 class|class
 name|Segment
+implements|implements
+name|MemStoreSizing
 block|{
 specifier|public
 specifier|final
@@ -339,12 +341,12 @@ specifier|private
 name|MemStoreLAB
 name|memStoreLAB
 decl_stmt|;
-comment|// Sum of sizes of all Cells added to this Segment. Cell's heapSize is considered. This is not
+comment|// Sum of sizes of all Cells added to this Segment. Cell's HeapSize is considered. This is not
 comment|// including the heap overhead of this class.
 specifier|protected
 specifier|final
 name|MemStoreSizing
-name|segmentSize
+name|memStoreSizing
 decl_stmt|;
 specifier|protected
 specifier|final
@@ -374,12 +376,14 @@ name|comparator
 operator|=
 name|comparator
 expr_stmt|;
+comment|// Do we need to be thread safe always? What if ImmutableSegment?
+comment|// DITTO for the TimeRangeTracker below.
 name|this
 operator|.
-name|segmentSize
+name|memStoreSizing
 operator|=
 operator|new
-name|MemStoreSizing
+name|ThreadSafeMemStoreSizing
 argument_list|()
 expr_stmt|;
 name|this
@@ -464,12 +468,14 @@ name|comparator
 operator|=
 name|comparator
 expr_stmt|;
+comment|// Do we need to be thread safe always? What if ImmutableSegment?
+comment|// DITTO for the TimeRangeTracker below.
 name|this
 operator|.
-name|segmentSize
+name|memStoreSizing
 operator|=
 operator|new
-name|MemStoreSizing
+name|ThreadSafeMemStoreSizing
 argument_list|(
 name|dataSize
 argument_list|,
@@ -531,12 +537,14 @@ name|memStoreLAB
 operator|=
 name|memStoreLAB
 expr_stmt|;
+comment|// Do we need to be thread safe always? What if ImmutableSegment?
+comment|// DITTO for the TimeRangeTracker below.
 name|this
 operator|.
-name|segmentSize
+name|memStoreSizing
 operator|=
 operator|new
-name|MemStoreSizing
+name|ThreadSafeMemStoreSizing
 argument_list|()
 expr_stmt|;
 name|this
@@ -600,12 +608,14 @@ argument_list|()
 expr_stmt|;
 name|this
 operator|.
-name|segmentSize
+name|memStoreSizing
 operator|=
 operator|new
-name|MemStoreSizing
+name|ThreadSafeMemStoreSizing
 argument_list|(
 name|segment
+operator|.
+name|memStoreSizing
 operator|.
 name|getMemStoreSize
 argument_list|()
@@ -942,6 +952,8 @@ return|return
 name|this
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|MemStoreSize
 name|getMemStoreSize
@@ -950,59 +962,65 @@ block|{
 return|return
 name|this
 operator|.
-name|segmentSize
+name|memStoreSizing
+operator|.
+name|getMemStoreSize
+argument_list|()
 return|;
 block|}
-comment|/**    * @return Sum of all cell's size.    */
+annotation|@
+name|Override
 specifier|public
 name|long
-name|keySize
+name|getDataSize
 parameter_list|()
 block|{
 return|return
 name|this
 operator|.
-name|segmentSize
+name|memStoreSizing
 operator|.
 name|getDataSize
 argument_list|()
 return|;
 block|}
-comment|/**    * @return The heap size of this segment.    */
+annotation|@
+name|Override
 specifier|public
 name|long
-name|heapSize
+name|getHeapSize
 parameter_list|()
 block|{
 return|return
 name|this
 operator|.
-name|segmentSize
+name|memStoreSizing
 operator|.
 name|getHeapSize
 argument_list|()
 return|;
 block|}
-comment|/**    * @return The off-heap size of this segment.    */
+annotation|@
+name|Override
 specifier|public
 name|long
-name|offHeapSize
+name|getOffHeapSize
 parameter_list|()
 block|{
 return|return
 name|this
 operator|.
-name|segmentSize
+name|memStoreSizing
 operator|.
 name|getOffHeapSize
 argument_list|()
 return|;
 block|}
-comment|/**    * Updates the size counters of the segment by the given delta    */
-comment|//TODO
-specifier|protected
-name|void
-name|incSize
+annotation|@
+name|Override
+specifier|public
+name|long
+name|incMemStoreSize
 parameter_list|(
 name|long
 name|delta
@@ -1014,14 +1032,10 @@ name|long
 name|offHeapOverhead
 parameter_list|)
 block|{
-synchronized|synchronized
-init|(
-name|this
-init|)
-block|{
+return|return
 name|this
 operator|.
-name|segmentSize
+name|memStoreSizing
 operator|.
 name|incMemStoreSize
 argument_list|(
@@ -1031,8 +1045,7 @@ name|heapOverhead
 argument_list|,
 name|offHeapOverhead
 argument_list|)
-expr_stmt|;
-block|}
+return|;
 block|}
 specifier|public
 name|long
@@ -1271,7 +1284,7 @@ argument_list|,
 name|succ
 argument_list|)
 decl_stmt|;
-name|incSize
+name|incMemStoreSize
 argument_list|(
 name|cellSize
 argument_list|,
@@ -1688,7 +1701,7 @@ name|res
 operator|+=
 literal|"cellSize="
 operator|+
-name|keySize
+name|getDataSize
 argument_list|()
 operator|+
 literal|", "
@@ -1697,7 +1710,7 @@ name|res
 operator|+=
 literal|"totalHeapSize="
 operator|+
-name|heapSize
+name|getHeapSize
 argument_list|()
 operator|+
 literal|", "

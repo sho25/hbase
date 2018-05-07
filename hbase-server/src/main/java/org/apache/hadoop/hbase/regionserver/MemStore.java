@@ -109,7 +109,7 @@ parameter_list|)
 throws|throws
 name|UnexpectedStateException
 function_decl|;
-comment|/**    * On flush, how much memory we will clear.    * Flush will first clear out the data in snapshot if any (It will take a second flush    * invocation to clear the current Cell set). If snapshot is empty, current    * Cell set will be flushed.    *    * @return size of data that is going to be flushed    */
+comment|/**    * Flush will first clear out the data in snapshot if any (It will take a second flush    * invocation to clear the current Cell set). If snapshot is empty, current    * Cell set will be flushed.    *    * @return On flush, how much memory we will clear.    */
 name|MemStoreSize
 name|getFlushableSize
 parameter_list|()

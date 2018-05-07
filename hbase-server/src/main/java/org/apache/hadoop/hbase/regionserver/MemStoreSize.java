@@ -46,7 +46,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Reports the data size part and total heap space occupied by the MemStore.  * Read-only.  * @see MemStoreSizing  */
+comment|/**  * Data structure of three longs.  * Convenient package in which to carry current state of three counters.  *<p>Immutable!</p>  * @see MemStoreSizing  */
 end_comment
 
 begin_class
@@ -63,42 +63,25 @@ specifier|public
 class|class
 name|MemStoreSize
 block|{
-comment|// MemStore size tracks 3 sizes:
-comment|// (1) data size: the aggregated size of all key-value not including meta data such as
-comment|// index, time range etc.
-comment|// (2) heap size: the aggregated size of all data that is allocated on-heap including all
-comment|// key-values that reside on-heap and the metadata that resides on-heap
-comment|// (3) off-heap size: the aggregated size of all data that is allocated off-heap including all
-comment|// key-values that reside off-heap and the metadata that resides off-heap
-comment|//
-comment|// 3 examples to illustrate their usage:
-comment|// Consider a store with 100MB of key-values allocated on-heap and 20MB of metadata allocated
-comment|// on-heap. The counters are<100MB, 120MB, 0>, respectively.
-comment|// Consider a store with 100MB of key-values allocated off-heap and 20MB of metadata
-comment|// allocated on-heap (e.g, CAM index). The counters are<100MB, 20MB, 100MB>, respectively.
-comment|// Consider a store with 100MB of key-values from which 95MB are allocated off-heap and 5MB
-comment|// are allocated on-heap (e.g., due to upserts) and 20MB of metadata from which 15MB allocated
-comment|// off-heap (e.g, CCM index) and 5MB allocated on-heap (e.g, CSLM index in active).
-comment|// The counters are<100MB, 10MB, 110MB>, respectively.
-comment|/**    *'dataSize' tracks the Cell's data bytes size alone (Key bytes, value bytes). A cell's data can    * be in on heap or off heap area depending on the MSLAB and its configuration to be using on heap    * or off heap LABs    */
-specifier|protected
-specifier|volatile
+comment|/**    *'dataSize' tracks the Cell's data bytes size alone (Key bytes, value bytes). A cell's data can    * be in on heap or off heap area depending on the MSLAB and its configuration to be using on    * heap or off heap LABs    */
+specifier|private
+specifier|final
 name|long
 name|dataSize
 decl_stmt|;
-comment|/** 'heapSize' tracks all Cell's heap size occupancy. This will include Cell POJO heap overhead.    * When Cells in on heap area, this will include the cells data size as well.    */
-specifier|protected
-specifier|volatile
+comment|/**'getHeapSize' tracks all Cell's heap size occupancy. This will include Cell POJO heap overhead.    * When Cells in on heap area, this will include the cells data size as well.    */
+specifier|private
+specifier|final
 name|long
 name|heapSize
 decl_stmt|;
 comment|/** off-heap size: the aggregated size of all data that is allocated off-heap including all    * key-values that reside off-heap and the metadata that resides off-heap    */
-specifier|protected
-specifier|volatile
+specifier|private
+specifier|final
 name|long
 name|offHeapSize
 decl_stmt|;
-specifier|public
+comment|/**    * Package private constructor.    */
 name|MemStoreSize
 parameter_list|()
 block|{
@@ -112,7 +95,7 @@ literal|0L
 argument_list|)
 expr_stmt|;
 block|}
-specifier|public
+comment|/**    * Package private constructor.    */
 name|MemStoreSize
 parameter_list|(
 name|long
@@ -144,7 +127,7 @@ operator|=
 name|offHeapSize
 expr_stmt|;
 block|}
-specifier|protected
+comment|/**    * Package private constructor.    */
 name|MemStoreSize
 parameter_list|(
 name|MemStoreSize
@@ -157,7 +140,8 @@ name|dataSize
 operator|=
 name|memStoreSize
 operator|.
-name|dataSize
+name|getDataSize
+argument_list|()
 expr_stmt|;
 name|this
 operator|.
@@ -165,7 +149,8 @@ name|heapSize
 operator|=
 name|memStoreSize
 operator|.
-name|heapSize
+name|getHeapSize
+argument_list|()
 expr_stmt|;
 name|this
 operator|.
@@ -173,7 +158,8 @@ name|offHeapSize
 operator|=
 name|memStoreSize
 operator|.
-name|offHeapSize
+name|getOffHeapSize
+argument_list|()
 expr_stmt|;
 block|}
 specifier|public
@@ -313,7 +299,7 @@ block|{
 name|long
 name|h
 init|=
-literal|13
+literal|31
 operator|*
 name|this
 operator|.
@@ -323,7 +309,7 @@ name|h
 operator|=
 name|h
 operator|+
-literal|14
+literal|31
 operator|*
 name|this
 operator|.
@@ -333,7 +319,7 @@ name|h
 operator|=
 name|h
 operator|+
-literal|15
+literal|31
 operator|*
 name|this
 operator|.
@@ -360,13 +346,13 @@ name|this
 operator|.
 name|dataSize
 operator|+
-literal|" , heapSize="
+literal|", getHeapSize="
 operator|+
 name|this
 operator|.
 name|heapSize
 operator|+
-literal|" , offHeapSize="
+literal|", getOffHeapSize="
 operator|+
 name|this
 operator|.

@@ -2332,7 +2332,7 @@ name|conf
 argument_list|)
 expr_stmt|;
 name|MemStoreSize
-name|size
+name|mss
 init|=
 name|store
 operator|.
@@ -2345,7 +2345,7 @@ name|assertEquals
 argument_list|(
 literal|0
 argument_list|,
-name|size
+name|mss
 operator|.
 name|getDataSize
 argument_list|()
@@ -2362,7 +2362,7 @@ name|MemStoreSizing
 name|kvSize
 init|=
 operator|new
-name|MemStoreSizing
+name|NonThreadSafeMemStoreSizing
 argument_list|()
 decl_stmt|;
 name|store
@@ -2404,7 +2404,7 @@ argument_list|,
 literal|0
 argument_list|)
 expr_stmt|;
-name|size
+name|mss
 operator|=
 name|store
 operator|.
@@ -2416,8 +2416,11 @@ expr_stmt|;
 name|assertEquals
 argument_list|(
 name|kvSize
+operator|.
+name|getMemStoreSize
+argument_list|()
 argument_list|,
-name|size
+name|mss
 argument_list|)
 expr_stmt|;
 comment|// Flush.  Bug #1 from HBASE-10466.  Make sure size calculation on failed flush is right.
@@ -2482,7 +2485,7 @@ argument_list|,
 literal|0
 argument_list|)
 expr_stmt|;
-name|size
+name|mss
 operator|=
 name|store
 operator|.
@@ -2494,15 +2497,18 @@ expr_stmt|;
 name|assertEquals
 argument_list|(
 name|kvSize
+operator|.
+name|getMemStoreSize
+argument_list|()
 argument_list|,
-name|size
+name|mss
 argument_list|)
 expr_stmt|;
 name|MemStoreSizing
 name|kvSize2
 init|=
 operator|new
-name|MemStoreSizing
+name|NonThreadSafeMemStoreSizing
 argument_list|()
 decl_stmt|;
 name|store
@@ -2548,8 +2554,11 @@ comment|// not yet cleared the snapshot -- the above flush failed.
 name|assertEquals
 argument_list|(
 name|kvSize
+operator|.
+name|getMemStoreSize
+argument_list|()
 argument_list|,
-name|size
+name|mss
 argument_list|)
 expr_stmt|;
 name|ffs
@@ -2569,7 +2578,7 @@ name|id
 operator|++
 argument_list|)
 expr_stmt|;
-name|size
+name|mss
 operator|=
 name|store
 operator|.
@@ -2582,8 +2591,11 @@ comment|// Size should be the foreground kv size.
 name|assertEquals
 argument_list|(
 name|kvSize2
+operator|.
+name|getMemStoreSize
+argument_list|()
 argument_list|,
-name|size
+name|mss
 argument_list|)
 expr_stmt|;
 name|flushStore
@@ -2594,7 +2606,7 @@ name|id
 operator|++
 argument_list|)
 expr_stmt|;
-name|size
+name|mss
 operator|=
 name|store
 operator|.
@@ -2607,7 +2619,7 @@ name|assertEquals
 argument_list|(
 literal|0
 argument_list|,
-name|size
+name|mss
 operator|.
 name|getDataSize
 argument_list|()
@@ -2619,7 +2631,7 @@ name|MutableSegment
 operator|.
 name|DEEP_OVERHEAD
 argument_list|,
-name|size
+name|mss
 operator|.
 name|getHeapSize
 argument_list|()
@@ -8741,7 +8753,7 @@ name|MemStoreSizing
 name|memStoreSizing
 init|=
 operator|new
-name|MemStoreSizing
+name|NonThreadSafeMemStoreSizing
 argument_list|()
 decl_stmt|;
 name|long
@@ -9373,7 +9385,7 @@ name|MemStoreSizing
 name|memStoreSizing
 init|=
 operator|new
-name|MemStoreSizing
+name|NonThreadSafeMemStoreSizing
 argument_list|()
 decl_stmt|;
 name|long
@@ -9869,7 +9881,7 @@ name|MemStoreSizing
 name|memStoreSizing
 init|=
 operator|new
-name|MemStoreSizing
+name|NonThreadSafeMemStoreSizing
 argument_list|()
 decl_stmt|;
 name|long
@@ -10729,7 +10741,7 @@ name|MemStoreSizing
 name|memStoreSizing
 init|=
 operator|new
-name|MemStoreSizing
+name|NonThreadSafeMemStoreSizing
 argument_list|()
 decl_stmt|;
 name|long
@@ -11755,7 +11767,7 @@ name|MemStoreSizing
 name|memStoreSizing
 init|=
 operator|new
-name|MemStoreSizing
+name|NonThreadSafeMemStoreSizing
 argument_list|()
 decl_stmt|;
 name|long

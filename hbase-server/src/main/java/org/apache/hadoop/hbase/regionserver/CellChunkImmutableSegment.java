@@ -272,7 +272,7 @@ condition|(
 name|onHeap
 condition|)
 block|{
-name|incSize
+name|incMemStoreSize
 argument_list|(
 literal|0
 argument_list|,
@@ -284,7 +284,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|incSize
+name|incMemStoreSize
 argument_list|(
 literal|0
 argument_list|,
@@ -353,7 +353,7 @@ condition|(
 name|onHeap
 condition|)
 block|{
-name|incSize
+name|incMemStoreSize
 argument_list|(
 literal|0
 argument_list|,
@@ -365,7 +365,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|incSize
+name|incMemStoreSize
 argument_list|(
 literal|0
 argument_list|,
@@ -430,7 +430,7 @@ condition|(
 name|onHeap
 condition|)
 block|{
-name|incSize
+name|incMemStoreSize
 argument_list|(
 literal|0
 argument_list|,
@@ -453,7 +453,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|incSize
+name|incMemStoreSize
 argument_list|(
 literal|0
 argument_list|,
@@ -1630,7 +1630,7 @@ operator|-
 name|oldOffHeapSize
 decl_stmt|;
 comment|//TODO: maybe need to update the dataSize of the region
-name|incSize
+name|incMemStoreSize
 argument_list|(
 name|newCellSize
 operator|-

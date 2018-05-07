@@ -1122,7 +1122,7 @@ name|MemStoreSizing
 name|sizeChangeForFirstCell
 init|=
 operator|new
-name|MemStoreSizing
+name|NonThreadSafeMemStoreSizing
 argument_list|()
 decl_stmt|;
 name|this
@@ -1140,7 +1140,7 @@ name|MemStoreSizing
 name|sizeChangeForSecondCell
 init|=
 operator|new
-name|MemStoreSizing
+name|NonThreadSafeMemStoreSizing
 argument_list|()
 decl_stmt|;
 name|this
@@ -1165,6 +1165,9 @@ name|kv
 argument_list|)
 argument_list|,
 name|sizeChangeForFirstCell
+operator|.
+name|getMemStoreSize
+argument_list|()
 operator|.
 name|getDataSize
 argument_list|()
@@ -1206,6 +1209,9 @@ name|kv
 argument_list|)
 argument_list|,
 name|sizeChangeForSecondCell
+operator|.
+name|getMemStoreSize
+argument_list|()
 operator|.
 name|getDataSize
 argument_list|()
@@ -1261,6 +1267,9 @@ literal|0
 argument_list|,
 name|sizeChangeForSecondCell
 operator|.
+name|getMemStoreSize
+argument_list|()
+operator|.
 name|getDataSize
 argument_list|()
 argument_list|)
@@ -1270,6 +1279,9 @@ argument_list|(
 literal|0
 argument_list|,
 name|sizeChangeForSecondCell
+operator|.
+name|getMemStoreSize
+argument_list|()
 operator|.
 name|getHeapSize
 argument_list|()

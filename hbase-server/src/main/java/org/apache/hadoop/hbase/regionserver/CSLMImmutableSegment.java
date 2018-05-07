@@ -100,7 +100,7 @@ name|DEEP_OVERHEAD
 operator|+
 name|DEEP_OVERHEAD_CSLM
 decl_stmt|;
-name|incSize
+name|incMemStoreSize
 argument_list|(
 literal|0
 argument_list|,

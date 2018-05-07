@@ -2587,8 +2587,8 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Region "
-operator|+
+literal|"{} has too many store files({}); delaying flush up to {} ms"
+argument_list|,
 name|region
 operator|.
 name|getRegionInfo
@@ -2596,16 +2596,15 @@ argument_list|()
 operator|.
 name|getEncodedName
 argument_list|()
-operator|+
-literal|" has too many "
-operator|+
-literal|"store files; delaying flush up to "
-operator|+
+argument_list|,
+name|getStoreFileCount
+argument_list|(
+name|region
+argument_list|)
+argument_list|,
 name|this
 operator|.
 name|blockingWaitTime
-operator|+
-literal|"ms"
 argument_list|)
 expr_stmt|;
 if|if
@@ -3142,6 +3141,42 @@ return|return
 literal|false
 return|;
 block|}
+specifier|private
+name|int
+name|getStoreFileCount
+parameter_list|(
+name|Region
+name|region
+parameter_list|)
+block|{
+name|int
+name|count
+init|=
+literal|0
+decl_stmt|;
+for|for
+control|(
+name|Store
+name|store
+range|:
+name|region
+operator|.
+name|getStores
+argument_list|()
+control|)
+block|{
+name|count
+operator|+=
+name|store
+operator|.
+name|getStorefilesCount
+argument_list|()
+expr_stmt|;
+block|}
+return|return
+name|count
+return|;
+block|}
 comment|/**    * Check if the regionserver's memstore memory usage is greater than the    * limit. If so, flush regions with the biggest memstores until we're down    * to the lower limit. This method blocks callers until we're down to a safe    * amount of memstore consumption.    */
 specifier|public
 name|void
@@ -3531,7 +3566,7 @@ name|void
 name|logMsg
 parameter_list|(
 name|String
-name|string1
+name|type
 parameter_list|,
 name|long
 name|val
@@ -3544,19 +3579,10 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Blocking updates on "
-operator|+
-name|server
-operator|.
-name|toString
-argument_list|()
-operator|+
-literal|": "
-operator|+
-name|string1
-operator|+
-literal|" "
-operator|+
+literal|"Blocking updates: {} {} is>= blocking {}"
+argument_list|,
+name|type
+argument_list|,
 name|TraditionalBinaryPrefix
 operator|.
 name|long2String
@@ -3567,9 +3593,7 @@ literal|""
 argument_list|,
 literal|1
 argument_list|)
-operator|+
-literal|" is>= than blocking "
-operator|+
+argument_list|,
 name|TraditionalBinaryPrefix
 operator|.
 name|long2String
@@ -3580,8 +3604,6 @@ literal|""
 argument_list|,
 literal|1
 argument_list|)
-operator|+
-literal|" size"
 argument_list|)
 expr_stmt|;
 block|}

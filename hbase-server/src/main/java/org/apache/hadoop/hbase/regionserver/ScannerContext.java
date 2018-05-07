@@ -1535,7 +1535,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**      * Set all fields together.      * @param batch      * @param sizeScope      * @param dataSize      */
+comment|/**      * Set all fields together.      */
 name|void
 name|setFields
 parameter_list|(

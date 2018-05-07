@@ -2475,7 +2475,7 @@ operator|.
 name|getSnapshot
 argument_list|()
 operator|.
-name|keySize
+name|getDataSize
 argument_list|()
 decl_stmt|;
 name|long
@@ -4193,7 +4193,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 name|MemStoreSize
-name|size
+name|mss
 init|=
 name|memstore
 operator|.
@@ -4209,14 +4209,14 @@ name|snapshot
 argument_list|()
 decl_stmt|;
 comment|// push keys to snapshot
+comment|// simulate flusher
 name|region
 operator|.
 name|decrMemStoreSize
 argument_list|(
-name|size
+name|mss
 argument_list|)
 expr_stmt|;
-comment|// simulate flusher
 name|ImmutableSegment
 name|s
 init|=
@@ -4551,7 +4551,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 name|MemStoreSize
-name|size
+name|mss
 init|=
 name|memstore
 operator|.
@@ -4623,7 +4623,7 @@ name|heapSize
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|size
+name|mss
 operator|=
 name|memstore
 operator|.
@@ -4639,14 +4639,27 @@ name|snapshot
 argument_list|()
 decl_stmt|;
 comment|// push keys to snapshot
+comment|// simulate flusher
 name|region
 operator|.
 name|decrMemStoreSize
 argument_list|(
-name|size
+name|mss
+operator|.
+name|getDataSize
+argument_list|()
+argument_list|,
+name|mss
+operator|.
+name|getHeapSize
+argument_list|()
+argument_list|,
+name|mss
+operator|.
+name|getOffHeapSize
+argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// simulate flusher
 name|ImmutableSegment
 name|s
 init|=
@@ -4968,7 +4981,7 @@ name|disableCompaction
 argument_list|()
 expr_stmt|;
 name|MemStoreSize
-name|size
+name|mss
 init|=
 name|memstore
 operator|.
@@ -5094,7 +5107,7 @@ operator|.
 name|enableCompaction
 argument_list|()
 expr_stmt|;
-name|size
+name|mss
 operator|=
 name|memstore
 operator|.
@@ -5179,7 +5192,7 @@ name|heapSize
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|size
+name|mss
 operator|=
 name|memstore
 operator|.
@@ -5195,14 +5208,27 @@ name|snapshot
 argument_list|()
 decl_stmt|;
 comment|// push keys to snapshot
+comment|// simulate flusher
 name|region
 operator|.
 name|decrMemStoreSize
 argument_list|(
-name|size
+name|mss
+operator|.
+name|getDataSize
+argument_list|()
+argument_list|,
+name|mss
+operator|.
+name|getHeapSize
+argument_list|()
+argument_list|,
+name|mss
+operator|.
+name|getOffHeapSize
+argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// simulate flusher
 name|ImmutableSegment
 name|s
 init|=
@@ -5695,7 +5721,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 name|MemStoreSize
-name|size
+name|mss
 init|=
 name|memstore
 operator|.
@@ -5711,14 +5737,14 @@ name|snapshot
 argument_list|()
 decl_stmt|;
 comment|// push keys to snapshot
+comment|// simulate flusher
 name|region
 operator|.
 name|decrMemStoreSize
 argument_list|(
-name|size
+name|mss
 argument_list|)
 expr_stmt|;
-comment|// simulate flusher
 name|ImmutableSegment
 name|s
 init|=
@@ -5809,7 +5835,7 @@ operator|.
 name|getActive
 argument_list|()
 operator|.
-name|keySize
+name|getDataSize
 argument_list|()
 decl_stmt|;
 name|long
@@ -5820,7 +5846,7 @@ operator|.
 name|getActive
 argument_list|()
 operator|.
-name|heapSize
+name|getHeapSize
 argument_list|()
 decl_stmt|;
 name|int
@@ -5948,15 +5974,12 @@ name|regionServicesForStores
 operator|.
 name|addMemStoreSize
 argument_list|(
-operator|new
-name|MemStoreSize
-argument_list|(
 name|hmc
 operator|.
 name|getActive
 argument_list|()
 operator|.
-name|keySize
+name|getDataSize
 argument_list|()
 operator|-
 name|size
@@ -5966,13 +5989,12 @@ operator|.
 name|getActive
 argument_list|()
 operator|.
-name|heapSize
+name|getHeapSize
 argument_list|()
 operator|-
 name|heapOverhead
 argument_list|,
 literal|0
-argument_list|)
 argument_list|)
 expr_stmt|;
 return|return
@@ -6027,7 +6049,7 @@ operator|.
 name|getActive
 argument_list|()
 operator|.
-name|keySize
+name|getDataSize
 argument_list|()
 decl_stmt|;
 name|long
@@ -6038,7 +6060,7 @@ operator|.
 name|getActive
 argument_list|()
 operator|.
-name|heapSize
+name|getHeapSize
 argument_list|()
 decl_stmt|;
 name|int
@@ -6150,15 +6172,12 @@ name|regionServicesForStores
 operator|.
 name|addMemStoreSize
 argument_list|(
-operator|new
-name|MemStoreSize
-argument_list|(
 name|hmc
 operator|.
 name|getActive
 argument_list|()
 operator|.
-name|keySize
+name|getDataSize
 argument_list|()
 operator|-
 name|size
@@ -6168,13 +6187,12 @@ operator|.
 name|getActive
 argument_list|()
 operator|.
-name|heapSize
+name|getHeapSize
 argument_list|()
 operator|-
 name|heapOverhead
 argument_list|,
 literal|0
-argument_list|)
 argument_list|)
 expr_stmt|;
 return|return

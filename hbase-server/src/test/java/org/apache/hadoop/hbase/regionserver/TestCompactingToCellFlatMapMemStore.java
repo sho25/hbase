@@ -796,7 +796,7 @@ name|counter
 argument_list|)
 expr_stmt|;
 name|MemStoreSize
-name|size
+name|mss
 init|=
 name|memstore
 operator|.
@@ -816,7 +816,7 @@ name|region
 operator|.
 name|decrMemStoreSize
 argument_list|(
-name|size
+name|mss
 argument_list|)
 expr_stmt|;
 comment|// simulate flusher
@@ -1255,7 +1255,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 name|MemStoreSize
-name|size
+name|mss
 init|=
 name|memstore
 operator|.
@@ -1271,14 +1271,14 @@ name|snapshot
 argument_list|()
 decl_stmt|;
 comment|// push keys to snapshot
+comment|// simulate flusher
 name|region
 operator|.
 name|decrMemStoreSize
 argument_list|(
-name|size
+name|mss
 argument_list|)
 expr_stmt|;
-comment|// simulate flusher
 name|ImmutableSegment
 name|s
 init|=
@@ -1467,7 +1467,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 name|MemStoreSize
-name|size
+name|mss
 init|=
 name|memstore
 operator|.
@@ -1613,7 +1613,7 @@ operator|.
 name|disableCompaction
 argument_list|()
 expr_stmt|;
-name|size
+name|mss
 operator|=
 name|memstore
 operator|.
@@ -1741,7 +1741,7 @@ operator|.
 name|enableCompaction
 argument_list|()
 expr_stmt|;
-name|size
+name|mss
 operator|=
 name|memstore
 operator|.
@@ -1860,7 +1860,7 @@ name|heapSize
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|size
+name|mss
 operator|=
 name|memstore
 operator|.
@@ -1876,14 +1876,27 @@ name|snapshot
 argument_list|()
 decl_stmt|;
 comment|// push keys to snapshot
+comment|// simulate flusher
 name|region
 operator|.
 name|decrMemStoreSize
 argument_list|(
-name|size
+name|mss
+operator|.
+name|getDataSize
+argument_list|()
+argument_list|,
+name|mss
+operator|.
+name|getHeapSize
+argument_list|()
+argument_list|,
+name|mss
+operator|.
+name|getOffHeapSize
+argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// simulate flusher
 name|ImmutableSegment
 name|s
 init|=
@@ -4522,7 +4535,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 name|MemStoreSize
-name|size
+name|mss
 init|=
 name|memstore
 operator|.
@@ -4538,14 +4551,14 @@ name|snapshot
 argument_list|()
 decl_stmt|;
 comment|// push keys to snapshot
+comment|// simulate flusher
 name|region
 operator|.
 name|decrMemStoreSize
 argument_list|(
-name|size
+name|mss
 argument_list|)
 expr_stmt|;
-comment|// simulate flusher
 name|ImmutableSegment
 name|s
 init|=
@@ -4957,7 +4970,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 name|MemStoreSize
-name|size
+name|mss
 init|=
 name|memstore
 operator|.
@@ -4973,14 +4986,14 @@ name|snapshot
 argument_list|()
 decl_stmt|;
 comment|// push keys to snapshot
+comment|// simulate flusher
 name|region
 operator|.
 name|decrMemStoreSize
 argument_list|(
-name|size
+name|mss
 argument_list|)
 expr_stmt|;
-comment|// simulate flusher
 name|ImmutableSegment
 name|s
 init|=
@@ -5386,7 +5399,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 name|MemStoreSize
-name|size
+name|mss
 init|=
 name|memstore
 operator|.
@@ -5402,14 +5415,14 @@ name|snapshot
 argument_list|()
 decl_stmt|;
 comment|// push keys to snapshot
+comment|// simulate flusher
 name|region
 operator|.
 name|decrMemStoreSize
 argument_list|(
-name|size
+name|mss
 argument_list|)
 expr_stmt|;
-comment|// simulate flusher
 name|ImmutableSegment
 name|s
 init|=
@@ -5946,7 +5959,7 @@ name|MemStoreSizing
 name|memstoreSizing
 init|=
 operator|new
-name|MemStoreSizing
+name|NonThreadSafeMemStoreSizing
 argument_list|()
 decl_stmt|;
 for|for
@@ -6058,15 +6071,36 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+name|MemStoreSize
+name|mss
+init|=
+name|memstoreSizing
+operator|.
+name|getMemStoreSize
+argument_list|()
+decl_stmt|;
 name|regionServicesForStores
 operator|.
 name|addMemStoreSize
 argument_list|(
-name|memstoreSizing
+name|mss
+operator|.
+name|getDataSize
+argument_list|()
+argument_list|,
+name|mss
+operator|.
+name|getHeapSize
+argument_list|()
+argument_list|,
+name|mss
+operator|.
+name|getOffHeapSize
+argument_list|()
 argument_list|)
 expr_stmt|;
 return|return
-name|memstoreSizing
+name|mss
 operator|.
 name|getDataSize
 argument_list|()

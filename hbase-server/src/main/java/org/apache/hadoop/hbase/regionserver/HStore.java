@@ -11443,14 +11443,10 @@ literal|1
 argument_list|)
 expr_stmt|;
 return|return
-operator|new
-name|MemStoreSize
-argument_list|(
 name|snapshot
 operator|.
 name|getMemStoreSize
 argument_list|()
-argument_list|)
 return|;
 block|}
 annotation|@

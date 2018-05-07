@@ -159,7 +159,7 @@ name|memStoreLAB
 argument_list|)
 expr_stmt|;
 comment|// initiailize the CellSet with NULL
-name|incSize
+name|incMemStoreSize
 argument_list|(
 literal|0
 argument_list|,
@@ -211,7 +211,7 @@ name|CSLMImmutableSegment
 operator|.
 name|DEEP_OVERHEAD_CSLM
 decl_stmt|;
-name|incSize
+name|incMemStoreSize
 argument_list|(
 literal|0
 argument_list|,
@@ -267,7 +267,7 @@ operator|.
 name|CONCURRENT_SKIPLISTMAP_ENTRY
 operator|)
 decl_stmt|;
-name|incSize
+name|incMemStoreSize
 argument_list|(
 literal|0
 argument_list|,
