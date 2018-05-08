@@ -329,7 +329,7 @@ name|valueOf
 argument_list|(
 name|MemoryCompactionPolicy
 operator|.
-name|BASIC
+name|NONE
 argument_list|)
 decl_stmt|;
 comment|// Default fraction of in-memory-flush size w.r.t. flush-to-disk size
