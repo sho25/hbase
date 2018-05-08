@@ -1692,7 +1692,7 @@ name|void
 name|setUpBase
 parameter_list|()
 throws|throws
-name|IOException
+name|Exception
 block|{
 if|if
 condition|(
@@ -1746,7 +1746,7 @@ name|void
 name|tearDownBase
 parameter_list|()
 throws|throws
-name|IOException
+name|Exception
 block|{
 if|if
 condition|(

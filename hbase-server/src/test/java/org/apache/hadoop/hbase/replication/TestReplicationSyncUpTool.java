@@ -33,16 +33,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|ArrayList
@@ -743,7 +733,7 @@ name|void
 name|tearDownBase
 parameter_list|()
 throws|throws
-name|IOException
+name|Exception
 block|{
 comment|// Do nothing, just replace the super tearDown. because the super tearDown will use the
 comment|// out-of-data HBase admin to remove replication peer, which will be result in failure.
