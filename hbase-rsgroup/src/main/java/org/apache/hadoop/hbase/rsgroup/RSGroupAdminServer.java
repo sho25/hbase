@@ -463,6 +463,16 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|KEEP_ONE_SERVER_IN_DEFAULT_ERROR_MESSAGE
+init|=
+literal|"should keep at least "
+operator|+
+literal|"one server in 'default' RSGroup."
+decl_stmt|;
 specifier|private
 name|MasterServices
 name|master
@@ -1722,6 +1732,30 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
+if|if
+condition|(
+name|srcGrp
+operator|.
+name|getServers
+argument_list|()
+operator|.
+name|size
+argument_list|()
+operator|<=
+name|servers
+operator|.
+name|size
+argument_list|()
+condition|)
+block|{
+throw|throw
+operator|new
+name|ConstraintException
+argument_list|(
+name|KEEP_ONE_SERVER_IN_DEFAULT_ERROR_MESSAGE
+argument_list|)
+throw|;
+block|}
 name|checkOnlineServersOnly
 argument_list|(
 name|servers
