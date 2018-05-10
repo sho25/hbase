@@ -1135,7 +1135,7 @@ name|backupIdIncMultiple2
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// #4 - restore full backup for all tables, without overwrite
+comment|// #4 - restore full backup for all tables
 name|TableName
 index|[]
 name|tablesRestoreFull
@@ -1189,7 +1189,7 @@ name|tablesRestoreFull
 argument_list|,
 name|tablesMapFull
 argument_list|,
-literal|false
+literal|true
 argument_list|)
 argument_list|)
 expr_stmt|;

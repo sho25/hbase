@@ -844,7 +844,7 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"ns1:table1_restore"
+literal|"default:table1"
 argument_list|)
 decl_stmt|;
 specifier|protected
@@ -856,7 +856,7 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"ns2:table2_restore"
+literal|"ns2:table2"
 argument_list|)
 decl_stmt|;
 specifier|protected
@@ -2547,7 +2547,7 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"ns1:test-"
+literal|"test-"
 operator|+
 name|tid
 argument_list|)
