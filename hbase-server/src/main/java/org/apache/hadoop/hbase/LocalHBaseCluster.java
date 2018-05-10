@@ -617,8 +617,7 @@ name|conf
 operator|=
 name|conf
 expr_stmt|;
-comment|// Always have masters and regionservers come up on port '0' so we don't
-comment|// clash over default ports.
+comment|// When active, if a port selection is default then we switch to random
 if|if
 condition|(
 name|conf
@@ -631,6 +630,33 @@ literal|false
 argument_list|)
 condition|)
 block|{
+if|if
+condition|(
+name|conf
+operator|.
+name|getInt
+argument_list|(
+name|HConstants
+operator|.
+name|MASTER_PORT
+argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_MASTER_PORT
+argument_list|)
+operator|==
+name|HConstants
+operator|.
+name|DEFAULT_MASTER_PORT
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Setting Master Port to random."
+argument_list|)
+expr_stmt|;
 name|conf
 operator|.
 name|set
@@ -640,6 +666,34 @@ operator|.
 name|MASTER_PORT
 argument_list|,
 literal|"0"
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|conf
+operator|.
+name|getInt
+argument_list|(
+name|HConstants
+operator|.
+name|REGIONSERVER_PORT
+argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_REGIONSERVER_PORT
+argument_list|)
+operator|==
+name|HConstants
+operator|.
+name|DEFAULT_REGIONSERVER_PORT
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Setting RegionServer Port to random."
 argument_list|)
 expr_stmt|;
 name|conf
@@ -653,6 +707,9 @@ argument_list|,
 literal|"0"
 argument_list|)
 expr_stmt|;
+block|}
+comment|// treat info ports special; expressly don't change '-1' (keep off)
+comment|// in case we make that the default behavior.
 if|if
 condition|(
 name|conf
@@ -668,8 +725,32 @@ argument_list|)
 operator|!=
 operator|-
 literal|1
+operator|&&
+name|conf
+operator|.
+name|getInt
+argument_list|(
+name|HConstants
+operator|.
+name|REGIONSERVER_INFO_PORT
+argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_REGIONSERVER_INFOPORT
+argument_list|)
+operator|==
+name|HConstants
+operator|.
+name|DEFAULT_REGIONSERVER_INFOPORT
 condition|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Setting RS InfoServer Port to random."
+argument_list|)
+expr_stmt|;
 name|conf
 operator|.
 name|set
@@ -697,8 +778,32 @@ argument_list|)
 operator|!=
 operator|-
 literal|1
+operator|&&
+name|conf
+operator|.
+name|getInt
+argument_list|(
+name|HConstants
+operator|.
+name|MASTER_INFO_PORT
+argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_MASTER_INFOPORT
+argument_list|)
+operator|==
+name|HConstants
+operator|.
+name|DEFAULT_MASTER_INFOPORT
 condition|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Setting Master InfoServer Port to random."
+argument_list|)
+expr_stmt|;
 name|conf
 operator|.
 name|set
