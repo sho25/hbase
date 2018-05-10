@@ -378,6 +378,9 @@ name|conf
 init|=
 name|TEST_UTIL
 operator|.
+name|getMiniHBaseCluster
+argument_list|()
+operator|.
 name|getConfiguration
 argument_list|()
 decl_stmt|;
