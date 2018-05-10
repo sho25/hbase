@@ -569,6 +569,8 @@ operator|.
 name|constrainHttpMethods
 argument_list|(
 name|ctxHandler
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 comment|// start the server

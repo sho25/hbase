@@ -820,6 +820,20 @@ name|PATH_SPEC_ANY
 init|=
 literal|"/*"
 decl_stmt|;
+specifier|static
+name|String
+name|REST_HTTP_ALLOW_OPTIONS_METHOD
+init|=
+literal|"hbase.rest.http.allow.options.method"
+decl_stmt|;
+comment|// HTTP OPTIONS method is commonly used in REST APIs for negotiation. So it is enabled by default.
+specifier|private
+specifier|static
+name|boolean
+name|REST_HTTP_ALLOW_OPTIONS_METHOD_DEFAULT
+init|=
+literal|true
+decl_stmt|;
 specifier|private
 specifier|static
 name|void
@@ -2411,6 +2425,18 @@ operator|.
 name|constrainHttpMethods
 argument_list|(
 name|ctxHandler
+argument_list|,
+name|servlet
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|getBoolean
+argument_list|(
+name|REST_HTTP_ALLOW_OPTIONS_METHOD
+argument_list|,
+name|REST_HTTP_ALLOW_OPTIONS_METHOD_DEFAULT
+argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Put up info server.

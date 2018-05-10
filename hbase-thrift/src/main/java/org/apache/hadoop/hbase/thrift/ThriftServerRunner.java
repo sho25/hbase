@@ -2153,6 +2153,19 @@ specifier|final
 name|JvmPauseMonitor
 name|pauseMonitor
 decl_stmt|;
+specifier|static
+name|String
+name|THRIFT_HTTP_ALLOW_OPTIONS_METHOD
+init|=
+literal|"hbase.thrift.http.allow.options.method"
+decl_stmt|;
+specifier|private
+specifier|static
+name|boolean
+name|THRIFT_HTTP_ALLOW_OPTIONS_METHOD_DEFAULT
+init|=
+literal|false
+decl_stmt|;
 comment|/** An enum of server implementation selections */
 specifier|public
 enum|enum
@@ -3376,6 +3389,15 @@ operator|.
 name|constrainHttpMethods
 argument_list|(
 name|ctxHandler
+argument_list|,
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+name|THRIFT_HTTP_ALLOW_OPTIONS_METHOD
+argument_list|,
+name|THRIFT_HTTP_ALLOW_OPTIONS_METHOD_DEFAULT
+argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// set up Jetty and run the embedded server

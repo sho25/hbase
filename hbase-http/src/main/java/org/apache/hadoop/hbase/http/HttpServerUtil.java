@@ -103,7 +103,7 @@ specifier|final
 class|class
 name|HttpServerUtil
 block|{
-comment|/**    * Add constraints to a Jetty Context to disallow undesirable Http methods.    * @param ctxHandler The context to modify    */
+comment|/**    * Add constraints to a Jetty Context to disallow undesirable Http methods.    * @param ctxHandler The context to modify    * @param allowOptionsMethod if true then OPTIONS method will not be set in constraint mapping    */
 specifier|public
 specifier|static
 name|void
@@ -111,6 +111,9 @@ name|constrainHttpMethods
 parameter_list|(
 name|ServletContextHandler
 name|ctxHandler
+parameter_list|,
+name|boolean
+name|allowOptionsMethod
 parameter_list|)
 block|{
 name|Constraint
@@ -155,6 +158,19 @@ argument_list|(
 literal|"/*"
 argument_list|)
 expr_stmt|;
+name|ConstraintSecurityHandler
+name|securityHandler
+init|=
+operator|new
+name|ConstraintSecurityHandler
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|allowOptionsMethod
+condition|)
+block|{
 name|ConstraintMapping
 name|cmo
 init|=
@@ -183,13 +199,6 @@ argument_list|(
 literal|"/*"
 argument_list|)
 expr_stmt|;
-name|ConstraintSecurityHandler
-name|securityHandler
-init|=
-operator|new
-name|ConstraintSecurityHandler
-argument_list|()
-decl_stmt|;
 name|securityHandler
 operator|.
 name|setConstraintMappings
@@ -204,6 +213,22 @@ name|cmo
 block|}
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|securityHandler
+operator|.
+name|setConstraintMappings
+argument_list|(
+operator|new
+name|ConstraintMapping
+index|[]
+block|{
+name|cmt
+block|}
+argument_list|)
+expr_stmt|;
+block|}
 name|ctxHandler
 operator|.
 name|setSecurityHandler
