@@ -331,7 +331,10 @@ name|TableName
 name|tableName
 parameter_list|,
 name|TableDescriptor
-name|htd
+name|currentDesc
+parameter_list|,
+name|TableDescriptor
+name|newDesc
 parameter_list|)
 throws|throws
 name|IOException
@@ -340,7 +343,7 @@ name|verifyCoprocessors
 argument_list|(
 name|ctx
 argument_list|,
-name|htd
+name|newDesc
 argument_list|)
 expr_stmt|;
 block|}

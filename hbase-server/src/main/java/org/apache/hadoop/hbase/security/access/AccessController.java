@@ -6242,7 +6242,10 @@ name|TableName
 name|tableName
 parameter_list|,
 name|TableDescriptor
-name|htd
+name|currentDesc
+parameter_list|,
+name|TableDescriptor
+name|newDesc
 parameter_list|)
 throws|throws
 name|IOException
@@ -6285,9 +6288,11 @@ parameter_list|,
 name|TableName
 name|tableName
 parameter_list|,
-specifier|final
 name|TableDescriptor
-name|htd
+name|oldDesc
+parameter_list|,
+name|TableDescriptor
+name|currentDesc
 parameter_list|)
 throws|throws
 name|IOException
@@ -6310,7 +6315,7 @@ name|String
 name|owner
 init|=
 operator|(
-name|htd
+name|currentDesc
 operator|.
 name|getOwnerString
 argument_list|()
@@ -6318,7 +6323,7 @@ operator|!=
 literal|null
 operator|)
 condition|?
-name|htd
+name|currentDesc
 operator|.
 name|getOwnerString
 argument_list|()
@@ -6364,7 +6369,7 @@ argument_list|(
 name|owner
 argument_list|)
 argument_list|,
-name|htd
+name|currentDesc
 operator|.
 name|getTableName
 argument_list|()
@@ -7768,7 +7773,10 @@ argument_list|>
 name|ctx
 parameter_list|,
 name|NamespaceDescriptor
-name|ns
+name|currentNsDesc
+parameter_list|,
+name|NamespaceDescriptor
+name|newNsDesc
 parameter_list|)
 throws|throws
 name|IOException
@@ -7785,7 +7793,7 @@ name|Action
 operator|.
 name|ADMIN
 argument_list|,
-name|ns
+name|newNsDesc
 operator|.
 name|getName
 argument_list|()

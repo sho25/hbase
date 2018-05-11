@@ -1958,6 +1958,9 @@ argument_list|(
 name|CP_ENV
 argument_list|)
 argument_list|,
+literal|null
+argument_list|,
+comment|// not needed by AccessController
 name|NamespaceDescriptor
 operator|.
 name|create

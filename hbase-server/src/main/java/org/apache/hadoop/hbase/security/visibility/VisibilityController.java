@@ -2008,7 +2008,10 @@ name|TableName
 name|tableName
 parameter_list|,
 name|TableDescriptor
-name|htd
+name|currentDescriptor
+parameter_list|,
+name|TableDescriptor
+name|newDescriptor
 parameter_list|)
 throws|throws
 name|IOException

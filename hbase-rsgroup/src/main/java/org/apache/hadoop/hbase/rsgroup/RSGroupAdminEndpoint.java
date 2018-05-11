@@ -3620,7 +3620,10 @@ argument_list|>
 name|ctx
 parameter_list|,
 name|NamespaceDescriptor
-name|ns
+name|currentNsDesc
+parameter_list|,
+name|NamespaceDescriptor
+name|newNsDesc
 parameter_list|)
 throws|throws
 name|IOException
@@ -3629,7 +3632,7 @@ name|preCreateNamespace
 argument_list|(
 name|ctx
 argument_list|,
-name|ns
+name|newNsDesc
 argument_list|)
 expr_stmt|;
 block|}

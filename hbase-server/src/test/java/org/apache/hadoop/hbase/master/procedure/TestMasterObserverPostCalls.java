@@ -718,7 +718,10 @@ argument_list|>
 name|ctx
 parameter_list|,
 name|NamespaceDescriptor
-name|desc
+name|oldNsDesc
+parameter_list|,
+name|NamespaceDescriptor
+name|currentNsDesc
 parameter_list|)
 block|{
 name|postHookCalls
@@ -791,7 +794,10 @@ name|TableName
 name|tn
 parameter_list|,
 name|TableDescriptor
-name|td
+name|oldDescriptor
+parameter_list|,
+name|TableDescriptor
+name|currentDescriptor
 parameter_list|)
 block|{
 name|postHookCalls

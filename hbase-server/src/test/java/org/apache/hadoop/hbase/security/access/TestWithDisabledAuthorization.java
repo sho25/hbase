@@ -3290,6 +3290,9 @@ operator|.
 name|getTableName
 argument_list|()
 argument_list|,
+literal|null
+argument_list|,
+comment|// not needed by AccessController
 name|htd
 argument_list|)
 expr_stmt|;
@@ -4539,6 +4542,9 @@ argument_list|(
 name|CP_ENV
 argument_list|)
 argument_list|,
+literal|null
+argument_list|,
+comment|// not needed by AccessController
 name|ns
 argument_list|)
 expr_stmt|;
