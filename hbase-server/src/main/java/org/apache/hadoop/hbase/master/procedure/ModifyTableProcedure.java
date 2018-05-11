@@ -1938,6 +1938,8 @@ argument_list|(
 name|getTableName
 argument_list|()
 argument_list|,
+name|unmodifiedTableDescriptor
+argument_list|,
 name|modifiedTableDescriptor
 argument_list|,
 name|getUser
@@ -1954,6 +1956,8 @@ name|postCompletedModifyTableAction
 argument_list|(
 name|getTableName
 argument_list|()
+argument_list|,
+name|unmodifiedTableDescriptor
 argument_list|,
 name|modifiedTableDescriptor
 argument_list|,

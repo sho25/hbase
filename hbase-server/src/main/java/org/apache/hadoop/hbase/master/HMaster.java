@@ -12979,7 +12979,7 @@ name|tableName
 parameter_list|,
 specifier|final
 name|TableDescriptor
-name|descriptor
+name|newDescriptor
 parameter_list|,
 specifier|final
 name|long
@@ -12997,7 +12997,7 @@ argument_list|()
 expr_stmt|;
 name|sanityCheckTableDescriptor
 argument_list|(
-name|descriptor
+name|newDescriptor
 argument_list|)
 expr_stmt|;
 return|return
@@ -13026,6 +13026,20 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+name|TableDescriptor
+name|oldDescriptor
+init|=
+name|getMaster
+argument_list|()
+operator|.
+name|getTableDescriptors
+argument_list|()
+operator|.
+name|get
+argument_list|(
+name|tableName
+argument_list|)
+decl_stmt|;
 name|getMaster
 argument_list|()
 operator|.
@@ -13036,7 +13050,9 @@ name|preModifyTable
 argument_list|(
 name|tableName
 argument_list|,
-name|descriptor
+name|oldDescriptor
+argument_list|,
+name|newDescriptor
 argument_list|)
 expr_stmt|;
 name|LOG
@@ -13073,7 +13089,7 @@ operator|.
 name|getEnvironment
 argument_list|()
 argument_list|,
-name|descriptor
+name|newDescriptor
 argument_list|,
 name|latch
 argument_list|)
@@ -13094,7 +13110,9 @@ name|postModifyTable
 argument_list|(
 name|tableName
 argument_list|,
-name|descriptor
+name|oldDescriptor
+argument_list|,
+name|newDescriptor
 argument_list|)
 expr_stmt|;
 block|}
@@ -15382,7 +15400,7 @@ name|modifyNamespace
 parameter_list|(
 specifier|final
 name|NamespaceDescriptor
-name|namespaceDescriptor
+name|newNsDescriptor
 parameter_list|,
 specifier|final
 name|long
@@ -15406,7 +15424,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-name|namespaceDescriptor
+name|newNsDescriptor
 operator|.
 name|getName
 argument_list|()
@@ -15439,6 +15457,17 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+name|NamespaceDescriptor
+name|oldNsDescriptor
+init|=
+name|getNamespace
+argument_list|(
+name|newNsDescriptor
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+decl_stmt|;
 name|getMaster
 argument_list|()
 operator|.
@@ -15447,7 +15476,9 @@ argument_list|()
 operator|.
 name|preModifyNamespace
 argument_list|(
-name|namespaceDescriptor
+name|oldNsDescriptor
+argument_list|,
+name|newNsDescriptor
 argument_list|)
 expr_stmt|;
 comment|// We need to wait for the procedure to potentially fail due to "prepare" sanity
@@ -15469,7 +15500,7 @@ argument_list|()
 operator|+
 literal|" modify "
 operator|+
-name|namespaceDescriptor
+name|newNsDescriptor
 argument_list|)
 expr_stmt|;
 comment|// Execute the operation synchronously - wait for the operation to complete before
@@ -15481,7 +15512,7 @@ argument_list|()
 operator|.
 name|modifyNamespace
 argument_list|(
-name|namespaceDescriptor
+name|newNsDescriptor
 argument_list|,
 name|getNonceKey
 argument_list|()
@@ -15503,7 +15534,9 @@ argument_list|()
 operator|.
 name|postModifyNamespace
 argument_list|(
-name|namespaceDescriptor
+name|oldNsDescriptor
+argument_list|,
+name|newNsDescriptor
 argument_list|)
 expr_stmt|;
 block|}
