@@ -1207,6 +1207,20 @@ name|tableMap
 operator|=
 literal|null
 expr_stmt|;
+comment|// Remove Peers
+name|clear
+argument_list|(
+name|peerMap
+argument_list|,
+name|peerRunQueue
+argument_list|,
+name|PEER_QUEUE_KEY_COMPARATOR
+argument_list|)
+expr_stmt|;
+name|peerMap
+operator|=
+literal|null
+expr_stmt|;
 assert|assert
 name|size
 argument_list|()
