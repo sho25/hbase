@@ -433,6 +433,22 @@ name|hbase
 operator|.
 name|replication
 operator|.
+name|ReplicationUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|replication
+operator|.
 name|SyncReplicationState
 import|;
 end_import
@@ -6511,8 +6527,6 @@ name|getRemoteWALDir
 argument_list|()
 argument_list|)
 expr_stmt|;
-try|try
-block|{
 name|builder
 operator|.
 name|setRemoteWALDir
@@ -6520,6 +6534,8 @@ argument_list|(
 literal|"hdfs://srv2:8888/hbase"
 argument_list|)
 expr_stmt|;
+try|try
+block|{
 name|hbaseAdmin
 operator|.
 name|updateReplicationPeerConfig
@@ -6545,6 +6561,15 @@ name|e
 parameter_list|)
 block|{
 comment|// OK
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Expected error:"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
 block|}
 name|builder
 operator|=
@@ -6564,7 +6589,7 @@ name|builder
 operator|.
 name|setRemoteWALDir
 argument_list|(
-name|rootDir
+literal|"whatever"
 argument_list|)
 expr_stmt|;
 try|try
@@ -6594,6 +6619,15 @@ name|e
 parameter_list|)
 block|{
 comment|// OK
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Expected error:"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
 block|}
 name|builder
 operator|.
@@ -6602,8 +6636,6 @@ argument_list|(
 literal|false
 argument_list|)
 expr_stmt|;
-try|try
-block|{
 name|Set
 argument_list|<
 name|String
@@ -6631,6 +6663,8 @@ argument_list|(
 name|namespaces
 argument_list|)
 expr_stmt|;
+try|try
+block|{
 name|hbaseAdmin
 operator|.
 name|addReplicationPeer
@@ -6656,6 +6690,15 @@ name|e
 parameter_list|)
 block|{
 comment|// OK
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Expected error:"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
 block|}
 name|builder
 operator|.
@@ -6691,6 +6734,15 @@ name|e
 parameter_list|)
 block|{
 comment|// OK
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Expected error:"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
 block|}
 name|Map
 argument_list|<
@@ -6708,8 +6760,6 @@ name|HashMap
 argument_list|<>
 argument_list|()
 decl_stmt|;
-try|try
-block|{
 name|tableCfs
 operator|.
 name|put
@@ -6731,6 +6781,8 @@ argument_list|(
 name|tableCfs
 argument_list|)
 expr_stmt|;
+try|try
+block|{
 name|hbaseAdmin
 operator|.
 name|addReplicationPeer
@@ -6756,6 +6808,15 @@ name|e
 parameter_list|)
 block|{
 comment|// OK
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Expected error:"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
 block|}
 name|tableCfs
 operator|=
@@ -6781,6 +6842,94 @@ operator|.
 name|setTableCFsMap
 argument_list|(
 name|tableCfs
+argument_list|)
+expr_stmt|;
+try|try
+block|{
+name|hbaseAdmin
+operator|.
+name|addReplicationPeer
+argument_list|(
+name|ID_SECOND
+argument_list|,
+name|builder
+operator|.
+name|build
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|fail
+argument_list|(
+literal|"The remote WAL dir must be absolute"
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+comment|// OK
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Expected error:"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+name|builder
+operator|.
+name|setRemoteWALDir
+argument_list|(
+literal|"/hbase/remoteWALs"
+argument_list|)
+expr_stmt|;
+try|try
+block|{
+name|hbaseAdmin
+operator|.
+name|addReplicationPeer
+argument_list|(
+name|ID_SECOND
+argument_list|,
+name|builder
+operator|.
+name|build
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|fail
+argument_list|(
+literal|"The remote WAL dir must be qualified"
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+comment|// OK
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Expected error:"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+name|builder
+operator|.
+name|setRemoteWALDir
+argument_list|(
+name|rootDir
 argument_list|)
 expr_stmt|;
 name|hbaseAdmin
@@ -6848,6 +6997,15 @@ name|e
 parameter_list|)
 block|{
 comment|// OK
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Expected error:"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
 block|}
 try|try
 block|{
@@ -6883,6 +7041,15 @@ name|e
 parameter_list|)
 block|{
 comment|// OK
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Expected error:"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
 block|}
 try|try
 block|{
@@ -6956,6 +7123,15 @@ name|e
 parameter_list|)
 block|{
 comment|// OK
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Expected error:"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 annotation|@
@@ -7057,7 +7233,7 @@ argument_list|)
 expr_stmt|;
 name|fail
 argument_list|(
-literal|"Can't transit cluster state if replication peer don't config remote wal dir"
+literal|"Can't transit sync replication state if replication peer don't config remote wal dir"
 argument_list|)
 expr_stmt|;
 block|}
@@ -7068,6 +7244,15 @@ name|e
 parameter_list|)
 block|{
 comment|// OK
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Expected error:"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
 block|}
 name|Path
 name|rootDir
@@ -7079,22 +7264,6 @@ argument_list|(
 literal|"remoteWAL"
 argument_list|)
 decl_stmt|;
-name|TEST_UTIL
-operator|.
-name|getTestFileSystem
-argument_list|()
-operator|.
-name|mkdirs
-argument_list|(
-operator|new
-name|Path
-argument_list|(
-name|rootDir
-argument_list|,
-name|ID_SECOND
-argument_list|)
-argument_list|)
-expr_stmt|;
 name|builder
 operator|=
 name|ReplicationPeerConfig
@@ -7249,6 +7418,59 @@ name|ID_SECOND
 argument_list|)
 argument_list|)
 expr_stmt|;
+try|try
+block|{
+name|hbaseAdmin
+operator|.
+name|transitReplicationPeerSyncReplicationState
+argument_list|(
+name|ID_SECOND
+argument_list|,
+name|SyncReplicationState
+operator|.
+name|ACTIVE
+argument_list|)
+expr_stmt|;
+name|fail
+argument_list|(
+literal|"Can't transit sync replication state to ACTIVE if remote wal dir does not exist"
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+comment|// OK
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Expected error:"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+name|TEST_UTIL
+operator|.
+name|getTestFileSystem
+argument_list|()
+operator|.
+name|mkdirs
+argument_list|(
+name|ReplicationUtils
+operator|.
+name|getRemoteWALDirForPeer
+argument_list|(
+name|rootDir
+argument_list|,
+name|ID_SECOND
+argument_list|)
+argument_list|)
+expr_stmt|;
 name|hbaseAdmin
 operator|.
 name|transitReplicationPeerSyncReplicationState
@@ -7414,7 +7636,7 @@ argument_list|)
 expr_stmt|;
 name|fail
 argument_list|(
-literal|"Can't transit cluster state from STANDBY to ACTIVE"
+literal|"Can't transit sync replication state from STANDBY to ACTIVE"
 argument_list|)
 expr_stmt|;
 block|}
@@ -7425,6 +7647,15 @@ name|e
 parameter_list|)
 block|{
 comment|// OK
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Expected error:"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
 block|}
 name|hbaseAdmin
 operator|.
