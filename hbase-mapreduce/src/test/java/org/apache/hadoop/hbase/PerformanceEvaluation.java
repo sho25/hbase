@@ -1345,6 +1345,13 @@ name|RANDOM_READ
 init|=
 literal|"randomRead"
 decl_stmt|;
+specifier|static
+specifier|final
+name|String
+name|PE_COMMAND_SHORTNAME
+init|=
+literal|"pe"
+decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
@@ -14094,13 +14101,7 @@ parameter_list|()
 block|{
 name|printUsage
 argument_list|(
-name|this
-operator|.
-name|getClass
-argument_list|()
-operator|.
-name|getName
-argument_list|()
+name|PE_COMMAND_SHORTNAME
 argument_list|,
 literal|null
 argument_list|)
@@ -14118,12 +14119,7 @@ parameter_list|)
 block|{
 name|printUsage
 argument_list|(
-name|PerformanceEvaluation
-operator|.
-name|class
-operator|.
-name|getName
-argument_list|()
+name|PE_COMMAND_SHORTNAME
 argument_list|,
 name|message
 argument_list|)
@@ -14163,7 +14159,7 @@ name|printUsage
 parameter_list|(
 specifier|final
 name|String
-name|className
+name|shortName
 parameter_list|,
 specifier|final
 name|String
@@ -14198,13 +14194,11 @@ name|System
 operator|.
 name|err
 operator|.
-name|println
+name|print
 argument_list|(
-literal|"Usage: java "
+literal|"Usage: hbase "
 operator|+
-name|className
-operator|+
-literal|" \\"
+name|shortName
 argument_list|)
 expr_stmt|;
 name|System
@@ -14856,7 +14850,7 @@ name|println
 argument_list|(
 literal|" $ hbase "
 operator|+
-name|className
+name|shortName
 operator|+
 literal|" sequentialWrite 1"
 argument_list|)
@@ -14878,7 +14872,7 @@ name|println
 argument_list|(
 literal|" $ hbase "
 operator|+
-name|className
+name|shortName
 operator|+
 literal|" --rows=10 --nomapred increment 10"
 argument_list|)
