@@ -100,6 +100,20 @@ name|Cell
 name|rightCell
 parameter_list|)
 function_decl|;
+comment|/**    * Compare cells.    * @param ignoreSequenceid True if we are to compare the key portion only and ignore    * the sequenceid. Set to false to compare key and consider sequenceid.    * @return 0 if equal, -1 if a&lt; b, and +1 if a&gt; b.    */
+name|int
+name|compare
+parameter_list|(
+name|Cell
+name|leftCell
+parameter_list|,
+name|Cell
+name|rightCell
+parameter_list|,
+name|boolean
+name|ignoreSequenceid
+parameter_list|)
+function_decl|;
 comment|/**    * Lexographically compares the rows of two cells.    * @param leftCell the left hand side cell    * @param rightCell the right hand side cell    * @return greater than 0 if leftCell is bigger, less than 0 if rightCell is bigger, 0 if both    *         cells are equal    */
 name|int
 name|compareRows

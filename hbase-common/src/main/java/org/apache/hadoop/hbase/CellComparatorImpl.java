@@ -233,9 +233,10 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Compare cells.    * @param a    * @param b    * @param ignoreSequenceid True if we are to compare the key portion only and ignore    * the sequenceid. Set to false to compare key and consider sequenceid.    * @return 0 if equal, -1 if a&lt; b, and +1 if a&gt; b.    */
+comment|/**    * Compare cells.    * @param ignoreSequenceid True if we are to compare the key portion only and ignore    *  the sequenceid. Set to false to compare key and consider sequenceid.    * @return 0 if equal, -1 if a&lt; b, and +1 if a&gt; b.    */
+annotation|@
+name|Override
 specifier|public
-specifier|final
 name|int
 name|compare
 parameter_list|(
@@ -361,6 +362,7 @@ return|;
 block|}
 comment|/**    * Specialized comparator for the ByteBufferKeyValue type exclusivesly.    * Caches deserialized lengths of rows and families, etc., and reuses them where it can    * (ByteBufferKeyValue has been changed to be amenable to our providing pre-made lengths, etc.)    */
 specifier|private
+specifier|static
 specifier|final
 name|int
 name|compareByteBufferKeyValue
@@ -700,7 +702,7 @@ block|}
 comment|// Timestamps.
 name|diff
 operator|=
-name|compareTimestamps
+name|compareTimestampsInternal
 argument_list|(
 name|left
 operator|.
@@ -746,7 +748,7 @@ name|leftType
 operator|)
 return|;
 block|}
-comment|/**    * Compares the family and qualifier part of the cell    * @param left the left cell    * @param right the right cell    * @return 0 if both cells are equal, 1 if left cell is bigger than right, -1 otherwise    */
+comment|/**    * Compares the family and qualifier part of the cell    * @return 0 if both cells are equal, 1 if left cell is bigger than right, -1 otherwise    */
 specifier|public
 specifier|final
 name|int
@@ -791,7 +793,7 @@ name|right
 argument_list|)
 return|;
 block|}
-comment|/**    * Compare the families of left and right cell    * @param left    * @param right    * @return 0 if both cells are equal, 1 if left cell is bigger than right, -1 otherwise    */
+comment|/**    * Compare the families of left and right cell    * @return 0 if both cells are equal, 1 if left cell is bigger than right, -1 otherwise    */
 annotation|@
 name|Override
 specifier|public
@@ -1023,7 +1025,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Compare the qualifiers part of the left and right cells.    * @param left    * @param right    * @return 0 if both cells are equal, 1 if left cell is bigger than right, -1 otherwise    */
+comment|/**    * Compare the qualifiers part of the left and right cells.    * @return 0 if both cells are equal, 1 if left cell is bigger than right, -1 otherwise    */
 annotation|@
 name|Override
 specifier|public
@@ -1802,7 +1804,6 @@ argument_list|()
 operator|)
 return|;
 block|}
-comment|/**    * Compares cell's timestamps in DESCENDING order.    * The below older timestamps sorting ahead of newer timestamps looks    * wrong but it is intentional. This way, newer timestamps are first    * found when we iterate over a memstore and newer versions are the    * first we trip over when reading from a store file.    * @return 1 if left's timestamp&lt; right's timestamp    *         -1 if left's timestamp&gt; right's timestamp    *         0 if both timestamps are equal    */
 annotation|@
 name|Override
 specifier|public
@@ -1819,7 +1820,7 @@ name|right
 parameter_list|)
 block|{
 return|return
-name|compareTimestamps
+name|compareTimestampsInternal
 argument_list|(
 name|left
 operator|.
@@ -1833,7 +1834,6 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Compares timestamps in DESCENDING order.    * The below older timestamps sorting ahead of newer timestamps looks    * wrong but it is intentional. This way, newer timestamps are first    * found when we iterate over a memstore and newer versions are the    * first we trip over when reading from a store file.    * @return 1 if left timestamp&lt; right timestamp    *         -1 if left timestamp&gt; right timestamp    *         0 if both timestamps are equal    */
 annotation|@
 name|Override
 specifier|public
@@ -1849,32 +1849,40 @@ name|long
 name|rtimestamp
 parameter_list|)
 block|{
-if|if
-condition|(
-name|ltimestamp
-operator|<
-name|rtimestamp
-condition|)
-block|{
 return|return
-literal|1
+name|compareTimestampsInternal
+argument_list|(
+name|ltimestamp
+argument_list|,
+name|rtimestamp
+argument_list|)
 return|;
 block|}
-elseif|else
-if|if
-condition|(
+specifier|private
+specifier|static
+specifier|final
+name|int
+name|compareTimestampsInternal
+parameter_list|(
+specifier|final
+name|long
 name|ltimestamp
-operator|>
+parameter_list|,
+specifier|final
+name|long
 name|rtimestamp
-condition|)
+parameter_list|)
 block|{
+comment|// Swap the times so sort is newest to oldest, descending.
 return|return
-operator|-
-literal|1
-return|;
-block|}
-return|return
-literal|0
+name|Long
+operator|.
+name|compare
+argument_list|(
+name|rtimestamp
+argument_list|,
+name|ltimestamp
+argument_list|)
 return|;
 block|}
 comment|/**    * A {@link CellComparatorImpl} for<code>hbase:meta</code> catalog table    * {@link KeyValue}s.    */
@@ -1981,7 +1989,89 @@ name|rlength
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|int
+name|compare
+parameter_list|(
+specifier|final
+name|Cell
+name|a
+parameter_list|,
+specifier|final
+name|Cell
+name|b
+parameter_list|,
+name|boolean
+name|ignoreSequenceid
+parameter_list|)
+block|{
+name|int
+name|diff
+init|=
+name|compareRows
+argument_list|(
+name|a
+argument_list|,
+name|b
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|diff
+operator|!=
+literal|0
+condition|)
+block|{
+return|return
+name|diff
+return|;
+block|}
+name|diff
+operator|=
+name|compareWithoutRow
+argument_list|(
+name|a
+argument_list|,
+name|b
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|diff
+operator|!=
+literal|0
+condition|)
+block|{
+return|return
+name|diff
+return|;
+block|}
+comment|// Negate following comparisons so later edits show up first mvccVersion: later sorts first
+return|return
+name|ignoreSequenceid
+condition|?
+name|diff
+else|:
+name|Longs
+operator|.
+name|compare
+argument_list|(
+name|b
+operator|.
+name|getSequenceId
+argument_list|()
+argument_list|,
+name|a
+operator|.
+name|getSequenceId
+argument_list|()
+argument_list|)
+return|;
+block|}
 specifier|private
+specifier|static
 name|int
 name|compareRows
 parameter_list|(
