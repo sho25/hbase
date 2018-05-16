@@ -634,18 +634,47 @@ condition|)
 block|{
 return|return;
 block|}
+name|response
+operator|.
+name|setContentType
+argument_list|(
+literal|"text/html"
+argument_list|)
+expr_stmt|;
+name|String
+name|requestedURL
+init|=
+literal|"header.jsp?pageTitle=Log Level"
+decl_stmt|;
+name|request
+operator|.
+name|getRequestDispatcher
+argument_list|(
+name|requestedURL
+argument_list|)
+operator|.
+name|include
+argument_list|(
+name|request
+argument_list|,
+name|response
+argument_list|)
+expr_stmt|;
 name|PrintWriter
 name|out
 init|=
-name|ServletUtil
-operator|.
-name|initHTML
-argument_list|(
 name|response
-argument_list|,
-literal|"Log Level"
-argument_list|)
+operator|.
+name|getWriter
+argument_list|()
 decl_stmt|;
+name|out
+operator|.
+name|println
+argument_list|(
+name|FORMS
+argument_list|)
+expr_stmt|;
 name|String
 name|logName
 init|=
@@ -681,7 +710,7 @@ name|out
 operator|.
 name|println
 argument_list|(
-literal|"<br /><hr /><h3>Results</h3>"
+literal|"<p>Results:</p>"
 argument_list|)
 expr_stmt|;
 name|out
@@ -843,17 +872,27 @@ name|out
 operator|.
 name|println
 argument_list|(
-name|FORMS
+literal|"</div>"
+argument_list|)
+expr_stmt|;
+name|request
+operator|.
+name|getRequestDispatcher
+argument_list|(
+literal|"footer.jsp"
+argument_list|)
+operator|.
+name|include
+argument_list|(
+name|request
+argument_list|,
+name|response
 argument_list|)
 expr_stmt|;
 name|out
 operator|.
-name|println
-argument_list|(
-name|ServletUtil
-operator|.
-name|HTML_TAIL
-argument_list|)
+name|close
+argument_list|()
 expr_stmt|;
 block|}
 specifier|static
@@ -861,21 +900,97 @@ specifier|final
 name|String
 name|FORMS
 init|=
-literal|"\n<br /><hr /><h3>Get / Set</h3>"
+literal|"<div class='container-fluid content'>\n"
 operator|+
-literal|"\n<form>Log:<input type='text' size='50' name='log' /> "
+literal|"<div class='row inner_header'>\n"
 operator|+
-literal|"<input type='submit' value='Get Log Level' />"
+literal|"<div class='page-header'>\n"
 operator|+
-literal|"</form>"
+literal|"<h1>Get/Set Log Level</h1>\n"
 operator|+
-literal|"\n<form>Log:<input type='text' size='50' name='log' /> "
+literal|"</div>\n"
 operator|+
-literal|"Level:<input type='text' name='level' /> "
+literal|"</div>\n"
 operator|+
-literal|"<input type='submit' value='Set Log Level' />"
+literal|"Actions:"
 operator|+
-literal|"</form>"
+literal|"<p>"
+operator|+
+literal|"<center>\n"
+operator|+
+literal|"<table class='table' style='border: 0;' width='95%'>\n"
+operator|+
+literal|"<tr>\n"
+operator|+
+literal|"<form>\n"
+operator|+
+literal|"<td class='centered'>\n"
+operator|+
+literal|"<input style='font-size: 12pt; width: 10em' type='submit' value='Get Log Level'"
+operator|+
+literal|" class='btn' />\n"
+operator|+
+literal|"</td>\n"
+operator|+
+literal|"<td style='text-align: center;'>\n"
+operator|+
+literal|"<input type='text' name='log' size='50' required='required'"
+operator|+
+literal|" placeholder='Log Name (required)' />\n"
+operator|+
+literal|"</td>\n"
+operator|+
+literal|"<td width=\"40%\">"
+operator|+
+literal|"Get the current log level for the specified log name."
+operator|+
+literal|"</td>\n"
+operator|+
+literal|"</form>\n"
+operator|+
+literal|"</tr>\n"
+operator|+
+literal|"<tr>\n"
+operator|+
+literal|"<form>\n"
+operator|+
+literal|"<td class='centered'>\n"
+operator|+
+literal|"<input style='font-size: 12pt; width: 10em' type='submit'"
+operator|+
+literal|" value='Set Log Level' class='btn' />\n"
+operator|+
+literal|"</td>\n"
+operator|+
+literal|"<td style='text-align: center;'>\n"
+operator|+
+literal|"<input type='text' name='log' size='50' required='required'"
+operator|+
+literal|" placeholder='Log Name (required)' />\n"
+operator|+
+literal|"<input type='text' name='level' size='50' required='required'"
+operator|+
+literal|" placeholder='Log Level (required)' />\n"
+operator|+
+literal|"</td>\n"
+operator|+
+literal|"<td width=\"40%\" style=\"\">"
+operator|+
+literal|"Set the specified log level for the specified log name."
+operator|+
+literal|"</td>\n"
+operator|+
+literal|"</form>\n"
+operator|+
+literal|"</tr>\n"
+operator|+
+literal|"</table>\n"
+operator|+
+literal|"</center>\n"
+operator|+
+literal|"</p>\n"
+operator|+
+literal|"<hr/>\n"
 decl_stmt|;
 specifier|private
 specifier|static
@@ -938,11 +1053,15 @@ name|println
 argument_list|(
 name|MARKER
 operator|+
-literal|"Bad level :<b>"
+literal|"<div class='text-danger'>"
+operator|+
+literal|"Bad level :<strong>"
 operator|+
 name|level
 operator|+
-literal|"</b><br />"
+literal|"</strong><br />"
+operator|+
+literal|"</div>"
 argument_list|)
 expr_stmt|;
 block|}
@@ -972,11 +1091,15 @@ name|println
 argument_list|(
 name|MARKER
 operator|+
-literal|"Setting Level to "
+literal|"<div class='text-success'>"
+operator|+
+literal|"Setting Level to<strong>"
 operator|+
 name|level
 operator|+
-literal|" ...<br />"
+literal|"</strong> ...<br />"
+operator|+
+literal|"</div>"
 argument_list|)
 expr_stmt|;
 block|}
