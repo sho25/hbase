@@ -8283,7 +8283,7 @@ name|put
 argument_list|(
 name|server
 operator|.
-name|getHostname
+name|getHostnameLowerCase
 argument_list|()
 argument_list|,
 name|server
@@ -8401,7 +8401,7 @@ name|get
 argument_list|(
 name|oldServerName
 operator|.
-name|getHostname
+name|getHostnameLowerCase
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -8435,7 +8435,7 @@ name|add
 argument_list|(
 name|oldServerName
 operator|.
-name|getHostname
+name|getHostnameLowerCase
 argument_list|()
 argument_list|)
 expr_stmt|;
