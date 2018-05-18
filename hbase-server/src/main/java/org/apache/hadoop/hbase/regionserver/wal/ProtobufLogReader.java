@@ -1770,6 +1770,11 @@ name|size
 init|=
 literal|0
 decl_stmt|;
+name|boolean
+name|resetPosition
+init|=
+literal|false
+decl_stmt|;
 try|try
 block|{
 name|long
@@ -1904,6 +1909,10 @@ name|InvalidProtocolBufferException
 name|ipbe
 parameter_list|)
 block|{
+name|resetPosition
+operator|=
+literal|true
+expr_stmt|;
 throw|throw
 operator|(
 name|EOFException
@@ -2028,7 +2037,14 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-continue|continue;
+name|seekOnFs
+argument_list|(
+name|originalPosition
+argument_list|)
+expr_stmt|;
+return|return
+literal|false
+return|;
 block|}
 name|int
 name|expectedCells
@@ -2072,6 +2088,10 @@ operator|!=
 name|actualCells
 condition|)
 block|{
+name|resetPosition
+operator|=
+literal|true
+expr_stmt|;
 throw|throw
 operator|new
 name|EOFException
@@ -2258,7 +2278,9 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Encountered a malformed edit, but can't seek back to last good position because originalPosition is negative. last offset="
+literal|"Encountered a malformed edit, but can't seek back to last good position "
+operator|+
+literal|"because originalPosition is negative. last offset="
 operator|+
 name|this
 operator|.
@@ -2275,6 +2297,47 @@ throw|throw
 name|eof
 throw|;
 block|}
+comment|// If stuck at the same place and we got and exception, lets go back at the beginning.
+if|if
+condition|(
+name|inputStream
+operator|.
+name|getPos
+argument_list|()
+operator|==
+name|originalPosition
+operator|&&
+name|resetPosition
+condition|)
+block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Encountered a malformed edit, seeking to the beginning of the WAL since "
+operator|+
+literal|"current position and original position match at "
+operator|+
+name|originalPosition
+argument_list|)
+expr_stmt|;
+block|}
+name|seekOnFs
+argument_list|(
+literal|0
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
 comment|// Else restore our position to original location in hope that next time through we will
 comment|// read successfully.
 if|if
@@ -2289,7 +2352,9 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Encountered a malformed edit, seeking back to last good position in file, from "
+literal|"Encountered a malformed edit, seeking back to last good position in file, "
+operator|+
+literal|"from "
 operator|+
 name|inputStream
 operator|.
@@ -2309,6 +2374,7 @@ argument_list|(
 name|originalPosition
 argument_list|)
 expr_stmt|;
+block|}
 return|return
 literal|false
 return|;
