@@ -5962,7 +5962,7 @@ condition|(
 operator|!
 name|UnsafeAccess
 operator|.
-name|littleEndian
+name|LITTLE_ENDIAN
 condition|)
 block|{
 return|return

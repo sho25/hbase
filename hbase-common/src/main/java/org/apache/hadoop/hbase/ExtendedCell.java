@@ -107,8 +107,6 @@ extends|extends
 name|RawCell
 extends|,
 name|HeapSize
-extends|,
-name|Cloneable
 block|{
 name|int
 name|CELL_NOT_BASED_ON_CHUNK
@@ -293,6 +291,19 @@ name|withTags
 argument_list|)
 return|;
 block|}
+comment|/**    * @return Serialized size (defaults to include tag length).    */
+specifier|default
+name|int
+name|getSerializedSize
+parameter_list|()
+block|{
+return|return
+name|getSerializedSize
+argument_list|(
+literal|true
+argument_list|)
+return|;
+block|}
 comment|/**    * Write this Cell into the given buf's offset in a {@link KeyValue} format.    * @param buf The buffer where to write the Cell.    * @param offset The offset within buffer, to write the Cell.    */
 specifier|default
 name|void
@@ -334,7 +345,7 @@ name|this
 argument_list|)
 return|;
 block|}
-comment|/**    * Extracts the id of the backing bytebuffer of this cell if it was obtained from fixed sized    * chunks as in case of MemstoreLAB    * @return the chunk id if the cell is backed by fixed sized Chunks, else return -1    */
+comment|/**    * Extracts the id of the backing bytebuffer of this cell if it was obtained from fixed sized    * chunks as in case of MemstoreLAB    * @return the chunk id if the cell is backed by fixed sized Chunks, else return    * {@link #CELL_NOT_BASED_ON_CHUNK}; i.e. -1.    */
 specifier|default
 name|int
 name|getChunkId

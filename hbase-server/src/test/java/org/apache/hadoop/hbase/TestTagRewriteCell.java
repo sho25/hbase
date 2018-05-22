@@ -224,9 +224,9 @@ argument_list|)
 decl_stmt|;
 name|assertTrue
 argument_list|(
-literal|"TagRewriteCell containing a TagRewriteCell's heapsize should be larger than a "
+literal|"TagRewriteCell containing a TagRewriteCell's heapsize should be "
 operator|+
-literal|"single TagRewriteCell's heapsize"
+literal|"larger than a single TagRewriteCell's heapsize"
 argument_list|,
 name|trCellHeapSize
 operator|<

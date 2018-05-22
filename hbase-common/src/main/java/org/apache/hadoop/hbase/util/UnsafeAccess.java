@@ -181,10 +181,11 @@ specifier|final
 name|long
 name|BYTE_ARRAY_BASE_OFFSET
 decl_stmt|;
+specifier|public
 specifier|static
 specifier|final
 name|boolean
-name|littleEndian
+name|LITTLE_ENDIAN
 init|=
 name|ByteOrder
 operator|.
@@ -338,7 +339,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|littleEndian
+name|LITTLE_ENDIAN
 condition|)
 block|{
 return|return
@@ -391,7 +392,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|littleEndian
+name|LITTLE_ENDIAN
 condition|)
 block|{
 return|return
@@ -444,7 +445,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|littleEndian
+name|LITTLE_ENDIAN
 condition|)
 block|{
 return|return
@@ -501,7 +502,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|littleEndian
+name|LITTLE_ENDIAN
 condition|)
 block|{
 name|val
@@ -554,7 +555,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|littleEndian
+name|LITTLE_ENDIAN
 condition|)
 block|{
 name|val
@@ -607,7 +608,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|littleEndian
+name|LITTLE_ENDIAN
 condition|)
 block|{
 name|val
@@ -657,7 +658,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|littleEndian
+name|LITTLE_ENDIAN
 condition|)
 block|{
 return|return
@@ -698,7 +699,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|littleEndian
+name|LITTLE_ENDIAN
 condition|)
 block|{
 return|return
@@ -803,7 +804,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|littleEndian
+name|LITTLE_ENDIAN
 condition|)
 block|{
 return|return
@@ -844,7 +845,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|littleEndian
+name|LITTLE_ENDIAN
 condition|)
 block|{
 return|return
@@ -949,7 +950,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|littleEndian
+name|LITTLE_ENDIAN
 condition|)
 block|{
 return|return
@@ -990,7 +991,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|littleEndian
+name|LITTLE_ENDIAN
 condition|)
 block|{
 return|return
@@ -1098,7 +1099,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|littleEndian
+name|LITTLE_ENDIAN
 condition|)
 block|{
 name|val
@@ -1598,7 +1599,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|littleEndian
+name|LITTLE_ENDIAN
 condition|)
 block|{
 name|val
@@ -1689,7 +1690,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|littleEndian
+name|LITTLE_ENDIAN
 condition|)
 block|{
 name|val

@@ -85,6 +85,8 @@ class|class
 name|IndividualBytesFieldCell
 implements|implements
 name|ExtendedCell
+implements|,
+name|Cloneable
 block|{
 specifier|private
 specifier|static

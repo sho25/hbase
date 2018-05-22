@@ -275,6 +275,8 @@ class|class
 name|KeyValue
 implements|implements
 name|ExtendedCell
+implements|,
+name|Cloneable
 block|{
 specifier|private
 specifier|static

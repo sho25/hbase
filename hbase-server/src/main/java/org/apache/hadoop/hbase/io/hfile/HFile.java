@@ -1385,39 +1385,27 @@ name|UnsupportedOperationException
 name|uoe
 parameter_list|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
 name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Unable to set drop behind on "
-operator|+
+literal|"Unable to set drop behind on {}"
+argument_list|,
 name|path
 argument_list|,
 name|uoe
 argument_list|)
 expr_stmt|;
-elseif|else
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Unable to set drop behind on "
-operator|+
+literal|"Unable to set drop behind on {}"
+argument_list|,
 name|path
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
