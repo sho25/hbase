@@ -431,6 +431,10 @@ block|{
 if|if
 condition|(
 name|params
+operator|!=
+literal|null
+operator|&&
+name|params
 operator|.
 name|containsKey
 argument_list|(

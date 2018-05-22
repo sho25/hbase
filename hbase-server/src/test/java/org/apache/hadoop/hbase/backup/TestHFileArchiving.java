@@ -2232,6 +2232,15 @@ argument_list|,
 name|archiveDir
 argument_list|)
 decl_stmt|;
+name|assertFalse
+argument_list|(
+literal|"cleaner should not be null"
+argument_list|,
+name|cleaner
+operator|==
+literal|null
+argument_list|)
+expr_stmt|;
 try|try
 block|{
 name|choreService
