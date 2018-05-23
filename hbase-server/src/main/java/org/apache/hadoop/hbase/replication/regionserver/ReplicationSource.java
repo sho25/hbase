@@ -742,11 +742,6 @@ specifier|private
 name|UUID
 name|clusterId
 decl_stmt|;
-comment|// id of the other cluster
-specifier|private
-name|UUID
-name|peerClusterId
-decl_stmt|;
 comment|// total number of edits we replicated
 specifier|private
 name|AtomicLong
@@ -794,6 +789,7 @@ name|replicationEndpoint
 decl_stmt|;
 comment|// A filter (or a chain of filters) for the WAL entries.
 specifier|protected
+specifier|volatile
 name|WALEntryFilter
 name|walEntryFilter
 decl_stmt|;
@@ -1247,7 +1243,7 @@ argument_list|()
 operator|&&
 name|this
 operator|.
-name|replicationEndpoint
+name|walEntryFilter
 operator|!=
 literal|null
 condition|)
@@ -1716,7 +1712,10 @@ block|}
 specifier|private
 name|void
 name|initializeWALEntryFilter
-parameter_list|()
+parameter_list|(
+name|UUID
+name|peerClusterId
+parameter_list|)
 block|{
 comment|// get the WALEntryFilter from ReplicationEndpoint and add it to default filters
 name|ArrayList
@@ -2446,23 +2445,16 @@ name|sleepMultiplier
 operator|=
 literal|1
 expr_stmt|;
-comment|// delay this until we are in an asynchronous thread
-while|while
-condition|(
-name|this
-operator|.
-name|isSourceActive
-argument_list|()
-operator|&&
-name|this
-operator|.
+name|UUID
 name|peerClusterId
-operator|==
-literal|null
-condition|)
+decl_stmt|;
+comment|// delay this until we are in an asynchronous thread
+for|for
+control|(
+init|;
+condition|;
+control|)
 block|{
-name|this
-operator|.
 name|peerClusterId
 operator|=
 name|replicationEndpoint
@@ -2477,8 +2469,6 @@ operator|.
 name|isSourceActive
 argument_list|()
 operator|&&
-name|this
-operator|.
 name|peerClusterId
 operator|==
 literal|null
@@ -2498,6 +2488,10 @@ name|sleepMultiplier
 operator|++
 expr_stmt|;
 block|}
+block|}
+else|else
+block|{
+break|break;
 block|}
 block|}
 comment|// In rare case, zookeeper setting may be messed up. That leads to the incorrect
@@ -2570,7 +2564,9 @@ name|peerClusterId
 argument_list|)
 expr_stmt|;
 name|initializeWALEntryFilter
-argument_list|()
+argument_list|(
+name|peerClusterId
+argument_list|)
 expr_stmt|;
 comment|// start workers
 for|for
