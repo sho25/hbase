@@ -37,35 +37,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Coprocessor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HBaseInterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|TableName
 import|;
 end_import
 
@@ -94,50 +66,6 @@ operator|.
 name|audience
 operator|.
 name|InterfaceStability
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|ClientProtos
-operator|.
-name|PrepareBulkLoadRequest
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|ClientProtos
-operator|.
-name|CleanupBulkLoadRequest
 import|;
 end_import
 
@@ -163,7 +91,7 @@ specifier|public
 interface|interface
 name|BulkLoadObserver
 block|{
-comment|/**       * Called as part of SecureBulkLoadEndpoint.prepareBulkLoad() RPC call.       * It can't bypass the default action, e.g., ctx.bypass() won't have effect.       * If you need to get the region or table name, get it from the       *<code>ctx</code> as follows:<code>code>ctx.getEnvironment().getRegion()</code>. Use       * getRegionInfo to fetch the encodedName and use getTabldDescriptor() to get the tableName.       * @param ctx the environment to interact with the framework and master       */
+comment|/**       * Called as part of SecureBulkLoadEndpoint.prepareBulkLoad() RPC call.       * It can't bypass the default action, e.g., ctx.bypass() won't have effect.       * If you need to get the region or table name, get it from the       *<code>ctx</code> as follows:<code>code>ctx.getEnvironment().getRegion()</code>. Use       * getRegionInfo to fetch the encodedName and use getTableDescriptor() to get the tableName.       * @param ctx the environment to interact with the framework and master       */
 specifier|default
 name|void
 name|prePrepareBulkLoad
@@ -177,7 +105,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**       * Called as part of SecureBulkLoadEndpoint.cleanupBulkLoad() RPC call.       * It can't bypass the default action, e.g., ctx.bypass() won't have effect.       * If you need to get the region or table name, get it from the       *<code>ctx</code> as follows:<code>code>ctx.getEnvironment().getRegion()</code>. Use       * getRegionInfo to fetch the encodedName and use getTabldDescriptor() to get the tableName.       * @param ctx the environment to interact with the framework and master       */
+comment|/**       * Called as part of SecureBulkLoadEndpoint.cleanupBulkLoad() RPC call.       * It can't bypass the default action, e.g., ctx.bypass() won't have effect.       * If you need to get the region or table name, get it from the       *<code>ctx</code> as follows:<code>code>ctx.getEnvironment().getRegion()</code>. Use       * getRegionInfo to fetch the encodedName and use getTableDescriptor() to get the tableName.       * @param ctx the environment to interact with the framework and master       */
 specifier|default
 name|void
 name|preCleanupBulkLoad
