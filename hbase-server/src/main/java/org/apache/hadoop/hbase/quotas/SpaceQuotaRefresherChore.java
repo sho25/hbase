@@ -670,6 +670,58 @@ expr_stmt|;
 block|}
 block|}
 block|}
+comment|// Disable violation policy for all such tables which have been removed in new snapshot
+for|for
+control|(
+name|TableName
+name|tableName
+range|:
+name|currentSnapshots
+operator|.
+name|keySet
+argument_list|()
+control|)
+block|{
+comment|// check whether table was removed in new snapshot
+if|if
+condition|(
+operator|!
+name|newSnapshots
+operator|.
+name|containsKey
+argument_list|(
+name|tableName
+argument_list|)
+condition|)
+block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Removing quota violation policy on "
+operator|+
+name|tableName
+argument_list|)
+expr_stmt|;
+block|}
+name|getManager
+argument_list|()
+operator|.
+name|disableViolationPolicyEnforcement
+argument_list|(
+name|tableName
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 comment|// We're intentionally ignoring anything extra with the currentSnapshots. If we were missing
 comment|// information from the RegionServers to create an accurate SpaceQuotaSnapshot in the Master,
 comment|// the Master will generate a new SpaceQuotaSnapshot which represents this state. This lets
