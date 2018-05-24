@@ -12291,7 +12291,7 @@ argument_list|()
 operator|+
 literal|" column families,"
 operator|+
-literal|" memstore data size="
+literal|" dataSize="
 operator|+
 name|StringUtils
 operator|.
@@ -12303,7 +12303,7 @@ name|getDataSize
 argument_list|()
 argument_list|)
 operator|+
-literal|" memstore heap size="
+literal|" heapSize="
 operator|+
 name|StringUtils
 operator|.
@@ -13351,9 +13351,9 @@ decl_stmt|;
 name|String
 name|msg
 init|=
-literal|"Finished memstore flush;"
+literal|"Finished flush of"
 operator|+
-literal|" data size ~"
+literal|" dataSize ~"
 operator|+
 name|StringUtils
 operator|.
@@ -13372,7 +13372,7 @@ operator|.
 name|getDataSize
 argument_list|()
 operator|+
-literal|", heap size ~"
+literal|", heapSize ~"
 operator|+
 name|StringUtils
 operator|.
@@ -13391,7 +13391,7 @@ operator|.
 name|getHeapSize
 argument_list|()
 operator|+
-literal|", currentsize="
+literal|", currentSize="
 operator|+
 name|StringUtils
 operator|.
@@ -20395,7 +20395,8 @@ block|}
 block|}
 block|}
 comment|/**    * Replace any cell timestamps set to {@link org.apache.hadoop.hbase.HConstants#LATEST_TIMESTAMP}    * provided current timestamp.    * @param cellItr    * @param now    */
-specifier|public
+specifier|private
+specifier|static
 name|void
 name|updateCellTimestamps
 parameter_list|(
@@ -20700,7 +20701,30 @@ throw|throw
 operator|new
 name|RegionTooBusyException
 argument_list|(
-literal|"Over memstore limit; regionName="
+literal|"Over memstore limit="
+operator|+
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|procedure2
+operator|.
+name|util
+operator|.
+name|StringUtils
+operator|.
+name|humanSize
+argument_list|(
+name|this
+operator|.
+name|blockingMemStoreSize
+argument_list|)
+operator|+
+literal|", regionName="
 operator|+
 operator|(
 name|this
@@ -20741,27 +20765,6 @@ operator|.
 name|getServerName
 argument_list|()
 operator|)
-operator|+
-literal|", blockingMemStoreSize="
-operator|+
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|procedure2
-operator|.
-name|util
-operator|.
-name|StringUtils
-operator|.
-name|humanSize
-argument_list|(
-name|blockingMemStoreSize
-argument_list|)
 argument_list|)
 throw|;
 block|}

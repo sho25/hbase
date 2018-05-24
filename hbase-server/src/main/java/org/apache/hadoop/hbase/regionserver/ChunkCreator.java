@@ -307,7 +307,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|// monotonically increasing chunkid
+comment|// monotonically increasing chunkid. Starts at 1.
 specifier|private
 name|AtomicInteger
 name|chunkID

@@ -231,6 +231,9 @@ name|ConcurrentSkipListMap
 argument_list|<>
 argument_list|(
 name|c
+operator|.
+name|getSimpleComparator
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|this

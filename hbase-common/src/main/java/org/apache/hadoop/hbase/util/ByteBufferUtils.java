@@ -295,8 +295,7 @@ operator|.
 name|isAvailable
 argument_list|()
 decl_stmt|;
-annotation|@
-name|VisibleForTesting
+specifier|public
 specifier|final
 specifier|static
 name|boolean
@@ -2900,6 +2899,8 @@ name|int
 name|l2
 parameter_list|)
 block|{
+comment|// NOTE: This method is copied over in BBKVComparator!!!!! For perf reasons. If you make
+comment|// changes here, make them there too!!!!
 if|if
 condition|(
 name|UNSAFE_UNALIGNED
@@ -3206,6 +3207,10 @@ operator|==
 literal|0
 return|;
 block|}
+comment|// The below two methods show up in lots of places. Versions of them in commons util and in
+comment|// Cassandra. In guava too? They are copied from ByteBufferUtils. They are here as static
+comment|// privates. Seems to make code smaller and make Hotspot happier (comes of compares and study
+comment|// of compiled code via  jitwatch).
 specifier|public
 specifier|static
 name|int
@@ -3231,8 +3236,6 @@ name|int
 name|l2
 parameter_list|)
 block|{
-comment|// This method is nearly same as the compareTo that follows but hard sharing code given
-comment|// byte array and bytebuffer types and this is a hot code path
 if|if
 condition|(
 name|UNSAFE_UNALIGNED
@@ -3705,7 +3708,7 @@ condition|(
 operator|!
 name|UnsafeAccess
 operator|.
-name|littleEndian
+name|LITTLE_ENDIAN
 condition|)
 block|{
 return|return

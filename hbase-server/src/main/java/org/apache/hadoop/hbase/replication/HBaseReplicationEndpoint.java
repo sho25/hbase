@@ -256,27 +256,6 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
-annotation|@
-name|edu
-operator|.
-name|umd
-operator|.
-name|cs
-operator|.
-name|findbugs
-operator|.
-name|annotations
-operator|.
-name|SuppressWarnings
-argument_list|(
-name|value
-operator|=
-literal|"MT_CORRECTNESS"
-argument_list|,
-name|justification
-operator|=
-literal|"Thinks zkw needs to be synchronized access but should be fine as is."
-argument_list|)
 specifier|public
 specifier|abstract
 class|class
@@ -302,12 +281,19 @@ name|class
 argument_list|)
 decl_stmt|;
 specifier|private
+name|Object
+name|zkwLock
+init|=
+operator|new
+name|Object
+argument_list|()
+decl_stmt|;
+specifier|private
 name|ZKWatcher
 name|zkw
 init|=
 literal|null
 decl_stmt|;
-comment|// FindBugs: MT_CORRECTNESS
 specifier|private
 name|List
 argument_list|<
@@ -331,6 +317,11 @@ name|void
 name|disconnect
 parameter_list|()
 block|{
+synchronized|synchronized
+init|(
+name|zkwLock
+init|)
+block|{
 if|if
 condition|(
 name|zkw
@@ -343,6 +334,7 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 block|}
 comment|/**    * A private method used to re-establish a zookeeper session with a peer cluster.    * @param ke    */
@@ -501,6 +493,11 @@ literal|null
 decl_stmt|;
 try|try
 block|{
+synchronized|synchronized
+init|(
+name|zkwLock
+init|)
+block|{
 name|peerUUID
 operator|=
 name|ZKClusterId
@@ -510,6 +507,7 @@ argument_list|(
 name|zkw
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
@@ -533,9 +531,15 @@ name|ZKWatcher
 name|getZkw
 parameter_list|()
 block|{
+synchronized|synchronized
+init|(
+name|zkwLock
+init|)
+block|{
 return|return
 name|zkw
 return|;
+block|}
 block|}
 comment|/**    * Closes the current ZKW (if not null) and creates a new one    * @throws IOException If anything goes wrong connecting    */
 name|void
@@ -544,17 +548,24 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+synchronized|synchronized
+init|(
+name|zkwLock
+init|)
+block|{
 if|if
 condition|(
 name|zkw
 operator|!=
 literal|null
 condition|)
+block|{
 name|zkw
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
 name|zkw
 operator|=
 operator|new
@@ -575,8 +586,7 @@ argument_list|,
 name|this
 argument_list|)
 expr_stmt|;
-name|getZkw
-argument_list|()
+name|zkw
 operator|.
 name|registerListener
 argument_list|(
@@ -587,6 +597,7 @@ name|this
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Override
@@ -722,12 +733,7 @@ name|addresses
 return|;
 block|}
 comment|/**    * Get a list of all the addresses of all the region servers    * for this peer cluster    * @return list of addresses    */
-comment|// Synchronize peer cluster connection attempts to avoid races and rate
-comment|// limit connections when multiple replication sources try to connect to
-comment|// the peer cluster. If the peer cluster is down we can get out of control
-comment|// over time.
 specifier|public
-specifier|synchronized
 name|List
 argument_list|<
 name|ServerName
@@ -737,17 +743,24 @@ parameter_list|()
 block|{
 try|try
 block|{
+comment|// Synchronize peer cluster connection attempts to avoid races and rate
+comment|// limit connections when multiple replication sources try to connect to
+comment|// the peer cluster. If the peer cluster is down we can get out of control
+comment|// over time.
+synchronized|synchronized
+init|(
+name|zkwLock
+init|)
+block|{
 name|setRegionServers
 argument_list|(
 name|fetchSlavesAddresses
 argument_list|(
-name|this
-operator|.
-name|getZkw
-argument_list|()
+name|zkw
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
