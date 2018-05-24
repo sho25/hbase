@@ -2868,6 +2868,21 @@ operator|=
 name|rsGroupInfoManager
 expr_stmt|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|postMasterStartupInitialize
+parameter_list|()
+block|{
+name|this
+operator|.
+name|internalBalancer
+operator|.
+name|postMasterStartupInitialize
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 end_class
 

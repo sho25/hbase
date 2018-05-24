@@ -6346,6 +6346,53 @@ operator|.
 name|interrupt
 argument_list|()
 expr_stmt|;
+comment|/*      * After master has started up, lets do balancer post startup initialization. Since this runs      * in activeMasterManager thread, it should be fine.      */
+name|long
+name|start
+init|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+decl_stmt|;
+name|this
+operator|.
+name|balancer
+operator|.
+name|postMasterStartupInitialize
+argument_list|()
+expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Balancer post startup initialization complete, took "
+operator|+
+operator|(
+operator|(
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+operator|-
+name|start
+operator|)
+operator|/
+literal|1000
+operator|)
+operator|+
+literal|" seconds"
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|/**    * Adds the {@code MasterSpaceQuotaObserver} to the list of configured Master observers to    * automatically remove space quotas for a table when that table is deleted.    */
 annotation|@

@@ -438,6 +438,11 @@ name|Configuration
 name|conf
 parameter_list|)
 function_decl|;
+comment|/**    * If balancer needs to do initialization after Master has started up, lets do that here.    */
+name|void
+name|postMasterStartupInitialize
+parameter_list|()
+function_decl|;
 comment|/**    * @return true if Master carries regions    */
 specifier|static
 name|boolean
