@@ -582,12 +582,12 @@ decl_stmt|;
 specifier|protected
 specifier|static
 name|Path
-name|remoteWALDir1
+name|REMOTE_WAL_DIR1
 decl_stmt|;
 specifier|protected
 specifier|static
 name|Path
-name|remoteWALDir2
+name|REMOTE_WAL_DIR2
 decl_stmt|;
 specifier|private
 specifier|static
@@ -862,7 +862,7 @@ operator|.
 name|getTestFileSystem
 argument_list|()
 decl_stmt|;
-name|remoteWALDir1
+name|REMOTE_WAL_DIR1
 operator|=
 operator|new
 name|Path
@@ -897,7 +897,7 @@ name|getWorkingDirectory
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|remoteWALDir2
+name|REMOTE_WAL_DIR2
 operator|=
 operator|new
 name|Path
@@ -976,7 +976,7 @@ argument_list|)
 operator|.
 name|setRemoteWALDir
 argument_list|(
-name|remoteWALDir2
+name|REMOTE_WAL_DIR2
 operator|.
 name|toUri
 argument_list|()
@@ -1033,7 +1033,7 @@ argument_list|)
 operator|.
 name|setRemoteWALDir
 argument_list|(
-name|remoteWALDir1
+name|REMOTE_WAL_DIR1
 operator|.
 name|toUri
 argument_list|()

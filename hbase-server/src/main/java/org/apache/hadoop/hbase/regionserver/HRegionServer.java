@@ -10988,8 +10988,6 @@ operator|=
 operator|new
 name|SplitLogWorker
 argument_list|(
-name|this
-argument_list|,
 name|sinkConf
 argument_list|,
 name|this

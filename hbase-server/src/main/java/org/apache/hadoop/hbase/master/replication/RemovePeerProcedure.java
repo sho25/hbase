@@ -330,9 +330,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|ReplaySyncReplicationWALManager
-name|remoteWALManager
-init|=
 name|env
 operator|.
 name|getMasterServices
@@ -340,17 +337,8 @@ argument_list|()
 operator|.
 name|getReplaySyncReplicationWALManager
 argument_list|()
-decl_stmt|;
-name|remoteWALManager
 operator|.
 name|removePeerRemoteWALs
-argument_list|(
-name|peerId
-argument_list|)
-expr_stmt|;
-name|remoteWALManager
-operator|.
-name|removePeerReplayWALDir
 argument_list|(
 name|peerId
 argument_list|)

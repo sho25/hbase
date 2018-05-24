@@ -247,7 +247,7 @@ try|try
 block|{
 name|replaySyncReplicationWALManager
 operator|.
-name|renamePeerRemoteWALDir
+name|renameToPeerReplayWALDir
 argument_list|(
 name|peerId
 argument_list|)
@@ -361,7 +361,7 @@ name|setNextState
 argument_list|(
 name|RecoverStandbyState
 operator|.
-name|REMOVE_SYNC_REPLICATION_WALS_DIR
+name|SNAPSHOT_SYNC_REPLICATION_WALS_DIR
 argument_list|)
 expr_stmt|;
 return|return
@@ -370,13 +370,13 @@ operator|.
 name|HAS_MORE_STATE
 return|;
 case|case
-name|REMOVE_SYNC_REPLICATION_WALS_DIR
+name|SNAPSHOT_SYNC_REPLICATION_WALS_DIR
 case|:
 try|try
 block|{
 name|replaySyncReplicationWALManager
 operator|.
-name|removePeerReplayWALDir
+name|renameToPeerSnapshotWALDir
 argument_list|(
 name|peerId
 argument_list|)
@@ -440,7 +440,7 @@ block|{
 return|return
 name|replaySyncReplicationWALManager
 operator|.
-name|getReplayWALs
+name|getReplayWALsAndCleanUpUnusedFiles
 argument_list|(
 name|peerId
 argument_list|)

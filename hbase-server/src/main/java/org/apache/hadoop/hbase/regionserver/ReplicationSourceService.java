@@ -29,6 +29,22 @@ name|hbase
 operator|.
 name|replication
 operator|.
+name|ReplicationPeers
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|replication
+operator|.
 name|regionserver
 operator|.
 name|PeerProcedureHandler
@@ -90,6 +106,11 @@ function_decl|;
 comment|/**    * Returns a Handler to handle peer procedures.    */
 name|PeerProcedureHandler
 name|getPeerProcedureHandler
+parameter_list|()
+function_decl|;
+comment|/**    * Return the replication peers.    */
+name|ReplicationPeers
+name|getReplicationPeers
 parameter_list|()
 function_decl|;
 block|}

@@ -345,7 +345,7 @@ name|verifyNoClusterIdInRemoteLog
 argument_list|(
 name|UTIL2
 argument_list|,
-name|remoteWALDir2
+name|REMOTE_WAL_DIR2
 argument_list|,
 name|PEER_ID
 argument_list|)

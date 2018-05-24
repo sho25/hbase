@@ -639,7 +639,6 @@ argument_list|>
 name|checker
 parameter_list|)
 block|{
-comment|// TODO Implement SyncReplicationPeerInfoProvider.isInState
 return|return
 literal|false
 return|;

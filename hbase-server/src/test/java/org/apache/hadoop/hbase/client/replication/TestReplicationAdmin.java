@@ -7463,7 +7463,7 @@ name|mkdirs
 argument_list|(
 name|ReplicationUtils
 operator|.
-name|getRemoteWALDirForPeer
+name|getPeerRemoteWALDir
 argument_list|(
 name|rootDir
 argument_list|,

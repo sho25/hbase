@@ -3362,7 +3362,7 @@ name|remoteWALDirForPeer
 init|=
 name|ReplicationUtils
 operator|.
-name|getRemoteWALDirForPeer
+name|getPeerRemoteWALDir
 argument_list|(
 name|remoteWALDir
 argument_list|,

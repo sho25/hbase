@@ -125,6 +125,22 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hdfs
+operator|.
+name|DFSConfigKeys
+operator|.
+name|DFS_CLIENT_SOCKET_TIMEOUT_KEY
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
 name|hbase
 operator|.
 name|thirdparty
@@ -164,22 +180,6 @@ operator|.
 name|IdleState
 operator|.
 name|WRITER_IDLE
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hdfs
-operator|.
-name|DFSConfigKeys
-operator|.
-name|DFS_CLIENT_SOCKET_TIMEOUT_KEY
 import|;
 end_import
 

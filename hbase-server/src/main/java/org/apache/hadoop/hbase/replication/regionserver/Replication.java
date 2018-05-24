@@ -1499,6 +1499,17 @@ return|return
 name|syncReplicationPeerInfoProvider
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|ReplicationPeers
+name|getReplicationPeers
+parameter_list|()
+block|{
+return|return
+name|replicationPeers
+return|;
+block|}
 block|}
 end_class
 
