@@ -256,27 +256,6 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
-annotation|@
-name|edu
-operator|.
-name|umd
-operator|.
-name|cs
-operator|.
-name|findbugs
-operator|.
-name|annotations
-operator|.
-name|SuppressWarnings
-argument_list|(
-name|value
-operator|=
-literal|"MT_CORRECTNESS"
-argument_list|,
-name|justification
-operator|=
-literal|"Thinks zkw needs to be synchronized access but should be fine as is."
-argument_list|)
 specifier|public
 specifier|abstract
 class|class
@@ -307,7 +286,6 @@ name|zkw
 init|=
 literal|null
 decl_stmt|;
-comment|// FindBugs: MT_CORRECTNESS
 specifier|private
 name|List
 argument_list|<
@@ -327,6 +305,7 @@ name|long
 name|lastRegionServerUpdate
 decl_stmt|;
 specifier|protected
+specifier|synchronized
 name|void
 name|disconnect
 parameter_list|()
@@ -529,6 +508,7 @@ return|;
 block|}
 comment|/**    * Get the ZK connection to this peer    * @return zk connection    */
 specifier|protected
+specifier|synchronized
 name|ZKWatcher
 name|getZkw
 parameter_list|()
@@ -538,6 +518,7 @@ name|zkw
 return|;
 block|}
 comment|/**    * Closes the current ZKW (if not null) and creates a new one    * @throws IOException If anything goes wrong connecting    */
+specifier|synchronized
 name|void
 name|reloadZkWatcher
 parameter_list|()
