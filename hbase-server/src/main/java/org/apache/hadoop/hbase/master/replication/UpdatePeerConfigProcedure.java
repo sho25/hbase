@@ -1130,6 +1130,13 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+name|builder
+operator|.
+name|setEnabled
+argument_list|(
+name|enabled
+argument_list|)
+expr_stmt|;
 name|serializer
 operator|.
 name|serialize
@@ -1212,6 +1219,13 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
+name|enabled
+operator|=
+name|data
+operator|.
+name|getEnabled
+argument_list|()
+expr_stmt|;
 block|}
 block|}
 end_class
