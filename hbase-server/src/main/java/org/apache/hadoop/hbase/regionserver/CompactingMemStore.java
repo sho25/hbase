@@ -294,7 +294,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A memstore implementation which supports in-memory compaction.  * A compaction pipeline is added between the active set and the snapshot data structures;  * it consists of a list of kv-sets that are subject to compaction.  * Like the snapshot, all pipeline components are read-only; updates only affect the active set.  * To ensure this property we take advantage of the existing blocking mechanism -- the active set  * is pushed to the pipeline while holding the region's updatesLock in exclusive mode.  * Periodically, a compaction is applied in the background to all pipeline components resulting  * in a single read-only component. The ``old'' components are discarded when no scanner is reading  * them.  */
+comment|/**  * A memstore implementation which supports in-memory compaction.  * A compaction pipeline is added between the active set and the snapshot data structures;  * it consists of a list of segments that are subject to compaction.  * Like the snapshot, all pipeline segments are read-only; updates only affect the active set.  * To ensure this property we take advantage of the existing blocking mechanism -- the active set  * is pushed to the pipeline while holding the region's updatesLock in exclusive mode.  * Periodically, a compaction is applied in the background to all pipeline segments resulting  * in a single read-only component. The ``old'' segments are discarded when no scanner is reading  * them.  */
 end_comment
 
 begin_class
@@ -347,7 +347,7 @@ specifier|final
 name|double
 name|IN_MEMORY_FLUSH_THRESHOLD_FACTOR_DEFAULT
 init|=
-literal|0.1
+literal|0.014
 decl_stmt|;
 specifier|private
 specifier|static

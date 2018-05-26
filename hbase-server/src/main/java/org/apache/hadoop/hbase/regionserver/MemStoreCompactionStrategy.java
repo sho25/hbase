@@ -109,7 +109,7 @@ specifier|final
 name|int
 name|COMPACTING_MEMSTORE_THRESHOLD_DEFAULT
 init|=
-literal|4
+literal|2
 decl_stmt|;
 comment|/**    * Types of actions to be done on the pipeline upon MemStoreCompaction invocation.    * Note that every value covers the previous ones, i.e. if MERGE is the action it implies    * that the youngest segment is going to be flatten anyway.    */
 specifier|public
