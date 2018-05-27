@@ -2681,10 +2681,10 @@ name|rsZNode
 argument_list|)
 return|;
 block|}
-comment|/*    * Expire the passed server.  Add it to list of dead servers and queue a    * shutdown processing.    */
+comment|/*    * Expire the passed server.  Add it to list of dead servers and queue a    * shutdown processing.    * @return True if we queued a ServerCrashProcedure else false if we did not (could happen    * for many reasons including the fact that its this server that is going down or we already    * have queued an SCP for this server or SCP processing is currently disabled because we are    * in startup phase).    */
 specifier|public
 specifier|synchronized
-name|void
+name|boolean
 name|expireServer
 parameter_list|(
 specifier|final
@@ -2692,6 +2692,7 @@ name|ServerName
 name|serverName
 parameter_list|)
 block|{
+comment|// THIS server is going down... can't handle our own expiration.
 if|if
 condition|(
 name|serverName
@@ -2729,8 +2730,11 @@ literal|"We lost our znode?"
 argument_list|)
 expr_stmt|;
 block|}
-return|return;
+return|return
+literal|false
+return|;
 block|}
+comment|// No SCP handling during startup.
 if|if
 condition|(
 operator|!
@@ -2751,9 +2755,9 @@ operator|+
 name|serverName
 argument_list|)
 expr_stmt|;
-comment|// Even we delay expire this server, we still need to handle Meta's RIT
+comment|// Even though we delay expire of this server, we still need to handle Meta's RIT
 comment|// that are against the crashed server; since when we do RecoverMetaProcedure,
-comment|// the SCP is not enable yet and Meta's RIT may be suspend forever. See HBase-19287
+comment|// the SCP is not enabled yet and Meta's RIT may be suspend forever. See HBase-19287
 name|master
 operator|.
 name|getAssignmentManager
@@ -2773,7 +2777,10 @@ argument_list|(
 name|serverName
 argument_list|)
 expr_stmt|;
-return|return;
+comment|// Return true because though on SCP queued, there will be one queued later.
+return|return
+literal|true
+return|;
 block|}
 if|if
 condition|(
@@ -2787,19 +2794,18 @@ name|serverName
 argument_list|)
 condition|)
 block|{
-comment|// TODO: Can this happen?  It shouldn't be online in this case?
 name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Expiration of "
-operator|+
+literal|"Expiration called on {} but crash processing already in progress"
+argument_list|,
 name|serverName
-operator|+
-literal|" but server shutdown already in progress"
 argument_list|)
 expr_stmt|;
-return|return;
+return|return
+literal|false
+return|;
 block|}
 name|moveFromOnlineToDeadServers
 argument_list|(
@@ -2850,7 +2856,9 @@ literal|"Cluster shutdown set; onlineServer=0"
 argument_list|)
 expr_stmt|;
 block|}
-return|return;
+return|return
+literal|false
+return|;
 block|}
 name|LOG
 operator|.
@@ -2913,6 +2921,9 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+return|return
+literal|true
+return|;
 block|}
 annotation|@
 name|VisibleForTesting

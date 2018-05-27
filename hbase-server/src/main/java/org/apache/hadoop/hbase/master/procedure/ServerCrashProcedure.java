@@ -743,7 +743,11 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// Handle RIT against crashed server. Will cancel any ongoing assigns/unassigns.
-comment|// Returns list of regions we need to reassign.
+comment|// Returns list of regions we need to reassign. NOTE: there is nothing to stop a
+comment|// dispatch happening AFTER this point. Check for the condition if a dispatch RPC fails
+comment|// inside in AssignProcedure/UnassignProcedure. AssignProcedure just keeps retrying.
+comment|// UnassignProcedure is more complicated. See where it does the check by calling
+comment|// am#isDeadServerProcessed.
 name|List
 argument_list|<
 name|RegionInfo
@@ -798,15 +802,8 @@ break|break;
 case|case
 name|SERVER_CRASH_HANDLE_RIT2
 case|:
-comment|// Run the handleRIT again for case where another procedure managed to grab the lock on
-comment|// a region ahead of this crash handling procedure. Can happen in rare case. See
-name|handleRIT
-argument_list|(
-name|env
-argument_list|,
-name|regionsOnCrashedServer
-argument_list|)
-expr_stmt|;
+comment|// Noop. Left in place because we used to call handleRIT here for a second time
+comment|// but no longer necessary since HBASE-20634.
 name|setNextState
 argument_list|(
 name|ServerCrashState
@@ -1091,6 +1088,18 @@ argument_list|()
 decl_stmt|;
 comment|// TODO: For Matteo. Below BLOCKs!!!! Redo so can relinquish executor while it is running.
 comment|// PROBLEM!!! WE BLOCK HERE.
+name|am
+operator|.
+name|getRegionStates
+argument_list|()
+operator|.
+name|logSplitting
+argument_list|(
+name|this
+operator|.
+name|serverName
+argument_list|)
+expr_stmt|;
 name|mwm
 operator|.
 name|splitLog
@@ -1100,24 +1109,6 @@ operator|.
 name|serverName
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Done splitting WALs "
-operator|+
-name|this
-argument_list|)
-expr_stmt|;
-block|}
 name|am
 operator|.
 name|getRegionStates
@@ -1128,6 +1119,15 @@ argument_list|(
 name|this
 operator|.
 name|serverName
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Done splitting WALs {}"
+argument_list|,
+name|this
 argument_list|)
 expr_stmt|;
 block|}

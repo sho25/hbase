@@ -1406,16 +1406,21 @@ argument_list|)
 return|;
 block|}
 block|}
+comment|/**    * Server State.    */
 specifier|public
 enum|enum
 name|ServerState
 block|{
+comment|/**      * Initial state. Available.      */
 name|ONLINE
 block|,
+comment|/**      * Server expired/crashed. Currently undergoing WAL splitting.      */
 name|SPLITTING
 block|,
+comment|/**      * WAL splitting done.      */
 name|OFFLINE
 block|}
+comment|/**    * State of Server; list of hosted regions, etc.    */
 specifier|public
 specifier|static
 class|class
@@ -1531,6 +1536,24 @@ parameter_list|()
 block|{
 return|return
 name|reportEvent
+return|;
+block|}
+specifier|public
+name|boolean
+name|isOffline
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|state
+operator|.
+name|equals
+argument_list|(
+name|ServerState
+operator|.
+name|OFFLINE
+argument_list|)
 return|;
 block|}
 specifier|public
@@ -2856,9 +2879,10 @@ block|}
 comment|// ============================================================================================
 comment|//  TODO: split helpers
 comment|// ============================================================================================
+comment|/**    * Call this when we start log splitting a crashed Server.    * @see #logSplit(ServerName)    */
 specifier|public
 name|void
-name|logSplit
+name|logSplitting
 parameter_list|(
 specifier|final
 name|ServerName
@@ -2888,7 +2912,41 @@ operator|.
 name|SPLITTING
 argument_list|)
 expr_stmt|;
-comment|/* THIS HAS TO BE WRONG. THIS IS SPLITTING OF REGION, NOT SPLITTING WALs.       for (RegionStateNode regionNode: serverNode.getRegions()) {         synchronized (regionNode) {           // TODO: Abort procedure if present           regionNode.setState(State.SPLITTING);         }       }*/
+block|}
+block|}
+comment|/**    * Called after we've split all logs on a crashed Server.    * @see #logSplitting(ServerName)    */
+specifier|public
+name|void
+name|logSplit
+parameter_list|(
+specifier|final
+name|ServerName
+name|serverName
+parameter_list|)
+block|{
+specifier|final
+name|ServerStateNode
+name|serverNode
+init|=
+name|getOrCreateServer
+argument_list|(
+name|serverName
+argument_list|)
+decl_stmt|;
+synchronized|synchronized
+init|(
+name|serverNode
+init|)
+block|{
+name|serverNode
+operator|.
+name|setState
+argument_list|(
+name|ServerState
+operator|.
+name|OFFLINE
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 specifier|public
@@ -4606,6 +4664,7 @@ block|}
 comment|// ==========================================================================
 comment|//  Servers
 comment|// ==========================================================================
+comment|/**    * Be judicious calling this method. Do it on server register ONLY otherwise    * you could mess up online server accounting. TOOD: Review usage and convert    * to {@link #getServerNode(ServerName)} where we can.    */
 specifier|public
 name|ServerStateNode
 name|getOrCreateServer

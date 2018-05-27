@@ -823,9 +823,9 @@ name|newNode
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Add a remote rpc. Be sure to check result for successful add.    * @param key the node identifier    * @return True if we successfully added the operation.    */
+comment|/**    * Add a remote rpc.    * @param key the node identifier    */
 specifier|public
-name|boolean
+name|void
 name|addOperationToNode
 parameter_list|(
 specifier|final
@@ -835,6 +835,12 @@ parameter_list|,
 name|RemoteProcedure
 name|rp
 parameter_list|)
+throws|throws
+name|NullTargetServerDispatchException
+throws|,
+name|NoServerDispatchException
+throws|,
+name|NoNodeDispatchException
 block|{
 if|if
 condition|(
@@ -843,19 +849,17 @@ operator|==
 literal|null
 condition|)
 block|{
-comment|// Key is remote server name. Be careful. It could have been nulled by a concurrent
-comment|// ServerCrashProcedure shutting down outstanding RPC requests. See remoteCallFailed.
-return|return
-literal|false
-return|;
+throw|throw
+operator|new
+name|NullTargetServerDispatchException
+argument_list|(
+name|rp
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+throw|;
 block|}
-assert|assert
-name|key
-operator|!=
-literal|null
-operator|:
-literal|"found null key for node"
-assert|;
 name|BufferNode
 name|node
 init|=
@@ -873,9 +877,25 @@ operator|==
 literal|null
 condition|)
 block|{
-return|return
-literal|false
-return|;
+comment|// If null here, it means node has been removed because it crashed. This happens when server
+comment|// is expired in ServerManager. ServerCrashProcedure may or may not have run.
+throw|throw
+operator|new
+name|NoServerDispatchException
+argument_list|(
+name|key
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|"; "
+operator|+
+name|rp
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+throw|;
 block|}
 name|node
 operator|.
@@ -885,14 +905,35 @@ name|rp
 argument_list|)
 expr_stmt|;
 comment|// Check our node still in the map; could have been removed by #removeNode.
-return|return
+if|if
+condition|(
+operator|!
 name|nodeMap
 operator|.
 name|containsValue
 argument_list|(
 name|node
 argument_list|)
-return|;
+condition|)
+block|{
+throw|throw
+operator|new
+name|NoNodeDispatchException
+argument_list|(
+name|key
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|"; "
+operator|+
+name|rp
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+throw|;
+block|}
 block|}
 comment|/**    * Remove a remote node    * @param key the node identifier    */
 specifier|public

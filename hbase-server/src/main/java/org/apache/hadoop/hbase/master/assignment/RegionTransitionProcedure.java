@@ -171,6 +171,22 @@ name|hbase
 operator|.
 name|procedure2
 operator|.
+name|FailedRemoteDispatchException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|procedure2
+operator|.
 name|Procedure
 import|;
 end_import
@@ -814,16 +830,21 @@ argument_list|(
 name|env
 argument_list|)
 decl_stmt|;
-name|String
-name|msg
-init|=
-name|exception
+name|LOG
 operator|.
-name|getMessage
+name|warn
+argument_list|(
+literal|"Remote call failed {}; {}; {}; exception={}"
+argument_list|,
+name|serverName
+argument_list|,
+name|this
+argument_list|,
+name|regionNode
+operator|.
+name|toShortString
 argument_list|()
-operator|==
-literal|null
-condition|?
+argument_list|,
 name|exception
 operator|.
 name|getClass
@@ -831,30 +852,6 @@ argument_list|()
 operator|.
 name|getSimpleName
 argument_list|()
-else|:
-name|exception
-operator|.
-name|getMessage
-argument_list|()
-decl_stmt|;
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Remote call failed "
-operator|+
-name|this
-operator|+
-literal|"; "
-operator|+
-name|regionNode
-operator|.
-name|toShortString
-argument_list|()
-operator|+
-literal|"; exception="
-operator|+
-name|msg
 argument_list|)
 expr_stmt|;
 if|if
@@ -902,49 +899,14 @@ name|ServerName
 name|targetServer
 parameter_list|)
 block|{
-assert|assert
-name|targetServer
-operator|==
-literal|null
-operator|||
-name|targetServer
-operator|.
-name|equals
-argument_list|(
-name|getRegionState
-argument_list|(
-name|env
-argument_list|)
-operator|.
-name|getRegionLocation
-argument_list|()
-argument_list|)
-operator|:
-literal|"targetServer="
-operator|+
-name|targetServer
-operator|+
-literal|" getRegionLocation="
-operator|+
-name|getRegionState
-argument_list|(
-name|env
-argument_list|)
-operator|.
-name|getRegionLocation
-argument_list|()
-assert|;
-comment|// TODO
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Dispatch "
-operator|+
+literal|"Dispatch {}; {}"
+argument_list|,
 name|this
-operator|+
-literal|"; "
-operator|+
+argument_list|,
 name|getRegionState
 argument_list|(
 name|env
@@ -971,9 +933,8 @@ comment|// Tricky because the below call to addOperationToNode can fail. If it f
 comment|// backtrack on stuff like the 'suspend' done above -- tricky as the 'wake' requests us -- and
 comment|// ditto up in the caller; it needs to undo state changes. Inside in remoteCallFailed, it does
 comment|// wake to undo the above suspend.
-if|if
-condition|(
-operator|!
+try|try
+block|{
 name|env
 operator|.
 name|getRemoteDispatcher
@@ -985,7 +946,13 @@ name|targetServer
 argument_list|,
 name|this
 argument_list|)
-condition|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|FailedRemoteDispatchException
+name|frde
+parameter_list|)
 block|{
 name|remoteCallFailed
 argument_list|(
@@ -993,15 +960,7 @@ name|env
 argument_list|,
 name|targetServer
 argument_list|,
-operator|new
-name|FailedRemoteDispatchException
-argument_list|(
-name|this
-operator|+
-literal|" to "
-operator|+
-name|targetServer
-argument_list|)
+name|frde
 argument_list|)
 expr_stmt|;
 return|return

@@ -1052,7 +1052,7 @@ argument_list|(
 name|regionNode
 argument_list|)
 expr_stmt|;
-comment|// Add the close region operation the the server dispatch queue.
+comment|// Add the close region operation to the server dispatch queue.
 if|if
 condition|(
 operator|!
@@ -1290,11 +1290,10 @@ argument_list|)
 throw|;
 block|}
 block|}
-annotation|@
-name|Override
-specifier|protected
+comment|/**    * Our remote call failed but there are a few states where it is safe to proceed with the    * unassign; e.g. if a server crash and it has had all of its WALs processed, then we can allow    * this unassign to go to completion.    * @return True if it is safe to proceed with the unassign.    */
+specifier|private
 name|boolean
-name|remoteCallFailed
+name|isSafeToProceed
 parameter_list|(
 specifier|final
 name|MasterProcedureEnv
@@ -1309,7 +1308,6 @@ name|IOException
 name|exception
 parameter_list|)
 block|{
-comment|// TODO: Is there on-going rpc to cleanup?
 if|if
 condition|(
 name|exception
@@ -1317,11 +1315,53 @@ operator|instanceof
 name|ServerCrashException
 condition|)
 block|{
-comment|// This exception comes from ServerCrashProcedure AFTER log splitting.
-comment|// SCP found this region as a RIT. Its call into here says it is ok to let this procedure go
-comment|// complete. This complete will release lock on this region so subsequent action on region
-comment|// can succeed; e.g. the assign that follows this unassign when a move (w/o wait on SCP
-comment|// the assign could run w/o logs being split so data loss).
+comment|// This exception comes from ServerCrashProcedure AFTER log splitting. Its a signaling
+comment|// exception. SCP found this region as a RIT during its processing of the crash.  Its call
+comment|// into here says it is ok to let this procedure go complete.
+return|return
+literal|true
+return|;
+block|}
+if|if
+condition|(
+name|exception
+operator|instanceof
+name|NotServingRegionException
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"IS OK? ANY LOGS TO REPLAY; ACTING AS THOUGH ALL GOOD {}"
+argument_list|,
+name|regionNode
+argument_list|,
+name|exception
+argument_list|)
+expr_stmt|;
+return|return
+literal|true
+return|;
+block|}
+return|return
+literal|false
+return|;
+block|}
+comment|/**    * Set it up so when procedure is unsuspended, we'll move to the procedure finish.    */
+specifier|protected
+name|void
+name|proceed
+parameter_list|(
+specifier|final
+name|MasterProcedureEnv
+name|env
+parameter_list|,
+specifier|final
+name|RegionStateNode
+name|regionNode
+parameter_list|)
+block|{
 try|try
 block|{
 name|reportTransition
@@ -1356,6 +1396,47 @@ argument_list|)
 throw|;
 block|}
 block|}
+comment|/**    * @return If true, we will re-wake up this procedure; if false, the procedure stays suspended.    */
+annotation|@
+name|Override
+specifier|protected
+name|boolean
+name|remoteCallFailed
+parameter_list|(
+specifier|final
+name|MasterProcedureEnv
+name|env
+parameter_list|,
+specifier|final
+name|RegionStateNode
+name|regionNode
+parameter_list|,
+specifier|final
+name|IOException
+name|exception
+parameter_list|)
+block|{
+comment|// Be careful reading the below; we do returns in middle of the method a few times.
+if|if
+condition|(
+name|isSafeToProceed
+argument_list|(
+name|env
+argument_list|,
+name|regionNode
+argument_list|,
+name|exception
+argument_list|)
+condition|)
+block|{
+name|proceed
+argument_list|(
+name|env
+argument_list|,
+name|regionNode
+argument_list|)
+expr_stmt|;
+block|}
 elseif|else
 if|if
 condition|(
@@ -1366,15 +1447,10 @@ operator|||
 name|exception
 operator|instanceof
 name|RegionServerStoppedException
-operator|||
-name|exception
-operator|instanceof
-name|ServerNotRunningYetException
 condition|)
 block|{
-comment|// RS is aborting, we cannot offline the region since the region may need to do WAL
-comment|// recovery. Until we see the RS expiration, we should retry.
-comment|// TODO: This should be suspend like the below where we call expire on server?
+comment|// RS is aborting/stopping, we cannot offline the region since the region may need to do WAL
+comment|// recovery. Until we see the RS expiration, stay suspended; return false.
 name|LOG
 operator|.
 name|info
@@ -1384,56 +1460,68 @@ argument_list|,
 name|exception
 argument_list|)
 expr_stmt|;
+return|return
+literal|false
+return|;
 block|}
 elseif|else
 if|if
 condition|(
 name|exception
 operator|instanceof
-name|NotServingRegionException
+name|ServerNotRunningYetException
 condition|)
 block|{
+comment|// This should not happen. If it does, procedure will be woken-up and we'll retry.
+comment|// TODO: Needs a pause and backoff?
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"IS THIS OK? ANY LOGS TO REPLAY; ACTING AS THOUGH ALL GOOD "
-operator|+
-name|regionNode
+literal|"Retry"
 argument_list|,
 name|exception
-argument_list|)
-expr_stmt|;
-name|setTransitionState
-argument_list|(
-name|RegionTransitionState
-operator|.
-name|REGION_TRANSITION_FINISH
 argument_list|)
 expr_stmt|;
 block|}
 else|else
 block|{
+comment|// We failed to RPC this server. Set it as expired.
+name|ServerName
+name|serverName
+init|=
+name|regionNode
+operator|.
+name|getRegionLocation
+argument_list|()
+decl_stmt|;
 name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Expiring server "
-operator|+
+literal|"Expiring {}, {} {}; exception={}"
+argument_list|,
+name|serverName
+argument_list|,
 name|this
-operator|+
-literal|"; "
-operator|+
+argument_list|,
 name|regionNode
 operator|.
 name|toShortString
 argument_list|()
-operator|+
-literal|", exception="
-operator|+
+argument_list|,
 name|exception
+operator|.
+name|getClass
+argument_list|()
+operator|.
+name|getSimpleName
+argument_list|()
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+operator|!
 name|env
 operator|.
 name|getMasterServices
@@ -1444,12 +1532,51 @@ argument_list|()
 operator|.
 name|expireServer
 argument_list|(
-name|regionNode
+name|serverName
+argument_list|)
+condition|)
+block|{
+comment|// Failed to queue an expire. Lots of possible reasons including it may be already expired.
+comment|// If so, is it beyond the state where we will be woken-up if go ahead and suspend the
+comment|// procedure. Look for this rare condition.
+if|if
+condition|(
+name|env
 operator|.
-name|getRegionLocation
+name|getAssignmentManager
 argument_list|()
+operator|.
+name|isDeadServerProcessed
+argument_list|(
+name|serverName
+argument_list|)
+condition|)
+block|{
+comment|// Its ok to proceed with this unassign.
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"{} is dead and processed; moving procedure to finished state; {}"
+argument_list|,
+name|serverName
+argument_list|,
+name|this
 argument_list|)
 expr_stmt|;
+name|proceed
+argument_list|(
+name|env
+argument_list|,
+name|regionNode
+argument_list|)
+expr_stmt|;
+comment|// Return true; wake up the procedure so we can act on proceed.
+return|return
+literal|true
+return|;
+block|}
+block|}
 comment|// Return false so this procedure stays in suspended state. It will be woken up by the
 comment|// ServerCrashProcedure that was scheduled when we called #expireServer above. SCP calls
 comment|// #handleRIT which will call this method only the exception will be a ServerCrashException
