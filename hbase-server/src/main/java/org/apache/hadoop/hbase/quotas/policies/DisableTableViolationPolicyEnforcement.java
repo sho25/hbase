@@ -63,6 +63,20 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|TableNotFoundException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -327,10 +341,13 @@ block|}
 catch|catch
 parameter_list|(
 name|TableNotDisabledException
-name|tnde
+decl||
+name|TableNotFoundException
+name|e
 parameter_list|)
 block|{
 comment|// The state we wanted it to be in
+comment|// Or, in case table is not found, nothing to do
 block|}
 block|}
 annotation|@
