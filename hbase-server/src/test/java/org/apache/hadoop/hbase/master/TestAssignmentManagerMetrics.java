@@ -640,6 +640,18 @@ argument_list|,
 name|MSG_INTERVAL
 argument_list|)
 expr_stmt|;
+comment|// set a small assign attempts for avoiding assert when retrying. (HBASE-20533)
+name|conf
+operator|.
+name|setInt
+argument_list|(
+name|AssignmentManager
+operator|.
+name|ASSIGN_MAX_ATTEMPTS
+argument_list|,
+literal|3
+argument_list|)
+expr_stmt|;
 comment|// keep rs online so it can report the failed opens.
 name|conf
 operator|.
@@ -961,7 +973,7 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Sleep 3 seconds, wait for doMetrics chore catching up
+comment|// Sleep 5 seconds, wait for doMetrics chore catching up
 comment|// the rit count consists of rit and failed opens. see RegionInTransitionStat#update
 comment|// Waiting for the completion of rit makes the assert stable.
 name|TEST_UTIL
@@ -975,7 +987,7 @@ name|sleep
 argument_list|(
 name|MSG_INTERVAL
 operator|*
-literal|3
+literal|5
 argument_list|)
 expr_stmt|;
 name|METRICS_HELPER
