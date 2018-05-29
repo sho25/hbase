@@ -513,7 +513,7 @@ name|Path
 name|rootDir
 parameter_list|,
 name|Path
-name|remoteWalDir
+name|remoteWALDir
 parameter_list|,
 name|String
 name|logDir
@@ -563,7 +563,7 @@ name|remoteFs
 argument_list|,
 name|rootDir
 argument_list|,
-name|remoteWalDir
+name|remoteWALDir
 argument_list|,
 name|logDir
 argument_list|,
