@@ -680,13 +680,13 @@ name|bloomType
 operator|==
 name|BloomType
 operator|.
-name|ROW
+name|ROWCOL
 condition|)
 block|{
 name|hashKey
 operator|=
 operator|new
-name|RowBloomHashKey
+name|RowColBloomHashKey
 argument_list|(
 name|cell
 argument_list|)
@@ -723,7 +723,7 @@ block|{
 name|hashKey
 operator|=
 operator|new
-name|RowColBloomHashKey
+name|RowBloomHashKey
 argument_list|(
 name|cell
 argument_list|)

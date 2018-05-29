@@ -495,6 +495,21 @@ argument_list|(
 literal|"BLOOM_FILTER_TYPE"
 argument_list|)
 decl_stmt|;
+comment|/** Bloom filter param in FileInfo */
+specifier|public
+specifier|static
+specifier|final
+name|byte
+index|[]
+name|BLOOM_FILTER_PARAM_KEY
+init|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+literal|"BLOOM_FILTER_PARAM"
+argument_list|)
+decl_stmt|;
 comment|/** Delete Family Count in FileInfo */
 specifier|public
 specifier|static

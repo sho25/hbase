@@ -5817,7 +5817,8 @@ index|]
 argument_list|,
 name|reader
 operator|.
-name|generalBloomFilter
+name|getGeneralBloomFilter
+argument_list|()
 operator|.
 name|getKeyCount
 argument_list|()
