@@ -333,7 +333,8 @@ name|watcher
 argument_list|,
 name|watcher
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|drainingZNode
 argument_list|)
@@ -483,7 +484,8 @@ name|startsWith
 argument_list|(
 name|watcher
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|drainingZNode
 argument_list|)
@@ -542,7 +544,8 @@ name|equals
 argument_list|(
 name|watcher
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|drainingZNode
 argument_list|)
@@ -565,7 +568,8 @@ name|watcher
 argument_list|,
 name|watcher
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|drainingZNode
 argument_list|)

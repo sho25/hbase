@@ -576,7 +576,8 @@ name|zk
 argument_list|,
 name|zk
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|rsZNode
 argument_list|)
@@ -609,7 +610,8 @@ name|joinZNode
 argument_list|(
 name|zkw
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|rsZNode
 argument_list|,
@@ -746,7 +748,8 @@ name|joinZNode
 argument_list|(
 name|zkw
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|rsZNode
 argument_list|,
@@ -780,7 +783,8 @@ name|joinZNode
 argument_list|(
 name|zkw
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|rsZNode
 argument_list|,
@@ -814,7 +818,8 @@ name|joinZNode
 argument_list|(
 name|zkw
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|rsZNode
 argument_list|,
@@ -848,7 +853,8 @@ name|joinZNode
 argument_list|(
 name|zkw
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|rsZNode
 argument_list|,
@@ -891,7 +897,8 @@ name|joinZNode
 argument_list|(
 name|zkw
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|rsZNode
 argument_list|,
@@ -925,7 +932,8 @@ name|joinZNode
 argument_list|(
 name|zkw
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|rsZNode
 argument_list|,

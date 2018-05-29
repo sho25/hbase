@@ -398,7 +398,7 @@ name|aborted
 init|=
 literal|false
 decl_stmt|;
-specifier|public
+specifier|private
 specifier|final
 name|ZNodePaths
 name|znodePaths
@@ -419,7 +419,7 @@ argument_list|()
 decl_stmt|;
 comment|// Used by ZKUtil:waitForZKConnectionIfAuthenticating to wait for SASL
 comment|// negotiation to complete
-specifier|public
+specifier|private
 name|CountDownLatch
 name|saslLatch
 init|=
@@ -448,7 +448,7 @@ argument_list|(
 literal|"([^/@]*)(/([^/@]*))?@([^/@]*)"
 argument_list|)
 decl_stmt|;
-comment|/**    * Instantiate a ZooKeeper connection and watcher.    * @param identifier string that is passed to RecoverableZookeeper to be used as    *                   identifier for this instance. Use null for default.    * @throws IOException if the connection to ZooKeeper fails    * @throws ZooKeeperConnectionException    */
+comment|/**    * Instantiate a ZooKeeper connection and watcher.    * @param identifier string that is passed to RecoverableZookeeper to be used as    *                   identifier for this instance. Use null for default.    * @throws IOException if the connection to ZooKeeper fails    * @throws ZooKeeperConnectionException if the client can't connect to ZooKeeper    */
 specifier|public
 name|ZKWatcher
 parameter_list|(
@@ -478,7 +478,7 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Instantiate a ZooKeeper connection and watcher.    * @param conf the configuration to use    * @param identifier string that is passed to RecoverableZookeeper to be used as identifier for    *          this instance. Use null for default.    * @param abortable Can be null if there is on error there is no host to abort: e.g. client    *          context.    * @param canCreateBaseZNode true if a base ZNode can be created    * @throws IOException if the connection to ZooKeeper fails    * @throws ZooKeeperConnectionException    */
+comment|/**    * Instantiate a ZooKeeper connection and watcher.    * @param conf the configuration to use    * @param identifier string that is passed to RecoverableZookeeper to be used as identifier for    *          this instance. Use null for default.    * @param abortable Can be null if there is on error there is no host to abort: e.g. client    *          context.    * @param canCreateBaseZNode true if a base ZNode can be created    * @throws IOException if the connection to ZooKeeper fails    * @throws ZooKeeperConnectionException if the client can't connect to ZooKeeper    */
 specifier|public
 name|ZKWatcher
 parameter_list|(
@@ -2123,6 +2123,19 @@ expr_stmt|;
 block|}
 break|break;
 block|}
+default|default:
+throw|throw
+operator|new
+name|IllegalStateException
+argument_list|(
+literal|"Received event is not valid: "
+operator|+
+name|event
+operator|.
+name|getState
+argument_list|()
+argument_list|)
+throw|;
 block|}
 block|}
 comment|// Connection management

@@ -406,7 +406,8 @@ name|joinZNode
 argument_list|(
 name|zooKeeper
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|baseZNode
 argument_list|,

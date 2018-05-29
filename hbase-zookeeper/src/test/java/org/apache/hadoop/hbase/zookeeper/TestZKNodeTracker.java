@@ -618,7 +618,8 @@ name|zk
 argument_list|,
 name|zk
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|baseZNode
 argument_list|)
@@ -633,7 +634,8 @@ name|joinZNode
 argument_list|(
 name|zk
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|baseZNode
 argument_list|,
@@ -1788,7 +1790,8 @@ name|nodeName
 init|=
 name|zkw
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|masterAddressZNode
 decl_stmt|;

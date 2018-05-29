@@ -17734,7 +17734,8 @@ name|this
 operator|.
 name|zooKeeper
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|rsZNode
 argument_list|,

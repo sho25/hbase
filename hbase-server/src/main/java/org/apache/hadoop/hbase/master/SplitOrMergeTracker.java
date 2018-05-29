@@ -287,7 +287,8 @@ name|watcher
 argument_list|,
 name|watcher
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|switchZNode
 argument_list|)
@@ -303,7 +304,8 @@ name|watcher
 argument_list|,
 name|watcher
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|switchZNode
 argument_list|)
@@ -332,7 +334,8 @@ name|joinZNode
 argument_list|(
 name|watcher
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|switchZNode
 argument_list|,
@@ -354,7 +357,8 @@ name|joinZNode
 argument_list|(
 name|watcher
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|switchZNode
 argument_list|,

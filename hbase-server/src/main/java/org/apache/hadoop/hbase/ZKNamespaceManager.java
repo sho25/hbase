@@ -316,7 +316,8 @@ name|nsZNode
 operator|=
 name|zkw
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|namespaceZNode
 expr_stmt|;

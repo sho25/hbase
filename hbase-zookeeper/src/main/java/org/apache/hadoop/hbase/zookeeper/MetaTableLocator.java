@@ -1052,7 +1052,8 @@ name|zkw
 argument_list|,
 name|zkw
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|baseZNode
 argument_list|)
@@ -1722,7 +1723,13 @@ operator|instanceof
 name|ConnectException
 condition|)
 block|{
-comment|// Catch this; presume it means the cached connection has gone bad.
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Catch this; presume it means the cached connection has gone bad."
+argument_list|)
+expr_stmt|;
 block|}
 else|else
 block|{
@@ -1845,7 +1852,13 @@ operator|instanceof
 name|ConnectException
 condition|)
 block|{
-comment|// Catch. Connect refused.
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Catch. Connect refused."
+argument_list|)
+expr_stmt|;
 block|}
 elseif|else
 if|if
@@ -1859,7 +1872,13 @@ operator|instanceof
 name|EOFException
 condition|)
 block|{
-comment|// Catch. Other end disconnected us.
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Catch. Other end disconnected us."
+argument_list|)
+expr_stmt|;
 block|}
 elseif|else
 if|if
@@ -1893,7 +1912,13 @@ literal|"connection reset"
 argument_list|)
 condition|)
 block|{
-comment|// Catch. Connection reset.
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Catch. Connection reset."
+argument_list|)
+expr_stmt|;
 block|}
 else|else
 block|{
@@ -2054,7 +2079,8 @@ name|zookeeper
 argument_list|,
 name|zookeeper
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|getZNodeForReplica
 argument_list|(
@@ -2112,7 +2138,8 @@ name|zookeeper
 argument_list|,
 name|zookeeper
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|getZNodeForReplica
 argument_list|(
@@ -2192,7 +2219,8 @@ name|zkw
 argument_list|,
 name|zkw
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|getZNodeForReplica
 argument_list|(
@@ -2482,7 +2510,8 @@ name|zookeeper
 argument_list|,
 name|zookeeper
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|getZNodeForReplica
 argument_list|(

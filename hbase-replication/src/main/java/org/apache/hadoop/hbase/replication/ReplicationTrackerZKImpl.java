@@ -529,7 +529,8 @@ name|this
 operator|.
 name|watcher
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|rsZNode
 argument_list|)
@@ -683,7 +684,8 @@ name|this
 operator|.
 name|zookeeper
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|rsZNode
 argument_list|)
@@ -705,7 +707,8 @@ name|this
 operator|.
 name|zookeeper
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|rsZNode
 argument_list|)

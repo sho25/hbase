@@ -123,7 +123,8 @@ block|{
 return|return
 name|watcher
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|isAnyMetaReplicaZNode
 argument_list|(
@@ -143,7 +144,8 @@ block|{
 return|return
 name|watcher
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|metaReplicaZNodes
 operator|.

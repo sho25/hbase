@@ -418,7 +418,8 @@ name|equals
 argument_list|(
 name|watcher
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|clusterStateZNode
 argument_list|)
@@ -460,7 +461,8 @@ name|equals
 argument_list|(
 name|watcher
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|masterAddressZNode
 argument_list|)
@@ -501,7 +503,8 @@ name|watcher
 argument_list|,
 name|watcher
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|masterAddressZNode
 argument_list|)
@@ -588,7 +591,8 @@ name|this
 operator|.
 name|watcher
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|backupMasterAddressesZNode
 argument_list|,
@@ -641,7 +645,8 @@ name|this
 operator|.
 name|watcher
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|masterAddressZNode
 argument_list|,
@@ -770,7 +775,8 @@ name|this
 operator|.
 name|watcher
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|masterAddressZNode
 argument_list|)
@@ -863,7 +869,8 @@ name|this
 operator|.
 name|watcher
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|masterAddressZNode
 argument_list|)
@@ -1013,7 +1020,8 @@ name|watcher
 argument_list|,
 name|watcher
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|masterAddressZNode
 argument_list|)
@@ -1131,7 +1139,8 @@ name|watcher
 argument_list|,
 name|watcher
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|masterAddressZNode
 argument_list|)

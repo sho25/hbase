@@ -384,7 +384,8 @@ literal|" "
 operator|+
 name|zkw
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|baseZNode
 argument_list|)
@@ -395,7 +396,8 @@ name|zkw
 argument_list|,
 name|zkw
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|baseZNode
 argument_list|,

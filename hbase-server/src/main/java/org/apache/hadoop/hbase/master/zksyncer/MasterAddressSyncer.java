@@ -129,7 +129,8 @@ name|masterAddressZNode
 operator|=
 name|watcher
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|masterAddressZNode
 expr_stmt|;

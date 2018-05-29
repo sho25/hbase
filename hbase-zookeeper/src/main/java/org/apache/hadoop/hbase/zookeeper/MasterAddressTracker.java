@@ -245,7 +245,8 @@ name|watcher
 argument_list|,
 name|watcher
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|masterAddressZNode
 argument_list|,
@@ -347,7 +348,8 @@ name|joinZNode
 argument_list|(
 name|watcher
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|backupMasterAddressesZNode
 argument_list|,
@@ -502,7 +504,8 @@ name|zkw
 argument_list|,
 name|zkw
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|masterAddressZNode
 argument_list|)
@@ -605,7 +608,8 @@ name|zkw
 argument_list|,
 name|zkw
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|masterAddressZNode
 argument_list|)
@@ -972,7 +976,8 @@ name|zkw
 argument_list|,
 name|zkw
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|masterAddressZNode
 argument_list|,
@@ -1016,7 +1021,8 @@ name|zkw
 argument_list|,
 name|zkw
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|masterAddressZNode
 argument_list|,

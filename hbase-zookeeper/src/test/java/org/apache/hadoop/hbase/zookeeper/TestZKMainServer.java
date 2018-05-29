@@ -239,7 +239,7 @@ name|serialVersionUID
 init|=
 literal|1L
 decl_stmt|;
-specifier|public
+specifier|private
 specifier|final
 name|int
 name|status

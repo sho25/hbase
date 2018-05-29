@@ -11373,7 +11373,8 @@ name|joinZNode
 argument_list|(
 name|zooKeeper
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|backupMasterAddressesZNode
 argument_list|,
@@ -13829,7 +13830,8 @@ name|this
 operator|.
 name|zooKeeper
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|backupMasterAddressesZNode
 argument_list|)
@@ -13932,7 +13934,8 @@ name|this
 operator|.
 name|zooKeeper
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|backupMasterAddressesZNode
 argument_list|,
@@ -17651,7 +17654,8 @@ init|=
 name|getZooKeeper
 argument_list|()
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|drainingZNode
 decl_stmt|;
@@ -17897,7 +17901,8 @@ init|=
 name|getZooKeeper
 argument_list|()
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|drainingZNode
 decl_stmt|;

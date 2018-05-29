@@ -920,7 +920,8 @@ name|watcher
 argument_list|,
 name|watcher
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|splitLogZNode
 argument_list|)
@@ -2691,7 +2692,8 @@ name|this
 operator|.
 name|watcher
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|splitLogZNode
 argument_list|)
@@ -2713,7 +2715,8 @@ name|this
 operator|.
 name|watcher
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|splitLogZNode
 argument_list|)
@@ -2737,7 +2740,8 @@ name|this
 operator|.
 name|watcher
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|splitLogZNode
 operator|+
@@ -2800,7 +2804,8 @@ name|joinZNode
 argument_list|(
 name|watcher
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|splitLogZNode
 argument_list|,

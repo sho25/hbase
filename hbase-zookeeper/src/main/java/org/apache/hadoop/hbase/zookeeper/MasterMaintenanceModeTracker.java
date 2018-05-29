@@ -114,7 +114,8 @@ name|startsWith
 argument_list|(
 name|watcher
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|masterMaintZNode
 argument_list|)
@@ -146,7 +147,8 @@ name|watcher
 argument_list|,
 name|watcher
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|masterMaintZNode
 argument_list|)

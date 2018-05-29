@@ -551,7 +551,8 @@ name|watcher
 argument_list|,
 name|watcher
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|masterAddressZNode
 argument_list|,
@@ -783,7 +784,8 @@ operator|.
 name|getZooKeeperWatcher
 argument_list|()
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|masterAddressZNode
 argument_list|,

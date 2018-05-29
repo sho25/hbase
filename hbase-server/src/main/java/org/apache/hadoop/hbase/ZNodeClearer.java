@@ -764,7 +764,8 @@ name|joinZNode
 argument_list|(
 name|zkw
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|rsZNode
 argument_list|,

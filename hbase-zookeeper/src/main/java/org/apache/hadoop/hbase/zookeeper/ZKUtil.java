@@ -3755,7 +3755,8 @@ name|startsWith
 argument_list|(
 name|zkw
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|baseZNode
 argument_list|)
@@ -3944,7 +3945,8 @@ if|if
 condition|(
 name|zkw
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|isClientReadable
 argument_list|(
@@ -6737,7 +6739,8 @@ name|append
 argument_list|(
 name|zkw
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|baseZNode
 argument_list|)
@@ -6803,7 +6806,8 @@ name|zkw
 argument_list|,
 name|zkw
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|backupMasterAddressesZNode
 argument_list|)
@@ -6918,7 +6922,8 @@ name|zkw
 argument_list|,
 name|zkw
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|rsZNode
 argument_list|)
@@ -7136,7 +7141,8 @@ name|replicationZnode
 init|=
 name|zkw
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|replicationZNode
 decl_stmt|;
@@ -7218,7 +7224,8 @@ name|equals
 argument_list|(
 name|zkw
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|peersZNode
 argument_list|)
@@ -7243,7 +7250,8 @@ name|equals
 argument_list|(
 name|zkw
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|queuesZNode
 argument_list|)
@@ -7268,7 +7276,8 @@ name|equals
 argument_list|(
 name|zkw
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|hfileRefsZNode
 argument_list|)
@@ -8398,7 +8407,8 @@ name|startsWith
 argument_list|(
 name|zkw
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|metaZNodePrefix
 argument_list|)
@@ -8414,7 +8424,8 @@ name|startsWith
 argument_list|(
 name|zkw
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|backupMasterAddressesZNode
 argument_list|)

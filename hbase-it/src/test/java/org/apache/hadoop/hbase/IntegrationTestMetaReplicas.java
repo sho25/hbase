@@ -436,7 +436,8 @@ operator|.
 name|getZooKeeperWatcher
 argument_list|()
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|getZNodeForReplica
 argument_list|(

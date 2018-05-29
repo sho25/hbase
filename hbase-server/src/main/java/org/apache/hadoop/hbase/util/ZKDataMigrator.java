@@ -322,7 +322,8 @@ name|zkw
 argument_list|,
 name|zkw
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|tableZNode
 argument_list|)
@@ -490,7 +491,8 @@ name|joinZNode
 argument_list|(
 name|zkw
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|tableZNode
 argument_list|,

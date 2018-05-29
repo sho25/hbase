@@ -192,7 +192,7 @@ literal|30000
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**      * Run the command-line args passed.  Calls System.exit when done.      * @throws KeeperException      * @throws IOException      * @throws InterruptedException      */
+comment|/**      * Run the command-line args passed.  Calls System.exit when done.      * @throws KeeperException if an unexpected ZooKeeper exception happens      * @throws IOException in case of a network failure      * @throws InterruptedException if the ZooKeeper client closes      */
 name|void
 name|runCmdLine
 parameter_list|()

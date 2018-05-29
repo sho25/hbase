@@ -661,7 +661,8 @@ name|replicaId
 init|=
 name|zooKeeper
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|getMetaReplicaIdFromZnode
 argument_list|(
@@ -730,7 +731,8 @@ name|zooKeeper
 argument_list|,
 name|zooKeeper
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|getZNodeForReplica
 argument_list|(

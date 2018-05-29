@@ -887,7 +887,8 @@ name|baseZNode
 init|=
 name|watcher
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|baseZNode
 decl_stmt|;
@@ -968,7 +969,8 @@ name|expectedWorldReadable
 init|=
 name|watcher
 operator|.
-name|znodePaths
+name|getZNodePaths
+argument_list|()
 operator|.
 name|isClientReadable
 argument_list|(
