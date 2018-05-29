@@ -2780,7 +2780,7 @@ name|String
 operator|.
 name|valueOf
 argument_list|(
-literal|0.02
+literal|0.09
 argument_list|)
 argument_list|)
 expr_stmt|;
