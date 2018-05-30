@@ -5284,6 +5284,21 @@ decl_stmt|;
 try|try
 block|{
 comment|// update the stores that we are replaying
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"replaying wal for "
+operator|+
+name|this
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|stores
 operator|.
 name|forEach
@@ -5332,6 +5347,21 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"stopping wal replay for "
+operator|+
+name|this
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|)
+expr_stmt|;
 comment|// update the stores that we are done replaying
 name|stores
 operator|.
@@ -5392,6 +5422,21 @@ operator|.
 name|writesEnabled
 condition|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Cleaning up temporary data for "
+operator|+
+name|this
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|)
+expr_stmt|;
 comment|// Remove temporary data left over from old regions
 name|status
 operator|.
@@ -5425,6 +5470,21 @@ expr_stmt|;
 comment|// Get rid of any splits or merges that were lost in-progress.  Clean out
 comment|// these directories here on open.  We may be opening a region that was
 comment|// being split but we crashed in the middle of it all.
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Cleaning up detritus for "
+operator|+
+name|this
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|fs
 operator|.
 name|cleanupAnySplitDetritus
@@ -5536,6 +5596,21 @@ operator|.
 name|writesEnabled
 condition|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"writing seq id for "
+operator|+
+name|this
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|WALSplitter
 operator|.
 name|writeRegionSequenceIdFile
@@ -5599,6 +5674,21 @@ operator|!=
 literal|null
 condition|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Running coprocessor post-open hooks for "
+operator|+
+name|this
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|status
 operator|.
 name|setStatus
@@ -33432,12 +33522,42 @@ comment|// Refuse to open the region if we are missing local compression support
 name|checkCompressionCodecs
 argument_list|()
 expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"checking encryption for "
+operator|+
+name|this
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|)
+expr_stmt|;
 comment|// Refuse to open the region if encryption configuration is incorrect or
 comment|// codec support is missing
 name|checkEncryption
 argument_list|()
 expr_stmt|;
 comment|// Refuse to open the region if a required class cannot be loaded
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"checking classloading for "
+operator|+
+name|this
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|checkClassLoading
 argument_list|()
 expr_stmt|;
