@@ -395,13 +395,23 @@ return|;
 block|}
 comment|/**    * Add a child procedure to execute    * @param subProcedure the child procedure    */
 specifier|protected
-name|void
-name|addChildProcedure
-parameter_list|(
+parameter_list|<
+name|T
+extends|extends
 name|Procedure
 argument_list|<
 name|TEnvironment
 argument_list|>
+parameter_list|>
+name|void
+name|addChildProcedure
+parameter_list|(
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
+name|T
 modifier|...
 name|subProcedure
 parameter_list|)
@@ -412,7 +422,9 @@ name|subProcedure
 operator|==
 literal|null
 condition|)
+block|{
 return|return;
+block|}
 specifier|final
 name|int
 name|len
@@ -427,7 +439,9 @@ name|len
 operator|==
 literal|0
 condition|)
+block|{
 return|return;
+block|}
 if|if
 condition|(
 name|subProcList
