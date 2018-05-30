@@ -299,16 +299,6 @@ name|org
 operator|.
 name|junit
 operator|.
-name|After
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
 name|Before
 import|;
 end_import
@@ -619,8 +609,12 @@ name|recoverLease
 argument_list|()
 expr_stmt|;
 block|}
+comment|// No @After
 annotation|@
-name|After
+name|SuppressWarnings
+argument_list|(
+literal|"JUnit4TearDownNotRun"
+argument_list|)
 specifier|public
 name|void
 name|tearDown
