@@ -379,10 +379,6 @@ operator|.
 name|HBaseHandler
 name|hbaseHandler
 decl_stmt|;
-specifier|private
-name|String
-name|outToken
-decl_stmt|;
 comment|// HTTP Header related constants.
 specifier|public
 specifier|static
@@ -507,12 +503,20 @@ try|try
 block|{
 comment|// As Thrift HTTP transport doesn't support SPNEGO yet (THRIFT-889),
 comment|// Kerberos authentication is being done at servlet level.
-name|effectiveUser
-operator|=
+specifier|final
+name|RemoteUserIdentity
+name|identity
+init|=
 name|doKerberosAuth
 argument_list|(
 name|request
 argument_list|)
+decl_stmt|;
+name|effectiveUser
+operator|=
+name|identity
+operator|.
+name|principal
 expr_stmt|;
 comment|// It is standard for client applications expect this header.
 comment|// Please see http://tools.ietf.org/html/rfc4559 for more details.
@@ -526,6 +530,8 @@ name|NEGOTIATE
 operator|+
 literal|" "
 operator|+
+name|identity
+operator|.
 name|outToken
 argument_list|)
 expr_stmt|;
@@ -712,7 +718,7 @@ expr_stmt|;
 block|}
 comment|/**    * Do the GSS-API kerberos authentication.    * We already have a logged in subject in the form of serviceUGI,    * which GSS-API will extract information from.    */
 specifier|private
-name|String
+name|RemoteUserIdentity
 name|doKerberosAuth
 parameter_list|(
 name|HttpServletRequest
@@ -744,14 +750,16 @@ argument_list|(
 name|action
 argument_list|)
 decl_stmt|;
-name|outToken
-operator|=
+return|return
+operator|new
+name|RemoteUserIdentity
+argument_list|(
+name|principal
+argument_list|,
 name|action
 operator|.
 name|outToken
-expr_stmt|;
-return|return
-name|principal
+argument_list|)
 return|;
 block|}
 catch|catch
@@ -774,6 +782,43 @@ argument_list|(
 name|e
 argument_list|)
 throw|;
+block|}
+block|}
+comment|/**    * Basic "struct" class to hold the final base64-encoded, authenticated GSSAPI token    * for the user with the given principal talking to the Thrift server.    */
+specifier|private
+specifier|static
+class|class
+name|RemoteUserIdentity
+block|{
+specifier|final
+name|String
+name|outToken
+decl_stmt|;
+specifier|final
+name|String
+name|principal
+decl_stmt|;
+name|RemoteUserIdentity
+parameter_list|(
+name|String
+name|principal
+parameter_list|,
+name|String
+name|outToken
+parameter_list|)
+block|{
+name|this
+operator|.
+name|principal
+operator|=
+name|principal
+expr_stmt|;
+name|this
+operator|.
+name|outToken
+operator|=
+name|outToken
+expr_stmt|;
 block|}
 block|}
 specifier|private
