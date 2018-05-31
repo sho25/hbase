@@ -335,7 +335,7 @@ operator|.
 name|getMasterServices
 argument_list|()
 operator|.
-name|getReplaySyncReplicationWALManager
+name|getSyncReplicationReplayWALManager
 argument_list|()
 operator|.
 name|removePeerRemoteWALs

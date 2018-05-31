@@ -220,7 +220,16 @@ argument_list|()
 operator|!=
 name|PeerOperationType
 operator|.
-name|REPLAY_SYNC_REPLICATION_WAL
+name|SYNC_REPLICATION_REPLAY_WAL
+operator|&&
+name|proc
+operator|.
+name|getPeerOperationType
+argument_list|()
+operator|!=
+name|PeerOperationType
+operator|.
+name|SYNC_REPLICATION_REPLAY_WAL_REMOTE
 return|;
 block|}
 block|}

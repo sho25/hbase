@@ -617,7 +617,7 @@ specifier|static
 name|Path
 name|REMOTE_WAL_DIR2
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|static
 name|void
 name|initTestingUtility
@@ -811,6 +811,8 @@ name|UTIL1
 operator|.
 name|startMiniCluster
 argument_list|(
+literal|2
+argument_list|,
 literal|3
 argument_list|)
 expr_stmt|;
@@ -818,6 +820,8 @@ name|UTIL2
 operator|.
 name|startMiniCluster
 argument_list|(
+literal|2
+argument_list|,
 literal|3
 argument_list|)
 expr_stmt|;

@@ -373,7 +373,7 @@ name|master
 operator|.
 name|replication
 operator|.
-name|ReplaySyncReplicationWALManager
+name|ReplicationPeerManager
 import|;
 end_import
 
@@ -391,7 +391,7 @@ name|master
 operator|.
 name|replication
 operator|.
-name|ReplicationPeerManager
+name|SyncReplicationReplayWALManager
 import|;
 end_import
 
@@ -1841,8 +1841,8 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|ReplaySyncReplicationWALManager
-name|getReplaySyncReplicationWALManager
+name|SyncReplicationReplayWALManager
+name|getSyncReplicationReplayWALManager
 parameter_list|()
 block|{
 return|return

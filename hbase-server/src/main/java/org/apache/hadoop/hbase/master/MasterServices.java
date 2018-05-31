@@ -315,7 +315,7 @@ name|master
 operator|.
 name|replication
 operator|.
-name|ReplaySyncReplicationWALManager
+name|ReplicationPeerManager
 import|;
 end_import
 
@@ -333,7 +333,7 @@ name|master
 operator|.
 name|replication
 operator|.
-name|ReplicationPeerManager
+name|SyncReplicationReplayWALManager
 import|;
 end_import
 
@@ -1141,9 +1141,9 @@ name|ReplicationPeerManager
 name|getReplicationPeerManager
 parameter_list|()
 function_decl|;
-comment|/**    * Returns the {@link ReplaySyncReplicationWALManager}.    */
-name|ReplaySyncReplicationWALManager
-name|getReplaySyncReplicationWALManager
+comment|/**    * Returns the {@link SyncReplicationReplayWALManager}.    */
+name|SyncReplicationReplayWALManager
+name|getSyncReplicationReplayWALManager
 parameter_list|()
 function_decl|;
 comment|/**    * Update the peerConfig for the specified peer    * @param peerId a short name that identifies the peer    * @param peerConfig new config for the peer    */

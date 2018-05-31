@@ -1807,7 +1807,7 @@ name|master
 operator|.
 name|replication
 operator|.
-name|ReplaySyncReplicationWALManager
+name|ReplicationPeerManager
 import|;
 end_import
 
@@ -1825,7 +1825,7 @@ name|master
 operator|.
 name|replication
 operator|.
-name|ReplicationPeerManager
+name|SyncReplicationReplayWALManager
 import|;
 end_import
 
@@ -3562,8 +3562,8 @@ name|ReplicationPeerManager
 name|replicationPeerManager
 decl_stmt|;
 specifier|private
-name|ReplaySyncReplicationWALManager
-name|replaySyncReplicationWALManager
+name|SyncReplicationReplayWALManager
+name|syncReplicationReplayWALManager
 decl_stmt|;
 comment|// buffer for "fatal error" notices from region servers
 comment|// in the cluster. This is only used for assisting
@@ -5238,6 +5238,16 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
+name|syncReplicationReplayWALManager
+operator|=
+operator|new
+name|SyncReplicationReplayWALManager
+argument_list|(
+name|this
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
 name|drainingServerTracker
 operator|=
 operator|new
@@ -5609,16 +5619,6 @@ name|walManager
 operator|=
 operator|new
 name|MasterWalManager
-argument_list|(
-name|this
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|replaySyncReplicationWALManager
-operator|=
-operator|new
-name|ReplaySyncReplicationWALManager
 argument_list|(
 name|this
 argument_list|)
@@ -19034,14 +19034,14 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|ReplaySyncReplicationWALManager
-name|getReplaySyncReplicationWALManager
+name|SyncReplicationReplayWALManager
+name|getSyncReplicationReplayWALManager
 parameter_list|()
 block|{
 return|return
 name|this
 operator|.
-name|replaySyncReplicationWALManager
+name|syncReplicationReplayWALManager
 return|;
 block|}
 block|}

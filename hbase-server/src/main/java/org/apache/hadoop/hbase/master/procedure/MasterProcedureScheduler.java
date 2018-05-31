@@ -1139,6 +1139,16 @@ name|nextProc
 argument_list|,
 name|pollResult
 argument_list|)
+operator|&&
+name|nextProc
+operator|.
+name|getRootProcId
+argument_list|()
+operator|!=
+name|pollResult
+operator|.
+name|getRootProcId
+argument_list|()
 condition|)
 block|{
 name|removeFromRunQueue

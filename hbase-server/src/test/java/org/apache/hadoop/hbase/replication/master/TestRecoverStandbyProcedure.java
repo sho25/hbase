@@ -347,7 +347,7 @@ name|master
 operator|.
 name|replication
 operator|.
-name|ReplaySyncReplicationWALManager
+name|SyncReplicationReplayWALManager
 import|;
 end_import
 
@@ -807,8 +807,8 @@ argument_list|()
 decl_stmt|;
 specifier|private
 specifier|static
-name|ReplaySyncReplicationWALManager
-name|replaySyncReplicationWALManager
+name|SyncReplicationReplayWALManager
+name|syncReplicationReplayWALManager
 decl_stmt|;
 specifier|private
 specifier|static
@@ -881,11 +881,11 @@ operator|.
 name|getWALFileSystem
 argument_list|()
 expr_stmt|;
-name|replaySyncReplicationWALManager
+name|syncReplicationReplayWALManager
 operator|=
 name|master
 operator|.
-name|getReplaySyncReplicationWALManager
+name|getSyncReplicationReplayWALManager
 argument_list|()
 expr_stmt|;
 name|procExec
@@ -1022,6 +1022,8 @@ operator|new
 name|RecoverStandbyProcedure
 argument_list|(
 name|PEER_ID
+argument_list|,
+literal|false
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -1143,7 +1145,7 @@ name|ReplicationUtils
 operator|.
 name|getPeerRemoteWALDir
 argument_list|(
-name|replaySyncReplicationWALManager
+name|syncReplicationReplayWALManager
 operator|.
 name|getRemoteWALDir
 argument_list|()
