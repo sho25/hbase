@@ -3506,6 +3506,14 @@ specifier|public
 specifier|static
 specifier|final
 name|String
+name|DEFAULT_LOSSY_COUNTING_ERROR_RATE
+init|=
+literal|"hbase.util.default.lossycounting.errorrate"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
 name|NOT_IMPLEMENTED
 init|=
 literal|"Not implemented"
