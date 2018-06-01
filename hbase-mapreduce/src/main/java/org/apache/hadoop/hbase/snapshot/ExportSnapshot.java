@@ -6870,13 +6870,24 @@ name|ArrayList
 argument_list|<>
 argument_list|()
 decl_stmt|;
+name|boolean
+name|copySucceeded
+init|=
+literal|false
+decl_stmt|;
 try|try
 block|{
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Copy Snapshot Manifest"
+literal|"Copy Snapshot Manifest from "
+operator|+
+name|snapshotDir
+operator|+
+literal|" to "
+operator|+
+name|initialOutputSnapshotDir
 argument_list|)
 expr_stmt|;
 name|travesedPaths
@@ -6905,6 +6916,10 @@ name|DEFAULT_COPY_MANIFEST_THREADS
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|copySucceeded
+operator|=
+literal|true
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -6929,6 +6944,11 @@ argument_list|)
 throw|;
 block|}
 finally|finally
+block|{
+if|if
+condition|(
+name|copySucceeded
+condition|)
 block|{
 if|if
 condition|(
@@ -7026,6 +7046,7 @@ argument_list|,
 name|conf
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 comment|// Write a new .snapshotinfo if the target name is different from the source name
