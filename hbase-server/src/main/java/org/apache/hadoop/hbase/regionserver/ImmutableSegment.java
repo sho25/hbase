@@ -293,6 +293,26 @@ return|return
 name|res
 return|;
 block|}
+name|List
+argument_list|<
+name|KeyValueScanner
+argument_list|>
+name|getSnapshotScanners
+parameter_list|()
+block|{
+return|return
+name|Collections
+operator|.
+name|singletonList
+argument_list|(
+operator|new
+name|SnapshotSegmentScanner
+argument_list|(
+name|this
+argument_list|)
+argument_list|)
+return|;
+block|}
 block|}
 end_class
 

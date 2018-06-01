@@ -148,12 +148,8 @@ name|scanners
 operator|=
 name|snapshot
 operator|.
-name|getScanners
-argument_list|(
-name|Long
-operator|.
-name|MAX_VALUE
-argument_list|)
+name|getSnapshotScanners
+argument_list|()
 expr_stmt|;
 name|this
 operator|.
