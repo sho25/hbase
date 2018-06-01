@@ -582,6 +582,45 @@ name|void
 name|postFinish
 parameter_list|()
 block|{   }
+comment|/**    * get batchEntry size excludes bulk load file sizes.    * Uses ReplicationSourceWALReader's static method.    */
+specifier|private
+name|int
+name|getBatchEntrySizeExcludeBulkLoad
+parameter_list|(
+name|WALEntryBatch
+name|entryBatch
+parameter_list|)
+block|{
+name|int
+name|totalSize
+init|=
+literal|0
+decl_stmt|;
+for|for
+control|(
+name|Entry
+name|entry
+range|:
+name|entryBatch
+operator|.
+name|getWalEntries
+argument_list|()
+control|)
+block|{
+name|totalSize
+operator|+=
+name|entryReader
+operator|.
+name|getEntrySizeExcludeBulkLoad
+argument_list|(
+name|entry
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+name|totalSize
+return|;
+block|}
 comment|/**    * Do the shipping logic    */
 specifier|private
 name|void
@@ -653,6 +692,14 @@ name|entryBatch
 operator|.
 name|getHeapSize
 argument_list|()
+decl_stmt|;
+name|int
+name|sizeExcludeBulkLoad
+init|=
+name|getBatchEntrySizeExcludeBulkLoad
+argument_list|(
+name|entryBatch
+argument_list|)
 decl_stmt|;
 while|while
 condition|(
@@ -807,13 +854,17 @@ argument_list|(
 name|entryBatch
 argument_list|)
 expr_stmt|;
+comment|//offsets totalBufferUsed by deducting shipped batchSize (excludes bulk load size)
+comment|//this sizeExcludeBulkLoad has to use same calculation that when calling
+comment|//acquireBufferQuota() in ReplicatinoSourceWALReader because they maintain
+comment|//same variable: totalBufferUsed
 name|source
 operator|.
 name|postShipEdits
 argument_list|(
 name|entries
 argument_list|,
-name|currentSize
+name|sizeExcludeBulkLoad
 argument_list|)
 expr_stmt|;
 comment|// FIXME check relationship between wal group and overall

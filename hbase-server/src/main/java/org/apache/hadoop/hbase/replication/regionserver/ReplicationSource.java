@@ -3294,6 +3294,7 @@ return|;
 block|}
 annotation|@
 name|Override
+comment|//offsets totalBufferUsed by deducting shipped batchSize.
 specifier|public
 name|void
 name|postShipEdits
