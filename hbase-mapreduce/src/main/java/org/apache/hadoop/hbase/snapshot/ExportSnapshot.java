@@ -5901,6 +5901,8 @@ operator|+
 name|filesGroup
 operator|+
 literal|" failed"
+argument_list|,
+name|e
 argument_list|)
 throw|;
 block|}
@@ -5998,6 +6000,8 @@ operator|+
 name|filesMode
 operator|+
 literal|" failed"
+argument_list|,
+name|e
 argument_list|)
 throw|;
 block|}
